@@ -16,7 +16,7 @@ class EchoOfTheElementals extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.ECHO_OF_THE_ELEMENTALS.id);
-    this.relevantData=this.selectedCombatant.hasTalent(TALENTS.STORM_ELEMENTAL_TALENT.id)?this.elementalData.StormElemental:this.elementalData.StormElemental;
+    this.relevantData=this.selectedCombatant.hasTalent(TALENTS.STORM_ELEMENTAL_TALENT.id)?this.elementalData.StormElemental:this.elementalData.FireElemental;
   }
 
   elementalData = {
