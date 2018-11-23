@@ -4,9 +4,7 @@ import PropTypes from 'prop-types';
 import { formatDuration } from 'common/format';
 import Icon from 'common/Icon';
 import SpellLink from 'common/SpellLink';
-import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
-
-const ICON_WIDTH = 22;
+import BuffsModule from 'parser/core/modules/Buffs';
 
 class Buffs extends React.PureComponent {
   static propTypes = {
@@ -28,6 +26,8 @@ class Buffs extends React.PureComponent {
     return (timestamp - this.props.start) / 1000 * this.props.secondWidth;
   }
 
+  // TODO: Fabricate removebuff events for buffs that expired after the fight
+
   isApplicableBuffEvent(event) {
     const parser = this.props.parser;
 
@@ -36,7 +36,7 @@ class Buffs extends React.PureComponent {
       return false;
     }
     const spellId = event.ability.guid;
-    const buff = this.props.buffs.getBuff(spellId);
+    const buff = parser.getModule(BuffsModule).getBuff(spellId);
     // console.log(buff, spellId, event.ability.name, this.props.buffs.activeBuffs)
     if (!buff || !buff.timelineHightlight) {
       return false;
@@ -65,12 +65,15 @@ class Buffs extends React.PureComponent {
   }
   _applied = {};
   _levels = {};
+  _lastApplied = null;
   renderApplyBuff(event) {
     // Avoid overlapping icons
-    const level = Object.keys(this._levels).length;
+    const level = Math.max(Object.keys(this._levels).length, (this._lastApplied && this._levels[this._lastApplied] !== undefined) ? this._levels[this._lastApplied] + 1 : 0);
 
-    this._applied[event.ability.guid] = event.timestamp;
-    this._levels[event.ability.guid] = level;
+    const spellId = event.ability.guid;
+    this._applied[spellId] = event.timestamp;
+    this._levels[spellId] = level;
+    this._lastApplied = spellId;
 
     return this.renderIcon(event, {
       className: 'hoist',

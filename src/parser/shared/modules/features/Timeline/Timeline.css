@@ -130,6 +130,7 @@
   border-radius: 5px;
   /*background: #505ff8;*/
   /*background: #9f710f;*/
+  /* Source: http://www.heropatterns.com/ */
   background-color: #9f710f;
   background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ecb000' fill-opacity='0.6' fill-rule='evenodd'%3E%3Cpath d='M0 10L10 0H5L0 5M10 10V5L5 10'/%3E%3C/g%3E%3C/svg%3E");
   box-shadow: 0 0 3px #000;
