@@ -64,7 +64,7 @@ class Casts extends React.PureComponent {
         return null;
     }
   }
-  _lastHoisted = null;
+  _lastLowered = null;
   _level = 0;
   renderCast(event) {
     if (event.channel) {
@@ -74,26 +74,26 @@ class Casts extends React.PureComponent {
     const left = this.getOffsetLeft(event.timestamp);
 
     // Hoist abilities off the GCD above the main bar
-    const hoist = !event.globalCooldown;
+    const lower = !event.globalCooldown;
     let level = 0;
-    if (hoist) {
+    if (lower) {
       // Avoid overlapping icons
-      const margin = left - this._lastHoisted;
-      if (this._lastHoisted && margin < ICON_WIDTH) {
+      const margin = left - this._lastLowered;
+      if (this._lastLowered && margin < ICON_WIDTH) {
         this._level += 1;
         level = this._level;
       } else {
         this._level = 0;
       }
-      this._lastHoisted = left;
+      this._lastLowered = left;
     }
 
     return this.renderIcon(event, {
-      className: hoist ? 'hoist' : undefined,
+      className: lower ? 'lower' : undefined,
       style: {
         '--level': level > 0 ? level : undefined,
       },
-      children: hoist ? (
+      children: lower ? (
         <div className="time-indicator" />
       ) : undefined,
     });

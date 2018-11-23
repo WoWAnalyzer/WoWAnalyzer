@@ -29,7 +29,7 @@ class Buffs extends Module {
     this.loadBuffs(this.buffs());
   }
   loadBuffs(buffs) {
-    this.activeBuffs = buffs.map(options => new this.constructor.BUFF_CLASS(this, options)).filter(ability => ability.enabled);
+    this.activeBuffs = buffs.map(options => new this.constructor.BUFF_CLASS(options)).filter(ability => ability.enabled);
   }
 
   /**
@@ -39,6 +39,19 @@ class Buffs extends Module {
   add(options) {
     const buff = new this.constructor.BUFF_CLASS(options);
     this.activeBuffs.push(buff);
+  }
+
+  /**
+   * Returns the first ACTIVE buff with the given spellId (or undefined if there is no such buff)
+   */
+  getBuff(spellId) {
+    return this.activeBuffs.find(buff => {
+      if (buff.spell instanceof Array) {
+        return buff.spell.some(spell => spell.id === spellId);
+      } else {
+        return buff.spell.id === spellId;
+      }
+    });
   }
 }
 

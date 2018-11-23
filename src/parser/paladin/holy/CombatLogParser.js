@@ -24,6 +24,7 @@ import LightOfDawnIndexer from './modules/core/LightOfDawnIndexer';
 import SpellManaCost from './modules/core/SpellManaCost';
 
 import Abilities from './modules/Abilities';
+import Buffs from './modules/Buffs';
 import Checklist from './modules/features/Checklist/Module';
 import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -77,6 +78,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     checklist: Checklist,
     abilities: Abilities,
+    buffs: Buffs,
     masteryEffectiveness: MasteryEffectiveness,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,

@@ -6,6 +6,7 @@ import Checklist from './modules/checklist/Module';
 
 //Features
 import Abilities from './modules/Abilities';
+import Buffs from './modules/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import FocusUsage from '../shared/modules/features/FocusUsage';
@@ -64,6 +65,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Features
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
+    buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
     focusUsage: FocusUsage,
     timeFocusCapped: TimeFocusCapped,

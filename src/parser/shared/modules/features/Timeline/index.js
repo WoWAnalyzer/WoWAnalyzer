@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { formatDuration } from 'common/format';
 
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
+import Buffs from './Buffs';
 import Casts from './Casts';
 import Lane from './Lane';
 import './Timeline.css';
@@ -162,7 +163,7 @@ class Timeline extends React.PureComponent {
   }
 
   render() {
-    const { start, end, parser, historyBySpellId, globalCooldownHistory, channelHistory, deaths, resurrections, showCooldowns, showGlobalCooldownDuration, abilities, buffEvents } = this.props;
+    const { start, end, parser, historyBySpellId, globalCooldownHistory, channelHistory, deaths, resurrections, showCooldowns, showGlobalCooldownDuration, abilities, buffs, buffEvents } = this.props;
 
     const skipInterval = Math.ceil(40 / this.secondWidth);
 
@@ -170,6 +171,12 @@ class Timeline extends React.PureComponent {
 
     return (
       <div className="spell-timeline" style={{ width: this.totalWidth, padding: `80px 0 ${eventsBySpellId.size * 30}px 0` }}>
+        <Buffs
+          start={start}
+          secondWidth={this.secondWidth}
+          parser={parser}
+          buffs={buffs}
+        />
         <div className="time-line">
           {this.seconds > 0 && [...Array(this.seconds)].map((_, second) => {
             return (

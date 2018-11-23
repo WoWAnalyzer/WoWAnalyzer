@@ -85,20 +85,20 @@
   border-color: red;
 }
 /*noinspection CssOverwrittenProperties*/
-.spell-timeline .casts a.hoist {
+.spell-timeline .casts a.lower {
   --level: 0;
   height: 22px;
   top: 50px;
   top: calc(54px + var(--level) * 25px);
 }
-.spell-timeline .casts a.hoist img {
+.spell-timeline .casts a.lower img {
   border-color: rgba(255, 255, 255, 0.8);
   transform: translateX(-50%);
   z-index: 2;
   position: relative;
 }
 /*noinspection CssOverwrittenProperties*/
-.spell-timeline .casts a.hoist .time-indicator {
+.spell-timeline .casts a.lower .time-indicator {
   position: absolute;
   bottom: 7px;
   height: 50px;
@@ -106,7 +106,7 @@
   width: 1px;
   background: rgba(255, 255, 255, 0.8);
 }
-.spell-timeline .casts a.hoist .time-indicator:before {
+.spell-timeline .casts a.lower .time-indicator:before {
   content: '';
 
   width: 0;
@@ -136,6 +136,57 @@
   z-index: 2;
   height: 10px;
   top: 6px;
+}
+/* Buffs */
+.spell-timeline .buffs {
+  width: 100%;
+  border-radius: 10px;
+  top: 0px;
+  height: 22px;
+  box-sizing: content-box;
+}
+.spell-timeline .buffs > * {
+  position: absolute;
+  height: 100%;
+}
+.spell-timeline .buffs a {
+  z-index: 3;
+  display: block;
+}
+.spell-timeline .buffs a img {
+  border: 1px solid #f8b700;
+  box-shadow: 0 0 3px #000;
+  border-radius: 2px;
+  margin-top: 0;
+  height: 100%;
+  display: block;
+}
+/*noinspection CssOverwrittenProperties*/
+.spell-timeline .buffs a.hoist {
+  --level: 0;
+  height: 22px;
+  top: -13px;
+  top: calc(-13px + var(--level) * -25px);
+}
+/*noinspection CssOverwrittenProperties*/
+.spell-timeline .buffs a.hoist .time-indicator {
+  position: absolute;
+  top: 7px;
+  height: 50px;
+  height: calc(50px + var(--level) * 30px);
+  width: 1px;
+  background: #f8b700;
+}
+/*noinspection CssOverwrittenProperties*/
+.spell-timeline .buffs .buff {
+  border-radius: 5px;
+  background: rgba(149, 171, 255, 0.2);
+  box-shadow: 0 0 3px #000;
+  z-index: 2;
+  height: calc(52px + var(--level) * 25px);
+  --level: 0;
+  top: -8px;
+  top: calc(-8px + var(--level) * -25px);
 }
 /* Cooldown lanes */
 .spell-timeline .cooldowns .lane {

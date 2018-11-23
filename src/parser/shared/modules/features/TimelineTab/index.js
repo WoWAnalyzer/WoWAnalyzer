@@ -5,6 +5,7 @@ import SpellHistory from 'parser/shared/modules/SpellHistory';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import Channeling from 'parser/shared/modules/Channeling';
 import Abilities from 'parser/core/modules/Abilities';
+import Buffs from 'parser/core/modules/Buffs';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import DeathTracker from 'parser/shared/modules/DeathTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -18,6 +19,7 @@ class TimelineTab extends Analyzer {
     globalCooldown: GlobalCooldown,
     channeling: Channeling,
     abilities: Abilities,
+    buffs: Buffs,
     abilityTracker: AbilityTracker,
     deathTracker: DeathTracker,
     spellUsable: SpellUsable,
@@ -38,6 +40,7 @@ class TimelineTab extends Analyzer {
           globalCooldownHistory={this.globalCooldown.history}
           channelHistory={this.channeling.history}
           abilities={this.abilities}
+          buffs={this.buffs}
           abilityTracker={this.abilityTracker}
           deaths={this.deathTracker.deaths}
           resurrections={this.deathTracker.resurrections}

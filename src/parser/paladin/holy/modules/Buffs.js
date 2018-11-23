@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import CoreBuffs, { BuffDuration } from 'parser/core/modules/Buffs';
+import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 
 class Buffs extends CoreBuffs {
   buffs() {
@@ -17,6 +18,7 @@ class Buffs extends CoreBuffs {
         spell: SPELLS.INFUSION_OF_LIGHT,
         duration: BuffDuration.AT_MOST(15000),
         triggeredBy: SPELLS.HOLY_SHOCK_CAST,
+        timelineHightlight: true,
       },
       {
         spell: SPELLS.RULE_OF_LAW_TALENT,
@@ -88,6 +90,11 @@ class Buffs extends CoreBuffs {
       {
         spell: SPELLS.BLESSING_OF_SACRIFICE,
         duration: BuffDuration.AT_MOST(12000),
+      },
+      {
+        spell: Object.keys(BLOODLUST_BUFFS).map(spellId => SPELLS[spellId]),
+        duration: BuffDuration.STATIC(40000),
+        timelineHightlight: true,
       },
     ];
   }
