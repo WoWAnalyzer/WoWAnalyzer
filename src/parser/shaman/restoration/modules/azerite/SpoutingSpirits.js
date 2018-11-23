@@ -1,4 +1,4 @@
-import { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
@@ -18,7 +18,7 @@ class SpoutingSpirits extends BaseHealerAzerite {
     super(...args);
     this.disableStatistic = !this.hasTrait;
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER_PET).spell(SPELLS.SPIRIT_LINK_TOTEM), this._onSpiritLinkCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SPIRIT_LINK_TOTEM), this._onSpiritLinkCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER_PET).spell(SPELLS.SPIRIT_LINK_TOTEM_REDISTRIBUTE), this._onSpiritLinkRedistribution);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.SPIRIT_LINK_TOTEM_REDISTRIBUTE), this._onSpiritLinkRedistribution);
   }
