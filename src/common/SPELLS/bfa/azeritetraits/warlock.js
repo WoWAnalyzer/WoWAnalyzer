@@ -25,4 +25,9 @@ export default {
     name: 'Dreadful Calling',
     icon: 'inv_beholderwarlock',
   },
+  SUDDEN_ONSET: {
+    id: 278721,
+    name: 'Sudden Onset',
+    icon: 'spell_shadow_curseofsargeras',
+  },
 };
