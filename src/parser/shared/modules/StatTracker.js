@@ -290,7 +290,6 @@ class StatTracker extends Analyzer {
     [SPELLS.BLUR_OF_TALONS_BUFF.id]: BLUR_OF_TALON_STATS,
     // endregion
     // region Warlock
-    [SPELLS.EXPLOSIVE_POTENTIAL.id]: { haste: 841 },
     [SPELLS.CASCADING_CALAMITY_BUFF.id]: CASCADING_CALAMITY_STATS,
     [SPELLS.WRACKING_BRILLIANCE_BUFF.id]: WRACKING_BRILLIANCE_STATS,
     // endregion

@@ -35,6 +35,8 @@ import SacrificedSouls from './modules/talents/SacrificedSouls';
 import DemonicConsumption from './modules/talents/DemonicConsumption';
 import NetherPortal from './modules/talents/NetherPortal';
 
+import DemonicMeteor from './modules/azerite/DemonicMeteor';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
@@ -72,6 +74,9 @@ class CombatLogParser extends CoreCombatLogParser {
     sacrificedSouls: SacrificedSouls,
     demonicConsumption: DemonicConsumption,
     netherPortal: NetherPortal,
+
+    // Azerite traits
+    demonicMeteor: DemonicMeteor,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],
