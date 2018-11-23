@@ -3,7 +3,7 @@ import ParseResults from 'parser/core/ParseResults';
 import BaseChecklist from 'parser/shared/modules/features/Checklist2/Module';
 import renderer from 'react-test-renderer';
 import { loadLogSync, suppressLogging, parseLog } from './log-tools';
-import { statistic, tab, expectSnapshot } from './snapshotTest';
+import { statistic, expectSnapshot } from './snapshotTest';
 
 function integrationStatistic(analyzer, parser) {
   if(!analyzer.active) {
