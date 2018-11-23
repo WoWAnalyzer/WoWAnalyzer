@@ -1,8 +1,11 @@
 import { i18n } from 'interface/RootLocalizationProvider';
+import ParseResults from 'parser/core/ParseResults';
+import BaseChecklist from 'parser/shared/modules/features/Checklist2/Module';
+import renderer from 'react-test-renderer';
 import { loadLogSync, suppressLogging, parseLog } from './log-tools';
-import { statistic, expectSnapshot } from './snapshotTest';
+import { statistic, tab, expectSnapshot } from './snapshotTest';
 
-function integrationSnapshot(analyzer, parser) {
+function integrationStatistic(analyzer, parser) {
   if(!analyzer.active) {
     return 'module inactive';
   }
@@ -10,6 +13,27 @@ function integrationSnapshot(analyzer, parser) {
     return 'module has no statistic method';
   }
   return statistic(analyzer, parser);
+}
+
+function integrationSuggestions(analyzer) {
+  if(!analyzer.active) {
+    return 'module inactive';
+  }
+  if(!analyzer.suggestions) {
+    return 'module has no suggestions';
+  }
+  const results = new ParseResults();
+  analyzer.suggestions(results.suggestions.when, { i18n });
+  return results.issues;
+}
+
+function checklist(parser) {
+  const checklistModule = Object.values(parser.constructor.specModules).find(m => m.prototype instanceof BaseChecklist);
+  if(checklistModule === undefined) {
+    return 'no checklist';
+  }
+  const result = parser.getModule(checklistModule).render();
+  return renderer.create(result).toJSON();
 }
 
 /**
@@ -38,6 +62,7 @@ function integrationSnapshot(analyzer, parser) {
 export default function integrationTest(parserClass, key, suppressWarn=true, suppressLog=true) {
   return () => {
     let log;
+    let parser;
     beforeAll(() => {
       log = loadLogSync(key);
     });
@@ -45,30 +70,18 @@ export default function integrationTest(parserClass, key, suppressWarn=true, sup
     suppressLogging(suppressLog, suppressWarn, false);
 
     it('should parse the example report without crashing', () => {
-      const parser = parseLog(parserClass, log);
+      parser = parseLog(parserClass, log);
       const results = parser.generateResults({
         i18n,
         adjustForDowntime: false,
       });
       expect(results).toBeTruthy();
     });
+    it('should match the checklist snapshot', () => {
+      expect(checklist(parser)).toMatchSnapshot();
+    });
 
     describe('analyzers', () => {
-      let parser;
-      beforeAll(() => {
-        // suppressing logging here always
-        const _console = {
-          log: console.log,
-          warn: console.warn,
-        };
-        console.log = () => undefined;
-        console.warn = () => undefined;
-
-        parser = parseLog(parserClass, log);
-
-        Object.keys(_console).forEach(key => { console[key] = _console[key]; });
-      });
-
       Object.values(parserClass.specModules).forEach(moduleClass => {
         if(moduleClass instanceof Array) {
           // cannot call parser._getModuleClass at this point in
@@ -77,7 +90,8 @@ export default function integrationTest(parserClass, key, suppressWarn=true, sup
         }
         describe(moduleClass.name, () => {
           suppressLogging(suppressLog, suppressWarn, false);
-          it('matches the statistic snapshot', () => expectSnapshot(parser, moduleClass, integrationSnapshot));
+          it('matches the statistic snapshot', () => expectSnapshot(parser, moduleClass, integrationStatistic));
+          it('matches the suggestions snapshot', () => expectSnapshot(parser, moduleClass, integrationSuggestions));
         });
       });
     });

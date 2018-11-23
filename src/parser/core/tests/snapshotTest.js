@@ -21,16 +21,23 @@ class ParserContextProvider extends React.PureComponent {
   }
 
   render() {
-    console.log(this.props.children);
     return this.props.children;
   }
 }
 
+function renderWithParser(output, parser) {
+  return renderer.create(<ParserContextProvider parser={parser}>{output}</ParserContextProvider>).toJSON();
+}
+
 export function statistic(analyzer, parser=null) {
   const stat = analyzer.statistic({ i18n });
-  const result = renderer.create(<ParserContextProvider parser={parser}>{stat}</ParserContextProvider>).toJSON();
-  return result;
+  return renderWithParser(stat, parser);
 } 
+
+export function tab(analyzer, parser=null) {
+  const tab = analyzer.tab().render();
+  return renderWithParser(tab, parser);
+}
 
 /**
  * Perform a test using the Jest snapshot tool (https://jestjs.io/docs/en/snapshot-testing#snapshot-testing-with-jest).
