@@ -1,7 +1,6 @@
 import React from 'react';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import SpellIcon from 'common/SpellIcon';
 import Enemies from 'parser/shared/modules/Enemies';
 
 import SPELLS from 'common/SPELLS';
@@ -49,8 +48,8 @@ class VoidReaverDebuff extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.VOID_REAVER_TALENT.id}
         position={STATISTIC_ORDER.CORE(5)}
-        icon={<SpellIcon id={SPELLS.VOID_REAVER_TALENT.id} />}
         value={`${formatPercentage(this.uptime)} %`}
         label="Void Reaver uptime"
       />

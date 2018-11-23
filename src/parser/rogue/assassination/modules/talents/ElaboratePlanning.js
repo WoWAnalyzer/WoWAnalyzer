@@ -4,7 +4,6 @@ import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
@@ -41,10 +40,9 @@ class ElaboratePlanning extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.ELABORATE_PLANNING_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(1)}
-        icon={<SpellIcon id={SPELLS.ELABORATE_PLANNING_TALENT.id} />}
         value={<ItemDamageDone amount={this.bonusDmg} />}
-        label="Elaborate Planning"
         tooltip={`${formatPercentage(this.percentUptime)} % uptime.`}
       />
     );

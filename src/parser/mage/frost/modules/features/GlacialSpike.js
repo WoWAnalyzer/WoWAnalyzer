@@ -2,7 +2,6 @@ import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
@@ -126,8 +125,8 @@ class GlacialSpike extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.GLACIAL_SPIKE_TALENT.id}
         position={STATISTIC_ORDER.CORE(90)}
-        icon={<SpellIcon id={SPELLS.GLACIAL_SPIKE_TALENT.id} />}
         value={`${formatPercentage(this.utilPercentage, 0)} %`}
         label="Glacial Spike efficiency"
         tooltip={`You cast Glacial Spike ${this.totalCasts} times, ${this.goodCasts} casts of which met at least one of the requirements:

@@ -4,7 +4,6 @@ import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'parser/core/Analyzer';
 import GarroteSnapshot from '../features/GarroteSnapshot';
 
@@ -26,10 +25,9 @@ class Subterfuge extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.SUBTERFUGE_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(2)}
-        icon={<SpellIcon id={SPELLS.SUBTERFUGE_TALENT.id} />}
         value={<ItemDamageDone amount={this.bonusDamage} />}
-        label="Subterfuge"
       />
     );
   }

@@ -4,7 +4,6 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
-import SpellIcon from 'common/SpellIcon';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -140,8 +139,8 @@ class VipersVenom extends Analyzer {
     tooltip += `</ul></li></ul>`;
     return (
       <TalentStatisticBox
+        talent={SPELLS.VIPERS_VENOM_TALENT.id}
         position={STATISTIC_ORDER.CORE(22)}
-        icon={<SpellIcon id={SPELLS.VIPERS_VENOM_TALENT.id} />}
         value={`${this.procs}`}
         label="Viper's Venom procs"
         tooltip={tooltip}

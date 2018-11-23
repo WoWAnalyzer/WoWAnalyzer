@@ -1,7 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import Analyzer from 'parser/core/Analyzer';
@@ -68,8 +67,8 @@ class ThermalVoid extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.ICY_VEINS.id}
         position={STATISTIC_ORDER.CORE(100)}
-        icon={<SpellIcon id={SPELLS.ICY_VEINS.id} />}
         value={`${formatNumber(this.averageDurationSeconds)}s`}
         label="Avg Icy Veins Duration"
         tooltip="Icy Veins Casts that do not complete before the fight ends are removed from this statistic"

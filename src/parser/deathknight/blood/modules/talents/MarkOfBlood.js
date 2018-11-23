@@ -3,7 +3,6 @@ import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -47,8 +46,8 @@ class MarkOfBlood extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.MARK_OF_BLOOD_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
-        icon={<SpellIcon id={SPELLS.MARK_OF_BLOOD_TALENT.id} />}
         value={`${formatPercentage(this.uptime)} %`}
         label="Mark Of Blood Uptime"
       />

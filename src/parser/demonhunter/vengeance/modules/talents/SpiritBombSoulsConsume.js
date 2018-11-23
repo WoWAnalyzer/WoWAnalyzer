@@ -4,7 +4,6 @@ import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import SPELLS from 'common/SPELLS/index';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import { formatPercentage } from 'common/format';
@@ -104,8 +103,8 @@ class SpiritBombSoulsConsume extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.SPIRIT_BOMB_TALENT.id}
         position={STATISTIC_ORDER.CORE(6)}
-        icon={<SpellIcon id={SPELLS.SPIRIT_BOMB_TALENT.id} />}
         value={`${formatPercentage(this.percentGoodCasts)} %`}
         label="Good Spirit Bomb casts"
       >

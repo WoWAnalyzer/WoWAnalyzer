@@ -1,8 +1,6 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import SpellIcon from 'common/SpellIcon';
 import React from 'react';
 import SpiritOfRedemption from 'parser/priest/holy/modules/spells/SpiritOfRedemption';
 import ItemManaGained from 'interface/others/ItemManaGained';
@@ -32,14 +30,11 @@ class Enlightenment extends Analyzer {
 
   statistic() {
     return (
-
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.ENLIGHTENMENT_TALENT.id} />}
+        talent={SPELLS.ENLIGHTENMENT_TALENT.id}
         value={(
           <ItemManaGained amount={this.enlightenmentMana} />
         )}
-        label="Enlightment"
         position={STATISTIC_ORDER.CORE(1)}
       />
 

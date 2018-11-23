@@ -1,11 +1,9 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
-import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'parser/core/Analyzer';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import { formatNumber } from 'common/format';
 import AbilityTracker from 'parser/priest/shadow/modules/core/AbilityTracker';
@@ -38,13 +36,10 @@ class ShadowCrash extends Analyzer {
   }
 
   statistic() {
-
     return (
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.SHADOW_CRASH_TALENT.id} />}
+        talent={SPELLS.SHADOW_CRASH_TALENT.id}
         value={<ItemDamageDone amount={this.damage} />}
-        label={`${SPELLS.SHADOW_CRASH_TALENT.name}`}
         tooltip={`Average targets hit: ${formatNumber(this.averageTargetsHit)}`}
         position={STATISTIC_ORDER.CORE(5)}
       />
