@@ -15,4 +15,9 @@ export default {
     name: 'Wracking Brilliance',
     icon: 'spell_shadow_felmending',
   },
+  DREADFUL_CALLING:{
+    id: 278727,
+    name: 'Dreadful Calling',
+    icon: 'inv_beholderwarlock',
+  },
 };
