@@ -1,3 +1,6 @@
+import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+
 import SPELLS from 'common/SPELLS';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BaseHealerAzerite from './BaseHealerAzerite';
@@ -16,8 +19,8 @@ class EbbAndFlow extends BaseHealerAzerite {
   static dependencies = {
     statTracker: StatTracker,
   };
-  static TRAIT = SPELLS.EBB_AND_FLOW.id;
-  static HEAL = SPELLS.EBB_AND_FLOW.id;
+  static TRAIT = SPELLS.EBB_AND_FLOW;
+  static HEAL = SPELLS.EBB_AND_FLOW;
 
   healingTideHits = [];
   healingTidePosition = {};
@@ -27,13 +30,12 @@ class EbbAndFlow extends BaseHealerAzerite {
     super(...args);
     this.disableStatistic = !this.hasTrait;
     this.traitRawHealing = this.azerite.reduce((total, trait) => total + trait.rawHealing, 0);
+
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_TIDE_TOTEM_CAST), this._findTotemLocation);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER_PET).spell(SPELLS.HEALING_TIDE_TOTEM_HEAL), this._calculateTraitComponent);
   }
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.HEALING_TIDE_TOTEM_CAST.id) {
-      return;
-    }
+  _findTotemLocation(event) {
     // totem spawns 2 yards behind and to the right of your position on cast
     // everything gets calculated off of the totems position so this information is important to be precise
     const radians = event.facing / 100;
@@ -43,12 +45,7 @@ class EbbAndFlow extends BaseHealerAzerite {
     this.healingTidePosition = {x: event.x + xDistance, y: event.y + yDistance};
   }
 
-  on_byPlayerPet_heal(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.HEALING_TIDE_TOTEM_HEAL.id) {
-      return;
-    }
-
+  _calculateTraitComponent(event) {
     // The trait has a 8 - 40 yards linear falloff
     // 100% effectiveness within 8 yards, 0% at 40 yards
     const a = this.healingTidePosition.x - event.x;
@@ -67,7 +64,7 @@ class EbbAndFlow extends BaseHealerAzerite {
     const traitHealing = this.traitRawHealing * hitEffectiveness;
     const traitComponent = traitHealing / (healingTideHealing + traitHealing);
 
-    this.processHealing(event, traitComponent);
+    this._processHealing(event, traitComponent);
   }
 
   effectiveness(distanceToPlayer) {
