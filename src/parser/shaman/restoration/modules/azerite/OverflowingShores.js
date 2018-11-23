@@ -20,7 +20,6 @@ class OverflowingShores extends BaseHealerAzerite {
 
     this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_CAST), this._onRainBegincast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HEALING_RAIN_HEAL), this._onRainHeal);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(this.constructor.HEAL), this._onOverflowingShoresHeal);
   }
 
   _onRainBegincast(event) {
@@ -38,10 +37,6 @@ class OverflowingShores extends BaseHealerAzerite {
       }
       this.potentialHits += 1;
     }
-  }
-
-  _onOverflowingShoresHeal() {
-    this.potentialHits += 1;
   }
 
   get overflowingShoresHits() {
