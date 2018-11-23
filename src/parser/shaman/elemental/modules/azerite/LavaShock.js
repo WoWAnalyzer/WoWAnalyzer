@@ -4,15 +4,20 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import { formatNumber } from 'common/format';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import { calculateAzeriteEffects } from 'common/stats';
 
-class EchoOfTheElementals extends Analyzer {
+
+class LavaShock extends Analyzer {
   procs = 0;
   damageGained = 0;
-  relevantData=null;
+  traitBonus = 0;
 
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.LAVA_SHOCK.id);
+
+    this.traitBonus = this.selectedCombatant.traitsBySpellId[SPELLS.LAVA_SHOCK.id]
+      .reduce((sum, rank) => sum + calculateAzeriteEffects(SPELLS.LAVA_SHOCK.id, rank)[0], 0);
   }
 
   on_byPlayer_damage(event) {
@@ -23,10 +28,9 @@ class EchoOfTheElementals extends Analyzer {
     if (buff === undefined) {
       return;
     }
-    this.damageGained+= buff.stacks*this.selectedCombatant.traitsBySpellId[SPELLS.LAVA_SHOCK.id];
-    this.procs+=1;
+    this.damageGained += buff.stacks * this.traitBonus;
+    this.procs += 1;
   }
-
 
   statistic() {
     return (
@@ -45,4 +49,4 @@ class EchoOfTheElementals extends Analyzer {
   }
 }
 
-export default EchoOfTheElementals;
+export default LavaShock;

@@ -33,7 +33,7 @@ class SynapseShock extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.SYNAPSE_SHOCK.id);
-    this.synShockStacks = Array.from({ length: MAX_STACKS+1}, x=>[0]);
+    this.synShockStacks = Array.from({ length: MAX_STACKS + 1 }, x => [0]);
   }
 
   handleStacks(event, stack = null) {
@@ -86,7 +86,7 @@ class SynapseShock extends Analyzer {
   get avgIntellect() {
     let avgStacks = 0;
     this.synShockStacks.forEach((elem, index) => {
-      avgStacks += elem.reduce((a, b) => a+b)/this.owner.fightDuration * index;
+      avgStacks += elem.reduce((a, b) => a + b) / this.owner.fightDuration * index;
     });
     return avgStacks * synapseShockStats(this.selectedCombatant.traitsBySpellId[SPELLS.SYNAPSE_SHOCK.id]).intellect;
   }
@@ -115,8 +115,8 @@ class SynapseShock extends Analyzer {
             {this.synShockStacks.map((e, i) => (
               <tr key={i}>
                 <th>{(i * synapseShockStats(this.selectedCombatant.traitsBySpellId[SPELLS.SYNAPSE_SHOCK.id]).intellect).toFixed(0)} int</th>
-                <td>{formatDuration(e.reduce((a, b) => a+b, 0) / 1000)}</td>
-                <td>{formatPercentage(e.reduce((a,b) => a+b, 0)/this.owner.fightDuration)}%</td>
+                <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
+                <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
               </tr>
             ))}
           </tbody>
