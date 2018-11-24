@@ -5,11 +5,6 @@
  */
 
 export default {
-  EXPLOSIVE_POTENTIAL: { // buff
-    id: 275398,
-    name: 'Explosive Potential',
-    icon: 'inv__implosion',
-  },
   CASCADING_CALAMITY: {
     id: 275372,
     name: 'Cascading Calamity',
@@ -24,5 +19,15 @@ export default {
     id: 278727,
     name: 'Dreadful Calling',
     icon: 'inv_beholderwarlock',
+  },
+  EXPLOSIVE_POTENTIAL: {
+    id: 275395,
+    name: 'Explosive Potential',
+    icon: 'inv__implosion',
+  },
+  EXPLOSIVE_POTENTIAL_BUFF: { // buff
+    id: 275398,
+    name: 'Explosive Potential',
+    icon: 'inv__implosion',
   },
 };
