@@ -49,7 +49,7 @@ class DreadfulCalling extends Analyzer {
   }
 
   onUAdamage(event) {
-    this.damage += calculateBonusAzeriteDamage(event, this.damageFromTraits, UNSTABLE_AFFLICTION_SP_COEFFICIENT, this.statTracker.currentIntellectRating);
+    this.damage += calculateBonusAzeriteDamage(event, this.damageFromTraits, [UNSTABLE_AFFLICTION_SP_COEFFICIENT, this.statTracker.currentIntellectRating]);
   }
 
   onUAcast() {
