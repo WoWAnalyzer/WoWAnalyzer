@@ -92,7 +92,6 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
             </div>
           </div>
         )}
-        footerStyle={{ overflow: 'hidden' }}
       />
     );
   }

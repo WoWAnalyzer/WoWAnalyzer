@@ -9,21 +9,18 @@ export { default as STATISTIC_CATEGORY } from './STATISTIC_CATEGORY';
 
 class StatisticBox extends React.PureComponent {
   static propTypes = {
-    icon: PropTypes.node.isRequired,
+    icon: PropTypes.node,
     value: PropTypes.node.isRequired,
     tooltip: PropTypes.string,
     label: PropTypes.node.isRequired,
     footer: PropTypes.node,
-    footerStyle: PropTypes.object,
     containerProps: PropTypes.object,
-    alignIcon: PropTypes.string,
     warcraftLogs: PropTypes.string,
     category: PropTypes.string,
     position: PropTypes.number,
     children: PropTypes.node,
   };
   static defaultProps = {
-    alignIcon: 'center',
     category: STATISTIC_CATEGORY.GENERAL,
   };
 
@@ -38,24 +35,14 @@ class StatisticBox extends React.PureComponent {
 
   componentWillMount() {
     this.setState({
-      icon: this.props.icon,
-      value: this.props.value,
-      label: this.props.label,
       expanded: this.props.expanded,
-      tooltip: this.props.tooltip,
     });
   }
-
   componentWillReceiveProps(newProps) {
     this.setState({
-      icon: newProps.icon,
-      value: newProps.value,
-      label: newProps.label,
       expanded: newProps.expanded,
-      tooltip: newProps.tooltip,
     });
   }
-
   toggleExpansion() {
     this.setState({
       expanded: !this.state.expanded,
@@ -63,36 +50,37 @@ class StatisticBox extends React.PureComponent {
   }
 
   render() {
-    const { icon, value, tooltip, label, footer, footerStyle, containerProps, alignIcon, warcraftLogs, children, ...others } = this.props;
+    const { icon, value, tooltip, label, footer, containerProps, warcraftLogs, children, ...others } = this.props;
     delete others.category;
     delete others.position;
     return (
-      <div className="col-md-4 col-sm-6 col-xs-12" style={{ zIndex: this.state.expanded ? 2 : 1 }} {...containerProps}>
-        <div className="panel statistic-box expandable" {...others}>
+      <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12" style={{ zIndex: this.state.expanded ? 2 : 1 }} {...containerProps}>
+        <div className="panel statistic statistic-box expandable" {...others}>
           <div className="panel-body">
-            <div className="flex">
-              <div className="flex-sub statistic-icon" style={{ display: 'flex', alignItems: alignIcon }}>
-                {icon}
+            <div style={{ position: 'relative' }}>
+              <div className="label">
+                {icon} {label}
               </div>
-              <div className="flex-main" style={{ position: 'relative', paddingLeft: 16 }}>
-                <div className="slabel">
-                  {label}
-                </div>
-                <div className="value">
-                  {tooltip ? <dfn data-tip={tooltip}>{value}</dfn> : value}
-                </div>
+              <div className="value">
+                {tooltip ? <dfn data-tip={tooltip}>{value}</dfn> : value}
+              </div>
 
-                {warcraftLogs && (
-                  <div className="warcraft-logs-link">
-                    <a href={warcraftLogs} target="_blank" rel="noopener noreferrer" data-tip="View details on Warcraft Logs">
-                      <img src="/img/wcl.png" alt="Warcraft Logs logo" />
-                    </a>
-                  </div>
-                )}
-              </div>
+              {footer && (
+                <div style={{ marginTop: '2em' }}>
+                  {footer}
+                </div>
+              )}
+
+              {warcraftLogs && (
+                <div className="warcraft-logs-link">
+                  <a href={warcraftLogs} target="_blank" rel="noopener noreferrer" data-tip="View details on Warcraft Logs">
+                    <img src="/img/wcl.png" alt="Warcraft Logs logo" />
+                  </a>
+                </div>
+              )}
             </div>
-              {children && (
-                <>
+            {children && (
+              <>
                 <div className="row">
                   <div className="col-xs-12">
                     {this.state.expanded && (
@@ -109,14 +97,9 @@ class StatisticBox extends React.PureComponent {
                     {this.state.expanded && <span className="glyphicon glyphicon-chevron-up" />}
                   </button>
                 </div>
-                </>
-              )}
+              </>
+            )}
           </div>
-          {footer && (
-            <div className="panel-footer" style={{ padding: 0, borderTop: 0, ...footerStyle }}>
-              {footer}
-            </div>
-          )}
         </div>
       </div>
     );

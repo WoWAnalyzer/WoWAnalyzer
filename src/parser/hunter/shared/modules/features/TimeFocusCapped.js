@@ -77,7 +77,6 @@ class TimeFocusCapped extends Analyzer {
             />
           </div>
         )}
-        footerStyle={{ overflow: 'hidden' }}
       />
     );
   }

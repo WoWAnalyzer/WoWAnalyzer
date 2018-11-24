@@ -119,10 +119,8 @@ ul {
   width: 100%;
   margin-bottom: 20px;
   position: relative;
-  background: rgba(10, 10, 10, 0.9);
-  border: 1px solid #000;
+  background: rgba(197, 185, 160, 0.08);
   border-radius: 5px;
-  box-shadow: 0 6px 13px 0 rgba(0,0,0,.2), 0 0 2px rgba(0,0,0,.5);
 }
 .panel:not(.statistic-box) {
   border-top: 4px solid #d84141;

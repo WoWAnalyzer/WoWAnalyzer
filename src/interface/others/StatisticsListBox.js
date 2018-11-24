@@ -11,7 +11,7 @@ const StatisticsListBox = ({ title, tooltip, children, bodyStyle, containerProps
   delete others.category;
   delete others.position;
   return (
-    <div className="col-md-4 col-sm-6 col-xs-12" {...containerProps}>
+    <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12" {...containerProps}>
       <div className="panel statistic-box statistic-list" {...others}>
         {title && (
           <div className="panel-heading">

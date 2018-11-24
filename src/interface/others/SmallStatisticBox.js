@@ -11,7 +11,7 @@ const SmallStatisticBox = ({ icon, value, tooltip, label, containerProps, ...oth
   delete others.category;
   delete others.position;
   return (
-    <div className="col-md-4 col-sm-6 col-xs-12" {...containerProps}>
+    <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12" {...containerProps}>
       <div className="panel statistic-box small" {...others}>
         <div className="panel-body flex wrapable">
           <div className="flex-main">

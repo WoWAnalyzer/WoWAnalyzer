@@ -9,22 +9,24 @@ import StatisticBox from './StatisticBox';
 
 export { default as STATISTIC_ORDER } from './STATISTIC_ORDER';
 
-const TalentStatisticBox = ({ talent, icon, label, ...others }) => {
-  icon = icon || <SpellIcon id={talent} />;
-  label = label || <SpellLink id={talent} icon={false} />;
-
-  return (
-    <StatisticBox icon={icon} label={label} {...others} />
-  );
-};
-
+const TalentStatisticBox = ({ talent, icon, label, ...others }) => (
+  <StatisticBox
+    {...others}
+    icon={icon || <SpellIcon id={talent} />}
+    label={label || <SpellLink id={talent} icon={false} />}
+  />
+);
 TalentStatisticBox.propTypes = {
-  ...StatisticBox.propTypes,
   talent: PropTypes.number.isRequired,
-  icon: PropTypes.node, // Override the icon requirement
-  label: PropTypes.node, // Override the label requirement
+  /**
+   * Override the trait's icon.
+   */
+  icon: PropTypes.node,
+  /**
+   * Override the trait's label.
+   */
+  label: PropTypes.node,
 };
-
 TalentStatisticBox.defaultProps = {
   category: STATISTIC_CATEGORY.TALENTS,
 };

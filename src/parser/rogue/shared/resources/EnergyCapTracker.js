@@ -110,7 +110,6 @@ class EnergyCapTracker extends RegenResourceCapTracker {
             </div>
           </div>
         )}
-        footerStyle={{ overflow: 'hidden' }}
       />
     );
   }

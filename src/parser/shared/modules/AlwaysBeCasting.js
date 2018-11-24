@@ -123,7 +123,6 @@ class AlwaysBeCasting extends Analyzer {
             </div>
           </div>
         )}
-        footerStyle={{ overflow: 'hidden' }}
       />
     );
   }

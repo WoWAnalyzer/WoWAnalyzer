@@ -138,7 +138,6 @@ class DamageTaken extends Analyzer {
             }
           />
         )}
-        footerStyle={{ overflow: 'hidden' }}
       />
     );
   }

@@ -80,7 +80,6 @@ class Overload extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        alignIcon="flex-start"
         icon={<SpellIcon id={SPELLS.ELEMENTAL_MASTERY.id} />}
         value={(
           <ul style={{ listStyle: 'none', paddingLeft: 0 }}>

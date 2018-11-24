@@ -97,7 +97,6 @@ class DefensiveStance extends Analyzer {
         label="Damage reduced & lost"
         tooltip={tooltip}
         footer={footer}
-        footerStyle={{ overflow: 'hidden' }}
       />
     );
   }

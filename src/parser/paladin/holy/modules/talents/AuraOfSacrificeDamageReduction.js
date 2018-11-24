@@ -203,7 +203,6 @@ class AuraOfSacrificeDamageReduction extends Analyzer {
         label="Damage reduced"
         tooltip={tooltip}
         footer={footer}
-        footerStyle={{ overflow: 'hidden' }}
         warcraftLogs={makeWclUrl(this.owner.report.code, {
           fight: this.owner.fightId,
           type: 'damage-taken',
