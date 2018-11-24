@@ -2,7 +2,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import Analyzer from 'parser/core/Analyzer';
-import { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/EventFilter';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import Events from 'parser/core/Events';
@@ -23,6 +23,7 @@ const WHITELIST = [
   SPELLS.CONE_OF_COLD,
   SPELLS.RAY_OF_FROST_TALENT,
   SPELLS.ICE_NOVA_TALENT,
+  SPELLS.WATERBOLT,
 ];
 
 const MOD_PER_STACK = 0.005;
@@ -34,7 +35,7 @@ class BoneChilling extends Analyzer {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BONE_CHILLING_TALENT.id);
     if (this.active) {
-      this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(WHITELIST), this.onAffectedDamage);
+      this.addEventListener(Events.damage.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(WHITELIST), this.onAffectedDamage);
     }
   }
 
