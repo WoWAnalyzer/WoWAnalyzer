@@ -2,10 +2,12 @@ import { calculateAzeriteEffects } from 'common/stats';
 import { formatNumber, formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 
 import React from 'react';
 
+import InformationIcon from 'interface/icons/Information';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 import StatisticWrapper from 'interface/others/StatisticWrapper';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
@@ -38,9 +40,9 @@ class BaseHealerAzerite extends Analyzer {
       return;
     }
 
-    this.hasTrait = this.selectedCombatant.hasTrait(this.constructor.TRAIT);
-    const ranks = this.selectedCombatant.traitRanks(this.constructor.TRAIT) || [];
-    const healingPerTrait = ranks.map((rank) => calculateAzeriteEffects(this.constructor.TRAIT, rank)[0]);
+    this.hasTrait = this.selectedCombatant.hasTrait(this.constructor.TRAIT.id);
+    const ranks = this.selectedCombatant.traitRanks(this.constructor.TRAIT.id) || [];
+    const healingPerTrait = ranks.map((rank) => calculateAzeriteEffects(this.constructor.TRAIT.id, rank)[0]);
     const totalHealingPotential = healingPerTrait.reduce((total, bonus) => total + bonus, 0);
 
     this.azerite = ranks.map((rank, index) => {
@@ -48,18 +50,11 @@ class BaseHealerAzerite extends Analyzer {
     });
     // as we can't find out which azerite piece a trait belongs to, might as well sort it by itemlevel
     this.azerite.sort((a, b) => a.itemlevel - b.itemlevel);
+
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(this.constructor.HEAL), this._processHealing);
   }
 
-  on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-    if(spellId !== this.constructor.HEAL) {
-      return;
-    }
-
-    this.processHealing(event);
-  }
-
-  processHealing(event, traitComponent = undefined) {
+  _processHealing(event, traitComponent = undefined) {
     let heal = event.amount + (event.absorbed || 0);
     let overheal = (event.overheal || 0);
 
@@ -91,6 +86,7 @@ class BaseHealerAzerite extends Analyzer {
     return this.azerite.reduce((total, trait) => total + trait.healing, 0);
   }
 
+  moreInformation = null;
   statistic() {
     const nth = (number) => ["st","nd","rd"][((number+90)%100-10)%10-1]||"th";
     const numTraits = this.azerite.length;
@@ -102,7 +98,10 @@ class BaseHealerAzerite extends Analyzer {
             <div className="panel items" style={{ borderTop: '1px solid #e45a5a' }}>
               <div className="panel-heading">
                 <h2>
-                  <SpellLink id={this.constructor.TRAIT} />
+                  <SpellLink id={this.constructor.TRAIT.id} />
+                  {this.moreInformation && (
+                    <InformationIcon data-tip={this.moreInformation} className="pull-right" />
+                )}
                 </h2>
               </div>
               <div className="panel-body" style={{ padding: 0 }}>

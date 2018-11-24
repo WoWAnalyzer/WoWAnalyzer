@@ -58,8 +58,8 @@ class RestorationShamanSpreadsheet extends React.Component {
               <tr><td>{parser.selectedCombatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id) ? cpm(SPELLS.CLOUDBURST_TOTEM_TALENT.id) : cpm(SPELLS.HEALING_STREAM_TOTEM_CAST.id)}</td></tr>
               <tr><td>{cpm(SPELLS.CHAIN_HEAL.id)}</td></tr>
               <tr><td>{parser.getModule(SurgingTides).surgingTideProcsPerMinute}</td></tr>
-              <tr><td>{(parser.getModule(SpoutingSpirits).spoutingSpiritsHits / casts(SPELLS.SPIRIT_LINK_TOTEM.id) || getAbility(SPELLS.SPOUTING_SPIRITS_HEAL.id).healingHits / casts(SPELLS.SPIRIT_LINK_TOTEM.id) || 0).toFixed(2)}</td></tr>
-              <tr><td>{(parser.getModule(OverflowingShores).overflowingShoresHits / casts(SPELLS.HEALING_RAIN_CAST.id) || 0).toFixed(2)}</td></tr>
+              <tr><td>{((parser.getModule(SpoutingSpirits).spoutingSpiritsHits || getAbility(SPELLS.SPOUTING_SPIRITS_HEAL.id).healingHits) / casts(SPELLS.SPIRIT_LINK_TOTEM.id) || 0).toFixed(2)}</td></tr>
+              <tr><td>{((parser.getModule(OverflowingShores).overflowingShoresHits || getAbility(SPELLS.OVERFLOWING_SHORES_HEAL.id).healingHits) / casts(SPELLS.HEALING_RAIN_CAST.id) || 0).toFixed(2)}</td></tr>
               <tr><td>{parser.getModule(EbbAndFlow).ebbAndFlowEffectiveness.toFixed(2)}</td></tr>
               <tr><td>{parser.getModule(Combatants).playerCount}</td></tr>
               <tr><td>{cpm(SPELLS.ASTRAL_SHIFT.id)}</td></tr>
