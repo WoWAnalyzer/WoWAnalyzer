@@ -13,8 +13,8 @@ class LowHealthHealing extends Analyzer {
 
   tab() {
     return {
-      title: 'Low health healing',
-      url: 'low-health-healing',
+      title: 'Triage',
+      url: 'triage',
       render: () => (
         <Tab>
           <LowHealthHealingComponent

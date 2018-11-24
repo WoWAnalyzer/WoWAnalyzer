@@ -34,8 +34,8 @@ class BeaconHealingDone extends Analyzer {
 
   tab() {
     return {
-      title: 'Beacon healing sources',
-      url: 'beacon-healing-sources',
+      title: 'Beacons',
+      url: 'beacons',
       render: () => (
         <Tab>
           <div style={{ padding: '0 15px 15px' }}>

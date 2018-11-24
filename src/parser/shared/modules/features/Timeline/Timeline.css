@@ -182,7 +182,7 @@
 .spell-timeline .buffs .buff {
   border-top-right-radius: 5px;
   /*background: hsla(41, 1%, 52%, 0.2);*/
-  background: rgba(149, 171, 255, 0.2);
+  background: rgba(179, 179, 179, 0.2);
   box-shadow: 0 0 3px #000;
   z-index: 2;
   height: calc(52px + var(--level) * 25px);
