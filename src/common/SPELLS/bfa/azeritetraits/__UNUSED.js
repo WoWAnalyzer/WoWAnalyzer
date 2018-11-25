@@ -959,11 +959,6 @@ export default {
     name: 'Twisted Claws',
     icon: 'spell_druid_thrash',
   },
-  UMBRAL_BLAZE: {
-    id: 273523,
-    name: 'Umbral Blaze',
-    icon: 'ability_warlock_handofguldan',
-  },
   UNBOUND_CHAOS: {
     id: 275144,
     name: 'Unbound Chaos',
