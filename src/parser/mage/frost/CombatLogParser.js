@@ -23,22 +23,22 @@ import Whiteout from './modules/traits/Whiteout';
 import FrozenOrb from './modules/cooldowns/FrozenOrb';
 import ColdSnap from './modules/cooldowns/ColdSnap';
 import WaterElemental from './modules/features/WaterElemental';
+import LonelyWinter from './modules/talents/LonelyWinter';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     checklist: Checklist,
-
 
     // Features
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     cancelledCasts: CancelledCasts,
     cooldownThroughputTracker: CooldownThroughputTracker,
-	  wintersChill: WintersChill,
-	  brainFreeze: BrainFreeze,
+    wintersChill: WintersChill,
+    brainFreeze: BrainFreeze,
     iceLance: IceLance,
-	  thermalVoid: ThermalVoid,
-	  glacialSpike: GlacialSpike,
+    thermalVoid: ThermalVoid,
+    glacialSpike: GlacialSpike,
     damageDone: [DamageDone, { showStatistic: true }],
     runeOfPower: RuneOfPower,
     mirrorImage: MirrorImage,
@@ -46,12 +46,13 @@ class CombatLogParser extends CoreCombatLogParser {
     splittingIce: SplittingIce,
     boneChilling: BoneChilling,
     waterElemental: WaterElemental,
+    lonelyWinter: LonelyWinter,
 
     //Traits
     wintersReach: WintersReach,
     whiteout: Whiteout,
 
-	  //Cooldowns
+    //Cooldowns
     frozenOrb: FrozenOrb,
     coldSnap: ColdSnap,
 
