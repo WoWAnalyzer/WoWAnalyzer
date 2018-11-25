@@ -28,7 +28,7 @@ Ring.defaultProps = {
   color: '#9c9c9c',
 };
 
-const Radar = ({ distance, size, style }) => {
+const Radar = ({ distance, size, style, playerColor }) => {
   const pixelsPerYard = size / 40;
   return (
     <div
@@ -43,18 +43,6 @@ const Radar = ({ distance, size, style }) => {
       <Ring size={30 * pixelsPerYard} style={{ opacity: 0.5 }} data-tip="20-30 yards" />
       <Ring size={20 * pixelsPerYard} style={{ opacity: 0.75 }} data-tip="10-20 yards" />
       <Ring size={10 * pixelsPerYard} style={{ opacity: 1 }} data-tip="0-10 yards" />
-      <div
-        style={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          width: 5,
-          height: 5,
-          borderRadius: '50%',
-          transform: 'translate(-50%, -50%)',
-          background: '#f8b700',
-        }}
-      />
       <Ring
         size={distance * pixelsPerYard}
         data-tip={`${formatNumber(distance)} yards`}
@@ -64,6 +52,18 @@ const Radar = ({ distance, size, style }) => {
           boxShadow: '0 0 4px #f8b700',
         }}
       />
+      <div
+        style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          width: 5,
+          height: 5,
+          borderRadius: '50%',
+          transform: 'translate(-50%, -50%)',
+          background: playerColor,
+        }}
+      />
     </div>
   );
 };
@@ -71,9 +71,11 @@ Radar.propTypes = {
   distance: PropTypes.number.isRequired,
   size: PropTypes.number,
   style: PropTypes.object,
+  playerColor: PropTypes.string,
 };
 Radar.defaultProps = {
   size: 100,
+  playerColor: '#f8b700',
 };
 
 export default Radar;

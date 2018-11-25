@@ -201,6 +201,7 @@ class MasteryEffectiveness extends Analyzer {
             style={{
               display: 'inline-block',
             }}
+            playerColor="#f58cba" // Paladin color
           />
           <div style={{ opacity: 0.5, lineHeight: 1, marginTop: -4, fontSize: 13 }}>Average distance</div>
         </div>
