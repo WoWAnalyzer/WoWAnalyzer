@@ -82,7 +82,6 @@ class CombatLogParser extends CoreCombatLogParser {
     shadowsBiteForbiddenKnowledgeCore: ShadowsBiteForbiddenKnowledgeCore,
     shadowsBite: ShadowsBite,
     forbiddenKnowledge: ForbiddenKnowledge,
-    supremeCommander: SupremeCommander,
     umbralBlaze: UmbralBlaze,
     supremeCommander: SupremeCommander,
     
