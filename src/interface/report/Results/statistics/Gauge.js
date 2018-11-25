@@ -25,7 +25,7 @@ const Gauge = ({ value }) => (
       <div
         style={{
           position: 'absolute',
-          top: '50%',
+          top: 49,
           left: '50%',
           width: 32,
           height: 32,
@@ -44,7 +44,7 @@ const Gauge = ({ value }) => (
             fill: 'none',
             margin: 0,
             transformOrigin: '5px 27px',
-            transform: `rotate(${-140 + 280 * 0.1}deg)`,
+            transform: `rotate(${-140 + 280 * value}deg)`,
           }}
         >
           <path d="M9 27C9 29.2091 7.20914 31 5 31C2.79086 31 1 29.2091 1 27C1 24.7909 2.79086 23 5 23C7.20914 23 9 24.7909 9 27Z" stroke="#f8b700" strokeWidth="2" />
@@ -52,7 +52,7 @@ const Gauge = ({ value }) => (
         </svg>
       </div>
 
-      <div style={{ marginTop: -15, fontSize: '1.2em' }}>
+      <div style={{ marginTop: -18, fontSize: '1.25em' }}>
         {formatPercentage(value, 0)}%
       </div>
     </div>
