@@ -17,7 +17,7 @@ export const STAT_TRACKER = {
   mastery: combatant => burstingFlareStats(combatant.traitsBySpellId[SPELLS.BURSTING_FLARE.id]),
 };
 
-const debug = true;
+const debug = false;
 
 /*
   Bursting Flare:
