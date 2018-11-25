@@ -30,4 +30,15 @@ export default {
     name: 'Sudden Onset',
     icon: 'spell_shadow_curseofsargeras',
   },
+
+  SUPREME_COMMANDER: {
+    id: 279878,
+    name: 'Supreme Commander',
+    icon: 'inv_summondemonictyrant',
+  },
+  SUPREME_COMMANDER_BUFF: {
+    id: 279885,
+    name: 'Supreme Commander',
+    icon: 'inv_summondemonictyrant',
+  },
 };
