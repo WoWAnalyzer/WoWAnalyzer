@@ -28,4 +28,14 @@ export default {
     name: 'Demonic Meteor',
     icon: 'ability_warlock_handofguldan',
   },
+  SUPREME_COMMANDER: {
+    id: 279878,
+    name: 'Supreme Commander',
+    icon: 'inv_summondemonictyrant',
+  },
+  SUPREME_COMMANDER_BUFF: {
+    id: 279885,
+    name: 'Supreme Commander',
+    icon: 'inv_summondemonictyrant',
+  },
 };
