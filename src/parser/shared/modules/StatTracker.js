@@ -28,6 +28,8 @@ import { STAT_TRACKER as TRADEWINDS_STATS } from 'parser/shared/modules/spells/b
 import { STAT_TRACKER as CHORUS_OF_INSANITY_STATS } from 'parser/priest/shadow/modules/spells/azeritetraits/ChorusOfInsanity';
 import { STAT_TRACKER as CASCADING_CALAMITY_STATS } from 'parser/warlock/affliction/modules/azerite/CascadingCalamity';
 import { STAT_TRACKER as WRACKING_BRILLIANCE_STATS } from 'parser/warlock/affliction/modules/azerite/WrackingBrilliance';
+import { STAT_TRACKER as EXPLOSIVE_POTENTIAL_STATS } from 'parser/warlock/demonology/modules/azerite/ExplosivePotential';
+import { STAT_TRACKER as SUPREME_COMMANDER_STATS } from 'parser/warlock/demonology/modules/azerite/SupremeCommander';
 
 const debug = false;
 
@@ -290,9 +292,10 @@ class StatTracker extends Analyzer {
     [SPELLS.BLUR_OF_TALONS_BUFF.id]: BLUR_OF_TALON_STATS,
     // endregion
     // region Warlock
-    [SPELLS.EXPLOSIVE_POTENTIAL.id]: { haste: 841 },
+    [SPELLS.EXPLOSIVE_POTENTIAL_BUFF.id]: EXPLOSIVE_POTENTIAL_STATS,
     [SPELLS.CASCADING_CALAMITY_BUFF.id]: CASCADING_CALAMITY_STATS,
     [SPELLS.WRACKING_BRILLIANCE_BUFF.id]: WRACKING_BRILLIANCE_STATS,
+    [SPELLS.SUPREME_COMMANDER_BUFF.id]: SUPREME_COMMANDER_STATS,
     // endregion
     //region Death Knight
     [SPELLS.BONES_OF_THE_DAMNED_BUFF.id]: BOFD_ARMOR, // Armor when Bones of the Damend trait is up
