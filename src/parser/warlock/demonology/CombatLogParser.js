@@ -36,6 +36,7 @@ import DemonicConsumption from './modules/talents/DemonicConsumption';
 import NetherPortal from './modules/talents/NetherPortal';
 
 import UmbralBlaze from './modules/azerite/UmbralBlaze';
+import SupremeCommander from './modules/azerite/SupremeCommander';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -76,6 +77,8 @@ class CombatLogParser extends CoreCombatLogParser {
     netherPortal: NetherPortal,
 
     umbralBlaze: UmbralBlaze,
+    supremeCommander: SupremeCommander,
+    
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],
   };

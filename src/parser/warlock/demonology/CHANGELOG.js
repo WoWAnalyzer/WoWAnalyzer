@@ -6,6 +6,11 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-11-23'),
+    changes: <>Fixed <SpellLink id={SPELLS.GRIMOIRE_FELGUARD_TALENT.id} /> cooldown</>,
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-11-19'),
     changes: 'Consolidated various talent boxes into one Talents statistic box.',
     contributors: [Chizu],

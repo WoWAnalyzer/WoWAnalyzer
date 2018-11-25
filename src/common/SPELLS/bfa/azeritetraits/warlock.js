@@ -35,4 +35,14 @@ export default {
     name: 'Umbral Blaze',
     icon: 'ability_warlock_everlastingaffliction',
   },
+  SUPREME_COMMANDER: {
+    id: 279878,
+    name: 'Supreme Commander',
+    icon: 'inv_summondemonictyrant',
+  },
+  SUPREME_COMMANDER_BUFF: {
+    id: 279885,
+    name: 'Supreme Commander',
+    icon: 'inv_summondemonictyrant',
+  },
 };
