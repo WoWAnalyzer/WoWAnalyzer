@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { formatPercentage } from 'common/format';
+import { formatNumber } from 'common/format';
 
-const Ring = ({ size, color, style }) => (
+const Ring = ({ size, color, style, ...others }) => (
   <div
     style={{
       position: 'absolute',
@@ -16,6 +16,7 @@ const Ring = ({ size, color, style }) => (
       borderRadius: '50%',
       ...style,
     }}
+    {...others}
   />
 );
 Ring.propTypes = {
@@ -38,6 +39,10 @@ const Radar = ({ distance, size, style }) => {
         ...style,
       }}
     >
+      <Ring size={40 * pixelsPerYard} style={{ opacity: 0.25, background: 'rgba(255, 255, 255, 0.05)' }} data-tip="30-40 yards" />
+      <Ring size={30 * pixelsPerYard} style={{ opacity: 0.5 }} data-tip="20-30 yards" />
+      <Ring size={20 * pixelsPerYard} style={{ opacity: 0.75 }} data-tip="10-20 yards" />
+      <Ring size={10 * pixelsPerYard} style={{ opacity: 1 }} data-tip="0-10 yards" />
       <div
         style={{
           position: 'absolute',
@@ -50,12 +55,9 @@ const Radar = ({ distance, size, style }) => {
           background: '#f8b700',
         }}
       />
-      <Ring size={10 * pixelsPerYard} style={{ opacity: 1 }} />
-      <Ring size={20 * pixelsPerYard} style={{ opacity: 0.75 }} />
-      <Ring size={30 * pixelsPerYard} style={{ opacity: 0.5 }} />
-      <Ring size={40 * pixelsPerYard} style={{ opacity: 0.25 }} />
       <Ring
         size={distance * pixelsPerYard}
+        data-tip={`${formatNumber(distance)} yards`}
         color="#f8b700"
         style={{
           background: 'rgba(248, 183, 0, 0.3)',
