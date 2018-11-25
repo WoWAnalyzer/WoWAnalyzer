@@ -30,4 +30,14 @@ export default {
     name: 'Explosive Potential',
     icon: 'inv__implosion',
   },
+  SUPREME_COMMANDER: {
+    id: 279878,
+    name: 'Supreme Commander',
+    icon: 'inv_summondemonictyrant',
+  },
+  SUPREME_COMMANDER_BUFF: {
+    id: 279885,
+    name: 'Supreme Commander',
+    icon: 'inv_summondemonictyrant',
+  },
 };

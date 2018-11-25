@@ -1,11 +1,14 @@
+import { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+
 import SPELLS from 'common/SPELLS';
 import BaseHealerAzerite from './BaseHealerAzerite';
 
 const HALF_HP = 0.5;
 
 class SurgingTides extends BaseHealerAzerite {
-  static TRAIT = SPELLS.SURGING_TIDES.id;
-  static HEAL = SPELLS.SURGING_TIDES_ABSORB.id;
+  static TRAIT = SPELLS.SURGING_TIDES;
+  static HEAL = SPELLS.SURGING_TIDES_ABSORB;
 
   potentialSurgingTideProcs = 0;
   currentAbsorbSize = 0;
@@ -13,24 +16,18 @@ class SurgingTides extends BaseHealerAzerite {
   constructor(...args) {
     super(...args);
     this.disableStatistic = !this.hasTrait;
+
+    this.addEventListener(Events.absorbed.by(SELECTED_PLAYER).spell(this.constructor.HEAL), this._processHealing);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(this.constructor.HEAL), this._onSurgingTidesApplication);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(this.constructor.HEAL), this._processOverheal);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RIPTIDE), this._detectPotentialProcs);
   }
 
-  on_byPlayer_absorbed(event) {
-    super.on_byPlayer_heal(event);
-  }
-
-  on_byPlayer_applybuff(event) {
-    if (event.ability.guid !== SPELLS.SURGING_TIDES_ABSORB.id) {
-      return;
-    }
+  _onSurgingTidesApplication(event) {
     this.currentAbsorbSize = event.absorb || 0;
   }
 
-  on_byPlayer_removebuff(event) {
-    if (event.ability.guid !== SPELLS.SURGING_TIDES_ABSORB.id) {
-      return;
-    }
-
+  _processOverheal(event) {
     let absorb = event.absorb || 0;
     const healPerTrait = this.azerite.map((trait) => (this.currentAbsorbSize) * trait.healingFactor);
     for (const [index, trait] of Object.entries(this.azerite)) {
@@ -40,11 +37,7 @@ class SurgingTides extends BaseHealerAzerite {
     }
   }
 
-  on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.RIPTIDE.id) {
-      return;
-    }
+  _detectPotentialProcs(event) {
     if (event.tick) {
       return;
     }

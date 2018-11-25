@@ -1,3 +1,6 @@
+import { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+
 import SPELLS from 'common/SPELLS';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
@@ -15,8 +18,8 @@ class SoothingWaters extends BaseHealerAzerite {
     statTracker: StatTracker,
     critEffectBonus: CritEffectBonus,
   };
-  static TRAIT = SPELLS.SOOTHING_WATERS_TRAIT.id;
-  static HEAL = SPELLS.SOOTHING_WATERS_TRAIT.id;
+  static TRAIT = SPELLS.SOOTHING_WATERS_TRAIT;
+  static HEAL = SPELLS.SOOTHING_WATERS_TRAIT;
 
   traitRawHealing = 0;
 
@@ -29,16 +32,13 @@ class SoothingWaters extends BaseHealerAzerite {
     if (!this.active) {
       return;
     }
-
     this.traitRawHealing = this.azerite.reduce((total, trait) => total + trait.rawHealing, 0);
+
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HEAL), this._onChainHealCast);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HEAL), this._onChainHealHeal);
   }
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.CHAIN_HEAL.id) {
-      return;
-    }
-
+  _onChainHealCast(event) {
     // filtering out healing events if they're not from the current cast
     if (this.chainHealEvent && event.timestamp - this.chainHealEvent.timestamp >= HEAL_WINDOW_MS) {
       this.chainHealEvent = null;
@@ -47,35 +47,28 @@ class SoothingWaters extends BaseHealerAzerite {
     // sometimes you have heal events before the cast happens, so check here as well
     // comparing the target ID guarantees no false positives as each cast can only heal the same target once
     if (this.chainHealEvent && this.chainHealEvent.targetID === event.targetID) {
-      this.processTrait(this.chainHealEvent);
+      this._processHealing(this.chainHealEvent,this.traitComponent);
       this.chainHealEvent = null;
     } else {
       this.chainHealTarget = event.targetID;
     }
   }
 
-  on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.CHAIN_HEAL.id) {
-      return;
-    }
-
+  _onChainHealHeal(event) {
     // we only want the initial heal - as that is the heal on the person you target on the cast,
     // you only have to compare the heal and target ID.
     if (this.chainHealTarget && this.chainHealTarget === event.targetID) {
-      this.processTrait(event);
+      this._processHealing(event,this.traitComponent);
       this.chainHealTarget = null;
     } else {
       this.chainHealEvent = event;
     }
   }
 
-  processTrait(initialHitEvent) {
+  get traitComponent() {
     const currentIntellect = this.statTracker.currentIntellectRating;
     const initialHitHealing = SPELLS.CHAIN_HEAL.coefficient * currentIntellect;
-    const traitComponent = this.traitRawHealing / (initialHitHealing + this.traitRawHealing);
-
-    this.processHealing(initialHitEvent, traitComponent);
+    return this.traitRawHealing / (initialHitHealing + this.traitRawHealing);
   }
 }
 
