@@ -5,11 +5,7 @@
  */
 
 export default {
-  EXPLOSIVE_POTENTIAL: { // buff
-    id: 275398,
-    name: 'Explosive Potential',
-    icon: 'inv__implosion',
-  },
+  // Affliction Azerite traits and effects
   CASCADING_CALAMITY: {
     id: 275372,
     name: 'Cascading Calamity',
@@ -20,7 +16,7 @@ export default {
     name: 'Wracking Brilliance',
     icon: 'spell_shadow_felmending',
   },
-  DREADFUL_CALLING:{
+  DREADFUL_CALLING: {
     id: 278727,
     name: 'Dreadful Calling',
     icon: 'inv_beholderwarlock',
@@ -30,7 +26,28 @@ export default {
     name: 'Inevitable Demise',
     icon: 'spell_shadow_abominationexplosion',
   },
+  SUDDEN_ONSET: {
+    id: 278721,
+    name: 'Sudden Onset',
+    icon: 'spell_shadow_curseofsargeras',
+  },
 
+  // Demonology Azerite traits and effects
+  DEMONIC_METEOR: {
+    id: 278737,
+    name: 'Demonic Meteor',
+    icon: 'ability_warlock_handofguldan',
+  },
+  EXPLOSIVE_POTENTIAL: {
+    id: 275395,
+    name: 'Explosive Potential',
+    icon: 'inv__implosion',
+  },
+  EXPLOSIVE_POTENTIAL_BUFF: { // buff
+    id: 275398,
+    name: 'Explosive Potential',
+    icon: 'inv__implosion',
+  },
   UMBRAL_BLAZE: {
     id: 273523,
     name: 'Umbral Blaze',
