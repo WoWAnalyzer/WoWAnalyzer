@@ -27,6 +27,8 @@ class MasteryEffectiveness extends Analyzer {
   lastPlayerPositionUpdate = null;
   distanceSum = 0;
   distanceCount = 0;
+  masteryEffectivenessSum = 0;
+  masteryEffectivenessCount = 0;
 
   masteryHealEvents = [];
 
@@ -61,12 +63,6 @@ class MasteryEffectiveness extends Analyzer {
     if (!this.lastPlayerPositionUpdate) {
       console.error('Received a heal before we know the player location. Can\'t process since player location is still unknown.', event);
       return;
-    } else if (this.selectedCombatant === null) {
-      console.error('Received a heal before selected combatant meta data was received.', event);
-      if (process.env.NODE_ENV === 'development') {
-        throw new Error('This shouldn\'t happen anymore. Save to remove after 8 march 2018.');
-      }
-      return;
     }
     const isAbilityAffectedByMastery = ABILITIES_AFFECTED_BY_MASTERY.includes(event.ability.guid);
 
@@ -83,12 +79,13 @@ class MasteryEffectiveness extends Analyzer {
       const isRuleOfLawActive = this.selectedCombatant.hasBuff(SPELLS.RULE_OF_LAW_TALENT.id, event.timestamp);
       // We calculate the mastery effectiveness of this *one* heal
       const masteryEffectiveness = this.constructor.calculateMasteryEffectiveness(distance, isRuleOfLawActive);
+      this.masteryEffectivenessSum += masteryEffectiveness;
+      this.masteryEffectivenessCount += 1;
 
       // The base healing of the spell (excluding any healing added by mastery)
       const baseHealingDone = healingDone / (1 + this.statTracker.currentMasteryPercentage * masteryEffectiveness);
       const masteryHealingDone = healingDone - baseHealingDone;
-      // The max potential mastery healing if we had a mastery effectiveness of 100% on this spell. This does NOT include the base healing
-      // Example: a heal that did 1,324 healing with 32.4% mastery with 100% mastery effectiveness will have a max potential mastery healing of 324.
+      // The max potential mastery healing if we had a mastery effectiveness of 100% on this spell. This does NOT include the base healing. Example: a heal that did 1,324 healing with 32.4% mastery with 100% mastery effectiveness will have a max potential mastery healing of 324.
       const maxPotentialMasteryHealing = baseHealingDone * this.statTracker.currentMasteryPercentage; // * 100% mastery effectiveness
 
       this.masteryHealEvents.push({
@@ -179,6 +176,9 @@ class MasteryEffectiveness extends Analyzer {
   }
 
   statistic() {
+    // this.overallMasteryEffectiveness is heal size adjusted (e.g. a big heal's mastery effectiveness outweights a small heal's)
+    // this.masteryEffectivenessSum / this.masteryEffectivenessCount is raw unadjusted mastery effectiveness (each cast is equal, even if it's a tiny heal or fully overhealed)
+    // TODO: Should overallMasteryEffectiveness account for overhealing? It would probably be cleaner
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(10)}
