@@ -5,6 +5,7 @@
  */
 
 export default {
+  // Affliction Azerite traits and effects
   CASCADING_CALAMITY: {
     id: 275372,
     name: 'Cascading Calamity',
@@ -15,10 +16,17 @@ export default {
     name: 'Wracking Brilliance',
     icon: 'spell_shadow_felmending',
   },
-  DREADFUL_CALLING:{
+  DREADFUL_CALLING: {
     id: 278727,
     name: 'Dreadful Calling',
     icon: 'inv_beholderwarlock',
+  },
+
+  // Demonology Azerite traits and effects
+  DEMONIC_METEOR: {
+    id: 278737,
+    name: 'Demonic Meteor',
+    icon: 'ability_warlock_handofguldan',
   },
   EXPLOSIVE_POTENTIAL: {
     id: 275395,

@@ -36,6 +36,7 @@ import DemonicConsumption from './modules/talents/DemonicConsumption';
 import NetherPortal from './modules/talents/NetherPortal';
 
 import ExplosivePotential from './modules/azerite/ExplosivePotential';
+import DemonicMeteor from './modules/azerite/DemonicMeteor';
 import UmbralBlaze from './modules/azerite/UmbralBlaze';
 import SupremeCommander from './modules/azerite/SupremeCommander';
 
@@ -77,6 +78,8 @@ class CombatLogParser extends CoreCombatLogParser {
     demonicConsumption: DemonicConsumption,
     netherPortal: NetherPortal,
 
+    // Azerite traits
+    demonicMeteor: DemonicMeteor,
     explosivePotential: ExplosivePotential,
     umbralBlaze: UmbralBlaze,
     supremeCommander: SupremeCommander,
