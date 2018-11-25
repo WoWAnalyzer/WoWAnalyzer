@@ -1,0 +1,25 @@
+.statistic {
+  height: 165px;
+  border: 0 !important;
+  padding: 15px 18px;
+  text-shadow: 0 0 0.6px currentColor;
+}
+.statistic.panel .panel-body {
+  padding: 0;
+}
+.statistic label {
+  color: #b3adad;
+  margin-bottom: 3px;
+  /* fucking bootstrap: */
+  display: block;
+  padding: 0;
+  font-size: inherit;
+  line-height: inherit;
+  text-align: inherit;
+  border-radius: inherit;
+  font-weight: 200;
+}
+.statistic .text-muted {
+  color: #777;
+  opacity: 0.7;
+}

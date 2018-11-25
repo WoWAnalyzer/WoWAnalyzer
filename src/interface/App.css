@@ -119,7 +119,7 @@ ul {
   width: 100%;
   margin-bottom: 20px;
   position: relative;
-  background: rgba(197, 185, 160, 0.08);
+  background: rgba(255, 255, 255, 0.04);
   border-radius: 5px;
 }
 .panel:not(.statistic-box) {

@@ -79,7 +79,7 @@ class HealingDone extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.CORE(0)}
-        value={formatNumber(this.total.effective / this.owner.fightDuration * 1000)}
+        value={formatThousands(this.total.effective / this.owner.fightDuration * 1000)}
         label="Healing per second"
         tooltip={`Total healing done: <b>${formatThousands(this.total.effective)}</b>`}
         footer={(

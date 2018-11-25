@@ -1,9 +1,10 @@
 import React from 'react';
 
-import Icon from 'common/Icon';
 import { formatPercentage } from 'common/format';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Statistic from 'interface/report/Results/statistics/Statistic';
+import Gauge from 'interface/report/Results/statistics/Gauge';
 
 class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
   static HEALING_ABILITIES_ON_GCD = [
@@ -58,41 +59,49 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
     const nonHealCastTimePercentage = this.activeTimePercentage - healingTimePercentage;
 
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(10)}
-        icon={<Icon icon="spell_mage_altertime" alt="Downtime" />}
-        value={`${formatPercentage(downtimePercentage)} %`}
-        label="Downtime"
-        tooltip={`Downtime is available time not used to cast anything (including not having your GCD rolling). This can be caused by delays between casting spells, latency, cast interrupting or just simply not casting anything (e.g. due to movement/stunned).<br/>
-        <li>You spent <b>${formatPercentage(healingTimePercentage)}%</b> of your time casting heals.</li>
-        <li>You spent <b>${formatPercentage(nonHealCastTimePercentage)}%</b> of your time casting non-healing spells.</li>
-        <li>You spent <b>${formatPercentage(downtimePercentage)}%</b> of your time casting nothing at all.</li>
-        `}
-        footer={(
-          <div className="statistic-bar">
-            <div
-              className="stat-health-bg"
-              style={{ width: `${healingTimePercentage * 100}%` }}
-              data-tip={`You spent <b>${formatPercentage(healingTimePercentage)}%</b> of your time casting heals.`}
-            >
-              <img src={this.constructor.icons.healingTime} alt="Healing time" />
-            </div>
-            <div
-              className="Druid-bg"
-              style={{ width: `${nonHealCastTimePercentage * 100}%` }}
-              data-tip={`You spent <b>${formatPercentage(nonHealCastTimePercentage)}%</b> of your time casting non-healing spells.`}
-            >
-              <img src={this.constructor.icons.activeTime} alt="Non-heal cast time" />
-            </div>
-            <div
-              className="remainder DeathKnight-bg"
-              data-tip={`You spent <b>${formatPercentage(downtimePercentage)}%</b> of your time casting nothing at all.`}
-            >
-              <img src={this.constructor.icons.downtime} alt="Downtime" />
-            </div>
-          </div>
-        )}
-      />
+      >
+        <label>Active time</label>
+
+        <Gauge value={1 - downtimePercentage} />
+      </Statistic>
+
+      // <StatisticBox
+      //   position={STATISTIC_ORDER.CORE(10)}
+      //   icon={<Icon icon="spell_mage_altertime" alt="Downtime" />}
+      //   value={`${formatPercentage(downtimePercentage)} %`}
+      //   label="Downtime"
+      //   tooltip={`Downtime is available time not used to cast anything (including not having your GCD rolling). This can be caused by delays between casting spells, latency, cast interrupting or just simply not casting anything (e.g. due to movement/stunned).<br/>
+      //   <li>You spent <b>${formatPercentage(healingTimePercentage)}%</b> of your time casting heals.</li>
+      //   <li>You spent <b>${formatPercentage(nonHealCastTimePercentage)}%</b> of your time casting non-healing spells.</li>
+      //   <li>You spent <b>${formatPercentage(downtimePercentage)}%</b> of your time casting nothing at all.</li>
+      //   `}
+      //   footer={(
+      //     <div className="statistic-bar">
+      //       <div
+      //         className="stat-health-bg"
+      //         style={{ width: `${healingTimePercentage * 100}%` }}
+      //         data-tip={`You spent <b>${formatPercentage(healingTimePercentage)}%</b> of your time casting heals.`}
+      //       >
+      //         <img src={this.constructor.icons.healingTime} alt="Healing time" />
+      //       </div>
+      //       <div
+      //         className="Druid-bg"
+      //         style={{ width: `${nonHealCastTimePercentage * 100}%` }}
+      //         data-tip={`You spent <b>${formatPercentage(nonHealCastTimePercentage)}%</b> of your time casting non-healing spells.`}
+      //       >
+      //         <img src={this.constructor.icons.activeTime} alt="Non-heal cast time" />
+      //       </div>
+      //       <div
+      //         className="remainder DeathKnight-bg"
+      //         data-tip={`You spent <b>${formatPercentage(downtimePercentage)}%</b> of your time casting nothing at all.`}
+      //       >
+      //         <img src={this.constructor.icons.downtime} alt="Downtime" />
+      //       </div>
+      //     </div>
+      //   )}
+      // />
     );
   }
 
@@ -122,17 +131,17 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
   suggestions(when) {
     when(this.nonHealingTimeSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest('Your non healing time can be improved. Try to reduce the amount of time you\'re not healing, for example by reducing the delay between casting spells, moving during the GCD and if you have to move try to continue healing with instant spells.')
+        return suggest('Your time spent healing can be improved. Try to reduce the amount of time you\'re not healing, for example by reducing the delay between casting spells, moving during the GCD and if you have to move try to continue healing with instant spells.')
           .icon('petbattle_health-down')
-          .actual(`${formatPercentage(actual)}% non healing time`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`);
+          .actual(`${1 - formatPercentage(actual)}% time spent healing`)
+          .recommended(`>${formatPercentage(1 - recommended)}% is recommended`);
       });
     when(this.downtimeSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest('Your downtime can be improved. Try to reduce your downtime, for example by reducing the delay between casting spells and when you\'re not healing try to contribute some damage.')
+        return suggest('Your active time can be improved. Try to reduce your downtime, for example by reducing the delay between casting spells and when you\'re not healing try to contribute some damage.')
           .icon('spell_mage_altertime')
-          .actual(`${formatPercentage(actual)}% downtime`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`);
+          .actual(`${formatPercentage(1 - actual)}% active time`)
+          .recommended(`>${formatPercentage(1 - recommended)}% is recommended`);
       });
   }
 }
