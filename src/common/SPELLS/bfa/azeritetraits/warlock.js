@@ -46,4 +46,14 @@ export default {
     name: 'Forbidden Knowledge',
     icon: 'inv_offhand_hyjal_d_01',
   },
+  SUPREME_COMMANDER: {
+    id: 279878,
+    name: 'Supreme Commander',
+    icon: 'inv_summondemonictyrant',
+  },
+  SUPREME_COMMANDER_BUFF: {
+    id: 279885,
+    name: 'Supreme Commander',
+    icon: 'inv_summondemonictyrant',
+  },
 };
