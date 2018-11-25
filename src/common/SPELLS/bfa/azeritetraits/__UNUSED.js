@@ -349,11 +349,6 @@ export default {
     name: 'Flashing Fangs',
     icon: 'ability_hunter_cobrashot',
   },
-  FLASHPOINT: {
-    id: 275425,
-    name: 'Flashpoint',
-    icon: 'spell_fire_immolation',
-  },
   FOOTPAD: {
     id: 274695,
     name: 'Footpad',

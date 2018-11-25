@@ -63,4 +63,15 @@ export default {
     name: 'Supreme Commander',
     icon: 'inv_summondemonictyrant',
   },
+
+  FLASHPOINT: {
+    id: 275425,
+    name: 'Flashpoint',
+    icon: 'spell_fire_immolation',
+  },
+  FLASHPOINT_BUFF: {
+    id: 275429,
+    name: 'Flashpoint',
+    icon: 'spell_fire_immolation',
+  },
 };
