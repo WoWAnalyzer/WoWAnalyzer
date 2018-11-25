@@ -63,4 +63,15 @@ export default {
     name: 'Supreme Commander',
     icon: 'inv_summondemonictyrant',
   },
+
+  ROLLING_HAVOC: {
+    id: 278747,
+    name: 'Rolling Havoc',
+    icon: 'warlock_pvp_banehavoc',
+  },
+  ROLLING_HAVOC_BUFF: {
+    id: 278931,
+    name: 'Rolling Havoc',
+    icon: 'warlock_pvp_banehavoc',
+  },
 };
