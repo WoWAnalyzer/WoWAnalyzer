@@ -5,11 +5,7 @@
  */
 
 export default {
-  EXPLOSIVE_POTENTIAL: { // buff
-    id: 275398,
-    name: 'Explosive Potential',
-    icon: 'inv__implosion',
-  },
+  // Affliction Azerite traits and effects
   CASCADING_CALAMITY: {
     id: 275372,
     name: 'Cascading Calamity',
@@ -20,32 +16,32 @@ export default {
     name: 'Wracking Brilliance',
     icon: 'spell_shadow_felmending',
   },
-  DREADFUL_CALLING:{
+  DREADFUL_CALLING: {
     id: 278727,
     name: 'Dreadful Calling',
     icon: 'inv_beholderwarlock',
   },
+  SUDDEN_ONSET: {
+    id: 278721,
+    name: 'Sudden Onset',
+    icon: 'spell_shadow_curseofsargeras',
+  },
 
-
-  SHADOWS_BITE: {
-    id: 272944,
-    name: 'Shadow\'s Bite',
-    icon: 'spell_shadow_painspike',
+  // Demonology Azerite traits and effects
+  DEMONIC_METEOR: {
+    id: 278737,
+    name: 'Demonic Meteor',
+    icon: 'ability_warlock_handofguldan',
   },
-  SHADOWS_BITE_BUFF: {
-    id: 272945,
-    name: 'Shadow\'s Bite',
-    icon: 'spell_shadow_painspike',
+  EXPLOSIVE_POTENTIAL: {
+    id: 275395,
+    name: 'Explosive Potential',
+    icon: 'inv__implosion',
   },
-  FORBIDDEN_KNOWLEDGE: {
-    id: 278738,
-    name: 'Forbidden Knowledge',
-    icon: 'inv_offhand_hyjal_d_01',
-  },
-  FORBIDDEN_KNOWLEDGE_BUFF: {
-    id: 279666,
-    name: 'Forbidden Knowledge',
-    icon: 'inv_offhand_hyjal_d_01',
+  EXPLOSIVE_POTENTIAL_BUFF: { // buff
+    id: 275398,
+    name: 'Explosive Potential',
+    icon: 'inv__implosion',
   },
   UMBRAL_BLAZE: {
     id: 273523,
@@ -66,5 +62,25 @@ export default {
     id: 279885,
     name: 'Supreme Commander',
     icon: 'inv_summondemonictyrant',
+  },
+  SHADOWS_BITE: {
+    id: 272944,
+    name: 'Shadow\'s Bite',
+    icon: 'spell_shadow_painspike',
+  },
+  SHADOWS_BITE_BUFF: {
+    id: 272945,
+    name: 'Shadow\'s Bite',
+    icon: 'spell_shadow_painspike',
+  },
+  FORBIDDEN_KNOWLEDGE: {
+    id: 278738,
+    name: 'Forbidden Knowledge',
+    icon: 'inv_offhand_hyjal_d_01',
+  },
+  FORBIDDEN_KNOWLEDGE_BUFF: {
+    id: 279666,
+    name: 'Forbidden Knowledge',
+    icon: 'inv_offhand_hyjal_d_01',
   },
 };
