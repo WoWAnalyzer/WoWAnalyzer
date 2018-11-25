@@ -25,7 +25,16 @@ export default {
     name: 'Dreadful Calling',
     icon: 'inv_beholderwarlock',
   },
-
+  UMBRAL_BLAZE: {
+    id: 273523,
+    name: 'Umbral Blaze',
+    icon: 'ability_warlock_everlastingaffliction',
+  },
+  UMBRAL_BLAZE_DEBUFF: {
+    id: 273526,
+    name: 'Umbral Blaze',
+    icon: 'ability_warlock_everlastingaffliction',
+  },
   SUPREME_COMMANDER: {
     id: 279878,
     name: 'Supreme Commander',
