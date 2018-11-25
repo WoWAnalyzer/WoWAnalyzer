@@ -26,6 +26,7 @@ export default {
     icon: 'inv_beholderwarlock',
   },
 
+
   SHADOWS_BITE: {
     id: 272944,
     name: 'Shadow\'s Bite',
@@ -45,6 +46,16 @@ export default {
     id: 279666,
     name: 'Forbidden Knowledge',
     icon: 'inv_offhand_hyjal_d_01',
+  },
+  UMBRAL_BLAZE: {
+    id: 273523,
+    name: 'Umbral Blaze',
+    icon: 'ability_warlock_everlastingaffliction',
+  },
+  UMBRAL_BLAZE_DEBUFF: {
+    id: 273526,
+    name: 'Umbral Blaze',
+    icon: 'ability_warlock_everlastingaffliction',
   },
   SUPREME_COMMANDER: {
     id: 279878,

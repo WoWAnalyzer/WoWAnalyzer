@@ -38,6 +38,7 @@ import NetherPortal from './modules/talents/NetherPortal';
 import ShadowsBiteForbiddenKnowledgeCore from './modules/azerite/ShadowsBiteForbiddenKnowledgeCore';
 import ShadowsBite from './modules/azerite/ShadowsBite';
 import ForbiddenKnowledge from './modules/azerite/ForbiddenKnowledge';
+import UmbralBlaze from './modules/azerite/UmbralBlaze';
 import SupremeCommander from './modules/azerite/SupremeCommander';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -82,7 +83,9 @@ class CombatLogParser extends CoreCombatLogParser {
     shadowsBite: ShadowsBite,
     forbiddenKnowledge: ForbiddenKnowledge,
     supremeCommander: SupremeCommander,
-
+    umbralBlaze: UmbralBlaze,
+    supremeCommander: SupremeCommander,
+    
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],
   };
