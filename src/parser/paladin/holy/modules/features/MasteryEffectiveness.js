@@ -12,7 +12,7 @@ import MasteryRadiusImage from 'interface/images/mastery-radius.png';
 import PlayerBreakdownTab from 'interface/others/PlayerBreakdownTab';
 
 import BeaconTargets from '../beacons/BeaconTargets';
-import { ABILITIES_AFFECTED_BY_MASTERY, BEACON_TYPES } from '../../constants';
+import { ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
 
 const debug = false;
 
@@ -24,29 +24,12 @@ class MasteryEffectiveness extends Analyzer {
   };
 
   lastPlayerPositionUpdate = null;
-  /** @type {object} With BotLB this will be the position of our beacon target. */
-  lastBeaconPositionUpdate = null;
 
   masteryHealEvents = [];
-
-  hasBeaconOfTheLightbringer = false;
-  constructor(...args) {
-    super(...args);
-    this.hasBeaconOfTheLightbringer = this.selectedCombatant.hasTalent(BEACON_TYPES.BEACON_OF_THE_LIGHTBRINGER);
-  }
 
   on_cast(event) {
     if (this.owner.byPlayer(event)) {
       this.updatePlayerPosition(event);
-    }
-    if (this.hasBeaconOfTheLightbringer) {
-      const beaconPlayerId = this.beaconOfTheLightbringerTarget;
-      if (beaconPlayerId === null) {
-        // No (valid) target so discard position to prevent an old position from being considered
-        this.lastBeaconPositionUpdate = null;
-      } else if (this.owner.byPlayer(event, beaconPlayerId)) {
-        this.updateBeaconPosition(event);
-      }
     }
   }
   on_damage(event) {
@@ -54,28 +37,10 @@ class MasteryEffectiveness extends Analyzer {
       // Damage coordinates are for the target, so they are only accurate when done TO player
       this.updatePlayerPosition(event);
     }
-    if (this.hasBeaconOfTheLightbringer) {
-      const beaconPlayerId = this.beaconOfTheLightbringerTarget;
-      if (beaconPlayerId === null) {
-        // No (valid) target so discard position to prevent an old position from being considered
-        this.lastBeaconPositionUpdate = null;
-      } else if (this.owner.toPlayer(event, beaconPlayerId)) {
-        this.updateBeaconPosition(event);
-      }
-    }
   }
   on_energize(event) {
     if (this.owner.toPlayer(event)) {
       this.updatePlayerPosition(event);
-    }
-    if (this.hasBeaconOfTheLightbringer) {
-      const beaconPlayerId = this.beaconOfTheLightbringerTarget;
-      if (beaconPlayerId === null) {
-        // No (valid) target so discard position to prevent an old position from being considered
-        this.lastBeaconPositionUpdate = null;
-      } else if (this.owner.toPlayer(event, beaconPlayerId)) {
-        this.updateBeaconPosition(event);
-      }
     }
   }
   on_heal(event) {
@@ -83,31 +48,10 @@ class MasteryEffectiveness extends Analyzer {
       // Do this before checking if this was done by player so that self-heals will apply full mastery properly
       this.updatePlayerPosition(event);
     }
-    if (this.hasBeaconOfTheLightbringer) {
-      const beaconPlayerId = this.beaconOfTheLightbringerTarget;
-      if (beaconPlayerId === null) {
-        // No (valid) target so discard position to prevent an old position from being considered
-        this.lastBeaconPositionUpdate = null;
-      } else if (this.owner.toPlayer(event, beaconPlayerId)) {
-        this.updateBeaconPosition(event);
-      }
-    }
 
     if (this.owner.byPlayer(event)) {
       this.processForMasteryEffectiveness(event);
     }
-  }
-
-  get beaconOfTheLightbringerTarget() {
-    const beaconTargets = this.beaconTargets;
-    if (beaconTargets.numBeaconsActive === 0) {
-      debug && console.log('No beacon active right now');
-    } else if (beaconTargets.numBeaconsActive === 1) {
-      return beaconTargets.currentBeaconTargets[0];
-    } else {
-      debug && console.error('Expected a single beacon to be active since we have BotLB, found', beaconTargets.numBeaconsActive);
-    }
-    return null;
   }
 
   processForMasteryEffectiveness(event) {
@@ -155,12 +99,7 @@ class MasteryEffectiveness extends Analyzer {
     }
   }
   getDistanceForMastery(event) {
-    let distance = this.getPlayerDistance(event);
-    if (this.hasBeaconOfTheLightbringer && this.lastBeaconPositionUpdate) {
-      distance = Math.min(distance, this.getBeaconDistance(event));
-    }
-
-    return distance;
+    return this.getPlayerDistance(event);
   }
 
   updatePlayerPosition(event) {
@@ -169,13 +108,6 @@ class MasteryEffectiveness extends Analyzer {
     }
     this.verifyPlayerPositionUpdate(event, this.lastPlayerPositionUpdate, 'player');
     this.lastPlayerPositionUpdate = event;
-  }
-  updateBeaconPosition(event) {
-    if (!event.x || !event.y) {
-      return;
-    }
-    this.verifyPlayerPositionUpdate(event, this.lastBeaconPositionUpdate, 'beacon');
-    this.lastBeaconPositionUpdate = event;
   }
   verifyPlayerPositionUpdate(event, lastPositionUpdate, forWho) {
     if (!event.x || !event.y || !lastPositionUpdate) {
@@ -191,9 +123,6 @@ class MasteryEffectiveness extends Analyzer {
 
   getPlayerDistance(event) {
     return this.constructor.calculateDistance(this.lastPlayerPositionUpdate.x, this.lastPlayerPositionUpdate.y, event.x, event.y);
-  }
-  getBeaconDistance(event) {
-    return this.constructor.calculateDistance(this.lastBeaconPositionUpdate.x, this.lastBeaconPositionUpdate.y, event.x, event.y);
   }
   static calculateDistance(x1, y1, x2, y2) {
     return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)) / 100;
