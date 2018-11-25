@@ -21,7 +21,7 @@ class ProtectionPaladinChecklist extends React.PureComponent{
   };
 
   render(){
-    const {combatant, castEfficiency, thresholds} = this.props;
+    const {castEfficiency, thresholds} = this.props;
 
     const AbilityRequirement = props => (
       <GenericCastEfficiencyRequirement
@@ -43,7 +43,7 @@ class ProtectionPaladinChecklist extends React.PureComponent{
             name={(
               <>Bad <SpellLink id={this.props.extras.hotrAbility.id} /> casts</>
             )}
-            tooltip='This is a <em>filler</em> ability and should only be cast while your other spells are on cooldown.'
+            tooltip="This is a <em>filler</em> ability and should only be cast while your other spells are on cooldown."
             thresholds={thresholds.hotrBadCasts}
           />
         </Rule>
