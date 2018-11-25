@@ -417,10 +417,10 @@ class BaseHealerStatValues extends Analyzer {
     const results = this._prepareResults();
     return (
       <StatisticWrapper position={STATISTIC_ORDER.CORE(11)}>
-        <div className="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+        <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
           <div className="panel items">
             <div className="panel-heading">
-              <h2>
+              <h4>
                 <dfn data-tip="These stat values are calculated using the actual circumstances of this encounter. These values reveal the value of the last 1 rating of each stat, they may not necessarily be the best way to gear. The stat values are likely to differ based on fight, raid size, items used, talents chosen, etc.<br /><br />DPS gains are not included in any of the stat values.">Stat Values</dfn>
 
                 {this.moreInformationLink && (
@@ -428,7 +428,7 @@ class BaseHealerStatValues extends Analyzer {
                     More info
                   </a>
                 )}
-              </h2>
+              </h4>
             </div>
             <div className="panel-body" style={{ padding: 0 }}>
               <table className="data-table compact">

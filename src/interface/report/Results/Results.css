@@ -1,14 +1,9 @@
-.statistics {
-  margin-left: -10px;
-}
 .statistics-section-title {
   margin-bottom: 20px;
 }
-.statistics-section-title h1 {
+.statistics-section-title h4 {
   display: inline-block;
   margin: 0;
-  text-indent: 12px;
-  font-size: 20px;
   line-height: inherit;
   text-transform: uppercase;
   font-weight: 400;

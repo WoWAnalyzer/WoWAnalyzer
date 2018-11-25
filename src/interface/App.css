@@ -90,13 +90,22 @@ a.hidden-link {
   color: #ccc;
 }
 h1 {
-  margin-top: 0;
-  margin-bottom: 1em;
-  line-height: 1.1;
-  opacity: 0.9;
-  font-variant: small-caps;
-  font-weight: 600;
-  font-size: 24px;
+  font-weight: bold;
+  font-size: 32px;
+  line-height: 44px;
+}
+h2 {
+  font-size: 28px;
+  line-height: 36px;
+}
+h3 {
+  font-size: 20px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
 }
 hr {
   margin: 15px 0;

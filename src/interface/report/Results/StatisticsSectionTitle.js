@@ -15,9 +15,9 @@ class StatisticsSectionTitle extends React.PureComponent {
 
     return (
       <div className="statistics-section-title">
-        <h1>
+        <h4>
           {children}
-        </h1>
+        </h4>
         {rightAddon && (
           <div className="pull-right">
             {rightAddon}
