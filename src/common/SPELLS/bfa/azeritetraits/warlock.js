@@ -28,6 +28,16 @@ export default {
     name: 'Demonic Meteor',
     icon: 'ability_warlock_handofguldan',
   },
+  EXPLOSIVE_POTENTIAL: {
+    id: 275395,
+    name: 'Explosive Potential',
+    icon: 'inv__implosion',
+  },
+  EXPLOSIVE_POTENTIAL_BUFF: { // buff
+    id: 275398,
+    name: 'Explosive Potential',
+    icon: 'inv__implosion',
+  },
   UMBRAL_BLAZE: {
     id: 273523,
     name: 'Umbral Blaze',
