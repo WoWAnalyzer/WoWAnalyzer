@@ -2,13 +2,14 @@ import React from 'react';
 import { Trans, t } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { i18n } from 'interface/RootLocalizationProvider';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import MasteryRadiusImage from 'interface/images/mastery-radius.png';
+import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Statistic from 'interface/report/Results/statistics/Statistic';
+import Radar from 'interface/report/Results/statistics/Radar';
 import PlayerBreakdownTab from 'interface/others/PlayerBreakdownTab';
 
 import BeaconTargets from '../beacons/BeaconTargets';
@@ -179,13 +180,31 @@ class MasteryEffectiveness extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(10)}
-        icon={<img src={MasteryRadiusImage} style={{ border: 0 }} alt={i18n._(t`Mastery effectiveness`)} />}
-        value={`${formatPercentage(this.overallMasteryEffectiveness)} %`}
-        label={i18n._(t`Mastery effectiveness`)}
-        tooltip={`Average distance: ${formatNumber(this.distanceSum / this.distanceCount)} yards`}
-      />
+      >
+        <label><Trans>Mastery effectiveness</Trans></label>
+        <div className="value">
+          {formatPercentage(this.overallMasteryEffectiveness, 0)}%
+        </div>
+
+        <div
+          style={{
+            position: 'absolute',
+            top: 12,
+            right: 0,
+            textAlign: 'center',
+          }}
+        >
+          <Radar
+            distance={this.distanceSum / this.distanceCount}
+            style={{
+              display: 'inline-block',
+            }}
+          />
+          <div style={{ opacity: 0.5, lineHeight: 1, marginTop: -4, fontSize: 13 }}>Average distance</div>
+        </div>
+      </Statistic>
     );
   }
 

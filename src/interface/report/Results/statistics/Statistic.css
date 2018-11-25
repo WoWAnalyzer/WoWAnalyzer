@@ -7,6 +7,7 @@
 }
 .statistic.panel .panel-body {
   padding: 0;
+  position: relative; /* a lot of children need relative rendering */
 }
 .statistic label {
   color: #b3adad;
@@ -19,6 +20,12 @@
   text-align: inherit;
   border-radius: inherit;
   font-weight: 200;
+}
+.statistic .value {
+  font-size: 2em;
+  font-weight: 400;
+  line-height: 1.4;
+  color: #d8d3d3;
 }
 .statistic .text-muted {
   color: #777;
