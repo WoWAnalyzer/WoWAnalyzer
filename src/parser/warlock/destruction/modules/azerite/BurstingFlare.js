@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import EventFilter from 'parser/core/EventFilter';
 
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
@@ -37,12 +38,14 @@ class BurstingFlare extends Analyzer {
     }
     this.mastery = burstingFlareStats(this.selectedCombatant.traitsBySpellId[SPELLS.BURSTING_FLARE.id]);
     debug && this.log(`Total bonus from BF: ${this.mastery}`);
+
+    // by no chance I was able to get it working with CombatLogParser.finished and possibly Entities.changebuffstack
+    // not a clue why not but it just doesn't work (supposedly circular dependencies but the same code (at least with finished) works elsewhere, not here), this does
+    this.addEventListener(new EventFilter('changebuffstack').by(SELECTED_PLAYER).spell(SPELLS.BURSTING_FLARE_BUFF), this.onBurstingFlareChangeBuffStack);
+    this.addEventListener(new EventFilter('finished'), this.onFinished);
   }
 
-  on_byPlayer_changebuffstack(event) {
-    if (event.ability.guid !== SPELLS.BURSTING_FLARE_BUFF.id) {
-      return;
-    }
+  onBurstingFlareChangeBuffStack(event) {
     debug && this.log(`BF change buffstack, last timestamp ${this._lastChangeTimestamp}, old stacks ${event.oldStacks}, new stacks ${event.newStacks}`);
     if (this._lastChangeTimestamp && event.oldStacks !== 0) {
       const uptimeOnStack = event.timestamp - this._lastChangeTimestamp;
@@ -54,7 +57,7 @@ class BurstingFlare extends Analyzer {
     this._lastChangeTimestamp = event.timestamp;
   }
 
-  on_finished(event) {
+  onFinished(event) {
     if (this._currentStacks !== 0) {
       const uptimeOnStack = event.timestamp - this._lastChangeTimestamp;
       debug && this.log(`Fight ended, adding rest of BF uptime on ${this._currentStacks} stacks: ${uptimeOnStack}`);
