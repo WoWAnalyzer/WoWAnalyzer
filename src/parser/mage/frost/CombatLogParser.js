@@ -23,6 +23,7 @@ import Whiteout from './modules/traits/Whiteout';
 import FrozenOrb from './modules/cooldowns/FrozenOrb';
 import ColdSnap from './modules/cooldowns/ColdSnap';
 import WaterElemental from './modules/features/WaterElemental';
+import LonelyWinter from './modules/talents/LonelyWinter';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -33,16 +34,17 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     cancelledCasts: CancelledCasts,
     cooldownThroughputTracker: CooldownThroughputTracker,
-	  wintersChill: WintersChill,
-	  brainFreeze: BrainFreeze,
+    wintersChill: WintersChill,
+    brainFreeze: BrainFreeze,
     iceLance: IceLance,
     damageDone: [DamageDone, { showStatistic: true }],
     arcaneIntellect: ArcaneIntellect,
-    waterElemental: WaterElemental,
+    waterElemental: WaterElemental,    
 
     // region Talents (T30 and T75 don't need analyzers)
     // T15 TODO - Ice Nova, Lonely Winter
     boneChilling: BoneChilling,
+    lonelyWinter: LonelyWinter,
 
     // T45 TODO - Incanters Flow
     mirrorImage: MirrorImage,

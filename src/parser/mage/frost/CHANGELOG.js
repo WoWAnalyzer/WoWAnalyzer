@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-11-24'),
+    changes: <>Added a statistics module for <SpellLink id={SPELLS.LONELY_WINTER_TALENT.id} />.</>,
+    contributors: [Dambroda],
+  },
+  {
     date: new Date('2018-11-18'),
     changes: <>Removed <SpellLink id={SPELLS.BONE_CHILLING_TALENT.id} /> uptime from checklist and updated the module to calculate damage instead of uptime.</>,
     contributors: [Dambroda],
