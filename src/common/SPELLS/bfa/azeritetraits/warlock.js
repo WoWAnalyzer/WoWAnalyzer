@@ -63,4 +63,16 @@ export default {
     name: 'Supreme Commander',
     icon: 'inv_summondemonictyrant',
   },
+
+  // Destruction Azerite traits and effects
+  ACCELERANT: {
+    id: 272955,
+    name: 'Accelerant',
+    icon: 'spell_shadow_rainoffire',
+  },
+  ACCELERANT_BUFF: {
+    id: 272957,
+    name: 'Accelerant',
+    icon: 'spell_shadow_rainoffire',
+  },
 };
