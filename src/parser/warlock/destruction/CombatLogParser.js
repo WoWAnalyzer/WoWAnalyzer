@@ -34,6 +34,8 @@ import SoulConduit from './modules/talents/SoulConduit';
 import ChannelDemonfire from './modules/talents/ChannelDemonfire';
 import Talents from './modules/talents';
 
+import BurstingFlare from './modules/azerite/BurstingFlare';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features
@@ -72,6 +74,9 @@ class CombatLogParser extends CoreCombatLogParser {
     soulConduit: SoulConduit,
     channelDemonfire: ChannelDemonfire,
     talents: Talents,
+
+    // Azerite traits
+    burstingFlare: BurstingFlare,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],

@@ -30,6 +30,7 @@ import { STAT_TRACKER as CASCADING_CALAMITY_STATS } from 'parser/warlock/afflict
 import { STAT_TRACKER as WRACKING_BRILLIANCE_STATS } from 'parser/warlock/affliction/modules/azerite/WrackingBrilliance';
 import { STAT_TRACKER as EXPLOSIVE_POTENTIAL_STATS } from 'parser/warlock/demonology/modules/azerite/ExplosivePotential';
 import { STAT_TRACKER as SUPREME_COMMANDER_STATS } from 'parser/warlock/demonology/modules/azerite/SupremeCommander';
+import { STAT_TRACKER as BURSTING_FLARE_STATS } from 'parser/warlock/destruction/modules/azerite/BurstingFlare';
 
 const debug = false;
 
@@ -296,6 +297,7 @@ class StatTracker extends Analyzer {
     [SPELLS.CASCADING_CALAMITY_BUFF.id]: CASCADING_CALAMITY_STATS,
     [SPELLS.WRACKING_BRILLIANCE_BUFF.id]: WRACKING_BRILLIANCE_STATS,
     [SPELLS.SUPREME_COMMANDER_BUFF.id]: SUPREME_COMMANDER_STATS,
+    [SPELLS.BURSTING_FLARE_BUFF.id]: BURSTING_FLARE_STATS,
     // endregion
     //region Death Knight
     [SPELLS.BONES_OF_THE_DAMNED_BUFF.id]: BOFD_ARMOR, // Armor when Bones of the Damend trait is up
