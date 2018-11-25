@@ -2,7 +2,7 @@ import React from 'react';
 import { Trans, t } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatTracker from 'parser/shared/modules/StatTracker';
@@ -24,6 +24,8 @@ class MasteryEffectiveness extends Analyzer {
   };
 
   lastPlayerPositionUpdate = null;
+  distanceSum = 0;
+  distanceCount = 0;
 
   masteryHealEvents = [];
 
@@ -74,7 +76,9 @@ class MasteryEffectiveness extends Analyzer {
       //   `healing:${event.amount},distance:${distance},isRuleOfLawActive:${isRuleOfLawActive},masteryEffectiveness:${masteryEffectiveness}`,
       //   `playerMasteryPerc:${this.playerMasteryPerc}`, event);
 
-      const distance = this.getDistanceForMastery(event);
+      const distance = this.getPlayerDistance(event);
+      this.distanceSum += distance;
+      this.distanceCount += 1;
       const isRuleOfLawActive = this.selectedCombatant.hasBuff(SPELLS.RULE_OF_LAW_TALENT.id, event.timestamp);
       // We calculate the mastery effectiveness of this *one* heal
       const masteryEffectiveness = this.constructor.calculateMasteryEffectiveness(distance, isRuleOfLawActive);
@@ -97,9 +101,6 @@ class MasteryEffectiveness extends Analyzer {
       // Update the event information to include the heal's mastery effectiveness in case we want to use this elsewhere (hint: StatValues)
       event.masteryEffectiveness = masteryEffectiveness;
     }
-  }
-  getDistanceForMastery(event) {
-    return this.getPlayerDistance(event);
   }
 
   updatePlayerPosition(event) {
@@ -183,6 +184,7 @@ class MasteryEffectiveness extends Analyzer {
         icon={<img src={MasteryRadiusImage} style={{ border: 0 }} alt={i18n._(t`Mastery effectiveness`)} />}
         value={`${formatPercentage(this.overallMasteryEffectiveness)} %`}
         label={i18n._(t`Mastery effectiveness`)}
+        tooltip={`Average distance: ${formatNumber(this.distanceSum / this.distanceCount)} yards`}
       />
     );
   }
