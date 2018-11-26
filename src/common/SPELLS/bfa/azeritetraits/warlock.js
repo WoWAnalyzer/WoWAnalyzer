@@ -21,6 +21,11 @@ export default {
     name: 'Dreadful Calling',
     icon: 'inv_beholderwarlock',
   },
+  INEVITABLE_DEMISE: {
+    id: 273521,
+    name: 'Inevitable Demise',
+    icon: 'spell_shadow_abominationexplosion',
+  },
   SUDDEN_ONSET: {
     id: 278721,
     name: 'Sudden Onset',
