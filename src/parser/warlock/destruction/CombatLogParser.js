@@ -34,6 +34,7 @@ import SoulConduit from './modules/talents/SoulConduit';
 import ChannelDemonfire from './modules/talents/ChannelDemonfire';
 import Talents from './modules/talents';
 
+import Flashpoint from './modules/azerite/Flashpoint';
 import Accelerant from './modules/azerite/Accelerant';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -77,6 +78,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Azerite traits
     accelerant: Accelerant,
+    flashpoint: Flashpoint,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],
