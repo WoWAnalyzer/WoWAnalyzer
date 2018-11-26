@@ -35,6 +35,7 @@ import ChannelDemonfire from './modules/talents/ChannelDemonfire';
 import Talents from './modules/talents';
 
 import Flashpoint from './modules/azerite/Flashpoint';
+import Accelerant from './modules/azerite/Accelerant';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -75,6 +76,8 @@ class CombatLogParser extends CoreCombatLogParser {
     channelDemonfire: ChannelDemonfire,
     talents: Talents,
 
+    // Azerite traits
+    accelerant: Accelerant,
     flashpoint: Flashpoint,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown

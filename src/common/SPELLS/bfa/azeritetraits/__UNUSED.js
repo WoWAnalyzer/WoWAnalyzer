@@ -459,11 +459,6 @@ export default {
     name: 'Indomitable Justice',
     icon: 'spell_holy_righteousfury',
   },
-  INEVITABLE_DEMISE: {
-    id: 273525,
-    name: 'Inevitable Demise',
-    icon: 'spell_shadow_abominationexplosion',
-  },
   INFERNAL_ARMOR: {
     id: 273236,
     name: 'Infernal Armor',
