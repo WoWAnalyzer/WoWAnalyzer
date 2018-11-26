@@ -7,6 +7,7 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import SpellUsable from './modules/features/SpellUsable';
 
+<<<<<<< HEAD
 import EnrageUptime from './modules/buffdebuff/EnrageUptime';
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -14,6 +15,9 @@ import FrothingBerserkerUptime from './modules/buffdebuff/FrothingBerserkerUptim
 <<<<<<< HEAD
 import Juggernaut from './modules/buffdebuff/Juggernaut';
 =======
+=======
+import Enrage from './modules/buffdebuff/Enrage';
+>>>>>>> 26badb935... Rewrite Enrage, add stats
 
 import FrothingBerserker from './modules/talents/FrothingBerserker';
 >>>>>>> d191d036c... Capitalization
@@ -40,6 +44,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     spellUsable: SpellUsable,
 
+<<<<<<< HEAD
     enrageUptime: EnrageUptime,
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -47,6 +52,9 @@ class CombatLogParser extends CoreCombatLogParser {
 <<<<<<< HEAD
     juggernaut: Juggernaut,
 =======
+=======
+    enrageUptime: Enrage,
+>>>>>>> 26badb935... Rewrite Enrage, add stats
     //frothingBerserkerUptime: FrothingBerserkerUptime,
 
     frothingBerserker: FrothingBerserker,

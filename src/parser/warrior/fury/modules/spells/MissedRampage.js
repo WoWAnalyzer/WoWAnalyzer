@@ -39,14 +39,14 @@ class MissedRampage extends Analyzer {
     if (!rage) {
       return;
     }
-    console.log("HasFB:" + this.hasFB);
+
     if (rage >= 90) {
       this.missedRampages += 1;
     }
   }
 
   get suggestionThresholds() {
-    if (this.hasFB === true) {
+    if (this.hasFB) {
       return {
         actual: this.missedRampages,
         isGreaterThan: {
