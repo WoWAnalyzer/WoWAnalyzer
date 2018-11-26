@@ -53,21 +53,21 @@ class PrePotion extends Analyzer {
   suggestions(when) {
     when(this.usedPrePotion).isFalse()
       .addSuggestion((suggest) => {
-        return suggest(<span>You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. Generally <ItemLink id={ITEMS.POTION_OF_THE_OLD_WAR.id} /> is recommended although <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> can be better in certain situations such as AOE encounters.</span>)
-          .icon(ITEMS.POTION_OF_THE_OLD_WAR.icon)
+        return suggest(<span>You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. By using a potion such as <ItemLink id={SPELLS.BATTLE_POTION_OF_STRENGTH.id} /> you increase your DPS significantly. </span>)
+          .icon(ITEMS.BATTLE_POTION_OF_STRENGTH.icon)
           .staticImportance(SUGGESTION_IMPORTANCE.AVERAGE);
       });
     when(this.usedSecondPotion).isFalse()
       .addSuggestion((suggest) => {          
-        return suggest(<span>You forgot to use a potion during combat. By using a potion during combat such as <ItemLink id={ITEMS.POTION_OF_THE_OLD_WAR.id} /> you increase your DPS significantly.</span>)
-          .icon(ITEMS.POTION_OF_THE_OLD_WAR.icon)
+        return suggest(<span>You forgot to use a potion during combat. By using a potion during combat such as <ItemLink id={ITEMS.BATTLE_POTION_OF_STRENGTH.id} /> you increase your DPS significantly.</span>)
+          .icon(ITEMS.BATTLE_POTION_OF_STRENGTH.icon)
           .staticImportance(SUGGESTION_IMPORTANCE.AVERAGE);
       });
-    // Ensure that potions were Potion of the Old War
-    when((this.usedPrePotion && this.prePotionId !== SPELLS.POTION_OF_THE_OLD_WAR.ID) || (this.secondPotionId !== SPELLS.POTION_OF_THE_OLD_WAR.id)).isTrue()
+    // Ensure that potions were Potion of Bursting Blood
+    when((this.usedPrePotion && this.prePotionId !== SPELLS.POTION_OF_BURSTING_BLOOD.ID) || (this.secondPotionId !== SPELLS.POTION_OF_BURSTING_BLOOD.id)).isTrue()
       .addSuggestion((suggest) => {
-        return suggest(<span>Generally <ItemLink id={ITEMS.POTION_OF_THE_OLD_WAR.id} /> is recommended although <ItemLink id={ITEMS.POTION_OF_PROLONGED_POWER.id} /> can be better in certain situations such as AOE encounters.</span>)
-        .icon(ITEMS.POTION_OF_THE_OLD_WAR.icon)
+        return suggest(<span>Generally <ItemLink id={ITEMS.POTION_OF_BURSTING_BLOOD.id} /> is recommended for single-target encounters, although <ItemLink id={ITEMS.BATTLE_POTION_OF_STRENGTH.id} /> can be better in certain situations such as AOE encounters.</span>)
+        .icon(ITEMS.BATTLE_POTION_OF_STRENGTH.icon)
         .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
     });
   }
