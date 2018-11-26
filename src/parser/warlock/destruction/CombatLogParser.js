@@ -35,6 +35,7 @@ import ChannelDemonfire from './modules/talents/ChannelDemonfire';
 import Talents from './modules/talents';
 
 import RollingHavoc from './modules/azerite/RollingHavoc';
+import BurstingFlare from './modules/azerite/BurstingFlare';
 import Flashpoint from './modules/azerite/Flashpoint';
 import Accelerant from './modules/azerite/Accelerant';
 
@@ -78,6 +79,7 @@ class CombatLogParser extends CoreCombatLogParser {
     talents: Talents,
 
     // Azerite traits
+    burstingFlare: BurstingFlare,
     accelerant: Accelerant,
     flashpoint: Flashpoint,
     rollingHavoc: RollingHavoc,
