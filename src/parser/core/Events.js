@@ -14,8 +14,8 @@ const Events = {
    * - ability: object of the ability/spell involved. Shape: { name, guid, type: I believe this is the magic school type, abilityIcon }
    * - resourceActor:
    * - classResources: array of resources (mana, energy, etc)
-   * - hitPoints:
-   * - maxHitPoints:
+   * - hitPoints: for healing these are the hitpoints AFTER the event's modifications are applied, for other events it might be before? you should check to make sure for damage, energize and such events
+   * - maxHitPoints: this max amount of hitpoints of the target
    * - attackPower:
    * - spellPower:
    * - x: x location on the map. See paladin/holy/modules/features/MasteryEffectiveness for an example module that uses this data.

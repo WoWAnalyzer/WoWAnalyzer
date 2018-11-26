@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-11-26'),
+    changes: <>Improved accuracy of mastery effectiveness by using an advanced algorithm to determine if a player would actually have had an increased chance of survival from a potential increase in mastery effectiveness.</>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-11-10'),
     changes: <>Fixed a crash when using <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} />.</>,
     contributors: [Zerotorescue],

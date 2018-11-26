@@ -62,7 +62,7 @@ class PlayerBreakdown extends React.Component {
               // We want the performance bar to show a full bar for whatever healing done percentage is highest to make
               // it easier to see relative amounts.
               const performanceBarHealingReceivedPercentage = player.healingFromMastery / highestHealingFromMastery;
-              const actualHealingReceivedPercentage = player.healingFromMastery / (report.totalHealingFromMastery || 1);
+              const actualHealingReceivedPercentage = player.healingFromMastery / (report.totalActualMasteryHealingDone || 1);
               const performanceBarMasteryEffectiveness = player.masteryEffectiveness / highestMasteryEffectiveness;
 
               return (
