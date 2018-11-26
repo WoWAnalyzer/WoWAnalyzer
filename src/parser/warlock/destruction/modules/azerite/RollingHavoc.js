@@ -1,7 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import EventFilter from 'parser/core/EventFilter';
+import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
@@ -37,34 +36,11 @@ class RollingHavoc extends Analyzer {
     }
     this.intellect = rollingHavocStats(this.selectedCombatant.traitsBySpellId[SPELLS.ROLLING_HAVOC.id]);
     debug && this.log(`Total bonus from RH: ${this.intellect}`);
-
-    // same issue as Bursting Flare
-    this.addEventListener(new EventFilter('changebuffstack').by(SELECTED_PLAYER).spell(SPELLS.ROLLING_HAVOC_BUFF), this.onRollingHavocChangeBuffStack);
-    this.addEventListener(new EventFilter('finished'), this.onFinished);
-  }
-
-  onRollingHavocChangeBuffStack(event) {
-    debug && this.log(`RH change buffstack, last timestamp ${this._lastChangeTimestamp}, old stacks ${event.oldStacks}, new stacks ${event.newStacks}`);
-    if (this._lastChangeTimestamp && event.oldStacks !== 0) {
-      const uptimeOnStack = event.timestamp - this._lastChangeTimestamp;
-      debug && this.log(`Uptime on old stack: ${uptimeOnStack}`);
-      this.totalIntellect += event.oldStacks * this.intellect * uptimeOnStack;
-      debug && this.log(`Total intellect increased to ${this.totalIntellect}`);
-    }
-    this._currentStacks = event.newStacks;
-    this._lastChangeTimestamp = event.timestamp;
-  }
-
-  onFinished(event) {
-    if (this._currentStacks !== 0) {
-      const uptimeOnStack = event.timestamp - this._lastChangeTimestamp;
-      debug && this.log(`Fight ended, adding rest of RH uptime on ${this._currentStacks} stacks: ${uptimeOnStack}`);
-      this.totalIntellect += this._currentStacks * this.intellect * uptimeOnStack;
-    }
   }
 
   get averageIntellect() {
-    return (this.totalIntellect / this.owner.fightDuration).toFixed(0);
+    const averageStacks = this.selectedCombatant.getStackWeightedBuffUptime(SPELLS.ROLLING_HAVOC_BUFF.id) / this.owner.fightDuration;
+    return (averageStacks * this.intellect).toFixed(0);
   }
 
   statistic() {
