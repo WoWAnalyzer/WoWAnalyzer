@@ -296,6 +296,12 @@ export default {
     name: 'Wracking Brilliance',
     icon: 'spell_shadow_felmending',
   },
+  INEVITABLE_DEMISE_BUFF: {
+    id: 273525,
+    name: 'Inevitable Demise',
+    icon: 'spell_shadow_abominationexplosion',
+  },
+
   // -----------
   // DEMONOLOGY
   // -----------
