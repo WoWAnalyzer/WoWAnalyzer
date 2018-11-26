@@ -62,6 +62,7 @@ const Radar = ({ distance, size, style, playerColor }) => {
           borderRadius: '50%',
           transform: 'translate(-50%, -50%)',
           background: playerColor,
+          pointerEvents: 'none',
         }}
       />
     </div>
