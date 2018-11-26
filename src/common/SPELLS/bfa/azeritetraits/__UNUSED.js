@@ -349,11 +349,6 @@ export default {
     name: 'Flashing Fangs',
     icon: 'ability_hunter_cobrashot',
   },
-  FLASHPOINT: {
-    id: 275425,
-    name: 'Flashpoint',
-    icon: 'spell_fire_immolation',
-  },
   FOOTPAD: {
     id: 274695,
     name: 'Footpad',
@@ -463,11 +458,6 @@ export default {
     id: 275496,
     name: 'Indomitable Justice',
     icon: 'spell_holy_righteousfury',
-  },
-  INEVITABLE_DEMISE: {
-    id: 273525,
-    name: 'Inevitable Demise',
-    icon: 'spell_shadow_abominationexplosion',
   },
   INFERNAL_ARMOR: {
     id: 273236,

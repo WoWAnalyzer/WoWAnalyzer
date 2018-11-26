@@ -21,6 +21,11 @@ export default {
     name: 'Dreadful Calling',
     icon: 'inv_beholderwarlock',
   },
+  INEVITABLE_DEMISE: {
+    id: 273521,
+    name: 'Inevitable Demise',
+    icon: 'spell_shadow_abominationexplosion',
+  },
   SUDDEN_ONSET: {
     id: 278721,
     name: 'Sudden Onset',
@@ -64,6 +69,27 @@ export default {
     icon: 'inv_summondemonictyrant',
   },
 
+  // Destruction Azerite traits and effects
+  ACCELERANT: {
+    id: 272955,
+    name: 'Accelerant',
+    icon: 'spell_shadow_rainoffire',
+  },
+  ACCELERANT_BUFF: {
+    id: 272957,
+    name: 'Accelerant',
+    icon: 'spell_shadow_rainoffire',
+  },
+  FLASHPOINT: {
+    id: 275425,
+    name: 'Flashpoint',
+    icon: 'spell_fire_immolation',
+  },
+  FLASHPOINT_BUFF: {
+    id: 275429,
+    name: 'Flashpoint',
+    icon: 'spell_fire_immolation',
+  },
   ROLLING_HAVOC: {
     id: 278747,
     name: 'Rolling Havoc',
