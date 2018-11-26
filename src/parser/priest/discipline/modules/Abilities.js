@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import CoreAbilities from 'parser/shared/modules/Abilities';
+import CoreAbilities from 'parser/core/modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -122,6 +122,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.RAPTURE,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
         },
@@ -182,6 +185,10 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.ANGELIC_FEATHER_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 20,
+        charges: 3,
+        gcd: {
+          base: 1500,
+        },
         enabled: combatant.hasTalent(SPELLS.ANGELIC_FEATHER_TALENT.id),
       },
       {

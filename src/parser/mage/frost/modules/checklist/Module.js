@@ -1,11 +1,10 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import BaseChecklist from 'parser/shared/modules/features/Checklist2/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist2/PreparationRuleAnalyzer';
 
-import BoneChilling from '../features/BoneChilling';
 import BrainFreeze from '../features/BrainFreeze';
 import GlacialSpike from '../features/GlacialSpike';
 import IceLance from '../features/IceLance';
@@ -20,11 +19,10 @@ import WaterElemental from '../features/WaterElemental';
 
 import Component from './Component';
 
-class Checklist extends Analyzer {
+class Checklist extends BaseChecklist {
   static dependencies = {
     combatants: Combatants,
     castEfficiency: CastEfficiency,
-    boneChilling: BoneChilling,
     brainFreeze: BrainFreeze,
     glacialSpike: GlacialSpike,
     iceLance: IceLance,
@@ -48,7 +46,6 @@ class Checklist extends Analyzer {
           ...this.preparationRuleAnalyzer.thresholds,
 
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
-          boneChillingUptime: this.boneChilling.suggestionThresholds,
           brainFreezeUtilization: this.brainFreeze.utilSuggestionThresholds,
           brainFreezeOverwrites: this.brainFreeze.overwriteSuggestionThresholds,
           brainFreezeExpired: this.brainFreeze.expiredSuggestionThresholds,

@@ -1,7 +1,6 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
@@ -54,7 +53,7 @@ class RuneStrike extends Analyzer {
         if (runeCost <= 0) {
           return;
         }
-        for (let i = 0; i < runeCost; i++) { 
+        for (let i = 0; i < runeCost; i++) {
           if (!this.spellUsable.isOnCooldown(SPELLS.RUNE_STRIKE_TALENT.id)) {
             this.wastedReduction += MS_REDUCTION_PER_RUNE;
           } else {
@@ -99,8 +98,8 @@ class RuneStrike extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.RUNE_STRIKE_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(1)}
-        icon={<SpellIcon id={SPELLS.RUNE_STRIKE_TALENT.id} />}
         value={`${formatPercentage(this.goodCastEfficiency)}%`}
         label="good casts"
         tooltip={`

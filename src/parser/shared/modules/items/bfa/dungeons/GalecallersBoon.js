@@ -5,6 +5,7 @@ import ITEMS from 'common/ITEMS/index';
 import Analyzer from 'parser/core/Analyzer';
 import { formatPercentage, formatNumber } from 'common/format';
 import { calculateSecondaryStatDefault } from 'common/stats';
+import Abilities from 'parser/core/modules/Abilities';
 
 /**
  * Galecaller's Boon
@@ -13,6 +14,10 @@ import { calculateSecondaryStatDefault } from 'common/stats';
  * Example: https://www.warcraftlogs.com/reports/BhLHrn1PzQRJ6XVZ/#fight=6&source=8&type=auras&ability=268311
  */
 class GalecallersBoon extends Analyzer {
+  static dependencies = {
+    abilities: Abilities,
+  };
+
   statBuff = 0;
 
   constructor(...args) {
@@ -21,6 +26,16 @@ class GalecallersBoon extends Analyzer {
 
     if (this.active) {
       this.statBuff = calculateSecondaryStatDefault(310, 917, this.selectedCombatant.getItem(ITEMS.GALECALLERS_BOON.id).itemLevel);
+      this.abilities.add({
+        spell: SPELLS.GALECALLERS_BOON_CAST,
+        buffSpellId: SPELLS.GALECALLERS_BOON_BUFF.id,
+        name: ITEMS.GALECALLERS_BOON.name,
+        category: Abilities.SPELL_CATEGORIES.ITEMS,
+        cooldown: 60,
+        castEfficiency: {
+          suggestion: true,
+        },
+      });
     }
   }
 

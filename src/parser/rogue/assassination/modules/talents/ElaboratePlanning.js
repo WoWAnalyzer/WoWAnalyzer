@@ -4,9 +4,9 @@ import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../constants';
@@ -20,11 +20,14 @@ class ElaboratePlanning extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ELABORATE_PLANNING_TALENT.id);
+    if (!this.active) {
+      return;
+    }
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_DAMAGE_INCREASES), this.addBonusDamageIfBuffed);
   }
 
-  on_byPlayer_damage(event) {
-    const spellId = event.ability.guid;
-    if (!this.selectedCombatant.hasBuff(SPELLS.ELABORATE_PLANNING_BUFF.id) || !ABILITIES_AFFECTED_BY_DAMAGE_INCREASES.includes(spellId)) {
+  addBonusDamageIfBuffed(event) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.ELABORATE_PLANNING_BUFF.id) &&!this.selectedCombatant.hasBuff(SPELLS.VANISH_BUFF.id)) {
       return;
     }
     this.bonusDmg += calculateEffectiveDamage(event, DAMAGE_BONUS);
@@ -37,10 +40,9 @@ class ElaboratePlanning extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.ELABORATE_PLANNING_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(1)}
-        icon={<SpellIcon id={SPELLS.ELABORATE_PLANNING_TALENT.id} />}
         value={<ItemDamageDone amount={this.bonusDmg} />}
-        label="Elaborate Planning"
         tooltip={`${formatPercentage(this.percentUptime)} % uptime.`}
       />
     );

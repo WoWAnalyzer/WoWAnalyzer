@@ -4,16 +4,15 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
 const debug = false;
 
-const GUARANTEE_CRIT_SPELLS = [
-  SPELLS.FIRE_BLAST.id,
-  SPELLS.PHOENIX_FLAMES_TALENT.id,
-];
+const FIRESTARTER_HEALTH_THRESHOLD = .90;
+const SEARING_TOUCH_HEALTH_THRESHOLD = .30;
 
 class HeatingUp extends Analyzer {
   static dependencies = {
@@ -21,60 +20,80 @@ class HeatingUp extends Analyzer {
     enemies: EnemyInstances,
   };
 
+  phoenixFlamesCastEvent = null;
   fireBlastWithoutHeatingUp = 0;
   phoenixFlamesWithoutHeatingUp = 0;
   fireBlastWithHotStreak = 0;
   phoenixFlamesWithHotStreak = 0;
-  targetId = 0;
-  currentHealth = 0;
-  maxHealth = 0;
 
   constructor(...args) {
     super(...args);
-    this.hasFirestarterTalent = this.selectedCombatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id);
+    this.hasFirestarter = this.selectedCombatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id);
     this.hasSearingTouch = this.selectedCombatant.hasTalent(SPELLS.SEARING_TOUCH_TALENT.id);
     this.hasPhoenixFlames = this.selectedCombatant.hasTalent(SPELLS.PHOENIX_FLAMES_TALENT.id);
-  }
-
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.PHOENIX_FLAMES_TALENT.id) {
-      return;
+    if (this.hasPhoenixFlames) {
+      this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PHOENIX_FLAMES_TALENT), this.onPhoenixFlamesCast);
+      this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.PHOENIX_FLAMES_TALENT), this.onPhoenixFlamesDamage);
     }
-    this.targetId = encodeTargetString(event.targetID, event.targetInstance);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FIRE_BLAST), this.onFireBlastDamage);
   }
 
-  on_byPlayer_damage(event) {
-    const spellId = event.ability.guid;
-    const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
-    const combustionActive = this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id);
+  //Need to get the cast event for Phoenix Flames to filter out it's cleave
+  onPhoenixFlamesCast(event) {
+    this.phoenixFlamesCastEvent = event;
+  }
+
+  onPhoenixFlamesDamage(event) {
+    const hasCombustion = this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id);
     const hasHotStreak = this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id);
-    if (this.selectedCombatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id) && GUARANTEE_CRIT_SPELLS.includes(spellId)) {
-      this.currentHealth = event.hitPoints;
-      this.maxHealth = event.maxHitPoints;
-    }
-    if (!GUARANTEE_CRIT_SPELLS.includes(spellId) || (spellId === SPELLS.PHOENIX_FLAMES_TALENT.id && (this.targetId !== damageTarget))) {
+    const hasHeatingUp = this.selectedCombatant.hasBuff(SPELLS.HEATING_UP.id);
+    const castTarget = encodeTargetString(this.phoenixFlamesCastEvent.targetID, event.targetInstance);
+    const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
+    const healthPercent = event.hitPoints / event.maxHitPoints;
+    if (castTarget !== damageTarget || hasHeatingUp) {
       return;
     }
 
-    if ((combustionActive || (this.hasFirestarterTalent && this.healthPercent > .90) || (this.hasSearingTouch && this.healthPercent < .30)) && !hasHotStreak) {
-      debug && this.log("Event Ignored @ ");
-    } else if (spellId === SPELLS.FIRE_BLAST.id) {
-      if (this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id)) {
-        this.fireBlastWithHotStreak += 1;
-        debug && this.log("Fire Blast with Hot Streak");
-      } else if (!this.selectedCombatant.hasBuff(SPELLS.HEATING_UP.id)) {
-        this.fireBlastWithoutHeatingUp += 1;
-        debug && this.log("Fire Blast without Heating Up");
-      }
-    } else if (spellId === SPELLS.PHOENIX_FLAMES_TALENT.id) {
-        if (this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id)) {
-          this.phoenixFlamesWithHotStreak += 1;
-          debug && this.log("Phoenix Flames with Hot Streak");
-        } else if (!this.selectedCombatant.hasBuff(SPELLS.HEATING_UP.id)) {
-          this.phoenixFlamesWithoutHeatingUp += 1;
-          debug && this.log("Phoenix Flames without Heating Up");
-        }
+    //If Combustion is active, the player is within the Firestarter execute window, or the player is in the Searing Touch execute window, then ignore the event
+    //If the player had Hot Streak though, then its a mistake regardless
+    if (!hasHotStreak && (hasCombustion || (this.hasFirestarter && healthPercent > FIRESTARTER_HEALTH_THRESHOLD) || (this.hasSearingTouch && healthPercent < SEARING_TOUCH_HEALTH_THRESHOLD))) {
+      debug && this.log("Event Ignored");
+      return;
+    }
+
+    //If the player cast Phoenix Flames with Hot Streak or if they cast it without Heating Up, then count it as a mistake
+    if (hasHotStreak) {
+      this.phoenixFlamesWithHotStreak += 1;
+      debug && this.log("Phoenix Flames with Hot Streak");
+    } else {
+      this.phoenixFlamesWithoutHeatingUp += 1;
+      debug && this.log("Phoenix Flames without Heating Up");
+    }
+  }
+
+  onFireBlastDamage(event) {    
+    const hasCombustion = this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id);
+    const hasHotStreak = this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id);
+    const hasHeatingUp = this.selectedCombatant.hasBuff(SPELLS.HEATING_UP.id);
+    const healthPercent = event.hitPoints / event.maxHitPoints;
+    if (hasHeatingUp) {
+      return;
+    }
+
+    //If Combustion is active, the player is within the Firestarter execute window, or the player is in the Searing Touch execute window, then ignore the event
+    //If the player had Hot Streak though, then its a mistake regardless
+    if (!hasHotStreak && (hasCombustion || (this.hasFirestarter && healthPercent > FIRESTARTER_HEALTH_THRESHOLD) || (this.hasSearingTouch && healthPercent < SEARING_TOUCH_HEALTH_THRESHOLD))) {
+      debug && this.log("Event Ignored");
+      return;
+    }
+
+    //If the player cast Fire Blast with Hot Streak or if they cast it without Heating Up, then count it as a mistake
+    if (hasHotStreak) {
+      this.fireBlastWithHotStreak += 1;
+      debug && this.log("Fire Blast with Hot Streak");
+    } else {
+      this.fireBlastWithoutHeatingUp += 1;
+      debug && this.log("Fire Blast without Heating Up");
     }
   }
 
@@ -106,17 +125,13 @@ class HeatingUp extends Analyzer {
     return this.phoenixFlamesWasted / this.abilityTracker.getAbility(SPELLS.PHOENIX_FLAMES_TALENT.id).casts;
   }
 
-  get healthPercent() {
-    return this.currentHealth / this.maxHealth;
-  }
-
   get fireBlastUtilSuggestionThresholds() {
     return {
       actual: this.fireBlastUtil,
       isLessThan: {
         minor: 0.95,
-        average: 0.85,
-        major: 0.70,
+        average: 0.90,
+        major: 0.85,
       },
       style: 'percentage',
     };
@@ -126,9 +141,9 @@ class HeatingUp extends Analyzer {
     return {
       actual: this.phoenixFlamesUtil,
       isLessThan: {
-        minor: 0.90,
-        average: 0.80,
-        major: 0.70,
+        minor: 0.95,
+        average: 0.90,
+        major: 0.85,
       },
       style: 'percentage',
     };
@@ -191,6 +206,7 @@ class HeatingUp extends Analyzer {
     } else {
       return (
         <StatisticBox
+          position={STATISTIC_ORDER.CORE(14)}
           icon={<SpellIcon id={SPELLS.HEATING_UP.id} />}
           value={`${formatPercentage(this.fireBlastUtil, 0)} %`}
           label="Heating Up Utilization"

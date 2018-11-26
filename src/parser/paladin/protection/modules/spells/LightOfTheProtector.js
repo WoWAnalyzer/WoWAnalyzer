@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import Abilities from 'parser/shared/modules/Abilities';
+import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { formatNumber, formatPercentage } from 'common/format';
@@ -60,6 +60,9 @@ export default class LightOfTheProtector extends Analyzer {
   // update the delay based on SotR cast with the RP talent, which
   // reduces LotP/HotP CD by 3s
   _updateDelayRP(event) {
+    if(!this._lastHit || this._msTilHeal === 0) {
+      return;
+    }
     const delayFromHit = event.timestamp - this._lastHit.timestamp;
     this._msTilHeal -= RP_REDUCTION_TIME;
     // we couldn't cast the heal before the current event happened
@@ -69,7 +72,7 @@ export default class LightOfTheProtector extends Analyzer {
   }
 
   _countDelay(event) {
-    const delay = event.timestamp - this._lastHit.timestamp - this._msTilHeal;
+    const delay = event.timestamp - (this._lastHit ? this._lastHit.timestamp : 0) - this._msTilHeal;
     if(delay < 0) {
       console.error("LotP/HotP delay came out negative", delay);
     }

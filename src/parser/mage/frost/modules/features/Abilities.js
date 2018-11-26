@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
-import CoreAbilities from 'parser/shared/modules/Abilities';
+import CoreAbilities from 'parser/core/modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -14,6 +14,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         timelineSortIndex: 1,
+        damageSpellIds: [SPELLS.FROSTBOLT_DAMAGE.id],
       },
       {
         spell: SPELLS.ICE_LANCE,
@@ -22,6 +23,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         timelineSortIndex: 2,
+        damageSpellIds: [SPELLS.ICE_LANCE_DAMAGE.id],
       },
       {
         spell: SPELLS.FLURRY,
@@ -30,6 +32,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         timelineSortIndex: 3,
+        damageSpellIds: [SPELLS.FLURRY_DAMAGE.id],
       },
       {
         spell: SPELLS.GLACIAL_SPIKE_TALENT,
@@ -39,6 +42,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         timelineSortIndex: 4,
+        damageSpellIds: [SPELLS.GLACIAL_SPIKE_DAMAGE.id],
       },
       {
         spell: SPELLS.RAY_OF_FROST_TALENT,
@@ -52,6 +56,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
         },
         timelineSortIndex: 4, // Shares talent row with Glacial Spike
+        //damageSpellIds: [SPELLS.RAY_OF_FROST.id], // needs verification
       },
       {
         spell: SPELLS.COMET_STORM_TALENT,
@@ -66,6 +71,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.90,
         },
         timelineSortIndex: 5,
+        damageSpellIds: [SPELLS.COMET_STORM_DAMAGE.id],
       },
       {
         spell: SPELLS.EBONBOLT_TALENT,
@@ -78,6 +84,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.90,
         },
         timelineSortIndex: 6,
+        damageSpellIds: [SPELLS.EBONBOLT_DAMAGE.id],
       },
       {
         spell: SPELLS.BLIZZARD,
@@ -87,6 +94,7 @@ class Abilities extends CoreAbilities {
         },
         cooldown: haste => 8 / (1 + haste),
         timelineSortIndex: 7,
+        damageSpellIds: [SPELLS.BLIZZARD_DAMAGE.id],
       },
       {
         spell: SPELLS.CONE_OF_COLD,
@@ -96,6 +104,7 @@ class Abilities extends CoreAbilities {
         },
         cooldown: 12,
         timelineSortIndex: 8,
+        //damageSpellIds: [SPELLS.CONE_OF_COLD.id], // needs verification
       },
       {
         spell: SPELLS.ICE_NOVA_TALENT,
@@ -110,6 +119,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.90,
         },
         timelineSortIndex: 9,
+        //damageSpellIds: [SPELLS.ICE_NOVA_TALENT.id], // needs verification
       },
 
       // Cooldowns; start at sortindex 15
@@ -125,6 +135,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.90,
         },
         timelineSortIndex: 15,
+        damageSpellIds: [SPELLS.FROZEN_ORB_DAMAGE.id],
       },
       {
         spell: SPELLS.MIRROR_IMAGE_TALENT,
@@ -202,7 +213,6 @@ class Abilities extends CoreAbilities {
       //Utility
       {
         spell: SPELLS.ARCANE_INTELLECT,
-        buffSpellId: SPELLS.ARCANE_INTELLECT.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,

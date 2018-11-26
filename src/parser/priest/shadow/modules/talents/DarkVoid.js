@@ -1,11 +1,9 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
-import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'parser/core/Analyzer';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import { formatNumber } from 'common/format';
 import AbilityTracker from 'parser/priest/shadow/modules/core/AbilityTracker';
@@ -57,10 +55,8 @@ class DarkVoid extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.DARK_VOID_TALENT.id} />}
+        talent={SPELLS.DARK_VOID_TALENT.id}
         value={<ItemDamageDone amount={this.totalDamage} />}
-        label={`${SPELLS.DARK_VOID_TALENT.name}`}
         tooltip={`
           Damage from ${SPELLS.DARK_VOID_TALENT.name}: ${formatNumber(this.dvDamage)}<br />
           Damage from ${SPELLS.SHADOW_WORD_PAIN.name}: ${formatNumber(this.swpDamage)}

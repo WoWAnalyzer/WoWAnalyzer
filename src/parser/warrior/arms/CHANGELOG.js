@@ -1,11 +1,19 @@
 import React from 'react';
-
-
 import { Aelexe, Zerotorescue, Sharrq, Matardarix } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2018-11-15'),
+    changes: <>Fixed Overpower events where stacks were applied before casts</>,
+    contributors: [Matardarix],
+  },
+  {
+    date: new Date('2018-11-14'),
+    changes: <>Added a suggestion on using <SpellLink id={SPELLS.SLAM.id} /> while <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> is available.</>,
+    contributors: [Matardarix],
+  },
   {
     date: new Date('2018-11-12'),
     changes: <>Added <SpellLink id={SPELLS.FERVOR_OF_BATTLE_TALENT.id} /> in Talents module.</>,

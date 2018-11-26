@@ -56,8 +56,9 @@ class AssassinationRogueChecklist extends React.PureComponent {
           name="Do not overcap your resources"
           description="You should try to always avoid overcapping your Energy and Combo Points."
         >
-          <Requirement name="Energy efficiency" thresholds={thresholds.energyEfficiency} />
+          <Requirement name="Energy generator efficiency" thresholds={thresholds.energyEfficiency} />
           <Requirement name="Combo Point efficiency" thresholds={thresholds.comboPointEfficiency} />
+          <Requirement name="Energy regeneration efficiency" thresholds={thresholds.energyCapEfficiency} />
           {combatant.hasTalent(SPELLS.BLINDSIDE_TALENT.id) && (
             <Requirement
               name={(

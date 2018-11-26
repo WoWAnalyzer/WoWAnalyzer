@@ -6,7 +6,6 @@ import Analyzer from 'parser/core/Analyzer';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import SpellLink from 'common/SpellLink';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import SpellIcon from 'common/SpellIcon';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
 const EXTENSION_PER_CAST = 1500;
@@ -105,10 +104,9 @@ class BirdOfPrey extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.BIRDS_OF_PREY_TALENT.id}
         position={STATISTIC_ORDER.CORE(17)}
-        icon={<SpellIcon id={SPELLS.BIRDS_OF_PREY_TALENT.id} />}
         value={`extended CA by ${this.timeExtendedInSeconds}s`}
-        label="Bird of Prey"
         tooltip={`<ul><li>You extended Coordinated Assault by ${this.timeExtendedInSeconds} seconds.</li><li>You lost out on ${this.extensionTimeLostInSeconds} seconds of Coordinated Assault by attacking a different target than your pet.</li></ul>`}
       />
     );

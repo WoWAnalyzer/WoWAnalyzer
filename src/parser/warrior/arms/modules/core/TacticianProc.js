@@ -1,30 +1,21 @@
 import React from 'react';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
-
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
-
-const debug = false;
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 
 class TacticianProc extends Analyzer {
+
   totalProcs = 0;
 
-  on_byPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (SPELLS.TACTICIAN.id !== spellId) {
-      return;
-    }
-    debug && console.log('Tactician was applied');
-    this.totalProcs += 1;
+  constructor(...args) {
+    super(...args);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.TACTICIAN), this._countTacticianProc);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.TACTICIAN), this._countTacticianProc);
   }
 
-  on_byPlayer_refreshbuff(event) {
-    const spellId = event.ability.guid;
-    if (SPELLS.TACTICIAN.id !== spellId) {
-      return;
-    }
-    debug && console.log('Tactician was refreshed');
+  _countTacticianProc() {
     this.totalProcs += 1;
   }
 

@@ -5,7 +5,7 @@ import { formatMilliseconds, formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
-import Abilities from './Abilities';
+import Abilities from '../../core/modules/Abilities';
 import GlobalCooldown from './GlobalCooldown';
 import Channeling from './Channeling';
 

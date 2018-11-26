@@ -6,6 +6,16 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-11-19'),
+    changes: <> Adjusted <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> uptime in general, but especially in regard to using <SpellLink id={SPELLS.BIRDS_OF_PREY_TALENT.id} />.</>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-11-14'),
+    changes: <> Created a module for <SpellLink id={SPELLS.BORN_TO_BE_WILD_TALENT.id} /> and <SpellLink id={SPELLS.BINDING_SHOT_TALENT.id} />. </>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-10-06'),
     changes: <>Added a <SpellLink id={SPELLS.BLUR_OF_TALONS.id} /> and a <SpellLink id={SPELLS.LATENT_POISON.id} /> module.</>,
     contributors: [Putro],

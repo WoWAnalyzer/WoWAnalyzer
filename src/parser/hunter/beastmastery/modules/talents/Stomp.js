@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import SpellIcon from 'common/SpellIcon';
 import AverageTargetsHit from 'interface/others/AverageTargetsHit';
 
 /**
@@ -44,12 +43,11 @@ class Stomp extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
-        icon={<SpellIcon id={SPELLS.STOMP_TALENT.id} />}
+        talent={SPELLS.STOMP_TALENT.id}
         value={<>
           <ItemDamageDone amount={this.damage} /> <br />
           <AverageTargetsHit casts={this.casts} hits={this.hits} />
         </>}
-        label="Stomp"
       />
     );
   }

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import Haste from 'parser/shared/modules/Haste';
 
@@ -10,6 +11,7 @@ import SpellIcon from 'common/SpellIcon';
 
 const BUFFER = 100;
 const BASE_ROF_DURATION = 8000;
+const debug = false;
 
 // Tries to estimate "effectiveness" of Rain of Fires - counting average targets hit by each RoF (unique targets hit)
 class RainOfFire extends Analyzer {
@@ -29,10 +31,13 @@ class RainOfFire extends Analyzer {
      */
   ];
 
-  on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.RAIN_OF_FIRE_CAST.id) {
-      return;
-    }
+  constructor(...args) {
+    super(...args);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RAIN_OF_FIRE_CAST), this.onRainCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RAIN_OF_FIRE_DAMAGE), this.onRainDamage);
+  }
+
+  onRainCast(event) {
     this.casts.push({
       timestamp: event.timestamp,
       expectedEnd: event.timestamp + this._expectedRoFduration,
@@ -42,14 +47,14 @@ class RainOfFire extends Analyzer {
     });
   }
 
-  on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.RAIN_OF_FIRE_DAMAGE.id) {
-      return;
-    }
+  onRainDamage(event) {
     // filter ROF that should be still active
     const filtered = this.casts.filter(cast => event.timestamp <= cast.expectedEnd + BUFFER);
     const target = encodeTargetString(event.targetID, event.targetInstance);
-    if (filtered.length === 1) {
+    if (filtered.length === 0) {
+      debug && this.log('Something weird happened, ROF damage without any ongoing casts', event);
+    }
+    else if (filtered.length === 1) {
       // single active ROF, attribute the targets hit to it
       const cast = filtered[0];
       const timeSinceLastTick = event.timestamp - (cast.lastTickTimestamp || cast.timestamp);
@@ -63,7 +68,6 @@ class RainOfFire extends Analyzer {
         cast.targetsHit.push(target);
       }
     }
-    // TODO: filtered.length === 0? precast ROF?
     else {
       // multiple ROFs active
       // if any cast's last tick is within 100ms of current timestamp, it's probably still the same tick

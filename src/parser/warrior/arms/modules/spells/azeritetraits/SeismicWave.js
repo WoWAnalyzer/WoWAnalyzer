@@ -1,8 +1,9 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/index';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import Events from 'parser/core/Events';
 
 /**
  * Overpower causes a seismic wave that deals 124 Physical damage to enemies in a 10 yd line.
@@ -15,12 +16,10 @@ class SeismicWave extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.SEISMIC_WAVE.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SEISMIC_WAVE_DAMAGES), this._onSeismicWaveDamage);
   }
 
-  on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.SEISMIC_WAVE_DAMAGES.id) {
-      return;
-    }
+  _onSeismicWaveDamage(event) {
     this.damage += (event.amount || 0) + (event.absorbed || 0);
   }
 

@@ -54,15 +54,19 @@ class EnergyCapTracker extends RegenResourceCapTracker {
     return Math.floor(max);
   }
 
+  get wastedPercent() {
+    return (this.missedRegen / this.naturalRegen) || 0;
+  }
+
   get suggestionThresholds() {
     return {
-      actual: this.missedRegenPerMinute,
-      isGreaterThan: {
-        minor: 20,
-        average: 40,
-        major: 60,
+      actual: 1 - this.wastedPercent,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.9,
+        major: 0.8,
       },
-      style: 'number',
+      style: 'percentage',
     };
   }
 
@@ -84,8 +88,8 @@ class EnergyCapTracker extends RegenResourceCapTracker {
       <StatisticBox
         position={STATISTIC_ORDER.CORE(1)}
         icon={<Icon icon="spell_shadow_shadowworddominate" alt="Capped Energy" />}
-        value={`${this.missedRegenPerMinute.toFixed(1)}`}
-        label="Wasted energy per minute from being capped"
+        value={`${formatPercentage(this.wastedPercent)} %`}
+        label="Wasted energy from being capped"
         tooltip={`Although it can be beneficial to wait and let your energy pool ready to be used at the right time, you should still avoid letting it reach the cap.<br/>
         You spent <b>${formatPercentage(this.cappedProportion)}%</b> of the fight at capped energy, causing you to miss out on a total of <b>${this.missedRegen.toFixed(0)}</b> energy from regeneration.`}
         footer={(

@@ -1,10 +1,8 @@
 import React from 'react';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
-import SpellIcon from 'common/SpellIcon';
 
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 
 const SPIRIT_OF_REDEMPTION_DURATION = 15000;
@@ -61,12 +59,10 @@ class Afterlife extends Analyzer {
     return (
 
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.AFTERLIFE_TALENT.id} />}
+        talent={SPELLS.AFTERLIFE_TALENT.id}
         value={(
           <ItemHealingDone amount={this.healingInAfterlife} />
         )}
-        label="Afterlife"
         tooltip={`Extra Spirit of Redemption time: ${Math.floor(this.spiritOfRedemptionBonusTime / 1000)}s`}
         position={STATISTIC_ORDER.CORE(3)}
       />

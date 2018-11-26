@@ -1,25 +1,21 @@
 import React from 'react';
-
-import Analyzer from 'parser/core/Analyzer';
+import BaseChecklist from 'parser/shared/modules/features/Checklist2/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist2/PreparationRuleAnalyzer';
-
 import AlwaysBeCasting from '../AlwaysBeCasting';
 import DeepWoundsUptime from '../../core/Dots/DeepWoundsUptime';
 import RendUptime from '../../core/Dots/RendUptime';
 import MortalStrike from '../../core/Execute/MortalStrike';
 import ExecutionersPrecision from '../../spells/azeritetraits/ExecutionersPrecision';
-
 import Component from './Component';
 
-class Checklist extends Analyzer {
+class Checklist extends BaseChecklist {
   static dependencies = {
     combatants: Combatants,
     castEfficiency: CastEfficiency,
     alwaysBeCasting: AlwaysBeCasting,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
-
     deepWoundsUptime: DeepWoundsUptime,
     rendUptime: RendUptime,
     mortalStrike: MortalStrike,
@@ -39,7 +35,7 @@ class Checklist extends Analyzer {
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           goodMortalStrike: this.mortalStrike.goodMortalStrikeThresholds,
           badMortalStrike: this.mortalStrike.badMortalStrikeThresholds,
-          executionersPrecision: this.executionersPrecision.wastedExecutionersPrecisionTresholds,
+          badMortalStrikeWithEP: this.executionersPrecision.badMortalStrikeCastThresholds,
         }}
       />
     );

@@ -1,10 +1,8 @@
 import React from 'react';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
-import SpellIcon from 'common/SpellIcon';
 
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 
 // Example Log: /report/C2NGDav6KHgc8ZWd/28-Mythic+Taloc+-+Kill+(7:07)/13-Ariemah
@@ -40,12 +38,10 @@ class CosmicRipple extends Analyzer {
     return (
 
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.COSMIC_RIPPLE_HEAL.id} />}
+        talent={SPELLS.COSMIC_RIPPLE_HEAL.id}
         value={(
           <ItemHealingDone amount={this.totalHealing} />
         )}
-        label="Cosmic Ripple"
         position={STATISTIC_ORDER.CORE(3)}
       />
 

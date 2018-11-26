@@ -1,10 +1,8 @@
 import React from 'react';
-
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
-
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 /**
@@ -14,23 +12,23 @@ import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
  */
 
 class WarMachine extends Analyzer {
-    constructor(...args) {
-        super(...args);
-        this.active = this.selectedCombatant.hasTalent(SPELLS.WAR_MACHINE_TALENT.id);
-    }
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.WAR_MACHINE_TALENT.id);
+  }
 
-    get uptime() {
-        return this.selectedCombatant.getBuffUptime(SPELLS.WAR_MACHINE_TALENT_BUFF.id) / this.owner.fightDuration;
-    }
+  get uptime() {
+    return this.selectedCombatant.getBuffUptime(SPELLS.WAR_MACHINE_TALENT_BUFF.id) / this.owner.fightDuration;
+  }
 
-    subStatistic() {
-        return (
-          <StatisticListBoxItem
-            title={<><SpellLink id={SPELLS.WAR_MACHINE_TALENT.id} /> uptime</>}
-            value={`${formatPercentage(this.uptime)} %`}
-          />
-        );
-      }
+  subStatistic() {
+    return (
+      <StatisticListBoxItem
+        title={<><SpellLink id={SPELLS.WAR_MACHINE_TALENT.id} /> uptime</>}
+        value={`${formatPercentage(this.uptime)} %`}
+      />
+    );
+  }
 }
 
 export default WarMachine;

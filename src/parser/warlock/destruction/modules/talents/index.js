@@ -47,12 +47,17 @@ class TalentStatisticBox extends Analyzer {
   statistic() {
     return (
       <StatisticsListBox title="Talents">
-        {
-          Object.keys(this.constructor.dependencies)
-            .map(name => this[name])
-            .filter(module => module.active)
-            .map(module => module.subStatistic())
-        }
+        {Object.keys(this.constructor.dependencies).map(name => {
+          const module = this[name];
+          if (!module.active) {
+            return null;
+          }
+          return (
+            <React.Fragment key={name}>
+              {module.subStatistic()}
+            </React.Fragment>
+          );
+        })}
       </StatisticsListBox>
     );
   }

@@ -1,8 +1,6 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import SpellIcon from 'common/SpellIcon';
 import React from 'react';
 
 // Example Log: /report/PNYB4zgrnR86h7Lc/6-Normal+Zek'voz,+Herald+of+N'zoth/Khadaj
@@ -39,12 +37,10 @@ class Censure extends Analyzer {
     return (
 
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.CENSURE_TALENT.id} />}
+        talent={SPELLS.CENSURE_TALENT.id}
         value={
           `${this.censureStuns + this.censureIncomp} Censure CC(s)`
         }
-        label="Censure"
         tooltip={`
           ${this.chastiseCasts} Chastise Casts<br />
           ${this.censureStuns} Chastise Stuns<br />

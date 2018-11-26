@@ -13,8 +13,7 @@ const CATCH_ALL_EVENT = 'event';
  * - firing event listeners
  */
 class EventEmitter extends Module {
-  static __dangerousInvalidUsage = false;
-  static get catchAllEvent() {
+  static get catchAll() {
     return new EventFilter(CATCH_ALL_EVENT);
   }
 
@@ -113,6 +112,13 @@ class EventEmitter extends Module {
     };
   }
   _prependSpellCheck(listener, spell) {
+    if(spell instanceof Array) {
+      return function(event) {
+        if (event.ability && spell.some(s => s.id === event.ability.guid)) {
+          listener(event);
+        }
+      };
+    }
     const spellId = spell.id;
     return function (event) {
       if (event.ability && event.ability.guid === spellId) {
@@ -122,9 +128,10 @@ class EventEmitter extends Module {
   }
 
   _listenersCalled = 0;
+  _isHandlingEvent = false;
   triggerEvent(event) {
     if (process.env.NODE_ENV === 'development') {
-      this.validateEvent(event);
+      this._validateEvent(event);
     }
 
     // When benchmarking the event triggering make sure to disable the event batching and turn the listener into a dummy so you get the performance of just this piece of code. At the time of writing the event triggering code only has about 12ms overhead for a full log.
@@ -149,6 +156,7 @@ class EventEmitter extends Module {
       }
     };
 
+    this._isHandlingEvent = true;
     {
       // Handle on_event (listeners of all events)
       const listeners = this._eventListenersByEventType[CATCH_ALL_EVENT];
@@ -162,13 +170,50 @@ class EventEmitter extends Module {
         listeners.forEach(run);
       }
     }
+    this._isHandlingEvent = false;
 
     this.owner.eventHistory.push(event);
     // Some modules need to have a primitive value to cause re-renders
     // TODO: This can probably be removed since we only render upon completion now
     this.owner.eventCount += 1;
+
+    this.runFinally();
+
+    return event;
   }
-  validateEvent(event) {
+  _finally = null;
+  finally(func) {
+    this._finally = this._finally || [];
+    this._finally.push(func);
+  }
+  runFinally() {
+    if (this._finally) {
+      const currentBatch = this._finally;
+      // Reset before running so if an item calls another event, it doesn't do the same finally multiple times
+      this._finally = null;
+      currentBatch.forEach(item => item());
+    }
+  }
+  fabricateEvent(event, trigger = null) {
+    const fabricatedEvent = {
+      // When no timestamp is provided in the event (you should always try to), the current timestamp will be used by default.
+      timestamp: this.owner.currentTimestamp,
+      // If this event was triggered you should pass it along
+      trigger: trigger ? trigger : undefined,
+      ...event,
+      type: event.type instanceof EventFilter ? event.type.eventType : event.type,
+      __fabricated: true,
+    };
+    if (this._isHandlingEvent) {
+      this.finally(() => {
+        this.triggerEvent(fabricatedEvent);
+      });
+    } else {
+      this.triggerEvent(fabricatedEvent);
+    }
+    return fabricatedEvent;
+  }
+  _validateEvent(event) {
     if (!event.type) {
       console.log(event);
       throw new Error('Events should have a type. No type received. See the console for the event.');

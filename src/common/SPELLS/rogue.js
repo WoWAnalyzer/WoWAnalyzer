@@ -400,7 +400,7 @@ export default {
     name: 'Subterfuge',
     icon: 'rogue_subterfuge',
   },
-  MASTER_ASSASIN_BUFF: {
+  MASTER_ASSASSIN_BUFF: {
     id: 256735,
     name: 'Master Assasin',
     icon: 'ability_criticalstrike',

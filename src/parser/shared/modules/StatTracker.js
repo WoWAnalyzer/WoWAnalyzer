@@ -5,6 +5,7 @@ import { formatMilliseconds } from 'common/format';
 import SPECS from 'game/SPECS';
 import RACES from 'game/RACES';
 import Analyzer from 'parser/core/Analyzer';
+import EventEmitter from 'parser/core/modules/EventEmitter';
 import { STAT_TRACKER as GEMHIDE_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/Gemhide';
 import { STAT_TRACKER as OVERWHELMING_POWER_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/OverwhelmingPower';
 import { STAT_TRACKER as ELEMENTAL_WHIRL_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/ElementalWhirl';
@@ -25,11 +26,20 @@ import { STAT_TRACKER as UNSTABLE_CATALYST_STATS } from 'parser/shared/modules/s
 import { STAT_TRACKER as SWIRLING_SANDS_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/SwirlingSands';
 import { STAT_TRACKER as TRADEWINDS_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/Tradewinds';
 import { STAT_TRACKER as CHORUS_OF_INSANITY_STATS } from 'parser/priest/shadow/modules/spells/azeritetraits/ChorusOfInsanity';
+import { STAT_TRACKER as CASCADING_CALAMITY_STATS } from 'parser/warlock/affliction/modules/azerite/CascadingCalamity';
+import { STAT_TRACKER as WRACKING_BRILLIANCE_STATS } from 'parser/warlock/affliction/modules/azerite/WrackingBrilliance';
+import { STAT_TRACKER as EXPLOSIVE_POTENTIAL_STATS } from 'parser/warlock/demonology/modules/azerite/ExplosivePotential';
+import { STAT_TRACKER as SUPREME_COMMANDER_STATS } from 'parser/warlock/demonology/modules/azerite/SupremeCommander';
+import { STAT_TRACKER as FLASHPOINT_STATS } from 'parser/warlock/destruction/modules/azerite/Flashpoint';
+import { STAT_TRACKER as ACCELERANT_STATS } from 'parser/warlock/destruction/modules/azerite/Accelerant';
 
 const debug = false;
 
 // TODO: stat constants somewhere else? they're largely copied from combatant
 class StatTracker extends Analyzer {
+  static dependencies = {
+    eventEmitter: EventEmitter,
+  };
 
   // These are multipliers to the stats applied *on pull* that are not
   // included in the stats reported by WCL. These are *baked in* and do
@@ -284,7 +294,12 @@ class StatTracker extends Analyzer {
     [SPELLS.BLUR_OF_TALONS_BUFF.id]: BLUR_OF_TALON_STATS,
     // endregion
     // region Warlock
-    [SPELLS.EXPLOSIVE_POTENTIAL.id]: { haste: 841 },
+    [SPELLS.EXPLOSIVE_POTENTIAL_BUFF.id]: EXPLOSIVE_POTENTIAL_STATS,
+    [SPELLS.CASCADING_CALAMITY_BUFF.id]: CASCADING_CALAMITY_STATS,
+    [SPELLS.WRACKING_BRILLIANCE_BUFF.id]: WRACKING_BRILLIANCE_STATS,
+    [SPELLS.SUPREME_COMMANDER_BUFF.id]: SUPREME_COMMANDER_STATS,
+    [SPELLS.FLASHPOINT_BUFF.id]: FLASHPOINT_STATS,
+    [SPELLS.ACCELERANT_BUFF.id]: ACCELERANT_STATS,
     // endregion
     //region Death Knight
     [SPELLS.BONES_OF_THE_DAMNED_BUFF.id]: BOFD_ARMOR, // Armor when Bones of the Damend trait is up
@@ -353,6 +368,12 @@ class StatTracker extends Analyzer {
     [SPELLS.RAPID_ADAPTATION.id]: {
       itemId: ITEMS.DREAD_GLADIATORS_MEDALLION.id,
       versatility: (_, item) => calculateSecondaryStatDefault(300, 576, item.itemLevel),
+    },
+    [SPELLS.TASTE_OF_VICTORY.id]: {
+      itemId: ITEMS.DREAD_GLADIATORS_INSIGNIA.id,
+      strength: (_, item) => calculatePrimaryStat(335, 462, item.itemLevel),
+      agility: (_, item) => calculatePrimaryStat(335, 462, item.itemLevel),
+      intellect: (_, item) => calculatePrimaryStat(335, 462, item.itemLevel),
     },
     [SPELLS.DIG_DEEP.id]: {
       itemId: ITEMS.DREAD_GLADIATORS_BADGE.id,
@@ -428,6 +449,10 @@ class StatTracker extends Analyzer {
     [SPELLS.KINDLED_SOUL.id]: { // Balefire Branch trinket's buff (stack starts at 100)
       itemId: ITEMS.BALEFIRE_BRANCH.id,
       intellect: (_, item) => calculatePrimaryStat(340, 12, item.itemLevel),
+    },
+    [SPELLS.BENEFICIAL_VIBRATIONS.id]: {
+      itemId: ITEMS.AZEROKKS_RESONATING_HEART.id,
+      agility: (_, item) => calculatePrimaryStat(300, 593, item.itemLevel),
     },
     // endregion
     // region Raids
@@ -789,7 +814,7 @@ class StatTracker extends Analyzer {
    * Fabricates an event indicating when stats change
    */
   _triggerChangeStats(event, before, delta, after) {
-    this.owner.fabricateEvent({
+    this.eventEmitter.fabricateEvent({
       type: 'changestats',
       sourceID: event ? event.sourceID : this.owner.playerId,
       targetID: this.owner.playerId,

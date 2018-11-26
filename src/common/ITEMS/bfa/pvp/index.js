@@ -9,6 +9,12 @@ export default {
     icon: 'spell_arcane_rune',
     quality: ITEM_QUALITIES.PURPLE,
   },
+  DREAD_GLADIATORS_INSIGNIA: {
+    id: 161676,
+    name: 'Dread Gladiator\'s Insignia',
+    icon: 'inv_misc_token_argentdawn3',
+    quality: ITEM_QUALITIES.PURPLE,
+  },
   DREAD_GLADIATORS_BADGE: {
     id: 161902,
     name: 'Dread Gladiator\'s Badge',

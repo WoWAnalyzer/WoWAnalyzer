@@ -1,7 +1,6 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -57,8 +56,8 @@ class Ossuary extends Analyzer {
 
     return (
       <TalentStatisticBox
+        talent={SPELLS.OSSUARY_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(3)}
-        icon={<SpellIcon id={SPELLS.OSSUARY_TALENT.id} />}
         value={`${ this.dsWithoutOS } / ${ this.dsWithOS + this.dsWithoutOS }`}
         label="Death Strikes without Ossuary"
         tooltip={`

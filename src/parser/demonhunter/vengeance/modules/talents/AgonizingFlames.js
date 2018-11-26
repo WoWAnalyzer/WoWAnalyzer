@@ -1,9 +1,9 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
-import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 const PERCENT_BUFF = 0.20;
@@ -31,11 +31,10 @@ class AgonizingFlames extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <TalentStatisticBox
+        talent={SPELLS.AGONIZING_FLAMES_TALENT.id}
         position={STATISTIC_ORDER.CORE(9)}
-        icon={<SpellIcon id={SPELLS.AGONIZING_FLAMES_TALENT.id} />}
         value={`${this.owner.formatItemDamageDone(this.damage)}`}
-        label="Agonizing Flames"
         tooltip={`This shows the extra dps that the talent provides.<br/>
                   <b>Total extra damage:</b> ${formatNumber(this.damage)}`}
       />

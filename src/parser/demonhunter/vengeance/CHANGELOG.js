@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-11-15'),
+    changes: <>Improved tracking of <SpellLink id={SPELLS.FEED_THE_DEMON_TALENT.id} /> talent.</>,
+    contributors: [Yajinni],
+  },
+  {
     date: new Date('2018-08-5'),
     changes: <>Added stat box for <SpellLink id={SPELLS.FEED_THE_DEMON_TALENT.id} /> showing amount of CD reduction it provides.</>,
     contributors: [Yajinni],

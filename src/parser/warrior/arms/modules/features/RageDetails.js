@@ -1,12 +1,10 @@
 import React from 'react';
-
 import Analyzer from 'parser/core/Analyzer';
 import Tab from 'interface/others/Tab';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatPercentage } from 'common/format';
 import Icon from 'common/Icon';
 import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBreakdown';
-
 import RageTracker from './RageTracker';
 
 class RageDetails extends Analyzer {
@@ -14,7 +12,7 @@ class RageDetails extends Analyzer {
     rageTracker: RageTracker,
   };
 
-  get wastedPercent(){
+  get wastedPercent() {
     return (this.rageTracker.wasted / (this.rageTracker.wasted + this.rageTracker.generated) || 0);
   }
 
@@ -44,11 +42,11 @@ class RageDetails extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-        return suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Rage.`)
-          .icon('spell_nature_reincarnation')
-          .actual(`${formatPercentage(actual)}% wasted`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`);
-      });
+      return suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Rage.`)
+        .icon('spell_nature_reincarnation')
+        .actual(`${formatPercentage(actual)}% wasted`)
+        .recommended(`<${formatPercentage(recommended)}% is recommended`);
+    });
   }
 
   statistic() {
@@ -77,7 +75,7 @@ class RageDetails extends Analyzer {
         </Tab>
       ),
     };
- }
+  }
 
 }
 

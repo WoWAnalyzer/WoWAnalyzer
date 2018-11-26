@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 import SPECS from 'game/SPECS';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
@@ -57,9 +56,8 @@ class NaturalMending extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
-        icon={<SpellIcon id={SPELLS.NATURAL_MENDING_TALENT.id} />}
-        value={`${formatNumber(this.effectiveExhilReductionMs / 1000)}s CDR`}
-        label="Natural Mending"
+        talent={SPELLS.NATURAL_MENDING_TALENT.id}
+        value={`${formatNumber(this.effectiveExhilReductionMs / 1000)}s/${formatNumber((this.wastedExhilReductionMs + this.effectiveExhilReductionMs) / 1000)}s`}
         tooltip={`You wasted ${formatNumber(this.wastedExhilReductionMs / 1000)} seconds of CDR by spending focus whilst Exhilaration wasn't on cooldown.`} />
     );
   }

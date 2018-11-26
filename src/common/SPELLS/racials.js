@@ -74,8 +74,43 @@ export default {
     icon: 'ability_racial_cannibalize',
   },
   // Draenei
-  GIFT_OF_THE_NAARU: {
+  GIFT_OF_THE_NAARU_DK: {
+    id: 59545,
+    name: 'Gift of the Naaru',
+    icon: 'spell_holy_holyprotection',
+  },
+  GIFT_OF_THE_NAARU_HUNTER: {
+    id: 59543,
+    name: 'Gift of the Naaru',
+    icon: 'spell_holy_holyprotection',
+  },
+  GIFT_OF_THE_NAARU_MAGE: {
+    id: 59548,
+    name: 'Gift of the Naaru',
+    icon: 'spell_holy_holyprotection',
+  },
+  GIFT_OF_THE_NAARU_MONK: {
     id: 121093,
+    name: 'Gift of the Naaru',
+    icon: 'spell_holy_holyprotection',
+  },
+  GIFT_OF_THE_NAARU_PALADIN: {
+    id: 59542,
+    name: 'Gift of the Naaru',
+    icon: 'spell_holy_holyprotection',
+  },
+  GIFT_OF_THE_NAARU_PRIEST: {
+    id: 59544,
+    name: 'Gift of the Naaru',
+    icon: 'spell_holy_holyprotection',
+  },
+  GIFT_OF_THE_NAARU_SHAMAN: {
+    id: 59547,
+    name: 'Gift of the Naaru',
+    icon: 'spell_holy_holyprotection',
+  },
+  GIFT_OF_THE_NAARU_WARRIOR: {
+    id: 28880,
     name: 'Gift of the Naaru',
     icon: 'spell_holy_holyprotection',
   },

@@ -48,6 +48,7 @@ import GroveTending from './modules/items/azeritetraits/GroveTending';
 import LaserMatrix from './modules/items/azeritetraits/LaserMatrixRestoDruid';
 import WakingDream from './modules/items/azeritetraits/WakingDream';
 import LivelySpirit from './modules/items/azeritetraits/LivelySpirit';
+import RampantGrowth from './modules/items/azeritetraits/RampantGrowth';
 
 import StatWeights from './modules/features/StatWeights';
 
@@ -120,6 +121,7 @@ class CombatLogParser extends CoreCombatLogParser {
     laserMatrix: LaserMatrix,
     wakingDream: WakingDream,
     livelySpirit: LivelySpirit,
+    rampantGrowth: RampantGrowth,
 
     statWeights: StatWeights,
 

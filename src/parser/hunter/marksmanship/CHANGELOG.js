@@ -6,6 +6,16 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-11-20'),
+    changes: <> Added a simple <SpellLink id={SPELLS.PRECISE_SHOTS.id} /> module. </>,
+    contributors: [Putro],
+  },
+  {
+    date: new Date('2018-11-14'),
+    changes: <> Created a module for <SpellLink id={SPELLS.BORN_TO_BE_WILD_TALENT.id} /> and <SpellLink id={SPELLS.BINDING_SHOT_TALENT.id} />. </>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-09-28'),
     changes: <>Adds simple tracking for <SpellLink id={SPELLS.STEADY_AIM.id} /> azerite trait, and disables focus capping module when that trait is active.</>,
     contributors: [Putro],

@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
-import CoreAbilities from 'parser/shared/modules/Abilities';
+import CoreAbilities from 'parser/core/modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -13,6 +13,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        damageSpellIds: [SPELLS.ARCANE_BLAST.id],
       },
       {
         spell: SPELLS.ARCANE_MISSILES,
@@ -81,6 +82,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.90,
         },
+        damageSpellIds: [SPELLS.ARCANE_ORB_DAMAGE.id],
       },
 
       // Cooldowns
@@ -189,7 +191,6 @@ class Abilities extends CoreAbilities {
       //Utility
       {
         spell: SPELLS.ARCANE_INTELLECT,
-        buffSpellId: SPELLS.ARCANE_INTELLECT.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,
@@ -273,7 +274,7 @@ class Abilities extends CoreAbilities {
         cooldown: 120,
       },
       {
-        spell: [SPELLS.POLYMORPH_SHEEP, SPELLS.POLYMORPH_PIG, 
+        spell: [SPELLS.POLYMORPH_SHEEP, SPELLS.POLYMORPH_PIG,
           SPELLS.POLYMORPH_BLACK_CAT, SPELLS.POLYMORPH_MONKEY,
           SPELLS.POLYMORPH_RABBIT, SPELLS.POLYMORPH_POLAR_BEAR_CUB,
           SPELLS.POLYMORPH_PORCUPINE, SPELLS.POLYMORPH_TURTLE,

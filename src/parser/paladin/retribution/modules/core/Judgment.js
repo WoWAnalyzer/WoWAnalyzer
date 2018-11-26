@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import Enemies from 'parser/shared/modules/Enemies';
+import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -11,7 +11,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 class Judgment extends Analyzer {
   static dependencies = {
-    enemies: Enemies,
+    enemies: EnemyInstances,
   };
   templarsVerdictConsumptions = 0;
   divineStormConsumptions = 0;
@@ -84,6 +84,7 @@ class Judgment extends Analyzer {
     const justicarsVengeanceText = this.selectedCombatant.hasTalent(SPELLS.JUSTICARS_VENGEANCE_TALENT.id) ? `<br>Justicars Vengeance consumptions: ${this.justicarsVengeanceConsumptions}` : ``; 
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(6)}
         icon={<SpellIcon id={SPELLS.JUDGMENT_DEBUFF.id} />}
         value={`${formatPercentage(this.percentageJudgmentsConsumed)}%`}
         label="Judgments Consumed"
@@ -95,7 +96,6 @@ class Judgment extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(6);
 }
 
 export default Judgment;

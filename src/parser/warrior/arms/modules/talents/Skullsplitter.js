@@ -1,11 +1,8 @@
 import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import { formatThousands } from 'common/format';
-
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-
 import SpellLink from 'common/SpellLink';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 

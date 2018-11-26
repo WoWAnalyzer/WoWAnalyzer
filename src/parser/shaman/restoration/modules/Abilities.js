@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import CoreAbilities from 'parser/shared/modules/Abilities';
+import CoreAbilities from 'parser/core/modules/Abilities';
 import ITEMS from 'common/ITEMS';
 
 class Abilities extends CoreAbilities {
@@ -392,6 +392,7 @@ class Abilities extends CoreAbilities {
       {
         // had to remove SPELLS.HEX_SKELETAL since the Blizzard API doesn't think it exists, causing issues. Please add it again if it's encountered in a log, and if so leave a comment with the log
         spell: [SPELLS.HEX, SPELLS.HEX_RAPTOR, SPELLS.HEX_SNAKE, SPELLS.HEX_SPIDER, SPELLS.HEX_COCKROACH],
+        buffSpellId: [SPELLS.HEX.id, SPELLS.HEX_RAPTOR.id, SPELLS.HEX_SNAKE.id, SPELLS.HEX_SPIDER.id, SPELLS.HEX_COCKROACH.id],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1500,

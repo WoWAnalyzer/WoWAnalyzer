@@ -1,8 +1,6 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import SpellIcon from 'common/SpellIcon';
 import React from 'react';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 
@@ -56,18 +54,12 @@ class SurgeOfLight extends Analyzer {
 
   statistic() {
     return (
-
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.SURGE_OF_LIGHT_TALENT.id} />}
-        value={(
-          <ItemHealingDone amount={this.solHealing} />
-        )}
+        talent={SPELLS.SURGE_OF_LIGHT_TALENT.id}
+        value={<ItemHealingDone amount={this.solHealing} />}
         tooltip={`${this.solFlashHeals} free Flash Heals`}
-        label="Surge of Light"
         position={STATISTIC_ORDER.CORE(5)}
       />
-
     );
   }
 }

@@ -1,8 +1,7 @@
 import React from 'react';
-
 import Analyzer from 'parser/core/Analyzer';
 import StatisticsListBox, { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
-
+// Talents
 import AngerManagement from './AngerManagement';
 import Skullsplitter from './Skullsplitter';
 import SuddenDeath from './SuddenDeath';
@@ -43,15 +42,22 @@ class TalentStatisticBox extends Analyzer {
 
   statistic() {
     return (
-      <StatisticsListBox title="Talents"
+      <StatisticsListBox
+        title="Talents"
         position={STATISTIC_ORDER.CORE(2)}
-        tooltip="This provides an overview of the damage contributions of various talents. This isn't meant as a way to 1:1 evaluate talents, as some talents bring other strengths to the table than pure damage.">
-        {
-          Object.keys(this.constructor.dependencies)
-            .map(name => this[name])
-            .filter(module => module.active)
-            .map(module => module.subStatistic())
-        }
+        tooltip="This provides an overview of the damage contributions of various talents. This isn't meant as a way to 1:1 evaluate talents, as some talents bring other strengths to the table than pure damage."
+      >
+        {Object.keys(this.constructor.dependencies).map(name => {
+          const module = this[name];
+          if (!module.active) {
+            return null;
+          }
+          return (
+            <React.Fragment key={name}>
+              {module.subStatistic()}
+            </React.Fragment>
+          );
+        })}
       </StatisticsListBox>
     );
   }

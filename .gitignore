@@ -24,10 +24,17 @@ temp
 .tmp
 .sass-cache
 
-# Regularly changing or system specific IDE files
-/.idea/vcs.xml
+# IDE files
+# Only ignore files that might are truly user specific or regularly change! We want the project to be as pre-configured for IDEs as possible so getting started is as quick as possible.
+# WebStorm
+# https://intellij-support.jetbrains.com/hc/en-us/articles/206544839-How-to-manage-projects-under-Version-Control-Systems
 /.idea/workspace.xml
-/.idea/codeStyles/*
+/.idea/usage.statistics.xml
+/.idea/tasks.xml
+# Extension files nobody cares about
+/.idea/markdown-navigator.xml
+/.idea/markdown-navigator/profiles_settings.xml
+# Visual Studio code
 /.vscode
 
 .vs/ProjectSettings.json
@@ -35,5 +42,3 @@ temp
 .vs/slnx.sqlite-journal
 .vs/VSWorkspaceState.json
 .vs/WoWAnalyzer/v15/.suo
-/.idea/markdown-navigator.xml
-/.idea/markdown-navigator/profiles_settings.xml

@@ -8,14 +8,37 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import Felstorm from './modules/features/Felstorm';
 import Checklist from './modules/features/Checklist/Module';
 
-import DoomUptime from './modules/features/DoomUptime';
 
 import SoulShardTracker from './modules/soulshards/SoulShardTracker';
 import SoulShardDetails from './modules/soulshards/SoulShardDetails';
-import DemoPets from './modules/core/Pets';
 
+import DemoPets from './modules/pets/DemoPets';
+import PetTimelineTab from './modules/pets/PetTimelineTab';
+import PrepullPetNormalizer from './modules/pets/normalizers/PrepullPetNormalizer';
+
+import PowerSiphonNormalizer from './modules/talents/normalizers/PowerSiphonNormalizer';
+
+import TalentStatisticBox from './modules/talents';
+import Dreadlash from './modules/talents/Dreadlash';
+import DemonicStrength from './modules/talents/DemonicStrength';
+import BilescourgeBombers from './modules/talents/BilescourgeBombers';
 import DemonicCalling from './modules/talents/DemonicCalling';
+import PowerSiphon from './modules/talents/PowerSiphon';
+import Doom from './modules/talents/Doom';
+import FromTheShadows from './modules/talents/FromTheShadows';
+import SoulStrike from './modules/talents/SoulStrike';
+import SummonVilefiend from './modules/talents/SummonVilefiend';
+import SoulConduit from './modules/talents/SoulConduit';
+import InnerDemons from './modules/talents/InnerDemons';
 import GrimoireFelguard from './modules/talents/GrimoireFelguard';
+import SacrificedSouls from './modules/talents/SacrificedSouls';
+import DemonicConsumption from './modules/talents/DemonicConsumption';
+import NetherPortal from './modules/talents/NetherPortal';
+
+import ExplosivePotential from './modules/azerite/ExplosivePotential';
+import DemonicMeteor from './modules/azerite/DemonicMeteor';
+import UmbralBlaze from './modules/azerite/UmbralBlaze';
+import SupremeCommander from './modules/azerite/SupremeCommander';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -27,18 +50,40 @@ class CombatLogParser extends CoreCombatLogParser {
     felstorm: Felstorm,
     checklist: Checklist,
 
-    // DoTs
-    doomUptime: DoomUptime,
-
     // Core
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
     demoPets: DemoPets,
+    petTimelineTab: PetTimelineTab,
+    prepullPetNormalizer: PrepullPetNormalizer,
+
+    // Normalizers
+    powerSiphonNormalizer: PowerSiphonNormalizer,
 
     // Talents
+    talents: TalentStatisticBox,
+    dreadlash: Dreadlash,
+    demonicStrength: DemonicStrength,
+    bilescourgeBombers: BilescourgeBombers,
     demonicCalling: DemonicCalling,
+    soulConduit: SoulConduit,
+    innerDemons: InnerDemons,
+    fromTheShadows: FromTheShadows,
+    soulStrike: SoulStrike,
+    summonVilefiend: SummonVilefiend,
+    powerSiphon: PowerSiphon,
+    doom: Doom,
     grimoireFelguard: GrimoireFelguard,
+    sacrificedSouls: SacrificedSouls,
+    demonicConsumption: DemonicConsumption,
+    netherPortal: NetherPortal,
 
+    // Azerite traits
+    demonicMeteor: DemonicMeteor,
+    explosivePotential: ExplosivePotential,
+    umbralBlaze: UmbralBlaze,
+    supremeCommander: SupremeCommander,
+    
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],
   };

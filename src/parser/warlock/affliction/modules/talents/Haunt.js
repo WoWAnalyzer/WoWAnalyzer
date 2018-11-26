@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
@@ -10,7 +11,7 @@ import { formatPercentage, formatThousands } from 'common/format';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
-import { UNSTABLE_AFFLICTION_DEBUFF_IDS } from '../../constants';
+import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
 
 const HAUNT_DAMAGE_BONUS = 0.1;
 
@@ -26,16 +27,17 @@ class Haunt extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.HAUNT_TALENT.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
-  on_byPlayer_damage(event) {
+  onDamage(event) {
     const target = this.enemies.getEntity(event);
     if (!target) {
       return;
     }
     const hasHaunt = target.hasBuff(SPELLS.HAUNT_TALENT.id, event.timestamp);
 
-    if (UNSTABLE_AFFLICTION_DEBUFF_IDS.includes(event.ability.guid)) {
+    if (UNSTABLE_AFFLICTION_DEBUFFS.some(spell => spell.id === event.ability.guid)) {
       this.totalTicks += 1;
       if (hasHaunt) {
         this.buffedTicks += 1;

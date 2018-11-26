@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 
-import CoreAbilities from 'parser/shared/modules/Abilities';
+import CoreAbilities from 'parser/core/modules/Abilities';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -30,8 +30,13 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FERAL_SPIRIT,
+        buffSpellId: [ //Feral Spirit isn't an actual buff, so we can only show the Elemental Spirits buffs
+          SPELLS.ELEMENTAL_SPIRITS_BUFF_MOLTEN_WEAPON.id,
+          SPELLS.ELEMENTAL_SPIRITS_BUFF_ICY_EDGE.id,
+          SPELLS.ELEMENTAL_SPIRITS_BUFF_CRACKLING_SURGE.id, 
+        ], 
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120,
+        cooldown: combatant.hasTalent(SPELLS.ELEMENTAL_SPIRITS_TALENT) ? 150 : 180,
         gcd: {
           base: 1500,
         },
@@ -41,18 +46,18 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.LIGHTNING_BOLT_ENHANCE,
-        category: Abilities.SPELL_CATEGORIES.OTHERS, // 1.5 / (1 + haste)
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.WIND_SHEAR,
-        category: Abilities.SPELL_CATEGORIES.OTHERS, // 1.5 / (1 + haste)
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
       },
       {
         spell: SPELLS.ROCKBITER,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL, // 1.5 / (1 + haste)
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
         },
@@ -60,42 +65,46 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FROSTBRAND,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.FROSTBRAND.id), // 1.5 / (1 + haste)
+        enabled: combatant.hasTalent(SPELLS.FROSTBRAND.id),
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.FLAMETONGUE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL, // 1.5 / (1 + haste)
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.STORMSTRIKE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL, // 1.5 / (1 + haste)
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.LAVA_LASH,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL, // 1.5 / (1 + haste)
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.WINDSTRIKE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL, // 1.5 / (1 + haste)
-      },
-      {
-        spell: SPELLS.CRASH_LIGHTNING,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE, // 1.5 / (1 + haste)
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
         },
+      },
+      {
+        spell: SPELLS.CRASH_LIGHTNING,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 6,
       },
       {
         spell: SPELLS.FERAL_LUNGE,
@@ -134,6 +143,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.ASTRAL_SHIFT.id,
         cooldown: 90,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+        isDefensive: true,
       },
       {
         spell: SPELLS.FURY_OF_AIR_TALENT,
@@ -150,6 +160,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(SPELLS.SUNDERING_TALENT.id),
+        cooldown: 40,
       },
       {
         spell: SPELLS.REINCARNATION,
@@ -161,11 +172,26 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BLOODLUST,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.HEROISM,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.ASCENDANCE_TALENT_ENHANCEMENT,
+        buffSpellId: SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         gcd: {
           base: 1500,
         },
-      },{
+        enabled: combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id),
+        cooldown: 180,
+      },
+      {
         spell: SPELLS.BERSERKING,
+        buffSpellId: SPELLS.BERSERKING.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         isUndetectable: true,

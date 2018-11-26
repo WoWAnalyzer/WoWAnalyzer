@@ -8,7 +8,7 @@ import { formatNumber } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import ResourceIcon from 'common/ResourceIcon';
-import Abilities from 'parser/shared/modules/Abilities';
+import Abilities from 'parser/core/modules/Abilities';
 import SpellLink from 'common/SpellLink';
 
 /**
@@ -28,30 +28,8 @@ class Trueshot extends Analyzer {
   aimedShotsPrTS = 0;
   wastedAimedShotCharges = 0;
   startFocusForCombatant = 0;
-  prepullTrueshots = 0;
-
-  on_byPlayer_applybuff(event) {
-    const buffId = event.ability.guid;
-    if (buffId !== SPELLS.TRUESHOT.id || !event.prepull) {
-      return;
-    }
-    //adds 1 to trueshotCasts to properly show that it was cast prepull
-    this.trueshotCasts += 1;
-    this.prepullTrueshots += 1;
-    //starts the cooldown to ensure proper cast efficiency statistics
-    this.spellUsable.beginCooldown(SPELLS.TRUESHOT.id, this.owner.fight.start_time);
-  }
 
   on_byPlayer_cast(event) {
-    //checks if we had a prepull trueshot, in which case the firstCast done symbolises our starting focus of that one trueshot
-    if (this.prepullTrueshots > 0 && this.startFocusForCombatant === 0) {
-      event.classResources.forEach(classResource => {
-        if (classResource.type === RESOURCE_TYPES.FOCUS.id && classResource.amount > this.startFocusForCombatant) {
-          this.startFocusForCombatant += classResource.amount;
-          this.accumulatedFocusAtTSCast += this.startFocusForCombatant;
-        }
-      });
-    }
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.TRUESHOT.id && spellId !== SPELLS.AIMED_SHOT.id) {
       return;

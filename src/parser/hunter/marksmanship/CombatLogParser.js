@@ -18,6 +18,7 @@ import RapidFireNormalizer from './normalizers/RapidFire';
 //Spells
 import Trueshot from './modules/spells/Trueshot';
 import LoneWolf from './modules/spells/LoneWolf';
+import PreciseShots from './modules/spells/PreciseShots';
 
 //Talents
 import AMurderOfCrows from '../shared/modules/talents/AMurderOfCrows';
@@ -35,6 +36,8 @@ import SerpentSting from './modules/talents/SerpentSting';
 import NaturalMending from '../shared/modules/talents/NaturalMending';
 import Trailblazer from '../shared/modules/talents/Trailblazer';
 import SteadyFocus from './modules/talents/SteadyFocus';
+import BornToBeWild from '../shared/modules/talents/BornToBeWild';
+import BindingShot from '../shared/modules/talents/BindingShot';
 
 //Focus
 import FocusTracker from '../shared/modules/features/focuschart/FocusTracker';
@@ -44,7 +47,7 @@ import FocusTab from '../shared/modules/features/focuschart/FocusTab';
 import SteadyAim from './modules/spells/azeritetraits/SteadyAim';
 
 //Traits and Talents
-import TraitsAndTalents from './modules/features/TraitsAndTalents';
+import SpellsAndTalents from './modules/features/SpellsAndTalents';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -71,6 +74,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Spells
     trueshot: Trueshot,
     loneWolf: LoneWolf,
+    preciseShots: PreciseShots,
 
     //Talents
     volley: Volley,
@@ -88,12 +92,14 @@ class CombatLogParser extends CoreCombatLogParser {
     steadyFocus: SteadyFocus,
     naturalMending: NaturalMending,
     trailblazer: Trailblazer,
+    bornToBeWild: BornToBeWild,
+    bindingShot: BindingShot,
 
     //Azerite Traits
     steadyAim: SteadyAim,
 
-    //Traits and talents
-    traitsAndTalents: TraitsAndTalents,
+    //Spells and Talents
+    spellsAndTalents: SpellsAndTalents,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],

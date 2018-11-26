@@ -1,7 +1,10 @@
-import CoreAbilities from 'parser/shared/modules/Abilities';
+import CoreAbilities from 'parser/core/modules/Abilities';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
 import SPELLS from 'common/SPELLS';
+
+import { mapSpellsToIds } from 'parser/warlock/shared/helpers';
+import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -14,6 +17,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        buffSpellId: [...mapSpellsToIds(UNSTABLE_AFFLICTION_DEBUFFS)],
       },
       {
         spell: SPELLS.DEATHBOLT_TALENT,

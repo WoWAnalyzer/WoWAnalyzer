@@ -57,8 +57,8 @@ class DoubleTap extends Analyzer {
 
     return (
       <TalentStatisticBox
+        talent={SPELLS.DOUBLE_TAP_TALENT.id}
         position={STATISTIC_ORDER.CORE(18)}
-        icon={<SpellIcon id={SPELLS.DOUBLE_TAP_TALENT.id} />}
         value={(
           <>
             {this.aimedUsage}{'  '}
@@ -80,7 +80,6 @@ class DoubleTap extends Analyzer {
             />
           </>
         )}
-        label="Double Tap"
         tooltip={tooltipText}
       />
     );

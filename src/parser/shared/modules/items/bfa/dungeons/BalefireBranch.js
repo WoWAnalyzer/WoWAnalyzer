@@ -5,7 +5,8 @@ import { formatDuration } from 'common/format';
 import { calculatePrimaryStat } from 'common/stats';
 
 import Analyzer from 'parser/core/Analyzer';
-import Abilities from 'parser/shared/modules/Abilities';
+import EventEmitter from 'parser/core/modules/EventEmitter';
+import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const ACTIVATION_COOLDOWN = 90; // seconds
@@ -34,9 +35,11 @@ const BASE_INTELLECT_PER_STACK = 12;
  */
 class BalefireBranch extends Analyzer {
   static dependencies = {
+    eventEmitter: EventEmitter,
     abilities: Abilities,
     spellUsable: SpellUsable,
-  }
+  };
+
   applyCount = 0;
   currentStack = 0;
   totalUptime = 0;
@@ -85,7 +88,7 @@ class BalefireBranch extends Analyzer {
     this.lastApply = event.timestamp;
 
     // using the trinket doesn't trigger a cast event, so make our own
-    this.owner.fabricateEvent({
+    this.eventEmitter.fabricateEvent({
       ...event,
       ability: {
         abilityIcon: SPELLS.BALEFIRE_BRANCH_SPELL.icon,
@@ -100,7 +103,7 @@ class BalefireBranch extends Analyzer {
      * Fabricate an event to let things like StatTracker know the accurate stack number.
      * (applybuffstack isn't listened for in this analyzer)
      */
-    this.owner.fabricateEvent({
+    this.eventEmitter.fabricateEvent({
       ...event,
       stack: STACKS_START,
       type: 'applybuffstack',

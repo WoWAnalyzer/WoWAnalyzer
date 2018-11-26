@@ -5,7 +5,7 @@ import ItemLink from 'common/ItemLink';
 import { formatPercentage } from 'common/format';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 import Analyzer from 'parser/core/Analyzer';
-import Abilities from 'parser/shared/modules/Abilities';
+import Abilities from 'parser/core/modules/Abilities';
 
 /**
  * Inoculating Extract -

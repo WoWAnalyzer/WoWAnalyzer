@@ -1,6 +1,6 @@
 import React from 'react';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import SpellIcon from 'common/SpellIcon';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
@@ -32,11 +32,10 @@ class RazorSpikes extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <TalentStatisticBox
+        talent={SPELLS.RAZOR_SPIKES_TALENT.id}
         position={STATISTIC_ORDER.CORE(5)}
-        icon={<SpellIcon id={SPELLS.RAZOR_SPIKES_TALENT.id} />}
         value={`${this.owner.formatItemDamageDone(this.damage)}`}
-        label="Razor Spikes"
         tooltip={`This shows the extra dps that the talent provides.<br/>
                   <b>Total extra damage:</b> ${formatNumber(this.damage)}`}
       />

@@ -1,8 +1,9 @@
 import { formatMilliseconds } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
+import EventEmitter from 'parser/core/modules/EventEmitter';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 
-import Abilities from './Abilities';
+import Abilities from '../../core/modules/Abilities';
 import Haste from './Haste';
 import Channeling from './Channeling';
 
@@ -14,6 +15,7 @@ const MIN_GCD = 750; // Minimum GCD for most abilities is 750ms.
  */
 class GlobalCooldown extends Analyzer {
   static dependencies = {
+    eventEmitter: EventEmitter,
     abilities: Abilities,
     haste: Haste,
     // For the `beginchannel` event among other things
@@ -89,7 +91,7 @@ class GlobalCooldown extends Analyzer {
    * @param event
    */
   triggerGlobalCooldown(event) {
-    this.owner.fabricateEvent({
+    this.eventEmitter.fabricateEvent({
       type: 'globalcooldown',
       ability: event.ability,
       sourceID: event.sourceID,

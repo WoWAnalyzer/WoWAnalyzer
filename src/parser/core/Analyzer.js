@@ -1,4 +1,3 @@
-import { formatMilliseconds } from 'common/format';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import EventSubscriber from './EventSubscriber';
 import EventFilter, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from './EventFilter';
@@ -62,7 +61,6 @@ function addLegacyEventListenerSupport(object) {
 }
 
 class Analyzer extends EventSubscriber {
-  static __dangerousInvalidUsage = false;
   hasLegacyEventListener = false;
 
   /**
@@ -78,23 +76,6 @@ class Analyzer extends EventSubscriber {
       throw new Error('You can not combine legacy event listeners with manual event listeners, use only one method.');
     }
     super.addEventListener(eventFilter, listener);
-  }
-
-  get consoleMeta() {
-    const fightDuration = formatMilliseconds(this.owner.currentTimestamp - this.owner.fight.start_time);
-    return [fightDuration, `(module: ${this.constructor.name})`];
-  }
-  debug(...args) {
-    console.debug(...this.consoleMeta, ...args);
-  }
-  log(...args) {
-    console.log(...this.consoleMeta, ...args);
-  }
-  warn(...args) {
-    console.warn(...this.consoleMeta, ...args);
-  }
-  error(...args) {
-    console.error(...this.consoleMeta, ...args);
   }
 
   // Override these with functions that return info about their rendering in the specific slots

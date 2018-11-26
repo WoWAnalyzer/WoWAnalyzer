@@ -1,10 +1,6 @@
 import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
-import StatTracker from 'parser/shared/modules/StatTracker';
-import Channeling from 'parser/shared/modules/Channeling';
 import SPELLS from 'common/SPELLS';
-import Haste from 'parser/shared/modules/Haste';
 import SteadyFocus from 'parser/hunter/marksmanship/modules/talents/SteadyFocus';
-import Abilities from '../Abilities';
 
 const STEADY_FOCUS_GCD_REDUCTION_PER_STACK = 0.2;
 
@@ -17,10 +13,7 @@ const MIN_GCD = 750;
 
 class GlobalCooldown extends CoreGlobalCooldown {
   static dependencies = {
-    abilities: Abilities,
-    haste: Haste,
-    statTracker: StatTracker,
-    channeling: Channeling,
+    ...CoreGlobalCooldown.dependencies,
     steadyFocus: SteadyFocus,
   };
 
@@ -35,7 +28,6 @@ class GlobalCooldown extends CoreGlobalCooldown {
     }
     return Math.max(MIN_GCD, gcd);
   }
-
 }
 
 export default GlobalCooldown;

@@ -1,7 +1,6 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
-import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from "common/format";
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -51,10 +50,9 @@ class WillOfTheNecropolis extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.WILL_OF_THE_NECROPOLIS_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(4)}
-        icon={<SpellIcon id={SPELLS.WILL_OF_THE_NECROPOLIS_TALENT.id} />}
         value={`${this.owner.formatItemHealingDone(this.totalWotnAbsorbed)}`}
-        label="Will Of The Necropolis"
         tooltip={`<strong>Total Damage Absorbed: </strong> ${formatNumber(this.totalWotnAbsorbed)} </br>
                   <strong>Activated: </strong> ${this.activated}</br>
                   <strong>Absorbed 5% Max Health or more count: </strong> ${this.goodAbsorbCount}  `}

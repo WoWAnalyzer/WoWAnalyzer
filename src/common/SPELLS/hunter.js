@@ -417,7 +417,7 @@ export default {
     name: 'A Murder of Crows',
     icon: 'ability_hunter_murderofcrows',
   },
-  BINDING_SHOT_STUN: {
+  BINDING_SHOT_ROOT: {
     id: 117526,
     name: 'Binding Shot Stun',
     icon: 'spell_shaman_bindelemental',

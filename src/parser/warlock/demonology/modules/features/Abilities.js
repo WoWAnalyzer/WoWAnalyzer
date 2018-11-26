@@ -1,4 +1,4 @@
-import CoreAbilities from 'parser/shared/modules/Abilities';
+import CoreAbilities from 'parser/core/modules/Abilities';
 
 import SPELLS from 'common/SPELLS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
@@ -92,7 +92,8 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: false,
+          suggestion: true,
+          recommendedEfficiency: 0.9,
         },
       },
       {
@@ -128,6 +129,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.90,
         },
+        buffSpellId: SPELLS.NETHER_PORTAL_BUFF.id,
       },
       {
         spell: SPELLS.POWER_SIPHON_TALENT,
@@ -145,7 +147,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.GRIMOIRE_FELGUARD_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 90,
+        cooldown: 120,
         enabled: combatant.hasTalent(SPELLS.GRIMOIRE_FELGUARD_TALENT.id),
         gcd: {
           base: 1500,
