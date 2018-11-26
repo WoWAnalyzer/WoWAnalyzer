@@ -68,6 +68,26 @@ export default {
     name: 'Supreme Commander',
     icon: 'inv_summondemonictyrant',
   },
+  SHADOWS_BITE: {
+    id: 272944,
+    name: 'Shadow\'s Bite',
+    icon: 'spell_shadow_painspike',
+  },
+  SHADOWS_BITE_BUFF: {
+    id: 272945,
+    name: 'Shadow\'s Bite',
+    icon: 'spell_shadow_painspike',
+  },
+  FORBIDDEN_KNOWLEDGE: {
+    id: 278738,
+    name: 'Forbidden Knowledge',
+    icon: 'inv_offhand_hyjal_d_01',
+  },
+  FORBIDDEN_KNOWLEDGE_BUFF: {
+    id: 279666,
+    name: 'Forbidden Knowledge',
+    icon: 'inv_offhand_hyjal_d_01',
+  },
 
   // Destruction Azerite traits and effects
   ACCELERANT: {
