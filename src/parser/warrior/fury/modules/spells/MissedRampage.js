@@ -32,12 +32,18 @@ class MissedRampage extends Analyzer {
   }
 
   get suggestionThresholds() {
+    let s_Major = 10;
+
+    if (this.selectedCombatant.hasTalent(SPELLS.FROTHING_BERSERKER_TALENT.id)) {
+      s_Major = 0;
+    }
+
     return {
       actual: this.missedRampages,
       isGreaterThan: {
         minor: 0,
         average: 5,
-        major: 10,
+        major: s_Major,
       },
       style: 'number',
     };
