@@ -90,6 +90,16 @@ export default {
     name: 'Flashpoint',
     icon: 'spell_fire_immolation',
   },
+  ROLLING_HAVOC: {
+    id: 278747,
+    name: 'Rolling Havoc',
+    icon: 'warlock_pvp_banehavoc',
+  },
+  ROLLING_HAVOC_BUFF: {
+    id: 278931,
+    name: 'Rolling Havoc',
+    icon: 'warlock_pvp_banehavoc',
+  },
   BURSTING_FLARE: {
     id: 279909,
     name: 'Bursting Flare',
