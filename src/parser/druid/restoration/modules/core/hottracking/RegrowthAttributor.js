@@ -4,7 +4,6 @@ import Analyzer from 'parser/core/Analyzer';
 import HotTracker from './HotTracker';
 
 const BUFFER_MS = 150; // saw a few cases of taking close to 150ms from cast -> applybuff
-
 /*
  * Backend module tracks attribution of Regrowth
  * TODO - Dead module?
@@ -19,6 +18,11 @@ class RegrowthAttributor extends Analyzer {
   lastRegrowthCastTimestamp;
   lastRegrowthTarget;
 
+  totalNonCCRegrowthHealing = 0;
+  totalNonCCRegrowthOverhealing = 0;
+  totalNonCCRegrowthAbsorbs = 0;
+  totalNonCCRegrowthHealingTicks = 0;
+
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     const targetId = event.targetID;
@@ -27,6 +31,23 @@ class RegrowthAttributor extends Analyzer {
     if (spellId === SPELLS.REGROWTH.id) {
       this.lastRegrowthCastTimestamp = event.timestamp;
       this.lastRegrowthTarget = targetId;
+    }
+  }
+
+  on_byPlayer_heal(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.REGROWTH.id || event.tick) {
+      return;
+    }
+
+    // TODO - include regrowth HoT portion
+    if(!this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id, event.timestamp, BUFFER_MS)) {
+      this.totalNonCCRegrowthHealing += event.amount;
+      this.totalNonCCRegrowthOverhealing += event.overheal || 0;
+      this.totalNonCCRegrowthAbsorbs += event.absorbed || 0;
+      if(event.tick) {
+        this.totalNonCCRegrowthHealingTicks++;
+      }
     }
   }
 

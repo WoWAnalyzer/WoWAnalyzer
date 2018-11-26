@@ -50,12 +50,11 @@ import RampantGrowth from './modules/items/azeritetraits/RampantGrowth';
 import StatWeights from './modules/features/StatWeights';
 
 // Mana Tracker
-import HealingEfficiencyDetails from '../../core/healingEfficiency/HealingEfficiencyDetails';
-import HealingEfficiencyTracker from '../../core/healingEfficiency/HealingEfficiencyTracker';
 import ManaTracker from '../../core/healingEfficiency/ManaTracker';
+import HealingEfficiencyDetails from '../../core/healingEfficiency/HealingEfficiencyDetails';
+import HealingEfficiencyTracker from './modules/features/RestoDruidHealingEfficiencyTracker';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
-
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -120,9 +119,9 @@ class CombatLogParser extends CoreCombatLogParser {
     statWeights: StatWeights,
 
     // Mana Tab
+    manaTracker: ManaTracker,
     hpmDetails: HealingEfficiencyDetails,
     hpmTracker: HealingEfficiencyTracker,
-    manaTracker: ManaTracker,
   };
 }
 
