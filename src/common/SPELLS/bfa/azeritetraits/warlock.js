@@ -90,4 +90,14 @@ export default {
     name: 'Flashpoint',
     icon: 'spell_fire_immolation',
   },
+  BURSTING_FLARE: {
+    id: 279909,
+    name: 'Bursting Flare',
+    icon: 'spell_fire_fireball',
+  },
+  BURSTING_FLARE_BUFF: {
+    id: 279913,
+    name: 'Bursting Flare',
+    icon: 'spell_fire_fireball',
+  },
 };
