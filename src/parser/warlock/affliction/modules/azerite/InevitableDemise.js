@@ -50,7 +50,7 @@ class InevitableDemise extends Analyzer {
     const buff = this.selectedCombatant.getBuff(SPELLS.INEVITABLE_DEMISE_BUFF.id);
     const currentStacks = buff ? buff.stacks : 0;
     const totalDamage = event.amount + (event.absorbed || 0);
-    const bonusDamage = calculateBonusAzeriteDamage(event, currentStacks * this.damagePerStack, DRAIN_LIFE_SP_COEFFICIENT, this.statTracker.currentIntellectRating);
+    const bonusDamage = calculateBonusAzeriteDamage(event, currentStacks * this.damagePerStack, [DRAIN_LIFE_SP_COEFFICIENT, this.statTracker.currentIntellectRating]);
     debug && this.log(`Drain Life damage, current stacks: ${currentStacks}, current bonus base damage: ${currentStacks * this.damagePerStack}, total damage: ${totalDamage}, Drain damage: ${totalDamage - bonusDamage}, bonus damage: ${bonusDamage}`);
     this.damage += bonusDamage;
   }
