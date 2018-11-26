@@ -14,7 +14,7 @@ const TalentStatisticBox = ({ talent, icon, label, ...others }) => {
   label = label || <SpellLink id={talent} icon={false} />;
 
   return (
-    <StatisticBox icon={icon} label={label} {...others} />
+    <StatisticBox icon={icon} label={label} item {...others} />
   );
 };
 
