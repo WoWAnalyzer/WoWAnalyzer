@@ -21,7 +21,7 @@ const debug = false;
 
 /*
   Accelerant:
-  When your Rain of Fire damages 3 or more targets, gain 218 Haste for 12 sec.
+  When your Rain of Fire damages 3 or more targets, gain X Haste for 12 sec.
  */
 class Accelerant extends Analyzer {
   haste = 0;
