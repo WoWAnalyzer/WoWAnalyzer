@@ -24,8 +24,6 @@ const debug = false;
   Casting Conflagrate on a target affected by your Immolate increases your Mastery by X for 20 sec, stacking up to 5 times.
  */
 class BurstingFlare extends Analyzer {
-  _lastChangeTimestamp = null;
-  _currentStacks = 0;
   totalMastery = 0;
   mastery = 0;
 
