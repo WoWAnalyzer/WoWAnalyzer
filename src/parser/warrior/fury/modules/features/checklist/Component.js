@@ -39,10 +39,6 @@ class FuryWarriorChecklist extends React.PureComponent {
             <AbilityRequirement spell={SPELLS.SIEGEBREAKER_TALENT.id} />
           )}
           <AbilityRequirement spell={SPELLS.RECKLESSNESS.id} />
-          {/* We can't detect race, so disable this when it has never been cast. */}
-          {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_RAGE.id) && (
-            <AbilityRequirement spell={SPELLS.ARCANE_TORRENT_RAGE.id} />
-          )}
         </Rule>
         <Rule
           name="Use Rampage"

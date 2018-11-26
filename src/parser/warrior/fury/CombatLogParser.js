@@ -10,11 +10,14 @@ import SpellUsable from './modules/features/SpellUsable';
 import EnrageUptime from './modules/buffdebuff/EnrageUptime';
 <<<<<<< HEAD
 import FrothingBerserkerUptime from './modules/buffdebuff/FrothingBerserkerUptime';
+<<<<<<< HEAD
 import Juggernaut from './modules/buffdebuff/Juggernaut';
 =======
 
 import FrothingBerserker from './modules/talents/FrothingBerserker';
 >>>>>>> d191d036c... Capitalization
+=======
+>>>>>>> 4a1ce2837... Juggernaut no longer exists
 
 import MissedRampage from './modules/spells/MissedRampage';
 import RampageCancelled from './modules/features/RampageCancelled';
@@ -35,12 +38,15 @@ class CombatLogParser extends CoreCombatLogParser {
     enrageUptime: EnrageUptime,
 <<<<<<< HEAD
     frothingBerserkerUptime: FrothingBerserkerUptime,
+<<<<<<< HEAD
     juggernaut: Juggernaut,
 =======
     //frothingBerserkerUptime: FrothingBerserkerUptime,
 
     frothingBerserker: FrothingBerserker,
 >>>>>>> d191d036c... Capitalization
+=======
+>>>>>>> 4a1ce2837... Juggernaut no longer exists
 
     missedRampage: MissedRampage,
     rampageCancelled: RampageCancelled,

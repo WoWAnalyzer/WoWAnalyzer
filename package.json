@@ -17,6 +17,7 @@
     "history": "^4.7.2",
     "jest": "^23.6.0",
     "jest-enzyme": "^6.1.2",
+    "npm": "^6.4.1",
     "prop-types": "^15.6.2",
     "raven-js": "^3.27.0",
     "rc-slider": "^8.6.3",
