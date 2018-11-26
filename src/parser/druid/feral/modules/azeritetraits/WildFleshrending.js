@@ -124,7 +124,7 @@ class WildFleshrending extends Analyzer {
     
     const traitBonus = isShred ? this.shredBonus : this.swipeBonus;
     const coefficient = this.abilities.getAbility(event.ability.guid).primaryCoefficient;
-    const traitDamageContribution = calculateBonusAzeriteDamage(event, traitBonus, [this.attackPower, coefficient]);
+    const [ traitDamageContribution ] = calculateBonusAzeriteDamage(event, traitBonus, this.attackPower, coefficient);
     if (isShred) {
       this.shredDamage += traitDamageContribution;
       debug && console.log(`${this.owner.formatTimestamp(event.timestamp, 3)} Shred increased by ${traitDamageContribution.toFixed(0)}.`);

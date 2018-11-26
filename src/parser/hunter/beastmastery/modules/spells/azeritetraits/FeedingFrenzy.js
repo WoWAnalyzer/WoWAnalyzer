@@ -103,7 +103,7 @@ class FeedingFrenzy extends Analyzer {
       return;
     }
 
-    const traitDamageContribution = calculateBonusAzeriteDamage(event, this.traitBonus, [this.lastAttackPower, FEEDING_FRENZY_DAMAGE_COEFFICIENT]);
+    const [ traitDamageContribution ] = calculateBonusAzeriteDamage(event, this.traitBonus, this.lastAttackPower, FEEDING_FRENZY_DAMAGE_COEFFICIENT);
     this.traitDamageContribution += traitDamageContribution;
 
     if (debug) {

@@ -113,17 +113,17 @@ class ShadowsBiteForbiddenKnowledgeCore extends Analyzer {
     const pairedCast = this._queue[castIndex];
     debug && this.log('Paired damage event with queued cast', pairedCast);
 
-    if (pairedCast.applyFK) {
-      const sbBonus = (pairedCast.applySB && this.shadowsBiteBonus) || 0;
-      debug && this.log(`Applying FK bonus ${this.forbiddenKnowledgeBonus}, with SB bonus ${sbBonus}`);
-      this.forbiddenKnowledgeDamage += calculateBonusAzeriteDamage(event, this.forbiddenKnowledgeBonus, [DEMONBOLT_SP_COEFFICIENT, pairedCast.intellect], [sbBonus]);
-    }
+    const fkBonus = (pairedCast.applyFK && this.forbiddenKnowledgeBonus) || 0;
+    const sbBonus = (pairedCast.applySB && this.shadowsBiteBonus) || 0;
 
-    if (pairedCast.applySB) {
-      const fkBonus = (pairedCast.applyFK && this.forbiddenKnowledgeBonus) || 0;
-      debug && this.log(`Applying SB bonus ${this.shadowsBiteBonus}, with FK bonus ${fkBonus}`);
-      this.shadowsBiteDamage += calculateBonusAzeriteDamage(event, this.shadowsBiteBonus, [DEMONBOLT_SP_COEFFICIENT, pairedCast.intellect], [fkBonus]);
-    }
+    debug && this.log(`FK bonus: ${fkBonus}, SB bonus: ${sbBonus}`);
+
+    const [ fkDamage, sbDamage ] = calculateBonusAzeriteDamage(event, [fkBonus, sbBonus], DEMONBOLT_SP_COEFFICIENT, pairedCast.intellect);
+
+    debug && this.log(`FK bonus damage: ${fkDamage}, SB bonus damage: ${sbDamage}`);
+
+    this.forbiddenKnowledgeDamage += fkDamage;
+    this.shadowsBiteDamage += sbDamage;
 
     this._queue.splice(castIndex, 1);
   }
