@@ -8,8 +8,13 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import SpellUsable from './modules/features/SpellUsable';
 
 import EnrageUptime from './modules/buffdebuff/EnrageUptime';
+<<<<<<< HEAD
 import FrothingBerserkerUptime from './modules/buffdebuff/FrothingBerserkerUptime';
 import Juggernaut from './modules/buffdebuff/Juggernaut';
+=======
+
+import FrothingBerserker from './modules/talents/FrothingBerserker';
+>>>>>>> d191d036c... Capitalization
 
 import MissedRampage from './modules/spells/MissedRampage';
 import RampageCancelled from './modules/features/RampageCancelled';
@@ -28,8 +33,14 @@ class CombatLogParser extends CoreCombatLogParser {
     spellUsable: SpellUsable,
 
     enrageUptime: EnrageUptime,
+<<<<<<< HEAD
     frothingBerserkerUptime: FrothingBerserkerUptime,
     juggernaut: Juggernaut,
+=======
+    //frothingBerserkerUptime: FrothingBerserkerUptime,
+
+    frothingBerserker: FrothingBerserker,
+>>>>>>> d191d036c... Capitalization
 
     missedRampage: MissedRampage,
     rampageCancelled: RampageCancelled,
