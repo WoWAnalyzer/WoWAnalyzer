@@ -31,6 +31,8 @@ import { STAT_TRACKER as WRACKING_BRILLIANCE_STATS } from 'parser/warlock/afflic
 import { STAT_TRACKER as EXPLOSIVE_POTENTIAL_STATS } from 'parser/warlock/demonology/modules/azerite/ExplosivePotential';
 import { STAT_TRACKER as SUPREME_COMMANDER_STATS } from 'parser/warlock/demonology/modules/azerite/SupremeCommander';
 import { STAT_TRACKER as BURSTING_FLARE_STATS } from 'parser/warlock/destruction/modules/azerite/BurstingFlare';
+import { STAT_TRACKER as FLASHPOINT_STATS } from 'parser/warlock/destruction/modules/azerite/Flashpoint';
+import { STAT_TRACKER as ACCELERANT_STATS } from 'parser/warlock/destruction/modules/azerite/Accelerant';
 
 const debug = false;
 
@@ -298,6 +300,8 @@ class StatTracker extends Analyzer {
     [SPELLS.WRACKING_BRILLIANCE_BUFF.id]: WRACKING_BRILLIANCE_STATS,
     [SPELLS.SUPREME_COMMANDER_BUFF.id]: SUPREME_COMMANDER_STATS,
     [SPELLS.BURSTING_FLARE_BUFF.id]: BURSTING_FLARE_STATS,
+    [SPELLS.FLASHPOINT_BUFF.id]: FLASHPOINT_STATS,
+    [SPELLS.ACCELERANT_BUFF.id]: ACCELERANT_STATS,
     // endregion
     //region Death Knight
     [SPELLS.BONES_OF_THE_DAMNED_BUFF.id]: BOFD_ARMOR, // Armor when Bones of the Damend trait is up
