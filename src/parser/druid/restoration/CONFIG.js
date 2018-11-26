@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Yajinni, blazyb } from 'CONTRIBUTORS';
+import { blazyb } from 'CONTRIBUTORS';
 import retryingPromise from 'common/retryingPromise';
 import SPECS from 'game/SPECS';
 
