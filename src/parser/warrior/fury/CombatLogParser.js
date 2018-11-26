@@ -12,7 +12,6 @@ import FrothingBerserkerUptime from './modules/buffdebuff/FrothingBerserkerUptim
 import Juggernaut from './modules/buffdebuff/Juggernaut';
 
 import MissedRampage from './modules/spells/MissedRampage';
-import RampageFrothingBerserker from './modules/features/RampageFrothingBerserker';
 import RampageCancelled from './modules/features/RampageCancelled';
 import AngerManagement from './modules/talents/AngerManagement';
 import FuriousSlashTimesByStacks from './modules/talents/FuriousSlashTimesByStacks';
@@ -33,7 +32,6 @@ class CombatLogParser extends CoreCombatLogParser {
     juggernaut: Juggernaut,
 
     missedRampage: MissedRampage,
-    rampageFrothingBerserker: RampageFrothingBerserker,
     rampageCancelled: RampageCancelled,
     angerManagement: AngerManagement,
     furiousSlashTimesByStacks: FuriousSlashTimesByStacks,
