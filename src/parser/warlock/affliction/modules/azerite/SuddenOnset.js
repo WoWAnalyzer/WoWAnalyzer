@@ -41,7 +41,7 @@ class SuddenOnset extends Analyzer {
   }
 
   onAgonyDamage(event) {
-    const [ bonusDamage ] = calculateBonusAzeriteDamage(event, this.traitBonus, AGONY_SP_COEFFICIENT, this.statTracker.currentIntellectRating);
+    const [ bonusDamage ] = calculateBonusAzeriteDamage(event, [this.traitBonus], AGONY_SP_COEFFICIENT, this.statTracker.currentIntellectRating);
     this.damage += bonusDamage;
   }
 

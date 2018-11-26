@@ -45,7 +45,7 @@ class DemonicMeteor extends Analyzer {
   }
 
   onHogDamage(event) {
-    const [ bonusDamage ] = calculateBonusAzeriteDamage(event, this.traitBonus, HOG_SP_COEFFICIENT, this.statTracker.currentIntellectRating);
+    const [ bonusDamage ] = calculateBonusAzeriteDamage(event, [this.traitBonus], HOG_SP_COEFFICIENT, this.statTracker.currentIntellectRating);
     this.damage += bonusDamage;
   }
 
