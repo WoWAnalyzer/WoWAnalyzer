@@ -23,7 +23,6 @@ const debug = false;
   Each time your spells duplicate to a Havoc target, gain X Intellect for 15 sec. This effect stacks.
  */
 class RollingHavoc extends Analyzer {
-  totalIntellect = 0;
   intellect = 0;
 
   constructor(...args) {
