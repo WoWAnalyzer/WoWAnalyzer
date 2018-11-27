@@ -524,8 +524,8 @@ export default {
   },
 
   //Azerite Traits
-  GLACIAL_ASSAULT: {
-    id: 279855,
+  GLACIAL_ASSAULT_TRAIT: {
+    id: 279854,
     name: 'Glacial Assault',
     icon: 'spell_mage_cometstorm2',
   },
