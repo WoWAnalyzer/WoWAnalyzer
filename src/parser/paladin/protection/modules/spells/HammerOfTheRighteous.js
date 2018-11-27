@@ -18,17 +18,17 @@ export default class HammerOfTheRighteous extends Analyzer {
     spells: SpellUsable,
   };
 
-  _activeSpell = SPELLS.HAMMER_OF_THE_RIGHTEOUS;
+  activeSpell = SPELLS.HAMMER_OF_THE_RIGHTEOUS;
   _badCasts = 0;
   _casts = 0;
 
   constructor(props) {
     super(props);
     if(this.selectedCombatant.hasTalent(SPELLS.BLESSED_HAMMER_TALENT.id)) {
-      this._activeSpell = SPELLS.BLESSED_HAMMER_TALENT;
+      this.activeSpell = SPELLS.BLESSED_HAMMER_TALENT;
     }
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this._activeSpell), this._handleFiller);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.activeSpell), this._handleFiller);
   }
 
   _handleFiller(event) {
@@ -59,8 +59,8 @@ export default class HammerOfTheRighteous extends Analyzer {
   suggestions(when) {
     when(this.badCastThreshold)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>You should avoid casting <SpellLink id={this._activeSpell.id} /> while better spells (namely <SpellLink id={SPELLS.JUDGMENT_CAST_PROTECTION.id} /> and <SpellLink id={SPELLS.AVENGERS_SHIELD.id} />) are available. This is a <em>filler</em> ability and should only be used when you have no better spells to cast.</>)
-        .icon(this._activeSpell.icon)
+        return suggest(<>You should avoid casting <SpellLink id={this.activeSpell.id} /> while better spells (namely <SpellLink id={SPELLS.JUDGMENT_CAST_PROTECTION.id} /> and <SpellLink id={SPELLS.AVENGERS_SHIELD.id} />) are available. This is a <em>filler</em> ability and should only be used when you have no better spells to cast.</>)
+        .icon(this.activeSpell.icon)
         .actual(`${formatPercentage(this.badCastRatio)}% of casts while better spells were available`)
         .recommended(`< ${formatPercentage(recommended)}% is recommended`);
       });

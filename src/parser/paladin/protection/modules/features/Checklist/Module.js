@@ -31,8 +31,8 @@ class Checklist extends BaseChecklist {
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
         extras={{
-          lotpAbility: this.lotp._activeSpell,
-          hotrAbility: this.hotr._activeSpell,
+          lotpAbility: this.lotp.activeSpell,
+          hotrAbility: this.hotr.activeSpell,
         }}
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,

@@ -40,9 +40,7 @@ class ProtectionPaladinChecklist extends React.PureComponent{
           <AbilityRequirement spell={SPELLS.AVENGERS_SHIELD.id} />
           <AbilityRequirement spell={SPELLS.JUDGMENT_CAST_PROTECTION.id} />
           <Requirement
-            name={(
-              <>Bad <SpellLink id={this.props.extras.hotrAbility.id} /> casts</>
-            )}
+            name={<>Bad <SpellLink id={this.props.extras.hotrAbility.id} /> casts</>}
             tooltip="This is a <em>filler</em> ability and should only be cast while your other spells are on cooldown."
             thresholds={thresholds.hotrBadCasts}
           />
