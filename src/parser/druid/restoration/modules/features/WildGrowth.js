@@ -66,7 +66,7 @@ class WildGrowth extends Analyzer {
 
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.WILD_GROWTH.id || !this.wgTracker.wgBuffs) {
+    if (spellId !== SPELLS.WILD_GROWTH.id) {
       return;
     }
     this.wgTracker.wgBuffs.push(event.targetID);
