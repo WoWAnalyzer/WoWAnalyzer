@@ -35,6 +35,9 @@ import SacrificedSouls from './modules/talents/SacrificedSouls';
 import DemonicConsumption from './modules/talents/DemonicConsumption';
 import NetherPortal from './modules/talents/NetherPortal';
 
+import ShadowsBiteForbiddenKnowledgeCore from './modules/azerite/ShadowsBiteForbiddenKnowledgeCore';
+import ShadowsBite from './modules/azerite/ShadowsBite';
+import ForbiddenKnowledge from './modules/azerite/ForbiddenKnowledge';
 import ExplosivePotential from './modules/azerite/ExplosivePotential';
 import DemonicMeteor from './modules/azerite/DemonicMeteor';
 import UmbralBlaze from './modules/azerite/UmbralBlaze';
@@ -83,6 +86,9 @@ class CombatLogParser extends CoreCombatLogParser {
     explosivePotential: ExplosivePotential,
     umbralBlaze: UmbralBlaze,
     supremeCommander: SupremeCommander,
+    shadowsBiteForbiddenKnowledgeCore: ShadowsBiteForbiddenKnowledgeCore,
+    shadowsBite: ShadowsBite,
+    forbiddenKnowledge: ForbiddenKnowledge,
     
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],
