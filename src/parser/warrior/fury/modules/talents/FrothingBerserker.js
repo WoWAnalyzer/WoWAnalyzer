@@ -10,6 +10,11 @@ import Events from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
+/*  Example log:
+ *  https://www.warcraftlogs.com/reports/KhynM7v96cZkTBdg#fight=6&type=damage-done&source=78
+ */
+
+
 const DAMAGE_BONUS = 0.1;
 
 class FrothingBerserker extends Analyzer {

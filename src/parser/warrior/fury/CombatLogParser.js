@@ -30,9 +30,7 @@ class CombatLogParser extends CoreCombatLogParser {
     enrageUptime: Enrage,
 
     frothingBerserker: FrothingBerserker,
-
-    frothingBerserker: FrothingBerserker,
-
+    
     missedRampage: MissedRampage,
     rampageCancelled: RampageCancelled,
     angerManagement: AngerManagement,

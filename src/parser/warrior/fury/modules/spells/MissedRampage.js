@@ -10,6 +10,10 @@ import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 
 import SpellLink from 'common/SpellLink';
 
+/*  Example log:
+ *  https://www.warcraftlogs.com/reports/KhynM7v96cZkTBdg#fight=6&type=damage-done&source=78
+ */
+
 const rageGenerators = [
   SPELLS.RAGING_BLOW,
   SPELLS.BLOODTHIRST,
