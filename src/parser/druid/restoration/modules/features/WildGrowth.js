@@ -20,7 +20,14 @@ class WildGrowth extends Analyzer {
   };
 
   wgHistory = [];
-  wgTracker = {};
+  wgTracker = {
+    wgBuffs: [],
+    startTimestamp: 0,
+    heal: 0,
+    overheal: 0,
+    firstTicksOverheal: 0,
+    firstTicksRaw: 0,
+  };
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -28,10 +35,13 @@ class WildGrowth extends Analyzer {
       return;
     }
 
-    if(Object.getOwnPropertyNames(this.wgTracker).length > 0) {
+    if(this.wgTracker.startTimestamp !== 0) {
       this.wgTracker.badPrecast = (this.wgTracker.firstTicksOverheal / this.wgTracker.firstTicksRaw) > PRECAST_THRESHOLD;
       this.wgHistory.push(this.wgTracker);
+    } else {
+      this.wgTracker.startTimestamp = this.owner.fight.start_time;
     }
+
     this.wgTracker = {};
     this.wgTracker.wgBuffs = [];
     this.wgTracker.startTimestamp = event.timestamp;
