@@ -16,6 +16,7 @@ const TalentStatisticBox = ({ talent, icon, label, ...others }) => (
     label={label || <SpellLink id={talent} icon={false} />}
   />
 );
+
 TalentStatisticBox.propTypes = {
   talent: PropTypes.number.isRequired,
   /**

@@ -28,6 +28,7 @@ class EventEmitter extends Module {
     this._eventListenersByEventType[eventType] = this._eventListenersByEventType[eventType] || [];
     this._eventListenersByEventType[eventType].push({
       eventFilter,
+      module, // used when the listener throws an exception to disable the related module
       listener: this._compileListener(eventFilter, listener, module),
     });
   }

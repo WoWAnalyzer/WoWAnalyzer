@@ -29,6 +29,7 @@ TraitStatisticBox.propTypes = {
   label: PropTypes.node,
   className: PropTypes.string,
 };
+
 TraitStatisticBox.defaultProps = {
   category: STATISTIC_CATEGORY.AZERITE_POWERS,
 };

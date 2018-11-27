@@ -4,6 +4,7 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Trans } from '@lingui/macro';
+import ExtendableError from 'es6-error';
 
 import { makeCharacterApiUrl } from 'common/makeApiUrl';
 import { fetchEvents, LogNotFoundError } from 'common/fetchWclApi';
@@ -28,6 +29,14 @@ const PROGRESS_STEP3_PARSE_EVENTS = 0.99;
 const PROGRESS_COMPLETE = 1.0;
 const CHINESE_REGION = 'cn';
 const BENCHMARK = false;
+
+export class EventsParseError extends ExtendableError {
+  reason = null;
+  constructor(reason) {
+    super();
+    this.reason = reason;
+  }
+}
 
 class EventParser extends React.PureComponent {
   static propTypes = {
@@ -178,7 +187,11 @@ class EventParser extends React.PureComponent {
       });
     } catch (err) {
       // Something went wrong during the analysis of the log, there's probably an issue in your analyzer or one of its modules.
-      throw err;
+      if (process.env.NODE_ENV === 'production') {
+        throw new EventsParseError(err);
+      } else {
+        throw err;
+      }
     }
   }
 
