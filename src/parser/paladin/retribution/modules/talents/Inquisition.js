@@ -21,7 +21,7 @@ class Inquisition extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.INQUISITION_TALENT.id);
 
     // event listeners
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.INQUISITION), this.onInquisitionCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.INQUISITION_TALENT), this.onInquisitionCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_DAMAGE_INCREASES), this.onAffectedDamage);
   }
 
@@ -66,7 +66,7 @@ class Inquisition extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(<>Your <SpellLink id={SPELLS.INQUISITION_TALENT.id} icon /> efficiency is low. You should aim to have it active as often as possible while dealing damage</>)
         .icon(SPELLS.INQUISITION_TALENT.icon)
-        .actual(`${formatPercentage(this.efficiency)}% of damage buffed`)
+        .actual(`${formatPercentage(actual)}% of damage buffed`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
     });
   }
