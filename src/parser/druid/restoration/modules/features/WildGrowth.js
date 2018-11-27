@@ -14,25 +14,14 @@ const PRECAST_PERIOD = 3000;
 const PRECAST_THRESHOLD = 0.5;
 
 // TODO - dynamic suggestion threshold based on variables such as Autumn leaves
+// TODO - fix weird precasts, /report/qDapJ4C7H8TBdm2h/30-Mythic+Mythrax+-+Wipe+27+(5:58)/18-Hotsfourtots
 class WildGrowth extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
 
   wgHistory = [];
-  wgTracker = {
-    wgBuffs: [],
-    startTimestamp: 0,
-    heal: 0,
-    overheal: 0,
-    firstTicksOverheal: 0,
-    firstTicksRaw: 0,
-  };
-
-  constructor(...args) {
-    super(...args);
-    this.wgTracker.startTimestamp = this.owner.fight.start_time;
-  }
+  wgTracker = {};
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -74,7 +63,12 @@ class WildGrowth extends Analyzer {
     if (spellId !== SPELLS.WILD_GROWTH.id) {
       return;
     }
-    this.wgTracker.wgBuffs.push(event.targetID);
+
+    try {
+      this.wgTracker.wgBuffs.push(event.targetID); 
+    } catch (error) {
+      console.error("Failed to push precast Wild Growth");
+    }
   }
 
   on_finished() {
@@ -82,11 +76,11 @@ class WildGrowth extends Analyzer {
   }
 
   get averageEffectiveHits() {
-    return (this.wgHistory.reduce((a,b) => a + b.wgBuffs.length, 0) / this.wgs) || 0;
+    return (this.wgHistory.reduce((a,b) => a + b.wgBuffs ? b.wgBuffs.length : 0, 0) / this.wgs) || 0;
   }
 
   get belowRecommendedCasts() {
-    return this.wgHistory.filter(wg => wg.wgBuffs.length < RECOMMENDED_HIT_THRESHOLD).length;
+    return this.wgHistory.filter(wg => (wg.wgBuffs ? wg.wgBuffs.length : 0) < RECOMMENDED_HIT_THRESHOLD).length;
   }
 
   get belowRecommendedPrecasts() {
