@@ -534,3 +534,14 @@ export const Streammz = {
   github: 'Streammz',
   discord: 'Streammz#9999',
 };
+export const weep = {
+  nickname: 'weep',
+  github: 'wisnoi',
+  discord: 'weep#4484',
+  avatar: require('./interface/images/avatars/weep-avatar.png'),
+  mains: [{
+    name: 'Faelastia',
+    spec: SPECS.FURY_WARRIOR,
+    link: 'https://www.warcraftlogs.com/character/id/30808203',
+  }],
+};
