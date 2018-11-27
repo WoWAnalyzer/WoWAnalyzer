@@ -28,6 +28,10 @@ class SimmeringRage extends Analyzer {
 
         this.active = this.selectedCombatant.hasTrait(SPELLS.SIMMERING_RAGE.id);
 
+        if (!this.active) {
+            return;
+        }
+
         const damage = simmeringRageDamage(this.selectedCombatant.traitsBySpellId[SPELLS.SIMMERING_RAGE.id]);
         this.damage = damage;
 

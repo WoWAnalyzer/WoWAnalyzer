@@ -83,7 +83,7 @@ class Enrage extends Analyzer {
         icon={<SpellIcon id={SPELLS.ENRAGE.id} />}
         value={`${formatPercentage(this.uptime)}% uptime`}
         label="Enrage"
-        tooltip={`You did <b>${formatThousands(this.damage)}</b> damage while enraged, contributing <b>${formatNumber(this.damageTotal)} (${formatPercentage(this.DPSPercent)}%)</b> DPS.`}
+        tooltip={`You dealt <b>${formatThousands(this.damage)}</b> damage while enraged, contributing <b>${formatNumber(this.damageTotal)} (${formatPercentage(this.DPSPercent)}%)</b> DPS.`}
       />
     );
   }

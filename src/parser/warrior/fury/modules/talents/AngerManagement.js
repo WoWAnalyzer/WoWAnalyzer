@@ -1,74 +1,68 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
-import { formatDuration } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { formatNumber } from 'common/format';
+import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import Events from 'parser/core/Events';
+import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 
-const COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT = [
-  SPELLS.RECKLESSNESS.id,
-];
-const RAGE_NEEDED_FOR_A_PROC = 20;
+const RAGE_NEEDED_FOR_PROC = 20;
 const CDR_PER_PROC = 1000; // ms
 
 class AngerManagement extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
-  };
+  }
 
-  totalRageSpend = 0;
-  wastedReduction = { };
-  effectiveReduction = { };
+
+  wastedReduction = 0;
+  effectiveReduction = 0;
+  totalRageSpent = 0;
 
   constructor(...args) {
     super(...args);
+
     this.active = this.selectedCombatant.hasTalent(SPELLS.ANGER_MANAGEMENT_TALENT.id);
-    COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.forEach(e => {
-      this.wastedReduction[e] = 0;
-      this.effectiveReduction[e] = 0;
-    });
+
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onPlayerCast);
   }
 
-  on_byPlayer_cast(event) {
-    if (!event.classResources ||
-      !event.classResources.filter(e => e.type !== RESOURCE_TYPES.RAGE.id) ||
-      !event.classResources.find(e => e.type === RESOURCE_TYPES.RAGE.id).cost) {
+  onPlayerCast(event) {
+    if (!event || !event.classResources || !event.classResources[0].cost) {
       return;
     }
 
-    const rageSpend = event.classResources.find(e => e.type === RESOURCE_TYPES.RAGE.id).cost / RAGE_NEEDED_FOR_A_PROC;
-    const reduction = rageSpend / RAGE_NEEDED_FOR_A_PROC * CDR_PER_PROC;
-    COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.forEach(e => {
-      if (!this.spellUsable.isOnCooldown(e)) {
-        this.wastedReduction[e] += reduction;
-      } else {
-        const effectiveReduction = this.spellUsable.reduceCooldown(e, reduction);
-        this.effectiveReduction[e] += effectiveReduction;
-        this.wastedReduction[e] += reduction - effectiveReduction;
-      }
-    });
-    this.totalRageSpend += rageSpend;
-  }
+    const rage = event.classResources.find(e => e.type === RESOURCE_TYPES.RAGE.id);
+    if (!rage || !rage.cost) {
+      return;
+    }
 
-  get tooltip() {
-    return COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.reduce((a, e) => {
-      return `${a}${SPELLS[e].name}: ${formatDuration(this.effectiveReduction[e] / 1000)} reduction (${formatDuration(this.wastedReduction[e] / 1000)} wasted)<br>`;
-    }, '');
+    const rageSpent = rage.cost / 10;
+    const reduction = rageSpent / RAGE_NEEDED_FOR_PROC * CDR_PER_PROC;
+
+    if (!this.spellUsable.isOnCooldown(SPELLS.RECKLESSNESS.id)) {
+      this.wastedReduction += reduction;
+    } else {
+      const effectiveReduction = this.spellUsable.reduceCooldown(SPELLS.RECKLESSNESS.id, reduction);
+      this.effectiveReduction += effectiveReduction;
+      this.wastedReduction += reduction - effectiveReduction;
+    }
+
+  this.totalRageSpent += rageSpent;
   }
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.ANGER_MANAGEMENT_TALENT.id} />}
-        value={`${formatDuration((this.effectiveReduction[COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT[0]] + this.wastedReduction[COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT[0]]) / 1000)} min`}
-        label="Possible cooldown reduction"
-        tooltip={this.tooltip}
-      />
+      <TalentStatisticBox
+        talent={SPELLS.ANGER_MANAGEMENT_TALENT.id}
+        value={`${formatNumber(this.effectiveReduction / 1000)}s Recklessness CDR`}
+        label="Anger Management"
+        />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(4);
+
 }
 
 export default AngerManagement;

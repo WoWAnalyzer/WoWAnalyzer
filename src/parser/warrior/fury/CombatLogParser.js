@@ -18,6 +18,7 @@ import FuriousSlashTimesByStacks from './modules/talents/FuriousSlashTimesByStac
 import FuriousSlashUptime from './modules/talents/FuriousSlashUptime';
 import SimmeringRage from './modules/azerite/SimmeringRage';
 import EndlessRage from './modules/talents/EndlessRage';
+import Recklessness from './modules/spells/Recklessness';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -41,6 +42,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
     simmeringRage: SimmeringRage,
     endlessRage: EndlessRage,
+    recklessness: Recklessness,
+
   };
 }
 
