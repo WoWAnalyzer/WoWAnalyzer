@@ -29,17 +29,20 @@ class WildGrowth extends Analyzer {
     firstTicksRaw: 0,
   };
 
+  constructor(...args) {
+    super(...args);
+    this.wgTracker.startTimestamp = this.owner.fight.start_time;
+  }
+
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.WILD_GROWTH.id) {
       return;
     }
 
-    if(this.wgTracker.startTimestamp !== 0) {
+    if(this.wgTracker.heal !== 0) {
       this.wgTracker.badPrecast = (this.wgTracker.firstTicksOverheal / this.wgTracker.firstTicksRaw) > PRECAST_THRESHOLD;
       this.wgHistory.push(this.wgTracker);
-    } else {
-      this.wgTracker.startTimestamp = this.owner.fight.start_time;
     }
 
     this.wgTracker = {};
