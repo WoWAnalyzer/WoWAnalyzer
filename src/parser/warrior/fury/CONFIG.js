@@ -18,15 +18,8 @@ export default {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      <Warning>
-        Hey there! A good basis has been implemented for this spec, but it needs to be fleshed out more to provide all the feedback possible.<br /><br />
-
-        This spec needs a focused maintainer. If you want to give it a try, check <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> for more information.
-      </Warning><br />
-
-      <Warning>
-        Hi <kbd>@Zerotorescue</kbd> here. I updated this spec to be compatible with BFA, but I'm no Fury expert. If there's anything wrong please @poke me on Discord and I'll fix it if I can.
-      </Warning>
+      As it is, this module is currently best for statistical analysis, and will be updated appropriately to handle APL issues.
+      Feel free to contribute!
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
