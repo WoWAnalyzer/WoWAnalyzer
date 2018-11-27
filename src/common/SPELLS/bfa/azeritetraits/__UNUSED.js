@@ -779,11 +779,6 @@ export default {
     name: 'Serrated Jaws',
     icon: 'ability_hunter_killcommand',
   },
-  SHADOWS_BITE: {
-    id: 272944,
-    name: 'Shadow\'s Bite',
-    icon: 'spell_shadow_shadowbolt',
-  },
   SHELLSHOCK: {
     id: 274357,
     name: 'Shellshock',
