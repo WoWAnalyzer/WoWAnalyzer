@@ -20,7 +20,12 @@ class WildGrowth extends Analyzer {
   };
 
   wgHistory = [];
-  wgTracker = {};
+  wgTracker = {
+    wgBuffs: [],
+    heal: 0,
+    firstTicksOverheal: 0,
+    firstTicksRaw: 0,
+  };
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -32,13 +37,8 @@ class WildGrowth extends Analyzer {
       this.wgTracker.badPrecast = (this.wgTracker.firstTicksOverheal / this.wgTracker.firstTicksRaw) > PRECAST_THRESHOLD;
       this.wgHistory.push(this.wgTracker);
     }
-    this.wgTracker = {};
-    this.wgTracker.wgBuffs = [];
+    
     this.wgTracker.startTimestamp = event.timestamp;
-    this.wgTracker.heal = 0;
-    this.wgTracker.overheal = 0;
-    this.wgTracker.firstTicksOverheal = 0;
-    this.wgTracker.firstTicksRaw = 0;
   }
 
   on_byPlayer_heal(event) {
