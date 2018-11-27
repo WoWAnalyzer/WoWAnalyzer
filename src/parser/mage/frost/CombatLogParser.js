@@ -18,6 +18,7 @@ import MirrorImage from '../shared/modules/features/MirrorImage';
 import ArcaneIntellect from '../shared/modules/features/ArcaneIntellect';
 import SplittingIce from './modules/features/SplittingIce';
 import CancelledCasts from '../shared/modules/features/CancelledCasts';
+import GlacialAssault from './modules/traits/GlacialAssault';
 import WintersReach from './modules/traits/WintersReach';
 import Whiteout from './modules/traits/Whiteout';
 import FrozenOrb from './modules/cooldowns/FrozenOrb';
@@ -39,7 +40,7 @@ class CombatLogParser extends CoreCombatLogParser {
     iceLance: IceLance,
     damageDone: [DamageDone, { showStatistic: true }],
     arcaneIntellect: ArcaneIntellect,
-    waterElemental: WaterElemental,    
+    waterElemental: WaterElemental,
 
     // region Talents (T30 and T75 don't need analyzers)
     // T15 TODO - Ice Nova, Lonely Winter
@@ -61,6 +62,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // endregion
 
     // Traits
+    glacialAssault: GlacialAssault,
     wintersReach: WintersReach,
     whiteout: Whiteout,
 
