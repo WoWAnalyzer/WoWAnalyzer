@@ -7,26 +7,9 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import SpellUsable from './modules/features/SpellUsable';
 
-<<<<<<< HEAD
-import EnrageUptime from './modules/buffdebuff/EnrageUptime';
-<<<<<<< HEAD
-<<<<<<< HEAD
-import FrothingBerserkerUptime from './modules/buffdebuff/FrothingBerserkerUptime';
-<<<<<<< HEAD
-import Juggernaut from './modules/buffdebuff/Juggernaut';
-=======
-=======
 import Enrage from './modules/buffdebuff/Enrage';
->>>>>>> 26badb935... Rewrite Enrage, add stats
 
 import FrothingBerserker from './modules/talents/FrothingBerserker';
->>>>>>> d191d036c... Capitalization
-=======
->>>>>>> 4a1ce2837... Juggernaut no longer exists
-=======
-
-import frothingBerserker from './modules/talents/FrothingBerserker';
->>>>>>> 544362a5e... complete Frothing rework
 
 import MissedRampage from './modules/spells/MissedRampage';
 import RampageCancelled from './modules/features/RampageCancelled';
@@ -44,28 +27,11 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     spellUsable: SpellUsable,
 
-<<<<<<< HEAD
-    enrageUptime: EnrageUptime,
-<<<<<<< HEAD
-<<<<<<< HEAD
-    frothingBerserkerUptime: FrothingBerserkerUptime,
-<<<<<<< HEAD
-    juggernaut: Juggernaut,
-=======
-=======
     enrageUptime: Enrage,
->>>>>>> 26badb935... Rewrite Enrage, add stats
-    //frothingBerserkerUptime: FrothingBerserkerUptime,
 
     frothingBerserker: FrothingBerserker,
->>>>>>> d191d036c... Capitalization
-=======
->>>>>>> 4a1ce2837... Juggernaut no longer exists
-=======
-    //frothingBerserkerUptime: FrothingBerserkerUptime,
 
-    frothingBerserker: frothingBerserker,
->>>>>>> 544362a5e... complete Frothing rework
+    frothingBerserker: FrothingBerserker,
 
     missedRampage: MissedRampage,
     rampageCancelled: RampageCancelled,
