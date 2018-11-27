@@ -4,53 +4,28 @@ import PropTypes from 'prop-types';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 
-import './StatisticBox.css';
 import STATISTIC_CATEGORY from './STATISTIC_CATEGORY';
+import StatisticBox from './StatisticBox';
 
 export { default as STATISTIC_ORDER } from './STATISTIC_ORDER';
 
-const TraitStatisticBox = ({ trait, icon, label, value, tooltip, containerProps, alignIcon, ...others }) => {
-  delete others.category;
-  delete others.position;
+const TraitStatisticBox = ({ trait, icon, label, ...others }) => {
+  icon = icon || <SpellIcon id={trait} />;
+  label = label || <SpellLink id={trait} icon={false} />;
+
   return (
-    <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12" {...containerProps}>
-      <div className="panel statistic-box item" {...others}>
-        <div className="panel-body flex">
-          <div className="flex-sub statistic-icon" style={{ display: 'flex', alignItems: alignIcon }}>
-            {icon || <SpellIcon id={trait} />}
-          </div>
-          <div className="flex-main">
-            <div className="slabel">
-              {label || <SpellLink id={trait} icon={false} />}
-            </div>
-            <dfn data-tip={tooltip} className="value">
-              {value}
-            </dfn>
-          </div>
-        </div>
-      </div>
-    </div>
+    <StatisticBox icon={icon} label={label} item {...others} />
   );
 };
+
 TraitStatisticBox.propTypes = {
-  trait: PropTypes.number,
-  /**
-   * Override the trait's icon.
-   */
-  icon: PropTypes.node,
-  /**
-   * Override the trait's label.
-   */
-  label: PropTypes.node,
-  value: PropTypes.node.isRequired,
-  tooltip: PropTypes.string,
-  containerProps: PropTypes.object,
-  alignIcon: PropTypes.string,
-  category: PropTypes.string,
-  position: PropTypes.number,
+  ...StatisticBox.propTypes,
+  trait: PropTypes.number.isRequired,
+  icon: PropTypes.node, // Override the icon requirement
+  label: PropTypes.node, // Override the label requirement
 };
+
 TraitStatisticBox.defaultProps = {
-  alignIcon: 'center',
   category: STATISTIC_CATEGORY.AZERITE_POWERS,
 };
 
