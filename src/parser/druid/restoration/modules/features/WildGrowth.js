@@ -22,7 +22,9 @@ class WildGrowth extends Analyzer {
   wgHistory = [];
   wgTracker = {
     wgBuffs: [],
+    startTimestamp: 0,
     heal: 0,
+    overheal: 0,
     firstTicksOverheal: 0,
     firstTicksRaw: 0,
   };
@@ -33,12 +35,20 @@ class WildGrowth extends Analyzer {
       return;
     }
 
+    console.info(event);
+    console.info(this.wgTracker);
+
     if(Object.getOwnPropertyNames(this.wgTracker).length > 0) {
       this.wgTracker.badPrecast = (this.wgTracker.firstTicksOverheal / this.wgTracker.firstTicksRaw) > PRECAST_THRESHOLD;
       this.wgHistory.push(this.wgTracker);
     }
-    
+    this.wgTracker = {};
+    this.wgTracker.wgBuffs = [];
     this.wgTracker.startTimestamp = event.timestamp;
+    this.wgTracker.heal = 0;
+    this.wgTracker.overheal = 0;
+    this.wgTracker.firstTicksOverheal = 0;
+    this.wgTracker.firstTicksRaw = 0;
   }
 
   on_byPlayer_heal(event) {
@@ -59,7 +69,7 @@ class WildGrowth extends Analyzer {
 
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.WILD_GROWTH.id) {
+    if (spellId !== SPELLS.WILD_GROWTH.id || !this.wgTracker.wgBuffs) {
       return;
     }
     this.wgTracker.wgBuffs.push(event.targetID);
@@ -67,6 +77,7 @@ class WildGrowth extends Analyzer {
 
   on_finished() {
     this.wgHistory.push(this.wgTracker);
+    console.info(this.wgHistory);
   }
 
   get averageEffectiveHits() {
