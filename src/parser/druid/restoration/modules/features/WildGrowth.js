@@ -35,9 +35,6 @@ class WildGrowth extends Analyzer {
       return;
     }
 
-    console.info(event);
-    console.info(this.wgTracker);
-
     if(Object.getOwnPropertyNames(this.wgTracker).length > 0) {
       this.wgTracker.badPrecast = (this.wgTracker.firstTicksOverheal / this.wgTracker.firstTicksRaw) > PRECAST_THRESHOLD;
       this.wgHistory.push(this.wgTracker);
@@ -77,7 +74,6 @@ class WildGrowth extends Analyzer {
 
   on_finished() {
     this.wgHistory.push(this.wgTracker);
-    console.info(this.wgHistory);
   }
 
   get averageEffectiveHits() {
