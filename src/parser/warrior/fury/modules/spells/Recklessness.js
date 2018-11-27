@@ -55,7 +55,7 @@ class Recklessness extends Analyzer {
               icon={<SpellIcon id={SPELLS.RECKLESSNESS.id} />}
               label="Recklessness"
               value={`${this.reckRageGen} extra rage generated`}
-              tooltip={`<b>${formatPercentage(this.ratioReckRageGen)}%</b> of your rage and <b>${formatPercentage(this.reckDPS)}% (${formatThousands(this.reckDamage)}) </b> of your damage was generated during Recklessness.`}
+              tooltip={`<b>${formatPercentage(this.ratioReckRageGen)}%</b> of your rage and <b>${formatPercentage(this.reckDPS)}% (${formatThousands(this.reckDamage / this.owner.fightDuration / 1000)})</b> of your DPS was generated during Recklessness.`}
             />
         );
     }
