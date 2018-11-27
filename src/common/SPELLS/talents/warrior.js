@@ -40,6 +40,7 @@ export default {
   BLADESTORM_TALENT: { id: 46924, name: "Bladestorm", icon: "ability_warrior_bladestorm" },
   RECKLESS_ABANDON_TALENT: { id: 202751, name: "Reckless Abandon", icon: "ability_warrior_battleshout" },
   SIEGEBREAKER_TALENT: { id: 280772, name: "Siegebreaker", icon: "inv_mace_101" },
+  SIEGEBREAKER_DEBUFF: { id: 280773, name: "Siegebreaker", icon: "inv_make_101" },
   SUDDEN_DEATH_TALENT_FURY: { id: 280721, name: "Sudden Death", icon: "ability_warrior_improveddisciplines" },
   MASSACRE_TALENT_FURY: { id: 206315, name: "Massacre", icon: "inv_sword_48" },
   // Arms

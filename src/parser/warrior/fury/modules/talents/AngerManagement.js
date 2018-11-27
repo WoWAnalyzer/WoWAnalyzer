@@ -2,7 +2,7 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
-import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Events from 'parser/core/Events';
