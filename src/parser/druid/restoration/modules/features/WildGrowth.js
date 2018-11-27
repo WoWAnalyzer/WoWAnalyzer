@@ -20,7 +20,19 @@ class WildGrowth extends Analyzer {
   };
 
   wgHistory = [];
-  wgTracker = {};
+  wgTracker = {
+    wgBuffs: [],
+    startTimestamp: 0,
+    heal: 0,
+    overheal: 0,
+    firstTicksOverheal: 0,
+    firstTicksRaw: 0,
+  };
+
+  constructor(...args) {
+    super(...args);
+    this.wgTracker.startTimestamp = this.owner.fight.start_time;
+  }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
