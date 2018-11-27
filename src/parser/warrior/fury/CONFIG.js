@@ -16,10 +16,10 @@ export default {
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
-    <>
+    `
       As it is, this module is currently best for statistical analysis, and will be updated appropriately to handle APL issues.
       Feel free to contribute!
-    </>
+    `
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport: '/report/XxGPJ8Y1dWcqV79T/6-Heroic+Vectis+-+Kill+(6:49)/14-Garoddon',
