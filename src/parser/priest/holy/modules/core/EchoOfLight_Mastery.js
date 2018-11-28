@@ -90,8 +90,10 @@ class EchoOfLight_Mastery extends Analyzer {
 
   handleEolTick(event) {
     const targetId = event.targetID;
+
+    // As far as I can tell, this happens when the combat log is out of order. You shouldn't receive a tick of EoL without a target having a buff apply event.
     if (!this.targetMasteryPool[targetId] || this.targetMasteryPool[targetId].remainingTicks < 1) {
-      console.warn('There was a mastery tick for a target that doesn\'t have a mastery pool!');
+      console.warn(`There was a mastery tick for ${event.amount + (event.absorbed || 0)} (${event.overheal || 0} OH) for a target that doesn't have a mastery pool!`);
       return;
     }
 
@@ -168,7 +170,7 @@ class EchoOfLight_Mastery extends Analyzer {
     for (let i = 0; i < spellDetails.length; i++) {
       rows.push(
         <tr key={'mastery_' + spellDetails[i].spellId}>
-          <td><SpellIcon id={parseInt(spellDetails[i].spellId)} style={{ height: '2.4em' }} /></td>
+          <td><SpellIcon id={Number(spellDetails[i].spellId)} style={{ height: '2.4em' }} /></td>
           <td>{formatNumber(spellDetails[i].effectiveHealing)}</td>
           <td>{formatPercentage(this.getPercentOfTotalMasteryBySpell(spellDetails[i].spellId))}%</td>
           <td>{formatPercentage(this.getMasteryOverhealPercentBySpell(spellDetails[i].spellId))}%</td>

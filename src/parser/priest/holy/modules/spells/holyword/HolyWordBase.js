@@ -1,7 +1,12 @@
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
+import SpellUsable from 'parser/priest/holy/modules/features/SpellUsable';
 
 class HolyWordBase extends Analyzer {
+  static dependencies = {
+    spellUsable: SpellUsable,
+  };
+
   spellId = 0;
   manaCost = 0;
   baseCooldown = 60000;
@@ -126,6 +131,15 @@ class HolyWordBase extends Analyzer {
     } else if (this.serendipityProccers[spellId] != null) {
       const reductionAmount = this.parseSerendipityCast(spellId);
       this.remainingCooldown -= reductionAmount;
+
+      if (this.spellId === SPELLS.HOLY_WORD_SALVATION_TALENT.id && this.spellUsable.isOnCooldown(this.spellId)){
+        console.log(this.spellUsable.cooldownRemaining(this.spellId));
+        console.log('reducing by ' + reductionAmount);
+      }
+      if (this.spellUsable.isOnCooldown(this.spellId)){
+        this.spellUsable.reduceCooldown(this.spellId, reductionAmount, event.timestamp);
+      }
+
       if (this.remainingCooldown < 0) {
         this.holyWordWastedCooldown += this.remainingCooldown * -1;
         this.remainingCooldown = 0;
