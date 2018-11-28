@@ -11,7 +11,7 @@ export default [
     contributors: [Dambroda],
   },
   {
-    date: new Date('2018-11-27'),
+    date: new Date('2018-11-24'),
     changes: <>Added a statistics module for <SpellLink id={SPELLS.LONELY_WINTER_TALENT.id} />.</>,
     contributors: [Dambroda],
   },
