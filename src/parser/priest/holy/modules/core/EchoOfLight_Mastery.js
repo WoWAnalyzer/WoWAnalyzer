@@ -168,7 +168,7 @@ class EchoOfLight_Mastery extends Analyzer {
     for (let i = 0; i < spellDetails.length; i++) {
       rows.push(
         <tr key={'mastery_' + spellDetails[i].spellId}>
-          <td><SpellIcon id={spellDetails[i].spellId} style={{ height: '2.4em' }} /></td>
+          <td><SpellIcon id={parseInt(spellDetails[i].spellId)} style={{ height: '2.4em' }} /></td>
           <td>{formatNumber(spellDetails[i].effectiveHealing)}</td>
           <td>{formatPercentage(this.getPercentOfTotalMasteryBySpell(spellDetails[i].spellId))}%</td>
           <td>{formatPercentage(this.getMasteryOverhealPercentBySpell(spellDetails[i].spellId))}%</td>
@@ -182,6 +182,7 @@ class EchoOfLight_Mastery extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(2)}
         icon={<SpellIcon id={SPELLS.ECHO_OF_LIGHT.id} />}
         value={(
           <dfn
@@ -216,8 +217,6 @@ class EchoOfLight_Mastery extends Analyzer {
       </StatisticBox>
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
 export default EchoOfLight_Mastery;
