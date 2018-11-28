@@ -30,6 +30,10 @@ class WordOfMending extends Analyzer {
     this.totalWoM = this.ranks.length;
   }
 
+  get effectiveHealing () {
+    return this.totalAdditionalHealing+this.totalAdditionalOverHealing
+  }
+
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.PRAYER_OF_MENDING_HEAL.id) {
