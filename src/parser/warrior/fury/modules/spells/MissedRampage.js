@@ -32,8 +32,7 @@ class MissedRampage extends Analyzer {
   constructor(...args) {
     super(...args);
 
-    this.active = true;
-    this.hasFB = this.selectedCombatant.hasTalent(SPELLS.FROTHING_BERSERKER_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.FROTHING_BERSERKER_TALENT.id);
     
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(RAGE_GENERATORS), this.onPlayerCast);
   }
