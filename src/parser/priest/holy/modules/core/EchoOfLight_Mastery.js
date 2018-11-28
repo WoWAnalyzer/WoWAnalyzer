@@ -5,9 +5,9 @@ import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import { ABILITIES_THAT_TRIGGER_MASTERY } from '../../constants';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 import { formatNumber, formatPercentage } from 'common/format';
+import { ABILITIES_THAT_TRIGGER_MASTERY } from '../../constants';
 
 class EchoOfLight_Mastery extends Analyzer {
   static dependencies = {
@@ -16,14 +16,25 @@ class EchoOfLight_Mastery extends Analyzer {
 
   // All healing done by spells that can proc mastery
   masteryHealingBySpell = {};
+  // The eol pools currently on a target
   targetMasteryPool = {};
+  // The test value so we can see how accurate our EoL values are
+  testValues = {
+    effectiveHealing: 0,
+    overhealing: 0,
+    rawHealing: 0,
+  };
 
   get effectiveHealing() {
-    return this.abilityTracker.getAbility(SPELLS.ECHO_OF_LIGHT.id).healingEffective;
+    return this.abilityTracker.getAbility(SPELLS.ECHO_OF_LIGHT.id).healingEffective + this.abilityTracker.getAbility(SPELLS.ECHO_OF_LIGHT.id).healingAbsorbed;
   }
 
   get overHealing() {
     return this.abilityTracker.getAbility(SPELLS.ECHO_OF_LIGHT.id).healingOverheal;
+  }
+
+  get overHealingPercent() {
+    return this.overHealing / this.rawHealing;
   }
 
   get rawHealing() {
@@ -36,6 +47,13 @@ class EchoOfLight_Mastery extends Analyzer {
 
   getMasteryOverhealPercentBySpell(spellId) {
     return this.masteryHealingBySpell[spellId].overHealing / this.masteryHealingBySpell[spellId].rawHealing;
+  }
+
+  get accuracy() {
+    const effectiveAccuracy = Math.abs(this.testValues.effectiveHealing - this.effectiveHealing) / this.effectiveHealing;
+    const overhealingAccuracy = Math.abs(this.testValues.overhealing - this.overHealing) / this.overHealing;
+    const rawAccuracy = Math.abs(this.testValues.rawHealing - this.rawHealing) / this.rawHealing;
+    return 1 - Math.max(effectiveAccuracy, overhealingAccuracy, rawAccuracy);
   }
 
   on_byPlayer_heal(event) {
@@ -105,6 +123,10 @@ class EchoOfLight_Mastery extends Analyzer {
       this.masteryHealingBySpell[spellId].effectiveHealing += effectiveHealing;
       this.masteryHealingBySpell[spellId].overHealing += overHealing;
       this.masteryHealingBySpell[spellId].rawHealing += effectiveHealing + overHealing;
+
+      this.testValues.effectiveHealing += effectiveHealing;
+      this.testValues.overhealing += overHealing;
+      this.testValues.rawHealing += effectiveHealing + overHealing;
     }
 
     this.targetMasteryPool[targetId].remainingTicks -= 1;
@@ -148,8 +170,8 @@ class EchoOfLight_Mastery extends Analyzer {
         <tr key={'mastery_' + spellDetails[i].spellId}>
           <td><SpellIcon id={spellDetails[i].spellId} style={{ height: '2.4em' }} /></td>
           <td>{formatNumber(spellDetails[i].effectiveHealing)}</td>
-          <td>{formatPercentage(this.getPercentOfTotalMasteryBySpell(spellDetails[i].spellId))}</td>
-          <td>{formatPercentage(this.getMasteryOverhealPercentBySpell(spellDetails[i].spellId))}</td>
+          <td>{formatPercentage(this.getPercentOfTotalMasteryBySpell(spellDetails[i].spellId))}%</td>
+          <td>{formatPercentage(this.getMasteryOverhealPercentBySpell(spellDetails[i].spellId))}%</td>
         </tr>
       );
     }
@@ -161,21 +183,23 @@ class EchoOfLight_Mastery extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ECHO_OF_LIGHT.id} />}
-        value={<ItemHealingDone amount={this.effectiveHealing} />}
+        value={(
+          <dfn
+            data-tip={`Total Healing: ${formatNumber(this.effectiveHealing)} (${formatPercentage(this.overHealingPercent)}% OH)`}
+          >
+            <ItemHealingDone amount={this.effectiveHealing} />
+          </dfn>
+        )}
         label={(
           <dfn
             data-tip={`Echo of Light healing breakdown. As our mastery is often very finicky, this could end up wrong in various situations. Please report any logs that seem strange to @Khadaj on the WoWAnalyzer discord.<br/><br/>
-            <strong>Please do note this is not 100% accurate.</strong> It is probably around 90% accurate. <br/><br/>
+            <strong>Please do note this is not 100% accurate.</strong> It is probably around ${formatPercentage(this.accuracy)}% accurate. <br/><br/>
             Also, a mastery value can be more than just "healing done times mastery percent" because Echo of Light is based off raw healing. If the heal itself overheals, but the mastery does not, it can surpass that assumed "limit". Don't use this as a reason for a "strange log" unless something is absurdly higher than its effective healing.`}
           >
             Echo of Light
           </dfn>
         )}
       >
-        <div>
-          {this.effectiveHealing}
-          Values under 1% of total are omitted.
-        </div>
         <table className="table table-condensed">
           <thead>
             <tr>
