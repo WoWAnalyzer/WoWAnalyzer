@@ -40,7 +40,7 @@ class WildGrowth extends Analyzer {
       return;
     }
 
-    if(this.wgTracker.heal !== 0) {
+    if(this.wgTracker.wgBuffs.length > 0) {
       this.wgTracker.badPrecast = (this.wgTracker.firstTicksOverheal / this.wgTracker.firstTicksRaw) > PRECAST_THRESHOLD;
       this.wgHistory.push(this.wgTracker);
     }
