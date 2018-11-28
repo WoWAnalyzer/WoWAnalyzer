@@ -9,54 +9,8 @@ import SPELLS from 'common/SPELLS';
 
 const debug = false;
 
-const IRONFUR_BASE_DURATION = 7;
-const GUARDIAN_OF_ELUNE_DURATION = 2;
-
 class IronFur extends Analyzer {
-  _stacksTimeline = [];
   _hitsPerStack = [];
-
-  // Get the latest stack change
-  getMostRecentStackIndex(timestamp) {
-    let i = this._stacksTimeline.length - 1;
-    while (i >= 0 && this._stacksTimeline[i].timestamp > timestamp) {
-      i--;
-    }
-
-    return i;
-  }
-
-  getStackCount(timestamp) {
-    const index = this.getMostRecentStackIndex(timestamp);
-    if (index < 0) {
-      return 0;
-    }
-
-    return this._stacksTimeline[index].stackCount;
-  }
-
-  addStack(stackStart, stackEnd) {
-    const index = this.getMostRecentStackIndex(stackStart);
-    if (index === -1) {
-      this._stacksTimeline.push({ timestamp: stackStart, stackCount: 1 });
-      this._stacksTimeline.push({ timestamp: stackEnd, stackCount: 0 });
-      return;
-    }
-
-    const stackCount = this._stacksTimeline[index].stackCount;
-    this._stacksTimeline.splice(index + 1, 0, { timestamp: stackStart, stackCount });
-    let i = index + 1;
-    let finalStackCount = stackCount;
-
-    // Account for the new stack on existing events
-    // Also store the stackCount right before the end of the new stack
-    while (i < this._stacksTimeline.length && this._stacksTimeline[i].timestamp < stackEnd) {
-      this._stacksTimeline[i].stackCount += 1;
-      finalStackCount = this._stacksTimeline[i].stackCount;
-      i += 1;
-    }
-    this._stacksTimeline.splice(i, 0, { timestamp: stackEnd, stackCount: finalStackCount - 1 });
-  }
 
   registerHit(stackCount) {
     if (!this._hitsPerStack[stackCount]) {
@@ -66,34 +20,12 @@ class IronFur extends Analyzer {
     this._hitsPerStack[stackCount] += 1;
   }
 
-  on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.IRONFUR.id) {
-      return;
-    }
-
-    const timestamp = event.timestamp;
-    const hasGoE = this.selectedCombatant.hasBuff(SPELLS.GUARDIAN_OF_ELUNE.id, timestamp);
-    const duration = (IRONFUR_BASE_DURATION + (hasGoE ? GUARDIAN_OF_ELUNE_DURATION : 0)) * 1000;
-
-    this.addStack(timestamp, timestamp + duration);
-  }
-
-  on_byPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-
-    // Bear Form drops all ironfur stacks immediately
-    if (SPELLS.BEAR_FORM.id === spellId) {
-      const index = this.getMostRecentStackIndex(event.timestamp);
-      this._stacksTimeline.length = index + 1;
-      this._stacksTimeline.push({ timestamp: event.timestamp, stackCount: 0 });
-    }
-  }
-
   on_toPlayer_damage(event) {
     // Physical
     if (event.ability.type === SCHOOLS.ids.PHYSICAL) {
-      const activeIFStacks = this.getStackCount(event.timestamp);
-      this.registerHit(activeIFStacks);
+      const ironfur = this.selectedCombatant.getBuff(SPELLS.IRONFUR.id);
+      console.log(ironfur);
+      this.registerHit(ironfur ? ironfur.stacks : 0);
     }
   }
 
