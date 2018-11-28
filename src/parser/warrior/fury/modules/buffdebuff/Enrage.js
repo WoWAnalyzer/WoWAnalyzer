@@ -39,7 +39,7 @@ class Enrage extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.ENRAGE.id) / this.owner.fightDuration;
   }
 
-  get damageTotal () {
+  get dpsIncrease () {
     return this.damage / (this.owner.fightDuration / 1000);
   }
 
@@ -47,12 +47,13 @@ class Enrage extends Analyzer {
     return this.owner.getPercentageOfTotalDamageDone(this.damage);
   }
 
-  get DPSPercent() {
-    return formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage) / this.owner.getPercentageOfTotalDamageDone(this.totalDamage));
+  get dpsPercent() {
+    return formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage) / this.owner.getPercentageOfTotalDamageDone(this.dpsIncrease));
   }
 
   get suggestionThresholds() {
     return {
+      actual: this.enrageUptime,
       isLessThan: {
         minor: 0.7,
         average: 0.65,
@@ -63,21 +64,12 @@ class Enrage extends Analyzer {
   }
 
   suggestions(when) {
-    const {
-      isLessThan: {
-        minor,
-        average,
-        major,
-      },
-    } = this.suggestionThresholds;
-
-    when(this.enrageUptime).isLessThan(minor)
+    when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<>Your <SpellLink id={SPELLS.ENRAGE.id} /> uptime can be improved.</>)
           .icon(SPELLS.ENRAGE.icon)
           .actual(`${formatPercentage(actual)}% Enrage uptime`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`)
-          .regular(average).major(major);
+          .recommended(`>${formatPercentage(recommended)}% is recommended`);
       });
   }
 
@@ -87,7 +79,7 @@ class Enrage extends Analyzer {
         icon={<SpellIcon id={SPELLS.ENRAGE.id} />}
         value={`${formatPercentage(this.uptime)}% uptime`}
         label="Enrage"
-        tooltip={`You did <b>${formatThousands(this.damage)}</b> damage while enraged, contributing <b>${formatNumber(this.damageTotal)} (${this.DPSPercent}%)</b> DPS.`}
+        tooltip={`You did <b>${formatThousands(this.damage)}</b> damage while enraged, contributing <b>${formatNumber(this.dpsIncrease)} (${this.dpsPercent}%)</b> DPS.`}
       />
     );
   }
