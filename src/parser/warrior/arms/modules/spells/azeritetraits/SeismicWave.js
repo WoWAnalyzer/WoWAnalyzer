@@ -31,8 +31,7 @@ class SeismicWave extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.SEISMIC_WAVE.id}
         value={`${formatPercentage(damageThroughputPercent)} % / ${formatNumber(dps)} DPS`}
-        tooltip={`Damage done: ${formatNumber(this.damage)}`
-        }
+        tooltip={`Damage done: ${formatNumber(this.damage)}`}
       />
     );
   }
