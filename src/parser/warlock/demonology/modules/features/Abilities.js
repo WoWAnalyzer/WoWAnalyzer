@@ -147,7 +147,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.GRIMOIRE_FELGUARD_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 90,
+        cooldown: 120,
         enabled: combatant.hasTalent(SPELLS.GRIMOIRE_FELGUARD_TALENT.id),
         gcd: {
           base: 1500,

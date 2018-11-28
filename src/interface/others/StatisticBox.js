@@ -16,6 +16,7 @@ class StatisticBox extends React.PureComponent {
     footer: PropTypes.node,
     footerStyle: PropTypes.object,
     containerProps: PropTypes.object,
+    item: PropTypes.bool,
     alignIcon: PropTypes.string,
     warcraftLogs: PropTypes.string,
     category: PropTypes.string,
@@ -63,12 +64,12 @@ class StatisticBox extends React.PureComponent {
   }
 
   render() {
-    const { icon, value, tooltip, label, footer, footerStyle, containerProps, alignIcon, warcraftLogs, children, ...others } = this.props;
+    const { icon, value, tooltip, label, footer, footerStyle, containerProps, item, alignIcon, warcraftLogs, children, ...others } = this.props;
     delete others.category;
     delete others.position;
     return (
       <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12" style={{ zIndex: this.state.expanded ? 2 : 1 }} {...containerProps}>
-        <div className="panel statistic-box expandable" {...others}>
+        <div className={`panel statistic-box expandable${item && ' item'}`} {...others}>
           <div className="panel-body">
             <div className="flex">
               <div className="flex-sub statistic-icon" style={{ display: 'flex', alignItems: alignIcon }}>

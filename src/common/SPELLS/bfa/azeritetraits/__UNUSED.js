@@ -154,11 +154,6 @@ export default {
     name: 'Bulwark of the Masses',
     icon: 'inv_shield_pandariaquest_b_02',
   },
-  CASCADING_CALAMITY: {
-    id: 275378,
-    name: 'Cascading Calamity',
-    icon: 'spell_shadow_unstableaffliction_3',
-  },
   CONTAMINANT: {
     id: 269308,
     name: 'Contaminant',
@@ -354,11 +349,6 @@ export default {
     name: 'Flashing Fangs',
     icon: 'ability_hunter_cobrashot',
   },
-  FLASHPOINT: {
-    id: 275425,
-    name: 'Flashpoint',
-    icon: 'spell_fire_immolation',
-  },
   FOOTPAD: {
     id: 274695,
     name: 'Footpad',
@@ -468,11 +458,6 @@ export default {
     id: 275496,
     name: 'Indomitable Justice',
     icon: 'spell_holy_righteousfury',
-  },
-  INEVITABLE_DEMISE: {
-    id: 273525,
-    name: 'Inevitable Demise',
-    icon: 'spell_shadow_abominationexplosion',
   },
   INFERNAL_ARMOR: {
     id: 273236,
@@ -794,11 +779,6 @@ export default {
     name: 'Serrated Jaws',
     icon: 'ability_hunter_killcommand',
   },
-  SHADOWS_BITE: {
-    id: 272944,
-    name: 'Shadow\'s Bite',
-    icon: 'spell_shadow_shadowbolt',
-  },
   SHELLSHOCK: {
     id: 274357,
     name: 'Shellshock',
@@ -964,11 +944,6 @@ export default {
     name: 'Twisted Claws',
     icon: 'spell_druid_thrash',
   },
-  UMBRAL_BLAZE: {
-    id: 273523,
-    name: 'Umbral Blaze',
-    icon: 'ability_warlock_handofguldan',
-  },
   UNBOUND_CHAOS: {
     id: 275144,
     name: 'Unbound Chaos',
@@ -1043,11 +1018,6 @@ export default {
     id: 273346,
     name: 'Winter\'s Reach',
     icon: 'ability_warlock_burningembersblue',
-  },
-  WRACKING_BRILLIANCE: {
-    id: 272891,
-    name: 'Wracking Brilliance',
-    icon: 'spell_shadow_felmending',
   },
   ZEALOTRY: {
     id: 270596,

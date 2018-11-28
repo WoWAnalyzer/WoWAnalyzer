@@ -11,6 +11,7 @@ import Enemies from 'parser/shared/modules/Enemies';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
+import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage';
 
 import { FERAL_DRUID_DAMAGE_AURA, INCARNATION_SHRED_DAMAGE, SAVAGE_ROAR_DAMAGE_BONUS, TIGERS_FURY_DAMAGE_BONUS, BLOODTALONS_DAMAGE_BONUS, MOMENT_OF_CLARITY_DAMAGE_BONUS, SHRED_SWIPE_BONUS_ON_BLEEDING } from '../../constants.js';
 import Abilities from '../Abilities.js';
@@ -121,11 +122,9 @@ class WildFleshrending extends Analyzer {
      * Assumptions: There are no effects in play that adjust damage by a set number rather than by multiplying, apart from those that appear in the log as absorbed damage. Everything that modifies the ability's base damage also modifies the trait's bonus damage in the same way. I've yet to find anything that violates these assumptions.
      */
     
-    const coefficient = this.abilities.getAbility(event.ability.guid).primaryCoefficient;
     const traitBonus = isShred ? this.shredBonus : this.swipeBonus;
-    const damageDone = event.amount + event.absorbed;
-    const modifier = damageDone / (this.attackPower * coefficient + traitBonus);
-    const traitDamageContribution = traitBonus * modifier;
+    const coefficient = this.abilities.getAbility(event.ability.guid).primaryCoefficient;
+    const [ traitDamageContribution ] = calculateBonusAzeriteDamage(event, [traitBonus], this.attackPower, coefficient);
     if (isShred) {
       this.shredDamage += traitDamageContribution;
       debug && console.log(`${this.owner.formatTimestamp(event.timestamp, 3)} Shred increased by ${traitDamageContribution.toFixed(0)}.`);
