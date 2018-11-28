@@ -24,7 +24,6 @@ class IronFur extends Analyzer {
     // Physical
     if (event.ability.type === SCHOOLS.ids.PHYSICAL) {
       const ironfur = this.selectedCombatant.getBuff(SPELLS.IRONFUR.id);
-      console.log(ironfur);
       this.registerHit(ironfur ? ironfur.stacks : 0);
     }
   }
