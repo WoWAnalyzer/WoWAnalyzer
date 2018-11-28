@@ -80,8 +80,7 @@ class FrothingBerserker extends Analyzer {
             return suggest(<>Your <SpellLink id={SPELLS.FROTHING_BERSERKER.id} /> uptime can be improved.</>)
               .icon(SPELLS.FROTHING_BERSERKER.icon)
               .actual(`${formatPercentage(actual)}% Frothing Berserker uptime`)
-              .recommended(`>${formatPercentage(recommended)}% is recommended`)
-              .extraSuggestion();
+              .recommended(`>${formatPercentage(recommended)}% is recommended`);
           });
       }
 
