@@ -31,7 +31,7 @@ class WordOfMending extends Analyzer {
   }
 
   get effectiveHealing () {
-    return this.totalAdditionalHealing+this.totalAdditionalOverHealing
+    return this.totalAdditionalHealing+this.totalAdditionalOverHealing;
   }
 
   on_byPlayer_heal(event) {
