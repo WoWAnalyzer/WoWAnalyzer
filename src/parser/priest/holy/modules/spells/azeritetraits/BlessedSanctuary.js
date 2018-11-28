@@ -22,13 +22,19 @@ class BlessedSanctuary extends Analyzer {
   }
 
   get overHealing() {
-    const overhealPercent = this.echoOfLight.getMasteryOverHealingPercentageBySpell(SPELLS.HOLY_WORD_SANCTIFY.id);
-    return this.rawHealing * overhealPercent;
+    if (this.echoOfLight.masteryHealingBySpell[SPELLS.HOLY_WORD_SANCTIFY.id]) {
+      const overhealPercent = this.echoOfLight.masteryHealingBySpell[SPELLS.HOLY_WORD_SANCTIFY.id].overHealing;
+      return this.rawHealing * overhealPercent;
+    }
+    return 0;
   }
 
   get effectiveHealing() {
-    const effectivehealPercent = 1 - this.echoOfLight.getMasteryOverHealingPercentageBySpell(SPELLS.HOLY_WORD_SANCTIFY.id);
-    return this.rawHealing * effectivehealPercent;
+    if (this.echoOfLight.masteryHealingBySpell[SPELLS.HOLY_WORD_SANCTIFY.id]) {
+      const effectivehealPercent = 1 - this.echoOfLight.masteryHealingBySpell[SPELLS.HOLY_WORD_SANCTIFY.id].overHealing;
+      return this.rawHealing * effectivehealPercent;
+    }
+    return 0;
   }
 
   constructor(...args) {

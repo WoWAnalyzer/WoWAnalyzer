@@ -15,8 +15,8 @@ class EchoOfLight_Mastery extends Analyzer {
   };
 
   // All healing done by spells that can proc mastery
-  rawHealingFromSpellsThatProcMastery = {};
-  totalRawHealingFromSpellsThatProcMastery = 0;
+  masteryHealingBySpell = {};
+  targetMasteryPool = {};
 
   get effectiveHealing() {
     return this.abilityTracker.getAbility(SPELLS.ECHO_OF_LIGHT.id).healingEffective;
@@ -26,29 +26,23 @@ class EchoOfLight_Mastery extends Analyzer {
     return this.abilityTracker.getAbility(SPELLS.ECHO_OF_LIGHT.id).healingOverheal;
   }
 
-  // Get the percentage of the total mastery pool that was added by a specific spell
-  getMasteryContributionPercentBySpell(spellId) {
-    return this.rawHealingFromSpellsThatProcMastery[spellId] / this.totalRawHealingFromSpellsThatProcMastery;
+  get rawHealing() {
+    return this.effectiveHealing + this.overHealing;
   }
 
-  getMasteryEffectiveHealingBySpell(spellId) {
-    return this.getMasteryContributionPercentBySpell(spellId) * this.effectiveHealing;
+  getPercentOfTotalMasteryBySpell(spellId) {
+    return this.masteryHealingBySpell[spellId].rawHealing / this.rawHealing;
   }
 
-  getMasteryOverHealingBySpell(spellId) {
-    return this.getMasteryContributionPercentBySpell(spellId) * this.overHealing;
-  }
-
-  getMasteryRawHealingBySpell(spellId) {
-    return this.getMasteryEffectiveHealingBySpell(spellId) + this.getMasteryOverHealingBySpell(spellId);
-  }
-
-  getMasteryOverHealingPercentageBySpell(spellId) {
-    return this.getMasteryOverHealingBySpell(spellId) / this.getMasteryRawHealingBySpell(spellId);
+  getMasteryOverhealPercentBySpell(spellId) {
+    return this.masteryHealingBySpell[spellId].overHealing / this.masteryHealingBySpell[spellId].rawHealing;
   }
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
+    if (spellId === SPELLS.ECHO_OF_LIGHT.id) {
+      this.handleEolTick(event);
+    }
     if (ABILITIES_THAT_TRIGGER_MASTERY.includes(spellId)) {
       this.handleEolApplication(event);
     }
@@ -56,29 +50,106 @@ class EchoOfLight_Mastery extends Analyzer {
 
   handleEolApplication(event) {
     const spellId = event.ability.guid;
+    const targetId = event.targetID;
     if (spellId === SPELLS.RENEW.id && event.tick) {
       return;
     }
 
-    if (!this.rawHealingFromSpellsThatProcMastery[spellId]) {
-      this.rawHealingFromSpellsThatProcMastery[spellId] = 0;
+    if (!this.targetMasteryPool[targetId]) {
+      this.targetMasteryPool[targetId] = {
+        pendingHealingTotal: 0,
+        pendingHealingBySpell: {},
+      };
     }
 
     const rawHealing = event.amount + (event.absorbed || 0) + (event.overheal || 0);
-    this.rawHealingFromSpellsThatProcMastery[spellId] += rawHealing;
-    this.totalRawHealingFromSpellsThatProcMastery += rawHealing;
+    this.targetMasteryPool[targetId].pendingHealingTotal += rawHealing;
+    if (!this.targetMasteryPool[targetId].pendingHealingBySpell[spellId]) {
+      this.targetMasteryPool[targetId].pendingHealingBySpell[spellId] = 0;
+    }
+    this.targetMasteryPool[targetId].pendingHealingBySpell[spellId] += rawHealing;
+  }
+
+  handleEolTick(event) {
+    const targetId = event.targetID;
+    if (!this.targetMasteryPool[targetId] || this.targetMasteryPool[targetId].remainingTicks < 1) {
+      console.warn('There was a mastery tick for a target that doesn\'t have a mastery pool!');
+      return;
+    }
+
+    const tickEffectiveHealing = event.amount + (event.absorbed || 0);
+    const tickOverhealing = (event.overheal || 0);
+
+    // The percentage of the total pool to be drained
+    const poolDrainPercent = 1 / this.targetMasteryPool[targetId].remainingTicks;
+    // The total amount that should be drained from the pool
+    const poolDrainTotal = this.targetMasteryPool[targetId].pendingHealingTotal * poolDrainPercent;
+
+    for (const spellId in this.targetMasteryPool[targetId].pendingHealingBySpell) {
+      // The percent of the pool that should be drained by this spell
+      const tickHealingBySpell = this.targetMasteryPool[targetId].pendingHealingBySpell[spellId] * poolDrainPercent;
+      const spellContributionPercent = tickHealingBySpell / poolDrainTotal;
+
+      // Make sure the values are initialized
+      if (!this.masteryHealingBySpell[spellId]) {
+        this.masteryHealingBySpell[spellId] = {
+          effectiveHealing: 0,
+          overHealing: 0,
+          rawHealing: 0,
+        };
+      }
+
+      const effectiveHealing = tickEffectiveHealing * spellContributionPercent;
+      const overHealing = tickOverhealing * spellContributionPercent;
+
+      this.masteryHealingBySpell[spellId].effectiveHealing += effectiveHealing;
+      this.masteryHealingBySpell[spellId].overHealing += overHealing;
+      this.masteryHealingBySpell[spellId].rawHealing += effectiveHealing + overHealing;
+    }
+
+    this.targetMasteryPool[targetId].remainingTicks -= 1;
+  }
+
+  on_byPlayer_applybuff(event) {
+    const spellId = event.ability.guid;
+    const targetId = event.targetID;
+    if (spellId === SPELLS.ECHO_OF_LIGHT.id) {
+      if (!this.targetMasteryPool[targetId]) {
+        this.targetMasteryPool[targetId] = {
+          pendingHealingTotal: 0,
+          pendingHealingBySpell: {},
+        };
+      }
+
+      this.targetMasteryPool[targetId].remainingTicks = 2;
+    }
+  }
+
+  on_byPlayer_refreshbuff(event) {
+    const spellId = event.ability.guid;
+    const targetId = event.targetID;
+    if (spellId === SPELLS.ECHO_OF_LIGHT.id) {
+      this.targetMasteryPool[targetId].remainingTicks = 3;
+    }
   }
 
   masteryTable = () => {
+    const spellDetails = Object.keys(this.masteryHealingBySpell).map((key) => {
+      return {
+        spellId: key,
+        ...this.masteryHealingBySpell[key],
+      };
+    }).sort((a, b) => b.rawHealing - a.rawHealing);
+
     const rows = [];
 
-    for (const spellId in this.rawHealingFromSpellsThatProcMastery) {
+    for (let i = 0; i < spellDetails.length; i++) {
       rows.push(
-        <tr key={'mastery_' + spellId}>
-          <td><SpellIcon id={spellId} /></td>
-          <td>{formatNumber(this.getMasteryEffectiveHealingBySpell(spellId))}</td>
-          <td>{formatPercentage(this.getMasteryContributionPercentBySpell(spellId))}</td>
-          <td>{formatPercentage(this.getMasteryOverHealingPercentageBySpell(spellId))}</td>
+        <tr key={'mastery_' + spellDetails[i].spellId}>
+          <td><SpellIcon id={spellDetails[i].spellId} style={{ height: '2.4em' }} /></td>
+          <td>{formatNumber(spellDetails[i].effectiveHealing)}</td>
+          <td>{formatPercentage(this.getPercentOfTotalMasteryBySpell(spellDetails[i].spellId))}</td>
+          <td>{formatPercentage(this.getMasteryOverhealPercentBySpell(spellDetails[i].spellId))}</td>
         </tr>
       );
     }
@@ -93,7 +164,7 @@ class EchoOfLight_Mastery extends Analyzer {
         value={<ItemHealingDone amount={this.effectiveHealing} />}
         label={(
           <dfn
-            data-tip={`Echo of Light healing breakdown. As our mastery is often very finicky, this could end up wrong in various situations. Please report any logs that seem strange to @enragednuke on the WoWAnalyzer discord.<br/><br/>
+            data-tip={`Echo of Light healing breakdown. As our mastery is often very finicky, this could end up wrong in various situations. Please report any logs that seem strange to @Khadaj on the WoWAnalyzer discord.<br/><br/>
             <strong>Please do note this is not 100% accurate.</strong> It is probably around 90% accurate. <br/><br/>
             Also, a mastery value can be more than just "healing done times mastery percent" because Echo of Light is based off raw healing. If the heal itself overheals, but the mastery does not, it can surpass that assumed "limit". Don't use this as a reason for a "strange log" unless something is absurdly higher than its effective healing.`}
           >
@@ -102,6 +173,7 @@ class EchoOfLight_Mastery extends Analyzer {
         )}
       >
         <div>
+          {this.effectiveHealing}
           Values under 1% of total are omitted.
         </div>
         <table className="table table-condensed">
