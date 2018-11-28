@@ -31,11 +31,11 @@ export const ABILITIES_THAT_TRIGGER_MASTERY = [
   SPELLS.HOLY_WORD_SANCTIFY.id,
   SPELLS.HOLY_WORD_SALVATION_TALENT.id,
   SPELLS.DESPERATE_PRAYER.id,
-  SPELLS.COSMIC_RIPPLE_TALENT.id,
+  SPELLS.COSMIC_RIPPLE_HEAL.id,
   SPELLS.BINDING_HEAL_TALENT.id,
   SPELLS.CIRCLE_OF_HEALING_TALENT.id,
   SPELLS.HALO_HEAL.id,
-  SPELLS.DIVINE_STAR_TALENT.id, // might have diff id for heal?
+  SPELLS.DIVINE_STAR_HEAL.id, // might have diff id for heal?
   SPELLS.GUILTY_CONSCIENCE.id,
   SPELLS.RENEW.id, // this is reduced in calculations, due to the initial tick proccing EoL but not the periodic ticks
   SPELLS.TRAIL_OF_LIGHT_TALENT.id,
