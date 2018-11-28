@@ -167,7 +167,7 @@ class EchoOfLight_Mastery extends Analyzer {
         spellId: key,
         ...this.masteryHealingBySpell[key],
       };
-    }).sort((a, b) => b.rawHealing - a.rawHealing);
+    }).sort((a, b) => b.effectiveHealing - a.effectiveHealing);
 
     const rows = [];
 
