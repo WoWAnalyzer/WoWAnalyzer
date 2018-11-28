@@ -55,6 +55,7 @@ class FrothingBerserker extends Analyzer {
 
     get suggestionThresholds() {
         return {
+          actual: this.uptimePercent,
           isLessThan: {
             minor: 0.65,
             average: 0.6,
@@ -75,7 +76,7 @@ class FrothingBerserker extends Analyzer {
             .staticImportance(SUGGESTION_IMPORTANCE.REGULAR);
         });
     
-        when(this.uptimePercent).isLessThan(0.65)
+        when(this.suggestionThresholds)
           .addSuggestion((suggest, actual, recommended) => {
             return suggest(<>Your <SpellLink id={SPELLS.FROTHING_BERSERKER.id} /> uptime can be improved.</>)
               .icon(SPELLS.FROTHING_BERSERKER.icon)
