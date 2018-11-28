@@ -39,6 +39,7 @@ export const ABILITIES_THAT_TRIGGER_MASTERY = [
   SPELLS.GUILTY_CONSCIENCE.id,
   SPELLS.RENEW.id, // this is reduced in calculations, due to the initial tick proccing EoL but not the periodic ticks
   SPELLS.TRAIL_OF_LIGHT_TALENT.id,
+  SPELLS.HOLY_NOVA_HEAL.id,
 ];
 
 export const ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL = [
