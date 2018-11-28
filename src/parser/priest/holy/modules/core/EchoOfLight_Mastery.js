@@ -95,7 +95,7 @@ class EchoOfLight_Mastery extends Analyzer {
 
     // As far as I can tell, this happens when the combat log is out of order. You shouldn't receive a tick of EoL without a target having a buff apply event.
     if (!this.targetMasteryPool[targetId] || this.targetMasteryPool[targetId].remainingTicks < 1) {
-      if (DEBUG){
+      if (DEBUG) {
         console.warn(`There was a mastery tick for ${event.amount + (event.absorbed || 0)} (${event.overheal || 0} OH) for a target that doesn't have a mastery pool!`);
       }
       return;
