@@ -14,7 +14,7 @@ import SpellLink from 'common/SpellLink';
  *  https://www.warcraftlogs.com/reports/KhynM7v96cZkTBdg#fight=6&type=damage-done&source=78
  */
 
-const rageGenerators = [
+const RAGE_GENERATORS = [
   SPELLS.RAGING_BLOW,
   SPELLS.BLOODTHIRST,
   SPELLS.EXECUTE_FURY,
@@ -35,7 +35,7 @@ class MissedRampage extends Analyzer {
     this.active = true;
     this.hasFB = this.selectedCombatant.hasTalent(SPELLS.FROTHING_BERSERKER_TALENT.id);
     
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(rageGenerators), this.onPlayerCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(RAGE_GENERATORS), this.onPlayerCast);
   }
 
   onPlayerCast(event) {
