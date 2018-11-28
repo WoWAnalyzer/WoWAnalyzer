@@ -5,6 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import HealingDone from 'parser/shared/modules/HealingDone';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 import { formatNumber, formatPercentage } from 'common/format';
 import { ABILITIES_THAT_TRIGGER_MASTERY } from '../../constants';
@@ -14,6 +15,7 @@ const DEBUG = false;
 class EchoOfLight_Mastery extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
+    healingDone: HealingDone,
   };
 
   // All healing done by spells that can proc mastery
@@ -45,6 +47,10 @@ class EchoOfLight_Mastery extends Analyzer {
 
   getPercentOfTotalMasteryBySpell(spellId) {
     return this.masteryHealingBySpell[spellId].rawHealing / this.rawHealing;
+  }
+
+  getPercentOfTotalHealingBySpell(spellId) {
+    return this.masteryHealingBySpell[spellId].effectiveHealing / this.healingDone.total.effective;
   }
 
   getMasteryOverhealPercentBySpell(spellId) {
@@ -176,7 +182,7 @@ class EchoOfLight_Mastery extends Analyzer {
         <tr key={'mastery_' + spellDetails[i].spellId}>
           <td><SpellIcon id={Number(spellDetails[i].spellId)} style={{ height: '2.4em' }} /></td>
           <td>{formatNumber(spellDetails[i].effectiveHealing)}</td>
-          <td>{formatPercentage(this.getPercentOfTotalMasteryBySpell(spellDetails[i].spellId))}%</td>
+          <td>{formatPercentage(this.getPercentOfTotalHealingBySpell(spellDetails[i].spellId))}%</td>
           <td>{formatPercentage(this.getMasteryOverhealPercentBySpell(spellDetails[i].spellId))}%</td>
         </tr>
       );
