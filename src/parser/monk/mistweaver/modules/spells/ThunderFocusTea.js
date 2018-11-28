@@ -184,7 +184,7 @@ class ThunderFocusTea extends Analyzer {
     );
   }
 
-  on_finished() {
+  on_fightend() {
     if (this.ftActive) {
       this.castsTft += this.castsTft;
     }

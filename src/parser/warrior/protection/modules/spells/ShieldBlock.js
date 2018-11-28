@@ -43,7 +43,7 @@ class Shield_Block extends Analyzer {
     }
   }
 
-  on_finished() {
+  on_fightend() {
     if (debug) {
       console.log(`Hits with Shield Block ${this.physicalHitsWithShield_Block}`);
       console.log(`Damage with Shield Block ${this.physicalDamageWithShield_Block}`);

@@ -244,7 +244,7 @@ describe('Core/CombatLogParser', () => {
     it('emits finished event', () => {
       const onFinish = jest.fn();
       const parser = new TestCombatLogParser();
-      parser.addEventListener(CombatLogParser.finished, onFinish, { active: true });
+      parser.addEventListener(Events.fightend, onFinish, { active: true });
       parser.finish();
       expect(onFinish).toHaveBeenCalled();
     });

@@ -7,7 +7,7 @@ class ManaValues extends Analyzer {
   static dependencies = {
 		deathTracker: DeathTracker,
   };
-  
+
   lowestMana = null; // start at `null` and fill it with the first value to account for users starting at a non-default amount for whatever reason
   endingMana = 0;
 
@@ -41,7 +41,7 @@ class ManaValues extends Analyzer {
     }
   }
 
-  on_finished() {
+  on_fightend() {
     if (!this.deathTracker.isAlive) {
       this.deadOnKill = true;
     }
@@ -61,7 +61,7 @@ class ManaValues extends Analyzer {
       style: 'percentage',
     };
   }
-  
+
   suggestions(when) {
     if (!this.deadOnKill) {
       when(this.suggestionThresholds)

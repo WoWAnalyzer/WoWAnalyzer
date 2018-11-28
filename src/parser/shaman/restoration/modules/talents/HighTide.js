@@ -105,7 +105,7 @@ class HighTide extends Analyzer {
     this.buffer = [];
   }
 
-  on_finished() {
+  on_fightend() {
     this.processBuffer();
   }
 

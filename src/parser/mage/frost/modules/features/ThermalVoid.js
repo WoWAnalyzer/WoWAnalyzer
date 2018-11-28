@@ -23,7 +23,7 @@ class ThermalVoid extends Analyzer {
     }
   }
 
-  on_finished() {
+  on_fightend() {
     if (this.selectedCombatant.hasBuff(SPELLS.ICY_VEINS.id)) {
       this.casts -= 1;
       this.extraUptime = this.owner.currentTimestamp - this.buffApplied;
