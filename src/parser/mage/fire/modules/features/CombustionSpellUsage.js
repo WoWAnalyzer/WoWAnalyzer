@@ -38,9 +38,9 @@ class CombustionSpellUsage extends Analyzer {
 
     if (event.type === "cast" && (fireBlastCharges > 0 || phoenixFlamesCharges > 0)) {
       this.badCastsCompleted += 1;
-      this.event.meta = this.lastCastEvent.meta || {};
-      this.event.meta.isInefficientCast = true;
-      this.event.meta.inefficientCastReason = `This spell was cast during Combustion while an instant cast ability like Fire Blast ${this.hasPhoenixFlames ? 'or Phoenix Flames' : '' } was available. Make sure you are using your instant abilities first before hard casting Fireball ${this.hasBlasterMaster ? 'or Scorch' : '' }. `;
+      event.meta = this.lastCastEvent.meta || {};
+      event.meta.isInefficientCast = true;
+      event.meta.inefficientCastReason = `This spell was cast during Combustion while an instant cast ability like Fire Blast ${this.hasPhoenixFlames ? 'or Phoenix Flames' : '' } was available. Make sure you are using your instant abilities first before hard casting Fireball ${this.hasBlasterMaster ? 'or Scorch' : '' }. `;
       debug && this.log("Cast completed with instants available");
     }
 
