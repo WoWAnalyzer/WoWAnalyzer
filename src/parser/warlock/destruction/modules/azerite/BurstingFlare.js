@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
@@ -13,10 +14,6 @@ const burstingFlareStats = traits => traits.reduce((total, rank) => {
   return total + mastery;
 }, 0);
 
-export const STAT_TRACKER = {
-  mastery: combatant => burstingFlareStats(combatant.traitsBySpellId[SPELLS.BURSTING_FLARE.id]),
-};
-
 const debug = false;
 
 /*
@@ -24,6 +21,10 @@ const debug = false;
   Casting Conflagrate on a target affected by your Immolate increases your Mastery by X for 20 sec, stacking up to 5 times.
  */
 class BurstingFlare extends Analyzer {
+  static dependencies = {
+    statTracker: StatTracker,
+  };
+
   mastery = 0;
 
   constructor(...args) {
@@ -32,8 +33,13 @@ class BurstingFlare extends Analyzer {
     if (!this.active) {
       return;
     }
+
     this.mastery = burstingFlareStats(this.selectedCombatant.traitsBySpellId[SPELLS.BURSTING_FLARE.id]);
     debug && this.log(`Total bonus from BF: ${this.mastery}`);
+
+    this.statTracker.add(SPELLS.BURSTING_FLARE_BUFF.id, {
+      mastery: this.mastery,
+    });
   }
 
   get uptime() {
