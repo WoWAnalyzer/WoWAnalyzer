@@ -6,8 +6,6 @@ import SPECS from 'game/SPECS';
 import RACES from 'game/RACES';
 import Analyzer from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import { STAT_TRACKER as RELENTLESS_INQUISITOR_STATS } from 'parser/paladin/retribution/modules/core/azeritetraits/RelentlessInquisitor';
-import { STAT_TRACKER as DIVINE_RIGHT_STATS } from 'parser/paladin/retribution/modules/core/azeritetraits/DivineRight';
 import { STAT_TRACKER as CHORUS_OF_INSANITY_STATS } from 'parser/priest/shadow/modules/spells/azeritetraits/ChorusOfInsanity';
 import { STAT_TRACKER as CASCADING_CALAMITY_STATS } from 'parser/warlock/affliction/modules/azerite/CascadingCalamity';
 import { STAT_TRACKER as WRACKING_BRILLIANCE_STATS } from 'parser/warlock/affliction/modules/azerite/WrackingBrilliance';
@@ -269,8 +267,6 @@ class StatTracker extends Analyzer {
     // region Monk
     // endregion
     // region Paladin
-    [SPELLS.RELENTLESS_INQUISITOR_BUFF.id]: RELENTLESS_INQUISITOR_STATS,
-    [SPELLS.DIVINE_RIGHT_BUFF.id]: DIVINE_RIGHT_STATS,
     // endregion
     // region Priest
     [SPELLS.CHORUS_OF_INSANITY_BUFF]: CHORUS_OF_INSANITY_STATS,
