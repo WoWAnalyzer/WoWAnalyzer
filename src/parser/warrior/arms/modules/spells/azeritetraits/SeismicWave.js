@@ -1,6 +1,6 @@
 import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS/index';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import Events from 'parser/core/Events';
@@ -24,13 +24,11 @@ class SeismicWave extends Analyzer {
   }
 
   statistic() {
-    const damageThroughputPercent = this.owner.getPercentageOfTotalDamageDone(this.damage);
-    const dps = this.damage / this.owner.fightDuration * 1000;
     return (
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.SEISMIC_WAVE.id}
-        value={`${formatPercentage(damageThroughputPercent)} % / ${formatNumber(dps)} DPS`}
+        value={`${this.owner.formatItemDamageDone(this.damage)}`}
         tooltip={`Damage done: ${formatNumber(this.damage)}`}
       />
     );

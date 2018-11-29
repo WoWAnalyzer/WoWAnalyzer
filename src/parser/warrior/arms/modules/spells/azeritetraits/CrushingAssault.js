@@ -4,7 +4,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import React from 'react';
 import Events from 'parser/core/Events';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber } from 'common/format';
 
 const crushingAssaultDamage = traits => Object.values(traits).reduce((obj, rank) => {
   const [damage] = calculateAzeriteEffects(SPELLS.CRUSHING_ASSAULT_TRAIT.id, rank);
@@ -15,6 +15,10 @@ const crushingAssaultDamage = traits => Object.values(traits).reduce((obj, rank)
   damage: 0,
   traits: 0,
 });
+
+/**
+ * Example report: /report/4h3ZrkcXBYgzVtaL/14-Normal+Fetid+Devourer+-+Kill+(1:38)/32-Prime
+ */
 
 class CrushingAssault extends Analyzer {
 
@@ -30,7 +34,7 @@ class CrushingAssault extends Analyzer {
       return;
     }
 
-    const { damage, traits} = crushingAssaultDamage(this.selectedCombatant.traitsBySpellId[SPELLS.CRUSHING_ASSAULT_TRAIT.id]);
+    const { damage, traits } = crushingAssaultDamage(this.selectedCombatant.traitsBySpellId[SPELLS.CRUSHING_ASSAULT_TRAIT.id]);
     this.damage = damage;
     this.traits = traits;
 
@@ -45,13 +49,11 @@ class CrushingAssault extends Analyzer {
   }
 
   statistic() {
-    const damageThroughputPercent = this.owner.getPercentageOfTotalDamageDone(this.crushingAssaultDamage);
-    const dps = this.crushingAssaultDamage / this.owner.fightDuration * 1000;
     return (
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.CRUSHING_ASSAULT_TRAIT.id}
-        value={`${formatPercentage(damageThroughputPercent)} % / ${formatNumber(dps)} DPS`}
+        value={`${this.owner.formatItemDamageDone(this.crushingAssaultDamage)}`}
         tooltip={`Damage done: ${formatNumber(this.crushingAssaultDamage)}`}
       />
     );
