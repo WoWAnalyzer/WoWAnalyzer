@@ -33,7 +33,7 @@ class SimmeringRage extends Analyzer {
 
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).to(SELECTED_PLAYER), this.onPlayerEnergize);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onPlayerDamage);
-    }
+  }
 
     onPlayerEnergize(event) {
       if (event.ability.guid === 278841) {
