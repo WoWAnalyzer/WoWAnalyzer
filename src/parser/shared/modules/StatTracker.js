@@ -6,9 +6,6 @@ import SPECS from 'game/SPECS';
 import RACES from 'game/RACES';
 import Analyzer from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import { STAT_TRACKER as DANCE_OF_DEATH_STATS } from 'parser/hunter/beastmastery/modules/spells/azeritetraits/DanceOfDeath';
-import { STAT_TRACKER as PRIMAL_INSTINCTS_STATS } from 'parser/hunter/beastmastery/modules/spells/azeritetraits/PrimalInstincts';
-import { STAT_TRACKER as BLUR_OF_TALON_STATS } from 'parser/hunter/survival/modules/spells/azeritetraits/BlurOfTalons';
 import { MASTERY_FNS as TON_MASTERY_FNS } from 'parser/monk/brewmaster/modules/spells/azeritetraits/TrainingOfNiuzao';
 import { STAT_TRACKER as IRON_FISTS_STATS } from 'parser/monk/windwalker/modules/spells/azeritetraits/IronFists';
 import { STAT_TRACKER as BOFD_ARMOR } from 'parser/deathknight/blood/modules/spells/azeritetraits/BonesOfTheDamned';
@@ -260,9 +257,6 @@ class StatTracker extends Analyzer {
     // endregion
     // region Hunter
     [SPELLS.HAZE_OF_RAGE.id]: { agility: 316 },
-    [SPELLS.DANCE_OF_DEATH_BUFF.id]: DANCE_OF_DEATH_STATS,
-    [SPELLS.PRIMAL_INSTINCTS.id]: PRIMAL_INSTINCTS_STATS,
-    [SPELLS.BLUR_OF_TALONS_BUFF.id]: BLUR_OF_TALON_STATS,
     // endregion
     // region Warlock
     [SPELLS.EXPLOSIVE_POTENTIAL_BUFF.id]: EXPLOSIVE_POTENTIAL_STATS,
