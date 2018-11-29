@@ -6,8 +6,6 @@ import SPECS from 'game/SPECS';
 import RACES from 'game/RACES';
 import Analyzer from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import { MASTERY_FNS as TON_MASTERY_FNS } from 'parser/monk/brewmaster/modules/spells/azeritetraits/TrainingOfNiuzao';
-import { STAT_TRACKER as IRON_FISTS_STATS } from 'parser/monk/windwalker/modules/spells/azeritetraits/IronFists';
 import { STAT_TRACKER as BOFD_ARMOR } from 'parser/deathknight/blood/modules/spells/azeritetraits/BonesOfTheDamned';
 import { STAT_TRACKER as ETERNAL_RUNE_WEAPON_STRENGTH } from 'parser/deathknight/blood/modules/spells/azeritetraits/EternalRuneWeapon';
 import { STAT_TRACKER as RELENTLESS_INQUISITOR_STATS } from 'parser/paladin/retribution/modules/core/azeritetraits/RelentlessInquisitor';
@@ -273,16 +271,6 @@ class StatTracker extends Analyzer {
     [SPELLS.ETERNAL_RUNE_WEAPON_BUFF.id]: ETERNAL_RUNE_WEAPON_STRENGTH, // Bonue Strength when DRW is up
     // endregion
     // region Monk
-    [SPELLS.LIGHT_STAGGER_DEBUFF.id]: {
-      mastery: TON_MASTERY_FNS[SPELLS.LIGHT_STAGGER_DEBUFF.id],
-    },
-    [SPELLS.MODERATE_STAGGER_DEBUFF.id]: {
-      mastery: TON_MASTERY_FNS[SPELLS.MODERATE_STAGGER_DEBUFF.id],
-    },
-    [SPELLS.HEAVY_STAGGER_DEBUFF.id]: {
-      mastery: TON_MASTERY_FNS[SPELLS.HEAVY_STAGGER_DEBUFF.id],
-    },
-    [SPELLS.IRON_FISTS_BUFF.id]: IRON_FISTS_STATS,
     // endregion
     // region Paladin
     [SPELLS.RELENTLESS_INQUISITOR_BUFF.id]: RELENTLESS_INQUISITOR_STATS,
