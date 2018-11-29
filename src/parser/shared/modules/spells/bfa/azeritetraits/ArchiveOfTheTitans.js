@@ -4,17 +4,12 @@ import { calculateAzeriteEffects } from 'common/stats';
 import SPELLS from 'common/SPELLS/index';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import SpellLink from 'common/SpellLink';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 const archiveOfTheTitansStats = traits => Object.values(traits).reduce((total, rank) => {
   const [stat] = calculateAzeriteEffects(SPELLS.ARCHIVE_OF_THE_TITANS.id, rank);
   return total + stat;
 }, 0);
-
-export const STAT_TRACKER = {
-  intellect: combatant => archiveOfTheTitansStats(combatant.traitsBySpellId[SPELLS.ARCHIVE_OF_THE_TITANS.id]),
-  strength: combatant => archiveOfTheTitansStats(combatant.traitsBySpellId[SPELLS.ARCHIVE_OF_THE_TITANS.id]),
-  agility: combatant => archiveOfTheTitansStats(combatant.traitsBySpellId[SPELLS.ARCHIVE_OF_THE_TITANS.id]),
-};
 
 /**
  * Archive of the Titans
@@ -24,6 +19,10 @@ export const STAT_TRACKER = {
  * Enables Reorigination Array within Uldir.
  */
 class ArchiveOfTheTitans extends Analyzer {
+  static dependencies = {
+    statTracker: StatTracker,
+  };
+
   primaryPerStack = 0;
   currentStacks = 0;
   lastTimestamp = 0;
@@ -37,6 +36,12 @@ class ArchiveOfTheTitans extends Analyzer {
     }
 
     this.primaryPerStack = archiveOfTheTitansStats(this.selectedCombatant.traitsBySpellId[SPELLS.ARCHIVE_OF_THE_TITANS.id]);
+
+    this.statTracker.add(SPELLS.ARCHIVE_OF_THE_TITANS_BUFF.id, {
+      intellect: this.primaryPerStack,
+      strength: this.primaryPerStack,
+      agility: this.primaryPerStack,
+    });
   }
 
   on_byPlayer_applybuff(event) {
