@@ -6,7 +6,7 @@ class FightEnd extends EventsNormalizer {
 
   normalize(events) {
     const event = {
-      timestamp: events[events.length - 1].timestamp,
+      timestamp: this.owner.fight.end_time,
       type: END_EVENT_TYPE,
       __fabricated: true,
     };
