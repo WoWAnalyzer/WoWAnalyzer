@@ -522,6 +522,30 @@ class StatTracker extends Analyzer {
     debug && this._debugPrintStats(this._currentStats);
   }
 
+  /**
+   * Adds a stat buff to StatTracker.
+   * @param buffId ID of the stat buff
+   * @param stats Object with stats (intellect, mastery, haste, crit etc.) and their respective bonus (either fixed value or a function (combatant, item) => value). If it's from item, provide also an itemId (item in the stat callback is taken from this itemId).
+   */
+  add(buffId, stats) {
+    if (!buffId || !stats) {
+      debug && this.log(`StatTracker.add() called with invalid buffId ${buffId} or stats`, stats);
+      return;
+    }
+    if (this.constructor.STAT_BUFFS[buffId]) {
+      debug && this.log(`Stat buff with ID ${buffId} already exists`);
+      return;
+    }
+    // if any stat's function uses the item argument, validate that itemId property exists
+    debug && this.log(`StatTracker.add(), buffId: ${buffId}, stats:`, stats);
+    const usesItemArgument = Object.values(stats).some(value => typeof value === 'function' && value.length === 2);
+    if (usesItemArgument && !stats.itemId) {
+      debug && this.log('Stat buff uses item argument, but does not provide item ID', stats);
+      return;
+    }
+    this.constructor.STAT_BUFFS[buffId] = stats;
+  }
+
   applySpecModifiers() {
     const modifiers = this.constructor.SPEC_MULTIPLIERS[this.selectedCombatant.spec.id] || {};
     Object.entries(modifiers).forEach(([stat, multiplier]) => {
