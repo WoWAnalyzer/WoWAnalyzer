@@ -146,6 +146,7 @@ class CombatLogParser {
   static abilitiesAffectedByDamageIncreases = [];
 
   static internalModules = {
+    fightEndNormalizer: FightEndNormalizer,
     eventEmitter: EventEmitter,
     combatants: Combatants,
     deathDowntime: DeathDowntime,
@@ -156,7 +157,6 @@ class CombatLogParser {
     applyBuffNormalizer: ApplyBuffNormalizer,
     cancelledCastsNormalizer: CancelledCastsNormalizer,
     prepullNormalizer: PrePullCooldownsNormalizer,
-    fightEndNormalizer: FightEndNormalizer,
 
     // Analyzers
     healingDone: HealingDone,
