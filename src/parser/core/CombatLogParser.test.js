@@ -1,4 +1,6 @@
 import CombatLogParser from './CombatLogParser';
+import TestCombatLogParser from './tests/TestCombatLogParser';
+import Events from './Events';
 
 class MyModule {}
 const myModule = new MyModule();
@@ -239,4 +241,14 @@ describe('Core/CombatLogParser', () => {
       expect(Object.keys(parser._modules).length).toBeGreaterThan(0);
     });
   });
+  describe('emits static events', () => {
+    it('emits fightend event', () => {
+      const onFinish = jest.fn();
+      const parser = new TestCombatLogParser();
+      const events = parser.normalize([]);
+      parser.addEventListener(Events.fightend, onFinish, { active: true });
+      parser.processEvents(events);
+      expect(onFinish).toHaveBeenCalled();
+    });
+});
 });
