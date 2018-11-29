@@ -54,4 +54,9 @@ export default {
     name: 'Wild Fleshrending',
     icon: 'ability_warrior_bloodnova',
   },
+  LAYERED_MANE: {
+    id: 279552,
+    name: 'Layered Mane',
+    icon: 'ability_druid_ironfur',
+  },
 };
