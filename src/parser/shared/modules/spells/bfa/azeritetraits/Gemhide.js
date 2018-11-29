@@ -42,8 +42,8 @@ class Gemhide extends Analyzer {
     this.avoidance = avoidance;
 
     this.statTracker.add(SPELLS.GEMHIDE_BUFF.id, {
-      armor: combatant => gemhideStats(combatant.traitsBySpellId[SPELLS.GEMHIDE.id]).armor,
-      avoidance: combatant => gemhideStats(combatant.traitsBySpellId[SPELLS.GEMHIDE.id]).avoidance,
+      armor,
+      avoidance,
     });
   }
 
