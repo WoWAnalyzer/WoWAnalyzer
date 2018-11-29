@@ -6,8 +6,6 @@ import SPECS from 'game/SPECS';
 import RACES from 'game/RACES';
 import Analyzer from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import { STAT_TRACKER as BOFD_ARMOR } from 'parser/deathknight/blood/modules/spells/azeritetraits/BonesOfTheDamned';
-import { STAT_TRACKER as ETERNAL_RUNE_WEAPON_STRENGTH } from 'parser/deathknight/blood/modules/spells/azeritetraits/EternalRuneWeapon';
 import { STAT_TRACKER as RELENTLESS_INQUISITOR_STATS } from 'parser/paladin/retribution/modules/core/azeritetraits/RelentlessInquisitor';
 import { STAT_TRACKER as DIVINE_RIGHT_STATS } from 'parser/paladin/retribution/modules/core/azeritetraits/DivineRight';
 import { STAT_TRACKER as CHORUS_OF_INSANITY_STATS } from 'parser/priest/shadow/modules/spells/azeritetraits/ChorusOfInsanity';
@@ -267,8 +265,6 @@ class StatTracker extends Analyzer {
     [SPELLS.ACCELERANT_BUFF.id]: ACCELERANT_STATS,
     // endregion
     //region Death Knight
-    [SPELLS.BONES_OF_THE_DAMNED_BUFF.id]: BOFD_ARMOR, // Armor when Bones of the Damend trait is up
-    [SPELLS.ETERNAL_RUNE_WEAPON_BUFF.id]: ETERNAL_RUNE_WEAPON_STRENGTH, // Bonue Strength when DRW is up
     // endregion
     // region Monk
     // endregion
