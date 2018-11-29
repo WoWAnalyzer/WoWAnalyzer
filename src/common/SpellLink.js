@@ -40,15 +40,6 @@ class SpellLink extends React.PureComponent {
       tooltipDetails.ilvl = ilvl;
     }
 
-    if(id === Number.MAX_VALUE) {
-      return (
-        <span className="pseudolink">
-          {icon && <SpellIcon id={id} noLink style={iconStyle} alt="" />}{' '}
-          {children || (SPELLS[id] ? SPELLS[id].name : `Unknown spell: ${id}`)}
-        </span>
-      );
-    }
-
     return (
       <a
         href={TooltipProvider.spell(id, tooltipDetails)}

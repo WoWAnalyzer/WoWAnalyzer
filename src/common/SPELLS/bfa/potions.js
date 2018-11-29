@@ -54,9 +54,4 @@ export default {
     name: 'Steelskin Potion',
     icon: 'inv_alchemy_80_elixir01green',
   },
-  DUMMY_COMBAT_POTION: {
-    id: Number.MAX_VALUE,
-    name: 'Combat Potion',
-    icon: 'trade_alchemy',
-  },
 };

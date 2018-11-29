@@ -7,7 +7,6 @@ import Potion from './Potion';
  */
 class CombatPotion extends Potion {
   static spells = [
-    SPELLS.DUMMY_COMBAT_POTION,
     SPELLS.BATTLE_POTION_OF_INTELLECT,
     SPELLS.BATTLE_POTION_OF_STRENGTH,
     SPELLS.BATTLE_POTION_OF_AGILITY,
@@ -22,7 +21,6 @@ class CombatPotion extends Potion {
   static recommendedEfficiency = 0;
   static extraAbilityInfo = {
     buffSpellId: [
-      SPELLS.DUMMY_COMBAT_POTION.id,
       SPELLS.BATTLE_POTION_OF_INTELLECT.id,
       SPELLS.BATTLE_POTION_OF_STRENGTH.id,
       SPELLS.BATTLE_POTION_OF_AGILITY.id,
