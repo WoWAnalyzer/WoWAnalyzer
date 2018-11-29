@@ -6,10 +6,6 @@ import SPECS from 'game/SPECS';
 import RACES from 'game/RACES';
 import Analyzer from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import { STAT_TRACKER as OVERWHELMING_POWER_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/OverwhelmingPower';
-import { STAT_TRACKER as ELEMENTAL_WHIRL_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/ElementalWhirl';
-import { STAT_TRACKER as METICULOUS_SCHEMING_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/MeticulousScheming';
-import { STAT_TRACKER as BLOOD_RITE_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/BloodRite';
 import { STAT_TRACKER as DANCE_OF_DEATH_STATS } from 'parser/hunter/beastmastery/modules/spells/azeritetraits/DanceOfDeath';
 import { STAT_TRACKER as PRIMAL_INSTINCTS_STATS } from 'parser/hunter/beastmastery/modules/spells/azeritetraits/PrimalInstincts';
 import { STAT_TRACKER as BLUR_OF_TALON_STATS } from 'parser/hunter/survival/modules/spells/azeritetraits/BlurOfTalons';
@@ -267,21 +263,6 @@ class StatTracker extends Analyzer {
     [SPELLS.SECRETS_OF_THE_DEEP_VOID_DROPLET.id]: { strength: 885, agility: 885, intellect: 885 }, // TODO: Implement primaryStat
     [SPELLS.CHAMPION_OF_AZEROTH.id]: { versatility: 87 },
     [SPELLS.VAMPIRIC_SPEED.id]: { speed: 196 },
-    [SPELLS.SEIZE_THE_MOMENT.id]: METICULOUS_SCHEMING_STATS,
-    [SPELLS.OVERWHELMING_POWER_BUFF.id]: OVERWHELMING_POWER_STATS,
-    [SPELLS.BLOOD_RITE_BUFF.id]: BLOOD_RITE_STATS,
-    [SPELLS.ELEMENTAL_WHIRL_CRIT.id]: {
-      crit: ELEMENTAL_WHIRL_STATS[SPELLS.ELEMENTAL_WHIRL_CRIT.id],
-    },
-    [SPELLS.ELEMENTAL_WHIRL_HASTE.id]: {
-      haste: ELEMENTAL_WHIRL_STATS[SPELLS.ELEMENTAL_WHIRL_HASTE.id],
-    },
-    [SPELLS.ELEMENTAL_WHIRL_MASTERY.id]: {
-      mastery: ELEMENTAL_WHIRL_STATS[SPELLS.ELEMENTAL_WHIRL_MASTERY.id],
-    },
-    [SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id]: {
-      versatility: ELEMENTAL_WHIRL_STATS[SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id],
-    },
     [SPELLS.WOUNDBINDER.id]: { haste: 584 }, // based on 340 TODO: Scale with item level
     [SPELLS.ARCHIVE_OF_THE_TITANS_BUFF.id]: ARCHIVE_OF_THE_TITANS_STATS,
     [SPELLS.UNSTABLE_CATALYST_BUFF.id]: UNSTABLE_CATALYST_STATS,
