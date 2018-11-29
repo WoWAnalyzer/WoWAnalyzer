@@ -53,7 +53,6 @@ class Checklist extends BaseChecklist {
           glacialSpikeUtilization: this.glacialSpike.utilSuggestionThresholds,
           fingersOfFrostUtilization: this.iceLance.fingersUtilSuggestionThresholds,
           iceLanceNotShattered: this.iceLance.nonShatteredSuggestionThresholds,
-          thermalVoidDuration: this.thermalVoid.suggestionThresholds,
           wintersChillIceLance: this.wintersChill.iceLanceUtilSuggestionThresholds,
           wintersChillHardCasts: this.wintersChill.hardcastUtilSuggestionThresholds,
           wintersReachUtilization: this.wintersReach.procUtilizationThresholds,

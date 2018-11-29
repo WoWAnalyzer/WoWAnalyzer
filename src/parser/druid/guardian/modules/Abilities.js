@@ -108,6 +108,40 @@ class Abilities extends CoreAbilities {
         },
         timelineSortIndex: 5,
       },
+      // Cat Form abilities
+      {
+        spell: SPELLS.SHRED,
+        // Technically available baseline, but it is never used without FA
+        enabled: combatant.hasTalent(SPELLS.FERAL_AFFINITY_TALENT_GUARDIAN.id),
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          static: 1000,
+        },
+      },
+      {
+        spell: SPELLS.RAKE,
+        enabled: combatant.hasTalent(SPELLS.FERAL_AFFINITY_TALENT_GUARDIAN.id),
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          static: 1000,
+        },
+      },
+      {
+        spell: SPELLS.RIP,
+        enabled: combatant.hasTalent(SPELLS.FERAL_AFFINITY_TALENT_GUARDIAN.id),
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          static: 1000,
+        },
+      },
+      {
+        spell: SPELLS.FEROCIOUS_BITE,
+        enabled: combatant.hasTalent(SPELLS.FERAL_AFFINITY_TALENT_GUARDIAN.id),
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          static: 1000,
+        },
+      },
       // Cooldowns
       {
         spell: SPELLS.BARKSKIN,
