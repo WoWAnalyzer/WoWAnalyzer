@@ -1,10 +1,11 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import Analyzer from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 const gemhideStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [avoidance, armor] = calculateAzeriteEffects(SPELLS.GEMHIDE.id, rank);
@@ -16,11 +17,6 @@ const gemhideStats = traits => Object.values(traits).reduce((obj, rank) => {
   armor: 0,
 });
 
-export const STAT_TRACKER = {
-  armor: combatant => gemhideStats(combatant.traitsBySpellId[SPELLS.GEMHIDE.id]).armor,
-  avoidance: combatant => gemhideStats(combatant.traitsBySpellId[SPELLS.GEMHIDE.id]).avoidance,
-};
-
 /**
  * Gemhide
  * When dealt damage greater than 10% of your maximum health, gain 95 Avoidance and 475 Armor for 10 sec.
@@ -28,6 +24,10 @@ export const STAT_TRACKER = {
  * Example report: https://www.warcraftlogs.com/reports/vyfNxYzcHr8mLXZ6#fight=12&type=summary&source=18
  */
 class Gemhide extends Analyzer {
+  static dependencies = {
+    statTracker: StatTracker,
+  };
+
   armor = 0;
   avoidance = 0;
   constructor(...args) {
@@ -40,6 +40,11 @@ class Gemhide extends Analyzer {
     const { armor, avoidance } = gemhideStats(this.selectedCombatant.traitsBySpellId[SPELLS.GEMHIDE.id]);
     this.armor = armor;
     this.avoidance = avoidance;
+
+    this.statTracker.add(SPELLS.GEMHIDE_BUFF.id, {
+      armor: combatant => gemhideStats(combatant.traitsBySpellId[SPELLS.GEMHIDE.id]).armor,
+      avoidance: combatant => gemhideStats(combatant.traitsBySpellId[SPELLS.GEMHIDE.id]).avoidance,
+    });
   }
 
   get uptime() {

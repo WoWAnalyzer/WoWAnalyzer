@@ -6,7 +6,6 @@ import SPECS from 'game/SPECS';
 import RACES from 'game/RACES';
 import Analyzer from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import { STAT_TRACKER as GEMHIDE_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/Gemhide';
 import { STAT_TRACKER as OVERWHELMING_POWER_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/OverwhelmingPower';
 import { STAT_TRACKER as ELEMENTAL_WHIRL_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/ElementalWhirl';
 import { STAT_TRACKER as METICULOUS_SCHEMING_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/MeticulousScheming';
@@ -268,7 +267,6 @@ class StatTracker extends Analyzer {
     [SPELLS.SECRETS_OF_THE_DEEP_VOID_DROPLET.id]: { strength: 885, agility: 885, intellect: 885 }, // TODO: Implement primaryStat
     [SPELLS.CHAMPION_OF_AZEROTH.id]: { versatility: 87 },
     [SPELLS.VAMPIRIC_SPEED.id]: { speed: 196 },
-    [SPELLS.GEMHIDE.id]: GEMHIDE_STATS,
     [SPELLS.SEIZE_THE_MOMENT.id]: METICULOUS_SCHEMING_STATS,
     [SPELLS.OVERWHELMING_POWER_BUFF.id]: OVERWHELMING_POWER_STATS,
     [SPELLS.BLOOD_RITE_BUFF.id]: BLOOD_RITE_STATS,
