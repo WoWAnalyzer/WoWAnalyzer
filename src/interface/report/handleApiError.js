@@ -6,6 +6,7 @@ import { i18n } from 'interface/RootLocalizationProvider';
 import FullscreenError from 'interface/common/FullscreenError';
 import ApiDownBackground from 'interface/common/images/api-down-background.gif';
 import ThunderSoundEffect from 'interface/audio/Thunder Sound effect.mp3';
+import { EventsParseError } from 'interface/report/EventParser';
 
 export default function handleApiError(error, onBack) {
   console.error(error);
@@ -70,6 +71,24 @@ export default function handleApiError(error, onBack) {
         error={i18n._(t`Failed to parse API response`)}
         details={i18n._(t`JSON parse error, the API response is probably corrupt. Let us know on Discord and we may be able to fix it for you.`)}
         background="https://media.giphy.com/media/m4TbeLYX5MaZy/giphy.gif"
+      >
+        <div>
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={onBack}
+          >
+            &lt; <Trans>Back</Trans>
+          </button>
+        </div>
+      </FullscreenError>
+    );
+  } else if (error instanceof EventsParseError) {
+    return (
+      <FullscreenError
+        error={i18n._(t`An error occured during our analysis`)}
+        details={i18n._(t`We fucked up and our code broke like the motherfucker that it is. Please let us know on Discord and we will fix it for you.`)}
+        background="https://media.giphy.com/media/2sdHZ0iBuI45s6fqc9/giphy.gif"
       >
         <div>
           <button

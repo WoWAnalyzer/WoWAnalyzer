@@ -41,7 +41,7 @@ describe('Brewmaster.BlackoutCombo', () => {
   });
   it('track blackout combos consumed by other spells', () => {
     parser.processEvents(SimpleFight);
-    expect(module.blackoutComboConsumed).toBe(3);
+    expect(module.blackoutComboConsumed).toBe(2);
   });
   it('check to see if the object used to track spells os populated with no data', () => {
     expect(Object.keys(module.spellsBOCWasUsedOn).length).toBe(0);
@@ -57,10 +57,6 @@ describe('Brewmaster.BlackoutCombo', () => {
   it('track how many times breath of fire consumed BOC', () => {
     parser.processEvents(SimpleFight);
     expect(module.spellsBOCWasUsedOn[SPELLS.BREATH_OF_FIRE.id]).toBe(1);
-  });
-  it('track how many times purifying brew consumed BOC', () => {
-    parser.processEvents(SimpleFight);
-    expect(module.spellsBOCWasUsedOn[SPELLS.PURIFYING_BREW.id]).toBe(1);
   });
   it('track how many times ironskin brew consumed BOC when none were cast', () => {
     parser.processEvents(SimpleFight);

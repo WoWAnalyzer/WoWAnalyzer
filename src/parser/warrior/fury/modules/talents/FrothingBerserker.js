@@ -27,12 +27,9 @@ class FrothingBerserker extends Analyzer {
     constructor(...args) {
         super(...args);
 
-        this.active = false;
+        this.active = this.selectedCombatant.hasTalent(SPELLS.FROTHING_BERSERKER_TALENT.id);
 
-        if (this.selectedCombatant.hasTalent(SPELLS.FROTHING_BERSERKER_TALENT.id)) {
-            this.active = true;
-            this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onPlayerDamage);
-        }
+        this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onPlayerDamage);
     }
 
     onPlayerDamage(event) {
@@ -58,6 +55,7 @@ class FrothingBerserker extends Analyzer {
 
     get suggestionThresholds() {
         return {
+          actual: this.uptimePercent,
           isLessThan: {
             minor: 0.65,
             average: 0.6,
@@ -68,14 +66,6 @@ class FrothingBerserker extends Analyzer {
       }
 
     suggestions(when) {
-        const {
-            isLessThan: {
-              minor,
-              average,
-              major,
-            },
-          } = this.suggestionThresholds;
-
         when(true).isTrue().addSuggestion((suggest) => {
             return suggest(
               <>
@@ -86,14 +76,12 @@ class FrothingBerserker extends Analyzer {
             .staticImportance(SUGGESTION_IMPORTANCE.REGULAR);
         });
     
-        when(this.frothingBerserkerUptime).isLessThan(minor)
+        when(this.suggestionThresholds)
           .addSuggestion((suggest, actual, recommended) => {
             return suggest(<>Your <SpellLink id={SPELLS.FROTHING_BERSERKER.id} /> uptime can be improved.</>)
               .icon(SPELLS.FROTHING_BERSERKER.icon)
               .actual(`${formatPercentage(actual)}% Frothing Berserker uptime`)
-              .recommended(`>${formatPercentage(recommended)}% is recommended`)
-              .regular(average).major(major)
-              .extraSuggestion();
+              .recommended(`>${formatPercentage(recommended)}% is recommended`);
           });
       }
 
