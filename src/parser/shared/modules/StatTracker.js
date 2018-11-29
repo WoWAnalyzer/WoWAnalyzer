@@ -6,7 +6,6 @@ import SPECS from 'game/SPECS';
 import RACES from 'game/RACES';
 import Analyzer from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import { STAT_TRACKER as CHORUS_OF_INSANITY_STATS } from 'parser/priest/shadow/modules/spells/azeritetraits/ChorusOfInsanity';
 import { STAT_TRACKER as CASCADING_CALAMITY_STATS } from 'parser/warlock/affliction/modules/azerite/CascadingCalamity';
 import { STAT_TRACKER as WRACKING_BRILLIANCE_STATS } from 'parser/warlock/affliction/modules/azerite/WrackingBrilliance';
 import { STAT_TRACKER as EXPLOSIVE_POTENTIAL_STATS } from 'parser/warlock/demonology/modules/azerite/ExplosivePotential';
@@ -269,7 +268,6 @@ class StatTracker extends Analyzer {
     // region Paladin
     // endregion
     // region Priest
-    [SPELLS.CHORUS_OF_INSANITY_BUFF]: CHORUS_OF_INSANITY_STATS,
     // endregion
     // region Enchants
     [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 50 },
