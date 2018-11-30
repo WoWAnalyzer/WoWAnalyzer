@@ -45,11 +45,11 @@ export const ABILITIES_THAT_TRIGGER_MASTERY = [
   // Azerite
   SPELLS.BLESSED_PORTENTS_HEAL.id,
   SPELLS.LASER_MATRIX_HEAL.id,
-  280658, // Ricocheting Inflatable Pyrosaw (280168)
+  280658, // Cauterized from Ricocheting Inflatable Pyrosaw (280168)
   SPELLS.TWIST_MAGIC_HEAL.id,
   SPELLS.BRACING_CHILL_HEAL.id,
   SPELLS.SAVIOR_HEAL.id,
-  280583, // Auto-Self-Cauterizer (280172)
+  280583, // M.E.N.D. from Auto-Self-Cauterizer (280172)
 
   // Trinkets
   SPELLS.LADY_WAYCRESTS_MUSIC_BOX.id,
