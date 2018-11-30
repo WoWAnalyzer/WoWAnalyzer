@@ -32,11 +32,11 @@ class CombustionSpellUsage extends Analyzer {
     const fireBlastCharges = this.spellUsable.chargesAvailable(SPELLS.FIRE_BLAST.id);
     const phoenixFlamesCharges = (this.spellUsable.chargesAvailable(SPELLS.PHOENIX_FLAMES_TALENT.id) || 0);
     //If the player has the Blaster Master trait, it is acceptable to cast Scorch during Combustion
-    if (!hasCombustion || (this.hasBlasterMaster && event.ability.guid === SPELLS.SCORCH.id)) {
+    if (!hasCombustion || (this.hasBlasterMaster && event.ability.guid === SPELLS.SCORCH.id) || (fireBlastCharges === 0 || phoenixFlamesCharges === 0)) {
       return;
     }
 
-    if (event.type === "cast" && (fireBlastCharges > 0 || phoenixFlamesCharges > 0)) {
+    if (event.type === "cast") {
       this.badCastsCompleted += 1;
       event.meta = this.lastCastEvent.meta || {};
       event.meta.isInefficientCast = true;
@@ -44,7 +44,7 @@ class CombustionSpellUsage extends Analyzer {
       debug && this.log("Cast completed with instants available");
     }
 
-    if (event.type === "begincast" && (fireBlastCharges > 0 || phoenixFlamesCharges > 0)) {
+    if (event.type === "begincast") {
       this.badCastsStarted += 1;
       debug && this.log("Cast started with instants available");
     }
