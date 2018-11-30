@@ -9,7 +9,7 @@ import Requirement from 'parser/shared/modules/features/Checklist2/Requirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist2/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist2/GenericCastEfficiencyRequirement';
 
-class HolyPaladinChecklist extends React.PureComponent {
+class BloodDeathKnightChecklist extends React.PureComponent {
   static propTypes = {
     castEfficiency: PropTypes.object.isRequired,
     combatant: PropTypes.shape({
@@ -133,4 +133,4 @@ class HolyPaladinChecklist extends React.PureComponent {
   }
 }
 
-export default HolyPaladinChecklist;
+export default BloodDeathKnightChecklist;
