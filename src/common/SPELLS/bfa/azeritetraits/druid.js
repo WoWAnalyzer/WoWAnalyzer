@@ -54,4 +54,14 @@ export default {
     name: 'Wild Fleshrending',
     icon: 'ability_warrior_bloodnova',
   },
+  TWISTED_CLAWS: {
+    id: 275906,
+    name: 'Twisted Claws',
+    icon: 'spell_druid_thrash',
+  },
+  TWISTED_CLAWS_BUFF: {
+    id: 275909,
+    name: 'Twisted Claws',
+    icon: 'spell_druid_thrash',
+  },
 };
