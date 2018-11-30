@@ -12,6 +12,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import { ABILITIES_THAT_TRIGGER_MASTERY } from '../../constants';
 
 const DEBUG = false;
+const CUTOFF_PERCENT = .01;
 
 class EchoOfLight_Mastery extends Analyzer {
   static dependencies = {
@@ -26,6 +27,12 @@ class EchoOfLight_Mastery extends Analyzer {
   targetMasteryPool = {};
   // The test value so we can see how accurate our EoL values are
   testValues = {
+    effectiveHealing: 0,
+    overhealing: 0,
+    rawHealing: 0,
+  };
+
+  precastValues = {
     effectiveHealing: 0,
     overhealing: 0,
     rawHealing: 0,
@@ -61,16 +68,14 @@ class EchoOfLight_Mastery extends Analyzer {
 
   // EoL is hard to calculate. This provides an estimate as to how accurate the values listed are.
   get accuracy() {
-    const effectiveError = Math.abs(this.testValues.effectiveHealing - this.effectiveHealing) / this.effectiveHealing;
-    const overhealingError = Math.abs(this.testValues.overhealing - this.overHealing) / this.overHealing;
-    const rawError = Math.abs(this.testValues.rawHealing - this.rawHealing) / this.rawHealing;
+    const effectiveError = Math.abs(this.testValues.effectiveHealing + this.precastValues.effectiveHealing - this.effectiveHealing) / this.effectiveHealing;
+    const overhealingError = Math.abs(this.testValues.overhealing + this.precastValues.overhealing - this.overHealing) / this.overHealing;
 
     if (DEBUG) {
-      console.warn('Effective', effectiveError, Math.abs(this.testValues.effectiveHealing - this.effectiveHealing));
-      console.warn('Overhealing', overhealingError, Math.abs(this.testValues.overhealing - this.overHealing));
-      console.warn('Raw', overhealingError, Math.abs(this.testValues.rawHealing - this.rawHealing));
+      console.warn('Effective', effectiveError, Math.abs(this.testValues.effectiveHealing + this.precastValues.effectiveHealing - this.effectiveHealing));
+      console.warn('Overhealing', overhealingError, Math.abs(this.testValues.overhealing + this.precastValues.overhealing - this.overHealing));
     }
-    return 1 - Math.max(effectiveError, overhealingError, rawError);
+    return 1 - Math.max(effectiveError, overhealingError);
   }
 
   on_byPlayer_heal(event) {
@@ -127,6 +132,14 @@ class EchoOfLight_Mastery extends Analyzer {
     // The total amount that should be drained from the pool
     const poolDrainTotal = this.targetMasteryPool[targetId].pendingHealingTotal * poolDrainPercent;
 
+    if (Object.keys(this.targetMasteryPool[targetId].pendingHealingBySpell).length === 0 && this.targetMasteryPool[targetId].pendingHealingBySpell.constructor === Object) {
+      // This must be the result of a precasted EoL Application
+      // There is no way to tell which spell caused this EoL, but we can store it for metrics!
+      this.precastValues.effectiveHealing += tickEffectiveHealing;
+      this.precastValues.overhealing += tickOverhealing;
+      this.precastValues.rawHealing += (tickEffectiveHealing + tickOverhealing);
+      return;
+    }
     for (const spellId in this.targetMasteryPool[targetId].pendingHealingBySpell) {
       // The percent of the pool that should be drained by this spell
       const tickHealingBySpell = this.targetMasteryPool[targetId].pendingHealingBySpell[spellId] * poolDrainPercent;
@@ -199,16 +212,37 @@ class EchoOfLight_Mastery extends Analyzer {
     const rows = [];
 
     for (let i = 0; i < spellDetails.length; i++) {
+      if (DEBUG || this.getPercentOfTotalHealingBySpell(spellDetails[i].spellId) > CUTOFF_PERCENT) {
+        rows.push(
+          <tr key={'mastery_' + spellDetails[i].spellId}>
+            <td><SpellIcon id={Number(spellDetails[i].spellId)} style={{ height: '2.4em' }} /></td>
+            <td>{formatNumber(spellDetails[i].effectiveHealing)}</td>
+            <td>{formatPercentage(this.getPercentOfTotalHealingBySpell(spellDetails[i].spellId))}%</td>
+            <td>
+              <dfn data-tip={`${formatNumber(spellDetails[i].overHealing)} Overhealing`}>
+                {formatPercentage(this.getMasteryOverhealPercentBySpell(spellDetails[i].spellId))}%
+              </dfn>
+            </td>
+          </tr>
+        );
+      }
+    }
+
+    if (DEBUG) {
+      // Add precasted EoL
       rows.push(
-        <tr key={'mastery_' + spellDetails[i].spellId}>
-          <td><SpellIcon id={Number(spellDetails[i].spellId)} style={{ height: '2.4em' }} /></td>
-          <td>{formatNumber(spellDetails[i].effectiveHealing)}</td>
-          <td>{formatPercentage(this.getPercentOfTotalHealingBySpell(spellDetails[i].spellId))}%</td>
-          <td>{formatPercentage(this.getMasteryOverhealPercentBySpell(spellDetails[i].spellId))}%</td>
+        <tr key={'mastery_precast'}>
+          <td>Precast</td>
+          <td>{formatNumber(this.precastValues.effectiveHealing)}</td>
+          <td>{formatPercentage(this.precastValues.effectiveHealing / this.healingDone.total.effective)}%</td>
+          <td>
+            <dfn data-tip={`${formatNumber(this.precastValues.overhealing)} Overhealing`}>
+              {formatPercentage(this.precastValues.overhealing / this.precastValues.rawHealing)}%
+            </dfn>
+          </td>
         </tr>
       );
     }
-
     return rows;
   };
 
@@ -227,7 +261,7 @@ class EchoOfLight_Mastery extends Analyzer {
         label={(
           <dfn
             data-tip={`Echo of Light healing breakdown. As our mastery is often very finicky, this could end up wrong in various situations. Please report any logs that seem strange to @Khadaj on the WoWAnalyzer discord.<br/><br/>
-            <strong>Please do note this is not 100% accurate.</strong> It is probably around ${formatPercentage(this.accuracy)}% accurate. <br/><br/>
+            <strong>Please do note this may not be 100% accurate.</strong> I'd estimate that this specific parse is is about ${formatPercentage(this.accuracy)}% accurate. <br/><br/>
             Also, a mastery value can be more than just "healing done times mastery percent" because Echo of Light is based off raw healing. If the heal itself overheals, but the mastery does not, it can surpass that assumed "limit". Don't use this as a reason for a "strange log" unless something is absurdly higher than its effective healing.`}
           >
             Echo of Light
