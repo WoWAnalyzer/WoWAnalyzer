@@ -11,7 +11,7 @@ import ItemHealingDone from 'interface/others/ItemHealingDone';
 import { formatNumber, formatPercentage } from 'common/format';
 import { ABILITIES_THAT_TRIGGER_MASTERY } from '../../constants';
 
-const DEBUG = true;
+const DEBUG = false;
 
 class EchoOfLight_Mastery extends Analyzer {
   static dependencies = {
