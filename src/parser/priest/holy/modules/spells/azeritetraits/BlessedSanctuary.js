@@ -23,7 +23,7 @@ class BlessedSanctuary extends Analyzer {
 
   get overHealing() {
     if (this.echoOfLight.masteryHealingBySpell[SPELLS.HOLY_WORD_SANCTIFY.id]) {
-      const overhealPercent = this.echoOfLight.masteryHealingBySpell[SPELLS.HOLY_WORD_SANCTIFY.id].overHealing;
+      const overhealPercent = this.echoOfLight.masteryHealingBySpell[SPELLS.HOLY_WORD_SANCTIFY.id].overHealing / this.echoOfLight.masteryHealingBySpell[SPELLS.HOLY_WORD_SANCTIFY.id].rawHealing;
       return this.rawHealing * overhealPercent;
     }
     return 0;
@@ -31,7 +31,7 @@ class BlessedSanctuary extends Analyzer {
 
   get effectiveHealing() {
     if (this.echoOfLight.masteryHealingBySpell[SPELLS.HOLY_WORD_SANCTIFY.id]) {
-      const effectivehealPercent = 1 - this.echoOfLight.masteryHealingBySpell[SPELLS.HOLY_WORD_SANCTIFY.id].overHealing;
+      const effectivehealPercent = 1 - (this.echoOfLight.masteryHealingBySpell[SPELLS.HOLY_WORD_SANCTIFY.id].overHealing / this.echoOfLight.masteryHealingBySpell[SPELLS.HOLY_WORD_SANCTIFY.id].rawHealing);
       return this.rawHealing * effectivehealPercent;
     }
     return 0;
@@ -40,9 +40,11 @@ class BlessedSanctuary extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.BLESSED_SANCTUARY.id);
-    this.ranks = this.selectedCombatant.traitRanks(SPELLS.BLESSED_SANCTUARY.id) || [];
 
-    this.blessedSanctuaryProcAmount = this.ranks.map((rank) => calculateAzeriteEffects(SPELLS.BLESSED_SANCTUARY.id, rank)[0]).reduce((total, bonus) => total + bonus, 0);
+    if (this.active){
+      this.ranks = this.selectedCombatant.traitRanks(SPELLS.BLESSED_SANCTUARY.id) || [];
+      this.blessedSanctuaryProcAmount = this.ranks.map((rank) => calculateAzeriteEffects(SPELLS.BLESSED_SANCTUARY.id, rank)[0]).reduce((total, bonus) => total + bonus, 0);
+    }
   }
 
   on_byPlayer_heal(event) {
