@@ -6,16 +6,18 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HealingDone from 'parser/shared/modules/HealingDone';
+import Combatants from 'parser/shared/modules/Combatants';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 import { formatNumber, formatPercentage } from 'common/format';
 import { ABILITIES_THAT_TRIGGER_MASTERY } from '../../constants';
 
-const DEBUG = false;
+const DEBUG = true;
 
 class EchoOfLight_Mastery extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     healingDone: HealingDone,
+    combatants: Combatants,
   };
 
   // All healing done by spells that can proc mastery
@@ -57,11 +59,18 @@ class EchoOfLight_Mastery extends Analyzer {
     return this.masteryHealingBySpell[spellId].overHealing / this.masteryHealingBySpell[spellId].rawHealing;
   }
 
+  // EoL is hard to calculate. This provides an estimate as to how accurate the values listed are.
   get accuracy() {
-    const effectiveAccuracy = Math.abs(this.testValues.effectiveHealing - this.effectiveHealing) / this.effectiveHealing;
-    const overhealingAccuracy = Math.abs(this.testValues.overhealing - this.overHealing) / this.overHealing;
-    const rawAccuracy = Math.abs(this.testValues.rawHealing - this.rawHealing) / this.rawHealing;
-    return 1 - Math.max(effectiveAccuracy, overhealingAccuracy, rawAccuracy);
+    const effectiveError = Math.abs(this.testValues.effectiveHealing - this.effectiveHealing) / this.effectiveHealing;
+    const overhealingError = Math.abs(this.testValues.overhealing - this.overHealing) / this.overHealing;
+    const rawError = Math.abs(this.testValues.rawHealing - this.rawHealing) / this.rawHealing;
+
+    if (DEBUG) {
+      console.warn('Effective', effectiveError, Math.abs(this.testValues.effectiveHealing - this.effectiveHealing));
+      console.warn('Overhealing', overhealingError, Math.abs(this.testValues.overhealing - this.overHealing));
+      console.warn('Raw', overhealingError, Math.abs(this.testValues.rawHealing - this.rawHealing));
+    }
+    return 1 - Math.max(effectiveError, overhealingError, rawError);
   }
 
   on_byPlayer_heal(event) {
@@ -100,11 +109,14 @@ class EchoOfLight_Mastery extends Analyzer {
     const targetId = event.targetID;
 
     // As far as I can tell, this happens when the combat log is out of order. You shouldn't receive a tick of EoL without a target having a buff apply event.
-    if (!this.targetMasteryPool[targetId] || this.targetMasteryPool[targetId].remainingTicks < 1) {
-      if (DEBUG) {
-        console.warn(`There was a mastery tick for ${event.amount + (event.absorbed || 0)} (${event.overheal || 0} OH) for a target that doesn't have a mastery pool!`);
-      }
+    if (!this.targetMasteryPool[targetId]) {
+      DEBUG && console.warn(`[${event.timestamp}] There was a mastery tick for ${event.amount + (event.absorbed || 0)} (${event.overheal || 0} OH) on target ${this.combatants.players[targetId] ? this.combatants.players[targetId].name : ''} (${targetId}) that doesn't have a mastery pool!`);
       return;
+    }
+
+    if (this.targetMasteryPool[targetId].remainingTicks < 1) {
+      DEBUG && console.warn(`[${event.timestamp}] There was a mastery tick for ${event.amount + (event.absorbed || 0)} (${event.overheal || 0} OH) on target ${this.combatants.players[targetId] ? this.combatants.players[targetId].name : ''} (${targetId}) whos mastery pool is empty!`);
+      this.targetMasteryPool[targetId].remainingTicks = 1;
     }
 
     const tickEffectiveHealing = event.amount + (event.absorbed || 0);
@@ -156,6 +168,7 @@ class EchoOfLight_Mastery extends Analyzer {
       }
 
       this.targetMasteryPool[targetId].remainingTicks = 2;
+      this.targetMasteryPool[targetId].applicationTime = event.timestamp;
     }
   }
 
@@ -163,7 +176,15 @@ class EchoOfLight_Mastery extends Analyzer {
     const spellId = event.ability.guid;
     const targetId = event.targetID;
     if (spellId === SPELLS.ECHO_OF_LIGHT.id) {
-      this.targetMasteryPool[targetId].remainingTicks = 3;
+      // There is a bug when you apply and refresh EoL at the same exact millisecond.
+      // When you do this (via benediction or some other means) there can be 4 ticks of EoL.
+      // This code compensates for that.
+      if (event.timestamp === this.targetMasteryPool[targetId].applicationTime) {
+        DEBUG && console.warn(`[${event.timestamp}] There was a double application of EoL tick on target ${this.combatants.players[targetId] ? this.combatants.players[targetId].name : ''} (${targetId}). Applying 4 ticks.`);
+        this.targetMasteryPool[targetId].remainingTicks = 4;
+      } else {
+        this.targetMasteryPool[targetId].remainingTicks = 3;
+      }
     }
   }
 
