@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import ReactTooltip from 'react-tooltip';
 import './StatisticBox.css';
 import STATISTIC_CATEGORY from './STATISTIC_CATEGORY';
-import ReactTooltip from 'react-tooltip';
 
 export { default as STATISTIC_ORDER } from './STATISTIC_ORDER';
 export { default as STATISTIC_CATEGORY } from './STATISTIC_CATEGORY';

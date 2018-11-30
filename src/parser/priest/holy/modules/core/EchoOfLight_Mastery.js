@@ -268,6 +268,7 @@ class EchoOfLight_Mastery extends Analyzer {
           </dfn>
         )}
       >
+        <div>Values under 1% of total are omitted.</div>
         <table className="table table-condensed">
           <thead>
             <tr>
