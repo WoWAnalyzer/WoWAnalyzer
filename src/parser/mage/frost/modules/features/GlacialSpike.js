@@ -64,7 +64,7 @@ class GlacialSpike extends Analyzer {
     this.lastCastDidDamage = false;
   }
 
-  on_finished() {
+  on_fightend() {
     this.invalidateCast();
   }
 

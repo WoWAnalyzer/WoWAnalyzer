@@ -33,7 +33,7 @@ class SoothingMist extends Analyzer {
     }
   }
 
-  on_finished() {
+  on_fightend() {
     if (debug) {
       console.log(`SooM Ticks: ${this.soomTicks}`);
       console.log('SooM Perc Uptime: ', (this.soomTicks * 2 / this.owner.fightDuration * 1000));

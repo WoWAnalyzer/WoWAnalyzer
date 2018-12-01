@@ -42,7 +42,7 @@ class HitCountAoE extends Analyzer {
     this.lastCastHits += 1;
   }
 
-  on_finished() {
+  on_fightend() {
     this.finalizePreviousCast();
   }
 

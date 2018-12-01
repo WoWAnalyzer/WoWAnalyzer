@@ -81,7 +81,7 @@ class LoneWolf extends Analyzer {
     this.damage += calculateEffectiveDamage(event, this.loneWolfModifier);
   }
 
-  on_finished() {
+  on_fightend() {
     if (this.damage === 0) {
       this.active = false;
     }

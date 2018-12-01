@@ -43,7 +43,7 @@ class Frostscythe extends Analyzer {
     this.hits += 1;
   }
 
-  on_finished() { // check if the last cast of Fsc was good
+  on_fightend() { // check if the last cast of Fsc was good
     if (this.hits >= this.hitThreshold) {
       this.goodCasts += 1;
     }

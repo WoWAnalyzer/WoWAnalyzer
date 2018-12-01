@@ -21,7 +21,7 @@ class EchoOfLight_Mastery extends Analyzer {
 
   effectiveHealDistPerc = [];
 
-  on_finished() {
+  on_fightend() {
     // There's likely a far better way to do this, but my 2AM brain couldn't find it
     let total = 0;
 

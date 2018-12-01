@@ -12,6 +12,7 @@ import ItemStatisticBox from 'interface/others/ItemStatisticBox';
 import ApplyBuffNormalizer from 'parser/shared/normalizers/ApplyBuff';
 import CancelledCastsNormalizer from 'parser/shared/normalizers/CancelledCasts';
 import PrePullCooldownsNormalizer from 'parser/shared/normalizers/PrePullCooldowns';
+import FightEndNormalizer from 'parser/shared/normalizers/FightEnd';
 import HealingDone from '../shared/modules/HealingDone';
 import DamageDone from '../shared/modules/DamageDone';
 import DamageTaken from '../shared/modules/DamageTaken';
@@ -136,7 +137,6 @@ import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
 import EventsNormalizer from './EventsNormalizer';
 import EventEmitter from './modules/EventEmitter';
-import EventFilter from './EventFilter';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -146,6 +146,7 @@ class CombatLogParser {
   static abilitiesAffectedByDamageIncreases = [];
 
   static internalModules = {
+    fightEndNormalizer: FightEndNormalizer,
     eventEmitter: EventEmitter,
     combatants: Combatants,
     deathDowntime: DeathDowntime,
@@ -277,9 +278,6 @@ class CombatLogParser {
   };
   // Override this with spec specific modules when extending
   static specModules = {};
-  static get finished() {
-    return new EventFilter('finished');
-  }
 
   report = null;
   // Player info from WCL - required
@@ -348,9 +346,6 @@ class CombatLogParser {
   finish() {
     this.finished = true;
     const emitter = this.getModule(EventEmitter);
-    emitter.fabricateEvent({
-      type: this.constructor.finished,
-    });
     console.log('Called listeners', emitter._listenersCalled, 'times, with', emitter._actualExecutions, 'actual executions.', emitter._listenersCalled - emitter._actualExecutions, 'events were filtered away');
   }
 
