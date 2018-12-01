@@ -1,14 +1,25 @@
 import fs from 'fs';
 import zlib from 'zlib';
 import EventEmitter from 'parser/core/modules/EventEmitter';
+import decompress from 'decompress';
 
 const _CACHE = {};
 
-export function loadLogSync(key, searchPath='test-logs/') {
-  if(_CACHE[key] === undefined) {
-    _CACHE[key] = JSON.parse(zlib.unzipSync(fs.readFileSync(`${searchPath}${key}.json.gz`)).toString());
+// asynchronously load and parse a log. returns a promise that resolves
+// to the log object
+export function loadLog(key, searchPath='test-logs/') {
+  if(_CACHE[key] !== undefined) {
+    return Promise.resolve(_CACHE[key]);
   }
-  return _CACHE[key];
+  return decompress(`${searchPath}${key}.zip`).then(files => {
+    const result = files.reduce((res, file) => {
+      res[file.path.split('.')[0]] = JSON.parse(file.data.toString());
+      return res;
+    }, {});
+
+    _CACHE[key] = result;
+    return result;
+  });
 }
 
 /**
@@ -42,8 +53,8 @@ export function suppressLogging(log, warn, error) {
 }
 
 export function parseLog(parserClass, log) {
-  const friendlies = log.meta.friendlies.find(({id}) => id === log.contents.player_id);
-  const fight = log.meta.fights.find(({id}) => id === log.contents.fight_id);
+  const friendlies = log.meta.friendlies.find(({id}) => id === log.content_ids.player_id);
+  const fight = log.meta.fights.find(({id}) => id === log.content_ids.fight_id);
   const parser = new parserClass(
     log.meta, 
     friendlies,

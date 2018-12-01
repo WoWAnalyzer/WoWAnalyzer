@@ -14,7 +14,7 @@
  **/
 const argv = require('process').argv;
 const fs = require('fs');
-const zlib = require('zlib');
+const archiver = require('archiver');
 const https = require('https');
 
 function request_fight(log_id, cb) {
@@ -46,22 +46,22 @@ function request_events(log_id, player_id, cb, meta, fight, combatants) {
 }
 
 function write_log(key, fight_id, player_id, cb, meta, combatants, events) {
-  const path = `test-logs/${key}.json.gz`;
+  const path = `test-logs/${key}.zip`;
   const out = fs.createWriteStream(path);
-  const compress = zlib.createGzip();
+  const compress = archiver('zip');
+  compress.on('warning', err => console.warn(err));
   compress.pipe(out);
 
-  compress.write(JSON.stringify({
-    meta, 
-    combatants: combatants.events,
-    events: events.events,
-    contents: {
-      fight_id: Number(fight_id),
-      player_id: Number(player_id),
-    },
-  }));
-  compress.end();
-  cb(path);
+  compress.append(JSON.stringify(meta), { name: 'meta.json' });
+  compress.append(JSON.stringify(combatants.events), { name: 'combatants.json' });
+  compress.append(JSON.stringify(events.events), { name: 'events.json' });
+  compress.append(JSON.stringify({
+    fight_id: Number(fight_id),
+    player_id: Number(player_id),
+  }), { name: 'content_ids.json' });
+
+  out.on('end', () => cb(path));
+  compress.finalize();
 }
 
 const [key, log_id, fight_id, player_id]= argv.slice(2, argv.length);

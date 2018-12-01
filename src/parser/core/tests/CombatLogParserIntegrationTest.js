@@ -2,7 +2,7 @@ import { i18n } from 'interface/RootLocalizationProvider';
 import ParseResults from 'parser/core/ParseResults';
 import BaseChecklist from 'parser/shared/modules/features/Checklist2/Module';
 import renderer from 'react-test-renderer';
-import { loadLogSync, suppressLogging, parseLog } from './log-tools';
+import { loadLog, suppressLogging, parseLog } from './log-tools';
 import { statistic, expectSnapshot } from './snapshotTest';
 
 function integrationStatistic(analyzer, parser) {
@@ -64,7 +64,7 @@ export default function integrationTest(parserClass, key, suppressWarn=true, sup
     let log;
     let parser;
     beforeAll(() => {
-      log = loadLogSync(key);
+      return loadLog(key).then(res => { log = res; });
     });
 
     suppressLogging(suppressLog, suppressWarn, false);

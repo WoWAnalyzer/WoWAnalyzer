@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import renderer from 'react-test-renderer';
 import { i18n } from 'interface/RootLocalizationProvider';
-import { loadLogSync, parseLog } from './log-tools';
+import { loadLog, parseLog } from './log-tools';
 
 class ParserContextProvider extends React.PureComponent {
   static propTypes = {
@@ -55,9 +55,10 @@ export function tab(analyzer, parser=null) {
  */
 export default function snapshotTest(parserClass, moduleClass, key, propFn = statistic) {
   return () => {
-    const log = loadLogSync(key);
-    const parser = parseLog(parserClass, log);
-    expectSnapshot(parser, moduleClass, propFn);
+    return loadLog(key).then(log => {
+      const parser = parseLog(parserClass, log);
+      expectSnapshot(parser, moduleClass, propFn);
+    });
   };
 }
 
