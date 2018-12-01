@@ -3,7 +3,7 @@ import React from 'react';
 // https://thenounproject.com/search/?q=focus%20chart&i=2013201
 // Vision by supalerk laipawat from the Noun Project
 const Icon = ({ ...other }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="6 6 52 52" {...other}>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="6 6 52 52" className="icon" {...other}>
     <path d="M27.6,47.673a7.959,7.959,0,0,0,9.3-.361l-4.841-4.841Z" />
     <path d="M45.405,32.209a25.792,25.792,0,0,0-4.847-2.264,13.95,13.95,0,0,1,0,22.11,25.846,25.846,0,0,0,4.846-2.264L60.057,41Z" />
     <path d="M28.544,33.8a7.97,7.97,0,0,0-2.46,12.57l4.788-5.587Z" />

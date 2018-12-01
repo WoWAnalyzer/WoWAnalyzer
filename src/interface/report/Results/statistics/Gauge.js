@@ -9,7 +9,7 @@ const Gauge = ({ value }) => (
       Low
     </div>
     <div className="flex-sub" style={{ position: 'relative' }}>
-      <svg width="98" height="85" viewBox="19 19 101 88" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ height: 'auto', fill: 'none' }}>
+      <svg width="98" height="85" viewBox="19 19 101 88" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ fill: 'none' }}>
           <path d="M101.459 101.459C119.033 83.8858 119.033 55.3934 101.459 37.8198C83.8859 20.2462 55.3934 20.2462 37.8198 37.8198C20.2463 55.3934 20.2463 83.8858 37.8198 101.459" stroke="#f8b700" strokeWidth="8" strokeLinecap="round" />
           <path fillRule="evenodd" clipRule="evenodd" d="M68.6396 28.6396H70.6396V32.6396H68.6396V28.6396Z" fill="#f8b700" />
           <path fillRule="evenodd" clipRule="evenodd" d="M87.7656 32.8389L89.5485 33.7451L87.7368 37.3097L85.9539 36.4035L87.7656 32.8389Z" fill="#f8b700" />
@@ -40,7 +40,6 @@ const Gauge = ({ value }) => (
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           style={{
-            height: 'auto',
             fill: 'none',
             margin: 0,
             transformOrigin: '5px 27px',

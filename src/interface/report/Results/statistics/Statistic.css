@@ -5,6 +5,15 @@
   padding: 15px 18px;
   text-shadow: 0 0 0.6px currentColor;
 }
+.statistic svg {
+  text-shadow: none;
+}
+.statistic svg text {
+  fill: currentColor;
+}
+.statistic.large {
+  height: 360px;
+}
 .statistic.panel .panel-body {
   padding: 0;
   position: relative; /* a lot of children need relative rendering */

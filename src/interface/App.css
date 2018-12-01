@@ -251,7 +251,7 @@ ul {
   border-top-color: rgba(0, 0, 0, 0.4);
   border-bottom-color: rgba(0, 0, 0, 0.4);
 }
-svg {
+svg.icon {
   height: 1em;
   fill: currentColor;
   vertical-align: middle;
