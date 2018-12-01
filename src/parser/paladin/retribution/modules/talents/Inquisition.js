@@ -29,7 +29,7 @@ class Inquisition extends Analyzer {
     if (this.selectedCombatant.hasBuff(SPELLS.AVENGING_WRATH.id)) {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = 'You refreshed Inquisition during Avenging Wrath';
+      event.meta.inefficientCastReason = 'You refreshed Inquisition during Avenging Wrath. It is better to refresh early before Avenging Wrath so you can spend Holy Power on damage during it';
     }
   }
 
