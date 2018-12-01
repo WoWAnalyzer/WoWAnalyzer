@@ -20,6 +20,7 @@ import CharacterTab from 'parser/shared/modules/features/CharacterTab';
 import EncounterPanel from 'parser/shared/modules/features/EncounterPanel';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Abilities from 'parser/core/modules/Abilities';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 import ChangelogTab from 'interface/others/ChangelogTab';
 import ResultsWarning from './ResultsWarning';
@@ -151,7 +152,7 @@ class Results extends React.PureComponent {
       <div className={`results boss-${fight.boss}`}>
         <Header
           config={config}
-          playerName={selectedCombatant.name}
+          selectedCombatant={selectedCombatant}
           playerIcon={characterProfile && characterProfile.thumbnail ? `https://render-${characterProfile.region}.worldofwarcraft.com/character/${characterProfile.thumbnail}` : null}
           boss={parser.boss}
           fight={fight}

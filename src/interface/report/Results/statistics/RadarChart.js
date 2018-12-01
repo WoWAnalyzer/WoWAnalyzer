@@ -11,7 +11,7 @@ import SvgWrappingText from './SvgWrappingText';
 // The original code was licensed as "license: mit". These modifications (basically any code not straight from the original) is licensed under the regular license used in this project. If you need a MIT license you should use the code in the above link instead.
 
 export function maxDataValue(data) {
-  return data.reduce((dataMax, series) => series.reduce((seriesMax, item) => (
+  return data.reduce((dataMax, series) => series.points.reduce((seriesMax, item) => (
     Math.max(seriesMax, item.value)
   ), dataMax), 0);
 }
@@ -36,7 +36,13 @@ class RadarChart extends React.Component {
     strokeWidth: PropTypes.number,
     roundStrokes: PropTypes.bool,
     color: PropTypes.object,
-    data: PropTypes.array.isRequired,
+    data: PropTypes.arrayOf(PropTypes.shape({
+      color: PropTypes.string,
+      points: PropTypes.arrayOf(PropTypes.shape({
+        axis: PropTypes.string.isRequired,
+        value: PropTypes.number.isRequired,
+      })).isRequired,
+    })).isRequired,
     labelFormatter: PropTypes.array.isRequired,
   };
   static defaultProps = {
@@ -62,7 +68,7 @@ class RadarChart extends React.Component {
     const maxValue = Math.max(this.props.maxValue, maxDataValue(data));
 
     //Names of each axis
-    const allAxis = data[0].map(i => i.axis);
+    const allAxis = data[0].points.map(i => i.axis);
     //The number of different axes
     const total = allAxis.length;
     //Radius of the outermost circle
@@ -89,6 +95,7 @@ class RadarChart extends React.Component {
         width={width + margin.left + margin.right}
         height={height + margin.top + margin.bottom}
         className="radar"
+        style={{ overflow: 'visible' }}
         {...others}
       >
         <g transform={`translate(${width / 2 + margin.left}, ${height / 2 + margin.top})`}>
@@ -125,7 +132,7 @@ class RadarChart extends React.Component {
                 y={-(level + 1) * radius / levels}
                 dy="0.4em"
                 style={{ fontSize: 10 }}
-                fill="#737373"
+                fill="rgba(200, 200, 200, 0.7)"
               >
                 {labelFormatter(maxValue * (level + 1) / levels)}
               </text>
@@ -165,32 +172,32 @@ class RadarChart extends React.Component {
                 {/* The backgrounds */}
                 <path
                   className="radarArea"
-                  d={radarLine(series)}
+                  d={radarLine(series.points)}
                   style={{
-                    fill: color(i),
+                    fill: series.color || color(i),
                     fillOpacity: opacityArea,
                   }}
                 />
                 {/* The outlines */}
                 <path
                   className="radarStroke"
-                  d={radarLine(series)}
+                  d={radarLine(series.points)}
                   style={{
                     strokeWidth: strokeWidth,
-                    stroke: color(i),
+                    stroke: series.color || color(i),
                     fill: 'none',
                     filter: 'url(#glow)',
                   }}
                 />
                 {/* Circles on the axis to show exact cross over */}
-                {series.map((point, pointIndex) => (
+                {series.points.map((point, pointIndex) => (
                   <circle
                     className="radarCircle"
                     r={dotRadius}
                     cx={rScale(point.value) * Math.cos(angleSlice * pointIndex - Math.PI / 2)}
                     cy={rScale(point.value) * Math.sin(angleSlice * pointIndex - Math.PI / 2)}
                     style={{
-                      fill: color(i),
+                      fill: series.color || color(i),
                       fillOpacity: 0.8,
                     }}
                   />

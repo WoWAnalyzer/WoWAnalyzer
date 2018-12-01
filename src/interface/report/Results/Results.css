@@ -174,6 +174,8 @@ nav.global {
   background: #150a0a;
   height: 500px;
   margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
 }
 .results > header .background {
   position: absolute;
@@ -189,35 +191,44 @@ nav.global {
   background-size: cover;
   z-index: 0;
 }
+.results > header .info {
+  flex: 1;
+}
+.results > header .tab-selection {
+  flex: 0;
+}
 .results > header .container {
   position: relative;
-  z-index: 2;
   height: 100%;
+  padding: 15px;
 }
-.results > header .boss {
-  line-height: 1;
-  position: absolute;
-  bottom: 130px;
-}
-.results > header .boss .difficulty {
-  color: #fff;
-  font-size: 1.5em;
-  font-weight: 600;
-}
-.results > header .boss .name {
+.results > header h1 {
   color: #f8b700;
   font-size: 3em;
   font-weight: 800;
   text-transform: uppercase;
+  margin: 0 0 30px;
+}
+.results > header h2 {
+  color: #fff;
+  font-size: 1.5em;
+  font-weight: 600;
+  margin: 0;
+  text-transform: none;
+}
+.results > header .boss {
+  line-height: 1;
+  position: absolute;
+  bottom: 0;
 }
 .results > header .player {
   line-height: 1;
-  margin-top: 20px;
-  margin-left: -10px;
-  padding: 10px;
   display: flex;
   float: left; /* makes the div auto-size without changing the display prop */
   border: 1px solid transparent;
+}
+.results > header .player .name {
+  margin-bottom: 0;
 }
 .results > header .player .avatar {
   float: left;
@@ -238,19 +249,20 @@ nav.global {
   font-size: 1.2em;
   font-weight: 400;
 }
-.results > header .player .name {
-  color: #f8b700;
-  font-size: 3em;
-  font-weight: 800;
-  text-transform: uppercase;
+.results > header .outfit {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  text-align: right;
+}
+.results > header .outfit .icon {
+  height: 2em;
+  margin-top: 0;
+  margin-left: 2px;
+  border: 1px solid #f8b700;
 }
 
 .tab-selection {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  z-index: 2;
   text-shadow: 1px -1px 3px #150a0a, -1px 1px 3px #150a0a;
   border-bottom: 5px solid rgba(0, 0, 0, 0.5);
   padding: 0 15px;

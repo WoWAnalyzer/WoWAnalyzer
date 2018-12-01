@@ -23,7 +23,7 @@ const DualStatisticBox = ({
         >
           {icon}
         </div>
-        <div className="flex-main flex-column">
+        <div className="flex-main flex horizontal">
           {values.map((val, i) => (
             <div key={`${i}${val}`} className="panel-cell value">
               {val}

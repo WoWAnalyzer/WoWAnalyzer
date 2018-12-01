@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import getDifficulty from 'common/getDifficulty';
 import getBossName from 'common/getBossName';
-import SpecIcon from 'common/SpecIcon';
+import SpellIcon from 'common/SpellIcon';
 import ChecklistIcon from 'interface/icons/Checklist';
 import SuggestionIcon from 'interface/icons/Suggestion';
 import StatisticsIcon from 'interface/icons/Statistics';
@@ -13,9 +13,11 @@ import TimelineIcon from 'interface/icons/Timeline';
 import ArmorIcon from 'interface/icons/Armor';
 import EventsIcon from 'interface/icons/Events';
 import AboutIcon from 'interface/icons/About';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 import SkullRaidMarker from './images/skull-raidmarker.png';
 import { i18n } from 'interface/RootLocalizationProvider';
+import StatDisplay from './StatDisplay';
 
 class Headers extends React.PureComponent {
   static propTypes = {
@@ -25,7 +27,9 @@ class Headers extends React.PureComponent {
         specName: PropTypes.string.isRequired,
       }).isRequired,
     }).isRequired,
-    playerName: PropTypes.string.isRequired,
+    selectedCombatant: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    }).isRequired,
     playerIcon: PropTypes.string,
     boss: PropTypes.shape({
       headshot: PropTypes.string.isRequired,
@@ -41,7 +45,7 @@ class Headers extends React.PureComponent {
   };
 
   render() {
-    const { config: { spec }, playerName, playerIcon, boss, fight, makeTabUrl, selectedTab, tabs } = this.props;
+    const { config: { spec }, selectedCombatant, playerIcon, boss, fight, makeTabUrl, selectedTab, tabs } = this.props;
 
     const pages = [
       {
@@ -92,35 +96,46 @@ class Headers extends React.PureComponent {
     return (
       <header>
         <div className="background" style={{ backgroundImage: `url(${boss.background})`, backgroundPosition: boss.backgroundPosition }} />
-        <div className="container">
-          <div className="boss">
-            <div className="difficulty">
-              {getDifficulty(fight)}
+        <div className="info">
+          <div className="container">
+            <div className="boss">
+              <h2>
+                {getDifficulty(fight)}
+              </h2>
+              <h1>
+                {getBossName(fight, false)}
+              </h1>
             </div>
-            <div className="name">
-              {getBossName(fight, false)}
+            <div className="player">
+              <div className="avatar">
+                <img src={playerIcon} alt="" />
+              </div>
+              <div className="details">
+                <h1 className={`name ${spec.className.replace(' ', '')}`}>
+                  {selectedCombatant.name}
+                </h1>
+                <div className="title">
+                  Famed Slayer of G'huun
+                </div>
+                <div className="spec">
+                  {spec.specName} {spec.className}
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="player">
-            <div className="avatar">
-              <img src={playerIcon} alt="" />
-            </div>
-            <div className="details">
-              <div className={`name ${spec.className.replace(' ', '')}`}>
-                {playerName}
-              </div>
-              <div className="title">
-                Famed Slayer of G'huun
-              </div>
-              <div className="spec">
-                {spec.specName} {spec.className}
-              </div>
+            <div className="outfit">
+              <h1>Outfit</h1>
+              {selectedCombatant.talents.map(talent => (
+                <SpellIcon
+                  key={talent}
+                  id={talent}
+                />
+              ))}
             </div>
           </div>
         </div>
 
-        <div className="flex tab-selection">
-          <div>
+        <div className="tab-selection">
+          <div className="container">
             <ul>
               {pages.map(({ icon: Icon, name, url }) => {
                 return (

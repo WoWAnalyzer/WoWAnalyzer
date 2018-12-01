@@ -40,20 +40,6 @@ body {
   min-height: calc(100% + 410px);
 }
 
-h2 {
-  opacity: .9;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  font-weight: 600;
-  margin: 0;
-  font-size: 1em;
-}
-.wowdb-tooltip .db-tooltip h2 {
-  text-transform: none;
-  letter-spacing: normal;
-  opacity: 1;
-}
-
 
 a {
   color: #e45a5a;
@@ -340,6 +326,9 @@ h1 {
 .flex {
   display: flex;
 }
+.flex.horizontal {
+  flex-direction: column;
+}
 .flex.wrapable {
   flex-wrap: wrap;
 }
@@ -352,9 +341,6 @@ h1 {
 }
 .flex-sub {
   flex: 0 0 auto;
-}
-.flex-column {
-  flex-direction: column;
 }
 .content-middle {
   display: flex;
