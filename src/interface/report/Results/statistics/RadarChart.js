@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { schemeCategory10, scaleLinear, scaleOrdinal } from 'd3-scale';
+import { scaleLinear, scaleOrdinal } from 'd3-scale';
+import { schemeCategory10 } from 'd3-scale-chromatic';
 import { lineRadial, curveCardinalClosed, curveLinearClosed } from 'd3-shape';
 
 import SvgWrappingText from './SvgWrappingText';
