@@ -1,7 +1,7 @@
 import Analyzer from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 
 const debug = false;
 
