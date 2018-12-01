@@ -5,6 +5,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-11-28'),
+    changes: <>Added <SpellLink id={SPELLS.CRUSHING_ASSAULT_TRAIT.id} /> module.</>,
+    contributors: [Matardarix],
+  },
+  {
     date: new Date('2018-11-15'),
     changes: <>Fixed Overpower events where stacks were applied before casts</>,
     contributors: [Matardarix],
