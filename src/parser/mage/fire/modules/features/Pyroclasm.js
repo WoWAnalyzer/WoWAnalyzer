@@ -134,7 +134,7 @@ class Pyroclasm extends Analyzer {
       }
   }
 
-  on_finished() {
+  on_fightend() {
     if (this.selectedCombatant.hasBuff(SPELLS.PYROCLASM_BUFF.id)) {
       const adjustedFightEnding = this.owner.currentTimestamp - 7500;
       if (this.buffAppliedTimestamp < adjustedFightEnding) {

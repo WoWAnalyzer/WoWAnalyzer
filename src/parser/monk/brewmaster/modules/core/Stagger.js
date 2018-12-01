@@ -35,7 +35,7 @@ class Stagger extends Analyzer {
     }
   }
 
-  on_finished() {
+  on_fightend() {
     this.staggerMissingFromFight = this.fab.staggerPool;
     if (debug) {
       console.log(`Total physical staggered: ${formatNumber(this.totalPhysicalStaggered)}`);

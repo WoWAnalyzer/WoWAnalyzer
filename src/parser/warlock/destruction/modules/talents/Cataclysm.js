@@ -3,7 +3,6 @@ import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Events from 'parser/core/Events';
-import CombatLogParser from 'parser/core/CombatLogParser';
 
 import SPELLS from 'common/SPELLS';
 import { formatThousands } from 'common/format';
@@ -28,7 +27,7 @@ class Cataclysm extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.CATACLYSM_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CATACLYSM_TALENT), this.onCataclysmCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CATACLYSM_TALENT), this.onCataclysmDamage);
-    this.addEventListener(CombatLogParser.finished, this.onFinished);
+    this.addEventListener(Events.fightend, this.onFinished);
   }
 
   onCataclysmCast(event) {

@@ -68,7 +68,7 @@ class Stampede extends Analyzer {
     }
   }
 
-  on_finished() {
+  on_fightend() {
     this.averageHits = this.hits / this.casts.length / STAMPEDE_POTENTIAL_HITS;
     this.casts.forEach((cast) => {
       cast.averageHits = cast.hits / STAMPEDE_POTENTIAL_HITS;

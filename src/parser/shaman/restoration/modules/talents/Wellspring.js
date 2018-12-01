@@ -79,7 +79,7 @@ class Wellspring extends Analyzer {
     this.wellspringCasts[this.castNumber] += 1;
   }
 
-  on_finished() {
+  on_fightend() {
     if (this.wellspringCasts[this.castNumber] && this.wellspringCasts[this.castNumber] < 6 && !this.castEvent.meta) {
       this.registerInefficientCast();
     }

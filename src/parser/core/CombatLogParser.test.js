@@ -1,5 +1,6 @@
-import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 import CombatLogParser from './CombatLogParser';
+import TestCombatLogParser from './tests/TestCombatLogParser';
+import Events from './Events';
 
 class MyModule {}
 const myModule = new MyModule();
@@ -241,12 +242,13 @@ describe('Core/CombatLogParser', () => {
     });
   });
   describe('emits static events', () => {
-    it('emits finished event', () => {
+    it('emits fightend event', () => {
       const onFinish = jest.fn();
       const parser = new TestCombatLogParser();
-      parser.addEventListener(CombatLogParser.finished, onFinish, { active: true });
-      parser.finish();
+      const events = parser.normalize([]);
+      parser.addEventListener(Events.fightend, onFinish, { active: true });
+      parser.processEvents(events);
       expect(onFinish).toHaveBeenCalled();
     });
-  });
+});
 });

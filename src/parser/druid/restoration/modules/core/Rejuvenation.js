@@ -35,7 +35,7 @@ class Rejuvenation extends Analyzer {
   }
 
 
-  on_finished() {
+  on_fightend() {
     // TODO debug prints
   }
 
