@@ -16,6 +16,8 @@ import RampageCancelled from './modules/features/RampageCancelled';
 import AngerManagement from './modules/talents/AngerManagement';
 import FuriousSlashTimesByStacks from './modules/talents/FuriousSlashTimesByStacks';
 import FuriousSlashUptime from './modules/talents/FuriousSlashUptime';
+import SimmeringRage from './modules/azerite/SimmeringRage';
+import EndlessRage from './modules/talents/EndlessRage';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -37,8 +39,8 @@ class CombatLogParser extends CoreCombatLogParser {
     furiousSlashTimesByStacks: FuriousSlashTimesByStacks,
     furiousSlashUptime: FuriousSlashUptime,
 
-    // Overrides default PrePotion
-    //prePotion: PrePotion, TODO: Update this to BFA and ensure it works properly with parser/core/Modules/Features/Checklist2/PreparationRuleAnalyzer.js
+    simmeringRage: SimmeringRage,
+    endlessRage: EndlessRage,
   };
 }
 
