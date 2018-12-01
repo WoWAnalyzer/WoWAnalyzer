@@ -62,7 +62,6 @@ function checklist(parser) {
 export default function integrationTest(parserClass, key, suppressWarn=true, suppressLog=true) {
   return () => {
     let log;
-    let parser;
     beforeAll(() => {
       return loadLog(key).then(res => { log = res; });
     });
@@ -70,7 +69,7 @@ export default function integrationTest(parserClass, key, suppressWarn=true, sup
     suppressLogging(suppressLog, suppressWarn, false);
 
     it('should parse the example report without crashing', () => {
-      parser = parseLog(parserClass, log);
+      const parser = parseLog(parserClass, log);
       const results = parser.generateResults({
         i18n,
         adjustForDowntime: false,
@@ -78,10 +77,16 @@ export default function integrationTest(parserClass, key, suppressWarn=true, sup
       expect(results).toBeTruthy();
     });
     it('should match the checklist snapshot', () => {
+      const parser = parseLog(parserClass, log);
       expect(checklist(parser)).toMatchSnapshot();
     });
 
     describe('analyzers', () => {
+      let parser;
+      beforeAll(() => {
+        parser = parseLog(parserClass, log);
+      });
+
       Object.values(parserClass.specModules).forEach(moduleClass => {
         if(moduleClass instanceof Array) {
           // cannot call parser._getModuleClass at this point in

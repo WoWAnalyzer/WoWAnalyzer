@@ -1,5 +1,3 @@
-import fs from 'fs';
-import zlib from 'zlib';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import decompress from 'decompress';
 
