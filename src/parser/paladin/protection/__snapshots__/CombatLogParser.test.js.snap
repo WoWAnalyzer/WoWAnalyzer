@@ -14,7 +14,7 @@ exports[`The Protection Paladin Analyzer analyzers AlwaysBeCasting matches the s
   }
 >
   <div
-    className="panel statistic-box expandable"
+    className="panel statistic-box expandable "
   >
     <div
       className="panel-body"
@@ -155,7 +155,7 @@ exports[`The Protection Paladin Analyzer analyzers Consecration matches the stat
   }
 >
   <div
-    className="panel statistic-box expandable"
+    className="panel statistic-box expandable "
   >
     <div
       className="panel-body"
@@ -238,7 +238,7 @@ exports[`The Protection Paladin Analyzer analyzers DamageDone matches the statis
   }
 >
   <div
-    className="panel statistic-box expandable"
+    className="panel statistic-box expandable "
   >
     <div
       className="panel-body"
@@ -307,7 +307,7 @@ exports[`The Protection Paladin Analyzer analyzers DamageTaken matches the stati
   }
 >
   <div
-    className="panel statistic-box expandable"
+    className="panel statistic-box expandable "
   >
     <div
       className="panel-body"
@@ -423,7 +423,7 @@ exports[`The Protection Paladin Analyzer analyzers GrandCrusader matches the sta
   }
 >
   <div
-    className="panel statistic-box expandable"
+    className="panel statistic-box expandable "
   >
     <div
       className="panel-body"
@@ -555,7 +555,7 @@ exports[`The Protection Paladin Analyzer analyzers HealingDone matches the stati
   }
 >
   <div
-    className="panel statistic-box expandable"
+    className="panel statistic-box expandable "
   >
     <div
       className="panel-body"
@@ -694,7 +694,7 @@ exports[`The Protection Paladin Analyzer analyzers Judgment matches the statisti
   }
 >
   <div
-    className="panel statistic-box expandable"
+    className="panel statistic-box expandable "
   >
     <div
       className="panel-body"
@@ -810,7 +810,7 @@ exports[`The Protection Paladin Analyzer analyzers ShieldOfTheRighteous matches 
   }
 >
   <div
-    className="panel statistic-box expandable"
+    className="panel statistic-box expandable "
   >
     <div
       className="panel-body"

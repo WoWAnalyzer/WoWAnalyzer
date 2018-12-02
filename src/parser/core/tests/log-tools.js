@@ -51,10 +51,10 @@ export function suppressLogging(log, warn, error) {
 }
 
 export function parseLog(parserClass, log) {
-  const friendlies = log.meta.friendlies.find(({id}) => id === log.content_ids.player_id);
-  const fight = log.meta.fights.find(({id}) => id === log.content_ids.fight_id);
+  const friendlies = log.report.friendlies.find(({id}) => id === log.meta.player.id);
+  const fight = log.report.fights.find(({id}) => id === log.meta.fight.id);
   const parser = new parserClass(
-    log.meta, 
+    log.report, 
     friendlies,
     fight,
     log.combatants

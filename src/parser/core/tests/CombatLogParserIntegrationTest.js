@@ -84,7 +84,21 @@ export default function integrationTest(parserClass, key, suppressWarn=true, sup
     describe('analyzers', () => {
       let parser;
       beforeAll(() => {
+        // suppressLogging does its work in beforeEach/afterEach, which
+        // doesn't happen beforeAll
+        const _console = {};
+        if(suppressLog) {
+          _console.log = console.log;
+          console.log = () => undefined;
+        }
+        if(suppressWarn) {
+          _console.warn = console.warn;
+          console.warn = () => undefined;
+        }
+
         parser = parseLog(parserClass, log);
+
+        Object.keys(_console).forEach(key => { console[key] = _console[key]; });
       });
 
       Object.values(parserClass.specModules).forEach(moduleClass => {
@@ -94,7 +108,6 @@ export default function integrationTest(parserClass, key, suppressWarn=true, sup
           moduleClass = moduleClass[0];
         }
         describe(moduleClass.name, () => {
-          suppressLogging(suppressLog, suppressWarn, false);
           it('matches the statistic snapshot', () => expectSnapshot(parser, moduleClass, integrationStatistic));
           it('matches the suggestions snapshot', () => expectSnapshot(parser, moduleClass, integrationSuggestions));
         });

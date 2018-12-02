@@ -14,7 +14,7 @@ exports[`The Brewmaster Analyzer analyzers AlwaysBeCasting matches the statistic
   }
 >
   <div
-    className="panel statistic-box expandable"
+    className="panel statistic-box expandable "
   >
     <div
       className="panel-body"
@@ -169,7 +169,7 @@ exports[`The Brewmaster Analyzer analyzers BrewCDR matches the statistic snapsho
   }
 >
   <div
-    className="panel statistic-box expandable"
+    className="panel statistic-box expandable "
   >
     <div
       className="panel-body"
@@ -248,7 +248,7 @@ exports[`The Brewmaster Analyzer analyzers CelestialFortune matches the statisti
   }
 >
   <div
-    className="panel statistic-box expandable"
+    className="panel statistic-box expandable "
   >
     <div
       className="panel-body"
@@ -324,7 +324,7 @@ exports[`The Brewmaster Analyzer analyzers DamageDone matches the statistic snap
   }
 >
   <div
-    className="panel statistic-box expandable"
+    className="panel statistic-box expandable "
   >
     <div
       className="panel-body"
@@ -393,7 +393,7 @@ exports[`The Brewmaster Analyzer analyzers DamageTaken matches the statistic sna
   }
 >
   <div
-    className="panel statistic-box expandable"
+    className="panel statistic-box expandable "
   >
     <div
       className="panel-body"
@@ -533,7 +533,7 @@ exports[`The Brewmaster Analyzer analyzers HealingDone matches the statistic sna
   }
 >
   <div
-    className="panel statistic-box expandable"
+    className="panel statistic-box expandable "
   >
     <div
       className="panel-body"
@@ -672,7 +672,7 @@ exports[`The Brewmaster Analyzer analyzers HighTolerance matches the statistic s
   }
 >
   <div
-    className="panel statistic-box expandable"
+    className="panel statistic-box expandable "
   >
     <div
       className="panel-body"
@@ -749,7 +749,7 @@ exports[`The Brewmaster Analyzer analyzers IronSkinBrew matches the statistic sn
   }
 >
   <div
-    className="panel statistic-box expandable"
+    className="panel statistic-box expandable "
   >
     <div
       className="panel-body"
@@ -835,7 +835,7 @@ exports[`The Brewmaster Analyzer analyzers MasteryValue matches the statistic sn
   }
 >
   <div
-    className="panel statistic-box expandable"
+    className="panel statistic-box expandable "
     onClick={[Function]}
     style={
       Object {
@@ -913,7 +913,7 @@ exports[`The Brewmaster Analyzer analyzers PurifyingBrew matches the statistic s
   }
 >
   <div
-    className="panel statistic-box expandable"
+    className="panel statistic-box expandable "
   >
     <div
       className="panel-body"
@@ -1104,7 +1104,7 @@ exports[`The Brewmaster Analyzer analyzers Stagger matches the statistic snapsho
   }
 >
   <div
-    className="panel statistic-box expandable"
+    className="panel statistic-box expandable "
   >
     <div
       className="panel-body"
