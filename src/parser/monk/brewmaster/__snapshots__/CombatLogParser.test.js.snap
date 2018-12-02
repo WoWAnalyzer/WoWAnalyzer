@@ -14,7 +14,7 @@ exports[`The Brewmaster Analyzer analyzers AlwaysBeCasting matches the statistic
   }
 >
   <div
-    className="panel statistic-box expandable"
+    className="panel statistic-box expandableundefined"
   >
     <div
       className="panel-body"
@@ -169,7 +169,7 @@ exports[`The Brewmaster Analyzer analyzers BrewCDR matches the statistic snapsho
   }
 >
   <div
-    className="panel statistic-box expandable"
+    className="panel statistic-box expandableundefined"
   >
     <div
       className="panel-body"
@@ -224,7 +224,7 @@ exports[`The Brewmaster Analyzer analyzers BrewCDR matches the statistic snapsho
               
             </ul>
             <b>Total cooldown reduction:</b> 162.59s.</b><br/>
-            <b>Minimum Cooldown Reduction for 100% ISB uptime:</b> 25.88%"
+            <b>Minimum Cooldown Reduction for 100% ISB uptime:</b> 26.06%"
             >
               34.59%
             </dfn>
@@ -248,7 +248,7 @@ exports[`The Brewmaster Analyzer analyzers CelestialFortune matches the statisti
   }
 >
   <div
-    className="panel statistic-box expandable"
+    className="panel statistic-box expandableundefined"
   >
     <div
       className="panel-body"
@@ -324,7 +324,7 @@ exports[`The Brewmaster Analyzer analyzers DamageDone matches the statistic snap
   }
 >
   <div
-    className="panel statistic-box expandable"
+    className="panel statistic-box expandableundefined"
   >
     <div
       className="panel-body"
@@ -393,7 +393,7 @@ exports[`The Brewmaster Analyzer analyzers DamageTaken matches the statistic sna
   }
 >
   <div
-    className="panel statistic-box expandable"
+    className="panel statistic-box expandableundefined"
   >
     <div
       className="panel-body"
@@ -533,7 +533,7 @@ exports[`The Brewmaster Analyzer analyzers HealingDone matches the statistic sna
   }
 >
   <div
-    className="panel statistic-box expandable"
+    className="panel statistic-box expandableundefined"
   >
     <div
       className="panel-body"
@@ -672,7 +672,7 @@ exports[`The Brewmaster Analyzer analyzers HighTolerance matches the statistic s
   }
 >
   <div
-    className="panel statistic-box expandable"
+    className="panel statistic-box expandableundefined"
   >
     <div
       className="panel-body"
@@ -721,13 +721,13 @@ exports[`The Brewmaster Analyzer analyzers HighTolerance matches the statistic s
           >
             <dfn
               data-tip="You spent: <ul>
-              <li><b>81s</b> (26.25%) without Stagger.</li>
+              <li><b>83s</b> (26.90%) without Stagger.</li>
               <li><b>108s</b> (35.23%) in Light Stagger.</li>
-              <li><b>97s</b> (31.66%) in Moderate Stagger.</li>
+              <li><b>95s</b> (31.01%) in Moderate Stagger.</li>
               <li><b>21s</b> (6.87%) in Heavy Stagger.</li>
             </ul>"
             >
-              7.65%
+              7.57%
             </dfn>
           </div>
         </div>
@@ -749,7 +749,7 @@ exports[`The Brewmaster Analyzer analyzers IronSkinBrew matches the statistic sn
   }
 >
   <div
-    className="panel statistic-box expandable"
+    className="panel statistic-box expandableundefined"
   >
     <div
       className="panel-body"
@@ -835,7 +835,7 @@ exports[`The Brewmaster Analyzer analyzers MasteryValue matches the statistic sn
   }
 >
   <div
-    className="panel statistic-box expandable"
+    className="panel statistic-box expandableundefined"
     onClick={[Function]}
     style={
       Object {
@@ -913,7 +913,7 @@ exports[`The Brewmaster Analyzer analyzers PurifyingBrew matches the statistic s
   }
 >
   <div
-    className="panel statistic-box expandable"
+    className="panel statistic-box expandableundefined"
   >
     <div
       className="panel-body"
@@ -1104,7 +1104,7 @@ exports[`The Brewmaster Analyzer analyzers Stagger matches the statistic snapsho
   }
 >
   <div
-    className="panel statistic-box expandable"
+    className="panel statistic-box expandableundefined"
   >
     <div
       className="panel-body"
@@ -1160,7 +1160,7 @@ exports[`The Brewmaster Analyzer analyzers Stagger matches the statistic snapsho
           Damage taken from stagger:
           <ul>
             <li>Total damage from stagger dot: 1,736,876 (75.25% of total staggered)</li>
-            <li>Total damage removed from stagger dot before damaging you: 446,937 (19.36% of total staggered)</li>
+            <li>Total damage removed from stagger dot before damaging you: 571,228 (24.75% of total staggered)</li>
           </ul>
         "
             >
@@ -1187,40 +1187,29 @@ exports[`The Brewmaster Analyzer analyzers StaggerPoolGraph matches the suggesti
 exports[`The Brewmaster Analyzer analyzers StaggeringStrikes matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
 >
   <div
-    className="panel statistic-box item"
+    className="panel statistic-box expandable item"
   >
     <div
-      className="panel-body flex"
+      className="panel-body"
     >
       <div
-        className="flex-sub statistic-icon"
-        style={
-          Object {
-            "alignItems": "center",
-            "display": "flex",
-          }
-        }
-      >
-        <a
-          href="http://wowhead.com/spell=273464"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-           
-          <img
-            alt=""
-            className="icon"
-            src="//render-us.worldofwarcraft.com/icons/56/ability_monk_blackoutstrike.jpg"
-          />
-        </a>
-      </div>
-      <div
-        className="flex-main"
+        className="flex"
       >
         <div
-          className="slabel"
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
         >
           <a
             href="http://wowhead.com/spell=273464"
@@ -1228,23 +1217,52 @@ exports[`The Brewmaster Analyzer analyzers StaggeringStrikes matches the statist
             target="_blank"
           >
              
-            Staggering Strikes
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/ability_monk_blackoutstrike.jpg"
+            />
           </a>
         </div>
-        <dfn
-          className="value"
-          data-tip="Your Blackout Strike casts each remove 1,877 staggered damage.
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            <a
+              href="http://wowhead.com/spell=273464"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+               
+              Staggering Strikes
+            </a>
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="Your Blackout Strike casts each remove 1,877 staggered damage.
             
             A total of 34 casts removed 60k staggered damage (3,754 overhealed)."
-        >
-          <img
-            alt="Healing"
-            className="icon"
-            src="/img/healing.png"
-          />
-           
-          3.70 % / 195 HPS
-        </dfn>
+            >
+              <img
+                alt="Healing"
+                className="icon"
+                src="/img/healing.png"
+              />
+               
+              3.70 % / 195 HPS
+            </dfn>
+          </div>
+        </div>
       </div>
     </div>
   </div>
