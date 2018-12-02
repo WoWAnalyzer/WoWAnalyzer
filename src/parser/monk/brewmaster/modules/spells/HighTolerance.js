@@ -81,7 +81,6 @@ class HighTolerance extends Analyzer {
   }
 
   on_fightend() {
-    console.log("HT Fight End");
     console.log(this.staggerDurations);
     console.log(this.owner.fight.end_time);
     console.log(this.owner.fightDuration);
