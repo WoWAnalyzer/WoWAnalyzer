@@ -171,7 +171,7 @@ nav.global {
 
 .results > header {
   position: relative;
-  background: #150a0a;
+  background: rgb(17, 8, 8);
   height: 500px;
   margin-bottom: 30px;
   display: flex;
@@ -185,17 +185,31 @@ nav.global {
   width: 100%;
   height: 100%;
   max-width: 1400px;
+  z-index: 0;
+}
+.results > header .background:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  background: linear-gradient(to right, rgba(17, 8, 8, 1) 0%, rgba(17, 8, 8, 0) 35%, rgba(17, 8, 8, 0) 65%, rgba(17, 8, 8, 1) 100%), radial-gradient(ellipse at bottom, rgba(17, 8, 8, 0) 0%, rgba(17, 8, 8, 0.6) 100%);
+}
+.results > header .background .img {
+  width: 100%;
+  height: 100%;
   background-repeat: no-repeat;
   background-position: center -50px; /* TODO: -50px for taloc/mother, but center for Vectis */
-  mask-image: linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 45%, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 100%);
   background-size: cover;
-  z-index: 0;
 }
 .results > header .info {
   flex: 1;
 }
 .results > header .tab-selection {
   flex: 0;
+  position: relative;
 }
 .results > header .container {
   position: relative;
@@ -226,14 +240,23 @@ nav.global {
   display: flex;
   float: left; /* makes the div auto-size without changing the display prop */
   border: 1px solid transparent;
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  text-align: right;
 }
 .results > header .player .name {
   margin-bottom: 0;
 }
 .results > header .player .avatar {
-  float: left;
-  margin-right: 15px;
+  float: right;
+  margin-left: 15px;
   flex: 0;
+  order: 2;
+}
+.results > header .player .avatar img {
+  border-radius: 50%;
+  border: 3px solid #f8b700;
 }
 .results > header .player .details {
   flex: 1;
@@ -264,7 +287,7 @@ nav.global {
 
 .tab-selection {
   text-shadow: 1px -1px 3px #150a0a, -1px 1px 3px #150a0a;
-  border-bottom: 5px solid rgba(0, 0, 0, 0.5);
+  border-bottom: 8px solid rgba(11, 0, 0, 0.8);
   padding: 0 15px;
 }
 .tab-selection > div {

@@ -95,7 +95,9 @@ class Headers extends React.PureComponent {
 
     return (
       <header>
-        <div className="background" style={{ backgroundImage: `url(${boss.background})`, backgroundPosition: boss.backgroundPosition }} />
+        <div className="background">
+          <div className="img" style={{ backgroundImage: `url(${boss.background})`, backgroundPosition: boss.backgroundPosition }} />
+        </div>
         <div className="info">
           <div className="container">
             <div className="boss">
@@ -111,26 +113,23 @@ class Headers extends React.PureComponent {
                 <img src={playerIcon} alt="" />
               </div>
               <div className="details">
-                <h1 className={`name ${spec.className.replace(' ', '')}`}>
+                <h2>
+                  {spec.specName} {spec.className}
+                </h2>
+                <h1 className={`name`}>
                   {selectedCombatant.name}
                 </h1>
-                <div className="title">
-                  Famed Slayer of G'huun
-                </div>
-                <div className="spec">
-                  {spec.specName} {spec.className}
-                </div>
               </div>
             </div>
-            <div className="outfit">
-              <h1>Outfit</h1>
-              {selectedCombatant.talents.map(talent => (
-                <SpellIcon
-                  key={talent}
-                  id={talent}
-                />
-              ))}
-            </div>
+            {/*<div className="outfit">*/}
+              {/*<h1>Outfit</h1>*/}
+              {/*{selectedCombatant.talents.map(talent => (*/}
+                {/*<SpellIcon*/}
+                  {/*key={talent}*/}
+                  {/*id={talent}*/}
+                {/*/>*/}
+              {/*))}*/}
+            {/*</div>*/}
           </div>
         </div>
 
