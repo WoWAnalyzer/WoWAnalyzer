@@ -59,7 +59,7 @@ export function parseLog(parserClass, log) {
     fight,
     log.combatants
   );
-  log.events.forEach(event => parser.getModule(EventEmitter).triggerEvent(event));
+  parser.normalize(JSON.parse(JSON.stringify(log.events))).forEach(event => parser.getModule(EventEmitter).triggerEvent(event));
   parser.finish();
   return parser;
 }
