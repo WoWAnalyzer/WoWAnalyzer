@@ -56,7 +56,7 @@ class Estel extends Analyzer {
     }
   }
 
-  on_finished() {
+  on_fightend() {
     let time = 0;
 
     for (let i = 0; i < this._timePerHastePercentage.length; i++) {

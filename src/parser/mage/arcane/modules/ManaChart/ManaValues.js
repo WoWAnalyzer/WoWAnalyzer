@@ -1,55 +1,25 @@
-import Analyzer from 'parser/core/Analyzer';
+import ManaValues from 'parser/shared/modules/ManaValues';
 import DeathTracker from 'parser/shared/modules/DeathTracker';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatPercentage, formatNumber } from 'common/format';
 
-class ManaValues extends Analyzer {
+class ArcaneManaValues extends ManaValues {
   static dependencies = {
 		deathTracker: DeathTracker,
   };
-  
-  lowestMana = null; // start at `null` and fill it with the first value to account for users starting at a non-default amount for whatever reason
-  endingMana = 0;
 
-  maxMana = 110000;
-  manaUpdates = [];
+  constructor(...args) {
+    super(...args);
+    this.active = true;
+  }
 
   deadOnKill = false;
 
-  on_byPlayer_cast(event) {
-    if (event.classResources) {
-      event.classResources
-        .filter(resource => resource.type === RESOURCE_TYPES.MANA.id)
-        .forEach(({ amount, cost, max }) => {
-          const manaValue = amount;
-          const manaCost = cost || 0;
-          const currentMana = manaValue - manaCost;
-          this.endingMana = currentMana;
-
-          if (this.lowestMana === null || currentMana < this.lowestMana) {
-            this.lowestMana = currentMana;
-          }
-          this.manaUpdates.push({
-            timestamp: event.timestamp,
-            current: currentMana,
-            max: max,
-            used: manaCost,
-          });
-          // The variable 'max' is constant but can differentiate by racial/items.
-          this.maxMana = max;
-        });
-    }
-  }
-
-  on_finished() {
+  on_fightend() {
     if (!this.deathTracker.isAlive) {
       this.deadOnKill = true;
     }
   }
 
-  get manaLeftPercentage() {
-    return this.endingMana/this.maxMana;
-  }
   get suggestionThresholds() {
     return {
       actual: this.manaLeftPercentage,
@@ -61,7 +31,7 @@ class ManaValues extends Analyzer {
       style: 'percentage',
     };
   }
-  
+
   suggestions(when) {
     if (!this.deadOnKill) {
       when(this.suggestionThresholds)
@@ -77,4 +47,4 @@ class ManaValues extends Analyzer {
   }
 }
 
-export default ManaValues;
+export default ArcaneManaValues;

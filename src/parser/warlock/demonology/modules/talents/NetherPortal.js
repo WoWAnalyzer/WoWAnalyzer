@@ -3,10 +3,10 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 import { formatThousands } from 'common/format';
 
-import StatisticBox from 'interface/others/StatisticBox';
+import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 import DemoPets from '../pets/DemoPets';
 
@@ -27,14 +27,13 @@ class NetherPortal extends Analyzer {
       .reduce((total, current) => total + current, 0);
   }
 
-  statistic() {
+  subStatistic() {
     const damage = this.damage;
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.NETHER_PORTAL_TALENT.id} />}
+      <StatisticListBoxItem
+        title={<><SpellLink id={SPELLS.NETHER_PORTAL_TALENT.id} /> damage</>}
         value={formatThousands(damage)}
-        label="Damage from Nether Portal pets"
-        tooltip={this.owner.formatItemDamageDone(damage)}
+        valueTooltip={this.owner.formatItemDamageDone(damage)}
       />
     );
   }

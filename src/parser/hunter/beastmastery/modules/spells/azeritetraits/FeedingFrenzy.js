@@ -1,6 +1,7 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage';
 import { formatNumber, formatPercentage } from 'common/format';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import SPELLS from 'common/SPELLS';
@@ -102,10 +103,7 @@ class FeedingFrenzy extends Analyzer {
       return;
     }
 
-    const damageDone = event.amount + event.absorbed;
-    const modifier = damageDone / (this.lastAttackPower * FEEDING_FRENZY_DAMAGE_COEFFICIENT + this.traitBonus);
-    const traitDamageContribution = this.traitBonus * modifier;
-
+    const [ traitDamageContribution ] = calculateBonusAzeriteDamage(event, [this.traitBonus], this.lastAttackPower, FEEDING_FRENZY_DAMAGE_COEFFICIENT);
     this.traitDamageContribution += traitDamageContribution;
 
     if (debug) {
@@ -118,6 +116,7 @@ class FeedingFrenzy extends Analyzer {
         estimatedDamage *= critMultiplier;
       }
       estimatedDamage *= externalModifier;
+      const damageDone = event.amount + event.absorbed;
       console.log(`Damage: ${damageDone}, externalModifier: ${externalModifier.toFixed(3)}, estimatedDamage: ${estimatedDamage.toFixed(0)}, traitDamageContribution: ${traitDamageContribution.toFixed(0)}`);
 
       const variation = estimatedDamage / traitDamageContribution;
@@ -125,7 +124,7 @@ class FeedingFrenzy extends Analyzer {
     }
   }
 
-  on_finished() {
+  on_fightend() {
     if (this.lastBSCast !== null) {
       this.extraBuffUptime += this.extra_BS_uptime(this.owner.fight.end_time, this.lastBSCast);
     }

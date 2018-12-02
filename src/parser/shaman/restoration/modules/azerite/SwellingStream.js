@@ -1,3 +1,6 @@
+import { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+
 import SPELLS from 'common/SPELLS';
 import BaseHealerAzerite from './BaseHealerAzerite';
 
@@ -8,8 +11,8 @@ import BaseHealerAzerite from './BaseHealerAzerite';
  */
 
 class SwellingStream extends BaseHealerAzerite {
-  static TRAIT = SPELLS.SWELLING_STREAM.id;
-  static HEAL = SPELLS.SWELLING_STREAM_HEAL.id;
+  static TRAIT = SPELLS.SWELLING_STREAM;
+  static HEAL = SPELLS.SWELLING_STREAM_HEAL;
 
   constructor(...args) {
     super(...args);
@@ -17,10 +20,7 @@ class SwellingStream extends BaseHealerAzerite {
     if (!this.active) {
       return;
     }
-  }
-
-  on_byPlayerPet_heal(event) {
-    this.on_byPlayer_heal(event);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER_PET).spell(this.constructor.HEAL), this._processHealing);
   }
 }
 

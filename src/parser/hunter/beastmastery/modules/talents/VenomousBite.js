@@ -1,7 +1,6 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -104,7 +103,7 @@ class VenomousBite extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
-        icon={<SpellIcon id={SPELLS.VENOMOUS_BITE_TALENT.id} />}
+        talent={SPELLS.VENOMOUS_BITE_TALENT.id}
         value={(
           <>
             {formatNumber(this.effectiveBWReductionMs / 1000)}s / {this.totalPossibleCDR / 1000}s

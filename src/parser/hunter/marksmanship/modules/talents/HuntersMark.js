@@ -8,7 +8,6 @@ import ItemDamageDone from 'interface/others/ItemDamageDone';
 import Enemies from 'parser/shared/modules/Enemies';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -154,8 +153,8 @@ class HuntersMark extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.HUNTERS_MARK_TALENT.id}
         position={STATISTIC_ORDER.CORE(19)}
-        icon={<SpellIcon id={SPELLS.HUNTERS_MARK_TALENT.id} />}
         value={`${formatPercentage(this.uptimePercentage)}%`}
         label="Hunters Mark uptime"
         tooltip={`<ul><li>You had a total of ${this.casts} casts of Hunter's Mark.</li><li>You cast Hunter's Mark ${this.recasts} times, whilst it was active on the target or another target.</li><li>You received up to ${this.refunds * FOCUS_PER_REFUND} focus from a total of ${this.refunds} refunds from targets with Hunter's Mark active dying.</li>${this.potentialPrecastConfirmation}</ul>`}

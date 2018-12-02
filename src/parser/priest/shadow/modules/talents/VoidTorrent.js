@@ -2,10 +2,8 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'parser/core/Analyzer';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 
 import Voidform from '../spells/Voidform';
@@ -117,12 +115,10 @@ class VoidTorrent extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
+        talent={SPELLS.VOID_TORRENT_TALENT.id}
         position={STATISTIC_ORDER.CORE(6)}
-        icon={<SpellIcon id={SPELLS.VOID_TORRENT_TALENT.id} />}
         value={<ItemDamageDone amount={this.damage} />}
         tooltip={`${formatSeconds(this.totalWasted)} seconds wasted`}
-        label="Void Torrent"
       />
     );
   }

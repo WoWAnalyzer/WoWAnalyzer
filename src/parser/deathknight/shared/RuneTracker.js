@@ -47,7 +47,7 @@ class RuneTracker extends ResourceTracker {
       this._runesReadySum[i] = 0;
     }
   }
-  on_finished() { //add a last event for calculating uptimes and make the chart not end early.
+  on_fightend() { //add a last event for calculating uptimes and make the chart not end early.
     const runesAvailable = this.runesAvailable;
     this.runesReady.push({ x: this.owner.fightDuration, y: runesAvailable });
     this._runesReadySum[runesAvailable] += this.owner.fight.end_time - this._lastTimestamp;

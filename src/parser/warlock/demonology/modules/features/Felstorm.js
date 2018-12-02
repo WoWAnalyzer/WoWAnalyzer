@@ -9,7 +9,10 @@ import { formatPercentage } from 'common/format';
 import Events from 'parser/core/Events';
 
 const FELSTORM_COOLDOWN = 30;
-const DEMONIC_STRENGTH_BUFFER = 100;
+// when Demonic Strength is cast, then AFTER the cast, Felguard charges at the target, and after he arrives, does the Felstorm
+// this delay is so that every Felstorm caused by Demonic Strength accounts for the charge "travel" time
+const DEMONIC_STRENGTH_BUFFER = 1500;
+
 
 class Felstorm extends Analyzer {
   _lastDemonicStrengthCast = null;

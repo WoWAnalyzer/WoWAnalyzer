@@ -39,7 +39,7 @@ class SpellManaCost extends SpellResourceCost {
     return cost;
   }
 
-  on_finished() {
+  on_fightend() {
     const incorrectCostCount = Object.keys(this.incorrectCosts).length;
     if (incorrectCostCount === 0) {
       return;

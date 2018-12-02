@@ -18,6 +18,7 @@ import LightOfTheProtectorTiming from './modules/features/LightOfTheProtectorTim
 import LightOfTheProtector from './modules/spells/LightOfTheProtector';
 import ShieldOfTheRighteous from './modules/features/ShieldOfTheRighteous';
 import GrandCrusader from './modules/core/GrandCrusader';
+import HammerOfTheRighteous from './modules/spells/HammerOfTheRighteous';
 
 //Talents
 import Seraphim from './modules/talents/Seraphim';
@@ -40,6 +41,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Spells
     lightOfTheProtector: LightOfTheProtector,
+    hotr: HammerOfTheRighteous,
 
     // Features
     abilities: Abilities,

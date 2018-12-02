@@ -1,7 +1,6 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
-import SpellIcon from 'common/SpellIcon';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -44,8 +43,8 @@ class Heartbreaker extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
+        talent={SPELLS.HEARTBREAKER_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(1)}
-        icon={<SpellIcon id={SPELLS.HEARTBREAKER_TALENT.id} />}
         value={`${this.totalRPGained}`}
         label="Runic Power gained"
         tooltip={`

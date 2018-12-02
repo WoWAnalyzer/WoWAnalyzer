@@ -3,10 +3,8 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS/index';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 
 const TWIST_OF_FATE_INCREASE = 1.1;
@@ -33,10 +31,8 @@ class TwistOfFate extends Analyzer {
     const uptime = this.selectedCombatant.getBuffUptime(SPELLS.TWIST_OF_FATE_BUFF.id) / this.owner.fightDuration;
     return (
       <TalentStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.TWIST_OF_FATE_TALENT_SHADOW.id} />}
+        talent={SPELLS.TWIST_OF_FATE_TALENT_SHADOW.id}
         value={<ItemDamageDone amount={this.damage} />}
-        label={SPELLS.TWIST_OF_FATE_TALENT_SHADOW.name}
         tooltip={`${formatPercentage(uptime)}% uptime`}
         position={STATISTIC_ORDER.CORE(1)}
       />

@@ -2,7 +2,6 @@ import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import CombatLogParser from 'parser/core/CombatLogParser';
 
 import SPELLS from 'common/SPELLS';
 
@@ -23,7 +22,7 @@ class PowerSiphon extends Analyzer {
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.DEMONIC_CORE_BUFF), this.handleDemonicCore);
     this.addEventListener(Events.applybuffstack.to(SELECTED_PLAYER).spell(SPELLS.DEMONIC_CORE_BUFF), this.handleDemonicCore);
     this.addEventListener(Events.refreshbuff.to(SELECTED_PLAYER).spell(SPELLS.DEMONIC_CORE_BUFF), this.handleDemonicCore);
-    this.addEventListener(CombatLogParser.finished, this.onFinished);
+    this.addEventListener(Events.fightend, this.onFinished);
   }
 
   handlePowerSiphonCast(event) {
@@ -54,7 +53,7 @@ class PowerSiphon extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.DEMONIC_CORE_BUFF.id} /> stacks gained</>}
+        title={<><SpellLink id={SPELLS.POWER_SIPHON_TALENT.id} /> bonus Cores</>}
         value={this.totalCores}
         valueTooltip={`Average Demonic Core stacks per cast: ${this.averageCores.toFixed(2)}`}
       />

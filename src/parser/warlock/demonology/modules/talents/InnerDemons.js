@@ -3,14 +3,14 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 import { formatThousands } from 'common/format';
 
-import StatisticBox from 'interface/others/StatisticBox';
+import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 import DemoPets from '../pets/DemoPets';
 import PETS from '../pets/PETS';
-import { RANDOM_PET_GUIDS } from '../pets/CONSTANTS';
+import { isRandomPet } from '../pets/helpers';
 
 class InnerDemons extends Analyzer {
   static dependencies = {
@@ -24,21 +24,20 @@ class InnerDemons extends Analyzer {
 
   get damage() {
     const wildImps = this.demoPets.getPetDamage(PETS.WILD_IMP_INNER_DEMONS.guid);
-    const otherPetsSummonedByID = this.demoPets.timeline.filter(pet => RANDOM_PET_GUIDS.includes(pet.guid) && pet.summonedBy === SPELLS.INNER_DEMONS_TALENT.id);
+    const otherPetsSummonedByID = this.demoPets.timeline.filter(pet => isRandomPet(pet.guid) && pet.summonedBy === SPELLS.INNER_DEMONS_TALENT.id);
     const other = otherPetsSummonedByID
       .map(pet => this.demoPets.getPetDamage(pet.guid, pet.instance))
       .reduce((total, current) => total + current, 0);
     return wildImps + other;
   }
 
-  statistic() {
+  subStatistic() {
     const damage = this.damage;
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.INNER_DEMONS_TALENT.id} />}
+      <StatisticListBoxItem
+        title={<><SpellLink id={SPELLS.INNER_DEMONS_TALENT.id} /> damage</>}
         value={formatThousands(damage)}
-        label="Damage from Inner Demons pets"
-        tooltip={`${this.owner.formatItemDamageDone(damage)}<br />
+        valueTooltip={`${this.owner.formatItemDamageDone(damage)}<br />
                   Note that this only counts the direct damage from them, not Implosion damage (if used) from Wild Imps`}
       />
     );

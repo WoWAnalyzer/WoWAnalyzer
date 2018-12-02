@@ -32,7 +32,7 @@ export default class LightOfTheProtector extends Analyzer {
   _msTilHeal = 0;
   _delays = [];
 
-  _activeSpell = SPELLS.LIGHT_OF_THE_PROTECTOR;
+  activeSpell = SPELLS.LIGHT_OF_THE_PROTECTOR;
 
   _overhealing = 0;
   _actualHealing = 0;
@@ -40,12 +40,12 @@ export default class LightOfTheProtector extends Analyzer {
   constructor(props) {
     super(props);
     if(this.selectedCombatant.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id)) {
-      this._activeSpell = SPELLS.HAND_OF_THE_PROTECTOR_TALENT;
+      this.activeSpell = SPELLS.HAND_OF_THE_PROTECTOR_TALENT;
     }
 
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this._startDelayTimer);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this._activeSpell), this._countDelay);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(this._activeSpell), this._countHeal);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.activeSpell), this._countDelay);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(this.activeSpell), this._countHeal);
 
     if(this.selectedCombatant.hasTalent(SPELLS.RIGHTEOUS_PROTECTOR_TALENT.id)) {
       this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_OF_THE_RIGHTEOUS), this._updateDelayRP);
@@ -54,7 +54,7 @@ export default class LightOfTheProtector extends Analyzer {
 
   _startDelayTimer(event) {
     this._lastHit = event;
-    this._msTilHeal = this.spells.isAvailable(this._activeSpell.id) ? 0 : this.spells.cooldownRemaining(this._activeSpell.id);
+    this._msTilHeal = this.spells.isAvailable(this.activeSpell.id) ? 0 : this.spells.cooldownRemaining(this.activeSpell.id);
   }
 
   // update the delay based on SotR cast with the RP talent, which
@@ -72,7 +72,7 @@ export default class LightOfTheProtector extends Analyzer {
   }
 
   _countDelay(event) {
-    const delay = event.timestamp - this._lastHit.timestamp - this._msTilHeal;
+    const delay = event.timestamp - (this._lastHit ? this._lastHit.timestamp : 0) - this._msTilHeal;
     if(delay < 0) {
       console.error("LotP/HotP delay came out negative", delay);
     }
@@ -83,7 +83,7 @@ export default class LightOfTheProtector extends Analyzer {
     }
 
     const meta = event.meta || {
-      inefficientCastReason: `This ${this._activeSpell.name} cast was inefficient because:`,
+      inefficientCastReason: `This ${this.activeSpell.name} cast was inefficient because:`,
     };
     meta.inefficientCastReason += `<br/> - You delayed casting it for <b>${(delay / 1000).toFixed(2)}s</b> after being hit.`;
     meta.isInefficientCast = true;
@@ -100,7 +100,7 @@ export default class LightOfTheProtector extends Analyzer {
     }
 
     const meta = event.meta || {
-      inefficientCastReason: `This ${this._activeSpell.name} cast was inefficient because:`,
+      inefficientCastReason: `This ${this.activeSpell.name} cast was inefficient because:`,
     };
     meta.inefficientCastReason += `<br/> - You cast it while at high health, causing it to overheal for ${formatNumber(overhealing)}.`;
     meta.isInefficientCast = true;
@@ -145,14 +145,14 @@ export default class LightOfTheProtector extends Analyzer {
 
   suggestions(when) {
     when(this.delaySuggestion).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You should delay your <SpellLink id={this._activeSpell.id} /> cast as little as possible after being hit to maximize its effect and to minimize the chance that you waste healing resources.</>)
+      return suggest(<>You should delay your <SpellLink id={this.activeSpell.id} /> cast as little as possible after being hit to maximize its effect and to minimize the chance that you waste healing resources.</>)
         .icon(SPELLS.LIGHT_OF_THE_PROTECTOR.icon)
         .actual(`${actual.toFixed(2)}s Average Delay`)
         .recommended(`< ${recommended.toFixed(2)}s is recommended`);
     });
 
     when(this.overhealSuggestion).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You should avoid casting <SpellLink id={this._activeSpell.id} /> while at very high health to avoid overhealing.</>)
+      return suggest(<>You should avoid casting <SpellLink id={this.activeSpell.id} /> while at very high health to avoid overhealing.</>)
         .icon(SPELLS.LIGHT_OF_THE_PROTECTOR.icon)
         .actual(`${formatPercentage(actual)}% Overhealing`)
         .recommended(`< ${formatPercentage(recommended)}% is recommended`);

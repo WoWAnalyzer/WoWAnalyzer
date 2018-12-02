@@ -65,7 +65,7 @@ class WintersReach extends Analyzer {
    * needing to clear the Brain Freeze procs they already have, the cast time
    * on Flurry, and the travel time for all of the projectiles to hit the target.
    */
-  on_finished() {
+  on_fightend() {
     if (this.selectedCombatant.hasBuff(SPELLS.WINTERS_REACH_BUFF.id)) {
       const gracePeriod = this.owner.currentTimestamp - FIGHT_END_BUFFER;
       if (this.selectedCombatant.hasBuff(SPELLS.WINTERS_REACH_BUFF.id, gracePeriod)) {

@@ -6,12 +6,12 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 
-import StatisticBox from 'interface/others/StatisticBox';
+import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 import DemoPets from '../pets/DemoPets';
-import { WILD_IMP_GUIDS } from '../pets/CONSTANTS';
+import { isWildImp } from '../pets/helpers';
 
 const DAMAGE_BONUS_PER_ENERGY = 0.0025; // 0.25% per point of energy
 const debug = false;
@@ -32,7 +32,7 @@ class DemonicConsumption extends Analyzer {
   }
 
   handleCast() {
-    const imps = this.demoPets.currentPets.filter(pet => WILD_IMP_GUIDS.includes(pet.guid) && !pet.shouldImplode);
+    const imps = this.demoPets.currentPets.filter(pet => isWildImp(pet.guid) && !pet.shouldImplode);
     debug && this.log('Imps on Tyrant cast', JSON.parse(JSON.stringify(imps)));
     this._currentBonus = imps.map(imp => imp.currentEnergy).reduce((total, current) => total + current, 0) * DAMAGE_BONUS_PER_ENERGY;
     debug && this.log('Current bonus: ', this._currentBonus);
@@ -42,13 +42,12 @@ class DemonicConsumption extends Analyzer {
     this.damage += calculateEffectiveDamage(event, this._currentBonus);
   }
 
-  statistic() {
+  subStatistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.DEMONIC_CONSUMPTION_TALENT.id} />}
+      <StatisticListBoxItem
+        title={<>Bonus <SpellLink id={SPELLS.DEMONIC_CONSUMPTION_TALENT.id} /> damage</>}
         value={formatThousands(this.damage)}
-        label="Bonus Demonic Tyrant damage"
-        tooltip={this.owner.formatItemDamageDone(this.damage)}
+        valueTooltip={this.owner.formatItemDamageDone(this.damage)}
       />
     );
   }

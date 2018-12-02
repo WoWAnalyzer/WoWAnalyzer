@@ -98,7 +98,8 @@ class Combatant extends Entity {
   get lv100Talent() {
     return this._getTalent(TALENT_ROWS.LV100);
   }
-  hasTalent(spellId) {
+  hasTalent(spell) {
+    const spellId = spell instanceof Object ? spell.id : spell;
     return !!Object.keys(this._talentsByRow).find(row => this._talentsByRow[row] === spellId);
   }
   // endregion

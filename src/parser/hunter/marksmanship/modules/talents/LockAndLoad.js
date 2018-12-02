@@ -3,7 +3,6 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import Abilities from 'parser/core/modules/Abilities';
@@ -145,8 +144,8 @@ class LockAndLoad extends Analyzer {
 
     return (
       <TalentStatisticBox
+        talent={SPELLS.LOCK_AND_LOAD_TALENT.id}
         position={STATISTIC_ORDER.CORE(24)}
-        icon={<SpellIcon id={SPELLS.LOCK_AND_LOAD_TALENT.id} />}
         value={`${this.wastedInstants} (${formatPercentage(this.wastedInstants / (this.totalProcs))}%)`}
         label="lost LnL stacks"
         tooltip={tooltipText}

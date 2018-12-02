@@ -26,7 +26,7 @@ class Ability {
      */
     category: PropTypes.string.isRequired,
     /**
-     * The cooldown of a spell at the time of the call, this can be a function for more complicated calls or even to check for buffs. Parameters provided: `hastePercentage`, `selectedCombatant`
+     * The cooldown of a spell at the time of the cast, this can be a function for more complicated calls or even to check for buffs. Parameters provided: `hastePercentage`, `selectedCombatant`
      */
     cooldown: PropTypes.oneOfType([
       PropTypes.func,
@@ -126,9 +126,10 @@ class Ability {
   _owner = null;
 
   spell = null;
+  primaryOverride = null;
   get primarySpell() {
     if (this.spell instanceof Array) {
-      return this.spell[0];
+      return this.spell[this.primaryOverride || 0];
     } else {
       return this.spell;
     }
@@ -220,7 +221,8 @@ class Ability {
       PropTypes.checkPropTypes(this.constructor.propTypes, props, 'prop', 'Ability'); // eslint-disable-line react/forbid-foreign-prop-types
       Object.keys(props).forEach(prop => {
         if (this.constructor.propTypes[prop] === undefined) { // eslint-disable-line react/forbid-foreign-prop-types
-          throw new Error(`Unrecognized prop in Abilities: ${prop} seems misplaced in ${JSON.stringify(props.spell)}`);
+          console.log(prop);
+          throw new Error(`Property not recognized in Abilities: ${prop} seems misplaced in ${JSON.stringify(props.spell)}`);
         }
       });
     }
