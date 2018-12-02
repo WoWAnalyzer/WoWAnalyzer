@@ -85,7 +85,7 @@ class Bloodtalons extends Analyzer {
     }
   }
 
-  on_finished() {
+  on_fightend() {
     this.remainAfterFight = this.currentStack;
     debug && console.log(`${this.owner.formatTimestamp(this.owner.fight.end_time, 3)} fight ended with ${this.currentStack} Bloodtalons charges remaining`);
 

@@ -126,9 +126,10 @@ class Ability {
   _owner = null;
 
   spell = null;
+  primaryOverride = null;
   get primarySpell() {
     if (this.spell instanceof Array) {
-      return this.spell[0];
+      return this.spell[this.primaryOverride || 0];
     } else {
       return this.spell;
     }

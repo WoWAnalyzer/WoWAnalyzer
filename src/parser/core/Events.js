@@ -1,3 +1,4 @@
+import { END_EVENT_TYPE } from 'parser/shared/normalizers/FightEnd';
 import EventFilter from './EventFilter';
 
 const Events = {
@@ -173,6 +174,9 @@ const Events = {
   },
   get resurrect() {
     return new EventFilter('resurrect');
+  },
+  get fightend() {
+    return new EventFilter(END_EVENT_TYPE);
   },
 };
 

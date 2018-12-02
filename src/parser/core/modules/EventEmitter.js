@@ -1,10 +1,13 @@
 import { captureException } from 'common/errorLogger';
+import Events from '../Events';
 
 import Module from '../Module';
 import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from '../Analyzer';
 import EventFilter from '../EventFilter';
 
 const CATCH_ALL_EVENT = 'event';
+
+const PROFILE = false;
 
 /**
  * This (core) module takes care of:
@@ -15,6 +18,13 @@ const CATCH_ALL_EVENT = 'event';
 class EventEmitter extends Module {
   static get catchAll() {
     return new EventFilter(CATCH_ALL_EVENT);
+  }
+
+  constructor(options) {
+    super(options);
+    if (PROFILE) {
+      this.addEventListener(Events.fightend, this.reportModuleTimes.bind(this), this);
+    }
   }
 
   _eventListenersByEventType = {};
@@ -113,8 +123,8 @@ class EventEmitter extends Module {
     };
   }
   _prependSpellCheck(listener, spell) {
-    if(spell instanceof Array) {
-      return function(event) {
+    if (spell instanceof Array) {
+      return function (event) {
         if (event.ability && spell.some(s => s.id === event.ability.guid)) {
           listener(event);
         }
@@ -142,7 +152,7 @@ class EventEmitter extends Module {
       this.owner._timestamp = event.timestamp;
     }
 
-    const run = options => {
+    let run = options => {
       try {
         this._listenersCalled += 1;
         options.listener(event);
@@ -156,6 +166,9 @@ class EventEmitter extends Module {
         captureException(err);
       }
     };
+    if (PROFILE) {
+      run = this.profile(run);
+    }
 
     this._isHandlingEvent = true;
     {
@@ -181,6 +194,32 @@ class EventEmitter extends Module {
     this.runFinally();
 
     return event;
+  }
+  /** @var {Map} */
+  timePerModule = PROFILE ? new Map() : undefined;
+  profile(run) {
+    return options => {
+      const start = performance.now();
+      run(options);
+      const duration = performance.now() - start;
+      const sum = this.timePerModule.get(options.module) || 0;
+      this.timePerModule.set(options.module, sum + duration);
+    };
+  }
+  reportModuleTimes() {
+    const table = [];
+    const totalDuration = Array.from(this.timePerModule).reduce((sum, [, value]) => sum + value, 0);
+    this.timePerModule.forEach((value, key) => {
+      table.push({
+        module: key,
+        duration: Math.ceil(value),
+        ofTotal: `${(value / totalDuration * 100).toFixed(2)}%`,
+      });
+    });
+    console.groupCollapsed('Module time consumption');
+    console.table(table.sort((a, b) => b.duration - a.duration));
+    console.log('Total module time:', totalDuration, 'ms');
+    console.groupEnd();
   }
   _finally = null;
   finally(func) {

@@ -1,6 +1,7 @@
 import Analyzer from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
+import SPELLS from 'common/SPELLS';
 
 const debug = false;
 
@@ -53,6 +54,12 @@ class Channeling extends Analyzer {
     }, event); // the trigger may be another spell, sometimes the indicator of 1 channel ending is the start of another
   }
   cancelChannel(event, ability) {
+    // Manually handle Potion of Replenishment
+    if (this.isChannelingSpell(SPELLS.POTION_OF_REPLENISHMENT.id)) {
+      this.log('Marking', this._currentChannel.ability.name, 'as ended since we started casting something else:', event.ability.name);
+      this.endChannel(event);
+      return;
+    }
     this.eventEmitter.fabricateEvent({
       type: 'cancelchannel',
       ability,
@@ -68,6 +75,12 @@ class Channeling extends Analyzer {
   on_byPlayer_cast(event) {
     if (CASTS_THAT_ARENT_CASTS.includes(event.ability.guid)) {
       // Some things such as boss mechanics are marked as cast-events even though they're usually just "ticks". This can even occur while channeling. We need to ignore them or it will throw off this module.
+      return;
+    }
+
+    // Fabricates the required events to show the channeling of Potion of Replenishment.
+    if (event.ability.guid === SPELLS.POTION_OF_REPLENISHMENT.id) {
+      this.beginChannel(event);
       return;
     }
 

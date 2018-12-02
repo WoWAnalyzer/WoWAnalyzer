@@ -98,7 +98,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       });
   }
 
-  // Fabricate new events to make it easy to listen to just feed heal events while being away of the original heals. 
+  // Fabricate new events to make it easy to listen to just feed heal events while being away of the original heals.
   // While we could also modify the original heal event and add a reference to the feed amount, this would be less clean as mutating objects makes things harder and more confusing to use, and may lead to conflicts.
   // Due to how the Shaman CooldonwThroughputTracker works, these events will be bunched together at the very end of the events list.
   generateFeedEvents(cooldown, feedingFactor, percentOverheal){
@@ -206,7 +206,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     }
   }
 
-  on_finished() {
+  on_fightend() {
     if (!this.hasBeenAscHealingOrCastEvent && this.lastAsc) {
       this.removeLastCooldown(SPELLS.ASCENDANCE_TALENT_RESTORATION.id);
     }

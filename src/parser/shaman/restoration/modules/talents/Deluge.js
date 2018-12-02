@@ -58,7 +58,7 @@ class Deluge extends Analyzer {
   // we only start processing the healing contribution on the next cast of Healing Rain or at the end of combat.
   on_byPlayer_begincast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.HEALING_RAIN_CAST.id || event.isCancelled) { 
+    if (spellId !== SPELLS.HEALING_RAIN_CAST.id || event.isCancelled) {
       return;
     }
 
@@ -66,7 +66,7 @@ class Deluge extends Analyzer {
     this.eventsDuringRain.length = 0;
   }
 
-  on_finished() {
+  on_fightend() {
     this.recordHealing();
   }
 

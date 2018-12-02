@@ -44,7 +44,7 @@ class BoneShieldStacksBySeconds extends Analyzer {
     });
     return avgStacks;
   }
-  
+
   on_byPlayer_applybuff(event) {
     if (event.ability.guid !== SPELLS.BONE_SHIELD.id) {
       return;
@@ -73,7 +73,7 @@ class BoneShieldStacksBySeconds extends Analyzer {
     this.handleStacks(event);
   }
 
-  on_finished(event) {
+  on_fightend(event) {
     this.handleStacks(event, this.lastBoneShieldStack);
   }
 }

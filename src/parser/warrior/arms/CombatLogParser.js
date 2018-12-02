@@ -2,6 +2,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import DamageDone from 'parser/shared/modules/DamageDone';
 // Normalizers
 import OverpowerStacks from './normalizers/OverpowerStacks';
+import CrushingAssaultBuff from './normalizers/CrushingAssaultBuff';
 // Features
 import Checklist from './modules/features/Checklist/Module';
 import Abilities from './modules/Abilities';
@@ -43,11 +44,13 @@ import Ravager from './modules/talents/Ravager';
 import ExecutionersPrecision from './modules/spells/azeritetraits/ExecutionersPrecision';
 import SeismicWave from './modules/spells/azeritetraits/SeismicWave';
 import TestOfMight from './modules/spells/azeritetraits/TestOfMight';
+import CrushingAssault from './modules/spells/azeritetraits/CrushingAssault';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizers
     overpowerStacks: OverpowerStacks,
+    crushingAssaulBuff: CrushingAssaultBuff,
 
     // WarriorCore
     damageDone: [DamageDone, { showStatistic: true }],
@@ -60,7 +63,7 @@ class CombatLogParser extends CoreCombatLogParser {
     spellUsable: SpellUsable,
     channeling: Channeling,
 
-    // Resource 
+    // Resource
     rageTracker: RageTracker,
     rageDetail: RageDetail,
 
@@ -99,6 +102,7 @@ class CombatLogParser extends CoreCombatLogParser {
     executionersPrecision: ExecutionersPrecision,
     seismicWave: SeismicWave,
     testOfMight: TestOfMight,
+    crushingAssault: CrushingAssault,
   };
 }
 

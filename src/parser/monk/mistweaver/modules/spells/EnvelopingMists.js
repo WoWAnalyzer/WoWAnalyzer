@@ -57,7 +57,7 @@ class EnvelopingMists extends Analyzer {
     }
   }
 
-  on_finished() {
+  on_fightend() {
     if (debug) {
       console.log(`EvM Healing Contribution: ${this.healingIncrease}`);
     }

@@ -73,7 +73,7 @@ class CooldownThroughputTracker extends Analyzer {
     this.activeCooldowns.splice(index, 1);
     debug && console.log(`%cCooldown ended: ${cooldown.spell.name}`, 'color: red', cooldown);
   }
-  on_finished() {
+  on_fightend() {
     this.activeCooldowns.forEach((cooldown) => {
       cooldown.end = this.owner.fight.end_time;
       debug && console.log(`%cCooldown ended: ${cooldown.spell.name}`, 'color: red', cooldown);

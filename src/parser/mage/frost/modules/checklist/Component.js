@@ -65,7 +65,6 @@ class FrostMageChecklist extends React.PureComponent {
           description="Regardless of which talents you select, you should ensure that you are utilizing them properly. If you are having trouble effectively using a particular talent, you should consider taking a different talent that you can utilize properly or focus on effectively using the talents that you have selected."
         >
           {combatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id) && <Requirement name="Glacial Spike utilization" thresholds={thresholds.glacialSpikeUtilization} />}
-          {combatant.hasTalent(SPELLS.THERMAL_VOID_TALENT.id) && <Requirement name="Thermal Void avg duration" thresholds={thresholds.thermalVoidDuration} tooltip="Thermal Void adds time to your Icy Veins every time you cast an Ice Lance that benefits from Shatter (this includes Fingers of Frost proc usage and Ice Lance's that land in Winter's Chill). Maximizing this uptime will increase your damage." />}
           {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) && <Requirement name="Rune of Power uptime" thresholds={thresholds.runeOfPowerBuffUptime} tooltip="Using Rune of Power effectively means being able to stay within the range of it for it's entire duration. If you are unable to do so or if you frequently have to move out of the range of the buff, consider taking a different talent instead." />}
           {!combatant.hasTalent(SPELLS.LONELY_WINTER_TALENT.id) && <Requirement name="Water Elemental utilization" thresholds={thresholds.waterElementalUptime} />}
         </Rule>
