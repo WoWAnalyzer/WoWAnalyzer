@@ -6,7 +6,7 @@
 
 export default {
     // Arm
-    CRUSHING_ASSAULT: {
+    CRUSHING_ASSAULT_TRAIT: {
         id: 278751,
         name: 'Crushing Assault',
         icon: 'ability_warrior_decisivestrike',
