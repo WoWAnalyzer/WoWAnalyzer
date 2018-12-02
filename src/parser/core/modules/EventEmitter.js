@@ -123,8 +123,8 @@ class EventEmitter extends Module {
     };
   }
   _prependSpellCheck(listener, spell) {
-    if(spell instanceof Array) {
-      return function(event) {
+    if (spell instanceof Array) {
+      return function (event) {
         if (event.ability && spell.some(s => s.id === event.ability.guid)) {
           listener(event);
         }
@@ -206,15 +206,17 @@ class EventEmitter extends Module {
   }
   reportModuleTimes() {
     const table = [];
+    const totalDuration = Array.from(this.timePerModule).reduce((sum, [, value]) => sum + value, 0);
     this.timePerModule.forEach((value, key) => {
       table.push({
         module: key,
         duration: Math.ceil(value),
+        ofTotal: `${(value / totalDuration * 100).toFixed(2)}%`,
       });
     });
-    console.group('Module time consumption');
+    console.groupCollapsed('Module time consumption');
     console.table(table.sort((a, b) => b.duration - a.duration));
-    console.log('Total module time:', table.reduce((sum, entry) => sum + entry.duration, 0), 'ms');
+    console.log('Total module time:', totalDuration, 'ms');
     console.groupEnd();
   }
   _finally = null;
