@@ -5,9 +5,17 @@ import Analyzer from 'parser/core/Analyzer';
 import { formatNumber } from 'common/format';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import { calculateAzeriteEffects } from 'common/stats';
+import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage';
+import ItemDamageDone from 'interface/others/ItemDamageDone';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
+const ES_SP_COEFFICIENT = 2.5;// taken from Simcraft SpellDataDump
 
 class LavaShock extends Analyzer {
+  static dependencies = {
+    statTracker: StatTracker,
+  };
+
   procs = 0;
   damageGained = 0;
   traitBonus = 0;
@@ -28,7 +36,8 @@ class LavaShock extends Analyzer {
     if (buff === undefined) {
       return;
     }
-    this.damageGained += buff.stacks * this.traitBonus;
+    const [bonusDamage] = calculateBonusAzeriteDamage(event, [this.traitBonus], ES_SP_COEFFICIENT, this.statTracker.currentIntellectRating);
+    this.damageGained += bonusDamage;
     this.procs += 1;
   }
 
@@ -37,13 +46,8 @@ class LavaShock extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.LAVA_SHOCK.id}
-        value={(
-          <>
-            {formatNumber(this.damageGained)} Damage Done <br />
-            {formatNumber(this.procs)} procs
-          </>
-        )}
-        tooltip={`Lava Shock did <b>${this.damageGained}</b> damage after <b>${formatNumber(this.procs)}</b> procs.`}
+        value={<ItemDamageDone amount={this.damageGained} />}
+        tooltip={`Lava Shock did ${formatNumber(this.damageGained)} damage with ${formatNumber(this.procs)} procs.`}
       />
     );
   }
