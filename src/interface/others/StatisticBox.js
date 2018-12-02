@@ -69,7 +69,7 @@ class StatisticBox extends React.PureComponent {
     delete others.position;
     return (
       <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12" style={{ zIndex: this.state.expanded ? 2 : 1 }} {...containerProps}>
-        <div className={`panel statistic-box expandable${item ? ' item' : ''}`} {...others}>
+        <div className={`panel statistic-box expandable ${item ? 'item' : ''}`} {...others}>
           <div className="panel-body">
             <div className="flex">
               <div className="flex-sub statistic-icon" style={{ display: 'flex', alignItems: alignIcon }}>
