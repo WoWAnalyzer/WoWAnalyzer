@@ -505,6 +505,46 @@ exports[`The Protection Paladin Analyzer analyzers GrandCrusader matches the sta
 
 exports[`The Protection Paladin Analyzer analyzers GrandCrusader matches the suggestions snapshot 1`] = `Array []`;
 
+exports[`The Protection Paladin Analyzer analyzers HammerOfTheRighteous matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Protection Paladin Analyzer analyzers HammerOfTheRighteous matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "ability_paladin_hammeroftherighteous",
+    "importance": "major",
+    "issue": <React.Fragment>
+      You should avoid casting 
+      <SpellLink
+        icon={true}
+        id={53595}
+      />
+       while better spells (namely 
+      <SpellLink
+        icon={true}
+        id={275779}
+      />
+       and 
+      <SpellLink
+        icon={true}
+        id={31935}
+      />
+      ) are available. This is a 
+      <em>
+        filler
+      </em>
+       ability and should only be used when you have no better spells to cast.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      29.58% of casts while better spells were available
+       (
+      &lt; 10.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
 exports[`The Protection Paladin Analyzer analyzers HealingDone matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -916,15 +956,34 @@ exports[`The Protection Paladin Analyzer should match the checklist snapshot 1`]
             <svg
               style={
                 Object {
-                  "color": "green",
+                  "color": "red",
                 }
               }
-              viewBox="0 0 50 50"
+              viewBox="15 15 70 70"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path
-                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
-              />
+              <g
+                style={
+                  Object {
+                    "strokeLinecap": "round",
+                    "strokeMiterlimit": 10,
+                    "strokeWidth": 10,
+                  }
+                }
+              >
+                <line
+                  x1="21.19"
+                  x2="78.81"
+                  y1="21.19"
+                  y2="78.81"
+                />
+                <line
+                  x1="78.81"
+                  x2="21.19"
+                  y1="21.19"
+                  y2="78.81"
+                />
+              </g>
             </svg>
           </div>
         </div>
@@ -948,9 +1007,9 @@ exports[`The Protection Paladin Analyzer should match the checklist snapshot 1`]
               className="performance-bar small"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
+                  "backgroundColor": "#df7102",
                   "transition": "background-color 800ms",
-                  "width": "68.0347100658071%",
+                  "width": "42.27989489474303%",
                 }
               }
             />
@@ -1245,6 +1304,7 @@ exports[`The Protection Paladin Analyzer should match the checklist snapshot 1`]
             <div
               className="flex-main"
             >
+              Bad 
               <a
                 href="http://wowhead.com/spell=53595"
                 rel="noopener noreferrer"
@@ -1258,6 +1318,31 @@ exports[`The Protection Paladin Analyzer should match the checklist snapshot 1`]
                  
                 Hammer of the Righteous
               </a>
+               casts
+            </div>
+            <div
+              className="flex-sub"
+              style={
+                Object {
+                  "marginLeft": 10,
+                }
+              }
+            >
+              <svg
+                data-tip="This is a <em>filler</em> ability and should only be cast while your other spells are on cooldown."
+                viewBox="0 0 100 100"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                />
+                <path
+                  d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                />
+                <path
+                  d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                />
+              </svg>
             </div>
             <div
               className="flex-sub content-middle text-muted"
@@ -1278,7 +1363,7 @@ exports[`The Protection Paladin Analyzer should match the checklist snapshot 1`]
                 }
               >
                  
-                78.15%
+                29.58%
                  
                  
               </div>
@@ -1298,9 +1383,9 @@ exports[`The Protection Paladin Analyzer should match the checklist snapshot 1`]
                   className="performance-bar small"
                   style={
                     Object {
-                      "backgroundColor": "#a6c34c",
+                      "backgroundColor": "#ac1f39",
                       "transition": "background-color 800ms",
-                      "width": "87.57905047374233%",
+                      "width": "28.146428571428572%",
                     }
                   }
                 />
