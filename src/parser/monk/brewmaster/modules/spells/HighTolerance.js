@@ -81,9 +81,6 @@ class HighTolerance extends Analyzer {
   }
 
   on_fightend() {
-    console.log(this.staggerDurations);
-    console.log(this.owner.fight.end_time);
-    console.log(this.owner.fightDuration);
     if (this._staggerLevel !== null) {
       this.staggerDurations[this._staggerLevel] += this.owner.fight.end_time - this._lastDebuffApplied;
     }
