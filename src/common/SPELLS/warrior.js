@@ -221,21 +221,25 @@ export default {
     id: 184707,
     name: 'Rampage',
     icon: 'ability_ironmaidens_bladerush',
+    primaryCoefficient: 0.72,
   },
   RAMPAGE_2: {
     id: 184709,
     name: 'Rampage',
     icon: 'ability_ironmaidens_bladerush',
+    primaryCoefficient: 0.42,
   },
   RAMPAGE_3: {
     id: 201364,
     name: 'Rampage',
     icon: 'ability_ironmaidens_bladerush',
+    primaryCoefficient: 0.96,
   },
   RAMPAGE_4: {
     id: 201363,
     name: 'Rampage',
     icon: 'ability_ironmaidens_bladerush',
+    primaryCoefficient: 0.54,
   },
   WHIRLWIND_FURY: {
     id: 190411,
@@ -265,6 +269,11 @@ export default {
     name: 'Enrage',
     icon: 'spell_shadow_unholyfrenzy',
   },
+  ENDLESS_RAGE_ENERGISE: {
+    id: 280283,
+    name: 'Endless Rage',
+    icon: 'ability_warrior_endlessrage',
+  },  
   FROTHING_BERSERKER: {
     id: 215572,
     name: 'Frothing Berserker',

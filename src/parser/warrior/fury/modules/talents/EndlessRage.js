@@ -13,13 +13,15 @@ class EndlessRage extends Analyzer {
 
     this.active = this.selectedCombatant.hasTalent(SPELLS.ENDLESS_RAGE_TALENT.id);
 
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).to(SELECTED_PLAYER), this.onPlayerBuff);
+    if(!this.active) {
+      return;
+    }
+
+    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.ENDLESS_RAGE_ENERGISE), this.onPlayerBuff);
   }
 
   onPlayerBuff(event) {
-    if (event.ability.guid === SPELLS.ENRAGE.id) {
-      this.rageGen += 6;
-    }
+    this.rageGen += event.resourceChange;
   }
 
   statistic() {
@@ -29,7 +31,7 @@ class EndlessRage extends Analyzer {
         value={`${this.rageGen} rage generated`}
         label="Endless Rage"
       />
-      );
+    );
   }
 }
 
