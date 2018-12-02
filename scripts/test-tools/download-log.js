@@ -1,5 +1,5 @@
 /**
- * Downloads a log for use in testing spec parsers. All the metadata
+ * Downloads a log for use in testing spec parsers. All the reportdata
  * necessary for loading and parsing is included in the output.
  *
  * This script should be run from the root of the repository.
@@ -8,8 +8,11 @@
  * the API, which can be accomplished by loading up the desired log in
  * the analyzer (either on localhost or on the main site).
  *
+ * Note: the <filename> param should not include an extension or
+ * directory
+ *
  * Usage:
- *  node download-log.js <key> <log-id> <fight-id> <player-id>
+ *  node download-log.js <filename> <log-id> <fight-id> <player-id>
  *
  **/
 const argv = require('process').argv;
@@ -17,56 +20,66 @@ const fs = require('fs');
 const archiver = require('archiver');
 const https = require('https');
 
-function request_fight(log_id, cb) {
-  const fight_url = `https://wowanalyzer.com/api/v1/report/fights/${log_id}?translate=true`;
-  https.get(fight_url, (res) => {
+function requestFight(logId, cb) {
+  const url = `https://wowanalyzer.com/api/v1/report/fights/${logId}?translate=true`;
+  https.get(url, (res) => {
     let data = '';
     res.on('data', chunk => { data += chunk.toString(); });
     res.on('end', () => cb(JSON.parse(data)));
   }).on('error', console.error);
 }
 
-function request_combatants(log_id, fight_id, cb, meta) {
-  const fight = meta.fights.find(({id}) => id === Number(fight_id));
-  const combatant_info_url = `https://wowanalyzer.com/api/v1/report/events/${log_id}?start=${fight.start_time}&end=${fight.end_time}&filter=type%3D%22combatantinfo%22&translate=true`;
-  https.get(combatant_info_url, (res) => {
+function requestCombatants(logId, fightId, cb, report) {
+  const fight = report.fights.find(({id}) => id === Number(fightId));
+  const url = `https://wowanalyzer.com/api/v1/report/events/${logId}?start=${fight.start_time}&end=${fight.end_time}&filter=type%3D%22combatantinfo%22&translate=true`;
+  https.get(url, (res) => {
     let data = '';
     res.on('data', chunk => { data += chunk.toString(); });
-    res.on('end', () => cb(meta, fight, JSON.parse(data)));
+    res.on('end', () => cb(report, fight, JSON.parse(data)));
   }).on('error', console.error);
 }
 
-function request_events(log_id, player_id, cb, meta, fight, combatants) {
-  const log_url = `https://wowanalyzer.com/api/v1/report/events/${log_id}?start=${fight.start_time}&end=${fight.end_time}&actorid=${player_id}&translate=true`;
-  https.get(log_url, (res) => {
+function requestEvents(logId, playerId, cb, report, fight, combatants) {
+  const url = `https://wowanalyzer.com/api/v1/report/events/${logId}?start=${fight.start_time}&end=${fight.end_time}&actorid=${playerId}&translate=true`;
+  https.get(url, (res) => {
     let data = '';
     res.on('data', chunk => { data += chunk.toString(); });
-    res.on('end', () => cb(meta, combatants, JSON.parse(data)));
+    res.on('end', () => cb(report, combatants, JSON.parse(data)));
   }).on('error', console.error);
 }
 
-function write_log(key, fight_id, player_id, cb, meta, combatants, events) {
-  const path = `test-logs/${key}.zip`;
+function writeLog(filename, fightId, playerId, cb, report, combatants, events) {
+  const fight = report.fights.find(({id}) => id === Number(fightId));
+  const combatant = combatants.events.find(({sourceID}) => sourceID === Number(playerId));
+
+  const path = `test-logs/${filename}.zip`;
   const out = fs.createWriteStream(path);
   const compress = archiver('zip');
   compress.on('warning', err => console.warn(err));
   compress.pipe(out);
 
-  compress.append(JSON.stringify(meta), { name: 'meta.json' });
+  compress.append(JSON.stringify(report), { name: 'report.json' });
   compress.append(JSON.stringify(combatants.events), { name: 'combatants.json' });
   compress.append(JSON.stringify(events.events), { name: 'events.json' });
   compress.append(JSON.stringify({
-    fight_id: Number(fight_id),
-    player_id: Number(player_id),
-  }), { name: 'content_ids.json' });
+    fight: {
+      id: Number(fightId),
+      name: fight.name,
+    },
+    player: {
+      id: Number(playerId),
+      name: combatant.name,
+      specID: combatant.specID,
+    },
+  }), { name: 'meta.json' });
 
   out.on('end', () => cb(path));
   compress.finalize();
 }
 
-const [key, log_id, fight_id, player_id]= argv.slice(2, argv.length);
+const [filename, logId, fightId, playerId]= argv.slice(2, argv.length);
 
-request_fight(log_id, 
-  request_combatants.bind(null, log_id, fight_id, 
-    request_events.bind(null, log_id, player_id,
-      write_log.bind(null, key, fight_id, player_id, (path) => console.log(`wrote ${path}`)))));
+requestFight(logId, 
+  requestCombatants.bind(null, logId, fightId, 
+    requestEvents.bind(null, logId, playerId,
+      writeLog.bind(null, filename, fightId, playerId, (path) => console.log(`wrote ${path}`)))));
