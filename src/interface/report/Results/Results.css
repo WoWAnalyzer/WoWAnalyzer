@@ -241,12 +241,9 @@ nav.global {
   float: left; /* makes the div auto-size without changing the display prop */
   border: 1px solid transparent;
   position: absolute;
-  bottom: 15px;
+  bottom: 0;
   right: 15px;
   text-align: right;
-}
-.results > header .player .name {
-  margin-bottom: 0;
 }
 .results > header .player .avatar {
   float: right;
@@ -257,6 +254,8 @@ nav.global {
 .results > header .player .avatar img {
   border-radius: 50%;
   border: 3px solid #f8b700;
+  width: 90px;
+  height: 90px;
 }
 .results > header .player .details {
   flex: 1;
