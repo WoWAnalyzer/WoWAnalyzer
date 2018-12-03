@@ -16,6 +16,7 @@ import RampageCancelled from './modules/features/RampageCancelled';
 import AngerManagement from './modules/talents/AngerManagement';
 import FuriousSlashTimesByStacks from './modules/talents/FuriousSlashTimesByStacks';
 import FuriousSlashUptime from './modules/talents/FuriousSlashUptime';
+import SuddenDeath from './modules/talents/SuddenDeath';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -36,6 +37,7 @@ class CombatLogParser extends CoreCombatLogParser {
     angerManagement: AngerManagement,
     furiousSlashTimesByStacks: FuriousSlashTimesByStacks,
     furiousSlashUptime: FuriousSlashUptime,
+    suddenDeath: SuddenDeath,
 
     // Overrides default PrePotion
     //prePotion: PrePotion, TODO: Update this to BFA and ensure it works properly with parser/core/Modules/Features/Checklist2/PreparationRuleAnalyzer.js
