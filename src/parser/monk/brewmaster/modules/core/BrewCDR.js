@@ -86,7 +86,7 @@ class BrewCDR extends Analyzer {
     this._newHaste = event.newHaste;
   }
 
-  on_finished() {
+  on_fightend() {
     this._totalHaste += this._newHaste * (this.owner.fight.end_time - this._lastHasteChange);
   }
 

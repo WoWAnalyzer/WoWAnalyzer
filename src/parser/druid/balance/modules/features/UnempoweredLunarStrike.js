@@ -40,7 +40,7 @@ class UnempoweredLunarStrike extends Analyzer {
     this.hits += 1;
   }
 
-  on_finished() {
+  on_fightend() {
     this.checkCast();
   }
 

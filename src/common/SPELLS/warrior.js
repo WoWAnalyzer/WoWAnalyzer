@@ -270,11 +270,6 @@ export default {
     name: 'Frothing Berserker',
     icon: 'warrior_talent_icon_furyintheblood',
   },
-  JUGGERNAUT: {
-    id: 201009,
-    name: 'Juggernaut',
-    icon: 'warrior_talent_icon_skirmisher',
-  },
   MASSACRE: {
     id: 206316,
     name: 'Massacre',

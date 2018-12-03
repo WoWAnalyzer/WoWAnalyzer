@@ -103,7 +103,7 @@ class FeedingFrenzy extends Analyzer {
       return;
     }
 
-    const traitDamageContribution = calculateBonusAzeriteDamage(event, this.traitBonus, this.lastAttackPower, FEEDING_FRENZY_DAMAGE_COEFFICIENT);
+    const [ traitDamageContribution ] = calculateBonusAzeriteDamage(event, [this.traitBonus], this.lastAttackPower, FEEDING_FRENZY_DAMAGE_COEFFICIENT);
     this.traitDamageContribution += traitDamageContribution;
 
     if (debug) {
@@ -124,7 +124,7 @@ class FeedingFrenzy extends Analyzer {
     }
   }
 
-  on_finished() {
+  on_fightend() {
     if (this.lastBSCast !== null) {
       this.extraBuffUptime += this.extra_BS_uptime(this.owner.fight.end_time, this.lastBSCast);
     }

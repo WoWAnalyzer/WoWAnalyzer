@@ -60,7 +60,7 @@ class Snapshot extends Analyzer {
   lostSnapshotTime = 0;
   snapshotTime = 0;
 
-  on_finished() {
+  on_fightend() {
     debug && console.log('lost: ' + this.lostSnapshotTime / 1000 + ', total: ' + this.snapshotTime / 1000 + ', bonus damage: ' + this.bonusDamage.toFixed(0));
   }
 
@@ -102,7 +102,7 @@ class Snapshot extends Analyzer {
 
     if (state.buffed) {
       this.bonusDamage += calculateEffectiveDamage(event, this.multiplier - 1);
-    }    
+    }
   }
 
   on_byPlayer_removedebuff(event) {
@@ -188,7 +188,7 @@ class Snapshot extends Analyzer {
     const timeLost = stateOld.expireTime - stateNew.startTime;
     this.lostSnapshotTime += timeLost;
     this.snapshotTime += timeLost;
-    
+
     // only mark significant time loss events.
     if (timeLost > FORGIVE_LOST_TIME) {
       event.meta = event.meta || {};

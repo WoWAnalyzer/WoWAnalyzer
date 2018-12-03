@@ -26,7 +26,7 @@ class ShieldOfTheRighteous extends Analyzer {
 
   _tankbusters = [];
 
-  _sotrCasts = [    
+  _sotrCasts = [
     /*
     {
         castTime: <timestamp>,
@@ -66,7 +66,7 @@ class ShieldOfTheRighteous extends Analyzer {
     const buffEndTime = Math.min(
       // if the buff expired before the current event, its just
       // event.timestamp + SOTR_DURATION ...
-      Math.max(this._buffExpiration, event.timestamp) + SOTR_DURATION, 
+      Math.max(this._buffExpiration, event.timestamp) + SOTR_DURATION,
       // ... otherwise limit it to no more than 3x SOTR_DURATION from
       // now due to buff duration caps
       event.timestamp + SOTR_DURATION * 3
@@ -83,7 +83,7 @@ class ShieldOfTheRighteous extends Analyzer {
     };
 
     this._buffExpiration = buffEndTime;
-    
+
     this._updateActiveCast(event);
     if(cast.buffStartTime > cast.castTime) {
       this._futureCasts.push(cast);
@@ -113,7 +113,7 @@ class ShieldOfTheRighteous extends Analyzer {
     }
   }
 
-  on_finished(event) {
+  on_fightend(event) {
     if(this._activeCast) {
       this._markupCast(this._activeCast);
     }

@@ -182,7 +182,7 @@ class Voidform extends Analyzer {
     if (spellId === SPELLS.LINGERING_INSANITY.id) this.removeLingeringInsanityStack(event);
   }
 
-  on_finished() {
+  on_fightend() {
     if (this.selectedCombatant.hasBuff(SPELLS.VOIDFORM_BUFF.id)) {
       // excludes last one to avoid skewing the average (if in voidform when the encounter ends):
       const averageVoidformStacks = this.voidforms.slice(0, -1).reduce((p, c) => p + c.stacks.length, 0) / (this.voidforms.length - 1);

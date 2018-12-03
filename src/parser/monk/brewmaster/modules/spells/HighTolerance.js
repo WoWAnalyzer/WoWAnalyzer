@@ -80,7 +80,7 @@ class HighTolerance extends Analyzer {
     this._staggerLevel = null;
   }
 
-  on_finished() {
+  on_fightend() {
     if (this._staggerLevel !== null) {
       this.staggerDurations[this._staggerLevel] += this.owner.fight.end_time - this._lastDebuffApplied;
     }

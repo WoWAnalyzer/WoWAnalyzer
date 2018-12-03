@@ -27,7 +27,7 @@ class Rockbiter extends Analyzer {
     }
   }
 
-  on_finished() {
+  on_fightend() {
     debug && console.log("maelstromWasted " + this.maelstromWasted);
     debug && console.log(this.rockbiterOveruse);
   }

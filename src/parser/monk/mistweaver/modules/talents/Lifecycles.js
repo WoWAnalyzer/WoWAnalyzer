@@ -99,7 +99,7 @@ class Lifecycles extends Analyzer {
     );
   }
 
-  on_finished() {
+  on_fightend() {
     if (debug) {
       console.log(`Mana Reduced:${this.manaSaved}`);
       console.log(`Viv Mana Reduced:${this.manaSavedViv}`);
