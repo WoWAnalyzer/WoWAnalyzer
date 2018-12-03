@@ -52,7 +52,7 @@ export const ABILITIES_THAT_TRIGGER_MASTERY = [
   280583, // M.E.N.D. from Auto-Self-Cauterizer (280172)
 
   // Trinkets
-  SPELLS.LADY_WAYCRESTS_MUSIC_BOX.id,
+  SPELLS.HARMONIOUS_CHORD.id,
   SPELLS.MUTATING_ANTIBODY.id,
   276136, // Darkmoon Deck Ace
   276137, // Darkmoon Deck 2

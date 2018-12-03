@@ -66,18 +66,6 @@ class EchoOfLight_Mastery extends Analyzer {
     return this.masteryHealingBySpell[spellId].overHealing / this.masteryHealingBySpell[spellId].rawHealing;
   }
 
-  // EoL is hard to calculate. This provides an estimate as to how accurate the values listed are.
-  get accuracy() {
-    const effectiveError = Math.abs(this.testValues.effectiveHealing + this.precastValues.effectiveHealing - this.effectiveHealing) / this.effectiveHealing;
-    const overhealingError = Math.abs(this.testValues.overhealing + this.precastValues.overhealing - this.overHealing) / this.overHealing;
-
-    if (DEBUG) {
-      console.warn('Effective', effectiveError, Math.abs(this.testValues.effectiveHealing + this.precastValues.effectiveHealing - this.effectiveHealing));
-      console.warn('Overhealing', overhealingError, Math.abs(this.testValues.overhealing + this.precastValues.overhealing - this.overHealing));
-    }
-    return 1 - Math.max(effectiveError, overhealingError);
-  }
-
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.ECHO_OF_LIGHT.id) {
@@ -261,7 +249,7 @@ class EchoOfLight_Mastery extends Analyzer {
         label={(
           <dfn
             data-tip={`Echo of Light healing breakdown. As our mastery is often very finicky, this could end up wrong in various situations. Please report any logs that seem strange to @Khadaj on the WoWAnalyzer discord.<br/><br/>
-            <strong>Please do note this may not be 100% accurate.</strong> I'd estimate that this specific parse is is about ${formatPercentage(this.accuracy)}% accurate. <br/><br/>
+            <strong>Please do note this may not be 100% accurate.</strong><br/><br/>
             Also, a mastery value can be more than just "healing done times mastery percent" because Echo of Light is based off raw healing. If the heal itself overheals, but the mastery does not, it can surpass that assumed "limit". Don't use this as a reason for a "strange log" unless something is absurdly higher than its effective healing.`}
           >
             Echo of Light
