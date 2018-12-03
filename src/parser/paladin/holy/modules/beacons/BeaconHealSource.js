@@ -62,7 +62,7 @@ class BeaconHealSource extends Analyzer {
     this.healBacklog.forEach((healEvent, index) => {
       const age = this.owner.currentTimestamp - healEvent.timestamp;
       if (age > 500) {
-        this.warn('No beacon transfer found for heal:', healEvent, 'This is usually caused by line of sighting the beacon target.');
+        debug && this.warn('No beacon transfer found for heal:', healEvent, 'This is usually caused by line of sighting the beacon target.');
 
         this.eventEmitter.fabricateEvent({
           ...healEvent,
@@ -80,7 +80,7 @@ class BeaconHealSource extends Analyzer {
     let index;
     index = this._matchByHealSize(beaconTransferEvent);
     if (index === -1) {
-      this.warn('Failed to match a heal by size (this might be caused by "increased healing received" buffs on a target) for', beaconTransferEvent, '. Falling back to order-based heal selection.');
+      debug && this.warn('Failed to match a heal by size (this might be caused by "increased healing received" buffs on a target) for', beaconTransferEvent, '. Falling back to order-based heal selection.');
       if (debug) {
         this._dumpBacklog(beaconTransferEvent);
       }

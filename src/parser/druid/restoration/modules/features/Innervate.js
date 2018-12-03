@@ -104,7 +104,7 @@ class Innervate extends Analyzer {
     }
   }
 
-  on_finished() {
+  on_fightend() {
     if (debug) {
       console.log(`Innervates gained: ${this.innervateCount}`);
       console.log(`Mana saved: ${this.manaSaved}`);

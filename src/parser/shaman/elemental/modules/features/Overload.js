@@ -47,7 +47,7 @@ class Overload extends Analyzer {
     };
   }
 
-  on_finished() {
+  on_fightend() {
     this.spells = [
       this.getHits(SPELLS.LAVA_BURST_OVERLOAD.id, SPELLS.LAVA_BURST.id),
       this.getHits(SPELLS.LIGHTNING_BOLT_OVERLOAD_HIT.id, SPELLS.LIGHTNING_BOLT.id),

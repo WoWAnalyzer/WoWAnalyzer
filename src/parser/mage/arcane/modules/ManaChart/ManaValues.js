@@ -14,7 +14,7 @@ class ArcaneManaValues extends ManaValues {
 
   deadOnKill = false;
 
-  on_finished() {
+  on_fightend() {
     if (!this.deathTracker.isAlive) {
       this.deadOnKill = true;
     }
@@ -31,7 +31,7 @@ class ArcaneManaValues extends ManaValues {
       style: 'percentage',
     };
   }
-  
+
   suggestions(when) {
     if (!this.deadOnKill) {
       when(this.suggestionThresholds)
