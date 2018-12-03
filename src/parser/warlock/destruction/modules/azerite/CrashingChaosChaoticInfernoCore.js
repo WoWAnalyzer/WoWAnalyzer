@@ -10,6 +10,17 @@ const CHAOS_BOLT_SP_COEFFICIENT = 1.2;
 const MAX_TRAVEL_TIME = 3000;
 const debug = false;
 
+/*
+  If anyone knows of a more descriptive but shorter name, let me know.
+  Shared core implementation of traits Crashing Chaos and Chaotic Inferno. 
+  This is needed because both affect Chaos Bolt in an additive way (adding to the base damage)
+  and so taking into account only one at a time would produce incorrect results - consider the dmg formula for CB:
+  
+  dmg = (intellect * 1.2 + crashing_chaos + chaotic_inferno) * multipliers
+  
+  If we incorrectly left out, let's say "crashing_chaos", while leaving the "dmg" the same, and only counted "chaotic_inferno",
+  the "multipliers" would be much higher, and thus returning a much higher value for the scaled "chaotic_inferno" bonus.
+*/
 class CrashingChaosChaoticInfernoCore extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
