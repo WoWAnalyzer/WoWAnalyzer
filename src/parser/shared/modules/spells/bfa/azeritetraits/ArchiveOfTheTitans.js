@@ -70,7 +70,7 @@ class ArchiveOfTheTitans extends Analyzer {
     this.lastTimestamp = event.timestamp;
   }
 
-  on_finished() {
+  on_fightend() {
     if (this.currentStacks !== 0 && this.lastTimestamp !== 0) {
       const uptimeOnStack = this.owner.fight.end_time - this.lastTimestamp;
       this.totalPrimary += this.currentStacks * this.primaryPerStack * uptimeOnStack;

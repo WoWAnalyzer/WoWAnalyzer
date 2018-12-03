@@ -37,7 +37,7 @@ class PredatorySwiftness extends Analyzer {
    */
   timeLastGain = null;
 
-  on_finished() {
+  on_fightend() {
     if (this.hasSwiftness) {
       debug && console.log(`${this.owner.formatTimestamp(this.owner.fight.end_time, 3)} fight ended with a Predatory Swiftness buff unused.`);
       this.remainAfterFight = 1;

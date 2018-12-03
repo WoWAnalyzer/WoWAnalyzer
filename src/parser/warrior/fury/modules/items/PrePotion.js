@@ -10,13 +10,13 @@ import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 const debug = false;
 
 const PRE_POTIONS = [
-  SPELLS.POTION_OF_PROLONGED_POWER.id,
-  SPELLS.POTION_OF_THE_OLD_WAR.id,
+  SPELLS.POTION_OF_BURSTING_BLOOD.id,
+  SPELLS.BATTLE_POTION_OF_STRENGTH.id,
 ];
 
 const SECOND_POTIONS = [
-  SPELLS.POTION_OF_PROLONGED_POWER.id,
-  SPELLS.POTION_OF_THE_OLD_WAR.id,
+  SPELLS.POTION_OF_BURSTING_BLOOD.id,
+  SPELLS.BATTLE_POTION_OF_STRENGTH.id,
 ];
 
 class PrePotion extends Analyzer {
@@ -43,7 +43,7 @@ class PrePotion extends Analyzer {
     }
   }
 
-  on_finished() {
+  on_fightend() {
     if (debug) {
       console.log(`used potion:${this.usedPrePotion}`);
       console.log(`used 2nd potion:${this.usedSecondPotion}`);

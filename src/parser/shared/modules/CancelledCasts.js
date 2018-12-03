@@ -75,7 +75,7 @@ class CancelledCasts extends Analyzer {
     };
   }
 
-  on_finished() {
+  on_fightend() {
     debug && console.log(formatMilliseconds(this.owner.fightDuration), 'Casts Finished:', `${formatNumber(this.castsFinished)}`);
     debug && console.log(formatMilliseconds(this.owner.fightDuration), 'Casts Cancelled:', `${formatNumber(this.castsCancelled)}`);
   }

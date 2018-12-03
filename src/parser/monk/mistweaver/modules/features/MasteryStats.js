@@ -152,7 +152,7 @@ class MasteryStats extends Analyzer {
     );
   }
 
-  on_finished() {
+  on_fightend() {
     if (debug) {
       console.log(`Vivify:${this.vivify.gustsHealing}`);
       console.log(`Renewing:${this.renewingMist.gustsHealing}`);

@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import { EarlyFinish, incomingDamage, SimpleFight } from 'parser/monk/brewmaster/test-fixtures/SimpleFight';
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 import EventEmitter from 'parser/core/modules/EventEmitter';
+import FightEnd from 'parser/shared/normalizers/FightEnd';
 
 import StaggerFabricator from './StaggerFabricator';
 import Stagger from './Stagger';
@@ -50,10 +51,9 @@ describe('Brewmaster.Stagger', () => {
     expect(module.totalMagicalStaggered).toBe(299);
   });
   it('Tracks the amount of stagger missing from the fight', () => {
-    parser.processEvents(EarlyFinish, fab, module);
-    eventEmitter.triggerEvent({
-      type: 'finished',
-    });
+    parser.loadModule(FightEnd);
+    const normalized = parser.normalize(EarlyFinish); // Because fight end is now normalized
+    parser.processEvents(normalized, fab, module);
     expect(module.staggerMissingFromFight).toBe(484);
   });
 });
