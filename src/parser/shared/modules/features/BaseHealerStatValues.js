@@ -305,7 +305,7 @@ class BaseHealerStatValues extends Analyzer {
     }
   }
 
-  on_finished() {
+  on_fightend() {
     if (DEBUG) {
       console.log('total', formatNumber(this.totalAdjustedHealing));
       console.log(`Int - ${formatNumber(this.totalOneInt)}`);

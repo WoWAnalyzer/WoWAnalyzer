@@ -44,7 +44,7 @@ class BreathOfSindragosa extends Analyzer{
     this.totalDuration += duration;
   }
 
-  on_finished(event){
+  on_fightend(event){
     if(this.breathActive){
       this.casts -=1;
     }

@@ -43,7 +43,7 @@ class PrePotion extends Analyzer {
     }
   }
 
-  on_finished() {
+  on_fightend() {
     if (debug) {
       console.log(`used potion:${this.usedPrePotion}`);
       console.log(`used 2nd potion:${this.usedSecondPotion}`);

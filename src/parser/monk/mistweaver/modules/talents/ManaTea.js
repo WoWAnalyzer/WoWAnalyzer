@@ -129,7 +129,7 @@ class ManaTea extends Analyzer {
       this.manaSavedMT += (spellBaseMana * (1 - manaTeaReduction));
     }
   }
-  on_finished() {
+  on_fightend() {
     if (debug) {
       console.log(`Mana Tea Casted: ${this.manateaCount}`);
       console.log(`Mana saved: ${this.manaSavedMT}`);

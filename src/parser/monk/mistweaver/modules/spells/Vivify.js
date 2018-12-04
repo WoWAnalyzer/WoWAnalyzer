@@ -65,9 +65,9 @@ class Vivify extends Analyzer {
     };
   }
 
-  on_finished() {
+  on_fightend() {
     if (debug) {
-      console.log("rem viv healing: ", this.remVivifyHealing); 
+      console.log("rem viv healing: ", this.remVivifyHealing);
       console.log("viv gusts healing: ", this.gustsHealing);
     }
   }
