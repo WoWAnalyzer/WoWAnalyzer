@@ -54,4 +54,14 @@ export default {
     name: 'Wild Fleshrending',
     icon: 'ability_warrior_bloodnova',
   },
+  MASTERFUL_INSTINCTS: {
+    id: 273344,
+    name: 'Masterful Instincts',
+    icon: 'ability_druid_tigersroar',
+  },
+  MASTERFUL_INSTINCTS_BUFF: {
+    id: 273349,
+    name: 'Masterful Instincts',
+    icon: 'ability_druid_tigersroar',
+  },
 };

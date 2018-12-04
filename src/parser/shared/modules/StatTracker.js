@@ -34,6 +34,7 @@ import { STAT_TRACKER as ROLLING_HAVOC_STATS } from 'parser/warlock/destruction/
 import { STAT_TRACKER as BURSTING_FLARE_STATS } from 'parser/warlock/destruction/modules/azerite/BurstingFlare';
 import { STAT_TRACKER as FLASHPOINT_STATS } from 'parser/warlock/destruction/modules/azerite/Flashpoint';
 import { STAT_TRACKER as ACCELERANT_STATS } from 'parser/warlock/destruction/modules/azerite/Accelerant';
+import { STAT_TRACKER as MASTERFUL_INSTINCTS_STATS } from 'parser/druid/guardian/modules/azeritetraits/MasterfulInstincts';
 
 const debug = false;
 
@@ -327,6 +328,9 @@ class StatTracker extends Analyzer {
     // endregion
     // region Priest
     [SPELLS.CHORUS_OF_INSANITY_BUFF]: CHORUS_OF_INSANITY_STATS,
+    // endregion
+    // region Druid
+    [SPELLS.MASTERFUL_INSTINCTS_BUFF]: MASTERFUL_INSTINCTS_STATS,
     // endregion
     // region Enchants
     [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 50 },
