@@ -18,6 +18,7 @@ import FrothingBerserker from './modules/talents/FrothingBerserker';
 import FuriousSlashTimesByStacks from './modules/talents/FuriousSlashTimesByStacks';
 import FuriousSlashUptime from './modules/talents/FuriousSlashUptime';
 import Recklessness from './modules/spells/Recklessness';
+import RecklessFlurry from './modules/azerite/RecklessFlurry';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -40,6 +41,7 @@ class CombatLogParser extends CoreCombatLogParser {
     furiousSlashTimesByStacks: FuriousSlashTimesByStacks,
     furiousSlashUptime: FuriousSlashUptime,
     recklessness: Recklessness,
+    recklessFlurry: RecklessFlurry,
 
     // Overrides default PrePotion
     //prePotion: PrePotion, TODO: Update this to BFA and ensure it works properly with parser/core/Modules/Features/Checklist2/PreparationRuleAnalyzer.js
