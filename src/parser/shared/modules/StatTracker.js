@@ -453,27 +453,17 @@ class StatTracker extends Analyzer {
    * @param stats Object with stats (intellect, mastery, haste, crit etc.) and their respective bonus (either fixed value or a function (combatant, item) => value). If it's from item, provide also an itemId (item in the stat callback is taken from this itemId).
    */
   add(buffId, stats) {
-    const dev = process.env.NODE_ENV === 'development';
     if (!buffId || !stats) {
-      if (dev) {
-        throw new Error(`StatTracker.add() called with invalid buffId ${buffId} or stats`);
-      }
-      return;
+      throw new Error(`StatTracker.add() called with invalid buffId ${buffId} or stats`);
     }
     if (this.constructor.STAT_BUFFS[buffId]) {
-      if (dev) {
-        throw new Error(`Stat buff with ID ${buffId} already exists`);
-      }
-      return;
+      throw new Error(`Stat buff with ID ${buffId} already exists`);
     }
     // if any stat's function uses the item argument, validate that itemId property exists
     debug && this.log(`StatTracker.add(), buffId: ${buffId}, stats:`, stats);
     const usesItemArgument = Object.values(stats).some(value => typeof value === 'function' && value.length === 2);
     if (usesItemArgument && !stats.itemId) {
-      if (dev) {
-        throw new Error(`Stat buff ${buffId} uses item argument, but does not provide item ID`);
-      }
-      return;
+      throw new Error(`Stat buff ${buffId} uses item argument, but does not provide item ID`);
     }
     this.constructor.STAT_BUFFS[buffId] = stats;
   }
