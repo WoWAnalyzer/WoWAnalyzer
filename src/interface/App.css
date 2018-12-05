@@ -7,8 +7,10 @@ body {
   font-family: 'Open Sans', 'Century Gothic', sans-serif;
   font-weight: 200;
   text-rendering: optimizeLegibility;
-  background: url(images/legion-bg.jpg); /* Created by and property of Blizzard Entertainment. source: http://eu.battle.net/wow/en/legion/ */
-  background: #171313;
+  background: #170e09;
+  /*background: url(https://worldofwarcraft.akamaized.net/static/components/Pane/Pane-leather-red.jpg) no-repeat center center;*/
+  /*background-size: cover;*/
+  /*background-attachment: fixed;*/
   color: #f3eded;
 }
 @media (max-width: 1200px) {
@@ -27,6 +29,7 @@ body {
 }
 @media (min-width: 1200px) {
   .container {
+    max-width: 1300px;
   }
   .hpadding-lg-30 {
     padding-left: 30px;
