@@ -30,13 +30,6 @@ import Suggestions from './Suggestions';
 import Statistics from './Statistics';
 import StatisticsSectionTitle from './StatisticsSectionTitle';
 import './Results.css';
-import { Link } from 'react-router-dom';
-import ChecklistIcon from 'interface/icons/Checklist';
-import StatisticsIcon from 'interface/icons/Statistics';
-import TimelineIcon from 'interface/icons/Timeline';
-import EventsIcon from 'interface/icons/Events';
-import ArmorIcon from 'interface/icons/Armor';
-import AboutIcon from 'interface/icons/About';
 
 const DevelopmentTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'DevelopmentTab' */ 'interface/others/DevelopmentTab').then(exports => exports.default)));
 const EventsTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'EventsTab' */ 'interface/others/EventsTab').then(exports => exports.default)));
@@ -155,52 +148,6 @@ class Results extends React.PureComponent {
       adjustForDowntime: this.state.adjustForDowntime,
     });
 
-    const pages = [
-      {
-        icon: ChecklistIcon,
-        name: <Trans>Overview</Trans>,
-        url: 'overview',
-      },
-      {
-        icon: StatisticsIcon,
-        name: <Trans>Statistics</Trans>,
-        url: 'statistics',
-      },
-      ...results.tabs.sort((a, b) => a.order - b.order).map(tab => ({
-        icon: tab.icon || TimelineIcon,
-        name: tab.title,
-        url: tab.url,
-      })),
-      {
-        icon: EventsIcon,
-        name: <Trans>Events</Trans>,
-        url: 'events',
-      },
-      {
-        icon: ArmorIcon,
-        name: <Trans>Character</Trans>,
-        url: 'character',
-      },
-      {
-        icon: AboutIcon,
-        name: <Trans>About</Trans>,
-        url: 'about',
-      },
-    ];
-    // if (process.env.NODE_ENV === 'development') {
-    //   results.tabs.push({
-    //     title: i18n._(t`Development`),
-    //     url: 'development',
-    //     order: 100000,
-    //     render: () => (
-    //       <DevelopmentTab
-    //         parser={parser}
-    //         results={results}
-    //       />
-    //     ),
-    //   });
-    // }
-
     return (
       <div className={`results boss-${fight.boss}`}>
         <Header
@@ -211,24 +158,8 @@ class Results extends React.PureComponent {
           fight={fight}
           makeTabUrl={makeTabUrl}
           selectedTab={selectedTab}
+          tabs={results.tabs}
         />
-
-        <div className="tab-selection">
-          <div className="container">
-            <ul>
-              {pages.map(({ icon: Icon, name, url }) => {
-                return (
-                  <li key={url} className={url === selectedTab ? 'active' : undefined}>
-                    <Link to={makeTabUrl(url)}>
-                      <Icon />
-                      {name}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        </div>
 
         <div className="container">
           <div className="row">

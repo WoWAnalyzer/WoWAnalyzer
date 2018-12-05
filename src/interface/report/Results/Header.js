@@ -45,7 +45,53 @@ class Headers extends React.PureComponent {
   };
 
   render() {
-    const { config: { spec }, selectedCombatant, playerIcon, boss, fight, makeTabUrl, selectedTab } = this.props;
+    const { config: { spec }, selectedCombatant, playerIcon, boss, fight, makeTabUrl, selectedTab, tabs } = this.props;
+
+    const pages = [
+      {
+        icon: ChecklistIcon,
+        name: <Trans>Overview</Trans>,
+        url: 'overview',
+      },
+      {
+        icon: StatisticsIcon,
+        name: <Trans>Statistics</Trans>,
+        url: 'statistics',
+      },
+      ...tabs.sort((a, b) => a.order - b.order).map(tab => ({
+        icon: tab.icon || TimelineIcon,
+        name: tab.title,
+        url: tab.url,
+      })),
+      {
+        icon: EventsIcon,
+        name: <Trans>Events</Trans>,
+        url: 'events',
+      },
+      {
+        icon: ArmorIcon,
+        name: <Trans>Character</Trans>,
+        url: 'character',
+      },
+      {
+        icon: AboutIcon,
+        name: <Trans>About</Trans>,
+        url: 'about',
+      },
+    ];
+    // if (process.env.NODE_ENV === 'development') {
+    //   results.tabs.push({
+    //     title: i18n._(t`Development`),
+    //     url: 'development',
+    //     order: 100000,
+    //     render: () => (
+    //       <DevelopmentTab
+    //         parser={parser}
+    //         results={results}
+    //       />
+    //     ),
+    //   });
+    // }
 
     return (
       <header>
@@ -84,6 +130,23 @@ class Headers extends React.PureComponent {
                 {/*/>*/}
               {/*))}*/}
             {/*</div>*/}
+          </div>
+        </div>
+
+        <div className="tab-selection">
+          <div className="container">
+            <ul>
+              {pages.map(({ icon: Icon, name, url }) => {
+                return (
+                  <li key={url} className={url === selectedTab ? 'active' : undefined}>
+                    <Link to={makeTabUrl(url)}>
+                      <Icon />
+                      {name}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         </div>
       </header>
