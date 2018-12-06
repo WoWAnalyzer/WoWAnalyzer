@@ -6,7 +6,7 @@
 
 export default {
     // Arm
-    CRUSHING_ASSAULT: {
+    CRUSHING_ASSAULT_TRAIT: {
         id: 278751,
         name: 'Crushing Assault',
         icon: 'ability_warrior_decisivestrike',
@@ -79,6 +79,11 @@ export default {
     },
     RECKLESS_FLURRY: {
         id: 278758,
+        name: 'Reckless Flurry',
+        icon: 'ability_dualwield',
+    },
+    RECKLESS_FLURRY_DAMAGE: {
+        id: 283810,
         name: 'Reckless Flurry',
         icon: 'ability_dualwield',
     },

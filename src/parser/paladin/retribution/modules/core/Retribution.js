@@ -29,7 +29,7 @@ class Retribution extends Analyzer {
     this.bonusDmg += calculateEffectiveDamage(event, RETRIBUTION_DAMAGE_BONUS);
   }
 
-  on_finished() {
+  on_fightend() {
     this.active = this.bonusDmg > 0;
   }
 

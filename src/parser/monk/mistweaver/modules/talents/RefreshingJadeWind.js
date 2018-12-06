@@ -69,7 +69,7 @@ class RefreshingJadeWind extends Analyzer {
       });
   }
 
-  on_finished() {
+  on_fightend() {
     if (debug) {
       console.log(`RJW Casts: ${this.castRJW}`);
       console.log(`RJW Targets Hit: ${this.healsRJW}`);

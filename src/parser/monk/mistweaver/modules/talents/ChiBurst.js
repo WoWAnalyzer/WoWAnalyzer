@@ -77,7 +77,7 @@ class ChiBurst extends Analyzer {
       });
   }
 
-  on_finished() {
+  on_fightend() {
     if (debug) {
       console.log(`ChiBurst Casts: ${this.castChiBurst}`);
       console.log(`Total Chi Burst Healing: ${this.healing}`);

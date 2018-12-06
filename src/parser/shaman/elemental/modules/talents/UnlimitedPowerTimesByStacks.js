@@ -76,7 +76,7 @@ class UnlimitedPowerTimesByStacks extends Analyzer {
     this.handleStacks(event);
   }
 
-  on_finished(event) {
+  on_fightend(event) {
     this.handleStacks(event, this.averageUnlimitedPowerStacks);
   }
 }
