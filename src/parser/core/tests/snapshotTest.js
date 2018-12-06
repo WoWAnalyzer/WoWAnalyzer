@@ -53,10 +53,10 @@ export function tab(analyzer, parser=null) {
  * @param {string} key - Log identifier
  * @param {function} propFn - Function returning serializable output to be tested for consistency. Optional.
  */
-export default function snapshotTest(parserClass, moduleClass, key, propFn = statistic) {
+export default function snapshotTest(parserClass, moduleClass, key, propFn = statistic, suppressLog = true, suppressWarn = true) {
   return () => {
     return loadLog(key).then(log => {
-      const parser = parseLog(parserClass, log);
+      const parser = parseLog(parserClass, log, suppressLog, suppressWarn);
       expectSnapshot(parser, moduleClass, propFn);
     });
   };

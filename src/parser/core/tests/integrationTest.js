@@ -2,7 +2,7 @@ import { i18n } from 'interface/RootLocalizationProvider';
 import ParseResults from 'parser/core/ParseResults';
 import BaseChecklist from 'parser/shared/modules/features/Checklist2/Module';
 import renderer from 'react-test-renderer';
-import { loadLog, suppressLogging, parseLog } from './log-tools';
+import { loadLog, parseLog } from './log-tools';
 import { statistic, expectSnapshot } from './snapshotTest';
 
 function integrationStatistic(analyzer, parser) {
@@ -55,52 +55,27 @@ function checklist(parser) {
  * See the Brewmaster analyzer for a worked example.
  *
  * @param {object} parserClass - (uninstantiated) CombatLogParser subclass to test.
- * @param {string} key - Key identifying which log from `test-logs` to load
+ * @param {string} filename - which log from `test-logs` to load
  * @param {boolean} suppressWarn - Suppress `console.warn`
  * @param {boolean} suppressLog - Suppress `console.log`
  */
-export default function integrationTest(parserClass, key, suppressWarn=true, suppressLog=true) {
+export default function integrationTest(parserClass, filename, suppressLog=true, suppressWarn=true) {
   return () => {
     let log;
+    let parser;
+
     beforeAll(() => {
-      return loadLog(key).then(res => { log = res; });
-    });
-
-    suppressLogging(suppressLog, suppressWarn, false);
-
-    it('should parse the example report without crashing', () => {
-      const parser = parseLog(parserClass, log);
-      const results = parser.generateResults({
-        i18n,
-        adjustForDowntime: false,
+      return loadLog(filename).then(res => { 
+        log = res; 
+        parser = parseLog(parserClass, log, suppressLog, suppressWarn);
       });
-      expect(results).toBeTruthy();
     });
+
     it('should match the checklist snapshot', () => {
-      const parser = parseLog(parserClass, log);
       expect(checklist(parser)).toMatchSnapshot();
     });
 
     describe('analyzers', () => {
-      let parser;
-      beforeAll(() => {
-        // suppressLogging does its work in beforeEach/afterEach, which
-        // doesn't happen beforeAll
-        const _console = {};
-        if(suppressLog) {
-          _console.log = console.log;
-          console.log = () => undefined;
-        }
-        if(suppressWarn) {
-          _console.warn = console.warn;
-          console.warn = () => undefined;
-        }
-
-        parser = parseLog(parserClass, log);
-
-        Object.keys(_console).forEach(key => { console[key] = _console[key]; });
-      });
-
       Object.values(parserClass.specModules).forEach(moduleClass => {
         if(moduleClass instanceof Array) {
           // cannot call parser._getModuleClass at this point in

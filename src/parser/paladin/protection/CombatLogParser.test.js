@@ -1,4 +1,4 @@
-import integrationTest from 'parser/core/tests/CombatLogParserIntegrationTest';
+import integrationTest from 'parser/core/tests/integrationTest';
 import CombatLogParser from './CombatLogParser';
 
 describe('The Protection Paladin Analyzer', integrationTest(

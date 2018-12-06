@@ -5,17 +5,17 @@ const _CACHE = {};
 
 // asynchronously load and parse a log. returns a promise that resolves
 // to the log object
-export function loadLog(key, searchPath='test-logs/') {
-  if(_CACHE[key] !== undefined) {
-    return Promise.resolve(_CACHE[key]);
+export function loadLog(filename, searchPath='test-logs/') {
+  if(_CACHE[filename] !== undefined) {
+    return Promise.resolve(_CACHE[filename]);
   }
-  return decompress(`${searchPath}${key}.zip`).then(files => {
+  return decompress(`${searchPath}${filename}.zip`).then(files => {
     const result = files.reduce((res, file) => {
       res[file.path.split('.')[0]] = JSON.parse(file.data.toString());
       return res;
     }, {});
 
-    _CACHE[key] = result;
+    _CACHE[filename] = result;
     return result;
   });
 }
@@ -27,27 +27,26 @@ export function loadLog(key, searchPath='test-logs/') {
  * @param {boolean} warn - Suppress console.warn?
  * @param {boolean} error - Suppress console.error?
  */
-export function suppressLogging(log, warn, error) {
+export function suppressLogging(log, warn, error, cb) {
   const _console = {};
-  beforeEach(() => {
-    if(warn) {
-      _console.warn = console.warn;
-      console.warn = () => undefined;
-    }
-    if(log) {
-      _console.log = console.log;
-      console.log = () => undefined;
-    }
-    if(error) {
-      _console.error = console.error;
-      console.error = () => undefined;
-    }
-  });
+  if(warn) {
+    _console.warn = console.warn;
+    console.warn = () => undefined;
+  }
+  if(log) {
+    _console.log = console.log;
+    console.log = () => undefined;
+  }
+  if(error) {
+    _console.error = console.error;
+    console.error = () => undefined;
+  }
 
-  afterEach(() => {
-    Object.keys(_console)
-      .forEach(key => { console[key] = _console[key]; });
-  });
+  const res = cb();
+
+  Object.keys(_console)
+    .forEach(key => { console[key] = _console[key]; });
+  return res;
 }
 
 export function parseLog(parserClass, log) {
@@ -59,7 +58,9 @@ export function parseLog(parserClass, log) {
     fight,
     log.combatants
   );
-  parser.normalize(JSON.parse(JSON.stringify(log.events))).forEach(event => parser.getModule(EventEmitter).triggerEvent(event));
-  parser.finish();
-  return parser;
+  return suppressLogging(true, true, false, () => {
+    parser.normalize(JSON.parse(JSON.stringify(log.events))).forEach(event => parser.getModule(EventEmitter).triggerEvent(event));
+    parser.finish();
+    return parser;
+  });
 }
