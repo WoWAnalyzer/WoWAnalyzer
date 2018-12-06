@@ -68,7 +68,7 @@ class Barrage extends Analyzer {
     this.damage += damage;
   }
 
-  on_finished() {
+  on_fightend() {
     this.casts.forEach((cast) => {
       cast.averageHits = cast.hits / BARRAGE_HITS_PER_CAST;
       if (cast.averageHits < 1) {

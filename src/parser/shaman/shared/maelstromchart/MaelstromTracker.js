@@ -17,7 +17,7 @@ class MaelstromTracker extends Analyzer {
     this.lastEventTimestamp = this.owner.fight.start_time;
   }
 
-  on_finished() {
+  on_fightend() {
     this.extrapolateFocus(this.owner.currentTimestamp);
   }
 

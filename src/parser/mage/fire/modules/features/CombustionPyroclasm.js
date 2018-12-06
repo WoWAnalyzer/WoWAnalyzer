@@ -69,7 +69,7 @@ class CombustionPyroclasm extends Analyzer {
     }
   }
 
-  on_finished() {
+  on_fightend() {
     debug && console.log('Combustion Duration MS: ' + COMBUSTION_DURATION);
     debug && console.log('Expected Pyroblasts: ' + this.expectedPyroblastCasts);
     debug && console.log('Actual Pyroblasts: ' + this.actualPyroblastCasts);

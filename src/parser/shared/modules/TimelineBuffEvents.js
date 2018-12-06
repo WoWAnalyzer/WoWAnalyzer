@@ -30,7 +30,7 @@ class TimelineBuffEvents extends Analyzer {
       history.push(event);
     }
   }
-  
+
   on_byPlayer_changebuffstack(event) {
     const spellId = event.ability.guid;
     this._append(spellId, event);
@@ -41,7 +41,7 @@ class TimelineBuffEvents extends Analyzer {
     this._append(spellId, event);
   }
 
-  on_finished() {
+  on_fightend() {
     // check if there are buffs which are still active on fight end, and add an end event
     Object.keys(this.buffHistoryBySpellId)
     .forEach((spellId) => {

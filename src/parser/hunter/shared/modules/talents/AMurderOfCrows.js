@@ -121,7 +121,7 @@ class AMurderOfCrows extends Analyzer {
     this.bonusDamage += event.amount + (event.absorbed || 0);
   }
 
-  on_finished() {
+  on_fightend() {
     this.maxCasts += Math.ceil(this.owner.fightDuration / 60000);
   }
 

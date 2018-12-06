@@ -55,7 +55,7 @@ class EssenceFontMastery extends Analyzer {
     }
   }
 
-  on_finished() {
+  on_fightend() {
     if (debug) {
       console.log(`EF Mastery Hots Casted into: ${this.healEF / 2}`);
       console.log(`EF Mastery Healing Amount: ${this.healing}`);

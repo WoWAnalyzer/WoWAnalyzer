@@ -40,7 +40,7 @@ class AnimalCompanion extends Analyzer {
     }
   }
 
-  on_finished() {
+  on_fightend() {
     let max = 0;
     this.pets.forEach(pet => {
       if (pet.damage > max) {

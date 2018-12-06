@@ -2,7 +2,6 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import SPELLS from 'common/SPELLS';
 import Events from 'parser/core/Events';
-import CombatLogParser from 'parser/core/CombatLogParser';
 
 const debug = false;
 
@@ -27,7 +26,7 @@ class ExecuteRangeTracker extends Analyzer {
   constructor(...args) {
     super(...args);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this._onCast);
-    this.addEventListener(CombatLogParser.finished, this._onFinished);
+    this.addEventListener(Events.fightend, this._onFinished);
   }
 
   _onCast(event) {
