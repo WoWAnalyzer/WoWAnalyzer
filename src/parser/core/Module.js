@@ -16,7 +16,11 @@ class Module {
   /**
    * @param {object} options
    */
-  constructor({ owner, priority, ...others }) {
+  constructor(options) {
+    if (!options) {
+      throw new Error('`options` is a required parameter. Make sure you pass it to a `super();` call.');
+    }
+    const { owner, priority, ...others } = options;
     this.owner = owner;
     this.priority = priority;
 
