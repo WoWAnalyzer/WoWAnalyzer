@@ -2,6 +2,7 @@ import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import StatTracker from 'parser/shared/modules/StatTracker';
 import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
@@ -15,19 +16,16 @@ const explosivePotentialStats = traits => traits.reduce((total, rank) => {
   return total + haste;
 }, 0);
 
-export const STAT_TRACKER = {
-  haste: combatant => explosivePotentialStats(combatant.traitsBySpellId[SPELLS.EXPLOSIVE_POTENTIAL.id]),
-};
-
 const debug = false;
 
 /*
   Explosive Potential:
-    When your Implosion consumes 3 or more Imps, gain X Haste for 15 sec.
+  When your Implosion consumes 3 or more Imps, gain X Haste for 15 sec.
  */
 class ExplosivePotential extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
+    statTracker: StatTracker,
   };
 
   haste = 0;
@@ -39,8 +37,13 @@ class ExplosivePotential extends Analyzer {
     if (!this.active) {
       return;
     }
+
     this.haste = explosivePotentialStats(this.selectedCombatant.traitsBySpellId[SPELLS.EXPLOSIVE_POTENTIAL.id]);
     debug && this.log(`Total bonus from EP: ${this.haste}`);
+
+    this.statTracker.add(SPELLS.EXPLOSIVE_POTENTIAL_BUFF.id, {
+      haste: this.haste,
+    });
 
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.EXPLOSIVE_POTENTIAL_BUFF), this.countProc);
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.EXPLOSIVE_POTENTIAL_BUFF), this.countProc);
