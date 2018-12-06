@@ -64,7 +64,7 @@ class IronFur extends Analyzer {
     return this._hitsPerStack.map(hits => hits / this.totalHitsTaken);
   }
 
-  on_finished() {
+  on_fightend() {
     if (debug) {
       console.log(`Hits with ironfur ${this.hitsMitigated}`);
       console.log(`Hits without ironfur ${this.hitsUnmitigated}`);

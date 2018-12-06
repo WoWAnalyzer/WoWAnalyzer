@@ -3,7 +3,6 @@ import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Events from 'parser/core/Events';
-import CombatLogParser from 'parser/core/CombatLogParser';
 
 import SPELLS from 'common/SPELLS';
 import { formatThousands } from 'common/format';
@@ -30,7 +29,7 @@ class VileTaint extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.VILE_TAINT_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VILE_TAINT_TALENT), this.onVileTaintCast);
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.VILE_TAINT_TALENT), this.onVileTaintApplyDebuff);
-    this.addEventListener(CombatLogParser.finished, this.onFinished);
+    this.addEventListener(Events.fightend, this.onFinished);
   }
 
   onVileTaintCast(event) {

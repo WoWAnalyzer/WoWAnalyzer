@@ -78,7 +78,7 @@ class WildGrowth extends Analyzer {
     this.wgTracker.wgBuffs.push(event.targetID);
   }
 
-  on_finished() {
+  on_fightend() {
     this.wgHistory.push(this.wgTracker);
   }
 

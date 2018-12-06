@@ -127,7 +127,7 @@ class SoulShardTracker extends ResourceTracker {
     }
   }
 
-  on_finished() {
+  on_fightend() {
     // after the fight has finished, try to redistribute the missing fragments
     const missingFragments = this.spent - this.generated;
     if (missingFragments <= 0) {

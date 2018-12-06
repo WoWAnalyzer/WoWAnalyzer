@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
@@ -12,10 +13,6 @@ const rollingHavocStats = traits => traits.reduce((total, rank) => {
   return total + intellect;
 }, 0);
 
-export const STAT_TRACKER = {
-  intellect: combatant => rollingHavocStats(combatant.traitsBySpellId[SPELLS.ROLLING_HAVOC.id]),
-};
-
 const debug = false;
 
 /*
@@ -23,6 +20,10 @@ const debug = false;
   Each time your spells duplicate to a Havoc target, gain X Intellect for 15 sec. This effect stacks.
  */
 class RollingHavoc extends Analyzer {
+  static dependencies = {
+    statTracker: StatTracker,
+  };
+
   intellect = 0;
 
   constructor(...args) {
@@ -31,8 +32,13 @@ class RollingHavoc extends Analyzer {
     if (!this.active) {
       return;
     }
+
     this.intellect = rollingHavocStats(this.selectedCombatant.traitsBySpellId[SPELLS.ROLLING_HAVOC.id]);
     debug && this.log(`Total bonus from RH: ${this.intellect}`);
+
+    this.statTracker.add(SPELLS.ROLLING_HAVOC_BUFF.id, {
+      intellect: this.intellect,
+    });
   }
 
   get averageIntellect() {

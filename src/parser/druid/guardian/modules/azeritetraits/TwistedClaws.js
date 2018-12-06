@@ -4,6 +4,7 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import { calculateAzeriteEffects } from 'common/stats';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 export function twistedClawsStats(combatant) {
   if (!combatant.hasTrait(SPELLS.TWISTED_CLAWS.id)) {
@@ -14,17 +15,20 @@ export function twistedClawsStats(combatant) {
     .reduce((total, ilevel) => total + calculateAzeriteEffects(SPELLS.TWISTED_CLAWS.id, ilevel)[0], 0);
 }
 
-export const STAT_TRACKER = {
-  agility: twistedClawsStats,
-};
-
 class TwistedClaws extends Analyzer {
+  static dependencies = {
+    statTracker: StatTracker,
+  };
+
   agility = 0;
 
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.TWISTED_CLAWS.id);
+
+    if (!this.active) return;
     this.agility = twistedClawsStats(this.selectedCombatant);
+    this.statTracker.add(SPELLS.TWISTED_CLAWS_BUFF.id, { agility: this.agility });
   }
 
   get averageStacks() {

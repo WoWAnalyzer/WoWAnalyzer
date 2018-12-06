@@ -28,7 +28,7 @@ class Abilities extends CoreAbilities {
         charges: 3,
         enabled: combatant.hasTalent(SPELLS.BLESSED_HAMMER_TALENT.id),
         castEfficiency: {
-          suggestion: true,
+          suggestion: false,
           recommendedEfficiency: 0.9,
         },
       },
@@ -69,7 +69,7 @@ class Abilities extends CoreAbilities {
         },
         enabled: !combatant.hasTalent(SPELLS.BLESSED_HAMMER_TALENT.id),
         castEfficiency: {
-          suggestion: true,
+          suggestion: false,
         },
       },
       {

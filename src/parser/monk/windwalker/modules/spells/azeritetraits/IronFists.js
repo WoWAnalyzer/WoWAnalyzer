@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatNumber, formatPercentage } from 'common/format';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 const ironFistsStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [crit] = calculateAzeriteEffects(SPELLS.IRON_FISTS.id, rank);
@@ -14,15 +15,15 @@ const ironFistsStats = traits => Object.values(traits).reduce((obj, rank) => {
     crit: 0,
   });
 
-export const STAT_TRACKER = {
-  crit: combatant => ironFistsStats(combatant.traitsBySpellId[SPELLS.IRON_FISTS.id]),
-};
-
 /**
  * Fists of Fury grants you 547 critical strike for 10 sec when it hits at least 4 enemies
  *
  * */
 class IronFists extends Analyzer {
+  static dependencies = {
+    statTracker: StatTracker,
+  };
+
   critBuff = 0;
 
   constructor(...args) {
@@ -34,6 +35,10 @@ class IronFists extends Analyzer {
     }
     const { crit } = ironFistsStats(this.selectedCombatant.traitsBySpellId[SPELLS.IRON_FISTS.id]);
     this.critBuff = crit;
+
+    this.statTracker.add(SPELLS.IRON_FISTS_BUFF.id, {
+      crit,
+    });
   }
 
   get buffTriggerCount() {

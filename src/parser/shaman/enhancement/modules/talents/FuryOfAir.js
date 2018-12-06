@@ -36,7 +36,7 @@ class FuryOfAir extends Analyzer {
     }
   }
 
-  on_finished() {
+  on_fightend() {
     if (this.applyTime !== 0) {
       this.furyUptime += Math.floor((this.owner.fight.end_time - this.applyTime) / 1000);
     }

@@ -285,23 +285,6 @@ export default {
     icon: 'spell_shadow_soulleech_2',
   },
 
-  // Affliction Azerite Trait effects
-  CASCADING_CALAMITY_BUFF: {
-    id: 275378,
-    name: 'Cascading Calamity',
-    icon: 'spell_shadow_unstableaffliction_3',
-  },
-  WRACKING_BRILLIANCE_BUFF: {
-    id: 272893,
-    name: 'Wracking Brilliance',
-    icon: 'spell_shadow_felmending',
-  },
-  INEVITABLE_DEMISE_BUFF: {
-    id: 273525,
-    name: 'Inevitable Demise',
-    icon: 'spell_shadow_abominationexplosion',
-  },
-
   // -----------
   // DEMONOLOGY
   // -----------

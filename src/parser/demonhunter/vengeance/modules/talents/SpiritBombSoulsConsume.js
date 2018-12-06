@@ -63,7 +63,7 @@ class SpiritBombSoulsConsume extends Analyzer {
     this.castSoulsConsumed = 0;
   }
 
-  on_finished() {
+  on_fightend() {
     this.countHits();
   }
 

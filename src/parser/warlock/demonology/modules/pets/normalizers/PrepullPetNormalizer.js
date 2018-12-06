@@ -1,8 +1,9 @@
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import SPELLS from 'common/SPELLS';
-import { PERMANENT_PET_ABILITIES_TO_SUMMON_MAP, PET_GUID_TO_SUMMON_ABILITY_MAP, PET_SUMMON_ABILITY_IDS } from '../CONSTANTS';
+import { PERMANENT_PET_ABILITIES_TO_SUMMON_MAP, PET_SUMMON_ABILITY_IDS } from '../CONSTANTS';
 import { isPermanentPet } from '../helpers';
+import PETS from '../PETS';
 
 const MAX_TEMPORARY_PET_DURATION = 30000;
 const CHECKED_EVENT_TYPES = ['begincast', 'cast', 'damage'];
@@ -51,11 +52,11 @@ class PrepullPetNormalizer extends EventsNormalizer {
           }
           else {
             const guid = this._getPetGuid(petId);
-            if (!PET_GUID_TO_SUMMON_ABILITY_MAP[guid]) {
+            if (!PETS[guid]) {
               debug && console.error(`(${this.owner.formatTimestamp(event.timestamp, 3)}) ERROR - unknown pet`, event);
               continue;
             }
-            spell = SPELLS[PET_GUID_TO_SUMMON_ABILITY_MAP[guid]];
+            spell = SPELLS[PETS[guid].summonAbility];
           }
           const fabricatedEvent = {
             timestamp: this.owner.fight.start_time,

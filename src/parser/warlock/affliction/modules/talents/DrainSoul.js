@@ -4,7 +4,6 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies from 'parser/shared/modules/Enemies';
 import Events from 'parser/core/Events';
-import CombatLogParser from 'parser/core/CombatLogParser';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatThousands } from 'common/format';
@@ -41,7 +40,7 @@ class DrainSoul extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.DRAIN_SOUL_TALENT.id);
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DRAIN_SOUL_KILL_SHARD_GEN), this.onDrainSoulEnergize);
     this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.DRAIN_SOUL_TALENT), this.onDrainSoulRemove);
-    this.addEventListener(CombatLogParser.finished, this.onFinished);
+    this.addEventListener(Events.fightend, this.onFinished);
   }
 
   onDrainSoulEnergize(event) {
