@@ -160,7 +160,7 @@ class SpiritOfTheCrane extends Analyzer {
     );
   }
 
-  on_finished() {
+  on_fightend() {
     if (debug) {
       console.log(`TotM Buffs Wasted:${this.totmBuffWasted}`);
       console.log(`TotM Buffs Overcap:${this.totmOverCap}`);

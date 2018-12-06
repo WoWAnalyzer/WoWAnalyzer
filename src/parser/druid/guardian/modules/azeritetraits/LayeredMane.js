@@ -5,6 +5,7 @@ import Analyzer from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 export function layeredManeStats(combatant) {
   if (!combatant.hasTrait(SPELLS.LAYERED_MANE.id)) {
@@ -15,11 +16,11 @@ export function layeredManeStats(combatant) {
     .reduce((total, ilevel) => total + calculateAzeriteEffects(SPELLS.LAYERED_MANE.id, ilevel)[0], 0);
 }
 
-export const STAT_TRACKER = {
-  agility: layeredManeStats,
-};
-
 class LayeredMane extends Analyzer {
+  static dependencies = {
+    statTracker: StatTracker,
+  };
+
   agility = 0;
   _totalCasts = 0;
   _totalStacks = 0;
@@ -27,8 +28,10 @@ class LayeredMane extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.LAYERED_MANE.id);
+    if (!this.active) return;
 
     this.agility = layeredManeStats(this.selectedCombatant);
+    this.statTracker.add(SPELLS.IRONFUR.id, { agility: this.agility });
   }
 
   on_byPlayer_applybuffstack(event) {

@@ -25,11 +25,11 @@ const BASE_INTELLECT_PER_STACK = 12;
 /**
  * Use: Kindle your soul, gaining [x] Intellect, which decays over 20 sec or when taking damage.
  * (1 Min, 30 Sec Cooldown)
- * 
+ *
  * When activated the buff starts at 100 stacks. Every 1 second 5 stacks are lost.
  * Taking damage removes stacks. It appears that taking larger hits removes more stacks.
  * Stacks are removed even if the damage is 100% absorbed.
- * 
+ *
  * The initial buff shows in the log (and changebuffstack fabricated events) as a "1 stack" buff.
  * The log shows the correct stack count once it has been lowered from that initial value.
  */
@@ -55,7 +55,7 @@ class BalefireBranch extends Analyzer {
 
   // scales with trinket's ilvl
   intellectPerStack = 0;
-  
+
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrinket(ITEMS.BALEFIRE_BRANCH.id);
@@ -125,7 +125,7 @@ class BalefireBranch extends Analyzer {
     this.totalUptime += (event.timestamp - this.lastApply);
   }
 
-  on_finished() {
+  on_fightend() {
     if (!this.lastChange || !this.currentStack) {
       return;
     }

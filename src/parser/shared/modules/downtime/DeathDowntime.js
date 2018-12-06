@@ -35,7 +35,7 @@ class DeathDowntime extends Analyzer {
     this._lastDeathTimestamp = null;
     this._isAlive = true;
   }
-  on_finished() {
+  on_fightend() {
     if (!this._isAlive) {
       this.resurrect(this.owner.currentTimestamp);
     }

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
@@ -13,17 +14,17 @@ const supremeCommanderStats = traits => traits.reduce((total, rank) => {
   return total + intellect;
 }, 0);
 
-export const STAT_TRACKER = {
-  intellect: combatant => supremeCommanderStats(combatant.traitsBySpellId[SPELLS.SUPREME_COMMANDER.id]),
-};
-
 const debug = false;
 
 /*
   Supreme Commander:
-    When your Demonic Tyrant expires, consume its life essence, granting you a stack of Demonic Core and increasing your Intellect by X for 15 sec.
+  When your Demonic Tyrant expires, consume its life essence, granting you a stack of Demonic Core and increasing your Intellect by X for 15 sec.
  */
 class SupremeCommander extends Analyzer {
+  static dependencies = {
+    statTracker: StatTracker,
+  };
+
   intellect = 0;
 
   constructor(...args) {
@@ -32,8 +33,13 @@ class SupremeCommander extends Analyzer {
     if (!this.active) {
       return;
     }
+
     this.intellect = supremeCommanderStats(this.selectedCombatant.traitsBySpellId[SPELLS.SUPREME_COMMANDER.id]);
     debug && this.log(`Total bonus from SC: ${this.intellect}`);
+
+    this.statTracker.add(SPELLS.SUPREME_COMMANDER_BUFF.id, {
+      intellect: this.intellect,
+    });
   }
 
   get uptime() {

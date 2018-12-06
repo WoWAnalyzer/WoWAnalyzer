@@ -43,7 +43,7 @@ class ChiJi extends Analyzer {
     return (this.overHealing / (this.healing + this.overHealing)).toFixed(4) || 0;
   }
 
-  on_finished() {
+  on_fightend() {
     if (debug) {
       console.log(`Chi-Ji ID: ${this.petID}`);
     }
