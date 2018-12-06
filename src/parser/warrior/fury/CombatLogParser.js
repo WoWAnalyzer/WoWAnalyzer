@@ -14,9 +14,12 @@ import MissedRampage from './modules/spells/MissedRampage';
 import RampageCancelled from './modules/spells/RampageCancelled';
 
 import AngerManagement from './modules/talents/AngerManagement';
+import Bladestorm from './modules/talents/Bladestorm';
+import DragonRoar from './modules/talents/DragonRoar';
 import FrothingBerserker from './modules/talents/FrothingBerserker';
 import FuriousSlashTimesByStacks from './modules/talents/FuriousSlashTimesByStacks';
 import FuriousSlashUptime from './modules/talents/FuriousSlashUptime';
+import ImpendingVicory from './modules/talents/ImpendingVictory';
 import Recklessness from './modules/spells/Recklessness';
 import RecklessFlurry from './modules/azerite/RecklessFlurry';
 
@@ -37,9 +40,12 @@ class CombatLogParser extends CoreCombatLogParser {
     rampageCancelled: RampageCancelled,
 
     angerManagement: AngerManagement,
+    bladestorm: Bladestorm,
+    dragonRoar: DragonRoar,
     frothingBerserker: FrothingBerserker,    
     furiousSlashTimesByStacks: FuriousSlashTimesByStacks,
     furiousSlashUptime: FuriousSlashUptime,
+    impendingVictory: ImpendingVicory,
     recklessness: Recklessness,
     recklessFlurry: RecklessFlurry,
 
