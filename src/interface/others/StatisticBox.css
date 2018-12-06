@@ -7,14 +7,6 @@
 .panel.statistic-box .label {
   color: #b3adad;
   margin-bottom: 3px;
-  /* fucking bootstrap: */
-  display: block;
-  padding: 0;
-  font-size: inherit;
-  line-height: inherit;
-  text-align: inherit;
-  border-radius: inherit;
-  font-weight: 200;
 }
 .panel.statistic-box .value {
   font-size: 2em;

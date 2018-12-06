@@ -35,11 +35,4 @@ export default {
   parser: () => retryingPromise(() => import('./CombatLogParser' /* webpackChunkName: "EnhancementShaman" */).then(exports => exports.default)),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
-  // footer: (
-  //   <div className="panel fade-in" style={{ margin: '15px auto 30px', maxWidth: 400, textAlign: 'center' }}>
-  //     <div className="panel-body text-muted">
-  //       Questions about Enhancement? Visit <a href="http://www.discord.me/earthshrine">Earthshrine</a> Discord.<br />
-  //     </div>
-  //   </div>
-  // ),
 };

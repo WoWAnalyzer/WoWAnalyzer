@@ -125,7 +125,7 @@ class Rule extends React.PureComponent {
             {description && (
               <>
                 <div className="row" style={{ position: 'relative', marginBottom: 10 }}>
-                  <InformationIcon className="text-muted" style={{ position: 'absolute', top: '50%', left: -33, transform: 'translateY(-33%)', fontSize: '2em' }} />
+                  <InformationIcon className="icon" style={{ position: 'absolute', top: '50%', left: -33, transform: 'translateY(-33%)', fontSize: '2em' }} />
                   <div className="col-md-12 text-muted">
                     <div className="flex">
                       <div className="flex-main">
