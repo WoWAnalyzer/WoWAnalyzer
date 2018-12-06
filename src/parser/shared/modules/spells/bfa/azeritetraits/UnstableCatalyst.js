@@ -5,15 +5,12 @@ import { formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import Analyzer from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 const unstableCatalystStats = traits => Object.values(traits).reduce((total, rank) => {
-  const [int] = calculateAzeriteEffects(SPELLS.UNSTABLE_CATALYST.id, rank);
-  return total + int;
+  const [ stat ] = calculateAzeriteEffects(SPELLS.UNSTABLE_CATALYST.id, rank);
+  return total + stat;
 }, 0);
-
-export const STAT_TRACKER = {
-  intellect: combatant => unstableCatalystStats(combatant.traitsBySpellId[SPELLS.UNSTABLE_CATALYST.id]),
-};
 
 /**
  * Unstable Catalyst:
@@ -21,7 +18,11 @@ export const STAT_TRACKER = {
  * Standing in the Azerite increases your primary stat by 177 for 8 sec.
  */
 class UnstableCatalyst extends Analyzer {
-  int = 0;
+  static dependencies = {
+    statTracker: StatTracker,
+  };
+
+  stat = 0;
 
   constructor(...args) {
     super(...args);
@@ -30,15 +31,21 @@ class UnstableCatalyst extends Analyzer {
       return;
     }
 
-    this.int = unstableCatalystStats(this.selectedCombatant.traitsBySpellId[SPELLS.UNSTABLE_CATALYST.id]);
+    this.stat = unstableCatalystStats(this.selectedCombatant.traitsBySpellId[SPELLS.UNSTABLE_CATALYST.id]);
+
+    this.statTracker.add(SPELLS.UNSTABLE_CATALYST_BUFF.id, {
+      strength: this.stat,
+      intellect: this.stat,
+      agility: this.stat,
+    });
   }
 
   get uptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.UNSTABLE_CATALYST_BUFF.id) / this.owner.fightDuration;
   }
 
-  get averageint() {
-    return (this.int * this.uptime).toFixed(0);
+  get averageStat() {
+    return (this.stat * this.uptime).toFixed(0);
   }
 
   statistic() {
@@ -46,9 +53,9 @@ class UnstableCatalyst extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.UNSTABLE_CATALYST.id}
-        value={`${this.averageint} average ${this.selectedCombatant.spec.primaryStat}`}
+        value={`${this.averageStat} average ${this.selectedCombatant.spec.primaryStat}`}
         tooltip={`
-          ${SPELLS.UNSTABLE_CATALYST.name} grants <b>${this.int} ${this.selectedCombatant.spec.primaryStat}</b> while active.<br/>
+          ${SPELLS.UNSTABLE_CATALYST.name} grants <b>${this.stat} ${this.selectedCombatant.spec.primaryStat}</b> while active.<br/>
           You had an uptime of ${formatPercentage(this.uptime)}%.
         `}
       />
