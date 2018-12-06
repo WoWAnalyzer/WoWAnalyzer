@@ -5,6 +5,7 @@ import { calculateAzeriteEffects } from 'common/stats';
 import Analyzer from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 const elementalWhirlStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [stat] = calculateAzeriteEffects(SPELLS.ELEMENTAL_WHIRL.id, rank);
@@ -14,13 +15,6 @@ const elementalWhirlStats = traits => Object.values(traits).reduce((obj, rank) =
   stat: 0,
 });
 
-export const STAT_TRACKER = {
-  [SPELLS.ELEMENTAL_WHIRL_HASTE.id]: combatant => elementalWhirlStats(combatant.traitsBySpellId[SPELLS.ELEMENTAL_WHIRL.id]).stat,
-  [SPELLS.ELEMENTAL_WHIRL_CRIT.id]: combatant => elementalWhirlStats(combatant.traitsBySpellId[SPELLS.ELEMENTAL_WHIRL.id]).stat,
-  [SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id]: combatant => elementalWhirlStats(combatant.traitsBySpellId[SPELLS.ELEMENTAL_WHIRL.id]).stat,
-  [SPELLS.ELEMENTAL_WHIRL_MASTERY.id]: combatant => elementalWhirlStats(combatant.traitsBySpellId[SPELLS.ELEMENTAL_WHIRL.id]).stat,
-};
-
 /**
  * Elemental Whirl
  * Your damaging abilities have a chance to grant you Elemental Whirl, increasing your Critical Strike, Haste, Mastery, or Versatility by X for 10 sec.
@@ -28,6 +22,10 @@ export const STAT_TRACKER = {
  * Example report: https://www.warcraftlogs.com/reports/Xr7Nxjd1KnMT9QBf/#fight=1&source=13&type=auras
  */
 class ElementalWhirl extends Analyzer {
+  static dependencies = {
+    statTracker: StatTracker,
+  };
+
   stat = 0;
   hasteProcs = 0;
   critProcs = 0;
@@ -49,6 +47,19 @@ class ElementalWhirl extends Analyzer {
     }
     const { stat } = elementalWhirlStats(this.selectedCombatant.traitsBySpellId[SPELLS.ELEMENTAL_WHIRL.id]);
     this.stat = stat;
+
+    this.statTracker.add(SPELLS.ELEMENTAL_WHIRL_CRIT.id, {
+      crit: stat,
+    });
+    this.statTracker.add(SPELLS.ELEMENTAL_WHIRL_HASTE.id, {
+      haste: stat,
+    });
+    this.statTracker.add(SPELLS.ELEMENTAL_WHIRL_MASTERY.id, {
+      mastery: stat,
+    });
+    this.statTracker.add(SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id, {
+      versatility: stat,
+    });
   }
 
   on_byPlayer_applybuff(event) {

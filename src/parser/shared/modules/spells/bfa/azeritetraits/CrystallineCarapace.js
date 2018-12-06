@@ -5,15 +5,12 @@ import { formatNumber, formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import Analyzer from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 const crystallineCarapaceStats = traits => Object.values(traits).reduce((total, rank) => {
   const [armor] = calculateAzeriteEffects(SPELLS.CRYSTALLINE_CARAPACE.id, rank);
   return total + armor;
 }, 0);
-
-export const STAT_TRACKER = {
-  armor: combatant => crystallineCarapaceStats(combatant.traitsBySpellId[SPELLS.CRYSTALLINE_CARAPACE.id]),
-};
 
 /**
  * Crystalline Carapace
@@ -22,16 +19,19 @@ export const STAT_TRACKER = {
  * Example report: https://www.warcraftlogs.com/reports/BHx6LdtGKW7XnQvp#fight=9&type=summary&source=6&translate=true
  */
 class CrystallineCarapace extends Analyzer {
+  static dependencies = {
+    statTracker: StatTracker,
+  };
+
   armor = 0;
   damage = 0;
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.CRYSTALLINE_CARAPACE.id);
-    if (!this.active) {
-      return;
-    }
+    if (!this.active) return;
 
     this.armor = crystallineCarapaceStats(this.selectedCombatant.traitsBySpellId[SPELLS.CRYSTALLINE_CARAPACE.id]);
+    this.statTracker.add(SPELLS.CRYSTALLINE_CARAPACE_BUFF.id, { armor: this.armor });
   }
 
   get uptime() {
