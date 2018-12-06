@@ -1,0 +1,13 @@
+.checklist {
+  .checklist-item {
+    font-size: 1.4em;
+    .chevron {
+      color: #aaa;
+      font-size: 0.35em;
+      transition: all 400ms;
+    }
+  }
+  .expanded .checklist-item .chevron {
+    color: #fff;
+  }
+}

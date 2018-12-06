@@ -1,0 +1,47 @@
+@import './Reset.css';
+
+.icon {
+  height: 1em;
+  vertical-align: middle;
+  margin-top: -0.15em;
+}
+svg.icon {
+  fill: currentColor;
+}
+svg.icon.stroke {
+  fill: none;
+  stroke: currentColor;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.flex {
+  display: flex;
+}
+.flex.horizontal {
+  flex-direction: column;
+}
+.flex.wrapable {
+  flex-wrap: wrap;
+}
+.flex > * {
+  flex: 1;
+}
+.flex-main {
+  flex: 1;
+  width: 100%;
+}
+.flex-sub {
+  flex: 0 0 auto;
+}
+.content-middle {
+  display: flex;
+  align-items: center;
+}
+
+.pull-right {
+  float: right;
+}

@@ -25,10 +25,7 @@ import ThunderSoundEffect from 'interface/audio/Thunder Sound effect.mp3';
 import ReportPage from 'interface/report/index';
 
 import 'react-toggle/style.css';
-import './Reset.css';
-import './App.css';
-import './Panel.css';
-import './Game.css';
+import './App.scss';
 
 import Header from './Header';
 
@@ -223,10 +220,6 @@ class App extends React.Component {
     );
   }
 
-  get showReportSelecter() {
-    return this.props.isHome && !this.props.error;
-  }
-
   getPath(location) {
     return `${location.pathname}${location.search}`;
   }
@@ -239,22 +232,15 @@ class App extends React.Component {
   }
 
   render() {
-    const { error } = this.props;
-
     return (
       <>
-        <div className={`app ${this.showReportSelecter ? 'show-report-selecter' : ''}`}>
-          {/*<NavigationBar />*/}
-          {/*<Header showReportSelecter={this.showReportSelecter} />*/}
-          <main>
-            <ErrorBoundary>
-              {this.renderContent()}
-            </ErrorBoundary>
-          </main>
+        <div>
+          <ErrorBoundary>
+            {this.renderContent()}
+          </ErrorBoundary>
 
           <ReactTooltip html place="bottom" effect="solid" />
         </div>
-        {!error && <Footer />}
         <div id="portal" />
       </>
     );

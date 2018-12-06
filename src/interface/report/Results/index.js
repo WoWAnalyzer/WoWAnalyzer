@@ -109,7 +109,7 @@ class Results extends React.PureComponent {
     switch (selectedTab) {
       case 'overview':
         return (
-          <>
+          <div className="container">
             <div className="panel">
               <div className="panel-heading">
                 Checklist
@@ -120,7 +120,7 @@ class Results extends React.PureComponent {
               </div>
             </div>
             <Suggestions issues={results.issues} />
-          </>
+          </div>
         );
       case 'statistics':
         return (

@@ -90,7 +90,7 @@ class Rule extends React.PureComponent {
 
     return (
       <RuleContext.Provider value={this.setRequirementPerformance}>
-        <div className={`expandable ${this.state.expanded ? 'expanded' : ''}`}>
+        <li className={`expandable ${this.state.expanded ? 'expanded' : ''}`}>
           <div className="meta checklist-item" onClick={this.handleToggleExpand}>
             <div className="flex">
               <div className="flex-sub content-middle" style={{ paddingRight: 18 }}>
@@ -106,7 +106,8 @@ class Rule extends React.PureComponent {
               <div className="flex-main">
                 {name}
               </div>
-              <div className="flex-sub content-middle" style={{ width: 100 }}>
+              <div className="flex-sub content-middle">
+                {performance > 0.666 ? 'Great!' : 'Can be improved'}
                 <div className="performance-bar-container">
                   <div
                     className="performance-bar small"
@@ -140,7 +141,7 @@ class Rule extends React.PureComponent {
               {children}
             </div>
           </div>
-        </div>
+        </li>
       </RuleContext.Provider>
     );
   }

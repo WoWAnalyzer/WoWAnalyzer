@@ -1,0 +1,20 @@
+@import './Base.scss';
+
+html {
+  min-height: 100%;
+}
+body {
+  line-height: 1.8;
+  font-family: 'Open Sans', 'Century Gothic', sans-serif;
+  text-rendering: optimizeLegibility;
+  background: #2e2e2e;
+  color: #969696;
+  font-size: 14px;
+}
+
+.expandable {
+  cursor: pointer;
+}
+
+@import './Panel.scss';
+@import './Game.css';

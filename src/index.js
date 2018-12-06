@@ -9,4 +9,4 @@ import Root from './Root';
 installErrorLogger();
 installAnalytics();
 
-render(<Root />, document.getElementById('app-mount'));
+render(<Root />, document.getElementById('app'));
