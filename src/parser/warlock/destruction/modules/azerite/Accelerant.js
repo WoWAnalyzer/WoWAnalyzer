@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
@@ -13,10 +14,6 @@ const accelerantStats = traits => traits.reduce((total, rank) => {
   return total + haste;
 }, 0);
 
-export const STAT_TRACKER = {
-  haste: combatant => accelerantStats(combatant.traitsBySpellId[SPELLS.ACCELERANT.id]),
-};
-
 const debug = false;
 
 /*
@@ -24,6 +21,10 @@ const debug = false;
   When your Rain of Fire damages 3 or more targets, gain X Haste for 12 sec.
  */
 class Accelerant extends Analyzer {
+  static dependencies = {
+    statTracker: StatTracker,
+  };
+
   haste = 0;
 
   constructor(...args) {
@@ -32,8 +33,13 @@ class Accelerant extends Analyzer {
     if (!this.active) {
       return;
     }
+
     this.haste = accelerantStats(this.selectedCombatant.traitsBySpellId[SPELLS.ACCELERANT.id]);
     debug && this.log(`Total bonus from Accelerant: ${this.haste}`);
+
+    this.statTracker.add(SPELLS.ACCELERANT_BUFF.id, {
+      haste: this.haste,
+    });
   }
 
   get uptime() {
