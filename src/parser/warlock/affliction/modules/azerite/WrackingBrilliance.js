@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
@@ -13,17 +14,17 @@ const wrackingBrillianceStats = traits => traits.reduce((total, rank) => {
   return total + intellect;
 }, 0);
 
-export const STAT_TRACKER = {
-  intellect: combatant => wrackingBrillianceStats(combatant.traitsBySpellId[SPELLS.WRACKING_BRILLIANCE.id]),
-};
-
 const debug = false;
 
 /*
   Wracking Brilliance:
-    Every other Soul Shard your Agony generates also increases your Intellect by X for 6 sec.
+  Every other Soul Shard your Agony generates also increases your Intellect by X for 6 sec.
  */
 class WrackingBrilliance extends Analyzer {
+  static dependencies = {
+    statTracker: StatTracker,
+  };
+
   intellect = 0;
 
   constructor(...args) {
@@ -32,8 +33,13 @@ class WrackingBrilliance extends Analyzer {
     if (!this.active) {
       return;
     }
+
     this.intellect = wrackingBrillianceStats(this.selectedCombatant.traitsBySpellId[SPELLS.WRACKING_BRILLIANCE.id]);
     debug && this.log(`Total bonus from WB: ${this.intellect}`);
+
+    this.statTracker.add(SPELLS.WRACKING_BRILLIANCE_BUFF.id, {
+      intellect: this.intellect,
+    });
   }
 
   get uptime() {

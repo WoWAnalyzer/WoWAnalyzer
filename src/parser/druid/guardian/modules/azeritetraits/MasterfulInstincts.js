@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatPercentage } from 'common/format';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 export function masterfulInstinctsStats(combatant) {
   if (!combatant.hasTrait(SPELLS.MASTERFUL_INSTINCTS.id)) {
@@ -20,21 +21,24 @@ export function masterfulInstinctsStats(combatant) {
   return { mastery, armor };
 }
 
-export const STAT_TRACKER = {
-  masterfulInstinctsStats,
-};
-
 class MasterfulInstincts extends Analyzer {
+  static dependencies = {
+    statTracker: StatTracker,
+  };
+
   mastery = 0;
   armor = 0;
 
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.MASTERFUL_INSTINCTS.id);
+
+    if (!this.active) return;
     const { mastery, armor } = masterfulInstinctsStats(this.selectedCombatant);
-    console.log(mastery, armor);
     this.mastery = mastery;
     this.armor = armor;
+
+    this.statTracker.add(SPELLS.MASTERFUL_INSTINCTS_BUFF.id, { mastery, armor });
   }
 
   get uptime() {

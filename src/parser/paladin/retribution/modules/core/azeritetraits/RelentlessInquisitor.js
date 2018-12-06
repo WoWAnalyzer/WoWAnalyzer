@@ -6,6 +6,8 @@ import SpellLink from 'common/SpellLink';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatNumber, formatPercentage } from 'common/format';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import StatTracker from 'parser/shared/modules/StatTracker';
+
 import RelentlessInquisitorStackHandler from './RelentlessInquisitorStackHandler';
 
 const relentlessInquisitorStats = traits => Object.values(traits).reduce((obj, rank) => {
@@ -16,10 +18,6 @@ const relentlessInquisitorStats = traits => Object.values(traits).reduce((obj, r
     haste: 0,
   });
 
-export const STAT_TRACKER = {
-  haste: combatant => relentlessInquisitorStats(combatant.traitsBySpellId[SPELLS.RELENTLESS_INQUISITOR.id]).haste,
-};
-
 /**
  * Spending Holy Power grants you 9 haste for 12 sec per Holy Power spent, stacking up to 20 times. 
  *
@@ -27,17 +25,24 @@ export const STAT_TRACKER = {
 class RelentlessInquisitor extends Analyzer {
   static dependencies = {
     relentlessInquisitorStackHandler: RelentlessInquisitorStackHandler,
+    statTracker: StatTracker,
   };
+
   hasteBuff = 0;
 
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.RELENTLESS_INQUISITOR.id);
-
-    if (this.active) {
-      const { haste } = relentlessInquisitorStats(this.selectedCombatant.traitsBySpellId[SPELLS.RELENTLESS_INQUISITOR.id]);
-      this.hasteBuff = haste;
+    if (!this.active) {
+      return;
     }
+
+    const { haste } = relentlessInquisitorStats(this.selectedCombatant.traitsBySpellId[SPELLS.RELENTLESS_INQUISITOR.id]);
+    this.hasteBuff = haste;
+
+    this.statTracker.add(SPELLS.RELENTLESS_INQUISITOR_BUFF.id, {
+      haste,
+    });
   }
   get averageStacks() {
     return this.relentlessInquisitorStackHandler.averageStacks;
