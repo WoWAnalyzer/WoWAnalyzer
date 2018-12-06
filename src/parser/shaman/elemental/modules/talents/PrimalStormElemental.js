@@ -85,7 +85,7 @@ class PrimalStormElemental extends Analyzer {
     const unusedSpellsCount = unusedSpells.length;
     when(unusedSpellsCount).isGreaterThan(0)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span> Your Storm Elemental is not using all of it's spells. Check if Wind Gust and Eye Of The Storm are set to autocast and you are using Call Lightning.</span>)
+        return suggest(<span> Your Storm Elemental is not using all of it's spells. Check if Wind Gust and Call Lightning are set to autocast and you are using Eye Of The Storm.</span>)
           .icon(SPELLS.STORM_ELEMENTAL_TALENT.icon)
           .actual(`${formatNumber(unusedSpellsCount)} spells not used by your Storm Elemental (${unusedSpellsString})`)
           .recommended(`You should be using all spells of your Storm Elemental.`)
