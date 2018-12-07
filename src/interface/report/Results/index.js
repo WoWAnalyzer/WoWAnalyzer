@@ -24,13 +24,12 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 
 import ChangelogTab from 'interface/others/ChangelogTab';
 import ResultsWarning from './ResultsWarning';
-import Menu from './Menu';
+import Header from './Header';
 import About from './About';
 import Suggestions from './Suggestions';
 import Statistics from './Statistics';
 import StatisticsSectionTitle from './StatisticsSectionTitle';
 import './Results.css';
-import Logo from './Logo';
 
 const DevelopmentTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'DevelopmentTab' */ 'interface/others/DevelopmentTab').then(exports => exports.default)));
 const EventsTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'EventsTab' */ 'interface/others/EventsTab').then(exports => exports.default)));
@@ -109,18 +108,12 @@ class Results extends React.PureComponent {
     switch (selectedTab) {
       case 'overview':
         return (
-          <div className="container">
-            <div className="panel">
-              <div className="panel-heading">
-                Checklist
-                <small>A quick overview of the important parts to see what you did well and what has room for improvement.</small>
-              </div>
-              <div className="panel-body">
-                {this.renderChecklist()}
-              </div>
-            </div>
+          <>
+            <h2>Checklist</h2><br />
+            {this.renderChecklist()}
+            <div className="section-divider" />
             <Suggestions issues={results.issues} />
-          </div>
+          </>
         );
       case 'statistics':
         return (
@@ -157,43 +150,29 @@ class Results extends React.PureComponent {
 
     return (
       <div className={`results boss-${fight.boss}`}>
-        <header>
-          <div className="logo">
-            <Logo />
-          </div>
-          <div>
+        <Header
+          config={config}
+          selectedCombatant={selectedCombatant}
+          playerIcon={characterProfile && characterProfile.thumbnail ? `https://render-${characterProfile.region}.worldofwarcraft.com/character/${characterProfile.thumbnail}` : null}
+          boss={parser.boss}
+          fight={fight}
+          makeTabUrl={makeTabUrl}
+          selectedTab={selectedTab}
+          tabs={results.tabs}
+        />
 
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12" key={this.state.adjustForDowntime}>
+              {this.renderContent(selectedTab, results)}
+            </div>
           </div>
-        </header>
-        <div>
-          <aside>
-            <div className="navigation-toggles">
-              <button>
-                {/* Player selection*/}
-              </button>
-              <button>
-                {/* Fight selection*/}
-              </button>
-            </div>
-            <Menu
-              makeTabUrl={makeTabUrl}
-              selectedTab={selectedTab}
-              tabs={results.tabs}
-            />
-          </aside>
-          <main>
-            <div className="row">
-              <div className="col-md-12" key={this.state.adjustForDowntime}>
-                {this.renderContent(selectedTab, results)}
-              </div>
-            </div>
 
-            {!premium && (
-              <div className="text-center" style={{ marginTop: 40, marginBottom: -40 }}>
-                <Ad format="leaderboard" />
-              </div>
-            )}
-          </main>
+          {!premium && (
+            <div className="text-center" style={{ marginTop: 40, marginBottom: -40 }}>
+              <Ad format="leaderboard" />
+            </div>
+          )}
         </div>
       </div>
     );

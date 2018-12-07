@@ -16,7 +16,7 @@ import ApiDownBackground from 'interface/common/images/api-down-background.gif';
 import FullscreenError from 'interface/common/FullscreenError';
 import ErrorBoundary from 'interface/common/ErrorBoundary';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
-import NavigationBar from 'interface/layout/NavigationBar';
+import NavigationBar from 'interface/layout/NavigationBar/index';
 import Footer from 'interface/layout/Footer/index';
 import HomePage from 'interface/home/Page';
 import NewsPage from 'interface/news/Page';
@@ -25,7 +25,7 @@ import ThunderSoundEffect from 'interface/audio/Thunder Sound effect.mp3';
 import ReportPage from 'interface/report/index';
 
 import 'react-toggle/style.css';
-import './App.scss';
+import './App.css';
 
 import Header from './Header';
 
@@ -220,6 +220,10 @@ class App extends React.Component {
     );
   }
 
+  get showReportSelecter() {
+    return this.props.isHome && !this.props.error;
+  }
+
   getPath(location) {
     return `${location.pathname}${location.search}`;
   }
@@ -232,15 +236,22 @@ class App extends React.Component {
   }
 
   render() {
+    const { error } = this.props;
+
     return (
       <>
-        <div>
-          <ErrorBoundary>
-            {this.renderContent()}
-          </ErrorBoundary>
+        <div className={`app ${this.showReportSelecter ? 'show-report-selecter' : ''}`}>
+          <NavigationBar />
+          <Header showReportSelecter={this.showReportSelecter} />
+          <main>
+            <ErrorBoundary>
+              {this.renderContent()}
+            </ErrorBoundary>
+          </main>
 
           <ReactTooltip html place="bottom" effect="solid" />
         </div>
+        {!error && <Footer />}
         <div id="portal" />
       </>
     );

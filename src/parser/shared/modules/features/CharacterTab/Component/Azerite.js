@@ -81,7 +81,7 @@ class Gear extends React.PureComponent {
           </div>
         </div>
         <div className="row">
-          <div className="col-md-12">
+          <div className="col-md-12 hpadding-lg-30">{/* some bonus padding so it looks to be aligned with the icon for stats */}
             {Object.keys(azerite).map(spellId => {
               spellId = parseInt(spellId, 10);
               const spell = this.state.azerite.find(e => e.id === spellId);

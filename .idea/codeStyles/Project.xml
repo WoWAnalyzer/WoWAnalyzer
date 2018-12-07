@@ -40,9 +40,6 @@
       <option name="SPACES_WITHIN_SHORT_ECHO_TAGS" value="false" />
       <option name="FORCE_SHORT_DECLARATION_ARRAY_STYLE" value="true" />
     </PHPCodeStyleSettings>
-    <ScssCodeStyleSettings>
-      <option name="BLANK_LINES_AROUND_NESTED_SELECTOR" value="0" />
-    </ScssCodeStyleSettings>
     <XML>
       <option name="XML_SPACE_INSIDE_EMPTY_TAG" value="true" />
       <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
@@ -104,11 +101,6 @@
       <option name="FOR_BRACE_FORCE" value="3" />
       <indentOptions>
         <option name="USE_TAB_CHARACTER" value="true" />
-      </indentOptions>
-    </codeStyleSettings>
-    <codeStyleSettings language="SCSS">
-      <indentOptions>
-        <option name="CONTINUATION_INDENT_SIZE" value="2" />
       </indentOptions>
     </codeStyleSettings>
     <codeStyleSettings language="XML">
