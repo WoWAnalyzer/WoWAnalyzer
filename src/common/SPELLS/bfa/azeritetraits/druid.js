@@ -62,6 +62,7 @@ export default {
     id: 273349,
     name: 'Masterful Instincts',
     icon: 'ability_druid_tigersroar',
+  },
   TWISTED_CLAWS: {
     id: 275906,
     name: 'Twisted Claws',
