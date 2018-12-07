@@ -23,6 +23,7 @@ import Earthwarden from './modules/talents/Earthwarden';
 import Incarnation from './modules/talents/Incarnation';
 import FrenziedRegeneration from './modules/spells/FrenziedRegeneration';
 
+import TwistedClaws from './modules/azeritetraits/TwistedClaws';
 import LayeredMane from './modules/azeritetraits/LayeredMane';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -55,7 +56,8 @@ class CombatLogParser extends CoreCombatLogParser {
     earthwarden: Earthwarden,
     incarnation: Incarnation,
 
-    // Azerite
+    // Azerite Traits
+    twistedClaws: TwistedClaws,
     layeredMane: LayeredMane,
   };
 }
