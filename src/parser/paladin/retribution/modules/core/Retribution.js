@@ -8,7 +8,6 @@ import { formatNumber, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import CombatLogParser from 'parser/core/CombatLogParser';
 import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../constants';
 
 
@@ -24,7 +23,7 @@ class Retribution extends Analyzer {
 
     // event listeners
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_DAMAGE_INCREASES), this.onAffectedDamage);
-    this.addEventListener(CombatLogParser.finished, this.onFinished);
+    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
   onAffectedDamage(event) {
@@ -33,7 +32,7 @@ class Retribution extends Analyzer {
     }
   }
 
-  onFinished() {
+  onFightEnd() {
     this.active = this.bonusDmg > 0;
   }
 

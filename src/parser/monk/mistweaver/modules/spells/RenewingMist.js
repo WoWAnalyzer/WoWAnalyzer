@@ -39,7 +39,7 @@ class RenewingMist extends Analyzer {
     }
   }
 
-  on_finished() {
+  on_fightend() {
     if (debug) {
       //if needed
     }

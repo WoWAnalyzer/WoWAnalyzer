@@ -72,7 +72,7 @@ class EssenceFont extends Analyzer {
     }
   }
 
-  on_finished() {
+  on_fightend() {
     if (debug) {
       console.log(`EF Casts: ${this.castEF}`);
       console.log(`EF Targets Hit: ${this.targetsEF}`);

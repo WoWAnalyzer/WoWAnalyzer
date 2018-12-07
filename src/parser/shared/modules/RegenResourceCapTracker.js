@@ -282,7 +282,7 @@ const verboseDebug = false;
     return !!buffHistory.find(buff => (buff.start <= timestamp && (!buff.end || buff.end > timestamp)));
   }
 
-  on_finished() {
+  on_fightend() {
     // updateState one last time to catch any resource capping after the final resource event
     this.updateState(this.predictValue(this.owner.fight.end_time));
     debug && console.log(`mean prediction error magnitude: ${this.debugMeanPredictionError.toFixed(2)}`);

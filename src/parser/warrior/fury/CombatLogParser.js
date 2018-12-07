@@ -1,43 +1,47 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import DamageDone from 'parser/shared/modules/DamageDone';
 
-import Checklist from './modules/features/checklist/Module';
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import Channeling from './modules/features/Channeling';
+import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import SpellUsable from './modules/features/SpellUsable';
 
-import EnrageUptime from './modules/buffdebuff/EnrageUptime';
-import FrothingBerserkerUptime from './modules/buffdebuff/FrothingBerserkerUptime';
-import Juggernaut from './modules/buffdebuff/Juggernaut';
+import Enrage from './modules/buffdebuff/Enrage';
 
 import MissedRampage from './modules/spells/MissedRampage';
-import RampageFrothingBerserker from './modules/features/RampageFrothingBerserker';
-import RampageCancelled from './modules/features/RampageCancelled';
+import RampageCancelled from './modules/spells/RampageCancelled';
+
 import AngerManagement from './modules/talents/AngerManagement';
+import FrothingBerserker from './modules/talents/FrothingBerserker';
 import FuriousSlashTimesByStacks from './modules/talents/FuriousSlashTimesByStacks';
 import FuriousSlashUptime from './modules/talents/FuriousSlashUptime';
+import Recklessness from './modules/spells/Recklessness';
+import RecklessFlurry from './modules/azerite/RecklessFlurry';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     damageDone: [DamageDone, {showStatistic: true}],
 
-    checklist: Checklist,
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
+    channeling: Channeling,
+    checklist: Checklist,
     cooldownThroughputTracker: CooldownThroughputTracker,
     spellUsable: SpellUsable,
 
-    enrageUptime: EnrageUptime,
-    frothingBerserkerUptime: FrothingBerserkerUptime,
-    juggernaut: Juggernaut,
+    enrageUptime: Enrage,
 
     missedRampage: MissedRampage,
-    rampageFrothingBerserker: RampageFrothingBerserker,
     rampageCancelled: RampageCancelled,
+
     angerManagement: AngerManagement,
+    frothingBerserker: FrothingBerserker,    
     furiousSlashTimesByStacks: FuriousSlashTimesByStacks,
     furiousSlashUptime: FuriousSlashUptime,
+    recklessness: Recklessness,
+    recklessFlurry: RecklessFlurry,
 
     // Overrides default PrePotion
     //prePotion: PrePotion, TODO: Update this to BFA and ensure it works properly with parser/core/Modules/Features/Checklist2/PreparationRuleAnalyzer.js

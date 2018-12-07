@@ -174,11 +174,6 @@ export default {
     name: 'Critical Flash',
     icon: 'spell_holy_flashheal',
   },
-  CRYSTALLINE_CARAPACE: {
-    id: 271536,
-    name: 'Crystalline Carapace',
-    icon: 'inv_shield_33',
-  },
   DARK_GRUDGE: {
     id: 269368,
     name: 'Dark Grudge',

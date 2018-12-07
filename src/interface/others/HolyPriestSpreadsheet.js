@@ -11,7 +11,13 @@ import ManaValues from 'parser/shared/modules/ManaValues';
 import HolyWordSanctify from 'parser/priest/holy/modules/spells/holyword/HolyWordSanctify';
 import HolyWordSerenity from 'parser/priest/holy/modules/spells/holyword/HolyWordSerenity';
 import HealingTargetTracker from 'parser/priest/holy/modules/features/HealingTargetTracker';
+import Renew from 'parser/priest/holy/modules/spells/Renew';
 import CosmicRipple from 'parser/priest/holy/modules/talents/45/CosmicRipple';
+import BlessedSanctuary from 'parser/priest/holy/modules/spells/azeritetraits/BlessedSanctuary';
+import EverlastingLight from 'parser/priest/holy/modules/spells/azeritetraits/EverlastingLight';
+import PermeatingGlow from 'parser/priest/holy/modules/spells/azeritetraits/PermeatingGlow';
+import PrayerfulLitany from 'parser/priest/holy/modules/spells/azeritetraits/PrayerfulLitany';
+import WordOfMending from 'parser/priest/holy/modules/spells/azeritetraits/WordOfMending';
 
 class HolyPriestSpreadsheet extends React.Component {
   static propTypes = {
@@ -75,65 +81,65 @@ class HolyPriestSpreadsheet extends React.Component {
     const getChosenTalent = (talentRow) => {
       switch (talentRow) {
         case 15:
-          if (parser.selectedCombatant.hasTalent(SPELLS.ENLIGHTENMENT_TALENT.id)){
+          if (parser.selectedCombatant.hasTalent(SPELLS.ENLIGHTENMENT_TALENT.id)) {
             return SPELLS.ENLIGHTENMENT_TALENT.name;
-          }else if (parser.selectedCombatant.hasTalent(SPELLS.TRAIL_OF_LIGHT_TALENT.id)){
+          } else if (parser.selectedCombatant.hasTalent(SPELLS.TRAIL_OF_LIGHT_TALENT.id)) {
             return SPELLS.TRAIL_OF_LIGHT_TALENT.name;
-          } else if (parser.selectedCombatant.hasTalent(SPELLS.ENDURING_RENEWAL_TALENT.id)){
+          } else if (parser.selectedCombatant.hasTalent(SPELLS.ENDURING_RENEWAL_TALENT.id)) {
             return SPELLS.ENDURING_RENEWAL_TALENT.name;
           }
           break;
         case 30:
-          if (parser.selectedCombatant.hasTalent(SPELLS.ANGELS_MERCY_TALENT.id)){
+          if (parser.selectedCombatant.hasTalent(SPELLS.ANGELS_MERCY_TALENT.id)) {
             return SPELLS.ANGELS_MERCY_TALENT.name;
-          }else if (parser.selectedCombatant.hasTalent(SPELLS.PERSEVERANCE_TALENT.id)){
+          } else if (parser.selectedCombatant.hasTalent(SPELLS.PERSEVERANCE_TALENT.id)) {
             return SPELLS.PERSEVERANCE_TALENT.name;
-          } else if (parser.selectedCombatant.hasTalent(SPELLS.ANGELIC_FEATHER_TALENT.id)){
+          } else if (parser.selectedCombatant.hasTalent(SPELLS.ANGELIC_FEATHER_TALENT.id)) {
             return SPELLS.ANGELIC_FEATHER_TALENT.name;
           }
           break;
         case 45:
-          if (parser.selectedCombatant.hasTalent(SPELLS.COSMIC_RIPPLE_TALENT.id)){
+          if (parser.selectedCombatant.hasTalent(SPELLS.COSMIC_RIPPLE_TALENT.id)) {
             return SPELLS.COSMIC_RIPPLE_TALENT.name;
-          }else if (parser.selectedCombatant.hasTalent(SPELLS.GUARDIAN_ANGEL_TALENT.id)){
+          } else if (parser.selectedCombatant.hasTalent(SPELLS.GUARDIAN_ANGEL_TALENT.id)) {
             return SPELLS.GUARDIAN_ANGEL_TALENT.name;
-          } else if (parser.selectedCombatant.hasTalent(SPELLS.AFTERLIFE_TALENT.id)){
+          } else if (parser.selectedCombatant.hasTalent(SPELLS.AFTERLIFE_TALENT.id)) {
             return SPELLS.AFTERLIFE_TALENT.name;
           }
           break;
         case 60:
-          if (parser.selectedCombatant.hasTalent(SPELLS.PSYCHIC_VOICE_TALENT.id)){
+          if (parser.selectedCombatant.hasTalent(SPELLS.PSYCHIC_VOICE_TALENT.id)) {
             return SPELLS.PSYCHIC_VOICE_TALENT.name;
-          }else if (parser.selectedCombatant.hasTalent(SPELLS.CENSURE_TALENT.id)){
+          } else if (parser.selectedCombatant.hasTalent(SPELLS.CENSURE_TALENT.id)) {
             return SPELLS.CENSURE_TALENT.name;
-          } else if (parser.selectedCombatant.hasTalent(SPELLS.SHINING_FORCE_TALENT.id)){
+          } else if (parser.selectedCombatant.hasTalent(SPELLS.SHINING_FORCE_TALENT.id)) {
             return SPELLS.SHINING_FORCE_TALENT.name;
           }
           break;
         case 75:
-          if (parser.selectedCombatant.hasTalent(SPELLS.SURGE_OF_LIGHT_TALENT.id)){
+          if (parser.selectedCombatant.hasTalent(SPELLS.SURGE_OF_LIGHT_TALENT.id)) {
             return SPELLS.SURGE_OF_LIGHT_TALENT.name;
-          }else if (parser.selectedCombatant.hasTalent(SPELLS.BINDING_HEAL_TALENT.id)){
+          } else if (parser.selectedCombatant.hasTalent(SPELLS.BINDING_HEAL_TALENT.id)) {
             return SPELLS.BINDING_HEAL_TALENT.name;
-          } else if (parser.selectedCombatant.hasTalent(SPELLS.CIRCLE_OF_HEALING_TALENT.id)){
+          } else if (parser.selectedCombatant.hasTalent(SPELLS.CIRCLE_OF_HEALING_TALENT.id)) {
             return SPELLS.CIRCLE_OF_HEALING_TALENT.name;
           }
           break;
         case 90:
-          if (parser.selectedCombatant.hasTalent(SPELLS.BENEDICTION_TALENT.id)){
+          if (parser.selectedCombatant.hasTalent(SPELLS.BENEDICTION_TALENT.id)) {
             return SPELLS.BENEDICTION_TALENT.name;
-          }else if (parser.selectedCombatant.hasTalent(SPELLS.DIVINE_STAR_TALENT.id)){
+          } else if (parser.selectedCombatant.hasTalent(SPELLS.DIVINE_STAR_TALENT.id)) {
             return SPELLS.DIVINE_STAR_TALENT.name;
-          } else if (parser.selectedCombatant.hasTalent(SPELLS.HALO_TALENT.id)){
+          } else if (parser.selectedCombatant.hasTalent(SPELLS.HALO_TALENT.id)) {
             return SPELLS.HALO_TALENT.name;
           }
           break;
         case 100:
-          if (parser.selectedCombatant.hasTalent(SPELLS.LIGHT_OF_THE_NAARU_TALENT.id)){
+          if (parser.selectedCombatant.hasTalent(SPELLS.LIGHT_OF_THE_NAARU_TALENT.id)) {
             return SPELLS.LIGHT_OF_THE_NAARU_TALENT.name;
-          }else if (parser.selectedCombatant.hasTalent(SPELLS.APOTHEOSIS_TALENT.id)){
+          } else if (parser.selectedCombatant.hasTalent(SPELLS.APOTHEOSIS_TALENT.id)) {
             return SPELLS.APOTHEOSIS_TALENT.name;
-          } else if (parser.selectedCombatant.hasTalent(SPELLS.HOLY_WORD_SALVATION_TALENT.id)){
+          } else if (parser.selectedCombatant.hasTalent(SPELLS.HOLY_WORD_SALVATION_TALENT.id)) {
             return SPELLS.HOLY_WORD_SALVATION_TALENT.name;
           }
           break;
@@ -142,6 +148,27 @@ class HolyPriestSpreadsheet extends React.Component {
       }
 
       return 'Unknown talent choice!';
+    };
+
+    const healingFromAzerite = () => {
+      let totalHealing = 0;
+
+      if (parser.getModule(BlessedSanctuary)) {
+        totalHealing += parser.getModule(BlessedSanctuary).effectiveHealing;
+      }
+      if (parser.getModule(EverlastingLight)) {
+        totalHealing += parser.getModule(EverlastingLight).effectiveHealing;
+      }
+      if (parser.getModule(PermeatingGlow)) {
+        totalHealing += parser.getModule(PermeatingGlow).permiatingGlowTotalHealAmount;
+      }
+      if (parser.getModule(PrayerfulLitany)) {
+        totalHealing += parser.getModule(PrayerfulLitany).rawPrayerfulLitanyHealing;
+      }
+      if (parser.getModule(WordOfMending)) {
+        totalHealing += parser.getModule(WordOfMending).effectiveHealing;
+      }
+      return totalHealing;
     };
 
     return (
@@ -224,15 +251,15 @@ class HolyPriestSpreadsheet extends React.Component {
               </tr>
               <tr>
                 <td>Total Healing from Azerite Traits</td>
-                <td>0</td>
+                <td>{Math.floor(healingFromAzerite())}</td>
               </tr>
               <tr>
                 <td>Renews refreshed by Enduring Renewal</td>
-                <td>0</td>
+                <td>{parser.getModule(Renew).renewsFromEnduringRenewal}</td>
               </tr>
               <tr>
                 <td>Renews from benediction</td>
-                <td>0</td>
+                <td>{parser.getModule(Renew).renewsFromBenediction}</td>
               </tr>
 
               <tr>
@@ -370,7 +397,7 @@ class HolyPriestSpreadsheet extends React.Component {
                 <td>{overhealingSpell(SPELLS.COSMIC_RIPPLE_HEAL.id)}</td>
                 <td>N/A</td>
                 <td>N/A</td>
-                <td>{parser.getModule(CosmicRipple).totalHits/parser.getModule(CosmicRipple).totalRipples}</td>
+                <td>{parser.getModule(CosmicRipple).totalHits / parser.getModule(CosmicRipple).totalRipples}</td>
               </tr>
               <tr>
                 <td>Binding Heal</td>

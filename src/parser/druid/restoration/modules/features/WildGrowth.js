@@ -20,7 +20,19 @@ class WildGrowth extends Analyzer {
   };
 
   wgHistory = [];
-  wgTracker = {};
+  wgTracker = {
+    wgBuffs: [],
+    startTimestamp: 0,
+    heal: 0,
+    overheal: 0,
+    firstTicksOverheal: 0,
+    firstTicksRaw: 0,
+  };
+
+  constructor(...args) {
+    super(...args);
+    this.wgTracker.startTimestamp = this.owner.fight.start_time;
+  }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -28,10 +40,11 @@ class WildGrowth extends Analyzer {
       return;
     }
 
-    if(Object.getOwnPropertyNames(this.wgTracker).length > 0) {
+    if(this.wgTracker.wgBuffs.length > 0) {
       this.wgTracker.badPrecast = (this.wgTracker.firstTicksOverheal / this.wgTracker.firstTicksRaw) > PRECAST_THRESHOLD;
       this.wgHistory.push(this.wgTracker);
     }
+
     this.wgTracker = {};
     this.wgTracker.wgBuffs = [];
     this.wgTracker.startTimestamp = event.timestamp;
@@ -65,7 +78,7 @@ class WildGrowth extends Analyzer {
     this.wgTracker.wgBuffs.push(event.targetID);
   }
 
-  on_finished() {
+  on_fightend() {
     this.wgHistory.push(this.wgTracker);
   }
 

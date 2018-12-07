@@ -12,7 +12,7 @@ class ArcaneOrb extends Analyzer {
 	static dependencies = {
 		abilityTracker: AbilityTracker,
 	};
-	
+
 	totalHits = 0;
 	badCasts = 0;
 	orbCast = true;
@@ -42,7 +42,7 @@ class ArcaneOrb extends Analyzer {
 		this.orbCast = true;
 	}
 
-	on_finished() {
+	on_fightend() {
 		if (this.orbCast) {
 			this.badCasts += 1;
 		}

@@ -63,13 +63,19 @@ class Abilities extends Module {
    * Returns the first ACTIVE spellInfo with the given spellId (or undefined if there is no such spellInfo)
    */
   getAbility(spellId) {
-    return this.activeAbilities.find(ability => {
+    const ability = this.activeAbilities.find(ability => {
       if (ability.spell instanceof Array) {
         return ability.spell.some(spell => spell.id === spellId);
       } else {
         return ability.spell.id === spellId;
       }
     });
+
+    if(ability && ability.spell instanceof Array && ability.primaryOverride === null) {
+      ability.primaryOverride = ability.spell.findIndex((spell) => { return spell.id === spellId; });
+    }
+
+    return ability;
   }
 
   /**

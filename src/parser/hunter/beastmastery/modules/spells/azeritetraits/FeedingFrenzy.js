@@ -124,7 +124,7 @@ class FeedingFrenzy extends Analyzer {
     }
   }
 
-  on_finished() {
+  on_fightend() {
     if (this.lastBSCast !== null) {
       this.extraBuffUptime += this.extra_BS_uptime(this.owner.fight.end_time, this.lastBSCast);
     }
