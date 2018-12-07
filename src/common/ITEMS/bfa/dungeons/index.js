@@ -52,6 +52,7 @@ export default {
     quality: ITEM_QUALITIES.BLUE,
   },
   VESSEL_OF_SKITTERING_SHADOWs: {
+    // Is there a reason ^^this^^ is not all caps? //
     id: 159610,
     name: 'Vessel of Skittering Shadows',
     icon: 'inv_potiond_5',
