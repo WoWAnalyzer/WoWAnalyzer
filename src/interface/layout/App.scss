@@ -710,10 +710,10 @@ code.inactive {
   cursor: pointer;
 }
 .expandable:hover > .meta {
-  background-color: rgba(99, 31, 31, 0.1);
+  background-color: rgba(255, 255, 255, .02);
 }
 .expandable.expanded > .meta {
-  background-color: rgba(216, 65, 65, 0.1);
+  background-color: rgba(255, 255, 255, .02);
 }
 .expandable > .details {
   background: rgba(40, 40, 40, 0.4);

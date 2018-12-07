@@ -1,18 +1,18 @@
 .checklist {
   .checklist-item {
     position: relative;
-    font-size: 1.3em;
+    font-size: 16px;
 
     &:before {
       content: '';
       position: absolute;
-      left: 30px;
+      left: 35px;
       top: 50%;
       transform: translateY(-50%);
       background: red;
       border-radius: 50%;
-      width: 10px;
-      height: 10px;
+      width: 8px;
+      height: 8px;
     }
     &.passed:before {
       background: green;

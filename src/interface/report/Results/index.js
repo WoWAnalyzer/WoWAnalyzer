@@ -29,7 +29,7 @@ import About from './About';
 import Suggestions from './Suggestions';
 import Statistics from './Statistics';
 import StatisticsSectionTitle from './StatisticsSectionTitle';
-import './Results.css';
+import './Results.scss';
 
 const DevelopmentTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'DevelopmentTab' */ 'interface/others/DevelopmentTab').then(exports => exports.default)));
 const EventsTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'EventsTab' */ 'interface/others/EventsTab').then(exports => exports.default)));
@@ -111,7 +111,7 @@ class Results extends React.PureComponent {
           <>
             <div className="panel">
               <div className="panel-heading">
-                Checklist
+                <h1>Checklist</h1>
                 <small>A quick overview of the important parts to see what you did well and what has room for improvement.</small>
               </div>
               <div className="panel-body">
