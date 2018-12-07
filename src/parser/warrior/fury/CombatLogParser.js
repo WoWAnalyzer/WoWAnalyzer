@@ -14,10 +14,12 @@ import MissedRampage from './modules/spells/MissedRampage';
 import RampageCancelled from './modules/spells/RampageCancelled';
 
 import AngerManagement from './modules/talents/AngerManagement';
+import Carnage from './modules/talents/Carnage';
 import FrothingBerserker from './modules/talents/FrothingBerserker';
 import FuriousSlashTimesByStacks from './modules/talents/FuriousSlashTimesByStacks';
 import FuriousSlashUptime from './modules/talents/FuriousSlashUptime';
 import Recklessness from './modules/spells/Recklessness';
+import RecklessAbandon from './modules/talents/RecklessAbandon';
 import RecklessFlurry from './modules/azerite/RecklessFlurry';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -37,10 +39,12 @@ class CombatLogParser extends CoreCombatLogParser {
     rampageCancelled: RampageCancelled,
 
     angerManagement: AngerManagement,
+    carnage: Carnage,
     frothingBerserker: FrothingBerserker,    
     furiousSlashTimesByStacks: FuriousSlashTimesByStacks,
     furiousSlashUptime: FuriousSlashUptime,
     recklessness: Recklessness,
+    recklessAbandon: RecklessAbandon,
     recklessFlurry: RecklessFlurry,
 
     // Overrides default PrePotion
