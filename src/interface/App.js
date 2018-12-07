@@ -25,7 +25,7 @@ import ThunderSoundEffect from 'interface/audio/Thunder Sound effect.mp3';
 import ReportPage from 'interface/report/index';
 
 import 'react-toggle/style.css';
-import './App.css';
+import './App.scss';
 
 import Header from './Header';
 
