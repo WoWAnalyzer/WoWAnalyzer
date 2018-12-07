@@ -25,6 +25,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CRUSADE_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        buffSpellId: SPELLS.CRUSADE_TALENT.id,
         cooldown: 120,
         enabled: combatant.hasTalent(SPELLS.CRUSADE_TALENT.id),
         gcd: {
@@ -40,6 +41,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.AVENGING_WRATH,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        buffSpellId: SPELLS.AVENGING_WRATH.id,
         cooldown: 120,
         enabled: !combatant.hasTalent(SPELLS.CRUSADE_TALENT.id),
         gcd: {
@@ -54,7 +56,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CRUSADER_STRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         charges: 2,
-        cooldown: haste => 6 / (1 + haste),
+        cooldown: haste => 6 * (combatant.hasTalent(SPELLS.FIRES_OF_JUSTICE_TALENT.id) ? 0.85 : 1) / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -120,7 +122,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.EXECUTION_SENTENCE_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 20 / (1 + haste),
+        cooldown: 30,
         gcd: {
           base: 1500,
         },

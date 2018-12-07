@@ -58,10 +58,23 @@ export default {
     id: 273344,
     name: 'Masterful Instincts',
     icon: 'ability_druid_tigersroar',
-  },
   MASTERFUL_INSTINCTS_BUFF: {
     id: 273349,
     name: 'Masterful Instincts',
     icon: 'ability_druid_tigersroar',
+  TWISTED_CLAWS: {
+    id: 275906,
+    name: 'Twisted Claws',
+    icon: 'spell_druid_thrash',
+  },
+  TWISTED_CLAWS_BUFF: {
+    id: 275909,
+    name: 'Twisted Claws',
+    icon: 'spell_druid_thrash',
+  },
+  LAYERED_MANE: {
+    id: 279552,
+    name: 'Layered Mane',
+    icon: 'ability_druid_ironfur',
   },
 };
