@@ -5,9 +5,8 @@ html {
 body {
   line-height: 1.8;
   font-family: 'Open Sans', 'Century Gothic', sans-serif;
-  font-weight: 200;
   text-rendering: optimizeLegibility;
-  background: url(images/legion-bg.jpg); /* Created by and property of Blizzard Entertainment. source: http://eu.battle.net/wow/en/legion/ */
+  background: url(../images/legion-bg.jpg); /* Created by and property of Blizzard Entertainment. source: http://eu.battle.net/wow/en/legion/ */
   background: #171313;
   color: #f3eded;
 }
@@ -42,11 +41,11 @@ body {
 
 
 a {
-  color: #e45a5a;
+  color: #f8b700;
   cursor: pointer;
 }
 a:hover {
-  color: #ad4b4b;
+  color: #f5db93;
 }
 a.hidden-link {
   color: inherit;
@@ -107,40 +106,6 @@ ul {
   padding: 3px 4px;
   font-size: 13px;
   font-weight: 600;
-}
-
-/* Components */
-.panel {
-  width: 100%;
-  margin-bottom: 20px;
-  position: relative;
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: 5px;
-}
-.panel:not(.statistic-box) {
-  border-top: 4px solid #d84141;
-}
-.panel-heading {
-  padding: 16px 22px 14px;
-}
-.panel-footer {
-  border-top: 1px solid rgba(0, 0, 0, .8);
-  border-bottom-right-radius: 5px;
-  border-bottom-left-radius: 5px;
-  box-shadow: 0 -1px 0 0 rgba(255, 255, 255, .1);
-  background: transparent;
-}
-.panel > .panel-body {
-  padding: 15px 22px;
-}
-.panel h1 {
-  margin-top: 0.2em;
-  margin-bottom: 0.8em;
-}
-.panel-cell:not(:first-child) {
-  margin-top: 4px;
-  padding-top: 4px;
-  border-top: 1px solid rgba(255,255,255, 0.1);
 }
 
 .image-background {
@@ -350,7 +315,6 @@ h1 {
 
 h3 {
   margin-top: 5px;
-  font-weight: 400;
   margin-bottom: 9px;
   border-bottom: 1px solid #333;
 }
@@ -397,7 +361,6 @@ code {
 .alert-warning {
   background-color: #cc790b;
   color: #fff;
-  font-weight: 400;
 }
 .alert-warning a {/* default URLs are unreadable on the orange background, this makes it look like a button. */
   color: #fff;
@@ -441,9 +404,6 @@ code {
 
 table.data-table {
   width: 100%;
-}
-table.data-table th {
-  font-weight: 400;
 }
 table.data-table thead tr, table.data-table tbody tr:not(:last-child) {
   border-bottom: 1px solid rgba(0, 0, 0, .8);
@@ -731,7 +691,6 @@ code.inactive {
   color: #f1c40f;
   padding: 0 .4em;
   border-radius: .3em;
-  font-weight: 400;
   white-space: nowrap;
   display: inline-block;
   line-height: 1.8em;
@@ -756,12 +715,6 @@ code.inactive {
 .expandable.expanded > .meta {
   background-color: rgba(216, 65, 65, 0.1);
 }
-.expandable > .meta .chevron {
-  transition: transform 400ms;
-}
-.expandable:not(.expanded) > .meta .chevron {
-  transform: rotate(-90deg);
-}
 .expandable > .details {
   background: rgba(40, 40, 40, 0.4);
   padding: 10px 30px;
@@ -770,7 +723,7 @@ code.inactive {
   box-shadow: inset 0 0 5px 0 rgba(0, 0, 0, .1);
 }
 
-.item-divider, .panel-heading, .list > li:not(:last-child), .expandable > .meta, .expandable > .details {
+.item-divider, .list > li:not(:last-child) {
   border-bottom: 1px solid #000;
   box-shadow: 0 1px 0 0 rgba(255, 255, 255, .1);
 }
@@ -858,3 +811,5 @@ code.inactive {
 .no-scroll {
   overflow: hidden;
 }
+
+@import './Panel.scss';

@@ -1,7 +1,6 @@
 .events-tab {
   width: 100%;
   font-size: 13px;
-  font-weight: 400;
 }
 .events-tab .ReactVirtualized__Table__row:nth-child(2n) {
   background: rgba(255, 255, 255, 0.03);
@@ -62,7 +61,6 @@
   border: 1px solid #000;
 }
 .events-tab .config label {
-  font-weight: 400;
   min-width: 150px;
 }
 

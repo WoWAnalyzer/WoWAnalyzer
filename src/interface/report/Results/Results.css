@@ -6,7 +6,6 @@
   margin: 0;
   line-height: inherit;
   text-transform: uppercase;
-  font-weight: 400;
   opacity: 0.3;
 }
 .statistics > div {
@@ -269,7 +268,6 @@ nav.global {
   color: rgba(255, 255, 255, 0.6);
   margin-top: 3px;
   font-size: 1.2em;
-  font-weight: 400;
 }
 .results > header .outfit {
   position: absolute;
@@ -309,7 +307,6 @@ nav.global {
 .tab-selection ul > li a {
   display: inline-block;
   padding: 10px;
-  font-weight: 400;
   color: #fff;
   border: 2px solid transparent;
 }

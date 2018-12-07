@@ -109,9 +109,15 @@ class Results extends React.PureComponent {
       case 'overview':
         return (
           <>
-            <h2>Checklist</h2><br />
-            {this.renderChecklist()}
-            <div className="section-divider" />
+            <div className="panel">
+              <div className="panel-heading">
+                Checklist
+                <small>A quick overview of the important parts to see what you did well and what has room for improvement.</small>
+              </div>
+              <div className="panel-body">
+                {this.renderChecklist()}
+              </div>
+            </div>
             <Suggestions issues={results.issues} />
           </>
         );

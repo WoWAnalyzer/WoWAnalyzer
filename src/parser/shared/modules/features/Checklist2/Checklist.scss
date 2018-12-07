@@ -1,0 +1,42 @@
+.checklist {
+  .checklist-item {
+    position: relative;
+    font-size: 1.3em;
+
+    &:before {
+      content: '';
+      position: absolute;
+      left: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: red;
+      border-radius: 50%;
+      width: 10px;
+      height: 10px;
+    }
+    &.passed:before {
+      background: green;
+    }
+    .name {
+      margin-left: 30px;
+    }
+    .chevron {
+      position: absolute;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #aaa;
+      font-size: 0.5em;
+      transition: all 400ms;
+    }
+    .perf {
+      margin-right: 40px;
+      width: 125px;
+      display: flex;
+      align-items: center;
+    }
+  }
+  .expanded .checklist-item .chevron {
+    color: #fff;
+  }
+}

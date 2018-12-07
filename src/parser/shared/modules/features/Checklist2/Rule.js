@@ -87,26 +87,17 @@ class Rule extends React.PureComponent {
 
     const requirementPerformances = this.state.requirementPerformances;
     const performance = requirementPerformances.length > 0 ? this.constructor.calculateRulePerformance(requirementPerformances, performanceMethod) : 1;
+    const passed = performance > 0.666;
 
     return (
       <RuleContext.Provider value={this.setRequirementPerformance}>
-        <div className={`expandable ${this.state.expanded ? 'expanded' : ''}`}>
-          <div className="meta checklist-item" onClick={this.handleToggleExpand}>
+        <li className={`expandable ${this.state.expanded ? 'expanded' : ''}`}>
+          <div className={`meta checklist-item ${passed ? 'passed' : 'failed'}`} onClick={this.handleToggleExpand}>
             <div className="flex">
-              <div className="flex-sub content-middle" style={{ paddingRight: 18 }}>
-                <div className="chevron">{/* this div ensures vertical alignment */}
-                  <DropdownIcon />
-                </div>
-              </div>
-              <div className="flex-sub content-middle" style={{ paddingRight: 18 }}>
-                <div>{/* this div ensures vertical alignment */}
-                  {performance > 0.666 ? <TickIcon style={{ color: 'green' }} /> : <CrossIcon style={{ color: 'red' }} />}
-                </div>
-              </div>
-              <div className="flex-main">
+              <div className="flex-main name">
                 {name}
               </div>
-              <div className="flex-sub content-middle" style={{ width: 100 }}>
+              <div className="flex-sub perf">
                 <div className="performance-bar-container">
                   <div
                     className="performance-bar small"
@@ -118,6 +109,9 @@ class Rule extends React.PureComponent {
                   />
                 </div>
               </div>
+              <div className="chevron">
+                <DropdownIcon />
+              </div>
             </div>
           </div>
           {/* Requirements must always render so the Rule gets their performance values, so we need to toggle the items via display: none. I know it's not best practice, but it has very low cost and prevents a lot of trouble for contributors. */}
@@ -125,7 +119,7 @@ class Rule extends React.PureComponent {
             {description && (
               <>
                 <div className="row" style={{ position: 'relative', marginBottom: 10 }}>
-                  <InformationIcon className="text-muted" style={{ position: 'absolute', top: '50%', left: -33, transform: 'translateY(-33%)', fontSize: '2em' }} />
+                  <InformationIcon className="icon" style={{ position: 'absolute', top: '50%', left: -33, transform: 'translateY(-33%)', fontSize: '2em' }} />
                   <div className="col-md-12 text-muted">
                     <div className="flex">
                       <div className="flex-main">
@@ -140,7 +134,7 @@ class Rule extends React.PureComponent {
               {children}
             </div>
           </div>
-        </div>
+        </li>
       </RuleContext.Provider>
     );
   }

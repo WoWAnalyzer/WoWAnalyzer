@@ -75,7 +75,6 @@
 }
 .logged-in .description {
   font-size: 1.1em;
-  font-weight: 400;
 }
 .logged-in .logout {
   margin-top: 5px;
