@@ -64,4 +64,9 @@ export default {
     name: 'Twisted Claws',
     icon: 'spell_druid_thrash',
   },
+  LAYERED_MANE: {
+    id: 279552,
+    name: 'Layered Mane',
+    icon: 'ability_druid_ironfur',
+  },
 };
