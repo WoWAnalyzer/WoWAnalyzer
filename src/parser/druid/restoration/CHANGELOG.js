@@ -4,6 +4,11 @@ import { Yajinni, blazyb, fel1ne, Qbz } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-11-26'),
+    changes: 'Replace Mana usage statistics with new Mana effiency tab',
+    contributors: [blazyb],
+  },
+  {
     date: new Date('2018-11-15'),
     changes: 'Improved flourish module to discount overhealing, resulting in slightly lower values.',
     contributors: [blazyb],
