@@ -58,6 +58,7 @@ export default {
     id: 273344,
     name: 'Masterful Instincts',
     icon: 'ability_druid_tigersroar',
+  },
   MASTERFUL_INSTINCTS_BUFF: {
     id: 273349,
     name: 'Masterful Instincts',
