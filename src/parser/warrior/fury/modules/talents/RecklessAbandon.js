@@ -38,7 +38,7 @@ class RecklessAbandon extends Analyzer {
 
   onPlayerEnergize(event) {
     if (this.hasLast4SecondsOfRecklessness(event)) {
-      this.rageGained += event.resourceChange;
+      this.rageGained += event.resourceChange / 2;
     }
   }
 
@@ -56,10 +56,10 @@ class RecklessAbandon extends Analyzer {
     return (
       <TalentStatisticBox
         talent={SPELLS.RECKLESS_ABANDON_TALENT.id}
-        value={`${formatNumber(this.instantRageGained)} rage`}
+        value={`${formatNumber(this.instantRageGained)} instant rage`}
         label="Reckless Abandon"
         tooltip={`In the 4 additional seconds of Recklessness caused by Reckless Abandon:<br />
-        Rage generated: <b>${this.rageGained}</b><br />
+        Additional rage generated: <b>${this.rageGained}</b><br />
         Damage dealt: <b>${formatNumber(this.damage)} (${formatPercentage(this.damagePercent)}%)</b>`}
       />
     );
