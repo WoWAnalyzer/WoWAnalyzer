@@ -9,7 +9,7 @@ import Icon from 'common/Icon';
 import ItemLink from 'common/ItemLink';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import { formatDuration, formatPercentage } from 'common/format';
+import { formatDuration, formatPercentage, formatThousands } from 'common/format';
 import ActivityIndicator from 'interface/common/ActivityIndicator';
 
 /**
@@ -255,7 +255,7 @@ class EncounterStats extends React.PureComponent {
             </div>
           </div>
           <div className="col-md-6">
-            {(log.total).toFixed(0)} DPS
+            {formatThousands(log.total)} DPS
           </div>
         </div>
       </div>
