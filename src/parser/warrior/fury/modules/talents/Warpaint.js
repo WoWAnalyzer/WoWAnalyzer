@@ -27,8 +27,8 @@ class Warpaint extends Analyzer {
 
   onPlayerDamageTaken(event) {
     if (this.selectedCombatant.hasBuff(SPELLS.ENRAGE.id)) {
-      const preMitigatedDefensiveStance = (event.amount + event.absorbed) / (1 - REDUCTION_BONUS);
-      this.damageMitigated += preMitigatedDefensiveStance * REDUCTION_BONUS;
+      const preMitigatedDamage = (event.amount + event.absorbed) / (1 - REDUCTION_BONUS);
+      this.damageMitigated += preMitigatedDamage * REDUCTION_BONUS;
     }
 
     this.damageTaken += event.amount + event.absorbed;
