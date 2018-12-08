@@ -1,7 +1,7 @@
 import React from 'react';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS/';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 
 /* Vessel of Skittering Shadows
@@ -17,12 +17,14 @@ class VesselOfSkitteringShadows extends Analyzer {
   damage = 0;
 
   on_initialized() {
-    this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.VESSEL_OF_SKITTERING_SHADOWs.id);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.VESSEL_OF_SKITTERING_SHADOWs.id);
   }
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.WEBWEAVERS_SOUL_GEM_DAMAGE.id) { return; }
+    if (spellId !== SPELLS.WEBWEAVERs_SOUL_GEM_DAMAGE.id) {
+      return;
+    }
     this.damage += event.amount + (event.absorbed || 0);
   }
 
