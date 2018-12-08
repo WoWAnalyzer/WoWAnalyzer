@@ -34,8 +34,13 @@ async function proxyItemApi(res, region, itemId) {
     console.log('Error fetching item', statusCode, message);
     const body = response ? response.body : null;
     // Ignore 404 - Item not found errors. We check for the text so this doesn't silently break when the API endpoint changes.
-    const isCharacterNotFoundError = statusCode === 404 && body && body.includes('Unable to get item information.');
-    if (!isCharacterNotFoundError) {
+    // Example boody of good 404:
+    // {
+    //   "status": "nok",
+    //   "reason": "Unable to get item information."
+    // }
+    const isItemNotFoundError = statusCode === 404 && body && body.includes('Unable to get item information.');
+    if (!isItemNotFoundError) {
       Raven.installed && Raven.captureException(error);
     }
     res.status(statusCode || 500);

@@ -19,13 +19,7 @@ module.exports = {
           defaultValue: DataTypes.NOW,
           allowNull: false,
         },
-        lastSeenAt: {
-          type: DataTypes.DATE, // this is actually DATETIME
-          defaultValue: DataTypes.NOW,
-          allowNull: false,
-        },
       }),
-      queryInterface.addIndex('Item', ['id']),
     ]);
   },
 

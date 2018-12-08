@@ -27,7 +27,10 @@ async function retryingRequest(options, attempt = 1) {
   } catch (err) {
     // console.debug('REQUEST', 'ERROR', err.message);
     if (options.onFailure) {
-      options.onFailure(err, attempt);
+      // made change to await so there it can return a promise
+      // and fix issues that need to be fixed, the default
+      // void return will continue to work like normal
+      await options.onFailure(err, attempt);
     }
     const shouldRetry = options.shouldRetry || defaultOptions.shouldRetry;
     if (shouldRetry(err)) {

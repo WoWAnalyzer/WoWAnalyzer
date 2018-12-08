@@ -34,8 +34,13 @@ async function proxySpellApi(res, region, spellId) {
     console.log('Error fetching Spell', statusCode, message);
     const body = response ? response.body : null;
     // Ignore 404 - Spell not found errors. We check for the text so this doesn't silently break when the API endpoint changes.
-    const isCharacterNotFoundError = statusCode === 404 && body && body.includes('Unable to get spell information.');
-    if (!isCharacterNotFoundError) {
+    // Example boody of good 404:
+    // {
+    //   "status": "nok",
+    //   "reason": "Unable to get spell information."
+    // }
+    const isSpellNotFoundError = statusCode === 404 && body && body.includes('Unable to get spell information.');
+    if (!isSpellNotFoundError) {
       Raven.installed && Raven.captureException(error);
     }
     res.status(statusCode || 500);

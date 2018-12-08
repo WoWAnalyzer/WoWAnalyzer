@@ -17,10 +17,5 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.NOW,
       allowNull: false,
     },
-    lastSeenAt: {
-      type: DataTypes.DATE, // this is actually DATETIME
-      defaultValue: DataTypes.NOW,
-      allowNull: false,
-    },
   });
 };

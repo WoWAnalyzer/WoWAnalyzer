@@ -69,14 +69,15 @@ async function fetchSpellInfo(spellId, language) {
   while (!spellInfo) {
     try {
       // eslint-disable-next-line no-await-in-loop
-      spellInfo = await request.get({
-        url: `https://${language.region}.api.blizzard.com/wow/spell/${spellId}?locale=${language.locale}&access_token=${accessToken}`,
-        headers: {
-          'User-Agent': 'WoWAnalyzer.com development script',
-        },
-        gzip: true,
-        forever: true, // we'll be making several requests, so pool connections
-      })
+      spellInfo = await request
+        .get({
+          url: `https://${language.region}.api.blizzard.com/wow/spell/${spellId}?locale=${language.locale}&access_token=${accessToken}`,
+          headers: {
+            'User-Agent': 'WoWAnalyzer.com development script',
+          },
+          gzip: true,
+          forever: true, // we'll be making several requests, so pool connections
+        })
         .then(jsonString => JSON.parse(jsonString));
     } catch (err) {
       console.error(err.message);
@@ -108,10 +109,7 @@ function getMessages(languageCode) {
   return readJson(getMessagesPath(languageCode));
 }
 function setMessages(languageCode, messages) {
-  fs.writeFileSync(
-    getMessagesPath(languageCode),
-    JSON.stringify(messages, null, 2)
-  );
+  fs.writeFileSync(getMessagesPath(languageCode), JSON.stringify(messages, null, 2));
 }
 async function updateSpellsFromApi(languageCode, language, accessToken) {
   console.log(`Updating spells for ${languageCode} from Blizzard API`);
@@ -172,7 +170,7 @@ function updateFromSpellList(languageCode, nameProp) {
       const spellInfo = spellList.find(item => item.id === spellIdString);
 
       // Some spells aren't localized, use the original name instead.
-      const name = (spellInfo && spellInfo[nameProp]) ? spellInfo[nameProp] : spell.name;
+      const name = spellInfo && spellInfo[nameProp] ? spellInfo[nameProp] : spell.name;
 
       messages[messageId] = name;
     }
@@ -182,11 +180,13 @@ function updateFromSpellList(languageCode, nameProp) {
   setMessages(languageCode, messages);
 }
 
-async function getAccessToken(region){
-  try{
-    console.log(`Getting access token from region: ${region}`);
-    const results = await request.get({
-      url: `https://${region}.battle.net/oauth/token?grant_type=client_credentials&client_id=${process.env.REACT_APP_BATTLE_NET_API_CLIENT_ID}&client_secret=${process.env.REACT_APP_BATTLE_NET_API_CLIENT_SECRET}`,
+async function getAccessToken(region) {
+  console.log(`Getting access token from region: ${region}`);
+  const results = await request
+    .get({
+      url: `https://${region}.battle.net/oauth/token?grant_type=client_credentials&client_id=${process.env.REACT_APP_BATTLE_NET_API_CLIENT_ID}&client_secret=${
+        process.env.REACT_APP_BATTLE_NET_API_CLIENT_SECRET
+      }`,
       headers: {
         'User-Agent': 'WoWAnalyzer.com development script',
       },
@@ -194,10 +194,7 @@ async function getAccessToken(region){
       forever: true, // we'll be making several requests, so pool connections
     })
     .then(jsonString => JSON.parse(jsonString));
-     return results.access_token;
-  } catch (err) {
-    console.error(err.message);
-  }
+  return results.access_token;
 }
 
 async function main() {
@@ -205,11 +202,11 @@ async function main() {
   console.log(`Using Battle.net Client ID: ${process.env.REACT_APP_BATTLE_NET_API_CLIENT_ID} and Secret: ${process.env.REACT_APP_BATTLE_NET_API_CLIENT_SECRET}`);
   const languageCodes = Object.keys(languages);
   for (let i = 0; i < languageCodes.length; i += 1) {
-    
     const languageCode = languageCodes[i];
     const language = languages[languageCode];
-    const accessToken = await getAccessToken;
+
     if (language.region) {
+      const accessToken = await getAccessToken(language.region);
       // We're doing all languages at the same time, this improves performance and the Blizzard API support 100 requests per second so shouldn't hit the rate limit
       updateSpellsFromApi(languageCode, language, accessToken);
     } else {

@@ -15,7 +15,7 @@ const availableRegions = {
 const USER_AGENT = process.env.USER_AGENT;
 const clientToken = {};
 
-const get = (url, metricLabels) => {
+const get = (url, metricLabels, region) => {
   let end;
   return retryingRequest({
     url,
@@ -37,8 +37,12 @@ const get = (url, metricLabels) => {
     onBeforeAttempt: () => {
       end = blizzardApiResponseLatencyHistogram.startTimer(metricLabels);
     },
-    onFailure: err => {
-      if (err instanceof RequestTimeoutError) {
+    onFailure: (err, attempt) => {
+      if (err.statusCode === 401 && attempt === 1) {
+        // if the request in unauthorized, try renewing
+        // the battle net creds, only worth trying once though
+        return getAccessToken(region);
+      } else if (err instanceof RequestTimeoutError) {
         end({
           statusCode: 'timeout',
         });
@@ -59,6 +63,7 @@ const get = (url, metricLabels) => {
           statusCode: err.statusCode,
         });
       }
+      return null;
     },
     onSuccess: () => {
       end({
@@ -69,9 +74,9 @@ const get = (url, metricLabels) => {
 };
 const makeBaseUrl = region => `https://${region}.api.blizzard.com`;
 
-const getAccessToken = async region => {
+const getAccessToken = async (region, corr) => {
   let end;
-  if (!!clientToken[region] && !!clientToken[region].accessToken && clientToken[region].expires > new Date()) {
+  if (clientToken[region] && !clientToken[region].accessToken && clientToken[region].expires > new Date()) {
     return clientToken[region].accessToken;
   }
 
@@ -128,8 +133,7 @@ const getAccessToken = async region => {
   });
 
   const tokenData = JSON.parse(tokenRequst);
-  let expireDate = new Date();
-  expireDate = expireDate.setSeconds(expireDate.getSeconds() + tokenData.expires_in);
+  const expireDate = new Date().setSeconds(new Date().getSeconds() + tokenData.expires_in);
 
   clientToken[region] = {
     accessToken: tokenData.access_token,
@@ -148,10 +152,14 @@ export async function fetchCharacter(region, realm, name, fields = '') {
     availableRegions[region]
   }&fields=${fields}&access_token=${accessToken}`;
 
-  return get(url, {
-    category: 'character',
+  return get(
+    url,
+    {
+      category: 'character',
+      region,
+    },
     region,
-  });
+  );
 }
 
 export async function fetchItem(region, itemId) {
@@ -162,10 +170,14 @@ export async function fetchItem(region, itemId) {
   const accessToken = await getAccessToken(region);
   const url = `${makeBaseUrl(region)}/wow/item/${encodeURIComponent(itemId)}?locale=${availableRegions[region]}&access_token=${accessToken}`;
 
-  return get(url, {
-    category: 'item',
+  return get(
+    url,
+    {
+      category: 'item',
+      region,
+    },
     region,
-  });
+  );
 }
 
 export async function fetchSpell(region, spellId) {
@@ -176,8 +188,12 @@ export async function fetchSpell(region, spellId) {
   const accessToken = await getAccessToken(region);
   const url = `${makeBaseUrl(region)}/wow/spell/${encodeURIComponent(spellId)}?locale=${availableRegions[region]}&access_token=${accessToken}`;
 
-  return get(url, {
-    category: 'item',
+  return get(
+    url,
+    {
+      category: 'spell',
+      region,
+    },
     region,
-  });
+  );
 }
