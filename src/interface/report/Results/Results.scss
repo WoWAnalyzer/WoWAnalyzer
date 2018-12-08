@@ -1,55 +1,19 @@
+@import 'interface/layout/Theme.scss';
+
 .statistics-section-title {
   margin-bottom: 20px;
-}
-.statistics-section-title h4 {
-  display: inline-block;
-  margin: 0;
-  line-height: inherit;
-  text-transform: uppercase;
-  opacity: 0.3;
+
+  h4 {
+    display: inline-block;
+    margin: 0;
+    line-height: inherit;
+    text-transform: uppercase;
+    opacity: 0.3;
+  }
 }
 .statistics > div {
   padding: 0 15px;
 }
-.results .navigation {
-  border-bottom: 4px solid #d84141;
-}
-.results .navigation .btn-link {
-  min-width: 120px;
-  min-height: 50px;
-  outline: none;
-  padding: 5px;
-  -webkit-transition: 300ms background;
-  -o-transition: 300ms background;
-  transition: 300ms background;
-  text-transform: uppercase;
-  color: #fff;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-align: center;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-.results .navigation .btn-link, .results .navigation .btn-link:hover, .results .navigation .btn-link:active {
-  text-decoration: none;
-}
-.results .navigation .btn-link:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-.results .navigation .btn-link.selected {
-  color: #ffffff;
-  background: #d84141;
-}
-.results .navigation .btn-link svg {
-  font-size: 1.8em;
-  margin-right: 0.2em;
-  margin-bottom: -0.2em;
-}
-
 
 /*TODO: Permanent solution */
 nav.global {
@@ -58,7 +22,7 @@ nav.global {
 
 .results > header {
   position: relative;
-  background: rgb(17, 8, 8);
+  background: #0e0b0b;
   height: 500px;
   margin-bottom: 30px;
   display: flex;
@@ -82,7 +46,7 @@ nav.global {
   right: 0;
   bottom: 0;
   z-index: 2;
-  background: linear-gradient(to right, rgba(17, 8, 8, 1) 0%, rgba(17, 8, 8, 0) 35%, rgba(17, 8, 8, 0) 65%, rgba(17, 8, 8, 1) 100%), radial-gradient(ellipse at bottom, rgba(17, 8, 8, 0) 0%, rgba(17, 8, 8, 0.6) 100%);
+  background: linear-gradient(to right, rgba(14, 11, 11, 1) 0%, rgba(14, 11, 11, 0) 35%, rgba(14, 11, 11, 0) 65%, rgba(14, 11, 11, 1) 100%), radial-gradient(ellipse at bottom, rgba(14, 11, 11, 0) 0%, rgba(14, 11, 11, 0.6) 100%);
 }
 .results > header .background .img {
   width: 100%;
@@ -103,14 +67,12 @@ nav.global {
   height: 100%;
 }
 .results > header h1 {
-  color: #f8b700;
   font-size: 3em;
   font-weight: 800;
-  text-transform: uppercase;
-  margin: 0 0 30px;
+  margin: 0 0 27px;
+  line-height: 1;
 }
 .results > header h2 {
-  color: #fff;
   font-size: 1.5em;
   font-weight: 600;
   margin: 0;
@@ -139,7 +101,7 @@ nav.global {
 }
 .results > header .player .avatar img {
   border-radius: 50%;
-  border: 3px solid #f8b700;
+  border: 3px solid $primaryColor;
   width: 90px;
   height: 90px;
 }
@@ -166,7 +128,7 @@ nav.global {
   height: 2em;
   margin-top: 0;
   margin-left: 2px;
-  border: 1px solid #f8b700;
+  border: 1px solid $primaryColor;
 }
 
 .tab-selection {
@@ -199,6 +161,7 @@ nav.global {
         background-color: transparent;
         transition: 200ms background-color;
         line-height: 1.2;
+        border-radius: 2px;
 
         svg {
           margin-top: 0;
@@ -219,15 +182,15 @@ nav.global {
         background-image: radial-gradient(closest-side, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
       }
       a:hover {
-        border-top: 2px solid rgba(250, 183, 0, 0.7);
-        border-bottom: 2px solid rgba(248, 183, 0, 0.7);
+        border-top: 2px solid $primaryColor;
+        border-bottom: 2px solid $primaryColor;
         text-decoration: none;
       }
       a:focus {
         text-decoration: none;
       }
       &.active a {
-        background-color: #f8b700;
+        background-color: $primaryColor;
         color: #211510;
         text-shadow: none;
 
@@ -244,6 +207,6 @@ nav.global {
     display: block;
     margin: 0 auto;
     font-size: 24px;
-    color: #f8b700;
+    color: $primaryColor;
   }
 }

@@ -33,7 +33,7 @@ class BrewmasterMonkChecklist extends React.PureComponent {
       <Checklist>
         <Rule
           performanceMethod={PERFORMANCE_METHOD.FIRST}
-          name={<>Mitigate damage with <SpellLink id={SPELLS.IRONSKIN_BREW.id} />.</>}
+          name={<>Mitigate damage with <SpellLink id={SPELLS.IRONSKIN_BREW.id} onClick={e => e.preventDefault()} />.</>}
           description={
             <>
               <SpellLink id={SPELLS.STAGGER.id} /> is our main damage mitigation tool. <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> increases the amount of damage that we can mitigate with Stagger while active. It is possible to maintain 100% uptime without reaching any particular haste threshold due to the cooldown reduction applied by <SpellLink id={SPELLS.KEG_SMASH.id} /> and <SpellLink id={SPELLS.TIGER_PALM.id} />. If you are having difficulty maintaining your buff you may need to improve your cast efficiency or reduce the amount of purification you are doing.
@@ -48,7 +48,7 @@ class BrewmasterMonkChecklist extends React.PureComponent {
           tooltip="A low cast efficiency indicates that brews are being wasted to capping charges.<br/>The cast efficiency of Ironskin Brew is shared with Purifying Brew." />
       </Rule>
       <Rule
-        name={<>Mitigate damage with <SpellLink id={SPELLS.BREATH_OF_FIRE.id} />.</>}
+        name={<>Mitigate damage with <SpellLink id={SPELLS.BREATH_OF_FIRE.id} onClick={e => e.preventDefault()} />.</>}
         description={
             <>
               <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> provides a 5% damage reduction. It is possible to maintain 80% uptime on this debuff without any particular gear or talents by simply using it on cooldown.
@@ -78,7 +78,7 @@ class BrewmasterMonkChecklist extends React.PureComponent {
           thresholds={thresholds.isbClipping}
           tooltip="Ironskin Brew has a <em>cap</em> on total buff duration of three times the base duration. Casting Ironskin Brew with more time remaining than twice the base duration (normally 14 seconds) wastes part of the brew." />
       </Rule>
-      <Rule name={<>Use <SpellLink id={SPELLS.PURIFYING_BREW.id} /> effectively</>}
+      <Rule name={<>Use <SpellLink id={SPELLS.PURIFYING_BREW.id} onClick={e => e.preventDefault()} /> effectively</>}
         performanceMethod={PERFORMANCE_METHOD.HARMONIC}
         description={
           <>

@@ -85,7 +85,7 @@ class HolyPaladinChecklist extends React.PureComponent {
           )}
         </Rule>
         <Rule
-          name={<>Only use <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> when absolutely necessary</>}
+          name={<>Only use <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} onClick={e => e.preventDefault()} /> when absolutely necessary</>}
           description={(
             <>
               <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> is an inefficient spell to cast compared to the alternatives. Try to only cast <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> when it will save someone's life or when you have to move and all other instant cast spells are on cooldown.
@@ -109,7 +109,7 @@ class HolyPaladinChecklist extends React.PureComponent {
           <Requirement name="Direct beacon healing" thresholds={thresholds.directBeaconHealing} />
         </Rule>
         <Rule
-          name={<>Position yourself well to maximize <SpellLink id={SPELLS.MASTERY_LIGHTBRINGER.id} /></>}
+          name={<>Position yourself well to maximize <SpellLink id={SPELLS.MASTERY_LIGHTBRINGER.id} onClick={e => e.preventDefault()} /></>}
           description={(
             <>
               <SpellLink id={SPELLS.MASTERY_LIGHTBRINGER.id} /> has a big impact on the strength of your heals. Try to stay close to the people you are healing to benefit the most from your Mastery. Use <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> when healing people further away.
@@ -119,7 +119,7 @@ class HolyPaladinChecklist extends React.PureComponent {
           <Requirement name="Mastery effectiveness" thresholds={thresholds.masteryEffectiveness} />
         </Rule>
         <Rule
-          name={<>Use all of your <ResourceLink id={RESOURCE_TYPES.MANA.id} /></>}
+          name={<>Use all of your <ResourceLink id={RESOURCE_TYPES.MANA.id} onClick={e => e.preventDefault()} /></>}
           description="If you have a large amount of mana left at the end of the fight that's mana you could have turned into healing. Try to use all your mana during a fight. A good rule of thumb is to try to match your mana level with the boss's health."
         >
           <Requirement name="Mana left" thresholds={thresholds.manaLeft} />

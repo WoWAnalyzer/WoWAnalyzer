@@ -1,18 +1,16 @@
+@import './Theme.scss';
+
 .panel {
   width: 100%;
   margin-bottom: 30px;
-  background: #1e1a1a;
+  background: #1d1b1b;
   border-radius: 3px;
 
   .panel-heading {
     padding: 20px 30px;
 
     h1 {
-      font-size: 24px;
-      line-height: 34px;
       margin: 0;
-      text-transform: uppercase;
-      color: #f8b700;
     }
 
     small {
@@ -35,7 +33,7 @@
       list-style: none;
       padding: 0;
       margin: 0;
-      margin-bottom: -15px; // compensate for the :last-of-type padding
+      margin-bottom: -10px; // compensate for the :last-of-type padding
     }
     ul > li:not(.expandable), ul > li.expandable .meta {
       padding: 8px 30px;

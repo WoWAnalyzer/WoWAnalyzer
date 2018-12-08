@@ -98,12 +98,11 @@ class Rule extends React.PureComponent {
                 {name}
               </div>
               <div className="flex-sub perf">
-                <div className="performance-bar-container">
+                <div className="perf-container">
                   <div
-                    className="performance-bar small"
+                    className="perf-bar"
                     style={{
                       width: `${performance * 100}%`,
-                      transition: 'background-color 800ms',
                       backgroundColor: colorForPerformance(performance),
                     }}
                   />

@@ -1,3 +1,5 @@
+@import 'interface/layout/Theme.scss';
+
 .checklist {
   .checklist-item {
     position: relative;
@@ -6,16 +8,22 @@
     &:before {
       content: '';
       position: absolute;
-      left: 35px;
+      left: 30px;
       top: 50%;
       transform: translateY(-50%);
-      background: red;
+      background: transparent;
+      border: 2px solid $primaryColor;
       border-radius: 50%;
-      width: 8px;
-      height: 8px;
+      width: 20px;
+      height: 20px;
+      box-shadow: 0 0 2px $primaryColor;
     }
     &.passed:before {
-      background: green;
+      content: '✔';
+      color: #211510;
+      line-height: 1;
+      text-align: center;
+      background: $primaryColor;
     }
     .name {
       margin-left: 30px;
@@ -24,19 +32,32 @@
       position: absolute;
       right: 30px;
       top: 50%;
-      transform: translateY(-50%);
-      color: #aaa;
+      transform: translateY(-50%) rotate(0deg);
+      color: $primaryColor;
       font-size: 0.5em;
       transition: all 400ms;
     }
     .perf {
       margin-right: 40px;
-      width: 125px;
+      width: 200px;
       display: flex;
       align-items: center;
+
+      .perf-container {
+        background: #000;
+        width: 100%;
+        border-radius: 3px;
+        height: 6px;
+        overflow: hidden;
+
+        .perf-bar {
+          background: $primaryColor !important;
+          height: 100%;
+        }
+      }
     }
   }
   .expanded .checklist-item .chevron {
-    color: #fff;
+    transform: translateY(-50%) rotate(180deg);
   }
 }
