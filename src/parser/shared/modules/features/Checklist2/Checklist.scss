@@ -33,12 +33,12 @@
     //  background-color: $red;
     //  border-color: $red;
     //}
-    .name {
-      margin-left: 30px;
-    }
     //&.failed {
     //  background: rgba($primaryColor, 0.1);
     //}
+    .name {
+      margin-left: 30px;
+    }
     &.failed .name:after {
       content: 'Can be improved';
       color: #f86725;

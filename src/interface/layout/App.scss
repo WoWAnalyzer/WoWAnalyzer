@@ -61,7 +61,7 @@ a.hidden-link {
   opacity: 0.5;
 }
 .btn-primary {
-  background: #d84141;
+  background: $primaryColor;
   border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 10px 28px;
   border-radius: 0;
@@ -70,7 +70,7 @@ a.hidden-link {
 }
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary:active:hover, .btn-primary:active:focus {
   background: #ad4b4b;
-  border: 1px solid #d84141;
+  border: 1px solid $primaryColor;
   outline: 0;
   color: #ccc;
 }
@@ -167,7 +167,7 @@ ul {
 }
 .form-control:focus {
   box-shadow: none;
-  border: 1px solid #d84141;
+  border: 1px solid $primaryColor;
 }
 
 .list {
@@ -455,23 +455,23 @@ table.data-table img {
 
 
 .react-toggle--checked .react-toggle-track {
-  background-color: #d84141;
+  background-color: $primaryColor;
 }
 .react-toggle--checked .react-toggle-thumb {
-  border-color: #8b2b2b;
+  border-color: darken($primaryColor, 30%);
 }
 .react-toggle:hover:not(.react-toggle--disabled) .react-toggle-track {
   background-color: #212121;
 }
 .react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {
-  background-color: #852929;
+  background-color: darken($primaryColor, 32%);
 }
 
 .react-toggle--focus .react-toggle-thumb {
-  box-shadow: 0 0 2px 3px #d84141;
+  box-shadow: 0 0 2px 3px $primaryColor;
 }
 .react-toggle:active:not(.react-toggle--disabled) .react-toggle-thumb {
-  box-shadow: 0 0 5px 5px #d84141;
+  box-shadow: 0 0 5px 5px $primaryColor;
 }
 
 .text-muted, small {

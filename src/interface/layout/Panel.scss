@@ -36,7 +36,7 @@
       margin-bottom: -10px; // compensate for the :last-of-type padding
     }
     > ul > li:not(.expandable), ul > li.expandable .meta {
-      padding: 8px 30px;
+      padding: 10px 30px;
     }
     > ul > li.expandable .meta:hover {
       background-color: rgba(255, 255, 255, .02);
