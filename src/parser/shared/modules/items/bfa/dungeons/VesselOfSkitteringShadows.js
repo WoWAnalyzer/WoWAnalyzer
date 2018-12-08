@@ -17,7 +17,7 @@ class VesselOfSkitteringShadows extends Analyzer {
   damage = 0;
 
   on_initialized() {
-    this.active = this.selectedCombatant.hasTrinket(ITEMS.VESSEL_OF_SKITTERING_SHADOWs.id);
+    this.active = this.selectedCombatant.hasTrinket(ITEMS.VESSEL_OF_SKITTERING_SHADOWS.id);
   }
 
   on_byPlayer_damage(event) {
@@ -30,7 +30,7 @@ class VesselOfSkitteringShadows extends Analyzer {
 
   item() {
     return {
-      item: ITEMS.VESSEL_OF_SKITTERING_SHADOWs,
+      item: ITEMS.VESSEL_OF_SKITTERING_SHADOWS,
       result: <ItemDamageDone amount={this.damage} />,
     };
   }
