@@ -1,4 +1,6 @@
-import { blizzardApiResponseLatencyHistogram } from "helpers/metrics";
+import {
+  blizzardApiResponseLatencyHistogram,
+} from "helpers/metrics";
 import RequestTimeoutError from "helpers/request/RequestTimeoutError";
 import RequestSocketTimeoutError from "helpers/request/RequestSocketTimeoutError";
 import RequestConnectionResetError from "helpers/request/RequestConnectionResetError";
@@ -9,25 +11,28 @@ const availableRegions = {
   eu: "ru_RU",
   us: "en_US",
   tw: "zh_TW",
-  kr: "ko_KR"
+  kr: "ko_KR",
 };
 
 const USER_AGENT = process.env.USER_AGENT;
-let clientToken = {};
+const clientToken = {};
 
 const get = (url, metricLabels) => {
   let end;
   return retryingRequest({
     url,
     headers: {
-      "User-Agent": USER_AGENT
+      "User-Agent": USER_AGENT,
     },
     gzip: true,
     // we'll be making several requests, so pool connections
     forever: true,
     timeout: 4000, // ms after which to abort the request, when a character is uncached it's not uncommon to take ~2sec
     shouldRetry: error => {
-      const { statusCode, response } = error;
+      const {
+        statusCode,
+        response,
+      } = error;
       const body = response ? response.body : null;
       const isCharacterNotFoundError =
         statusCode === 404 && body && body.includes("Character not found.");
@@ -40,20 +45,32 @@ const get = (url, metricLabels) => {
     },
     onFailure: err => {
       if (err instanceof RequestTimeoutError) {
-        end({ statusCode: "timeout" });
+        end({
+          statusCode: "timeout",
+        });
       } else if (err instanceof RequestSocketTimeoutError) {
-        end({ statusCode: "socket timeout" });
+        end({
+          statusCode: "socket timeout",
+        });
       } else if (err instanceof RequestConnectionResetError) {
-        end({ statusCode: "connection reset" });
+        end({
+          statusCode: "connection reset",
+        });
       } else if (err instanceof RequestUnknownError) {
-        end({ statusCode: "unknown" });
+        end({
+          statusCode: "unknown",
+        });
       } else {
-        end({ statusCode: err.statusCode });
+        end({
+          statusCode: err.statusCode,
+        });
       }
     },
     onSuccess: () => {
-      end({ statusCode: 200 });
-    }
+      end({
+        statusCode: 200,
+      });
+    },
   });
 };
 const makeBaseUrl = region => `https://${region}.api.blizzard.com`;
@@ -63,50 +80,66 @@ const getAccessToken = async region => {
   if (!!clientToken[region] && !!clientToken[region].accessToken && clientToken[region].expires > new Date()) {
     return clientToken[region].accessToken;
   }
+
   const url = `https://${region}.battle.net/oauth/token?grant_type=client_credentials&client_id=${process.env.BATTLE_NET_API_CLIENT_ID}&client_secret=${process.env.BATTLE_NET_API_CLIENT_SECRET}`;
+  
   const tokenRequst = await retryingRequest({
     url,
     headers: {
-      "User-Agent": USER_AGENT
+      "User-Agent": USER_AGENT,
     },
     gzip: true,
     // we'll be making several requests, so pool connections
     forever: true,
-    timeout: 4000, 
+    timeout: 4000,
     shouldRetry: error => {
       return true;
     },
     onBeforeAttempt: () => {
       end = blizzardApiResponseLatencyHistogram.startTimer({
         category: "access_token",
-        region
+        region,
       });
     },
     onFailure: err => {
       if (err instanceof RequestTimeoutError) {
-        end({ statusCode: "timeout" });
+        end({
+          statusCode: "timeout",
+        });
       } else if (err instanceof RequestSocketTimeoutError) {
-        end({ statusCode: "socket timeout" });
+        end({
+          statusCode: "socket timeout",
+        });
       } else if (err instanceof RequestConnectionResetError) {
-        end({ statusCode: "connection reset" });
+        end({
+          statusCode: "connection reset",
+        });
       } else if (err instanceof RequestUnknownError) {
-        end({ statusCode: "unknown" });
+        end({
+          statusCode: "unknown",
+        });
       } else {
-        end({ statusCode: err.statusCode });
+        end({
+          statusCode: err.statusCode,
+        });
       }
     },
     onSuccess: () => {
-      end({ statusCode: 200 });
-    }
+      end({
+        statusCode: 200,
+      });
+    },
   });
+
   const tokenData = JSON.parse(tokenRequst);
   let expireDate = new Date();
   expireDate = expireDate.setSeconds(
     expireDate.getSeconds() + tokenData.expires_in
   );
+
   clientToken[region] = {
     accessToken: tokenData.access_token,
-    expires: expireDate
+    expires: expireDate,
   };
   return clientToken[region].accessToken;
 };
@@ -117,14 +150,10 @@ export async function fetchCharacter(region, realm, name, fields = "") {
     throw new Error("Region not recognized.");
   }
   const accessToken = await getAccessToken(region);
-  const url = `${makeBaseUrl(region)}/wow/character/${encodeURIComponent(
-    realm
-  )}/${encodeURIComponent(name)}?locale=${
-    availableRegions[region]
-  }&fields=${fields}&access_token=${accessToken}`;
+  const url = `${makeBaseUrl(region)}/wow/character/${encodeURIComponent(realm)}/${encodeURIComponent(name)}?locale=${ availableRegions[region]}&fields=${fields}&access_token=${accessToken}`;
 
   return get(url, {
     category: "character",
-    region
+    region,
   });
 }
