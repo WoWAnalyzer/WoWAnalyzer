@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Icon from 'common/Icon';
 import SpellLink from 'common/SpellLink';
+import { makeSpellApiUrl } from 'common/makeApiUrl';
 
 // Use all available AzeriteTraits
 import General from 'common/SPELLS/bfa/azeritetraits/general';
@@ -50,7 +51,7 @@ class Gear extends React.PureComponent {
 
     Object.keys(missingIcons).forEach(e => {
       const traitId = parseInt(missingIcons[e].id, 10);
-      fetch(`https://eu.api.battle.net/wow/spell/${traitId}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
+      fetch(makeSpellApiUrl(traitId, 'us'))
         .then(response => response.json())
         .then(data => {
           const newTrait = {
