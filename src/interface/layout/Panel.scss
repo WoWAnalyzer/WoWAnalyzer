@@ -5,6 +5,7 @@
   margin-bottom: 30px;
   background: #1d1b1b;
   border-radius: 3px;
+  border: 0;
 
   .panel-heading {
     padding: 20px 30px;
@@ -39,7 +40,7 @@
       padding: 10px 30px;
     }
     > ul > li.expandable .meta:hover {
-      background-color: rgba(255, 255, 255, .02);
+      background-color: rgba(255, 255, 255, .03);
     }
     //> ul > li:first-child {
     //  border-top: 1px solid rgba(255, 255, 255, 0.05);

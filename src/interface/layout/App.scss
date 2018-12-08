@@ -589,17 +589,15 @@ code.inactive {
   cursor: pointer;
 }
 .expandable:hover > .meta {
-  background-color: rgba(255, 255, 255, .02);
+  background-color: rgba(255, 255, 255, .03);
 }
 .expandable.expanded > .meta {
-  background-color: rgba(255, 255, 255, .02);
+  background-color: rgba(255, 255, 255, .03);
 }
 .expandable > .details {
-  background: rgba(40, 40, 40, 0.4);
+  background: rgba(0, 0, 0, 0.15); // It's underneath the meta-row, so it is slightly darker due to less light hitting it
   padding: 10px 30px;
-  border-top: 1px solid rgba(0, 0, 0, 0.4);
-  border-bottom: 1px solid #000;
-  box-shadow: inset 0 0 5px 0 rgba(0, 0, 0, .1);
+  box-shadow: inset 0 0 10px 0 rgba(0, 0, 0, 0.2);
 }
 
 .item-divider {
