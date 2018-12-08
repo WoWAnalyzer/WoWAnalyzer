@@ -18,7 +18,7 @@ class StormFireElemental extends Analyzer {
       ],
     },
     StormElemental: {
-      summon: TALENTS.STORM_ELEMENTAL_TALENT,
+      summon: TALENTS.STORM_ELEMENTAL_TALENT.id,
       damageSpells: [
         SPELLS.EYE_OF_THE_STORM.id,
         SPELLS.WIND_GUST.id,
@@ -39,7 +39,7 @@ class StormFireElemental extends Analyzer {
       if(!this.relevantData.damageSpells.includes(event.ability.guid)) {
         return;
       }
-      this.spellUsable.beginCooldown(this.summon_spell, event.timestamp);
+      this.spellUsable.beginCooldown(this.relevantData.summon, this.owner.fight.start_time);
       this.last_pet_summon_timeStamp=event.timestamp;
 
   }
