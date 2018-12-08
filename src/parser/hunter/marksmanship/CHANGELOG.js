@@ -3,8 +3,14 @@ import React from 'react';
 import { Putro } from 'CONTRIBUTORS';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
+import SpellIcon from 'common/SpellIcon';
 
 export default [
+  {
+    date: new Date('2018-12-12'),
+    changes: <> Implemented <SpellLink id={SPELLS.CAREFUL_AIM_TALENT.id} /> module for patch 8.1.</>,
+    contributors: [Putro],
+  },
   {
     date: new Date('2018-11-20'),
     changes: <> Added a simple <SpellLink id={SPELLS.PRECISE_SHOTS.id} /> module. </>,
