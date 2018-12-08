@@ -37,11 +37,11 @@ const get = (url, metricLabels, region, accessToken) => {
     onBeforeAttempt: () => {
       end = blizzardApiResponseLatencyHistogram.startTimer(metricLabels);
     },
-    onFailure: async (err, attempt) => {
+    onFailure: async err => {
       if (err.statusCode === 401) {
         // if the request in unauthorized, try renewing
         // the battle net creds
-        const accessToken = await getAccessToken(region, true);
+        const accessToken = await getAccessToken(region);
         return {
           url: `${url}&access_token=${accessToken}`,
         };
@@ -77,7 +77,7 @@ const get = (url, metricLabels, region, accessToken) => {
 };
 const makeBaseUrl = region => `https://${region}.api.blizzard.com`;
 
-const getAccessToken = async (region, corr) => {
+const getAccessToken = async region => {
   let end;
   if (clientToken[region] && clientToken[region].accessToken && clientToken[region].expires > new Date()) {
     return clientToken[region].accessToken;
@@ -138,17 +138,11 @@ const getAccessToken = async (region, corr) => {
   const tokenData = JSON.parse(tokenRequst);
   const expireDate = new Date().setSeconds(new Date().getSeconds() + tokenData.expires_in);
 
-  if (corr) {
-    clientToken[region] = {
-      accessToken: tokenData.access_token,
-      expires: expireDate,
-    };
-  } else {
-    clientToken[region] = {
-      accessToken: tokenData.access_token + '3423',
-      expires: expireDate,
-    };
-  }
+  clientToken[region] = {
+    accessToken: tokenData.access_token,
+    expires: expireDate,
+  };
+
   return clientToken[region].accessToken;
 };
 
