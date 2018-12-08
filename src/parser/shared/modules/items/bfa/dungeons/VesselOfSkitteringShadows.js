@@ -1,7 +1,7 @@
 import React from 'react';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'parser/core/Analyzer';
-import { formatNumber } from 'common/format';
+import SPELLS from 'common/SPELLS/index';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 
 /* Vessel of Skittering Shadows
@@ -22,22 +22,16 @@ class VesselOfSkitteringShadows extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
-    //const spellId = event.ability.guid;
-
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.WEBWEAVERS_SOUL_GEM_DAMAGE.id) { return; }
+    //if (spellId !== 270809) { return;}
     this.damage += event.amount + (event.absorbed || 0);
-    this.totalProcs += 1;
-    
-    console.log(event);
   }
 
   item() {
     return {
       item: ITEMS.VESSEL_OF_SKITTERING_SHADOWs,
-      result: (
-        <dfn data-tip={`<b>${this.totalProcs}</b> procs, causing <b>${formatNumber(this.damage)}</b> damage.`}>
-          <ItemDamageDone amount={this.damage} />
-        </dfn>
-      ),
+      result: <ItemDamageDone amount={this.damage} />,
     };
   }
 }
