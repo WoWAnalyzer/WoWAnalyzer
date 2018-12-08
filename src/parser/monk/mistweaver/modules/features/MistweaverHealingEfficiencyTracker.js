@@ -1,3 +1,4 @@
+
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HealingDone from 'parser/shared/modules/HealingDone';
 import DamageDone from 'parser/shared/modules/DamageDone';
@@ -13,6 +14,7 @@ import EnvelopingMists from 'parser/monk/mistweaver/modules/spells/EnvelopingMis
 import SoothingMist from 'parser/monk/mistweaver/modules/spells/SoothingMist';
 import RenewingMist from 'parser/monk/mistweaver/modules/spells/RenewingMist';
 import Vivify from 'parser/monk/mistweaver/modules/spells/Vivify';
+import RefreshingJadeWind from 'parser/monk/mistweaver/modules/talents/RefreshingJadeWind';
 
 class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   static dependencies = {
@@ -30,6 +32,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
     soothingMist: SoothingMist,
     renewingMist: RenewingMist,
     vivify: Vivify,
+    refreshingJadeWind: RefreshingJadeWind,
   };
 
   getCustomSpellStats(spellInfo, spellId) {
@@ -43,6 +46,8 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
       spellInfo = this.getRenewingMistDetails(spellInfo);
     } else if (spellId === SPELLS.VIVIFY.id) {
       spellInfo = this.getVivifyDetails(spellInfo);
+    } else if (spellId === SPELLS.REFRESHING_JADE_WIND_TALENT.id) {
+      spellInfo = this.getRefreshingJadeWindDetails(spellInfo);
     }
 
     return spellInfo;
@@ -80,6 +85,12 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   getVivifyDetails(spellInfo) {
     // As described in the ReM section, the ReM Vivify splashes need to be removed from the healing done.
     spellInfo.healingDone = spellInfo.healingDone + this.vivify.gustsHealing - this.vivify.remVivifyHealing;
+    return spellInfo;
+  }
+
+  getRefreshingJadeWindDetails(spellInfo) {
+    spellInfo.healingDone = this.refreshingJadeWind.healingRJW;
+    spellInfo.overhealingDone = this.refreshingJadeWind.overhealingRJW;
     return spellInfo;
   }
 }

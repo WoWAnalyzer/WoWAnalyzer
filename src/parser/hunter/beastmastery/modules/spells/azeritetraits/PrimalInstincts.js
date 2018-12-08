@@ -5,6 +5,7 @@ import { calculateAzeriteEffects } from 'common/stats';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 const primalInstinctsStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [mastery] = calculateAzeriteEffects(SPELLS.PRIMAL_INSTINCTS.id, rank);
@@ -14,16 +15,16 @@ const primalInstinctsStats = traits => Object.values(traits).reduce((obj, rank) 
   mastery: 0,
 });
 
-export const STAT_TRACKER = {
-  mastery: combatant => primalInstinctsStats(combatant.traitsBySpellId[SPELLS.PRIMAL_INSTINCTS.id]).mastery,
-};
-
 /**
  * Aspect of the Wild increases your Mastery by X, and grants you a charge of Barbed Shot.
  *
  * Example report: https://www.warcraftlogs.com/reports/QdrGMj1wFqnacXNW#fight=1&type=auras&source=13
  */
 class PrimalInstincts extends Analyzer {
+  static dependencies = {
+    statTracker: StatTracker,
+  };
+
   mastery = 0;
 
   constructor(...args) {
@@ -34,6 +35,10 @@ class PrimalInstincts extends Analyzer {
     }
     const { mastery } = primalInstinctsStats(this.selectedCombatant.traitsBySpellId[SPELLS.PRIMAL_INSTINCTS.id]);
     this.mastery = mastery;
+
+    this.statTracker.add(SPELLS.PRIMAL_INSTINCTS_BUFF.id, {
+      mastery,
+    });
   }
 
   get uptime() {
