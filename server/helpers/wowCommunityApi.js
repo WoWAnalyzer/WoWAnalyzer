@@ -79,7 +79,7 @@ const makeBaseUrl = region => `https://${region}.api.blizzard.com`;
 
 const getAccessToken = async (region, corr) => {
   let end;
-  if (clientToken[region] && !clientToken[region].accessToken && clientToken[region].expires > new Date()) {
+  if (clientToken[region] && clientToken[region].accessToken && clientToken[region].expires > new Date()) {
     return clientToken[region].accessToken;
   }
 
