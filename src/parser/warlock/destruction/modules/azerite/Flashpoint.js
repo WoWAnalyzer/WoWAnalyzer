@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
@@ -13,10 +14,6 @@ const flashpointStats = traits => traits.reduce((total, rank) => {
   return total + haste;
 }, 0);
 
-export const STAT_TRACKER = {
-  haste: combatant => flashpointStats(combatant.traitsBySpellId[SPELLS.FLASHPOINT.id]),
-};
-
 const debug = false;
 
 /*
@@ -24,6 +21,10 @@ const debug = false;
   When your Immolate deals periodic damage to a target above 80% health, gain X Haste for 10 sec.
  */
 class Flashpoint extends Analyzer {
+  static dependencies = {
+    statTracker: StatTracker,
+  };
+
   haste = 0;
 
   constructor(...args) {
@@ -32,8 +33,13 @@ class Flashpoint extends Analyzer {
     if (!this.active) {
       return;
     }
+
     this.haste = flashpointStats(this.selectedCombatant.traitsBySpellId[SPELLS.FLASHPOINT.id]);
     debug && this.log(`Total bonus from FP: ${this.haste}`);
+
+    this.statTracker.add(SPELLS.FLASHPOINT_BUFF.id, {
+      haste: this.haste,
+    });
   }
 
   get uptime() {
