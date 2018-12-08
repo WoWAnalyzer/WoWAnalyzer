@@ -36,11 +36,10 @@ class RegrowthAttributor extends Analyzer {
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.REGROWTH.id || event.tick) {
+    if (spellId !== SPELLS.REGROWTH.id) {
       return;
     }
 
-    // TODO - include regrowth HoT portion
     if(!this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_BUFF.id, event.timestamp, BUFFER_MS)) {
       this.totalNonCCRegrowthHealing += event.amount;
       this.totalNonCCRegrowthOverhealing += event.overheal || 0;
