@@ -38,9 +38,9 @@ const get = (url, metricLabels, region, accessToken) => {
       end = blizzardApiResponseLatencyHistogram.startTimer(metricLabels);
     },
     onFailure: async (err, attempt) => {
-      if (err.statusCode === 401 && attempt === 1) {
+      if (err.statusCode === 401) {
         // if the request in unauthorized, try renewing
-        // the battle net creds, only worth trying once though
+        // the battle net creds
         const accessToken = await getAccessToken(region, true);
         return {
           url: `${url}&access_token=${accessToken}`,
