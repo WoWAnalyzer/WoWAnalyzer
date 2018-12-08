@@ -21,6 +21,7 @@ const TalentStatisticBox = ({ talent, icon, label, ...others }) => {
 TalentStatisticBox.propTypes = {
   ...StatisticBox.propTypes,
   talent: PropTypes.number.isRequired,
+  value: PropTypes.node.isRequired, //Ensure this is required
   icon: PropTypes.node, // Override the icon requirement
   label: PropTypes.node, // Override the label requirement
 };
