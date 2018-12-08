@@ -30,9 +30,9 @@ class About extends React.PureComponent {
     return (
       <div className="panel">
         <div className="panel-heading">
-          <h2><Trans>About {spec.specName} {spec.className}</Trans></h2>
+          <h1><Trans>About {spec.specName} {spec.className}</Trans></h1>
         </div>
-        <div className="panel-body">
+        <div className="panel-body pad">
           {description}
 
           <div className="row" style={{ marginTop: '1em' }}>

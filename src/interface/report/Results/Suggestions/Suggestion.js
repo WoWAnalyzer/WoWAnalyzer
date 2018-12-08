@@ -55,7 +55,7 @@ class Suggestion extends React.PureComponent {
           <div className="suggestion">
             {issue}
             {stat && (
-              <div className="stat">{stat}</div>
+              <small>{stat}</small>
             )}
           </div>
           <div className="importance">

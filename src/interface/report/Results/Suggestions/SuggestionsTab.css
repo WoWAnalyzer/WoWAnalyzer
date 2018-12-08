@@ -1,9 +1,4 @@
-.list.issues {
-  font-size: 100%;
-  margin: 0;
-}
 .list.issues .item {
-  padding: 12px 15px;
   display: flex;
 }
 .list.issues .item > .icon {
@@ -12,15 +7,16 @@
   align-items: center;
 }
 .list.issues .item > .icon img {
-  height: 3.58em;
+  height: 40px;
   border-radius: 50%;
+  border: 1px solid #f8b700;
 }
 .list.issues .item > .suggestion {
   flex: 1 1 auto;
   padding: 3px 15px;
 }
-.list.issues .item > .suggestion .stat {
-  color: #999;
+.list.issues .item > .suggestion small {
+  display: block;
 }
 .list.issues .item > .importance {
   flex: 0 0 auto;

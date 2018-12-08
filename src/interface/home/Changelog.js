@@ -27,49 +27,54 @@ class Changelog extends React.PureComponent {
     const mergedChangelog = includeCore && this.state.includeCore ? [...CORE_CHANGELOG, ...changelog].sort((a, b) => b.date - a.date) : changelog;
 
     return (
-      <div style={{ padding: 0 }}>
-        {includeCore && (
-          <div className="panel-heading text-right toggle-control text-muted" style={{ padding: '10px 15px' }}>
-            <Toggle
-              defaultChecked={this.state.includeCore}
-              icons={false}
-              onChange={event => this.setState({ includeCore: event.target.checked })}
-              id="core-entries-toggle"
-            />{' '}
-            <label htmlFor="core-entries-toggle">
-              <dfn data-tip="Turn this off to only see changes to this spec's implementation.">Shared changes</dfn>
-            </label>
-          </div>
-        )}
-        <ul className="list text">
-          {mergedChangelog
-            .filter((_, i) => !limit || i < limit)
-            .map(entry => {
-              const { date, changes, contributors } = entry;
-              const isFromCoreChangelog = CORE_CHANGELOG.includes(entry);
-              // The index of the entry provides us with a unique never changing key, which speeds up the Shared Changes toggle
-              const index = isFromCoreChangelog ? CORE_CHANGELOG.indexOf(entry) : changelog.indexOf(entry);
+      <div className="panel">
+        <div className="panel-heading">
+          {includeCore && (
+            <div className="pull-right toggle-control text-muted">
+              <Toggle
+                defaultChecked={this.state.includeCore}
+                icons={false}
+                onChange={event => this.setState({ includeCore: event.target.checked })}
+                id="core-entries-toggle"
+              />{' '}
+              <label htmlFor="core-entries-toggle">
+                <dfn data-tip="Turn this off to only see changes to this spec's implementation.">Shared changes</dfn>
+              </label>
+            </div>
+          )}
+          <h1>Changelog</h1>
+        </div>
+        <div className="panel-body">
+          <ul className="list text">
+            {mergedChangelog
+              .filter((_, i) => !limit || i < limit)
+              .map(entry => {
+                const { date, changes, contributors } = entry;
+                const isFromCoreChangelog = CORE_CHANGELOG.includes(entry);
+                // The index of the entry provides us with a unique never changing key, which speeds up the Shared Changes toggle
+                const index = isFromCoreChangelog ? CORE_CHANGELOG.indexOf(entry) : changelog.indexOf(entry);
 
-              return (
-                <li
-                  key={isFromCoreChangelog ? `core-${index}` : `spec-${index}`}
-                  className={`flex wrapable ${includeCore && isFromCoreChangelog ? 'text-muted' : ''}`}
-                >
-                  <div className="flex-sub" style={{ minWidth: 100, paddingRight: 15 }}>
-                    {date.toLocaleDateString()}
-                  </div>
-                  <div className="flex-main" style={{ minWidth: 200 }}>
-                    {changes}
-                  </div>
-                  <div className="flex-sub" style={{ minWidth: 150, paddingLeft: 15, textAlign: 'right' }}>
-                    <ReadableList>
-                      {contributors.map(contributor => <Contributor key={contributor.nickname} {...contributor} />)}
-                    </ReadableList>
-                  </div>
-                </li>
-              );
-            })}
-        </ul>
+                return (
+                  <li
+                    key={isFromCoreChangelog ? `core-${index}` : `spec-${index}`}
+                    className={`flex wrapable ${includeCore && isFromCoreChangelog ? 'text-muted' : ''}`}
+                  >
+                    <div className="flex-sub" style={{ minWidth: 100, paddingRight: 15 }}>
+                      {date.toLocaleDateString()}
+                    </div>
+                    <div className="flex-main" style={{ minWidth: 200 }}>
+                      {changes}
+                    </div>
+                    <div className="flex-sub" style={{ minWidth: 150, paddingLeft: 15, textAlign: 'right' }}>
+                      <ReadableList>
+                        {contributors.map(contributor => <Contributor key={contributor.nickname} {...contributor} />)}
+                      </ReadableList>
+                    </div>
+                  </li>
+                );
+              })}
+          </ul>
+        </div>
       </div>
     );
   }
