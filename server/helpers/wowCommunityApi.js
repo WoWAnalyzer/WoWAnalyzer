@@ -166,7 +166,7 @@ export async function fetchItem(region, itemId) {
     throw new Error("Region not recognized.");
   }
   const accessToken = await getAccessToken(region);
-  const url = `${makeBaseUrl(region)}/wow/item/${encodeURIComponent(itemId)}?locale=${availableRegions[region]}&access_token=${accessToken}`
+  const url = `${makeBaseUrl(region)}/wow/item/${encodeURIComponent(itemId)}?locale=${availableRegions[region]}&access_token=${accessToken}`;
   
   return get(url, {
     category: "item",
@@ -180,7 +180,7 @@ export async function fetchSpell(region, spellId) {
     throw new Error("Region not recognized.");
   }
   const accessToken = await getAccessToken(region);
-  const url = `${makeBaseUrl(region)}/wow/spell/${encodeURIComponent(spellId)}?locale=${availableRegions[region]}&access_token=${accessToken}`
+  const url = `${makeBaseUrl(region)}/wow/spell/${encodeURIComponent(spellId)}?locale=${availableRegions[region]}&access_token=${accessToken}`;
   
   return get(url, {
     category: "item",

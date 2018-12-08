@@ -51,7 +51,7 @@ async function storeSpell({ id, name, icon }) {
     id,
     name,
     icon,
-    lastSeenAt: Sequelize.fn("NOW")
+    lastSeenAt: Sequelize.fn("NOW"),
   });
 }
 
@@ -62,7 +62,7 @@ router.get("/:region([A-Z]{2})/:id([0-9]+)", async (req, res) => {
   if (spell) {
     res.send(spell);
     spell.update({
-      lastSeenAt: Sequelize.fn("NOW")
+      lastSeenAt: Sequelize.fn("NOW"),
     });
   } else {
     spell = await proxySpellApi(res, region, id);
