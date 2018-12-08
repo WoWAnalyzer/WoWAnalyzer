@@ -104,6 +104,7 @@ import DarkmoonDeckFathoms from '../shared/modules/items/bfa/crafted/DarkmoonDec
 import DarkmoonDeckBlockades from '../shared/modules/items/bfa/crafted/DarkmoonDeckBlockades';
 // Azerite Traits
 import Gemhide from '../shared/modules/spells/bfa/azeritetraits/Gemhide';
+import CrystallineCarapace from '../shared/modules/spells/bfa/azeritetraits/CrystallineCarapace';
 import Gutripper from '../shared/modules/spells/bfa/azeritetraits/Gutripper';
 import HeedMyCall from '../shared/modules/spells/bfa/azeritetraits/HeedMyCall';
 import LaserMatrix from '../shared/modules/spells/bfa/azeritetraits/LaserMatrix';
@@ -247,6 +248,7 @@ class CombatLogParser {
 
     // Azerite Traits
     gemhide: Gemhide,
+    crystallineCarapace: CrystallineCarapace,
     gutripper: Gutripper,
     heedMyCall: HeedMyCall,
     laserMatrix: LaserMatrix,
