@@ -76,9 +76,9 @@ class BeaconHealingBreakdown extends React.Component {
         <thead>
           <tr>
             <th style={{ fontWeight: 700, textTransform: 'uppercase' }}>Name</th>
-            <th style={{ fontWeight: 700, textTransform: 'uppercase' }}>Healing</th>
-            <th colSpan="2">
-              <div className="text-right toggle-control">
+            <th colSpan="3">
+              <span style={{ fontWeight: 700, textTransform: 'uppercase' }}>Beacon healing caused</span>
+              <div className="pull-right toggle-control">
                 <Toggle
                   defaultChecked={false}
                   icons={false}

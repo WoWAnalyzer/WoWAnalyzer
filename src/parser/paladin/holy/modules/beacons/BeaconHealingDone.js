@@ -37,13 +37,14 @@ class BeaconHealingDone extends Analyzer {
       title: 'Beacons',
       url: 'beacons',
       render: () => (
-        <Tab>
-          <div style={{ padding: '0 15px 15px' }}>
-            <h1>Beacon healing sources</h1>
-
-            This breakdown shows the amount of effective beacon healing triggered by each beacon transfering heal.
-          </div>
-
+        <Tab
+          title="Beacon healing sources"
+          explanation={(
+            <>
+              Beacon healing is triggered by the <b>raw</b> healing done of your primary spells. This breakdown shows the amount of effective beacon healing replicated by each beacon transfering heal.
+            </>
+          )}
+        >
           <BeaconHealingBreakdown
             totalHealingDone={this.healingDone.total}
             totalBeaconHealing={this._totalBeaconHealing}
