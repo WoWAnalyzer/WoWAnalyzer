@@ -23,10 +23,27 @@
       color: #211510;
       line-height: 1;
       text-align: center;
-      background: $primaryColor;
+      background-color: $primaryColor;
     }
+    //&.failed:before {
+    //  content: '!';
+    //  color: #211510;
+    //  line-height: 1;
+    //  text-align: center;
+    //  background-color: $red;
+    //  border-color: $red;
+    //}
     .name {
       margin-left: 30px;
+    }
+    //&.failed {
+    //  background: rgba($primaryColor, 0.1);
+    //}
+    &.failed .name:after {
+      content: 'Can be improved';
+      color: #f86725;
+      float: right;
+      margin-right: 15px;
     }
     .chevron {
       position: absolute;
@@ -56,6 +73,9 @@
         }
       }
     }
+    //&:not(.passed) .perf .perf-container .perf-bar {
+    //  background: $red !important;
+    //}
   }
   .expanded .checklist-item .chevron {
     transform: translateY(-50%) rotate(180deg);

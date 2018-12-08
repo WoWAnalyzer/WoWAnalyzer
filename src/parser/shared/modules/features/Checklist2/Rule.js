@@ -116,18 +116,12 @@ class Rule extends React.PureComponent {
           {/* Requirements must always render so the Rule gets their performance values, so we need to toggle the items via display: none. I know it's not best practice, but it has very low cost and prevents a lot of trouble for contributors. */}
           <div className="details" style={{ display: this.state.expanded ? undefined : 'none', paddingLeft: 85, paddingRight: 65, position: 'relative', minHeight: 80 }}>
             {description && (
-              <>
-                <div className="row text-muted" style={{ position: 'relative', marginBottom: 10 }}>
-                  <InformationIcon className="icon" style={{ position: 'absolute', top: '50%', left: -33, transform: 'translateY(-33%)', fontSize: '2em' }} />
-                  <div className="col-md-12">
-                    <div className="flex">
-                      <div className="flex-main">
-                        {description}
-                      </div>
-                    </div>
-                  </div>
+              <div className="row text-muted" style={{ position: 'relative', marginBottom: 10 }}>
+                <InformationIcon className="icon" style={{ position: 'absolute', top: '50%', left: -33, transform: 'translateY(-33%)', fontSize: '2em' }} />
+                <div className="col-md-12">
+                  {description}
                 </div>
-              </>
+              </div>
             )}
             <div className="row">
               {children}

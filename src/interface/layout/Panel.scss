@@ -29,18 +29,24 @@
     padding: 15px 30px;
   }
   .panel-body {
-    ul {
+    > ul {
       list-style: none;
       padding: 0;
       margin: 0;
       margin-bottom: -10px; // compensate for the :last-of-type padding
     }
-    ul > li:not(.expandable), ul > li.expandable .meta {
+    > ul > li:not(.expandable), ul > li.expandable .meta {
       padding: 8px 30px;
     }
-    ul > li.expandable .meta:hover {
+    > ul > li.expandable .meta:hover {
       background-color: rgba(255, 255, 255, .02);
     }
+    //> ul > li:first-child {
+    //  border-top: 1px solid rgba(255, 255, 255, 0.05);
+    //}
+    //> ul > li {
+    //  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    //}
   }
   .panel-body:last-of-type {
     padding-bottom: 30px;

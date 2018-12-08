@@ -474,9 +474,11 @@ table.data-table img {
   box-shadow: 0 0 5px 5px #d84141;
 }
 
+.text-muted, small {
+  color: $muted;
+}
 small {
   font-size: 12px;
-  color: $muted;
 }
 .toggle-control {
   margin: -2px 0;
