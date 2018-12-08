@@ -15,16 +15,14 @@ import ItemDamageDone from 'interface/others/ItemDamageDone';
  */
 class VesselOfSkitteringShadows extends Analyzer {
   damage = 0;
-  totalProcs = 0;
 
   on_initialized() {
     this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.VESSEL_OF_SKITTERING_SHADOWs.id);
   }
 
-  on_byPlayer_cast(event) {
+  on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.WEBWEAVERS_SOUL_GEM_DAMAGE.id) { return; }
-    //if (spellId !== 270809) { return;}
     this.damage += event.amount + (event.absorbed || 0);
   }
 

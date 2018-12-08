@@ -55,7 +55,7 @@ export default {
     icon: 'ability_hunter_aspectoftheviper',
   },
   WEBWEAVERS_SOUL_GEM_DAMAGE: { //Webweaver's Soul Gem
-    id: 270809,
+    id: 270827,
     name: 'Webweaver\'s Soul Gem',
     icon: 'inv_misc_web_02',
   },
