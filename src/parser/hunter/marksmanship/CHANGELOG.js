@@ -3,7 +3,6 @@ import React from 'react';
 import { Putro } from 'CONTRIBUTORS';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 
 export default [
   {
