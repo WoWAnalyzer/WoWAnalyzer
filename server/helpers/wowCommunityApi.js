@@ -15,7 +15,7 @@ const availableRegions = {
 const USER_AGENT = process.env.USER_AGENT;
 const clientToken = {};
 
-const get = (url, metricLabels, region) => {
+const get = (url, metricLabels, region, accessToken) => {
   let end;
   return retryingRequest({
     url,
@@ -27,21 +27,24 @@ const get = (url, metricLabels, region) => {
     forever: true,
     timeout: 4000, // ms after which to abort the request, when a character is uncached it's not uncommon to take ~2sec
     shouldRetry: error => {
-      const { statusCode, response } = error;
-      const body = response ? response.body : null;
-      const isCharacterNotFoundError = statusCode === 404 && body && body.includes('Character not found.');
+      const { statusCode } = error;
+      //generally 404 should probably just not be retried
+      const notFoundError = statusCode === 404;
       // Previously `shouldRetry` checked for just `err instanceof RequestError || statusCode === 503` - but the Blizzard API is so buggy with random errors, we're better off just retrying for anything unexpected. 503 errors happen regularly which probably means the character wasn't cached, try again once. The API also sometimes randomly throws 404 errors (without "Character not found." in the body) for no reason, we should retry those too.
-      const shouldRetry = !isCharacterNotFoundError;
+      const shouldRetry = !notFoundError;
       return shouldRetry;
     },
     onBeforeAttempt: () => {
       end = blizzardApiResponseLatencyHistogram.startTimer(metricLabels);
     },
-    onFailure: (err, attempt) => {
+    onFailure: async (err, attempt) => {
       if (err.statusCode === 401 && attempt === 1) {
         // if the request in unauthorized, try renewing
         // the battle net creds, only worth trying once though
-        return getAccessToken(region);
+        const accessToken = await getAccessToken(region, true);
+        return {
+          url: `${url}&access_token=${accessToken}`,
+        };
       } else if (err instanceof RequestTimeoutError) {
         end({
           statusCode: 'timeout',
@@ -135,10 +138,17 @@ const getAccessToken = async (region, corr) => {
   const tokenData = JSON.parse(tokenRequst);
   const expireDate = new Date().setSeconds(new Date().getSeconds() + tokenData.expires_in);
 
-  clientToken[region] = {
-    accessToken: tokenData.access_token,
-    expires: expireDate,
-  };
+  if (corr) {
+    clientToken[region] = {
+      accessToken: tokenData.access_token,
+      expires: expireDate,
+    };
+  } else {
+    clientToken[region] = {
+      accessToken: tokenData.access_token + '3423',
+      expires: expireDate,
+    };
+  }
   return clientToken[region].accessToken;
 };
 
@@ -148,9 +158,7 @@ export async function fetchCharacter(region, realm, name, fields = '') {
     throw new Error('Region not recognized.');
   }
   const accessToken = await getAccessToken(region);
-  const url = `${makeBaseUrl(region)}/wow/character/${encodeURIComponent(realm)}/${encodeURIComponent(name)}?locale=${
-    availableRegions[region]
-  }&fields=${fields}&access_token=${accessToken}`;
+  const url = `${makeBaseUrl(region)}/wow/character/${encodeURIComponent(realm)}/${encodeURIComponent(name)}?locale=${availableRegions[region]}&fields=${fields}`;
 
   return get(
     url,
@@ -159,6 +167,7 @@ export async function fetchCharacter(region, realm, name, fields = '') {
       region,
     },
     region,
+    accessToken,
   );
 }
 
@@ -168,7 +177,7 @@ export async function fetchItem(region, itemId) {
     throw new Error('Region not recognized.');
   }
   const accessToken = await getAccessToken(region);
-  const url = `${makeBaseUrl(region)}/wow/item/${encodeURIComponent(itemId)}?locale=${availableRegions[region]}&access_token=${accessToken}`;
+  const url = `${makeBaseUrl(region)}/wow/item/${encodeURIComponent(itemId)}?locale=${availableRegions[region]}`;
 
   return get(
     url,
@@ -177,6 +186,7 @@ export async function fetchItem(region, itemId) {
       region,
     },
     region,
+    accessToken,
   );
 }
 
@@ -186,7 +196,7 @@ export async function fetchSpell(region, spellId) {
     throw new Error('Region not recognized.');
   }
   const accessToken = await getAccessToken(region);
-  const url = `${makeBaseUrl(region)}/wow/spell/${encodeURIComponent(spellId)}?locale=${availableRegions[region]}&access_token=${accessToken}`;
+  const url = `${makeBaseUrl(region)}/wow/spell/${encodeURIComponent(spellId)}?locale=${availableRegions[region]}`;
 
   return get(
     url,
@@ -195,5 +205,6 @@ export async function fetchSpell(region, spellId) {
       region,
     },
     region,
+    accessToken,
   );
 }
