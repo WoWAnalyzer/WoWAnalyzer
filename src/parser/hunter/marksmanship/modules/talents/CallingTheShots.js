@@ -5,7 +5,6 @@ import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import { formatNumber } from 'common/format';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 const COOLDOWN_REDUCTION_MS = 3000;
 
@@ -52,9 +51,7 @@ class CallingTheShots extends Analyzer {
     return (
       <TalentStatisticBox
         talent={SPELLS.CALLING_THE_SHOTS_TALENT.id}
-        position={STATISTIC_ORDER.CORE(15)}
-        value={`${formatNumber(this.effectiveTrueshotReductionMs / 1000)}s`}
-        label="Trueshot CDR"
+        value={`${formatNumber(this.effectiveTrueshotReductionMs / 1000)}s CDR`}
         tooltip={`You wasted ${formatNumber(this.wastedTrueshotReductionMs / 1000)} seconds of CDR by using Arcane Shot or Multi Shot when Trueshot wasn't on cooldown or had less than 3 seconds remaning on CD.`} />
     );
   }

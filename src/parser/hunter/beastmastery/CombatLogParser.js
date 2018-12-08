@@ -34,7 +34,6 @@ import AnimalCompanion from './modules/talents/AnimalCompanion';
 
 //Spells
 import BeastCleave from './modules/spells/BeastCleave';
-import MultiShotSingleTarget from "./modules/spells/MultiShotSingleTarget";
 import CobraShot from './modules/spells/CobraShot';
 import BarbedShot from './modules/spells/BarbedShot';
 import AspectOfTheWild from './modules/spells/AspectOfTheWild';
@@ -75,7 +74,6 @@ class CombatLogParser extends CoreCombatLogParser {
     //Spells
     bestialWrath: BestialWrath,
     beastCleave: BeastCleave,
-    multiShotSingleTarget: MultiShotSingleTarget,
     cobraShot: CobraShot,
     barbedShot: BarbedShot,
     aspectOfTheWild: AspectOfTheWild,
