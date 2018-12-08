@@ -22,7 +22,7 @@ class VesselOfSkitteringShadows extends Analyzer {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.WEBWEAVERs_SOUL_GEM_DAMAGE.id) {
+    if (spellId !== SPELLS.WEBWEAVERS_SOUL_GEM_DAMAGE.id) {
       return;
     }
     this.damage += event.amount + (event.absorbed || 0);

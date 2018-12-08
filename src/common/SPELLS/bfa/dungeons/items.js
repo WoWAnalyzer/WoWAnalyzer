@@ -54,7 +54,7 @@ export default {
     name: 'Rezan\'s Gleaming Eye',
     icon: 'ability_hunter_aspectoftheviper',
   },
-  WEBWEAVERs_SOUL_GEM_DAMAGE: { //Webweaver's Soul Gem
+  WEBWEAVERS_SOUL_GEM_DAMAGE: { //Webweaver's Soul Gem
     id: 270827,
     name: 'Webweaver\'s Soul Gem',
     icon: 'inv_misc_web_02',
