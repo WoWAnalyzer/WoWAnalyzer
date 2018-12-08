@@ -20,6 +20,9 @@ class Abilities extends CoreAbilities {
           averageIssueEfficiency: 0.55,
           majorIssueEfficiency: 0.30,
         },
+        healSpellIds: [
+          SPELLS.TRANQUILITY_HEAL.id,
+        ],
       },
       {
         spell: SPELLS.INNERVATE,
@@ -73,6 +76,9 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
+        healSpellIds: [
+          SPELLS.CENARION_WARD_HEAL.id,
+        ],
       },
       {
         spell: SPELLS.FLOURISH_TALENT,
@@ -103,6 +109,10 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        healSpellIds: [
+          SPELLS.EFFLORESCENCE_HEAL.id,
+          SPELLS.SPRING_BLOSSOMS.id,
+        ],
       },
       {
         spell: SPELLS.REJUVENATION,
@@ -110,6 +120,12 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        healSpellIds: [
+          SPELLS.REJUVENATION_GERMINATION.id,
+          SPELLS.AUTUMN_LEAVES.id,
+          SPELLS.CULTIVATION.id,
+          // TODO - Add part of ysera's gift to be included if you have azerite trait waking dream
+        ],
       },
       {
         spell: SPELLS.INCARNATION_TREE_OF_LIFE_TALENT,
@@ -148,6 +164,9 @@ class Abilities extends CoreAbilities {
           majorIssueEfficiency: -1,
           importance: ISSUE_IMPORTANCE.MINOR,
         },
+        healSpellIds: [
+          SPELLS.GROVE_TENDING.id,
+        ],
       },
       {
         spell: SPELLS.RENEWAL_TALENT,
@@ -164,6 +183,9 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        healSpellIds: [
+          SPELLS.LIFEBLOOM_BLOOM_HEAL.id,
+        ],
       },
       {
         spell: SPELLS.NATURES_CURE,

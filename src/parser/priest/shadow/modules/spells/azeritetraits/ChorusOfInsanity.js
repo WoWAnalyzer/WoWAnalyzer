@@ -6,6 +6,7 @@ import { calculateAzeriteEffects } from 'common/stats';
 import Analyzer from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import EventEmitter from 'parser/core/modules/EventEmitter';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 const chorusOfInsanityStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [crit] = calculateAzeriteEffects(SPELLS.CHORUS_OF_INSANITY.id, rank);
@@ -14,12 +15,6 @@ const chorusOfInsanityStats = traits => Object.values(traits).reduce((obj, rank)
 }, {
   crit: 0,
 });
-
-export const STAT_TRACKER = {
-  crit: combatant => {
-    return chorusOfInsanityStats(combatant.traitsBySpellId[SPELLS.CHORUS_OF_INSANITY.id]).crit;
-  },
-};
 
 /**
  * Chorus of Insanity
@@ -30,6 +25,7 @@ export const STAT_TRACKER = {
 class ChorusOfInsanity extends Analyzer {
   static dependencies = {
     eventEmitter: EventEmitter,
+    statTracker: StatTracker,
   };
   crit = 0;
   lastTimestamp = 0;
@@ -44,6 +40,10 @@ class ChorusOfInsanity extends Analyzer {
 
     const { crit } = chorusOfInsanityStats(this.selectedCombatant.traitsBySpellId[SPELLS.CHORUS_OF_INSANITY.id]);
     this.crit = crit;
+
+    this.statTracker.add(SPELLS.CHORUS_OF_INSANITY_BUFF.id, {
+      crit,
+    });
   }
 
   on_byPlayer_applybuff(event) {

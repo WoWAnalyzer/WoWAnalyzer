@@ -5,15 +5,12 @@ import { formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import Analyzer from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 const swirlingSandsStats = traits => Object.values(traits).reduce((total, rank) => {
   const [crit] = calculateAzeriteEffects(SPELLS.SWIRLING_SANDS.id, rank);
   return total + crit;
 }, 0);
-
-export const STAT_TRACKER = {
-  crit: combatant => swirlingSandsStats(combatant.traitsBySpellId[SPELLS.SWIRLING_SANDS.id]),
-};
 
 /**
  * Swirling Sands
@@ -21,6 +18,10 @@ export const STAT_TRACKER = {
  * Your critical effects extend Swirling Sands by 1 sec, up to a maximum duration of 18 sec.
  */
 class SwirlingSands extends Analyzer {
+  static dependencies = {
+    statTracker: StatTracker,
+  };
+
   crit = 0;
   swirlingSandsProcs = 0;
 
@@ -32,6 +33,10 @@ class SwirlingSands extends Analyzer {
     }
 
     this.crit = swirlingSandsStats(this.selectedCombatant.traitsBySpellId[SPELLS.SWIRLING_SANDS.id]);
+
+    this.statTracker.add(SPELLS.SWIRLING_SANDS_BUFF.id, {
+      crit: this.crit,
+    });
   }
 
   on_byPlayer_applybuff(event) {

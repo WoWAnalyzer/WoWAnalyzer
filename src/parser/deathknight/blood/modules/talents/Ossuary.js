@@ -20,6 +20,10 @@ class Ossuary extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.OSSUARY.id) / this.owner.fightDuration;
   }
 
+  get buffedDeathStrikes() {
+    return this.dsWithOS / (this.dsWithOS + this.dsWithoutOS);
+  }
+
   on_byPlayer_cast(event) {
     if (event.ability.guid !== SPELLS.DEATH_STRIKE.id) return;
 
@@ -27,7 +31,23 @@ class Ossuary extends Analyzer {
       this.dsWithOS += 1;
     } else {
       this.dsWithoutOS += 1;
+
+      event.meta = event.meta || {};
+      event.meta.isInefficientCast = true;
+      event.meta.inefficientCastReason = `This Death Strike cast was without Ossuary.`;
     }
+  }
+
+  get efficiencySuggestionThresholds() {
+    return {
+      actual: this.buffedDeathStrikes,
+      isLessThan: {
+        minor: 1,
+        average: 0.9,
+        major: .85,
+      },
+      style: 'percentage',
+    };
   }
 
   get uptimeSuggestionThresholds() {
@@ -43,12 +63,12 @@ class Ossuary extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.uptimeSuggestionThresholds)
+    when(this.efficiencySuggestionThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest('Your Ossuary uptime can be improved. Try to always be above 5 stacks of Bone Shield when you have the talent selected.')
+          return suggest('Your Ossuary usage can be improved. Avoid casting Death Strike while not having Ossuary up as you lose Runic Power by doing so.')
             .icon(SPELLS.OSSUARY.icon)
-            .actual(`${formatPercentage(actual)}% Ossuary uptime`)
-            .recommended(`>${formatPercentage(recommended)}% is recommended`);
+            .actual(`${formatPercentage(actual)}% Ossuary efficiency`)
+            .recommended(`${formatPercentage(recommended)}% is recommended`);
         });
   }
 
