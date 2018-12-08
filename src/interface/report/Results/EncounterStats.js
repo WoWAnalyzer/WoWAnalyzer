@@ -9,7 +9,7 @@ import Icon from 'common/Icon';
 import ItemLink from 'common/ItemLink';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import { formatPercentage } from 'common/format';
+import { formatDuration, formatPercentage } from 'common/format';
 import ActivityIndicator from 'interface/common/ActivityIndicator';
 
 /**
@@ -23,19 +23,24 @@ class EncounterStats extends React.PureComponent {
     currentBoss: PropTypes.number.isRequired,
     spec: PropTypes.number.isRequired,
     difficulty: PropTypes.number.isRequired,
+    duration: PropTypes.number.isRequired,
   };
 
-  LIMIT = 100;
+  LIMIT = 100; //Currently does nothing but if Kihra reimplements it'd be nice to have
   SHOW_TOP_ENTRYS = 6;
   SHOW_TOP_ENTRYS_AZERITE = 10;
+  SHOW_CLOSEST_KILL_TIME_LOGS = 10;
   metric = 'dps';
   amountOfParses = 0;
+  durationVariance = 0.2; //Marked in % to allow for similiar filtering on long/short fights
 
   constructor(props) {
     super(props);
     this.state = {
       mostUsedTrinkets: [],
       mostUsedTalents: [],
+      similiarKillTimes: [],
+      closestKillTimes: [],
       items: ITEMS,
       loaded: false,
       message: 'Loading statistics...',
@@ -85,7 +90,7 @@ class EncounterStats extends React.PureComponent {
       class: SPECS[this.props.spec].ranking.class,
       spec: SPECS[this.props.spec].ranking.spec,
       difficulty: this.props.difficulty,
-      limit: this.LIMIT,
+      limit: this.LIMIT, //Currently does nothing but if Kihra reimplements it'd be nice to have
       metric: this.metric,
       cache: currentWeek, // cache for a week
     }).then((stats) => {
@@ -93,6 +98,8 @@ class EncounterStats extends React.PureComponent {
       const talents = [];
       let trinkets = [];
       let azerite = [];
+      const similiarKillTimes = []; //These are the reports within the defined variance of the analyzed log
+      const closestKillTimes = []; //These are the reports closest to the analyzed log regardless of it being within variance or not
 
       stats.rankings.forEach(rank => {
         rank.talents.forEach((talent, index) => {
@@ -110,6 +117,11 @@ class EncounterStats extends React.PureComponent {
         rank.azeritePowers.forEach((azeritePower) => {
           azerite = this.addItem(azerite, azeritePower);
         });
+
+        if (this.props.duration > rank.duration * (1 - this.durationVariance) && this.props.duration < rank.duration * (1 + this.durationVariance)) {
+          similiarKillTimes.push({ rank, variance: rank.duration - this.props.duration > 0 ? rank.duration - this.props.duration : this.props.duration - rank.duration });
+        }
+        closestKillTimes.push({ rank, variance: rank.duration - this.props.duration > 0 ? rank.duration - this.props.duration : this.props.duration - rank.duration });
       });
 
       talentCounter.forEach(row => {
@@ -128,10 +140,20 @@ class EncounterStats extends React.PureComponent {
         return (a.amount < b.amount) ? 1 : ((b.amount < a.amount) ? -1 : 0);
       });
 
+      similiarKillTimes.sort((a, b) => {
+        return a.variance - b.variance;
+      });
+
+      closestKillTimes.sort((a, b) => {
+        return a.variance - b.variance;
+      });
+
       this.setState({
         mostUsedTrinkets: trinkets.slice(0, this.SHOW_TOP_ENTRYS),
         mostUsedAzerite: azerite.slice(0, this.SHOW_TOP_ENTRYS_AZERITE),
         mostUsedTalents: talents,
+        similiarKillTimes: similiarKillTimes.slice(0, this.SHOW_CLOSEST_KILL_TIME_LOGS),
+        closestKillTimes: closestKillTimes.slice(0, this.SHOW_CLOSEST_KILL_TIME_LOGS),
         loaded: true,
       });
 
@@ -164,7 +186,8 @@ class EncounterStats extends React.PureComponent {
 
             this.forceUpdate();
           })
-          .catch(err => {}); // ignore errors;
+          .catch(err => {
+          }); // ignore errors;
       }
       return null;
     });
@@ -213,6 +236,50 @@ class EncounterStats extends React.PureComponent {
     );
   }
 
+  singleLog(log) {
+    return (
+      <div key={log.reportID} className="col-md-12 flex-main" style={{ textAlign: 'left', margin: '5px auto' }}>
+        <div className="row" style={{ opacity: '.8', fontSize: '.9em', lineHeight: '2em' }}>
+          <div className="flex-column col-md-6">
+            <a
+              href={`https://wowanalyzer.com/report/${log.reportID}/${log.fightID}/`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div>
+                {log.name} ({log.itemLevel})
+              </div>
+            </a>
+            <div>
+              {formatDuration(log.duration / 1000)} ({log.duration > this.props.duration ? ((log.duration - this.props.duration) / 1000).toFixed(1) + 's slower' : ((this.props.duration - log.duration) / 1000).toFixed(1) + 's faster'})
+            </div>
+          </div>
+          <div className="col-md-6">
+            {(log.total).toFixed(0)} DPS
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  similiarLogs() {
+    return (
+      <div className="col-md-12 flex-main" style={{ textAlign: 'left', margin: '5px auto' }}>
+        {this.state.similiarKillTimes.length > 1 ? 'These are' : 'This is'} the {this.state.similiarKillTimes.length} top 100 {this.state.similiarKillTimes.length > 1 ? 'logs' : 'log'} that {this.state.similiarKillTimes.length > 1 ? 'are' : 'is'} closest to your kill-time within {formatPercentage(this.durationVariance, 0)}% variance.
+        {this.state.closestKillTimes.map(log => this.singleLog(log.rank))}
+      </div>
+    );
+  }
+
+  closestLogs() {
+    return (
+      <div className="col-md-12 flex-main" style={{ textAlign: 'left', margin: '5px auto' }}>
+        {this.state.closestKillTimes.length > 1 ? 'These are' : 'This is'} the {this.state.closestKillTimes.length} top 100 {this.state.closestKillTimes.length > 1 ? 'logs' : 'log'} that {this.state.closestKillTimes.length > 1 ? 'are' : 'is'} closest to your kill-time. Large differences won't be good for comparing.
+        {this.state.closestKillTimes.map(log => this.singleLog(log.rank))}
+      </div>
+    );
+  }
+
   render() {
     const rows = [15, 30, 45, 60, 75, 90, 100];
 
@@ -228,13 +295,13 @@ class EncounterStats extends React.PureComponent {
     this.amountOfParses = Object.values(this.state.mostUsedTalents[LEVEL_15_TALENT_ROW_INDEX]).reduce((total, parses) => total + parses);
     return (
       <>
-        <div className="panel-heading" style={{ padding: 20, marginBottom: '2em' }}>
-          <h2>Statistics of this fight of the top {this.amountOfParses} logs, ranked by {this.metric.toLocaleUpperCase()}</h2>
+        <div className="panel-heading" style={{ padding: 20, marginBottom: '2em', textAlign: 'center' }}>
+          <h2>Statistics for this fight using the top {this.amountOfParses} logs, ranked by {this.metric.toLocaleUpperCase()}</h2>
         </div>
         <div className="row">
           <div className="col-md-12" style={{ padding: '0 30px' }}>
             <div className="row">
-              <div className="col-md-6">
+              <div className="col-md-4">
                 <div className="row" style={{ marginBottom: '2em' }}>
                   <div className="col-md-12">
                     <h2>Most used Trinkets</h2>
@@ -249,10 +316,10 @@ class EncounterStats extends React.PureComponent {
                   </div>
                 </div>
                 <div className="row" style={{ marginBottom: '2em' }}>
-                  {this.state.mostUsedAzerite.map(trinket => this.singleTrait(trinket))}
+                  {this.state.mostUsedAzerite.map(azerite => this.singleTrait(azerite))}
                 </div>
               </div>
-              <div className="col-md-6">
+              <div className="col-md-4">
                 <div className="row" style={{ marginBottom: '2em' }}>
                   <div className="col-md-12">
                     <h2>Most used Talents</h2>
@@ -262,7 +329,7 @@ class EncounterStats extends React.PureComponent {
                   <div className="row" key={index} style={{ marginBottom: 15, paddingLeft: 20 }}>
                     <div className="col-lg-1 col-xs-2" style={{ lineHeight: '3em', textAlign: 'right' }}>{rows[index]}</div>
                     {Object.keys(row).sort((a, b) => row[b] - row[a]).map((talent, talentIndex) => (
-                      <div key={talentIndex} className="col-lg-2 col-xs-3" style={{ textAlign: 'center' }}>
+                      <div key={talentIndex} className="col-lg-3 col-xs-4" style={{ textAlign: 'center' }}>
                         <SpellLink id={Number(talent)} icon={false}>
                           <SpellIcon style={{ width: '3em', height: '3em' }} id={Number(talent)} noLink />
                         </SpellLink>
@@ -271,6 +338,17 @@ class EncounterStats extends React.PureComponent {
                     ))}
                   </div>
                 ))}
+              </div>
+              <div className="col-md-4">
+                <div className="row" style={{ marginBottom: '2em' }}>
+                  <div className="col-md-12">
+                    <h2>{this.state.similiarKillTimes.length > 0 ? 'Similiar' : 'Closest'} kill times</h2>
+                  </div>
+                </div>
+                <div className="row" style={{ marginBottom: '2em' }}>
+                  {this.state.similiarKillTimes.length > 0 ? this.similiarLogs() : ''}
+                  {this.state.similiarKillTimes.length === 0 && this.state.closestKillTimes.length > 0 ? this.closestLogs() : ''}
+                </div>
               </div>
             </div>
           </div>
