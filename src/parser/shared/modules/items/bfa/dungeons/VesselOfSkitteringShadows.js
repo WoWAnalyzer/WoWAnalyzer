@@ -1,11 +1,8 @@
-import SPELLS from 'common/SPELLS';
+import React from 'react';
 import ITEMS from 'common/ITEMS';
-import ItemIcon from 'common/ItemIcon';
+import Analyzer from 'parser/core/Analyzer';
 import { formatNumber } from 'common/format';
-
-import Analyzer from 'Parser/Core/Analyzer';
-
-import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
+import ItemDamageDone from 'interface/others/ItemDamageDone';
 
 /* Vessel of Skittering Shadows
  * Equip: Your damaging spells have a chance to summon a Volatile Shadeweaver,
@@ -17,30 +14,32 @@ import StatisticBox, { STATISTIC_ORDER } from 'Main/StatisticBox';
  * Log 2: https://www.warcraftlogs.com/reports/bmgDAF2NpkCL3aV1#fight=last&source=1
  */
 class VesselOfSkitteringShadows extends Analyzer {
-  healing = 0;
+  damage = 0;
+  totalProcs = 0;
 
   on_initialized() {
     this.active = this.owner.selectedCombatant.hasTrinket(ITEMS.VESSEL_OF_SKITTERING_SHADOWs.id);
   }
 
   on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
+    //const spellId = event.ability.guid;
 
-    // Do something when the player cast something
-    // to see what event holds you can do a console.log:
+    this.damage += event.amount + (event.absorbed || 0);
+    this.totalProcs += 1;
+    
     console.log(event);
   }
 
-  statistic() {
-    return (
-      <StatisticBox
-        icon={<ItemIcon id={ITEMS.STUPID_ROCK.id} />}
-        value={`${formatNumber(this.healing)} %`}
-        label="Damage Done"
-      />
-    );
+  item() {
+    return {
+      item: ITEMS.VESSEL_OF_SKITTERING_SHADOWs,
+      result: (
+        <dfn data-tip={`<b>${this.totalProcs}</b> procs, causing <b>${formatNumber(this.damage)}</b> damage.`}>
+          <ItemDamageDone amount={this.damage} />
+        </dfn>
+      ),
+    };
   }
-  statisticOrder = STATISTIC_ORDER.CORE(40);
 }
 
-export default MyCuteRock;
+export default VesselOfSkitteringShadows;
