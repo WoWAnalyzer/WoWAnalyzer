@@ -32,7 +32,7 @@ class EncounterStats extends React.PureComponent {
   SHOW_CLOSEST_KILL_TIME_LOGS = 10;
   metric = 'dps';
   amountOfParses = 0;
-  durationVariance = 0.2; //Marked in % to allow for similiar filtering on long/short fights
+  durationVariancePercentage = 0.2; //Marked in % to allow for similiar filtering on long/short fights
 
   constructor(props) {
     super(props);
@@ -118,7 +118,7 @@ class EncounterStats extends React.PureComponent {
           azerite = this.addItem(azerite, azeritePower);
         });
 
-        if (this.props.duration > rank.duration * (1 - this.durationVariance) && this.props.duration < rank.duration * (1 + this.durationVariance)) {
+        if (this.props.duration > rank.duration * (1 - this.durationVariancePercentage) && this.props.duration < rank.duration * (1 + this.durationVariancePercentage)) {
           similiarKillTimes.push({ rank, variance: rank.duration - this.props.duration > 0 ? rank.duration - this.props.duration : this.props.duration - rank.duration });
         }
         closestKillTimes.push({ rank, variance: rank.duration - this.props.duration > 0 ? rank.duration - this.props.duration : this.props.duration - rank.duration });
@@ -265,7 +265,7 @@ class EncounterStats extends React.PureComponent {
   similiarLogs() {
     return (
       <div className="col-md-12 flex-main" style={{ textAlign: 'left', margin: '5px auto' }}>
-        {this.state.similiarKillTimes.length > 1 ? 'These are' : 'This is'} the {this.state.similiarKillTimes.length} top 100 {this.state.similiarKillTimes.length > 1 ? 'logs' : 'log'} that {this.state.similiarKillTimes.length > 1 ? 'are' : 'is'} closest to your kill-time within {formatPercentage(this.durationVariance, 0)}% variance.
+        {this.state.similiarKillTimes.length > 1 ? 'These are' : 'This is'} the {this.state.similiarKillTimes.length} top 100 {this.state.similiarKillTimes.length > 1 ? 'logs' : 'log'} that {this.state.similiarKillTimes.length > 1 ? 'are' : 'is'} closest to your kill-time within {formatPercentage(this.durationVariancePercentage, 0)}% variance.
         {this.state.closestKillTimes.map(log => this.singleLog(log.rank))}
       </div>
     );
@@ -295,7 +295,7 @@ class EncounterStats extends React.PureComponent {
     this.amountOfParses = Object.values(this.state.mostUsedTalents[LEVEL_15_TALENT_ROW_INDEX]).reduce((total, parses) => total + parses);
     return (
       <>
-        <div className="panel-heading" style={{ padding: 20, marginBottom: '2em', textAlign: 'center' }}>
+        <div className="panel-heading" style={{ padding: 20, marginBottom: '2em' }}>
           <h2>Statistics for this fight using the top {this.amountOfParses} logs, ranked by {this.metric.toLocaleUpperCase()}</h2>
         </div>
         <div className="row">
