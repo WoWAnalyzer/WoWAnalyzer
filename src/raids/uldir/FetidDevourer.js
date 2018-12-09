@@ -14,7 +14,7 @@ export default {
     // e.g. ads
     softMitigationChecks: {
       physical: [
-        252277, // Terrible Thrash
+        262277, // Terrible Thrash
       ],
       magical: [],
     },
