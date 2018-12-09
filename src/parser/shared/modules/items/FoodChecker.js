@@ -56,15 +56,20 @@ class FoodChecker extends Analyzer {
     };
   }
   suggestions(when) {
+    let importance = SUGGESTION_IMPORTANCE.MINOR;
     let suggestionText = 'You did not have any food buff combat started. Having the right food buff during combat is an easy way to improve performance.';
     if (!this.higherFoodUp && this.lowerFoodUp) {
       suggestionText = 'You did not have the best food active when starting the fight. Using the best food available is an easy way to improve performance.';
+    }
+    if (!this.higherFoodUp && !this.lowerFoodUp) {
+      suggestionText = 'You did not any food active when starting the fight. Using food is an easy way to improve performance.';
+      importance = SUGGESTION_IMPORTANCE.MAJOR;
     }
     when(this.higherFoodSuggestionThresholds)
       .addSuggestion((suggest) => {
         return suggest(suggestionText)
           .icon(SPELLS.BOUNTIFUL_CAPTAIN_FEAST_AGI.icon)
-          .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
+          .staticImportance(importance);
       });
   }
 }
