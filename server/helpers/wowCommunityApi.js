@@ -87,7 +87,7 @@ const getAccessToken = async region => {
     process.env.BATTLE_NET_API_CLIENT_SECRET
   }`;
 
-  const tokenRequst = await retryingRequest({
+  const tokenRequest = await retryingRequest({
     url,
     headers: {
       'User-Agent': USER_AGENT,
@@ -101,7 +101,7 @@ const getAccessToken = async region => {
     },
     onBeforeAttempt: () => {
       end = blizzardApiResponseLatencyHistogram.startTimer({
-        category: 'access_token',
+        category: 'token',
         region,
       });
     },
