@@ -114,9 +114,9 @@ class Rule extends React.PureComponent {
             </div>
           )}
         >
-          <div style={{ paddingLeft: 85, paddingRight: 65, position: 'relative', minHeight: 80 }}>
+          <div style={{ paddingLeft: 47, paddingRight: 20, position: 'relative' }}>
             {description && (
-              <div className="row text-muted" style={{ position: 'relative', marginBottom: 10 }}>
+              <div className="row text-muted description" style={{ position: 'relative', marginBottom: 10 }}>
                 <InformationIcon className="icon" style={{ position: 'absolute', top: '50%', left: -33, transform: 'translateY(-33%)', fontSize: '2em' }} />
                 <div className="col-md-12">
                   {description}

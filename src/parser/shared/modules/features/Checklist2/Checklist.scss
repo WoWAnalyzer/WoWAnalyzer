@@ -71,6 +71,9 @@
       float: right;
       margin-right: 15px;
     }
+    .details .description {
+      color: lighten($muted, 5%);
+    }
   }
   li.passed .meta:before {
     content: '✔';
