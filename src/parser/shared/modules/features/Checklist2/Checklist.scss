@@ -50,29 +50,36 @@
           }
         }
       }
-      //&:not(.passed) .perf .perf-container .perf-bar {
-      //  background: $red !important;
-      //}
     }
-    //&.failed:before {
+    &.failed .meta .perf .perf-bar {
+      background: #f82b19 !important;
+    }
+    //&.failed .meta .name:after {
     //  content: '!';
-    //  color: #211510;
-    //  line-height: 1;
-    //  text-align: center;
-    //  background-color: $red;
-    //  border-color: $red;
+    //  color: #f82518;
+    //  font-weight: 800;
+    //  font-family: Poppins, 'Open Sans', 'Century Gothic', sans-serif;
+    //  float: right;
+    //  margin-right: 15px;
     //}
-    //&.failed {
-    //  background: rgba($primaryColor, 0.1);
-    //}
-    &.failed .meta .name:after {
-      content: 'Can be improved';
-      color: #f86725;
-      float: right;
-      margin-right: 15px;
+    .details > div {
+      // Increase padding to make space for the information icon
+      padding-left: 77px;
+      padding-right: 50px;
+      position: relative;
     }
     .details .description {
       color: lighten($muted, 5%);
+      position: relative;
+      margin-bottom: 10px;
+
+      > .icon:first-child {
+        position: absolute;
+        top: 50%;
+        left: -33px;
+        transform: translateY(-33%);
+        font-size: 2em;
+      }
     }
   }
   li.passed .meta:before {
