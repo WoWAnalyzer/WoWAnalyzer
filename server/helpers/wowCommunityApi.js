@@ -15,7 +15,7 @@ const availableRegions = {
 const USER_AGENT = process.env.USER_AGENT;
 const clientToken = {};
 
-const get = (url, metricLabels, region, accessToken) => {
+const get = (url, metricLabels, region) => {
   let end;
   return retryingRequest({
     url,
@@ -31,15 +31,17 @@ const get = (url, metricLabels, region, accessToken) => {
       //generally 404 should probably just not be retried
       return statusCode !== 404;
     },
+    getUrlWithAccessToken: async () => {
+      const accessToken = await getAccessToken(region);
+      console.log('access token:'+ accessToken);
+      return `${url}&access_token=${accessToken}`;
+    },
     onBeforeAttempt: () => {
       end = blizzardApiResponseLatencyHistogram.startTimer(metricLabels);
     },
     onFailure: async err => {
       if (err.statusCode === 401) {
-        // if the request in unauthorized, try renewing
-        // the battle net creds
         delete clientToken[region];
-        getAccessToken(region);
         end({
           statusCode: 401,
         });
@@ -75,11 +77,10 @@ const get = (url, metricLabels, region, accessToken) => {
 };
 const makeBaseUrl = region => `https://${region}.api.blizzard.com`;
 
-const getAccessToken = async region => {
+const getAccessToken = async (region) => {
   let end;
-  const now = new Date();
-  if (clientToken[region] && clientToken[region].accessToken && clientToken[region].expires > now) {
-    return clientToken[region].accessToken;
+  if (clientToken[region]) {
+    return clientToken[region];
   }
 
   const url = `https://${region}.battle.net/oauth/token?grant_type=client_credentials&client_id=${process.env.BATTLE_NET_API_CLIENT_ID}&client_secret=${
@@ -135,14 +136,8 @@ const getAccessToken = async region => {
   });
 
   const tokenData = JSON.parse(tokenRequest);
-  const expireDate = now.setSeconds(now.getSeconds() + tokenData.expires_in);
-
-  clientToken[region] = {
-    accessToken: tokenData.access_token,
-    expires: expireDate,
-  };
-
-  return clientToken[region].accessToken;
+  clientToken[region] = tokenData.access_token;
+  return clientToken[region];
 };
 
 export async function fetchCharacter(region, realm, name, fields = '') {
@@ -150,7 +145,6 @@ export async function fetchCharacter(region, realm, name, fields = '') {
   if (!availableRegions[region]) {
     throw new Error('Region not recognized.');
   }
-  const accessToken = await getAccessToken(region);
   const url = `${makeBaseUrl(region)}/wow/character/${encodeURIComponent(realm)}/${encodeURIComponent(name)}?locale=${availableRegions[region]}&fields=${fields}`;
 
   return get(
@@ -160,7 +154,6 @@ export async function fetchCharacter(region, realm, name, fields = '') {
       region,
     },
     region,
-    accessToken,
   );
 }
 
@@ -169,7 +162,6 @@ export async function fetchItem(region, itemId) {
   if (!availableRegions[region]) {
     throw new Error('Region not recognized.');
   }
-  const accessToken = await getAccessToken(region);
   const url = `${makeBaseUrl(region)}/wow/item/${encodeURIComponent(itemId)}?locale=${availableRegions[region]}`;
 
   return get(
@@ -179,7 +171,6 @@ export async function fetchItem(region, itemId) {
       region,
     },
     region,
-    accessToken,
   );
 }
 
@@ -188,7 +179,6 @@ export async function fetchSpell(region, spellId) {
   if (!availableRegions[region]) {
     throw new Error('Region not recognized.');
   }
-  const accessToken = await getAccessToken(region);
   const url = `${makeBaseUrl(region)}/wow/spell/${encodeURIComponent(spellId)}?locale=${availableRegions[region]}`;
 
   return get(
@@ -198,6 +188,5 @@ export async function fetchSpell(region, spellId) {
       region,
     },
     region,
-    accessToken,
   );
 }

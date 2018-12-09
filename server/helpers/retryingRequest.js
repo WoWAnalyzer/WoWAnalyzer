@@ -8,6 +8,7 @@ const defaultOptions = {
   reattemptDelay: 300,
   shouldRetry: err => err instanceof RequestError,
   onBeforeAttempt: null,
+  getUrlWithAccessToken: null,
   onSuccess: null,
   onFailure: null,
 };
@@ -18,6 +19,10 @@ async function retryingRequest(options, attempt = 1) {
     if (options.onBeforeAttempt) {
       options.onBeforeAttempt(attempt);
     }
+    if(options.getUrlWithAccessToken){
+      options.url = await options.getUrlWithAccessToken();
+    }
+
     const result = await request.get(options);
     if (options.onSuccess) {
       options.onSuccess(result, attempt);
@@ -27,11 +32,7 @@ async function retryingRequest(options, attempt = 1) {
   } catch (err) {
     // console.debug('REQUEST', 'ERROR', err.message);
     if (options.onFailure) {
-      // made change to await so there it can return a promise
-      // and fix issues that need to be fixed, the default
-      // void return will continue to work like normal
-      const optionChanges = await options.onFailure(err, attempt);
-      options = { ...options, ...optionChanges };
+      options.onFailure(err, attempt);
     }
     const shouldRetry = options.shouldRetry || defaultOptions.shouldRetry;
     if (shouldRetry(err)) {
