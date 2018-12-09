@@ -29,10 +29,7 @@ const get = (url, metricLabels, region, accessToken) => {
     shouldRetry: error => {
       const { statusCode } = error;
       //generally 404 should probably just not be retried
-      const notFoundError = statusCode === 404;
-      // Previously `shouldRetry` checked for just `err instanceof RequestError || statusCode === 503` - but the Blizzard API is so buggy with random errors, we're better off just retrying for anything unexpected. 503 errors happen regularly which probably means the character wasn't cached, try again once. The API also sometimes randomly throws 404 errors (without "Character not found." in the body) for no reason, we should retry those too.
-      const shouldRetry = !notFoundError;
-      return shouldRetry;
+      return statusCode !== 404;
     },
     onBeforeAttempt: () => {
       end = blizzardApiResponseLatencyHistogram.startTimer(metricLabels);
@@ -41,10 +38,11 @@ const get = (url, metricLabels, region, accessToken) => {
       if (err.statusCode === 401) {
         // if the request in unauthorized, try renewing
         // the battle net creds
-        const accessToken = await getAccessToken(region);
-        return {
-          url: `${url}&access_token=${accessToken}`,
-        };
+        delete clientToken[region];
+        getAccessToken(region);
+        end({
+          statusCode: 401,
+        });
       } else if (err instanceof RequestTimeoutError) {
         end({
           statusCode: 'timeout',
@@ -79,7 +77,8 @@ const makeBaseUrl = region => `https://${region}.api.blizzard.com`;
 
 const getAccessToken = async region => {
   let end;
-  if (clientToken[region] && clientToken[region].accessToken && clientToken[region].expires > new Date()) {
+  const now = new Date();
+  if (clientToken[region] && clientToken[region].accessToken && clientToken[region].expires > now) {
     return clientToken[region].accessToken;
   }
 
@@ -97,7 +96,7 @@ const getAccessToken = async region => {
     forever: true,
     timeout: 4000,
     shouldRetry: error => {
-      return true;
+      return error.statusCode !== 404;
     },
     onBeforeAttempt: () => {
       end = blizzardApiResponseLatencyHistogram.startTimer({
@@ -136,7 +135,7 @@ const getAccessToken = async region => {
   });
 
   const tokenData = JSON.parse(tokenRequst);
-  const expireDate = new Date().setSeconds(new Date().getSeconds() + tokenData.expires_in);
+  const expireDate = now.setSeconds(now.getSeconds() + tokenData.expires_in);
 
   clientToken[region] = {
     accessToken: tokenData.access_token,

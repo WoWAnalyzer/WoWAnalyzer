@@ -40,9 +40,9 @@ const BOSS_DEFAULT_ALL_BOSSES = 0;
 const TRINKET_SLOTS = [12, 13];
 const FALLBACK_PICTURE = '/img/fallback-character.jpg';
 const ERRORS = {
-  CHARACTER_NOT_FOUND: "We couldn't find your character on Warcraft Logs",
-  NO_PARSES_FOR_TIER: "We couldn't find any logs",
-  CHARACTER_HIDDEN: "We could find your character but he's very shy",
+  CHARACTER_NOT_FOUND: 'We couldn\'t find your character on Warcraft Logs',
+  NO_PARSES_FOR_TIER: 'We couldn\'t find any logs',
+  CHARACTER_HIDDEN: 'We could find your character but he\'s very shy',
   WCL_API_ERROR: 'Something went wrong talking to Warcraft Logs',
   UNKNOWN_API_ERROR: 'Something went wrong talking to the server',
   UNEXPECTED: 'Something went wrong',
@@ -109,16 +109,13 @@ class Parses extends React.Component {
   }
 
   updateZoneMetricBoss(zone, metric, boss) {
-    this.setState(
-      {
-        activeZoneID: zone,
-        metric: metric,
-        activeEncounter: boss,
-      },
-      () => {
-        this.load();
-      },
-    );
+    this.setState({
+      activeZoneID: zone,
+      metric: metric,
+      activeEncounter: boss,
+    }, () => {
+      this.load();
+    });
   }
 
   updateDifficulty(diff) {
@@ -191,7 +188,7 @@ class Parses extends React.Component {
         difficulty: DIFFICULTIES[elem.difficulty],
         report_code: elem.reportID,
         report_fight: elem.fightID,
-        historical_percent: 100 - (elem.rank / elem.outOf) * 100,
+        historical_percent: 100 - (elem.rank / elem.outOf * 100),
         persecondamount: elem.total,
         start_time: elem.startTime,
         character_name: elem.characterName,
@@ -203,9 +200,9 @@ class Parses extends React.Component {
 
     Object.values(updatedTrinkets).map(trinket => {
       if (trinket.icon === ITEMS[0].icon && trinket.id !== 0) {
-        return fetch(makeItemApiUrl(trinket.id, 'us'))
+        return fetch(makeItemApiUrl(trinket.id))
           .then(response => response.json())
-          .then(data => {
+          .then((data) => {
             updatedTrinkets[trinket.id].icon = data.icon;
             this.setState({
               trinkets: updatedTrinkets,
@@ -228,14 +225,11 @@ class Parses extends React.Component {
 
     // Skip CN-API due to blizzard restrictions (aka there is no API for CN)
     if (region === 'CN') {
-      this.setState(
-        {
-          image: FALLBACK_PICTURE,
-        },
-        () => {
-          this.load();
-        },
-      );
+      this.setState({
+        image: FALLBACK_PICTURE,
+      }, () => {
+        this.load();
+      });
       return;
     }
     // fetch character image and active spec from battle-net
@@ -276,15 +270,12 @@ class Parses extends React.Component {
     const imageUrl = `https://render-${this.props.region}.worldofwarcraft.com/character/${image}-main.jpg`;
     const role = data.talents.find(e => e.selected).spec.role;
     const metric = role === 'HEALING' ? 'hps' : 'dps';
-    this.setState(
-      {
-        image: imageUrl,
-        metric: metric,
-      },
-      () => {
-        this.load();
-      },
-    );
+    this.setState({
+      image: imageUrl,
+      metric: metric,
+    }, () => {
+      this.load();
+    });
   }
 
   async findRealm() {
@@ -302,8 +293,8 @@ class Parses extends React.Component {
   }
 
   async getRealmSlug() {
-    const realm = await this.findRealm();
-    return realm ? realm.slug : this.props.realm;
+      const realm = await this.findRealm();
+      return realm ? realm.slug : this.props.realm;
   }
 
   async load(refresh = false) {
@@ -344,8 +335,7 @@ class Parses extends React.Component {
           return;
         }
 
-        if (this.state.class !== '') {
-          //only update parses when class was already parsed (since its only a metric/raid change)
+        if (this.state.class !== '') { //only update parses when class was already parsed (since its only a metric/raid change)
           const parses = this.changeParseStructure(rawParses, this.state.class);
           this.setState({
             parses: parses,
@@ -416,75 +406,38 @@ class Parses extends React.Component {
     if (this.state.error === ERRORS.CHARACTER_NOT_FOUND) {
       errorMessage = (
         <div style={{ padding: 20 }}>
-          Please check your input and make sure that you've selected the correct region and realm.
-          <br />
-          If your input was correct, then make sure that someone in your raid logged the fight for you or check{' '}
-          <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">
-            Warcraft Logs guide
-          </a>{' '}
-          to get started with logging on your own.
-          <br />
-          <br />
-          When you know for sure that you have logs on Warcraft Logs and you still get this error, please message us on{' '}
-          <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">
-            Discord
-          </a>{' '}
-          or create an issue on{' '}
-          <a href="https://github.com/WoWAnalyzer/WoWAnalyzer" target="_blank" rel="noopener noreferrer">
-            Github
-          </a>
-          .
+          Please check your input and make sure that you've selected the correct region and realm.<br />
+          If your input was correct, then make sure that someone in your raid logged the fight for you or check <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">Warcraft Logs guide</a> to get started with logging on your own.<br /><br />
+          When you know for sure that you have logs on Warcraft Logs and you still get this error, please message us on <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">Discord</a> or create an issue on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer" target="_blank" rel="noopener noreferrer">Github</a>.
         </div>
       );
     } else if (this.state.error === ERRORS.NOT_RESPONDING) {
       errorMessage = (
         <div style={{ padding: 20 }}>
-          It looks like we couldn't get a response in time from the API, this usually happens when the servers are under heavy load.
-          <br />
-          <br />
+          It looks like we couldn't get a response in time from the API, this usually happens when the servers are under heavy load.<br /><br />
           You could try and enter your report-code manually <Link to="/">here</Link>.<br />
-          That would bypass the load-intensive character lookup and we should be able to analyze your report.
-          <br />
+          That would bypass the load-intensive character lookup and we should be able to analyze your report.<br />
         </div>
       );
     } else if (this.state.error === ERRORS.CHARACTER_HIDDEN) {
       errorMessage = (
         <div style={{ padding: 20 }}>
-          This character is hidden on warcraftlogs and we can't access the parses.
-          <br />
-          <br />
-          You don't know how to make your character visible again? Check{' '}
-          <a href="https://www.warcraftlogs.com/help/hidingcharacters/" target="_blank" rel="noopener noreferrer">
-            Warcraft Logs{' '}
-          </a>{' '}
-          and hit the 'Refresh' button above once you're done.
+          This character is hidden on warcraftlogs and we can't access the parses.<br /><br />
+          You don't know how to make your character visible again? Check <a href="https://www.warcraftlogs.com/help/hidingcharacters/" target="_blank" rel="noopener noreferrer">Warcraft Logs </a> and hit the 'Refresh' button above once you're done.
         </div>
       );
     } else if (this.state.error === ERRORS.WCL_API_ERROR || this.state.error === ERRORS.UNKNOWN_API_ERROR || this.state.error === ERRORS.UNEXPECTED) {
       errorMessage = (
         <div style={{ padding: 20 }}>
-          {this.state.errorMessage} Please message us on{' '}
-          <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">
-            Discord
-          </a>{' '}
-          or create an issue on{' '}
-          <a href="https://github.com/WoWAnalyzer/WoWAnalyzer" target="_blank" rel="noopener noreferrer">
-            Github
-          </a>{' '}
-          if this issue persists and we will fix it, eventually.
+          {this.state.errorMessage}{' '}
+          Please message us on <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">Discord</a> or create an issue on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer" target="_blank" rel="noopener noreferrer">Github</a> if this issue persists and we will fix it, eventually.
         </div>
       );
     } else if (this.state.error === ERRORS.NO_PARSES_FOR_TIER || this.filterParses.length === 0) {
       errorMessage = (
         <div style={{ padding: 20 }}>
-          Please check your filters and make sure that you logged those fights on Warcraft Logs.
-          <br />
-          <br />
-          You don't know how to log your fights? Check{' '}
-          <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">
-            Warcraft Logs guide
-          </a>{' '}
-          to get started.
+          Please check your filters and make sure that you logged those fights on Warcraft Logs.<br /><br />
+          You don't know how to log your fights? Check <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">Warcraft Logs guide</a> to get started.
         </div>
       );
     }
@@ -511,10 +464,10 @@ class Parses extends React.Component {
                       />
                     </div>
                   )}
-                  <h2 style={{ fontSize: '1.8em', marginTop: 10 }}>
-                    {this.props.region} - {this.props.realm}
+                  <h2 style={{ fontSize: '1.8em', marginTop: 10 }}>{this.props.region} - {this.props.realm}</h2>
+                  <h2 style={{ fontSize: '2.4em', margin: '10px 10px' }}>
+                    {this.props.name}
                   </h2>
-                  <h2 style={{ fontSize: '2.4em', margin: '10px 10px' }}>{this.props.name}</h2>
                   {this.state.class && (
                     <img
                       src={`/specs/${this.state.class.replace(' ', '')}-New.png`}
@@ -540,7 +493,11 @@ class Parses extends React.Component {
                 <div className="col-md-4">
                   Difficulties:
                   {DIFFICULTIES.filter(elem => elem).map((elem, index) => (
-                    <div key={index} onClick={() => this.updateDifficulty(elem)} className={this.state.activeDifficulty.includes(elem) ? 'selected form-control' : 'form-control'}>
+                    <div
+                      key={index}
+                      onClick={() => this.updateDifficulty(elem)}
+                      className={this.state.activeDifficulty.includes(elem) ? 'selected form-control' : 'form-control'}
+                    >
                       {elem}
                     </div>
                   ))}
@@ -552,24 +509,20 @@ class Parses extends React.Component {
                     value={this.state.activeZoneID}
                     onChange={e => this.updateZoneMetricBoss(Number(e.target.value), this.state.metric, BOSS_DEFAULT_ALL_BOSSES)}
                   >
-                    {Object.values(ZONES)
-                      .reverse()
-                      .map(elem => (
-                        <option key={elem.id} value={elem.id}>
-                          {elem.name}
-                        </option>
-                      ))}
+                    {Object.values(ZONES).reverse().map(elem =>
+                      <option key={elem.id} value={elem.id}>{elem.name}</option>
+                    )}
                   </select>
                   Boss:
-                  <select className="form-control" value={this.state.activeEncounter} onChange={e => this.setState({ activeEncounter: e.target.value })}>
-                    <option value={BOSS_DEFAULT_ALL_BOSSES} defaultValue>
-                      All bosses
-                    </option>
-                    {this.zoneBosses.map(e => (
-                      <option key={e.id} value={e.name}>
-                        {e.name}
-                      </option>
-                    ))}
+                  <select
+                    className="form-control"
+                    value={this.state.activeEncounter}
+                    onChange={e => this.setState({ activeEncounter: e.target.value })}
+                  >
+                    <option value={BOSS_DEFAULT_ALL_BOSSES} defaultValue>All bosses</option>
+                    {this.zoneBosses.map(e =>
+                      <option key={e.id} value={e.name}>{e.name}</option>
+                    )}
                   </select>
                   Metric:
                   <select
@@ -577,16 +530,16 @@ class Parses extends React.Component {
                     value={this.state.metric}
                     onChange={e => this.updateZoneMetricBoss(this.state.activeZoneID, e.target.value, this.state.activeEncounter)}
                   >
-                    <option defaultValue value="dps">
-                      DPS
-                    </option>
+                    <option defaultValue value="dps">DPS</option>
                     <option value="hps">HPS</option>
                   </select>
                   Sort by:
-                  <select className="form-control" value={this.state.sortBy} onChange={e => this.setState({ sortBy: Number(e.target.value) })}>
-                    <option defaultValue value={ORDER_BY.DATE}>
-                      Date
-                    </option>
+                  <select
+                    className="form-control"
+                    value={this.state.sortBy}
+                    onChange={e => this.setState({ sortBy: Number(e.target.value) })}
+                  >
+                    <option defaultValue value={ORDER_BY.DATE}>Date</option>
                     <option value={ORDER_BY.DPS}>DPS / HPS</option>
                     <option value={ORDER_BY.PERCENTILE}>Percentile</option>
                   </select>
@@ -603,7 +556,13 @@ class Parses extends React.Component {
               >
                 <img src={WarcraftLogsLogo} alt="Warcraft Logs logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
               </a>
-              <a href={battleNetUrl} target="_blank" rel="noopener noreferrer" className="btn" style={{ fontSize: 22 }}>
+              <a
+                href={battleNetUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn"
+                style={{ fontSize: 22 }}
+              >
                 <img src={ArmoryLogo} alt="Armory logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Armory
               </a>
               {this.props.region !== 'CN' && (
@@ -622,12 +581,13 @@ class Parses extends React.Component {
           <div className="col-md-7">
             {this.state.error && (
               <span>
-                <Link to="/">Home</Link> &gt;{' '}
+                <Link to="/">
+                  Home
+                </Link> &gt;{' '}
                 <span>
-                  {this.props.region} &gt; {this.props.realm} &gt; {this.props.name}
+                  {this.props.region}  &gt; {this.props.realm}  &gt; {this.props.name}
                 </span>
-                <br />
-                <br />
+                <br /><br />
               </span>
             )}
             <div className="panel" style={{ overflow: 'auto' }}>
@@ -653,7 +613,14 @@ class Parses extends React.Component {
                   </div>
                 )}
                 {!this.state.isLoading && errorMessage}
-                {!this.state.isLoading && <ParsesList parses={this.filterParses} class={this.state.class} metric={this.state.metric} trinkets={this.state.trinkets} />}
+                {!this.state.isLoading && (
+                  <ParsesList
+                    parses={this.filterParses}
+                    class={this.state.class}
+                    metric={this.state.metric}
+                    trinkets={this.state.trinkets}
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -669,6 +636,6 @@ export default compose(
     null,
     {
       appendReportHistory,
-    },
-  ),
+    }
+  )
 )(Parses);
