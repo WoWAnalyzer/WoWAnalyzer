@@ -1,7 +1,7 @@
 @import 'interface/layout/Theme.scss';
 
 .checklist {
-  .checklist-item {
+  li .meta {
     position: relative;
     font-size: 16px;
 
@@ -17,13 +17,6 @@
       width: 20px;
       height: 20px;
       box-shadow: 0 0 2px $primaryColor;
-    }
-    &.passed:before {
-      content: '✔';
-      color: #211510;
-      line-height: 1;
-      text-align: center;
-      background-color: $primaryColor;
     }
     //&.failed:before {
     //  content: '!';
@@ -77,7 +70,14 @@
     //  background: $red !important;
     //}
   }
-  .expanded .checklist-item .chevron {
+  li.passed .meta:before {
+    content: '✔';
+    color: #211510;
+    line-height: 1;
+    text-align: center;
+    background-color: $primaryColor;
+  }
+  li.expanded .chevron {
     transform: translateY(-50%) rotate(180deg);
   }
 }

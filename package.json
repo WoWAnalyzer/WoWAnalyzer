@@ -27,6 +27,7 @@
     "raven-js": "^3.27.0",
     "rc-slider": "^8.6.3",
     "react": "^16.5.2",
+    "react-animate-height": "^2.0.7",
     "react-chartjs-2": "^2.7.4",
     "react-dom": "^16.5.2",
     "react-gemini-scrollbar": "^2.3.4",

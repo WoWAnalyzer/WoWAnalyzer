@@ -2,10 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactTooltip from 'react-tooltip';
 
-import TickIcon from 'interface/icons/Tick';
-import CrossIcon from 'interface/icons/Cross';
 import DropdownIcon from 'interface/icons/Dropdown';
 import InformationIcon from 'interface/icons/Information';
+import Expandable from 'interface/common/Expandable';
 
 import colorForPerformance from './helpers/colorForPerformance';
 import calculateMedian from './helpers/calculateMedian';
@@ -35,7 +34,6 @@ class Rule extends React.PureComponent {
     super();
     this.state = {
       requirementPerformances: [],
-      expanded: false,
     };
     this.handleToggleExpand = this.handleToggleExpand.bind(this);
     this.setRequirementPerformance = this.setRequirementPerformance.bind(this);
@@ -91,8 +89,10 @@ class Rule extends React.PureComponent {
 
     return (
       <RuleContext.Provider value={this.setRequirementPerformance}>
-        <li className={`expandable ${this.state.expanded ? 'expanded' : ''}`}>
-          <div className={`meta checklist-item ${passed ? 'passed' : 'failed'}`} onClick={this.handleToggleExpand}>
+        <Expandable
+          element="li"
+          className={passed ? 'passed' : 'failed'}
+          header={(
             <div className="flex">
               <div className="flex-main name">
                 {name}
@@ -112,9 +112,9 @@ class Rule extends React.PureComponent {
                 <DropdownIcon />
               </div>
             </div>
-          </div>
-          {/* Requirements must always render so the Rule gets their performance values, so we need to toggle the items via display: none. I know it's not best practice, but it has very low cost and prevents a lot of trouble for contributors. */}
-          <div className="details" style={{ display: this.state.expanded ? undefined : 'none', paddingLeft: 85, paddingRight: 65, position: 'relative', minHeight: 80 }}>
+          )}
+        >
+          <div style={{ paddingLeft: 85, paddingRight: 65, position: 'relative', minHeight: 80 }}>
             {description && (
               <div className="row text-muted" style={{ position: 'relative', marginBottom: 10 }}>
                 <InformationIcon className="icon" style={{ position: 'absolute', top: '50%', left: -33, transform: 'translateY(-33%)', fontSize: '2em' }} />
@@ -127,7 +127,7 @@ class Rule extends React.PureComponent {
               {children}
             </div>
           </div>
-        </li>
+        </Expandable>
       </RuleContext.Provider>
     );
   }
