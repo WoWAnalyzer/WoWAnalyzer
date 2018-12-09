@@ -6,6 +6,7 @@ import { calculateAzeriteEffects } from 'common/stats';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 const DANCING_RUNE_WEAPON_BONUS_DURATION_PER_TRAIT = 0.5;
 const MAX_DANCING_RUNE_WEAPON_BONUS_DURATION = 5;
@@ -20,12 +21,6 @@ const eternalRuneWeaponStats = traits => Object.values(traits).reduce((obj, rank
   traits: 0,
 });
 
-export const STAT_TRACKER = {
-  strength: combatant => {
-    return eternalRuneWeaponStats(combatant.traitsBySpellId[SPELLS.ETERNAL_RUNE_WEAPON.id]).strength;
-  },
-};
-
 /**
  * Eternal Rune Weapon
  * Gain x strength while Dancing Rune Weapon is up
@@ -39,6 +34,10 @@ export const STAT_TRACKER = {
  * Example report: https://www.warcraftlogs.com/reports/fCBX6HMK372AZxzp/#fight=62&source=20 (with two ERW traits)
  */
 class EternalRuneWeapon extends Analyzer {
+  static dependencies = {
+    statTracker: StatTracker,
+  };
+
   strength = 0;
   traits = 0;
 
@@ -54,6 +53,10 @@ class EternalRuneWeapon extends Analyzer {
     const { strength, traits } = eternalRuneWeaponStats(this.selectedCombatant.traitsBySpellId[SPELLS.ETERNAL_RUNE_WEAPON.id]);
     this.strength = strength;
     this.traits = traits;
+
+    this.statTracker.add(SPELLS.ETERNAL_RUNE_WEAPON_BUFF.id, {
+      strength,
+    });
   }
 
   on_byPlayer_cast(event) {

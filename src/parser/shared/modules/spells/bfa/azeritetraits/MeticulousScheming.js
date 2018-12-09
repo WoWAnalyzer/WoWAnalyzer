@@ -6,6 +6,7 @@ import { formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import Analyzer from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 const meticulousSchemingStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [haste] = calculateAzeriteEffects(SPELLS.METICULOUS_SCHEMING.id, rank);
@@ -15,10 +16,6 @@ const meticulousSchemingStats = traits => Object.values(traits).reduce((obj, ran
   haste: 0,
 });
 
-export const STAT_TRACKER = {
-  haste: combatant => meticulousSchemingStats(combatant.traitsBySpellId[SPELLS.METICULOUS_SCHEMING.id]).haste,
-};
-
 /**
  * Meticulous Scheming
  * Gain x haste for 20sec after casting 3 different spells within 8sec after gaining "Meticulous Scheming"
@@ -26,6 +23,10 @@ export const STAT_TRACKER = {
  * Example report: https://www.warcraftlogs.com/reports/jBthQCZcWRNGyAk1#fight=29&type=auras&source=18
  */
 class MeticulousScheming extends Analyzer {
+  static dependencies = {
+    statTracker: StatTracker,
+  };
+
   haste = 0;
   meticulousSchemingProcs = 0;
   seizeTheMomentProcs = 0;
@@ -39,6 +40,10 @@ class MeticulousScheming extends Analyzer {
 
     const { haste } = meticulousSchemingStats(this.selectedCombatant.traitsBySpellId[SPELLS.METICULOUS_SCHEMING.id]);
     this.haste = haste;
+
+    this.statTracker.add(SPELLS.SEIZE_THE_MOMENT.id, {
+      haste,
+    });
   }
 
   on_byPlayer_applybuff(event) {
