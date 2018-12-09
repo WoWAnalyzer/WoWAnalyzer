@@ -35,6 +35,7 @@ import Chakrams from './modules/talents/Chakrams';
 import BirdOfPrey from './modules/talents/BirdOfPrey';
 import BornToBeWild from '../shared/modules/talents/BornToBeWild';
 import BindingShot from '../shared/modules/talents/BindingShot';
+import WildfireInfusion from './modules/talents/WildfireInfusion';
 
 //Azerite Traits
 import WildernessSurvival from './modules/spells/azeritetraits/WildernessSurvival';
@@ -81,6 +82,7 @@ class CombatLogParser extends CoreCombatLogParser {
     birdOfPrey: BirdOfPrey,
     bornToBeWild: BornToBeWild,
     bindingShot: BindingShot,
+    wildfireInfusion: WildfireInfusion,
 
     //Azerite Traits
     wildernessSurvival: WildernessSurvival,

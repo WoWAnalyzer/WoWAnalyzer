@@ -342,8 +342,8 @@ export default {
   },
   MONGOOSE_BITE_TALENT_AOTE: {
     id: 265888,
-    name: "Mongoose Bite",
-    icon: "ability_hunter_mongoosebite",
+    name: 'Mongoose Bite',
+    icon: 'ability_hunter_mongoosebite',
   },
   STEEL_TRAP_DAMAGE: { //the event is a damage event, but it merely applies the debuff
     id: 162480,
@@ -380,13 +380,43 @@ export default {
     name: 'Shrapnel Bomb',
     icon: 'inv_wildfirebomb_shrapnel',
   },
+  SHRAPNEL_BOMB_WFI_IMPACT: {
+    id: 270338,
+    name: 'Shrapnel Bomb',
+    icon: 'inv_wildfirebomb_shrapnel',
+  },
+  SHRAPNEL_BOMB_WFI_DOT: {
+    id: 270339,
+    name: 'Shrapnel Bomb',
+    icon: 'inv_wildfirebomb_shrapnel',
+  },
   VOLATILE_BOMB_WFI: {
     id: 271045,
     name: 'Volatile Bomb',
     icon: 'inv_wildfirebomb_poison',
   },
+  VOLATILE_BOMB_WFI_IMPACT: {
+    id: 271048,
+    name: 'Volatile Bomb',
+    icon: 'inv_wildfirebomb_poison',
+  },
+  VOLATILE_BOMB_WFI_DOT: {
+    id: 271049,
+    name: 'Volatile Bomb',
+    icon: 'inv_wildfirebomb_poison',
+  },
   PHEROMONE_BOMB_WFI: {
     id: 270323,
+    name: 'Pheromone Bomb',
+    icon: 'inv_wildfirebomb_blood',
+  },
+  PHEROMONE_BOMB_WFI_IMPACT: {
+    id: 270329,
+    name: 'Pheromone Bomb',
+    icon: 'inv_wildfirebomb_blood',
+  },
+  PHEROMONE_BOMB_WFI_DOT: {
+    id: 270332,
     name: 'Pheromone Bomb',
     icon: 'inv_wildfirebomb_blood',
   },

@@ -1,10 +1,8 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import StatisticBox from 'interface/others/StatisticBox';
-import SpellIcon from 'common/SpellIcon';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { formatNumber } from 'common/format';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
 /**
  * Your Call Pet additionally summons the first pet from your stable.
@@ -49,11 +47,15 @@ class AnimalCompanion extends Analyzer {
   statistic() {
     const totalDamage = this.pets.map(pet => pet.damage).reduce((total, current) => total + current, 0);
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.ANIMAL_COMPANION_TALENT.id} />}
+      <TalentStatisticBox
+        talent={SPELLS.ANIMAL_COMPANION_TALENT.id}
         value={<>{formatNumber(totalDamage)} / {formatNumber(totalDamage / (this.owner.fightDuration / 1000))} DPS</>}
+<<<<<<< HEAD
         label="Animal Companion"
         category={STATISTIC_CATEGORY.TALENTS}
+=======
+        tooltip="Without this talent your main pet would have done 66% more damage than it did as Animal Companion nerfs all pet damage by 40% - however if you're using the azerite trait Pack Alpha, your main pet would have done less damage that way."
+>>>>>>> Start work on WFI
       >
         <table className="table table-condensed">
           <thead>
@@ -75,7 +77,7 @@ class AnimalCompanion extends Analyzer {
             ))}
           </tbody>
         </table>
-      </StatisticBox>
+      </TalentStatisticBox>
     );
   }
 }
