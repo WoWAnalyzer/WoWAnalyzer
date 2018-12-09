@@ -134,7 +134,7 @@ const getAccessToken = async region => {
     },
   });
 
-  const tokenData = JSON.parse(tokenRequst);
+  const tokenData = JSON.parse(tokenRequest);
   const expireDate = now.setSeconds(now.getSeconds() + tokenData.expires_in);
 
   clientToken[region] = {
