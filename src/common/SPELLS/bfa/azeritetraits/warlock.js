@@ -11,8 +11,18 @@ export default {
     name: 'Cascading Calamity',
     icon: 'spell_shadow_unstableaffliction_3',
   },
+  CASCADING_CALAMITY_BUFF: {
+    id: 275378,
+    name: 'Cascading Calamity',
+    icon: 'spell_shadow_unstableaffliction_3',
+  },
   WRACKING_BRILLIANCE: {
     id: 272891,
+    name: 'Wracking Brilliance',
+    icon: 'spell_shadow_felmending',
+  },
+  WRACKING_BRILLIANCE_BUFF: {
+    id: 272893,
     name: 'Wracking Brilliance',
     icon: 'spell_shadow_felmending',
   },
@@ -23,6 +33,11 @@ export default {
   },
   INEVITABLE_DEMISE: {
     id: 273521,
+    name: 'Inevitable Demise',
+    icon: 'spell_shadow_abominationexplosion',
+  },
+  INEVITABLE_DEMISE_BUFF: {
+    id: 273525,
     name: 'Inevitable Demise',
     icon: 'spell_shadow_abominationexplosion',
   },
@@ -43,7 +58,7 @@ export default {
     name: 'Explosive Potential',
     icon: 'inv__implosion',
   },
-  EXPLOSIVE_POTENTIAL_BUFF: { // buff
+  EXPLOSIVE_POTENTIAL_BUFF: {
     id: 275398,
     name: 'Explosive Potential',
     icon: 'inv__implosion',
@@ -129,5 +144,25 @@ export default {
     id: 279913,
     name: 'Bursting Flare',
     icon: 'spell_fire_fireball',
+  },
+  CRASHING_CHAOS: {
+    id: 277644,
+    name: 'Crashing Chaos',
+    icon: 'ability_warlock_chaosbolt',
+  },
+  CRASHING_CHAOS_BUFF: {
+    id: 277706,
+    name: 'Crashing Chaos',
+    icon: 'ability_warlock_chaosbolt',
+  },
+  CHAOTIC_INFERNO: {
+    id: 278748,
+    name: 'Chaotic Inferno',
+    icon: 'spell_fire_burnout',
+  },
+  CHAOTIC_INFERNO_BUFF: {
+    id: 279673,
+    name: 'Chaotic Inferno',
+    icon: 'spell_fire_burnout',
   },
 };

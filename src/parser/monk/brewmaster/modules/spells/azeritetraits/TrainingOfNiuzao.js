@@ -23,13 +23,7 @@ export function trainingOfNiuzaoStats(combatant) {
   };
 }
 
-const NULL_MASTERY = {mastery: 0};
-
-export const MASTERY_FNS = {
-  [SPELLS.LIGHT_STAGGER_DEBUFF.id]: combatant => (trainingOfNiuzaoStats(combatant) || NULL_MASTERY).mastery * TON_SCALE[SPELLS.LIGHT_STAGGER_DEBUFF.id],
-  [SPELLS.MODERATE_STAGGER_DEBUFF.id]: combatant => (trainingOfNiuzaoStats(combatant) || NULL_MASTERY).mastery * TON_SCALE[SPELLS.MODERATE_STAGGER_DEBUFF.id],
-  [SPELLS.HEAVY_STAGGER_DEBUFF.id]: combatant => (trainingOfNiuzaoStats(combatant) || NULL_MASTERY).mastery * TON_SCALE[SPELLS.HEAVY_STAGGER_DEBUFF.id],
-};
+const NULL_MASTERY = { mastery: 0 };
 
 /**
  * Training of Niuzao
@@ -45,6 +39,10 @@ export const MASTERY_FNS = {
  * Example Report: https://www.warcraftlogs.com/reports/X4kZzGnym1YMJwPd/#fight=32&source=7
  */
 class TrainingOfNiuzao extends Analyzer {
+  static dependencies = {
+    statTracker: StatTracker,
+  };
+
   mastery = 0;
   constructor(...args) {
     super(...args);
@@ -52,8 +50,18 @@ class TrainingOfNiuzao extends Analyzer {
       this.active = false;
       return;
     }
-    
+
     this.mastery = trainingOfNiuzaoStats(this.selectedCombatant).mastery;
+
+    this.statTracker.add(SPELLS.LIGHT_STAGGER_DEBUFF.id, {
+      mastery: combatant => (trainingOfNiuzaoStats(combatant) || NULL_MASTERY).mastery * TON_SCALE[SPELLS.LIGHT_STAGGER_DEBUFF.id],
+    });
+    this.statTracker.add(SPELLS.MODERATE_STAGGER_DEBUFF.id, {
+      mastery: combatant => (trainingOfNiuzaoStats(combatant) || NULL_MASTERY).mastery * TON_SCALE[SPELLS.MODERATE_STAGGER_DEBUFF.id],
+    });
+    this.statTracker.add(SPELLS.HEAVY_STAGGER_DEBUFF.id, {
+      mastery: combatant => (trainingOfNiuzaoStats(combatant) || NULL_MASTERY).mastery * TON_SCALE[SPELLS.HEAVY_STAGGER_DEBUFF.id],
+    });
   }
 
   get avgMastery() {
@@ -77,7 +85,7 @@ class TrainingOfNiuzao extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.TRAINING_OF_NIUZAO.id}
-        value={`${formatPercentage(this.owner.getModule(StatTracker).masteryPercentage(this.avgMastery, false))}% Avg. Mastery`}
+        value={`${formatPercentage(this.statTracker.masteryPercentage(this.avgMastery, false))}% Avg. Mastery`}
         tooltip={`Contribution Breakdown:
           <ul>
           <li>No Stagger: <b>${formatPercentage(1 - lightUptime - moderateUptime - heavyUptime)}%</b> of the fight.</li>
