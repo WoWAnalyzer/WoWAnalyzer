@@ -14,6 +14,11 @@ export default [
     contributors: [Chizu],
   },
   {
+    date: new Date('2018-12-09'),
+    changes: 'Added a link to reports that have similiar kill-times under the Statistics tab for easier comparison.',
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-11-15'),
     changes: <>Added <ItemLink id={ITEMS.DREAD_GLADIATORS_INSIGNIA.id} /> module.</>,
     contributors: [Aelexe],
