@@ -9,7 +9,7 @@ class MitigationCheck extends CoreMitigationCheck {
       SPELLS.SHIELD_BLOCK_BUFF.id,
     ];
     this.buffCheckMagical = [
-      SPELLS.SPELL_REFLECTION,
+      SPELLS.SPELL_REFLECTION.id,
     ];
     this.buffCheckPhysAndMag = [
       SPELLS.IGNORE_PAIN.id,
