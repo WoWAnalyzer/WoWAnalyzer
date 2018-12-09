@@ -30,7 +30,8 @@ class PreparationRuleAnalyzer extends Analyzer {
         style: 'number',
       },
       flaskPresent: this.flaskChecker.flaskSuggestionThresholds,
-      foodPresent: this.foodChecker.foodSuggestionThresholds,
+      higherfoodPresent: this.foodChecker.higherFoodSuggestionThresholds,
+      foodPresent: this.foodChecker.isPresentFoodSuggestionThresholds,
 
     };
   }

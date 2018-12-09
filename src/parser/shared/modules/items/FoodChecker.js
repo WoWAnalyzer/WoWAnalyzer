@@ -41,9 +41,16 @@ class FoodChecker extends Analyzer {
       }
     }
   }
-  get foodSuggestionThresholds() {
+  get higherFoodSuggestionThresholds() {
     return {
       actual: this.higherFoodUp,
+      isEqual: false,
+      style: 'boolean',
+    };
+  }
+  get isPresentFoodSuggestionThresholds() {
+    return {
+      actual: this.higherFoodUp || this.lowerFoodUp,
       isEqual: false,
       style: 'boolean',
     };
@@ -53,7 +60,7 @@ class FoodChecker extends Analyzer {
     if (!this.higherFoodUp && this.lowerFoodUp) {
       suggestionText = 'You did not have the best food active when starting the fight. Using the best food available is an easy way to improve performance.';
     }
-    when(this.foodSuggestionThresholds)
+    when(this.higherFoodSuggestionThresholds)
       .addSuggestion((suggest) => {
         return suggest(suggestionText)
           .icon(SPELLS.BOUNTIFUL_CAPTAIN_FEAST_AGI.icon)
