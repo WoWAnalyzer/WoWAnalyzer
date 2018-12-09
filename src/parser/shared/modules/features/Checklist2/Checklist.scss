@@ -1,22 +1,58 @@
 @import 'interface/layout/Theme.scss';
 
 .checklist {
-  li .meta {
-    position: relative;
-    font-size: 16px;
+  li {
+    .meta {
+      position: relative;
+      font-size: 16px;
 
-    &:before {
-      content: '';
-      position: absolute;
-      left: 30px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: transparent;
-      border: 2px solid $primaryColor;
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      box-shadow: 0 0 2px $primaryColor;
+      &:before {
+        content: '';
+        position: absolute;
+        left: 30px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: transparent;
+        border: 2px solid $primaryColor;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        box-shadow: 0 0 2px $primaryColor;
+      }
+      .name {
+        margin-left: 30px;
+      }
+      .chevron {
+        position: absolute;
+        right: 30px;
+        top: 50%;
+        transform: translateY(-50%) rotate(0deg);
+        color: $primaryColor;
+        font-size: 0.5em;
+        transition: all 400ms;
+      }
+      .perf {
+        margin-right: 40px;
+        width: 200px;
+        display: flex;
+        align-items: center;
+
+        .perf-container {
+          background: #000;
+          width: 100%;
+          border-radius: 3px;
+          height: 6px;
+          overflow: hidden;
+
+          .perf-bar {
+            background: $primaryColor !important;
+            height: 100%;
+          }
+        }
+      }
+      //&:not(.passed) .perf .perf-container .perf-bar {
+      //  background: $red !important;
+      //}
     }
     //&.failed:before {
     //  content: '!';
@@ -29,46 +65,12 @@
     //&.failed {
     //  background: rgba($primaryColor, 0.1);
     //}
-    .name {
-      margin-left: 30px;
-    }
-    &.failed .name:after {
+    &.failed .meta .name:after {
       content: 'Can be improved';
       color: #f86725;
       float: right;
       margin-right: 15px;
     }
-    .chevron {
-      position: absolute;
-      right: 30px;
-      top: 50%;
-      transform: translateY(-50%) rotate(0deg);
-      color: $primaryColor;
-      font-size: 0.5em;
-      transition: all 400ms;
-    }
-    .perf {
-      margin-right: 40px;
-      width: 200px;
-      display: flex;
-      align-items: center;
-
-      .perf-container {
-        background: #000;
-        width: 100%;
-        border-radius: 3px;
-        height: 6px;
-        overflow: hidden;
-
-        .perf-bar {
-          background: $primaryColor !important;
-          height: 100%;
-        }
-      }
-    }
-    //&:not(.passed) .perf .perf-container .perf-bar {
-    //  background: $red !important;
-    //}
   }
   li.passed .meta:before {
     content: '✔';
