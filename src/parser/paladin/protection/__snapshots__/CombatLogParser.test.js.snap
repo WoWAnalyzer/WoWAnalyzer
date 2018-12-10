@@ -3022,7 +3022,7 @@ exports[`The Protection Paladin Analyzer should match the checklist snapshot 1`]
             <div
               className="flex-main"
             >
-              High quality Food used
+              High quality food used
             </div>
             <div
               className="flex-sub content-middle text-muted"
