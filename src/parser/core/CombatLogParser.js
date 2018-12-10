@@ -230,6 +230,7 @@ class CombatLogParser {
     rezansGleamingEye: RezansGleamingEye,
     rotcrustedVoodooDoll: RotcrustedVoodooDoll,
     azerokksResonatingHeart: AzerokksResonatingHeart,
+    vesselOfSkitteringShadows: VesselOfSkitteringShadows,
     ladyWaycrestsMusicBox: LadyWaycrestsMusicBox,
     // PVP
     dreadGladiatorsMedallion: DreadGladiatorsMedallion,
