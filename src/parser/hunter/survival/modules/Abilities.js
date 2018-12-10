@@ -216,9 +216,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.HARPOON,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: {
-          base: 500,
-        },
+        gcd: null,
         cooldown: 20,
       },
       {
@@ -293,6 +291,12 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+      },
+      {
+        spell: SPELLS.MISDIRECTION,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 30,
+        gcd: null,
       },
 
       /**
