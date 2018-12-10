@@ -16,7 +16,8 @@ import ItemDamageDone from 'interface/others/ItemDamageDone';
 class VesselOfSkitteringShadows extends Analyzer {
   damage = 0;
 
-  on_initialized() {
+  constructor(...args) {
+    super(...args);
     this.active = this.selectedCombatant.hasTrinket(ITEMS.VESSEL_OF_SKITTERING_SHADOWS.id);
   }
 
