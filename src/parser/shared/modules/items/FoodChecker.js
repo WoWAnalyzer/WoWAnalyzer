@@ -57,7 +57,7 @@ class FoodChecker extends Analyzer {
   }
   suggestions(when) {
     let importance = SUGGESTION_IMPORTANCE.MINOR;
-    let suggestionText = 'You did not have any food active when starting the fight.  Having the right food buff during combat is an easy way to improve performance.';
+    let suggestionText = 'You did not have any food active when starting the fight. Having the right food buff during combat is an easy way to improve performance.';
     if (!this.higherFoodUp && this.lowerFoodUp) {
       suggestionText = 'You did not have the best food active when starting the fight. Using the best food available is an easy way to improve performance.';
     }

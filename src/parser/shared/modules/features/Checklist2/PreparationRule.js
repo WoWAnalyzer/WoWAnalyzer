@@ -58,7 +58,7 @@ class PreparationRule extends React.PureComponent {
     return (
       <>
         <Requirement
-          name="High quality Food used"
+          name="High quality food used"
           thresholds={thresholds.higherFoodPresent}
         />
       <Requirement
