@@ -122,7 +122,7 @@ class Ability {
      */
     damageSpellIds: PropTypes.arrayOf(PropTypes.number),
     /**
-     * A
+     * The spell that'll forcibly shown on the timeline if set.
      */
     shownSpell: PropTypes.shape({
       id: PropTypes.number.isRequired,
