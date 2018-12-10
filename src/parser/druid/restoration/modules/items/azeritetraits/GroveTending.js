@@ -1,6 +1,6 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
-import {formatPercentage, formatNumber} from 'common/format';
+import {formatNumber} from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import StatWeights from '../../features/StatWeights';
@@ -45,11 +45,7 @@ class GroveTending extends Analyzer{
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.GROVE_TENDING_TRAIT.id}
-        value={(
-          <>
-            {formatPercentage(throughputPercent)} %<br />
-          </>
-        )}
+        value={`${this.owner.formatItemHealingDone(this.healing)}`}
         tooltip={`Grove Tending gave you equivalent to <b>${formatNumber(intGain)}</b> (${formatNumber(intGain/this.traitLevel)}
             per level) int. This is worth roughly <b>${formatNumber(ilvlGain)}</b> (${formatNumber(ilvlGain/this.traitLevel)}
             per level) item levels.`}
