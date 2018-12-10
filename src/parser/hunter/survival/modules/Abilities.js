@@ -111,7 +111,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
         },
       },
-      { //WFI talent here first so that's the icon shown in the timeline - it has no other effect.
+      {
         spell: [SPELLS.WILDFIRE_INFUSION_TALENT, SPELLS.VOLATILE_BOMB_WFI, SPELLS.PHEROMONE_BOMB_WFI, SPELLS.SHRAPNEL_BOMB_WFI],
         shownSpell: SPELLS.WILDFIRE_INFUSION_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,

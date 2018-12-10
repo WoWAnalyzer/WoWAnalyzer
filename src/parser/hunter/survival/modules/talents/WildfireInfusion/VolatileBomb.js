@@ -6,7 +6,10 @@ import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import Enemies from 'parser/shared/modules/Enemies';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import { SERPENT_STING_SV_BASE_DURATION, WILDFIRE_INFUSION_DOTS, WILDFIRE_INFUSION_IMPACT } from 'parser/hunter/survival/constants';
+import { SERPENT_STING_SV_BASE_DURATION } from 'parser/hunter/survival/constants';
+import SpellIcon from 'common/SpellIcon';
+import ItemDamageDone from 'interface/others/ItemDamageDone';
+import { formatDuration } from 'common/format';
 
 /**
  * Lace your Wildfire Bomb with extra reagents, randomly giving it one of the following enhancements each time you throw it:
@@ -23,11 +26,19 @@ import { SERPENT_STING_SV_BASE_DURATION, WILDFIRE_INFUSION_DOTS, WILDFIRE_INFUSI
  * Example log: https://www.warcraftlogs.com/reports/n8AHdKCL9k3rtRDb#fight=36&type=damage-done
  */
 
-class WildfireInfusion extends Analyzer {
+const SERPENT_STING_FOCUS_COST = 20;
+
+class VolatileBomb extends Analyzer {
   static dependencies = {
     enemies: Enemies,
     statTracker: StatTracker,
   };
+
+  damage = 0;
+  casts = 0;
+  extendedSerpentStings = 0;
+  extendedInMs = 0;
+  focusSaved = 0;
 
   activeSerpentStings = {
     /*
@@ -68,22 +79,32 @@ class WildfireInfusion extends Analyzer {
       return;
     }
     const target = encodeTargetString(event.targetID, event.targetInstance);
+    if (this.activeSerpentStings[target]) {
+      this.activeSerpentStings[target].extendStart = event.timestamp;
+      this.activeSerpentStings[target].extendExpectedEnd = event.timestamp + (this.activeSerpentStings[target].expectedEnd - this.activeSerpentStings[target].cast);
 
+      this.extendedInMs += this.activeSerpentStings[target].extendExpectedEnd - this.activeSerpentStings[target].expectedEnd;
+      this.focusSaved += SERPENT_STING_FOCUS_COST;
+      this.extendedSerpentStings += 1;
+    }
   }
 
   on_byPlayer_applydebuff(event) {
     const spellId = event.ability.guid;
-    if (!WILDFIRE_INFUSION_DOTS.includes(spellId) && spellId !== SPELLS.SERPENT_STING_SV.id) {
+    if (spellId !== SPELLS.VOLATILE_BOMB_WFI_DOT.id && spellId !== SPELLS.SERPENT_STING_SV.id) {
       return;
     }
     if (spellId === SPELLS.SERPENT_STING_SV.id) {
       this._serpentApplication(event);
     }
+    if (spellId === SPELLS.VOLATILE_BOMB_WFI_DOT.id) {
+      this._maybeSerpentStingExtend(event);
+    }
   }
 
   on_byPlayer_refreshdebuff(event) {
     const spellId = event.ability.guid;
-    if (!WILDFIRE_INFUSION_DOTS.includes(spellId) && spellId !== SPELLS.SERPENT_STING_SV.id) {
+    if (spellId !== SPELLS.VOLATILE_BOMB_WFI_DOT.id && spellId !== SPELLS.SERPENT_STING_SV.id) {
       return;
     }
     if (spellId === SPELLS.SERPENT_STING_SV.id) {
@@ -102,38 +123,41 @@ class WildfireInfusion extends Analyzer {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (!WILDFIRE_INFUSION_IMPACT.includes(spellId) && !WILDFIRE_INFUSION_DOTS.includes(spellId)) {
+    if (spellId !== SPELLS.VOLATILE_BOMB_WFI_DOT.id && spellId !== SPELLS.VOLATILE_BOMB_WFI_IMPACT.id) {
       return;
     }
-    if (WILDFIRE_INFUSION_IMPACT.includes(spellId)) {
-      console.log('impact');
+    this.damage += event.amount + (event.absorbed || 0);
+  }
+
+  on_byPlayer_cast(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.VOLATILE_BOMB_WFI.id) {
+      return;
     }
-    if (WILDFIRE_INFUSION_DOTS.includes(spellId)) {
-      console.log('dots');
-    }
+    this.casts += 1;
   }
 
   statistic() {
     return (
       <TalentStatisticBox
-        talent={SPELLS.WILDFIRE_INFUSION_TALENT.id}
-        value={`memes`}
+        talent={SPELLS.VOLATILE_BOMB_WFI.id}
+        value={<ItemDamageDone amount={this.damage} />}
       >
         <table className="table table-condensed">
           <thead>
             <tr>
-              <th>Cast at</th>
-              <th>Damage</th>
-              <th>Hits</th>
-              <th>Avg hit</th>
+              <th>Refreshes</th>
+              <th>Avg</th>
+              <th>Total</th>
+              <th>Focus saved</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td> :)</td>
-              <td> :)</td>
-              <td> :)</td>
-              <td> :)</td>
+              <td>{this.extendedSerpentStings}</td>
+              <td>{formatDuration(this.extendedInMs / this.casts / 1000)}</td>
+              <td>{formatDuration(this.extendedInMs / 1000)}</td>
+              <td>{this.focusSaved}</td>
             </tr>
           </tbody>
         </table>
@@ -142,4 +166,4 @@ class WildfireInfusion extends Analyzer {
   }
 }
 
-export default WildfireInfusion;
+export default VolatileBomb;
