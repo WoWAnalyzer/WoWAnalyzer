@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu } from 'CONTRIBUTORS';
+import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -12,6 +12,11 @@ export default [
     date: new Date('2018-12-09'),
     changes: 'Fixed crashes when switching players that can get the same buff.',
     contributors: [Chizu],
+  },
+  {
+    date: new Date('2018-12-09'),
+    changes: 'Split the food check in the Be Well Prepared section of the checklist to check if food buff was present and if that food buff was high quality. Updated the suggestions to reflect this.',
+    contributors: [Yajinni],
   },
   {
     date: new Date('2018-12-09'),
