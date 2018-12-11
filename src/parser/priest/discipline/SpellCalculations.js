@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import { calculateAzeriteEffects } from 'common/stats';
 import { ATONEMENT_COEFFICIENT } from './constants';
 
 // 50% dmg increase passive
@@ -46,8 +45,8 @@ export const OffensivePenanceBoltEstimation = statWrapper(
 );
 
 // Estimation of how much output a Smite will do
-export const SmiteEstimation = (stats, sins, giftRanks = [340]) => {
-  return (giftActive) => {
+export const SmiteEstimation = (stats, sins) => {
+  return () => {
     const currentIntellect = stats.currentIntellectRating;
     const currentVers = 1 + stats.currentVersatilityPercentage;
     const currentMastery = 1 + stats.currentMasteryPercentage;
@@ -55,36 +54,17 @@ export const SmiteEstimation = (stats, sins, giftRanks = [340]) => {
 
     let smiteDamage = currentIntellect * smiteCoefficient;
 
-    let giftDamage = giftRanks.map((rank) => calculateAzeriteEffects(SPELLS.GIFT_OF_FORGIVENESS.id, rank)).reduce((total, bonus) => total + bonus[0], 0);
-
-    if (!giftActive) {
-      giftDamage = 0;
-    }
-
     smiteDamage = Math.round(
       smiteDamage * currentVers * (1 + sins.currentBonus) * (1 + SMITE_DAMAGE_BUFF)
     );
 
-    giftDamage = Math.round(
-      giftDamage * currentVers * (1 + sins.currentBonus) * (1 + SMITE_DAMAGE_BUFF)
-    );
-
-    let smiteHealing = Math.round(
+    const smiteHealing = Math.round(
       smiteDamage * ATONEMENT_COEFFICIENT * currentMastery
     );
-
-    const giftHealing = Math.round(
-      giftDamage * ATONEMENT_COEFFICIENT * currentMastery
-    );
-
-    smiteDamage += giftDamage;
-    smiteHealing += giftHealing;
 
     return {
       smiteDamage,
       smiteHealing,
-      giftDamage,
-      giftHealing,
     };
   };
 };
