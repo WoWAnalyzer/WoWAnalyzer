@@ -13,15 +13,6 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 const TOUCH_OF_DEATH_HP_SCALING = 0.5;
 const GALE_BURST_VALUE = 0.1;
 
-// Meridian Strikes Azerite trait adds damage to Touch of Death
-const meridianStrikesDamage = traits => Object.values(traits).reduce((obj, rank) => {
-  const [damage] = calculateAzeriteEffects(SPELLS.MERIDIAN_STRIKES.id, rank);
-  obj.damage += damage;
-  return obj;
-}, {
-    damage: 0,
-  });
-
 class TouchOfDeath extends Analyzer {
   static dependencies = {
     enemies: Enemies,
@@ -46,17 +37,8 @@ class TouchOfDeath extends Analyzer {
     const masteryPercentage = this.statTracker.currentMasteryPercentage;
     const versatilityPercentage = this.statTracker.currentVersatilityPercentage;
 
-    // Calculate Meridian Strikes Modifier Damage if combatant has MS traits
-    const merStrikesTraits = 
-      this.selectedCombatant.traitsBySpellId[SPELLS.MERIDIAN_STRIKES.id];
-
-    const merStrikesMod = 
-      (merStrikesTraits === undefined) ? 0.0 : meridianStrikesDamage(
-      this.selectedCombatant.traitsBySpellId[SPELLS.MERIDIAN_STRIKES.id]).damage;   
-
     this.expectedBaseDamage =
-      (event.maxHitPoints * TOUCH_OF_DEATH_HP_SCALING +
-        merStrikesMod)
+      (event.maxHitPoints * TOUCH_OF_DEATH_HP_SCALING)
       * (1 + masteryPercentage)
       * (1 + versatilityPercentage);
   }
