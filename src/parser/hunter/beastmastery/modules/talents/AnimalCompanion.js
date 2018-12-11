@@ -5,7 +5,6 @@ import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { formatNumber } from 'common/format';
-import PackAlpha from 'parser/hunter/beastmastery/modules/spells/azeritetraits/PackAlpha';
 
 /**
  * Your Call Pet additionally summons the first pet from your stable.
@@ -17,9 +16,6 @@ import PackAlpha from 'parser/hunter/beastmastery/modules/spells/azeritetraits/P
  */
 
 class AnimalCompanion extends Analyzer {
-  static dependencies = {
-    packAlpha: PackAlpha,
-  };
   damage = 0;
   pets = [];
   mainPetName = null;
