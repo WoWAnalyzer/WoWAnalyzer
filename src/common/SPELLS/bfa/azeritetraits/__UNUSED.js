@@ -894,14 +894,4 @@ export default {
     name: 'Winds of War',
     icon: 'ability_skyreach_wind_wall',
   },
-  WINTERS_REACH: {
-    id: 273346,
-    name: 'Winter\'s Reach',
-    icon: 'ability_warlock_burningembersblue',
-  },
-  ZEALOTRY: {
-    id: 270596,
-    name: 'Zealotry',
-    icon: 'spell_holy_crusaderstrike',
-  },
 };
