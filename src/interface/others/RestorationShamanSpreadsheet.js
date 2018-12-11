@@ -8,7 +8,6 @@ import BaseHealerStatValues from 'parser/shared/modules/features/BaseHealerStatV
 import SurgingTides from 'parser/shaman/restoration/modules/azerite/SurgingTides';
 import SpoutingSpirits from 'parser/shaman/restoration/modules/azerite/SpoutingSpirits';
 import OverflowingShores from 'parser/shaman/restoration/modules/azerite/OverflowingShores';
-import EbbAndFlow from 'parser/shaman/restoration/modules/azerite/EbbAndFlow';
 import Combatants from 'parser/shared/modules/Combatants';
 import MasteryEffectiveness from 'parser/shaman/restoration/modules/features/MasteryEffectiveness';
 
@@ -60,7 +59,6 @@ class RestorationShamanSpreadsheet extends React.Component {
               <tr><td>{parser.getModule(SurgingTides).surgingTideProcsPerMinute}</td></tr>
               <tr><td>{((parser.getModule(SpoutingSpirits).spoutingSpiritsHits || getAbility(SPELLS.SPOUTING_SPIRITS_HEAL.id).healingHits) / casts(SPELLS.SPIRIT_LINK_TOTEM.id) || 0).toFixed(2)}</td></tr>
               <tr><td>{((parser.getModule(OverflowingShores).overflowingShoresHits || getAbility(SPELLS.OVERFLOWING_SHORES_HEAL.id).healingHits) / casts(SPELLS.HEALING_RAIN_CAST.id) || 0).toFixed(2)}</td></tr>
-              <tr><td>{parser.getModule(EbbAndFlow).ebbAndFlowEffectiveness.toFixed(2)}</td></tr>
               <tr><td>{parser.getModule(Combatants).playerCount}</td></tr>
               <tr><td>{cpm(SPELLS.ASTRAL_SHIFT.id)}</td></tr>
               <tr><td>{(parser.selectedCombatant.getBuffUptime(SPELLS.GHOST_WOLF.id) / 1000).toFixed(2)}</td></tr>
