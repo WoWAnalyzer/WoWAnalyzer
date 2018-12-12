@@ -19,7 +19,7 @@ import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import FightSelectorHeader from './FightSelectorHeader';
 import PlayerSelectorHeader from './PlayerSelectorHeader';
 import LoadingBar from './LoadingBar';
-import './NavigationBar.css';
+import './NavigationBar.scss';
 
 class NavigationBar extends React.PureComponent {
   static propTypes = {
@@ -43,7 +43,7 @@ class NavigationBar extends React.PureComponent {
       <nav className="global">
         <div className="container">
           <div className="menu-item logo required">
-            <Link to={makeAnalyzerUrl()} data-tip="Home">
+            <Link to={makeAnalyzerUrl()}>
               <img src="/favicon.png" alt="WoWAnalyzer logo" />
             </Link>
           </div>

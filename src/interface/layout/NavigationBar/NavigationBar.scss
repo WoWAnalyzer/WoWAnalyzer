@@ -1,0 +1,93 @@
+nav.global {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+  line-height: 80px;
+  border: 0;
+  margin-bottom: 24px;
+  display: flex;
+
+  > .container {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  > div {
+    display: flex;
+    flex-flow: row;
+  }
+  .menu-item {
+    flex: 0 1 auto;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .menu-item.required {
+    flex: 0 0 auto;
+  }
+  .menu-item a {
+    display: inline-block;
+    padding: 0 15px;
+    color: #fff;
+  }
+  .menu-item:first-child a {
+    padding-left: 0;
+  }
+  .menu-item:last-child a {
+    padding-right: 0;
+  }
+  .menu-item a:hover {
+    color: #e45a5a;
+    text-decoration: none;
+  }
+  .menu-item img, .menu-item svg {
+    height: 2.1em;
+    margin: -0.4em 0 -0.2em 0;
+    vertical-align: middle;
+  }
+  .menu-item span.optional {
+    margin-left: 6px;
+  }
+  .menu-item.logo img {
+    font-size: 1.2em;
+    margin-top: -0.2em;
+  }
+  .spacer {
+    flex: 1 1 auto;
+  }
+}
+
+nav.global .selectorHeader {
+  position: absolute;
+  line-height: 1.4;
+  left: 15px;
+  top: 66px;
+  width: 700px;
+  z-index: 10;
+  max-width: calc(100vw - 45px);
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  white-space: normal; /* menu-items have this set to nowrap */
+}
+nav.global .selectorHeader a {
+  color: #e45a5a;
+  display: inline;
+  padding: 0;
+}
+nav.global .selectorHeader .panel {
+  background: rgba(0,0,0,0.95);
+}
+nav.global .selectorHeader img, nav.global .selectorHeader svg {
+  height: 1.6em;
+  margin: 0;
+  margin-top: -0.15em;
+}
+
+/* Mobile nav bar */
+@media (max-width: 600px) {
+  nav.global > div.container {
+    padding: 0;
+  }
+  nav.global .optional {
+    display: none;
+  }
+}
