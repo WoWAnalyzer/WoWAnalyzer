@@ -6,34 +6,6 @@ import SPECS from 'game/SPECS';
 import RACES from 'game/RACES';
 import Analyzer from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import { STAT_TRACKER as GEMHIDE_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/Gemhide';
-import { STAT_TRACKER as OVERWHELMING_POWER_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/OverwhelmingPower';
-import { STAT_TRACKER as ELEMENTAL_WHIRL_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/ElementalWhirl';
-import { STAT_TRACKER as METICULOUS_SCHEMING_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/MeticulousScheming';
-import { STAT_TRACKER as BLOOD_RITE_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/BloodRite';
-import { STAT_TRACKER as DANCE_OF_DEATH_STATS } from 'parser/hunter/beastmastery/modules/spells/azeritetraits/DanceOfDeath';
-import { STAT_TRACKER as PRIMAL_INSTINCTS_STATS } from 'parser/hunter/beastmastery/modules/spells/azeritetraits/PrimalInstincts';
-import { STAT_TRACKER as BLUR_OF_TALON_STATS } from 'parser/hunter/survival/modules/spells/azeritetraits/BlurOfTalons';
-import { MASTERY_FNS as TON_MASTERY_FNS } from 'parser/monk/brewmaster/modules/spells/azeritetraits/TrainingOfNiuzao';
-import { STAT_TRACKER as BOFD_ARMOR } from 'parser/deathknight/blood/modules/spells/azeritetraits/BonesOfTheDamned';
-import { STAT_TRACKER as IRON_FISTS_STATS } from 'parser/monk/windwalker/modules/spells/azeritetraits/IronFists';
-import { STAT_TRACKER as RELENTLESS_INQUISITOR_STATS } from 'parser/paladin/retribution/modules/core/azeritetraits/RelentlessInquisitor';
-import { STAT_TRACKER as ETERNAL_RUNE_WEAPON_STRENGTH } from 'parser/deathknight/blood/modules/spells/azeritetraits/EternalRuneWeapon';
-import { STAT_TRACKER as DIVINE_RIGHT_STATS } from 'parser/paladin/retribution/modules/core/azeritetraits/DivineRight';
-import { STAT_TRACKER as ARCHIVE_OF_THE_TITANS_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/ArchiveOfTheTitans';
-import { STAT_TRACKER as BLIGHTBORNE_INFUSION_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/BlightborneInfusion';
-import { STAT_TRACKER as UNSTABLE_CATALYST_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/UnstableCatalyst';
-import { STAT_TRACKER as SWIRLING_SANDS_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/SwirlingSands';
-import { STAT_TRACKER as TRADEWINDS_STATS } from 'parser/shared/modules/spells/bfa/azeritetraits/Tradewinds';
-import { STAT_TRACKER as CHORUS_OF_INSANITY_STATS } from 'parser/priest/shadow/modules/spells/azeritetraits/ChorusOfInsanity';
-import { STAT_TRACKER as CASCADING_CALAMITY_STATS } from 'parser/warlock/affliction/modules/azerite/CascadingCalamity';
-import { STAT_TRACKER as WRACKING_BRILLIANCE_STATS } from 'parser/warlock/affliction/modules/azerite/WrackingBrilliance';
-import { STAT_TRACKER as EXPLOSIVE_POTENTIAL_STATS } from 'parser/warlock/demonology/modules/azerite/ExplosivePotential';
-import { STAT_TRACKER as SUPREME_COMMANDER_STATS } from 'parser/warlock/demonology/modules/azerite/SupremeCommander';
-import { STAT_TRACKER as ROLLING_HAVOC_STATS } from 'parser/warlock/destruction/modules/azerite/RollingHavoc';
-import { STAT_TRACKER as BURSTING_FLARE_STATS } from 'parser/warlock/destruction/modules/azerite/BurstingFlare';
-import { STAT_TRACKER as FLASHPOINT_STATS } from 'parser/warlock/destruction/modules/azerite/Flashpoint';
-import { STAT_TRACKER as ACCELERANT_STATS } from 'parser/warlock/destruction/modules/azerite/Accelerant';
 
 const debug = false;
 
@@ -53,7 +25,7 @@ class StatTracker extends Analyzer {
     [SPECS.BREWMASTER_MONK.id]: { armor: 1.25 },
   };
 
-  static STAT_BUFFS = {
+  static DEFAULT_BUFFS = {
     // region Potions
     [SPELLS.POTION_OF_PROLONGED_POWER.id]: { stamina: 113, strength: 113, agility: 113, intellect: 113 },
     [SPELLS.BATTLE_POTION_OF_STRENGTH.id]: { strength: 900 },
@@ -262,71 +234,24 @@ class StatTracker extends Analyzer {
 
     // region Azerite Traits
     // region General
-    [SPELLS.BLIGHTBORNE_INFUSION_BUFF.id]: BLIGHTBORNE_INFUSION_STATS,
-    [SPELLS.SWIRLING_SANDS_BUFF.id]: SWIRLING_SANDS_STATS,
     [SPELLS.SECRETS_OF_THE_DEEP_SURGING_DROPLET.id]: { strength: 442, agility: 442, intellect: 442 }, // TODO: Implement primaryStat
     [SPELLS.SECRETS_OF_THE_DEEP_VOID_DROPLET.id]: { strength: 885, agility: 885, intellect: 885 }, // TODO: Implement primaryStat
     [SPELLS.CHAMPION_OF_AZEROTH.id]: { versatility: 87 },
     [SPELLS.VAMPIRIC_SPEED.id]: { speed: 196 },
-    [SPELLS.GEMHIDE.id]: GEMHIDE_STATS,
-    [SPELLS.SEIZE_THE_MOMENT.id]: METICULOUS_SCHEMING_STATS,
-    [SPELLS.OVERWHELMING_POWER_BUFF.id]: OVERWHELMING_POWER_STATS,
-    [SPELLS.BLOOD_RITE_BUFF.id]: BLOOD_RITE_STATS,
-    [SPELLS.ELEMENTAL_WHIRL_CRIT.id]: {
-      crit: ELEMENTAL_WHIRL_STATS[SPELLS.ELEMENTAL_WHIRL_CRIT.id],
-    },
-    [SPELLS.ELEMENTAL_WHIRL_HASTE.id]: {
-      haste: ELEMENTAL_WHIRL_STATS[SPELLS.ELEMENTAL_WHIRL_HASTE.id],
-    },
-    [SPELLS.ELEMENTAL_WHIRL_MASTERY.id]: {
-      mastery: ELEMENTAL_WHIRL_STATS[SPELLS.ELEMENTAL_WHIRL_MASTERY.id],
-    },
-    [SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id]: {
-      versatility: ELEMENTAL_WHIRL_STATS[SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id],
-    },
     [SPELLS.WOUNDBINDER.id]: { haste: 584 }, // based on 340 TODO: Scale with item level
-    [SPELLS.ARCHIVE_OF_THE_TITANS_BUFF.id]: ARCHIVE_OF_THE_TITANS_STATS,
-    [SPELLS.UNSTABLE_CATALYST_BUFF.id]: UNSTABLE_CATALYST_STATS,
-    [SPELLS.TRADEWINDS.id]: TRADEWINDS_STATS,
     // endregion
     // region Hunter
     [SPELLS.HAZE_OF_RAGE.id]: { agility: 316 },
-    [SPELLS.DANCE_OF_DEATH_BUFF.id]: DANCE_OF_DEATH_STATS,
-    [SPELLS.PRIMAL_INSTINCTS.id]: PRIMAL_INSTINCTS_STATS,
-    [SPELLS.BLUR_OF_TALONS_BUFF.id]: BLUR_OF_TALON_STATS,
     // endregion
     // region Warlock
-    [SPELLS.EXPLOSIVE_POTENTIAL_BUFF.id]: EXPLOSIVE_POTENTIAL_STATS,
-    [SPELLS.CASCADING_CALAMITY_BUFF.id]: CASCADING_CALAMITY_STATS,
-    [SPELLS.WRACKING_BRILLIANCE_BUFF.id]: WRACKING_BRILLIANCE_STATS,
-    [SPELLS.SUPREME_COMMANDER_BUFF.id]: SUPREME_COMMANDER_STATS,
-    [SPELLS.ROLLING_HAVOC_BUFF.id]: ROLLING_HAVOC_STATS,
-    [SPELLS.BURSTING_FLARE_BUFF.id]: BURSTING_FLARE_STATS,
-    [SPELLS.FLASHPOINT_BUFF.id]: FLASHPOINT_STATS,
-    [SPELLS.ACCELERANT_BUFF.id]: ACCELERANT_STATS,
     // endregion
     //region Death Knight
-    [SPELLS.BONES_OF_THE_DAMNED_BUFF.id]: BOFD_ARMOR, // Armor when Bones of the Damend trait is up
-    [SPELLS.ETERNAL_RUNE_WEAPON_BUFF.id]: ETERNAL_RUNE_WEAPON_STRENGTH, // Bonue Strength when DRW is up
     // endregion
     // region Monk
-    [SPELLS.LIGHT_STAGGER_DEBUFF.id]: {
-      mastery: TON_MASTERY_FNS[SPELLS.LIGHT_STAGGER_DEBUFF.id],
-    },
-    [SPELLS.MODERATE_STAGGER_DEBUFF.id]: {
-      mastery: TON_MASTERY_FNS[SPELLS.MODERATE_STAGGER_DEBUFF.id],
-    },
-    [SPELLS.HEAVY_STAGGER_DEBUFF.id]: {
-      mastery: TON_MASTERY_FNS[SPELLS.HEAVY_STAGGER_DEBUFF.id],
-    },
-    [SPELLS.IRON_FISTS_BUFF.id]: IRON_FISTS_STATS,
     // endregion
     // region Paladin
-    [SPELLS.RELENTLESS_INQUISITOR_BUFF.id]: RELENTLESS_INQUISITOR_STATS,
-    [SPELLS.DIVINE_RIGHT_BUFF.id]: DIVINE_RIGHT_STATS,
     // endregion
     // region Priest
-    [SPELLS.CHORUS_OF_INSANITY_BUFF]: CHORUS_OF_INSANITY_STATS,
     // endregion
     // region Enchants
     [SPELLS.DEADLY_NAVIGATION_BUFF_SMALL.id]: { crit: 50 },
@@ -492,6 +417,8 @@ class StatTracker extends Analyzer {
     // endregion
   };
 
+  statBuffs = {};
+
   _pullStats = {};
   _currentStats = {};
 
@@ -515,11 +442,36 @@ class StatTracker extends Analyzer {
 
     this.applySpecModifiers();
 
+    this.statBuffs = {
+      ...this.constructor.DEFAULT_BUFFS,
+    };
+
     this._currentStats = {
       ...this._pullStats,
     };
 
     debug && this._debugPrintStats(this._currentStats);
+  }
+
+  /**
+   * Adds a stat buff to StatTracker.
+   * @param buffId ID of the stat buff
+   * @param stats Object with stats (intellect, mastery, haste, crit etc.) and their respective bonus (either fixed value or a function (combatant, item) => value). If it's from item, provide also an itemId (item in the stat callback is taken from this itemId).
+   */
+  add(buffId, stats) {
+    if (!buffId || !stats) {
+      throw new Error(`StatTracker.add() called with invalid buffId ${buffId} or stats`);
+    }
+    if (this.statBuffs[buffId]) {
+      throw new Error(`Stat buff with ID ${buffId} already exists`);
+    }
+    // if any stat's function uses the item argument, validate that itemId property exists
+    debug && this.log(`StatTracker.add(), buffId: ${buffId}, stats:`, stats);
+    const usesItemArgument = Object.values(stats).some(value => typeof value === 'function' && value.length === 2);
+    if (usesItemArgument && !stats.itemId) {
+      throw new Error(`Stat buff ${buffId} uses item argument, but does not provide item ID`);
+    }
+    this.statBuffs[buffId] = stats;
   }
 
   applySpecModifiers() {
@@ -755,7 +707,7 @@ class StatTracker extends Analyzer {
   /**
    * This interface allows an external analyzer to force a stat change.
    * It should ONLY be used if a stat buff is so non-standard that it can't be handled by the buff format in this module.
-   * change is a stat buff object just like those in the STAT_BUFFS structure above, it is required.
+   * change is a stat buff object just like those in the DEFAULT_BUFFS structure above, it is required.
    * eventReason is the WCL event object that caused this change, it is not required.
    */
   // For an example of how / why this function would be used, see the CharmOfTheRisingTide module.
@@ -773,7 +725,7 @@ class StatTracker extends Analyzer {
 
   _changeBuffStack(event) {
     const spellId = event.ability.guid;
-    const statBuff = this.constructor.STAT_BUFFS[spellId];
+    const statBuff = this.statBuffs[spellId];
     if (statBuff) {
       // ignore prepull buff application, as they're already accounted for in combatantinfo
       // we have to check the stacks count because Entities incorrectly copies the prepull property onto changes and removal following the application

@@ -5,6 +5,7 @@ import { formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import Analyzer from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 const MAX_OVERWHELMING_POWER_STACKS = 25;
 
@@ -16,12 +17,6 @@ const overWhelmingPowerStats = traits => Object.values(traits).reduce((obj, rank
   haste: 0,
 });
 
-export const STAT_TRACKER = {
-  haste: combatant => {
-    return overWhelmingPowerStats(combatant.traitsBySpellId[SPELLS.OVERWHELMING_POWER.id]).haste;
-  },
-};
-
 /**
  * Overwhelming Power
  * Gain 25 stacks of Overwhelming Power, granting x haste per stack
@@ -30,6 +25,10 @@ export const STAT_TRACKER = {
  * Example report: https://www.warcraftlogs.com/reports/jBthQCZcWRNGyAk1#fight=29&type=auras&source=18
  */
 class OverWhelmingPower extends Analyzer {
+  static dependencies = {
+    statTracker: StatTracker,
+  };
+
   haste = 0;
   totalHaste = 0;
   lastTimestamp = 0;
@@ -46,6 +45,10 @@ class OverWhelmingPower extends Analyzer {
 
     const { haste } = overWhelmingPowerStats(this.selectedCombatant.traitsBySpellId[SPELLS.OVERWHELMING_POWER.id]);
     this.haste = haste;
+
+    this.statTracker.add(SPELLS.OVERWHELMING_POWER_BUFF.id, {
+      haste,
+    });
   }
 
   on_byPlayer_applybuff(event) {

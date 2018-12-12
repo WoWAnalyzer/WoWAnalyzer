@@ -196,6 +196,15 @@ export const DRUID_HEAL_INFO = {
     masteryStack: false,
     vers: true,
   },
+  [SPELLS.GROVE_TENDING.id]: { //TODO Double check
+    int: true,
+    crit: true,
+    hasteHpm: true,
+    hasteHpct: false,
+    mastery: true,
+    masteryStack: true,
+    vers: true,
+  },
   // TODO - blazyb add all bfa specific spells of interest
 };
 

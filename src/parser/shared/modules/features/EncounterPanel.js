@@ -6,7 +6,7 @@ import EncounterStats from 'interface/report/Results/EncounterStats';
 class EncounterPanel extends Analyzer {
   render() {
     return (
-      <EncounterStats currentBoss={this.owner.fight.boss} difficulty={this.owner.fight.difficulty} spec={this.selectedCombatant._combatantInfo.specID} />
+      <EncounterStats currentBoss={this.owner.fight.boss} difficulty={this.owner.fight.difficulty} spec={this.selectedCombatant._combatantInfo.specID} duration={this.owner.fight.end_time - this.owner.fight.start_time} />
     );
   }
 }

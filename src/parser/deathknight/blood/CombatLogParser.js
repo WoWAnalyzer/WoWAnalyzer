@@ -13,7 +13,7 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import BloodPlagueUptime from './modules/features/BloodPlagueUptime';
 import CrimsonScourge from './modules/features/CrimsonScourge';
 import BlooddrinkerTicks from './modules/features/BlooddrinkerTicks';
-import Checklist from './modules/features/Checklist';
+import Checklist from './modules/features/checklist/Module';
 import MarrowrendUsage from './modules/features/MarrowrendUsage';
 import BoneShield from './modules/features/BoneShield';
 import DancingRuneWeapon from './modules/features/DancingRuneWeapon';
