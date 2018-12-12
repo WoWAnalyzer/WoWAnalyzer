@@ -242,6 +242,21 @@ export default {
     name: 'Whirlwind',
     icon: 'ability_whirlwind',
   },
+  WHIRLWIND_FURY_ENERGIZE: {
+    id: 280715,
+    name: 'Whirlwind',
+    icon: 'ability_whirlwind',
+  },
+  WHIRLWIND_FURY_DAMAGE_MH: {
+    id: 199667,
+    name: 'Whirlwind',
+    icon: 'ability_whirlwind',
+  },
+  WHIRLWIND_FURY_DAMAGE_OH: {
+    id: 44949,
+    name: 'Whirlwind',
+    icon: 'ability_whirlwind',
+  },
   //Mitigation Spells
   ENRAGED_REGENERATION: {
     id: 184364,
