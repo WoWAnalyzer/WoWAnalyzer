@@ -62,7 +62,7 @@ class MeatCleaver extends Analyzer {
       const rageFromHit = rageGained - (event.hasRecklessness ? 6 : 3);
       const rageFromMeatCleaver = rageFromHit - (event.targetsHit > 5 ? 5 : event.targetsHit) * (event.hasRecklessness ? 2 : 1);
       return total + rageFromMeatCleaver;
-    }, 0)
+    }, 0);
   }
 
   statistic() {
