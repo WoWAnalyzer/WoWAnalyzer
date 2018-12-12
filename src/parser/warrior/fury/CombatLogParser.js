@@ -17,6 +17,7 @@ import AngerManagement from './modules/talents/AngerManagement';
 import FrothingBerserker from './modules/talents/FrothingBerserker';
 import FuriousSlashTimesByStacks from './modules/talents/FuriousSlashTimesByStacks';
 import FuriousSlashUptime from './modules/talents/FuriousSlashUptime';
+import Siegebreaker from './modules/talents/Siegebreaker';
 import Recklessness from './modules/spells/Recklessness';
 import RecklessFlurry from './modules/azerite/RecklessFlurry';
 import Warpaint from './modules/talents/Warpaint';
@@ -41,6 +42,7 @@ class CombatLogParser extends CoreCombatLogParser {
     frothingBerserker: FrothingBerserker,    
     furiousSlashTimesByStacks: FuriousSlashTimesByStacks,
     furiousSlashUptime: FuriousSlashUptime,
+    siegebreaker: Siegebreaker,
     recklessness: Recklessness,
     recklessFlurry: RecklessFlurry,
     warpaint: Warpaint,
