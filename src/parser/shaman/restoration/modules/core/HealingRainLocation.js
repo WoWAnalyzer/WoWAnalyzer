@@ -13,7 +13,7 @@ class HealingRainLocation extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
-  healingRainDiameter = 2200; // 10% margin of error
+  healingRainDiameter = 2100; // 5% margin of error
 
   healingRainEvents = [];
   newHealingRain = false;
@@ -24,7 +24,7 @@ class HealingRainLocation extends Analyzer {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.DELUGE_TALENT.id);
     if (this.active && this.selectedCombatant.hasTrait(SPELLS.OVERFLOWING_SHORES_TRAIT.id)) {
-      this.healingRainDiameter *= Math.pow(1.1,this.selectedCombatant.traitRanks(SPELLS.OVERFLOWING_SHORES_TRAIT.id).length);
+      this.healingRainDiameter = 2520; // 5% margin of error
     }
   }
 

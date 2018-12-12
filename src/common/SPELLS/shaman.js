@@ -622,7 +622,7 @@ export default {
     icon: 'spell_nature_healingwavegreater',
     manaCost: 5000,
     color: '#203755',
-    coefficient: 1.05,
+    coefficient: 1.4,
   },
   HEALING_WAVE: {
     id: 77472,
@@ -773,5 +773,21 @@ export default {
     id: 280615,
     name: 'Flash Flood',
     icon: 'spell_frost_summonwaterelemental',
+  },
+  TOTEMIC_REVIVAL_DEBUFF: {
+    id: 255234,
+    name: 'Totemic Revival',
+    icon: 'spell_nature_reincarnation',
+  },
+  TOTEMIC_REVIVAL_CAST: {
+    id: 207553,
+    name: 'Totemic Revival',
+    icon: 'spell_shaman_improvedreincarnation',
+  },
+  HIGH_TIDE_BUFF: {
+    id: 288675,
+    name: 'High Tide',
+    icon: 'spell_shaman_hightide',
+    coefficient: 1.68,
   },
 };

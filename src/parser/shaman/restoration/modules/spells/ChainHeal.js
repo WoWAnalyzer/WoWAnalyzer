@@ -19,7 +19,7 @@ class ChainHeal extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.maxTargets = this.selectedCombatant.hasTalent(SPELLS.HIGH_TIDE_TALENT.id) ? 5 : 4;
+    this.maxTargets = 4;
     this.suggestedTargets = this.maxTargets * CHAIN_HEAL_TARGET_EFFICIENCY;
   }
 

@@ -255,6 +255,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CHAIN_HEAL,
+        buffSpellId: SPELLS.HIGH_TIDE_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         timelineSortIndex: 12,
         gcd: {

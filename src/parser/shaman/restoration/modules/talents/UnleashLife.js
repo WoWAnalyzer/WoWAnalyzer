@@ -14,7 +14,7 @@ import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
 
-const UNLEASH_LIFE_HEALING_INCREASE = 0.45;
+const UNLEASH_LIFE_HEALING_INCREASE = 0.35;
 const BUFFER_MS = 200;
 const UNLEASH_LIFE_DURATION = 10000;
 const debug = false;
