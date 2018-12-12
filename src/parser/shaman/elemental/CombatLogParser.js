@@ -27,8 +27,6 @@ import EchoOfTheElementals from './modules/azerite/EchoOfTheElementals';
 import LavaShock from './modules/azerite/LavaShock';
 import SynapseShock from './modules/azerite/SynapseShock';
 
-import './main.css';
-
 import SpiritWolf from '../shared/talents/SpiritWolf';
 import StaticCharge from '../shared/talents/StaticCharge';
 import MaelstromTab from '../shared/maelstromchart/MaelstromTab';
