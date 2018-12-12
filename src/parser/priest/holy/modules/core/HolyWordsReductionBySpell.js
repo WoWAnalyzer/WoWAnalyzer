@@ -63,7 +63,7 @@ class HolyWordsReductionBySpell extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.CORE(6)}
-        icon={<SpellIcon id={SPELLS.HOLY_WORDS.id} />}
+        icon={<SpellIcon id={Number(SPELLS.HOLY_WORDS.id)} />}
         value={`${formatPercentage(reductionRatio)} %`}
         label="Effective Holy Word reduction"
         tooltip={`The % above is the total CD reduction normalize against the fight length.</br>
@@ -85,7 +85,7 @@ class HolyWordsReductionBySpell extends Analyzer {
           <tbody>
             {Object.keys(reductionBySpell).map((e, i) => (
               <tr key={i}>
-                <td className={"text-left"}><SpellIcon id={e} /> {SPELLS[e].name}</td>
+                <td className={"text-left"}><SpellIcon id={Number(e)} /> {SPELLS[e].name}</td>
                 <td>{Math.ceil(reductionBySpell[e].base / 1000)}s</td>
                 {this.apotheosisActive ? <td>{Math.ceil(reductionBySpell[e].apotheosis / 1000)}s</td> : ''}
                 {this.lightOfTheNaaruActive ? <td>{Math.ceil(reductionBySpell[e].lightOfTheNaaru / 1000)}s</td> : ''}
