@@ -18,7 +18,7 @@ const bounceReduction = 0.7;
 
 /**
  * High Tide:
- * Chain Heal bounces to 1 additional target, and its falloff with each bounce is reduced by half.
+ * Every 40000 mana you spend brings a High Tide, making your next 2 Chain Heals heal for an additional 20% and not reduce with each jump.
  */
 
 class HighTide extends Analyzer {
@@ -27,28 +27,19 @@ class HighTide extends Analyzer {
     critEffectBonus: CritEffectBonus,
   };
   healing = 0;
-  chainHealBounce = 0;
   chainHealTimestamp = 0;
-  chainHealFeedBounce = 0;
-  chainHealFeedTimestamp = 0;
 
   buffer = [];
 
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.HIGH_TIDE_TALENT.id);
-  
+
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HEAL), this.chainHeal);
     this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
   chainHeal(event) {
-    const spellId = event.ability.guid;
-
-    if (spellId !== SPELLS.CHAIN_HEAL.id) {
-      return;
-    }
-
     const hasHighTide = this.selectedCombatant.hasBuff(SPELLS.HIGH_TIDE_BUFF.id);
     if (!hasHighTide) {
       return;
@@ -103,7 +94,7 @@ class HighTide extends Analyzer {
       // 20%, 71%, 145%, 250% increase per hit over not having High Tide
       const FACTOR_CONTRIBUTED_BY_HT_HIT = (SPELLS.HIGH_TIDE_BUFF.coefficient) / (SPELLS.CHAIN_HEAL.coefficient * bounceReduction ** index) - 1;
 
-    this.healing += calculateEffectiveHealing(event, FACTOR_CONTRIBUTED_BY_HT_HIT);
+      this.healing += calculateEffectiveHealing(event, FACTOR_CONTRIBUTED_BY_HT_HIT);
     }
     this.buffer = [];
   }
