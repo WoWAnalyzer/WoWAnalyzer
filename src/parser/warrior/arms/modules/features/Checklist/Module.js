@@ -7,7 +7,6 @@ import AlwaysBeCasting from '../AlwaysBeCasting';
 import DeepWoundsUptime from '../../core/Dots/DeepWoundsUptime';
 import RendUptime from '../../core/Dots/RendUptime';
 import MortalStrike from '../../core/Execute/MortalStrike';
-import ExecutionersPrecision from '../../spells/azeritetraits/ExecutionersPrecision';
 import Component from './Component';
 
 class Checklist extends BaseChecklist {
@@ -19,7 +18,6 @@ class Checklist extends BaseChecklist {
     deepWoundsUptime: DeepWoundsUptime,
     rendUptime: RendUptime,
     mortalStrike: MortalStrike,
-    executionersPrecision: ExecutionersPrecision,
   };
 
   render() {
@@ -35,7 +33,6 @@ class Checklist extends BaseChecklist {
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           goodMortalStrike: this.mortalStrike.goodMortalStrikeThresholds,
           badMortalStrike: this.mortalStrike.badMortalStrikeThresholds,
-          badMortalStrikeWithEP: this.executionersPrecision.badMortalStrikeCastThresholds,
         }}
       />
     );

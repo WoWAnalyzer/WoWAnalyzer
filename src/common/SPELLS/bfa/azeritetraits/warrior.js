@@ -61,6 +61,16 @@ export default {
         name: 'Test of Might',
         icon: 'ability_warrior_strengthofarms',
     },
+    STRIKING_THE_ANVIL: {
+      id: 288452,
+      name: 'Striking the Anvil',
+      icon: 'ability_warrior_unrelentingassault',
+    },
+    STRIKING_THE_ANVIL_BUFF: {
+      id: 288455,
+      name: 'Striking the Anvil',
+      icon: 'ability_warrior_unrelentingassault',
+    },
     // Fury
     BLOODCRAZE: {
         id: 273420,

@@ -19,7 +19,6 @@ class MortalStrikeAnalyzer extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = !this.selectedCombatant.hasTrait(SPELLS.EXECUTIONERS_PRECISION_TRAIT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MORTAL_STRIKE), this._onMortalStrikeCast);
   }
 
@@ -69,7 +68,7 @@ class MortalStrikeAnalyzer extends Analyzer {
 
   suggestions(when) {
     when(this.badMortalStrikeThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>Try to avoid using <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> on a target in <SpellLink id={SPELLS.EXECUTE.id} icon /> range if you don't have <SpellLink id={SPELLS.EXECUTIONERS_PRECISION_TRAIT.id} /> trait, as <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> is less rage efficient than <SpellLink id={SPELLS.EXECUTE.id} />.</>)
+      return suggest(<>Try to avoid using <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> on a target in <SpellLink id={SPELLS.EXECUTE.id} icon /> range, as <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> is less rage efficient than <SpellLink id={SPELLS.EXECUTE.id} />.</>)
         .icon(SPELLS.MORTAL_STRIKE.icon)
         .actual(`Mortal Strike was used ${formatPercentage(actual)}% of the time on a target in execute range.`)
         .recommended(`${formatPercentage(recommended)}% is recommended`);
