@@ -46,6 +46,21 @@ export default {
     name: 'Gemhide',
     icon: 'inv_jewelcrafting_argusgemcut_yellow_miscicons',
   },
+  CRYSTALLINE_CARAPACE: {
+    id: 271536,
+    name: 'Crystalline Carapace',
+    icon: 'inv_shield_33',
+  },
+  CRYSTALLINE_CARAPACE_BUFF: { // buff (armor)
+    id: 271538,
+    name: 'Crystalline Carapace',
+    icon: 'inv_shield_33',
+  },
+  CRYSTALLINE_CARAPACE_REFLECT: { // reflect damage
+    id: 271539,
+    name: 'Crystalline Carapace',
+    icon: 'inv_shield_33',
+  },
   RESOUNDING_PROTECTION: {
     id: 270568,
     name: 'Resounding Protection',
