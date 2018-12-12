@@ -113,6 +113,7 @@ class Abilities extends CoreAbilities {
       },
       { //WFI talent here first so that's the icon shown in the timeline - it has no other effect.
         spell: [SPELLS.WILDFIRE_INFUSION_TALENT, SPELLS.VOLATILE_BOMB_WFI, SPELLS.PHEROMONE_BOMB_WFI, SPELLS.SHRAPNEL_BOMB_WFI],
+        shownSpell: SPELLS.WILDFIRE_INFUSION_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -215,9 +216,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.HARPOON,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: {
-          base: 500,
-        },
+        gcd: null,
         cooldown: 20,
       },
       {
@@ -292,6 +291,12 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+      },
+      {
+        spell: SPELLS.MISDIRECTION,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 30,
+        gcd: null,
       },
 
       /**
