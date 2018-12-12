@@ -9,7 +9,7 @@ import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
-const ES_SP_COEFFICIENT = 2.5;// taken from Simcraft SpellDataDump
+const ES_SP_COEFFICIENT = 2.1;// taken from Simcraft SpellDataDump (250% -> 210% in 8.1)
 
 class LavaShock extends Analyzer {
   static dependencies = {
