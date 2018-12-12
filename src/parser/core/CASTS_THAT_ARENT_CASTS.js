@@ -10,6 +10,7 @@ export default [
   SPELLS.ASTRAL_VULNERABILITY.id, // Tomb of Sargeras - Sisters of the Moon: the "tick" when someone crosses moons
   SPELLS.ANNIHILATION_TRILLIAX.id, // The Nighthold - cake boss: the "tick" of the Annihilation beam
   SPELLS.CHI_BURST_HEAL.id, // this is the "tick" when you hit a player, the actual cast has a different id
+  SPELLS.REFRESHING_JADE_WIND_HEAL.id, // this is the "tick" when you hit a player, the actual cast has a different id
   SPELLS.SHADOWY_APPARITION.id,
   SPELLS.DEFILED_AUGMENT_RUNE.id,
   SPELLS.UMBRAL_GLAIVE_STORM_TICK.id, // ticks of the Umbral Moonglaives trinket proc a cast event
@@ -30,4 +31,5 @@ export default [
   SPELLS.MUTILATE_OFFHAND.id, // Mutilate off hand
   SPELLS.DIRE_BEAST_SECONDARY_WITH_SCENT.id, //A secondary cast event from Dire Beast talent
   SPELLS.DIRE_BEAST_SECONDARY_WITHOUT_SCENT.id, //A secondary cast event from Dire Beast talent
+  SPELLS.DIVINE_HYMN_HEAL.id, //The heal component of divine hymn
 ];

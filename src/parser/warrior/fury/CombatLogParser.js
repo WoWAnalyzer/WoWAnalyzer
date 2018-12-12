@@ -15,12 +15,17 @@ import RampageCancelled from './modules/spells/RampageCancelled';
 
 import AngerManagement from './modules/talents/AngerManagement';
 import Carnage from './modules/talents/Carnage';
+import Bladestorm from './modules/talents/Bladestorm';
+import DragonRoar from './modules/talents/DragonRoar';
 import FrothingBerserker from './modules/talents/FrothingBerserker';
 import FuriousSlashTimesByStacks from './modules/talents/FuriousSlashTimesByStacks';
 import FuriousSlashUptime from './modules/talents/FuriousSlashUptime';
+import ImpendingVicory from './modules/talents/ImpendingVictory';
+import Siegebreaker from './modules/talents/Siegebreaker';
 import Recklessness from './modules/spells/Recklessness';
 import RecklessAbandon from './modules/talents/RecklessAbandon';
 import RecklessFlurry from './modules/azerite/RecklessFlurry';
+import Warpaint from './modules/talents/Warpaint';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -40,12 +45,17 @@ class CombatLogParser extends CoreCombatLogParser {
 
     angerManagement: AngerManagement,
     carnage: Carnage,
+    bladestorm: Bladestorm,
+    dragonRoar: DragonRoar,
     frothingBerserker: FrothingBerserker,    
     furiousSlashTimesByStacks: FuriousSlashTimesByStacks,
     furiousSlashUptime: FuriousSlashUptime,
+    impendingVictory: ImpendingVicory,
+    siegebreaker: Siegebreaker,
     recklessness: Recklessness,
     recklessAbandon: RecklessAbandon,
     recklessFlurry: RecklessFlurry,
+    warpaint: Warpaint,
 
     // Overrides default PrePotion
     //prePotion: PrePotion, TODO: Update this to BFA and ensure it works properly with parser/core/Modules/Features/Checklist2/PreparationRuleAnalyzer.js

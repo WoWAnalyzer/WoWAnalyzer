@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS/index';
 import HolyWordBase from './HolyWordBase';
 
-const HOLY_WORD_SERENDIPITY_REDUCTION = 6000;
+const HOLY_WORD_SERENDIPITY_REDUCTION = 30000;
 
 class HolyWordSalvation extends HolyWordBase {
   constructor(...args) {
