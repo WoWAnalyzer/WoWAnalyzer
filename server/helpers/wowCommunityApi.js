@@ -33,7 +33,6 @@ const get = (url, metricLabels, region) => {
     },
     getUrlWithAccessToken: async () => {
       const accessToken = await getAccessToken(region);
-      console.log('access token:'+ accessToken);
       return `${url}&access_token=${accessToken}`;
     },
     onBeforeAttempt: () => {

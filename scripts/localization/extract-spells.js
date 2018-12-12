@@ -170,7 +170,7 @@ function updateFromSpellList(languageCode, nameProp) {
       const spellInfo = spellList.find(item => item.id === spellIdString);
 
       // Some spells aren't localized, use the original name instead.
-      const name = spellInfo && spellInfo[nameProp] ? spellInfo[nameProp] : spell.name;
+      const name = (spellInfo && spellInfo[nameProp]) ? spellInfo[nameProp] : spell.name;
 
       messages[messageId] = name;
     }
