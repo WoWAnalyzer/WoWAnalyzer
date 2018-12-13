@@ -61,32 +61,6 @@ nav.global {
   }
 }
 
-nav.global .selectorHeader {
-  position: absolute;
-  line-height: 1.4;
-  left: 15px;
-  top: 66px;
-  width: 700px;
-  z-index: 10;
-  max-width: calc(100vw - 45px);
-  max-height: calc(100vh - 80px);
-  overflow-y: auto;
-  white-space: normal; /* menu-items have this set to nowrap */
-}
-nav.global .selectorHeader a {
-  color: #e45a5a;
-  display: inline;
-  padding: 0;
-}
-nav.global .selectorHeader .panel {
-  background: rgba(0,0,0,0.95);
-}
-nav.global .selectorHeader img, nav.global .selectorHeader svg {
-  height: 1.6em;
-  margin: 0;
-  margin-top: -0.15em;
-}
-
 /* Mobile nav bar */
 @media (max-width: 600px) {
   nav.global > div.container {

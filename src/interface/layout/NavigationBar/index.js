@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Trans, t } from '@lingui/macro';
 
+import getFightName from 'common/getFightName';
 import PatreonIcon from 'interface/icons/PatreonTiny';
 import DiscordIcon from 'interface/icons/DiscordTiny';
 import GitHubIcon from 'interface/icons/GitHubMarkSmall';
@@ -16,8 +17,6 @@ import { getReportProgress } from 'interface/selectors/reportProgress';
 import { getUser } from 'interface/selectors/user';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 
-import FightSelectorHeader from './FightSelectorHeader';
-import PlayerSelectorHeader from './PlayerSelectorHeader';
 import LoadingBar from './LoadingBar';
 import './NavigationBar.scss';
 
@@ -53,10 +52,14 @@ class NavigationBar extends React.PureComponent {
             </div>
           )}
           {report && fight && (
-            <FightSelectorHeader className="menu-item" data-tip={i18n._(t`Change fight`)} />
+            <div className="menu-item">
+              <Link to={makeAnalyzerUrl(report)}>{getFightName(report, fight)}</Link>
+            </div>
           )}
           {report && playerName && (
-            <PlayerSelectorHeader className="menu-item" data-tip={i18n._(t`Change player`)} />
+            <div className="menu-item">
+              <Link to={makeAnalyzerUrl(report, fight.id)}>{playerName}</Link>
+            </div>
           )}
           <div className="spacer" />
           <div className="menu-item required">
