@@ -94,4 +94,14 @@ export default {
     name: 'Death Throes',
     icon: 'spell_shadow_haunting',
   },
+  DEATH_DENIED: {
+    id: 287722,
+    name: 'Death Denied',
+    icon: 'priest_spell_leapoffaith_a',
+  },
+  PROMISE_OF_DELIVERANCE: {
+    id: 287336,
+    name: 'Death Denied',
+    icon: 'spell_holy_persuitofjustice',
+  },
 };
