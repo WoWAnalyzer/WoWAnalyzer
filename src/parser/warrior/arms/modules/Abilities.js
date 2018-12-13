@@ -15,7 +15,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: true,
+          suggestion: false, // Suggestions are in MortalStrike.js
           recommendedEfficiency: 0.8,
         },
       },
