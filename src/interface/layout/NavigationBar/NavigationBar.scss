@@ -54,6 +54,11 @@ nav.global {
   .spacer {
     flex: 1 1 auto;
   }
+  .report-title {
+    max-width: 170px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 nav.global .selectorHeader {

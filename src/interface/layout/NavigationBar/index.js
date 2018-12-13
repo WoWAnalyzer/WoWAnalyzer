@@ -48,7 +48,7 @@ class NavigationBar extends React.PureComponent {
             </Link>
           </div>
           {report && (
-            <div className="menu-item" data-tip={i18n._(t`Back to fight selection`)}>
+            <div className="menu-item report-title">
               <Link to={makeAnalyzerUrl(report)}>{report.title}</Link>
             </div>
           )}
