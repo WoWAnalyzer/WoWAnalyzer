@@ -54,6 +54,16 @@ export default {
     name: 'Divine Right',
     icon: 'ability_paladin_divinestorm',
   },
+  LIGHTS_DECREE: {
+    id: 286229,
+    name: `Light's Decree`,
+    icon: 'spell_holy_blessedresillience',
+  },
+  EMPYREAN_POWER: {
+    id: 286390,
+    name: 'Empyrean_power',
+    icon: 'ability_paladin_sheathoflight',
+  },
 
   // Retribution Trait Effects
   EXPURGATION_DAMAGE: {
@@ -80,6 +90,16 @@ export default {
     id: 278523,
     name: 'Divine Right',
     icon: 'ability_paladin_divinestorm',
+  },
+  LIGHTS_DECREE_DAMAGE: {
+    id: 286231,
+    name: `Light's Decree`,
+    icon: 'spell_holy_blessedresillience',
+  },
+  EMPYREAN_POWER_BUFF: {
+    id: 286393,
+    name: 'Empyrean Power',
+    icon: 'ability_paladin_sheathoflight',
   },
 
   // Protection
