@@ -12,7 +12,7 @@ import getItemQualityLabel from 'common/getItemQualityLabel';
 import Combatants from 'parser/shared/modules/Combatants';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { GEAR_SLOTS } from 'parser/core/Combatant';
-
+import { makeSpellApiUrl, makeItemApiUrl } from 'common/makeApiUrl';
 // Source: https://stackoverflow.com/a/20079910/684353
 function selectText(node) {
   if (!node) {
@@ -56,7 +56,7 @@ class Item extends React.PureComponent {
       return null;
     }
 
-    return fetch(`https://eu.api.battle.net/wow/item/${id}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
+    return fetch(makeItemApiUrl(id, 'us'))
       .then(response => response.json())
       .then((data) => {
         this.setState({
@@ -134,7 +134,7 @@ class Cast extends React.PureComponent {
       return null;
     }
 
-    return fetch(`https://eu.api.battle.net/wow/spell/${id}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
+    return fetch(makeSpellApiUrl(id, 'us'))
       .then(response => response.json())
       .then((data) => {
         this.setState({
