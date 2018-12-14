@@ -8,6 +8,7 @@ const defaultOptions = {
   reattemptDelay: 300,
   shouldRetry: err => err instanceof RequestError,
   onBeforeAttempt: null,
+  getUrlWithAccessToken: null,
   onSuccess: null,
   onFailure: null,
 };
@@ -18,6 +19,10 @@ async function retryingRequest(options, attempt = 1) {
     if (options.onBeforeAttempt) {
       options.onBeforeAttempt(attempt);
     }
+    if(options.getUrlWithAccessToken){
+      options.url = await options.getUrlWithAccessToken();
+    }
+
     const result = await request.get(options);
     if (options.onSuccess) {
       options.onSuccess(result, attempt);
