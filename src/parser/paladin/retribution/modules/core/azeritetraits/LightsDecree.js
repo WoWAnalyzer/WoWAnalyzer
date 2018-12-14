@@ -37,15 +37,14 @@ class LightsDecree extends Analyzer {
   get totalDurationIncrease() {
     const buffName = this.selectedCombatant.hasTalent(SPELLS.CRUSADE_TALENT.id) ? SPELLS.CRUSADE_TALENT : SPELLS.AVENGING_WRATH;
     const hist = this.selectedCombatant.getBuffHistory(buffName.id);
-    let totalIncrease = 0;
     if (!hist || hist.length === 0) {
       return null;
     }
-    hist.map((buff, idx) => {
+    const totalIncrease = hist.map((buff) => {
       const end = buff.end || this.owner.currentTimestamp;
       const duration = (end - buff.start) / 1000;
       const increase = Math.max(0, duration - this.baseDuration);
-      totalIncrease += increase;
+      return increase;
     });
     return totalIncrease;
   }
