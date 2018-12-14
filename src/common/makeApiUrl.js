@@ -18,3 +18,13 @@ export function makeCharacterApiUrl(characterId = null, region = null, realm = n
     fields,
   });
 }
+
+export function makeItemApiUrl(itemId, region) {
+  const parts = ['item', region, itemId];
+  return makeApiUrl(parts.map(part => encodeURIComponent(part)).join('/'));
+}
+
+export function makeSpellApiUrl(spellId, region) {
+  const parts = ['spell', region, spellId];
+  return makeApiUrl(parts.map(part => encodeURIComponent(part)).join('/'));
+}
