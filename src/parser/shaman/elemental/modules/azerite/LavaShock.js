@@ -23,7 +23,9 @@ class LavaShock extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.LAVA_SHOCK.id);
-
+    if (!this.active) {
+      return;
+    }
     this.traitBonus = this.selectedCombatant.traitsBySpellId[SPELLS.LAVA_SHOCK.id]
       .reduce((sum, rank) => sum + calculateAzeriteEffects(SPELLS.LAVA_SHOCK.id, rank)[0], 0);
   }
