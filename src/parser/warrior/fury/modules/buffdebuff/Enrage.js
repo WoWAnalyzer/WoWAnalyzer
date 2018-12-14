@@ -47,10 +47,6 @@ class Enrage extends Analyzer {
     return this.owner.getPercentageOfTotalDamageDone(this.damage);
   }
 
-  get dpsPercent() {
-    return formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage) / this.owner.getPercentageOfTotalDamageDone(this.dpsIncrease));
-  }
-
   get suggestionThresholds() {
     return {
       actual: this.enrageUptime,
@@ -79,7 +75,7 @@ class Enrage extends Analyzer {
         icon={<SpellIcon id={SPELLS.ENRAGE.id} />}
         value={`${formatPercentage(this.uptime)}% uptime`}
         label="Enrage"
-        tooltip={`You did <b>${formatThousands(this.damage)}</b> damage while enraged, contributing <b>${formatNumber(this.dpsIncrease)} (${this.dpsPercent}%)</b> DPS.`}
+        tooltip={`You did <b>${formatThousands(this.damage)} (${formatPercentage(this.damageTotalPercent)}%)</b> damage while enraged, contributing <b>${formatNumber(this.dpsIncrease)}</b> DPS.`}
       />
     );
   }

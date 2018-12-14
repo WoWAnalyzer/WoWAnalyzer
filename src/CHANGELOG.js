@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe } from 'CONTRIBUTORS';
+import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344 } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -8,6 +7,26 @@ import SpellLink from 'common/SpellLink';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  {
+    date: new Date('2018-12-10'),
+    changes: 'Migraged Battle.Net API calls to to use the new blizzard.com Api endpoint',
+    contributors: [Hartra344],
+  },
+  {
+    date: new Date('2018-12-09'),
+    changes: 'Fixed crashes when switching players that can get the same buff.',
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2018-12-09'),
+    changes: 'Split the food check in the Be Well Prepared section of the checklist to check if food buff was present and if that food buff was high quality. Updated the suggestions to reflect this.',
+    contributors: [Yajinni],
+  },
+  {
+    date: new Date('2018-12-09'),
+    changes: 'Added a link to reports that have similiar kill-times under the Statistics tab for easier comparison.',
+    contributors: [Putro],
+  },
   {
     date: new Date('2018-11-15'),
     changes: <>Added <ItemLink id={ITEMS.DREAD_GLADIATORS_INSIGNIA.id} /> module.</>,
