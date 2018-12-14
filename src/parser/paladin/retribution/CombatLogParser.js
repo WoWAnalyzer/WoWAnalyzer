@@ -23,6 +23,7 @@ import HolyPowerDetails from './modules/holypower/HolyPowerDetails';
 import RelentlessInquisitor from './modules/core/azeritetraits/RelentlessInquisitor';
 import RelentlessInquisitorStackHandler from './modules/core/azeritetraits/RelentlessInquisitorStackHandler';
 import DivineRight from './modules/core/azeritetraits/DivineRight';
+import LightsDecree from './modules/core/azeritetraits/LightsDecree';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -55,6 +56,7 @@ class CombatLogParser extends CoreCombatLogParser {
     relentlessInquisitor: RelentlessInquisitor,
     relentlessInquisitorStackHandler: RelentlessInquisitorStackHandler,
     divineRight: DivineRight,
+    lightsDecree: LightsDecree,
   };
 }
 
