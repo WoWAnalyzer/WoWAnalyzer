@@ -12,6 +12,7 @@ import retryingPromise from 'common/retryingPromise';
 import { API_DOWN, clearError, INTERNET_EXPLORER, internetExplorerError, REPORT_NOT_FOUND, UNKNOWN_NETWORK_ISSUE } from 'interface/actions/error';
 import { fetchUser } from 'interface/actions/user';
 import { getError } from 'interface/selectors/error';
+import { getOpenModals } from 'interface/selectors/openModals';
 import ApiDownBackground from 'interface/common/images/api-down-background.gif';
 import FullscreenError from 'interface/common/FullscreenError';
 import ErrorBoundary from 'interface/common/ErrorBoundary';
@@ -22,7 +23,8 @@ import HomePage from 'interface/home/Page';
 import NewsPage from 'interface/news/Page';
 import PremiumPage from 'interface/premium/Page';
 import ThunderSoundEffect from 'interface/audio/Thunder Sound effect.mp3';
-import ReportPage from 'interface/report/index';
+import ReportPage from 'interface/report';
+import PortalTarget from 'interface/PortalTarget';
 
 import 'react-toggle/style.css';
 import './layout/App.scss';
@@ -54,6 +56,7 @@ class App extends React.Component {
       search: PropTypes.string.isRequired,
       hash: PropTypes.string.isRequired,
     }).isRequired,
+    openModals: PropTypes.number.isRequired,
   };
 
   constructor(props) {
@@ -236,21 +239,21 @@ class App extends React.Component {
   }
 
   render() {
-    const { error } = this.props;
+    const { error, openModals } = this.props;
 
     return (
       <>
-        <div className={`app ${this.showReportSelecter ? 'show-report-selecter' : ''}`}>
+        <div className={`app ${this.showReportSelecter ? 'show-report-selecter' : ''} ${openModals > 0 ? 'modal-open' : ''}`}>
           <NavigationBar />
-          <Header showReportSelecter={this.showReportSelecter} />
+          {this.showReportSelecter && <Header showReportSelecter={this.showReportSelecter} />}
           <main>
             <ErrorBoundary>
               {this.renderContent()}
             </ErrorBoundary>
           </main>
-
-          <ReactTooltip html place="bottom" effect="solid" />
         </div>
+        <ReactTooltip html place="bottom" effect="solid" />
+        <PortalTarget />
         {!error && <Footer />}
         <div id="portal" />
       </>
@@ -261,6 +264,7 @@ class App extends React.Component {
 const mapStateToProps = state => ({
   error: getError(state),
   isHome: getLocation(state).pathname === '/', // createMatchSelector doesn't seem to be consistent
+  openModals: getOpenModals(state),
 });
 
 export default withRouter(connect(

@@ -20,7 +20,7 @@ class FightSelection extends React.PureComponent {
       code: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       fights: PropTypes.array.isRequired,
-    }),
+    }).isRequired,
     refreshReport: PropTypes.func.isRequired,
     children: PropTypes.func.isRequired,
     fightId: PropTypes.number,

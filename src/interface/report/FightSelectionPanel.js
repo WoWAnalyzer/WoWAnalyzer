@@ -29,7 +29,7 @@ class FightSelectionPanel extends React.PureComponent {
         <div className="panel-heading">
           <div className="row">
             <div className="col-md-8">
-              <h2><Trans>Select the fight to parse</Trans></h2>
+              <h1><Trans>Select the fight to parse</Trans></h1>
             </div>
             <div className="col-md-4 text-right toggle-control action-buttons">
               <Toggle

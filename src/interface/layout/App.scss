@@ -39,8 +39,13 @@ body {
 #app-mount {
   min-height: 100vh;
 }
-#app-mount > .app {
-  min-height: calc(100% + 410px);
+.app.modal-open {
+  // don't use a transition since the .app should NOT have a `filter: blur(0px);` by default, this might be a performance problem in some browsers even if it's set to 0px
+  animation: blur 250ms forwards;
+}
+@keyframes blur {
+  0% { filter: blur(0px); }
+  100% { filter: blur(10px); }
 }
 
 
@@ -49,7 +54,7 @@ a {
   cursor: pointer;
 }
 a:hover {
-  color: #f5db93;
+  color: lighten(hsl(44, 100%, 49%), 30%);
 }
 a.hidden-link {
   color: inherit;
@@ -620,23 +625,6 @@ code.inactive {
   margin: 10px 0;
 }
 
-.modal {
-  position: fixed;
-  top: 40px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, .8);
-  z-index: 200;
-  padding-top: 20px;
-  overflow: auto;
-}
-
-.btn-close {
-  display: block;
-  margin: 20px auto;
-  width: 200px;
-}
 
 .contributor-detail {
   height: calc(100% - 80px);

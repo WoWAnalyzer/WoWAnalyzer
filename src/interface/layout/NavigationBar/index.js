@@ -16,6 +16,8 @@ import { getFightById } from 'interface/selectors/fight';
 import { getReportProgress } from 'interface/selectors/reportProgress';
 import { getUser } from 'interface/selectors/user';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
+import FightSelectionPanel from 'interface/report/FightSelectionPanel';
+import Modal from 'interface/modals/Modal';
 
 import LoadingBar from './LoadingBar';
 import './NavigationBar.scss';
@@ -23,7 +25,6 @@ import './NavigationBar.scss';
 class NavigationBar extends React.PureComponent {
   static propTypes = {
     playerName: PropTypes.string,
-
     report: PropTypes.shape({
       title: PropTypes.string.isRequired,
     }),
@@ -34,6 +35,27 @@ class NavigationBar extends React.PureComponent {
       premium: PropTypes.bool.isRequired,
     }),
   };
+
+  constructor() {
+    super();
+    this.handleFightClick = this.handleFightClick.bind(this);
+    this.handleFightSelectionModalClose = this.handleFightSelectionModalClose.bind(this);
+    this.state = {
+      isFightSelectionModalOpen: false,
+    };
+  }
+
+  handleFightClick(e) {
+    e.preventDefault();
+    this.setState({
+      isFightSelectionModalOpen: true,
+    });
+  }
+  handleFightSelectionModalClose() {
+    this.setState({
+      isFightSelectionModalOpen: false,
+    });
+  }
 
   render() {
     const { playerName, report, fight, progress, user } = this.props;
@@ -53,7 +75,12 @@ class NavigationBar extends React.PureComponent {
           )}
           {report && fight && (
             <div className="menu-item">
-              <Link to={makeAnalyzerUrl(report)}>{getFightName(report, fight)}</Link>
+              <Link to={makeAnalyzerUrl(report)} onClick={this.handleFightClick}>{getFightName(report, fight)}</Link>
+              {this.state.isFightSelectionModalOpen && (
+                <Modal onClose={this.handleFightSelectionModalClose}>
+                  <FightSelectionPanel report={report} />
+                </Modal>
+              )}
             </div>
           )}
           {report && playerName && (
@@ -105,5 +132,8 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  {
+    // openModal,
+  }
 )(NavigationBar);

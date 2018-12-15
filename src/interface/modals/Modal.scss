@@ -1,0 +1,39 @@
+@import 'interface/layout/Theme.scss';
+
+.modal {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+
+  > .container {
+    padding: 50px;
+
+    > .close {
+      float: right;
+      background: none;
+      border: 0;
+      color: $primaryColor;
+      font-size: 55px;
+      line-height: 1;
+      padding: 5px;
+      margin-bottom: 30px;
+
+      .icon {
+        margin-top: 0;
+        vertical-align: top;
+        filter: drop-shadow(0 0 2px $primaryColor);
+
+        &:hover {
+          color: lighten($primaryColor, 30%);
+        }
+      }
+    }
+    > .content {
+      clear: both;
+      margin-top: 30px;
+    }
+  }
+}

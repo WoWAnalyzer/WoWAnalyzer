@@ -14,4 +14,5 @@ export default combineReducers({
   reportHistory: require('./reportHistory').default,
   language: require('./language').default,
   specsIgnoredNotSupportedWarning: require('./specsIgnoredNotSupportedWarning').default,
+  openModals: require('./openModals').default,
 });
