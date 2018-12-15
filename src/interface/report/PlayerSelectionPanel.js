@@ -8,7 +8,7 @@ class PlayerSelectionPanel extends React.PureComponent {
     return (
       <div className="panel">
         <div className="panel-heading">
-          <h2><Trans>Select the player you wish to analyze</Trans></h2>
+          <h1><Trans>Select the player you wish to analyze</Trans></h1>
         </div>
         <div className="panel-body" style={{ padding: 0 }}>
           <PlayerSelectionPanelList

@@ -16,7 +16,7 @@ import { setCombatants } from 'interface/actions/combatants';
 import { getPlayerId, getPlayerName } from 'interface/selectors/url/report';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 
-import PlayerSelectionPanel from './PlayerSelectionPanel';
+import PlayerSelectionPanel from 'interface/playerSelection';
 import handleApiError from './handleApiError';
 
 const defaultState = {
@@ -145,20 +145,37 @@ class PlayerSelection extends React.PureComponent {
       }
       return (
         <div className="container">
-          <h1>
-            <div className="back-button">
-              <Link to={`/report/${report.code}`} data-tip={i18n._(t`Back to fight selection`)}>
-                <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
-              </Link>
+          <div className="panel">
+            <div className="panel-heading">
+              <h1>
+                <div className="back-button">
+                  <Link to={`/report/${report.code}`} data-tip={i18n._(t`Back to fight selection`)}>
+                    <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
+                  </Link>
+                </div>
+                <Trans>Player selection</Trans>
+              </h1>
             </div>
-            <Trans>Player selection</Trans>
-          </h1>
+            <div className="panel-body">
+              <PlayerSelectionPanel
+                players={report.friendlies.map(friendly => {
+                  const combatant = combatants.find(combatant => combatant.sourceID === friendly.id);
+                  if (!combatant) {
+                    return null;
+                  }
+                  const exportedCharacter = report.exportedCharacters ? report.exportedCharacters.find(char => char.name === friendly.name) : null;
 
-          <PlayerSelectionPanel
-            report={report}
-            fight={fight}
-            combatants={combatants}
-          />
+                  return {
+                    ...friendly,
+                    combatant,
+                    realm: exportedCharacter ? exportedCharacter.server : undefined,
+                    region: exportedCharacter ? exportedCharacter.region : undefined,
+                  };
+                }).filter(friendly => friendly !== null)}
+                makeUrl={playerId => makeAnalyzerUrl(report, fight.id, playerId)}
+              />
+            </div>
+          </div>
         </div>
       );
     }

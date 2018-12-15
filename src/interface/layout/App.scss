@@ -47,7 +47,9 @@ body {
   0% { filter: blur(0px); }
   100% { filter: blur(10px); }
 }
-
+main {
+  margin-top: 100px;
+}
 
 a {
   color: $primaryColor;

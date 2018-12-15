@@ -69,6 +69,10 @@ async function storeCharacter(id, region, realm, name) {
   });
 }
 const characterIdFromThumbnailRegex = /\/([0-9]+)-/;
+function getCharacterId(characterInfo) {
+  const [,characterId] = characterIdFromThumbnailRegex.exec(characterInfo.thumbnail);
+  return characterId;
+}
 
 const router = Express.Router();
 router.get('/:id([0-9]+)', async (req, res) => {
@@ -93,7 +97,7 @@ router.get('/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, re
     return;
   }
   if (characterInfo && characterInfo.thumbnail) {
-    const [,characterId] = characterIdFromThumbnailRegex.exec(characterInfo.thumbnail);
+    const characterId = getCharacterId(characterInfo);
     // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
     storeCharacter(characterId, region, realm, name);
   }

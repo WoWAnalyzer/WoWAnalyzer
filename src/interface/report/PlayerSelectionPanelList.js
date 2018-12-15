@@ -10,6 +10,7 @@ import SpecIcon from 'common/SpecIcon';
 import { i18n } from 'interface/RootLocalizationProvider';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import ActivityIndicator from 'interface/common/ActivityIndicator';
+import { makeCharacterApiUrl } from 'common/makeApiUrl';
 
 const UNKNOWN_ROLE = 'UNKNOWN_ROLE';
 
@@ -32,6 +33,32 @@ export class PlayerSelectionPanelList extends React.PureComponent {
 
   componentWillUnmount() {
     ReactTooltip.hide();
+  }
+
+  isLoading = false;
+  componentDidMount() {
+    this.load();
+  }
+  componentDidUpdate(prevProps, prevState, prevContext) {
+    this.load();
+  }
+  load() {
+    const { report, combatants } = this.props;
+    if (!report || !combatants || this.isLoading) {
+      return;
+    }
+
+    const selectablePlayers = report.friendlies.filter(friendly => combatants.find(combatant => combatant.sourceID === friendly.id));
+    console.log(selectablePlayers);
+    this.isLoading = true;
+    let i = 0;
+    console.log(Promise.all(
+      selectablePlayers.map(friendly => {
+        return fetch(makeCharacterApiUrl(friendly.guid)).then(result => {
+          console.log(++i, result);
+        });
+      })
+    ));
   }
 
   groupByRole(friendlies) {

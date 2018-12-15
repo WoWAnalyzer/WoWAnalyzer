@@ -15,4 +15,7 @@ export default combineReducers({
   language: require('./language').default,
   specsIgnoredNotSupportedWarning: require('./specsIgnoredNotSupportedWarning').default,
   openModals: require('./openModals').default,
+
+  // Caching
+  charactersById: require('./charactersById').default,
 });
