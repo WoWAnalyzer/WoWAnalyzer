@@ -34,7 +34,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: [SPELLS.RAMPAGE, SPELLS.RAMPAGE_1, SPELLS.RAMPAGE_2, SPELLS.RAMPAGE_3, SPELLS.RAMPAGE_4],
+        spell: SPELLS.RAMPAGE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL, // Needs 85 rage, if using Frothing Berserker one should only Rampage whilst at 100 rage.
         gcd: {
           base: 1500,
