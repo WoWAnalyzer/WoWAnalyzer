@@ -1,10 +1,15 @@
 import React from 'react';
 
-import { Zerotorescue } from 'CONTRIBUTORS';
+import { Eylwen, Zerotorescue } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2018-12-15'),
+  changes: <>Updated Fury for 8.1:  removal of the GCD on <SpellLink id={SPELLS.CHARGE.id} />, added <SpellLink id={SPELLS.COLD_STEEL_HOT_BLOOD_ENERGIZE.id} /> and <SpellLink id={SPELLS.UNBRIDLED_FEROCITY.id} /></>,
+  contributors: [Eylwen],
+  },
   {
     date: new Date('2018-07-19'),
     changes: <>Implemented the cooldown reduction of <SpellLink id={SPELLS.ANGER_MANAGEMENT_TALENT.id} /> and added a statistic to show the cooldown reduction usage.</>,

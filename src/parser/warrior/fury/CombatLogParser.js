@@ -12,6 +12,7 @@ import Enrage from './modules/buffdebuff/Enrage';
 
 import MissedRampage from './modules/spells/MissedRampage';
 import RampageCancelled from './modules/spells/RampageCancelled';
+import Recklessness from './modules/spells/Recklessness';
 
 import AngerManagement from './modules/talents/AngerManagement';
 import Carnage from './modules/talents/Carnage';
@@ -22,10 +23,12 @@ import FuriousSlashTimesByStacks from './modules/talents/FuriousSlashTimesByStac
 import FuriousSlashUptime from './modules/talents/FuriousSlashUptime';
 import ImpendingVicory from './modules/talents/ImpendingVictory';
 import Siegebreaker from './modules/talents/Siegebreaker';
-import Recklessness from './modules/spells/Recklessness';
 import RecklessAbandon from './modules/talents/RecklessAbandon';
-import RecklessFlurry from './modules/azerite/RecklessFlurry';
 import Warpaint from './modules/talents/Warpaint';
+
+import ColdStealHotBlood from './modules/azerite/ColdSteelHotBlood';
+import RecklessFlurry from './modules/azerite/RecklessFlurry';
+import UnbridledFerocity from './modules/azerite/UnbridledFerocity';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -42,6 +45,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     missedRampage: MissedRampage,
     rampageCancelled: RampageCancelled,
+    recklessness: Recklessness,
 
     angerManagement: AngerManagement,
     carnage: Carnage,
@@ -52,10 +56,12 @@ class CombatLogParser extends CoreCombatLogParser {
     furiousSlashUptime: FuriousSlashUptime,
     impendingVictory: ImpendingVicory,
     siegebreaker: Siegebreaker,
-    recklessness: Recklessness,
     recklessAbandon: RecklessAbandon,
-    recklessFlurry: RecklessFlurry,
     warpaint: Warpaint,
+
+    coldStealHotBlood: ColdStealHotBlood,
+    recklessFlurry: RecklessFlurry,
+    unbridledFerocity: UnbridledFerocity,
 
     // Overrides default PrePotion
     //prePotion: PrePotion, TODO: Update this to BFA and ensure it works properly with parser/core/Modules/Features/Checklist2/PreparationRuleAnalyzer.js
