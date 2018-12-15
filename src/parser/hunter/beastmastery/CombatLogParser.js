@@ -52,7 +52,6 @@ import DanceOfDeath from './modules/spells/azeritetraits/DanceOfDeath';
 import HazeOfRage from './modules/spells/azeritetraits/HazeOfRage';
 import FeedingFrenzy from './modules/spells/azeritetraits/FeedingFrenzy';
 import PrimalInstincts from './modules/spells/azeritetraits/PrimalInstincts';
-import PackAlpha from './modules/spells/azeritetraits/PackAlpha';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -109,7 +108,6 @@ class CombatLogParser extends CoreCombatLogParser {
     hazeOfRage: HazeOfRage,
     feedingFrenzy: FeedingFrenzy,
     primalInstincts: PrimalInstincts,
-    packAlpha: PackAlpha,
   };
 }
 
