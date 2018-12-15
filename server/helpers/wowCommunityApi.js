@@ -82,9 +82,7 @@ const getAccessToken = async (region) => {
     return clientToken[region];
   }
 
-  const url = `https://${region}.battle.net/oauth/token?grant_type=client_credentials&client_id=${process.env.BATTLE_NET_API_CLIENT_ID}&client_secret=${
-    process.env.BATTLE_NET_API_CLIENT_SECRET
-  }`;
+  const url = `https://${region}.battle.net/oauth/token?grant_type=client_credentials&client_id=${process.env.BATTLE_NET_API_CLIENT_ID}&client_secret=${process.env.BATTLE_NET_API_CLIENT_SECRET}`;
 
   const tokenRequest = await retryingRequest({
     url,

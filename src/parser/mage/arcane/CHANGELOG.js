@@ -22,7 +22,7 @@ export default [
   },
   {
     date: new Date('2018-08-28'),
-    changes: <>Added support for <SpellLink id={SPELLS.GALVANIZING_SPARK.id} /> and <SpellLink id={SPELLS.ANOMALOUS_IMPACT.id} /></>,
+    changes: <>Added support for <SpellLink id={SPELLS.GALVANIZING_SPARK.id} /> and Anomalous Impact.</>,
     contributors: [Sharrq],
   },
   {
