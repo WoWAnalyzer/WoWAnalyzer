@@ -47,7 +47,7 @@ import Grace from './modules/spells/Grace';
 import Schism from './modules/spells/Schism';
 
 import GiftOfForgiveness from './modules/azeritetraits/GiftOfForgiveness';
-
+import DepthOfTheShadows from './modules/azeritetraits/DepthOfTheShadows';
 import SinsOfTheMany from './modules/spells/SinsOfTheMany';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
@@ -111,6 +111,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Azerite Traits
     gift: GiftOfForgiveness,
+    depthOfTheShadows: DepthOfTheShadows,
   };
 }
 

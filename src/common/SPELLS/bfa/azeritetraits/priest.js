@@ -11,6 +11,16 @@ export default {
     name: 'Gift of the Forgiveness',
     icon: 'spell_holy_holysmite',
   },
+  DEPTH_OF_THE_SHADOWS: {
+    id: 275541,
+    name: 'Depth of the Shadows',
+    icon: 'spell_shadow_shadowwordpain',
+  },
+  DEPTH_OF_THE_SHADOWS_BUFF: {
+    id: 275544,
+    name: 'Depth of the Shadows',
+    icon: 'spell_shadow_shadowwordpain',
+  },
   // Holy
   BLESSED_SANCTUARY: {
     id: 273313,
