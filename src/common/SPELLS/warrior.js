@@ -265,6 +265,11 @@ export default {
     name: 'Enrage',
     icon: 'spell_shadow_unholyfrenzy',
   },
+  ENDLESS_RAGE_ENERGISE: {
+    id: 280283,
+    name: 'Endless Rage',
+    icon: 'ability_warrior_endlessrage',
+  },  
   FROTHING_BERSERKER: {
     id: 215572,
     name: 'Frothing Berserker',
