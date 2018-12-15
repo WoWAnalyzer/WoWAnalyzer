@@ -82,6 +82,11 @@ export default {
         name: 'Reckless Flurry',
         icon: 'ability_dualwield',
     },
+    RECKLESS_FLURRY_DAMAGE: {
+        id: 283810,
+        name: 'Reckless Flurry',
+        icon: 'ability_dualwield',
+    },
     SIMMERING_RAGE: {
         id: 278757,
         name: 'Simmering Rage',

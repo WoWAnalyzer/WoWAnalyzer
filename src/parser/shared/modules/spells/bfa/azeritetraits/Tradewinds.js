@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS/index';
 import { formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 const tradewindsStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [mastery] = calculateAzeriteEffects(SPELLS.TRADEWINDS.id, rank);
@@ -13,17 +14,15 @@ const tradewindsStats = traits => Object.values(traits).reduce((obj, rank) => {
   mastery: 0,
 });
 
-export const STAT_TRACKER = {
-  mastery: combatant => {
-    return tradewindsStats(combatant.traitsBySpellId[SPELLS.TRADEWINDS.id]).mastery;
-  },
-};
-
 /**
  * Your spells and abilities have a chance to grant you 583 Mastery for 15 sec. 
  * When this effect expires it jumps once to a nearby ally, granting them 115 Mastery for 8 sec.
  */
 class Tradewinds extends Analyzer {
+  static dependencies = {
+    statTracker: StatTracker,
+  };
+
   mastery = 0;
   procs = 0;
 
@@ -37,6 +36,10 @@ class Tradewinds extends Analyzer {
 
     const { mastery } = tradewindsStats(this.selectedCombatant.traitsBySpellId[SPELLS.TRADEWINDS.id]);
     this.mastery = mastery;
+
+    this.statTracker.add(SPELLS.TRADEWINDS.id, {
+      mastery,
+    });
   }
 
   on_byPlayer_applybuff(event) {
@@ -48,7 +51,7 @@ class Tradewinds extends Analyzer {
   }
 
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.TRADEWINDS.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.TRADEWINDS_BUFF.id) / this.owner.fightDuration;
   }
 
   get averageMastery() {
@@ -56,7 +59,7 @@ class Tradewinds extends Analyzer {
   }
 
   handleBuff(event) {
-    if (event.ability.guid === SPELLS.TRADEWINDS.id) {
+    if (event.ability.guid === SPELLS.TRADEWINDS_BUFF.id) {
       this.procs++;
     }
   }

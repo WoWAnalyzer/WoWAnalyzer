@@ -5,6 +5,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import Analyzer from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 import MarrowrendUsage from '../../features/MarrowrendUsage';
 import BoneShieldTimesByStacks from '../../features/BoneShieldTimesByStacks';
@@ -16,10 +17,6 @@ const bonesOfTheDamnedStats = traits => Object.values(traits).reduce((obj, rank)
 }, {
   armor: 0,
 });
-
-export const STAT_TRACKER = {
-  armor: combatant => bonesOfTheDamnedStats(combatant.traitsBySpellId[SPELLS.BONES_OF_THE_DAMNED.id]).armor,
-};
 
 /**
  * Bones of the Damned
@@ -33,6 +30,7 @@ class BonesOfTheDamned extends Analyzer{
   static dependencies = {
     marrowrendUsage: MarrowrendUsage,
     boneShieldTimesByStacks: BoneShieldTimesByStacks,
+    statTracker: StatTracker,
   };
 
   armor = 0;
@@ -46,6 +44,10 @@ class BonesOfTheDamned extends Analyzer{
 
     const { armor } = bonesOfTheDamnedStats(this.selectedCombatant.traitsBySpellId[SPELLS.BONES_OF_THE_DAMNED.id]);
     this.armor = armor;
+
+    this.statTracker.add(SPELLS.BONES_OF_THE_DAMNED_BUFF.id, {
+      armor,
+    });
   }
 
   get bonesOfTheDamnedProcPercentage() {

@@ -284,7 +284,18 @@ export default {
     name: 'Massacre',
     icon: 'inv_sword_48',
   },
-
+  // Talents
+  BLADESTORM_OH_DAMAGE: {
+    id: 95738,
+    name: 'Bladestorm',
+    icon: 'ability_warrior_bladestorm',
+  },
+  // Fury talents
+  SIEGEBREAKER_DEBUFF: { 
+    id: 280773, 
+    name: "Siegebreaker", 
+    icon: "inv_make_101",
+  },
   // Fury tier sets
   WARRIOR_FURY_T19_2P_BONUS: {
     id: 212157,
