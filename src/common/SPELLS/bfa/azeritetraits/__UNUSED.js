@@ -219,11 +219,6 @@ export default {
     name: 'Double Dose',
     icon: 'ability_rogue_shadowstrikes',
   },
-  ECHO_OF_THE_ELEMENTALS: {
-    id: 275381,
-    name: 'Echo of the Elementals',
-    icon: 'spell_fire_elemental_totem',
-  },
   ECHOING_HOWL: {
     id: 275917,
     name: 'Echoing Howl',
@@ -428,11 +423,6 @@ export default {
     id: 273093,
     name: 'Latent Chill',
     icon: 'spell_deathknight_empowerruneblade2',
-  },
-  LAVA_SHOCK: {
-    id: 273453,
-    name: 'Lava Shock',
-    icon: 'spell_nature_earthshock',
   },
   LIFEBLOOD: {
     id: 274419,

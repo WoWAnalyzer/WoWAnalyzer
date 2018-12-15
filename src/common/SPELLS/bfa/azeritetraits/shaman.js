@@ -5,6 +5,53 @@
  */
 
 export default {
+  // Elemental
+  LAVA_SHOCK: {
+    id: 273448,
+    name: 'Lava Shock',
+    icon: 'spell_nature_earthshock',
+  },
+  LAVA_SHOCK_BUFF: {
+    id: 273453,
+    name: 'Lava Shock',
+    icon: 'spell_nature_earthshock',
+  },
+  ECHO_OF_THE_ELEMENTALS: {
+    id: 275381,
+    name: 'Echo of the Elementals',
+    icon: 'spell_fire_elemental_totem',
+  },
+  EMBER_ELEMENTAL_SUMMON: {
+    id: 275385,
+    name: 'Summon Ember Elemental',
+    icon: 'spell_fire_elemental_totem',
+  },
+
+  SPARK_ELEMENTAL_SUMMON: {
+    id: 275386,
+    name: 'Summon Spark Elemental',
+    icon: 'spell_shaman_measuredinsight',
+  },
+  EMBER_BLAST: {
+    id: 275382,
+    name: 'Ember Blase',
+    icon: 'spell_fire_fireball',
+  },
+  SHOCKING_BLAST: {
+    id: 275384,
+    name: 'Shocking Blast',
+    icon: 'spell_nature_cyclone',
+  },
+  SYNAPSE_SHOCK: {
+    id: 277671,
+    name: 'Synapse Shock',
+    icon: 'spell_nature_lightning',
+  },
+  SYNAPSE_SHOCK_BUFF: {
+    id: 277960,
+    name: 'Synapse Shock',
+    icon: 'spell_nature_lightning',
+  },
   // Restoration
   OVERFLOWING_SHORES_TRAIT: {
     id: 277658,

@@ -251,8 +251,16 @@ export const Gurupitka = {
   nickname: 'Gurupitka',
 };
 export const Hartra344 = {
-  nickname: 'hartra344',
-  github: 'hartra344',
+  nickname: 'Hartra344',
+  github: 'Hartra344',
+  discord: 'Erlaris#8483',
+  mains: [
+    {
+      name: 'Erlaris',
+      spec: SPECS.HOLY_PRIEST,
+      link: 'https://worldofwarcraft.com/en-us/character/area-52/Erlaris',
+    },
+  ],
 };
 export const strel = {
   nickname: 'strel',

@@ -112,7 +112,16 @@ export default {
     name: 'Balefire Branch',
     icon: 'inv_staff_26',
   },
-
+  CACAPHONOUS_CHORD: { // Damage from Lady Waycrest's Music Box
+    id: 271671,
+    name: 'Cacaphonous Chord',
+    icon: 'trade_archaeology_delicatemusicbox',
+  },
+  HARMONIOUS_CHORD: { // Heal from Lady Waycrest's Music Box
+    id: 271682,
+    name: 'Harmonious Chord',
+    icon: 'trade_archaeology_delicatemusicbox',
+  },
   //Freehold
   LOADED_DIE_CRITICAL_STRIKE_SMALL: {
     id: 267330,
