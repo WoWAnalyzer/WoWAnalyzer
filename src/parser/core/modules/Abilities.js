@@ -79,19 +79,6 @@ class Abilities extends Module {
   }
 
   /**
-   * Returns the spell with the given spellId from an ability (or undefined if there is no such spell)
-   */
-  getAbilitySpell(spellId) {
-    const ability = this.getAbility(spellId);
-    if (!ability) { return undefined; }
-    if (ability.spell instanceof Array) {
-      return ability.spell.find(spell => spell.id === spellId);
-    } else {
-      return ability.spell;
-    }
-  }
-
-  /**
    * Returns the expected cooldown (in seconds) of the given spellId at the current timestamp (or undefined if there is no such spellInfo)
    */
   getExpectedCooldownDuration(spellId) {

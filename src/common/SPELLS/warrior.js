@@ -221,25 +221,21 @@ export default {
     id: 184707,
     name: 'Rampage',
     icon: 'ability_ironmaidens_bladerush',
-    primaryCoefficient: 0.72,
   },
   RAMPAGE_2: {
     id: 184709,
     name: 'Rampage',
     icon: 'ability_ironmaidens_bladerush',
-    primaryCoefficient: 0.42,
   },
   RAMPAGE_3: {
     id: 201364,
     name: 'Rampage',
     icon: 'ability_ironmaidens_bladerush',
-    primaryCoefficient: 0.96,
   },
   RAMPAGE_4: {
     id: 201363,
     name: 'Rampage',
     icon: 'ability_ironmaidens_bladerush',
-    primaryCoefficient: 0.54,
   },
   WHIRLWIND_FURY: {
     id: 190411,

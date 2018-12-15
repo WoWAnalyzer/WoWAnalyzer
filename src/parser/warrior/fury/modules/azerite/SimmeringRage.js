@@ -8,13 +8,12 @@ import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage
 import TraitStatisticBox from 'interface/others/TraitStatisticBox';
 import SPELLS from 'common/SPELLS';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
-import Abilities from '../Abilities.js';
+import RAMPAGE_COEFFICIENTS from '../spells/RAMPAGE_COEFFICIENTS.js';
 
 const RAMPAGE = [SPELLS.RAMPAGE_1, SPELLS.RAMPAGE_2, SPELLS.RAMPAGE_3, SPELLS.RAMPAGE_4];
 
 class SimmeringRage extends Analyzer {
   static dependencies = {
-    abilities: Abilities,
     statTracker: StatTracker,
   };
 
@@ -43,7 +42,7 @@ class SimmeringRage extends Analyzer {
   }
 
   onRampageDamage(event) {
-    const coefficient = this.abilities.getAbilitySpell(event.ability.guid).primaryCoefficient;
+    const coefficient = RAMPAGE_COEFFICIENTS.find(r => r.id === event.ability.guid).coefficient;
     const [ bonusDamage ] = calculateBonusAzeriteDamage(event, [this.traitBonus], coefficient, this.statTracker.currentStrengthRating);
     this.totalSimmeringDamage += bonusDamage;
   }
