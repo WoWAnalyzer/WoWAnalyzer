@@ -50,7 +50,6 @@ import Resurgence from './modules/spells/Resurgence';
 //Azerite
 import BaseHealerAzerite from './modules/azerite/BaseHealerAzerite';
 import SwellingStream from './modules/azerite/SwellingStream';
-import EbbAndFlow from './modules/azerite/EbbAndFlow';
 import SoothingWaters from './modules/azerite/SoothingWaters';
 import OverflowingShores from './modules/azerite/OverflowingShores';
 import SpoutingSpirits from './modules/azerite/SpoutingSpirits';
@@ -118,7 +117,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Azerite
     baseHealerAzerite: BaseHealerAzerite,
     swellingStream: SwellingStream,
-    ebbAndFlow: EbbAndFlow,
     soothingWaters: SoothingWaters,
     overflowingShores: OverflowingShores,
     spoutingSpirits: SpoutingSpirits,
