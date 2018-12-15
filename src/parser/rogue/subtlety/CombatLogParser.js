@@ -32,8 +32,6 @@ import FindWeakness from "./modules/talents/FindWeakness";
 
 import DarkShadowSpecterOfBetrayal from './modules/talents/DarkShadow/DarkShadowSpecterOfBetrayal';
 
-import SharpenedBlades from '../shared/azeritetraits/SharpenedBlades';
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Core
@@ -78,7 +76,6 @@ class CombatLogParser extends CoreCombatLogParser {
     findWeakness: FindWeakness,
 
     // Traits
-    SharpenedBlades: SharpenedBlades,
 
     // Racials
     arcaneTorrent: [ArcaneTorrent, {
