@@ -34,8 +34,8 @@ class EarlyHarvest extends Analyzer{
   
   // Check for healing from early harvest buff
   on_byPlayer_heal(event) {
-    if(SPELLS.EARLY_HARVEST.id != event.ability.guid) {
-      return 
+    if(SPELLS.EARLY_HARVEST.id !== event.ability.guid) {
+      return;
     }
     
     this.healingFromWildGrowthExpiration += event.amount; 
@@ -44,7 +44,7 @@ class EarlyHarvest extends Analyzer{
  
   // Check for targets being undamaged when wild growth ends to reduce innervate cd
   on_byPlayer_removebuff(event) {
-    if(SPELLS.WILD_GROWTH.id != event.ability.guid){
+    if(SPELLS.WILD_GROWTH.id !== event.ability.guid){
       return;
     }
     
@@ -54,7 +54,7 @@ class EarlyHarvest extends Analyzer{
     }      
     
     // Early out if haven't yet cast innervate (dones't handle innervate being on cd at beginning of fight)
-    if(this.lastInnervateTimestamp == 0) {
+    if(this.lastInnervateTimestamp === 0) {
       return;
     }
     
@@ -71,7 +71,7 @@ class EarlyHarvest extends Analyzer{
 
   statistic(){
     const healingFromWildGrowthExpiration = this.owner.getPercentageOfTotalHealingDone(this.healingFromWildGrowthExpiration);
-    const innervateCooldownReducedInSeconds = this.innervateCooldownReduced/1000.0
+    const innervateCooldownReducedInSeconds = this.innervateCooldownReduced/1000.0;
     
     return(
       <TraitStatisticBox
