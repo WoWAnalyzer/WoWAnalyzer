@@ -46,6 +46,7 @@ import LaserMatrix from './modules/items/azeritetraits/LaserMatrixRestoDruid';
 import WakingDream from './modules/items/azeritetraits/WakingDream';
 import LivelySpirit from './modules/items/azeritetraits/LivelySpirit';
 import RampantGrowth from './modules/items/azeritetraits/RampantGrowth';
+import EarlyHarvest from './modules/items/azeritetraits/EarlyHarvest';
 
 import StatWeights from './modules/features/StatWeights';
 
@@ -115,6 +116,7 @@ class CombatLogParser extends CoreCombatLogParser {
     wakingDream: WakingDream,
     livelySpirit: LivelySpirit,
     rampantGrowth: RampantGrowth,
+    earlyHarvest: EarlyHarvest
 
     statWeights: StatWeights,
 
