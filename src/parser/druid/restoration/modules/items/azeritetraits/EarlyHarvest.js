@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 
 // Limitations: does not handle innervate already being on cooldown when the fight begins 
-// Testing log w/ cd reduction casts http://localhost:3000/report/T6NCZ79yzK4D32x8/1-Heroic+Taloc+-+Kill+(5:14)/4-Holym%C3%A2n
+// Testing log w/ cd reduction casts https://www.warcraftlogs.com/reports/T6NCZ79yzK4D32x8#fight=1&type=healing&source=4&options=8
 
 const INNERVATE_COOLDOWN = 120000;
 const INNERVATE_DURATION = 12000;
