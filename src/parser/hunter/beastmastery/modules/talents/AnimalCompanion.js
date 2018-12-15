@@ -53,7 +53,6 @@ class AnimalCompanion extends Analyzer {
         icon={<SpellIcon id={SPELLS.ANIMAL_COMPANION_TALENT.id} />}
         value={<>{formatNumber(totalDamage)} / {formatNumber(totalDamage / (this.owner.fightDuration / 1000))} DPS</>}
         label="Animal Companion"
-        tooltip="Without this talent your main pet would have done 66% more damage than it did as Animal Companion nerfs all pet damage by 40% - however if you're using the azerite trait Pack Alpha, your main pet would have done less damage that way."
         category={STATISTIC_CATEGORY.TALENTS}
       >
         <table className="table table-condensed">
