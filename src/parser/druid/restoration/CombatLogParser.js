@@ -116,7 +116,7 @@ class CombatLogParser extends CoreCombatLogParser {
     wakingDream: WakingDream,
     livelySpirit: LivelySpirit,
     rampantGrowth: RampantGrowth,
-    earlyHarvest: EarlyHarvest
+    earlyHarvest: EarlyHarvest,
 
     statWeights: StatWeights,
 

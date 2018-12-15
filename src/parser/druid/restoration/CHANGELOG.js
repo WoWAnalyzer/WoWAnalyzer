@@ -4,6 +4,11 @@ import { Yajinni, blazyb, fel1ne, Qbz } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-12-15'),
+    changes: 'Added support for Azerite trait Early Harvest',
+    contributors: [Qbz],
+  },
+  {
     date: new Date('2018-12-07'),
     changes: 'Improved regrowth values in the mana efficiency tab',
     contributors: [blazyb],
