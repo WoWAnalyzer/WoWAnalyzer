@@ -1,22 +1,24 @@
 @import 'interface/layout/Theme.scss';
 
 .player-selection {
-  padding: 0;
   background: rgba(0, 0, 0, 0.2);
   text-align: center;
   line-height: 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  padding: 15px;
 
   > a {
     display: inline-block;
-    margin: 0;
+    border: 1px solid transparentize($primaryColor, 0.6);
+    margin: 15px;
 
     &:hover {
       // Placeholder
       // TODO: Replace
       text-decoration: none;
-      background: transparentize($primaryColor, 0.95);
+      background: transparentize($primaryColor, 0.9);
+      border: 1px solid $primaryColor;
     }
   }
   .card {
@@ -24,15 +26,15 @@
     position: relative;
     text-align: left;
     color: #fff;
-    border: 1px solid #171313;
+    border: 1px solid #000;
 
     > .avatar {
       flex: 0 0 auto;
       width: 90px;
-      height: 60px;
+      height: 70px;
       margin-right: 15px;
       background-size: cover;
-      background-position: center center;
+      background-position: top center;
       position: relative;
       //margin-left: 35px;
     }
@@ -43,7 +45,7 @@
 
       h1 {
         font-size: 22px;
-        margin: 11px 0 6px;
+        margin: 15px 0 8px;
         line-height: 1;
       }
 

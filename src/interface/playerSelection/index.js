@@ -87,8 +87,6 @@ class PlayerSelection extends React.PureComponent {
             </Link>
           );
         })}
-        <a />
-        <a />
       </div>
     );
   }
