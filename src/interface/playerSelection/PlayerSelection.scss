@@ -8,9 +8,9 @@
 
   .card {
     display: inline-block;
-    margin: 0 20px;
+    margin: 0 5px;
     position: relative;
-    width: 84px;
+    width: 230px;
 
     //&:before {
     //  content: '';
@@ -28,8 +28,7 @@
     }
     > .avatar {
       width: 100%;
-      height: 84px;
-      border: 1px solid transparentize($primaryColor, 0.4);
+      border: 1px solid transparentize($primaryColor, 0.6);
       border-radius: 3px;
     }
     > .about {
@@ -62,7 +61,7 @@
         left: 0;
         width: 100%;
         text-align: center;
-        font-size: 10px;
+        font-size: 14px;
         line-height: 22px;
         color: #000;
         font-weight: 600;

@@ -71,7 +71,7 @@ class PlayerSelection extends React.PureComponent {
               className="card"
             >
               <img
-                src={character ? `https://render-${character.region}.worldofwarcraft.com/character/${character.thumbnail}` : '/img/fallback-character.jpg'}
+                src={character ? `https://render-${character.region}.worldofwarcraft.com/character/${character.thumbnail.replace('avatar', 'inset')}` : '/img/fallback-character.jpg'}
                 className="avatar"
                 alt=""
               />
