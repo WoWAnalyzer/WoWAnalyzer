@@ -10,7 +10,7 @@ import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 import DemoPets from '../pets/DemoPets';
 import PETS from '../pets/PETS';
-import { RANDOM_PET_GUIDS } from '../pets/CONSTANTS';
+import { isRandomPet } from '../pets/helpers';
 
 class InnerDemons extends Analyzer {
   static dependencies = {
@@ -24,7 +24,7 @@ class InnerDemons extends Analyzer {
 
   get damage() {
     const wildImps = this.demoPets.getPetDamage(PETS.WILD_IMP_INNER_DEMONS.guid);
-    const otherPetsSummonedByID = this.demoPets.timeline.filter(pet => RANDOM_PET_GUIDS.includes(pet.guid) && pet.summonedBy === SPELLS.INNER_DEMONS_TALENT.id);
+    const otherPetsSummonedByID = this.demoPets.timeline.filter(pet => isRandomPet(pet.guid) && pet.summonedBy === SPELLS.INNER_DEMONS_TALENT.id);
     const other = otherPetsSummonedByID
       .map(pet => this.demoPets.getPetDamage(pet.guid, pet.instance))
       .reduce((total, current) => total + current, 0);

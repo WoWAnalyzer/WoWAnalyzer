@@ -13,6 +13,12 @@ import SoulShardTracker from './modules/soulshards/SoulShardTracker';
 import SoulShardDetails from './modules/soulshards/SoulShardDetails';
 
 import DemoPets from './modules/pets/DemoPets';
+import PetDamageHandler from './modules/pets/DemoPets/PetDamageHandler';
+import PetSummonHandler from './modules/pets/DemoPets/PetSummonHandler';
+import WildImpEnergyHandler from './modules/pets/DemoPets/WildImpEnergyHandler';
+import PowerSiphonHandler from './modules/pets/DemoPets/PowerSiphonHandler';
+import DemonicTyrantHandler from './modules/pets/DemoPets/DemonicTyrantHandler';
+import ImplosionHandler from './modules/pets/DemoPets/ImplosionHandler';
 import PetTimelineTab from './modules/pets/PetTimelineTab';
 import PrepullPetNormalizer from './modules/pets/normalizers/PrepullPetNormalizer';
 
@@ -37,7 +43,6 @@ import NetherPortal from './modules/talents/NetherPortal';
 
 import ShadowsBiteForbiddenKnowledgeCore from './modules/azerite/ShadowsBiteForbiddenKnowledgeCore';
 import ShadowsBite from './modules/azerite/ShadowsBite';
-import ForbiddenKnowledge from './modules/azerite/ForbiddenKnowledge';
 import ExplosivePotential from './modules/azerite/ExplosivePotential';
 import DemonicMeteor from './modules/azerite/DemonicMeteor';
 import UmbralBlaze from './modules/azerite/UmbralBlaze';
@@ -56,7 +61,15 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
+
+    // Pets
     demoPets: DemoPets,
+    petDamageHandler: PetDamageHandler,
+    petSummonHandler: PetSummonHandler,
+    wildImpEnergyHandler: WildImpEnergyHandler,
+    powerSiphonHandler: PowerSiphonHandler,
+    demonicTyrantHandler: DemonicTyrantHandler,
+    implosionHandler: ImplosionHandler,
     petTimelineTab: PetTimelineTab,
     prepullPetNormalizer: PrepullPetNormalizer,
 
@@ -88,7 +101,6 @@ class CombatLogParser extends CoreCombatLogParser {
     supremeCommander: SupremeCommander,
     shadowsBiteForbiddenKnowledgeCore: ShadowsBiteForbiddenKnowledgeCore,
     shadowsBite: ShadowsBite,
-    forbiddenKnowledge: ForbiddenKnowledge,
     
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],

@@ -36,11 +36,6 @@ export default {
     name: 'Iron Fists',
     icon: 'spell_holy_fistofjustice',
   },
-  MERIDIAN_STRIKES: {
-    id: 278580,
-    name: 'Meridian Strikes',
-    icon: 'ability_monk_touchofdeath',
-  },
   OPEN_PALM_STRIKES: {
     id: 279918,
     name: 'Open Palm Strikes',
@@ -55,11 +50,6 @@ export default {
     id: 273291,
     name: 'Sunrise Technique',
     icon: 'ability_monk_risingsunkick',
-  },
-  SWIFT_ROUNDHOUSE: {
-    id: 277669,
-    name: 'Swift Roundhouse',
-    icon: 'ability_monk_roundhousekick',
   },
   // Windwalker trait effects
   OPEN_PALM_STRIKES_ENERGIZE: {
@@ -82,11 +72,6 @@ export default {
     name: 'Swift Roundhouse',
     icon: 'ability_monk_roundhousekick',
   },
-  IRON_FISTS_BUFF: {
-    id: 272806,
-    name: 'Iron Fists',
-    icon: 'spell_holy_fistofjustice',
-  },
   //MW Specific
   BURST_OF_LIFE: {
     id: 277667,
@@ -97,11 +82,6 @@ export default {
     id: 279875,
     name: 'Font of Life',
     icon: 'ability_monk_essencefont',
-  },
-  INVIGORATING_BREW: {
-    id: 269621,
-    name: 'Invigorating Brew',
-    icon: 'ability_monk_vivify',
   },
   MISTY_PEAKS: {
     id: 275975,

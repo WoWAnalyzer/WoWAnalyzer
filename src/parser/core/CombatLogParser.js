@@ -12,6 +12,7 @@ import ItemStatisticBox from 'interface/others/ItemStatisticBox';
 import ApplyBuffNormalizer from 'parser/shared/normalizers/ApplyBuff';
 import CancelledCastsNormalizer from 'parser/shared/normalizers/CancelledCasts';
 import PrePullCooldownsNormalizer from 'parser/shared/normalizers/PrePullCooldowns';
+import FightEndNormalizer from 'parser/shared/normalizers/FightEnd';
 import HealingDone from '../shared/modules/HealingDone';
 import DamageDone from '../shared/modules/DamageDone';
 import DamageTaken from '../shared/modules/DamageTaken';
@@ -84,7 +85,8 @@ import LustrousGoldenPlumage from '../shared/modules/items/bfa/dungeons/Lustrous
 import RezansGleamingEye from '../shared/modules/items/bfa/dungeons/RezansGleamingEye';
 import RotcrustedVoodooDoll from '../shared/modules/items/bfa/dungeons/RotcrustedVoodooDoll';
 import AzerokksResonatingHeart from '../shared/modules/items/bfa/dungeons/AzerokksResonatingHeart';
-
+import VesselOfSkitteringShadows from '../shared/modules/items/bfa/dungeons/VesselOfSkitteringShadows';
+import LadyWaycrestsMusicBox from '../shared/modules/items/bfa/dungeons/LadyWaycrestsMusicBox';
 // PVP
 import DreadGladiatorsMedallion from '../shared/modules/items/bfa/pvp/DreadGladiatorsMedallion';
 import DreadGladiatorsInsignia from '../shared/modules/items/bfa/pvp/DreadGladiatorsInsignia';
@@ -103,6 +105,7 @@ import DarkmoonDeckFathoms from '../shared/modules/items/bfa/crafted/DarkmoonDec
 import DarkmoonDeckBlockades from '../shared/modules/items/bfa/crafted/DarkmoonDeckBlockades';
 // Azerite Traits
 import Gemhide from '../shared/modules/spells/bfa/azeritetraits/Gemhide';
+import CrystallineCarapace from '../shared/modules/spells/bfa/azeritetraits/CrystallineCarapace';
 import Gutripper from '../shared/modules/spells/bfa/azeritetraits/Gutripper';
 import HeedMyCall from '../shared/modules/spells/bfa/azeritetraits/HeedMyCall';
 import LaserMatrix from '../shared/modules/spells/bfa/azeritetraits/LaserMatrix';
@@ -136,7 +139,6 @@ import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
 import EventsNormalizer from './EventsNormalizer';
 import EventEmitter from './modules/EventEmitter';
-import EventFilter from './EventFilter';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -146,6 +148,7 @@ class CombatLogParser {
   static abilitiesAffectedByDamageIncreases = [];
 
   static internalModules = {
+    fightEndNormalizer: FightEndNormalizer,
     eventEmitter: EventEmitter,
     combatants: Combatants,
     deathDowntime: DeathDowntime,
@@ -227,6 +230,8 @@ class CombatLogParser {
     rezansGleamingEye: RezansGleamingEye,
     rotcrustedVoodooDoll: RotcrustedVoodooDoll,
     azerokksResonatingHeart: AzerokksResonatingHeart,
+    vesselOfSkitteringShadows: VesselOfSkitteringShadows,
+    ladyWaycrestsMusicBox: LadyWaycrestsMusicBox,
     // PVP
     dreadGladiatorsMedallion: DreadGladiatorsMedallion,
     dreadGladiatorsInsignia: DreadGladiatorsInsignia,
@@ -245,6 +250,7 @@ class CombatLogParser {
 
     // Azerite Traits
     gemhide: Gemhide,
+    crystallineCarapace: CrystallineCarapace,
     gutripper: Gutripper,
     heedMyCall: HeedMyCall,
     laserMatrix: LaserMatrix,
@@ -277,9 +283,6 @@ class CombatLogParser {
   };
   // Override this with spec specific modules when extending
   static specModules = {};
-  static get finished() {
-    return new EventFilter('finished');
-  }
 
   report = null;
   // Player info from WCL - required
@@ -348,9 +351,6 @@ class CombatLogParser {
   finish() {
     this.finished = true;
     const emitter = this.getModule(EventEmitter);
-    emitter.fabricateEvent({
-      type: this.constructor.finished,
-    });
     console.log('Called listeners', emitter._listenersCalled, 'times, with', emitter._actualExecutions, 'actual executions.', emitter._listenersCalled - emitter._actualExecutions, 'events were filtered away');
   }
 

@@ -15,6 +15,7 @@ import Rejuvenation from './modules/core/Rejuvenation';
 import HotTracker from './modules/core/hottracking/HotTracker';
 import RejuvenationAttributor from './modules/core/hottracking/RejuvenationAttributor';
 import RegrowthAttributor from './modules/core/hottracking/RegrowthAttributor';
+import SpellManaCost from './modules/core/SpellManaCost';
 
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import AverageHots from './modules/features/AverageHots';
@@ -26,7 +27,6 @@ import Efflorescence from './modules/features/Efflorescence';
 import Clearcasting from './modules/features/Clearcasting';
 import Innervate from './modules/features/Innervate';
 import Ironbark from './modules/features/Ironbark';
-import ManaUsage from './modules/features/ManaUsage';
 import PrematureRejuvenations from './modules/features/PrematureRejuvenations';
 
 import CenarionWard from './modules/talents/CenarionWard';
@@ -46,11 +46,16 @@ import LaserMatrix from './modules/items/azeritetraits/LaserMatrixRestoDruid';
 import WakingDream from './modules/items/azeritetraits/WakingDream';
 import LivelySpirit from './modules/items/azeritetraits/LivelySpirit';
 import RampantGrowth from './modules/items/azeritetraits/RampantGrowth';
+import EarlyHarvest from './modules/items/azeritetraits/EarlyHarvest';
 
 import StatWeights from './modules/features/StatWeights';
 
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
+// Mana Tracker
+import ManaTracker from '../../core/healingEfficiency/ManaTracker';
+import HealingEfficiencyDetails from '../../core/healingEfficiency/HealingEfficiencyDetails';
+import HealingEfficiencyTracker from './modules/features/RestoDruidHealingEfficiencyTracker';
 
+import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -66,6 +71,7 @@ class CombatLogParser extends CoreCombatLogParser {
     healingDone: [HealingDone, { showStatistic: true }],
     rejuvenation: Rejuvenation,
     mastery: Mastery,
+    spellManaCost: SpellManaCost,
 
     // Checklist
     checklist: Checklist,
@@ -89,7 +95,6 @@ class CombatLogParser extends CoreCombatLogParser {
     springBlossoms: SpringBlossoms,
     cultivation: Cultivation,
     ironbark: Ironbark,
-    manaUsage: ManaUsage,
     prematureRejuvenations: PrematureRejuvenations,
 
     // Talents
@@ -111,8 +116,14 @@ class CombatLogParser extends CoreCombatLogParser {
     wakingDream: WakingDream,
     livelySpirit: LivelySpirit,
     rampantGrowth: RampantGrowth,
+    earlyHarvest: EarlyHarvest,
 
     statWeights: StatWeights,
+
+    // Mana Tab
+    manaTracker: ManaTracker,
+    hpmDetails: HealingEfficiencyDetails,
+    hpmTracker: HealingEfficiencyTracker,
   };
 }
 

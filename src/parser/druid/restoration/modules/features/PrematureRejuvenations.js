@@ -82,7 +82,7 @@ class PrematureRejuvenations extends Analyzer {
     }
   }
 
-  on_finished() {
+  on_fightend() {
     debug && console.log("Finished: %o", this.rejuvenations);
     debug && console.log("Early refreshments: "+ this.earlyRefreshments);
     debug && console.log("Time lost: " + this.timeLost);

@@ -6,7 +6,7 @@
 
 export default {
     // Arm
-    CRUSHING_ASSAULT: {
+    CRUSHING_ASSAULT_TRAIT: {
         id: 278751,
         name: 'Crushing Assault',
         icon: 'ability_warrior_decisivestrike',
@@ -82,8 +82,18 @@ export default {
         name: 'Reckless Flurry',
         icon: 'ability_dualwield',
     },
+    RECKLESS_FLURRY_DAMAGE: {
+        id: 283810,
+        name: 'Reckless Flurry',
+        icon: 'ability_dualwield',
+    },
     SIMMERING_RAGE: {
         id: 278757,
+        name: 'Simmering Rage',
+        icon: 'spell_nature_unleashedrage',
+    },
+    SIMMERING_RAGE_ENERGISE: {
+        id: 278841,
         name: 'Simmering Rage',
         icon: 'spell_nature_unleashedrage',
     },

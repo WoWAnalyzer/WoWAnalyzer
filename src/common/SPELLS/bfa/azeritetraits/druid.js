@@ -49,9 +49,44 @@ export default {
     name: 'Fungal Essence',
     icon: 'inv_misc_herb_talandrasrose',
   },
+  EARLY_HARVEST_TRAIT: {
+    id: 287251, 
+    name: 'Early Harvest',
+    icon: 'ability_druid_flourish',
+  },
+  EARLY_HARVEST: {
+    id: 287255, 
+    name: 'Early Harvest',
+    icon: 'ability_druid_flourish',
+  },
   WILD_FLESHRENDING: {
     id: 279527,
     name: 'Wild Fleshrending',
     icon: 'ability_warrior_bloodnova',
+  },
+  MASTERFUL_INSTINCTS: {
+    id: 273344,
+    name: 'Masterful Instincts',
+    icon: 'ability_druid_tigersroar',
+  },
+  MASTERFUL_INSTINCTS_BUFF: {
+    id: 273349,
+    name: 'Masterful Instincts',
+    icon: 'ability_druid_tigersroar',
+  },
+  TWISTED_CLAWS: {
+    id: 275906,
+    name: 'Twisted Claws',
+    icon: 'spell_druid_thrash',
+  },
+  TWISTED_CLAWS_BUFF: {
+    id: 275909,
+    name: 'Twisted Claws',
+    icon: 'spell_druid_thrash',
+  },
+  LAYERED_MANE: {
+    id: 279552,
+    name: 'Layered Mane',
+    icon: 'ability_druid_ironfur',
   },
 };

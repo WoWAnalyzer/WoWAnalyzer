@@ -101,7 +101,7 @@ class IronSkinBrew extends Analyzer {
     }
   }
 
-  on_finished() {
+  on_fightend() {
     if (debug) {
       console.log(`Hits with IronSkinBrew ${this.hitsWithIronSkinBrew}`);
       console.log(`Damage with IronSkinBrew ${this.damageWithIronSkinBrew}`);

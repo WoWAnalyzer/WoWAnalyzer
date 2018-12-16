@@ -121,14 +121,23 @@ class Ability {
      * An array of damage spell ids that this spell cast causes.
      */
     damageSpellIds: PropTypes.arrayOf(PropTypes.number),
+    /**
+     * The spell that'll forcibly shown on the timeline if set.
+     */
+    shownSpell: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      icon: PropTypes.string.isRequired,
+    }),
   };
 
   _owner = null;
 
   spell = null;
+  primaryOverride = null;
   get primarySpell() {
     if (this.spell instanceof Array) {
-      return this.spell[0];
+      return this.spell[this.primaryOverride || 0];
     } else {
       return this.spell;
     }
@@ -201,6 +210,7 @@ class Ability {
   };
   charges = 1;
   enabled = true;
+  shownSpell = null;
 
   /**
    * When extending this class you MUST copy-paste this function into the new class. Otherwise your new props will not be set properly.

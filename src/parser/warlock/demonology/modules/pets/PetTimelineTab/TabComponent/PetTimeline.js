@@ -15,9 +15,9 @@ import Icon from 'common/Icon';
 import PetRow from './PetRow';
 import KeyCastsRow from './KeyCastsRow';
 import './PetTimeline.css';
-import { WILD_IMP_GUIDS } from '../../CONSTANTS';
+import { isWildImp } from '../../helpers';
 
-const NETHER_PORTAL_DURATION = 20000;
+const NETHER_PORTAL_DURATION = 15000;
 const NEARBY_CASTS_BUFFER = 250;
 const NEARBY_CAST_COUNT = 3;
 
@@ -149,7 +149,7 @@ class PetTimeline extends React.PureComponent {
     const { petTimeline } = this.props;
     events.filter(event => event.type === 'cast' && event.abilityId === SPELLS.IMPLOSION_CAST.id)
       .forEach(cast => {
-        const impCount = petTimeline.getPetsAtTimestamp(cast.timestamp).filter(pet => WILD_IMP_GUIDS.includes(pet.guid)).length;
+        const impCount = petTimeline.getPetsAtTimestamp(cast.timestamp).filter(pet => isWildImp(pet.guid)).length;
         cast.extraInfo = `Imploded ${impCount} Wild Imp${impCount > 1 ? 's' : ''}`;
       });
     return events;

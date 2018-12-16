@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-11-27'),
+    changes: <>Removed <SpellLink id={SPELLS.THERMAL_VOID_TALENT.id} /> from checklist and updated the module to better show what the talent provides.</>,
+    contributors: [Dambroda],
+  },
+  {
     date: new Date('2018-11-24'),
     changes: <>Added a statistics module for <SpellLink id={SPELLS.LONELY_WINTER_TALENT.id} />.</>,
     contributors: [Dambroda],
@@ -37,7 +42,7 @@ export default [
   },
   {
     date: new Date('2018-08-28'),
-    changes: <>Added support for <SpellLink id={SPELLS.WINTERS_REACH_TRAIT.id} /> and <SpellLink id={SPELLS.WHITEOUT.id} /></>,
+    changes: <>Added support for Winter's Reach and <SpellLink id={SPELLS.WHITEOUT.id} /></>,
     contributors: [Sharrq],
   },
   {

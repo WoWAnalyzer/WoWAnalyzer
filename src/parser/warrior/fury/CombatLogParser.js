@@ -1,46 +1,67 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import DamageDone from 'parser/shared/modules/DamageDone';
 
-import Checklist from './modules/features/checklist/Module';
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import Channeling from './modules/features/Channeling';
+import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import SpellUsable from './modules/features/SpellUsable';
 
-import EnrageUptime from './modules/buffdebuff/EnrageUptime';
-import FrothingBerserkerUptime from './modules/buffdebuff/FrothingBerserkerUptime';
-import Juggernaut from './modules/buffdebuff/Juggernaut';
+import Enrage from './modules/buffdebuff/Enrage';
 
 import MissedRampage from './modules/spells/MissedRampage';
-import RampageFrothingBerserker from './modules/features/RampageFrothingBerserker';
-import RampageCancelled from './modules/features/RampageCancelled';
+import RampageCancelled from './modules/spells/RampageCancelled';
+import Recklessness from './modules/spells/Recklessness';
+
 import AngerManagement from './modules/talents/AngerManagement';
+import Carnage from './modules/talents/Carnage';
+import Bladestorm from './modules/talents/Bladestorm';
+import DragonRoar from './modules/talents/DragonRoar';
+import EndlessRage from './modules/talents/EndlessRage';
+import FrothingBerserker from './modules/talents/FrothingBerserker';
 import FuriousSlashTimesByStacks from './modules/talents/FuriousSlashTimesByStacks';
 import FuriousSlashUptime from './modules/talents/FuriousSlashUptime';
+import ImpendingVicory from './modules/talents/ImpendingVictory';
+import Siegebreaker from './modules/talents/Siegebreaker';
+import RecklessAbandon from './modules/talents/RecklessAbandon';
+import Warpaint from './modules/talents/Warpaint';
+
+import RecklessFlurry from './modules/azerite/RecklessFlurry';
+import SimmeringRage from './modules/azerite/SimmeringRage';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     damageDone: [DamageDone, {showStatistic: true}],
 
-    checklist: Checklist,
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
+    channeling: Channeling,
+    checklist: Checklist,
     cooldownThroughputTracker: CooldownThroughputTracker,
     spellUsable: SpellUsable,
 
-    enrageUptime: EnrageUptime,
-    frothingBerserkerUptime: FrothingBerserkerUptime,
-    juggernaut: Juggernaut,
+    enrageUptime: Enrage,
 
     missedRampage: MissedRampage,
-    rampageFrothingBerserker: RampageFrothingBerserker,
     rampageCancelled: RampageCancelled,
+    recklessness: Recklessness,
+
     angerManagement: AngerManagement,
+    carnage: Carnage,
+    bladestorm: Bladestorm,
+    dragonRoar: DragonRoar,
+    endlessRage: EndlessRage,
+    frothingBerserker: FrothingBerserker,    
     furiousSlashTimesByStacks: FuriousSlashTimesByStacks,
     furiousSlashUptime: FuriousSlashUptime,
+    impendingVictory: ImpendingVicory,
+    siegebreaker: Siegebreaker,
+    recklessAbandon: RecklessAbandon,
+    warpaint: Warpaint,
 
-    // Overrides default PrePotion
-    //prePotion: PrePotion, TODO: Update this to BFA and ensure it works properly with parser/core/Modules/Features/Checklist2/PreparationRuleAnalyzer.js
+    recklessFlurry: RecklessFlurry,
+    simmeringRage: SimmeringRage,
   };
 }
 

@@ -5,7 +5,6 @@ import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { formatNumber } from 'common/format';
-import PackAlpha from 'parser/hunter/beastmastery/modules/spells/azeritetraits/PackAlpha';
 
 /**
  * Your Call Pet additionally summons the first pet from your stable.
@@ -17,9 +16,6 @@ import PackAlpha from 'parser/hunter/beastmastery/modules/spells/azeritetraits/P
  */
 
 class AnimalCompanion extends Analyzer {
-  static dependencies = {
-    packAlpha: PackAlpha,
-  };
   damage = 0;
   pets = [];
   mainPetName = null;
@@ -40,7 +36,7 @@ class AnimalCompanion extends Analyzer {
     }
   }
 
-  on_finished() {
+  on_fightend() {
     let max = 0;
     this.pets.forEach(pet => {
       if (pet.damage > max) {
@@ -57,7 +53,6 @@ class AnimalCompanion extends Analyzer {
         icon={<SpellIcon id={SPELLS.ANIMAL_COMPANION_TALENT.id} />}
         value={<>{formatNumber(totalDamage)} / {formatNumber(totalDamage / (this.owner.fightDuration / 1000))} DPS</>}
         label="Animal Companion"
-        tooltip="Without this talent your main pet would have done 66% more damage than it did as Animal Companion nerfs all pet damage by 40% - however if you're using the azerite trait Pack Alpha, your main pet would have done less damage that way."
         category={STATISTIC_CATEGORY.TALENTS}
       >
         <table className="table table-condensed">

@@ -7,6 +7,7 @@ import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 const blurOfTalonsStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [agility] = calculateAzeriteEffects(SPELLS.BLUR_OF_TALONS.id, rank);
@@ -16,10 +17,6 @@ const blurOfTalonsStats = traits => Object.values(traits).reduce((obj, rank) => 
 }, {
   agility: 0,
 });
-
-export const STAT_TRACKER = {
-  agility: combatant => blurOfTalonsStats(combatant.traitsBySpellId[SPELLS.BLUR_OF_TALONS.id]).agility,
-};
 
 //TODO implement speed when split scaling is possible
 
@@ -32,6 +29,9 @@ export const STAT_TRACKER = {
 const MAX_BLUR_STACKS = 5;
 
 class BlurOfTalons extends Analyzer {
+  static dependencies = {
+    statTracker: StatTracker,
+  };
 
   agility = 0;
   blurOfTalonStacks = [];
@@ -47,6 +47,10 @@ class BlurOfTalons extends Analyzer {
     const { agility } = blurOfTalonsStats(this.selectedCombatant.traitsBySpellId[SPELLS.BLUR_OF_TALONS.id]);
     this.agility = agility;
     this.blurOfTalonStacks = Array.from({ length: MAX_BLUR_STACKS + 1 }, x => []);
+
+    this.statTracker.add(SPELLS.BLUR_OF_TALONS_BUFF.id, {
+      agility,
+    });
   }
 
   handleStacks(event, stack = null) {
@@ -92,7 +96,7 @@ class BlurOfTalons extends Analyzer {
     this.handleStacks(event);
   }
 
-  on_finished(event) {
+  on_fightend(event) {
     this.handleStacks(event, this.lastBlurStack);
   }
 

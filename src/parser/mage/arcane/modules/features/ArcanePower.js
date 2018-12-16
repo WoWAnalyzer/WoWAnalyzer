@@ -149,7 +149,7 @@ class ArcanePower extends Analyzer {
     this.arcanePowerCasted = false;
   }
 
-  on_finished() {
+  on_fightend() {
     if (this.spellUsable.isAvailable(SPELLS.ARCANE_POWER.id) && this.deathTracker.isAlive) {
       this.arcanePowerOnKill = true;
     }

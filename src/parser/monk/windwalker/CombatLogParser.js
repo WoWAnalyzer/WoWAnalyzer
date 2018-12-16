@@ -23,9 +23,7 @@ import HitCombo from './modules/talents/HitCombo';
 import EnergizingElixir from './modules/talents/EnergizingElixir';
 import Serenity from './modules/talents/Serenity';
 // Azerite
-import IronFists from './modules/spells/azeritetraits/IronFists';
-import MeridianStrikes from './modules/spells/azeritetraits/MeridianStrikes';
-import SwiftRoundhouse from './modules/spells/azeritetraits/SwiftRoundhouse';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
@@ -57,9 +55,6 @@ class CombatLogParser extends CoreCombatLogParser {
     blackoutKick: BlackoutKick,
 
     // Azerite
-    ironFists: IronFists,
-    meridianStrikes: MeridianStrikes,
-    swiftRoundhouse: SwiftRoundhouse,
   };
 }
 

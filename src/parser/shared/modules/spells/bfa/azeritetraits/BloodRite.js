@@ -5,6 +5,7 @@ import { formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import Analyzer from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 const bloodRiteStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [haste] = calculateAzeriteEffects(SPELLS.BLOOD_RITE.id, rank);
@@ -14,10 +15,6 @@ const bloodRiteStats = traits => Object.values(traits).reduce((obj, rank) => {
   haste: 0,
 });
 
-export const STAT_TRACKER = {
-  haste: combatant => bloodRiteStats(combatant.traitsBySpellId[SPELLS.BLOOD_RITE.id]).haste,
-};
-
 /**
  * Blood Rite
  * Gain x haste while active
@@ -25,6 +22,10 @@ export const STAT_TRACKER = {
  * Example report: https://www.warcraftlogs.com/reports/k4bAJZKWVaGt12j9#fight=3&type=auras&source=14
  */
 class BloodRite extends Analyzer {
+  static dependencies = {
+    statTracker: StatTracker,
+  };
+
   haste = 0;
   bloodRiteProcs = 0;
 
@@ -37,6 +38,10 @@ class BloodRite extends Analyzer {
 
     const { haste } = bloodRiteStats(this.selectedCombatant.traitsBySpellId[SPELLS.BLOOD_RITE.id]);
     this.haste = haste;
+
+    this.statTracker.add(SPELLS.BLOOD_RITE_BUFF.id, {
+      haste,
+    });
   }
 
   on_byPlayer_applybuff(event) {
