@@ -507,10 +507,6 @@ exports[`The Brewmaster Analyzer analyzers FitToBurst matches the statistic snap
 
 exports[`The Brewmaster Analyzer analyzers FitToBurst matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers GarothiWorldbreakerMelee matches the statistic snapshot 1`] = `"module has no statistic method"`;
-
-exports[`The Brewmaster Analyzer analyzers GarothiWorldbreakerMelee matches the suggestions snapshot 1`] = `"module has no suggestions"`;
-
 exports[`The Brewmaster Analyzer analyzers GiftOfTheOx matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`The Brewmaster Analyzer analyzers GiftOfTheOx matches the suggestions snapshot 1`] = `"module has no suggestions"`;
