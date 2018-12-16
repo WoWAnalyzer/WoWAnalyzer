@@ -1,24 +1,26 @@
 @import 'interface/layout/Theme.scss';
 
 .player-selection {
-  background: rgba(0, 0, 0, 0.2);
   text-align: center;
   line-height: 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  padding: 15px;
+  margin: -15px;
 
   > a {
     display: inline-block;
-    border: 1px solid transparentize($primaryColor, 0.6);
+    padding: 15px;
+    border-radius: 3px;
     margin: 15px;
+    background: $panelColor;
+    border: 1px solid transparent;
 
     &:hover {
       // Placeholder
       // TODO: Replace
       text-decoration: none;
       background: transparentize($primaryColor, 0.9);
-      border: 1px solid $primaryColor;
+      border: 1px solid rgba(248, 183, 0, 1);
     }
   }
   .card {
@@ -26,7 +28,6 @@
     position: relative;
     text-align: left;
     color: #fff;
-    border: 1px solid #000;
 
     > .avatar {
       flex: 0 0 auto;
@@ -37,6 +38,8 @@
       background-position: top center;
       position: relative;
       //margin-left: 35px;
+      border: 1px solid #000;
+      border-radius: 3px;
     }
     > .about {
       flex: 1;
@@ -65,16 +68,16 @@
         height: 18px;
         opacity: 0.9;
       }
-      .background {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 70%;
-        height: 100%;
-        z-index: -1;
-        mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
-        opacity: 0.1;
-      }
+      //.background {
+      //  position: absolute;
+      //  top: 0;
+      //  right: 0;
+      //  width: 70%;
+      //  height: 100%;
+      //  z-index: -1;
+      //  mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+      //  opacity: 0.1;
+      //}
     }
   }
 }

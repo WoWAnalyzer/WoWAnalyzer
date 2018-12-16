@@ -145,37 +145,31 @@ class PlayerSelection extends React.PureComponent {
       }
       return (
         <div className="container">
-          <div className="panel">
-            <div className="panel-heading">
-              <h1>
-                <div className="back-button">
-                  <Link to={`/report/${report.code}`} data-tip={i18n._(t`Back to fight selection`)}>
-                    <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
-                  </Link>
-                </div>
-                <Trans>Player selection</Trans>
-              </h1>
+          <h1>
+            <div className="back-button">
+              <Link to={`/report/${report.code}`} data-tip={i18n._(t`Back to fight selection`)}>
+                <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
+              </Link>
             </div>
-            <div className="panel-body">
-              <PlayerSelectionPanel
-                players={report.friendlies.map(friendly => {
-                  const combatant = combatants.find(combatant => combatant.sourceID === friendly.id);
-                  if (!combatant) {
-                    return null;
-                  }
-                  const exportedCharacter = report.exportedCharacters ? report.exportedCharacters.find(char => char.name === friendly.name) : null;
+            <Trans>Player selection</Trans>
+          </h1>
+          <PlayerSelectionPanel
+            players={report.friendlies.map(friendly => {
+              const combatant = combatants.find(combatant => combatant.sourceID === friendly.id);
+              if (!combatant) {
+                return null;
+              }
+              const exportedCharacter = report.exportedCharacters ? report.exportedCharacters.find(char => char.name === friendly.name) : null;
 
-                  return {
-                    ...friendly,
-                    combatant,
-                    realm: exportedCharacter ? exportedCharacter.server : undefined,
-                    region: exportedCharacter ? exportedCharacter.region : undefined,
-                  };
-                }).filter(friendly => friendly !== null)}
-                makeUrl={playerId => makeAnalyzerUrl(report, fight.id, playerId)}
-              />
-            </div>
-          </div>
+              return {
+                ...friendly,
+                combatant,
+                realm: exportedCharacter ? exportedCharacter.server : undefined,
+                region: exportedCharacter ? exportedCharacter.region : undefined,
+              };
+            }).filter(friendly => friendly !== null)}
+            makeUrl={playerId => makeAnalyzerUrl(report, fight.id, playerId)}
+          />
         </div>
       );
     }
