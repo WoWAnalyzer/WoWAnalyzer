@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-12-16'),
+    changes: 'Updated for Patch 8.1.',
+    contributors: [Sharrq],
+  },
+  {
     date: new Date('2018-11-17'),
     changes: <>Updated the <SpellLink id={SPELLS.HEATING_UP.id} /> module to fix some incorrect values and to properly handle <SpellLink id={SPELLS.SEARING_TOUCH_TALENT.id} />.</>,
     contributors: [Sharrq],

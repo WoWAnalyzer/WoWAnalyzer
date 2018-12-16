@@ -48,7 +48,7 @@ class BlasterMaster extends Analyzer {
       this.badCombustion += 1;
       this.lastCombustion.meta = this.lastCombustion.meta || {};
       this.lastCombustion.meta.isInefficientCast = true;
-      this.lastCombustion.meta.inefficientCastReason = `You only got ${this.stackCount} Blaster Master stacks during this Combustion. In order to get the most out of Blaster Master, you should aim to get to 4 stacks of the trait during each Combustion.`;
+      this.lastCombustion.meta.inefficientCastReason = `You only got ${this.stackCount} Blaster Master stacks during this Combustion. In order to get the most out of Blaster Master, you should aim to get to ${TRAIT_STACK_THRESHOLD} stacks of the trait during each Combustion.`;
     }
     this.totalStacks += this.stackCount;
     debug && this.log("Combustion Ended: " + this.stackCount + " stacks");
@@ -70,8 +70,8 @@ class BlasterMaster extends Analyzer {
     return {
       actual: this.averageStacksPerCombustion,
       isLessThan: {
-        minor: 4,
-        average: 3,
+        minor: 3,
+        average: 2.5,
         major: 2,
       },
       style: 'number',
@@ -81,7 +81,7 @@ class BlasterMaster extends Analyzer {
   suggestions(when) {
     when(this.averageStackThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>On average, you got {this.averageStacksPerCombustion.toFixed(2)} stacks of <SpellLink id={SPELLS.BLASTER_MASTER.id} /> per <SpellLink id={SPELLS.COMBUSTION.id} /> cast. In order to maximize the use of the trait, you should aim for getting to 4 stacks each time you use Combustion. For more information on how to adjust your Combustion rotation to make this happen, refer to <a href="https://cdn.discordapp.com/attachments/431912396349636609/511996656829595659/BlasterMaster_Rotation.png" target="_blank" rel="noopener noreferrer">this graphic</a></>)
+        return suggest(<>On average, you got {this.averageStacksPerCombustion.toFixed(2)} stacks of <SpellLink id={SPELLS.BLASTER_MASTER.id} /> per <SpellLink id={SPELLS.COMBUSTION.id} /> cast. In order to maximize the use of the trait, you should aim for getting to {TRAIT_STACK_THRESHOLD} stacks each time you use Combustion. For more information on how to adjust your Combustion rotation to make this happen, refer to <a href="https://cdn.discordapp.com/attachments/431912396349636609/511996656829595659/BlasterMaster_Rotation.png" target="_blank" rel="noopener noreferrer">this graphic</a></>)
           .icon(SPELLS.BLASTER_MASTER.icon)
           .actual(`${this.averageStacksPerCombustion.toFixed(2)} stacks per Combustion`)
           .recommended(`${formatNumber(recommended)} is recommended`);
@@ -95,7 +95,7 @@ class BlasterMaster extends Analyzer {
         trait={SPELLS.BLASTER_MASTER.id}
         value={`${this.averageStacksPerCombustion.toFixed(2)} stacks per Combustion`}
         tooltip={
-          `Blaster Master is a somewhat complicated trait to get the full effect from and may involve adjusting your rotation during Combustion. In order to get the most out of this trait, you should aim to get to 4 stacks of the Blaster Master during Combustion. For additional information on how to accomplish this, refer to the Mage Discord or the link in the Suggestion.`
+          `Blaster Master is a somewhat complicated trait to get the full effect from and may involve adjusting your rotation during Combustion. In order to get the most out of this trait, you should aim to get to ${TRAIT_STACK_THRESHOLD} stacks of the Blaster Master during Combustion. For additional information on how to accomplish this, refer to the Mage Discord or the link in the Suggestion.`
         }
       />
     );
