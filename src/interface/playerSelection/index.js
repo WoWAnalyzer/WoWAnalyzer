@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import SPECS from 'game/SPECS';
 import ROLES from 'game/ROLES';
+import SpecIcon from 'common/SpecIcon';
 import { fetchCharacter } from 'interface/actions/characters';
 import { getCharactersById } from 'interface/selectors/characters';
 
@@ -71,6 +72,7 @@ class PlayerSelection extends React.PureComponent {
             >
               <div className={`name ${spec.className.replace(' ', '')}`}>{player.name}</div>
               <div className={`light ${spec.className.replace(' ', '')}-bg`} />
+              <SpecIcon id={spec.id} className="spec-icon" />
             </Link>
           );
         })}

@@ -3,12 +3,14 @@
 .player-selection {
   padding: 15px;
   background: rgba(0, 0, 0, 0.2);
+  text-align: center;
+  line-height: 0;
 
   .card {
-    width: 108px;
+    width: 121px;
     height: 200px;
     display: inline-block;
-    margin: 8px;
+    margin: 1px;
     position: relative;
     overflow: hidden;
     background-repeat: no-repeat;
@@ -32,18 +34,19 @@
     }
     > .name {
       position: absolute;
-      bottom: 0px;
+      bottom: 0;
       left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
       width: 120%;
       height: 22px;
       text-align: center;
       font-size: 12px;
       line-height: 22px;
-      transform: translateX(-50%);
       color: #000;
       font-weight: 800;
       //background: transparentize($primaryColor, 0.2);
-      background: hsla(44, 4%, 0%, 0.5);
+      background: hsla(44, 4%, 0%, 0.2);
       //text-shadow: 0 -1px #000, 0 1px #000, -1px 0 #000, 1px 0 #000;
       font-family: Poppins, 'Open Sans', 'Century Gothic', sans-serif;
     }
@@ -53,7 +56,15 @@
       left: 0;
       bottom: 0;
       right: 0;
-      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 50%);
+      mask-image: linear-gradient(bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 30%);
+    }
+    > .spec-icon {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
     }
   }
   > a:not(:first-of-type):not(:nth-of-type(11n)) .card {
