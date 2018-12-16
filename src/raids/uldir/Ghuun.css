@@ -1,11 +1,11 @@
 /* Ghuun easter egg */
-.boss-2122 .tab-selection > div {
+.results.boss-2122 > header nav > div {
   position: relative;
 }
-.boss-2122 .tab-selection > div > ul {
+.results.boss-2122 > header nav > div > ul {
   animation: GhuunMenuBar 1.5s linear;
 }
-.boss-2122 .tab-selection > div:before {
+.results.boss-2122 > header nav > div:before {
   content: '';
   position: absolute;
   z-index: 2;
