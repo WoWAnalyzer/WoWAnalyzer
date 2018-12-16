@@ -8,8 +8,6 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 // Testing log w/ cd reduction casts 
 // https://www.warcraftlogs.com/reports/T6NCZ79yzK4D32x8#fight=1&type=healing&source=4&options=8
 
-const INNERVATE_COOLDOWN = 120000;
-const INNERVATE_DURATION = 12000;
 const COOLDOWN_REDUCTION = 1000;
 
 class EarlyHarvest extends Analyzer{
@@ -17,8 +15,6 @@ class EarlyHarvest extends Analyzer{
     spellUsable : SpellUsable,
   };
   
-  currentInnervateCooldown = 0;
-  lastInnervateTimestamp = 0
   innervateCooldownReduced = 0;
   healingFromWildGrowthExpiration = 0;
   numEarlyHarvestHeals = 0
@@ -27,14 +23,6 @@ class EarlyHarvest extends Analyzer{
   constructor(...args){
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.EARLY_HARVEST_TRAIT.id);
-  }
-
-  // Save innervate timestamp/cooldown to check it's actually on cd when cd would be reduced by early harvest 
-  on_byPlayer_cast(event) {
-    if(SPELLS.INNERVATE.id === event.ability.guid && event.sourceId === event.targetId) {
-      this.currentInnervateCooldown = INNERVATE_COOLDOWN + INNERVATE_DURATION;
-      this.lastInnervateTimestamp = event.timestamp;
-    }
   }
   
   // Check for healing from early harvest buff
