@@ -10,6 +10,7 @@ import { fetchCharacter } from 'interface/actions/characters';
 import { getCharactersById } from 'interface/selectors/characters';
 
 import './PlayerSelection.scss';
+import RoleIcon from 'common/RoleIcon';
 
 const ROLE_SORT_KEY = {
   [ROLES.TANK]: 0,
@@ -73,6 +74,7 @@ class PlayerSelection extends React.PureComponent {
               <div className={`name ${spec.className.replace(' ', '')}`}>{player.name}</div>
               <div className={`light ${spec.className.replace(' ', '')}-bg`} />
               <SpecIcon id={spec.id} className="spec-icon" />
+              <RoleIcon id={spec.role} className="role-icon" />
             </Link>
           );
         })}

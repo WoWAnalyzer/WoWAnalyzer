@@ -58,13 +58,19 @@
       right: 0;
       mask-image: linear-gradient(bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 30%);
     }
-    > .spec-icon {
+    > .spec-icon, > .role-icon {
       position: absolute;
       top: 5px;
-      left: 5px;
+      right: 5px;
+      margin-top: 0;
       width: 24px;
       height: 24px;
       border-radius: 50%;
+    }
+    > .role-icon {
+      left: 5px;
+      right: auto;
+      border-radius: 0;
     }
   }
   > a:not(:first-of-type):not(:nth-of-type(11n)) .card {
