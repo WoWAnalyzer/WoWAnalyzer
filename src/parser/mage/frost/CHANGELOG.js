@@ -42,7 +42,7 @@ export default [
   },
   {
     date: new Date('2018-08-28'),
-    changes: <>Added support for <SpellLink id={SPELLS.WINTERS_REACH_TRAIT.id} /> and <SpellLink id={SPELLS.WHITEOUT.id} /></>,
+    changes: <>Added support for Winter's Reach and <SpellLink id={SPELLS.WHITEOUT.id} /></>,
     contributors: [Sharrq],
   },
   {

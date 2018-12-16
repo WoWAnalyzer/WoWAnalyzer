@@ -102,6 +102,11 @@ export default {
         name: 'Simmering Rage',
         icon: 'spell_nature_unleashedrage',
     },
+    SIMMERING_RAGE_ENERGISE: {
+        id: 278841,
+        name: 'Simmering Rage',
+        icon: 'spell_nature_unleashedrage',
+    },
     TRAMPLE_THE_WEAK: {
         id: 272836,
         name: 'Trample the Weak',
