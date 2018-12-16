@@ -4,7 +4,7 @@ import { Yajinni, blazyb, fel1ne, Qbz } from 'CONTRIBUTORS';
 
 export default [
   {
-    date: new Date('2018-12-15'),
+    date: new Date('2018-12-16'),
     changes: 'Added support for Azerite trait Early Harvest',
     contributors: [Qbz],
   },

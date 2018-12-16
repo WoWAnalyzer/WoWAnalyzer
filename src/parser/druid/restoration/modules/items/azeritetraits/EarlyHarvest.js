@@ -2,16 +2,21 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import { formatPercentage, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import TraitStatisticBox from 'interface/others/TraitStatisticBox';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
-// Limitations: does not handle innervate already being on cooldown when the fight begins 
-// Testing log w/ cd reduction casts https://www.warcraftlogs.com/reports/T6NCZ79yzK4D32x8#fight=1&type=healing&source=4&options=8
+// Testing log w/ cd reduction casts 
+// https://www.warcraftlogs.com/reports/T6NCZ79yzK4D32x8#fight=1&type=healing&source=4&options=8
 
 const INNERVATE_COOLDOWN = 120000;
 const INNERVATE_DURATION = 12000;
 const COOLDOWN_REDUCTION = 1000;
 
 class EarlyHarvest extends Analyzer{
+  static dependencies = {
+    spellUsable : SpellUsable,
+  };
+  
   currentInnervateCooldown = 0;
   lastInnervateTimestamp = 0
   innervateCooldownReduced = 0;
@@ -53,19 +58,13 @@ class EarlyHarvest extends Analyzer{
       return;
     }      
     
-    // Early out if haven't yet cast innervate (dones't handle innervate being on cd at beginning of fight)
-    if(this.lastInnervateTimestamp === 0) {
-      return;
-    }
-    
-    // Check if innervate is on cd 
-    const timeSinceLastInnervate = event.timestamp - this.lastInnervateTimestamp;
-    const innervateCooldownRemaining = this.currentInnervateCooldown - timeSinceLastInnervate;
-    if(innervateCooldownRemaining > 0) {
-        this.currentInnervateCooldown -= COOLDOWN_REDUCTION;
-        // min to handle if on cooldown with less than COOLDOWN_REDUCTION milliseconds remaining 
-        this.innervateCooldownReduced += Math.min(COOLDOWN_REDUCTION, innervateCooldownRemaining);
-        this.numEarlyHarvestCooldownReductions += 1;
+    if(this.spellUsable.isOnCooldown(SPELLS.INNERVATE.id)) {
+      const invCooldownRemaining = this.spellUsable.cooldownRemaining(SPELLS.INNERVATE.id);
+      // min to handle if on cooldown with less than COOLDOWN_REDUCTION milliseconds remaining 
+      const cooldownReduced = Math.min(COOLDOWN_REDUCTION, invCooldownRemaining);
+      this.innervateCooldownReduced += cooldownReduced;
+      this.spellUsable.reduceCooldown(SPELLS.INNERVATE.id, cooldownReduced);
+      this.numEarlyHarvestCooldownReductions += 1;
     }
   }
 
@@ -75,7 +74,6 @@ class EarlyHarvest extends Analyzer{
     
     return(
       <TraitStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.EARLY_HARVEST_TRAIT.id}
         value={(
           <>
