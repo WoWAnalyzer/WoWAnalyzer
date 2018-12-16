@@ -62,14 +62,10 @@ function checklist(parser) {
  */
 export default function integrationTest(parserClass, filename, suppressLog = true, suppressWarn = true) {
   return () => {
-    let log;
     let parser;
-
-    beforeAll(() => {
-      return loadLog(filename).then(res => {
-        log = res;
-        parser = parseLog(parserClass, log, suppressLog, suppressWarn);
-      });
+    beforeAll(async () => {
+      const log = await loadLog(filename);
+      parser = parseLog(parserClass, log, suppressLog, suppressWarn);
     });
 
     it('should match the checklist snapshot', () => {
