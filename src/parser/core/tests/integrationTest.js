@@ -4,6 +4,7 @@ import BaseChecklist from 'parser/shared/modules/features/Checklist2/Module';
 import renderer from 'react-test-renderer';
 import { loadLog, parseLog } from './log-tools';
 import { statistic, expectSnapshot } from './snapshotTest';
+import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 function integrationStatistic(analyzer, parser) {
   if (!analyzer.active) {
@@ -81,6 +82,9 @@ export default function integrationTest(parserClass, filename, suppressLog = tru
           // cannot call parser._getModuleClass at this point in
           // execution, so we handle the case manually
           moduleClass = moduleClass[0];
+        }
+        if (moduleClass.prototype instanceof EventsNormalizer) {
+          return; // Normalizers have no output, their effects are irrelevant so long as the results of analyzers stay the same
         }
         describe(moduleClass.name, () => {
           it('matches the statistic snapshot', () => expectSnapshot(parser, moduleClass, integrationStatistic));
