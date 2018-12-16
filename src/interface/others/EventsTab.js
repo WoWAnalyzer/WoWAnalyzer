@@ -256,9 +256,9 @@ class EventsTab extends React.Component {
     return (
       <div className="events-tab flex">
         <div className="flex-sub config" style={{ padding: '10px 15px' }}>
-          <Info className="small" style={{ width: 240 }}>
+          <small>
             This only includes events involving the selected player.
-          </Info>
+          </small>
           <br />
           {this.renderSearchBox()}
           <br />

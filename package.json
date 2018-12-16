@@ -47,6 +47,7 @@
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.5",
     "redux-thunk": "^2.3.0",
+    "sass-text-stroke": "1.0.1",
     "universal-cookie": "^2.2.0"
   },
   "devDependencies": {

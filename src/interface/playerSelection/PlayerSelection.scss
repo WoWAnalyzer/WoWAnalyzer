@@ -50,6 +50,10 @@
         font-size: 22px;
         margin: 15px 0 8px;
         line-height: 1;
+        text-shadow: text-stroke(1, #000);
+      }
+      small {
+        font-size: 14px;
       }
 
       .spec-icon {
