@@ -48,10 +48,8 @@ class EarlyHarvest extends Analyzer{
     
     if(this.spellUsable.isOnCooldown(SPELLS.INNERVATE.id)) {
       const invCooldownRemaining = this.spellUsable.cooldownRemaining(SPELLS.INNERVATE.id);
-      // min to handle if on cooldown with less than COOLDOWN_REDUCTION milliseconds remaining 
-      const cooldownReduced = Math.min(COOLDOWN_REDUCTION, invCooldownRemaining);
+      const cooldownReduced = this.spellUsable.reduceCooldown(SPELLS.INNERVATE.id, COOLDOWN_REDUCTION);
       this.innervateCooldownReduced += cooldownReduced;
-      this.spellUsable.reduceCooldown(SPELLS.INNERVATE.id, cooldownReduced);
       this.numEarlyHarvestCooldownReductions += 1;
     }
   }
