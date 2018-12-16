@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatNumber } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
@@ -76,12 +76,12 @@ class FuryDetails extends Analyzer {
       title: 'Fury Usage',
       url: 'fury-usage',
       render: () => (
-        <Tab>
+        <Panel>
           <ResourceBreakdown
             tracker={this.furyTracker}
             showSpenders
           />
-        </Tab>
+        </Panel>
       ),
     };
   }

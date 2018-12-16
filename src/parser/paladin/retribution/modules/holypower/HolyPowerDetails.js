@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 import { formatNumber, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBreakdown';
@@ -63,13 +63,13 @@ class HolyPowerDetails extends Analyzer {
       title: 'Holy Power Usage',
       url: 'holy-power-usage',
       render: () => (
-        <Tab>
+        <Panel>
           <ResourceBreakdown
             tracker={this.holyPowerTracker}
             resourceName="Holy Power"
             showSpenders
           />
-        </Tab>
+        </Panel>
       ),
     };
   }

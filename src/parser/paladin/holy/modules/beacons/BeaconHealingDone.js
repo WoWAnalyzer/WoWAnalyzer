@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 import Analyzer from 'parser/core/Analyzer';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import HealingDone from 'parser/shared/modules/HealingDone';
@@ -37,7 +37,7 @@ class BeaconHealingDone extends Analyzer {
       title: 'Beacons',
       url: 'beacons',
       render: () => (
-        <Tab
+        <Panel
           title="Beacon healing sources"
           explanation={(
             <>
@@ -51,7 +51,7 @@ class BeaconHealingDone extends Analyzer {
             beaconHealingBySource={this._beaconHealingBySource}
             fightDuration={this.owner.fightDuration}
           />
-        </Tab>
+        </Panel>
       ),
     };
   }

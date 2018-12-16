@@ -7,7 +7,7 @@ import SpellIcon from 'common/SpellIcon';
 import Analyzer from 'parser/core/Analyzer';
 import Haste from 'parser/shared/modules/Haste';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 
 import Insanity from '../core/Insanity';
 import VoidformsTab from './VoidformsTab';
@@ -268,14 +268,14 @@ class Voidform extends Analyzer {
       title: 'Voidforms',
       url: 'voidforms',
       render: () => (
-        <Tab>
+        <Panel>
           <VoidformsTab
             voidforms={this.voidforms}
             insanityEvents={this.insanity.events}
             fightEnd={this.owner.fight.end_time}
             surrenderToMadness={!!this.selectedCombatant.hasTalent(SPELLS.SURRENDER_TO_MADNESS_TALENT.id)}
           />
-        </Tab>
+        </Panel>
       ),
     };
   }

@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 import Analyzer from 'parser/core/Analyzer';
 import HealingValue from 'parser/shared/modules/HealingValue';
 
@@ -78,9 +78,9 @@ class AtonementHealingDone extends Analyzer {
       title: 'Atonement sources',
       url: 'atonement-sources',
       render: () => (
-        <Tab>
+        <Panel>
           <AtonementHealingBreakdown analyzer={this} />
-        </Tab>
+        </Panel>
       ),
     };
   }

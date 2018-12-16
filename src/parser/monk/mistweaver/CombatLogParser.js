@@ -11,7 +11,7 @@ import React from 'react';
 
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 import MonkSpreadsheet from 'interface/others/MonkSpreadsheet';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import HealingDone from 'parser/shared/modules/HealingDone';
@@ -132,9 +132,9 @@ class CombatLogParser extends CoreCombatLogParser {
         title: 'Player Log Data',
         url: 'player-log-data',
         render: () => (
-          <Tab style={{ padding: '15px 22px 15px 15px' }}>
+          <Panel style={{ padding: '15px 22px 15px 15px' }}>
             <MonkSpreadsheet parser={this} />
-          </Tab>
+          </Panel>
         ),
       },
     ];

@@ -3,7 +3,7 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBreakdown';
 
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import WastedShardsIcon from 'parser/warlock/shared/images/warlock_soulshard_bw.jpg';
@@ -62,12 +62,12 @@ class SoulShardDetails extends Analyzer {
       title: 'Soul Shard usage',
       url: 'soul-shards',
       render: () => (
-        <Tab>
+        <Panel>
           <ResourceBreakdown
             tracker={this.soulShardTracker}
             showSpenders
           />
-        </Tab>
+        </Panel>
       ),
     };
   }

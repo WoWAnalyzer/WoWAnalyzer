@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 import HolyPriestSpreadsheet from 'interface/others/HolyPriestSpreadsheet';
 
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
@@ -138,9 +138,9 @@ class CombatLogParser extends CoreCombatLogParser {
         title: 'Player Log Data',
         url: 'player-log-data',
         render: () => (
-          <Tab style={{ padding: '15px 22px 15px 15px' }}>
+          <Panel style={{ padding: '15px 22px 15px 15px' }}>
             <HolyPriestSpreadsheet parser={this} />
-          </Tab>
+          </Panel>
         ),
       },
     ];

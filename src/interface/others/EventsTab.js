@@ -274,7 +274,7 @@ class EventsTab extends React.Component {
               Events with an orange background were <dfn data-tip="This generally means their order was changed from the original combatlog to fix inconsistencies or bugs, but it may include other modifications.">modified</dfn>.
             </div>
           </div>
-          <div className="flex-main" style={{ background: 'rgba(200, 200, 200, 0.05)', paddingTop: 10 }}>
+          <div className="flex-main" style={{ background: 'hsla(44, 1%, 8%, 0.5)', paddingTop: 10 }}>
             <AutoSizer disableHeight>
               {({ height, width }) => (
                 <Table

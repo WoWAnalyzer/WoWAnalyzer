@@ -8,7 +8,7 @@ import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Enemies from 'parser/shared/modules/Enemies';
 import Healthstone from 'parser/shared/modules/items/Healthstone';
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 
 import DeathRecap from './DeathRecap';
 
@@ -105,14 +105,14 @@ class DeathRecapTracker extends Analyzer {
       title: 'Death Recap',
       url: 'death-recap',
       render: () => (
-        <Tab>
+        <Panel>
           <DeathRecap
             report={this.owner}
             events={this.secondsBeforeDeath}
             combatants={this.combatants.players}
             enemies={this.enemies.enemies}
           />
-        </Tab>
+        </Panel>
       ),
     };
   }

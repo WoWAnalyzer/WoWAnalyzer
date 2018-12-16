@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 
 import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'parser/shared/modules/CooldownThroughputTracker';
 
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 import CooldownOverview from 'interface/others/CooldownOverview';
 
 class ProcTracker extends CoreCooldownThroughputTracker {
@@ -22,13 +22,13 @@ class ProcTracker extends CoreCooldownThroughputTracker {
       title: 'Procs',
       url: 'procs',
       render: () => (
-        <Tab>
+        <Panel>
           <CooldownOverview
             fightStart={this.owner.fight.start_time}
             fightEnd={this.owner.fight.end_time}
             cooldowns={this.pastCooldowns}
           />
-        </Tab>
+        </Panel>
       ),
     };
   }

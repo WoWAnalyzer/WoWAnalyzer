@@ -9,7 +9,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpecIcon from 'common/SpecIcon';
 import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 import {formatNumber} from 'common/format';
 
 /**
@@ -216,14 +216,14 @@ class CelestialFortune extends Analyzer {
       title: 'Celestial Fortune',
       url: 'celestial-fortune',
       render: () => (
-        <Tab>
+        <Panel>
           <div style={{ marginTop: -10, marginBottom: -10 }}>
             <div style={{padding: '1em'}}>Bonus healing provided by <SpellLink id={SPELLS.CELESTIAL_FORTUNE_HEAL.id} />, broken down by triggering spell and which player cast that spell.</div>
             <table className="data-table" style={{ marginTop: 10, marginBottom: 10 }}>
               {this.entries()}
             </table>
           </div>
-        </Tab>
+        </Panel>
       ),
     };
   }

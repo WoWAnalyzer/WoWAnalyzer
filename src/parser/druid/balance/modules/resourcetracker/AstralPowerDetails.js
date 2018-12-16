@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer from 'parser/core/Analyzer';
 import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBreakdown';
@@ -85,12 +85,12 @@ class AstralPowerDetails extends Analyzer {
       title: 'Astral Power usage',
       url: 'astral-power-usage',
       render: () => (
-        <Tab>
+        <Panel>
           <ResourceBreakdown
             tracker={this.astralPowerTracker}
             showSpenders
           />
-        </Tab>
+        </Panel>
       ),
     };
  }

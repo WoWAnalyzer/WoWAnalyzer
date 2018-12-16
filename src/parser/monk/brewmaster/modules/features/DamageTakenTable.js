@@ -1,7 +1,7 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import DamageTakenTableComponent, { MITIGATED_MAGICAL, MITIGATED_PHYSICAL, MITIGATED_UNKNOWN } from 'interface/others/DamageTakenTable';
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 import SPELLS from 'common/SPELLS';
 import SPECS from 'game/SPECS';
 import SpellLink from 'common/SpellLink';
@@ -94,7 +94,7 @@ class DamageTakenTable extends Analyzer {
       title: 'Damage Taken by Ability',
       url: 'damage-taken-by-ability',
       render: () => (
-        <Tab>
+        <Panel>
           <DamageTakenTableComponent
             data={this.tableData}
             spec={SPECS[this.selectedCombatant.specId]}
@@ -102,7 +102,7 @@ class DamageTakenTable extends Analyzer {
           <div style={{ padding: '10px' }}>
             <strong>Note:</strong> Damage taken includes all damage put into the <SpellLink id={SPELLS.STAGGER_TAKEN.id} /> pool.
           </div>
-        </Tab>
+        </Panel>
       ),
     };
   }

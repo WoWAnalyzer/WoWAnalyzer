@@ -27,7 +27,7 @@
     padding: 0;
   }
   .panel-body.pad {
-    padding: 15px 30px;
+    padding: 0 30px;
   }
   .panel-body {
     > ul {
@@ -49,8 +49,8 @@
     //  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     //}
   }
-  .panel-body:last-of-type {
-    padding-bottom: 30px;
+  .panel-body:last-of-type > ul {
+    margin-bottom: 30px;
   }
 }
 .panel-cell:not(:first-child) {

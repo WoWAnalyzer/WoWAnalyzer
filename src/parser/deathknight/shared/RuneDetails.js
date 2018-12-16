@@ -2,7 +2,7 @@ import React from 'react';
 import { Scatter } from 'react-chartjs-2';
 
 import Analyzer from 'parser/core/Analyzer';
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 import { formatDuration } from 'common/format';
 
 import RuneBreakdown from './RuneBreakdown';
@@ -85,9 +85,9 @@ class RuneDetails extends Analyzer {
       title: 'Rune usage',
       url: 'rune-usage',
       render: () => (
-        <Tab>
+        <Panel>
           {this.render()}
-        </Tab>
+        </Panel>
       ),
     };
  }

@@ -1,6 +1,6 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatPercentage } from 'common/format';
 import Icon from 'common/Icon';
@@ -67,12 +67,12 @@ class RageDetails extends Analyzer {
       title: 'Rage usage',
       url: 'rage-usage',
       render: () => (
-        <Tab>
+        <Panel>
           <ResourceBreakdown
             tracker={this.rageTracker}
             showSpenders
           />
-        </Tab>
+        </Panel>
       ),
     };
   }

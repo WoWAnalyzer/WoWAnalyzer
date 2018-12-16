@@ -2,7 +2,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBreakdown';
@@ -65,13 +65,13 @@ class ChiDetails extends Analyzer {
       title: 'Chi',
       url: 'chi',
       render: () => (
-        <Tab>
+        <Panel>
           <ResourceBreakdown
             tracker={this.chiTracker}
             resourceName="Chi"
             showSpenders
           />
-        </Tab>
+        </Panel>
       ),
     };
   }

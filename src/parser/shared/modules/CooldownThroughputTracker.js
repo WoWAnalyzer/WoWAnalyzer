@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS/index';
 
 import Analyzer from 'parser/core/Analyzer';
 
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 import CooldownIcon from 'interface/icons/Cooldown';
 import CooldownOverview from 'interface/others/CooldownOverview';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
@@ -125,13 +125,13 @@ class CooldownThroughputTracker extends Analyzer {
       icon: CooldownIcon,
       url: 'cooldowns',
       render: () => (
-        <Tab>
+        <Panel>
           <CooldownOverview
             fightStart={this.owner.fight.start_time}
             fightEnd={this.owner.fight.end_time}
             cooldowns={this.pastCooldowns}
           />
-        </Tab>
+        </Panel>
       ),
     };
   }

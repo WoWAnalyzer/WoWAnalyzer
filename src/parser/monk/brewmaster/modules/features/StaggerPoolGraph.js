@@ -6,7 +6,7 @@ import { formatDuration, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'parser/core/Analyzer';
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 
 import StaggerFabricator from '../core/StaggerFabricator';
 
@@ -273,7 +273,7 @@ class StaggerPoolGraph extends Analyzer {
       title: 'Stagger',
       url: 'stagger',
       render: () => (
-        <Tab
+        <Panel
           title="Stagger"
           explanation={(
             <>
@@ -282,7 +282,7 @@ class StaggerPoolGraph extends Analyzer {
           )}
         >
           {this.plot()}
-        </Tab>
+        </Panel>
       ),
     };
   }

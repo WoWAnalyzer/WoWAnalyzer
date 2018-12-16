@@ -208,17 +208,13 @@ class Mana extends React.PureComponent {
     });
 
     return (
-      <div>
-        Good mana usage usually means having your mana go down about as quickly as the health of the boss. Some fights require specific mana management though.<br /><br />
-
-        <div className="graph-container">
-          <Line
-            data={data}
-            options={options}
-            width={1100}
-            height={400}
-          />
-        </div>
+      <div className="graph-container">
+        <Line
+          data={data}
+          options={options}
+          width={1100}
+          height={400}
+        />
       </div>
     );
   }

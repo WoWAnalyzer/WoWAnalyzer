@@ -1,7 +1,7 @@
 import React from 'react';
 import { Line as LineChart } from 'react-chartjs-2';
 import Analyzer from 'parser/core/Analyzer';
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 import { formatNumber, formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
@@ -238,13 +238,13 @@ class SelfHealTimingGraph extends Analyzer {
       title: this.tabTitle,
       url: this.tabURL,
       render: () => (
-        <Tab>
+        <Panel>
           {this.plot(this.selfHealSpell)}
           <div style={{paddingLeft: "1em"}}>
             This plot shows you your <SpellLink id={this.selfHealSpell.id} /> casts relative to your Health Points to help you improve your <SpellLink id={this.selfHealSpell.id} /> timings.<br />
             Improving those timings by selfhealing at low health and the correct time will remove a lot of pressure from your healers.
           </div>
-        </Tab>
+        </Panel>
       ),
     };
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 import RestorationShamanSpreadsheet from 'interface/others/RestorationShamanSpreadsheet';
 import Feeding from 'interface/others/Feeding';
 
@@ -144,20 +144,20 @@ class CombatLogParser extends CoreCombatLogParser {
         title: 'Player Log Data',
         url: 'player-log-data',
         render: () => (
-          <Tab style={{ padding: '15px 22px 15px 15px' }}>
+          <Panel style={{ padding: '15px 22px 15px 15px' }}>
             <RestorationShamanSpreadsheet parser={this} />
-          </Tab>
+          </Panel>
         ),
       },
       {
         title: 'Feeding',
         url: 'feeding',
         render: () => (
-          <Tab style={{ padding: 0 }}>
+          <Panel style={{ padding: 0 }}>
             <Feeding
               cooldownThroughputTracker={this.getModule(CooldownThroughputTracker)}
             />
-          </Tab>
+          </Panel>
         ),
       },
     ];

@@ -137,14 +137,9 @@ class HealingDoneGraph extends React.PureComponent {
     };
 
     return (
-      <div>
-        <div className="flex">
-          <div className="flex-main">
-            This shows you your mana usage in correlation with your throughput. Big spikes in mana usage without increases in throughput may indicate poor mana usage. The scale for both mana lines is 0-100% where 100% is aligned with the max HPS throughput.
-          </div>
-          <div className="flex-sub form-inline">
-            <dfn data-tip="This groups events by the provided amount of seconds to smooth out the graph.">Smoothing</dfn>: <input type="number" min="1" max="30" value={interval} className="form-control" onChange={e => this.setState({ interval: Number(e.target.value) || 5 })} /> seconds
-          </div>
+      <>
+        <div className="pull-right form-inline">
+          <dfn data-tip="This groups events by the provided amount of seconds to smooth out the graph.">Smoothing</dfn>: <input type="number" min="1" max="30" value={interval} className="form-control" onChange={e => this.setState({ interval: Number(e.target.value) || 5 })} /> seconds
         </div>
 
         <div className="graph-container">
@@ -155,7 +150,7 @@ class HealingDoneGraph extends React.PureComponent {
             height={400}
           />
         </div>
-      </div>
+      </>
     );
   }
 }

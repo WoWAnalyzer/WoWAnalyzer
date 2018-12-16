@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 
 import Graph from './Graph';
 
 const Mana = ({ parser }) => (
-  <Tab style={{ padding: '15px 22px' }}>
+  <Panel style={{ padding: '15px 22px' }}>
     <h1>Raid health</h1>
     <Graph
       reportCode={parser.report.code}
@@ -15,7 +15,7 @@ const Mana = ({ parser }) => (
       end={parser.fight.end_time}
       currentTimestamp={parser.currentTimestamp}
     /> {/* the currentTimestamp makes sure the Mana tab re-renders after parsing events */}
-  </Tab>
+  </Panel>
 );
 Mana.propTypes = {
   parser: PropTypes.object.isRequired,
