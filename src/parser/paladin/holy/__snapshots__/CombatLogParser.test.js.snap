@@ -240,6 +240,398 @@ exports[`Holy Paladin integration test analyzers BeaconTransferFactor matches th
 
 exports[`Holy Paladin integration test analyzers BeaconTransferFactor matches the suggestions snapshot 1`] = `Array []`;
 
+exports[`Holy Paladin integration test analyzers CastBehavior matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col-xs-12"
+    >
+      <div
+        className="panel statistic-box statistic-list"
+      >
+        <div
+          className="panel-heading"
+        >
+          <h2>
+            <a
+              href="http://wowhead.com/spell=54149"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon"
+                src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_infusionoflight.jpg"
+              />
+               
+              Infusion of Light
+            </a>
+             usage
+          </h2>
+        </div>
+        <div
+          className="panel-body items"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-sub"
+              style={
+                Object {
+                  "paddingRight": 12,
+                }
+              }
+            />
+            <div
+              className="flex-main"
+              style={
+                Object {
+                  "fontSize": "80%",
+                  "paddingTop": 3,
+                }
+              }
+            >
+              <div
+                className="flex"
+                style={
+                  Object {
+                    "borderBottom": "3px solid rgba(255,255,255,0.1)",
+                    "marginBottom": 5,
+                  }
+                }
+              >
+                <div
+                  className="flex-sub"
+                >
+                  <div
+                    style={
+                      Object {
+                        "background": "#ecd1b6",
+                        "borderRadius": "50%",
+                        "display": "inline-block",
+                        "height": 16,
+                        "marginBottom": -3,
+                        "width": 16,
+                      }
+                    }
+                  />
+                </div>
+                <div
+                  className="flex-main"
+                  style={
+                    Object {
+                      "paddingLeft": 5,
+                    }
+                  }
+                >
+                  <a
+                    href="http://wowhead.com/spell=19750"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <img
+                      alt=""
+                      className="icon"
+                      src="//render-us.worldofwarcraft.com/icons/56/spell_holy_flashheal.jpg"
+                    />
+                     
+                    Flash of Light
+                  </a>
+                </div>
+                <div
+                  className="flex-sub"
+                >
+                  <dfn
+                    data-tip={15}
+                  >
+                    65
+                    %
+                  </dfn>
+                </div>
+              </div>
+              <div
+                className="flex"
+                style={
+                  Object {
+                    "borderBottom": "3px solid rgba(255,255,255,0.1)",
+                    "marginBottom": 5,
+                  }
+                }
+              >
+                <div
+                  className="flex-sub"
+                >
+                  <div
+                    style={
+                      Object {
+                        "background": "#ff7d0a",
+                        "borderRadius": "50%",
+                        "display": "inline-block",
+                        "height": 16,
+                        "marginBottom": -3,
+                        "width": 16,
+                      }
+                    }
+                  />
+                </div>
+                <div
+                  className="flex-main"
+                  style={
+                    Object {
+                      "paddingLeft": 5,
+                    }
+                  }
+                >
+                  <a
+                    href="http://wowhead.com/spell=82326"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <img
+                      alt=""
+                      className="icon"
+                      src="//render-us.worldofwarcraft.com/icons/56/spell_holy_surgeoflight.jpg"
+                    />
+                     
+                    Holy Light
+                  </a>
+                </div>
+                <div
+                  className="flex-sub"
+                >
+                  <dfn
+                    data-tip={3}
+                  >
+                    13
+                    %
+                  </dfn>
+                </div>
+              </div>
+              <div
+                className="flex"
+                style={
+                  Object {
+                    "borderBottom": "3px solid rgba(255,255,255,0.1)",
+                    "marginBottom": 0,
+                  }
+                }
+              >
+                <div
+                  className="flex-sub"
+                >
+                  <div
+                    style={
+                      Object {
+                        "background": "#ff0000",
+                        "borderRadius": "50%",
+                        "display": "inline-block",
+                        "height": 16,
+                        "marginBottom": -3,
+                        "width": 16,
+                      }
+                    }
+                  />
+                </div>
+                <div
+                  className="flex-main"
+                  style={
+                    Object {
+                      "paddingLeft": 5,
+                    }
+                  }
+                >
+                  <dfn
+                    data-tip="The amount of Infusion of Lights you did not use out of the total available. You cast 34 Holy Shocks with a 67.65% crit ratio. This gave you 23 Infusion of Light procs, of which you used 18."
+                  >
+                    Wasted procs
+                  </dfn>
+                </div>
+                <div
+                  className="flex-sub"
+                >
+                  <dfn
+                    data-tip={5}
+                  >
+                    22
+                    %
+                  </dfn>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="row"
+  >
+    <div
+      className="col-xs-12"
+    >
+      <div
+        className="panel statistic-box statistic-list"
+      >
+        <div
+          className="panel-heading"
+        >
+          <h2>
+            Fillers
+          </h2>
+        </div>
+        <div
+          className="panel-body items"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-sub"
+              style={
+                Object {
+                  "paddingRight": 12,
+                }
+              }
+            />
+            <div
+              className="flex-main"
+              style={
+                Object {
+                  "fontSize": "80%",
+                  "paddingTop": 3,
+                }
+              }
+            >
+              <div
+                className="flex"
+                style={
+                  Object {
+                    "borderBottom": "3px solid rgba(255,255,255,0.1)",
+                    "marginBottom": 5,
+                  }
+                }
+              >
+                <div
+                  className="flex-sub"
+                >
+                  <div
+                    style={
+                      Object {
+                        "background": "#ecd1b6",
+                        "borderRadius": "50%",
+                        "display": "inline-block",
+                        "height": 16,
+                        "marginBottom": -3,
+                        "width": 16,
+                      }
+                    }
+                  />
+                </div>
+                <div
+                  className="flex-main"
+                  style={
+                    Object {
+                      "paddingLeft": 5,
+                    }
+                  }
+                >
+                  <a
+                    href="http://wowhead.com/spell=19750"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <img
+                      alt=""
+                      className="icon"
+                      src="//render-us.worldofwarcraft.com/icons/56/spell_holy_flashheal.jpg"
+                    />
+                     
+                    Flash of Light
+                  </a>
+                </div>
+                <div
+                  className="flex-sub"
+                >
+                  <dfn
+                    data-tip={34}
+                  >
+                    85
+                    %
+                  </dfn>
+                </div>
+              </div>
+              <div
+                className="flex"
+                style={
+                  Object {
+                    "borderBottom": "3px solid rgba(255,255,255,0.1)",
+                    "marginBottom": 0,
+                  }
+                }
+              >
+                <div
+                  className="flex-sub"
+                >
+                  <div
+                    style={
+                      Object {
+                        "background": "#ff7d0a",
+                        "borderRadius": "50%",
+                        "display": "inline-block",
+                        "height": 16,
+                        "marginBottom": -3,
+                        "width": 16,
+                      }
+                    }
+                  />
+                </div>
+                <div
+                  className="flex-main"
+                  style={
+                    Object {
+                      "paddingLeft": 5,
+                    }
+                  }
+                >
+                  <a
+                    href="http://wowhead.com/spell=82326"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <img
+                      alt=""
+                      className="icon"
+                      src="//render-us.worldofwarcraft.com/icons/56/spell_holy_surgeoflight.jpg"
+                    />
+                     
+                    Holy Light
+                  </a>
+                </div>
+                <div
+                  className="flex-sub"
+                >
+                  <dfn
+                    data-tip={6}
+                  >
+                    15
+                    %
+                  </dfn>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Holy Paladin integration test analyzers CastBehavior matches the suggestions snapshot 1`] = `Array []`;
 
 exports[`Holy Paladin integration test analyzers Checklist matches the statistic snapshot 1`] = `"module has no statistic method"`;
