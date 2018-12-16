@@ -63,26 +63,32 @@ class PlayerSelection extends React.PureComponent {
         {players.sort(sortPlayers).map(player => {
           const character = charactersById[player.guid];
           const spec = SPECS[player.combatant.specID];
+          const imageSource = character ? `https://render-${character.region}.worldofwarcraft.com/character/${character.thumbnail}` : '/img/fallback-character.jpg';
 
           return (
             <Link
               key={player.guid}
               to={makeUrl(player.id)}
-              className="card"
             >
-              <img
-                src={character ? `https://render-${character.region}.worldofwarcraft.com/character/${character.thumbnail.replace('avatar', 'inset')}` : '/img/fallback-character.jpg'}
-                className="avatar"
-                alt=""
-              />
-              <div className="about">
-                <div className={`name ${spec.className.replace(' ', '')}`}>{player.name}</div>
-                <SpecIcon id={spec.id} className="spec-icon" />
-                <RoleIcon id={spec.role} className="role-icon" />
+              <div className="card">
+                <div
+                  className="avatar"
+                  style={{ backgroundImage: `url(${imageSource})` }}
+                />
+                <div className="about">
+                  <h1 className={spec.className.replace(' ', '')}>{player.name}</h1>
+                  <small>
+                    <SpecIcon id={spec.id} className="spec-icon" /> {spec.specName} {spec.className}
+                  </small>
+                  <RoleIcon id={spec.role} className="role-icon" />
+                  <div className={`background ${spec.className.replace(' ', '')}-bg`} />
+                </div>
               </div>
             </Link>
           );
         })}
+        <a />
+        <a />
       </div>
     );
   }

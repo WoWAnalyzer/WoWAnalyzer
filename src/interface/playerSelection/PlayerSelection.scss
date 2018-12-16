@@ -1,79 +1,78 @@
 @import 'interface/layout/Theme.scss';
 
 .player-selection {
-  padding: 15px;
+  padding: 0;
   background: rgba(0, 0, 0, 0.2);
   text-align: center;
   line-height: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
 
-  .card {
+  > a {
     display: inline-block;
-    margin: 0 5px;
-    position: relative;
-    width: 230px;
+    margin: 0;
 
-    //&:before {
-    //  content: '';
-    //  position: absolute;
-    //  top: 0;
-    //  left: 0;
-    //  right: 0;
-    //  bottom: 0;
-    //  background: transparentize($primaryColor, 0.95);
-    //}
     &:hover {
       // Placeholder
       // TODO: Replace
-      filter: contrast(50%);
+      text-decoration: none;
+      background: transparentize($primaryColor, 0.95);
     }
+  }
+  .card {
+    display: flex;
+    position: relative;
+    text-align: left;
+    color: #fff;
+    border: 1px solid #171313;
+
     > .avatar {
-      width: 100%;
-      border: 1px solid transparentize($primaryColor, 0.6);
-      border-radius: 3px;
+      flex: 0 0 auto;
+      width: 90px;
+      height: 60px;
+      margin-right: 15px;
+      background-size: cover;
+      background-position: center center;
+      position: relative;
+      //margin-left: 35px;
     }
     > .about {
+      flex: 1;
       position: relative;
-      width: 100%;
-      height: 80px;
+      z-index: 1;
 
-      > .spec-icon {
-        position: absolute;
-        top: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        right: 5px;
-        margin-top: 0;
-        width: 24px;
-        height: 24px;
+      h1 {
+        font-size: 22px;
+        margin: 11px 0 6px;
+        line-height: 1;
+      }
+
+      .spec-icon {
+        width: 1em;
+        height: 1em;
         border-radius: 50%;
       }
-      > .role-icon {
+      .role-icon {
         position: absolute;
-        top: 15px;
-        right: 5px;
+        //left: 10px;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
         margin-top: 0;
-        width: 14px;
-        height: 14px;
+        width: 18px;
+        height: 18px;
+        opacity: 0.9;
       }
-      > .name {
+      .background {
         position: absolute;
-        top: 40px;
-        left: 0;
-        width: 100%;
-        text-align: center;
-        font-size: 14px;
-        line-height: 22px;
-        color: #000;
-        font-weight: 600;
-        //text-shadow: 0 -1px #000, 0 1px #000, -1px 0 #000, 1px 0 #000;
-        font-family: Poppins, 'Open Sans', 'Century Gothic', sans-serif;
+        top: 0;
+        right: 0;
+        width: 70%;
+        height: 100%;
+        z-index: -1;
+        mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+        opacity: 0.1;
       }
     }
-  }
-  > a:not(:first-of-type):not(:nth-of-type(11n)) .card {
-    border-left: 0;
-  }
-  > a:nth-of-type(-n+10) .card {
-    border-bottom: 0;
   }
 }
