@@ -254,187 +254,191 @@ class EventsTab extends React.Component {
     // TODO: Show active buffs like WCL
 
     return (
-      <div className="events-tab flex">
-        <div className="flex-sub config" style={{ padding: '10px 15px' }}>
+      <div className="panel">
+        <div className="panel-heading">
+          <h1>Events</h1>
           <small>
             This only includes events involving the selected player.
           </small>
-          <br />
-          {this.renderSearchBox()}
-          <br />
-          {Object.keys(FILTERABLE_TYPES).map(type => this.renderEventTypeToggle(type))}
-          <br />
-          {this.renderToggle('showFabricated', 'Fabricated events', 'These events were not originally found in the combatlog. They were created by us to fix bugs, inconsistencies, or to provide new functionality. You can recognize these events by their green background.')}
-          {this.renderToggle('rawNames', 'Raw names')}
-          <br />
-          <div className="modified-legend" style={{ width: 240, padding: 10 }}>
-            Events with an orange background were <dfn data-tip="This generally means their order was changed from the original combatlog to fix inconsistencies or bugs, but it may include other modifications.">modified</dfn>.
-          </div>
         </div>
-        <div className="flex-main" style={{ background: 'rgba(200, 200, 200, 0.05)', paddingTop: 10 }}>
-          <AutoSizer disableHeight>
-            {({ height, width }) => (
-              <Table
-                headerHeight={30}
-                height={780}
-                rowCount={events.length}
-                rowGetter={({ index }) => events[index]}
-                rowHeight={25}
-                rowRenderer={this.renderRow}
-                onRowClick={this.handleRowClick}
-                width={width}
-              >
-                <Column
-                  dataKey="timestamp"
-                  label="Time"
-                  cellRenderer={({ cellData }) => formatDuration((cellData - parser.fight.start_time) / 1000, 3)}
-                  disableSort
-                  width={30}
-                  flexGrow={1}
-                />
-                <Column
-                  dataKey="type"
-                  label="Event"
-                  cellRenderer={({ cellData }) => <div className={cellData}>{this.eventTypeName(cellData)}</div>}
-                  disableSort
-                  width={50}
-                  flexGrow={1}
-                />
-                <Column
-                  dataKey="sourceID"
-                  label="Source"
-                  cellRenderer={({ cellData }) => this.renderEntity(this.findEntity(cellData))}
-                  disableSort
-                  width={50}
-                  flexGrow={1}
-                />
-                <Column
-                  dataKey="targetID"
-                  label="Target"
-                  cellRenderer={({ cellData }) => this.renderEntity(this.findEntity(cellData))}
-                  disableSort
-                  width={50}
-                  flexGrow={1}
-                />
-                <Column
-                  dataKey="ability"
-                  label="Ability"
-                  cellRenderer={({ cellData }) => this.renderAbility(cellData)}
-                  disableSort
-                  width={90}
-                  flexGrow={1}
-                />
-                <Column
-                  dataKey="effective"
-                  label="Effective"
-                  className="effect"
-                  cellRenderer={({ rowData }) => {
-                    if (rowData.type === 'damage') {
-                      return (
-                        <>
-                          <span className={`${rowData.type} ${rowData.hitType === HIT_TYPES.CRIT || rowData.hitType === HIT_TYPES.BLOCKED_CRIT ? 'crit' : ''}`}>
-                            {formatThousands(rowData.amount)}
-                          </span>{' '}
-                          {rowData.absorbed ? <span className="absorbed">A: {formatThousands(rowData.absorbed)}</span> : null}{' '}
-                          <img
-                            src="/img/sword.png"
-                            alt="Damage"
-                            className="icon"
-                          />
-                        </>
-                      );
-                    }
-                    if (rowData.type === 'heal') {
-                      return (
-                        <>
-                          <span className={`${rowData.type} ${rowData.hitType === HIT_TYPES.CRIT || rowData.hitType === HIT_TYPES.BLOCKED_CRIT ? 'crit' : ''}`}>
-                            {formatThousands(rowData.amount)}
-                          </span>{' '}
-                          {rowData.absorbed ? <span className="absorbed">A: {formatThousands(rowData.absorbed)}</span> : null}{' '}
-                          <img
-                            src="/img/healing.png"
-                            alt="Healing"
-                            className="icon"
-                          />
-                        </>
-                      );
-                    }
-                    if (rowData.type === 'absorbed') {
-                      return (
-                        <>
-                          <span className={rowData.type}>
-                            {formatThousands(rowData.amount)}
-                          </span>{' '}
-                          <img
-                            src="/img/absorbed.png"
-                            alt="Absorbed"
-                            className="icon"
-                          />
-                        </>
-                      );
-                    }
-                    if (rowData.type === 'applybuff' && rowData.absorb !== undefined) {
-                      return (
-                        <>
-                          Applied an absorb of{' '}
-                          <span className="absorbed">
-                            {formatThousands(rowData.absorb)}
-                          </span>{' '}
-                          <img
-                            src="/img/absorbed.png"
-                            alt="Absorbed"
-                            className="icon"
-                          />
-                        </>
-                      );
-                    }
-                    if (rowData.type === 'energize') {
-                      const resource = RESOURCE_TYPES[rowData.resourceChangeType];
-                      if (resource) {
+        <div className="panel-body events-tab flex">
+          <div className="flex-sub config" style={{ padding: '0 15px' }}>
+            {this.renderSearchBox()}
+            <br />
+            {Object.keys(FILTERABLE_TYPES).map(type => this.renderEventTypeToggle(type))}
+            <br />
+            {this.renderToggle('showFabricated', 'Fabricated events', 'These events were not originally found in the combatlog. They were created by us to fix bugs, inconsistencies, or to provide new functionality. You can recognize these events by their green background.')}
+            {this.renderToggle('rawNames', 'Raw names')}
+            <br />
+            <div className="modified-legend" style={{ width: 240, padding: 10 }}>
+              Events with an orange background were <dfn data-tip="This generally means their order was changed from the original combatlog to fix inconsistencies or bugs, but it may include other modifications.">modified</dfn>.
+            </div>
+          </div>
+          <div className="flex-main" style={{ background: 'rgba(200, 200, 200, 0.05)', paddingTop: 10 }}>
+            <AutoSizer disableHeight>
+              {({ height, width }) => (
+                <Table
+                  headerHeight={30}
+                  height={780}
+                  rowCount={events.length}
+                  rowGetter={({ index }) => events[index]}
+                  rowHeight={25}
+                  rowRenderer={this.renderRow}
+                  onRowClick={this.handleRowClick}
+                  width={width}
+                >
+                  <Column
+                    dataKey="timestamp"
+                    label="Time"
+                    cellRenderer={({ cellData }) => formatDuration((cellData - parser.fight.start_time) / 1000, 3)}
+                    disableSort
+                    width={30}
+                    flexGrow={1}
+                  />
+                  <Column
+                    dataKey="type"
+                    label="Event"
+                    cellRenderer={({ cellData }) => <div className={cellData}>{this.eventTypeName(cellData)}</div>}
+                    disableSort
+                    width={50}
+                    flexGrow={1}
+                  />
+                  <Column
+                    dataKey="sourceID"
+                    label="Source"
+                    cellRenderer={({ cellData }) => this.renderEntity(this.findEntity(cellData))}
+                    disableSort
+                    width={50}
+                    flexGrow={1}
+                  />
+                  <Column
+                    dataKey="targetID"
+                    label="Target"
+                    cellRenderer={({ cellData }) => this.renderEntity(this.findEntity(cellData))}
+                    disableSort
+                    width={50}
+                    flexGrow={1}
+                  />
+                  <Column
+                    dataKey="ability"
+                    label="Ability"
+                    cellRenderer={({ cellData }) => this.renderAbility(cellData)}
+                    disableSort
+                    width={90}
+                    flexGrow={1}
+                  />
+                  <Column
+                    dataKey="effective"
+                    label="Effective"
+                    className="effect"
+                    cellRenderer={({ rowData }) => {
+                      if (rowData.type === 'damage') {
                         return (
                           <>
-                            <span className={resource.url}>
-                              {formatThousands(rowData.resourceChange)} {resource.name}
+                            <span className={`${rowData.type} ${rowData.hitType === HIT_TYPES.CRIT || rowData.hitType === HIT_TYPES.BLOCKED_CRIT ? 'crit' : ''}`}>
+                              {formatThousands(rowData.amount)}
                             </span>{' '}
-                            {resource.icon && <Icon icon={resource.icon} alt={resource.name} />}
+                            {rowData.absorbed ? <span className="absorbed">A: {formatThousands(rowData.absorbed)}</span> : null}{' '}
+                            <img
+                              src="/img/sword.png"
+                              alt="Damage"
+                              className="icon"
+                            />
                           </>
                         );
                       }
-                    }
-                    return null;
-                  }}
-                  disableSort
-                  width={60}
-                  flexGrow={1}
-                />
-                <Column
-                  dataKey="rest"
-                  label="Rest"
-                  className="effect"
-                  cellRenderer={({ rowData }) => {
-                    if (rowData.type === 'damage') {
-                      return (
-                        <span className={rowData.type}>
-                          {rowData.blocked ? <span className="overheal">B: {formatThousands(rowData.blocked)}</span> : null}
-                        </span>
-                      );
-                    }
-                    if (rowData.type === 'heal') {
-                      return (
-                        <span className={rowData.type}>
-                          {rowData.overheal ? <span className="overheal">O: {formatThousands(rowData.overheal)}</span> : null}
-                        </span>
-                      );
-                    }
-                    return null;
-                  }}
-                  disableSort
-                  width={35}
-                  flexGrow={1}
-                />
-              </Table>
-            )}
-          </AutoSizer>
+                      if (rowData.type === 'heal') {
+                        return (
+                          <>
+                            <span className={`${rowData.type} ${rowData.hitType === HIT_TYPES.CRIT || rowData.hitType === HIT_TYPES.BLOCKED_CRIT ? 'crit' : ''}`}>
+                              {formatThousands(rowData.amount)}
+                            </span>{' '}
+                            {rowData.absorbed ? <span className="absorbed">A: {formatThousands(rowData.absorbed)}</span> : null}{' '}
+                            <img
+                              src="/img/healing.png"
+                              alt="Healing"
+                              className="icon"
+                            />
+                          </>
+                        );
+                      }
+                      if (rowData.type === 'absorbed') {
+                        return (
+                          <>
+                            <span className={rowData.type}>
+                              {formatThousands(rowData.amount)}
+                            </span>{' '}
+                            <img
+                              src="/img/absorbed.png"
+                              alt="Absorbed"
+                              className="icon"
+                            />
+                          </>
+                        );
+                      }
+                      if (rowData.type === 'applybuff' && rowData.absorb !== undefined) {
+                        return (
+                          <>
+                            Applied an absorb of{' '}
+                            <span className="absorbed">
+                              {formatThousands(rowData.absorb)}
+                            </span>{' '}
+                            <img
+                              src="/img/absorbed.png"
+                              alt="Absorbed"
+                              className="icon"
+                            />
+                          </>
+                        );
+                      }
+                      if (rowData.type === 'energize') {
+                        const resource = RESOURCE_TYPES[rowData.resourceChangeType];
+                        if (resource) {
+                          return (
+                            <>
+                              <span className={resource.url}>
+                                {formatThousands(rowData.resourceChange)} {resource.name}
+                              </span>{' '}
+                              {resource.icon && <Icon icon={resource.icon} alt={resource.name} />}
+                            </>
+                          );
+                        }
+                      }
+                      return null;
+                    }}
+                    disableSort
+                    width={60}
+                    flexGrow={1}
+                  />
+                  <Column
+                    dataKey="rest"
+                    label="Rest"
+                    className="effect"
+                    cellRenderer={({ rowData }) => {
+                      if (rowData.type === 'damage') {
+                        return (
+                          <span className={rowData.type}>
+                            {rowData.blocked ? <span className="overheal">B: {formatThousands(rowData.blocked)}</span> : null}
+                          </span>
+                        );
+                      }
+                      if (rowData.type === 'heal') {
+                        return (
+                          <span className={rowData.type}>
+                            {rowData.overheal ? <span className="overheal">O: {formatThousands(rowData.overheal)}</span> : null}
+                          </span>
+                        );
+                      }
+                      return null;
+                    }}
+                    disableSort
+                    width={35}
+                    flexGrow={1}
+                  />
+                </Table>
+              )}
+            </AutoSizer>
+          </div>
         </div>
       </div>
     );
