@@ -12,8 +12,8 @@
     position: relative;
     overflow: hidden;
     background-repeat: no-repeat;
-    background-size: 410px 308px; // cover;
-    background-position: center center;
+    background-size: 410px 308px;
+    background-position: center -63px;
     background-image: url(/img/fallback-character.jpg);
 
     &:before {
@@ -46,6 +46,14 @@
       background: hsla(44, 4%, 0%, 0.5);
       //text-shadow: 0 -1px #000, 0 1px #000, -1px 0 #000, 1px 0 #000;
       font-family: Poppins, 'Open Sans', 'Century Gothic', sans-serif;
+    }
+    > .light {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 50%);
     }
   }
   > a:not(:first-of-type):not(:nth-of-type(11n)) .card {

@@ -70,6 +70,7 @@ class PlayerSelection extends React.PureComponent {
               style={{ backgroundImage: character ? `url(${`https://render-${character.region}.worldofwarcraft.com/character/${character.thumbnail.replace('avatar', 'main')}`})` : undefined }}
             >
               <div className={`name ${spec.className.replace(' ', '')}`}>{player.name}</div>
+              <div className={`light ${spec.className.replace(' ', '')}-bg`} />
             </Link>
           );
         })}
