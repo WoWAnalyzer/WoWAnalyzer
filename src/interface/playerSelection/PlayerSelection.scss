@@ -7,70 +7,68 @@
   line-height: 0;
 
   .card {
-    width: 121px;
-    height: 200px;
     display: inline-block;
-    margin: 1px;
+    margin: 0 20px;
     position: relative;
-    overflow: hidden;
-    background-repeat: no-repeat;
-    background-size: 410px 308px;
-    background-position: center -63px;
-    background-image: url(/img/fallback-character.jpg);
+    width: 84px;
 
-    &:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: transparentize($primaryColor, 0.95);
-    }
+    //&:before {
+    //  content: '';
+    //  position: absolute;
+    //  top: 0;
+    //  left: 0;
+    //  right: 0;
+    //  bottom: 0;
+    //  background: transparentize($primaryColor, 0.95);
+    //}
     &:hover {
       // Placeholder
       // TODO: Replace
       filter: contrast(50%);
     }
-    > .name {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 1;
-      width: 120%;
-      height: 22px;
-      text-align: center;
-      font-size: 12px;
-      line-height: 22px;
-      color: #000;
-      font-weight: 800;
-      //background: transparentize($primaryColor, 0.2);
-      background: hsla(44, 4%, 0%, 0.2);
-      //text-shadow: 0 -1px #000, 0 1px #000, -1px 0 #000, 1px 0 #000;
-      font-family: Poppins, 'Open Sans', 'Century Gothic', sans-serif;
+    > .avatar {
+      width: 100%;
+      height: 84px;
+      border: 1px solid transparentize($primaryColor, 0.4);
+      border-radius: 3px;
     }
-    > .light {
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      mask-image: linear-gradient(bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 30%);
-    }
-    > .spec-icon, > .role-icon {
-      position: absolute;
-      top: 5px;
-      right: 5px;
-      margin-top: 0;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-    }
-    > .role-icon {
-      left: 5px;
-      right: auto;
-      border-radius: 0;
+    > .about {
+      position: relative;
+      width: 100%;
+      height: 80px;
+
+      > .spec-icon {
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        right: 5px;
+        margin-top: 0;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+      }
+      > .role-icon {
+        position: absolute;
+        top: 15px;
+        right: 5px;
+        margin-top: 0;
+        width: 14px;
+        height: 14px;
+      }
+      > .name {
+        position: absolute;
+        top: 40px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        font-size: 10px;
+        line-height: 22px;
+        color: #000;
+        font-weight: 600;
+        //text-shadow: 0 -1px #000, 0 1px #000, -1px 0 #000, 1px 0 #000;
+        font-family: Poppins, 'Open Sans', 'Century Gothic', sans-serif;
+      }
     }
   }
   > a:not(:first-of-type):not(:nth-of-type(11n)) .card {

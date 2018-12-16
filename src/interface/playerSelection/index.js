@@ -69,12 +69,17 @@ class PlayerSelection extends React.PureComponent {
               key={player.guid}
               to={makeUrl(player.id)}
               className="card"
-              style={{ backgroundImage: character ? `url(${`https://render-${character.region}.worldofwarcraft.com/character/${character.thumbnail.replace('avatar', 'main')}`})` : undefined }}
             >
-              <div className={`name ${spec.className.replace(' ', '')}`}>{player.name}</div>
-              <div className={`light ${spec.className.replace(' ', '')}-bg`} />
-              <SpecIcon id={spec.id} className="spec-icon" />
-              <RoleIcon id={spec.role} className="role-icon" />
+              <img
+                src={character ? `https://render-${character.region}.worldofwarcraft.com/character/${character.thumbnail}` : '/img/fallback-character.jpg'}
+                className="avatar"
+                alt=""
+              />
+              <div className="about">
+                <div className={`name ${spec.className.replace(' ', '')}`}>{player.name}</div>
+                <SpecIcon id={spec.id} className="spec-icon" />
+                <RoleIcon id={spec.role} className="role-icon" />
+              </div>
             </Link>
           );
         })}
