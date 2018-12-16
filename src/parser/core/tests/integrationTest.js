@@ -1,10 +1,12 @@
-import { i18n } from 'interface/RootLocalizationProvider';
+import renderer from 'react-test-renderer';
+
 import ParseResults from 'parser/core/ParseResults';
 import BaseChecklist from 'parser/shared/modules/features/Checklist2/Module';
-import renderer from 'react-test-renderer';
+import EventsNormalizer from 'parser/core/EventsNormalizer';
+import { i18n } from 'interface/RootLocalizationProvider';
+
 import { loadLog, parseLog } from './log-tools';
 import { statistic, expectSnapshot } from './snapshotTest';
-import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 function integrationStatistic(analyzer, parser) {
   if (!analyzer.active) {
