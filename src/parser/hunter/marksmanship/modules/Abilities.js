@@ -10,6 +10,7 @@ class Abilities extends CoreAbilities {
     return [
       {
         spell: SPELLS.AIMED_SHOT,
+        buffSpellId: [SPELLS.DOUBLE_TAP_TALENT.id, SPELLS.LOCK_AND_LOAD_BUFF.id],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 12 / (1 + haste),
         charges: 2,
@@ -19,6 +20,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ARCANE_SHOT,
+        buffSpellId: SPELLS.PRECISE_SHOTS.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -26,6 +28,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.RAPID_FIRE,
+        buffSpellId: SPELLS.DOUBLE_TAP_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -34,6 +37,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.STEADY_SHOT,
+        buffSpellId: SPELLS.STEADY_FOCUS_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -41,6 +45,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.MULTISHOT_MM,
+        buffSpellId: SPELLS.PRECISE_SHOTS.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
@@ -71,6 +76,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HUNTERS_MARK_TALENT,
+        buffSpellId: SPELLS.HUNTERS_MARK_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.HUNTERS_MARK_TALENT.id),
         gcd: {
@@ -79,6 +85,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SERPENT_STING_TALENT,
+        buffSpellId: SPELLS.SERPENT_STING_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         enabled: combatant.hasTalent(SPELLS.SERPENT_STING_TALENT.id),
         gcd: {

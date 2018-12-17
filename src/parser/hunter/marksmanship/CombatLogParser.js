@@ -28,7 +28,6 @@ import ExplosiveShot from './modules/talents/ExplosiveShot';
 import LockAndLoad from './modules/talents/LockAndLoad';
 import PiercingShot from './modules/talents/PiercingShot';
 import MasterMarksman from './modules/talents/MasterMarksman';
-import LethalShots from './modules/talents/LethalShots';
 import DoubleTap from './modules/talents/DoubleTap';
 import CallingTheShots from './modules/talents/CallingTheShots';
 import HuntersMark from './modules/talents/HuntersMark';
@@ -85,7 +84,6 @@ class CombatLogParser extends CoreCombatLogParser {
     piercingShot: PiercingShot,
     barrage: Barrage,
     masterMarksman: MasterMarksman,
-    lethalShots: LethalShots,
     doubleTap: DoubleTap,
     callingTheShots: CallingTheShots,
     huntersMark: HuntersMark,
