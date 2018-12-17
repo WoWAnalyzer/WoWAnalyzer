@@ -14,7 +14,7 @@ export default [
   {
     date: new Date('2018-11-28'),
     changes: <>Updated <SpellLink id={SPELLS.COMBUSTION.id} /> module to support <SpellLink id={SPELLS.BLASTER_MASTER.id} />.</>,
-    contributors: [Sharrq]
+    contributors: [Sharrq],
   },
   {
     date: new Date('2018-11-17'),
