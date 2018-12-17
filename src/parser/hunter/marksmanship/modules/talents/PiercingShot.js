@@ -47,9 +47,7 @@ class PiercingShot extends Analyzer {
     return (
       <TalentStatisticBox
         talent={SPELLS.PIERCING_SHOT_TALENT.id}
-        value={<>
-          <AverageTargetsHit casts={this.casts} hits={this.hits} />
-        </>}
+        value={<AverageTargetsHit casts={this.casts} hits={this.hits} />}
       />
     );
   }

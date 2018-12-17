@@ -69,7 +69,7 @@ class AMurderOfCrows extends Analyzer {
       this.spellUsable.endCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT.id, event.timestamp);
       this.maxCasts += 1;
       this.resets += 1;
-      debug && console.log('Crows was reset at: ', event.timestamp);
+      debug && this.log('Crows was reset at: ', event.timestamp);
     }
   }
 

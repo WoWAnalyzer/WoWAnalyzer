@@ -25,7 +25,7 @@ class Trailblazer extends Analyzer {
     return (
       <TalentStatisticBox
         talent={SPELLS.TRAILBLAZER_TALENT.id}
-         value={`${formatPercentage(this.percentUptime)}% uptime`}
+        value={`${formatPercentage(this.percentUptime)}% uptime`}
       />
     );
   }
