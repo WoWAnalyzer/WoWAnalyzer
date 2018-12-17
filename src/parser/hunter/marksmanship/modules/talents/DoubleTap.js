@@ -5,7 +5,6 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import SpellIcon from 'common/SpellIcon';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 /**
  * Your next Aimed Shot will fire a second time instantly at 100% power without consuming Focus, or your next Rapid Fire will shoot 100% additional shots during its channel.
@@ -58,7 +57,6 @@ class DoubleTap extends Analyzer {
     return (
       <TalentStatisticBox
         talent={SPELLS.DOUBLE_TAP_TALENT.id}
-        position={STATISTIC_ORDER.CORE(18)}
         value={(
           <>
             {this.aimedUsage}{'  '}
