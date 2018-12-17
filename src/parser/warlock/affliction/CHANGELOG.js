@@ -6,6 +6,11 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-12-10'),
+    changes: <>Updated for patch 8.1 - <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} /> nerf.</>,
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-11-15'),
     changes: <>Added <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} /> to timeline as well</>,
     contributors: [Chizu],

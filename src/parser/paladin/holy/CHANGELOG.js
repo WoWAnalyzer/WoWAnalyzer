@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-12-13'),
+    changes: <>Fixed a bug in the analysis of <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} /> that caused the passive damage reduction to not be properly accounted for.</>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2018-11-10'),
     changes: <>Fixed a crash when using <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} />.</>,
     contributors: [Zerotorescue],

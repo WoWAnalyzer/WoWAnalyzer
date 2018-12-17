@@ -86,6 +86,7 @@ import RezansGleamingEye from '../shared/modules/items/bfa/dungeons/RezansGleami
 import RotcrustedVoodooDoll from '../shared/modules/items/bfa/dungeons/RotcrustedVoodooDoll';
 import AzerokksResonatingHeart from '../shared/modules/items/bfa/dungeons/AzerokksResonatingHeart';
 import VesselOfSkitteringShadows from '../shared/modules/items/bfa/dungeons/VesselOfSkitteringShadows';
+import LadyWaycrestsMusicBox from '../shared/modules/items/bfa/dungeons/LadyWaycrestsMusicBox';
 // PVP
 import DreadGladiatorsMedallion from '../shared/modules/items/bfa/pvp/DreadGladiatorsMedallion';
 import DreadGladiatorsInsignia from '../shared/modules/items/bfa/pvp/DreadGladiatorsInsignia';
@@ -230,6 +231,7 @@ class CombatLogParser {
     rotcrustedVoodooDoll: RotcrustedVoodooDoll,
     azerokksResonatingHeart: AzerokksResonatingHeart,
     vesselOfSkitteringShadows: VesselOfSkitteringShadows,
+    ladyWaycrestsMusicBox: LadyWaycrestsMusicBox,
     // PVP
     dreadGladiatorsMedallion: DreadGladiatorsMedallion,
     dreadGladiatorsInsignia: DreadGladiatorsInsignia,
