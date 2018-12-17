@@ -10,7 +10,7 @@ import Abilities from './modules/Abilities';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import TimeFocusCapped from '../shared/modules/features/TimeFocusCapped';
-import CancelledCasts from "../shared/modules/features/CancelledCasts";
+import CancelledCasts from '../shared/modules/features/CancelledCasts';
 import FocusUsage from '../shared/modules/features/FocusUsage';
 //Normalizers
 import RapidFireNormalizer from './normalizers/RapidFire';
@@ -37,6 +37,7 @@ import Trailblazer from '../shared/modules/talents/Trailblazer';
 import SteadyFocus from './modules/talents/SteadyFocus';
 import BornToBeWild from '../shared/modules/talents/BornToBeWild';
 import BindingShot from '../shared/modules/talents/BindingShot';
+import CarefulAim from './modules/talents/CarefulAim';
 
 //Focus
 import FocusTracker from '../shared/modules/features/focuschart/FocusTracker';
@@ -92,6 +93,7 @@ class CombatLogParser extends CoreCombatLogParser {
     trailblazer: Trailblazer,
     bornToBeWild: BornToBeWild,
     bindingShot: BindingShot,
+    carefulAim: CarefulAim,
 
     //Azerite Traits
     steadyAim: SteadyAim,
