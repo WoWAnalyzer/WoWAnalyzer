@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 
 import fetchWcl, { CharacterNotFoundError, UnknownApiError, WclApiError } from 'common/fetchWclApi';
-import { makeCharacterApiUrl } from 'common/makeApiUrl';
+import { makeCharacterApiUrl, makeItemApiUrl } from 'common/makeApiUrl';
 
 import { appendReportHistory } from 'interface/actions/reportHistory';
 import ActivityIndicator from 'interface/common/ActivityIndicator';
@@ -200,7 +200,7 @@ class Parses extends React.Component {
 
     Object.values(updatedTrinkets).map(trinket => {
       if (trinket.icon === ITEMS[0].icon && trinket.id !== 0) {
-        return fetch(`https://eu.api.battle.net/wow/item/${trinket.id}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
+        return fetch(makeItemApiUrl(trinket.id))
           .then(response => response.json())
           .then((data) => {
             updatedTrinkets[trinket.id].icon = data.icon;

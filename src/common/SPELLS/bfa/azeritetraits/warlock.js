@@ -93,28 +93,8 @@ export default {
     name: 'Shadow\'s Bite',
     icon: 'spell_shadow_painspike',
   },
-  FORBIDDEN_KNOWLEDGE: {
-    id: 278738,
-    name: 'Forbidden Knowledge',
-    icon: 'inv_offhand_hyjal_d_01',
-  },
-  FORBIDDEN_KNOWLEDGE_BUFF: {
-    id: 279666,
-    name: 'Forbidden Knowledge',
-    icon: 'inv_offhand_hyjal_d_01',
-  },
 
   // Destruction Azerite traits and effects
-  ACCELERANT: {
-    id: 272955,
-    name: 'Accelerant',
-    icon: 'spell_shadow_rainoffire',
-  },
-  ACCELERANT_BUFF: {
-    id: 272957,
-    name: 'Accelerant',
-    icon: 'spell_shadow_rainoffire',
-  },
   FLASHPOINT: {
     id: 275425,
     name: 'Flashpoint',

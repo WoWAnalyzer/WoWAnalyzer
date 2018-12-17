@@ -280,6 +280,11 @@ export default {
     name: 'Enrage',
     icon: 'spell_shadow_unholyfrenzy',
   },
+  ENDLESS_RAGE_ENERGISE: {
+    id: 280283,
+    name: 'Endless Rage',
+    icon: 'ability_warrior_endlessrage',
+  },  
   FROTHING_BERSERKER: {
     id: 215572,
     name: 'Frothing Berserker',
@@ -290,7 +295,18 @@ export default {
     name: 'Massacre',
     icon: 'inv_sword_48',
   },
-
+  // Talents
+  BLADESTORM_OH_DAMAGE: {
+    id: 95738,
+    name: 'Bladestorm',
+    icon: 'ability_warrior_bladestorm',
+  },
+  // Fury talents
+  SIEGEBREAKER_DEBUFF: { 
+    id: 280773, 
+    name: "Siegebreaker", 
+    icon: "inv_make_101",
+  },
   // Fury tier sets
   WARRIOR_FURY_T19_2P_BONUS: {
     id: 212157,
