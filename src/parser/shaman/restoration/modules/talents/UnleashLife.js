@@ -12,7 +12,7 @@ import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import Analyzer from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 
-import CooldownThroughputTracker from '../features/FeedingTracker';
+import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
 
 const UNLEASH_LIFE_HEALING_INCREASE = 0.45;
 const BUFFER_MS = 200;
