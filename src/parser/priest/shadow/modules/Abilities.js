@@ -164,7 +164,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SURRENDER_TO_MADNESS_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 4 * 60,
+        cooldown: 3 * 60,
         gcd: {
           base: 1500,
         },
