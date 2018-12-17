@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
-    date: new Date('2018-12-12'),
+    date: new Date('2018-12-17'),
     changes: <>Updated modules to support various 8.1 changes, including the <SpellLink id={SPELLS.HIGH_TIDE_TALENT.id} /> redesign.</>,
     contributors: [niseko],
   },
