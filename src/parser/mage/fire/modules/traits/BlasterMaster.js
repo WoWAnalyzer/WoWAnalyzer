@@ -10,7 +10,7 @@ import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 
 const debug = false;
 
-const TRAIT_STACK_THRESHOLD = 4;
+const TRAIT_STACK_THRESHOLD = 3;
 
 class BlasterMaster extends Analyzer {
   static dependencies = {
