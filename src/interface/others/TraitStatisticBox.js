@@ -19,13 +19,24 @@ const TraitStatisticBox = ({ trait, icon, label, ...others }) => {
 };
 
 TraitStatisticBox.propTypes = {
-  ...StatisticBox.propTypes,
   trait: PropTypes.number.isRequired,
+  value: PropTypes.node.isRequired,
   icon: PropTypes.node, // Override the icon requirement
   label: PropTypes.node, // Override the label requirement
+  tooltip: PropTypes.string,
+  footer: PropTypes.node,
+  footerStyle: PropTypes.object,
+  containerProps: PropTypes.object,
+  item: PropTypes.bool,
+  alignIcon: PropTypes.string,
+  warcraftLogs: PropTypes.string,
+  category: PropTypes.string,
+  position: PropTypes.number,
+  children: PropTypes.node,
 };
 
 TraitStatisticBox.defaultProps = {
+  alignIcon: 'center',
   category: STATISTIC_CATEGORY.AZERITE_POWERS,
 };
 

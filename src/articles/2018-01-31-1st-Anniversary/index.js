@@ -11,7 +11,6 @@ import SPECS from 'game/SPECS';
 import Contributor from 'interface/contributor/Button';
 import DiscordButton from 'interface/common/thirdpartybuttons/Discord';
 import DiscordLogo from 'interface/images/Discord-Logo+Wordmark-White.svg';
-import AntorusImage from 'raids/antorustheburningthrone/images/antorus.jpg';
 import RegularArticle from 'interface/news/RegularArticle';
 
 import Timeline from './Timeline';
@@ -105,6 +104,7 @@ import DeathTracker from './DeathTracker.png';
 import CastingTime from './CastingTime.png';
 import GearTab from './GearTab.png';
 import WoWAnalyzerPartyHat from './WoWAnalyzerPartyHat.png';
+import AntorusImage from '../2017-11-26-Updated-for-Antorus/antorus.jpg';
 
 const SpecIcon = ({ spec }) => (
   <img
