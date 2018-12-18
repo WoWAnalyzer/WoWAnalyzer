@@ -27,23 +27,52 @@ const Character = models.Character;
  *
  * So the whole purpose of storing the character info is so it's also available on unexported WCL reports where we only have the character id.
  */
-
+const TIME_TO_CACHE = 3600;
 function sendJson(res, json) {
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.send(json);
 }
-async function proxyCharacterApi(res, region, realm, name, fields) {
+function send404(res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.sendStatus(404);
+}
+async function sendCharacterIfNotExpired(res, char){
+  const cacheExpiration = char && char.lastUpdated;
+  if (cacheExpiration) {
+    cacheExpiration.setSeconds(cacheExpiration.getSeconds() + TIME_TO_CACHE);
+    if (cacheExpiration > new Date()) {
+      sendJson(res, char);
+      char.update({
+        lastSeenAt: Sequelize.fn('NOW'),
+      });
+      return true;
+    }
+  }
+  return false;
+}
+
+async function getCharacterFromBlizzardApi(region, realm, name) {
   try {
     console.log('Fetching character from Battle.net');
     const start = Date.now();
-    const response = await fetchCharacterFromBattleNet(region, realm, name, fields);
+    const response = await fetchCharacterFromBattleNet(region, realm, name);
     const responseTime = Date.now() - start;
     console.log('Battle.net response time:', responseTime, 'ms');
-    const json = JSON.parse(response);
+    const data = JSON.parse(response);
     // This is the only field that we need and isn't always otherwise obtainable (e.g. when this is fetched by character id)
-    json.region = region;
-    sendJson(res, json);
+    // eslint-disable-next-line prefer-const
+    const { talents, ...other } = data;
+    let json = { region, ...other };
+    if (talents) {
+      const selectedSpec = talents.find(e => e.selected);
+      json = {
+        ...json,
+        spec: selectedSpec.spec.name,
+        role: selectedSpec.spec.role,
+        talents: selectedSpec.calcTalent,
+      };
+    }
     return json;
   } catch (error) {
     const { statusCode, message, response } = error;
@@ -54,55 +83,115 @@ async function proxyCharacterApi(res, region, realm, name, fields) {
     if (!isCharacterNotFoundError) {
       Raven.installed && Raven.captureException(error);
     }
-    res.status(statusCode || 500);
-    sendJson(res, body);
     return null;
   }
 }
-async function storeCharacter(id, region, realm, name) {
+async function getStoredCharacter(id, realm, region, name) {
+  if (id) {
+    return Character.findById(id);
+  }
+  if (realm && name && region) {
+    return Character.findOne({
+      where: {
+        name,
+        region,
+        realm,
+      },
+    });
+  }
+  return null;
+}
+
+async function storeCharacter(char) {
   await Character.upsert({
-    id,
-    region,
-    realm,
-    name,
+    ...char,
     lastSeenAt: Sequelize.fn('NOW'),
   });
 }
+
+
 const characterIdFromThumbnailRegex = /\/([0-9]+)-/;
 
 const router = Express.Router();
+
 router.get('/:id([0-9]+)', async (req, res) => {
-  const character = await Character.findById(req.params.id);
+  const character = await getStoredCharacter(req.params.id);
   if (!character) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.sendStatus(404);
+    send404(res);
     return;
   }
-  // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
+  if(await sendCharacterIfNotExpired(res, character)){
+    return;
+  }
+  const charFromApi = await getCharacterFromBlizzardApi(character.region, character.realm, character.name);
+  if (charFromApi) {
+    sendJson(res, charFromApi);
+  } else {
+    sendJson(res, character);
+  }
   character.update({
+    ...charFromApi,
     lastSeenAt: Sequelize.fn('NOW'),
   });
-  await proxyCharacterApi(res, character.region, character.realm, character.name, req.query.fields);
 });
+
 router.get('/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, res) => {
   const { region, realm, name } = req.params;
-  // In case you don't look inside proxyCharacterApi: *this sends the data to the browser*.
-  const characterInfo = await proxyCharacterApi(res, region, realm, name, req.query.fields);
-  // Everything after this happens after the data was sent
-  if (!characterInfo) {
+
+  const storedCharacter = await getStoredCharacter(null, realm, region, name);
+  if(await sendCharacterIfNotExpired(res, storedCharacter)){
     return;
   }
-  if (characterInfo && characterInfo.thumbnail) {
-    const [,characterId] = characterIdFromThumbnailRegex.exec(characterInfo.thumbnail);
+  const characterFromApi = await getCharacterFromBlizzardApi(region, realm, name);
+  // If Character Data can't be retrived from API then we fallback to cached data in the db
+  if (!characterFromApi) {
+    if (storedCharacter) {
+      sendJson(res, storedCharacter);
+      storedCharacter.update({
+        lastSeenAt: Sequelize.fn('NOW'),
+      });
+      return;
+    }
+    // Can not get character from db cache or blizzard API
+    send404(res);
+  }
+  sendJson(res, characterFromApi);
+
+  if (storedCharacter) {
+    storedCharacter.update({
+      ...characterFromApi,
+      lastSeenAt: Sequelize.fn('NOW'),
+      lastUpdated: Sequelize.fn('NOW'),
+    });
+    return;
+  }
+  // If there isn't already a stored character we need to get the character id from the thumbnail
+  if (characterFromApi.thumbnail) {
+    const [, characterId] = characterIdFromThumbnailRegex.exec(characterFromApi.thumbnail);
     // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
-    storeCharacter(characterId, region, realm, name);
+    storeCharacter({ id: characterId, ...characterFromApi });
   }
 });
+
 router.get('/:id([0-9]+)/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, res) => {
   const { id, region, realm, name } = req.params;
+  const storedCharacter = await Character.findById(req.params.id);
+  if(await sendCharacterIfNotExpired(res, storedCharacter)){
+    return;
+  }
   // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
-  storeCharacter(id, region, realm, name);
-  await proxyCharacterApi(res, region, realm, name, req.query.fields);
+  const charFromApi = await getCharacterFromBlizzardApi(region, realm, name);
+  if (charFromApi) {
+    sendJson(res, charFromApi);
+    storeCharacter({ id, ...charFromApi });
+    return;
+  }
+  
+  if (!storedCharacter) {
+    send404(res);
+    return;
+  }
+  sendJson(res, storedCharacter);
 });
 
 export default router;

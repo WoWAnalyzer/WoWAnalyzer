@@ -137,12 +137,12 @@ const getAccessToken = async (region) => {
   return clientToken[region];
 };
 
-export async function fetchCharacter(region, realm, name, fields = '') {
+export async function fetchCharacter(region, realm, name) {
   region = region.toLowerCase();
   if (!availableRegions[region]) {
     throw new Error('Region not recognized.');
   }
-  const url = `${makeBaseUrl(region)}/wow/character/${encodeURIComponent(realm)}/${encodeURIComponent(name)}?locale=${availableRegions[region]}&fields=${fields}`;
+  const url = `${makeBaseUrl(region)}/wow/character/${encodeURIComponent(realm)}/${encodeURIComponent(name)}?locale=${availableRegions[region]}&fields=talents`;
 
   return get(
     url,

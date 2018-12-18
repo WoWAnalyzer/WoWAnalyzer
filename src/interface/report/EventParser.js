@@ -241,7 +241,7 @@ class EventParser extends React.PureComponent {
     }
 
     try {
-      return await fetch(makeCharacterApiUrl(id, region, realm, name, 'talents')).then(data => data.json());
+      return await fetch(makeCharacterApiUrl(id, region, realm, name)).then(data => data.json());
     } catch (error) {
       // This only provides optional info, so it's no big deal if it fails
       console.warn('Unable to obtain character information because of:', error);
