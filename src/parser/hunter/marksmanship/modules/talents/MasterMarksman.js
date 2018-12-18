@@ -4,7 +4,6 @@ import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 /**
  * Aimed Shot has a 100% chance to reduce the focus cost of your next Arcane Shot or Multi-Shot by 100%.
@@ -41,11 +40,11 @@ class MasterMarksman extends Analyzer {
       return;
     }
     if (spellId === SPELLS.AIMED_SHOT.id) {
-      this.overwrittenBuffs++;
+      this.overwrittenBuffs += 1;
       return;
     }
-    this.usedProcs++;
-    this.affectedSpells[spellId].casts++;
+    this.usedProcs += 1;
+    this.affectedSpells[spellId].casts += 1;
   }
 
   get totalProcs() {
@@ -60,10 +59,9 @@ class MasterMarksman extends Analyzer {
     return (
       <TalentStatisticBox
         talent={SPELLS.MASTER_MARKSMAN_TALENT.id}
-        position={STATISTIC_ORDER.CORE(21)}
-        value={`${this.usedProcs}/${this.totalProcs}`}
-        label="utilised MM buffs"
-        tooltip={tooltipText} />
+        value={`${this.usedProcs}/${this.totalProcs} procs used`}
+        tooltip={tooltipText}
+      />
     );
   }
 

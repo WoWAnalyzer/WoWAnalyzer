@@ -12,3 +12,6 @@ if (process.env.CI) {
   console.warn = jest.fn();
   console.error = jest.fn();
 }
+
+// chartjs doesn't like being tested, so mock it and save us a world of trouble
+jest.mock('react-chartjs-2');

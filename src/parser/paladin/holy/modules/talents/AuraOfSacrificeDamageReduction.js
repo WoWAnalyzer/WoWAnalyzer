@@ -60,7 +60,7 @@ class AuraOfSacrificeDamageReduction extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.handlePassiveTransfer);
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.handlePassiveTransfer);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.handleHealthUpdate);
     this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.handleHealthUpdate);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.AURA_MASTERY.id), this.handleApplyAuraMastery);
