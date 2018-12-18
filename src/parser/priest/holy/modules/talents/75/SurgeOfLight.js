@@ -3,6 +3,7 @@ import SPELLS from 'common/SPELLS';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import React from 'react';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemManaGained from 'interface/others/ItemManaGained';
 
 // Example Log: /report/hRd3mpK1yTQ2tDJM/1-Mythic+MOTHER+-+Kill+(2:24)/14-丶寶寶小喵
 class SurgeOfLight extends Analyzer {
@@ -15,6 +16,10 @@ class SurgeOfLight extends Analyzer {
   solOverHealing = 0;
 
   freeFlashHealPending = false;
+
+  get solManaSaved() {
+    return this.solFlashHeals * SPELLS.FLASH_HEAL.manaCost;
+  }
 
   constructor(...args) {
     super(...args);
@@ -56,8 +61,11 @@ class SurgeOfLight extends Analyzer {
     return (
       <TalentStatisticBox
         talent={SPELLS.SURGE_OF_LIGHT_TALENT.id}
-        value={<ItemHealingDone amount={this.solHealing} />}
-        tooltip={`${this.solFlashHeals} free Flash Heals`}
+        value={<>
+          <ItemHealingDone amount={this.solHealing} /><br />
+          <ItemManaGained amount={this.solManaSaved} />
+        </>}
+        tooltip={`Free Flash Heals: ${this.solFlashHeals}`}
         position={STATISTIC_ORDER.CORE(5)}
       />
     );
