@@ -10,7 +10,7 @@ import HolyWordSerenity from 'parser/priest/holy/modules/spells/holyword/HolyWor
 import SpellUsable from 'parser/priest/holy/modules/features/SpellUsable';
 
 const SPELLS_THAT_PROC_POD = [SPELLS.FLASH_HEAL.id, SPELLS.GREATER_HEAL.id];
-const PROMISE_COOLDOWN_REDUCTION_AMOUNT = 1;
+const PROMISE_COOLDOWN_REDUCTION_AMOUNT = 1000;
 
 /*
   For 10 sec after you cast Holy Word: Serenity, Heal and Flash Heal heal for an additional 472, and reduce the cooldown of Holy Word: Serenity by an additional 1 sec.
@@ -86,7 +86,7 @@ class PromiseOfDeliverance extends Analyzer {
         )}
         tooltip={`
           Healing Done: ${formatNumber(this.healingDone)} (${formatPercentage(this.overhealingDone / (this.healingDone + this.overhealingDone))}% OH).<br />
-          ${SPELLS.HOLY_WORD_SERENITY.name} Cooldown reduced by ${this.cooldownReduced} seconds.
+          ${SPELLS.HOLY_WORD_SERENITY.name} Cooldown reduced by ${Math.floor(this.cooldownReduced / 1000)} seconds.
         `}
       />
     );
