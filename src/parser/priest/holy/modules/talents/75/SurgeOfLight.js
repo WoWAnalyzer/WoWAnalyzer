@@ -65,7 +65,7 @@ class SurgeOfLight extends Analyzer {
           {this.solFlashHeals} free <SpellLink id={SPELLS.FLASH_HEAL.id} /> casts<br />
           <ItemManaGained amount={this.solManaSaved} />
         </>}
-        tooltip={`${this.solFlashHeals}/${this.solStacksGained} free ${SPELLS.FLASH_HEAL.name} casts.`}
+        tooltip={`${this.solFlashHeals}/${this.solStacksGained} Surge of Light buffs used`}
         position={STATISTIC_ORDER.CORE(5)}
       />
     );
