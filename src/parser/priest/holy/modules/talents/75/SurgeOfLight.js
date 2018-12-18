@@ -62,9 +62,10 @@ class SurgeOfLight extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.SURGE_OF_LIGHT_TALENT.id}
         value={<>
-          {this.solFlashHeals}/{this.solStacksGained} free <SpellLink id={SPELLS.FLASH_HEAL.id} /> casts<br />
+          {this.solFlashHeals} free <SpellLink id={SPELLS.FLASH_HEAL.id} /> casts<br />
           <ItemManaGained amount={this.solManaSaved} />
         </>}
+        tooltip={`${this.solFlashHeals}/${this.solStacksGained} free ${SPELLS.FLASH_HEAL.name} casts.`}
         position={STATISTIC_ORDER.CORE(5)}
       />
     );
