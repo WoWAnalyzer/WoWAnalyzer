@@ -66,10 +66,9 @@ const get = (url, metricLabels, region, skipAccessToken = false) => {
           statusCode: 'unknown',
         });
       } else {
-        console.log(err);
-        // end({
-        //   statusCode: err.statusCode,
-        // });
+        end({
+          statusCode: err.statusCode,
+        });
       }
       return null;
     },
@@ -98,7 +97,7 @@ const getAccessToken = async (region) => {
     region, 
     true
   );
-  
+
   const tokenData = JSON.parse(tokenRequest);
   clientToken[region] = tokenData.access_token;
   return clientToken[region];
