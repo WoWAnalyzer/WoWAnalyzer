@@ -82,9 +82,7 @@ class PromiseOfDeliverance extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.PROMISE_OF_DELIVERANCE.id}
         value={(
-          <>
-            <ItemHealingDone amount={this.healingDone} /><br />
-          </>
+          <ItemHealingDone amount={this.healingDone} />
         )}
         tooltip={`
           Healing Done: ${formatNumber(this.healingDone)} (${formatPercentage(this.overhealingDone / (this.healingDone + this.overhealingDone))}% OH).<br />
