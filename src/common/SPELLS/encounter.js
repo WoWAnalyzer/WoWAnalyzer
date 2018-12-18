@@ -1954,6 +1954,193 @@ export default {
     icon: "spell_holy_holynova",
   },
 
+  //Jadefire Masters
+
+  JADEFIRE_MASTERS_BURNOUT: {
+    id: 282041,
+    name: "Burnout",
+    icon: "ability_mage_worldinflames",
+  },
+  JADEFIRE_MASTERS_FIREBALL: {
+    id: 282036,
+    name: "Fireball",
+    icon: "spell_fire_fireball02",
+  },
+  JADEFIRE_MASTERS_MAGMA_TRAP: {
+    id: 284374,
+    name: "Magma Trap",
+    icon: "spell_fire_selfdestruct",
+  },
+  JADEFIRE_MASTERS_MULTI_SIDED_STRIKE: {
+    id: 284028,
+    name: "Multi-Sided Strike",
+    icon: "ability_monk_palmstrike",
+  },
+  JADEFIRE_MASTERS_POUNCE: {
+    id: 286086,
+    name: "Pounce",
+    icon: "ability_monk_summontigerstatue",
+  },
+  JADEFIRE_MASTERS_PYROBLAST: {
+    id: 286379,
+    name: "Pyroblast",
+    icon: "ability_mage_greaterpyroblast",
+  },
+  JADEFIRE_MASTERS_RISING_FLAMES: {
+    id: 282037,
+    name: "Rising Flames",
+    icon: "spell_fire_flameshock",
+  },
+  JADEFIRE_MASTERS_SEARING_EMBERS: {
+    id: 286988,
+    name: "Searing Embers",
+    icon: "ability_mage_livingbomb",
+  },
+  JADEFIRE_MASTERS_TIGER_PAW: {
+    id: 285634,
+    name: "Tiger Paw",
+    icon: "ability_monk_tigerpalm",
+  },
+  JADEFIRE_MASTERS_UNLEASHED_EMBER: {
+    id: 286989,
+    name: "Unleashed Ember",
+    icon: "spell_fire_ragnaros_supernova",
+  },
+  JADEFIRE_MASTERS_WHIRLING_JADE_STORM: {
+    id: 286439,
+    name: "whirling_jade_storm",
+    icon: "ability_monk_cranekick_new",
+  },
+  JADEFIRE_MASTERS_FIRE_SHIELD: {
+    id: 286425,
+    name: "Fire Shield",
+    icon: "ability_mage_moltenarmor",
+  },
+
+  //Grong
+  GRONG_APETAGONIZER_CORE: {
+    id: 285659,
+    name: "Apetagonizer Core",
+    icon: "spell_mage_flameorb_blue",
+  },
+  GRONG_BESTIAL_SMASH: {
+    id: 283078,
+    name: "Bestial Smash",
+    icon: "ability_rogue_kidneyshot",
+  },
+  GRONG_LIGHTNING_DETONATION: {
+    id: 285654,
+    name: "Lightning Detonation",
+    icon: "ability_vehicle_electrocharge",
+  },
+  GRONG_MEGATOMIC_FIRE: {
+    id: 283069,
+    name: "Megatomic Fire",
+    icon: "spell_fire_fire",
+  },
+  GRONG_MEGATOMIC_SEEKER_MISSILE: {
+    id: 282215,
+    name: "Megatomic Seeker Missile",
+    icon: "ability_mount_rocketmount4",
+  },
+  GRONG_RENDING_BITE: {
+    id: 285875,
+    name: "Rending Bite",
+    icon: "ability_druid_ferociousbite",
+  },
+  GRONG_REVERBERATING_ECHO: {
+    id: 282181,
+    name: "Reverberating Echo",
+    icon: "inv_elementalearth2",
+  },
+  GRONG_REVERBERATING_SLAM: {
+    id: 282179,
+    name: "Reverberating Slam",
+    icon: "inv_elementalearth2",
+  },
+  GRONG_SHATTERED: {
+    id: 282010,
+    name: "Shattered",
+    icon: "spell_nature_earthbind",
+  },
+  GRONG_TANTRUM: {
+    id: 281940,
+    name: "Tantrum",
+    icon: "spell_nature_earthquake",
+  },
+  GRONG_CRUSHED: {
+    id: 285671,
+    name: "Crushed",
+    icon: "ability_warstomp",
+  },
+  GRONG_BESTIAL_THROW: {
+    id: 289292,
+    name: "Bestial Throw",
+    icon: "inv_gauntlets_03",
+  },
+  GRONG_BESTIAL_IMPACT: {
+    id: 289412,
+    name: "Bestial Impact",
+    icon: "spell_nature_earthquake",
+  },
+  GRONG_DEATH_KNELL: {
+    id: 282399,
+    name: "Death Knell",
+    icon: "spell_necro_deathsknell",
+  },
+  GRONG_DEATH_TOUCHED: {
+    id: 282415,
+    name: "Death Touched",
+    icon: "ability_deathknight_roilingblood",
+  },
+  GRONG_DEATHLY_SLAM: {
+    id: 282543,
+    name: "Deathly Slam",
+    icon: "spell_necro_deathlyslam",
+  },
+  GRONG_DEATHLY_ECHO: {
+    id: 282545,
+    name: "Deathly Echo",
+    icon: "spell_necro_deathlyecho",
+  },
+  GRONG_VOODOO_BLAST: {
+    id: 282471,
+    name: "Voodoo Blast",
+    icon: "spell_necro_voodooblast",
+  },
+  GRONG_CHILL_OF_DEATH: {
+    id: 286373,
+    name: "Chill of Death",
+    icon: "spell_necro_chillofdeath",
+  },
+  GRONG_DEATH_EMPOWERMENT: {
+    id: 282533,
+    name: "Death Empowerment",
+    icon: "spell_necro_bwonsamdisboon",
+  },
+  GRONG_SPIRIT_DISPERSION: {
+    id: 286430,
+    name: "Spirit Dispersion",
+    icon: "ability_warlock_haunt",
+  },
+  GRONG_NECROTIC_CORE: {
+    id: 286433,
+    name: "Necrotic Core",
+    icon: "spell_necro_necroticcore",
+  },
+  GRONG_DISCHARGE_NECROTIC_CORE: {
+    id: 286435,
+    name: "Discharge Necrotic Core",
+    icon: "spell_necro_dischargenecroticcore",
+  },
+  
+
+
+
+
+
+
+
 
 
 
