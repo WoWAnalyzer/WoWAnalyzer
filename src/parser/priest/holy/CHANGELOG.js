@@ -4,6 +4,11 @@ import { niseko, Yajinni, Khadaj } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-12-18'),
+    changes: 'Adding <SpellLink id={SPELLS.PROMISE_OF_DELIVERANCE.id}  /> and <SpellLink id={SPELLS.DEATH_DENIED.id}  />.',
+    contributors: [Khadaj],
+  },
+  {
     date: new Date('2018-11-05'),
     changes: 'Adding Renew suggestion.',
     contributors: [Khadaj],
