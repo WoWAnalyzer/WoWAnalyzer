@@ -6,11 +6,6 @@
 
 export default {
   // Disc
-  GIFT_OF_FORGIVENESS: {
-    id: 277680,
-    name: 'Gift of the Forgiveness',
-    icon: 'spell_holy_holysmite',
-  },
   // Holy
   BLESSED_SANCTUARY: {
     id: 273313,
@@ -36,11 +31,6 @@ export default {
     id: 275602,
     name: 'Prayerful Litany',
     icon: 'spell_holy_prayerofhealing02',
-  },
-  SACRED_FLAME: {
-    id: 278655,
-    name: 'Sacred Flame',
-    icon: 'spell_holy_searinglight',
   },
   WORD_OF_MENDING: {
     id: 278645,

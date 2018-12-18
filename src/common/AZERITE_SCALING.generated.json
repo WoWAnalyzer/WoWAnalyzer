@@ -7,7 +7,7 @@
     "scaling_type": -8,
     "effects": {
       "707038": {
-        "type": 4,
+        "type": 285,
         "avg": 82.454002
       }
     }
@@ -33,7 +33,7 @@
     "scaling_type": -7,
     "effects": {
       "707066": {
-        "type": 4,
+        "type": 285,
         "avg": 0.735425
       }
     }
@@ -47,7 +47,7 @@
     "scaling_type": -8,
     "effects": {
       "707069": {
-        "type": 4,
+        "type": 285,
         "avg": 28.343559
       },
       "713642": {
@@ -95,7 +95,7 @@
     "scaling_type": -7,
     "effects": {
       "711012": {
-        "type": 4,
+        "type": 285,
         "avg": 0.069642
       }
     }
@@ -109,7 +109,7 @@
     "scaling_type": -8,
     "effects": {
       "713207": {
-        "type": 4,
+        "type": 285,
         "avg": 13.496933
       },
       "739251": {
@@ -127,7 +127,7 @@
     "scaling_type": -8,
     "effects": {
       "713208": {
-        "type": 4,
+        "type": 285,
         "avg": 14.3
       },
       "720336": {
@@ -162,7 +162,7 @@
     "scaling_type": -7,
     "effects": {
       "714511": {
-        "type": 4,
+        "type": 285,
         "avg": 0.111428
       }
     }
@@ -175,7 +175,7 @@
     "scaling_type": -8,
     "effects": {
       "714531": {
-        "type": 4,
+        "type": 285,
         "avg": 50
       }
     }
@@ -206,7 +206,7 @@
     "scaling_type": -7,
     "effects": {
       "714792": {
-        "type": 4,
+        "type": 285,
         "avg": 1.894276
       }
     }
@@ -219,7 +219,7 @@
     "scaling_type": -8,
     "effects": {
       "714798": {
-        "type": 4,
+        "type": 285,
         "avg": 0.3
       }
     }
@@ -233,7 +233,7 @@
     "scaling_type": -8,
     "effects": {
       "714801": {
-        "type": 4,
+        "type": 285,
         "avg": 30
       },
       "720348": {
@@ -250,7 +250,7 @@
     "scaling_type": -8,
     "effects": {
       "714803": {
-        "type": 4,
+        "type": 285,
         "avg": 16.503067
       }
     }
@@ -263,8 +263,8 @@
     "scaling_type": -7,
     "effects": {
       "714807": {
-        "type": 4,
-        "avg": 0.051257
+        "type": 285,
+        "avg": 22
       }
     }
   },
@@ -277,7 +277,7 @@
     "scaling_type": -1,
     "effects": {
       "714812": {
-        "type": 4,
+        "type": 285,
         "avg": 11
       },
       "737331": {
@@ -320,7 +320,7 @@
     "scaling_type": -8,
     "effects": {
       "715939": {
-        "type": 4,
+        "type": 285,
         "avg": 28.8589
       }
     }
@@ -352,7 +352,7 @@
     "scaling_type": -8,
     "effects": {
       "716159": {
-        "type": 4,
+        "type": 285,
         "avg": 90
       },
       "720319": {
@@ -375,7 +375,7 @@
         "avg": 0.389313
       },
       "716161": {
-        "type": 4,
+        "type": 285,
         "avg": 0.389313
       },
       "720325": {
@@ -393,7 +393,7 @@
     "scaling_type": -1,
     "effects": {
       "716165": {
-        "type": 4,
+        "type": 285,
         "avg": 10.177098
       },
       "720314": {
@@ -411,7 +411,7 @@
     "scaling_type": -8,
     "effects": {
       "716167": {
-        "type": 4,
+        "type": 285,
         "avg": 7.695707
       },
       "716168": {
@@ -420,29 +420,21 @@
       }
     }
   },
-  "269621": {
-    "name": "Invigorating Brew",
-    "effect_list": [
-      718012
-    ],
-    "scaling_type": -8,
-    "effects": {
-      "718012": {
-        "type": 4,
-        "avg": 12.269938
-      }
-    }
-  },
   "270669": {
     "name": "Arcane Pummeling",
     "effect_list": [
-      720338
+      720338,
+      748104
     ],
     "scaling_type": -1,
     "effects": {
       "720338": {
+        "type": 285,
+        "avg": 0.39084
+      },
+      "748104": {
         "type": 4,
-        "avg": 0.312977
+        "avg": 0
       }
     }
   },
@@ -456,7 +448,7 @@
     "scaling_type": -1,
     "effects": {
       "721833": {
-        "type": 4,
+        "type": 285,
         "avg": 0.229008
       },
       "721834": {
@@ -477,7 +469,7 @@
     "scaling_type": -1,
     "effects": {
       "721842": {
-        "type": 4,
+        "type": 285,
         "avg": 2
       }
     }
@@ -490,7 +482,7 @@
     "scaling_type": -8,
     "effects": {
       "721853": {
-        "type": 4,
+        "type": 285,
         "avg": 56.791409
       }
     }
@@ -504,7 +496,7 @@
     "scaling_type": -1,
     "effects": {
       "721867": {
-        "type": 4,
+        "type": 285,
         "avg": 24.734451
       },
       "721868": {
@@ -558,25 +550,12 @@
     "scaling_type": -1,
     "effects": {
       "723791": {
-        "type": 4,
+        "type": 285,
         "avg": 1.29771
       },
       "723792": {
         "type": 0,
         "avg": 0
-      }
-    }
-  },
-  "272738": {
-    "name": "Festering Doom",
-    "effect_list": [
-      723827
-    ],
-    "scaling_type": -8,
-    "effects": {
-      "723827": {
-        "type": 4,
-        "avg": 14.202455
       }
     }
   },
@@ -588,7 +567,7 @@
     "scaling_type": -8,
     "effects": {
       "723832": {
-        "type": 4,
+        "type": 285,
         "avg": 4.049079
       }
     }
@@ -614,7 +593,7 @@
     "scaling_type": -8,
     "effects": {
       "723891": {
-        "type": 4,
+        "type": 285,
         "avg": 8.466258
       }
     }
@@ -641,7 +620,7 @@
     "scaling_type": -8,
     "effects": {
       "723910": {
-        "type": 4,
+        "type": 285,
         "avg": 0
       },
       "723911": {
@@ -650,78 +629,26 @@
       }
     }
   },
-  "272802": {
-    "name": "Fungal Essence",
-    "effect_list": [
-      723924
-    ],
-    "scaling_type": -8,
-    "effects": {
-      "723924": {
-        "type": 4,
-        "avg": 66.239265
-      }
-    }
-  },
-  "272804": {
-    "name": "Iron Fists",
-    "effect_list": [
-      723926,
-      723927
-    ],
-    "scaling_type": -7,
-    "effects": {
-      "723926": {
-        "type": 4,
-        "avg": 2.381773
-      },
-      "723927": {
-        "type": 0,
-        "avg": 0
-      }
-    }
-  },
   "272824": {
     "name": "Deafening Crash",
     "effect_list": [
       723960,
-      723961
+      723961,
+      752814
     ],
     "scaling_type": -8,
     "effects": {
       "723960": {
-        "type": 4,
+        "type": 285,
         "avg": 0
       },
       "723961": {
         "type": 107,
         "avg": 2.300614
-      }
-    }
-  },
-  "272836": {
-    "name": "Trample the Weak",
-    "effect_list": [
-      723998
-    ],
-    "scaling_type": -1,
-    "effects": {
-      "723998": {
-        "type": 4,
-        "avg": 0.334351
-      }
-    }
-  },
-  "272866": {
-    "name": "Executioner's Precision",
-    "effect_list": [
-      724045
-    ],
-    "scaling_type": -8,
-    "effects": {
-      "724045": {
-        "type": 4,
-        "avg": 33.779999
+      },
+      "752814": {
+        "type": 0,
+        "avg": 0
       }
     }
   },
@@ -733,7 +660,7 @@
     "scaling_type": -8,
     "effects": {
       "724053": {
-        "type": 4,
+        "type": 285,
         "avg": 14.220859
       }
     }
@@ -746,7 +673,7 @@
     "scaling_type": -1,
     "effects": {
       "724083": {
-        "type": 4,
+        "type": 285,
         "avg": 1.109924
       }
     }
@@ -759,21 +686,8 @@
     "scaling_type": -7,
     "effects": {
       "724096": {
-        "type": 4,
+        "type": 285,
         "avg": 1.782848
-      }
-    }
-  },
-  "272911": {
-    "name": "Sharpened Blades",
-    "effect_list": [
-      724115
-    ],
-    "scaling_type": -8,
-    "effects": {
-      "724115": {
-        "type": 4,
-        "avg": 3.233129
       }
     }
   },
@@ -785,7 +699,7 @@
     "scaling_type": -7,
     "effects": {
       "724148": {
-        "type": 4,
+        "type": 285,
         "avg": 0.824567
       }
     }
@@ -798,7 +712,7 @@
     "scaling_type": -8,
     "effects": {
       "724153": {
-        "type": 4,
+        "type": 285,
         "avg": 18.558283
       }
     }
@@ -816,19 +730,6 @@
       }
     }
   },
-  "272955": {
-    "name": "Accelerant",
-    "effect_list": [
-      724206
-    ],
-    "scaling_type": -7,
-    "effects": {
-      "724206": {
-        "type": 4,
-        "avg": 0.95
-      }
-    }
-  },
   "272968": {
     "name": "Packed Ice",
     "effect_list": [
@@ -837,7 +738,7 @@
     "scaling_type": -8,
     "effects": {
       "724230": {
-        "type": 4,
+        "type": 285,
         "avg": 6.22
       }
     }
@@ -850,7 +751,7 @@
     "scaling_type": -8,
     "effects": {
       "724241": {
-        "type": 4,
+        "type": 285,
         "avg": 60
       }
     }
@@ -863,7 +764,7 @@
     "scaling_type": -1,
     "effects": {
       "724250": {
-        "type": 4,
+        "type": 285,
         "avg": 73.170731
       }
     }
@@ -889,8 +790,8 @@
     "scaling_type": -8,
     "effects": {
       "724260": {
-        "type": 4,
-        "avg": 4.294478
+        "type": 285,
+        "avg": 2.576687
       }
     }
   },
@@ -904,19 +805,6 @@
       "724288": {
         "type": 4,
         "avg": 7.312883
-      }
-    }
-  },
-  "273027": {
-    "name": "Martyr's Breath",
-    "effect_list": [
-      724321
-    ],
-    "scaling_type": -8,
-    "effects": {
-      "724321": {
-        "type": 4,
-        "avg": 16.564417
       }
     }
   },
@@ -953,19 +841,6 @@
       "724424": {
         "type": 0,
         "avg": 0
-      }
-    }
-  },
-  "273095": {
-    "name": "Horrid Experimentation",
-    "effect_list": [
-      724426
-    ],
-    "scaling_type": -1,
-    "effects": {
-      "724426": {
-        "type": 4,
-        "avg": 10.317557
       }
     }
   },
@@ -1008,19 +883,6 @@
       }
     }
   },
-  "273136": {
-    "name": "Critical Flash",
-    "effect_list": [
-      724540
-    ],
-    "scaling_type": -1,
-    "effects": {
-      "724540": {
-        "type": 4,
-        "avg": 1
-      }
-    }
-  },
   "273140": {
     "name": "Righteous Flames",
     "effect_list": [
@@ -1057,19 +919,6 @@
       }
     }
   },
-  "273147": {
-    "name": "Deferred Sentence",
-    "effect_list": [
-      724554
-    ],
-    "scaling_type": -1,
-    "effects": {
-      "724554": {
-        "type": 4,
-        "avg": 1
-      }
-    }
-  },
   "273150": {
     "name": "Ruinous Bolt",
     "effect_list": [
@@ -1078,7 +927,7 @@
     "scaling_type": -8,
     "effects": {
       "724558": {
-        "type": 4,
+        "type": 285,
         "avg": 11.368097
       }
     }
@@ -1105,7 +954,7 @@
     "scaling_type": -1,
     "effects": {
       "724697": {
-        "type": 4,
+        "type": 285,
         "avg": 0.54
       },
       "724698": {
@@ -1122,21 +971,8 @@
     "scaling_type": -1,
     "effects": {
       "724751": {
-        "type": 4,
+        "type": 285,
         "avg": 1.328244
-      }
-    }
-  },
-  "273265": {
-    "name": "Arcane Flurry",
-    "effect_list": [
-      724756
-    ],
-    "scaling_type": -8,
-    "effects": {
-      "724756": {
-        "type": 4,
-        "avg": 1.772
       }
     }
   },
@@ -1148,7 +984,7 @@
     "scaling_type": -8,
     "effects": {
       "724785": {
-        "type": 4,
+        "type": 285,
         "avg": 6.441718
       }
     }
@@ -1161,7 +997,7 @@
     "scaling_type": -8,
     "effects": {
       "724795": {
-        "type": 4,
+        "type": 285,
         "avg": 3.380368
       }
     }
@@ -1175,7 +1011,7 @@
     "scaling_type": -8,
     "effects": {
       "724827": {
-        "type": 4,
+        "type": 285,
         "avg": 4.907975
       },
       "724828": {
@@ -1197,19 +1033,6 @@
       }
     }
   },
-  "273319": {
-    "name": "Thought Harvester",
-    "effect_list": [
-      724849
-    ],
-    "scaling_type": -8,
-    "effects": {
-      "724849": {
-        "type": 4,
-        "avg": 34.785278
-      }
-    }
-  },
   "273326": {
     "name": "Brain Storm",
     "effect_list": [
@@ -1218,7 +1041,7 @@
     "scaling_type": -1,
     "effects": {
       "724859": {
-        "type": 4,
+        "type": 285,
         "avg": 0.117557
       }
     }
@@ -1231,34 +1054,36 @@
     "scaling_type": -8,
     "effects": {
       "724861": {
-        "type": 4,
+        "type": 285,
         "avg": 4.907976
       }
     }
   },
-  "273331": {
-    "name": "Preheat",
-    "effect_list": [
-      724865
-    ],
-    "scaling_type": -8,
-    "effects": {
-      "724865": {
-        "type": 4,
-        "avg": 7.607362
-      }
-    }
-  },
   "273338": {
-    "name": "Raking Ferocity",
+    "name": "Untamed Ferocity",
     "effect_list": [
-      724873
+      724873,
+      753655,
+      753656,
+      753659
     ],
     "scaling_type": -8,
     "effects": {
       "724873": {
+        "type": 285,
+        "avg": 0
+      },
+      "753655": {
+        "type": 107,
+        "avg": 1.840491
+      },
+      "753656": {
         "type": 4,
-        "avg": 13.128834
+        "avg": 0
+      },
+      "753659": {
+        "type": 4,
+        "avg": 0
       }
     }
   },
@@ -1280,24 +1105,6 @@
       }
     }
   },
-  "273346": {
-    "name": "Winter's Reach",
-    "effect_list": [
-      724886,
-      724889
-    ],
-    "scaling_type": -8,
-    "effects": {
-      "724886": {
-        "type": 4,
-        "avg": 41.276073
-      },
-      "724889": {
-        "type": 0,
-        "avg": 0
-      }
-    }
-  },
   "273367": {
     "name": "Power of the Moon",
     "effect_list": [
@@ -1307,12 +1114,12 @@
     "scaling_type": -8,
     "effects": {
       "724916": {
-        "type": 4,
+        "type": 285,
         "avg": 0
       },
       "736537": {
         "type": 107,
-        "avg": 7
+        "avg": 1.042945
       }
     }
   },
@@ -1325,12 +1132,12 @@
     "scaling_type": -1,
     "effects": {
       "725007": {
-        "type": 4,
-        "avg": 0.446452
+        "type": 285,
+        "avg": 0.335878
       },
       "725008": {
-        "type": 189,
-        "avg": 0.2
+        "type": 4,
+        "avg": 0
       }
     }
   },
@@ -1342,21 +1149,8 @@
     "scaling_type": -8,
     "effects": {
       "725028": {
-        "type": 4,
+        "type": 285,
         "avg": 2.503068
-      }
-    }
-  },
-  "273420": {
-    "name": "Bloodcraze",
-    "effect_list": [
-      725030
-    ],
-    "scaling_type": -7,
-    "effects": {
-      "725030": {
-        "type": 4,
-        "avg": 1.2
       }
     }
   },
@@ -1368,21 +1162,8 @@
     "scaling_type": -8,
     "effects": {
       "725090": {
-        "type": 4,
+        "type": 285,
         "avg": 2.453988
-      }
-    }
-  },
-  "273452": {
-    "name": "Storm of Steel",
-    "effect_list": [
-      725095
-    ],
-    "scaling_type": -8,
-    "effects": {
-      "725095": {
-        "type": 4,
-        "avg": 3.638037
       }
     }
   },
@@ -1394,8 +1175,8 @@
     "scaling_type": -8,
     "effects": {
       "725109": {
-        "type": 4,
-        "avg": 18.6
+        "type": 285,
+        "avg": 11.15951
       }
     }
   },
@@ -1407,7 +1188,7 @@
     "scaling_type": -8,
     "effects": {
       "725112": {
-        "type": 4,
+        "type": 285,
         "avg": 18.404907
       }
     }
@@ -1420,7 +1201,7 @@
     "scaling_type": -8,
     "effects": {
       "725126": {
-        "type": 4,
+        "type": 285,
         "avg": 17.638037
       }
     }
@@ -1464,8 +1245,8 @@
     "scaling_type": -8,
     "effects": {
       "725219": {
-        "type": 4,
-        "avg": 0.668712
+        "type": 285,
+        "avg": 0.834356
       }
     }
   },
@@ -1478,41 +1259,10 @@
     "scaling_type": -8,
     "effects": {
       "725221": {
-        "type": 4,
+        "type": 285,
         "avg": 15.61
       },
       "725222": {
-        "type": 0,
-        "avg": 0
-      }
-    }
-  },
-  "273553": {
-    "name": "Dauntless Divinity",
-    "effect_list": [
-      725290
-    ],
-    "scaling_type": -1,
-    "effects": {
-      "725290": {
-        "type": 4,
-        "avg": 9
-      }
-    }
-  },
-  "273597": {
-    "name": "Ebb and Flow",
-    "effect_list": [
-      725375,
-      725376
-    ],
-    "scaling_type": -8,
-    "effects": {
-      "725375": {
-        "type": 4,
-        "avg": 2.834356
-      },
-      "725376": {
         "type": 0,
         "avg": 0
       }
@@ -1529,7 +1279,7 @@
     "scaling_type": -7,
     "effects": {
       "725525": {
-        "type": 4,
+        "type": 285,
         "avg": 0
       },
       "725608": {
@@ -1555,7 +1305,7 @@
     "scaling_type": -8,
     "effects": {
       "725706": {
-        "type": 4,
+        "type": 285,
         "avg": 19.325155
       },
       "725707": {
@@ -1572,7 +1322,7 @@
     "scaling_type": -7,
     "effects": {
       "725757": {
-        "type": 4,
+        "type": 285,
         "avg": 3.342839
       }
     }
@@ -1586,7 +1336,7 @@
     "scaling_type": -1,
     "effects": {
       "725766": {
-        "type": 4,
+        "type": 285,
         "avg": 0.465649
       },
       "725767": {
@@ -1603,7 +1353,7 @@
     "scaling_type": -8,
     "effects": {
       "725772": {
-        "type": 4,
+        "type": 285,
         "avg": 8.699387
       }
     }
@@ -1618,24 +1368,6 @@
       "726166": {
         "type": 4,
         "avg": 0.44
-      }
-    }
-  },
-  "274070": {
-    "name": "Glacial Contagion",
-    "effect_list": [
-      726180,
-      726181
-    ],
-    "scaling_type": -8,
-    "effects": {
-      "726180": {
-        "type": 4,
-        "avg": 5.030674
-      },
-      "726181": {
-        "type": 0,
-        "avg": 1.674847
       }
     }
   },
@@ -1660,7 +1392,7 @@
     "scaling_type": -8,
     "effects": {
       "726617": {
-        "type": 4,
+        "type": 285,
         "avg": 19.239267
       }
     }
@@ -1673,7 +1405,7 @@
     "scaling_type": -8,
     "effects": {
       "726630": {
-        "type": 4,
+        "type": 285,
         "avg": 13.852272
       }
     }
@@ -1686,7 +1418,7 @@
     "scaling_type": -8,
     "effects": {
       "726642": {
-        "type": 4,
+        "type": 285,
         "avg": 103.892036
       }
     }
@@ -1712,21 +1444,8 @@
     "scaling_type": -8,
     "effects": {
       "726680": {
-        "type": 4,
+        "type": 285,
         "avg": 41.556816
-      }
-    }
-  },
-  "274397": {
-    "name": "Sunblaze",
-    "effect_list": [
-      726695
-    ],
-    "scaling_type": -8,
-    "effects": {
-      "726695": {
-        "type": 4,
-        "avg": 9.656442
       }
     }
   },
@@ -1738,7 +1457,7 @@
     "scaling_type": -8,
     "effects": {
       "726726": {
-        "type": 4,
+        "type": 285,
         "avg": 53.100376
       }
     }
@@ -1748,24 +1467,34 @@
     "effect_list": [
       726739
     ],
-    "scaling_type": -7,
+    "scaling_type": -1,
     "effects": {
       "726739": {
-        "type": 4,
-        "avg": 1.11428
+        "type": 285,
+        "avg": 1.14
       }
     }
   },
   "274424": {
-    "name": "Shredding Fury",
+    "name": "Jungle Fury",
     "effect_list": [
-      726746
+      726746,
+      753578,
+      753579
     ],
-    "scaling_type": -8,
+    "scaling_type": -7,
     "effects": {
       "726746": {
+        "type": 285,
+        "avg": 1.476421
+      },
+      "753578": {
         "type": 4,
-        "avg": 11.202454
+        "avg": 0
+      },
+      "753579": {
+        "type": 4,
+        "avg": 0
       }
     }
   },
@@ -1777,8 +1506,8 @@
     "scaling_type": -8,
     "effects": {
       "726761": {
-        "type": 4,
-        "avg": 1.533742
+        "type": 285,
+        "avg": 1.165644
       }
     }
   },
@@ -1790,7 +1519,7 @@
     "scaling_type": -1,
     "effects": {
       "726776": {
-        "type": 4,
+        "type": 285,
         "avg": 1.053435
       }
     }
@@ -1803,8 +1532,8 @@
     "scaling_type": -7,
     "effects": {
       "726781": {
-        "type": 4,
-        "avg": 0.891424
+        "type": 285,
+        "avg": 0.598925
       }
     }
   },
@@ -1831,7 +1560,7 @@
     "effects": {
       "727008": {
         "type": 4,
-        "avg": 14.785275
+        "avg": 14.779141
       },
       "727009": {
         "type": 0,
@@ -1847,8 +1576,8 @@
     "scaling_type": -7,
     "effects": {
       "727013": {
-        "type": 4,
-        "avg": 1.337136
+        "type": 285,
+        "avg": 0.802281
       }
     }
   },
@@ -1861,7 +1590,7 @@
     "scaling_type": -7,
     "effects": {
       "727160": {
-        "type": 4,
+        "type": 285,
         "avg": 1.604145
       },
       "727161": {
@@ -1878,7 +1607,7 @@
     "scaling_type": -8,
     "effects": {
       "727285": {
-        "type": 4,
+        "type": 285,
         "avg": 10.620075
       }
     }
@@ -1892,20 +1621,7 @@
     "effects": {
       "727372": {
         "type": 4,
-        "avg": 207.784073
-      }
-    }
-  },
-  "275144": {
-    "name": "Unbound Chaos",
-    "effect_list": [
-      727995
-    ],
-    "scaling_type": -8,
-    "effects": {
-      "727995": {
-        "type": 4,
-        "avg": 12.398773
+        "avg": 415
       }
     }
   },
@@ -1930,7 +1646,7 @@
     "scaling_type": -7,
     "effects": {
       "728372": {
-        "type": 4,
+        "type": 285,
         "avg": 0.891424
       }
     }
@@ -1956,8 +1672,8 @@
     "scaling_type": -8,
     "effects": {
       "728400": {
-        "type": 4,
-        "avg": 4.417178
+        "type": 285,
+        "avg": 2.650307
       }
     }
   },
@@ -1990,13 +1706,23 @@
   "275463": {
     "name": "Divine Revelations",
     "effect_list": [
-      728510
+      728510,
+      750486,
+      757266
     ],
-    "scaling_type": -7,
+    "scaling_type": -1,
     "effects": {
       "728510": {
-        "type": 4,
+        "type": 189,
         "avg": 1.39285
+      },
+      "750486": {
+        "type": 107,
+        "avg": 2.748091
+      },
+      "757266": {
+        "type": 285,
+        "avg": 0
       }
     }
   },
@@ -2027,7 +1753,7 @@
     "effects": {
       "728551": {
         "type": 4,
-        "avg": 9.09816
+        "avg": 4.257668
       }
     }
   },
@@ -2053,7 +1779,7 @@
     "scaling_type": -1,
     "effects": {
       "728612": {
-        "type": 4,
+        "type": 285,
         "avg": 0.09473
       },
       "728613": {
@@ -2070,8 +1796,8 @@
     "scaling_type": -8,
     "effects": {
       "728629": {
-        "type": 4,
-        "avg": 0.662577
+        "type": 285,
+        "avg": 1.325153
       }
     }
   },
@@ -2096,7 +1822,7 @@
     "scaling_type": -8,
     "effects": {
       "728800": {
-        "type": 4,
+        "type": 285,
         "avg": 2.07362
       }
     }
@@ -2104,13 +1830,18 @@
   "275722": {
     "name": "Whispers of the Damned",
     "effect_list": [
-      728943
+      728943,
+      751888
     ],
     "scaling_type": -8,
     "effects": {
       "728943": {
-        "type": 4,
-        "avg": 4.828221
+        "type": 285,
+        "avg": 0
+      },
+      "751888": {
+        "type": 107,
+        "avg": 11.411043
       }
     }
   },
@@ -2122,21 +1853,8 @@
     "scaling_type": -8,
     "effects": {
       "729163": {
-        "type": 4,
-        "avg": 2.319018
-      }
-    }
-  },
-  "275860": {
-    "name": "Reinforced Plating",
-    "effect_list": [
-      729190
-    ],
-    "scaling_type": -1,
-    "effects": {
-      "729190": {
-        "type": 4,
-        "avg": 0.111789
+        "type": 285,
+        "avg": 1.159509
       }
     }
   },
@@ -2161,8 +1879,8 @@
     "scaling_type": -8,
     "effects": {
       "729242": {
-        "type": 4,
-        "avg": 0.662
+        "type": 285,
+        "avg": 0.4
       }
     }
   },
@@ -2174,7 +1892,7 @@
     "scaling_type": -1,
     "effects": {
       "729255": {
-        "type": 4,
+        "type": 285,
         "avg": 0.163551
       }
     }
@@ -2192,19 +1910,6 @@
       }
     }
   },
-  "275924": {
-    "name": "Embrace of the Darkfallen",
-    "effect_list": [
-      729279
-    ],
-    "scaling_type": -7,
-    "effects": {
-      "729279": {
-        "type": 4,
-        "avg": 1.089209
-      }
-    }
-  },
   "275929": {
     "name": "Harrowing Decay",
     "effect_list": [
@@ -2213,7 +1918,7 @@
     "scaling_type": -8,
     "effects": {
       "729285": {
-        "type": 4,
+        "type": 285,
         "avg": 1.871166
       }
     }
@@ -2226,39 +1931,8 @@
     "scaling_type": -1,
     "effects": {
       "729292": {
-        "type": 4,
+        "type": 285,
         "avg": 0.134351
-      }
-    }
-  },
-  "275968": {
-    "name": "Gaping Maw",
-    "effect_list": [
-      729328,
-      729330
-    ],
-    "scaling_type": -8,
-    "effects": {
-      "729328": {
-        "type": 4,
-        "avg": 33.128834
-      },
-      "729330": {
-        "type": 0,
-        "avg": 0
-      }
-    }
-  },
-  "275974": {
-    "name": "Deathbloom",
-    "effect_list": [
-      729338
-    ],
-    "scaling_type": -8,
-    "effects": {
-      "729338": {
-        "type": 4,
-        "avg": 3.680982
       }
     }
   },
@@ -2270,21 +1944,8 @@
     "scaling_type": -7,
     "effects": {
       "729339": {
-        "type": 4,
+        "type": 285,
         "avg": 1.894276
-      }
-    }
-  },
-  "276007": {
-    "name": "Excoriate",
-    "effect_list": [
-      729381
-    ],
-    "scaling_type": -8,
-    "effects": {
-      "729381": {
-        "type": 4,
-        "avg": 8.055215
       }
     }
   },
@@ -2298,24 +1959,11 @@
     "effects": {
       "729398": {
         "type": 4,
-        "avg": 34.785275
+        "avg": 18.607363
       },
       "729399": {
         "type": 0,
         "avg": 0
-      }
-    }
-  },
-  "276072": {
-    "name": "Poisoned Wire",
-    "effect_list": [
-      729498
-    ],
-    "scaling_type": -7,
-    "effects": {
-      "729498": {
-        "type": 4,
-        "avg": 6
       }
     }
   },
@@ -2327,21 +1975,8 @@
     "scaling_type": -8,
     "effects": {
       "730125": {
-        "type": 4,
+        "type": 285,
         "avg": 5.626
-      }
-    }
-  },
-  "276155": {
-    "name": "Craggy Bark",
-    "effect_list": [
-      730129
-    ],
-    "scaling_type": -8,
-    "effects": {
-      "730129": {
-        "type": 4,
-        "avg": -4.601227
       }
     }
   },
@@ -2354,7 +1989,7 @@
     "scaling_type": -1,
     "effects": {
       "732928": {
-        "type": 4,
+        "type": 285,
         "avg": 0.534351
       },
       "735136": {
@@ -2371,7 +2006,7 @@
     "scaling_type": -7,
     "effects": {
       "732930": {
-        "type": 4,
+        "type": 285,
         "avg": 0.782782
       }
     }
@@ -2385,7 +2020,7 @@
     "scaling_type": -8,
     "effects": {
       "732931": {
-        "type": 4,
+        "type": 285,
         "avg": 9.521472
       },
       "732932": {
@@ -2403,7 +2038,7 @@
     "scaling_type": -8,
     "effects": {
       "732939": {
-        "type": 4,
+        "type": 285,
         "avg": 15.22
       },
       "732940": {
@@ -2420,7 +2055,7 @@
     "scaling_type": -8,
     "effects": {
       "732950": {
-        "type": 4,
+        "type": 285,
         "avg": 7.361963
       }
     }
@@ -2434,7 +2069,7 @@
     "scaling_type": -1,
     "effects": {
       "732952": {
-        "type": 4,
+        "type": 285,
         "avg": 0.30229
       },
       "733430": {
@@ -2460,21 +2095,16 @@
     "name": "Overflowing Shores",
     "effect_list": [
       732958,
-      732959,
-      733622
+      732959
     ],
     "scaling_type": -8,
     "effects": {
       "732958": {
-        "type": 4,
+        "type": 285,
         "avg": 7.97546
       },
       "732959": {
-        "type": 108,
-        "avg": 0
-      },
-      "733622": {
-        "type": 108,
+        "type": 0,
         "avg": 0
       }
     }
@@ -2487,34 +2117,31 @@
     "scaling_type": -8,
     "effects": {
       "732964": {
-        "type": 4,
+        "type": 285,
         "avg": 2.325153
-      }
-    }
-  },
-  "277665": {
-    "name": "Niuzao's Blessing",
-    "effect_list": [
-      732966
-    ],
-    "scaling_type": -8,
-    "effects": {
-      "732966": {
-        "type": 4,
-        "avg": 6
       }
     }
   },
   "277666": {
     "name": "Ancestral Resonance",
     "effect_list": [
-      732968
+      732968,
+      754433,
+      756142
     ],
     "scaling_type": -7,
     "effects": {
       "732968": {
-        "type": 4,
-        "avg": 0.233999
+        "type": 285,
+        "avg": 1.39285
+      },
+      "754433": {
+        "type": 0,
+        "avg": 0
+      },
+      "756142": {
+        "type": 285,
+        "avg": 0
       }
     }
   },
@@ -2526,21 +2153,8 @@
     "scaling_type": -8,
     "effects": {
       "732969": {
-        "type": 4,
+        "type": 285,
         "avg": 154.601227
-      }
-    }
-  },
-  "277669": {
-    "name": "Swift Roundhouse",
-    "effect_list": [
-      732971
-    ],
-    "scaling_type": -8,
-    "effects": {
-      "732971": {
-        "type": 4,
-        "avg": 5.134969
       }
     }
   },
@@ -2552,7 +2166,7 @@
     "scaling_type": -1,
     "effects": {
       "732979": {
-        "type": 4,
+        "type": 285,
         "avg": 0.066519
       }
     }
@@ -2561,15 +2175,15 @@
     "name": "Perforate",
     "effect_list": [
       732982,
-      732983
+      752549
     ],
     "scaling_type": -8,
     "effects": {
       "732982": {
-        "type": 4,
-        "avg": 1.515337
+        "type": 285,
+        "avg": 1.515
       },
-      "732983": {
+      "752549": {
         "type": 4,
         "avg": 0
       }
@@ -2584,11 +2198,11 @@
     "scaling_type": -8,
     "effects": {
       "732984": {
-        "type": 4,
+        "type": 285,
         "avg": 3.214724
       },
       "733671": {
-        "type": 4,
+        "type": 285,
         "avg": 5.055215
       }
     }
@@ -2601,7 +2215,7 @@
     "scaling_type": -8,
     "effects": {
       "732985": {
-        "type": 4,
+        "type": 285,
         "avg": 13.496933
       }
     }
@@ -2614,26 +2228,8 @@
     "scaling_type": -7,
     "effects": {
       "732986": {
-        "type": 4,
+        "type": 285,
         "avg": 0.372
-      }
-    }
-  },
-  "277678": {
-    "name": "Divine Right",
-    "effect_list": [
-      732989,
-      734266
-    ],
-    "scaling_type": -1,
-    "effects": {
-      "732989": {
-        "type": 4,
-        "avg": 1.480916
-      },
-      "734266": {
-        "type": 0,
-        "avg": 0
       }
     }
   },
@@ -2647,24 +2243,6 @@
       "732991": {
         "type": 4,
         "avg": 0.216794
-      }
-    }
-  },
-  "277680": {
-    "name": "Gift of Forgiveness",
-    "effect_list": [
-      732992,
-      734277
-    ],
-    "scaling_type": -8,
-    "effects": {
-      "732992": {
-        "type": 4,
-        "avg": 2.509202
-      },
-      "734277": {
-        "type": 0,
-        "avg": 0
       }
     }
   },
@@ -2704,7 +2282,7 @@
     "scaling_type": -1,
     "effects": {
       "734194": {
-        "type": 4,
+        "type": 285,
         "avg": 1.25
       },
       "734195": {
@@ -2726,7 +2304,7 @@
     "scaling_type": -8,
     "effects": {
       "734196": {
-        "type": 4,
+        "type": 285,
         "avg": 2.312883
       },
       "734501": {
@@ -2762,7 +2340,7 @@
     "scaling_type": -1,
     "effects": {
       "734204": {
-        "type": 4,
+        "type": 285,
         "avg": 0.42
       },
       "734205": {
@@ -2821,7 +2399,7 @@
     "scaling_type": -8,
     "effects": {
       "734217": {
-        "type": 4,
+        "type": 285,
         "avg": 0.9386
       },
       "734218": {
@@ -2839,7 +2417,7 @@
     "scaling_type": -1,
     "effects": {
       "734233": {
-        "type": 4,
+        "type": 285,
         "avg": 0
       },
       "734234": {
@@ -2857,7 +2435,7 @@
     "scaling_type": -8,
     "effects": {
       "734236": {
-        "type": 4,
+        "type": 285,
         "avg": 10.429448
       },
       "734237": {
@@ -2875,7 +2453,7 @@
     "scaling_type": -8,
     "effects": {
       "734239": {
-        "type": 4,
+        "type": 285,
         "avg": 0.77
       },
       "734240": {
@@ -2893,12 +2471,12 @@
     "scaling_type": -8,
     "effects": {
       "734244": {
-        "type": 0,
+        "type": 285,
         "avg": 0
       },
       "734245": {
         "type": 107,
-        "avg": 7
+        "avg": 1.196319
       }
     }
   },
@@ -2924,12 +2502,12 @@
     "scaling_type": -8,
     "effects": {
       "734251": {
-        "type": 4,
+        "type": 285,
         "avg": 0
       },
       "734252": {
         "type": 107,
-        "avg": 0.134969
+        "avg": 0.889571
       }
     }
   },
@@ -2937,15 +2515,20 @@
     "name": "Gory Regeneration",
     "effect_list": [
       734253,
-      734254
+      734254,
+      752811
     ],
     "scaling_type": -8,
     "effects": {
       "734253": {
-        "type": 4,
+        "type": 285,
         "avg": 13.404907
       },
       "734254": {
+        "type": 0,
+        "avg": 0
+      },
+      "752811": {
         "type": 0,
         "avg": 0
       }
@@ -2960,7 +2543,7 @@
     "scaling_type": -1,
     "effects": {
       "734255": {
-        "type": 4,
+        "type": 285,
         "avg": 0
       },
       "734256": {
@@ -2978,7 +2561,7 @@
     "scaling_type": -8,
     "effects": {
       "734259": {
-        "type": 4,
+        "type": 285,
         "avg": 2.3
       },
       "734260": {
@@ -3000,19 +2583,6 @@
       }
     }
   },
-  "278528": {
-    "name": "Pack Alpha",
-    "effect_list": [
-      734282
-    ],
-    "scaling_type": -8,
-    "effects": {
-      "734282": {
-        "type": 4,
-        "avg": 4.171779
-      }
-    }
-  },
   "278529": {
     "name": "Feeding Frenzy",
     "effect_list": [
@@ -3022,7 +2592,7 @@
     "scaling_type": -1,
     "effects": {
       "734283": {
-        "type": 4,
+        "type": 285,
         "avg": 0
       },
       "734284": {
@@ -3063,7 +2633,7 @@
     "scaling_type": -8,
     "effects": {
       "734288": {
-        "type": 4,
+        "type": 285,
         "avg": 0
       },
       "734289": {
@@ -3082,7 +2652,7 @@
     "scaling_type": -8,
     "effects": {
       "734291": {
-        "type": 4,
+        "type": 285,
         "avg": 0
       },
       "734292": {
@@ -3095,24 +2665,6 @@
       }
     }
   },
-  "278533": {
-    "name": "Up Close And Personal",
-    "effect_list": [
-      734294,
-      734295
-    ],
-    "scaling_type": -8,
-    "effects": {
-      "734294": {
-        "type": 4,
-        "avg": 23.8773
-      },
-      "734295": {
-        "type": 0,
-        "avg": 0
-      }
-    }
-  },
   "278536": {
     "name": "Galvanizing Spark",
     "effect_list": [
@@ -3122,7 +2674,7 @@
     "scaling_type": -8,
     "effects": {
       "734300": {
-        "type": 4,
+        "type": 285,
         "avg": 0
       },
       "734301": {
@@ -3168,7 +2720,7 @@
     "scaling_type": -8,
     "effects": {
       "734306": {
-        "type": 4,
+        "type": 285,
         "avg": 0
       },
       "734307": {
@@ -3226,7 +2778,7 @@
     "scaling_type": -1,
     "effects": {
       "734313": {
-        "type": 4,
+        "type": 285,
         "avg": 1.603053
       }
     }
@@ -3264,7 +2816,7 @@
     "scaling_type": -8,
     "effects": {
       "734370": {
-        "type": 4,
+        "type": 285,
         "avg": 0
       },
       "734371": {
@@ -3287,7 +2839,7 @@
     "scaling_type": -8,
     "effects": {
       "734378": {
-        "type": 4,
+        "type": 285,
         "avg": 0
       },
       "734379": {
@@ -3309,28 +2861,10 @@
     "scaling_type": -8,
     "effects": {
       "734381": {
-        "type": 4,
+        "type": 285,
         "avg": 9.938649
       },
       "734382": {
-        "type": 0,
-        "avg": 0
-      }
-    }
-  },
-  "278580": {
-    "name": "Meridian Strikes",
-    "effect_list": [
-      734386,
-      734387
-    ],
-    "scaling_type": -8,
-    "effects": {
-      "734386": {
-        "type": 107,
-        "avg": 160.80368
-      },
-      "734387": {
         "type": 0,
         "avg": 0
       }
@@ -3340,15 +2874,20 @@
     "name": "Grace of the Justicar",
     "effect_list": [
       734416,
-      734421
+      734421,
+      750475
     ],
     "scaling_type": -8,
     "effects": {
       "734416": {
-        "type": 4,
+        "type": 285,
         "avg": 5.02454
       },
       "734421": {
+        "type": 0,
+        "avg": 0
+      },
+      "750475": {
         "type": 0,
         "avg": 0
       }
@@ -3364,7 +2903,7 @@
     "scaling_type": -8,
     "effects": {
       "734417": {
-        "type": 4,
+        "type": 285,
         "avg": 2.699387
       },
       "734418": {
@@ -3386,7 +2925,7 @@
     "scaling_type": -7,
     "effects": {
       "734432": {
-        "type": 4,
+        "type": 285,
         "avg": 0.250713
       },
       "734433": {
@@ -3404,25 +2943,12 @@
     "scaling_type": -1,
     "effects": {
       "734437": {
-        "type": 4,
+        "type": 285,
         "avg": 0.64
       },
       "734438": {
         "type": 0,
         "avg": 0
-      }
-    }
-  },
-  "278615": {
-    "name": "Zealotry",
-    "effect_list": [
-      734444
-    ],
-    "scaling_type": -8,
-    "effects": {
-      "734444": {
-        "type": 4,
-        "avg": 1.852761
       }
     }
   },
@@ -3435,7 +2961,7 @@
     "scaling_type": -7,
     "effects": {
       "734447": {
-        "type": 4,
+        "type": 285,
         "avg": 0.039
       },
       "734448": {
@@ -3453,12 +2979,12 @@
     "scaling_type": -8,
     "effects": {
       "734461": {
-        "type": 4,
+        "type": 285,
         "avg": 0
       },
       "734462": {
         "type": 107,
-        "avg": 1.631902
+        "avg": 1.8
       }
     }
   },
@@ -3471,7 +2997,7 @@
     "scaling_type": -8,
     "effects": {
       "734477": {
-        "type": 4,
+        "type": 285,
         "avg": 0
       },
       "734478": {
@@ -3495,24 +3021,6 @@
       "734481": {
         "type": 4,
         "avg": 0
-      }
-    }
-  },
-  "278655": {
-    "name": "Sacred Flame",
-    "effect_list": [
-      734493,
-      734494
-    ],
-    "scaling_type": -1,
-    "effects": {
-      "734493": {
-        "type": 107,
-        "avg": 1.608456
-      },
-      "734494": {
-        "type": 189,
-        "avg": 0.430534
       }
     }
   },
@@ -3543,30 +3051,7 @@
     "effects": {
       "734503": {
         "type": 4,
-        "avg": 0.139285
-      }
-    }
-  },
-  "278664": {
-    "name": "Fan of Blades",
-    "effect_list": [
-      734508,
-      734509,
-      734510
-    ],
-    "scaling_type": -8,
-    "effects": {
-      "734508": {
-        "type": 4,
-        "avg": 1.546012
-      },
-      "734509": {
-        "type": 0,
-        "avg": 0
-      },
-      "734510": {
-        "type": 0,
-        "avg": 0
+        "avg": 0.0836
       }
     }
   },
@@ -3611,7 +3096,7 @@
     "scaling_type": -8,
     "effects": {
       "734530": {
-        "type": 4,
+        "type": 285,
         "avg": 4.104294
       },
       "734531": {
@@ -3627,13 +3112,18 @@
   "278681": {
     "name": "The First Dance",
     "effect_list": [
-      734538
+      734538,
+      753883
     ],
     "scaling_type": -7,
     "effects": {
       "734538": {
         "type": 4,
-        "avg": 6.72
+        "avg": 3.119984
+      },
+      "753883": {
+        "type": 0,
+        "avg": 0
       }
     }
   },
@@ -3647,7 +3137,7 @@
     "scaling_type": -8,
     "effects": {
       "734545": {
-        "type": 4,
+        "type": 285,
         "avg": 0
       },
       "734546": {
@@ -3670,7 +3160,7 @@
     "scaling_type": -7,
     "effects": {
       "734562": {
-        "type": 4,
+        "type": 285,
         "avg": 0.343
       },
       "734563": {
@@ -3680,34 +3170,6 @@
       "734564": {
         "type": 0,
         "avg": 0.343
-      }
-    }
-  },
-  "278709": {
-    "name": "Rumbling Tremors",
-    "effect_list": [
-      734578,
-      734579,
-      734580,
-      739329
-    ],
-    "scaling_type": -8,
-    "effects": {
-      "734578": {
-        "type": 4,
-        "avg": 6.748466
-      },
-      "734579": {
-        "type": 0,
-        "avg": 0
-      },
-      "734580": {
-        "type": 0,
-        "avg": 7.97546
-      },
-      "739329": {
-        "type": 0,
-        "avg": 0
       }
     }
   },
@@ -3721,7 +3183,7 @@
     "scaling_type": -8,
     "effects": {
       "734587": {
-        "type": 4,
+        "type": 285,
         "avg": 50
       },
       "734588": {
@@ -3743,8 +3205,8 @@
     "scaling_type": -8,
     "effects": {
       "734592": {
-        "type": 4,
-        "avg": 39.263802
+        "type": 285,
+        "avg": 34
       },
       "734593": {
         "type": 0,
@@ -3762,8 +3224,8 @@
     "scaling_type": -8,
     "effects": {
       "734600": {
-        "type": 4,
-        "avg": 8.1
+        "type": 285,
+        "avg": 4.858896
       },
       "734601": {
         "type": 0,
@@ -3802,12 +3264,12 @@
     "scaling_type": -8,
     "effects": {
       "734619": {
-        "type": 4,
+        "type": 285,
         "avg": 0
       },
       "734620": {
         "type": 107,
-        "avg": 0.81
+        "avg": 1.05
       }
     }
   },
@@ -3826,19 +3288,6 @@
       "734637": {
         "type": 0,
         "avg": 0
-      }
-    }
-  },
-  "278738": {
-    "name": "Forbidden Knowledge",
-    "effect_list": [
-      734638
-    ],
-    "scaling_type": -8,
-    "effects": {
-      "734638": {
-        "type": 4,
-        "avg": 104.766869
       }
     }
   },
@@ -3864,7 +3313,7 @@
     "scaling_type": -8,
     "effects": {
       "734667": {
-        "type": 4,
+        "type": 285,
         "avg": 0
       },
       "734668": {
@@ -3882,8 +3331,8 @@
     "scaling_type": -8,
     "effects": {
       "734678": {
-        "type": 4,
-        "avg": 43.313889
+        "type": 285,
+        "avg": 66.257668
       },
       "734679": {
         "type": 4,
@@ -3900,7 +3349,7 @@
     "scaling_type": -8,
     "effects": {
       "734680": {
-        "type": 4,
+        "type": 285,
         "avg": 0
       },
       "734681": {
@@ -3918,7 +3367,7 @@
     "scaling_type": -8,
     "effects": {
       "734698": {
-        "type": 4,
+        "type": 285,
         "avg": 0
       },
       "734699": {
@@ -3933,10 +3382,10 @@
       734700,
       734701
     ],
-    "scaling_type": -1,
+    "scaling_type": -8,
     "effects": {
       "734700": {
-        "type": 4,
+        "type": 285,
         "avg": 0
       },
       "734701": {
@@ -3954,7 +3403,7 @@
     "scaling_type": -8,
     "effects": {
       "734706": {
-        "type": 4,
+        "type": 285,
         "avg": 0
       },
       "734707": {
@@ -3972,7 +3421,7 @@
     "scaling_type": -1,
     "effects": {
       "734717": {
-        "type": 4,
+        "type": 285,
         "avg": 0.68
       },
       "734718": {
@@ -3991,7 +3440,7 @@
     "scaling_type": -8,
     "effects": {
       "735376": {
-        "type": 4,
+        "type": 285,
         "avg": 0
       },
       "735377": {
@@ -4013,7 +3462,7 @@
     "scaling_type": -8,
     "effects": {
       "735844": {
-        "type": 4,
+        "type": 285,
         "avg": 0
       },
       "735845": {
@@ -4072,7 +3521,7 @@
     "scaling_type": -8,
     "effects": {
       "735979": {
-        "type": 4,
+        "type": 285,
         "avg": 0
       },
       "735980": {
@@ -4089,8 +3538,8 @@
     "scaling_type": -1,
     "effects": {
       "736071": {
-        "type": 4,
-        "avg": 0.272
+        "type": 285,
+        "avg": 0.19
       }
     }
   },
@@ -4102,7 +3551,7 @@
     "scaling_type": -8,
     "effects": {
       "736321": {
-        "type": 4,
+        "type": 285,
         "avg": 13.2
       }
     }
@@ -4115,7 +3564,7 @@
     "scaling_type": -7,
     "effects": {
       "736377": {
-        "type": 4,
+        "type": 285,
         "avg": 2.729986
       }
     }
@@ -4125,12 +3574,13 @@
     "effect_list": [
       736419,
       736420,
-      736422
+      736422,
+      754443
     ],
     "scaling_type": -8,
     "effects": {
       "736419": {
-        "type": 4,
+        "type": 285,
         "avg": 0
       },
       "736420": {
@@ -4138,6 +3588,10 @@
         "avg": 3.067485
       },
       "736422": {
+        "type": 0,
+        "avg": 0
+      },
+      "754443": {
         "type": 0,
         "avg": 0
       }
@@ -4151,21 +3605,8 @@
     "scaling_type": -8,
     "effects": {
       "736464": {
-        "type": 4,
+        "type": 285,
         "avg": 27.386503
-      }
-    }
-  },
-  "279867": {
-    "name": "Anomalous Impact",
-    "effect_list": [
-      736478
-    ],
-    "scaling_type": -8,
-    "effects": {
-      "736478": {
-        "type": 4,
-        "avg": 0.533742
       }
     }
   },
@@ -4195,7 +3636,7 @@
     "scaling_type": -1,
     "effects": {
       "736491": {
-        "type": 4,
+        "type": 285,
         "avg": 1.279389
       }
     }
@@ -4208,7 +3649,7 @@
     "scaling_type": -7,
     "effects": {
       "736523": {
-        "type": 4,
+        "type": 285,
         "avg": 0.194999
       }
     }
@@ -4221,7 +3662,7 @@
     "scaling_type": -7,
     "effects": {
       "736535": {
-        "type": 4,
+        "type": 285,
         "avg": 0.1351
       }
     }
@@ -4237,7 +3678,7 @@
     "scaling_type": -8,
     "effects": {
       "736547": {
-        "type": 4,
+        "type": 285,
         "avg": 0
       },
       "736548": {
@@ -4262,8 +3703,8 @@
     "scaling_type": -1,
     "effects": {
       "736562": {
-        "type": 4,
-        "avg": 0.036641
+        "type": 285,
+        "avg": 0.030534
       }
     }
   },
@@ -4277,7 +3718,7 @@
     "scaling_type": -8,
     "effects": {
       "737261": {
-        "type": 4,
+        "type": 285,
         "avg": 0
       },
       "737262": {
@@ -4299,7 +3740,7 @@
     "scaling_type": -7,
     "effects": {
       "737263": {
-        "type": 4,
+        "type": 285,
         "avg": 0.972209
       },
       "737264": {
@@ -4329,7 +3770,7 @@
     "scaling_type": -8,
     "effects": {
       "737266": {
-        "type": 4,
+        "type": 285,
         "avg": 138.52272
       }
     }
@@ -4343,7 +3784,7 @@
     "scaling_type": -8,
     "effects": {
       "737267": {
-        "type": 4,
+        "type": 285,
         "avg": 115.4356
       },
       "737268": {
@@ -4360,7 +3801,7 @@
     "scaling_type": -8,
     "effects": {
       "737269": {
-        "type": 4,
+        "type": 285,
         "avg": 18.469696
       }
     }
@@ -4374,7 +3815,7 @@
     "scaling_type": -7,
     "effects": {
       "737270": {
-        "type": 4,
+        "type": 285,
         "avg": 1.06943
       },
       "737271": {
@@ -4392,7 +3833,7 @@
     "scaling_type": -7,
     "effects": {
       "737273": {
-        "type": 4,
+        "type": 285,
         "avg": 1.458313
       },
       "737274": {
@@ -4411,7 +3852,7 @@
     "effects": {
       "737275": {
         "type": 4,
-        "avg": 53.966145
+        "avg": 13.401786
       },
       "737276": {
         "type": 0,
@@ -4425,15 +3866,15 @@
       737278,
       737279
     ],
-    "scaling_type": -8,
+    "scaling_type": -1,
     "effects": {
       "737278": {
-        "type": 4,
-        "avg": 18.469696
+        "type": 285,
+        "avg": 2.215078
       },
       "737279": {
         "type": 4,
-        "avg": 10
+        "avg": 1
       }
     }
   },
@@ -4445,7 +3886,7 @@
     "scaling_type": -8,
     "effects": {
       "737280": {
-        "type": 4,
+        "type": 285,
         "avg": 15.3914
       }
     }
@@ -4459,7 +3900,7 @@
     "scaling_type": -8,
     "effects": {
       "737281": {
-        "type": 4,
+        "type": 285,
         "avg": 17.31534
       },
       "737282": {
@@ -4477,7 +3918,7 @@
     "scaling_type": -8,
     "effects": {
       "737283": {
-        "type": 4,
+        "type": 285,
         "avg": 49.079754
       },
       "737284": {
@@ -4495,7 +3936,7 @@
     "scaling_type": -8,
     "effects": {
       "737445": {
-        "type": 4,
+        "type": 285,
         "avg": 103.892036
       },
       "737446": {
@@ -4646,7 +4087,7 @@
     "scaling_type": -8,
     "effects": {
       "737714": {
-        "type": 4,
+        "type": 285,
         "avg": 2.515337
       },
       "737715": {
@@ -4664,7 +4105,7 @@
     "scaling_type": -8,
     "effects": {
       "737878": {
-        "type": 4,
+        "type": 285,
         "avg": 7.54
       },
       "738006": {
@@ -4681,7 +4122,7 @@
     "scaling_type": -8,
     "effects": {
       "737915": {
-        "type": 4,
+        "type": 285,
         "avg": 23.190184
       }
     }
@@ -4694,7 +4135,7 @@
     "scaling_type": -7,
     "effects": {
       "737922": {
-        "type": 4,
+        "type": 285,
         "avg": 2.025204
       }
     }
@@ -4709,7 +4150,7 @@
     "scaling_type": -7,
     "effects": {
       "737926": {
-        "type": 4,
+        "type": 285,
         "avg": 1.855276
       },
       "737927": {
@@ -4732,7 +4173,7 @@
     "scaling_type": -7,
     "effects": {
       "737972": {
-        "type": 4,
+        "type": 285,
         "avg": 2.50713
       },
       "737973": {
@@ -4753,7 +4194,7 @@
     "scaling_type": -1,
     "effects": {
       "738151": {
-        "type": 4,
+        "type": 285,
         "avg": 0.0219
       }
     }
@@ -4767,7 +4208,7 @@
     "scaling_type": -8,
     "effects": {
       "738156": {
-        "type": 4,
+        "type": 285,
         "avg": 40.5
       },
       "738401": {
@@ -4785,7 +4226,7 @@
     "scaling_type": -7,
     "effects": {
       "738189": {
-        "type": 4,
+        "type": 285,
         "avg": 0.913709
       },
       "738555": {
@@ -4807,7 +4248,7 @@
         "avg": 1.030709
       },
       "738573": {
-        "type": 4,
+        "type": 285,
         "avg": 3.607634
       }
     }
@@ -4826,7 +4267,7 @@
         "avg": 0.891424
       },
       "738695": {
-        "type": 0,
+        "type": 285,
         "avg": 0
       },
       "744340": {
@@ -4844,7 +4285,7 @@
     "scaling_type": -1,
     "effects": {
       "738193": {
-        "type": 4,
+        "type": 285,
         "avg": 0.465649
       },
       "738669": {
@@ -4863,7 +4304,7 @@
     "scaling_type": -8,
     "effects": {
       "738194": {
-        "type": 4,
+        "type": 285,
         "avg": 7.288343
       },
       "738645": {
@@ -4885,11 +4326,11 @@
     "scaling_type": -1,
     "effects": {
       "738213": {
-        "type": 4,
+        "type": 285,
         "avg": 1.270229
       },
       "738618": {
-        "type": 4,
+        "type": 285,
         "avg": 0
       }
     }
@@ -4903,7 +4344,7 @@
     "scaling_type": -7,
     "effects": {
       "738283": {
-        "type": 4,
+        "type": 285,
         "avg": 0.913709
       },
       "738699": {
@@ -4925,7 +4366,7 @@
         "avg": 1.030709
       },
       "738721": {
-        "type": 4,
+        "type": 285,
         "avg": 3.607634
       }
     }
@@ -4944,7 +4385,7 @@
         "avg": 0.891424
       },
       "738730": {
-        "type": 0,
+        "type": 285,
         "avg": 0
       },
       "744329": {
@@ -4962,7 +4403,7 @@
     "scaling_type": -1,
     "effects": {
       "738286": {
-        "type": 4,
+        "type": 285,
         "avg": 0.465649
       },
       "738712": {
@@ -4981,7 +4422,7 @@
     "scaling_type": -8,
     "effects": {
       "738287": {
-        "type": 4,
+        "type": 285,
         "avg": 7.288343
       },
       "738705": {
@@ -5003,11 +4444,11 @@
     "scaling_type": -1,
     "effects": {
       "738288": {
-        "type": 4,
+        "type": 285,
         "avg": 1.270229
       },
       "738747": {
-        "type": 4,
+        "type": 285,
         "avg": 0
       }
     }
@@ -5020,7 +4461,7 @@
     "scaling_type": -7,
     "effects": {
       "738417": {
-        "type": 4,
+        "type": 285,
         "avg": 0.061285
       }
     }
@@ -5033,7 +4474,7 @@
     "scaling_type": -1,
     "effects": {
       "740102": {
-        "type": 4,
+        "type": 285,
         "avg": 0.625954
       }
     }
@@ -5047,7 +4488,7 @@
     "scaling_type": -7,
     "effects": {
       "741004": {
-        "type": 4,
+        "type": 285,
         "avg": 2.540558
       },
       "741005": {
@@ -5056,21 +4497,1081 @@
       }
     }
   },
-  "281843": {
-    "name": "Tradewinds",
+  "285958": {
+    "name": "Straight, No Chaser",
     "effect_list": [
-      741004,
-      741005
+      748082,
+      748083
+    ],
+    "scaling_type": -1,
+    "effects": {
+      "748082": {
+        "type": 4,
+        "avg": 0.244275
+      },
+      "748083": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "286027": {
+    "name": "Equipoise",
+    "effect_list": [
+      748188
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "748188": {
+        "type": 285,
+        "avg": 0.920245
+      }
+    }
+  },
+  "286121": {
+    "name": "Replicating Shadows",
+    "effect_list": [
+      748343,
+      748344
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "748343": {
+        "type": 285,
+        "avg": 35.846626
+      },
+      "748344": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "286229": {
+    "name": "Light's Decree",
+    "effect_list": [
+      748526
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "748526": {
+        "type": 285,
+        "avg": 7.251534
+      }
+    }
+  },
+  "286390": {
+    "name": "Empyrean Power",
+    "effect_list": [
+      748751
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "748751": {
+        "type": 285,
+        "avg": 15.699387
+      }
+    }
+  },
+  "286573": {
+    "name": "Nothing Personal",
+    "effect_list": [
+      749028,
+      749029
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "749028": {
+        "type": 285,
+        "avg": 6.779141
+      },
+      "749029": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "286585": {
+    "name": "Dance of Chi-Ji",
+    "effect_list": [
+      749049,
+      756050
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "749049": {
+        "type": 285,
+        "avg": 18.19632
+      },
+      "756050": {
+        "type": 4,
+        "avg": 4.549075
+      }
+    }
+  },
+  "286832": {
+    "name": "Helchains",
+    "effect_list": [
+      749436,
+      749437
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "749436": {
+        "type": 285,
+        "avg": 5.521472
+      },
+      "749437": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "286949": {
+    "name": "Tectonic Thunder",
+    "effect_list": [
+      749619,
+      749620
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "749619": {
+        "type": 4,
+        "avg": 7.668712
+      },
+      "749620": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "287055": {
+    "name": "Fury of Xuen",
+    "effect_list": [
+      749794
     ],
     "scaling_type": -7,
     "effects": {
-      "741004": {
+      "749794": {
         "type": 4,
-        "avg": 2.540558
+        "avg": 3.342839
+      }
+    }
+  },
+  "287059": {
+    "name": "Baleful Invocation",
+    "effect_list": [
+      749801
+    ],
+    "scaling_type": -1,
+    "effects": {
+      "749801": {
+        "type": 4,
+        "avg": 1.206107
+      }
+    }
+  },
+  "287093": {
+    "name": "Dire Consequences",
+    "effect_list": [
+      749861,
+      749869
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "749861": {
+        "type": 285,
+        "avg": 6.748466
       },
-      "741005": {
+      "749869": {
         "type": 4,
-        "avg": 0.501426
+        "avg": 4.539877
+      }
+    }
+  },
+  "287126": {
+    "name": "Righteous Conviction",
+    "effect_list": [
+      749914
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "749914": {
+        "type": 107,
+        "avg": 18.423313
+      }
+    }
+  },
+  "287251": {
+    "name": "Early Harvest",
+    "effect_list": [
+      750107
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "750107": {
+        "type": 285,
+        "avg": 5.8
+      }
+    }
+  },
+  "287268": {
+    "name": "Glimmer of Light",
+    "effect_list": [
+      750129,
+      750167
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "750129": {
+        "type": 285,
+        "avg": 6.01227
+      },
+      "750167": {
+        "type": 4,
+        "avg": 10.429448
+      }
+    }
+  },
+  "287283": {
+    "name": "Frostwhelp's Indignation",
+    "effect_list": [
+      750152,
+      750153,
+      750154
+    ],
+    "scaling_type": -1,
+    "effects": {
+      "750152": {
+        "type": 285,
+        "avg": 7.633588
+      },
+      "750153": {
+        "type": 189,
+        "avg": 0.152672
+      },
+      "750154": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "287300": {
+    "name": "Turn of the Tide",
+    "effect_list": [
+      750187,
+      752186
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "750187": {
+        "type": 107,
+        "avg": 12.269938
+      },
+      "752186": {
+        "type": 285,
+        "avg": 0
+      }
+    }
+  },
+  "287336": {
+    "name": "Promise of Deliverance",
+    "effect_list": [
+      750248,
+      750269
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "750248": {
+        "type": 285,
+        "avg": 6.748466
+      },
+      "750269": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "287355": {
+    "name": "Sudden Revelation",
+    "effect_list": [
+      750284
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "750284": {
+        "type": 285,
+        "avg": 21
+      }
+    }
+  },
+  "287377": {
+    "name": "Bastion of Might",
+    "effect_list": [
+      750325
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "750325": {
+        "type": 285,
+        "avg": 1.518206
+      }
+    }
+  },
+  "287467": {
+    "name": "Shadow of Elune",
+    "effect_list": [
+      750457
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "750457": {
+        "type": 285,
+        "avg": 2.025204
+      }
+    }
+  },
+  "287604": {
+    "name": "Ancients' Bulwark",
+    "effect_list": [
+      750674,
+      750675
+    ],
+    "scaling_type": -1,
+    "effects": {
+      "750674": {
+        "type": 285,
+        "avg": 0.916031
+      },
+      "750675": {
+        "type": 189,
+        "avg": 0.779996
+      }
+    }
+  },
+  "287631": {
+    "name": "Apothecary's Concoctions",
+    "effect_list": [
+      750714,
+      750715,
+      750716
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "750714": {
+        "type": 285,
+        "avg": 6.01227
+      },
+      "750715": {
+        "type": 4,
+        "avg": 11.503068
+      },
+      "750716": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "287637": {
+    "name": "Chaos Shards",
+    "effect_list": [
+      750725,
+      750726
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "750725": {
+        "type": 285,
+        "avg": 0
+      },
+      "750726": {
+        "type": 107,
+        "avg": 3.98773
+      }
+    }
+  },
+  "287649": {
+    "name": "Echoing Blades",
+    "effect_list": [
+      750744,
+      750745,
+      750746,
+      750747,
+      753866
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "750744": {
+        "type": 285,
+        "avg": 0
+      },
+      "750745": {
+        "type": 107,
+        "avg": 1.969325
+      },
+      "750746": {
+        "type": 0,
+        "avg": 7.865031
+      },
+      "750747": {
+        "type": 0,
+        "avg": 0
+      },
+      "753866": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "287662": {
+    "name": "Endless Hunger",
+    "effect_list": [
+      750767,
+      750768
+    ],
+    "scaling_type": -1,
+    "effects": {
+      "750767": {
+        "type": 285,
+        "avg": 6.412213
+      },
+      "750768": {
+        "type": 189,
+        "avg": 0.780153
+      }
+    }
+  },
+  "287707": {
+    "name": "Surging Shots",
+    "effect_list": [
+      750851,
+      750852
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "750851": {
+        "type": 285,
+        "avg": 0
+      },
+      "750852": {
+        "type": 4,
+        "avg": 1.730061
+      }
+    }
+  },
+  "287717": {
+    "name": "Death Denied",
+    "effect_list": [
+      750865
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "750865": {
+        "type": 285,
+        "avg": 153.374237
+      }
+    }
+  },
+  "287729": {
+    "name": "Empyreal Ward",
+    "effect_list": [
+      750887
+    ],
+    "scaling_type": -1,
+    "effects": {
+      "750887": {
+        "type": 285,
+        "avg": 0.916031
+      }
+    }
+  },
+  "287768": {
+    "name": "Thunderaan's Fury",
+    "effect_list": [
+      750959,
+      750960
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "750959": {
+        "type": 285,
+        "avg": 0
+      },
+      "750960": {
+        "type": 107,
+        "avg": 3.104295
+      }
+    }
+  },
+  "287773": {
+    "name": "Arcanic Pulsar",
+    "effect_list": [
+      750968,
+      750969,
+      750970,
+      750971
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "750968": {
+        "type": 285,
+        "avg": 0
+      },
+      "750969": {
+        "type": 107,
+        "avg": 9.202455
+      },
+      "750970": {
+        "type": 0,
+        "avg": 0
+      },
+      "750971": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "287774": {
+    "name": "Ancient Ankh Talisman",
+    "effect_list": [
+      750972
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "750972": {
+        "type": 285,
+        "avg": 37
+      }
+    }
+  },
+  "287803": {
+    "name": "Switch Hitter",
+    "effect_list": [
+      751011,
+      751026,
+      751810
+    ],
+    "scaling_type": -1,
+    "effects": {
+      "751011": {
+        "type": 189,
+        "avg": 1.25
+      },
+      "751026": {
+        "type": 4,
+        "avg": 25
+      },
+      "751810": {
+        "type": 285,
+        "avg": 0
+      }
+    }
+  },
+  "287818": {
+    "name": "Fight or Flight",
+    "effect_list": [
+      751037
+    ],
+    "scaling_type": -1,
+    "effects": {
+      "751037": {
+        "type": 285,
+        "avg": 1.19084
+      }
+    }
+  },
+  "287822": {
+    "name": "Terror of the Mind",
+    "effect_list": [
+      751043,
+      751044
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "751043": {
+        "type": 4,
+        "avg": 0
+      },
+      "751044": {
+        "type": 4,
+        "avg": 10.993865
+      }
+    }
+  },
+  "287829": {
+    "name": "Secret Infusion",
+    "effect_list": [
+      751061
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "751061": {
+        "type": 285,
+        "avg": 1.67142
+      }
+    }
+  },
+  "287938": {
+    "name": "Nature's Salve",
+    "effect_list": [
+      751259,
+      751260
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "751259": {
+        "type": 285,
+        "avg": 0
+      },
+      "751260": {
+        "type": 4,
+        "avg": 147.975464
+      }
+    }
+  },
+  "288056": {
+    "name": "Unbridled Ferocity",
+    "effect_list": [
+      751443,
+      751444
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "751443": {
+        "type": 285,
+        "avg": 0
+      },
+      "751444": {
+        "type": 107,
+        "avg": 1.558282
+      }
+    }
+  },
+  "288079": {
+    "name": "Lying In Wait",
+    "effect_list": [
+      751471,
+      751472,
+      751473
+    ],
+    "scaling_type": -1,
+    "effects": {
+      "751471": {
+        "type": 285,
+        "avg": 2.215078
+      },
+      "751472": {
+        "type": 189,
+        "avg": 0.55714
+      },
+      "751473": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "288080": {
+    "name": "Cold Steel, Hot Blood",
+    "effect_list": [
+      751474,
+      751475
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "751474": {
+        "type": 285,
+        "avg": 0
+      },
+      "751475": {
+        "type": 285,
+        "avg": 9.509202
+      }
+    }
+  },
+  "288121": {
+    "name": "Quick Thinking",
+    "effect_list": [
+      751526,
+      751527,
+      751528,
+      751529
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "751526": {
+        "type": 285,
+        "avg": 0
+      },
+      "751527": {
+        "type": 4,
+        "avg": 33.619633
+      },
+      "751528": {
+        "type": 4,
+        "avg": 6.723927
+      },
+      "751529": {
+        "type": 4,
+        "avg": 10.08589
+      }
+    }
+  },
+  "288164": {
+    "name": "Flash Freeze",
+    "effect_list": [
+      751603,
+      751604
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "751603": {
+        "type": 285,
+        "avg": 0
+      },
+      "751604": {
+        "type": 107,
+        "avg": 5.503068
+      }
+    }
+  },
+  "288340": {
+    "name": "Thought Harvester",
+    "effect_list": [
+      751893,
+      751938
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "751893": {
+        "type": 285,
+        "avg": 0
+      },
+      "751938": {
+        "type": 107,
+        "avg": 1.656442
+      }
+    }
+  },
+  "288417": {
+    "name": "Magus of the Dead",
+    "effect_list": [
+      752014
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "752014": {
+        "type": 4,
+        "avg": 8.895705
+      }
+    }
+  },
+  "288424": {
+    "name": "Cold Hearted",
+    "effect_list": [
+      752031,
+      752032
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "752031": {
+        "type": 285,
+        "avg": 24.539877
+      },
+      "752032": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "288452": {
+    "name": "Striking the Anvil",
+    "effect_list": [
+      752078,
+      752079
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "752078": {
+        "type": 4,
+        "avg": 12.883435
+      },
+      "752079": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "288570": {
+    "name": "Primeval Intuition",
+    "effect_list": [
+      752284
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "752284": {
+        "type": 285,
+        "avg": 0.139285
+      }
+    }
+  },
+  "288634": {
+    "name": "Glory of the Dawn",
+    "effect_list": [
+      752477,
+      752478,
+      754207
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "752477": {
+        "type": 4,
+        "avg": 70.711662
+      },
+      "752478": {
+        "type": 0,
+        "avg": 0
+      },
+      "754207": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "288641": {
+    "name": "Intimidating Presence",
+    "effect_list": [
+      752488
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "752488": {
+        "type": 285,
+        "avg": 104.294479
+      }
+    }
+  },
+  "288749": {
+    "name": "Seductive Power",
+    "effect_list": [
+      752664,
+      752673
+    ],
+    "scaling_type": -1,
+    "effects": {
+      "752664": {
+        "type": 285,
+        "avg": 0.091603
+      },
+      "752673": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "288754": {
+    "name": "Chaotic Transformation",
+    "effect_list": [
+      752671,
+      752672
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "752671": {
+        "type": 4,
+        "avg": 0
+      },
+      "752672": {
+        "type": 107,
+        "avg": 4.049079
+      }
+    }
+  },
+  "288755": {
+    "name": "Wildfire",
+    "effect_list": [
+      752674,
+      752737
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "752674": {
+        "type": 285,
+        "avg": 0
+      },
+      "752737": {
+        "type": 107,
+        "avg": 5.748466
+      }
+    }
+  },
+  "288802": {
+    "name": "Bonded Souls",
+    "effect_list": [
+      752745,
+      752815
+    ],
+    "scaling_type": -1,
+    "effects": {
+      "752745": {
+        "type": 189,
+        "avg": 0.615267
+      },
+      "752815": {
+        "type": 285,
+        "avg": 12.21374
+      }
+    }
+  },
+  "288878": {
+    "name": "Hour of Reaping",
+    "effect_list": [
+      752867
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "752867": {
+        "type": 285,
+        "avg": 6.01227
+      }
+    }
+  },
+  "288953": {
+    "name": "Treacherous Covenant",
+    "effect_list": [
+      752982,
+      752991,
+      752992,
+      752993
+    ],
+    "scaling_type": -1,
+    "effects": {
+      "752982": {
+        "type": 285,
+        "avg": 0.534351
+      },
+      "752991": {
+        "type": 0,
+        "avg": 0
+      },
+      "752992": {
+        "type": 0,
+        "avg": 0
+      },
+      "752993": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "288973": {
+    "name": "Thrive in Chaos",
+    "effect_list": [
+      753014,
+      753015,
+      753016
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "753014": {
+        "type": 285,
+        "avg": 0
+      },
+      "753015": {
+        "type": 4,
+        "avg": 0.134969
+      },
+      "753016": {
+        "type": 4,
+        "avg": 0.319018
+      }
+    }
+  },
+  "288979": {
+    "name": "Keep Your Wits About You",
+    "effect_list": [
+      753023,
+      753032
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "753023": {
+        "type": 285,
+        "avg": 0
+      },
+      "753032": {
+        "type": 107,
+        "avg": 11.312884
+      }
+    }
+  },
+  "289314": {
+    "name": "Burst of Savagery",
+    "effect_list": [
+      753603,
+      753606
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "753603": {
+        "type": 4,
+        "avg": 1.337136
+      },
+      "753606": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "289322": {
+    "name": "Exit Strategy",
+    "effect_list": [
+      753617
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "753617": {
+        "type": 285,
+        "avg": 0.935995
+      }
+    }
+  },
+  "289339": {
+    "name": "Bloody Runeblade",
+    "effect_list": [
+      753644,
+      753654
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "753644": {
+        "type": 285,
+        "avg": 0
+      },
+      "753654": {
+        "type": 4,
+        "avg": 3.337423
+      }
+    }
+  },
+  "289364": {
+    "name": "Pandemic Invocation",
+    "effect_list": [
+      753682,
+      753683,
+      753684
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "753682": {
+        "type": 4,
+        "avg": 6.226994
+      },
+      "753683": {
+        "type": 0,
+        "avg": 0
+      },
+      "753684": {
+        "type": 0,
+        "avg": 0
       }
     }
   }

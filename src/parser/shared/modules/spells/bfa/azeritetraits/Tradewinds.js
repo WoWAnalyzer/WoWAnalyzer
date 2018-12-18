@@ -51,7 +51,7 @@ class Tradewinds extends Analyzer {
   }
 
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.TRADEWINDS.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getBuffUptime(SPELLS.TRADEWINDS_BUFF.id) / this.owner.fightDuration;
   }
 
   get averageMastery() {
@@ -59,7 +59,7 @@ class Tradewinds extends Analyzer {
   }
 
   handleBuff(event) {
-    if (event.ability.guid === SPELLS.TRADEWINDS.id) {
+    if (event.ability.guid === SPELLS.TRADEWINDS_BUFF.id) {
       this.procs++;
     }
   }
