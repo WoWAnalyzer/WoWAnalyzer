@@ -23,7 +23,6 @@ import FrothingBerserker from './modules/talents/FrothingBerserker';
 import FuriousSlashTimesByStacks from './modules/talents/FuriousSlashTimesByStacks';
 import FuriousSlashUptime from './modules/talents/FuriousSlashUptime';
 import MeatCleaver from './modules/talents/MeatCleaver';
-import Recklessness from './modules/spells/Recklessness';
 import ImpendingVicory from './modules/talents/ImpendingVictory';
 import Siegebreaker from './modules/talents/Siegebreaker';
 import RecklessAbandon from './modules/talents/RecklessAbandon';
@@ -58,14 +57,11 @@ class CombatLogParser extends CoreCombatLogParser {
     furiousSlashTimesByStacks: FuriousSlashTimesByStacks,
     furiousSlashUptime: FuriousSlashUptime,
     meatCleaver: MeatCleaver,
-    recklessness: Recklessness,
     recklessFlurry: RecklessFlurry,
     impendingVictory: ImpendingVicory,
     siegebreaker: Siegebreaker,
     recklessAbandon: RecklessAbandon,
     warpaint: Warpaint,
-
-    recklessFlurry: RecklessFlurry,
     simmeringRage: SimmeringRage,
   };
 }
