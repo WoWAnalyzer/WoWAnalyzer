@@ -104,4 +104,9 @@ export default {
     name: 'Promise of Deliverance',
     icon: 'spell_holy_persuitofjustice',
   },
+  PROMISE_OF_DELIVERANCE_BUFF: {
+    id: 287340,
+    name: 'Promise of Deliverance',
+    icon: 'spell_holy_persuitofjustice',
+  },
 };

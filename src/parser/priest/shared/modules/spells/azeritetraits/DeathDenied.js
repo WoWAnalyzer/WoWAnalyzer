@@ -69,7 +69,7 @@ class DeathDenied extends Analyzer {
         )}
         tooltip={`
           ${formatNumber(this.damageAbsorbed)} damage absorbed.<br />
-          Leap of Faith cooldown reduced by ${Math.floor(this.cooldownTimeReduced / 1000)} seconds.
+          ${SPELLS.LEAP_OF_FAITH.name} cooldown reduced by ${Math.floor(this.cooldownTimeReduced / 1000)} seconds.
         `}
       />
     );
