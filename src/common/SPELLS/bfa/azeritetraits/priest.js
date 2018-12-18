@@ -85,13 +85,23 @@ export default {
     icon: 'spell_shadow_haunting',
   },
   DEATH_DENIED: {
+    id: 287717,
+    name: 'Death Denied',
+    icon: 'priest_spell_leapoffaith_a',
+  },
+  DEATH_DENIED_SHIELD_BUFF: {
     id: 287722,
+    name: 'Death Denied',
+    icon: 'priest_spell_leapoffaith_a',
+  },
+  DEATH_DENIED_COOLDOWN_BUFF: {
+    id: 287723,
     name: 'Death Denied',
     icon: 'priest_spell_leapoffaith_a',
   },
   PROMISE_OF_DELIVERANCE: {
     id: 287336,
-    name: 'Death Denied',
+    name: 'Promise of Deliverance',
     icon: 'spell_holy_persuitofjustice',
   },
 };

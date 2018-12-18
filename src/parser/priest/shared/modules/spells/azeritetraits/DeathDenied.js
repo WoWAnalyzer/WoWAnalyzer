@@ -4,19 +4,58 @@ import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatis
 
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
-import { formatThousands } from 'common/format';
+import { formatNumber } from 'common/format';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
+import SpellUsable from 'parser/priest/holy/modules/features/SpellUsable';
 
-// Example Log: https://www.warcraftlogs.com/reports/nWVBjGLrDQvahH7M#fight=15&type=healing
+/*
+  Leap of Faith absorbs the next 10736 damage to the target within 10 sec. While the shield holds, Leap of Faith cools down 200% faster.
+  Example Log: /report/m8yDrYW2TG6BcVtC/4-Heroic+MOTHER+-+Kill+(3:42)/5-Azzil
+ */
 class DeathDenied extends Analyzer {
+  static dependencies = {
+    spellUsable: SpellUsable,
+  };
+
+  shieldAppliedTimestamp = 0;
+  cooldownTimeReduced = 0;
+  damageAbsorbed = 0;
 
   constructor(...args) {
     super(...args);
+
     this.active = this.selectedCombatant.hasTrait(SPELLS.DEATH_DENIED.id);
 
-    if (this.active){
+    if (this.active) {
       this.ranks = this.selectedCombatant.traitRanks(SPELLS.DEATH_DENIED.id) || [];
       this.deathDeniedProcAmount = this.ranks.map((rank) => calculateAzeriteEffects(SPELLS.DEATH_DENIED.id, rank)[0]).reduce((total, bonus) => total + bonus, 0);
+    }
+  }
+
+  on_byPlayer_absorbed(event) {
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.DEATH_DENIED_SHIELD_BUFF.id) {
+      this.damageAbsorbed += event.amount;
+    }
+  }
+
+  on_byPlayer_applybuff(event) {
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.DEATH_DENIED_SHIELD_BUFF.id) {
+      this.shieldAppliedTimestamp = event.timestamp;
+    }
+  }
+
+  on_byPlayer_removebuff(event) {
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.DEATH_DENIED_SHIELD_BUFF.id) {
+      const cooldownReductionAmount = (event.timestamp - this.shieldAppliedTimestamp) * 2;
+
+      this.cooldownTimeReduced += cooldownReductionAmount;
+
+      if (this.spellUsable.isOnCooldown(SPELLS.LEAP_OF_FAITH.id)) {
+        this.spellUsable.reduceCooldown(SPELLS.LEAP_OF_FAITH.id, cooldownReductionAmount, event.timestamp);
+      }
     }
   }
 
@@ -26,12 +65,11 @@ class DeathDenied extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.DEATH_DENIED.id}
         value={(
-          <>
-            <ItemHealingDone amount={0} /><br />
-          </>
+          <ItemHealingDone amount={this.damageAbsorbed} />
         )}
         tooltip={`
-          ${formatThousands(0)} Total Healing
+          ${formatNumber(this.damageAbsorbed)} damage absorbed.<br />
+          Leap of Faith cooldown reduced by ${Math.floor(this.cooldownTimeReduced / 1000)} seconds.
         `}
       />
     );
