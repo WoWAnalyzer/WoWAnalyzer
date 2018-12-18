@@ -27,6 +27,7 @@ const STAT = {
   LEECH: 'leech',
   AVOIDANCE: 'avoidance',
   SPEED: 'speed',
+  ARMOR: 'armor',
 };
 export default STAT;
 
@@ -48,6 +49,7 @@ export function getName(stat) {
     case STAT.LEECH: return 'Leech';
     case STAT.AVOIDANCE: return 'Avoidance';
     case STAT.SPEED: return 'Speed';
+    case STAT.ARMOR: return 'Armor';
     default: return null;
   }
 }
@@ -69,6 +71,7 @@ export function getClassNameColor(stat) {
     case STAT.LEECH: return 'stat-leech';
     case STAT.AVOIDANCE: return 'stat-avoidance';
     case STAT.SPEED: return 'stat-speed';
+    case STAT.ARMOR: return 'stat-armor';
     default: return null;
   }
 }
@@ -91,6 +94,7 @@ export function getIcon(stat) {
     case STAT.VERSATILITY: return VersatilityIcon;
     case STAT.VERSATILITY_DR: return VersatilityIcon;
     case STAT.LEECH: return LeechIcon;
+    case STAT.ARMOR: return StaminaIcon;
     default: return null;
   }
 }

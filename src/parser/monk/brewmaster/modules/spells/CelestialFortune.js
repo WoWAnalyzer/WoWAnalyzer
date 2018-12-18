@@ -48,6 +48,10 @@ class CelestialFortune extends Analyzer {
     return this._totalHealing / (this.owner.fightDuration / 1000);
   }
 
+  get totalHealing() {
+    return this._totalHealing;
+  }
+
   on_toPlayer_heal(event) {
     this._lastMaxHp = event.maxHitPoints ? event.maxHitPoints : this._lastMaxHp;
     if(event.ability.guid === SPELLS.CELESTIAL_FORTUNE_HEAL.id) {
