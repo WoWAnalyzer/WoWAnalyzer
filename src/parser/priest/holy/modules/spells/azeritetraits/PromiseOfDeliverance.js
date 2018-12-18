@@ -4,7 +4,7 @@ import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatis
 
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
-import { formatNumber, formatPercentage, formatThousands } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 import HolyWordSerenity from 'parser/priest/holy/modules/spells/holyword/HolyWordSerenity';
 import SpellUsable from 'parser/priest/holy/modules/features/SpellUsable';
