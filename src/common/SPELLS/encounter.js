@@ -1785,6 +1785,175 @@ export default {
     icon: "inv_misc_monsterfang_02",
   },
 
+  // Battle for Dazar'alor
+
+  //Champion of the Light
+  CHAMPION_OF_LIGHT_AURA_OF_SACRIFICE: {
+    id: 210380,
+    name: "Aura of Sacrifice",
+    icon: "ability_deathwing_bloodcorruption_earth",
+  },
+  CHAMPION_OF_LIGHT_CONSECRATION: {
+    id: 283582,
+    name: "Consecration",
+    icon: "spell_holy_innerfire",
+  },
+  CHAMPION_OF_LIGHT_CRUSADER_STRIKE: {
+    id: 283637,
+    name: "Crusader Strike",
+    icon: "spell_holy_crusaderstrike",
+  },
+  CHAMPION_OF_LIGHT_DIVINE_BURST: {
+    id: 283626,
+    name: "Divine Burst",
+    icon: "spell_holy_searinglight",
+  },
+  CHAMPION_OF_LIGHT_DIVINE_MALLET: {
+    id: 282077,
+    name: "Divine Mallet",
+    icon: "spell_paladin_lightshammer",
+  },
+  CHAMPION_OF_LIGHT_JUDGEMENT_RECKONING: {
+    id: 284474,
+    name: "Judgement: Reckoning",
+    icon: "spell_holy_holynova",
+  },
+  CHAMPION_OF_LIGHT_PENANCE_DAMAGE: {
+    id: 284596,
+    name: "Penance",
+    icon: "spell_holy_penance",
+  },
+  CHAMPION_OF_LIGHT_RECKONING: {
+    id: 284449,
+    name: "Reckoning",
+    icon: "spell_holy_unyieldingfaith",
+  },
+  CHAMPION_OF_LIGHT_RETRIBUTION_WAVE: {
+    id: 284488,
+    name: "Retribution Wave",
+    icon: "ability_paladin_empoweredsealsrighteous",
+  },
+  CHAMPION_OF_LIGHT_SACRED_BLADE: {
+    id: 283573,
+    name: "Sacred Blade",
+    icon: "ability_paladin_artofwar",
+  },
+  CHAMPION_OF_LIGHT_WAVE_OF_LIGHT_DAMAGE: {
+    id: 283617,
+    name: "Wave of Light",
+    icon: "spell_holy_holynova",
+  },
+  CHAMPION_OF_LIGHT_WAVE_OF_LIGHT_HEAL: {
+    id: 283619,
+    name: "Wave of Light",
+    icon: "spell_holy_holynova",
+  },
+  CHAMPION_OF_LIGHT_HEAL: {
+    id: 283628,
+    name: "Heal",
+    icon: "spell_holy_heal02",
+  },
+  CHAMPION_OF_LIGHT_PENANCE_HEAL: {
+    id: 284594,
+    name: "Penance",
+    icon: "spell_holy_penance",
+  },
+  CHAMPION_OF_LIGHT_AURA_OF_RETRIBUTION: {
+    id: 284468,
+    name: "Aura of Retribution",
+    icon: "ability_paladin_empoweredsealstruth",
+  },
+  CHAMPION_OF_LIGHT_SACRED_BLADE_BUFF: {
+    id: 283572,
+    name: "Sacred Blade",
+    icon: "ability_paladin_artofwar",
+  },
+  CHAMPION_OF_LIGHT_ZEALOTRY: {
+    id: 284459,
+    name: "Zealotry",
+    icon: "spell_holy_sealofblood",
+  },
+  CHAMPION_OF_LIGHT_SEAL_OF_RETRIBUTION: {
+    id: 284469,
+    name: "Seal of Retribution",
+    icon: "ability_paladin_empoweredsealsrighteous",
+  },
+  CHAMPION_OF_LIGHT_SEAL_OF_RECKONING: {
+    id: 284436,
+    name: "Seal of Reckoning",
+    icon: "spell_holy_sealofwrath",
+  },
+  CHAMPION_OF_LIGHT_JUDGEMENT_RIGHTEOUSNESS: {
+    id: 283933,
+    name: "Judgement: Righteousness",
+    icon: "spell_holy_holyguidance",
+  },
+  CHAMPION_OF_LIGHT_WAVE_OF_LIGHT_BUFF: {
+    id: 283619,
+    name: "Wave of Light",
+    icon: "spell_holy_holynova",
+  },
+  CHAMPION_OF_LIGHT_AVENGING_WRATH: {
+    id: 282113,
+    name: "Avenging Wrath",
+    icon: "spell_holy_avenginewrath", // Not a typo, that's the spell icon.
+  },
+  CHAMPION_OF_LIGHT_FORBEARANCE: {
+    id: 288298,
+    name: "Forbearance",
+    icon: "spell_holy_removecurse",
+  },
+  CHAMPION_OF_LIGHT_PRAYER_FOR_THE_FALLEN: {
+    id: 287469,
+    name: "Prayer for the Fallen",
+    icon: "spell_holy_prayerofspirit",
+  },
+  CHAMPION_OF_LIGHT_DIVINE_MALLET_BUFF: {
+    id: 287439,
+    name: "Divine Mallet",
+    icon: "spell_paladin_lightshammer",
+  },
+  CHAMPION_OF_LIGHT_DIVINE_PROTECTION: {
+    id: 288294,
+    name: "Divine Protection",
+    icon: "spell_holy_blessingofprotection",
+  },
+  CHAMPION_OF_LIGHT_PENANCE_BUFF: {
+    id: 284593,
+    name: "Penance",
+    icon: "spell_holy_penance",
+  },
+  CHAMPION_OF_LIGHT_BLINDING_FAITH: {
+    id: 283651,
+    name: "Blinding Faith",
+    icon: "ability_paladin_beaconoflight",
+  },
+  CHAMPION_OF_LIGHT_CONSECRATION_DEBUFF_1: {
+    id: 283583,
+    name: "Consecration",
+    icon: "spell_holy_innerfire",
+  },
+  CHAMPION_OF_LIGHT_CONSECRATION_DEBUFF_2: {
+    id: 283582,
+    name: "Consecration",
+    icon: "spell_holy_innerfire",
+  },
+  CHAMPION_OF_LIGHT_PENANCE_DEBUFF: {
+    id: 284595,
+    name: "Penance",
+    icon: "spell_holy_penance",
+  },
+  CHAMPION_OF_LIGHT_SACRED_BLADE_DEBUFF: {
+    id: 283573,
+    name: "Sacred Blade",
+    icon: "ability_paladin_artofwar",
+  },
+  CHAMPION_OF_LIGHT_WAVE_OF_LIGHT_DEBUFF: {
+    id: 283617,
+    name: "Wave of Light",
+    icon: "spell_holy_holynova",
+  },
+
 
 
 
