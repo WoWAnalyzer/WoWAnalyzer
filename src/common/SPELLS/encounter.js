@@ -2133,15 +2133,225 @@ export default {
     name: "Discharge Necrotic Core",
     icon: "spell_necro_dischargenecroticcore",
   },
+
+  // Opulence
+
+  OPULENCE_THIEFS_BANE: {
+    id: 287424,
+    name: "Thief's Bane",
+    icon: "warlock_curse_shadow",
+  },
+  OPULENCE_DIAMOND_OF_THE_UNSHAKEABLE_PROTECTOR: {
+    id: 284527,
+    name: "Diamond of the Unshakeable Protector",
+    icon: "spell_misc_conjuremanajewel",
+  },
+  OPULENCE_DEPLETED_DIAMOND: {
+    id: 284546,
+    name: "Depleted Diamond",
+    icon: "inv_misc_gem_diamond_01",
+  },
+  OPULENCE_TAILWIND_SAPPHIRE: {
+    id: 284567,
+    name: "Tailwind Sapphire",
+    icon: "inv_misc_gem_saphirerough_03",
+  },
+  OPULENCE_TAILWINDS: {
+    id: 284573,
+    name: "Tailwinds",
+    icon: "spell_frost_arcticwinds",
+  },
+  OPULENCE_AMETHYST_OF_THE_SHADOW_KING: {
+    id: 284558,
+    name: "Amethyst of the Shadow King",
+    icon: "inv_misc_gem_x4_uncommon_cut_purple",
+  },
+  OPULENCE_SHADOW_TOUCHED: {
+    id: 284556,
+    name: "Shadow-Touched",
+    icon: "spell_shadow_sealofkings",
+  },
+  OPULENCE_RUBY_OF_FOCUSED_ANIMUS: {
+    id: 284611,
+    name: "Ruby of Focused Animus",
+    icon: "inv_misc_gem_x4_rare_cut_red",
+  },
+  OPULENCE_FOCUSED_ANIMUS: {
+    id: 284614,
+    name: "Focused Animus",
+    icon: "ability_warrior_focusedrage",
+  },
+  OPULENCE_TOPAZ_OF_BRILLAINT_SUNLIGHT: {
+    id: 284645,
+    name: "Topaz of Brillaint Sunlight",
+    icon: "inv_misc_gem_x4_rare_cut_yellow",
+  },
+  OPULENCE_INCANDESCENCE: {
+    id: 284664,
+    name: "Incandescence",
+    icon: "ability_skyreach_solar_burst",
+  },
+  OPULENCE_GROSSLY_INCANDESCENT: {
+    id: 284798,
+    name: "Grossly Incadescent",
+    icon: "ability_paladin_beaconoflight",
+  },
+  OPULENCE_BRILLAINT_AURA: {
+    id: 284802,
+    name: "Brilliant Aura",
+    icon: "ability_priest_holybolts01",
+  },
+  OPULENCE_EMERALD_OF_EARTHEN_ROOTS: {
+    id: 284814,
+    name: "Emerald of Earthen Roots",
+    icon: "inv_misc_gem_x4_uncommon_cut_green",
+  },
+  OPULENCE_EARTHEN_ROOTS: {
+    id: 284817,
+    name: "Earthen Roots",
+    icon: "inv_misc_herb_07",
+  },
+  OPULENCE_OPAL_OF_UNLEASHED_RAGE: {
+    id: 284881,
+    name: "Opal of Unelashed Rage",
+    icon: "inv_misc_gem_03",
+  },
+  OPULENCE_UNLEASHED_RAGE: {
+    id: 284883,
+    name: "Unleashed Rage",
+    icon: "spell_shadow_summonvoidwalker",
+  },
+  OPULENCE_CRUSH: {
+    id: 283604,
+    name: "Crush",
+    icon: "ability_warrior_titansgrip",
+  },
+  OPULENCE_VOLATILE_CHARGE: {
+    id: 283507,
+    name: "Volatile Charge",
+    icon: "spell_shaman_staticshock",
+  },
+  OPULENCE_CONSUMING_FLAME: {
+    id: 286541,
+    name: "Consuming Flame",
+    icon: "spell_fire_flameshock",
+  },
+  OPULENCE_CREEPING_BLAZE: {
+    id: 286501,
+    name: "Creeping Blaze",
+    icon: "ability_rhyolith_magmaflow_wave",
+  },
+  OPULENCE_OVERLOAD: {
+    id: 287652,
+    name: "Overload",
+    icon: "ability_vehicle_electrocharge",
+  },
+  OPULENCE_FLAMES_OF_PUNISHMENT: {
+    id: 282939,
+    name: "Flames of Punishment",
+    icon: "spell_fire_moltenblood",
+  },
+  OPULENCE_FLAME_JET: {
+    id: 285479,
+    name: "Flame Jet",
+    icon: "spell_shaman_lavasurge",
+  },
+  OPULENCE_RUBY_BEAM: {
+    id: 284081,
+    name: "Ruby Beam",
+    icon: "ability_siege_engineer_purification_beam",
+  },
+  OPULENCE_SCORCHING_GROUND: {
+    id: 284424,
+    name: "Scorching Ground",
+    icon: "ability_warlock_inferno",
+  },
+  OPULENCE_PULSE_QUICKENING_TOXIN: {
+    id: 284493,
+    name: "Pulse-quickening Toxin",
+    icon: "inv_ragnaros_heart",
+  },
+  OPULENCE_QUICKENED_PULSE: {
+    id: 284519,
+    name: "Quickened Pulse",
+    icon: "inv_misc_organ_01",
+  },
+  OPULENCE_HEX_OF_LETHARGY: {
+    id: 284470,
+    name: "Hex of Lethargy",
+    icon: "spell_nature_slowpoison",
+  },
+  OPULENCE_CHAOTIC_DISPLACEMENT: {
+    id: 289383,
+    name: "Chaotic Displacement",
+    icon: "spell_nature_massteleport",
+  },
+  OPULENCE_CHAOTIC_BURST: {
+    id: 289393,
+    name: "Chaotic Burst",
+    icon: "spell_arcane_invocation",
+  },
+  OPULENCE_HOARD_POWER: {
+    id: 287070,
+    name: "Hoard Power",
+    icon: "inv_elemental_primal_nether",
+  },
+  OPULENCE_LIQUID_GOLD: {
+    id: 287072,
+    name: "Liquid Gold",
+    icon: "ability_creature_amber_02",
+  },
+  OPULENCE_MOLTEN_GOLD: {
+    id: 287074,
+    name: "Molten Gold",
+    icon: "inv_ingot_03",
+  },
+  OPULENCE_GOLDEN_RADIANCE: {
+    id: 289776,
+    name: "Golden Radiance",
+    icon: "spell_holy_aspiriation",
+  },
+  OPULENCE_SPIRITS_OF_GOLD: {
+    id: 285995,
+    name: "Spirits of Gold",
+    icon: "inv_archaeology_80_zandalari_mask",
+  },
+  OPULENCE_CHANNEL_GOLD: {
+    id: 286026,
+    name: "Channel Gold",
+    icon: "spell_holy_circleofrenewal",
+  },
+  OPULENCE_GOLD_BURST: {
+    id: 286040,
+    name: "Gold Burst",
+    icon: "inv_misc_gem_golendraenite_03",
+  },
+  OPULENCE_SURGING_GOLD: {
+    id: 289155,
+    name: "Surging Gold",
+    icon: "spell_holy_searinglightpriest",
+  },
+  OPULENCE_COIN_SHOWER: {
+    id: 285014,
+    name: "Coin Shower",
+    icon: "inv_misc_coin_01",
+  },
+  OPULENCE_WAIL_OF_GREED: {
+    id: 284941,
+    name: "Wail of Greed",
+    icon: "ability_formor_boss_shout",
+  },
+  OPULENCE_GREED: {
+    id: 284943,
+    name: "Greed",
+    icon: "inv_misc_coin_02",
+  },
+  OPULENCE_COIN_SWEEP: {
+    id: 287037,
+    name: "Coin Sweep",
+    icon: "ability_creature_amber_01",
+  },
   
-
-
-
-
-
-
-
-
 
 
 };
