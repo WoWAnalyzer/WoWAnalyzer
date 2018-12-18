@@ -95,7 +95,7 @@ const getAccessToken = async (region) => {
       region,
     }, 
     region, 
-    true
+    true,
   );
 
   const tokenData = JSON.parse(tokenRequest);
