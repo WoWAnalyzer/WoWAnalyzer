@@ -2738,4 +2738,140 @@ export default {
     icon: "inv_ember",
   },
 
+  // Stormwall Blockade
+
+  STORMWALL_BLOCKADE_UNBOUND_ENERGY: {
+    id: 285420,
+    name: "Unbound Energy",
+    icon: "spell_mage_flameorb_blue",
+  },
+  STORMWALL_BLOCKADE_STORMS_WAIL: {
+    id: 285350,
+    name: "Storm's Wait",
+    icon: "spell_nature_lightningoverload",
+  },
+  STORMWALL_BLOCKADE_ENERGIZING_WAKE: {
+    id: 285342,
+    name: "Energizing Wake",
+    icon: "spell_nature_unrelentingstorm",
+  },
+  STORMWALL_BLOCKADE_CATASTROPHIC_TIDES: {
+    id: 284760,
+    name: "Catastrophic Tides",
+    icon: "spell_shaman_hightide",
+  },
+  STORMWALL_BLOCKADE_VOLTAIC_FLASH: {
+    id: 284262,
+    name: "Voltaic Flash",
+    icon: "ability_thunderking_thunderstruck",
+  },
+  STORMWALL_BLOCKADE_CRACKLING_LIGHTNING: {
+    id: 284106,
+    name: "Crackling Lightning",
+    icon: "spell_nature_lightningoverload",
+  },
+  STORMWALL_BLOCKADE_THUNDEROUS_BOOM: {
+    id: 284120,
+    name: "Thunderous Boom",
+    icon: "ability_thunderking_thunderstruck",
+  },
+  STORMWALL_BLOCKADE_ELECTRIC_SHROUD: {
+    id: 287995,
+    name: "Electric Shroud",
+    icon: "spell_nature_lightningshield",
+  },
+  STORMWALL_BLOCKADE_TIDAL_EMPOWERMENT: {
+    id: 284765,
+    name: "Tidal Empowerment",
+    icon: "ability_shawaterelemental_swirl",
+  },
+  STORMWALL_BLOCKADE_JOLTING_VOLLEY: {
+    id: 287169,
+    name: "Jolting Volley",
+    icon: "spell_lightning_lightningbolt01",
+  },
+  STORMWALL_BLOCKADE_MARK_OF_THE_STORM: {
+    id: 288190,
+    name: "Mark of the Storm",
+    icon: "spell_nature_unrelentingstorm",
+  },
+  STORMWALL_BLOCKADE_GREATER_TIDAL_EMPOWERMENT: {
+    id: 284864,
+    name: "Greater Tidal Empowerment",
+    icon: "ability_shawaterelemental_swirl",
+  },
+  STORMWALL_BLOCKADE_SEA_STORM: {
+    id: 284360,
+    name: "Sea Storm",
+    icon: "spell_frost_icestorm",
+  },
+  STORMWALL_BLOCKADE_SEAS_TEMPTATION: {
+    id: 284383,
+    name: "Sea's Temptation",
+    icon: "inv_misc_nagafemale",
+  },
+  STORMWALL_BLOCKADE_TEMPTING_SONG: {
+    id: 284405,
+    name: "Tempting Song",
+    icon: "spell_shadow_soothingkiss",
+  },
+  STORMWALL_BLOCKADE_STORMS_EMPOWERMENT: {
+    id: 287887,
+    name: "Storm's Empowerment",
+    icon: "ability_thunderking_balllightning",
+  },
+  STORMWALL_BLOCKADE_TIDAL_VOLLEY: {
+    id: 284316,
+    name: "Tidal Volley",
+    icon: "ability_mage_waterjet",
+  },
+  STORMWALL_BLOCKADE_MARK_OF_THE_SEAS: {
+    id: 288191,
+    name: "Mark of the Seas",
+    icon: "spell_frost_wizardmark",
+  },
+  STORMWALL_BLOCKADE_TRANSLOCATE: {
+    id: 284393,
+    name: "Translocate",
+    icon: "spell_shadow_teleport",
+  },
+  STORMWALL_BLOCKADE_SEA_SWELL: {
+    id: 288258,
+    name: "Sea Swell",
+    icon: "spell_frost_summonwaterelemental",
+  },
+  STORMWALL_BLOCKADE_KELP_WRAPPED_FISTS: {
+    id: 284997,
+    name: "Kelp-Wrapped Fists",
+    icon: "inv_misc_herb_nightmarevine",
+  },
+  STORMWALL_BLOCKADE_KELP_WRAPPING: {
+    id: 285382,
+    name: "Kelp Wrapping",
+    icon: "inv_misc_herb_11",
+  },
+  STORMWALL_BLOCKADE_SEA_SWELL_MYTHIC: {
+    id: 285118,
+    name: "Sea Swell",
+    icon: "spell_Frost_summonwaterelemental",
+  },
+  STORMWALL_BLOCKADE_FREEZING_TIDEPOOL: {
+    id: 285075,
+    name: "Freezing Tidepool",
+    icon: "inv_misc_volatilewater",
+  },
+  STORMWALL_BLOCKADE_IRE_OF_THE_DEEP: {
+    id: 285017,
+    name: "Ire of the Deep",
+    icon: "spell_frost_summonwaterelemental_2",
+  },
+  STORMWALL_BLOCKADE_STORMS_WAIL_MYTHIC: {
+    id: 285350,
+    name: "Storm's Wail",
+    icon: "spell_nature_lightningoverload",
+  },
+
+  // Lady Jaina Proudmoore
+
+
 };
