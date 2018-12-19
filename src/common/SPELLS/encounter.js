@@ -2351,7 +2351,117 @@ export default {
     name: "Coin Sweep",
     icon: "ability_creature_amber_01",
   },
+
+
+  // Conclave of the Chosen
+
+  CONCLAVE_LOAS_PACT: {
+    id: 282079,
+    name: "Loa's Pact",
+    icon: "ability_racial_wardoftheloa",
+  },
+  CONCLAVE_LOAS_WRATH: {
+    id: 282736,
+    name: "Loa's Wrath",
+    icon: "spell_fire_elementaldevastation",
+  },
+  CONCLAVE_CRY_OF_THE_FALLEN: {
+    id: 286060,
+    name: "Cry of the Fallen",
+    icon: "ability_argus_deathfog",
+  },
+  CONCLAVE_GIFT_OF_WIND: {
+    id: 282098,
+    name: "Gift of Wind",
+    icon: "ability_racial_pterrodaxswoop",
+  },
+  CONCLAVE_HASTENING_WINDS: {
+    id: 285945,
+    name: "Hastening Winds",
+    icon: "ability_skyreach_four_wind",
+  },
+  CONCLAVE_PAKUS_WRATH: {
+    id: 282107,
+    name: "Pa'ku's Wrath",
+    icon: "inv_pterrodax2mount_lightgreen",
+  },
+  CONCLAVE_CRAWLING_HEX: {
+    id: 282135,
+    name: "Crawling Hex",
+    icon: "inv_zandalaribabyraptorred",
+  },
+  CONCLAVE_RAPTOR_FORM: {
+    id: 285889,
+    name: "Raptor Form",
+    icon: "inv_armoredraptor",
+  },
+  CONCLAVE_WILD_MAUL: {
+    id: 285893,
+    name: "Wild Maul",
+    icon: "ability_ghoulfrenzy",
+  },
+  CONCLAVE_GONKS_WRATH: {
+    id: 282155,
+    name: "Gonk's Wrath",
+    icon: "ability_mount_viciouswarraptor",
+  },
+  CONCLAVE_PACK_HUNTER: {
+    id: 286007,
+    name: "Pack Hunter",
+    icon: "ability_mount_viciouswarraptor",
+  },
+  CONCLAVE_MARK_OF_PREY: {
+    id: 282209,
+    name: "Pack Hunter",
+    icon: "sha_ability_rogue_bloddyeye_nightmare",
+  },
+  CONCLAVE_LACERATING_CLAWS: {
+    id: 282444,
+    name: "Lacerating Claws",
+    icon: "ability_druid_ravage",
+  },
+  CONCLAVE_KIMBULS_WRATH: {
+    id: 282447,
+    name: "Kimbul's Wrath",
+    icon: "ability_hunter_masterscall",
+  },
+  CONCLAVE_BLEEDING_WOUNDS: {
+    id: 282592,
+    name: "Bleeding Wounds",
+    icon: "ability_deathwing_bloodcorruption_death",
+  },
+  CONCLAVE_THUNDERING_STORM: {
+    id: 282411,
+    name: "Thundering Storm",
+    icon: "spell_shaman_thunderstorm",
+  },
+  CONCLAVE_MIND_WIPE: {
+    id: 285878,
+    name: "Mind Wipe",
+    icon: "ability_kaztik_dominatemind",
+  },
+  CONCLAVE_AKUNDAS_WRATH: {
+    id: 286811,
+    name: "Akunda's Wrath",
+    icon: "ability_thunderking_balllightning",
+  },
+  CONCLAVE_STATIC_ORB: {
+    id: 286833,
+    name: "Static Orb",
+    icon: "ability_thunderking_lightningwhip",
+  },
+  CONCLAVE_KRAGWAS_WRATH: {
+    id: 282636,
+    name: "Krag'wa's Wrath",
+    icon: "spell_shaman_earthquake",
+  },
+  CONCLAVE_BWONSAMDIS_WRATH: {
+    id: 284663,
+    name: "Bwonsamdi's Wrath",
+    icon: "ability_creature_cursed_03",
+  },
   
+
 
 
 };
