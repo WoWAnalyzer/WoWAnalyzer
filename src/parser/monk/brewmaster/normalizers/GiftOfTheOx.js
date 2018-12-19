@@ -1,5 +1,5 @@
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { GIFT_OF_THE_OX_SPELLS } from '../constants';
+import { GIFT_OF_THE_OX_SPELL_IDS } from '../constants';
 
 /**
  * Gift of the Ox orbs show up as 'casts' which messes with other things
@@ -8,7 +8,7 @@ import { GIFT_OF_THE_OX_SPELLS } from '../constants';
 class GiftOfTheOx extends EventsNormalizer {
   normalize(events) {
     return events.map(event => {
-      if(event.type === 'cast' && GIFT_OF_THE_OX_SPELLS.includes(event.ability.guid)) {
+      if(event.type === 'cast' && GIFT_OF_THE_OX_SPELL_IDS.includes(event.ability.guid)) {
         event.type = 'tick';
         event.__modified = true;
       }
