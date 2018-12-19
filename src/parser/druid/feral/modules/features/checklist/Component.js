@@ -296,14 +296,13 @@ class FeralDruidChecklist extends React.PureComponent {
 
         {/*Pick the right talents (if player is using talents that may be unsuitable)
           🗵 Only use Predator if it's allowing you to reset Tiger's Fury by killing adds
-          🗵 Only use Brutal Slash if on average it hits more than n targets (exact value of n needs simulation to find and is likely to change with gear and other talents, but when hitting just 1 target it's definitely the wrong talent.)
         */}
-        {(combatant.hasTalent(SPELLS.PREDATOR_TALENT.id) || combatant.hasTalent(SPELLS.BRUTAL_SLASH_TALENT.id)) && (
+        {(combatant.hasTalent(SPELLS.PREDATOR_TALENT.id)) && (
             <Rule
               name="Pick the most suitable Talents"
               description={(
                 <>
-                  The <SpellLink id={SPELLS.PREDATOR_TALENT.id} /> and <SpellLink id={SPELLS.BRUTAL_SLASH_TALENT.id} /> talents are only effective on fights with multiple enemies and should be swapped out for single target encounters.
+                  The <SpellLink id={SPELLS.PREDATOR_TALENT.id} /> talent is generally only effective on fights with multiple enemies and should be swapped out for single target encounters.
                 </>
               )}
             >
@@ -315,16 +314,6 @@ class FeralDruidChecklist extends React.PureComponent {
                   </>
                 )}
                 thresholds={thresholds.predatorWrongTalent}
-              />
-            )}
-            {combatant.hasTalent(SPELLS.BRUTAL_SLASH_TALENT.id) && (
-              <Requirement
-                name={(
-                  <>
-                    Average targets hit by <SpellLink id={SPELLS.BRUTAL_SLASH_TALENT.id} />
-                  </>
-                )}
-                thresholds={thresholds.brutalSlashWrongTalent}
               />
             )}
             
