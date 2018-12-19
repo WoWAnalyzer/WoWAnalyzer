@@ -9,8 +9,11 @@ export default {
   icon: 'achievement_boss_zuldazar_grong',
   fight: {
     // TODO: Add vantusRuneBuffId: 250144,
-    softMitigationChecks: [
-      // TODO: Add soft mitigation checks
-    ],
+    softMitigationChecks: {
+      physical: [
+        283078, // Bestial Smash
+      ],
+      magical: [],
+    },
   },
 };

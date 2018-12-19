@@ -1785,11 +1785,6 @@ export default {
   // Battle for Dazar'alor
 
   //Champion of the Light
-  CHAMPION_OF_LIGHT_AURA_OF_SACRIFICE: {
-    id: 210380,
-    name: "Aura of Sacrifice",
-    icon: "ability_deathwing_bloodcorruption_earth",
-  },
   CHAMPION_OF_LIGHT_CONSECRATION: {
     id: 283582,
     name: "Consecration",
@@ -1885,11 +1880,6 @@ export default {
     name: "Judgement: Righteousness",
     icon: "spell_holy_holyguidance",
   },
-  CHAMPION_OF_LIGHT_WAVE_OF_LIGHT_BUFF: {
-    id: 283619,
-    name: "Wave of Light",
-    icon: "spell_holy_holynova",
-  },
   CHAMPION_OF_LIGHT_AVENGING_WRATH: {
     id: 282113,
     name: "Avenging Wrath",
@@ -1930,25 +1920,10 @@ export default {
     name: "Consecration",
     icon: "spell_holy_innerfire",
   },
-  CHAMPION_OF_LIGHT_CONSECRATION_DEBUFF_2: {
-    id: 283582,
-    name: "Consecration",
-    icon: "spell_holy_innerfire",
-  },
   CHAMPION_OF_LIGHT_PENANCE_DEBUFF: {
     id: 284595,
     name: "Penance",
     icon: "spell_holy_penance",
-  },
-  CHAMPION_OF_LIGHT_SACRED_BLADE_DEBUFF: {
-    id: 283573,
-    name: "Sacred Blade",
-    icon: "ability_paladin_artofwar",
-  },
-  CHAMPION_OF_LIGHT_WAVE_OF_LIGHT_DEBUFF: {
-    id: 283617,
-    name: "Wave of Light",
-    icon: "spell_holy_holynova",
   },
 
   //Jadefire Masters
@@ -2865,11 +2840,7 @@ export default {
     name: "Ire of the Deep",
     icon: "spell_frost_summonwaterelemental_2",
   },
-  STORMWALL_BLOCKADE_STORMS_WAIL_MYTHIC: {
-    id: 285350,
-    name: "Storm's Wail",
-    icon: "spell_nature_lightningoverload",
-  },
+
 
   // Lady Jaina Proudmoore
 
@@ -2963,7 +2934,7 @@ export default {
     name: "Howling Winds",
     icon: "spell_frost_arcticwinds",
   },
-  JAINA_PROUDMOORE_GLACIAL_SHARDS_N_LFR: {
+  JAINA_PROUDMOORE_GLACIAL_SHARDS: {
     id: 288325,
     name: "Glacial Shards",
     icon: "spell_frost_frostnova",
@@ -2973,20 +2944,10 @@ export default {
     name: "Howling Winds",
     icon: "spell_frost_arcticewinds",
   },
-  JAINA_PROUDMOORE_GLACIAL_SHARDS_H: {
-    id: 288325,
-    name: "Glacial Shards",
-    icon: "spell_frost_frostnova",
-  },
   JAINA_PROUDMOORE_HOWLING_WINDS_M: {
     id: 289866,
     name: "Howling Winds",
     icon: "spell_frost_arcticwinds",
-  },
-  JAINA_PROUDMOORE_GLACIAL_SHARDS_M: {
-    id: 288325,
-    name: "Glacial Shards",
-    icon: "spell_frost_frostnova",
   },
   JAINA_PROUDMOORE_ARCTIC_ARMOR: {
     id: 282841,
