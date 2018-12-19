@@ -6,9 +6,8 @@ import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import HitCountAoE from '../core/HitCountAoE';
 
 /**
- * If the player has taken the Brutal Slash talent it should be used even if there's only one
- * target available to hit. However if it's mostly only hitting a single target then the player
- * would do more damage if they had chosen a different talent.
+ * Despite being an AoE ability Brutal Slash is usually the best talent on its row for single target fights.
+ * It can be useful to count how many targets it hits, but hitting just one is not a mistake.
  */
 class BrutalSlashHitCount extends HitCountAoE {
   static spell = SPELLS.BRUTAL_SLASH_TALENT;
@@ -20,19 +19,6 @@ class BrutalSlashHitCount extends HitCountAoE {
 
   statistic() {
     return this.generateStatistic(STATISTIC_ORDER.OPTIONAL(10));
-  }
-
-  get wrongTalentThresholds() {
-    return {
-      // Interested in how many targets are available so exclude any "zero hit" casts.
-      actual: this.averageTargetsHitNotIncludingZeroCasts,
-      isLessThan: {
-        minor: 2,
-        average: 1.5,
-        major: 1.2,
-      },
-      style: 'number',
-    };
   }
 
   get hitNoneThresholds() {
@@ -48,16 +34,6 @@ class BrutalSlashHitCount extends HitCountAoE {
   }
 
   suggestions(when) {
-    when(this.wrongTalentThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
-        <>
-          Your <SpellLink id={SPELLS.BRUTAL_SLASH_TALENT.id} /> is mostly hitting just one target. On a single target fight switching talents to <SpellLink id={SPELLS.SABERTOOTH_TALENT.id} /> or <SpellLink id={SPELLS.SAVAGE_ROAR_TALENT.id} /> is likely to improve your damage.
-        </>
-      )
-        .icon(SPELLS.BRUTAL_SLASH_TALENT.icon)
-        .actual(`${actual.toFixed(1)} average targets hit.`)
-        .recommended(`>${recommended} is recommended`);
-    });
     when(this.hitNoneThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>

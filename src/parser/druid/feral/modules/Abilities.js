@@ -90,7 +90,7 @@ class Abilities extends CoreAbilities {
           static: 1000,
         },
         timelineSortIndex: 11,
-        primaryCoefficient: 0.60,
+        primaryCoefficient: 0.69,
       },
       {
         spell: SPELLS.SWIPE_BEAR,
@@ -356,9 +356,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 15,
         enabled: combatant.hasTalent(SPELLS.WILD_CHARGE_TALENT.id),
-        gcd: {
-          static: 500,
-        },
+        gcd: null,
         timelineSortIndex: 42,
       },
       {
