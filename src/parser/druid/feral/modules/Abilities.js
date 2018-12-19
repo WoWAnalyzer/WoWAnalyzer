@@ -356,9 +356,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 15,
         enabled: combatant.hasTalent(SPELLS.WILD_CHARGE_TALENT.id),
-        gcd: {
-          static: 500,
-        },
+        gcd: null,
         timelineSortIndex: 42,
       },
       {
