@@ -35,14 +35,12 @@ class FuryWarriorChecklist extends React.PureComponent {
           name="Use cooldowns effectively"
           description="Your cooldowns are an important contributor to your damage throughput. Try to get in as many efficient casts as the fight allows."
         >
-          {combatant.hasTalent(SPELLS.SIEGEBREAKER_TALENT.id) && (
-            <AbilityRequirement spell={SPELLS.SIEGEBREAKER_TALENT.id} />
-          )}
+          {combatant.hasTalent(SPELLS.SIEGEBREAKER_TALENT.id) && (<AbilityRequirement spell={SPELLS.SIEGEBREAKER_TALENT.id} />)}
+          {combatant.hasTalent(SPELLS.BLADESTORM_TALENT.id) && (<AbilityRequirement spell={SPELLS.BLADESTORM_TALENT.id} />)}
+          {combatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id) && (<AbilityRequirement spell={SPELLS.DRAGON_ROAR_TALENT.id} />)}
           <AbilityRequirement spell={SPELLS.RECKLESSNESS.id} />
           {/* We can't detect race, so disable this when it has never been cast. */}
-          {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_RAGE.id) && (
-            <AbilityRequirement spell={SPELLS.ARCANE_TORRENT_RAGE.id} />
-          )}
+          {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_RAGE.id) && (<AbilityRequirement spell={SPELLS.ARCANE_TORRENT_RAGE.id} />)}
         </Rule>
         <Rule
           name="Use Rampage"
@@ -60,6 +58,13 @@ class FuryWarriorChecklist extends React.PureComponent {
             )}
             thresholds={thresholds.missedRampage}
           />
+        </Rule>
+        <Rule
+          name="Use your defensive cooldowns"
+          description="While you shouldn't cast these defensives on cooldown, be aware of them and use them whenever effective. Not using them at all indicates you might not be aware of them or not using them optimally."
+        >
+          <AbilityRequirement spell={SPELLS.ENRAGED_REGENERATION.id} />
+          <AbilityRequirement spell={SPELLS.RALLYING_CRY.id} />
         </Rule>
         <Rule
           name="Avoid downtime"
