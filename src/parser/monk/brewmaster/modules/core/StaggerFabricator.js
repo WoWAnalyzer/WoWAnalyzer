@@ -6,7 +6,6 @@ import Haste from 'parser/shared/modules/Haste';
 import HighTolerance, { HIGH_TOLERANCE_HASTE } from '../spells/HighTolerance';
 
 const PURIFY_BASE = 0.5;
-const T20_4PC_PURIFY = 0.05;
 
 export const EVENT_STAGGER_POOL_ADDED = 'addstagger';
 export const EVENT_STAGGER_POOL_REMOVED = 'removestagger';
@@ -30,10 +29,6 @@ class StaggerFabricator extends Analyzer {
 
   _staggerPool = 0;
   _lastKnownMaxHp = 0;
-
-  constructor(...args) {
-    super(...args);
-  }
 
   get purifyPercentage() {
     return PURIFY_BASE;

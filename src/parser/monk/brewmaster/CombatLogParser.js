@@ -40,6 +40,7 @@ import MitigationCheck from './modules/features/MitigationCheck';
 // normalizers
 import IronskinBrewNormalizer from './normalizers/IronskinBrew';
 import GiftOfTheOx from './normalizers/GiftOfTheOx';
+import ExpelHarmNorm from './normalizers/ExpelHarm';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -88,6 +89,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // normalizers
     isbNormalizer: IronskinBrewNormalizer,
     gotoxNorm: GiftOfTheOx,
+    ehNorm: ExpelHarmNorm,
   };
 }
 

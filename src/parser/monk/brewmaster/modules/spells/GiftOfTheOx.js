@@ -2,58 +2,63 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import EventFilter from 'parser/core/EventFilter';
 import StatisticBox from 'interface/others/StatisticBox';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
 import { BASE_AGI, GIFT_OF_THE_OX_SPELLS } from '../../constants';
 
 const GOTOX_COEFF = 1.5;
+const ORB_DURATION = 30000;
+const MAX_ORBS = 5;
 
 export default class GiftOfTheOx extends Analyzer {
   static dependencies = {
     stats: StatTracker,
   }
 
-  _queuedHeals = [];
-
   totalHealing = 0;
   agiBonusHealing = 0;
+
+  orbsGenerated = 0;
   orbsConsumed = 0;
-  orbsMovedOver = 0;
+  cappedOrbs = 0;
+  expiredOrbs = 0;
 
   expelHarmCasts = 0;
   expelHarmOrbsConsumed = 0;
   expelHarmOverhealing = 0;
 
-  _position = null;
+  _currentOrbs = [];
+  _lastEHTimestamp = null;
 
-  get orbsConsumedByCap() {
-    return this.orbsConsumed - this.orbsMovedOver - this.expelHarmOrbsConsumed;
+  get orbsMovedOver() {
+    return this.orbsConsumed - this.expelHarmOrbsConsumed - this.cappedOrbs - this.expiredOrbs;
   }
 
   constructor(...args) {
     super(...args);
+    this.addEventListener(new EventFilter('tick').by(SELECTED_PLAYER).spell(GIFT_OF_THE_OX_SPELLS), this._orbGenerated);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EXPEL_HARM), this._expelCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(GIFT_OF_THE_OX_SPELLS), this._gotoxHeal);
-    // position tracking to try to distinguish between orbs consumed by
-    // cap (5) and orbs consumed by movement.
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this._updatePosition);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this._updatePosition);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this._updatePosition);
+    this.addEventListener(Events.death.by(SELECTED_PLAYER), this._clearOrbs);
+  }
+
+  _clearOrbs(event) {
+    this._currentOrbs.length = 0;
+  }
+
+  _orbGenerated(event) {
+    this.orbsGenerated += 1;
+    this._currentOrbs.push(event);
   }
 
   _expelCast(event) {
     this.expelHarmCasts += 1;
-    this._queuedHeals.filter(({timestamp}) => timestamp === event.timestamp)
-      .forEach(event => {
-        this.expelHarmOrbsConsumed += 1;
-        this.expelHarmOverhealing += event.overheal || 0;
-      });
-    this._queuedHeals.length = 0;
+    this._lastEHTimestamp = event.timestamp;
   }
 
   _gotoxHeal(event) {
-    console.log('gotox heal')
     this.orbsConsumed += 1;
     this.totalHealing += event.amount;
     // so the formula for the healing is
@@ -72,23 +77,14 @@ export default class GiftOfTheOx extends Analyzer {
     // and just rely on the stattracker being close enough :shrug:
     this.agiBonusHealing += GOTOX_COEFF * (1 + this.stats.currentMasteryPercentage) * (1 + this.stats.currentVersatilityPercentage) * (this.stats.currentAgilityRating - BASE_AGI);
 
-    if(event.x !== this._position.x || event.y !== this._position.y) {
-      this.orbsMovedOver += 1;
+    if(event.timestamp === this._lastEHTimestamp) {
+      this.expelHarmOrbsConsumed += 1;
+      this.expelHarmOverhealing += event.overheal || 0;
+    } else if(event.timestamp - ORB_DURATION - this._currentOrbs[0].timestamp < 100) {
+      this.expiredOrbs += 1;
+    } else if(this._currentOrbs.length > MAX_ORBS) {
+      this.cappedOrbs += 1;
     }
-
-    this._queuedHeals.push(event);
-  }
-
-  _updatePosition(event) {
-    if(GIFT_OF_THE_OX_SPELLS.map(({id}) => id).includes(event.ability.guid)) {
-      console.log('update pos');
-    }
-    if(event.x === undefined || event.y === undefined) {
-      return;
-    }
-    this._position = {
-      x: event.x,
-      y: event.y,
-    };
+    this._currentOrbs.shift();
   }
 }
