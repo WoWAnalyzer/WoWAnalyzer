@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { formatDuration } from 'common/format';
-import Icon from 'common/Icon';
-import SpellLink from 'common/SpellLink';
-import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
+import { formatDuration } from '../../../../common/format';
+import Icon from '../../../../common/Icon';
+import SpellLink from '../../../../common/SpellLink';
+import CASTS_THAT_ARENT_CASTS from '../../../../parser/core/CASTS_THAT_ARENT_CASTS';
 
 const ICON_WIDTH = 22;
 

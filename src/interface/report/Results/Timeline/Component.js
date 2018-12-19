@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { formatDuration } from 'common/format';
+import { formatDuration } from '../../../../common/format';
 
-import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
+import CASTS_THAT_ARENT_CASTS from '../../../../parser/core/CASTS_THAT_ARENT_CASTS';
 import Buffs from './Buffs';
 import Casts from './Casts';
 import Lane from './Lane';

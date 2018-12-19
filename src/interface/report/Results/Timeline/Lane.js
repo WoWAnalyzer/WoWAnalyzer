@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SpellLink from 'common/SpellLink';
-import Icon from 'common/Icon';
+import SpellLink from '../../../../common/SpellLink';
+import Icon from '../../../../common/Icon';
 
 class Lane extends React.PureComponent {
   static propTypes = {

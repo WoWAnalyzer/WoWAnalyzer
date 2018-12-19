@@ -29,10 +29,20 @@ import About from './About';
 import Suggestions from './Suggestions';
 import Statistics from './Statistics';
 import StatisticsSectionTitle from './StatisticsSectionTitle';
+import Timeline from './Timeline/Container';
 import './Results.scss';
 
 const DevelopmentTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'DevelopmentTab' */ 'interface/others/DevelopmentTab').then(exports => exports.default)));
 const EventsTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'EventsTab' */ 'interface/others/EventsTab').then(exports => exports.default)));
+
+const CORE_TABS = {
+  OVERVIEW: 'overview',
+  STATISTICS: 'statistics',
+  TIMELINE: 'timeline',
+  CHARACTER: 'character',
+  EVENTS: 'events',
+  ABOUT: 'about',
+};
 
 class Results extends React.PureComponent {
   static propTypes = {
@@ -106,7 +116,7 @@ class Results extends React.PureComponent {
     const config = this.context.config;
 
     switch (selectedTab) {
-      case 'overview':
+      case CORE_TABS.OVERVIEW:
         return (
           <>
             <div className="panel">
@@ -121,7 +131,7 @@ class Results extends React.PureComponent {
             <Suggestions issues={results.issues} />
           </>
         );
-      case 'statistics':
+      case CORE_TABS.STATISTICS:
         return (
           <>
             <Statistics parser={parser}>{results.statistics}</Statistics>
@@ -132,11 +142,15 @@ class Results extends React.PureComponent {
             />
           </>
         );
-      case 'events':
+      case CORE_TABS.TIMELINE:
+        return (
+          <Timeline parser={parser} />
+        );
+      case CORE_TABS.EVENTS:
         return <EventsTab parser={parser} />;
-      case 'character':
+      case CORE_TABS.CHARACTER:
         return <>{characterTab.render()}{encounterPanel.render()}</>;
-      case 'about':
+      case CORE_TABS.ABOUT:
         return <><About config={config} /><ChangelogTab /></>;
       default:
         return results.tabs.find(tab => tab.url === selectedTab).render();
@@ -186,7 +200,7 @@ class Results extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-  selectedTab: getResultTab(state) || 'overview',
+  selectedTab: getResultTab(state) || CORE_TABS.OVERVIEW,
   premium: hasPremium(state),
 });
 
