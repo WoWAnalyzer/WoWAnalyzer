@@ -2600,4 +2600,142 @@ export default {
     icon: "spell_holy_harmundeadaura",
   },
 
+  // High Tinker Mekkatorque
+
+  HIGH_TINKER_ELECTROSHOCK_STRIKES: {
+    id: 289696,
+    name: "Electroshock Strikes",
+    icon: "spell_shaman_maelstromweapon",
+  },
+  HIGH_TINKER_ELECTROSHOCK_AMPLIFICATION: {
+    id: 289699,
+    name: "Electroshock Amplification",
+    icon: "inv_battery_01",
+  },
+  HIGH_TINKER_BUSTER_CANNON: {
+    id: 282182,
+    name: "Buster Cannon",
+    icon: "spell_mage_flameorb_blue",
+  },
+  HIGH_TINKER_BLAST_OFF: {
+    id: 282205,
+    name: "Blast Off",
+    icon: "inv_gizmo_rocketbootextreme",
+  },
+  HIGH_TINKER_CRASH_DOWN: {
+    id: 282245,
+    name: "Crash Down",
+    icon: "spell_shaman_earthquake",
+  },
+  HIGH_TINKER_GIGAVOLT_CHARGE: {
+    id: 286646,
+    name: "Gigavolt Charge",
+    icon: "inv_wildfirebomb_shrapnel",
+  },
+  HIGH_TINKER_GIGAVOLT_BLAST: {
+    id: 283411,
+    name: "Gigavolt Blast",
+    icon: "spell_nature_lightningoverload",
+  },
+  HIGH_TINKER_GIGAVOLT_RADIATION_ZONE: {
+    id: 288792,
+    name: "Gigavolt Radiation Zone",
+    icon: "spell_nature_unrelentingstorm",
+  },
+  HIGH_TINKER_GIGAVOLT_RADIATION: {
+    id: 288939,
+    name: "Gigavolt Radiation",
+    icon: "spell_nature_sicklypolymorph",
+  },
+  HIGH_TINKER_WORMHOLE_GENERATOR: {
+    id: 287952,
+    name: "Wormhole Generator",
+    icon: "inv_misc_enggizmos_35",
+  },
+  HIGH_TINKER_MISCALCULATED_TELEPORT: {
+    id: 287114,
+    name: "Miscalculated Teleport",
+    icon: "inv_misc_punchcards_prismatic",
+  },
+  HIGH_TINKER_DISCOMBOBULATION: {
+    id: 287167,
+    name: "Discombobulation",
+    icon: "inv_chicken2_white",
+  },
+  HIGH_TINKER_GNOMISH_FORCE_SHIELD: {
+    id: 282401,
+    name: "Gnomish Force Shield",
+    icon: "ability_vehicle_shellshieldgenerator_green",
+  },
+  HIGH_TINKER_SPARK_SHIELD: {
+    id: 289644,
+    name: "Spark Shield",
+    icon: "spell_nature_lightningshield",
+  },
+  HIGH_TINKER_ANTI_TAMPERING_PROTOCOL: {
+    id: 286735,
+    name: "Anti-Tampering Protocol",
+    icon: "inv_eng_interdimensionalcompanionrepository",
+  },
+  HIGH_TINKER_ANTI_TAMPERING_SHOCK: {
+    id: 286480,
+    name: "Anti-Tampering Shock",
+    icon: "spell_shaman_staticshock",
+  },
+  HIGH_TINKER_SPARK_PULSE: {
+    id: 282408,
+    name: "Spark Pulse",
+    icon: "inv_eng_electroshockmountmotivator",
+  },
+  HIGH_TINKER_WIND_UP: {
+    id: 287293,
+    name: "Wind Up",
+    icon: "petbattle_speed",
+  },
+  HIGH_TINKER_WOUND_UP: {
+    id: 287297,
+    name: "Wound Up",
+    icon: "spell_chargepositive",
+  },
+  HIGH_TINKER_WORLD_ENLARGER: {
+    id: 284219,
+    name: "World Enlarger",
+    icon: "ability_mage_rayoffrost",
+  },
+  HIGH_TINKER_SHRUNK: {
+    id: 284168,
+    name: "Shrunk",
+    icon: "achievement_character_gnome_male",
+  },
+  HIGH_TINKER_ENORMOUS: {
+    id: 289023,
+    name: "Enormous",
+    icon: "ability_warrior_intensifyrage",
+  },
+  HIGH_TINKER_TRAMPLE: {
+    id: 284214,
+    name: "Trample",
+    icon: "inv_boots_plate_04",
+  },
+  HIGH_TINKER_SQUISH: {
+    id: 289132,
+    name: "Squish",
+    icon: "ability_creature_cursed_02",
+  },
+  HIGH_TINKER_SIGNAL_EXPLODING_SHEEP: {
+    id: 287929,
+    name: "Signal Exploding Sheep",
+    icon: "inv_staff_2h_sheepstick_d_02",
+  },
+  HIGH_TINKER_CRITTER_EXPLOSION: {
+    id: 287877,
+    name: "Critter Explosion",
+    icon: "inv_gizmo_supersappercharge",
+  },
+  HIGH_TINKER_SHEEP_SHRAPNEL: {
+    id: 287891,
+    name: "Sheep Shrapnel",
+    icon: "inv_ember",
+  },
+
 };
