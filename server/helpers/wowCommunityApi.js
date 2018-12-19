@@ -32,7 +32,6 @@ const get = (url, metricLabels, region, skipAccessToken = false) => {
       return statusCode !== 404;
     },
     getUrlWithAccessToken: async () => {
-      console.log(`skippingAccessToken: ${skipAccessToken}`);
       if(!skipAccessToken){
         const accessToken = await getAccessToken(region);
         return `${url}&access_token=${accessToken}`;
