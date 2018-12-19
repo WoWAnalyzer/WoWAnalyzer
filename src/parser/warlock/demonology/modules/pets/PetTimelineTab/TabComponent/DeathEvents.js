@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { formatDuration } from 'common/format';
+import { formatDuration } from '../../../../../../../common/format';
 
 class DeathEvents extends React.PureComponent {
   static propTypes = {

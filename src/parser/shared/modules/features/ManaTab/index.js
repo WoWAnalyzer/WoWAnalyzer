@@ -3,7 +3,7 @@ import React from 'react';
 import ROLES from 'game/ROLES';
 import Analyzer from 'parser/core/Analyzer';
 
-import TabComponent from './TabComponent/index';
+import TabComponent from './TabComponent';
 
 class ManaTab extends Analyzer {
   constructor(...args) {
