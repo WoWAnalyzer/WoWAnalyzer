@@ -25,7 +25,7 @@ const Character = models.Character;
  * /EU/Tarren Mill/Mufre - character search
  * This will skip looking for the character and just send the battle.net character data.
  *
- * So the whole purpose of storing the character info is so it's also available on unexported WCL reports where we only have the character id.
+ * The caching stratagy being used here is to always return cached data first if it exists. If its been more than TIME_TO_CACHE seconds since last update, update the cache after sending back the cached response.
  */
 const TIME_TO_CACHE = 3600;
 function sendJson(res, json) {
@@ -37,15 +37,11 @@ function send404(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.sendStatus(404);
 }
-async function sendCharacterIfNotExpired(res, char){
+function checkIfExpired(char) {
   const cacheExpiration = char && char.lastUpdated;
   if (cacheExpiration) {
     cacheExpiration.setSeconds(cacheExpiration.getSeconds() + TIME_TO_CACHE);
     if (cacheExpiration > new Date()) {
-      sendJson(res, char);
-      char.update({
-        lastSeenAt: Sequelize.fn('NOW'),
-      });
       return true;
     }
   }
@@ -109,7 +105,6 @@ async function storeCharacter(char) {
   });
 }
 
-
 const characterIdFromThumbnailRegex = /\/([0-9]+)-/;
 
 const router = Express.Router();
@@ -120,15 +115,11 @@ router.get('/:id([0-9]+)', async (req, res) => {
     send404(res);
     return;
   }
-  if(await sendCharacterIfNotExpired(res, character)){
+  sendJson(res, character);
+  if (await !checkIfExpired(character)) {
     return;
   }
   const charFromApi = await getCharacterFromBlizzardApi(character.region, character.realm, character.name);
-  if (charFromApi) {
-    sendJson(res, charFromApi);
-  } else {
-    sendJson(res, character);
-  }
   character.update({
     ...charFromApi,
     lastSeenAt: Sequelize.fn('NOW'),
@@ -139,25 +130,32 @@ router.get('/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, re
   const { region, realm, name } = req.params;
 
   const storedCharacter = await getStoredCharacter(null, realm, region, name);
-  if(await sendCharacterIfNotExpired(res, storedCharacter)){
-    return;
-  }
-  const characterFromApi = await getCharacterFromBlizzardApi(region, realm, name);
-  // If Character Data can't be retrived from API then we fallback to cached data in the db
-  if (!characterFromApi) {
-    if (storedCharacter) {
-      sendJson(res, storedCharacter);
+  if (storedCharacter) {
+    sendJson(res, storedCharacter);
+    if (await checkIfExpired(storedCharacter)) {
       storedCharacter.update({
         lastSeenAt: Sequelize.fn('NOW'),
       });
       return;
     }
-    // Can not get character from db cache or blizzard API
-    send404(res);
   }
-  sendJson(res, characterFromApi);
 
-  if (storedCharacter) {
+  const characterFromApi = await getCharacterFromBlizzardApi(region, realm, name);
+  // If Character Data can't be retrived from API then we fallback to cached data in the db
+  if (!storedCharacter && !characterFromApi) {
+    send404(res);
+    return;
+  } else if (!storedCharacter && characterFromApi) {
+    sendJson(res, characterFromApi);
+    if (characterFromApi.thumbnail) {
+      const [, characterId] = characterIdFromThumbnailRegex.exec(characterFromApi.thumbnail);
+      // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
+      storeCharacter({ id: characterId, ...characterFromApi });
+    }
+    return;
+  }
+
+  if (storeCharacter && characterFromApi) {
     storedCharacter.update({
       ...characterFromApi,
       lastSeenAt: Sequelize.fn('NOW'),
@@ -165,33 +163,30 @@ router.get('/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, re
     });
     return;
   }
-  // If there isn't already a stored character we need to get the character id from the thumbnail
-  if (characterFromApi.thumbnail) {
-    const [, characterId] = characterIdFromThumbnailRegex.exec(characterFromApi.thumbnail);
-    // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
-    storeCharacter({ id: characterId, ...characterFromApi });
-  }
 });
 
 router.get('/:id([0-9]+)/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, res) => {
   const { id, region, realm, name } = req.params;
   const storedCharacter = await Character.findById(req.params.id);
-  if(await sendCharacterIfNotExpired(res, storedCharacter)){
-    return;
+  if (storedCharacter) {
+    sendJson(storedCharacter);
+    if (!checkIfExpired(storedCharacter)) {
+      return;
+    }
   }
+
   // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
   const charFromApi = await getCharacterFromBlizzardApi(region, realm, name);
-  if (charFromApi) {
+  if (charFromApi && !storedCharacter) {
     sendJson(res, charFromApi);
     storeCharacter({ id, ...charFromApi });
     return;
   }
-  
-  if (!storedCharacter) {
+
+  if (!storedCharacter && !charFromApi) {
     send404(res);
     return;
   }
-  sendJson(res, storedCharacter);
 });
 
 export default router;
