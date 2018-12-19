@@ -2873,5 +2873,209 @@ export default {
 
   // Lady Jaina Proudmoore
 
-
+  JAINA_PROUDMOORE_CHILLING_TOUCH: {
+    id: 285212,
+    name: "Chilling Touch",
+    icon: "ability_mage_frostjaw",
+  },
+  JAINA_PROUDMOORE_FROZEN_SOLID: {
+    id: 287490,
+    name: "Frozen Solid",
+    icon: "spell_frost_ring-of-frost",
+  },
+  JAINA_PROUDMOORE_GATHERING_BLIZZARD: {
+    id: 289379,
+    name: "Gathering Blizzard",
+    icon: "spell_frost_icestorm",
+  },
+  JAINA_PROUDMOORE_FREEZING_BLOOD: {
+    id: 289387,
+    name: "Freezing Blood",
+    icon: "spell_frost_coldhearted",
+  },
+  JAINA_PROUDMOORE_MARKED_TARGET: {
+    id: 288038,
+    name: "Marked Target",
+    icon: "sha_ability_rogue_bloodyeye_nightmare",
+  },
+  JAINA_PROUDMOORE_SET_CHARGE: {
+    id: 285725,
+    name: "Set Charge",
+    icon: "ability_cehicle_liquidpyrite",
+  },
+  JAINA_PROUDMOORE_BOMBARD_H_M: {
+    id: 285828,
+    name: "Bombard",
+    icon: "ability_rogue_cannonballbarrage",
+  },
+  JAINA_PROUDMOORE_BOMBARD_N_LFR: {
+    id: 290030,
+    name: "Bombard",
+    icon: "ability_rogue_cannonballbarrage",
+  },
+  JAINA_PROUDMOORE_SEARING_PITCH: {
+    id: 287365,
+    name: "Searing Pitch",
+    icon: "ability_rhyolith_magmaflow_wave",
+  },
+  JAINA_PROUDMOORE_ICE_SHARD: {
+    id: 285253,
+    name: "Ice Shard",
+    icon: "spell_frost_frostbolt02",
+  },
+  JAINA_PROUDMOORE_AVALANCHE: {
+    id: 287565,
+    name: "Avalanche",
+    icon: "spell_mage_cometstorm",
+  },
+  JAINA_PROUDMOORE_TIME_WARP: {
+    id: 287925,
+    name: "Time Warp",
+    icon: "ability_mage_timewarp",
+  },
+  JAINA_PROUDMOORE_GRASP_OF_FROST: {
+    id: 287626,
+    name: "Grasp of Frost",
+    icon: "spell_frost_freezingbreath",
+  },
+  JAINA_PROUDMOORE_FREEZING_BLAST: {
+    id: 285177,
+    name: "Freezing Blast",
+    icon: "ability_mage_waterjet",
+  },
+  JAINA_PROUDMOORE_RING_OF_ICE: {
+    id: 285459,
+    name: "Ring of Ice",
+    icon: "spell_frost_ring-of-frost",
+  },
+  JAINA_PROUDMOORE_RING_OF_ICE_LFR: {
+    id: 290036,
+    name: "Ring of Frost",
+    icon: "spell_frost_ring-of-frost",
+  },
+  JAINA_PROUDMOORE_FROZEN_SIEGE: {
+    id: 289488,
+    name: "Frozen Siege",
+    icon: "spell_frost_chainsofice",
+  },
+  JAINA_PROUDMOORE_HOWLING_WINDS_N_LFR: {
+    id: 288169,
+    name: "Howling Winds",
+    icon: "spell_frost_arcticwinds",
+  },
+  JAINA_PROUDMOORE_GLACIAL_SHARDS_N_LFR: {
+    id: 288325,
+    name: "Glacial Shards",
+    icon: "spell_frost_frostnova",
+  },
+  JAINA_PROUDMOORE_HOWLING_WINDS_H: {
+    id: 289861,
+    name: "Howling Winds",
+    icon: "spell_frost_arcticewinds",
+  },
+  JAINA_PROUDMOORE_GLACIAL_SHARDS_H: {
+    id: 288325,
+    name: "Glacial Shards",
+    icon: "spell_frost_frostnova",
+  },
+  JAINA_PROUDMOORE_HOWLING_WINDS_M: {
+    id: 289866,
+    name: "Howling Winds",
+    icon: "spell_frost_arcticwinds",
+  },
+  JAINA_PROUDMOORE_GLACIAL_SHARDS_M: {
+    id: 288325,
+    name: "Glacial Shards",
+    icon: "spell_frost_frostnova",
+  },
+  JAINA_PROUDMOORE_ARCTIC_ARMOR: {
+    id: 282841,
+    name: "Arctic Armor",
+    icon: "spell_frost_chillingarmor",
+  },
+  JAINA_PROUDMOORE_BLISTERING_TORNADO: {
+    id: 288534,
+    name: "Blistering Tornado",
+    icon: "ability_skyreach_four_wind",
+  },
+  JAINA_PROUDMOORE_ARCTIC_GROUND: {
+    id: 288297,
+    name: "Arctic Ground",
+    icon: "spell_hunter_icetrap",
+  },
+  JAINA_PROUDMOORE_REFRACTIVE_ICE: {
+    id: 288219,
+    name: "Refractive Ice",
+    icon: "spell_frost_glacier",
+  },
+  JAINA_PROUDMOORE_BURNING_EXPLOSION: {
+    id: 288221,
+    name: "Burning Explosion",
+    icon: "ability_vehicle_liquidpyrite",
+  },
+  JAINA_PROUDMOORE_BROADSIDE: {
+    id: 288218,
+    name: "Broadside",
+    icon: "ability_mage_arcanebarrage_nightborne",
+  },
+  JAINA_PROUDMOORE_SIEGEBREAKER_BLAST: {
+    id: 288380,
+    name: "Siegebreaker Blast",
+    icon: "inv_staff_53",
+  },
+  JAINA_PROUDMOORE_CRYSTALLINE_DUST: {
+    id: 289940,
+    name: "Crystalline Dust",
+    icon: "spell_fire_bluecano",
+  },
+  JAINA_PROUDMOORE_HAND_OF_FROST: {
+    id: 288412,
+    name: "Hand of Frost",
+    icon: "spell_frost_freezingbreath",
+  },
+  JAINA_PROUDMOORE_GLACIAL_RAY: {
+    id: 288345,
+    name: "Glacial Ray",
+    icon: "ability_mage_rayoffrost",
+  },
+  JAINA_PROUDMOORE_ICEFALL: {
+    id: 288475,
+    name: "Icefall",
+    icon: "spell_frost_frozencore",
+  },
+  JAINA_PROUDMOORE_HEART_OF_FROST: {
+    id: 289220,
+    name: "Heart of Frost",
+    icon: "spell_fire_blueflamering",
+  },
+  JAINA_PROUDMOORE_FROST_NOVA: {
+    id: 289219,
+    name: "Frost Nova",
+    icon: "spell_frost_icefloes",
+  },
+  JAINA_PROUDMOORE_WATER_BOLT_VOLLEY: {
+    id: 290084,
+    name: "Water Bolt Volley",
+    icon: "spell_frost_frostbolt",
+  },
+  JAINA_PROUDMOORE_SPLITTING_FROST: {
+    id: 290087,
+    name: "Splitting Frost",
+    icon: "spell_frost_summonwaterelemental_2",
+  },
+  JAINA_PROUDMOORE_ORB_OF_FROST: {
+    id: 288647,
+    name: "Orb of Frost",
+    icon: "spell_frost_frozenorb",
+  },
+  JAINA_PROUDMOORE_SHATTERING_LANCE: {
+    id: 288671,
+    name: "Shattering Lance",
+    icon: "spell_frost_frostblast",
+  },
+  JAINA_PROUDMOORE_PRISMATIC_IMAGE: {
+    id: 288747,
+    name: "Prismatic Image",
+    icon: "ability_socererking_arcanemines", // Not a typo.
+  },
 };
