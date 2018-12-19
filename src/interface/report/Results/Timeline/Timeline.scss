@@ -126,6 +126,7 @@
     z-index: 2;
     height: 10px;
     top: 6px;
+    cursor: default;
   }
   .channel {
     border-radius: 5px;
@@ -191,6 +192,7 @@
     --level: 0;
     top: -8px;
     top: calc(-8px + var(--level) * -25px);
+    cursor: default;
   }
 }
 /* Cooldown lanes */
@@ -210,7 +212,7 @@
     height: 100%;
     margin: 0;
     display: block;
-    border: 1px solid #f8b700;
+    border: 1px solid #353533;
     box-shadow: 0 0 3px #000;
   }
   a > div:first-child {
@@ -230,8 +232,8 @@
     height: 60%;
     top: 20%;
     border-radius: 3px;
-    background: #f8b700;
-    box-shadow: 0 0 4px #f8b700;
+    background: #353533;
+    box-shadow: 0 0 2px #353533;
     z-index: 2;
   }
   > .recharge {

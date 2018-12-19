@@ -49,8 +49,8 @@ class Timeline extends React.PureComponent {
   get totalWidth() {
     return this.seconds * this.secondWidth;
   }
-  laneHeight = 18;
-  centerOffset = 15;
+  laneHeight = 16;
+  centerOffset = 23;
 
   isApplicableEvent(event) {
     switch (event.type) {
@@ -174,7 +174,7 @@ class Timeline extends React.PureComponent {
       <DragScroll
         style={{ width: '100%', overflow: 'auto' }}
       >
-        <div className="spell-timeline" style={{ width: this.totalWidth, padding: `80px 0 ${eventsBySpellId.size * 30}px 0` }}>
+        <div className="spell-timeline" style={{ width: this.totalWidth, padding: `80px 0 ${this.getOffsetTop(eventsBySpellId.size)}px 0` }}>
           <Buffs
             start={start}
             secondWidth={this.secondWidth}
