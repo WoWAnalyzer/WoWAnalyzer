@@ -90,7 +90,7 @@ class Abilities extends CoreAbilities {
           static: 1000,
         },
         timelineSortIndex: 11,
-        primaryCoefficient: 0.60,
+        primaryCoefficient: 0.69,
       },
       {
         spell: SPELLS.SWIPE_BEAR,
