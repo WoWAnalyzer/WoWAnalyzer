@@ -7,6 +7,7 @@ import Buffs from './Buffs';
 import Casts from './Casts';
 import Lane from './Lane';
 import './Timeline.scss';
+import DragScroll from 'interface/common/DragScroll';
 
 class Timeline extends React.PureComponent {
   static propTypes = {
@@ -170,33 +171,37 @@ class Timeline extends React.PureComponent {
     const eventsBySpellId = this.getEventsBySpellId(parser.eventHistory);
 
     return (
-      <div className="spell-timeline" style={{ width: this.totalWidth, padding: `80px 0 ${eventsBySpellId.size * 30}px 0` }}>
-        <Buffs
-          start={start}
-          secondWidth={this.secondWidth}
-          parser={parser}
-          buffs={buffs}
-        />
-        <div className="time-line">
-          {this.seconds > 0 && [...Array(this.seconds)].map((_, second) => {
-            return (
-              <div
-                key={second}
-                style={{ width: this.secondWidth * skipInterval }}
-                data-duration={formatDuration(second)}
-              />
-            );
-          })}
+      <DragScroll
+        style={{ width: '100%', overflow: 'auto' }}
+      >
+        <div className="spell-timeline" style={{ width: this.totalWidth, padding: `80px 0 ${eventsBySpellId.size * 30}px 0` }}>
+          <Buffs
+            start={start}
+            secondWidth={this.secondWidth}
+            parser={parser}
+            buffs={buffs}
+          />
+          <div className="time-line">
+            {this.seconds > 0 && [...Array(this.seconds)].map((_, second) => {
+              return (
+                <div
+                  key={second}
+                  style={{ width: this.secondWidth * skipInterval }}
+                  data-duration={formatDuration(second)}
+                />
+              );
+            })}
+          </div>
+          <Casts
+            start={start}
+            secondWidth={this.secondWidth}
+            parser={parser}
+          />
+          <div className="cooldowns">
+            {this.renderLanes(eventsBySpellId, false)}
+          </div>
         </div>
-        <Casts
-          start={start}
-          secondWidth={this.secondWidth}
-          parser={parser}
-        />
-        <div className="cooldowns">
-          {this.renderLanes(eventsBySpellId, false)}
-        </div>
-      </div>
+      </DragScroll>
     );
   }
 }
