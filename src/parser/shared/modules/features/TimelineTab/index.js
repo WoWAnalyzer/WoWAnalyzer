@@ -49,24 +49,7 @@ class TimelineTab extends Analyzer {
           buffEvents={this.timelineBuffEvents.buffHistoryBySpellId}
         />
       ),
-    // render: () => (
-    //   <TabComponent
-    //     start={this.owner.fight.start_time}
-    //     end={this.owner.currentTimestamp >= 0 ? this.owner.currentTimestamp : this.owner.fight.end_time}
-    //     historyBySpellId={this.spellHistory.historyBySpellId}
-    //     globalCooldownHistory={this.globalCooldown.history}
-    //     channelHistory={this.channeling.history}
-    //     abilities={this.abilities}
-    //     abilityTracker={this.abilityTracker}
-    //     deaths={this.deathTracker.deaths}
-    //     resurrections={this.deathTracker.resurrections}
-    //     isAbilityCooldownsAccurate={this.spellUsable.isAccurate}
-    //     isGlobalCooldownAccurate={this.globalCooldown.isAccurate}
-    //     buffEvents={this.timelineBuffEvents.buffHistoryBySpellId}
-    //   />
-    // ),
-  }
-    ;
+    };
   }
 }
 

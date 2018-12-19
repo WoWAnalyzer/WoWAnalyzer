@@ -6,7 +6,7 @@ import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import Buffs from './Buffs';
 import Casts from './Casts';
 import Lane from './Lane';
-import './Timeline.css';
+import './Timeline.scss';
 
 class Timeline extends React.PureComponent {
   static propTypes = {
@@ -163,7 +163,7 @@ class Timeline extends React.PureComponent {
   }
 
   render() {
-    const { start, end, parser, historyBySpellId, globalCooldownHistory, channelHistory, deaths, resurrections, showCooldowns, showGlobalCooldownDuration, abilities, buffs, buffEvents } = this.props;
+    const { start, parser, buffs } = this.props;
 
     const skipInterval = Math.ceil(40 / this.secondWidth);
 
