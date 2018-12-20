@@ -63,7 +63,6 @@ class DepthOfTheShadows extends Analyzer {
       this._lastCastIsShadowmend = false;
 
       this._shadowmends.push({
-        "cast" : this._lastShadowmendCast,
         "applyBuff": event,
         "atonementEvents": [],
         "wasExtendedByEvangelismPreDepthWindow": false,
@@ -72,6 +71,11 @@ class DepthOfTheShadows extends Analyzer {
     }
   }
 
+  // After discussing this with multiple other priests, we concluded that
+  // atonements that we're extended by evangelism in their depth window would
+  // be counted for it's entire duration since you woudn't have add atonement
+  // on the target in the first place. This is done here by not increasing
+  // the lower bound if it was extended by evangelism in the depth window
   calculateBonusAtonement(event) {
 
     if(!isAtonement(event)) { return; }
