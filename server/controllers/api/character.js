@@ -162,7 +162,7 @@ router.get('/:id([0-9]+)/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', as
   if (storedCharacter && charFromApi) {
     storedCharacter.update({ 
       ...charFromApi, 
-      lastSeenAt: Sequelize.fn('NOW') 
+      lastSeenAt: Sequelize.fn('NOW'),
     });
   }
   if (!storedCharacter && !charFromApi) {
