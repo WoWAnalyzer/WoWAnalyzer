@@ -216,7 +216,7 @@
     height: 100%;
     margin: 0;
     display: block;
-    border: 1px solid #353533;
+    border: 1px solid #75736d;
     box-shadow: 0 0 3px #000;
   }
   a > div:first-child {
@@ -232,12 +232,11 @@
     display: none;
   }
   > .cooldown {
-    background: rgba(150, 150, 150, 0.4);
     height: 60%;
     top: 20%;
     border-radius: 3px;
-    background: #353533;
-    box-shadow: 0 0 2px #353533;
+    background: #75736d;
+    box-shadow: 0 0 2px #75736d;
     z-index: 2;
   }
   > .recharge {
