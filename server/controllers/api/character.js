@@ -121,7 +121,6 @@ router.get('/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, re
   }
 
   const characterFromApi = await getCharacterFromBlizzardApi(region, realm, name);
-  // If Character Data can't be retrived from API then we fallback to cached data in the db
   if (!storedCharacter && !characterFromApi) {
     send404(res);
     return;
