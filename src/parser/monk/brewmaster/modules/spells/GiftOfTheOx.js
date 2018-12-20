@@ -1,5 +1,7 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
+import SpellIcon from 'common/SpellIcon';
+import { formatNumber } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import EventFilter from 'parser/core/EventFilter';
@@ -9,8 +11,6 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import { BASE_AGI, GIFT_OF_THE_OX_SPELLS } from '../../constants';
 
 const GOTOX_COEFF = 1.5;
-const ORB_DURATION = 30000;
-const MAX_ORBS = 5;
 
 export default class GiftOfTheOx extends Analyzer {
   static dependencies = {
@@ -22,35 +22,22 @@ export default class GiftOfTheOx extends Analyzer {
 
   orbsGenerated = 0;
   orbsConsumed = 0;
-  cappedOrbs = 0;
-  expiredOrbs = 0;
 
   expelHarmCasts = 0;
   expelHarmOrbsConsumed = 0;
   expelHarmOverhealing = 0;
 
-  _currentOrbs = [];
   _lastEHTimestamp = null;
-
-  get orbsMovedOver() {
-    return this.orbsConsumed - this.expelHarmOrbsConsumed - this.cappedOrbs - this.expiredOrbs;
-  }
 
   constructor(...args) {
     super(...args);
     this.addEventListener(new EventFilter('tick').by(SELECTED_PLAYER).spell(GIFT_OF_THE_OX_SPELLS), this._orbGenerated);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EXPEL_HARM), this._expelCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(GIFT_OF_THE_OX_SPELLS), this._gotoxHeal);
-    this.addEventListener(Events.death.by(SELECTED_PLAYER), this._clearOrbs);
-  }
-
-  _clearOrbs(event) {
-    this._currentOrbs.length = 0;
   }
 
   _orbGenerated(event) {
     this.orbsGenerated += 1;
-    this._currentOrbs.push(event);
   }
 
   _expelCast(event) {
@@ -80,11 +67,17 @@ export default class GiftOfTheOx extends Analyzer {
     if(event.timestamp === this._lastEHTimestamp) {
       this.expelHarmOrbsConsumed += 1;
       this.expelHarmOverhealing += event.overheal || 0;
-    } else if(event.timestamp - ORB_DURATION - this._currentOrbs[0].timestamp < 100) {
-      this.expiredOrbs += 1;
-    } else if(this._currentOrbs.length > MAX_ORBS) {
-      this.cappedOrbs += 1;
     }
-    this._currentOrbs.shift();
+  }
+
+  statistic() {
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={GIFT_OF_THE_OX_SPELLS[0].id} />}
+        label={"Gift of the Ox Healing"}
+        value={`${formatNumber(this.totalHealing / (this.owner.fightDuration / 1000))} HPS`}
+        tooltip={`You generated ${formatNumber(this.orbsGenerated)} healing spheres and consumed ${formatNumber(this.orbsConsumed)} of them. ${formatNumber(this.expelHarmOrbsConsumed)} of these were consumed with Expel Harm over ${formatNumber(this.expelHarmCasts)} casts.`}
+      />
+    );
   }
 }

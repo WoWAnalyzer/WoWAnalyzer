@@ -507,6 +507,78 @@ exports[`The Brewmaster Analyzer analyzers FitToBurst matches the statistic snap
 
 exports[`The Brewmaster Analyzer analyzers FitToBurst matches the suggestions snapshot 1`] = `"module inactive"`;
 
+exports[`The Brewmaster Analyzer analyzers GiftOfTheOx matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=124507"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/ability_monk_healthsphere.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Gift of the Ox Healing
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="You generated 40 healing spheres and consumed 40 of them. 30 of these were consumed with Expel Harm over 21 casts."
+            >
+              1,969 HPS
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Brewmaster Analyzer analyzers GiftOfTheOx matches the suggestions snapshot 1`] = `Array []`;
+
 exports[`The Brewmaster Analyzer analyzers GlobalCooldown matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`The Brewmaster Analyzer analyzers GlobalCooldown matches the suggestions snapshot 1`] = `Array []`;
