@@ -218,9 +218,7 @@ class Abilities extends CoreAbilities {
         spell: [SPELLS.WILD_CHARGE_TALENT, SPELLS.WILD_CHARGE_MOONKIN, SPELLS.WILD_CHARGE_CAT, SPELLS.WILD_CHARGE_BEAR, SPELLS.WILD_CHARGE_TRAVEL],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 15,
-        gcd: {
-          static: 500,
-        },
+        gcd: null,
         enabled: combatant.hasTalent(SPELLS.WILD_CHARGE_TALENT.id),
         timelineSortIndex: 14,
       },
