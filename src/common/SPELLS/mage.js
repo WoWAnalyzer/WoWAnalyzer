@@ -539,21 +539,6 @@ export default {
     name: 'Whiteout',
     icon: 'spell_frost_frostblast',
   },
-  WINTERS_REACH_TRAIT: {
-    id: 273346,
-    name: 'Winter\'s Reach',
-    icon: 'ability_warlock_burningembersblue',
-  },
-  WINTERS_REACH_BUFF: {
-    id: 273347,
-    name: 'Winter\'s Reach',
-    icon: 'ability_warlock_burningembersblue',
-  },
-  ANOMALOUS_IMPACT: {
-    id: 279867,
-    name: 'Anomalous Impact',
-    icon: 'ability_sorcererking_arcanereplication',
-  },
   GALVANIZING_SPARK: {
     id: 278536,
     name: 'Galvanizing Spark',

@@ -44,17 +44,6 @@ export default {
     name: 'Indomitable Justice',
     ïcon: 'spell_holy_righteousfury',
   },
-  ZEALOTRY: {
-    id: 278615,
-    name: 'Zealotry',
-    icon: 'spell_holy_weaponmastery',
-  },
-  DIVINE_RIGHT: {
-    id: 277678,
-    name: 'Divine Right',
-    icon: 'ability_paladin_divinestorm',
-  },
-
   // Retribution Trait Effects
   EXPURGATION_DAMAGE: {
     id: 273481,
@@ -70,11 +59,6 @@ export default {
     id: 272903,
     name: `Avenger's Might`,
     icon: 'spell_holy_avenginewrath',
-  },
-  ZEALOTRY_BUFF: {
-    id: 278989,
-    name: 'Zealotry',
-    icon: 'spell_holy_weaponmastery',
   },
   DIVINE_RIGHT_BUFF: {
     id: 278523,

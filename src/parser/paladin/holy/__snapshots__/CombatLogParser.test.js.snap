@@ -1,0 +1,5621 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Holy Paladin integration test analyzers Abilities matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`Holy Paladin integration test analyzers Abilities matches the suggestions snapshot 1`] = `"module has no suggestions"`;
+
+exports[`Holy Paladin integration test analyzers AlwaysBeCasting matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <img
+            alt=""
+            className="icon"
+            src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
+          />
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Downtime
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="Downtime is available time not used to cast anything (including not having your GCD rolling). This can be caused by delays between casting spells, latency, cast interrupting or just simply not casting anything (e.g. due to movement/stunned).<br/>
+        <li>You spent <b>40.59%</b> of your time casting heals.</li>
+        <li>You spent <b>26.01%</b> of your time casting non-healing spells.</li>
+        <li>You spent <b>33.40%</b> of your time casting nothing at all.</li>
+        "
+            >
+              33.40 %
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="panel-footer"
+      style={
+        Object {
+          "borderTop": 0,
+          "overflow": "hidden",
+          "padding": 0,
+        }
+      }
+    >
+      <div
+        className="statistic-bar"
+      >
+        <div
+          className="stat-health-bg"
+          data-tip="You spent <b>40.59%</b> of your time casting heals."
+          style={
+            Object {
+              "width": "40.58915067630533%",
+            }
+          }
+        >
+          <img
+            alt="Healing time"
+            src="/img/healing.png"
+          />
+        </div>
+        <div
+          className="Druid-bg"
+          data-tip="You spent <b>26.01%</b> of your time casting non-healing spells."
+          style={
+            Object {
+              "width": "26.006816370929776%",
+            }
+          }
+        >
+          <img
+            alt="Non-heal cast time"
+            src="/img/sword.png"
+          />
+        </div>
+        <div
+          className="remainder DeathKnight-bg"
+          data-tip="You spent <b>33.40%</b> of your time casting nothing at all."
+        >
+          <img
+            alt="Downtime"
+            src="/img/afk.png"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Holy Paladin integration test analyzers AlwaysBeCasting matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "petbattle_health-down",
+    "importance": "major",
+    "issue": "Your non healing time can be improved. Try to reduce the amount of time you're not healing, for example by reducing the delay between casting spells, moving during the GCD and if you have to move try to continue healing with instant spells.",
+    "stat": <React.Fragment>
+      59.41% non healing time
+       (
+      &lt;30.00% is recommended
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
+    "icon": "spell_mage_altertime",
+    "importance": "minor",
+    "issue": "Your downtime can be improved. Try to reduce your downtime, for example by reducing the delay between casting spells and when you're not healing try to contribute some damage.",
+    "stat": <React.Fragment>
+      33.40% downtime
+       (
+      &lt;20.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`Holy Paladin integration test analyzers AuraOfMercy matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=183415"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/spell_holy_blessedlife.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Healing done
+          </div>
+          <div
+            className="value"
+          >
+            1,166 HPS
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Holy Paladin integration test analyzers AuraOfMercy matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`Holy Paladin integration test analyzers AuraOfSacrificeDamageReduction matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`Holy Paladin integration test analyzers AuraOfSacrificeDamageReduction matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`Holy Paladin integration test analyzers BeaconHealSource matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`Holy Paladin integration test analyzers BeaconHealSource matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`Holy Paladin integration test analyzers BeaconHealingDone matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`Holy Paladin integration test analyzers BeaconHealingDone matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`Holy Paladin integration test analyzers BeaconTargets matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`Holy Paladin integration test analyzers BeaconTargets matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`Holy Paladin integration test analyzers BeaconTransferFactor matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`Holy Paladin integration test analyzers BeaconTransferFactor matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`Holy Paladin integration test analyzers CastBehavior matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="col-xs-12"
+    >
+      <div
+        className="panel statistic-box statistic-list"
+      >
+        <div
+          className="panel-heading"
+        >
+          <h2>
+            <a
+              href="http://wowhead.com/spell=54149"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon"
+                src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_infusionoflight.jpg"
+              />
+               
+              Infusion of Light
+            </a>
+             usage
+          </h2>
+        </div>
+        <div
+          className="panel-body items"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-sub"
+              style={
+                Object {
+                  "paddingRight": 12,
+                }
+              }
+            />
+            <div
+              className="flex-main"
+              style={
+                Object {
+                  "fontSize": "80%",
+                  "paddingTop": 3,
+                }
+              }
+            >
+              <div
+                className="flex"
+                style={
+                  Object {
+                    "borderBottom": "3px solid rgba(255,255,255,0.1)",
+                    "marginBottom": 5,
+                  }
+                }
+              >
+                <div
+                  className="flex-sub"
+                >
+                  <div
+                    style={
+                      Object {
+                        "background": "#ecd1b6",
+                        "borderRadius": "50%",
+                        "display": "inline-block",
+                        "height": 16,
+                        "marginBottom": -3,
+                        "width": 16,
+                      }
+                    }
+                  />
+                </div>
+                <div
+                  className="flex-main"
+                  style={
+                    Object {
+                      "paddingLeft": 5,
+                    }
+                  }
+                >
+                  <a
+                    href="http://wowhead.com/spell=19750"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <img
+                      alt=""
+                      className="icon"
+                      src="//render-us.worldofwarcraft.com/icons/56/spell_holy_flashheal.jpg"
+                    />
+                     
+                    Flash of Light
+                  </a>
+                </div>
+                <div
+                  className="flex-sub"
+                >
+                  <dfn
+                    data-tip={15}
+                  >
+                    65
+                    %
+                  </dfn>
+                </div>
+              </div>
+              <div
+                className="flex"
+                style={
+                  Object {
+                    "borderBottom": "3px solid rgba(255,255,255,0.1)",
+                    "marginBottom": 5,
+                  }
+                }
+              >
+                <div
+                  className="flex-sub"
+                >
+                  <div
+                    style={
+                      Object {
+                        "background": "#ff7d0a",
+                        "borderRadius": "50%",
+                        "display": "inline-block",
+                        "height": 16,
+                        "marginBottom": -3,
+                        "width": 16,
+                      }
+                    }
+                  />
+                </div>
+                <div
+                  className="flex-main"
+                  style={
+                    Object {
+                      "paddingLeft": 5,
+                    }
+                  }
+                >
+                  <a
+                    href="http://wowhead.com/spell=82326"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <img
+                      alt=""
+                      className="icon"
+                      src="//render-us.worldofwarcraft.com/icons/56/spell_holy_surgeoflight.jpg"
+                    />
+                     
+                    Holy Light
+                  </a>
+                </div>
+                <div
+                  className="flex-sub"
+                >
+                  <dfn
+                    data-tip={3}
+                  >
+                    13
+                    %
+                  </dfn>
+                </div>
+              </div>
+              <div
+                className="flex"
+                style={
+                  Object {
+                    "borderBottom": "3px solid rgba(255,255,255,0.1)",
+                    "marginBottom": 0,
+                  }
+                }
+              >
+                <div
+                  className="flex-sub"
+                >
+                  <div
+                    style={
+                      Object {
+                        "background": "#ff0000",
+                        "borderRadius": "50%",
+                        "display": "inline-block",
+                        "height": 16,
+                        "marginBottom": -3,
+                        "width": 16,
+                      }
+                    }
+                  />
+                </div>
+                <div
+                  className="flex-main"
+                  style={
+                    Object {
+                      "paddingLeft": 5,
+                    }
+                  }
+                >
+                  <dfn
+                    data-tip="The amount of Infusion of Lights you did not use out of the total available. You cast 34 Holy Shocks with a 67.65% crit ratio. This gave you 23 Infusion of Light procs, of which you used 18."
+                  >
+                    Wasted procs
+                  </dfn>
+                </div>
+                <div
+                  className="flex-sub"
+                >
+                  <dfn
+                    data-tip={5}
+                  >
+                    22
+                    %
+                  </dfn>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="row"
+  >
+    <div
+      className="col-xs-12"
+    >
+      <div
+        className="panel statistic-box statistic-list"
+      >
+        <div
+          className="panel-heading"
+        >
+          <h2>
+            Fillers
+          </h2>
+        </div>
+        <div
+          className="panel-body items"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-sub"
+              style={
+                Object {
+                  "paddingRight": 12,
+                }
+              }
+            />
+            <div
+              className="flex-main"
+              style={
+                Object {
+                  "fontSize": "80%",
+                  "paddingTop": 3,
+                }
+              }
+            >
+              <div
+                className="flex"
+                style={
+                  Object {
+                    "borderBottom": "3px solid rgba(255,255,255,0.1)",
+                    "marginBottom": 5,
+                  }
+                }
+              >
+                <div
+                  className="flex-sub"
+                >
+                  <div
+                    style={
+                      Object {
+                        "background": "#ecd1b6",
+                        "borderRadius": "50%",
+                        "display": "inline-block",
+                        "height": 16,
+                        "marginBottom": -3,
+                        "width": 16,
+                      }
+                    }
+                  />
+                </div>
+                <div
+                  className="flex-main"
+                  style={
+                    Object {
+                      "paddingLeft": 5,
+                    }
+                  }
+                >
+                  <a
+                    href="http://wowhead.com/spell=19750"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <img
+                      alt=""
+                      className="icon"
+                      src="//render-us.worldofwarcraft.com/icons/56/spell_holy_flashheal.jpg"
+                    />
+                     
+                    Flash of Light
+                  </a>
+                </div>
+                <div
+                  className="flex-sub"
+                >
+                  <dfn
+                    data-tip={34}
+                  >
+                    85
+                    %
+                  </dfn>
+                </div>
+              </div>
+              <div
+                className="flex"
+                style={
+                  Object {
+                    "borderBottom": "3px solid rgba(255,255,255,0.1)",
+                    "marginBottom": 0,
+                  }
+                }
+              >
+                <div
+                  className="flex-sub"
+                >
+                  <div
+                    style={
+                      Object {
+                        "background": "#ff7d0a",
+                        "borderRadius": "50%",
+                        "display": "inline-block",
+                        "height": 16,
+                        "marginBottom": -3,
+                        "width": 16,
+                      }
+                    }
+                  />
+                </div>
+                <div
+                  className="flex-main"
+                  style={
+                    Object {
+                      "paddingLeft": 5,
+                    }
+                  }
+                >
+                  <a
+                    href="http://wowhead.com/spell=82326"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <img
+                      alt=""
+                      className="icon"
+                      src="//render-us.worldofwarcraft.com/icons/56/spell_holy_surgeoflight.jpg"
+                    />
+                     
+                    Holy Light
+                  </a>
+                </div>
+                <div
+                  className="flex-sub"
+                >
+                  <dfn
+                    data-tip={6}
+                  >
+                    15
+                    %
+                  </dfn>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Holy Paladin integration test analyzers CastBehavior matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`Holy Paladin integration test analyzers Checklist matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`Holy Paladin integration test analyzers Checklist matches the suggestions snapshot 1`] = `"module has no suggestions"`;
+
+exports[`Holy Paladin integration test analyzers CooldownThroughputTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`Holy Paladin integration test analyzers CooldownThroughputTracker matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`Holy Paladin integration test analyzers CrusadersMight matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`Holy Paladin integration test analyzers CrusadersMight matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`Holy Paladin integration test analyzers DevotionAuraDamageReduction matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`Holy Paladin integration test analyzers DevotionAuraDamageReduction matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`Holy Paladin integration test analyzers DirectBeaconHealing matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=53563"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_beaconoflight.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Direct beacon healing
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="The amount of heals cast on beacon targets. 8.62 % of your Flash of Lights and Holy Lights were cast on a beacon target. You cast 3 Flash of Lights and 2 Holy Lights on beacon targets."
+            >
+              8.33 %
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Holy Paladin integration test analyzers DirectBeaconHealing matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`Holy Paladin integration test analyzers DivinePurpose matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`Holy Paladin integration test analyzers DivinePurpose matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`Holy Paladin integration test analyzers FailedBeaconTransfers matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=53563"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_beaconoflight.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Beacon healing lost (line of sight)
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="The amount of <b>raw</b> healing that didn't transfer to one or more beacon targets due to an issue such as Line of Sight or phasing."
+            >
+              <span
+                style={
+                  Object {
+                    "fontSize": "75%",
+                  }
+                }
+              >
+                Up to 
+                0.90 % / 138 HPS
+              </span>
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Holy Paladin integration test analyzers FailedBeaconTransfers matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`Holy Paladin integration test analyzers FillerFlashOfLight matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`Holy Paladin integration test analyzers FillerFlashOfLight matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_holy_flashheal",
+    "importance": "major",
+    "issue": <React.Fragment>
+      You started casting 
+      20
+       filler 
+      <SpellLink
+        icon={true}
+        id={19750}
+      />
+      s while 
+      <SpellLink
+        icon={true}
+        id={20473}
+      />
+       was 
+      <dfn
+        data-tip="It was either already available or going to be available within 200ms."
+      >
+        available
+      </dfn>
+       (at 
+      0:14, 0:25, 0:33, 0:34, 0:44, 0:54, 0:57, 1:14, 1:15, 1:54, 2:04, 2:15, 2:16, 2:49, 3:00, 3:41, 4:04, 4:08, 4:43, 4:53
+      ). 
+      <SpellLink
+        icon={true}
+        id={20473}
+      />
+       is a much more efficient spell and should be prioritized
+      <dfn
+        data-tip="There are very rare exceptions to this. For example it may be worth saving Holy Shock when you know you're going to be moving soon and you may have to heal yourself."
+      >
+        *
+      </dfn>
+      .
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      20 casts while Holy Shock was available
+       (
+      No inefficient casts is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`Holy Paladin integration test analyzers FillerLightOfTheMartyrs matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`Holy Paladin integration test analyzers FillerLightOfTheMartyrs matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "ability_paladin_lightofthemartyr",
+    "importance": "regular",
+    "issue": <React.Fragment>
+      You cast many 
+      <SpellLink
+        icon={true}
+        id={183998}
+      />
+      s. Light of the Martyr is an inefficient spell to cast, try to only cast Light of the Martyr when it will save someone's life or when moving and all other instant cast spells are on cooldown.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      2.08 Casts Per Minute - 14 casts total
+       (
+      &lt;1.5 Casts Per Minute is recommended
+      )
+    </React.Fragment>,
+  },
+  Object {
+    "details": null,
+    "icon": "ability_paladin_lightofthemartyr",
+    "importance": "major",
+    "issue": <React.Fragment>
+      You cast 
+      4
+       
+      <SpellLink
+        icon={true}
+        id={183998}
+      />
+      s while 
+      <SpellLink
+        icon={true}
+        id={20473}
+      />
+       was 
+      <dfn
+        data-tip="It was either already available or going to be available within 200ms."
+      >
+        available
+      </dfn>
+       (at 
+      1:07, 1:21, 2:35, 5:27
+      ). Try to 
+      <b>
+        never
+      </b>
+       cast 
+      <SpellLink
+        icon={true}
+        id={183998}
+      />
+       when something else is available
+      <dfn
+        data-tip="There are very rare exceptions to this. For example it may be worth saving Holy Shock when you know you're going to be moving soon and you may have to heal yourself."
+      >
+        *
+      </dfn>
+      .
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      4 casts while Holy Shock was available
+       (
+      No inefficient casts is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`Holy Paladin integration test analyzers HealingDone matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <img
+            alt="Healing"
+            src="/img/healing.png"
+            style={
+              Object {
+                "border": 0,
+              }
+            }
+          />
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Healing done
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="Total healing done: <b>6,246,872</b>"
+            >
+              15k HPS
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="panel-footer"
+      style={
+        Object {
+          "borderTop": 0,
+          "overflow": "hidden",
+          "padding": 0,
+        }
+      }
+    >
+      <div
+        className="statistic-bar"
+      >
+        <div
+          className="stat-healing-bg"
+          data-tip="Regular healing done, not including absorbs. You did a total of 5.71m regular healing (71.66% of raw healing)."
+          style={
+            Object {
+              "width": "71.6600470372455%",
+            }
+          }
+        >
+          <img
+            alt="Healing"
+            src="/img/healing.png"
+          />
+        </div>
+        <div
+          className="stat-negative-absorbs-bg"
+          data-tip="Absorbed healing. This only includes healing that gets absorbed by debuffs. You had a total of 533k healing absorbed (6.69% of raw healing)."
+          style={
+            Object {
+              "width": "6.687769714154418%",
+            }
+          }
+        >
+          <img
+            alt="Absorbed Healing"
+            src="/img/negative-absorbed.png"
+          />
+        </div>
+        <div
+          className="remainder stat-overhealing-bg"
+          data-tip="Overhealing. You did a total of 1.73m overhealing (21.65 % of raw healing). Overhealing can be caused by playing poorly such as selecting the wrong targets or casting abilities at the wrong time, other healers sniping, and/or bringing too many healers."
+        >
+          <img
+            alt="Overhealing"
+            src="/img/overhealing.png"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Holy Paladin integration test analyzers HealingDone matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`Holy Paladin integration test analyzers HolyAvenger matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`Holy Paladin integration test analyzers HolyAvenger matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`Holy Paladin integration test analyzers LightOfDawn matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=85222"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/spell_paladin_lightofdawn.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Average hits per cast
+          </div>
+          <div
+            className="value"
+          >
+            4.75 players
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Holy Paladin integration test analyzers LightOfDawn matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`Holy Paladin integration test analyzers LightOfDawnIndexer matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`Holy Paladin integration test analyzers LightOfDawnIndexer matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`Holy Paladin integration test analyzers LowHealthHealing matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`Holy Paladin integration test analyzers LowHealthHealing matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`Holy Paladin integration test analyzers MasteryEffectiveness matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <img
+            alt="Mastery effectiveness"
+            src="mastery-radius.png"
+            style={
+              Object {
+                "border": 0,
+              }
+            }
+          />
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Mastery effectiveness
+          </div>
+          <div
+            className="value"
+          >
+            92.32 %
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Holy Paladin integration test analyzers MasteryEffectiveness matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`Holy Paladin integration test analyzers MightOfTheMountain matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`Holy Paladin integration test analyzers MightOfTheMountain matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`Holy Paladin integration test analyzers MissingBeacons matches the statistic snapshot 1`] = `null`;
+
+exports[`Holy Paladin integration test analyzers MissingBeacons matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`Holy Paladin integration test analyzers Overhealing matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`Holy Paladin integration test analyzers Overhealing matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "ability_paladin_blessedmending",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      Try to avoid overhealing with 
+      <SpellLink
+        icon={true}
+        id={223306}
+      />
+      . Cast it just before someone is about to take damage and consider casting it on targets other than tanks.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      45.94% overhealing
+       (
+      &lt;40.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`Holy Paladin integration test analyzers PaladinAbilityTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`Holy Paladin integration test analyzers PaladinAbilityTracker matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`Holy Paladin integration test analyzers RuleOfLaw matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=214202"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_longarmofthelaw.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Rule of Law uptime
+          </div>
+          <div
+            className="value"
+          >
+            0.00 %
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Holy Paladin integration test analyzers RuleOfLaw matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "ability_paladin_longarmofthelaw",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Your 
+      <SpellLink
+        icon={true}
+        id={214202}
+      />
+       uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      0.00% uptime
+       (
+      &gt;25.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`Holy Paladin integration test analyzers SpellManaCost matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`Holy Paladin integration test analyzers SpellManaCost matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`Holy Paladin integration test analyzers StatValues matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-6 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel items"
+  >
+    <div
+      className="panel-heading"
+    >
+      <h2>
+        <dfn
+          data-tip="These stat values are calculated using the actual circumstances of this encounter. These values reveal the value of the last 1 rating of each stat, they may not necessarily be the best way to gear. The stat values are likely to differ based on fight, raid size, items used, talents chosen, etc.<br /><br />DPS gains are not included in any of the stat values."
+        >
+          Stat Values
+        </dfn>
+        <a
+          className="pull-right"
+          href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/parser/paladin/holy/modules/features/StatValues.md"
+        >
+          More info
+        </a>
+      </h2>
+    </div>
+    <div
+      className="panel-body"
+      style={
+        Object {
+          "padding": 0,
+        }
+      }
+    >
+      <table
+        className="data-table compact"
+      >
+        <thead>
+          <tr>
+            <th
+              style={
+                Object {
+                  "minWidth": 30,
+                }
+              }
+            >
+              <b>
+                Stat
+              </b>
+            </th>
+            <th
+              className="text-right"
+              colSpan={2}
+              style={
+                Object {
+                  "minWidth": 30,
+                }
+              }
+            >
+              <dfn
+                data-tip="Normalized so Intellect is always 1.00."
+              >
+                <b>
+                  Value
+                </b>
+              </dfn>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td
+              className="stat-intellect"
+            >
+              <svg
+                style={
+                  Object {
+                    "height": "1.6em",
+                    "marginRight": 10,
+                    "width": "1.6em",
+                  }
+                }
+                version="1.1"
+                viewBox="16 16 32 32"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <path
+                    d="M28.832,44.802h6.559v-1.101h-6.559V44.802z M29.91,47.004h4.402v-1.101H29.91V47.004z    M32.156,18.379c-0.012,0-0.031,0-0.045,0c-0.014,0-0.033,0-0.045,0c-1.078,0-9.704,0.127-9.704,11.01   c0,2.696,1.5,4.496,2.949,6.234c1.255,1.507,2.442,2.928,2.442,4.776V42.6h8.715v-2.202c0-1.848,1.187-3.269,2.442-4.776   c1.449-1.737,2.949-3.537,2.949-6.234C41.86,18.506,33.235,18.379,32.156,18.379z"
+                  />
+                </g>
+              </svg>
+               
+              Intellect
+            </td>
+            <td
+              className="text-right"
+            >
+              1.00
+            </td>
+            <td
+              style={
+                Object {
+                  "padding": 6,
+                }
+              }
+            >
+              <svg
+                data-tip="1.72 HPS per 1 rating / 89 rating per 1% throughput"
+                viewBox="0 0 100 100"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                />
+                <path
+                  d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                />
+                <path
+                  d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                />
+              </svg>
+            </td>
+          </tr>
+          <tr>
+            <td
+              className="stat-criticalstrike"
+            >
+              <svg
+                style={
+                  Object {
+                    "height": "1.6em",
+                    "marginRight": 10,
+                    "width": "1.6em",
+                  }
+                }
+                version="1.1"
+                viewBox="16 16 32 32"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <circle
+                    cx="32.111"
+                    cy="32.678"
+                    r="2.989"
+                  />
+                  <path
+                    d="M41.603,33.535l9.219-0.857l-9.219-0.857c-0.41-4.574-4.06-8.223-8.634-8.633l-0.857-9.218l-0.857,9.218    c-4.574,0.41-8.224,4.06-8.634,8.633l-9.219,0.857l9.219,0.857c0.41,4.573,4.06,8.224,8.634,8.633l0.857,9.218l0.857-9.218    C37.542,41.758,41.193,38.108,41.603,33.535z M33.076,41.007l0.215-2.313h-2.36l0.215,2.313c-3.856-0.444-6.921-3.509-7.365-7.364    l2.313,0.215v-2.359l-2.313,0.215c0.444-3.855,3.509-6.92,7.365-7.364l-0.215,2.313h2.36l-0.215-2.313    c3.856,0.444,6.921,3.509,7.365,7.364l-2.314-0.215v2.359l2.314-0.215C39.998,37.498,36.932,40.563,33.076,41.007z"
+                  />
+                </g>
+              </svg>
+               
+              Critical Strike
+            </td>
+            <td
+              className="text-right"
+            >
+              0.94
+            </td>
+            <td
+              style={
+                Object {
+                  "padding": 6,
+                }
+              }
+            >
+              <svg
+                data-tip="1.61 HPS per 1 rating / 95 rating per 1% throughput"
+                viewBox="0 0 100 100"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                />
+                <path
+                  d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                />
+                <path
+                  d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                />
+              </svg>
+            </td>
+          </tr>
+          <tr>
+            <td
+              className="stat-haste"
+            >
+              <svg
+                style={
+                  Object {
+                    "height": "1.6em",
+                    "marginRight": 10,
+                    "width": "1.6em",
+                  }
+                }
+                version="1.1"
+                viewBox="16 16 32 32"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <path
+                    d="M33.446,23.135c-0.89,0-1.612,0.722-1.612,1.612v8.049l-4.079,4.078c-0.63,0.629-0.63,1.65,0,2.28     c0.315,0.314,0.728,0.472,1.14,0.472c0.413,0,0.825-0.157,1.14-0.472l4.551-4.55c0.302-0.302,0.472-0.712,0.472-1.14v-8.716     C35.059,23.856,34.337,23.135,33.446,23.135z M32.111,16.668c-8.509,0-15.431,6.92-15.431,15.427     c0,8.506,6.922,15.426,15.431,15.426c8.509,0,15.431-6.92,15.431-15.426C47.542,23.588,40.62,16.668,32.111,16.668z      M19.179,38.606c-1.025-2.031-1.545-4.222-1.545-6.511c0-7.981,6.495-14.473,14.477-14.473v2.097     c-6.826,0-12.379,5.552-12.379,12.376c0,1.959,0.444,3.831,1.32,5.566L19.179,38.606z M32.111,43.516     c-6.3,0-11.426-5.124-11.426-11.422c0-6.298,5.126-11.422,11.426-11.422s11.426,5.124,11.426,11.422     C43.537,38.392,38.411,43.516,32.111,43.516z"
+                  />
+                </g>
+              </svg>
+               
+              <dfn
+                data-tip="
+          HPCT stands for \\"Healing per Cast Time\\". This is the max value that 1% Haste would be worth if you would cast everything you are already casting and that can be casted quicker 1% faster. Mana and overhealing are not accounted for in any way.<br /><br />
+          
+          The real value of Haste (HPCT) will be between 0 and the shown value. It depends on if you have the mana left to spend, if the gained casts would overheal and how well you are at casting spells limited by Hasted cooldowns end-to-end. If you are going OOM before the end of the fight you might instead want to drop some Haste or cast less bad heals. If you had mana left-over, Haste could help you convert that into healing. If your Haste usage is optimal Haste will then be worth the shown max value.<br /><br />
+          
+          If there are intense moments of damage taken where people are dying due to lack of healing and you're GCD capped, Haste might also help increase your throughput during this period saving lifes and helping you kill the boss.<br /><br />
+          
+          <b>The easiest advice here is to get Haste to a point you're comfortable at. This is usually around 5-9%.</b>
+        "
+              >
+                Haste (HPCT)
+              </dfn>
+            </td>
+            <td
+              className="text-right"
+            >
+              0.00 - 
+              1.04
+            </td>
+            <td
+              style={
+                Object {
+                  "padding": 6,
+                }
+              }
+            >
+              <svg
+                data-tip="1.79 HPS per 1 rating / 85 rating per 1% throughput"
+                viewBox="0 0 100 100"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                />
+                <path
+                  d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                />
+                <path
+                  d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                />
+              </svg>
+            </td>
+          </tr>
+          <tr>
+            <td
+              className="stat-mastery"
+            >
+              <svg
+                style={
+                  Object {
+                    "height": "1.6em",
+                    "marginRight": 10,
+                    "width": "1.6em",
+                  }
+                }
+                version="1.1"
+                viewBox="16 16 32 32"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <path
+                    d="M46.934,26.287c-1.107,0-2.004,0.885-2.004,1.976c0,0.31,0.079,0.599,0.208,0.861l-6.74,4.691   l-0.387-8.422c1.064-0.048,1.914-0.906,1.914-1.967c0-1.091-0.898-1.976-2.005-1.976c-1.107,0-2.004,0.885-2.004,1.976   c0,0.732,0.408,1.364,1.008,1.705l-4.812,8.237l-4.812-8.237c0.6-0.341,1.008-0.973,1.008-1.705c0-1.091-0.897-1.976-2.004-1.976   c-1.107,0-2.004,0.885-2.004,1.976c0,1.061,0.85,1.919,1.914,1.967l-0.387,8.422l-6.74-4.691c0.129-0.261,0.208-0.551,0.208-0.861   c0-1.092-0.897-1.976-2.005-1.976c-1.107,0-2.004,0.885-2.004,1.976c0,1.091,0.897,1.976,2.004,1.976   c0.298,0,0.578-0.068,0.832-0.183l5.048,13.236c2.178-0.849,5.377-1.385,8.943-1.385c3.566,0,6.764,0.536,8.942,1.385l5.048-13.236   c0.254,0.115,0.534,0.183,0.832,0.183c1.107,0,2.005-0.885,2.005-1.976C48.939,27.172,48.041,26.287,46.934,26.287z"
+                  />
+                </g>
+              </svg>
+               
+              Mastery
+            </td>
+            <td
+              className="text-right"
+            >
+              0.81
+            </td>
+            <td
+              style={
+                Object {
+                  "padding": 6,
+                }
+              }
+            >
+              <svg
+                data-tip="1.40 HPS per 1 rating / 109 rating per 1% throughput"
+                viewBox="0 0 100 100"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                />
+                <path
+                  d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                />
+                <path
+                  d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                />
+              </svg>
+            </td>
+          </tr>
+          <tr>
+            <td
+              className="stat-versatility"
+            >
+              <svg
+                style={
+                  Object {
+                    "height": "1.6em",
+                    "marginRight": 10,
+                    "width": "1.6em",
+                  }
+                }
+                version="1.1"
+                viewBox="16 16 32 32"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <polygon
+                    points="40.128,30.517 43.92,31.535 48.567,26.883 47.893,24.366 44.461,27.802 40.628,26.774    39.601,22.935 43.032,19.499 40.519,18.825 35.873,23.477 36.889,27.275 33.991,30.177 27.422,23.6 29.315,21.705 34.293,19.143    26.654,19.04 24.761,20.935 24.04,20.213 21.065,23.192 21.786,23.914 19.668,26.035 17.91,26.531 15.656,28.788 19.613,32.749    21.866,30.493 22.362,28.733 22.329,28.7 24.448,26.579 31.016,33.155 28.23,35.945 24.437,34.927 19.791,39.579 20.465,42.096    23.896,38.66 27.73,39.689 28.757,43.527 25.325,46.963 27.838,47.637 32.485,42.985 31.468,39.187 34.254,36.398 42.875,45.03    45.85,42.051 37.229,33.419  "
+                  />
+                </g>
+              </svg>
+               
+              <dfn
+                data-tip="Weight includes only the boost to healing, and does not include the damage reduction."
+              >
+                Versatility
+              </dfn>
+            </td>
+            <td
+              className="text-right"
+            >
+              0.85
+            </td>
+            <td
+              style={
+                Object {
+                  "padding": 6,
+                }
+              }
+            >
+              <svg
+                data-tip="1.46 HPS per 1 rating / 105 rating per 1% throughput"
+                viewBox="0 0 100 100"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                />
+                <path
+                  d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                />
+                <path
+                  d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                />
+              </svg>
+            </td>
+          </tr>
+          <tr>
+            <td
+              className="stat-versatility"
+            >
+              <svg
+                style={
+                  Object {
+                    "height": "1.6em",
+                    "marginRight": 10,
+                    "width": "1.6em",
+                  }
+                }
+                version="1.1"
+                viewBox="16 16 32 32"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <polygon
+                    points="40.128,30.517 43.92,31.535 48.567,26.883 47.893,24.366 44.461,27.802 40.628,26.774    39.601,22.935 43.032,19.499 40.519,18.825 35.873,23.477 36.889,27.275 33.991,30.177 27.422,23.6 29.315,21.705 34.293,19.143    26.654,19.04 24.761,20.935 24.04,20.213 21.065,23.192 21.786,23.914 19.668,26.035 17.91,26.531 15.656,28.788 19.613,32.749    21.866,30.493 22.362,28.733 22.329,28.7 24.448,26.579 31.016,33.155 28.23,35.945 24.437,34.927 19.791,39.579 20.465,42.096    23.896,38.66 27.73,39.689 28.757,43.527 25.325,46.963 27.838,47.637 32.485,42.985 31.468,39.187 34.254,36.398 42.875,45.03    45.85,42.051 37.229,33.419  "
+                  />
+                </g>
+              </svg>
+               
+              <dfn
+                data-tip="Weight includes both healing boost and damage reduction, counting damage reduction as additional throughput."
+              >
+                Versatility (with DR)
+              </dfn>
+            </td>
+            <td
+              className="text-right"
+            >
+              1.04
+            </td>
+            <td
+              style={
+                Object {
+                  "padding": 6,
+                }
+              }
+            >
+              <svg
+                data-tip="1.79 HPS per 1 rating / 85 rating per 1% throughput"
+                viewBox="0 0 100 100"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                />
+                <path
+                  d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                />
+                <path
+                  d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                />
+              </svg>
+            </td>
+          </tr>
+          <tr>
+            <td
+              className="stat-leech"
+            >
+              <img
+                alt=""
+                className="icon"
+                src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_lifedrain02.jpg"
+                style={
+                  Object {
+                    "height": "1.6em",
+                    "marginRight": 10,
+                    "width": "1.6em",
+                  }
+                }
+              />
+               
+              Leech
+            </td>
+            <td
+              className="text-right"
+            >
+              1.15
+            </td>
+            <td
+              style={
+                Object {
+                  "padding": 6,
+                }
+              }
+            >
+              <svg
+                data-tip="1.97 HPS per 1 rating / 78 rating per 1% throughput"
+                viewBox="0 0 100 100"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                />
+                <path
+                  d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                />
+                <path
+                  d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                />
+              </svg>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Holy Paladin integration test analyzers StatValues matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`Holy Paladin integration test should match the checklist snapshot 1`] = `
+<div
+  className="checklist"
+>
+  <div
+    className="expandable "
+  >
+    <div
+      className="meta checklist-item"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div
+            className="chevron"
+          >
+            <svg
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div>
+            <svg
+              style={
+                Object {
+                  "color": "red",
+                }
+              }
+              viewBox="15 15 70 70"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                style={
+                  Object {
+                    "strokeLinecap": "round",
+                    "strokeMiterlimit": 10,
+                    "strokeWidth": 10,
+                  }
+                }
+              >
+                <line
+                  x1="21.19"
+                  x2="78.81"
+                  y1="21.19"
+                  y2="78.81"
+                />
+                <line
+                  x1="78.81"
+                  x2="21.19"
+                  y1="21.19"
+                  y2="78.81"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-main"
+        >
+          Use core abilities as often as possible
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "width": 100,
+            }
+          }
+        >
+          <div
+            className="performance-bar-container"
+          >
+            <div
+              className="performance-bar small"
+              style={
+                Object {
+                  "backgroundColor": "#ac1f39",
+                  "transition": "background-color 800ms",
+                  "width": "20.55351497456081%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="details"
+      style={
+        Object {
+          "display": "none",
+          "minHeight": 80,
+          "paddingLeft": 65,
+          "paddingRight": 65,
+          "position": "relative",
+        }
+      }
+    >
+      <div
+        className="row"
+        style={
+          Object {
+            "marginBottom": 10,
+            "position": "relative",
+          }
+        }
+      >
+        <svg
+          className="text-muted"
+          style={
+            Object {
+              "fontSize": "2em",
+              "left": -33,
+              "position": "absolute",
+              "top": "50%",
+              "transform": "translateY(-33%)",
+            }
+          }
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+          />
+          <path
+            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+          />
+          <path
+            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+          />
+        </svg>
+        <div
+          className="col-md-12 text-muted"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Spells such as 
+              <a
+                href="http://wowhead.com/spell=20473"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_holy_searinglight.jpg"
+                />
+                 
+                Holy Shock
+              </a>
+              , 
+              <a
+                href="http://wowhead.com/spell=85222"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_paladin_lightofdawn.jpg"
+                />
+                 
+                Light of Dawn
+              </a>
+               and 
+              <a
+                href="http://wowhead.com/spell=20271"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_holy_righteousfury.jpg"
+                />
+                 
+                Judgment
+              </a>
+               (with 
+              <a
+                href="http://wowhead.com/spell=183811"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_holy_divineprovidence.jpg"
+                />
+                 
+                Judgment of Light
+              </a>
+              ) are your most efficient spells available. Try to cast them as much as possible without overhealing. 
+              <dfn
+                data-tip="When you're not bringing too many healers."
+              >
+                On Mythic*
+              </dfn>
+               you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and improving your target selection.
+               
+              <a
+                href="https://www.wowhead.com/holy-paladin-rotation-guide#gameplay-and-priority-list"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                More info.
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=20473"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_holy_searinglight.jpg"
+                />
+                 
+                Holy Shock
+              </a>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                68.23%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#df7102",
+                      "transition": "background-color 800ms",
+                      "width": "44.06406390122066%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=85222"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_paladin_lightofdawn.jpg"
+                />
+                 
+                Light of Dawn
+              </a>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                42.50%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#ac1f39",
+                      "transition": "background-color 800ms",
+                      "width": "21.7728332870595%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=20271"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_holy_righteousfury.jpg"
+                />
+                 
+                Judgment
+              </a>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                50.73%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#ac1f39",
+                      "transition": "background-color 800ms",
+                      "width": "24.134701409968777%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=223306"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_blessedmending.jpg"
+                />
+                 
+                Bestow Faith
+              </a>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                11.86%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#ac1f39",
+                      "transition": "background-color 800ms",
+                      "width": "7.179639899555116%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Total filler 
+              <a
+                href="http://wowhead.com/spell=19750"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_holy_flashheal.jpg"
+                />
+                 
+                Flash of Light
+              </a>
+              s cast while
+               
+              <span
+                style={
+                  Object {
+                    "whiteSpace": "nowrap",
+                  }
+                }
+              >
+                <a
+                  href="http://wowhead.com/spell=20473"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon"
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_holy_searinglight.jpg"
+                  />
+                   
+                  Holy Shock
+                </a>
+              </span>
+               was available
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                20
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#ac1f39",
+                      "transition": "background-color 800ms",
+                      "width": "5.616336375%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="expandable "
+  >
+    <div
+      className="meta checklist-item"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div
+            className="chevron"
+          >
+            <svg
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div>
+            <svg
+              style={
+                Object {
+                  "color": "green",
+                }
+              }
+              viewBox="0 0 50 50"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-main"
+        >
+          Use cooldowns effectively
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "width": 100,
+            }
+          }
+        >
+          <div
+            className="performance-bar-container"
+          >
+            <div
+              className="performance-bar small"
+              style={
+                Object {
+                  "backgroundColor": "#a6c34c",
+                  "transition": "background-color 800ms",
+                  "width": "80.84690962520474%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="details"
+      style={
+        Object {
+          "display": "none",
+          "minHeight": 80,
+          "paddingLeft": 65,
+          "paddingRight": 65,
+          "position": "relative",
+        }
+      }
+    >
+      <div
+        className="row"
+        style={
+          Object {
+            "marginBottom": 10,
+            "position": "relative",
+          }
+        }
+      >
+        <svg
+          className="text-muted"
+          style={
+            Object {
+              "fontSize": "2em",
+              "left": -33,
+              "position": "absolute",
+              "top": "50%",
+              "transform": "translateY(-33%)",
+            }
+          }
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+          />
+          <path
+            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+          />
+          <path
+            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+          />
+        </svg>
+        <div
+          className="col-md-12 text-muted"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Your cooldowns are an important contributor to your healing throughput. Try to get in as many efficient casts as the fight allows.
+               
+              <a
+                href="https://www.wowhead.com/holy-paladin-rotation-guide#gameplay-and-priority-list"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                More info.
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=216331"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_veneration.jpg"
+                />
+                 
+                Avenging Crusader
+              </a>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                73.53%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#ffc84a",
+                      "transition": "background-color 800ms",
+                      "width": "61.69381925040949%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=31821"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_holy_auramastery.jpg"
+                />
+                 
+                Aura Mastery
+              </a>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                75.05%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="expandable "
+  >
+    <div
+      className="meta checklist-item"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div
+            className="chevron"
+          >
+            <svg
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div>
+            <svg
+              style={
+                Object {
+                  "color": "red",
+                }
+              }
+              viewBox="15 15 70 70"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                style={
+                  Object {
+                    "strokeLinecap": "round",
+                    "strokeMiterlimit": 10,
+                    "strokeWidth": 10,
+                  }
+                }
+              >
+                <line
+                  x1="21.19"
+                  x2="78.81"
+                  y1="21.19"
+                  y2="78.81"
+                />
+                <line
+                  x1="78.81"
+                  x2="21.19"
+                  y1="21.19"
+                  y2="78.81"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-main"
+        >
+          Only use 
+          <a
+            href="http://wowhead.com/spell=183998"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_lightofthemartyr.jpg"
+            />
+             
+            Light of the Martyr
+          </a>
+           when absolutely necessary
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "width": 100,
+            }
+          }
+        >
+          <div
+            className="performance-bar-container"
+          >
+            <div
+              className="performance-bar small"
+              style={
+                Object {
+                  "backgroundColor": "#df7102",
+                  "transition": "background-color 800ms",
+                  "width": "46.08882392089102%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="details"
+      style={
+        Object {
+          "display": "none",
+          "minHeight": 80,
+          "paddingLeft": 65,
+          "paddingRight": 65,
+          "position": "relative",
+        }
+      }
+    >
+      <div
+        className="row"
+        style={
+          Object {
+            "marginBottom": 10,
+            "position": "relative",
+          }
+        }
+      >
+        <svg
+          className="text-muted"
+          style={
+            Object {
+              "fontSize": "2em",
+              "left": -33,
+              "position": "absolute",
+              "top": "50%",
+              "transform": "translateY(-33%)",
+            }
+          }
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+          />
+          <path
+            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+          />
+          <path
+            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+          />
+        </svg>
+        <div
+          className="col-md-12 text-muted"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=183998"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_lightofthemartyr.jpg"
+                />
+                 
+                Light of the Martyr
+              </a>
+               is an inefficient spell to cast compared to the alternatives. Try to only cast 
+              <a
+                href="http://wowhead.com/spell=183998"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_lightofthemartyr.jpg"
+                />
+                 
+                Light of the Martyr
+              </a>
+               when it will save someone's life or when you have to move and all other instant cast spells are on cooldown.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Total filler casts per minute
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                2
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#ffc84a",
+                      "transition": "background-color 800ms",
+                      "width": "64.09596596678206%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Total filler casts while 
+              <a
+                href="http://wowhead.com/spell=20473"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_holy_searinglight.jpg"
+                />
+                 
+                Holy Shock
+              </a>
+               was available
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                1
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#ac1f39",
+                      "transition": "background-color 800ms",
+                      "width": "28.081681874999997%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="expandable "
+  >
+    <div
+      className="meta checklist-item"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div
+            className="chevron"
+          >
+            <svg
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div>
+            <svg
+              style={
+                Object {
+                  "color": "green",
+                }
+              }
+              viewBox="0 0 50 50"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-main"
+        >
+          Don't tunnel the tanks
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "width": 100,
+            }
+          }
+        >
+          <div
+            className="performance-bar-container"
+          >
+            <div
+              className="performance-bar small"
+              style={
+                Object {
+                  "backgroundColor": "#4ec04e",
+                  "transition": "background-color 800ms",
+                  "width": "100%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="details"
+      style={
+        Object {
+          "display": "none",
+          "minHeight": 80,
+          "paddingLeft": 65,
+          "paddingRight": 65,
+          "position": "relative",
+        }
+      }
+    >
+      <div
+        className="row"
+        style={
+          Object {
+            "marginBottom": 10,
+            "position": "relative",
+          }
+        }
+      >
+        <svg
+          className="text-muted"
+          style={
+            Object {
+              "fontSize": "2em",
+              "left": -33,
+              "position": "absolute",
+              "top": "50%",
+              "transform": "translateY(-33%)",
+            }
+          }
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+          />
+          <path
+            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+          />
+          <path
+            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+          />
+        </svg>
+        <div
+          className="col-md-12 text-muted"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              A common misconception about Holy Paladins is that we should focus tanks when healing. This is actually inefficient. Let your beacons do most of the work, ask your co-healers to keep efficient HoTs on the tanks and only directly heal the tanks when they would otherwise die.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Direct beacon healing
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                8.33%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="expandable "
+  >
+    <div
+      className="meta checklist-item"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div
+            className="chevron"
+          >
+            <svg
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div>
+            <svg
+              style={
+                Object {
+                  "color": "green",
+                }
+              }
+              viewBox="0 0 50 50"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-main"
+        >
+          Position yourself well to maximize 
+          <a
+            href="http://wowhead.com/spell=183997"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/inv_hammer_04.jpg"
+            />
+             
+            Mastery: Lightbringer
+          </a>
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "width": 100,
+            }
+          }
+        >
+          <div
+            className="performance-bar-container"
+          >
+            <div
+              className="performance-bar small"
+              style={
+                Object {
+                  "backgroundColor": "#4ec04e",
+                  "transition": "background-color 800ms",
+                  "width": "100%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="details"
+      style={
+        Object {
+          "display": "none",
+          "minHeight": 80,
+          "paddingLeft": 65,
+          "paddingRight": 65,
+          "position": "relative",
+        }
+      }
+    >
+      <div
+        className="row"
+        style={
+          Object {
+            "marginBottom": 10,
+            "position": "relative",
+          }
+        }
+      >
+        <svg
+          className="text-muted"
+          style={
+            Object {
+              "fontSize": "2em",
+              "left": -33,
+              "position": "absolute",
+              "top": "50%",
+              "transform": "translateY(-33%)",
+            }
+          }
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+          />
+          <path
+            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+          />
+          <path
+            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+          />
+        </svg>
+        <div
+          className="col-md-12 text-muted"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=183997"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_hammer_04.jpg"
+                />
+                 
+                Mastery: Lightbringer
+              </a>
+               has a big impact on the strength of your heals. Try to stay close to the people you are healing to benefit the most from your Mastery. Use 
+              <a
+                href="http://wowhead.com/spell=214202"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_longarmofthelaw.jpg"
+                />
+                 
+                Rule of Law
+              </a>
+               when healing people further away.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Mastery effectiveness
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                92.32%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="expandable "
+  >
+    <div
+      className="meta checklist-item"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div
+            className="chevron"
+          >
+            <svg
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div>
+            <svg
+              style={
+                Object {
+                  "color": "green",
+                }
+              }
+              viewBox="0 0 50 50"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-main"
+        >
+          Use all of your 
+          <a
+            href="http://wowhead.com/mana"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/inv_elemental_mote_mana.jpg"
+            />
+             
+            Mana
+          </a>
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "width": 100,
+            }
+          }
+        >
+          <div
+            className="performance-bar-container"
+          >
+            <div
+              className="performance-bar small"
+              style={
+                Object {
+                  "backgroundColor": "#4ec04e",
+                  "transition": "background-color 800ms",
+                  "width": "100%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="details"
+      style={
+        Object {
+          "display": "none",
+          "minHeight": 80,
+          "paddingLeft": 65,
+          "paddingRight": 65,
+          "position": "relative",
+        }
+      }
+    >
+      <div
+        className="row"
+        style={
+          Object {
+            "marginBottom": 10,
+            "position": "relative",
+          }
+        }
+      >
+        <svg
+          className="text-muted"
+          style={
+            Object {
+              "fontSize": "2em",
+              "left": -33,
+              "position": "absolute",
+              "top": "50%",
+              "transform": "translateY(-33%)",
+            }
+          }
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+          />
+          <path
+            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+          />
+          <path
+            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+          />
+        </svg>
+        <div
+          className="col-md-12 text-muted"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              If you have a large amount of mana left at the end of the fight that's mana you could have turned into healing. Try to use all your mana during a fight. A good rule of thumb is to try to match your mana level with the boss's health.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Mana left
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                10.00%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="expandable "
+  >
+    <div
+      className="meta checklist-item"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div
+            className="chevron"
+          >
+            <svg
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div>
+            <svg
+              style={
+                Object {
+                  "color": "red",
+                }
+              }
+              viewBox="15 15 70 70"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                style={
+                  Object {
+                    "strokeLinecap": "round",
+                    "strokeMiterlimit": 10,
+                    "strokeWidth": 10,
+                  }
+                }
+              >
+                <line
+                  x1="21.19"
+                  x2="78.81"
+                  y1="21.19"
+                  y2="78.81"
+                />
+                <line
+                  x1="78.81"
+                  x2="21.19"
+                  y1="21.19"
+                  y2="78.81"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-main"
+        >
+          Try to avoid being inactive for a large portion of the fight
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "width": 100,
+            }
+          }
+        >
+          <div
+            className="performance-bar-container"
+          >
+            <div
+              className="performance-bar small"
+              style={
+                Object {
+                  "backgroundColor": "#df7102",
+                  "transition": "background-color 800ms",
+                  "width": "47.73285634443278%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="details"
+      style={
+        Object {
+          "display": "none",
+          "minHeight": 80,
+          "paddingLeft": 65,
+          "paddingRight": 65,
+          "position": "relative",
+        }
+      }
+    >
+      <div
+        className="row"
+        style={
+          Object {
+            "marginBottom": 10,
+            "position": "relative",
+          }
+        }
+      >
+        <svg
+          className="text-muted"
+          style={
+            Object {
+              "fontSize": "2em",
+              "left": -33,
+              "position": "absolute",
+              "top": "50%",
+              "transform": "translateY(-33%)",
+            }
+          }
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+          />
+          <path
+            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+          />
+          <path
+            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+          />
+        </svg>
+        <div
+          className="col-md-12 text-muted"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              While it's suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and 
+              <dfn
+                data-tip="While helping with damage would be optimal, it's much less important as a healer than any of the other suggestions on this checklist. You should ignore this suggestion while you are having difficulties with anything else."
+              >
+                when you're not healing try to contribute some damage*
+              </dfn>
+              .
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Non healing time
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                59.41%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#ac1f39",
+                      "transition": "background-color 800ms",
+                      "width": "25.22266584400364%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Downtime
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                33.40%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#a6c34c",
+                      "transition": "background-color 800ms",
+                      "width": "70.24304684486194%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="expandable "
+  >
+    <div
+      className="meta checklist-item"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div
+            className="chevron"
+          >
+            <svg
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div>
+            <svg
+              style={
+                Object {
+                  "color": "green",
+                }
+              }
+              viewBox="0 0 50 50"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-main"
+        >
+          Avoid overhealing
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "width": 100,
+            }
+          }
+        >
+          <div
+            className="performance-bar-container"
+          >
+            <div
+              className="performance-bar small"
+              style={
+                Object {
+                  "backgroundColor": "#a6c34c",
+                  "transition": "background-color 800ms",
+                  "width": "95.05820405727924%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="details"
+      style={
+        Object {
+          "display": "none",
+          "minHeight": 80,
+          "paddingLeft": 65,
+          "paddingRight": 65,
+          "position": "relative",
+        }
+      }
+    >
+      <div
+        className="row"
+        style={
+          Object {
+            "marginBottom": 10,
+            "position": "relative",
+          }
+        }
+      >
+        <svg
+          className="text-muted"
+          style={
+            Object {
+              "fontSize": "2em",
+              "left": -33,
+              "position": "absolute",
+              "top": "50%",
+              "transform": "translateY(-33%)",
+            }
+          }
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+          />
+          <path
+            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+          />
+          <path
+            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+          />
+        </svg>
+        <div
+          className="col-md-12 text-muted"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Pick the right targets when healing and use the right abilities at the right time. While overhealing still transfers to your beacons, it's still inefficient. Overhealing might be unavoidable when there's not a lot of damage taken (such as in normal mode) or when bringing too many healers.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=25914"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_holy_searinglight.jpg"
+                />
+                 
+                Holy Shock
+              </a>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                26.34%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=225311"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_paladin_lightofdawn.jpg"
+                />
+                 
+                Light of Dawn
+              </a>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                30.01%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=19750"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_holy_flashheal.jpg"
+                />
+                 
+                Flash of Light
+              </a>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                14.35%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=223306"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_blessedmending.jpg"
+                />
+                 
+                Bestow Faith
+              </a>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                45.94%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#a6c34c",
+                      "transition": "background-color 800ms",
+                      "width": "80.23281622911695%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="expandable "
+  >
+    <div
+      className="meta checklist-item"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div
+            className="chevron"
+          >
+            <svg
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div>
+            <svg
+              style={
+                Object {
+                  "color": "red",
+                }
+              }
+              viewBox="15 15 70 70"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                style={
+                  Object {
+                    "strokeLinecap": "round",
+                    "strokeMiterlimit": 10,
+                    "strokeWidth": 10,
+                  }
+                }
+              >
+                <line
+                  x1="21.19"
+                  x2="78.81"
+                  y1="21.19"
+                  y2="78.81"
+                />
+                <line
+                  x1="78.81"
+                  x2="21.19"
+                  y1="21.19"
+                  y2="78.81"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-main"
+        >
+          Be well prepared
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "width": 100,
+            }
+          }
+        >
+          <div
+            className="performance-bar-container"
+          >
+            <div
+              className="performance-bar small"
+              style={
+                Object {
+                  "backgroundColor": "#ffc84a",
+                  "transition": "background-color 800ms",
+                  "width": "52.38095238095239%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="details"
+      style={
+        Object {
+          "display": "none",
+          "minHeight": 80,
+          "paddingLeft": 65,
+          "paddingRight": 65,
+          "position": "relative",
+        }
+      }
+    >
+      <div
+        className="row"
+        style={
+          Object {
+            "marginBottom": 10,
+            "position": "relative",
+          }
+        }
+      >
+        <svg
+          className="text-muted"
+          style={
+            Object {
+              "fontSize": "2em",
+              "left": -33,
+              "position": "absolute",
+              "top": "50%",
+              "transform": "translateY(-33%)",
+            }
+          }
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+          />
+          <path
+            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+          />
+          <path
+            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+          />
+        </svg>
+        <div
+          className="col-md-12 text-muted"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Being well prepared with food, flasks, potions and enchants is an easy way to improve your performance.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              All items enchanted
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                2
+                 
+                / 3
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#a6c34c",
+                      "transition": "background-color 800ms",
+                      "width": "66.66666666666666%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Using high quality enchants
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                0
+                 
+                / 3
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#ac1f39",
+                      "transition": "background-color 800ms",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Used a pre-potion
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                No
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#ac1f39",
+                      "transition": "background-color 800ms",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Used a second potion
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                Yes
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Flask used
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                Yes
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              High quality food used
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                No
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#ac1f39",
+                      "transition": "background-color 800ms",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Food used
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                Yes
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="expandable "
+  >
+    <div
+      className="meta checklist-item"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div
+            className="chevron"
+          >
+            <svg
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div>
+            <svg
+              style={
+                Object {
+                  "color": "red",
+                }
+              }
+              viewBox="15 15 70 70"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                style={
+                  Object {
+                    "strokeLinecap": "round",
+                    "strokeMiterlimit": 10,
+                    "strokeWidth": 10,
+                  }
+                }
+              >
+                <line
+                  x1="21.19"
+                  x2="78.81"
+                  y1="21.19"
+                  y2="78.81"
+                />
+                <line
+                  x1="78.81"
+                  x2="21.19"
+                  y1="21.19"
+                  y2="78.81"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-main"
+        >
+          Use your supportive abilities
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "width": 100,
+            }
+          }
+        >
+          <div
+            className="performance-bar-container"
+          >
+            <div
+              className="performance-bar small"
+              style={
+                Object {
+                  "backgroundColor": "#ac1f39",
+                  "transition": "background-color 800ms",
+                  "width": "5.695387420320162%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="details"
+      style={
+        Object {
+          "display": "none",
+          "minHeight": 80,
+          "paddingLeft": 65,
+          "paddingRight": 65,
+          "position": "relative",
+        }
+      }
+    >
+      <div
+        className="row"
+        style={
+          Object {
+            "marginBottom": 10,
+            "position": "relative",
+          }
+        }
+      >
+        <svg
+          className="text-muted"
+          style={
+            Object {
+              "fontSize": "2em",
+              "left": -33,
+              "position": "absolute",
+              "top": "50%",
+              "transform": "translateY(-33%)",
+            }
+          }
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+          />
+          <path
+            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+          />
+          <path
+            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+          />
+        </svg>
+        <div
+          className="col-md-12 text-muted"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              While you shouldn't aim to cast defensives and externals on cooldown, be aware of them and try to use them whenever effective. Not using them at all indicates you might not be aware of them enough or not utilizing them optimally.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=214202"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_longarmofthelaw.jpg"
+                />
+                 
+                Rule of Law
+              </a>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                0.00%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#ac1f39",
+                      "transition": "background-color 800ms",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=190784"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_divinesteed.jpg"
+                />
+                 
+                Divine Steed
+              </a>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                11.12%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#ac1f39",
+                      "transition": "background-color 800ms",
+                      "width": "5.695387420320162%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=498"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_holy_divineprotection.jpg"
+                />
+                 
+                Divine Protection
+              </a>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                19.50%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#ac1f39",
+                      "transition": "background-color 800ms",
+                      "width": "14.431042959032172%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=6940"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_holy_sealofsacrifice.jpg"
+                />
+                 
+                Blessing of Sacrifice
+              </a>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                0.00%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#ac1f39",
+                      "transition": "background-color 800ms",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=633"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_holy_layonhands.jpg"
+                />
+                 
+                Lay on Hands
+              </a>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                100.00%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

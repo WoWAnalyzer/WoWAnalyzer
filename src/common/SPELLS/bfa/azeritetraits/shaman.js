@@ -93,11 +93,6 @@ export default {
     name: 'Spouting Spirits',
     icon: 'spell_shaman_spiritlink',
   },
-  EBB_AND_FLOW: {
-    id: 273597,
-    name: 'Ebb and Flow',
-    icon: 'ability_shaman_healingtide',
-  },
   SOOTHING_WATERS_TRAIT: {
     id: 272989,
     name: 'Soothing Waters',

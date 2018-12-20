@@ -10,7 +10,7 @@ import Abilities from './modules/Abilities';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import TimeFocusCapped from '../shared/modules/features/TimeFocusCapped';
-import CancelledCasts from "../shared/modules/features/CancelledCasts";
+import CancelledCasts from '../shared/modules/features/CancelledCasts';
 import FocusUsage from '../shared/modules/features/FocusUsage';
 //Normalizers
 import RapidFireNormalizer from './normalizers/RapidFire';
@@ -28,7 +28,6 @@ import ExplosiveShot from './modules/talents/ExplosiveShot';
 import LockAndLoad from './modules/talents/LockAndLoad';
 import PiercingShot from './modules/talents/PiercingShot';
 import MasterMarksman from './modules/talents/MasterMarksman';
-import LethalShots from './modules/talents/LethalShots';
 import DoubleTap from './modules/talents/DoubleTap';
 import CallingTheShots from './modules/talents/CallingTheShots';
 import HuntersMark from './modules/talents/HuntersMark';
@@ -38,6 +37,7 @@ import Trailblazer from '../shared/modules/talents/Trailblazer';
 import SteadyFocus from './modules/talents/SteadyFocus';
 import BornToBeWild from '../shared/modules/talents/BornToBeWild';
 import BindingShot from '../shared/modules/talents/BindingShot';
+import CarefulAim from './modules/talents/CarefulAim';
 
 //Focus
 import FocusTracker from '../shared/modules/features/focuschart/FocusTracker';
@@ -84,7 +84,6 @@ class CombatLogParser extends CoreCombatLogParser {
     piercingShot: PiercingShot,
     barrage: Barrage,
     masterMarksman: MasterMarksman,
-    lethalShots: LethalShots,
     doubleTap: DoubleTap,
     callingTheShots: CallingTheShots,
     huntersMark: HuntersMark,
@@ -94,6 +93,7 @@ class CombatLogParser extends CoreCombatLogParser {
     trailblazer: Trailblazer,
     bornToBeWild: BornToBeWild,
     bindingShot: BindingShot,
+    carefulAim: CarefulAim,
 
     //Azerite Traits
     steadyAim: SteadyAim,

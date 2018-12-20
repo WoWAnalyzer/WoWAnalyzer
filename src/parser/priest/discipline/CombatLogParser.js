@@ -46,7 +46,6 @@ import Contrition from './modules/spells/Contrition';
 import Grace from './modules/spells/Grace';
 import Schism from './modules/spells/Schism';
 
-import GiftOfForgiveness from './modules/azeritetraits/GiftOfForgiveness';
 import DepthOfTheShadows from './modules/azeritetraits/DepthOfTheShadows';
 import SinsOfTheMany from './modules/spells/SinsOfTheMany';
 
@@ -110,7 +109,6 @@ class CombatLogParser extends CoreCombatLogParser {
     sinsOfTheMany: SinsOfTheMany,
 
     // Azerite Traits
-    gift: GiftOfForgiveness,
     depthOfTheShadows: DepthOfTheShadows,
   };
 }

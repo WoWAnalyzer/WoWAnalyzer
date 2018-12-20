@@ -7,7 +7,7 @@ import { Juko8 } from 'CONTRIBUTORS';
 export default [
   {
     date: new Date('2018-10-04'),
-    changes: <React.Fragment> Added <SpellLink id={SPELLS.DIVINE_RIGHT.id} /> </React.Fragment>,
+    changes: <React.Fragment> Added Divine Right.</React.Fragment>,
     contributors: [Juko8],
   },
   {

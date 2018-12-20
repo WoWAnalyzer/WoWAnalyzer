@@ -14,7 +14,6 @@ import ChiBurst from 'parser/monk/mistweaver/modules/talents/ChiBurst';
 import ChiJi from 'parser/monk/mistweaver/modules/talents/ChiJi';
 import RisingMist from 'parser/monk/mistweaver/modules/talents/RisingMist';
 import FontOfLife from 'parser/monk/mistweaver/modules/spells/azeritetraits/FontOfLife';
-import InvigoratingBrew from 'parser/monk/mistweaver/modules/spells/azeritetraits/InvigoratingBrew';
 import UpliftedSpirits from 'parser/monk/mistweaver/modules/spells/azeritetraits/UpliftedSpirits';
 import JadeSerpentStatue from 'parser/monk/mistweaver/modules/talents/JadeSerpentStatue';
 
@@ -67,7 +66,7 @@ class MonkSpreadsheet extends React.Component {
             <tr><td>Invoke Chi-Ji Crane Heal Casts</td><td>{parser.getModule(ChiJi).active === true ? (parser.getModule(ChiJi).casts / getAbility(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id).casts).toFixed(2) : ''}</td></tr>
             <tr><td>Rising Mist Targets per Cast</td><td>{parser.getModule(RisingMist).active === true ? parser.getModule(RisingMist).averageTargetsPerRM.toFixed(2) : ''}</td></tr>
             <tr><td>Total Healing from Rising Mist HoT Extension</td><td>{parser.getModule(RisingMist).active === true ? parser.getModule(RisingMist).hotHealing.toFixed(2) : ''}</td></tr>
-            <tr><td>Total Healing from Azerite Traits</td><td>{((getAbility(SPELLS.OVERFLOWING_MISTS_HEAL.id).healingEffective || 0) + (parser.getModule(FontOfLife).healing || 0) + (parser.getModule(InvigoratingBrew).healing || 0) + (parser.getModule(UpliftedSpirits).healing || 0) + (getAbility(SPELLS.BURST_OF_LIFE_HEAL.id).healingEffective || 0)).toFixed(0)}</td></tr>
+            <tr><td>Total Healing from Azerite Traits</td><td>{((getAbility(SPELLS.OVERFLOWING_MISTS_HEAL.id).healingEffective || 0) + (parser.getModule(FontOfLife).healing || 0) + (parser.getModule(UpliftedSpirits).healing || 0) + (getAbility(SPELLS.BURST_OF_LIFE_HEAL.id).healingEffective || 0)).toFixed(0)}</td></tr>
           </tbody>
           </table>
           <br />
