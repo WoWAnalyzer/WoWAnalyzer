@@ -135,10 +135,17 @@ router.get('/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, re
   }
 
   if (storeCharacter && characterFromApi) {
-    storedCharacter.update({
+    try{
+    const s = await storedCharacter.update({
       ...characterFromApi,
       lastSeenAt: Sequelize.fn('NOW'),
     });
+    console.log(s);
+  }
+  catch(err) {
+    console.log(err);
+  }
+    console.log('updated');
     return;
   }
 });
