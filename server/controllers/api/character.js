@@ -25,9 +25,8 @@ const Character = models.Character;
  * /EU/Tarren Mill/Mufre - character search
  * This will skip looking for the character and just send the battle.net character data.
  *
- * The caching stratagy being used here is to always return cached data first if it exists. If its been more than TIME_TO_CACHE seconds since last update, update the cache after sending back the cached response.
+ * The caching stratagy being used here is to always return cached data first if it exists. then refresh in the background
  */
-const TIME_TO_CACHE = 3600;
 function sendJson(res, json) {
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -36,16 +35,6 @@ function sendJson(res, json) {
 function send404(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.sendStatus(404);
-}
-function checkIfExpired(char) {
-  const cacheExpiration = char && char.lastUpdated;
-  if (cacheExpiration) {
-    cacheExpiration.setSeconds(cacheExpiration.getSeconds() + TIME_TO_CACHE);
-    if (cacheExpiration > new Date()) {
-      return true;
-    }
-  }
-  return false;
 }
 
 async function getCharacterFromBlizzardApi(region, realm, name) {
@@ -116,9 +105,6 @@ router.get('/:id([0-9]+)', async (req, res) => {
     return;
   }
   sendJson(res, character);
-  if (await !checkIfExpired(character)) {
-    return;
-  }
   const charFromApi = await getCharacterFromBlizzardApi(character.region, character.realm, character.name);
   character.update({
     ...charFromApi,
@@ -132,12 +118,6 @@ router.get('/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, re
   const storedCharacter = await getStoredCharacter(null, realm, region, name);
   if (storedCharacter) {
     sendJson(res, storedCharacter);
-    if (await checkIfExpired(storedCharacter)) {
-      storedCharacter.update({
-        lastSeenAt: Sequelize.fn('NOW'),
-      });
-      return;
-    }
   }
 
   const characterFromApi = await getCharacterFromBlizzardApi(region, realm, name);
@@ -159,7 +139,6 @@ router.get('/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, re
     storedCharacter.update({
       ...characterFromApi,
       lastSeenAt: Sequelize.fn('NOW'),
-      lastUpdated: Sequelize.fn('NOW'),
     });
     return;
   }
@@ -170,19 +149,22 @@ router.get('/:id([0-9]+)/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', as
   const storedCharacter = await Character.findById(req.params.id);
   if (storedCharacter) {
     sendJson(storedCharacter);
-    if (!checkIfExpired(storedCharacter)) {
-      return;
-    }
   }
 
   // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
   const charFromApi = await getCharacterFromBlizzardApi(region, realm, name);
+
   if (charFromApi && !storedCharacter) {
     sendJson(res, charFromApi);
     storeCharacter({ id, ...charFromApi });
     return;
   }
-
+  if (storedCharacter && charFromApi) {
+    storedCharacter.update({ 
+      ...charFromApi, 
+      lastSeenAt: Sequelize.fn('NOW') 
+    });
+  }
   if (!storedCharacter && !charFromApi) {
     send404(res);
     return;

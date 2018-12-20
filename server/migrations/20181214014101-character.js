@@ -31,10 +31,6 @@ module.exports = {
       queryInterface.addColumn('Character', 'talents', Sequelize.STRING, {
         allowNull: true,
       }),
-      queryInterface.addColumn('Character', 'lastUpdated', Sequelize.DATE, {
-        allowNull: true,
-      }),
-      
     ]);
   },
 
@@ -47,7 +43,6 @@ module.exports = {
       queryInterface.removeColumn('Character', 'role'),
       queryInterface.removeColumn('Character', 'spec'),
       queryInterface.removeColumn('Character', 'talents'),
-      queryInterface.removeColumn('Character', 'lastUpdated'),
     ]);
   },
 };
