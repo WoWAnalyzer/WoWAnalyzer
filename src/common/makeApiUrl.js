@@ -19,12 +19,12 @@ export function makeCharacterApiUrl(characterId = null, region = null, realm = n
   });
 }
 
-export function makeItemApiUrl(itemId, region) {
+export function makeItemApiUrl(itemId, region = 'us') {
   const parts = ['item', region, itemId];
   return makeApiUrl(parts.map(part => encodeURIComponent(part)).join('/'));
 }
 
-export function makeSpellApiUrl(spellId, region) {
+export function makeSpellApiUrl(spellId, region = 'us') {
   const parts = ['spell', region, spellId];
   return makeApiUrl(parts.map(part => encodeURIComponent(part)).join('/'));
 }
