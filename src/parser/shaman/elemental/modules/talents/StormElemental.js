@@ -1,17 +1,17 @@
 import React from 'react';
 
-import SPELLS from '../../../../../common/SPELLS';
-import SpellIcon from '../../../../../common/SpellIcon';
-import { formatNumber, formatPercentage } from '../../../../../common/format';
+import SPELLS from 'common/SPELLS';
+import SpellIcon from 'common/SpellIcon';
+import { formatNumber, formatPercentage } from 'common/format';
 
-import Analyzer from '../../../../core/Analyzer';
-import EnemyInstances from '../../../../shared/modules/EnemyInstances';
+import Analyzer from 'parser/core/Analyzer';
+import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 
-import StatisticBox, { STATISTIC_ORDER } from '../../../../../interface/others/StatisticBox';
+import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import Abilities from '../Abilities';
 
-const STORMELE_DURATION = 30000;
+const STORMELE_DURATION = 30000 - 1500;
 class StormElemental extends Analyzer {
 
   static dependencies = {
@@ -28,6 +28,8 @@ class StormElemental extends Analyzer {
   }
 
   badFS = 0;
+  justEnteredSE = false;
+  checkDelay = 0;
 
   numCasts = {
     [SPELLS.STORM_ELEMENTAL_TALENT.id]: 0,
@@ -61,17 +63,15 @@ class StormElemental extends Analyzer {
 
 
     if(spellId === SPELLS.STORM_ELEMENTAL_TALENT.id) {
-      if(target.getBuff(SPELLS.FLAME_SHOCK.id, event.timestamp).end-event.timestamp<STORMELE_DURATION){
-        this.badFS++;
-      }
+      this.justEnteredSE = true;
       this.numCasts[SPELLS.STORM_ELEMENTAL_TALENT.id]+=1;
     }
-
 
     const ability = this.abilities.getAbility(spellId);
     if(!ability){
       return;
     }
+
     if(!this.selectedCombatant.hasBuff(SPELLS.WIND_GUST_BUFF.id, event.timestamp)){
       return;
     }
@@ -79,6 +79,18 @@ class StormElemental extends Analyzer {
     const gcd = this._resolveAbilityGcdField(ability.gcd);
     if(!gcd){
       return;
+    }
+
+    if(this.justEnteredSE){
+      if(target){
+        this.justEnteredSE = false;
+        const duration = target.hasBuff(SPELLS.FLAME_SHOCK.id, event.timestamp-this.checkDelay)? target.getBuff(SPELLS.FLAME_SHOCK.id, event.timestamp-this.checkDelay).end - event.timestamp : 0;
+        if(duration < STORMELE_DURATION) {
+          this.badFS+=1;
+        }
+    } else {
+      this.checkDelay+=gcd;
+      }
     }
 
     if (this.numCasts[spellId] !== undefined) {
