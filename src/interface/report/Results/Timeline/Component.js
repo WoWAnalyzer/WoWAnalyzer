@@ -30,11 +30,13 @@ class Timeline extends React.PureComponent {
     showGlobalCooldownDuration: false,
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       zoom: 2,
+      padding: 0,
     };
+    this.setContainerRef = this.setContainerRef.bind(this);
   }
 
   get duration() {
@@ -141,6 +143,16 @@ class Timeline extends React.PureComponent {
       return ability.timelineSortIndex;
     }
   }
+
+  setContainerRef(elem) {
+    if (!elem || !elem.getBoundingClientRect) {
+      return;
+    }
+    this.setState({
+      padding: elem.getBoundingClientRect().x + 15, // 15 for padding
+    });
+  }
+
   renderLane([spellId, events], index, growUp) {
     return (
       <Lane
@@ -171,37 +183,46 @@ class Timeline extends React.PureComponent {
     const eventsBySpellId = this.getEventsBySpellId(parser.eventHistory);
 
     return (
-      <DragScroll
-        style={{ width: '100%', overflow: 'auto' }}
-      >
-        <div className="spell-timeline" style={{ width: this.totalWidth, padding: `80px 0 ${this.getOffsetTop(eventsBySpellId.size)}px 0` }}>
-          <Buffs
-            start={start}
-            secondWidth={this.secondWidth}
-            parser={parser}
-            buffs={buffs}
-          />
-          <div className="time-line">
-            {this.seconds > 0 && [...Array(this.seconds)].map((_, second) => {
-              return (
-                <div
-                  key={second}
-                  style={{ width: this.secondWidth * skipInterval }}
-                  data-duration={formatDuration(second)}
-                />
-              );
-            })}
+      <>
+        <div className="container" ref={this.setContainerRef} />
+        <DragScroll className="spell-timeline-container">
+          <div
+            className="spell-timeline"
+            style={{
+              width: this.totalWidth + this.state.padding * 2,
+              paddingTop: 80, // max 4 buffs at the same time
+              paddingBottom: this.getOffsetTop(eventsBySpellId.size), // automaticly fit perfectly
+              paddingLeft: this.state.padding,
+              paddingRight: this.state.padding, // we also want the user to have the satisfying feeling of being able to get the right side to line up
+            }}>
+            <Buffs
+              start={start}
+              secondWidth={this.secondWidth}
+              parser={parser}
+              buffs={buffs}
+            />
+            <div className="time-line">
+              {this.seconds > 0 && [...Array(this.seconds)].map((_, second) => {
+                return (
+                  <div
+                    key={second}
+                    style={{ width: this.secondWidth * skipInterval }}
+                    data-duration={formatDuration(second)}
+                  />
+                );
+              })}
+            </div>
+            <Casts
+              start={start}
+              secondWidth={this.secondWidth}
+              parser={parser}
+            />
+            <div className="cooldowns">
+              {this.renderLanes(eventsBySpellId, false)}
+            </div>
           </div>
-          <Casts
-            start={start}
-            secondWidth={this.secondWidth}
-            parser={parser}
-          />
-          <div className="cooldowns">
-            {this.renderLanes(eventsBySpellId, false)}
-          </div>
-        </div>
-      </DragScroll>
+        </DragScroll>
+      </>
     );
   }
 }

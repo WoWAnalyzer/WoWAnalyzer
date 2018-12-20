@@ -1,3 +1,8 @@
+.spell-timeline-container {
+  width: 100%;
+  overflow: auto;
+  mask-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0.1%, rgb(0, 0, 0) 5%, rgb(0, 0, 0) 95%, rgba(0, 0, 0, 0) 99.9%);
+}
 .spell-timeline > * {
   position: relative;
 }
