@@ -80,9 +80,8 @@ class Ascendance extends Analyzer {
     if(this.justEnteredAscendance){
       if(target){
         this.justEnteredAscendance=false;
-        const duration = target.hasBuff(SPELLS.FLAME_SHOCK.id, event.timestamp-this.checkDelay)? target.getBuff(SPELLS.FLAME_SHOCK.id, event.timestamp-this.checkDelay).end - event.timestamp : 0;
-        if(duration < ASCENDANCE_DURATION) {
-          this.badFSAscendence++;
+        if(!target.hasBuff(SPELLS.FLAME_SHOCK.id, event.timestamp-this.checkDelay) || target.getBuff(SPELLS.FLAME_SHOCK.id, event.timestamp-this.checkDelay).end - event.timestamp < ASCENDANCE_DURATION){
+          this.badFSAscendence+=1;
         }
       } else {
         this.checkDelay+=gcd;

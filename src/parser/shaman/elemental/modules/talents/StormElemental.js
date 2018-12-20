@@ -84,8 +84,7 @@ class StormElemental extends Analyzer {
     if(this.justEnteredSE){
       if(target){
         this.justEnteredSE = false;
-        const duration = target.hasBuff(SPELLS.FLAME_SHOCK.id, event.timestamp-this.checkDelay)? target.getBuff(SPELLS.FLAME_SHOCK.id, event.timestamp-this.checkDelay).end - event.timestamp : 0;
-        if(duration < STORMELE_DURATION) {
+        if(!target.hasBuff(SPELLS.FLAME_SHOCK.id, event.timestamp-this.checkDelay) || target.getBuff(SPELLS.FLAME_SHOCK.id, event.timestamp-this.checkDelay).end - event.timestamp < STORMELE_DURATION){
           this.badFS+=1;
         }
     } else {
