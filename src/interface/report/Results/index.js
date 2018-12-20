@@ -118,7 +118,7 @@ class Results extends React.PureComponent {
     switch (selectedTab) {
       case CORE_TABS.OVERVIEW:
         return (
-          <>
+          <div className="container">
             <div className="panel">
               <div className="panel-heading">
                 <h1>Checklist</h1>
@@ -129,31 +129,49 @@ class Results extends React.PureComponent {
               </div>
             </div>
             <Suggestions issues={results.issues} />
-          </>
+          </div>
         );
       case CORE_TABS.STATISTICS:
         return (
-          <>
+          <div className="container">
             <Statistics parser={parser}>{results.statistics}</Statistics>
             <StatisticsSectionTitle>Abilities</StatisticsSectionTitle>
             <CastEfficiencyComponent
               categories={abilities.constructor.SPELL_CATEGORIES}
               abilities={castEfficiency.getCastEfficiency()}
             />
-          </>
+          </div>
         );
       case CORE_TABS.TIMELINE:
         return (
           <Timeline parser={parser} />
         );
       case CORE_TABS.EVENTS:
-        return <EventsTab parser={parser} />;
+        return (
+          <div className="container">
+            <EventsTab parser={parser} />
+          </div>
+        );
       case CORE_TABS.CHARACTER:
-        return <>{characterTab.render()}{encounterPanel.render()}</>;
+        return (
+          <div className="container">
+            {characterTab.render()}
+            {encounterPanel.render()}
+          </div>
+        );
       case CORE_TABS.ABOUT:
-        return <><About config={config} /><ChangelogTab /></>;
+        return (
+          <div className="container">
+            <About config={config} />
+            <ChangelogTab />
+          </div>
+        );
       default:
-        return results.tabs.find(tab => tab.url === selectedTab).render();
+        return (
+          <div className="container">
+            {results.tabs.find(tab => tab.url === selectedTab).render()}
+          </div>
+        );
     }
   }
   render() {
@@ -181,19 +199,15 @@ class Results extends React.PureComponent {
           tabs={results.tabs}
         />
 
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12" key={this.state.adjustForDowntime}>
-              {this.renderContent(selectedTab, results)}
-            </div>
-          </div>
+        {this.renderContent(selectedTab, results)}
 
-          {!premium && (
+        {!premium && (
+          <div className="container">
             <div className="text-center" style={{ marginTop: 40, marginBottom: -40 }}>
               <Ad format="leaderboard" />
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     );
   }
