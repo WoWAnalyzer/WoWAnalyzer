@@ -172,7 +172,7 @@ class Parses extends React.Component {
     const parses = rawParses.map(elem => {
       // get missing trinket-icons later
       TRINKET_SLOTS.forEach(slotID => {
-        if (!updatedTrinkets[elem.gear[slotID].id]) {
+        if (elem.gear[slotID].id && !updatedTrinkets[elem.gear[slotID].id]) {
           updatedTrinkets[elem.gear[slotID].id] = {
             name: elem.gear[slotID].name,
             id: elem.gear[slotID].id,
