@@ -9,12 +9,12 @@ export default {
   DEPTH_OF_THE_SHADOWS: {
     id: 275541,
     name: 'Depth of the Shadows',
-    icon: 'spell_shadow_shadowwordpain',
+    icon: 'spell_shadow_shadowmend',
   },
   DEPTH_OF_THE_SHADOWS_BUFF: {
     id: 275544,
     name: 'Depth of the Shadows',
-    icon: 'spell_shadow_shadowwordpain',
+    icon: 'spell_shadow_shadowmend',
   },
   // Holy
   BLESSED_SANCTUARY: {

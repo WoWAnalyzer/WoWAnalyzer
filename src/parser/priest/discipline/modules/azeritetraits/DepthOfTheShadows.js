@@ -7,11 +7,6 @@ import { calculateAzeriteEffects } from 'common/stats';
 import { formatNumber, formatPercentage } from 'common/format';
 
 import isAtonement from '../core/isAtonement';
-import atonementApplicationSource from  '../features/AtonementApplicationSource';
-
-/*
-  refresh
-*/
 
 const DEPTH_OF_THE_SHADOWS_BONUS_MS = 2000;
 const EVANGELISM_BONUS_MS = 6000;
@@ -20,8 +15,10 @@ class DepthOfTheShadows extends Analyzer {
 
   _bonusFromAtonementDuration = 0;
   _bonusFromDirectHealBuff = 0;
-  _shadowMendCasts = [];
   _bonusHealingForSingleDepthStack = 0;
+
+  _lastCastIsShadowmend = false;
+  _shadowmends = [];
 
   constructor(...args) {
     super(...args);
@@ -29,13 +26,49 @@ class DepthOfTheShadows extends Analyzer {
 
     this._bonusHealingForSingleDepthStack = this.selectedCombatant.traitsBySpellId[SPELLS.DEPTH_OF_THE_SHADOWS.id]
       .reduce((sum, rank) => sum + calculateAzeriteEffects(SPELLS.DEPTH_OF_THE_SHADOWS.id, rank)[0], 0);
-
-    console.log(this._bonusHealingForSingleDepthStack);
   }
 
   on_byPlayer_cast(event) {
-    if (event.ability.guid === SPELLS.SHADOW_MEND.id) {
-      this._shadowMendCasts.push(event);
+
+    const spellId = event.ability.guid;
+
+    if (spellId === SPELLS.SHADOW_MEND.id) {
+      this._lastCastIsShadowmend = true;
+    }
+
+    if (spellId === SPELLS.EVANGELISM_TALENT.id){
+      this._shadowmends.forEach((cast, castIndex) => {
+
+        // We search for atonements applied with shadowmend that we're in their
+        // normal atonement window when evangelism was casted
+        if(event.timestamp > cast.applyBuff.timestamp
+        && event.timestamp < cast.applyBuff.timestamp + SPELLS.SHADOW_MEND.atonementDuration * 1000) {
+          this._shadowmends[castIndex].wasExtendedByEvangelismPreDepthWindow = true;
+        }
+        // We search for atonements applied with shadowmend that we're in their
+        // depth window when evangelism was casted
+        if(event.timestamp > cast.applyBuff.timestamp + SPELLS.SHADOW_MEND.atonementDuration * 1000
+        && event.timestamp < cast.applyBuff.timestamp + SPELLS.SHADOW_MEND.atonementDuration * 1000 + DEPTH_OF_THE_SHADOWS_BONUS_MS){
+          this._shadowmends[castIndex].wasExtendedByEvangelismInDepthWindow = true;
+        }
+      });
+    }
+  }
+
+  on_byPlayer_applybuff(event) {
+    const spellId = event.ability.guid;
+
+    if (spellId === SPELLS.ATONEMENT_BUFF.id && this._lastCastIsShadowmend) {
+
+      this._lastCastIsShadowmend = false;
+
+      this._shadowmends.push({
+        "cast" : this._lastShadowmendCast,
+        "applyBuff": event,
+        "atonementEvents": [],
+        "wasExtendedByEvangelismPreDepthWindow": false,
+        "wasExtendedByEvangelismInDepthWindow": false,
+      });
     }
   }
 
@@ -43,13 +76,20 @@ class DepthOfTheShadows extends Analyzer {
 
     if(!isAtonement(event)) { return; }
 
-    this._shadowMendCasts.forEach((cast, castIndex) => {
+    this._shadowmends.forEach((cast, castIndex) => {
 
-      const lowerBound = cast.timestamp + SPELLS.SHADOW_MEND.atonementDuration * 1000;
-      const upperBound = cast.timestamp + SPELLS.SHADOW_MEND.atonementDuration * 1000 + DEPTH_OF_THE_SHADOWS_BONUS_MS;
+      const lowerBound = cast.applyBuff.timestamp
+                       + (cast.wasExtendedByEvangelismPreDepthWindow ? EVANGELISM_BONUS_MS : 0)
+                       + SPELLS.SHADOW_MEND.atonementDuration * 1000;
 
-      if(event.targetID === cast.targetID && event.timestamp > lowerBound && event.timestamp < upperBound) {
+      const upperBound = cast.applyBuff.timestamp
+                       + (cast.wasExtendedByEvangelismPreDepthWindow || cast.wasExtendedByEvangelismInDepthWindow ? EVANGELISM_BONUS_MS : 0)
+                       + SPELLS.SHADOW_MEND.atonementDuration * 1000
+                       + DEPTH_OF_THE_SHADOWS_BONUS_MS;
+
+      if(event.targetID === cast.applyBuff.targetID && event.timestamp > lowerBound && event.timestamp < upperBound) {
           this._bonusFromAtonementDuration += event.amount;
+          this._shadowmends[castIndex].atonementEvents.push(event);
       }
     });
   }
