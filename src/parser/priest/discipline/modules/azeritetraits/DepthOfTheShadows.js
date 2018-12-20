@@ -7,6 +7,7 @@ import { calculateAzeriteEffects } from 'common/stats';
 import { formatNumber, formatPercentage } from 'common/format';
 
 import isAtonement from '../core/isAtonement';
+import atonementApplicationSource from  '../features/AtonementApplicationSource';
 
 /*
   refresh
@@ -29,26 +30,12 @@ class DepthOfTheShadows extends Analyzer {
     this._bonusHealingForSingleDepthStack = this.selectedCombatant.traitsBySpellId[SPELLS.DEPTH_OF_THE_SHADOWS.id]
       .reduce((sum, rank) => sum + calculateAzeriteEffects(SPELLS.DEPTH_OF_THE_SHADOWS.id, rank)[0], 0);
 
-    this._bonusHealingForSingleDepthStack *= 2;
+    console.log(this._bonusHealingForSingleDepthStack);
   }
 
   on_byPlayer_cast(event) {
-
     if (event.ability.guid === SPELLS.SHADOW_MEND.id) {
-      event.lowerBound = event.timestamp + SPELLS.SHADOW_MEND.atonementDuration * 1000;
-      event.upperBound = event.timestamp + SPELLS.SHADOW_MEND.atonementDuration * 1000 + DEPTH_OF_THE_SHADOWS_BONUS_MS;
       this._shadowMendCasts.push(event);
-    }
-
-    if (event.ability.guid === SPELLS.EVANGELISM_TALENT.id) {
-      this._shadowMendCasts.forEach((cast, castIndex) => {
-
-        if(event.timestamp < cast.lowerBound || event.timestamp > cast.upperBound) {
-          cast.lowerBound += EVANGELISM_BONUS_MS;
-        }
-
-        cast.upperBound += EVANGELISM_BONUS_MS;
-      });
     }
   }
 
@@ -57,9 +44,13 @@ class DepthOfTheShadows extends Analyzer {
     if(!isAtonement(event)) { return; }
 
     this._shadowMendCasts.forEach((cast, castIndex) => {
-        if(event.targetID === cast.targetID && event.timestamp > cast.lowerBound && event.timestamp < cast.upperBound) {
-            this._bonusFromAtonementDuration += event.amount;
-        }
+
+      const lowerBound = cast.timestamp + SPELLS.SHADOW_MEND.atonementDuration * 1000;
+      const upperBound = cast.timestamp + SPELLS.SHADOW_MEND.atonementDuration * 1000 + DEPTH_OF_THE_SHADOWS_BONUS_MS;
+
+      if(event.targetID === cast.targetID && event.timestamp > lowerBound && event.timestamp < upperBound) {
+          this._bonusFromAtonementDuration += event.amount;
+      }
     });
   }
 
