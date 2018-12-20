@@ -1,6 +1,6 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import TraitStatisticBox from 'interface/others/TraitStatisticBox';
 
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
@@ -79,11 +79,8 @@ class PromiseOfDeliverance extends Analyzer {
 
     return (
       <TraitStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.PROMISE_OF_DELIVERANCE.id}
-        value={(
-          <ItemHealingDone amount={this.healingDone} />
-        )}
+        value={<ItemHealingDone amount={this.healingDone} />}
         tooltip={`
           Healing Done: ${formatNumber(this.healingDone)} (${formatPercentage(this.overhealingDone / (this.healingDone + this.overhealingDone))}% OH).<br />
           ${SPELLS.HOLY_WORD_SERENITY.name} Cooldown reduced by ${Math.floor(this.cooldownReduced / 1000)} seconds.

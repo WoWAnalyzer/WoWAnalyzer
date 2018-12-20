@@ -1,6 +1,6 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import TraitStatisticBox from 'interface/others/TraitStatisticBox';
 
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
@@ -62,11 +62,8 @@ class DeathDenied extends Analyzer {
   statistic() {
     return (
       <TraitStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.DEATH_DENIED.id}
-        value={(
-          <ItemHealingDone amount={this.damageAbsorbed} />
-        )}
+        value={<ItemHealingDone amount={this.damageAbsorbed} />}
         tooltip={`
           ${formatNumber(this.damageAbsorbed)} damage absorbed.<br />
           ${SPELLS.LEAP_OF_FAITH.name} cooldown reduced by ${Math.floor(this.cooldownTimeReduced / 1000)} seconds.
