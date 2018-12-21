@@ -2,7 +2,8 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import React from 'react';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemManaGained from 'interface/others/ItemManaGained';
+import SpellLink from 'common/SpellLink';
 
 // Example Log: /report/hRd3mpK1yTQ2tDJM/1-Mythic+MOTHER+-+Kill+(2:24)/14-丶寶寶小喵
 class SurgeOfLight extends Analyzer {
@@ -15,6 +16,10 @@ class SurgeOfLight extends Analyzer {
   solOverHealing = 0;
 
   freeFlashHealPending = false;
+
+  get solManaSaved() {
+    return this.solFlashHeals * SPELLS.FLASH_HEAL.manaCost;
+  }
 
   constructor(...args) {
     super(...args);
@@ -44,7 +49,7 @@ class SurgeOfLight extends Analyzer {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.FLASH_HEAL.id && this.freeFlashHealPending) {
-      this.solHealing += event.amount || 0;
+      this.solHealing += event.amount + (event.absorb || 0);
       this.solOverHealing += event.overhealing || 0;
       if (this.currentSolStacks === 0) {
         this.freeFlashHealPending = false;
@@ -56,8 +61,11 @@ class SurgeOfLight extends Analyzer {
     return (
       <TalentStatisticBox
         talent={SPELLS.SURGE_OF_LIGHT_TALENT.id}
-        value={<ItemHealingDone amount={this.solHealing} />}
-        tooltip={`${this.solFlashHeals} free Flash Heals`}
+        value={<>
+          {this.solFlashHeals} free <SpellLink id={SPELLS.FLASH_HEAL.id} /> casts<br />
+          <ItemManaGained amount={this.solManaSaved} />
+        </>}
+        tooltip={`${this.solFlashHeals}/${this.solStacksGained} Surge of Light buffs used`}
         position={STATISTIC_ORDER.CORE(5)}
       />
     );
