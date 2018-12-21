@@ -25,25 +25,39 @@ const Character = models.Character;
  * /EU/Tarren Mill/Mufre - character search
  * This will skip looking for the character and just send the battle.net character data.
  *
- * So the whole purpose of storing the character info is so it's also available on unexported WCL reports where we only have the character id.
+ * The caching stratagy being used here is to always return cached data first if it exists. then refresh in the background
  */
-
 function sendJson(res, json) {
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.send(json);
 }
-async function proxyCharacterApi(res, region, realm, name, fields) {
+function send404(res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.sendStatus(404);
+}
+
+async function getCharacterFromBlizzardApi(region, realm, name) {
   try {
     console.log('Fetching character from Battle.net');
     const start = Date.now();
-    const response = await fetchCharacterFromBattleNet(region, realm, name, fields);
+    const response = await fetchCharacterFromBattleNet(region, realm, name);
     const responseTime = Date.now() - start;
     console.log('Battle.net response time:', responseTime, 'ms');
-    const json = JSON.parse(response);
+    const data = JSON.parse(response);
     // This is the only field that we need and isn't always otherwise obtainable (e.g. when this is fetched by character id)
-    json.region = region;
-    sendJson(res, json);
+    // eslint-disable-next-line prefer-const
+    const { talents, ...other } = data;
+    let json = { region, ...other };
+    if (talents) {
+      const selectedSpec = talents.find(e => e.selected);
+      json = {
+        ...json,
+        spec: selectedSpec.spec.name,
+        role: selectedSpec.spec.role,
+        talents: selectedSpec.calcTalent,
+      };
+    }
     return json;
   } catch (error) {
     const { statusCode, message, response } = error;
@@ -54,55 +68,106 @@ async function proxyCharacterApi(res, region, realm, name, fields) {
     if (!isCharacterNotFoundError) {
       Raven.installed && Raven.captureException(error);
     }
-    res.status(statusCode || 500);
-    sendJson(res, body);
     return null;
   }
 }
-async function storeCharacter(id, region, realm, name) {
+async function getStoredCharacter(id, realm, region, name) {
+  if (id) {
+    return Character.findById(id);
+  }
+  if (realm && name && region) {
+    return Character.findOne({
+      where: {
+        name,
+        region,
+        realm,
+      },
+    });
+  }
+  return null;
+}
+
+async function storeCharacter(char) {
   await Character.upsert({
-    id,
-    region,
-    realm,
-    name,
+    ...char,
     lastSeenAt: Sequelize.fn('NOW'),
   });
 }
+
 const characterIdFromThumbnailRegex = /\/([0-9]+)-/;
 
 const router = Express.Router();
+
 router.get('/:id([0-9]+)', async (req, res) => {
-  const character = await Character.findById(req.params.id);
+  const character = await getStoredCharacter(req.params.id);
   if (!character) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.sendStatus(404);
+    send404(res);
     return;
   }
-  // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
+  sendJson(res, character);
+  const charFromApi = await getCharacterFromBlizzardApi(character.region, character.realm, character.name);
   character.update({
+    ...charFromApi,
     lastSeenAt: Sequelize.fn('NOW'),
   });
-  await proxyCharacterApi(res, character.region, character.realm, character.name, req.query.fields);
 });
+
 router.get('/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, res) => {
   const { region, realm, name } = req.params;
-  // In case you don't look inside proxyCharacterApi: *this sends the data to the browser*.
-  const characterInfo = await proxyCharacterApi(res, region, realm, name, req.query.fields);
-  // Everything after this happens after the data was sent
-  if (!characterInfo) {
+
+  const storedCharacter = await getStoredCharacter(null, realm, region, name);
+  if (storedCharacter) {
+    sendJson(res, storedCharacter);
+  }
+
+  const characterFromApi = await getCharacterFromBlizzardApi(region, realm, name);
+  if (!storedCharacter && !characterFromApi) {
+    send404(res);
+    return;
+  } else if (!storedCharacter && characterFromApi) {
+    sendJson(res, characterFromApi);
+    if (characterFromApi.thumbnail) {
+      const [, characterId] = characterIdFromThumbnailRegex.exec(characterFromApi.thumbnail);
+      // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
+      storeCharacter({ id: characterId, ...characterFromApi });
+    }
     return;
   }
-  if (characterInfo && characterInfo.thumbnail) {
-    const [,characterId] = characterIdFromThumbnailRegex.exec(characterInfo.thumbnail);
-    // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
-    storeCharacter(characterId, region, realm, name);
+
+  if (storeCharacter && characterFromApi) {
+    storedCharacter.update({
+      ...characterFromApi,
+      lastSeenAt: Sequelize.fn('NOW'),
+    });
+    return;
   }
 });
+
 router.get('/:id([0-9]+)/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, res) => {
   const { id, region, realm, name } = req.params;
+  const storedCharacter = await Character.findById(req.params.id);
+  if (storedCharacter) {
+    sendJson(res, storedCharacter);
+  }
+
   // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
-  storeCharacter(id, region, realm, name);
-  await proxyCharacterApi(res, region, realm, name, req.query.fields);
+  const charFromApi = await getCharacterFromBlizzardApi(region, realm, name);
+
+  if (charFromApi && !storedCharacter) {
+    sendJson(res, charFromApi);
+    storeCharacter({ id, ...charFromApi });
+    return;
+  }
+  if (storedCharacter && charFromApi) {
+    storedCharacter.update({ 
+      ...charFromApi, 
+      lastSeenAt: Sequelize.fn('NOW'),
+    });
+  }
+  if (!storedCharacter && !charFromApi) {
+    send404(res);
+    return;
+  }
 });
 
 export default router;

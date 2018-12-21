@@ -391,36 +391,28 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.WILD_CHARGE_TALENT.id),
         cooldown: 15,
-        gcd: {
-          base: 500,
-        },
+        gcd: null,
       },
       {
         spell: SPELLS.WILD_CHARGE_BEAR,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.WILD_CHARGE_TALENT.id),
         cooldown: 15,
-        gcd: {
-          base: 500,
-        },
+        gcd: null,
       },
       {
         spell: SPELLS.WILD_CHARGE_CAT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.WILD_CHARGE_TALENT.id),
         cooldown: 15,
-        gcd: {
-          base: 500,
-        },
+        gcd: null,
       },
       {
         spell: SPELLS.WILD_CHARGE_MOONKIN,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.WILD_CHARGE_TALENT.id),
         cooldown: 15,
-        gcd: {
-          base: 500,
-        },
+        gcd: null,
       },
       {
         spell: SPELLS.DASH,
