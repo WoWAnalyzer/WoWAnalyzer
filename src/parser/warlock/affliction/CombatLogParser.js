@@ -39,6 +39,7 @@ import WrackingBrilliance from './modules/azerite/WrackingBrilliance';
 import DreadfulCalling from './modules/azerite/DreadfulCalling';
 import InevitableDemise from './modules/azerite/InevitableDemise';
 import SuddenOnset from './modules/azerite/SuddenOnset';
+import PandemicInvocation from './modules/azerite/PandemicInvocation';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -85,6 +86,7 @@ class CombatLogParser extends CoreCombatLogParser {
     dreadfulCalling: DreadfulCalling,
     inevitableDemise: InevitableDemise,
     suddenOnset: SuddenOnset,
+    pandemicInvocation: PandemicInvocation,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],
