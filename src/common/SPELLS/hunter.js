@@ -172,7 +172,7 @@ export default {
     icon: 'ability_hunter_steadyshot',
   },
   TRUESHOT: {
-    id: 193526,
+    id: 288613,
     name: 'Trueshot',
     icon: 'ability_trueshot',
   },
@@ -342,8 +342,8 @@ export default {
   },
   MONGOOSE_BITE_TALENT_AOTE: {
     id: 265888,
-    name: "Mongoose Bite",
-    icon: "ability_hunter_mongoosebite",
+    name: 'Mongoose Bite',
+    icon: 'ability_hunter_mongoosebite',
   },
   STEEL_TRAP_DAMAGE: { //the event is a damage event, but it merely applies the debuff
     id: 162480,
