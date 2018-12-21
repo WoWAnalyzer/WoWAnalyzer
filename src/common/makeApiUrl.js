@@ -28,7 +28,7 @@ export function makeItemApiUrl(itemId, region = 'us') {
 }
 
 export function makeSpellApiUrl(spellId, region = 'us') {
-  if (!parseInt(spellId)){
+   if (!Number.isInteger(spellId)){
     return false;
   }
   const parts = ['spell', region, spellId];
