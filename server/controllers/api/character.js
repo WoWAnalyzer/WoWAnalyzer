@@ -99,16 +99,17 @@ const characterIdFromThumbnailRegex = /\/([0-9]+)-/;
 const router = Express.Router();
 
 router.get('/:id([0-9]+)', async (req, res) => {
-  const character = await getStoredCharacter(req.params.id);
+  const { id } = req.params;
+  const character = await getStoredCharacter(id);
   if (!character) {
     send404(res);
     return;
   }
   sendJson(res, character);
   const charFromApi = await getCharacterFromBlizzardApi(character.region, character.realm, character.name);
-  character.update({
+  storeCharacter({
+    id: character.id,
     ...charFromApi,
-    lastSeenAt: Sequelize.fn('NOW'),
   });
 });
 
@@ -116,7 +117,10 @@ router.get('/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, re
   const { region, realm, name } = req.params;
 
   const storedCharacter = await getStoredCharacter(null, realm, region, name);
-  if (storedCharacter) {
+
+  //checking if thumbnail exists in cache here because Parses.js will throw up without it here
+  //If it's not here then it's better to wait on the API call to come back
+  if (storedCharacter && storedCharacter.thumbnail) {
     sendJson(res, storedCharacter);
   }
 
@@ -124,7 +128,7 @@ router.get('/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, re
   if (!storedCharacter && !characterFromApi) {
     send404(res);
     return;
-  } else if (!storedCharacter && characterFromApi) {
+  } else if ((!storedCharacter || !storedCharacter.thumbnail) && characterFromApi) {
     sendJson(res, characterFromApi);
     if (characterFromApi.thumbnail) {
       const [, characterId] = characterIdFromThumbnailRegex.exec(characterFromApi.thumbnail);
@@ -134,10 +138,10 @@ router.get('/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, re
     return;
   }
 
-  if (storeCharacter && characterFromApi) {
-    storedCharacter.update({
+  if (storeCharacter && storedCharacter.thumbnail && characterFromApi) {
+    storeCharacter({
+      id: storedCharacter.id,
       ...characterFromApi,
-      lastSeenAt: Sequelize.fn('NOW'),
     });
     return;
   }
@@ -145,7 +149,7 @@ router.get('/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, re
 
 router.get('/:id([0-9]+)/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, res) => {
   const { id, region, realm, name } = req.params;
-  const storedCharacter = await Character.findById(req.params.id);
+  const storedCharacter = await Character.findById(id);
   if (storedCharacter) {
     sendJson(res, storedCharacter);
   }
@@ -155,13 +159,17 @@ router.get('/:id([0-9]+)/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', as
 
   if (charFromApi && !storedCharacter) {
     sendJson(res, charFromApi);
-    storeCharacter({ id, ...charFromApi });
+    if (charFromApi.thumbnail) {
+      const [, characterId] = characterIdFromThumbnailRegex.exec(charFromApi.thumbnail);
+      // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
+      storeCharacter({ id: characterId, ...charFromApi });
+    }
     return;
   }
   if (storedCharacter && charFromApi) {
-    storedCharacter.update({ 
-      ...charFromApi, 
-      lastSeenAt: Sequelize.fn('NOW'),
+    storeCharacter({
+      id: storedCharacter.id,
+      ...charFromApi,
     });
   }
   if (!storedCharacter && !charFromApi) {
