@@ -1,8 +1,9 @@
 import Express from 'express';
 import Sequelize from 'sequelize';
 import Raven from 'raven';
+import { StatusCodeError } from 'request-promise-native/errors';
 
-import { fetchCharacter as fetchCharacterFromBattleNet } from 'helpers/wowCommunityApi';
+import WowCommunityApi from 'helpers/wowCommunityApi';
 
 import models from '../../models';
 
@@ -39,11 +40,7 @@ function send404(res) {
 
 async function getCharacterFromBlizzardApi(region, realm, name) {
   try {
-    console.log('Fetching character from Battle.net');
-    const start = Date.now();
-    const response = await fetchCharacterFromBattleNet(region, realm, name);
-    const responseTime = Date.now() - start;
-    console.log('Battle.net response time:', responseTime, 'ms');
+    const response = await WowCommunityApi.fetchCharacter(region, realm, name);
     const data = JSON.parse(response);
     // This is the only field that we need and isn't always otherwise obtainable (e.g. when this is fetched by character id)
     // eslint-disable-next-line prefer-const
@@ -68,12 +65,12 @@ async function getCharacterFromBlizzardApi(region, realm, name) {
     if (!isCharacterNotFoundError) {
       Raven.installed && Raven.captureException(error);
     }
-    return null;
+    throw error;
   }
 }
 async function getStoredCharacter(id, realm, region, name) {
   if (id) {
-    return Character.findById(id);
+    return Character.findByPk(id);
   }
   if (realm && name && region) {
     return Character.findOne({
@@ -107,6 +104,7 @@ router.get('/:id([0-9]+)', async (req, res) => {
   }
   sendJson(res, character);
   const charFromApi = await getCharacterFromBlizzardApi(character.region, character.realm, character.name);
+  // noinspection JSIgnoredPromiseFromCall
   storeCharacter({
     id: character.id,
     ...charFromApi,
@@ -139,6 +137,7 @@ router.get('/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, re
   }
 
   if (storeCharacter && storedCharacter.thumbnail && characterFromApi) {
+    // noinspection JSIgnoredPromiseFromCall
     storeCharacter({
       id: storedCharacter.id,
       ...characterFromApi,
@@ -149,32 +148,35 @@ router.get('/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, re
 
 router.get('/:id([0-9]+)/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, res) => {
   const { id, region, realm, name } = req.params;
-  const storedCharacter = await Character.findById(id);
+  const storedCharacter = await Character.findByPk(id);
+  let responded = false;
   if (storedCharacter) {
     sendJson(res, storedCharacter);
+    responded = true;
   }
 
-  // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
-  const charFromApi = await getCharacterFromBlizzardApi(region, realm, name);
-
-  if (charFromApi && !storedCharacter) {
-    sendJson(res, charFromApi);
+  try {
+    // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
+    const charFromApi = await getCharacterFromBlizzardApi(region, realm, name);
+    if (!responded) {
+      sendJson(res, charFromApi);
+    }
     if (charFromApi.thumbnail) {
       const [, characterId] = characterIdFromThumbnailRegex.exec(charFromApi.thumbnail);
       // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
       storeCharacter({ id: characterId, ...charFromApi });
     }
-    return;
-  }
-  if (storedCharacter && charFromApi) {
-    storeCharacter({
-      id: storedCharacter.id,
-      ...charFromApi,
-    });
-  }
-  if (!storedCharacter && !charFromApi) {
-    send404(res);
-    return;
+  } catch (err) {
+    if (err instanceof StatusCodeError && err.statusCode === 404) {
+      send404(res);
+    } else {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.status(err.statusCode || 500);
+      sendJson(res, {
+        error: 'Blizzard API error',
+        message: err.message,
+      });
+    }
   }
 });
 

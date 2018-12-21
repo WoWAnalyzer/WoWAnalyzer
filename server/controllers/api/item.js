@@ -60,7 +60,7 @@ async function storeItem({ id, name, icon }) {
 const router = Express.Router();
 router.get('/:region([A-Z]{2})/:id([0-9]+)', async (req, res) => {
   const { region, id } = req.params;
-  let item = await Item.findById(id);
+  let item = await Item.findByPk(id);
   if (item) {
     res.send(item);
     item.update({

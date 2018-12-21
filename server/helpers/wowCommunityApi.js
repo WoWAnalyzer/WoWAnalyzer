@@ -1,3 +1,5 @@
+import querystring from 'querystring';
+
 import { blizzardApiResponseLatencyHistogram } from 'helpers/metrics';
 import RequestTimeoutError from 'helpers/request/RequestTimeoutError';
 import RequestSocketTimeoutError from 'helpers/request/RequestSocketTimeoutError';
@@ -5,150 +7,128 @@ import RequestConnectionResetError from 'helpers/request/RequestConnectionResetE
 import RequestUnknownError from 'helpers/request/RequestUnknownError';
 import retryingRequest from './retryingRequest';
 
-const availableRegions = {
-  eu: 'ru_RU',
-  us: 'en_US',
-  tw: 'zh_TW',
-  kr: 'ko_KR',
+const REGIONS = {
+  EU: 'EU',
+  US: 'US',
+  TW: 'TW',
+  KR: 'KR',
+};
+const HTTP_CODES = {
+  UNAUTHORIZED: 401, // access token invalid/expired
+  NOT_FOUND: 404,
 };
 
-const USER_AGENT = process.env.USER_AGENT;
-const clientToken = {};
+class WowCommunityApi /* extends ExternalApi or extends BlizzardApi */ {
+  static localeByRegion = {
+    [REGIONS.EU]: 'en_US',
+    [REGIONS.US]: 'en_US',
+    [REGIONS.TW]: 'zh_TW',
+    [REGIONS.KR]: 'ko_KR',
+  };
 
-const get = (url, metricLabels, region, skipAccessToken = false) => {
-  let end;
-  return retryingRequest({
-    url,
-    headers: {
-      'User-Agent': USER_AGENT,
-    },
-    gzip: true,
-    // we'll be making several requests, so pool connections
-    forever: true,
-    timeout: 4000, // ms after which to abort the request, when a character is uncached it's not uncommon to take ~2sec
-    shouldRetry: error => {
-      const { statusCode } = error;
-      //generally 404 should probably just not be retried
-      return statusCode !== 404;
-    },
-    getUrlWithAccessToken: async () => {
-      if(!skipAccessToken){
-        const accessToken = await getAccessToken(region);
-        return `${url}&access_token=${accessToken}`;
-      } else {
-        return url;
-      }
-    },
-    onBeforeAttempt: () => {
-      end = blizzardApiResponseLatencyHistogram.startTimer(metricLabels);
-    },
-    onFailure: async err => {
-      if (err.statusCode === 401) {
-        delete clientToken[region];
-        end({
-          statusCode: 401,
-        });
-      } else if (err instanceof RequestTimeoutError) {
-        end({
-          statusCode: 'timeout',
-        });
-      } else if (err instanceof RequestSocketTimeoutError) {
-        end({
-          statusCode: 'socket timeout',
-        });
-      } else if (err instanceof RequestConnectionResetError) {
-        end({
-          statusCode: 'connection reset',
-        });
-      } else if (err instanceof RequestUnknownError) {
-        end({
-          statusCode: 'unknown',
-        });
-      } else {
-        end({
-          statusCode: err.statusCode,
-        });
-      }
-      return null;
-    },
-    onSuccess: () => {
-      end({
-        statusCode: 200,
+  async fetchCharacter(regionCode, realm, name) {
+    const region = this._getRegion(regionCode);
+
+    return this._fetchCommunityApi(region, 'character', `${encodeURIComponent(realm)}/${encodeURIComponent(name)}`, {
+      fields: 'talents',
+    });
+  }
+  fetchItem(regionCode, id) {
+    const region = this._getRegion(regionCode);
+
+    return this._fetchCommunityApi(region, 'item', encodeURIComponent(id));
+  }
+  fetchSpell(regionCode, id) {
+    const region = this._getRegion(regionCode);
+
+    return this._fetchCommunityApi(region, 'spell', encodeURIComponent(id));
+  }
+
+  // region Internals
+  _accessTokenByRegion = {};
+
+  _makeUrl(region, endpoint, path, query = {}) {
+    return `https://${region.toLowerCase()}.api.blizzard.com/wow/${endpoint}/${path}?${querystring.stringify({
+      locale: this.constructor.localeByRegion[region],
+      ...query,
+    })}`;
+  }
+  _getRegion(regionCode) {
+    const region = REGIONS[regionCode.toUpperCase()];
+    if (!region) {
+      throw new Error('Region not recognized.');
+    }
+    return region;
+  }
+  async _fetchAccessToken(region) {
+    if (!this._accessTokenByRegion[region]) {
+      const url = `https://${region}.battle.net/oauth/token?grant_type=client_credentials&client_id=${process.env.BATTLE_NET_API_CLIENT_ID}&client_secret=${process.env.BATTLE_NET_API_CLIENT_SECRET}`;
+
+      const tokenRequest = await this._fetch(url, {
+        category: 'token',
+        region,
       });
-    },
-  });
-};
-const makeBaseUrl = region => `https://${region}.api.blizzard.com`;
 
-const getAccessToken = async (region) => {
-  if (clientToken[region]) {
-    return clientToken[region];
+      const tokenData = JSON.parse(tokenRequest);
+      this._accessTokenByRegion[region] = tokenData.access_token;
+    }
+
+    return this._accessTokenByRegion[region];
   }
 
-  const url = `https://${region}.battle.net/oauth/token?grant_type=client_credentials&client_id=${process.env.BATTLE_NET_API_CLIENT_ID}&client_secret=${process.env.BATTLE_NET_API_CLIENT_SECRET}`;
-
-  const tokenRequest = await get(
-    url, 
-    {
-      category: 'token',
-      region,
-    }, 
-    region, 
-    true,
-  );
-
-  const tokenData = JSON.parse(tokenRequest);
-  clientToken[region] = tokenData.access_token;
-  return clientToken[region];
-};
-
-export async function fetchCharacter(region, realm, name) {
-  region = region.toLowerCase();
-  if (!availableRegions[region]) {
-    throw new Error('Region not recognized.');
+  async _fetchCommunityApi(region, endpoint, path, query = null) {
+    const accessToken = await this._fetchAccessToken(region);
+    const url = this._makeUrl(region, endpoint, path, {
+      access_token: accessToken,
+      ...query,
+    });
+    const metricLabels = { category: endpoint, region };
+    try {
+      return await this._fetch(url, metricLabels);
+    } catch (err) {
+      if (err.statusCode === 401) {
+        delete this._accessTokenByRegion[region];
+      }
+      // TODO: Retry in case of access token error
+      throw err;
+    }
   }
-  const url = `${makeBaseUrl(region)}/wow/character/${encodeURIComponent(realm)}/${encodeURIComponent(name)}?locale=${availableRegions[region]}&fields=talents`;
-
-  return get(
-    url,
-    {
-      category: 'character',
-      region,
-    },
-    region,
-  );
+  _fetch(url, metricLabels) {
+    let commitMetric;
+    return retryingRequest({
+      url,
+      headers: {
+        'User-Agent': process.env.USER_AGENT,
+      },
+      gzip: true,
+      // we'll be making several requests, so pool connections
+      forever: true,
+      // ms after which to abort the request, when a character is uncached it's not uncommon to take ~2sec
+      timeout: 4000,
+      // The Blizzard API isn't very reliable in its HTTP codes, so we're very liberal
+      shouldRetry: error => error.statusCode !== HTTP_CODES.NOT_FOUND,
+      onBeforeAttempt: () => {
+        commitMetric = blizzardApiResponseLatencyHistogram.startTimer(metricLabels);
+      },
+      onFailedAttempt: async err => {
+        if (err instanceof RequestTimeoutError) {
+          commitMetric({ statusCode: 'timeout' });
+        } else if (err instanceof RequestSocketTimeoutError) {
+          commitMetric({ statusCode: 'socket timeout' });
+        } else if (err instanceof RequestConnectionResetError) {
+          commitMetric({ statusCode: 'connection reset' });
+        } else if (err instanceof RequestUnknownError) {
+          commitMetric({ statusCode: 'unknown' });
+        } else {
+          commitMetric({ statusCode: err.statusCode });
+        }
+      },
+      onSuccess: () => {
+        commitMetric({ statusCode: 200 });
+      },
+    });
+  }
+  // endregion
 }
 
-export async function fetchItem(region, itemId) {
-  region = region.toLowerCase();
-  if (!availableRegions[region]) {
-    throw new Error('Region not recognized.');
-  }
-  const url = `${makeBaseUrl(region)}/wow/item/${encodeURIComponent(itemId)}?locale=${availableRegions[region]}`;
-
-  return get(
-    url,
-    {
-      category: 'item',
-      region,
-    },
-    region,
-  );
-}
-
-export async function fetchSpell(region, spellId) {
-  region = region.toLowerCase();
-  if (!availableRegions[region]) {
-    throw new Error('Region not recognized.');
-  }
-  const url = `${makeBaseUrl(region)}/wow/spell/${encodeURIComponent(spellId)}?locale=${availableRegions[region]}`;
-
-  return get(
-    url,
-    {
-      category: 'spell',
-      region,
-    },
-    region,
-  );
-}
+export default new WowCommunityApi();

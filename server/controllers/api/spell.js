@@ -60,7 +60,7 @@ async function storeSpell({ id, name, icon }) {
 const router = Express.Router();
 router.get('/:region([A-Z]{2})/:id([0-9]+)', async (req, res) => {
   const { region, id } = req.params;
-  let spell = await Spell.findById(id);
+  let spell = await Spell.findByPk(id);
   if (spell) {
     res.send(spell);
     spell.update({
