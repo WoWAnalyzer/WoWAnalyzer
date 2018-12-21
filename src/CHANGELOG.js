@@ -8,6 +8,11 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
+    date: new Date('2018-12-20'),
+    changes: 'Added better caching for character profiles from the blizzard API',
+    contributors: [Hartra344],
+  },
+  {
     date: new Date('2018-12-10'),
     changes: 'Migraged Battle.Net API calls to to use the new blizzard.com Api endpoint',
     contributors: [Hartra344],

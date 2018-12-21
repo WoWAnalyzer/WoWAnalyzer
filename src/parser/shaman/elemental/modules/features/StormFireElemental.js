@@ -43,7 +43,7 @@ class StormFireElemental extends Analyzer {
       this.last_pet_summon_timeStamp=event.timestamp;
 
   }
-  on_byPlayer_summon(event) {
+  on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId !== this.relevantData.summon) {
       return;
