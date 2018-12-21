@@ -11,7 +11,7 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatDuration, formatPercentage, formatThousands } from 'common/format';
 import ActivityIndicator from 'interface/common/ActivityIndicator';
-
+import { makeItemApiUrl } from 'common/makeApiUrl';
 /**
  * Show statistics (talents and trinkets) for the current boss, specID and difficulty
  */
@@ -170,7 +170,7 @@ class EncounterStats extends React.PureComponent {
   fillMissingIcons() {
     this.state.mostUsedTrinkets.forEach(trinket => {
       if (ITEMS[trinket.id] === undefined) {
-        return fetch(`https://eu.api.battle.net/wow/item/${trinket.id}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
+        return fetch(makeItemApiUrl(trinket.id, 'us'))
           .then(response => response.json())
           .then(data => {
             const updatedItems = this.state.items;

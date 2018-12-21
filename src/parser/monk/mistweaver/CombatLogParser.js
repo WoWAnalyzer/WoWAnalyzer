@@ -56,7 +56,6 @@ import RisingMist from './modules/talents/RisingMist';
 
 // Azerite Traits
 import FontOfLife from './modules/spells/azeritetraits/FontOfLife';
-import InvigoratingBrew from './modules/spells/azeritetraits/InvigoratingBrew';
 import UpliftedSpirits from './modules/spells/azeritetraits/UpliftedSpirits';
 
 // Mana Tracker
@@ -115,7 +114,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Azerite Traits
     fontOfLife: FontOfLife,
     upliftedSpirits: UpliftedSpirits,
-    invigoratingBrew: InvigoratingBrew,
 
     // Mana Tab
     manaTracker: ManaTracker,

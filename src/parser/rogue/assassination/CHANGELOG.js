@@ -23,7 +23,7 @@ export default [
   },
   {
     date: new Date('2018-11-11'),
-    changes: <>Added suggestion for <SpellLink id={SPELLS.SHARPENED_BLADES.id} /> stack wastage.</>,
+    changes: <>Added suggestion for Sharpened Blades stack wastage.</>,
     contributors: [Aelexe],
   },
   {

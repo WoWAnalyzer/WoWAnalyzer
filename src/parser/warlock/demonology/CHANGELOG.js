@@ -6,6 +6,11 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-12-10'),
+    changes: 'Updated for patch 8.1 changes.',
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-11-23'),
     changes: <>Fixed <SpellLink id={SPELLS.GRIMOIRE_FELGUARD_TALENT.id} /> cooldown</>,
     contributors: [Chizu],

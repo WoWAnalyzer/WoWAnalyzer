@@ -51,7 +51,6 @@ class Schism extends Analyzer {
   target = null;
 
   // Estimations
-  giftRanks;
   smiteEstimation;
 
   // Methods
@@ -61,8 +60,7 @@ class Schism extends Analyzer {
       SPELLS.SCHISM_TALENT.id
     );
 
-    this.giftRanks = this.selectedCombatant.traitRanks(SPELLS.GIFT_OF_FORGIVENESS.id);
-    this.smiteEstimation = SmiteEstimation(this.statTracker, this.sins, this.giftRanks);
+    this.smiteEstimation = SmiteEstimation(this.statTracker, this.sins);
   }
 
   get buffActive() {
@@ -96,7 +94,7 @@ class Schism extends Analyzer {
     this._badSchisms[event] = true;
 
     // Calculate direct schism damage
-    const { smiteDamage } = this.smiteEstimation(this.atonement.giftActive);
+    const { smiteDamage } = this.smiteEstimation();
 
     // Substract smite damage (because that is what we would be casting if we didn't pick Schism)
     this.directDamage += (event.amount + event.absorbed || 0) - smiteDamage;
@@ -149,7 +147,7 @@ class Schism extends Analyzer {
 
   // The Atonement from Schism's direct damage component
   processSchismAtonement(event) {
-    const { smiteHealing } = this.smiteEstimation(this.atonement.giftActive);
+    const { smiteHealing } = this.smiteEstimation();
     const estimatedSmiteRawHealing = smiteHealing * event.hitType;
 
     const estimatedOverhealing = calculateOverhealing(

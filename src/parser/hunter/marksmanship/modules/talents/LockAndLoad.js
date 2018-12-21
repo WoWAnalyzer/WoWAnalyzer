@@ -7,7 +7,6 @@ import { formatPercentage } from 'common/format';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 /**
  * Your ranged auto attacks have a 5% chance to trigger Lock and Load, causing your next Aimed Shot to cost no Focus and be instant.
@@ -145,9 +144,7 @@ class LockAndLoad extends Analyzer {
     return (
       <TalentStatisticBox
         talent={SPELLS.LOCK_AND_LOAD_TALENT.id}
-        position={STATISTIC_ORDER.CORE(24)}
-        value={`${this.wastedInstants} (${formatPercentage(this.wastedInstants / (this.totalProcs))}%)`}
-        label="lost LnL stacks"
+        value={`${this.wastedInstants} (${formatPercentage(this.wastedInstants / (this.totalProcs))}%) lost procs`}
         tooltip={tooltipText}
       />
     );

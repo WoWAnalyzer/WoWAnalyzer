@@ -25,7 +25,7 @@ export default [
     changes: (
       <>Added support for all current Restoration Shaman azerite traits:
         <ul>
-          <li><SpellLink id={SPELLS.EBB_AND_FLOW.id} /></li>
+          <li>Ebb & Flow</li>
           <li><SpellLink id={SPELLS.OVERFLOWING_SHORES_TRAIT.id} /></li>
           <li><SpellLink id={SPELLS.SOOTHING_WATERS_TRAIT.id} /></li>
           <li><SpellLink id={SPELLS.SPOUTING_SPIRITS.id} /></li>

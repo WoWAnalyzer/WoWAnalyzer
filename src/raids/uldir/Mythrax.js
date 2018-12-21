@@ -13,8 +13,11 @@ export default {
     // TODO: Add fight specific props
     // e.g. baseDowntime (seconds, percentage, based on (de)buff, etc)
     // e.g. ads
-    softMitigationChecks: [
-      273282, // EssenceShear
-    ],
+    softMitigationChecks: {
+      physical: [],
+      magical: [
+        273282, // Essence Shear
+      ],
+    },
   },
 };

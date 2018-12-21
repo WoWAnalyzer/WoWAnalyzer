@@ -21,7 +21,7 @@ const FO_REDUCTION_SEC = 0.5;
  * To update, see https://www.wowhead.com/spell=137020/frost-mage
  * AURA = 1 + (Damage modifier)
  */
-const FROST_MAGE_AURA = 1 + (-0.24);
+const FROST_MAGE_AURA = 1 + (-0.22);
 
 /**
  * Ice Lance deals an additional X1 (stacks and scales) damage and reduces the cooldown of Frozen Orb by 0.5 (does not stack or scale) sec.

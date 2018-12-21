@@ -19,7 +19,6 @@ import ArcaneIntellect from '../shared/modules/features/ArcaneIntellect';
 import SplittingIce from './modules/features/SplittingIce';
 import CancelledCasts from '../shared/modules/features/CancelledCasts';
 import GlacialAssault from './modules/traits/GlacialAssault';
-import WintersReach from './modules/traits/WintersReach';
 import Whiteout from './modules/traits/Whiteout';
 import FrozenOrb from './modules/cooldowns/FrozenOrb';
 import ColdSnap from './modules/cooldowns/ColdSnap';
@@ -63,7 +62,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Traits
     glacialAssault: GlacialAssault,
-    wintersReach: WintersReach,
     whiteout: Whiteout,
 
 	  // Cooldowns

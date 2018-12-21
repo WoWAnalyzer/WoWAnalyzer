@@ -31,6 +31,7 @@ TraitStatisticBox.propTypes = {
 };
 
 TraitStatisticBox.defaultProps = {
+  alignIcon: 'center',
   category: STATISTIC_CATEGORY.AZERITE_POWERS,
 };
 

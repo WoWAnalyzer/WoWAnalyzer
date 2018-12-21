@@ -17,7 +17,7 @@ import KeyCastsRow from './KeyCastsRow';
 import './PetTimeline.css';
 import { isWildImp } from '../../helpers';
 
-const NETHER_PORTAL_DURATION = 20000;
+const NETHER_PORTAL_DURATION = 15000;
 const NEARBY_CASTS_BUFFER = 250;
 const NEARBY_CAST_COUNT = 3;
 

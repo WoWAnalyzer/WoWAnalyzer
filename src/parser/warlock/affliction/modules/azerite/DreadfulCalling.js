@@ -16,7 +16,7 @@ import ItemDamageDone from 'interface/others/ItemDamageDone';
 import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
 
 const CDR_PER_CAST = 1000;
-const UNSTABLE_AFFLICTION_SP_COEFFICIENT = 0.16;
+const UNSTABLE_AFFLICTION_SP_COEFFICIENT = 0.145;
 
 /*
     Dreadful Calling
