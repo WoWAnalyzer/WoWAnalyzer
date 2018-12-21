@@ -35,7 +35,7 @@ class SeaGiantsTidestone extends Analyzer {
       ITEMS.SEA_GIANTS_TIDESTONE.id
     );
     if (this.active) {
-      this.spellPower = calculateSecondaryStatDefault(280, 372, this.selectedCombatant.getItem(ITEMS.SEA_GIANTS_TIDESTONE.id).itemLevel);
+      this.spellPower = calculateSecondaryStatDefault(370, 985, this.selectedCombatant.getItem(ITEMS.SEA_GIANTS_TIDESTONE.id).itemLevel);
 
       this.abilities.add({
         spell: SPELLS.FEROCITY_OF_THE_SKROG,
