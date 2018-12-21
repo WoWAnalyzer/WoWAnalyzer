@@ -5,6 +5,8 @@ import ITEMS from 'common/ITEMS/index';
 import Analyzer from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import { formatPercentage } from 'common/format';
+import { formatNumber } from 'common/format';
+import { calculateSecondaryStatDefault } from 'common/stats';
 
 /**
 * Sea Giant's Tidestone
@@ -25,13 +27,16 @@ class SeaGiantsTidestone extends Analyzer {
   };
   
   casts = 0;
-    
+  spellPower = 0;
+
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrinket(
       ITEMS.SEA_GIANTS_TIDESTONE.id
     );
     if (this.active) {
+      this.spellPower = calculateSecondaryStatDefault(280, 372, this.selectedCombatant.getItem(ITEMS.SEA_GIANTS_TIDESTONE.id).itemLevel);
+
       this.abilities.add({
         spell: SPELLS.FEROCITY_OF_THE_SKROG,
         name: ITEMS.SEA_GIANTS_TIDESTONE.name,
@@ -59,7 +64,7 @@ class SeaGiantsTidestone extends Analyzer {
     return {
       item: ITEMS.SEA_GIANTS_TIDESTONE,
       result: (
-        <dfn data-tip={`You critically hit ${formatPercentage(.33)}% of the time with this buff up`}>
+        <dfn data-tip={`Average spell power gained ${formatNumber(this.spellPower * this.totalBuffUptime)}`}>
           Used {this.casts} times / {formatPercentage(this.totalBuffUptime)}% uptime
         </dfn>
       ),
