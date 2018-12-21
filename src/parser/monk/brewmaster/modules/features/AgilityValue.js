@@ -3,10 +3,10 @@ import Events from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import SPELLS from 'common/SPELLS';
 
+import { BASE_AGI } from '../../constants';
 import { diminish, ULDIR_K, MPLUS_K } from '../constants/Mitigation';
 import { EVENT_STAGGER_POOL_ADDED, EVENT_STAGGER_POOL_REMOVED } from '../core/StaggerFabricator';
-
-export const BASE_AGI = 1468;
+import GiftOfTheOx from '../spells/GiftOfTheOx';
 
 const STAGGER_COEFFS = {
   base: 1.05,
@@ -34,12 +34,17 @@ export function staggerPct(agi, K, hasIsb, hasHT) {
 export default class AgilityValue extends Analyzer {
   static dependencies = {
     stats: StatTracker,
+    gotox: GiftOfTheOx,
   };
 
   K = 0;
 
   totalAgiStaggered = 0;
   totalAgiPurified = 0;
+
+  get totalAgiHealing() {
+    return this.gotox.agiBonusHealing;
+  }
 
   _agiDamagePooled = 0;
   _hasHT = false;

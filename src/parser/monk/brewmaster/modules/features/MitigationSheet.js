@@ -10,10 +10,11 @@ import StatisticWrapper from 'interface/others/StatisticWrapper';
 import STAT, { getClassNameColor, getIcon, getName } from 'parser/shared/modules/features/STAT';
 import { formatNumber } from 'common/format';
 
+import { BASE_AGI } from '../../constants';
 import CelestialFortune from '../spells/CelestialFortune';
 import MasteryValue from '../core/MasteryValue';
 import Stagger from '../core/Stagger';
-import AgilityValue, { BASE_AGI } from './AgilityValue';
+import AgilityValue from './AgilityValue';
 import { diminish, ULDIR_K, MPLUS_K } from '../constants/Mitigation';
 
 
@@ -49,13 +50,25 @@ export default class MitigationSheet extends Analyzer {
     return this.masteryValue.expectedMitigation;
   }
 
+  get masteryHealing() {
+    return this.masteryValue.totalMasteryHealing;
+  }
+
   _critBonusHealing = 0;
   get critHealing() {
     return this.cf.totalHealing + this._critBonusHealing;
   }
 
   get agiDamageMitigated() {
-    return this.agilityValue.totalAgiPurified + (this.masteryValue.expectedMitigation - this.masteryValue.noAgiExpectedDamageMitigated);
+    return this.agilityValue.totalAgiPurified;
+  }
+
+  get agiDamageDodged() {
+    return this.masteryValue.expectedMitigation - this.masteryValue.noAgiExpectedDamageMitigated;
+  }
+
+  get agiHealing() {
+    return this.agilityValue.totalAgiHealing;
   }
 
   constructor(...args) {
@@ -153,6 +166,8 @@ export default class MitigationSheet extends Analyzer {
 
   get results() {
     const armorPerPt = this.armorDamageMitigated / this._avgStats.armor;
+    const agiHigh = this.agiDamageMitigated + this.agiDamageDodged + this.agiHealing;
+    const agiLow = this.agiDamageMitigated + this.agiDamageDodged * (1 - this.stagger.pctPurified) + this.agiHealing;
     return {
       [STAT.ARMOR]: {
         avg: this._avgStats.armor,
@@ -162,16 +177,25 @@ export default class MitigationSheet extends Analyzer {
       },
       [STAT.AGILITY]: {
         avg: this._avgStats.agility - BASE_AGI,
-        gain: this.agiDamageMitigated,
-        weight: this.agiDamageMitigated / (this._avgStats.agility - BASE_AGI) / armorPerPt,
-        tooltip: 'Calculated based on additional damage purified due to Agility. Only Agility from gear and buffs is counted. Healing gained from Gift of the Ox is currently not implemented.',
+        gain: {
+          low: agiLow,
+          high: agiHigh,
+        },
+        weight: (agiHigh + agiLow) / 2 / (this._avgStats.agility - BASE_AGI) / armorPerPt,
+        tooltip: `Calculated based on additional damage purified due to Agility, additional dodge, and additional GotOx healing. Only Agility from gear and buffs is counted.<br/>
+        Breakdown:
+        <ul>
+          <li>Purification: ${formatNumber(this.agilityValue.totalAgiPurified)}</li>
+          <li>Dodge: ≈${formatNumber(this.masteryValue.expectedMitigation - this.masteryValue.noAgiExpectedDamageMitigated)}</li>
+          <li>Healing: ${formatNumber(this.agilityValue.totalAgiHealing)}</li>
+        </ul>`,
         isLoaded: this.masteryValue._loaded,
       },
       [STAT.MASTERY]: {
         avg: this._avgStats.mastery,
         gain: {
-          low: this.masteryDamageMitigated * (1 - this.stagger.pctPurified),
-          high: this.masteryDamageMitigated,
+          low: this.masteryDamageMitigated * (1 - this.stagger.pctPurified) + this.masteryHealing,
+          high: this.masteryDamageMitigated + this.masteryHealing,
         },
         weight: this.masteryDamageMitigated * (1 + 1 - this.stagger.pctPurified) / 2 / this._avgStats.mastery / armorPerPt,
         tooltip: 'Estimated only after the "Expected Mitigation by Mastery" stat is loaded.',
