@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Analyzer, { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import SoulShardTracker from 'parser/warlock/demonology/modules/soulshards/SoulShardTracker';
 import Events from 'parser/core/Events';
@@ -24,6 +24,7 @@ class BalefulInvocation extends Analyzer {
 
   bonus = 0;
   damage = 0;
+  snapshottedIntellect = 0;
 
   constructor(...args) {
     super(...args);
@@ -39,12 +40,18 @@ class BalefulInvocation extends Analyzer {
         return total + damage;
       }, 0);
 
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SUMMON_DEMONIC_TYRANT), this.onTyrantSummon);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.DEMONIC_TYRANT_DAMAGE), this.onTyrantDamage);
+  }
+
+  onTyrantSummon() {
+    // Demonic Tyrant snapshots player's Intellect on summon with 1:1 ratio, so we're basically using our own Intellect values
+    this.snapshottedIntellect = this.statTracker.currentIntellectRating;
   }
 
   onTyrantDamage(event) {
     // TODO: not verified yet, if it takes player's Intellect or the pet one somehow
-    const [ damage ] = calculateBonusAzeriteDamage(event, [this.bonus], DEMONFIRE_SP_COEFFICIENT, this.statTracker.currentIntellectRating);
+    const [ damage ] = calculateBonusAzeriteDamage(event, [this.bonus], DEMONFIRE_SP_COEFFICIENT, this.snapshottedIntellect);
     debug && this.log(`Bonus Demonfire damage: ${damage}`);
     this.damage += damage;
   }
