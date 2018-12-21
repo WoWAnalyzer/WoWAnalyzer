@@ -12,6 +12,7 @@ import { formatNumber } from 'common/format';
 
 import { BASE_AGI } from '../../constants';
 import CelestialFortune from '../spells/CelestialFortune';
+import GiftOfTheOx from '../spells/GiftOfTheOx';
 import MasteryValue from '../core/MasteryValue';
 import Stagger from '../core/Stagger';
 import AgilityValue from './AgilityValue';
@@ -34,6 +35,7 @@ export default class MitigationSheet extends Analyzer {
     cf: CelestialFortune,
     stats: StatTracker,
     stagger: Stagger,
+    gotox: GiftOfTheOx,
   };
 
   K = null;
@@ -69,6 +71,10 @@ export default class MitigationSheet extends Analyzer {
 
   get agiHealing() {
     return this.agilityValue.totalAgiHealing;
+  }
+
+  get wdpsHealing() {
+    return this.gotox.wdpsBonusHealing;
   }
 
   constructor(...args) {
@@ -169,6 +175,11 @@ export default class MitigationSheet extends Analyzer {
     const agiHigh = this.agiDamageMitigated + this.agiDamageDodged + this.agiHealing;
     const agiLow = this.agiDamageMitigated + this.agiDamageDodged * (1 - this.stagger.pctPurified) + this.agiHealing;
     return {
+      [STAT.WDPS]: {
+        avg: this.gotox._wdps,
+        gain: this.wdpsHealing,
+        weight: this.wdpsHealing / this.gotox._wdps / armorPerPt,
+      },
       [STAT.ARMOR]: {
         avg: this._avgStats.armor,
         gain: this.armorDamageMitigated,

@@ -1,6 +1,7 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
+import { calculatePrimaryStat } from 'common/stats';
 import { formatNumber } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
@@ -10,6 +11,9 @@ import { calculatePrimaryStat } from 'common/stats';
 
 import { BASE_AGI, GIFT_OF_THE_OX_SPELLS } from '../../constants';
 import { GOTOX_GENERATED_EVENT } from '../../normalizers/GiftOfTheOx';
+
+const WDPS_BASE_ILVL = 310;
+const WDPS_310_AGI_POLEARM = 122.8;
 
 const WDPS_BASE_ILVL = 310;
 const WDPS_310_AGI_POLEARM = 122.8;
@@ -44,6 +48,8 @@ export default class GiftOfTheOx extends Analyzer {
   expelHarmOverhealing = 0;
 
   _lastEHTimestamp = null;
+
+  _wdps = 0;
 
   constructor(...args) {
     super(...args);
