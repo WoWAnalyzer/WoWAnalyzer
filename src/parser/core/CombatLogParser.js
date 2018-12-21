@@ -71,6 +71,7 @@ import VantusRune from '../shared/modules/spells/VantusRune';
 // BFA
 import GildedLoaFigurine from '../shared/modules/items/bfa/GildedLoaFigurine';
 import FirstMatesSpyglass from '../shared/modules/items/bfa/FirstMatesSpyglass';
+import SeaGiantsTidestone from '../shared/modules/items/bfa/SeaGiantsTidestone';
 // Dungeons
 import MydasTalisman from '../shared/modules/items/bfa/dungeons/MydasTalisman';
 import RevitalizingVoodooTotem from '../shared/modules/items/bfa/dungeons/RevitalizingVoodooTotem';
@@ -215,6 +216,7 @@ class CombatLogParser {
     // BFA
     gildedLoaFigurine: GildedLoaFigurine,
     firstMatesSpyglass: FirstMatesSpyglass,
+    seaGiantsTidestone: SeaGiantsTidestone,
     revitalizingVoodooTotem: RevitalizingVoodooTotem,
     // Dungeons
     mydasTalisman: MydasTalisman,
