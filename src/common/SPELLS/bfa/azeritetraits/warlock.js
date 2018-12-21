@@ -145,4 +145,14 @@ export default {
     name: 'Chaotic Inferno',
     icon: 'spell_fire_burnout',
   },
+  CHAOS_SHARDS: {
+    id: 287637,
+    name: 'Chaos Shards',
+    icon: 'inv_misc_gem_amethyst_02',
+  },
+  CHAOS_SHARDS_BUFF_ENERGIZE: {
+    id: 287660,
+    name: 'Chaos Shards',
+    icon: 'inv_misc_gem_amethyst_02',
+  },
 };
