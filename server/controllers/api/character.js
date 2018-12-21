@@ -91,6 +91,35 @@ async function storeCharacter(char) {
   });
 }
 
+async function fetchCharacter(region, realm, name, res = null) {
+  try {
+    // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
+    const charFromApi = await getCharacterFromBlizzardApi(region, realm, name);
+    if (res) {
+      sendJson(res, charFromApi);
+    }
+    if (charFromApi.thumbnail) {
+      const [, characterId] = characterIdFromThumbnailRegex.exec(charFromApi.thumbnail);
+      // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
+      storeCharacter({ id: characterId, ...charFromApi });
+    }
+  } catch (err) {
+    if (!res) {
+      return;
+    }
+    if (err instanceof StatusCodeError && err.statusCode === 404) {
+      send404(res);
+    } else {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.status(err.statusCode || 500);
+      sendJson(res, {
+        error: 'Blizzard API error',
+        message: err.message,
+      });
+    }
+  }
+}
+
 const characterIdFromThumbnailRegex = /\/([0-9]+)-/;
 
 const router = Express.Router();
@@ -103,12 +132,9 @@ router.get('/:id([0-9]+)', async (req, res) => {
     return;
   }
   sendJson(res, character);
-  const charFromApi = await getCharacterFromBlizzardApi(character.region, character.realm, character.name);
+
   // noinspection JSIgnoredPromiseFromCall
-  storeCharacter({
-    id: character.id,
-    ...charFromApi,
-  });
+  fetchCharacter(character.region, character.realm, character.name);
 });
 
 router.get('/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, res) => {
@@ -116,34 +142,16 @@ router.get('/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, re
 
   const storedCharacter = await getStoredCharacter(null, realm, region, name);
 
+  let responded = false;
   //checking if thumbnail exists in cache here because Parses.js will throw up without it here
   //If it's not here then it's better to wait on the API call to come back
   if (storedCharacter && storedCharacter.thumbnail) {
     sendJson(res, storedCharacter);
+    responded = true;
   }
 
-  const characterFromApi = await getCharacterFromBlizzardApi(region, realm, name);
-  if (!storedCharacter && !characterFromApi) {
-    send404(res);
-    return;
-  } else if ((!storedCharacter || !storedCharacter.thumbnail) && characterFromApi) {
-    sendJson(res, characterFromApi);
-    if (characterFromApi.thumbnail) {
-      const [, characterId] = characterIdFromThumbnailRegex.exec(characterFromApi.thumbnail);
-      // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
-      storeCharacter({ id: characterId, ...characterFromApi });
-    }
-    return;
-  }
-
-  if (storeCharacter && storedCharacter.thumbnail && characterFromApi) {
-    // noinspection JSIgnoredPromiseFromCall
-    storeCharacter({
-      id: storedCharacter.id,
-      ...characterFromApi,
-    });
-    return;
-  }
+  // noinspection JSIgnoredPromiseFromCall
+  fetchCharacter(region, realm, name, !responded ? res : null);
 });
 
 router.get('/:id([0-9]+)/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, res) => {
@@ -155,29 +163,8 @@ router.get('/:id([0-9]+)/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', as
     responded = true;
   }
 
-  try {
-    // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
-    const charFromApi = await getCharacterFromBlizzardApi(region, realm, name);
-    if (!responded) {
-      sendJson(res, charFromApi);
-    }
-    if (charFromApi.thumbnail) {
-      const [, characterId] = characterIdFromThumbnailRegex.exec(charFromApi.thumbnail);
-      // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
-      storeCharacter({ id: characterId, ...charFromApi });
-    }
-  } catch (err) {
-    if (err instanceof StatusCodeError && err.statusCode === 404) {
-      send404(res);
-    } else {
-      res.setHeader('Access-Control-Allow-Origin', '*');
-      res.status(err.statusCode || 500);
-      sendJson(res, {
-        error: 'Blizzard API error',
-        message: err.message,
-      });
-    }
-  }
+  // noinspection JSIgnoredPromiseFromCall
+  fetchCharacter(region, realm, name, !responded ? res : null);
 });
 
 export default router;
