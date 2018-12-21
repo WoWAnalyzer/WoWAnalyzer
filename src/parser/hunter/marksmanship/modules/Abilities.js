@@ -13,7 +13,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: (haste, selectedCombatant) => {
           if (selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
-            return hastedCooldown((12 / 2.25), haste);
+            return hastedCooldown((12 / 3.25), haste);
           }
           return hastedCooldown(12, haste);
         },
@@ -39,7 +39,7 @@ class Abilities extends CoreAbilities {
         },
         cooldown: (haste, selectedCombatant) => {
           if (selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
-            return 20 / 2.4;
+            return 20 / 3.4;
           }
           return 20;
         },
