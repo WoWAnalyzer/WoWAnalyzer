@@ -11,8 +11,6 @@ import Aftershock from './modules/talents/Aftershock';
 import Ascendance from './modules/talents/Ascendance';
 import EarthenRage from './modules/talents/EarthenRage';
 import ElementalBlast from './modules/talents/ElementalBlast';
-import ExposedElements from './modules/talents/ExposedElements';
-import HighVoltage from './modules/talents/HighVoltage';
 import LiquidMagmaTotem from './modules/talents/LiquidMagmaTotem';
 import MasterOfTheElements from './modules/talents/MasterOfTheElements';
 import PrimalFireElemental from './modules/talents/PrimalFireElemental';
@@ -23,7 +21,9 @@ import UnlimitedPower from './modules/talents/UnlimitedPower';
 import UnlimitedPowerTimesByStacks from './modules/talents/UnlimitedPowerTimesByStacks';
 import Checklist from './modules/checklist/Module';
 
-import './main.css';
+import EchoOfTheElementals from './modules/azerite/EchoOfTheElementals';
+import LavaShock from './modules/azerite/LavaShock';
+import SynapseShock from './modules/azerite/SynapseShock';
 
 import SpiritWolf from '../shared/talents/SpiritWolf';
 import StaticCharge from '../shared/talents/StaticCharge';
@@ -50,8 +50,6 @@ class CombatLogParser extends CoreCombatLogParser {
     ascendance: Ascendance,
     earthenRage: EarthenRage,
     elementalBlast: ElementalBlast,
-    exposedElements: ExposedElements,
-    highVoltage: HighVoltage,
     liquidMagmaTotem: LiquidMagmaTotem,
     masterOfTheElements: MasterOfTheElements,
     primalFireElemental: PrimalFireElemental,
@@ -60,6 +58,11 @@ class CombatLogParser extends CoreCombatLogParser {
     stormkeeper: Stormkeeper,
     unlimitedPowerTimesByStacks: UnlimitedPowerTimesByStacks,
     unlimitedPower: UnlimitedPower,
+    echoOfTheElementals: EchoOfTheElementals,
+
+    // Azerite
+    lavaShock: LavaShock,
+    synapseShock: SynapseShock,
 
     spiritWolf: SpiritWolf,
     staticCharge: StaticCharge,

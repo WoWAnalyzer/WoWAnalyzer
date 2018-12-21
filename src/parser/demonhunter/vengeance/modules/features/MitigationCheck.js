@@ -5,9 +5,18 @@ import SPELLS from 'common/SPELLS';
 class MitigationCheck extends CoreMitigationCheck {
   constructor(...args){
     super(...args);
-    this.buffCheck = [SPELLS.DEMON_SPIKES_BUFF.id,
-                      SPELLS.METAMORPHOSIS_TANK.id];
-    this.debuffCheck = [SPELLS.FIERY_BRAND_DEBUFF.id];
+
+    this.buffCheckPhysical = [
+      SPELLS.DEMON_SPIKES_BUFF.id,
+    ];
+    this.buffCheckPhysAndMag = [
+      SPELLS.METAMORPHOSIS_TANK.id,
+    ];
+
+    this.debuffCheckPhysAndMag = [
+      SPELLS.FIERY_BRAND_DEBUFF.id,
+    ];
+
   }
 }
 

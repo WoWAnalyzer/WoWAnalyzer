@@ -38,7 +38,6 @@ import MitigationCheck from './modules/features/MitigationCheck';
 // Items
 // normalizers
 import IronskinBrewNormalizer from './normalizers/IronskinBrew';
-import GarothiWorldbreakerMeleeNormalizer from './normalizers/GarothiWorldbreakerMelee';
 import GiftOfTheOx from './normalizers/GiftOfTheOx';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -86,7 +85,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // normalizers
     isbNormalizer: IronskinBrewNormalizer,
-    garothi: GarothiWorldbreakerMeleeNormalizer,
     gotox: GiftOfTheOx,
   };
 }

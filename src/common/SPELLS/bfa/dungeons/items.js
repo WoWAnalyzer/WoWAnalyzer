@@ -54,6 +54,11 @@ export default {
     name: 'Rezan\'s Gleaming Eye',
     icon: 'ability_hunter_aspectoftheviper',
   },
+  WEBWEAVERS_SOUL_GEM_DAMAGE: { //Webweaver's Soul Gem
+    id: 270827,
+    name: 'Webweaver\'s Soul Gem',
+    icon: 'inv_misc_web_02',
+  },
 
   // Temple of Sethraliss
   FANGS_OF_INTERTWINED_ESSENCE_BUFF: {
@@ -107,7 +112,16 @@ export default {
     name: 'Balefire Branch',
     icon: 'inv_staff_26',
   },
-
+  CACAPHONOUS_CHORD: { // Damage from Lady Waycrest's Music Box
+    id: 271671,
+    name: 'Cacaphonous Chord',
+    icon: 'trade_archaeology_delicatemusicbox',
+  },
+  HARMONIOUS_CHORD: { // Heal from Lady Waycrest's Music Box
+    id: 271682,
+    name: 'Harmonious Chord',
+    icon: 'trade_archaeology_delicatemusicbox',
+  },
   //Freehold
   LOADED_DIE_CRITICAL_STRIKE_SMALL: {
     id: 267330,

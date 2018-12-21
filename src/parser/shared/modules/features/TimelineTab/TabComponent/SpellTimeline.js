@@ -125,9 +125,7 @@ class SpellTimeline extends React.PureComponent {
           )}
           {this.spells.map(spellId => (
             <div className="lane" key={spellId}>
-              <SpellLink id={spellId}>
-                {abilities.getAbility(spellId).name}
-              </SpellLink>
+              <SpellLink id={abilities.getAbility(spellId).shownSpell ? abilities.getAbility(spellId).shownSpell.id : spellId} />
             </div>
           ))}
         </div>

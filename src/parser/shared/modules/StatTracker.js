@@ -25,7 +25,7 @@ class StatTracker extends Analyzer {
     [SPECS.BREWMASTER_MONK.id]: { armor: 1.25 },
   };
 
-  static STAT_BUFFS = {
+  static DEFAULT_BUFFS = {
     // region Potions
     [SPELLS.POTION_OF_PROLONGED_POWER.id]: { stamina: 113, strength: 113, agility: 113, intellect: 113 },
     [SPELLS.BATTLE_POTION_OF_STRENGTH.id]: { strength: 900 },
@@ -417,6 +417,8 @@ class StatTracker extends Analyzer {
     // endregion
   };
 
+  statBuffs = {};
+
   _pullStats = {};
   _currentStats = {};
 
@@ -440,6 +442,10 @@ class StatTracker extends Analyzer {
 
     this.applySpecModifiers();
 
+    this.statBuffs = {
+      ...this.constructor.DEFAULT_BUFFS,
+    };
+
     this._currentStats = {
       ...this._pullStats,
     };
@@ -456,7 +462,7 @@ class StatTracker extends Analyzer {
     if (!buffId || !stats) {
       throw new Error(`StatTracker.add() called with invalid buffId ${buffId} or stats`);
     }
-    if (this.constructor.STAT_BUFFS[buffId]) {
+    if (this.statBuffs[buffId]) {
       throw new Error(`Stat buff with ID ${buffId} already exists`);
     }
     // if any stat's function uses the item argument, validate that itemId property exists
@@ -465,7 +471,7 @@ class StatTracker extends Analyzer {
     if (usesItemArgument && !stats.itemId) {
       throw new Error(`Stat buff ${buffId} uses item argument, but does not provide item ID`);
     }
-    this.constructor.STAT_BUFFS[buffId] = stats;
+    this.statBuffs[buffId] = stats;
   }
 
   applySpecModifiers() {
@@ -701,7 +707,7 @@ class StatTracker extends Analyzer {
   /**
    * This interface allows an external analyzer to force a stat change.
    * It should ONLY be used if a stat buff is so non-standard that it can't be handled by the buff format in this module.
-   * change is a stat buff object just like those in the STAT_BUFFS structure above, it is required.
+   * change is a stat buff object just like those in the DEFAULT_BUFFS structure above, it is required.
    * eventReason is the WCL event object that caused this change, it is not required.
    */
   // For an example of how / why this function would be used, see the CharmOfTheRisingTide module.
@@ -719,7 +725,7 @@ class StatTracker extends Analyzer {
 
   _changeBuffStack(event) {
     const spellId = event.ability.guid;
-    const statBuff = this.constructor.STAT_BUFFS[spellId];
+    const statBuff = this.statBuffs[spellId];
     if (statBuff) {
       // ignore prepull buff application, as they're already accounted for in combatantinfo
       // we have to check the stacks count because Entities incorrectly copies the prepull property onto changes and removal following the application

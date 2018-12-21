@@ -40,10 +40,12 @@ import BlessedSanctuary from './modules/spells/azeritetraits/BlessedSanctuary';
 import EverlastingLight from './modules/spells/azeritetraits/EverlastingLight';
 import PermiatingGlow from './modules/spells/azeritetraits/PermeatingGlow';
 import PrayerfulLitany from './modules/spells/azeritetraits/PrayerfulLitany';
-import SacredFlame from './modules/spells/azeritetraits/SacredFlame';
 import WordOfMending from './modules/spells/azeritetraits/WordOfMending';
 import Sanctum from '../shared/modules/spells/azeritetraits/Sanctum';
 import TwistMagic from '../shared/modules/spells/azeritetraits/TwistMagic';
+import PromiseOfDeliverance from './modules/spells/azeritetraits/PromiseOfDeliverance';
+import DeathDenied from '../shared/modules/spells/azeritetraits/DeathDenied';
+
 // Mana Tracker
 import HealingEfficiencyDetails from '../../core/healingEfficiency/HealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/HolyPriestHealingEfficiencyTracker';
@@ -118,10 +120,11 @@ class CombatLogParser extends CoreCombatLogParser {
     everlastingLight: EverlastingLight,
     permiatingGlow: PermiatingGlow,
     prayerfulLitany: PrayerfulLitany,
-    sacredFlame: SacredFlame,
     wordOfMending: WordOfMending,
     sanctum: Sanctum,
     twistMagic: TwistMagic,
+    promiseOfDeliverance: PromiseOfDeliverance,
+    deathDenied: DeathDenied,
 
     // Mana Tab
     manaTracker: ManaTracker,

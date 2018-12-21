@@ -1,8 +1,15 @@
-// import React from 'react';
+import React from 'react';
 
-import { niseko, Yajinni, Khadaj } from 'CONTRIBUTORS';
+import { Khadaj, niseko, Yajinni } from 'CONTRIBUTORS';
+import SpellLink from 'common/SpellLink';
+import SPELLS from 'common/SPELLS';
 
 export default [
+  {
+    date: new Date('2018-12-18'),
+    changes: <>Adding <SpellLink id={SPELLS.PROMISE_OF_DELIVERANCE.id} /> and <SpellLink id={SPELLS.DEATH_DENIED.id} />.</>,
+    contributors: [Khadaj],
+  },
   {
     date: new Date('2018-11-05'),
     changes: 'Adding Renew suggestion.',
@@ -30,17 +37,17 @@ export default [
   },
   {
     date: new Date('2018-07-28'),
-    changes: 'Added suggestion for maintaining <SpellLink id={SPELLS.PERSEVERANCE_TALENT.id} and <SpellLink id={SPELLS.POWER_WORD_FORTITUDE.id}  /> buffs.',
+    changes: <>Added suggestion for maintaining <SpellLink id={SPELLS.PERSEVERANCE_TALENT.id} /> and <SpellLink id={SPELLS.POWER_WORD_FORTITUDE.id} /> buffs.</>,
     contributors: [Yajinni],
   },
   {
     date: new Date('2018-07-28'),
-    changes: 'Added Stat box for <SpellLink id={SPELLS.COSMIC_RIPPLE_TALENT.id} />.',
+    changes: <>Added Stat box for <SpellLink id={SPELLS.COSMIC_RIPPLE_TALENT.id} />.</>,
     contributors: [Yajinni],
   },
   {
     date: new Date('2018-07-26'),
-    changes: 'Added Stat box for <SpellLink id={SPELLS.TRAIL_OF_LIGHT_TALENT.id} />.',
+    changes: <>Added Stat box for <SpellLink id={SPELLS.TRAIL_OF_LIGHT_TALENT.id} />.</>,
     contributors: [Yajinni],
   },
   {

@@ -13,6 +13,8 @@ import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
  *
  * Example log: https://www.warcraftlogs.com/reports/Bc984AfRjXQYgxCz#fight=7&type=damage-done
  */
+
+//TODO: Verify this still works after 8.1 rework
 class ExplosiveShot extends Analyzer {
   damage = 0;
 

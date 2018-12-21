@@ -49,6 +49,16 @@ export default {
     name: 'Fungal Essence',
     icon: 'inv_misc_herb_talandrasrose',
   },
+  EARLY_HARVEST_TRAIT: {
+    id: 287251, 
+    name: 'Early Harvest',
+    icon: 'ability_druid_flourish',
+  },
+  EARLY_HARVEST: {
+    id: 287255, 
+    name: 'Early Harvest',
+    icon: 'ability_druid_flourish',
+  },
   WILD_FLESHRENDING: {
     id: 279527,
     name: 'Wild Fleshrending',

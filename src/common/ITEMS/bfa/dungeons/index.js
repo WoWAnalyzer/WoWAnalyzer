@@ -51,7 +51,7 @@ export default {
     icon: 'ability_shaman_repulsiontotem',
     quality: ITEM_QUALITIES.BLUE,
   },
-  VESSEL_OF_SKITTERING_SHADOWs: {
+  VESSEL_OF_SKITTERING_SHADOWS: {
     id: 159610,
     name: 'Vessel of Skittering Shadows',
     icon: 'inv_potiond_5',
