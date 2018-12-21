@@ -114,7 +114,7 @@ async function fetchCharacter(region, realm, name, res = null) {
       res.status(err.statusCode || 500);
       sendJson(res, {
         error: 'Blizzard API error',
-        message: err.message,
+        message: err.error || err.message,
       });
     }
   }
@@ -156,7 +156,7 @@ router.get('/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, re
 
 router.get('/:id([0-9]+)/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, res) => {
   const { id, region, realm, name } = req.params;
-  const storedCharacter = await Character.findByPk(id);
+  const storedCharacter = await getStoredCharacter(id);
   let responded = false;
   if (storedCharacter) {
     sendJson(res, storedCharacter);
