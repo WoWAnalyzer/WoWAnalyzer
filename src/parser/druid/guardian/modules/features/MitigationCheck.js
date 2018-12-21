@@ -5,10 +5,15 @@ import SPELLS from 'common/SPELLS';
 class MitigationCheck extends CoreMitigationCheck {
   constructor(...args){
     super(...args);
-    this.buffCheck = [SPELLS.IRONFUR.id,
-                      SPELLS.FRENZIED_REGENERATION.id,
-                      SPELLS.BARKSKIN.id,
-                      SPELLS.SURVIVAL_INSTINCTS.id];
+    this.buffCheckPhysical = [
+      SPELLS.IRONFUR.id,
+    ];
+
+    this.buffCheckPhysAndMag = [
+      SPELLS.FRENZIED_REGENERATION.id,
+      SPELLS.BARKSKIN.id,
+      SPELLS.SURVIVAL_INSTINCTS.id,
+    ];
   }
 }
 
