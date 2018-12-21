@@ -704,6 +704,28 @@ class StatTracker extends Analyzer {
     this._changeBuffStack(event);
   }
 
+  on_byPlayer_cast(event) {
+    this._updateIntellect(event);
+  }
+
+  on_toPlayer_heal(event) {
+    this._updateIntellect(event);
+  }
+
+  _updateIntellect(event) {
+    // updates intellect values directly from game events
+    if (!event.spellPower) {
+      return;
+    }
+    const currentIntellect = this.currentIntellectRating;
+    const actualIntellect = event.spellPower;
+    if (currentIntellect !== actualIntellect) {
+      debug && this.error(`Intellect rating calculated with StatTracker is different from actual Intellect from events! StatTracker: ${currentIntellect}, actual: ${actualIntellect}`);
+      const delta = actualIntellect - currentIntellect;
+      this.forceChangeStats({ intellect: delta });
+    }
+  }
+
   /**
    * This interface allows an external analyzer to force a stat change.
    * It should ONLY be used if a stat buff is so non-standard that it can't be handled by the buff format in this module.
