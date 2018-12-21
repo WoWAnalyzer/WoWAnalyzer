@@ -50,20 +50,15 @@ class AnimalCompanion extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.ANIMAL_COMPANION_TALENT.id}
         value={<>{formatNumber(totalDamage)} / {formatNumber(totalDamage / (this.owner.fightDuration / 1000))} DPS</>}
-<<<<<<< HEAD
         label="Animal Companion"
-        category={STATISTIC_CATEGORY.TALENTS}
-=======
-        tooltip="Without this talent your main pet would have done 66% more damage than it did as Animal Companion nerfs all pet damage by 40% - however if you're using the azerite trait Pack Alpha, your main pet would have done less damage that way."
->>>>>>> Start work on WFI
       >
         <table className="table table-condensed">
           <thead>
             <tr>
               <th>Pet</th>
-              <th>Damage</th>
+              <th>Dmg</th>
               <th>DPS</th>
-              <th>Main pet?</th>
+              <th>Dmg without AC</th>
             </tr>
           </thead>
           <tbody>
@@ -72,7 +67,7 @@ class AnimalCompanion extends Analyzer {
                 <td>{pet.petName}</td>
                 <td>{formatNumber(pet.damage)}</td>
                 <td>{formatNumber(pet.damage / (this.owner.fightDuration / 1000))}</td>
-                <td>{pet.petName === this.mainPetName ? 'Yes' : 'No'}</td>
+                <td>{pet.petName === this.mainPetName ? formatNumber(pet.damage / 0.6) + ' / ' + formatNumber((pet.damage / 0.6) / (this.owner.fightDuration / 1000)) + ' DPS' : 'N/A'}</td>
               </tr>
             ))}
           </tbody>
