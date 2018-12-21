@@ -7,18 +7,11 @@ import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import Enemies from 'parser/shared/modules/Enemies';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { SERPENT_STING_SV_BASE_DURATION } from 'parser/hunter/survival/constants';
-import SpellIcon from 'common/SpellIcon';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import { formatDuration } from 'common/format';
 
 /**
  * Lace your Wildfire Bomb with extra reagents, randomly giving it one of the following enhancements each time you throw it:
- *
- * Shrapnel Bomb:
- * Shrapnel pierces the targets, causing Mongoose Bite, Raptor Strike, Butchery and Carve to apply a bleed for 9 sec that stacks up to 3 times.
- *
- * Pheromone Bomb:
- * Kill Command has a 100% chance to reset against targets coated with Pheromones.
  *
  * Volatile Bomb:
  * Reacts violently with poison, causing an extra explosion against enemies suffering from your Serpent Sting and refreshes your Serpent Stings.
