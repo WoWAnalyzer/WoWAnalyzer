@@ -147,7 +147,7 @@ router.get('/:id([0-9]+)/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', as
   const { id, region, realm, name } = req.params;
   const storedCharacter = await Character.findById(req.params.id);
   if (storedCharacter) {
-    sendJson(storedCharacter);
+    sendJson(res, storedCharacter);
   }
 
   // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
