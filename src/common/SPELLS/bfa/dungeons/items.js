@@ -158,9 +158,9 @@ export default {
     name: 'Will of the Loa',
     icon: 'inv-misc-archaeology-trollgolem',
   },
-  SPYGLASS_SIGHT: {
-    id: 273955,
-    name: 'Spyglass Sight',
-    icon: 'inv_misc_spyglass_02',
+  FEROCITY_OF_THE_SKROG: {
+    id: 285482,
+    name: 'Ferocity of the Skrog',
+    icon: 'inv_tradeskillitem_sorcererswater',
   },
 };

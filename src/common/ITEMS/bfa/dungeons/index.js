@@ -158,4 +158,11 @@ export default {
     icon: 'inv_misc_spyglass_02',
     quality: ITEM_QUALITIES.GREEN,
   },
+  // Added with 8.1
+  SEA_GIANTS_TIDESTONE: {
+    id: 165664,
+    name: 'Sea Giant\'s Tidestone',
+    icon: 'inv_tradeskillitem_sorcererswater',
+    quality: ITEM_QUALITIES.BLUE,
+  },
 };
