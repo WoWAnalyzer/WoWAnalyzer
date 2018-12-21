@@ -12,6 +12,16 @@ import { BASE_AGI, GIFT_OF_THE_OX_SPELLS } from '../../constants';
 
 const GOTOX_COEFF = 1.5;
 
+/**
+ * Gift of the Ox
+ *
+ * Generated healing spheres when struck, which heal for 1.5x AP when
+ * consumed by walking over, expiration, overcapping, or casting
+ * Expel Harm.
+ *
+ * See peak for a breakdown of how it works and all its quirks:
+ * https://www.peakofserenity.com/2018/10/06/gift-of-the-ox/
+ */
 export default class GiftOfTheOx extends Analyzer {
   static dependencies = {
     stats: StatTracker,
@@ -19,6 +29,7 @@ export default class GiftOfTheOx extends Analyzer {
 
   totalHealing = 0;
   agiBonusHealing = 0;
+  masteryBonusHealing = 0;
 
   orbsGenerated = 0;
   orbsConsumed = 0;
@@ -48,6 +59,11 @@ export default class GiftOfTheOx extends Analyzer {
   _gotoxHeal(event) {
     this.orbsConsumed += 1;
     this.totalHealing += event.amount;
+
+    // REMINDER: check this math in the morning
+    const masteryAmount = (1 - this.stats.masteryPercentage(0, true) / this.stats.currentMasteryPercentage) * (event.amount + (event.absorbed || 0) + (event.overheal || 0));
+    const remainingOverheal = Math.max(0, (event.overheal || 0) - masteryAmount);
+    this.masteryBonusHealing += Math.max(0, masteryAmount - (event.overheal || 0));
     // so the formula for the healing is
     //
     // Heal = 1.5 * (6 * WDPS + BonusAgi + BaseAgi) * Mastery * Vers
@@ -62,7 +78,8 @@ export default class GiftOfTheOx extends Analyzer {
     // = 1.5 * Mastery * Vers * BonusAgi
     //
     // and just rely on the stattracker being close enough :shrug:
-    this.agiBonusHealing += GOTOX_COEFF * (1 + this.stats.currentMasteryPercentage) * (1 + this.stats.currentVersatilityPercentage) * (this.stats.currentAgilityRating - BASE_AGI);
+    const agiAmount = GOTOX_COEFF * (1 + this.stats.currentMasteryPercentage) * (1 + this.stats.currentVersatilityPercentage) * (this.stats.currentAgilityRating - BASE_AGI);
+    this.agiBonusHealing += Math.max(agiAmount - remainingOverheal, 0);
 
     if(event.timestamp === this._lastEHTimestamp) {
       this.expelHarmOrbsConsumed += 1;
