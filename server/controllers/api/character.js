@@ -128,15 +128,17 @@ router.get('/:id([0-9]+)', async (req, res) => {
   const { id } = req.params;
   const character = await getStoredCharacter(id);
   if (!character) {
+    // No character found, and we can't find a character by just its id, so this is all we can do.
     send404(res);
     return;
   }
+
+  // Match found, send cached info and then refresh.
   sendJson(res, character);
 
   // noinspection JSIgnoredPromiseFromCall
   fetchCharacter(character.region, character.realm, character.name);
 });
-
 router.get('/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, res) => {
   const { region, realm, name } = req.params;
 
@@ -153,7 +155,6 @@ router.get('/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, re
   // noinspection JSIgnoredPromiseFromCall
   fetchCharacter(region, realm, name, !responded ? res : null);
 });
-
 router.get('/:id([0-9]+)/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, res) => {
   const { id, region, realm, name } = req.params;
   const storedCharacter = await getStoredCharacter(id);
