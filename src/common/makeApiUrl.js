@@ -20,7 +20,7 @@ export function makeCharacterApiUrl(characterId = null, region = null, realm = n
 }
 
 export function makeItemApiUrl(itemId, region = 'us') {
-  if (!parseInt(itemId)){
+   if (!Number.isInteger(itemId)){
     return false;
   }
   const parts = ['item', region, itemId];
