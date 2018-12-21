@@ -6,6 +6,11 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-12-21'),
+    changes: <>Added support for <SpellLink id={SPELLS.BALEFUL_INVOCATION.id} /> trait. Also fixed <SpellLink id={SPELLS.DEMONBOLT.id} /> icon in Soul Shard tab. </>,
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-12-10'),
     changes: 'Updated for patch 8.1 changes.',
     contributors: [Chizu],

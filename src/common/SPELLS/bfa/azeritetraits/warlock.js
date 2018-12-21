@@ -93,6 +93,16 @@ export default {
     name: 'Shadow\'s Bite',
     icon: 'spell_shadow_painspike',
   },
+  BALEFUL_INVOCATION: {
+    id: 287059,
+    name: 'Baleful Invocation',
+    icon: 'spell_shadow_demonicempathy',
+  },
+  BALEFUL_INVOCATION_ENERGIZE: {
+    id: 287060,
+    name: 'Baleful Invocation',
+    icon: 'spell_shadow_demonicempathy',
+  },
 
   // Destruction Azerite traits and effects
   FLASHPOINT: {
