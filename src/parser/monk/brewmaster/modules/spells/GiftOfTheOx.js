@@ -60,7 +60,6 @@ export default class GiftOfTheOx extends Analyzer {
     this.orbsConsumed += 1;
     this.totalHealing += event.amount;
 
-    // REMINDER: check this math in the morning
     const masteryAmount = (1 - this.stats.masteryPercentage(0, true) / this.stats.currentMasteryPercentage) * (event.amount + (event.absorbed || 0) + (event.overheal || 0));
     const remainingOverheal = Math.max(0, (event.overheal || 0) - masteryAmount);
     this.masteryBonusHealing += Math.max(0, masteryAmount - (event.overheal || 0));
