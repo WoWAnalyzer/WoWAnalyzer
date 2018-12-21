@@ -27,12 +27,12 @@ export default {
     name: 'Barbed Shot',
     icon: 'ability_hunter_barbedshot',
   },
-  KILL_COMMAND: {
+  KILL_COMMAND_CAST_BM: {
     id: 34026,
     name: 'Kill Command',
     icon: 'ability_hunter_killcommand',
   },
-  KILL_COMMAND_PET: {
+  KILL_COMMAND_DAMAGE_BM: {
     id: 83381,
     name: 'Kill Command',
     icon: 'ability_hunter_killcommand',
@@ -290,8 +290,13 @@ export default {
     name: 'Harpoon',
     icon: 'ability_hunter_harpoon',
   },
-  KILL_COMMAND_SV: {
+  KILL_COMMAND_CAST_SV: {
     id: 259489,
+    name: 'Kill Command',
+    icon: 'ability_hunter_killcommand',
+  },
+  KILL_COMMAND_DAMAGE_SV: {
+    id: 259277,
     name: 'Kill Command',
     icon: 'ability_hunter_killcommand',
   },
@@ -389,6 +394,11 @@ export default {
     id: 270339,
     name: 'Shrapnel Bomb',
     icon: 'inv_wildfirebomb_shrapnel',
+  },
+  INTERNAL_BLEEDING_SV: {
+    id: 270343,
+    name: 'Internal Bleeding',
+    icon: 'ability_gouge',
   },
   VOLATILE_BOMB_WFI: {
     id: 271045,

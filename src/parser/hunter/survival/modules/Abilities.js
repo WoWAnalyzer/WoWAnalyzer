@@ -6,7 +6,7 @@ class Abilities extends CoreAbilities {
     const combatant = this.selectedCombatant;
     return [
       {
-        spell: SPELLS.KILL_COMMAND_SV,
+        spell: SPELLS.KILL_COMMAND_CAST_SV,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         buffSpellId: SPELLS.FLANKERS_ADVANTAGE.id,
         gcd: {
@@ -112,7 +112,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: [SPELLS.WILDFIRE_INFUSION_TALENT, SPELLS.VOLATILE_BOMB_WFI, SPELLS.PHEROMONE_BOMB_WFI, SPELLS.SHRAPNEL_BOMB_WFI],
+        spell: [SPELLS.VOLATILE_BOMB_WFI, SPELLS.PHEROMONE_BOMB_WFI, SPELLS.SHRAPNEL_BOMB_WFI, SPELLS.WILDFIRE_INFUSION_TALENT],
         shownSpell: SPELLS.WILDFIRE_INFUSION_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {

@@ -27,7 +27,7 @@ export default [
   },
   {
     date: new Date('2018-09-10'),
-    changes: <>Added a <SpellLink id={SPELLS.FLANKERS_ADVANTAGE.id} /> indicator to the time-line, to indicate when <SpellLink id={SPELLS.KILL_COMMAND_SV.id} /> resets.</>,
+    changes: <>Added a <SpellLink id={SPELLS.FLANKERS_ADVANTAGE.id} /> indicator to the time-line, to indicate when <SpellLink id={SPELLS.KILL_COMMAND_CAST_SV.id} /> resets.</>,
     contributors: [Putro],
   },
   {

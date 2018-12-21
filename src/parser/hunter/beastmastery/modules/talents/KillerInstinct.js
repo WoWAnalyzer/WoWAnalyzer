@@ -29,7 +29,7 @@ class KillerInstinct extends Analyzer {
 
   on_byPlayerPet_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.KILL_COMMAND_PET.id) {
+    if (spellId !== SPELLS.KILL_COMMAND_DAMAGE_BM.id) {
       return;
     }
 
