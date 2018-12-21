@@ -4,16 +4,12 @@ import CoreChanneling from 'parser/shared/modules/Channeling';
 const debug = false;
 
 class Channeling extends CoreChanneling {
+
   on_byPlayer_cast(event) {
-    if (event.ability.guid === SPELLS.BARRAGE_TALENT.id) {
-      this.beginChannel(event);
+    if (event.ability.guid !== (SPELLS.BARRAGE_TALENT.id || SPELLS.RAPID_FIRE.id)) {
       return;
     }
-    if (event.ability.guid === SPELLS.RAPID_FIRE.id) {
-        this.beginChannel(event);
-        return;
-    }
-    super.on_byPlayer_cast(event);
+    this.beginChannel(event);
   }
 
   cancelChannel(event, ability) {
@@ -26,7 +22,7 @@ class Channeling extends CoreChanneling {
     }
   }
 
-  on_byPlayer_removebuff(event) {
+  on_byPlayer_removedebuff(event) {
     if (event.ability.guid !== SPELLS.RAPID_FIRE.id) {
       return;
     }
