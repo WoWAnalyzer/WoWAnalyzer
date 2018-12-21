@@ -14,7 +14,7 @@ import TraitStatisticBox from 'interface/others/TraitStatisticBox';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 
 const DEMONFIRE_SP_COEFFICIENT = 0.325;
-const debug = true;
+const debug = false;
 
 class BalefulInvocation extends Analyzer {
   static dependencies = {
@@ -50,7 +50,6 @@ class BalefulInvocation extends Analyzer {
   }
 
   onTyrantDamage(event) {
-    // TODO: not verified yet, if it takes player's Intellect or the pet one somehow
     const [ damage ] = calculateBonusAzeriteDamage(event, [this.bonus], DEMONFIRE_SP_COEFFICIENT, this.snapshottedIntellect);
     debug && this.log(`Bonus Demonfire damage: ${damage}`);
     this.damage += damage;
