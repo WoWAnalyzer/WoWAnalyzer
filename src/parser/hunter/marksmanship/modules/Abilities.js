@@ -4,6 +4,8 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import CoreAbilities from 'parser/core/modules/Abilities';
 
+const hastedCooldown = (baseCD, haste) => (baseCD / (1 + haste));
+
 class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
@@ -12,7 +14,12 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.AIMED_SHOT,
         buffSpellId: [SPELLS.DOUBLE_TAP_TALENT.id, SPELLS.LOCK_AND_LOAD_BUFF.id],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 12 / (1 + haste),
+        cooldown: (haste, selectedCombatant) => {
+          if (selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
+            return hastedCooldown((12 / 2.25), haste);
+          }
+          return hastedCooldown(12, haste);
+        },
         charges: 2,
         gcd: {
           base: 1500,
@@ -33,7 +40,12 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 20,
+        cooldown: (haste, selectedCombatant) => {
+          if (selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
+            return 20 / 2.4;
+          }
+          return 20;
+        },
       },
       {
         spell: SPELLS.STEADY_SHOT,
@@ -135,7 +147,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.TRUESHOT,
         buffSpellId: SPELLS.TRUESHOT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180,
+        cooldown: 120,
         gcd: {
           base: 1500,
         },

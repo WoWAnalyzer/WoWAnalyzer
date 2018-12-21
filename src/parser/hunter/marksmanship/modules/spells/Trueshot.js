@@ -36,12 +36,6 @@ class Trueshot extends Analyzer {
     }
     if (spellId === SPELLS.TRUESHOT.id) {
       this.trueshotCasts += 1;
-      if (this.spellUsable.isOnCooldown(SPELLS.AIMED_SHOT.id)) {
-        const newChargeCDR = this.abilities.getExpectedCooldownDuration(SPELLS.AIMED_SHOT.id) - this.spellUsable.cooldownRemaining(SPELLS.AIMED_SHOT.id);
-        this.spellUsable.endCooldown(SPELLS.AIMED_SHOT.id, false, event.timestamp, newChargeCDR);
-      } else {
-        this.wastedAimedShotCharges++;
-      }
       this.accumulatedFocusAtTSCast += event.classResources[0].amount || 0;
     }
     if (spellId === SPELLS.AIMED_SHOT.id && this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
@@ -81,16 +75,19 @@ class Trueshot extends Analyzer {
           <li>You started your Trueshot windows with an average of ${this.averageFocus} focus.</li>
           <li>You hit an average of ${this.averageAimedShots} Aimed Shots inside each Trueshot window. </li>
           <li>You gained ${this.trueshotCasts - this.wastedAimedShotCharges} charges of Aimed Shot and lost out on ${this.wastedAimedShotCharges} charges by activating Trueshot whilst Aimed Shot wasn't on cooldown.</li>
-        </ul>`} />
+        </ul>`}
+      />
     );
   }
 
   get averageAimedShots() {
     return (this.aimedShotsPrTS / this.trueshotCasts).toFixed(1);
   }
+
   get averageFocus() {
     return formatNumber(this.accumulatedFocusAtTSCast / this.trueshotCasts);
   }
+
   get aimedShotThreshold() {
     return {
       actual: this.averageAimedShots,
@@ -102,17 +99,7 @@ class Trueshot extends Analyzer {
       style: 'decimal',
     };
   }
-  get aimedShotRechargeThreshold() {
-    return {
-      actual: this.wastedAimedShotCharges,
-      isGreaterThan: {
-        minor: 0,
-        average: 0.1,
-        major: 1.1,
-      },
-      style: 'number',
-    };
-  }
+
   suggestions(when) {
     when(this.aimedShotThreshold).addSuggestion((suggest, actual, recommended) => {
       return suggest(
@@ -123,12 +110,6 @@ class Trueshot extends Analyzer {
         .icon(SPELLS.TRUESHOT.icon)
         .actual(`Average of ${actual} Aimed Shots per Trueshot.`)
         .recommended(`>${recommended} is recommended`);
-    });
-    when(this.aimedShotRechargeThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You should make sure to cast <SpellLink id={SPELLS.TRUESHOT.id} /> while you have 0 charges of <SpellLink id={SPELLS.AIMED_SHOT.id} />, to get the most out of the free charge given by activating <SpellLink id={SPELLS.TRUESHOT.id} />.</>)
-        .icon(SPELLS.TRUESHOT.icon)
-        .actual(`You lost out on ${actual} Aimed Shot charges`)
-        .recommended(`${recommended} is recommended`);
     });
   }
 }
