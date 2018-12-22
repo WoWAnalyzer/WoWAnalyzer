@@ -18,7 +18,7 @@ const HTTP_CODES = {
   NOT_FOUND: 404,
 };
 
-class WowCommunityApi /* extends ExternalApi or extends BlizzardApi */ {
+class WowCommunityApi { // TODO: extends ExternalApi that provides a generic _fetch method for third party APIs
   static localeByRegion = {
     [REGIONS.EU]: 'en_US',
     [REGIONS.US]: 'en_US',
@@ -88,8 +88,10 @@ class WowCommunityApi /* extends ExternalApi or extends BlizzardApi */ {
     } catch (err) {
       if (err.statusCode === 401) {
         delete this._accessTokenByRegion[region];
+        // We can recursively call ourself because we just deleted the access token so it will just retry that and if that fails then it will actually stop instead of retrying *forever*.
+        // This is unless Blizzard's API breaks and starts throwing out 401s for valid keys. Let's hope that won't happen.
+        return this._fetchCommunityApi(region, endpoint, path, query);
       }
-      // TODO: Retry in case of access token error
       throw err;
     }
   }
