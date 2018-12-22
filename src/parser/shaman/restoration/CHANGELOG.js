@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-12-17'),
+    changes: <>Updated modules to support various 8.1 changes, including the <SpellLink id={SPELLS.HIGH_TIDE_TALENT.id} /> redesign.</>,
+    contributors: [niseko],
+  },
+  {
     date: new Date('2018-11-15'),
     changes: <>The <SpellLink id={SPELLS.EARTHEN_WALL_TOTEM_TALENT.id} /> module now provides efficiency details on individual casts, and filters out healing on pets.</>,
     contributors: [niseko],
