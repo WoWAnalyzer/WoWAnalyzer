@@ -100,6 +100,16 @@ class AssassinationRogueChecklist extends React.PureComponent {
               thresholds={thresholds.subterfugeEfficiency}
             />
           )}
+          {combatant.hasTalent(SPELLS.MASTER_ASSASSIN_TALENT.id) && (
+            <Requirement
+              name={(
+                <>
+                  Good casts during <SpellLink id={SPELLS.MASTER_ASSASSIN_TALENT.id} />
+                </>
+              )}
+              thresholds={thresholds.masterAssassinEfficiency}
+            />
+          )}
           {combatant.hasTalent(SPELLS.NIGHTSTALKER_TALENT.id) && (
             <Requirement
               name={(

@@ -20,6 +20,7 @@ import Component from './Component';
 import GarroteSnapshot from '../GarroteSnapshot';
 import RuptureSnapshot from '../RuptureSnapshot';
 import Nightstalker from '../../talents/Nightstalker';
+import MasterAssassin from '../../talents/MasterAssassin';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -38,6 +39,7 @@ class Checklist extends BaseChecklist {
 
     subterfuge: Subterfuge,
     nightstalker: Nightstalker,
+    masterAssassin: MasterAssassin,
     garroteSnapshot: GarroteSnapshot,
     ruptureSnapshot: RuptureSnapshot,
   };
@@ -62,6 +64,7 @@ class Checklist extends BaseChecklist {
           subterfugeEfficiency: this.subterfuge.suggestionThresholds,
           nightstalkerEfficiency: this.nightstalker.suggestionThresholds,
           nightstalkerOpenerEfficiency: this.nightstalker.suggestionThresholdsOpener,
+          masterAssassinEfficiency: this.masterAssassin.suggestionThresholds,
           ruptureSnapshotEfficiency: this.ruptureSnapshot.suggestionThresholds,
           garroteSnapshotEfficiency: this.garroteSnapshot.suggestionThresholds,
         }}

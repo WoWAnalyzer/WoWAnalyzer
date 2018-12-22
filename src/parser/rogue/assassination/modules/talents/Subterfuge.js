@@ -39,7 +39,7 @@ class Subterfuge extends StealthCasts {
   }
 
   get percentGoodStealthCasts() {
-    return this.stealthsWithAtleastOneGarrote / this.stealthCasts;
+    return (this.stealthsWithAtleastOneGarrote / this.stealthCasts) || 0;
   }
 
   get suggestionThresholds() {

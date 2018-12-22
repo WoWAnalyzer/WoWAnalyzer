@@ -73,7 +73,7 @@ class Nightstalker extends StealthCasts {
   }
 
   get vanishCasts() {
-    return this.stealthSequences.length - (this.usedStealthOnPull ? 1  : 0);
+    return this.stealthSequences.length - (this.usedStealthOnPull ? 1 : 0);
   }
 
   get percentGoodVanishCasts() {
