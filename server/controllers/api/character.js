@@ -1,7 +1,6 @@
 import Express from 'express';
 import Sequelize from 'sequelize';
 import Raven from 'raven';
-import { StatusCodeError } from 'request-promise-native/errors';
 
 import WowCommunityApi from 'helpers/WowCommunityApi';
 
