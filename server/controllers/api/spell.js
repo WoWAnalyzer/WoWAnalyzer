@@ -26,7 +26,7 @@ function send404(res) {
 
 async function proxySpellApi(res, region, spellId) {
   try {
-    const response = await WowCommunityApi.fetchSpell(region, spellId);
+    const response = await WowCommunityApi.fetchSpell(spellId, region);
     const json = JSON.parse(response);
     sendJson(res, json);
     return json;

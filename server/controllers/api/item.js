@@ -26,7 +26,7 @@ function send404(res) {
 
 async function proxyItemApi(res, region, itemId) {
   try {
-    const response = await WowCommunityApi.fetchItem(region, itemId);
+    const response = await WowCommunityApi.fetchItem(itemId, region);
     const json = JSON.parse(response);
     sendJson(res, json);
     return json;
