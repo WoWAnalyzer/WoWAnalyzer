@@ -26,11 +26,11 @@ class WowCommunityApi /* extends ExternalApi or extends BlizzardApi */ {
     [REGIONS.KR]: 'ko_KR',
   };
 
-  async fetchCharacter(regionCode, realm, name) {
+  async fetchCharacter(regionCode, realm, name, fields) {
     const region = this._getRegion(regionCode);
 
     return this._fetchCommunityApi(region, 'character', `${encodeURIComponent(realm)}/${encodeURIComponent(name)}`, {
-      fields: 'talents',
+      fields,
     });
   }
   async fetchItem(regionCode, id) {

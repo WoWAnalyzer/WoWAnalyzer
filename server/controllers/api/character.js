@@ -39,20 +39,30 @@ function send404(res) {
 }
 
 async function getCharacterFromBlizzardApi(region, realm, name) {
-  const response = await WowCommunityApi.fetchCharacter(region, realm, name);
+  const response = await WowCommunityApi.fetchCharacter(region, realm, name, 'talents');
   const data = JSON.parse(response);
+  if (!data || !data.thumbnail) {
+    throw new Error('Corrupt response received');
+  }
   // This is the only field that we need and isn't always otherwise obtainable (e.g. when this is fetched by character id)
   // eslint-disable-next-line prefer-const
-  const { talents, ...other } = data;
-  let json = { region, ...other };
+  const { talents, thumbnail, ...other } = data;
+  delete other.calcClass;
+  delete other.totalHonorableKills;
+  delete other.level;
+  delete other.lastModified;
+  const [, characterId] = characterIdFromThumbnailRegex.exec(thumbnail);
+  const json = {
+    id: Number(characterId),
+    region,
+    thumbnail,
+    ...other,
+  };
   if (talents) {
     const selectedSpec = talents.find(e => e.selected);
-    json = {
-      ...json,
-      spec: selectedSpec.spec.name,
-      role: selectedSpec.spec.role,
-      talents: selectedSpec.calcTalent,
-    };
+    json.spec = selectedSpec.spec.name;
+    json.role = selectedSpec.spec.role;
+    json.talents = selectedSpec.calcTalent;
   }
   return json;
 }
@@ -86,13 +96,8 @@ async function fetchCharacter(region, realm, name, res = null) {
     if (res) {
       sendJson(res, charFromApi);
     }
-    if (charFromApi && charFromApi.thumbnail) {
-      const [, characterId] = characterIdFromThumbnailRegex.exec(charFromApi.thumbnail);
-      // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
-      storeCharacter({ id: characterId, ...charFromApi });
-    } else {
-      throw new Error('Corrupt response received');
-    }
+    // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
+    storeCharacter(charFromApi);
   } catch (error) {
     const { statusCode, message, response } = error;
     console.log('Error fetching character', statusCode, message);
