@@ -48,11 +48,11 @@ class SeaGiantsTidestone extends Analyzer {
           suggestion: true,
         },
       });
-    }
 
-    this.statTracker.add(SPELLS.FEROCITY_OF_THE_SKROG.id, {
-      haste: this.haste,
-    });
+      this.statTracker.add(SPELLS.FEROCITY_OF_THE_SKROG.id, {
+        haste: this.haste,
+      });
+    }
   }
   
   on_byPlayer_cast(event) {
