@@ -159,7 +159,8 @@ router.get('/:id([0-9]+)/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', as
   const { id, region, realm, name } = req.params;
   const storedCharacter = await getStoredCharacter(id);
   let responded = false;
-  if (storedCharacter) {
+  // Old cache entries won't have the thumbnail value. We want the the thumbnail value. So don't respond yet if it's missing.
+  if (storedCharacter && storedCharacter.thumbnail) {
     sendJson(res, storedCharacter);
     responded = true;
   }
