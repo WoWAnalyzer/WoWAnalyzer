@@ -62,7 +62,7 @@ router.get('/*', async (req, res) => {
 
     const cacheKey = serializeUrl(path, query);
     if (!skipCache) {
-      const cachedWclApiResponse = await WclApiResponse.findById(cacheKey);
+      const cachedWclApiResponse = await WclApiResponse.findByPk(cacheKey);
       if (cachedWclApiResponse) {
         console.log('cache HIT', cacheKey);
         // noinspection JSIgnoredPromiseFromCall No need to wait for this as it doesn't affect the result.
