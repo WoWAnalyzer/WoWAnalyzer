@@ -45,7 +45,7 @@ class MasterAssassin extends StealthCasts {
   }
 
   addBonusDamageIfBuffed(event) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.STEALTH.id) && !this.selectedCombatant.hasBuff(SPELLS.MASTER_ASSASSIN_BUFF.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.MASTER_ASSASSIN_BUFF.id)) {
       return;
     }
     const critChance = this.statTracker.currentCritPercentage;

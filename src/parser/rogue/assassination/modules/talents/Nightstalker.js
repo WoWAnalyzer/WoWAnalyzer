@@ -36,7 +36,9 @@ class Nightstalker extends StealthCasts {
   }
 
   addBonusDamageIfBuffed(event) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.STEALTH.id) && !this.selectedCombatant.hasBuff(SPELLS.VANISH_BUFF.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.STEALTH.id) &&
+      !this.selectedCombatant.hasBuff(SPELLS.STEALTH_BUFF.id) &&
+      !this.selectedCombatant.hasBuff(SPELLS.VANISH_BUFF.id)) {
       return;
     }
     this.bonusDamage += calculateEffectiveDamage(event, DAMAGE_BONUS);

@@ -154,7 +154,9 @@ class Snapshot extends Analyzer {
       expireTime: expireNew,
       pandemicTime: expireNew - this.durationOfFresh * PANDEMIC_FRACTION,
       buffed: combatant.hasBuff(SPELLS.STEALTH.id, null, BUFF_WINDOW_TIME) ||
-        combatant.hasBuff(SPELLS.SUBTERFUGE_BUFF.id, null, BUFF_WINDOW_TIME),
+        combatant.hasBuff(SPELLS.SUBTERFUGE_BUFF.id, null, BUFF_WINDOW_TIME) ||
+        combatant.hasBuff(SPELLS.STEALTH_BUFF.id, null, BUFF_WINDOW_TIME) ||
+        combatant.hasBuff(SPELLS.VANISH_BUFF.id, null, BUFF_WINDOW_TIME),
       startTime: debuffEvent.timestamp,
       castEvent: this.lastDoTCastEvent,
 
