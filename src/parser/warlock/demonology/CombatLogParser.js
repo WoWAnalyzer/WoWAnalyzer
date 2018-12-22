@@ -41,7 +41,6 @@ import SacrificedSouls from './modules/talents/SacrificedSouls';
 import DemonicConsumption from './modules/talents/DemonicConsumption';
 import NetherPortal from './modules/talents/NetherPortal';
 
-import ShadowsBiteForbiddenKnowledgeCore from './modules/azerite/ShadowsBiteForbiddenKnowledgeCore';
 import ShadowsBite from './modules/azerite/ShadowsBite';
 import ExplosivePotential from './modules/azerite/ExplosivePotential';
 import DemonicMeteor from './modules/azerite/DemonicMeteor';
@@ -100,7 +99,6 @@ class CombatLogParser extends CoreCombatLogParser {
     explosivePotential: ExplosivePotential,
     umbralBlaze: UmbralBlaze,
     supremeCommander: SupremeCommander,
-    shadowsBiteForbiddenKnowledgeCore: ShadowsBiteForbiddenKnowledgeCore,
     shadowsBite: ShadowsBite,
     balefulInvocation: BalefulInvocation,
     
