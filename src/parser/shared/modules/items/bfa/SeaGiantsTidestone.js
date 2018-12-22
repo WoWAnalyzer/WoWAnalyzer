@@ -27,7 +27,7 @@ class SeaGiantsTidestone extends Analyzer {
   };
   
   casts = 0;
-  spellPower = 0;
+  haste = 0;
 
   constructor(...args) {
     super(...args);
@@ -35,7 +35,7 @@ class SeaGiantsTidestone extends Analyzer {
       ITEMS.SEA_GIANTS_TIDESTONE.id
     );
     if (this.active) {
-      this.spellPower = calculateSecondaryStatDefault(370, 985, this.selectedCombatant.getItem(ITEMS.SEA_GIANTS_TIDESTONE.id).itemLevel);
+      this.haste = calculateSecondaryStatDefault(370, 985, this.selectedCombatant.getItem(ITEMS.SEA_GIANTS_TIDESTONE.id).itemLevel);
 
       this.abilities.add({
         spell: SPELLS.FEROCITY_OF_THE_SKROG,
@@ -64,7 +64,7 @@ class SeaGiantsTidestone extends Analyzer {
     return {
       item: ITEMS.SEA_GIANTS_TIDESTONE,
       result: (
-        <dfn data-tip={`Average spell power gained ${formatNumber(this.spellPower * this.totalBuffUptime)}`}>
+        <dfn data-tip={`Average haste gained ${formatNumber(this.haste * this.totalBuffUptime)}`}>
           Used {this.casts} times / {formatPercentage(this.totalBuffUptime)}% uptime
         </dfn>
       ),
