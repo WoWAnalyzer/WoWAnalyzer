@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS/index';
 import ITEMS from 'common/ITEMS/index';
 import Analyzer from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
+import StatTracker from 'parser/shared/modules/StatTracker';
 import { formatPercentage } from 'common/format';
 import { formatNumber } from 'common/format';
 import { calculateSecondaryStatDefault } from 'common/stats';
@@ -24,10 +25,11 @@ import { calculateSecondaryStatDefault } from 'common/stats';
 class SeaGiantsTidestone extends Analyzer {
   static dependencies = {
     abilities: Abilities,
+    statTracker: StatTracker,
   };
   
   casts = 0;
-  spellPower = 0;
+  haste = 0;
 
   constructor(...args) {
     super(...args);
@@ -35,7 +37,7 @@ class SeaGiantsTidestone extends Analyzer {
       ITEMS.SEA_GIANTS_TIDESTONE.id
     );
     if (this.active) {
-      this.spellPower = calculateSecondaryStatDefault(370, 985, this.selectedCombatant.getItem(ITEMS.SEA_GIANTS_TIDESTONE.id).itemLevel);
+      this.haste = calculateSecondaryStatDefault(370, 985, this.selectedCombatant.getItem(ITEMS.SEA_GIANTS_TIDESTONE.id).itemLevel);
 
       this.abilities.add({
         spell: SPELLS.FEROCITY_OF_THE_SKROG,
@@ -45,6 +47,10 @@ class SeaGiantsTidestone extends Analyzer {
         castEfficiency: {
           suggestion: true,
         },
+      });
+
+      this.statTracker.add(SPELLS.FEROCITY_OF_THE_SKROG.id, {
+        haste: this.haste,
       });
     }
   }
@@ -64,7 +70,7 @@ class SeaGiantsTidestone extends Analyzer {
     return {
       item: ITEMS.SEA_GIANTS_TIDESTONE,
       result: (
-        <dfn data-tip={`Average spell power gained ${formatNumber(this.spellPower * this.totalBuffUptime)}`}>
+        <dfn data-tip={`Average haste gained ${formatNumber(this.haste * this.totalBuffUptime)}`}>
           Used {this.casts} times / {formatPercentage(this.totalBuffUptime)}% uptime
         </dfn>
       ),
