@@ -33,7 +33,7 @@ function tryJsonParse(string) {
 }
 export default async function fetchFromWarcraftLogsApi(path, query, metricLabels) {
   const url = getWclApiUrl(path, query);
-  let end;
+  let commitMetric;
   try {
     const jsonString = await retryingRequest({
       url,
@@ -46,23 +46,23 @@ export default async function fetchFromWarcraftLogsApi(path, query, metricLabels
       forever: true,
       timeout: TIMEOUT,
       onBeforeAttempt: () => {
-        end = warcraftLogsApiResponseLatencyHistogram.startTimer(metricLabels);
+        commitMetric = warcraftLogsApiResponseLatencyHistogram.startTimer(metricLabels);
       },
-      onFailure: err => {
+      onFailedAttempt: err => {
         if (err instanceof RequestTimeoutError) {
-          end({ statusCode: 'timeout' });
+          commitMetric({ statusCode: 'timeout' });
         } else if (err instanceof RequestSocketTimeoutError) {
-          end({ statusCode: 'socket timeout' });
+          commitMetric({ statusCode: 'socket timeout' });
         } else if (err instanceof RequestConnectionResetError) {
-          end({ statusCode: 'connection reset' });
+          commitMetric({ statusCode: 'connection reset' });
         } else if (err instanceof RequestUnknownError) {
-          end({ statusCode: 'unknown' });
+          commitMetric({ statusCode: 'unknown' });
         } else {
-          end({ statusCode: err.statusCode });
+          commitMetric({ statusCode: err.statusCode });
         }
       },
       onSuccess: () => {
-        end({ statusCode: 200 });
+        commitMetric({ statusCode: 200 });
       },
     });
 

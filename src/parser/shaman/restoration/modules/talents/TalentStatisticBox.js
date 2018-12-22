@@ -47,6 +47,7 @@ class TalentStatisticBox extends Analyzer {
         position={STATISTIC_ORDER.CORE(1)}
         category={STATISTIC_CATEGORY.TALENTS}
       >
+        {<div style={{ borderBottom: 0, marginBottom: 0, paddingBottom: 0 }} />}
         {this.selectedCombatant.hasTalent(SPELLS.TORRENT_TALENT.id) ? this.torrent.subStatistic() : ''}
         {this.selectedCombatant.hasTalent(SPELLS.UNLEASH_LIFE_TALENT.id) ? this.unleashLife.subStatistic() : ''}
         {this.selectedCombatant.hasTalent(SPELLS.UNDULATION_TALENT.id) ? this.undulation.subStatistic() : ''}

@@ -17,12 +17,12 @@ export function makeCharacterApiUrl(characterId = null, region = null, realm = n
   return makeApiUrl(parts.map(part => encodeURIComponent(part)).join('/'));
 }
 
-export function makeItemApiUrl(itemId, region) {
-  const parts = ['item', region, itemId];
+export function makeItemApiUrl(itemId) {
+  const parts = ['item', itemId];
   return makeApiUrl(parts.map(part => encodeURIComponent(part)).join('/'));
 }
 
-export function makeSpellApiUrl(spellId, region) {
-  const parts = ['spell', region, spellId];
+export function makeSpellApiUrl(spellId) {
+  const parts = ['spell', spellId];
   return makeApiUrl(parts.map(part => encodeURIComponent(part)).join('/'));
 }

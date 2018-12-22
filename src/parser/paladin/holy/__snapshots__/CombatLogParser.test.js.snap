@@ -1438,7 +1438,7 @@ exports[`Holy Paladin integration test analyzers StatValues matches the statisti
               }
             >
               <svg
-                data-tip="1.72 HPS per 1 rating / 89 rating per 1% throughput"
+                data-tip="1.78 HPS per 1 rating / 86 rating per 1% throughput"
                 viewBox="0 0 100 100"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -1487,7 +1487,7 @@ exports[`Holy Paladin integration test analyzers StatValues matches the statisti
             <td
               className="text-right"
             >
-              0.94
+              0.92
             </td>
             <td
               style={
@@ -1497,7 +1497,7 @@ exports[`Holy Paladin integration test analyzers StatValues matches the statisti
               }
             >
               <svg
-                data-tip="1.61 HPS per 1 rating / 95 rating per 1% throughput"
+                data-tip="1.64 HPS per 1 rating / 93 rating per 1% throughput"
                 viewBox="0 0 100 100"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -1554,7 +1554,7 @@ exports[`Holy Paladin integration test analyzers StatValues matches the statisti
               className="text-right"
             >
               0.00 - 
-              1.04
+              1.01
             </td>
             <td
               style={
@@ -1608,7 +1608,7 @@ exports[`Holy Paladin integration test analyzers StatValues matches the statisti
             <td
               className="text-right"
             >
-              0.81
+              0.79
             </td>
             <td
               style={
@@ -1666,7 +1666,7 @@ exports[`Holy Paladin integration test analyzers StatValues matches the statisti
             <td
               className="text-right"
             >
-              0.85
+              0.82
             </td>
             <td
               style={
@@ -1724,7 +1724,7 @@ exports[`Holy Paladin integration test analyzers StatValues matches the statisti
             <td
               className="text-right"
             >
-              1.04
+              1.01
             </td>
             <td
               style={
@@ -1772,7 +1772,7 @@ exports[`Holy Paladin integration test analyzers StatValues matches the statisti
             <td
               className="text-right"
             >
-              1.15
+              1.11
             </td>
             <td
               style={

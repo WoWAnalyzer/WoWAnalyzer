@@ -32,28 +32,7 @@ class Combatants extends Entities {
       }
 
       this.players[combatantInfo.sourceID] = new Combatant(this.owner, combatantInfo);
-
-      combatantInfo.auras.forEach((aura) => {
-        this.applyBuff({
-          ability: {
-            abilityIcon: aura.icon,
-            guid: aura.ability,
-          },
-          sourceID: aura.source,
-          targetID: combatantInfo.sourceID,
-          timestamp: combatantInfo.timestamp,
-        });
-      });
     });
-  }
-
-  on_applybuff(event) {
-    if (event.__fromCombatantinfo) {
-      // We already scan the `combatantinfo` auras, so adding it here would be duplicating which causes a lot of issues.
-      // We need to use `combatantinfo` so that our buffs are already available when just the `combatantinfo` events are available (for display purposes).
-      return;
-    }
-    super.on_applybuff(event);
   }
 }
 

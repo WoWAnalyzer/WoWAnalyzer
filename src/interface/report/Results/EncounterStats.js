@@ -170,7 +170,7 @@ class EncounterStats extends React.PureComponent {
   fillMissingIcons() {
     this.state.mostUsedTrinkets.forEach(trinket => {
       if (ITEMS[trinket.id] === undefined) {
-        return fetch(makeItemApiUrl(trinket.id, 'us'))
+        return fetch(makeItemApiUrl(trinket.id))
           .then(response => response.json())
           .then(data => {
             const updatedItems = this.state.items;
