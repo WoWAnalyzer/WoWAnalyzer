@@ -33,12 +33,12 @@ class WowCommunityApi /* extends ExternalApi or extends BlizzardApi */ {
       fields: 'talents',
     });
   }
-  fetchItem(regionCode, id) {
+  async fetchItem(regionCode, id) {
     const region = this._getRegion(regionCode);
 
     return this._fetchCommunityApi(region, 'item', encodeURIComponent(id));
   }
-  fetchSpell(regionCode, id) {
+  async fetchSpell(regionCode, id) {
     const region = this._getRegion(regionCode);
 
     return this._fetchCommunityApi(region, 'spell', encodeURIComponent(id));

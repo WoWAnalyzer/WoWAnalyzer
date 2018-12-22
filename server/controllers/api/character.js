@@ -3,7 +3,7 @@ import Sequelize from 'sequelize';
 import Raven from 'raven';
 import { StatusCodeError } from 'request-promise-native/errors';
 
-import WowCommunityApi from 'helpers/wowCommunityApi';
+import WowCommunityApi from 'helpers/WowCommunityApi';
 
 import models from '../../models';
 
@@ -39,34 +39,22 @@ function send404(res) {
 }
 
 async function getCharacterFromBlizzardApi(region, realm, name) {
-  try {
-    const response = await WowCommunityApi.fetchCharacter(region, realm, name);
-    const data = JSON.parse(response);
-    // This is the only field that we need and isn't always otherwise obtainable (e.g. when this is fetched by character id)
-    // eslint-disable-next-line prefer-const
-    const { talents, ...other } = data;
-    let json = { region, ...other };
-    if (talents) {
-      const selectedSpec = talents.find(e => e.selected);
-      json = {
-        ...json,
-        spec: selectedSpec.spec.name,
-        role: selectedSpec.spec.role,
-        talents: selectedSpec.calcTalent,
-      };
-    }
-    return json;
-  } catch (error) {
-    const { statusCode, message, response } = error;
-    console.log('Error fetching character', statusCode, message);
-    const body = response ? response.body : null;
-    // Ignore 404 - Character not found errors. We check for the text so this doesn't silently break when the API endpoint changes.
-    const isCharacterNotFoundError = statusCode === 404 && body && body.includes('Character not found.');
-    if (!isCharacterNotFoundError) {
-      Raven.installed && Raven.captureException(error);
-    }
-    throw error;
+  const response = await WowCommunityApi.fetchCharacter(region, realm, name);
+  const data = JSON.parse(response);
+  // This is the only field that we need and isn't always otherwise obtainable (e.g. when this is fetched by character id)
+  // eslint-disable-next-line prefer-const
+  const { talents, ...other } = data;
+  let json = { region, ...other };
+  if (talents) {
+    const selectedSpec = talents.find(e => e.selected);
+    json = {
+      ...json,
+      spec: selectedSpec.spec.name,
+      role: selectedSpec.spec.role,
+      talents: selectedSpec.calcTalent,
+    };
   }
+  return json;
 }
 async function getStoredCharacter(id, realm, region, name) {
   if (id) {
@@ -98,23 +86,31 @@ async function fetchCharacter(region, realm, name, res = null) {
     if (res) {
       sendJson(res, charFromApi);
     }
-    if (charFromApi.thumbnail) {
+    if (charFromApi && charFromApi.thumbnail) {
       const [, characterId] = characterIdFromThumbnailRegex.exec(charFromApi.thumbnail);
       // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
       storeCharacter({ id: characterId, ...charFromApi });
+    } else {
+      throw new Error('Corrupt response received');
     }
-  } catch (err) {
+  } catch (error) {
+    const { statusCode, message, response } = error;
+    console.log('Error fetching character', statusCode, message);
     if (!res) {
       return;
     }
-    if (err instanceof StatusCodeError && err.statusCode === 404) {
+    const body = response ? response.body : null;
+    // Ignore 404 - Character not found errors. We check for the text so this doesn't silently break when the API endpoint changes.
+    const isCharacterNotFoundError = statusCode === 404 && body && body.includes('Character not found.');
+    if (isCharacterNotFoundError) {
       send404(res);
     } else {
+      Raven.installed && Raven.captureException(error);
       res.setHeader('Access-Control-Allow-Origin', '*');
-      res.status(err.statusCode || 500);
+      res.status(statusCode || 500);
       sendJson(res, {
         error: 'Blizzard API error',
-        message: err.error || err.message,
+        message: body || message,
       });
     }
   }
