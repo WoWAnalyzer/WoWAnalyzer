@@ -24,9 +24,9 @@ function send404(res) {
   res.sendStatus(404);
 }
 
-async function proxyItemApi(res, region, itemId) {
+async function proxyItemApi(res, itemId) {
   try {
-    const response = await WowCommunityApi.fetchItem(itemId, region);
+    const response = await WowCommunityApi.fetchItem(itemId);
     const json = JSON.parse(response);
     sendJson(res, json);
     return json;
@@ -66,7 +66,7 @@ async function storeItem({ id, name, icon }) {
 
 const router = Express.Router();
 router.get('/:region([A-Z]{2})/:id([0-9]+)', async (req, res) => {
-  const { region, id } = req.params;
+  const { id } = req.params;
   let item = await Item.findByPk(id);
   if (item) {
     res.send(item);
@@ -74,7 +74,7 @@ router.get('/:region([A-Z]{2})/:id([0-9]+)', async (req, res) => {
       lastSeenAt: Sequelize.fn('NOW'),
     });
   } else {
-    item = await proxyItemApi(res, region, id);
+    item = await proxyItemApi(res, id);
     if (item) {
       storeItem(item);
     }
