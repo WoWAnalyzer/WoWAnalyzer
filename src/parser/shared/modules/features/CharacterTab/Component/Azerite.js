@@ -51,7 +51,7 @@ class Gear extends React.PureComponent {
 
     Object.keys(missingIcons).forEach(e => {
       const traitId = Number(missingIcons[e].id);
-      fetch(makeSpellApiUrl(traitId, 'us'))
+      fetch(makeSpellApiUrl(traitId))
         .then(response => response.json())
         .then(data => {
           const newTrait = {
