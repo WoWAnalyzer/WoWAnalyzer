@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS/index';
 import ITEMS from 'common/ITEMS/index';
 import Analyzer from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
+import StatTracker from 'parser/shared/modules/StatTracker';
 import { formatPercentage } from 'common/format';
 import { formatNumber } from 'common/format';
 import { calculateSecondaryStatDefault } from 'common/stats';
@@ -24,6 +25,7 @@ import { calculateSecondaryStatDefault } from 'common/stats';
 class SeaGiantsTidestone extends Analyzer {
   static dependencies = {
     abilities: Abilities,
+    statTracker: StatTracker,
   };
   
   casts = 0;
@@ -47,6 +49,10 @@ class SeaGiantsTidestone extends Analyzer {
         },
       });
     }
+
+    this.statTracker.add(SPELLS.FEROCITY_OF_THE_SKROG.id, {
+      haste: this.haste,
+    });
   }
   
   on_byPlayer_cast(event) {
