@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
-import { RAKE_BASE_DURATION, JAGGED_WOUNDS_MODIFIER, PANDEMIC_FRACTION } from '../../constants';
+import { RAKE_BASE_DURATION, PANDEMIC_FRACTION } from '../../constants';
 import Snapshot from '../core/Snapshot';
 
 /**
@@ -35,13 +35,6 @@ class RakeSnapshot extends Snapshot {
 
   // rake DoTs refreshed with weaker snapshot before pandemic
   downgradeCastCount = 0;
-
-  constructor(...args) {
-    super(...args);
-    if (this.selectedCombatant.hasTalent(SPELLS.JAGGED_WOUNDS_TALENT.id)) {
-      this.constructor.durationOfFresh = RAKE_BASE_DURATION * JAGGED_WOUNDS_MODIFIER;
-    }
-  }
 
   checkRefreshRule(stateNew) {
     const stateOld = stateNew.prev;

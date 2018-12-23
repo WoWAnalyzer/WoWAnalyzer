@@ -108,6 +108,16 @@ export default {
     name: 'Shadow\'s Bite',
     icon: 'spell_shadow_painspike',
   },
+  BALEFUL_INVOCATION: {
+    id: 287059,
+    name: 'Baleful Invocation',
+    icon: 'spell_shadow_demonicempathy',
+  },
+  BALEFUL_INVOCATION_ENERGIZE: {
+    id: 287060,
+    name: 'Baleful Invocation',
+    icon: 'spell_shadow_demonicempathy',
+  },
 
   // Destruction Azerite traits and effects
   FLASHPOINT: {
@@ -159,5 +169,15 @@ export default {
     id: 279673,
     name: 'Chaotic Inferno',
     icon: 'spell_fire_burnout',
+  },
+  CHAOS_SHARDS: {
+    id: 287637,
+    name: 'Chaos Shards',
+    icon: 'inv_misc_gem_amethyst_02',
+  },
+  CHAOS_SHARDS_BUFF_ENERGIZE: {
+    id: 287660,
+    name: 'Chaos Shards',
+    icon: 'inv_misc_gem_amethyst_02',
   },
 };

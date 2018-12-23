@@ -58,9 +58,9 @@ class Doom extends Analyzer {
     return (
       <>
         <StatisticListBoxItem
-          title={<><SpellLink id={SPELLS.DOOM_TALENT.id} /> damage</>}
-          value={formatThousands(this.damage)}
-          valueTooltip={this.owner.formatItemDamageDone(this.damage)}
+          title={<><SpellLink id={SPELLS.DOOM_TALENT.id} /> dmg</>}
+          value={this.owner.formatItemDamageDone(this.damage)}
+          valueTooltip={`${formatThousands(this.damage)} damage`}
         />
         <StatisticListBoxItem
           title={<><SpellLink id={SPELLS.DOOM_TALENT.id} /> uptime</>}
