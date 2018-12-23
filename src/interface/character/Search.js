@@ -62,17 +62,14 @@ class Search extends React.PureComponent {
           loading: false,
         });
         return;
-      }
-      if (!response.ok) {
-        alert(i18n._(t`It looks like we couldn't get a response in time from the API, this usually happens when the servers are under heavy load. Please try and use your report-code or try it again later.`));
+      } else if (response.status === 404) {
+        alert(i18n._(t`${char} could not be found within the ${realm} realm. They're probably located elsewhere.`));
         this.setState({
           loading: false,
         });
         return;
-      }
-      const data = await response.json();
-      if (data.status === 'nok') {
-        alert(i18n._(t`${char} of ${realm} could not be found.`));
+      } else if (!response.ok) {
+        alert(i18n._(t`It looks like we couldn't get a response in time from the API, this usually happens when the servers are under heavy load. Please try and use your report-code or try it again later.`));
         this.setState({
           loading: false,
         });
