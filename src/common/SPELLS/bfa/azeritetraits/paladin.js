@@ -71,12 +71,7 @@ export default {
     name: `Avenger's Might`,
     icon: 'spell_holy_avenginewrath',
   },
-  LIGHTS_DECREE_DAMAGE_AW: {
-    id: 286231,
-    name: `Light's Decree`,
-    icon: 'spell_holy_blessedresillience',
-  },
-  LIGHTS_DECREE_DAMAGE_CRUSADE: {
+  LIGHTS_DECREE_DAMAGE: {
     id: 286232,
     name: `Light's Decree`,
     icon: 'spell_holy_blessedresillience',

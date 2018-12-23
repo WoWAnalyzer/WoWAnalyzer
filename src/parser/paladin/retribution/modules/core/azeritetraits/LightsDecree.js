@@ -18,7 +18,6 @@ class LightsDecree extends Analyzer {
 	};
 
   baseDuration = AW_BASE_DURATION;
-  damageSpellId = SPELLS.LIGHTS_DECREE_DAMAGE_AW.id;
 
  	constructor(...args) {
  		super(...args);
@@ -28,26 +27,26 @@ class LightsDecree extends Analyzer {
  		}
  		if (this.selectedCombatant.hasTalent(SPELLS.CRUSADE_TALENT.id)) {
  			this.baseDuration = CRUSADE_BASE_DURATION;
-      this.damageSpellId = SPELLS.LIGHTS_DECREE_DAMAGE_CRUSADE.id;
  		}
  	}
 
-  get LDDamageDone() {
-    const spell = this.abilityTracker.getAbility(this.damageSpellId);
+  get damageDone() {
+    const spell = this.abilityTracker.getAbility(SPELLS.LIGHTS_DECREE_DAMAGE.id);
     return spell.damageEffective + spell.damageAbsorbed;
   }
 
   get totalDurationIncrease() {
-    const buffName = this.selectedCombatant.hasTalent(SPELLS.CRUSADE_TALENT.id) ? SPELLS.CRUSADE_TALENT : SPELLS.AVENGING_WRATH;
-    const hist = this.selectedCombatant.getBuffHistory(buffName.id);
+    const buffId = this.selectedCombatant.hasTalent(SPELLS.CRUSADE_TALENT.id) ? SPELLS.CRUSADE_TALENT.id : SPELLS.AVENGING_WRATH.id;
+    const hist = this.selectedCombatant.getBuffHistory(buffId);
     if (!hist || hist.length === 0) {
       return null;
     }
-    const totalIncrease = hist.map((buff) => {
+    let totalIncrease = 0;
+    hist.forEach((buff) => {
       const end = buff.end || this.owner.currentTimestamp;
       const duration = (end - buff.start) / 1000;
       const increase = Math.max(0, duration - this.baseDuration);
-      return increase;
+      totalIncrease += increase;
     });
     return totalIncrease;
   }
@@ -59,7 +58,7 @@ class LightsDecree extends Analyzer {
         trait={SPELLS.LIGHTS_DECREE.id}
         value={(
           <>
-            {formatNumber(this.LDDamageDone)} Damage Done <br />
+            {formatNumber(this.damageDone)} Damage Done <br />
             {formatDuration(this.totalDurationIncrease)} Total Duration Increase
           </>
         )}
