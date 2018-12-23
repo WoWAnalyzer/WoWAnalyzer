@@ -18,7 +18,8 @@ class GlobalCooldown extends CoreGlobalCooldown {
   };
 
   on_byPlayer_cast(event) {
-    if (event.ability.guid === (SPELLS.BARRAGE_TALENT.id || SPELLS.RAPID_FIRE.id)) {
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.RAPID_FIRE.id) {
       // This GCD gets handled by the `beginchannel` event
       return;
     }
