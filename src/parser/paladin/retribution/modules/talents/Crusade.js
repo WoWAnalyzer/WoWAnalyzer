@@ -11,7 +11,6 @@ const CAST_BUFFER = 500;
 
 class Crusade extends Analyzer {
 	static dependencies = {
-		abilityTracker: AbilityTracker,
     abilityTracker: AbilityTracker,
     globalCooldown: GlobalCooldown,
 	};
