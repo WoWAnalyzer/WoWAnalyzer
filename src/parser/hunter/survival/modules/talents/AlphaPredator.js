@@ -35,7 +35,7 @@ class AlphaPredator extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.ALPHA_PREDATOR_TALENT.id}
         value={<ItemDamageDone amount={this.damage} />}
-        tooltip="This statistic merely shows the damage gained from the increased Kill Command damage, and does not reflect the potential damage gain from having 2 charges of Kill Command nor from the focus gain from Kill Command overall."
+        tooltip="This statistic shows the damage gained from the increased Kill Command damage. It does not reflect the potential damage gain from having 2 charges of Kill Command or from the focus gain from Kill Command overall."
       />
     );
   }
