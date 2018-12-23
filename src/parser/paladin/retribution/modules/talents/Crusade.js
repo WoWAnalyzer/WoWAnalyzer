@@ -38,7 +38,7 @@ class Crusade extends Analyzer {
 		if (spellId !== SPELLS.CRUSADE_TALENT.id) {
 			return;
 		}
-		if(this.crusadeCastTimestamp && event.timestamp > this.crusadeCastTimestamp + CAST_BUFFER + this.gcdBuffer) {
+		if(this.crusadeCastTimestamp && event.timestamp > (this.crusadeCastTimestamp + CAST_BUFFER + this.gcdBuffer)) {
 			this.badFirstGlobal++;
 		}
 		this.crusadeCastTimestamp = null;
