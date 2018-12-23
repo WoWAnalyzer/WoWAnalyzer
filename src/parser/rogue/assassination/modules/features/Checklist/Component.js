@@ -75,7 +75,6 @@ class AssassinationRogueChecklist extends React.PureComponent {
           description="Your cooldowns are a major contributor to your DPS, and should be used as frequently as possible throughout a fight. A cooldown should be held on to only if a priority DPS phase is coming soon. Holding cooldowns too long will hurt your DPS."
         >
           <AbilityRequirement spell={SPELLS.VENDETTA.id} />
-          <AbilityRequirement spell={SPELLS.VANISH.id} />
           {combatant.hasTalent(SPELLS.EXSANGUINATE_TALENT.id) && (
             <AbilityRequirement spell={SPELLS.EXSANGUINATE_TALENT.id} />
           )}
@@ -84,6 +83,72 @@ class AssassinationRogueChecklist extends React.PureComponent {
           )}
           {combatant.hasTalent(SPELLS.MARKED_FOR_DEATH_TALENT.id) && (
             <AbilityRequirement spell={SPELLS.MARKED_FOR_DEATH_TALENT.id} />
+          )}
+        </Rule>
+        <Rule
+          name="Maximize Vanish usage"
+          description="Your level 30 talent turns Vanish into a powerful DPS cooldown, significantly buffing the next 1-3 casts. Making sure to cast the correct abilities during this short window is important to maximizing your DPS."
+        >
+          <AbilityRequirement spell={SPELLS.VANISH.id} />
+          {combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id) && (
+            <Requirement
+              name={(
+                <>
+                  <SpellLink id={SPELLS.SUBTERFUGE_BUFF.id} />s with atleast one <SpellLink id={SPELLS.GARROTE.id} /> cast
+                </>
+              )}
+              thresholds={thresholds.subterfugeEfficiency}
+            />
+          )}
+          {combatant.hasTalent(SPELLS.MASTER_ASSASSIN_TALENT.id) && (
+            <Requirement
+              name={(
+                <>
+                  Good casts during <SpellLink id={SPELLS.MASTER_ASSASSIN_TALENT.id} />
+                </>
+              )}
+              thresholds={thresholds.masterAssassinEfficiency}
+            />
+          )}
+          {combatant.hasTalent(SPELLS.NIGHTSTALKER_TALENT.id) && (
+            <Requirement
+              name={(
+                <>
+                  <SpellLink id={SPELLS.VANISH.id} />es spent on snapshotting <SpellLink id={SPELLS.RUPTURE.id} />
+                </>
+              )}
+              thresholds={thresholds.nightstalkerEfficiency}
+            />
+          )}
+          {combatant.hasTalent(SPELLS.NIGHTSTALKER_TALENT.id) && (
+            <Requirement
+              name={(
+                <>
+                  On pull opener spent on snapshotting <SpellLink id={SPELLS.RUPTURE.id} /> or <SpellLink id={SPELLS.GARROTE.id} />
+                </>
+              )}
+              thresholds={thresholds.nightstalkerOpenerEfficiency}
+            />
+          )}
+          {(combatant.hasTalent(SPELLS.NIGHTSTALKER_TALENT.id)) && (
+            <Requirement
+              name={(
+                <>
+                  Lost snapshotted <SpellLink id={SPELLS.RUPTURE.id} /> due to early refreshes
+                </>
+              )}
+              thresholds={thresholds.garroteSnapshotEfficiency}
+            />
+          )}
+          {(combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id) || combatant.hasTalent(SPELLS.NIGHTSTALKER_TALENT.id)) && (
+            <Requirement
+              name={(
+                <>
+                  Lost snapshotted <SpellLink id={SPELLS.GARROTE.id} /> due to early refreshes
+                </>
+              )}
+              thresholds={thresholds.garroteSnapshotEfficiency}
+            />
           )}
         </Rule>
         <PreparationRule thresholds={thresholds} />

@@ -25,8 +25,8 @@ class PhantomSingularity extends Analyzer {
     return (
       <StatisticListBoxItem
         title={<><SpellLink id={SPELLS.PHANTOM_SINGULARITY_TALENT.id} /> damage</>}
-        value={formatThousands(damage)}
-        valueTooltip={this.owner.formatItemDamageDone(damage)}
+        value={this.owner.formatItemDamageDone(damage)}
+        valueTooltip={`${formatThousands(damage)} damage`}
       />
     );
   }

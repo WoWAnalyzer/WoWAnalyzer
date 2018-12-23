@@ -52,9 +52,9 @@ class DemonicStrength extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.DEMONIC_STRENGTH_TALENT.id} /> Felstorm damage</>}
-        value={formatThousands(this.damage)}
-        valueTooltip={this.owner.formatItemDamageDone(this.damage)}
+        title={<><SpellLink id={SPELLS.DEMONIC_STRENGTH_TALENT.id} /> Felstorm dmg</>}
+        value={this.owner.formatItemDamageDone(this.damage)}
+        valueTooltip={`${formatThousands(this.damage)} damage`}
       />
     );
   }

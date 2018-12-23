@@ -89,8 +89,8 @@ class Haunt extends Analyzer {
         />
         <StatisticListBoxItem
           title={<><SpellLink id={SPELLS.HAUNT_TALENT.id} /> bonus damage</>}
-          value={formatThousands(this.bonusDmg)}
-          valueTooltip={`${this.owner.formatItemDamageDone(this.bonusDmg)}<br />You buffed ${formatPercentage(buffedTicksPercentage)} % of your Unstable Affliction ticks with Haunt.`}
+          value={this.owner.formatItemDamageDone(this.bonusDmg)}
+          valueTooltip={`${formatThousands(this.bonusDmg)} bonus damage<br />You buffed ${formatPercentage(buffedTicksPercentage)} % of your Unstable Affliction ticks with Haunt.`}
         />
       </>
     );
