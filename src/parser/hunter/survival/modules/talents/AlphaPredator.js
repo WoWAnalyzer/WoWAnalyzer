@@ -9,6 +9,8 @@ import { ALPHA_DAMAGE_KC_MODIFIER } from 'parser/hunter/survival/constants';
 
 /**
  * Kill Command now has 2 charges, and deals 30% increased damage.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/yNwk89Rt1HprGdXJ#fight=2&type=damage-done
  */
 
 class AlphaPredator extends Analyzer {

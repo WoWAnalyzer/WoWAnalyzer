@@ -445,6 +445,11 @@ export default {
     name: 'Chakrams',
     icon: 'ability_glaivetoss',
   },
+  BLOODSEEKER_BUFF: {
+    id: 260249,
+    name: 'Predator',
+    icon: 'ability_druid_primaltenacity',
+  },
 
   //Shared BFA buffs/debuffs/misc
   POSTHASTE_BUFF: {
