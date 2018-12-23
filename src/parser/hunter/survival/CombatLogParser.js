@@ -35,6 +35,9 @@ import Chakrams from './modules/talents/Chakrams';
 import BirdOfPrey from './modules/talents/BirdOfPrey';
 import BornToBeWild from '../shared/modules/talents/BornToBeWild';
 import BindingShot from '../shared/modules/talents/BindingShot';
+import PheromoneBomb from './modules/talents/WildfireInfusion/PheromoneBomb';
+import ShrapnelBomb from './modules/talents/WildfireInfusion/ShrapnelBomb';
+import VolatileBomb from './modules/talents/WildfireInfusion/VolatileBomb';
 
 //Azerite Traits
 import WildernessSurvival from './modules/spells/azeritetraits/WildernessSurvival';
@@ -81,6 +84,9 @@ class CombatLogParser extends CoreCombatLogParser {
     birdOfPrey: BirdOfPrey,
     bornToBeWild: BornToBeWild,
     bindingShot: BindingShot,
+    pheromoneBomb: PheromoneBomb,
+    shrapnelBomb: ShrapnelBomb,
+    volatileBomb: VolatileBomb,
 
     //Azerite Traits
     wildernessSurvival: WildernessSurvival,

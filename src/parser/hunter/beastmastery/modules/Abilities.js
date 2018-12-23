@@ -27,7 +27,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.KILL_COMMAND,
+        spell: SPELLS.KILL_COMMAND_CAST_BM,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 7.5 / (1 + haste),
         gcd: {

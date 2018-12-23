@@ -23,7 +23,7 @@ const LIST_OF_FOCUS_SPENDERS = [
   //bm specific
   SPELLS.COBRA_SHOT.id,
   SPELLS.MULTISHOT_BM.id,
-  SPELLS.KILL_COMMAND.id,
+  SPELLS.KILL_COMMAND_CAST_BM.id,
   SPELLS.DIRE_BEAST_TALENT.id,
   //mm specific
   SPELLS.AIMED_SHOT.id,
@@ -35,7 +35,7 @@ const LIST_OF_FOCUS_SPENDERS = [
   SPELLS.EXPLOSIVE_SHOT_TALENT.id,
   //sv specific
   SPELLS.RAPTOR_STRIKE.id,
-  SPELLS.KILL_COMMAND_SV.id,
+  SPELLS.KILL_COMMAND_CAST_SV.id,
   SPELLS.BUTCHERY_TALENT.id,
   SPELLS.CARVE.id,
   SPELLS.MONGOOSE_BITE_TALENT.id,
@@ -63,10 +63,10 @@ class FocusUsage extends Analyzer {
       name: SPELLS.MULTISHOT_BM.name,
       color: '#c1ec9c',
     },
-    [SPELLS.KILL_COMMAND.id]: {
+    [SPELLS.KILL_COMMAND_CAST_BM.id]: {
       casts: 0,
       focusUsed: 0,
-      name: SPELLS.KILL_COMMAND.name,
+      name: SPELLS.KILL_COMMAND_CAST_BM.name,
       color: '#abff3d',
     },
     [SPELLS.DIRE_BEAST_TALENT.id]: {
@@ -125,10 +125,10 @@ class FocusUsage extends Analyzer {
       name: SPELLS.RAPTOR_STRIKE.name,
       color: '#4ce4ec',
     },
-    [SPELLS.KILL_COMMAND_SV.id]: {
+    [SPELLS.KILL_COMMAND_CAST_SV.id]: {
       casts: 0,
       focusUsed: 0,
-      name: SPELLS.KILL_COMMAND_SV.name,
+      name: SPELLS.KILL_COMMAND_CAST_SV.name,
       color: '#2a74ec',
     },
     [SPELLS.BUTCHERY_TALENT.id]: {
