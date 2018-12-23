@@ -5,6 +5,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-12-12'),
+    changes: <>Updated for patch 8.1, <SpellLink id={SPELLS.CHARGE.id} /> is no longer on the GCD and <SpellLink id={SPELLS.EXECUTIONERS_PRECISION_TRAIT.id} /> have been replaced by <SpellLink id={SPELLS.STRIKING_THE_ANVIL.id} />.</>,
+    contributors: [Matardarix],
+  },
+  {
     date: new Date('2018-11-28'),
     changes: <>Added <SpellLink id={SPELLS.CRUSHING_ASSAULT_TRAIT.id} /> module.</>,
     contributors: [Matardarix],
