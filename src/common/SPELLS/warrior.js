@@ -252,6 +252,21 @@ export default {
     name: 'Whirlwind',
     icon: 'ability_whirlwind',
   },
+  WHIRLWIND_FURY_ENERGIZE: {
+    id: 280715,
+    name: 'Whirlwind',
+    icon: 'ability_whirlwind',
+  },
+  WHIRLWIND_FURY_DAMAGE_MH: {
+    id: 199667,
+    name: 'Whirlwind',
+    icon: 'ability_whirlwind',
+  },
+  WHIRLWIND_FURY_DAMAGE_OH: {
+    id: 44949,
+    name: 'Whirlwind',
+    icon: 'ability_whirlwind',
+  },
   //Mitigation Spells
   ENRAGED_REGENERATION: {
     id: 184364,
@@ -275,6 +290,11 @@ export default {
     name: 'Enrage',
     icon: 'spell_shadow_unholyfrenzy',
   },
+  ENDLESS_RAGE_ENERGISE: {
+    id: 280283,
+    name: 'Endless Rage',
+    icon: 'ability_warrior_endlessrage',
+  },  
   FROTHING_BERSERKER: {
     id: 215572,
     name: 'Frothing Berserker',
@@ -290,6 +310,17 @@ export default {
     id: 280776, 
     name: "Sudden Death", 
     icon: "abilty_warrior_improveddisciplines",
+  },
+  BLADESTORM_OH_DAMAGE: {
+    id: 95738,
+    name: 'Bladestorm',
+    icon: 'ability_warrior_bladestorm',
+  },
+  // Fury talents
+  SIEGEBREAKER_DEBUFF: { 
+    id: 280773, 
+    name: "Siegebreaker", 
+    icon: "inv_make_101",
   },
   // Fury tier sets
   WARRIOR_FURY_T19_2P_BONUS: {

@@ -6,15 +6,14 @@ import SPELLS from 'common/SPELLS/index';
 import SpellLink from "common/SpellLink";
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import { formatPercentage } from 'common/format';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 /**
- * Your auto-shots have a 10% chance to cause a volley of arrows to rain down around the target, dealing Physical damage to each enemy within 8 yards.
+ * Your auto-shots have a 25% chance to cause a volley of arrows to rain down around the target, dealing Physical damage to each enemy within 8 yards.
  */
 
-const PROC_CHANCE = 0.1;
+const PROC_CHANCE = 0.25;
 const BUFFER_MS = 100;
 
 class Volley extends Analyzer {
@@ -116,7 +115,6 @@ class Volley extends Analyzer {
     return (
       <TalentStatisticBox
         talent={SPELLS.VOLLEY_TALENT.id}
-        position={STATISTIC_ORDER.CORE(23)}
         value={`${this.procs} procs`}
         tooltip={tooltipText}
       />

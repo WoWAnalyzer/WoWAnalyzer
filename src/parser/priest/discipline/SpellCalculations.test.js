@@ -48,29 +48,21 @@ describe('[PENANCE] Spell Calculations', () => {
 
 describe('[SMITE] Spell Calculations', () => {
   const fixtures = [
-    {sins: 0, giftRanks: [0], giftActive: false, int: 100, vers: 0, expected: {
+    {sins: 0, int: 100, vers: 0, expected: {
         smiteDamage: 71,
         smiteHealing: 28,
-        giftDamage: 0,
-        giftHealing: 0,
       }},
-    {sins: 0, giftRanks: [0], giftActive: false, int: 100, vers: .25, expected: {
+    {sins: 0, int: 100, vers: .25, expected: {
         smiteDamage: 88,
         smiteHealing: 35,
-        giftDamage: 0,
-        giftHealing: 0,
       }},
-    {sins: 0, giftRanks: [0], giftActive: false, int: 100, vers: 0, expected: {
+    {sins: 0, int: 100, vers: 0, expected: {
         smiteDamage: 71,
         smiteHealing: 28,
-        giftDamage: 0,
-        giftHealing: 0,
       }},
-    {sins: 0, giftRanks: [300], giftActive: false, int: 100, vers: 0, expected: {
+    {sins: 0, int: 100, vers: 0, expected: {
         smiteDamage: 71,
         smiteHealing: 28,
-        giftDamage: 0,
-        giftHealing: 0,
       }},
     // DISABLED temporarily -- gifts got its scaling factor changed and
     // new data is needed
@@ -100,11 +92,9 @@ describe('[SMITE] Spell Calculations', () => {
         giftHealing: 0,
       }},
     */
-    {sins: .08, giftRanks: [300], giftActive: false, int: 100, vers: .25, expected: {
+    {sins: .08, int: 100, vers: .25, expected: {
         smiteDamage: 95,
         smiteHealing: 38,
-        giftDamage: 0,
-        giftHealing: 0,
       }},
     /*
     {sins: .12, giftRanks: [300], giftActive: true, int: 100, vers: .25, expected: {
@@ -136,9 +126,9 @@ describe('[SMITE] Spell Calculations', () => {
 
   fixtures.forEach((fixture, i) => {
     it(`Estimates Smite Correctly #${i}`, () => {
-      const smiteEstimator = SmiteEstimation(mockStatTracker(fixture.int, fixture.vers), {currentBonus: fixture.sins}, fixture.giftRanks);
+      const smiteEstimator = SmiteEstimation(mockStatTracker(fixture.int, fixture.vers), {currentBonus: fixture.sins});
 
-      expect(smiteEstimator(fixture.giftActive)).toEqual(fixture.expected);
+      expect(smiteEstimator()).toEqual(fixture.expected);
     });
   });
 });

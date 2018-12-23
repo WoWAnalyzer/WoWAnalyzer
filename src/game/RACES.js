@@ -1,4 +1,4 @@
-// Source: https://us.api.battle.net/wow/data/character/races?locale=en_US&apikey=
+// Source: https://us.api.blizzard.com/wow/data/character/races?locale=en_US&accessToken=
 export default {
   Human: {
     id: 1,

@@ -7,12 +7,12 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2018-09-09'),
-    changes: <>Added Azerite statistic for <SpellLink id={SPELLS.SWIFT_ROUNDHOUSE.id} /> </>,
+    changes: <>Added Azerite statistic for Swift Roundhouse.</>,
     contributors: [Juko8],
   },
   {
     date: new Date('2018-09-04'),
-    changes: <>Added Azerite statistics for <SpellLink id={SPELLS.IRON_FISTS.id} /> and <SpellLink id={SPELLS.MERIDIAN_STRIKES.id} /> </>,
+    changes: <>Added Azerite statistics for Iron Fists and Meridian Strikes.</>,
     contributors: [Juko8],
   },
   {

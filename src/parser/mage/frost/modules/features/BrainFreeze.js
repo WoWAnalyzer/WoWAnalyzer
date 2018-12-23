@@ -70,7 +70,7 @@ class BrainFreeze extends Analyzer {
       this.wasLastGeneratorEB = spellId === SPELLS.EBONBOLT_TALENT.id;
     } else if (spellId === SPELLS.FLURRY.id) {
       this.lastFlurryTimestamp = this.owner.currentTimestamp;
-      if (!this.selectedCombatant.hasBuff(SPELLS.BRAIN_FREEZE.id) && !this.selectedCombatant.hasBuff(SPELLS.WINTERS_REACH_BUFF.id)) {
+      if (!this.selectedCombatant.hasBuff(SPELLS.BRAIN_FREEZE.id)) {
         this.flurryWithoutProc += 1;
       }
     }
@@ -189,7 +189,7 @@ class BrainFreeze extends Analyzer {
 
     when(this.flurryWithoutProcSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>You cast <SpellLink id={SPELLS.FLURRY.id} /> without <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> or <SpellLink id={SPELLS.WINTERS_REACH_TRAIT.id} /> {this.flurryWithoutProc} times. The only time it is acceptable to hard case Flurry is if you have a proc of the Winter's Reach Azerite Trait.</>)
+        return suggest(<>You cast <SpellLink id={SPELLS.FLURRY.id} /> without <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> {this.flurryWithoutProc} times.</>)
           .icon(SPELLS.FLURRY.icon)
           .actual(`${formatNumber(this.flurryWithoutProc)} casts`)
           .recommended(`Casting none is recommended`);

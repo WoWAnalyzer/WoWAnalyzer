@@ -7,13 +7,11 @@ import Analyzer from 'parser/core/Analyzer';
 
 import FontOfLife from './azeritetraits/FontOfLife';
 import UpliftedSpirits from './azeritetraits/UpliftedSpirits';
-import InvigoratingBrew from './azeritetraits/InvigoratingBrew';
 
 class TraitsAndTalents extends Analyzer {
   static dependencies = {
     fontOfLife: FontOfLife,
     upliftedSpirits: UpliftedSpirits,
-    invigoratingBrew: InvigoratingBrew,
   };
 
   constructor(...args) {
@@ -33,7 +31,6 @@ class TraitsAndTalents extends Analyzer {
       >
         {this.fontOfLife.active && this.fontOfLife.subStatistic()}
         {this.upliftedSpirits.active && this.upliftedSpirits.subStatistic()}
-        {this.invigoratingBrew.active && this.invigoratingBrew.subStatistic()}
       </StatisticsListBox>
 
     );

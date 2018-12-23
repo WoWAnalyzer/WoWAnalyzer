@@ -39,7 +39,6 @@ import Subterfuge from './modules/talents/Subterfuge';
 import MasterAssassin from './modules/talents/MasterAssassin';
 
 // Traits
-import SharpenedBlades from '../shared/azeritetraits/SharpenedBlades';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -87,7 +86,6 @@ class CombatLogParser extends CoreCombatLogParser {
     masterAssassin: MasterAssassin,
 
     // Traits
-    SharpenedBlades: SharpenedBlades,
 
     // Racials
     arcaneTorrent: [ArcaneTorrent, {
