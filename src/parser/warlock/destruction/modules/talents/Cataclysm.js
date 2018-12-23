@@ -61,8 +61,8 @@ class Cataclysm extends Analyzer {
     return (
       <StatisticListBoxItem
         title={<><SpellLink id={SPELLS.CATACLYSM_TALENT.id} /> damage</>}
-        value={formatThousands(damage)}
-        valueTooltip={`${this.owner.formatItemDamageDone(damage)}<br />
+        value={this.owner.formatItemDamageDone(damage)}
+        valueTooltip={`${formatThousands(damage)} damage<br />
           Average targets hit: ${averageTargetsHit.toFixed(2)}`}
       />
     );

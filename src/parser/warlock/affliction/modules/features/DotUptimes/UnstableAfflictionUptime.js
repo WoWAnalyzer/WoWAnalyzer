@@ -93,7 +93,7 @@ class UnstableAfflictionUptime extends Analyzer {
       <StatisticListBoxItem
         title={<><SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} /> uptime</>}
         value={`${formatPercentage(this.uptime)} %`}
-        valueTooltip={`Bonus damage from internal Contagion effect: ${formatThousands(this.damage)}`}
+        valueTooltip={`Bonus damage from internal Contagion effect: ${formatThousands(this.damage)} (${this.owner.formatItemDamageDone(this.damage)})`}
       />
     );
   }

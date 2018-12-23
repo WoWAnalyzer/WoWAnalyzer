@@ -7,6 +7,11 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-12-23'),
+    changes: 'Changed display of damage in various places. Now shows % of total damage done and DPS with raw values in tooltip.',
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-11-12'),
     changes: 'Certain buffs or debuffs now show in timeline.',
     contributors: [Chizu],

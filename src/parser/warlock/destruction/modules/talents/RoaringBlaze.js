@@ -30,8 +30,8 @@ class RoaringBlaze extends Analyzer {
     return (
       <StatisticListBoxItem
         title={<><SpellLink id={SPELLS.ROARING_BLAZE_TALENT.id} /> damage</>}
-        value={formatThousands(this.damage)}
-        valueTooltip={this.owner.formatItemDamageDone(this.damage)}
+        value={this.owner.formatItemDamageDone(this.damage)}
+        valueTooltip={`${formatThousands(this.damage)} damage`}
       />
     );
   }
