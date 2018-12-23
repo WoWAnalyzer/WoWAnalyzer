@@ -34,17 +34,32 @@ export default {
   INEVITABLE_DEMISE: {
     id: 273521,
     name: 'Inevitable Demise',
-    icon: 'spell_shadow_abominationexplosion',
+    icon: 'spell_warlock_harvestoflife',
   },
   INEVITABLE_DEMISE_BUFF: {
     id: 273525,
     name: 'Inevitable Demise',
-    icon: 'spell_shadow_abominationexplosion',
+    icon: 'spell_warlock_harvestoflife',
   },
   SUDDEN_ONSET: {
     id: 278721,
     name: 'Sudden Onset',
     icon: 'spell_shadow_curseofsargeras',
+  },
+  PANDEMIC_INVOCATION: {
+    id: 289364,
+    name: 'Pandemic Invocation',
+    icon: 'spell_shadow_unsummonbuilding',
+  },
+  PANDEMIC_INVOCATION_DAMAGE: {
+    id: 289367,
+    name: 'Pandemic Invocation',
+    icon: 'spell_shadow_unsummonbuilding',
+  },
+  PANDEMIC_INVOCATION_ENERGIZE: {
+    id: 289368,
+    name: 'Pandemic Invocation',
+    icon: 'spell_shadow_unsummonbuilding',
   },
 
   // Demonology Azerite traits and effects
