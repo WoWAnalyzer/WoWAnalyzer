@@ -6,7 +6,8 @@ const debug = false;
 class Channeling extends CoreChanneling {
 
   on_byPlayer_cast(event) {
-    if (event.ability.guid !== (SPELLS.BARRAGE_TALENT.id || SPELLS.RAPID_FIRE.id)) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.BARRAGE_TALENT.id && spellId !== SPELLS.RAPID_FIRE.id) {
       return;
     }
     this.beginChannel(event);
