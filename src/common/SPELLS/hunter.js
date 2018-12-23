@@ -172,7 +172,7 @@ export default {
     icon: 'ability_hunter_steadyshot',
   },
   TRUESHOT: {
-    id: 193526,
+    id: 288613,
     name: 'Trueshot',
     icon: 'ability_trueshot',
   },

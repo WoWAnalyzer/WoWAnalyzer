@@ -40,7 +40,7 @@ class DoubleTap extends Analyzer {
       this.aimedUsage++;
     }
     if (spellId === SPELLS.RAPID_FIRE.id) {
-        this.RFUsage++;
+      this.RFUsage++;
     }
   }
 
