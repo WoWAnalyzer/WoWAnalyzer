@@ -60,7 +60,6 @@ class FeralDruidChecklist extends React.PureComponent {
           🗵 Cast efficiency of Feral Frenzy (if talented)
           🗵 Only use Swipe if it hits multiple enemies
           🗵 Don't waste combo points by generating more when full
-          Would be nice to advise against using single target abilities when there's many enemies present, but difficult to consistently detect that situation from the logs.
         */}
         <Rule
           name="Generate combo points"
@@ -105,6 +104,7 @@ class FeralDruidChecklist extends React.PureComponent {
           🗵 Uptime for Savage Roar buff (if talented)
           🗵 Ferocious Bite only at energy >= 50
           🗵 Don't cast Rip when Ferocious Bite could have refreshed it, unless you're upgrading the snapshot
+          🗵 Don't reduce duration of Rip by refreshing early and with low combo points
           🗵 Don't use finishers at less than 5 combo points
         */}
         <Rule
@@ -136,6 +136,14 @@ class FeralDruidChecklist extends React.PureComponent {
               </>
             )}
             thresholds={thresholds.ripShouldBeBite}
+          />
+          <Requirement
+            name={(
+              <>
+                <SpellLink id={SPELLS.RIP.id} /> which reduced duration by refreshing early with low combo points
+              </>
+            )}
+            thresholds={thresholds.ripDurationReduction}
           />
           <Requirement
             name={(

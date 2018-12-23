@@ -67,6 +67,7 @@ class Checklist extends BaseChecklist {
           savageRoarUptime: this.savageRoarUptime.suggestionThresholds,
           ferociousBiteEnergy: this.ferociousBiteEnergy.suggestionThresholds,
           ripShouldBeBite: this.ripSnapshot.shouldBeBiteSuggestionThresholds,
+          ripDurationReduction: this.ripSnapshot.durationReductionThresholds,
           finishersBelowFull: this.comboPointDetails.finishersBelowMaxSuggestionThresholds,
           
           // energy
