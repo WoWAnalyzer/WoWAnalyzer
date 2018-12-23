@@ -3,7 +3,7 @@ import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
-import { formatDuration, formatNumber } from 'common/format';
+import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 
 const AW_BASE_DURATION = 20;
 const CRUSADE_BASE_DURATION = 25;
@@ -52,16 +52,19 @@ class LightsDecree extends Analyzer {
   }
 
   statistic() {
+    const damageThroughputPercent = this.owner.getPercentageOfTotalDamageDone(this.damageDone);
+    const dps = this.damageDone / this.owner.fightDuration * 1000;
     return (
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.LIGHTS_DECREE.id}
         value={(
           <>
-            {formatNumber(this.damageDone)} Damage Done <br />
+            {formatPercentage(damageThroughputPercent)} % / {formatNumber(dps)} DPS <br />
             {formatDuration(this.totalDurationIncrease)} Total Duration Increase
           </>
         )}
+        tooltip={`Damage done: ${formatNumber(this.damageDone)}`}
       />
     );
  	}
