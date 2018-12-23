@@ -4,20 +4,14 @@ import StatisticsListBox from 'interface/others/StatisticsListBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import Analyzer from 'parser/core/Analyzer';
-
-import SteelTrap from '../talents/SteelTrap';
 import SerpentSting from '../spells/SerpentSting';
 import VipersVenom from '../talents/VipersVenom';
-import ButcheryCarve from '../spells/ButcheryCarve';
-import MongooseBite from '../talents/MongooseBite';
 import CoordinatedAssault from '../spells/CoordinatedAssault';
 
 class TraitsAndTalents extends Analyzer {
   static dependencies = {
     serpentSting: SerpentSting,
     vipersVenom: VipersVenom,
-    butcheryCarve: ButcheryCarve,
-    mongooseBite: MongooseBite,
     coordinatedAssault: CoordinatedAssault,
   };
 
@@ -36,10 +30,8 @@ class TraitsAndTalents extends Analyzer {
         title="Spells, Traits and Talents"
         tooltip="This provides an overview of the damage contributions of various talents and traits. This isn't meant as a way to 1:1 evaluate talents, as some talents bring other strengths to the table than pure damage."
       >
-        {this.mongooseBite.active && this.mongooseBite.subStatistic()}
         {this.serpentSting.active && this.serpentSting.subStatistic()}
         {this.vipersVenom.active && this.vipersVenom.subStatistic()}
-        {this.butcheryCarve.active && this.butcheryCarve.subStatistic()}
         {this.coordinatedAssault.active && this.coordinatedAssault.subStatistic()}
       </StatisticsListBox>
 
