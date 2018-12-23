@@ -24,8 +24,6 @@ import retryingPromise from 'common/retryingPromise';
 
 import './Parses.css';
 import ParsesList from './ParsesList';
-import { i18n } from 'interface/RootLocalizationProvider';
-import { t } from '@lingui/macro';
 
 const loadRealms = () => retryingPromise(() => import('common/REALMS').then(exports => exports.default));
 
