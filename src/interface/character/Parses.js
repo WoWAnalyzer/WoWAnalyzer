@@ -24,6 +24,8 @@ import retryingPromise from 'common/retryingPromise';
 
 import './Parses.css';
 import ParsesList from './ParsesList';
+import { i18n } from 'interface/RootLocalizationProvider';
+import { t } from '@lingui/macro';
 
 const loadRealms = () => retryingPromise(() => import('common/REALMS').then(exports => exports.default));
 
@@ -240,8 +242,13 @@ class Parses extends React.Component {
         error: ERRORS.NOT_RESPONDING,
       });
       return;
-    }
-    if (!response.ok) {
+    } else if (response.status === 404) {
+      this.setState({
+        isLoading: false,
+        error: ERRORS.CHARACTER_NOT_FOUND,
+      });
+      return;
+    } else if (!response.ok) {
       this.setState({
         isLoading: false,
         error: ERRORS.UNEXPECTED,
@@ -251,13 +258,6 @@ class Parses extends React.Component {
 
     const data = await response.json();
 
-    if (data.status === 'nok') {
-      this.setState({
-        isLoading: false,
-        error: ERRORS.CHARACTER_NOT_FOUND,
-      });
-      return;
-    }
     if (!data.thumbnail) {
       this.setState({
         isLoading: false,
