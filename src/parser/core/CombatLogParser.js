@@ -4,8 +4,6 @@ import { findByBossId } from 'raids';
 import { formatDuration, formatNumber, formatPercentage, formatThousands } from 'common/format';
 import ItemIcon from 'common/ItemIcon';
 import ItemLink from 'common/ItemLink';
-import ChangelogTab from 'interface/others/ChangelogTab';
-import ChangelogTabTitle from 'interface/others/ChangelogTabTitle';
 import DeathRecapTracker from 'interface/others/DeathRecapTracker';
 import ItemStatisticBox from 'interface/others/ItemStatisticBox';
 
