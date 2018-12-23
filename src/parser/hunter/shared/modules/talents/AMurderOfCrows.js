@@ -4,9 +4,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import Abilities from 'parser/core/modules/Abilities';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
@@ -28,7 +26,7 @@ class AMurderOfCrows extends Analyzer {
     abilities: Abilities,
   };
 
-  bonusDamage = 0;
+  damage = 0;
   casts = 0;
   applicationTimestamp = null;
   lastDamageTick = null;
@@ -121,7 +119,7 @@ class AMurderOfCrows extends Analyzer {
       this.crowsEndingTimestamp = this.applicationTimestamp + CROWS_DURATION;
     }
     this.lastDamageTick = event.timestamp;
-    this.bonusDamage += event.amount + (event.absorbed || 0);
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   on_fightend() {
@@ -132,19 +130,14 @@ class AMurderOfCrows extends Analyzer {
     return (
       <TalentStatisticBox
         talent={SPELLS.A_MURDER_OF_CROWS_TALENT.id}
-        value={this.resets + ' resets'}
+        value={<>
+          <ItemDamageDone amount={this.damage} /> <br />
+          {this.resets} resets
+        </>}
       />
     );
   }
 
-  subStatistic() {
-    return (
-      <StatisticListBoxItem
-        title={<SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT.id} />}
-        value={<ItemDamageDone amount={this.bonusDamage} />}
-      />
-    );
-  }
 }
 
 export default AMurderOfCrows;
