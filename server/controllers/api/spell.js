@@ -24,9 +24,9 @@ function send404(res) {
   res.sendStatus(404);
 }
 
-async function proxySpellApi(res, region, spellId) {
+async function proxySpellApi(res, spellId) {
   try {
-    const response = await WowCommunityApi.fetchSpell(region, spellId);
+    const response = await WowCommunityApi.fetchSpell(spellId);
     const json = JSON.parse(response);
     sendJson(res, json);
     return json;
@@ -65,8 +65,8 @@ async function storeSpell({ id, name, icon }) {
 }
 
 const router = Express.Router();
-router.get('/:region([A-Z]{2})/:id([0-9]+)', async (req, res) => {
-  const { region, id } = req.params;
+router.get('/:id([0-9]+)', async (req, res) => {
+  const { id } = req.params;
   let spell = await Spell.findByPk(id);
   if (spell) {
     res.send(spell);
@@ -74,7 +74,7 @@ router.get('/:region([A-Z]{2})/:id([0-9]+)', async (req, res) => {
       lastSeenAt: Sequelize.fn('NOW'),
     });
   } else {
-    spell = await proxySpellApi(res, region, id);
+    spell = await proxySpellApi(res, id);
     if (spell) {
       storeSpell(spell);
     }

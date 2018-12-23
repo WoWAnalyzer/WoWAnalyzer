@@ -9,7 +9,6 @@ import AMurderOfCrows from '../../../shared/modules/talents/AMurderOfCrows';
 import Barrage from '../../../shared/modules/talents/Barrage';
 import LoneWolf from '../spells/LoneWolf';
 import Volley from '../talents/Volley';
-import ExplosiveShot from '../talents/ExplosiveShot';
 import PiercingShot from '../talents/PiercingShot';
 import HuntersMark from '../talents/HuntersMark';
 import SerpentSting from '../talents/SerpentSting';
@@ -20,7 +19,6 @@ class SpellsAndTalents extends Analyzer {
     loneWolf: LoneWolf,
     preciseShots: PreciseShots,
     volley: Volley,
-    explosiveShot: ExplosiveShot,
     aMurderOfCrows: AMurderOfCrows,
     piercingShot: PiercingShot,
     barrage: Barrage,
@@ -46,7 +44,6 @@ class SpellsAndTalents extends Analyzer {
         {this.loneWolf.active && this.loneWolf.subStatistic()}
         {this.preciseShots.active && this.preciseShots.subStatistic()}
         {this.volley.active && this.volley.subStatistic()}
-        {this.explosiveShot.active && this.explosiveShot.subStatistic()}
         {this.aMurderOfCrows.active && this.aMurderOfCrows.subStatistic()}
         {this.piercingShot.active && this.piercingShot.subStatistic()}
         {this.barrage.active && this.barrage.subStatistic()}

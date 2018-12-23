@@ -6,7 +6,7 @@ import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatThousands } from 'common/format';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
@@ -40,9 +40,10 @@ class Havoc extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.HAVOC.id} />}
-        value={`${formatNumber(this.damage / this.owner.fightDuration * 1000)} DPS`}
+        value={this.owner.formatItemDamageDone(this.damage)}
         label="Damage cleaved"
-        tooltip={`You cleaved ${formatNumber(this.damage)} damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} %) to targets afflicted by your Havoc.<br /><br />Note: This number might be higher than it should be, as it also counts the damage you did directly to the Havoc target (not just the cleaved damage).`}
+        tooltip={`You cleaved ${formatThousands(this.damage)} damage to targets afflicted by your Havoc.<br /><br />
+                Note: This number is probably higher than it should be, as it also counts the damage you did directly to the Havoc target (not just the cleaved damage).`}
       />
     );
   }

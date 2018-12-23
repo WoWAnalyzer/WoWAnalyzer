@@ -1,10 +1,8 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import StatisticBox from 'interface/others/StatisticBox';
-import SpellIcon from 'common/SpellIcon';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { formatNumber } from 'common/format';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
 /**
  * Your Call Pet additionally summons the first pet from your stable.
@@ -49,19 +47,18 @@ class AnimalCompanion extends Analyzer {
   statistic() {
     const totalDamage = this.pets.map(pet => pet.damage).reduce((total, current) => total + current, 0);
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.ANIMAL_COMPANION_TALENT.id} />}
+      <TalentStatisticBox
+        talent={SPELLS.ANIMAL_COMPANION_TALENT.id}
         value={<>{formatNumber(totalDamage)} / {formatNumber(totalDamage / (this.owner.fightDuration / 1000))} DPS</>}
         label="Animal Companion"
-        category={STATISTIC_CATEGORY.TALENTS}
       >
         <table className="table table-condensed">
           <thead>
             <tr>
               <th>Pet</th>
-              <th>Damage</th>
+              <th>Dmg</th>
               <th>DPS</th>
-              <th>Main pet?</th>
+              <th>Dmg without AC</th>
             </tr>
           </thead>
           <tbody>
@@ -70,12 +67,12 @@ class AnimalCompanion extends Analyzer {
                 <td>{pet.petName}</td>
                 <td>{formatNumber(pet.damage)}</td>
                 <td>{formatNumber(pet.damage / (this.owner.fightDuration / 1000))}</td>
-                <td>{pet.petName === this.mainPetName ? 'Yes' : 'No'}</td>
+                <td>{pet.petName === this.mainPetName ? formatNumber(pet.damage / 0.6) + ' / ' + formatNumber((pet.damage / 0.6) / (this.owner.fightDuration / 1000)) + ' DPS' : 'N/A'}</td>
               </tr>
             ))}
           </tbody>
         </table>
-      </StatisticBox>
+      </TalentStatisticBox>
     );
   }
 }

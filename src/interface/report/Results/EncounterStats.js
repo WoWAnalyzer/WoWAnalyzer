@@ -170,7 +170,7 @@ class EncounterStats extends React.PureComponent {
   fillMissingIcons() {
     this.state.mostUsedTrinkets.forEach(trinket => {
       if (ITEMS[trinket.id] === undefined) {
-        return fetch(makeItemApiUrl(trinket.id, 'us'))
+        return fetch(makeItemApiUrl(trinket.id))
           .then(response => response.json())
           .then(data => {
             const updatedItems = this.state.items;
@@ -265,7 +265,7 @@ class EncounterStats extends React.PureComponent {
   similiarLogs() {
     return (
       <div className="col-md-12 flex-main" style={{ textAlign: 'left', margin: '5px auto' }}>
-        {this.state.similiarKillTimes.length > 1 ? 'These are' : 'This is'} the {this.state.similiarKillTimes.length} top 100 {this.state.similiarKillTimes.length > 1 ? 'logs' : 'log'} that {this.state.similiarKillTimes.length > 1 ? 'are' : 'is'} closest to your kill-time within {formatPercentage(this.durationVariancePercentage, 0)}% variance.
+        {this.state.similiarKillTimes.length > 1 ? 'These are' : 'This is'} the {this.state.similiarKillTimes.length} top {this.amountOfParses} {this.state.similiarKillTimes.length > 1 ? 'logs' : 'log'} that {this.state.similiarKillTimes.length > 1 ? 'are' : 'is'} closest to your kill-time within {formatPercentage(this.durationVariancePercentage, 0)}% variance.
         {this.state.closestKillTimes.map(log => this.singleLog(log.rank))}
       </div>
     );
@@ -274,7 +274,7 @@ class EncounterStats extends React.PureComponent {
   closestLogs() {
     return (
       <div className="col-md-12 flex-main" style={{ textAlign: 'left', margin: '5px auto' }}>
-        {this.state.closestKillTimes.length > 1 ? 'These are' : 'This is'} the {this.state.closestKillTimes.length} top 100 {this.state.closestKillTimes.length > 1 ? 'logs' : 'log'} that {this.state.closestKillTimes.length > 1 ? 'are' : 'is'} closest to your kill-time. Large differences won't be good for comparing.
+        {this.state.closestKillTimes.length > 1 ? 'These are' : 'This is'} the {this.state.closestKillTimes.length} top {this.amountOfParses} {this.state.closestKillTimes.length > 1 ? 'logs' : 'log'} that {this.state.closestKillTimes.length > 1 ? 'are' : 'is'} closest to your kill-time. Large differences won't be good for comparing.
         {this.state.closestKillTimes.map(log => this.singleLog(log.rank))}
       </div>
     );

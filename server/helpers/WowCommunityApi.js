@@ -33,12 +33,12 @@ class WowCommunityApi { // TODO: extends ExternalApi that provides a generic _fe
       fields,
     });
   }
-  async fetchItem(regionCode, id) {
+  async fetchItem(id, regionCode = REGIONS.US) {
     const region = this._getRegion(regionCode);
 
     return this._fetchCommunityApi(region, 'item', encodeURIComponent(id));
   }
-  async fetchSpell(regionCode, id) {
+  async fetchSpell(id, regionCode = REGIONS.US) {
     const region = this._getRegion(regionCode);
 
     return this._fetchCommunityApi(region, 'spell', encodeURIComponent(id));

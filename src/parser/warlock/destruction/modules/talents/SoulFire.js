@@ -24,8 +24,8 @@ class SoulFire extends Analyzer {
     return (
       <StatisticListBoxItem
         title={<><SpellLink id={SPELLS.SOUL_FIRE_TALENT.id} /> damage</>}
-        value={formatThousands(damage)}
-        valueTooltip={this.owner.formatItemDamageDone(damage)}
+        value={this.owner.formatItemDamageDone(damage)}
+        valueTooltip={`${formatThousands(damage)} damage`}
       />
     );
   }
