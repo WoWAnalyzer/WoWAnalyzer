@@ -336,6 +336,11 @@ export default {
     name: 'Wind Gust',
     icon: 'spell_nature_cyclone',
   },
+  WIND_GUST_BUFF: {
+    id: 263806,
+    name: 'Wind Gust Buff',
+    icon: 'spell_nature_cyclone',
+  },
   EYE_OF_THE_STORM: {
     id: 157375,
     name: 'Eye Of The Storm',
