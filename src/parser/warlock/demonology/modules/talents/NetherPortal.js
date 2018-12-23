@@ -31,9 +31,9 @@ class NetherPortal extends Analyzer {
     const damage = this.damage;
     return (
       <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.NETHER_PORTAL_TALENT.id} /> damage</>}
-        value={formatThousands(damage)}
-        valueTooltip={this.owner.formatItemDamageDone(damage)}
+        title={<><SpellLink id={SPELLS.NETHER_PORTAL_TALENT.id} /> dmg</>}
+        value={this.owner.formatItemDamageDone(damage)}
+        valueTooltip={`${formatThousands(damage)} damage`}
       />
     );
   }

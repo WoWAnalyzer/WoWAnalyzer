@@ -17,7 +17,6 @@ class MoonfireSnapshot extends Snapshot {
   static spellCastId = SPELLS.MOONFIRE_FERAL.id;
   static debuffId = SPELLS.MOONFIRE_FERAL.id;
 
-  // unlike bleeds, Moonfire's duration is not affected by the Jagged Wounds talent
   static durationOfFresh = MOONFIRE_FERAL_BASE_DURATION;
   static isProwlAffected = false;
   static isTigersFuryAffected = true;

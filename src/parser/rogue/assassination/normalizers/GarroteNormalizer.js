@@ -15,7 +15,7 @@ class GarroteNormalizer extends EventsNormalizer {
     events.forEach((event, eventIndex) => {
       fixedEvents.push(event);
 
-      // find a applybuff event for Garrote
+      // find an applybuff event for Garrote
       if(event.type === 'applydebuff' && event.ability.guid === SPELLS.GARROTE.id) {
 
         // look for matching removebuff

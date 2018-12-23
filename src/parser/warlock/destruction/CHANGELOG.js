@@ -7,8 +7,13 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
-    date: new Date('2018-12-21'),
+    date: new Date('2018-12-23'),
     changes: <>Added <SpellLink id={SPELLS.CHAOS_SHARDS.id} /> trait.</>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2018-12-23'),
+    changes: 'Changed display of damage in various places. Now shows % of total damage done and DPS with raw values in tooltip.',
     contributors: [Chizu],
   },
   {

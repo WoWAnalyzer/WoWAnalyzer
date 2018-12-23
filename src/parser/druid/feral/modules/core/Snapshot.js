@@ -7,7 +7,7 @@ import Analyzer from 'parser/core/Analyzer';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import StatisticsListBox from 'interface/others/StatisticsListBox';
-import { PANDEMIC_FRACTION } from '../../constants';
+import { PANDEMIC_FRACTION, PROWL_RAKE_DAMAGE_BONUS, TIGERS_FURY_DAMAGE_BONUS, BLOODTALONS_DAMAGE_BONUS } from '../../constants';
 
 const debug = false;
 
@@ -20,11 +20,6 @@ const debug = false;
  * The Snapshot class is 'abstract', and shouldn't be directly instantiated. Instead classes should extend
  * it to examine how well the combatant is making use of the snapshot mechanic.
  */
-
-// also applied by Incarnation: King of the Jungle, and Shadowmeld
-const PROWL_MULTIPLIER = 2.00;
-const TIGERS_FURY_MULTIPLIER = 1.15;
-const BLOODTALONS_MULTIPLIER = 1.25;
 
 /**
  * leeway in ms after loss of bloodtalons/prowl buff to count a cast as being buffed.
@@ -102,17 +97,17 @@ class Snapshot extends Analyzer {
     this.ticks += 1;
     if (state.prowl) {
       this.ticksWithProwl += 1;
-      const fractionOfBonus = (PROWL_MULTIPLIER - 1) / additiveBonus;
+      const fractionOfBonus = PROWL_RAKE_DAMAGE_BONUS / additiveBonus;
       this.damageFromProwl += bonusDamage * fractionOfBonus;
     }
     if (state.tigersFury) {
       this.ticksWithTigersFury += 1;
-      const fractionOfBonus = (TIGERS_FURY_MULTIPLIER - 1) / additiveBonus;
+      const fractionOfBonus = TIGERS_FURY_DAMAGE_BONUS / additiveBonus;
       this.damageFromTigersFury += bonusDamage * fractionOfBonus;
     }
     if (state.bloodtalons) {
       this.ticksWithBloodtalons += 1;
-      const fractionOfBonus = (BLOODTALONS_MULTIPLIER - 1) / additiveBonus;
+      const fractionOfBonus = BLOODTALONS_DAMAGE_BONUS / additiveBonus;
       this.damageFromBloodtalons += bonusDamage * fractionOfBonus;
     }
   }
@@ -144,15 +139,16 @@ class Snapshot extends Analyzer {
 
   makeNewState(debuffEvent, stateOld) {
     const timeRemainOnOld = stateOld ? (stateOld.expireTime - debuffEvent.timestamp) : 0;
-    let expireNew = debuffEvent.timestamp + this.constructor.durationOfFresh;
+    const durationNew = this.getDurationOfFresh(debuffEvent);
+    let expireNew = debuffEvent.timestamp + durationNew;
     if (timeRemainOnOld > 0) {
-      expireNew += Math.min(this.constructor.durationOfFresh * PANDEMIC_FRACTION, timeRemainOnOld);
+      expireNew += Math.min(durationNew * PANDEMIC_FRACTION, timeRemainOnOld);
     }
 
     const combatant = this.selectedCombatant;
     const stateNew = {
       expireTime: expireNew,
-      pandemicTime: expireNew - this.constructor.durationOfFresh * PANDEMIC_FRACTION,
+      pandemicTime: expireNew - durationNew * PANDEMIC_FRACTION,
       tigersFury: this.constructor.isTigersFuryAffected &&
       combatant.hasBuff(SPELLS.TIGERS_FURY.id),
       prowl: this.constructor.isProwlAffected && (
@@ -187,13 +183,13 @@ class Snapshot extends Analyzer {
   calcPowerFromSnapshot(stateNew) {
     let power = 1.0;
     if (stateNew.prowl) {
-      power *= PROWL_MULTIPLIER;
+      power *= (PROWL_RAKE_DAMAGE_BONUS + 1);
     }
     if (stateNew.tigersFury) {
-      power *= TIGERS_FURY_MULTIPLIER;
+      power *= (TIGERS_FURY_DAMAGE_BONUS + 1);
     }
     if (stateNew.bloodtalons) {
-      power *= BLOODTALONS_MULTIPLIER;
+      power *= (BLOODTALONS_DAMAGE_BONUS + 1);
     }
     return power;
   }
@@ -201,19 +197,23 @@ class Snapshot extends Analyzer {
   additivePowerSum(stateNew) {
     let additive = 0;
     if (stateNew.prowl) {
-      additive += PROWL_MULTIPLIER - 1;
+      additive += PROWL_RAKE_DAMAGE_BONUS;
     }
     if (stateNew.tigersFury) {
-      additive += TIGERS_FURY_MULTIPLIER - 1;
+      additive += TIGERS_FURY_DAMAGE_BONUS;
     }
     if (stateNew.bloodtalons) {
-      additive += BLOODTALONS_MULTIPLIER - 1;
+      additive += BLOODTALONS_DAMAGE_BONUS;
     }
     return additive;
   }
 
   checkRefreshRule(state) {
     debug && console.warn('Expected checkRefreshRule function to be overridden.');
+  }
+
+  getDurationOfFresh(debuffEvent) {
+    return this.constructor.durationOfFresh;
   }
 
   subStatistic(ticksWithBuff, damageIncrease, buffId, buffName, spellName) {

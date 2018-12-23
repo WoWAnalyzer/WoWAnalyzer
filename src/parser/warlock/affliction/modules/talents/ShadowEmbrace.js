@@ -125,8 +125,8 @@ class ShadowEmbrace extends Analyzer {
         />
         <StatisticListBoxItem
           title={<><SpellLink id={SPELLS.SHADOW_EMBRACE_TALENT.id} /> bonus damage</>}
-          value={formatThousands(this.damage)}
-          valueTooltip={this.owner.formatItemDamageDone(this.damage)}
+          value={this.owner.formatItemDamageDone(this.damage)}
+          valueTooltip={`${formatThousands(this.damage)} bonus damage`}
         />
       </>
     );
