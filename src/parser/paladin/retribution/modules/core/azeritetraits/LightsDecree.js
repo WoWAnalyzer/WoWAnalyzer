@@ -1,9 +1,9 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import { formatDuration, formatNumber } from 'common/format';
-import DamageDone from 'parser/shared/modules/DamageDone';
 
 const AW_BASE_DURATION = 20;
 const CRUSADE_BASE_DURATION = 25;
@@ -13,11 +13,12 @@ const CRUSADE_BASE_DURATION = 25;
  * Avenging Wrath's duration is increased by 5 sec.
  */
 class LightsDecree extends Analyzer {
-	static dependencies = {
-		damageDone: DamageDone,
+  static dependencies = {
+    abilityTracker: AbilityTracker,
 	};
 
-	baseDuration = AW_BASE_DURATION;
+  baseDuration = AW_BASE_DURATION;
+  damageSpellId = SPELLS.LIGHTS_DECREE_DAMAGE_AW.id;
 
  	constructor(...args) {
  		super(...args);
@@ -27,12 +28,14 @@ class LightsDecree extends Analyzer {
  		}
  		if (this.selectedCombatant.hasTalent(SPELLS.CRUSADE_TALENT.id)) {
  			this.baseDuration = CRUSADE_BASE_DURATION;
+      this.damageSpellId = SPELLS.LIGHTS_DECREE_DAMAGE_CRUSADE.id;
  		}
  	}
 
- 	get LDDamageDone() {
- 		return this.damageDone.byAbility(SPELLS.LIGHTS_DECREE_DAMAGE.id);
-      }
+  get LDDamageDone() {
+    const spell = this.abilityTracker.getAbility(this.damageSpellId);
+    return spell.damageEffective + spell.damageAbsorbed;
+  }
 
   get totalDurationIncrease() {
     const buffName = this.selectedCombatant.hasTalent(SPELLS.CRUSADE_TALENT.id) ? SPELLS.CRUSADE_TALENT : SPELLS.AVENGING_WRATH;
