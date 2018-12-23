@@ -18,7 +18,17 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.GARROTE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         // During the Subterfuge buff (from the talent), the spell has no cd
-        cooldown: () => combatant.hasBuff(SPELLS.SUBTERFUGE_BUFF.id) ? 0 : 6,
+        cooldown: () => {
+          if (!combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id)) {
+            return 6;
+          } else {
+            const hasStealth = combatant.hasBuff(SPELLS.SUBTERFUGE_BUFF.id) ||
+              combatant.hasBuff(SPELLS.STEALTH.id) ||
+              combatant.hasBuff(SPELLS.STEALTH_BUFF.id) ||
+              combatant.hasBuff(SPELLS.VANISH_BUFF.id);
+            return hasStealth ? 0 : 6;
+          }
+        },
         gcd: {
           static: 1000,
         },
