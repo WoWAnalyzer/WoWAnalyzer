@@ -46,11 +46,11 @@ class Dreadlash extends Analyzer {
     const total = this.cleavedDamage + this.bonusDamage;
     return (
       <StatisticListBoxItem
-        title={<>Bonus <SpellLink id={SPELLS.DREADLASH_TALENT.id} /> damage</>}
-        value={formatThousands(total)}
-        valueTooltip={`${this.owner.formatItemDamageDone(total)}<br/>
-                      Bonus damage on primary target hits: ${formatThousands(this.bonusDamage)}<br/>
-                      Bonus cleaved damage: ${formatThousands(this.cleavedDamage)}`}
+        title={<><SpellLink id={SPELLS.DREADLASH_TALENT.id} /> bonus dmg</>}
+        value={this.owner.formatItemDamageDone(total)}
+        valueTooltip={`${formatThousands(total)} bonus damage<br/>
+                      Bonus damage on primary target hits: ${formatThousands(this.bonusDamage)} (${this.owner.formatItemDamageDone(this.bonusDamage)})<br/>
+                      Bonus cleaved damage: ${formatThousands(this.cleavedDamage)} (${this.owner.formatItemDamageDone(this.cleavedDamage)})`}
       />
     );
   }

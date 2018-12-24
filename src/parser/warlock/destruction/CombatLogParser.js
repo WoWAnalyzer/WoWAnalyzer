@@ -40,6 +40,7 @@ import Flashpoint from './modules/azerite/Flashpoint';
 import CrashingChaosChaoticInfernoCore from './modules/azerite/CrashingChaosChaoticInfernoCore';
 import CrashingChaos from './modules/azerite/CrashingChaos';
 import ChaoticInferno from './modules/azerite/ChaoticInferno';
+import ChaosShards from './modules/azerite/ChaosShards';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -87,6 +88,7 @@ class CombatLogParser extends CoreCombatLogParser {
     crashingChaosChaoticInfernoCore: CrashingChaosChaoticInfernoCore,
     crashingChaos: CrashingChaos,
     chaoticInferno: ChaoticInferno,
+    chaosShards: ChaosShards,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],

@@ -42,7 +42,7 @@ class Gear extends React.PureComponent {
     // load missing azerite-icons and add them to the components state after it got fetched
     const missingIcons = [];
     Object.keys(this.props.azerite).forEach(traitId => {
-      const trait = this.state.azerite.find(e => e.id === parseInt(traitId, 10));
+      const trait = this.state.azerite.find(e => e.id === Number(traitId));
 
       if (!trait) {
         missingIcons.push({ id: traitId, icon: FALLBACK_ICON, name: 'Unknown' });
@@ -50,8 +50,8 @@ class Gear extends React.PureComponent {
     });
 
     Object.keys(missingIcons).forEach(e => {
-      const traitId = parseInt(missingIcons[e].id, 10);
-      fetch(makeSpellApiUrl(traitId, 'us'))
+      const traitId = Number(missingIcons[e].id);
+      fetch(makeSpellApiUrl(traitId))
         .then(response => response.json())
         .then(data => {
           const newTrait = {
@@ -84,7 +84,7 @@ class Gear extends React.PureComponent {
         <div className="row">
           <div className="col-md-12 hpadding-lg-30">{/* some bonus padding so it looks to be aligned with the icon for stats */}
             {Object.keys(azerite).map(spellId => {
-              spellId = parseInt(spellId, 10);
+              spellId = Number(spellId);
               const spell = this.state.azerite.find(e => e.id === spellId);
               return (
                 <div key={spellId} style={{ display: 'inline-block', textAlign: 'center' }}>

@@ -25,9 +25,9 @@ class BilescourgeBombers extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.BILESCOURGE_BOMBERS_TALENT.id} /> damage</>}
-        value={formatThousands(this.damage)}
-        valueTooltip={this.owner.formatItemDamageDone(this.damage)}
+        title={<><SpellLink id={SPELLS.BILESCOURGE_BOMBERS_TALENT.id} /> dmg</>}
+        value={this.owner.formatItemDamageDone(this.damage)}
+        valueTooltip={`${formatThousands(this.damage)} damage`}
       />
     );
   }

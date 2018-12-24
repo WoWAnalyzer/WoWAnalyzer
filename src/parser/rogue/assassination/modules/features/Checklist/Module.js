@@ -14,7 +14,13 @@ import EnergyDetails from '../../../../shared/resources/EnergyDetails';
 import EnergyCapTracker from '../../../../shared/resources/EnergyCapTracker';
 import ComboPointDetails from '../../../../shared/resources/ComboPointDetails';
 
+import Subterfuge from '../../talents/Subterfuge';
+
 import Component from './Component';
+import GarroteSnapshot from '../GarroteSnapshot';
+import RuptureSnapshot from '../RuptureSnapshot';
+import Nightstalker from '../../talents/Nightstalker';
+import MasterAssassin from '../../talents/MasterAssassin';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -30,6 +36,12 @@ class Checklist extends BaseChecklist {
     energyDetails: EnergyDetails,
     energyCapTracker: EnergyCapTracker,
     comboPointDetails: ComboPointDetails,
+
+    subterfuge: Subterfuge,
+    nightstalker: Nightstalker,
+    masterAssassin: MasterAssassin,
+    garroteSnapshot: GarroteSnapshot,
+    ruptureSnapshot: RuptureSnapshot,
   };
 
   render() {
@@ -48,6 +60,13 @@ class Checklist extends BaseChecklist {
           energyEfficiency: this.energyDetails.suggestionThresholds,
           energyCapEfficiency: this.energyCapTracker.suggestionThresholds,
           comboPointEfficiency: this.comboPointDetails.suggestionThresholds,
+
+          subterfugeEfficiency: this.subterfuge.suggestionThresholds,
+          nightstalkerEfficiency: this.nightstalker.suggestionThresholds,
+          nightstalkerOpenerEfficiency: this.nightstalker.suggestionThresholdsOpener,
+          masterAssassinEfficiency: this.masterAssassin.suggestionThresholds,
+          ruptureSnapshotEfficiency: this.ruptureSnapshot.suggestionThresholds,
+          garroteSnapshotEfficiency: this.garroteSnapshot.suggestionThresholds,
         }}
       />
     );

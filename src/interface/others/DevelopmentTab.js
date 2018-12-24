@@ -56,7 +56,7 @@ class Item extends React.PureComponent {
       return null;
     }
 
-    return fetch(makeItemApiUrl(id, 'us'))
+    return fetch(makeItemApiUrl(id))
       .then(response => response.json())
       .then((data) => {
         this.setState({
@@ -134,7 +134,7 @@ class Cast extends React.PureComponent {
       return null;
     }
 
-    return fetch(makeSpellApiUrl(id, 'us'))
+    return fetch(makeSpellApiUrl(id))
       .then(response => response.json())
       .then((data) => {
         this.setState({

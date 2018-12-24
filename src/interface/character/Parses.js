@@ -240,8 +240,13 @@ class Parses extends React.Component {
         error: ERRORS.NOT_RESPONDING,
       });
       return;
-    }
-    if (!response.ok) {
+    } else if (response.status === 404) {
+      this.setState({
+        isLoading: false,
+        error: ERRORS.CHARACTER_NOT_FOUND,
+      });
+      return;
+    } else if (!response.ok) {
       this.setState({
         isLoading: false,
         error: ERRORS.UNEXPECTED,
@@ -251,13 +256,6 @@ class Parses extends React.Component {
 
     const data = await response.json();
 
-    if (data.status === 'nok') {
-      this.setState({
-        isLoading: false,
-        error: ERRORS.CHARACTER_NOT_FOUND,
-      });
-      return;
-    }
     if (!data.thumbnail) {
       this.setState({
         isLoading: false,

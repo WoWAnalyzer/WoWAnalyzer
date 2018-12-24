@@ -55,6 +55,7 @@ class Snapshot extends Analyzer {
   stateByTarget = {};
   lastDoTCastEvent;
 
+  talentName = '';
   multiplier = 1;
   bonusDamage = 0;
   lostSnapshotTime = 0;
@@ -78,8 +79,10 @@ class Snapshot extends Analyzer {
       throw new Error('Snapshot should be extended and provided with spellCastId, debuffId and spellIcon.');
     }
     if (this.selectedCombatant.hasTalent(SPELLS.NIGHTSTALKER_TALENT.id)) {
+      this.talentName = 'Nightstalker';
       this.multiplier = NIGHTSTALKER_MULTIPLIER;
     } else if (this.selectedCombatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id)) {
+      this.talentName = 'Subterfuge';
       this.multiplier = SUBTERFUGE_MULTIPLIER;
     } else {
       this.active = false;
@@ -154,7 +157,9 @@ class Snapshot extends Analyzer {
       expireTime: expireNew,
       pandemicTime: expireNew - this.durationOfFresh * PANDEMIC_FRACTION,
       buffed: combatant.hasBuff(SPELLS.STEALTH.id, null, BUFF_WINDOW_TIME) ||
-        combatant.hasBuff(SPELLS.SUBTERFUGE_BUFF.id, null, BUFF_WINDOW_TIME),
+        combatant.hasBuff(SPELLS.SUBTERFUGE_BUFF.id, null, BUFF_WINDOW_TIME) ||
+        combatant.hasBuff(SPELLS.STEALTH_BUFF.id, null, BUFF_WINDOW_TIME) ||
+        combatant.hasBuff(SPELLS.VANISH_BUFF.id, null, BUFF_WINDOW_TIME),
       startTime: debuffEvent.timestamp,
       castEvent: this.lastDoTCastEvent,
 
@@ -173,6 +178,11 @@ class Snapshot extends Analyzer {
   checkRefreshRule(stateNew) {
     const stateOld = stateNew.prev;
     const event = stateNew.castEvent;
+    if (stateNew.buffed) {
+      event.meta = event.meta || {};
+      event.meta.isEnhancedCast = true;
+      event.meta.enhancedCastReason = `This cast snapshotted ` + this.talentName;
+    }
     if (!stateOld || stateOld.expireTime < stateNew.startTime) {
       // it's not a refresh, so nothing to check
       return;

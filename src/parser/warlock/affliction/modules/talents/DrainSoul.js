@@ -106,8 +106,8 @@ class DrainSoul extends Analyzer {
       <>
         <StatisticListBoxItem
           title={<><SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} /> damage</>}
-          value={formatThousands(damage)}
-          valueTooltip={this.owner.formatItemDamageDone(damage)}
+          value={this.owner.formatItemDamageDone(damage)}
+          valueTooltip={`${formatThousands(damage)} damage`}
         />
         <StatisticListBoxItem
           title={<>Shards sniped with <SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} /></>}

@@ -35,9 +35,9 @@ class InnerDemons extends Analyzer {
     const damage = this.damage;
     return (
       <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.INNER_DEMONS_TALENT.id} /> damage</>}
-        value={formatThousands(damage)}
-        valueTooltip={`${this.owner.formatItemDamageDone(damage)}<br />
+        title={<><SpellLink id={SPELLS.INNER_DEMONS_TALENT.id} /> dmg</>}
+        value={this.owner.formatItemDamageDone(damage)}
+        valueTooltip={`${formatThousands(damage)} damage<br />
                   Note that this only counts the direct damage from them, not Implosion damage (if used) from Wild Imps`}
       />
     );
