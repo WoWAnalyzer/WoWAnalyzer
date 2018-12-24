@@ -1,7 +1,7 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS/index';
-import ITEMS from 'common/ITEMS/index';
+import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import Analyzer from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import StatTracker from 'parser/shared/modules/StatTracker';
@@ -59,7 +59,7 @@ class AncientKnotOfWisdom extends Analyzer {
   
   on_byPlayer_cast(event) {
     if (event.ability.guid !== SPELLS.WISDOM_OF_THE_FOREST_LORD.id) {
-    return;
+      return;
     }
     this.casts += 1;
   }
@@ -79,7 +79,7 @@ class AncientKnotOfWisdom extends Analyzer {
       result: (
         <dfn data-tip={`Used ${this.casts} times`}>
           {formatPercentage(this.totalBuffUptime)}% uptime<br />
-          {formatNumber(this.averageIntellect)} average intellect
+          {formatNumber(this.averageIntellect)} average Intellect
         </dfn>
       ),
     };
