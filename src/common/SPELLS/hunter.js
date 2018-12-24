@@ -290,6 +290,11 @@ export default {
     name: 'Harpoon',
     icon: 'ability_hunter_harpoon',
   },
+  TERMS_OF_ENGAGEMENT_BUFF: {
+    id: 265898,
+    name: 'Terms of Engagement',
+    icon: 'ability_hunter_harpoon',
+  },
   KILL_COMMAND_CAST_SV: {
     id: 259489,
     name: 'Kill Command',

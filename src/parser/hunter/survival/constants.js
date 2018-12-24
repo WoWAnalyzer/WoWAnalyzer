@@ -17,3 +17,5 @@ export const SERPENT_STING_SV_BASE_DURATION = 12000;
 export const ALPHA_DAMAGE_KC_MODIFIER = 0.3;
 //Attack speed gain per bleeding enemy from Bloodseeker
 export const BLOODSEEKER_ATTACK_SPEED_GAIN = 0.1;
+//Hydra's Bite DOT damage increase
+export const HYDRAS_BITE_DOT_MODIFIER = 0.1;
