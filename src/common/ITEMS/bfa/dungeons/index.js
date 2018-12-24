@@ -165,4 +165,12 @@ export default {
     icon: 'inv_tradeskillitem_sorcererswater',
     quality: ITEM_QUALITIES.BLUE,
   },
+  // Darkshore War Front //
+  ANCIENT_KNOT_OF_WISDOM: {
+    id: 166793,
+    name: 'Ancient Knot of Wisdom',
+    icon: 'inv_spiritshard_02',
+    quality: ITEM_QUALITIES.BLUE,
+  },
+
 };
