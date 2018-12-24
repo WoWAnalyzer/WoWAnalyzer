@@ -3,19 +3,13 @@ import Analyzer from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import SPELLS from 'common/SPELLS/index';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
 
 /**
  * Raptor Strike (or Mongoose Bite) deals an additional 27 damage and reduces the remaining cooldown of Wildfire Bomb by 1.0 sec.
  *
  * Example report: https://www.warcraftlogs.com/reports/Xr7Nxjd1KnMT9QBf/#fight=1&source=13&type=summary
  */
-
-const TRIGGERING_SPELLS = [
-  SPELLS.MONGOOSE_BITE_TALENT.id,
-  SPELLS.MONGOOSE_BITE_TALENT_AOTE.id,
-  SPELLS.RAPTOR_STRIKE.id,
-  SPELLS.RAPTOR_STRIKE_AOTE.id,
-];
 
 const MS_REDUCTION = 1000;
 
@@ -53,7 +47,7 @@ class WildernessSurvival extends Analyzer {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (!TRIGGERING_SPELLS.includes(spellId)) {
+    if (!RAPTOR_MONGOOSE_VARIANTS.includes(spellId)) {
       return;
     }
     if (this.hasWFI) {

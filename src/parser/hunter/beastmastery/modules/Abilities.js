@@ -159,8 +159,8 @@ class Abilities extends CoreAbilities {
         gcd: null,
       },
       {
-        spell: SPELLS.PRIMAL_RAGE,
-        buffSpellId: SPELLS.PRIMAL_RAGE.id,
+        spell: SPELLS.PRIMAL_RAGE_1,
+        buffSpellId: SPELLS.PRIMAL_RAGE_1.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 360,
         gcd: null,

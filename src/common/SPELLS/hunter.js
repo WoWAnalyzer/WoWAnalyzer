@@ -455,6 +455,16 @@ export default {
     name: 'Predator',
     icon: 'ability_druid_primaltenacity',
   },
+  FLANKING_STRIKE_PET: {
+    id: 259516,
+    name: 'Flanking Strike',
+    icon: 'ability_hunter_invigeration',
+  },
+  FLANKING_STRIKE_PLAYER: {
+    id: 269752,
+    name: 'Flanking Strike',
+    icon: 'ability_hunter_invigeration',
+  },
 
   //Shared BFA buffs/debuffs/misc
   POSTHASTE_BUFF: {
@@ -609,8 +619,13 @@ export default {
   },
 
   //BFA Pet abilities
-  PRIMAL_RAGE: {
+  PRIMAL_RAGE_1: {
     id: 264667,
+    name: 'Primal Rage',
+    icon: 'spell_shadow_unholyfrenzy',
+  },
+  PRIMAL_RAGE_2: {
+    id: 272678,
     name: 'Primal Rage',
     icon: 'spell_shadow_unholyfrenzy',
   },
