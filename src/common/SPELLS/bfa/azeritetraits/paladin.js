@@ -44,6 +44,17 @@ export default {
     name: 'Indomitable Justice',
     ïcon: 'spell_holy_righteousfury',
   },
+  LIGHTS_DECREE: {
+    id: 286229,
+    name: `Light's Decree`,
+    icon: 'spell_holy_blessedresillience',
+  },
+  EMPYREAN_POWER: {
+    id: 286390,
+    name: 'Empyrean_power',
+    icon: 'ability_paladin_sheathoflight',
+  },
+
   // Retribution Trait Effects
   EXPURGATION_DAMAGE: {
     id: 273481,
@@ -60,10 +71,15 @@ export default {
     name: `Avenger's Might`,
     icon: 'spell_holy_avenginewrath',
   },
-  DIVINE_RIGHT_BUFF: {
-    id: 278523,
-    name: 'Divine Right',
-    icon: 'ability_paladin_divinestorm',
+  LIGHTS_DECREE_DAMAGE: {
+    id: 286232,
+    name: `Light's Decree`,
+    icon: 'spell_holy_blessedresillience',
+  },
+  EMPYREAN_POWER_BUFF: {
+    id: 286393,
+    name: 'Empyrean Power',
+    icon: 'ability_paladin_sheathoflight',
   },
 
   // Protection

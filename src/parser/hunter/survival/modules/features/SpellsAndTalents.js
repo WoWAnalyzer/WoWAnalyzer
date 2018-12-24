@@ -5,13 +5,11 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import Analyzer from 'parser/core/Analyzer';
 import SerpentSting from '../spells/SerpentSting';
-import VipersVenom from '../talents/VipersVenom';
 import CoordinatedAssault from '../spells/CoordinatedAssault';
 
-class TraitsAndTalents extends Analyzer {
+class SpellsAndTalents extends Analyzer {
   static dependencies = {
     serpentSting: SerpentSting,
-    vipersVenom: VipersVenom,
     coordinatedAssault: CoordinatedAssault,
   };
 
@@ -27,11 +25,10 @@ class TraitsAndTalents extends Analyzer {
     return (
       <StatisticsListBox
         position={STATISTIC_ORDER.CORE(12)}
-        title="Spells, Traits and Talents"
-        tooltip="This provides an overview of the damage contributions of various talents and traits. This isn't meant as a way to 1:1 evaluate talents, as some talents bring other strengths to the table than pure damage."
+        title="Spells and Talents"
+        tooltip="This provides an overview of the damage contributions of various spells and talents. This isn't meant as a way to 1:1 evaluate talents, as some talents bring other strengths to the table than pure damage."
       >
         {this.serpentSting.active && this.serpentSting.subStatistic()}
-        {this.vipersVenom.active && this.vipersVenom.subStatistic()}
         {this.coordinatedAssault.active && this.coordinatedAssault.subStatistic()}
       </StatisticsListBox>
 
@@ -39,4 +36,4 @@ class TraitsAndTalents extends Analyzer {
   }
 }
 
-export default TraitsAndTalents;
+export default SpellsAndTalents;

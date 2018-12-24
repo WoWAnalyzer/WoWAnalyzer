@@ -1,7 +1,6 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import DamageDone from 'parser/shared/modules/DamageDone';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
-
 import Abilities from './modules/Abilities';
 //Features
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
@@ -34,12 +33,14 @@ import BindingShot from '../shared/modules/talents/BindingShot';
 import PheromoneBomb from './modules/talents/WildfireInfusion/PheromoneBomb';
 import ShrapnelBomb from './modules/talents/WildfireInfusion/ShrapnelBomb';
 import VolatileBomb from './modules/talents/WildfireInfusion/VolatileBomb';
+import AlphaPredator from './modules/talents/AlphaPredator';
+import Bloodseeker from './modules/talents/Bloodseeker';
 //Azerite Traits
 import WildernessSurvival from './modules/spells/azeritetraits/WildernessSurvival';
 import LatentPoison from './modules/spells/azeritetraits/LatentPoison';
 import BlurOfTalons from './modules/spells/azeritetraits/BlurOfTalons';
 //Traits and Talents
-import TraitsAndTalents from './modules/features/TraitsAndTalents';
+import SpellsAndTalents from './modules/features/SpellsAndTalents';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -79,6 +80,9 @@ class CombatLogParser extends CoreCombatLogParser {
     birdOfPrey: BirdOfPrey,
     bornToBeWild: BornToBeWild,
     bindingShot: BindingShot,
+    alphaPredator: AlphaPredator,
+    bloodseeker: Bloodseeker,
+    /** Wildfire Infusion */
     pheromoneBomb: PheromoneBomb,
     shrapnelBomb: ShrapnelBomb,
     volatileBomb: VolatileBomb,
@@ -89,7 +93,7 @@ class CombatLogParser extends CoreCombatLogParser {
     blurOfTalons: BlurOfTalons,
 
     //Traits and talents
-    traitsAndTalents: TraitsAndTalents,
+    traitsAndTalents: SpellsAndTalents,
 
     // Survival's throughput benefit isn't as big as for other classes
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }],
