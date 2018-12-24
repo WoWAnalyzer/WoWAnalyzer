@@ -162,6 +162,10 @@ class ResourceTracker extends Analyzer {
     return (this.buildersObj[spellId] && this.buildersObj[spellId].wasted) || 0;
   }
 
+  getBuilderCastsBySpell(spellId) {
+    return (this.buildersObj[spellId] && this.buildersObj[spellId].casts) || 0;
+  }
+
   get generated() {
     return Object.values(this.buildersObj).reduce((acc, spell) => acc + spell.generated, 0);
   }
