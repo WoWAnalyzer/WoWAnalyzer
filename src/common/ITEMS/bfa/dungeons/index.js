@@ -172,5 +172,4 @@ export default {
     icon: 'inv_spiritshard_02',
     quality: ITEM_QUALITIES.BLUE,
   },
-
 };

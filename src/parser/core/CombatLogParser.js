@@ -221,7 +221,6 @@ class CombatLogParser {
     seaGiantsTidestone: SeaGiantsTidestone,
     revitalizingVoodooTotem: RevitalizingVoodooTotem,
     ancientKnotOfWisdom: AncientKnotOfWisdom,
-
     // Dungeons
     mydasTalisman: MydasTalisman,
     lingeringSporepods: LingeringSporepods,
