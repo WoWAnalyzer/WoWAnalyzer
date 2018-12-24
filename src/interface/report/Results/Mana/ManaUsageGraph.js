@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Line} from 'react-chartjs-2';
 
-import {formatThousands } from 'common/format';
-import {formatDuration} from 'common/format';
+import {formatThousands } from '../../../../common/format';
+import {formatDuration} from '../../../../common/format';
 
-import ManaStyles from 'interface/others/ManaStyles.js';
+import ManaStyles from '../../../others/ManaStyles.js';
 
 const baseConfig = {
   responsive: true,

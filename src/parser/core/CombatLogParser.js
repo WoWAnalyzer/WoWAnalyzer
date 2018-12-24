@@ -43,7 +43,6 @@ import DistanceMoved from '../shared/modules/others/DistanceMoved';
 import CharacterTab from '../shared/modules/features/CharacterTab';
 import EncounterPanel from '../shared/modules/features/EncounterPanel';
 // Tabs
-import ManaTab from '../shared/modules/features/ManaTab';
 import RaidHealthTab from '../shared/modules/features/RaidHealthTab';
 
 import CritEffectBonus from '../shared/modules/helpers/CritEffectBonus';
@@ -191,7 +190,6 @@ class CombatLogParser {
     // Tabs
     characterTab: CharacterTab,
     encounterPanel: EncounterPanel,
-    manaTab: ManaTab,
     raidHealthTab: RaidHealthTab,
 
     prePotion: PrePotion,

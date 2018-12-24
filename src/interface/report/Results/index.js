@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import { Trans, t } from '@lingui/macro';
 
+import ROLES from 'game/ROLES';
 import lazyLoadComponent from 'common/lazyLoadComponent';
 import retryingPromise from 'common/retryingPromise';
 import makeWclUrl from 'common/makeWclUrl';
@@ -34,6 +35,7 @@ import './Results.scss';
 
 const DevelopmentTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'DevelopmentTab' */ 'interface/others/DevelopmentTab').then(exports => exports.default)));
 const EventsTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'EventsTab' */ 'interface/others/EventsTab').then(exports => exports.default)));
+const Mana = lazyLoadComponent(() => retryingPromise(() => import('./Mana/Container').then(exports => exports.default)));
 
 const CORE_TABS = {
   OVERVIEW: 'overview',
@@ -135,6 +137,9 @@ class Results extends React.PureComponent {
         return (
           <div className="container">
             <Statistics parser={parser}>{results.statistics}</Statistics>
+            {parser.selectedCombatant.spec.role === ROLES.HEALER && (
+              <Mana parser={parser} />
+            )}
             <StatisticsSectionTitle>Abilities</StatisticsSectionTitle>
             <CastEfficiencyComponent
               categories={abilities.constructor.SPELL_CATEGORIES}
