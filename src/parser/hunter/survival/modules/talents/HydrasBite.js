@@ -10,6 +10,8 @@ import { HYDRAS_BITE_DOT_MODIFIER } from 'parser/hunter/survival/constants';
 
 /**
  * Serpent Sting fires arrows at 2 additional enemies near your target, and its damage over time is increased by 10%.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/6XmjYqTnc3DM7VQx/#fight=6&source=21
  */
 class HydrasBite extends Analyzer {
 

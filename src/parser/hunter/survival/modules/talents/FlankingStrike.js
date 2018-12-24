@@ -9,6 +9,8 @@ import ItemDamageDone from 'interface/others/ItemDamageDone';
  * You and your pet leap to the target and strike it as one, dealing a total of X Physical damage.
  *
  * Generates 30 Focus for you and your pet.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/zm8bfNxH9FWTajYV#fight=1&type=summary&source=12&translate=true
  */
 
 const FLANKING_STRIKE_FOCUS_GAIN = 30;

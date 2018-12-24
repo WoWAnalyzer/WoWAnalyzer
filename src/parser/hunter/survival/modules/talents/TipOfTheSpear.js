@@ -9,6 +9,8 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 /**
  * Kill Command increases the damage of your next Raptor Strike by 20%, stacking up to 3 times.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/BjmyHd9zt8RYJrWA/#fight=3&source=1
  */
 
 const MS_BUFFER = 100;
