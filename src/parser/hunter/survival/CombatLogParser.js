@@ -24,6 +24,7 @@ import NaturalMending from '../shared/modules/talents/NaturalMending';
 import AMurderOfCrows from '../shared/modules/talents/AMurderOfCrows';
 import VipersVenom from './modules/talents/VipersVenom';
 import MongooseBite from './modules/talents/MongooseBite';
+import GuerrillaTactics from './modules/talents/GuerrillaTactics';
 import SteelTrap from './modules/talents/SteelTrap';
 import Chakrams from './modules/talents/Chakrams';
 import BirdOfPrey from './modules/talents/BirdOfPrey';
@@ -74,6 +75,7 @@ class CombatLogParser extends CoreCombatLogParser {
     vipersVenom: VipersVenom,
     mongooseBite: MongooseBite,
     steelTrap: SteelTrap,
+    guerrillaTactics: GuerrillaTactics,
     chakrams: Chakrams,
     birdOfPrey: BirdOfPrey,
     bornToBeWild: BornToBeWild,

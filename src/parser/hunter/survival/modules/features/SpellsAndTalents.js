@@ -4,21 +4,12 @@ import StatisticsListBox from 'interface/others/StatisticsListBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import Analyzer from 'parser/core/Analyzer';
-
-import AMurderOfCrows from 'parser/hunter/shared/modules/talents/AMurderOfCrows';
-import SteelTrap from '../talents/SteelTrap';
 import SerpentSting from '../spells/SerpentSting';
-import ButcheryCarve from '../spells/ButcheryCarve';
-import MongooseBite from '../talents/MongooseBite';
 import CoordinatedAssault from '../spells/CoordinatedAssault';
 
 class SpellsAndTalents extends Analyzer {
   static dependencies = {
-    aMurderOfCrows: AMurderOfCrows,
     serpentSting: SerpentSting,
-    butcheryCarve: ButcheryCarve,
-    steelTrap: SteelTrap,
-    mongooseBite: MongooseBite,
     coordinatedAssault: CoordinatedAssault,
   };
 
@@ -37,11 +28,7 @@ class SpellsAndTalents extends Analyzer {
         title="Spells and Talents"
         tooltip="This provides an overview of the damage contributions of various spells and talents. This isn't meant as a way to 1:1 evaluate talents, as some talents bring other strengths to the table than pure damage."
       >
-        {this.mongooseBite.active && this.mongooseBite.subStatistic()}
-        {this.aMurderOfCrows.active && this.aMurderOfCrows.subStatistic()}
         {this.serpentSting.active && this.serpentSting.subStatistic()}
-        {this.butcheryCarve.active && this.butcheryCarve.subStatistic()}
-        {this.steelTrap.active && this.steelTrap.subStatistic()}
         {this.coordinatedAssault.active && this.coordinatedAssault.subStatistic()}
       </StatisticsListBox>
 
