@@ -154,6 +154,14 @@ class ResourceTracker extends Analyzer {
     return !!this.getResource(event);
   }
 
+  getGeneratedBySpell(spellId) {
+    return (this.buildersObj[spellId] && this.buildersObj[spellId].generated) || 0;
+  }
+
+  getWastedBySpell(spellId) {
+    return (this.buildersObj[spellId] && this.buildersObj[spellId].wasted) || 0;
+  }
+
   get generated() {
     return Object.values(this.buildersObj).reduce((acc, spell) => acc + spell.generated, 0);
   }
