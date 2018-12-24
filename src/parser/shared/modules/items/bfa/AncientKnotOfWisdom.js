@@ -7,7 +7,7 @@ import Abilities from 'parser/core/modules/Abilities';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { formatPercentage } from 'common/format';
 import { formatNumber } from 'common/format';
-import { calculateSecondaryStatDefault } from 'common/stats';
+import { calculatePrimaryStat } from 'common/stats';
 
 /*
 * Ancient Knot of Wisdom
@@ -30,7 +30,7 @@ class AncientKnotOfWisdom extends Analyzer {
   };
   
   casts = 0;
-  intellect = 0;
+  intellectPerStack = 0;
 
   constructor(...args) {
     super(...args);
@@ -38,7 +38,7 @@ class AncientKnotOfWisdom extends Analyzer {
       ITEMS.ANCIENT_KNOT_OF_WISDOM.id
     );
     if (this.active) {
-      this.intellect = calculateSecondaryStatDefault(385, 1060, this.selectedCombatant.getItem(ITEMS.ANCIENT_KNOT_OF_WISDOM.id).itemLevel);
+      this.intellectPerStack = calculatePrimaryStat(355, 40, this.selectedCombatant.getItem(ITEMS.ANCIENT_KNOT_OF_WISDOM.id).itemLevel);
 
       this.abilities.add({
         spell: SPELLS.WISDOM_OF_THE_FOREST_LORD,
@@ -50,10 +50,9 @@ class AncientKnotOfWisdom extends Analyzer {
         },
       });
 
-      /* Base intellect decreases 5 times in equal increments,
-       * the average intellect gained is equal to (0.6) * intellect. */
+      /* Changed to use int per stack. */
       this.statTracker.add(SPELLS.WISDOM_OF_THE_FOREST_LORD.id, {
-        intellect: this.intellect * 0.6,
+        intellect: this.intellectPerStack,
       });
     }
   }
@@ -73,7 +72,7 @@ class AncientKnotOfWisdom extends Analyzer {
     return {
       item: ITEMS.ANCIENT_KNOT_OF_WISDOM,
       result: (
-        <dfn data-tip={`Average intellect gained ${formatNumber(this.intellect * this.totalBuffUptime *0.6)}`}>
+        <dfn data-tip={`Average intellect gained ${formatNumber(this.intellectPerStack * this.totalBuffUptime * 12)}`}>
           Used {this.casts} times / {formatPercentage(this.totalBuffUptime)}% uptime
         </dfn>
       ),
