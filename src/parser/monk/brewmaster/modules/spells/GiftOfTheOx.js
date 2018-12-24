@@ -7,10 +7,12 @@ import Events from 'parser/core/Events';
 import EventFilter from 'parser/core/EventFilter';
 import StatisticBox from 'interface/others/StatisticBox';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import { calculatePrimaryStat } from 'common/stats';
 
 import { BASE_AGI, GIFT_OF_THE_OX_SPELLS } from '../../constants';
 
-const GOTOX_COEFF = 1.5;
+const WDPS_BASE_ILVL = 310;
+const WDPS_310_AGI_POLEARM = 122.8;
 
 /**
  * Gift of the Ox
@@ -29,7 +31,10 @@ export default class GiftOfTheOx extends Analyzer {
 
   totalHealing = 0;
   agiBonusHealing = 0;
+  wdpsBonusHealing = 0;
+  _baseAgiHealing = 0;
   masteryBonusHealing = 0;
+  _wdps = 0;
 
   orbsGenerated = 0;
   orbsConsumed = 0;
@@ -45,6 +50,8 @@ export default class GiftOfTheOx extends Analyzer {
     this.addEventListener(new EventFilter('tick').by(SELECTED_PLAYER).spell(GIFT_OF_THE_OX_SPELLS), this._orbGenerated);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EXPEL_HARM), this._expelCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(GIFT_OF_THE_OX_SPELLS), this._gotoxHeal);
+
+    this._wdps = calculatePrimaryStat(WDPS_BASE_ILVL, WDPS_310_AGI_POLEARM, this.selectedCombatant.mainHand.itemLevel);
   }
 
   _orbGenerated(event) {
@@ -58,11 +65,9 @@ export default class GiftOfTheOx extends Analyzer {
 
   _gotoxHeal(event) {
     this.orbsConsumed += 1;
-    this.totalHealing += event.amount;
+    const amount = event.amount + (event.absorbed || 0);
+    this.totalHealing += amount;
 
-    const masteryAmount = (1 - this.stats.masteryPercentage(0, true) / this.stats.currentMasteryPercentage) * (event.amount + (event.absorbed || 0) + (event.overheal || 0));
-    const remainingOverheal = Math.max(0, (event.overheal || 0) - masteryAmount);
-    this.masteryBonusHealing += Math.max(0, masteryAmount - (event.overheal || 0));
     // so the formula for the healing is
     //
     // Heal = 1.5 * (6 * WDPS + BonusAgi + BaseAgi) * Mastery * Vers
@@ -71,14 +76,17 @@ export default class GiftOfTheOx extends Analyzer {
     //
     // BonusHeal = 1.5 * (6 * WDPS + BonusAgi + BaseAgi) * Mastery * Vers - 1.5 * (6 * WDPS + BaseAgi) * Mastery * Vers
     //           = Heal * (1 - (6 WDPS + BaseAgi) / (6 WDPS + BonusAgi + BaseAgi))
+    //           = Heal * (BonusAgi / (6 WDPS + BonusAgi + BaseAgi))
     //
-    // but WDPS is unknown, so we need to reformulate it as
-    // = 1.5 * Mastery * Vers * (6 * WDPS + BonusAgi + BaseAgi - 6 * WDPS - BaseAgi)
-    // = 1.5 * Mastery * Vers * BonusAgi
-    //
-    // and just rely on the stattracker being close enough :shrug:
-    const agiAmount = GOTOX_COEFF * (1 + this.stats.currentMasteryPercentage) * (1 + this.stats.currentVersatilityPercentage) * (this.stats.currentAgilityRating - BASE_AGI);
-    this.agiBonusHealing += Math.max(agiAmount - remainingOverheal, 0);
+    // and similar for bonus WDPS healing and base agi healing
+    const denom = (6 * this._wdps + this.stats.currentAgilityRating);
+    this.agiBonusHealing += amount * (this.stats.currentAgilityRating - BASE_AGI) / denom;
+    this.wdpsBonusHealing += amount * 6 * this._wdps / denom;
+    this._baseAgiHealing += amount * BASE_AGI / denom;
+    // MasteryBonusHeal = 1.5 * AP * (1 + BonusMastery + BaseMastery) * Vers - 1.5 * AP * (1 + BaseMastery) * Vers
+    //                  = Heal * (1 - (1 + BaseMastery) / (1 + BonusMastery + BaseMastery))
+    //                  = Heal * BonusMastery / (1 + BonusMastery + BaseMastery)
+    this.masteryBonusHealing += amount * (this.stats.currentMasteryPercentage - this.stats.masteryPercentage(0, true)) / (1 + this.stats.currentMasteryPercentage);
 
     if(event.timestamp === this._lastEHTimestamp) {
       this.expelHarmOrbsConsumed += 1;
@@ -92,7 +100,7 @@ export default class GiftOfTheOx extends Analyzer {
         icon={<SpellIcon id={GIFT_OF_THE_OX_SPELLS[0].id} />}
         label={"Gift of the Ox Healing"}
         value={`${formatNumber(this.totalHealing / (this.owner.fightDuration / 1000))} HPS`}
-        tooltip={`You generated ${formatNumber(this.orbsGenerated)} healing spheres and consumed ${formatNumber(this.orbsConsumed)} of them. ${formatNumber(this.expelHarmOrbsConsumed)} of these were consumed with Expel Harm over ${formatNumber(this.expelHarmCasts)} casts.`}
+        tooltip={`You generated ${formatNumber(this.orbsGenerated)} healing spheres and consumed ${formatNumber(this.orbsConsumed)} of them, healing for <b>${formatNumber(this.totalHealing)}</b>. ${formatNumber(this.expelHarmOrbsConsumed)} of these were consumed with Expel Harm over ${formatNumber(this.expelHarmCasts)} casts.`}
       />
     );
   }

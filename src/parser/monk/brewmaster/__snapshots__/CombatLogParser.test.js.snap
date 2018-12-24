@@ -565,9 +565,9 @@ exports[`The Brewmaster Analyzer analyzers GiftOfTheOx matches the statistic sna
             className="value"
           >
             <dfn
-              data-tip="You generated 40 healing spheres and consumed 40 of them. 30 of these were consumed with Expel Harm over 21 casts."
+              data-tip="You generated 40 healing spheres and consumed 40 of them, healing for <b>639k</b>. 30 of these were consumed with Expel Harm over 21 casts."
             >
-              1,969 HPS
+              2,079 HPS
             </dfn>
           </div>
         </div>
