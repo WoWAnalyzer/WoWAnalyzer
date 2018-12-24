@@ -41,7 +41,7 @@ class WildfireBomb extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = !this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id); //WFI changes WFB so much that a separate module will be added into talents folder to handle everything from that.
+    this.active = !this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id);
   }
 
   on_byPlayer_cast(event) {
