@@ -1,4 +1,3 @@
-import React from 'react';
 import HealthIcon from './images/Health';
 import StaminaIcon from './images/Stamina';
 import ManaIcon from './images/Mana';
@@ -28,8 +27,6 @@ const STAT = {
   LEECH: 'leech',
   AVOIDANCE: 'avoidance',
   SPEED: 'speed',
-  ARMOR: 'armor',
-  WDPS: 'wdps',
 };
 export default STAT;
 
@@ -51,8 +48,6 @@ export function getName(stat) {
     case STAT.LEECH: return 'Leech';
     case STAT.AVOIDANCE: return 'Avoidance';
     case STAT.SPEED: return 'Speed';
-    case STAT.ARMOR: return 'Armor';
-    case STAT.WDPS: return 'Weapon DPS';
     default: return null;
   }
 }
@@ -74,8 +69,6 @@ export function getClassNameColor(stat) {
     case STAT.LEECH: return 'stat-leech';
     case STAT.AVOIDANCE: return 'stat-avoidance';
     case STAT.SPEED: return 'stat-speed';
-    case STAT.ARMOR: return 'stat-armor';
-    case STAT.WDPS: return 'stat-criticalstrike';
     default: return null;
   }
 }
@@ -98,14 +91,6 @@ export function getIcon(stat) {
     case STAT.VERSATILITY: return VersatilityIcon;
     case STAT.VERSATILITY_DR: return VersatilityIcon;
     case STAT.LEECH: return LeechIcon;
-    case STAT.ARMOR: return StaminaIcon;
-    case STAT.WDPS: return (props) => (
-      <img
-        src="/img/sword.png"
-        style={{ border: 0 }}
-        alt="Sword"
-      />
-    );
     default: return null;
   }
 }

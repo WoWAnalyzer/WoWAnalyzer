@@ -9,6 +9,7 @@ import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import StatisticWrapper from 'interface/others/StatisticWrapper';
 import STAT, { getClassNameColor, getIcon, getName } from 'parser/shared/modules/features/STAT';
 import { formatNumber } from 'common/format';
+import Tab from 'interface/others/Tab';
 
 import { BASE_AGI } from '../../constants';
 import CelestialFortune from '../spells/CelestialFortune';
@@ -23,9 +24,54 @@ function formatGain(gain) {
   if(typeof gain === 'number') {
     return formatNumber(gain);
   } else if(gain.low !== undefined && gain.high !== undefined) {
-    return <small>{`${formatNumber(gain.low)} - ${formatNumber(gain.high)}`}</small>;
+    return `${formatNumber(gain.low)} - ${formatNumber(gain.high)}`;
   }
   return null;
+}
+
+function formatWeight(gain, avg, norm) {
+  if(typeof gain === 'number') {
+    return (gain / avg / norm).toFixed(2);
+  } else if(gain.low !== undefined && gain.high !== undefined) {
+    return `${(gain.low / avg / norm).toFixed(2)} - ${(gain.high / avg / norm).toFixed(2)}`;
+  }
+  return null;
+}
+
+function calculateTotalGain(gain) {
+  const { low, high } = gain
+    .filter(({isLoaded}) => isLoaded !== false)
+    .reduce(({low, high}, {amount}) => {
+    if(typeof amount === 'number') {
+      low += amount;
+      high += amount;
+    } else if(amount.low !== undefined && amount.high !== undefined) {
+      low += amount.low;
+      high += amount.high;
+    }
+    return {
+      low, high
+    };
+  }, { low: 0, high: 0 });
+
+  if(low === high) {
+    return low;
+  }
+
+  return { 
+    low, high
+  };
+}
+
+function makeIcon(stat) {
+  const Icon = getIcon(stat);
+  return <Icon
+    style={{
+      height: '1.6em',
+      width: '1.6em',
+      marginRight: 10,
+    }}
+  />;
 }
 
 export default class MitigationSheet extends Analyzer {
@@ -57,9 +103,6 @@ export default class MitigationSheet extends Analyzer {
   }
 
   _critBonusHealing = 0;
-  get critHealing() {
-    return this.cf.totalHealing + this._critBonusHealing;
-  }
 
   get agiDamageMitigated() {
     return this.agilityValue.totalAgiPurified;
@@ -170,139 +213,203 @@ export default class MitigationSheet extends Analyzer {
 
   }
 
+  get normalizer() {
+    return this.armorDamageMitigated / this._avgStats.armor;
+  }
+
   get results() {
-    const armorPerPt = this.armorDamageMitigated / this._avgStats.armor;
-    const agiHigh = this.agiDamageMitigated + this.agiDamageDodged + this.agiHealing;
-    const agiLow = this.agiDamageMitigated + this.agiDamageDodged * (1 - this.stagger.pctPurified) + this.agiHealing;
     return {
-      [STAT.WDPS]: {
+      wdps: {
+        icon: (
+          <img
+            src="/img/sword.png"
+            style={{ 
+              border: 0,
+              marginRight: 10,
+            }}
+            alt="Sword"
+          />
+        ),
+        name: 'Weapon DPS',
+        className: 'stat-criticalstrike',
         avg: this.gotox._wdps,
-        gain: this.wdpsHealing,
-        weight: this.wdpsHealing / this.gotox._wdps / armorPerPt,
+        gain: [
+          { name: <><SpellLink id={SPELLS.GIFT_OF_THE_OX_1.id} /> Healing</>, amount: this.wdpsHealing },
+        ],
       },
-      [STAT.ARMOR]: {
+      armor: {
+        icon: (
+          <img
+            src="/img/shield.png"
+            style={{ 
+              border: 0,
+              marginRight: 10,
+            }}
+            alt="Shield"
+          />
+        ),
+        name: 'Armor',
+        className: 'stat-stamina',
         avg: this._avgStats.armor,
-        gain: this.armorDamageMitigated,
+        gain: [
+          { name: 'Physical Damage Mitigated', amount: this.armorDamageMitigated },
+        ],
         weight: 1,
-        _scale: armorPerPt,
+        _scale: this.normalizer,
       },
       [STAT.AGILITY]: {
+        icon: makeIcon(STAT.AGILITY),
+        name: getName(STAT.AGILITY),
+        className: getClassNameColor(STAT.AGILITY),
         avg: this._avgStats.agility - BASE_AGI,
-        gain: {
-          low: agiLow,
-          high: agiHigh,
-        },
-        weight: (agiHigh + agiLow) / 2 / (this._avgStats.agility - BASE_AGI) / armorPerPt,
-        tooltip: `Calculated based on additional damage purified due to Agility, additional dodge, and additional GotOx healing. Only Agility from gear and buffs is counted.<br/>
-        Breakdown:
-        <ul>
-          <li>Purification: ${formatNumber(this.agilityValue.totalAgiPurified)}</li>
-          <li>Dodge: ≈${formatNumber(this.masteryValue.expectedMitigation - this.masteryValue.noAgiExpectedDamageMitigated)}</li>
-          <li>Healing: ${formatNumber(this.agilityValue.totalAgiHealing)}</li>
-        </ul>`,
-        isLoaded: this.masteryValue._loaded,
+        gain: [
+          { name: <><SpellLink id={SPELLS.GIFT_OF_THE_OX_1.id} /> Healing</>, amount: this.agiHealing },
+          { 
+            name: 'Dodge', 
+            amount: { 
+              low: this.agiDamageDodged * (1 - this.stagger.pctPurified), 
+              high: this.agiDamageDodged 
+            },
+            isLoaded: this.masteryValue._loaded,
+          },
+          { name: <>Extra <SpellLink id={SPELLS.PURIFYING_BREW.id} /> Effectiveness</>, amount: this.agiDamageMitigated },
+        ],
       },
       [STAT.MASTERY]: {
+        icon: makeIcon(STAT.MASTERY),
+        name: getName(STAT.MASTERY),
+        className: getClassNameColor(STAT.MASTERY),
         avg: this._avgStats.mastery,
-        gain: {
-          low: this.masteryDamageMitigated * (1 - this.stagger.pctPurified) + this.masteryHealing,
-          high: this.masteryDamageMitigated + this.masteryHealing,
-        },
-        weight: this.masteryDamageMitigated * (1 + 1 - this.stagger.pctPurified) / 2 / this._avgStats.mastery / armorPerPt,
+        gain: [
+          { name: <><SpellLink id={SPELLS.GIFT_OF_THE_OX_1.id} /> Healing</>, amount: this.masteryHealing },
+          { 
+            name: 'Dodge', 
+            amount:{
+              low: this.masteryDamageMitigated * (1 - this.stagger.pctPurified),
+              high: this.masteryDamageMitigated,
+            },
+            isLoaded: this.masteryValue._loaded,
+          },
+        ],
         tooltip: 'Estimated only after the "Expected Mitigation by Mastery" stat is loaded.',
-        isLoaded: this.masteryValue._loaded,
       },
       [STAT.VERSATILITY]: {
+        icon: makeIcon(STAT.VERSATILITY),
+        name: getName(STAT.VERSATILITY),
+        className: getClassNameColor(STAT.VERSATILITY),
         avg: this._avgStats.versatility,
-        gain: this.versDamageMitigated + this.versHealing,
-        weight: (this.versDamageMitigated + this.versHealing) / this._avgStats.versatility / armorPerPt,
-        tooltip: 'Includes both <em>damage mitigated</em> and <em>increased healing</em>.',
+        gain: [
+          { name: 'Damage Mitigated', amount: this.versDamageMitigated },
+          { name: 'Additional Healing', amount: this.versHealing },
+        ]
       },
       [STAT.CRITICAL_STRIKE]: {
+        icon: makeIcon(STAT.CRITICAL_STRIKE),
+        name: getName(STAT.CRITICAL_STRIKE),
+        className: getClassNameColor(STAT.CRITICAL_STRIKE),
         avg: this._avgStats.crit,
-        gain: this.critHealing,
-        weight: this.critHealing / this._avgStats.crit / armorPerPt,
+        gain: [
+          { name: <><SpellLink id={SPELLS.CELESTIAL_FORTUNE_HEAL.id} /> Healing</>, amount: this.cf.totalHealing },
+          { name: 'Critical Heals', amount: this._critBonusHealing }
+        ],
       },
     };
   }
 
-  statistic() {
+  statEntries() {
+    return Object.entries(this.results).map(([stat, result]) => {
+      const { icon, className, name, avg, gain, tooltip } = result;
+
+      const totalGain = calculateTotalGain(gain);
+
+      const rows = gain.map(({ name, amount: gain, isLoaded }, i) => {
+        let gainEl;
+        if(isLoaded !== false) {
+          gainEl = formatGain(gain);
+        } else {
+          gainEl = <dfn data-tip="Not Yet Loaded">NYL</dfn>;
+        }
+
+        let valueEl;
+        if(isLoaded !== false) {
+          valueEl = formatWeight(gain, avg, this.normalizer);
+        } else {
+          valueEl = <dfn data-tip="Not Yet Loaded">NYL</dfn>;
+        }
+
+        return (
+          <tr key={`${stat}-${i}`}>
+            <td style={{paddingLeft: '5em'}}>
+              {name}
+            </td>
+            <td className="text-right">
+              {gainEl}
+            </td>
+            <td className="text-right">
+              {valueEl}
+            </td>
+          </tr>
+        );
+      });
+
+      return (
+        <>
+        <tr key={stat}>
+          <td className={className}>
+              {icon}{' '}
+              {tooltip ? <dfn data-tip={tooltip}>{name}</dfn> : name}
+          </td>
+          <td className="text-right">
+            <b>{formatGain(totalGain)}</b>
+          </td>
+          <td className="text-right">
+            <b>{formatWeight(totalGain, avg, this.normalizer)}</b>
+          </td>
+        </tr>
+        {rows}
+        </>
+      )
+    });
+  }
+
+  entries() {
     return (
-      <StatisticWrapper position={STATISTIC_ORDER.CORE(11)}>
-        <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
-          <div className="panel items">
-            <div className="panel-heading">
-              <h2>
-                <dfn data-tip="<b>Effective Healing</b> is the amount of damage that was either <em>prevented</em> or <em>healed</em> by an ability. These values are calculated using the actual circumstances of this encounter. While these are informative for understanding the effectiveness of various stats, they may not necessarily be the best way to gear. The stat values are likely to differ based on personal play, fight, raid size, items used, talents chosen, etc.<br /><br />DPS gains are not included in any of the stat values.">Effective Healing</dfn>
-
-                {this.moreInformationLink && (
-                  <a href={this.moreInformationLink} className="pull-right">
-                    More info
-                  </a>
-                )}
-              </h2>
-            </div>
-            <div className="panel-body" style={{ padding: 0 }}>
-              <table className="data-table compact">
-                <thead>
-                  <tr>
-                    <th>
-                      <b>Stat</b>
-                    </th>
-                    <th className="text-right">
-                      <b>Total</b>
-                    </th>
-                    <th className="text-right">
-                      <dfn data-tip="Value per rating. Normalized so Armor is always 1.00."><b>Norm.</b></dfn>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {Object.entries(this.results).map(([stat, result]) => {
-                    const { gain, weight, tooltip, isLoaded } = result;
-                    const Icon = getIcon(stat);
-
-                    let gainEl = 'NYI';
-                    if(gain !== null && isLoaded !== false) {
-                      gainEl = formatGain(gain);
-                    } else if(gain !== null) {
-                      gainEl = <dfn data-tip="Not Yet Loaded">NYL</dfn>;
-                    }
-
-                    let valueEl = 'NYI';
-                    if(gain !== null && isLoaded !== false) {
-                      valueEl = weight.toFixed(2);
-                    } else if(gain !== null) {
-                      valueEl = <dfn data-tip="Not Yet Loaded">NYL</dfn>;
-                    }
-
-                    return (
-                      <tr key={stat}>
-                        <td className={getClassNameColor(stat)}>
-                          <Icon
-                            style={{
-                              height: '1.6em',
-                              width: '1.6em',
-                              marginRight: 10,
-                            }}
-                          />{' '}
-                          {tooltip ? <dfn data-tip={tooltip}>{getName(stat)}</dfn> : getName(stat)}
-                        </td>
-                        <td className="text-right">
-                          {gainEl}
-                        </td>
-                        <td className="text-right">
-                          {valueEl}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </StatisticWrapper>
+      <>
+      <thead>
+        <tr>
+          <th>
+            <b>Stat</b>
+          </th>
+          <th className="text-right">
+            <b>Total</b>
+          </th>
+          <th className="text-right">
+            <dfn data-tip="Value per rating. Normalized so Armor is always 1.00."><b>Normalized</b></dfn>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {this.statEntries()};
+      </tbody>
+      </>
     );
+  }
+
+  tab() {
+    return {
+      title: 'Mitigation Values',
+      url: 'mitigation-sheet',
+      render: () => (
+        <Tab>
+          <div style={{ marginTop: -10, marginBottom: -10 }}>
+            <div style={{padding: '1em'}}>Relative value of different stats for mitigation on this specific log measured by <em>Effective Healing</em>. <b>These values are not stat weights, and should not be used with Pawn or other stat-weight addons.</b></div>
+            <div style={{padding: '1em'}}><b>Effective Healing</b> is the amount of damage that was either <em>prevented</em> or <em>healed</em> by an ability. These values are calculated using the actual circumstances of this encounter. While these are informative for understanding the effectiveness of various stats, they may not necessarily be the best way to gear. The stat values are likely to differ based on personal play, fight, raid size, items used, talents chosen, etc.<br /><br />DPS gains are not included in any of the stat values.</div>
+            <table className="data-table" style={{ marginTop: 10, marginBottom: 10 }}>
+              {this.entries()}
+            </table>
+          </div>
+        </Tab>
+      ),
+    };
   }
 }
