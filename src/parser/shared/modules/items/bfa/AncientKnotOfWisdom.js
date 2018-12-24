@@ -72,8 +72,9 @@ class AncientKnotOfWisdom extends Analyzer {
     return {
       item: ITEMS.ANCIENT_KNOT_OF_WISDOM,
       result: (
-        <dfn data-tip={`Average intellect gained ${formatNumber(this.intellectPerStack * this.totalBuffUptime * 12)}`}>
-          Used {this.casts} times / {formatPercentage(this.totalBuffUptime)}% uptime
+        <dfn data-tip={`Used ${this.casts} times`}>
+          {formatPercentage(this.totalBuffUptime)}% uptime<br />
+          {formatNumber(this.intellectPerStack * this.totalBuffUptime * 12)} average intellect
         </dfn>
       ),
     };

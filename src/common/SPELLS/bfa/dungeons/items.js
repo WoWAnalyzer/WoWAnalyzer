@@ -185,7 +185,7 @@ export default {
   // Darkshore War Front //
   WISDOM_OF_THE_FOREST_LORD: {
     id: 278267,
-    name: 'Wisdom of the Forest lord',
+    name: 'Wisdom of the Forest Lord',
     icon: 'inv_spiritshard_02',
   },
 };
