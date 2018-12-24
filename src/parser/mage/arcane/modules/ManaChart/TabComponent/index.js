@@ -15,8 +15,7 @@ const Mana = ({ parser }) => (
       start={parser.fight.start_time}
       end={parser.fight.end_time}
       manaUpdates={parser.getModule(ManaValues).manaUpdates}
-      currentTimestamp={parser.currentTimestamp}
-    /> {/* the currentTimestamp makes sure the Mana tab re-renders after parsing events */}
+    />
   </Panel>
 );
 Mana.propTypes = {
