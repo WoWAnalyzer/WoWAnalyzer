@@ -67,14 +67,19 @@ class AncientKnotOfWisdom extends Analyzer {
   get totalBuffUptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.WISDOM_OF_THE_FOREST_LORD.id) / this.owner.fightDuration;
   }
-  
+
+  get averageIntellect() {
+    const averageStacks = this.selectedCombatant.getStackWeightedBuffUptime(SPELLS.WISDOM_OF_THE_FOREST_LORD.id) / this.owner.fightDuration;
+    return (averageStacks * this.intellectPerStack).toFixed(0);
+  }
+
   item() {
     return {
       item: ITEMS.ANCIENT_KNOT_OF_WISDOM,
       result: (
         <dfn data-tip={`Used ${this.casts} times`}>
           {formatPercentage(this.totalBuffUptime)}% uptime<br />
-          {formatNumber(this.intellectPerStack * this.totalBuffUptime * 12)} average intellect
+          {formatNumber(this.averageIntellect)} average intellect
         </dfn>
       ),
     };
