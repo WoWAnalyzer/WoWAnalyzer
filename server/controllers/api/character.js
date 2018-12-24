@@ -1,8 +1,10 @@
 import Express from 'express';
 import Sequelize from 'sequelize';
 import Raven from 'raven';
+import { StatusCodeError } from 'request-promise-native/errors';
 
 import WowCommunityApi from 'helpers/WowCommunityApi';
+import RegionNotSupportedError from 'helpers/RegionNotSupportedError';
 
 import models from '../../models';
 
@@ -37,6 +39,12 @@ function send404(res) {
   res.sendStatus(404);
 }
 
+const characterIdFromThumbnailRegex = /\/([0-9]+)-/;
+function getCharacterId(thumbnail) {
+  const [,characterId] = characterIdFromThumbnailRegex.exec(thumbnail);
+  return characterId;
+}
+
 async function getCharacterFromBlizzardApi(region, realm, name) {
   const response = await WowCommunityApi.fetchCharacter(region, realm, name, 'talents');
   const data = JSON.parse(response);
@@ -50,7 +58,7 @@ async function getCharacterFromBlizzardApi(region, realm, name) {
   delete other.totalHonorableKills;
   delete other.level;
   delete other.lastModified;
-  const [, characterId] = characterIdFromThumbnailRegex.exec(thumbnail);
+  const characterId = getCharacterId(thumbnail);
   const json = {
     id: Number(characterId),
     region,
@@ -98,32 +106,43 @@ async function fetchCharacter(region, realm, name, res = null) {
     // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
     storeCharacter(charFromApi);
   } catch (error) {
-    const { statusCode, message, response } = error;
-    console.log('Error fetching character', statusCode, message);
-    if (!res) {
+    const body = error.response ? error.response.body : null;
+
+    // We can't currently support the CN region because of Blizzard API restrictions
+    if (error instanceof RegionNotSupportedError) {
+      // Record the error because we want to know how often this occurs and if it breaks anything
+      Raven.installed && Raven.captureException(error);
+      if (res) {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.status(500);
+        sendJson(res, {
+          error: 'This region is not supported',
+        });
+      }
       return;
     }
-    const body = response ? response.body : null;
-    // Ignore 404 - Character not found errors. We check for the text so this doesn't silently break when the API endpoint changes.
-    const isCharacterNotFoundError = statusCode === 404 && body && body.includes('Character not found.');
-    if (isCharacterNotFoundError) {
-      send404(res);
-    } else {
-      Raven.installed && Raven.captureException(error);
+
+    // Handle 404: character not found errors.
+    if (error instanceof StatusCodeError) {
+      // We check for the text so this doesn't silently break when the API endpoint changes.
+      const isCharacterNotFoundError = error.statusCode === 404 && body && body.includes('Character not found.');
+      if (isCharacterNotFoundError) {
+        send404(res);
+        return;
+      }
+    }
+
+    // Everything else is unexpected
+    Raven.installed && Raven.captureException(error);
+    if (res) {
       res.setHeader('Access-Control-Allow-Origin', '*');
-      res.status(statusCode || 500);
+      res.status(error.statusCode || 500);
       sendJson(res, {
         error: 'Blizzard API error',
-        message: body || message,
+        message: body || error.message,
       });
     }
   }
-}
-
-const characterIdFromThumbnailRegex = /\/([0-9]+)-/;
-function getCharacterId(characterInfo) {
-  const [,characterId] = characterIdFromThumbnailRegex.exec(characterInfo.thumbnail);
-  return characterId;
 }
 
 const router = Express.Router();
