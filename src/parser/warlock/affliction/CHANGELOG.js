@@ -6,6 +6,16 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-12-21'),
+    changes: <>Added <SpellLink id={SPELLS.PANDEMIC_INVOCATION.id} /> trait and updated <SpellLink id={SPELLS.INEVITABLE_DEMISE.id} /> icon.</>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2018-12-23'),
+    changes: 'Changed display of damage in various places. Now shows % of total damage done and DPS with raw values in tooltip.',
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-12-10'),
     changes: <>Updated for patch 8.1 - <SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} /> nerf.</>,
     contributors: [Chizu],

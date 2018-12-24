@@ -82,11 +82,11 @@ class SacrificedSouls extends Analyzer {
     }
     return (
       <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.SACRIFICED_SOULS_TALENT.id} /> bonus damage</>}
-        value={`${formatThousands(this.totalBonusDamage)}${hasPS ? '*' : ''}`}
-        valueTooltip={`${this.owner.formatItemDamageDone(this.totalBonusDamage)}<br />
-                  Bonus Shadow Bolt damage: ${formatThousands(this._shadowBoltDamage)}<br />
-                  Bonus Demonbolt damage: ${formatThousands(this._demonboltDamage)}
+        title={<><SpellLink id={SPELLS.SACRIFICED_SOULS_TALENT.id} /> bonus dmg</>}
+        value={`${this.owner.formatItemDamageDone(this.totalBonusDamage)}${hasPS ? '*' : ''}`}
+        valueTooltip={`${formatThousands(this.totalBonusDamage)} bonus damage<br />
+                  Bonus Shadow Bolt damage: ${formatThousands(this._shadowBoltDamage)} (${this.owner.formatItemDamageDone(this._shadowBoltDamage)})<br />
+                  Bonus Demonbolt damage: ${formatThousands(this._demonboltDamage)} (${this.owner.formatItemDamageDone(this._demonboltDamage)})
                   ${powerSiphonTooltip}`}
       />
     );

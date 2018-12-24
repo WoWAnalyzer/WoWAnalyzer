@@ -5,10 +5,8 @@ import SpellLink from 'common/SpellLink';
 import Analyzer from 'parser/core/Analyzer';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
-import StatisticBox from 'interface/others/StatisticBox';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatMilliseconds } from 'common/format';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
 // The potential amount of hits per target per stampede cast.
 // By checking through various Zek'voz logs, it seems to consistently hit the boss 18 times, except if the boss was moved.
@@ -28,7 +26,6 @@ class Stampede extends Analyzer {
   hits = 0;
   averageHits = 0;
   inefficientCasts = 0;
-
 
   constructor(...args) {
     super(...args);
@@ -94,9 +91,9 @@ class Stampede extends Analyzer {
   suggestions(when) {
     when(this.stampedeInefficientCastsThreshold)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>You cast <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> inefficiently {actual} {actual > 1 ? "times" : "time"} throughout the fight. This means you've placed <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> at a place where it was impossible for it to deal it's full damage, or the enemy moved out of it. Avoid using <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> on moments where it's likely the enemy will be moving out of it.</>)
+        return suggest(<>You cast <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> inefficiently {actual} {actual > 1 ? 'times' : 'time'} throughout the fight. This means you've placed <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> at a place where it was impossible for it to deal it's full damage, or the enemy moved out of it. Avoid using <SpellLink id={SPELLS.STAMPEDE_TALENT.id} /> on moments where it's likely the enemy will be moving out of it.</>)
           .icon(SPELLS.STAMPEDE_TALENT.icon)
-          .actual(`${actual} inefficient ${actual > 1 ? "casts" : "cast"}`)
+          .actual(`${actual} inefficient ${actual > 1 ? 'casts' : 'cast'}`)
           .recommended(`${recommended} is recommended`);
       });
   }
@@ -106,11 +103,9 @@ class Stampede extends Analyzer {
       const averageHit = this.damage / this.hits;
       const stampedePlural = this.casts.length === 1 ? `1 Stampede` : `a total of ${this.casts.length} Stampedes`;
       return (
-        <StatisticBox
-          icon={<SpellIcon id={SPELLS.STAMPEDE_TALENT.id} />}
-          value={<>{this.casts.length} {this.casts.length > 1 ? "casts" : "cast"} / {this.hits} hits</>}
-          label="Stampede"
-          category={STATISTIC_CATEGORY.TALENTS}
+        <TalentStatisticBox
+          talent={SPELLS.STAMPEDE_TALENT.id}
+          value={<>{this.casts.length} {this.casts.length > 1 ? 'casts' : 'cast'} / {this.hits} hits</>}
           tooltip={`You cast ${stampedePlural} in the fight, which hit enemies ${this.hits} times for an average of ${formatNumber(averageHit)} damage per hit.`}
         >
           <table className="table table-condensed">
@@ -133,7 +128,7 @@ class Stampede extends Analyzer {
               ))}
             </tbody>
           </table>
-        </StatisticBox>
+        </TalentStatisticBox>
       );
     }
     return null;

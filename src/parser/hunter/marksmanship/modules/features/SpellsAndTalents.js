@@ -4,12 +4,8 @@ import StatisticsListBox from 'interface/others/StatisticsListBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import Analyzer from 'parser/core/Analyzer';
-
-import AMurderOfCrows from '../../../shared/modules/talents/AMurderOfCrows';
-import Barrage from '../../../shared/modules/talents/Barrage';
 import LoneWolf from '../spells/LoneWolf';
 import Volley from '../talents/Volley';
-import ExplosiveShot from '../talents/ExplosiveShot';
 import PiercingShot from '../talents/PiercingShot';
 import HuntersMark from '../talents/HuntersMark';
 import SerpentSting from '../talents/SerpentSting';
@@ -20,10 +16,7 @@ class SpellsAndTalents extends Analyzer {
     loneWolf: LoneWolf,
     preciseShots: PreciseShots,
     volley: Volley,
-    explosiveShot: ExplosiveShot,
-    aMurderOfCrows: AMurderOfCrows,
     piercingShot: PiercingShot,
-    barrage: Barrage,
     huntersMark: HuntersMark,
     serpentSting: SerpentSting,
   };
@@ -46,10 +39,7 @@ class SpellsAndTalents extends Analyzer {
         {this.loneWolf.active && this.loneWolf.subStatistic()}
         {this.preciseShots.active && this.preciseShots.subStatistic()}
         {this.volley.active && this.volley.subStatistic()}
-        {this.explosiveShot.active && this.explosiveShot.subStatistic()}
-        {this.aMurderOfCrows.active && this.aMurderOfCrows.subStatistic()}
         {this.piercingShot.active && this.piercingShot.subStatistic()}
-        {this.barrage.active && this.barrage.subStatistic()}
         {this.huntersMark.active && this.huntersMark.subStatistic()}
         {this.serpentSting.active && this.serpentSting.subStatistic()}
       </StatisticsListBox>

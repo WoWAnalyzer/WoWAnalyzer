@@ -7,24 +7,17 @@ import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import Events from 'parser/core/Events';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 const RAGE_PER_PROC = 10;
 
 const testOfMightStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [strength] = calculateAzeriteEffects(SPELLS.TEST_OF_MIGHT.id, rank);
   obj.strength += strength;
-  obj.traits += 1;
   return obj;
 }, {
   strength: 0,
-  traits: 0,
 });
-
-export const STAT_TRACKER = {
-  strength: combatant => {
-    return testOfMightStats(combatant.traitsBySpellId[SPELLS.TEST_OF_MIGHT.id]).strength;
-  },
-};
 
 /**
  * Normal:
@@ -35,13 +28,12 @@ export const STAT_TRACKER = {
  */
 
 class TestOfMight extends Analyzer {
-
   static dependencies = {
     enemies: Enemies,
+    statTracker: StatTracker,
   };
 
   strength = 0;
-  traits = 0;
 
   proc = 0;
   strengthOnToM = 0;
@@ -54,10 +46,12 @@ class TestOfMight extends Analyzer {
     if (!this.active) {
       return;
     }
-
-    const { strength, traits } = testOfMightStats(this.selectedCombatant.traitsBySpellId[SPELLS.TEST_OF_MIGHT.id]);
+    const { strength } = testOfMightStats(this.selectedCombatant.traitsBySpellId[SPELLS.TEST_OF_MIGHT.id]);
     this.strength = strength;
-    this.traits = traits;
+
+    this.statTracker.add(SPELLS.TEST_OF_MIGHT.id, {
+      strength,
+    });
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this._onCast);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.TEST_OF_MIGHT_BUFF), this._onTestOfMightBuff);

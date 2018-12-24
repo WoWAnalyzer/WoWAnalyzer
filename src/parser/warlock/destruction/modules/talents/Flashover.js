@@ -64,8 +64,8 @@ class Flashover extends Analyzer {
       <>
         <StatisticListBoxItem
           title={<><SpellLink id={SPELLS.FLASHOVER_TALENT.id} /> bonus damage</>}
-          value={formatThousands(this.damage)}
-          valueTooltip={this.owner.formatItemDamageDone(this.damage)}
+          value={this.owner.formatItemDamageDone(this.damage)}
+          valueTooltip={`${formatThousands(this.damage)} bonus damage`}
         />
         <StatisticListBoxItem
           title={<>Bonus <SpellLink id={SPELLS.BACKDRAFT.id} /> stacks from <SpellLink id={SPELLS.FLASHOVER_TALENT.id} /></>}

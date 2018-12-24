@@ -2,14 +2,9 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
-import SpellIcon from 'common/SpellIcon';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import StatisticBox from 'interface/others/StatisticBox';
 import { formatPercentage } from 'common/format';
-import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
 const MAX_STACKS = 5;
 
@@ -45,13 +40,9 @@ class MongooseBite extends Analyzer {
     if (event.type === 'damage') {
       // Because Aspect of the Eagle applies a traveltime to Mongoose Bite, it sometimes applies the buff before it hits, despite not increasing the damage.
       // This fixes that, ensuring we reduce by 1, and later increasing it by one.
-
       if (this.lastMongooseBiteStack === 1 && event.timestamp < this.buffApplicationTimestamp + MAX_TRAVEL_TIME) {
         this.lastMongooseBiteStack -= 1;
         this.aspectOfTheEagleFixed = true;
-      }
-      if (this.lastMongooseBiteStack === 1) {
-        console.log("Her er der 1 stack", event.timestamp);
       }
       if (!this.mongooseBiteStacks[this.lastMongooseBiteStack]) {
         this.mongooseBiteStacks[this.lastMongooseBiteStack].push(this.lastMongooseBiteStack);
@@ -124,13 +115,13 @@ class MongooseBite extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(15)}
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.MONGOOSE_FURY.id} />}
-        value={`${this.fiveStackMongooseBites}/${this.totalMongooseBites}`}
-        label="5 stack bites"
-        tooltip={`This may look like it's bugged, but this is actually how Mongoose Bite functions live in-game. There is no such thing as a 1-stack Mongoose Bite.
+      <TalentStatisticBox
+        talent={SPELLS.MONGOOSE_BITE_TALENT.id}
+        value={<>
+          <ItemDamageDone amount={this.damage} /> <br />
+          {this.fiveStackMongooseBites}/{this.totalMongooseBites} 5 stack bites
+        </>}
+        tooltip={`
         <ul>
           <li>You hit an average of ${(this.mongooseBiteStacks[MAX_STACKS] / this.fiveBiteWindows).toFixed(1)} bites when you had ${MAX_STACKS} stacks of Mongoose Fury. </li>
           <li>You hit an average of ${(this.totalMongooseBites / this.totalWindowsStarted).toFixed(1)} bites per Mongoose Fury window started.</li>
@@ -154,16 +145,7 @@ class MongooseBite extends Analyzer {
             ))}
           </tbody>
         </table>
-      </StatisticBox>
-    );
-  }
-
-  subStatistic() {
-    return (
-      <StatisticListBoxItem
-        title={<SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />}
-        value={<ItemDamageDone amount={this.damage} />}
-      />
+      </TalentStatisticBox>
     );
   }
 }

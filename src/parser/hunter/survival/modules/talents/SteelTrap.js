@@ -4,9 +4,8 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
 /**
  * Hurls a Steel Trap to the target location that snaps shut on the
@@ -22,7 +21,7 @@ class SteelTrap extends Analyzer {
     spellUsable: SpellUsable,
   };
 
-  bonusDamage = 0;
+  damage = 0;
   casts = 0;
 
   constructor(...args) {
@@ -44,17 +43,17 @@ class SteelTrap extends Analyzer {
       return;
     }
     if (this.casts === 0) {
-      this.casts++;
+      this.casts += 1;
       this.spellUsable.beginCooldown(SPELLS.STEEL_TRAP_TALENT.id, this.owner.fight.start_time);
     }
-    this.bonusDamage += event.amount + (event.absorbed || 0);
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
-  subStatistic() {
+  statistic() {
     return (
-      <StatisticListBoxItem
-        title={<SpellLink id={SPELLS.STEEL_TRAP_TALENT.id} />}
-        value={<ItemDamageDone amount={this.bonusDamage} />}
+      <TalentStatisticBox
+        talent={SPELLS.STEEL_TRAP_TALENT.id}
+        value={<ItemDamageDone amount={this.damage} />}
       />
     );
   }

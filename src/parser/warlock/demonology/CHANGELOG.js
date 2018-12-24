@@ -6,6 +6,16 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-12-23'),
+    changes: <>Added support for <SpellLink id={SPELLS.BALEFUL_INVOCATION.id} /> trait. Also fixed <SpellLink id={SPELLS.DEMONBOLT.id} /> icon in Soul Shard tab. </>,
+    contributors: [Chizu],
+  },
+  {
+    date: new Date('2018-12-23'),
+    changes: 'Changed display of damage in various places. Now shows % of total damage done and DPS with raw values in tooltip.',
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-12-10'),
     changes: 'Updated for patch 8.1 changes.',
     contributors: [Chizu],
