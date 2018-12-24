@@ -5,7 +5,9 @@ import RequestTimeoutError from 'helpers/request/RequestTimeoutError';
 import RequestSocketTimeoutError from 'helpers/request/RequestSocketTimeoutError';
 import RequestConnectionResetError from 'helpers/request/RequestConnectionResetError';
 import RequestUnknownError from 'helpers/request/RequestUnknownError';
+
 import retryingRequest from './retryingRequest';
+import RegionNotSupportedError from './RegionNotSupportedError';
 
 const REGIONS = {
   EU: 'EU',
@@ -56,7 +58,7 @@ class WowCommunityApi { // TODO: extends ExternalApi that provides a generic _fe
   _getRegion(regionCode) {
     const region = REGIONS[regionCode.toUpperCase()];
     if (!region) {
-      throw new Error('Region not recognized.');
+      throw new RegionNotSupportedError();
     }
     return region;
   }
