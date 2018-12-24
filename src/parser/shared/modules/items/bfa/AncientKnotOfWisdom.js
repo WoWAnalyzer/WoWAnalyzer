@@ -50,9 +50,8 @@ class AncientKnotOfWisdom extends Analyzer {
         },
       });
 
-      /* Base intellect decreases 5 time in equal increments,
-       * the average intellect gained is equal to (0.6) * intellect.
-       */
+      /* Base intellect decreases 5 times in equal increments,
+       * the average intellect gained is equal to (0.6) * intellect. */
       this.statTracker.add(SPELLS.WISDOM_OF_THE_FOREST_LORD.id, {
         intellect: this.intellect * 0.6,
       });
