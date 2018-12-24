@@ -6,6 +6,11 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-12-25'),
+    changes: <> Added a statistic for <SpellLink id={SPELLS.FLANKING_STRIKE_TALENT.id} />, <SpellLink id={SPELLS.TIP_OF_THE_SPEAR_TALENT.id} />, <SpellLink id={SPELLS.HYDRAS_BITE_TALENT.id} />, <SpellLink id={SPELLS.GUERRILLA_TACTICS_TALENT.id} />.</>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-12-24'),
     changes: <> Added a statistic for <SpellLink id={SPELLS.ALPHA_PREDATOR_TALENT.id} />, <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> and <SpellLink id={SPELLS.BLOODSEEKER_TALENT.id} />.</>,
     contributors: [Putro],
