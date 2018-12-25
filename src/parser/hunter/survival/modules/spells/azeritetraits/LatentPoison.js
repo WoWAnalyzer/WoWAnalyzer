@@ -2,6 +2,7 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import SPELLS from 'common/SPELLS';
+import { RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
 
 /**
  * Serpent Sting damage applies Latent Poison, stacking up to 10 times. Your Mongoose Bite or Raptor Strike consumes all applications of Latent Poison to deal 451 Nature damage per stack.
@@ -10,13 +11,6 @@ import SPELLS from 'common/SPELLS';
  */
 
 const MAX_STACKS = 10;
-
-const TRIGGERING_SPELLS = [
-  SPELLS.MONGOOSE_BITE_TALENT.id,
-  SPELLS.MONGOOSE_BITE_TALENT_AOTE.id,
-  SPELLS.RAPTOR_STRIKE.id,
-  SPELLS.RAPTOR_STRIKE_AOTE.id,
-];
 
 class LatentPoison extends Analyzer {
 
@@ -73,7 +67,7 @@ class LatentPoison extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (!TRIGGERING_SPELLS.includes(spellId)) {
+    if (!RAPTOR_MONGOOSE_VARIANTS.includes(spellId)) {
       return;
     }
     this.utilised += this._stacks;
@@ -90,7 +84,8 @@ class LatentPoison extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.LATENT_POISON.id}
         value={`${this.averageStacksPerRaptorOrMongoose} pr ${this.spellKnown}`}
-        tooltip={`${this.utilised} debuffs consumed / ${this.maxPossible} possible. ${this.wasted > 0 ? <><br /> You cast ${this.spellKnown} ${this.wasted} times while you already had ${MAX_STACKS} stacks on the target.</> : ''}`} />
+        tooltip={`${this.utilised} debuffs consumed / ${this.maxPossible} possible. ${this.wasted > 0 ? <><br /> You cast ${this.spellKnown} ${this.wasted} times while you already had ${MAX_STACKS} stacks on the target.</> : ''}`}
+      />
     );
   }
 }
