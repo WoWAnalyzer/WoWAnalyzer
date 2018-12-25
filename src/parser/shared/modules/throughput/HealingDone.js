@@ -100,7 +100,7 @@ class HealingDone extends Analyzer {
           >
             {formatThousands(this.total.effective / this.owner.fightDuration * 1000)} HPS
           </div>
-          <div className={`flex-sub ${rankingColor(performance)}`} style={{ padding: '10px 30px' }}>
+          <div className={`flex-sub ${rankingColor(performance)}`} style={{ width: 110, textAlign: 'center' }}>
             {formatPercentage(performance, 0)}%
           </div>
           <div className="flex-main" style={{ padding: 0 }}>

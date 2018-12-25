@@ -89,8 +89,7 @@ class DamageTaken extends Analyzer {
       .map(type => `<li><b>${MAGIC_SCHOOLS.names[type] || 'Unknown'}</b>: ${formatThousands(this._byMagicSchool[type].effective)} (${formatPercentage(this._byMagicSchool[type].effective / this.total.effective)}%)</li>`
       )
       .join('')}
-      </ul>
-      Click the bar to switch between simple and detailed mode.`;
+      </ul>`;
   }
 
   showStatistic = true;
@@ -117,12 +116,12 @@ class DamageTaken extends Analyzer {
           <div
             className="flex-sub"
             style={{ fontWeight: 500, width: 190, textAlign: 'center' }}
-            data-tip={`Total damage taken: <b>${formatThousands(this.total.effective)}</b>`}
+            data-tip={this.tooltip}
           >
             {formatThousands(this.total.effective / this.owner.fightDuration * 1000)} DTPS
           </div>
-          <div className={`flex-sub ${rankingColor(0)}`} style={{ padding: '10px 30px', visibility: 'hidden' }}>
-            {formatPercentage(0.1, 0)}%
+          <div className={`flex-sub ${rankingColor(0)}`} style={{ width: 110, textAlign: 'center' }}>
+            -
           </div>
           <div className="flex-main" style={{ padding: 0 }}>
             <AutoSizer>
