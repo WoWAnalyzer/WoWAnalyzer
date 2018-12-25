@@ -26,10 +26,7 @@ class ShacklesofBryndaor extends Analyzer {
   }
 
   get runicPowerGained(){
-    if(this.runicPowerTracker.buildersObj[SPELLS.SHACKLES_OF_BRYNDAOR_BUFF.id]){
-      return this.runicPowerTracker.buildersObj[SPELLS.SHACKLES_OF_BRYNDAOR_BUFF.id].generated;
-    }
-    return 0;
+    return this.runicPowerTracker.getGeneratedBySpell(SPELLS.SHACKLES_OF_BRYNDAOR_BUFF.id);
   }
 
   get rpGainedPerMinute(){
