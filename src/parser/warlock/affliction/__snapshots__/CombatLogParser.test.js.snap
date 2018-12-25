@@ -1,0 +1,3163 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The Affliction Warlock Analyzer analyzers Abilities matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Affliction Warlock Analyzer analyzers Abilities matches the suggestions snapshot 1`] = `"module has no suggestions"`;
+
+exports[`The Affliction Warlock Analyzer analyzers AbsoluteCorruption matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Affliction Warlock Analyzer analyzers AbsoluteCorruption matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Affliction Warlock Analyzer analyzers AgonyUptime matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Affliction Warlock Analyzer analyzers AgonyUptime matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Affliction Warlock Analyzer analyzers AlwaysBeCasting matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <img
+            alt=""
+            className="icon"
+            src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
+          />
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Downtime
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="Downtime is available time not used to cast anything (including not having your GCD rolling). This can be caused by delays between casting spells, latency, cast interrupting or just simply not casting anything (e.g. due to movement/stunned).<br/>
+        <li>You spent <b>95.63%</b> of your time casting something.</li>
+        <li>You spent <b>4.37%</b> of your time casting nothing at all.</li>
+        "
+            >
+              4.37 %
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="panel-footer"
+      style={
+        Object {
+          "borderTop": 0,
+          "overflow": "hidden",
+          "padding": 0,
+        }
+      }
+    >
+      <div
+        className="statistic-bar"
+      >
+        <div
+          className="stat-health-bg"
+          data-tip="You spent <b>95.63%</b> of your time casting something."
+          style={
+            Object {
+              "width": "95.62601148927949%",
+            }
+          }
+        >
+          <img
+            alt="Active time"
+            src="/img/sword.png"
+          />
+        </div>
+        <div
+          className="remainder DeathKnight-bg"
+          data-tip="You spent <b>4.37%</b> of your time casting nothing at all."
+        >
+          <img
+            alt="Downtime"
+            src="/img/afk.png"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Affliction Warlock Analyzer analyzers AlwaysBeCasting matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Affliction Warlock Analyzer analyzers ArcaneTorrent matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Affliction Warlock Analyzer analyzers ArcaneTorrent matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Affliction Warlock Analyzer analyzers CascadingCalamity matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable item"
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=275372"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_unstableaffliction_3.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            <a
+              href="http://wowhead.com/spell=275372"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+               
+              Cascading Calamity
+            </a>
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="Cascading Calamity grants 320 Haste while active. You had 80.19 % uptime on the buff."
+            >
+              257 average Haste
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Affliction Warlock Analyzer analyzers CascadingCalamity matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Affliction Warlock Analyzer analyzers Channeling matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Affliction Warlock Analyzer analyzers Channeling matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Affliction Warlock Analyzer analyzers Checklist matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Affliction Warlock Analyzer analyzers Checklist matches the suggestions snapshot 1`] = `"module has no suggestions"`;
+
+exports[`The Affliction Warlock Analyzer analyzers CooldownThroughputTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Affliction Warlock Analyzer analyzers CooldownThroughputTracker matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Affliction Warlock Analyzer analyzers CorruptionUptime matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Affliction Warlock Analyzer analyzers CorruptionUptime matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Affliction Warlock Analyzer analyzers DamageDone matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <img
+            alt="Sword"
+            src="/img/sword.png"
+            style={
+              Object {
+                "border": 0,
+              }
+            }
+          />
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Damage done
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="Total damage done: <b>4,794,067</b> <br>Contribution from pets: 16.63 % / 3,053 DPS"
+            >
+              18k DPS
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Affliction Warlock Analyzer analyzers DamageDone matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Affliction Warlock Analyzer analyzers Darkglare matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic-box statistic-list"
+  >
+    <div
+      className="panel-heading"
+    >
+      <h2>
+        <a
+          href="http://wowhead.com/spell=205180"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <img
+            alt=""
+            className="icon"
+            src="//render-us.worldofwarcraft.com/icons/56/inv_beholderwarlock.jpg"
+          />
+           
+          Summon Darkglare
+        </a>
+      </h2>
+    </div>
+    <div
+      className="panel-body items"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-main"
+        >
+          Bonus damage from dots
+        </div>
+        <div
+          className="flex-sub text-right"
+        >
+          <dfn
+            data-tip="279,872 damage<br />This only counts the damage that happened after the dot <u>should have fallen off</u> (but instead was extended with Darkglare)"
+          >
+            5.84 % / 1,072 DPS
+          </dfn>
+        </div>
+      </div>
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-main"
+        >
+          Average dots extended per cast
+        </div>
+        <div
+          className="flex-sub text-right"
+        >
+          8.50
+        </div>
+      </div>
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-main"
+        >
+          <dfn
+            data-tip="Combined damage from extended dots and the pet itself"
+          >
+            Total damage
+          </dfn>
+        </div>
+        <div
+          className="flex-sub text-right"
+        >
+          <dfn
+            data-tip="Damage from extended dots: 279,872 (5.84 % / 1,072 DPS)<br />
+                        Pet damage: 325,530 (6.79 % / 1,247 DPS)<br />
+                        Combined damage: 605,402"
+          >
+            12.63 % / 2,319 DPS
+          </dfn>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Affliction Warlock Analyzer analyzers Darkglare matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Affliction Warlock Analyzer analyzers Deathbolt matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Affliction Warlock Analyzer analyzers Deathbolt matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Affliction Warlock Analyzer analyzers DotUptimeStatisticBox matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic-box statistic-list"
+  >
+    <div
+      className="panel-heading"
+    >
+      <h2>
+        DoT uptimes
+      </h2>
+    </div>
+    <div
+      className="panel-body items"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-main"
+        >
+          <a
+            href="http://wowhead.com/spell=980"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_curseofsargeras.jpg"
+            />
+             
+            Agony
+          </a>
+           uptime
+        </div>
+        <div
+          className="flex-sub text-right"
+        >
+          99.80 %
+        </div>
+      </div>
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-main"
+        >
+          <a
+            href="http://wowhead.com/spell=172"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt=""
+              className="icon"
+              src="/img/Icons/spell_shadow_abominationexplosion.jpg"
+            />
+             
+            Corruption
+          </a>
+           uptime
+        </div>
+        <div
+          className="flex-sub text-right"
+        >
+          95.14 %
+        </div>
+      </div>
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-main"
+        >
+          <a
+            href="http://wowhead.com/spell=30108"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_unstableaffliction_3.jpg"
+            />
+             
+            Unstable Affliction
+          </a>
+           uptime
+        </div>
+        <div
+          className="flex-sub text-right"
+        >
+          <dfn
+            data-tip="Bonus damage from internal Contagion effect: 342,734 (7.15 % / 1,313 DPS)"
+          >
+            79.30 %
+          </dfn>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Affliction Warlock Analyzer analyzers DotUptimeStatisticBox matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Affliction Warlock Analyzer analyzers DrainSoul matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Affliction Warlock Analyzer analyzers DrainSoul matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Affliction Warlock Analyzer analyzers DreadfulCalling matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Affliction Warlock Analyzer analyzers DreadfulCalling matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Affliction Warlock Analyzer analyzers GlobalCooldown matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Affliction Warlock Analyzer analyzers GlobalCooldown matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Affliction Warlock Analyzer analyzers GrimoireOfSacrifice matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Affliction Warlock Analyzer analyzers GrimoireOfSacrifice matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Affliction Warlock Analyzer analyzers Haunt matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Affliction Warlock Analyzer analyzers Haunt matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "ability_warlock_haunt",
+    "importance": "regular",
+    "issue": <React.Fragment>
+      Your 
+      <SpellLink
+        icon={true}
+        id={48181}
+      />
+       debuff uptime is too low. While it's usually not possible to get 100% uptime due to travel and cast time, you should aim for as much uptime on the debuff as possible.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      77.53% Haunt uptime.
+       (
+      &gt; 90.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`The Affliction Warlock Analyzer analyzers InevitableDemise matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Affliction Warlock Analyzer analyzers InevitableDemise matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Affliction Warlock Analyzer analyzers Nightfall matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Affliction Warlock Analyzer analyzers Nightfall matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Affliction Warlock Analyzer analyzers PandemicInvocation matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Affliction Warlock Analyzer analyzers PandemicInvocation matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Affliction Warlock Analyzer analyzers PhantomSingularity matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Affliction Warlock Analyzer analyzers PhantomSingularity matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Affliction Warlock Analyzer analyzers ShadowEmbrace matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Affliction Warlock Analyzer analyzers ShadowEmbrace matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Affliction Warlock Analyzer analyzers SiphonLifeUptime matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Affliction Warlock Analyzer analyzers SiphonLifeUptime matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_shadow_requiem",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      Your 
+      <SpellLink
+        icon={true}
+        id={63106}
+      />
+       uptime can be improved. Try to pay more attention to your Siphon Life on the boss, perhaps use some debuff tracker.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      93.08% Siphon Life uptime
+       (
+      &gt;95.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`The Affliction Warlock Analyzer analyzers SoulConduit matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Affliction Warlock Analyzer analyzers SoulConduit matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Affliction Warlock Analyzer analyzers SoulShardDetails matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <img
+            alt="Wasted Soul Shards"
+            src="warlock_soulshard_bw.jpg"
+          />
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Wasted Soul Shards
+          </div>
+          <div
+            className="value"
+          >
+            0
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Affliction Warlock Analyzer analyzers SoulShardDetails matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Affliction Warlock Analyzer analyzers SoulShardTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Affliction Warlock Analyzer analyzers SoulShardTracker matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Affliction Warlock Analyzer analyzers SuddenOnset matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Affliction Warlock Analyzer analyzers SuddenOnset matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Affliction Warlock Analyzer analyzers TalentStatisticBox matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic-box statistic-list"
+  >
+    <div
+      className="panel-heading"
+    >
+      <h2>
+        Talents
+      </h2>
+    </div>
+    <div
+      className="panel-body items"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-main"
+        >
+          Average 
+          <a
+            href="http://wowhead.com/spell=264106"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/spell_fire_twilightflamebolt.jpg"
+            />
+             
+            Deathbolt
+          </a>
+           damage
+        </div>
+        <div
+          className="flex-sub text-right"
+        >
+          <dfn
+            data-tip="Total damage done with Deathbolt: 360,363 (7.52 % / 1,380 DPS)"
+          >
+            51,480
+          </dfn>
+        </div>
+      </div>
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-main"
+        >
+          <a
+            href="http://wowhead.com/spell=63106"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_requiem.jpg"
+            />
+             
+            Siphon Life
+          </a>
+           uptime
+        </div>
+        <div
+          className="flex-sub text-right"
+        >
+          93.08 %
+        </div>
+      </div>
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-main"
+        >
+          <a
+            href="http://wowhead.com/spell=205179"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/inv_enchant_voidsphere.jpg"
+            />
+             
+            Phantom Singularity
+          </a>
+           damage
+        </div>
+        <div
+          className="flex-sub text-right"
+        >
+          <dfn
+            data-tip="277,827 damage"
+          >
+            5.80 % / 1,064 DPS
+          </dfn>
+        </div>
+      </div>
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-main"
+        >
+          <a
+            href="http://wowhead.com/spell=48181"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_haunt.jpg"
+            />
+             
+            Haunt
+          </a>
+           uptime
+        </div>
+        <div
+          className="flex-sub text-right"
+        >
+          77.53 %
+        </div>
+      </div>
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-main"
+        >
+          <a
+            href="http://wowhead.com/spell=48181"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_haunt.jpg"
+            />
+             
+            Haunt
+          </a>
+           bonus damage
+        </div>
+        <div
+          className="flex-sub text-right"
+        >
+          <dfn
+            data-tip="309,198 bonus damage<br />You buffed 84.82 % of your Unstable Affliction ticks with Haunt."
+          >
+            6.45 % / 1,184 DPS
+          </dfn>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Affliction Warlock Analyzer analyzers TalentStatisticBox matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Affliction Warlock Analyzer analyzers UnstableAfflictionUptime matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Affliction Warlock Analyzer analyzers UnstableAfflictionUptime matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Affliction Warlock Analyzer analyzers VileTaint matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Affliction Warlock Analyzer analyzers VileTaint matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Affliction Warlock Analyzer analyzers WrackingBrilliance matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable item"
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=272891"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_felmending.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            <a
+              href="http://wowhead.com/spell=272891"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+               
+              Wracking Brilliance
+            </a>
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="Wracking Brilliance grants 726 Intellect while active. You had 46.02 % uptime on the buff."
+            >
+              334 average Intellect
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Affliction Warlock Analyzer analyzers WrackingBrilliance matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Affliction Warlock Analyzer should match the checklist snapshot 1`] = `
+<div
+  className="checklist"
+>
+  <div
+    className="expandable "
+  >
+    <div
+      className="meta checklist-item"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div
+            className="chevron"
+          >
+            <svg
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div>
+            <svg
+              style={
+                Object {
+                  "color": "green",
+                }
+              }
+              viewBox="0 0 50 50"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-main"
+        >
+          Maintain your DoTs on the boss
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "width": 100,
+            }
+          }
+        >
+          <div
+            className="performance-bar-container"
+          >
+            <div
+              className="performance-bar small"
+              style={
+                Object {
+                  "backgroundColor": "#a6c34c",
+                  "transition": "background-color 800ms",
+                  "width": "96.77022163317527%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="details"
+      style={
+        Object {
+          "display": "none",
+          "minHeight": 80,
+          "paddingLeft": 65,
+          "paddingRight": 65,
+          "position": "relative",
+        }
+      }
+    >
+      <div
+        className="row"
+        style={
+          Object {
+            "marginBottom": 10,
+            "position": "relative",
+          }
+        }
+      >
+        <svg
+          className="text-muted"
+          style={
+            Object {
+              "fontSize": "2em",
+              "left": -33,
+              "position": "absolute",
+              "top": "50%",
+              "transform": "translateY(-33%)",
+            }
+          }
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+          />
+          <path
+            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+          />
+          <path
+            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+          />
+        </svg>
+        <div
+          className="col-md-12 text-muted"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Affliction Warlocks rely on DoTs as a means of dealing damage to the target. You should try to keep as highest uptime on them as possible.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=980"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_curseofsargeras.jpg"
+                />
+                 
+                Agony
+              </a>
+               uptime
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                99.80%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=172"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="/img/Icons/spell_shadow_abominationexplosion.jpg"
+                />
+                 
+                Corruption
+              </a>
+               uptime
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                95.14%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=30108"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_unstableaffliction_3.jpg"
+                />
+                 
+                Unstable Affliction
+              </a>
+               uptime
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                79.30%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=63106"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_requiem.jpg"
+                />
+                 
+                Siphon Life
+              </a>
+               uptime
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                93.08%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#a6c34c",
+                      "transition": "background-color 800ms",
+                      "width": "87.08088653270106%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="expandable "
+  >
+    <div
+      className="meta checklist-item"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div
+            className="chevron"
+          >
+            <svg
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div>
+            <svg
+              style={
+                Object {
+                  "color": "green",
+                }
+              }
+              viewBox="0 0 50 50"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-main"
+        >
+          Don't cap your Soul Shards
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "width": 100,
+            }
+          }
+        >
+          <div
+            className="performance-bar-container"
+          >
+            <div
+              className="performance-bar small"
+              style={
+                Object {
+                  "backgroundColor": "#4ec04e",
+                  "transition": "background-color 800ms",
+                  "width": "100%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="details"
+      style={
+        Object {
+          "display": "none",
+          "minHeight": 80,
+          "paddingLeft": 65,
+          "paddingRight": 65,
+          "position": "relative",
+        }
+      }
+    >
+      <div
+        className="row"
+        style={
+          Object {
+            "marginBottom": 10,
+            "position": "relative",
+          }
+        }
+      >
+        <svg
+          className="text-muted"
+          style={
+            Object {
+              "fontSize": "2em",
+              "left": -33,
+              "position": "absolute",
+              "top": "50%",
+              "transform": "translateY(-33%)",
+            }
+          }
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+          />
+          <path
+            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+          />
+          <path
+            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+          />
+        </svg>
+        <div
+          className="col-md-12 text-muted"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Soul Shards are your main and most important resource and since their generation is random as Affliction, it's very important not to let them cap.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Wasted shards per minute
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                <dfn
+                  data-tip="You wasted 0 shards."
+                >
+                   
+                  0.00
+                   
+                   
+                </dfn>
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="expandable "
+  >
+    <div
+      className="meta checklist-item"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div
+            className="chevron"
+          >
+            <svg
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div>
+            <svg
+              style={
+                Object {
+                  "color": "green",
+                }
+              }
+              viewBox="0 0 50 50"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-main"
+        >
+          Use your cooldowns
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "width": 100,
+            }
+          }
+        >
+          <div
+            className="performance-bar-container"
+          >
+            <div
+              className="performance-bar small"
+              style={
+                Object {
+                  "backgroundColor": "#a6c34c",
+                  "transition": "background-color 800ms",
+                  "width": "76.13596361528424%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="details"
+      style={
+        Object {
+          "display": "none",
+          "minHeight": 80,
+          "paddingLeft": 65,
+          "paddingRight": 65,
+          "position": "relative",
+        }
+      }
+    >
+      <div
+        className="row"
+        style={
+          Object {
+            "marginBottom": 10,
+            "position": "relative",
+          }
+        }
+      >
+        <svg
+          className="text-muted"
+          style={
+            Object {
+              "fontSize": "2em",
+              "left": -33,
+              "position": "absolute",
+              "top": "50%",
+              "transform": "translateY(-33%)",
+            }
+          }
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+          />
+          <path
+            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+          />
+          <path
+            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+          />
+        </svg>
+        <div
+          className="col-md-12 text-muted"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Be mindful of your cooldowns if you are specced into them and use them when it's appropriate. It's okay to hold a cooldown for a little bit when the encounter requires it (burn phases), but generally speaking you should use them as much as you can.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=205180"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_beholderwarlock.jpg"
+                />
+                 
+                Summon Darkglare
+              </a>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                100.00%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=113860"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_warlock_soulburn.jpg"
+                />
+                 
+                Dark Soul: Misery
+              </a>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                63.98%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#ac1f39",
+                      "transition": "background-color 800ms",
+                      "width": "28.407890845852705%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=205179"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_enchant_voidsphere.jpg"
+                />
+                 
+                Phantom Singularity
+              </a>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                100.00%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="expandable "
+  >
+    <div
+      className="meta checklist-item"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div
+            className="chevron"
+          >
+            <svg
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div>
+            <svg
+              style={
+                Object {
+                  "color": "red",
+                }
+              }
+              viewBox="15 15 70 70"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                style={
+                  Object {
+                    "strokeLinecap": "round",
+                    "strokeMiterlimit": 10,
+                    "strokeWidth": 10,
+                  }
+                }
+              >
+                <line
+                  x1="21.19"
+                  x2="78.81"
+                  y1="21.19"
+                  y2="78.81"
+                />
+                <line
+                  x1="78.81"
+                  x2="21.19"
+                  y1="21.19"
+                  y2="78.81"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-main"
+        >
+          Use your utility and defensive spells
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "width": 100,
+            }
+          }
+        >
+          <div
+            className="performance-bar-container"
+          >
+            <div
+              className="performance-bar small"
+              style={
+                Object {
+                  "backgroundColor": "#ac1f39",
+                  "transition": "background-color 800ms",
+                  "width": "0%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="details"
+      style={
+        Object {
+          "display": "none",
+          "minHeight": 80,
+          "paddingLeft": 65,
+          "paddingRight": 65,
+          "position": "relative",
+        }
+      }
+    >
+      <div
+        className="row"
+        style={
+          Object {
+            "marginBottom": 10,
+            "position": "relative",
+          }
+        }
+      >
+        <svg
+          className="text-muted"
+          style={
+            Object {
+              "fontSize": "2em",
+              "left": -33,
+              "position": "absolute",
+              "top": "50%",
+              "transform": "translateY(-33%)",
+            }
+          }
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+          />
+          <path
+            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+          />
+          <path
+            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+          />
+        </svg>
+        <div
+          className="col-md-12 text-muted"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Use other spells in your toolkit to your advantage. For example, you can try to minimize necessary movement by using 
+              <a
+                href="http://wowhead.com/spell=111771"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_warlock_demonicportal_green.jpg"
+                />
+                 
+                Demonic Gateway
+              </a>
+              , 
+              <a
+                href="http://wowhead.com/spell=268358"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_demoniccirclesummon.jpg"
+                />
+                 
+                Demonic Circle
+              </a>
+              , 
+              <a
+                href="http://wowhead.com/spell=111400"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_deathwing_sealarmorbreachtga.jpg"
+                />
+                 
+                Burning Rush
+              </a>
+               or mitigate incoming damage with 
+              <a
+                href="http://wowhead.com/spell=104773"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_demonictactics.jpg"
+                />
+                 
+                Unending Resolve
+              </a>
+              /
+              <a
+                href="http://wowhead.com/spell=108416"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/warlock_sacrificial_pact.jpg"
+                />
+                 
+                Dark Pact
+              </a>
+              .
+              <br />
+              While you shouldn't cast these defensives on cooldown, be aware of them and use them whenever effective. Not using them at all indicates you might not be aware of them or not using them optimally.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=48020"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_demoniccircleteleport.jpg"
+                />
+                 
+                Demonic Circle Teleport
+              </a>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                0.00%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#ac1f39",
+                      "transition": "background-color 800ms",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=104773"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_demonictactics.jpg"
+                />
+                 
+                Unending Resolve
+              </a>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                0.00%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#ac1f39",
+                      "transition": "background-color 800ms",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="expandable "
+  >
+    <div
+      className="meta checklist-item"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div
+            className="chevron"
+          >
+            <svg
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div>
+            <svg
+              style={
+                Object {
+                  "color": "green",
+                }
+              }
+              viewBox="0 0 50 50"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-main"
+        >
+          Always be casting
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "width": 100,
+            }
+          }
+        >
+          <div
+            className="performance-bar-container"
+          >
+            <div
+              className="performance-bar small"
+              style={
+                Object {
+                  "backgroundColor": "#4ec04e",
+                  "transition": "background-color 800ms",
+                  "width": "100%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="details"
+      style={
+        Object {
+          "display": "none",
+          "minHeight": 80,
+          "paddingLeft": 65,
+          "paddingRight": 65,
+          "position": "relative",
+        }
+      }
+    >
+      <div
+        className="row"
+        style={
+          Object {
+            "marginBottom": 10,
+            "position": "relative",
+          }
+        }
+      >
+        <svg
+          className="text-muted"
+          style={
+            Object {
+              "fontSize": "2em",
+              "left": -33,
+              "position": "absolute",
+              "top": "50%",
+              "transform": "translateY(-33%)",
+            }
+          }
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+          />
+          <path
+            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+          />
+          <path
+            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+          />
+        </svg>
+        <div
+          className="col-md-12 text-muted"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              You should try to avoid doing nothing during the fight. When you're out of Soul Shards, cast 
+              <a
+                href="http://wowhead.com/spell=232670"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_shadowbolt.jpg"
+                />
+                 
+                Shadow Bolt
+              </a>
+              /
+              <a
+                href="http://wowhead.com/spell=198590"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_haunting.jpg"
+                />
+                 
+                Drain Soul
+              </a>
+              , refresh your DoTs etc. When you have to move, use your instant abilities or try to utilize 
+              <a
+                href="http://wowhead.com/spell=268358"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_demoniccirclesummon.jpg"
+                />
+                 
+                Teleport
+              </a>
+               or 
+              <a
+                href="http://wowhead.com/spell=111771"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_warlock_demonicportal_green.jpg"
+                />
+                 
+                Gateway
+              </a>
+               to reduce the movement even further.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Downtime
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                4.37%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="expandable "
+  >
+    <div
+      className="meta checklist-item"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div
+            className="chevron"
+          >
+            <svg
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div>
+            <svg
+              style={
+                Object {
+                  "color": "green",
+                }
+              }
+              viewBox="0 0 50 50"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-main"
+        >
+          Be well prepared
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "width": 100,
+            }
+          }
+        >
+          <div
+            className="performance-bar-container"
+          >
+            <div
+              className="performance-bar small"
+              style={
+                Object {
+                  "backgroundColor": "#a6c34c",
+                  "transition": "background-color 800ms",
+                  "width": "85.71428571428571%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="details"
+      style={
+        Object {
+          "display": "none",
+          "minHeight": 80,
+          "paddingLeft": 65,
+          "paddingRight": 65,
+          "position": "relative",
+        }
+      }
+    >
+      <div
+        className="row"
+        style={
+          Object {
+            "marginBottom": 10,
+            "position": "relative",
+          }
+        }
+      >
+        <svg
+          className="text-muted"
+          style={
+            Object {
+              "fontSize": "2em",
+              "left": -33,
+              "position": "absolute",
+              "top": "50%",
+              "transform": "translateY(-33%)",
+            }
+          }
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+          />
+          <path
+            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+          />
+          <path
+            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+          />
+        </svg>
+        <div
+          className="col-md-12 text-muted"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Being well prepared with food, flasks, potions and enchants is an easy way to improve your performance.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              All items enchanted
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                3
+                 
+                / 3
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Using high quality enchants
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                3
+                 
+                / 3
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Used a pre-potion
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                No
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#ac1f39",
+                      "transition": "background-color 800ms",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Used a second potion
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                Yes
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Flask used
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                Yes
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              High quality food used
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                Yes
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Food used
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                Yes
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
