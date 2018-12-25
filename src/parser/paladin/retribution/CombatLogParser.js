@@ -1,5 +1,4 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/shared/modules/DamageDone';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import Haste from './modules/core/Haste';
 
@@ -28,7 +27,6 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     haste: Haste,
     // PaladinCore
-    damageDone: [DamageDone, { showStatistic: true }],
     globalCooldown: GlobalCooldown,
     artOfWar: ArtOfWar,
 

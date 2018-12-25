@@ -1,7 +1,5 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
-import DamageDone from 'parser/shared/modules/DamageDone';
-
 import RakeBleed from './normalizers/RakeBleed';
 import ComboPointsFromAoE from './normalizers/ComboPointsFromAoE';
 
@@ -45,9 +43,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Normalizers
     rakeBleed: RakeBleed,
     comboPointsFromAoE: ComboPointsFromAoE,
-
-    // FeralCore
-    damageDone: [DamageDone, { showStatistic: true }],
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,

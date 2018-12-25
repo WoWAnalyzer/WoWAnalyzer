@@ -3,9 +3,6 @@ import React from 'react';
 import Panel from 'interface/others/Panel';
 
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import HealingDone from 'parser/shared/modules/HealingDone';
-import DamageDone from 'parser/shared/modules/DamageDone';
-import DamageTaken from 'parser/shared/modules/DamageTaken';
 
 import PainChart from './modules/painchart/Pain';
 import PainTracker from './modules/pain/PainTracker';
@@ -43,9 +40,6 @@ import SoulOfTheSlayer from '../shared/modules/items/SoulOfTheSlayer';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core Statistics
-    damageDone: [DamageDone, { showStatistic: true }],
-    damageTaken: [DamageTaken, { showStatistic: true }],
-    healingDone: [HealingDone, { showStatistic: true }],
     mitigationCheck: MitigationCheck,
 
     // Features

@@ -1,5 +1,4 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/shared/modules/DamageDone';
 // Normalizers
 import OverpowerStacks from './normalizers/OverpowerStacks';
 import CrushingAssaultBuff from './normalizers/CrushingAssaultBuff';
@@ -53,7 +52,6 @@ class CombatLogParser extends CoreCombatLogParser {
     crushingAssaulBuff: CrushingAssaultBuff,
 
     // WarriorCore
-    damageDone: [DamageDone, { showStatistic: true }],
     abilities: Abilities,
 
     // Features

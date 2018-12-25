@@ -1,7 +1,4 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import HealingDone from 'parser/shared/modules/HealingDone';
-import DamageDone from 'parser/shared/modules/DamageDone';
-import DamageTaken from 'parser/shared/modules/DamageTaken';
 
 import Haste from './modules/core/Haste';
 import Abilities from './modules/Abilities';
@@ -29,9 +26,6 @@ import ThundergodsVigor from './modules/items/ThundergodsVigor';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
-    damageTaken: [DamageTaken, { showStatistic: true }],
-    healingDone: [HealingDone, { showStatistic: true }],
-    damageDone: [DamageDone, { showStatistic: true }],
     haste: Haste,
     mitigationCheck: MitigationCheck,
     // Features

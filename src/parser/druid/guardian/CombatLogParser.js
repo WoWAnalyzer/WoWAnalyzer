@@ -1,8 +1,5 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import HealingDone from 'parser/shared/modules/HealingDone';
-import DamageDone from 'parser/shared/modules/DamageDone';
-import DamageTaken from 'parser/shared/modules/DamageTaken';
 
 import Abilities from './modules/Abilities';
 import ActiveTargets from './modules/features/ActiveTargets';
@@ -30,9 +27,6 @@ import LayeredMane from './modules/azeritetraits/LayeredMane';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
-    damageTaken: [DamageTaken, { showStatistic: true }],
-    healingDone: [HealingDone, { showStatistic: true }],
-    damageDone: [DamageDone, { showStatistic: true }],
     abilityTracker: AbilityTracker,
     abilities: Abilities,
     mitigationCheck: MitigationCheck,

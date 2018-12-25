@@ -1,5 +1,4 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/shared/modules/DamageDone';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 import Checklist from './modules/checklist/Module';
@@ -37,7 +36,6 @@ class CombatLogParser extends CoreCombatLogParser {
     wintersChill: WintersChill,
     brainFreeze: BrainFreeze,
     iceLance: IceLance,
-    damageDone: [DamageDone, { showStatistic: true }],
     arcaneIntellect: ArcaneIntellect,
     waterElemental: WaterElemental,
 

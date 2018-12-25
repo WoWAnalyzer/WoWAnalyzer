@@ -70,7 +70,7 @@ class Statistics extends React.PureComponent {
                 {this.renderStatisticGroupName(name)}
               </StatisticsSectionTitle>
 
-              <Masonry className="row statistics">
+              <Masonry className="row statistics" options={{ columnWidth: 325 }}>
                 {statistics.sort(this.sortByPosition)}
               </Masonry>
             </React.Fragment>

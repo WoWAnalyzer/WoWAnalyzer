@@ -14,7 +14,6 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import Panel from 'interface/others/Panel';
 import MonkSpreadsheet from 'interface/others/MonkSpreadsheet';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
-import HealingDone from 'parser/shared/modules/HealingDone';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
 
@@ -78,7 +77,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Core
     lowHealthHealing: LowHealthHealing,
-    healingDone: [HealingDone, { showStatistic: true }],
     channeling: CoreChanneling,
     globalCooldown: GlobalCooldown,
     hotTracker: HotTracker,

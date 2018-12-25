@@ -11,9 +11,9 @@ import ApplyBuffNormalizer from 'parser/shared/normalizers/ApplyBuff';
 import CancelledCastsNormalizer from 'parser/shared/normalizers/CancelledCasts';
 import PrePullCooldownsNormalizer from 'parser/shared/normalizers/PrePullCooldowns';
 import FightEndNormalizer from 'parser/shared/normalizers/FightEnd';
-import HealingDone from '../shared/modules/HealingDone';
-import DamageDone from '../shared/modules/DamageDone';
-import DamageTaken from '../shared/modules/DamageTaken';
+import HealingDone from '../shared/modules/throughput/HealingDone';
+import DamageDone from '../shared/modules/throughput/DamageDone';
+import DamageTaken from '../shared/modules/throughput/DamageTaken';
 import DeathTracker from '../shared/modules/DeathTracker';
 
 import Combatants from '../shared/modules/Combatants';

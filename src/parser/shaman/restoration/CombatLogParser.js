@@ -75,7 +75,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Override the ability tracker so we also get stats for Tidal Waves and beacon healing
     abilityTracker: ShamanAbilityTracker,
     lowHealthHealing: LowHealthHealing,
-    healingDone: [HealingDone, { showStatistic: true }],
+    healingDone: HealingDone,
     abilities: Abilities,
     healingRainLocation: HealingRainLocation,
     manaTracker: ManaTracker,

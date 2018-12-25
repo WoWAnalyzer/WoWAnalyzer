@@ -1,5 +1,5 @@
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import DamageDone from 'parser/shared/modules/DamageDone';
+import DamageDone from 'parser/shared/modules/throughput/DamageDone';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Abilities from 'parser/core/modules/Abilities';
 import CoreHealingEfficiencyTracker from 'parser/core/healingEfficiency/HealingEfficiencyTracker';

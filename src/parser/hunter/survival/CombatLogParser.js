@@ -1,5 +1,4 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/shared/modules/DamageDone';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 import Abilities from './modules/Abilities';
@@ -50,7 +49,6 @@ import TraitsAndTalents from './modules/features/TraitsAndTalents';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core statistics
-    damageDone: [DamageDone, { showStatistic: true }],
     abilities: Abilities,
 
     // Features

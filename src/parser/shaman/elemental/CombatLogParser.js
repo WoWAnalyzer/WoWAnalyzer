@@ -1,5 +1,4 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/shared/modules/DamageDone';
 
 import Abilities from './modules/Abilities';
 import Overload from './modules/features/Overload';
@@ -38,8 +37,6 @@ import SereneSpirit from '../shared/azerite/SereneSpirit';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
-    damageDone: [DamageDone, { showStatistic: true }],
-
     // Features
     abilities: Abilities,
     flameShock: FlameShock,

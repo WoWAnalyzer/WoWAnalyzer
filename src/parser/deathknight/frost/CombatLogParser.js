@@ -1,5 +1,4 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/shared/modules/DamageDone';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -23,7 +22,6 @@ import Frostscythe from './modules/talents/Frostscythe';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
-    damageDone: [DamageDone, { showStatistic: true }],
     cooldownThroughputTracker: CooldownThroughputTracker,
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,

@@ -95,7 +95,7 @@ class ParsesList extends React.PureComponent {
                   </div>
                 </div>
                 <div className="row">
-                  <div className={`col-md-5 ${rankingColor(elem.historical_percent)}`} style={{ paddingLeft: 55 }}>
+                  <div className={`col-md-5 ${rankingColor(elem.historical_percent / 100)}`} style={{ paddingLeft: 55 }}>
                     {this.formatPerformance(elem)}
                   </div>
                   <div className="col-md-5">
