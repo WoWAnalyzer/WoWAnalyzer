@@ -15,6 +15,8 @@ import Panel from 'interface/others/Panel';
 import MonkSpreadsheet from 'interface/others/MonkSpreadsheet';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import HealingDone from 'parser/shared/modules/HealingDone';
+import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
+import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
 
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import CoreChanneling from './modules/core/Channeling';
@@ -80,6 +82,10 @@ class CombatLogParser extends CoreCombatLogParser {
     channeling: CoreChanneling,
     globalCooldown: GlobalCooldown,
     hotTracker: HotTracker,
+
+    // Generic healer things
+    manaLevelChart: ManaLevelChart,
+    manaUsageChart: ManaUsageChart,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,

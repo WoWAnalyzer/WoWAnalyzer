@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import Chart from 'chart.js/src/chart';
 import {Line} from 'react-chartjs-2';
 
-import fetchWcl from '../../../../common/fetchWclApi';
+import fetchWcl from '../../../../../common/fetchWclApi';
 
-import ManaStyles from '../../../others/ManaStyles.js';
+import ManaStyles from '../../../../../interface/others/ManaStyles.js';
 
 const formatDuration = (duration) => {
   const seconds = Math.floor(duration % 60);

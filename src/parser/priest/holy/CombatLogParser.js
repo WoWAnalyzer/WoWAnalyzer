@@ -6,6 +6,9 @@ import HolyPriestSpreadsheet from 'interface/others/HolyPriestSpreadsheet';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import HealingDone from 'parser/shared/modules/HealingDone';
+import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
+import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
+
 import Abilities from './modules/Abilities';
 
 import SpellManaCost from './modules/core/SpellManaCost';
@@ -59,6 +62,10 @@ class CombatLogParser extends CoreCombatLogParser {
     healingDone: [HealingDone, { showStatistic: true }],
     abilities: Abilities,
     lowHealthHealing: LowHealthHealing,
+
+    // Generic healer things
+    manaLevelChart: ManaLevelChart,
+    manaUsageChart: ManaUsageChart,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,

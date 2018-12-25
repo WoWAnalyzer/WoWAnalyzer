@@ -18,6 +18,10 @@ class Statistics extends React.PureComponent {
     adjustForDowntime: false,
   };
 
+  sortByPosition(a, b) {
+    return a.props.position - b.props.position;
+  }
+
   renderFightDowntimeToggle() {
     return (
       <div className="toggle-control" style={{ marginTop: 5 }}>
@@ -42,7 +46,6 @@ class Statistics extends React.PureComponent {
       default: throw new Error(`Unknown category: ${key}`);
     }
   }
-
   render() {
     const { parser, children } = this.props;
 
@@ -52,6 +55,8 @@ class Statistics extends React.PureComponent {
       obj[category].push(statistic);
       return obj;
     }, {});
+    const panels = groups[STATISTIC_CATEGORY.PANELS];
+    delete groups[STATISTIC_CATEGORY.PANELS];
 
     return (
       <>
@@ -66,11 +71,13 @@ class Statistics extends React.PureComponent {
               </StatisticsSectionTitle>
 
               <Masonry className="row statistics">
-                {statistics.sort((a, b) => a.props.position - b.props.position)}
+                {statistics.sort(this.sortByPosition)}
               </Masonry>
             </React.Fragment>
           );
         })}
+
+        {panels.sort(this.sortByPosition)}
       </>
     );
   }

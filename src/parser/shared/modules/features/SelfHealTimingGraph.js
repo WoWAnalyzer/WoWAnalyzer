@@ -15,7 +15,6 @@ const GRAPH_PRECISION = 500;
 const TOOLTIP_TIMESTAMP = 2;
 
 class SelfHealTimingGraph extends Analyzer {
-  
   _hpEvents = [];
   _deathEvents = [];
   _selfhealTimestamps = [];
