@@ -74,7 +74,7 @@ class WildernessSurvival extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.WILDERNESS_SURVIVAL.id}
-        value={<>{this.effectiveCDRInSeconds}/{this.totalPossibleCDR}s effective CDR</>}
+        value={`${this.effectiveCDRInSeconds}/${this.totalPossibleCDR}s effective CDR`}
         tooltip={`Wilderness Survival reduced ${this.hasWFI ? SPELLS.WILDFIRE_INFUSION_TALENT.name : SPELLS.WILDFIRE_BOMB.name} by ${this.effectiveCDRInSeconds} seconds out of ${this.totalPossibleCDR} possible.`}
       />
     );

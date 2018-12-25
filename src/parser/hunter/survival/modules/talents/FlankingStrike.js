@@ -2,8 +2,8 @@ import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
 /**
  * You and your pet leap to the target and strike it as one, dealing a total of X Physical damage.
@@ -24,6 +24,34 @@ class FlankingStrike extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.FLANKING_STRIKE_TALENT.id);
+    this.flankingStrikes.push({
+      name: this.selectedCombatant.name,
+      sourceID: this.owner.playerId,
+      damage: 0,
+      effectiveFocus: 0,
+      possibleFocus: 0,
+    });
+  }
+
+  get flankingStrikesPlayer() {
+    return this.flankingStrikes.find(item => item.sourceID === this.owner.playerId);
+  }
+
+  getOrInitializePet(petId) {
+    const foundPet = this.flankingStrikes.find(pet => pet.sourceID === petId);
+    if (!foundPet) {
+      const sourcePet = this.owner.playerPets.find(pet => pet.id === petId);
+      const pet = {
+        name: sourcePet.name,
+        sourceID: petId,
+        damage: 0,
+        effectiveFocus: 0,
+        possibleFocus: 0,
+      };
+      this.flankingStrikes.push(pet);
+      return pet;
+    }
+    return foundPet;
   }
 
   on_byPlayerPet_damage(event) {
@@ -32,13 +60,8 @@ class FlankingStrike extends Analyzer {
       return;
     }
     const damage = event.amount + (event.absorbed || 0);
-    const foundPet = this.flankingStrikes.find(pet => pet.sourceID === event.sourceID);
-    if (!foundPet) {
-      const sourcePet = this.owner.playerPets.find(pet => pet.id === event.sourceID);
-      this.flankingStrikes.push({ name: sourcePet.name, sourceID: event.sourceID, damage: damage, effectiveFocus: 0, possibleFocus: 0 });
-    } else {
-      foundPet.damage += damage;
-    }
+    const pet = this.getOrInitializePet(event.sourceID);
+    pet.damage += damage;
   }
 
   on_byPlayer_damage(event) {
@@ -46,14 +69,7 @@ class FlankingStrike extends Analyzer {
     if (spellId !== SPELLS.FLANKING_STRIKE_PLAYER.id) {
       return;
     }
-    const damage = event.amount + (event.absorbed || 0);
-    const foundPlayer = this.flankingStrikes.find(player => player.sourceID === event.sourceID);
-    if (!foundPlayer) {
-      const player = this.selectedCombatant.owner.player;
-      this.flankingStrikes.push({ name: player.name, sourceID: event.sourceID, damage: damage, effectiveFocus: 0, possibleFocus: 0 });
-    } else {
-      foundPlayer.damage += damage;
-    }
+    this.flankingStrikesPlayer.damage += event.amount + (event.absorbed || 0);
   }
 
   on_byPlayerPet_energize(event) {
@@ -62,14 +78,9 @@ class FlankingStrike extends Analyzer {
       return;
     }
     const effectiveFocus = (event.resourceChange - event.waste) || 0;
-    const foundPet = this.flankingStrikes.find(pet => pet.sourceID === event.sourceID);
-    if (!foundPet) {
-      const sourcePet = this.owner.playerPets.find(pet => pet.id === event.sourceID);
-      this.flankingStrikes.push({ name: sourcePet.name, sourceID: event.sourceID, damage: 0, effectiveFocus: effectiveFocus, possibleFocus: FLANKING_STRIKE_FOCUS_GAIN });
-    } else {
-      foundPet.effectiveFocus += effectiveFocus;
-      foundPet.possibleFocus += FLANKING_STRIKE_FOCUS_GAIN;
-    }
+    const pet = this.getOrInitializePet(event.sourceID);
+    pet.effectiveFocus += effectiveFocus;
+    pet.possibleFocus += FLANKING_STRIKE_FOCUS_GAIN;
   }
 
   on_byPlayer_energize(event) {
@@ -77,15 +88,9 @@ class FlankingStrike extends Analyzer {
     if (spellId !== SPELLS.FLANKING_STRIKE_PLAYER.id) {
       return;
     }
-    const effectiveFocus = (event.resourceChange - event.waste) || 0;
-    const foundPlayer = this.flankingStrikes.find(player => player.sourceID === event.sourceID);
-    if (!foundPlayer) {
-      const player = this.selectedCombatant.owner.player;
-      this.flankingStrikes.push({ name: player.name, sourceID: event.sourceID, damage: 0, effectiveFocus: effectiveFocus, possibleFocus: FLANKING_STRIKE_FOCUS_GAIN });
-    } else {
-      foundPlayer.effectiveFocus += effectiveFocus;
-      foundPlayer.possibleFocus += FLANKING_STRIKE_FOCUS_GAIN;
-    }
+    const foundPlayer = this.flankingStrikesPlayer;
+    foundPlayer.effectiveFocus += (event.resourceChange - event.waste) || 0;
+    foundPlayer.possibleFocus += FLANKING_STRIKE_FOCUS_GAIN;
   }
 
   statistic() {

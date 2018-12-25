@@ -13,6 +13,7 @@ import { HYDRAS_BITE_DOT_MODIFIER } from 'parser/hunter/survival/constants';
  *
  * Example log: https://www.warcraftlogs.com/reports/6XmjYqTnc3DM7VQx/#fight=6&source=21
  */
+
 class HydrasBite extends Analyzer {
 
   casts = 0;
@@ -79,8 +80,8 @@ class HydrasBite extends Analyzer {
       return;
     }
     const target = encodeTargetString(event.targetID, event.targetInstance);
-    if (this.mainTargets.includes(target)) {
-      const index = this.mainTargets.indexOf(target);
+    const index = this.mainTargets.indexOf(target);
+    if (index !== -1) {
       this.mainTargets.splice(index, 1);
     }
   }

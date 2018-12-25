@@ -256,7 +256,7 @@ class FocusUsage extends Analyzer {
 
   on_byPlayer_cast(event) {
     let spellId = event.ability.guid;
-    if (LIST_OF_FOCUS_SPENDERS.every(id => spellId !== id) && !RAPTOR_MONGOOSE_VARIANTS.includes(spellId)) {
+    if (!LIST_OF_FOCUS_SPENDERS.includes(spellId) && !RAPTOR_MONGOOSE_VARIANTS.includes(spellId)) {
       return;
     }
     //shouldn't really happen unless something messed up in the log where the cast event doesn't have any class resource information so we skip those.

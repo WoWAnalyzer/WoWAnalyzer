@@ -56,30 +56,14 @@ class TipOfTheSpear extends Analyzer {
     this.usedStacks += this.stacks;
   }
 
-  on_byPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.TIP_OF_THE_SPEAR_CAST.id) {
+  on_byPlayer_changebuffstack(event) {
+    if (event.ability.guid !== SPELLS.TIP_OF_THE_SPEAR_CAST.id) {
       return;
     }
-    this.stacks = 1;
-    this.lastApplicationTimestamp = event.timestamp;
-  }
-
-  on_byPlayer_applybuffstack(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.TIP_OF_THE_SPEAR_CAST.id) {
-      return;
+    this.stacks = event.newStacks;
+    if (event.newStacks !== 0) {
+      this.lastApplicationTimestamp = event.timestamp;
     }
-    this.stacks = event.stack;
-    this.lastApplicationTimestamp = event.timestamp;
-  }
-
-  on_byPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.TIP_OF_THE_SPEAR_CAST.id) {
-      return;
-    }
-    this.stacks = 0;
   }
 
   statistic() {
