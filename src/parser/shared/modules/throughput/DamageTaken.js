@@ -77,12 +77,13 @@ class DamageTaken extends Analyzer {
   get tooltip() {
     const physical = (this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL]) ? this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL].effective : 0;
     const magical = this.total.effective - physical;
-    return `Damage taken by type:
+    return `<b>Damage taken by type:</b>
       <ul>
       <li><b>Physical</b>: ${formatThousands(physical)} (${formatPercentage(physical / this.total.effective)}%)</li>
       <li><b>Magic</b>: ${formatThousands(magical)} (${formatPercentage(magical / this.total.effective)}%)</li>
-      </ul>
-      Damage taken by magic school:
+      </ul><br />
+      
+      <b>Damage taken by magic school:</b>
       <ul>
         ${Object.keys(this._byMagicSchool)
       .filter(type => this._byMagicSchool[type].effective !== 0)
@@ -93,7 +94,7 @@ class DamageTaken extends Analyzer {
   }
 
   showStatistic = true;
-  statistic() {
+  subStatistic() { // rendered by ThroughputStatisticGroup
     if (!this.showStatistic) {
       return null;
     }
@@ -102,8 +103,9 @@ class DamageTaken extends Analyzer {
 
     return (
       <StatisticBar
-        position={STATISTIC_ORDER.CORE(0.3)}
-        wide
+        position={STATISTIC_ORDER.CORE(3)}
+        ultrawide
+        style={{ marginBottom: 0 }} // since this is in a group, reducing margin should be fine
       >
         <div className="flex">
           <div className="flex-sub" style={{ background: 'rgba(0, 0, 0, 0.1)' }}>

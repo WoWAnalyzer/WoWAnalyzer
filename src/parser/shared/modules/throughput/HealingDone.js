@@ -71,7 +71,7 @@ class HealingDone extends Analyzer {
   }
 
   showStatistic = true;
-  statistic() {
+  subStatistic() { // rendered by ThroughputStatisticGroup
     if (!this.showStatistic) {
       return null;
     }
@@ -82,8 +82,9 @@ class HealingDone extends Analyzer {
 
     return (
       <StatisticBar
-        position={STATISTIC_ORDER.CORE(0.2)}
-        wide
+        position={STATISTIC_ORDER.CORE(2)}
+        ultrawide
+        style={{ marginBottom: 19 }} // since this is in a group, reducing margin should be fine
       >
         <div className="flex">
           <div className="flex-sub" style={{ background: 'rgba(0, 0, 0, 0.1)' }}>

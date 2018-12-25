@@ -14,6 +14,7 @@ import FightEndNormalizer from 'parser/shared/normalizers/FightEnd';
 import HealingDone from '../shared/modules/throughput/HealingDone';
 import DamageDone from '../shared/modules/throughput/DamageDone';
 import DamageTaken from '../shared/modules/throughput/DamageTaken';
+import ThroughputStatisticGroup from '../shared/modules/throughput/ThroughputStatisticGroup';
 import DeathTracker from '../shared/modules/DeathTracker';
 
 import Combatants from '../shared/modules/Combatants';
@@ -161,6 +162,7 @@ class CombatLogParser {
     healingDone: HealingDone,
     damageDone: DamageDone,
     damageTaken: DamageTaken,
+    throughputStatisticGroup: ThroughputStatisticGroup,
     deathTracker: DeathTracker,
 
     enemies: Enemies,

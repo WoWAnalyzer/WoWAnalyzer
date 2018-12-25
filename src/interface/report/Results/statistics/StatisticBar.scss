@@ -1,12 +1,12 @@
 @import 'interface/layout/Theme.scss';
 
 .statistic.bar {
-  height: 45px;
+  height: auto;
   padding: 0;
 }
 .statistic.bar .flex > * {
-  padding: 10px 15px;
-  font-size: 24px;
+  padding: 9px 15px;
+  font-size: 22px;
   line-height: 1;
   border-right: 1px solid transparentize($primaryColor, 0.925);
 }
