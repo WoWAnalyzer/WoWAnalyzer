@@ -706,6 +706,38 @@ exports[`The Affliction Warlock Analyzer analyzers TalentStatisticBox matches th
         <div
           className="flex-main"
         >
+          Average DoT length on 
+          <a
+            href="http://wowhead.com/spell=264106"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/spell_fire_twilightflamebolt.jpg"
+            />
+             
+            Deathbolt
+          </a>
+           cast
+        </div>
+        <div
+          className="flex-sub text-right"
+        >
+          <dfn
+            data-tip="Average remaining DoT durations on Deathbolt cast:<br /><br />Agony: 4.57 seconds<br />Unstable Affliction: 3.63 seconds<br />Siphon Life: 7.45 seconds<br />Corruption: 6.53 seconds<br />Phantom Singularity: 11.03 seconds<br />"
+          >
+            5.37 s
+          </dfn>
+        </div>
+      </div>
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-main"
+        >
           <a
             href="http://wowhead.com/spell=63106"
             rel="noopener noreferrer"
