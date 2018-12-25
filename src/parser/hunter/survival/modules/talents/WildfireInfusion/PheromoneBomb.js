@@ -48,6 +48,7 @@ class PheromoneBomb extends Analyzer {
       this.resets += 1;
     }
   }
+
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.PHEROMONE_BOMB_WFI_DOT.id && spellId !== SPELLS.PHEROMONE_BOMB_WFI_IMPACT.id) {

@@ -1,14 +1,13 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import StatisticBox from 'interface/others/StatisticBox';
-import SpellIcon from 'common/SpellIcon';
 import React from 'react';
 import SpellLink from 'common/SpellLink';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import ItemDamageDone from 'interface/others/ItemDamageDone';
+import AverageTargetsHit from 'interface/others/AverageTargetsHit';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 /**
  * Carve: A sweeping attack that strikes all enemies in front of you for Physical damage.
@@ -32,7 +31,7 @@ class ButcheryCarve extends Analyzer {
   targetsHit = 0;
   casts = 0;
   spellKnown = null;
-  bonusDamage = 0;
+  damage = 0;
   hasButchery = false;
   hasWFI = false;
   bombSpellKnown = SPELLS.WILDFIRE_BOMB.id;
@@ -66,7 +65,7 @@ class ButcheryCarve extends Analyzer {
       return;
     }
     this.targetsHit++;
-    this.bonusDamage += event.amount + (event.absorbed || 0);
+    this.damage += event.amount + (event.absorbed || 0);
     if (this.reductionAtCurrentCast === MAX_TARGETS_HIT) {
       return;
     }
@@ -89,13 +88,9 @@ class ButcheryCarve extends Analyzer {
     }
   }
 
-  get averageTargetsHit() {
-    return (this.targetsHit / this.casts).toFixed(2);
-  }
-
   get avgTargetsHitThreshold() {
     return {
-      actual: this.averageTargetsHit,
+      actual: this.targetsHit / this.casts,
       isLessThan: {
         minor: 2,
         average: 2,
@@ -106,7 +101,8 @@ class ButcheryCarve extends Analyzer {
   }
 
   suggestions(when) {
-    if (this.casts > 0) { //Since you're not casting Butchery or Carve on single-target, there's no reason to show the suggestions in cases where the abilities were cast 0 times.
+    if (this.casts > 0) {
+      //Since you're not casting Butchery or Carve on single-target, there's no reason to show the suggestions in cases where the abilities were cast 0 times.
       when(this.avgTargetsHitThreshold).addSuggestion((suggest, actual, recommended) => {
         return suggest(<>You should aim to hit as many targets as possible with <SpellLink id={this.spellKnown.id} />. Using it on single-target is not recommended.</>)
           .icon(this.spellKnown.icon)
@@ -122,35 +118,27 @@ class ButcheryCarve extends Analyzer {
       if (this.hasButchery) {
         return (
           <TalentStatisticBox
-            position={STATISTIC_ORDER.CORE(16)}
-            icon={<SpellIcon id={this.spellKnown.id} />}
-            value={this.averageTargetsHit}
-            label="Average targets hit"
+            talent={SPELLS.BUTCHERY_TALENT.id}
+            value={<>
+              <ItemDamageDone amount={this.damage} /> <br />
+              <AverageTargetsHit casts={this.casts} hits={this.targetsHit} />
+            </>}
           />
         );
       } else {
+        //Carve isn't a talent, but to keep the formatting the same across the board we pass it as one.
         return (
-          <StatisticBox
+          <TalentStatisticBox
+            talent={SPELLS.CARVE.id}
             position={STATISTIC_ORDER.CORE(16)}
-            icon={<SpellIcon id={this.spellKnown.id} />}
-            value={this.averageTargetsHit}
-            label="Average targets hit"
+            category={STATISTIC_CATEGORY.GENERAL}
+            value={<>
+              <ItemDamageDone amount={this.damage} /> <br />
+              <AverageTargetsHit casts={this.casts} hits={this.targetsHit} />
+            </>}
           />
         );
       }
-    }
-    return null;
-  }
-
-  subStatistic() {
-    if (this.casts > 0) {
-      //Since you're not casting Butchery or Carve on single-target, there's no reason to show the statistics in cases where the abilities were cast 0 times.
-      return (
-        <StatisticListBoxItem
-          title={<SpellLink id={this.spellKnown.id} />}
-          value={<ItemDamageDone amount={this.bonusDamage} />}
-        />
-      );
     }
     return null;
   }
