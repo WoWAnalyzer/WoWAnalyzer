@@ -3,7 +3,7 @@ import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber } from 'common/format';
 import ChiTracker from 'parser/monk/windwalker/modules/chi/ChiTracker';
 
 /**
@@ -30,15 +30,13 @@ class GloryOfTheDawn extends Analyzer {
   }
   
   statistic() {
-    const damageThroughputPercent = this.owner.getPercentageOfTotalDamageDone(this.damageDone);
-    const dps = this.damageDone / this.owner.fightDuration * 1000;
     return (
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.GLORY_OF_THE_DAWN.id}
         value={(
           <>
-            {formatPercentage(damageThroughputPercent)} % / {formatNumber(dps)} DPS <br />
+            {this.owner.formatItemDamageDone(this.damageDone)} <br />
             {this.chiGain} Chi Gained
           </>
         )}
