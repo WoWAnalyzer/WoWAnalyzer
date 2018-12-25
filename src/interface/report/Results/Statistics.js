@@ -77,7 +77,7 @@ class Statistics extends React.PureComponent {
           );
         })}
 
-        {panels.sort(this.sortByPosition)}
+        {panels && panels.sort(this.sortByPosition)}
       </>
     );
   }
