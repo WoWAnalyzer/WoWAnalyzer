@@ -56,9 +56,8 @@ class BalefulInvocation extends Analyzer {
   }
 
   statistic() {
-    const baleful = this.soulShardTracker.buildersObj[SPELLS.BALEFUL_INVOCATION_ENERGIZE.id];
-    const generated = baleful.generated || 0;
-    const wasted = baleful.wasted || 0;
+    const generated = this.soulShardTracker.getGeneratedBySpell(SPELLS.BALEFUL_INVOCATION_ENERGIZE.id);
+    const wasted = this.soulShardTracker.getWastedBySpell(SPELLS.BALEFUL_INVOCATION_ENERGIZE.id);
     return (
       <TraitStatisticBox
         trait={SPELLS.BALEFUL_INVOCATION.id}

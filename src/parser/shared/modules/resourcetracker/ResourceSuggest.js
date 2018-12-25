@@ -9,7 +9,7 @@ function suggest(when, tracker, suggestion) {
   }
 
   const maxGenerated = tracked.generated + tracked.wasted;
-  const wastedShare = (tracked.wasted / (maxGenerated));
+  const wastedShare = (tracked.wasted / maxGenerated) || 0;
   const resourceNameLower = tracker.resource.name.toLowerCase();
 
   when(wastedShare).isGreaterThan(suggestion.minor)
