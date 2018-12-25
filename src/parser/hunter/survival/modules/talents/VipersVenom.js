@@ -6,8 +6,6 @@ import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 
@@ -46,7 +44,9 @@ class VipersVenom extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.VIPERS_VENOM_TALENT.id);
-    this.spellKnown = this.selectedCombatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id) ? SPELLS.MONGOOSE_BITE_TALENT : SPELLS.RAPTOR_STRIKE;
+    if (this.active) {
+      this.spellKnown = this.selectedCombatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id) ? SPELLS.MONGOOSE_BITE_TALENT : SPELLS.RAPTOR_STRIKE;
+    }
   }
 
   on_byPlayer_cast(event) {
@@ -140,19 +140,11 @@ class VipersVenom extends Analyzer {
     return (
       <TalentStatisticBox
         talent={SPELLS.VIPERS_VENOM_TALENT.id}
-        position={STATISTIC_ORDER.CORE(22)}
-        value={`${this.procs}`}
-        label="Viper's Venom procs"
+        value={<>
+          {this.procs} / {this.wastedProcs + this.procs} procs used<br />
+          <ItemDamageDone amount={this.bonusDamage} />
+        </>}
         tooltip={tooltip}
-      />
-    );
-  }
-
-  subStatistic() {
-    return (
-      <StatisticListBoxItem
-        title={<SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} />}
-        value={<ItemDamageDone amount={this.bonusDamage} />}
       />
     );
   }

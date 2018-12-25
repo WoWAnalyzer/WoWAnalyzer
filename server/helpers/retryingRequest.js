@@ -29,7 +29,7 @@ async function retryingRequest(options, attempt = 1) {
 
     return result;
   } catch (err) {
-    console.error('REQUEST', 'ERROR', err.message);
+    console.error('REQUEST', 'ERROR', err.toString(), err.message);
     if (options.onFailedAttempt) {
       options.onFailedAttempt(err, attempt);
     }
