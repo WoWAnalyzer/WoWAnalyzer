@@ -14,8 +14,6 @@ import { HYDRAS_BITE_DOT_MODIFIER } from 'parser/hunter/survival/constants';
  * Example log: https://www.warcraftlogs.com/reports/6XmjYqTnc3DM7VQx/#fight=6&source=21
  */
 
-const BUFFER = 50; //changedebuffstack triggers twice on the same timestamp, this allows us to ignore any duplicates
-
 class HydrasBite extends Analyzer {
 
   casts = 0;
@@ -23,7 +21,6 @@ class HydrasBite extends Analyzer {
   increasedMainTargetDamage = 0;
   extraApplications = 0;
   mainTargets = [];
-  _lastEventTimestamp = null;
 
   constructor(...args) {
     super(...args);
@@ -53,26 +50,39 @@ class HydrasBite extends Analyzer {
     this.spreadDamage += event.amount + (event.absorbed || 0);
   }
 
-  on_byPlayer_changedebuffstack(event) {
-    if (event.ability.guid !== SPELLS.SERPENT_STING_SV.id) {
-      return;
-    }
-    if ((this._lastEventTimestamp !== null && this._lastEventTimestamp + BUFFER > event.timestamp) || event.targetIsFriendly) {
+  on_byPlayer_applydebuff(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.SERPENT_STING_SV.id) {
       return;
     }
     const target = encodeTargetString(event.targetID, event.targetInstance);
-    if (event.newStacks !== 0) {
-      // apply or refresh
-      if (this.mainTargets.includes(target)) {
-        return;
-      }
-      this.extraApplications += 1;
-    } else {
-      // remove
-      const index = this.mainTargets.indexOf(target);
-      if (index !== -1) {
-        this.mainTargets.splice(index, 1);
-      }
+    if (this.mainTargets.includes(target)) {
+      return;
+    }
+    this.extraApplications += 1;
+  }
+
+  on_byPlayer_refreshdebuff(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.SERPENT_STING_SV.id) {
+      return;
+    }
+    const target = encodeTargetString(event.targetID, event.targetInstance);
+    if (this.mainTargets.includes(target)) {
+      return;
+    }
+    this.extraApplications += 1;
+  }
+
+  on_byPlayer_removedebuff(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.SERPENT_STING_SV.id) {
+      return;
+    }
+    const target = encodeTargetString(event.targetID, event.targetInstance);
+    const index = this.mainTargets.indexOf(target);
+    if (index !== -1) {
+      this.mainTargets.splice(index, 1);
     }
   }
 
