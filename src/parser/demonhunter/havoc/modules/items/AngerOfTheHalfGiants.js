@@ -33,32 +33,19 @@ class AngerOfTheHalfGiants extends Analyzer {
 		}
 	}
 
-	get angerFury() {
-		return this.furyTracker.buildersObj[SPELLS.ANGER_OF_THE_HALF_GIANTS_FURY.id];
-	}
-
 	get dBCasts() {
 		if(!this._hasDemonBlades) {
 			return this.abilityTracker.getAbility(SPELLS.DEMONS_BITE.id).casts;
 		}
-		if(this.furyTracker.buildersObj[SPELLS.DEMON_BLADES_FURY.id]) {
-			return this.furyTracker.buildersObj[SPELLS.DEMON_BLADES_FURY.id].casts;
-		}
-		return 0;
+		return this.furyTracker.getBuilderCastsBySpell(SPELLS.DEMON_BLADES_FURY.id);
 	}
 
 	get furyGenerated() {
-		if(this.angerFury){
-			return this.angerFury.generated;
-		}
-		return 0;
+	  return this.furyTracker.getGeneratedBySpell(SPELLS.ANGER_OF_THE_HALF_GIANTS_FURY.id);
 	}
 
 	get furyWasted() {
-		if(this.angerFury){
-			return this.angerFury.wasted;
-		}
-		return 0;
+    return this.furyTracker.getWastedBySpell(SPELLS.ANGER_OF_THE_HALF_GIANTS_FURY.id);
 	}
 
 	get totalFury() {

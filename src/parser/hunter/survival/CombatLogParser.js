@@ -35,6 +35,9 @@ import ShrapnelBomb from './modules/talents/WildfireInfusion/ShrapnelBomb';
 import VolatileBomb from './modules/talents/WildfireInfusion/VolatileBomb';
 import AlphaPredator from './modules/talents/AlphaPredator';
 import Bloodseeker from './modules/talents/Bloodseeker';
+import HydrasBite from './modules/talents/HydrasBite';
+import FlankingStrike from './modules/talents/FlankingStrike';
+import TipOfTheSpear from './modules/talents/TipOfTheSpear';
 //Azerite Traits
 import WildernessSurvival from './modules/spells/azeritetraits/WildernessSurvival';
 import LatentPoison from './modules/spells/azeritetraits/LatentPoison';
@@ -82,6 +85,9 @@ class CombatLogParser extends CoreCombatLogParser {
     bindingShot: BindingShot,
     alphaPredator: AlphaPredator,
     bloodseeker: Bloodseeker,
+    hydrasBite: HydrasBite,
+    flankingStrike: FlankingStrike,
+    tipOfTheSpear: TipOfTheSpear,
     /** Wildfire Infusion */
     pheromoneBomb: PheromoneBomb,
     shrapnelBomb: ShrapnelBomb,
