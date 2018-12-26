@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Zerotorescue } from 'CONTRIBUTORS';
 import { formatPercentage } from 'common/format';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
@@ -61,6 +62,8 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(10)}
+        title="Active time"
+        tooltip={`Created by Zerotorescue. For more details, see the timeline.`}
       >
         <label>Active time</label>
 

@@ -4,6 +4,7 @@
   border: 0 !important;
   padding: 15px 18px;
   text-shadow: 0 0 0.6px currentColor;
+  position: relative;
 }
 .statistic svg {
   text-shadow: none;
@@ -38,4 +39,23 @@
 .statistic .text-muted {
   color: #777;
   opacity: 0.7;
+}
+.statistic .detail-corner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-right: 30px solid #2b2b2f;
+  border-left: none;
+  border-bottom: 30px solid transparent;
+  cursor: help;
+}
+.statistic .detail-corner svg {
+  position: absolute;
+  top: 4px;
+  right: -28px;
+  font-size: 12px;
+  margin-top: 0;
+  opacity: 0.5;
 }
