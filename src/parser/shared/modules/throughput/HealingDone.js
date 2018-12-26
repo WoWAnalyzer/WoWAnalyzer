@@ -7,6 +7,7 @@ import { formatThousands, formatPercentage } from 'common/format';
 import rankingColor from 'common/getRankingColor';
 import groupDataForChart from 'common/groupDataForChart';
 import StatisticBar from 'interface/report/Results/statistics/StatisticBar';
+import ThroughputPerformance from 'interface/report/Results/ThroughputPerformance';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer from 'parser/core/Analyzer';
 
@@ -76,9 +77,8 @@ class HealingDone extends Analyzer {
       return null;
     }
 
-    const performance = 0.55;
-
     const groupedData = groupDataForChart(this.bySecond, this.owner.fightDuration);
+    const perSecond = this.total.effective / this.owner.fightDuration * 1000;
 
     return (
       <StatisticBar
@@ -99,10 +99,16 @@ class HealingDone extends Analyzer {
             style={{ fontWeight: 500, width: 190, textAlign: 'center' }}
             data-tip={`Total healing done: <b>${formatThousands(this.total.effective)}</b>`}
           >
-            {formatThousands(this.total.effective / this.owner.fightDuration * 1000)} HPS
+            {formatThousands(perSecond)} HPS
           </div>
-          <div className={`flex-sub ${rankingColor(performance)}`} style={{ width: 110, textAlign: 'center' }}>
-            {formatPercentage(performance, 0)}%
+          <div className="flex-sub" style={{ width: 110, textAlign: 'center' }}>
+            <ThroughputPerformance throughput={perSecond} metric="hps">
+              {performance => performance && (
+                <div className={rankingColor(performance)}>
+                  {formatPercentage(performance, 0)}%
+                </div>
+              )}
+            </ThroughputPerformance>
           </div>
           <div className="flex-main" style={{ padding: 0 }}>
             <AutoSizer>
