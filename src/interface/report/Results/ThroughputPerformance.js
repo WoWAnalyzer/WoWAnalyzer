@@ -24,19 +24,18 @@ class ThroughputPerformance extends React.PureComponent {
     this.load();
   }
 
-  load() {
-    return this.loadRankings()
-      // Get the best rank
-      .then(({ rankings }) => rankings[0])
-      // Get the throughput
-      .then(rank => rank ? rank.total : null)
-      .then(topThroughput => {
-        this.setState({
-          performance: topThroughput ? this.props.throughput / topThroughput : null,
-        });
-      });
+  async load() {
+    const { rankings } = await this.loadRankings();
+    const topRank = rankings[0];
+    if (!topRank) {
+      return;
+    }
+    const topThroughput = topRank.total;
+    this.setState({
+      performance: this.props.throughput / topThroughput,
+    });
   }
-  loadRankings() {
+  async loadRankings() {
     const parser = this.context.parser;
 
     const now = new Date();
