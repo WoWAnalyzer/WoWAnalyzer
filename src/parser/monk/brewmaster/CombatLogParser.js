@@ -11,6 +11,7 @@ import StaggerFabricator from './modules/core/StaggerFabricator';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import Channeling from './modules/core/Channeling';
 import MasteryValue from './modules/core/MasteryValue';
+import AgilityValue from './modules/features/AgilityValue';
 // Spells
 import IronSkinBrew from './modules/spells/IronSkinBrew';
 import PurifyingBrew from './modules/spells/PurifyingBrew';
@@ -53,6 +54,7 @@ class CombatLogParser extends CoreCombatLogParser {
     brews: SharedBrews,
     channeling: Channeling,
     globalCooldown: GlobalCooldown,
+    agilityValue: AgilityValue,
     masteryValue: MasteryValue,
     mitigationCheck: MitigationCheck,
 
