@@ -6,6 +6,11 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-12-24'),
+    changes: <>Now showing average remaining dot length on <SpellLink id={SPELLS.DEATHBOLT_TALENT.id} /> casts.</>,
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-12-21'),
     changes: <>Added <SpellLink id={SPELLS.PANDEMIC_INVOCATION.id} /> trait and updated <SpellLink id={SPELLS.INEVITABLE_DEMISE.id} /> icon.</>,
     contributors: [Chizu],
