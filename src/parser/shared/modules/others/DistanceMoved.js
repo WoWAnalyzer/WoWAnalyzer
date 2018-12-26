@@ -2,6 +2,7 @@ import React from 'react';
 
 import Icon from 'common/Icon';
 import { formatPercentage, formatThousands } from 'common/format';
+import Tooltip from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 
@@ -101,7 +102,8 @@ class DistanceMoved extends Analyzer {
                 {dist_icon} {dist_label}
               </div>
               <div className="flex-sub text-right">
-                {dist_tooltip ? <dfn data-tip={dist_tooltip}>{dist_value}</dfn> : dist_value}
+                {/*{dist_tooltip ? <dfn data-tip={dist_tooltip}>{dist_value}</dfn> : dist_value}*/}
+                {dist_tooltip ? <Tooltip content={dist_tooltip}>{dist_value}</Tooltip> : dist_value}
               </div>
             </div>
             <div className="panel-body flex wrapable">
