@@ -1,0 +1,3397 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The Fire Mage Analyzer analyzers Abilities matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Fire Mage Analyzer analyzers Abilities matches the suggestions snapshot 1`] = `"module has no suggestions"`;
+
+exports[`The Fire Mage Analyzer analyzers AlwaysBeCasting matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <img
+            alt=""
+            className="icon"
+            src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
+          />
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Downtime
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="Downtime is available time not used to cast anything (including not having your GCD rolling). This can be caused by delays between casting spells, latency, cast interrupting or just simply not casting anything (e.g. due to movement/stunned).<br/>
+        <li>You spent <b>75.26%</b> of your time casting something.</li>
+        <li>You spent <b>24.74%</b> of your time casting nothing at all.</li>
+        "
+            >
+              24.74 %
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="panel-footer"
+      style={
+        Object {
+          "borderTop": 0,
+          "overflow": "hidden",
+          "padding": 0,
+        }
+      }
+    >
+      <div
+        className="statistic-bar"
+      >
+        <div
+          className="stat-health-bg"
+          data-tip="You spent <b>75.26%</b> of your time casting something."
+          style={
+            Object {
+              "width": "75.2647157966486%",
+            }
+          }
+        >
+          <img
+            alt="Active time"
+            src="/img/sword.png"
+          />
+        </div>
+        <div
+          className="remainder DeathKnight-bg"
+          data-tip="You spent <b>24.74%</b> of your time casting nothing at all."
+        >
+          <img
+            alt="Downtime"
+            src="/img/afk.png"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Fire Mage Analyzer analyzers AlwaysBeCasting matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_mage_altertime",
+    "importance": "minor",
+    "issue": <span>
+      Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. If you have to move, try casting 
+      <SpellLink
+        icon={true}
+        id={2948}
+      />
+      .
+    </span>,
+    "stat": <React.Fragment>
+      24.74% downtime
+       (
+      &lt;20.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`The Fire Mage Analyzer analyzers ArcaneIntellect matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Fire Mage Analyzer analyzers ArcaneIntellect matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_holy_magicalsentry",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      <SpellLink
+        icon={true}
+        id={1459}
+      />
+       was up for 
+      99.85
+      % of the fight. Ensure you are casting this before the pull and recasting it every time you are ressurected.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      99.85% Uptime
+       (
+      100.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`The Fire Mage Analyzer analyzers ArcaneTorrent matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Fire Mage Analyzer analyzers ArcaneTorrent matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Fire Mage Analyzer analyzers BlasterMaster matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable item"
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=274596"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/spell_fire_fireball.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            <a
+              href="http://wowhead.com/spell=274596"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+               
+              Blaster Master
+            </a>
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="Blaster Master is a somewhat complicated trait to get the full effect from and may involve adjusting your rotation during Combustion. In order to get the most out of this trait, you should aim to get to 3 stacks of the Blaster Master during Combustion. For additional information on how to accomplish this, refer to the Mage Discord or the link in the Suggestion."
+            >
+              2.33 stacks per Combustion
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Fire Mage Analyzer analyzers BlasterMaster matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_fire_fireball",
+    "importance": "regular",
+    "issue": <React.Fragment>
+      On average, you got 
+      2.33
+       stacks of 
+      <SpellLink
+        icon={true}
+        id={274596}
+      />
+       per 
+      <SpellLink
+        icon={true}
+        id={190319}
+      />
+       cast. In order to maximize the use of the trait, you should aim for getting to 
+      3
+       stacks each time you use Combustion. For more information on how to adjust your Combustion rotation to make this happen, refer to 
+      <a
+        href="https://cdn.discordapp.com/attachments/431912396349636609/511996656829595659/BlasterMaster_Rotation.png"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        this graphic
+      </a>
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      2.33 stacks per Combustion
+       (
+      3 is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`The Fire Mage Analyzer analyzers CancelledCasts matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <img
+            alt=""
+            className="icon"
+            src="//render-us.worldofwarcraft.com/icons/56/inv_misc_map_01.jpg"
+          />
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Casts Cancelled
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="You cast 167 spells.
+          <ul>
+            <li>147 casts were completed</li>
+            <li>20 casts were cancelled</li>
+          </ul>
+        "
+            >
+              11.98 %
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Fire Mage Analyzer analyzers CancelledCasts matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_misc_map_01",
+    "importance": "regular",
+    "issue": <React.Fragment>
+      You cancelled 
+      11.98
+      % of your spells. While it is expected that you will have to cancel a few casts to react to boss mechanics or move, you should try to ensure that you are cancelling as few casts as possible by utilizing movement abilities such as 
+      <SpellLink
+        icon={true}
+        id={1953}
+      />
+       and 
+      <SpellLink
+        icon={true}
+        id={212653}
+      />
+      .
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      11.98% casts cancelled
+       (
+      &lt;5.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`The Fire Mage Analyzer analyzers Checklist matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Fire Mage Analyzer analyzers Checklist matches the suggestions snapshot 1`] = `"module has no suggestions"`;
+
+exports[`The Fire Mage Analyzer analyzers CombustionCharges matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Fire Mage Analyzer analyzers CombustionCharges matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Fire Mage Analyzer analyzers CombustionFirestarter matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Fire Mage Analyzer analyzers CombustionFirestarter matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Fire Mage Analyzer analyzers CombustionPyroclasm matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Fire Mage Analyzer analyzers CombustionPyroclasm matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Fire Mage Analyzer analyzers CombustionSpellUsage matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Fire Mage Analyzer analyzers CombustionSpellUsage matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Fire Mage Analyzer analyzers CooldownThroughputTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Fire Mage Analyzer analyzers CooldownThroughputTracker matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Fire Mage Analyzer analyzers DamageDone matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <img
+            alt="Sword"
+            src="/img/sword.png"
+            style={
+              Object {
+                "border": 0,
+              }
+            }
+          />
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Damage done
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="Total damage done: <b>5,296,393</b> "
+            >
+              16k DPS
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Fire Mage Analyzer analyzers DamageDone matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Fire Mage Analyzer analyzers HeatingUp matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=48107"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/ability_mage_hotstreak.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Heating Up Utilization
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="Spells that are guaranteed to crit like Fire Blast should only be used to convert Heating Up to Hot Streak.
+          <ul>
+            <li>Fireblast Used with no procs: 1</li>
+            <li>Fireblast used during Hot Streak: 0</li>
+          </ul>"
+            >
+              97 %
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Fire Mage Analyzer analyzers HeatingUp matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Fire Mage Analyzer analyzers HotStreak matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=48108"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/ability_mage_hotstreak.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Hot Streak utilization
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="Hot Streak is a big part of your rotation and therefore it is important that you use all the procs that you get and avoid letting them expire.
+        <ul>
+          <li>Total procs - 53</li>
+          <li>Used procs - 53</li>
+          <li>Expired procs - 0</li>
+        </ul>"
+            >
+              100 %
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Fire Mage Analyzer analyzers HotStreak matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Fire Mage Analyzer analyzers HotStreakPreCasts matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=48108"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/ability_mage_hotstreak.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Hot Streak pre-casts
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="By pre-casting Fireball (or hard casting Pyroblast to use a Pyroclasm proc), you are increasing the chances of getting another Heating Up or Hot Streak since if both the pre-cast and the instant Pyroblast crit, then you will instantly get a new Hot Streak, or if one of them procs then you will have a new Heating Up proc that you can convert to Hot Streak with a guaranteed crit ability like Fire Blast or Phoenix Flames. Therefore you should always do this, except in the below circumstances where you can guarantee a crit.        <ul>
+          <li>Combustion is active</li>
+          <li>You have Firestarter and the target is above 90% health</li>
+          <li>You have Searing Touch and the target is below 30% health</li>
+        </ul>"
+            >
+              50 %
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Fire Mage Analyzer analyzers HotStreakPreCasts matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "ability_mage_hotstreak",
+    "importance": "major",
+    "issue": <React.Fragment>
+      In situations where you are not able to guarantee a crit (
+      <SpellLink
+        icon={true}
+        id={190319}
+      />
+      , 
+      <SpellLink
+        icon={true}
+        id={205026}
+      />
+      , and 
+      <SpellLink
+        icon={true}
+        id={269644}
+      />
+      ), you didn't pre-cast 
+      <SpellLink
+        icon={true}
+        id={133}
+      />
+       
+      
+       
+      10
+       times. Pre-casting when you can't guarantee a crit helps you get more 
+      <SpellLink
+        icon={true}
+        id={48107}
+      />
+       and 
+      <SpellLink
+        icon={true}
+        id={48108}
+      />
+       procs, so you should do this whenenver possible.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      50.00% Utilization
+       (
+      95.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`The Fire Mage Analyzer analyzers HotStreakWastedCrits matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Fire Mage Analyzer analyzers HotStreakWastedCrits matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Fire Mage Analyzer analyzers Kindling matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Fire Mage Analyzer analyzers Kindling matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Fire Mage Analyzer analyzers MirrorImage matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Fire Mage Analyzer analyzers MirrorImage matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Fire Mage Analyzer analyzers Pyroclasm matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Fire Mage Analyzer analyzers Pyroclasm matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Fire Mage Analyzer analyzers RuneOfPower matches the statistic snapshot 1`] = `null`;
+
+exports[`The Fire Mage Analyzer analyzers RuneOfPower matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Fire Mage Analyzer analyzers SearingTouch matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Fire Mage Analyzer analyzers SearingTouch matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "ability_warlock_backdraft",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      You cast 
+      <SpellLink
+        icon={true}
+        id={133}
+      />
+        instead of 
+      <SpellLink
+        icon={true}
+        id={2948}
+      />
+       while the target was under 30% health 
+      4
+       times. When using 
+      <SpellLink
+        icon={true}
+        id={269644}
+      />
+       always use Scorch isntead of Fireball when the target is under 30% health since Scorch does 150% damage and is guaranteed to crit.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      86.21% Utilization
+       (
+      95.00 is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
+<div
+  className="checklist"
+>
+  <div
+    className="expandable "
+  >
+    <div
+      className="meta checklist-item"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div
+            className="chevron"
+          >
+            <svg
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div>
+            <svg
+              style={
+                Object {
+                  "color": "green",
+                }
+              }
+              viewBox="0 0 50 50"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-main"
+        >
+          Use your cooldowns
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "width": 100,
+            }
+          }
+        >
+          <div
+            className="performance-bar-container"
+          >
+            <div
+              className="performance-bar small"
+              style={
+                Object {
+                  "backgroundColor": "#a6c34c",
+                  "transition": "background-color 800ms",
+                  "width": "72.1431549038801%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="details"
+      style={
+        Object {
+          "display": "none",
+          "minHeight": 80,
+          "paddingLeft": 65,
+          "paddingRight": 65,
+          "position": "relative",
+        }
+      }
+    >
+      <div
+        className="row"
+        style={
+          Object {
+            "marginBottom": 10,
+            "position": "relative",
+          }
+        }
+      >
+        <svg
+          className="text-muted"
+          style={
+            Object {
+              "fontSize": "2em",
+              "left": -33,
+              "position": "absolute",
+              "top": "50%",
+              "transform": "translateY(-33%)",
+            }
+          }
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+          />
+          <path
+            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+          />
+          <path
+            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+          />
+        </svg>
+        <div
+          className="col-md-12 text-muted"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Using your cooldown abilities as often as possible can help raise your dps significantly. Some help more than others, but as a general rule of thumb you should be looking to use most of your damaging abilities and damage cooldowns as often as possible unless you need to save them for a priority burst phase that is coming up soon.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=190319"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_fire_sealoffire.jpg"
+                />
+                 
+                Combustion
+              </a>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                100.00%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=108853"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_fire_fireball.jpg"
+                />
+                 
+                Fire Blast
+              </a>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                82.40%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#ffc84a",
+                      "transition": "background-color 800ms",
+                      "width": "57.95063997323636%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=116011"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_mage_runeofpower.jpg"
+                />
+                 
+                Rune of Power
+              </a>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                97.01%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=153561"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_mage_meteor.jpg"
+                />
+                 
+                Meteor
+              </a>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                68.97%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#ac1f39",
+                      "transition": "background-color 800ms",
+                      "width": "30.621979642284074%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="expandable "
+  >
+    <div
+      className="meta checklist-item"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div
+            className="chevron"
+          >
+            <svg
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div>
+            <svg
+              style={
+                Object {
+                  "color": "green",
+                }
+              }
+              viewBox="0 0 50 50"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-main"
+        >
+          Use Combustion effectively
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "width": 100,
+            }
+          }
+        >
+          <div
+            className="performance-bar-container"
+          >
+            <div
+              className="performance-bar small"
+              style={
+                Object {
+                  "backgroundColor": "#4ec04e",
+                  "transition": "background-color 800ms",
+                  "width": "100%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="details"
+      style={
+        Object {
+          "display": "none",
+          "minHeight": 80,
+          "paddingLeft": 65,
+          "paddingRight": 65,
+          "position": "relative",
+        }
+      }
+    >
+      <div
+        className="row"
+        style={
+          Object {
+            "marginBottom": 10,
+            "position": "relative",
+          }
+        }
+      >
+        <svg
+          className="text-muted"
+          style={
+            Object {
+              "fontSize": "2em",
+              "left": -33,
+              "position": "absolute",
+              "top": "50%",
+              "transform": "translateY(-33%)",
+            }
+          }
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+          />
+          <path
+            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+          />
+          <path
+            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+          />
+        </svg>
+        <div
+          className="col-md-12 text-muted"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Using 
+              <a
+                href="http://wowhead.com/spell=190319"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_fire_sealoffire.jpg"
+                />
+                 
+                Combustion
+              </a>
+               properly is one of the most important aspects of playing Fire well. Therefore it is critical that you make the most of the time that you have while Combustion is active. This include things such as not wasting time or GCDs while Combustion is active and ensuring that you properly setup for your "Combustion Window".
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Fire Blast Charges
+            </div>
+            <div
+              className="flex-sub"
+              style={
+                Object {
+                  "marginLeft": 10,
+                }
+              }
+            >
+              <svg
+                data-tip="When Combustion is getting close to becomming available, it is important to save a couple Fire Blast charges to be used during the Combustion Window. This will help ensure that you can get as many Hot Streak procs as possible during Combustion."
+                viewBox="0 0 100 100"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                />
+                <path
+                  d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                />
+                <path
+                  d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                />
+              </svg>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                100.00%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Bad Scorch Uses
+            </div>
+            <div
+              className="flex-sub"
+              style={
+                Object {
+                  "marginLeft": 10,
+                }
+              }
+            >
+              <svg
+                data-tip="It is very important to use your time during Combustion wisely to get as many Hot Streak procs as possible before Combustion ends. To accomplish this, you should be stringing your guaranteed crit spells (Fireblast and Phoenix Flames) together to perpetually convert Heating Up to Hot Streak as many times as possible. If you run out of instant spells, cast Scorch instead."
+                viewBox="0 0 100 100"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                />
+                <path
+                  d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                />
+                <path
+                  d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                />
+              </svg>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                0
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Bad Fireball Uses
+            </div>
+            <div
+              className="flex-sub"
+              style={
+                Object {
+                  "marginLeft": 10,
+                }
+              }
+            >
+              <svg
+                data-tip="Due to Combustion's short duration, you should never cast Fireball during Combustion. Instead, you should use your instant cast abilities like Fireblast and Phoenix Flames. If you run out of instant abilities, cast Scorch instead since it's cast time is shorter."
+                viewBox="0 0 100 100"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                />
+                <path
+                  d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                />
+                <path
+                  d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                />
+              </svg>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                0
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="expandable "
+  >
+    <div
+      className="meta checklist-item"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div
+            className="chevron"
+          >
+            <svg
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div>
+            <svg
+              style={
+                Object {
+                  "color": "green",
+                }
+              }
+              viewBox="0 0 50 50"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-main"
+        >
+          Use your procs effectively
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "width": 100,
+            }
+          }
+        >
+          <div
+            className="performance-bar-container"
+          >
+            <div
+              className="performance-bar small"
+              style={
+                Object {
+                  "backgroundColor": "#a6c34c",
+                  "transition": "background-color 800ms",
+                  "width": "80.55%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="details"
+      style={
+        Object {
+          "display": "none",
+          "minHeight": 80,
+          "paddingLeft": 65,
+          "paddingRight": 65,
+          "position": "relative",
+        }
+      }
+    >
+      <div
+        className="row"
+        style={
+          Object {
+            "marginBottom": 10,
+            "position": "relative",
+          }
+        }
+      >
+        <svg
+          className="text-muted"
+          style={
+            Object {
+              "fontSize": "2em",
+              "left": -33,
+              "position": "absolute",
+              "top": "50%",
+              "transform": "translateY(-33%)",
+            }
+          }
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+          />
+          <path
+            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+          />
+          <path
+            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+          />
+        </svg>
+        <div
+          className="col-md-12 text-muted"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Fire Mage revolves almost entirely around utilizing your procs effectively. Therefore it is very important that you manage your procs correctly to ensure that you get the most out of them.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Hot Streak Proc Utilization
+            </div>
+            <div
+              className="flex-sub"
+              style={
+                Object {
+                  "marginLeft": 10,
+                }
+              }
+            >
+              <svg
+                data-tip="Your Hot Streak Utilization. The bulk of your rotation revolves around successfully converting Heating Up procs into Hot Streak and using those Hot Streak procs effectively. Unless it is unavoidable, you should never let your Hot Streak procs expire without using them."
+                viewBox="0 0 100 100"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                />
+                <path
+                  d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                />
+                <path
+                  d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                />
+              </svg>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                100.00%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Wasted Crits Per Minute
+            </div>
+            <div
+              className="flex-sub"
+              style={
+                Object {
+                  "marginLeft": 10,
+                }
+              }
+            >
+              <svg
+                data-tip="In addition to converting Heating Up to Hot Streak, it is also very important to use your Hot Streak procs as quickly as possible. This is primarily because you are unable to get a Heating Up proc if you already have Hot Streak. Therefore, casting abilities that can give you Heating Up while you have Hot Streak would be a big waste."
+                viewBox="0 0 100 100"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                />
+                <path
+                  d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                />
+                <path
+                  d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                />
+              </svg>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                0
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Hardcast into Hot Streak
+            </div>
+            <div
+              className="flex-sub"
+              style={
+                Object {
+                  "marginLeft": 10,
+                }
+              }
+            >
+              <svg
+                data-tip="Unless you are in Combustion and have Fire Blast/Phoenix Flames charges, you should always cast an ability that can generate Heating Up before using your Hot Streak proc. As an example, if you have Hot Streak and you cast Fireball > Pyroblast to use your Hot Streak, and one of those spells crit, then you will get Heating Up. If both spells crit, then you will instantly get a new Hot Streak proc."
+                viewBox="0 0 100 100"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                />
+                <path
+                  d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                />
+                <path
+                  d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                />
+              </svg>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                50.00%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#ac1f39",
+                      "transition": "background-color 800ms",
+                      "width": "22.2%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Fire Blast Usage
+            </div>
+            <div
+              className="flex-sub"
+              style={
+                Object {
+                  "marginLeft": 10,
+                }
+              }
+            >
+              <svg
+                data-tip="Because Fire Blast is guaranteed to crit, you should only use it to convert Heating Up into Hot Streak."
+                viewBox="0 0 100 100"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                />
+                <path
+                  d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                />
+                <path
+                  d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                />
+              </svg>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                96.97%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="expandable "
+  >
+    <div
+      className="meta checklist-item"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div
+            className="chevron"
+          >
+            <svg
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div>
+            <svg
+              style={
+                Object {
+                  "color": "green",
+                }
+              }
+              viewBox="0 0 50 50"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-main"
+        >
+          Use your talents effectively
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "width": 100,
+            }
+          }
+        >
+          <div
+            className="performance-bar-container"
+          >
+            <div
+              className="performance-bar small"
+              style={
+                Object {
+                  "backgroundColor": "#a6c34c",
+                  "transition": "background-color 800ms",
+                  "width": "83.59448275862069%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="details"
+      style={
+        Object {
+          "display": "none",
+          "minHeight": 80,
+          "paddingLeft": 65,
+          "paddingRight": 65,
+          "position": "relative",
+        }
+      }
+    >
+      <div
+        className="row"
+        style={
+          Object {
+            "marginBottom": 10,
+            "position": "relative",
+          }
+        }
+      >
+        <svg
+          className="text-muted"
+          style={
+            Object {
+              "fontSize": "2em",
+              "left": -33,
+              "position": "absolute",
+              "top": "50%",
+              "transform": "translateY(-33%)",
+            }
+          }
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+          />
+          <path
+            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+          />
+          <path
+            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+          />
+        </svg>
+        <div
+          className="col-md-12 text-muted"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Regardless of which talents you select, you should ensure that you are utilizing them properly. If you are having trouble effectively using a particular talent, you should consider taking a different talent that you can utilize properly or focus on effectively using the talents that you have selected.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Searing Touch Utilization
+            </div>
+            <div
+              className="flex-sub"
+              style={
+                Object {
+                  "marginLeft": 10,
+                }
+              }
+            >
+              <svg
+                data-tip="Searing Touch causes your Scorch ability to deal 150% additional damage and be guaranteed to crit when the target is under 30% health. Therefore it is important that when the target is under 30% health, you cast Scorch instead of Fireball."
+                viewBox="0 0 100 100"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                />
+                <path
+                  d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                />
+                <path
+                  d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                />
+              </svg>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                86.21%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#a6c34c",
+                      "transition": "background-color 800ms",
+                      "width": "70.61896551724138%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Rune of Power Uptime
+            </div>
+            <div
+              className="flex-sub"
+              style={
+                Object {
+                  "marginLeft": 10,
+                }
+              }
+            >
+              <svg
+                data-tip="Using Rune of Power effectively means being able to stay within the range of it for it's entire duration. If you are unable to do so or if you frequently have to move out of the range of the buff, consider taking a different talent instead."
+                viewBox="0 0 100 100"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                />
+                <path
+                  d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                />
+                <path
+                  d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                />
+              </svg>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                10
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#a6c34c",
+                      "transition": "background-color 800ms",
+                      "width": "96.57000000000002%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="expandable "
+  >
+    <div
+      className="meta checklist-item"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div
+            className="chevron"
+          >
+            <svg
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div>
+            <svg
+              style={
+                Object {
+                  "color": "red",
+                }
+              }
+              viewBox="15 15 70 70"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                style={
+                  Object {
+                    "strokeLinecap": "round",
+                    "strokeMiterlimit": 10,
+                    "strokeWidth": 10,
+                  }
+                }
+              >
+                <line
+                  x1="21.19"
+                  x2="78.81"
+                  y1="21.19"
+                  y2="78.81"
+                />
+                <line
+                  x1="78.81"
+                  x2="21.19"
+                  y1="21.19"
+                  y2="78.81"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-main"
+        >
+          Avoid downtime
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "width": 100,
+            }
+          }
+        >
+          <div
+            className="performance-bar-container"
+          >
+            <div
+              className="performance-bar small"
+              style={
+                Object {
+                  "backgroundColor": "#df7102",
+                  "transition": "background-color 800ms",
+                  "width": "34.04864523525383%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="details"
+      style={
+        Object {
+          "display": "none",
+          "minHeight": 80,
+          "paddingLeft": 65,
+          "paddingRight": 65,
+          "position": "relative",
+        }
+      }
+    >
+      <div
+        className="row"
+        style={
+          Object {
+            "marginBottom": 10,
+            "position": "relative",
+          }
+        }
+      >
+        <svg
+          className="text-muted"
+          style={
+            Object {
+              "fontSize": "2em",
+              "left": -33,
+              "position": "absolute",
+              "top": "50%",
+              "transform": "translateY(-33%)",
+            }
+          }
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+          />
+          <path
+            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+          />
+          <path
+            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+          />
+        </svg>
+        <div
+          className="col-md-12 text-muted"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              As a DPS, it is important to spend as much time casting as possible as if you are not casting then you are not doing damage. Therefore it is important to minimize your movements, stay within range of the target, and cancelling casts .. if you can avoid it. While some fights will have an amount of time that is unavoidable downtime; the more you can minimize that downtime, the better.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Downtime
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                24.74%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#ac1f39",
+                      "transition": "background-color 800ms",
+                      "width": "8.07752999146575%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Cancelled Casts
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                11.98%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#ffc84a",
+                      "transition": "background-color 800ms",
+                      "width": "60.01976047904192%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="expandable "
+  >
+    <div
+      className="meta checklist-item"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div
+            className="chevron"
+          >
+            <svg
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div>
+            <svg
+              style={
+                Object {
+                  "color": "green",
+                }
+              }
+              viewBox="0 0 50 50"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-main"
+        >
+          Be well prepared
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "width": 100,
+            }
+          }
+        >
+          <div
+            className="performance-bar-container"
+          >
+            <div
+              className="performance-bar small"
+              style={
+                Object {
+                  "backgroundColor": "#a6c34c",
+                  "transition": "background-color 800ms",
+                  "width": "99.92496437709478%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="details"
+      style={
+        Object {
+          "display": "none",
+          "minHeight": 80,
+          "paddingLeft": 65,
+          "paddingRight": 65,
+          "position": "relative",
+        }
+      }
+    >
+      <div
+        className="row"
+        style={
+          Object {
+            "marginBottom": 10,
+            "position": "relative",
+          }
+        }
+      >
+        <svg
+          className="text-muted"
+          style={
+            Object {
+              "fontSize": "2em",
+              "left": -33,
+              "position": "absolute",
+              "top": "50%",
+              "transform": "translateY(-33%)",
+            }
+          }
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+          />
+          <path
+            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+          />
+          <path
+            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+          />
+        </svg>
+        <div
+          className="col-md-12 text-muted"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Being well prepared with food, flasks, potions and enchants is an easy way to improve your performance.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              All items enchanted
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                3
+                 
+                / 3
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Using high quality enchants
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                3
+                 
+                / 3
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Used a pre-potion
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                Yes
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Used a second potion
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                Yes
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Flask used
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                Yes
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              High quality food used
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                Yes
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Food used
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                Yes
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Arcane Intellect active
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                99.85%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#a6c34c",
+                      "transition": "background-color 800ms",
+                      "width": "99.39971501675825%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

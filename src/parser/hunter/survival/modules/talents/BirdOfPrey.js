@@ -7,16 +7,14 @@ import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import SpellLink from 'common/SpellLink';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import { RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
 
 const EXTENSION_PER_CAST = 1500;
 const MS_BUFFER = 100;
 const BOP_ABILITIES = [
-  SPELLS.RAPTOR_STRIKE.id,
-  SPELLS.RAPTOR_STRIKE_AOTE.id,
-  SPELLS.MONGOOSE_BITE_TALENT_AOTE.id,
-  SPELLS.MONGOOSE_BITE_TALENT.id,
   SPELLS.CARVE.id,
   SPELLS.BUTCHERY_TALENT.id,
+  ...RAPTOR_MONGOOSE_VARIANTS,
 ];
 
 /** Bird of Prey
