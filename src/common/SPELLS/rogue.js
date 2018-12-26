@@ -228,7 +228,7 @@ export default {
     id: 248210,
     name: 'The First of the Dead',
     icon: 'inv_glove_cloth_raidwarlockmythic_q_01',
-  }, 
+  },
   FIND_WEAKNESS_BUFF: {
     id: 91021,
     name: 'Find Weakness',
@@ -410,7 +410,7 @@ export default {
     name: 'Toxic Blade',
     icon: 'inv_weapon_shortblade_62',
   },
-  
+
 
   //Outlaw
 
@@ -476,8 +476,22 @@ export default {
     name: 'Blade Flurry',
     icon: 'ability_warrior_punishingblow',
   },
-
+  BLADE_RUSH_DAMAGE:{
+    id:271881,
+    name: 'Blade Rush Damage',
+    icon: 'ability_arakkoa_spinning_blade',
+  },
   //Buffs
+  ALACRITY_BUFF: {
+    id: 193538,
+    name: "Alacrity",
+    icon: "ability_paladin_speedoflight",
+  },
+  OPPORTUNITY: {
+    id: 195627,
+    name: "Opportunity",
+    icon: "ability_rogue_pistolshot",
+  },
   SCULL_AND_CROSSBONES: {
     id: 199603,
     name: 'Skull and Crossbones',

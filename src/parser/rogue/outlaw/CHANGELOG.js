@@ -3,9 +3,13 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
-import { tsabo, Zerotorescue, Gebuz, Aelexe } from 'CONTRIBUTORS';
+import { tsabo, Zerotorescue, Gebuz, Aelexe, HawkCorrigan } from 'CONTRIBUTORS';
 
 export default [
+  { date: new Date('2018-12-26'),
+    changes: <>Added <SpellLink id={SPELLS.ALACRITY_TALENT.id} />, <SpellLink id={SPELLS.BLADE_RUSH_TALENT.id} />, <SpellLink id={SPELLS.QUICK_DRAW_TALENT.id} /> and <SpellLink id={SPELLS.WEAPONMASTER_TALENT_OUTLAW.id} /> modules.</>,
+    contributors: [HawkCorrigan],
+  },
   {
     date: new Date('2018-11-15'),
     changes: <>Fixed <SpellLink id={SPELLS.ARCANE_TORRENT_ENERGY.id} /> GCD.</>,

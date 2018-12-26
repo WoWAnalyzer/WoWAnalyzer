@@ -15,8 +15,13 @@ import EnergyCapTracker from '../shared/resources/EnergyCapTracker';
 import Energy from './modules/core/Energy';
 import SpellEnergyCost from '../shared/resources/SpellEnergyCost';
 
+import Alacrity from './modules/talents/Alacrity';
+import AlacrityTimesByStacks from './modules/talents/AlacrityTimesByStacks';
+import BladeRush from './modules/talents/BladeRush';
 import RestlessBlades from './modules/core/RestlessBlades';
 import SliceAndDiceUptime from './modules/talents/SliceAndDiceUptime';
+import QuickDraw from './modules/talents/QuickDraw';
+import WeaponMaster from './modules/talents/WeaponMaster';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -43,7 +48,12 @@ class CombatLogParser extends CoreCombatLogParser {
     //Casts
 
     //Talents
+    alacrity: Alacrity,
+    alacrityTimesByStacks: AlacrityTimesByStacks,
+    bladeRush: BladeRush,
     sliceAndDiceUptime: SliceAndDiceUptime,
+    quickDraw: QuickDraw,
+    weaponMaster: WeaponMaster,
 
     // Outlaw's throughput benefit isn't as big as for other classes since we don't have a lot of free gcds to use
     arcaneTorrent: [ArcaneTorrent, {
