@@ -6,6 +6,7 @@ import PRIMARY_STATS from './PRIMARY_STATS';
 const SPECS = {
   ARCANE_MAGE: {
     id: 62,
+    index: 0,
     className: 'Mage',
     specName: 'Arcane',
     role: ROLES.DPS.RANGED,
@@ -19,6 +20,7 @@ const SPECS = {
   },
   FIRE_MAGE: {
     id: 63,
+    index: 1,
     className: 'Mage',
     specName: 'Fire',
     role: ROLES.DPS.RANGED,
@@ -32,6 +34,7 @@ const SPECS = {
   },
   FROST_MAGE: {
     id: 64,
+    index: 2,
     className: 'Mage',
     specName: 'Frost',
     role: ROLES.DPS.RANGED,
@@ -45,6 +48,7 @@ const SPECS = {
   },
   HOLY_PALADIN: {
     id: 65,
+    index: 3,
     className: 'Paladin',
     specName: 'Holy',
     role: ROLES.HEALER,
@@ -58,6 +62,7 @@ const SPECS = {
   },
   PROTECTION_PALADIN: {
     id: 66,
+    index: 4,
     className: 'Paladin',
     specName: 'Protection',
     role: ROLES.TANK,
@@ -71,6 +76,7 @@ const SPECS = {
   },
   RETRIBUTION_PALADIN: {
     id: 70,
+    index: 5,
     className: 'Paladin',
     specName: 'Retribution',
     role: ROLES.DPS.MELEE,
@@ -84,6 +90,7 @@ const SPECS = {
   },
   ARMS_WARRIOR: {
     id: 71,
+    index: 6,
     className: 'Warrior',
     specName: 'Arms',
     role: ROLES.DPS.MELEE,
@@ -97,6 +104,7 @@ const SPECS = {
   },
   FURY_WARRIOR: {
     id: 72,
+    index: 7,
     className: 'Warrior',
     specName: 'Fury',
     role: ROLES.DPS.MELEE,
@@ -110,6 +118,7 @@ const SPECS = {
   },
   PROTECTION_WARRIOR: {
     id: 73,
+    index: 8,
     className: 'Warrior',
     specName: 'Protection',
     role: ROLES.TANK,
@@ -123,6 +132,7 @@ const SPECS = {
   },
   BALANCE_DRUID: {
     id: 102,
+    index: 9,
     className: 'Druid',
     specName: 'Balance',
     role: ROLES.DPS.RANGED,
@@ -136,6 +146,7 @@ const SPECS = {
   },
   FERAL_DRUID: {
     id: 103,
+    index: 10,
     className: 'Druid',
     specName: 'Feral',
     role: ROLES.DPS.MELEE,
@@ -149,6 +160,7 @@ const SPECS = {
   },
   GUARDIAN_DRUID: {
     id: 104,
+    index: 11,
     className: 'Druid',
     specName: 'Guardian',
     role: ROLES.TANK,
@@ -162,6 +174,7 @@ const SPECS = {
   },
   RESTORATION_DRUID: {
     id: 105,
+    index: 12,
     className: 'Druid',
     specName: 'Restoration',
     role: ROLES.HEALER,
@@ -175,6 +188,7 @@ const SPECS = {
   },
   BLOOD_DEATH_KNIGHT: {
     id: 250,
+    index: 13,
     className: 'Death Knight',
     specName: 'Blood',
     role: ROLES.TANK,
@@ -188,6 +202,7 @@ const SPECS = {
   },
   FROST_DEATH_KNIGHT: {
     id: 251,
+    index: 14,
     className: 'Death Knight',
     specName: 'Frost',
     role: ROLES.DPS.MELEE,
@@ -201,6 +216,7 @@ const SPECS = {
   },
   UNHOLY_DEATH_KNIGHT: {
     id: 252,
+    index: 15,
     className: 'Death Knight',
     specName: 'Unholy',
     role: ROLES.DPS.MELEE,
@@ -214,6 +230,7 @@ const SPECS = {
   },
   BEAST_MASTERY_HUNTER: {
     id: 253,
+    index: 16,
     className: 'Hunter',
     specName: 'Beast Mastery',
     role: ROLES.DPS.RANGED,
@@ -227,6 +244,7 @@ const SPECS = {
   },
   MARKSMANSHIP_HUNTER: {
     id: 254,
+    index: 17,
     className: 'Hunter',
     specName: 'Marksmanship',
     role: ROLES.DPS.RANGED,
@@ -240,6 +258,7 @@ const SPECS = {
   },
   SURVIVAL_HUNTER: {
     id: 255,
+    index: 18,
     className: 'Hunter',
     specName: 'Survival',
     role: ROLES.DPS.MELEE,
@@ -253,6 +272,7 @@ const SPECS = {
   },
   DISCIPLINE_PRIEST: {
     id: 256,
+    index: 19,
     className: 'Priest',
     specName: 'Discipline',
     role: ROLES.HEALER,
@@ -266,6 +286,7 @@ const SPECS = {
   },
   HOLY_PRIEST: {
     id: 257,
+    index: 20,
     className: 'Priest',
     specName: 'Holy',
     role: ROLES.HEALER,
@@ -279,6 +300,7 @@ const SPECS = {
   },
   SHADOW_PRIEST: {
     id: 258,
+    index: 21,
     className: 'Priest',
     specName: 'Shadow',
     role: ROLES.DPS.RANGED,
@@ -292,6 +314,7 @@ const SPECS = {
   },
   ASSASSINATION_ROGUE: {
     id: 259,
+    index: 22,
     className: 'Rogue',
     specName: 'Assassination',
     role: ROLES.DPS.MELEE,
@@ -305,6 +328,7 @@ const SPECS = {
   },
   OUTLAW_ROGUE: {
     id: 260,
+    index: 23,
     className: 'Rogue',
     specName: 'Outlaw',
     role: ROLES.DPS.MELEE,
@@ -318,6 +342,7 @@ const SPECS = {
   },
   SUBTLETY_ROGUE: {
     id: 261,
+    index: 24,
     className: 'Rogue',
     specName: 'Subtlety',
     role: ROLES.DPS.MELEE,
@@ -331,6 +356,7 @@ const SPECS = {
   },
   ELEMENTAL_SHAMAN: {
     id: 262,
+    index: 25,
     className: 'Shaman',
     specName: 'Elemental',
     role: ROLES.DPS.RANGED,
@@ -344,6 +370,7 @@ const SPECS = {
   },
   ENHANCEMENT_SHAMAN: {
     id: 263,
+    index: 26,
     className: 'Shaman',
     specName: 'Enhancement',
     role: ROLES.DPS.MELEE,
@@ -357,6 +384,7 @@ const SPECS = {
   },
   RESTORATION_SHAMAN: {
     id: 264,
+    index: 27,
     className: 'Shaman',
     specName: 'Restoration',
     role: ROLES.HEALER,
@@ -370,6 +398,7 @@ const SPECS = {
   },
   AFFLICTION_WARLOCK: {
     id: 265,
+    index: 28,
     className: 'Warlock',
     specName: 'Affliction',
     role: ROLES.DPS.RANGED,
@@ -383,6 +412,7 @@ const SPECS = {
   },
   DEMONOLOGY_WARLOCK: {
     id: 266,
+    index: 29,
     className: 'Warlock',
     specName: 'Demonology',
     role: ROLES.DPS.RANGED,
@@ -396,6 +426,7 @@ const SPECS = {
   },
   DESTRUCTION_WARLOCK: {
     id: 267,
+    index: 30,
     className: 'Warlock',
     specName: 'Destruction',
     role: ROLES.DPS.RANGED,
@@ -409,6 +440,7 @@ const SPECS = {
   },
   BREWMASTER_MONK: {
     id: 268,
+    index: 31,
     className: 'Monk',
     specName: 'Brewmaster',
     role: ROLES.TANK,
@@ -422,6 +454,7 @@ const SPECS = {
   },
   WINDWALKER_MONK: {
     id: 269,
+    index: 32,
     className: 'Monk',
     specName: 'Windwalker',
     role: ROLES.DPS.MELEE,
@@ -435,6 +468,7 @@ const SPECS = {
   },
   MISTWEAVER_MONK: {
     id: 270,
+    index: 33,
     className: 'Monk',
     specName: 'Mistweaver',
     role: ROLES.HEALER,
@@ -448,6 +482,7 @@ const SPECS = {
   },
   HAVOC_DEMON_HUNTER: {
     id: 577,
+    index: 34,
     className: 'Demon Hunter',
     specName: 'Havoc',
     role: ROLES.DPS.MELEE,
@@ -461,6 +496,7 @@ const SPECS = {
   },
   VENGEANCE_DEMON_HUNTER: {
     id: 581,
+    index: 35,
     className: 'Demon Hunter',
     specName: 'Vengeance',
     role: ROLES.TANK,
