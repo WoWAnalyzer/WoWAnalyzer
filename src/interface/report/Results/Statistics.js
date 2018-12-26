@@ -70,7 +70,11 @@ class Statistics extends React.PureComponent {
                 {this.renderStatisticGroupName(name)}
               </StatisticsSectionTitle>
 
-              <Masonry className="row statistics" options={{ columnWidth: 325 }}>
+              <Masonry className="row statistics">
+                {/* Masonry uses the first div to determine its column width */}
+                <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12" />
+                {/* And we need this second div to use the rest of the space so masonry layouts the first item first */}
+                <div className="col-lg-9 col-md-8 col-sm-6 hidden-xs" />
                 {statistics.sort(this.sortByPosition)}
               </Masonry>
             </React.Fragment>
