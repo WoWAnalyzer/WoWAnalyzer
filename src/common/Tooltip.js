@@ -9,19 +9,25 @@ class Tooltip extends React.Component {
     content: PropTypes.node.isRequired,
     children: PropTypes.node.isRequired,
     hoverable: PropTypes.bool,
+    showUnderline: PropTypes.bool,
   };
 
   static defaultProps = {
     hoverable: false,
+    showUnderline: true,
   };
 
   render() {
-    const {content, children, hoverable} = this.props;
+    const {content, children, hoverable, showUnderline} = this.props;
     // Styles that are applied to the children
-    const styles = {
-      'border-bottom': '1px dashed #fff',
-      cursor: 'help',
-    };
+    let styles = { display: 'inline-block' };
+    if (showUnderline) {
+      styles = {
+        ...styles,
+        'border-bottom': '1px dashed currentColor',
+        cursor: 'help',
+      };
+    }
     return (
       <ReactTooltip content={content} styles={styles} tipContentHover={hoverable} direction="down">
         {children}
