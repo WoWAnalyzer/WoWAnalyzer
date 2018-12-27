@@ -12,6 +12,7 @@ import ItemHealingDone from 'interface/others/ItemHealingDone';
 import StatisticWrapper from 'interface/others/StatisticWrapper';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Tooltip from 'common/Tooltip';
 
 /**
  * A class to deal with (hopefully) any healing Azerite i throw at it.
@@ -100,8 +101,10 @@ class BaseHealerAzerite extends Analyzer {
                 <h2>
                   <SpellLink id={this.constructor.TRAIT.id} />
                   {this.moreInformation && (
-                    <InformationIcon data-tip={this.moreInformation} className="pull-right" />
-                )}
+                    <Tooltip content={this.moreInformation} hideUnderline>
+                      <InformationIcon className="pull-right" />
+                    </Tooltip>
+                  )}
                 </h2>
               </div>
               <div className="panel-body" style={{ padding: 0 }}>

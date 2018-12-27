@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
+import Tooltip from 'common/Tooltip';
 
 class PetRow extends React.PureComponent {
   static propTypes = {
@@ -34,18 +35,22 @@ class PetRow extends React.PureComponent {
                   zIndex: 10,
                 }}
               >
-                {isSummonAbilityKnown && (
+                {isSummonAbilityKnown && (pet.meta.tooltip ? (
+                  <Tooltip content={pet.meta.tooltip} hideUnderline>
+                    <SpellIcon
+                      id={pet.summonAbility}
+                      className={pet.meta.iconClass}
+                    />
+                  </Tooltip>) : (
                   <SpellIcon
                     id={pet.summonAbility}
                     className={pet.meta.iconClass}
-                    data-tip={pet.meta.tooltip}
                   />
-                )}
+                ))}
                 {!isSummonAbilityKnown && (
-                  <Icon
-                    icon="inv_misc_questionmark"
-                    data-tip={pet.name}
-                  />
+                  <Tooltip content={pet.name} hideUnderline>
+                    <Icon icon="inv_misc_questionmark" />
+                  </Tooltip>
                 )}
               </div>
               <div

@@ -49,8 +49,6 @@ data-tip on other than dfn tags:
 	src/parser/rogue/shared/resources/EnergyCapTracker.js
 		100 - div
 		107 - div
-	src/parser/shaman/restoration/modules/azerite/BaseHealerAzerite.js
-		103 - InformationIcon
 	src/parser/shared/modules/AlwaysBeCasting.js
 		114 - div
 		120 - div
@@ -63,11 +61,6 @@ data-tip on other than dfn tags:
 	src/parser/warlock/demonology/modules/pets/PetTimelineTab/TabComponent/DeathEvents.js
 		34 - div
 		49 - div
-	src/parser/warlock/demonology/modules/pets/PetTimelineTab/TabComponent/KeyCastsRow.js
-		41 - SpellIcon
-	src/parser/warlock/demonology/modules/pets/PetTimelineTab/TabComponent/PetRow.js
-		41 - SpellIcon
-		47 - Icon
 	src/parser/warrior/arms/modules/talents/DefensiveStance.js
 		79 - div
 		85 - div
