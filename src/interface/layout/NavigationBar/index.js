@@ -105,17 +105,17 @@ class NavigationBar extends React.PureComponent {
               </Tooltip>
             )}
           </div>
-          <Tooltip className="menu-item optional" content="Discord" hideUnderline>
+          <Tooltip wrapperClassName="menu-item optional" content="Discord" hideUnderline>
             <a href="https://wowanalyzer.com/discord">
               <DiscordIcon />
             </a>
           </Tooltip>
-          <Tooltip className="menu-item optional" content="GitHub" hideUnderline>
+          <Tooltip wrapperClassName="menu-item optional" content="GitHub" hideUnderline>
             <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
               <GitHubIcon />
             </a>
           </Tooltip>
-          <Tooltip className="menu-item optional" content="Patreon" hideUnderline>
+          <Tooltip wrapperClassName="menu-item optional" content="Patreon" hideUnderline>
             <a href="https://www.patreon.com/wowanalyzer">
               <PatreonIcon />
             </a>
