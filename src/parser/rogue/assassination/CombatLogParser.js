@@ -10,6 +10,7 @@ import SpellUsable from '../shared/SpellUsable';
 
 //Normalizers
 import GarroteNormalizer from './normalizers/GarroteNormalizer';
+import GarroteOpenerNormalizer from './normalizers/GarroteOpenerNormalizer'; 
 
 import ComboPointDetails from '../shared/resources/ComboPointDetails';
 import ComboPointTracker from '../shared/resources/ComboPointTracker';
@@ -44,6 +45,7 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Normalizers
     garroteNormalizer: GarroteNormalizer,
+    garroteOpenerNormalizer: GarroteOpenerNormalizer,
 
     //Trackers
     enemyHpTracker: EnemyHpTracker,

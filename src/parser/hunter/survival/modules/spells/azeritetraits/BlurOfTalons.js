@@ -1,12 +1,9 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
-import { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import TraitStatisticBox from 'interface/others/TraitStatisticBox';
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import StatisticBox from 'interface/others/StatisticBox';
-import SpellIcon from 'common/SpellIcon';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
 const blurOfTalonsStats = traits => Object.values(traits).reduce((obj, rank) => {
@@ -113,11 +110,8 @@ class BlurOfTalons extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
-        category={STATISTIC_CATEGORY.AZERITE_POWERS}
-        icon={<SpellIcon id={SPELLS.BLUR_OF_TALONS.id} />}
-        label="Blur of Talons"
+      <TraitStatisticBox
+        trait={SPELLS.BLUR_OF_TALONS.id}
         value={`${formatNumber(this.avgAgility())} average Agility`}
         tooltip={`Blur of Talons was up for a total of ${this.uptime()} seconds`}
       >
@@ -141,7 +135,7 @@ class BlurOfTalons extends Analyzer {
             ))}
           </tbody>
         </table>
-      </StatisticBox>
+      </TraitStatisticBox>
     );
   }
 }

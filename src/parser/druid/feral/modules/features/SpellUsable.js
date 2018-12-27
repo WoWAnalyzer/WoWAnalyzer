@@ -1,12 +1,12 @@
 import SPELLS from 'common/SPELLS';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
-import { RAKE_BASE_DURATION, RIP_BASE_DURATION, THRASH_FERAL_BASE_DURATION, JAGGED_WOUNDS_MODIFIER, PANDEMIC_FRACTION } from '../../constants';
+import { RAKE_BASE_DURATION, THRASH_FERAL_BASE_DURATION, PANDEMIC_FRACTION } from '../../constants';
 
 const EARLY_BLEED_EXPIRE_TO_COUNT_AS_DEATH = 500;
 const BLEED_BASE_DURATIONS = {
   [SPELLS.RAKE.id]: RAKE_BASE_DURATION,
-  [SPELLS.RIP.id]: RIP_BASE_DURATION,
+  //[SPELLS.RIP.id]: RIP_BASE_DURATION,
   [SPELLS.THRASH_FERAL.id]: THRASH_FERAL_BASE_DURATION,
 };
 
@@ -19,6 +19,10 @@ const BLEED_BASE_DURATIONS = {
  * removes DoTs when it's applied to a target.
  * We know for certain that an enemy died when Tiger's Fury is used earlier than should be possible.
  * When that happens assume the most recent possible enemy death was when the cooldown reset.
+ * 
+ * TODO: Since 8.1 the duration of Rip is more complex. It can be extended by Sabertooth, its initial
+ * duration will vary depending on combo points, and it can be applied to multiple targets by Primal Wrath.
+ * Currently none of this is handled here, so tracking Rip has been disabled.
  */
 class SpellUsable extends CoreSpellUsable {
   earlyCastsOfTigersFury = 0;
@@ -26,7 +30,6 @@ class SpellUsable extends CoreSpellUsable {
   // e.g. activeBleedsExpire[targetString][SPELLS.RAKE.id] = timestamp
   activeBleedsExpire = {};
   hasPredator = null;
-  hasJaggedWounds = null;
 
   // timestamp of most recent possible kill event
   possibleRecentKill = null;
@@ -34,7 +37,6 @@ class SpellUsable extends CoreSpellUsable {
   constructor(...args) {
     super(...args);
     this.hasPredator = this.selectedCombatant.hasTalent(SPELLS.PREDATOR_TALENT.id);
-    this.hasJaggedWounds = this.selectedCombatant.hasTalent(SPELLS.JAGGED_WOUNDS_TALENT.id);
   }
 
   on_byPlayer_applydebuff(event) {
@@ -49,7 +51,7 @@ class SpellUsable extends CoreSpellUsable {
     if (!this.activeBleedsExpire[target]) {
       this.activeBleedsExpire[target] = {};
     }
-    const duration = BLEED_BASE_DURATIONS[spellId] * (this.hasJaggedWounds ? JAGGED_WOUNDS_MODIFIER : 1);
+    const duration = BLEED_BASE_DURATIONS[spellId];
     this.activeBleedsExpire[target][spellId] = event.timestamp + duration;
   }
 
@@ -68,7 +70,7 @@ class SpellUsable extends CoreSpellUsable {
     // existingExpire may be null if combat log missed the original applydebuff
     const existingExpire = this.activeBleedsExpire[target][spellId];
     const remainingOnPrevious = Math.max(0, existingExpire ? (existingExpire - event.timestamp) : 0);
-    const durationWithoutPandemic = BLEED_BASE_DURATIONS[spellId] * (this.hasJaggedWounds ? JAGGED_WOUNDS_MODIFIER : 1);
+    const durationWithoutPandemic = BLEED_BASE_DURATIONS[spellId];
     const pandemic = Math.min(durationWithoutPandemic * PANDEMIC_FRACTION, remainingOnPrevious);
     this.activeBleedsExpire[target][spellId] = event.timestamp + durationWithoutPandemic + pandemic;
   }

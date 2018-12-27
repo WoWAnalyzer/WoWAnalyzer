@@ -15,7 +15,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: !!combatant.hasTrait(SPELLS.EXECUTIONERS_PRECISION.id),
+          suggestion: false, // Suggestions are in MortalStrike.js
           recommendedEfficiency: 0.8,
         },
       },
@@ -228,9 +228,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 20 - (combatant.hasTalent(SPELLS.DOUBLE_TIME_TALENT.id) ? 3 : 0),
         charges: 1 + (combatant.hasTalent(SPELLS.DOUBLE_TIME_TALENT.id) ? 1 : 0),
-        gcd: {
-          static: 500,
-        },
+        gcd: null, // Off gcd since 8.1
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.01,

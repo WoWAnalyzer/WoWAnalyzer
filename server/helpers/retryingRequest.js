@@ -8,38 +8,37 @@ const defaultOptions = {
   reattemptDelay: 300,
   shouldRetry: err => err instanceof RequestError,
   onBeforeAttempt: null,
-  getUrlWithAccessToken: null,
   onSuccess: null,
-  onFailure: null,
+  onFailedAttempt: null,
 };
 
 async function retryingRequest(options, attempt = 1) {
   try {
-    // console.debug('REQUEST', options.url);
     if (options.onBeforeAttempt) {
       options.onBeforeAttempt(attempt);
     }
-    if(options.getUrlWithAccessToken){
-      options.url = await options.getUrlWithAccessToken();
-    }
 
+    const start = Date.now();
+    console.debug('REQUEST', `attempt #${attempt}`, `GET ${options.url}`);
     const result = await request.get(options);
+    const responseTime = Date.now() - start;
+    console.debug('REQUEST', 'finished', options.url, 'response time:', responseTime, 'ms');
     if (options.onSuccess) {
       options.onSuccess(result, attempt);
     }
 
     return result;
   } catch (err) {
-    // console.debug('REQUEST', 'ERROR', err.message);
-    if (options.onFailure) {
-      options.onFailure(err, attempt);
+    console.error('REQUEST', 'ERROR', err.toString(), err.message);
+    if (options.onFailedAttempt) {
+      options.onFailedAttempt(err, attempt);
     }
+
     const shouldRetry = options.shouldRetry || defaultOptions.shouldRetry;
     if (shouldRetry(err)) {
       const maxAttempts = options.maxAttempts || defaultOptions.maxAttempts;
       if (attempt < maxAttempts) {
         const reattemptDelay = options.reattemptDelay || defaultOptions.reattemptDelay;
-        // console.debug('REQUEST', 'Retrying in', reattemptDelay);
         await sleep(reattemptDelay);
         return retryingRequest(options, attempt + 1);
       }

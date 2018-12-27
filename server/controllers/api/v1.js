@@ -12,12 +12,12 @@ const WclApiResponse = models.WclApiResponse;
 function serializeUrl(path, query) {
   return `/${path}?${querystring.stringify(query)}`;
 }
-async function cacheWclApiResponse(cacheKey, response, responseTime) {
+async function cacheWclApiResponse(cacheKey, response) {
   // Regardless of already existing, reset `numAccesses` to 1 since we want to know accesses since last cache bust which helps us determine if we should keep certain responses in our cache. If an url is regularly cache busted, it's not as valuable in the cache.
   await WclApiResponse.upsert({
     url: cacheKey,
     content: response,
-    wclResponseTime: responseTime,
+    wclResponseTime: 0, // TODO: Drop this column
     numAccesses: 1,
     lastAccessedAt: Sequelize.fn('NOW'),
   });
@@ -62,7 +62,7 @@ router.get('/*', async (req, res) => {
 
     const cacheKey = serializeUrl(path, query);
     if (!skipCache) {
-      const cachedWclApiResponse = await WclApiResponse.findById(cacheKey);
+      const cachedWclApiResponse = await WclApiResponse.findByPk(cacheKey);
       if (cachedWclApiResponse) {
         console.log('cache HIT', cacheKey);
         // noinspection JSIgnoredPromiseFromCall No need to wait for this as it doesn't affect the result.
@@ -79,12 +79,9 @@ router.get('/*', async (req, res) => {
       console.log('cache SKIP', cacheKey);
     }
 
-    const wclStart = Date.now();
     const wclResponse = await fetchFromWarcraftLogsApi(path, query, { category: determineCategory(path) });
-    const wclResponseTime = Date.now() - wclStart;
-    console.log('wcl response time:', wclResponseTime, 'ms');
     // noinspection JSIgnoredPromiseFromCall No need to wait for this as it doesn't affect the result.
-    cacheWclApiResponse(cacheKey, wclResponse, wclResponseTime);
+    cacheWclApiResponse(cacheKey, wclResponse);
     resolve(wclResponse);
   } catch (err) {
     if (err instanceof WarcraftLogsApiError) {

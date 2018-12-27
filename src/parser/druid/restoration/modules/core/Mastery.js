@@ -122,7 +122,7 @@ class Mastery extends Analyzer {
     let total = 0;
     healIds.forEach(healId => {
       total += Object.entries(this.hotHealingAttrib[healId].mastery)
-        .filter(entry => !healIds.includes(parseInt(entry[0], 10)))
+        .filter(entry => !healIds.includes(Number(entry[0])))
         .reduce((sum, entry) => sum + entry[1], 0);
       total += this.hotHealingAttrib[healId].direct;
     });

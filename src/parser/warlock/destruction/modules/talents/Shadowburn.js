@@ -45,8 +45,8 @@ class Shadowburn extends Analyzer {
     return (
       <StatisticListBoxItem
         title={<><SpellLink id={SPELLS.SHADOWBURN_TALENT.id} /> damage</>}
-        value={formatThousands(this.damage)}
-        valueTooltip={`${this.owner.formatItemDamageDone(this.damage)}<br /><br />
+        value={this.owner.formatItemDamageDone(this.damage)}
+        valueTooltip={`${formatThousands(this.damage)} damage<br /><br />
           Shadowburn also gave you ${fragments} fragments, and if they were used on Chaos Bolts, they would deal an estimated ${formatThousands(estimatedDamage)} damage (${this.owner.formatItemDamageDone(estimatedDamage)}). This is estimated using average Chaos Bolt damage over the fight.`}
       />
     );

@@ -12,8 +12,6 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import TimeFocusCapped from '../shared/modules/features/TimeFocusCapped';
 import CancelledCasts from '../shared/modules/features/CancelledCasts';
 import FocusUsage from '../shared/modules/features/FocusUsage';
-//Normalizers
-import RapidFireNormalizer from './normalizers/RapidFire';
 
 //Spells
 import Trueshot from './modules/spells/Trueshot';
@@ -63,9 +61,6 @@ class CombatLogParser extends CoreCombatLogParser {
     timeFocusCapped: TimeFocusCapped,
     cancelledCasts: CancelledCasts,
     focusUsage: FocusUsage,
-
-    //Normalizers
-    rapidFireNormalizer: RapidFireNormalizer,
 
     //Focus Chart
     focusTracker: FocusTracker,

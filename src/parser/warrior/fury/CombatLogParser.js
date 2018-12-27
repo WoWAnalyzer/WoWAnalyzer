@@ -29,6 +29,7 @@ import RecklessAbandon from './modules/talents/RecklessAbandon';
 import Warpaint from './modules/talents/Warpaint';
 
 import RecklessFlurry from './modules/azerite/RecklessFlurry';
+import SuddenDeath from './modules/talents/SuddenDeath';
 import SimmeringRage from './modules/azerite/SimmeringRage';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -58,6 +59,10 @@ class CombatLogParser extends CoreCombatLogParser {
     furiousSlashUptime: FuriousSlashUptime,
     meatCleaver: MeatCleaver,
     recklessFlurry: RecklessFlurry,
+    suddenDeath: SuddenDeath,
+
+    // Overrides default PrePotion
+    //prePotion: PrePotion, TODO: Update this to BFA and ensure it works properly with parser/core/Modules/Features/Checklist2/PreparationRuleAnalyzer.js
     impendingVictory: ImpendingVicory,
     siegebreaker: Siegebreaker,
     recklessAbandon: RecklessAbandon,

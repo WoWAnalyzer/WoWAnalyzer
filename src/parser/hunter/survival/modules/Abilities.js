@@ -6,7 +6,7 @@ class Abilities extends CoreAbilities {
     const combatant = this.selectedCombatant;
     return [
       {
-        spell: SPELLS.KILL_COMMAND_SV,
+        spell: SPELLS.KILL_COMMAND_CAST_SV,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         buffSpellId: SPELLS.FLANKERS_ADVANTAGE.id,
         gcd: {
@@ -99,7 +99,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.FLANKING_STRIKE_TALENT,
+        spell: [SPELLS.FLANKING_STRIKE_TALENT, SPELLS.FLANKING_STRIKE_PLAYER],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 40,
         gcd: {
@@ -111,8 +111,8 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
         },
       },
-      { //WFI talent here first so that's the icon shown in the timeline - it has no other effect.
-        spell: [SPELLS.WILDFIRE_INFUSION_TALENT, SPELLS.VOLATILE_BOMB_WFI, SPELLS.PHEROMONE_BOMB_WFI, SPELLS.SHRAPNEL_BOMB_WFI],
+      {
+        spell: [SPELLS.VOLATILE_BOMB_WFI, SPELLS.PHEROMONE_BOMB_WFI, SPELLS.SHRAPNEL_BOMB_WFI, SPELLS.WILDFIRE_INFUSION_TALENT],
         shownSpell: SPELLS.WILDFIRE_INFUSION_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
@@ -200,8 +200,8 @@ class Abilities extends CoreAbilities {
         gcd: null,
       },
       {
-        spell: SPELLS.PRIMAL_RAGE,
-        buffSpellId: SPELLS.PRIMAL_RAGE.id,
+        spell: [SPELLS.PRIMAL_RAGE_1, SPELLS.PRIMAL_RAGE_2],
+        buffSpellId: [SPELLS.PRIMAL_RAGE_1.id, SPELLS.PRIMAL_RAGE_2.id],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 360,
         gcd: null,

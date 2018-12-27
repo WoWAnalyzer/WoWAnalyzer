@@ -33,8 +33,9 @@ class AbsoluteCorruption extends Analyzer {
     return (
       <StatisticListBoxItem
         title={<><SpellLink id={SPELLS.ABSOLUTE_CORRUPTION_TALENT.id} /> bonus damage</>}
-        value={formatThousands(this.bonusDmg)}
-        valueTooltip={`${this.owner.formatItemDamageDone(this.bonusDmg)}<br /><br />Note: This only accounts for the passive 15% increased damage of Corruption. Actual bonus damage should be higher due to saved GCDs.`}
+        value={this.owner.formatItemDamageDone(this.bonusDmg)}
+        valueTooltip={`${formatThousands(this.bonusDmg)} bonus damage<br /><br />
+                      Note: This only accounts for the passive 15% increased damage of Corruption. Actual bonus damage should be higher due to saved GCDs.`}
       />
     );
   }
