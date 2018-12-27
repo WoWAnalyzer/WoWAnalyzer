@@ -21,6 +21,7 @@ import Modal from 'interface/modals/Modal';
 
 import LoadingBar from './LoadingBar';
 import './NavigationBar.scss';
+import Tooltip from 'common/Tooltip';
 
 class NavigationBar extends React.PureComponent {
   static propTypes = {
@@ -91,30 +92,34 @@ class NavigationBar extends React.PureComponent {
           <div className="spacer" />
           <div className="menu-item required">
             {user && user.premium ? (
-              <Link to="/premium" data-tip="Premium active">
-                <PremiumIcon /> <span className="optional">{user.name}</span>
-              </Link>
+              <Tooltip content="Premium active" showUnderline={false}>
+                <Link to="/premium">
+                  <PremiumIcon /> <span className="optional">{user.name}</span>
+                </Link>
+              </Tooltip>
             ) : (
-              <Link to="/premium" className="premium" data-tip={i18n._(t`Premium`)}>
-                <PremiumIcon /> <span className="optional"><Trans>Premium</Trans></span>
-              </Link>
+              <Tooltip content={i18n._(t`Premium`)} showUnderline={false}>
+                <Link to="/premium" className="premium">
+                  <PremiumIcon /> <span className="optional"><Trans>Premium</Trans></span>
+                </Link>
+              </Tooltip>
             )}
           </div>
-          <div className="menu-item optional" data-tip="Discord">
+          <Tooltip className="menu-item optional" content="Discord" showUnderline={false}>
             <a href="https://wowanalyzer.com/discord">
               <DiscordIcon />
             </a>
-          </div>
-          <div className="menu-item optional" data-tip="GitHub">
+          </Tooltip>
+          <Tooltip className="menu-item optional" content="GitHub" showUnderline={false}>
             <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
               <GitHubIcon />
             </a>
-          </div>
-          <div className="menu-item optional" data-tip="Patreon">
+          </Tooltip>
+          <Tooltip className="menu-item optional" content="Patreon" showUnderline={false}>
             <a href="https://www.patreon.com/wowanalyzer">
               <PatreonIcon />
             </a>
-          </div>
+          </Tooltip>
         </div>
         <LoadingBar progress={progress} />
       </nav>

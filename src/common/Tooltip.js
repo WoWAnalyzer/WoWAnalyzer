@@ -9,16 +9,6 @@ src/interface/layout/App.scss
 	dfn[data-tip] rule is probably redundant
 
 data-tip on other than dfn tags:
-	src/interface/layout/Footer/index.js
-		22 - a
-		25 - a
-		28 - a
-	src/interface/layout/NavigationBar/index.js
-		94 - Link
-		98 - Link
-		103 - div
-		108 - div
-		113 - div
 	src/interface/others/DamageTakenTable.js
 		36 - div
 	src/interface/others/DeathRecap.js
@@ -89,30 +79,75 @@ data-tip on other than dfn tags:
 
 class Tooltip extends React.Component {
   static propTypes = {
+    /**
+     * REQUIRED: Content of the tooltip
+     */
     content: PropTypes.node.isRequired,
+    /**
+     * REQUIRED: The text/element that triggers the tooltip
+     */
     children: PropTypes.node.isRequired,
+    /**
+     * Additional class names that are appended to the wrapper element (div)
+     * Default: ''
+     */
+    className: PropTypes.string,
+    /**
+     * Additional inline styles that are appended to the wrapper element (div)
+     * Default: {}
+     */
+    wrapperStyles: PropTypes.object,
+    /**
+     * Boolean which states, if a person can access the tooltip contents (and click links, select and copy text etc.)
+     * Default: false
+     */
     hoverable: PropTypes.bool,
+    /**
+     * Boolean which states, if the target should look like <dfn> tag (dashed underline and question mark cursor)
+     * Default: true (because majority of existing tooltips are on <dfn> tags)
+     */
     showUnderline: PropTypes.bool,
   };
 
   static defaultProps = {
+    className: '',
+    wrapperStyles: {},
     hoverable: false,
     showUnderline: true,
   };
 
+  defaultWrapperStyle = {
+    display: 'inline-block',
+  };
+
+  underlineStyle = {
+    'border-bottom': '1px dashed currentColor',
+    cursor: 'help',
+  };
+
   render() {
-    const {content, children, hoverable, showUnderline} = this.props;
-    // Styles that are applied to the children
-    let styles = { display: 'inline-block' };
+    const {content, children, className, wrapperStyles, hoverable, showUnderline} = this.props;
+    // Styles that are applied to the wrapper element (div)
+    let wrapperStyle = {
+      ...this.defaultWrapperStyle,
+    };
     if (showUnderline) {
-      styles = {
-        ...styles,
-        'border-bottom': '1px dashed currentColor',
-        cursor: 'help',
+      wrapperStyle = {
+        ...wrapperStyle,
+        ...this.underlineStyle,
       };
     }
+    wrapperStyle = {
+      ...wrapperStyle,
+      ...wrapperStyles,
+    };
     return (
-      <ReactTooltip content={content} styles={styles} tipContentHover={hoverable} direction="down">
+      <ReactTooltip
+        className={className}
+        styles={wrapperStyle}
+        direction="down"
+        tipContentHover={hoverable}
+        content={content}>
         {children}
       </ReactTooltip>
     );
