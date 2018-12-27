@@ -3,6 +3,7 @@ import React from 'react';
 import InformationIcon from 'interface/icons/Information';
 
 import SPELLS from 'common/SPELLS/index';
+import Tooltip from 'common/Tooltip';
 import { formatNumber } from 'common/format';
 import { calculatePrimaryStat, calculateSecondaryStatDefault } from 'common/stats';
 import Analyzer from 'parser/core/Analyzer';
@@ -450,6 +451,10 @@ class BaseHealerStatValues extends Analyzer {
 
                     const Icon = getIcon(stat);
 
+                    const gainPerSecond = (gain / this.owner.fightDuration * 1000).toFixed(2);
+                    const rating = gain !== null ? (ratingForOne === Infinity ? '∞' : formatNumber(ratingForOne)) : 'NYI';
+                    const informationIconTooltip = `${gainPerSecond} HPS per 1 rating / ${rating} rating per 1% throughput`;
+
                     return (
                       <tr key={stat}>
                         <td className={getClassNameColor(stat)}>
@@ -466,9 +471,11 @@ class BaseHealerStatValues extends Analyzer {
                           {stat === STAT.HASTE_HPCT && '0.00 - '}{gain !== null ? weight.toFixed(2) : 'NYI'}
                         </td>
                         <td style={{ padding: 6 }}>
-                          <InformationIcon data-tip={`${(gain / this.owner.fightDuration * 1000).toFixed(2)} HPS per 1 rating / ${gain !== null ? (
-                            ratingForOne === Infinity ? '∞' : formatNumber(ratingForOne)
-                          ) : 'NYI'} rating per 1% throughput`} />
+                          <Tooltip
+                            content={informationIconTooltip}
+                            showUnderline={false}>
+                            <InformationIcon />
+                          </Tooltip>
                         </td>
                       </tr>
                     );
