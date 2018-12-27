@@ -2,10 +2,12 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 const debug = false;
+const SEARING_TOUCH_HEALTH_THRESHOLD = .30;
 
 class SearingTouch extends Analyzer {
   static dependencies = {
@@ -18,20 +20,19 @@ class SearingTouch extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SEARING_TOUCH_TALENT.id);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.FIREBALL,SPELLS.SCORCH]), this.onDamage);
   }
 
-  on_byPlayer_damage(event) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.FIREBALL.id || spellId === SPELLS.SCORCH.id) {
-      const healthPercent = event.hitPoints / event.maxHitPoints;
-
-      if (healthPercent < .30) {
-        this.totalCasts += 1;
-      }
-      if (spellId === SPELLS.FIREBALL.id && healthPercent < .30) {
-        this.badCasts += 1;
-        debug && this.log("Cast Fireball under 30% Health");
-      }
+  //When the target is under 30% health, check to see if the player cast Fireball. If they do, count it as a mistake.
+  onDamage(event) {
+    const healthPercent = event.hitPoints / event.maxHitPoints;
+    if (healthPercent > SEARING_TOUCH_HEALTH_THRESHOLD) {
+      return;
+    }
+    this.totalCasts += 1;
+    if (event.ability.guid === SPELLS.FIREBALL.id) {
+      this.badCasts += 1;
+      debug && this.log("Cast Fireball under 30% Health");
     }
   }
 
@@ -54,7 +55,7 @@ class SearingTouch extends Analyzer {
   suggestions(when) {
 		when(this.suggestionThreshold)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<>You cast <SpellLink id={SPELLS.FIREBALL.id} />  instead of <SpellLink id={SPELLS.SCORCH.id} /> while the target was under 30% health {this.badCasts} times. When using <SpellLink id={SPELLS.SEARING_TOUCH_TALENT.id} /> always use Scorch isntead of Fireball when the target is under 30% health since Scorch does 150% damage and is guaranteed to crit.</>)
+				return suggest(<>You cast <SpellLink id={SPELLS.FIREBALL.id} /> instead of <SpellLink id={SPELLS.SCORCH.id} /> while the target was under 30% health {this.badCasts} times. When using <SpellLink id={SPELLS.SEARING_TOUCH_TALENT.id} /> always use Scorch isntead of Fireball when the target is under 30% health since Scorch does 150% damage and is guaranteed to crit.</>)
 					.icon(SPELLS.SEARING_TOUCH_TALENT.icon)
 					.actual(`${formatPercentage(this.scorchUtil)}% Utilization`)
 					.recommended(`${formatPercentage(recommended)} is recommended`);
