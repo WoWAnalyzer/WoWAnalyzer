@@ -12,20 +12,15 @@ import { formatThousands } from 'common/format';
 import StatisticsListBox from 'interface/others/StatisticsListBox';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
-import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
+import { getDotDurations, UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
 
 const BONUS_DURATION = 8000;
-const UNSTABLE_AFFLICTION_DURATION = 8000;
-const CREEPING_DEATH_COEFFICIENT = 0.85; // Creeping Death talent shortens duration and period of certain dots by 15%
-const DOTS_AFFECTED_BY_CREEPING_DEATH = [
+const DOT_DEBUFFS = [
   SPELLS.AGONY,
   SPELLS.CORRUPTION_DEBUFF,
   SPELLS.SIPHON_LIFE_TALENT,
   ...UNSTABLE_AFFLICTION_DEBUFFS,
-];
-const DOT_DEBUFFS = [
   SPELLS.PHANTOM_SINGULARITY_TALENT,
-  ...DOTS_AFFECTED_BY_CREEPING_DEATH,
 ];
 const debug = false;
 
@@ -34,13 +29,7 @@ class Darkglare extends Analyzer {
     enemies: Enemies,
   };
 
-  _dotDurations = {
-    [SPELLS.AGONY.id]: 18000,
-    [SPELLS.CORRUPTION_DEBUFF.id]: 14000,
-    [SPELLS.SIPHON_LIFE_TALENT.id]: 15000,
-    // UA IDs added in constructor
-    [SPELLS.PHANTOM_SINGULARITY_TALENT.id]: 16000,
-  };
+  _dotDurations = {};
   _hasAC = false;
 
   bonusDotDamage = 0;
@@ -73,18 +62,11 @@ class Darkglare extends Analyzer {
 
   constructor(...args) {
     super(...args);
+    this._dotDurations = getDotDurations(this.selectedCombatant.hasTalent(SPELLS.CREEPING_DEATH_TALENT.id));
     // if player has Absolute Corruption, disregard the Corruption duration (it's permanent debuff then)
     this._hasAC = this.selectedCombatant.hasTalent(SPELLS.ABSOLUTE_CORRUPTION_TALENT.id);
     if (this._hasAC) {
       delete this._dotDurations[SPELLS.CORRUPTION_DEBUFF.id];
-    }
-    UNSTABLE_AFFLICTION_DEBUFFS.forEach(spell => {
-      this._dotDurations[spell.id] = UNSTABLE_AFFLICTION_DURATION;
-    });
-    if (this.selectedCombatant.hasTalent(SPELLS.CREEPING_DEATH_TALENT.id)) {
-      DOTS_AFFECTED_BY_CREEPING_DEATH.forEach(spell => {
-          this._dotDurations[spell.id] *= CREEPING_DEATH_COEFFICIENT;
-      });
     }
 
     // event listeners
