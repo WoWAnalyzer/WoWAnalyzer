@@ -1,5 +1,5 @@
 import React from 'react';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import TraitStatisticBox from 'interface/others/TraitStatisticBox';
 import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
@@ -32,6 +32,10 @@ class DepthOfTheShadows extends Analyzer {
 
     const spellId = event.ability.guid;
 
+    if(spellId !== SPELLS.SHADOW_MEND.id && spellId !== SPELLS.EVANGELISM_TALENT.id) {
+      return;
+    }
+
     if (spellId === SPELLS.SHADOW_MEND.id) {
       this._lastCastIsShadowmend = true;
     }
@@ -39,16 +43,16 @@ class DepthOfTheShadows extends Analyzer {
     if (spellId === SPELLS.EVANGELISM_TALENT.id){
       this._shadowmends.forEach((cast, castIndex) => {
 
-        // We search for atonements applied with shadowmend that we're in their
+        // We search for atonements applied with shadowmend that were in their
         // normal atonement window when evangelism was casted
         if(event.timestamp > cast.applyBuff.timestamp
-        && event.timestamp < cast.applyBuff.timestamp + SPELLS.SHADOW_MEND.atonementDuration * 1000) {
+        && event.timestamp < cast.applyBuff.timestamp + SPELLS.SHADOW_MEND.atonementDuration) {
           this._shadowmends[castIndex].wasExtendedByEvangelismPreDepthWindow = true;
         }
-        // We search for atonements applied with shadowmend that we're in their
+        // We search for atonements applied with shadowmend that were in their
         // depth window when evangelism was casted
-        if(event.timestamp > cast.applyBuff.timestamp + SPELLS.SHADOW_MEND.atonementDuration * 1000
-        && event.timestamp < cast.applyBuff.timestamp + SPELLS.SHADOW_MEND.atonementDuration * 1000 + DEPTH_OF_THE_SHADOWS_BONUS_MS){
+        if(event.timestamp > cast.applyBuff.timestamp + SPELLS.SHADOW_MEND.atonementDuration
+        && event.timestamp < cast.applyBuff.timestamp + SPELLS.SHADOW_MEND.atonementDuration + DEPTH_OF_THE_SHADOWS_BONUS_MS){
           this._shadowmends[castIndex].wasExtendedByEvangelismInDepthWindow = true;
         }
       });
@@ -58,7 +62,11 @@ class DepthOfTheShadows extends Analyzer {
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
 
-    if (spellId === SPELLS.ATONEMENT_BUFF.id && this._lastCastIsShadowmend) {
+    if(spellId !== SPELLS.ATONEMENT_BUFF.id){
+      return;
+    }
+
+    if (this._lastCastIsShadowmend) {
 
       this._lastCastIsShadowmend = false;
 
@@ -72,8 +80,8 @@ class DepthOfTheShadows extends Analyzer {
   }
 
   // After discussing this with multiple other priests, we concluded that
-  // atonements that we're extended by evangelism in their depth window would
-  // be counted for it's entire duration since you woudn't have add atonement
+  // atonements that were extended by evangelism in their depth window would
+  // be counted for it's entire duration since you woudn't have had atonement
   // on the target in the first place. This is done here by not increasing
   // the lower bound if it was extended by evangelism in the depth window
   calculateBonusAtonement(event) {
@@ -84,11 +92,11 @@ class DepthOfTheShadows extends Analyzer {
 
       const lowerBound = cast.applyBuff.timestamp
                        + (cast.wasExtendedByEvangelismPreDepthWindow ? EVANGELISM_BONUS_MS : 0)
-                       + SPELLS.SHADOW_MEND.atonementDuration * 1000;
+                       + SPELLS.SHADOW_MEND.atonementDuration;
 
       const upperBound = cast.applyBuff.timestamp
                        + (cast.wasExtendedByEvangelismPreDepthWindow || cast.wasExtendedByEvangelismInDepthWindow ? EVANGELISM_BONUS_MS : 0)
-                       + SPELLS.SHADOW_MEND.atonementDuration * 1000
+                       + SPELLS.SHADOW_MEND.atonementDuration
                        + DEPTH_OF_THE_SHADOWS_BONUS_MS;
 
       if(event.targetID === cast.applyBuff.targetID && event.timestamp > lowerBound && event.timestamp < upperBound) {
@@ -127,7 +135,6 @@ class DepthOfTheShadows extends Analyzer {
 
     return (
       <TraitStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.DEPTH_OF_THE_SHADOWS.id}
         value={`${formatNumber(total / fightDuration * 1000)} HPS`}
         tooltip={
