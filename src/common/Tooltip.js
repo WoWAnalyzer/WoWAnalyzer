@@ -94,7 +94,7 @@ class Tooltip extends React.Component {
      * Additional class names that are appended to the wrapper element
      * Default: ''
      */
-    wrapperClassName: PropTypes.string,
+    className: PropTypes.string,
     /**
      * Additional inline styles that are appended to the wrapper element
      * Default: {}
@@ -119,7 +119,7 @@ class Tooltip extends React.Component {
 
   static defaultProps = {
     tagName: 'div',
-    wrapperClassName: '',
+    className: '',
     wrapperStyles: {},
     tooltipClassName: '',
     hoverable: false,
@@ -140,7 +140,7 @@ class Tooltip extends React.Component {
       content,
       children,
       tagName,
-      wrapperClassName,
+      className,
       wrapperStyles,
       tooltipClassName,
       hoverable,
@@ -164,7 +164,7 @@ class Tooltip extends React.Component {
     return (
       <ReactTooltip
         tagName={tagName}
-        className={wrapperClassName}
+        className={className}
         styles={wrapperStyle}
         tooltipClassName={tooltipClassName}
         direction="down"
