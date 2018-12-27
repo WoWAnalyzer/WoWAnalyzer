@@ -96,7 +96,7 @@ class HealingDone extends Analyzer {
           </div>
           <div
             className="flex-sub"
-            style={{ fontWeight: 500, width: 190, textAlign: 'center' }}
+            style={{ fontWeight: 500, width: 190, textAlign: 'center', cursor: 'help' }}
             data-tip={`Total healing done: <b>${formatThousands(this.total.effective)}</b>`}
           >
             {formatThousands(perSecond)} HPS
@@ -104,7 +104,11 @@ class HealingDone extends Analyzer {
           <div className="flex-sub" style={{ width: 110, textAlign: 'center' }}>
             <ThroughputPerformance throughput={perSecond} metric="hps">
               {performance => performance && (
-                <div className={rankingColor(performance)}>
+                <div
+                  className={rankingColor(performance)}
+                  data-tip=""
+                  style={{ cursor: 'help' }
+                }>
                   {formatPercentage(performance, 0)}%
                 </div>
               )}

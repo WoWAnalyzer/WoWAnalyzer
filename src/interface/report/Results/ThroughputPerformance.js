@@ -49,6 +49,7 @@ class ThroughputPerformance extends React.PureComponent {
       spec: parser.selectedCombatant.spec.ranking.spec,
       difficulty: parser.fight.difficulty,
       metric: this.props.metric,
+      // hehe jk this is actually the opposite of a cache key since without this it would be cached indefinitely. This is more like a "cache bust key" in that this changes weekly so that it auto-refreshes weekly. Super clever.
       cache: this._getCacheKey(parser.selectedCombatant.spec.index),
     });
   }
