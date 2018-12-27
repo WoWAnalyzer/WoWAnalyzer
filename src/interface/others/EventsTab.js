@@ -165,7 +165,7 @@ class EventsTab extends React.Component {
         </label>
         {explanation && (
           <div className="flex-sub" style={{ padding: '0 10px' }}>
-            <Tooltip content={explanation} hideUnderline>
+            <Tooltip content={explanation} tagName="div">
               <InformationIcon style={{ fontSize: '1.4em' }} />
             </Tooltip>
           </div>

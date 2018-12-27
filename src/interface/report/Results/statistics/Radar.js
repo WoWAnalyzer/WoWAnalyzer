@@ -45,8 +45,8 @@ const Radar = ({ distance, size, style, playerColor }) => {
       <Ring size={20 * pixelsPerYard} style={{ opacity: 0.75 }} />
       <Ring size={10 * pixelsPerYard} style={{ opacity: 1 }} />
       <Tooltip
+        tagName="div"
         content={`${formatNumber(distance)} yards`}
-        hideUnderline
         wrapperStyles={{
           position: 'absolute',
           top: '50%',

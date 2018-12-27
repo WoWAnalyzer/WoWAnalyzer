@@ -83,7 +83,6 @@ class StatisticBox extends React.PureComponent {
                 <div className="warcraft-logs-link">
                   <Tooltip
                     content="View details on Warcraft Logs"
-                    hideUnderline
                     tagName="a"
                     href={warcraftLogs}
                     target="_blank"

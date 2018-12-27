@@ -67,7 +67,7 @@ class SupportChecker extends React.PureComponent {
           <h1>
             <div className="back-button">
               <Link to={makeAnalyzerUrl(report, fight.id)}>
-                <Tooltip content={i18n._(t`Back to player selection`)} hideUnderline>
+                <Tooltip content={i18n._(t`Back to player selection`)} tagName="div">
                   <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
                 </Tooltip>
               </Link>
@@ -99,7 +99,7 @@ class SupportChecker extends React.PureComponent {
                     onClick={this.handleClickContinue}
                     style={{ fontSize: '1.1em' }}
                   >
-                    <Tooltip content="Khadgar approves your bravery" hideUnderline>
+                    <Tooltip content="Khadgar approves your bravery" tagName="div">
                       <Icon icon="quest_khadgar" /> <Trans>Continue anyway</Trans>
                     </Tooltip>
                   </Link>

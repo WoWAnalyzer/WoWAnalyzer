@@ -51,7 +51,7 @@ class Tooltip extends React.Component {
     children: PropTypes.node.isRequired,
     /**
      * Tag name of the wrapper element
-     * Default: 'div'
+     * Default: 'dfn'
      */
     tagName: PropTypes.string,
     /**
@@ -75,28 +75,23 @@ class Tooltip extends React.Component {
      */
     hoverable: PropTypes.bool,
     /**
-     * Boolean which states, if the target should NOT look like <dfn> tag (dashed underline and question mark cursor)
-     * Default: false (because majority of existing tooltips are on <dfn> tags)
+     * Boolean which states, if the tooltip should be rendered at all.
+     * Default: true
      */
-    hideUnderline: PropTypes.bool,
+    renderTooltip: PropTypes.bool,
   };
 
   static defaultProps = {
-    tagName: 'div',
+    tagName: 'dfn',
     className: '',
     wrapperStyles: {},
     tooltipClassName: '',
     hoverable: false,
-    hideUnderline: false,
+    renderTooltip: true,
   };
 
   defaultWrapperStyle = {
     display: 'inline-block',
-  };
-
-  underlineStyle = {
-    'border-bottom': '1px dashed currentColor',
-    cursor: 'help',
   };
 
   render() {
@@ -108,21 +103,12 @@ class Tooltip extends React.Component {
       wrapperStyles,
       tooltipClassName,
       hoverable,
-      hideUnderline,
+      renderTooltip,
       ...others
     } = this.props;
-    // Styles that are applied to the wrapper element (div)
-    let wrapperStyle = {
+    // Styles that are applied to the wrapper element
+    const wrapperStyle = {
       ...this.defaultWrapperStyle,
-    };
-    if (!hideUnderline) {
-      wrapperStyle = {
-        ...wrapperStyle,
-        ...this.underlineStyle,
-      };
-    }
-    wrapperStyle = {
-      ...wrapperStyle,
       ...wrapperStyles,
     };
     return (
@@ -134,6 +120,7 @@ class Tooltip extends React.Component {
         direction="down"
         tipContentHover={hoverable}
         content={content}
+        renderTooltip={renderTooltip}
         {...others}>
         {children}
       </ReactTooltip>

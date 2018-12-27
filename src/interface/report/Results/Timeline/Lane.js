@@ -69,7 +69,7 @@ class Lane extends React.PureComponent {
           position: 'absolute',
         }}
         data-effect="float"
-        hideUnderline
+        tagName="div"
       />
     );
   }
@@ -84,7 +84,7 @@ class Lane extends React.PureComponent {
           left,
           position: 'absolute',
         }}
-        hideUnderline
+        tagName="div"
       />
     );
   }

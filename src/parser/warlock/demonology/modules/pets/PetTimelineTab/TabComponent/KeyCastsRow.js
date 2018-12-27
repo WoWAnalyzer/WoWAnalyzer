@@ -36,20 +36,12 @@ class KeyCastsRow extends React.PureComponent {
                   zIndex: (event.important) ? 20 : 10,
                 }}
               >
-                {tooltipInfo.length > 0 && (
-                  <Tooltip content={tooltipInfo.join('\n')} hideUnderline>
-                    <SpellIcon
-                      id={event.abilityId}
-                      className={event.important && 'enhanced'}
-                    />
-                  </Tooltip>
-                )}
-                {tooltipInfo.length === 0 && (
+                <Tooltip content={tooltipInfo.join('\n')} tagName="div" renderTooltip={tooltipInfo.length > 0}>
                   <SpellIcon
                     id={event.abilityId}
                     className={event.important && 'enhanced'}
                   />
-                )}
+                </Tooltip>
               </div>
             );
           }

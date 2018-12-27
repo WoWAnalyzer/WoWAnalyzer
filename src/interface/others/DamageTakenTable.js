@@ -36,7 +36,7 @@ class DamageTakenTable extends React.Component {
             <Tooltip
               className="flex performance-bar-container"
               content={`Total Damage Taken: ${formatNumber(totalDmg)} of ${formatNumber(this.props.total)}.`}
-              hideUnderline>
+              tagName="div">
               <div
                 className={`flex-sub performance-bar ${specClassName}-bg`}
                 style={{ width: `${(totalDmg - largestSpike) / this.props.total * 100}%` }}

@@ -140,7 +140,7 @@ class Casts extends React.PureComponent {
           width: event.duration / 1000 * this.props.secondWidth,
           position: 'absolute',
         }}
-        hideUnderline
+        tagName="div"
       />
     );
   }
@@ -159,7 +159,7 @@ class Casts extends React.PureComponent {
           width: event.duration / 1000 * this.props.secondWidth,
           position: 'absolute',
         }}
-        hideUnderline
+        tagName="div"
       />
     );
   }

@@ -94,7 +94,6 @@ class DeathRecap extends React.PureComponent {
               rel="noopener noreferrer"
               className="btn"
               wrapperStyles={{ fontSize: 24 }}
-              hideUnderline
             >
               <img src={WarcraftLogsLogo} alt="Warcraft Logs logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
             </Tooltip>

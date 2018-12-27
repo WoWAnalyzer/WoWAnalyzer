@@ -106,7 +106,7 @@ class Buffs extends React.PureComponent {
           '--level': level > 0 ? level : undefined,
         }}
         data-effect="float"
-        hideUnderline
+        tagName="div"
       />
     );
   }

@@ -35,20 +35,16 @@ class PetRow extends React.PureComponent {
                   zIndex: 10,
                 }}
               >
-                {isSummonAbilityKnown && (pet.meta.tooltip ? (
-                  <Tooltip content={pet.meta.tooltip} hideUnderline>
+                {isSummonAbilityKnown && (
+                  <Tooltip content={pet.meta.tooltip} tagName="div" renderTooltip={pet.meta.tooltip !== ''}>
                     <SpellIcon
                       id={pet.summonAbility}
                       className={pet.meta.iconClass}
                     />
-                  </Tooltip>) : (
-                  <SpellIcon
-                    id={pet.summonAbility}
-                    className={pet.meta.iconClass}
-                  />
-                ))}
+                  </Tooltip>
+                )}
                 {!isSummonAbilityKnown && (
-                  <Tooltip content={pet.name} hideUnderline>
+                  <Tooltip content={pet.name} tagName="div">
                     <Icon icon="inv_misc_questionmark" />
                   </Tooltip>
                 )}

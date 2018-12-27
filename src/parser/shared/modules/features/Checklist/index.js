@@ -171,7 +171,7 @@ class Checklist extends Analyzer {
                     >
                       <Tooltip
                         content={requirement.tooltip}
-                        hideUnderline>
+                        tagName="div">
                         <InformationIcon />
                       </Tooltip>
                     </div>

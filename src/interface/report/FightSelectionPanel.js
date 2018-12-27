@@ -46,7 +46,7 @@ class FightSelectionPanel extends React.PureComponent {
                 to={makeAnalyzerUrl(report)}
                 onClick={refreshReport}
               >
-                <Tooltip content={i18n._(t`This will refresh the fights list which can be useful if you're live logging.`)} hideUnderline>
+                <Tooltip content={i18n._(t`This will refresh the fights list which can be useful if you're live logging.`)} tagName="div">
                   <span className="glyphicon glyphicon-refresh" aria-hidden="true" /> <Trans>Refresh</Trans>
                 </Tooltip>
               </Link>

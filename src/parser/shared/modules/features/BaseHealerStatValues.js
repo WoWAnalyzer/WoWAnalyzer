@@ -473,7 +473,7 @@ class BaseHealerStatValues extends Analyzer {
                         <td style={{ padding: 6 }}>
                           <Tooltip
                             content={informationIconTooltip}
-                            hideUnderline>
+                            tagName="div">
                             <InformationIcon />
                           </Tooltip>
                         </td>

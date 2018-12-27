@@ -149,7 +149,7 @@ class PlayerSelection extends React.PureComponent {
           <h1>
             <div className="back-button">
               <Link to={`/report/${report.code}`}>
-                <Tooltip content={i18n._(t`Back to fight selection`)} hideUnderline>
+                <Tooltip content={i18n._(t`Back to fight selection`)} tagName="div">
                   <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
                 </Tooltip>
               </Link>

@@ -101,7 +101,7 @@ class BaseHealerAzerite extends Analyzer {
                 <h2>
                   <SpellLink id={this.constructor.TRAIT.id} />
                   {this.moreInformation && (
-                    <Tooltip content={this.moreInformation} hideUnderline>
+                    <Tooltip content={this.moreInformation} tagName="div">
                       <InformationIcon className="pull-right" />
                     </Tooltip>
                   )}

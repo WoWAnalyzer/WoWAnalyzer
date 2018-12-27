@@ -124,7 +124,7 @@ class ReportSelecter extends React.PureComponent {
               </ul>
             </Trans>
           )}
-            hideUnderline
+            tagName="div"
             wrapperStyles={{ flex: '1 1', cursor: 'help', padding: 0 }}
           >
             <input
