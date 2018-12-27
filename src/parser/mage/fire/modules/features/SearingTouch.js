@@ -8,6 +8,7 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 const debug = false;
 const SEARING_TOUCH_HEALTH_THRESHOLD = .30;
+const SEARING_TOUCH_DAMAGE_MODIFIER = 1.50;
 
 class SearingTouch extends Analyzer {
   static dependencies = {
@@ -32,6 +33,9 @@ class SearingTouch extends Analyzer {
     this.totalCasts += 1;
     if (event.ability.guid === SPELLS.FIREBALL.id) {
       this.badCasts += 1;
+      event.meta = event.meta || {};
+      event.meta.isInefficientCast = true;
+      event.meta.inefficientCastReason = `This Fireball was cast while the target was under ${formatPercentage(SEARING_TOUCH_HEALTH_THRESHOLD)}% health. While talented into Searing Touch, ensure that you are casting Scorch instead of Fireball while the target is under 30% health since Scorch does ${formatPercentage(SEARING_TOUCH_DAMAGE_MODIFIER)}% additional damage.`;
       debug && this.log("Cast Fireball under 30% Health");
     }
   }
