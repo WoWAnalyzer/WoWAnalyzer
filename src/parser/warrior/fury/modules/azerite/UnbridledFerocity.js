@@ -12,6 +12,7 @@ import RAMPAGE_COEFFICIENTS from '../spells/RAMPAGE_COEFFICIENTS.js';
 
 const RAMPAGE = [SPELLS.RAMPAGE_1, SPELLS.RAMPAGE_2, SPELLS.RAMPAGE_3, SPELLS.RAMPAGE_4];
 const RECKLESSNESS_DURATION = 10000;
+const RECLESSNESS_DURATION_VARIANCE = 100;
 
 class UnbridledFerocity extends Analyzer {
   static dependencies = {
@@ -38,6 +39,7 @@ class UnbridledFerocity extends Analyzer {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(RAMPAGE), this.onTraitDamage);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.RECKLESSNESS), this.onBuffApply);
     this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.RECKLESSNESS), this.onBuffRemoved);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RECKLESSNESS), this.onRecklessnessCast);
     this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
@@ -51,21 +53,39 @@ class UnbridledFerocity extends Analyzer {
     this.recklessnessEvents.push({
       start: event.timestamp,
       end: null,
+      recklessnessCast: false,
     });
   }
 
+  onRecklessnessCast() {
+    if (this.recklessnessEvents.length === 0) {
+      return;
+    }
+
+    const lastIndex = this.recklessnessEvents.length - 1;
+    this.recklessnessEvents[lastIndex].recklessnessCast = true;
+  }
+
   onBuffRemoved(event) {
-    const latestRecklessness = this.recklessnessEvents.pop();
-    latestRecklessness.end = event.timestamp;
-    this.recklessnessEvents.push(latestRecklessness);
+    if (this.recklessnessEvents.length === 0) {
+      return;
+    }
+
+    const lastIndex = this.recklessnessEvents.length - 1;
+    this.recklessnessEvents[lastIndex].end = event.timestamp;
   }
 
   onFightEnd(event) {
-    const latestRecklessness = this.recklessnessEvents.pop();
-    if(!latestRecklessness.end) {
-      latestRecklessness.end = event.timestamp;
+    // If Recklessness was active at the end of the fight, we need to flag it as ended as there is no buff removed event
+    if (this.recklessnessEvents.length === 0) {
+      return;
     }
-    this.recklessnessEvents.push(latestRecklessness);
+    
+    const lastIndex = this.recklessnessEvents.length - 1;
+
+    if(!this.recklessnessEvents[lastIndex].end) {
+      this.recklessnessEvents[lastIndex].end = event.timestamp;
+    }
   }
 
   get damagePercentage() {
@@ -73,9 +93,19 @@ class UnbridledFerocity extends Analyzer {
   }
 
   get increasedRecklessnessDuration() {
+    // If Recklessness is active and the trait procs, the 10 seconds of buff time is increased by 4 seconds with no event.
+    // To check for this, we need to check if recklessness lasted for more than 10 seconds, and if so, subtract those 10 seconds from the uptime to get the additional buff duration from the trait
     return this.recklessnessEvents.reduce((total, event) => {
       const duration = event.end - event.start;
-      return total + (duration > RECKLESSNESS_DURATION ? duration - RECKLESSNESS_DURATION : duration);
+
+      // Was this a recklessness cast and lasted < 10 seconds with event variance
+      if (event.recklessnessCast && (duration < (RECKLESSNESS_DURATION - RECLESSNESS_DURATION_VARIANCE) || duration < (RECKLESSNESS_DURATION + RECLESSNESS_DURATION_VARIANCE))) {
+        return total;
+      } else if (duration > (RECKLESSNESS_DURATION - RECLESSNESS_DURATION_VARIANCE)) { // Was the buff longer than 10 seconds (in which case it was a proc and normal recklessness)
+        return total + duration - RECKLESSNESS_DURATION;
+      } else {
+        return total + duration;
+      }
     }, 0);
   }
 

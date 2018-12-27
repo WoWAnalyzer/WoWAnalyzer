@@ -62,7 +62,6 @@ class CombatLogParser extends CoreCombatLogParser {
     impendingVictory: ImpendingVicory,
     meatCleaver: MeatCleaver,
     recklessAbandon: RecklessAbandon,
-    recklessFlurry: RecklessFlurry,
     siegebreaker: Siegebreaker,
     suddenDeath: SuddenDeath,
     warpaint: Warpaint,
