@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Tooltip from 'common/Tooltip';
 import ReactTooltip from 'react-tooltip';
 import './StatisticBox.css';
 import STATISTIC_CATEGORY from './STATISTIC_CATEGORY';
@@ -80,9 +81,16 @@ class StatisticBox extends React.PureComponent {
 
               {warcraftLogs && (
                 <div className="warcraft-logs-link">
-                  <a href={warcraftLogs} target="_blank" rel="noopener noreferrer" data-tip="View details on Warcraft Logs">
+                  <Tooltip
+                    content="View details on Warcraft Logs"
+                    hideUnderline
+                    tagName="a"
+                    href={warcraftLogs}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <img src="/img/wcl.png" alt="Warcraft Logs logo" />
-                  </a>
+                  </Tooltip>
                 </div>
               )}
             </div>

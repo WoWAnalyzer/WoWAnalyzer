@@ -9,31 +9,6 @@ src/interface/layout/App.scss
 	dfn[data-tip] rule is probably redundant
 
 data-tip on other than dfn tags:
-	src/interface/others/DeathRecap.js
-		94 - a
-	src/interface/others/EventsTab.js
-		167 - div
-	src/interface/others/StatisticBox.js
-		83 - a
-	src/interface/report/FightSelection.js
-		41 - Link
-	src/interface/report/FightSelectionPanel.js
-		47 - Link
-	src/interface/report/PlayerSelection.js
-		150 - Link
-	src/interface/report/SupportChecker.js
-		68 - Link
-		98 - Link
-	src/interface/report/Results/statistics/Statistic.js
-		31 - div
-	src/interface/report/Results/Timeline/Buffs.js
-		104 - div
-	src/interface/report/Results/Timeline/Casts.js
-		137 - div
-		151 - div
-	src/interface/report/Results/Timeline/Lane.js
-		68 - div
-		82 - div
 ------------------------------------------------------------
 	src/parser/druid/feral/modules/features/EnergyCapTracker.js
 		99 - div

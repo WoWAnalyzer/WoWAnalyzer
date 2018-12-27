@@ -12,6 +12,7 @@ import GitHubButton from 'interface/common/thirdpartybuttons/GitHub';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import { ignoreSpecNotSupportedWarning } from 'interface/actions/specNotSupported';
 import { getSpecsIgnoredNotSupportedWarning } from 'interface/selectors/skipSpecNotSupported';
+import Tooltip from 'common/Tooltip';
 
 import Background from './images/weirdnelf.png';
 
@@ -65,8 +66,10 @@ class SupportChecker extends React.PureComponent {
         <div className="container">
           <h1>
             <div className="back-button">
-              <Link to={makeAnalyzerUrl(report, fight.id)} data-tip={i18n._(t`Back to player selection`)}>
-                <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
+              <Link to={makeAnalyzerUrl(report, fight.id)}>
+                <Tooltip content={i18n._(t`Back to player selection`)} hideUnderline>
+                  <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
+                </Tooltip>
               </Link>
             </div>
             <span className={spec.className.replace(' ', '')}>{player.name} - {spec.specName} {spec.className}</span>
@@ -95,9 +98,10 @@ class SupportChecker extends React.PureComponent {
                     to={makeAnalyzerUrl(report, fight.id, player.id)}
                     onClick={this.handleClickContinue}
                     style={{ fontSize: '1.1em' }}
-                    data-tip="Khadgar approves your bravery"
                   >
-                    <Icon icon="quest_khadgar" /> <Trans>Continue anyway</Trans>
+                    <Tooltip content="Khadgar approves your bravery" hideUnderline>
+                      <Icon icon="quest_khadgar" /> <Trans>Continue anyway</Trans>
+                    </Tooltip>
                   </Link>
                 </div>
                 <div className="flex-sub">
