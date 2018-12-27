@@ -9,8 +9,6 @@ src/interface/layout/App.scss
 	dfn[data-tip] rule is probably redundant
 
 data-tip on other than dfn tags:
-	src/interface/others/DamageTakenTable.js
-		36 - div
 	src/interface/others/DeathRecap.js
 		94 - a
 	src/interface/others/EventsTab.js

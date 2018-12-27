@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 import { formatNumber } from 'common/format';
+import Tooltip from 'common/Tooltip';
 
 export const MITIGATED_NONE = 0;
 export const MITIGATED_MAGICAL = 1;
@@ -32,8 +33,10 @@ class DamageTakenTable extends React.Component {
       return (
         <tr key={ability.guid}>
           <td>
-            <div className="flex performance-bar-container"
-              data-tip={`Total Damage Taken: ${formatNumber(totalDmg)} of ${formatNumber(this.props.total)}.`} >
+            <Tooltip
+              className="flex performance-bar-container"
+              content={`Total Damage Taken: ${formatNumber(totalDmg)} of ${formatNumber(this.props.total)}.`}
+              hideUnderline>
               <div
                 className={`flex-sub performance-bar ${specClassName}-bg`}
                 style={{ width: `${(totalDmg - largestSpike) / this.props.total * 100}%` }}
@@ -42,7 +45,7 @@ class DamageTakenTable extends React.Component {
                 className="flex-sub performance-bar Hunter-bg"
                 style={{ width: `${(largestSpike / this.props.total * 100)}%`, opacity: 0.4 }}
               />
-            </div>
+            </Tooltip>
           </td>
           <td>
             <SpellLink id={ability.guid} icon={false}>
