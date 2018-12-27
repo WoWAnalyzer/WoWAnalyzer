@@ -15,8 +15,6 @@ data-tip on other than dfn tags:
 		94 - a
 	src/interface/others/EventsTab.js
 		167 - div
-	src/interface/others/ReportSelecter.js
-		116 - input
 	src/interface/others/StatisticBox.js
 		83 - a
 	src/interface/report/FightSelection.js
