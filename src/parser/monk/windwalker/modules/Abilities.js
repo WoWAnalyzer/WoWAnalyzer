@@ -247,6 +247,25 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT_WINDWALKER.id),
       },
+      {
+        spell: SPELLS.ROLL,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: combatant.hasTalent(SPELLS.CELERITY_TALENT.id) ? 15 : 20,
+        charges: combatant.hasTalent(SPELLS.CELERITY_TALENT.id) ? 3 : 2,
+        gcd: {
+          static: 1000,
+        },
+        enabled: !combatant.hasTalent(SPELLS.CHI_TORPEDO_TALENT.id),
+      },
+      {
+        spell: SPELLS.TIGERS_LUST_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 30,
+        gcd: {
+          static: 1000,
+        },
+        enabled: combatant.hasTalent(SPELLS.TIGERS_LUST_TALENT.id),
+      },
       // Defensives
       {
         spell: SPELLS.DIFFUSE_MAGIC_TALENT,
