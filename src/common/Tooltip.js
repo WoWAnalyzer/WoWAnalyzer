@@ -26,8 +26,6 @@ data-tip on other than dfn tags:
 	src/interface/report/SupportChecker.js
 		68 - Link
 		98 - Link
-	src/interface/report/Results/statistics/Radar.js
-		48 - Ring (technically div)
 	src/interface/report/Results/statistics/Statistic.js
 		31 - div
 	src/interface/report/Results/Timeline/Buffs.js
