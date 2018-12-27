@@ -1,16 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import SPECS from 'game/SPECS';
 import ROLES from 'game/ROLES';
-import SpecIcon from 'common/SpecIcon';
 import { fetchCharacter } from 'interface/actions/characters';
 import { getCharactersById } from 'interface/selectors/characters';
 
+import PlayerTile from './PlayerTile';
+import PlayerInfo from './PlayerInfo';
 import './PlayerSelection.scss';
-import RoleIcon from 'common/RoleIcon';
 
 const ROLE_SORT_KEY = {
   [ROLES.TANK]: 0,
@@ -43,11 +42,13 @@ class PlayerSelection extends React.PureComponent {
   constructor(props) {
     super(props);
     this.load();
+    this.state = {
+      selectedPlayer: null,
+    };
   }
 
   load() {
     const { players, charactersById, fetchCharacter } = this.props;
-
     return players.filter(player => !charactersById[player.guid]).map(player => {
       return fetchCharacter(player.guid, player.region, player.realm, player.name).catch(err => {
         console.error('An error occured fetching', player, '. The error:', err);
@@ -57,38 +58,45 @@ class PlayerSelection extends React.PureComponent {
 
   render() {
     const { players, charactersById, makeUrl } = this.props;
+
+    players.forEach(player => {
+      const character = charactersById[player.guid];
+      player.avatar = character ? `https://render-${character.region}.worldofwarcraft.com/character/${character.thumbnail}` : '/img/fallback-character.jpg';
+      player.background = character ? `https://render-${character.region}.worldofwarcraft.com/character/${character.thumbnail.replace('avatar','main')}` : '/img/fallback-character.jpg';
+      player.spec = SPECS[player.combatant.specID];
+    });
     
     return (
-      <div className="player-selection">
-        {players.sort(sortPlayers).map(player => {
-          const character = charactersById[player.guid];
-          const spec = SPECS[player.combatant.specID];
-          const imageSource = character ? `https://render-${character.region}.worldofwarcraft.com/character/${character.thumbnail}` : '/img/fallback-character.jpg';
-
-          return (
-            <Link
-              key={player.guid}
-              to={makeUrl(player.id)}
-            >
-              <div className="card">
-                <div
-                  className="avatar"
-                  style={{ backgroundImage: `url(${imageSource})` }}
-                />
-                <div className="about">
-                  <h1 className={spec.className.replace(' ', '')}>{player.name}</h1>
-                  <small>
-                    <SpecIcon id={spec.id} className="spec-icon" /> {spec.specName} {spec.className}
-                  </small>
-                  <RoleIcon id={spec.role} className="role-icon" />
-                  <div className={`background ${spec.className.replace(' ', '')}-bg`} />
-                </div>
-              </div>
-            </Link>
-          );
-        })}
+      <div className={`player-selection-container${this.state.selectedPlayer ? ' show-info' : ''}`}>
+        <div className="player-selection">
+          {players.sort(sortPlayers).map(player => {
+            return (
+              <PlayerTile
+                key={player.guid} 
+                player={player}
+                selectedPlayer={this.state.selectedPlayer}
+                analysisUrl={makeUrl(player.id)}
+                handleClick={() => this.handlePlayerClick(player)}
+              />
+            );            
+          })}
+        </div>
+        <div className="player-info">
+          {
+            this.state.selectedPlayer && 
+            <PlayerInfo player={this.state.selectedPlayer} />
+          }
+        </div>
       </div>
     );
+  }
+
+  handlePlayerClick(player) {
+    if (this.state.selectedPlayer === player) {
+      this.setState({selectedPlayer: null});
+    } else {
+      this.setState({selectedPlayer: player});
+    }
   }
 }
 
