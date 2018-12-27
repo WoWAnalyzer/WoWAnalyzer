@@ -9,7 +9,6 @@
     "@lingui/macro": "^2.7.0",
     "@lingui/react": "^2.7.0",
     "@wowanalyzer/react-scripts": "2.1.1",
-    "@wowanalyzer/react-tooltip-lite": "^2.0.0",
     "chart.js": "^2.7.2",
     "d3-dsv": "^1.0.10",
     "d3-scale": "^2.1.2",

@@ -20,7 +20,7 @@ footer:before {
   background-position-x: center;
   background-position-y: center;
 }
-.social-links > div > * {
+.social-links > * {
   font-size: 3em;
   color: #ddd;
   margin: 0 0.4em;
