@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ReactTooltip from 'react-tooltip';
 
 import SPECS from 'game/SPECS';
 import fetchWcl from 'common/fetchWclApi';
@@ -8,6 +9,7 @@ import CombatLogParser from 'parser/core/CombatLogParser';
 const DAYS_PER_WEEK = 7;
 const SECONDS_PER_DAY = 86400;
 const TOTAL_SPECS = SPECS.count;
+export const UNAVAILABLE = 'UNAVAILABLE';
 
 class ThroughputPerformance extends React.PureComponent {
   static propTypes = {
@@ -23,21 +25,32 @@ class ThroughputPerformance extends React.PureComponent {
     super();
     this.state = {
       performance: null,
+      topThroughput: null,
     };
   }
   componentDidMount() {
     this.load();
   }
+  componentDidUpdate(prevProps, prevState, prevContext) {
+    ReactTooltip.rebuild();
+  }
 
   async load() {
     const { rankings } = await this.loadRankings();
-    const topRank = rankings[0];
+    // We want the 100th rank to give people a reasonable and easy to grasp goal to aim for.
+    const topRank = this._getRank(rankings, 100);
     if (!topRank) {
+      this.setState({
+        performance: UNAVAILABLE,
+        topThroughput: UNAVAILABLE,
+      });
       return;
     }
     const topThroughput = topRank.total;
     this.setState({
+      // If the player is in the top 100, this may be >=100%.
       performance: this.props.throughput / topThroughput,
+      topThroughput,
     });
   }
   async loadRankings() {
@@ -64,11 +77,14 @@ class ThroughputPerformance extends React.PureComponent {
     // Calculate the current week number
     return Math.ceil((((now - onejan) / SECONDS_PER_DAY / 1000) + onejan.getDay() + 1) / DAYS_PER_WEEK); // current calendar-week
   }
+  _getRank(rankings, desiredRank) {
+    return rankings[desiredRank - 1];
+  }
 
   render() {
     const { children } = this.props;
 
-    return children(this.state.performance);
+    return children(this.state);
   }
 }
 

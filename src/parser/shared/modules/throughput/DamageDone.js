@@ -7,7 +7,7 @@ import { formatThousands, formatPercentage } from 'common/format';
 import rankingColor from 'common/getRankingColor';
 import groupDataForChart from 'common/groupDataForChart';
 import StatisticBar from 'interface/report/Results/statistics/StatisticBar';
-import ThroughputPerformance from 'interface/report/Results/ThroughputPerformance';
+import ThroughputPerformance, { UNAVAILABLE } from 'interface/report/Results/ThroughputPerformance';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer from 'parser/core/Analyzer';
 
@@ -81,8 +81,12 @@ class DamageDone extends Analyzer {
           </div>
           <div className="flex-sub" style={{ width: 110, textAlign: 'center' }}>
             <ThroughputPerformance throughput={perSecond} metric="dps">
-              {performance => performance && (
-                <div className={rankingColor(performance)}>
+              {({ performance, topThroughput }) => performance && performance !== UNAVAILABLE && (
+                <div
+                  className={rankingColor(performance)}
+                  data-tip={`Your DPS compared to the DPS of a top 100 player. To become a top 100 <span class="${this.selectedCombatant.spec.className.replace(' ', '')}">${this.selectedCombatant.spec.specName} ${this.selectedCombatant.spec.className}</span> on this fight you need to do at least <b>${formatThousands(topThroughput)} DPS</b>.`}
+                  style={{ cursor: 'help' }}
+                >
                   {formatPercentage(performance, 0)}%
                 </div>
               )}

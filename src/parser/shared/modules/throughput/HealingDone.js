@@ -3,11 +3,11 @@ import { XYPlot, AreaSeries } from 'react-vis';
 import { AutoSizer } from 'react-virtualized';
 import 'react-vis/dist/style.css';
 
-import { formatThousands, formatPercentage } from 'common/format';
+import { formatThousands, formatPercentage, formatNumber } from 'common/format';
 import rankingColor from 'common/getRankingColor';
 import groupDataForChart from 'common/groupDataForChart';
 import StatisticBar from 'interface/report/Results/statistics/StatisticBar';
-import ThroughputPerformance from 'interface/report/Results/ThroughputPerformance';
+import ThroughputPerformance, { UNAVAILABLE } from 'interface/report/Results/ThroughputPerformance';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer from 'parser/core/Analyzer';
 
@@ -103,12 +103,12 @@ class HealingDone extends Analyzer {
           </div>
           <div className="flex-sub" style={{ width: 110, textAlign: 'center' }}>
             <ThroughputPerformance throughput={perSecond} metric="hps">
-              {performance => performance && (
+              {({ performance, topThroughput }) => performance && performance !== UNAVAILABLE && (
                 <div
                   className={rankingColor(performance)}
-                  data-tip=""
-                  style={{ cursor: 'help' }
-                }>
+                  data-tip={`Your HPS compared to the HPS of a top 100 player. To become a top 100 <span class="${this.selectedCombatant.spec.className.replace(' ', '')}">${this.selectedCombatant.spec.specName} ${this.selectedCombatant.spec.className}</span> on this fight you need to do at least <b>${formatThousands(topThroughput)} HPS</b>.`}
+                  style={{ cursor: 'help' }}
+                >
                   {formatPercentage(performance, 0)}%
                 </div>
               )}
