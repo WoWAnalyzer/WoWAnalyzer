@@ -71,7 +71,7 @@ class Requirement extends React.PureComponent {
             >
               <Tooltip
                 content={tooltip}
-                showUnderline={false}>
+                hideUnderline>
                 <InformationIcon />
               </Tooltip>
             </div>

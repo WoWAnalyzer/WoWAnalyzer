@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactTooltip from 'react-tooltip-lite';
+import ReactTooltip from '@wowanalyzer/react-tooltip-lite';
 
 import './Tooltip.css';
 
@@ -88,32 +88,44 @@ class Tooltip extends React.Component {
      */
     children: PropTypes.node.isRequired,
     /**
-     * Additional class names that are appended to the wrapper element (div)
+     * Tag name of the wrapper element
+     * Default: 'div'
+     */
+    tagName: PropTypes.string,
+    /**
+     * Additional class names that are appended to the wrapper element
      * Default: ''
      */
-    className: PropTypes.string,
+    wrapperClassName: PropTypes.string,
     /**
-     * Additional inline styles that are appended to the wrapper element (div)
+     * Additional inline styles that are appended to the wrapper element
      * Default: {}
      */
     wrapperStyles: PropTypes.object,
+    /**
+     * Additional class names that are added to the tooltip (wrapper of the tooltip and arrow)
+     * Default: ''
+     */
+    tooltipClassName: PropTypes.string,
     /**
      * Boolean which states, if a person can access the tooltip contents (and click links, select and copy text etc.)
      * Default: false
      */
     hoverable: PropTypes.bool,
     /**
-     * Boolean which states, if the target should look like <dfn> tag (dashed underline and question mark cursor)
-     * Default: true (because majority of existing tooltips are on <dfn> tags)
+     * Boolean which states, if the target should NOT look like <dfn> tag (dashed underline and question mark cursor)
+     * Default: false (because majority of existing tooltips are on <dfn> tags)
      */
-    showUnderline: PropTypes.bool,
+    hideUnderline: PropTypes.bool,
   };
 
   static defaultProps = {
-    className: '',
+    tagName: 'div',
+    wrapperClassName: '',
     wrapperStyles: {},
+    tooltipClassName: '',
     hoverable: false,
-    showUnderline: true,
+    hideUnderline: false,
   };
 
   defaultWrapperStyle = {
@@ -126,12 +138,22 @@ class Tooltip extends React.Component {
   };
 
   render() {
-    const {content, children, className, wrapperStyles, hoverable, showUnderline} = this.props;
+    const {
+      content,
+      children,
+      tagName,
+      wrapperClassName,
+      wrapperStyles,
+      tooltipClassName,
+      hoverable,
+      hideUnderline,
+      ...others
+    } = this.props;
     // Styles that are applied to the wrapper element (div)
     let wrapperStyle = {
       ...this.defaultWrapperStyle,
     };
-    if (showUnderline) {
+    if (!hideUnderline) {
       wrapperStyle = {
         ...wrapperStyle,
         ...this.underlineStyle,
@@ -143,11 +165,14 @@ class Tooltip extends React.Component {
     };
     return (
       <ReactTooltip
-        className={className}
+        tagName={tagName}
+        className={wrapperClassName}
         styles={wrapperStyle}
+        tooltipClassName={tooltipClassName}
         direction="down"
         tipContentHover={hoverable}
-        content={content}>
+        content={content}
+        {...others}>
         {children}
       </ReactTooltip>
     );

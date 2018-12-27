@@ -21,17 +21,17 @@ class Footer extends React.PureComponent {
           </h1>
           <div className="social-links">
             {/* For some reason the tooltip disappears and reappears when mousing over the svg icons (maybe when the cursor leaves filled areas)*/}
-            <Tooltip content="Discord" showUnderline={false}>
+            <Tooltip content="Discord" hideUnderline>
               <a href="https://wowanalyzer.com/discord">
                 <DiscordLogo />
               </a>
             </Tooltip>
-            <Tooltip content="GitHub" showUnderline={false}>
+            <Tooltip content="GitHub" hideUnderline>
               <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
                 <GithubLogo />
               </a>
             </Tooltip>
-            <Tooltip content="Patreon" showUnderline={false}>
+            <Tooltip content="Patreon" hideUnderline>
               <a href="https://www.patreon.com/wowanalyzer">
                 <PatreonIcon />
               </a>

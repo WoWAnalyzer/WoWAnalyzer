@@ -92,30 +92,30 @@ class NavigationBar extends React.PureComponent {
           <div className="spacer" />
           <div className="menu-item required">
             {user && user.premium ? (
-              <Tooltip content="Premium active" showUnderline={false}>
+              <Tooltip content="Premium active" hideUnderline>
                 <Link to="/premium">
                   <PremiumIcon /> <span className="optional">{user.name}</span>
                 </Link>
               </Tooltip>
             ) : (
-              <Tooltip content={i18n._(t`Premium`)} showUnderline={false}>
+              <Tooltip content={i18n._(t`Premium`)} hideUnderline>
                 <Link to="/premium" className="premium">
                   <PremiumIcon /> <span className="optional"><Trans>Premium</Trans></span>
                 </Link>
               </Tooltip>
             )}
           </div>
-          <Tooltip className="menu-item optional" content="Discord" showUnderline={false}>
+          <Tooltip className="menu-item optional" content="Discord" hideUnderline>
             <a href="https://wowanalyzer.com/discord">
               <DiscordIcon />
             </a>
           </Tooltip>
-          <Tooltip className="menu-item optional" content="GitHub" showUnderline={false}>
+          <Tooltip className="menu-item optional" content="GitHub" hideUnderline>
             <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
               <GitHubIcon />
             </a>
           </Tooltip>
-          <Tooltip className="menu-item optional" content="Patreon" showUnderline={false}>
+          <Tooltip className="menu-item optional" content="Patreon" hideUnderline>
             <a href="https://www.patreon.com/wowanalyzer">
               <PatreonIcon />
             </a>
