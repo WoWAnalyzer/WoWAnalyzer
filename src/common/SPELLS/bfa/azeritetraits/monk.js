@@ -92,6 +92,11 @@ export default {
     name: 'Fury of Xuen',
     icon: 'ability_monk_prideofthetiger',
   },
+  FURY_OF_XUEN_SUMMON: {
+    id: 287063,
+    name: 'Fury of Xuen',
+    icon: 'ability_monk_prideofthetiger',
+  },
   //MW Specific
   BURST_OF_LIFE: {
     id: 277667,

@@ -24,6 +24,7 @@ import EnergizingElixir from './modules/talents/EnergizingElixir';
 import Serenity from './modules/talents/Serenity';
 // Azerite
 import GloryOfTheDawn from './modules/spells/azeritetraits/GloryOfTheDawn';
+import FuryOfXuen from './modules/spells/azeritetraits/FuryOfXuen';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -57,6 +58,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Azerite
     gloryOfTheDawn: GloryOfTheDawn,
+    furyOfXuen: FuryOfXuen,
   };
 }
 
