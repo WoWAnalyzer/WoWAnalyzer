@@ -177,4 +177,15 @@ export default {
     name: 'Spyglass Sight',
     icon: 'inv_misc_spyglass_02',
   },
+  FEROCITY_OF_THE_SKROG: {
+    id: 285482,
+    name: 'Ferocity of the Skrog',
+    icon: 'inv_tradeskillitem_sorcererswater',
+  },
+  // Darkshore War Front //
+  WISDOM_OF_THE_FOREST_LORD: {
+    id: 278267,
+    name: 'Wisdom of the Forest Lord',
+    icon: 'inv_spiritshard_02',
+  },
 };

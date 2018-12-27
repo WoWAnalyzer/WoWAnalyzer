@@ -110,7 +110,7 @@ export default {
     name: "Smouldering",
     icon: "spell_fire_flameshock",
   },
-  FELHOUNDS_BURNING_FLASH:{
+  FELHOUNDS_BURNING_FLASH: {
     id: 244681,
     name: "Burning Flash",
     icon: "inv_misc_orb_05",
@@ -125,7 +125,7 @@ export default {
     name: "Burning Remnant",
     icon: "spell_burningbladeshaman_blazing_radiance",
   },
-  FELHOUNDS_CONSUMING_DETONATION:{
+  FELHOUNDS_CONSUMING_DETONATION: {
     id: 244130,
     name: "Consuming Detonation",
     icon: "spell_priest_void-blast", // - is intentional, not a typo
@@ -206,7 +206,7 @@ export default {
     name: "Assume Command",
     icon: "ability_warrior_battleshout",
   },
-  HIGHCOMMAND_BLADESTORM:{
+  HIGHCOMMAND_BLADESTORM: {
     id: 253038,
     name: "Bladestorm",
     icon: "ability_warrior_bladestorm",
@@ -453,7 +453,7 @@ export default {
     name: "Empowered Portal: Rancora",
     icon: "ability_creature_poison_02",
   },
-  PK_EMPOWERED_PORTAL_XOROTH:{
+  PK_EMPOWERED_PORTAL_XOROTH: {
     id: 244318,
     name: "Empowered Portal: Xoroth",
     icon: "spell_mage_flameorb",
@@ -485,21 +485,21 @@ export default {
   },
   //Imonar:
   IMONAR_CHARGED_BLASTS: {
-    id:  248254,
+    id: 248254,
     name: "Charged Blasts",
     icon: "ability_mage_firestarter",
   },
-  IMONAR_CONFLAGRATION_0:{
+  IMONAR_CONFLAGRATION_0: {
     id: 250135,
     name: "Conflagration",
     icon: "spell_fire_felflamering",
   },
-  IMONAR_CONFLAGRATION_1:{
+  IMONAR_CONFLAGRATION_1: {
     id: 248233,
     name: "Conflagration",
     icon: "spell_fire_felflamering",
   },
-  IMONAR_EMPOWERED_PULSE_GRENADE:{
+  IMONAR_EMPOWERED_PULSE_GRENADE: {
     id: 248068,
     name: "Empowered Pulse Grenade",
     icon: "ability_felarakkoa_feldetonation_green",
@@ -519,17 +519,17 @@ export default {
     name: "Sever",
     icon: "ability_skeer_bloodletting",
   },
-  IMONAR_SHOCK_LANCE:{
+  IMONAR_SHOCK_LANCE: {
     id: 247367,
     name: "Shock Lance",
     icon: "inv_knife_1h_felfireraid_d_01",
   },
-  IMONAR_SHRAPNEL_BLAST_0:{
+  IMONAR_SHRAPNEL_BLAST_0: {
     id: 247923,
     name: "Shrapnel Blast",
     icon: "inv_misc_bomb_02",
   },
-  IMONAR_SLEEP_CANISTER:{
+  IMONAR_SLEEP_CANISTER: {
     id: 254244,
     name: "Sleep Canister",
     icon: "spell_nature_sleep",
@@ -569,7 +569,7 @@ export default {
     name: "Empowered Pulse Grenade",
     icon: "ability_felarakkoa_deldetonation_green",
   },
-  IMONAR_EMPOWERED_SHRAPNEL_BLAST_DAMAGE:{
+  IMONAR_EMPOWERED_SHRAPNEL_BLAST_DAMAGE: {
     id: 248094,
     name: "Empowered Shrapnel Blast",
     icon: "spell_fire_felrainoffire",
@@ -589,7 +589,7 @@ export default {
     name: "Pulse Grenade",
     icon: "inv_gizmo_felironbomb",
   },
-  IMONAR_SHRAPNEL_BLAST_1:{
+  IMONAR_SHRAPNEL_BLAST_1: {
     id: 255641,
     name: "Shrapnel Blast",
     icon: "inv_misc_bomb_02",
@@ -621,9 +621,9 @@ export default {
     icon: "ability_mage_firestarter",
   },
   KG_FLAME_REVERBERATION: {
-   id: 244328,
-   name: "Flame Reverberation",
-   icon: "spell_fire_felflamering",
+    id: 244328,
+    name: "Flame Reverberation",
+    icon: "spell_fire_felflamering",
   },
   KG_FORGING_STRIKE: {
     id: 254919,
@@ -635,7 +635,7 @@ export default {
     name: "Initializing",
     icon: "inv_eng_gearspringparts",
   },
-  KG_REVERBERATING_DECIMATION_0:{
+  KG_REVERBERATING_DECIMATION_0: {
     id: 249686,
     name: "Reverberating Decimation",
     icon: "ability_mage_firestarter",
@@ -716,7 +716,7 @@ export default {
     name: "Necrotic Embrace",
     icon: "spell_deathknight_necroticplague",
   },
-  VARI_SHADOW_HUNTER:{
+  VARI_SHADOW_HUNTER: {
     id: 244070,
     name: "Shadow Hunter",
     icon: "ability_rogue_deadlymomentum",
@@ -858,7 +858,7 @@ export default {
     name: "Fulminating Pulse",
     icon: "inv_ragnaros_heart",
   },
-  COVEN_FURY_OF_GOLGANNETH_1:{
+  COVEN_FURY_OF_GOLGANNETH_1: {
     id: 246770,
     name: "Fury of Golganneth",
     icon: "spell_nature_chainlightning",
@@ -1118,7 +1118,6 @@ export default {
     icon: "inv_ember",
   },
 
-
   //Uldir
 
   //Taloc
@@ -1127,7 +1126,7 @@ export default {
     name: "Blood Storm",
     icon: "inv_misc_stormlordsfavor",
   },
-  TALOC_COMBUSTIBLE_FUEL:{
+  TALOC_COMBUSTIBLE_FUEL: {
     id: 272584,
     name: "Combustible Fuel",
     icon: "inv_misc_food_legion_goooil_chunk",
@@ -1137,7 +1136,7 @@ export default {
     name: "Cudgel of Gore",
     icon: "inv_mace_2h_capturedtitanconstruct_d_01",
   },
-  TALOC_CUDGEL_OF_GORE_2:{
+  TALOC_CUDGEL_OF_GORE_2: {
     id: 271714,
     name: "Cudgel of Gore",
     icon: "inv_mace_2h_capturedtitanconstruct_d_01",
@@ -1230,7 +1229,7 @@ export default {
     name: "Uldir Defensive Beam",
     icon: "ability_mage_rayoffrost",
   },
-  MOTHER_ULDIR_DEFENSIVE_BEAM_2:{
+  MOTHER_ULDIR_DEFENSIVE_BEAM_2: {
     id: 277973,
     name: "Uldir Defensive Beam",
     icon: "inv_misc_volatileair",
@@ -1255,7 +1254,6 @@ export default {
     name: "Wind Tunnel",
     icon: "inv_misc_volatileair",
   },
-
 
   //Fetid Devourer
   FETID_ENTICING_ESSENCE: {
@@ -1301,22 +1299,22 @@ export default {
     name: "Eye Beam",
     icon: "achievement_boss_cthun",
   },
-  ZEKVOV_ORB_OF_CORRUPTION:{
+  ZEKVOV_ORB_OF_CORRUPTION: {
     id: 267239,
     name: "Orb of Corruption",
     icon: "spell_priest_shadoworbs",
   },
-  ZEKVOZ_ROILING_DECEIT:{
+  ZEKVOZ_ROILING_DECEIT: {
     id: 265358,
     name: "Roiling Deceit",
     icon: "ability_deathknight_deathsiphon2",
   },
-  ZEKVOZ_SHATTER:{
+  ZEKVOZ_SHATTER: {
     id: 265248,
     name: "Shatter",
     icon: "ability_warrior_shieldbreak",
   },
-  ZEKVOZ_SHATTER_DEBUFF:{
+  ZEKVOZ_SHATTER_DEBUFF: {
     id: 265237,
     name: "Shatter",
     icon: "ability_warrior_shieldbreak",
@@ -1336,12 +1334,12 @@ export default {
     name: "Surging Darkness",
     icon: "ability_priest_voidentropy",
   },
-  ZEKVOZ_SURGING_DARKNESS_DAMAGE_3:{
+  ZEKVOZ_SURGING_DARKNESS_DAMAGE_3: {
     id: 265452,
     name: "Surging Darkness",
     icon: "ability_priest_voidentropy",
   },
-  ZEKVOZ_SURGING_DARKNESS_DAMAGE_4:{
+  ZEKVOZ_SURGING_DARKNESS_DAMAGE_4: {
     id: 265454,
     name: "Surging Darkness",
     icon: "ability_priest_voidentropy",
@@ -1356,7 +1354,7 @@ export default {
     name: "Void Lash",
     icon: "spell_priest_voidtendrils",
   },
-  ZEKVOZ_VOID_LASH_DAMAGE:{
+  ZEKVOZ_VOID_LASH_DAMAGE: {
     id: 265264,
     name: "Void Lash",
     icon: "spell_priest_voidtendrils",
@@ -1376,7 +1374,6 @@ export default {
     name: "Titan Spark",
     icon: "item_holyspark",
   },
-
 
   //Vectis
 
@@ -1405,7 +1402,7 @@ export default {
     name: "Gestate",
     icon: "spell_shadow_abominationexplosion",
   },
-  VECTIS_GESTATE_DAMAGE:{
+  VECTIS_GESTATE_DAMAGE: {
     id: 266077,
     name: "Gestate",
     icon: "spell_shadow_abominationexplosion",
@@ -1435,7 +1432,7 @@ export default {
     name: "Plague Bomb",
     icon: "artifactability_blooddeathknight_umbilicuseternus",
   },
-  VECTIS_PLAGUE_BOMB_DAMAGE_1:{
+  VECTIS_PLAGUE_BOMB_DAMAGE_1: {
     id: 266948,
     name: "Plague Bomb",
     icon: "artifactability_blooddeathknight_umbilicuseternus",
@@ -1448,7 +1445,7 @@ export default {
 
   //Zul Reborn
 
-  ZUL_ABSORBED_IN_DARKNESS:{
+  ZUL_ABSORBED_IN_DARKNESS: {
     id: 272018,
     name: "Absorbed in Darkness",
     icon: "spell_priest_void-blast",
@@ -1463,7 +1460,7 @@ export default {
     name: "Bloody Cleave",
     icon: "inv_weapon_hand_02",
   },
-  ZUL_CORRUPTED_BLOOD:{
+  ZUL_CORRUPTED_BLOOD: {
     id: 274195,
     name: "Corrupted Blood",
     icon: "spell_yorsahj_bloodboil_orangeoil",
@@ -1513,7 +1510,7 @@ export default {
     name: "Call of Blood",
     icon: "spell_deathknight_vendetta",
   },
-  ZUL_CONGEAL_BLOOD:{
+  ZUL_CONGEAL_BLOOD: {
     id: 273451,
     name: "Congeal Blood",
     icon: "ability_deathwing_bloodcorruption_earth",
@@ -1581,7 +1578,7 @@ export default {
     name: "Obliteration Beam",
     icon: "spell_priest_voidsear",
   },
-  MYTHRAX_OBLITERATION_BEAM_2:{
+  MYTHRAX_OBLITERATION_BEAM_2: {
     id: 272115,
     name: "Obliteration Beam",
     icon: "obliteration_beam",
@@ -1596,12 +1593,12 @@ export default {
     name: "Obliteration Blast",
     icon: "ability_priest_voidentropy",
   },
-  MYTHRAX_XALZAIKS_AWAKENING_1:{
+  MYTHRAX_XALZAIKS_AWAKENING_1: {
     id: 273811,
     name: "Xalzaik's Awakening",
     icon: "ability_rogue_envelopingshadows",
   },
-  MYTHRAX_XALZAIKS_AWAKENING_2:{
+  MYTHRAX_XALZAIKS_AWAKENING_2: {
     id: 273810,
     name: "Xalzaik's Awakening",
     icon: "ability_rogue_envelopingshadows",
@@ -1621,12 +1618,12 @@ export default {
     name: "Oblivion Sphere",
     icon: "spell_priest_shadoworbs",
   },
-  MYTHRAX_OBLIVION_VEIL:{
+  MYTHRAX_OBLIVION_VEIL: {
     id: 274230,
     name: "Oblivion Veil",
     icon: "inv_icon_shadowcouncilorb_purple",
   },
-  MYTHRAX_VISIONS_OF_MADNESS_1:{
+  MYTHRAX_VISIONS_OF_MADNESS_1: {
     id: 274016,
     name: "Visions of Madness",
     icon: "ability_priest_shadowyapparation",
@@ -1649,7 +1646,7 @@ export default {
 
   //G'huun
 
-  GHUUN_ARCING_DISCHARGE:{
+  GHUUN_ARCING_DISCHARGE: {
     id: 276834,
     name: "Arcing Discharge",
     icon: "ability_priest_cascade",
@@ -1659,7 +1656,7 @@ export default {
     name: "Blighted Ground",
     icon: "ability_deathknight_roilingblood",
   },
-  GHUUN_COLLAPSE_1:{
+  GHUUN_COLLAPSE_1: {
     id: 276764,
     name: "Collapse",
     icon: "inv_elemental_primal_earth",
@@ -1684,7 +1681,7 @@ export default {
     name: "Explosive Corruption",
     icon: "spell_shadow_deathcoil",
   },
-  GHUUN_EXPLOSIVE_CORRUPTION_3:{
+  GHUUN_EXPLOSIVE_CORRUPTION_3: {
     id: 275756,
     name: "Explosive Corruption",
     icon: "spell_shadow_deathcoil",
@@ -1734,7 +1731,7 @@ export default {
     name: "Torment",
     icon: "spell_priest_voidsear",
   },
-  GHUUN_UNCLEAN_CONTAGION:{
+  GHUUN_UNCLEAN_CONTAGION: {
     id: 267660,
     name: "Unclean Contagion",
     icon: "spell_deathknight_necroticplague",
@@ -1785,7 +1782,1261 @@ export default {
     icon: "inv_misc_monsterfang_02",
   },
 
+  // Battle for Dazar'alor
+
+  //Champion of the Light
+  CHAMPION_OF_LIGHT_CONSECRATION: {
+    id: 283582,
+    name: "Consecration",
+    icon: "spell_holy_innerfire",
+  },
+  CHAMPION_OF_LIGHT_CRUSADER_STRIKE: {
+    id: 283637,
+    name: "Crusader Strike",
+    icon: "spell_holy_crusaderstrike",
+  },
+  CHAMPION_OF_LIGHT_DIVINE_BURST: {
+    id: 283626,
+    name: "Divine Burst",
+    icon: "spell_holy_searinglight",
+  },
+  CHAMPION_OF_LIGHT_DIVINE_MALLET: {
+    id: 282077,
+    name: "Divine Mallet",
+    icon: "spell_paladin_lightshammer",
+  },
+  CHAMPION_OF_LIGHT_JUDGEMENT_RECKONING: {
+    id: 284474,
+    name: "Judgement: Reckoning",
+    icon: "spell_holy_holynova",
+  },
+  CHAMPION_OF_LIGHT_PENANCE_DAMAGE: {
+    id: 284596,
+    name: "Penance",
+    icon: "spell_holy_penance",
+  },
+  CHAMPION_OF_LIGHT_RECKONING: {
+    id: 284449,
+    name: "Reckoning",
+    icon: "spell_holy_unyieldingfaith",
+  },
+  CHAMPION_OF_LIGHT_RETRIBUTION_WAVE: {
+    id: 284488,
+    name: "Retribution Wave",
+    icon: "ability_paladin_empoweredsealsrighteous",
+  },
+  CHAMPION_OF_LIGHT_SACRED_BLADE: {
+    id: 283573,
+    name: "Sacred Blade",
+    icon: "ability_paladin_artofwar",
+  },
+  CHAMPION_OF_LIGHT_WAVE_OF_LIGHT_DAMAGE: {
+    id: 283617,
+    name: "Wave of Light",
+    icon: "spell_holy_holynova",
+  },
+  CHAMPION_OF_LIGHT_WAVE_OF_LIGHT_HEAL: {
+    id: 283619,
+    name: "Wave of Light",
+    icon: "spell_holy_holynova",
+  },
+  CHAMPION_OF_LIGHT_HEAL: {
+    id: 283628,
+    name: "Heal",
+    icon: "spell_holy_heal02",
+  },
+  CHAMPION_OF_LIGHT_PENANCE_HEAL: {
+    id: 284594,
+    name: "Penance",
+    icon: "spell_holy_penance",
+  },
+  CHAMPION_OF_LIGHT_AURA_OF_RETRIBUTION: {
+    id: 284468,
+    name: "Aura of Retribution",
+    icon: "ability_paladin_empoweredsealstruth",
+  },
+  CHAMPION_OF_LIGHT_SACRED_BLADE_BUFF: {
+    id: 283572,
+    name: "Sacred Blade",
+    icon: "ability_paladin_artofwar",
+  },
+  CHAMPION_OF_LIGHT_ZEALOTRY: {
+    id: 284459,
+    name: "Zealotry",
+    icon: "spell_holy_sealofblood",
+  },
+  CHAMPION_OF_LIGHT_SEAL_OF_RETRIBUTION: {
+    id: 284469,
+    name: "Seal of Retribution",
+    icon: "ability_paladin_empoweredsealsrighteous",
+  },
+  CHAMPION_OF_LIGHT_SEAL_OF_RECKONING: {
+    id: 284436,
+    name: "Seal of Reckoning",
+    icon: "spell_holy_sealofwrath",
+  },
+  CHAMPION_OF_LIGHT_JUDGEMENT_RIGHTEOUSNESS: {
+    id: 283933,
+    name: "Judgement: Righteousness",
+    icon: "spell_holy_holyguidance",
+  },
+  CHAMPION_OF_LIGHT_AVENGING_WRATH: {
+    id: 282113,
+    name: "Avenging Wrath",
+    icon: "spell_holy_avenginewrath", // Not a typo, that's the spell icon.
+  },
+  CHAMPION_OF_LIGHT_FORBEARANCE: {
+    id: 288298,
+    name: "Forbearance",
+    icon: "spell_holy_removecurse",
+  },
+  CHAMPION_OF_LIGHT_PRAYER_FOR_THE_FALLEN: {
+    id: 287469,
+    name: "Prayer for the Fallen",
+    icon: "spell_holy_prayerofspirit",
+  },
+  CHAMPION_OF_LIGHT_DIVINE_MALLET_BUFF: {
+    id: 287439,
+    name: "Divine Mallet",
+    icon: "spell_paladin_lightshammer",
+  },
+  CHAMPION_OF_LIGHT_DIVINE_PROTECTION: {
+    id: 288294,
+    name: "Divine Protection",
+    icon: "spell_holy_blessingofprotection",
+  },
+  CHAMPION_OF_LIGHT_PENANCE_BUFF: {
+    id: 284593,
+    name: "Penance",
+    icon: "spell_holy_penance",
+  },
+  CHAMPION_OF_LIGHT_BLINDING_FAITH: {
+    id: 283651,
+    name: "Blinding Faith",
+    icon: "ability_paladin_beaconoflight",
+  },
+  CHAMPION_OF_LIGHT_CONSECRATION_DEBUFF_1: {
+    id: 283583,
+    name: "Consecration",
+    icon: "spell_holy_innerfire",
+  },
+  CHAMPION_OF_LIGHT_PENANCE_DEBUFF: {
+    id: 284595,
+    name: "Penance",
+    icon: "spell_holy_penance",
+  },
+
+  //Jadefire Masters
+
+  JADEFIRE_MASTERS_BURNOUT: {
+    id: 282041,
+    name: "Burnout",
+    icon: "ability_mage_worldinflames",
+  },
+  JADEFIRE_MASTERS_FIREBALL: {
+    id: 282036,
+    name: "Fireball",
+    icon: "spell_fire_fireball02",
+  },
+  JADEFIRE_MASTERS_MAGMA_TRAP: {
+    id: 284374,
+    name: "Magma Trap",
+    icon: "spell_fire_selfdestruct",
+  },
+  JADEFIRE_MASTERS_MULTI_SIDED_STRIKE: {
+    id: 284028,
+    name: "Multi-Sided Strike",
+    icon: "ability_monk_palmstrike",
+  },
+  JADEFIRE_MASTERS_POUNCE: {
+    id: 286086,
+    name: "Pounce",
+    icon: "ability_monk_summontigerstatue",
+  },
+  JADEFIRE_MASTERS_PYROBLAST: {
+    id: 286379,
+    name: "Pyroblast",
+    icon: "ability_mage_greaterpyroblast",
+  },
+  JADEFIRE_MASTERS_RISING_FLAMES: {
+    id: 282037,
+    name: "Rising Flames",
+    icon: "spell_fire_flameshock",
+  },
+  JADEFIRE_MASTERS_SEARING_EMBERS: {
+    id: 286988,
+    name: "Searing Embers",
+    icon: "ability_mage_livingbomb",
+  },
+  JADEFIRE_MASTERS_TIGER_PAW: {
+    id: 285634,
+    name: "Tiger Paw",
+    icon: "ability_monk_tigerpalm",
+  },
+  JADEFIRE_MASTERS_UNLEASHED_EMBER: {
+    id: 286989,
+    name: "Unleashed Ember",
+    icon: "spell_fire_ragnaros_supernova",
+  },
+  JADEFIRE_MASTERS_WHIRLING_JADE_STORM: {
+    id: 286439,
+    name: "whirling_jade_storm",
+    icon: "ability_monk_cranekick_new",
+  },
+  JADEFIRE_MASTERS_FIRE_SHIELD: {
+    id: 286425,
+    name: "Fire Shield",
+    icon: "ability_mage_moltenarmor",
+  },
+
+  //Grong
+  GRONG_APETAGONIZER_CORE: {
+    id: 285659,
+    name: "Apetagonizer Core",
+    icon: "spell_mage_flameorb_blue",
+  },
+  GRONG_BESTIAL_SMASH: {
+    id: 283078,
+    name: "Bestial Smash",
+    icon: "ability_rogue_kidneyshot",
+  },
+  GRONG_LIGHTNING_DETONATION: {
+    id: 285654,
+    name: "Lightning Detonation",
+    icon: "ability_vehicle_electrocharge",
+  },
+  GRONG_MEGATOMIC_FIRE: {
+    id: 283069,
+    name: "Megatomic Fire",
+    icon: "spell_fire_fire",
+  },
+  GRONG_MEGATOMIC_SEEKER_MISSILE: {
+    id: 282215,
+    name: "Megatomic Seeker Missile",
+    icon: "ability_mount_rocketmount4",
+  },
+  GRONG_RENDING_BITE: {
+    id: 285875,
+    name: "Rending Bite",
+    icon: "ability_druid_ferociousbite",
+  },
+  GRONG_REVERBERATING_ECHO: {
+    id: 282181,
+    name: "Reverberating Echo",
+    icon: "inv_elementalearth2",
+  },
+  GRONG_REVERBERATING_SLAM: {
+    id: 282179,
+    name: "Reverberating Slam",
+    icon: "inv_elementalearth2",
+  },
+  GRONG_SHATTERED: {
+    id: 282010,
+    name: "Shattered",
+    icon: "spell_nature_earthbind",
+  },
+  GRONG_TANTRUM: {
+    id: 281940,
+    name: "Tantrum",
+    icon: "spell_nature_earthquake",
+  },
+  GRONG_CRUSHED: {
+    id: 285671,
+    name: "Crushed",
+    icon: "ability_warstomp",
+  },
+  GRONG_BESTIAL_THROW: {
+    id: 289292,
+    name: "Bestial Throw",
+    icon: "inv_gauntlets_03",
+  },
+  GRONG_BESTIAL_IMPACT: {
+    id: 289412,
+    name: "Bestial Impact",
+    icon: "spell_nature_earthquake",
+  },
+  GRONG_DEATH_KNELL: {
+    id: 282399,
+    name: "Death Knell",
+    icon: "spell_necro_deathsknell",
+  },
+  GRONG_DEATH_TOUCHED: {
+    id: 282415,
+    name: "Death Touched",
+    icon: "ability_deathknight_roilingblood",
+  },
+  GRONG_DEATHLY_SLAM: {
+    id: 282543,
+    name: "Deathly Slam",
+    icon: "spell_necro_deathlyslam",
+  },
+  GRONG_DEATHLY_ECHO: {
+    id: 282545,
+    name: "Deathly Echo",
+    icon: "spell_necro_deathlyecho",
+  },
+  GRONG_VOODOO_BLAST: {
+    id: 282471,
+    name: "Voodoo Blast",
+    icon: "spell_necro_voodooblast",
+  },
+  GRONG_CHILL_OF_DEATH: {
+    id: 286373,
+    name: "Chill of Death",
+    icon: "spell_necro_chillofdeath",
+  },
+  GRONG_DEATH_EMPOWERMENT: {
+    id: 282533,
+    name: "Death Empowerment",
+    icon: "spell_necro_bwonsamdisboon",
+  },
+  GRONG_SPIRIT_DISPERSION: {
+    id: 286430,
+    name: "Spirit Dispersion",
+    icon: "ability_warlock_haunt",
+  },
+  GRONG_NECROTIC_CORE: {
+    id: 286433,
+    name: "Necrotic Core",
+    icon: "spell_necro_necroticcore",
+  },
+  GRONG_DISCHARGE_NECROTIC_CORE: {
+    id: 286435,
+    name: "Discharge Necrotic Core",
+    icon: "spell_necro_dischargenecroticcore",
+  },
+
+  // Opulence
+
+  OPULENCE_THIEFS_BANE: {
+    id: 287424,
+    name: "Thief's Bane",
+    icon: "warlock_curse_shadow",
+  },
+  OPULENCE_DIAMOND_OF_THE_UNSHAKEABLE_PROTECTOR: {
+    id: 284527,
+    name: "Diamond of the Unshakeable Protector",
+    icon: "spell_misc_conjuremanajewel",
+  },
+  OPULENCE_DEPLETED_DIAMOND: {
+    id: 284546,
+    name: "Depleted Diamond",
+    icon: "inv_misc_gem_diamond_01",
+  },
+  OPULENCE_TAILWIND_SAPPHIRE: {
+    id: 284567,
+    name: "Tailwind Sapphire",
+    icon: "inv_misc_gem_saphirerough_03",
+  },
+  OPULENCE_TAILWINDS: {
+    id: 284573,
+    name: "Tailwinds",
+    icon: "spell_frost_arcticwinds",
+  },
+  OPULENCE_AMETHYST_OF_THE_SHADOW_KING: {
+    id: 284558,
+    name: "Amethyst of the Shadow King",
+    icon: "inv_misc_gem_x4_uncommon_cut_purple",
+  },
+  OPULENCE_SHADOW_TOUCHED: {
+    id: 284556,
+    name: "Shadow-Touched",
+    icon: "spell_shadow_sealofkings",
+  },
+  OPULENCE_RUBY_OF_FOCUSED_ANIMUS: {
+    id: 284611,
+    name: "Ruby of Focused Animus",
+    icon: "inv_misc_gem_x4_rare_cut_red",
+  },
+  OPULENCE_FOCUSED_ANIMUS: {
+    id: 284614,
+    name: "Focused Animus",
+    icon: "ability_warrior_focusedrage",
+  },
+  OPULENCE_TOPAZ_OF_BRILLAINT_SUNLIGHT: {
+    id: 284645,
+    name: "Topaz of Brillaint Sunlight",
+    icon: "inv_misc_gem_x4_rare_cut_yellow",
+  },
+  OPULENCE_INCANDESCENCE: {
+    id: 284664,
+    name: "Incandescence",
+    icon: "ability_skyreach_solar_burst",
+  },
+  OPULENCE_GROSSLY_INCANDESCENT: {
+    id: 284798,
+    name: "Grossly Incadescent",
+    icon: "ability_paladin_beaconoflight",
+  },
+  OPULENCE_BRILLAINT_AURA: {
+    id: 284802,
+    name: "Brilliant Aura",
+    icon: "ability_priest_holybolts01",
+  },
+  OPULENCE_EMERALD_OF_EARTHEN_ROOTS: {
+    id: 284814,
+    name: "Emerald of Earthen Roots",
+    icon: "inv_misc_gem_x4_uncommon_cut_green",
+  },
+  OPULENCE_EARTHEN_ROOTS: {
+    id: 284817,
+    name: "Earthen Roots",
+    icon: "inv_misc_herb_07",
+  },
+  OPULENCE_OPAL_OF_UNLEASHED_RAGE: {
+    id: 284881,
+    name: "Opal of Unelashed Rage",
+    icon: "inv_misc_gem_03",
+  },
+  OPULENCE_UNLEASHED_RAGE: {
+    id: 284883,
+    name: "Unleashed Rage",
+    icon: "spell_shadow_summonvoidwalker",
+  },
+  OPULENCE_CRUSH: {
+    id: 283604,
+    name: "Crush",
+    icon: "ability_warrior_titansgrip",
+  },
+  OPULENCE_VOLATILE_CHARGE: {
+    id: 283507,
+    name: "Volatile Charge",
+    icon: "spell_shaman_staticshock",
+  },
+  OPULENCE_CONSUMING_FLAME: {
+    id: 286541,
+    name: "Consuming Flame",
+    icon: "spell_fire_flameshock",
+  },
+  OPULENCE_CREEPING_BLAZE: {
+    id: 286501,
+    name: "Creeping Blaze",
+    icon: "ability_rhyolith_magmaflow_wave",
+  },
+  OPULENCE_OVERLOAD: {
+    id: 287652,
+    name: "Overload",
+    icon: "ability_vehicle_electrocharge",
+  },
+  OPULENCE_FLAMES_OF_PUNISHMENT: {
+    id: 282939,
+    name: "Flames of Punishment",
+    icon: "spell_fire_moltenblood",
+  },
+  OPULENCE_FLAME_JET: {
+    id: 285479,
+    name: "Flame Jet",
+    icon: "spell_shaman_lavasurge",
+  },
+  OPULENCE_RUBY_BEAM: {
+    id: 284081,
+    name: "Ruby Beam",
+    icon: "ability_siege_engineer_purification_beam",
+  },
+  OPULENCE_SCORCHING_GROUND: {
+    id: 284424,
+    name: "Scorching Ground",
+    icon: "ability_warlock_inferno",
+  },
+  OPULENCE_PULSE_QUICKENING_TOXIN: {
+    id: 284493,
+    name: "Pulse-quickening Toxin",
+    icon: "inv_ragnaros_heart",
+  },
+  OPULENCE_QUICKENED_PULSE: {
+    id: 284519,
+    name: "Quickened Pulse",
+    icon: "inv_misc_organ_01",
+  },
+  OPULENCE_HEX_OF_LETHARGY: {
+    id: 284470,
+    name: "Hex of Lethargy",
+    icon: "spell_nature_slowpoison",
+  },
+  OPULENCE_CHAOTIC_DISPLACEMENT: {
+    id: 289383,
+    name: "Chaotic Displacement",
+    icon: "spell_nature_massteleport",
+  },
+  OPULENCE_CHAOTIC_BURST: {
+    id: 289393,
+    name: "Chaotic Burst",
+    icon: "spell_arcane_invocation",
+  },
+  OPULENCE_HOARD_POWER: {
+    id: 287070,
+    name: "Hoard Power",
+    icon: "inv_elemental_primal_nether",
+  },
+  OPULENCE_LIQUID_GOLD: {
+    id: 287072,
+    name: "Liquid Gold",
+    icon: "ability_creature_amber_02",
+  },
+  OPULENCE_MOLTEN_GOLD: {
+    id: 287074,
+    name: "Molten Gold",
+    icon: "inv_ingot_03",
+  },
+  OPULENCE_GOLDEN_RADIANCE: {
+    id: 289776,
+    name: "Golden Radiance",
+    icon: "spell_holy_aspiriation",
+  },
+  OPULENCE_SPIRITS_OF_GOLD: {
+    id: 285995,
+    name: "Spirits of Gold",
+    icon: "inv_archaeology_80_zandalari_mask",
+  },
+  OPULENCE_CHANNEL_GOLD: {
+    id: 286026,
+    name: "Channel Gold",
+    icon: "spell_holy_circleofrenewal",
+  },
+  OPULENCE_GOLD_BURST: {
+    id: 286040,
+    name: "Gold Burst",
+    icon: "inv_misc_gem_golendraenite_03",
+  },
+  OPULENCE_SURGING_GOLD: {
+    id: 289155,
+    name: "Surging Gold",
+    icon: "spell_holy_searinglightpriest",
+  },
+  OPULENCE_COIN_SHOWER: {
+    id: 285014,
+    name: "Coin Shower",
+    icon: "inv_misc_coin_01",
+  },
+  OPULENCE_WAIL_OF_GREED: {
+    id: 284941,
+    name: "Wail of Greed",
+    icon: "ability_formor_boss_shout",
+  },
+  OPULENCE_GREED: {
+    id: 284943,
+    name: "Greed",
+    icon: "inv_misc_coin_02",
+  },
+  OPULENCE_COIN_SWEEP: {
+    id: 287037,
+    name: "Coin Sweep",
+    icon: "ability_creature_amber_01",
+  },
+
+  // Conclave of the Chosen
+
+  CONCLAVE_LOAS_PACT: {
+    id: 282079,
+    name: "Loa's Pact",
+    icon: "ability_racial_wardoftheloa",
+  },
+  CONCLAVE_LOAS_WRATH: {
+    id: 282736,
+    name: "Loa's Wrath",
+    icon: "spell_fire_elementaldevastation",
+  },
+  CONCLAVE_CRY_OF_THE_FALLEN: {
+    id: 286060,
+    name: "Cry of the Fallen",
+    icon: "ability_argus_deathfog",
+  },
+  CONCLAVE_GIFT_OF_WIND: {
+    id: 282098,
+    name: "Gift of Wind",
+    icon: "ability_racial_pterrodaxswoop",
+  },
+  CONCLAVE_HASTENING_WINDS: {
+    id: 285945,
+    name: "Hastening Winds",
+    icon: "ability_skyreach_four_wind",
+  },
+  CONCLAVE_PAKUS_WRATH: {
+    id: 282107,
+    name: "Pa'ku's Wrath",
+    icon: "inv_pterrodax2mount_lightgreen",
+  },
+  CONCLAVE_CRAWLING_HEX: {
+    id: 282135,
+    name: "Crawling Hex",
+    icon: "inv_zandalaribabyraptorred",
+  },
+  CONCLAVE_RAPTOR_FORM: {
+    id: 285889,
+    name: "Raptor Form",
+    icon: "inv_armoredraptor",
+  },
+  CONCLAVE_WILD_MAUL: {
+    id: 285893,
+    name: "Wild Maul",
+    icon: "ability_ghoulfrenzy",
+  },
+  CONCLAVE_GONKS_WRATH: {
+    id: 282155,
+    name: "Gonk's Wrath",
+    icon: "ability_mount_viciouswarraptor",
+  },
+  CONCLAVE_PACK_HUNTER: {
+    id: 286007,
+    name: "Pack Hunter",
+    icon: "ability_mount_viciouswarraptor",
+  },
+  CONCLAVE_MARK_OF_PREY: {
+    id: 282209,
+    name: "Pack Hunter",
+    icon: "sha_ability_rogue_bloddyeye_nightmare",
+  },
+  CONCLAVE_LACERATING_CLAWS: {
+    id: 282444,
+    name: "Lacerating Claws",
+    icon: "ability_druid_ravage",
+  },
+  CONCLAVE_KIMBULS_WRATH: {
+    id: 282447,
+    name: "Kimbul's Wrath",
+    icon: "ability_hunter_masterscall",
+  },
+  CONCLAVE_BLEEDING_WOUNDS: {
+    id: 282592,
+    name: "Bleeding Wounds",
+    icon: "ability_deathwing_bloodcorruption_death",
+  },
+  CONCLAVE_THUNDERING_STORM: {
+    id: 282411,
+    name: "Thundering Storm",
+    icon: "spell_shaman_thunderstorm",
+  },
+  CONCLAVE_MIND_WIPE: {
+    id: 285878,
+    name: "Mind Wipe",
+    icon: "ability_kaztik_dominatemind",
+  },
+  CONCLAVE_AKUNDAS_WRATH: {
+    id: 286811,
+    name: "Akunda's Wrath",
+    icon: "ability_thunderking_balllightning",
+  },
+  CONCLAVE_STATIC_ORB: {
+    id: 286833,
+    name: "Static Orb",
+    icon: "ability_thunderking_lightningwhip",
+  },
+  CONCLAVE_KRAGWAS_WRATH: {
+    id: 282636,
+    name: "Krag'wa's Wrath",
+    icon: "spell_shaman_earthquake",
+  },
+  CONCLAVE_BWONSAMDIS_WRATH: {
+    id: 284663,
+    name: "Bwonsamdi's Wrath",
+    icon: "ability_creature_cursed_03",
+  },
+
+  // King Rastakhan
+
+  KING_CARESS_OF_DEATH: {
+    id: 285213,
+    name: "Caress of Death",
+    icon: "ability_deathknight_icygrip",
+  },
+  KING_PLAGUE_OF_FIRE: {
+    id: 285349,
+    name: "Plague of Fire",
+    icon: "spell_shaman_lavasurge",
+  },
+  KING_ALL_ENCOMPASSING_DEATH: {
+    id: 289890,
+    name: "All Encompassing Death",
+    icon: "spell_necro_deathall",
+  },
+  KING_DEATHS_DOOR: {
+    id: 288449,
+    name: "Death's Door",
+    icon: "spell_necro_deathsdoor",
+  },
+  KING_DEATH_RIFT: {
+    id: 288048,
+    name: "Death Rift",
+    icon: "spell_necro_deathrift",
+  },
+  KING_INEVITABLE_END: {
+    id: 287333,
+    name: "Inevitable End",
+    icon: "spell_necro_inevitableend",
+  },
+  KING_DREAD_REAPING: {
+    id: 287147,
+    name: "Dread Reaping",
+    icon: "ability_deathknight_soulreaper",
+  },
+  KING_GRAVE_BOLT: {
+    id: 285572,
+    name: "Grave Bolt",
+    icon: "spell_necro_voodooblast",
+  },
+  KING_SEAL_OF_BWONSAMDI: {
+    id: 286671,
+    name: "Seal of Bwonsamdi",
+    icon: "ability_deathknight_remorselesswinters",
+  },
+  KING_UNDYING_RELENTLESSNESS: {
+    id: 289162,
+    name: "Undying Relentlessness",
+    icon: "spell_necro_undyingrelentlessness",
+  },
+  KING_NECROTIC_SMASH: {
+    id: 286742,
+    name: "Necrotic Smash",
+    icon: "spell_necro_necroticmash",
+  },
+  KING_BIND_SOUL: {
+    id: 284276,
+    name: "Bind Souls",
+    icon: "spell_deathknight_iceboundfortitude",
+  },
+  KING_SCORCHING_DETONATION: {
+    id: 284831,
+    name: "Scorching Detonation",
+    icon: "ability_mage_firestarter",
+  },
+  KING_SCORCHING_DETONATION_LFR: {
+    id: 289915,
+    name: "Scorching Detonation",
+    icon: "ability_mage_firestarter",
+  },
+  KING_PLAGUE_OF_TOADS: {
+    id: 284933,
+    name: "Plague of Toads",
+    icon: "ivn_toadloamount",
+  },
+  KING_POISON_TOAD_SLIME: {
+    id: 285010,
+    name: "Poison Toad Slime",
+    icon: "ability_creature_poison_06",
+  },
+  KING_GREATER_SERPENT_TOTEM: {
+    id: 285172,
+    name: "Greater Serpent Totem",
+    icon: "ability_hunter_pet_windserpent",
+  },
+  KING_SERPENTS_BREATH: {
+    id: 285178,
+    name: "Serpent's Breath",
+    icon: "ability_warlock_inferno",
+  },
+  KING_SEAL_OF_PURIFICATION: {
+    id: 284676,
+    name: "Seal of Purification",
+    icon: "ability_siege_engineer_purification_beam",
+  },
+  KING_METEOR_LEAP: {
+    id: 284688,
+    name: "Meteor Leap",
+    icon: "ability_heroicleap",
+  },
+  KING_CRUSHING_LEAP: {
+    id: 284730,
+    name: "Crushing Leap",
+    icon: "inv_misc_volatileearth",
+  },
+  KING_CRUSHED: {
+    id: 289858,
+    name: "Crushed",
+    icon: "ability_smash",
+  },
+  KING_GRIEVOUS_AXE: {
+    id: 284781,
+    name: "Grievous Axe",
+    icon: "ability_demonhunter_bloodlet",
+  },
+  KING_GRIEVOUS_AXE_FLURRY: {
+    id: 286509,
+    name: "Grievous Axe Flurry",
+    icon: "spell_deathknight_butcher",
+  },
+  KING_ZOMBIE_DUST_TOTEM: {
+    id: 285003,
+    name: "Zombie Dust Totem",
+    icon: "spell_totem_wardofdraining",
+  },
+  KING_UNLIVING: {
+    id: 284377,
+    name: "Unliving",
+    icon: "ability_deathknight_necroticaura",
+  },
+  KING_AURA_OF_DEATH: {
+    id: 285190,
+    name: "Aura of Death",
+    icon: "spell_holy_harmundeadaura",
+  },
+  KING_AURA_OF_DEATH_LFR: {
+    id: 289924,
+    name: "Aura of Death",
+    icon: "spell_holy_harmundeadaura",
+  },
+
+  // High Tinker Mekkatorque
+
+  HIGH_TINKER_ELECTROSHOCK_STRIKES: {
+    id: 289696,
+    name: "Electroshock Strikes",
+    icon: "spell_shaman_maelstromweapon",
+  },
+  HIGH_TINKER_ELECTROSHOCK_AMPLIFICATION: {
+    id: 289699,
+    name: "Electroshock Amplification",
+    icon: "inv_battery_01",
+  },
+  HIGH_TINKER_BUSTER_CANNON: {
+    id: 282182,
+    name: "Buster Cannon",
+    icon: "spell_mage_flameorb_blue",
+  },
+  HIGH_TINKER_BLAST_OFF: {
+    id: 282205,
+    name: "Blast Off",
+    icon: "inv_gizmo_rocketbootextreme",
+  },
+  HIGH_TINKER_CRASH_DOWN: {
+    id: 282245,
+    name: "Crash Down",
+    icon: "spell_shaman_earthquake",
+  },
+  HIGH_TINKER_GIGAVOLT_CHARGE: {
+    id: 286646,
+    name: "Gigavolt Charge",
+    icon: "inv_wildfirebomb_shrapnel",
+  },
+  HIGH_TINKER_GIGAVOLT_BLAST: {
+    id: 283411,
+    name: "Gigavolt Blast",
+    icon: "spell_nature_lightningoverload",
+  },
+  HIGH_TINKER_GIGAVOLT_RADIATION_ZONE: {
+    id: 288792,
+    name: "Gigavolt Radiation Zone",
+    icon: "spell_nature_unrelentingstorm",
+  },
+  HIGH_TINKER_GIGAVOLT_RADIATION: {
+    id: 288939,
+    name: "Gigavolt Radiation",
+    icon: "spell_nature_sicklypolymorph",
+  },
+  HIGH_TINKER_WORMHOLE_GENERATOR: {
+    id: 287952,
+    name: "Wormhole Generator",
+    icon: "inv_misc_enggizmos_35",
+  },
+  HIGH_TINKER_MISCALCULATED_TELEPORT: {
+    id: 287114,
+    name: "Miscalculated Teleport",
+    icon: "inv_misc_punchcards_prismatic",
+  },
+  HIGH_TINKER_DISCOMBOBULATION: {
+    id: 287167,
+    name: "Discombobulation",
+    icon: "inv_chicken2_white",
+  },
+  HIGH_TINKER_GNOMISH_FORCE_SHIELD: {
+    id: 282401,
+    name: "Gnomish Force Shield",
+    icon: "ability_vehicle_shellshieldgenerator_green",
+  },
+  HIGH_TINKER_SPARK_SHIELD: {
+    id: 289644,
+    name: "Spark Shield",
+    icon: "spell_nature_lightningshield",
+  },
+  HIGH_TINKER_ANTI_TAMPERING_PROTOCOL: {
+    id: 286735,
+    name: "Anti-Tampering Protocol",
+    icon: "inv_eng_interdimensionalcompanionrepository",
+  },
+  HIGH_TINKER_ANTI_TAMPERING_SHOCK: {
+    id: 286480,
+    name: "Anti-Tampering Shock",
+    icon: "spell_shaman_staticshock",
+  },
+  HIGH_TINKER_SPARK_PULSE: {
+    id: 282408,
+    name: "Spark Pulse",
+    icon: "inv_eng_electroshockmountmotivator",
+  },
+  HIGH_TINKER_WIND_UP: {
+    id: 287293,
+    name: "Wind Up",
+    icon: "petbattle_speed",
+  },
+  HIGH_TINKER_WOUND_UP: {
+    id: 287297,
+    name: "Wound Up",
+    icon: "spell_chargepositive",
+  },
+  HIGH_TINKER_WORLD_ENLARGER: {
+    id: 284219,
+    name: "World Enlarger",
+    icon: "ability_mage_rayoffrost",
+  },
+  HIGH_TINKER_SHRUNK: {
+    id: 284168,
+    name: "Shrunk",
+    icon: "achievement_character_gnome_male",
+  },
+  HIGH_TINKER_ENORMOUS: {
+    id: 289023,
+    name: "Enormous",
+    icon: "ability_warrior_intensifyrage",
+  },
+  HIGH_TINKER_TRAMPLE: {
+    id: 284214,
+    name: "Trample",
+    icon: "inv_boots_plate_04",
+  },
+  HIGH_TINKER_SQUISH: {
+    id: 289132,
+    name: "Squish",
+    icon: "ability_creature_cursed_02",
+  },
+  HIGH_TINKER_SIGNAL_EXPLODING_SHEEP: {
+    id: 287929,
+    name: "Signal Exploding Sheep",
+    icon: "inv_staff_2h_sheepstick_d_02",
+  },
+  HIGH_TINKER_CRITTER_EXPLOSION: {
+    id: 287877,
+    name: "Critter Explosion",
+    icon: "inv_gizmo_supersappercharge",
+  },
+  HIGH_TINKER_SHEEP_SHRAPNEL: {
+    id: 287891,
+    name: "Sheep Shrapnel",
+    icon: "inv_ember",
+  },
+
+  // Stormwall Blockade
+
+  STORMWALL_BLOCKADE_UNBOUND_ENERGY: {
+    id: 285420,
+    name: "Unbound Energy",
+    icon: "spell_mage_flameorb_blue",
+  },
+  STORMWALL_BLOCKADE_STORMS_WAIL: {
+    id: 285350,
+    name: "Storm's Wait",
+    icon: "spell_nature_lightningoverload",
+  },
+  STORMWALL_BLOCKADE_ENERGIZING_WAKE: {
+    id: 285342,
+    name: "Energizing Wake",
+    icon: "spell_nature_unrelentingstorm",
+  },
+  STORMWALL_BLOCKADE_CATASTROPHIC_TIDES: {
+    id: 284760,
+    name: "Catastrophic Tides",
+    icon: "spell_shaman_hightide",
+  },
+  STORMWALL_BLOCKADE_VOLTAIC_FLASH: {
+    id: 284262,
+    name: "Voltaic Flash",
+    icon: "ability_thunderking_thunderstruck",
+  },
+  STORMWALL_BLOCKADE_CRACKLING_LIGHTNING: {
+    id: 284106,
+    name: "Crackling Lightning",
+    icon: "spell_nature_lightningoverload",
+  },
+  STORMWALL_BLOCKADE_THUNDEROUS_BOOM: {
+    id: 284120,
+    name: "Thunderous Boom",
+    icon: "ability_thunderking_thunderstruck",
+  },
+  STORMWALL_BLOCKADE_ELECTRIC_SHROUD: {
+    id: 287995,
+    name: "Electric Shroud",
+    icon: "spell_nature_lightningshield",
+  },
+  STORMWALL_BLOCKADE_TIDAL_EMPOWERMENT: {
+    id: 284765,
+    name: "Tidal Empowerment",
+    icon: "ability_shawaterelemental_swirl",
+  },
+  STORMWALL_BLOCKADE_JOLTING_VOLLEY: {
+    id: 287169,
+    name: "Jolting Volley",
+    icon: "spell_lightning_lightningbolt01",
+  },
+  STORMWALL_BLOCKADE_MARK_OF_THE_STORM: {
+    id: 288190,
+    name: "Mark of the Storm",
+    icon: "spell_nature_unrelentingstorm",
+  },
+  STORMWALL_BLOCKADE_GREATER_TIDAL_EMPOWERMENT: {
+    id: 284864,
+    name: "Greater Tidal Empowerment",
+    icon: "ability_shawaterelemental_swirl",
+  },
+  STORMWALL_BLOCKADE_SEA_STORM: {
+    id: 284360,
+    name: "Sea Storm",
+    icon: "spell_frost_icestorm",
+  },
+  STORMWALL_BLOCKADE_SEAS_TEMPTATION: {
+    id: 284383,
+    name: "Sea's Temptation",
+    icon: "inv_misc_nagafemale",
+  },
+  STORMWALL_BLOCKADE_TEMPTING_SONG: {
+    id: 284405,
+    name: "Tempting Song",
+    icon: "spell_shadow_soothingkiss",
+  },
+  STORMWALL_BLOCKADE_STORMS_EMPOWERMENT: {
+    id: 287887,
+    name: "Storm's Empowerment",
+    icon: "ability_thunderking_balllightning",
+  },
+  STORMWALL_BLOCKADE_TIDAL_VOLLEY: {
+    id: 284316,
+    name: "Tidal Volley",
+    icon: "ability_mage_waterjet",
+  },
+  STORMWALL_BLOCKADE_MARK_OF_THE_SEAS: {
+    id: 288191,
+    name: "Mark of the Seas",
+    icon: "spell_frost_wizardmark",
+  },
+  STORMWALL_BLOCKADE_TRANSLOCATE: {
+    id: 284393,
+    name: "Translocate",
+    icon: "spell_shadow_teleport",
+  },
+  STORMWALL_BLOCKADE_SEA_SWELL: {
+    id: 288258,
+    name: "Sea Swell",
+    icon: "spell_frost_summonwaterelemental",
+  },
+  STORMWALL_BLOCKADE_KELP_WRAPPED_FISTS: {
+    id: 284997,
+    name: "Kelp-Wrapped Fists",
+    icon: "inv_misc_herb_nightmarevine",
+  },
+  STORMWALL_BLOCKADE_KELP_WRAPPING: {
+    id: 285382,
+    name: "Kelp Wrapping",
+    icon: "inv_misc_herb_11",
+  },
+  STORMWALL_BLOCKADE_SEA_SWELL_MYTHIC: {
+    id: 285118,
+    name: "Sea Swell",
+    icon: "spell_Frost_summonwaterelemental",
+  },
+  STORMWALL_BLOCKADE_FREEZING_TIDEPOOL: {
+    id: 285075,
+    name: "Freezing Tidepool",
+    icon: "inv_misc_volatilewater",
+  },
+  STORMWALL_BLOCKADE_IRE_OF_THE_DEEP: {
+    id: 285017,
+    name: "Ire of the Deep",
+    icon: "spell_frost_summonwaterelemental_2",
+  },
 
 
+  // Lady Jaina Proudmoore
 
+  JAINA_PROUDMOORE_CHILLING_TOUCH: {
+    id: 285212,
+    name: "Chilling Touch",
+    icon: "ability_mage_frostjaw",
+  },
+  JAINA_PROUDMOORE_FROZEN_SOLID: {
+    id: 287490,
+    name: "Frozen Solid",
+    icon: "spell_frost_ring-of-frost",
+  },
+  JAINA_PROUDMOORE_GATHERING_BLIZZARD: {
+    id: 289379,
+    name: "Gathering Blizzard",
+    icon: "spell_frost_icestorm",
+  },
+  JAINA_PROUDMOORE_FREEZING_BLOOD: {
+    id: 289387,
+    name: "Freezing Blood",
+    icon: "spell_frost_coldhearted",
+  },
+  JAINA_PROUDMOORE_MARKED_TARGET: {
+    id: 288038,
+    name: "Marked Target",
+    icon: "sha_ability_rogue_bloodyeye_nightmare",
+  },
+  JAINA_PROUDMOORE_SET_CHARGE: {
+    id: 285725,
+    name: "Set Charge",
+    icon: "ability_cehicle_liquidpyrite",
+  },
+  JAINA_PROUDMOORE_BOMBARD_H_M: {
+    id: 285828,
+    name: "Bombard",
+    icon: "ability_rogue_cannonballbarrage",
+  },
+  JAINA_PROUDMOORE_BOMBARD_N_LFR: {
+    id: 290030,
+    name: "Bombard",
+    icon: "ability_rogue_cannonballbarrage",
+  },
+  JAINA_PROUDMOORE_SEARING_PITCH: {
+    id: 287365,
+    name: "Searing Pitch",
+    icon: "ability_rhyolith_magmaflow_wave",
+  },
+  JAINA_PROUDMOORE_ICE_SHARD: {
+    id: 285253,
+    name: "Ice Shard",
+    icon: "spell_frost_frostbolt02",
+  },
+  JAINA_PROUDMOORE_AVALANCHE: {
+    id: 287565,
+    name: "Avalanche",
+    icon: "spell_mage_cometstorm",
+  },
+  JAINA_PROUDMOORE_TIME_WARP: {
+    id: 287925,
+    name: "Time Warp",
+    icon: "ability_mage_timewarp",
+  },
+  JAINA_PROUDMOORE_GRASP_OF_FROST: {
+    id: 287626,
+    name: "Grasp of Frost",
+    icon: "spell_frost_freezingbreath",
+  },
+  JAINA_PROUDMOORE_FREEZING_BLAST: {
+    id: 285177,
+    name: "Freezing Blast",
+    icon: "ability_mage_waterjet",
+  },
+  JAINA_PROUDMOORE_RING_OF_ICE: {
+    id: 285459,
+    name: "Ring of Ice",
+    icon: "spell_frost_ring-of-frost",
+  },
+  JAINA_PROUDMOORE_RING_OF_ICE_LFR: {
+    id: 290036,
+    name: "Ring of Frost",
+    icon: "spell_frost_ring-of-frost",
+  },
+  JAINA_PROUDMOORE_FROZEN_SIEGE: {
+    id: 289488,
+    name: "Frozen Siege",
+    icon: "spell_frost_chainsofice",
+  },
+  JAINA_PROUDMOORE_HOWLING_WINDS_N_LFR: {
+    id: 288169,
+    name: "Howling Winds",
+    icon: "spell_frost_arcticwinds",
+  },
+  JAINA_PROUDMOORE_GLACIAL_SHARDS: {
+    id: 288325,
+    name: "Glacial Shards",
+    icon: "spell_frost_frostnova",
+  },
+  JAINA_PROUDMOORE_HOWLING_WINDS_H: {
+    id: 289861,
+    name: "Howling Winds",
+    icon: "spell_frost_arcticewinds",
+  },
+  JAINA_PROUDMOORE_HOWLING_WINDS_M: {
+    id: 289866,
+    name: "Howling Winds",
+    icon: "spell_frost_arcticwinds",
+  },
+  JAINA_PROUDMOORE_ARCTIC_ARMOR: {
+    id: 282841,
+    name: "Arctic Armor",
+    icon: "spell_frost_chillingarmor",
+  },
+  JAINA_PROUDMOORE_BLISTERING_TORNADO: {
+    id: 288534,
+    name: "Blistering Tornado",
+    icon: "ability_skyreach_four_wind",
+  },
+  JAINA_PROUDMOORE_ARCTIC_GROUND: {
+    id: 288297,
+    name: "Arctic Ground",
+    icon: "spell_hunter_icetrap",
+  },
+  JAINA_PROUDMOORE_REFRACTIVE_ICE: {
+    id: 288219,
+    name: "Refractive Ice",
+    icon: "spell_frost_glacier",
+  },
+  JAINA_PROUDMOORE_BURNING_EXPLOSION: {
+    id: 288221,
+    name: "Burning Explosion",
+    icon: "ability_vehicle_liquidpyrite",
+  },
+  JAINA_PROUDMOORE_BROADSIDE: {
+    id: 288218,
+    name: "Broadside",
+    icon: "ability_mage_arcanebarrage_nightborne",
+  },
+  JAINA_PROUDMOORE_SIEGEBREAKER_BLAST: {
+    id: 288380,
+    name: "Siegebreaker Blast",
+    icon: "inv_staff_53",
+  },
+  JAINA_PROUDMOORE_CRYSTALLINE_DUST: {
+    id: 289940,
+    name: "Crystalline Dust",
+    icon: "spell_fire_bluecano",
+  },
+  JAINA_PROUDMOORE_HAND_OF_FROST: {
+    id: 288412,
+    name: "Hand of Frost",
+    icon: "spell_frost_freezingbreath",
+  },
+  JAINA_PROUDMOORE_GLACIAL_RAY: {
+    id: 288345,
+    name: "Glacial Ray",
+    icon: "ability_mage_rayoffrost",
+  },
+  JAINA_PROUDMOORE_ICEFALL: {
+    id: 288475,
+    name: "Icefall",
+    icon: "spell_frost_frozencore",
+  },
+  JAINA_PROUDMOORE_HEART_OF_FROST: {
+    id: 289220,
+    name: "Heart of Frost",
+    icon: "spell_fire_blueflamering",
+  },
+  JAINA_PROUDMOORE_FROST_NOVA: {
+    id: 289219,
+    name: "Frost Nova",
+    icon: "spell_frost_icefloes",
+  },
+  JAINA_PROUDMOORE_WATER_BOLT_VOLLEY: {
+    id: 290084,
+    name: "Water Bolt Volley",
+    icon: "spell_frost_frostbolt",
+  },
+  JAINA_PROUDMOORE_SPLITTING_FROST: {
+    id: 290087,
+    name: "Splitting Frost",
+    icon: "spell_frost_summonwaterelemental_2",
+  },
+  JAINA_PROUDMOORE_ORB_OF_FROST: {
+    id: 288647,
+    name: "Orb of Frost",
+    icon: "spell_frost_frozenorb",
+  },
+  JAINA_PROUDMOORE_SHATTERING_LANCE: {
+    id: 288671,
+    name: "Shattering Lance",
+    icon: "spell_frost_frostblast",
+  },
+  JAINA_PROUDMOORE_PRISMATIC_IMAGE: {
+    id: 288747,
+    name: "Prismatic Image",
+    icon: "ability_socererking_arcanemines", // Not a typo.
+  },
 };

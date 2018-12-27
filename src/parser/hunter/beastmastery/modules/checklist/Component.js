@@ -41,7 +41,7 @@ class BeastMasteryChecklist extends React.PureComponent {
             </>
           )}
         >
-          <AbilityRequirement spell={SPELLS.KILL_COMMAND.id} />
+          <AbilityRequirement spell={SPELLS.KILL_COMMAND_CAST_BM.id} />
           <AbilityRequirement spell={SPELLS.BARBED_SHOT.id} />
           <AbilityRequirement spell={SPELLS.BESTIAL_WRATH.id} />
           <AbilityRequirement spell={SPELLS.ASPECT_OF_THE_WILD.id} />
@@ -73,7 +73,7 @@ class BeastMasteryChecklist extends React.PureComponent {
           )}
         >
           <Requirement name={<><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> Average focus on <SpellIcon id={SPELLS.BESTIAL_WRATH.id} /> cast </>} thresholds={thresholds.bestialWrathFocusThreshold} />
-          <Requirement name={<><SpellIcon id={SPELLS.COBRA_SHOT.id} /><SpellLink id={SPELLS.KILL_COMMAND.id} icon={false} /> CDR efficiency</>} thresholds={thresholds.cobraShotCDREfficiencyThreshold} />
+          <Requirement name={<><SpellIcon id={SPELLS.COBRA_SHOT.id} /><SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} icon={false} /> CDR efficiency</>} thresholds={thresholds.cobraShotCDREfficiencyThreshold} />
           {combatant.hasTalent(SPELLS.KILLER_COBRA_TALENT.id) && <Requirement name={<> Wasted <SpellLink id={SPELLS.KILLER_COBRA_TALENT.id} /> resets </>} thresholds={thresholds.wastedKillerCobraThreshold} />}
         </Rule>
         <Rule

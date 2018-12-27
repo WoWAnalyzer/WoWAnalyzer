@@ -4,10 +4,9 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import Abilities from 'parser/core/modules/Abilities';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
 /**
  * Summons a flock of crows to attack your target over the next 15 sec. If the target dies while under attack, A Murder of Crows' cooldown is reset.
@@ -27,12 +26,13 @@ class AMurderOfCrows extends Analyzer {
     abilities: Abilities,
   };
 
-  bonusDamage = 0;
+  damage = 0;
   casts = 0;
   applicationTimestamp = null;
   lastDamageTick = null;
   crowsEndingTimestamp = null;
   maxCasts = 0;
+  resets = 0;
 
   constructor(...args) {
     super(...args);
@@ -66,7 +66,8 @@ class AMurderOfCrows extends Analyzer {
       // If more than 1 second has passed and less than the duration has elapsed, we can assume that crows has been reset, and thus we reset the CD.
       this.spellUsable.endCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT.id, event.timestamp);
       this.maxCasts += 1;
-      debug && console.log("Crows was reset at: ", event.timestamp);
+      this.resets += 1;
+      debug && this.log('Crows was reset');
     }
   }
 
@@ -84,7 +85,7 @@ class AMurderOfCrows extends Analyzer {
   on_byPlayer_energize(event) {
     this.checkForReset(event);
   }
-  
+
   on_byPlayer_applybuff(event) {
     this.checkForReset(event);
   }
@@ -118,21 +119,25 @@ class AMurderOfCrows extends Analyzer {
       this.crowsEndingTimestamp = this.applicationTimestamp + CROWS_DURATION;
     }
     this.lastDamageTick = event.timestamp;
-    this.bonusDamage += event.amount + (event.absorbed || 0);
+    this.damage += event.amount + (event.absorbed || 0);
   }
 
   on_fightend() {
     this.maxCasts += Math.ceil(this.owner.fightDuration / 60000);
   }
 
-  subStatistic() {
+  statistic() {
     return (
-      <StatisticListBoxItem
-        title={<SpellLink id={SPELLS.A_MURDER_OF_CROWS_TALENT.id} />}
-        value={<ItemDamageDone amount={this.bonusDamage} />}
+      <TalentStatisticBox
+        talent={SPELLS.A_MURDER_OF_CROWS_TALENT.id}
+        value={<>
+          <ItemDamageDone amount={this.damage} /> <br />
+          {this.resets} resets
+        </>}
       />
     );
   }
+
 }
 
 export default AMurderOfCrows;

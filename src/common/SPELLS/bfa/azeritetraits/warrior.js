@@ -61,6 +61,16 @@ export default {
         name: 'Test of Might',
         icon: 'ability_warrior_strengthofarms',
     },
+    STRIKING_THE_ANVIL: {
+      id: 288452,
+      name: 'Striking the Anvil',
+      icon: 'ability_warrior_unrelentingassault',
+    },
+    STRIKING_THE_ANVIL_BUFF: {
+      id: 288455,
+      name: 'Striking the Anvil',
+      icon: 'ability_warrior_unrelentingassault',
+    },
     // Fury
     COLD_STEEL_HOT_BLOOD: {
         id: 288080,
@@ -101,6 +111,16 @@ export default {
         id: 278757,
         name: 'Simmering Rage',
         icon: 'spell_nature_unleashedrage',
+    },
+    SIMMERING_RAGE_ENERGISE: {
+        id: 278841,
+        name: 'Simmering Rage',
+        icon: 'spell_nature_unleashedrage',
+    },
+    TRAMPLE_THE_WEAK: {
+        id: 272836,
+        name: 'Trample the Weak',
+        icon: 'spell_nature_shamanrage',
     },
     UNBRIDLED_FEROCITY: {
         id: 288056,

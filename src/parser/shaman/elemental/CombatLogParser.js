@@ -11,12 +11,11 @@ import Aftershock from './modules/talents/Aftershock';
 import Ascendance from './modules/talents/Ascendance';
 import EarthenRage from './modules/talents/EarthenRage';
 import ElementalBlast from './modules/talents/ElementalBlast';
-import ExposedElements from './modules/talents/ExposedElements';
-import HighVoltage from './modules/talents/HighVoltage';
 import LiquidMagmaTotem from './modules/talents/LiquidMagmaTotem';
 import MasterOfTheElements from './modules/talents/MasterOfTheElements';
 import PrimalFireElemental from './modules/talents/PrimalFireElemental';
 import PrimalStormElemental from './modules/talents/PrimalStormElemental';
+import StormElemental from './modules/talents/StormElemental';
 import Stormkeeper from './modules/talents/Stormkeeper';
 import TotemMastery from './modules/talents/TotemMastery';
 import UnlimitedPower from './modules/talents/UnlimitedPower';
@@ -52,8 +51,7 @@ class CombatLogParser extends CoreCombatLogParser {
     ascendance: Ascendance,
     earthenRage: EarthenRage,
     elementalBlast: ElementalBlast,
-    exposedElements: ExposedElements,
-    highVoltage: HighVoltage,
+    stormElemental: StormElemental,
     liquidMagmaTotem: LiquidMagmaTotem,
     masterOfTheElements: MasterOfTheElements,
     primalFireElemental: PrimalFireElemental,

@@ -32,20 +32,20 @@ class CobraShot extends Analyzer {
       return;
     }
     this.casts += 1;
-    if (!this.spellUsable.isOnCooldown(SPELLS.KILL_COMMAND.id)) {
+    if (!this.spellUsable.isOnCooldown(SPELLS.KILL_COMMAND_CAST_BM.id)) {
       this.wastedCasts += 1;
       this.wastedKCReductionMs += COOLDOWN_REDUCTION_MS;
       return;
     }
     const globalCooldown = this.globalCooldown.getGlobalCooldownDuration(spellId);
-    const killCommandCooldownRemaining = this.spellUsable.cooldownRemaining(SPELLS.KILL_COMMAND.id);
+    const killCommandCooldownRemaining = this.spellUsable.cooldownRemaining(SPELLS.KILL_COMMAND_CAST_BM.id);
     if (killCommandCooldownRemaining < COOLDOWN_REDUCTION_MS + globalCooldown) {
       const effectiveReductionMs = killCommandCooldownRemaining - globalCooldown;
-      this.effectiveKCReductionMs += this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND.id, effectiveReductionMs);
+      this.effectiveKCReductionMs += this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND_CAST_BM.id, effectiveReductionMs);
       this.wastedKCReductionMs += COOLDOWN_REDUCTION_MS - effectiveReductionMs;
       return;
     }
-    this.effectiveKCReductionMs += this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND.id, COOLDOWN_REDUCTION_MS);
+    this.effectiveKCReductionMs += this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND_CAST_BM.id, COOLDOWN_REDUCTION_MS);
   }
 
   get totalPossibleCDR() {
@@ -82,13 +82,13 @@ class CobraShot extends Analyzer {
 
   suggestions(when) {
     when(this.cdrEfficiencyCobraShotThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>A crucial part of <SpellLink id={SPELLS.COBRA_SHOT.id} /> is the cooldown reduction of <SpellLink id={SPELLS.KILL_COMMAND.id} /> it provides. When the cooldown of <SpellLink id={SPELLS.KILL_COMMAND.id} /> is larger than the duration of your GCD + 1s, you'll want to be casting <SpellLink id={SPELLS.COBRA_SHOT.id} /> to maximize the amount of casts of <SpellLink id={SPELLS.KILL_COMMAND.id} />. If the cooldown of <SpellLink id={SPELLS.KILL_COMMAND.id} /> is lower than GCD + 1s, you'll only want to be casting <SpellLink id={SPELLS.COBRA_SHOT.id} />, if you'd be capping focus otherwise.</>)
+      return suggest(<>A crucial part of <SpellLink id={SPELLS.COBRA_SHOT.id} /> is the cooldown reduction of <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> it provides. When the cooldown of <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> is larger than the duration of your GCD + 1s, you'll want to be casting <SpellLink id={SPELLS.COBRA_SHOT.id} /> to maximize the amount of casts of <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} />. If the cooldown of <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> is lower than GCD + 1s, you'll only want to be casting <SpellLink id={SPELLS.COBRA_SHOT.id} />, if you'd be capping focus otherwise.</>)
         .icon(SPELLS.COBRA_SHOT.icon)
         .actual(`You had ${formatPercentage(actual)}% effective cooldown reduction of Kill Command`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
     });
     when(this.wastedCobraShotsThreshold).addSuggestion((suggest, actual) => {
-      return suggest(<>You should never cast <SpellLink id={SPELLS.COBRA_SHOT.id} /> when <SpellLink id={SPELLS.KILL_COMMAND.id} /> is off cooldown.</>)
+      return suggest(<>You should never cast <SpellLink id={SPELLS.COBRA_SHOT.id} /> when <SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} /> is off cooldown.</>)
         .icon(SPELLS.COBRA_SHOT.icon)
         .actual(`You cast ${actual} Cobra Shots when Kill Command wasn't on cooldown`)
         .recommended(`0 casts  is recommended`);
@@ -107,7 +107,7 @@ class CobraShot extends Analyzer {
             {formatPercentage(this.effectiveKCReductionMs / this.totalPossibleCDR)}%
           </>
         )}
-        label={<><SpellLink id={SPELLS.KILL_COMMAND.id} icon={false} /> CDR</>}
+        label={<><SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} icon={false} /> CDR</>}
         tooltip={`
         ${this.wastedCasts > 0 ? `You had ${this.wastedCasts} ${this.wastedCasts > 1 ? `casts` : `cast`} of Cobra Shot when Kill Command wasn't on cooldown. <br />` : ``}
         ${this.wastedKCReductionMs > 0 ? `You wasted ${this.wastedCDR} seconds of potential cooldown reduction by casting Cobra Shot while Kill Command had less than 1+GCD seconds remaining on its CD. ` : ``}

@@ -17,11 +17,22 @@ class GlobalCooldown extends CoreGlobalCooldown {
     steadyFocus: SteadyFocus,
   };
 
+  on_byPlayer_cast(event) {
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.RAPID_FIRE.id) {
+      // This GCD gets handled by the `beginchannel` event
+      return;
+    }
+    super.on_byPlayer_cast(event);
+  }
+
   getGlobalCooldownDuration(spellId) {
     const gcd = super.getGlobalCooldownDuration(spellId);
+
     if (!gcd) {
       return 0;
     }
+
     if (spellId && spellId === SPELLS.STEADY_SHOT.id && this.selectedCombatant.hasBuff(SPELLS.STEADY_FOCUS_BUFF.id)) {
       const steadyFocusMultiplier = 1 - STEADY_FOCUS_GCD_REDUCTION_PER_STACK * this.steadyFocus.steadyFocusStacks;
       return Math.max(MIN_GCD, (gcd * steadyFocusMultiplier));

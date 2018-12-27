@@ -12,15 +12,13 @@ import ItemDamageDone from 'interface/others/ItemDamageDone';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import { SERPENT_STING_SV_BASE_DURATION, SERPENT_STING_SV_PANDEMIC } from 'parser/hunter/survival/constants';
 
 /**
  * Fire a shot that poisons your target, causing them to take (15% of Attack power) Nature damage instantly and an additional (60% of Attack power) Nature damage over 12/(1+haste) sec.
  *
  * Example log: https://www.warcraftlogs.com/reports/pNJbYdLrMW2ynKGa#fight=3&type=damage-done&source=16&translate=true
  */
-
-const PANDEMIC = 0.3;
-const BASELINE_DURATION = 12000;
 
 class SerpentSting extends Analyzer {
   static dependencies = {
@@ -72,7 +70,7 @@ class SerpentSting extends Analyzer {
     if (targetInstance === undefined) {
       targetInstance = 1;
     }
-    const hastedSerpentStingDuration = BASELINE_DURATION / (1 + this.statTracker.currentHastePercentage);
+    const hastedSerpentStingDuration = SERPENT_STING_SV_BASE_DURATION / (1 + this.statTracker.currentHastePercentage);
     const serpentStingTarget = { targetID: event.targetID, targetInstance: targetInstance, timestamp: event.timestamp, serpentStingDuration: hastedSerpentStingDuration };
     this.serpentStingTargets.push(serpentStingTarget);
 
@@ -109,15 +107,15 @@ class SerpentSting extends Analyzer {
     if (targetInstance === undefined) {
       targetInstance = 1;
     }
-    const hastedSerpentStingDuration = BASELINE_DURATION / (1 + this.statTracker.currentHastePercentage);
+    const hastedSerpentStingDuration = SERPENT_STING_SV_BASE_DURATION / (1 + this.statTracker.currentHastePercentage);
     const serpentStingTarget = { targetID: event.targetID, targetInstance: targetInstance, timestamp: event.timestamp };
     for (let i = 0; i <= this.serpentStingTargets.length - 1; i++) {
       if (this.serpentStingTargets[i].targetID === serpentStingTarget.targetID && this.serpentStingTargets[i].targetInstance === serpentStingTarget.targetInstance) {
         const timeRemaining = this.serpentStingTargets[i].serpentStingDuration - (event.timestamp - this.serpentStingTargets[i].timestamp);
-        if (timeRemaining > (hastedSerpentStingDuration * PANDEMIC) && !this.hasVV) {
+        if (timeRemaining > (hastedSerpentStingDuration * SERPENT_STING_SV_PANDEMIC) && !this.hasVV) {
           this.badRefresh++;
         }
-        const pandemicSerpentStingDuration = Math.min(hastedSerpentStingDuration * PANDEMIC, timeRemaining) + hastedSerpentStingDuration;
+        const pandemicSerpentStingDuration = Math.min(hastedSerpentStingDuration * SERPENT_STING_SV_PANDEMIC, timeRemaining) + hastedSerpentStingDuration;
         if (!this.hasVV) {
           this.accumulatedTimeBetweenRefresh += this.serpentStingTargets[i].serpentStingDuration - timeRemaining;
           this.accumulatedPercentRemainingOnRefresh += timeRemaining / this.serpentStingTargets[i].serpentStingDuration;
@@ -187,14 +185,14 @@ class SerpentSting extends Analyzer {
       });
     } else {
       when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Remember to maintain the <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> on enemies, but don't refresh the debuff unless it has less than {formatPercentage(PANDEMIC)}% duration remaining {this.hasVV ? <>, or you have a <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> buff</> : ''}. During <SpellLink id={SPELLS.COORDINATED_ASSAULT.id} />, you shouldn't be refreshing <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> at all{this.hasVV ? <> unless there's less than 50% remaining of the debuff and you have <SpellLink id={SPELLS.VIPERS_VENOM_BUFF.id} /> active</> : ''}.</>)
+        return suggest(<>Remember to maintain the <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> on enemies, but don't refresh the debuff unless it has less than {formatPercentage(SERPENT_STING_SV_PANDEMIC)}% duration remaining {this.hasVV ? <>, or you have a <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> buff</> : ''}. During <SpellLink id={SPELLS.COORDINATED_ASSAULT.id} />, you shouldn't be refreshing <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> at all{this.hasVV ? <> unless there's less than 50% remaining of the debuff and you have <SpellLink id={SPELLS.VIPERS_VENOM_BUFF.id} /> active</> : ''}.</>)
           .icon(SPELLS.SERPENT_STING_SV.icon)
           .actual(`${formatPercentage(actual)}% Serpent Sting uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`);
       });
     }
     when(this.refreshingThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>It is not recommended to refresh <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> earlier than when there is less than {formatPercentage(PANDEMIC)}% of the debuffs duration remaining unless you get a <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> proc.</>)
+      return suggest(<>It is not recommended to refresh <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> earlier than when there is less than {formatPercentage(SERPENT_STING_SV_PANDEMIC)}% of the debuffs duration remaining unless you get a <SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} /> proc.</>)
         .icon(SPELLS.SERPENT_STING_SV.icon)
         .actual(`${actual} Serpent Sting cast(s) were cast too early`)
         .recommended(`<${recommended} is recommended`);
@@ -208,7 +206,7 @@ class SerpentSting extends Analyzer {
         icon={<SpellIcon id={SPELLS.SERPENT_STING_SV.id} />}
         value={`${formatPercentage(this.uptimePercentage)}%`}
         label="Serpent Sting uptime"
-        tooltip={`<ul><li>You cast Serpent Sting a total of ${this.casts} times. </li> <li>You refreshed the debuff ${this.timesRefreshed} times. </li> <ul><li> When you did refresh (without Viper's Venom up), it happened on average with ${formatPercentage(this.averagePercentRemainingOnRefresh)}% or ${this.averageTimeBetweenRefresh} seconds remaining on the debuff.</li><li>You had ${this.badRefresh} bad refreshes. This means refreshes with more than ${formatPercentage(PANDEMIC)}% of the current debuff remaining and no Viper's Venom buff active.</li></ul><li>Serpent Sting dealt a total of ${formatNumber(this.bonusDamage / this.owner.fightDuration * 1000)} DPS or ${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDamage))}% of your total damage.</li></ul>`}
+        tooltip={`<ul><li>You cast Serpent Sting a total of ${this.casts} times. </li> <li>You refreshed the debuff ${this.timesRefreshed} times. </li> <ul><li> When you did refresh (without Viper's Venom up), it happened on average with ${formatPercentage(this.averagePercentRemainingOnRefresh)}% or ${this.averageTimeBetweenRefresh} seconds remaining on the debuff.</li><li>You had ${this.badRefresh} bad refreshes. This means refreshes with more than ${formatPercentage(SERPENT_STING_SV_PANDEMIC)}% of the current debuff remaining and no Viper's Venom buff active.</li></ul><li>Serpent Sting dealt a total of ${formatNumber(this.bonusDamage / this.owner.fightDuration * 1000)} DPS or ${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDamage))}% of your total damage.</li></ul>`}
       />
     );
   }

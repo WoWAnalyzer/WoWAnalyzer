@@ -27,12 +27,12 @@ export default {
     name: 'Barbed Shot',
     icon: 'ability_hunter_barbedshot',
   },
-  KILL_COMMAND: {
+  KILL_COMMAND_CAST_BM: {
     id: 34026,
     name: 'Kill Command',
     icon: 'ability_hunter_killcommand',
   },
-  KILL_COMMAND_PET: {
+  KILL_COMMAND_DAMAGE_BM: {
     id: 83381,
     name: 'Kill Command',
     icon: 'ability_hunter_killcommand',
@@ -172,7 +172,7 @@ export default {
     icon: 'ability_hunter_steadyshot',
   },
   TRUESHOT: {
-    id: 193526,
+    id: 288613,
     name: 'Trueshot',
     icon: 'ability_trueshot',
   },
@@ -290,8 +290,18 @@ export default {
     name: 'Harpoon',
     icon: 'ability_hunter_harpoon',
   },
-  KILL_COMMAND_SV: {
+  TERMS_OF_ENGAGEMENT_BUFF: {
+    id: 265898,
+    name: 'Terms of Engagement',
+    icon: 'ability_hunter_harpoon',
+  },
+  KILL_COMMAND_CAST_SV: {
     id: 259489,
+    name: 'Kill Command',
+    icon: 'ability_hunter_killcommand',
+  },
+  KILL_COMMAND_DAMAGE_SV: {
+    id: 259277,
     name: 'Kill Command',
     icon: 'ability_hunter_killcommand',
   },
@@ -342,8 +352,8 @@ export default {
   },
   MONGOOSE_BITE_TALENT_AOTE: {
     id: 265888,
-    name: "Mongoose Bite",
-    icon: "ability_hunter_mongoosebite",
+    name: 'Mongoose Bite',
+    icon: 'ability_hunter_mongoosebite',
   },
   STEEL_TRAP_DAMAGE: { //the event is a damage event, but it merely applies the debuff
     id: 162480,
@@ -380,13 +390,48 @@ export default {
     name: 'Shrapnel Bomb',
     icon: 'inv_wildfirebomb_shrapnel',
   },
+  SHRAPNEL_BOMB_WFI_IMPACT: {
+    id: 270338,
+    name: 'Shrapnel Bomb',
+    icon: 'inv_wildfirebomb_shrapnel',
+  },
+  SHRAPNEL_BOMB_WFI_DOT: {
+    id: 270339,
+    name: 'Shrapnel Bomb',
+    icon: 'inv_wildfirebomb_shrapnel',
+  },
+  INTERNAL_BLEEDING_SV: {
+    id: 270343,
+    name: 'Internal Bleeding',
+    icon: 'ability_gouge',
+  },
   VOLATILE_BOMB_WFI: {
     id: 271045,
     name: 'Volatile Bomb',
     icon: 'inv_wildfirebomb_poison',
   },
+  VOLATILE_BOMB_WFI_IMPACT: {
+    id: 271048,
+    name: 'Volatile Bomb',
+    icon: 'inv_wildfirebomb_poison',
+  },
+  VOLATILE_BOMB_WFI_DOT: {
+    id: 271049,
+    name: 'Volatile Bomb',
+    icon: 'inv_wildfirebomb_poison',
+  },
   PHEROMONE_BOMB_WFI: {
     id: 270323,
+    name: 'Pheromone Bomb',
+    icon: 'inv_wildfirebomb_blood',
+  },
+  PHEROMONE_BOMB_WFI_IMPACT: {
+    id: 270329,
+    name: 'Pheromone Bomb',
+    icon: 'inv_wildfirebomb_blood',
+  },
+  PHEROMONE_BOMB_WFI_DOT: {
+    id: 270332,
     name: 'Pheromone Bomb',
     icon: 'inv_wildfirebomb_blood',
   },
@@ -404,6 +449,21 @@ export default {
     id: 259396,
     name: 'Chakrams',
     icon: 'ability_glaivetoss',
+  },
+  BLOODSEEKER_BUFF: {
+    id: 260249,
+    name: 'Predator',
+    icon: 'ability_druid_primaltenacity',
+  },
+  FLANKING_STRIKE_PET: {
+    id: 259516,
+    name: 'Flanking Strike',
+    icon: 'ability_hunter_invigeration',
+  },
+  FLANKING_STRIKE_PLAYER: {
+    id: 269752,
+    name: 'Flanking Strike',
+    icon: 'ability_hunter_invigeration',
   },
 
   //Shared BFA buffs/debuffs/misc
@@ -559,8 +619,13 @@ export default {
   },
 
   //BFA Pet abilities
-  PRIMAL_RAGE: {
+  PRIMAL_RAGE_1: {
     id: 264667,
+    name: 'Primal Rage',
+    icon: 'spell_shadow_unholyfrenzy',
+  },
+  PRIMAL_RAGE_2: {
+    id: 272678,
     name: 'Primal Rage',
     icon: 'spell_shadow_unholyfrenzy',
   },

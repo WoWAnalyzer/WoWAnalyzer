@@ -1,8 +1,10 @@
 import Express from 'express';
 import Sequelize from 'sequelize';
 import Raven from 'raven';
+import { StatusCodeError } from 'request-promise-native/errors';
 
-import { fetchCharacter as fetchCharacterFromBattleNet } from 'helpers/wowCommunityApi';
+import WowCommunityApi from 'helpers/WowCommunityApi';
+import RegionNotSupportedError from 'helpers/RegionNotSupportedError';
 
 import models from '../../models';
 
@@ -25,84 +27,169 @@ const Character = models.Character;
  * /EU/Tarren Mill/Mufre - character search
  * This will skip looking for the character and just send the battle.net character data.
  *
- * So the whole purpose of storing the character info is so it's also available on unexported WCL reports where we only have the character id.
+ * The caching stratagy being used here is to always return cached data first if it exists. then refresh in the background
  */
-
 function sendJson(res, json) {
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.send(json);
 }
-async function proxyCharacterApi(res, region, realm, name, fields) {
-  try {
-    console.log('Fetching character from Battle.net');
-    const start = Date.now();
-    const response = await fetchCharacterFromBattleNet(region, realm, name, fields);
-    const responseTime = Date.now() - start;
-    console.log('Battle.net response time:', responseTime, 'ms');
-    const json = JSON.parse(response);
-    // This is the only field that we need and isn't always otherwise obtainable (e.g. when this is fetched by character id)
-    json.region = region;
-    sendJson(res, json);
-    return json;
-  } catch (error) {
-    const { statusCode, message, response } = error;
-    console.log('Error fetching character', statusCode, message);
-    const body = response ? response.body : null;
-    // Ignore 404 - Character not found errors. We check for the text so this doesn't silently break when the API endpoint changes.
-    const isCharacterNotFoundError = statusCode === 404 && body && body.includes('Character not found.');
-    if (!isCharacterNotFoundError) {
-      Raven.installed && Raven.captureException(error);
-    }
-    res.status(statusCode || 500);
-    sendJson(res, body);
-    return null;
-  }
+function send404(res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.sendStatus(404);
 }
-async function storeCharacter(id, region, realm, name) {
-  await Character.upsert({
-    id,
+
+const characterIdFromThumbnailRegex = /\/([0-9]+)-/;
+function getCharacterId(thumbnail) {
+  const [,characterId] = characterIdFromThumbnailRegex.exec(thumbnail);
+  return characterId;
+}
+
+async function getCharacterFromBlizzardApi(region, realm, name) {
+  const response = await WowCommunityApi.fetchCharacter(region, realm, name, 'talents');
+  const data = JSON.parse(response);
+  if (!data || !data.thumbnail) {
+    throw new Error('Corrupt response received');
+  }
+  // This is the only field that we need and isn't always otherwise obtainable (e.g. when this is fetched by character id)
+  // eslint-disable-next-line prefer-const
+  const { talents, thumbnail, ...other } = data;
+  delete other.calcClass;
+  delete other.totalHonorableKills;
+  delete other.level;
+  delete other.lastModified;
+  const characterId = getCharacterId(thumbnail);
+  const json = {
+    id: Number(characterId),
     region,
-    realm,
-    name,
+    thumbnail,
+    ...other,
+  };
+  if (talents) {
+    const selectedSpec = talents.find(e => e.selected);
+    json.spec = selectedSpec.spec.name;
+    json.role = selectedSpec.spec.role;
+    json.talents = selectedSpec.calcTalent;
+  }
+  return json;
+}
+async function getStoredCharacter(id, realm, region, name) {
+  if (id) {
+    return Character.findByPk(id);
+  }
+  if (realm && name && region) {
+    return Character.findOne({
+      where: {
+        name,
+        region,
+        realm,
+      },
+    });
+  }
+  return null;
+}
+
+async function storeCharacter(char) {
+  await Character.upsert({
+    ...char,
     lastSeenAt: Sequelize.fn('NOW'),
   });
 }
-const characterIdFromThumbnailRegex = /\/([0-9]+)-/;
+
+async function fetchCharacter(region, realm, name, res = null) {
+  try {
+    // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
+    const charFromApi = await getCharacterFromBlizzardApi(region, realm, name);
+    if (res) {
+      sendJson(res, charFromApi);
+    }
+    // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
+    storeCharacter(charFromApi);
+  } catch (error) {
+    const body = error.response ? error.response.body : null;
+
+    // We can't currently support the CN region because of Blizzard API restrictions
+    if (error instanceof RegionNotSupportedError) {
+      // Record the error because we want to know how often this occurs and if it breaks anything
+      Raven.installed && Raven.captureException(error);
+      if (res) {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.status(500);
+        sendJson(res, {
+          error: 'This region is not supported',
+        });
+      }
+      return;
+    }
+
+    // Handle 404: character not found errors.
+    if (error instanceof StatusCodeError) {
+      // We check for the text so this doesn't silently break when the API endpoint changes.
+      const isCharacterNotFoundError = error.statusCode === 404 && body && body.includes('Character not found.');
+      if (isCharacterNotFoundError) {
+        send404(res);
+        return;
+      }
+    }
+
+    // Everything else is unexpected
+    Raven.installed && Raven.captureException(error);
+    if (res) {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.status(error.statusCode || 500);
+      sendJson(res, {
+        error: 'Blizzard API error',
+        message: body || error.message,
+      });
+    }
+  }
+}
 
 const router = Express.Router();
+
 router.get('/:id([0-9]+)', async (req, res) => {
-  const character = await Character.findById(req.params.id);
+  const { id } = req.params;
+  const character = await getStoredCharacter(id);
   if (!character) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.sendStatus(404);
+    // No character found, and we can't find a character by just its id, so this is all we can do.
+    send404(res);
     return;
   }
-  // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
-  character.update({
-    lastSeenAt: Sequelize.fn('NOW'),
-  });
-  await proxyCharacterApi(res, character.region, character.realm, character.name, req.query.fields);
+
+  // Match found, send cached info and then refresh.
+  sendJson(res, character);
+
+  // noinspection JSIgnoredPromiseFromCall
+  fetchCharacter(character.region, character.realm, character.name);
 });
 router.get('/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, res) => {
   const { region, realm, name } = req.params;
-  // In case you don't look inside proxyCharacterApi: *this sends the data to the browser*.
-  const characterInfo = await proxyCharacterApi(res, region, realm, name, req.query.fields);
-  // Everything after this happens after the data was sent
-  if (!characterInfo) {
-    return;
+
+  const storedCharacter = await getStoredCharacter(null, realm, region, name);
+
+  let responded = false;
+  //checking if thumbnail exists in cache here because Parses.js will throw up without it here
+  //If it's not here then it's better to wait on the API call to come back
+  if (storedCharacter && storedCharacter.thumbnail) {
+    sendJson(res, storedCharacter);
+    responded = true;
   }
-  if (characterInfo && characterInfo.thumbnail) {
-    const [,characterId] = characterIdFromThumbnailRegex.exec(characterInfo.thumbnail);
-    // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
-    storeCharacter(characterId, region, realm, name);
-  }
+
+  // noinspection JSIgnoredPromiseFromCall
+  fetchCharacter(region, realm, name, !responded ? res : null);
 });
 router.get('/:id([0-9]+)/:region([A-Z]{2})/:realm([^/]{2,})/:name([^/]{2,})', async (req, res) => {
   const { id, region, realm, name } = req.params;
-  // noinspection JSIgnoredPromiseFromCall Nothing depends on this, so it's quicker to let it run asynchronous
-  storeCharacter(id, region, realm, name);
-  await proxyCharacterApi(res, region, realm, name, req.query.fields);
+  const storedCharacter = await getStoredCharacter(id);
+  let responded = false;
+  // Old cache entries won't have the thumbnail value. We want the the thumbnail value. So don't respond yet if it's missing.
+  if (storedCharacter && storedCharacter.thumbnail) {
+    sendJson(res, storedCharacter);
+    responded = true;
+  }
+
+  // noinspection JSIgnoredPromiseFromCall
+  fetchCharacter(region, realm, name, !responded ? res : null);
 });
 
 export default router;

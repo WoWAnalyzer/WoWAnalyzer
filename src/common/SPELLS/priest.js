@@ -22,7 +22,7 @@ export default {
     id: 21562,
     name: 'Power Word: Fortitude',
     icon: 'spell_holy_wordfortitude',
-    manaCost: 3000,
+    manaCost: 4000,
   },
   // Discipline Priest:
   GRACE: {

@@ -7,12 +7,16 @@ class SpellUsable extends CoreSpellUsable {
   };
 
   hasSuddenDeath = false;
+
   constructor(...args) {
     super(...args);
     this.hasSuddenDeath = this.selectedCombatant.hasTalent(SPELLS.SUDDEN_DEATH_TALENT_FURY.id);
   }
 
   lastPotentialTriggerForRagingBlow = null;
+  lastExecute = null;
+  executeCdrEvents = [];
+
   on_byPlayer_cast(event) {
     if (super.on_byPlayer_cast) {
       super.on_byPlayer_cast(event);
@@ -21,6 +25,10 @@ class SpellUsable extends CoreSpellUsable {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.RAGING_BLOW.id) {
       this.lastPotentialTriggerForRagingBlow = event;
+    }
+
+    if (spellId === SPELLS.EXECUTE_FURY.id) {
+      this.lastExecute = event.timestamp;
     }
   }
 
@@ -33,6 +41,7 @@ class SpellUsable extends CoreSpellUsable {
     }
     if (this.hasSuddenDeath && spellId === SPELLS.EXECUTE_FURY.id) {
       if (this.isOnCooldown(spellId)) {
+        this.executeCdrEvents[this.lastExecute] = this.cooldownRemaining(spellId);
         this.endCooldown(spellId);
       }
     }

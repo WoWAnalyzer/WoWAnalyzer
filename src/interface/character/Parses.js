@@ -233,15 +233,20 @@ class Parses extends React.Component {
       return;
     }
     // fetch character image and active spec from battle-net
-    const response = await fetch(makeCharacterApiUrl(null, region, realm, name, 'talents'));
+    const response = await fetch(makeCharacterApiUrl(null, region, realm, name));
     if (response.status === 500) {
       this.setState({
         isLoading: false,
         error: ERRORS.NOT_RESPONDING,
       });
       return;
-    }
-    if (!response.ok) {
+    } else if (response.status === 404) {
+      this.setState({
+        isLoading: false,
+        error: ERRORS.CHARACTER_NOT_FOUND,
+      });
+      return;
+    } else if (!response.ok) {
       this.setState({
         isLoading: false,
         error: ERRORS.UNEXPECTED,
@@ -251,13 +256,6 @@ class Parses extends React.Component {
 
     const data = await response.json();
 
-    if (data.status === 'nok') {
-      this.setState({
-        isLoading: false,
-        error: ERRORS.CHARACTER_NOT_FOUND,
-      });
-      return;
-    }
     if (!data.thumbnail) {
       this.setState({
         isLoading: false,
@@ -268,7 +266,7 @@ class Parses extends React.Component {
     }
     const image = data.thumbnail.replace('-avatar.jpg', '');
     const imageUrl = `https://render-${this.props.region}.worldofwarcraft.com/character/${image}-main.jpg`;
-    const role = data.talents.find(e => e.selected).spec.role;
+    const role = data.role;
     const metric = role === 'HEALING' ? 'hps' : 'dps';
     this.setState({
       image: imageUrl,

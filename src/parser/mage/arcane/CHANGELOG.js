@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-12-16'),
+    changes: 'Updated for Patch 8.1.',
+    contributors: [Sharrq],
+  },
+  {
     date: new Date('2018-10-11'),
     changes: <>Fixed <SpellLink id={SPELLS.ARCANE_CHARGE.id} /> Normalizer to not put energize events after <SpellLink id={SPELLS.ARCANE_BARRAGE.id} /> and added Normalizer to sort the <SpellLink id={SPELLS.ARCANE_POWER.id} /> cast before the buff application</>,
     contributors: [Sharrq],

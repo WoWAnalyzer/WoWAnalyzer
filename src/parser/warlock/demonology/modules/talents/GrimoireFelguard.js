@@ -28,9 +28,9 @@ class GrimoireFelguard extends Analyzer {
     const damage = this.demoPets.getPetDamage(PETS.GRIMOIRE_FELGUARD.guid);
     return (
       <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.GRIMOIRE_FELGUARD_TALENT.id} /> damage</>}
-        value={formatThousands(damage)}
-        valueTooltip={this.owner.formatItemDamageDone(damage)}
+        title={<><SpellLink id={SPELLS.GRIMOIRE_FELGUARD_TALENT.id} /> dmg</>}
+        value={this.owner.formatItemDamageDone(damage)}
+        valueTooltip={`${formatThousands(damage)} damage`}
       />
     );
   }

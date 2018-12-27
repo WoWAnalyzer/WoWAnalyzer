@@ -34,17 +34,32 @@ export default {
   INEVITABLE_DEMISE: {
     id: 273521,
     name: 'Inevitable Demise',
-    icon: 'spell_shadow_abominationexplosion',
+    icon: 'spell_warlock_harvestoflife',
   },
   INEVITABLE_DEMISE_BUFF: {
     id: 273525,
     name: 'Inevitable Demise',
-    icon: 'spell_shadow_abominationexplosion',
+    icon: 'spell_warlock_harvestoflife',
   },
   SUDDEN_ONSET: {
     id: 278721,
     name: 'Sudden Onset',
     icon: 'spell_shadow_curseofsargeras',
+  },
+  PANDEMIC_INVOCATION: {
+    id: 289364,
+    name: 'Pandemic Invocation',
+    icon: 'spell_shadow_unsummonbuilding',
+  },
+  PANDEMIC_INVOCATION_DAMAGE: {
+    id: 289367,
+    name: 'Pandemic Invocation',
+    icon: 'spell_shadow_unsummonbuilding',
+  },
+  PANDEMIC_INVOCATION_ENERGIZE: {
+    id: 289368,
+    name: 'Pandemic Invocation',
+    icon: 'spell_shadow_unsummonbuilding',
   },
 
   // Demonology Azerite traits and effects
@@ -92,6 +107,16 @@ export default {
     id: 272945,
     name: 'Shadow\'s Bite',
     icon: 'spell_shadow_painspike',
+  },
+  BALEFUL_INVOCATION: {
+    id: 287059,
+    name: 'Baleful Invocation',
+    icon: 'spell_shadow_demonicempathy',
+  },
+  BALEFUL_INVOCATION_ENERGIZE: {
+    id: 287060,
+    name: 'Baleful Invocation',
+    icon: 'spell_shadow_demonicempathy',
   },
 
   // Destruction Azerite traits and effects
@@ -144,5 +169,15 @@ export default {
     id: 279673,
     name: 'Chaotic Inferno',
     icon: 'spell_fire_burnout',
+  },
+  CHAOS_SHARDS: {
+    id: 287637,
+    name: 'Chaos Shards',
+    icon: 'inv_misc_gem_amethyst_02',
+  },
+  CHAOS_SHARDS_BUFF_ENERGIZE: {
+    id: 287660,
+    name: 'Chaos Shards',
+    icon: 'inv_misc_gem_amethyst_02',
   },
 };

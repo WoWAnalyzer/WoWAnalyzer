@@ -21,6 +21,9 @@ export default {
   description: (
     <>
       <Warning>
+        This analyzer is in the process of being updated for Feral's changes in patch 8.1. Some results may be misleading until that's complete.
+      </Warning><br />
+      <Warning>
       AoE encounters are not currently well covered. You'll get the most useful feedback on fights which are primarily against a single target.
       </Warning><br />
 

@@ -63,6 +63,6 @@ export default function snapshotTest(parserClass, moduleClass, key, propFn = sta
 }
 
 export function expectSnapshot(parser, moduleClass, propFn = statistic) {
-    const result = propFn(parser.getModule(moduleClass), parser);
-    expect(result).toMatchSnapshot();
+  const result = propFn(parser.getModule(moduleClass), parser);
+  expect(result).toMatchSnapshot();
 }

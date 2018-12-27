@@ -21,7 +21,6 @@ class Haste extends Analyzer {
     ...BLOODLUST_BUFFS,
     [SPELLS.HOLY_AVENGER_TALENT.id]: 0.3,
     [SPELLS.BERSERKING.id]: 0.15,
-    [SPELLS.TRUESHOT.id]: 0.3, // MM Hunter main CD
     [SPELLS.ICY_VEINS.id]: 0.3,
     [SPELLS.IN_FOR_THE_KILL_TALENT_BUFF.id]: 0.1,
     [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield

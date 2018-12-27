@@ -20,7 +20,6 @@ import MoonfireSnapshot from '../../talents/MoonfireSnapshot';
 import PredatorySwiftness from '../../spells/PredatorySwiftness';
 import Bloodtalons from '../../talents/Bloodtalons';
 import Predator from '../../talents/Predator';
-import BrutalSlashHitCount from '../../talents/BrutalSlashHitCount';
 import TigersFuryEnergy from '../../spells/TigersFuryEnergy';
 import Shadowmeld from '../../racials/Shadowmeld';
 
@@ -44,7 +43,6 @@ class Checklist extends BaseChecklist {
     predatorySwiftness: PredatorySwiftness,
     bloodtalons: Bloodtalons,
     predator: Predator,
-    brutalSlashHitcount: BrutalSlashHitCount,
     tigersFuryEnergy: TigersFuryEnergy,
     shadowmeld: Shadowmeld,
   };
@@ -69,6 +67,7 @@ class Checklist extends BaseChecklist {
           savageRoarUptime: this.savageRoarUptime.suggestionThresholds,
           ferociousBiteEnergy: this.ferociousBiteEnergy.suggestionThresholds,
           ripShouldBeBite: this.ripSnapshot.shouldBeBiteSuggestionThresholds,
+          ripDurationReduction: this.ripSnapshot.durationReductionThresholds,
           finishersBelowFull: this.comboPointDetails.finishersBelowMaxSuggestionThresholds,
           
           // energy
@@ -91,7 +90,6 @@ class Checklist extends BaseChecklist {
 
           // talent selection
           predatorWrongTalent: this.predator.suggestionThresholds,
-          brutalSlashWrongTalent: this.brutalSlashHitcount.wrongTalentThresholds,
         }}
       />
     );

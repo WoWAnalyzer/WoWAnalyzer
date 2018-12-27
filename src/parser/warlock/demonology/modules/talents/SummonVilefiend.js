@@ -27,9 +27,9 @@ class SummonVilefiend extends Analyzer {
     const damage = this.demoPets.getPetDamage(PETS.VILEFIEND.guid);
     return (
       <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.SUMMON_VILEFIEND_TALENT.id} /> damage</>}
-        value={formatThousands(damage)}
-        valueTooltip={this.owner.formatItemDamageDone(damage)}
+        title={<><SpellLink id={SPELLS.SUMMON_VILEFIEND_TALENT.id} /> dmg</>}
+        value={this.owner.formatItemDamageDone(damage)}
+        valueTooltip={`${formatThousands(damage)} damage`}
       />
     );
   }

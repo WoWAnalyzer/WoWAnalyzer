@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import Haste from 'parser/shared/modules/Haste';
 
 const ASPECT_AFFECTED_ABILTIES = [
-  SPELLS.KILL_COMMAND.id,
+  SPELLS.KILL_COMMAND_CAST_BM.id,
   SPELLS.COBRA_SHOT.id,
   SPELLS.DIRE_BEAST_TALENT.id,
   SPELLS.BESTIAL_WRATH.id,

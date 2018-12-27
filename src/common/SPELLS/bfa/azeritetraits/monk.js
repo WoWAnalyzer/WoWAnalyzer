@@ -30,12 +30,7 @@ export default {
     name: 'Fit to Burst',
     icon: 'inv_misc_beer_06',
   },
-  // Windwalker Traits
-  IRON_FISTS: {
-    id: 272804,
-    name: 'Iron Fists',
-    icon: 'spell_holy_fistofjustice',
-  },
+  // Windwalker Traits    
   OPEN_PALM_STRIKES: {
     id: 279918,
     name: 'Open Palm Strikes',
@@ -50,6 +45,21 @@ export default {
     id: 273291,
     name: 'Sunrise Technique',
     icon: 'ability_monk_risingsunkick',
+  },
+  GLORY_OF_THE_DAWN: {
+    id: 288634,
+    name: 'Glory of the Dawn',
+    icon: 'ability_monk_mightyoxkick',
+  },
+  FURY_OF_XUEN: {
+    id: 287055,
+    name: 'Fury of Xuen',
+    icon: 'ability_monk_prideofthetiger',
+  },
+  DANCE_OF_CHIJI:{
+    id: 286585,
+    name: 'Dance of Chi-ji',
+    icon: 'ability_monk_quitornado',
   },
   // Windwalker trait effects
   OPEN_PALM_STRIKES_ENERGIZE: {
@@ -67,10 +77,20 @@ export default {
     name: 'Sunrise Technique',
     icon: 'ability_monk_risingsunkick',
   },
-  SWIFT_ROUNDHOUSE_BUFF: {
-    id: 278710,
-    name: 'Swift Roundhouse',
-    icon: 'ability_monk_roundhousekick',
+  GLORY_OF_THE_DAWN_HIT: {
+    id: 288636,
+    name: 'Glory of the Dawn',
+    icon: 'ability_monk_mightyoxkick',
+  },
+  DANCE_OF_CHIJI_BUFF: {
+    id: 286587,
+    name: 'Dance of Chi-ji',
+    icon: 'ability_monk_quitornado',
+  },
+  FURY_OF_XUEN_BUFF: {
+    id: 287062,
+    name: 'Fury of Xuen',
+    icon: 'ability_monk_prideofthetiger',
   },
   //MW Specific
   BURST_OF_LIFE: {
