@@ -1,13 +1,12 @@
 import React from 'react';
-import { t } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import { i18n } from 'interface/RootLocalizationProvider';
+import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Statistic from 'interface/report/Results/statistics/Statistic';
+import SpellValue from 'interface/report/Results/statistics/SpellValue';
 
 class RuleOfLaw extends Analyzer {
   constructor(...args) {
@@ -44,12 +43,19 @@ class RuleOfLaw extends Analyzer {
   }
   statistic() {
     return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(31)}
-        icon={<SpellIcon id={SPELLS.RULE_OF_LAW_TALENT.id} />}
-        value={`${formatPercentage(this.uptime)} %`}
-        label={i18n._(t`${SPELLS.RULE_OF_LAW_TALENT.name} uptime`)}
-      />
+      <React.Fragment
+        position={STATISTIC_ORDER.CORE(31)}>
+        <Statistic
+          position={STATISTIC_ORDER.CORE(31)}
+          style={{ height: 'auto' }} // TODO: Rework Statistic to provide a default set of sizes
+        >
+          <SpellValue
+            spell={SPELLS.RULE_OF_LAW_TALENT}
+            value={`${formatPercentage(this.uptime)}%`}
+            label="uptime"
+          />
+        </Statistic>
+      </React.Fragment>
     );
   }
 }

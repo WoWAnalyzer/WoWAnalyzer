@@ -206,6 +206,7 @@ class MasteryEffectiveness extends Analyzer {
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(10)}
+        pad
       >
         <label><Trans>Mastery effectiveness</Trans></label>
         <div className="value">
