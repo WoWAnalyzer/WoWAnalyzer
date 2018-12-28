@@ -19,18 +19,22 @@ export default {
   description: (
     <>
       <Warning>
-        The Subtlety Rogue analysis isn't complete yet. Analysis should pick up most general mistakes, however:
+        The Subtlety Rogue analysis isn't complete yet.
+        All recomendations and analysis should be in line with <a href="http://www.ravenholdt.net/subtlety-guide/"> wEak's guide </a> and Simcraft APL.
+        TODO:
         <ul>
-         <li> there is no in-depth analysis for the PrePatch </li>
-         <li> target values may be tuned incorrectly for things like energy waste or downtime. </li>
+         <li>Target values still need to be adjusted.</li>
+         <li>More mistkes need highlighting.</li>
+         <li>Nightblade refresh analysis accuracy needs to be improved.</li>
         </ul>
+        
         <br />
         If there is something missing, incorrect, or inaccurate, please report it on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact <kbd>@tsabo</kbd> on <a href="https://discord.gg/AxphPxU">Discord</a>.<br /><br />
       </Warning>
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/GC2QzxTwaDV7qfdt/9-Heroic+Vectis+-+Kill+(6:40)/9-Blvck',
+  exampleReport: '/report/VYNXJQdhKWBnb3gf/35-Mythic+Fetid+Devourer+-+Kill+(3:41)/26-Thrash',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

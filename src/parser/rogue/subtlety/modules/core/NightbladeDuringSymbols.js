@@ -16,11 +16,10 @@ class NightbladeDuringSymbols extends Analyzer {
   
   constructor(...args) {
     super(...args);
-    
 
     this.symbolsDamageTracker.subscribeInefficientCast(
       [SPELLS.NIGHTBLADE],
-      (s) => `Do not refresh nightblade during Symbols.`
+      (s) => `Try to refresh Nightblade before Symbols of Death`
     );
   }
 
@@ -31,9 +30,9 @@ class NightbladeDuringSymbols extends Analyzer {
     return {
       actual: filtered.casts,
       isGreaterThan: {
-        minor: 0,
-        average: total.casts/10,
-        major: total.casts/5,
+        minor: total.casts/10,
+        average: total.casts/5,
+        major: total.casts
       },
       style: 'number',
     };

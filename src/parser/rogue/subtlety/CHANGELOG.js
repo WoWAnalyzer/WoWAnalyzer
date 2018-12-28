@@ -7,6 +7,11 @@ import { Zerotorescue, tsabo, Gebuz, Aelexe } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2018-12-28'),
+    changes: 'Updates for 8.1, minor fixes.',
+    contributors: [tsabo],
+  },
+  {
     date: new Date('2018-11-15'),
     changes: <>Fixed <SpellLink id={SPELLS.ARCANE_TORRENT_ENERGY.id} /> GCD.</>,
     contributors: [Aelexe],
