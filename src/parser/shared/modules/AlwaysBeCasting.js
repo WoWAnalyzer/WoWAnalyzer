@@ -10,6 +10,7 @@ import GlobalCooldown from './GlobalCooldown';
 import Channeling from './Channeling';
 
 import Haste from './Haste';
+import Tooltip from 'common/Tooltip';
 
 const debug = false;
 
@@ -108,19 +109,21 @@ class AlwaysBeCasting extends Analyzer {
         `}
         footer={(
           <div className="statistic-bar">
-            <div
+            <Tooltip
               className="stat-health-bg"
-              style={{ width: `${this.activeTimePercentage * 100}%` }}
-              data-tip={`You spent <b>${formatPercentage(this.activeTimePercentage)}%</b> of your time casting something.`}
+              tagName="div"
+              wrapperStyles={{ width: `${this.activeTimePercentage * 100}%` }}
+              content={<>You spent <b>{formatPercentage(this.activeTimePercentage)}%</b> of your time casting something.</>}
             >
               <img src={this.constructor.icons.activeTime} alt="Active time" />
-            </div>
-            <div
+            </Tooltip>
+            <Tooltip
               className="remainder DeathKnight-bg"
-              data-tip={`You spent <b>${formatPercentage(this.downtimePercentage)}%</b> of your time casting nothing at all.`}
+              tagName="div"
+              content={<>You spent <b>{formatPercentage(this.downtimePercentage)}%</b> of your time casting nothing at all.</>}
             >
               <img src={this.constructor.icons.downtime} alt="Downtime" />
-            </div>
+            </Tooltip>
           </div>
         )}
       />

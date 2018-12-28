@@ -61,6 +61,7 @@ class StatisticBox extends React.PureComponent {
     const { icon, value, tooltip, label, footer, containerProps, warcraftLogs, children, ...others } = this.props;
     delete others.category;
     delete others.position;
+    // TODO: make sure "tooltip" properties are correctly passed, if some contain HTML tags, fix them into <>...</>
     return (
       <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12" style={{ zIndex: this.state.expanded ? 2 : 1 }} {...containerProps}>
         <div className="panel statistic statistic-box expandable" {...others}>

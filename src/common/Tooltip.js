@@ -4,41 +4,6 @@ import ReactTooltip from '@wowanalyzer/react-tooltip-lite';
 
 import './Tooltip.css';
 
-/*
-src/interface/layout/App.scss
-	dfn[data-tip] rule is probably redundant
-
-data-tip on other than dfn tags:
-------------------------------------------------------------
-	src/parser/druid/feral/modules/features/EnergyCapTracker.js
-		99 - div
-		106 - div
-	src/parser/hunter/shared/modules/features/TimefocusCapped.js
-		59 - div
-		64 - div
-	src/parser/paladin/holy/modules/talents/AuraOfSacrificeDamageReduction.js
-		184 - div
-		190 - div
-	src/parser/rogue/shared/resources/EnergyCapTracker.js
-		100 - div
-		107 - div
-	src/parser/shared/modules/AlwaysBeCasting.js
-		114 - div
-		120 - div
-	src/parser/shared/modules/throughput/DamageDone.js
-		78 - div
-	src/parser/shared/modules/throughput/DamageTaken.js
-		121 - div
-	src/parser/shared/modules/throughput/HealingDone.js
-		100 - div
-	src/parser/warlock/demonology/modules/pets/PetTimelineTab/TabComponent/DeathEvents.js
-		34 - div
-		49 - div
-	src/parser/warrior/arms/modules/talents/DefensiveStance.js
-		79 - div
-		85 - div
- */
-
 class Tooltip extends React.Component {
   static propTypes = {
     /**

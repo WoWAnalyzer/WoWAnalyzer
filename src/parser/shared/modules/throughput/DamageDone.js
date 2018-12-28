@@ -9,6 +9,7 @@ import groupDataForChart from 'common/groupDataForChart';
 import StatisticBar from 'interface/report/Results/statistics/StatisticBar';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer from 'parser/core/Analyzer';
+import Tooltip from 'common/Tooltip';
 
 import DamageValue from '../DamageValue';
 
@@ -72,13 +73,14 @@ class DamageDone extends Analyzer {
               style={{ height: '1em', verticalAlign: 'baseline' }}
             />
           </div>
-          <div
+          <Tooltip
             className="flex-sub"
-            style={{ fontWeight: 500, width: 190, textAlign: 'center' }}
-            data-tip={`Total damage done: <b>${formatThousands(this.total.effective)}</b>`}
+            tagName="div"
+            wrapperStyles={{ fontWeight: 500, width: 190, textAlign: 'center' }}
+            content={<>Total damage done: <b>{formatThousands(this.total.effective)}</b></>}
           >
             {formatThousands(this.total.effective / this.owner.fightDuration * 1000)} DPS
-          </div>
+          </Tooltip>
           <div className={`flex-sub ${rankingColor(performance)}`} style={{ width: 110, textAlign: 'center' }}>
             {formatPercentage(performance, 0)}%
           </div>

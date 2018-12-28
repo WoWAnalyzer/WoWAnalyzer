@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatDuration, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Tooltip from 'common/Tooltip';
 import RegenResourceCapTracker from 'parser/shared/modules/RegenResourceCapTracker';
 import SpellEnergyCost from './SpellEnergyCost';
 
@@ -93,20 +94,22 @@ class EnergyCapTracker extends RegenResourceCapTracker {
         You spent <b>${formatPercentage(this.cappedProportion)}%</b> of the fight at capped energy, causing you to miss out on a total of <b>${this.missedRegen.toFixed(0)}</b> energy from regeneration.`}
         footer={(
           <div className="statistic-bar">
-            <div
+            <Tooltip
               className="stat-healing-bg"
-              style={{ width: `${(1 - this.cappedProportion) * 100}%` }}
-              data-tip={`Not at capped energy for ${formatDuration((this.owner.fightDuration - this.atCap) / 1000)}`}
+              tagName="div"
+              wrapperStyles={{ width: `${(1 - this.cappedProportion) * 100}%` }}
+              content={`Not at capped energy for ${formatDuration((this.owner.fightDuration - this.atCap) / 1000)}`}
             >
               <img src="/img/sword.png" alt="Uncapped Energy" />
-            </div>
+            </Tooltip>
 
-            <div
+            <Tooltip
               className="remainder DeathKnight-bg"
-              data-tip={`At capped energy for ${formatDuration(this.atCap / 1000)}`}
+              tagName="div"
+              content={`At capped energy for ${formatDuration(this.atCap / 1000)}`}
             >
               <img src="/img/overhealing.png" alt="Capped Energy" />
-            </div>
+            </Tooltip>
           </div>
         )}
         position={STATISTIC_ORDER.CORE(1)}

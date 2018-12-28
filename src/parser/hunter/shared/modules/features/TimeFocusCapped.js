@@ -6,6 +6,7 @@ import Icon from 'common/Icon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SPECS from 'game/SPECS';
+import Tooltip from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 
@@ -53,15 +54,17 @@ class TimeFocusCapped extends Analyzer {
         //Time not Focus-Capped: {Math.round((this.owner.fightDuration / 1000 - this.focusTracker.secondsCapped) * 100) / 100}s / {Math.floor(this.owner.fightDuration / 1000)}
         footer={(
           <div className="statistic-bar">
-            <div
+            <Tooltip
               className="stat-health-bg"
-              style={{ width: `${(100 - percentCapped)}%` }}
-              data-tip={`You spent <b>${100 - percentCapped}%</b> of your time, or <b>${Math.round(Math.floor(this.owner.fightDuration / 1000) - this.focusTracker.secondsCapped)}s</b> under the focus cap.`}
+              tagName="div"
+              wrapperStyles={{ width: `${(100 - percentCapped)}%` }}
+              content={<>You spent <b>{100 - percentCapped}%</b> of your time, or <b>{Math.round(Math.floor(this.owner.fightDuration / 1000) - this.focusTracker.secondsCapped)}s</b> under the focus cap.</>}
             />
-            <div
+            <Tooltip
               className="DeathKnight-bg"
-              style={{ width: `${percentCapped}%` }}
-              data-tip={`You spent <b>${percentCapped}%</b>, or <b>${Math.round(this.focusTracker.secondsCapped)}s</b> of your time focus capped.`}
+              tagName="div"
+              wrapperStyles={{ width: `${percentCapped}%` }}
+              content={<>You spent <b>{percentCapped}%</b>, or <b>{Math.round(this.focusTracker.secondsCapped)}s</b> of your time focus capped.</>}
             />
           </div>
         )}
