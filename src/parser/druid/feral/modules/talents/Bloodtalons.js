@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import HIT_TYPES from 'game/HIT_TYPES';
+import Tooltip from 'common/Tooltip';
 
 const debug = false;
 
@@ -250,9 +251,9 @@ class Bloodtalons extends Analyzer {
             {label}
           </div>
           <div className="flex-sub">
-            <dfn data-tip={tooltip}>
+            <Tooltip content={tooltip}>
               {formatPercentage(value / total, 0)}%
-            </dfn>
+            </Tooltip>
           </div>
         </div>
       );
@@ -297,7 +298,7 @@ class Bloodtalons extends Analyzer {
           label: spender.spell.name,
           spellId: spender.spell.id,
           value: spender.count,
-          tooltip: `<b>${spender.count}</b> charge${spender.count !== 1 ? 's' : ''} used on ${spender.spell.name}.`,
+          tooltip: <><b>{spender.count}</b> charge{spender.count !== 1 ? 's' : ''} used on {spender.spell.name}.</>,
         };
       });
 
@@ -305,10 +306,14 @@ class Bloodtalons extends Analyzer {
       color: CHART_COLOR_WASTED,
       label: 'Wasted',
       value: this.wasted,
-      tooltip: `<b>${this.wasted}</b> Bloodtalons charge${this.wasted !== 1 ? 's were' : ' was'} wasted.<br/>
-        <li>You lost <b>${this.overwritten}</b> by casting Regrowth or Entangling Roots when you already had charges.</li>
-        <li>You lost <b>${this.expired}</b> by allowing ${this.expired !== 1 ? 'them' : 'it'} to expire.</li>
-        <li>You lost <b>${this.remainAfterFight}</b> by having ${this.remainAfterFight !== 1 ? 'them' : 'it'} left over at the fight's end.</li>`,
+      tooltip: (<>
+        <b>{this.wasted}</b> Bloodtalons charge{this.wasted !== 1 ? 's were' : ' was'} wasted.<br />
+        <ul>
+          <li>You lost <b>{this.overwritten}</b> by casting Regrowth or Entangling Roots when you already had charges.</li>
+          <li>You lost <b>{this.expired}</b> by allowing {this.expired !== 1 ? 'them' : 'it'} to expire.</li>
+          <li>You lost <b>{this.remainAfterFight}</b> by having {this.remainAfterFight !== 1 ? 'them' : 'it'} left over at the fight's end.</li>
+        </ul>
+      </>),
     });
 
     return (
