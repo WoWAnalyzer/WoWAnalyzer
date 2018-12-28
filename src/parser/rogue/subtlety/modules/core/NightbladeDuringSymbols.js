@@ -32,7 +32,7 @@ class NightbladeDuringSymbols extends Analyzer {
       isGreaterThan: {
         minor: total.casts/10,
         average: total.casts/5,
-        major: total.casts
+        major: total.casts,
       },
       style: 'number',
     };
