@@ -61,9 +61,10 @@ class PlayerSelection extends React.PureComponent {
 
     players.forEach(player => {
       const character = charactersById[player.guid];
-      player.avatar = character ? `https://render-${character.region}.worldofwarcraft.com/character/${character.thumbnail}` : '/img/fallback-character.jpg';
-      player.background = character ? `https://render-${character.region}.worldofwarcraft.com/character/${character.thumbnail.replace('avatar','main')}` : '/img/fallback-character.jpg';
+      player.avatar = character && character.thumbnail ? `https://render-${character.region}.worldofwarcraft.com/character/${character.thumbnail.replace('avatar','inset')}` : '/img/fallback-character.jpg';
+      player.background = character && character.thumbnail ? `https://render-${character.region}.worldofwarcraft.com/character/${character.thumbnail.replace('avatar','main')}` : '/img/fallback-character.jpg';
       player.spec = SPECS[player.combatant.specID];
+      player.analysisUrl = makeUrl(player.id);
     });
     
     return (
@@ -75,7 +76,7 @@ class PlayerSelection extends React.PureComponent {
                 key={player.guid} 
                 player={player}
                 selectedPlayer={this.state.selectedPlayer}
-                analysisUrl={makeUrl(player.id)}
+                analysisUrl={player.analysisUrl}
                 handleClick={() => this.handlePlayerClick(player)}
               />
             );            
