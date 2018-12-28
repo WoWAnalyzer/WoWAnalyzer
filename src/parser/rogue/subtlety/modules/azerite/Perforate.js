@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
+import Events from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 /**
  * Perforate
@@ -14,13 +15,15 @@ class Perforate extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.PERFORATE.id);
-  }
-
-  on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.BACKSTAB.id) {
+    
+    if(!this.active){
       return;
     }
 
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BACKSTAB), this.reduceCd);
+  }
+
+  reduceCd(event) {
     if (this.spellUsable.isOnCooldown(SPELLS.SHADOW_BLADES.id)) {
       this.spellUsable.reduceCooldown(SPELLS.SHADOW_BLADES.id, 500);
     }
