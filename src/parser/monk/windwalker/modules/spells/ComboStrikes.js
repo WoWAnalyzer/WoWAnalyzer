@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import StatisticBox from 'interface/others/StatisticBox';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatNumber, formatDuration } from 'common/format';
+import Tooltip from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 
@@ -72,12 +73,11 @@ class ComboStrikes extends Analyzer {
       <StatisticBox
         position={STATISTIC_ORDER.CORE(2)}
         icon={<SpellIcon id={SPELLS.COMBO_STRIKES.id} />}
-        value={`${formatNumber(masteryDropEvents)}`}
+        value={formatNumber(masteryDropEvents)}
         label={(
-          <dfn data-tip="This is the number of times you incorrectly casted the same spell twice in a row. While on its own this may be a minor mistake, if you combine this with the Hit Combo talent, you will also lose all of the damage increase provided by that talent buff."
-          >
+          <Tooltip content="This is the number of times you incorrectly casted the same spell twice in a row. While on its own this may be a minor mistake, if you combine this with the Hit Combo talent, you will also lose all of the damage increase provided by that talent buff.">
             Mastery Benefit Mistakes
-          </dfn>
+          </Tooltip>
         )}
       >
         <div>

@@ -58,7 +58,8 @@ class FontOfLife extends Analyzer {
     return (
       <StatisticListBoxItem
         title={<SpellLink id={SPELLS.FONT_OF_LIFE.id} />}
-        value={<dfn data-tip={`Added a total of ${formatNumber(this.healing)} to your Essence Font Bolts.`}>{formatPercentage(this.healing / this.getAbility(SPELLS.ESSENCE_FONT_BUFF.id).healingEffective)} % of Essence Font Healing</dfn>}
+        value={`${formatPercentage(this.healing / this.getAbility(SPELLS.ESSENCE_FONT_BUFF.id).healingEffective)} % of Essence Font Healing`}
+        valueTooltip={`Added a total of ${formatNumber(this.healing)} to your Essence Font Bolts.`}
       />
     );
   }

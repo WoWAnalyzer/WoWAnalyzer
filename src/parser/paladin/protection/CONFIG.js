@@ -4,6 +4,7 @@ import { emallson } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import Tooltip from 'common/Tooltip';
 import retryingPromise from 'common/retryingPromise';
 import Warning from 'interface/common/Alert/Warning';
 
@@ -25,7 +26,7 @@ export default {
       </Warning>
 
       <Warning>
-        Because <SpellLink id={SPELLS.GRAND_CRUSADER.id} /> <dfn data-tip="The combatlog does not contain any events for random cooldown resets.">can't be tracked</dfn> properly, any cooldown information of <SpellLink id={SPELLS.AVENGERS_SHIELD.id} /> should be treated as <dfn data-tip="Whenever Avenger's Shield would be cast before its cooldown would have expired normally, the cooldown expiry will be set back to the last possible trigger of Grand Crusade. This may lead to higher times on cooldown than you actually experienced in-game.">educated guesses</dfn>.
+        Because <SpellLink id={SPELLS.GRAND_CRUSADER.id} /> <Tooltip content="The combatlog does not contain any events for random cooldown resets.">can't be tracked</Tooltip> properly, any cooldown information of <SpellLink id={SPELLS.AVENGERS_SHIELD.id} /> should be treated as <Tooltip content="Whenever Avenger's Shield would be cast before its cooldown would have expired normally, the cooldown expiry will be set back to the last possible trigger of Grand Crusade. This may lead to higher times on cooldown than you actually experienced in-game.">educated guesses</Tooltip>.
       </Warning>
     </>
   ),
