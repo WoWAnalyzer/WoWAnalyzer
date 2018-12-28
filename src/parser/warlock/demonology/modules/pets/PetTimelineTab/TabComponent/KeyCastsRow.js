@@ -27,6 +27,7 @@ class KeyCastsRow extends React.PureComponent {
             if (event.nearbyCasts) {
               tooltipInfo.push(`This cast overlaps with following casts: ${event.nearbyCasts.join(', ')}.`);
             }
+            const hasTooltip = tooltipInfo.length > 0;
             return (
               <div
                 key={index}
@@ -36,12 +37,19 @@ class KeyCastsRow extends React.PureComponent {
                   zIndex: (event.important) ? 20 : 10,
                 }}
               >
-                <Tooltip content={tooltipInfo.join('\n')} tagName="div" renderTooltip={tooltipInfo.length > 0}>
+                {hasTooltip ? (
+                  <Tooltip content={tooltipInfo.join('\n')} tagName="div">
+                    <SpellIcon
+                      id={event.abilityId}
+                      className={event.important && 'enhanced'}
+                    />
+                  </Tooltip>
+                ) : (
                   <SpellIcon
                     id={event.abilityId}
                     className={event.important && 'enhanced'}
                   />
-                </Tooltip>
+                )}
               </div>
             );
           }

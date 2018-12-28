@@ -25,6 +25,7 @@ class PetRow extends React.PureComponent {
           const maxWidth = totalWidth - barLeft; // don't expand beyond the container width
           const width = Math.min(maxWidth, ((pet.realDespawn || pet.expectedDespawn) - pet.spawn) / 1000 * secondWidth);
           const isSummonAbilityKnown = !!SPELLS[pet.summonAbility];
+          const hasTooltip = pet.meta.tooltip !== '';
           return (
             <>
               <div
@@ -36,13 +37,19 @@ class PetRow extends React.PureComponent {
                 }}
               >
                 {isSummonAbilityKnown && (
-                  <Tooltip content={pet.meta.tooltip} tagName="div" renderTooltip={pet.meta.tooltip !== ''}>
+                  hasTooltip ? (
+                    <Tooltip content={pet.meta.tooltip} tagName="div">
+                      <SpellIcon
+                        id={pet.summonAbility}
+                        className={pet.meta.iconClass}
+                      />
+                    </Tooltip>
+                  ) : (
                     <SpellIcon
                       id={pet.summonAbility}
                       className={pet.meta.iconClass}
                     />
-                  </Tooltip>
-                )}
+                  ))}
                 {!isSummonAbilityKnown && (
                   <Tooltip content={pet.name} tagName="div">
                     <Icon icon="inv_misc_questionmark" />

@@ -39,11 +39,6 @@ class Tooltip extends React.Component {
      * Default: false
      */
     hoverable: PropTypes.bool,
-    /**
-     * Boolean which states, if the tooltip should be rendered at all.
-     * Default: true
-     */
-    renderTooltip: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -52,7 +47,6 @@ class Tooltip extends React.Component {
     wrapperStyles: {},
     tooltipClassName: '',
     hoverable: false,
-    renderTooltip: true,
   };
 
   defaultWrapperStyle = {
@@ -68,7 +62,6 @@ class Tooltip extends React.Component {
       wrapperStyles,
       tooltipClassName,
       hoverable,
-      renderTooltip,
       ...others
     } = this.props;
     // Styles that are applied to the wrapper element
@@ -85,7 +78,6 @@ class Tooltip extends React.Component {
         direction="down"
         tipContentHover={hoverable}
         content={content}
-        renderTooltip={renderTooltip}
         {...others}>
         {children}
       </ReactTooltip>
