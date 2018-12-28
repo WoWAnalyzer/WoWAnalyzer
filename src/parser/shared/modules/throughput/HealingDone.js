@@ -115,23 +115,25 @@ class HealingDone extends Analyzer {
             </ThroughputPerformance>
           </div>
           <div className="flex-main" style={{ padding: 0 }}>
-            <AutoSizer>
-              {({ width, height }) => (
-                <XYPlot
-                  margin={0}
-                  width={width}
-                  height={height}
-                >
-                  <AreaSeries
-                    data={Object.keys(groupedData).map(x => ({
-                      x: x / width,
-                      y: groupedData[x],
-                    }))}
-                    className="primary"
-                  />
-                </XYPlot>
-              )}
-            </AutoSizer>
+            {perSecond > 0 && (
+              <AutoSizer>
+                {({ width, height }) => (
+                  <XYPlot
+                    margin={0}
+                    width={width}
+                    height={height}
+                  >
+                    <AreaSeries
+                      data={Object.keys(groupedData).map(x => ({
+                        x: x / width,
+                        y: groupedData[x],
+                      }))}
+                      className="primary"
+                    />
+                  </XYPlot>
+                )}
+              </AutoSizer>
+            )}
           </div>
         </div>
       </StatisticBar>

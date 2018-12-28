@@ -100,6 +100,7 @@ class DamageTaken extends Analyzer {
     }
 
     const groupedData = groupDataForChart(this.bySecond, this.owner.fightDuration);
+    const perSecond = this.total.effective / this.owner.fightDuration * 1000;
 
     return (
       <StatisticBar
@@ -120,29 +121,31 @@ class DamageTaken extends Analyzer {
             style={{ fontWeight: 500, width: 190, textAlign: 'center' }}
             data-tip={this.tooltip}
           >
-            {formatThousands(this.total.effective / this.owner.fightDuration * 1000)} DTPS
+            {formatThousands(perSecond)} DTPS
           </div>
           <div className={`flex-sub ${rankingColor(0)}`} style={{ width: 110, textAlign: 'center' }}>
             -
           </div>
           <div className="flex-main" style={{ padding: 0 }}>
-            <AutoSizer>
-              {({ width, height }) => (
-                <XYPlot
-                  margin={0}
-                  width={width}
-                  height={height}
-                >
-                  <AreaSeries
-                    data={Object.keys(groupedData).map(x => ({
-                      x: x / width,
-                      y: groupedData[x],
-                    }))}
-                    className="primary"
-                  />
-                </XYPlot>
-              )}
-            </AutoSizer>
+            {perSecond > 0 && (
+              <AutoSizer>
+                {({ width, height }) => (
+                  <XYPlot
+                    margin={0}
+                    width={width}
+                    height={height}
+                  >
+                    <AreaSeries
+                      data={Object.keys(groupedData).map(x => ({
+                        x: x / width,
+                        y: groupedData[x],
+                      }))}
+                      className="primary"
+                    />
+                  </XYPlot>
+                )}
+              </AutoSizer>
+            )}
           </div>
         </div>
       </StatisticBar>
