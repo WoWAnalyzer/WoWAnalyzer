@@ -13,6 +13,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer from 'parser/core/Analyzer';
 
 import DamageValue from '../DamageValue';
+import makeWclUrl from 'common/makeWclUrl';
 
 class DamageTaken extends Analyzer {
   static IGNORED_ABILITIES = [
@@ -101,6 +102,11 @@ class DamageTaken extends Analyzer {
 
     const groupedData = groupDataForChart(this.bySecond, this.owner.fightDuration);
     const perSecond = this.total.effective / this.owner.fightDuration * 1000;
+    const wclUrl = makeWclUrl(this.owner.report.code, {
+      fight: this.owner.fightId,
+      source: this.owner.playerId,
+      type: 'damage-taken',
+    });
 
     return (
       <StatisticBar
@@ -109,16 +115,14 @@ class DamageTaken extends Analyzer {
         style={{ marginBottom: 0 }} // since this is in a group, reducing margin should be fine
       >
         <div className="flex">
-          <div className="flex-sub" style={{ background: 'rgba(0, 0, 0, 0.1)' }}>
+          <div className="flex-sub icon">
             <img
               src="/img/shield.png"
               alt="Damage taken"
-              style={{ height: '1em', verticalAlign: 'baseline' }}
             />
           </div>
           <div
-            className="flex-sub"
-            style={{ fontWeight: 500, width: 190, textAlign: 'center' }}
+            className="flex-sub value"
             data-tip={this.tooltip}
           >
             {formatThousands(perSecond)} DTPS
@@ -126,26 +130,28 @@ class DamageTaken extends Analyzer {
           <div className={`flex-sub ${rankingColor(0)}`} style={{ width: 110, textAlign: 'center' }}>
             -
           </div>
-          <div className="flex-main" style={{ padding: 0 }}>
-            {perSecond > 0 && (
-              <AutoSizer>
-                {({ width, height }) => (
-                  <XYPlot
-                    margin={0}
-                    width={width}
-                    height={height}
-                  >
-                    <AreaSeries
-                      data={Object.keys(groupedData).map(x => ({
-                        x: x / width,
-                        y: groupedData[x],
-                      }))}
-                      className="primary"
-                    />
-                  </XYPlot>
-                )}
-              </AutoSizer>
-            )}
+          <div className="flex-main chart">
+            <a href={wclUrl}>
+              {perSecond > 0 && (
+                <AutoSizer>
+                  {({ width, height }) => (
+                    <XYPlot
+                      margin={0}
+                      width={width}
+                      height={height}
+                    >
+                      <AreaSeries
+                        data={Object.keys(groupedData).map(x => ({
+                          x: x / width,
+                          y: groupedData[x],
+                        }))}
+                        className="primary"
+                      />
+                    </XYPlot>
+                  )}
+                </AutoSizer>
+              )}
+            </a>
           </div>
         </div>
       </StatisticBar>
