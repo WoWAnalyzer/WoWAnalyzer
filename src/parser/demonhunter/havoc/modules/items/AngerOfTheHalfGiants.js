@@ -5,6 +5,7 @@ import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 import { formatNumber, formatPercentage } from 'common/format';
+import Tooltip from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -70,9 +71,9 @@ class AngerOfTheHalfGiants extends Analyzer {
 		return {
 			item: ITEMS.ANGER_OF_THE_HALF_GIANTS,
 			result: (
-				<dfn data-tip={`Total Fury Gained: <b>${formatNumber(this.furyGenerated)}</b>.`}>
-					<>{formatNumber(this.furyGenerated / this.dBCasts)} Fury gained per <SpellLink id={builderId} icon />.</>
-				</dfn>
+				<Tooltip content={<>Total Fury Gained: <b>{formatNumber(this.furyGenerated)}</b>.</>}>
+					{formatNumber(this.furyGenerated / this.dBCasts)} Fury gained per <SpellLink id={builderId} />.
+				</Tooltip>
 			),
 		};
 	}
@@ -91,7 +92,7 @@ class AngerOfTheHalfGiants extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You wasted {formatNumber(this.furyWasted)} of the Fury from <ItemLink id={ITEMS.ANGER_OF_THE_HALF_GIANTS.id} icon />.</>)
+      return suggest(<>You wasted {formatNumber(this.furyWasted)} of the Fury from <ItemLink id={ITEMS.ANGER_OF_THE_HALF_GIANTS.id} />.</>)
         .icon(ITEMS.ANGER_OF_THE_HALF_GIANTS.icon)
         .actual(`${formatPercentage(actual)}% fury wasted`)
         .recommended(`Wasting less than ${formatPercentage(recommended)}% is recommended.`);
