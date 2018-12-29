@@ -101,6 +101,7 @@ class HealingDone extends Analyzer {
           </div>
           <div
             className="flex-sub value"
+            style={{ width: 190 }}
             data-tip={`Total healing done: <b>${formatThousands(this.total.effective)}</b>`}
           >
             {formatThousands(perSecond)} HPS

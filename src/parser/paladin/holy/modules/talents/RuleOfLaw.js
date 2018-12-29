@@ -2,11 +2,17 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage } from 'common/format';
+import { formatPercentage, formatThousands } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import Statistic from 'interface/statistics/Statistic';
+import StatisticBar from 'interface/statistics/StatisticBar';
 import UptimeBar from 'interface/statistics/components/UptimeBar';
+import ThroughputPerformance from 'parser/shared/modules/throughput/DamageDone';
+import { UNAVAILABLE } from 'interface/report/Results/ThroughputPerformance';
+import rankingColor from 'common/getRankingColor';
+import { AutoSizer } from 'react-virtualized';
+import { AreaSeries, XYPlot } from 'react-vis/es';
+import SpellIcon from 'common/SpellIcon';
 
 class RuleOfLaw extends Analyzer {
   constructor(...args) {
@@ -45,21 +51,28 @@ class RuleOfLaw extends Analyzer {
     const history = this.selectedCombatant.getBuffHistory(SPELLS.RULE_OF_LAW_TALENT.id);
 
     return (
-      <Statistic
+      <StatisticBar
         position={STATISTIC_ORDER.CORE(31)}
+        wide
         size="small"
       >
-        <div className="pad">
-          <label>Rule of Law uptime</label>
-          <div className="value">{formatPercentage(this.uptime)}%</div>
-
-          <UptimeBar
-            uptimeHistory={history}
-            start={this.owner.fight.start_time}
-            end={this.owner.fight.end_time}
-          />
+        <div className="flex">
+          <div className="flex-sub icon">
+            <SpellIcon id={SPELLS.RULE_OF_LAW_TALENT.id} />
+          </div>
+          <div className="flex-sub value">
+            {formatPercentage(this.uptime, 0)}% <small>uptime</small>
+          </div>
+          <div className="flex-main chart" style={{ padding: 15 }}>
+            <UptimeBar
+              uptimeHistory={history}
+              start={this.owner.fight.start_time}
+              end={this.owner.fight.end_time}
+              style={{ height: '100%' }}
+            />
+          </div>
         </div>
-      </Statistic>
+      </StatisticBar>
     );
   }
 }
