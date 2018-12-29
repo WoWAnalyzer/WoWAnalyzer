@@ -19,7 +19,7 @@ import Unused from 'common/SPELLS/bfa/azeritetraits/__UNUSED';
 const AZERITE_SPELLS = Object.values({...General, ...Hunter, ...Paladin, ...Shaman, ...Warlock, ...Monk, ...DeathKnight, ...Priest, ...Druid, ...Unused});
 const FALLBACK_ICON = 'inv_misc_questionmark';
 const ITEM_SLOT = {
-  0: "Healm",
+  0: "Helm",
   2: "Shoulders",
   4: "Chest",
 };
