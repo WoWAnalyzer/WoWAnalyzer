@@ -6,6 +6,11 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2018-12-29'),
+    changes: 'Fixed a bug that caused a crash when player was wearing trinket that summons pets (like Vanquished Tendril of G\'huun).',
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-12-23'),
     changes: <>Added support for <SpellLink id={SPELLS.BALEFUL_INVOCATION.id} /> trait. Also fixed <SpellLink id={SPELLS.DEMONBOLT.id} /> icon in Soul Shard tab. </>,
     contributors: [Chizu],

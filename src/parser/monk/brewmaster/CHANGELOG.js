@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-12-29'),
+    changes: <>Added <SpellLink id={SPELLS.GIFT_OF_THE_OX_1.id} /> healing statistic.</>,
+    contributors: [emallson],
+  },
+  {
     date: new Date('2018-10-26'),
     changes: <>Added <SpellLink id={SPELLS.CELESTIAL_FORTUNE_HEAL.id} /> healing statistic and table.</>,
     contributors: [emallson],
