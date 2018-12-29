@@ -106,6 +106,14 @@ class MitigationCheck extends Analyzer {
     }, 'Checks if one of the following buffs or debuffs were up during the mechanic: <ul>') + '</ul>';
   }
 
+  get physicalChecks() {
+    return this.checksPhysical.filter(spell => this.checksPassedMap.get(spell) + this.checksFailedMap.get(spell) > 0);
+  }
+
+  get magicalChecks() {
+    return this.checksMagical.filter(spell => this.checksPassedMap.get(spell) + this.checksFailedMap.get(spell) > 0);
+  }
+
   statistic() {
     const failSum = Array.from(this.checksFailedMap.values()).reduce((total, val) => total + val, 0);
     const passSum = Array.from(this.checksPassedMap.values()).reduce((total, val) => total + val, 0);
@@ -113,30 +121,19 @@ class MitigationCheck extends Analyzer {
       return null;
     }
     const buffCheck = [...this.buffCheckPhysical, ...this.buffCheckMagical, ...this.buffCheckPhysAndMag];
-    const checks = [...this.checksPhysical, ...this.checksMagical];
     let spellIconId;
     if (buffCheck.length > 0) {
       spellIconId = buffCheck[0];
     } else {
       spellIconId = SPELLS.SHIELD_BLOCK_BUFF.id;
     }
-    const presentChecks = [];
-    checks.forEach(spell => {
-        if (this.checksPassedMap.get(spell) + this.checksFailedMap.get(spell) > 0) {
-          presentChecks.push(spell);
-        }
-      }
-    );
-    return (
-      <StatisticBox
-        icon={<SpellIcon id={spellIconId} />}
-        value={`${formatPercentage(passSum / (passSum + failSum))} %`}
-        label={`Soft mitigation checks passed.`}
-        tooltip={this.tooltip}
-      >
+
+    const physicalTable = (this.physicalChecks.length > 0) ? (
+      <>
         <table className="table table-condensed" style={{ fontWeight: 'bold' }}>
           <thead>
             <tr>
+              <th>Physical</th>
               <th>Ability</th>
               <th>Passed</th>
               <th>Failed</th>
@@ -144,8 +141,9 @@ class MitigationCheck extends Analyzer {
           </thead>
           <tbody>
             {
-              presentChecks.map(spell => (
+                this.physicalChecks.map(spell => (
                 <tr key={spell}>
+                  <td />
                   <th scope="row"><SpellLink id={spell} style={{ height: '2.5em' }} /></th>
                   <td>{formatNumber(this.checksPassedMap.get(spell))}</td>
                   <td>{formatNumber(this.checksFailedMap.get(spell))}</td>
@@ -154,6 +152,45 @@ class MitigationCheck extends Analyzer {
             }
           </tbody>
         </table>
+      </>
+    ) : null;
+
+    const magicalTable = (this.magicalChecks.length > 0) ? (
+      <>
+        <table className="table table-condensed" style={{ fontWeight: 'bold' }}>
+          <thead>
+            <tr>
+              <th>Magical</th>
+              <th>Ability</th>
+              <th>Passed</th>
+              <th>Failed</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              this.magicalChecks.map(spell => (
+                <tr key={spell}>
+                  <td />
+                  <th scope="row"><SpellLink id={spell} style={{ height: '2.5em' }} /></th>
+                  <td>{formatNumber(this.checksPassedMap.get(spell))}</td>
+                  <td>{formatNumber(this.checksFailedMap.get(spell))}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </>
+    ) : null;
+
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={spellIconId} />}
+        value={`${formatPercentage(passSum / (passSum + failSum))} %`}
+        label={`Soft mitigation checks passed.`}
+        tooltip={this.tooltip}
+      >
+        {physicalTable}
+        {magicalTable}
       </StatisticBox>
     );
   }
