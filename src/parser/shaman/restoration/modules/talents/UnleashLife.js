@@ -4,6 +4,7 @@ import { Doughnut as DoughnutChart } from 'react-chartjs-2';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
+import Tooltip from 'common/Tooltip';
 
 import StatisticsListBox, { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
@@ -165,7 +166,7 @@ class UnleashLife extends Analyzer {
     const numItems = items.length;
     return items.map(({ color, label, tooltip, value, spellId }, index) => {
       label = tooltip ? (
-        <dfn data-tip={tooltip}>{label}</dfn>
+        <Tooltip content={tooltip}>{label}</Tooltip>
       ) : label;
       label = spellId ? (
         <SpellLink id={spellId} icon={false}>{label}</SpellLink>
@@ -195,9 +196,9 @@ class UnleashLife extends Analyzer {
             {label}
           </div>
           <div className="flex-sub">
-            <dfn data-tip={value}>
+            <Tooltip content={value}>
               {formatPercentage(value / total, 0)}%
-            </dfn>
+            </Tooltip>
           </div>
         </div>
       );
