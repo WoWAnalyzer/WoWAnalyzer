@@ -447,6 +447,11 @@ export default {
     name: 'Shield of the Righteous',
     icon: 'ability_paladin_shieldofvengeance',
   },
+  AVENGERS_VALOR_BUFF: {
+    id: 197561,
+    name: 'Avenger\'s Valor',
+    icon: 'spell_holy_avengersshield',
+  },
   CONSECRATION_BUFF: {
     id: 188370,
     name: 'Consecration',
