@@ -4,12 +4,12 @@ import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import EventFilter from 'parser/core/EventFilter';
 import StatisticBox from 'interface/others/StatisticBox';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { calculatePrimaryStat } from 'common/stats';
 
 import { BASE_AGI, GIFT_OF_THE_OX_SPELLS } from '../../constants';
+import { GOTOX_GENERATED_EVENT } from '../../normalizers/GiftOfTheOx';
 
 const WDPS_BASE_ILVL = 310;
 const WDPS_310_AGI_POLEARM = 122.8;
@@ -47,7 +47,7 @@ export default class GiftOfTheOx extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.addEventListener(new EventFilter('tick').by(SELECTED_PLAYER).spell(GIFT_OF_THE_OX_SPELLS), this._orbGenerated);
+    this.addEventListener(GOTOX_GENERATED_EVENT, this._orbGenerated);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EXPEL_HARM), this._expelCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(GIFT_OF_THE_OX_SPELLS), this._gotoxHeal);
 
