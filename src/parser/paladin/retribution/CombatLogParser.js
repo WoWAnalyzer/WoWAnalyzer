@@ -1,5 +1,4 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/shared/modules/DamageDone';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import Haste from './modules/core/Haste';
 
@@ -22,13 +21,12 @@ import HolyPowerDetails from './modules/holypower/HolyPowerDetails';
 
 import RelentlessInquisitor from './modules/core/azeritetraits/RelentlessInquisitor';
 import RelentlessInquisitorStackHandler from './modules/core/azeritetraits/RelentlessInquisitorStackHandler';
-import DivineRight from './modules/core/azeritetraits/DivineRight';
+import LightsDecree from './modules/core/azeritetraits/LightsDecree';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     haste: Haste,
     // PaladinCore
-    damageDone: [DamageDone, { showStatistic: true }],
     globalCooldown: GlobalCooldown,
     artOfWar: ArtOfWar,
 
@@ -54,7 +52,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Azerite
     relentlessInquisitor: RelentlessInquisitor,
     relentlessInquisitorStackHandler: RelentlessInquisitorStackHandler,
-    divineRight: DivineRight,
+    lightsDecree: LightsDecree,
   };
 }
 

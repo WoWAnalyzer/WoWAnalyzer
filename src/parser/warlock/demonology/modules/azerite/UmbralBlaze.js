@@ -32,7 +32,7 @@ class UmbralBlaze extends Analyzer {
       <TraitStatisticBox
         trait={SPELLS.UMBRAL_BLAZE.id}
         value={<ItemDamageDone amount={this.damage} />}
-        tooltip={`Umbral Blaze damage: ${formatThousands(this.damage)}`}
+        tooltip={`${formatThousands(this.damage)} damage`}
       />
     );
   }

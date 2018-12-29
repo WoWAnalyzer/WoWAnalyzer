@@ -1,10 +1,8 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import { formatDuration, formatPercentage } from 'common/format';
-import StatisticBox from 'interface/others/StatisticBox';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
 /**
  * Barbed Shot increases your critical strike chance by 3% for 8 sec, stacking up to 3 times.
@@ -86,11 +84,9 @@ class ThrillOfTheHunt extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.THRILL_OF_THE_HUNT_TALENT.id} />}
+      <TalentStatisticBox
+        talent={SPELLS.THRILL_OF_THE_HUNT_TALENT.id}
         value={`${this.averageCritPercent}% average Crit`}
-        label="Thrill of the Hunt"
-        category={STATISTIC_CATEGORY.TALENTS}
       >
         <table className="table table-condensed">
           <thead>
@@ -112,7 +108,7 @@ class ThrillOfTheHunt extends Analyzer {
             ))}
           </tbody>
         </table>
-      </StatisticBox>
+      </TalentStatisticBox>
     );
   }
 

@@ -9,6 +9,7 @@ import SPELLS from 'common/SPELLS';
 
 const MAX_STACKS = 2;
 
+//TODO: Add a statistic to this module
 class SteadyFocus extends Analyzer {
 
   constructor(...args) {

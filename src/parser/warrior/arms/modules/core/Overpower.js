@@ -17,11 +17,9 @@ class OverpowerAnalyzer extends Analyzer {
 
   proc = 0;
   wastedProc = 0;
-  hasEP = false;
 
   constructor(...args) {
     super(...args);
-    this.hasEP = this.selectedCombatant.hasTrait(SPELLS.EXECUTIONERS_PRECISION_TRAIT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.OVERPOWER), this._onOverpowerCast);
   }
 
@@ -39,12 +37,6 @@ class OverpowerAnalyzer extends Analyzer {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
       event.meta.inefficientCastReason = 'This Overpower was used while already at 2 stacks and Mortal Strike was available';
-    } else if (this.hasEP) {
-      this.wastedProc += 1;
-
-      event.meta = event.meta || {};
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = 'This Overpower was used while already at 2 stacks and Mortal Strike was available.';
     }
   }
 

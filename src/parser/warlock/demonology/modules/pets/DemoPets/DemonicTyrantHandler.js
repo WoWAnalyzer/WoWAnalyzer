@@ -17,20 +17,18 @@ class DemonicTyrantHandler extends Analyzer {
 
   _lastCast = null;
   _hasDemonicConsumption = false;
-  _petsAffectedByDemonicTyrant = [];
 
   constructor(...args) {
     super(...args);
-    this._initializeDemonicTyrantPets();
     this._hasDemonicConsumption = this.selectedCombatant.hasTalent(SPELLS.DEMONIC_CONSUMPTION_TALENT.id);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SUMMON_DEMONIC_TYRANT), this.onDemonicTyrantCast);
     this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.DEMONIC_POWER), this.onDemonicPowerRemove);
   }
 
   onDemonicTyrantCast(event) {
-    // extend current pets (not random ones from ID/NP) by 15 seconds
+    // extend current pets by 15 seconds
     this._lastCast = event.timestamp;
-    const affectedPets = this.demoPets.currentPets.filter(pet => this._petsAffectedByDemonicTyrant.includes(pet.guid));
+    const affectedPets = this.demoPets.currentPets;
     test && this.log('Demonic Tyrant cast, affected pets: ', JSON.parse(JSON.stringify(affectedPets)));
     affectedPets.forEach(pet => {
       pet.extend();
@@ -59,22 +57,6 @@ class DemonicTyrantHandler extends Analyzer {
         imp.expectedDespawn = imp.spawn + PETS.WILD_IMP_HOG.duration + actualBuffTime;
         imp.pushHistory(event.timestamp, 'Updated expected despawn from', old, 'to', imp.expectedDespawn);
       });
-  }
-
-  _initializeDemonicTyrantPets() {
-    this._petsAffectedByDemonicTyrant = [
-      PETS.WILD_IMP_HOG.guid,
-      PETS.DREADSTALKER.guid,
-    ];
-    if (this.selectedCombatant.hasTalent(SPELLS.SUMMON_VILEFIEND_TALENT.id)) {
-      this._petsAffectedByDemonicTyrant.push(PETS.VILEFIEND.guid);
-    }
-    if (this.selectedCombatant.hasTalent(SPELLS.GRIMOIRE_FELGUARD_TALENT.id)) {
-      this._petsAffectedByDemonicTyrant.push(PETS.GRIMOIRE_FELGUARD.guid);
-    }
-    if (this.selectedCombatant.hasTalent(SPELLS.INNER_DEMONS_TALENT.id)) {
-      this._petsAffectedByDemonicTyrant.push(PETS.WILD_IMP_INNER_DEMONS.guid);
-    }
   }
 }
 

@@ -312,6 +312,11 @@ export default {
     icon: 'spell_sandstorm',
   },
   TRADEWINDS: {
+    id: 281841,
+    name: 'Tradewinds',
+    icon: 'ability_skyreach_wind',
+  },
+  TRADEWINDS_BUFF: {
     id: 281843,
     name: 'Tradewinds',
     icon: 'ability_skyreach_wind',

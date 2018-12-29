@@ -1,5 +1,4 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/shared/modules/DamageDone';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 import Abilities from './modules/Abilities';
@@ -35,6 +34,9 @@ import Chakrams from './modules/talents/Chakrams';
 import BirdOfPrey from './modules/talents/BirdOfPrey';
 import BornToBeWild from '../shared/modules/talents/BornToBeWild';
 import BindingShot from '../shared/modules/talents/BindingShot';
+import PheromoneBomb from './modules/talents/WildfireInfusion/PheromoneBomb';
+import ShrapnelBomb from './modules/talents/WildfireInfusion/ShrapnelBomb';
+import VolatileBomb from './modules/talents/WildfireInfusion/VolatileBomb';
 
 //Azerite Traits
 import WildernessSurvival from './modules/spells/azeritetraits/WildernessSurvival';
@@ -47,7 +49,6 @@ import TraitsAndTalents from './modules/features/TraitsAndTalents';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core statistics
-    damageDone: [DamageDone, { showStatistic: true }],
     abilities: Abilities,
 
     // Features
@@ -81,6 +82,9 @@ class CombatLogParser extends CoreCombatLogParser {
     birdOfPrey: BirdOfPrey,
     bornToBeWild: BornToBeWild,
     bindingShot: BindingShot,
+    pheromoneBomb: PheromoneBomb,
+    shrapnelBomb: ShrapnelBomb,
+    volatileBomb: VolatileBomb,
 
     //Azerite Traits
     wildernessSurvival: WildernessSurvival,

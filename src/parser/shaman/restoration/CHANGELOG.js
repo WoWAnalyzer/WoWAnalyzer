@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-12-17'),
+    changes: <>Updated modules to support various 8.1 changes, including the <SpellLink id={SPELLS.HIGH_TIDE_TALENT.id} /> redesign.</>,
+    contributors: [niseko],
+  },
+  {
     date: new Date('2018-11-15'),
     changes: <>The <SpellLink id={SPELLS.EARTHEN_WALL_TOTEM_TALENT.id} /> module now provides efficiency details on individual casts, and filters out healing on pets.</>,
     contributors: [niseko],
@@ -25,7 +30,7 @@ export default [
     changes: (
       <>Added support for all current Restoration Shaman azerite traits:
         <ul>
-          <li><SpellLink id={SPELLS.EBB_AND_FLOW.id} /></li>
+          <li>Ebb & Flow</li>
           <li><SpellLink id={SPELLS.OVERFLOWING_SHORES_TRAIT.id} /></li>
           <li><SpellLink id={SPELLS.SOOTHING_WATERS_TRAIT.id} /></li>
           <li><SpellLink id={SPELLS.SPOUTING_SPIRITS.id} /></li>

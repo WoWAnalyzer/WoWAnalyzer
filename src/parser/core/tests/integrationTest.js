@@ -1,25 +1,28 @@
-import { i18n } from 'interface/RootLocalizationProvider';
+import renderer from 'react-test-renderer';
+
 import ParseResults from 'parser/core/ParseResults';
 import BaseChecklist from 'parser/shared/modules/features/Checklist2/Module';
-import renderer from 'react-test-renderer';
+import EventsNormalizer from 'parser/core/EventsNormalizer';
+import { i18n } from 'interface/RootLocalizationProvider';
+
 import { loadLog, parseLog } from './log-tools';
 import { statistic, expectSnapshot } from './snapshotTest';
 
 function integrationStatistic(analyzer, parser) {
-  if(!analyzer.active) {
+  if (!analyzer.active) {
     return 'module inactive';
   }
-  if(!analyzer.statistic || analyzer.statistic() === undefined) {
+  if (!analyzer.statistic || analyzer.statistic() === undefined) {
     return 'module has no statistic method';
   }
   return statistic(analyzer, parser);
 }
 
 function integrationSuggestions(analyzer) {
-  if(!analyzer.active) {
+  if (!analyzer.active) {
     return 'module inactive';
   }
-  if(!analyzer.suggestions) {
+  if (!analyzer.suggestions) {
     return 'module has no suggestions';
   }
   const results = new ParseResults();
@@ -29,7 +32,7 @@ function integrationSuggestions(analyzer) {
 
 function checklist(parser) {
   const checklistModule = Object.values(parser.constructor.specModules).find(m => m.prototype instanceof BaseChecklist);
-  if(checklistModule === undefined) {
+  if (checklistModule === undefined) {
     return 'no checklist';
   }
   const result = parser.getModule(checklistModule).render();
@@ -59,16 +62,12 @@ function checklist(parser) {
  * @param {boolean} suppressWarn - Suppress `console.warn`
  * @param {boolean} suppressLog - Suppress `console.log`
  */
-export default function integrationTest(parserClass, filename, suppressLog=true, suppressWarn=true) {
+export default function integrationTest(parserClass, filename, suppressLog = true, suppressWarn = true) {
   return () => {
-    let log;
     let parser;
-
-    beforeAll(() => {
-      return loadLog(filename).then(res => { 
-        log = res; 
-        parser = parseLog(parserClass, log, suppressLog, suppressWarn);
-      });
+    beforeAll(async () => {
+      const log = await loadLog(filename);
+      parser = parseLog(parserClass, log, suppressLog, suppressWarn);
     });
 
     it('should match the checklist snapshot', () => {
@@ -77,10 +76,13 @@ export default function integrationTest(parserClass, filename, suppressLog=true,
 
     describe('analyzers', () => {
       Object.values(parserClass.specModules).forEach(moduleClass => {
-        if(moduleClass instanceof Array) {
+        if (moduleClass instanceof Array) {
           // cannot call parser._getModuleClass at this point in
           // execution, so we handle the case manually
           moduleClass = moduleClass[0];
+        }
+        if (moduleClass.prototype instanceof EventsNormalizer) {
+          return; // Normalizers have no output, their effects are irrelevant so long as the results of analyzers stay the same
         }
         describe(moduleClass.name, () => {
           it('matches the statistic snapshot', () => expectSnapshot(parser, moduleClass, integrationStatistic));

@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
-import HealingDone from 'parser/shared/modules/HealingDone';
+import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';

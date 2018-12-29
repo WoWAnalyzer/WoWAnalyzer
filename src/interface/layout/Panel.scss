@@ -27,7 +27,7 @@
     padding: 0;
   }
   .panel-body.pad {
-    padding: 0 30px;
+    padding: 0 30px 30px;
   }
   .panel-body {
     > ul {
@@ -51,6 +51,9 @@
   }
   .panel-body:last-of-type > ul {
     margin-bottom: 30px;
+  }
+  .panel-body:last-of-type > ul > li:not(.expandable):last-of-type, .panel-body:last-of-type > ul > li.expandable:last-of-type .meta {
+    padding-bottom: 0;
   }
 }
 .panel-cell:not(:first-child) {

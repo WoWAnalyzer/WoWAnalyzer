@@ -12,7 +12,7 @@ import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 import DemoPets from '../pets/DemoPets';
 
-const BONUS_DAMAGE_PER_PET = 0.05;
+const BONUS_DAMAGE_PER_PET = 0.04;
 const MAX_TRAVEL_TIME = 3000; // Shadow Bolt is the slowest, takes around 2 seconds to land from max distance, add a little more to account for target movement
 const debug = false;
 /*
@@ -82,11 +82,11 @@ class SacrificedSouls extends Analyzer {
     }
     return (
       <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.SACRIFICED_SOULS_TALENT.id} /> bonus damage</>}
-        value={`${formatThousands(this.totalBonusDamage)}${hasPS ? '*' : ''}`}
-        valueTooltip={`${this.owner.formatItemDamageDone(this.totalBonusDamage)}<br />
-                  Bonus Shadow Bolt damage: ${formatThousands(this._shadowBoltDamage)}<br />
-                  Bonus Demonbolt damage: ${formatThousands(this._demonboltDamage)}
+        title={<><SpellLink id={SPELLS.SACRIFICED_SOULS_TALENT.id} /> bonus dmg</>}
+        value={`${this.owner.formatItemDamageDone(this.totalBonusDamage)}${hasPS ? '*' : ''}`}
+        valueTooltip={`${formatThousands(this.totalBonusDamage)} bonus damage<br />
+                  Bonus Shadow Bolt damage: ${formatThousands(this._shadowBoltDamage)} (${this.owner.formatItemDamageDone(this._shadowBoltDamage)})<br />
+                  Bonus Demonbolt damage: ${formatThousands(this._demonboltDamage)} (${this.owner.formatItemDamageDone(this._demonboltDamage)})
                   ${powerSiphonTooltip}`}
       />
     );

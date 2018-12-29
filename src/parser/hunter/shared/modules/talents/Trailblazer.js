@@ -20,12 +20,12 @@ class Trailblazer extends Analyzer {
     //This calculates the uptime over the course of the encounter of Trailblazer
     return this.selectedCombatant.getBuffUptime(SPELLS.TRAILBLAZER_BUFF.id) / this.owner.fightDuration;
   }
+
   statistic() {
     return (
       <TalentStatisticBox
         talent={SPELLS.TRAILBLAZER_TALENT.id}
-        value={`${formatPercentage(this.percentUptime)}%`}
-        label="Trailblazer uptime"
+        value={`${formatPercentage(this.percentUptime)}% uptime`}
       />
     );
   }

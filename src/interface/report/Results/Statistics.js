@@ -18,6 +18,10 @@ class Statistics extends React.PureComponent {
     adjustForDowntime: false,
   };
 
+  sortByPosition(a, b) {
+    return a.props.position - b.props.position;
+  }
+
   renderFightDowntimeToggle() {
     return (
       <div className="toggle-control" style={{ marginTop: 5 }}>
@@ -42,7 +46,6 @@ class Statistics extends React.PureComponent {
       default: throw new Error(`Unknown category: ${key}`);
     }
   }
-
   render() {
     const { parser, children } = this.props;
 
@@ -52,6 +55,8 @@ class Statistics extends React.PureComponent {
       obj[category].push(statistic);
       return obj;
     }, {});
+    const panels = groups[STATISTIC_CATEGORY.PANELS];
+    delete groups[STATISTIC_CATEGORY.PANELS];
 
     return (
       <>
@@ -66,11 +71,17 @@ class Statistics extends React.PureComponent {
               </StatisticsSectionTitle>
 
               <Masonry className="row statistics">
-                {statistics.sort((a, b) => a.props.position - b.props.position)}
+                {/* Masonry uses the first div to determine its column width */}
+                <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12" />
+                {/* And we need this second div to use the rest of the space so masonry layouts the first item first */}
+                <div className="col-lg-9 col-md-8 col-sm-6 hidden-xs" />
+                {statistics.sort(this.sortByPosition)}
               </Masonry>
             </React.Fragment>
           );
         })}
+
+        {panels && panels.sort(this.sortByPosition)}
       </>
     );
   }

@@ -51,6 +51,11 @@ class Headers extends React.PureComponent {
         name: <Trans>Statistics</Trans>,
         url: 'statistics',
       },
+      {
+        icon: TimelineIcon,
+        name: <Trans>Timeline</Trans>,
+        url: 'timeline',
+      },
       ...tabs.sort((a, b) => a.order - b.order).map(tab => ({
         icon: tab.icon || TimelineIcon,
         name: tab.title,

@@ -13,7 +13,7 @@ import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import DemoPets from '../pets/DemoPets';
 import { isWildImp } from '../pets/helpers';
 
-const DAMAGE_BONUS_PER_ENERGY = 0.0025; // 0.25% per point of energy
+const DAMAGE_BONUS_PER_ENERGY = 0.005; // 0.5% per point of energy
 const debug = false;
 
 class DemonicConsumption extends Analyzer {
@@ -45,9 +45,9 @@ class DemonicConsumption extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<>Bonus <SpellLink id={SPELLS.DEMONIC_CONSUMPTION_TALENT.id} /> damage</>}
-        value={formatThousands(this.damage)}
-        valueTooltip={this.owner.formatItemDamageDone(this.damage)}
+        title={<>Bonus <SpellLink id={SPELLS.DEMONIC_CONSUMPTION_TALENT.id} /> dmg</>}
+        value={this.owner.formatItemDamageDone(this.damage)}
+        valueTooltip={`${formatThousands(this.damage)} damage`}
       />
     );
   }

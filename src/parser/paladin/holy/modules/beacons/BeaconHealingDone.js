@@ -3,7 +3,7 @@ import React from 'react';
 import Panel from 'interface/others/Panel';
 import Analyzer from 'parser/core/Analyzer';
 import HealingValue from 'parser/shared/modules/HealingValue';
-import HealingDone from 'parser/shared/modules/HealingDone';
+import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 
 import BeaconHealSource from './BeaconHealSource';
 import BeaconHealingBreakdown from './BeaconHealingBreakdown';

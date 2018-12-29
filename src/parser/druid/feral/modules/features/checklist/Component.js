@@ -60,7 +60,6 @@ class FeralDruidChecklist extends React.PureComponent {
           🗵 Cast efficiency of Feral Frenzy (if talented)
           🗵 Only use Swipe if it hits multiple enemies
           🗵 Don't waste combo points by generating more when full
-          Would be nice to advise against using single target abilities when there's many enemies present, but difficult to consistently detect that situation from the logs.
         */}
         <Rule
           name="Generate combo points"
@@ -105,6 +104,7 @@ class FeralDruidChecklist extends React.PureComponent {
           🗵 Uptime for Savage Roar buff (if talented)
           🗵 Ferocious Bite only at energy >= 50
           🗵 Don't cast Rip when Ferocious Bite could have refreshed it, unless you're upgrading the snapshot
+          🗵 Don't reduce duration of Rip by refreshing early and with low combo points
           🗵 Don't use finishers at less than 5 combo points
         */}
         <Rule
@@ -136,6 +136,14 @@ class FeralDruidChecklist extends React.PureComponent {
               </>
             )}
             thresholds={thresholds.ripShouldBeBite}
+          />
+          <Requirement
+            name={(
+              <>
+                <SpellLink id={SPELLS.RIP.id} /> which reduced duration by refreshing early with low combo points
+              </>
+            )}
+            thresholds={thresholds.ripDurationReduction}
           />
           <Requirement
             name={(
@@ -296,14 +304,13 @@ class FeralDruidChecklist extends React.PureComponent {
 
         {/*Pick the right talents (if player is using talents that may be unsuitable)
           🗵 Only use Predator if it's allowing you to reset Tiger's Fury by killing adds
-          🗵 Only use Brutal Slash if on average it hits more than n targets (exact value of n needs simulation to find and is likely to change with gear and other talents, but when hitting just 1 target it's definitely the wrong talent.)
         */}
-        {(combatant.hasTalent(SPELLS.PREDATOR_TALENT.id) || combatant.hasTalent(SPELLS.BRUTAL_SLASH_TALENT.id)) && (
+        {(combatant.hasTalent(SPELLS.PREDATOR_TALENT.id)) && (
             <Rule
               name="Pick the most suitable Talents"
               description={(
                 <>
-                  The <SpellLink id={SPELLS.PREDATOR_TALENT.id} /> and <SpellLink id={SPELLS.BRUTAL_SLASH_TALENT.id} /> talents are only effective on fights with multiple enemies and should be swapped out for single target encounters.
+                  The <SpellLink id={SPELLS.PREDATOR_TALENT.id} /> talent is generally only effective on fights with multiple enemies and should be swapped out for single target encounters.
                 </>
               )}
             >
@@ -315,16 +322,6 @@ class FeralDruidChecklist extends React.PureComponent {
                   </>
                 )}
                 thresholds={thresholds.predatorWrongTalent}
-              />
-            )}
-            {combatant.hasTalent(SPELLS.BRUTAL_SLASH_TALENT.id) && (
-              <Requirement
-                name={(
-                  <>
-                    Average targets hit by <SpellLink id={SPELLS.BRUTAL_SLASH_TALENT.id} />
-                  </>
-                )}
-                thresholds={thresholds.brutalSlashWrongTalent}
               />
             )}
             

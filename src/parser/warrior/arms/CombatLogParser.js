@@ -1,5 +1,4 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/shared/modules/DamageDone';
 // Normalizers
 import OverpowerStacks from './normalizers/OverpowerStacks';
 import CrushingAssaultBuff from './normalizers/CrushingAssaultBuff';
@@ -41,10 +40,10 @@ import Warbreaker from './modules/talents/Warbreaker';
 import Avatar from './modules/talents/Avatar';
 import Ravager from './modules/talents/Ravager';
 // Azerite Traits
-import ExecutionersPrecision from './modules/spells/azeritetraits/ExecutionersPrecision';
 import SeismicWave from './modules/spells/azeritetraits/SeismicWave';
 import TestOfMight from './modules/spells/azeritetraits/TestOfMight';
 import CrushingAssault from './modules/spells/azeritetraits/CrushingAssault';
+import StrikingTheAnvil from './modules/spells/azeritetraits/StrikingTheAnvil';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -53,7 +52,6 @@ class CombatLogParser extends CoreCombatLogParser {
     crushingAssaulBuff: CrushingAssaultBuff,
 
     // WarriorCore
-    damageDone: [DamageDone, { showStatistic: true }],
     abilities: Abilities,
 
     // Features
@@ -99,10 +97,10 @@ class CombatLogParser extends CoreCombatLogParser {
     ravager: Ravager,
 
     // Azerite traits
-    executionersPrecision: ExecutionersPrecision,
     seismicWave: SeismicWave,
     testOfMight: TestOfMight,
     crushingAssault: CrushingAssault,
+    strikingTheAnvil: StrikingTheAnvil,
   };
 }
 

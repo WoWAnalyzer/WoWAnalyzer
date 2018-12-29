@@ -29,10 +29,20 @@ import About from './About';
 import Suggestions from './Suggestions';
 import Statistics from './Statistics';
 import StatisticsSectionTitle from './StatisticsSectionTitle';
+import Timeline from './Timeline/Container';
 import './Results.scss';
 
 const DevelopmentTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'DevelopmentTab' */ 'interface/others/DevelopmentTab').then(exports => exports.default)));
 const EventsTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'EventsTab' */ 'interface/others/EventsTab').then(exports => exports.default)));
+
+const CORE_TABS = {
+  OVERVIEW: 'overview',
+  STATISTICS: 'statistics',
+  TIMELINE: 'timeline',
+  CHARACTER: 'character',
+  EVENTS: 'events',
+  ABOUT: 'about',
+};
 
 class Results extends React.PureComponent {
   static propTypes = {
@@ -106,9 +116,9 @@ class Results extends React.PureComponent {
     const config = this.context.config;
 
     switch (selectedTab) {
-      case 'overview':
+      case CORE_TABS.OVERVIEW:
         return (
-          <>
+          <div className="container">
             <div className="panel">
               <div className="panel-heading">
                 <h1>Checklist</h1>
@@ -119,27 +129,49 @@ class Results extends React.PureComponent {
               </div>
             </div>
             <Suggestions issues={results.issues} />
-          </>
+          </div>
         );
-      case 'statistics':
+      case CORE_TABS.STATISTICS:
         return (
-          <>
+          <div className="container">
             <Statistics parser={parser}>{results.statistics}</Statistics>
             <StatisticsSectionTitle>Abilities</StatisticsSectionTitle>
             <CastEfficiencyComponent
               categories={abilities.constructor.SPELL_CATEGORIES}
               abilities={castEfficiency.getCastEfficiency()}
             />
-          </>
+          </div>
         );
-      case 'events':
-        return <EventsTab parser={parser} />;
-      case 'character':
-        return <>{characterTab.render()}{encounterPanel.render()}</>;
-      case 'about':
-        return <><About config={config} /><ChangelogTab /></>;
+      case CORE_TABS.TIMELINE:
+        return (
+          <Timeline parser={parser} />
+        );
+      case CORE_TABS.EVENTS:
+        return (
+          <div className="container">
+            <EventsTab parser={parser} />
+          </div>
+        );
+      case CORE_TABS.CHARACTER:
+        return (
+          <div className="container">
+            {characterTab.render()}
+            {encounterPanel.render()}
+          </div>
+        );
+      case CORE_TABS.ABOUT:
+        return (
+          <div className="container">
+            <About config={config} />
+            <ChangelogTab />
+          </div>
+        );
       default:
-        return results.tabs.find(tab => tab.url === selectedTab).render();
+        return (
+          <div className="container">
+            {results.tabs.find(tab => tab.url === selectedTab).render()}
+          </div>
+        );
     }
   }
   render() {
@@ -167,26 +199,22 @@ class Results extends React.PureComponent {
           tabs={results.tabs}
         />
 
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12" key={this.state.adjustForDowntime}>
-              {this.renderContent(selectedTab, results)}
-            </div>
-          </div>
+        {this.renderContent(selectedTab, results)}
 
-          {!premium && (
+        {!premium && (
+          <div className="container">
             <div className="text-center" style={{ marginTop: 40, marginBottom: -40 }}>
               <Ad format="leaderboard" />
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  selectedTab: getResultTab(state) || 'overview',
+  selectedTab: getResultTab(state) || CORE_TABS.OVERVIEW,
   premium: hasPremium(state),
 });
 

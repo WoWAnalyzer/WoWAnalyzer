@@ -1,0 +1,26 @@
+@import '../../../layout/Theme';
+
+.boring-spell-value {
+  > .icon {
+    padding: 15px 18px;
+    background: rgba(0, 0, 0, 0.1);
+
+    img {
+      width: 56px;
+      height: 56px;
+      margin-top: 0;
+      box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    }
+  }
+  > .value {
+    padding: 15px 18px;
+    line-height: 1;
+
+    > div {
+      margin: 7px 0 5px 0;
+    }
+    > small {
+      display: block;
+    }
+  }
+}

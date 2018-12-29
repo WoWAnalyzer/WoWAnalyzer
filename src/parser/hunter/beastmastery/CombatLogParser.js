@@ -1,5 +1,4 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/shared/modules/DamageDone';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import SpellUsable from './modules/core/SpellUsable';
 import Checklist from './modules/checklist/Module';
@@ -35,7 +34,6 @@ import AnimalCompanion from './modules/talents/AnimalCompanion';
 
 //Spells
 import BeastCleave from './modules/spells/BeastCleave';
-import MultiShotSingleTarget from "./modules/spells/MultiShotSingleTarget";
 import CobraShot from './modules/spells/CobraShot';
 import BarbedShot from './modules/spells/BarbedShot';
 import AspectOfTheWild from './modules/spells/AspectOfTheWild';
@@ -53,11 +51,9 @@ import DanceOfDeath from './modules/spells/azeritetraits/DanceOfDeath';
 import HazeOfRage from './modules/spells/azeritetraits/HazeOfRage';
 import FeedingFrenzy from './modules/spells/azeritetraits/FeedingFrenzy';
 import PrimalInstincts from './modules/spells/azeritetraits/PrimalInstincts';
-import PackAlpha from './modules/spells/azeritetraits/PackAlpha';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
-    damageDone: [DamageDone, { showStatistic: true }],
     globalCooldown: GlobalCooldown,
     spellUsable: SpellUsable,
     checklist: Checklist,
@@ -77,7 +73,6 @@ class CombatLogParser extends CoreCombatLogParser {
     //Spells
     bestialWrath: BestialWrath,
     beastCleave: BeastCleave,
-    multiShotSingleTarget: MultiShotSingleTarget,
     cobraShot: CobraShot,
     barbedShot: BarbedShot,
     aspectOfTheWild: AspectOfTheWild,
@@ -111,7 +106,6 @@ class CombatLogParser extends CoreCombatLogParser {
     hazeOfRage: HazeOfRage,
     feedingFrenzy: FeedingFrenzy,
     primalInstincts: PrimalInstincts,
-    packAlpha: PackAlpha,
   };
 }
 

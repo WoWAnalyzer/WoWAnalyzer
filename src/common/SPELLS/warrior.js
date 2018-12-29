@@ -202,6 +202,16 @@ export default {
     name: 'Execute',
     icon: 'inv_sword_48',
   },
+  EXECUTE_DAMAGE_FURY: {
+    id: 280849,
+    name: 'Execute',
+    icon: 'inv_sword_48',
+  },
+  EXECUTE_DAMAGE_OH_FURY: {
+    id: 163558,
+    name: 'Execute',
+    icon: 'inv_sword_48',
+  },
   ODYNS_FURY: {
     id: 205545,
     name: 'Odyn\'s Fury',
@@ -242,6 +252,21 @@ export default {
     name: 'Whirlwind',
     icon: 'ability_whirlwind',
   },
+  WHIRLWIND_FURY_ENERGIZE: {
+    id: 280715,
+    name: 'Whirlwind',
+    icon: 'ability_whirlwind',
+  },
+  WHIRLWIND_FURY_DAMAGE_MH: {
+    id: 199667,
+    name: 'Whirlwind',
+    icon: 'ability_whirlwind',
+  },
+  WHIRLWIND_FURY_DAMAGE_OH: {
+    id: 44949,
+    name: 'Whirlwind',
+    icon: 'ability_whirlwind',
+  },
   //Mitigation Spells
   ENRAGED_REGENERATION: {
     id: 184364,
@@ -265,6 +290,11 @@ export default {
     name: 'Enrage',
     icon: 'spell_shadow_unholyfrenzy',
   },
+  ENDLESS_RAGE_ENERGISE: {
+    id: 280283,
+    name: 'Endless Rage',
+    icon: 'ability_warrior_endlessrage',
+  },  
   FROTHING_BERSERKER: {
     id: 215572,
     name: 'Frothing Berserker',
@@ -276,6 +306,11 @@ export default {
     icon: 'inv_sword_48',
   },
   // Talents
+  SUDDEN_DEATH_TALENT_FURY_BUFF: { 
+    id: 280776, 
+    name: "Sudden Death", 
+    icon: "abilty_warrior_improveddisciplines",
+  },
   BLADESTORM_OH_DAMAGE: {
     id: 95738,
     name: 'Bladestorm',

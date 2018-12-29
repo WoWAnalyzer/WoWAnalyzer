@@ -8,7 +8,7 @@ body {
   line-height: 1.8;
   font-family: 'Open Sans', 'Century Gothic', sans-serif;
   text-rendering: optimizeLegibility;
-  background-color: #171313;
+  background-color: $backgroundColor;
   /* Source: http://www.heropatterns.com/ */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23000000' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
   // While I think this fits the theme, it makes the background seem really disconnected from the header:
@@ -638,3 +638,10 @@ code.inactive {
 
 @import './Game.scss';
 @import './Panel.scss';
+
+.rv-xy-plot__series--line.primary {
+  stroke: $primaryColor !important;
+  stroke-width: 1px;
+  fill: transparentize($primaryColor, 0.85) !important;
+  transform: translateY(1px); // remove the 0 line
+}

@@ -24,11 +24,6 @@ export default {
     name: 'Arcane Annihilation',
     icon: 'spell_arcane_blast',
   },
-  ARCANE_FLURRY: {
-    id: 273265,
-    name: 'Arcane Flurry',
-    icon: 'ability_impalingbolt',
-  },
   ARCANE_PRESSURE: {
     id: 274594,
     name: 'Arcane Pressure',
@@ -109,11 +104,6 @@ export default {
     name: 'Blood Siphon',
     icon: 'ability_deathknight_deathsiphon2',
   },
-  BLOODCRAZE: {
-    id: 269233,
-    name: 'Bloodcraze',
-    icon: 'spell_nature_bloodlust',
-  },
   BLOODLINE: {
     id: 269384,
     name: 'Bloodline',
@@ -164,11 +154,6 @@ export default {
     name: 'Coordinated Restoration',
     icon: 'inv_misc_herb_felblossom',
   },
-  CRAGGY_BARK: {
-    id: 276157,
-    name: 'Craggy Bark',
-    icon: 'spell_nature_stoneclawtotem',
-  },
   CRITICAL_FLASH: {
     id: 273136,
     name: 'Critical Flash',
@@ -178,11 +163,6 @@ export default {
     id: 269368,
     name: 'Dark Grudge',
     icon: 'spell_deathknight_butcher2',
-  },
-  DAUNTLESS_DIVINITY: {
-    id: 273553,
-    name: 'Dauntless Divinity',
-    icon: 'spell_holy_heroism',
   },
   DAWNING_SUN: {
     id: 276154,
@@ -198,11 +178,6 @@ export default {
     id: 272824,
     name: 'Deafening Crash',
     icon: 'spell_nature_thunderclap',
-  },
-  DEATHBLOOM: {
-    id: 275974,
-    name: 'Deathbloom',
-    icon: 'spell_shadow_seedofdestruction',
   },
   DECIMATE: {
     id: 265145,
@@ -244,11 +219,6 @@ export default {
     name: 'Double Dose',
     icon: 'ability_rogue_shadowstrikes',
   },
-  ECHO_OF_THE_ELEMENTALS: {
-    id: 275381,
-    name: 'Echo of the Elementals',
-    icon: 'spell_fire_elemental_totem',
-  },
   ECHOING_HOWL: {
     id: 275917,
     name: 'Echoing Howl',
@@ -263,11 +233,6 @@ export default {
     id: 264121,
     name: 'Electropotence',
     icon: 'ability_shaman_stormstrike',
-  },
-  EMBRACE_OF_THE_DARKFALLEN: {
-    id: 275924,
-    name: 'Embrace of the Darkfallen',
-    icon: 'spell_shadow_lifedrain',
   },
   EMBRACE_OF_THE_SANDS: {
     id: 264600,
@@ -294,11 +259,6 @@ export default {
     name: 'Excoriate',
     icon: 'ability_warlock_impoweredimp',
   },
-  EXECUTIONERS_PRECISION: {
-    id: 272870,
-    name: 'Executioner\'s Precision',
-    icon: 'ability_warrior_savageblow',
-  },
   EXPURGATION: {
     id: 273481,
     name: 'Expurgation',
@@ -308,11 +268,6 @@ export default {
     id: 275726,
     name: 'Eye of the Void',
     icon: 'inv_misc_eye_03',
-  },
-  FESTERING_DOOM: {
-    id: 272739,
-    name: 'Festering Doom',
-    icon: 'spell_shadow_deathcoil',
   },
   FESTERMIGHT: {
     id: 274081,
@@ -354,11 +309,6 @@ export default {
     name: 'Fortifying Auras',
     icon: 'spell_holy_auramastery',
   },
-  FUNGAL_ESSENCE: {
-    id: 272802,
-    name: 'Fungal Essence',
-    icon: 'inv_misc_herb_talandrasrose',
-  },
   FURIOUS_GAZE: {
     id: 273231,
     name: 'Furious Gaze',
@@ -369,20 +319,10 @@ export default {
     name: 'Fury of the Sands',
     icon: 'spell_sandbolt',
   },
-  GAPING_MAW: {
-    id: 275972,
-    name: 'Gaping Maw',
-    icon: 'ability_demonhunter_soulcleave',
-  },
   GATHERING_STORM: {
     id: 273415,
     name: 'Gathering Storm',
     icon: 'ability_warrior_bladestorm',
-  },
-  GLACIAL_CONTAGION: {
-    id: 274074,
-    name: 'Glacial Contagion',
-    icon: 'spell_deathknight_empowerruneblade2',
   },
   HARROWING_DECAY: {
     id: 275929,
@@ -423,11 +363,6 @@ export default {
     id: 272956,
     name: 'Heavy Rain',
     icon: 'spell_shadow_rainoffire',
-  },
-  HORRID_EXPULSION: {
-    id: 273095,
-    name: 'Horrid Expulsion',
-    icon: 'achievement_boss_festergutrotface',
   },
   ICY_CITADEL: {
     id: 272718,
@@ -474,11 +409,6 @@ export default {
     name: 'Invigorating Brew',
     icon: 'ability_monk_vivify',
   },
-  IRON_FISTS: {
-    id: 272804,
-    name: 'Iron Fists',
-    icon: 'monk_ability_fistoffury',
-  },
   IRON_JAWS: {
     id: 276021,
     name: 'Iron Jaws',
@@ -493,11 +423,6 @@ export default {
     id: 273093,
     name: 'Latent Chill',
     icon: 'spell_deathknight_empowerruneblade2',
-  },
-  LAVA_SHOCK: {
-    id: 273453,
-    name: 'Lava Shock',
-    icon: 'spell_nature_earthshock',
   },
   LIFEBLOOD: {
     id: 274419,
@@ -533,11 +458,6 @@ export default {
     id: 274057,
     name: 'Marrowblood',
     icon: 'spell_deathknight_butcher2',
-  },
-  MARTYRS_BREATH: {
-    id: 273027,
-    name: 'Martyr\'s Breath',
-    icon: 'ability_paladin_lightofthemartyr',
   },
   MASTERFUL_INSTINCTS: {
     id: 273344,
@@ -614,11 +534,6 @@ export default {
     name: 'Pillar of Light',
     icon: 'spell_holy_holysmite',
   },
-  POISONED_WIRE: {
-    id: 276083,
-    name: 'Poisoned Wire',
-    icon: 'ability_rogue_garrote',
-  },
   POWER_OF_THE_MOON: {
     id: 273389,
     name: 'Power of the Moon',
@@ -633,11 +548,6 @@ export default {
     id: 275602,
     name: 'Prayerful Litany',
     icon: 'spell_holy_prayerofhealing02',
-  },
-  PREHEAT: {
-    id: 273331,
-    name: 'Preheat',
-    icon: 'spell_fire_fireball',
   },
   PRIMAL_PRIMER: {
     id: 273005,
@@ -654,20 +564,10 @@ export default {
     name: 'Pulverizing Blows',
     icon: 'ability_warrior_rampage',
   },
-  RAKING_FEROCITY: {
-    id: 273339,
-    name: 'Raking Ferocity',
-    icon: 'ability_druid_disembowel',
-  },
   RAKING_TALONS: {
     id: 269256,
     name: 'Raking Talons',
     icon: 'ability_hunter_raptorstrike',
-  },
-  REINFORCED_PLATING: {
-    id: 275864,
-    name: 'Reinforced Plating',
-    icon: 'inv_shield_06',
   },
   REJUVENATING_BREATH: {
     id: 269498,
@@ -779,11 +679,6 @@ export default {
     name: 'Shellshock',
     icon: 'ability_hunter_pet_turtle',
   },
-  SHREDDING_FURY: {
-    id: 274426,
-    name: 'Shredding Fury',
-    icon: 'ability_mount_jungletiger',
-  },
   SNAKE_EYES: {
     id: 275863,
     name: 'Snake Eyes',
@@ -813,11 +708,6 @@ export default {
     id: 273469,
     name: 'Staggering Strikes',
     icon: 'ability_monk_blackoutstrike',
-  },
-  STORM_OF_STEEL: {
-    id: 273454,
-    name: 'Storm of Steel',
-    icon: 'ability_rogue_sabreslash',
   },
   STORMS_EYE: {
     id: 263795,
@@ -869,11 +759,6 @@ export default {
     name: 'Suffer',
     icon: 'spell_shadow_curseofsargeras',
   },
-  SUNBLAZE: {
-    id: 274399,
-    name: 'Sunblaze',
-    icon: 'spell_nature_wrathv2',
-  },
   SUNRISE_TECHNIQUE: {
     id: 273291,
     name: 'Sunrise Technique',
@@ -924,11 +809,6 @@ export default {
     name: 'Trailing Embers',
     icon: 'spell_fire_fireball02',
   },
-  TRAMPLE_THE_WEAK: {
-    id: 272837,
-    name: 'Trample the Weak',
-    icon: 'spell_nature_shamanrage',
-  },
   TWIST_THE_KNIFE: {
     id: 273488,
     name: 'Twist the Knife',
@@ -938,11 +818,6 @@ export default {
     id: 275906,
     name: 'Twisted Claws',
     icon: 'spell_druid_thrash',
-  },
-  UNBOUND_CHAOS: {
-    id: 275144,
-    name: 'Unbound Chaos',
-    icon: 'ability_demonhunter_felrush',
   },
   UNCERTAINTY: {
     id: 271263,
@@ -1008,15 +883,5 @@ export default {
     id: 267671,
     name: 'Winds of War',
     icon: 'ability_skyreach_wind_wall',
-  },
-  WINTERS_REACH: {
-    id: 273346,
-    name: 'Winter\'s Reach',
-    icon: 'ability_warlock_burningembersblue',
-  },
-  ZEALOTRY: {
-    id: 270596,
-    name: 'Zealotry',
-    icon: 'spell_holy_crusaderstrike',
   },
 };

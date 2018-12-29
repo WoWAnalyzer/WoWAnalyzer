@@ -40,9 +40,9 @@ class FromTheShadows extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.FROM_THE_SHADOWS_TALENT.id} /> bonus damage</>}
-        value={formatThousands(this.damage)}
-        valueTooltip={this.owner.formatItemDamageDone(this.damage)}
+        title={<><SpellLink id={SPELLS.FROM_THE_SHADOWS_TALENT.id} /> bonus dmg</>}
+        value={this.owner.formatItemDamageDone(this.damage)}
+        valueTooltip={`${formatThousands(this.damage)} bonus damage`}
       />
     );
   }

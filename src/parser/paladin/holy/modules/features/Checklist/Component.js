@@ -34,10 +34,10 @@ class HolyPaladinChecklist extends React.PureComponent {
     return (
       <Checklist>
         <Rule
-          name="Use core abilities as often as possible"
+          name="Use your primary healing spells as often as possible"
           description={(
             <>
-              Spells such as <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />, <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> and <SpellLink id={SPELLS.JUDGMENT_CAST.id} /> (with <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} />) are your most efficient spells available. Try to cast them as much as possible without overhealing. <dfn data-tip="When you're not bringing too many healers.">On Mythic*</dfn> you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and improving your target selection.{' '}
+              Spells such as <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />, <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> and <SpellLink id={SPELLS.JUDGMENT_CAST.id} /> (with <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} />) are your most efficient healing spells available. Try to cast them as much as possible without overhealing. <dfn data-tip="When you're not bringing too many healers.">On Mythic</dfn> you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and improving your target selection.{' '}
               <a href="https://www.wowhead.com/holy-paladin-rotation-guide#gameplay-and-priority-list" target="_blank" rel="noopener noreferrer">More info.</a>
             </>
           )}
@@ -60,7 +60,7 @@ class HolyPaladinChecklist extends React.PureComponent {
           />
         </Rule>
         <Rule
-          name="Use cooldowns effectively"
+          name="Use your cooldowns effectively"
           description={(
             <>
               Your cooldowns are an important contributor to your healing throughput. Try to get in as many efficient casts as the fight allows.{' '}
@@ -137,7 +137,7 @@ class HolyPaladinChecklist extends React.PureComponent {
         </Rule>
         <Rule
           name="Avoid overhealing"
-          description="Pick the right targets when healing and use the right abilities at the right time. While overhealing still transfers to your beacons, it's still inefficient. Overhealing might be unavoidable when there's not a lot of damage taken (such as in normal mode) or when bringing too many healers."
+          description="Pick the right targets when healing and use the right abilities at the right time. While overhealing still transfers to your beacons, it remains inefficient. Overhealing might be unavoidable when there's not a lot of damage taken (such as in normal mode) or when bringing too many healers."
         >
           <Requirement name={<SpellLink id={SPELLS.HOLY_SHOCK_HEAL.id} />} thresholds={thresholds.overhealing.holyShock} />
           <Requirement name={<SpellLink id={SPELLS.LIGHT_OF_DAWN_HEAL.id} />} thresholds={thresholds.overhealing.lightOfDawn} />

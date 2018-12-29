@@ -1,6 +1,7 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
-import HealingDone from 'parser/shared/modules/HealingDone';
+import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
+import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
 
 import WildGrowthNormalizer from './normalizers/WildGrowth';
 import ClearcastingNormalizer from './normalizers/ClearcastingNormalizer';
@@ -46,6 +47,7 @@ import LaserMatrix from './modules/items/azeritetraits/LaserMatrixRestoDruid';
 import WakingDream from './modules/items/azeritetraits/WakingDream';
 import LivelySpirit from './modules/items/azeritetraits/LivelySpirit';
 import RampantGrowth from './modules/items/azeritetraits/RampantGrowth';
+import EarlyHarvest from './modules/items/azeritetraits/EarlyHarvest';
 
 import StatWeights from './modules/features/StatWeights';
 
@@ -67,10 +69,13 @@ class CombatLogParser extends CoreCombatLogParser {
     treeOfLifeNormalizer: TreeOfLifeNormalizer,
 
     // Core
-    healingDone: [HealingDone, { showStatistic: true }],
     rejuvenation: Rejuvenation,
     mastery: Mastery,
     spellManaCost: SpellManaCost,
+
+    // Generic healer things
+    manaLevelChart: ManaLevelChart,
+    manaUsageChart: ManaUsageChart,
 
     // Checklist
     checklist: Checklist,
@@ -115,6 +120,7 @@ class CombatLogParser extends CoreCombatLogParser {
     wakingDream: WakingDream,
     livelySpirit: LivelySpirit,
     rampantGrowth: RampantGrowth,
+    earlyHarvest: EarlyHarvest,
 
     statWeights: StatWeights,
 

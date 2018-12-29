@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import DamageTaken from 'parser/shared/modules/DamageTaken';
+import DamageTaken from 'parser/shared/modules/throughput/DamageTaken';
 
 import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';

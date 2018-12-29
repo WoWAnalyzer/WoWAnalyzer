@@ -1,6 +1,5 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
-import DamageDone from 'parser/shared/modules/DamageDone';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -32,12 +31,9 @@ import FindWeakness from "./modules/talents/FindWeakness";
 
 import DarkShadowSpecterOfBetrayal from './modules/talents/DarkShadow/DarkShadowSpecterOfBetrayal';
 
-import SharpenedBlades from '../shared/azeritetraits/SharpenedBlades';
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Core
-    damageDone: [DamageDone, { showStatistic: true }],
     abilities: Abilities,
     checklist: Checklist,
     alwaysBeCasting: AlwaysBeCasting,
@@ -78,7 +74,6 @@ class CombatLogParser extends CoreCombatLogParser {
     findWeakness: FindWeakness,
 
     // Traits
-    SharpenedBlades: SharpenedBlades,
 
     // Racials
     arcaneTorrent: [ArcaneTorrent, {

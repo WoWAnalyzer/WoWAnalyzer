@@ -6,7 +6,7 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import HealingDone from 'parser/shared/modules/HealingDone';
+import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 
 import DivinePurpose from '../talents/DivinePurpose';
 

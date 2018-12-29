@@ -111,7 +111,6 @@ class VenomousBite extends Analyzer {
             {formatPercentage(this.effectiveBWReductionMs / this.totalPossibleCDR)}%
           </>
         )}
-        label={<><SpellLink id={SPELLS.BESTIAL_WRATH.id} icon={false} /> CDR</>}
         tooltip={`
         ${this.wastedCasts > 0 ? `You had ${this.wastedCasts} ${this.wastedCasts > 1 ? `casts` : `cast`} of Cobra Shot when Bestial Wrath wasn't on cooldown. <br />` : ``}
         ${this.wastedBWReductionMs > 0 ? `You wasted ${this.wastedCDR} seconds of potential cooldown reduction by casting Cobra Shot while Bestial Wrath had less than 1+GCD seconds remaining on its CD. ` : ``}

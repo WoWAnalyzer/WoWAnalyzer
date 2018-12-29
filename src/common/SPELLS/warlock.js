@@ -473,7 +473,7 @@ export default {
   DEMONBOLT_SHARD_GEN: {
     id: 280127,
     name: 'Demonbolt',
-    icon: 'spell_warlock_demonbolt',
+    icon: 'inv__demonbolt',
   },
   DOOM_SHARD_GEN: {
     id: 272728,

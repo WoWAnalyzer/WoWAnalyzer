@@ -1,5 +1,4 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/shared/modules/DamageDone';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 import GrimoireOfSacrificeNormalizer from '../shared/modules/talents/normalizers/GrimoireOfSacrificeNormalizer';
@@ -39,6 +38,7 @@ import WrackingBrilliance from './modules/azerite/WrackingBrilliance';
 import DreadfulCalling from './modules/azerite/DreadfulCalling';
 import InevitableDemise from './modules/azerite/InevitableDemise';
 import SuddenOnset from './modules/azerite/SuddenOnset';
+import PandemicInvocation from './modules/azerite/PandemicInvocation';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -46,7 +46,6 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    damageDone: [DamageDone, { showStatistic: true }],
     checklist: Checklist,
     darkglare: Darkglare,
 
@@ -85,6 +84,7 @@ class CombatLogParser extends CoreCombatLogParser {
     dreadfulCalling: DreadfulCalling,
     inevitableDemise: InevitableDemise,
     suddenOnset: SuddenOnset,
+    pandemicInvocation: PandemicInvocation,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],

@@ -6,11 +6,6 @@
 
 export default {
   // Disc
-  GIFT_OF_FORGIVENESS: {
-    id: 277680,
-    name: 'Gift of the Forgiveness',
-    icon: 'spell_holy_holysmite',
-  },
   // Holy
   BLESSED_SANCTUARY: {
     id: 273313,
@@ -36,11 +31,6 @@ export default {
     id: 275602,
     name: 'Prayerful Litany',
     icon: 'spell_holy_prayerofhealing02',
-  },
-  SACRED_FLAME: {
-    id: 278655,
-    name: 'Sacred Flame',
-    icon: 'spell_holy_searinglight',
   },
   WORD_OF_MENDING: {
     id: 278645,
@@ -93,5 +83,30 @@ export default {
     id: 278941,
     name: 'Death Throes',
     icon: 'spell_shadow_haunting',
+  },
+  DEATH_DENIED: {
+    id: 287717,
+    name: 'Death Denied',
+    icon: 'priest_spell_leapoffaith_a',
+  },
+  DEATH_DENIED_SHIELD_BUFF: {
+    id: 287722,
+    name: 'Death Denied',
+    icon: 'priest_spell_leapoffaith_a',
+  },
+  DEATH_DENIED_COOLDOWN_BUFF: {
+    id: 287723,
+    name: 'Death Denied',
+    icon: 'priest_spell_leapoffaith_a',
+  },
+  PROMISE_OF_DELIVERANCE: {
+    id: 287336,
+    name: 'Promise of Deliverance',
+    icon: 'spell_holy_persuitofjustice',
+  },
+  PROMISE_OF_DELIVERANCE_BUFF: {
+    id: 287340,
+    name: 'Promise of Deliverance',
+    icon: 'spell_holy_persuitofjustice',
   },
 };

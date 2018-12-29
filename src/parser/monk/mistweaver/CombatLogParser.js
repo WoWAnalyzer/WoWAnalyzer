@@ -14,7 +14,8 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import Panel from 'interface/others/Panel';
 import MonkSpreadsheet from 'interface/others/MonkSpreadsheet';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
-import HealingDone from 'parser/shared/modules/HealingDone';
+import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
+import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
 
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import CoreChanneling from './modules/core/Channeling';
@@ -56,7 +57,6 @@ import RisingMist from './modules/talents/RisingMist';
 
 // Azerite Traits
 import FontOfLife from './modules/spells/azeritetraits/FontOfLife';
-import InvigoratingBrew from './modules/spells/azeritetraits/InvigoratingBrew';
 import UpliftedSpirits from './modules/spells/azeritetraits/UpliftedSpirits';
 
 // Mana Tracker
@@ -77,10 +77,13 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Core
     lowHealthHealing: LowHealthHealing,
-    healingDone: [HealingDone, { showStatistic: true }],
     channeling: CoreChanneling,
     globalCooldown: GlobalCooldown,
     hotTracker: HotTracker,
+
+    // Generic healer things
+    manaLevelChart: ManaLevelChart,
+    manaUsageChart: ManaUsageChart,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -115,7 +118,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Azerite Traits
     fontOfLife: FontOfLife,
     upliftedSpirits: UpliftedSpirits,
-    invigoratingBrew: InvigoratingBrew,
 
     // Mana Tab
     manaTracker: ManaTracker,

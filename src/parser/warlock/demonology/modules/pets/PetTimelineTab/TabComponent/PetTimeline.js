@@ -4,20 +4,20 @@ import GeminiScrollbar from 'react-gemini-scrollbar';
 import ReactTooltip from 'react-tooltip';
 import 'gemini-scrollbar/gemini-scrollbar.css';
 
-import 'parser/shared/modules/features/TimelineTab/TabComponent/SpellTimeline.css';
-import DeathEvents from 'parser/shared/modules/features/TimelineTab/TabComponent/DeathEvents';
-
 import { formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
+
+import './SpellTimeline.css';
+import DeathEvents from './DeathEvents';
 
 import PetRow from './PetRow';
 import KeyCastsRow from './KeyCastsRow';
 import './PetTimeline.css';
 import { isWildImp } from '../../helpers';
 
-const NETHER_PORTAL_DURATION = 20000;
+const NETHER_PORTAL_DURATION = 15000;
 const NEARBY_CASTS_BUFFER = 250;
 const NEARBY_CAST_COUNT = 3;
 

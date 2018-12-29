@@ -1,5 +1,4 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/shared/modules/DamageDone';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 import Abilities from './modules/features/Abilities';
@@ -41,13 +40,12 @@ import SacrificedSouls from './modules/talents/SacrificedSouls';
 import DemonicConsumption from './modules/talents/DemonicConsumption';
 import NetherPortal from './modules/talents/NetherPortal';
 
-import ShadowsBiteForbiddenKnowledgeCore from './modules/azerite/ShadowsBiteForbiddenKnowledgeCore';
 import ShadowsBite from './modules/azerite/ShadowsBite';
-import ForbiddenKnowledge from './modules/azerite/ForbiddenKnowledge';
 import ExplosivePotential from './modules/azerite/ExplosivePotential';
 import DemonicMeteor from './modules/azerite/DemonicMeteor';
 import UmbralBlaze from './modules/azerite/UmbralBlaze';
 import SupremeCommander from './modules/azerite/SupremeCommander';
+import BalefulInvocation from './modules/azerite/BalefulInvocation';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -55,7 +53,6 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    damageDone: [DamageDone, { showStatistic: true }],
     felstorm: Felstorm,
     checklist: Checklist,
 
@@ -100,9 +97,8 @@ class CombatLogParser extends CoreCombatLogParser {
     explosivePotential: ExplosivePotential,
     umbralBlaze: UmbralBlaze,
     supremeCommander: SupremeCommander,
-    shadowsBiteForbiddenKnowledgeCore: ShadowsBiteForbiddenKnowledgeCore,
     shadowsBite: ShadowsBite,
-    forbiddenKnowledge: ForbiddenKnowledge,
+    balefulInvocation: BalefulInvocation,
     
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],

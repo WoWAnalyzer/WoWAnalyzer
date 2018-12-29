@@ -1,5 +1,4 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/shared/modules/DamageDone';
 // Core
 import HealingDone from './modules/core/HealingDone';
 import DamageTaken from './modules/core/DamageTaken';
@@ -38,18 +37,16 @@ import MitigationCheck from './modules/features/MitigationCheck';
 // Items
 // normalizers
 import IronskinBrewNormalizer from './normalizers/IronskinBrew';
-import GarothiWorldbreakerMeleeNormalizer from './normalizers/GarothiWorldbreakerMelee';
 import GiftOfTheOx from './normalizers/GiftOfTheOx';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
-    healingDone: [HealingDone, { showStatistic: true }],
+    healingDone: HealingDone,
     healingReceived: HealingReceived,
-    damageTaken: [DamageTaken, { showStatistic: true }],
+    damageTaken: DamageTaken,
     stagger: Stagger,
     staggerFabricator: StaggerFabricator,
-    damageDone: [DamageDone, { showStatistic: true }],
     brewCdr: BrewCDR,
     brews: SharedBrews,
     channeling: Channeling,
@@ -86,7 +83,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // normalizers
     isbNormalizer: IronskinBrewNormalizer,
-    garothi: GarothiWorldbreakerMeleeNormalizer,
     gotox: GiftOfTheOx,
   };
 }

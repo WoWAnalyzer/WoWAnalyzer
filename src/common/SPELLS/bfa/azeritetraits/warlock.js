@@ -34,17 +34,32 @@ export default {
   INEVITABLE_DEMISE: {
     id: 273521,
     name: 'Inevitable Demise',
-    icon: 'spell_shadow_abominationexplosion',
+    icon: 'spell_warlock_harvestoflife',
   },
   INEVITABLE_DEMISE_BUFF: {
     id: 273525,
     name: 'Inevitable Demise',
-    icon: 'spell_shadow_abominationexplosion',
+    icon: 'spell_warlock_harvestoflife',
   },
   SUDDEN_ONSET: {
     id: 278721,
     name: 'Sudden Onset',
     icon: 'spell_shadow_curseofsargeras',
+  },
+  PANDEMIC_INVOCATION: {
+    id: 289364,
+    name: 'Pandemic Invocation',
+    icon: 'spell_shadow_unsummonbuilding',
+  },
+  PANDEMIC_INVOCATION_DAMAGE: {
+    id: 289367,
+    name: 'Pandemic Invocation',
+    icon: 'spell_shadow_unsummonbuilding',
+  },
+  PANDEMIC_INVOCATION_ENERGIZE: {
+    id: 289368,
+    name: 'Pandemic Invocation',
+    icon: 'spell_shadow_unsummonbuilding',
   },
 
   // Demonology Azerite traits and effects
@@ -93,28 +108,18 @@ export default {
     name: 'Shadow\'s Bite',
     icon: 'spell_shadow_painspike',
   },
-  FORBIDDEN_KNOWLEDGE: {
-    id: 278738,
-    name: 'Forbidden Knowledge',
-    icon: 'inv_offhand_hyjal_d_01',
+  BALEFUL_INVOCATION: {
+    id: 287059,
+    name: 'Baleful Invocation',
+    icon: 'spell_shadow_demonicempathy',
   },
-  FORBIDDEN_KNOWLEDGE_BUFF: {
-    id: 279666,
-    name: 'Forbidden Knowledge',
-    icon: 'inv_offhand_hyjal_d_01',
+  BALEFUL_INVOCATION_ENERGIZE: {
+    id: 287060,
+    name: 'Baleful Invocation',
+    icon: 'spell_shadow_demonicempathy',
   },
 
   // Destruction Azerite traits and effects
-  ACCELERANT: {
-    id: 272955,
-    name: 'Accelerant',
-    icon: 'spell_shadow_rainoffire',
-  },
-  ACCELERANT_BUFF: {
-    id: 272957,
-    name: 'Accelerant',
-    icon: 'spell_shadow_rainoffire',
-  },
   FLASHPOINT: {
     id: 275425,
     name: 'Flashpoint',
@@ -164,5 +169,15 @@ export default {
     id: 279673,
     name: 'Chaotic Inferno',
     icon: 'spell_fire_burnout',
+  },
+  CHAOS_SHARDS: {
+    id: 287637,
+    name: 'Chaos Shards',
+    icon: 'inv_misc_gem_amethyst_02',
+  },
+  CHAOS_SHARDS_BUFF_ENERGIZE: {
+    id: 287660,
+    name: 'Chaos Shards',
+    icon: 'inv_misc_gem_amethyst_02',
   },
 };

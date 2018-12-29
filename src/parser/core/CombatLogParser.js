@@ -4,8 +4,6 @@ import { findByBossId } from 'raids';
 import { formatDuration, formatNumber, formatPercentage, formatThousands } from 'common/format';
 import ItemIcon from 'common/ItemIcon';
 import ItemLink from 'common/ItemLink';
-import ChangelogTab from 'interface/others/ChangelogTab';
-import ChangelogTabTitle from 'interface/others/ChangelogTabTitle';
 import DeathRecapTracker from 'interface/others/DeathRecapTracker';
 import ItemStatisticBox from 'interface/others/ItemStatisticBox';
 
@@ -13,9 +11,10 @@ import ApplyBuffNormalizer from 'parser/shared/normalizers/ApplyBuff';
 import CancelledCastsNormalizer from 'parser/shared/normalizers/CancelledCasts';
 import PrePullCooldownsNormalizer from 'parser/shared/normalizers/PrePullCooldowns';
 import FightEndNormalizer from 'parser/shared/normalizers/FightEnd';
-import HealingDone from '../shared/modules/HealingDone';
-import DamageDone from '../shared/modules/DamageDone';
-import DamageTaken from '../shared/modules/DamageTaken';
+import HealingDone from '../shared/modules/throughput/HealingDone';
+import DamageDone from '../shared/modules/throughput/DamageDone';
+import DamageTaken from '../shared/modules/throughput/DamageTaken';
+import ThroughputStatisticGroup from '../shared/modules/throughput/ThroughputStatisticGroup';
 import DeathTracker from '../shared/modules/DeathTracker';
 
 import Combatants from '../shared/modules/Combatants';
@@ -45,8 +44,6 @@ import DistanceMoved from '../shared/modules/others/DistanceMoved';
 import CharacterTab from '../shared/modules/features/CharacterTab';
 import EncounterPanel from '../shared/modules/features/EncounterPanel';
 // Tabs
-import TimelineTab from '../shared/modules/features/TimelineTab';
-import ManaTab from '../shared/modules/features/ManaTab';
 import RaidHealthTab from '../shared/modules/features/RaidHealthTab';
 
 import CritEffectBonus from '../shared/modules/helpers/CritEffectBonus';
@@ -71,6 +68,7 @@ import VantusRune from '../shared/modules/spells/VantusRune';
 // BFA
 import GildedLoaFigurine from '../shared/modules/items/bfa/GildedLoaFigurine';
 import FirstMatesSpyglass from '../shared/modules/items/bfa/FirstMatesSpyglass';
+import SeaGiantsTidestone from '../shared/modules/items/bfa/SeaGiantsTidestone';
 // Dungeons
 import MydasTalisman from '../shared/modules/items/bfa/dungeons/MydasTalisman';
 import RevitalizingVoodooTotem from '../shared/modules/items/bfa/dungeons/RevitalizingVoodooTotem';
@@ -164,6 +162,7 @@ class CombatLogParser {
     healingDone: HealingDone,
     damageDone: DamageDone,
     damageTaken: DamageTaken,
+    throughputStatisticGroup: ThroughputStatisticGroup,
     deathTracker: DeathTracker,
 
     enemies: Enemies,
@@ -193,8 +192,6 @@ class CombatLogParser {
     // Tabs
     characterTab: CharacterTab,
     encounterPanel: EncounterPanel,
-    timelineTab: TimelineTab,
-    manaTab: ManaTab,
     raidHealthTab: RaidHealthTab,
 
     prePotion: PrePotion,
@@ -216,6 +213,7 @@ class CombatLogParser {
     // BFA
     gildedLoaFigurine: GildedLoaFigurine,
     firstMatesSpyglass: FirstMatesSpyglass,
+    seaGiantsTidestone: SeaGiantsTidestone,
     revitalizingVoodooTotem: RevitalizingVoodooTotem,
     // Dungeons
     mydasTalisman: MydasTalisman,

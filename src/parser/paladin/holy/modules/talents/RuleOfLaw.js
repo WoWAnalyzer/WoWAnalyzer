@@ -1,13 +1,18 @@
 import React from 'react';
-import { t } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage } from 'common/format';
+import { formatPercentage, formatThousands } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import { i18n } from 'interface/RootLocalizationProvider';
+import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import StatisticBar from 'interface/statistics/StatisticBar';
+import UptimeBar from 'interface/statistics/components/UptimeBar';
+import ThroughputPerformance from 'parser/shared/modules/throughput/DamageDone';
+import { UNAVAILABLE } from 'interface/report/Results/ThroughputPerformance';
+import rankingColor from 'common/getRankingColor';
+import { AutoSizer } from 'react-virtualized';
+import { AreaSeries, XYPlot } from 'react-vis/es';
+import SpellIcon from 'common/SpellIcon';
 
 class RuleOfLaw extends Analyzer {
   constructor(...args) {
@@ -43,13 +48,31 @@ class RuleOfLaw extends Analyzer {
     });
   }
   statistic() {
+    const history = this.selectedCombatant.getBuffHistory(SPELLS.RULE_OF_LAW_TALENT.id);
+
     return (
-      <StatisticBox
+      <StatisticBar
         position={STATISTIC_ORDER.CORE(31)}
-        icon={<SpellIcon id={SPELLS.RULE_OF_LAW_TALENT.id} />}
-        value={`${formatPercentage(this.uptime)} %`}
-        label={i18n._(t`${SPELLS.RULE_OF_LAW_TALENT.name} uptime`)}
-      />
+        wide
+        size="small"
+      >
+        <div className="flex">
+          <div className="flex-sub icon">
+            <SpellIcon id={SPELLS.RULE_OF_LAW_TALENT.id} />
+          </div>
+          <div className="flex-sub value">
+            {formatPercentage(this.uptime, 0)}% <small>uptime</small>
+          </div>
+          <div className="flex-main chart" style={{ padding: 15 }}>
+            <UptimeBar
+              uptimeHistory={history}
+              start={this.owner.fight.start_time}
+              end={this.owner.fight.end_time}
+              style={{ height: '100%' }}
+            />
+          </div>
+        </div>
+      </StatisticBar>
     );
   }
 }

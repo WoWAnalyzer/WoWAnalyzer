@@ -1,5 +1,4 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/shared/modules/DamageDone';
 
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -12,23 +11,28 @@ import Enrage from './modules/buffdebuff/Enrage';
 
 import MissedRampage from './modules/spells/MissedRampage';
 import RampageCancelled from './modules/spells/RampageCancelled';
+import Recklessness from './modules/spells/Recklessness';
 
 import AngerManagement from './modules/talents/AngerManagement';
+import Carnage from './modules/talents/Carnage';
 import Bladestorm from './modules/talents/Bladestorm';
 import DragonRoar from './modules/talents/DragonRoar';
+import EndlessRage from './modules/talents/EndlessRage';
 import FrothingBerserker from './modules/talents/FrothingBerserker';
 import FuriousSlashTimesByStacks from './modules/talents/FuriousSlashTimesByStacks';
 import FuriousSlashUptime from './modules/talents/FuriousSlashUptime';
+import MeatCleaver from './modules/talents/MeatCleaver';
 import ImpendingVicory from './modules/talents/ImpendingVictory';
 import Siegebreaker from './modules/talents/Siegebreaker';
-import Recklessness from './modules/spells/Recklessness';
-import RecklessFlurry from './modules/azerite/RecklessFlurry';
+import RecklessAbandon from './modules/talents/RecklessAbandon';
 import Warpaint from './modules/talents/Warpaint';
+
+import RecklessFlurry from './modules/azerite/RecklessFlurry';
+import SuddenDeath from './modules/talents/SuddenDeath';
+import SimmeringRage from './modules/azerite/SimmeringRage';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
-    damageDone: [DamageDone, {showStatistic: true}],
-
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     channeling: Channeling,
@@ -40,21 +44,27 @@ class CombatLogParser extends CoreCombatLogParser {
 
     missedRampage: MissedRampage,
     rampageCancelled: RampageCancelled,
+    recklessness: Recklessness,
 
     angerManagement: AngerManagement,
+    carnage: Carnage,
     bladestorm: Bladestorm,
     dragonRoar: DragonRoar,
+    endlessRage: EndlessRage,
     frothingBerserker: FrothingBerserker,    
     furiousSlashTimesByStacks: FuriousSlashTimesByStacks,
     furiousSlashUptime: FuriousSlashUptime,
-    impendingVictory: ImpendingVicory,
-    siegebreaker: Siegebreaker,
-    recklessness: Recklessness,
+    meatCleaver: MeatCleaver,
     recklessFlurry: RecklessFlurry,
-    warpaint: Warpaint,
+    suddenDeath: SuddenDeath,
 
     // Overrides default PrePotion
     //prePotion: PrePotion, TODO: Update this to BFA and ensure it works properly with parser/core/Modules/Features/Checklist2/PreparationRuleAnalyzer.js
+    impendingVictory: ImpendingVicory,
+    siegebreaker: Siegebreaker,
+    recklessAbandon: RecklessAbandon,
+    warpaint: Warpaint,
+    simmeringRage: SimmeringRage,
   };
 }
 

@@ -10,7 +10,7 @@ export default function configurePassport(app) {
     done(null, user.id);
   });
   Passport.deserializeUser(async function(id, done) {
-    const user = await User.findById(id);
+    const user = await User.findByPk(id);
     done(null, user);
   });
 }

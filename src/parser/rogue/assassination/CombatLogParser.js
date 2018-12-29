@@ -1,6 +1,5 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
-import DamageDone from 'parser/shared/modules/DamageDone';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -10,6 +9,7 @@ import SpellUsable from '../shared/SpellUsable';
 
 //Normalizers
 import GarroteNormalizer from './normalizers/GarroteNormalizer';
+import GarroteOpenerNormalizer from './normalizers/GarroteOpenerNormalizer'; 
 
 import ComboPointDetails from '../shared/resources/ComboPointDetails';
 import ComboPointTracker from '../shared/resources/ComboPointTracker';
@@ -39,18 +39,17 @@ import Subterfuge from './modules/talents/Subterfuge';
 import MasterAssassin from './modules/talents/MasterAssassin';
 
 // Traits
-import SharpenedBlades from '../shared/azeritetraits/SharpenedBlades';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Normalizers
     garroteNormalizer: GarroteNormalizer,
+    garroteOpenerNormalizer: GarroteOpenerNormalizer,
 
     //Trackers
     enemyHpTracker: EnemyHpTracker,
 
     //Feature
-    damageDone: [DamageDone, { showStatistic: true }],
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
@@ -87,7 +86,6 @@ class CombatLogParser extends CoreCombatLogParser {
     masterAssassin: MasterAssassin,
 
     // Traits
-    SharpenedBlades: SharpenedBlades,
 
     // Racials
     arcaneTorrent: [ArcaneTorrent, {

@@ -10,7 +10,6 @@ import GlacialSpike from '../features/GlacialSpike';
 import IceLance from '../features/IceLance';
 import ThermalVoid from '../features/ThermalVoid';
 import WintersChill from '../features/WintersChill';
-import WintersReach from '../traits/WintersReach';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import ArcaneIntellect from '../../../shared/modules/features/ArcaneIntellect';
 import CancelledCasts from '../../../shared/modules/features/CancelledCasts';
@@ -28,7 +27,6 @@ class Checklist extends BaseChecklist {
     iceLance: IceLance,
     thermalVoid: ThermalVoid,
     wintersChill: WintersChill,
-    wintersReach: WintersReach,
     arcaneIntellect: ArcaneIntellect,
     cancelledCasts: CancelledCasts,
     runeOfPower: RuneOfPower,
@@ -55,7 +53,6 @@ class Checklist extends BaseChecklist {
           iceLanceNotShattered: this.iceLance.nonShatteredSuggestionThresholds,
           wintersChillIceLance: this.wintersChill.iceLanceUtilSuggestionThresholds,
           wintersChillHardCasts: this.wintersChill.hardcastUtilSuggestionThresholds,
-          wintersReachUtilization: this.wintersReach.procUtilizationThresholds,
           arcaneIntellectUptime: this.arcaneIntellect.suggestionThresholds,
           cancelledCasts: this.cancelledCasts.suggestionThresholds,
           runeOfPowerBuffUptime: this.runeOfPower.roundedSecondsSuggestionThresholds,

@@ -5,12 +5,14 @@ import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import GlobalCooldown from 'parser/paladin/retribution/modules/core/GlobalCooldown';
 
 const CAST_BUFFER = 500;
 
 class Crusade extends Analyzer {
 	static dependencies = {
-		abilityTracker: AbilityTracker,
+    abilityTracker: AbilityTracker,
+    globalCooldown: GlobalCooldown,
 	};
 
 	constructor(...args) {
@@ -20,13 +22,15 @@ class Crusade extends Analyzer {
 
 	crusadeCastTimestamp = 0;
 	badFirstGlobal = 0;
+  gcdBuffer = 0;
 
 	on_byPlayer_cast(event) {
 		const spellId = event.ability.guid;
 		if (spellId !== SPELLS.CRUSADE_TALENT.id) {
 			return;
 		}
-		this.crusadeCastTimestamp = event.timestamp;
+    this.crusadeCastTimestamp = event.timestamp;
+    this.gcdBuffer = this.globalCooldown.getGlobalCooldownDuration(spellId);
 	}
 
 	on_byPlayer_applybuffstack(event) {
@@ -34,7 +38,7 @@ class Crusade extends Analyzer {
 		if (spellId !== SPELLS.CRUSADE_TALENT.id) {
 			return;
 		}
-		if(this.crusadeCastTimestamp && event.timestamp > this.crusadeCastTimestamp + CAST_BUFFER) {
+		if(this.crusadeCastTimestamp && event.timestamp > (this.crusadeCastTimestamp + CAST_BUFFER + this.gcdBuffer)) {
 			this.badFirstGlobal++;
 		}
 		this.crusadeCastTimestamp = null;

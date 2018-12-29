@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 
 import fetchWcl, { CharacterNotFoundError, UnknownApiError, WclApiError } from 'common/fetchWclApi';
-import { makeCharacterApiUrl } from 'common/makeApiUrl';
+import { makeCharacterApiUrl, makeItemApiUrl } from 'common/makeApiUrl';
 
 import { appendReportHistory } from 'interface/actions/reportHistory';
 import ActivityIndicator from 'interface/common/ActivityIndicator';
@@ -200,7 +200,7 @@ class Parses extends React.Component {
 
     Object.values(updatedTrinkets).map(trinket => {
       if (trinket.icon === ITEMS[0].icon && trinket.id !== 0) {
-        return fetch(`https://eu.api.battle.net/wow/item/${trinket.id}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
+        return fetch(makeItemApiUrl(trinket.id))
           .then(response => response.json())
           .then((data) => {
             updatedTrinkets[trinket.id].icon = data.icon;
@@ -233,15 +233,20 @@ class Parses extends React.Component {
       return;
     }
     // fetch character image and active spec from battle-net
-    const response = await fetch(makeCharacterApiUrl(null, region, realm, name, 'talents'));
+    const response = await fetch(makeCharacterApiUrl(null, region, realm, name));
     if (response.status === 500) {
       this.setState({
         isLoading: false,
         error: ERRORS.NOT_RESPONDING,
       });
       return;
-    }
-    if (!response.ok) {
+    } else if (response.status === 404) {
+      this.setState({
+        isLoading: false,
+        error: ERRORS.CHARACTER_NOT_FOUND,
+      });
+      return;
+    } else if (!response.ok) {
       this.setState({
         isLoading: false,
         error: ERRORS.UNEXPECTED,
@@ -251,13 +256,6 @@ class Parses extends React.Component {
 
     const data = await response.json();
 
-    if (data.status === 'nok') {
-      this.setState({
-        isLoading: false,
-        error: ERRORS.CHARACTER_NOT_FOUND,
-      });
-      return;
-    }
     if (!data.thumbnail) {
       this.setState({
         isLoading: false,
@@ -268,7 +266,7 @@ class Parses extends React.Component {
     }
     const image = data.thumbnail.replace('-avatar.jpg', '');
     const imageUrl = `https://render-${this.props.region}.worldofwarcraft.com/character/${image}-main.jpg`;
-    const role = data.talents.find(e => e.selected).spec.role;
+    const role = data.role;
     const metric = role === 'HEALING' ? 'hps' : 'dps';
     this.setState({
       image: imageUrl,

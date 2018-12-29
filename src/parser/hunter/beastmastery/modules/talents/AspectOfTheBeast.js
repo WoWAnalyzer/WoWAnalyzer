@@ -26,7 +26,7 @@ class AspectOfTheBeast extends Analyzer {
 
   on_byPlayerPet_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.MELEE.id || spellId === SPELLS.KILL_COMMAND_PET.id || spellId === SPELLS.STOMP_DAMAGE.id) {
+    if (spellId === SPELLS.MELEE.id || spellId === SPELLS.KILL_COMMAND_DAMAGE_BM.id || spellId === SPELLS.STOMP_DAMAGE.id) {
       return;
     }
     this.damage += calculateEffectiveDamage(event, ASPECT_MULTIPLIER);
