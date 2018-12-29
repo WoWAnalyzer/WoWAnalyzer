@@ -8,7 +8,7 @@ import SPELLS from 'common/SPELLS';
 import groupDataForChart from 'common/groupDataForChart';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import rankingColor from 'common/getRankingColor';
-import StatisticBar from 'interface/report/Results/statistics/StatisticBar';
+import StatisticBar from 'interface/statistics/StatisticBar';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer from 'parser/core/Analyzer';
 

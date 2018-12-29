@@ -2,19 +2,19 @@ import React from 'react';
 import { Trans, t } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import HealingValue from 'parser/shared/modules/HealingValue';
 import { i18n } from 'interface/RootLocalizationProvider';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import Statistic from 'interface/report/Results/statistics/Statistic';
-import Radar from 'interface/report/Results/statistics/Radar';
+import Statistic from 'interface/statistics/Statistic';
+import Radar from 'interface/statistics/components/DistanceRadar';
 import PlayerBreakdownTab from 'interface/others/PlayerBreakdownTab';
 
 import BeaconTargets from '../beacons/BeaconTargets';
 import { ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
-import HealingValue from 'parser/shared/modules/HealingValue';
 
 const debug = false;
 

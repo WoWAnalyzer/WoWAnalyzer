@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 import SpellIcon from 'common/SpellIcon';
 
-import './SpellValue.scss';
+import './BoringSpellValue.scss';
 
-const SpellValue = ({ spell, value, label }) => (
-  <div className="flex spell-value">
+const BoringSpellValue = ({ spell, value, label }) => (
+  <div className="flex boring-spell-value">
     <div className="flex-sub icon">
       <SpellIcon id={spell.id} />
     </div>
@@ -16,7 +16,7 @@ const SpellValue = ({ spell, value, label }) => (
     </div>
   </div>
 );
-SpellValue.propTypes = {
+BoringSpellValue.propTypes = {
   spell: PropTypes.shape({
     id: PropTypes.number.isRequired,
   }).isRequired,
@@ -24,4 +24,4 @@ SpellValue.propTypes = {
   label: PropTypes.node.isRequired,
 };
 
-export default SpellValue;
+export default BoringSpellValue;

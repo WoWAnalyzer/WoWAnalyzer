@@ -7,7 +7,7 @@ import { formatThousands, formatPercentage, formatNumber } from 'common/format';
 import rankingColor from 'common/getRankingColor';
 import groupDataForChart from 'common/groupDataForChart';
 import makeWclUrl from 'common/makeWclUrl';
-import StatisticBar from 'interface/report/Results/statistics/StatisticBar';
+import StatisticBar from 'interface/statistics/StatisticBar';
 import ThroughputPerformance, { UNAVAILABLE } from 'interface/report/Results/ThroughputPerformance';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer from 'parser/core/Analyzer';

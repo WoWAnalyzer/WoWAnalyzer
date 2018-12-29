@@ -5,8 +5,8 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import Statistic from 'interface/report/Results/statistics/Statistic';
-import SpellValue from 'interface/report/Results/statistics/SpellValue';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 
 class RuleOfLaw extends Analyzer {
   constructor(...args) {
@@ -49,7 +49,7 @@ class RuleOfLaw extends Analyzer {
           position={STATISTIC_ORDER.CORE(31)}
           style={{ height: 'auto' }} // TODO: Rework Statistic to provide a default set of sizes
         >
-          <SpellValue
+          <BoringSpellValue
             spell={SPELLS.RULE_OF_LAW_TALENT}
             value={`${formatPercentage(this.uptime)}%`}
             label="uptime"

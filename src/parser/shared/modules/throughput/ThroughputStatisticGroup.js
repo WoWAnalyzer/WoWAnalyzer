@@ -1,6 +1,6 @@
 import React from 'react';
 
-import StatisticGroup from 'interface/report/Results/statistics/StatisticGroup';
+import StatisticGroup from 'interface/statistics/StatisticGroup';
 import Analyzer from 'parser/core/Analyzer';
 
 import DamageDone from './DamageDone';

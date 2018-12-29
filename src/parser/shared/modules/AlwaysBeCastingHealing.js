@@ -4,8 +4,8 @@ import { Zerotorescue } from 'CONTRIBUTORS';
 import { formatPercentage } from 'common/format';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import Statistic from 'interface/report/Results/statistics/Statistic';
-import Gauge from 'interface/report/Results/statistics/Gauge';
+import Statistic from 'interface/statistics/Statistic';
+import Gauge from 'interface/statistics/components/Gauge';
 
 class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
   static HEALING_ABILITIES_ON_GCD = [

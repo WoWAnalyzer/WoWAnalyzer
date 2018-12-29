@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import InfoIcon from 'interface/icons/Info';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import InfoIcon from '../icons/Info';
+import STATISTIC_CATEGORY from '../others/STATISTIC_CATEGORY';
 
 import './Statistic.css';
 
