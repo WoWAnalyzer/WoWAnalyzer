@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Tooltip from 'common/Tooltip';
+
 import './StatisticBox.css';
 import STATISTIC_CATEGORY from './STATISTIC_CATEGORY';
 
@@ -15,7 +17,7 @@ const StatisticsListBox = ({ title, tooltip, children, bodyStyle, containerProps
       <div className="panel statistic-box statistic-list" {...others}>
         {title && (
           <div className="panel-heading">
-            <h2>{tooltip ? <dfn data-tip={tooltip}>{title}</dfn> : title}</h2>
+            <h2>{tooltip ? <Tooltip content={tooltip}>{title}</Tooltip> : title}</h2>
           </div>
         )}
         <div className="panel-body items" style={bodyStyle}>
@@ -28,7 +30,7 @@ const StatisticsListBox = ({ title, tooltip, children, bodyStyle, containerProps
 StatisticsListBox.propTypes = {
   title: PropTypes.node,
   children: PropTypes.node.isRequired,
-  tooltip: PropTypes.string,
+  tooltip: PropTypes.node,
   bodyStyle: PropTypes.object,
   containerProps: PropTypes.object,
   category: PropTypes.string,

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Tooltip from 'common/Tooltip';
-import ReactTooltip from 'react-tooltip';
+// import ReactTooltip from 'react-tooltip';
 import './StatisticBox.css';
 import STATISTIC_CATEGORY from './STATISTIC_CATEGORY';
 
@@ -13,7 +13,7 @@ class StatisticBox extends React.PureComponent {
   static propTypes = {
     icon: PropTypes.node,
     value: PropTypes.node.isRequired,
-    tooltip: PropTypes.string,
+    tooltip: PropTypes.node,
     label: PropTypes.node.isRequired,
     footer: PropTypes.node,
     containerProps: PropTypes.object,
@@ -41,10 +41,10 @@ class StatisticBox extends React.PureComponent {
     });
   }
 
-  componentDidUpdate() {
-    ReactTooltip.hide();
-    ReactTooltip.rebuild();
-  }
+  // componentDidUpdate() {
+  //   ReactTooltip.hide();
+  //   ReactTooltip.rebuild();
+  // }
 
   componentWillReceiveProps(newProps) {
     this.setState({
@@ -71,7 +71,7 @@ class StatisticBox extends React.PureComponent {
                 {icon} {label}
               </div>
               <div className="value">
-                {tooltip ? <dfn data-tip={tooltip}>{value}</dfn> : value}
+                {tooltip ? <Tooltip content={tooltip}>{value}</Tooltip> : value}
               </div>
 
               {footer && (

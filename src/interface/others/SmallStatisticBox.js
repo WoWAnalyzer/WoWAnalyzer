@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Tooltip from 'common/Tooltip';
+
 import './StatisticBox.css';
 import STATISTIC_CATEGORY from './STATISTIC_CATEGORY';
 
@@ -18,7 +20,7 @@ const SmallStatisticBox = ({ icon, value, tooltip, label, containerProps, ...oth
             {icon} {label}
           </div>
           <div className="flex-sub text-right">
-            {tooltip ? <dfn data-tip={tooltip}>{value}</dfn> : value}
+            {tooltip ? <Tooltip content={tooltip}>{value}</Tooltip> : value}
           </div>
         </div>
       </div>
@@ -28,7 +30,7 @@ const SmallStatisticBox = ({ icon, value, tooltip, label, containerProps, ...oth
 SmallStatisticBox.propTypes = {
   icon: PropTypes.node.isRequired,
   value: PropTypes.node.isRequired,
-  tooltip: PropTypes.string,
+  tooltip: PropTypes.node,
   label: PropTypes.node.isRequired,
   containerProps: PropTypes.object,
   category: PropTypes.string,
