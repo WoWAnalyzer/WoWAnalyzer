@@ -5,7 +5,7 @@
   padding: 0;
 }
 .statistic.bar .flex > * {
-  padding: 9px 15px;
+  padding: 10px 15px;
   font-size: 22px;
   line-height: 1;
   border-right: 1px solid transparentize($primaryColor, 0.925);
@@ -19,7 +19,8 @@
 
   img {
     height: 1em;
-    vertical-align: baseline;
+    vertical-align: top;
+    margin-top: 0;
   }
 }
 .statistic.bar .flex > .value {
