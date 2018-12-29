@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import SPECS from 'game/SPECS';
 import SpecIcon from 'common/SpecIcon';
 import { formatNumber } from 'common/format';
+import Tooltip from 'common/Tooltip';
 
 class PlayerBreakdown extends React.Component {
   static propTypes = {
@@ -45,7 +46,7 @@ class PlayerBreakdown extends React.Component {
           <tr>
             <th>Name</th>
             <th colSpan="2">Mastery effectiveness</th>
-            <th colSpan="3"><dfn data-tip="This is the amount of healing done by mastery. Things like Holy Paladin beacons or Restoration Shaman feeding are NOT included.">Healing done</dfn></th>
+            <th colSpan="3"><Tooltip content="This is the amount of healing done by mastery. Things like Holy Paladin beacons or Restoration Shaman feeding are NOT included.">Healing done</Tooltip></th>
           </tr>
         </thead>
         <tbody>

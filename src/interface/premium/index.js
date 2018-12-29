@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ReactTooltip from 'react-tooltip';
 
 import PremiumIcon from 'interface/icons/Premium';
 import ViralContentIcon from 'interface/icons/ViralContent';
@@ -9,6 +8,7 @@ import WebBannerIcon from 'interface/icons/WebBanner';
 import DiscordIcon from 'interface/icons/DiscordTiny';
 import PatreonButton from 'interface/common/thirdpartybuttons/Patreon';
 import GitHubButton from 'interface/common/thirdpartybuttons/GitHub';
+import Tooltip from 'common/Tooltip';
 
 import { logout } from 'interface/actions/user';
 import { getUser } from 'interface/selectors/user';
@@ -30,10 +30,6 @@ export class Premium extends React.PureComponent {
     // We need to override this in tests to avoid different results in different environments.
     dateToLocaleString: date => date.toLocaleString(),
   };
-
-  componentDidUpdate() {
-    ReactTooltip.rebuild();
-  }
 
   render() {
     const { user } = this.props;
@@ -69,7 +65,7 @@ export class Premium extends React.PureComponent {
                 </div>
                 <div className="col-md-6">
                   <h2>GitHub</h2>
-                  Improve the analysis of a spec or build a new feature to get 1 month of Premium free<dfn data-tip="Only commits that are merged to the master branch are eligible. Your work will have to pass a pull request review before it can be merged.">*</dfn>.<br /><br />
+                  Improve the analysis of a spec or build a new feature to get 1 month of Premium free<Tooltip content="Only commits that are merged to the master branch are eligible. Your work will have to pass a pull request review before it can be merged.">*</Tooltip>.<br /><br />
 
                   <GitHubButton />
                 </div>

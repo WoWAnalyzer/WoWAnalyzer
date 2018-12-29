@@ -10,6 +10,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { BUILT_IN_SUMMARY_TYPES } from 'parser/shared/modules/CooldownThroughputTracker';
 
 import './Cooldown.css';
+import Tooltip from 'common/Tooltip';
 
 class Cooldown extends React.Component {
   static propTypes = {
@@ -211,7 +212,9 @@ class Cooldown extends React.Component {
                       return (
                         <div className="col-md-4 text-center" key="healing">
                           <div style={{ fontSize: '2em' }}>{formatNumber(healingStatistics.healingDone)}</div>
-                          <dfn data-tip="This includes all healing that occured while the buff was up, even if it was not triggered by spells cast inside the buff duration. Any delayed healing such as HOTs, Absorbs and Atonements will stop contributing to the healing done when the cooldown buff expires, so this value is lower for any specs with such abilities.">healing ({formatNumber(healingStatistics.healingDone / (end - start) * 1000)} HPS)</dfn>
+                          <Tooltip content="This includes all healing that occured while the buff was up, even if it was not triggered by spells cast inside the buff duration. Any delayed healing such as HOTs, Absorbs and Atonements will stop contributing to the healing done when the cooldown buff expires, so this value is lower for any specs with such abilities.">
+                            healing ({formatNumber(healingStatistics.healingDone / (end - start) * 1000)} HPS)
+                          </Tooltip>
                         </div>
                       );
                     case BUILT_IN_SUMMARY_TYPES.OVERHEALING:
@@ -219,7 +222,9 @@ class Cooldown extends React.Component {
                       return (
                         <div className="col-md-4 text-center" key="overhealing">
                           <div style={{ fontSize: '2em' }}>{formatPercentage(healingStatistics.overhealingDone / (healingStatistics.healingDone + healingStatistics.overhealingDone))}%</div>
-                          <dfn data-tip="This includes all healing that occured while the buff was up, even if it was not triggered by spells cast inside the buff duration. Any delayed healing such as HOTs, Absorbs and Atonements will stop contributing to the healing done when the cooldown buff expires, so this value is lower for any specs with such abilities.">overhealing</dfn>
+                          <Tooltip content="This includes all healing that occured while the buff was up, even if it was not triggered by spells cast inside the buff duration. Any delayed healing such as HOTs, Absorbs and Atonements will stop contributing to the healing done when the cooldown buff expires, so this value is lower for any specs with such abilities.">
+                            overhealing
+                          </Tooltip>
                         </div>
                       );
                     case BUILT_IN_SUMMARY_TYPES.ABSORBED: {
@@ -227,7 +232,9 @@ class Cooldown extends React.Component {
                       return (
                         <div className="col-md-4 text-center" key="absorbed">
                           <div style={{ fontSize: '2em' }}>{formatNumber(total)}</div>
-                          <dfn data-tip="This includes all damage absorbed that occured while the buff was up, even if it was not triggered by spells cast inside the buff duration.">damage absorbed</dfn>
+                          <Tooltip content="This includes all damage absorbed that occured while the buff was up, even if it was not triggered by spells cast inside the buff duration.">
+                            damage absorbed
+                          </Tooltip>
                         </div>
                       );
                     }
@@ -236,7 +243,9 @@ class Cooldown extends React.Component {
                       return (
                         <div className="col-md-4 text-center" key="absorbs-applied">
                           <div style={{ fontSize: '2em' }}>{formatNumber(total)}</div>
-                          <dfn data-tip="The total amount of absorb shields applied during the buff.">absorb applied</dfn>
+                          <Tooltip content="The total amount of absorb shields applied during the buff.">
+                            absorb applied
+                          </Tooltip>
                         </div>
                       );
                     }
@@ -259,7 +268,9 @@ class Cooldown extends React.Component {
                       return (
                         <div className="col-md-4 text-center" key="damage">
                           <div style={{ fontSize: '2em' }}>{formatNumber(damageStatistics.damageDone)}</div>
-                          <dfn data-tip="This number represents the total amount of damage done during the duration of this cooldown, any damage done by DOTs after the effect of this cooldown has exprired will not be included in this statistic.">damage ({formatNumber(damageStatistics.damageDone / (end - start) * 1000)} DPS)</dfn>
+                          <Tooltip content="This number represents the total amount of damage done during the duration of this cooldown, any damage done by DOTs after the effect of this cooldown has exprired will not be included in this statistic.">
+                            damage ({formatNumber(damageStatistics.damageDone / (end - start) * 1000)} DPS)
+                          </Tooltip>
                         </div>
                       );
                     }
@@ -268,7 +279,7 @@ class Cooldown extends React.Component {
                       return (
                         <div className="col-md-4 text-center" key={item.label}>
                           <div style={{ fontSize: '2em' }}>{typeof item.value === 'string' ? item.value : formatNumber(item.value)}</div>
-                          <dfn data-tip={item.tooltip}>{item.label}</dfn>
+                          <Tooltip content={item.tooltip}>{item.label}</Tooltip>
                         </div>
                       );
                   }

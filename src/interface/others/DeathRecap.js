@@ -141,29 +141,33 @@ class DeathRecap extends React.PureComponent {
                     if (event.type === 'heal') {
                       percent = (lastHitPoints - event.amount) / lastMaxHitPoints;
                       output = (
-                        <dfn data-tip={`
-                          ${event.sourceID === event.targetID ?
-                          `You healed yourself for ${formatNumber(event.amount)}` :
-                          `${sourceName} healed you for ${formatNumber(event.amount)}`
-                          }
-                          ${event.absorbed > 0 ? `, ${formatNumber(event.absorbed)} of that healing was absorbed` : ''}
-                          ${event.overheal > 0 ? ` and overhealed for ${formatNumber(event.overheal)}<br/>` : ''}
-                        `} style={(event.amount === 0 && event.absorbed > 0) ? {color: 'orange'} : {color: 'green'}}>
+                        <Tooltip content={(<>
+                            {event.sourceID === event.targetID ?
+                            `You healed yourself for ${formatNumber(event.amount)}` :
+                            `${sourceName} healed you for ${formatNumber(event.amount)}`
+                            }
+                            {event.absorbed > 0 ? `, ${formatNumber(event.absorbed)} of that healing was absorbed` : ''}
+                            {event.overheal > 0 ? ` and overhealed for ${formatNumber(event.overheal)}` : ''}
+                          </>)}
+                          wrapperStyles={(event.amount === 0 && event.absorbed > 0) ? {color: 'orange'} : {color: 'green'}}
+                        >
                           +{formatNumber(event.amount)} {event.absorbed > 0 ? `(A: ${formatNumber(event.absorbed)} )` : ''} {event.overheal > 0 ? `(O: ${formatNumber(event.overheal)} )` : ''}
-                        </dfn>
+                        </Tooltip>
                       );
                     } else if (event.type === 'damage') {
                       percent = lastHitPoints / lastMaxHitPoints;
                       output = (
-                        <dfn data-tip={`
-                        ${event.sourceID === event.targetID ?
-                          `You damaged yourself for ${formatNumber(event.amount)}<br/>` :
-                          `${sourceName} damaged you for a total of ${formatNumber(event.amount + (event.absorbed || 0))}<br/>`
-                          }
-                        ${event.absorbed > 0 ? `${formatNumber(event.absorbed)} of this damage was absorbed and you took ${formatNumber(event.amount)} damage<br/>` : ''}
-                        `} style={{ color: 'red' }}>
+                        <Tooltip
+                          content={(<>
+                            {event.sourceID === event.targetID ?
+                              `You damaged yourself for ${formatNumber(event.amount)}` :
+                              `${sourceName} damaged you for a total of ${formatNumber(event.amount + (event.absorbed || 0))}`
+                            }<br />
+                            {event.absorbed > 0 ? <>{formatNumber(event.absorbed)} of this damage was absorbed and you took {formatNumber(event.amount)} damage<br/></> : ''}
+                          </>)}
+                          wrapperStyles={{ color: 'red' }}>
                           -{formatNumber(event.amount)} {event.absorbed > 0 ? `(A: ${formatNumber(event.absorbed)} )` : ''}
-                        </dfn>
+                        </Tooltip>
                       );
                     } else if (event.type === 'instakill') {
                       percent = 0;

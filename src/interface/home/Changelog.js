@@ -7,6 +7,7 @@ import CORE_CHANGELOG from 'CHANGELOG';
 
 import ReadableList from 'interface/common/ReadableList';
 import Contributor from 'interface/contributor/Button';
+import Tooltip from 'common/Tooltip';
 
 class Changelog extends React.PureComponent {
   static propTypes = {
@@ -38,7 +39,7 @@ class Changelog extends React.PureComponent {
                 id="core-entries-toggle"
               />{' '}
               <label htmlFor="core-entries-toggle">
-                <dfn data-tip="Turn this off to only see changes to this spec's implementation.">Shared changes</dfn>
+                <Tooltip content="Turn this off to only see changes to this spec's implementation.">Shared changes</Tooltip>
               </label>
             </div>
           )}

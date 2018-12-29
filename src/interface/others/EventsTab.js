@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import Table, { defaultRowRenderer as defaultTableRowRenderer, Column } from 'react-virtualized/dist/commonjs/Table';
 import Toggle from 'react-toggle';
-import ReactTooltip from 'react-tooltip';
 import 'react-toggle/style.css';
 
 import InformationIcon from 'interface/icons/Information';
@@ -109,10 +108,6 @@ class EventsTab extends React.Component {
       search: '',
     };
     this.handleRowClick = this.handleRowClick.bind(this);
-  }
-
-  componentDidMount() {
-    ReactTooltip.rebuild();
   }
 
   findEntity(id) {
@@ -272,7 +267,7 @@ class EventsTab extends React.Component {
             {this.renderToggle('rawNames', 'Raw names')}
             <br />
             <div className="modified-legend" style={{ width: 240, padding: 10 }}>
-              Events with an orange background were <dfn data-tip="This generally means their order was changed from the original combatlog to fix inconsistencies or bugs, but it may include other modifications.">modified</dfn>.
+              Events with an orange background were <Tooltip content="This generally means their order was changed from the original combatlog to fix inconsistencies or bugs, but it may include other modifications.">modified</Tooltip>.
             </div>
           </div>
           <div className="flex-main" style={{ background: 'hsla(44, 1%, 8%, 0.5)', paddingTop: 10 }}>
