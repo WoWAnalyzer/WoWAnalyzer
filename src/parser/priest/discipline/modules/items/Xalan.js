@@ -56,7 +56,7 @@ class Xalan extends Analyzer {
       debug && console.warn('Xalan: was applied prior to combat');
     }
 
-    if ((event.timestamp - this.lastAtonmentAppliedTimestamp) < (this.atonementDuration * 1000)) {
+    if ((event.timestamp - this.lastAtonmentAppliedTimestamp) < this.atonementDuration) {
       return;
     }
 
