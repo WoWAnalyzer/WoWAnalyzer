@@ -130,7 +130,6 @@ class MitigationCheck extends Analyzer {
 
     const physicalTable = (this.physicalChecks.length > 0) ? (
       <>
-        <table className="table table-condensed" style={{ fontWeight: 'bold' }}>
           <thead>
             <tr>
               <th>Physical</th>
@@ -151,19 +150,18 @@ class MitigationCheck extends Analyzer {
               ))
             }
           </tbody>
-        </table>
       </>
     ) : null;
 
+    const borderless = { borderTop: 'none' };
     const magicalTable = (this.magicalChecks.length > 0) ? (
       <>
-        <table className="table table-condensed" style={{ fontWeight: 'bold' }}>
           <thead>
             <tr>
-              <th>Magical</th>
-              <th>Ability</th>
-              <th>Passed</th>
-              <th>Failed</th>
+              <th style={borderless}>Magical</th>
+              <th style={borderless}>Ability</th>
+              <th style={borderless}>Passed</th>
+              <th style={borderless}>Failed</th>
             </tr>
           </thead>
           <tbody>
@@ -178,7 +176,6 @@ class MitigationCheck extends Analyzer {
               ))
             }
           </tbody>
-        </table>
       </>
     ) : null;
 
@@ -189,8 +186,10 @@ class MitigationCheck extends Analyzer {
         label={`Soft mitigation checks passed.`}
         tooltip={this.tooltip}
       >
-        {physicalTable}
-        {magicalTable}
+        <table className="table table-condensed" style={{ fontWeight: 'bold' }}>
+          {physicalTable}
+          {magicalTable}
+        </table>
       </StatisticBox>
     );
   }
