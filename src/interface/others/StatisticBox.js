@@ -71,7 +71,7 @@ class StatisticBox extends React.PureComponent {
                 {icon} {label}
               </div>
               <div className="value">
-                {tooltip ? <Tooltip content={tooltip}>{value}</Tooltip> : value}
+                {tooltip ? <Tooltip wrapperStyles={{ display: 'inline' }} content={tooltip}>{value}</Tooltip> : value}
               </div>
 
               {footer && (

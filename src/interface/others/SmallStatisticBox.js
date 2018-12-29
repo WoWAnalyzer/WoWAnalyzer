@@ -20,7 +20,7 @@ const SmallStatisticBox = ({ icon, value, tooltip, label, containerProps, ...oth
             {icon} {label}
           </div>
           <div className="flex-sub text-right">
-            {tooltip ? <Tooltip content={tooltip}>{value}</Tooltip> : value}
+            {tooltip ? <Tooltip wrapperStyles={{ display: 'inline' }} content={tooltip}>{value}</Tooltip> : value}
           </div>
         </div>
       </div>
