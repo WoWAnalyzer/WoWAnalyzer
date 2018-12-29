@@ -30,24 +30,24 @@ class RimeEfficiency extends Analyzer {
     this.lastProc = event;
   }
 
-  on_byPlayer_removebuff(event){
+  on_byPlayer_removebuff(event) {
     const spellId = event.ability.guid;
-    if(spellId !== SPELLS.RIME.id || !this.lastProc){
+    if (spellId !== SPELLS.RIME.id || !this.lastProc) {
       return;
     }
     const durationHeld = event.timestamp - this.lastProc.timestamp;
-    if(durationHeld > (BUFF_DURATION_SEC * 1000)){
+    if (durationHeld > (BUFF_DURATION_SEC * 1000)) {
       this.expiredRimeProcs += 1;
     }
   }
 
-  on_byPlayer_refreshbuff(event){
+  on_byPlayer_refreshbuff(event) {
     const spellId = event.ability.guid;
-    if(spellId !== SPELLS.RIME.id || !this.lastGCD){
+    if (spellId !== SPELLS.RIME.id || !this.lastGCD) {
       return;
     }
     const timeSinceGCD = event.timestamp - this.lastGCD.timestamp;
-    if(timeSinceGCD < this.lastGCD.duration + LAG_BUFFER_MS){
+    if (timeSinceGCD < this.lastGCD.duration + LAG_BUFFER_MS) {
       return;
     }
     this.refreshedRimeProcs += 1;
@@ -57,15 +57,15 @@ class RimeEfficiency extends Analyzer {
     this.lastGCD = event;
   }
 
-  get totalWastedProcs(){
+  get totalWastedProcs() {
     return this.refreshedRimeProcs + this.expiredRimeProcs;
   }
 
-  get wastedProcRate(){
+  get wastedProcRate() {
     return this.totalWastedProcs / this.rimeProcs;
   }
 
-  get efficiency(){
+  get efficiency() {
     return 1 - this.wastedProcRate;
   }
 

@@ -97,9 +97,9 @@ class Tombstone extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.TOMBSTONE_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(3)}
-        value={`${this.wastedCasts}`}
+        value={this.wastedCasts}
         label="Bad Casts"
-        tooltip={`Any cast without 5 charges is considered a wasted cast.`}
+        tooltip="Any cast without 5 charges is considered a wasted cast."
       >
         <table className="table table-condensed">
           <thead>

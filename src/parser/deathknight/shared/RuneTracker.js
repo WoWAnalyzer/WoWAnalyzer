@@ -319,11 +319,11 @@ class RuneTracker extends ResourceTracker {
         icon={<SpellIcon id={SPELLS.RUNE_1.id} noLink />}
         value={`${formatPercentage(1 - this.runeEfficiency)} %`}
         label="Runes overcapped"
-        tooltip={`
-          Number of runes wasted: ${formatNumber(this.runesWasted)} <br>
-          These numbers only include runes wasted from passive regeneration. <br>
+        tooltip={(<>
+          Number of runes wasted: {formatNumber(this.runesWasted)} <br />
+          These numbers only include runes wasted from passive regeneration. <br />
           The table below shows the time spent at any given number of runes available.
-        `}
+        </>)}
       >
         <table className="table table-condensed">
           <thead>
