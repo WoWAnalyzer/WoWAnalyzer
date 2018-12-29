@@ -2,6 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
+import Tooltip from 'common/Tooltip';
 import Analyzer from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import EventGrouper from 'parser/core/EventGrouper';
@@ -67,17 +68,11 @@ class Penance extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.PENANCE.id} />}
         value={this.missedBolts}
-        label={
-          (
-<dfn
-  data-tip={`Each Penance cast has 3 bolts (4 if you're using Castigation). You should try to let this channel finish as much as possible. You channeled Penance ${
-              this.casts
-            } times.`}
-          >
+        label={(
+          <Tooltip content={`Each Penance cast has 3 bolts (4 if you're using Castigation). You should try to let this channel finish as much as possible. You channeled Penance ${this.casts} times.`}>
             Wasted Penance bolts
-          </dfn>
-)
-        }
+          </Tooltip>
+        )}
       />
     );
   }
