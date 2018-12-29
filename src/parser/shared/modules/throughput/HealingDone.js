@@ -90,7 +90,7 @@ class HealingDone extends Analyzer {
       <StatisticBar
         position={STATISTIC_ORDER.CORE(2)}
         ultrawide
-        style={{ marginBottom: 19 }} // since this is in a group, reducing margin should be fine
+        style={{ marginBottom: 19, overflow: 'hidden' }} // since this is in a group, reducing margin should be fine
       >
         <div className="flex">
           <div className="flex-sub icon">

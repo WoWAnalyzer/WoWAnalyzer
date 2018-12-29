@@ -6,6 +6,7 @@ import 'react-vis/dist/style.css';
 import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import groupDataForChart from 'common/groupDataForChart';
+import makeWclUrl from 'common/makeWclUrl';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import rankingColor from 'common/getRankingColor';
 import StatisticBar from 'interface/statistics/StatisticBar';
@@ -13,7 +14,6 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer from 'parser/core/Analyzer';
 
 import DamageValue from '../DamageValue';
-import makeWclUrl from 'common/makeWclUrl';
 
 class DamageTaken extends Analyzer {
   static IGNORED_ABILITIES = [
@@ -112,7 +112,7 @@ class DamageTaken extends Analyzer {
       <StatisticBar
         position={STATISTIC_ORDER.CORE(3)}
         ultrawide
-        style={{ marginBottom: 0 }} // since this is in a group, reducing margin should be fine
+        style={{ marginBottom: 0, overflow: 'hidden' }} // since this is in a group, reducing margin should be fine
       >
         <div className="flex">
           <div className="flex-sub icon">
