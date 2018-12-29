@@ -67,7 +67,7 @@ class Atonement extends Analyzer {
     const atonement = {
       target: event.targetID,
       lastAtonementAppliedTimestamp: event.timestamp,
-      atonementExpirationTimestamp: event.timestamp + this.atonementDuration * 1000,
+      atonementExpirationTimestamp: event.timestamp + this.atonementDuration,
     };
 
     this.currentAtonementTargets = this.currentAtonementTargets.filter(id => id.target !== atonement.target);
@@ -97,7 +97,7 @@ class Atonement extends Analyzer {
       debug && console.warn('Atonement: was applied prior to combat');
     }
     const timeSinceApplication = event.timestamp - refreshedTarget.lastAtonementAppliedTimestamp;
-    if (timeSinceApplication < ((this.atonementDuration * 1000) - IMPROPER_REFRESH_TIME)) {
+    if (timeSinceApplication < ((this.atonementDuration) - IMPROPER_REFRESH_TIME)) {
       this.improperAtonementRefreshes.push(refreshedTarget);
       debug && console.log(`%c${this.combatants.players[event.targetID].name} refreshed an atonement too early %c${timeSinceApplication}`, 'color:red', this.currentAtonementTargets);
       this.eventEmitter.fabricateEvent({
@@ -112,7 +112,7 @@ class Atonement extends Analyzer {
       target: event.targetID,
       lastAtonementAppliedTimestamp: event.timestamp,
       // Refreshing an Atonement will never reduce its duration
-      atonementExpirationTimestamp: Math.max(refreshedTarget.atonementExpirationTimestamp, event.timestamp + this.atonementDuration * 1000),
+      atonementExpirationTimestamp: Math.max(refreshedTarget.atonementExpirationTimestamp, event.timestamp + this.atonementDuration),
     };
     this.currentAtonementTargets = this.currentAtonementTargets.filter(item => item.target !== atonement.target);
     this.currentAtonementTargets.push(atonement);
