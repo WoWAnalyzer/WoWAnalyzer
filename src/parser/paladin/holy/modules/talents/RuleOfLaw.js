@@ -6,7 +6,7 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
+import UptimeBar from 'interface/statistics/components/UptimeBar';
 
 class RuleOfLaw extends Analyzer {
   constructor(...args) {
@@ -42,16 +42,23 @@ class RuleOfLaw extends Analyzer {
     });
   }
   statistic() {
+    const history = this.selectedCombatant.getBuffHistory(SPELLS.RULE_OF_LAW_TALENT.id);
+
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(31)}
         size="small"
       >
-        <BoringSpellValue
-          spell={SPELLS.RULE_OF_LAW_TALENT}
-          value={`${formatPercentage(this.uptime)}%`}
-          label="uptime"
-        />
+        <div className="pad">
+          <label>Rule of Law uptime</label>
+          <div className="value">{formatPercentage(this.uptime)}%</div>
+
+          <UptimeBar
+            uptimeHistory={history}
+            start={this.owner.fight.start_time}
+            end={this.owner.fight.end_time}
+          />
+        </div>
       </Statistic>
     );
   }
