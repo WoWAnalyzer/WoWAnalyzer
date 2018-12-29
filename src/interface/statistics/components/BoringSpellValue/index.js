@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import SpellIcon from 'common/SpellIcon';
+import SpellIcon from '../../../../common/SpellIcon';
 
 import './BoringSpellValue.scss';
 

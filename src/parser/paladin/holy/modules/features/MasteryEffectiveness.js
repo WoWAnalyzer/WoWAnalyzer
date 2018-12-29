@@ -204,31 +204,30 @@ class MasteryEffectiveness extends Analyzer {
     console.log('total mastery healing done', this.owner.formatItemHealingDone(this.totalMasteryHealingDone));
     // TODO: Should overallMasteryEffectiveness account for overhealing? It would probably be cleaner
     return (
-      <Statistic
-        position={STATISTIC_ORDER.CORE(10)}
-        pad
-      >
-        <label><Trans>Mastery effectiveness</Trans></label>
-        <div className="value">
-          {formatPercentage(this.overallMasteryEffectiveness, 0)}%
-        </div>
+      <Statistic position={STATISTIC_ORDER.CORE(10)}>
+        <div className="pad" style={{ position: 'relative' }}>
+          <label><Trans>Mastery effectiveness</Trans></label>
+          <div className="value">
+            {formatPercentage(this.overallMasteryEffectiveness, 0)}%
+          </div>
 
-        <div
-          style={{
-            position: 'absolute',
-            top: 12,
-            right: 0,
-            textAlign: 'center',
-          }}
-        >
-          <Radar
-            distance={this.distanceSum / this.distanceCount}
+          <div
             style={{
-              display: 'inline-block',
+              position: 'absolute',
+              top: 12,
+              right: 0,
+              textAlign: 'center',
             }}
-            playerColor="#f58cba" // Paladin color
-          />
-          <div style={{ opacity: 0.5, lineHeight: 1, marginTop: -4, fontSize: 13 }}>Average distance</div>
+          >
+            <Radar
+              distance={this.distanceSum / this.distanceCount}
+              style={{
+                display: 'inline-block',
+              }}
+              playerColor="#f58cba" // Paladin color
+            />
+            <div style={{ opacity: 0.5, lineHeight: 1, marginTop: -4, fontSize: 13 }}>Average distance</div>
+          </div>
         </div>
       </Statistic>
     );

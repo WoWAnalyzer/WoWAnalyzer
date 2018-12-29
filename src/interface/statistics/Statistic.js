@@ -10,21 +10,23 @@ class Statistic extends React.PureComponent {
   static propTypes = {
     children: PropTypes.node.isRequired,
     tooltip: PropTypes.node,
-    large: PropTypes.bool,
     wide: PropTypes.bool,
     // eslint-disable-next-line react/no-unused-prop-types
     category: PropTypes.oneOf(STATISTIC_CATEGORY),
     // eslint-disable-next-line react/no-unused-prop-types
     position: PropTypes.number,
-    pad: PropTypes.bool,
+    size: PropTypes.oneOf(['small', 'medium', 'standard']),
+  };
+  static defaultProps = {
+    size: 'standard',
   };
 
   render() {
-    const { children, large, wide, tooltip, pad, ...others } = this.props;
+    const { children, wide, tooltip, size, ...others } = this.props;
 
     return (
       <div className={wide ? 'col-md-6 col-sm-12 col-xs-12' : 'col-lg-3 col-md-4 col-sm-6 col-xs-12'}>
-        <div className={`panel statistic ${large ? 'large' : ''} ${pad ? 'pad' : ''}`} {...others}>
+        <div className={`panel statistic ${size}`} {...others}>
           <div className="panel-body">
             {children}
           </div>

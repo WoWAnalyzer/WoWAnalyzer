@@ -43,19 +43,16 @@ class RuleOfLaw extends Analyzer {
   }
   statistic() {
     return (
-      <React.Fragment
-        position={STATISTIC_ORDER.CORE(31)}>
-        <Statistic
-          position={STATISTIC_ORDER.CORE(31)}
-          style={{ height: 'auto' }} // TODO: Rework Statistic to provide a default set of sizes
-        >
-          <BoringSpellValue
-            spell={SPELLS.RULE_OF_LAW_TALENT}
-            value={`${formatPercentage(this.uptime)}%`}
-            label="uptime"
-          />
-        </Statistic>
-      </React.Fragment>
+      <Statistic
+        position={STATISTIC_ORDER.CORE(31)}
+        size="small"
+      >
+        <BoringSpellValue
+          spell={SPELLS.RULE_OF_LAW_TALENT}
+          value={`${formatPercentage(this.uptime)}%`}
+          label="uptime"
+        />
+      </Statistic>
     );
   }
 }

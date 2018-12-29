@@ -1,12 +1,17 @@
 .statistic {
-  height: 165px;
   margin-bottom: 30px;
   border: 0 !important;
   text-shadow: 0 0 0.6px currentColor;
   position: relative;
 }
-.statistic.pad {
-  padding: 15px 18px;
+.statistic.small {
+  height: 86px;
+}
+.statistic.standard, .statistic.medium {
+  height: 165px;
+}
+.statistic .pad {
+  margin: 15px 18px;
 }
 .statistic svg {
   text-shadow: none;
@@ -36,7 +41,7 @@
 .statistic .value {
   font-size: 2em;
   line-height: 1.4;
-  color: #d8d3d3;
+  color: hsla(41, 3%, 91%, 1);
 }
 .statistic .text-muted {
   color: #777;

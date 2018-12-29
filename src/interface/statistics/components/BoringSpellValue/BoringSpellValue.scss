@@ -1,4 +1,4 @@
-@import 'interface/layout/Theme.scss';
+@import '../../../layout/Theme';
 
 .boring-spell-value {
   > .icon {
@@ -15,10 +15,9 @@
   > .value {
     padding: 15px 18px;
     line-height: 1;
-    color: #fff;
 
     > div {
-      margin: 5px 0;
+      margin: 7px 0 5px 0;
     }
     > small {
       display: block;

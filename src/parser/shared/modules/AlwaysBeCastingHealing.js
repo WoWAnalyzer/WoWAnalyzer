@@ -57,18 +57,19 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
 
     const downtimePercentage = this.downtimePercentage;
     const healingTimePercentage = this.healingTimePercentage;
+    // TODO: Put this in the extra box
     const nonHealCastTimePercentage = this.activeTimePercentage - healingTimePercentage;
 
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(10)}
-        title="Active time"
         tooltip={`Created by Zerotorescue. For more details, see the timeline.`}
-        pad
       >
-        <label>Active time</label>
+        <div className="pad">
+          <label>Active time</label>
 
-        <Gauge value={1 - downtimePercentage} />
+          <Gauge value={1 - downtimePercentage} />
+        </div>
       </Statistic>
 
       // <StatisticBox
