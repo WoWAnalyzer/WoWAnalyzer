@@ -422,7 +422,12 @@ class BaseHealerStatValues extends Analyzer {
           <div className="panel items">
             <div className="panel-heading">
               <h4>
-                <dfn data-tip="These stat values are calculated using the actual circumstances of this encounter. These values reveal the value of the last 1 rating of each stat, they may not necessarily be the best way to gear. The stat values are likely to differ based on fight, raid size, items used, talents chosen, etc.<br /><br />DPS gains are not included in any of the stat values.">Stat Values</dfn>
+                <Tooltip content={(<>
+                  These stat values are calculated using the actual circumstances of this encounter. These values reveal the value of the last 1 rating of each stat, they may not necessarily be the best way to gear. The stat values are likely to differ based on fight, raid size, items used, talents chosen, etc.<br /><br />
+                  DPS gains are not included in any of the stat values.
+                </>)}>
+                  Stat Values
+                </Tooltip>
 
                 {this.moreInformationLink && (
                   <a href={this.moreInformationLink} className="pull-right">
@@ -435,9 +440,13 @@ class BaseHealerStatValues extends Analyzer {
               <table className="data-table compact">
                 <thead>
                   <tr>
-                    <th style={{ minWidth: 30 }}><b>Stat</b></th>
+                    <th style={{ minWidth: 30 }}>
+                      <b>Stat</b>
+                    </th>
                     <th className="text-right" style={{ minWidth: 30 }} colSpan={2}>
-                      <dfn data-tip="Normalized so Intellect is always 1.00."><b>Value</b></dfn>
+                      <Tooltip content="Normalized so Intellect is always 1.00.">
+                        <b>Value</b>
+                      </Tooltip>
                     </th>
                   </tr>
                 </thead>
@@ -465,7 +474,7 @@ class BaseHealerStatValues extends Analyzer {
                               marginRight: 10,
                             }}
                           />{' '}
-                          {tooltip ? <dfn data-tip={tooltip}>{getName(stat)}</dfn> : getName(stat)}
+                          {tooltip ? <Tooltip content={tooltip}>{getName(stat)}</Tooltip> : getName(stat)}
                         </td>
                         <td className="text-right">
                           {stat === STAT.HASTE_HPCT && '0.00 - '}{gain !== null ? weight.toFixed(2) : 'NYI'}

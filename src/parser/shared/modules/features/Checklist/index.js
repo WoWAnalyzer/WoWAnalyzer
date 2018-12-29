@@ -178,7 +178,7 @@ class Checklist extends Analyzer {
                   )}
                   <div className="flex-sub content-middle text-muted" style={{ minWidth: 55, marginLeft: 5, marginRight: 10 }}>
                     <div className="text-right" style={{ width: '100%' }}>
-                      {requirement.valueTooltip ? <dfn data-tip={requirement.valueTooltip}>{displayedValue}</dfn> : displayedValue}
+                      {requirement.valueTooltip ? <Tooltip content={requirement.valueTooltip}>{displayedValue}</Tooltip> : displayedValue}
                     </div>
                   </div>
                   <div className="flex-sub content-middle" style={{ width: 50 }}>

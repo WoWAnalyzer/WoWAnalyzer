@@ -1,9 +1,10 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS/index';
-import ITEMS from 'common/ITEMS/index';
+import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import { formatPercentage } from 'common/format';
 import { calculatePrimaryStat } from 'common/stats';
+import Tooltip from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
@@ -62,11 +63,9 @@ class DreadGladiatorsInsignia extends Analyzer {
     return {
       item: ITEMS.DREAD_GLADIATORS_INSIGNIA,
       result: (
-        <>
-          <dfn data-tip={`You procced <b>${SPELLS.TASTE_OF_VICTORY.name}</b> ${this.procs} times with an uptime of ${formatPercentage(this.uptime)}%.`}>
+        <Tooltip content={<>You procced <b>{SPELLS.TASTE_OF_VICTORY.name}</b> {this.procs} times with an uptime of {formatPercentage(this.uptime)}%.</>}>
           {this.averagePrimaryStat} average Primary Stat
-          </dfn>
-        </>
+        </Tooltip>
       ),
     };
   }

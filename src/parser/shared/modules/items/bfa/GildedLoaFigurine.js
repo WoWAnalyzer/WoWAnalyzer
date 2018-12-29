@@ -5,6 +5,7 @@ import ITEMS from 'common/ITEMS/index';
 import Analyzer from 'parser/core/Analyzer';
 import { formatPercentage, formatNumber } from 'common/format';
 import { calculatePrimaryStat } from 'common/stats';
+import Tooltip from 'common/Tooltip';
 
 /**
  * Gilded Loa Figurine -
@@ -34,10 +35,10 @@ class GildedLoaFigurine extends Analyzer {
     return {
       item: ITEMS.GILDED_LOA_FIGURINE,
       result: (
-        <dfn data-tip={`Procced ${this.buffTriggerCount} times`}>
+        <Tooltip wrapperStyles={{ display: 'inline' }} content={`Procced ${this.buffTriggerCount} times`}>
           {formatPercentage(this.totalBuffUptime)}% uptime<br />
           {formatNumber(this.totalBuffUptime * this.statBuff)} average {this.selectedCombatant.spec.primaryStat}
-        </dfn>
+        </Tooltip>
       ),
     };
   }

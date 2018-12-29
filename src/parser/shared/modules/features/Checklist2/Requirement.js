@@ -78,7 +78,7 @@ class Requirement extends React.PureComponent {
           )}
           <div className="flex-sub content-middle text-muted" style={{ minWidth: 55, marginLeft: 5, marginRight: 10 }}>
             <div className="text-right" style={{ width: '100%' }}>
-              {valueTooltip ? <dfn data-tip={valueTooltip}>{actual}</dfn> : actual}
+              {valueTooltip ? <Tooltip content={valueTooltip}>{actual}</Tooltip> : actual}
             </div>
           </div>
           <div className="flex-sub content-middle" style={{ width: 50 }}>
