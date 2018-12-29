@@ -18,12 +18,11 @@ import Unused from 'common/SPELLS/bfa/azeritetraits/__UNUSED';
 
 const AZERITE_SPELLS = Object.values({...General, ...Hunter, ...Paladin, ...Shaman, ...Warlock, ...Monk, ...DeathKnight, ...Priest, ...Druid, ...Unused});
 const FALLBACK_ICON = 'inv_misc_questionmark';
-
 const ITEM_SLOT = {
   0: "Healm",
   2: "Shoulders",
   4: "Chest",
-}
+};
 
 class Azerite extends React.PureComponent {
   static propTypes = {
@@ -33,10 +32,6 @@ class Azerite extends React.PureComponent {
   state = {
     azerite: AZERITE_SPELLS,
   };
-
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     this.loadMissingIcons();
@@ -54,7 +49,7 @@ class Azerite extends React.PureComponent {
         <h3>
           Azerite Powers
         </h3>
-        <div className="azerite-traits">{/* some bonus padding so it looks to be aligned with the icon for stats */}
+        <div className="azerite-traits">
           {Object.keys(azerite).map(slotId => {
             return (
               <div className="azerite-traits-column" key={slotId}>
@@ -77,7 +72,7 @@ class Azerite extends React.PureComponent {
                 })
               }
               </div>
-            )
+            );
           })}
         </div>
       </>

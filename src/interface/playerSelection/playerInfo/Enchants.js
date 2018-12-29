@@ -11,13 +11,10 @@ class Enchants extends React.PureComponent {
   render() {
     const { gear } = this.props;
 
-    const artifact = gear.find(item => item.quality === 6);
-    const relics = artifact && artifact.gems ? artifact.gems : [];
-
     return (
       <>
-        {[...gear, ...relics]
-          .filter(item => item.id !== 0 && item.permanentEnchant)
+        {
+          gear.filter(item => item.id !== 0 && item.permanentEnchant)
           .map(item => {
             const gearSlot = gear.indexOf(item);
 

@@ -25,7 +25,7 @@ class PlayerInfo extends React.PureComponent {
     talents: {},
   }
 
-  static getDerivedStateFromProps(props, state) {
+  static getDerivedStateFromProps(props) {
     const { player } = props;
     return {
       gear: Object.values(_parseGear(player.combatant.gear)),

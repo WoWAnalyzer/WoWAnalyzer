@@ -218,8 +218,6 @@
       border: 1px solid transparent;
 
       &:hover, &.selected {
-        // Placeholder
-        // TODO: Replace
         text-decoration: none;
         background: transparentize($primaryColor, 0.9);
         border: 1px solid rgba(248, 183, 0, 1);
@@ -240,7 +238,6 @@
         background-size: cover;
         background-position: top center;
         position: relative;
-        //margin-left: 35px;
         border: 1px solid #000;
         border-radius: 3px;
 
@@ -277,16 +274,6 @@
           height: 1em;
           border-radius: 50%;
         }
-        //.background {
-        //  position: absolute;
-        //  top: 0;
-        //  right: 0;
-        //  width: 70%;
-        //  height: 100%;
-        //  z-index: -1;
-        //  mask-image: linear-gradient(to left, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
-        //  opacity: 0.1;
-        //}
       }
     }
   }

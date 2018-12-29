@@ -14,14 +14,10 @@ class Gear extends React.PureComponent {
   render() {
     const { gear } = this.props;
 
-    const artifact = gear.find(item => item.quality === 6);
-    const relics = artifact && artifact.gems ? artifact.gems : [];
-
     return (
       <>
         {
-          [...gear, ...relics]
-          .filter(item => item.id !== 0)
+          gear.filter(item => item.id !== 0)
           .map(item => {
             // Items seem to turn epic from 340 item level, but WCL doesn't show this properly
             let quality = item.itemLevel >= 340 ? ITEM_QUALITIES.EPIC : item.quality;

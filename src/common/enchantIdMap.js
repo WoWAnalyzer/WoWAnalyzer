@@ -1,3 +1,10 @@
+/*
+  Professions Included:
+    - Enchanting
+    - Engineering
+    - Tailoring
+*/
+
 export default {
   5933: "Kul Tiran Mining",
   5949: "Torrent of Elements",
@@ -23,5 +30,15 @@ export default {
   5932: "Kul Tiran Herbalism",
   5962: "Versatile Navigation",
   5936: "Swift Hearthing",
-  5963: "Quick Navigation",  
+  5963: "Quick Navigation",
+  5952: "Holographic Horror Projector",
+  5953: "Personal Space Amplifier",
+  5967: "Miniaturized Plasma Shield",
+  5955: "Crow's Nest Scope",
+  5956: "Monelite Scope of Alacrity",
+  5957: "Incendiary Ammunition",
+  5958: "Frost-Laced Ammunition",
+  6087: "Resilient Spellthread",
+  6088: "Discreet Spellthread",
+  6089: "Feathery Spellthread",
 };

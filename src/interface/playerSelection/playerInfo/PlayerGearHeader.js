@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const PlayerGearHeader = ({ player, averageIlvl, ...others }) => {
+const PlayerGearHeader = ({ player, averageIlvl }) => {
 
 
   return (

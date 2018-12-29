@@ -2,8 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import SPELLS from 'common/SPELLS/index';
+import Icon from 'common/Icon';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
+
+const FALLBACK_ICON = 'inv_misc_questionmark';
 
 class Talents extends React.PureComponent {
   static propTypes = {
@@ -37,9 +40,14 @@ class Talents extends React.PureComponent {
                   </div>
                 </>
               ) : (
-                <div className="col-xs-offset-2 col-xs-7">
-                  <i>No talent active</i>
-                </div>
+                <>
+                  <div className="talent-icon">
+                    <Icon icon={FALLBACK_ICON} style={{ width: '2em', height: '2em' }} />
+                  </div>
+                  <div className="talent-name">
+                    <i>No talent active</i>
+                  </div>
+                </>
               )}
             </div>
           ))}

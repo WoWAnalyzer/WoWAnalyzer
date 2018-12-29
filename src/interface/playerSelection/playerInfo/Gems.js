@@ -11,13 +11,10 @@ class Gems extends React.PureComponent {
   render() {
     const { gear } = this.props;
 
-    const artifact = gear.find(item => item.quality === 6);
-    const relics = artifact && artifact.gems ? artifact.gems : [];
-
     return (
       <>
-        {[...gear, ...relics]
-          .filter(item => item.id !== 0 && item.gems)
+        {
+          gear.filter(item => item.id !== 0 && item.gems)
           .map(item => {
             const gearSlot = gear.indexOf(item);
             const gem = item.gems[0];
