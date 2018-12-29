@@ -30,9 +30,8 @@ class BurningAlive extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.BURNING_ALIVE_TALENT.id}
         position={STATISTIC_ORDER.CORE(10)}
-        value={`${this.owner.formatItemDamageDone(this.damage)}`}
-        tooltip={`This shows the extra dps that the talent provides.<br/>
-                  <b>Total extra damage:</b> ${formatNumber(this.damage)}`}
+        value={this.owner.formatItemDamageDone(this.damage)}
+        tooltip={<>This shows the extra dps that the talent provides.<br /><strong>Total extra damage:</strong> {formatNumber(this.damage)}</>}
       />
     );
   }

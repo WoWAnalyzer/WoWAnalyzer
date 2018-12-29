@@ -57,9 +57,12 @@ class SigilOfFlame extends Analyzer {
         icon={<SpellIcon id={SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id} />}
         value={`${this.successfulStack} times`}
         label="Sigil of Flame stacked twice"
-        tooltip={`Having two stacks of Sigil Of Flames on the boss is a damage increase. This is especially important during Fiery Brand due to the Fiery Demise artifact trait that increases the fire damage you do by 10%. This increases your damage and self healing.</br><br/>
-                  Sigil of Flame uptime: ${formatPercentage(sigilOfFlameUptimePercentage)}% / (${formatDuration(sigilOfFlameUptime / 1000)})<br/>
-                  Sigil of Flame total damage: ${formatThousands(sigilOfFlameDamage)}.`}
+        tooltip={(<>
+          Having two stacks of Sigil Of Flames on the boss is a damage increase. This is especially important during Fiery Brand due to the Fiery Demise artifact trait that increases the fire damage you do by 10%. This increases your damage and self healing.<br /><br />
+
+          Sigil of Flame uptime: {formatPercentage(sigilOfFlameUptimePercentage)}% / ({formatDuration(sigilOfFlameUptime / 1000)})<br />
+          Sigil of Flame total damage: {formatThousands(sigilOfFlameDamage)}.
+        </>)}
       />
     );
   }
