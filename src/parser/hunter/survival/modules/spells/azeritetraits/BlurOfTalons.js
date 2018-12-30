@@ -100,11 +100,11 @@ class BlurOfTalons extends Analyzer {
     this.handleStacks(event, this.lastBlurStack);
   }
 
-  uptime() {
+  get uptime() {
     return (this.selectedCombatant.getBuffUptime(SPELLS.BLUR_OF_TALONS_BUFF.id) / 1000).toFixed(1);
   }
 
-  avgAgility() {
+  get avgAgility() {
     const avgAgi = this.blurOfTalonStacks.reduce((sum, innerArray, outerArrayIndex) => {
       return sum + innerArray.reduce((sum, arrVal) => sum + ((arrVal * outerArrayIndex * this.agility) / this.owner.fightDuration), 0);
     }, 0);
@@ -118,8 +118,8 @@ class BlurOfTalons extends Analyzer {
         category={STATISTIC_CATEGORY.AZERITE_POWERS}
         icon={<SpellIcon id={SPELLS.BLUR_OF_TALONS.id} />}
         label="Blur of Talons"
-        value={`${formatNumber(this.avgAgility())} average Agility`}
-        tooltip={`Blur of Talons was up for a total of ${this.uptime()} seconds`}
+        value={`${formatNumber(this.avgAgility)} average Agility`}
+        tooltip={`Blur of Talons was up for a total of ${this.uptime} seconds`}
       >
         <table className="table table-condensed">
           <thead>

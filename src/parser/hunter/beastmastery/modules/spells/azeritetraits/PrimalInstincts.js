@@ -64,7 +64,7 @@ class PrimalInstincts extends Analyzer {
             Up to {this.numProcs} <SpellIcon id={SPELLS.BARBED_SHOT.id} /> charges regained
           </>
         )}
-        tooltip={`Primal Instincts granted <b>${this.mastery}</b> mastery for <b>${formatPercentage(this.uptime)}%</b> of the fight.`}
+        tooltip={<>Primal Instincts granted <strong>{this.mastery}</strong> Mastery for <strong>{formatPercentage(this.uptime)}%</strong> of the fight.</>}
       />
     );
   }

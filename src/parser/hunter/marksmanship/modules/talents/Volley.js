@@ -104,19 +104,28 @@ class Volley extends Analyzer {
 
   statistic() {
     const binomCalc = this.binomialCalculation(this.procs, this.autoShots, PROC_CHANCE);
-    let tooltipText = `You had ${this.procs} ${this.procs > 1 ? `procs` : `proc`}. <br/> You had ${formatPercentage(this.procs / this.expectedProcs, 1)}% procs of what you could expect to get over the encounter. <br /> You had a total of ${this.procs} procs, and your expected amount of procs was ${this.expectedProcs}. <br /> <ul><li>You have a ~${formatPercentage(binomCalc)}% chance of getting this amount of procs or fewer in the future with this amount of autoattacks. </li><li>`;
-    //this two first tooltipText additions will probably NEVER happen, but it'd be fun if they ever did.
-    tooltipText += binomCalc === 1 ? `You had so many procs that the chance of you getting fewer procs than what you had on this attempt is going to be de facto 100%. Consider yourself the luckiest man alive.` : ``;
-    tooltipText += binomCalc === 0 ? `You had so few procs that the chance of you getting fewer procs than what you had on this attempt is going to be de facto 0%. Consider yourself the unluckiest man alive.` : ``;
-    // eslint-disable-next-line yoda
-    tooltipText += 1 > binomCalc > 0 ? (this.pn || this.qn) > 10 ? `Due to normal approximation these results are within 2% margin of error.` : `Because you had under ${10 / PROC_CHANCE} auto attacks and due to normal approximation these results have a margin of error of over 2%.` : ``;
-    tooltipText += `</li></ul>`;
 
     return (
       <TalentStatisticBox
         talent={SPELLS.VOLLEY_TALENT.id}
         value={`${this.procs} procs`}
-        tooltip={tooltipText}
+        tooltip={(<>
+          You had {this.procs} {this.procs > 1 ? `procs` : `proc`}. <br />
+          You had {formatPercentage(this.procs / this.expectedProcs, 1)}% procs of what you could expect to get over the encounter. <br />
+          You had a total of {this.procs} procs, and your expected amount of procs was {this.expectedProcs}. <br />
+          <ul>
+            <li>You have a ~{formatPercentage(binomCalc)}% chance of getting this amount of procs or fewer in the future with this amount of autoattacks. </li>
+            {/*these two will probably NEVER happen, but it'd be fun if they ever did.*/}
+            {binomCalc === 1 && <li>You had so many procs that the chance of you getting fewer procs than what you had on this attempt is going to be de facto 100%. Consider yourself the luckiest man alive.</li>}
+            {binomCalc === 0 && <li>You had so few procs that the chance of you getting fewer procs than what you had on this attempt is going to be de facto 0%. Consider yourself the unluckiest man alive.</li>}
+            {/* eslint-disable-next-line yoda */}
+            {(0 < binomCalc && binomCalc < 1) && (
+              (this.pn > 10 || this.qn > 10) ?
+                <li>Due to normal approximation these results are within 2% margin of error.</li> :
+                <li>Because you had under {10 / PROC_CHANCE} auto attacks and due to normal approximation these results have a margin of error of over 2%.</li>
+            )}
+          </ul>
+        </>)}
       />
     );
   }
