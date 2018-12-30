@@ -280,7 +280,7 @@ export default class MitigationSheet extends Analyzer {
         gain: [
           { name: <><SpellLink id={SPELLS.GIFT_OF_THE_OX_1.id} /> Healing</>, amount: this.agiHealing },
           { 
-            name: 'Dodge', 
+            name: <dfn data-tip='The amount of damage avoided by dodging may be reduced by purification. This is reflected in the range of values.'>Dodge</dfn>, 
             amount: { 
               low: this.agiDamageDodged * (1 - this.stagger.pctPurified), 
               high: this.agiDamageDodged,
@@ -299,7 +299,7 @@ export default class MitigationSheet extends Analyzer {
         gain: [
           { name: <><SpellLink id={SPELLS.GIFT_OF_THE_OX_1.id} /> Healing</>, amount: this.masteryHealing },
           { 
-            name: 'Dodge', 
+            name: <dfn data-tip='The amount of damage avoided by dodging may be reduced by purification. This is reflected in the range of values.'>Dodge</dfn>, 
             amount:{
               low: this.masteryDamageMitigated * (1 - this.stagger.pctPurified),
               high: this.masteryDamageMitigated,
@@ -307,7 +307,6 @@ export default class MitigationSheet extends Analyzer {
             isLoaded: this.masteryValue._loaded,
           },
         ],
-        tooltip: 'Estimated only after the "Expected Mitigation by Mastery" stat is loaded.',
         increment: this.increment(calculateSecondaryStatDefault, this.stats.startingMasteryRating),
       },
       [STAT.VERSATILITY]: {
