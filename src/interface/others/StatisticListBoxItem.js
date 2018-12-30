@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+/**
+ * @deprecated Use `interface/statistic/Statistic` instead.
+ */
 const StatisticListBoxItem = ({ title, value, titleTooltip, valueTooltip}) => {
   return (
     <div className="flex">

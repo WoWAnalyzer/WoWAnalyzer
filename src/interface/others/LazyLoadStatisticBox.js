@@ -5,6 +5,9 @@ import StatisticBox from './StatisticBox';
 
 export { STATISTIC_ORDER } from './StatisticBox';
 
+/**
+ * @deprecated Use `interface/statistic/Statistic` instead.
+ */
 class LazyLoadStatisticBox extends React.PureComponent {
   static propTypes = {
     loader: PropTypes.func.isRequired,
