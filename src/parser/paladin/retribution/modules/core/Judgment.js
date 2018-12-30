@@ -81,18 +81,19 @@ class Judgment extends Analyzer {
   }
 
   statistic() {
-    const justicarsVengeanceText = this.selectedCombatant.hasTalent(SPELLS.JUSTICARS_VENGEANCE_TALENT.id) ? `<br>Justicars Vengeance consumptions: ${this.justicarsVengeanceConsumptions}` : ``; 
+    const hasJV = this.selectedCombatant.hasTalent(SPELLS.JUSTICARS_VENGEANCE_TALENT.id);
     return (
       <StatisticBox
         position={STATISTIC_ORDER.CORE(6)}
         icon={<SpellIcon id={SPELLS.JUDGMENT_DEBUFF.id} />}
         value={`${formatPercentage(this.percentageJudgmentsConsumed)}%`}
         label="Judgments Consumed"
-        tooltip={`
-          Judgments Applied: ${this.judgmentsApplied}<br>
-          Templars Verdicts consumptions: ${this.templarsVerdictConsumptions}<br>
-          Divine Storm consumptions: ${this.divineStormConsumptions}
-          ${justicarsVengeanceText}`}
+        tooltip={(<>
+          Judgments Applied: {this.judgmentsApplied}<br />
+          Templars Verdicts consumptions: {this.templarsVerdictConsumptions}<br />
+          Divine Storm consumptions: {this.divineStormConsumptions}
+          {hasJV && <><br />Justicars Vengeance consumptions: {this.justicarsVengeanceConsumptions}</>}
+        </>)}
       />
     );
   }

@@ -162,21 +162,21 @@ class AuraOfSacrificeDamageReduction extends Analyzer {
     const totalDamageTransferred = passiveDamageTransferred + activeDamageTransferred;
     const totalDamageReduced = passiveDamageReduced + activeDamageReduced;
 
-    const tooltip = this.loaded ? `
-      <b>Passive:</b><br />
-      Damage transferred: ${formatThousands(passiveDamageTransferred)} damage (${formatThousands(this.perSecond(passiveDamageTransferred))} DTPS)<br />
-      Effectively damage reduction: ${formatThousands(passiveDamageReduced)} (${formatThousands(this.passiveDrps)} DRPS)<br />
-      <b>Active (Aura Mastery):</b><br />
-      Damage transferred: ${formatThousands(activeDamageTransferred)} damage (${formatThousands(this.perSecond(activeDamageTransferred))} DTPS)<br />
-      Effective damage reduction: ${formatThousands(activeDamageReduced)} (${formatThousands(this.activeDrps)} DRPS)<br />
-      <b>Total:</b><br />
-      Damage transferred: ${formatThousands(totalDamageTransferred)} damage (${formatThousands(this.perSecond(totalDamageTransferred))} DTPS)<br />
-      Effective damage reduction: ${formatThousands(totalDamageReduced)} damage (${formatThousands(this.perSecond(totalDamageReduced))} DRPS / ${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalDamageReduced))}% of total healing)<br /><br />
+    const tooltip = this.loaded ? (<>
+      <strong>Passive:</strong><br />
+      Damage transferred: {formatThousands(passiveDamageTransferred)} damage ({formatThousands(this.perSecond(passiveDamageTransferred))} DTPS)<br />
+      Effectively damage reduction: {formatThousands(passiveDamageReduced)} ({formatThousands(this.passiveDrps)} DRPS)<br />
+      <strong>Active (Aura Mastery):</strong><br />
+      Damage transferred: {formatThousands(activeDamageTransferred)} damage ({formatThousands(this.perSecond(activeDamageTransferred))} DTPS)<br />
+      Effective damage reduction: {formatThousands(activeDamageReduced)} ({formatThousands(this.activeDrps)} DRPS)<br />
+      <strong>Total:</strong><br />
+      Damage transferred: {formatThousands(totalDamageTransferred)} damage ({formatThousands(this.perSecond(totalDamageTransferred))} DTPS)<br />
+      Effective damage reduction: {formatThousands(totalDamageReduced)} damage ({formatThousands(this.perSecond(totalDamageReduced))} DRPS / {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalDamageReduced))}% of total healing)<br /><br />
 
       This is an estimation. There are several ways to calculate the effective damage reduction of buffs, this uses the lowest method. At the same time the log's health tracking (and thus AM activity) isn't perfect, so there might be a few false positives when there's a lot of damage at the exact same moment.<br /><br />
 
-      Any damage transferred by the <b>passive</b> while immune (if applicable) is <i>not</i> included.
-    ` : 'Click to load the required data.';
+      Any damage transferred by the <strong>passive</strong> while immune (if applicable) is <em>not</em> included.
+    </>) : 'Click to load the required data.';
     const footer = this.loaded && (
       <div className="statistic-bar">
         <Tooltip

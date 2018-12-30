@@ -59,7 +59,7 @@ class Judgment extends Analyzer {
     if(!this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_JUDGMENT_TALENT.id)) {
       return this._totalCdr;
     }
-    
+
     return (1 - this.gc._totalResets / this._casts) * this._totalCdr;
   }
 
@@ -68,17 +68,18 @@ class Judgment extends Analyzer {
   }
 
   statistic() {
-    const cjTooltip = this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_JUDGMENT_TALENT.id) ?
-      `<br/>Without the Crusader's Judgment talent, your effective SotR CDR would have been roughly <b>${formatPercentage(this.baseCdrPercentage)}%</b> (or ${formatNumber(this.baseCdr / 1000)}s).` : '';
+    const hasCJ = this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_JUDGMENT_TALENT.id);
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} />}
         label="Effective SotR CDR"
         value={`${formatPercentage(this.cdrPercentage)}%`}
-        tooltip={`Your Judgment casts reduced the cooldown of Shield of the Righteous by <b>${formatNumber(this._totalCdr / 1000)}s</b> over ${formatNumber(this._casts)} casts, ${formatNumber(this._crits)} of which were critical strikes.
-            ${cjTooltip}<br/>
-            You wasted <b>${formatNumber(this._wastedCdr / 1000)}s</b> of cooldown reduction.`}
-          />
+        tooltip={(<>
+          Your Judgment casts reduced the cooldown of Shield of the Righteous by <strong>{formatNumber(this._totalCdr / 1000)}s</strong> over {formatNumber(this._casts)} casts, {formatNumber(this._crits)} of which were critical strikes.<br />
+          {hasCJ && <>Without the Crusader's Judgment talent, your effective SotR CDR would have been roughly <strong>{formatPercentage(this.baseCdrPercentage)}%</strong> (or {formatNumber(this.baseCdr / 1000)}s).<br /></>}
+          You wasted <strong>{formatNumber(this._wastedCdr / 1000)}s</strong> of cooldown reduction.
+        </>)}
+      />
     );
   }
 }
