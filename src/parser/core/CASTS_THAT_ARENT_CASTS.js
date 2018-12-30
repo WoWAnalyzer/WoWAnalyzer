@@ -32,4 +32,5 @@ export default [
   SPELLS.DIRE_BEAST_SECONDARY_WITH_SCENT.id, //A secondary cast event from Dire Beast talent
   SPELLS.DIRE_BEAST_SECONDARY_WITHOUT_SCENT.id, //A secondary cast event from Dire Beast talent
   SPELLS.DIVINE_HYMN_HEAL.id, //The heal component of divine hymn
+  SPELLS.CHARGE_2.id, // The damage component of charge
 ];

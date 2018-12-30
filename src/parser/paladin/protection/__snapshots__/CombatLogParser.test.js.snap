@@ -1519,7 +1519,7 @@ exports[`The Protection Paladin Analyzer should match the checklist snapshot 1`]
                 Object {
                   "backgroundColor": "#ac1f39",
                   "transition": "background-color 800ms",
-                  "width": "29.51026119402985%",
+                  "width": "24.294193097014926%",
                 }
               }
             />
@@ -1611,7 +1611,35 @@ exports[`The Protection Paladin Analyzer should match the checklist snapshot 1`]
                  
                 Shield of the Righteous
               </a>
-               to smooth out your physical damage taken or weave them into your rotation when you're about to cap charges.
+               to smooth out your physical damage taken or weave them into your rotation when you're about to cap charges. 
+              <a
+                href="http://wowhead.com/spell=31850"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_holy_ardentdefender.jpg"
+                />
+                 
+                Ardent Defender
+              </a>
+               can be used either as a cooldown to mitigate boss abilities or to cover time when 
+              <a
+                href="http://wowhead.com/spell=53600"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_shieldofvengeance.jpg"
+                />
+                 
+                Shield of the Righteous
+              </a>
+               is unavailable.
             </div>
           </div>
         </div>
@@ -1832,6 +1860,79 @@ exports[`The Protection Paladin Analyzer should match the checklist snapshot 1`]
                       "backgroundColor": "#ac1f39",
                       "transition": "background-color 800ms",
                       "width": "29.51026119402985%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=31850"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_holy_ardentdefender.jpg"
+                />
+                 
+                Ardent Defender
+              </a>
+               cast efficiency
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                0.00%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#ac1f39",
+                      "transition": "background-color 800ms",
+                      "width": "0%",
                     }
                   }
                 />
@@ -2222,319 +2323,6 @@ exports[`The Protection Paladin Analyzer should match the checklist snapshot 1`]
                       "backgroundColor": "#4ec04e",
                       "transition": "background-color 800ms",
                       "width": "100%",
-                    }
-                  }
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    className="expandable "
-  >
-    <div
-      className="meta checklist-item"
-      onClick={[Function]}
-    >
-      <div
-        className="flex"
-      >
-        <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
-          <div
-            className="chevron"
-          >
-            <svg
-              viewBox="0 0 16 9"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-              />
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
-          <div>
-            <svg
-              style={
-                Object {
-                  "color": "red",
-                }
-              }
-              viewBox="15 15 70 70"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g
-                style={
-                  Object {
-                    "strokeLinecap": "round",
-                    "strokeMiterlimit": 10,
-                    "strokeWidth": 10,
-                  }
-                }
-              >
-                <line
-                  x1="21.19"
-                  x2="78.81"
-                  y1="21.19"
-                  y2="78.81"
-                />
-                <line
-                  x1="78.81"
-                  x2="21.19"
-                  y1="21.19"
-                  y2="78.81"
-                />
-              </g>
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-main"
-        >
-          Use your defensive cooldowns.
-        </div>
-        <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "width": 100,
-            }
-          }
-        >
-          <div
-            className="performance-bar-container"
-          >
-            <div
-              className="performance-bar small"
-              style={
-                Object {
-                  "backgroundColor": "#ac1f39",
-                  "transition": "background-color 800ms",
-                  "width": "3.2302402726311636%",
-                }
-              }
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="details"
-      style={
-        Object {
-          "display": "none",
-          "minHeight": 80,
-          "paddingLeft": 65,
-          "paddingRight": 65,
-          "position": "relative",
-        }
-      }
-    >
-      <div
-        className="row"
-        style={
-          Object {
-            "marginBottom": 10,
-            "position": "relative",
-          }
-        }
-      >
-        <svg
-          className="text-muted"
-          style={
-            Object {
-              "fontSize": "2em",
-              "left": -33,
-              "position": "absolute",
-              "top": "50%",
-              "transform": "translateY(-33%)",
-            }
-          }
-          viewBox="0 0 100 100"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-          />
-          <path
-            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-          />
-          <path
-            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-          />
-        </svg>
-        <div
-          className="col-md-12 text-muted"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              Use these to smooth incoming damage and mitigate spikes as well as reduce external healing required.
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="row"
-      >
-        <div
-          className="col-md-6"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              <a
-                href="http://wowhead.com/spell=31850"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_holy_ardentdefender.jpg"
-                />
-                 
-                Ardent Defender
-              </a>
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
-            >
-              <div
-                className="text-right"
-                style={
-                  Object {
-                    "width": "100%",
-                  }
-                }
-              >
-                 
-                0.00%
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
-                <div
-                  className="performance-bar small"
-                  style={
-                    Object {
-                      "backgroundColor": "#ac1f39",
-                      "transition": "background-color 800ms",
-                      "width": "0%",
-                    }
-                  }
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              <a
-                href="http://wowhead.com/spell=86659"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_holy_heroism.jpg"
-                />
-                 
-                Guardian of Ancient Kings
-              </a>
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
-            >
-              <div
-                className="text-right"
-                style={
-                  Object {
-                    "width": "100%",
-                  }
-                }
-              >
-                 
-                12.61%
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
-                <div
-                  className="performance-bar small"
-                  style={
-                    Object {
-                      "backgroundColor": "#ac1f39",
-                      "transition": "background-color 800ms",
-                      "width": "6.460480545262327%",
                     }
                   }
                 />
