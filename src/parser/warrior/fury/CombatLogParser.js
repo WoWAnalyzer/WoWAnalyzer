@@ -8,6 +8,8 @@ import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import SpellUsable from './modules/features/SpellUsable';
 
+import EnrageNormalizer from './modules/normalizers/Enrage';
+
 import Enrage from './modules/buffdebuff/Enrage';
 
 import MissedRampage from './modules/spells/MissedRampage';
@@ -44,6 +46,8 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
     cooldownThroughputTracker: CooldownThroughputTracker,
     spellUsable: SpellUsable,
+
+    enrageNormalizer: EnrageNormalizer,
 
     enrageUptime: Enrage,
 

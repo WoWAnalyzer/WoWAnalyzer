@@ -5,6 +5,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('29 December 2018'),
+    contributors: [emallson],
+    changes: <>Moved <SpellLink id={SPELLS.ARDENT_DEFENDER.id} /> to the damage mitigation checklist item. Removed the "Use your defensive cooldowns" checklist item.</>,
+  },
+  {
     date: new Date('11 November 2018'),
     contributors: [emallson],
     changes: <>Added <SpellLink id={SPELLS.LIGHT_OF_THE_PROTECTOR.id} /> / <SpellLink id={SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id} /> delay and overheal tracking.</>,
