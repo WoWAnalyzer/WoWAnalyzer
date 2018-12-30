@@ -145,7 +145,7 @@ export default class StraightNoChaser extends Analyzer {
         trait={SPELLS.STRAIGHT_NO_CHASER.id}
         value={(
           <>
-          ≈ {this.resets} Charges Gained<br />
+          ≥{this.resets} Charges Gained<br />
           {formatNumber(this.avgArmor)} Armor Gained
           </>
         )}

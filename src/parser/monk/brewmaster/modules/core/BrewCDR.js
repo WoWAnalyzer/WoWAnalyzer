@@ -10,6 +10,7 @@ import KegSmash from '../spells/KegSmash';
 import TigerPalm from '../spells/TigerPalm';
 import IronskinBrew from '../spells/IronSkinBrew';
 import BlackOxBrew from '../spells/BlackOxBrew';
+import StraightNoChaser from '../spells/azeritetraits/StraightNoChaser';
 
 class BrewCDR extends Analyzer {
   static dependencies = {
@@ -18,6 +19,7 @@ class BrewCDR extends Analyzer {
     bob: BlackOxBrew,
     isb: IronskinBrew,
     abilities: Abilities,
+    snc: StraightNoChaser,
   };
 
   _totalHaste = 0;
@@ -42,6 +44,9 @@ class BrewCDR extends Analyzer {
     totalCDR += this.tp.cdr;
     // ...and BoB...
     totalCDR += this.bob.cdr;
+    // ...and SNC... (assuming that variance evens out and we get a full
+    // charge from *most* procs)
+    totalCDR += this.snc.resets * this.avgCooldown * 1000;
     return totalCDR;
   }
 
@@ -60,11 +65,15 @@ class BrewCDR extends Analyzer {
     return this.totalCDR / (this.owner.fightDuration + this.totalCDR);
   }
 
+  get avgCooldown() {
+    const ability = this.abilities.getAbility(SPELLS.IRONSKIN_BREW.id);
+    return ability._cooldown(this.meanHaste);
+  }
+
   // the amount of CDR required so that you can cast ISB often enough to
   // actually hit 100% uptime
   get cdrRequiredForUptime() {
-    const ability = this.abilities.getAbility(SPELLS.IRONSKIN_BREW.id);
-    return 1 - this.isb.durationPerCast / (ability._cooldown(this.meanHaste) * 1000);
+    return 1 - this.isb.durationPerCast / (this.avgCooldown * 1000);
   }
 
   get suggestionThreshold() {
@@ -109,6 +118,10 @@ class BrewCDR extends Analyzer {
     if (this.ks.bocHits > 0) {
       bocKsDesc = `<li>Using Blackout Combo on ${this.ks.bocHits} Keg Smash hits — <b>${(this.ks.bocCDR / 1000).toFixed(2)}s</b> (<b>${(this.ks.wastedBocCDR / 1000).toFixed(2)}s</b> wasted)</li>`;
     }
+    let sncDesc = "";
+    if (this.snc.resets > 0) {
+      sncDesc = `<li>Straight, No Chaser procs — <b>≥${(this.snc.resets * this.avgCooldown).toFixed(2)}s</b> (an unknown amount wasted)</li>`;
+    }
     return (
       <StatisticBox icon={<SpellIcon id={SPELLS.TIGER_PALM.id} />}
         value={`${formatPercentage(this.cooldownReductionRatio)}%`}
@@ -118,6 +131,7 @@ class BrewCDR extends Analyzer {
               ${bocKsDesc}
               <li>${this.tp.totalCasts} Tiger Palm hits — <b>${(this.tp.cdr / 1000).toFixed(2)}s</b> (<b>${(this.tp.wastedCDR / 1000).toFixed(2)}s</b> wasted)</li>
               ${bobDesc}
+              ${sncDesc}
             </ul>
             <b>Total cooldown reduction:</b> ${(this.totalCDR / 1000).toFixed(2)}s.</b><br/>
             <b>Minimum Cooldown Reduction for 100% ISB uptime:</b> ${formatPercentage(this.cdrRequiredForUptime)}%`}
