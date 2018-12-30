@@ -219,24 +219,6 @@ export default class MitigationSheet extends Analyzer {
 
   get results() {
     return {
-      wdps: {
-        icon: (
-          <img
-            src="/img/sword.png"
-            style={{ 
-              border: 0,
-              marginRight: 10,
-            }}
-            alt="Sword"
-          />
-        ),
-        name: 'Weapon DPS',
-        className: 'stat-criticalstrike',
-        avg: this.gotox._wdps,
-        gain: [
-          { name: <><SpellLink id={SPELLS.GIFT_OF_THE_OX_1.id} /> Healing</>, amount: this.wdpsHealing },
-        ],
-      },
       armor: {
         icon: (
           <img
@@ -255,7 +237,24 @@ export default class MitigationSheet extends Analyzer {
           { name: 'Physical Damage Mitigated', amount: this.armorDamageMitigated },
         ],
         weight: 1,
-        _scale: this.normalizer,
+      },
+      wdps: {
+        icon: (
+          <img
+            src="/img/sword.png"
+            style={{ 
+              border: 0,
+              marginRight: 10,
+            }}
+            alt="Sword"
+          />
+        ),
+        name: 'Weapon DPS',
+        className: 'stat-criticalstrike',
+        avg: this.gotox._wdps,
+        gain: [
+          { name: <><SpellLink id={SPELLS.GIFT_OF_THE_OX_1.id} /> Healing</>, amount: this.wdpsHealing },
+        ],
       },
       [STAT.AGILITY]: {
         icon: makeIcon(STAT.AGILITY),
@@ -389,7 +388,7 @@ export default class MitigationSheet extends Analyzer {
         </tr>
       </thead>
       <tbody>
-        {this.statEntries()};
+        {this.statEntries()}
       </tbody>
       </>
     );
