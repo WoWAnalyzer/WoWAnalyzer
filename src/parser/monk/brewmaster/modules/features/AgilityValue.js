@@ -6,7 +6,7 @@ import SPELLS from 'common/SPELLS';
 import { diminish, ULDIR_K, MPLUS_K } from '../constants/Mitigation';
 import { EVENT_STAGGER_POOL_ADDED, EVENT_STAGGER_POOL_REMOVED } from '../core/StaggerFabricator';
 
-export const BASE_AGI = 1450; // based on my panda monk, TODO get actual base value
+export const BASE_AGI = 1468;
 
 const STAGGER_COEFFS = {
   base: 1.05,
@@ -21,6 +21,15 @@ export function staggerPct(agi, K, hasIsb, hasHT) {
 
 /**
  * Calculates the amount of damage staggered & purified due to agility.
+ *
+ * Method:
+ *
+ * 1. Each time damage is staggered, calculate the amount of damage that
+ * was staggered due to agility. Add this to a pool.
+ * 2. Each time damage is removed from stagger, if the agility pool is
+ * non-empty, remove it from the agility pool.
+ * 2.a. If the damage is not removed by the stagger dot, add the removed
+ * amount to the total value of agility->stagger.
  */
 export default class AgilityValue extends Analyzer {
   static dependencies = {

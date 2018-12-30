@@ -13,9 +13,18 @@ import InformationIcon from 'interface/icons/Information';
 
 import CelestialFortune from '../spells/CelestialFortune';
 import MasteryValue from '../core/MasteryValue';
+import Stagger from '../core/Stagger';
 import AgilityValue, { BASE_AGI } from './AgilityValue';
 import { diminish, ULDIR_K, MPLUS_K } from '../constants/Mitigation';
 
+
+function formatGain(gain) {
+  if(typeof gain === 'number') {
+    return formatNumber(gain);
+  } else if(gain.low !== undefined && gain.high !== undefined) {
+    return <small>{`${formatNumber(gain.low)} - ${formatNumber(gain.high)}`}</small>;
+  }
+}
 
 export default class MitigationSheet extends Analyzer {
   static dependencies = {
@@ -23,6 +32,7 @@ export default class MitigationSheet extends Analyzer {
     agilityValue: AgilityValue,
     cf: CelestialFortune,
     stats: StatTracker,
+    stagger: Stagger,
   };
 
   K = null;
@@ -145,28 +155,36 @@ export default class MitigationSheet extends Analyzer {
     const armorPerPt = this.armorDamageMitigated / this._avgStats.armor;
     return {
       [STAT.ARMOR]: {
+        avg: this._avgStats.armor,
         gain: this.armorDamageMitigated,
         weight: 1,
         _scale: armorPerPt,
       },
       [STAT.AGILITY]: {
+        avg: this._avgStats.agility - BASE_AGI,
         gain: this.agiDamageMitigated,
         weight: this.agiDamageMitigated / (this._avgStats.agility - BASE_AGI) / armorPerPt,
-        tooltip: 'Calculated based on additional damage purified due to Agility. Healing gained from Gift of the Ox is currently not implemented.',
+        tooltip: 'Calculated based on additional damage purified due to Agility. Only Agility from gear and buffs is counted. Healing gained from Gift of the Ox is currently not implemented.',
         isLoaded: this.masteryValue._loaded,
       },
       [STAT.MASTERY]: {
-        gain: this.masteryDamageMitigated,
-        weight: this.masteryDamageMitigated / this._avgStats.mastery / armorPerPt,
+        avg: this._avgStats.mastery,
+        gain: {
+          low: this.masteryDamageMitigated * (1 - this.stagger.pctPurified),
+          high: this.masteryDamageMitigated,
+        },
+        weight: this.masteryDamageMitigated * (1 + 1 - this.stagger.pctPurified) / 2 / this._avgStats.mastery / armorPerPt,
         tooltip: 'Estimated only after the "Expected Mitigation by Mastery" stat is loaded.',
         isLoaded: this.masteryValue._loaded,
       },
       [STAT.VERSATILITY]: {
+        avg: this._avgStats.versatility,
         gain: this.versDamageMitigated + this.versHealing,
         weight: (this.versDamageMitigated + this.versHealing) / this._avgStats.versatility / armorPerPt,
         tooltip: 'Includes both <em>damage mitigated</em> and <em>increased healing</em>.',
       },
       [STAT.CRITICAL_STRIKE]: {
+        avg: this._avgStats.crit,
         gain: this.critHealing,
         weight: this.critHealing / this._avgStats.crit / armorPerPt,
       },
@@ -193,23 +211,25 @@ export default class MitigationSheet extends Analyzer {
               <table className="data-table compact">
                 <thead>
                   <tr>
-                    <th style={{ minWidth: '13.2em' }}><b>Stat</b></th>
+                    <th>
+                      <b>Stat</b>
+                    </th>
                     <th className="text-right">
                       <b>Total</b>
                     </th>
                     <th className="text-right">
-                      <dfn data-tip="Value per rating. Normalized so Armor is always 1.00."><b>Normalized</b></dfn>
+                      <dfn data-tip="Value per rating. Normalized so Armor is always 1.00."><b>Norm.</b></dfn>
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   {Object.entries(this.results).map(([stat, result]) => {
-                    const { gain, weight, tooltip, isLoaded } = result;
+                    const { avg, gain, weight, tooltip, isLoaded } = result;
                     const Icon = getIcon(stat);
 
                     let gainEl = 'NYI';
                     if(gain !== null && isLoaded !== false) {
-                      gainEl = formatNumber(gain);
+                      gainEl = formatGain(gain);
                     } else if(gain !== null) {
                       gainEl = <dfn data-tip="Not Yet Loaded">NYL</dfn>;
                     }
