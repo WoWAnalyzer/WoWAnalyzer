@@ -9,7 +9,6 @@ import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import StatisticWrapper from 'interface/others/StatisticWrapper';
 import STAT, { getClassNameColor, getIcon, getName } from 'parser/shared/modules/features/STAT';
 import { formatNumber } from 'common/format';
-import InformationIcon from 'interface/icons/Information';
 
 import CelestialFortune from '../spells/CelestialFortune';
 import MasteryValue from '../core/MasteryValue';
