@@ -5,11 +5,10 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import StatisticWrapper from 'interface/others/StatisticWrapper';
 import STAT, { getClassNameColor, getIcon, getName } from 'parser/shared/modules/features/STAT';
 import { formatNumber } from 'common/format';
 import Tab from 'interface/others/Tab';
+import { calculatePrimaryStat, calculateSecondaryStatDefault } from 'common/stats';
 
 import { BASE_AGI } from '../../constants';
 import CelestialFortune from '../spells/CelestialFortune';
@@ -29,11 +28,11 @@ function formatGain(gain) {
   return null;
 }
 
-function formatWeight(gain, avg, norm) {
+function formatWeight(gain, avg, norm, inc) {
   if(typeof gain === 'number') {
-    return (gain / avg / norm).toFixed(2);
+    return (gain / avg / norm * inc).toFixed(2);
   } else if(gain.low !== undefined && gain.high !== undefined) {
-    return `${(gain.low / avg / norm).toFixed(2)} - ${(gain.high / avg / norm).toFixed(2)}`;
+    return `${(gain.low / avg / norm * inc).toFixed(2)} - ${(gain.high / avg / norm * inc).toFixed(2)}`;
   }
   return null;
 }
@@ -50,7 +49,7 @@ function calculateTotalGain(gain) {
       high += amount.high;
     }
     return {
-      low, high
+      low, high,
     };
   }, { low: 0, high: 0 });
 
@@ -59,19 +58,25 @@ function calculateTotalGain(gain) {
   }
 
   return { 
-    low, high
+    low, high,
   };
 }
 
 function makeIcon(stat) {
   const Icon = getIcon(stat);
-  return <Icon
-    style={{
-      height: '1.6em',
-      width: '1.6em',
-      marginRight: 10,
-    }}
-  />;
+  return (
+    <Icon
+      style={{
+        height: '1.6em',
+        width: '1.6em',
+        marginRight: 10,
+      }}
+    />
+  );
+}
+
+function calculateLeatherArmorScaling(ilvl, amount, targetIlvl) {
+  return amount * Math.pow(1.0327, (targetIlvl - ilvl) / 5);
 }
 
 export default class MitigationSheet extends Analyzer {
@@ -118,6 +123,11 @@ export default class MitigationSheet extends Analyzer {
 
   get wdpsHealing() {
     return this.gotox.wdpsBonusHealing;
+  }
+
+  get avgIlvl() {
+    const gear = this.selectedCombatant._combatantInfo.gear.filter(({id, itemLevel}) => id !== 0 && itemLevel > 1);
+    return gear.reduce((sum, {itemLevel}) => sum + itemLevel, 0) / gear.length;
   }
 
   constructor(...args) {
@@ -217,6 +227,10 @@ export default class MitigationSheet extends Analyzer {
     return this.armorDamageMitigated / this._avgStats.armor;
   }
 
+  increment(fn, amount) {
+    return fn(Math.floor(this.avgIlvl), amount, Math.floor(this.avgIlvl)+5) - amount;
+  }
+
   get results() {
     return {
       armor: {
@@ -236,7 +250,7 @@ export default class MitigationSheet extends Analyzer {
         gain: [
           { name: 'Physical Damage Mitigated', amount: this.armorDamageMitigated },
         ],
-        weight: 1,
+        increment: this.increment(calculateLeatherArmorScaling, this.stats.startingArmorRating),
       },
       wdps: {
         icon: (
@@ -255,6 +269,7 @@ export default class MitigationSheet extends Analyzer {
         gain: [
           { name: <><SpellLink id={SPELLS.GIFT_OF_THE_OX_1.id} /> Healing</>, amount: this.wdpsHealing },
         ],
+        increment: calculatePrimaryStat(this.selectedCombatant.mainHand.itemLevel, this.gotox._wdps, this.selectedCombatant.mainHand.itemLevel+5) - this.gotox._wdps,
       },
       [STAT.AGILITY]: {
         icon: makeIcon(STAT.AGILITY),
@@ -267,12 +282,13 @@ export default class MitigationSheet extends Analyzer {
             name: 'Dodge', 
             amount: { 
               low: this.agiDamageDodged * (1 - this.stagger.pctPurified), 
-              high: this.agiDamageDodged 
+              high: this.agiDamageDodged,
             },
             isLoaded: this.masteryValue._loaded,
           },
           { name: <>Extra <SpellLink id={SPELLS.PURIFYING_BREW.id} /> Effectiveness</>, amount: this.agiDamageMitigated },
         ],
+        increment: this.increment(calculatePrimaryStat, this.stats.startingAgilityRating),
       },
       [STAT.MASTERY]: {
         icon: makeIcon(STAT.MASTERY),
@@ -291,6 +307,7 @@ export default class MitigationSheet extends Analyzer {
           },
         ],
         tooltip: 'Estimated only after the "Expected Mitigation by Mastery" stat is loaded.',
+        increment: this.increment(calculateSecondaryStatDefault, this.stats.startingMasteryRating),
       },
       [STAT.VERSATILITY]: {
         icon: makeIcon(STAT.VERSATILITY),
@@ -300,7 +317,8 @@ export default class MitigationSheet extends Analyzer {
         gain: [
           { name: 'Damage Mitigated', amount: this.versDamageMitigated },
           { name: 'Additional Healing', amount: this.versHealing },
-        ]
+        ],
+        increment: this.increment(calculateSecondaryStatDefault, this.stats.startingVersatilityRating),
       },
       [STAT.CRITICAL_STRIKE]: {
         icon: makeIcon(STAT.CRITICAL_STRIKE),
@@ -309,15 +327,16 @@ export default class MitigationSheet extends Analyzer {
         avg: this._avgStats.crit,
         gain: [
           { name: <><SpellLink id={SPELLS.CELESTIAL_FORTUNE_HEAL.id} /> Healing</>, amount: this.cf.totalHealing },
-          { name: 'Critical Heals', amount: this._critBonusHealing }
+          { name: 'Critical Heals', amount: this._critBonusHealing },
         ],
+        increment: this.increment(calculateSecondaryStatDefault, this.stats.startingCritRating),
       },
     };
   }
 
   statEntries() {
     return Object.entries(this.results).map(([stat, result]) => {
-      const { icon, className, name, avg, gain, tooltip } = result;
+      const { increment, icon, className, name, avg, gain, tooltip } = result;
 
       const totalGain = calculateTotalGain(gain);
 
@@ -331,7 +350,7 @@ export default class MitigationSheet extends Analyzer {
 
         let valueEl;
         if(isLoaded !== false) {
-          valueEl = formatWeight(gain, avg, this.normalizer);
+          valueEl = formatWeight(gain, avg, this.normalizer, increment);
         } else {
           valueEl = <dfn data-tip="Not Yet Loaded">NYL</dfn>;
         }
@@ -362,12 +381,12 @@ export default class MitigationSheet extends Analyzer {
             <b>{formatGain(totalGain)}</b>
           </td>
           <td className="text-right">
-            <b>{formatWeight(totalGain, avg, this.normalizer)}</b>
+            <b>{formatWeight(totalGain, avg, this.normalizer, increment)}</b>
           </td>
         </tr>
         {rows}
         </>
-      )
+      );
     });
   }
 
@@ -383,7 +402,7 @@ export default class MitigationSheet extends Analyzer {
             <b>Total</b>
           </th>
           <th className="text-right">
-            <dfn data-tip="Value per rating. Normalized so Armor is always 1.00."><b>Normalized</b></dfn>
+            <dfn data-tip="Value gained by scaling your gear up by 5 ilvls. Normalized so that Armor is always equal to the Armor rating gained in those 5 ilvls.<br/><br/>For secondary stats, this assumes the relative amounts of each stat don't change (as if you upgraded each piece by 5 ilvls without actually changing any of them)."><b>+5 ilvl (Normalized)</b></dfn>
           </th>
         </tr>
       </thead>
