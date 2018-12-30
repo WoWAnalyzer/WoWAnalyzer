@@ -7,13 +7,9 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import StatisticBox from 'interface/others/StatisticBox';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import { calculatePrimaryStat } from 'common/stats';
 
 import { BASE_AGI, GIFT_OF_THE_OX_SPELLS } from '../../constants';
 import { GOTOX_GENERATED_EVENT } from '../../normalizers/GiftOfTheOx';
-
-const WDPS_BASE_ILVL = 310;
-const WDPS_310_AGI_POLEARM = 122.8;
 
 const WDPS_BASE_ILVL = 310;
 const WDPS_310_AGI_POLEARM = 122.8;
