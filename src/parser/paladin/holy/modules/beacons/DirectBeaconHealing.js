@@ -1,11 +1,12 @@
 import React from 'react';
-import { XYPlot, XAxis, YAxis, VerticalGridLines, HorizontalGridLines, HorizontalBarSeries } from 'react-vis';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import UpArrowIcon from 'interface/icons/UpArrow';
+import PlusIcon from 'interface/icons/Plus';
 import Analyzer from 'parser/core/Analyzer';
 
 import Abilities from '../Abilities';
@@ -101,6 +102,11 @@ class DirectBeaconHealing extends Analyzer {
         // tooltip={`The amount of heals cast on beacon targets. ${formatPercentage(totalFolsAndHlsOnBeacon / totalFolsAndHls)} % of your Flash of Lights and Holy Lights were cast on a beacon target. You cast ${beaconFlashOfLights} Flash of Lights and ${beaconHolyLights} Holy Lights on beacon targets.`}
       >
         <div className="pad">
+          <div className="pull-right">
+            <PlusIcon />{' '}
+            <UpArrowIcon style={{ transform: 'rotate(90deg)' }} />{' '}
+            <SpellIcon id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id} />
+          </div>
           <label>Direct beacon healing</label>
 
           <div className="value pull-left">{formatPercentage(this.totalHealsOnBeaconPercentage, 0)}%</div>

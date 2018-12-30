@@ -3,7 +3,7 @@ import { XYPlot, AreaSeries } from 'react-vis';
 import { AutoSizer } from 'react-virtualized';
 import 'react-vis/dist/style.css';
 
-import { formatThousands, formatPercentage, formatNumber } from 'common/format';
+import { formatThousands, formatPercentage } from 'common/format';
 import rankingColor from 'common/getRankingColor';
 import groupDataForChart from 'common/groupDataForChart';
 import makeWclUrl from 'common/makeWclUrl';
