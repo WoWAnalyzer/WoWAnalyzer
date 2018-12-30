@@ -1154,6 +1154,10 @@ exports[`The Brewmaster Analyzer analyzers SharedBrews matches the statistic sna
 
 exports[`The Brewmaster Analyzer analyzers SharedBrews matches the suggestions snapshot 1`] = `Array []`;
 
+exports[`The Brewmaster Analyzer analyzers SpellUsable matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Brewmaster Analyzer analyzers SpellUsable matches the suggestions snapshot 1`] = `Array []`;
+
 exports[`The Brewmaster Analyzer analyzers Stagger matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
