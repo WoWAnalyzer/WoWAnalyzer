@@ -24,6 +24,7 @@ function formatGain(gain) {
   } else if(gain.low !== undefined && gain.high !== undefined) {
     return <small>{`${formatNumber(gain.low)} - ${formatNumber(gain.high)}`}</small>;
   }
+  return null;
 }
 
 export default class MitigationSheet extends Analyzer {
@@ -66,7 +67,7 @@ export default class MitigationSheet extends Analyzer {
       this.K = MPLUS_K;
     } else {
       this.K = ULDIR_K[fight.difficulty];
-    };
+    }
 
     this._lastStatUpdate = fight.start_time;
     this._avgStats = MitigationSheet.statsToAvg.reduce((obj, stat) => {
@@ -224,7 +225,7 @@ export default class MitigationSheet extends Analyzer {
                 </thead>
                 <tbody>
                   {Object.entries(this.results).map(([stat, result]) => {
-                    const { avg, gain, weight, tooltip, isLoaded } = result;
+                    const { gain, weight, tooltip, isLoaded } = result;
                     const Icon = getIcon(stat);
 
                     let gainEl = 'NYI';

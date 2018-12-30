@@ -54,7 +54,7 @@ export default class AgilityValue extends Analyzer {
       this.K = MPLUS_K;
     } else {
       this.K = ULDIR_K[fight.difficulty];
-    };
+    }
 
     this.addEventListener(EVENT_STAGGER_POOL_ADDED, this._onStaggerGained);
     this.addEventListener(EVENT_STAGGER_POOL_REMOVED, this._onPurify);
