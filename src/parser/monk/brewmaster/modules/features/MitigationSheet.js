@@ -280,7 +280,7 @@ export default class MitigationSheet extends Analyzer {
         gain: [
           { name: <><SpellLink id={SPELLS.GIFT_OF_THE_OX_1.id} /> Healing</>, amount: this.agiHealing },
           { 
-            name: <dfn data-tip='The amount of damage avoided by dodging may be reduced by purification. This is reflected in the range of values.'>Dodge</dfn>, 
+            name: <dfn data-tip="The amount of damage avoided by dodging may be reduced by purification. This is reflected in the range of values.">Dodge</dfn>, 
             amount: { 
               low: this.agiDamageDodged * (1 - this.stagger.pctPurified), 
               high: this.agiDamageDodged,
@@ -299,7 +299,7 @@ export default class MitigationSheet extends Analyzer {
         gain: [
           { name: <><SpellLink id={SPELLS.GIFT_OF_THE_OX_1.id} /> Healing</>, amount: this.masteryHealing },
           { 
-            name: <dfn data-tip='The amount of damage avoided by dodging may be reduced by purification. This is reflected in the range of values.'>Dodge</dfn>, 
+            name: <dfn data-tip="The amount of damage avoided by dodging may be reduced by purification. This is reflected in the range of values.">Dodge</dfn>, 
             amount:{
               low: this.masteryDamageMitigated * (1 - this.stagger.pctPurified),
               high: this.masteryDamageMitigated,
@@ -421,7 +421,7 @@ export default class MitigationSheet extends Analyzer {
         <Tab>
           <div style={{ marginTop: -10, marginBottom: -10 }}>
             <div style={{padding: '1em'}}>Relative value of different stats for mitigation on this specific log measured by <em>Effective Healing</em>. <b>These values are not stat weights, and should not be used with Pawn or other stat-weight addons.</b></div>
-            <div style={{padding: '1em'}}><b>Effective Healing</b> is the amount of damage that was either <em>prevented</em> or <em>healed</em> by an ability. These values are calculated using the actual circumstances of this encounter. While these are informative for understanding the effectiveness of various stats, they may not necessarily be the best way to gear. The stat values are likely to differ based on personal play, fight, raid size, items used, talents chosen, etc.<br /><br />DPS gains are not included in any of the stat values.</div>
+            <div style={{padding: '1em'}}><b>Effective Healing</b> is the amount of damage that was either <em>prevented</em> or <em>healed</em> by an ability. These values are calculated using the actual circumstances of this encounter. While these are informative for understanding the effectiveness of various stats, they may not necessarily be the best way to gear. The stat values are likely to differ based on personal play, fight, raid size, items used, talents chosen, etc.<br /><br />DPS gains are not included in any of the stat values. See <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/parser/monk/brewmaster/modules/features/MitigationSheet.md">here</a> for more information on valuation methods.</div>
             <table className="data-table" style={{ marginTop: 10, marginBottom: 10 }}>
               {this.entries()}
             </table>
