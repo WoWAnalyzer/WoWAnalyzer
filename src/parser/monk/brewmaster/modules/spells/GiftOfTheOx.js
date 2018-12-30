@@ -1,12 +1,13 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import { calculatePrimaryStat } from 'common/stats';
+
 import { formatNumber } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import StatisticBox from 'interface/others/StatisticBox';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import { calculatePrimaryStat } from 'common/stats';
 
 import { BASE_AGI, GIFT_OF_THE_OX_SPELLS } from '../../constants';
 import { GOTOX_GENERATED_EVENT } from '../../normalizers/GiftOfTheOx';
@@ -44,8 +45,6 @@ export default class GiftOfTheOx extends Analyzer {
   expelHarmOverhealing = 0;
 
   _lastEHTimestamp = null;
-
-  _wdps = 0;
 
   constructor(...args) {
     super(...args);
