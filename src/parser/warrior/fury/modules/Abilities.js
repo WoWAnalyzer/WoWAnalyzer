@@ -41,7 +41,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.EXECUTE_FURY,
+        spell: [SPELLS.EXECUTE_FURY, SPELLS.EXECUTE_FURY_MASSACRE],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => 6 / (1 + haste),
         gcd: {
