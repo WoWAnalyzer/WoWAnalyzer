@@ -79,14 +79,14 @@ class ComboPointDetails extends Analyzer {
     return (
       <StatisticBox
         icon={(
-        <img
-          src={WastedPointsIcon}
-          alt="Wasted Combo Points"
-        />
-      )}
-        value={`${this.pointsWastedPerMinute.toFixed(2)}`}
+          <img
+            src={WastedPointsIcon}
+            alt="Wasted Combo Points"
+          />
+        )}
+        value={this.pointsWastedPerMinute.toFixed(2)}
         label="Wasted Combo Points per minute"
-        tooltip={`You wasted a total of <b>${this.pointsWasted}</b> combo points. This number does NOT include Primal Fury procs that happened on a point builder used at 4 CPs, because this waste can't be controlled.`}
+        tooltip={<>You wasted a total of <strong>{this.pointsWasted}</strong> combo points. This number does NOT include Primal Fury procs that happened on a point builder used at 4 CPs, because this waste can't be controlled.</>}
         position={STATISTIC_ORDER.CORE(6)}
       />
     );

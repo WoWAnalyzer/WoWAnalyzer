@@ -185,31 +185,19 @@ class Innervate extends Analyzer {
         icon={<SpellIcon id={SPELLS.INNERVATE.id} />}
         value={`${formatNumber(this.averageManaSaved)} mana`}
         label="Mana saved per Innervate"
-        tooltip={
-          `<ul>
-                During your ${this.innervateCount} Innervates you cast:
-                <li>${this.wildGrowths}/${this.innervateCount} Wild Growths</li>
-                <li>${this.efflorescences}/${this.innervateCount} Efflorescences</li>
-                ${this.cenarionWards > 0
-                    ? `<li>${this.cenarionWards} Cenarion Wards</li>` : ''
-                    }
-                ${this.rejuvenations > 0
-                    ? `<li>${this.rejuvenations} Rejuvenations</li>` : ''
-                    }
-                ${this.regrowths > 0
-                    ? `<li>${this.regrowths} Regrowths</li>` : ''
-                    }
-                ${this.lifeblooms > 0
-                    ? `<li>${this.lifeblooms} Lifeblooms</li>` : ''
-                    }
-                ${this.swiftmends > 0
-                    ? `<li>${this.swiftmends} Swiftmends</li>` : ''
-                    }
-                ${this.tranquilities > 0
-                    ? `<li>${this.tranquilities} Tranquilities</li>` : ''
-                    }
-            </ul>`
-        }
+        tooltip={(<>
+          During your {this.innervateCount} Innervates you cast:
+          <ul>
+            <li>{this.wildGrowths}/{this.innervateCount} Wild Growths</li>
+            <li>{this.efflorescences}/{this.innervateCount} Efflorescences</li>
+            {this.cenarionWards > 0 && <li>{this.cenarionWards} Cenarion Wards</li>}
+            {this.rejuvenations > 0 && <li>{this.rejuvenations} Rejuvenations</li>}
+            {this.regrowths > 0 && <li>{this.regrowths} Regrowths</li>}
+            {this.lifeblooms > 0 && <li>{this.lifeblooms} Lifeblooms</li>}
+            {this.swiftmends > 0 && <li>{this.swiftmends} Swiftmends</li>}
+            {this.tranquilities > 0 && <li>{this.tranquilities} Tranquilities</li>}
+          </ul>
+        </>)}
       />
     );
   }

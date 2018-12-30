@@ -64,7 +64,7 @@ class SavageRoar extends Analyzer {
         icon={<SpellIcon id={SPELLS.SAVAGE_ROAR_TALENT.id} />}
         value={`${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS`}
         label="Damage contributed"
-        tooltip={`Your Savage Roar talent contributed <b>${formatNumber(this.bonusDmg)}</b> total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%).`}
+        tooltip={<>Your Savage Roar talent contributed <strong>{formatNumber(this.bonusDmg)}</strong> total damage ({formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%).</>}
         position={STATISTIC_ORDER.OPTIONAL(1)}
       />
     );
