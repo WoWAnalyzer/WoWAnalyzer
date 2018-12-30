@@ -5,7 +5,7 @@
   position: relative;
 }
 .statistic.small {
-  height: 86px;
+  height: 100px;
 }
 .statistic.standard, .statistic.medium {
   height: 165px;
@@ -28,7 +28,7 @@
   height: 100%; /* when rendering relatively, they might want to stick to the bottom */
 }
 .statistic label {
-  color: #b3adad;
+  color: hsla(41, 1%, 57%, 1);
   margin-bottom: 3px;
   /* fucking bootstrap: */
   display: block;
@@ -37,10 +37,11 @@
   line-height: inherit;
   text-align: inherit;
   border-radius: inherit;
-  font-weight: 200;
+  font-weight: inherit;
 }
 .statistic .value {
-  font-size: 2em;
+  font-size: 36px;
+  font-weight: 200;
   line-height: 1.4;
   color: hsla(41, 3%, 91%, 1);
 }

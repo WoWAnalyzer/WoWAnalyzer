@@ -487,6 +487,10 @@ table.data-table img {
 small {
   font-size: 12px;
 }
+.small {
+  // Reset bootstrap's bullshit since the class is often used for other elements to indicate they should be smaller. That doesn't mean we want the text to get fucked up.
+  font-size: inherit;
+}
 .toggle-control {
   margin: -2px 0;
   position: relative;
