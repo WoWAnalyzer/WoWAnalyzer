@@ -13,27 +13,14 @@ import InformationIcon from 'interface/icons/Information';
 
 import CelestialFortune from '../spells/CelestialFortune';
 import MasteryValue from '../core/MasteryValue';
+import AgilityValue, { BASE_AGI } from './AgilityValue';
+import { diminish, ULDIR_K, MPLUS_K } from '../constants/Mitigation';
 
-// K is a constant that attenuates the diminishing return formula,
-// giving lower damage reduction on higher difficulties.
-const ULDIR_K = [
-  null, // unknown difficulty
-  6300, // LFR --- using world K
-  null, // unknown
-  7736.4, // Normal
-  8467.2, // Heroic
-  9311.4, // Mythic
-];
-
-const MPLUS_K = 7100.1;
-
-function diminish(stat, K) {
-  return stat / (stat + K);
-}
 
 export default class MitigationSheet extends Analyzer {
   static dependencies = {
     masteryValue: MasteryValue,
+    agilityValue: AgilityValue,
     cf: CelestialFortune,
     stats: StatTracker,
   };
@@ -43,7 +30,6 @@ export default class MitigationSheet extends Analyzer {
   armorDamageMitigated = 0;
   versDamageMitigated = 0;
   versHealing = 0;
-  agiDamageMitigated = 0;
 
   static statsToAvg = ['agility', 'armor', 'versatility', 'mastery', 'crit'];
   _lastStatUpdate = null;
@@ -56,6 +42,10 @@ export default class MitigationSheet extends Analyzer {
   _critBonusHealing = 0;
   get critHealing() {
     return this.cf.totalHealing + this._critBonusHealing;
+  }
+
+  get agiDamageMitigated() {
+    return this.agilityValue.totalAgiPurified + (this.masteryValue.expectedMitigation - this.masteryValue.noAgiExpectedDamageMitigated);
   }
 
   constructor(...args) {
@@ -157,10 +147,13 @@ export default class MitigationSheet extends Analyzer {
       [STAT.ARMOR]: {
         gain: this.armorDamageMitigated,
         weight: 1,
+        _scale: armorPerPt,
       },
       [STAT.AGILITY]: {
-        gain: null,
-        weight: 0,
+        gain: this.agiDamageMitigated,
+        weight: this.agiDamageMitigated / (this._avgStats.agility - BASE_AGI) / armorPerPt,
+        tooltip: 'Calculated based on additional damage purified due to Agility. Healing gained from Gift of the Ox is currently not implemented.',
+        isLoaded: this.masteryValue._loaded,
       },
       [STAT.MASTERY]: {
         gain: this.masteryDamageMitigated,
@@ -200,11 +193,11 @@ export default class MitigationSheet extends Analyzer {
               <table className="data-table compact">
                 <thead>
                   <tr>
-                    <th style={{ minWidth: 30 }}><b>Stat</b></th>
-                    <th className="text-right" style={{ minWidth: 30 }}>
+                    <th style={{ minWidth: '13.2em' }}><b>Stat</b></th>
+                    <th className="text-right">
                       <b>Total</b>
                     </th>
-                    <th className="text-right" style={{ minWidth: 30 }}>
+                    <th className="text-right">
                       <dfn data-tip="Value per rating. Normalized so Armor is always 1.00."><b>Normalized</b></dfn>
                     </th>
                   </tr>

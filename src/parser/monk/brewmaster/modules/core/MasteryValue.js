@@ -74,7 +74,7 @@ class StackMarkovChain {
     this._assertSum();
   }
 
-  processAttack(dodgeProb, masteryValue) {
+  processAttack(baseDodgeProb, masteryValue) {
     this._stackProbs.push(0);
     const n = this._stackProbs.length - 1;
 
@@ -82,7 +82,7 @@ class StackMarkovChain {
     let zeroProb = 0;
     // didn't dodge, gain a stack
     for (let stacks = n - 1; stacks >= 0; stacks--) {
-      const prob = _clampProb(dodgeProb + masteryValue * stacks);
+      const prob = _clampProb(baseDodgeProb + masteryValue * stacks);
       zeroProb += prob * this._stackProbs[stacks]; // dodge -> go to 0
       const hitProb = 1 - prob;
       this._stackProbs[stacks + 1] = hitProb * this._stackProbs[stacks]; // hit -> go to stacks + 1
@@ -221,11 +221,13 @@ class MasteryValue extends Analyzer {
     meanExpectedDodge: 0,
     noMasteryExpectedDamageMitigated: 0,
     noMasteryMeanExpectedDodge: 0,
+    noAgiExpectedDamageMitigated: 0,
   };
   _calculateExpectedValues() {
     // expected damage mitigated according to the markov chain
     let expectedDamageMitigated = 0;
     let noMasteryExpectedDamageMitigated = 0;
+    let noAgiExpectedDamageMitigated = 0;
     // estimate of the damage that was actually dodged in this log
     let estimatedDamageMitigated = 0;
     // average dodge % across each event that could be dodged
@@ -235,6 +237,7 @@ class MasteryValue extends Analyzer {
 
     const stacks = new StackMarkovChain(); // mutating a const object irks me to no end
     const noMasteryStacks = new StackMarkovChain();
+    const noAgiStacks = new StackMarkovChain();
 
     // timeline replay is expensive, compute several things here and
     // provide individual getters for each of the values
@@ -244,21 +247,29 @@ class MasteryValue extends Analyzer {
         for(let i = 0; i < eventStacks; i++) {
           stacks.guaranteeStack();
           noMasteryStacks.guaranteeStack();
+          noAgiStacks.guaranteeStack();
         }
       } else if (event.type === 'damage') {
         const noMasteryDodgeChance = this.dodgeChance(noMasteryStacks.expected, 0, event._agility, event.sourceID, event.timestamp);
+        const noAgiDodgeChance = this.dodgeChance(noAgiStacks.expected, event._masteryRating, 
+                                                  MONK_DODGE_COEFFS.base_agi, event.sourceID, event.timestamp);
         const expectedDodgeChance = this.dodgeChance(stacks.expected, event._masteryRating, event._agility, event.sourceID, event.timestamp);
         const baseDodgeChance = this.dodgeChance(0, 0, event._agility, event.sourceID, event.timestamp);
+        const noAgiBaseDodgeChance = this.dodgeChance(0, 0, MONK_DODGE_COEFFS.base_agi, event.sourceID, event.timestamp);
+
 
         const damage = (event.amount + event.absorbed) || this.meanHitByAbility(event.ability.guid);
         expectedDamageMitigated += expectedDodgeChance * damage;
         noMasteryExpectedDamageMitigated += noMasteryDodgeChance * damage;
+        noAgiExpectedDamageMitigated += noAgiDodgeChance * damage;
         estimatedDamageMitigated += (event.hitType === HIT_TYPES.DODGE) * damage;
+
         meanExpectedDodge += expectedDodgeChance;
         noMasteryMeanExpectedDodge += noMasteryDodgeChance;
         dodgeableEvents += 1;
 
         stacks.processAttack(baseDodgeChance, this.stats.masteryPercentage(event._masteryRating, true));
+        noAgiStacks.processAttack(noAgiBaseDodgeChance, this.stats.masteryPercentage(event._masteryRating, true));
         noMasteryStacks.processAttack(baseDodgeChance, this.stats.masteryPercentage(0, true));
       }
     });
@@ -272,6 +283,7 @@ class MasteryValue extends Analyzer {
       meanExpectedDodge,
       noMasteryExpectedDamageMitigated,
       noMasteryMeanExpectedDodge,
+      noAgiExpectedDamageMitigated,
     };
   }
 
@@ -315,6 +327,10 @@ class MasteryValue extends Analyzer {
 
   get noMasteryExpectedMitigation() {
     return this._expectedValues.noMasteryExpectedDamageMitigated;
+  }
+
+  get noAgiExpectedDamageMitigated() {
+    return this._expectedValues.noAgiExpectedDamageMitigated;
   }
 
   get expectedMitigationPerSecond() {
