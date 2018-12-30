@@ -76,12 +76,12 @@ class ArcaneOrb extends Analyzer {
 
 	statistic() {
     return (
-			<StatisticBox
-  position={STATISTIC_ORDER.CORE(100)}
-  icon={<SpellIcon id={SPELLS.ARCANE_ORB_TALENT.id} />}
-  value={`${formatNumber(this.averageHitPerCast,2)}`}
-  label="Arcane Orb hits per cast"
-  tooltip={`You averaged ${formatNumber(this.averageHitPerCast,2)} hits per cast of Arcane Orb. ${this.badCasts > 0 ? `Additionally, you cast Arcane Orb ${this.badCasts} times without hitting anything.` : '' } Casting Arcane Orb when it will only hit one target is still beneficial, but you should prioritize using it when it will hit multiple targets to get the full effect of the talent. If it is a Single Target fight or you are unable to hit more than 1 target on average, then you should consider taking a different talent.`}
+      <StatisticBox
+        position={STATISTIC_ORDER.CORE(100)}
+        icon={<SpellIcon id={SPELLS.ARCANE_ORB_TALENT.id} />}
+        value={`${formatNumber(this.averageHitPerCast,2)}`}
+        label="Arcane Orb hits per cast"
+        tooltip={`You averaged ${formatNumber(this.averageHitPerCast,2)} hits per cast of Arcane Orb. ${this.badCasts > 0 ? `Additionally, you cast Arcane Orb ${this.badCasts} times without hitting anything.` : '' } Casting Arcane Orb when it will only hit one target is still beneficial, but you should prioritize using it when it will hit multiple targets to get the full effect of the talent. If it is a Single Target fight or you are unable to hit more than 1 target on average, then you should consider taking a different talent.`}
 			/>
 		);
 	}

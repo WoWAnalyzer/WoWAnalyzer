@@ -290,36 +290,34 @@ class ArcanePower extends Analyzer {
       <StatisticBox
         position={STATISTIC_ORDER.CORE(15)}
         icon={<SpellIcon id={SPELLS.ARCANE_POWER.id} />}
-        value={(
-          <span>
-      <SpellIcon
-        id={SPELLS.ARCANE_POWER.id}
-        style={{
-          height: '1.2em',
-          marginBottom: '.15em',
-        }}
-      />
-            {' '}{formatPercentage(this.cooldownUtilization, 0)}{' %'}
-            <br />
-      <SpellIcon
-        id={SPELLS.ARCANE_BLAST.id}
-        style={{
-          height: '1.2em',
-          marginBottom: '.15em',
-        }}
-      />
-            {' '}{formatPercentage(this.castUtilization, 0)}{' %'}
-    </span>
-        )}
+        value={(<>
+          <SpellIcon
+            id={SPELLS.ARCANE_POWER.id}
+            style={{
+              height: '1.2em',
+              marginBottom: '.15em',
+            }}
+          />
+          {' '}{formatPercentage(this.cooldownUtilization, 0)} %<br />
+          <SpellIcon
+            id={SPELLS.ARCANE_BLAST.id}
+            style={{
+              height: '1.2em',
+              marginBottom: '.15em',
+            }}
+          />
+          {' '}{formatPercentage(this.castUtilization, 0)} %
+        </>)}
         label="Arcane Power Utilization"
-        tooltip={`Before casting Arcane Power, you should ensure that you meet all of the following requirements. If Arcane Power frequently comes off cooldown and these requirements are not already met, then consider modifying your rotation to ensure that they are met before Arcane Power comes off cooldown
-		<ul>
-			<li>You have 4 Arcane Charges - Missed ${this.lowChargesCast} times</li>
-			${this.hasRuneOfPower ? `<li>You cast Rune of Power immediately before AP - Missed ${this.noRuneCast + this.delayedRuneCast} times</li>` : ''}
-			${!this.hasOverpowered ? `<li>You have more than 40% mana - Missed ${this.lowManaCast} times</li>` : ''}
-		</ul>
-
-		Additionally, you should only be casting Arcane Blast and Arcane Missiles (If you have a Clearcasting Proc) during Arcane Power to maximize the short cooldown duration.`}
+        tooltip={(<>
+          Before casting Arcane Power, you should ensure that you meet all of the following requirements. If Arcane Power frequently comes off cooldown and these requirements are not already met, then consider modifying your rotation to ensure that they are met before Arcane Power comes off cooldown
+          <ul>
+            <li>You have 4 Arcane Charges - Missed {this.lowChargesCast} times</li>
+            {this.hasRuneOfPower && <li>You cast Rune of Power immediately before AP - Missed {this.noRuneCast + this.delayedRuneCast} times</li>}
+            {!this.hasOverpowered && <li>You have more than 40% mana - Missed {this.lowManaCast} times</li>}
+          </ul>
+      		Additionally, you should only be casting Arcane Blast and Arcane Missiles (If you have a Clearcasting Proc) during Arcane Power to maximize the short cooldown duration.
+        </>)}
       />
     );
   }

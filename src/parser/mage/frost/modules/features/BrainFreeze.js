@@ -203,13 +203,14 @@ class BrainFreeze extends Analyzer {
         icon={<SpellIcon id={SPELLS.BRAIN_FREEZE.id} />}
         value={`${formatPercentage(this.utilPercent, 0)} %`}
         label="Brain Freeze Utilization"
-        tooltip={`You got ${this.totalProcs} total procs.
+        tooltip={(<>
+          You got {this.totalProcs} total procs.
 					<ul>
-						<li>${this.usedProcs} used</li>
-						<li>${this.overwrittenProcs + this.okOverwrittenProcs} overwritten${this.okOverwrittenProcs > 0 ? ` (${this.okOverwrittenProcs} of which were acceptable holds for Glacial Spike)` : ''}</li>
-						<li>${this.expiredProcs} expired</li>
+						<li>{this.usedProcs} used</li>
+						<li>{this.overwrittenProcs + this.okOverwrittenProcs} overwritten{this.okOverwrittenProcs > 0 && ` (${this.okOverwrittenProcs} of which were acceptable holds for Glacial Spike)`}</li>
+						<li>{this.expiredProcs} expired</li>
 					</ul>
-				`}
+				</>)}
       />
     );
   }

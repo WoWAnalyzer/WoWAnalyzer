@@ -55,18 +55,48 @@ class ArcaneMageChecklist extends React.PureComponent {
             </>
           )}
         >
-          <Requirement name="Spells Cast During Arcane Power" tooltip="Your cast utilization during Arcane Power. You should be ensuring that you are using the most of the short Arcane Power window and only casting damage abilities like Arcane Blast, Arcane Missiles, and Arcane Explosion." thresholds={thresholds.arcanePowerCasts} />
-          <Requirement name="Arcane Power Pre-Cast Setup" tooltip="In order to effectively utilize Arcane Power, there are certain things you need to ensure are setup before you cast Arcane Power. Making sure you have 4 Arcane Charges, You have more than 40% Mana (Unless you have the Overpowered Talent), and ensuring you cast Rune of Power immediately before Arcane Power (if you have Rune of Power talented) will all help make the most out of your burn phase. " thresholds={thresholds.arcanePowerCooldown} />
-          <Requirement name="Arcane Power Available on Kill" tooltip="Seeing as the boss is about to die, you should always ensure that Arcane Power is on cooldown when the boss dies. Even if you will only get half the duration out of it you should still cast it to get a boost in damage at the end." thresholds={thresholds.arcanePowerOnKill} />
+          <Requirement
+            name="Spells Cast During Arcane Power"
+            tooltip="Your cast utilization during Arcane Power. You should be ensuring that you are using the most of the short Arcane Power window and only casting damage abilities like Arcane Blast, Arcane Missiles, and Arcane Explosion."
+            thresholds={thresholds.arcanePowerCasts}
+          />
+          <Requirement
+            name="Arcane Power Pre-Cast Setup"
+            tooltip="In order to effectively utilize Arcane Power, there are certain things you need to ensure are setup before you cast Arcane Power. Making sure you have 4 Arcane Charges, You have more than 40% Mana (Unless you have the Overpowered Talent), and ensuring you cast Rune of Power immediately before Arcane Power (if you have Rune of Power talented) will all help make the most out of your burn phase."
+            thresholds={thresholds.arcanePowerCooldown}
+          />
+          <Requirement
+            name="Arcane Power Available on Kill"
+            tooltip="Seeing as the boss is about to die, you should always ensure that Arcane Power is on cooldown when the boss dies. Even if you will only get half the duration out of it you should still cast it to get a boost in damage at the end."
+            thresholds={thresholds.arcanePowerOnKill}
+          />
 
         </Rule>
         <Rule
           name="Use your talents effectively"
           description="Regardless of which talents you select, you should ensure that you are utilizing them properly. If you are having trouble effectively using a particular talent, you should consider taking a different talent that you can utilize properly or focus on effectively using the talents that you have selected."
         >
-          {combatant.hasTalent(SPELLS.ARCANE_ORB_TALENT.id && !combatant.hasShoulder(ITEMS.MANTLE_OF_THE_FIRST_KIRIN_TOR.id)) && <Requirement name="Arcane Orb Avg. Hits Per Cast" tooltip="Arcane Orb is primarily an AoE Spell, so you should only choose it on fights with multiple targets but you should still cast it on cooldown even if there is only one target available (unless there is about to be multiple targets). Therefore, on average, your Arcane Orb should hit more than 1 mob per cast." thresholds={thresholds.arcaneOrbAverageHits} />}
-          {combatant.hasTalent(SPELLS.RULE_OF_THREES_TALENT.id) && <Requirement name="Rule of Threes Buff Usage" tooltip="Rule of Threes gives you a free cast of Arcane Blast when you hit 3 Arcane Charges so you shoud always ensure you are using that free charge before you clear your Arcane Charges with Barrage since there is no negative mana impact to doing so." thresholds={thresholds.ruleOfThreesUsage} />}
-          {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) && <Requirement name="Rune of Power Uptime" tooltip="Using Rune of Power effectively means being able to stay within the range of it for it's entire duration. If you are unable to do so or if you frequently have to move out of the range of the buff, consider taking a different talent instead." thresholds={thresholds.runeOfPowerBuffUptime} />}
+          {combatant.hasTalent(SPELLS.ARCANE_ORB_TALENT.id && !combatant.hasShoulder(ITEMS.MANTLE_OF_THE_FIRST_KIRIN_TOR.id)) && (
+            <Requirement
+              name="Arcane Orb Avg. Hits Per Cast"
+              tooltip="Arcane Orb is primarily an AoE Spell, so you should only choose it on fights with multiple targets but you should still cast it on cooldown even if there is only one target available (unless there is about to be multiple targets). Therefore, on average, your Arcane Orb should hit more than 1 mob per cast."
+              thresholds={thresholds.arcaneOrbAverageHits}
+            />
+          )}
+          {combatant.hasTalent(SPELLS.RULE_OF_THREES_TALENT.id) && (
+            <Requirement
+              name="Rule of Threes Buff Usage"
+              tooltip="Rule of Threes gives you a free cast of Arcane Blast when you hit 3 Arcane Charges so you shoud always ensure you are using that free charge before you clear your Arcane Charges with Barrage since there is no negative mana impact to doing so."
+              thresholds={thresholds.ruleOfThreesUsage}
+            />
+          )}
+          {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) && (
+            <Requirement
+              name="Rune of Power Uptime"
+              tooltip="Using Rune of Power effectively means being able to stay within the range of it for it's entire duration. If you are unable to do so or if you frequently have to move out of the range of the buff, consider taking a different talent instead."
+              thresholds={thresholds.runeOfPowerBuffUptime}
+            />
+          )}
         </Rule>
         <Rule
           name="Avoid downtime"
@@ -94,7 +124,7 @@ class ArcaneMageChecklist extends React.PureComponent {
           name={<>Manage your mana</>}
           description={(
             <>
-              The biggest aspect of playing Arcane properly is managing your mana effectively. Essentially your mana dictates how much damage you can do and therefore needs to be managed properly. Things such as running out of mana during <SpellLink id={SPELLS.ARCANE_POWER.id} />, letting your mana cap out at 100% for too long, or ending the fight with mana remaining all have negative effects on your DPS. 
+              The biggest aspect of playing Arcane properly is managing your mana effectively. Essentially your mana dictates how much damage you can do and therefore needs to be managed properly. Things such as running out of mana during <SpellLink id={SPELLS.ARCANE_POWER.id} />, letting your mana cap out at 100% for too long, or ending the fight with mana remaining all have negative effects on your DPS.
             </>
           )}
         >
@@ -103,7 +133,7 @@ class ArcaneMageChecklist extends React.PureComponent {
           <Requirement name="Arcane Missiles only with Clearcasting" thresholds={thresholds.arcaneMissilesUtilization} />
           {combatant.hasTalent(SPELLS.TIME_ANOMALY_TALENT.id) && <Requirement name="Time Anomaly Mana Mgmt." thresholds={thresholds.timeAnomalyManaUtilization} />}
         </Rule>
-        
+
         <PreparationRule thresholds={thresholds} />
       </Checklist>
     );

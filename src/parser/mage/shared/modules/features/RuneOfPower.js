@@ -136,7 +136,7 @@ class RuneOfPower extends Analyzer {
         position={STATISTIC_ORDER.CORE(100)}
         value={`${formatPercentage(this.damagePercent)} %`}
         label="Rune of Power damage"
-        tooltip={`This is the portion of your total damage attributable to Rune of Power's boost. Expressed as an increase vs never using Rune of Power, this is a <b>${formatPercentage(this.damageIncreasePercent)}% damage increase</b>. Note that this number does <i>not</i> factor in the opportunity cost of casting Rune of Power instead of another damaging spell.`}
+        tooltip={<>This is the portion of your total damage attributable to Rune of Power's boost. Expressed as an increase vs never using Rune of Power, this is a <strong>{formatPercentage(this.damageIncreasePercent)}% damage increase</strong>. Note that this number does <em>not</em> factor in the opportunity cost of casting Rune of Power instead of another damaging spell.</>}
       />
     );
   }
