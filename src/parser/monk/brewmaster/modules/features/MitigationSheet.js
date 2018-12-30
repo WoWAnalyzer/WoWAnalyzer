@@ -8,6 +8,7 @@ import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import STAT, { getClassNameColor, getIcon, getName } from 'parser/shared/modules/features/STAT';
 import { formatNumber } from 'common/format';
 import Tab from 'interface/others/Tab';
+import SpellLink from 'common/SpellLink';
 import { calculatePrimaryStat, calculateSecondaryStatDefault } from 'common/stats';
 
 import { BASE_AGI } from '../../constants';
