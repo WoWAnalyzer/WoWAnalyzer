@@ -213,12 +213,14 @@ class PurifyingBrew extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.PURIFYING_BREW.id} />}
-        value={`${formatNumber(this.meanPurify)}`}
+        value={formatNumber(this.meanPurify)}
         label="Avg. Mitigation per Purifying Brew"
-        tooltip={`Purifying Brew removed <b>${formatNumber(this.totalPurified)}</b> damage in total over ${this.totalPurifies} casts.<br/>
-                  The smallest purify removed <b>${formatNumber(this.minPurify)}</b> and the largest purify removed <b>${formatNumber(this.maxPurify)}</b>.<br/>
-                  You purified <b>${this.badPurifies}</b> (${formatPercentage(this.badPurifies / this.totalPurifies)}%) times without reaching Heavy Stagger.<br/>
-                  Your purifies were delayed from the nearest peak by <b>${(this.avgPurifyDelay / 1000).toFixed(2)}s</b> on average.`}
+        tooltip={(<>
+          Purifying Brew removed <strong>{formatNumber(this.totalPurified)}</strong> damage in total over {this.totalPurifies} casts.<br />
+          The smallest purify removed <strong>{formatNumber(this.minPurify)}</strong> and the largest purify removed <strong>{formatNumber(this.maxPurify)}</strong>.<br />
+          You purified <strong>{this.badPurifies}</strong> ({formatPercentage(this.badPurifies / this.totalPurifies)}%) times without reaching Heavy Stagger.<br />
+          Your purifies were delayed from the nearest peak by <strong>{(this.avgPurifyDelay / 1000).toFixed(2)}s</strong> on average.
+        </>)}
       />
     );
   }

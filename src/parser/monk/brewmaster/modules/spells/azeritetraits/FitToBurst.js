@@ -39,7 +39,7 @@ class FitToBurst extends Analyzer {
       this.triggeringPurifies += 1;
     }
   }
-  
+
   on_toPlayer_heal(event) {
     if(event.ability.guid !== SPELLS.FIT_TO_BURST_HEAL.id) {
       return;
@@ -81,12 +81,12 @@ class FitToBurst extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.FIT_TO_BURST.id}
-        value={(
-          <ItemHealingDone amount={this.totalHealing} />
-        )}
-        tooltip={`Fit to Burst healed you for <b>${formatNumber(this.totalHealing)}</b>.<br/>
-            <b>${formatNumber(this.stacksWasted)}</b> stacks of healing wasted by double-purifying.<br/>
-            <b>${formatNumber(this.triggeringPurifies)}</b> of your ${formatNumber(this.totalPurifies)} purifies triggered Fit to Burst.`}
+        value={<ItemHealingDone amount={this.totalHealing} />}
+        tooltip={(<>
+          Fit to Burst healed you for <strong>{formatNumber(this.totalHealing)}</strong>.<br />
+          <strong>{formatNumber(this.stacksWasted)}</strong> stacks of healing wasted by double-purifying.<br />
+          <strong>{formatNumber(this.triggeringPurifies)}</strong> of your {formatNumber(this.totalPurifies)} purifies triggered Fit to Burst.
+        </>)}
       />
     );
   }

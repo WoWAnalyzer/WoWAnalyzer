@@ -25,7 +25,7 @@ class ElusiveFootwork extends Analyzer {
   _ebStacksGenerated = 0;
 
   _casts = 0;
-  
+
   constructor(...args) {
     super(...args);
     if(!this.selectedCombatant.hasTrait(SPELLS.ELUSIVE_FOOTWORK.id)) {
@@ -63,11 +63,11 @@ class ElusiveFootwork extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.ELUSIVE_FOOTWORK.id}
-        value={(
-          <ItemDamageDone amount={this._bonusDamage} />
-        )}
-        tooltip={`Your Blackout Strike casts each dealt an average ${formatNumber(this._bonusDamage / this._casts)} additional damage.<br/>
-            You generated an additional ${this._ebStacksGenerated} stacks of Elusive Brawler.`}
+        value={<ItemDamageDone amount={this._bonusDamage} />}
+        tooltip={(<>
+          Your Blackout Strike casts each dealt an average {formatNumber(this._bonusDamage / this._casts)} additional damage.<br />
+          You generated an additional {this._ebStacksGenerated} stacks of Elusive Brawler.
+        </>)}
       />
     );
   }

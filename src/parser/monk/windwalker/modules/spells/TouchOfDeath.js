@@ -23,7 +23,7 @@ class TouchOfDeath extends Analyzer {
   expectedGaleBurst = 0;
   totalGaleBurst = 0;
   highestGaleBurst = 0;
-  // Vulnerability amplifiers are target specific damage taken increases like seen on Kin'garoth adds. 
+  // Vulnerability amplifiers are target specific damage taken increases like seen on Kin'garoth adds.
   highestVulnerabilityAmplifier = 0;
   totalVulnerabilityAmplifier = 0;
 
@@ -46,8 +46,7 @@ class TouchOfDeath extends Analyzer {
     const spellId = event.ability.guid;
     const enemy = this.enemies.getEntity(event);
     // Gale Burst does not count damage from clones, but rather takes increased damage from the player while Storm, Earth, and Fire is active
-    const sefMultiplier = 
-      this.selectedCombatant.hasBuff(SPELLS.STORM_EARTH_AND_FIRE_CAST.id) ? 3 * GALE_BURST_VALUE : GALE_BURST_VALUE;
+    const sefMultiplier = this.selectedCombatant.hasBuff(SPELLS.STORM_EARTH_AND_FIRE_CAST.id) ? 3 * GALE_BURST_VALUE : GALE_BURST_VALUE;
 
     if (!enemy) {
       return;
@@ -78,9 +77,13 @@ class TouchOfDeath extends Analyzer {
       <StatisticBox
         position={STATISTIC_ORDER.CORE(8)}
         icon={<SpellIcon id={SPELLS.TOUCH_OF_DEATH.id} />}
-        value={`${(averageGaleBurst).toFixed(2)}`}
-        label={`Average Gale Burst`}
-        tooltip={`Damage done with Touch of Death is affected by % damage taken buffs on its target. This causes damage done by other abilities during the Gale burst window to benefit twice from those debuffs, due to the increase to their own hits as well as the Gale Burst component of Touch of Death . <br> </br> Your average modifier on Touch of Death was ~${((averageVulnerabilityAmplifier * 100).toFixed())}% and your highest was ~${(this.highestVulnerabilityAmplifier * 100).toFixed()}%. Your highest Gale Burst was ${this.highestGaleBurst.toFixed()}`}
+        value={(averageGaleBurst).toFixed(2)}
+        label="Average Gale Burst"
+        tooltip={(<>
+          Damage done with Touch of Death is affected by % damage taken buffs on its target. This causes damage done by other abilities during the Gale burst window to benefit twice from those debuffs, due to the increase to their own hits as well as the Gale Burst component of Touch of Death . <br /> <br />
+
+          Your average modifier on Touch of Death was ~{(averageVulnerabilityAmplifier * 100).toFixed()}% and your highest was ~{(this.highestVulnerabilityAmplifier * 100).toFixed()}%. Your highest Gale Burst was {this.highestGaleBurst.toFixed()}
+        </>)}
       />
     );
   }

@@ -43,7 +43,7 @@ class StaggeringStrikes extends Analyzer {
     if(event.ability.guid !== SPELLS.BLACKOUT_STRIKE.id) {
       return;
     }
-    
+
     this._bocCasts += 1;
     const actual = this.fab.removeStagger(event, this._staggerReduction);
     this._staggerRemoved += actual;
@@ -55,12 +55,8 @@ class StaggeringStrikes extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.STAGGERING_STRIKES.id}
-        value={(
-          <ItemHealingDone amount={this._staggerRemoved} />
-        )}
-        tooltip={`Your Blackout Strike casts each remove ${formatNumber(this._staggerReduction)} staggered damage.
-            
-            A total of ${this._bocCasts} casts removed ${formatNumber(this._staggerRemoved)} staggered damage (${formatNumber(this._overhealing)} overhealed).`}
+        value={<ItemHealingDone amount={this._staggerRemoved} />}
+        tooltip={`Your Blackout Strike casts each remove ${formatNumber(this._staggerReduction)} staggered damage. A total of ${this._bocCasts} casts removed ${formatNumber(this._staggerRemoved)} staggered damage (${formatNumber(this._overhealing)} overhealed).`}
       />
     );
   }
