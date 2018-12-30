@@ -25,6 +25,7 @@
 .statistic.panel .panel-body {
   padding: 0;
   position: relative; /* a lot of children need relative rendering */
+  height: 100%; /* when rendering relatively, they might want to stick to the bottom */
 }
 .statistic label {
   color: #b3adad;
