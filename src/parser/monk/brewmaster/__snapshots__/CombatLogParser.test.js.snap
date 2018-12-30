@@ -222,6 +222,7 @@ exports[`The Brewmaster Analyzer analyzers BrewCDR matches the statistic snapsho
               
               <li>66 Tiger Palm hits — <b>57.00s</b> (<b>9.00s</b> wasted)</li>
               
+              
             </ul>
             <b>Total cooldown reduction:</b> 162.59s.</b><br/>
             <b>Minimum Cooldown Reduction for 100% ISB uptime:</b> 25.88%"
@@ -1334,6 +1335,10 @@ exports[`The Brewmaster Analyzer analyzers StaggeringStrikes matches the statist
 `;
 
 exports[`The Brewmaster Analyzer analyzers StaggeringStrikes matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Brewmaster Analyzer analyzers StraightNoChaser matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Brewmaster Analyzer analyzers StraightNoChaser matches the suggestions snapshot 1`] = `"module inactive"`;
 
 exports[`The Brewmaster Analyzer analyzers TigerPalm matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
