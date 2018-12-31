@@ -23,6 +23,7 @@ import BlackOxBrew from './modules/spells/BlackOxBrew';
 import HighTolerance from './modules/spells/HighTolerance';
 import Guard from './modules/spells/Guard';
 import CelestialFortune from './modules/spells/CelestialFortune';
+import GiftOfTheOxStat from './modules/spells/GiftOfTheOx';
 // Azerite Traits
 import TrainingOfNiuzao from './modules/spells/azeritetraits/TrainingOfNiuzao';
 import StaggeringStrikes from './modules/spells/azeritetraits/StaggeringStrikes';
@@ -39,6 +40,7 @@ import MitigationCheck from './modules/features/MitigationCheck';
 // normalizers
 import IronskinBrewNormalizer from './normalizers/IronskinBrew';
 import GiftOfTheOx from './normalizers/GiftOfTheOx';
+import ExpelHarmNorm from './normalizers/ExpelHarm';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -74,6 +76,7 @@ class CombatLogParser extends CoreCombatLogParser {
     highTolerance: HighTolerance,
     guard: Guard,
     cf: CelestialFortune,
+    gotox: GiftOfTheOxStat,
 
     // Azerite Traits
     trainingOfNiuzao: TrainingOfNiuzao,
@@ -85,7 +88,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // normalizers
     isbNormalizer: IronskinBrewNormalizer,
-    gotox: GiftOfTheOx,
+    gotoxNorm: GiftOfTheOx,
+    ehNorm: ExpelHarmNorm,
   };
 }
 

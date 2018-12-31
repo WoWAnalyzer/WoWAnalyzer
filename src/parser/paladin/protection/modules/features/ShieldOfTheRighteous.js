@@ -48,8 +48,11 @@ class ShieldOfTheRighteous extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    const boss = findByBossId(this.owner.boss.id);
-    this._tankbusters = boss.fight.softMitigationChecks.physical;
+    // M+ doesn't have a boss prop
+    if(this.owner.boss) {
+      const boss = findByBossId(this.owner.boss.id);
+      this._tankbusters = boss.fight.softMitigationChecks.physical;
+    }
   }
 
   _partialCharge() {
