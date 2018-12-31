@@ -55,7 +55,7 @@ export default {
     name: 'Power Word: Shield',
     icon: 'spell_holy_powerwordshield',
     manaCost: 2500,
-    atonementDuration: 15,
+    atonementDuration: 15000,
   },
   SMITE: {
     id: 585,
@@ -69,13 +69,13 @@ export default {
     name: 'Power Word: Radiance',
     icon: 'spell_priest_power-word',
     manaCost: 6500,
-    atonementDuration: 9,
+    atonementDuration: 9000,
   },
   SHADOW_MEND: {
     id: 186263,
     name: 'Shadow Mend',
     icon: 'spell_shadow_shadowmend',
-    atonementDuration: 15,
+    atonementDuration: 15000,
   },
   RAPTURE: {
     id: 47536,

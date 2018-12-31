@@ -202,6 +202,11 @@ export default {
     name: 'Execute',
     icon: 'inv_sword_48',
   },
+  EXECUTE_FURY_MASSACRE: {
+    id: 280735,
+    name: 'Execute',
+    icon: 'inv_sword_48',
+  },
   EXECUTE_DAMAGE_FURY: {
     id: 280849,
     name: 'Execute',

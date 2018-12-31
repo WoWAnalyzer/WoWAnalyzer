@@ -46,7 +46,7 @@ import Contrition from './modules/spells/Contrition';
 import Grace from './modules/spells/Grace';
 import Schism from './modules/spells/Schism';
 
-
+import DepthOfTheShadows from './modules/azeritetraits/DepthOfTheShadows';
 import SinsOfTheMany from './modules/spells/SinsOfTheMany';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
@@ -109,6 +109,7 @@ class CombatLogParser extends CoreCombatLogParser {
     sinsOfTheMany: SinsOfTheMany,
 
     // Azerite Traits
+    depthOfTheShadows: DepthOfTheShadows,
   };
 }
 
