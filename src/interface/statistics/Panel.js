@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import InterfacePanel from 'interface/others/Panel';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
-import './Statistic.css';
-
 const Panel = ({ category, position, ...others }) => (
   <InterfacePanel
     {...others}

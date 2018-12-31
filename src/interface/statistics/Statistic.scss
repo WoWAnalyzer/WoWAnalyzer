@@ -3,12 +3,16 @@
   border: 0 !important;
   text-shadow: 0 0 0.6px currentColor;
   position: relative;
-}
-.statistic.small {
-  height: 100px;
-}
-.statistic.standard, .statistic.medium {
-  height: 165px;
+
+  &.small {
+    height: 100px;
+  }
+  &.standard, &.medium {
+    height: 165px;
+  }
+  &.large {
+    height: 360px;
+  }
 }
 .statistic .pad {
   margin: 15px 18px;
@@ -19,9 +23,6 @@
 .statistic svg text {
   fill: currentColor;
 }
-.statistic.large {
-  height: 360px;
-}
 .statistic.panel .panel-body {
   padding: 0;
   position: relative; /* a lot of children need relative rendering */
@@ -29,7 +30,7 @@
 }
 .statistic label {
   color: hsla(41, 1%, 57%, 1);
-  margin-bottom: 3px;
+  margin-bottom: 10px;
   /* fucking bootstrap: */
   display: block;
   padding: 0;
@@ -42,7 +43,7 @@
 .statistic .value {
   font-size: 36px;
   font-weight: 200;
-  line-height: 1.4;
+  line-height: 1; // label has a margin bottom to account for this, we want label's margin to its children to be consistent regardless of the type of element underneath it, so the margin from the font has to be 0
   color: hsla(41, 3%, 91%, 1);
 }
 .statistic .text-muted {
