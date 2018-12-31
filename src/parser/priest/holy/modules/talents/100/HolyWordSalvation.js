@@ -83,14 +83,12 @@ class HolyWordSalvation extends Analyzer {
     return (
       <TalentStatisticBox
         talent={SPELLS.HOLY_WORD_SALVATION_TALENT.id}
-        value={(
-          <ItemHealingDone amount={this.totalHealing} />
-        )}
-        tooltip={`
-          Healing from Salv: ${formatThousands(this.healingFromSalv + this.absorptionFromSalv)}<br />
-          Healing from Renews: ${formatThousands(this.healingFromRenew + this.absorptionFromRenew)}<br />
-          Healing from PoMs: ${formatThousands(this.healingFromPom + this.absorptionFromPom)}
-        `}
+        value={<ItemHealingDone amount={this.totalHealing} />}
+        tooltip={(<>
+          Healing from Salv: {formatThousands(this.healingFromSalv + this.absorptionFromSalv)}<br />
+          Healing from Renews: {formatThousands(this.healingFromRenew + this.absorptionFromRenew)}<br />
+          Healing from PoMs: {formatThousands(this.healingFromPom + this.absorptionFromPom)}
+        </>)}
         position={STATISTIC_ORDER.CORE(7)}
       />
     );

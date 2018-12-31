@@ -81,14 +81,8 @@ class PrayerfulLitany extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.PRAYERFUL_LITANY.id}
-        value={(
-          <>
-            <ItemHealingDone amount={this.prayerfulLitanyHealing} /><br />
-          </>
-        )}
-        tooltip={`
-          ${formatThousands(this.prayerfulLitanyHealing)} Total Healing
-        `}
+        value={<ItemHealingDone amount={this.prayerfulLitanyHealing} />}
+        tooltip={`${formatThousands(this.prayerfulLitanyHealing)} Total Healing`}
       />
     );
   }

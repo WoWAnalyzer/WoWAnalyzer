@@ -43,7 +43,6 @@ class DivineStar extends Analyzer {
 
   statistic() {
     return (
-
       <TalentStatisticBox
         talent={SPELLS.DIVINE_STAR_TALENT.id}
         value={(
@@ -55,7 +54,6 @@ class DivineStar extends Analyzer {
         tooltip={`Divine Stars Cast: ${this.divineStarCasts}`}
         position={STATISTIC_ORDER.CORE(6)}
       />
-
     );
   }
 }

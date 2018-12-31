@@ -47,21 +47,16 @@ class CircleOfHealing extends Analyzer {
 
   statistic() {
     return (
-
       <TalentStatisticBox
         talent={SPELLS.CIRCLE_OF_HEALING_TALENT.id}
-
-        value={(
-          <ItemHealingDone amount={this.circleOfHealingHealing} />
-        )}
-        tooltip={`
-          Coh Casts: ${this.circleOfHealingCasts}<br />
-          Total Healing: ${formatThousands(this.circleOfHealingHealing)} (${formatPercentage(this.overHealPercent)}% OH)<br />
-          Average Targets Hit: ${this.averageTargetsHit.toFixed(2)}
-        `}
+        value={<ItemHealingDone amount={this.circleOfHealingHealing} />}
+        tooltip={(<>
+          Coh Casts: {this.circleOfHealingCasts}<br />
+          Total Healing: {formatThousands(this.circleOfHealingHealing)} ({formatPercentage(this.overHealPercent)}% OH)<br />
+          Average Targets Hit: {this.averageTargetsHit.toFixed(2)}
+        </>)}
         position={STATISTIC_ORDER.CORE(5)}
       />
-
     );
   }
 }
