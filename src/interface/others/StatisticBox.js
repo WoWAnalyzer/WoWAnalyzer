@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Tooltip from 'common/Tooltip';
-// import ReactTooltip from 'react-tooltip';
 import './StatisticBox.css';
 import STATISTIC_CATEGORY from './STATISTIC_CATEGORY';
 
@@ -43,11 +42,6 @@ class StatisticBox extends React.PureComponent {
       expanded: this.props.expanded,
     });
   }
-
-  // componentDidUpdate() {
-  //   ReactTooltip.hide();
-  //   ReactTooltip.rebuild();
-  // }
 
   componentWillReceiveProps(newProps) {
     this.setState({

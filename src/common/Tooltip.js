@@ -78,7 +78,8 @@ class Tooltip extends React.Component {
         direction="down"
         tipContentHover={hoverable}
         content={content}
-        {...others}>
+        {...others}
+      >
         {children}
       </ReactTooltip>
     );

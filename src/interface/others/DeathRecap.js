@@ -141,7 +141,8 @@ class DeathRecap extends React.PureComponent {
                     if (event.type === 'heal') {
                       percent = (lastHitPoints - event.amount) / lastMaxHitPoints;
                       output = (
-                        <Tooltip content={(<>
+                        <Tooltip
+                          content={(<>
                             {event.sourceID === event.targetID ?
                             `You healed yourself for ${formatNumber(event.amount)}` :
                             `${sourceName} healed you for ${formatNumber(event.amount)}`
