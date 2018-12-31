@@ -59,7 +59,6 @@ class RageDetails extends Analyzer {
         label="Rage wasted"
         tooltip={`${this.rageTracker.wasted} out of ${this.rageTracker.wasted + this.rageTracker.generated} Rage wasted.`}
       />
-
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(3);

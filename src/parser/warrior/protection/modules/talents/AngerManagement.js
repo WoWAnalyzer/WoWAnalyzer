@@ -35,8 +35,8 @@ class AngerManagement extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
-    if (!event.classResources || 
-        !event.classResources.filter(e => e.type !== RESOURCE_TYPES.RAGE.id) || 
+    if (!event.classResources ||
+        !event.classResources.filter(e => e.type !== RESOURCE_TYPES.RAGE.id) ||
         !event.classResources.find(e => e.type === RESOURCE_TYPES.RAGE.id).cost) {
       return;
     }
@@ -56,9 +56,9 @@ class AngerManagement extends Analyzer {
   }
 
   get tooltip() {
-    return COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.reduce((a, e) => {
-      return `${a}${SPELLS[e].name}: ${formatDuration(this.effectiveReduction[e] / 1000)} reduction (${formatDuration(this.wastedReduction[e] / 1000)} wasted)<br>`;
-    }, '');
+    return COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.map(id => (
+      <>{SPELLS[id].name}: {formatDuration(this.effectiveReduction[id] / 1000)} reduction ({formatDuration(this.wastedReduction[id] / 1000)} wasted)<br /></>
+    ));
   }
 
   statistic() {

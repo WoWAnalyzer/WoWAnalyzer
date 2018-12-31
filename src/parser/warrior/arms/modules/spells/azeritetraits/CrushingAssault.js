@@ -53,7 +53,7 @@ class CrushingAssault extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.CRUSHING_ASSAULT_TRAIT.id}
-        value={`${this.owner.formatItemDamageDone(this.crushingAssaultDamage)}`}
+        value={this.owner.formatItemDamageDone(this.crushingAssaultDamage)}
         tooltip={`Damage done: ${formatNumber(this.crushingAssaultDamage)}`}
       />
     );

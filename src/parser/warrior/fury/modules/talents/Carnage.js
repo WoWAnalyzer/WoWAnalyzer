@@ -42,14 +42,14 @@ class Carnage extends Analyzer {
   get additionalRampageCasts() {
     return this.rampageCasts - Math.floor(this.rampageCasts * RAGE_REDUCTION_RATIO);
   }
-  
+
   statistic() {
     return (
       <TalentStatisticBox
         talent={SPELLS.CARNAGE_TALENT.id}
         value={`${formatNumber(this.damage)} damage`}
         label="Carnage"
-        tooltip={`Carnage allowed you to use Rampage <b>~${this.additionalRampageCasts}</b> additional times and contributed to <b>${formatPercentage(this.damagePercent)}%</b> of your overall damage.`}
+        tooltip={<>Carnage allowed you to use Rampage <strong>~{this.additionalRampageCasts}</strong> additional times and contributed to <strong>{formatPercentage(this.damagePercent)}%</strong> of your overall damage.</>}
       />
     );
   }
