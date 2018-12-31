@@ -101,10 +101,10 @@ class MeticulousScheming extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.METICULOUS_SCHEMING.id}
         value={`${this.averageHaste} average Haste`}
-        tooltip={`
-          ${SPELLS.METICULOUS_SCHEMING.name} grants <b>${this.haste} haste</b> while active.<br/>
-          You procced <b>${SPELLS.METICULOUS_SCHEMING_BUFF.name} ${this.meticulousSchemingProcs} times</b> and activated <b>${SPELLS.SEIZE_THE_MOMENT.name} ${this.seizeTheMomentProcs} times</b> with an uptime of ${formatPercentage(this.uptime)}%.
-        `}
+        tooltip={(<>
+          {SPELLS.METICULOUS_SCHEMING.name} grants <strong>{this.haste} haste</strong> while active.<br />
+          You procced <strong>{SPELLS.METICULOUS_SCHEMING_BUFF.name} {this.meticulousSchemingProcs} times</strong> and activated <strong>{SPELLS.SEIZE_THE_MOMENT.name} {this.seizeTheMomentProcs} times</strong> with an uptime of {formatPercentage(this.uptime)}%.
+        </>)}
       />
     );
   }

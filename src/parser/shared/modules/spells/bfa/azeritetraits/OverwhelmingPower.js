@@ -110,10 +110,10 @@ class OverWhelmingPower extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.OVERWHELMING_POWER.id}
         value={`${this.averageHaste} average Haste`}
-        tooltip={`
-          ${SPELLS.OVERWHELMING_POWER.name} grants <b>${this.haste} haste per stack</b> (${this.haste * MAX_OVERWHELMING_POWER_STACKS} haste @${MAX_OVERWHELMING_POWER_STACKS} stacks) while active.<br/>
-          You procced <b>${SPELLS.OVERWHELMING_POWER.name} ${this.overwhelmingPowerProcs} times</b> with an uptime of ${formatPercentage(this.uptime)}%.
-        `}
+        tooltip={(<>
+          {SPELLS.OVERWHELMING_POWER.name} grants <strong>{this.haste} haste per stack</strong> ({this.haste * MAX_OVERWHELMING_POWER_STACKS} haste @{MAX_OVERWHELMING_POWER_STACKS} stacks) while active.<br />
+          You procced <strong>{SPELLS.OVERWHELMING_POWER.name} {this.overwhelmingPowerProcs} times</strong> with an uptime of {formatPercentage(this.uptime)}%.
+        </>)}
       />
     );
   }

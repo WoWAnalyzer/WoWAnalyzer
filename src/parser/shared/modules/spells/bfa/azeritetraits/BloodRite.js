@@ -74,10 +74,10 @@ class BloodRite extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.BLOOD_RITE.id}
         value={`${this.averageHaste} average Haste`}
-        tooltip={`
-          ${SPELLS.BLOOD_RITE.name} grants <b>${this.haste} haste</b> while active.<br/>
-          You had <b>${this.bloodRiteProcs} ${SPELLS.BLOOD_RITE.name} procs</b> resulting in ${formatPercentage(this.uptime)}% uptime.
-        `}
+        tooltip={(<>
+          {SPELLS.BLOOD_RITE.name} grants <strong>{this.haste} Haste</strong> while active.<br />
+          You had <strong>{this.bloodRiteProcs} {SPELLS.BLOOD_RITE.name} procs</strong> resulting in {formatPercentage(this.uptime)}% uptime.
+        </>)}
       />
     );
   }

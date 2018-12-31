@@ -63,7 +63,7 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
       <Statistic
         position={STATISTIC_ORDER.CORE(10)}
         title="Active time"
-        tooltip={`Created by Zerotorescue. For more details, see the timeline.`}
+        tooltip="Created by Zerotorescue. For more details, see the timeline."
       >
         <label>Active time</label>
 

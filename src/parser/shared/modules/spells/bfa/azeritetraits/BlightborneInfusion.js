@@ -68,10 +68,10 @@ class BlightborneInfusion extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.BLIGHTBORNE_INFUSION.id}
         value={`${this.averageCrit} average crit`}
-        tooltip={`
-          ${SPELLS.BLIGHTBORNE_INFUSION.name} grants <b>${this.crit} crit</b> while active.<br/>
-          You procced <b>${SPELLS.BLIGHTBORNE_INFUSION.name} ${this.blightborneInfusionProcs} times</b> with an uptime of ${formatPercentage(this.uptime)}%.
-        `}
+        tooltip={(<>
+          {SPELLS.BLIGHTBORNE_INFUSION.name} grants <strong>{this.crit} crit</strong> while active.<br />
+          You procced <strong>{SPELLS.BLIGHTBORNE_INFUSION.name} {this.blightborneInfusionProcs} times</strong> with an uptime of {formatPercentage(this.uptime)}%.
+        </>)}
       />
     );
   }
