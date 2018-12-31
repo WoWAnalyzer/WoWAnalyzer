@@ -1,5 +1,5 @@
 import React from 'react';
-import { Doughnut as DoughnutChart } from 'react-chartjs-2';
+import { RadialChart } from 'react-vis';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -37,8 +37,7 @@ class CastBehavior extends Analyzer {
         <div
           className="flex"
           style={{
-            borderBottom: '3px solid rgba(255,255,255,0.1)',
-            marginBottom: ((numItems - 1) === index) ? 0 : 5,
+            marginBottom: ((numItems - 1) === index) ? 0 : 10,
           }}
           key={index}
         >
@@ -68,30 +67,19 @@ class CastBehavior extends Analyzer {
   }
   chart(items) {
     return (
-      <DoughnutChart
-        data={{
-          datasets: [{
-            data: items.map(item => item.value),
-            backgroundColor: items.map(item => item.color),
-            borderColor: '#666',
-            borderWidth: 1.5,
-          }],
-          labels: items.map(item => item.label),
-        }}
-        options={{
-          legend: {
-            display: false,
-          },
-          tooltips: {
-            bodyFontSize: 8,
-          },
-          cutoutPercentage: 25,
-          animation: false,
-          responsive: false,
-        }}
-        width={CHART_SIZE}
-        height={CHART_SIZE}
-      />
+      <>
+        <RadialChart
+          colorType="literal"
+          data={items.map(item => ({
+            ...item,
+            angle: item.value,
+          }))}
+          width={CHART_SIZE}
+          height={CHART_SIZE}
+          radius={CHART_SIZE/2}
+          innerRadius={CHART_SIZE*0.31}
+        />
+      </>
     );
   }
 
@@ -117,7 +105,7 @@ class CastBehavior extends Analyzer {
 
     const items = [
       {
-        color: '#ecd1b6',
+        color: '#ebe5dd',
         label: 'Flash of Light',
         spellId: SPELLS.FLASH_OF_LIGHT.id,
         value: iolFlashOfLights,
@@ -138,11 +126,11 @@ class CastBehavior extends Analyzer {
 
     return (
       <div className="flex">
-        <div className="flex-sub" style={{ paddingRight: 12 }}>
-          {this.chart(items)}
-        </div>
         <div className="flex-main" style={{ fontSize: '80%', paddingTop: 3 }}>
           {this.legend(items, totalIolProcs)}
+        </div>
+        <div className="flex-sub" style={{ paddingLeft: 30 }}>
+          {this.chart(items)}
         </div>
       </div>
     );
@@ -166,7 +154,7 @@ class CastBehavior extends Analyzer {
 
     const items = [
       {
-        color: '#ecd1b6',
+        color: '#ebe5dd',
         label: 'Flash of Light',
         spellId: SPELLS.FLASH_OF_LIGHT.id,
         value: fillerFlashOfLights,
@@ -181,11 +169,11 @@ class CastBehavior extends Analyzer {
 
     return (
       <div className="flex">
-        <div className="flex-sub" style={{ paddingRight: 12 }}>
-          {this.chart(items)}
-        </div>
         <div className="flex-main" style={{ fontSize: '80%', paddingTop: 3 }}>
           {this.legend(items, totalFillers)}
+        </div>
+        <div className="flex-sub" style={{ paddingLeft: 30 }}>
+          {this.chart(items)}
         </div>
       </div>
     );
