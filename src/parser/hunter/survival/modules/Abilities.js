@@ -99,7 +99,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.FLANKING_STRIKE_TALENT,
+        spell: [SPELLS.FLANKING_STRIKE_TALENT, SPELLS.FLANKING_STRIKE_PLAYER],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 40,
         gcd: {
@@ -200,8 +200,8 @@ class Abilities extends CoreAbilities {
         gcd: null,
       },
       {
-        spell: SPELLS.PRIMAL_RAGE,
-        buffSpellId: SPELLS.PRIMAL_RAGE.id,
+        spell: [SPELLS.PRIMAL_RAGE_1, SPELLS.PRIMAL_RAGE_2],
+        buffSpellId: [SPELLS.PRIMAL_RAGE_1.id, SPELLS.PRIMAL_RAGE_2.id],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 360,
         gcd: null,

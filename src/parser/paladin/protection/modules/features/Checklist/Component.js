@@ -55,7 +55,7 @@ class ProtectionPaladinChecklist extends React.PureComponent{
           description={(
             <>
               Maintain <SpellLink id={SPELLS.CONSECRATION_CAST.id} /> to reduce all incoming damage by a flat amount and use it as a rotational filler if necessary.<br />
-              Use <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> to smooth out your physical damage taken or weave them into your rotation when you're about to cap charges.
+              Use <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> to smooth out your physical damage taken or weave them into your rotation when you're about to cap charges. <SpellLink id={SPELLS.ARDENT_DEFENDER.id} /> can be used either as a cooldown to mitigate boss abilities or to cover time when <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> is unavailable.
             </>
           )}
         >
@@ -74,6 +74,9 @@ class ProtectionPaladinChecklist extends React.PureComponent{
             )}
             thresholds={thresholds.consecration}
           />
+          <AbilityRequirement spell={SPELLS.ARDENT_DEFENDER.id} 
+            name={(<><SpellLink id={SPELLS.ARDENT_DEFENDER.id} /> cast efficiency</>)} 
+          />
         </Rule>
         <Rule 
           name={<>Use <SpellLink id={this.props.extras.lotpAbility.id} /> to heal yourself</>}
@@ -87,14 +90,6 @@ class ProtectionPaladinChecklist extends React.PureComponent{
             spell={this.props.extras.lotpAbility.id} />
           <Requirement name="Avg. Cast Delay" thresholds={thresholds.lotpDelay} />
           <Requirement name="Overhealing" thresholds={thresholds.lotpOverheal} />
-        </Rule>
-
-        <Rule
-          name="Use your defensive cooldowns."
-          description="Use these to smooth incoming damage and mitigate spikes as well as reduce external healing required."
-        >
-          <AbilityRequirement spell={SPELLS.ARDENT_DEFENDER.id} />
-          <AbilityRequirement spell={SPELLS.GUARDIAN_OF_ANCIENT_KINGS.id} />
         </Rule>
         <PreparationRule thresholds={thresholds} />
       </Checklist>

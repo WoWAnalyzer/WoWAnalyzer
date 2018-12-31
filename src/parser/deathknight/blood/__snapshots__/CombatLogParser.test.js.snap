@@ -1,0 +1,3989 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The Blood Deathknight Analyzer analyzers Abilities matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Blood Deathknight Analyzer analyzers Abilities matches the suggestions snapshot 1`] = `"module has no suggestions"`;
+
+exports[`The Blood Deathknight Analyzer analyzers AlwaysBeCasting matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <img
+            alt=""
+            className="icon"
+            src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
+          />
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Downtime
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="Downtime is available time not used to cast anything (including not having your GCD rolling). This can be caused by delays between casting spells, latency, cast interrupting or just simply not casting anything (e.g. due to movement/stunned).<br/>
+        <li>You spent <b>76.88%</b> of your time casting something.</li>
+        <li>You spent <b>23.12%</b> of your time casting nothing at all.</li>
+        "
+            >
+              23.12 %
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="panel-footer"
+      style={
+        Object {
+          "borderTop": 0,
+          "overflow": "hidden",
+          "padding": 0,
+        }
+      }
+    >
+      <div
+        className="statistic-bar"
+      >
+        <div
+          className="stat-health-bg"
+          data-tip="You spent <b>76.88%</b> of your time casting something."
+          style={
+            Object {
+              "width": "76.88251894636313%",
+            }
+          }
+        >
+          <img
+            alt="Active time"
+            src="/img/sword.png"
+          />
+        </div>
+        <div
+          className="remainder DeathKnight-bg"
+          data-tip="You spent <b>23.12%</b> of your time casting nothing at all."
+        >
+          <img
+            alt="Downtime"
+            src="/img/afk.png"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Blood Deathknight Analyzer analyzers AlwaysBeCasting matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_mage_altertime",
+    "importance": "minor",
+    "issue": <React.Fragment>
+      While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes.  You can reduce downtime by casting ranged/filler abilities like 
+      <SpellLink
+        icon={true}
+        id={206931}
+      />
+       or 
+      <SpellLink
+        icon={true}
+        id={50842}
+      />
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      23.12% downtime
+       (
+      &lt;20.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`The Blood Deathknight Analyzer analyzers BloodPlagueUptime matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=55078"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_bloodplague.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Blood Plague uptime
+          </div>
+          <div
+            className="value"
+          >
+            95.49 %
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Blood Deathknight Analyzer analyzers BloodPlagueUptime matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Blood Deathknight Analyzer analyzers Blooddrinker matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=206931"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/ability_animusdraw.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Channels cancelled early
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="You lost <strong>1</strong> out of <strong>16</strong> ticks.<br>
+        <strong>Damage:</strong> 178,922 / 9.10 % / 1,283 DPS<br>
+        <strong>Healing:</strong> 62,724 / 5.61 % / 450 HPS<br>"
+            >
+              1 out of 4
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Blood Deathknight Analyzer analyzers Blooddrinker matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Blood Deathknight Analyzer analyzers Bloodworms matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable item"
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=195679"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_soulleech.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Bloodworm Stats
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="<strong>Damage:</strong> 24,797 / 1.26 % / 178 DPS<br>
+        <strong>Number of worms summoned:</strong> 6<br>
+        <strong>Number of worms popped early:</strong> 6
+        "
+            >
+              14.01 % / 1,123 HPS
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Blood Deathknight Analyzer analyzers Bloodworms matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Blood Deathknight Analyzer analyzers BoneShield matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=195181"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/ability_deathknight_boneshield.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Bone Shield uptime
+          </div>
+          <div
+            className="value"
+          >
+            96.21 %
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-xs-12"
+        />
+      </div>
+      <div
+        className="statistic-expansion-button-holster"
+      >
+        <button
+          className="btn btn-primary"
+          onClick={[Function]}
+        >
+          <span
+            className="glyphicon glyphicon-chevron-down"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Blood Deathknight Analyzer analyzers BoneShield matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Blood Deathknight Analyzer analyzers BoneShieldStacksBySeconds matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Blood Deathknight Analyzer analyzers BoneShieldStacksBySeconds matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Blood Deathknight Analyzer analyzers BoneSpikeGraveyard matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers BoneSpikeGraveyard matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers BonesOfTheDamned matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers BonesOfTheDamned matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers Bonestorm matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable item"
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=194844"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/achievement_boss_lordmarrowgar.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            of your total damage
+          </div>
+          <div
+            className="value"
+          >
+            0.00 %
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Blood Deathknight Analyzer analyzers Bonestorm matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Blood Deathknight Analyzer analyzers Channeling matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Blood Deathknight Analyzer analyzers Channeling matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Blood Deathknight Analyzer analyzers Checklist matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Blood Deathknight Analyzer analyzers Checklist matches the suggestions snapshot 1`] = `"module has no suggestions"`;
+
+exports[`The Blood Deathknight Analyzer analyzers Consumption matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers Consumption matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers CooldownThroughputTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Blood Deathknight Analyzer analyzers CooldownThroughputTracker matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Blood Deathknight Analyzer analyzers CrimsonScourge matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=81141"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/ability_warrior_bloodnova.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Crimson Scourge procs wasted
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="2 out of 6 procs wasted."
+            >
+              33.33 %
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Blood Deathknight Analyzer analyzers CrimsonScourge matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "ability_warrior_bloodnova",
+    "importance": "major",
+    "issue": <React.Fragment>
+      You had unspent 
+      <SpellLink
+        icon={true}
+        id={81141}
+      />
+       procs. Make sure you always use them.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      33.33% Crimson Scourge procs wasted
+       (
+      &lt;5.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`The Blood Deathknight Analyzer analyzers DamageDone matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <img
+            alt="Sword"
+            src="/img/sword.png"
+            style={
+              Object {
+                "border": 0,
+              }
+            }
+          />
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Damage done
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="Total damage done: <b>1,966,797</b> <br>Contribution from pets: 3.58 % / 505 DPS"
+            >
+              14k DPS
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Blood Deathknight Analyzer analyzers DamageDone matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Blood Deathknight Analyzer analyzers DamageTaken matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <img
+            alt="Shield"
+            src="/img/shield.png"
+            style={
+              Object {
+                "border": 0,
+              }
+            }
+          />
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Damage taken
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="The total damage taken was 2,534,594 (0 overkill)."
+            >
+              18k DTPS
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="panel-footer"
+      style={
+        Object {
+          "borderTop": 0,
+          "overflow": "hidden",
+          "padding": 0,
+        }
+      }
+    >
+      <div
+        className="statistic-bar"
+        data-tip="Damage taken by type:
+      <ul>
+      <li><b>Physical</b>: 2,259,023 (89.13%)</li>
+      <li><b>Magic</b>: 275,571 (10.87%)</li>
+      </ul>
+      Damage taken by magic school:
+      <ul>
+        <li><b>Physical</b>: 2,259,023 (89.13%)</li><li><b>Nature</b>: 275,571 (10.87%)</li>
+      </ul>
+      Click the bar to switch between simple and detailed mode."
+        onClick={[Function]}
+        style={
+          Object {
+            "cursor": "pointer",
+          }
+        }
+      >
+        <div
+          className="spell-school-1-bg"
+          style={
+            Object {
+              "width": "89.12760781411146%",
+            }
+          }
+        />
+        <div
+          className="spell-school-32-bg"
+          style={
+            Object {
+              "width": "10.872392185888549%",
+            }
+          }
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Blood Deathknight Analyzer analyzers DamageTaken matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Blood Deathknight Analyzer analyzers DancingRuneWeapon matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Blood Deathknight Analyzer analyzers DancingRuneWeapon matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_sword_07",
+    "importance": "regular",
+    "issue": <React.Fragment>
+      Avoid casting spells during 
+      <SpellLink
+        icon={true}
+        id={49028}
+      />
+       that don't benefit from the coppies such as 
+      <SpellLink
+        icon={true}
+        id={206931}
+      />
+       and 
+      <SpellLink
+        icon={true}
+        id={43265}
+      />
+      . Check the cooldown-tab below for more detailed breakdown.
+      <div>
+        Try and prioritize 
+        <React.Fragment>
+          <SpellLink
+            icon={true}
+            id={49998}
+          />
+          , 
+        </React.Fragment>
+        <React.Fragment>
+          <SpellLink
+            icon={true}
+            id={206930}
+          />
+          , 
+        </React.Fragment>
+        <React.Fragment>
+          <SpellLink
+            icon={true}
+            id={50842}
+          />
+          , 
+        </React.Fragment>
+        <React.Fragment>
+          <SpellLink
+            icon={true}
+            id={195182}
+          />
+           
+        </React.Fragment>
+        <React.Fragment>
+          and (if in AoE)
+          <SpellLink
+            icon={true}
+            id={274156}
+          />
+        </React.Fragment>
+      </div>
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      13 out of 15 casts during DRW were good
+       (
+      15 recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`The Blood Deathknight Analyzer analyzers DeathStrikeTiming matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Blood Deathknight Analyzer analyzers DeathStrikeTiming matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Blood Deathknight Analyzer analyzers DeathsCaress matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Blood Deathknight Analyzer analyzers DeathsCaress matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Blood Deathknight Analyzer analyzers EternalRuneWeapon matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers EternalRuneWeapon matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers FoulBulwark matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers FoulBulwark matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers GlobalCooldown matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Blood Deathknight Analyzer analyzers GlobalCooldown matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Blood Deathknight Analyzer analyzers HealingDone matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <img
+            alt="Healing"
+            src="/img/healing.png"
+            style={
+              Object {
+                "border": 0,
+              }
+            }
+          />
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Healing done
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="Total healing done: <b>1,117,131</b>"
+            >
+              8,013 HPS
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="panel-footer"
+      style={
+        Object {
+          "borderTop": 0,
+          "overflow": "hidden",
+          "padding": 0,
+        }
+      }
+    >
+      <div
+        className="statistic-bar"
+      >
+        <div
+          className="stat-healing-bg"
+          data-tip="Regular healing done, not including absorbs. You did a total of 817k regular healing (42.18% of raw healing)."
+          style={
+            Object {
+              "width": "42.181760712647765%",
+            }
+          }
+        >
+          <img
+            alt="Healing"
+            src="/img/healing.png"
+          />
+        </div>
+        <div
+          className="stat-healing-absorbs-bg"
+          data-tip="Healing by absorbs. This only includes damage prevented by absorbs. You did a total of 300k healing with absorbs (15.51% of raw healing)."
+          style={
+            Object {
+              "width": "15.514849582897774%",
+            }
+          }
+        >
+          <img
+            alt="Absorb Healing"
+            src="/img/absorbed.png"
+          />
+        </div>
+        <div
+          className="remainder stat-overhealing-bg"
+          data-tip="Overhealing. You did a total of 819k overhealing (42.30 % of raw healing). Overhealing can be caused by playing poorly such as selecting the wrong targets or casting abilities at the wrong time, other healers sniping, and/or bringing too many healers."
+        >
+          <img
+            alt="Overhealing"
+            src="/img/overhealing.png"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Blood Deathknight Analyzer analyzers HealingDone matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Blood Deathknight Analyzer analyzers Heartbreaker matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers Heartbreaker matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers Hemostasis matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable item"
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=273946"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/ability_deathwing_bloodcorruption_earth.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Death Strikes with Hemostasis
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="
+          Resulting in 33k additional damage and 42k additional healing.<br/>
+          You gained 29 and wasted 0 stacks.
+        "
+            >
+              19 / 20
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Blood Deathknight Analyzer analyzers Hemostasis matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Blood Deathknight Analyzer analyzers InitialMarrowrendCast matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Blood Deathknight Analyzer analyzers InitialMarrowrendCast matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Blood Deathknight Analyzer analyzers MarkOfBlood matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers MarkOfBlood matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers MarrowrendUsage matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=195182"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/ability_deathknight_marrowrend.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Bad Marrowrend casts
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="
+          3 casts to refresh Bone Shield<br>
+          0 casts with more than 7 stacks of Bone Shield wasting at least 0 stacks<br>
+          <br>
+          Avoid casting Marrowrend unless you have 7 or less stacks or if Bone Shield has less than 6sec duration left.
+        "
+            >
+              0 / 10
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Blood Deathknight Analyzer analyzers MarrowrendUsage matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Blood Deathknight Analyzer analyzers MitigationCheck matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=195181"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/ability_deathknight_boneshield.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Soft mitigation checks passed.
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="Checks if one of the following buffs or debuffs were up during the mechanic: <ul><li>Bone Shield</li><li>Dancing Rune Weapon</li><li>Anti-Magic Shell</li><li>Blood Shield</li><li>Vampiric Blood</li><li>Icebound Fortitude</li><li>Tombstone</li></ul>"
+            >
+              100.00 %
+            </dfn>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-xs-12"
+        />
+      </div>
+      <div
+        className="statistic-expansion-button-holster"
+      >
+        <button
+          className="btn btn-primary"
+          onClick={[Function]}
+        >
+          <span
+            className="glyphicon glyphicon-chevron-down"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Blood Deathknight Analyzer analyzers MitigationCheck matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Blood Deathknight Analyzer analyzers Ossuary matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable item"
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=219786"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/ability_deathknight_brittlebones.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Death Strikes without Ossuary
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="
+          15 RP wasted by casting them without Ossuary up.<br>
+          85 RP saved by casting them with Ossuary up.<br>
+          87.62% uptime.
+        "
+            >
+              3 / 20
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Blood Deathknight Analyzer analyzers Ossuary matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "ability_deathknight_brittlebones",
+    "importance": "regular",
+    "issue": "Your Ossuary usage can be improved. Avoid casting Death Strike while not having Ossuary up as you lose Runic Power by doing so.",
+    "stat": <React.Fragment>
+      85.00% Ossuary efficiency
+       (
+      100.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`The Blood Deathknight Analyzer analyzers RapidDecomposition matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers RapidDecomposition matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers RedThirst matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers RedThirst matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers RuneDetails matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Blood Deathknight Analyzer analyzers RuneDetails matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Blood Deathknight Analyzer analyzers RuneStrike matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers RuneStrike matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers RuneTracker matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <img
+            alt=""
+            className="icon"
+            src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_frozenruneweapon.jpg"
+          />
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Runes overcapped
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="
+          Number of runes wasted: 3 <br>
+          These numbers only include runes wasted from passive regeneration. <br>
+          The table below shows the time spent at any given number of runes available.
+        "
+            >
+              4.99 %
+            </dfn>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-xs-12"
+        />
+      </div>
+      <div
+        className="statistic-expansion-button-holster"
+      >
+        <button
+          className="btn btn-primary"
+          onClick={[Function]}
+        >
+          <span
+            className="glyphicon glyphicon-chevron-down"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Blood Deathknight Analyzer analyzers RuneTracker matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Blood Deathknight Analyzer analyzers RunicPowerDetails matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <img
+            alt=""
+            className="icon"
+            src="//render-us.worldofwarcraft.com/icons/56/inv_sword_62.jpg"
+          />
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Runic Power wasted
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="15 out of 882 runic power wasted."
+            >
+              1.70 %
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Blood Deathknight Analyzer analyzers RunicPowerDetails matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Blood Deathknight Analyzer analyzers RunicPowerTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Blood Deathknight Analyzer analyzers RunicPowerTracker matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Blood Deathknight Analyzer analyzers ShacklesofBryndaor matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers ShacklesofBryndaor matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers SkullflowersHaemostasis matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers SkullflowersHaemostasis matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers SoulflayersCorruption matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers SoulflayersCorruption matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers Tombstone matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers Tombstone matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers Voracious matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers Voracious matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers WillOfTheNecropolis matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable item"
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=206967"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/achievement_boss_kelthuzad_01.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            <a
+              href="http://wowhead.com/spell=206967"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+               
+              Will of the Necropolis
+            </a>
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="<strong>Total Damage Absorbed: </strong> 15k </br>
+                  <strong>Activated: </strong> 3</br>
+                  <strong>Absorbed 5% Max Health or more count: </strong> 0  "
+            >
+              1.32 % / 106 HPS
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Blood Deathknight Analyzer analyzers WillOfTheNecropolis matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Blood Deathknight Analyzer should match the checklist snapshot 1`] = `
+<div
+  className="checklist"
+>
+  <div
+    className="expandable "
+  >
+    <div
+      className="meta checklist-item"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div
+            className="chevron"
+          >
+            <svg
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div>
+            <svg
+              style={
+                Object {
+                  "color": "green",
+                }
+              }
+              viewBox="0 0 50 50"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-main"
+        >
+          Use your short cooldowns
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "width": 100,
+            }
+          }
+        >
+          <div
+            className="performance-bar-container"
+          >
+            <div
+              className="performance-bar small"
+              style={
+                Object {
+                  "backgroundColor": "#a6c34c",
+                  "transition": "background-color 800ms",
+                  "width": "93.54088992016754%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="details"
+      style={
+        Object {
+          "display": "none",
+          "minHeight": 80,
+          "paddingLeft": 65,
+          "paddingRight": 65,
+          "position": "relative",
+        }
+      }
+    >
+      <div
+        className="row"
+        style={
+          Object {
+            "marginBottom": 10,
+            "position": "relative",
+          }
+        }
+      >
+        <svg
+          className="text-muted"
+          style={
+            Object {
+              "fontSize": "2em",
+              "left": -33,
+              "position": "absolute",
+              "top": "50%",
+              "transform": "translateY(-33%)",
+            }
+          }
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+          />
+          <path
+            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+          />
+          <path
+            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+          />
+        </svg>
+        <div
+          className="col-md-12 text-muted"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              These should generally always be recharging to maximize efficiency.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=50842"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="/img/Icons/spell_deathknight_bloodboil.jpg"
+                />
+                 
+                Blood Boil
+              </a>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                91.79%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=206931"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_animusdraw.jpg"
+                />
+                 
+                Blooddrinker
+              </a>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                88.08%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#a6c34c",
+                      "transition": "background-color 800ms",
+                      "width": "87.08177984033509%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="expandable "
+  >
+    <div
+      className="meta checklist-item"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div
+            className="chevron"
+          >
+            <svg
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div>
+            <svg
+              style={
+                Object {
+                  "color": "green",
+                }
+              }
+              viewBox="0 0 50 50"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-main"
+        >
+          Do not overcap your resources
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "width": 100,
+            }
+          }
+        >
+          <div
+            className="performance-bar-container"
+          >
+            <div
+              className="performance-bar small"
+              style={
+                Object {
+                  "backgroundColor": "#4ec04e",
+                  "transition": "background-color 800ms",
+                  "width": "100%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="details"
+      style={
+        Object {
+          "display": "none",
+          "minHeight": 80,
+          "paddingLeft": 65,
+          "paddingRight": 65,
+          "position": "relative",
+        }
+      }
+    >
+      <div
+        className="row"
+        style={
+          Object {
+            "marginBottom": 10,
+            "position": "relative",
+          }
+        }
+      >
+        <svg
+          className="text-muted"
+          style={
+            Object {
+              "fontSize": "2em",
+              "left": -33,
+              "position": "absolute",
+              "top": "50%",
+              "transform": "translateY(-33%)",
+            }
+          }
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+          />
+          <path
+            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+          />
+          <path
+            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+          />
+        </svg>
+        <div
+          className="col-md-12 text-muted"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Death Knights are a resource based class, relying on Runes and Runic Power to cast core abilities. Try to spend Runic Power before reaching the maximum amount and always keep atleast 3 Runes on cooldown to avoid wasting resources.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Runic Power Efficiency
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                98.30%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Rune Efficiency
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                95.01%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=195182"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_deathknight_marrowrend.jpg"
+                />
+                 
+                Marrowrend
+              </a>
+               Efficiency
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                100.00%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=195292"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_deathknight_deathscaress.jpg"
+                />
+                 
+                Death's Caress
+              </a>
+               Efficiency
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                0.00%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="expandable "
+  >
+    <div
+      className="meta checklist-item"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div
+            className="chevron"
+          >
+            <svg
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div>
+            <svg
+              style={
+                Object {
+                  "color": "green",
+                }
+              }
+              viewBox="0 0 50 50"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-main"
+        >
+          Use your offensive cooldowns
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "width": 100,
+            }
+          }
+        >
+          <div
+            className="performance-bar-container"
+          >
+            <div
+              className="performance-bar small"
+              style={
+                Object {
+                  "backgroundColor": "#4ec04e",
+                  "transition": "background-color 800ms",
+                  "width": "100%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="details"
+      style={
+        Object {
+          "display": "none",
+          "minHeight": 80,
+          "paddingLeft": 65,
+          "paddingRight": 65,
+          "position": "relative",
+        }
+      }
+    >
+      <div
+        className="row"
+        style={
+          Object {
+            "marginBottom": 10,
+            "position": "relative",
+          }
+        }
+      >
+        <svg
+          className="text-muted"
+          style={
+            Object {
+              "fontSize": "2em",
+              "left": -33,
+              "position": "absolute",
+              "top": "50%",
+              "transform": "translateY(-33%)",
+            }
+          }
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+          />
+          <path
+            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+          />
+          <path
+            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+          />
+        </svg>
+        <div
+          className="col-md-12 text-muted"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              You should aim to use these cooldowns as often as you can to maximize your damage output unless you are saving them for their defensive value.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=49028"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/inv_sword_07.jpg"
+                />
+                 
+                Dancing Rune Weapon
+              </a>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                100.00%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=194844"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/achievement_boss_lordmarrowgar.jpg"
+                />
+                 
+                Bonestorm
+              </a>
+               Efficiency
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                0.00%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="expandable "
+  >
+    <div
+      className="meta checklist-item"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div
+            className="chevron"
+          >
+            <svg
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div>
+            <svg
+              style={
+                Object {
+                  "color": "green",
+                }
+              }
+              viewBox="0 0 50 50"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-main"
+        >
+          Maintain your buffs and debuffs
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "width": 100,
+            }
+          }
+        >
+          <div
+            className="performance-bar-container"
+          >
+            <div
+              className="performance-bar small"
+              style={
+                Object {
+                  "backgroundColor": "#a6c34c",
+                  "transition": "background-color 800ms",
+                  "width": "86.21994998218773%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="details"
+      style={
+        Object {
+          "display": "none",
+          "minHeight": 80,
+          "paddingLeft": 65,
+          "paddingRight": 65,
+          "position": "relative",
+        }
+      }
+    >
+      <div
+        className="row"
+        style={
+          Object {
+            "marginBottom": 10,
+            "position": "relative",
+          }
+        }
+      >
+        <svg
+          className="text-muted"
+          style={
+            Object {
+              "fontSize": "2em",
+              "left": -33,
+              "position": "absolute",
+              "top": "50%",
+              "transform": "translateY(-33%)",
+            }
+          }
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+          />
+          <path
+            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+          />
+          <path
+            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+          />
+        </svg>
+        <div
+          className="col-md-12 text-muted"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              It is important to maintain these as they contribute a large amount to your DPS and HPS.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=55078"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_bloodplague.jpg"
+                />
+                 
+                Blood Plague
+              </a>
+               Uptime
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                95.49%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=195181"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_deathknight_boneshield.jpg"
+                />
+                 
+                Bone Shield
+              </a>
+               Uptime
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                96.21%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=219786"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_deathknight_brittlebones.jpg"
+                />
+                 
+                Ossuary
+              </a>
+               Uptime
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                87.62%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#ffc84a",
+                      "transition": "background-color 800ms",
+                      "width": "58.65984994656319%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="expandable "
+  >
+    <div
+      className="meta checklist-item"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div
+            className="chevron"
+          >
+            <svg
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div>
+            <svg
+              style={
+                Object {
+                  "color": "red",
+                }
+              }
+              viewBox="15 15 70 70"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                style={
+                  Object {
+                    "strokeLinecap": "round",
+                    "strokeMiterlimit": 10,
+                    "strokeWidth": 10,
+                  }
+                }
+              >
+                <line
+                  x1="21.19"
+                  x2="78.81"
+                  y1="21.19"
+                  y2="78.81"
+                />
+                <line
+                  x1="78.81"
+                  x2="21.19"
+                  y1="21.19"
+                  y2="78.81"
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-main"
+        >
+          Use your defensive cooldowns
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "width": 100,
+            }
+          }
+        >
+          <div
+            className="performance-bar-container"
+          >
+            <div
+              className="performance-bar small"
+              style={
+                Object {
+                  "backgroundColor": "#ac1f39",
+                  "transition": "background-color 800ms",
+                  "width": "8.900300127367128%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="details"
+      style={
+        Object {
+          "display": "none",
+          "minHeight": 80,
+          "paddingLeft": 65,
+          "paddingRight": 65,
+          "position": "relative",
+        }
+      }
+    >
+      <div
+        className="row"
+        style={
+          Object {
+            "marginBottom": 10,
+            "position": "relative",
+          }
+        }
+      >
+        <svg
+          className="text-muted"
+          style={
+            Object {
+              "fontSize": "2em",
+              "left": -33,
+              "position": "absolute",
+              "top": "50%",
+              "transform": "translateY(-33%)",
+            }
+          }
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+          />
+          <path
+            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+          />
+          <path
+            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+          />
+        </svg>
+        <div
+          className="col-md-12 text-muted"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Use these to block damage spikes and keep damage smooth to reduce external healing required.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=55233"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_lifedrain.jpg"
+                />
+                 
+                Vampiric Blood
+              </a>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                9.35%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#ac1f39",
+                      "transition": "background-color 800ms",
+                      "width": "8.900300127367128%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=48792"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_deathknight_iceboundfortitude.jpg"
+                />
+                 
+                Icebound Fortitude
+              </a>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                0.00%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#ac1f39",
+                      "transition": "background-color 800ms",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              <a
+                href="http://wowhead.com/spell=48707"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt=""
+                  className="icon"
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_antimagicshell.jpg"
+                />
+                 
+                Anti-Magic Shell
+              </a>
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                25.00%
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#ac1f39",
+                      "transition": "background-color 800ms",
+                      "width": "23.784861243607313%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="expandable "
+  >
+    <div
+      className="meta checklist-item"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div
+            className="chevron"
+          >
+            <svg
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "paddingRight": 18,
+            }
+          }
+        >
+          <div>
+            <svg
+              style={
+                Object {
+                  "color": "green",
+                }
+              }
+              viewBox="0 0 50 50"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          className="flex-main"
+        >
+          Be well prepared
+        </div>
+        <div
+          className="flex-sub content-middle"
+          style={
+            Object {
+              "width": 100,
+            }
+          }
+        >
+          <div
+            className="performance-bar-container"
+          >
+            <div
+              className="performance-bar small"
+              style={
+                Object {
+                  "backgroundColor": "#a6c34c",
+                  "transition": "background-color 800ms",
+                  "width": "85.71428571428571%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="details"
+      style={
+        Object {
+          "display": "none",
+          "minHeight": 80,
+          "paddingLeft": 65,
+          "paddingRight": 65,
+          "position": "relative",
+        }
+      }
+    >
+      <div
+        className="row"
+        style={
+          Object {
+            "marginBottom": 10,
+            "position": "relative",
+          }
+        }
+      >
+        <svg
+          className="text-muted"
+          style={
+            Object {
+              "fontSize": "2em",
+              "left": -33,
+              "position": "absolute",
+              "top": "50%",
+              "transform": "translateY(-33%)",
+            }
+          }
+          viewBox="0 0 100 100"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+          />
+          <path
+            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+          />
+          <path
+            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+          />
+        </svg>
+        <div
+          className="col-md-12 text-muted"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Being well prepared with food, flasks, potions and enchants is an easy way to improve your performance.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              All items enchanted
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                3
+                 
+                / 3
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Using high quality enchants
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                3
+                 
+                / 3
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Used a pre-potion
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                Yes
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Used a second potion
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                Yes
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Flask used
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                Yes
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              High quality food used
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                No
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#ac1f39",
+                      "transition": "background-color 800ms",
+                      "width": "0%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-md-6"
+        >
+          <div
+            className="flex"
+          >
+            <div
+              className="flex-main"
+            >
+              Food used
+            </div>
+            <div
+              className="flex-sub content-middle text-muted"
+              style={
+                Object {
+                  "marginLeft": 5,
+                  "marginRight": 10,
+                  "minWidth": 55,
+                }
+              }
+            >
+              <div
+                className="text-right"
+                style={
+                  Object {
+                    "width": "100%",
+                  }
+                }
+              >
+                 
+                Yes
+                 
+                 
+              </div>
+            </div>
+            <div
+              className="flex-sub content-middle"
+              style={
+                Object {
+                  "width": 50,
+                }
+              }
+            >
+              <div
+                className="performance-bar-container"
+              >
+                <div
+                  className="performance-bar small"
+                  style={
+                    Object {
+                      "backgroundColor": "#4ec04e",
+                      "transition": "background-color 800ms",
+                      "width": "100%",
+                    }
+                  }
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

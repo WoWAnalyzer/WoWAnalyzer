@@ -52,7 +52,7 @@ class CallingTheShots extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.CALLING_THE_SHOTS_TALENT.id}
         value={`${formatNumber(this.effectiveTrueshotReductionMs / 1000)}s CDR`}
-        tooltip={`You wasted ${formatNumber(this.wastedTrueshotReductionMs / 1000)} seconds of CDR by using Arcane Shot or Multi Shot when Trueshot wasn't on cooldown or had less than 3 seconds remaning on CD.`} />
+        tooltip={`You wasted ${formatNumber(this.wastedTrueshotReductionMs / 1000)} seconds of CDR by using Arcane Shot or Multi Shot when Trueshot wasn't on cooldown or had less than 3 seconds remaining on CD.`} />
     );
   }
 }

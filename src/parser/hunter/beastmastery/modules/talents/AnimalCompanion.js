@@ -24,10 +24,10 @@ class AnimalCompanion extends Analyzer {
   }
 
   on_byPlayerPet_damage(event) {
-    const sourcePet = this.owner.playerPets.find(pet => pet.id === event.sourceID);
     const foundPet = this.pets.find(pet => pet.sourceID === event.sourceID);
     const damage = event.amount + (event.absorbed || 0);
     if (!foundPet) {
+      const sourcePet = this.owner.playerPets.find(pet => pet.id === event.sourceID);
       this.pets.push({ petName: sourcePet.name, sourceID: event.sourceID, damage: damage });
     } else {
       foundPet.damage += damage;

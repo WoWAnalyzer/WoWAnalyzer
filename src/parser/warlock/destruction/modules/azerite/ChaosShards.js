@@ -49,9 +49,8 @@ class ChaosShards extends Analyzer {
   }
 
   statistic() {
-    const chaosShards = this.soulShardTracker.buildersObj[SPELLS.CHAOS_SHARDS_BUFF_ENERGIZE.id];
-    const generated = chaosShards.generated || 0;
-    const wasted = chaosShards.wasted || 0;
+    const generated = this.soulShardTracker.getGeneratedBySpell(SPELLS.CHAOS_SHARDS_BUFF_ENERGIZE.id);
+    const wasted = this.soulShardTracker.getWastedBySpell(SPELLS.CHAOS_SHARDS_BUFF_ENERGIZE.id);
     return (
       <TraitStatisticBox
         trait={SPELLS.CHAOS_SHARDS.id}
