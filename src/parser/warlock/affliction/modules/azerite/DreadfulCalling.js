@@ -68,9 +68,13 @@ class DreadfulCalling extends Analyzer {
       <TraitStatisticBox
         trait={SPELLS.DREADFUL_CALLING.id}
         value={<ItemDamageDone amount={this.damage} approximate />}
-        tooltip={`Estimated bonus Unstable Affliction damage: ${formatThousands(this.damage)}<br />You also reduced your Summon Darkglare cooldown by ${this.effectiveCDRseconds} seconds<br /><br />
-                The damage is an approximation using current Intellect values at given time. Note that this estimate does NOT take into account lowered cooldown of Darkglare.
-                Also, because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be also little incorrect.`}
+        tooltip={(<>
+          Estimated bonus Unstable Affliction damage: {formatThousands(this.damage)}<br />
+          You also reduced your Summon Darkglare cooldown by {this.effectiveCDRseconds} seconds<br /><br />
+
+          The damage is an approximation using current Intellect values at given time. Note that this estimate does NOT take into account lowered cooldown of Darkglare.
+          Also, because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be also little incorrect.
+        </>)}
       />
     );
   }
