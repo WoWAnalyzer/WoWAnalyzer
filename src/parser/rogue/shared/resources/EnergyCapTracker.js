@@ -91,8 +91,10 @@ class EnergyCapTracker extends RegenResourceCapTracker {
         icon={<Icon icon="spell_shadow_shadowworddominate" alt="Capped Energy" />}
         value={`${formatPercentage(this.wastedPercent)} %`}
         label="Wasted energy from being capped"
-        tooltip={`Although it can be beneficial to wait and let your energy pool ready to be used at the right time, you should still avoid letting it reach the cap.<br/>
-        You spent <b>${formatPercentage(this.cappedProportion)}%</b> of the fight at capped energy, causing you to miss out on a total of <b>${this.missedRegen.toFixed(0)}</b> energy from regeneration.`}
+        tooltip={(<>
+          Although it can be beneficial to wait and let your energy pool ready to be used at the right time, you should still avoid letting it reach the cap.<br />
+          You spent <strong>{formatPercentage(this.cappedProportion)}%</strong> of the fight at capped energy, causing you to miss out on a total of <strong>{this.missedRegen.toFixed(0)}</strong> energy from regeneration.
+        </>)}
         footer={(
           <div className="statistic-bar">
             <Tooltip

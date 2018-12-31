@@ -19,9 +19,9 @@ const MAGHAR_ORC_PET_HEALTH_INCREASE = 0.1;
 
 /**
  * Earthen Wall Totem
- * Summons a totem with the players health for 15 sec. 
+ * Summons a totem with the players health for 15 sec.
  * Some damage from each attack against allies within 10 yards of the totem is redirected to the totem.
- * 
+ *
  * https://user-images.githubusercontent.com/2842471/48328510-96fb0d00-e644-11e8-8eb8-d2d2c40373a2.png
  * The efficiency can go higher than 100% as the totem doesn't instantly realize that it absorbed more damage than its supposed to.
  */
@@ -136,10 +136,13 @@ class EarthenWallTotem extends Analyzer {
         value={`${formatPercentage(this.earthenWallEfficiency)} %`}
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(60)}
-        label={"Earthen Wall Totem efficiency"}
-        tooltip={`The percentage of the potential absorb of Earthen Wall Totem that was actually used. You cast a total of ${casts} Earthen Wall Totems with a combined health of ${formatNumber(this.totalPotentialHealing)}, which absorbed a total of ${formatNumber(this.totalEffectiveHealing)} damage.<br/><br/>
-        This can be higher than 100% because it sometimes absorbs a few more damage hits before the totem realizes it is supposed to be dead already.<br/><br/>
-        <b>Pet healing is filtered out.</b>`}
+        label="Earthen Wall Totem efficiency"
+        tooltip={(<>
+          The percentage of the potential absorb of Earthen Wall Totem that was actually used. You cast a total of {casts} Earthen Wall Totems with a combined health of {formatNumber(this.totalPotentialHealing)}, which absorbed a total of {formatNumber(this.totalEffectiveHealing)} damage.<br /><br />
+
+          This can be higher than 100% because it sometimes absorbs a few more damage hits before the totem realizes it is supposed to be dead already.<br /><br />
+          <strong>Pet healing is filtered out.</strong>
+        </>)}
       >
         <table className="table table-condensed">
           <thead>
