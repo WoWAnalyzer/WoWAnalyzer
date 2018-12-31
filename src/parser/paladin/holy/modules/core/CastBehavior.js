@@ -7,8 +7,9 @@ import { formatPercentage } from 'common/format';
 import Tooltip from 'common/Tooltip';
 import Analyzer from 'parser/core/Analyzer';
 import ManaValues from 'parser/shared/modules/ManaValues';
-import StatisticsListBox, { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
-import StatisticWrapper from 'interface/others/StatisticWrapper';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import StatisticGroup from 'interface/statistics/StatisticGroup';
+import Statistic from 'interface/statistics/Statistic';
 
 import PaladinAbilityTracker from './PaladinAbilityTracker';
 
@@ -193,26 +194,22 @@ class CastBehavior extends Analyzer {
 
   statistic() {
     return (
-      <StatisticWrapper position={STATISTIC_ORDER.CORE(40)}>
-        <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-          <div className="row">
-            <StatisticsListBox
-              title={<><SpellLink id={SPELLS.INFUSION_OF_LIGHT.id}>Infusion of Light</SpellLink> usage</>}
-              containerProps={{ className: 'col-xs-12' }}
-            >
-              {this.iolCastRatioChart()}
-            </StatisticsListBox>
+      <StatisticGroup position={STATISTIC_ORDER.CORE(40)}>
+        <Statistic ultrawide>
+          <div className="pad">
+            <label><SpellLink id={SPELLS.INFUSION_OF_LIGHT.id} /> usage</label>
+
+            {this.iolCastRatioChart()}
           </div>
-          <div className="row">
-            <StatisticsListBox
-              title="Fillers"
-              containerProps={{ className: 'col-xs-12' }}
-            >
-              {this.fillerCastRatioChart()}
-            </StatisticsListBox>
+        </Statistic>
+        <Statistic ultrawide>
+          <div className="pad">
+            <label>Fillers</label>
+
+            {this.fillerCastRatioChart()}
           </div>
-        </div>
-      </StatisticWrapper>
+        </Statistic>
+      </StatisticGroup>
     );
   }
 }

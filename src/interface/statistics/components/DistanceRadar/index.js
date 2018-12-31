@@ -4,30 +4,7 @@ import PropTypes from 'prop-types';
 import { formatNumber } from 'common/format';
 import Tooltip from 'common/Tooltip';
 
-const Ring = ({ size, color, style, ...others }) => (
-  <div
-    style={{
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      width: size,
-      height: size,
-      border: `2px solid ${color}`,
-      borderRadius: '50%',
-      ...style,
-    }}
-    {...others}
-  />
-);
-Ring.propTypes = {
-  size: PropTypes.number.isRequired,
-  color: PropTypes.string,
-  style: PropTypes.object,
-};
-Ring.defaultProps = {
-  color: '#9c9c9c',
-};
+import Ring from './Ring';
 
 const Radar = ({ distance, size, style, playerColor }) => {
   const pixelsPerYard = size / 40;

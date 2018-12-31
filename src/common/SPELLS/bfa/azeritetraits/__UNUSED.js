@@ -194,11 +194,6 @@ export default {
     name: 'Deferred Sentence',
     icon: 'spell_holy_crusaderstrike',
   },
-  DEPTH_OF_THE_SHADOWS: {
-    id: 275541,
-    name: 'Depth of the Shadows',
-    icon: 'spell_shadow_shadowwordpain',
-  },
   DEVOUR: {
     id: 272801,
     name: 'Devour',

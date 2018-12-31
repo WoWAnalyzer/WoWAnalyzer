@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-
-import './Statistic.css';
+import STATISTIC_CATEGORY from '../others/STATISTIC_CATEGORY';
 
 const StatisticGroup = ({ children, large, wide, style, ...others }) => (
   <div

@@ -6,7 +6,9 @@ import 'react-vis/dist/style.css';
 import { formatThousands, formatPercentage } from 'common/format';
 import rankingColor from 'common/getRankingColor';
 import groupDataForChart from 'common/groupDataForChart';
-import StatisticBar from 'interface/report/Results/statistics/StatisticBar';
+import makeWclUrl from 'common/makeWclUrl';
+import StatisticBar from 'interface/statistics/StatisticBar';
+import ThroughputPerformance, { UNAVAILABLE } from 'interface/report/Results/ThroughputPerformance';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer from 'parser/core/Analyzer';
 import Tooltip from 'common/Tooltip';
@@ -55,53 +57,71 @@ class DamageDone extends Analyzer {
       return null;
     }
 
-    const performance = 0.11;
-
     const groupedData = groupDataForChart(this.bySecond, this.owner.fightDuration);
+    const perSecond = this.total.effective / this.owner.fightDuration * 1000;
+    const wclUrl = makeWclUrl(this.owner.report.code, {
+      fight: this.owner.fightId,
+      source: this.owner.playerId,
+      type: 'damage-done',
+    });
 
     return (
       <StatisticBar
         position={STATISTIC_ORDER.CORE(1)}
         ultrawide
-        style={{ marginBottom: 20 }} // since this is in a group, reducing margin should be fine
+        style={{ marginBottom: 20, overflow: 'hidden' }} // since this is in a group, reducing margin should be fine
       >
         <div className="flex">
-          <div className="flex-sub" style={{ background: 'rgba(0, 0, 0, 0.1)' }}>
+          <div className="flex-sub icon">
             <img
               src="/img/sword.png"
               alt="Healing"
-              style={{ height: '1em', verticalAlign: 'baseline' }}
             />
           </div>
           <Tooltip
-            className="flex-sub"
+            className="flex-sub value"
             tagName="div"
-            wrapperStyles={{ fontWeight: 500, width: 190, textAlign: 'center' }}
-            content={<>Total damage done: <b>{formatThousands(this.total.effective)}</b></>}
+            wrapperStyles={{ width: 190 }}
+            content={<>Total damage done: <strong>{formatThousands(this.total.effective)}</strong></>}
           >
-            {formatThousands(this.total.effective / this.owner.fightDuration * 1000)} DPS
+            {formatThousands(perSecond)} DPS
           </Tooltip>
-          <div className={`flex-sub ${rankingColor(performance)}`} style={{ width: 110, textAlign: 'center' }}>
-            {formatPercentage(performance, 0)}%
-          </div>
-          <div className="flex-main" style={{ padding: 0 }}>
-            <AutoSizer>
-              {({ width, height }) => (
-                <XYPlot
-                  margin={0}
-                  width={width}
-                  height={height}
+          <div className="flex-sub" style={{ width: 110, textAlign: 'center' }}>
+            <ThroughputPerformance throughput={perSecond} metric="dps">
+              {({ performance, topThroughput }) => performance && performance !== UNAVAILABLE && (
+                <Tooltip
+                  className={rankingColor(performance)}
+                  content={<>Your DPS compared to the DPS of a top 100 player. To become a top 100 <span className={this.selectedCombatant.spec.className.replace(' ', '')}>{this.selectedCombatant.spec.specName} {this.selectedCombatant.spec.className}</span> on this fight you need to do at least <strong>{formatThousands(topThroughput)} DPS</strong>.</>}
+                  wrapperStyles={{ cursor: 'help' }}
+                  tagName="div"
                 >
-                  <AreaSeries
-                    data={Object.keys(groupedData).map(x => ({
-                      x: x / width,
-                      y: groupedData[x],
-                    }))}
-                    className="primary"
-                  />
-                </XYPlot>
+                  {formatPercentage(performance, 0)}%
+                </Tooltip>
               )}
-            </AutoSizer>
+            </ThroughputPerformance>
+          </div>
+          <div className="flex-main chart">
+            <a href={wclUrl}>
+              {perSecond > 0 && (
+                <AutoSizer>
+                  {({ width, height }) => (
+                    <XYPlot
+                      margin={0}
+                      width={width}
+                      height={height}
+                    >
+                      <AreaSeries
+                        data={Object.keys(groupedData).map(x => ({
+                          x: x / width,
+                          y: groupedData[x],
+                        }))}
+                        className="primary"
+                      />
+                    </XYPlot>
+                  )}
+                </AutoSizer>
+              )}
+            </a>
           </div>
         </div>
       </StatisticBar>

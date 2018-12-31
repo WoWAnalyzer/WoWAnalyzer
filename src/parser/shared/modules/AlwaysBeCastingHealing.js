@@ -4,8 +4,8 @@ import { Zerotorescue } from 'CONTRIBUTORS';
 import { formatPercentage } from 'common/format';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import Statistic from 'interface/report/Results/statistics/Statistic';
-import Gauge from 'interface/report/Results/statistics/Gauge';
+import Statistic from 'interface/statistics/Statistic';
+import Gauge from 'interface/statistics/components/Gauge';
 
 class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
   static HEALING_ABILITIES_ON_GCD = [
@@ -57,17 +57,19 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
 
     const downtimePercentage = this.downtimePercentage;
     const healingTimePercentage = this.healingTimePercentage;
+    // TODO: Put this in the extra box
     const nonHealCastTimePercentage = this.activeTimePercentage - healingTimePercentage;
 
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(10)}
-        title="Active time"
         tooltip="Created by Zerotorescue. For more details, see the timeline."
       >
-        <label>Active time</label>
+        <div className="pad">
+          <label>Active time</label>
 
-        <Gauge value={1 - downtimePercentage} />
+          <Gauge value={1 - downtimePercentage} />
+        </div>
       </Statistic>
 
       // <StatisticBox

@@ -10,7 +10,7 @@ export default function rankingColor(percentage) {
     return 'parse-purple';
   } else if (percentage < 1.00) {
     return 'parse-orange';
-  } else if (percentage === 1.00) {
+  } else if (percentage >= 1.00) {
     return 'parse-artifact';
   } else {
     return 'parse-none';

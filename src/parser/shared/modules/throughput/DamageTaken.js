@@ -6,9 +6,10 @@ import 'react-vis/dist/style.css';
 import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import groupDataForChart from 'common/groupDataForChart';
+import makeWclUrl from 'common/makeWclUrl';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import rankingColor from 'common/getRankingColor';
-import StatisticBar from 'interface/report/Results/statistics/StatisticBar';
+import StatisticBar from 'interface/statistics/StatisticBar';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer from 'parser/core/Analyzer';
 import Tooltip from 'common/Tooltip';
@@ -78,25 +79,21 @@ class DamageTaken extends Analyzer {
   get tooltip() {
     const physical = (this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL]) ? this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL].effective : 0;
     const magical = this.total.effective - physical;
-    return (
-      <>
-        <b>Damage taken by type:</b>
-        <ul>
-        <li><b>Physical</b>: {formatThousands(physical)} ({formatPercentage(physical / this.total.effective)}%)</li>
-        <li><b>Magic</b>: {formatThousands(magical)} ({formatPercentage(magical / this.total.effective)}%)</li>
-        </ul><br />
+    return (<>
+      <strong>Damage taken by type:</strong>
+      <ul>
+        <li><strong>Physical</strong>: {formatThousands(physical)} ({formatPercentage(physical / this.total.effective)}%)</li>
+        <li><strong>Magic</strong>: {formatThousands(magical)} ({formatPercentage(magical / this.total.effective)}%)</li>
+      </ul><br />
 
-        <b>Damage taken by magic school:</b>
-        <ul>
-          {Object.keys(this._byMagicSchool)
-            .filter(type => this._byMagicSchool[type].effective !== 0)
-            .map(type => (
-              <li><b>{MAGIC_SCHOOLS.names[type] || 'Unknown'}</b>: {formatThousands(this._byMagicSchool[type].effective)} ({formatPercentage(this._byMagicSchool[type].effective / this.total.effective)}%)</li>
-            )
-          )}
-        </ul>
-      </>
-    );
+      <strong>Damage taken by magic school:</strong>
+      <ul>
+        {Object.keys(this._byMagicSchool)
+          .filter(type => this._byMagicSchool[type].effective !== 0)
+          .map(type => <li><strong>{MAGIC_SCHOOLS.names[type] || 'Unknown'}</strong>: {formatThousands(this._byMagicSchool[type].effective)} ({formatPercentage(this._byMagicSchool[type].effective / this.total.effective)}%)</li>)
+        }
+      </ul>
+    </>);
   }
 
   showStatistic = true;
@@ -106,50 +103,59 @@ class DamageTaken extends Analyzer {
     }
 
     const groupedData = groupDataForChart(this.bySecond, this.owner.fightDuration);
+    const perSecond = this.total.effective / this.owner.fightDuration * 1000;
+    const wclUrl = makeWclUrl(this.owner.report.code, {
+      fight: this.owner.fightId,
+      source: this.owner.playerId,
+      type: 'damage-taken',
+    });
 
     return (
       <StatisticBar
         position={STATISTIC_ORDER.CORE(3)}
         ultrawide
-        style={{ marginBottom: 0 }} // since this is in a group, reducing margin should be fine
+        style={{ marginBottom: 0, overflow: 'hidden' }} // since this is in a group, reducing margin should be fine
       >
         <div className="flex">
-          <div className="flex-sub" style={{ background: 'rgba(0, 0, 0, 0.1)' }}>
+          <div className="flex-sub icon">
             <img
               src="/img/shield.png"
               alt="Damage taken"
-              style={{ height: '1em', verticalAlign: 'baseline' }}
             />
           </div>
           <Tooltip
-            className="flex-sub"
-            tagName="div"
-            wrapperStyles={{ fontWeight: 500, width: 190, textAlign: 'center' }}
+            className="flex-sub value"
+            wrapperStyles={{ width: 190 }}
             content={this.tooltip}
+            tagName="div"
           >
-            {formatThousands(this.total.effective / this.owner.fightDuration * 1000)} DTPS
+            {formatThousands(perSecond)} DTPS
           </Tooltip>
           <div className={`flex-sub ${rankingColor(0)}`} style={{ width: 110, textAlign: 'center' }}>
             -
           </div>
-          <div className="flex-main" style={{ padding: 0 }}>
-            <AutoSizer>
-              {({ width, height }) => (
-                <XYPlot
-                  margin={0}
-                  width={width}
-                  height={height}
-                >
-                  <AreaSeries
-                    data={Object.keys(groupedData).map(x => ({
-                      x: x / width,
-                      y: groupedData[x],
-                    }))}
-                    className="primary"
-                  />
-                </XYPlot>
+          <div className="flex-main chart">
+            <a href={wclUrl}>
+              {perSecond > 0 && (
+                <AutoSizer>
+                  {({ width, height }) => (
+                    <XYPlot
+                      margin={0}
+                      width={width}
+                      height={height}
+                    >
+                      <AreaSeries
+                        data={Object.keys(groupedData).map(x => ({
+                          x: x / width,
+                          y: groupedData[x],
+                        }))}
+                        className="primary"
+                      />
+                    </XYPlot>
+                  )}
+                </AutoSizer>
               )}
-            </AutoSizer>
+            </a>
           </div>
         </div>
       </StatisticBar>

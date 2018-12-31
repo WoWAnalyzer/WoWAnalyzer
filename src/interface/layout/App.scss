@@ -479,11 +479,18 @@ table.data-table img {
   box-shadow: 0 0 5px 5px $primaryColor;
 }
 
+.text-primary {
+  color: $primaryColor;
+}
 .text-muted, small {
   color: $muted;
 }
 small {
   font-size: 12px;
+}
+.small {
+  // Reset bootstrap's bullshit since the class is often used for other elements to indicate they should be smaller. That doesn't mean we want the text to get fucked up.
+  font-size: inherit;
 }
 .toggle-control {
   margin: -2px 0;

@@ -169,10 +169,6 @@ class SoulShardTracker extends ResourceTracker {
     }
   }
 
-  getGeneratedBySpell(spellId) {
-    return (this.buildersObj[spellId] && this.buildersObj[spellId].generated) || 0;
-  }
-
   _hasInfernal(timestamp) {
     return (this.lastInfernalSummon !== undefined) && (timestamp < this.lastInfernalSummon + INFERNAL_DURATION);
   }

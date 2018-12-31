@@ -22,6 +22,7 @@ import HitCombo from './modules/talents/HitCombo';
 import EnergizingElixir from './modules/talents/EnergizingElixir';
 import Serenity from './modules/talents/Serenity';
 // Azerite
+import GloryOfTheDawn from './modules/spells/azeritetraits/GloryOfTheDawn';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -53,6 +54,7 @@ class CombatLogParser extends CoreCombatLogParser {
     blackoutKick: BlackoutKick,
 
     // Azerite
+    gloryOfTheDawn: GloryOfTheDawn,
   };
 }
 

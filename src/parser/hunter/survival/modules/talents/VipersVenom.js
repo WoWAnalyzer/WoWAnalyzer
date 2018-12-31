@@ -6,10 +6,9 @@ import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
+import { RAPTOR_MONGOOSE_VARIANTS, VIPERS_VENOM_DAMAGE_MODIFIER } from 'parser/hunter/survival/constants';
 
 /**
  * Raptor Strike (or Mongoose Bite) has a chance to make your next
@@ -17,15 +16,6 @@ import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
  *
  * Example log: https://www.warcraftlogs.com/reports/pNJbYdLrMW2ynKGa#fight=3&type=damage-done&source=16&translate=true
  */
-
-const TRIGGERING_SPELLS = [
-  SPELLS.MONGOOSE_BITE_TALENT.id,
-  SPELLS.MONGOOSE_BITE_TALENT_AOTE.id,
-  SPELLS.RAPTOR_STRIKE.id,
-  SPELLS.RAPTOR_STRIKE_AOTE.id,
-];
-
-const DAMAGE_MODIFIER = 2.5;
 
 class VipersVenom extends Analyzer {
   static dependencies = {
@@ -46,12 +36,14 @@ class VipersVenom extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.VIPERS_VENOM_TALENT.id);
-    this.spellKnown = this.selectedCombatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id) ? SPELLS.MONGOOSE_BITE_TALENT : SPELLS.RAPTOR_STRIKE;
+    if (this.active) {
+      this.spellKnown = this.selectedCombatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id) ? SPELLS.MONGOOSE_BITE_TALENT : SPELLS.RAPTOR_STRIKE;
+    }
   }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if ((!TRIGGERING_SPELLS.includes(spellId) && spellId !== SPELLS.SERPENT_STING_SV.id) || !this.selectedCombatant.hasBuff(SPELLS.VIPERS_VENOM_BUFF.id)) {
+    if ((!RAPTOR_MONGOOSE_VARIANTS.includes(spellId) && spellId !== SPELLS.SERPENT_STING_SV.id) || !this.selectedCombatant.hasBuff(SPELLS.VIPERS_VENOM_BUFF.id)) {
       return;
     }
     if (spellId === SPELLS.SERPENT_STING_SV.id) {
@@ -60,7 +52,7 @@ class VipersVenom extends Analyzer {
       this.accumulatedTimeFromBuffToCast += event.timestamp - this.lastProcTimestamp - this.currentGCD;
       return;
     }
-    if (TRIGGERING_SPELLS.includes(spellId)) {
+    if (RAPTOR_MONGOOSE_VARIANTS.includes(spellId)) {
       this.badRaptorsOrMBs++;
     }
   }
@@ -70,7 +62,7 @@ class VipersVenom extends Analyzer {
     if (spellId !== SPELLS.SERPENT_STING_SV.id || !this.buffedSerpentSting) {
       return;
     }
-    this.bonusDamage += calculateEffectiveDamage(event, DAMAGE_MODIFIER);
+    this.bonusDamage += calculateEffectiveDamage(event, VIPERS_VENOM_DAMAGE_MODIFIER);
     this.buffedSerpentSting = false;
   }
 
@@ -134,28 +126,17 @@ class VipersVenom extends Analyzer {
   }
 
   statistic() {
+    let tooltip = `<ul><li>Average time between gaining Viper's Venom buff and using it was <b>${this.averageTimeBetweenBuffAndUsage}</b> seconds. <ul><li>Note: This accounts for the GCD after the ${this.spellKnown.name} proccing Viper's Venom. </li>`;
+    tooltip += this.wastedProcs > 0 ? `<li>You wasted ${this.wastedProcs} procs by gaining a new proc, whilst your current proc was still active.</li>` : ``;
+    tooltip += `</ul></li></ul>`;
     return (
       <TalentStatisticBox
         talent={SPELLS.VIPERS_VENOM_TALENT.id}
-        position={STATISTIC_ORDER.CORE(22)}
-        value={this.procs}
-        label="Viper's Venom procs"
-        tooltip={(<>
-          Average time between gaining Viper's Venom buff and using it was <strong>{this.averageTimeBetweenBuffAndUsage}</strong> seconds.
-          <ul>
-            <li>Note: This accounts for the GCD after the {this.spellKnown.name} proccing Viper's Venom. </li>
-            {this.wastedProcs > 0 && <li>You wasted {this.wastedProcs} procs by gaining a new proc, whilst your current proc was still active.</li>}
-          </ul>
-        </>)}
-      />
-    );
-  }
-
-  subStatistic() {
-    return (
-      <StatisticListBoxItem
-        title={<SpellLink id={SPELLS.VIPERS_VENOM_TALENT.id} />}
-        value={<ItemDamageDone amount={this.bonusDamage} />}
+        value={<>
+          {this.procs} / {this.wastedProcs + this.procs} procs used<br />
+          <ItemDamageDone amount={this.bonusDamage} />
+        </>}
+        tooltip={tooltip}
       />
     );
   }

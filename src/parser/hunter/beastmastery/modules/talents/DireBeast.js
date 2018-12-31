@@ -34,7 +34,7 @@ class DireBeast extends Analyzer {
   }
 
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.DIRE_BEAST_BUFF.id);
+    return this.selectedCombatant.getBuffUptime(SPELLS.DIRE_BEAST_BUFF.id) / this.owner.fightDuration;
   }
 
   on_toPlayer_energize(event) {
@@ -78,14 +78,13 @@ class DireBeast extends Analyzer {
     return (
       <TalentStatisticBox
         talent={SPELLS.DIRE_BEAST_TALENT.id}
-        value={
-          <>
-            <ItemDamageDone amount={this.damage} /> <br />
-            gained {formatPercentage(HASTE_PERCENT / this.owner.fightDuration * this.uptime)}% Haste <br />
-            gained {this.focusGained} Focus <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} />
-          </>}
+        value={<>
+          <ItemDamageDone amount={this.damage} /> <br />
+          gained {formatPercentage(HASTE_PERCENT * this.uptime)}% Haste <br />
+          gained {this.focusGained} Focus <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} />
+        </>}
         tooltip={(<>
-          You had {formatPercentage(this.uptime / this.owner.fightDuration)}% uptime on the Dire Beast Haste buff. <br />
+          You had {formatPercentage(this.uptime)}% uptime on the Dire Beast Haste buff. <br />
           You wasted {this.focusWasted} Focus by being too close to Focus cap when Dire Beast gave you Focus.
         </>)}
       />

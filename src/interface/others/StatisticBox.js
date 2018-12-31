@@ -9,6 +9,9 @@ import STATISTIC_CATEGORY from './STATISTIC_CATEGORY';
 export { default as STATISTIC_ORDER } from './STATISTIC_ORDER';
 export { default as STATISTIC_CATEGORY } from './STATISTIC_CATEGORY';
 
+/**
+ * @deprecated Use `interface/statistic/Statistic` instead.
+ */
 class StatisticBox extends React.PureComponent {
   static propTypes = {
     icon: PropTypes.node,
@@ -66,7 +69,7 @@ class StatisticBox extends React.PureComponent {
       <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12" style={{ zIndex: this.state.expanded ? 2 : 1 }} {...containerProps}>
         <div className="panel statistic statistic-box expandable" {...others}>
           <div className="panel-body">
-            <div style={{ position: 'relative' }}>
+            <div className="pad" style={{ position: 'relative' }}>
               <div className="label">
                 {icon} {label}
               </div>

@@ -1,14 +1,14 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
-
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 class AuraOfMercy extends Analyzer {
   static dependencies = {
@@ -55,12 +55,16 @@ class AuraOfMercy extends Analyzer {
   }
   statistic() {
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.OPTIONAL(60)}
-        icon={<SpellIcon id={SPELLS.AURA_OF_MERCY_TALENT.id} />}
-        value={`${formatNumber(this.hps)} HPS`}
-        label="Healing done"
-      />
+        size="small"
+      >
+        <BoringSpellValue
+          spell={SPELLS.AURA_OF_MERCY_TALENT}
+          value={`${formatNumber(this.hps)} HPS`}
+          label="Healing done"
+        />
+      </Statistic>
     );
   }
 }

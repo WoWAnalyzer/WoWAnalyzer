@@ -32,9 +32,8 @@ class PandemicInvocation extends Analyzer {
   }
 
   statistic() {
-    const pandemic = this.soulShardTracker.buildersObj[SPELLS.PANDEMIC_INVOCATION_ENERGIZE.id];
-    const generated = pandemic.generated || 0;
-    const wasted = pandemic.wasted || 0;
+    const generated = this.soulShardTracker.getGeneratedBySpell(SPELLS.PANDEMIC_INVOCATION_ENERGIZE.id);
+    const wasted = this.soulShardTracker.getWastedBySpell(SPELLS.PANDEMIC_INVOCATION_ENERGIZE.id);
     return (
       <TraitStatisticBox
         trait={SPELLS.PANDEMIC_INVOCATION.id}

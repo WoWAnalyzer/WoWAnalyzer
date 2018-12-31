@@ -7,7 +7,6 @@ import ItemDamageDone from 'interface/others/ItemDamageDone';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import AverageTargetsHit from 'interface/others/AverageTargetsHit';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import SpellLink from 'common/SpellLink';
 
 /**
@@ -91,9 +90,9 @@ class Barrage extends Analyzer {
 
   suggestions(when) {
     when(this.barrageInefficientCastsThreshold).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You cast <SpellLink id={SPELLS.BARRAGE_TALENT.id} /> inefficiently {actual} {actual > 1 ? "times" : "time"} throughout the fight. This means you didn't hit all {BARRAGE_HITS_PER_CAST} shots of your barrage channel. Remember to always be facing your target when channelling <SpellLink id={SPELLS.BARRAGE_TALENT.id} />. </>)
+      return suggest(<>You cast <SpellLink id={SPELLS.BARRAGE_TALENT.id} /> inefficiently {actual} {actual > 1 ? 'times' : 'time'} throughout the fight. This means you didn't hit all {BARRAGE_HITS_PER_CAST} shots of your barrage channel. Remember to always be facing your target when channelling <SpellLink id={SPELLS.BARRAGE_TALENT.id} />. </>)
         .icon(SPELLS.BARRAGE_TALENT.icon)
-        .actual(`${actual} inefficient ${actual > 1 ? "casts" : "cast"}`)
+        .actual(`${actual} inefficient ${actual > 1 ? 'casts' : 'cast'}`)
         .recommended(`${recommended} is recommended`);
     });
   }
@@ -103,18 +102,10 @@ class Barrage extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.BARRAGE_TALENT.id}
         value={<>
+          <ItemDamageDone amount={this.damage} /> <br />
           <AverageTargetsHit casts={this.casts.length} hits={this.hits} /> <br />
           <AverageTargetsHit casts={this.casts.length} hits={this.uniqueTargetsHit} unique approximate />
         </>}
-      />
-    );
-  }
-
-  subStatistic() {
-    return (
-      <StatisticListBoxItem
-        title={<SpellLink id={SPELLS.BARRAGE_TALENT.id} />}
-        value={<ItemDamageDone amount={this.damage} />}
       />
     );
   }

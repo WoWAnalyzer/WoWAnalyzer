@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { formatDuration } from 'common/format';
+import Icon from 'common/Icon';
+import SpellLink from 'common/SpellLink';
+import BuffsModule from 'parser/core/modules/Buffs';
 import Tooltip from 'common/Tooltip';
-import { formatDuration } from '../../../../common/format';
-import Icon from '../../../../common/Icon';
-import SpellLink from '../../../../common/SpellLink';
-import BuffsModule from '../../../../parser/core/modules/Buffs';
 
 class Buffs extends React.PureComponent {
   static propTypes = {

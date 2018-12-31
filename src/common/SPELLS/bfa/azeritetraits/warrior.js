@@ -72,10 +72,20 @@ export default {
       icon: 'ability_warrior_unrelentingassault',
     },
     // Fury
-    BLOODCRAZE: {
-        id: 273420,
-        name: 'Bloodcraze',
-        icon: 'spell_nature_bloodlust',
+    COLD_STEEL_HOT_BLOOD: {
+        id: 288080,
+        name: 'Cold Steel, Hot Blood',
+        icon: 'ability_rogue_hungerforblood',
+    },
+    COLD_STEEL_HOT_BLOOD_ENERGIZE: {
+        id: 288087,
+        name: 'Cold Steel, Hot Blood',
+        icon: 'ability_rogue_hungerforblood',
+    },
+    COLD_STEEL_HOT_BLOOD_DAMAGE: {
+        id: 288091,
+        name: 'Gushing Wound',
+        icon: 'ability_rogue_hungerforblood',
     },
     INFINITE_FURY: {
         id: 277638,
@@ -111,6 +121,11 @@ export default {
         id: 272836,
         name: 'Trample the Weak',
         icon: 'spell_nature_shamanrage',
+    },
+    UNBRIDLED_FEROCITY: {
+        id: 288056,
+        name: 'Unbridled Ferocity',
+        icon: 'ability_warrior_endlessrage',
     },
     // Protection
     BLOODSPORT: {

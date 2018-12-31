@@ -9,6 +9,9 @@ import STATISTIC_CATEGORY from './STATISTIC_CATEGORY';
 export { default as STATISTIC_ORDER } from './STATISTIC_ORDER';
 export { default as STATISTIC_CATEGORY } from './STATISTIC_CATEGORY';
 
+/**
+ * @deprecated Use `interface/statistic/Statistic` instead.
+ */
 const StatisticsListBox = ({ title, tooltip, children, bodyStyle, containerProps, ...others }) => {
   delete others.category;
   delete others.position;
