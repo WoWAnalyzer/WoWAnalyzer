@@ -42,9 +42,13 @@
 }
 .statistic .value {
   font-size: 36px;
-  font-weight: 200;
-  line-height: 1; // label has a margin bottom to account for this, we want label's margin to its children to be consistent regardless of the type of element underneath it, so the margin from the font has to be 0
+  line-height: 1.4;
+  font-weight: 400;
   color: hsla(41, 3%, 91%, 1);
+}
+// If the value is right after the label, we need to adjust its positioning further up to cancel out the combination of label's margin-bottom and value's line-height
+.statistic label + .value {
+  margin-top: -10px;
 }
 .statistic .text-muted {
   color: #777;
