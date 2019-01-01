@@ -109,16 +109,21 @@ class DirectBeaconHealing extends Analyzer {
           </div>
           <label>Direct beacon healing</label>
 
-          <div className="value pull-left">{formatPercentage(this.totalHealsOnBeaconPercentage, 0)}%</div>
-
-          <div className="flex pull-right text-center" style={{ whiteSpace: 'nowrap' }}>
-            <div className="flex-main" style={{ marginRight: 15 }}>
-              <small>HL/FoL</small>
-              <div className="value" style={{ fontSize: '1em' }}>{formatPercentage(this.totalFoLHLOnBeaconPercentage, 0)}%</div>
+          <div className="flex" style={{ marginTop: -10 }}>
+            <div className="flex-main value" style={{ marginRight: 15 }}>
+              {formatPercentage(this.totalHealsOnBeaconPercentage, 0)}%
             </div>
             <div className="flex-main">
-              <small>Other spells</small>
-              <div className="value" style={{ fontSize: '1em' }}>{formatPercentage(this.totalOtherSpellsOnBeaconPercentage, 0)}%</div>
+              <div className="flex pull-right text-center" style={{ whiteSpace: 'nowrap' }}>
+                <div className="flex-main" style={{ marginRight: 15 }}>
+                  <small>HL/FoL</small>
+                  <div className="value" style={{ fontSize: '1em' }}>{formatPercentage(this.totalFoLHLOnBeaconPercentage, 0)}%</div>
+                </div>
+                <div className="flex-main">
+                  <small>Other spells</small>
+                  <div className="value" style={{ fontSize: '1em' }}>{formatPercentage(this.totalOtherSpellsOnBeaconPercentage, 0)}%</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
