@@ -12,7 +12,7 @@ import Statistic from 'interface/statistics/Statistic';
 
 import PaladinAbilityTracker from './PaladinAbilityTracker';
 
-const CHART_SIZE = 75;
+const CHART_SIZE = 85;
 
 class CastBehavior extends Analyzer {
   static dependencies = {
@@ -37,7 +37,7 @@ class CastBehavior extends Analyzer {
         <div
           className="flex"
           style={{
-            marginBottom: ((numItems - 1) === index) ? 0 : 10,
+            marginBottom: ((numItems - 1) === index) ? 0 : 5,
           }}
           key={index}
         >
@@ -47,9 +47,9 @@ class CastBehavior extends Analyzer {
                 display: 'inline-block',
                 background: color,
                 borderRadius: '50%',
-                width: 16,
-                height: 16,
-                marginBottom: -3,
+                width: 10,
+                height: 10,
+                marginBottom: -1,
               }}
             />
           </div>
@@ -67,19 +67,17 @@ class CastBehavior extends Analyzer {
   }
   chart(items) {
     return (
-      <>
-        <RadialChart
-          colorType="literal"
-          data={items.map(item => ({
-            ...item,
-            angle: item.value,
-          }))}
-          width={CHART_SIZE}
-          height={CHART_SIZE}
-          radius={CHART_SIZE/2}
-          innerRadius={CHART_SIZE*0.31}
-        />
-      </>
+      <RadialChart
+        colorType="literal"
+        data={items.map(item => ({
+          ...item,
+          angle: item.value,
+        }))}
+        width={CHART_SIZE}
+        height={CHART_SIZE}
+        radius={CHART_SIZE/2-1} // a 1px padding avoids straight edges
+        innerRadius={CHART_SIZE*0.3}
+      />
     );
   }
 
@@ -105,19 +103,19 @@ class CastBehavior extends Analyzer {
 
     const items = [
       {
-        color: '#ebe5dd',
+        color: '#FFFDE7',
         label: 'Flash of Light',
         spellId: SPELLS.FLASH_OF_LIGHT.id,
         value: iolFlashOfLights,
       },
       {
-        color: '#ff7d0a',
+        color: '#F57C00',
         label: 'Holy Light',
         spellId: SPELLS.HOLY_LIGHT.id,
         value: iolHolyLights,
       },
       {
-        color: '#ff0000',
+        color: '#A93226',
         label: 'Wasted procs',
         tooltip: `The amount of Infusion of Lights you did not use out of the total available. You cast ${holyShockCasts} Holy Shocks with a ${formatPercentage(holyShockCrits / holyShockCasts)}% crit ratio. This gave you ${totalIolProcs} Infusion of Light procs, of which you used ${totalIolUsages}.`,
         value: unusedProcs,
@@ -126,10 +124,10 @@ class CastBehavior extends Analyzer {
 
     return (
       <div className="flex">
-        <div className="flex-main" style={{ fontSize: '80%', paddingTop: 3 }}>
+        <div className="flex-main" style={{ fontSize: '85%' }}>
           {this.legend(items, totalIolProcs)}
         </div>
-        <div className="flex-sub" style={{ paddingLeft: 30 }}>
+        <div className="flex-sub" style={{ paddingLeft: 15 }}>
           {this.chart(items)}
         </div>
       </div>
@@ -142,37 +140,45 @@ class CastBehavior extends Analyzer {
 
     const flashOfLight = getAbility(SPELLS.FLASH_OF_LIGHT.id);
     const holyLight = getAbility(SPELLS.HOLY_LIGHT.id);
+    const lightOfTheMartyr = getAbility(SPELLS.LIGHT_OF_THE_MARTYR.id);
 
     const iolFlashOfLights = flashOfLight.healingIolHits || 0;
     const iolHolyLights = holyLight.healingIolHits || 0;
 
     const flashOfLightHeals = flashOfLight.casts || 0;
     const holyLightHeals = holyLight.casts || 0;
+    const lightOfTheMartyrHeals = lightOfTheMartyr.casts || 0;
     const fillerFlashOfLights = flashOfLightHeals - iolFlashOfLights;
     const fillerHolyLights = holyLightHeals - iolHolyLights;
-    const totalFillers = fillerFlashOfLights + fillerHolyLights;
+    const totalFillers = fillerFlashOfLights + fillerHolyLights + lightOfTheMartyrHeals;
 
     const items = [
       {
-        color: '#ebe5dd',
+        color: '#FFFDE7',
         label: 'Flash of Light',
         spellId: SPELLS.FLASH_OF_LIGHT.id,
         value: fillerFlashOfLights,
       },
       {
-        color: '#ff7d0a',
+        color: '#F57C00',
         label: 'Holy Light',
         spellId: SPELLS.HOLY_LIGHT.id,
         value: fillerHolyLights,
+      },
+      {
+        color: '#A93226',
+        label: 'Light of the Martyr',
+        spellId: SPELLS.LIGHT_OF_THE_MARTYR.id,
+        value: lightOfTheMartyrHeals,
       },
     ];
 
     return (
       <div className="flex">
-        <div className="flex-main" style={{ fontSize: '80%', paddingTop: 3 }}>
+        <div className="flex-main" style={{ fontSize: '85%' }}>
           {this.legend(items, totalFillers)}
         </div>
-        <div className="flex-sub" style={{ paddingLeft: 30 }}>
+        <div className="flex-sub" style={{ paddingLeft: 15 }}>
           {this.chart(items)}
         </div>
       </div>
