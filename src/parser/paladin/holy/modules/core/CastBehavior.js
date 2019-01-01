@@ -12,7 +12,7 @@ import Statistic from 'interface/statistics/Statistic';
 
 import PaladinAbilityTracker from './PaladinAbilityTracker';
 
-const CHART_SIZE = 85;
+const CHART_SIZE = 90;
 
 class CastBehavior extends Analyzer {
   static dependencies = {
@@ -37,7 +37,7 @@ class CastBehavior extends Analyzer {
         <div
           className="flex"
           style={{
-            marginBottom: ((numItems - 1) === index) ? 0 : 5,
+            marginBottom: ((numItems - 1) === index) ? 0 : 12,
           }}
           key={index}
         >
@@ -76,7 +76,7 @@ class CastBehavior extends Analyzer {
         width={CHART_SIZE}
         height={CHART_SIZE}
         radius={CHART_SIZE/2-1} // a 1px padding avoids straight edges
-        innerRadius={CHART_SIZE*0.3}
+        innerRadius={CHART_SIZE*0.28}
       />
     );
   }
