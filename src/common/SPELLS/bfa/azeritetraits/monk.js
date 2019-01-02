@@ -87,7 +87,7 @@ export default {
     name: 'Dance of Chi-ji',
     icon: 'ability_monk_quitornado',
   },
-  FURY_OF_XUEN_BUFF: {
+  FURY_OF_XUEN_STACKS: {
     id: 287062,
     name: 'Fury of Xuen',
     icon: 'ability_monk_prideofthetiger',
