@@ -4,7 +4,7 @@ import HealingDone from 'parser/shared/modules/HealingDone';
 
 import AtonementSuccessiveDamageNormalizer from './normalizers/AtonementSuccessiveDamage';
 import EstelNormalizer from './normalizers/EstelNormalizer';
-import ShadowfiendNormalizer from './normalizers/ShadowfiendNormalizer';
+import ShadowfiendNormalizer from '../shared/normalizers/ShadowfiendNormalizer';
 import PowerWordRadianceNormalizer from './normalizers/PowerWordRadianceNormalizer';
 
 import Abilities from './modules/Abilities';
@@ -46,7 +46,7 @@ import Contrition from './modules/spells/Contrition';
 import Grace from './modules/spells/Grace';
 import Schism from './modules/spells/Schism';
 
-
+import DepthOfTheShadows from './modules/azeritetraits/DepthOfTheShadows';
 import SinsOfTheMany from './modules/spells/SinsOfTheMany';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
@@ -109,6 +109,7 @@ class CombatLogParser extends CoreCombatLogParser {
     sinsOfTheMany: SinsOfTheMany,
 
     // Azerite Traits
+    depthOfTheShadows: DepthOfTheShadows,
   };
 }
 
