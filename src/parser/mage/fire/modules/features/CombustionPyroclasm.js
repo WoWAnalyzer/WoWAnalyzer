@@ -51,7 +51,7 @@ class CombustionPyroclasm extends Analyzer {
 
   //When the player gets a proc of Pyroclasm, check to see how much time is left on Combustion to see if they reasonably could have cast it in time.
   onPyroclasmApplied(event) {
-    if (this.active.combustionEndTime - event.timestamp > EXPECTED_PYROCLASM_BUFFER) {
+    if (this.combustionEndTime - event.timestamp > EXPECTED_PYROCLASM_BUFFER) {
       this.expectedPyroblastCasts += 1;
       debug && this.log("Pyroblast Expected During Combustion");
     }
@@ -59,7 +59,7 @@ class CombustionPyroclasm extends Analyzer {
 
   //Check top see if the player used their Pyroclasm Proc during Combustion
   onPyroclasmRemoved(event) {
-    const hasCombustion = this.selectedCombatant(SPELLS.COMBUSTION.id);
+    const hasCombustion = this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id);
     if (event.timestamp - 50 < this.pyroblastCastEvent.timestamp && hasCombustion) {
       this.actualPyroblastCasts += 1;
       debug && this.log("Pyroblast Hard Cast During Combustion");
