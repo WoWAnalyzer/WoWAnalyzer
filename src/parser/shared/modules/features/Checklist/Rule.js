@@ -29,21 +29,16 @@ class Rule extends React.PureComponent {
     performanceMethod: PropTypes.oneOf(Object.values(PERFORMANCE_METHOD)),
   };
 
+  expandable = null;
   constructor() {
     super();
     this.state = {
-      expanded: false,
       requirementPerformances: [],
     };
-    this.handleToggleExpand = this.handleToggleExpand.bind(this);
+    this.expandable = React.createRef();
     this.setRequirementPerformance = this.setRequirementPerformance.bind(this);
   }
 
-  handleToggleExpand() {
-    this.setState({
-      expanded: !this.state.expanded,
-    });
-  }
   static calculateRulePerformance(values, style = PERFORMANCE_METHOD.DEFAULT) {
     // Lowest would generally be too punishing for small mistakes, if you want to have a single value tank the rule consider making it its own rule.
     // Average would mark things as OK when one thing was OK and 3 things were "average", I think this is wrong and it should mark the rule as average. Median achieves this.
@@ -64,6 +59,14 @@ class Rule extends React.PureComponent {
         return harmonic(values);
       default:
         throw new Error(`Unknown style: ${style}`);
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState, prevContext) {
+    if (prevState.requirementPerformances !== this.state.requirementPerformances) {
+      if (!this.passed) {
+        this.expandable.current && this.expandable.current.expand();
+      }
     }
   }
 
@@ -118,6 +121,7 @@ class Rule extends React.PureComponent {
               </div>
             </div>
           )}
+          ref={this.expandable}
         >
           {description && (
             <div className="row text-muted description">
