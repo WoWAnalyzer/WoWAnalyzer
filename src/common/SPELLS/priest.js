@@ -150,6 +150,11 @@ export default {
     name: 'Shadowfiend',
     icon: 'spell_shadow_shadowfiend',
   },
+  VOIDLING: {
+    id: 254232,
+    name: 'Voidling',
+    icon: 'spell_shadow_shadowfiend',
+  },
   LIGHTSPAWN: {
     id: 254224,
     name: 'Shadowfiend',
