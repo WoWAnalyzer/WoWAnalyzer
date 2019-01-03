@@ -7,7 +7,7 @@ import Icon from 'common/Icon';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
 import Suggestion from './Suggestion';
-import './SuggestionsTab.css';
+import './Suggestions.scss';
 
 class Suggestions extends React.Component {
   static propTypes = {

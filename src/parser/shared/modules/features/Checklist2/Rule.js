@@ -33,6 +33,7 @@ class Rule extends React.PureComponent {
   constructor() {
     super();
     this.state = {
+      expanded: false,
       requirementPerformances: [],
     };
     this.handleToggleExpand = this.handleToggleExpand.bind(this);
@@ -80,12 +81,20 @@ class Rule extends React.PureComponent {
     }));
   }
 
-  render() {
-    const { name, children, description, performanceMethod } = this.props;
-
+  get performance() {
+    const performanceMethod = this.props.performanceMethod;
     const requirementPerformances = this.state.requirementPerformances;
-    const performance = requirementPerformances.length > 0 ? this.constructor.calculateRulePerformance(requirementPerformances, performanceMethod) : 1;
-    const passed = performance > 0.666;
+    return requirementPerformances.length > 0 ? this.constructor.calculateRulePerformance(requirementPerformances, performanceMethod) : 1;
+  }
+  get passed() {
+    return this.performance > 0.666;
+  }
+
+  render() {
+    const { name, children, description } = this.props;
+
+    const performance = this.performance;
+    const passed = this.passed;
 
     return (
       <RuleContext.Provider value={this.setRequirementPerformance}>

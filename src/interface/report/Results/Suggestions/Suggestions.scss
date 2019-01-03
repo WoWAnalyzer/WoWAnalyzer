@@ -1,3 +1,5 @@
+@import 'interface/layout/Theme.scss';
+
 .list.issues .item {
   display: flex;
 }
@@ -9,7 +11,9 @@
 .list.issues .item > .icon img {
   height: 40px;
   border-radius: 50%;
-  border: 1px solid #f8b700;
+  border: 1px solid $primaryColor;
+  box-shadow: 0 0 3px $primaryColor;
+  margin: 0;
 }
 .list.issues .item > .suggestion {
   flex: 1 1 auto;
@@ -36,5 +40,5 @@
   color: #5b9cff;
 }
 .list.issues .major .importance {
-  color: #ff433d;
+  color: $red;
 }
