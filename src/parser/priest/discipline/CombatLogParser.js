@@ -4,7 +4,7 @@ import HealingDone from 'parser/shared/modules/HealingDone';
 
 import AtonementSuccessiveDamageNormalizer from './normalizers/AtonementSuccessiveDamage';
 import EstelNormalizer from './normalizers/EstelNormalizer';
-import ShadowfiendNormalizer from './normalizers/ShadowfiendNormalizer';
+import ShadowfiendNormalizer from '../shared/normalizers/ShadowfiendNormalizer';
 import PowerWordRadianceNormalizer from './normalizers/PowerWordRadianceNormalizer';
 
 import Abilities from './modules/Abilities';

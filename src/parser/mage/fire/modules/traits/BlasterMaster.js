@@ -25,15 +25,10 @@ class BlasterMaster extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.BLASTER_MASTER.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION), this.onCombustionCast);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.COMBUSTION), this.onCombustionStart);
     this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.COMBUSTION), this.onCombustionEnd);
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.BLASTER_MASTER_BUFF), this.onTraitStack);
     this.addEventListener(Events.applybuffstack.to(SELECTED_PLAYER).spell(SPELLS.BLASTER_MASTER_BUFF), this.onTraitStack);
-  }
-
-  onCombustionCast(event) {
-    this.lastCombustion = event;
   }
 
   onCombustionStart(event) {
@@ -46,9 +41,6 @@ class BlasterMaster extends Analyzer {
   onCombustionEnd(event) {
     if (this.stackCount < TRAIT_STACK_THRESHOLD) {
       this.badCombustion += 1;
-      this.lastCombustion.meta = this.lastCombustion.meta || {};
-      this.lastCombustion.meta.isInefficientCast = true;
-      this.lastCombustion.meta.inefficientCastReason = `You only got ${this.stackCount} Blaster Master stacks during this Combustion. In order to get the most out of Blaster Master, you should aim to get to ${TRAIT_STACK_THRESHOLD} stacks of the trait during each Combustion.`;
     }
     this.totalStacks += this.stackCount;
     debug && this.log("Combustion Ended: " + this.stackCount + " stacks");

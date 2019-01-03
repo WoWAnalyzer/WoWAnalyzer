@@ -7,6 +7,11 @@ export default [
   {
     date: new Date('29 December 2018'),
     contributors: [emallson],
+    changes: <>Added support for <SpellLink id={SPELLS.AVENGERS_VALOR_BUFF.id} /> to the Good <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> casts check.</>,
+  },
+  {
+    date: new Date('29 December 2018'),
+    contributors: [emallson],
     changes: <>Moved <SpellLink id={SPELLS.ARDENT_DEFENDER.id} /> to the damage mitigation checklist item. Removed the "Use your defensive cooldowns" checklist item.</>,
   },
   {
