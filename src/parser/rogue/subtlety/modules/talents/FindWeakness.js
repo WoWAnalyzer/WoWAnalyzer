@@ -80,14 +80,13 @@ class FindWeakness extends Analyzer {
     const uptime = this.enemies.getBuffUptime(SPELLS.FIND_WEAKNESS_BUFF.id) / this.owner.fightDuration;
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.OPTIONAL(40)}
         icon={<SpellIcon id={SPELLS.FIND_WEAKNESS_TALENT.id} />}
         value={`${formatPercentage(uptime)} %`}
         label={`${SPELLS.FIND_WEAKNESS_TALENT.name} uptime`}
       />
     );  
   }
-  
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(40);
 }
 
 export default FindWeakness;

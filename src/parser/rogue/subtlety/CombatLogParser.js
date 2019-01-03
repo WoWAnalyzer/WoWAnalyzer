@@ -30,7 +30,7 @@ import DarkShadowNightblade from './modules/talents/DarkShadow/DarkShadowNightbl
 import DarkShadowContribution from "./modules/talents/DarkShadow/DarkShadowContribution";
 import FindWeakness from "./modules/talents/FindWeakness";
 
-import DarkShadowSpecterOfBetrayal from './modules/talents/DarkShadow/DarkShadowSpecterOfBetrayal';
+import Perforate from "./modules/azerite/Perforate";
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -59,9 +59,6 @@ class CombatLogParser extends CoreCombatLogParser {
     //Core
     danceCooldownReduction: DeepeningShadows,
 
-    //Items
-    darkShadowSpecterOfBetrayal: DarkShadowSpecterOfBetrayal,
-
     //Casts
     symbolsOfDeathUptime:  SymbolsOfDeathUptime,
     shadowBladesUptime : ShadowBladesUptime,
@@ -76,6 +73,7 @@ class CombatLogParser extends CoreCombatLogParser {
     findWeakness: FindWeakness,
 
     // Traits
+    perforate: Perforate,
 
     // Racials
     arcaneTorrent: [ArcaneTorrent, {
