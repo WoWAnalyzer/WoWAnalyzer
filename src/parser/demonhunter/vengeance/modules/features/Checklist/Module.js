@@ -1,9 +1,9 @@
 import React from 'react';
 
-import BaseModule from 'parser/shared/modules/features/Checklist2/Module';
+import BaseModule from 'parser/shared/modules/features/Checklist/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
-import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist2/PreparationRuleAnalyzer';
+import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 
 // Buffs-Debuffs
 import SpiritBombFrailtyDebuff from '../../talents/SpiritBombFrailtyDebuff';
@@ -55,7 +55,7 @@ class Checklist extends BaseModule {
         castEfficiency={this.castEfficiency}
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
-          
+
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           spiritBombFrailtyDebuff: this.spiritBombFrailtyDebuff.uptimeSuggestionThresholds,
           voidReaverDebuff: this.voidReaverDebuff.uptimeSuggestionThresholds,

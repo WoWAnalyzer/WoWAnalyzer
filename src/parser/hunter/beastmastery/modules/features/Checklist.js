@@ -1,10 +1,10 @@
 import React from 'react';
 
 //Core
-import CoreChecklist, { Rule, Requirement } from 'parser/shared/modules/features/Checklist';
+import CoreChecklist, { Rule, Requirement } from 'parser/shared/modules/features/OldChecklist';
 import Abilities from 'parser/core/modules/Abilities';
-import { GenericCastEfficiencyRequirement } from 'parser/shared/modules/features/Checklist/Requirements';
-import { PreparationRule } from 'parser/shared/modules/features/Checklist/Rules';
+import { GenericCastEfficiencyRequirement } from 'parser/shared/modules/features/OldChecklist/Requirements';
+import { PreparationRule } from 'parser/shared/modules/features/OldChecklist/Rules';
 import PrePotion from 'parser/shared/modules/items/PrePotion';
 import SPELLS from 'common/SPELLS';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';

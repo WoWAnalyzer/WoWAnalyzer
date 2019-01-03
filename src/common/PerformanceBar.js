@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import colorForPerformance from 'parser/shared/modules/features/Checklist2/helpers/colorForPerformance';
+import colorForPerformance from 'parser/shared/modules/features/Checklist/helpers/colorForPerformance';
 
 class PerformanceBar extends React.Component {
   static propTypes = {

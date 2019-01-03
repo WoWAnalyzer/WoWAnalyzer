@@ -2,10 +2,10 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
-import CoreChecklist, { Rule, Requirement } from 'parser/shared/modules/features/Checklist';
+import CoreChecklist, { Rule, Requirement } from 'parser/shared/modules/features/OldChecklist';
 import Abilities from 'parser/core/modules/Abilities';
-import { PreparationRule } from 'parser/shared/modules/features/Checklist/Rules';
-import { GenericCastEfficiencyRequirement } from 'parser/shared/modules/features/Checklist/Requirements';
+import { PreparationRule } from 'parser/shared/modules/features/OldChecklist/Rules';
+import { GenericCastEfficiencyRequirement } from 'parser/shared/modules/features/OldChecklist/Requirements';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import PrePotion from 'parser/shared/modules/items/PrePotion';
 import EnchantChecker from 'parser/shared/modules/items/EnchantChecker';
