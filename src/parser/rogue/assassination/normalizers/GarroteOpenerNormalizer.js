@@ -4,7 +4,7 @@ import EventsNormalizer from 'parser/core/EventsNormalizer';
 const CAST_WINDOW = 100;
 
 /**
- * During the opener garrote casts seems to sometimes appear after the damage and energize event, aswell as stealth being removed.
+ * During the opener garrote casts seems to sometimes appear after the damage and energize event, as well as stealth being removed.
  * Moving the cast even to just before the damage event should ensure that we are able to correctly track if the cast happened during stealth.
  * 
  * @param {Array} events

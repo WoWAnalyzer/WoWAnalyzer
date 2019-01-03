@@ -33,14 +33,13 @@ class NightbladeUptime extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(100)}
         icon={<SpellIcon id={SPELLS.NIGHTBLADE.id} />}
         value={`${formatPercentage(this.percentUptime)}%`}
         label="Nightblade Uptime"
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(100);
-
 }
 
 export default NightbladeUptime;

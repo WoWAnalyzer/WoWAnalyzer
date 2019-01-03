@@ -6,11 +6,11 @@ import {isStealth} from '../stealth/IsStealth';
 
 class StealthDamageTracker extends FilteredDamageTracker {
   
-  delayWindow = 0;
+  // Workaround for stealth getting removed "before" the cast.
+  delayWindow = 100;
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.FIND_WEAKNESS_TALENT.id);
 
     if(this.selectedCombatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id))
     {
