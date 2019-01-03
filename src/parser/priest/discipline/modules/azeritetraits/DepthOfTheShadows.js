@@ -24,6 +24,10 @@ class DepthOfTheShadows extends Analyzer {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.DEPTH_OF_THE_SHADOWS.id);
 
+    if (!this.active) {
+      return;
+    }
+
     this._bonusHealingForSingleDepthStack = this.selectedCombatant.traitsBySpellId[SPELLS.DEPTH_OF_THE_SHADOWS.id]
       .reduce((sum, rank) => sum + calculateAzeriteEffects(SPELLS.DEPTH_OF_THE_SHADOWS.id, rank)[0], 0);
   }
