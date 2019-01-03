@@ -61,6 +61,9 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.FIERY_BRAND_DEBUFF.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.50,
@@ -196,6 +199,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CONSUME_MAGIC,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 10,
+        gcd: {
+          base: 1500,
+        },
       },
       {
         spell: SPELLS.DISRUPT,
