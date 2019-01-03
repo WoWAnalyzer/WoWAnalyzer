@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import ReactTooltip from 'react-tooltip';
 import { t } from '@lingui/macro';
 
 import getFightName from 'common/getFightName';
@@ -26,10 +25,6 @@ class FightSelection extends React.PureComponent {
     children: PropTypes.func.isRequired,
     fightId: PropTypes.number,
   };
-
-  componentWillUnmount() {
-    ReactTooltip.hide();
-  }
 
   renderFightSelection() {
     const { report, refreshReport } = this.props;

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import ReactTooltip from 'react-tooltip';
 import { Trans, t } from '@lingui/macro';
 
 import getFightName from 'common/getFightName';
@@ -74,9 +73,6 @@ class PlayerSelection extends React.PureComponent {
     if (this.props.playerId && (!this.props.playerName || this.props.playerName === `${this.props.playerId}`)) {
       this.props.history.replace(makeAnalyzerUrl(this.props.report, this.props.fight.id, this.props.playerId));
     }
-  }
-  componentWillUnmount() {
-    ReactTooltip.hide();
   }
   async loadCombatants(report, fight) {
     try {

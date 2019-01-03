@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ReactTooltip from 'react-tooltip';
 import { getLocation, push } from 'react-router-redux';
 import { Link, Route, Switch, withRouter } from 'react-router-dom';
 
@@ -252,7 +251,6 @@ class App extends React.Component {
             </ErrorBoundary>
           </main>
         </div>
-        <ReactTooltip html place="bottom" effect="solid" />
         <PortalTarget />
         {!error && <Footer />}
         <div id="portal" />

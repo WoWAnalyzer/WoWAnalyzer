@@ -41,7 +41,6 @@
     "react-test-renderer": "^16.5.2",
     "react-textfit": "^1.1.0",
     "react-toggle": "^4.0.2",
-    "react-tooltip": "^3.8.4",
     "react-transition-group": "^1.2.1",
     "react-virtualized": "^9.20.1",
     "react-vis": "^1.11.5",

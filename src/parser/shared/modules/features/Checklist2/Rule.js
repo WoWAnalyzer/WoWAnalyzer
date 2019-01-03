@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactTooltip from 'react-tooltip';
 
 import DropdownIcon from 'interface/icons/Dropdown';
 import InformationIcon from 'interface/icons/Information';
@@ -38,9 +37,6 @@ class Rule extends React.PureComponent {
     };
     this.handleToggleExpand = this.handleToggleExpand.bind(this);
     this.setRequirementPerformance = this.setRequirementPerformance.bind(this);
-  }
-  componentDidUpdate() {
-    ReactTooltip.rebuild();
   }
 
   handleToggleExpand() {

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ReactTooltip from 'react-tooltip';
 import { t } from '@lingui/macro';
 
 import { getLanguage } from 'interface/selectors/language';
@@ -23,11 +22,6 @@ class LanguageSwitcher extends React.PureComponent {
   constructor() {
     super();
     this.handleClickExpand = this.handleClickExpand.bind(this);
-  }
-
-  componentDidUpdate() {
-    ReactTooltip.hide();
-    ReactTooltip.rebuild();
   }
 
   handleClickExpand() {

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import GeminiScrollbar from 'react-gemini-scrollbar';
-import ReactTooltip from 'react-tooltip';
 import 'gemini-scrollbar/gemini-scrollbar.css';
 
 import { formatDuration } from 'common/format';
@@ -55,14 +54,6 @@ class PetTimeline extends React.PureComponent {
       // noinspection JSSuspiciousNameCombination
       this.gemini.scrollbar._viewElement.scrollLeft += e.deltaY;
     }
-  }
-
-  componentDidMount() {
-    this.componentDidUpdate();
-  }
-
-  componentDidUpdate() {
-    ReactTooltip.rebuild();
   }
 
   get pets() {

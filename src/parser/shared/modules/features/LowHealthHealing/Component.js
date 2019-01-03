@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactTooltip from 'react-tooltip';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
@@ -22,10 +21,6 @@ class LowHealthHealing extends React.Component {
     maxPlayerHealthPercentage: 0.35,
     minHealOfMaxHealthPercentage: 0.1,
   };
-
-  componentDidUpdate() {
-    ReactTooltip.rebuild();
-  }
 
   render() {
     const { fightStart, combatants, healEvents } = this.props;

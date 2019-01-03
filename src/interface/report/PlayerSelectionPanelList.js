@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import ReactTooltip from 'react-tooltip';
 import { Trans, t, plural } from '@lingui/macro';
 
 import SPECS from 'game/SPECS';
@@ -30,10 +29,6 @@ export class PlayerSelectionPanelList extends React.PureComponent {
       specID: PropTypes.number.isRequired,
     })),
   };
-
-  componentWillUnmount() {
-    ReactTooltip.hide();
-  }
 
   isLoading = false;
   componentDidMount() {

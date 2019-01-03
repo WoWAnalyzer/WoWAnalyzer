@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactTooltip from 'react-tooltip';
 
 import SPECS from 'game/SPECS';
 import fetchWcl from 'common/fetchWclApi';
@@ -30,9 +29,6 @@ class ThroughputPerformance extends React.PureComponent {
   }
   componentDidMount() {
     this.load();
-  }
-  componentDidUpdate(prevProps, prevState, prevContext) {
-    ReactTooltip.rebuild();
   }
 
   async load() {

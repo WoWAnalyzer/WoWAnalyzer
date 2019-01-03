@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { Trans } from '@lingui/macro';
-import ReactTooltip from 'react-tooltip';
 import { t } from '@lingui/macro';
 
 import REGION_CODES from 'common/REGION_CODES';
@@ -59,12 +58,6 @@ class ReportSelecter extends React.PureComponent {
     if (this.codeInput) {
       this.codeInput.focus();
     }
-  }
-  componentDidUpdate() {
-    ReactTooltip.rebuild();
-  }
-  componentWillUnmount() {
-    ReactTooltip.hide();
   }
 
   handleSubmit(e) {

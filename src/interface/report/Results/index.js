@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ReactTooltip from 'react-tooltip';
 import { Trans, t } from '@lingui/macro';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
@@ -74,13 +73,6 @@ class Results extends React.PureComponent {
     this.state = {
       adjustForDowntime: false,
     };
-  }
-
-  componentDidMount() {
-    ReactTooltip.rebuild();
-  }
-  componentDidUpdate() {
-    ReactTooltip.rebuild();
   }
 
   get warning() {

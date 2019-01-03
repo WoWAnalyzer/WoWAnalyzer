@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactTooltip from 'react-tooltip';
 import AnimateHeight from 'react-animate-height';
 
 class Expandable extends React.PureComponent {
@@ -23,9 +22,6 @@ class Expandable extends React.PureComponent {
     this.setState({
       expanded: !this.state.expanded,
     });
-  }
-  componentDidUpdate() {
-    ReactTooltip.rebuild();
   }
 
   render() {

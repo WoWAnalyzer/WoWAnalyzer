@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import ReactTooltip from 'react-tooltip';
 import { connect } from 'react-redux';
 import { Trans, t } from '@lingui/macro';
 
@@ -39,12 +38,6 @@ class SupportChecker extends React.PureComponent {
   constructor() {
     super();
     this.handleClickContinue = this.handleClickContinue.bind(this);
-  }
-  componentDidMount() {
-    ReactTooltip.rebuild();
-  }
-  componentDidUpdate() {
-    ReactTooltip.hide();
   }
 
   handleClickContinue() {
