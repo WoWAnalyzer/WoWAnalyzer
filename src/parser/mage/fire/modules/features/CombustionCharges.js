@@ -48,7 +48,7 @@ class CombustionCharges extends Analyzer {
     }
 
     if (this.hasPhoenixFlames && phoenixFlamesCharges < 2) {
-      this.active.lowPhoenixFlamesCharges += 1;
+      this.lowPhoenixFlamesCharges += 1;
       this.badCast = true;
       debug && this.log("Phoenix Flames Charges: " + phoenixFlamesCharges);
       debug && this.log("Low Phoenix Flames Charges");
