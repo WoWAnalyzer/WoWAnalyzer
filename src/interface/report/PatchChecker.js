@@ -54,55 +54,6 @@ class PatchChecker extends React.PureComponent {
 
     if (reportTimestamp >= LATEST_PATCH || this.continue) {
       return children;
-    } else if (reportTimestamp >= EXPANSION_START) {
-      return (
-        <div className="container">
-        <h1>{`${report.title} - ${reportDate}`}</h1>
-
-          <div className="panel">
-            <div className="panel-heading">
-              <h2><Trans>This report is for an earlier patch</Trans></h2>
-            </div>
-            <div className="panel-body">
-              <div className="flex wrapable">
-                <div className="flex-main" style={{ minWidth: 400 }}>
-                  <Trans>
-                    WoWAnalyzer is constantly being updated to support the latest changes. This can cause some functionality to be modified for the latest talents/traits/trinkets or be removed.
-                    <br /><br />
-                    This could mean that some parts of your report will no longer be analysed accurately.
-                    <br /><br />
-                    If you would still like to view the analysis, you can click 'Continue anyway' below. 
-                  </Trans><br /><br />
-
-                  <div style={{ paddingBottom: '0.5em' }}>
-                    <GitHubButton />{' '}
-                    <DiscordButton />
-                  </div>
-                  <Link
-                    to={makeAnalyzerUrl(report)}
-                    onClick={this.handleClickContinue}
-                    style={{ fontSize: '1.1em' }}
-                    data-tip="Khadgar approves your bravery"
-                  >
-                    <Icon icon="quest_khadgar" /> <Trans>Continue anyway</Trans>
-                  </Link>
-                </div>
-                <div className="flex-sub">
-                  <img
-                    src={Background}
-                    alt=""
-                    style={{
-                      paddingLeft: 15,
-                      maxWidth: 250,
-                      marginBottom: -15,
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      );
     } else {
       return (
         <div className="container">
@@ -110,19 +61,31 @@ class PatchChecker extends React.PureComponent {
 
           <div className="panel">
             <div className="panel-heading">
-              <h2><Trans>Sorry, this report is for a previous expansion</Trans></h2>
+              <h2><Trans>{reportTimestamp >= EXPANSION_START ? "This report is for an earlier patch" : "Sorry, this report is for a previous expansion" }</Trans></h2>
             </div>
             <div className="panel-body">
               <div className="flex wrapable">
                 <div className="flex-main" style={{ minWidth: 400 }}>
-                  <Trans>
-                    Due to the number of class changes since the last expansion (class abilities, talents, etc.), the analysis provided by WoWAnalyzer will most likely be inaccurate.
-                    <br />
-                    <br />
-                    You can still access the Analysis by clicking 'Continue anyway' below if required.
-                  </Trans>
-                    <br />
-                    <br />
+                  <>
+                  {
+                    reportTimestamp >= EXPANSION_START ? (
+                      <Trans>
+                        WoWAnalyzer is constantly being updated to support the latest changes. This can cause some functionality to be modified for the latest talents/traits/trinkets or be removed.
+                        <br /><br />
+                        This could mean that some parts of your report will no longer be analysed accurately.
+                        <br /><br />
+                        If you would still like to view the analysis, you can click 'Continue anyway' below. 
+                      </Trans>
+                    ) : (
+                      <Trans>
+                        Due to the number of class changes since the last expansion (class abilities, talents, etc.), the analysis provided by WoWAnalyzer will most likely be inaccurate.
+                        <br />
+                        <br />
+                        You can still access the Analysis by clicking 'Continue anyway' below if required.
+                      </Trans>
+                    )
+                  }
+                  </><br /><br />
 
                   <div style={{ paddingBottom: '0.5em' }}>
                     <GitHubButton />{' '}
