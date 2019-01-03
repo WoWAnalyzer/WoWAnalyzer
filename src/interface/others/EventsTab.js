@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import Table, { defaultRowRenderer as defaultTableRowRenderer, Column } from 'react-virtualized/dist/commonjs/Table';
 import Toggle from 'react-toggle';
-import ReactTooltip from 'react-tooltip';
 import 'react-toggle/style.css';
 
 import InformationIcon from 'interface/icons/Information';
@@ -14,6 +13,7 @@ import SpellLink from 'common/SpellLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Info from 'interface/common/Alert/Info';
 import HIT_TYPES from 'game/HIT_TYPES';
+import Tooltip from 'common/Tooltip';
 
 import 'react-virtualized/styles.css';
 import './EventsTab.css';
@@ -110,10 +110,6 @@ class EventsTab extends React.Component {
     this.handleRowClick = this.handleRowClick.bind(this);
   }
 
-  componentDidMount() {
-    ReactTooltip.rebuild();
-  }
-
   findEntity(id) {
     const friendly = this.props.parser.report.friendlies.find(friendly => friendly.id === id);
     if (friendly) {
@@ -164,9 +160,9 @@ class EventsTab extends React.Component {
         </label>
         {explanation && (
           <div className="flex-sub" style={{ padding: '0 10px' }}>
-            <div data-tip={explanation}>
+            <Tooltip content={explanation} tagName="div">
               <InformationIcon style={{ fontSize: '1.4em' }} />
-            </div>
+            </Tooltip>
           </div>
         )}
         <Toggle
@@ -271,7 +267,7 @@ class EventsTab extends React.Component {
             {this.renderToggle('rawNames', 'Raw names')}
             <br />
             <div className="modified-legend" style={{ width: 240, padding: 10 }}>
-              Events with an orange background were <dfn data-tip="This generally means their order was changed from the original combatlog to fix inconsistencies or bugs, but it may include other modifications.">modified</dfn>.
+              Events with an orange background were <Tooltip content="This generally means their order was changed from the original combatlog to fix inconsistencies or bugs, but it may include other modifications.">modified</Tooltip>.
             </div>
           </div>
           <div className="flex-main" style={{ background: 'hsla(44, 1%, 8%, 0.5)', paddingTop: 10 }}>

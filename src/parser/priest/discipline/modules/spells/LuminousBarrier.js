@@ -5,6 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import { formatNumber, formatPercentage } from 'common/format';
+import Tooltip from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 
@@ -47,9 +48,9 @@ class LuminousBarrier extends Analyzer {
         icon={<SpellIcon id={SPELLS.LUMINOUS_BARRIER_TALENT.id} />}
         value={`${formatNumber(this.wastedAbsorb / this.owner.fightDuration * 1000)} HPS`}
         label={(
-          <dfn data-tip={`The amount of shield absorb remaining on Luminous Barrier instances that have expired. There was a total of ${formatNumber(this.wastedAbsorb)} (${formatPercentage(this.wastedAbsorb / this.totalAbsorb)} %) unused Luminous Barrier absorb on a total of ${formatNumber(this.totalAbsorb)} applied.`}>
+          <Tooltip content={`The amount of shield absorb remaining on Luminous Barrier instances that have expired. There was a total of ${formatNumber(this.wastedAbsorb)} (${formatPercentage(this.wastedAbsorb / this.totalAbsorb)} %) unused Luminous Barrier absorb on a total of ${formatNumber(this.totalAbsorb)} applied.`}>
             Unused LB absorb
-          </dfn>
+          </Tooltip>
         )}
       />
     );

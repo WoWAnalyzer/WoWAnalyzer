@@ -12,6 +12,7 @@ import rankingColor from 'common/getRankingColor';
 import StatisticBar from 'interface/statistics/StatisticBar';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer from 'parser/core/Analyzer';
+import Tooltip from 'common/Tooltip';
 
 import DamageValue from '../DamageValue';
 
@@ -78,20 +79,21 @@ class DamageTaken extends Analyzer {
   get tooltip() {
     const physical = (this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL]) ? this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL].effective : 0;
     const magical = this.total.effective - physical;
-    return `<b>Damage taken by type:</b>
+    return (<>
+      <strong>Damage taken by type:</strong>
       <ul>
-      <li><b>Physical</b>: ${formatThousands(physical)} (${formatPercentage(physical / this.total.effective)}%)</li>
-      <li><b>Magic</b>: ${formatThousands(magical)} (${formatPercentage(magical / this.total.effective)}%)</li>
+        <li><strong>Physical</strong>: {formatThousands(physical)} ({formatPercentage(physical / this.total.effective)}%)</li>
+        <li><strong>Magic</strong>: {formatThousands(magical)} ({formatPercentage(magical / this.total.effective)}%)</li>
       </ul><br />
-      
-      <b>Damage taken by magic school:</b>
+
+      <strong>Damage taken by magic school:</strong>
       <ul>
-        ${Object.keys(this._byMagicSchool)
-      .filter(type => this._byMagicSchool[type].effective !== 0)
-      .map(type => `<li><b>${MAGIC_SCHOOLS.names[type] || 'Unknown'}</b>: ${formatThousands(this._byMagicSchool[type].effective)} (${formatPercentage(this._byMagicSchool[type].effective / this.total.effective)}%)</li>`
-      )
-      .join('')}
-      </ul>`;
+        {Object.keys(this._byMagicSchool)
+          .filter(type => this._byMagicSchool[type].effective !== 0)
+          .map(type => <li><strong>{MAGIC_SCHOOLS.names[type] || 'Unknown'}</strong>: {formatThousands(this._byMagicSchool[type].effective)} ({formatPercentage(this._byMagicSchool[type].effective / this.total.effective)}%)</li>)
+        }
+      </ul>
+    </>);
   }
 
   showStatistic = true;
@@ -121,13 +123,14 @@ class DamageTaken extends Analyzer {
               alt="Damage taken"
             />
           </div>
-          <div
+          <Tooltip
             className="flex-sub value"
-            style={{ width: 190 }}
-            data-tip={this.tooltip}
+            wrapperStyles={{ width: 190 }}
+            content={this.tooltip}
+            tagName="div"
           >
             {formatThousands(perSecond)} DTPS
-          </div>
+          </Tooltip>
           <div className={`flex-sub ${rankingColor(0)}`} style={{ width: 110, textAlign: 'center' }}>
             -
           </div>

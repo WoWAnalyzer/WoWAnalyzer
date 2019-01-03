@@ -101,26 +101,22 @@ class BrewCDR extends Analyzer {
   }
 
   statistic() {
-    let bobDesc = "";
-    if (this.bob.active) {
-      bobDesc = `<li>${this.bob.casts} Black Ox Brew casts — <b>${(this.bob.cdr / 1000).toFixed(2)}s</b> (<b>${(this.bob.wastedCDR / 1000).toFixed(2)}s</b> wasted)</li>`;
-    }
-    let bocKsDesc = "";
-    if (this.ks.bocHits > 0) {
-      bocKsDesc = `<li>Using Blackout Combo on ${this.ks.bocHits} Keg Smash hits — <b>${(this.ks.bocCDR / 1000).toFixed(2)}s</b> (<b>${(this.ks.wastedBocCDR / 1000).toFixed(2)}s</b> wasted)</li>`;
-    }
     return (
-      <StatisticBox icon={<SpellIcon id={SPELLS.TIGER_PALM.id} />}
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.TIGER_PALM.id} />}
         value={`${formatPercentage(this.cooldownReductionRatio)}%`}
         label="Effective Brew CDR"
-        tooltip={`Your cooldowns were reduced by: <ul>
-              <li>${this.ks.totalCasts} Keg Smash casts— <b>${(this.ks.cdr / 1000).toFixed(2)}s</b> (<b>${(this.ks.wastedCDR / 1000).toFixed(2)}s</b> wasted)</li>
-              ${bocKsDesc}
-              <li>${this.tp.totalCasts} Tiger Palm hits — <b>${(this.tp.cdr / 1000).toFixed(2)}s</b> (<b>${(this.tp.wastedCDR / 1000).toFixed(2)}s</b> wasted)</li>
-              ${bobDesc}
-            </ul>
-            <b>Total cooldown reduction:</b> ${(this.totalCDR / 1000).toFixed(2)}s.</b><br/>
-            <b>Minimum Cooldown Reduction for 100% ISB uptime:</b> ${formatPercentage(this.cdrRequiredForUptime)}%`}
+        tooltip={(<>
+          Your cooldowns were reduced by:
+          <ul>
+            <li>{this.ks.totalCasts} Keg Smash casts — <strong>{(this.ks.cdr / 1000).toFixed(2)}s</strong> (<strong>{(this.ks.wastedCDR / 1000).toFixed(2)}s</strong> wasted)</li>
+            {this.ks.bocHits > 0 && <li>Using Blackout Combo on {this.ks.bocHits} Keg Smash hits — <strong>{(this.ks.bocCDR / 1000).toFixed(2)}s</strong> (<strong>{(this.ks.wastedBocCDR / 1000).toFixed(2)}s</strong> wasted)</li>}
+            <li>{this.tp.totalCasts} Tiger Palm hits — <strong>{(this.tp.cdr / 1000).toFixed(2)}s</strong> (<strong>{(this.tp.wastedCDR / 1000).toFixed(2)}s</strong> wasted)</li>
+            {this.bob.active && <li>{this.bob.casts} Black Ox Brew casts — <strong>{(this.bob.cdr / 1000).toFixed(2)}s</strong> (<strong>{(this.bob.wastedCDR / 1000).toFixed(2)}s</strong> wasted)</li>}
+          </ul>
+          <strong>Total cooldown reduction:</strong> {(this.totalCDR / 1000).toFixed(2)}s.<br />
+          <strong>Minimum Cooldown Reduction for 100% ISB uptime:</strong> {formatPercentage(this.cdrRequiredForUptime)}%
+        </>)}
       />
     );
   }

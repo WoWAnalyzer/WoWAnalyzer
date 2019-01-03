@@ -81,7 +81,10 @@ class CrystallineCarapace extends Analyzer {
             {formatNumber(this.damage)} Damage ({formatNumber(this.dps)} DPS)
           </>
         )}
-        tooltip={`Crystalline Carapace grants <b>${this.armor} Armor</b> while active.<br/>It was active for <b>${formatPercentage(this.uptime)}%</b> of the fight, mitigating <b>${formatPercentage(this.pctHitsMitigated)}%</b> of incoming hits.`}
+        tooltip={(<>
+          Crystalline Carapace grants <strong>{this.armor} Armor</strong> while active.<br />
+          It was active for <strong>{formatPercentage(this.uptime)}%</strong> of the fight, mitigating <strong>{formatPercentage(this.pctHitsMitigated)}%</strong> of incoming hits.
+        </>)}
       />
     );
   }

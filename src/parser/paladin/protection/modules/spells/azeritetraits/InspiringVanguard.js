@@ -29,7 +29,7 @@ class InspiringVanguard extends Analyzer {
     spellUsable: SpellUsable,
     gc: GrandCrusader,
   };
-  
+
   _strength = 0;
 
   constructor(...args) {
@@ -78,12 +78,12 @@ class InspiringVanguard extends Analyzer {
   }
 
   statistic() {
-    return ( 
+    return (
       <TraitStatisticBox
         trait={SPELLS.INSPIRING_VANGUARD.id}
         value={`${formatNumber(this.avgStrength)} Avg. Strength`}
-        tooltip={`Inspiring Vanguard was up for <b>${formatPercentage(this.buffUptimePct)}%</b> of the fight.`}
-        /> 
+        tooltip={<>Inspiring Vanguard was up for <strong>{formatPercentage(this.buffUptimePct)}%</strong> of the fight.</>}
+      />
     );
   }
 }

@@ -4,6 +4,7 @@ import { Doughnut as DoughnutChart } from 'react-chartjs-2';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
+import Tooltip from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
@@ -113,7 +114,7 @@ class FlashFlood extends Analyzer {
     const numItems = items.length;
     return items.map(({ color, label, tooltip, value, spellId }, index) => {
       label = tooltip ? (
-        <dfn data-tip={tooltip}>{label}</dfn>
+        <Tooltip content={tooltip}>{label}</Tooltip>
       ) : label;
       label = spellId ? (
         <SpellLink id={spellId} icon={false}>{label}</SpellLink>
@@ -143,13 +144,14 @@ class FlashFlood extends Analyzer {
             {label}
           </div>
           <div className="flex-sub">
-          <dfn data-tip={
-            `<b>${(value.timeSaved / 1000).toFixed(2)} seconds saved</b><br/>
-            ${(value.timeWasted / 1000).toFixed(2)} seconds reduced below GCD<br/>
-            You buffed this spell <b>${value.timesBuffed}</b> times.`
-            }>
+            <Tooltip content={(<>
+              <strong>{(value.timeSaved / 1000).toFixed(2)} seconds saved</strong> <br />
+              {(value.timeWasted / 1000).toFixed(2)} seconds reduced below GCD <br />
+              You buffed this spell <strong>{value.timesBuffed}</strong> times.
+              </>)}
+            >
               {formatPercentage(value.timeSaved / total, 0)}%
-            </dfn>
+            </Tooltip>
           </div>
         </div>
       );
@@ -248,9 +250,9 @@ class FlashFlood extends Analyzer {
             Total Cast Time Saved:
           </div>
           <div className="flex-sub text-right">
-            <dfn data-tip={`Cast time saved by Flash Flood. <br /> ${(this.totalTimeWasted / 1000).toFixed(2)} seconds 'saved' on reductions below GCD.`} >
-              {`${(this.totalTimeSaved / 1000).toFixed(2)} seconds`}
-            </dfn>
+            <Tooltip content={<>Cast time saved by Flash Flood. <br /> {(this.totalTimeWasted / 1000).toFixed(2)} seconds 'saved' on reductions below GCD.</>}>
+              {(this.totalTimeSaved / 1000).toFixed(2)} seconds
+            </Tooltip>
           </div>
         </div>
         {this.flashFloodUsageRatioChart()}

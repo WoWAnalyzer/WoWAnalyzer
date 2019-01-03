@@ -87,8 +87,8 @@ class IronFur extends Analyzer {
   statistic() {
     const totalIronFurTime = this.selectedCombatant.getBuffUptime(SPELLS.IRONFUR.id);
     const uptimes = this.computeIronfurUptimeArray().reduce((str, uptime, stackCount) => (
-      str + `<li>${stackCount} stack${stackCount !== 1 ? 's' : ''}: ${formatPercentage(uptime)}%</li>`
-    ), '');
+      <>{str}<li>{stackCount} stack{stackCount !== 1 ? 's' : ''}: {formatPercentage(uptime)}%</li></>
+    ), null);
 
     return (
       <StatisticBox
@@ -96,16 +96,18 @@ class IronFur extends Analyzer {
         icon={<SpellIcon id={SPELLS.IRONFUR.id} />}
         value={`${formatPercentage(this.percentOfHitsMitigated)}% / ${this.overallIronfurUptime.toFixed(2)}`}
         label="Hits mitigated with Ironfur / Average Stacks"
-        tooltip={`Ironfur usage breakdown:
-            <ul>
-                <li>You were hit <b>${this.hitsMitigated}</b> times with your Ironfur buff.</li>
-                <li>You were hit <b>${this.hitsUnmitigated}</b> times <b><i>without</i></b> your Ironfur buff.</li>
-            </ul>
-            <b>Uptimes per stack: </b>
-            <ul>
-              ${uptimes}
-            </ul>
-            <b>${formatPercentage(this.percentOfHitsMitigated)}%</b> of physical attacks were mitigated with Ironfur, and your overall uptime was <b>${formatPercentage(totalIronFurTime / this.owner.fightDuration)}%</b>.`}
+        tooltip={(<>
+          Ironfur usage breakdown:
+          <ul>
+              <li>You were hit <strong>{this.hitsMitigated}</strong> times with your Ironfur buff.</li>
+              <li>You were hit <strong>{this.hitsUnmitigated}</strong> times <strong><em>without</em></strong> your Ironfur buff.</li>
+          </ul>
+          <strong>Uptimes per stack: </strong>
+          <ul>
+            {uptimes}
+          </ul>
+          <strong>{formatPercentage(this.percentOfHitsMitigated)}%</strong> of physical attacks were mitigated with Ironfur, and your overall uptime was <strong>{formatPercentage(totalIronFurTime / this.owner.fightDuration)}%</strong>.
+        </>)}
       />
     );
   }

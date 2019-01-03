@@ -5,6 +5,7 @@ import ITEMS from 'common/ITEMS';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
+import Tooltip from 'common/Tooltip';
 
 const MOARG_MODIFIER = 0.25;
 
@@ -63,9 +64,9 @@ class MoargBionicStabiliziers extends Analyzer {
 		return {
 			item: ITEMS.MOARG_BIONIC_STABILIZERS,
 			result: (
-				<dfn data-tip={`You hit an average of <b>${this.averageTargetsHit}</b> targets with throw glaive.`}>
+				<Tooltip content={<>You hit an average of <b>{this.averageTargetsHit}</b> targets with throw glaive.</>}>
 					<ItemDamageDone amount={this.bonusDamage} />
-				</dfn>
+				</Tooltip>
 				),
 		};
 	}

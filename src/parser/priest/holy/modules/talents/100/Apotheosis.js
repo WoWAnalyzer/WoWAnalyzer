@@ -44,17 +44,15 @@ class Apotheosis extends Analyzer {
 
       <TalentStatisticBox
         talent={SPELLS.APOTHEOSIS_TALENT.id}
-        value={(
-          <>
-            <ItemManaGained amount={this.sanctify.apotheosisManaReduction + this.serenity.apotheosisManaReduction + this.chastise.apotheosisManaReduction} /><br />
-            {formatNumber((this.sanctify.apotheosisCooldownReduction + this.serenity.apotheosisCooldownReduction + this.chastise.apotheosisCooldownReduction) / 1000)}s Cooldown Reduction
-          </>
-        )}
-        tooltip={`
-          Serenity: ${this.sanctify.apotheosisCooldownReduction / 1000}s CDR | ${this.sanctify.apotheosisManaReduction} Mana saved <br />
-          Sanctify: ${this.serenity.apotheosisCooldownReduction / 1000}s CDR | ${this.serenity.apotheosisManaReduction} Mana saved <br />
-          Chastise: ${this.chastise.apotheosisCooldownReduction / 1000}s CDR | ${this.chastise.apotheosisManaReduction} Mana saved
-        `}
+        value={(<>
+          <ItemManaGained amount={this.sanctify.apotheosisManaReduction + this.serenity.apotheosisManaReduction + this.chastise.apotheosisManaReduction} /><br />
+          {formatNumber((this.sanctify.apotheosisCooldownReduction + this.serenity.apotheosisCooldownReduction + this.chastise.apotheosisCooldownReduction) / 1000)}s Cooldown Reduction
+        </>)}
+        tooltip={(<>
+          Serenity: {this.sanctify.apotheosisCooldownReduction / 1000}s CDR | {this.sanctify.apotheosisManaReduction} Mana saved <br />
+          Sanctify: {this.serenity.apotheosisCooldownReduction / 1000}s CDR | {this.serenity.apotheosisManaReduction} Mana saved <br />
+          Chastise: {this.chastise.apotheosisCooldownReduction / 1000}s CDR | {this.chastise.apotheosisManaReduction} Mana saved
+        </>)}
         position={STATISTIC_ORDER.CORE(7)}
       />
 

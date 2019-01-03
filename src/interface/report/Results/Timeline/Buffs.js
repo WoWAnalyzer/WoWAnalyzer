@@ -5,6 +5,7 @@ import { formatDuration } from 'common/format';
 import Icon from 'common/Icon';
 import SpellLink from 'common/SpellLink';
 import BuffsModule from 'parser/core/modules/Buffs';
+import Tooltip from 'common/Tooltip';
 
 class Buffs extends React.PureComponent {
   static propTypes = {
@@ -92,17 +93,20 @@ class Buffs extends React.PureComponent {
     const level = this._levels[event.ability.guid];
     delete this._levels[event.ability.guid];
 
+    // TODO: tooltip renders at completely wrong places
     return (
-      <div
+      <Tooltip
+        content={`${formatDuration(fightDuration, 3)}: gained ${event.ability.name} for ${(duration / 1000).toFixed(2)}s`}
         key={`buff-${left}-${event.ability.guid}`}
         className="buff hoist"
-        style={{
+        wrapperStyles={{
+          position: 'absolute',
           left,
           width: (event.timestamp - applied) / 1000 * this.props.secondWidth,
           '--level': level > 0 ? level : undefined,
         }}
-        data-tip={`${formatDuration(fightDuration, 3)}: gained ${event.ability.name} for ${(duration / 1000).toFixed(2)}s`}
         data-effect="float"
+        tagName="div"
       />
     );
   }

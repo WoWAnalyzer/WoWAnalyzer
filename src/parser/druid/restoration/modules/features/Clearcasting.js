@@ -168,19 +168,21 @@ class Clearcasting extends Analyzer {
         icon={<SpellIcon id={SPELLS.CLEARCASTING_BUFF.id} />}
         value={`${formatPercentage(this.clearcastingUtilPercent, 1)} %`}
         label="Clearcasting Util"
-        tooltip={`Clearcasting procced <b>${this.totalProcs} free Regrowths</b>
-            <ul>
-              <li>Used: <b>${this.usedProcs} ${this.hadInvisibleRefresh ? '*' : ''}</b></li>
-              ${this.hadInvisibleRefresh ? '' : `<li>Overwritten: <b>${this.overwrittenProcs}</b></li>`}
-              <li>Expired: <b>${this.expiredProcs}</b></li>
-            </ul>
-            <b>${this.nonCCRegrowths} of your Regrowths were cast without a Clearcasting proc.</b>
-            <b>${this.lowHealthRegrowthsNoCC}</b> of these were cast on targets with low health and
-            <b>${this.abundanceRegrowthsNoCC}</b> of these were cast with more than ${ABUNDANCE_EXCEPTION_STACKS} stacks of abundance, so they have been disregarded as bad Regrowth(s).
-            Using a clearcasting proc as soon as you get it should be one of your top priorities.
-            Even if it overheals you still get that extra mastery stack on a target and the minor HoT.
-            Spending your GCD on a free spell also helps with mana management in the long run.<br />
-            ${this.hadInvisibleRefresh ? `<i>* Mark of Clarity can sometimes 'invisibly refresh', which can make your total procs show as lower than you actually got. Basically, you invisibly overwrote some number of procs, but we aren't able to see how many.</i>` : ''}`}
+        tooltip={(<>
+          Clearcasting procced <strong>{this.totalProcs} free Regrowths</strong>
+          <ul>
+            <li>Used: <strong>{this.usedProcs} {this.hadInvisibleRefresh ? '*' : ''}</strong></li>
+            {this.hadInvisibleRefresh && <li>Overwritten: <strong>{this.overwrittenProcs}</strong></li>}
+            <li>Expired: <strong>{this.expiredProcs}</strong></li>
+          </ul>
+          <strong>{this.nonCCRegrowths} of your Regrowths were cast without a Clearcasting proc.</strong>
+          <strong>{this.lowHealthRegrowthsNoCC}</strong> of these were cast on targets with low health and
+          <strong>{this.abundanceRegrowthsNoCC}</strong> of these were cast with more than {ABUNDANCE_EXCEPTION_STACKS} stacks of abundance, so they have been disregarded as bad Regrowth(s).
+          Using a clearcasting proc as soon as you get it should be one of your top priorities.
+          Even if it overheals you still get that extra mastery stack on a target and the minor HoT.
+          Spending your GCD on a free spell also helps with mana management in the long run.<br />
+          {this.hadInvisibleRefresh && <em>* Mark of Clarity can sometimes 'invisibly refresh', which can make your total procs show as lower than you actually got. Basically, you invisibly overwrote some number of procs, but we aren't able to see how many.</em>}
+        </>)}
       />
     );
   }

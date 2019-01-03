@@ -26,7 +26,7 @@ class ImmolationAura extends Analyzer {
         icon={<SpellIcon id={SPELLS.IMMOLATION_AURA.id} />}
         value={`${formatPercentage(immolationAuraUptimePercentage)}%`}
         label="Immolation Aura uptime"
-        tooltip={`The Immolation Aura total damage was ${formatThousands(this.immolationAuraDamage)}.<br/>The Immolation Aura total uptime was ${formatDuration(immolationAuraUptime / 1000)}.`}
+        tooltip={<>The Immolation Aura total damage was {formatThousands(this.immolationAuraDamage)}.<br />The Immolation Aura total uptime was {formatDuration(immolationAuraUptime / 1000)}</>}
       />
     );
   }

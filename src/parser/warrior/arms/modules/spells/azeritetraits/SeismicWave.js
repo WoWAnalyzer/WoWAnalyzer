@@ -28,7 +28,7 @@ class SeismicWave extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.SEISMIC_WAVE.id}
-        value={`${this.owner.formatItemDamageDone(this.damage)}`}
+        value={this.owner.formatItemDamageDone(this.damage)}
         tooltip={`Damage done: ${formatNumber(this.damage)}`}
       />
     );

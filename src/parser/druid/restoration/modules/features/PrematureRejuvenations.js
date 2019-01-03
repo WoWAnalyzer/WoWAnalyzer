@@ -120,9 +120,7 @@ class PrematureRejuvenations extends Analyzer {
         icon={<SpellIcon id={SPELLS.REJUVENATION.id} />}
         value={this.earlyRefreshments}
         label={`Early rejuvenation refreshments`}
-        tooltip={`
-          The total time lost from your early refreshments was ${this.timeLostInSeconds} seconds.</br>
-          `}
+        tooltip={`The total time lost from your early refreshments was ${this.timeLostInSeconds} seconds.`}
       />
     );
   }

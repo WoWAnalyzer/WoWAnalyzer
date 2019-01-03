@@ -33,16 +33,12 @@ class AngelsMercy extends Analyzer {
 
   statistic() {
     return (
-
       <TalentStatisticBox
         talent={SPELLS.ANGELS_MERCY_TALENT.id}
         value={`${Math.floor(this.desperatePrayerTimeReduced / 1000)}s Cooldown Reduction Used`}
-        tooltip={`
-          Desperate Prayers cast: ${this.desperatePrayersCast}<br />
-        `}
+        tooltip={`Desperate Prayers cast: ${this.desperatePrayersCast}`}
         position={STATISTIC_ORDER.CORE(2)}
       />
-
     );
   }
 }

@@ -195,13 +195,15 @@ class ShieldOfTheRighteous extends Analyzer {
         icon={<SpellIcon id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} />}
         value={`${formatPercentage (physicalDamageMitigatedPercent)}%`}
         label="Physical damage mitigated"
-        tooltip={`Shield of the Righteous usage breakdown:
-            <ul>
-                <li>You were hit <b>${this.physicalHitsWithShieldOfTheRighteous}</b> times with your Shield of the Righteous buff (<b>${formatThousands(this.physicalDamageWithShieldOfTheRighteous)}</b> damage).</li>
-                <li>You were hit <b>${this.physicalHitsWithoutShieldOfTheRighteous}</b> times <b><i>without</i></b> your Shield of the Righteous buff (<b>${formatThousands(this.physicalDamageWithoutShieldOfTheRighteous)}</b> damage).</li>
-            </ul>
-            <b>${formatPercentage(physicalHitsMitigatedPercent)}%</b> of physical attacks were mitigated with Shield of the Righteous (<b>${formatPercentage(physicalDamageMitigatedPercent)}%</b> of physical damage taken).<br/>
-            <b>${this.goodCasts.length}</b> of your ${this._sotrCasts.length} casts were <em>good</em> (blocked at least 2 melees or a tankbuster, or prevented capping charges).`}
+        tooltip={(<>
+          Shield of the Righteous usage breakdown:
+          <ul>
+            <li>You were hit <strong>{this.physicalHitsWithShieldOfTheRighteous}</strong> times with your Shield of the Righteous buff (<strong>{formatThousands(this.physicalDamageWithShieldOfTheRighteous)}</strong> damage).</li>
+            <li>You were hit <strong>{this.physicalHitsWithoutShieldOfTheRighteous}</strong> times <strong><em>without</em></strong> your Shield of the Righteous buff (<strong>{formatThousands(this.physicalDamageWithoutShieldOfTheRighteous)}</strong> damage).</li>
+          </ul>
+          <strong>{formatPercentage(physicalHitsMitigatedPercent)}%</strong> of physical attacks were mitigated with Shield of the Righteous (<strong>{formatPercentage(physicalDamageMitigatedPercent)}%</strong> of physical damage taken).<br />
+          <strong>{this.goodCasts.length}</strong> of your {this._sotrCasts.length} casts were <em>good</em> (blocked at least 2 melees or a tankbuster, or prevented capping charges).
+        </>)}
       />
     );
   }

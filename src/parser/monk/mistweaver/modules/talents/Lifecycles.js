@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
+import Tooltip from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 
@@ -83,17 +84,19 @@ class Lifecycles extends Analyzer {
       <StatisticBox
         position={STATISTIC_ORDER.OPTIONAL(70)}
         icon={<SpellIcon id={SPELLS.LIFECYCLES_TALENT.id} />}
-        value={`${formatNumber(this.manaSaved)}`}
+        value={formatNumber(this.manaSaved)}
         label={(
-          <dfn data-tip={`You saved a total of ${this.manaSaved} mana from the Lifecycles talent.
-            <ul><li>On ${this.castsRedViv} Vivify casts, you saved ${(this.manaSavedViv / 1000).toFixed(0)}k mana. (${formatPercentage(this.castsRedViv / (this.castsRedViv + this.castsNonRedViv))}%)</li>
-            <li>On ${this.castsRedEnm} Enveloping Mists casts, you saved ${(this.manaSavedEnm / 1000).toFixed(0)}k mana. (${formatPercentage(this.castsRedEnm / (this.castsRedEnm + this.castsNonRedEnm))}%)</li>
-            <li>You casted ${this.castsNonRedViv} Vivify's and ${this.castsNonRedEnm} Enveloping Mists at full mana.</li>
+          <Tooltip content={(<>
+            You saved a total of {this.manaSaved} mana from the Lifecycles talent.
+            <ul>
+              <li>On {this.castsRedViv} Vivify casts, you saved {(this.manaSavedViv / 1000).toFixed(0)}k mana. ({formatPercentage(this.castsRedViv / (this.castsRedViv + this.castsNonRedViv))}%)</li>
+              <li>On {this.castsRedEnm} Enveloping Mists casts, you saved {(this.manaSavedEnm / 1000).toFixed(0)}k mana. ({formatPercentage(this.castsRedEnm / (this.castsRedEnm + this.castsNonRedEnm))}%)</li>
+              <li>You casted {this.castsNonRedViv} Vivify's and {this.castsNonRedEnm} Enveloping Mists at full mana.</li>
             </ul>
-            `}
+          </>)}
           >
             Mana Saved
-          </dfn>
+          </Tooltip>
         )}
       />
     );

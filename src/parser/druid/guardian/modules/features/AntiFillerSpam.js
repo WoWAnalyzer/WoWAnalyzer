@@ -121,7 +121,7 @@ class AntiFillerSpam extends Analyzer {
         icon={<SpellIcon id={SPELLS.SWIPE_BEAR.id} />}
         value={`${formatPercentage(this.fillerSpamPercentage)}%`}
         label="Unnecessary Fillers"
-        tooltip={`You cast <strong>${this._unnecessaryFillerSpells}</strong> unnecessary filler spells out of <strong>${this._totalGCDSpells}</strong> total GCDs.  Filler spells (Swipe, Moonfire without a GG proc, or Moonfire outside of pandemic if talented into Incarnation) do far less damage than your main rotational spells, and should be minimized whenever possible.`}
+        tooltip={<>You cast <strong>{this._unnecessaryFillerSpells}</strong> unnecessary filler spells out of <strong>{this._totalGCDSpells}</strong> total GCDs.  Filler spells (Swipe, Moonfire without a GG proc, or Moonfire outside of pandemic if talented into Incarnation) do far less damage than your main rotational spells, and should be minimized whenever possible.</>}
       />
     );
   }

@@ -4,6 +4,7 @@ import { RadialChart } from 'react-vis';
 
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
+import Tooltip from 'common/Tooltip';
 
 class DonutChart extends React.PureComponent {
   static propTypes = {
@@ -29,7 +30,7 @@ class DonutChart extends React.PureComponent {
     const numItems = items.length;
     return items.map(({ color, label, tooltip, value, spellId }, index) => {
       label = tooltip ? (
-        <dfn data-tip={tooltip}>{label}</dfn>
+        <Tooltip content={tooltip}>{label}</Tooltip>
       ) : label;
       label = spellId ? (
         <SpellLink id={spellId}>{label}</SpellLink>
@@ -58,9 +59,9 @@ class DonutChart extends React.PureComponent {
             {label}
           </div>
           <div className="flex-sub">
-            <dfn data-tip={value}>
+            <Tooltip content={value}>
               {formatPercentage(value / total, 0)}%
-            </dfn>
+            </Tooltip>
           </div>
         </div>
       );

@@ -64,10 +64,10 @@ class DeathDenied extends Analyzer {
       <TraitStatisticBox
         trait={SPELLS.DEATH_DENIED.id}
         value={<ItemHealingDone amount={this.damageAbsorbed} />}
-        tooltip={`
-          ${formatNumber(this.damageAbsorbed)} damage absorbed.<br />
-          ${SPELLS.LEAP_OF_FAITH.name} cooldown reduced by ${Math.floor(this.cooldownTimeReduced / 1000)} seconds.
-        `}
+        tooltip={(<>
+          {formatNumber(this.damageAbsorbed)} damage absorbed.<br />
+          {SPELLS.LEAP_OF_FAITH.name} cooldown reduced by {Math.floor(this.cooldownTimeReduced / 1000)} seconds.
+        </>)}
       />
     );
   }

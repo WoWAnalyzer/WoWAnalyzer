@@ -1,6 +1,7 @@
 import React from 'react';
-import SPELLS from 'common/SPELLS/index';
-import ITEMS from 'common/ITEMS/index';
+import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
+import Tooltip from 'common/Tooltip';
 import ItemLink from 'common/ItemLink';
 import { formatPercentage } from 'common/format';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
@@ -65,11 +66,9 @@ class InoculatingExtract extends Analyzer{
     return{
       item: ITEMS.INOCULATING_EXTRACT,
       result: (
-        <>
-          <dfn data-tip={`Used <b>${this.uses}</b> times, consuming <b>${this.charges}</b> charges.`}>
-            <ItemHealingDone amount={this.healing} />
-          </dfn>
-        </>
+        <Tooltip content={<>Used <strong>{this.uses}</strong> times, consuming <strong>{this.charges}</strong> charges.</>}>
+          <ItemHealingDone amount={this.healing} />
+        </Tooltip>
       ),
     };
   }

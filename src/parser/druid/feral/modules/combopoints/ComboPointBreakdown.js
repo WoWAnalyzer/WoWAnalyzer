@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
+import Tooltip from 'common/Tooltip';
 
 // Copied from core breakdown, but with support for 'max CP casts' in spenders display
 class ResourceBreakdown extends React.Component {
@@ -57,7 +58,7 @@ class ResourceBreakdown extends React.Component {
             <tr>
               <th>Ability</th>
               <th colSpan="2">{resourceName} generated</th>
-              <th colSpan="2"><dfn data-tip="This is the amount of resources that were generated while you were already at cap.">{resourceName} wasted</dfn></th>
+              <th colSpan="2"><Tooltip content="This is the amount of resources that were generated while you were already at cap.">{resourceName} wasted</Tooltip></th>
             </tr>
           </thead>
           <tbody>
@@ -68,7 +69,7 @@ class ResourceBreakdown extends React.Component {
                     <SpellLink id={ability.abilityId} />
                   </td>
                   <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
-                    <dfn data-tip={`${formatPercentage(ability.generated / totalGenerated)} %`}>{ability.generated}</dfn>
+                    <Tooltip content={`${formatPercentage(ability.generated / totalGenerated)} %`}>{ability.generated}</Tooltip>
                   </td>
                   <td style={{ width: '40%' }}>
                     <div
@@ -77,7 +78,7 @@ class ResourceBreakdown extends React.Component {
                     />
                   </td>
                   <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
-                    <dfn data-tip={`${formatPercentage(ability.wasted / totalWasted)} %`}>{ability.wasted}</dfn>
+                    <Tooltip content={`${formatPercentage(ability.wasted / totalWasted)} %`}>{ability.wasted}</Tooltip>
                   </td>
                   <td style={{ width: '30%' }}>
                     <div
@@ -106,7 +107,7 @@ class ResourceBreakdown extends React.Component {
                       <SpellLink id={ability.abilityId} />
                     </td>
                     <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
-                      <dfn data-tip={`${formatPercentage(ability.spent / totalSpent)} %`}>{ability.spent}</dfn>
+                      <Tooltip content={`${formatPercentage(ability.spent / totalSpent)} %`}>{ability.spent}</Tooltip>
                     </td>
                     <td style={{ width: '40%' }}>
                       <div

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Tooltip from 'common/Tooltip';
 import SpellLink from '../../../../common/SpellLink';
 import Icon from '../../../../common/Icon';
 
@@ -58,28 +59,32 @@ class Lane extends React.PureComponent {
     const left = this.getOffsetLeft(event.start);
     const width = (event.timestamp - event.start) / 1000 * this.props.secondWidth;
     return (
-      <div
+      <Tooltip
+        content={`Cooldown: ${((event.timestamp - event.start) / 1000).toFixed(1)}s`}
         key={`cooldown-${left}`}
         className="cooldown"
-        style={{
+        wrapperStyles={{
           left,
           width,
+          position: 'absolute',
         }}
-        data-tip={`Cooldown: ${((event.timestamp - event.start) / 1000).toFixed(1)}s`}
         data-effect="float"
+        tagName="div"
       />
     );
   }
   renderRecharge(event) {
     const left = this.getOffsetLeft(event.timestamp);
     return (
-      <div
+      <Tooltip
         key={`recharge-${left}`}
+        content="Charge Restored"
         className="recharge"
-        style={{
+        wrapperStyles={{
           left,
+          position: 'absolute',
         }}
-        data-tip="Charge Restored"
+        tagName="div"
       />
     );
   }

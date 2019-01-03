@@ -6,6 +6,7 @@ import Analyzer from 'parser/core/Analyzer';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Abilities from 'parser/core/modules/Abilities';
 import { formatPercentage } from 'common/format';
+import Tooltip from 'common/Tooltip';
 
 /**
  * First Mate's Spyglass -
@@ -15,11 +16,11 @@ class FirstMatesSpyglass extends Analyzer {
   static dependencies = {
     abilities: Abilities,
   };
-  
+
   casts = 0;
   timesHit = 0;
   timesCrit = 0;
-    
+
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrinket(
@@ -37,14 +38,14 @@ class FirstMatesSpyglass extends Analyzer {
       });
     }
   }
-  
+
   on_byPlayer_cast(event) {
     if (event.ability.guid !== SPELLS.SPYGLASS_SIGHT.id) {
     return;
     }
     this.casts += 1;
   }
-  
+
   on_byPlayer_damage(event) {
     if (!this.selectedCombatant.hasBuff(SPELLS.SPYGLASS_SIGHT.id)) {
       return;
@@ -56,11 +57,11 @@ class FirstMatesSpyglass extends Analyzer {
     this.timesCrit += 1;
     }
   }
-  
+
   on_byPlayer_heal(event) {
     if (!this.selectedCombatant.hasBuff(SPELLS.SPYGLASS_SIGHT.id)) {
       return;
-    }      
+    }
     if (event.hitType !== HIT_TYPES.CRIT) {
       this.timesHit += 1;
       } else {
@@ -68,18 +69,18 @@ class FirstMatesSpyglass extends Analyzer {
       this.timesCrit += 1;
     }
   }
-  
+
   get totalBuffUptime() {
       return this.selectedCombatant.getBuffUptime(SPELLS.SPYGLASS_SIGHT.id) / this.owner.fightDuration;
   }
-  
+
   item() {
     return {
       item: ITEMS.FIRST_MATES_SPYGLASS,
       result: (
-        <dfn data-tip={`You critically hit ${formatPercentage(this.timesCrit / this.timesHit)}% of the time with this buff up`}>
+        <Tooltip content={`You critically hit ${formatPercentage(this.timesCrit / this.timesHit)}% of the time with this buff up`}>
           Used {this.casts} times / {formatPercentage(this.totalBuffUptime)}% uptime
-        </dfn>
+        </Tooltip>
       ),
     };
   }

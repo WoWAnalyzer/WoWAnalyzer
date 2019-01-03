@@ -40,10 +40,12 @@ class TalentStatisticBox extends Analyzer {
     return (
       <StatisticsListBox
         title="Healing Contribution"
-        tooltip={`The purpose of this is to show the overall HPS impact of each talent. So not only what the talent itself did, but also feeding and synergy or interactions with other spells or talents. The percentage shown is what you'd lose without the talent, ignoring what you'd gain from the other options.<br /><br />
-        <b>Not Supported:</b><br />
-        Echo of the Elements
-        `}
+        tooltip={(<>
+          The purpose of this is to show the overall HPS impact of each talent. So not only what the talent itself did, but also feeding and synergy or interactions with other spells or talents. The percentage shown is what you'd lose without the talent, ignoring what you'd gain from the other options.<br /><br />
+
+          <strong>Not Supported:</strong><br />
+          Echo of the Elements
+        </>)}
         position={STATISTIC_ORDER.CORE(1)}
         category={STATISTIC_CATEGORY.TALENTS}
       >

@@ -11,7 +11,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 class DivinePurpose extends Analyzer {
-  static dependencies = {    
+  static dependencies = {
     abilityTracker: AbilityTracker,
     spellUsable: SpellUsable,
   };
@@ -81,7 +81,10 @@ class DivinePurpose extends Analyzer {
           </span>
         )}
         label="Divine Purpose procs"
-        tooltip={`Your Divine Purpose proc rate for Holy Shock was ${formatPercentage(this.holyShockProcs / (holyShockHeals - this.holyShockProcs))}%.<br />Your Divine Purpose proc rate for Light of Dawn was ${formatPercentage(this.lightOfDawnProcs / (lightOfDawnHeals - this.lightOfDawnProcs))}%`}
+        tooltip={(<>
+          Your Divine Purpose proc rate for Holy Shock was {formatPercentage(this.holyShockProcs / (holyShockHeals - this.holyShockProcs))}%.<br />
+          Your Divine Purpose proc rate for Light of Dawn was {formatPercentage(this.lightOfDawnProcs / (lightOfDawnHeals - this.lightOfDawnProcs))}%
+        </>)}
       />
     );
   }

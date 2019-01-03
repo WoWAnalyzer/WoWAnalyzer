@@ -52,8 +52,10 @@ class GrimoireOfSacrifice extends Analyzer {
       <StatisticListBoxItem
         title={<><SpellLink id={SPELLS.GRIMOIRE_OF_SACRIFICE_TALENT.id} /> damage</>}
         value={formatThousands(damage)}
-        valueTooltip={`${this.owner.formatItemDamageDone(damage)}<br />
-          Buff uptime: ${formatPercentage(this.uptime)} %`}
+        valueTooltip={(<>
+          {this.owner.formatItemDamageDone(damage)}<br />
+          Buff uptime: {formatPercentage(this.uptime)} %
+        </>)}
       />
     );
   }

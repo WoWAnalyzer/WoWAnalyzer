@@ -33,15 +33,15 @@ class ProtectionPaladinChecklist extends React.PureComponent{
     return (
       <Checklist>
         <Rule
-          name={"Use core abilities as often as possible."}
-          description={"These should generally always be recharging to maximize efficiency."}
+          name="Use core abilities as often as possible."
+          description="These should generally always be recharging to maximize efficiency."
         >
           <AbilityRequirement spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} />
           <AbilityRequirement spell={SPELLS.AVENGERS_SHIELD.id} />
           <AbilityRequirement spell={SPELLS.JUDGMENT_CAST_PROTECTION.id} />
           <Requirement
             name={<>Bad <SpellLink id={this.props.extras.hotrAbility.id} /> casts</>}
-            tooltip="This is a <em>filler</em> ability and should only be cast while your other spells are on cooldown."
+            tooltip={<>This is a <em>filler</em> ability and should only be cast while your other spells are on cooldown.</>}
             thresholds={thresholds.hotrBadCasts}
           />
         </Rule>
@@ -60,7 +60,7 @@ class ProtectionPaladinChecklist extends React.PureComponent{
           )}
         >
           <AbilityRequirement spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id}
-            name={(<><SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> cast efficiency</>)} 
+            name={(<><SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> cast efficiency</>)}
           />
           <Requirement
             name={(
@@ -78,16 +78,18 @@ class ProtectionPaladinChecklist extends React.PureComponent{
             name={(<><SpellLink id={SPELLS.ARDENT_DEFENDER.id} /> cast efficiency</>)} 
           />
         </Rule>
-        <Rule 
+        <Rule
           name={<>Use <SpellLink id={this.props.extras.lotpAbility.id} /> to heal yourself</>}
-          description={( 
+          description={(
             <>
             Using <SpellLink id={this.props.extras.lotpAbility.id} /> to heal yourself is critical to tanking effectively. You should aim to cast it as much as possible without overhealing. It is also important to avoid delaying the cast because this may result in "sniping" a healer's cast, causing it to overheal and wasting resources.
-            </> 
+            </>
           )}
         >
-          <AbilityRequirement name={<><SpellLink id={this.props.extras.lotpAbility.id} /> Cast Efficiency</>} 
-            spell={this.props.extras.lotpAbility.id} />
+          <AbilityRequirement
+            name={<><SpellLink id={this.props.extras.lotpAbility.id} /> Cast Efficiency</>}
+            spell={this.props.extras.lotpAbility.id}
+          />
           <Requirement name="Avg. Cast Delay" thresholds={thresholds.lotpDelay} />
           <Requirement name="Overhealing" thresholds={thresholds.lotpOverheal} />
         </Rule>

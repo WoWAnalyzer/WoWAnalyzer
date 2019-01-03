@@ -248,68 +248,36 @@ class Flourish extends Analyzer {
         icon={<SpellIcon id={SPELLS.FLOURISH_TALENT.id} />}
         value={`${formatPercentage(totalPercent)} %`}
         label="Flourish Healing"
-        tooltip={`
-          The HoT extension contributed: <b>${formatPercentage(extendPercent)} %</b><br>
-          The HoT increased tick rate contributed: <b>${formatPercentage(increasedRatePercent)} %</b><br>
+        tooltip={(<>
+          The HoT extension contributed: <strong>{formatPercentage(extendPercent)} %</strong><br />
+          The HoT increased tick rate contributed: <strong>{formatPercentage(increasedRatePercent)} %</strong><br />
           <ul>
-              ${this.wildGrowth === 0 ? '' :
-              `<li>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateWildGrowthHealing))}% from Wild Growth</li>`}
-              ${this.rejuvenation === 0 ? '' :
-              `<li>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateRejuvenationHealing))}% from Rejuvenation</li>`}
-              ${this.cenarionWard === 0 ? '' :
-              `<li>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateCenarionWardHealing))}% from Cenarion Ward</li>`}
-              ${this.lifebloom === 0 ? '' :
-              `<li>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateLifebloomHealing))}% from Lifebloom</li>`}
-              ${this.regrowth === 0 ? '' :
-              `<li>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateRegrowthHealing))}% from Regrowth</li>`}
-              ${this.cultivation === 0 ? '' :
-              `<li>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateCultivationHealing))}% from Cultivation</li>`}
-              ${this.traquility === 0 ? '' :
-              `<li>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateTranqHealing))}% from Tranquillity</li>`}
-              ${this.groveTending === 0 ? '' :
-              `<li>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateGroveTendingHealing))}% from Grove Tending</li>`}
+            {this.wildGrowth !== 0 && <li>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateWildGrowthHealing))}% from Wild Growth</li>}
+            {this.rejuvenation !== 0 && <li>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateRejuvenationHealing))}% from Rejuvenation</li>}
+            {this.cenarionWard !== 0 && <li>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateCenarionWardHealing))}% from Cenarion Ward</li>}
+            {this.lifebloom !== 0 && <li>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateLifebloomHealing))}% from Lifebloom</li>}
+            {this.regrowth !== 0 && <li>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateRegrowthHealing))}% from Regrowth</li>}
+            {this.cultivation !== 0 && <li>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateCultivationHealing))}% from Cultivation</li>}
+            {this.traquility !== 0 && <li>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateTranqHealing))}% from Tranquillity</li>}
+            {this.groveTending !== 0 && <li>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateGroveTendingHealing))}% from Grove Tending</li>}
           </ul>
 
-          The per Flourish amounts do <i>not</i> include Cultivation due to its refresh mechanic.<br>
-          Your ${this.flourishCount} Flourish casts extended:
+          The per Flourish amounts do <em>not</em> include Cultivation due to its refresh mechanic.<br />
+          Your {this.flourishCount} Flourish casts extended:
           <ul>
-            <li>${this.wgsExtended}/${this.flourishCount} Wild Growth casts (${this.wgCount} HoTs)</li>
-            ${this.hasCenarionWard
-              ? `<li>${this.cwsExtended}/${this.flourishCount} Cenarion Wards</li>`
-              : ``
-            }
-            ${this.rejuvCount > 0
-              ? `<li>${this.rejuvCount} Rejuvenations</li>`
-              : ``
-            }
-            ${this.regrowthCount > 0
-              ? `<li>${this.regrowthCount} Regrowths</li>`
-              : ``
-            }
-            ${this.lbCount > 0
-              ? `<li>${this.lbCount} Lifeblooms</li>`
-              : ``
-            }
-            ${this.sbCount > 0
-              ? `<li>${this.sbCount} Spring Blossoms</li>`
-              : ``
-            }
-            ${this.cultCount > 0
-              ? `<li>${this.cultCount} Cultivations (not counted in HoT count and HoT healing totals)</li>`
-              : ``
-            }
-            ${this.tranqCount > 0
-              ? `<li>${this.tranqsExtended}/${this.flourishCount} Tranquillities casts (${this.tranqCount} HoTs)</li>`
-              : ``
-            }
-            ${this.groveTendingCount > 0
-              ? `<li>${this.groveTendingCount}/${this.flourishCount} Grove tendings</li>`
-              : ``
-            }
+            <li>{this.wgsExtended}/{this.flourishCount} Wild Growth casts ({this.wgCount} HoTs)</li>
+            {this.hasCenarionWard && <li>{this.cwsExtended}/{this.flourishCount} Cenarion Wards</li>}
+            {this.rejuvCount > 0 && <li>{this.rejuvCount} Rejuvenations</li>}
+            {this.regrowthCount > 0 && <li>{this.regrowthCount} Regrowths</li>}
+            {this.lbCount > 0 && <li>{this.lbCount} Lifeblooms</li>}
+            {this.sbCount > 0 && <li>{this.sbCount} Spring Blossoms</li>}
+            {this.cultCount > 0 && <li>{this.cultCount} Cultivations (not counted in HoT count and HoT healing totals)</li>}
+            {this.tranqCount > 0 && <li>{this.tranqsExtended}/{this.flourishCount} Tranquillities casts ({this.tranqCount} HoTs)</li>}
+            {this.groveTendingCount > 0 && <li>{this.groveTendingCount}/{this.flourishCount} Grove tendings</li>}
           </ul>
-          <br>
-          The Healing column shows how much additional healing was done by the 8 extra seconds of HoT time. Note that if you Flourished near the end of a fight, numbers might be lower than you expect because extension healing isn't tallied until a HoT falls.`
-        }
+          <br />
+          The Healing column shows how much additional healing was done by the 8 extra seconds of HoT time. Note that if you Flourished near the end of a fight, numbers might be lower than you expect because extension healing isn't tallied until a HoT falls.
+        </>)}
       >
         <table className="table table-condensed">
           <thead>

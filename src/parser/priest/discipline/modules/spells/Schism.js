@@ -20,6 +20,7 @@ import AtonementDamageSource from '../features/AtonementDamageSource';
 import { calculateOverhealing, SmiteEstimation } from '../../SpellCalculations';
 import Atonement from './/Atonement';
 import SinsOfTheMany from './/SinsOfTheMany';
+import Tooltip from 'common/Tooltip';
 
 class Schism extends Analyzer {
   static dependencies = {
@@ -176,33 +177,19 @@ class Schism extends Analyzer {
       <DualStatisticBox
         icon={<SpellIcon id={SPELLS.SCHISM_TALENT.id} />}
         values={[
-          `${formatNumber(
-            (this.healing / this.owner.fightDuration) * 1000
-          )} HPS`,
-          `${formatNumber(
-            ((this.directDamage + this.damageFromBuff) /
-              this.owner.fightDuration) *
-            1000
-          )} DPS`,
+          `${formatNumber((this.healing / this.owner.fightDuration) * 1000)} HPS`,
+          `${formatNumber(((this.directDamage + this.damageFromBuff) / this.owner.fightDuration) * 1000)} DPS`,
         ]}
         footer={(
-          <dfn
-            data-tip={`
-              The effective healing contributed by Schism was ${formatPercentage(
-              this.owner.getPercentageOfTotalHealingDone(this.healing)
-            )}% of total healing done.
-
-              The direct damage contributed by the Schism talent was ${formatPercentage(
-              this.owner.getPercentageOfTotalDamageDone(this.directDamage)
-            )}% of total damage done.
-
-              The effective damage contributed by the Schism bonus was ${formatPercentage(
-              this.owner.getPercentageOfTotalDamageDone(this.damageFromBuff)
-            )}% of total damage done.
-            `}
+          <Tooltip
+            content={(<>
+              The effective healing contributed by Schism was {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))}% of total healing done.<br />
+              The direct damage contributed by the Schism talent was {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.directDamage))}% of total damage done.<br />
+              The effective damage contributed by the Schism bonus was {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damageFromBuff))}% of total damage done. <br />
+            </>)}
           >
             Schism Output Details
-          </dfn>
+          </Tooltip>
         )}
       />
     );
@@ -233,9 +220,7 @@ class Schism extends Analyzer {
           </>
         )
           .icon(SPELLS.SCHISM_TALENT.icon)
-          .actual(
-            `You cast Schism ${5} times without pairing it with strong damaging abilities, such as Penance, Halo, or Power Word: Solace.`
-          )
+          .actual(`You cast Schism ${actual} times without pairing it with strong damaging abilities, such as Penance, Halo, or Power Word: Solace.`)
           .recommended(`${recommended} is recommended`);
       }
     );

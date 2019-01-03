@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import Icon from 'common/Icon';
+import Tooltip from 'common/Tooltip';
 
 class PetRow extends React.PureComponent {
   static propTypes = {
@@ -24,6 +25,7 @@ class PetRow extends React.PureComponent {
           const maxWidth = totalWidth - barLeft; // don't expand beyond the container width
           const width = Math.min(maxWidth, ((pet.realDespawn || pet.expectedDespawn) - pet.spawn) / 1000 * secondWidth);
           const isSummonAbilityKnown = !!SPELLS[pet.summonAbility];
+          const hasTooltip = pet.meta.tooltip !== '';
           return (
             <>
               <div
@@ -35,17 +37,23 @@ class PetRow extends React.PureComponent {
                 }}
               >
                 {isSummonAbilityKnown && (
-                  <SpellIcon
-                    id={pet.summonAbility}
-                    className={pet.meta.iconClass}
-                    data-tip={pet.meta.tooltip}
-                  />
-                )}
+                  hasTooltip ? (
+                    <Tooltip content={pet.meta.tooltip} tagName="div">
+                      <SpellIcon
+                        id={pet.summonAbility}
+                        className={pet.meta.iconClass}
+                      />
+                    </Tooltip>
+                  ) : (
+                    <SpellIcon
+                      id={pet.summonAbility}
+                      className={pet.meta.iconClass}
+                    />
+                  ))}
                 {!isSummonAbilityKnown && (
-                  <Icon
-                    icon="inv_misc_questionmark"
-                    data-tip={pet.name}
-                  />
+                  <Tooltip content={pet.name} tagName="div">
+                    <Icon icon="inv_misc_questionmark" />
+                  </Tooltip>
                 )}
               </div>
               <div

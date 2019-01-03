@@ -55,15 +55,11 @@ class WordOfMending extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.WORD_OF_MENDING.id}
-        value={(
-          <>
-            <ItemHealingDone amount={this.totalAdditionalHealing} /><br />
-            {formatNumber(this.sanctify.baseHolyWordReductionBySpell[SPELLS.PRAYER_OF_MENDING_CAST.id] / 1000)}s Sanctify Cooldown
-          </>
-        )}
-        tooltip={`
-          ${formatThousands(this.totalAdditionalHealing)} Total Healing
-        `}
+        value={(<>
+          <ItemHealingDone amount={this.totalAdditionalHealing} /><br />
+          {formatNumber(this.sanctify.baseHolyWordReductionBySpell[SPELLS.PRAYER_OF_MENDING_CAST.id] / 1000)}s Sanctify Cooldown
+        </>)}
+        tooltip={`${formatThousands(this.totalAdditionalHealing)} Total Healing`}
       />
     );
   }

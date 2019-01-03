@@ -51,7 +51,7 @@ class HitCombo extends Analyzer {
         position={STATISTIC_ORDER.CORE(3)}
         icon={<SpellIcon id={SPELLS.HIT_COMBO_TALENT.id} />}
         value={`${formatPercentage(this.uptime)} %`}
-        tooltip="Hit Combo Uptime"
+        label="Hit Combo Uptime"
       />
     );
   }

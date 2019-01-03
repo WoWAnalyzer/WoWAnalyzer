@@ -182,9 +182,7 @@ class WildGrowth extends Analyzer {
         icon={<SpellIcon id={SPELLS.WILD_GROWTH.id} />}
         value={`${this.averageEffectiveHits.toFixed(2)}`}
         label="Average Wild Growth hits"
-        tooltip={
-          `Your Wild Growth hit on average ${this.averageEffectiveHits.toFixed(2)} players. ${this.belowRecommendedCasts} of your cast(s) hit fewer than 5 players which is the recommended targets.`
-        }
+        tooltip={`Your Wild Growth hit on average ${this.averageEffectiveHits.toFixed(2)} players. ${this.belowRecommendedCasts} of your cast(s) hit fewer than 5 players which is the recommended targets.`}
       />
     );
   }

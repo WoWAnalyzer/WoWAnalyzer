@@ -8,6 +8,7 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import { formatPercentage } from 'common/format';
 import { formatNumber } from 'common/format';
 import { calculatePrimaryStat } from 'common/stats';
+import Tooltip from 'common/Tooltip';
 
 /*
 * Ancient Knot of Wisdom
@@ -28,7 +29,7 @@ class AncientKnotOfWisdom extends Analyzer {
     abilities: Abilities,
     statTracker: StatTracker,
   };
-  
+
   casts = 0;
   intellectPerStack = 0;
 
@@ -56,14 +57,14 @@ class AncientKnotOfWisdom extends Analyzer {
       });
     }
   }
-  
+
   on_byPlayer_cast(event) {
     if (event.ability.guid !== SPELLS.WISDOM_OF_THE_FOREST_LORD.id) {
       return;
     }
     this.casts += 1;
   }
-  
+
   get totalBuffUptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.WISDOM_OF_THE_FOREST_LORD.id) / this.owner.fightDuration;
   }
@@ -77,10 +78,10 @@ class AncientKnotOfWisdom extends Analyzer {
     return {
       item: ITEMS.ANCIENT_KNOT_OF_WISDOM,
       result: (
-        <dfn data-tip={`Used ${this.casts} times`}>
+        <Tooltip content={`Used ${this.casts} times`}>
           {formatPercentage(this.totalBuffUptime)}% uptime<br />
           {formatNumber(this.averageIntellect)} average Intellect
-        </dfn>
+        </Tooltip>
       ),
     };
   }

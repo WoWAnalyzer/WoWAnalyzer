@@ -10,10 +10,7 @@ import Analyzer from 'parser/core/Analyzer';
 
 const GOOD_BREATH_DURATION_MS = 20000;
 
-class BreathOfSindragosa extends Analyzer{
-  static dependancies = {
-
-  }
+class BreathOfSindragosa extends Analyzer {
 
   beginTimestamp = 0;
   casts = 0;
@@ -21,9 +18,9 @@ class BreathOfSindragosa extends Analyzer{
   totalDuration = 0;
   breathActive = false;
 
-  on_byPlayer_applybuff(event){
+  on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
-    if(spellId !== SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id){
+    if (spellId !== SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id) {
       return;
     }
     this.casts += 1;
@@ -31,24 +28,23 @@ class BreathOfSindragosa extends Analyzer{
     this.breathActive = true;
   }
 
-  on_byPlayer_removebuff(event){
+  on_byPlayer_removebuff(event) {
     const spellId = event.ability.guid;
-    if(spellId !== SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id){
+    if (spellId !== SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id) {
       return;
     }
     this.breathActive = false;
     const duration = event.timestamp - this.beginTimestamp;
-    if(duration < GOOD_BREATH_DURATION_MS){
+    if (duration < GOOD_BREATH_DURATION_MS) {
       this.badCasts +=1;
     }
     this.totalDuration += duration;
   }
 
-  on_fightend(event){
-    if(this.breathActive){
+  on_fightend(event) {
+    if (this.breathActive) {
       this.casts -=1;
     }
-
   }
 
   suggestions(when){
@@ -66,35 +62,33 @@ class BreathOfSindragosa extends Analyzer{
   }
 
   get averageDuration() {
-    return (this.totalDuration / this.casts) / 1000;
+    return ((this.totalDuration / this.casts) || 0) / 1000;
   }
 
   get suggestionThresholds() {
     return {
       actual: this.averageDuration,
       isLessThan: {
-        minor: (20.0),
-        average: (17.5),
-        major: (15.0),
+        minor: 20.0,
+        average: 17.5,
+        major: 15.0,
       },
       style: 'seconds',
       suffix: 'Average',
     };
   }
 
-  statistic(){
-      return (
+  statistic() {
+    return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} />}
         value={`${(this.averageDuration).toFixed(1)} seconds`}
         label="Average Breath of Sindragosa Duration"
         tooltip={`You cast Breath of Sindragosa ${this.casts} times for a combined total of ${(this.totalDuration / 1000).toFixed(1)} seconds.  ${this.badCasts} casts were under 20 seconds.  ${this.tickingOnFinishedString}`}
         position={STATISTIC_ORDER.CORE(60)}
-
       />
-      );
+    );
   }
-
 }
 
 export default BreathOfSindragosa;

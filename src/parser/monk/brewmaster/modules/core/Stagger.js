@@ -54,17 +54,18 @@ class Stagger extends Analyzer {
         icon={<SpellIcon id={SPELLS.IRONSKIN_BREW.id} />}
         value={`${formatNumber(totalStaggered)} `}
         label="Damage staggered"
-        tooltip={`Incoming damage added to stagger:
+        tooltip={(<>
+          Incoming damage added to stagger:
           <ul>
-            <li>Total physical damage added to stagger: ${formatThousands(this.totalPhysicalStaggered)}</li>
-            <li>Total magical damage added to stagger: ${formatThousands(this.totalMagicalStaggered)}</li>
+            <li>Total physical damage added to stagger: {formatThousands(this.totalPhysicalStaggered)}</li>
+            <li>Total magical damage added to stagger: {formatThousands(this.totalMagicalStaggered)}</li>
           </ul>
           Damage taken from stagger:
           <ul>
-            <li>Total damage from stagger dot: ${formatThousands(this.totalStaggerTaken)} (${formatPercentage(this.totalStaggerTaken / totalStaggered)}% of total staggered)</li>
-            <li>Total damage removed from stagger dot before damaging you: ${formatThousands(damageAvoided)} (${formatPercentage(damageAvoided / totalStaggered)}% of total staggered)</li>
+            <li>Total damage from stagger dot: {formatThousands(this.totalStaggerTaken)} ({formatPercentage(this.totalStaggerTaken / totalStaggered)}% of total staggered)</li>
+            <li>Total damage removed from stagger dot before damaging you: {formatThousands(damageAvoided)} ({formatPercentage(damageAvoided / totalStaggered)}% of total staggered)</li>
           </ul>
-        `}
+        </>)}
       />
     );
   }

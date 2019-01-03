@@ -22,7 +22,7 @@ const bonesOfTheDamnedStats = traits => Object.values(traits).reduce((obj, rank)
  * Bones of the Damned
  * Marrowrend has a chance to proc an additional stack of Bone Shield (multiple traits do not allow increase the amount of stacks)
  * Bone Shield increase armor
- * 
+ *
  * Example Report: https://www.warcraftlogs.com/reports/bnQ4fpjv8hz9mJY3/#fight=1&source=9&translate=true
  */
 class BonesOfTheDamned extends Analyzer{
@@ -73,13 +73,13 @@ class BonesOfTheDamned extends Analyzer{
             {formatNumber(this.averageArmor)} average Armor
           </>
         )}
-        tooltip={`
-          ${formatPercentage(this.bonesOfTheDamnedProcPercentage)}% of your gained ${SPELLS.BONE_SHIELD.name} stacks are from ${SPELLS.BONES_OF_THE_DAMNED.name}.<br/>
-          ${formatPercentage(this.bonesOfTheDamnedMarrowrendProcPercentage)}% of your ${SPELLS.MARROWREND.name} casts procced ${SPELLS.BONES_OF_THE_DAMNED.name}.
-        `}
+        tooltip={(<>
+          {formatPercentage(this.bonesOfTheDamnedProcPercentage)}% of your gained {SPELLS.BONE_SHIELD.name} stacks are from {SPELLS.BONES_OF_THE_DAMNED.name}.<br />
+          {formatPercentage(this.bonesOfTheDamnedMarrowrendProcPercentage)}% of your {SPELLS.MARROWREND.name} casts procced {SPELLS.BONES_OF_THE_DAMNED.name}.
+        </>)}
       />
     );
   }
 }
 
-export default BonesOfTheDamned; 
+export default BonesOfTheDamned;

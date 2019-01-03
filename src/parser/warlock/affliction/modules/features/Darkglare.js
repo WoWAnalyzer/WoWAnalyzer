@@ -203,7 +203,10 @@ class Darkglare extends Analyzer {
         <StatisticListBoxItem
           title="Bonus damage from dots"
           value={this.owner.formatItemDamageDone(this.bonusDotDamage)}
-          valueTooltip={`${formatThousands(this.bonusDotDamage)} damage<br />This only counts the damage that happened after the dot <u>should have fallen off</u> (but instead was extended with Darkglare)`}
+          valueTooltip={(<>
+            {formatThousands(this.bonusDotDamage)} damage<br />
+            This only counts the damage that happened after the dot <u>should have fallen off</u> (but instead was extended with Darkglare)
+          </>)}
         />
         <StatisticListBoxItem
           title="Average dots extended per cast"
@@ -213,9 +216,11 @@ class Darkglare extends Analyzer {
           title="Total damage"
           titleTooltip="Combined damage from extended dots and the pet itself"
           value={this.owner.formatItemDamageDone(totalDamage)}
-          valueTooltip={`Damage from extended dots: ${formatThousands(this.bonusDotDamage)} (${this.owner.formatItemDamageDone(this.bonusDotDamage)})<br />
-                        Pet damage: ${formatThousands(this.darkglareDamage)} (${this.owner.formatItemDamageDone(this.darkglareDamage)})<br />
-                        Combined damage: ${formatThousands(totalDamage)}`}
+          valueTooltip={(<>
+            Damage from extended dots: {formatThousands(this.bonusDotDamage)} ({this.owner.formatItemDamageDone(this.bonusDotDamage)})<br />
+            Pet damage: {formatThousands(this.darkglareDamage)} ({this.owner.formatItemDamageDone(this.darkglareDamage)})<br />
+            Combined damage: {formatThousands(totalDamage)}
+          </>)}
         />
       </StatisticsListBox>
     );

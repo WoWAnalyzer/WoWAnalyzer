@@ -13,6 +13,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer from 'parser/core/Analyzer';
 
 import HealingValue from '../HealingValue';
+import Tooltip from 'common/Tooltip';
 
 class HealingDone extends Analyzer {
   _total = new HealingValue();
@@ -99,23 +100,25 @@ class HealingDone extends Analyzer {
               alt="Healing"
             />
           </div>
-          <div
+          <Tooltip
             className="flex-sub value"
-            style={{ width: 190 }}
-            data-tip={`Total healing done: <b>${formatThousands(this.total.effective)}</b>`}
+            wrapperStyles={{ width: 190 }}
+            content={<>Total healing done: <strong>${formatThousands(this.total.effective)}</strong></>}
+            tagName="div"
           >
             {formatThousands(perSecond)} HPS
-          </div>
+          </Tooltip>
           <div className="flex-sub" style={{ width: 110, textAlign: 'center' }}>
             <ThroughputPerformance throughput={perSecond} metric="hps">
               {({ performance, topThroughput }) => performance && performance !== UNAVAILABLE && (
-                <div
+                <Tooltip
                   className={rankingColor(performance)}
-                  data-tip={`Your HPS compared to the HPS of a top 100 player. To become a top 100 <span class="${this.selectedCombatant.spec.className.replace(' ', '')}">${this.selectedCombatant.spec.specName} ${this.selectedCombatant.spec.className}</span> on this fight you need to do at least <b>${formatThousands(topThroughput)} HPS</b>.`}
-                  style={{ cursor: 'help' }}
+                  content={<>Your HPS compared to the HPS of a top 100 player. To become a top 100 <span className={this.selectedCombatant.spec.className.replace(' ', '')}>{this.selectedCombatant.spec.specName} {this.selectedCombatant.spec.className}</span> on this fight you need to do at least <strong>{formatThousands(topThroughput)} HPS</strong>.</>}
+                  wrapperStyles={{ cursor: 'help' }}
+                  tagName="div"
                 >
                   {formatPercentage(performance, 0)}%
-                </div>
+                </Tooltip>
               )}
             </ThroughputPerformance>
           </div>

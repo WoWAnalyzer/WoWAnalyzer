@@ -54,10 +54,25 @@ class FrostMageChecklist extends React.PureComponent {
             </>
           )}
         >
-          <Requirement name="Used Brain Freeze procs" thresholds={thresholds.brainFreezeUtilization} tooltip="Your Brain Freeze utilization. Brain Freeze is your most important proc and it is very important that you utilize them properly." />
-          <Requirement name="Used Fingers of Frost procs" thresholds={thresholds.fingersOfFrostUtilization} />
-          <Requirement name="Ice Lance into Winter's Chill" thresholds={thresholds.wintersChillIceLance} tooltip="Using Brain Freeze will apply the Winter's Chill debuff to the target which causes your spells to act as if the target is frozen. Therefore, you should always cast Ice Lance after every instant cast Flurry so that the Ice Lance hits the target while Winter's Chill is up." />
-          <Requirement name="Hardcast into Winter's Chill" thresholds={thresholds.wintersChillHardCasts} tooltip="Flurry travels faster than your other spells, so you can pre-cast Frostbolt, Ebonbolt, or Glacial Spike before using your instant cast Flurry. This will result in the pre-cast spell landing in the Winter's Chill debuff and dealing bonus shatter damage." />
+          <Requirement
+            name="Used Brain Freeze procs"
+            thresholds={thresholds.brainFreezeUtilization}
+            tooltip="Your Brain Freeze utilization. Brain Freeze is your most important proc and it is very important that you utilize them properly."
+          />
+          <Requirement
+            name="Used Fingers of Frost procs"
+            thresholds={thresholds.fingersOfFrostUtilization}
+          />
+          <Requirement
+            name="Ice Lance into Winter's Chill"
+            thresholds={thresholds.wintersChillIceLance}
+            tooltip="Using Brain Freeze will apply the Winter's Chill debuff to the target which causes your spells to act as if the target is frozen. Therefore, you should always cast Ice Lance after every instant cast Flurry so that the Ice Lance hits the target while Winter's Chill is up."
+          />
+          <Requirement
+            name="Hardcast into Winter's Chill"
+            thresholds={thresholds.wintersChillHardCasts}
+            tooltip="Flurry travels faster than your other spells, so you can pre-cast Frostbolt, Ebonbolt, or Glacial Spike before using your instant cast Flurry. This will result in the pre-cast spell landing in the Winter's Chill debuff and dealing bonus shatter damage."
+          />
         </Rule>
         <Rule
           name="Use your talents effectively"

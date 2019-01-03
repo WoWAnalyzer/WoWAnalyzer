@@ -82,7 +82,7 @@ class GalacticGuardian extends Analyzer {
         icon={<SpellIcon id={SPELLS.GALACTIC_GUARDIAN.id} />}
         value={`${formatPercentage(unusedGGProcs)}%`}
         label="Unused Galactic Guardian"
-        tooltip={`You got total <b>${this.GGProcsTotal}</b> galactic guardian procs and <b>used ${this.consumedGGProc}</b> of them.`}
+        tooltip={<>You got total <strong>{this.GGProcsTotal}</strong> galactic guardian procs and <strong>used {this.consumedGGProc}</strong> of them.</>}
       />
     );
   }

@@ -2,6 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
+import Tooltip from 'common/Tooltip';
 
 import Enemies from 'parser/shared/modules/Enemies';
 import Analyzer from 'parser/core/Analyzer';
@@ -53,10 +54,10 @@ class TwinsPainfulTouch extends Analyzer {
     return {
       item: ITEMS.THE_TWINS_PAINFUL_TOUCH,
       result: (
-        <dfn data-tip={`The total amount of extra ${SPELLS.SHADOW_WORD_PAIN.name} and ${SPELLS.VAMPIRIC_TOUCH.name} applied by the legendary.`}>
-          Applied {totalApplied} DOTs
-          <br />{formatNumber(totalApplied / this.voidform.voidforms.length)} / Voidform
-        </dfn>
+        <Tooltip content={`The total amount of extra ${SPELLS.SHADOW_WORD_PAIN.name} and ${SPELLS.VAMPIRIC_TOUCH.name} applied by the legendary.`}>
+          Applied {totalApplied} DOTs<br />
+          {formatNumber(totalApplied / this.voidform.voidforms.length)} / Voidform
+        </Tooltip>
       ),
     };
   }

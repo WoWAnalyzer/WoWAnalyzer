@@ -96,12 +96,8 @@ class SynapseShock extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.SYNAPSE_SHOCK_BUFF.id}
-        value={(
-          <>
-            {formatNumber(this.avgIntellect)} Average Intellect <br />
-          </>
-        )}
-        tooltip={`Synapse Shock granted an average of <b>${formatNumber(this.avgIntellect)}</b> intellect throughout the fight.`}
+        value={`${formatNumber(this.avgIntellect)} Average Intellect`}
+        tooltip={<>Synapse Shock granted an average of <strong>{formatNumber(this.avgIntellect)}</strong> Intellect throughout the fight.</>}
       >
         <table className="table table-condensed">
           <thead>

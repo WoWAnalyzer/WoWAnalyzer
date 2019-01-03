@@ -41,15 +41,11 @@ class Sanctum extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.SANCTUM_TRAIT.id}
-        value={(
-          <>
-            <ItemHealingDone amount={this.sanctumAbsormAmount} /><br />
-          </>
-        )}
-        tooltip={`
-          ${formatThousands(this.fadeCount)} Fade Casts<br />
-          ${formatThousands(this.sanctumAbsormAmount)} Total Shielding
-        `}
+        value={<ItemHealingDone amount={this.sanctumAbsormAmount} />}
+        tooltip={(<>
+          {formatThousands(this.fadeCount)} Fade Casts<br />
+          {formatThousands(this.sanctumAbsormAmount)} Total Shielding
+        </>)}
       />
     );
   }

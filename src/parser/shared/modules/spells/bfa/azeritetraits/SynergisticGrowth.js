@@ -41,10 +41,10 @@ class SynergisticGrowth extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.SYNERGISTIC_GROWTH.id}
         value={`${formatNumber(this.averageStatGain)} average Mastery`}
-        tooltip={`
-          ${formatPercentage(this.totalBuffUptime)}% Uptime<br />
-          ${this.totalBuffProcs} Total Procs
-        `}
+        tooltip={(<>
+          {formatPercentage(this.totalBuffUptime)}% Uptime<br />
+          {this.totalBuffProcs} Total Procs
+        </>)}
       />
     );
   }

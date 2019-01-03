@@ -175,14 +175,13 @@ class BarbedShot extends Analyzer {
         icon={<SpellIcon id={SPELLS.BARBED_SHOT_PET_BUFF.id} />}
         value={`${formatPercentage(this.percentUptimeMaxStacks)} %`}
         label="3 stack uptime"
-        tooltip={`
-        <ul>
-          <li>Your pet had an average of ${this.getAverageBarbedShotStacks()} ${this.getAverageBarbedShotStacks() > 1 ? 'stacks' : 'stack'} active throughout the fight.</li>
-          <li>Your pet had an overall uptime of ${formatPercentage(this.percentUptimePet)}% on the increased attack speed buff</li>
-          <li>You had an uptime of ${formatPercentage(this.percentPlayerUptime)}% on the focus regen buff.</li>
-            <ul>
-            </ul>
-        </ul>`}
+        tooltip={(
+          <ul>
+            <li>Your pet had an average of {this.getAverageBarbedShotStacks()} {this.getAverageBarbedShotStacks() > 1 ? 'stacks' : 'stack'} active throughout the fight.</li>
+            <li>Your pet had an overall uptime of {formatPercentage(this.percentUptimePet)}% on the increased attack speed buff</li>
+            <li>You had an uptime of {formatPercentage(this.percentPlayerUptime)}% on the focus regen buff.</li>
+          </ul>
+        )}
       >
         <table className="table table-condensed">
           <thead>

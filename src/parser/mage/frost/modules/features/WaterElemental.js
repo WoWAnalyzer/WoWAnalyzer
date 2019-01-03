@@ -12,12 +12,12 @@ class WaterElemental extends Analyzer {
   static dependencies = {
     abc: AlwaysBeCasting,
   };
-  
+
   constructor(...args) {
     super(...args);
     this.active = !this.selectedCombatant.hasTalent(SPELLS.LONELY_WINTER_TALENT.id);
   }
-  
+
   _waterboltsCancelled = 0;
   _waterboltsCastStarts = 0;
   _waterboltHits = 0;
@@ -28,7 +28,7 @@ class WaterElemental extends Analyzer {
   _timestampLastFinish = 0;
   _timestampLastCast = 0;
   _timestampFirstCast = 0;
-  
+
   on_byPlayerPet_begincast(event) {
     if (event.ability.guid !== SPELLS.WATERBOLT.id) {
       return;
@@ -43,7 +43,7 @@ class WaterElemental extends Analyzer {
     this.wasCastStarted = true;
     this._timestampLastCast = event.timestamp;
   }
-  
+
   on_byPlayerPet_cast(event) {
     if (event.ability.guid !== SPELLS.WATERBOLT.id) {
       return;
@@ -65,7 +65,7 @@ class WaterElemental extends Analyzer {
     }
     this.wasCastStarted = false;
   }
-  
+
   on_byPlayerPet_damage(event) {
     if (event.ability.guid !== SPELLS.WATERBOLT.id || event.targetIsFriendly) {
       return;
@@ -80,20 +80,20 @@ class WaterElemental extends Analyzer {
   get petDowntimePercentage() {
     return 1 - this.petActiveTimePercentage;
   }
-  
+
   get petActiveTimePercentage() {
     return this.petActiveTime / this.owner.fightDuration;
   }
-  
+
   get prepullSummonCheck() {
     return this._timestampFirstCast - this.owner.fight.start_time;
   }
-  
+
   get petTotalCasts() {
     return this._waterboltsCancelled + this._waterboltsCastStarts;
   }
-  
-  
+
+
   //checks for difference between player and pet uptime
   get suggestionThresholds() {
     return {
@@ -108,18 +108,18 @@ class WaterElemental extends Analyzer {
   }
 
   //checks for the time between pull and first action (begin cast/cast/damage) from pet
-  get prePullSuggestionThresholds() { 
+  get prePullSuggestionThresholds() {
     return {
       actual: Math.abs(this.prepullSummonCheck),
       isGreaterThan: {
-        minor: 5000, // 
+        minor: 5000, //
         average: 10000, // 5 - 10 seconds after pull should give the player time for fetid/mythrax-like pulls
         major: 20000, //
       },
       style: 'number',
     };
   }
-  
+
   suggestions(when) {
     when(this.suggestionThresholds)
     .addSuggestion((suggest, actual, recommended) => {
@@ -148,36 +148,35 @@ class WaterElemental extends Analyzer {
       <StatisticBox
         position={STATISTIC_ORDER.CORE(15)}
         icon={<SpellIcon id={SPELLS.SUMMON_WATER_ELEMENTAL.id} />}
-        value={(
-          <>
-            <Icon
-              icon="spell_mage_altertime"
-              style={{
-                height: '1.2em',
-                marginBottom: '.15em',
-              }}
-            />
-            {`${formatPercentage(this.petActiveTimePercentage)} %`}
-            <br />
-            <SpellIcon
-              id={SPELLS.WATERBOLT.id}
-              style={{
-                height: '1.2em',
-                marginBottom: '.15em',
-              }}
-            />
-            {`${formatNumber(this._waterboltDamage / (this.owner.fightDuration / 1000))} DPS`}
-          </>
-        )}
+        value={(<>
+          <Icon
+            icon="spell_mage_altertime"
+            style={{
+              height: '1.2em',
+              marginBottom: '.15em',
+            }}
+          />
+          {formatPercentage(this.petActiveTimePercentage)} %
+          <br />
+          <SpellIcon
+            id={SPELLS.WATERBOLT.id}
+            style={{
+              height: '1.2em',
+              marginBottom: '.15em',
+            }}
+          />
+          {formatNumber(this._waterboltDamage / (this.owner.fightDuration / 1000))} DPS
+        </>)}
         label="Water Elemental utilization"
-        tooltip={`Water Elemental was casting for ${formatPercentage(this.petActiveTimePercentage)} % of the fight (Downtime: ${formatPercentage(this.petDowntimePercentage)} %).<br>
-                Your Water Elemental began casting ${this.petTotalCasts} times.<br>
-                <ul>
-                  <li>${this._waterboltHits} casts dealt a total damage of ${formatThousands(this._waterboltDamage)}.</li>
-                  <li>${this._waterboltsCancelled} casts were cancelled.</li>
-                  <li>${this.petTotalCasts - this._waterboltsCancelled - this._waterboltHits} did not hit a target in time.</li>
-                </ul>
-    `}
+        tooltip={(<>
+          Water Elemental was casting for {formatPercentage(this.petActiveTimePercentage)} % of the fight (Downtime: {formatPercentage(this.petDowntimePercentage)} %).<br />
+          Your Water Elemental began casting {this.petTotalCasts} times.<br />
+          <ul>
+            <li>{this._waterboltHits} casts dealt a total damage of {formatThousands(this._waterboltDamage)}.</li>
+            <li>{this._waterboltsCancelled} casts were cancelled.</li>
+            <li>{this.petTotalCasts - this._waterboltsCancelled - this._waterboltHits} did not hit a target in time.</li>
+          </ul>
+        </>)}
       />
     );
   }

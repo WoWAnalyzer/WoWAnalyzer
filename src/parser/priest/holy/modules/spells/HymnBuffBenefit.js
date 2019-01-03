@@ -41,10 +41,10 @@ class HymnBuffBenefit extends Analyzer {
         icon={<SpellIcon id={SPELLS.DIVINE_HYMN_CAST.id} />}
         value={`≈${formatNumber(this.totalHealingFromHymnBuff / fightDuration * 1000)} HPS`}
         label="Hymn Buff Contribution"
-        tooltip={
-          `The Divine Hymn buff contributed ${formatNumber(this.totalHealingFromHymnBuff)} healing. This includes healing from other healers.<br/>
-          NOTE: This metric uses an approximation to calculate contribution from the buff due to technical limitations.`
-        }
+        tooltip={(<>
+          The Divine Hymn buff contributed {formatNumber(this.totalHealingFromHymnBuff)} healing. This includes healing from other healers.<br />
+          NOTE: This metric uses an approximation to calculate contribution from the buff due to technical limitations.
+        </>)}
       />
     );
   }

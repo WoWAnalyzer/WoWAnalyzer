@@ -101,14 +101,14 @@ class RuneStrike extends Analyzer {
         talent={SPELLS.RUNE_STRIKE_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(1)}
         value={`${formatPercentage(this.goodCastEfficiency)}%`}
-        label="good casts"
-        tooltip={`
-          ${formatDuration(this.wastedReduction / 1000)} wasted cooldown reduction<br/>
-          ${formatDuration(this.effectiveReduction / 1000)} effective cooldown reduction<br/><br/>
+        label="Good casts"
+        tooltip={(<>
+          {formatDuration(this.wastedReduction / 1000)} wasted cooldown reduction<br />
+          {formatDuration(this.effectiveReduction / 1000)} effective cooldown reduction<br /><br />
 
-          ${this.goodCasts} good casts with less than ${ONLY_CAST_BELOW_RUNES} runes available, ${this.badCasts} with more than ${ONLY_CAST_BELOW_RUNES} runes available.<br/>
-          Avoid casting ${SPELLS.RUNE_STRIKE_TALENT.name} with more than ${ONLY_CAST_BELOW_RUNES} runes available, doing so would refill an already charging rune.
-        `}
+          {this.goodCasts} good casts with less than {ONLY_CAST_BELOW_RUNES} runes available, {this.badCasts} with more than {ONLY_CAST_BELOW_RUNES} runes available.<br />
+          Avoid casting {SPELLS.RUNE_STRIKE_TALENT.name} with more than {ONLY_CAST_BELOW_RUNES} runes available, doing so would refill an already charging rune.
+        </>)}
       />
     );
   }

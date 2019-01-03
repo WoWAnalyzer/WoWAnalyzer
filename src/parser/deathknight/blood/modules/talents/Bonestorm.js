@@ -70,17 +70,17 @@ class Bonestorm extends Analyzer {
       });
   }
 
-  get BonestormTooltip() {
-    let tooltip = "";
+  get bonestormTooltip() {
+    const tooltipRows = [];
     this.bsCasts.forEach((cast, index) => {
-      const avgDamage = formatNumber(cast.hits.reduce((a, b) => { return a + b; }, 0) / cast.hits.length);
-      const totalDamage = formatNumber(cast.hits.reduce((a, b) => { return a + b; }, 0));
-      const avgHits = formatNumber(cast.hits.length / cast.cost * 100, 1);
+      const avgDamage = formatNumber((cast.hits.reduce((a, b) => a + b, 0) / cast.hits.length) || 0);
+      const totalDamage = formatNumber(cast.hits.reduce((a, b) => a + b, 0));
+      const avgHits = formatNumber((cast.hits.length / cast.cost * 100) || 0, 1);
       const rpCost = formatNumber(cast.cost / 10);
 
-      tooltip += `Cast #${ index + 1 } (for ${ rpCost } RP) hit an average of ${ avgHits } target${ avgHits <= 1 ? '' : 's' } for ${ avgDamage } per hit. (${ totalDamage } total)<br>`;
+      tooltipRows.push(<>Cast #{ index + 1 } (for {rpCost} RP) hit an average of {avgHits} target{ avgHits <= 1 ? '' : 's' } for {avgDamage} per hit. ({ totalDamage} total)<br /></>);
     });
-    return tooltip;
+    return tooltipRows;
   }
 
   statistic() {
@@ -91,7 +91,9 @@ class Bonestorm extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(7)}
         value={`${ formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalBonestormDamage)) } %`}
         label="of your total damage"
-        tooltip={`${ this.BonestormTooltip }`}
+        tooltip={(<>
+          {this.bonestormTooltip}
+        </>)}
       />
     );
   }
