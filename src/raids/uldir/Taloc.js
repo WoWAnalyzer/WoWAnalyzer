@@ -18,5 +18,31 @@ export default {
         271811, // Cudgel of Gore
       ],
     },
+    phases: [
+      {
+        id: 1,
+        name: 'Stage One: The Corrupted Construct',
+      },
+      {
+        id: 2,
+        name: 'Stage Two: Ruin\'s Descent',
+        filter: {
+          type: 'applybuff',
+          ability: {
+            id: 271965,
+          },
+        },
+      },
+      {
+        id: 3,
+        name: 'Stage Three: The Bottom Floor',
+        filter: {
+          type: 'removebuff',
+          ability: {
+            id: 271965,
+          },
+        },
+      },
+    ],
   },
 };

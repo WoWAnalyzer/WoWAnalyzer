@@ -16,5 +16,27 @@ export default {
       physical: [],
       magical: [],
     },
+    phases: [
+      {
+        id: 1,
+        name: 'Stage One: Probing Its Hosts',
+        filter: {
+          type: 'removebuff',
+          ability: {
+            id: 265217,
+          },
+        },
+      },
+      {
+        id: 2,
+        name: 'Stage Two: Spreading Pandemic',
+        filter: {
+          type: 'applybuff',
+          ability: {
+            id: 265217,
+          },
+        },
+      },
+    ],
   },
 };

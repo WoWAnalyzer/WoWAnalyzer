@@ -62,6 +62,7 @@ class EventParser extends React.PureComponent {
     setReportProgress: PropTypes.func.isRequired,
     appendReportHistory: PropTypes.func.isRequired,
     config: PropTypes.object.isRequired,
+    bossEvents: PropTypes.array.isRequired,
     children: PropTypes.func.isRequired,
     history: PropTypes.shape({
       push: PropTypes.func.isRequired, // adds to browser history
@@ -99,7 +100,7 @@ class EventParser extends React.PureComponent {
   }
 
   async parse() {
-    const { report, fight, combatants, player } = this.props;
+    const { report, fight, combatants, player, bossEvents } = this.props;
 
     this.reset();
     this.appendHistory(report, fight, player);
@@ -127,7 +128,7 @@ class EventParser extends React.PureComponent {
         this.stopFakeNetworkProgress();
         timeAvailable && console.time('full parse');
         const parser = new parserClass(report, player, fight, combatants, characterProfile);
-        return this.parseEvents(parser, report, player, fight, events);
+        return this.parseEvents(parser, report, player, fight, [...bossEvents, ...events]);
       })
       .catch(error => {
         this.stopFakeNetworkProgress();

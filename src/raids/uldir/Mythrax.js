@@ -18,5 +18,27 @@ export default {
         273282, // Essence Shear
       ],
     },
+    phases: [
+      {
+        id: 1,
+        name: 'Stage One: Oblivion\'s Call',
+        filter: {
+          type: 'removebuff',
+          ability: {
+            id: 274230,
+          },
+        },
+      },
+      {
+        id: 2,
+        name: 'Stage Two: Ancient Awakening',
+        filter: {
+          type: 'applybuff',
+          ability: {
+            id: 274230,
+          },
+        },
+      },
+    ],
   },
 };

@@ -20,5 +20,33 @@ export default {
         265264, // Void Lash
       ],
     },
+    phases: [
+      {
+        id: 1,
+        name: 'Stage One: Chaos',
+      },
+      {
+        id: 2,
+        name: 'Stage Two: Deception',
+        filter: {
+          type: 'cast',
+          ability: {
+            id: 181089,
+          },
+          eventInstance: 0,
+        },
+      },
+      {
+        id: 3,
+        name: 'Stage Three: Corruption',
+        filter: {
+          type: 'cast',
+          ability: {
+            id: 181089,
+          },
+          eventInstance: 1,
+        },
+      },
+    ],
   },
 };

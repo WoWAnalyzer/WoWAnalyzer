@@ -18,5 +18,32 @@ export default {
       ],
       magical: [],
     },
+    phases: [
+      {
+        id: 1,
+        name: 'Stage One: My Minions Are Endless!',
+      },
+      {
+        id: 2,
+        name: 'Stage Two: Behold the Power of Ghuun!',
+        filter: {
+          type: 'removedebuff',
+          ability: {
+            id: 263504,
+          },
+          eventInstance: 0,
+        },
+      },
+      {
+        id: 3,
+        name: 'Stage Three: Your Destruction is Assured!',
+        filter: {
+          type: 'applybuff',
+          ability: {
+            id: 276839,
+          },
+        },
+      },
+    ],
   },
 };

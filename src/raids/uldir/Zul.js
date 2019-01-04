@@ -16,5 +16,21 @@ export default {
       physical: [],
       magical: [],
     },
+    phases: [
+      {
+        id: 1,
+        name: 'Stage One: The Forces of Blood',
+      },
+      {
+        id: 2,
+        name: 'Stage Two: Zul, Awakened',
+        filter: {
+          type: 'begincast',
+          ability: {
+            id: 274168,
+          },
+        },
+      },
+    ],
   },
 };

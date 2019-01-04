@@ -13,6 +13,7 @@ import ApplyBuffNormalizer from 'parser/shared/normalizers/ApplyBuff';
 import CancelledCastsNormalizer from 'parser/shared/normalizers/CancelledCasts';
 import PrePullCooldownsNormalizer from 'parser/shared/normalizers/PrePullCooldowns';
 import FightEndNormalizer from 'parser/shared/normalizers/FightEnd';
+import PhaseChangesNormalizer from 'parser/shared/normalizers/PhaseChanges';
 import HealingDone from '../shared/modules/HealingDone';
 import DamageDone from '../shared/modules/DamageDone';
 import DamageTaken from '../shared/modules/DamageTaken';
@@ -161,6 +162,7 @@ class CombatLogParser {
     applyBuffNormalizer: ApplyBuffNormalizer,
     cancelledCastsNormalizer: CancelledCastsNormalizer,
     prepullNormalizer: PrePullCooldownsNormalizer,
+    phaseChangesNormalizer: PhaseChangesNormalizer,
 
     // Analyzers
     healingDone: HealingDone,
