@@ -80,7 +80,7 @@ export default class StraightNoChaser extends Analyzer {
 
     const RANGE_THRESHOLD = 0.001;
     const rangeMin = reset_probs.findIndex(({y}) => y >= RANGE_THRESHOLD);
-    const rangeMax = reset_probs.slice(rangeMin).findIndex(({y}) => y < RANGE_THRESHOLD);
+    const rangeMax = rangeMin + reset_probs.slice(rangeMin).findIndex(({y}) => y < RANGE_THRESHOLD);
 
     return (
       <LineChart
