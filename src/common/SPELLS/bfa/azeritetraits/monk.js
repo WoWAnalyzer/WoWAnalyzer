@@ -1,5 +1,15 @@
 export default {
   // Brewmaster-specific
+  STRAIGHT_NO_CHASER: {
+    id: 285958,
+    name: 'Straight, No Chaser',
+    icon: 'ability_monk_ironskinbrew',
+  },
+  STRAIGHT_NO_CHASER_BUFF: {
+    id: 285959,
+    name: 'Straight, No Chaser',
+    icon: 'ability_monk_ironskinbrew',
+  },
   ELUSIVE_FOOTWORK: {
     id: 278571,
     name: 'Elusive Footwork',
