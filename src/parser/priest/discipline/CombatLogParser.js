@@ -3,7 +3,6 @@ import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import HealingDone from 'parser/shared/modules/HealingDone';
 
 import AtonementSuccessiveDamageNormalizer from './normalizers/AtonementSuccessiveDamage';
-import EstelNormalizer from './normalizers/EstelNormalizer';
 import ShadowfiendNormalizer from '../shared/normalizers/ShadowfiendNormalizer';
 import PowerWordRadianceNormalizer from './normalizers/PowerWordRadianceNormalizer';
 
@@ -25,21 +24,11 @@ import PowerWordBarrier from './modules/features/PowerWordBarrier';
 import Lenience from './modules/spells/Lenience';
 import PurgeTheWicked from './modules/features/PurgeTheWicked';
 
-import CordOfMaiev from './modules/items/CordOfMaiev';
-import Skjoldr from './modules/items/Skjoldr';
-import Xalan from './modules/items/Xalan';
-import NeroBandOfPromises from './modules/items/NeroBandOfPromises';
-import TarnishedSentinelMedallion from './modules/items/TarnishedSentinelMedallion';
-import MarchOfTheLegion from './modules/items/MarchOfTheLegion';
-import Estel from './modules/items/Estel';
-import SoulOfTheHighPriest from './modules/items/SoulOfTheHighPriest';
-
 import TwistOfFate from './modules/spells/TwistOfFate';
 import Castigation from './modules/spells/Castigation';
 import Atonement from './modules/spells/Atonement';
 import Evangelism from './modules/spells/Evangelism';
 import Penance from './modules/spells/Penance';
-import TouchOfTheGrave from './modules/spells/TouchOfTheGrave';
 import LuminousBarrier from './modules/spells/LuminousBarrier';
 import DesperatePrayer from '../shared/modules/features/DesperatePrayer';
 import Contrition from './modules/spells/Contrition';
@@ -57,7 +46,6 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizers
     atonementSuccessiveDamage: AtonementSuccessiveDamageNormalizer,
-    estelNormalizer: EstelNormalizer,
     shadowfiendNormalizer: ShadowfiendNormalizer,
     powerWordRadianceNormalizer: PowerWordRadianceNormalizer,
 
@@ -85,22 +73,11 @@ class CombatLogParser extends CoreCombatLogParser {
     lenience: Lenience,
     purgeTheWicked: PurgeTheWicked,
 
-    // Items:
-    cordOfMaiev: CordOfMaiev,
-    skjoldr: Skjoldr,
-    xalan: Xalan,
-    neroBandOfPromises: NeroBandOfPromises,
-    tarnishedSentinelMedallion: TarnishedSentinelMedallion,
-    marchOfTheLegion: MarchOfTheLegion,
-    estel: Estel,
-    soulOfTheHighPriest: SoulOfTheHighPriest,
-
     // Spells (talents and traits):
     twistOfFate: TwistOfFate,
     castigation: Castigation,
     atonement: Atonement,
     evangelism: Evangelism,
-    touchOfTheGrave: TouchOfTheGrave,
     luminousBarrier: LuminousBarrier,
     desperatePrayer: DesperatePrayer,
     contrition: Contrition,
