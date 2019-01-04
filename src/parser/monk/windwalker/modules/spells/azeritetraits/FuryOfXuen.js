@@ -6,6 +6,7 @@ import {calculateAzeriteEffects} from 'common/stats';
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 const furyOfXuenStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [haste] = calculateAzeriteEffects(SPELLS.FURY_OF_XUEN.id, rank);
@@ -15,10 +16,6 @@ const furyOfXuenStats = traits => Object.values(traits).reduce((obj, rank) => {
   haste: 0,
 });
 
-export const STAT_TRACKER = {
-  haste: combatant => furyOfXuenStats(combatant.traitsBySpellId[SPELLS.FURY_OF_XUEN.id]).haste,
-};
-
 /**
  * Your Combo Strikes grant a stacking 2% chance for your next Fists of Fury to grant 768 Haste and invoke Xuen, The White Tiger for 8 sec.
  * 
@@ -27,12 +24,11 @@ export const STAT_TRACKER = {
 class FuryOfXuen extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
+    statTracker: StatTracker,
   };
 
   damageDone = 0;
   furyXuens = [];
-  stacksGained = 0;
-  stacksWasted = 0;
 
   constructor(...args) {
     super(...args);
@@ -42,36 +38,30 @@ class FuryOfXuen extends Analyzer {
     }
     const {haste} = furyOfXuenStats(this.selectedCombatant.traitsBySpellId[SPELLS.FURY_OF_XUEN.id]);
     this.haste = haste;
+    
+    this.statTracker.add(SPELLS.FURY_OF_XUEN_SUMMON.id, {
+      haste,
+    });
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
-    this.addEventListener(Events.summon.by(SELECTED_PLAYER), this.onPlayerSummon);
+    this.addEventListener(Events.summon.by(SELECTED_PLAYER).spell(SPELLS.FURY_OF_XUEN_SUMMON), this.onPlayerSummon);
   }
   
   onPlayerSummon(event) {
-    const spellId = event.ability.guid;
-    if (SPELLS.FURY_OF_XUEN_SUMMON.id !== spellId) {
-      return;
-    }
     const furyXuen = {targetID: event.targetID, targetInstance: event.targetInstance};
     this.furyXuens.push(furyXuen);
   }
 
   onPetDamage(event) {
-    const xuen = {sourceID: event.sourceID, targetInstance: event.targetInstance};
+    const xuen = {sourceID: event.sourceID, sourceInstance: event.sourceInstance};
     if (!this._isSummonedByFury(xuen)) {
       return;
     }
-    this.damageDone = this.damageDone + event.amount + (event.absorbed || 0);
+    this.damageDone += event.amount + (event.absorbed || 0);
   }
 
   _isSummonedByFury(xuen) {
-    let summonedByFury = false;
-    this.furyXuens.forEach((furyXuen) => {
-      if (furyXuen.targetInstance === xuen.targetInstance && furyXuen.targetID === xuen.sourceID) {
-        summonedByFury = true;
-      }
-    });
-    return summonedByFury;
+    return this.furyXuens.some(furyXuen => furyXuen.targetID === xuen.sourceID && furyXuen.targetInstance === xuen.sourceInstance);
   }
 
   get uptime() {

@@ -8,11 +8,11 @@ class GlobalCooldown extends CoreGlobalCooldown {
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     const isOnGCD = this.isOnGlobalCooldown(spellId);
-    if (!isOnGCD) {
-      // This ensures we don't crash when boss abilities are registered as casts which could even happen while channeling. For example on Trilliax: http://i.imgur.com/7QAFy1q.png
+    if (spellId === SPELLS.FISTS_OF_FURY_CAST.id) {
       return;
     }
-    if (spellId === SPELLS.FISTS_OF_FURY_CAST.id) {
+    if (!isOnGCD) {
+      // This ensures we don't crash when boss abilities are registered as casts which could even happen while channeling. For example on Trilliax: http://i.imgur.com/7QAFy1q.png
       return;
     }
     super.on_byPlayer_cast(event);
