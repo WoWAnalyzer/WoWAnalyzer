@@ -78,6 +78,10 @@ export default class StraightNoChaser extends Analyzer {
       return { x: i, y: reset_prob(i) };
     });
 
+    const RANGE_THRESHOLD = 0.001;
+    const rangeMin = reset_probs.findIndex(({y}) => y >= RANGE_THRESHOLD);
+    const rangeMax = reset_probs.slice(rangeMin).findIndex(({y}) => y < RANGE_THRESHOLD);
+
     return (
       <LineChart
         data={{
@@ -120,6 +124,8 @@ export default class StraightNoChaser extends Analyzer {
                 fontColor: '#ccc',
               },
               ticks: {
+                min: rangeMin,
+                max: rangeMax,
                 maxTicksLimit: 15,
                 fontColor: '#ccc',
                 callback: (x) => formatNumber(x),
