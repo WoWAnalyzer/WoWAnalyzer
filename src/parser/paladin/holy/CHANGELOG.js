@@ -7,6 +7,11 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2019-01-05'),
+    changes: <><SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> that did negative healing are now highlighted in the timeline.</>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-01-05'),
     changes: <><SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> cast while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was available will now be highlighted in the timeline.</>,
     contributors: [Zerotorescue],
   },

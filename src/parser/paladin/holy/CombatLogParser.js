@@ -18,6 +18,7 @@ import PaladinAbilityTracker from './modules/core/PaladinAbilityTracker';
 import CastBehavior from './modules/CastBehavior';
 import Overhealing from './modules/Overhealing';
 import FillerLightOfTheMartyrs from './modules/FillerLightOfTheMartyrs';
+import InefficientLightOfTheMartyrs from './modules/InefficientLightOfTheMartyrs';
 import FillerFlashOfLight from './modules/FillerFlashOfLight';
 import LightOfDawn from './modules/LightOfDawn';
 import LightOfDawnIndexer from './modules/LightOfDawnIndexer';
@@ -69,6 +70,7 @@ class CombatLogParser extends CoreCombatLogParser {
     castBehavior: CastBehavior,
     overhealing: Overhealing,
     fillerLightOfTheMartyrs: FillerLightOfTheMartyrs,
+    inefficientLightOfTheMartyrs: InefficientLightOfTheMartyrs,
     fillerFlashOfLight: FillerFlashOfLight,
     lightOfDawn: LightOfDawn,
     lightOfDawnIndexer: LightOfDawnIndexer,
