@@ -3,20 +3,8 @@ import PropTypes from 'prop-types';
 
 import Icon from 'common/Icon';
 import SpellLink from 'common/SpellLink';
+import AZERITE_SPELLS from 'common/SPELLS/bfa/azeritetraits';
 
-// Use all available AzeriteTraits
-import General from 'common/SPELLS/bfa/azeritetraits/general';
-import Hunter from 'common/SPELLS/bfa/azeritetraits/hunter';
-import Paladin from 'common/SPELLS/bfa/azeritetraits/paladin';
-import Shaman from 'common/SPELLS/bfa/azeritetraits/shaman';
-import Warlock from 'common/SPELLS/bfa/azeritetraits/warlock';
-import Monk from 'common/SPELLS/bfa/azeritetraits/monk';
-import DeathKnight from 'common/SPELLS/bfa/azeritetraits/deathknight';
-import Priest from 'common/SPELLS/bfa/azeritetraits/priest';
-import Druid from 'common/SPELLS/bfa/azeritetraits/druid';
-import Unused from 'common/SPELLS/bfa/azeritetraits/__UNUSED';
-
-const AZERITE_SPELLS = Object.values({...General, ...Hunter, ...Paladin, ...Shaman, ...Warlock, ...Monk, ...DeathKnight, ...Priest, ...Druid, ...Unused});
 const FALLBACK_ICON = 'inv_misc_questionmark';
 const ITEM_SLOT = {
   0: "Helm",
@@ -30,7 +18,7 @@ class Azerite extends React.PureComponent {
   };
 
   state = {
-    azerite: AZERITE_SPELLS,
+    azerite: Object.values(AZERITE_SPELLS),
   };
 
   componentDidMount() {
@@ -50,30 +38,28 @@ class Azerite extends React.PureComponent {
           Azerite Powers
         </h3>
         <div className="azerite-traits">
-          {Object.keys(azerite).map(slotId => {
-            return (
-              <div className="azerite-traits-column" key={slotId}>
-                <div className="azerite-slot-title">{ITEM_SLOT[slotId]}</div>
-                {
-                azerite[slotId].map(spellId => {
-                  const spell = this.state.azerite.find(e => e.id === spellId);
-                  return (
-                    <div key={spellId} style={{ display: 'inline-block', textAlign: 'center' }}>
-                      <SpellLink
-                        id={spellId}
-                        details={spellId}
-                        style={{ margin: '5px', display: 'block', fontSize: '46px', lineHeight: 1 }}
-                        icon={false}
-                      >
-                        <Icon icon={spell ? spell.icon : FALLBACK_ICON} style={{ border: '3px solid currentColor' }} />
-                      </SpellLink>
-                    </div>  
-                  );
-                })
-              }
-              </div>
-            );
-          })}
+          {Object.keys(azerite).map(slotId => (
+            <div className="azerite-traits-column" key={slotId}>
+              <div className="azerite-slot-title">{ITEM_SLOT[slotId]}</div>
+              {
+              azerite[slotId].map(spellId => {
+                const spell = this.state.azerite.find(e => e.id === spellId);
+                return (
+                  <div key={spellId} style={{ display: 'inline-block', textAlign: 'center' }}>
+                    <SpellLink
+                      id={spellId}
+                      details={spellId}
+                      style={{ margin: '5px', display: 'block', fontSize: '46px', lineHeight: 1 }}
+                      icon={false}
+                    >
+                      <Icon icon={spell ? spell.icon : FALLBACK_ICON} style={{ border: '3px solid currentColor' }} />
+                    </SpellLink>
+                  </div>  
+                );
+              })
+            }
+            </div>
+          ))}
         </div>
       </>
     );

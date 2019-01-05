@@ -24,7 +24,7 @@ class Talents extends React.PureComponent {
         </h3>
         <div className="talent-info">
           {talents.map((spellId, index) => (
-            <div className="talent-info-row" key={index} style={{ marginBottom: '0.8em', fontSize: '1.3em' }}>
+            <div key={index} className="talent-info-row" style={{ marginBottom: '0.8em', fontSize: '1.3em' }}>
               <div className="talent-level">
                 {rows[index]}
               </div>

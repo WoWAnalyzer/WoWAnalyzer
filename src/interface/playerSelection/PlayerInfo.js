@@ -20,17 +20,17 @@ class PlayerInfo extends React.PureComponent {
   };
 
   state = {
-    gear: {},
+    gear: [],
     traits: {},
-    talents: {},
+    talents: [],
   }
 
   static getDerivedStateFromProps(props) {
     const { player } = props;
     return {
-      gear: Object.values(_parseGear(player.combatant.gear)),
+      gear: _parseGear(player.combatant.gear),
       traits: _parseTraits(player.combatant.artifact),
-      talents: Object.values(_parseTalents(player.combatant.talents)),
+      talents: _parseTalents(player.combatant.talents),
     };
   }
 
@@ -64,44 +64,33 @@ class PlayerInfo extends React.PureComponent {
   get averageIlvl() {
     const gear = this.state.gear;
 
-    // eslint-disable-next-line no-restricted-syntax
-    const filteredGear = gear.filter(g => g.itemLevel !== 0 && !EXCLUDED_ITEM_SLOTS.find(x => x === gear.indexOf(g)));
+    const filteredGear = gear.filter((item, slotId) => item.itemLevel !== 0 && !EXCLUDED_ITEM_SLOTS.includes(slotId));
     return filteredGear.reduce( ( total, item ) => total + item.itemLevel, 0 ) / filteredGear.length;
   }
 }
 
 function _parseTalents(talents) {
-  const _talentsByRow = {};
-  talents.forEach(({ id }, index) => {
-    _talentsByRow[index] = id;
-  });
-
-  return _talentsByRow;
+  return talents.reduce((talentsByRow, { id }) => talentsByRow.concat(id), [])
 }
 
 function _parseTraits(traits) {
-  const _traitsBySlot = {};
+  const traitsBySlot = {};
   traits.forEach(({ traitID, slot }) => {
     const spellId = traitIdMap[traitID];
     if (spellId === undefined) {
       return;
     }
-    if (!_traitsBySlot[slot]) {
-      _traitsBySlot[slot] = [];
+    if (!traitsBySlot[slot]) {
+      traitsBySlot[slot] = [];
     }
-    _traitsBySlot[slot].push(spellId);
+    traitsBySlot[slot].push(spellId);
   });
 
-  return _traitsBySlot;
+  return traitsBySlot;
 }
 
 function _parseGear(gear) {
-  const _gearItemsBySlotId = {};
-  gear.forEach((item, index) => {
-    _gearItemsBySlotId[index] = item;
-  });
-
-  return _gearItemsBySlotId;
+  return gear.reduce((gearItemsBySlotId, item) => gearItemsBySlotId.concat(item), []);
 }
 
 export default PlayerInfo;
