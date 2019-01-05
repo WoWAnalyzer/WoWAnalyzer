@@ -8,8 +8,8 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import Checklist from './modules/features/checklist/Module';
 // Resources
 import EnergyCapTracker from './modules/resources/EnergyCapTracker';
-import ChiDetails from './modules/chi/ChiDetails';
-import ChiTracker from './modules/chi/ChiTracker';
+import ChiDetails from './modules/resources/ChiDetails';
+import ChiTracker from './modules/resources/ChiTracker';
 // Core
 import Channeling from './modules/core/Channeling';
 // Spells
