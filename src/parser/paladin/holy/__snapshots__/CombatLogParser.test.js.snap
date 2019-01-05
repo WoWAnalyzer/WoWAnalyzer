@@ -1059,6 +1059,10 @@ exports[`Holy Paladin integration test analyzers HolyAvenger matches the statist
 
 exports[`Holy Paladin integration test analyzers HolyAvenger matches the suggestions snapshot 1`] = `"module inactive"`;
 
+exports[`Holy Paladin integration test analyzers InefficientLightOfTheMartyrs matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`Holy Paladin integration test analyzers InefficientLightOfTheMartyrs matches the suggestions snapshot 1`] = `Array []`;
+
 exports[`Holy Paladin integration test analyzers LightOfDawn matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
