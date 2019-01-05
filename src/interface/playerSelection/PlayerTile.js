@@ -24,7 +24,7 @@ class PlayerTile extends React.PureComponent {
         key={player.guid}
         onClick={() => { this.timeout = setTimeout(function(){ handleClick(); }, 200); }}
         onDoubleClick={() => { clearTimeout(this.timeout); history.push(analysisUrl); }}
-        className={`player${selectedPlayer && selectedPlayer.guid === player.guid ? ' selected' : ''}`}
+        className={`player${(selectedPlayer && selectedPlayer.guid === player.guid) ? ' selected' : ''}`}
       >
         <div className="card">
             <div className="avatar" style={{ backgroundImage: `url(${player.avatar})` }}>
@@ -32,7 +32,7 @@ class PlayerTile extends React.PureComponent {
             </div>
           <div className="about">
             <h1 className={player.spec.className.replace(' ', '')}>{player.name}</h1>
-            <small>{`${player.spec.specName} ${player.spec.className}`}</small>
+            <small>{player.spec.specName} {player.spec.className}</small>
           </div>
         </div>
       </span>

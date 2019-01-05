@@ -70,17 +70,15 @@ class PlayerSelection extends React.PureComponent {
     return (
       <div className={`player-selection-container${this.state.selectedPlayer ? ' show-info' : ''}`}>
         <div className="player-selection">
-          {players.sort(sortPlayers).map(player => {
-            return (
-              <PlayerTile
-                key={player.guid} 
-                player={player}
-                selectedPlayer={this.state.selectedPlayer}
-                analysisUrl={player.analysisUrl}
-                handleClick={() => this.handlePlayerClick(player)}
-              />
-            );            
-          })}
+          {players.sort(sortPlayers).map(player => (
+            <PlayerTile
+              key={player.guid} 
+              player={player}
+              selectedPlayer={this.state.selectedPlayer}
+              analysisUrl={player.analysisUrl}
+              handleClick={() => this.handlePlayerClick(player)}
+            />
+          ))}
         </div>
         <div className="player-info">
           {

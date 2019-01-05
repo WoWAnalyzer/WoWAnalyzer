@@ -70,7 +70,7 @@ class PlayerInfo extends React.PureComponent {
 }
 
 function _parseTalents(talents) {
-  return talents.reduce((talentsByRow, { id }) => talentsByRow.concat(id), [])
+  return talents.reduce((talentsByRow, { id }) => talentsByRow.concat(id), []);
 }
 
 function _parseTraits(traits) {
