@@ -154,6 +154,10 @@ export default class MitigationSheet extends Analyzer {
     this.addEventListener(Events.fightend, this._finalizeStats);
   }
 
+  get bonusCritRatio() {
+    return 1 - this.stats.baseCritPercentage / this.stats.currentCritPercentage;
+  }
+
   _onCritHeal(event) {
     if(event.hitType !== HIT_TYPES.CRIT || event.ability.guid === SPELLS.CELESTIAL_FORTUNE_HEAL.id) {
       return;
@@ -161,7 +165,7 @@ export default class MitigationSheet extends Analyzer {
 
     // counting absorbed healing because we live in a Vectis world
     const totalHeal = event.amount + (event.overheal || 0) + (event.absorbed || 0);
-    this._critBonusHealing += Math.max(totalHeal / 2 - (event.overheal || 0), 0); // remove overhealing from the bonus healing
+    this._critBonusHealing += Math.max(totalHeal / 2 - (event.overheal || 0), 0) * this.bonusCritRatio; // remove overhealing from the bonus healing
   }
 
   _onHealVers(event) {
@@ -326,7 +330,7 @@ export default class MitigationSheet extends Analyzer {
         className: getClassNameColor(STAT.CRITICAL_STRIKE),
         avg: this._avgStats.crit,
         gain: [
-          { name: <><SpellLink id={SPELLS.CELESTIAL_FORTUNE_HEAL.id} /> Healing</>, amount: this.cf.totalHealing },
+          { name: <><SpellLink id={SPELLS.CELESTIAL_FORTUNE_HEAL.id} /> Healing</>, amount: this.cf.critBonusHealing },
           { name: 'Critical Heals', amount: this._critBonusHealing },
         ],
         increment: this.increment(calculateSecondaryStatDefault, this.stats.startingCritRating),

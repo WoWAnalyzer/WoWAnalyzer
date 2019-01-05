@@ -31,6 +31,7 @@ class CelestialFortune extends Analyzer {
     combatants: Combatants,
   };
 
+  critBonusHealing = 0;
   _totalHealing = 0;
   _overhealing = 0;
   _healingByEntityBySpell = {
@@ -52,11 +53,18 @@ class CelestialFortune extends Analyzer {
     return this._totalHealing;
   }
 
+  get bonusCritRatio() {
+    return 1 - this.stats.baseCritPercentage / this.stats.currentCritPercentage;
+  }
+
   on_toPlayer_heal(event) {
     this._lastMaxHp = event.maxHitPoints ? event.maxHitPoints : this._lastMaxHp;
     if(event.ability.guid === SPELLS.CELESTIAL_FORTUNE_HEAL.id) {
-      this._totalHealing += event.amount;
-      this._overhealing += event.overheal || 0;
+      const amount = event.amount + (event.absorbed || 0);
+      const overheal = event.overheal || 0;
+      this._totalHealing += amount;
+      this.critBonusHealing += Math.max(0, amount * this.bonusCritRatio);
+      this._overhealing += overheal;
       this._queueHealing(event);
       return;
     } else {
@@ -123,6 +131,7 @@ class CelestialFortune extends Analyzer {
     this._healingByEntityBySpell[sourceId][spellId].amount += amount;
     this._healingByEntityBySpell[sourceId]._totalHealing += amount;
     this._totalHealing += amount;
+    this.critBonusHealing += amount * this.bonusCritRatio;
   }
 
   statistic() {
