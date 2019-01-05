@@ -2,12 +2,11 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-
+import Tooltip from 'common/Tooltip';
 import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
-import AbilityTracker from './PaladinAbilityTracker';
-import Tooltip from 'common/Tooltip';
+import AbilityTracker from './core/PaladinAbilityTracker';
 
 /** @type {number} (ms) When Holy Shock has less than this as cooldown remaining you should wait and still not cast that filler FoL. */
 const HOLY_SHOCK_COOLDOWN_WAIT_TIME = 200;

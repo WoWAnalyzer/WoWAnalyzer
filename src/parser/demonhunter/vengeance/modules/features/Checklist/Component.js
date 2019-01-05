@@ -58,8 +58,14 @@ class VengeanceDemonHunterChecklist extends React.PureComponent {
             </>
           )}
         >
-          {/* As I can't track the cast efficiency with Feed the Demon talent equipped, I'm disabling the checklist item */}
-          {!combatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id) && <AbilityRequirement spell={SPELLS.DEMON_SPIKES.id} />}
+          <Requirement
+            name={(
+              <>
+              <SpellLink id={SPELLS.DEMON_SPIKES.id} />
+              </>
+            )}
+            thresholds={thresholds.demonSpikes}
+          />
           {combatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id) && !combatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id) &&(
             <Requirement
               name={(

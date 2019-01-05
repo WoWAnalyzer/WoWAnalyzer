@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2018-12-30'),
+    changes: <>Added <SpellLink id={SPELLS.STRAIGHT_NO_CHASER.id} /> module.</>,
+    contributors: [emallson],
+  },
+  {
     date: new Date('2018-12-29'),
     changes: <>Added <SpellLink id={SPELLS.GIFT_OF_THE_OX_1.id} /> healing statistic.</>,
     contributors: [emallson],

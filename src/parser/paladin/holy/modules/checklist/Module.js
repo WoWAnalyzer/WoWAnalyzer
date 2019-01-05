@@ -8,10 +8,10 @@ import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/Pr
 
 import MasteryEffectiveness from '../MasteryEffectiveness';
 import AlwaysBeCasting from '../AlwaysBeCasting';
-import DirectBeaconHealing from '../../beacons/DirectBeaconHealing';
-import FillerLightOfTheMartyrs from '../../core/FillerLightOfTheMartyrs';
-import FillerFlashOfLight from '../../core/FillerFlashOfLight';
-import Overhealing from '../../core/Overhealing';
+import DirectBeaconHealing from '../beacons/DirectBeaconHealing';
+import FillerLightOfTheMartyrs from '../FillerLightOfTheMartyrs';
+import FillerFlashOfLight from '../FillerFlashOfLight';
+import Overhealing from '../Overhealing';
 
 import Component from './Component';
 

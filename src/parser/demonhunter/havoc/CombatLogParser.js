@@ -19,11 +19,7 @@ import FuryDetails from './modules/resourcetracker/FuryDetails';
 import FuryTracker from './modules/resourcetracker/FuryTracker';
 
 //Items
-import DelusionsOfGrandeur from './modules/items/DelusionsOfGrandeur';
-import RaddonsCascadingEyes from './modules/items/RaddonsCascadingEyes';
-import MoargBionicStabilizers from './modules/items/MoargBionicStabilizers';
 import SoulOfTheSlayer from '../shared/modules/items/SoulOfTheSlayer';
-import AngerOfTheHalfGiants from './modules/items/AngerOfTheHalfGiants';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -49,11 +45,7 @@ class CombatLogParser extends CoreCombatLogParser {
     furyDetails: FuryDetails,
 
     //Items
-    delusionsOfGrandeur: DelusionsOfGrandeur,
-    raddonsCascadingEyes: RaddonsCascadingEyes,
-    moargBionicStabilizers: MoargBionicStabilizers,
     soulOfTheSlayer: SoulOfTheSlayer,
-    angerOfTheHalfGiants: AngerOfTheHalfGiants,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],

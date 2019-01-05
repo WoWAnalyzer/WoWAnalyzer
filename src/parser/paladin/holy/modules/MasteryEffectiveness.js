@@ -13,8 +13,8 @@ import Statistic from 'interface/statistics/Statistic';
 import Radar from 'interface/statistics/components/DistanceRadar';
 import PlayerBreakdownTab from 'interface/others/PlayerBreakdownTab';
 
-import BeaconTargets from '../beacons/BeaconTargets';
-import { ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
+import BeaconTargets from './beacons/BeaconTargets';
+import { ABILITIES_AFFECTED_BY_MASTERY } from '../constants';
 
 const debug = false;
 
