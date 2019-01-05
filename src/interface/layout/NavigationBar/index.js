@@ -5,10 +5,12 @@ import { Link } from 'react-router-dom';
 import { Trans, t } from '@lingui/macro';
 
 import getFightName from 'common/getFightName';
+import Tooltip from 'common/Tooltip';
 import PatreonIcon from 'interface/icons/PatreonTiny';
 import DiscordIcon from 'interface/icons/DiscordTiny';
 import GitHubIcon from 'interface/icons/GitHubMarkSmall';
 import PremiumIcon from 'interface/icons/Premium';
+import Logo from 'interface/images/logo.svg';
 import { i18n } from 'interface/RootLocalizationProvider';
 import { getFightId, getPlayerName, getReportCode } from 'interface/selectors/url/report';
 import { getReport } from 'interface/selectors/report';
@@ -21,7 +23,6 @@ import Modal from 'interface/modals/Modal';
 
 import LoadingBar from './LoadingBar';
 import './NavigationBar.scss';
-import Tooltip from 'common/Tooltip';
 
 class NavigationBar extends React.PureComponent {
   static propTypes = {
@@ -66,7 +67,7 @@ class NavigationBar extends React.PureComponent {
         <div className="container">
           <div className="menu-item logo required">
             <Link to={makeAnalyzerUrl()}>
-              <img src="/favicon.png" alt="WoWAnalyzer logo" />
+              <img src={Logo} alt="WoWAnalyzer logo" />
             </Link>
           </div>
           {report && (

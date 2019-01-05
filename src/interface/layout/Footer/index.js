@@ -3,6 +3,7 @@ import React from 'react';
 import DiscordLogo from 'interface/icons/DiscordTiny';
 import GithubLogo from 'interface/icons/GitHubMarkSmall';
 import PatreonIcon from 'interface/icons/PatreonTiny';
+import Logo from 'interface/images/logo.svg';
 import Tooltip from 'common/Tooltip';
 
 import './style.css';
@@ -13,7 +14,7 @@ class Footer extends React.PureComponent {
       <footer>
         <div className="container text-center">
           <a href="/">
-            <img src="/favicon.png" alt="Logo" className="wowanalyzer-logo" />
+            <img src={Logo} alt="Logo" className="wowanalyzer-logo" />
           </a>
 
           <h1>
