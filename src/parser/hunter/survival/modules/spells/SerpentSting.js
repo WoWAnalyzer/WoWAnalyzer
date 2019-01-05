@@ -128,11 +128,14 @@ class SerpentSting extends Analyzer {
   }
 
   get averageTimeBetweenRefresh() {
-    return (this.accumulatedTimeBetweenRefresh / this.timesRefreshed / 1000).toFixed(2);
+    const avgTime = (this.accumulatedTimeBetweenRefresh / this.timesRefreshed) || 0;
+    return (avgTime / 1000).toFixed(2);
   }
+
   get averagePercentRemainingOnRefresh() {
-    return (this.accumulatedPercentRemainingOnRefresh / this.timesRefreshed).toFixed(4);
+    return ((this.accumulatedPercentRemainingOnRefresh / this.timesRefreshed) || 0).toFixed(4);
   }
+
   get uptimePercentage() {
     return this.enemies.getBuffUptime(SPELLS.SERPENT_STING_SV.id) / this.owner.fightDuration;
   }
@@ -206,7 +209,17 @@ class SerpentSting extends Analyzer {
         icon={<SpellIcon id={SPELLS.SERPENT_STING_SV.id} />}
         value={`${formatPercentage(this.uptimePercentage)}%`}
         label="Serpent Sting uptime"
-        tooltip={`<ul><li>You cast Serpent Sting a total of ${this.casts} times. </li> <li>You refreshed the debuff ${this.timesRefreshed} times. </li> <ul><li> When you did refresh (without Viper's Venom up), it happened on average with ${formatPercentage(this.averagePercentRemainingOnRefresh)}% or ${this.averageTimeBetweenRefresh} seconds remaining on the debuff.</li><li>You had ${this.badRefresh} bad refreshes. This means refreshes with more than ${formatPercentage(SERPENT_STING_SV_PANDEMIC)}% of the current debuff remaining and no Viper's Venom buff active.</li></ul><li>Serpent Sting dealt a total of ${formatNumber(this.bonusDamage / this.owner.fightDuration * 1000)} DPS or ${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDamage))}% of your total damage.</li></ul>`}
+        tooltip={(<>
+          <ul>
+            <li>You cast Serpent Sting a total of {this.casts} times. </li>
+            <li>You refreshed the debuff {this.timesRefreshed} times. </li>
+            <ul>
+              <li>When you did refresh (without Viper's Venom up), it happened on average with {formatPercentage(this.averagePercentRemainingOnRefresh)}% or {this.averageTimeBetweenRefresh} seconds remaining on the debuff.</li>
+              <li>You had {this.badRefresh} bad refreshes. This means refreshes with more than {formatPercentage(SERPENT_STING_SV_PANDEMIC)}% of the current debuff remaining and no Viper's Venom buff active.</li>
+            </ul>
+            <li>Serpent Sting dealt a total of {formatNumber(this.bonusDamage / this.owner.fightDuration * 1000)} DPS or {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDamage))}% of your total damage.</li>
+          </ul>
+        </>)}
       />
     );
   }

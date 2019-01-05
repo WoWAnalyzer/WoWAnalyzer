@@ -1,8 +1,9 @@
 import React from 'react';
-import SPELLS from 'common/SPELLS/index';
-import ITEMS from 'common/ITEMS/index';
+import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import { formatDuration } from 'common/format';
 import { calculatePrimaryStat } from 'common/stats';
+import Tooltip from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
@@ -168,11 +169,14 @@ class BalefireBranch extends Analyzer {
     return {
       item: ITEMS.BALEFIRE_BRANCH,
       result: (
-        <dfn data-tip={`Activated <b>${this.applyCount}</b> time${this.applyCount === 1 ? '' : 's'} of a possible <b>${this.possibleUseCount}</b>.<br/>
-          The buff was active for <b>${formatDuration(this.totalUptime / 1000)}</b>.<br/>
-          Average intellect reduced by <b>${(expectedIntellectWithoutDamage - this.averageIntellect).toFixed(1)}</b> due to damage taken while the buff was active.`}>
-          {this.averageIntellect.toFixed(1)} average intellect
-        </dfn>
+        <Tooltip content={(<>
+          Activated <strong>{this.applyCount}</strong> time{this.applyCount === 1 ? '' : 's'} of a possible <strong>{this.possibleUseCount}</strong>. <br />
+          The buff was active for <strong>{formatDuration(this.totalUptime / 1000)}</strong>. <br />
+          Average Intellect reduced by <strong>{(expectedIntellectWithoutDamage - this.averageIntellect).toFixed(1)}</strong> due to damage taken while the buff was active.
+        </>)}
+        >
+          {this.averageIntellect.toFixed(1)} average Intellect
+        </Tooltip>
       ),
     };
   }

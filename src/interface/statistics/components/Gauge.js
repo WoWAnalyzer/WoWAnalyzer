@@ -51,7 +51,7 @@ const Gauge = ({ value }) => (
         </svg>
       </div>
 
-      <div style={{ marginTop: -18, fontSize: '1.25em' }}>
+      <div className="value" style={{ marginTop: -18, fontSize: '1.25em' }}>
         {formatPercentage(value, 0)}%
       </div>
     </div>

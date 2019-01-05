@@ -14,7 +14,7 @@ const unstableCatalystStats = traits => Object.values(traits).reduce((total, ran
 
 /**
  * Unstable Catalyst:
- * Your spells and abilities have a chance to leak Azerite on the ground around you. 
+ * Your spells and abilities have a chance to leak Azerite on the ground around you.
  * Standing in the Azerite increases your primary stat by 177 for 8 sec.
  */
 class UnstableCatalyst extends Analyzer {
@@ -54,10 +54,10 @@ class UnstableCatalyst extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.UNSTABLE_CATALYST.id}
         value={`${this.averageStat} average ${this.selectedCombatant.spec.primaryStat}`}
-        tooltip={`
-          ${SPELLS.UNSTABLE_CATALYST.name} grants <b>${this.stat} ${this.selectedCombatant.spec.primaryStat}</b> while active.<br/>
-          You had an uptime of ${formatPercentage(this.uptime)}%.
-        `}
+        tooltip={(<>
+          {SPELLS.UNSTABLE_CATALYST.name} grants <strong>{this.stat} {this.selectedCombatant.spec.primaryStat}</strong> while active.<br />
+          You had an uptime of {formatPercentage(this.uptime)}%.
+        </>)}
       />
     );
   }

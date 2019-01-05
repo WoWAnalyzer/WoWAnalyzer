@@ -82,12 +82,12 @@ class Bloodworms extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(6)}
         value={this.owner.formatItemHealingDone(this.totalHealing)}
         label="Bloodworm Stats"
-        tooltip={`<strong>Damage:</strong> ${formatThousands(this.totalDamage)} / ${this.owner.formatItemDamageDone(this.totalDamage)}<br>
-        <strong>Number of worms summoned:</strong> ${this.totalSummons}<br>
-        <strong>Number of worms popped early:</strong> ${this.poppedWorms(this.bloodworm)}
-        `}
+        tooltip={(<>
+          <strong>Damage:</strong> {formatThousands(this.totalDamage)} / {this.owner.formatItemDamageDone(this.totalDamage)}<br />
+          <strong>Number of worms summoned:</strong> {this.totalSummons}<br />
+          <strong>Number of worms popped early:</strong> {this.poppedWorms(this.bloodworm)}
+        </>)}
       />
-
     );
   }
 }

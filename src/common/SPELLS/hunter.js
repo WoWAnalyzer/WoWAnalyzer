@@ -290,6 +290,11 @@ export default {
     name: 'Harpoon',
     icon: 'ability_hunter_harpoon',
   },
+  TERMS_OF_ENGAGEMENT_BUFF: {
+    id: 265898,
+    name: 'Terms of Engagement',
+    icon: 'ability_hunter_harpoon',
+  },
   KILL_COMMAND_CAST_SV: {
     id: 259489,
     name: 'Kill Command',
@@ -445,6 +450,21 @@ export default {
     name: 'Chakrams',
     icon: 'ability_glaivetoss',
   },
+  BLOODSEEKER_BUFF: {
+    id: 260249,
+    name: 'Predator',
+    icon: 'ability_druid_primaltenacity',
+  },
+  FLANKING_STRIKE_PET: {
+    id: 259516,
+    name: 'Flanking Strike',
+    icon: 'ability_hunter_invigeration',
+  },
+  FLANKING_STRIKE_PLAYER: {
+    id: 269752,
+    name: 'Flanking Strike',
+    icon: 'ability_hunter_invigeration',
+  },
 
   //Shared BFA buffs/debuffs/misc
   POSTHASTE_BUFF: {
@@ -599,8 +619,13 @@ export default {
   },
 
   //BFA Pet abilities
-  PRIMAL_RAGE: {
+  PRIMAL_RAGE_1: {
     id: 264667,
+    name: 'Primal Rage',
+    icon: 'spell_shadow_unholyfrenzy',
+  },
+  PRIMAL_RAGE_2: {
+    id: 272678,
     name: 'Primal Rage',
     icon: 'spell_shadow_unholyfrenzy',
   },

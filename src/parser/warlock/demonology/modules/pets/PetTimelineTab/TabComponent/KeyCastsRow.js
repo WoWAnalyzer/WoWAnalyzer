@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import SpellIcon from 'common/SpellIcon';
+import Tooltip from 'common/Tooltip';
 
 class KeyCastsRow extends React.PureComponent {
   static propTypes = {
@@ -26,6 +27,7 @@ class KeyCastsRow extends React.PureComponent {
             if (event.nearbyCasts) {
               tooltipInfo.push(`This cast overlaps with following casts: ${event.nearbyCasts.join(', ')}.`);
             }
+            const hasTooltip = tooltipInfo.length > 0;
             return (
               <div
                 key={index}
@@ -35,11 +37,19 @@ class KeyCastsRow extends React.PureComponent {
                   zIndex: (event.important) ? 20 : 10,
                 }}
               >
-                <SpellIcon
-                  id={event.abilityId}
-                  className={event.important && 'enhanced'}
-                  data-tip={tooltipInfo.join('\n')}
-                />
+                {hasTooltip ? (
+                  <Tooltip content={tooltipInfo.join('\n')} tagName="div">
+                    <SpellIcon
+                      id={event.abilityId}
+                      className={event.important && 'enhanced'}
+                    />
+                  </Tooltip>
+                ) : (
+                  <SpellIcon
+                    id={event.abilityId}
+                    className={event.important && 'enhanced'}
+                  />
+                )}
               </div>
             );
           }

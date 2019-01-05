@@ -129,7 +129,7 @@ class RainOfFire extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.RAIN_OF_FIRE_CAST.id} />}
         value={this.averageTargetsHit.toFixed(2)}
-        label={'Average targets hit with Rain of Fire'}
+        label="Average targets hit with Rain of Fire"
         tooltip="There's a possibility of a mistake in assigning targets hit to individual casts, when there are multiple Rains of Fire overlapping."
       />
     );

@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { formatPercentage, formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
+import Tooltip from 'common/Tooltip';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import STAT, { getName, getClassNameColor, getIcon } from 'parser/shared/modules/features/STAT';
 
@@ -11,7 +12,7 @@ class Stats extends React.PureComponent {
   static propTypes = {
     statTracker: PropTypes.instanceOf(StatTracker).isRequired,
   };
-  
+
   getStatRating(stat) {
     const statTracker = this.props.statTracker;
     switch (stat) {
@@ -90,9 +91,9 @@ class Stats extends React.PureComponent {
         <div className="row">
           <div className="col-md-12">
             <h2>
-              <dfn data-tip="These stats include any <b>rating</b> buffs, such as flasks, potions and other buffs. Percentage buffs such as Bloodlust are <b>not</b> included.">
+              <Tooltip content={<>These stats include any <strong>rating</strong> buffs, such as flasks, potions and other buffs. Percentage buffs such as Bloodlust are <strong>not</strong> included.</>}>
                 Stats on pull
-              </dfn>
+              </Tooltip>
             </h2>
           </div>
         </div>

@@ -49,16 +49,18 @@ class ChaosShards extends Analyzer {
   }
 
   statistic() {
-    const chaosShards = this.soulShardTracker.buildersObj[SPELLS.CHAOS_SHARDS_BUFF_ENERGIZE.id];
-    const generated = chaosShards.generated || 0;
-    const wasted = chaosShards.wasted || 0;
+    const generated = this.soulShardTracker.getGeneratedBySpell(SPELLS.CHAOS_SHARDS_BUFF_ENERGIZE.id);
+    const wasted = this.soulShardTracker.getWastedBySpell(SPELLS.CHAOS_SHARDS_BUFF_ENERGIZE.id);
     return (
       <TraitStatisticBox
         trait={SPELLS.CHAOS_SHARDS.id}
         value={<ItemDamageDone amount={this.damage} approximate />}
-        tooltip={`Estimated bonus Incinerate damage: ${formatThousands(this.damage)}<br />
-                  You gained ${generated} Soul Shard Fragments and wasted ${wasted} Soul Shard Fragments with this trait.<br /><br />
-                  The damage is an approximation using current Intellect values at given time, but because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be a little incorrect.`}
+        tooltip={(<>
+          Estimated bonus Incinerate damage: {formatThousands(this.damage)}<br />
+          You gained {generated} Soul Shard Fragments and wasted {wasted} Soul Shard Fragments with this trait.<br /><br />
+
+          The damage is an approximation using current Intellect values at given time, but because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be a little incorrect.
+        </>)}
       />
     );
   }

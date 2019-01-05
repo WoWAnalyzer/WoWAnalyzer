@@ -146,7 +146,7 @@ class HuntersMark extends Analyzer {
   }
 
   get potentialPrecastConfirmation() {
-    return this.refunds + this.recasts > this.casts ? '<li>We\'ve detected a possible precast, and there might be a discrepancy in amount of total casts versus amount of refunds and casts whilst debuff was active on another target.</li>' : '';
+    return (this.refunds + this.recasts) > this.casts ? <li>We've detected a possible precast, and there might be a discrepancy in amount of total casts versus amount of refunds and casts whilst debuff was active on another target.</li> : '';
   }
 
   statistic() {
@@ -154,7 +154,14 @@ class HuntersMark extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.HUNTERS_MARK_TALENT.id}
         value={`${formatPercentage(this.uptimePercentage)}% uptime`}
-        tooltip={`<ul><li>You had a total of ${this.casts} casts of Hunter's Mark.</li><li>You cast Hunter's Mark ${this.recasts} times, whilst it was active on the target or another target.</li><li>You received up to ${this.refunds * FOCUS_PER_REFUND} focus from a total of ${this.refunds} refunds from targets with Hunter's Mark active dying.</li>${this.potentialPrecastConfirmation}</ul>`}
+        tooltip={(<>
+          <ul>
+            <li>You had a total of {this.casts} casts of Hunter's Mark.</li>
+            <li>You cast Hunter's Mark {this.recasts} times, whilst it was active on the target or another target.</li>
+            <li>You received up to {this.refunds * FOCUS_PER_REFUND} Focus from a total of {this.refunds} refunds from targets with Hunter's Mark active dying.</li>
+            {this.potentialPrecastConfirmation}
+          </ul>
+        </>)}
       />
     );
   }

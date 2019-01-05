@@ -55,7 +55,7 @@ import FoodChecker from '../shared/modules/items/FoodChecker';
 import Healthstone from '../shared/modules/items/Healthstone';
 import HealthPotion from '../shared/modules/items/HealthPotion';
 import CombatPotion from '../shared/modules/items/CombatPotion';
-import PreparationRuleAnalyzer from '../shared/modules/features/Checklist2/PreparationRuleAnalyzer';
+import PreparationRuleAnalyzer from '../shared/modules/features/Checklist/PreparationRuleAnalyzer';
 
 // Racials
 import ArcaneTorrent from '../shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -69,6 +69,7 @@ import VantusRune from '../shared/modules/spells/VantusRune';
 import GildedLoaFigurine from '../shared/modules/items/bfa/GildedLoaFigurine';
 import FirstMatesSpyglass from '../shared/modules/items/bfa/FirstMatesSpyglass';
 import SeaGiantsTidestone from '../shared/modules/items/bfa/SeaGiantsTidestone';
+import AncientKnotOfWisdom from '../shared/modules/items/bfa/AncientKnotOfWisdom';
 // Dungeons
 import MydasTalisman from '../shared/modules/items/bfa/dungeons/MydasTalisman';
 import RevitalizingVoodooTotem from '../shared/modules/items/bfa/dungeons/RevitalizingVoodooTotem';
@@ -215,6 +216,7 @@ class CombatLogParser {
     firstMatesSpyglass: FirstMatesSpyglass,
     seaGiantsTidestone: SeaGiantsTidestone,
     revitalizingVoodooTotem: RevitalizingVoodooTotem,
+    ancientKnotOfWisdom: AncientKnotOfWisdom,
     // Dungeons
     mydasTalisman: MydasTalisman,
     lingeringSporepods: LingeringSporepods,

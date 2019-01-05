@@ -3,9 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
 import { formatPercentage } from 'common/format';
-import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
 const MAX_STACKS = 5;
@@ -119,12 +117,16 @@ class MongooseBite extends Analyzer {
     return (
       <TalentStatisticBox
         talent={SPELLS.MONGOOSE_BITE_TALENT.id}
-        value={`${this.fiveStackMongooseBites}/${this.totalMongooseBites} 5 stack bites`}
-        tooltip={`
-        <ul>
-          <li>You hit an average of ${(this.mongooseBiteStacks[MAX_STACKS] / this.fiveBiteWindows).toFixed(1)} bites when you had ${MAX_STACKS} stacks of Mongoose Fury. </li>
-          <li>You hit an average of ${(this.totalMongooseBites / this.totalWindowsStarted).toFixed(1)} bites per Mongoose Fury window started.</li>
-        </ul>`}
+        value={<>
+          <ItemDamageDone amount={this.damage} /> <br />
+          {this.fiveStackMongooseBites}/{this.totalMongooseBites} 5 stack bites
+        </>}
+        tooltip={(<>
+          <ul>
+            <li>You hit an average of {(this.mongooseBiteStacks[MAX_STACKS] / this.fiveBiteWindows).toFixed(1)} bites when you had {MAX_STACKS} stacks of Mongoose Fury. </li>
+            <li>You hit an average of {(this.totalMongooseBites / this.totalWindowsStarted).toFixed(1)} bites per Mongoose Fury window started.</li>
+          </ul>
+        </>)}
       >
         <table className="table table-condensed">
           <thead>
@@ -145,15 +147,6 @@ class MongooseBite extends Analyzer {
           </tbody>
         </table>
       </TalentStatisticBox>
-    );
-  }
-
-  subStatistic() {
-    return (
-      <StatisticListBoxItem
-        title={<SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />}
-        value={<ItemDamageDone amount={this.damage} />}
-      />
     );
   }
 }

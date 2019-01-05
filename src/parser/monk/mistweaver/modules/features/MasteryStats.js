@@ -2,8 +2,10 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import { Doughnut as DoughnutChart } from 'react-chartjs-2';
+
 import SpellLink from 'common/SpellLink';
-import { formatPercentage } from 'common/format';
+import { formatPercentage, formatThousands } from 'common/format';
+import Tooltip from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 import EssenceFontMastery from 'parser/monk/mistweaver/modules/features/EssenceFontMastery';
@@ -33,12 +35,12 @@ class MasteryStats extends Analyzer {
             + (this.soothingMist.gustsHealing || 0)
             + (this.essenceFontMastery.healing || 0);
   }
-  
+
   legend(items, total) {
     const numItems = items.length;
     return items.map(({ color, label, tooltip, value, spellId }, index) => {
       label = tooltip ? (
-        <dfn data-tip={tooltip}>{label}</dfn>
+        <Tooltip content={tooltip}>{label}</Tooltip>
       ) : label;
       label = spellId ? (
         <SpellLink id={spellId}>{label}</SpellLink>
@@ -68,9 +70,9 @@ class MasteryStats extends Analyzer {
             {label}
           </div>
           <div className="flex-sub">
-            <dfn data-tip={value}>
+            <Tooltip content={formatThousands(value)}>
               {formatPercentage(value / total, 0)}%
-            </dfn>
+            </Tooltip>
           </div>
         </div>
       );

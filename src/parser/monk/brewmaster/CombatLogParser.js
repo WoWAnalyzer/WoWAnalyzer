@@ -10,6 +10,7 @@ import StaggerFabricator from './modules/core/StaggerFabricator';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import Channeling from './modules/core/Channeling';
 import MasteryValue from './modules/core/MasteryValue';
+import SpellUsable from './modules/core/SpellUsable';
 // Spells
 import IronSkinBrew from './modules/spells/IronSkinBrew';
 import PurifyingBrew from './modules/spells/PurifyingBrew';
@@ -22,11 +23,13 @@ import BlackOxBrew from './modules/spells/BlackOxBrew';
 import HighTolerance from './modules/spells/HighTolerance';
 import Guard from './modules/spells/Guard';
 import CelestialFortune from './modules/spells/CelestialFortune';
+import GiftOfTheOxStat from './modules/spells/GiftOfTheOx';
 // Azerite Traits
 import TrainingOfNiuzao from './modules/spells/azeritetraits/TrainingOfNiuzao';
 import StaggeringStrikes from './modules/spells/azeritetraits/StaggeringStrikes';
 import ElusiveFootwork from './modules/spells/azeritetraits/ElusiveFootwork';
 import FitToBurst from './modules/spells/azeritetraits/FitToBurst';
+import StraightNoChaser from './modules/spells/azeritetraits/StraightNoChaser';
 // Features
 import Checklist from './modules/features/checklist/Module';
 import Abilities from './modules/Abilities';
@@ -38,6 +41,7 @@ import MitigationCheck from './modules/features/MitigationCheck';
 // normalizers
 import IronskinBrewNormalizer from './normalizers/IronskinBrew';
 import GiftOfTheOx from './normalizers/GiftOfTheOx';
+import ExpelHarmNorm from './normalizers/ExpelHarm';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -53,6 +57,7 @@ class CombatLogParser extends CoreCombatLogParser {
     globalCooldown: GlobalCooldown,
     masteryValue: MasteryValue,
     mitigationCheck: MitigationCheck,
+    spellUsable: SpellUsable,
 
     // Features
     checklist: Checklist,
@@ -72,18 +77,21 @@ class CombatLogParser extends CoreCombatLogParser {
     highTolerance: HighTolerance,
     guard: Guard,
     cf: CelestialFortune,
+    gotox: GiftOfTheOxStat,
 
     // Azerite Traits
     trainingOfNiuzao: TrainingOfNiuzao,
     staggeringStrikes: StaggeringStrikes,
     elusiveFootwork: ElusiveFootwork,
     fitToBurst: FitToBurst,
+    snc: StraightNoChaser,
 
     // Items
 
     // normalizers
     isbNormalizer: IronskinBrewNormalizer,
-    gotox: GiftOfTheOx,
+    gotoxNorm: GiftOfTheOx,
+    ehNorm: ExpelHarmNorm,
   };
 }
 

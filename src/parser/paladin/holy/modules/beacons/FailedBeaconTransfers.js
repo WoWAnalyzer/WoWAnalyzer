@@ -32,7 +32,7 @@ class FailedBeaconTransfers extends Analyzer {
         icon={<SpellIcon id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id} />}
         value={<span style={{ fontSize: '75%' }}>Up to {this.owner.formatItemHealingDone(this.lostBeaconHealing)}</span>}
         label="Beacon healing lost (line of sight)"
-        tooltip={'The amount of <b>raw</b> healing that didn\'t transfer to one or more beacon targets due to an issue such as Line of Sight or phasing.'}
+        tooltip={<>The amount of <strong>raw</strong> healing that didn't transfer to one or more beacon targets due to an issue such as Line of Sight or phasing.</>}
       />
     );
   }

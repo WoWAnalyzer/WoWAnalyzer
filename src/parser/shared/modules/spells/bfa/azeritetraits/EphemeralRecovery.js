@@ -6,7 +6,7 @@ import ItemManaGained from 'interface/others/ItemManaGained';
 
 /**
  Casting a healing spell restores 12 mana over 8 sec. Stacks up to 2 times.
- 
+
  Example Log: /report/qyzBLkQaXDJ7xdZN/5-Mythic+Taloc+-+Kill+(4:12)/23-포오서
  */
 class EphemeralRecovery extends Analyzer {
@@ -34,9 +34,7 @@ class EphemeralRecovery extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.EPHEMERAL_RECOVERY.id}
         value={<ItemManaGained amount={this.manaGained} />}
-        tooltip={`
-          Total procs: ${this.procs}
-        `}
+        tooltip={`Total procs: ${this.procs}`}
       />
     );
   }

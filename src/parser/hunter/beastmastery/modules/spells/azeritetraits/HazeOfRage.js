@@ -55,7 +55,7 @@ class HazeOfRage extends Analyzer{
             {formatPercentage(this.uptime)}% Uptime
           </>
         )}
-        tooltip={`Haze of Rage granted <b>${this.agility}</b> agility for <b>${formatPercentage(this.uptime)}%</b> of the fight.`}
+        tooltip={<>Haze of Rage granted <strong>{this.agility}</strong> Agility for <strong>{formatPercentage(this.uptime)}%</strong> of the fight.</>}
       />
     );
   }

@@ -10,6 +10,8 @@ import Analyzer from 'parser/core/Analyzer';
 import StatisticsListBox from 'interface/others/StatisticsListBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import StatisticWrapper from 'interface/others/StatisticWrapper';
+import { RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
+import Tooltip from 'common/Tooltip';
 
 const CHART_SIZE = 100;
 
@@ -35,7 +37,6 @@ const LIST_OF_FOCUS_SPENDERS = [
   SPELLS.EXPLOSIVE_SHOT_TALENT.id,
   //sv specific
   SPELLS.RAPTOR_STRIKE.id,
-  SPELLS.KILL_COMMAND_CAST_SV.id,
   SPELLS.BUTCHERY_TALENT.id,
   SPELLS.CARVE.id,
   SPELLS.MONGOOSE_BITE_TALENT.id,
@@ -125,12 +126,6 @@ class FocusUsage extends Analyzer {
       name: SPELLS.RAPTOR_STRIKE.name,
       color: '#4ce4ec',
     },
-    [SPELLS.KILL_COMMAND_CAST_SV.id]: {
-      casts: 0,
-      focusUsed: 0,
-      name: SPELLS.KILL_COMMAND_CAST_SV.name,
-      color: '#2a74ec',
-    },
     [SPELLS.BUTCHERY_TALENT.id]: {
       casts: 0,
       focusUsed: 0,
@@ -193,7 +188,7 @@ class FocusUsage extends Analyzer {
     const numItems = items.length;
     return items.map(({ color, label, tooltip, value, casts, spellId }, index) => {
       label = tooltip ? (
-        <dfn data-tip={tooltip}>{label}</dfn>
+        <Tooltip content={tooltip}>{label}</Tooltip>
       ) : label;
       label = spellId ? (
         <SpellLink id={spellId}>{label}</SpellLink>
@@ -223,9 +218,9 @@ class FocusUsage extends Analyzer {
             {label}
           </div>
           <div className="flex-sub">
-            <dfn data-tip={`${casts} casts <br/> ${value} focus used`}>
+            <Tooltip content={<>{casts} casts <br /> {value} Focus used</>}>
               {formatPercentage(value / total, 1)}%
-            </dfn>
+            </Tooltip>
           </div>
         </div>
       );
@@ -261,14 +256,22 @@ class FocusUsage extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (LIST_OF_FOCUS_SPENDERS.every(id => spellId !== id)) {
+    let spellId = event.ability.guid;
+    if (!LIST_OF_FOCUS_SPENDERS.includes(spellId) && !RAPTOR_MONGOOSE_VARIANTS.includes(spellId)) {
       return;
     }
     //shouldn't really happen unless something messed up in the log where the cast event doesn't have any class resource information so we skip those.
     if (!event.classResources) {
       return;
     }
+
+    //Aspect of the Eagle changes the spellID of the spells, so we readjust to the original versions of the spell for the purpose of the chart
+    if (spellId === SPELLS.MONGOOSE_BITE_TALENT_AOTE.id) {
+      spellId = SPELLS.MONGOOSE_BITE_TALENT.id;
+    } else if (spellId === SPELLS.RAPTOR_STRIKE_AOTE.id) {
+      spellId = SPELLS.RAPTOR_STRIKE.id;
+    }
+
     this.focusSpenderCasts[spellId].casts += 1;
     this.focusSpenderCasts[spellId].focusUsed += event.classResources[0].cost || 0;
   }

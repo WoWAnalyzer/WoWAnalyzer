@@ -27,31 +27,46 @@ class DemonSpikes extends Analyzer {
     }
     if (this.selectedCombatant.hasBuff(SPELLS.DEMON_SPIKES_BUFF.id, event.timestamp)) {
       this.hitsWithDS += 1;
-    }else{
+    } else {
       this.hitsWithoutDS += 1;
 
       const isAvailable = this.spellUsable.isAvailable(SPELLS.DEMON_SPIKES.id);
-      if(isAvailable) {
+      if (isAvailable) {
         this.hitsWithDSOffCD += 1;
       }
     }
   }
 
-  get mitigatedUptime(){
+  get mitigatedUptime() {
     return formatPercentage(this.hitsWithDS / (this.hitsWithDS + this.hitsWithoutDS));
   }
 
+  get hitsWithDSOffCDPercent(){
+    return this.hitsWithDSOffCD / (this.hitsWithDS+ this.hitsWithoutDS);
+  }
+
+  get suggestionThresholdsEfficiency() {
+    return {
+      actual: this.hitsWithDSOffCDPercent,
+      isGreaterThan: {
+        minor: 0.20,
+        average: 0.30,
+        major: 0.40,
+      },
+      style: 'percentage',
+    };
+  }
+
   suggestions(when) {
-    const hitsWithDSOffCDPercent = this.hitsWithDSOffCD / (this.hitsWithDS+ this.hitsWithoutDS);
-    when(hitsWithDSOffCDPercent).isGreaterThan(0.15)
+    when(this.suggestionThresholdsEfficiency)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<> Cast <SpellLink id={SPELLS.DEMON_SPIKES.id} /> more regularly while actively tanking the boss or when they use a big phsyical attack. You missed having it up for {formatPercentage(hitsWithDSOffCDPercent)}% of physical hits.</>)
+        return suggest(<> Cast <SpellLink id={SPELLS.DEMON_SPIKES.id} /> more regularly while actively tanking the boss or when they use a big phsyical attack. You missed having it up for {formatPercentage(this.hitsWithDSOffCDPercent)}% of physical hits.</>)
           .icon(SPELLS.DEMON_SPIKES.icon)
           .actual(`${formatPercentage(actual)}% unmitigated physical hits`)
-          .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
-          .regular(recommended - 0.1).major(recommended - 0.2);
+          .recommended(`<${formatPercentage(recommended)}% is recommended`);
       });
   }
+
 
   statistic() {
     const demonSpikesUptime = this.selectedCombatant.getBuffUptime(SPELLS.DEMON_SPIKES_BUFF.id);
@@ -64,13 +79,15 @@ class DemonSpikes extends Analyzer {
         icon={<SpellIcon id={SPELLS.DEMON_SPIKES.id} />}
         value={`${this.mitigatedUptime}%`}
         label="Hits mitigated by Demon Spikes"
-        tooltip={`Demon Spikes usage breakdown:
+        tooltip={(<>
+          Demon Spikes usage breakdown:
           <ul>
-          <li>You were hit <b>${this.hitsWithDS}</b> times with your Demon Spikes buff.</li>
-          <li>You were hit <b>${this.hitsWithoutDS}</b> times <b><i>without</i></b> your Demon Spikes buff.</li>
-          <li>You were hit <b>${this.hitsWithDSOffCD}</b> times <b><i>with</i></b> Demon Spikes avalible for use but not used.</li>
+            <li>You were hit <strong>{this.hitsWithDS}</strong> times with your Demon Spikes buff.</li>
+            <li>You were hit <strong>{this.hitsWithoutDS}</strong> times <strong><em>without</em></strong> your Demon Spikes buff.</li>
+            <li>You were hit <strong>{this.hitsWithDSOffCD}</strong> times <strong><em>with</em></strong> Demon Spikes avalible for use but not used.</li>
           </ul>
-          <b>Your overall uptime was <b>${formatPercentage(demonSpikesUptimePercentage)}%</b>.`}
+          <b>Your overall uptime was {formatPercentage(demonSpikesUptimePercentage)}%</b>.
+        </>)}
       />
     );
   }

@@ -35,7 +35,7 @@ class RighteousVerdict extends Analyzer {
       return;
     }
     if (spellId === SPELLS.TEMPLARS_VERDICT_DAMAGE.id) {
-      this.spendersInsideBuff++; 
+      this.spendersInsideBuff++;
       this.damageDone += calculateEffectiveDamage(event, RIGHTEOUS_VERDICT_MODIFIER);
     }
   }
@@ -68,10 +68,11 @@ class RighteousVerdict extends Analyzer {
         icon={<SpellIcon id={SPELLS.RIGHTEOUS_VERDICT_TALENT.id} />}
         value={formatNumber(this.damageDone)}
         label="Damage Done"
-        tooltip={`
-           The effective damage contributed by Righteous Verdict.<br/>
-           Total Damage: ${formatNumber(this.damageDone)} (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damageDone))} %)<br/>
-           Buffed Casts: ${formatNumber(this.spendersInsideBuff)} (${formatPercentage(this.spendersInsideBuff / this.totalSpenders)}%)`}
+        tooltip={(<>
+          The effective damage contributed by Righteous Verdict.<br />
+          Total Damage: {formatNumber(this.damageDone)} ({formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damageDone))} %)<br />
+          Buffed Casts: {formatNumber(this.spendersInsideBuff)} ({formatPercentage(this.spendersInsideBuff / this.totalSpenders)}%)
+        </>)}
       />
     );
   }

@@ -90,8 +90,10 @@ class BoomingVoice extends Analyzer {
         icon={<SpellIcon id={SPELLS.BOOMING_VOICE_TALENT.id} />}
         value={`${this.rageGenerated}`}
         label="Rage generated"
-        tooltip={`${formatNumber(this.bonusDmg)} damage contributed<br/>${this.rageWasted} Rage wasted
-        `}
+        tooltip={(<>
+          {formatNumber(this.bonusDmg)} damage contributed<br />
+          {this.rageWasted} Rage wasted
+        </>)}
       />
     );
   }

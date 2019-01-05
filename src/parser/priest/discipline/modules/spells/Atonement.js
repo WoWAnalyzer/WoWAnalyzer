@@ -2,6 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
+import Tooltip from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -67,7 +68,7 @@ class Atonement extends Analyzer {
     const atonement = {
       target: event.targetID,
       lastAtonementAppliedTimestamp: event.timestamp,
-      atonementExpirationTimestamp: event.timestamp + this.atonementDuration * 1000,
+      atonementExpirationTimestamp: event.timestamp + this.atonementDuration,
     };
 
     this.currentAtonementTargets = this.currentAtonementTargets.filter(id => id.target !== atonement.target);
@@ -97,7 +98,7 @@ class Atonement extends Analyzer {
       debug && console.warn('Atonement: was applied prior to combat');
     }
     const timeSinceApplication = event.timestamp - refreshedTarget.lastAtonementAppliedTimestamp;
-    if (timeSinceApplication < ((this.atonementDuration * 1000) - IMPROPER_REFRESH_TIME)) {
+    if (timeSinceApplication < ((this.atonementDuration) - IMPROPER_REFRESH_TIME)) {
       this.improperAtonementRefreshes.push(refreshedTarget);
       debug && console.log(`%c${this.combatants.players[event.targetID].name} refreshed an atonement too early %c${timeSinceApplication}`, 'color:red', this.currentAtonementTargets);
       this.eventEmitter.fabricateEvent({
@@ -112,7 +113,7 @@ class Atonement extends Analyzer {
       target: event.targetID,
       lastAtonementAppliedTimestamp: event.timestamp,
       // Refreshing an Atonement will never reduce its duration
-      atonementExpirationTimestamp: Math.max(refreshedTarget.atonementExpirationTimestamp, event.timestamp + this.atonementDuration * 1000),
+      atonementExpirationTimestamp: Math.max(refreshedTarget.atonementExpirationTimestamp, event.timestamp + this.atonementDuration),
     };
     this.currentAtonementTargets = this.currentAtonementTargets.filter(item => item.target !== atonement.target);
     this.currentAtonementTargets.push(atonement);
@@ -165,9 +166,9 @@ class Atonement extends Analyzer {
         icon={<SpellIcon id={SPELLS.ATONEMENT_HEAL_NON_CRIT.id} />}
         value={improperLength}
         label={(
-          <dfn data-tip={`The amount of Atonement instances that were refreshed earlier than within 3 seconds of the buff expiring. You applied Atonement ${totalAtones} times in total, ${totalAtonementRefreshes} (${formatPercentage((totalAtonementRefreshes / totalAtones), 2)}%) of them were refreshes of existing Atonement instances, and ${improperLength} (${formatPercentage((improperLength / totalAtones), 2)}%) of them were considered early.`}>
+          <Tooltip content={`The amount of Atonement instances that were refreshed earlier than within 3 seconds of the buff expiring. You applied Atonement ${totalAtones} times in total, ${totalAtonementRefreshes} (${formatPercentage((totalAtonementRefreshes / totalAtones), 2)}%) of them were refreshes of existing Atonement instances, and ${improperLength} (${formatPercentage((improperLength / totalAtones), 2)}%) of them were considered early.`}>
             Early Atonement refreshes
-          </dfn>
+          </Tooltip>
         )}
       />
     );

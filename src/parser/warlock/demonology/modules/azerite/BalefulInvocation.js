@@ -56,16 +56,18 @@ class BalefulInvocation extends Analyzer {
   }
 
   statistic() {
-    const baleful = this.soulShardTracker.buildersObj[SPELLS.BALEFUL_INVOCATION_ENERGIZE.id];
-    const generated = baleful.generated || 0;
-    const wasted = baleful.wasted || 0;
+    const generated = this.soulShardTracker.getGeneratedBySpell(SPELLS.BALEFUL_INVOCATION_ENERGIZE.id);
+    const wasted = this.soulShardTracker.getWastedBySpell(SPELLS.BALEFUL_INVOCATION_ENERGIZE.id);
     return (
       <TraitStatisticBox
         trait={SPELLS.BALEFUL_INVOCATION.id}
         value={<ItemDamageDone amount={this.damage} approximate />}
-        tooltip={`Estimated bonus Demonfire damage: ${formatThousands(this.damage)}<br />
-                  You gained ${generated} Soul Shards and wasted ${wasted} Soul Shards with this trait.<br /><br />
-                  The damage is an approximation using current Intellect values at given time, but because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be a little incorrect.`}
+        tooltip={(<>
+          Estimated bonus Demonfire damage: {formatThousands(this.damage)}<br />
+          You gained {generated} Soul Shards and wasted {wasted} Soul Shards with this trait.<br /><br />
+
+          The damage is an approximation using current Intellect values at given time, but because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be a little incorrect.
+        </>)}
       />
     );
   }

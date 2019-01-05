@@ -33,8 +33,7 @@ class HeedMyCall extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.HEED_MY_CALL.id}
         value={`${formatPercentage(damageThroughputPercent)} % / ${formatNumber(dps)} DPS`}
-        tooltip={`Damage done: ${formatNumber(this.damage)}`
-        }
+        tooltip={`Damage done: ${formatNumber(this.damage)}`}
       />
     );
   }

@@ -1,18 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ReactTooltip from 'react-tooltip';
+import Tooltip from 'common/Tooltip';
 import './StatisticBox.css';
 import STATISTIC_CATEGORY from './STATISTIC_CATEGORY';
 
 export { default as STATISTIC_ORDER } from './STATISTIC_ORDER';
 export { default as STATISTIC_CATEGORY } from './STATISTIC_CATEGORY';
 
+/**
+ * @deprecated Use `interface/statistic/Statistic` instead.
+ */
 class StatisticBox extends React.PureComponent {
   static propTypes = {
     icon: PropTypes.node,
     value: PropTypes.node.isRequired,
-    tooltip: PropTypes.string,
+    tooltip: PropTypes.node,
     label: PropTypes.node.isRequired,
     footer: PropTypes.node,
     containerProps: PropTypes.object,
@@ -40,11 +43,6 @@ class StatisticBox extends React.PureComponent {
     });
   }
 
-  componentDidUpdate() {
-    ReactTooltip.hide();
-    ReactTooltip.rebuild();
-  }
-
   componentWillReceiveProps(newProps) {
     this.setState({
       expanded: newProps.expanded,
@@ -60,16 +58,17 @@ class StatisticBox extends React.PureComponent {
     const { icon, value, tooltip, label, footer, containerProps, warcraftLogs, children, ...others } = this.props;
     delete others.category;
     delete others.position;
+    // TODO: make sure "tooltip" properties are correctly passed, if some contain HTML tags, fix them into <>...</>
     return (
       <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12" style={{ zIndex: this.state.expanded ? 2 : 1 }} {...containerProps}>
         <div className="panel statistic statistic-box expandable" {...others}>
           <div className="panel-body">
-            <div style={{ position: 'relative' }}>
+            <div className="pad" style={{ position: 'relative' }}>
               <div className="label">
                 {icon} {label}
               </div>
               <div className="value">
-                {tooltip ? <dfn data-tip={tooltip}>{value}</dfn> : value}
+                {tooltip ? <Tooltip wrapperStyles={{ display: 'inline' }} content={tooltip}>{value}</Tooltip> : value}
               </div>
 
               {footer && (
@@ -80,9 +79,15 @@ class StatisticBox extends React.PureComponent {
 
               {warcraftLogs && (
                 <div className="warcraft-logs-link">
-                  <a href={warcraftLogs} target="_blank" rel="noopener noreferrer" data-tip="View details on Warcraft Logs">
+                  <Tooltip
+                    content="View details on Warcraft Logs"
+                    tagName="a"
+                    href={warcraftLogs}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <img src="/img/wcl.png" alt="Warcraft Logs logo" />
-                  </a>
+                  </Tooltip>
                 </div>
               )}
             </div>

@@ -66,20 +66,22 @@ class HolyWordsReductionBySpell extends Analyzer {
         icon={<SpellIcon id={Number(SPELLS.HOLY_WORDS.id)} />}
         value={`${formatPercentage(reductionRatio)} %`}
         label="Effective Holy Word reduction"
-        tooltip={`The % above is the total CD reduction normalize against the fight length.</br>
-                  This allows for comparision across different fights more easily.</br></br>
-                  Talents like <b>Light of the Naaru</b> and <b>Apotheosis</b> which provide </br>
-                  further CD reduction are taken into account when calculating these numbers.</br></br>
-                  If you took the talent <b>Holy Word Salvation</b>, <b>Holy Words Sanctify	and Serenity</b>
-                  will show since they provide CD reduction for <b>Holy World Salvation</b>.`}
+        tooltip={(<>
+          The % above is the total CD reduction normalize against the fight length.<br />
+          This allows for comparision across different fights more easily.<br /><br />
+
+          Talents like <strong>Light of the Naaru</strong> and <strong>Apotheosis</strong> which provide further CD reduction are taken into account when calculating these numbers.<br /><br />
+
+          If you took the talent <strong>Holy Word Salvation, Holy Words Sanctify	and Serenity</strong> will show since they provide CD reduction for <strong>Holy World Salvation</strong>.
+        </>)}
       >
         <table className="table table-condensed">
           <thead>
             <tr>
               <td className={"text-left"}>Spell</td>
               <td>Base</td>
-              {this.apotheosisActive ? <th>Apotheosis</th> : ''}
-              {this.lightOfTheNaaruActive ? <th>Light of the Naaru</th> : ''}
+              {this.apotheosisActive && <th>Apotheosis</th>}
+              {this.lightOfTheNaaruActive && <th>Light of the Naaru</th>}
             </tr>
           </thead>
           <tbody>
@@ -87,8 +89,8 @@ class HolyWordsReductionBySpell extends Analyzer {
               <tr key={i}>
                 <td className={"text-left"}><SpellIcon id={Number(e)} /> {SPELLS[e].name}</td>
                 <td>{Math.ceil(reductionBySpell[e].base / 1000)}s</td>
-                {this.apotheosisActive ? <td>{Math.ceil(reductionBySpell[e].apotheosis / 1000)}s</td> : ''}
-                {this.lightOfTheNaaruActive ? <td>{Math.ceil(reductionBySpell[e].lightOfTheNaaru / 1000)}s</td> : ''}
+                {this.apotheosisActive && <td>{Math.ceil(reductionBySpell[e].apotheosis / 1000)}s</td>}
+                {this.lightOfTheNaaruActive && <td>{Math.ceil(reductionBySpell[e].lightOfTheNaaru / 1000)}s</td>}
               </tr>
             ))}
           </tbody>

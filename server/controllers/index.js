@@ -5,6 +5,7 @@ import path from 'path';
 const router = Express.Router();
 
 router.use('/api', require('./api').default);
+router.use('/i', require('./api').default);
 router.use('/login', require('./login').default);
 router.use('/logout', require('./logout').default);
 router.use('/user', require('./user').default);

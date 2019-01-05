@@ -1,5 +1,4 @@
-
-
+import React from 'react';
 import BaseHealerStatValues from 'parser/shared/modules/features/BaseHealerStatValues';
 import STAT from 'parser/shared/modules/features/STAT';
 import StatTracker from 'parser/shared/modules/StatTracker';
@@ -38,13 +37,13 @@ class StatValues extends BaseHealerStatValues {
       STAT.CRITICAL_STRIKE,
       {
         stat: STAT.HASTE_HPCT,
-        tooltip: `
+        tooltip: (<>
           HPCT stands for "Healing per Cast Time". This is the max value that 1% Haste would be worth if you would cast everything you are already casting and that can be casted quicker 1% faster. Mana and overhealing are not accounted for in any way.<br /><br />
-          
+
           The real value of Haste (HPCT) will be between 0 and the shown value. It depends on if you have the mana left to spend, if the gained casts would overheal and how well you are at casting spells limited by Hasted cooldowns end-to-end. If you are going OOM before the end of the fight you might instead want to drop some Haste or cast less bad heals. If you had mana left-over, Haste could help you convert that into healing. If your Haste usage is optimal Haste will then be worth the shown max value.<br /><br />
-          
+
           If there are intense moments of damage taken where people are dying due to lack of healing and you're GCD capped, Haste might also help increase your throughput during this period saving lifes and helping you kill the boss.
-        `,
+        </>),
       },
       STAT.HASTE_HPM,
       STAT.MASTERY,

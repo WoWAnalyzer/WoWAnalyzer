@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { formatNumber, formatPercentage } from 'common/format';
 import Toggle from 'react-toggle';
-import ReactTooltip from 'react-tooltip';
 import PerformanceBar from 'common/PerformanceBar';
 import SpellLink from 'common/SpellLink';
+import Tooltip from 'common/Tooltip';
 
 class HealingEfficiencyBreakdown extends React.Component {
   static propTypes = {
@@ -125,7 +125,7 @@ class HealingEfficiencyBreakdown extends React.Component {
     return (
       <>
         <th>
-          <dfn data-tip={`Total Casts (Number of targets hit)`}>Casts</dfn>
+          <Tooltip content={`Total Casts (Number of targets hit)`}>Casts</Tooltip>
         </th>
         <th>Mana Spent</th>
         {this.state.showHealing && (
@@ -133,10 +133,10 @@ class HealingEfficiencyBreakdown extends React.Component {
             <th>Healing Done</th>
             <th>Overhealing</th>
             <th>
-              <dfn data-tip={`Healing per mana spent casting the spell`}>HPM</dfn>
+              <Tooltip content={`Healing per mana spent casting the spell`}>HPM</Tooltip>
             </th>
             <th>
-              <dfn data-tip={`Healing per second spent casting the spell`}>HPET</dfn>
+              <Tooltip content={`Healing per second spent casting the spell`}>HPET</Tooltip>
             </th>
           </>
         )}
@@ -144,10 +144,10 @@ class HealingEfficiencyBreakdown extends React.Component {
           <>
             <th>Damage Done</th>
             <th>
-              <dfn data-tip={`Damage per mana spent casting the spell`}>DPM</dfn>
+              <Tooltip content={`Damage per mana spent casting the spell`}>DPM</Tooltip>
             </th>
             <th>
-              <dfn data-tip={`Damage per second spent casting the spell`}>DPET</dfn>
+              <Tooltip content={`Damage per second spent casting the spell`}>DPET</Tooltip>
             </th>
           </>
         )}
@@ -195,10 +195,6 @@ class HealingEfficiencyBreakdown extends React.Component {
       </>
     );
   };
-
-  componentDidUpdate() {
-    ReactTooltip.rebuild();
-  }
 
   render() {
     const { tracker } = this.props;

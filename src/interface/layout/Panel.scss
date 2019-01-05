@@ -52,7 +52,7 @@
   .panel-body:last-of-type > ul {
     margin-bottom: 30px;
   }
-  .panel-body:last-of-type > ul > li:not(.expandable):last-of-type, .panel-body:last-of-type > ul > li.expandable:last-of-type .meta {
+  .panel-body:last-of-type > ul > li:not(.expandable):last-of-type {
     padding-bottom: 0;
   }
 }

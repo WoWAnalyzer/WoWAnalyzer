@@ -22,7 +22,7 @@ class RecklessFlurry extends Analyzer {
     super(...args);
 
     this.active = this.selectedCombatant.hasTrait(SPELLS.RECKLESS_FLURRY.id);
-    
+
     if(!this.active) {
       return;
     }
@@ -51,7 +51,7 @@ class RecklessFlurry extends Analyzer {
       <TraitStatisticBox
         trait={SPELLS.RECKLESS_FLURRY.id}
         value={`${formatNumber(this.effectiveReduction / 1000)}s Recklessness CDR`}
-        tooltip={`Reckless Flurry did <b>${formatThousands(this.recklessFlurryDamage)} (${formatPercentage(this.damagePercentage)}%)</b> damage, with ${formatNumber(this.wastedReduction / 1000)}s of wasted Recklessness CDR`}
+        tooltip={<>Reckless Flurry did <strong>{formatThousands(this.recklessFlurryDamage)} ({formatPercentage(this.damagePercentage)}%)</strong> damage, with {formatNumber(this.wastedReduction / 1000)}s of wasted Recklessness CDR.</>}
       />
     );
   }

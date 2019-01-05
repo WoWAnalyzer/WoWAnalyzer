@@ -31,10 +31,12 @@ class FeastOfSouls extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.FEAST_OF_SOULS_TALENT.id}
         position={STATISTIC_ORDER.CORE(8)}
-        value={`${this.owner.formatItemHealingDone(this.heal)}`}
-        tooltip={`This shows the extra hps that the talent provides.<br/>
-                  <b>Effective healing:</b> ${formatNumber(this.heal)}<br/>
-                  <b>Overhealing:</b> ${formatNumber(this.overHeal)} | ${formatPercentage(overHealPercent)}%`}
+        value={this.owner.formatItemHealingDone(this.heal)}
+        tooltip={(<>
+          This shows the extra hps that the talent provides.<br />
+          <strong>Effective healing:</strong> {formatNumber(this.heal)}<br />
+          <strong>Overhealing:</strong> {formatNumber(this.overHeal)} | {formatPercentage(overHealPercent)}%
+        </>)}
       />
     );
   }

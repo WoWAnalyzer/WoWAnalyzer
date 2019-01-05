@@ -41,7 +41,7 @@ class MissingBeacons extends Analyzer {
         icon={<SpellIcon id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id} />}
         value={<span style={{ fontSize: '75%' }}>Up to {this.owner.formatItemHealingDone(this.lostBeaconHealing)}</span>}
         label="Beacon healing lost (missing beacon)"
-        tooltip={'The amount of <b>raw</b> healing that didn\'t transfer to one or more beacon targets due to a missing beacon. When a beacon drops, re-apply it quickly.'}
+        tooltip={<>The amount of <strong>raw</strong> healing that didn't transfer to one or more beacon targets due to a missing beacon. When a beacon drops, re-apply it quickly.</>}
       />
     );
   }

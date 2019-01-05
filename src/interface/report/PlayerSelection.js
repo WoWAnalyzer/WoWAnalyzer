@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import ReactTooltip from 'react-tooltip';
 import { Trans, t } from '@lingui/macro';
 
 import getFightName from 'common/getFightName';
@@ -15,6 +14,7 @@ import DocumentTitle from 'interface/common/DocumentTitle';
 import { setCombatants } from 'interface/actions/combatants';
 import { getPlayerId, getPlayerName } from 'interface/selectors/url/report';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
+import Tooltip from 'common/Tooltip';
 
 import PlayerSelectionPanel from 'interface/playerSelection';
 import handleApiError from './handleApiError';
@@ -73,9 +73,6 @@ class PlayerSelection extends React.PureComponent {
     if (this.props.playerId && (!this.props.playerName || this.props.playerName === `${this.props.playerId}`)) {
       this.props.history.replace(makeAnalyzerUrl(this.props.report, this.props.fight.id, this.props.playerId));
     }
-  }
-  componentWillUnmount() {
-    ReactTooltip.hide();
   }
   async loadCombatants(report, fight) {
     try {
@@ -147,8 +144,10 @@ class PlayerSelection extends React.PureComponent {
         <div className="container">
           <h1>
             <div className="back-button">
-              <Link to={`/report/${report.code}`} data-tip={i18n._(t`Back to fight selection`)}>
-                <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
+              <Link to={`/report/${report.code}`}>
+                <Tooltip content={i18n._(t`Back to fight selection`)} tagName="div">
+                  <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
+                </Tooltip>
               </Link>
             </div>
             <Trans>Player selection</Trans>

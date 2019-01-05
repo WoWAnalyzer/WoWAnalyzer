@@ -4,6 +4,7 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import Tooltip from 'common/Tooltip';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import HIT_TYPES from 'game/HIT_TYPES';
@@ -90,10 +91,9 @@ class UpliftedSpirits extends Analyzer {
         icon={<SpellIcon id={SPELLS.UPLIFTED_SPIRITS.id} />}
         value={`${formatNumber(this.cooldownReductionUsed / 1000) || 0}`}
         label={(
-          <dfn data-tip={`You wasted ${this.cooldownReductionWasted / 1000 || 0} seconds of cooldown reduction.`}
-          >
+          <Tooltip content={`You wasted ${this.cooldownReductionWasted / 1000 || 0} seconds of cooldown reduction.`}>
             Revival Seconds Reduced
-          </dfn>
+          </Tooltip>
         )}
       />
     );
@@ -103,7 +103,8 @@ class UpliftedSpirits extends Analyzer {
     return (
       <StatisticListBoxItem
         title={<SpellLink id={SPELLS.UPLIFTED_SPIRITS.id} />}
-        value={<dfn data-tip={`Added a total of ${formatNumber(this.healing)} to your Vivify.`}>{formatPercentage(this.healing / this.getAbility(SPELLS.VIVIFY.id).healingEffective)} % of Vivify Healing</dfn>}
+        value={`${formatPercentage(this.healing / this.getAbility(SPELLS.VIVIFY.id).healingEffective)} % of Vivify Healing`}
+        valueTooltip={`Added a total of ${formatNumber(this.healing)} to your Vivify.`}
       />
     );
   }

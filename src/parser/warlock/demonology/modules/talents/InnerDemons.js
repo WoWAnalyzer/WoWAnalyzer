@@ -37,8 +37,10 @@ class InnerDemons extends Analyzer {
       <StatisticListBoxItem
         title={<><SpellLink id={SPELLS.INNER_DEMONS_TALENT.id} /> dmg</>}
         value={this.owner.formatItemDamageDone(damage)}
-        valueTooltip={`${formatThousands(damage)} damage<br />
-                  Note that this only counts the direct damage from them, not Implosion damage (if used) from Wild Imps`}
+        valueTooltip={(<>
+          {formatThousands(damage)} damage<br />
+          Note that this only counts the direct damage from them, not Implosion damage (if used) from Wild Imps
+        </>)}
       />
     );
   }

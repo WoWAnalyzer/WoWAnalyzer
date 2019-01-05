@@ -106,9 +106,7 @@ class AoESpellEfficiency extends Analyzer {
         icon={<SpellIcon id={this.ability.id} />}
         value={`${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS`}
         label="Damage contributed"
-        tooltip={`
-          ${this.ability.name} added a total of ${formatNumber(this.bonusDmg)} damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%). </br>
-        `}
+        tooltip={`${this.ability.name} added a total of ${formatNumber(this.bonusDmg)} damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%).`}
       />
     );
   }

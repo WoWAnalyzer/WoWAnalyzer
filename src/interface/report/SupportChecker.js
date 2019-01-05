@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import ReactTooltip from 'react-tooltip';
 import { connect } from 'react-redux';
 import { Trans, t } from '@lingui/macro';
 
@@ -12,6 +11,7 @@ import GitHubButton from 'interface/common/thirdpartybuttons/GitHub';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import { ignoreSpecNotSupportedWarning } from 'interface/actions/specNotSupported';
 import { getSpecsIgnoredNotSupportedWarning } from 'interface/selectors/skipSpecNotSupported';
+import Tooltip from 'common/Tooltip';
 
 import Background from './images/weirdnelf.png';
 
@@ -39,12 +39,6 @@ class SupportChecker extends React.PureComponent {
     super();
     this.handleClickContinue = this.handleClickContinue.bind(this);
   }
-  componentDidMount() {
-    ReactTooltip.rebuild();
-  }
-  componentDidUpdate() {
-    ReactTooltip.hide();
-  }
 
   handleClickContinue() {
     // I chose on purpose not to store this in a cookie since I don't want this to be forgotten. It should not be a big deal if this happens every time the page is loaded, so long as it isn't shown every fight.
@@ -65,8 +59,10 @@ class SupportChecker extends React.PureComponent {
         <div className="container">
           <h1>
             <div className="back-button">
-              <Link to={makeAnalyzerUrl(report, fight.id)} data-tip={i18n._(t`Back to player selection`)}>
-                <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
+              <Link to={makeAnalyzerUrl(report, fight.id)}>
+                <Tooltip content={i18n._(t`Back to player selection`)} tagName="div">
+                  <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
+                </Tooltip>
               </Link>
             </div>
             <span className={spec.className.replace(' ', '')}>{player.name} - {spec.specName} {spec.className}</span>
@@ -95,9 +91,10 @@ class SupportChecker extends React.PureComponent {
                     to={makeAnalyzerUrl(report, fight.id, player.id)}
                     onClick={this.handleClickContinue}
                     style={{ fontSize: '1.1em' }}
-                    data-tip="Khadgar approves your bravery"
                   >
-                    <Icon icon="quest_khadgar" /> <Trans>Continue anyway</Trans>
+                    <Tooltip content="Khadgar approves your bravery" tagName="div">
+                      <Icon icon="quest_khadgar" /> <Trans>Continue anyway</Trans>
+                    </Tooltip>
                   </Link>
                 </div>
                 <div className="flex-sub">

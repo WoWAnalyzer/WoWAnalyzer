@@ -45,10 +45,11 @@ class GroveTending extends Analyzer{
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.GROVE_TENDING_TRAIT.id}
-        value={`${this.owner.formatItemHealingDone(this.healing)}`}
-        tooltip={`Grove Tending gave you equivalent to <b>${formatNumber(intGain)}</b> (${formatNumber(intGain/this.traitLevel)}
-            per level) int. This is worth roughly <b>${formatNumber(ilvlGain)}</b> (${formatNumber(ilvlGain/this.traitLevel)}
-            per level) item levels.`}
+        value={this.owner.formatItemHealingDone(this.healing)}
+        tooltip={(<>
+          Grove Tending gave you equivalent to <strong>{formatNumber(intGain)}</strong> ({formatNumber(intGain/this.traitLevel)} per level) Intellec.
+          This is worth roughly <strong>{formatNumber(ilvlGain)}</strong> ({formatNumber(ilvlGain/this.traitLevel)} per level) item levels.
+        </>)}
       />
     );
   }

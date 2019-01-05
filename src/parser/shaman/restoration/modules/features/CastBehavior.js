@@ -4,12 +4,12 @@ import { Doughnut as DoughnutChart } from 'react-chartjs-2';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
+import Tooltip from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import StatisticsListBox, { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
-
 
 const CHART_SIZE = 75;
 
@@ -22,7 +22,7 @@ class CastBehavior extends Analyzer {
     const numItems = items.length;
     return items.map(({ color, label, tooltip, value, spellId }, index) => {
       label = tooltip ? (
-        <dfn data-tip={tooltip}>{label}</dfn>
+        <Tooltip content={tooltip}>{label}</Tooltip>
       ) : label;
       label = spellId ? (
         <SpellLink id={spellId} icon={false}>{label}</SpellLink>
@@ -52,9 +52,9 @@ class CastBehavior extends Analyzer {
             {label}
           </div>
           <div className="flex-sub">
-            <dfn data-tip={value}>
+            <Tooltip content={value}>
               {formatPercentage(value / total, 0)}%
-            </dfn>
+            </Tooltip>
           </div>
         </div>
       );

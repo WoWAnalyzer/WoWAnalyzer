@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatDuration, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Tooltip from 'common/Tooltip';
 import RegenResourceCapTracker from 'parser/shared/modules/RegenResourceCapTracker';
 
 import SpellEnergyCost from './SpellEnergyCost';
@@ -36,7 +37,7 @@ class EnergyCapTracker extends RegenResourceCapTracker {
   static resourceRefundOnMiss = RESOURCE_REFUND_ON_MISS;
   static exemptFromRefund = [
   ];
-  
+
   naturalRegenRate() {
     let regen = super.naturalRegenRate();
     if (this.selectedCombatant.hasTalent(SPELLS.VIGOR_TALENT.id)) {
@@ -90,24 +91,28 @@ class EnergyCapTracker extends RegenResourceCapTracker {
         icon={<Icon icon="spell_shadow_shadowworddominate" alt="Capped Energy" />}
         value={`${formatPercentage(this.wastedPercent)} %`}
         label="Wasted energy from being capped"
-        tooltip={`Although it can be beneficial to wait and let your energy pool ready to be used at the right time, you should still avoid letting it reach the cap.<br/>
-        You spent <b>${formatPercentage(this.cappedProportion)}%</b> of the fight at capped energy, causing you to miss out on a total of <b>${this.missedRegen.toFixed(0)}</b> energy from regeneration.`}
+        tooltip={(<>
+          Although it can be beneficial to wait and let your energy pool ready to be used at the right time, you should still avoid letting it reach the cap.<br />
+          You spent <strong>{formatPercentage(this.cappedProportion)}%</strong> of the fight at capped energy, causing you to miss out on a total of <strong>{this.missedRegen.toFixed(0)}</strong> energy from regeneration.
+        </>)}
         footer={(
           <div className="statistic-bar">
-            <div
+            <Tooltip
               className="stat-healing-bg"
-              style={{ width: `${(1 - this.cappedProportion) * 100}%` }}
-              data-tip={`Not at capped energy for ${formatDuration((this.owner.fightDuration - this.atCap) / 1000)}`}
+              tagName="div"
+              wrapperStyles={{ width: `${(1 - this.cappedProportion) * 100}%` }}
+              content={`Not at capped energy for ${formatDuration((this.owner.fightDuration - this.atCap) / 1000)}`}
             >
               <img src="/img/sword.png" alt="Uncapped Energy" />
-            </div>
+            </Tooltip>
 
-            <div
+            <Tooltip
               className="remainder DeathKnight-bg"
-              data-tip={`At capped energy for ${formatDuration(this.atCap / 1000)}`}
+              tagName="div"
+              content={`At capped energy for ${formatDuration(this.atCap / 1000)}`}
             >
               <img src="/img/overhealing.png" alt="Capped Energy" />
-            </div>
+            </Tooltip>
           </div>
         )}
       />

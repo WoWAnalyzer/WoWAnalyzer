@@ -50,9 +50,12 @@ class SuddenOnset extends Analyzer {
       <TraitStatisticBox
         trait={SPELLS.SUDDEN_ONSET.id}
         value={<ItemDamageDone amount={this.damage} approximate />}
-        tooltip={`Estimated bonus Agony damage: ${formatThousands(this.damage)}<br /><br />
-                The damage is an approximation using current Intellect values at given time. Note that this estimate does NOT take into account the increased initial stacks, just the bonus damage.
-                Also, because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be also little incorrect.`}
+        tooltip={(<>
+          Estimated bonus Agony damage: {formatThousands(this.damage)}<br /><br />
+
+          The damage is an approximation using current Intellect values at given time. Note that this estimate does NOT take into account the increased initial stacks, just the bonus damage.
+          Also, because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be also little incorrect.
+        </>)}
       />
     );
   }

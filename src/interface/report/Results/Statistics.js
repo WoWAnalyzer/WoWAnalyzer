@@ -4,6 +4,7 @@ import Masonry from 'react-masonry-component';
 import Toggle from 'react-toggle';
 import { t, Trans } from '@lingui/macro';
 
+import Tooltip from 'common/Tooltip';
 import { i18n } from 'interface/RootLocalizationProvider';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import StatisticsSectionTitle from './StatisticsSectionTitle';
@@ -32,7 +33,10 @@ class Statistics extends React.PureComponent {
           id="adjust-for-downtime-toggle"
         />
         <label htmlFor="adjust-for-downtime-toggle">
-          <Trans>Adjust statistics for <dfn data-tip={i18n._(t`Fight downtime is any forced downtime caused by fight mechanics or dying. Downtime caused by simply not doing anything is not included.`)}>fight downtime</dfn> (<dfn data-tip={i18n._(t`We're still working out the kinks of this feature, some modules might output weird results with this on. When we're finished this will be enabled by default.`)}>experimental</dfn>)</Trans>
+          <Trans>
+            Adjust statistics for <Tooltip content={i18n._(t`Fight downtime is any forced downtime caused by fight mechanics or dying. Downtime caused by simply not doing anything is not included.`)}>fight downtime</Tooltip>
+            (<Tooltip content={i18n._(t`We're still working out the kinks of this feature, some modules might output weird results with this on. When we're finished this will be enabled by default.`)}>experimental</Tooltip>)
+          </Trans>
         </label>
       </div>
     );

@@ -3,11 +3,14 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const debug = false;
 const COMBUSTION_DURATION = 10000;
+const EXPECTED_PYROCLASM_BUFFER = 4000;
+const PYROCLASM_DAMAGE_MODIFIER = 2.25;
 
 class CombustionPyroclasm extends Analyzer {
   static dependencies = {
@@ -15,61 +18,55 @@ class CombustionPyroclasm extends Analyzer {
     abilityTracker: AbilityTracker,
   };
 
-  buffUsedDuringCombustion = false;
-  combustionCastTimestamp = 0;
-  pyroblastCastTimestamp = 0;
+  combustionCastEvent = null;
+  pyroblastCastEvent = null;
   expectedPyroblastCasts = 0;
   actualPyroblastCasts = 0;
 
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.PYROCLASM_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PYROBLAST), this.onPyroblast);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.COMBUSTION), this.onCombustion);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF), this.onPyroclasmApplied);
+    this.addEventListener(Events.applybuffstack.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF), this.onPyroclasmApplied);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF), this.onPyroclasmRemoved);
+    this.addEventListener(Events.removebuffstack.to(SELECTED_PLAYER).spell(SPELLS.PYROCLASM_BUFF), this.onPyroclasmRemoved);
+    this.addEventListener(Events.fightend, this.onFinished);
   }
 
-  //Get the time stamp for Pyroblast to be used elsewhere
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.PYROBLAST.id) {
-      return;
-    }
-    this.pyroblastCastTimestamp = event.timestamp;
+  //Get the cast event for Pyroblast to be used elsewhere
+  onPyroblast(event) {
+    this.pyroblastCastEvent = event;
   }
 
-  on_toPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.PYROCLASM_BUFF.id && spellId !== SPELLS.COMBUSTION.id) {
-      return;
-    }
-    if (spellId === SPELLS.COMBUSTION.id) {
-      this.combustionCastTimestamp = event.timestamp;
-      //If the player had a Bracer Proc when Combustion was cast, then its expected for them to cast it during Combustion.
-      if (this.selectedCombatant.hasBuff(SPELLS.PYROCLASM_BUFF.id)) {
-        this.expectedPyroblastCasts += 1;
-        debug && this.log("Pyroblast Expected During Combustion");
-      }
-    } else {
-      //If the player gets a Bracer Proc, and there is more than 5 seconds left on the duration of Combustion, then its expected for them to cast it during Combustion.
-      if (this.combustionEndTime - event.timestamp > 5000) {
-        this.expectedPyroblastCasts += 1;
-        debug && this.log("Pyroblast Expected During Combustion");
-      }
+  onCombustion(event) {
+    const hasPyroclasm = this.selectedCombatant.hasBuff(SPELLS.PYROCLASM_BUFF.id);
+    this.combustionCastEvent = event;
+    if (hasPyroclasm) {
+      this.expectedPyroblastCasts += 1;
+      debug && this.log("Combustion started with Pyroclasm proc");
     }
   }
 
-  //Check to see if the player used their Bracer Proc during Combustion
-  on_toPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.PYROCLASM_BUFF.id) {
-      return;
+  //When the player gets a proc of Pyroclasm, check to see how much time is left on Combustion to see if they reasonably could have cast it in time.
+  onPyroclasmApplied(event) {
+    if (this.combustionEndTime - event.timestamp > EXPECTED_PYROCLASM_BUFFER) {
+      this.expectedPyroblastCasts += 1;
+      debug && this.log("Pyroblast Expected During Combustion");
     }
-    if (event.timestamp - 50 < this.pyroblastCastTimestamp && this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id)) {
+  }
+
+  //Check top see if the player used their Pyroclasm Proc during Combustion
+  onPyroclasmRemoved(event) {
+    const hasCombustion = this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id);
+    if (event.timestamp - 50 < this.pyroblastCastEvent.timestamp && hasCombustion) {
       this.actualPyroblastCasts += 1;
-      this.buffUsedDuringCombustion = true;
       debug && this.log("Pyroblast Hard Cast During Combustion");
     }
   }
 
-  on_fightend() {
+  onFinished() {
     debug && console.log('Combustion Duration MS: ' + COMBUSTION_DURATION);
     debug && console.log('Expected Pyroblasts: ' + this.expectedPyroblastCasts);
     debug && console.log('Actual Pyroblasts: ' + this.actualPyroblastCasts);
@@ -99,7 +96,7 @@ class CombustionPyroclasm extends Analyzer {
     if (this.expectedPyroblastCasts > 0) {
       when(this.pyrloclasmUtilThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<>During <SpellLink id={SPELLS.COMBUSTION.id} /> you had enough time to use {this.expectedPyroblastCasts} procs from your <SpellLink id={SPELLS.PYROCLASM_TALENT.id} />, but you only used {this.actualPyroblastCasts} of them. If there is more than 5 seconds of Combustion left, you should use your proc so that your hard casted <SpellLink id={SPELLS.PYROBLAST.id} /> will do 225% damage and be guaranteed to crit.</>)
+          return suggest(<>During <SpellLink id={SPELLS.COMBUSTION.id} /> you had enough time to use {this.expectedPyroblastCasts} procs from your <SpellLink id={SPELLS.PYROCLASM_TALENT.id} />, but you only used {this.actualPyroblastCasts} of them. If there is more than {EXPECTED_PYROCLASM_BUFFER / 1000} seconds of Combustion left, you should use your proc so that your hard casted <SpellLink id={SPELLS.PYROBLAST.id} /> will do {formatPercentage(PYROCLASM_DAMAGE_MODIFIER)}% damage and be guaranteed to crit.</>)
             .icon(SPELLS.PYROCLASM_TALENT.icon)
             .actual(`${formatPercentage(this.pyroclasmBuffUtil)}% Utilization`)
             .recommended(`${formatPercentage(recommended)} is recommended`);

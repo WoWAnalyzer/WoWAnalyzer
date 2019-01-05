@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Checklist from 'parser/shared/modules/features/Checklist2';
-import Requirement from 'parser/shared/modules/features/Checklist2/Requirement';
-import Rule from 'parser/shared/modules/features/Checklist2/Rule';
-import PreparationRule from 'parser/shared/modules/features/Checklist2/PreparationRule';
-import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist2/GenericCastEfficiencyRequirement';
+import Checklist from 'parser/shared/modules/features/Checklist';
+import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
+import Rule from 'parser/shared/modules/features/Checklist/Rule';
+import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
+import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 
 class ShadowPriestChecklist extends React.PureComponent {
   static propTypes = {

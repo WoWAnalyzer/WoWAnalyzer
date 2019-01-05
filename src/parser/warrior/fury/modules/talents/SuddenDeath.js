@@ -35,7 +35,7 @@ class SuddenDeath extends Analyzer {
       return;
     }
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EXECUTE_FURY), this.onExecuteCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.EXECUTE_FURY, SPELLS.EXECUTE_FURY_MASSACRE]), this.onExecuteCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.EXECUTE_DAMAGE_FURY, SPELLS.EXECUTE_DAMAGE_OH_FURY]), this.onExecuteDamage);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SUDDEN_DEATH_TALENT_FURY_BUFF), this.onSuddenDeathProc);
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.SUDDEN_DEATH_TALENT_FURY_BUFF), this.onSuddenDeathProc);
@@ -56,7 +56,7 @@ class SuddenDeath extends Analyzer {
         damageDone: 0,
         isMainTargetAboveThreshold: false,
         isSuddenDeath: this.lastExecuteCast === this.lastSuddenDeathExecuteCast,
-      };        
+      };
     }
     this.executeDamageEvents[this.lastExecuteCast].damageDone += event.amount + (event.absorbed || 0);
 
@@ -99,11 +99,14 @@ class SuddenDeath extends Analyzer {
         talent={SPELLS.SUDDEN_DEATH_TALENT_FURY.id}
         value={`${this.suddenDeathProcsUsed} / ${this.suddenDeathProcs} procs used`}
         label="Sudden Death"
-        tooltip={`Sudden Death usage on targets above ${formatPercentage(this.executeThreshold)}%<br />
-        Damage done: <b>${formatThousands(this.damageAboveThreshold)} (${formatPercentage(this.damagePercent)}%)</b><br />
-        Execute casts: <b>${formatThousands(this.executeCastsAboveThreshold)}</b><br /><br />
-        Sudden Death usage on targets below ${formatPercentage(this.executeThreshold)}%</u><br />
-        Effective CDR: <b>${(this.effectiveExecuteCDR / 1000).toFixed(2)}s</b>`}
+        tooltip={(<>
+          Sudden Death usage on targets above {formatPercentage(this.executeThreshold)}%<br />
+          Damage done: <strong>{formatThousands(this.damageAboveThreshold)} ({formatPercentage(this.damagePercent)}%)</strong><br />
+          Execute casts: <strong>{formatThousands(this.executeCastsAboveThreshold)}</strong><br /><br />
+
+          Sudden Death usage on targets below <u>{formatPercentage(this.executeThreshold)}%</u><br />
+          Effective CDR: <strong>{(this.effectiveExecuteCDR / 1000).toFixed(2)}s</strong>
+        </>)}
       />
     );
   }

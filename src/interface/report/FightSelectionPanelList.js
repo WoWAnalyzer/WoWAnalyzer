@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import ReactTooltip from 'react-tooltip';
 import { Trans } from '@lingui/macro';
 
 import getWipeCount from 'common/getWipeCount';
@@ -9,7 +8,7 @@ import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 
 import FightSelectionPanelListItem from './FightSelectionPanelListItem';
 
-class FightSelectionPanelList extends Component {
+class FightSelectionPanelList extends React.PureComponent {
   static propTypes = {
     report: PropTypes.shape({
       code: PropTypes.string.isRequired,
@@ -28,10 +27,6 @@ class FightSelectionPanelList extends Component {
     playerId: PropTypes.number,
     resultTab: PropTypes.string,
   };
-
-  componentWillUnmount() {
-    ReactTooltip.hide();
-  }
 
   render() {
     const { fights, report, killsOnly, playerId, resultTab } = this.props;

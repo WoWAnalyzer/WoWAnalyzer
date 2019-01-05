@@ -78,7 +78,7 @@ class StackMarkovChain {
     this._stackProbs.push(0);
     const n = this._stackProbs.length - 1;
 
-    // probability of ending at 0 stacks. initial 
+    // probability of ending at 0 stacks. initial
     let zeroProb = 0;
     // didn't dodge, gain a stack
     for (let stacks = n - 1; stacks >= 0; stacks--) {
@@ -382,7 +382,7 @@ class MasteryValue extends Analyzer {
           scales: {
             xAxes: [{
               stacked: true,
-              scaleLabel: { 
+              scaleLabel: {
                 display: true,
                 labelString: 'Dodge %',
                 lineHeight: 1,
@@ -396,7 +396,7 @@ class MasteryValue extends Analyzer {
             }],
             yAxes: [{
               stacked: true,
-              scaleLabel: { 
+              scaleLabel: {
                 display: true,
                 labelString: 'Likelihood',
                 fontColor: '#ccc',
@@ -425,12 +425,16 @@ class MasteryValue extends Analyzer {
         icon={<SpellIcon id={SPELLS.MASTERY_ELUSIVE_BRAWLER.id} />}
         value={`${formatNumber(this.expectedMitigationPerSecond - this.noMasteryExpectedMitigationPerSecond)} DTPS`}
         label="Expected Mitigation by Mastery"
-        tooltip={this._loaded ? `On average, you would dodge about <b>${formatNumber(this.expectedMitigation)}</b> damage on this fight. This value was increased by about <b>${formatNumber(this.expectedMitigation - this.noMasteryExpectedMitigation)}</b> due to Mastery. You had an average expected dodge chance of <b>${formatPercentage(this.expectedMeanDodge)}%</b> and actually dodged about <b>${formatNumber(this.estimatedActualMitigation)}</b> damage with an overall rate of <b>${formatPercentage(this.actualDodgeRate)}%</b>. This amounts to an expected reduction of <b>${formatNumber((this.expectedMitigationPerSecond - this.noMasteryExpectedMitigationPerSecond) / this.averageMasteryRating)} DTPS per 1 Mastery</b> <em>on this fight</em>.<br/><br/>
+        tooltip={this._loaded ? (<>
+          On average, you would dodge about <strong>{formatNumber(this.expectedMitigation)}</strong> damage on this fight. This value was increased by about <strong>{formatNumber(this.expectedMitigation - this.noMasteryExpectedMitigation)}</strong> due to Mastery.
+          You had an average expected dodge chance of <strong>{formatPercentage(this.expectedMeanDodge)}%</strong> and actually dodged about <strong>{formatNumber(this.estimatedActualMitigation)}</strong> damage with an overall rate of <strong>{formatPercentage(this.actualDodgeRate)}%</strong>.
+          This amounts to an expected reduction of <strong>{formatNumber((this.expectedMitigationPerSecond - this.noMasteryExpectedMitigationPerSecond) / this.averageMasteryRating)} DTPS per 1 Mastery</strong> <em>on this fight</em>.<br /><br />
 
-          <em>Technical Information:</em><br/>
-          <b>Estimated Actual Damage</b> is calculated by calculating the average damage per hit of an ability, then multiplying that by the number of times you dodged each ability.<br/>
-          <b>Expected</b> values are calculated by computing the expected number of mastery stacks each time you <em>could</em> dodge an ability.<br/>
-          An ability is considered <b>dodgeable</b> if you dodged it at least once.` : null}
+          <em>Technical Information:</em><br />
+          <strong>Estimated Actual Damage</strong> is calculated by calculating the average damage per hit of an ability, then multiplying that by the number of times you dodged each ability.<br />
+          <strong>Expected</strong> values are calculated by computing the expected number of mastery stacks each time you <em>could</em> dodge an ability.<br />
+          An ability is considered <strong>dodgeable</strong> if you dodged it at least once.
+          </>) : null}
         >
         <div style={{padding: '8px'}}>
           {this._loaded ? this.plot() : null}

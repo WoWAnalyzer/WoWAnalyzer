@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Checklist from 'parser/shared/modules/features/Checklist2';
-import PreparationRule from 'parser/shared/modules/features/Checklist2/PreparationRule';
-import Rule from 'parser/shared/modules/features/Checklist2/Rule';
-import Requirement from 'parser/shared/modules/features/Checklist2/Requirement';
+import Checklist from 'parser/shared/modules/features/Checklist';
+import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
+import Rule from 'parser/shared/modules/features/Checklist/Rule';
+import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist2/GenericCastEfficiencyRequirement';
+import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 
 class EnhancementShamanChecklist extends React.PureComponent {
   static propTypes = {
@@ -46,9 +46,9 @@ class EnhancementShamanChecklist extends React.PureComponent {
           )}
          >
           <AbilityRequirement spell={SPELLS.FERAL_SPIRIT.id} />
-          {combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id) && 
+          {combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id) &&
             <AbilityRequirement spell={SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id} />}
-          {combatant.hasTalent(SPELLS.EARTHEN_SPIKE_TALENT.id) && 
+          {combatant.hasTalent(SPELLS.EARTHEN_SPIKE_TALENT.id) &&
             <AbilityRequirement spell={SPELLS.EARTHEN_SPIKE_TALENT} />}
           {combatant.hasTalent(SPELLS.TOTEM_MASTERY_TALENT_ENHANCEMENT.id) &&
             <AbilityRequirement spell={SPELLS.TOTEM_MASTERY_TALENT_ENHANCEMENT.id} />}

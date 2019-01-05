@@ -28,7 +28,7 @@ class FrenziedRegenGoEProcs extends Analyzer {
         icon={<SpellIcon id={SPELLS.FRENZIED_REGENERATION.id} />}
         value={`${formatPercentage(nonGoEFRegen / (nonGoEFRegen + GoEFRegen))}%`}
         label="Unbuffed Frenzied Regen"
-        tooltip={`You cast <b>${nonGoEFRegen + GoEFRegen}</b> total ${SPELLS.FRENZIED_REGENERATION.name} and <b> ${GoEFRegen}</b> were buffed by 20%.`}
+        tooltip={<>You cast <strong>{nonGoEFRegen + GoEFRegen}</strong> total {SPELLS.FRENZIED_REGENERATION.name} and <strong>{GoEFRegen}</strong> were buffed by 20%.</>}
       />
     );
   }

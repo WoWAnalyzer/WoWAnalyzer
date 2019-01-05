@@ -6,13 +6,23 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-01-02'),
+    changes: <>Added Azerite statistic for <SpellLink id={SPELLS.FURY_OF_XUEN.id} />.</>,
+    contributors: [Juko8],
+  },
+  {
+    date: new Date('2018-12-27'),
+    changes: <>Added Azerite statistic for <SpellLink id={SPELLS.GLORY_OF_THE_DAWN.id} />.</>,
+    contributors: [Juko8],
+  },
+  {
     date: new Date('2018-09-09'),
-    changes: <>Added Azerite statistic for Swift Roundhouse.</>,
+    changes: 'Added Azerite statistic for Swift Roundhouse.',
     contributors: [Juko8],
   },
   {
     date: new Date('2018-09-04'),
-    changes: <>Added Azerite statistics for Iron Fists and Meridian Strikes.</>,
+    changes: 'Added Azerite statistics for Iron Fists and Meridian Strikes.',
     contributors: [Juko8],
   },
   {

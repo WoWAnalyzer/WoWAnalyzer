@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import BAD_ICONS from 'common/BAD_ICONS';
 
-const Icon = ({ icon, alt, ...others }) => {
+const Icon = ({ icon, className, ...others }) => {
   if (!icon) {
     return null;
   }
@@ -26,14 +26,17 @@ const Icon = ({ icon, alt, ...others }) => {
     <img
       src={`${baseURL}/${icon}.jpg`}
       alt="" // Implementers should annotate these as desired, but it's usually just decorating the name of a spell/item so doesn't add anything and in fact makes copy-pasting uglier
-      className="icon"
+      className={`icon ${className}`}
       {...others}
     />
   );
 };
 Icon.propTypes = {
   icon: PropTypes.string.isRequired,
-  alt: PropTypes.string,
+  className: PropTypes.string,
+};
+Icon.defaultProps = {
+  className: '',
 };
 
 export default Icon;

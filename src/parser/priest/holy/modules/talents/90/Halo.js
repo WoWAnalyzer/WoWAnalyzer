@@ -43,7 +43,6 @@ class Halo extends Analyzer {
 
   statistic() {
     return (
-
       <TalentStatisticBox
         talent={SPELLS.HALO_TALENT.id}
         value={(
@@ -55,7 +54,6 @@ class Halo extends Analyzer {
         tooltip={`Halos Cast: ${this.haloCasts}`}
         position={STATISTIC_ORDER.CORE(6)}
       />
-
     );
   }
 }

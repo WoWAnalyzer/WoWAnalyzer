@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 
 import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
+import Tooltip from 'common/Tooltip';
 // import Toggle from 'react-toggle';
 
 function formatThousands(number) {
@@ -68,8 +69,8 @@ class Feeding extends React.Component {
                       {category.name}
                     </SpellLink>
                   </th>
-                  <th className="text-center" colSpan="3"><dfn data-tip={`The amount of healing done by spells that feed into ${category.name} while it was up.`}>Feeding done per spell</dfn></th>
-                  <th className="text-center"><dfn data-tip={`The approximated effective healing each of the spells feeding into ${category.name} did, accounting for overhealing. This should roughly at up to the total effective healing of ${category.name}.`}>Approx. effective healing</dfn></th>
+                  <th className="text-center" colSpan="3"><Tooltip content={`The amount of healing done by spells that feed into ${category.name} while it was up.`}>Feeding done per spell</Tooltip></th>
+                  <th className="text-center"><Tooltip content={`The approximated effective healing each of the spells feeding into ${category.name} did, accounting for overhealing. This should roughly at up to the total effective healing of ${category.name}.`}>Approx. effective healing</Tooltip></th>
                   <th />
                 </tr>
               </thead>

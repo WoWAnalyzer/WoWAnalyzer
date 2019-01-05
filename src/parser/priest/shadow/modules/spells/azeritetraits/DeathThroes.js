@@ -76,10 +76,10 @@ class DeathThroes extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.DEATH_THROES.id}
         value={<ItemDamageDone amount={this.damageDone} />}
-        tooltip={`
-          ${formatNumber(this.damageDone)} additional damage dealt by ${SPELLS.SHADOW_WORD_PAIN.name}<br />
-          ${formatNumber(this.insanityGained)} additional insanity generated.
-        `}
+        tooltip={(<>
+          {formatNumber(this.damageDone)} additional damage dealt by {SPELLS.SHADOW_WORD_PAIN.name}<br />
+          {formatNumber(this.insanityGained)} additional insanity generated.
+        </>)}
       />
     );
   }

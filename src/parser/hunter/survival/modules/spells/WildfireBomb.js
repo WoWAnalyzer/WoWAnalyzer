@@ -41,7 +41,7 @@ class WildfireBomb extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = !this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id); //WFI changes WFB so much that a separate module will be added into talents folder to handle everything from that.
+    this.active = !this.selectedCombatant.hasTalent(SPELLS.WILDFIRE_INFUSION_TALENT.id);
   }
 
   on_byPlayer_cast(event) {
@@ -126,7 +126,7 @@ class WildfireBomb extends Analyzer {
       <StatisticBox
         position={STATISTIC_ORDER.CORE(20)}
         icon={<SpellIcon id={SPELLS.WILDFIRE_BOMB.id} />}
-        value={`${this.averageTargetsHit}`}
+        value={this.averageTargetsHit}
         label="Average targets hit"
         tooltip={`You had an uptime of ${formatPercentage(this.uptimePercentage)}% on the DoT from Wildfire Bomb.`}
       />

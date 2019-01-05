@@ -9,6 +9,9 @@ import StatisticBox from './StatisticBox';
 
 export { default as STATISTIC_ORDER } from './STATISTIC_ORDER';
 
+/**
+ * @deprecated Use `interface/statistic/Statistic` instead.
+ */
 const TalentStatisticBox = ({ talent, icon, label, ...others }) => (
   <StatisticBox
     {...others}

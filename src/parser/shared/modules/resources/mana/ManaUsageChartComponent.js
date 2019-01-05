@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Line} from 'react-chartjs-2';
 
+import Tooltip from 'common/Tooltip';
 import {formatThousands } from '../../../../../common/format';
 import {formatDuration} from '../../../../../common/format';
 
@@ -139,7 +140,9 @@ class HealingDoneGraph extends React.PureComponent {
     return (
       <>
         <div className="pull-right form-inline">
-          <dfn data-tip="This groups events by the provided amount of seconds to smooth out the graph.">Smoothing</dfn>: <input type="number" min="1" max="30" value={interval} className="form-control" onChange={e => this.setState({ interval: Number(e.target.value) || 5 })} /> seconds
+          <Tooltip content="This groups events by the provided amount of seconds to smooth out the graph.">
+            Smoothing
+          </Tooltip>: <input type="number" min="1" max="30" value={interval} className="form-control" onChange={e => this.setState({ interval: Number(e.target.value) || 5 })} /> seconds
         </div>
 
         <div className="graph-container">

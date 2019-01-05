@@ -101,9 +101,15 @@ class MitigationCheck extends Analyzer {
 
   get tooltip() {
     return [...this.buffCheckPhysical, ...this.buffCheckMagical, ...this.buffCheckPhysAndMag,
-      ...this.debuffCheckPhysical, ...this.debuffCheckMagical, ...this.debuffCheckPhysAndMag].reduce((prev, curr) => {
-      return prev + `<li>${SPELLS[curr].name}</li>`;
-    }, 'Checks if one of the following buffs or debuffs were up during the mechanic: <ul>') + '</ul>';
+      ...this.debuffCheckPhysical, ...this.debuffCheckMagical, ...this.debuffCheckPhysAndMag].map(id => <li>{SPELLS[id].name}</li>);
+  }
+
+  get physicalChecks() {
+    return this.checksPhysical.filter(spell => this.checksPassedMap.get(spell) + this.checksFailedMap.get(spell) > 0);
+  }
+
+  get magicalChecks() {
+    return this.checksMagical.filter(spell => this.checksPassedMap.get(spell) + this.checksFailedMap.get(spell) > 0);
   }
 
   statistic() {
@@ -113,30 +119,18 @@ class MitigationCheck extends Analyzer {
       return null;
     }
     const buffCheck = [...this.buffCheckPhysical, ...this.buffCheckMagical, ...this.buffCheckPhysAndMag];
-    const checks = [...this.checksPhysical, ...this.checksMagical];
     let spellIconId;
     if (buffCheck.length > 0) {
       spellIconId = buffCheck[0];
     } else {
       spellIconId = SPELLS.SHIELD_BLOCK_BUFF.id;
     }
-    const presentChecks = [];
-    checks.forEach(spell => {
-        if (this.checksPassedMap.get(spell) + this.checksFailedMap.get(spell) > 0) {
-          presentChecks.push(spell);
-        }
-      }
-    );
-    return (
-      <StatisticBox
-        icon={<SpellIcon id={spellIconId} />}
-        value={`${formatPercentage(passSum / (passSum + failSum))} %`}
-        label={`Soft mitigation checks passed.`}
-        tooltip={this.tooltip}
-      >
-        <table className="table table-condensed" style={{ fontWeight: 'bold' }}>
+
+    const physicalTable = (this.physicalChecks.length > 0) ? (
+      <>
           <thead>
             <tr>
+              <th>Physical</th>
               <th>Ability</th>
               <th>Passed</th>
               <th>Failed</th>
@@ -144,8 +138,9 @@ class MitigationCheck extends Analyzer {
           </thead>
           <tbody>
             {
-              presentChecks.map(spell => (
+                this.physicalChecks.map(spell => (
                 <tr key={spell}>
+                  <td />
                   <th scope="row"><SpellLink id={spell} style={{ height: '2.5em' }} /></th>
                   <td>{formatNumber(this.checksPassedMap.get(spell))}</td>
                   <td>{formatNumber(this.checksFailedMap.get(spell))}</td>
@@ -153,6 +148,50 @@ class MitigationCheck extends Analyzer {
               ))
             }
           </tbody>
+      </>
+    ) : null;
+
+    const borderless = { borderTop: 'none' };
+    const magicalTable = (this.magicalChecks.length > 0) ? (
+      <>
+          <thead>
+            <tr>
+              <th style={borderless}>Magical</th>
+              <th style={borderless}>Ability</th>
+              <th style={borderless}>Passed</th>
+              <th style={borderless}>Failed</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              this.magicalChecks.map(spell => (
+                <tr key={spell}>
+                  <td />
+                  <th scope="row"><SpellLink id={spell} style={{ height: '2.5em' }} /></th>
+                  <td>{formatNumber(this.checksPassedMap.get(spell))}</td>
+                  <td>{formatNumber(this.checksFailedMap.get(spell))}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+      </>
+    ) : null;
+
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={spellIconId} />}
+        value={`${formatPercentage(passSum / (passSum + failSum))} %`}
+        label={`Soft mitigation checks passed.`}
+        tooltip={(<>
+          Checks if one of the following buffs or debuffs were up during the mechanic:
+          <ul>
+            {this.tooltip}
+          </ul>
+        </>)}
+      >
+        <table className="table table-condensed" style={{ fontWeight: 'bold' }}>
+          {physicalTable}
+          {magicalTable}
         </table>
       </StatisticBox>
     );

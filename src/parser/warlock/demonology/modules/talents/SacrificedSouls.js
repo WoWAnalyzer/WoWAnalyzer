@@ -74,20 +74,20 @@ class SacrificedSouls extends Analyzer {
   }
 
   subStatistic() {
-    let powerSiphonTooltip = '';
     const hasPS = this.selectedCombatant.hasTalent(SPELLS.POWER_SIPHON_TALENT.id);
-    if (hasPS) {
-      powerSiphonTooltip = `<br /><br />* Since you have Power Siphon talent, it's highly likely that it messes up getting current pets at certain time because sometimes 
-                            the number of Imps we sacrifice in code doesn't agree with what happens in logs. Therefore, this value is most likely a little wrong.`;
-    }
     return (
       <StatisticListBoxItem
         title={<><SpellLink id={SPELLS.SACRIFICED_SOULS_TALENT.id} /> bonus dmg</>}
         value={`${this.owner.formatItemDamageDone(this.totalBonusDamage)}${hasPS ? '*' : ''}`}
-        valueTooltip={`${formatThousands(this.totalBonusDamage)} bonus damage<br />
-                  Bonus Shadow Bolt damage: ${formatThousands(this._shadowBoltDamage)} (${this.owner.formatItemDamageDone(this._shadowBoltDamage)})<br />
-                  Bonus Demonbolt damage: ${formatThousands(this._demonboltDamage)} (${this.owner.formatItemDamageDone(this._demonboltDamage)})
-                  ${powerSiphonTooltip}`}
+        valueTooltip={(<>
+          {formatThousands(this.totalBonusDamage)} bonus damage<br />
+          Bonus Shadow Bolt damage: {formatThousands(this._shadowBoltDamage)} ({this.owner.formatItemDamageDone(this._shadowBoltDamage)})<br />
+          Bonus Demonbolt damage: {formatThousands(this._demonboltDamage)} ({this.owner.formatItemDamageDone(this._demonboltDamage)})
+          {hasPS && (<>
+            <br /><br />* Since you have Power Siphon talent, it's highly likely that it messes up getting current pets at certain time because sometimes
+            the number of Imps we sacrifice in code doesn't agree with what happens in logs. Therefore, this value is most likely a little wrong.
+          </>)}
+        </>)}
       />
     );
   }

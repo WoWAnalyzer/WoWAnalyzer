@@ -79,7 +79,7 @@ class ComboBreaker extends Analyzer {
           .recommended(`>${formatPercentage(recommended)}% used Combo Breaker Procs is recommended`);
     });
   }
-  
+
   statistic() {
     const averageCBProcs = this.abilityTracker.getAbility(SPELLS.TIGER_PALM.id).casts * (this.selectedCombatant.hasTrait(SPELLS.PRESSURE_POINT.id) ? 0.1 : 0.08);
     return (
@@ -88,7 +88,7 @@ class ComboBreaker extends Analyzer {
         icon={<SpellIcon id={SPELLS.COMBO_BREAKER_BUFF.id} />}
         value={`${formatPercentage(this.usedCBProcs)}%`}
         label="Combo Breaker Procs Used"
-        tooltip={`You got a total of <b>${this.CBProcsTotal} Combo Breaker procs</b> and <b>used ${this.consumedCBProc}</b> of them. Average number of procs from your Tiger Palms this fight is <b>${averageCBProcs.toFixed(2)}</b>, and you got <b>${this.CBProcsTotal}</b>.`}
+        tooltip={<>You got a total of <strong>{this.CBProcsTotal} Combo Breaker procs</strong> and <strong>used {this.consumedCBProc}</strong> of them. Average number of procs from your Tiger Palms this fight is <strong>{averageCBProcs.toFixed(2)}</strong>, and you got <strong>{this.CBProcsTotal}</strong>.</>}
       />
    );
   }

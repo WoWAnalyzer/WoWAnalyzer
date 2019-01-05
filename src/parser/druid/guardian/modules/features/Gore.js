@@ -90,7 +90,7 @@ class Gore extends Analyzer {
         icon={<SpellIcon id={SPELLS.GORE_BEAR.id} />}
         value={`${formatPercentage(unusedGoreProcs)}%`}
         label="Unused Gore Procs"
-        tooltip={`You got total <b>${this.totalProcs}</b> gore procs and <b>used ${this.consumedGoreProc}</b> of them.`}
+        tooltip={<>You got total <strong>{this.totalProcs}</strong> gore procs and <strong>used {this.consumedGoreProc}</strong> of them.</>}
       />
     );
   }

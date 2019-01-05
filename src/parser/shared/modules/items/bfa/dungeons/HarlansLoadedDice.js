@@ -5,6 +5,7 @@ import ITEMS from 'common/ITEMS/index';
 import Analyzer from 'parser/core/Analyzer';
 import { formatPercentage, formatNumber } from 'common/format';
 import { calculateSecondaryStatDefault } from 'common/stats';
+import Tooltip from 'common/Tooltip';
 
 /**
  * Harlan's Loaded Dice
@@ -65,17 +66,21 @@ class HarlansLoadedDice extends Analyzer {
     return {
       item: ITEMS.HARLANS_LOADED_DICE,
       result: (
-        <dfn data-tip={`
-        <ul>
-          <li>Procced ${this.buffTriggerCount()} times.</li>
-          <li>You had an uptime of ${formatPercentage(this.smallBuffUptime)}% on the small buffs.</li>
-          <li> You had an uptime of ${formatPercentage(this.bigBuffUptime)}% on the large buffs.</li>
-        </ul>`}>
+        <Tooltip
+          wrapperStyles={{ display: 'inline' }}
+          content={(<>
+            <ul>
+              <li>Procced {this.buffTriggerCount()} times.</li>
+              <li>You had an uptime of {formatPercentage(this.smallBuffUptime)}% on the small buffs.</li>
+              <li> You had an uptime of {formatPercentage(this.bigBuffUptime)}% on the large buffs.</li>
+            </ul>
+          </>)}
+        >
           {formatPercentage(this.totalBuffUptime)}% uptime<br />
           {formatNumber(this.getAverageHaste())} average Haste<br />
           {formatNumber(this.getAverageCrit())} average Crit<br />
           {formatNumber(this.getAverageMastery())} average Mastery
-        </dfn>
+        </Tooltip>
       ),
     };
   }

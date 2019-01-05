@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Checklist from 'parser/shared/modules/features/Checklist2';
-import Rule from 'parser/shared/modules/features/Checklist2/Rule';
-import Requirement from 'parser/shared/modules/features/Checklist2/Requirement';
-import PreparationRule from 'parser/shared/modules/features/Checklist2/PreparationRule';
-import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist2/GenericCastEfficiencyRequirement';
+import Tooltip from 'common/Tooltip';
+import Checklist from 'parser/shared/modules/features/Checklist';
+import Rule from 'parser/shared/modules/features/Checklist/Rule';
+import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
+import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
+import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 
 class SubRogueChecklist extends React.PureComponent {
   static propTypes = {
@@ -35,13 +36,14 @@ class SubRogueChecklist extends React.PureComponent {
           name="Use your offensive cooldowns"
           description={(
             <>
-              Subtlety rotation revolves around using your cooldowns effectively. To maximize your damage, you need to stack your cooldowns. Your cooldowns dictate your rotation. A base rule of thumb is: use <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} /> on cooldown, and use <SpellLink id={SPELLS.SHADOW_DANCE.id} /> when symbols are active. However you should never cap on <SpellLink id={SPELLS.SHADOW_DANCE.id} /> charges. 
+              Subtlety rotation revolves around using your cooldowns effectively. To maximize your damage, you need to stack your cooldowns. Your cooldowns dictate your rotation. A base rule of thumb is: use <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} /> on cooldown, and use <SpellLink id={SPELLS.SHADOW_DANCE.id} /> when symbols are active. However you should never cap on <SpellLink id={SPELLS.SHADOW_DANCE.id} /> charges.
             </>
           )}
         >
           <AbilityRequirement spell={SPELLS.SHADOW_DANCE.id} />
           <AbilityRequirement spell={SPELLS.SYMBOLS_OF_DEATH.id} />
           <AbilityRequirement spell={SPELLS.VANISH.id} />
+          <AbilityRequirement spell={SPELLS.SHADOW_BLADES.id} />
           {combatant.hasTalent(SPELLS.SECRET_TECHNIQUE_TALENT.id) && (
             <AbilityRequirement spell={SPELLS.SECRET_TECHNIQUE_TALENT.id} />
           )}
@@ -50,7 +52,7 @@ class SubRogueChecklist extends React.PureComponent {
           name="Don't waste resources"
           description={(
             <>
-              Since all of Subtlety's damage is tied to resources, it is important to waste as little of them as possible. You should make sure you do not find yourself being Energy capped or casting Combo Point generating abilities when at maximum Combo Points. 
+              Since all of Subtlety's damage is tied to resources, it is important to waste as little of them as possible. You should make sure you do not find yourself being Energy capped or casting Combo Point generating abilities when at maximum Combo Points.
             </>
           )}
         >
@@ -75,7 +77,7 @@ class SubRogueChecklist extends React.PureComponent {
           name="Manage Nightblade correctly"
           description={(
             <>
-              <SpellLink id={SPELLS.NIGHTBLADE.id} /> is a crucial part of Subtlety rotation, due to the 15% damage buff it provides. However you do not want to apply it during <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} /> or <SpellLink id={SPELLS.SHADOW_DANCE.id} /> if speced in to <SpellLink id={SPELLS.DARK_SHADOW_TALENT.id} /> because it will take the place of an <SpellLink id={SPELLS.EVISCERATE.id} />. <SpellLink id={SPELLS.NIGHTBLADE.id} /> <dfn data-tip="refresh it when Symbols has less then 5 seconds cooldown left">Instead, you should refresh early*</dfn>
+              <SpellLink id={SPELLS.NIGHTBLADE.id} /> is a crucial part of Subtlety rotation, due to the 15% damage buff it provides. However you do not want to apply it during <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} /> or <SpellLink id={SPELLS.SHADOW_DANCE.id} /> if speced in to <SpellLink id={SPELLS.DARK_SHADOW_TALENT.id} /> because it will take the place of an <SpellLink id={SPELLS.EVISCERATE.id} />. <Tooltip content="refresh Nightbalde when Symbols has less then 5 seconds cooldown left">Instead, you should refresh Nightbalde early, so that it covers the full duration of Symbols*</Tooltip>
             </>
           )}
         >
@@ -117,7 +119,7 @@ class SubRogueChecklist extends React.PureComponent {
           <Requirement
             name={(
               <>
-                <dfn data-tip="includes Subterfuge if talented">Casts  in Stealth/Vanish*</dfn>                
+                <Tooltip content="Includes Subterfuge if talented">Casts in Stealth/Vanish*</Tooltip>
               </>
             )}
             thresholds={thresholds.castsInStealth}
@@ -141,7 +143,7 @@ class SubRogueChecklist extends React.PureComponent {
           <Requirement
             name={(
               <>
-                <SpellLink id={SPELLS.BACKSTAB.id} /> <dfn data-tip="includes Vanish and Subterfuge if talented">used from Stealth*</dfn>
+                <SpellLink id={SPELLS.BACKSTAB.id} /> <Tooltip content="Includes Vanish and Subterfuge if talented">used from Stealth*</Tooltip>
               </>
             )}
             thresholds={thresholds.backstabInStealth}

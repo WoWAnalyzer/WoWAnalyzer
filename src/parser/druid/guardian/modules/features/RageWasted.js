@@ -89,7 +89,7 @@ class RageWasted extends Analyzer {
     return this.totalWastedRage / this.totalRageGained;
   }
 
-  getWastedRageBreakdown() {
+  get wastedRageBreakdown() {
     return Object.keys(this.rageWastedBySpell)
       .map((spellID) => {
         if (!RAGE_GENERATORS[spellID]) {
@@ -101,7 +101,7 @@ class RageWasted extends Analyzer {
         };
       })
       .sort((a, b) => b.waste - a.waste)
-      .reduce((str, spell) => `${str}<br />${spell.name}: ${spell.waste}`, 'Rage wasted per spell:');
+      .reduce((str, spell) => <>{str}<br />{spell.name}: {spell.waste}</>, 'Rage wasted per spell:');
   }
 
   suggestions(when) {
@@ -121,11 +121,11 @@ class RageWasted extends Analyzer {
         icon={<SpellIcon id={SPELLS.BRISTLING_FUR.id} />}
         label="Wasted Rage"
         value={`${formatPercentage(this.wastedRageRatio)}%`}
-        tooltip={`
-          You wasted <strong>${this.totalWastedRage}</strong> rage out of <strong>${this.totalRageGained}</strong> total rage gained. (<strong>${formatPercentage(this.wastedRageRatio)}%</strong> of total)<br /><br />
+        tooltip={(<>
+          You wasted <strong>{this.totalWastedRage}</strong> rage out of <strong>{this.totalRageGained}</strong> total rage gained. (<strong>{formatPercentage(this.wastedRageRatio)}%</strong> of total)<br /><br />
 
-          ${this.getWastedRageBreakdown()}
-        `}
+          {this.wastedRageBreakdown}
+        </>)}
       />
     );
   }

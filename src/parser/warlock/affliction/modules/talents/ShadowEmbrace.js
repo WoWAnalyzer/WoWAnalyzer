@@ -118,10 +118,12 @@ class ShadowEmbrace extends Analyzer {
         <StatisticListBoxItem
           title={<><SpellLink id={SPELLS.SHADOW_EMBRACE_DEBUFF.id} /> uptime</>}
           value={`${formatPercentage(this.totalUptimePercentage)} %`}
-          valueTooltip={`No stacks: ${formatPercentage(uptimes[0])} %<br />
-            1 stack: ${formatPercentage(uptimes[1])} %<br />
-            2 stacks: ${formatPercentage(uptimes[2])} %<br />
-            3 stacks: ${formatPercentage(uptimes[3])} %`}
+          valueTooltip={(<>
+            No stacks: {formatPercentage(uptimes[0])} %<br />
+            1 stack: {formatPercentage(uptimes[1])} %<br />
+            2 stacks: {formatPercentage(uptimes[2])} %<br />
+            3 stacks: {formatPercentage(uptimes[3])} %
+          </>)}
         />
         <StatisticListBoxItem
           title={<><SpellLink id={SPELLS.SHADOW_EMBRACE_TALENT.id} /> bonus damage</>}

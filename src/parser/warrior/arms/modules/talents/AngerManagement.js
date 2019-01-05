@@ -64,9 +64,9 @@ class AngerManagement extends Analyzer {
   }
 
   get tooltip() {
-    return this.cooldownsAffected.reduce((a, e) => {
-      return `${a}${SPELLS[e].name}: ${formatDuration(this.effectiveReduction[e] / 1000)} reduction (${formatDuration(this.wastedReduction[e] / 1000)} wasted)<br>`;
-    }, '');
+    return this.cooldownsAffected.map(id => (
+      <>{SPELLS[id].name}: {formatDuration(this.effectiveReduction[id] / 1000)} reduction ({formatDuration(this.wastedReduction[id] / 1000)} wasted)<br /></>
+    ));
   }
 
   subStatistic() {

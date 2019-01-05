@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SPELLS from 'common/SPELLS';
-import Checklist from 'parser/shared/modules/features/Checklist2';
-import Rule from 'parser/shared/modules/features/Checklist2/Rule';
-import PreparationRule from 'parser/shared/modules/features/Checklist2/PreparationRule';
-import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist2/GenericCastEfficiencyRequirement';
+import Checklist from 'parser/shared/modules/features/Checklist';
+import Rule from 'parser/shared/modules/features/Checklist/Rule';
+import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
+import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 
 class ElementalShamanChecklist extends React.PureComponent {
   static propTypes = {

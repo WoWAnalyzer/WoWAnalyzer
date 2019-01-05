@@ -1,13 +1,13 @@
-@import '../../../layout/Theme';
+@import 'interface/layout/Theme.scss';
 
 .boring-spell-value {
   > .icon {
-    padding: 15px 18px;
+    padding: 21px 18px;
     background: rgba(0, 0, 0, 0.1);
 
     img {
-      width: 56px;
-      height: 56px;
+      width: 58px;
+      height: 58px;
       margin-top: 0;
       box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
     }
@@ -16,8 +16,8 @@
     padding: 15px 18px;
     line-height: 1;
 
-    > div {
-      margin: 7px 0 5px 0;
+    > div:first-of-type {
+      margin: 10px 0 4px 0;
     }
     > small {
       display: block;

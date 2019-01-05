@@ -60,14 +60,8 @@ class BlessedSanctuary extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.BLESSED_SANCTUARY.id}
-        value={(
-          <>
-            <ItemHealingDone amount={this.effectiveHealing} /><br />
-          </>
-        )}
-        tooltip={`
-          ${formatThousands(this.effectiveHealing)} Total Healing
-        `}
+        value={<ItemHealingDone amount={this.effectiveHealing} />}
+        tooltip={`${formatThousands(this.effectiveHealing)} Total Healing`}
       />
     );
   }

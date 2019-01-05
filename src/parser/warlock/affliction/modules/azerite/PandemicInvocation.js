@@ -32,15 +32,16 @@ class PandemicInvocation extends Analyzer {
   }
 
   statistic() {
-    const pandemic = this.soulShardTracker.buildersObj[SPELLS.PANDEMIC_INVOCATION_ENERGIZE.id];
-    const generated = pandemic.generated || 0;
-    const wasted = pandemic.wasted || 0;
+    const generated = this.soulShardTracker.getGeneratedBySpell(SPELLS.PANDEMIC_INVOCATION_ENERGIZE.id);
+    const wasted = this.soulShardTracker.getWastedBySpell(SPELLS.PANDEMIC_INVOCATION_ENERGIZE.id);
     return (
       <TraitStatisticBox
         trait={SPELLS.PANDEMIC_INVOCATION.id}
         value={<ItemDamageDone amount={this.damage} />}
-        tooltip={`Pandemic Invocation damage: ${formatThousands(this.damage)}<br />
-                  You gained ${generated} Soul Shards and wasted ${wasted} Soul Shards with this trait.`}
+        tooltip={(<>
+          Pandemic Invocation damage: {formatThousands(this.damage)}<br />
+          You gained {generated} Soul Shards and wasted {wasted} Soul Shards with this trait.
+        </>)}
       />
     );
   }

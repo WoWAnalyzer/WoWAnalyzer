@@ -1,9 +1,10 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS/index';
-import ITEMS from 'common/ITEMS/index';
+import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import { calculateSecondaryStatDefault } from 'common/stats';
 import { formatPercentage, formatNumber } from 'common/format';
+import Tooltip from 'common/Tooltip';
 import Analyzer from 'parser/core/Analyzer';
 
 /**
@@ -39,10 +40,10 @@ class ConstructOvercharger extends Analyzer {
     return {
       item: ITEMS.CONSTRUCT_OVERCHARGER,
       result: (
-        <dfn data-tip={`Procced ${this.buffTriggerCount()} times.`}>
+        <Tooltip wrapperStyles={{ display: 'inline' }} content={`Procced ${this.buffTriggerCount()} times.`}>
           {formatPercentage(this.totalBuffUptime())}% uptime.<br />
           {formatNumber(this.averageStatGain())} average Haste.
-        </dfn>
+        </Tooltip>
       ),
     };
   }

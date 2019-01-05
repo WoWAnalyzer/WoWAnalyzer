@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import ReactTooltip from 'react-tooltip';
 import { t } from '@lingui/macro';
 
 import getFightName from 'common/getFightName';
@@ -11,6 +10,7 @@ import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import { getFightId } from 'interface/selectors/url/report';
 import { getFightFromReport } from 'interface/selectors/fight';
 import DocumentTitle from 'interface/common/DocumentTitle';
+import Tooltip from 'common/Tooltip';
 
 import FightSelectionPanel from './FightSelectionPanel';
 
@@ -26,10 +26,6 @@ class FightSelection extends React.PureComponent {
     fightId: PropTypes.number,
   };
 
-  componentWillUnmount() {
-    ReactTooltip.hide();
-  }
-
   renderFightSelection() {
     const { report, refreshReport } = this.props;
 
@@ -38,8 +34,10 @@ class FightSelection extends React.PureComponent {
         <div className="row">
           <div className="col-lg-10 col-md-8" style={{ position: 'relative' }}>
             <div className="back-button" style={{ fontSize: 36, width: 20 }}>
-              <Link to={makeAnalyzerUrl()} data-tip={i18n._(t`Back to home`)}>
-                <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
+              <Link to={makeAnalyzerUrl()}>
+                <Tooltip content={i18n._(t`Back to home`)} tagName="div">
+                  <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
+                </Tooltip>
               </Link>
             </div>
             <h1>

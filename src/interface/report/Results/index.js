@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ReactTooltip from 'react-tooltip';
 import { Trans, t } from '@lingui/macro';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
@@ -15,7 +14,7 @@ import WipefestLogo from 'interface/images/Wipefest-logo.png';
 import { i18n } from 'interface/RootLocalizationProvider';
 import CastEfficiencyComponent from 'interface/others/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
-import Checklist from 'parser/shared/modules/features/Checklist2/Module';
+import Checklist from 'parser/shared/modules/features/Checklist/Module';
 import CharacterTab from 'parser/shared/modules/features/CharacterTab';
 import EncounterPanel from 'parser/shared/modules/features/EncounterPanel';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
@@ -74,13 +73,6 @@ class Results extends React.PureComponent {
     this.state = {
       adjustForDowntime: false,
     };
-  }
-
-  componentDidMount() {
-    ReactTooltip.rebuild();
-  }
-  componentDidUpdate() {
-    ReactTooltip.rebuild();
   }
 
   get warning() {
