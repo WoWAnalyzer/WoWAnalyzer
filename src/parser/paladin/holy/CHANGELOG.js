@@ -7,6 +7,11 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2019-01-05'),
+    changes: <><SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> cast while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was available will now be highlighted in the timeline.</>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-01-05'),
     changes: <>Fixed a bug in the analysis of <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} /> that caused the active damage reduction to sometimes not properly be accounted for.</>,
     contributors: [Zerotorescue],
   },

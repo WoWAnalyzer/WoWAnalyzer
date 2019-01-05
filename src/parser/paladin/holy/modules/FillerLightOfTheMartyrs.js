@@ -2,18 +2,14 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-
 import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-
-import AbilityTracker from './core/PaladinAbilityTracker';
 
 /** @type {number} (ms) When Holy Shock has less than this as cooldown remaining you should wait and still not cast that filler FoL. */
 const HOLY_SHOCK_COOLDOWN_WAIT_TIME = 200;
 
 class FillerLightOfTheMartyrs extends Analyzer {
   static dependencies = {
-    abilityTracker: AbilityTracker,
     spellUsable: SpellUsable,
   };
 
@@ -36,6 +32,9 @@ class FillerLightOfTheMartyrs extends Analyzer {
       }
     }
     this.inefficientCasts.push(event);
+    event.meta = event.meta || {};
+    event.meta.isInefficientCast = true;
+    event.meta.inefficientCastReason = 'Holy Shock was available and should have been cast instead as it is a much more efficient spell.';
   }
 
   get cpm() {
