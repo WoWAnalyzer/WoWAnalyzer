@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-
 import HIT_TYPES from 'game/HIT_TYPES';
 import BaseHealerStatValues from 'parser/shared/modules/features/BaseHealerStatValues';
 import STAT from 'parser/shared/modules/features/STAT';
@@ -9,7 +8,7 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 
 import SPELL_INFO from './StatValuesSpellInfo';
 import MasteryEffectiveness from './MasteryEffectiveness';
-import BeaconHealSource from '../beacons/BeaconHealSource';
+import BeaconHealSource from './beacons/BeaconHealSource';
 
 const INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER = 150; // the buff expiration can occur several MS before the heal event is logged, this is the buffer time that an IoL charge may have dropped during which it will still be considered active.
 const INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME = 200; // if someone heals with FoL and then immediately casts a HS race conditions may occur. This prevents that (although the buff is probably not applied before the FoL).
@@ -23,7 +22,7 @@ const INFUSION_OF_LIGHT_FOL_HEALING_INCREASE = 0.4;
  * https://github.com/WoWAnalyzer/WoWAnalyzer/issues/657
  */
 class StatValues extends BaseHealerStatValues {
-  static dependencies = {    
+  static dependencies = {
     critEffectBonus: CritEffectBonus,
     statTracker: StatTracker,
     masteryEffectiveness: MasteryEffectiveness, // this added the `masteryEffectiveness` property to spells that are affected by Mastery
