@@ -12,6 +12,7 @@ import { formatThousands } from 'common/format';
 import TraitStatisticBox from 'interface/others/TraitStatisticBox';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 
+import { poissonBinomialCDF, poissonBinomialPMF } from 'parser/warlock/shared/probability';
 import SoulShardTracker from '../soulshards/SoulShardTracker';
 
 const HOG_SP_COEFFICIENT = 0.16; // taken from Simcraft SpellDataDump
@@ -51,6 +52,12 @@ class DemonicMeteor extends Analyzer {
 
   statistic() {
     const shardsGained = this.soulShardTracker.getGeneratedBySpell(SPELLS.DEMONIC_METEOR_SHARD_GEN.id);
+    this.log('Poisson PMF test');
+    const pmf = poissonBinomialPMF(2, 3, [0.15, 0.1, 0.15]);
+    this.log(`Result: ${pmf}`);
+    this.log('Poisson CDF test');
+    const { probability: cdf } = poissonBinomialCDF(2, 3, [0.15, 0.1, 0.15]);
+    this.log(`Result: ${cdf}`);
     return (
       <TraitStatisticBox
         trait={SPELLS.DEMONIC_METEOR.id}
