@@ -42,6 +42,7 @@ class SubRogueChecklist extends React.PureComponent {
           <AbilityRequirement spell={SPELLS.SHADOW_DANCE.id} />
           <AbilityRequirement spell={SPELLS.SYMBOLS_OF_DEATH.id} />
           <AbilityRequirement spell={SPELLS.VANISH.id} />
+          <AbilityRequirement spell={SPELLS.SHADOW_BLADES.id} />
           {combatant.hasTalent(SPELLS.SECRET_TECHNIQUE_TALENT.id) && (
             <AbilityRequirement spell={SPELLS.SECRET_TECHNIQUE_TALENT.id} />
           )}
@@ -75,7 +76,7 @@ class SubRogueChecklist extends React.PureComponent {
           name="Manage Nightblade correctly"
           description={(
             <>
-              <SpellLink id={SPELLS.NIGHTBLADE.id} /> is a crucial part of Subtlety rotation, due to the 15% damage buff it provides. However you do not want to apply it during <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} /> or <SpellLink id={SPELLS.SHADOW_DANCE.id} /> if speced in to <SpellLink id={SPELLS.DARK_SHADOW_TALENT.id} /> because it will take the place of an <SpellLink id={SPELLS.EVISCERATE.id} />. <SpellLink id={SPELLS.NIGHTBLADE.id} /> <dfn data-tip="refresh it when Symbols has less then 5 seconds cooldown left">Instead, you should refresh early*</dfn>
+              <SpellLink id={SPELLS.NIGHTBLADE.id} /> is a crucial part of Subtlety rotation, due to the 15% damage buff it provides. However you do not want to apply it during <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} /> or <SpellLink id={SPELLS.SHADOW_DANCE.id} /> if speced in to <SpellLink id={SPELLS.DARK_SHADOW_TALENT.id} /> because it will take the place of an <SpellLink id={SPELLS.EVISCERATE.id} />. <dfn data-tip="refresh Nightbalde when Symbols has less then 5 seconds cooldown left">Instead, you should refresh Nightbalde early, so that it covers the full duration of Symbols*</dfn>
             </>
           )}
         >

@@ -35,6 +35,8 @@ import TwinsPainfulTouch from './modules/items/TwinsPainfulTouch';
 import AnundsSearedShackles from './modules/items/AnundsSearedShackles';
 import HeartOfTheVoid from './modules/items/HeartOfTheVoid';
 import ZenkaramIridisAnadem from './modules/items/ZenkaramIridisAnadem';
+// normalizers
+import ShadowfiendNormalizer from '../shared/normalizers/ShadowfiendNormalizer';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -79,6 +81,8 @@ class CombatLogParser extends MainCombatLogParser {
     anundsSearedShackles: AnundsSearedShackles,
     heartOfTheVoid: HeartOfTheVoid,
     zenkaramIridisAnadem: ZenkaramIridisAnadem,
+
+    shadowfiendNormalizer: ShadowfiendNormalizer,
   };
 }
 

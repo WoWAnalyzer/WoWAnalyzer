@@ -9,7 +9,7 @@ import ManaValues from 'parser/shared/modules/ManaValues';
 import StatisticsListBox, { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
 import StatisticWrapper from 'interface/others/StatisticWrapper';
 
-import PaladinAbilityTracker from './PaladinAbilityTracker';
+import PaladinAbilityTracker from './core/PaladinAbilityTracker';
 
 const CHART_SIZE = 75;
 

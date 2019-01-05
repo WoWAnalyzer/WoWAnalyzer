@@ -7,6 +7,8 @@ import Analyzer from 'parser/core/Analyzer';
 import HealingDone from 'parser/shared/modules/HealingDone';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
+const TOUCH_OF_KARMA_HP_SCALING = 0.5;
+
 class TouchOfKarma extends Analyzer {
 	static dependencies = {
     healingDone: HealingDone,
@@ -18,7 +20,7 @@ class TouchOfKarma extends Analyzer {
     if (SPELLS.TOUCH_OF_KARMA_CAST.id !== spellId){
       return;
     }
-    this.totalPossibleAbsorb += event.maxHitPoints * (this.selectedCombatant.hasTalent(SPELLS.GOOD_KARMA_TALENT.id) ? 1 : 0.5);
+    this.totalPossibleAbsorb += event.maxHitPoints * TOUCH_OF_KARMA_HP_SCALING;
   }
 
   get absorbUsed() {

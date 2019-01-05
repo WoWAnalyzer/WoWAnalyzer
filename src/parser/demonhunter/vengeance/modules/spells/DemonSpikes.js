@@ -41,17 +41,32 @@ class DemonSpikes extends Analyzer {
     return formatPercentage(this.hitsWithDS / (this.hitsWithDS + this.hitsWithoutDS));
   }
 
+  get hitsWithDSOffCDPercent(){
+    return this.hitsWithDSOffCD / (this.hitsWithDS+ this.hitsWithoutDS);
+  }
+
+  get suggestionThresholdsEfficiency() {
+    return {
+      actual: this.hitsWithDSOffCDPercent,
+      isGreaterThan: {
+        minor: 0.20,
+        average: 0.30,
+        major: 0.40,
+      },
+      style: 'percentage',
+    };
+  }
+
   suggestions(when) {
-    const hitsWithDSOffCDPercent = this.hitsWithDSOffCD / (this.hitsWithDS+ this.hitsWithoutDS);
-    when(hitsWithDSOffCDPercent).isGreaterThan(0.15)
+    when(this.suggestionThresholdsEfficiency)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<> Cast <SpellLink id={SPELLS.DEMON_SPIKES.id} /> more regularly while actively tanking the boss or when they use a big phsyical attack. You missed having it up for {formatPercentage(hitsWithDSOffCDPercent)}% of physical hits.</>)
+        return suggest(<> Cast <SpellLink id={SPELLS.DEMON_SPIKES.id} /> more regularly while actively tanking the boss or when they use a big phsyical attack. You missed having it up for {formatPercentage(this.hitsWithDSOffCDPercent)}% of physical hits.</>)
           .icon(SPELLS.DEMON_SPIKES.icon)
           .actual(`${formatPercentage(actual)}% unmitigated physical hits`)
-          .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
-          .regular(recommended - 0.1).major(recommended - 0.2);
+          .recommended(`<${formatPercentage(recommended)}% is recommended`);
       });
   }
+
 
   statistic() {
     const demonSpikesUptime = this.selectedCombatant.getBuffUptime(SPELLS.DEMON_SPIKES_BUFF.id);
