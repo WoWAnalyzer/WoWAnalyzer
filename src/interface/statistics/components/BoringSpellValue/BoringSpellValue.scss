@@ -17,10 +17,11 @@
     line-height: 1;
 
     > div:first-of-type {
-      margin: 10px 0 4px 0;
+      margin: 12px 0 4px 0;
     }
     > small {
       display: block;
+      font-weight: 400;
     }
   }
 }
