@@ -64,8 +64,8 @@ class PlayerInfo extends React.PureComponent {
   get averageIlvl() {
     const gear = this.state.gear;
 
-    const filteredGear = gear.filter((item, slotId) => item.itemLevel !== 0 && !EXCLUDED_ITEM_SLOTS.includes(slotId));
-    return filteredGear.reduce( ( total, item ) => total + item.itemLevel, 0 ) / filteredGear.length;
+    const filteredGear = gear.filter((item, slotId) => !EXCLUDED_ITEM_SLOTS.includes(slotId));
+    return filteredGear.reduce((total, item) => total + item.itemLevel, 0 ) / filteredGear.length;
   }
 }
 

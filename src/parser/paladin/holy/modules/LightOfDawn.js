@@ -8,7 +8,7 @@ import PlayerHits from 'interface/statistics/components/PlayerHits';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 
-// import './LightOfDawn.scss';
+import './LightOfDawn.scss';
 
 class LightOfDawn extends Analyzer {
   _casts = 0;
