@@ -9,9 +9,9 @@ import SpellLink from 'common/SpellLink';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
+import { binomialCDF } from 'parser/warlock/shared/probability';
 import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
 import SoulShardTracker from '../soulshards/SoulShardTracker';
-import { binomialCDF } from 'parser/warlock/shared/probability';
 
 const TICKS_PER_UA = 4;
 const SC_PROC_CHANCE = 0.15;
