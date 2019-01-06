@@ -48,13 +48,13 @@ class CastsInShadowDance extends CastsInStealthBase {
     const shadowDanceUptime = this.selectedCombatant.getBuffUptime(SPELLS.SHADOW_DANCE_BUFF.id) / this.owner.fightDuration;
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(20)}
         icon={<SpellIcon id={SPELLS.SHADOW_DANCE_BUFF.id} />}
         value={`${formatPercentage(shadowDanceUptime)} %`}
         label="Shadow Dance uptime"
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
 export default CastsInShadowDance;

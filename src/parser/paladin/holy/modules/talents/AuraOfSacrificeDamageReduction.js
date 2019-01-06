@@ -63,8 +63,8 @@ class AuraOfSacrificeDamageReduction extends Analyzer {
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.handlePassiveTransfer);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.handleHealthUpdate);
     this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.handleHealthUpdate);
-    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.AURA_MASTERY.id), this.handleApplyAuraMastery);
-    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.AURA_MASTERY.id), this.handleRemoveAuraMastery);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.AURA_MASTERY), this.handleApplyAuraMastery);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.AURA_MASTERY), this.handleRemoveAuraMastery);
   }
 
   // TODO: Account for passive damage transferred during Divine Shield
