@@ -27,7 +27,7 @@ function Ekj(k, j, p, lookup) {
 
 // Poisson's Binomial Distribution
 // Methods based on Wikipedia page and this research paper:
-// // https://www.researchgate.net/publication/257017356_On_computing_the_distribution_function_for_the_Poisson_binomial_distribution
+// https://www.researchgate.net/publication/257017356_On_computing_the_distribution_function_for_the_Poisson_binomial_distribution
 
 /**
  * Calculates the probability that out of n tries with p probabilities, we get exactly k positive outcomes
@@ -72,5 +72,57 @@ export function poissonBinomialCDF(k, n, p) {
   return {
     probability,
     lookup,
+  };
+}
+
+// Binomial Distribution
+
+function bin(n, k) {
+  // n! / (k! * (n - k)!)
+  // factorials are awful, let's simplify a bit
+  // we know k < n:
+  // numerator: n! = 1 * 2 * ... * (n - k) * (n - k + 1) * (n - k + 2 ) * ... * n
+  // denominator: k! * (n - k)! = k! * 1 * 2 * ... * (n - k)
+  // cancelling out 1 * 2 * ... * (n - k) from both we get:
+  // (n - k + 1) * (n - k + 2) * ... n / k!
+  let numerator = 1;
+  let denominator = 1;
+  for (let i = n - k + 1; i <= n; i++) {
+    numerator *= i;
+  }
+  for (let i = 1; i <= k; i++) {
+    denominator *= i;
+  }
+  return numerator / denominator;
+}
+
+/**
+ * Calculates the probability that out of n tries with probability p, we get exactly k positive outcomes
+ * @param k {Number} Number of desired positive outcomes
+ * @param n {Number} Number of tries
+ * @param p {Number} Probability of positive outcome
+ */
+export function binomialPMF(k, n, p) {
+  return bin(n, k) * Math.pow(p, k) * Math.pow(1 - p, n - k);
+}
+
+/**
+ * Calculates the probability that out of n tries with probability p, we get k or less positive outcomes
+ * @param k {Number} Number of desired positive outcomes
+ * @param n {Number} Number of tries
+ * @param p {Number} Probability of positive outcome
+ */
+export function binomialCDF(k, n, p) {
+  let probability = 0;
+  const partial = [];
+  for (let i = 0; i <= k; i++) {
+    const prob = binomialPMF(i, n, p);
+    probability += prob;
+    partial.push(prob);
+  }
+  // in the same nature like poissonBinomialCDF, return information for previously calculated PMF
+  return {
+    probability,
+    partial,
   };
 }
