@@ -31,7 +31,6 @@ TalentStatisticBox.propTypes = {
   label: PropTypes.node,
 };
 TalentStatisticBox.defaultProps = {
-  alignIcon: 'center',
   category: STATISTIC_CATEGORY.TALENTS,
 };
 

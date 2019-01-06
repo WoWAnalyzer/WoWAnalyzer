@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import SPECS from 'game/SPECS';
 import fetchWcl from 'common/fetchWclApi';
-import CombatLogParser from 'parser/core/CombatLogParser';
 
 const DAYS_PER_WEEK = 7;
 const SECONDS_PER_DAY = 86400;
@@ -17,7 +16,7 @@ class ThroughputPerformance extends React.PureComponent {
     throughput: PropTypes.number.isRequired,
   };
   static contextTypes = {
-    parser: PropTypes.instanceOf(CombatLogParser).isRequired,
+    parser: PropTypes.object.isRequired, // unable to use instanceof CombatLogParser as that would cause a circular import
   };
 
   constructor() {

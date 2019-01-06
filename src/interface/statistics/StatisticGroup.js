@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import STATISTIC_CATEGORY from '../others/STATISTIC_CATEGORY';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 const StatisticGroup = ({ children, large, wide, style, ...others }) => (
   <div
@@ -18,7 +18,7 @@ StatisticGroup.propTypes = {
   wide: PropTypes.bool,
   style: PropTypes.object,
   // eslint-disable-next-line react/no-unused-prop-types
-  category: PropTypes.oneOf(STATISTIC_CATEGORY),
+  category: PropTypes.oneOf(Object.values(STATISTIC_CATEGORY)),
   // eslint-disable-next-line react/no-unused-prop-types
   position: PropTypes.number,
 };
