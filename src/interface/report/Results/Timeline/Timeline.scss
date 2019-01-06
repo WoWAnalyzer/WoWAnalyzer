@@ -89,7 +89,7 @@
   a.cancelled img {
     border-color: red;
   }
-  /*noinspection CssOverwrittenProperties*/
+  //noinspection CssOverwrittenProperties
   a.lower {
     --level: 0;
     height: 22px;
@@ -102,7 +102,7 @@
     z-index: 2;
     position: relative;
   }
-  /*noinspection CssOverwrittenProperties*/
+  //noinspection CssOverwrittenProperties
   a.lower .time-indicator {
     position: absolute;
     bottom: 7px;
@@ -149,7 +149,7 @@
 .spell-timeline .buffs {
   width: 100%;
   border-radius: 10px;
-  top: 0px;
+  top: 0;
   height: 22px;
   box-sizing: content-box;
 
@@ -169,14 +169,14 @@
     height: 100%;
     display: block;
   }
-  /*noinspection CssOverwrittenProperties*/
+  //noinspection CssOverwrittenProperties
   a.hoist {
     --level: 0;
     height: 22px;
     top: -13px;
-    top: calc(-13px + var(--level) * -25px);
+    top: calc(-13px + var(--level) * -30px);
   }
-  /*noinspection CssOverwrittenProperties*/
+  //noinspection CssOverwrittenProperties
   a.hoist .time-indicator {
     position: absolute;
     top: 7px;
@@ -185,16 +185,16 @@
     width: 1px;
     background: #f8b700;
   }
-  /*noinspection CssOverwrittenProperties*/
+  //noinspection CssOverwrittenProperties
   .buff {
     border-top-right-radius: 5px;
     background: hsla(41, 10%, 68%, 0.2);
     box-shadow: 0 0 3px #000;
     z-index: 2;
-    height: calc(52px + var(--level) * 25px);
+    height: calc(50px + var(--level) * 30px);
     --level: 0;
-    top: -8px;
-    top: calc(-8px + var(--level) * -25px);
+    top: -6px;
+    top: calc(-6px + var(--level) * -30px);
     cursor: default;
   }
 }
@@ -247,20 +247,3 @@
     z-index: 3;
   }
 }
-/*.spell-timeline .time-line > *:before, .spell-timeline .time-line > *:after {*/
-  /*content: '';*/
-  /*position: absolute;*/
-  /*left: 50%;*/
-  /*bottom: 0;*/
-  /*height: 16px;*/
-  /*border-left: 1px solid #fff;*/
-/*}*/
-/*.spell-timeline .time-line.interval-3 > *:before {*/
-  /*left: 33%;*/
-/*}*/
-/*.spell-timeline .time-line.interval-3 > *:after {*/
-  /*left: 66%;*/
-/*}*/
-/*.spell-timeline .time-line:not(.interval-3) > *:after {*/
-  /*display: none;*/
-/*}*/
