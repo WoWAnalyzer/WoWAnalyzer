@@ -50,8 +50,9 @@ class SoulConduit extends Analyzer {
       <StatisticListBoxItem
         title={<>Fragments generated with <SpellLink id={SPELLS.SOUL_CONDUIT_TALENT.id} /></>}
         value={generated}
-        valueTooltip={`Estimated damage: ${formatThousands(estimatedDamage)} (${this.owner.formatItemDamageDone(estimatedDamage)}).<br />
-          You gained ${generated} fragments from this talent (<strong>${formatPercentage(generated / max)}%</strong> of fragments you could expect in this fight.)<br />
+        valueTooltip={`You gained ${generated} fragments from this talent, which is <strong>${formatPercentage(generated / max)}%</strong> of fragments you were most likely to get in this fight (${max} fragments).<br />
+          Estimated damage: ${formatThousands(estimatedDamage)} (${this.owner.formatItemDamageDone(estimatedDamage)}).<br /><br />
+
           This result is estimated by multiplying average Chaos Bolt damage by potential casts you would get from these bonus fragments.`}
       />
     );

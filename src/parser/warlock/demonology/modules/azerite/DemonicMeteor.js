@@ -88,7 +88,7 @@ class DemonicMeteor extends Analyzer {
         trait={SPELLS.DEMONIC_METEOR.id}
         value={<ItemDamageDone amount={this.damage} approximate />}
         tooltip={`Estimated bonus Hand of Gul'dan damage: ${formatThousands(this.damage)}<br />
-                Shards gained with this trait: ${shardsGained} (<strong>${formatPercentage(shardsGained / max)} %</strong> of procs you could expect in this fight.)<br /><br />
+                You gained ${shardsGained} Shards with this trait, which is <strong>${formatPercentage(shardsGained / max)} %</strong> of procs you were most likely to get in this fight (${max} procs).<br /><br />
                 The damage is an approximation using current Intellect values at given time, but because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be a little incorrect.`}
       />
     );

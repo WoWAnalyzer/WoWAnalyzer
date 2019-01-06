@@ -43,7 +43,7 @@ class SoulConduit extends Analyzer {
       <StatisticListBoxItem
         title={<>Shards generated with <SpellLink id={SPELLS.SOUL_CONDUIT_TALENT.id} /></>}
         value={generated}
-        valueTooltip={`You gained ${generated} Soul Shards from this talent (<strong>${formatPercentage(generated / max)}%</strong> of Shards you could expect in this fight.)<br />
+        valueTooltip={`You gained ${generated} Soul Shards from this talent, which is <strong>${formatPercentage(generated / max)}%</strong> of Shards you were most likely to get in this fight (${max} Shards)<br />
                       You would get ${extraHogs} extra 3 shard Hands of Gul'dan with shards from this talent.`}
       />
     );
