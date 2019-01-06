@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { formatDuration } from '../../../../common/format';
 
-import CASTS_THAT_ARENT_CASTS from '../../../../parser/core/CASTS_THAT_ARENT_CASTS';
+import { formatDuration } from 'common/format';
+import DragScroll from 'interface/common/DragScroll';
+import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
+import BuffsModule from 'parser/core/modules/Buffs';
+
 import Buffs from './Buffs';
 import Casts from './Casts';
 import Lane from './Lane';
 import './Timeline.scss';
-import DragScroll from 'interface/common/DragScroll';
 
 class Timeline extends React.PureComponent {
   static propTypes = {
@@ -24,6 +26,7 @@ class Timeline extends React.PureComponent {
     showCooldowns: PropTypes.bool,
     showGlobalCooldownDuration: PropTypes.bool,
     buffEvents: PropTypes.object,
+    buffs: PropTypes.instanceOf(BuffsModule).isRequired,
   };
   static defaultProps = {
     showCooldowns: true,

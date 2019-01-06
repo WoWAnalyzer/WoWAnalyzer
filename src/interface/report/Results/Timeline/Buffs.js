@@ -16,6 +16,7 @@ class Buffs extends React.PureComponent {
         type: PropTypes.string.isRequired,
       })).isRequired,
     }).isRequired,
+    buffs: PropTypes.instanceOf(BuffsModule).isRequired,
   };
 
   constructor() {
@@ -37,7 +38,7 @@ class Buffs extends React.PureComponent {
       return false;
     }
     const spellId = event.ability.guid;
-    const buff = parser.getModule(BuffsModule).getBuff(spellId);
+    const buff = this.props.buffs.getBuff(spellId);
     // console.log(buff, spellId, event.ability.name, this.props.buffs.activeBuffs)
     if (!buff || !buff.timelineHightlight) {
       return false;
@@ -65,21 +66,27 @@ class Buffs extends React.PureComponent {
     }
   }
   _applied = {};
-  _levels = {};
-  _lastApplied = null;
+  _levels = [];
+  _getLevel() {
+    // Look for the first available level, reusing levels that are no longer used
+    let level = 0;
+    while (this._levels[level] !== undefined) {
+      level += 1;
+    }
+    return level;
+  }
   renderApplyBuff(event) {
-    // Avoid overlapping icons
-    const level = Math.max(Object.keys(this._levels).length, (this._lastApplied && this._levels[this._lastApplied] !== undefined) ? this._levels[this._lastApplied] + 1 : 0);
-
     const spellId = event.ability.guid;
+
+    // Avoid overlapping icons
+    const level = this._getLevel();
     this._applied[spellId] = event.timestamp;
-    this._levels[spellId] = level;
-    this._lastApplied = spellId;
+    this._levels[level] = spellId;
 
     return this.renderIcon(event, {
       className: 'hoist',
       style: {
-        '--level': level > 0 ? level : undefined,
+        '--level': level,
       },
       children: <div className="time-indicator" />,
     });
@@ -90,8 +97,8 @@ class Buffs extends React.PureComponent {
     const duration = event.timestamp - applied;
     const fightDuration = (applied - this.props.start) / 1000;
 
-    const level = this._levels[event.ability.guid];
-    delete this._levels[event.ability.guid];
+    const level = this._levels.indexOf(event.ability.guid);
+    this._levels[level] = undefined;
 
     // TODO: tooltip renders at completely wrong places
     return (
@@ -103,7 +110,7 @@ class Buffs extends React.PureComponent {
           position: 'absolute',
           left,
           width: (event.timestamp - applied) / 1000 * this.props.secondWidth,
-          '--level': level > 0 ? level : undefined,
+          '--level': level,
         }}
         data-effect="float"
         tagName="div"
