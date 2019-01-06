@@ -35,7 +35,6 @@ import Pets from '../shared/modules/Pets';
 import ManaValues from '../shared/modules/ManaValues';
 import SpellManaCost from '../shared/modules/SpellManaCost';
 import Channeling from '../shared/modules/Channeling';
-import TimelineBuffEvents from '../shared/modules/TimelineBuffEvents';
 import DeathDowntime from '../shared/modules/downtime/DeathDowntime';
 import TotalDowntime from '../shared/modules/downtime/TotalDowntime';
 
@@ -185,7 +184,6 @@ class CombatLogParser {
     manaValues: ManaValues,
     vantusRune: VantusRune,
     distanceMoved: DistanceMoved,
-    timelineBuffEvents: TimelineBuffEvents,
     deathRecapTracker: DeathRecapTracker,
 
     critEffectBonus: CritEffectBonus,

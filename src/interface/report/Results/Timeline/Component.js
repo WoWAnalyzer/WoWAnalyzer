@@ -25,7 +25,6 @@ class Timeline extends React.PureComponent {
     resurrections: PropTypes.array.isRequired,
     showCooldowns: PropTypes.bool,
     showGlobalCooldownDuration: PropTypes.bool,
-    buffEvents: PropTypes.object,
     buffs: PropTypes.instanceOf(BuffsModule).isRequired,
   };
   static defaultProps = {
