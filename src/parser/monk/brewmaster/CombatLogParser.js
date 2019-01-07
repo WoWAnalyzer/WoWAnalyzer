@@ -11,6 +11,7 @@ import StaggerFabricator from './modules/core/StaggerFabricator';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import Channeling from './modules/core/Channeling';
 import MasteryValue from './modules/core/MasteryValue';
+import SpellUsable from './modules/core/SpellUsable';
 // Spells
 import IronSkinBrew from './modules/spells/IronSkinBrew';
 import PurifyingBrew from './modules/spells/PurifyingBrew';
@@ -29,6 +30,7 @@ import TrainingOfNiuzao from './modules/spells/azeritetraits/TrainingOfNiuzao';
 import StaggeringStrikes from './modules/spells/azeritetraits/StaggeringStrikes';
 import ElusiveFootwork from './modules/spells/azeritetraits/ElusiveFootwork';
 import FitToBurst from './modules/spells/azeritetraits/FitToBurst';
+import StraightNoChaser from './modules/spells/azeritetraits/StraightNoChaser';
 // Features
 import Checklist from './modules/features/checklist/Module';
 import Abilities from './modules/Abilities';
@@ -57,6 +59,7 @@ class CombatLogParser extends CoreCombatLogParser {
     globalCooldown: GlobalCooldown,
     masteryValue: MasteryValue,
     mitigationCheck: MitigationCheck,
+    spellUsable: SpellUsable,
 
     // Features
     checklist: Checklist,
@@ -83,6 +86,7 @@ class CombatLogParser extends CoreCombatLogParser {
     staggeringStrikes: StaggeringStrikes,
     elusiveFootwork: ElusiveFootwork,
     fitToBurst: FitToBurst,
+    snc: StraightNoChaser,
 
     // Items
 

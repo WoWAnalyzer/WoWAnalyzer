@@ -2,9 +2,9 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
+import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 class LightOfDawn extends Analyzer {
   _casts = 0;

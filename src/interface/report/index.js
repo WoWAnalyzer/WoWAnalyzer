@@ -7,6 +7,7 @@ import FightSelection from './FightSelection';
 import BossEventLoader from './BossEventLoader';
 import PlayerSelection from './PlayerSelection';
 import ConfigLoader from './ConfigLoader';
+import PatchChecker from './PatchChecker';
 import SupportChecker from './SupportChecker';
 import EventParser from './EventParser';
 import Results from './Results';
@@ -15,10 +16,13 @@ const Report = props => (
   // TODO: Error boundary so all sub components don't need the errorHandler with the silly withRouter dependency. Instead just throw the error and let the boundary catch it - if possible.
   <ReportLoader>
     {(report, refreshReport) => (
-      <FightSelection
+      <PatchChecker
         report={report}
-        refreshReport={refreshReport}
       >
+        <FightSelection
+          report={report}
+          refreshReport={refreshReport}
+        >
         {fight => (
           <BossEventLoader
             report={report}
@@ -66,6 +70,7 @@ const Report = props => (
           </BossEventLoader>
         )}
       </FightSelection>
+      </PatchChecker>
     )}
   </ReportLoader>
 );

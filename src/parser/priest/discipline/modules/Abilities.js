@@ -270,13 +270,6 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.SHADOW_COVENANT_TALENT.id),
       },
       {
-        spell: SPELLS.LIGHTS_WRATH,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: SPELLS.LEVITATE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
