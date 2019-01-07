@@ -25,6 +25,7 @@ class DarkShadowContribution extends DarkShadow {
      
     return (
         <StatisticBox
+          position={STATISTIC_ORDER.OPTIONAL(20)}
           icon={<SpellIcon id={SPELLS.DARK_SHADOW_TALENT.id} />}
           value={`${formatNumber(danceDamage / this.owner.fightDuration * 1000)} DPS`}
           label="Damage contribution from Dark Shadow"
@@ -32,8 +33,6 @@ class DarkShadowContribution extends DarkShadow {
           />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(2);
 }
 
 export default DarkShadowContribution;

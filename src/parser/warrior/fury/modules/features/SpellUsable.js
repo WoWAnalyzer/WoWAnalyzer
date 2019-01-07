@@ -1,6 +1,8 @@
 import SPELLS from 'common/SPELLS';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 
+const FURY_EXECUTES = [SPELLS.EXECUTE_FURY.id, SPELLS.EXECUTE_FURY_MASSACRE.id];
+
 class SpellUsable extends CoreSpellUsable {
   static dependencies = {
     ...CoreSpellUsable.dependencies,
@@ -27,7 +29,7 @@ class SpellUsable extends CoreSpellUsable {
       this.lastPotentialTriggerForRagingBlow = event;
     }
 
-    if (spellId === SPELLS.EXECUTE_FURY.id) {
+    if (FURY_EXECUTES.includes(spellId)) {
       this.lastExecute = event.timestamp;
     }
   }
@@ -39,7 +41,7 @@ class SpellUsable extends CoreSpellUsable {
         this.endCooldown(spellId, undefined, this.lastPotentialTriggerForRagingBlow ? this.lastPotentialTriggerForRagingBlow.timestamp : undefined);
       }
     }
-    if (this.hasSuddenDeath && spellId === SPELLS.EXECUTE_FURY.id) {
+    if (this.hasSuddenDeath && FURY_EXECUTES.includes(spellId)) {
       if (this.isOnCooldown(spellId)) {
         this.executeCdrEvents[this.lastExecute] = this.cooldownRemaining(spellId);
         this.endCooldown(spellId);

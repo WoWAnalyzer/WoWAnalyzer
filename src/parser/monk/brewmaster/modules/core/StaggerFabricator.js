@@ -3,11 +3,9 @@ import Analyzer from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import Haste from 'parser/shared/modules/Haste';
 
-import { GIFT_OF_THE_OX_SPELLS } from '../../constants';
 import HighTolerance, { HIGH_TOLERANCE_HASTE } from '../spells/HighTolerance';
 
 const PURIFY_BASE = 0.5;
-const T20_4PC_PURIFY = 0.05;
 
 export const EVENT_STAGGER_POOL_ADDED = 'addstagger';
 export const EVENT_STAGGER_POOL_REMOVED = 'removestagger';
@@ -29,15 +27,8 @@ class StaggerFabricator extends Analyzer {
     haste: Haste,
   };
 
-  // causes an orb consumption to clear 5% of stagger
-  _hasTier20_4pc = false;
   _staggerPool = 0;
   _lastKnownMaxHp = 0;
-
-  constructor(...args) {
-    super(...args);
-    this._hasTier20_4pc = this.selectedCombatant.hasBuff(SPELLS.XUENS_BATTLEGEAR_4_PIECE_BUFF_BRM.id);
-  }
 
   get purifyPercentage() {
     return PURIFY_BASE;
@@ -107,14 +98,6 @@ class StaggerFabricator extends Analyzer {
 
   on_toPlayer_death(event) {
     const amount = this._staggerPool;
-    this.removeStagger(event, amount);
-  }
-
-  on_toPlayer_heal(event) {
-    if (!this._hasTier20_4pc || !GIFT_OF_THE_OX_SPELLS.includes(event.ability.guid)) {
-      return;
-    }
-    const amount = this._staggerPool * T20_4PC_PURIFY;
     this.removeStagger(event, amount);
   }
 

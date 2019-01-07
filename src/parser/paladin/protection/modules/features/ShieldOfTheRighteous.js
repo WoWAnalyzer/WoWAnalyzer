@@ -10,9 +10,12 @@ import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import {findByBossId} from 'raids/index';
 
 
+const VALOR_BUFFER_TIME = 100;
+const VALOR_GAIN_THRESHOLD = 2000;
+
 const SOTR_DURATION = 4500;
 
-const isGoodCast = (cast, end_time) => cast.melees >= 2 || cast.tankbusters >= 1 || cast.remainingCharges >= 1.35 || cast.buffEndTime > end_time;
+const isGoodCast = (cast, end_time) => cast.melees >= 2 || cast.tankbusters >= 1 || cast.remainingCharges >= 1.35 || cast.buffEndTime > end_time || (cast.consumedValor && cast.beforeValorGained);
 
 class ShieldOfTheRighteous extends Analyzer {
   static dependencies = {
@@ -35,6 +38,8 @@ class ShieldOfTheRighteous extends Analyzer {
         melees: <number>, // melees received while during buff
         tankbusters: <number>, // tankbusters mitigated by buff
         remainingCharges: <number>, // fractional number of charges remaining *after* cast
+        consumedValor: <boolean>, // whether the player had Avenger's Valor when cast
+        beforeValorGained: <boolean>, // whether the player gained Avenger's Valor immediately after casting
      }
      */
   ];
@@ -46,10 +51,21 @@ class ShieldOfTheRighteous extends Analyzer {
 
   _buffExpiration = 0;
 
+  get _latestCast() {
+    if(this._futureCasts.length > 0) {
+      return this._futureCasts[this._futureCasts.length - 1];
+    }
+
+    return this._activeCast;
+  }
+
   constructor(...args) {
     super(...args);
-    const boss = findByBossId(this.owner.boss.id);
-    this._tankbusters = boss.fight.softMitigationChecks.physical;
+    // M+ doesn't have a boss prop
+    if(this.owner.boss) {
+      const boss = findByBossId(this.owner.boss.id);
+      this._tankbusters = boss.fight.softMitigationChecks.physical;
+    }
   }
 
   _partialCharge() {
@@ -79,6 +95,8 @@ class ShieldOfTheRighteous extends Analyzer {
       melees: 0,
       tankbusters: 0,
       remainingCharges: this.spellUsable.chargesAvailable(SPELLS.SHIELD_OF_THE_RIGHTEOUS.id) + this._partialCharge(),
+      consumedValor: this.selectedCombatant.hasBuff(SPELLS.AVENGERS_VALOR_BUFF.id, null, VALOR_BUFFER_TIME),
+      beforeValorGained: false,
       _event: event,
     };
 
@@ -91,6 +109,16 @@ class ShieldOfTheRighteous extends Analyzer {
       this._activeCast = cast;
     }
     this._sotrCasts.push(cast);
+  }
+
+  on_toPlayer_applybuff(event) {
+    if(event.ability.guid !== SPELLS.AVENGERS_VALOR_BUFF.id) {
+      return;
+    }
+
+    if(this._latestCast && this._latestCast.castTime > event.timestamp - VALOR_GAIN_THRESHOLD) {
+      this._latestCast.beforeValorGained = true;
+    }
   }
 
   on_toPlayer_damage(event) {
@@ -153,7 +181,7 @@ class ShieldOfTheRighteous extends Analyzer {
     }
     const meta = cast._event.meta || {};
     meta.isInefficientCast = true;
-    meta.inefficientCastReason = 'This cast did not block many melee attacks, or block a tankbuster, or prevent you from capping SotR charges.';
+    meta.inefficientCastReason = 'This cast did not block many melee attacks, or block a tankbuster, or prevent you from capping SotR charges, or avoid wasting Avenger\'s Valor.';
     cast._event.meta = meta;
   }
 
@@ -198,7 +226,7 @@ class ShieldOfTheRighteous extends Analyzer {
                 <li>You were hit <b>${this.physicalHitsWithoutShieldOfTheRighteous}</b> times <b><i>without</i></b> your Shield of the Righteous buff (<b>${formatThousands(this.physicalDamageWithoutShieldOfTheRighteous)}</b> damage).</li>
             </ul>
             <b>${formatPercentage(physicalHitsMitigatedPercent)}%</b> of physical attacks were mitigated with Shield of the Righteous (<b>${formatPercentage(physicalDamageMitigatedPercent)}%</b> of physical damage taken).<br/>
-            <b>${this.goodCasts.length}</b> of your ${this._sotrCasts.length} casts were <em>good</em> (blocked at least 2 melees or a tankbuster, or prevented capping charges).`}
+            <b>${this.goodCasts.length}</b> of your ${this._sotrCasts.length} casts were <em>good</em> (blocked at least 2 melees or a tankbuster, or prevented capping charges, or consumed an Avenger's Valor buff that was about to be overwritten).`}
       />
     );
   }

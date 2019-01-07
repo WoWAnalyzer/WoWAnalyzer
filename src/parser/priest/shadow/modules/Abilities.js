@@ -136,7 +136,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: [SPELLS.SHADOWFIEND, SPELLS.SHADOWFIEND_WITH_GLYPH_OF_THE_SHA],
+        spell: [SPELLS.SHADOWFIEND, SPELLS.SHADOWFIEND_WITH_GLYPH_OF_THE_SHA, SPELLS.VOIDLING],
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         gcd: {

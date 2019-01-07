@@ -542,3 +542,8 @@ export const Streammz = {
   github: 'Streammz',
   discord: 'Streammz#9999',
 };
+export const Eylwen = {
+  nickname: 'Eylwen',
+  github: 'Alastair-Scott',
+  discord: 'Eylwen#0287',
+};

@@ -9,7 +9,7 @@ import SpellIcon from 'common/SpellIcon';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
-const TOUCH_OF_DEATH_HP_SCALING = 0.5;
+const TOUCH_OF_DEATH_HP_SCALING = 0.35;
 const GALE_BURST_VALUE = 0.1;
 
 class TouchOfDeath extends Analyzer {
