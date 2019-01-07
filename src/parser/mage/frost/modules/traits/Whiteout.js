@@ -108,10 +108,12 @@ class Whiteout extends Analyzer {
             {(FO_REDUCTION_SEC * this.frozenOrbReductions).toFixed(1)} sec. CD reduction
           </>
         )}
-        tooltip={(<>
-          DPS value does not take into account any extra Frozen Orb casts from the lowered cooldown. Whiteout may have provided more DPS than totalled here if extra Frozen Orbs were cast effectively.<br />
-          Bonus Ice Lance damage: <strong>{formatNumber(this.totalWhiteoutDamage)}</strong>
-        </>)}
+        tooltip={(
+          <>
+            DPS value does not take into account any extra Frozen Orb casts from the lowered cooldown. Whiteout may have provided more DPS than totalled here if extra Frozen Orbs were cast effectively.<br />
+            Bonus Ice Lance damage: <strong>{formatNumber(this.totalWhiteoutDamage)}</strong>
+          </>
+        )}
       />
     );
   }

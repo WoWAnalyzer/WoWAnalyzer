@@ -92,17 +92,19 @@ class BlackoutCombo extends Analyzer {
         icon={<SpellIcon id={SPELLS.BLACKOUT_COMBO_BUFF.id} />}
         value={`${formatPercentage(wastedPerc)}%`}
         label="Wasted Blackout Combo"
-        tooltip={(<>
-          You got total <strong>{this.blackoutComboBuffs}</strong> Blackout Combo procs and used <strong>{this.blackoutComboConsumed}</strong> of them.<br />
-          Blackout combo buff usage:
-          <ul>
-            {Object.keys(this.spellsBOCWasUsedOn)
-              .sort((a, b) => this.spellsBOCWasUsedOn[b] - this.spellsBOCWasUsedOn[a])
-              .map(type => (
-                <li><em>{SPELLS[type].name || 'Unknown'}</em> was used {this.spellsBOCWasUsedOn[type]} time{this.spellsBOCWasUsedOn[type] === 1 ? '' : 's'} ({formatPercentage(this.spellsBOCWasUsedOn[type] / this.blackoutComboConsumed)}%)</li>)
-              )}
-          </ul>
-        </>)}
+        tooltip={(
+          <>
+            You got total <strong>{this.blackoutComboBuffs}</strong> Blackout Combo procs and used <strong>{this.blackoutComboConsumed}</strong> of them.<br />
+            Blackout combo buff usage:
+            <ul>
+              {Object.keys(this.spellsBOCWasUsedOn)
+                .sort((a, b) => this.spellsBOCWasUsedOn[b] - this.spellsBOCWasUsedOn[a])
+                .map(type => (
+                  <li><em>{SPELLS[type].name || 'Unknown'}</em> was used {this.spellsBOCWasUsedOn[type]} time{this.spellsBOCWasUsedOn[type] === 1 ? '' : 's'} ({formatPercentage(this.spellsBOCWasUsedOn[type] / this.blackoutComboConsumed)}%)</li>)
+                )}
+            </ul>
+          </>
+        )}
       />
     );
   }

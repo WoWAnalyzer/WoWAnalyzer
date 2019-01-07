@@ -68,12 +68,12 @@ class ScentOfBlood extends Analyzer {
             gained {this.focusGained} focus <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} />
           </>
         )}
-        tooltip={(<>
+        tooltip={(
           <ul>
             <li>You wasted {this.focusWastedFromBS} focus by being too close to focus cap when Barbed Shot gave you focus.</li>
             {this.selectedCombatant.hasTalent(SPELLS.DIRE_BEAST_TALENT.id) && <li> You wasted {this.focusWastedFromDB} focus by being too close to focus cap when Dire Beast gave you focus.</li>}
           </ul>
-        </>)}
+        )}
       />
     );
   }

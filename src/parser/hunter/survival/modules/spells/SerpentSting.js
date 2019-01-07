@@ -209,7 +209,7 @@ class SerpentSting extends Analyzer {
         icon={<SpellIcon id={SPELLS.SERPENT_STING_SV.id} />}
         value={`${formatPercentage(this.uptimePercentage)}%`}
         label="Serpent Sting uptime"
-        tooltip={(<>
+        tooltip={(
           <ul>
             <li>You cast Serpent Sting a total of {this.casts} times. </li>
             <li>You refreshed the debuff {this.timesRefreshed} times. </li>
@@ -219,7 +219,7 @@ class SerpentSting extends Analyzer {
             </ul>
             <li>Serpent Sting dealt a total of {formatNumber(this.bonusDamage / this.owner.fightDuration * 1000)} DPS or {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDamage))}% of your total damage.</li>
           </ul>
-        </>)}
+        )}
       />
     );
   }

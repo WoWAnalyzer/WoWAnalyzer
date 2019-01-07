@@ -85,14 +85,16 @@ class Shadowmeld extends Analyzer {
         icon={<SpellIcon id={SPELLS.SHADOWMELD.id} />}
         value={`${formatPercentage(this.correctUses / this.possibleUses)}%`}
         label="Shadowmeld used to buff Rake"
-        tooltip={(<>
-          You used Shadowmeld <strong>{this.correctUses}</strong> times to increase Rake's damage.<br />
-          <ul>
-            <li>You could have used it <strong>{this.possibleUses}</strong> times.</li>
-            <li>You used it <strong>{this.totalUses}</strong> times (<strong>{this.totalUses - this.correctUses}</strong> didn't buff Rake.)</li>
-            <li>You used Shadowmeld while already benefiting from a stealth effect <strong>{this.wastedDuringStealth}</strong> times.</li>
-          </ul>
-        </>)}
+        tooltip={(
+          <>
+            You used Shadowmeld <strong>{this.correctUses}</strong> times to increase Rake's damage.<br />
+            <ul>
+              <li>You could have used it <strong>{this.possibleUses}</strong> times.</li>
+              <li>You used it <strong>{this.totalUses}</strong> times (<strong>{this.totalUses - this.correctUses}</strong> didn't buff Rake.)</li>
+              <li>You used Shadowmeld while already benefiting from a stealth effect <strong>{this.wastedDuringStealth}</strong> times.</li>
+            </ul>
+          </>
+        )}
         position={STATISTIC_ORDER.OPTIONAL()}
       />
     );

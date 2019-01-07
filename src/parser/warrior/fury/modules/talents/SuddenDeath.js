@@ -99,14 +99,16 @@ class SuddenDeath extends Analyzer {
         talent={SPELLS.SUDDEN_DEATH_TALENT_FURY.id}
         value={`${this.suddenDeathProcsUsed} / ${this.suddenDeathProcs} procs used`}
         label="Sudden Death"
-        tooltip={(<>
-          Sudden Death usage on targets above {formatPercentage(this.executeThreshold)}%<br />
-          Damage done: <strong>{formatThousands(this.damageAboveThreshold)} ({formatPercentage(this.damagePercent)}%)</strong><br />
-          Execute casts: <strong>{formatThousands(this.executeCastsAboveThreshold)}</strong><br /><br />
+        tooltip={(
+          <>
+            Sudden Death usage on targets above {formatPercentage(this.executeThreshold)}%<br />
+            Damage done: <strong>{formatThousands(this.damageAboveThreshold)} ({formatPercentage(this.damagePercent)}%)</strong><br />
+            Execute casts: <strong>{formatThousands(this.executeCastsAboveThreshold)}</strong><br /><br />
 
-          Sudden Death usage on targets below <u>{formatPercentage(this.executeThreshold)}%</u><br />
-          Effective CDR: <strong>{(this.effectiveExecuteCDR / 1000).toFixed(2)}s</strong>
-        </>)}
+            Sudden Death usage on targets below <u>{formatPercentage(this.executeThreshold)}%</u><br />
+            Effective CDR: <strong>{(this.effectiveExecuteCDR / 1000).toFixed(2)}s</strong>
+          </>
+        )}
       />
     );
   }

@@ -64,13 +64,15 @@ class WakingDream extends Analyzer{
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.WAKING_DREAM_TRAIT.id}
         value={`${formatPercentage(throughputPercent)} %`}
-        tooltip={(<>
-          Healing from rejuv part: {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.wakingDreamHealing))} % / {formatNumber(this.wakingDreamHealing)} healing.<br />
-          Healing from increased tick rate: {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.wakingDreamExtraTickHealing))} % / {formatNumber(this.wakingDreamExtraTickHealing)} healing.<br />
-          Total Ysera's gift healing: {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalHealing))} % / {formatNumber(this.totalHealing)} healing.<br />
-          Waking Dream gave you equivalent to <strong>{formatNumber(intGain)}</strong> ({formatNumber(intGain/this.traitLevel)} per level) Intellect.
-          This is worth roughly <strong>{formatNumber(ilvlGain)}</strong> ({formatNumber(ilvlGain/this.traitLevel)} per level) item levels.
-        </>)}
+        tooltip={(
+          <>
+            Healing from rejuv part: {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.wakingDreamHealing))} % / {formatNumber(this.wakingDreamHealing)} healing.<br />
+            Healing from increased tick rate: {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.wakingDreamExtraTickHealing))} % / {formatNumber(this.wakingDreamExtraTickHealing)} healing.<br />
+            Total Ysera's gift healing: {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalHealing))} % / {formatNumber(this.totalHealing)} healing.<br />
+            Waking Dream gave you equivalent to <strong>{formatNumber(intGain)}</strong> ({formatNumber(intGain/this.traitLevel)} per level) Intellect.
+            This is worth roughly <strong>{formatNumber(ilvlGain)}</strong> ({formatNumber(ilvlGain/this.traitLevel)} per level) item levels.
+          </>
+        )}
       />
     );
   }

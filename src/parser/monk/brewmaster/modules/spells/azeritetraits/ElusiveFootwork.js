@@ -64,10 +64,12 @@ class ElusiveFootwork extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.ELUSIVE_FOOTWORK.id}
         value={<ItemDamageDone amount={this._bonusDamage} />}
-        tooltip={(<>
-          Your Blackout Strike casts each dealt an average {formatNumber(this._bonusDamage / this._casts)} additional damage.<br />
-          You generated an additional {this._ebStacksGenerated} stacks of Elusive Brawler.
-        </>)}
+        tooltip={(
+          <>
+            Your Blackout Strike casts each dealt an average {formatNumber(this._bonusDamage / this._casts)} additional damage.<br />
+            You generated an additional {this._ebStacksGenerated} stacks of Elusive Brawler.
+          </>
+        )}
       />
     );
   }

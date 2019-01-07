@@ -63,10 +63,12 @@ class VileTaint extends Analyzer {
       <StatisticListBoxItem
         title={<><SpellLink id={SPELLS.VILE_TAINT_TALENT.id} /> damage</>}
         value={this.owner.formatItemDamageDone(damage)}
-        valueTooltip={(<>
-          {formatThousands(damage)} damage<br />
-          Average targets hit: {averageTargetsHit.toFixed(2)}
-        </>)}
+        valueTooltip={(
+          <>
+            {formatThousands(damage)} damage<br />
+            Average targets hit: {averageTargetsHit.toFixed(2)}
+          </>
+        )}
       />
     );
   }

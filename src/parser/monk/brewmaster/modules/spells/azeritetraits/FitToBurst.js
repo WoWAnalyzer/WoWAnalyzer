@@ -82,11 +82,13 @@ class FitToBurst extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.FIT_TO_BURST.id}
         value={<ItemHealingDone amount={this.totalHealing} />}
-        tooltip={(<>
-          Fit to Burst healed you for <strong>{formatNumber(this.totalHealing)}</strong>.<br />
-          <strong>{formatNumber(this.stacksWasted)}</strong> stacks of healing wasted by double-purifying.<br />
-          <strong>{formatNumber(this.triggeringPurifies)}</strong> of your {formatNumber(this.totalPurifies)} purifies triggered Fit to Burst.
-        </>)}
+        tooltip={(
+          <>
+            Fit to Burst healed you for <strong>{formatNumber(this.totalHealing)}</strong>.<br />
+            <strong>{formatNumber(this.stacksWasted)}</strong> stacks of healing wasted by double-purifying.<br />
+            <strong>{formatNumber(this.triggeringPurifies)}</strong> of your {formatNumber(this.totalPurifies)} purifies triggered Fit to Burst.
+          </>
+        )}
       />
     );
   }

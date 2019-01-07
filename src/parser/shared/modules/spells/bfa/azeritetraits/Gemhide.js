@@ -78,10 +78,12 @@ class Gemhide extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.GEMHIDE.id}
         value={`${formatNumber(this.avgArmor)} Armor & ${formatNumber(this.avgAvoidance)} Avoidance`}
-        tooltip={(<>
-          Gemhide grants <strong>{this.armor} Armor</strong> and <strong>{this.avoidance} Avoidance</strong> while active.<br />
-          It was active for <strong>{formatPercentage(this.uptime)}%</strong> of the fight, mitigating <strong>{formatPercentage(this.pctHitsMitigated)}%</strong> of incoming hits.
-        </>)}
+        tooltip={(
+          <>
+            Gemhide grants <strong>{this.armor} Armor</strong> and <strong>{this.avoidance} Avoidance</strong> while active.<br />
+            It was active for <strong>{formatPercentage(this.uptime)}%</strong> of the fight, mitigating <strong>{formatPercentage(this.pctHitsMitigated)}%</strong> of incoming hits.
+          </>
+        )}
       />
     );
   }

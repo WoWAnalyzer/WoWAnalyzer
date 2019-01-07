@@ -168,15 +168,17 @@ class WaterElemental extends Analyzer {
           {formatNumber(this._waterboltDamage / (this.owner.fightDuration / 1000))} DPS
         </>)}
         label="Water Elemental utilization"
-        tooltip={(<>
-          Water Elemental was casting for {formatPercentage(this.petActiveTimePercentage)} % of the fight (Downtime: {formatPercentage(this.petDowntimePercentage)} %).<br />
-          Your Water Elemental began casting {this.petTotalCasts} times.<br />
-          <ul>
-            <li>{this._waterboltHits} casts dealt a total damage of {formatThousands(this._waterboltDamage)}.</li>
-            <li>{this._waterboltsCancelled} casts were cancelled.</li>
-            <li>{this.petTotalCasts - this._waterboltsCancelled - this._waterboltHits} did not hit a target in time.</li>
-          </ul>
-        </>)}
+        tooltip={(
+          <>
+            Water Elemental was casting for {formatPercentage(this.petActiveTimePercentage)} % of the fight (Downtime: {formatPercentage(this.petDowntimePercentage)} %).<br />
+            Your Water Elemental began casting {this.petTotalCasts} times.<br />
+            <ul>
+              <li>{this._waterboltHits} casts dealt a total damage of {formatThousands(this._waterboltDamage)}.</li>
+              <li>{this._waterboltsCancelled} casts were cancelled.</li>
+              <li>{this.petTotalCasts - this._waterboltsCancelled - this._waterboltHits} did not hit a target in time.</li>
+            </ul>
+          </>
+        )}
       />
     );
   }

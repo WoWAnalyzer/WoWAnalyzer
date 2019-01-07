@@ -74,11 +74,13 @@ class Judgment extends Analyzer {
         icon={<SpellIcon id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} />}
         label="Effective SotR CDR"
         value={`${formatPercentage(this.cdrPercentage)}%`}
-        tooltip={(<>
-          Your Judgment casts reduced the cooldown of Shield of the Righteous by <strong>{formatNumber(this._totalCdr / 1000)}s</strong> over {formatNumber(this._casts)} casts, {formatNumber(this._crits)} of which were critical strikes.<br />
-          {hasCJ && <>Without the Crusader's Judgment talent, your effective SotR CDR would have been roughly <strong>{formatPercentage(this.baseCdrPercentage)}%</strong> (or {formatNumber(this.baseCdr / 1000)}s).<br /></>}
-          You wasted <strong>{formatNumber(this._wastedCdr / 1000)}s</strong> of cooldown reduction.
-        </>)}
+        tooltip={(
+          <>
+            Your Judgment casts reduced the cooldown of Shield of the Righteous by <strong>{formatNumber(this._totalCdr / 1000)}s</strong> over {formatNumber(this._casts)} casts, {formatNumber(this._crits)} of which were critical strikes.<br />
+            {hasCJ && <>Without the Crusader's Judgment talent, your effective SotR CDR would have been roughly <strong>{formatPercentage(this.baseCdrPercentage)}%</strong> (or {formatNumber(this.baseCdr / 1000)}s).<br /></>}
+            You wasted <strong>{formatNumber(this._wastedCdr / 1000)}s</strong> of cooldown reduction.
+          </>
+        )}
       />
     );
   }

@@ -115,18 +115,20 @@ class BrewCDR extends Analyzer {
         icon={<SpellIcon id={SPELLS.TIGER_PALM.id} />}
         value={`${formatPercentage(this.cooldownReductionRatio)}%`}
         label="Effective Brew CDR"
-        tooltip={(<>
-          Your cooldowns were reduced by:
-          <ul>
-            <li>{this.ks.totalCasts} Keg Smash casts — <strong>{(this.ks.cdr / 1000).toFixed(2)}s</strong> (<strong>{(this.ks.wastedCDR / 1000).toFixed(2)}s</strong> wasted)</li>
-            {this.ks.bocHits > 0 && <li>Using Blackout Combo on {this.ks.bocHits} Keg Smash hits — <strong>{(this.ks.bocCDR / 1000).toFixed(2)}s</strong> (<strong>{(this.ks.wastedBocCDR / 1000).toFixed(2)}s</strong> wasted)</li>}
-            <li>{this.tp.totalCasts} Tiger Palm hits — <strong>{(this.tp.cdr / 1000).toFixed(2)}s</strong> (<strong>{(this.tp.wastedCDR / 1000).toFixed(2)}s</strong> wasted)</li>
-            {this.bob.active && <li>{this.bob.casts} Black Ox Brew casts — <strong>{(this.bob.cdr / 1000).toFixed(2)}s</strong> (<strong>{(this.bob.wastedCDR / 1000).toFixed(2)}s</strong> wasted)</li>}
-            {this.snc.resets > 0 && <li>Straight, No Chaser procs — <b>≥{(this.snc.resets * this.avgCooldown).toFixed(2)}s</b> (an unknown amount wasted)</li>}
-          </ul>
-          <strong>Total cooldown reduction:</strong> {(this.totalCDR / 1000).toFixed(2)}s.<br />
-          <strong>Minimum Cooldown Reduction for 100% ISB uptime:</strong> {formatPercentage(this.cdrRequiredForUptime)}%
-        </>)}
+        tooltip={(
+          <>
+            Your cooldowns were reduced by:
+            <ul>
+              <li>{this.ks.totalCasts} Keg Smash casts — <strong>{(this.ks.cdr / 1000).toFixed(2)}s</strong> (<strong>{(this.ks.wastedCDR / 1000).toFixed(2)}s</strong> wasted)</li>
+              {this.ks.bocHits > 0 && <li>Using Blackout Combo on {this.ks.bocHits} Keg Smash hits — <strong>{(this.ks.bocCDR / 1000).toFixed(2)}s</strong> (<strong>{(this.ks.wastedBocCDR / 1000).toFixed(2)}s</strong> wasted)</li>}
+              <li>{this.tp.totalCasts} Tiger Palm hits — <strong>{(this.tp.cdr / 1000).toFixed(2)}s</strong> (<strong>{(this.tp.wastedCDR / 1000).toFixed(2)}s</strong> wasted)</li>
+              {this.bob.active && <li>{this.bob.casts} Black Ox Brew casts — <strong>{(this.bob.cdr / 1000).toFixed(2)}s</strong> (<strong>{(this.bob.wastedCDR / 1000).toFixed(2)}s</strong> wasted)</li>}
+              {this.snc.resets > 0 && <li>Straight, No Chaser procs — <b>≥{(this.snc.resets * this.avgCooldown).toFixed(2)}s</b> (an unknown amount wasted)</li>}
+            </ul>
+            <strong>Total cooldown reduction:</strong> {(this.totalCDR / 1000).toFixed(2)}s.<br />
+            <strong>Minimum Cooldown Reduction for 100% ISB uptime:</strong> {formatPercentage(this.cdrRequiredForUptime)}%
+          </>
+        )}
       />
     );
   }

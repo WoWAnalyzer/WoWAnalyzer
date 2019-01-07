@@ -182,12 +182,14 @@ class MitigationCheck extends Analyzer {
         icon={<SpellIcon id={spellIconId} />}
         value={`${formatPercentage(passSum / (passSum + failSum))} %`}
         label={`Soft mitigation checks passed.`}
-        tooltip={(<>
-          Checks if one of the following buffs or debuffs were up during the mechanic:
-          <ul>
-            {this.tooltip}
-          </ul>
-        </>)}
+        tooltip={(
+          <>
+            Checks if one of the following buffs or debuffs were up during the mechanic:
+            <ul>
+              {this.tooltip}
+            </ul>
+          </>
+        )}
       >
         <table className="table table-condensed" style={{ fontWeight: 'bold' }}>
           {physicalTable}

@@ -92,11 +92,13 @@ class DefensiveStance extends Analyzer {
         icon={<SpellIcon id={SPELLS.DEFENSIVE_STANCE_TALENT.id} />}
         value={`≈${formatNumber(this.drps)} DRPS, ${formatNumber(this.dlps)} DLPS`}
         label="Damage reduced & lost"
-        tooltip={(<>
-          <strong>Total:</strong><br />
-          Effective damage reduction: {formatThousands(this.totalDamageMitigated)} damage ({formatThousands(this.perSecond(this.totalDamageMitigated))} DRPS)<br />
-          Effective damage lost: {formatThousands(this.totalDamageLost)} damage ({formatThousands(this.perSecond(this.totalDamageLost))} DLPS)
-        </>)}
+        tooltip={(
+          <>
+            <strong>Total:</strong><br />
+            Effective damage reduction: {formatThousands(this.totalDamageMitigated)} damage ({formatThousands(this.perSecond(this.totalDamageMitigated))} DRPS)<br />
+            Effective damage lost: {formatThousands(this.totalDamageLost)} damage ({formatThousands(this.perSecond(this.totalDamageLost))} DLPS)
+          </>
+        )}
         footer={footer}
       />
     );

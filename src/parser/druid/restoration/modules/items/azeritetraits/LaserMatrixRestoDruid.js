@@ -46,12 +46,14 @@ class LaserMatrixRestoDruid extends LaserMatrix{
             Gained <SpellLink id={SPELLS.REORIGINATION_ARRAY.id} />
           </>
         )}
-        tooltip={(<>
-          Healing done: {formatNumber(this.healing)} <br />
-          Damage done: {formatNumber(this.damage)} <br />
-          Laser Matrix gave you equivalent to <strong>{formatNumber(intGain)}</strong> ({formatNumber(intGain/this.traitLevel)} per level) Intellect.
-          This is worth roughly <strong>{formatNumber(ilvlGain)}</strong> ({formatNumber(ilvlGain/this.traitLevel)} per level) item levels (only counting healing).
-        </>)}
+        tooltip={(
+          <>
+            Healing done: {formatNumber(this.healing)} <br />
+            Damage done: {formatNumber(this.damage)} <br />
+            Laser Matrix gave you equivalent to <strong>{formatNumber(intGain)}</strong> ({formatNumber(intGain/this.traitLevel)} per level) Intellect.
+            This is worth roughly <strong>{formatNumber(ilvlGain)}</strong> ({formatNumber(ilvlGain/this.traitLevel)} per level) item levels (only counting healing).
+          </>
+        )}
       />
     );
   }

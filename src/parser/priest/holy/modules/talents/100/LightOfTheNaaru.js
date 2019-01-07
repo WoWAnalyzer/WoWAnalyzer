@@ -24,11 +24,13 @@ class LightOfTheNaaru extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.LIGHT_OF_THE_NAARU_TALENT.id}
         value={`${Math.ceil((this.sanctify.lightOfTheNaaruCooldownReduction + this.serenity.lightOfTheNaaruCooldownReduction + this.chastise.lightOfTheNaaruCooldownReduction) / 1000)}s Cooldown Reduction`}
-        tooltip={(<>
-          Serenity: {Math.ceil(this.serenity.lightOfTheNaaruCooldownReduction / 1000)}s CDR<br />
-          Sanctify: {Math.ceil(this.sanctify.lightOfTheNaaruCooldownReduction / 1000)}s CDR<br />
-          Chastise: {Math.ceil(this.chastise.lightOfTheNaaruCooldownReduction / 1000)}s CDR
-        </>)}
+        tooltip={(
+          <>
+            Serenity: {Math.ceil(this.serenity.lightOfTheNaaruCooldownReduction / 1000)}s CDR<br />
+            Sanctify: {Math.ceil(this.sanctify.lightOfTheNaaruCooldownReduction / 1000)}s CDR<br />
+            Chastise: {Math.ceil(this.chastise.lightOfTheNaaruCooldownReduction / 1000)}s CDR
+          </>
+        )}
         position={STATISTIC_ORDER.CORE(7)}
       />
 

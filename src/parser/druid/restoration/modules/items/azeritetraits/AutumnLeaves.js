@@ -46,10 +46,12 @@ class AutumnLeaves extends Analyzer{
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.AUTUMN_LEAVES_TRAIT.id}
         value={`${formatPercentage(throughputPercent)} %`}
-        tooltip={(<>
-          Autumn Leaves gave you equivalent to <strong>{formatNumber(intGain)}</strong> ({formatNumber(intGain/this.traitLevel)} per level) Intellect.
-          This is worth roughly <strong>{formatNumber(ilvlGain)}</strong> ({formatNumber(ilvlGain/this.traitLevel)} per level) item levels.
-        </>)}
+        tooltip={(
+          <>
+            Autumn Leaves gave you equivalent to <strong>{formatNumber(intGain)}</strong> ({formatNumber(intGain/this.traitLevel)} per level) Intellect.
+            This is worth roughly <strong>{formatNumber(ilvlGain)}</strong> ({formatNumber(ilvlGain/this.traitLevel)} per level) item levels.
+          </>
+        )}
       />
     );
   }

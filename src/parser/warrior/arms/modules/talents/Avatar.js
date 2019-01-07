@@ -40,10 +40,12 @@ class Avatar extends Analyzer {
       <StatisticListBoxItem
         title={<><SpellLink id={SPELLS.AVATAR_TALENT.id} /> bonus damage</>}
         value={`${formatThousands(this.dps)} DPS`}
-        valueTooltip={(<>
-          Your Avatar contributed {formatThousands(this.totalDamages)} total damage ({formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalDamages))} %).<br />
-          This only accounts for the passive 20% increased damage of Avatar.
-        </>)}
+        valueTooltip={(
+          <>
+            Your Avatar contributed {formatThousands(this.totalDamages)} total damage ({formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalDamages))} %).<br />
+            This only accounts for the passive 20% increased damage of Avatar.
+          </>
+        )}
       />
     );
   }

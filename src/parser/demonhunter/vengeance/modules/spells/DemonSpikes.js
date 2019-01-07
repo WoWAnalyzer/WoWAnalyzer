@@ -79,15 +79,17 @@ class DemonSpikes extends Analyzer {
         icon={<SpellIcon id={SPELLS.DEMON_SPIKES.id} />}
         value={`${this.mitigatedUptime}%`}
         label="Hits mitigated by Demon Spikes"
-        tooltip={(<>
-          Demon Spikes usage breakdown:
-          <ul>
-            <li>You were hit <strong>{this.hitsWithDS}</strong> times with your Demon Spikes buff.</li>
-            <li>You were hit <strong>{this.hitsWithoutDS}</strong> times <strong><em>without</em></strong> your Demon Spikes buff.</li>
-            <li>You were hit <strong>{this.hitsWithDSOffCD}</strong> times <strong><em>with</em></strong> Demon Spikes avalible for use but not used.</li>
-          </ul>
-          <b>Your overall uptime was {formatPercentage(demonSpikesUptimePercentage)}%</b>.
-        </>)}
+        tooltip={(
+          <>
+            Demon Spikes usage breakdown:
+            <ul>
+              <li>You were hit <strong>{this.hitsWithDS}</strong> times with your Demon Spikes buff.</li>
+              <li>You were hit <strong>{this.hitsWithoutDS}</strong> times <strong><em>without</em></strong> your Demon Spikes buff.</li>
+              <li>You were hit <strong>{this.hitsWithDSOffCD}</strong> times <strong><em>with</em></strong> Demon Spikes avalible for use but not used.</li>
+            </ul>
+            <b>Your overall uptime was {formatPercentage(demonSpikesUptimePercentage)}%</b>.
+          </>
+        )}
       />
     );
   }

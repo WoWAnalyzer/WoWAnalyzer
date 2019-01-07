@@ -54,10 +54,12 @@ class UnstableCatalyst extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.UNSTABLE_CATALYST.id}
         value={`${this.averageStat} average ${this.selectedCombatant.spec.primaryStat}`}
-        tooltip={(<>
-          {SPELLS.UNSTABLE_CATALYST.name} grants <strong>{this.stat} {this.selectedCombatant.spec.primaryStat}</strong> while active.<br />
-          You had an uptime of {formatPercentage(this.uptime)}%.
-        </>)}
+        tooltip={(
+          <>
+            {SPELLS.UNSTABLE_CATALYST.name} grants <strong>{this.stat} {this.selectedCombatant.spec.primaryStat}</strong> while active.<br />
+            You had an uptime of {formatPercentage(this.uptime)}%.
+          </>
+        )}
       />
     );
   }

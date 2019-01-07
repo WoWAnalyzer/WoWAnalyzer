@@ -67,10 +67,12 @@ class Hemostasis extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(2)}
         value={`${this.buffedDeathStrikes} / ${this.buffedDeathStrikes + this.unbuffedDeathStrikes}`}
         label="Death Strikes with Hemostasis"
-        tooltip={(<>
-          Resulting in {formatNumber(this.damage)} additional damage and {formatNumber(this.heal)} additional healing.<br />
-          You gained {this.gainedBuffs} and wasted {this.wastedBuffs} stacks.
-        </>)}
+        tooltip={(
+          <>
+            Resulting in {formatNumber(this.damage)} additional damage and {formatNumber(this.heal)} additional healing.<br />
+            You gained {this.gainedBuffs} and wasted {this.wastedBuffs} stacks.
+          </>
+        )}
       />
     );
   }

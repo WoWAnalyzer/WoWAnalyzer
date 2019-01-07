@@ -61,10 +61,12 @@ class Stoneform extends Analyzer {
         icon={<SpellIcon id={SPELLS.STONEFORM_BUFF.id} />}
         value={`≈${formatNumber(this.drps)} DRPS`}
         label="Stoneform damage reduced"
-        tooltip={(<>
-          You took a total of {formatNumber(this.physicalDamageTaken)} physical damage while Stoneform was active. <br />
-          Stoneform reduced a total of {formatNumber(this.damageReduced)} physical damage taken.
-        </>)}
+        tooltip={(
+          <>
+            You took a total of {formatNumber(this.physicalDamageTaken)} physical damage while Stoneform was active. <br />
+            Stoneform reduced a total of {formatNumber(this.damageReduced)} physical damage taken.
+          </>
+        )}
       />
     );
 

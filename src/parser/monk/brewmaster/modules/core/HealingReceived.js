@@ -32,14 +32,16 @@ class HealingReceived extends Analyzer {
         )}
         value={`${formatNumber((this.HealingReceivedExternal) / this.owner.fightDuration * 1000)} HPS`}
         label="External healing received"
-        tooltip={(<>
-          Healing received:
-          <ul>
-            <li>From self: {formatThousands(this.HealingReceivedSelf)}</li>
-            <li>From external sources: {formatThousands(this.HealingReceivedExternal)}</li>
-          </ul>
-          The total healing received was {formatThousands(this.HealingReceivedSelf + this.HealingReceivedExternal)}
-        </>)}
+        tooltip={(
+          <>
+            Healing received:
+            <ul>
+              <li>From self: {formatThousands(this.HealingReceivedSelf)}</li>
+              <li>From external sources: {formatThousands(this.HealingReceivedExternal)}</li>
+            </ul>
+            The total healing received was {formatThousands(this.HealingReceivedSelf + this.HealingReceivedExternal)}
+          </>
+        )}
       />
     );
   }

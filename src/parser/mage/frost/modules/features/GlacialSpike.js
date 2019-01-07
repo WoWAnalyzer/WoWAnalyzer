@@ -142,13 +142,15 @@ class GlacialSpike extends Analyzer {
         position={STATISTIC_ORDER.CORE(90)}
         value={`${formatPercentage(this.utilPercentage, 0)} %`}
         label="Glacial Spike efficiency"
-        tooltip={(<>
-          You cast Glacial Spike {this.totalCasts} times, {this.goodCasts} casts of which met at least one of the requirements:
-          <ul>
-            <li>It was shattered via Brain Freeze (or some other freeze effect).</li>
-            <li>It hit a second target via Splitting Ice.</li>
-          </ul>
-        </>)}
+        tooltip={(
+          <>
+            You cast Glacial Spike {this.totalCasts} times, {this.goodCasts} casts of which met at least one of the requirements:
+            <ul>
+              <li>It was shattered via Brain Freeze (or some other freeze effect).</li>
+              <li>It hit a second target via Splitting Ice.</li>
+            </ul>
+          </>
+        )}
       />
     );
   }

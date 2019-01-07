@@ -83,10 +83,12 @@ class DireBeast extends Analyzer {
           gained {formatPercentage(HASTE_PERCENT * this.uptime)}% Haste <br />
           gained {this.focusGained} Focus <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} />
         </>}
-        tooltip={(<>
-          You had {formatPercentage(this.uptime)}% uptime on the Dire Beast Haste buff. <br />
-          You wasted {this.focusWasted} Focus by being too close to Focus cap when Dire Beast gave you Focus.
-        </>)}
+        tooltip={(
+          <>
+            You had {formatPercentage(this.uptime)}% uptime on the Dire Beast Haste buff. <br />
+            You wasted {this.focusWasted} Focus by being too close to Focus cap when Dire Beast gave you Focus.
+          </>
+        )}
       />
     );
   }

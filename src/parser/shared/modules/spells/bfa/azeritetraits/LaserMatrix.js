@@ -49,10 +49,12 @@ class LaserMatrix extends Analyzer{
             Gained <SpellLink id={SPELLS.REORIGINATION_ARRAY.id} />
           </>
         )}
-        tooltip={(<>
-          Healing done: {formatNumber(this.healing)} <br />
-          Damage done: {formatNumber(this.damage)}
-        </>)}
+        tooltip={(
+          <>
+            Healing done: {formatNumber(this.healing)} <br />
+            Damage done: {formatNumber(this.damage)}
+          </>
+        )}
       />
     );
   }

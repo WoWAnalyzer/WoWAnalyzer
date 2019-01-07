@@ -55,12 +55,14 @@ class DemonicMeteor extends Analyzer {
       <TraitStatisticBox
         trait={SPELLS.DEMONIC_METEOR.id}
         value={<ItemDamageDone amount={this.damage} approximate />}
-        tooltip={(<>
-          Estimated bonus Hand of Gul'dan damage: {formatThousands(this.damage)}<br />
-          Shards gained with this trait: {shardsGained}<br /><br />
+        tooltip={(
+          <>
+            Estimated bonus Hand of Gul'dan damage: {formatThousands(this.damage)}<br />
+            Shards gained with this trait: {shardsGained}<br /><br />
 
-          The damage is an approximation using current Intellect values at given time, but because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be a little incorrect.
-        </>)}
+            The damage is an approximation using current Intellect values at given time, but because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be a little incorrect.
+          </>
+        )}
       />
     );
   }
