@@ -35,7 +35,18 @@ export default {
         difficulties: [FIGHT_DIFFICULTIES.MYTHIC],
       },
       {
-        id: '1A',
+        id: '1_A_SW',
+        name: 'Wave: Silithid Warriors',
+        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        filter: {
+          type: 'adds',
+          query: '(source.id = 134503 AND timestamp = source.firstSeen) OR (target.id = 134503 AND timestamp = target.firstSeen) OR (target.id = 134503 AND type = "death")',
+          addCount: 6,
+          guid: 134503,
+        },
+      },
+      {
+        id: '1_A_NW',
         name: 'Wave: Nerubian Voidweavers',
         difficulties: [FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
@@ -58,7 +69,7 @@ export default {
         },
       },
       {
-        id: '2A',
+        id: '2_A_NW',
         name: 'Wave: Nerubian Voidweavers',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC],
         filter: {
