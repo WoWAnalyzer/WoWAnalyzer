@@ -7,6 +7,7 @@ import ExtendableError from 'es6-error';
 import { fetchEvents, LogNotFoundError } from 'common/fetchWclApi';
 import { captureException } from 'common/errorLogger';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
+import { findByBossId } from 'raids';
 
 import Ghuun from './images/Ghuun.gif';
 import handleApiError from './handleApiError';
@@ -94,9 +95,38 @@ class BossEventsLoader extends React.PureComponent {
   loadEvents() {
     const { report, fight } = this.props;
 
-    const enemy = report.enemies.find(e => e.fights.some(f => f.id === fight.id) && e.type === 'Boss');
+    const bossConfig = findByBossId(fight.boss);
+    if (bossConfig.fight.phases && bossConfig.fight.phases.length !== 0) {      
+      const filters = [];
 
-    return fetchEvents(report.code, fight.start_time, fight.end_time, enemy.id, `source.id = ${enemy.guid} and (target.id = ${enemy.guid} or type = "cast" or type = "begincast")`);
+      const phasesForDifficulty = bossConfig.fight.phases.filter(phase => phase.difficulties.includes(fight.difficulty));
+
+      const abilities = phasesForDifficulty.reduce((abilityIds, phase) => {
+        if (phase.filter && phase.filter.ability && !abilityIds.includes(phase.filter.ability.id)) {
+          return abilityIds.concat(phase.filter.ability.id);
+        }
+        return abilityIds;
+      }, []);
+
+      if (abilities.length > 0) {
+        filters.push(`(ability.id in (${abilities.join(',')}))`);
+      }
+      
+      const queries = phasesForDifficulty.reduce((queryAcc, phase) => {
+        if (phase.filter && phase.filter.query && !queryAcc.includes(phase.filter.query)) {
+          return queryAcc.concat(`(${phase.filter.query})`);
+        }
+        return queryAcc;
+      }, []);
+
+      if (queries.length > 0) {
+        filters.push(...queries);
+      }
+      
+      return fetchEvents(report.code, fight.start_time, fight.end_time, undefined, filters.join(' OR '));
+    }
+
+    return Promise.resolve([]);
   }
 
   reset() {

@@ -1,3 +1,5 @@
+import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
+
 import Background from './images/Backgrounds/Vectis.jpg';
 import Headshot from './images/Headshots/Vectis.png';
 
@@ -18,8 +20,9 @@ export default {
     },
     phases: [
       {
-        id: 1,
+        id: '1',
         name: 'Stage One: Probing Its Hosts',
+        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
           type: 'removebuff',
           ability: {
@@ -28,8 +31,9 @@ export default {
         },
       },
       {
-        id: 2,
+        id: '2',
         name: 'Stage Two: Spreading Pandemic',
+        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
           type: 'applybuff',
           ability: {

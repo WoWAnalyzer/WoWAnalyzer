@@ -1,3 +1,5 @@
+import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
+
 import Background from './images/Backgrounds/Ghuun.jpg';
 import Headshot from './images/Headshots/Ghuun.png';
 
@@ -20,12 +22,14 @@ export default {
     },
     phases: [
       {
-        id: 1,
+        id: '1',
         name: 'Stage One: My Minions Are Endless!',
+        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
       },
       {
-        id: 2,
+        id: '2',
         name: 'Stage Two: Behold the Power of Ghuun!',
+        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
           type: 'removedebuff',
           ability: {
@@ -35,8 +39,9 @@ export default {
         },
       },
       {
-        id: 3,
+        id: '3',
         name: 'Stage Three: Your Destruction is Assured!',
+        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
           type: 'applybuff',
           ability: {

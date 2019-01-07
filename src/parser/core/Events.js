@@ -1,5 +1,5 @@
 import { END_EVENT_TYPE } from 'parser/shared/normalizers/FightEnd';
-import { PHASE_START_EVENT_TYPE } from 'parser/shared/normalizers/PhaseChanges';
+import { PHASE_START_EVENT_TYPE, PHASE_END_EVENT_TYPE } from 'parser/shared/normalizers/PhaseChanges';
 import EventFilter from './EventFilter';
 
 const Events = {
@@ -181,6 +181,9 @@ const Events = {
   },
   get phasestart() {
     return new EventFilter(PHASE_START_EVENT_TYPE);
+  },
+  get phaseend() {
+    return new EventFilter(PHASE_END_EVENT_TYPE);
   },
 };
 

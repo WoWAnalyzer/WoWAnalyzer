@@ -1,75 +1,143 @@
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 export const PHASE_START_EVENT_TYPE = 'phasestart';
+export const PHASE_END_EVENT_TYPE = 'phaseend';
 
 /**
- * Normalizes in an events for the start of different phases if they exist on a fight
+ * Normalizes in events for the start and end of different phases if they exist on a fight
  */
 class FightEnd extends EventsNormalizer {
 
   normalize(events) {
     const phases = this.owner.boss.fight.phases;
+    const fightDifficulty = this.owner.fight.difficulty;
+
+    const phaseEvents = [];
 
     if (phases && phases.length !== 0) {
-      events.unshift(this.createPhaseStartEvent(this.owner.fight.start_time, phases[0]));
+      const phasesForDifficulty = phases.filter(phase => phase.difficulties.includes(fightDifficulty));
 
-      phases.forEach(phase => {
-        if (phase.filter && phase.filter.type) {
-          switch (phase.filter.type) {
-            case 'removebuff':
-            case 'applybuff':
-            case 'removedebuff':
-            case 'begincast':
-            case 'cast': {
-              let bossEvents = events.filter(e => e.isBossEvent && e.ability.guid === phase.filter.ability.id && e.type === phase.filter.type);
+      if (phasesForDifficulty && phasesForDifficulty.length !== 0) {
+        phaseEvents.push({
+          id: phasesForDifficulty[0].id,
+          phase: phasesForDifficulty[0],
+          start: this.owner.fight.start_time,
+          end: null,
+        });
 
-              if (typeof phase.filter.eventInstance != undefined && phase.filter.eventInstance >= 0 && bossEvents.length >= 1) {
-                bossEvents = [bossEvents[phase.filter.eventInstance]];
+        phasesForDifficulty.forEach(phase => {
+          if (phase.filter && phase.filter.type) {
+            switch (phase.filter.type) {
+              case 'removebuff':
+              case 'applybuff':
+              case 'removedebuff':
+              case 'begincast':
+              case 'cast': {
+                let bossEvents = events.filter(e => e.isBossEvent && e.type === phase.filter.type && e.ability.guid === phase.filter.ability.id);
+  
+                if (typeof phase.filter.eventInstance != undefined && phase.filter.eventInstance >= 0 && bossEvents.length >= 1) {
+                  bossEvents = [bossEvents[phase.filter.eventInstance]];
+                }
+                
+                bossEvents.forEach(bossEvent => {
+                  phaseEvents.push({
+                    id: phase.id,
+                    phase: phase,
+                    start: bossEvent.timestamp,
+                    end: null,
+                  });
+                });
+                break;
               }
+              case 'adds': {
+                const enemy = this.owner.report.enemies.find(enemy => enemy.guid === phase.filter.guid);
+                if (enemy) {
+                  const addEvents = events.filter(e => e.isBossEvent && (e.sourceID === enemy.id || e.targetID === enemy.id));
+                  
+                  const spawns = addEvents.filter(e => e.type !== 'death');
+                  const firstSpawnOfWaveEvents = spawns.reduce((addWaves, spawn) => {
+                    const instance = (spawn.targetID === enemy.id ? spawn.targetInstance : spawn.sourceInstance) - 1;
+                    const wave = Math.floor(instance / phase.filter.addCount);
+                    if (!addWaves[wave]) {
+                      addWaves[wave] = spawn.timestamp;
+                    }
+                    return addWaves;
+                  }, []);
 
-              bossEvents.forEach(bossEvent => {
-                const phaseStartEvent = this.createPhaseStartEvent(bossEvent.timestamp, phase);
-                const index = events.findIndex(e => !e.isBossEvent && e.timestamp > bossEvent.timestamp);
-                events.splice(index, 0, phaseStartEvent);
-              });
-              break;
-            }
-            // Unused at the moment. Thought it was needed for Zek'vos, but he actually casts an event. Keeping it here though as it's pretty accurate and could be useful for future bosses
-            case 'percent': {
-              const bossEvents = events.filter(e => e.isBossEvent && e.hitPoints);
-              const bossHpBelowThresholdIndex = bossEvents.findIndex(e => (e.hitPoints * 100 / e.maxHitPoints) < phase.filter.value);
-              if (bossHpBelowThresholdIndex > 0) {
-                const bossHpBelowThreshold = bossEvents[bossHpBelowThresholdIndex];
-                const bossHpAboveThreshold = bossEvents[bossHpBelowThresholdIndex - 1];
+                  firstSpawnOfWaveEvents.forEach((timestamp, index) => {
+                    phaseEvents.push({
+                      id: `${phase.id}_${index}`,
+                      phase: phase,
+                      start: timestamp,
+                      end: null,
+                    });
+                  });
 
-                const dTime = bossHpBelowThreshold.timestamp - bossHpAboveThreshold.timestamp;
-                const aHpPercent = bossHpAboveThreshold.hitPoints * 100 / bossHpAboveThreshold.maxHitPoints;
-                const bHpPercent = bossHpBelowThreshold.hitPoints * 100 / bossHpBelowThreshold.maxHitPoints;
+                  const deaths = addEvents.filter(e => e.type === 'death').reverse();
+                  const lastDeathOfWaveEvents = deaths.reduce((addWaves, death) => {
+                    const instance = (death.targetID === enemy.id ? death.targetInstance : death.sourceInstance) - 1;
+                    const wave = Math.floor(instance / phase.filter.addCount);
+                    if (!addWaves[wave]) {
+                      addWaves[wave] = death.timestamp;
+                    }
+                    return addWaves;
+                  }, []);
 
-                const timestamp = bossHpAboveThreshold.timestamp + dTime * ((aHpPercent - phase.filter.value) / (aHpPercent - bHpPercent));
-                const phaseStartEvent = this.createPhaseStartEvent(timestamp, phase);
-                const index = events.findIndex(e => !e.isBossEvent && e.timestamp > timestamp);
-                events.splice(index, 0, phaseStartEvent);
+                  lastDeathOfWaveEvents.forEach((timestamp, index) => {
+                    const startIndex = phaseEvents.findIndex(event => event.id === `${phase.id}_${index}`);
+                    phaseEvents[startIndex].end = timestamp;
+                  });
+                }
+                break;
               }
-              break;
+              default:
+                break;
             }
-            default:
-              break;
           }
-        }
-      });
+        });
+      }
     }
+
+    phaseEvents.sort((a, b) => a.start - b.start);
+
+    phaseEvents.forEach((event) => {
+      if (!event.end) {
+        const nextMainPhase = phaseEvents.find(next => !next.end && next.id !== event.id);
+        if (nextMainPhase) {
+          event.end = nextMainPhase.start;
+        } else {
+          event.end = this.owner.fight.end_time;
+        }
+      }
+      this.createPhaseStartEvent(event.start, event.phase, events);
+      this.createPhaseEndEvent(event.end, event.phase, events);
+    });
 
     return events.filter(e => !e.isBossEvent);
   }
 
-  createPhaseStartEvent(timestamp, phase) {
-    return {
+  createPhaseStartEvent(timestamp, phase, events) {
+    const phaseStartEvent = {
       timestamp: timestamp,
       phase: phase,
       type: PHASE_START_EVENT_TYPE,
       __fabricated: true,
     };
+
+    const index = events.findIndex(e => !e.isBossEvent && e.timestamp > timestamp);
+    events.splice(index, 0, phaseStartEvent);
+  }
+
+  createPhaseEndEvent(timestamp, phase, events) {
+    const phaseEndEvent = {
+      timestamp: timestamp,
+      phase: phase,
+      type: PHASE_END_EVENT_TYPE,
+      __fabricated: true,
+    };
+
+    const index = events.findIndex(e => !e.isBossEvent && e.timestamp > timestamp);
+    events.splice(index, 0, phaseEndEvent);
   }
 
 }

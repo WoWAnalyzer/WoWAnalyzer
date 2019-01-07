@@ -1,3 +1,5 @@
+import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
+
 import Background from './images/Backgrounds/Taloc.jpg';
 import Headshot from './images/Headshots/Taloc.png';
 
@@ -20,12 +22,14 @@ export default {
     },
     phases: [
       {
-        id: 1,
+        id: '1',
         name: 'Stage One: The Corrupted Construct',
+        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
       },
       {
-        id: 2,
+        id: '2',
         name: 'Stage Two: Ruin\'s Descent',
+        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
           type: 'applybuff',
           ability: {
@@ -34,8 +38,9 @@ export default {
         },
       },
       {
-        id: 3,
+        id: '3',
         name: 'Stage Three: The Bottom Floor',
+        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
           type: 'removebuff',
           ability: {
