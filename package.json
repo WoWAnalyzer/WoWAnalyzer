@@ -8,7 +8,7 @@
     "@lingui/loader": "^2.7.0",
     "@lingui/macro": "^2.7.0",
     "@lingui/react": "^2.7.0",
-    "@wowanalyzer/react-scripts": "2.1.1",
+    "@wowanalyzer/react-scripts": "2.1.3",
     "@wowanalyzer/react-tooltip-lite": "^2.1.0",
     "chart.js": "^2.7.2",
     "d3-dsv": "^1.0.10",

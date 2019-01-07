@@ -23,6 +23,11 @@ class Expandable extends React.PureComponent {
       expanded: !this.state.expanded,
     });
   }
+  expand() {
+    this.setState({
+      expanded: true,
+    });
+  }
 
   render() {
     const { header, children, element: Element, className } = this.props;

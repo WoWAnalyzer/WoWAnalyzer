@@ -85,7 +85,7 @@ CastEfficiency.propTypes = {
     casts: PropTypes.number.isRequired,
     maxCasts: PropTypes.number.isRequired,
     castEfficiency: PropTypes.number,
-    canBeImproved: PropTypes.bool.isRequired,
+    canBeImproved: PropTypes.bool,
   })).isRequired,
   categories: PropTypes.object,
 };

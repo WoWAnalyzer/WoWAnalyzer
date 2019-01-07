@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import InfoIcon from '../icons/Info';
-import STATISTIC_CATEGORY from '../others/STATISTIC_CATEGORY';
+import Tooltip from 'common/Tooltip';
+import InfoIcon from 'interface/icons/Info';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 import './Statistic.scss';
-import { TooltipElement } from 'common/Tooltip';
 
 class Statistic extends React.PureComponent {
   static propTypes = {
@@ -14,7 +14,7 @@ class Statistic extends React.PureComponent {
     wide: PropTypes.bool,
     ultrawide: PropTypes.bool,
     // eslint-disable-next-line react/no-unused-prop-types
-    category: PropTypes.oneOf(STATISTIC_CATEGORY),
+    category: PropTypes.oneOf(Object.values(STATISTIC_CATEGORY)),
     // eslint-disable-next-line react/no-unused-prop-types
     position: PropTypes.number,
     size: PropTypes.oneOf(['small', 'medium', 'standard']),
@@ -35,15 +35,15 @@ class Statistic extends React.PureComponent {
             {children}
           </div>
           {tooltip && (
-            <TooltipElement
+            <Tooltip
               className="detail-corner"
               content={tooltip}
               data-place="top"
               tagName="div"
-              style={{ position: 'absolute' }}
+              wrapperStyles={{ position: 'absolute' }}
             >
               <InfoIcon />
-            </TooltipElement>
+            </Tooltip>
           )}
         </div>
       </div>

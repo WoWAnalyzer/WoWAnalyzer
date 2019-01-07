@@ -16,23 +16,23 @@ import FailedBeaconTransfers from './modules/beacons/FailedBeaconTransfers';
 import DirectBeaconHealing from './modules/beacons/DirectBeaconHealing';
 
 import PaladinAbilityTracker from './modules/core/PaladinAbilityTracker';
-import CastBehavior from './modules/core/CastBehavior';
-import Overhealing from './modules/core/Overhealing';
-import FillerLightOfTheMartyrs from './modules/core/FillerLightOfTheMartyrs';
-import FillerFlashOfLight from './modules/core/FillerFlashOfLight';
-import LightOfDawn from './modules/core/LightOfDawn';
-import LightOfDawnIndexer from './modules/core/LightOfDawnIndexer';
+import CastBehavior from './modules/CastBehavior';
+import Overhealing from './modules/Overhealing';
+import FillerLightOfTheMartyrs from './modules/FillerLightOfTheMartyrs';
+import FillerFlashOfLight from './modules/FillerFlashOfLight';
+import LightOfDawn from './modules/LightOfDawn';
+import LightOfDawnIndexer from './modules/LightOfDawnIndexer';
 import SpellManaCost from './modules/core/SpellManaCost';
 
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
-import Checklist from './modules/features/Checklist/Module';
-import MasteryEffectiveness from './modules/features/MasteryEffectiveness';
-import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import StatValues from './modules/features/StatValues';
+import Checklist from './modules/checklist/Module';
+import MasteryEffectiveness from './modules/MasteryEffectiveness';
+import AlwaysBeCasting from './modules/AlwaysBeCasting';
+import CooldownThroughputTracker from './modules/CooldownThroughputTracker';
+import StatValues from './modules/StatValues';
 
-import MightOfTheMountain from './modules/racials/dwarf/MightOfTheMountain';
+import MightOfTheMountain from './modules/MightOfTheMountain';
 
 import RuleOfLaw from './modules/talents/RuleOfLaw';
 import DevotionAuraDamageReduction from './modules/talents/DevotionAuraDamageReduction';

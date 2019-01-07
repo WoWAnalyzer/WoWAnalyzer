@@ -79,21 +79,27 @@ class DamageTaken extends Analyzer {
   get tooltip() {
     const physical = (this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL]) ? this._byMagicSchool[MAGIC_SCHOOLS.ids.PHYSICAL].effective : 0;
     const magical = this.total.effective - physical;
-    return (<>
-      <strong>Damage taken by type:</strong>
-      <ul>
-        <li><strong>Physical</strong>: {formatThousands(physical)} ({formatPercentage(physical / this.total.effective)}%)</li>
-        <li><strong>Magic</strong>: {formatThousands(magical)} ({formatPercentage(magical / this.total.effective)}%)</li>
-      </ul><br />
+    return (
+      <>
+        <strong>Damage taken by type:</strong>
+        <ul>
+          <li><strong>Physical</strong>: {formatThousands(physical)} ({formatPercentage(physical / this.total.effective)}%)</li>
+          <li><strong>Magic</strong>: {formatThousands(magical)} ({formatPercentage(magical / this.total.effective)}%)</li>
+        </ul><br />
 
-      <strong>Damage taken by magic school:</strong>
-      <ul>
-        {Object.keys(this._byMagicSchool)
-          .filter(type => this._byMagicSchool[type].effective !== 0)
-          .map(type => <li><strong>{MAGIC_SCHOOLS.names[type] || 'Unknown'}</strong>: {formatThousands(this._byMagicSchool[type].effective)} ({formatPercentage(this._byMagicSchool[type].effective / this.total.effective)}%)</li>)
-        }
-      </ul>
-    </>);
+        <strong>Damage taken by magic school:</strong>
+        <ul>
+          {Object.keys(this._byMagicSchool)
+            .filter(type => this._byMagicSchool[type].effective !== 0)
+            .map(type => (
+              <li key={type}>
+                <strong>{MAGIC_SCHOOLS.names[type] || 'Unknown'}</strong>: {formatThousands(this._byMagicSchool[type].effective)} ({formatPercentage(this._byMagicSchool[type].effective / this.total.effective)}%)
+              </li>
+            ))
+          }
+        </ul>
+      </>
+    );
   }
 
   showStatistic = true;

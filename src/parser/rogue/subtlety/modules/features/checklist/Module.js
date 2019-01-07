@@ -1,9 +1,9 @@
 import React from 'react';
 
-import BaseChecklist from 'parser/shared/modules/features/Checklist2/Module';
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
-import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist2/PreparationRuleAnalyzer';
+import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 
 //Core
 import ComboPoints from '../../core/ComboPoints';
@@ -55,7 +55,7 @@ class Checklist extends BaseChecklist {
           //Core
           comboPoints: this.comboPoints.comboPointThresholds,
           energy: this.energy.energyThresholds,
-          
+
           //Base
           castsInShadowDance: this.castsInShadowDance.castsInStealthThresholds,
           backstabInShadowDance: this.castsInShadowDance.danceBackstabThresholds,
@@ -63,7 +63,7 @@ class Checklist extends BaseChecklist {
           backstabInStealth: this.castsInStealth.stealthBackstabThresholds,
           nightbladeUptime:  this.nightbladeUptime.thresholds,
           nightbladeDuringSymbols: this.nightbladeDuringSymbols.thresholds,
-          
+
           //Talents
           darkShadowNightblade: this.darkShadowNightblade.thresholds,
           findWeaknessVanish: this.findWeakness.vanishThresholds,

@@ -864,7 +864,7 @@ exports[`The Protection Paladin Analyzer analyzers ShieldOfTheRighteous matches 
                 <li>You were hit <b>26</b> times <b><i>without</i></b> your Shield of the Righteous buff (<b>824,949</b> damage).</li>
             </ul>
             <b>43.48%</b> of physical attacks were mitigated with Shield of the Righteous (<b>30.66%</b> of physical damage taken).<br/>
-            <b>11</b> of your 32 casts were <em>good</em> (blocked at least 2 melees or a tankbuster, or prevented capping charges)."
+            <b>13</b> of your 32 casts were <em>good</em> (blocked at least 2 melees or a tankbuster, or prevented capping charges, or consumed an Avenger's Valor buff that was about to be overwritten)."
             >
               30.66%
             </dfn>
@@ -883,7 +883,7 @@ Array [
     "icon": "ability_paladin_shieldofvengeance",
     "importance": "major",
     "issue": <React.Fragment>
-      34.38
+      40.63
       % of your 
       <SpellLink
         icon={true}
@@ -896,7 +896,7 @@ Array [
        (they mitigated at least 2 auto-attacks or 1 tankbuster, or prevented capping charges). You should have Shield of the Righteous up to mitigate as much physical damage as possible.
     </React.Fragment>,
     "stat": <React.Fragment>
-      34.38% good Shield of the Righteous casts
+      40.63% good Shield of the Righteous casts
        (
       90% or more is recommended
       )
@@ -1519,7 +1519,7 @@ exports[`The Protection Paladin Analyzer should match the checklist snapshot 1`]
                 Object {
                   "backgroundColor": "#ac1f39",
                   "transition": "background-color 800ms",
-                  "width": "24.294193097014926%",
+                  "width": "26.028568097014926%",
                 }
               }
             />
@@ -1764,7 +1764,7 @@ exports[`The Protection Paladin Analyzer should match the checklist snapshot 1`]
                 }
               >
                  
-                34.38%
+                40.63%
                  
                  
               </div>
@@ -1786,7 +1786,7 @@ exports[`The Protection Paladin Analyzer should match the checklist snapshot 1`]
                     Object {
                       "backgroundColor": "#ac1f39",
                       "transition": "background-color 800ms",
-                      "width": "19.078125%",
+                      "width": "22.546875000000004%",
                     }
                   }
                 />

@@ -9,11 +9,7 @@ body {
   font-family: 'Open Sans', 'Century Gothic', sans-serif;
   text-rendering: optimizeLegibility;
   background-color: $backgroundColor;
-  /* Source: http://www.heropatterns.com/ */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23000000' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
-  // While I think this fits the theme, it makes the background seem really disconnected from the header:
-  //background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000000' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
-  //background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000000' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='-100 -100 400 400'%3E%3Cpath fill='%23000000' fill-opacity='0.2' d='M-6 99.684V100h.182L-6 99.684zm14.426.325L.344 86.011 50 .001 99.66 86.013l-8.077 13.991-.002-.003H63V86h20.497L50.005 27.99 16.514 86H37v14H8.43l-.004.009zM105.82 100h.257v-.444l-.257.444z'%3E%3C/path%3E%3C/svg%3E");
   color: #f3eded;
 }
 @media (max-width: 1200px) {

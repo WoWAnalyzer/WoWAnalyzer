@@ -1,9 +1,9 @@
 import React from 'react';
 
-import BaseModule from 'parser/shared/modules/features/Checklist2/Module';
+import BaseModule from 'parser/shared/modules/features/Checklist/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
-import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist2/PreparationRuleAnalyzer';
+import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 
 // Buffs-Debuffs
 import SpiritBombFrailtyDebuff from '../../talents/SpiritBombFrailtyDebuff';
@@ -15,6 +15,7 @@ import SoulBarrier from '../../talents/SoulBarrier';
 
 //Spells
 import SoulCleaveSoulsConsumed from '../../spells/SoulCleaveSoulsConsumed';
+import DemonSpikes from '../../spells/DemonSpikes';
 
 // Resources
 import PainDetails from '../../pain/PainDetails';
@@ -41,6 +42,7 @@ class Checklist extends BaseModule {
 
     // Spells
     soulCleaveSoulsConsumed: SoulCleaveSoulsConsumed,
+    demonSpikes: DemonSpikes,
 
     // Resources
     painDetails: PainDetails,
@@ -55,13 +57,14 @@ class Checklist extends BaseModule {
         castEfficiency={this.castEfficiency}
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
-          
+
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           spiritBombFrailtyDebuff: this.spiritBombFrailtyDebuff.uptimeSuggestionThresholds,
           voidReaverDebuff: this.voidReaverDebuff.uptimeSuggestionThresholds,
           spiritBombSoulsConsume: this.spiritBombSoulsConsume.suggestionThresholdsEfficiency,
           soulBarrier: this.soulBarrier.suggestionThresholdsEfficiency,
           soulCleaveSoulsConsumed: this.soulCleaveSoulsConsumed.suggestionThresholdsEfficiency,
+          demonSpikes: this.demonSpikes.suggestionThresholdsEfficiency,
           painDetails: this.painDetails.suggestionThresholds,
           soulsOvercap: this.soulsOvercap.suggestionThresholdsEfficiency,
         }}

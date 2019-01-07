@@ -1,0 +1,31 @@
+.donut-chart {
+  display: flex;
+
+  > .legend {
+    font-size: 85%;
+    flex: 1 1 auto;
+    margin-top: 3px;
+
+    > div {
+      margin-bottom: 5px;
+
+      > div:not(:last-of-type) {
+        margin-right: 5px;
+      }
+      .circle {
+        display: inline-block;
+        border-radius: 50%;
+        width: 10px;
+        height: 10px;
+        margin-bottom: -1px;
+      }
+    }
+    > div:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+  > .chart {
+    flex: 0 0 auto;
+    padding-left: 15px;
+  }
+}

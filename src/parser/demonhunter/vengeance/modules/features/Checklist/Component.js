@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
-import Checklist from 'parser/shared/modules/features/Checklist2';
-import Rule from 'parser/shared/modules/features/Checklist2/Rule';
-import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist2/GenericCastEfficiencyRequirement';
-import PreparationRule from 'parser/shared/modules/features/Checklist2/PreparationRule';
-import Requirement from 'parser/shared/modules/features/Checklist2/Requirement';
+import Checklist from 'parser/shared/modules/features/Checklist';
+import Rule from 'parser/shared/modules/features/Checklist/Rule';
+import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
+import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
+import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 
 class VengeanceDemonHunterChecklist extends React.PureComponent {
   static propTypes = {
@@ -58,8 +58,14 @@ class VengeanceDemonHunterChecklist extends React.PureComponent {
             </>
           )}
         >
-          {/* As I can't track the cast efficiency with Feed the Demon talent equipped, I'm disabling the checklist item */}
-          {!combatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id) && <AbilityRequirement spell={SPELLS.DEMON_SPIKES.id} />}
+          <Requirement
+            name={(
+              <>
+              <SpellLink id={SPELLS.DEMON_SPIKES.id} />
+              </>
+            )}
+            thresholds={thresholds.demonSpikes}
+          />
           {combatant.hasTalent(SPELLS.SPIRIT_BOMB_TALENT.id) && !combatant.hasTalent(SPELLS.FEED_THE_DEMON_TALENT.id) &&(
             <Requirement
               name={(

@@ -1,5 +1,15 @@
 export default {
   // Brewmaster-specific
+  STRAIGHT_NO_CHASER: {
+    id: 285958,
+    name: 'Straight, No Chaser',
+    icon: 'ability_monk_ironskinbrew',
+  },
+  STRAIGHT_NO_CHASER_BUFF: {
+    id: 285959,
+    name: 'Straight, No Chaser',
+    icon: 'ability_monk_ironskinbrew',
+  },
   ELUSIVE_FOOTWORK: {
     id: 278571,
     name: 'Elusive Footwork',
@@ -87,8 +97,13 @@ export default {
     name: 'Dance of Chi-ji',
     icon: 'ability_monk_quitornado',
   },
-  FURY_OF_XUEN_BUFF: {
+  FURY_OF_XUEN_STACKS: {
     id: 287062,
+    name: 'Fury of Xuen',
+    icon: 'ability_monk_prideofthetiger',
+  },
+  FURY_OF_XUEN_SUMMON: {
+    id: 287063,
     name: 'Fury of Xuen',
     icon: 'ability_monk_prideofthetiger',
   },

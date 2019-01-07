@@ -10,6 +10,7 @@ import KegSmash from '../spells/KegSmash';
 import TigerPalm from '../spells/TigerPalm';
 import IronskinBrew from '../spells/IronSkinBrew';
 import BlackOxBrew from '../spells/BlackOxBrew';
+import StraightNoChaser from '../spells/azeritetraits/StraightNoChaser';
 
 class BrewCDR extends Analyzer {
   static dependencies = {
@@ -18,6 +19,7 @@ class BrewCDR extends Analyzer {
     bob: BlackOxBrew,
     isb: IronskinBrew,
     abilities: Abilities,
+    snc: StraightNoChaser,
   };
 
   _totalHaste = 0;
@@ -42,6 +44,9 @@ class BrewCDR extends Analyzer {
     totalCDR += this.tp.cdr;
     // ...and BoB...
     totalCDR += this.bob.cdr;
+    // ...and SNC... (assuming that variance evens out and we get a full
+    // charge from *most* procs)
+    totalCDR += this.snc.resets * this.avgCooldown * 1000;
     return totalCDR;
   }
 
@@ -60,11 +65,15 @@ class BrewCDR extends Analyzer {
     return this.totalCDR / (this.owner.fightDuration + this.totalCDR);
   }
 
+  get avgCooldown() {
+    const ability = this.abilities.getAbility(SPELLS.IRONSKIN_BREW.id);
+    return ability._cooldown(this.meanHaste);
+  }
+
   // the amount of CDR required so that you can cast ISB often enough to
   // actually hit 100% uptime
   get cdrRequiredForUptime() {
-    const ability = this.abilities.getAbility(SPELLS.IRONSKIN_BREW.id);
-    return 1 - this.isb.durationPerCast / (ability._cooldown(this.meanHaste) * 1000);
+    return 1 - this.isb.durationPerCast / (this.avgCooldown * 1000);
   }
 
   get suggestionThreshold() {
@@ -113,6 +122,7 @@ class BrewCDR extends Analyzer {
             {this.ks.bocHits > 0 && <li>Using Blackout Combo on {this.ks.bocHits} Keg Smash hits — <strong>{(this.ks.bocCDR / 1000).toFixed(2)}s</strong> (<strong>{(this.ks.wastedBocCDR / 1000).toFixed(2)}s</strong> wasted)</li>}
             <li>{this.tp.totalCasts} Tiger Palm hits — <strong>{(this.tp.cdr / 1000).toFixed(2)}s</strong> (<strong>{(this.tp.wastedCDR / 1000).toFixed(2)}s</strong> wasted)</li>
             {this.bob.active && <li>{this.bob.casts} Black Ox Brew casts — <strong>{(this.bob.cdr / 1000).toFixed(2)}s</strong> (<strong>{(this.bob.wastedCDR / 1000).toFixed(2)}s</strong> wasted)</li>}
+            {this.snc.resets > 0 && <li>Straight, No Chaser procs — <b>≥{(this.snc.resets * this.avgCooldown).toFixed(2)}s</b> (an unknown amount wasted)</li>}
           </ul>
           <strong>Total cooldown reduction:</strong> {(this.totalCDR / 1000).toFixed(2)}s.<br />
           <strong>Minimum Cooldown Reduction for 100% ISB uptime:</strong> {formatPercentage(this.cdrRequiredForUptime)}%
