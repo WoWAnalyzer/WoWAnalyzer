@@ -184,16 +184,18 @@ class ManaTea extends Analyzer {
         value={formatNumber(this.avgMtSaves)}
         label={(
           <TooltipElement
-            content={(<>
-              During your {this.manateaCount} Mana Teas saved the following mana ({formatThousands(this.manaSavedMT / this.owner.fightDuration * 1000 * 5)} MP5):
-              <ul>
-                {this.efCasts > 0 && <li>{(this.efCasts)} Essence Font casts</li>}
-                {this.efCasts > 0 && <li>{(this.vivCasts)} Vivfy casts</li>}
-                {this.efCasts > 0 && <li>{(this.enmCasts)} Enveloping Mists casts</li>}
-                <li>{this.rjwCasts + this.revCasts + this.remCasts + this.lcCasts + this.effCasts} other spells casted.</li>
-                <li>{this.nonManaCasts} non-mana casts during Mana Tea</li>
-              </ul>
-            </>)}
+            content={(
+              <>
+                During your {this.manateaCount} Mana Teas saved the following mana ({formatThousands(this.manaSavedMT / this.owner.fightDuration * 1000 * 5)} MP5):
+                <ul>
+                  {this.efCasts > 0 && <li>{(this.efCasts)} Essence Font casts</li>}
+                  {this.efCasts > 0 && <li>{(this.vivCasts)} Vivfy casts</li>}
+                  {this.efCasts > 0 && <li>{(this.enmCasts)} Enveloping Mists casts</li>}
+                  <li>{this.rjwCasts + this.revCasts + this.remCasts + this.lcCasts + this.effCasts} other spells casted.</li>
+                  <li>{this.nonManaCasts} non-mana casts during Mana Tea</li>
+                </ul>
+              </>
+            )}
           >
             Average mana saved
           </TooltipElement>

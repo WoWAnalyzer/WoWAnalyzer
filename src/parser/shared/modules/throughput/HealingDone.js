@@ -111,7 +111,15 @@ class HealingDone extends Analyzer {
           <div className="flex-sub" style={{ width: 110, textAlign: 'center' }}>
             <ThroughputPerformance throughput={perSecond} metric="hps">
               {({ performance, topThroughput }) => performance && performance !== UNAVAILABLE && (
-                <Tooltip content={<>Your HPS compared to the HPS of a top 100 player. To become a top 100 <span className={this.selectedCombatant.spec.className.replace(' ', '')}>{this.selectedCombatant.spec.specName} {this.selectedCombatant.spec.className}</span> on this fight you need to do at least <strong>{formatThousands(topThroughput)} HPS</strong>.</>}>
+                <Tooltip
+                  content={(
+                    <>
+                      Your HPS compared to the HPS of a top 100 player.
+                      To become a top 100 <span className={this.selectedCombatant.spec.className.replace(' ', '')}>{this.selectedCombatant.spec.specName} {this.selectedCombatant.spec.className}</span>
+                      on this fight you need to do at least <strong>{formatThousands(topThroughput)} HPS</strong>.
+                    </>
+                  )}
+                >
                   <div
                     className={rankingColor(performance)}
                     style={{ cursor: 'help' }}

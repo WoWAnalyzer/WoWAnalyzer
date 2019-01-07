@@ -138,16 +138,19 @@ class SpiritOfTheCrane extends Analyzer {
         icon={<SpellIcon id={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id} />}
         value={formatNumber(this.manaReturnSotc)}
         label={(
-          <TooltipElement content={(<>
-            You gained a raw total of {((this.manaReturnSotc + this.sotcWasted) / 1000).toFixed(0)}k mana from SotC with {(this.sotcWasted / 1000).toFixed(0)}k wasted. <br />
-            You lost {this.totmOverCap + this.totmBuffWasted} Teachings of the Monestery stacks
-            {(this.totmOverCap > 0 || this.totmBuffWasted > 0) && (
-              <ul>
-                {this.totmOverCap > 0 && <li>You overcapped Teachings {this.totmOverCap} times</li>}
-                {this.totmBuffWasted > 0 && <li>You let Teachings drop off {this.totmBuffWasted} times</li>}
-              </ul>
+          <TooltipElement
+            content={(
+              <>
+                You gained a raw total of {((this.manaReturnSotc + this.sotcWasted) / 1000).toFixed(0)}k mana from SotC with {(this.sotcWasted / 1000).toFixed(0)}k wasted. <br />
+                You lost {this.totmOverCap + this.totmBuffWasted} Teachings of the Monestery stacks
+                {(this.totmOverCap > 0 || this.totmBuffWasted > 0) && (
+                  <ul>
+                    {this.totmOverCap > 0 && <li>You overcapped Teachings {this.totmOverCap} times</li>}
+                    {this.totmBuffWasted > 0 && <li>You let Teachings drop off {this.totmBuffWasted} times</li>}
+                  </ul>
+                )}
+              </>
             )}
-            </>)}
           >
             Mana Returned
           </TooltipElement>

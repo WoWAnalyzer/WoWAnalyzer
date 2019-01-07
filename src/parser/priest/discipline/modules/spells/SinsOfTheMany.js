@@ -92,10 +92,12 @@ class SinsOfTheMany extends Analyzer {
         ]}
         footer={(
           <TooltipElement
-            content={(<>
-              The effective healing contributed by Sins of the Many was {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.bonusHealing))}% of total healing done.<br />
-              The direct damage contributed by Sins of the Many was {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDamage))}% of total damage done.
-            </>)}
+            content={(
+              <>
+                The effective healing contributed by Sins of the Many was {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.bonusHealing))}% of total healing done.<br />
+                The direct damage contributed by Sins of the Many was {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDamage))}% of total damage done.
+              </>
+            )}
           >
             Sins of the Many Output Details
           </TooltipElement>

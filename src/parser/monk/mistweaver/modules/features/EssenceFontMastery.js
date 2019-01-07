@@ -108,13 +108,16 @@ class EssenceFontMastery extends Analyzer {
         icon={<SpellIcon id={SPELLS.GUSTS_OF_MISTS.id} />}
         value={efMasteryCasts}
         label={(
-          <TooltipElement content={(<>
-            You healed an average of {this.avgMasteryCastsPerEF.toFixed(2)} targets per Essence Font cast.
-            <ul>
-              <li>{formatNumber(avgEFMasteryHealing)} average healing per cast</li>
-              <li>{formatNumber(this.secondGustOverheal)} Second Gust of Mists overhealing ({formatPercentage(this.secondGustOverheal / this.secondGustHealing)}%)</li>
-            </ul>
-            </>)}
+          <TooltipElement
+            content={(
+              <>
+                You healed an average of {this.avgMasteryCastsPerEF.toFixed(2)} targets per Essence Font cast.
+                <ul>
+                  <li>{formatNumber(avgEFMasteryHealing)} average healing per cast</li>
+                  <li>{formatNumber(this.secondGustOverheal)} Second Gust of Mists overhealing ({formatPercentage(this.secondGustOverheal / this.secondGustHealing)}%)</li>
+                </ul>
+              </>
+            )}
           >
             Mastery Buffs utilized
           </TooltipElement>

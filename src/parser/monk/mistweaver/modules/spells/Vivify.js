@@ -93,13 +93,17 @@ class Vivify extends Analyzer {
         icon={<SpellIcon id={SPELLS.VIVIFY.id} />}
         value={`${this.averageRemPerVivify.toFixed(2)}`}
         label={(
-          <TooltipElement content={(<>
-            Healing Breakdown:
-            <ul>
-              <li>{formatNumber(this.abilityTracker.getAbility(SPELLS.VIVIFY.id).healingEffective)} overall healing from Vivify.</li>
-              <li>{formatNumber(this.remVivifyHealing)} portion of your Vivify healing to REM targets.</li>
-            </ul>
-          </>)}>
+          <TooltipElement
+            content={(
+              <>
+                Healing Breakdown:
+                <ul>
+                  <li>{formatNumber(this.abilityTracker.getAbility(SPELLS.VIVIFY.id).healingEffective)} overall healing from Vivify.</li>
+                  <li>{formatNumber(this.remVivifyHealing)} portion of your Vivify healing to REM targets.</li>
+                </ul>
+              </>
+            )}
+          >
             Avg REMs per Cast
           </TooltipElement>
         )}

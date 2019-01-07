@@ -63,7 +63,7 @@ class DreadGladiatorsInsignia extends Analyzer {
     return {
       item: ITEMS.DREAD_GLADIATORS_INSIGNIA,
       result: (
-        <TooltipElement content={<>You procced <b>{SPELLS.TASTE_OF_VICTORY.name}</b> {this.procs} times with an uptime of {formatPercentage(this.uptime)}%.</>}>
+        <TooltipElement content={<>You procced <strong>{SPELLS.TASTE_OF_VICTORY.name}</strong> {this.procs} times with an uptime of {formatPercentage(this.uptime)}%.</>}>
           {this.averagePrimaryStat} average Primary Stat
         </TooltipElement>
       ),

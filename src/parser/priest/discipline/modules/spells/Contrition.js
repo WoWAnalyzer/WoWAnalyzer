@@ -82,8 +82,10 @@ class Contrition extends Analyzer {
         value={`${formatNumber(healing / this.owner.fightDuration * 1000)} HPS`}
         label={(
           <TooltipElement
-            content={`The effective healing contributed by Contrition (${formatPercentage(this.owner.getPercentageOfTotalHealingDone(healing))}% of total healing done).
-            You lost roughly ${formatNumber(this.damagePenalty / this.owner.fightDuration * 1000)} DPS, or ${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damagePenalty))}% more damage.`}
+            content={
+              `The effective healing contributed by Contrition (${formatPercentage(this.owner.getPercentageOfTotalHealingDone(healing))}% of total healing done).
+              You lost roughly ${formatNumber(this.damagePenalty / this.owner.fightDuration * 1000)} DPS, or ${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damagePenalty))}% more damage.`
+            }
           >
             Contrition healing
           </TooltipElement>

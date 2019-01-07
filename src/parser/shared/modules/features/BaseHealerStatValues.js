@@ -422,10 +422,14 @@ class BaseHealerStatValues extends Analyzer {
           <div className="panel items">
             <div className="panel-heading">
               <h4>
-                <TooltipElement content={(<>
-                  These stat values are calculated using the actual circumstances of this encounter. These values reveal the value of the last 1 rating of each stat, they may not necessarily be the best way to gear. The stat values are likely to differ based on fight, raid size, items used, talents chosen, etc.<br /><br />
-                  DPS gains are not included in any of the stat values.
-                </>)}>
+                <TooltipElement
+                  content={(
+                    <>
+                      These stat values are calculated using the actual circumstances of this encounter. These values reveal the value of the last 1 rating of each stat, they may not necessarily be the best way to gear. The stat values are likely to differ based on fight, raid size, items used, talents chosen, etc.<br /><br />
+                      DPS gains are not included in any of the stat values.
+                    </>
+                  )}
+                >
                   Stat Values
                 </TooltipElement>
 
@@ -445,7 +449,7 @@ class BaseHealerStatValues extends Analyzer {
                     </th>
                     <th className="text-right" style={{ minWidth: 30 }} colSpan={2}>
                       <TooltipElement content="Normalized so Intellect is always 1.00.">
-                        <b>Value</b>
+                        <strong>Value</strong>
                       </TooltipElement>
                     </th>
                   </tr>

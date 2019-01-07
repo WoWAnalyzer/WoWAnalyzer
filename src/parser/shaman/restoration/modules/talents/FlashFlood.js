@@ -144,11 +144,14 @@ class FlashFlood extends Analyzer {
             {label}
           </div>
           <div className="flex-sub">
-            <TooltipElement content={(<>
-              <strong>{(value.timeSaved / 1000).toFixed(2)} seconds saved</strong> <br />
-              {(value.timeWasted / 1000).toFixed(2)} seconds reduced below GCD <br />
-              You buffed this spell <strong>{value.timesBuffed}</strong> times.
-              </>)}
+            <TooltipElement
+              content={(
+                <>
+                  <strong>{(value.timeSaved / 1000).toFixed(2)} seconds saved</strong> <br />
+                  {(value.timeWasted / 1000).toFixed(2)} seconds reduced below GCD <br />
+                  You buffed this spell <strong>{value.timesBuffed}</strong> times.
+                </>
+              )}
             >
               {formatPercentage(value.timeSaved / total, 0)}%
             </TooltipElement>

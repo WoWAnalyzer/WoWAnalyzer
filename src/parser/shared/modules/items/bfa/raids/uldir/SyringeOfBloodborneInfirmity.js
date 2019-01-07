@@ -60,10 +60,14 @@ class SyringeOfBloodborneInfirmity extends Analyzer {
     return {
       item: ITEMS.SYRINGE_OF_BLOODBORNE_INFIRMITY,
       result: (
-        <TooltipElement content={(<>
-          Hit <strong>{this.hits}</strong> times, causing <strong>{formatNumber(this.damage)}</strong> damage. <br />
-          Buff procced <strong>{this.buffTriggerCount()}</strong> times (<strong>{formatPercentage(this.totalBuffUptime())}%</strong> uptime).
-        </>)}>
+        <TooltipElement
+          content={(
+            <>
+              Hit <strong>{this.hits}</strong> times, causing <strong>{formatNumber(this.damage)}</strong> damage. <br />
+              Buff procced <strong>{this.buffTriggerCount()}</strong> times (<strong>{formatPercentage(this.totalBuffUptime())}%</strong> uptime).
+            </>
+          )}
+        >
           <ItemDamageDone amount={this.damage} /><br />
           {formatNumber(this.averageStatGain())} average Critical Strike
         </TooltipElement>

@@ -169,11 +169,14 @@ class BalefireBranch extends Analyzer {
     return {
       item: ITEMS.BALEFIRE_BRANCH,
       result: (
-        <TooltipElement content={(<>
-          Activated <strong>{this.applyCount}</strong> time{this.applyCount === 1 ? '' : 's'} of a possible <strong>{this.possibleUseCount}</strong>. <br />
-          The buff was active for <strong>{formatDuration(this.totalUptime / 1000)}</strong>. <br />
-          Average Intellect reduced by <strong>{(expectedIntellectWithoutDamage - this.averageIntellect).toFixed(1)}</strong> due to damage taken while the buff was active.
-        </>)}
+        <TooltipElement
+          content={(
+            <>
+              Activated <strong>{this.applyCount}</strong> time{this.applyCount === 1 ? '' : 's'} of a possible <strong>{this.possibleUseCount}</strong>. <br />
+              The buff was active for <strong>{formatDuration(this.totalUptime / 1000)}</strong>. <br />
+              Average Intellect reduced by <strong>{(expectedIntellectWithoutDamage - this.averageIntellect).toFixed(1)}</strong> due to damage taken while the buff was active.
+            </>
+          )}
         >
           {this.averageIntellect.toFixed(1)} average Intellect
         </TooltipElement>

@@ -91,7 +91,13 @@ class Stats extends React.PureComponent {
         <div className="row">
           <div className="col-md-12">
             <h2>
-              <TooltipElement content={<>These stats include any <strong>rating</strong> buffs, such as flasks, potions and other buffs. Percentage buffs such as Bloodlust are <strong>not</strong> included.</>}>
+              <TooltipElement
+                content={(
+                  <>
+                    These stats include any <strong>rating</strong> buffs, such as flasks, potions and other buffs. Percentage buffs such as Bloodlust are <strong>not</strong> included.
+                  </>
+                )}
+              >
                 Stats on pull
               </TooltipElement>
             </h2>

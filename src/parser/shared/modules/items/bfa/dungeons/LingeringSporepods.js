@@ -58,7 +58,7 @@ class LingeringSporepods extends Analyzer {
     return {
       item: ITEMS.LINGERING_SPOREPODS,
       result: (
-        <TooltipElement style={{ display: 'inline' }} content={<>Procced <strong>{this.totalProcs}</strong> time{this.totalProcs === 1 ? '' : 's'}.</>}>
+        <TooltipElement content={<>Procced <strong>{this.totalProcs}</strong> time{this.totalProcs === 1 ? '' : 's'}.</>}>
           <ItemDamageDone amount={this.damage} /><br />
           <ItemHealingDone amount={this.healing} />
         </TooltipElement>

@@ -84,10 +84,13 @@ class Downpour extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(90)}
         label={(
-          <TooltipElement content={(<>
-            You cast a total of {downpourCasts} Downpours, which on average hit {(downpourAverageHits + downpourAverageOverhealedHits).toFixed(1)} out of 6 targets. <br />
-            Of those hits, {downpourAverageHits.toFixed(1)} had effective healing and increased the cooldown.
-            </>)}
+          <TooltipElement
+            content={(
+              <>
+                You cast a total of {downpourCasts} Downpours, which on average hit {(downpourAverageHits + downpourAverageOverhealedHits).toFixed(1)} out of 6 targets. <br />
+                Of those hits, {downpourAverageHits.toFixed(1)} had effective healing and increased the cooldown.
+              </>
+            )}
           >
             Average Downpour cooldown
           </TooltipElement>

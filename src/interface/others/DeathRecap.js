@@ -142,14 +142,16 @@ class DeathRecap extends React.PureComponent {
                       percent = (lastHitPoints - event.amount) / lastMaxHitPoints;
                       output = (
                         <TooltipElement
-                          content={(<>
-                            {event.sourceID === event.targetID ?
-                            `You healed yourself for ${formatNumber(event.amount)}` :
-                            `${sourceName} healed you for ${formatNumber(event.amount)}`
-                            }
-                            {event.absorbed > 0 ? `, ${formatNumber(event.absorbed)} of that healing was absorbed` : ''}
-                            {event.overheal > 0 ? ` and overhealed for ${formatNumber(event.overheal)}` : ''}
-                          </>)}
+                          content={(
+                            <>
+                              {event.sourceID === event.targetID ?
+                              `You healed yourself for ${formatNumber(event.amount)}` :
+                              `${sourceName} healed you for ${formatNumber(event.amount)}`
+                              }
+                              {event.absorbed > 0 ? `, ${formatNumber(event.absorbed)} of that healing was absorbed` : ''}
+                              {event.overheal > 0 ? ` and overhealed for ${formatNumber(event.overheal)}` : ''}
+                            </>
+                          )}
                           style={(event.amount === 0 && event.absorbed > 0) ? {color: 'orange'} : {color: 'green'}}
                         >
                           +{formatNumber(event.amount)} {event.absorbed > 0 ? `(A: ${formatNumber(event.absorbed)} )` : ''} {event.overheal > 0 ? `(O: ${formatNumber(event.overheal)} )` : ''}
@@ -159,13 +161,15 @@ class DeathRecap extends React.PureComponent {
                       percent = lastHitPoints / lastMaxHitPoints;
                       output = (
                         <TooltipElement
-                          content={(<>
-                            {event.sourceID === event.targetID ?
-                              `You damaged yourself for ${formatNumber(event.amount)}` :
-                              `${sourceName} damaged you for a total of ${formatNumber(event.amount + (event.absorbed || 0))}`
-                            }<br />
-                            {event.absorbed > 0 ? <>{formatNumber(event.absorbed)} of this damage was absorbed and you took {formatNumber(event.amount)} damage<br/></> : ''}
-                          </>)}
+                          content={(
+                            <>
+                              {event.sourceID === event.targetID ?
+                                `You damaged yourself for ${formatNumber(event.amount)}` :
+                                `${sourceName} damaged you for a total of ${formatNumber(event.amount + (event.absorbed || 0))}`
+                              }<br />
+                              {event.absorbed > 0 ? <>{formatNumber(event.absorbed)} of this damage was absorbed and you took {formatNumber(event.amount)} damage<br/></> : ''}
+                            </>
+                          )}
                           style={{ color: 'red' }}>
                           -{formatNumber(event.amount)} {event.absorbed > 0 ? `(A: ${formatNumber(event.absorbed)} )` : ''}
                         </TooltipElement>

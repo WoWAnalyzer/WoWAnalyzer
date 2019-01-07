@@ -89,7 +89,15 @@ class DamageDone extends Analyzer {
           <div className="flex-sub" style={{ width: 110, textAlign: 'center' }}>
             <ThroughputPerformance throughput={perSecond} metric="dps">
               {({ performance, topThroughput }) => performance && performance !== UNAVAILABLE && (
-                <Tooltip content={<>Your DPS compared to the DPS of a top 100 player. To become a top 100 <span className={this.selectedCombatant.spec.className.replace(' ', '')}>{this.selectedCombatant.spec.specName} {this.selectedCombatant.spec.className}</span> on this fight you need to do at least <strong>{formatThousands(topThroughput)} DPS</strong>.</>}>
+                <Tooltip
+                  content={(
+                    <>
+                      Your DPS compared to the DPS of a top 100 player.
+                      To become a top 100 <span className={this.selectedCombatant.spec.className.replace(' ', '')}>{this.selectedCombatant.spec.specName} {this.selectedCombatant.spec.className}</span>
+                      on this fight you need to do at least <strong>{formatThousands(topThroughput)} DPS</strong>.
+                    </>
+                  )}
+                >
                   <div
                     className={rankingColor(performance)}
                     style={{ cursor: 'help' }}

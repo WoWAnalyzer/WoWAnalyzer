@@ -243,11 +243,14 @@ class EchoOfLight_Mastery extends Analyzer {
         value={<ItemHealingDone amount={this.effectiveHealing} />}
         tooltip={`Total Healing: ${formatNumber(this.effectiveHealing)} (${formatPercentage(this.overHealingPercent)}% OH)`}
         label={(
-          <TooltipElement content={(<>
-            Echo of Light healing breakdown. As our mastery is often very finicky, this could end up wrong in various situations. Please report any logs that seem strange to @Khadaj on the WoWAnalyzer discord.<br /><br />
-            <strong>Please do note this may not be 100% accurate.</strong><br /><br />
-            Also, a mastery value can be more than just "healing done times mastery percent" because Echo of Light is based off raw healing. If the heal itself overheals, but the mastery does not, it can surpass that assumed "limit". Don't use this as a reason for a "strange log" unless something is absurdly higher than its effective healing.
-          </>)}
+          <TooltipElement
+            content={(
+              <>
+                Echo of Light healing breakdown. As our mastery is often very finicky, this could end up wrong in various situations. Please report any logs that seem strange to @Khadaj on the WoWAnalyzer discord.<br /><br />
+                <strong>Please do note this may not be 100% accurate.</strong><br /><br />
+                Also, a mastery value can be more than just "healing done times mastery percent" because Echo of Light is based off raw healing. If the heal itself overheals, but the mastery does not, it can surpass that assumed "limit". Don't use this as a reason for a "strange log" unless something is absurdly higher than its effective healing.
+              </>
+            )}
           >
             Echo of Light
           </TooltipElement>

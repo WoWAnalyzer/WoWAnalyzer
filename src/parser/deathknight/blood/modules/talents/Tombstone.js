@@ -120,11 +120,13 @@ class Tombstone extends Analyzer {
                 </td>
                 <td>
                   <TooltipElement
-                    content={(<>
-                      <strong>Damage Absorbed:</strong> {formatNumber(this.tombstone[i].totalAbsorbed)} <br />
-                      <strong>Absorb Shield: </strong> {formatNumber(this.tombstone[i].absorbSize)} <br />
-                      <strong>Healing: </strong> {this.owner.formatItemHealingDone(this.tombstone[i].totalAbsorbed)}
-                    </>)}
+                    content={(
+                      <>
+                        <strong>Damage Absorbed:</strong> {formatNumber(this.tombstone[i].totalAbsorbed)} <br />
+                        <strong>Absorb Shield: </strong> {formatNumber(this.tombstone[i].absorbSize)} <br />
+                        <strong>Healing: </strong> {this.owner.formatItemHealingDone(this.tombstone[i].totalAbsorbed)}
+                      </>
+                    )}
                   >
                     {formatPercentage(this.tombstone[i].totalAbsorbed / this.tombstone[i].absorbSize)}%
                   </TooltipElement>

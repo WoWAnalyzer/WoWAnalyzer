@@ -67,13 +67,15 @@ class HarlansLoadedDice extends Analyzer {
       item: ITEMS.HARLANS_LOADED_DICE,
       result: (
         <TooltipElement
-          content={(<>
-            <ul>
-              <li>Procced {this.buffTriggerCount()} times.</li>
-              <li>You had an uptime of {formatPercentage(this.smallBuffUptime)}% on the small buffs.</li>
-              <li> You had an uptime of {formatPercentage(this.bigBuffUptime)}% on the large buffs.</li>
-            </ul>
-          </>)}
+          content={(
+            <>
+              <ul>
+                <li>Procced {this.buffTriggerCount()} times.</li>
+                <li>You had an uptime of {formatPercentage(this.smallBuffUptime)}% on the small buffs.</li>
+                <li> You had an uptime of {formatPercentage(this.bigBuffUptime)}% on the large buffs.</li>
+              </ul>
+            </>
+          )}
         >
           {formatPercentage(this.totalBuffUptime)}% uptime<br />
           {formatNumber(this.getAverageHaste())} average Haste<br />

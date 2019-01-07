@@ -112,7 +112,7 @@ class AlwaysBeCasting extends Analyzer {
         </>)}
         footer={(
           <div className="statistic-bar">
-            <Tooltip content={<>You spent <b>{formatPercentage(this.activeTimePercentage)}%</b> of your time casting something.</>}>
+            <Tooltip content={<>You spent <strong>{formatPercentage(this.activeTimePercentage)}%</strong> of your time casting something.</>}>
               <div
                 className="stat-health-bg"
                 style={{
@@ -122,7 +122,7 @@ class AlwaysBeCasting extends Analyzer {
                 <img src={this.constructor.icons.activeTime} alt="Active time" />
               </div>
             </Tooltip>
-            <Tooltip content={<>You spent <b>{formatPercentage(this.downtimePercentage)}%</b> of your time casting nothing at all.</>}>
+            <Tooltip content={<>You spent <strong>{formatPercentage(this.downtimePercentage)}%</strong> of your time casting nothing at all.</>}>
               <div className="remainder DeathKnight-bg">
                 <img src={this.constructor.icons.downtime} alt="Downtime" />
               </div>

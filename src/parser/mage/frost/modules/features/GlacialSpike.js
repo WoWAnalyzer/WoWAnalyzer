@@ -113,7 +113,19 @@ class GlacialSpike extends Analyzer {
           <>
             You cast <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> inefficiently {this.badCasts} times. Because it is such a potent ability, it is important to maximize its damage by only casting it when at least one of the following is true:
             <ul>
-              <li>You have a <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc to <TooltipElement content={<><i>Glacial Spike > (empowered) Flurry > Ice Lance</i><br />Because of Flurry's extremely fast travel time, using a Brain Freeze proc immediately following a slower spell like Glacial Spike will apply Winter's Chill to the target before the slower spell hits.</>}>use on it</TooltipElement>.</li>
+              <li>
+                You have a <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc to
+                <TooltipElement
+                  content={(
+                    <>
+                      <em>Glacial Spike > (empowered) Flurry > Ice Lance</em><br />
+                      Because of Flurry's extremely fast travel time, using a Brain Freeze proc immediately following a slower spell like Glacial Spike will apply Winter's Chill to the target before the slower spell hits.
+                    </>
+                  )}
+                >
+                  use on it
+                </TooltipElement>.
+              </li>
               <li>The <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> will cleave to a second target via <SpellLink id={SPELLS.SPLITTING_ICE_TALENT.id} /> (if talented).</li>
             </ul>
           </>)

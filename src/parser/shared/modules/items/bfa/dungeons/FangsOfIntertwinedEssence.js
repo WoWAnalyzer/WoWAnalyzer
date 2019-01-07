@@ -72,10 +72,14 @@ class FangsOfIntertwinedEssence extends Analyzer {
     return {
       item: ITEMS.FANGS_OF_INTERTWINED_ESSENCE,
       result: (
-        <TooltipElement content={(<>
-          Activated <strong>{this.useCount}</strong> time{this.useCount === 1 ? '' : 's'} of a possible <strong>{this.possibleUseCount}</strong>. <br />
-          You cast an average of <strong>{this.restoresPerUse.toFixed(1)}</strong> eligible spells during each activation, out of a possible <strong>{MAX_RESTORES_PER_USE}</strong>.
-        </>)}>
+        <TooltipElement
+          content={(
+            <>
+              Activated <strong>{this.useCount}</strong> time{this.useCount === 1 ? '' : 's'} of a possible <strong>{this.possibleUseCount}</strong>. <br />
+              You cast an average of <strong>{this.restoresPerUse.toFixed(1)}</strong> eligible spells during each activation, out of a possible <strong>{MAX_RESTORES_PER_USE}</strong>.
+            </>
+          )}
+        >
           <ItemManaGained amount={this.manaRestored} />
         </TooltipElement>
       ),
