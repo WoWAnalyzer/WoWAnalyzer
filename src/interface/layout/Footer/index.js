@@ -4,7 +4,7 @@ import DiscordLogo from 'interface/icons/DiscordTiny';
 import GithubLogo from 'interface/icons/GitHubMarkSmall';
 import PatreonIcon from 'interface/icons/PatreonTiny';
 import Logo from 'interface/images/logo.svg';
-import Tooltip from 'common/Tooltip';
+import { Tooltip } from 'common/Tooltip';
 
 import './style.css';
 

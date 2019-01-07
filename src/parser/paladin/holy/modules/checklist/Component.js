@@ -10,7 +10,7 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
-import Tooltip from 'common/Tooltip';
+import { Tooltip } from 'common/Tooltip';
 
 class HolyPaladinChecklist extends React.PureComponent {
   static propTypes = {

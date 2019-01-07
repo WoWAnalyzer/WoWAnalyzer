@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Tooltip from 'common/Tooltip';
+import { Tooltip } from 'common/Tooltip';
 import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Tooltip from 'common/Tooltip';
+import { Tooltip } from 'common/Tooltip';
 import InfoIcon from 'interface/icons/Info';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 

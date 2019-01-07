@@ -4,7 +4,7 @@ import { RadialChart } from 'react-vis';
 
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
-import Tooltip from 'common/Tooltip';
+import { Tooltip } from 'common/Tooltip';
 
 import './style.scss';
 

@@ -4,7 +4,7 @@ import { emallson } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Tooltip from 'common/Tooltip';
+import { Tooltip } from 'common/Tooltip';
 import retryingPromise from 'common/retryingPromise';
 import Warning from 'interface/common/Alert/Warning';
 

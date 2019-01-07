@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ResourceLink from 'common/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import Tooltip from 'common/Tooltip';
+import { Tooltip } from 'common/Tooltip';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';

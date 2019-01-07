@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Trans, t } from '@lingui/macro';
 
 import getFightName from 'common/getFightName';
-import Tooltip from 'common/Tooltip';
+import { Tooltip } from 'common/Tooltip';
 import PatreonIcon from 'interface/icons/PatreonTiny';
 import DiscordIcon from 'interface/icons/DiscordTiny';
 import GitHubIcon from 'interface/icons/GitHubMarkSmall';
