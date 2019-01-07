@@ -11,7 +11,7 @@ import GitHubButton from 'interface/common/thirdpartybuttons/GitHub';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import { ignoreSpecNotSupportedWarning } from 'interface/actions/specNotSupported';
 import { getSpecsIgnoredNotSupportedWarning } from 'interface/selectors/skipSpecNotSupported';
-import { TooltipElement } from 'common/Tooltip';
+import { Tooltip } from 'common/Tooltip';
 
 import Background from './images/weirdnelf.png';
 
@@ -59,11 +59,11 @@ class SupportChecker extends React.PureComponent {
         <div className="container">
           <h1>
             <div className="back-button">
-              <Link to={makeAnalyzerUrl(report, fight.id)}>
-                <TooltipElement content={i18n._(t`Back to player selection`)} tagName="div">
+              <Tooltip content={i18n._(t`Back to player selection`)}>
+                <Link to={makeAnalyzerUrl(report, fight.id)}>
                   <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
-                </TooltipElement>
-              </Link>
+                </Link>
+              </Tooltip>
             </div>
             <span className={spec.className.replace(' ', '')}>{player.name} - {spec.specName} {spec.className}</span>
           </h1>
@@ -87,15 +87,15 @@ class SupportChecker extends React.PureComponent {
                     <GitHubButton />{' '}
                     <DiscordButton />
                   </div>
-                  <Link
-                    to={makeAnalyzerUrl(report, fight.id, player.id)}
-                    onClick={this.handleClickContinue}
-                    style={{ fontSize: '1.1em' }}
-                  >
-                    <TooltipElement content="Khadgar approves your bravery" tagName="div">
+                  <Tooltip content="Khadgar approves your bravery">
+                    <Link
+                      to={makeAnalyzerUrl(report, fight.id, player.id)}
+                      onClick={this.handleClickContinue}
+                      style={{ fontSize: '1.1em' }}
+                    >
                       <Icon icon="quest_khadgar" /> <Trans>Continue anyway</Trans>
-                    </TooltipElement>
-                  </Link>
+                    </Link>
+                  </Tooltip>
                 </div>
                 <div className="flex-sub">
                   <img

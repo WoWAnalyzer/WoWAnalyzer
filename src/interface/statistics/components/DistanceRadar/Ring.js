@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Ring = ({ size, color, style, ...others }) => (
+const Ring = ({ innerRef, size, color, style, ...others }) => (
   <div
     style={{
       position: 'absolute',
@@ -14,6 +14,7 @@ const Ring = ({ size, color, style, ...others }) => (
       borderRadius: '50%',
       ...style,
     }}
+    ref={innerRef}
     {...others}
   />
 );

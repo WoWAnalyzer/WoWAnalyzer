@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 import { formatNumber } from 'common/format';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement, Tooltip } from 'common/Tooltip';
 
 export const MITIGATED_NONE = 0;
 export const MITIGATED_MAGICAL = 1;
@@ -33,19 +33,18 @@ class DamageTakenTable extends React.Component {
       return (
         <tr key={ability.guid}>
           <td>
-            <TooltipElement
-              className="flex performance-bar-container"
-              content={`Total Damage Taken: ${formatNumber(totalDmg)} of ${formatNumber(this.props.total)}.`}
-              tagName="div">
-              <div
-                className={`flex-sub performance-bar ${specClassName}-bg`}
-                style={{ width: `${(totalDmg - largestSpike) / this.props.total * 100}%` }}
-              />
-              <div
-                className="flex-sub performance-bar Hunter-bg"
-                style={{ width: `${(largestSpike / this.props.total * 100)}%`, opacity: 0.4 }}
-              />
-            </TooltipElement>
+            <Tooltip content={`Total Damage Taken: ${formatNumber(totalDmg)} of ${formatNumber(this.props.total)}.`}>
+              <div className="flex performance-bar-container">
+                <div
+                  className={`flex-sub performance-bar ${specClassName}-bg`}
+                  style={{ width: `${(totalDmg - largestSpike) / this.props.total * 100}%` }}
+                />
+                <div
+                  className="flex-sub performance-bar Hunter-bg"
+                  style={{ width: `${(largestSpike / this.props.total * 100)}%`, opacity: 0.4 }}
+                />
+              </div>
+            </Tooltip>
           </td>
           <td>
             <SpellLink id={ability.guid} icon={false}>
@@ -67,7 +66,7 @@ class DamageTakenTable extends React.Component {
         <table className="data-table">
           <thead>
             <tr>
-              <th><TooltipElement content="Damage mitigated by stats &amp; abilities that reduce or absorb Physical damage, such as armor, Death Knights' Blood Shield, and Demon Hunters' Demon Spikes."><b>Physical</b></TooltipElement></th>
+              <th><TooltipElement content="Damage mitigated by stats &amp; abilities that reduce or absorb Physical damage, such as armor, Death Knights' Blood Shield, and Demon Hunters' Demon Spikes."><strong>Physical</strong></TooltipElement></th>
               <th>Ability</th>
               <th>Total Damage Taken</th>
               <th>Largest Spike</th>

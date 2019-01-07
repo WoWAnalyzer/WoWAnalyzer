@@ -11,9 +11,9 @@ import StatisticBar from 'interface/statistics/StatisticBar';
 import ThroughputPerformance, { UNAVAILABLE } from 'interface/report/Results/ThroughputPerformance';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer from 'parser/core/Analyzer';
+import { Tooltip } from 'common/Tooltip';
 
 import HealingValue from '../HealingValue';
-import { TooltipElement } from 'common/Tooltip';
 
 class HealingDone extends Analyzer {
   _total = new HealingValue();
@@ -100,25 +100,25 @@ class HealingDone extends Analyzer {
               alt="Healing"
             />
           </div>
-          <TooltipElement
-            className="flex-sub value"
-            style={{ width: 190 }}
-            content={<>Total healing done: <strong>${formatThousands(this.total.effective)}</strong></>}
-            tagName="div"
-          >
+          <Tooltip content={<>Total healing done: <strong>${formatThousands(this.total.effective)}</strong></>}>
+            <div
+              className="flex-sub value"
+              style={{ width: 190 }}
+            >
             {formatThousands(perSecond)} HPS
-          </TooltipElement>
+            </div>
+          </Tooltip>
           <div className="flex-sub" style={{ width: 110, textAlign: 'center' }}>
             <ThroughputPerformance throughput={perSecond} metric="hps">
               {({ performance, topThroughput }) => performance && performance !== UNAVAILABLE && (
-                <TooltipElement
-                  className={rankingColor(performance)}
-                  content={<>Your HPS compared to the HPS of a top 100 player. To become a top 100 <span className={this.selectedCombatant.spec.className.replace(' ', '')}>{this.selectedCombatant.spec.specName} {this.selectedCombatant.spec.className}</span> on this fight you need to do at least <strong>{formatThousands(topThroughput)} HPS</strong>.</>}
-                  style={{ cursor: 'help' }}
-                  tagName="div"
-                >
-                  {formatPercentage(performance, 0)}%
-                </TooltipElement>
+                <Tooltip content={<>Your HPS compared to the HPS of a top 100 player. To become a top 100 <span className={this.selectedCombatant.spec.className.replace(' ', '')}>{this.selectedCombatant.spec.specName} {this.selectedCombatant.spec.className}</span> on this fight you need to do at least <strong>{formatThousands(topThroughput)} HPS</strong>.</>}>
+                  <div
+                    className={rankingColor(performance)}
+                    style={{ cursor: 'help' }}
+                  >
+                    {formatPercentage(performance, 0)}%
+                  </div>
+                </Tooltip>
               )}
             </ThroughputPerformance>
           </div>

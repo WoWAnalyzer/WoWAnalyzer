@@ -8,7 +8,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'interface/others/LazyLoadStatisticBox';
 import makeWclUrl from 'common/makeWclUrl';
-import { TooltipElement } from 'common/Tooltip';
+import { Tooltip } from 'common/Tooltip';
 
 const AURA_OF_SACRIFICE_PASSIVE_DAMAGE_TRANSFER_REDUCTION = 0.5;
 const AURA_OF_SACRIFICE_HEALTH_REQUIREMENT = 0.75;
@@ -179,21 +179,19 @@ class AuraOfSacrificeDamageReduction extends Analyzer {
     </>) : 'Click to load the required data.';
     const footer = this.loaded && (
       <div className="statistic-bar">
-        <TooltipElement
-          className="stat-health-bg"
-          tagName="div"
-          style={{ width: `${totalDamageReduced / totalDamageTransferred * 100}%` }}
-          content={`You effectively reduced damage taken by a total of ${formatThousands(totalDamageReduced)} damage (${formatThousands(this.perSecond(totalDamageReduced))} DRPS).`}
-        >
-          <img src="/img/shield.png" alt="Damage reduced" />
-        </TooltipElement>
-        <TooltipElement
-          className="remainder DeathKnight-bg"
-          tagName="div"
-          content={`You transferred a total of ${formatThousands(totalDamageTransferred)} damage (${formatThousands(this.perSecond(totalDamageTransferred))} DTPS).`}
-        >
-          <img src="/img/shield-open.png" alt="Damage transferred" />
-        </TooltipElement>
+        <Tooltip content={`You effectively reduced damage taken by a total of ${formatThousands(totalDamageReduced)} damage (${formatThousands(this.perSecond(totalDamageReduced))} DRPS).`}>
+          <div
+            className="stat-health-bg"
+            style={{ width: `${totalDamageReduced / totalDamageTransferred * 100}%` }}
+          >
+            <img src="/img/shield.png" alt="Damage reduced" />
+          </div>
+        </Tooltip>
+        <Tooltip content={`You transferred a total of ${formatThousands(totalDamageTransferred)} damage (${formatThousands(this.perSecond(totalDamageTransferred))} DTPS).`}>
+          <div className="remainder DeathKnight-bg">
+            <img src="/img/shield-open.png" alt="Damage transferred" />
+          </div>
+        </Tooltip>
       </div>
     );
 

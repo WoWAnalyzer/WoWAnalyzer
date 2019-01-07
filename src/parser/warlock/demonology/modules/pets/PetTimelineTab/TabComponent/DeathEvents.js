@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { TooltipElement } from 'common/Tooltip';
-import { formatDuration } from '../../../../../../../common/format';
+import { Tooltip } from 'common/Tooltip';
+import { formatDuration } from 'common/format';
 
 class DeathEvents extends React.PureComponent {
   static propTypes = {
@@ -26,16 +26,15 @@ class DeathEvents extends React.PureComponent {
           const fightDuration = (eventStart - start) / 1000;
           const left = (eventStart - start) / 1000 * secondWidth;
           return (
-            <TooltipElement
-              key={`death-${event.timestamp}`}
-              tagName="div"
-              className="death"
-              style={{
-                left,
-                position: 'absolute',
-              }}
-              content={`${formatDuration(fightDuration, 3)}: You died`}
-            />
+            <Tooltip content={`${formatDuration(fightDuration, 3)}: You died`}>
+              <div
+                key={`death-${event.timestamp}`}
+                className="death"
+                style={{
+                  left,
+                }}
+              />
+            </Tooltip>
           );
         })}
         {resurrections.map(event => {
@@ -43,16 +42,15 @@ class DeathEvents extends React.PureComponent {
           const fightDuration = (eventStart - start) / 1000;
           const left = (eventStart - start) / 1000 * secondWidth;
           return (
-            <TooltipElement
-              key={`resurrection-${event.timestamp}`}
-              tagName="div"
-              className="resurrection"
-              style={{
-                left,
-                position: 'absolute',
-              }}
-              content={`${formatDuration(fightDuration, 3)}: You were resurrected`}
-            />
+            <Tooltip content={`${formatDuration(fightDuration, 3)}: You were resurrected`}>
+              <div
+                key={`resurrection-${event.timestamp}`}
+                className="resurrection"
+                style={{
+                  left,
+                }}
+              />
+            </Tooltip>
           );
         })}
       </>

@@ -3,7 +3,7 @@ import React from 'react';
 import InformationIcon from 'interface/icons/Information';
 
 import SPELLS from 'common/SPELLS/index';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement, Tooltip } from 'common/Tooltip';
 import { formatNumber } from 'common/format';
 import { calculatePrimaryStat, calculateSecondaryStatDefault } from 'common/stats';
 import Analyzer from 'parser/core/Analyzer';
@@ -480,11 +480,11 @@ class BaseHealerStatValues extends Analyzer {
                           {stat === STAT.HASTE_HPCT && '0.00 - '}{gain !== null ? weight.toFixed(2) : 'NYI'}
                         </td>
                         <td style={{ padding: 6 }}>
-                          <TooltipElement
-                            content={informationIconTooltip}
-                            tagName="div">
-                            <InformationIcon />
-                          </TooltipElement>
+                          <Tooltip content={informationIconTooltip}>
+                            <div>
+                              <InformationIcon />
+                            </div>
+                          </Tooltip>
                         </td>
                       </tr>
                     );

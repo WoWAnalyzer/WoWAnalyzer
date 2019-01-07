@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TooltipElement } from 'common/Tooltip';
-import SpellLink from '../../../../common/SpellLink';
-import Icon from '../../../../common/Icon';
+import { Tooltip } from 'common/Tooltip';
+import SpellLink from 'common/SpellLink';
+import Icon from 'common/Icon';
 
 class Lane extends React.PureComponent {
   static propTypes = {
@@ -59,33 +59,31 @@ class Lane extends React.PureComponent {
     const left = this.getOffsetLeft(event.start);
     const width = (event.timestamp - event.start) / 1000 * this.props.secondWidth;
     return (
-      <TooltipElement
-        content={`Cooldown: ${((event.timestamp - event.start) / 1000).toFixed(1)}s`}
-        key={`cooldown-${left}`}
-        className="cooldown"
-        style={{
-          left,
-          width,
-          position: 'absolute',
-        }}
-        data-effect="float"
-        tagName="div"
-      />
+      <Tooltip content={`Cooldown: ${((event.timestamp - event.start) / 1000).toFixed(1)}s`}>
+        <div
+          key={`cooldown-${left}`}
+          className="cooldown"
+          style={{
+            left,
+            width,
+          }}
+          data-effect="float"
+        />
+      </Tooltip>
     );
   }
   renderRecharge(event) {
     const left = this.getOffsetLeft(event.timestamp);
     return (
-      <TooltipElement
-        key={`recharge-${left}`}
-        content="Charge Restored"
-        className="recharge"
-        style={{
-          left,
-          position: 'absolute',
-        }}
-        tagName="div"
-      />
+      <Tooltip content="Charge Restored">
+        <div
+          key={`recharge-${left}`}
+          className="recharge"
+          style={{
+            left,
+          }}
+        />
+      </Tooltip>
     );
   }
 

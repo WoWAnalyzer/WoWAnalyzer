@@ -12,7 +12,7 @@ import ItemHealingDone from 'interface/others/ItemHealingDone';
 import StatisticWrapper from 'interface/others/StatisticWrapper';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement, Tooltip } from 'common/Tooltip';
 
 /**
  * A class to deal with (hopefully) any healing Azerite i throw at it.
@@ -101,9 +101,12 @@ class BaseHealerAzerite extends Analyzer {
                 <h2>
                   <SpellLink id={this.constructor.TRAIT.id} />
                   {this.moreInformation && (
-                    <TooltipElement content={this.moreInformation} tagName="div">
-                      <InformationIcon className="pull-right" />
-                    </TooltipElement>
+                    <Tooltip content={this.moreInformation}>
+                      {/*the wrapper div must be here as a target for the tooltip - <svg> can't really handle it on its own and <TooltipElement> renders a <dfn> which has the underline*/}
+                      <div>
+                        <InformationIcon className="pull-right" />
+                      </div>
+                    </Tooltip>
                   )}
                 </h2>
               </div>

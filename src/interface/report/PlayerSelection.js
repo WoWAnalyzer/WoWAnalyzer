@@ -14,7 +14,7 @@ import DocumentTitle from 'interface/common/DocumentTitle';
 import { setCombatants } from 'interface/actions/combatants';
 import { getPlayerId, getPlayerName } from 'interface/selectors/url/report';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
-import { TooltipElement } from 'common/Tooltip';
+import { Tooltip } from 'common/Tooltip';
 
 import PlayerSelectionPanel from 'interface/playerSelection';
 import handleApiError from './handleApiError';
@@ -144,11 +144,11 @@ class PlayerSelection extends React.PureComponent {
         <div className="container">
           <h1>
             <div className="back-button">
-              <Link to={`/report/${report.code}`}>
-                <TooltipElement content={i18n._(t`Back to fight selection`)} tagName="div">
+              <Tooltip content={i18n._(t`Back to fight selection`)}>
+                <Link to={`/report/${report.code}`}>
                   <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
-                </TooltipElement>
-              </Link>
+                </Link>
+              </Tooltip>
             </div>
             <Trans>Player selection</Trans>
           </h1>

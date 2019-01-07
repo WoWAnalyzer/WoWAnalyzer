@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Trans, t } from '@lingui/macro';
 
 import getFightName from 'common/getFightName';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement, Tooltip } from 'common/Tooltip';
 import PatreonIcon from 'interface/icons/PatreonTiny';
 import DiscordIcon from 'interface/icons/DiscordTiny';
 import GitHubIcon from 'interface/icons/GitHubMarkSmall';
@@ -93,34 +93,40 @@ class NavigationBar extends React.PureComponent {
           <div className="spacer" />
           <div className="menu-item required">
             {user && user.premium ? (
-              <Link to="/premium">
-                <TooltipElement content="Premium active" tagName="div">
+              <Tooltip content="Premium active">
+                <Link to="/premium">
                   <PremiumIcon /> <span className="optional">{user.name}</span>
-                </TooltipElement>
-              </Link>
+                </Link>
+              </Tooltip>
             ) : (
-              <Link to="/premium" className="premium">
-                <TooltipElement content={i18n._(t`Premium`)} tagName="div">
+              <Tooltip content={i18n._(t`Premium`)}>
+                <Link to="/premium" className="premium">
                   <PremiumIcon /> <span className="optional"><Trans>Premium</Trans></span>
-                </TooltipElement>
-              </Link>
+                </Link>
+              </Tooltip>
             )}
           </div>
-          <TooltipElement className="menu-item optional" content="Discord" tagName="div">
-            <a href="https://wowanalyzer.com/discord">
-              <DiscordIcon />
-            </a>
-          </TooltipElement>
-          <TooltipElement className="menu-item optional" content="GitHub" tagName="div">
-            <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
-              <GitHubIcon />
-            </a>
-          </TooltipElement>
-          <TooltipElement className="menu-item optional" content="Patreon" tagName="div">
-            <a href="https://www.patreon.com/wowanalyzer">
-              <PatreonIcon />
-            </a>
-          </TooltipElement>
+          <Tooltip content="Discord">
+            <div className="menu-item optional">
+              <a href="https://wowanalyzer.com/discord">
+                <DiscordIcon />
+              </a>
+            </div>
+          </Tooltip>
+          <Tooltip content="GitHub">
+            <div className="menu-item optional">
+              <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
+                <GitHubIcon />
+              </a>
+            </div>
+          </Tooltip>
+          <Tooltip content="Patreon">
+            <div className="menu-item optional">
+              <a href="https://www.patreon.com/wowanalyzer">
+                <PatreonIcon />
+              </a>
+            </div>
+          </Tooltip>
         </div>
         <LoadingBar progress={progress} />
       </nav>

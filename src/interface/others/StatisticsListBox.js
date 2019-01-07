@@ -20,7 +20,7 @@ const StatisticsListBox = ({ title, tooltip, children, bodyStyle, containerProps
       <div className="panel statistic-box statistic-list" {...others}>
         {title && (
           <div className="panel-heading">
-            <h2>{tooltip ? <TooltipElement style={{ display: 'inline' }} content={tooltip}>{title}</TooltipElement> : title}</h2>
+            <h2>{tooltip ? <TooltipElement content={tooltip}>{title}</TooltipElement> : title}</h2>
           </div>
         )}
         <div className="panel-body items" style={bodyStyle}>

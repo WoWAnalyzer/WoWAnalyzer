@@ -67,7 +67,6 @@ class HarlansLoadedDice extends Analyzer {
       item: ITEMS.HARLANS_LOADED_DICE,
       result: (
         <TooltipElement
-          style={{ display: 'inline' }}
           content={(<>
             <ul>
               <li>Procced {this.buffTriggerCount()} times.</li>

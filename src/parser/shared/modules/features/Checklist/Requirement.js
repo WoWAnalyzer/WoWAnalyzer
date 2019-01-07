@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import InformationIcon from 'interface/icons/Information';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement, Tooltip } from 'common/Tooltip';
 
 import colorForPerformance from './helpers/colorForPerformance';
 import performanceForThresholds from './helpers/performanceForThresholds';
@@ -69,11 +69,11 @@ class Requirement extends React.PureComponent {
               className="flex-sub"
               style={{ marginLeft: 10 }}
             >
-              <TooltipElement
-                content={tooltip}
-                tagName="div">
-                <InformationIcon />
-              </TooltipElement>
+              <Tooltip content={tooltip}>
+                <div>
+                  <InformationIcon />
+                </div>
+              </Tooltip>
             </div>
           )}
           <div className="flex-sub content-middle text-muted" style={{ minWidth: 55, marginLeft: 5, marginRight: 10 }}>

@@ -7,7 +7,7 @@ import { formatNumber, formatThousands } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Events from 'parser/core/Events';
-import { TooltipElement } from 'common/Tooltip';
+import { Tooltip } from 'common/Tooltip';
 
 /**
  * A defensive combat state that reduces all damage you take by 20%,
@@ -70,21 +70,19 @@ class DefensiveStance extends Analyzer {
   statistic() {
     const footer = (
       <div className="statistic-bar">
-        <TooltipElement
-          className="stat-health-bg"
-          tagName="div"
-          style={{ width: `${this.damageTradeoff() * 100}%` }}
-          content={`You effectively reduced damage taken by a total of ${formatThousands(this.totalDamageMitigated)} damage (${formatThousands(this.perSecond(this.totalDamageMitigated))} DRPS).`}
-        >
-          <img src="/img/shield.png" alt="Damage reduced" />
-        </TooltipElement>
-        <TooltipElement
-          className="remainder DeathKnight-bg"
-          tagName="div"
-          content={`You lost ${formatThousands(this.totalDamageLost)} damage through the use of Defensive Stance. (${formatThousands(this.perSecond(this.totalDamageLost))} DLPS).`}
-        >
-          <img src="/img/sword.png" alt="Damage lost" />
-        </TooltipElement>
+        <Tooltip content={`You effectively reduced damage taken by a total of ${formatThousands(this.totalDamageMitigated)} damage (${formatThousands(this.perSecond(this.totalDamageMitigated))} DRPS).`}>
+          <div
+            className="stat-health-bg"
+            style={{ width: `${this.damageTradeoff() * 100}%` }}
+          >
+            <img src="/img/shield.png" alt="Damage reduced" />
+          </div>
+        </Tooltip>
+        <Tooltip content={`You lost ${formatThousands(this.totalDamageLost)} damage through the use of Defensive Stance. (${formatThousands(this.perSecond(this.totalDamageLost))} DLPS).`}>
+          <div className="remainder DeathKnight-bg">
+            <img src="/img/sword.png" alt="Damage lost" />
+          </div>
+        </Tooltip>
       </div>
     );
 

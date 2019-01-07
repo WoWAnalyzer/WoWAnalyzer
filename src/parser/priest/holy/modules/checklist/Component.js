@@ -90,7 +90,7 @@ class HolyPriestChecklist extends React.PureComponent {
           name="Try to avoid being inactive for a large portion of the fight"
           description={(
             <>
-              High downtime is inexcusable, while it may be tempting to not cast and save mana, Holy's damage filler <SpellLink id={SPELLS.SMITE.id} /> is free. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and <TooltipElement wrapperStyles={{ display: 'inline' }} content="You can ignore this while learning Holy, but contributing DPS whilst healing is a major part of becoming a better than average player.">when you're not healing try to contribute some damage.*</TooltipElement>.
+              High downtime is inexcusable, while it may be tempting to not cast and save mana, Holy's damage filler <SpellLink id={SPELLS.SMITE.id} /> is free. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and <TooltipElement content="You can ignore this while learning Holy, but contributing DPS whilst healing is a major part of becoming a better than average player.">when you're not healing try to contribute some damage.*</TooltipElement>.
             </>
           )}
         >

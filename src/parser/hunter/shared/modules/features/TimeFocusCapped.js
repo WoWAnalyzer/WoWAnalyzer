@@ -6,7 +6,7 @@ import Icon from 'common/Icon';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SPECS from 'game/SPECS';
-import { TooltipElement } from 'common/Tooltip';
+import { Tooltip } from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 
@@ -56,18 +56,18 @@ class TimeFocusCapped extends Analyzer {
         //Time not Focus-Capped: {Math.round((this.owner.fightDuration / 1000 - this.focusTracker.secondsCapped) * 100) / 100}s / {Math.floor(this.owner.fightDuration / 1000)}
         footer={(
           <div className="statistic-bar">
-            <TooltipElement
-              className="stat-health-bg"
-              tagName="div"
-              style={{ width: `${(100 - percentCapped)}%` }}
-              content={<>You spent <strong>{100 - percentCapped}%</strong> of your time, or <strong>{Math.round(Math.floor(this.owner.fightDuration / 1000) - this.focusTracker.secondsCapped)}s</strong> under the focus cap.</>}
-            />
-            <TooltipElement
-              className="DeathKnight-bg"
-              tagName="div"
-              style={{ width: `${percentCapped}%` }}
-              content={<>You spent <strong>{percentCapped}%</strong>, or <strong>{Math.round(this.focusTracker.secondsCapped)}s</strong> of your time focus capped.</>}
-            />
+            <Tooltip content={<>You spent <strong>{100 - percentCapped}%</strong> of your time, or <strong>{Math.round(Math.floor(this.owner.fightDuration / 1000) - this.focusTracker.secondsCapped)}s</strong> under the focus cap.</>}>
+              <div
+                className="stat-health-bg"
+                style={{ width: `${(100 - percentCapped)}%` }}
+              />
+            </Tooltip>
+            <Tooltip content={<>You spent <strong>{percentCapped}%</strong>, or <strong>{Math.round(this.focusTracker.secondsCapped)}s</strong> of your time focus capped.</>}>
+              <div
+                className="DeathKnight-bg"
+                style={{ width: `${percentCapped}%` }}
+              />
+            </Tooltip>
           </div>
         )}
       />

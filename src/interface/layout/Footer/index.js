@@ -4,7 +4,7 @@ import DiscordLogo from 'interface/icons/DiscordTiny';
 import GithubLogo from 'interface/icons/GitHubMarkSmall';
 import PatreonIcon from 'interface/icons/PatreonTiny';
 import Logo from 'interface/images/logo.svg';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement, Tooltip } from 'common/Tooltip';
 
 import './style.css';
 
@@ -22,15 +22,21 @@ class Footer extends React.PureComponent {
           </h1>
           <div className="social-links">
             {/* For some reason the tooltip disappears and reappears when mousing over the svg icons (maybe when the cursor leaves filled areas)*/}
-            <TooltipElement content="Discord" tagName="a" href="https://wowanalyzer.com/discord">
-              <DiscordLogo />
-            </TooltipElement>
-            <TooltipElement content="GitHub" tagName="a" href="https://github.com/WoWAnalyzer/WoWAnalyzer">
-              <GithubLogo />
-            </TooltipElement>
-            <TooltipElement content="Patreon" tagName="a" href="https://www.patreon.com/wowanalyzer">
-              <PatreonIcon />
-            </TooltipElement>
+            <Tooltip content="Discord">
+              <a href="https://wowanalyzer.com/discord">
+                <DiscordLogo />
+              </a>
+            </Tooltip>
+            <Tooltip content="GitHub">
+              <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
+                <GithubLogo />
+              </a>
+            </Tooltip>
+            <Tooltip content="Patreon">
+              <a href="https://www.patreon.com/wowanalyzer">
+                <PatreonIcon />
+              </a>
+            </Tooltip>
           </div><br />
 
           <div

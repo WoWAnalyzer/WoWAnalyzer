@@ -4,13 +4,13 @@ import Icon from 'common/Icon';
 import { formatMilliseconds, formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { Tooltip } from 'common/Tooltip';
 
 import Abilities from '../../core/modules/Abilities';
 import GlobalCooldown from './GlobalCooldown';
 import Channeling from './Channeling';
 
 import Haste from './Haste';
-import { TooltipElement } from 'common/Tooltip';
 
 const debug = false;
 
@@ -112,21 +112,21 @@ class AlwaysBeCasting extends Analyzer {
         </>)}
         footer={(
           <div className="statistic-bar">
-            <TooltipElement
-              className="stat-health-bg"
-              tagName="div"
-              style={{ width: `${this.activeTimePercentage * 100}%` }}
-              content={<>You spent <b>{formatPercentage(this.activeTimePercentage)}%</b> of your time casting something.</>}
-            >
-              <img src={this.constructor.icons.activeTime} alt="Active time" />
-            </TooltipElement>
-            <TooltipElement
-              className="remainder DeathKnight-bg"
-              tagName="div"
-              content={<>You spent <b>{formatPercentage(this.downtimePercentage)}%</b> of your time casting nothing at all.</>}
-            >
-              <img src={this.constructor.icons.downtime} alt="Downtime" />
-            </TooltipElement>
+            <Tooltip content={<>You spent <b>{formatPercentage(this.activeTimePercentage)}%</b> of your time casting something.</>}>
+              <div
+                className="stat-health-bg"
+                style={{
+                  width: `${this.activeTimePercentage * 100}%`,
+                }}
+              >
+                <img src={this.constructor.icons.activeTime} alt="Active time" />
+              </div>
+            </Tooltip>
+            <Tooltip content={<>You spent <b>{formatPercentage(this.downtimePercentage)}%</b> of your time casting nothing at all.</>}>
+              <div className="remainder DeathKnight-bg">
+                <img src={this.constructor.icons.downtime} alt="Downtime" />
+              </div>
+            </Tooltip>
           </div>
         )}
       />

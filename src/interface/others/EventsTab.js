@@ -13,7 +13,7 @@ import SpellLink from 'common/SpellLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Info from 'interface/common/Alert/Info';
 import HIT_TYPES from 'game/HIT_TYPES';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement, Tooltip } from 'common/Tooltip';
 
 import 'react-virtualized/styles.css';
 import './EventsTab.css';
@@ -160,9 +160,11 @@ class EventsTab extends React.Component {
         </label>
         {explanation && (
           <div className="flex-sub" style={{ padding: '0 10px' }}>
-            <TooltipElement content={explanation} tagName="div">
-              <InformationIcon style={{ fontSize: '1.4em' }} />
-            </TooltipElement>
+            <Tooltip content={explanation}>
+              <div>
+                <InformationIcon style={{ fontSize: '1.4em' }} />
+              </div>
+            </Tooltip>
           </div>
         )}
         <Toggle

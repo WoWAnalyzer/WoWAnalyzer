@@ -240,11 +240,8 @@ class EchoOfLight_Mastery extends Analyzer {
       <StatisticBox
         position={STATISTIC_ORDER.CORE(2)}
         icon={<SpellIcon id={SPELLS.ECHO_OF_LIGHT.id} />}
-        value={(
-          <TooltipElement content={`Total Healing: ${formatNumber(this.effectiveHealing)} (${formatPercentage(this.overHealingPercent)}% OH)`} style={{ display: 'inline' }}>
-            <ItemHealingDone amount={this.effectiveHealing} />
-          </TooltipElement>
-        )}
+        value={<ItemHealingDone amount={this.effectiveHealing} />}
+        tooltip={`Total Healing: ${formatNumber(this.effectiveHealing)} (${formatPercentage(this.overHealingPercent)}% OH)`}
         label={(
           <TooltipElement content={(<>
             Echo of Light healing breakdown. As our mastery is often very finicky, this could end up wrong in various situations. Please report any logs that seem strange to @Khadaj on the WoWAnalyzer discord.<br /><br />

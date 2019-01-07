@@ -8,7 +8,7 @@ import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import WarcraftLogsLogo from 'interface/images/WarcraftLogs-logo.png';
-import { TooltipElement } from 'common/Tooltip';
+import { TooltipElement, Tooltip } from 'common/Tooltip';
 
 const SHOW_SECONDS_BEFORE_DEATH = 10;
 const AMOUNT_THRESHOLD = 0;
@@ -86,17 +86,17 @@ class DeathRecap extends React.PureComponent {
             />
           </div>
           <div style={{ width: '18em', float: 'left', marginTop: '2em' }}>
-            <TooltipElement
-              content="Open the deaths on Warcraft Logs"
-              tagName="a"
-              href={`https://www.warcraftlogs.com/reports/${this.props.report.report.code}#fight=${this.props.report.fight.id}&type=deaths&source=${this.props.report.player.id}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn"
-              style={{ fontSize: 24 }}
-            >
-              <img src={WarcraftLogsLogo} alt="Warcraft Logs logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
-            </TooltipElement>
+            <Tooltip content="Open the deaths on Warcraft Logs">
+              <a
+                href={`https://www.warcraftlogs.com/reports/${this.props.report.report.code}#fight=${this.props.report.fight.id}&type=deaths&source=${this.props.report.player.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn"
+                style={{ fontSize: 24 }}
+              >
+                <img src={WarcraftLogsLogo} alt="Warcraft Logs logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
+              </a>
+            </Tooltip>
           </div>
         </div>
         {events.map((death, i) => (

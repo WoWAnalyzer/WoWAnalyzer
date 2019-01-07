@@ -40,7 +40,7 @@ class ConstructOvercharger extends Analyzer {
     return {
       item: ITEMS.CONSTRUCT_OVERCHARGER,
       result: (
-        <TooltipElement style={{ display: 'inline' }} content={`Procced ${this.buffTriggerCount()} times.`}>
+        <TooltipElement content={`Procced ${this.buffTriggerCount()} times.`}>
           {formatPercentage(this.totalBuffUptime())}% uptime.<br />
           {formatNumber(this.averageStatGain())} average Haste.
         </TooltipElement>

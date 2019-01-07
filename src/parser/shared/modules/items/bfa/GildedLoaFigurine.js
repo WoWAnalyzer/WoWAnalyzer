@@ -35,7 +35,7 @@ class GildedLoaFigurine extends Analyzer {
     return {
       item: ITEMS.GILDED_LOA_FIGURINE,
       result: (
-        <TooltipElement style={{ display: 'inline' }} content={`Procced ${this.buffTriggerCount} times`}>
+        <TooltipElement content={`Procced ${this.buffTriggerCount} times`}>
           {formatPercentage(this.totalBuffUptime)}% uptime<br />
           {formatNumber(this.totalBuffUptime * this.statBuff)} average {this.selectedCombatant.spec.primaryStat}
         </TooltipElement>
