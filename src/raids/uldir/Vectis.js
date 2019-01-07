@@ -1,4 +1,5 @@
 import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
+import SPELLS from 'common/SPELLS';
 
 import Background from './images/Backgrounds/Vectis.jpg';
 import Headshot from './images/Headshots/Vectis.png';
@@ -26,7 +27,7 @@ export default {
         filter: {
           type: 'removebuff',
           ability: {
-            id: 265217,
+            id: SPELLS.VECTIS_LIQUEFY.id,
           },
         },
       },
@@ -37,7 +38,7 @@ export default {
         filter: {
           type: 'applybuff',
           ability: {
-            id: 265217,
+            id: SPELLS.VECTIS_LIQUEFY.id,
           },
         },
       },

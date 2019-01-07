@@ -1,4 +1,5 @@
 import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
+import SPELLS from 'common/SPELLS';
 
 import Background from './images/Backgrounds/Zekvoz.jpg';
 import Headshot from './images/Headshots/Zekvoz.png';
@@ -51,7 +52,7 @@ export default {
         filter: {
           type: 'cast',
           ability: {
-            id: 181089,
+            id: SPELLS.ZEKVOS_ENCOUNTER_EVENT.id,
           },
           eventInstance: 0,
         },
@@ -74,7 +75,7 @@ export default {
         filter: {
           type: 'cast',
           ability: {
-            id: 181089,
+            id: SPELLS.ZEKVOS_ENCOUNTER_EVENT.id,
           },
           eventInstance: 0,
         },
@@ -86,7 +87,7 @@ export default {
         filter: {
           type: 'cast',
           ability: {
-            id: 181089,
+            id: SPELLS.ZEKVOS_ENCOUNTER_EVENT.id,
           },
           eventInstance: 1,
         },

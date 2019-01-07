@@ -1374,6 +1374,11 @@ export default {
     name: "Titan Spark",
     icon: "item_holyspark",
   },
+  ZEKVOS_ENCOUNTER_EVENT: {
+    id: 181089,
+    name: "Encounter Event",
+    icon: "inv_misc_questionmark",
+  },
 
   //Vectis
 
@@ -1718,6 +1723,11 @@ export default {
   },
   GHUUN_REORIGINATION_BLAST_2: {
     id: 263482,
+    name: "Reorigination Blast",
+    icon: "ability_druid_cresentburn",
+  },
+  GHUUN_REORIGINATION_BLAST_3: {
+    id: 263504,
     name: "Reorigination Blast",
     icon: "ability_druid_cresentburn",
   },

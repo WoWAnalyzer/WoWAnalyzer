@@ -1,4 +1,5 @@
 import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
+import SPELLS from 'common/SPELLS';
 
 import Background from './images/Backgrounds/Taloc.jpg';
 import Headshot from './images/Headshots/Taloc.png';
@@ -33,7 +34,7 @@ export default {
         filter: {
           type: 'applybuff',
           ability: {
-            id: 271965,
+            id: SPELLS.TALOC_POWERED_DOWN.id,
           },
         },
       },
@@ -44,7 +45,7 @@ export default {
         filter: {
           type: 'removebuff',
           ability: {
-            id: 271965,
+            id: SPELLS.TALOC_POWERED_DOWN.id,
           },
         },
       },

@@ -1,4 +1,5 @@
 import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
+import SPELLS from 'common/SPELLS';
 
 import Background from './images/Backgrounds/Ghuun.jpg';
 import Headshot from './images/Headshots/Ghuun.png';
@@ -33,7 +34,7 @@ export default {
         filter: {
           type: 'removedebuff',
           ability: {
-            id: 263504,
+            id: SPELLS.GHUUN_REORIGINATION_BLAST_3.id,
           },
           eventInstance: 0,
         },
@@ -45,7 +46,7 @@ export default {
         filter: {
           type: 'applybuff',
           ability: {
-            id: 276839,
+            id: SPELLS.GHUUN_COLLAPSE_2.id,
           },
         },
       },

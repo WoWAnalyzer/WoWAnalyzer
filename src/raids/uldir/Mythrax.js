@@ -1,4 +1,5 @@
 import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
+import SPELLS from 'common/SPELLS';
 
 import Background from './images/Backgrounds/Mythrax.jpg';
 import Headshot from './images/Headshots/Mythrax.png';
@@ -28,7 +29,7 @@ export default {
         filter: {
           type: 'removebuff',
           ability: {
-            id: 274230,
+            id: SPELLS.MYTHRAX_OBLIVION_VEIL.id,
           },
         },
       },
@@ -39,7 +40,7 @@ export default {
         filter: {
           type: 'applybuff',
           ability: {
-            id: 274230,
+            id: SPELLS.MYTHRAX_OBLIVION_VEIL.id,
           },
         },
       },
