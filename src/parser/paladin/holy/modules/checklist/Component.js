@@ -10,7 +10,7 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
-import { Tooltip } from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 class HolyPaladinChecklist extends React.PureComponent {
   static propTypes = {
@@ -38,7 +38,7 @@ class HolyPaladinChecklist extends React.PureComponent {
           name="Use your primary healing spells as often as possible"
           description={(
             <>
-              Spells such as <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />, <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> and <SpellLink id={SPELLS.JUDGMENT_CAST.id} /> (with <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} />) are your most efficient healing spells available. Try to cast them as much as possible without overhealing. <Tooltip content="When you're not bringing too many healers.">On Mythic</Tooltip> you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and improving your target selection.{' '}
+              Spells such as <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />, <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> and <SpellLink id={SPELLS.JUDGMENT_CAST.id} /> (with <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} />) are your most efficient healing spells available. Try to cast them as much as possible without overhealing. <TooltipElement content="When you're not bringing too many healers.">On Mythic</TooltipElement> you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and improving your target selection.{' '}
               <a href="https://www.wowhead.com/holy-paladin-rotation-guide#gameplay-and-priority-list" target="_blank" rel="noopener noreferrer">More info.</a>
             </>
           )}
@@ -129,7 +129,7 @@ class HolyPaladinChecklist extends React.PureComponent {
           name="Try to avoid being inactive for a large portion of the fight"
           description={(
             <>
-              While it's suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and <Tooltip content="While helping with damage would be optimal, it's much less important as a healer than any of the other suggestions on this checklist. You should ignore this suggestion while you are having difficulties with anything else." wrapperStyles={{ display: 'inline' }}>when you're not healing try to contribute some damage*</Tooltip>.
+              While it's suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and <TooltipElement content="While helping with damage would be optimal, it's much less important as a healer than any of the other suggestions on this checklist. You should ignore this suggestion while you are having difficulties with anything else." wrapperStyles={{ display: 'inline' }}>when you're not healing try to contribute some damage*</TooltipElement>.
             </>
           )}
         >
