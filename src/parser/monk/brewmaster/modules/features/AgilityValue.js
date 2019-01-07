@@ -45,7 +45,6 @@ export default class AgilityValue extends Analyzer {
   get totalAgiHealing() {
     return this.gotox.agiBonusHealing;
   }
-
   _agiDamagePooled = 0;
   _hasHT = false;
 
