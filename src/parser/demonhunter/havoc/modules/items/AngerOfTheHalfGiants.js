@@ -5,7 +5,7 @@ import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 import { formatNumber, formatPercentage } from 'common/format';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -58,9 +58,9 @@ class AngerOfTheHalfGiants extends Analyzer {
 		return {
 			item: ITEMS.ANGER_OF_THE_HALF_GIANTS,
 			result: (
-				<Tooltip content={<>Total Fury Gained: <b>{formatNumber(this.furyGenerated)}</b>.</>}>
+				<TooltipElement content={<>Total Fury Gained: <b>{formatNumber(this.furyGenerated)}</b>.</>}>
 					{formatNumber(this.furyGenerated / this.dBCasts)} Fury gained per <SpellLink id={builderId} />.
-				</Tooltip>
+				</TooltipElement>
 			),
 		};
 	}

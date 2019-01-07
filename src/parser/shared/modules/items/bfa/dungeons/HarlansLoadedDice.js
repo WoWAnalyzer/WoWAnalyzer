@@ -5,7 +5,7 @@ import ITEMS from 'common/ITEMS/index';
 import Analyzer from 'parser/core/Analyzer';
 import { formatPercentage, formatNumber } from 'common/format';
 import { calculateSecondaryStatDefault } from 'common/stats';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 /**
  * Harlan's Loaded Dice
@@ -66,8 +66,8 @@ class HarlansLoadedDice extends Analyzer {
     return {
       item: ITEMS.HARLANS_LOADED_DICE,
       result: (
-        <Tooltip
-          wrapperStyles={{ display: 'inline' }}
+        <TooltipElement
+          style={{ display: 'inline' }}
           content={(<>
             <ul>
               <li>Procced {this.buffTriggerCount()} times.</li>
@@ -80,7 +80,7 @@ class HarlansLoadedDice extends Analyzer {
           {formatNumber(this.getAverageHaste())} average Haste<br />
           {formatNumber(this.getAverageCrit())} average Crit<br />
           {formatNumber(this.getAverageMastery())} average Mastery
-        </Tooltip>
+        </TooltipElement>
       ),
     };
   }

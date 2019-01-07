@@ -4,7 +4,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import Toggle from 'react-toggle';
 import PerformanceBar from 'common/PerformanceBar';
 import SpellLink from 'common/SpellLink';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 class HealingEfficiencyBreakdown extends React.Component {
   static propTypes = {
@@ -125,7 +125,7 @@ class HealingEfficiencyBreakdown extends React.Component {
     return (
       <>
         <th>
-          <Tooltip content={`Total Casts (Number of targets hit)`}>Casts</Tooltip>
+          <TooltipElement content={`Total Casts (Number of targets hit)`}>Casts</TooltipElement>
         </th>
         <th>Mana Spent</th>
         {this.state.showHealing && (
@@ -133,10 +133,10 @@ class HealingEfficiencyBreakdown extends React.Component {
             <th>Healing Done</th>
             <th>Overhealing</th>
             <th>
-              <Tooltip content={`Healing per mana spent casting the spell`}>HPM</Tooltip>
+              <TooltipElement content={`Healing per mana spent casting the spell`}>HPM</TooltipElement>
             </th>
             <th>
-              <Tooltip content={`Healing per second spent casting the spell`}>HPET</Tooltip>
+              <TooltipElement content={`Healing per second spent casting the spell`}>HPET</TooltipElement>
             </th>
           </>
         )}
@@ -144,10 +144,10 @@ class HealingEfficiencyBreakdown extends React.Component {
           <>
             <th>Damage Done</th>
             <th>
-              <Tooltip content={`Damage per mana spent casting the spell`}>DPM</Tooltip>
+              <TooltipElement content={`Damage per mana spent casting the spell`}>DPM</TooltipElement>
             </th>
             <th>
-              <Tooltip content={`Damage per second spent casting the spell`}>DPET</Tooltip>
+              <TooltipElement content={`Damage per second spent casting the spell`}>DPET</TooltipElement>
             </th>
           </>
         )}

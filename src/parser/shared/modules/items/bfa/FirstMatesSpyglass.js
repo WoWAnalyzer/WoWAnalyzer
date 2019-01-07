@@ -6,7 +6,7 @@ import Analyzer from 'parser/core/Analyzer';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Abilities from 'parser/core/modules/Abilities';
 import { formatPercentage } from 'common/format';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 /**
  * First Mate's Spyglass -
@@ -78,9 +78,9 @@ class FirstMatesSpyglass extends Analyzer {
     return {
       item: ITEMS.FIRST_MATES_SPYGLASS,
       result: (
-        <Tooltip content={`You critically hit ${formatPercentage(this.timesCrit / this.timesHit)}% of the time with this buff up`}>
+        <TooltipElement content={`You critically hit ${formatPercentage(this.timesCrit / this.timesHit)}% of the time with this buff up`}>
           Used {this.casts} times / {formatPercentage(this.totalBuffUptime)}% uptime
-        </Tooltip>
+        </TooltipElement>
       ),
     };
   }

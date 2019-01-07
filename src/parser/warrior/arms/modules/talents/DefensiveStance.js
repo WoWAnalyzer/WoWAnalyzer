@@ -7,7 +7,7 @@ import { formatNumber, formatThousands } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Events from 'parser/core/Events';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 /**
  * A defensive combat state that reduces all damage you take by 20%,
@@ -70,21 +70,21 @@ class DefensiveStance extends Analyzer {
   statistic() {
     const footer = (
       <div className="statistic-bar">
-        <Tooltip
+        <TooltipElement
           className="stat-health-bg"
           tagName="div"
-          wrapperStyles={{ width: `${this.damageTradeoff() * 100}%` }}
+          style={{ width: `${this.damageTradeoff() * 100}%` }}
           content={`You effectively reduced damage taken by a total of ${formatThousands(this.totalDamageMitigated)} damage (${formatThousands(this.perSecond(this.totalDamageMitigated))} DRPS).`}
         >
           <img src="/img/shield.png" alt="Damage reduced" />
-        </Tooltip>
-        <Tooltip
+        </TooltipElement>
+        <TooltipElement
           className="remainder DeathKnight-bg"
           tagName="div"
           content={`You lost ${formatThousands(this.totalDamageLost)} damage through the use of Defensive Stance. (${formatThousands(this.perSecond(this.totalDamageLost))} DLPS).`}
         >
           <img src="/img/sword.png" alt="Damage lost" />
-        </Tooltip>
+        </TooltipElement>
       </div>
     );
 

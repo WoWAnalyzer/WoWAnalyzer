@@ -10,7 +10,7 @@ import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import { getFightId } from 'interface/selectors/url/report';
 import { getFightFromReport } from 'interface/selectors/fight';
 import DocumentTitle from 'interface/common/DocumentTitle';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 import FightSelectionPanel from './FightSelectionPanel';
 
@@ -35,9 +35,9 @@ class FightSelection extends React.PureComponent {
           <div className="col-lg-10 col-md-8" style={{ position: 'relative' }}>
             <div className="back-button" style={{ fontSize: 36, width: 20 }}>
               <Link to={makeAnalyzerUrl()}>
-                <Tooltip content={i18n._(t`Back to home`)} tagName="div">
+                <TooltipElement content={i18n._(t`Back to home`)} tagName="div">
                   <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
-                </Tooltip>
+                </TooltipElement>
               </Link>
             </div>
             <h1>

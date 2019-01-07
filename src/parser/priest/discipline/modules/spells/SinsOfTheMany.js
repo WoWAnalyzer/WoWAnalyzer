@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 import DualStatisticBox, { STATISTIC_ORDER } from 'interface/others/DualStatisticBox';
 import { formatPercentage, formatNumber } from 'common/format';
@@ -91,14 +91,14 @@ class SinsOfTheMany extends Analyzer {
           `${formatNumber((this.bonusDamage / this.owner.fightDuration) * 1000)} DPS`,
         ]}
         footer={(
-          <Tooltip
+          <TooltipElement
             content={(<>
               The effective healing contributed by Sins of the Many was {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.bonusHealing))}% of total healing done.<br />
               The direct damage contributed by Sins of the Many was {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDamage))}% of total damage done.
             </>)}
           >
             Sins of the Many Output Details
-          </Tooltip>
+          </TooltipElement>
         )}
       />
     );

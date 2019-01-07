@@ -1,7 +1,7 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 import Analyzer from 'parser/core/Analyzer';
 import { formatNumber } from 'common/format';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
@@ -55,9 +55,9 @@ class RotcrustedVoodooDoll extends Analyzer {
     return {
       item: ITEMS.ROTCRUSTED_VOODOO_DOLL,
       result: (
-        <Tooltip content={<><strong>{this.ticks}</strong> ticks, causing <strong>{formatNumber(this.damage)}</strong> damage.</>}>
+        <TooltipElement content={<><strong>{this.ticks}</strong> ticks, causing <strong>{formatNumber(this.damage)}</strong> damage.</>}>
           <ItemDamageDone amount={this.damage} />
-        </Tooltip>
+        </TooltipElement>
       ),
     };
   }

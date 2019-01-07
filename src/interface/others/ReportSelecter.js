@@ -7,7 +7,7 @@ import { t } from '@lingui/macro';
 
 import REGION_CODES from 'common/REGION_CODES';
 import { i18n } from 'interface/RootLocalizationProvider';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 import './ReportSelecter.css';
 
@@ -106,7 +106,7 @@ class ReportSelecter extends React.PureComponent {
     return (
       <form onSubmit={this.handleSubmit} className="form-inline">
         <div className="report-selector">
-          <Tooltip content={(
+          <TooltipElement content={(
             <Trans>
               Parsable links:<br />
               <ul>
@@ -118,7 +118,7 @@ class ReportSelecter extends React.PureComponent {
             </Trans>
           )}
             tagName="div"
-            wrapperStyles={{ flex: '1 1', cursor: 'help', padding: 0 }}
+            style={{ flex: '1 1', cursor: 'help', padding: 0 }}
           >
             <input
               data-delay-show="200"
@@ -135,7 +135,7 @@ class ReportSelecter extends React.PureComponent {
               autoCapitalize="off"
               spellCheck="false"
             />
-          </Tooltip>
+          </TooltipElement>
 
           <button type="submit" className="btn btn-primary analyze">
             <Trans>Analyze</Trans> <span className="glyphicon glyphicon-chevron-right" aria-hidden />

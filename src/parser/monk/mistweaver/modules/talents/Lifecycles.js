@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 
@@ -86,7 +86,7 @@ class Lifecycles extends Analyzer {
         icon={<SpellIcon id={SPELLS.LIFECYCLES_TALENT.id} />}
         value={formatNumber(this.manaSaved)}
         label={(
-          <Tooltip content={(<>
+          <TooltipElement content={(<>
             You saved a total of {this.manaSaved} mana from the Lifecycles talent.
             <ul>
               <li>On {this.castsRedViv} Vivify casts, you saved {(this.manaSavedViv / 1000).toFixed(0)}k mana. ({formatPercentage(this.castsRedViv / (this.castsRedViv + this.castsNonRedViv))}%)</li>
@@ -96,7 +96,7 @@ class Lifecycles extends Analyzer {
           </>)}
           >
             Mana Saved
-          </Tooltip>
+          </TooltipElement>
         )}
       />
     );

@@ -11,7 +11,7 @@ import StatisticBar from 'interface/statistics/StatisticBar';
 import ThroughputPerformance, { UNAVAILABLE } from 'interface/report/Results/ThroughputPerformance';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer from 'parser/core/Analyzer';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 import DamageValue from '../DamageValue';
 
@@ -78,25 +78,25 @@ class DamageDone extends Analyzer {
               alt="Healing"
             />
           </div>
-          <Tooltip
+          <TooltipElement
             className="flex-sub value"
             tagName="div"
-            wrapperStyles={{ width: 190 }}
+            style={{ width: 190 }}
             content={<>Total damage done: <strong>{formatThousands(this.total.effective)}</strong></>}
           >
             {formatThousands(perSecond)} DPS
-          </Tooltip>
+          </TooltipElement>
           <div className="flex-sub" style={{ width: 110, textAlign: 'center' }}>
             <ThroughputPerformance throughput={perSecond} metric="dps">
               {({ performance, topThroughput }) => performance && performance !== UNAVAILABLE && (
-                <Tooltip
+                <TooltipElement
                   className={rankingColor(performance)}
                   content={<>Your DPS compared to the DPS of a top 100 player. To become a top 100 <span className={this.selectedCombatant.spec.className.replace(' ', '')}>{this.selectedCombatant.spec.specName} {this.selectedCombatant.spec.className}</span> on this fight you need to do at least <strong>{formatThousands(topThroughput)} DPS</strong>.</>}
-                  wrapperStyles={{ cursor: 'help' }}
+                  style={{ cursor: 'help' }}
                   tagName="div"
                 >
                   {formatPercentage(performance, 0)}%
-                </Tooltip>
+                </TooltipElement>
               )}
             </ThroughputPerformance>
           </div>

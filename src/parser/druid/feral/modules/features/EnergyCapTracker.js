@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatDuration, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 import RegenResourceCapTracker from 'parser/shared/modules/RegenResourceCapTracker';
 import SpellEnergyCost from './SpellEnergyCost';
 
@@ -96,22 +96,22 @@ class EnergyCapTracker extends RegenResourceCapTracker {
         </>)}
         footer={(
           <div className="statistic-bar">
-            <Tooltip
+            <TooltipElement
               className="stat-healing-bg"
               tagName="div"
-              wrapperStyles={{ width: `${(1 - this.cappedProportion) * 100}%` }}
+              style={{ width: `${(1 - this.cappedProportion) * 100}%` }}
               content={`Not at capped energy for ${formatDuration((this.owner.fightDuration - this.atCap) / 1000)}`}
             >
               <img src="/img/sword.png" alt="Uncapped Energy" />
-            </Tooltip>
+            </TooltipElement>
 
-            <Tooltip
+            <TooltipElement
               className="remainder DeathKnight-bg"
               tagName="div"
               content={`At capped energy for ${formatDuration(this.atCap / 1000)}`}
             >
               <img src="/img/overhealing.png" alt="Capped Energy" />
-            </Tooltip>
+            </TooltipElement>
           </div>
         )}
         position={STATISTIC_ORDER.CORE(1)}

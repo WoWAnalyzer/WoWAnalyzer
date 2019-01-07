@@ -8,7 +8,7 @@ import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import WarcraftLogsLogo from 'interface/images/WarcraftLogs-logo.png';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 const SHOW_SECONDS_BEFORE_DEATH = 10;
 const AMOUNT_THRESHOLD = 0;
@@ -86,17 +86,17 @@ class DeathRecap extends React.PureComponent {
             />
           </div>
           <div style={{ width: '18em', float: 'left', marginTop: '2em' }}>
-            <Tooltip
+            <TooltipElement
               content="Open the deaths on Warcraft Logs"
               tagName="a"
               href={`https://www.warcraftlogs.com/reports/${this.props.report.report.code}#fight=${this.props.report.fight.id}&type=deaths&source=${this.props.report.player.id}`}
               target="_blank"
               rel="noopener noreferrer"
               className="btn"
-              wrapperStyles={{ fontSize: 24 }}
+              style={{ fontSize: 24 }}
             >
               <img src={WarcraftLogsLogo} alt="Warcraft Logs logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
-            </Tooltip>
+            </TooltipElement>
           </div>
         </div>
         {events.map((death, i) => (
@@ -141,7 +141,7 @@ class DeathRecap extends React.PureComponent {
                     if (event.type === 'heal') {
                       percent = (lastHitPoints - event.amount) / lastMaxHitPoints;
                       output = (
-                        <Tooltip
+                        <TooltipElement
                           content={(<>
                             {event.sourceID === event.targetID ?
                             `You healed yourself for ${formatNumber(event.amount)}` :
@@ -150,15 +150,15 @@ class DeathRecap extends React.PureComponent {
                             {event.absorbed > 0 ? `, ${formatNumber(event.absorbed)} of that healing was absorbed` : ''}
                             {event.overheal > 0 ? ` and overhealed for ${formatNumber(event.overheal)}` : ''}
                           </>)}
-                          wrapperStyles={(event.amount === 0 && event.absorbed > 0) ? {color: 'orange'} : {color: 'green'}}
+                          style={(event.amount === 0 && event.absorbed > 0) ? {color: 'orange'} : {color: 'green'}}
                         >
                           +{formatNumber(event.amount)} {event.absorbed > 0 ? `(A: ${formatNumber(event.absorbed)} )` : ''} {event.overheal > 0 ? `(O: ${formatNumber(event.overheal)} )` : ''}
-                        </Tooltip>
+                        </TooltipElement>
                       );
                     } else if (event.type === 'damage') {
                       percent = lastHitPoints / lastMaxHitPoints;
                       output = (
-                        <Tooltip
+                        <TooltipElement
                           content={(<>
                             {event.sourceID === event.targetID ?
                               `You damaged yourself for ${formatNumber(event.amount)}` :
@@ -166,9 +166,9 @@ class DeathRecap extends React.PureComponent {
                             }<br />
                             {event.absorbed > 0 ? <>{formatNumber(event.absorbed)} of this damage was absorbed and you took {formatNumber(event.amount)} damage<br/></> : ''}
                           </>)}
-                          wrapperStyles={{ color: 'red' }}>
+                          style={{ color: 'red' }}>
                           -{formatNumber(event.amount)} {event.absorbed > 0 ? `(A: ${formatNumber(event.absorbed)} )` : ''}
-                        </Tooltip>
+                        </TooltipElement>
                       );
                     } else if (event.type === 'instakill') {
                       percent = 0;

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 import { formatDuration } from '../../../../../../../common/format';
 
 class DeathEvents extends React.PureComponent {
@@ -26,11 +26,11 @@ class DeathEvents extends React.PureComponent {
           const fightDuration = (eventStart - start) / 1000;
           const left = (eventStart - start) / 1000 * secondWidth;
           return (
-            <Tooltip
+            <TooltipElement
               key={`death-${event.timestamp}`}
               tagName="div"
               className="death"
-              wrapperStyles={{
+              style={{
                 left,
                 position: 'absolute',
               }}
@@ -43,11 +43,11 @@ class DeathEvents extends React.PureComponent {
           const fightDuration = (eventStart - start) / 1000;
           const left = (eventStart - start) / 1000 * secondWidth;
           return (
-            <Tooltip
+            <TooltipElement
               key={`resurrection-${event.timestamp}`}
               tagName="div"
               className="resurrection"
-              wrapperStyles={{
+              style={{
                 left,
                 position: 'absolute',
               }}

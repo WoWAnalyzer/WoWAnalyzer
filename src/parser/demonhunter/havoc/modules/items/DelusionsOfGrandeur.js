@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 import { formatNumber, formatPercentage, formatDuration } from 'common/format';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -72,9 +72,9 @@ class DelusionsOfGrandeur extends Analyzer {
 		return {
 			item: ITEMS.DELUSIONS_OF_GRANDEUR,
 			result:(
-				<Tooltip content={`You had ${formatNumber(this.furyTracker.cooldownReduction)} seconds of cooldown reduction, ${formatNumber(this.furyTracker.cooldownReductionWasted)} seconds of which were wasted.`}>
+				<TooltipElement content={`You had ${formatNumber(this.furyTracker.cooldownReduction)} seconds of cooldown reduction, ${formatNumber(this.furyTracker.cooldownReductionWasted)} seconds of which were wasted.`}>
           Reduced the cooldown of <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} /> by {formatPercentage(this.cooldownReductionRatio)}% ({formatDuration(this.metaCooldown)} minutes to {formatDuration(this.metaCooldownWithShoulders)} minutes on average)
-				</Tooltip>
+				</TooltipElement>
 			),
 		};
 	}

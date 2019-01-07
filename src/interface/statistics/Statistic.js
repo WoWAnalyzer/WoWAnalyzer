@@ -5,7 +5,7 @@ import InfoIcon from '../icons/Info';
 import STATISTIC_CATEGORY from '../others/STATISTIC_CATEGORY';
 
 import './Statistic.scss';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 class Statistic extends React.PureComponent {
   static propTypes = {
@@ -35,15 +35,15 @@ class Statistic extends React.PureComponent {
             {children}
           </div>
           {tooltip && (
-            <Tooltip
+            <TooltipElement
               className="detail-corner"
               content={tooltip}
               data-place="top"
               tagName="div"
-              wrapperStyles={{ position: 'absolute' }}
+              style={{ position: 'absolute' }}
             >
               <InfoIcon />
-            </Tooltip>
+            </TooltipElement>
           )}
         </div>
       </div>

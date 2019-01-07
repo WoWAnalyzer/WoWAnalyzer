@@ -3,7 +3,7 @@ import React from 'react';
 import DiscordLogo from 'interface/icons/DiscordTiny';
 import GithubLogo from 'interface/icons/GitHubMarkSmall';
 import PatreonIcon from 'interface/icons/PatreonTiny';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 import './style.css';
 
@@ -21,15 +21,15 @@ class Footer extends React.PureComponent {
           </h1>
           <div className="social-links">
             {/* For some reason the tooltip disappears and reappears when mousing over the svg icons (maybe when the cursor leaves filled areas)*/}
-            <Tooltip content="Discord" tagName="a" href="https://wowanalyzer.com/discord">
+            <TooltipElement content="Discord" tagName="a" href="https://wowanalyzer.com/discord">
               <DiscordLogo />
-            </Tooltip>
-            <Tooltip content="GitHub" tagName="a" href="https://github.com/WoWAnalyzer/WoWAnalyzer">
+            </TooltipElement>
+            <TooltipElement content="GitHub" tagName="a" href="https://github.com/WoWAnalyzer/WoWAnalyzer">
               <GithubLogo />
-            </Tooltip>
-            <Tooltip content="Patreon" tagName="a" href="https://www.patreon.com/wowanalyzer">
+            </TooltipElement>
+            <TooltipElement content="Patreon" tagName="a" href="https://www.patreon.com/wowanalyzer">
               <PatreonIcon />
-            </Tooltip>
+            </TooltipElement>
           </div><br />
 
           <div
@@ -41,7 +41,7 @@ class Footer extends React.PureComponent {
             }}
           >
             Log data from <a href="https://www.warcraftlogs.com">Warcaft Logs</a>.
-            <Tooltip
+            <TooltipElement
               content={(<>
                 <ul>
                   <li>Fingerprint by IconsGhost</li>
@@ -64,7 +64,7 @@ class Footer extends React.PureComponent {
                   <li>Plus by Galaxicon</li>
                 </ul>
               </>)}
-            >Icons by the <a href="https://thenounproject.com">Noun Project</a>.</Tooltip><br />
+            >Icons by the <a href="https://thenounproject.com">Noun Project</a>.</TooltipElement><br />
             World of Warcraft and related artwork is copyright of Blizzard Entertainment, Inc.<br />
             This is a fan site and we are not affiliated.
           </div>

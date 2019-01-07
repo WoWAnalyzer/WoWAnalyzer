@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 import Checklist from 'parser/shared/modules/features/Checklist2';
 import Rule from 'parser/shared/modules/features/Checklist2/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist2/Requirement';
@@ -76,7 +76,7 @@ class SubRogueChecklist extends React.PureComponent {
           name="Manage Nightblade correctly"
           description={(
             <>
-              <SpellLink id={SPELLS.NIGHTBLADE.id} /> is a crucial part of Subtlety rotation, due to the 15% damage buff it provides. However you do not want to apply it during <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} /> or <SpellLink id={SPELLS.SHADOW_DANCE.id} /> if speced in to <SpellLink id={SPELLS.DARK_SHADOW_TALENT.id} /> because it will take the place of an <SpellLink id={SPELLS.EVISCERATE.id} />. <Tooltip content="Refresh it when Symbols has less then 5 seconds cooldown left">Instead, you should refresh early*</Tooltip>
+              <SpellLink id={SPELLS.NIGHTBLADE.id} /> is a crucial part of Subtlety rotation, due to the 15% damage buff it provides. However you do not want to apply it during <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} /> or <SpellLink id={SPELLS.SHADOW_DANCE.id} /> if speced in to <SpellLink id={SPELLS.DARK_SHADOW_TALENT.id} /> because it will take the place of an <SpellLink id={SPELLS.EVISCERATE.id} />. <TooltipElement content="Refresh it when Symbols has less then 5 seconds cooldown left">Instead, you should refresh early*</TooltipElement>
             </>
           )}
         >
@@ -118,7 +118,7 @@ class SubRogueChecklist extends React.PureComponent {
           <Requirement
             name={(
               <>
-                <Tooltip content="Includes Subterfuge if talented">Casts in Stealth/Vanish*</Tooltip>
+                <TooltipElement content="Includes Subterfuge if talented">Casts in Stealth/Vanish*</TooltipElement>
               </>
             )}
             thresholds={thresholds.castsInStealth}
@@ -142,7 +142,7 @@ class SubRogueChecklist extends React.PureComponent {
           <Requirement
             name={(
               <>
-                <SpellLink id={SPELLS.BACKSTAB.id} /> <Tooltip content="Includes Vanish and Subterfuge if talented">used from Stealth*</Tooltip>
+                <SpellLink id={SPELLS.BACKSTAB.id} /> <TooltipElement content="Includes Vanish and Subterfuge if talented">used from Stealth*</TooltipElement>
               </>
             )}
             thresholds={thresholds.backstabInStealth}

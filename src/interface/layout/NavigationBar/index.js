@@ -21,7 +21,7 @@ import Modal from 'interface/modals/Modal';
 
 import LoadingBar from './LoadingBar';
 import './NavigationBar.scss';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 class NavigationBar extends React.PureComponent {
   static propTypes = {
@@ -93,33 +93,33 @@ class NavigationBar extends React.PureComponent {
           <div className="menu-item required">
             {user && user.premium ? (
               <Link to="/premium">
-                <Tooltip content="Premium active" tagName="div">
+                <TooltipElement content="Premium active" tagName="div">
                   <PremiumIcon /> <span className="optional">{user.name}</span>
-                </Tooltip>
+                </TooltipElement>
               </Link>
             ) : (
               <Link to="/premium" className="premium">
-                <Tooltip content={i18n._(t`Premium`)} tagName="div">
+                <TooltipElement content={i18n._(t`Premium`)} tagName="div">
                   <PremiumIcon /> <span className="optional"><Trans>Premium</Trans></span>
-                </Tooltip>
+                </TooltipElement>
               </Link>
             )}
           </div>
-          <Tooltip className="menu-item optional" content="Discord" tagName="div">
+          <TooltipElement className="menu-item optional" content="Discord" tagName="div">
             <a href="https://wowanalyzer.com/discord">
               <DiscordIcon />
             </a>
-          </Tooltip>
-          <Tooltip className="menu-item optional" content="GitHub" tagName="div">
+          </TooltipElement>
+          <TooltipElement className="menu-item optional" content="GitHub" tagName="div">
             <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
               <GitHubIcon />
             </a>
-          </Tooltip>
-          <Tooltip className="menu-item optional" content="Patreon" tagName="div">
+          </TooltipElement>
+          <TooltipElement className="menu-item optional" content="Patreon" tagName="div">
             <a href="https://www.patreon.com/wowanalyzer">
               <PatreonIcon />
             </a>
-          </Tooltip>
+          </TooltipElement>
         </div>
         <LoadingBar progress={progress} />
       </nav>

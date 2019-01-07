@@ -5,7 +5,7 @@ import ITEMS from 'common/ITEMS';
 import Analyzer from 'parser/core/Analyzer';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 /**
  * Equip: Your attacks and attacks made against you have a chance to trigger spores to grow for 4 sec before bursting.
@@ -58,10 +58,10 @@ class LingeringSporepods extends Analyzer {
     return {
       item: ITEMS.LINGERING_SPOREPODS,
       result: (
-        <Tooltip wrapperStyles={{ display: 'inline' }} content={<>Procced <strong>{this.totalProcs}</strong> time{this.totalProcs === 1 ? '' : 's'}.</>}>
+        <TooltipElement style={{ display: 'inline' }} content={<>Procced <strong>{this.totalProcs}</strong> time{this.totalProcs === 1 ? '' : 's'}.</>}>
           <ItemDamageDone amount={this.damage} /><br />
           <ItemHealingDone amount={this.healing} />
-        </Tooltip>
+        </TooltipElement>
       ),
     };
   }

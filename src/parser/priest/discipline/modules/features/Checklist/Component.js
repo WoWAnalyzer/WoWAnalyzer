@@ -7,7 +7,7 @@ import SpellLink from 'common/SpellLink';
 // import ItemLink from 'common/ItemLink';
 import ResourceLink from 'common/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 import Checklist from 'parser/shared/modules/features/Checklist2';
 import Rule from 'parser/shared/modules/features/Checklist2/Rule';
 import Requirement from 'parser/shared/modules/features/Checklist2/Requirement';
@@ -106,7 +106,7 @@ class DisciplinePriestChecklist extends React.PureComponent {
           name="Try to avoid being inactive for a large portion of the fight"
           description={(
             <>
-              High downtime is inexcusable, while it may be tempting to not cast and save mana, Discipline's damage fillers such as <SpellLink id={SPELLS.SMITE.id} /> are extremely cheap. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and <Tooltip wrapperStyles={{ display: 'inline' }} content="You can ignore this while learning Discipline, but contributing DPS whilst healing is a major part of becoming a better than average player.">when you're not healing try to contribute some damage.*</Tooltip>.
+              High downtime is inexcusable, while it may be tempting to not cast and save mana, Discipline's damage fillers such as <SpellLink id={SPELLS.SMITE.id} /> are extremely cheap. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and <TooltipElement style={{ display: 'inline' }} content="You can ignore this while learning Discipline, but contributing DPS whilst healing is a major part of becoming a better than average player.">when you're not healing try to contribute some damage.*</TooltipElement>.
             </>
           )}
         >

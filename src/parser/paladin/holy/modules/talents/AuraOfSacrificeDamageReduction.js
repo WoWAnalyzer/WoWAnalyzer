@@ -8,7 +8,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'interface/others/LazyLoadStatisticBox';
 import makeWclUrl from 'common/makeWclUrl';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 const AURA_OF_SACRIFICE_PASSIVE_DAMAGE_TRANSFER_REDUCTION = 0.5;
 const AURA_OF_SACRIFICE_HEALTH_REQUIREMENT = 0.75;
@@ -179,21 +179,21 @@ class AuraOfSacrificeDamageReduction extends Analyzer {
     </>) : 'Click to load the required data.';
     const footer = this.loaded && (
       <div className="statistic-bar">
-        <Tooltip
+        <TooltipElement
           className="stat-health-bg"
           tagName="div"
-          wrapperStyles={{ width: `${totalDamageReduced / totalDamageTransferred * 100}%` }}
+          style={{ width: `${totalDamageReduced / totalDamageTransferred * 100}%` }}
           content={`You effectively reduced damage taken by a total of ${formatThousands(totalDamageReduced)} damage (${formatThousands(this.perSecond(totalDamageReduced))} DRPS).`}
         >
           <img src="/img/shield.png" alt="Damage reduced" />
-        </Tooltip>
-        <Tooltip
+        </TooltipElement>
+        <TooltipElement
           className="remainder DeathKnight-bg"
           tagName="div"
           content={`You transferred a total of ${formatThousands(totalDamageTransferred)} damage (${formatThousands(this.perSecond(totalDamageTransferred))} DTPS).`}
         >
           <img src="/img/shield-open.png" alt="Damage transferred" />
-        </Tooltip>
+        </TooltipElement>
       </div>
     );
 

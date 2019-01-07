@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 import isAtonement from '../core/isAtonement';
@@ -61,13 +61,13 @@ class TouchOfTheGrave extends Analyzer {
         icon={<SpellIcon id={SPELLS.TOUCH_OF_THE_GRAVE.id} />}
         value={this.owner.formatItemHealingDone(atonementHealing + directHealing)}
         label={(
-          <Tooltip content={`
+          <TooltipElement content={`
             The Undead racial Touch of the Grave contributed ${formatPercentage(totalPct)}% of the total effective healing done
             (${formatPercentage(atonementPct)}% from Atonement and ${formatPercentage(directPct)}% from direct healing).
             Touch of the Grave also contributed ${formatNumber(damage / this.owner.fightDuration * 1000)} DPS (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))}% of total damage done).`}
           >
             Touch of the Grave Healing
-          </Tooltip>
+          </TooltipElement>
         )}
       />
     );

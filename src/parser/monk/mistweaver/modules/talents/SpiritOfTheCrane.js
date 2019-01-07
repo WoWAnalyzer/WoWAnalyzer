@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 
@@ -138,7 +138,7 @@ class SpiritOfTheCrane extends Analyzer {
         icon={<SpellIcon id={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id} />}
         value={formatNumber(this.manaReturnSotc)}
         label={(
-          <Tooltip content={(<>
+          <TooltipElement content={(<>
             You gained a raw total of {((this.manaReturnSotc + this.sotcWasted) / 1000).toFixed(0)}k mana from SotC with {(this.sotcWasted / 1000).toFixed(0)}k wasted. <br />
             You lost {this.totmOverCap + this.totmBuffWasted} Teachings of the Monestery stacks
             {(this.totmOverCap > 0 || this.totmBuffWasted > 0) && (
@@ -150,7 +150,7 @@ class SpiritOfTheCrane extends Analyzer {
             </>)}
           >
             Mana Returned
-          </Tooltip>
+          </TooltipElement>
         )}
       />
     );

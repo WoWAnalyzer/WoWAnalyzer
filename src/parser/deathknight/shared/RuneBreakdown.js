@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBreakdown';
 
@@ -42,8 +42,8 @@ class RuneBreakdown extends ResourceBreakdown {
           <thead>
             <tr>
               <th>Ability</th>
-              <th colSpan="2"><Tooltip content="Runes generated from passive regeneration and abilities that accelerate it are estimates.">{resourceName} generated</Tooltip></th>
-              <th colSpan="2"><Tooltip content="This is the amount of resources that were generated while you were already at cap.">{resourceName} wasted</Tooltip></th>
+              <th colSpan="2"><TooltipElement content="Runes generated from passive regeneration and abilities that accelerate it are estimates.">{resourceName} generated</TooltipElement></th>
+              <th colSpan="2"><TooltipElement content="This is the amount of resources that were generated while you were already at cap.">{resourceName} wasted</TooltipElement></th>
             </tr>
           </thead>
           <tbody>
@@ -56,7 +56,7 @@ class RuneBreakdown extends ResourceBreakdown {
                     Passive Rune regeneration
                   </td>
                   <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
-                    <Tooltip content={`${formatPercentage(ability.generated / totalGenerated)} %`}>{ability.generated}</Tooltip>
+                    <TooltipElement content={`${formatPercentage(ability.generated / totalGenerated)} %`}>{ability.generated}</TooltipElement>
                   </td>
                   <td style={{ width: '40%' }}>
                     <div
@@ -65,7 +65,7 @@ class RuneBreakdown extends ResourceBreakdown {
                     />
                   </td>
                   <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
-                    <Tooltip content={`${formatPercentage(ability.wasted / totalWasted)} %`}>{ability.wasted}</Tooltip>
+                    <TooltipElement content={`${formatPercentage(ability.wasted / totalWasted)} %`}>{ability.wasted}</TooltipElement>
                   </td>
                   <td style={{ width: '30%' }}>
                     <div
@@ -83,7 +83,7 @@ class RuneBreakdown extends ResourceBreakdown {
                     <SpellLink id={ability.abilityId} />
                   </td>
                   <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
-                    <Tooltip content={`${formatPercentage(ability.generated / totalGenerated)} %`}>{ability.generated}</Tooltip>
+                    <TooltipElement content={`${formatPercentage(ability.generated / totalGenerated)} %`}>{ability.generated}</TooltipElement>
                   </td>
                   <td style={{ width: '40%' }}>
                     <div
@@ -92,7 +92,7 @@ class RuneBreakdown extends ResourceBreakdown {
                     />
                   </td>
                   <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
-                    <Tooltip content={`${formatPercentage(ability.wasted / totalWasted)} %`}>{ability.wasted}</Tooltip>
+                    <TooltipElement content={`${formatPercentage(ability.wasted / totalWasted)} %`}>{ability.wasted}</TooltipElement>
                   </td>
                   <td style={{ width: '30%' }}>
                     <div
@@ -121,7 +121,7 @@ class RuneBreakdown extends ResourceBreakdown {
                       <SpellLink id={ability.abilityId} />
                     </td>
                     <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
-                      <Tooltip content={`${formatPercentage(ability.spent / totalSpent)} %`}>{ability.spent}</Tooltip>
+                      <TooltipElement content={`${formatPercentage(ability.spent / totalSpent)} %`}>{ability.spent}</TooltipElement>
                     </td>
                     <td style={{ width: '40%' }}>
                       <div
@@ -130,7 +130,7 @@ class RuneBreakdown extends ResourceBreakdown {
                       />
                     </td>
                     <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
-                      <Tooltip content={`${formatPercentage(ability.casts / totalCasts)} %`}>{ability.casts}</Tooltip>
+                      <TooltipElement content={`${formatPercentage(ability.casts / totalCasts)} %`}>{ability.casts}</TooltipElement>
                     </td>
                     <td style={{ width: '30%' }}>
                       <div

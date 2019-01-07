@@ -7,7 +7,7 @@ import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 import AbilityTracker from './PaladinAbilityTracker';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 /** @type {number} (ms) When Holy Shock has less than this as cooldown remaining you should wait and still not cast that filler FoL. */
 const HOLY_SHOCK_COOLDOWN_WAIT_TIME = 200;
@@ -95,7 +95,7 @@ class FillerFlashOfLight extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual) => {
       return suggest(
         <>
-          You started casting {this.inefficientCasts.length} filler <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />s while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was <Tooltip content={`It was either already available or going to be available within ${HOLY_SHOCK_COOLDOWN_WAIT_TIME}ms.`}>available</Tooltip> (at {this.inefficientCasts.map(event => this.owner.formatTimestamp(event.timestamp)).join(', ')}). <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> is a much more efficient spell and should be prioritized<Tooltip content="There are very rare exceptions to this. For example it may be worth saving Holy Shock when you know you're going to be moving soon and you may have to heal yourself.">*</Tooltip>.
+          You started casting {this.inefficientCasts.length} filler <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />s while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was <TooltipElement content={`It was either already available or going to be available within ${HOLY_SHOCK_COOLDOWN_WAIT_TIME}ms.`}>available</TooltipElement> (at {this.inefficientCasts.map(event => this.owner.formatTimestamp(event.timestamp)).join(', ')}). <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> is a much more efficient spell and should be prioritized<TooltipElement content="There are very rare exceptions to this. For example it may be worth saving Holy Shock when you know you're going to be moving soon and you may have to heal yourself.">*</TooltipElement>.
         </>
       )
         .icon(SPELLS.FLASH_OF_LIGHT.icon)

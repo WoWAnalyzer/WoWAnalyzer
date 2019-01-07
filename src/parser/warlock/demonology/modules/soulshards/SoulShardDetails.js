@@ -1,16 +1,27 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import Analyzer from 'parser/core/Analyzer';
 import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBreakdown';
 
 import Panel from 'interface/others/Panel';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { Tooltip, TooltipElement } from 'common/Tooltip';
+
 
 import WastedShardsIcon from 'parser/warlock/shared/images/warlock_soulshard_bw.jpg';
 import SoulShardTracker from './SoulShardTracker';
 
 const SOUL_SHARD_ICON = 'inv_misc_gem_amethyst_02';
 
+class TestComp extends React.Component {
+  render() {
+    const { innerRef, ...others } = this.props;
+    return (
+      <div ref={innerRef} {...others}>hello</div>
+    );
+  }
+}
 class SoulShardDetails extends Analyzer {
   static dependencies = {
     soulShardTracker: SoulShardTracker,
@@ -51,7 +62,26 @@ class SoulShardDetails extends Analyzer {
             alt="Wasted Soul Shards"
           />
         )}
-        value={shardsWasted}
+        value={(
+          <>
+            {shardsWasted}
+            <TooltipElement content="Something">
+              Wrapper element
+            </TooltipElement>
+            <br />
+            <Tooltip content="Something else">
+              <Link to="/premium">
+                Link
+              </Link>
+            </Tooltip>
+            <Tooltip content="blah">
+              <Link to="/premium">Frag</Link>
+            </Tooltip>
+            <Tooltip content="blahblah">
+              <TestComp />
+            </Tooltip>
+          </>
+        )}
         label="Wasted Soul Shards"
       />
     );

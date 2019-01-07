@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -93,7 +93,7 @@ class Vivify extends Analyzer {
         icon={<SpellIcon id={SPELLS.VIVIFY.id} />}
         value={`${this.averageRemPerVivify.toFixed(2)}`}
         label={(
-          <Tooltip content={(<>
+          <TooltipElement content={(<>
             Healing Breakdown:
             <ul>
               <li>{formatNumber(this.abilityTracker.getAbility(SPELLS.VIVIFY.id).healingEffective)} overall healing from Vivify.</li>
@@ -101,7 +101,7 @@ class Vivify extends Analyzer {
             </ul>
           </>)}>
             Avg REMs per Cast
-          </Tooltip>
+          </TooltipElement>
         )}
       />
     );

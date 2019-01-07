@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import SpellIcon from 'common/SpellIcon';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 class KeyCastsRow extends React.PureComponent {
   static propTypes = {
@@ -38,12 +38,12 @@ class KeyCastsRow extends React.PureComponent {
                 }}
               >
                 {hasTooltip ? (
-                  <Tooltip content={tooltipInfo.join('\n')} tagName="div">
+                  <TooltipElement content={tooltipInfo.join('\n')} tagName="div">
                     <SpellIcon
                       id={event.abilityId}
                       className={event.important && 'enhanced'}
                     />
-                  </Tooltip>
+                  </TooltipElement>
                 ) : (
                   <SpellIcon
                     id={event.abilityId}

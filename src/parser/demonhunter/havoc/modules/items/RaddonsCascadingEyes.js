@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 const COOLDOWN_REDUCTION_MS = 300;
 
@@ -42,9 +42,9 @@ class RaddonsCascadingEyes extends Analyzer {
 		return {
 			item: ITEMS.RADDONS_CASCADING_EYES,
 			result: (
-				<Tooltip content={`You wasted ${formatNumber(this.wastedEyeBeamReduction / 1000)} seconds of CDR.`}>
+				<TooltipElement content={`You wasted ${formatNumber(this.wastedEyeBeamReduction / 1000)} seconds of CDR.`}>
 					reduced <SpellLink id={SPELLS.EYE_BEAM.id} /> cooldown by {formatNumber(this.effectiveEyeBeamReduction / 1000)}s in total
-				</Tooltip>
+				</TooltipElement>
 			),
 		};
 	}

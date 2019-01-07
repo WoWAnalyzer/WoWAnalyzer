@@ -12,7 +12,7 @@ import rankingColor from 'common/getRankingColor';
 import StatisticBar from 'interface/statistics/StatisticBar';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer from 'parser/core/Analyzer';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 import DamageValue from '../DamageValue';
 
@@ -123,14 +123,14 @@ class DamageTaken extends Analyzer {
               alt="Damage taken"
             />
           </div>
-          <Tooltip
+          <TooltipElement
             className="flex-sub value"
-            wrapperStyles={{ width: 190 }}
+            style={{ width: 190 }}
             content={this.tooltip}
             tagName="div"
           >
             {formatThousands(perSecond)} DTPS
-          </Tooltip>
+          </TooltipElement>
           <div className={`flex-sub ${rankingColor(0)}`} style={{ width: 110, textAlign: 'center' }}>
             -
           </div>

@@ -6,7 +6,7 @@ import { Trans, t } from '@lingui/macro';
 
 import { i18n } from 'interface/RootLocalizationProvider';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 import FightSelectionPanelList from './FightSelectionPanelList';
 
@@ -46,9 +46,9 @@ class FightSelectionPanel extends React.PureComponent {
                 to={makeAnalyzerUrl(report)}
                 onClick={refreshReport}
               >
-                <Tooltip content={i18n._(t`This will refresh the fights list which can be useful if you're live logging.`)} tagName="div">
+                <TooltipElement content={i18n._(t`This will refresh the fights list which can be useful if you're live logging.`)} tagName="div">
                   <span className="glyphicon glyphicon-refresh" aria-hidden="true" /> <Trans>Refresh</Trans>
-                </Tooltip>
+                </TooltipElement>
               </Link>
             </div>
           </div>

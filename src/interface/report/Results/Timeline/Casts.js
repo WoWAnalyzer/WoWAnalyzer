@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 import { formatDuration } from '../../../../common/format';
 import Icon from '../../../../common/Icon';
 import SpellLink from '../../../../common/SpellLink';
@@ -131,11 +131,11 @@ class Casts extends React.PureComponent {
     const fightDuration = (event.start - start) / 1000;
 
     return (
-      <Tooltip
+      <TooltipElement
         content={`${formatDuration(fightDuration, 3)}: ${(event.duration / 1000).toFixed(2)}s channel by ${event.ability.name}`}
         key={`channel-${left}-${event.ability.guid}`}
         className="channel"
-        wrapperStyles={{
+        style={{
           left,
           width: event.duration / 1000 * this.props.secondWidth,
           position: 'absolute',
@@ -150,11 +150,11 @@ class Casts extends React.PureComponent {
     const fightDuration = (event.timestamp - start) / 1000;
 
     return (
-      <Tooltip
+      <TooltipElement
         content={`${formatDuration(fightDuration, 3)}: ${(event.duration / 1000).toFixed(2)}s Global Cooldown by ${event.ability.name}`}
         key={`gcd-${left}-${event.ability.guid}`}
         className="gcd"
-        wrapperStyles={{
+        style={{
           left,
           width: event.duration / 1000 * this.props.secondWidth,
           position: 'absolute',

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { formatNumber } from 'common/format';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 import Ring from './Ring';
 
@@ -21,10 +21,10 @@ const Radar = ({ distance, size, style, playerColor }) => {
       <Ring size={30 * pixelsPerYard} style={{ opacity: 0.5 }} />
       <Ring size={20 * pixelsPerYard} style={{ opacity: 0.75 }} />
       <Ring size={10 * pixelsPerYard} style={{ opacity: 1 }} />
-      <Tooltip
+      <TooltipElement
         tagName="div"
         content={`${formatNumber(distance)} yards`}
-        wrapperStyles={{
+        style={{
           position: 'absolute',
           top: '50%',
           height: distance * pixelsPerYard,
@@ -38,7 +38,7 @@ const Radar = ({ distance, size, style, playerColor }) => {
             boxShadow: '0 0 4px #f8b700',
           }}
         />
-      </Tooltip>
+      </TooltipElement>
       <div
         style={{
           position: 'absolute',

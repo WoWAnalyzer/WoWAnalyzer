@@ -2,7 +2,7 @@ import React from 'react';
 
 import Icon from 'common/Icon';
 import { formatPercentage, formatThousands } from 'common/format';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 
@@ -92,9 +92,9 @@ class DistanceMoved extends Analyzer {
                 <Icon icon="spell_fire_burningspeed" /> Distance moved
               </div>
               <div className="flex-sub text-right">
-                <Tooltip content={`≈${formatThousands(this.totalDistanceMoved / (this.owner.fightDuration / 1000) * 60)} yards per minute. Consider this when analyzing the fight, as some fights require more movement than others. Unnecessary movement can result in a DPS/HPS loss.`}>
+                <TooltipElement content={`≈${formatThousands(this.totalDistanceMoved / (this.owner.fightDuration / 1000) * 60)} yards per minute. Consider this when analyzing the fight, as some fights require more movement than others. Unnecessary movement can result in a DPS/HPS loss.`}>
                   ≈ {formatThousands(this.totalDistanceMoved)} yards
-                </Tooltip>
+                </TooltipElement>
               </div>
             </div>
             <div className="panel-body flex wrapable">
@@ -102,9 +102,9 @@ class DistanceMoved extends Analyzer {
                 <Icon icon="inv_misc_pocketwatch_02" /> Time spent moving
               </div>
               <div className="flex-sub text-right">
-                <Tooltip content={`In ≈${formatThousands(this.timeSpentMoving / 1000)} seconds of movement you moved ≈${formatThousands(this.totalDistanceMoved)} yards. This statistic is not entirely accurate and may be overstated for fights with lots of problems.`}>
+                <TooltipElement content={`In ≈${formatThousands(this.timeSpentMoving / 1000)} seconds of movement you moved ≈${formatThousands(this.totalDistanceMoved)} yards. This statistic is not entirely accurate and may be overstated for fights with lots of problems.`}>
                   ≈ {formatPercentage(this.timeSpentMoving / (this.owner.fightDuration))} %
-                </Tooltip>
+                </TooltipElement>
               </div>
             </div>
           </div>

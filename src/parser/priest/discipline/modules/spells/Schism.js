@@ -20,7 +20,7 @@ import AtonementDamageSource from '../features/AtonementDamageSource';
 import { calculateOverhealing, SmiteEstimation } from '../../SpellCalculations';
 import Atonement from './/Atonement';
 import SinsOfTheMany from './/SinsOfTheMany';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 class Schism extends Analyzer {
   static dependencies = {
@@ -181,7 +181,7 @@ class Schism extends Analyzer {
           `${formatNumber(((this.directDamage + this.damageFromBuff) / this.owner.fightDuration) * 1000)} DPS`,
         ]}
         footer={(
-          <Tooltip
+          <TooltipElement
             content={(<>
               The effective healing contributed by Schism was {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))}% of total healing done.<br />
               The direct damage contributed by the Schism talent was {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.directDamage))}% of total damage done.<br />
@@ -189,7 +189,7 @@ class Schism extends Analyzer {
             </>)}
           >
             Schism Output Details
-          </Tooltip>
+          </TooltipElement>
         )}
       />
     );

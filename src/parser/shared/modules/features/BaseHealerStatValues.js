@@ -3,7 +3,7 @@ import React from 'react';
 import InformationIcon from 'interface/icons/Information';
 
 import SPELLS from 'common/SPELLS/index';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 import { formatNumber } from 'common/format';
 import { calculatePrimaryStat, calculateSecondaryStatDefault } from 'common/stats';
 import Analyzer from 'parser/core/Analyzer';
@@ -422,12 +422,12 @@ class BaseHealerStatValues extends Analyzer {
           <div className="panel items">
             <div className="panel-heading">
               <h4>
-                <Tooltip content={(<>
+                <TooltipElement content={(<>
                   These stat values are calculated using the actual circumstances of this encounter. These values reveal the value of the last 1 rating of each stat, they may not necessarily be the best way to gear. The stat values are likely to differ based on fight, raid size, items used, talents chosen, etc.<br /><br />
                   DPS gains are not included in any of the stat values.
                 </>)}>
                   Stat Values
-                </Tooltip>
+                </TooltipElement>
 
                 {this.moreInformationLink && (
                   <a href={this.moreInformationLink} className="pull-right">
@@ -444,9 +444,9 @@ class BaseHealerStatValues extends Analyzer {
                       <b>Stat</b>
                     </th>
                     <th className="text-right" style={{ minWidth: 30 }} colSpan={2}>
-                      <Tooltip content="Normalized so Intellect is always 1.00.">
+                      <TooltipElement content="Normalized so Intellect is always 1.00.">
                         <b>Value</b>
-                      </Tooltip>
+                      </TooltipElement>
                     </th>
                   </tr>
                 </thead>
@@ -474,17 +474,17 @@ class BaseHealerStatValues extends Analyzer {
                               marginRight: 10,
                             }}
                           />{' '}
-                          {tooltip ? <Tooltip content={tooltip}>{getName(stat)}</Tooltip> : getName(stat)}
+                          {tooltip ? <TooltipElement content={tooltip}>{getName(stat)}</TooltipElement> : getName(stat)}
                         </td>
                         <td className="text-right">
                           {stat === STAT.HASTE_HPCT && '0.00 - '}{gain !== null ? weight.toFixed(2) : 'NYI'}
                         </td>
                         <td style={{ padding: 6 }}>
-                          <Tooltip
+                          <TooltipElement
                             content={informationIconTooltip}
                             tagName="div">
                             <InformationIcon />
-                          </Tooltip>
+                          </TooltipElement>
                         </td>
                       </tr>
                     );

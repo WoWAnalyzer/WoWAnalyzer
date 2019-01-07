@@ -3,7 +3,7 @@ import React from 'react';
 import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatTracker from 'parser/shared/modules/StatTracker';
@@ -80,9 +80,9 @@ class MasteryEffectiveness extends Analyzer {
         value={`${formatPercentage(this.masteryEffectivenessPercent)} %`}
         position={STATISTIC_ORDER.CORE(30)}
         label={(
-          <Tooltip content={`The percent of your mastery that you benefited from on average (so always between 0% and 100%). Since you have ${formatPercentage(masteryPercent)}% mastery, this means that on average your heals were increased by ${formatPercentage(avgEffectiveMasteryPercent)}% by your mastery.`}>
+          <TooltipElement content={`The percent of your mastery that you benefited from on average (so always between 0% and 100%). Since you have ${formatPercentage(masteryPercent)}% mastery, this means that on average your heals were increased by ${formatPercentage(avgEffectiveMasteryPercent)}% by your mastery.`}>
             Mastery benefit
-          </Tooltip>
+          </TooltipElement>
         )}
       />
     );

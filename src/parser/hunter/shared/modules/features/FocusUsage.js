@@ -11,7 +11,7 @@ import StatisticsListBox from 'interface/others/StatisticsListBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import StatisticWrapper from 'interface/others/StatisticWrapper';
 import { RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 const CHART_SIZE = 100;
 
@@ -188,7 +188,7 @@ class FocusUsage extends Analyzer {
     const numItems = items.length;
     return items.map(({ color, label, tooltip, value, casts, spellId }, index) => {
       label = tooltip ? (
-        <Tooltip content={tooltip}>{label}</Tooltip>
+        <TooltipElement content={tooltip}>{label}</TooltipElement>
       ) : label;
       label = spellId ? (
         <SpellLink id={spellId}>{label}</SpellLink>
@@ -218,9 +218,9 @@ class FocusUsage extends Analyzer {
             {label}
           </div>
           <div className="flex-sub">
-            <Tooltip content={<>{casts} casts <br /> {value} Focus used</>}>
+            <TooltipElement content={<>{casts} casts <br /> {value} Focus used</>}>
               {formatPercentage(value / total, 1)}%
-            </Tooltip>
+            </TooltipElement>
           </div>
         </div>
       );

@@ -5,7 +5,7 @@ import ITEMS from 'common/ITEMS';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import {formatNumber} from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 /**
  * Frenetic Corpuscle -
@@ -33,9 +33,9 @@ class FreneticCorpuscle extends Analyzer {
     return {
       item: ITEMS.FRENETIC_CORPUSCLE,
       result: (
-        <Tooltip content={<>Hit <strong>{this.hits}</strong> times for an average of <strong>{formatNumber(this.totalDamage/this.hits)}</strong> damage per hit.</>}>
+        <TooltipElement content={<>Hit <strong>{this.hits}</strong> times for an average of <strong>{formatNumber(this.totalDamage/this.hits)}</strong> damage per hit.</>}>
           <ItemDamageDone amount={this.totalDamage} />
-        </Tooltip>
+        </TooltipElement>
       ),
     };
   }

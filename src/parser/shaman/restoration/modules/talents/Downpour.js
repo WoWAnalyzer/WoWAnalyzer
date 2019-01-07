@@ -4,7 +4,7 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
@@ -84,13 +84,13 @@ class Downpour extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(90)}
         label={(
-          <Tooltip content={(<>
+          <TooltipElement content={(<>
             You cast a total of {downpourCasts} Downpours, which on average hit {(downpourAverageHits + downpourAverageOverhealedHits).toFixed(1)} out of 6 targets. <br />
             Of those hits, {downpourAverageHits.toFixed(1)} had effective healing and increased the cooldown.
             </>)}
           >
             Average Downpour cooldown
-          </Tooltip>
+          </TooltipElement>
         )}
       />
     );

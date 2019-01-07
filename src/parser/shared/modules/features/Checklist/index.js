@@ -8,7 +8,7 @@ import InformationIcon from 'interface/icons/Information';
 import Analyzer from 'parser/core/Analyzer';
 import Expandable from 'interface/common/Expandable';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 import performanceForThresholds from './performanceForThresholds';
 import calculateMedian from './calculateMedian';
@@ -169,16 +169,16 @@ class Checklist extends Analyzer {
                       className="flex-sub"
                       style={{ marginLeft: 10 }}
                     >
-                      <Tooltip
+                      <TooltipElement
                         content={requirement.tooltip}
                         tagName="div">
                         <InformationIcon />
-                      </Tooltip>
+                      </TooltipElement>
                     </div>
                   )}
                   <div className="flex-sub content-middle text-muted" style={{ minWidth: 55, marginLeft: 5, marginRight: 10 }}>
                     <div className="text-right" style={{ width: '100%' }}>
-                      {requirement.valueTooltip ? <Tooltip content={requirement.valueTooltip}>{displayedValue}</Tooltip> : displayedValue}
+                      {requirement.valueTooltip ? <TooltipElement content={requirement.valueTooltip}>{displayedValue}</TooltipElement> : displayedValue}
                     </div>
                   </div>
                   <div className="flex-sub content-middle" style={{ width: 50 }}>
