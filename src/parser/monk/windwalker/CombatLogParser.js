@@ -6,9 +6,10 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Abilities from './modules/Abilities';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Checklist from './modules/features/checklist/Module';
-// Chi
-import ChiDetails from './modules/chi/ChiDetails';
-import ChiTracker from './modules/chi/ChiTracker';
+// Resources
+import EnergyCapTracker from './modules/resources/EnergyCapTracker';
+import ChiDetails from './modules/resources/ChiDetails';
+import ChiTracker from './modules/resources/ChiTracker';
 // Core
 import Channeling from './modules/core/Channeling';
 // Spells
@@ -43,6 +44,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Resources
     chiTracker: ChiTracker,
     chiDetails: ChiDetails,
+    energyCapTracker: EnergyCapTracker,
 
     // Talents:
     hitCombo: HitCombo,

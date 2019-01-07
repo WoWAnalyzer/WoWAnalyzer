@@ -14,7 +14,7 @@ import BlackoutKick from '../../spells/BlackoutKick';
 
 import HitCombo from '../../talents/HitCombo';
 import EnergizingElixir from '../../talents/EnergizingElixir';
-import ChiDetails from '../../chi/ChiDetails';
+import ChiDetails from '../../resources/ChiDetails';
 
 import Component from './Component';
 
