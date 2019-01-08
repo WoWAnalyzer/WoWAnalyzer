@@ -1,17 +1,14 @@
 import React from 'react';
-import { Doughnut as DoughnutChart } from 'react-chartjs-2';
 
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
-import { formatPercentage } from 'common/format';
 import Tooltip from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
-import StatisticsListBox, { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
+import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import Statistic from 'interface/statistics/Statistic';
-import StatisticGroup from 'interface/statistics/StatisticGroup';
 import DonutChart from 'interface/statistics/components/DonutChart';
 
 const FLASH_FLOOD_HASTE = 0.2;
