@@ -7,15 +7,12 @@
   }
 
   &::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px 2px rgba(255,255,255,0.3); 
-    -webkit-box-shadow: inset 0 0 6px 2px rgba(255,255,255,0.3); 
+    border: 1px solid #75736d;
     border-radius: 10px;
   }
 
   &::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    box-shadow: inset 0 0 6px 3px rgba(250,183,0,0.5); 
-    -webkit-box-shadow: inset 0 0 6px 3px rgba(250,183,0,0.5); 
     border: 1px solid #fab700;
   }
 }
