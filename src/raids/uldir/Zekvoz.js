@@ -63,7 +63,7 @@ export default {
         filter: {
           type: 'cast',
           ability: {
-            id: SPELLS.ZEKVOS_ENCOUNTER_EVENT.id,
+            id: SPELLS.ZEKVOZ_ENCOUNTER_EVENT.id,
           },
           eventInstance: 0,
         },
@@ -86,7 +86,7 @@ export default {
         filter: {
           type: 'cast',
           ability: {
-            id: SPELLS.ZEKVOS_ENCOUNTER_EVENT.id,
+            id: SPELLS.ZEKVOZ_ENCOUNTER_EVENT.id,
           },
           eventInstance: 0,
         },
@@ -98,7 +98,7 @@ export default {
         filter: {
           type: 'cast',
           ability: {
-            id: SPELLS.ZEKVOS_ENCOUNTER_EVENT.id,
+            id: SPELLS.ZEKVOZ_ENCOUNTER_EVENT.id,
           },
           eventInstance: 1,
         },

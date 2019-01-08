@@ -1374,7 +1374,7 @@ export default {
     name: "Titan Spark",
     icon: "item_holyspark",
   },
-  ZEKVOS_ENCOUNTER_EVENT: {
+  ZEKVOZ_ENCOUNTER_EVENT: {
     id: 181089,
     name: "Encounter Event",
     icon: "inv_misc_questionmark",
