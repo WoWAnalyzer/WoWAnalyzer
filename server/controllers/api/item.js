@@ -2,7 +2,7 @@ import Express from 'express';
 import Sequelize from 'sequelize';
 import Raven from 'raven';
 
-import WowCommunityApi from 'helpers/WowCommunityApi';
+import BlizzardCommunityApi from 'helpers/BlizzardCommunityApi';
 
 import models from '../../models';
 
@@ -26,7 +26,7 @@ function send404(res) {
 
 async function proxyItemApi(res, itemId) {
   try {
-    const response = await WowCommunityApi.fetchItem(itemId);
+    const response = await BlizzardCommunityApi.fetchItem(itemId);
     const json = JSON.parse(response);
     sendJson(res, json);
     return json;
