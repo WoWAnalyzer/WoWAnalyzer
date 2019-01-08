@@ -13,7 +13,7 @@ import { formatPercentage, formatThousands } from 'common/format';
 import TraitStatisticBox from 'interface/others/TraitStatisticBox';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 
-import { poissonBinomialCDF } from 'parser/warlock/shared/probability';
+import { poissonBinomialPMF } from 'parser/warlock/shared/probability';
 import SoulShardTracker from '../soulshards/SoulShardTracker';
 
 const HOG_SP_COEFFICIENT = 0.16; // taken from Simcraft SpellDataDump
@@ -70,19 +70,19 @@ class DemonicMeteor extends Analyzer {
     const shardsGained = this.soulShardTracker.getGeneratedBySpell(SPELLS.DEMONIC_METEOR_SHARD_GEN.id);
     // we need to get the amount of shards we were most likely to get given certain probabilities
     // this corresponds to the highest PMF in the distribution
-    // which should be calculated when calling CDF for a high enough k (since it recursively calculates values for lesser k, we should be able to get it from the lookup table)
-    const { lookup } = poissonBinomialCDF(Math.round(this.probabilities.length / 2), this.probabilities.length, this.probabilities);
-    let maxP = 0; // maximum probability
-    let max = -1; // k of the maximum probability - should be the most likely amount of shards to get with given probabilities
-    lookup.forEach((row, k) => {
-      // row is an array of values Ek,j where for each row, k is fixed and we're finding the maximum of the last value (which is Ek,n)
-      // last = Ek,n = chance to proc k out of n times
-      const last = row[row.length - 1];
-      if (last > maxP) {
-        maxP = last;
-        max = k;
+    // since Poisson binomial distribution has a bell shape similar to regular binomial, we only need to find the maximum probability for given k
+    // once it starts to decrease, we can break the loop
+    let max = -1;
+    let maxP = 0;
+    for (let i = 0; i <= this.probabilities.length; i++) {
+      const p = poissonBinomialPMF(i, this.probabilities.length, this.probabilities);
+      if (p > maxP) {
+        max = i;
+        maxP = p;
+      } else if (p < maxP) {
+        break;
       }
-    });
+    }
     return (
       <TraitStatisticBox
         trait={SPELLS.DEMONIC_METEOR.id}

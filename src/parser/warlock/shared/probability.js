@@ -67,12 +67,7 @@ export function poissonBinomialCDF(k, n, p) {
   for (let i = 0; i <= k; i++) {
     probability += Ekj(i, n, p, lookup);
   }
-  // For practical reasons, return the lookup table as well, as there should exist PMF values for k <= k (as in argument of this function)
-  // this is practical for showing a chart like emallson has
-  return {
-    probability,
-    lookup,
-  };
+  return probability;
 }
 
 // Binomial Distribution
@@ -114,15 +109,8 @@ export function binomialPMF(k, n, p) {
  */
 export function binomialCDF(k, n, p) {
   let probability = 0;
-  const partial = [];
   for (let i = 0; i <= k; i++) {
-    const prob = binomialPMF(i, n, p);
-    probability += prob;
-    partial.push(prob);
+    probability += binomialPMF(i, n, p);
   }
-  // in the same nature like poissonBinomialCDF, return information for previously calculated PMF
-  return {
-    probability,
-    partial,
-  };
+  return probability;
 }

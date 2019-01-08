@@ -9,7 +9,7 @@ import SpellLink from 'common/SpellLink';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
-import { binomialCDF } from 'parser/warlock/shared/probability';
+import { binomialPMF } from 'parser/warlock/shared/probability';
 import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
 import SoulShardTracker from '../soulshards/SoulShardTracker';
 
@@ -42,17 +42,20 @@ class SoulConduit extends Analyzer {
     const shardsGained = this.soulShardTracker.getGeneratedBySpell(SPELLS.SOUL_CONDUIT_SHARD_GEN.id);
     const estimatedUAdamage = shardsGained * TICKS_PER_UA * avgDamage;
     const totalSpent = this.soulShardTracker.spent;
-    // since we want to get the amount of shards we would MOST LIKELY get, we intentionally need to try higher values for k than usually possible
-    const { partial: probabilities } = binomialCDF(Math.round(totalSpent / 2), totalSpent, SC_PROC_CHANCE);
-    // with 15% chance per shard, it's very unlikely that we would get half of the shards refunded, so the maximum must be somewhere lower than that, and "partial" array of the return object contains those values
-    let maxP = 0;
+    // similar to what we do in DemonicMeteor
+    // Binomial distribution follows a bell-shaped curve
+    // iterate upwards from k = 0, search for local (=global) maximum, when value starts to decrease, break
     let max = -1;
-    probabilities.forEach((p, k) => {
+    let maxP = 0;
+    for (let i = 0; i <= totalSpent; i++) {
+      const p = binomialPMF(i, totalSpent, SC_PROC_CHANCE);
       if (p > maxP) {
+        max = i;
         maxP = p;
-        max = k;
+      } else if (p < maxP) {
+        break;
       }
-    });
+    }
     return (
       <StatisticListBoxItem
         title={<>Shards generated with <SpellLink id={SPELLS.SOUL_CONDUIT_TALENT.id} /></>}
