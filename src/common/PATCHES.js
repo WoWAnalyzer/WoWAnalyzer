@@ -1,6 +1,8 @@
 /*
   Using https://www.epochconverter.com/ to find the epoch timestamp for dates
   Multiply the timestamp by 1000 as JS does timestamps in MS rather than S
+
+  Timestamps are for the NA Region to match WCL
 */
 
 const PATCHES = [
@@ -12,7 +14,7 @@ const PATCHES = [
   },
   {
     name: '8.1',
-    timestamp: 1544565600000, // GMT: Monday, 10 December 2018 22:00:00
+    timestamp: 1544565600000, // GMT: Tuesday, 11 December 2018 22:00:00, PST: Tuesday, 11 December 2018 14:00:00
     urlPrefix: '',
     isCurrent: true,
   },
