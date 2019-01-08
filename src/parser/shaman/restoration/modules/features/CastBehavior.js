@@ -1,95 +1,22 @@
 import React from 'react';
-import { Doughnut as DoughnutChart } from 'react-chartjs-2';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage } from 'common/format';
-import Tooltip from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
-import StatisticsListBox, { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
-
-const CHART_SIZE = 75;
+import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
+import StatisticGroup from 'interface/statistics/StatisticGroup';
+import Statistic from 'interface/statistics/Statistic';
+import DonutChart from 'interface/statistics/components/DonutChart';
 
 class CastBehavior extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
 
-  legend(items, total) {
-    const numItems = items.length;
-    return items.map(({ color, label, tooltip, value, spellId }, index) => {
-      label = tooltip ? (
-        <Tooltip content={tooltip}>{label}</Tooltip>
-      ) : label;
-      label = spellId ? (
-        <SpellLink id={spellId} icon={false}>{label}</SpellLink>
-      ) : label;
-      return (
-        <div
-          className="flex"
-          style={{
-            borderBottom: '3px solid rgba(255,255,255,0.1)',
-            marginBottom: ((numItems - 1) === index) ? 0 : 5,
-          }}
-          key={index}
-        >
-          <div className="flex-sub">
-            <div
-              style={{
-                display: 'inline-block',
-                background: color,
-                borderRadius: '50%',
-                width: 16,
-                height: 16,
-                marginBottom: -3,
-              }}
-            />
-          </div>
-          <div className="flex-main" style={{ paddingLeft: 5 }}>
-            {label}
-          </div>
-          <div className="flex-sub">
-            <Tooltip content={value}>
-              {formatPercentage(value / total, 0)}%
-            </Tooltip>
-          </div>
-        </div>
-      );
-    });
-  }
-  chart(items) {
-    return (
-      <DoughnutChart
-        data={{
-          datasets: [{
-            data: items.map(item => item.value),
-            backgroundColor: items.map(item => item.color),
-            borderColor: '#000000',
-            borderWidth: 0,
-          }],
-          labels: items.map(item => item.label),
-        }}
-        options={{
-          legend: {
-            display: false,
-          },
-          tooltips: {
-            bodyFontSize: 8,
-          },
-          cutoutPercentage: 45,
-          animation: false,
-          responsive: false,
-        }}
-        width={CHART_SIZE}
-        height={CHART_SIZE}
-      />
-    );
-  }
-
-  twUsageRatioChart() {
+  get twUsageRatioChart() {
     const riptide = this.abilityTracker.getAbility(SPELLS.RIPTIDE.id);
     const healingWave = this.abilityTracker.getAbility(SPELLS.HEALING_WAVE.id);
     const healingSurge = this.abilityTracker.getAbility(SPELLS.HEALING_SURGE_RESTORATION.id);
@@ -126,18 +53,13 @@ class CastBehavior extends Analyzer {
     ];
 
     return (
-      <div className="flex">
-        <div className="flex-sub" style={{ paddingRight: 12 }}>
-          {this.chart(items)}
-        </div>
-        <div className="flex-main" style={{ fontSize: '80%', paddingTop: 3 }}>
-          {this.legend(items, totalTwGenerated)}
-        </div>
-      </div>
+      <DonutChart
+        items={items}
+      />
     );
   }
 
-  fillerCastRatioChart() {
+  get fillerCastRatioChart() {
     const healingWave = this.abilityTracker.getAbility(SPELLS.HEALING_WAVE.id);
     const healingSurge = this.abilityTracker.getAbility(SPELLS.HEALING_SURGE_RESTORATION.id);
     const twHealingWaves = healingWave.healingTwHits || 0;
@@ -147,7 +69,6 @@ class CastBehavior extends Analyzer {
     const healingSurgeHeals = healingSurge.casts || 0;
     const fillerHealingWaves = healingWaveHeals - twHealingWaves;
     const fillerHealingSurges = healingSurgeHeals - twHealingSurges;
-    const totalFillers = fillerHealingWaves + fillerHealingSurges;
 
     const items = [
       {
@@ -165,38 +86,28 @@ class CastBehavior extends Analyzer {
     ];
 
     return (
-      <div className="flex">
-        <div className="flex-sub" style={{ paddingRight: 12 }}>
-          {this.chart(items)}
-        </div>
-        <div className="flex-main" style={{ fontSize: '80%', paddingTop: 3 }}>
-          {this.legend(items, totalFillers)}
-        </div>
-      </div>
+      <DonutChart
+        items={items}
+      />
     );
   }
 
   statistic() {
     return (
-      <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-        <div className="row">
-          <StatisticsListBox
-            title={<span><SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> usage</span>}
-            position={STATISTIC_ORDER.CORE(40)}
-            containerProps={{ className: 'col-xs-12' }}
-          >
-            {this.twUsageRatioChart()}
-          </StatisticsListBox>
-        </div>
-        <div className="row">
-          <StatisticsListBox
-            title="Fillers"
-            containerProps={{ className: 'col-xs-12' }}
-          >
-            {this.fillerCastRatioChart()}
-          </StatisticsListBox>
-        </div>
-      </div>
+      <StatisticGroup position={STATISTIC_ORDER.CORE(40)}>
+        <Statistic ultrawide>
+          <div className="pad">
+            <label><SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> usage</label>
+            {this.twUsageRatioChart}
+          </div>
+        </Statistic>
+        <Statistic ultrawide>
+          <div className="pad">
+            <label>Fillers</label>
+            {this.fillerCastRatioChart}
+          </div>
+        </Statistic>
+      </StatisticGroup>
     );
   }
 }
