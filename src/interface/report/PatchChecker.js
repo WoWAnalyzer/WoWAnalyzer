@@ -53,11 +53,11 @@ class PatchChecker extends React.PureComponent {
     const reportTimestamp = report.start;
     const reportDate = new Date(report.start).toString();
 
-    const expansionStartPatch = PATCHES[0];
-    // report's patch is the last patch where the reports timestamp is higer than the patch timestamp
-    // find works on first item so we reverse the array to start from the end
-    // use slice to copy the array first so we don't mutate PATCHES
-    const reportPatch = PATCHES.slice().reverse().find(patch => reportTimestamp > patch.timestamp);
+    // Sort from latest to oldest
+    const orderedPatches = PATCHES.sort((a, b) => b.timestamp - a.timestamp);
+
+    const expansionStartPatch = orderedPatches[orderedPatches.length - 1];
+    const reportPatch = orderedPatches.find(patch => reportTimestamp > patch.timestamp);
 
     if ((reportPatch && reportPatch.isCurrent) || this.continue) {
       return children;
@@ -81,7 +81,7 @@ class PatchChecker extends React.PureComponent {
                         <br /><br />
                         This could mean that some parts of your report will no longer be analysed accurately.
                         <br /><br />
-                        If you would like to view the analysis on an onlder version of WoWAnalyzer, please 
+                        If you would like to view the analysis on an older version of WoWAnalyzer, please 
                         { 
                           <a
                             href={this.makePreviousPatchUrl(reportPatch)}
