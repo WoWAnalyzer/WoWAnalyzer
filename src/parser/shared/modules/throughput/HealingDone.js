@@ -7,6 +7,7 @@ import { formatThousands, formatPercentage } from 'common/format';
 import rankingColor from 'common/getRankingColor';
 import groupDataForChart from 'common/groupDataForChart';
 import makeWclUrl from 'common/makeWclUrl';
+import Tooltip from 'common/Tooltip';
 import StatisticBar from 'interface/statistics/StatisticBar';
 import ThroughputPerformance, { UNAVAILABLE } from 'interface/report/Results/ThroughputPerformance';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
@@ -79,7 +80,7 @@ class HealingDone extends Analyzer {
       return null;
     }
 
-    const groupedData = groupDataForChart(this.bySecond, this.owner.fightDuration);
+    const groupedData = groupDataForChart(this.bySecond, this.owner.fightDuration, item => item.effective);
     const perSecond = this.total.effective / this.owner.fightDuration * 1000;
     const wclUrl = makeWclUrl(this.owner.report.code, {
       fight: this.owner.fightId,

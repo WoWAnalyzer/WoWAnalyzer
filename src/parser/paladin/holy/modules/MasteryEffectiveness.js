@@ -91,7 +91,9 @@ class MasteryEffectiveness extends Analyzer {
 
     // Hit points are the hitpoints after the heal event was applied
     const hp = event.hitPoints;
-    const remainingHealthMissing = event.maxHitPoints - hp;
+    // Events shortly after applying a new max HP buff can have HP higher than max HP
+    // e.g. https://www.warcraftlogs.com/reports/2XNbQcDgrjtqpPJF#fight=3&start=911368&end=911419&view=events&translate=true
+    const remainingHealthMissing = Math.max(0, event.maxHitPoints - hp);
     const heal = new HealingValue(event.amount, event.absorbed, event.overheal);
     const applicableMasteryPercentage = this.statTracker.currentMasteryPercentage * masteryEffectiveness;
 
@@ -198,10 +200,10 @@ class MasteryEffectiveness extends Analyzer {
 
   statistic() {
     // is raw unadjusted mastery effectiveness (each cast is equal, even if it's a tiny heal or fully overhealed)
-    // console.log('raw', this.rawMasteryEffectivenessAverage);
+    console.log('raw', this.rawMasteryEffectivenessAverage);
     // heal size adjusted (e.g. a big heal's mastery effectiveness outweights a small heal's) and capped by remaining health missing (so if 1 more mastery lead to overhealing, it wouldn't count)
-    // console.log('scaling (health capped)', this.scaledMasteryEffectivenessAverage);
-    // console.log('total mastery healing done', this.owner.formatItemHealingDone(this.totalMasteryHealingDone));
+    console.log('scaling (health capped)', this.scaledMasteryEffectivenessAverage);
+    console.log('total mastery healing done', this.owner.formatItemHealingDone(this.totalMasteryHealingDone));
     // TODO: Should overallMasteryEffectiveness account for overhealing? It would probably be cleaner
     return (
       <Statistic position={STATISTIC_ORDER.CORE(10)}>

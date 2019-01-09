@@ -108,7 +108,7 @@ class DamageTaken extends Analyzer {
       return null;
     }
 
-    const groupedData = groupDataForChart(this.bySecond, this.owner.fightDuration);
+    const groupedData = groupDataForChart(this.bySecond, this.owner.fightDuration, item => item.effective);
     const perSecond = this.total.effective / this.owner.fightDuration * 1000;
     const wclUrl = makeWclUrl(this.owner.report.code, {
       fight: this.owner.fightId,
