@@ -13,7 +13,7 @@ import { formatPercentage, formatThousands } from 'common/format';
 import TraitStatisticBox from 'interface/others/TraitStatisticBox';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 
-import { poissonBinomialPMF } from 'parser/warlock/shared/probability';
+import { findMax, poissonBinomialPMF } from 'parser/warlock/shared/probability';
 import SoulShardTracker from '../soulshards/SoulShardTracker';
 
 const HOG_SP_COEFFICIENT = 0.16; // taken from Simcraft SpellDataDump
@@ -69,20 +69,7 @@ class DemonicMeteor extends Analyzer {
   statistic() {
     const shardsGained = this.soulShardTracker.getGeneratedBySpell(SPELLS.DEMONIC_METEOR_SHARD_GEN.id);
     // we need to get the amount of shards we were most likely to get given certain probabilities
-    // this corresponds to the highest PMF in the distribution
-    // since Poisson binomial distribution has a bell shape similar to regular binomial, we only need to find the maximum probability for given k
-    // once it starts to decrease, we can break the loop
-    let max = -1;
-    let maxP = 0;
-    for (let i = 0; i <= this.probabilities.length; i++) {
-      const p = poissonBinomialPMF(i, this.probabilities.length, this.probabilities);
-      if (p > maxP) {
-        max = i;
-        maxP = p;
-      } else if (p < maxP) {
-        break;
-      }
-    }
+    const { k: max } = findMax(this.probabilities.length, this.probabilities, poissonBinomialPMF);
     return (
       <TraitStatisticBox
         trait={SPELLS.DEMONIC_METEOR.id}

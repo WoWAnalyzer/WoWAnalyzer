@@ -9,7 +9,7 @@ import SpellLink from 'common/SpellLink';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
-import { binomialPMF } from 'parser/warlock/shared/probability';
+import { binomialPMF, findMax } from 'parser/warlock/shared/probability';
 import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
 import SoulShardTracker from '../soulshards/SoulShardTracker';
 
@@ -42,20 +42,8 @@ class SoulConduit extends Analyzer {
     const shardsGained = this.soulShardTracker.getGeneratedBySpell(SPELLS.SOUL_CONDUIT_SHARD_GEN.id);
     const estimatedUAdamage = shardsGained * TICKS_PER_UA * avgDamage;
     const totalSpent = this.soulShardTracker.spent;
-    // similar to what we do in DemonicMeteor
-    // Binomial distribution follows a bell-shaped curve
-    // iterate upwards from k = 0, search for local (=global) maximum, when value starts to decrease, break
-    let max = -1;
-    let maxP = 0;
-    for (let i = 0; i <= totalSpent; i++) {
-      const p = binomialPMF(i, totalSpent, SC_PROC_CHANCE);
-      if (p > maxP) {
-        max = i;
-        maxP = p;
-      } else if (p < maxP) {
-        break;
-      }
-    }
+    // find number of Shards we were MOST LIKELY to get in the fight
+    const { k: max } = findMax(totalSpent, SC_PROC_CHANCE, binomialPMF);
     return (
       <StatisticListBoxItem
         title={<>Shards generated with <SpellLink id={SPELLS.SOUL_CONDUIT_TALENT.id} /></>}

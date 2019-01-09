@@ -114,3 +114,30 @@ export function binomialCDF(k, n, p) {
   }
   return probability;
 }
+
+/**
+ * Finds the maximum of PMF of given distribution. Meant to be used with `binomialPMF` or `poissonBinomialPMF` (because of the shape).
+ * @param n {Number} Maximum number of tries for given event
+ * @param p {Number|[Number]} Probability or probability vector
+ * @param pmf {Function} PMF function - meant to be `binomialPMF` or `poissonBinomialPMF`
+ * @returns Maximum of given PMF function - argument and probability itself
+ */
+export function findMax(n, p, pmf) {
+  // Since Binomial and Poisson binomial distributions both have bell like shape, we can iterate upwards from k = 0
+  // When the probability starts to decrease, we've found the local (and global) maximum of the function and we can break and return
+  let k = -1;
+  let max = 0;
+  for (let i = 0; i <= n; i++) {
+    const probability = pmf(i, n, p);
+    if (probability > max) {
+      k = i;
+      max = probability;
+    } else if (probability < max) {
+      break;
+    }
+  }
+  return {
+    k,
+    p: max,
+  };
+}

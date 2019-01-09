@@ -8,7 +8,7 @@ import { formatPercentage } from 'common/format';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
-import { binomialPMF } from 'parser/warlock/shared/probability';
+import { binomialPMF, findMax } from 'parser/warlock/shared/probability';
 import SoulShardTracker from '../soulshards/SoulShardTracker';
 
 const SHARDS_PER_HOG = 3;
@@ -28,24 +28,13 @@ class SoulConduit extends Analyzer {
     const generated = this.soulShardTracker.getGeneratedBySpell(SPELLS.SOUL_CONDUIT_SHARD_GEN.id);
     const extraHogs = Math.floor(generated / SHARDS_PER_HOG);
     const totalSpent = this.soulShardTracker.spent;
-    // Binomial distribution follows a bell-shaped curve
-    // iterate upwards from k = 0, search for local (=global) maximum, when value starts to decrease, break
-    let max = -1;
-    let maxP = 0;
-    for (let i = 0; i <= totalSpent; i++) {
-      const p = binomialPMF(i, totalSpent, SC_PROC_CHANCE);
-      if (p > maxP) {
-        max = i;
-        maxP = p;
-      } else if (p < maxP) {
-        break;
-      }
-    }
+    // find number of Shards we were MOST LIKELY to get in the fight
+    const { k: max } = findMax(totalSpent, SC_PROC_CHANCE, binomialPMF);
     return (
       <StatisticListBoxItem
         title={<>Shards generated with <SpellLink id={SPELLS.SOUL_CONDUIT_TALENT.id} /></>}
         value={generated}
-        valueTooltip={`You gained ${generated} Soul Shards from this talent, which is <strong>${formatPercentage(generated / max)}%</strong> of Shards you were most likely to get in this fight (${max} Shards)<br />
+        valueTooltip={`You gained ${generated} Shards from this talent, which is <strong>${formatPercentage(generated / max)}%</strong> of Shards you were most likely to get in this fight (${max} Shards)<br />
                       You would get ${extraHogs} extra 3 shard Hands of Gul'dan with shards from this talent.`}
       />
     );
