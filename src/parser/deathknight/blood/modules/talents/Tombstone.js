@@ -6,7 +6,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 const RPPERCHARGE = 6;
 const MAXCHARGES = 5;
@@ -114,20 +114,22 @@ class Tombstone extends Analyzer {
               <tr key={i}>
                 <th>{this.tombstone[i].charges}</th>
                 <td>
-                  <Tooltip content={<><strong>RP Generated:</strong> {this.tombstone[i].rpGained - this.tombstone[i].rpWasted}</>}>
+                  <TooltipElement content={<><strong>RP Generated:</strong> {this.tombstone[i].rpGained - this.tombstone[i].rpWasted}</>}>
                     {this.tombstone[i].rpWasted}
-                  </Tooltip>
+                  </TooltipElement>
                 </td>
                 <td>
-                  <Tooltip
-                    content={(<>
-                      <strong>Damage Absorbed:</strong> {formatNumber(this.tombstone[i].totalAbsorbed)} <br />
-                      <strong>Absorb Shield: </strong> {formatNumber(this.tombstone[i].absorbSize)} <br />
-                      <strong>Healing: </strong> {this.owner.formatItemHealingDone(this.tombstone[i].totalAbsorbed)}
-                    </>)}
+                  <TooltipElement
+                    content={(
+                      <>
+                        <strong>Damage Absorbed:</strong> {formatNumber(this.tombstone[i].totalAbsorbed)} <br />
+                        <strong>Absorb Shield: </strong> {formatNumber(this.tombstone[i].absorbSize)} <br />
+                        <strong>Healing: </strong> {this.owner.formatItemHealingDone(this.tombstone[i].totalAbsorbed)}
+                      </>
+                    )}
                   >
                     {formatPercentage(this.tombstone[i].totalAbsorbed / this.tombstone[i].absorbSize)}%
-                  </Tooltip>
+                  </TooltipElement>
                 </td>
               </tr>
             ))}

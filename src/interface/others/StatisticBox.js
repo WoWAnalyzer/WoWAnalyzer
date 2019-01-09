@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Tooltip from 'common/Tooltip';
+import { TooltipElement, Tooltip } from 'common/Tooltip';
 import './StatisticBox.css';
 import STATISTIC_CATEGORY from './STATISTIC_CATEGORY';
 
@@ -68,7 +68,7 @@ class StatisticBox extends React.PureComponent {
                 {icon} {label}
               </div>
               <div className="value">
-                {tooltip ? <Tooltip wrapperStyles={{ display: 'inline' }} content={tooltip}>{value}</Tooltip> : value}
+                {tooltip ? <TooltipElement content={tooltip}>{value}</TooltipElement> : value}
               </div>
 
               {footer && (
@@ -79,14 +79,14 @@ class StatisticBox extends React.PureComponent {
 
               {warcraftLogs && (
                 <div className="warcraft-logs-link">
-                  <Tooltip
-                    content="View details on Warcraft Logs"
-                    tagName="a"
-                    href={warcraftLogs}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <img src="/img/wcl.png" alt="Warcraft Logs logo" />
+                  <Tooltip content="View details on Warcraft Logs">
+                    <a
+                      href={warcraftLogs}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img src="/img/wcl.png" alt="Warcraft Logs logo" />
+                    </a>
                   </Tooltip>
                 </div>
               )}

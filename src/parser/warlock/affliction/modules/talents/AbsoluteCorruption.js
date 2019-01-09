@@ -34,11 +34,13 @@ class AbsoluteCorruption extends Analyzer {
       <StatisticListBoxItem
         title={<><SpellLink id={SPELLS.ABSOLUTE_CORRUPTION_TALENT.id} /> bonus damage</>}
         value={this.owner.formatItemDamageDone(this.bonusDmg)}
-        valueTooltip={(<>
-          {formatThousands(this.bonusDmg)} bonus damage<br /><br />
+        valueTooltip={(
+          <>
+            {formatThousands(this.bonusDmg)} bonus damage<br /><br />
 
-          Note: This only accounts for the passive 15% increased damage of Corruption. Actual bonus damage should be higher due to saved GCDs.
-        </>)}
+            Note: This only accounts for the passive 15% increased damage of Corruption. Actual bonus damage should be higher due to saved GCDs.
+          </>
+        )}
       />
     );
   }

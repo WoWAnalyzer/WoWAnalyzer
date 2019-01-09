@@ -31,10 +31,12 @@ class Avatar extends Analyzer {
         icon={<SpellIcon id={SPELLS.AVATAR_TALENT.id} />}
         value={`${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS`}
         label="Damage contributed"
-        tooltip={(<>
-          Avatar contributed {formatNumber(this.bonusDmg)} total damage ({formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%). <br />
-          Uptime was {formatPercentage(this.uptime)}%
-        </>)}
+        tooltip={(
+          <>
+            Avatar contributed {formatNumber(this.bonusDmg)} total damage ({formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%). <br />
+            Uptime was {formatPercentage(this.uptime)}%
+          </>
+        )}
       />
     );
   }

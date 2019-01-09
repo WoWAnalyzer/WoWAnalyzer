@@ -190,15 +190,17 @@ class HeatingUp extends Analyzer {
           {' '}{formatPercentage(this.phoenixFlamesUtil, 0)} %
         </>)}
         label="Heating Up Utilization"
-        tooltip={(<>
-          Spells that are guaranteed to crit like Fire Blast and Phoenix Flames should only be used to convert Heating Up to Hot Streak. While there are minor exceptions to this (like if you are about to cap on Phoenix Flames charges or using Fireball & Phoenixs Flames to bait Heating Up/Hot Streak just before Combustion), the goal should be to waste as few of these as possible.
-          <ul>
-            <li>Fireblast Used with no procs: {this.fireBlastWithoutHeatingUp}</li>
-            <li>Fireblast used during Hot Streak: {this.fireBlastWithHotStreak}</li>
-            <li>Phoenix Flames used with no procs: {this.phoenixFlamesWithoutHeatingUp}</li>
-            <li>Phoenix Flames used during Hot Streak: {this.phoenixFlamesWithHotStreak}</li>
-          </ul>
-        </>)}
+        tooltip={(
+          <>
+            Spells that are guaranteed to crit like Fire Blast and Phoenix Flames should only be used to convert Heating Up to Hot Streak. While there are minor exceptions to this (like if you are about to cap on Phoenix Flames charges or using Fireball & Phoenixs Flames to bait Heating Up/Hot Streak just before Combustion), the goal should be to waste as few of these as possible.
+            <ul>
+              <li>Fireblast Used with no procs: {this.fireBlastWithoutHeatingUp}</li>
+              <li>Fireblast used during Hot Streak: {this.fireBlastWithHotStreak}</li>
+              <li>Phoenix Flames used with no procs: {this.phoenixFlamesWithoutHeatingUp}</li>
+              <li>Phoenix Flames used during Hot Streak: {this.phoenixFlamesWithHotStreak}</li>
+            </ul>
+          </>
+        )}
       />
     );
   }
@@ -210,13 +212,15 @@ class HeatingUp extends Analyzer {
         icon={<SpellIcon id={SPELLS.HEATING_UP.id} />}
         value={`${formatPercentage(this.fireBlastUtil, 0)} %`}
         label="Heating Up Utilization"
-        tooltip={(<>
-          Spells that are guaranteed to crit like Fire Blast should only be used to convert Heating Up to Hot Streak.
-          <ul>
-            <li>Fireblast Used with no procs: {this.fireBlastWithoutHeatingUp}</li>
-            <li>Fireblast used during Hot Streak: {this.fireBlastWithHotStreak}</li>
-          </ul>
-        </>)}
+        tooltip={(
+          <>
+            Spells that are guaranteed to crit like Fire Blast should only be used to convert Heating Up to Hot Streak.
+            <ul>
+              <li>Fireblast Used with no procs: {this.fireBlastWithoutHeatingUp}</li>
+              <li>Fireblast used during Hot Streak: {this.fireBlastWithHotStreak}</li>
+            </ul>
+          </>
+        )}
       />
     );
   }

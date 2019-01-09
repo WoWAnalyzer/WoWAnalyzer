@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Tooltip from 'common/Tooltip';
+import { TooltipElement, Tooltip } from 'common/Tooltip';
 import { formatDuration } from '../../../../common/format';
 import Icon from '../../../../common/Icon';
 import SpellLink from '../../../../common/SpellLink';
@@ -131,17 +131,16 @@ class Casts extends React.PureComponent {
     const fightDuration = (event.start - start) / 1000;
 
     return (
-      <Tooltip
-        content={`${formatDuration(fightDuration, 3)}: ${(event.duration / 1000).toFixed(2)}s channel by ${event.ability.name}`}
-        key={`channel-${left}-${event.ability.guid}`}
-        className="channel"
-        wrapperStyles={{
-          left,
-          width: event.duration / 1000 * this.props.secondWidth,
-          position: 'absolute',
-        }}
-        tagName="div"
-      />
+      <Tooltip content={`${formatDuration(fightDuration, 3)}: ${(event.duration / 1000).toFixed(2)}s channel by ${event.ability.name}`}>
+        <div
+          key={`channel-${left}-${event.ability.guid}`}
+          className="channel"
+          style={{
+            left,
+            width: event.duration / 1000 * this.props.secondWidth,
+          }}
+        />
+      </Tooltip>
     );
   }
   renderGlobalCooldown(event) {
@@ -150,17 +149,16 @@ class Casts extends React.PureComponent {
     const fightDuration = (event.timestamp - start) / 1000;
 
     return (
-      <Tooltip
-        content={`${formatDuration(fightDuration, 3)}: ${(event.duration / 1000).toFixed(2)}s Global Cooldown by ${event.ability.name}`}
-        key={`gcd-${left}-${event.ability.guid}`}
-        className="gcd"
-        wrapperStyles={{
-          left,
-          width: event.duration / 1000 * this.props.secondWidth,
-          position: 'absolute',
-        }}
-        tagName="div"
-      />
+      <Tooltip content={`${formatDuration(fightDuration, 3)}: ${(event.duration / 1000).toFixed(2)}s Global Cooldown by ${event.ability.name}`}>
+        <div
+          key={`gcd-${left}-${event.ability.guid}`}
+          className="gcd"
+          style={{
+            left,
+            width: event.duration / 1000 * this.props.secondWidth,
+          }}
+        />
+      </Tooltip>
     );
   }
   render() {

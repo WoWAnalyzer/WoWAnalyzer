@@ -90,13 +90,15 @@ class HitCountAoE extends Analyzer {
         icon={<SpellIcon id={this.constructor.spell.id} />}
         value={`${this.averageTargetsHit.toFixed(1)}`}
         label={`Average targets hit by ${this.constructor.spell.name}`}
-        tooltip={(<>
-          You used {this.constructor.spell.name} <strong>{this.casts}</strong> time{(this.casts === 1) ? '' : 's'}.<br />
-          <ul>
-            <li><strong>{this.castsWithOneHit}</strong> hit just 1 target.</li>
-            <li><strong>{this.castsWithZeroHits}</strong> hit nothing at all</li>
-          </ul>
-        </>)}
+        tooltip={(
+          <>
+            You used {this.constructor.spell.name} <strong>{this.casts}</strong> time{(this.casts === 1) ? '' : 's'}.<br />
+            <ul>
+              <li><strong>{this.castsWithOneHit}</strong> hit just 1 target.</li>
+              <li><strong>{this.castsWithZeroHits}</strong> hit nothing at all</li>
+            </ul>
+          </>
+        )}
         position={statisticPosition}
       />
     );

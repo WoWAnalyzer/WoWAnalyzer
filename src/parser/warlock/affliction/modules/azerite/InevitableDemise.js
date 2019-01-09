@@ -60,11 +60,13 @@ class InevitableDemise extends Analyzer {
       <TraitStatisticBox
         trait={SPELLS.INEVITABLE_DEMISE.id}
         value={<ItemDamageDone amount={this.damage} approximate />}
-        tooltip={(<>
-          Estimated bonus Drain Life damage: {formatThousands(this.damage)}<br /><br />
+        tooltip={(
+          <>
+            Estimated bonus Drain Life damage: {formatThousands(this.damage)}<br /><br />
 
-          The damage is an approximation using current Intellect values at given time. Note that because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be also little incorrect
-        </>)}
+            The damage is an approximation using current Intellect values at given time. Note that because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be also little incorrect
+          </>
+        )}
       />
     );
   }

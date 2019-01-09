@@ -49,13 +49,15 @@ class SpringBlossoms extends Analyzer {
         icon={<SpellIcon id={SPELLS.SPRING_BLOSSOMS.id} />}
         value={`${formatPercentage(this.totalPercent)} %`}
         label="Spring Blossoms Healing"
-        tooltip={(<>
-          This is the sum of the direct healing from Spring Blossoms and the healing enabled by Spring Blossom's extra mastery stack.
-          <ul>
-            <li>Direct: <strong>{formatPercentage(this.directPercent)}%</strong></li>
-            <li>Mastery: <strong>{formatPercentage(this.masteryPercent)}%</strong></li>
-          </ul>
-        </>)}
+        tooltip={(
+          <>
+            This is the sum of the direct healing from Spring Blossoms and the healing enabled by Spring Blossom's extra mastery stack.
+            <ul>
+              <li>Direct: <strong>{formatPercentage(this.directPercent)}%</strong></li>
+              <li>Mastery: <strong>{formatPercentage(this.masteryPercent)}%</strong></li>
+            </ul>
+          </>
+        )}
       />
     );
   }

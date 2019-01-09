@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import SpellLink from 'common/SpellLink';
 
 import Abilities from 'parser/core/modules/Abilities';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 const CastEfficiency = ({ categories, abilities }) => {
   if (!abilities) {
@@ -20,9 +20,9 @@ const CastEfficiency = ({ categories, abilities }) => {
             <tbody key={key}>
               <tr>
                 <th><b>{categories[key]}</b></th>
-                <th className="text-center"><Tooltip content="Casts Per Minute">CPM</Tooltip></th>
-                <th className="text-right"><Tooltip content="Maximum possible casts are based on the ability's cooldown and the fight duration. For abilities that can have their cooldowns dynamically reduced or reset, it's based on the average actual time it took the ability to cooldown over the course of this encounter.">Casts</Tooltip></th>
-                <th className="text-center"><Tooltip content="The percentage of time the spell was kept on cooldown. For spells without charges this also includes when the spell was unavailable due to cast time or time spent waiting for a GCD when the spell was reset due to a proc. Spells with multiple charges count as on cooldown as long as you have fewer than maximum charges. For spells with long cooldowns, it's possible to have well below 100% on cooldown and still achieve maximum casts.">Time on Cooldown</Tooltip></th>
+                <th className="text-center"><TooltipElement content="Casts Per Minute">CPM</TooltipElement></th>
+                <th className="text-right"><TooltipElement content="Maximum possible casts are based on the ability's cooldown and the fight duration. For abilities that can have their cooldowns dynamically reduced or reset, it's based on the average actual time it took the ability to cooldown over the course of this encounter.">Casts</TooltipElement></th>
+                <th className="text-center"><TooltipElement content="The percentage of time the spell was kept on cooldown. For spells without charges this also includes when the spell was unavailable due to cast time or time spent waiting for a GCD when the spell was reset due to a proc. Spells with multiple charges count as on cooldown as long as you have fewer than maximum charges. For spells with long cooldowns, it's possible to have well below 100% on cooldown and still achieve maximum casts.">Time on Cooldown</TooltipElement></th>
                 <th />
               </tr>
               {abilities

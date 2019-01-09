@@ -121,12 +121,12 @@ class MongooseBite extends Analyzer {
           <ItemDamageDone amount={this.damage} /> <br />
           {this.fiveStackMongooseBites}/{this.totalMongooseBites} 5 stack bites
         </>}
-        tooltip={(<>
+        tooltip={(
           <ul>
             <li>You hit an average of {(this.mongooseBiteStacks[MAX_STACKS] / this.fiveBiteWindows).toFixed(1)} bites when you had {MAX_STACKS} stacks of Mongoose Fury. </li>
             <li>You hit an average of {(this.totalMongooseBites / this.totalWindowsStarted).toFixed(1)} bites per Mongoose Fury window started.</li>
           </ul>
-        </>)}
+        )}
       >
         <table className="table table-condensed">
           <thead>

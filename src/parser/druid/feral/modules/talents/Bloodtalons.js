@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import HIT_TYPES from 'game/HIT_TYPES';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 const debug = false;
 
@@ -251,9 +251,9 @@ class Bloodtalons extends Analyzer {
             {label}
           </div>
           <div className="flex-sub">
-            <Tooltip content={tooltip}>
+            <TooltipElement content={tooltip}>
               {formatPercentage(value / total, 0)}%
-            </Tooltip>
+            </TooltipElement>
           </div>
         </div>
       );

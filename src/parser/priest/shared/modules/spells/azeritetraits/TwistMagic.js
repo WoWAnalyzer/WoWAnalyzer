@@ -40,10 +40,12 @@ class TwistMagic extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.TWIST_MAGIC_TRAIT.id}
         value={<ItemHealingDone amount={this.twistMagicHealing} />}
-        tooltip={(<>
-          {formatThousands(this.twistMagicHealing)} Total Healing<br />
-          {formatThousands(this.totalDispels)} Total Dispels
-        </>)}
+        tooltip={(
+          <>
+            {formatThousands(this.twistMagicHealing)} Total Healing<br />
+            {formatThousands(this.totalDispels)} Total Dispels
+          </>
+        )}
       />
     );
   }

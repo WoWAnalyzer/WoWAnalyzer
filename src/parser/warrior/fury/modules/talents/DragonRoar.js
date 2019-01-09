@@ -47,11 +47,13 @@ class DragonRoar extends Analyzer {
         talent={SPELLS.DRAGON_ROAR_TALENT.id}
         value={`${formatNumber(this.totalDamage / this.owner.fightDuration * 1000)} DPS`}
         label="Dragon Roar"
-        tooltip={(<>
-          Damage done: <strong>{formatThousands(this.totalDamage)} ({formatPercentage(this.percentageDamage)}%)</strong><br />
-          Rage gained: <strong>{formatThousands(this.rageGained)}</strong><br />
-          Enemies slowed: <strong>{formatThousands(this.targetsSlowed)}</strong>
-        </>)}
+        tooltip={(
+          <>
+            Damage done: <strong>{formatThousands(this.totalDamage)} ({formatPercentage(this.percentageDamage)}%)</strong><br />
+            Rage gained: <strong>{formatThousands(this.rageGained)}</strong><br />
+            Enemies slowed: <strong>{formatThousands(this.targetsSlowed)}</strong>
+          </>
+        )}
       />
     );
   }

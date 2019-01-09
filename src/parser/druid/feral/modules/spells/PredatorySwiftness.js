@@ -143,14 +143,16 @@ class PredatorySwiftness extends Analyzer {
         icon={<SpellIcon id={SPELLS.PREDATORY_SWIFTNESS.id} />}
         value={`${formatPercentage(1 - this.wastedFraction)}%`}
         label="Predatory Swiftness buffs used"
-        tooltip={(<>
-          You used <strong>{this.used}</strong> out of <strong>{this.generated}</strong> Predatory Swiftness buffs to instant-cast Regrowth or Entangling Roots{this.selectedCombatant.hasTalent(SPELLS.BLOODTALONS_TALENT.id) ? ' and trigger the Bloodtalons buff' : ''}. <br/>
-          <ul>
-            <li>The buff was allowed to expire <strong>{this.expired}</strong> time{this.expired !== 1 ? 's' : ''}.</li>
-            <li>You used another finisher while the buff was still active and overwrote it <strong>{this.overwritten}</strong> time{this.overwritten !== 1 ? 's' : ''}.</li>
-            <li>You had <strong>{this.remainAfterFight}</strong> remaining unused at the end of the fight.</li>
-          </ul>
-        </>)}
+        tooltip={(
+          <>
+            You used <strong>{this.used}</strong> out of <strong>{this.generated}</strong> Predatory Swiftness buffs to instant-cast Regrowth or Entangling Roots{this.selectedCombatant.hasTalent(SPELLS.BLOODTALONS_TALENT.id) ? ' and trigger the Bloodtalons buff' : ''}. <br/>
+            <ul>
+              <li>The buff was allowed to expire <strong>{this.expired}</strong> time{this.expired !== 1 ? 's' : ''}.</li>
+              <li>You used another finisher while the buff was still active and overwrote it <strong>{this.overwritten}</strong> time{this.overwritten !== 1 ? 's' : ''}.</li>
+              <li>You had <strong>{this.remainAfterFight}</strong> remaining unused at the end of the fight.</li>
+            </ul>
+          </>
+        )}
         position={STATISTIC_ORDER.OPTIONAL(5)}
       />
     );

@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatPercentage } from 'common/format';
 import { calculatePrimaryStat } from 'common/stats';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
@@ -63,9 +63,9 @@ class AzerokksResonatingHeart extends Analyzer {
     return {
       item: ITEMS.AZEROKKS_RESONATING_HEART,
       result: (
-        <Tooltip content={<>You procced <strong>{SPELLS.BENEFICIAL_VIBRATIONS.name}</strong> {this.procs} times with an uptime of {formatPercentage(this.uptime)}%.</>}>
+        <TooltipElement content={<>You procced <strong>{SPELLS.BENEFICIAL_VIBRATIONS.name}</strong> {this.procs} times with an uptime of {formatPercentage(this.uptime)}%.</>}>
           {this.averageAgility} average Agility
-        </Tooltip>
+        </TooltipElement>
       ),
     };
   }

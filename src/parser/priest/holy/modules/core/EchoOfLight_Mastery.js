@@ -9,7 +9,7 @@ import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import Combatants from 'parser/shared/modules/Combatants';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 import { formatNumber, formatPercentage } from 'common/format';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 import { ABILITIES_THAT_TRIGGER_MASTERY } from '../../constants';
 
 const DEBUG = false;
@@ -208,9 +208,9 @@ class EchoOfLight_Mastery extends Analyzer {
             <td>{formatNumber(spellDetails[i].effectiveHealing)}</td>
             <td>{formatPercentage(this.getPercentOfTotalHealingBySpell(spellDetails[i].spellId))}%</td>
             <td>
-              <Tooltip content={`${formatNumber(spellDetails[i].overHealing)} Overhealing`}>
+              <TooltipElement content={`${formatNumber(spellDetails[i].overHealing)} Overhealing`}>
                 {formatPercentage(this.getMasteryOverhealPercentBySpell(spellDetails[i].spellId))}%
-              </Tooltip>
+              </TooltipElement>
             </td>
           </tr>
         );
@@ -225,9 +225,9 @@ class EchoOfLight_Mastery extends Analyzer {
           <td>{formatNumber(this.precastValues.effectiveHealing)}</td>
           <td>{formatPercentage(this.precastValues.effectiveHealing / this.healingDone.total.effective)}%</td>
           <td>
-            <Tooltip content={`${formatNumber(this.precastValues.overhealing)} Overhealing`}>
+            <TooltipElement content={`${formatNumber(this.precastValues.overhealing)} Overhealing`}>
               {formatPercentage(this.precastValues.overhealing / this.precastValues.rawHealing)}%
-            </Tooltip>
+            </TooltipElement>
           </td>
         </tr>
       );
@@ -240,20 +240,20 @@ class EchoOfLight_Mastery extends Analyzer {
       <StatisticBox
         position={STATISTIC_ORDER.CORE(2)}
         icon={<SpellIcon id={SPELLS.ECHO_OF_LIGHT.id} />}
-        value={(
-          <Tooltip content={`Total Healing: ${formatNumber(this.effectiveHealing)} (${formatPercentage(this.overHealingPercent)}% OH)`} wrapperStyles={{ display: 'inline' }}>
-            <ItemHealingDone amount={this.effectiveHealing} />
-          </Tooltip>
-        )}
+        value={<ItemHealingDone amount={this.effectiveHealing} />}
+        tooltip={`Total Healing: ${formatNumber(this.effectiveHealing)} (${formatPercentage(this.overHealingPercent)}% OH)`}
         label={(
-          <Tooltip content={(<>
-            Echo of Light healing breakdown. As our mastery is often very finicky, this could end up wrong in various situations. Please report any logs that seem strange to @Khadaj on the WoWAnalyzer discord.<br /><br />
-            <strong>Please do note this may not be 100% accurate.</strong><br /><br />
-            Also, a mastery value can be more than just "healing done times mastery percent" because Echo of Light is based off raw healing. If the heal itself overheals, but the mastery does not, it can surpass that assumed "limit". Don't use this as a reason for a "strange log" unless something is absurdly higher than its effective healing.
-          </>)}
+          <TooltipElement
+            content={(
+              <>
+                Echo of Light healing breakdown. As our mastery is often very finicky, this could end up wrong in various situations. Please report any logs that seem strange to @Khadaj on the WoWAnalyzer discord.<br /><br />
+                <strong>Please do note this may not be 100% accurate.</strong><br /><br />
+                Also, a mastery value can be more than just "healing done times mastery percent" because Echo of Light is based off raw healing. If the heal itself overheals, but the mastery does not, it can surpass that assumed "limit". Don't use this as a reason for a "strange log" unless something is absurdly higher than its effective healing.
+              </>
+            )}
           >
             Echo of Light
-          </Tooltip>
+          </TooltipElement>
         )}
       >
         <div>Values under 1% of total are omitted.</div>

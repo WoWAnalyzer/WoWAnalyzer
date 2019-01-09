@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 /**
  * @deprecated Use `interface/statistic/Statistic` instead.
@@ -9,10 +9,10 @@ const StatisticListBoxItem = ({ title, value, titleTooltip, valueTooltip}) => {
   return (
     <div className="flex">
       <div className="flex-main">
-        {titleTooltip ? <Tooltip wrapperStyles={{ display: 'inline' }} content={titleTooltip}>{title}</Tooltip> : title}
+        {titleTooltip ? <TooltipElement content={titleTooltip}>{title}</TooltipElement> : title}
       </div>
       <div className="flex-sub text-right">
-        {valueTooltip ? <Tooltip wrapperStyles={{ display: 'inline' }} content={valueTooltip}>{value}</Tooltip> : value}
+        {valueTooltip ? <TooltipElement content={valueTooltip}>{value}</TooltipElement> : value}
       </div>
     </div>
   );

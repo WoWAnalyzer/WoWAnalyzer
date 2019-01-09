@@ -176,13 +176,15 @@ class WildFleshrending extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.WILD_FLESHRENDING.id}
         value={<ItemDamageDone amount={this.shredDamage + this.swipeDamage} />}
-        tooltip={(<>
-          The Wild Fleshrending trait increased your Shred damage by a total of <strong>{formatNumber(this.shredDamage)}</strong> and {swipeName} by <strong>{formatNumber(this.swipeDamage)}</strong>.
-          <ul>
-            <li><strong>{(100 * this.shredsWithThrash / this.shredsTotal).toFixed(0)}%</strong> of your Shreds benefited from Wild Fleshrending.</li>
-            <li><strong>{(100 * this.swipesWithThrash / this.swipesTotal).toFixed(0)}%</strong> of your {swipeName}s benefited from Wild Fleshrending.</li>
-          </ul>
-        </>)}
+        tooltip={(
+          <>
+            The Wild Fleshrending trait increased your Shred damage by a total of <strong>{formatNumber(this.shredDamage)}</strong> and {swipeName} by <strong>{formatNumber(this.swipeDamage)}</strong>.
+            <ul>
+              <li><strong>{(100 * this.shredsWithThrash / this.shredsTotal).toFixed(0)}%</strong> of your Shreds benefited from Wild Fleshrending.</li>
+              <li><strong>{(100 * this.swipesWithThrash / this.swipesTotal).toFixed(0)}%</strong> of your {swipeName}s benefited from Wild Fleshrending.</li>
+            </ul>
+          </>
+        )}
       />
     );
   }

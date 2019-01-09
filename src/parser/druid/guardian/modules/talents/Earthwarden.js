@@ -78,11 +78,13 @@ class Earthwarden extends Analyzer {
         icon={<SpellIcon id={SPELLS.EARTHWARDEN_BUFF.id} />}
         label="Hits mitigated by Earthwarden"
         value={`${formatPercentage(this.percentOfSwingsMitigated)}%`}
-        tooltip={(<>
-          You mitigated {this.swingsMitigated} out of a possible {this.totalSwings} attacks ({formatPercentage(this.percentOfSwingsMitigated)}%) with Earthwarden. <br /><br />
+        tooltip={(
+          <>
+            You mitigated {this.swingsMitigated} out of a possible {this.totalSwings} attacks ({formatPercentage(this.percentOfSwingsMitigated)}%) with Earthwarden. <br /><br />
 
-          ({formatPercentage(this.totalMitigation)}% of total damage, {formatNumber(this.hps)} HPS)
-        </>)}
+            ({formatPercentage(this.totalMitigation)}% of total damage, {formatNumber(this.hps)} HPS)
+          </>
+        )}
       />
     );
   }

@@ -105,17 +105,19 @@ class StormElemental extends Analyzer {
         icon={<SpellIcon id={SPELLS.STORM_ELEMENTAL_TALENT.id} />}
         value={`${formatNumber(this.averageLightningBoltCasts)}`}
         label="Average Number Of Lightning Bolts per Storm Elemental Cast"
-        tooltip={(<>
-          With a uptime of: {formatPercentage(this.stormEleUptime)} %<br />
-          Casts while Storm Elemental was up:
-          <ul>
-            <li>Earth Shock: {this.numCasts[SPELLS.EARTH_SHOCK.id]}</li>
-            <li>Lightning Bolt: {this.numCasts[SPELLS.LIGHTNING_BOLT.id]}</li>
-            <li>Earthquake: {this.numCasts[SPELLS.EARTHQUAKE.id]}</li>
-            <li>Chain Lightning: {this.numCasts[SPELLS.CHAIN_LIGHTNING.id]}</li>
-            <li>Other Spells: {this.numCasts.others}</li>
-          </ul>
-        </>)}
+        tooltip={(
+          <>
+            With a uptime of: {formatPercentage(this.stormEleUptime)} %<br />
+            Casts while Storm Elemental was up:
+            <ul>
+              <li>Earth Shock: {this.numCasts[SPELLS.EARTH_SHOCK.id]}</li>
+              <li>Lightning Bolt: {this.numCasts[SPELLS.LIGHTNING_BOLT.id]}</li>
+              <li>Earthquake: {this.numCasts[SPELLS.EARTHQUAKE.id]}</li>
+              <li>Chain Lightning: {this.numCasts[SPELLS.CHAIN_LIGHTNING.id]}</li>
+              <li>Other Spells: {this.numCasts.others}</li>
+            </ul>
+          </>
+        )}
       />
     );
   }

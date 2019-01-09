@@ -87,13 +87,15 @@ class CancelledCasts extends Analyzer {
         icon={<Icon icon="inv_misc_map_01" alt="Cancelled Casts" />}
         value={`${formatPercentage(this.cancelledPercentage)} %`}
         label="Casts Cancelled"
-        tooltip={(<>
-          You cast {this.totalCasts} spells.
-          <ul>
-            <li>{this.castsFinished} casts were completed</li>
-            <li>{this.castsCancelled} casts were cancelled</li>
-          </ul>
-        </>)}
+        tooltip={(
+          <>
+            You cast {this.totalCasts} spells.
+            <ul>
+              <li>{this.castsFinished} casts were completed</li>
+              <li>{this.castsCancelled} casts were cancelled</li>
+            </ul>
+          </>
+        )}
       />
     );
   }

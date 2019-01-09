@@ -70,10 +70,12 @@ class Tradewinds extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.TRADEWINDS.id}
         value={`${this.averageMastery} average Mastery`}
-        tooltip={(<>
-          {SPELLS.TRADEWINDS.name} grants <strong>{this.mastery} mastery</strong> while active.<br />
-          You had <strong>{this.procs} {SPELLS.TRADEWINDS.name} procs</strong> resulting in {formatPercentage(this.uptime)}% uptime.
-        </>)}
+        tooltip={(
+          <>
+            {SPELLS.TRADEWINDS.name} grants <strong>{this.mastery} mastery</strong> while active.<br />
+            You had <strong>{this.procs} {SPELLS.TRADEWINDS.name} procs</strong> resulting in {formatPercentage(this.uptime)}% uptime.
+          </>
+        )}
       />
     );
   }

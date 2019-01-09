@@ -80,11 +80,13 @@ class Ossuary extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(3)}
         value={`${ this.dsWithoutOS } / ${ this.dsWithOS + this.dsWithoutOS }`}
         label="Death Strikes without Ossuary"
-        tooltip={(<>
-          {this.dsWithoutOS * OSSUARY_RUNICPOWER_REDUCTION} RP wasted by casting them without Ossuary up.<br />
-          {this.dsWithOS * OSSUARY_RUNICPOWER_REDUCTION} RP saved by casting them with Ossuary up.<br />
-          {formatPercentage(this.uptime)}% uptime.
-        </>)}
+        tooltip={(
+          <>
+            {this.dsWithoutOS * OSSUARY_RUNICPOWER_REDUCTION} RP wasted by casting them without Ossuary up.<br />
+            {this.dsWithOS * OSSUARY_RUNICPOWER_REDUCTION} RP saved by casting them with Ossuary up.<br />
+            {formatPercentage(this.uptime)}% uptime.
+          </>
+        )}
       />
     );
   }

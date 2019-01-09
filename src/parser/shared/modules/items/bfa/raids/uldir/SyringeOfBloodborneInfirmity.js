@@ -1,7 +1,7 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 import { calculateSecondaryStatDefault } from 'common/stats';
 import { formatPercentage, formatNumber } from 'common/format';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
@@ -60,13 +60,17 @@ class SyringeOfBloodborneInfirmity extends Analyzer {
     return {
       item: ITEMS.SYRINGE_OF_BLOODBORNE_INFIRMITY,
       result: (
-        <Tooltip wrapperStyles={{ display: 'inline' }} content={(<>
-          Hit <strong>{this.hits}</strong> times, causing <strong>{formatNumber(this.damage)}</strong> damage. <br />
-          Buff procced <strong>{this.buffTriggerCount()}</strong> times (<strong>{formatPercentage(this.totalBuffUptime())}%</strong> uptime).
-        </>)}>
+        <TooltipElement
+          content={(
+            <>
+              Hit <strong>{this.hits}</strong> times, causing <strong>{formatNumber(this.damage)}</strong> damage. <br />
+              Buff procced <strong>{this.buffTriggerCount()}</strong> times (<strong>{formatPercentage(this.totalBuffUptime())}%</strong> uptime).
+            </>
+          )}
+        >
           <ItemDamageDone amount={this.damage} /><br />
           {formatNumber(this.averageStatGain())} average Critical Strike
-        </Tooltip>
+        </TooltipElement>
       ),
     };
   }

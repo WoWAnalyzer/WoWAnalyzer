@@ -93,11 +93,13 @@ class LivelySpirit extends Analyzer{
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.LIVELY_SPIRIT_TRAIT.id}
         value={`${formatNumber(this.intGain)} average Intellect gained.`}
-        tooltip={(<>
-          This assumes that you cast your Innervates on yourself. <br />
-          This only shows average Intellect gained from using this trait and not how much your heals actually benefited from the Intellect gain.<br />
-          This is worth roughly <strong>{formatNumber(ilvlGain)}</strong> ({formatNumber(ilvlGain/this.traitLevel)} per level) item levels.
-        </>)}
+        tooltip={(
+          <>
+            This assumes that you cast your Innervates on yourself. <br />
+            This only shows average Intellect gained from using this trait and not how much your heals actually benefited from the Intellect gain.<br />
+            This is worth roughly <strong>{formatNumber(ilvlGain)}</strong> ({formatNumber(ilvlGain/this.traitLevel)} per level) item levels.
+          </>
+        )}
       />
     );
   }

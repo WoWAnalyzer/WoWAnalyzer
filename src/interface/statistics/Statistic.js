@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Tooltip from 'common/Tooltip';
+import { Tooltip } from 'common/Tooltip';
 import InfoIcon from 'interface/icons/Info';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
@@ -35,14 +35,13 @@ class Statistic extends React.PureComponent {
             {children}
           </div>
           {tooltip && (
-            <Tooltip
-              className="detail-corner"
-              content={tooltip}
-              data-place="top"
-              tagName="div"
-              wrapperStyles={{ position: 'absolute' }}
-            >
-              <InfoIcon />
+            <Tooltip content={tooltip}>
+              <div
+                className="detail-corner"
+                data-place="top"
+              >
+                <InfoIcon />
+              </div>
             </Tooltip>
           )}
         </div>

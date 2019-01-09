@@ -65,10 +65,12 @@ class PermeatingGlow extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.PERMEATING_GLOW_TALENT.id}
         value={<ItemHealingDone amount={this.permiatingGlowTotalHealAmount} />}
-        tooltip={(<>
-          {formatThousands(this.permiatingGlowTotalHealAmount)} Total Healing<br />
-          {formatThousands(this.permiatingGlowProcCount)} Total Procs
-        </>)}
+        tooltip={(
+          <>
+            {formatThousands(this.permiatingGlowTotalHealAmount)} Total Healing<br />
+            {formatThousands(this.permiatingGlowProcCount)} Total Procs
+          </>
+        )}
       />
     );
   }

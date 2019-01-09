@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 import Analyzer from 'parser/core/Analyzer';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
@@ -225,9 +225,9 @@ class Snapshot extends Analyzer {
           <SpellLink id={buffId} />
         </div>
         <div className="flex-sub text-right">
-          <Tooltip content={`${formatNumber(damageIncrease / this.owner.fightDuration * 1000)} DPS contributed by ${buffName} on your ${spellName} DoT`}>
+          <TooltipElement content={`${formatNumber(damageIncrease / this.owner.fightDuration * 1000)} DPS contributed by ${buffName} on your ${spellName} DoT`}>
             {formatPercentage(this.ticks === 0 ? 0 : ticksWithBuff / this.ticks)}%
-          </Tooltip>
+          </TooltipElement>
         </div>
       </div>
     );

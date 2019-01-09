@@ -86,15 +86,17 @@ class TrainingOfNiuzao extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.TRAINING_OF_NIUZAO.id}
         value={`${formatPercentage(this.statTracker.masteryPercentage(this.avgMastery, false))}% Avg. Mastery`}
-        tooltip={(<>
-          Contribution Breakdown:
-          <ul>
-            <li>No Stagger: <strong>{formatPercentage(1 - lightUptime - moderateUptime - heavyUptime)}%</strong> of the fight.</li>
-            <li>Light Stagger: <strong>{formatPercentage(lightUptime)}%</strong> of the fight at <strong>{formatNumber(lightMastery)} Mastery</strong>.</li>
-            <li>Moderate Stagger: <strong>{formatPercentage(moderateUptime)}%</strong> of the fight at <strong>{formatNumber(moderateMastery)} Mastery</strong>.</li>
-            <li>Heavy Stagger: <strong>{formatPercentage(heavyUptime)}%</strong> of the fight at <strong>{formatNumber(heavyMastery)} Mastery</strong>.</li>
-          </ul>
-        </>)}
+        tooltip={(
+          <>
+            Contribution Breakdown:
+            <ul>
+              <li>No Stagger: <strong>{formatPercentage(1 - lightUptime - moderateUptime - heavyUptime)}%</strong> of the fight.</li>
+              <li>Light Stagger: <strong>{formatPercentage(lightUptime)}%</strong> of the fight at <strong>{formatNumber(lightMastery)} Mastery</strong>.</li>
+              <li>Moderate Stagger: <strong>{formatPercentage(moderateUptime)}%</strong> of the fight at <strong>{formatNumber(moderateMastery)} Mastery</strong>.</li>
+              <li>Heavy Stagger: <strong>{formatPercentage(heavyUptime)}%</strong> of the fight at <strong>{formatNumber(heavyMastery)} Mastery</strong>.</li>
+            </ul>
+          </>
+        )}
       />
     );
   }

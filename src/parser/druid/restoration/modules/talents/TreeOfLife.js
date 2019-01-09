@@ -181,15 +181,17 @@ class TreeOfLife extends Analyzer {
         icon={<SpellIcon id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this._getTotalHealing(this.hardcast)))} %`}
         label="Tree of Life Healing"
-        tooltip={(<>
-          The Tree of Life buff was active for <strong>{(this.hardcastUptime / 1000).toFixed(0)}s</strong>, or <strong>{formatPercentage(this.hardcastUptimePercent, 1)}%</strong> of the encounter. The displayed healing number is the sum of several benefits, listed below:
-          <ul>
-            <li>Overall Increased Healing: <strong>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.hardcast.allBoostHealing))}%</strong></li>
-            <li>Rejuv Increased Healing: <strong>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.hardcast.rejuvBoostHealing))}%</strong></li>
-            <li>Rejuv Mana Saved: <strong>{formatNumber(this._getManaSaved(this.hardcast))}</strong> (assuming mana used to fill with Rejuvs: <strong>≈{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this._getManaSavedHealing(this.hardcast)))}%</strong> healing)</li>
-            <li>Increased Wild Growths: <strong>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.hardcast.extraWgHealing))}%</strong></li>
-          </ul>
-        </>)}
+        tooltip={(
+          <>
+            The Tree of Life buff was active for <strong>{(this.hardcastUptime / 1000).toFixed(0)}s</strong>, or <strong>{formatPercentage(this.hardcastUptimePercent, 1)}%</strong> of the encounter. The displayed healing number is the sum of several benefits, listed below:
+            <ul>
+              <li>Overall Increased Healing: <strong>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.hardcast.allBoostHealing))}%</strong></li>
+              <li>Rejuv Increased Healing: <strong>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.hardcast.rejuvBoostHealing))}%</strong></li>
+              <li>Rejuv Mana Saved: <strong>{formatNumber(this._getManaSaved(this.hardcast))}</strong> (assuming mana used to fill with Rejuvs: <strong>≈{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this._getManaSavedHealing(this.hardcast)))}%</strong> healing)</li>
+              <li>Increased Wild Growths: <strong>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.hardcast.extraWgHealing))}%</strong></li>
+            </ul>
+          </>
+        )}
       />
     );
   }

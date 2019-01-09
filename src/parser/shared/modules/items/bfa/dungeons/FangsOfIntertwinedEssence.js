@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 import { formatPercentage } from 'common/format';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
@@ -72,12 +72,16 @@ class FangsOfIntertwinedEssence extends Analyzer {
     return {
       item: ITEMS.FANGS_OF_INTERTWINED_ESSENCE,
       result: (
-        <Tooltip content={(<>
-          Activated <strong>{this.useCount}</strong> time{this.useCount === 1 ? '' : 's'} of a possible <strong>{this.possibleUseCount}</strong>. <br />
-          You cast an average of <strong>{this.restoresPerUse.toFixed(1)}</strong> eligible spells during each activation, out of a possible <strong>{MAX_RESTORES_PER_USE}</strong>.
-        </>)}>
+        <TooltipElement
+          content={(
+            <>
+              Activated <strong>{this.useCount}</strong> time{this.useCount === 1 ? '' : 's'} of a possible <strong>{this.possibleUseCount}</strong>. <br />
+              You cast an average of <strong>{this.restoresPerUse.toFixed(1)}</strong> eligible spells during each activation, out of a possible <strong>{MAX_RESTORES_PER_USE}</strong>.
+            </>
+          )}
+        >
           <ItemManaGained amount={this.manaRestored} />
-        </Tooltip>
+        </TooltipElement>
       ),
     };
   }

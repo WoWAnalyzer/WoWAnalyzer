@@ -8,7 +8,7 @@ import WebBannerIcon from 'interface/icons/WebBanner';
 import DiscordIcon from 'interface/icons/DiscordTiny';
 import PatreonButton from 'interface/common/thirdpartybuttons/Patreon';
 import GitHubButton from 'interface/common/thirdpartybuttons/GitHub';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 import { logout } from 'interface/actions/user';
 import { getUser } from 'interface/selectors/user';
@@ -65,7 +65,7 @@ export class Premium extends React.PureComponent {
                 </div>
                 <div className="col-md-6">
                   <h2>GitHub</h2>
-                  Improve the analysis of a spec or build a new feature to get 1 month of Premium free<Tooltip content="Only commits that are merged to the master branch are eligible. Your work will have to pass a pull request review before it can be merged.">*</Tooltip>.<br /><br />
+                  Improve the analysis of a spec or build a new feature to get 1 month of Premium free<TooltipElement content="Only commits that are merged to the master branch are eligible. Your work will have to pass a pull request review before it can be merged.">*</TooltipElement>.<br /><br />
 
                   <GitHubButton />
                 </div>

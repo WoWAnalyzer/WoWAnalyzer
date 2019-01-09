@@ -4,7 +4,7 @@ import { RadialChart } from 'react-vis';
 
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 import './style.scss';
 
@@ -33,7 +33,7 @@ class DonutChart extends React.PureComponent {
       <div className="legend">
         {items.map(({ color, label, tooltip, value, spellId }, index) => {
           label = tooltip ? (
-            <Tooltip content={tooltip}>{label}</Tooltip>
+            <TooltipElement content={tooltip}>{label}</TooltipElement>
           ) : label;
           label = spellId ? (
             <SpellLink id={spellId}>{label}</SpellLink>
@@ -47,9 +47,9 @@ class DonutChart extends React.PureComponent {
                 {label}
               </div>
               <div className="flex-sub">
-                <Tooltip content={value}>
+                <TooltipElement content={value}>
                   {formatPercentage(value / total, 0)}%
-                </Tooltip>
+                </TooltipElement>
               </div>
             </div>
           );

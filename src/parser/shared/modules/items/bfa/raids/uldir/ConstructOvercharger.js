@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { calculateSecondaryStatDefault } from 'common/stats';
 import { formatPercentage, formatNumber } from 'common/format';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 import Analyzer from 'parser/core/Analyzer';
 
 /**
@@ -40,10 +40,10 @@ class ConstructOvercharger extends Analyzer {
     return {
       item: ITEMS.CONSTRUCT_OVERCHARGER,
       result: (
-        <Tooltip wrapperStyles={{ display: 'inline' }} content={`Procced ${this.buffTriggerCount()} times.`}>
+        <TooltipElement content={`Procced ${this.buffTriggerCount()} times.`}>
           {formatPercentage(this.totalBuffUptime())}% uptime.<br />
           {formatNumber(this.averageStatGain())} average Haste.
-        </Tooltip>
+        </TooltipElement>
       ),
     };
   }

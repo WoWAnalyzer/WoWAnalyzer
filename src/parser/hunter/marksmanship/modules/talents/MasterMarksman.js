@@ -56,25 +56,27 @@ class MasterMarksman extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.MASTER_MARKSMAN_TALENT.id}
         value={`${this.usedProcs}/${this.totalProcs} procs used`}
-        tooltip={(<>
-          You gained a total of {this.totalProcs} procs, and utilised {this.usedProcs} of them.
-          <ul>
-            {this.affectedSpells[SPELLS.ARCANE_SHOT.id].casts > 0 && (
-              <li>Out of the total procs, you used {this.affectedSpells[SPELLS.ARCANE_SHOT.id].casts} of them on {this.affectedSpells[SPELLS.ARCANE_SHOT.id].name}.
-                <ul>
-                  <li>This saved you a total of {this.affectedSpells[SPELLS.ARCANE_SHOT.id].casts * FOCUS_COST} Focus.</li>
-                </ul>
-              </li>
-            )}
-            {this.affectedSpells[SPELLS.MULTISHOT_MM.id].casts > 0 && (
-              <li>Out of the total procs, you used {this.affectedSpells[SPELLS.MULTISHOT_MM.id].casts} of them on {this.affectedSpells[SPELLS.MULTISHOT_MM.id].name}.
-                <ul>
-                  <li>This saved you a total of {this.affectedSpells[SPELLS.MULTISHOT_MM.id].casts * FOCUS_COST} Focus.</li>
-                </ul>
-              </li>
-            )}
-          </ul>
-        </>)}
+        tooltip={(
+          <>
+            You gained a total of {this.totalProcs} procs, and utilised {this.usedProcs} of them.
+            <ul>
+              {this.affectedSpells[SPELLS.ARCANE_SHOT.id].casts > 0 && (
+                <li>Out of the total procs, you used {this.affectedSpells[SPELLS.ARCANE_SHOT.id].casts} of them on {this.affectedSpells[SPELLS.ARCANE_SHOT.id].name}.
+                  <ul>
+                    <li>This saved you a total of {this.affectedSpells[SPELLS.ARCANE_SHOT.id].casts * FOCUS_COST} Focus.</li>
+                  </ul>
+                </li>
+              )}
+              {this.affectedSpells[SPELLS.MULTISHOT_MM.id].casts > 0 && (
+                <li>Out of the total procs, you used {this.affectedSpells[SPELLS.MULTISHOT_MM.id].casts} of them on {this.affectedSpells[SPELLS.MULTISHOT_MM.id].name}.
+                  <ul>
+                    <li>This saved you a total of {this.affectedSpells[SPELLS.MULTISHOT_MM.id].casts * FOCUS_COST} Focus.</li>
+                  </ul>
+                </li>
+              )}
+            </ul>
+          </>
+        )}
       />
     );
   }

@@ -154,14 +154,14 @@ class HuntersMark extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.HUNTERS_MARK_TALENT.id}
         value={`${formatPercentage(this.uptimePercentage)}% uptime`}
-        tooltip={(<>
+        tooltip={(
           <ul>
             <li>You had a total of {this.casts} casts of Hunter's Mark.</li>
             <li>You cast Hunter's Mark {this.recasts} times, whilst it was active on the target or another target.</li>
             <li>You received up to {this.refunds * FOCUS_PER_REFUND} Focus from a total of {this.refunds} refunds from targets with Hunter's Mark active dying.</li>
             {this.potentialPrecastConfirmation}
           </ul>
-        </>)}
+        )}
       />
     );
   }

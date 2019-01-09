@@ -73,10 +73,12 @@ class BonesOfTheDamned extends Analyzer{
             {formatNumber(this.averageArmor)} average Armor
           </>
         )}
-        tooltip={(<>
-          {formatPercentage(this.bonesOfTheDamnedProcPercentage)}% of your gained {SPELLS.BONE_SHIELD.name} stacks are from {SPELLS.BONES_OF_THE_DAMNED.name}.<br />
-          {formatPercentage(this.bonesOfTheDamnedMarrowrendProcPercentage)}% of your {SPELLS.MARROWREND.name} casts procced {SPELLS.BONES_OF_THE_DAMNED.name}.
-        </>)}
+        tooltip={(
+          <>
+            {formatPercentage(this.bonesOfTheDamnedProcPercentage)}% of your gained {SPELLS.BONE_SHIELD.name} stacks are from {SPELLS.BONES_OF_THE_DAMNED.name}.<br />
+            {formatPercentage(this.bonesOfTheDamnedMarrowrendProcPercentage)}% of your {SPELLS.MARROWREND.name} casts procced {SPELLS.BONES_OF_THE_DAMNED.name}.
+          </>
+        )}
       />
     );
   }

@@ -43,13 +43,15 @@ class LonelyWinter extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.LONELY_WINTER_TALENT.id}
         value={this.owner.formatItemDamageDone(totalDamage)}
-        tooltip={(<>
-          When analyzing this talent, take into account any DPS you lost by not having a Water Elemental.
-          <ul>
-            {tooltip}
-          </ul>
-          Total damage increase: {formatNumber(totalDamage)}
-        </>)}
+        tooltip={(
+          <>
+            When analyzing this talent, take into account any DPS you lost by not having a Water Elemental.
+            <ul>
+              {tooltip}
+            </ul>
+            Total damage increase: {formatNumber(totalDamage)}
+          </>
+        )}
       />
     );
   }

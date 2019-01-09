@@ -8,7 +8,7 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import { formatPercentage } from 'common/format';
 import { formatNumber } from 'common/format';
 import { calculateSecondaryStatDefault } from 'common/stats';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 /**
 * Sea Giant's Tidestone
@@ -71,9 +71,9 @@ class SeaGiantsTidestone extends Analyzer {
     return {
       item: ITEMS.SEA_GIANTS_TIDESTONE,
       result: (
-        <Tooltip content={`Average Haste gained: ${formatNumber(this.haste * this.totalBuffUptime)}`}>
+        <TooltipElement content={`Average Haste gained: ${formatNumber(this.haste * this.totalBuffUptime)}`}>
           Used {this.casts} times / {formatPercentage(this.totalBuffUptime)}% uptime
-        </Tooltip>
+        </TooltipElement>
       ),
     };
   }

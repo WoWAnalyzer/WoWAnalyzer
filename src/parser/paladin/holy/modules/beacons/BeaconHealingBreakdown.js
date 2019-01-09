@@ -5,7 +5,7 @@ import Toggle from 'react-toggle';
 import Icon from 'common/Icon';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 import HealingValue from 'parser/shared/modules/HealingValue';
 
 class BeaconHealingBreakdown extends React.Component {
@@ -57,9 +57,9 @@ class BeaconHealingBreakdown extends React.Component {
                   />
                 </td>
                 <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
-                  <Tooltip content={`Total: ${formatNumber(healing.effective)}`}>
+                  <TooltipElement content={`Total: ${formatNumber(healing.effective)}`}>
                     {formatNumber(healing.effective / fightDuration * 1000)} HPS
-                  </Tooltip>
+                  </TooltipElement>
                 </td>
                 <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
                   {formatPercentage(healing.overheal / healing.raw)} %

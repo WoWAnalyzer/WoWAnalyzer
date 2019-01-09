@@ -81,13 +81,15 @@ class CoordinatedAssault extends Analyzer {
       <StatisticListBoxItem
         title={<SpellLink id={SPELLS.COORDINATED_ASSAULT.id} />}
         value={<ItemDamageDone amount={this.totalDamage} />}
-        valueTooltip={(<>
-          Total damage breakdown:
-          <ul>
-            <li>Player damage: {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.playerDamage))}% / {formatNumber(this.playerDamage / (this.owner.fightDuration / 1000))} DPS</li>
-            <li>Pet damage: {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.petDamage))}% / {formatNumber(this.petDamage / (this.owner.fightDuration / 1000))} DPS</li>
-          </ul>
-        </>)}
+        valueTooltip={(
+          <>
+            Total damage breakdown:
+            <ul>
+              <li>Player damage: {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.playerDamage))}% / {formatNumber(this.playerDamage / (this.owner.fightDuration / 1000))} DPS</li>
+              <li>Pet damage: {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.petDamage))}% / {formatNumber(this.petDamage / (this.owner.fightDuration / 1000))} DPS</li>
+            </ul>
+          </>
+        )}
       />
     );
   }

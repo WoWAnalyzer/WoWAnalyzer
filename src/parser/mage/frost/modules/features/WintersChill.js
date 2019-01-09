@@ -175,12 +175,14 @@ class WintersChill extends Analyzer {
           {' '}{formatPercentage(this.hardcastUtil, 0)} %
         </>)}
         label="Winter's Chill Utilization"
-        tooltip={(<>
-          Every Brain Freeze Flurry should be preceded by a Frostbolt, Glacial Spike, or Ebonbolt and followed by an Ice Lance, so that both the preceding and following spells benefit from Shatter. <br /><br />
+        tooltip={(
+          <>
+            Every Brain Freeze Flurry should be preceded by a Frostbolt, Glacial Spike, or Ebonbolt and followed by an Ice Lance, so that both the preceding and following spells benefit from Shatter. <br /><br />
 
-          You double Ice Lance'd into Winter's Chill {this.doubleIceLanceCasts} times ({formatPercentage(this.doubleIceLancePercentage, 1)}%). Note this is usually impossible, it can only be done with strong Haste buffs active and by moving towards the target while casting.
-          It should mostly be considered 'extra credit'
-        </>)}
+            You double Ice Lance'd into Winter's Chill {this.doubleIceLanceCasts} times ({formatPercentage(this.doubleIceLancePercentage, 1)}%). Note this is usually impossible, it can only be done with strong Haste buffs active and by moving towards the target while casting.
+            It should mostly be considered 'extra credit'
+          </>
+        )}
       />
     );
   }

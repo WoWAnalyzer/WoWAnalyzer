@@ -7,7 +7,7 @@ import { formatNumber } from 'common/format';
 
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 import StatisticBox from 'interface/others/StatisticBox';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
@@ -56,9 +56,9 @@ class VoidformAverageStacks extends Analyzer {
         icon={<SpellIcon id={SPELLS.VOIDFORM.id} />}
         value={`${formatNumber(this.voidform.averageVoidformStacks)} stacks`}
         label={(
-          <Tooltip content={`The average stacks of your voidforms.${lastVoidformWasExcluded ? 'The last voidform of the fight was excluded since it skewed the average.' : ''}`}>
+          <TooltipElement content={`The average stacks of your voidforms.${lastVoidformWasExcluded ? 'The last voidform of the fight was excluded since it skewed the average.' : ''}`}>
             Average voidform
-          </Tooltip>
+          </TooltipElement>
         )}
       >
         <table className="table table-condensed">

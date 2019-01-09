@@ -95,11 +95,13 @@ class TestOfMight extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.TEST_OF_MIGHT.id}
         value={`${this.averageStrength} average Strength`}
-        tooltip={(<>
-          Average Strength granted over fight duration. <strongb>Uptime: {formatPercentage(this.uptime)}%</strongb>.<br />
-          On average {SPELLS.TEST_OF_MIGHT.name} has granted you <strong>{formatNumber(this.totalStrength / this.proc)} Strength</strong> per proc.<br />
-          {SPELLS.TEST_OF_MIGHT.name} grants a total of <strong>{formatNumber(this.totalStrength)} strength</strong> (over <strong>{this.proc} procs</strong>).
-        </>)}
+        tooltip={(
+          <>
+            Average Strength granted over fight duration. <strongb>Uptime: {formatPercentage(this.uptime)}%</strongb>.<br />
+            On average {SPELLS.TEST_OF_MIGHT.name} has granted you <strong>{formatNumber(this.totalStrength / this.proc)} Strength</strong> per proc.<br />
+            {SPELLS.TEST_OF_MIGHT.name} grants a total of <strong>{formatNumber(this.totalStrength)} strength</strong> (over <strong>{this.proc} procs</strong>).
+          </>
+        )}
       />
     );
   }

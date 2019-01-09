@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 import StatisticBox from 'interface/others/StatisticBox';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
@@ -69,9 +69,9 @@ class Evangelism extends Analyzer {
         icon={<SpellIcon id={SPELLS.EVANGELISM_TALENT.id} />}
         value={`${formatNumber(evangelismStatistics.reduce((total, c) => total + c.healing, 0) / this.owner.fightDuration * 1000)} HPS`}
         label={(
-          <Tooltip content={`Evangelism accounted for approximately ${formatPercentage(this.owner.getPercentageOfTotalHealingDone(evangelismStatistics.reduce((p, c) => p + c.healing, 0)))}% of your healing.`}>
+          <TooltipElement content={`Evangelism accounted for approximately ${formatPercentage(this.owner.getPercentageOfTotalHealingDone(evangelismStatistics.reduce((p, c) => p + c.healing, 0)))}% of your healing.`}>
             Evangelism contribution
-          </Tooltip>
+          </TooltipElement>
         )}
       >
         <table className="table table-condensed">

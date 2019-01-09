@@ -51,10 +51,12 @@ class Warbreaker extends Analyzer {
       <StatisticListBoxItem
         title={<><SpellLink id={SPELLS.WARBREAKER_TALENT.id} /> bonus damage</>}
         value={`${formatThousands(this.dps)} DPS`}
-        valueTooltip={(<>
-          Your Warbreaker contributed {formatThousands(this.totalDamages)} total damage ({formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalDamages))} %).<br />
-          This accounts for the damage dealt by Warbreaker and the 30% increased damage from Colossus Smash debuff.
-        </>)}
+        valueTooltip={(
+          <>
+            Your Warbreaker contributed {formatThousands(this.totalDamages)} total damage ({formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalDamages))} %).<br />
+            This accounts for the damage dealt by Warbreaker and the 30% increased damage from Colossus Smash debuff.
+          </>
+        )}
       />
     );
   }

@@ -45,10 +45,12 @@ class Perseverance extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.PERSEVERANCE_TALENT.id}
         value={<ItemHealingDone amount={this.totalDamageReduced} />}
-        tooltip={(<>
-          Perseverance Uptime: {formatPercentage(this.uptime)}%<br />
-          Damage Reduced: {formatThousands(this.totalDamageReduced)}
-        </>)}
+        tooltip={(
+          <>
+            Perseverance Uptime: {formatPercentage(this.uptime)}%<br />
+            Damage Reduced: {formatThousands(this.totalDamageReduced)}
+          </>
+        )}
         position={STATISTIC_ORDER.CORE(2)}
       />
     );

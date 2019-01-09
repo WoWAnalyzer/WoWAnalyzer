@@ -32,13 +32,15 @@ class CenarionWard extends Analyzer {
         icon={<SpellIcon id={SPELLS.CENARION_WARD_HEAL.id} />}
         value={`${formatPercentage(totalPercent)} %`}
         label="Cenarion Ward Healing"
-        tooltip={(<>
-          This is the sum of the direct healing from Cenarion Ward and the healing enabled by Cenarion Ward's extra mastery stack.
-          <ul>
-            <li>Direct: <strong>{formatPercentage(directPercent)}%</strong></li>
-            <li>Mastery: <strong>{formatPercentage(masteryPercent)}%</strong></li>
-          </ul>
-        </>)}
+        tooltip={(
+          <>
+            This is the sum of the direct healing from Cenarion Ward and the healing enabled by Cenarion Ward's extra mastery stack.
+            <ul>
+              <li>Direct: <strong>{formatPercentage(directPercent)}%</strong></li>
+              <li>Mastery: <strong>{formatPercentage(masteryPercent)}%</strong></li>
+            </ul>
+          </>
+        )}
       />
     );
   }

@@ -11,7 +11,7 @@ import StatisticBar from 'interface/statistics/StatisticBar';
 import ThroughputPerformance, { UNAVAILABLE } from 'interface/report/Results/ThroughputPerformance';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer from 'parser/core/Analyzer';
-import Tooltip from 'common/Tooltip';
+import { Tooltip } from 'common/Tooltip';
 
 import DamageValue from '../DamageValue';
 
@@ -78,24 +78,32 @@ class DamageDone extends Analyzer {
               alt="Healing"
             />
           </div>
-          <Tooltip
-            className="flex-sub value"
-            tagName="div"
-            wrapperStyles={{ width: 190 }}
-            content={<>Total damage done: <strong>{formatThousands(this.total.effective)}</strong></>}
-          >
-            {formatThousands(perSecond)} DPS
+          <Tooltip content={<>Total damage done: <strong>{formatThousands(this.total.effective)}</strong></>}>
+            <div
+              className="flex-sub value"
+              style={{ width: 190 }}
+            >
+              {formatThousands(perSecond)} DPS
+            </div>
           </Tooltip>
           <div className="flex-sub" style={{ width: 110, textAlign: 'center' }}>
             <ThroughputPerformance throughput={perSecond} metric="dps">
               {({ performance, topThroughput }) => performance && performance !== UNAVAILABLE && (
                 <Tooltip
-                  className={rankingColor(performance)}
-                  content={<>Your DPS compared to the DPS of a top 100 player. To become a top 100 <span className={this.selectedCombatant.spec.className.replace(' ', '')}>{this.selectedCombatant.spec.specName} {this.selectedCombatant.spec.className}</span> on this fight you need to do at least <strong>{formatThousands(topThroughput)} DPS</strong>.</>}
-                  wrapperStyles={{ cursor: 'help' }}
-                  tagName="div"
+                  content={(
+                    <>
+                      Your DPS compared to the DPS of a top 100 player.
+                      To become a top 100 <span className={this.selectedCombatant.spec.className.replace(' ', '')}>{this.selectedCombatant.spec.specName} {this.selectedCombatant.spec.className}</span>
+                      on this fight you need to do at least <strong>{formatThousands(topThroughput)} DPS</strong>.
+                    </>
+                  )}
                 >
-                  {formatPercentage(performance, 0)}%
+                  <div
+                    className={rankingColor(performance)}
+                    style={{ cursor: 'help' }}
+                  >
+                    {formatPercentage(performance, 0)}%
+                  </div>
                 </Tooltip>
               )}
             </ThroughputPerformance>

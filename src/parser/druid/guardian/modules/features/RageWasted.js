@@ -121,11 +121,13 @@ class RageWasted extends Analyzer {
         icon={<SpellIcon id={SPELLS.BRISTLING_FUR.id} />}
         label="Wasted Rage"
         value={`${formatPercentage(this.wastedRageRatio)}%`}
-        tooltip={(<>
-          You wasted <strong>{this.totalWastedRage}</strong> rage out of <strong>{this.totalRageGained}</strong> total rage gained. (<strong>{formatPercentage(this.wastedRageRatio)}%</strong> of total)<br /><br />
+        tooltip={(
+          <>
+            You wasted <strong>{this.totalWastedRage}</strong> rage out of <strong>{this.totalRageGained}</strong> total rage gained. (<strong>{formatPercentage(this.wastedRageRatio)}%</strong> of total)<br /><br />
 
-          {this.wastedRageBreakdown}
-        </>)}
+            {this.wastedRageBreakdown}
+          </>
+        )}
       />
     );
   }

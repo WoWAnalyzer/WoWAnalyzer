@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatThousands } from 'common/format';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
@@ -183,20 +183,22 @@ class ManaTea extends Analyzer {
         icon={<SpellIcon id={SPELLS.MANA_TEA_TALENT.id} />}
         value={formatNumber(this.avgMtSaves)}
         label={(
-          <Tooltip
-            content={(<>
-              During your {this.manateaCount} Mana Teas saved the following mana ({formatThousands(this.manaSavedMT / this.owner.fightDuration * 1000 * 5)} MP5):
-              <ul>
-                {this.efCasts > 0 && <li>{(this.efCasts)} Essence Font casts</li>}
-                {this.efCasts > 0 && <li>{(this.vivCasts)} Vivfy casts</li>}
-                {this.efCasts > 0 && <li>{(this.enmCasts)} Enveloping Mists casts</li>}
-                <li>{this.rjwCasts + this.revCasts + this.remCasts + this.lcCasts + this.effCasts} other spells casted.</li>
-                <li>{this.nonManaCasts} non-mana casts during Mana Tea</li>
-              </ul>
-            </>)}
+          <TooltipElement
+            content={(
+              <>
+                During your {this.manateaCount} Mana Teas saved the following mana ({formatThousands(this.manaSavedMT / this.owner.fightDuration * 1000 * 5)} MP5):
+                <ul>
+                  {this.efCasts > 0 && <li>{(this.efCasts)} Essence Font casts</li>}
+                  {this.efCasts > 0 && <li>{(this.vivCasts)} Vivfy casts</li>}
+                  {this.efCasts > 0 && <li>{(this.enmCasts)} Enveloping Mists casts</li>}
+                  <li>{this.rjwCasts + this.revCasts + this.remCasts + this.lcCasts + this.effCasts} other spells casted.</li>
+                  <li>{this.nonManaCasts} non-mana casts during Mana Tea</li>
+                </ul>
+              </>
+            )}
           >
             Average mana saved
-          </Tooltip>
+          </TooltipElement>
         )}
       />
     );
