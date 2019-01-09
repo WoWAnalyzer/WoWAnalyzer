@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Tooltip } from 'common/Tooltip';
+import Tooltip from 'common/Tooltip';
 import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 

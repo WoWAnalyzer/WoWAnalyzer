@@ -5,7 +5,7 @@ import { formatDuration } from 'common/format';
 import Icon from 'common/Icon';
 import SpellLink from 'common/SpellLink';
 import BuffsModule from 'parser/core/modules/Buffs';
-import { Tooltip } from 'common/Tooltip';
+import Tooltip from 'common/Tooltip';
 
 class Buffs extends React.PureComponent {
   static propTypes = {

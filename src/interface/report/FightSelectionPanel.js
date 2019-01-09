@@ -6,7 +6,7 @@ import { Trans, t } from '@lingui/macro';
 
 import { i18n } from 'interface/RootLocalizationProvider';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
-import { Tooltip } from 'common/Tooltip';
+import Tooltip from 'common/Tooltip';
 
 import FightSelectionPanelList from './FightSelectionPanelList';
 

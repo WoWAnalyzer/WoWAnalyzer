@@ -7,7 +7,7 @@ import { t } from '@lingui/macro';
 
 import REGION_CODES from 'common/REGION_CODES';
 import { i18n } from 'interface/RootLocalizationProvider';
-import { Tooltip } from 'common/Tooltip';
+import Tooltip from 'common/Tooltip';
 
 import './ReportSelecter.css';
 

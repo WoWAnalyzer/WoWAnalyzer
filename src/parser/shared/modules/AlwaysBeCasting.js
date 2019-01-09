@@ -4,7 +4,7 @@ import Icon from 'common/Icon';
 import { formatMilliseconds, formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import { Tooltip } from 'common/Tooltip';
+import Tooltip from 'common/Tooltip';
 
 import Abilities from '../../core/modules/Abilities';
 import GlobalCooldown from './GlobalCooldown';

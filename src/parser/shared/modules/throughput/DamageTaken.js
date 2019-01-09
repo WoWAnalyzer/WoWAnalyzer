@@ -12,7 +12,7 @@ import rankingColor from 'common/getRankingColor';
 import StatisticBar from 'interface/statistics/StatisticBar';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer from 'parser/core/Analyzer';
-import { Tooltip } from 'common/Tooltip';
+import Tooltip from 'common/Tooltip';
 
 import DamageValue from '../DamageValue';
 

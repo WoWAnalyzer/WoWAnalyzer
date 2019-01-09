@@ -4,7 +4,7 @@ import ReactTooltip from '@wowanalyzer/react-tooltip-lite';
 
 import './Tooltip.css';
 
-class Tooltip extends React.Component {
+export default class Tooltip extends React.Component {
   static propTypes = {
     /**
      * REQUIRED: Content of the tooltip
@@ -53,7 +53,7 @@ class Tooltip extends React.Component {
   }
 }
 
-class TooltipElement extends React.Component {
+export class TooltipElement extends React.Component {
   static propTypes = {
     /**
      * REQUIRED: Content of the tooltip
@@ -117,5 +117,3 @@ class TooltipElement extends React.Component {
     );
   }
 }
-
-export { Tooltip, TooltipElement };

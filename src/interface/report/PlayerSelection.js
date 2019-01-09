@@ -14,7 +14,7 @@ import DocumentTitle from 'interface/common/DocumentTitle';
 import { setCombatants } from 'interface/actions/combatants';
 import { getPlayerId, getPlayerName } from 'interface/selectors/url/report';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
-import { Tooltip } from 'common/Tooltip';
+import Tooltip from 'common/Tooltip';
 
 import PlayerSelectionPanel from 'interface/playerSelection';
 import handleApiError from './handleApiError';

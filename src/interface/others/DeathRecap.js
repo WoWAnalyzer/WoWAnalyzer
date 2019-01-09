@@ -8,7 +8,7 @@ import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import WarcraftLogsLogo from 'interface/images/WarcraftLogs-logo.png';
-import { TooltipElement, Tooltip } from 'common/Tooltip';
+import Tooltip, { TooltipElement } from 'common/Tooltip';
 
 const SHOW_SECONDS_BEFORE_DEATH = 10;
 const AMOUNT_THRESHOLD = 0;

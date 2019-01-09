@@ -11,9 +11,8 @@ import { formatDuration, formatThousands } from 'common/format';
 import Icon from 'common/Icon';
 import SpellLink from 'common/SpellLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import Info from 'interface/common/Alert/Info';
 import HIT_TYPES from 'game/HIT_TYPES';
-import { TooltipElement, Tooltip } from 'common/Tooltip';
+import Tooltip, { TooltipElement } from 'common/Tooltip';
 
 import 'react-virtualized/styles.css';
 import './EventsTab.css';

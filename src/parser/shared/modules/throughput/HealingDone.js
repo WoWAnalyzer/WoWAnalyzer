@@ -12,7 +12,6 @@ import StatisticBar from 'interface/statistics/StatisticBar';
 import ThroughputPerformance, { UNAVAILABLE } from 'interface/report/Results/ThroughputPerformance';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer from 'parser/core/Analyzer';
-import { Tooltip } from 'common/Tooltip';
 
 import HealingValue from '../HealingValue';
 

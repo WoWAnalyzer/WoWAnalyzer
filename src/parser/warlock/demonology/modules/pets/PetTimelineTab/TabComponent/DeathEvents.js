@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Tooltip } from 'common/Tooltip';
+import Tooltip from 'common/Tooltip';
 import { formatDuration } from 'common/format';
 
 class DeathEvents extends React.PureComponent {

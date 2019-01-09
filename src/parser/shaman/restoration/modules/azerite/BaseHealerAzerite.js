@@ -12,7 +12,7 @@ import ItemHealingDone from 'interface/others/ItemHealingDone';
 import StatisticWrapper from 'interface/others/StatisticWrapper';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
-import { TooltipElement, Tooltip } from 'common/Tooltip';
+import Tooltip from 'common/Tooltip';
 
 /**
  * A class to deal with (hopefully) any healing Azerite i throw at it.

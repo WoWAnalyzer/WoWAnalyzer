@@ -10,7 +10,7 @@ import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import { getFightId } from 'interface/selectors/url/report';
 import { getFightFromReport } from 'interface/selectors/fight';
 import DocumentTitle from 'interface/common/DocumentTitle';
-import { Tooltip } from 'common/Tooltip';
+import Tooltip from 'common/Tooltip';
 
 import FightSelectionPanel from './FightSelectionPanel';
 

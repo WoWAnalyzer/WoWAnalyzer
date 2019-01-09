@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import SpellIcon from 'common/SpellIcon';
-import { Tooltip } from 'common/Tooltip';
+import Tooltip from 'common/Tooltip';
 
 class KeyCastsRow extends React.PureComponent {
   static propTypes = {

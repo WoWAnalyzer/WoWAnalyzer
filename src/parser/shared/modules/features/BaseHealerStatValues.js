@@ -3,7 +3,7 @@ import React from 'react';
 import InformationIcon from 'interface/icons/Information';
 
 import SPELLS from 'common/SPELLS/index';
-import { TooltipElement, Tooltip } from 'common/Tooltip';
+import Tooltip, { TooltipElement } from 'common/Tooltip';
 import { formatNumber } from 'common/format';
 import { calculatePrimaryStat, calculateSecondaryStatDefault } from 'common/stats';
 import Analyzer from 'parser/core/Analyzer';

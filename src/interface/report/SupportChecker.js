@@ -11,7 +11,7 @@ import GitHubButton from 'interface/common/thirdpartybuttons/GitHub';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import { ignoreSpecNotSupportedWarning } from 'interface/actions/specNotSupported';
 import { getSpecsIgnoredNotSupportedWarning } from 'interface/selectors/skipSpecNotSupported';
-import { Tooltip } from 'common/Tooltip';
+import Tooltip from 'common/Tooltip';
 
 import Background from './images/weirdnelf.png';
 

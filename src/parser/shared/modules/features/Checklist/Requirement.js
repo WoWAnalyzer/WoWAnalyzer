@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import InformationIcon from 'interface/icons/Information';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
-import { TooltipElement, Tooltip } from 'common/Tooltip';
+import Tooltip, { TooltipElement } from 'common/Tooltip';
 
 import colorForPerformance from './helpers/colorForPerformance';
 import performanceForThresholds from './helpers/performanceForThresholds';
