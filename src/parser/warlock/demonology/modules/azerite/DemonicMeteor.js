@@ -69,7 +69,7 @@ class DemonicMeteor extends Analyzer {
   statistic() {
     const shardsGained = this.soulShardTracker.getGeneratedBySpell(SPELLS.DEMONIC_METEOR_SHARD_GEN.id);
     // we need to get the amount of shards we were most likely to get given certain probabilities
-    const { k: max } = findMax(this.probabilities.length, this.probabilities, poissonBinomialPMF);
+    const { max } = findMax(this.probabilities.length, this.probabilities, poissonBinomialPMF);
     return (
       <TraitStatisticBox
         trait={SPELLS.DEMONIC_METEOR.id}

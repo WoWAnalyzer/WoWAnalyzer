@@ -125,19 +125,19 @@ export function binomialCDF(k, n, p) {
 export function findMax(n, p, pmf) {
   // Since Binomial and Poisson binomial distributions both have bell like shape, we can iterate upwards from k = 0
   // When the probability starts to decrease, we've found the local (and global) maximum of the function and we can break and return
-  let k = -1;
-  let max = 0;
+  let max = -1;
+  let maxP = 0;
   for (let i = 0; i <= n; i++) {
     const probability = pmf(i, n, p);
-    if (probability > max) {
-      k = i;
-      max = probability;
-    } else if (probability < max) {
+    if (probability > maxP) {
+      max = i;
+      maxP = probability;
+    } else if (probability < maxP) {
       break;
     }
   }
   return {
-    k,
-    p: max,
+    max,
+    p: maxP,
   };
 }
