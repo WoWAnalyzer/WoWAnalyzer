@@ -236,6 +236,7 @@ class EventParser extends React.PureComponent {
       realm = exportedCharacter.server;
       name = exportedCharacter.name;
       if (region === CHINESE_REGION) {
+        // China doesn't have an API
         return null;
       }
     }
