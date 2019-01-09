@@ -28,7 +28,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.EVANGELISM_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 75,
+        cooldown: 90,
         gcd: {
           base: 1500,
         },
