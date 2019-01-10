@@ -8,7 +8,6 @@ import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 
 import DemoPets from '../pets/DemoPets';
-import { isWildImp, isDreadstalker, isVilefiend, isPermanentPet } from '../pets/helpers';
 
 class SummonDemonicTyrant extends Analyzer {
   static dependencies = {
@@ -17,10 +16,6 @@ class SummonDemonicTyrant extends Analyzer {
 
   _petsPerCast = [];
 
-  _dreadstalkersPerCast = [];
-  _impsPerCast = [];
-  _vilefiendsPerCast = [];
-  _permPetsPerCast = [];
 
   constructor(...args){
     super(...args);
@@ -29,56 +24,45 @@ class SummonDemonicTyrant extends Analyzer {
 
   summonDemonicTyrantCast(event) {
     const pets = this.demoPets.currentPets;
+    const countsPerCast = {};
 
-    let numDSs = 0;
-    let numImps = 0;
-    let numVilefiends = 0;
-    let numPerm = 0;
-    pets.forEach(p => {
-      if(isWildImp(p.guid)) {
-        numImps += 1;
-      } else if (isDreadstalker(p.guid)) {
-        numDSs += 1;
-      } else if (isVilefiend(p.guid)) {
-        numVilefiends += 1;
-      } else if (isPermanentPet(p.guid)) {
-        numPerm += 1;
-      }
+    pets.forEach(pet => {
+      countsPerCast[pet.summonedBy] = (countsPerCast[pet.summonedBy] || 0) + 1;
     });
-    this._dreadstalkersPerCast.push(numDSs);
-    this._impsPerCast.push(numImps);
-    this._vilefiendsPerCast.push(numVilefiends);
-    this._permPetsPerCast.push(numPerm);
 
-    this._petsPerCast.push(numDSs + numImps + numVilefiends + numPerm);
+    this._petsPerCast.push(countsPerCast);
   }
 
 
   statistic() {
-    const avgPets = this._petsPerCast.reduce((total, num) => total + num, 0) /
-      (this._petsPerCast.length === 0 ? 1 : this._petsPerCast.length);
-    const hasVilefiendTalent = this.selectedCombatant.hasTalent(SPELLS.SUMMON_VILEFIEND_TALENT.id);
+    console.log(this._petsPerCast);
+    const avgPets = (this._petsPerCast.reduce((total, cast) =>
+      total + Object.values(cast).reduce((totalPerSource, source) =>
+        totalPerSource + source, 0)
+      , 0) / this._petsPerCast.length) || 0;
+    const mergedPets = {};
+    this._petsPerCast.forEach(cast => {
+      Object.keys(cast).forEach(demonSource => {
+        mergedPets[demonSource] = (mergedPets[demonSource] || 0) + cast[demonSource];
+      });
+    });
 
     const petTableRows = [];
-    for(let i = 0; i < this._petsPerCast.length; i++){
+    Object.keys(mergedPets).forEach(demonSource => {
       petTableRows.push(
-        <tr key={i}>
-          <td>{this._permPetsPerCast[i]}</td>
-          <td>{this._dreadstalkersPerCast[i]}</td>
-          <td>{this._impsPerCast[i]}</td>
-          {hasVilefiendTalent && <td>{this._vilefiendsPerCast[i]}</td>}
+        <tr key={demonSource}>
+          <td><SpellIcon id={parseInt(demonSource)} /></td>
+          <td>{(mergedPets[demonSource]/this._petsPerCast.length).toFixed(2)}</td>
         </tr>
       );
-    }
+    });
 
     const petTable = (this._petsPerCast.length > 0) ? (
       <>
         <thead>
           <tr>
-            <th>Perm. Pets</th>
-            <th>Dreadstalkers</th>
-            <th>Imps</th>
-            {hasVilefiendTalent && <th>Vilefiends</th>}
+            <th>Pet Source</th>
+            <th>Average Pets Per Cast</th>
           </tr>
         </thead>
         <tbody>
@@ -90,8 +74,8 @@ class SummonDemonicTyrant extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SUMMON_DEMONIC_TYRANT.id} />}
-        value={`${avgPets.toFixed(2)} Demons Empowered Per Cast`} // Rather than formatNumber, because this value will always be low and the decimal points matter.
-        label={`Summon Demonic Tyrant`}
+        value={`${avgPets.toFixed(2)}`} // Rather than formatNumber, because this value will always be low and the decimal points matter.
+        label={`Average Demons Empowered`}
         tooltip={`Number of pets empowered by each Demonic Tyrant summon.`}
       >
         <table className="table table-condensed" style={{fontWeight: 'bold'}}>
@@ -100,8 +84,6 @@ class SummonDemonicTyrant extends Analyzer {
       </StatisticBox>
     );
   }
-
-
 }
 
 export default SummonDemonicTyrant;

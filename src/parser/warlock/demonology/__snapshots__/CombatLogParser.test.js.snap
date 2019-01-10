@@ -495,7 +495,7 @@ exports[`The Demonology Warlock Analyzer analyzers SummonDemonicTyrant matches t
           <div
             className="slabel"
           >
-            Summon Demonic Tyrant
+            Average Demons Empowered
           </div>
           <div
             className="value"
@@ -503,7 +503,7 @@ exports[`The Demonology Warlock Analyzer analyzers SummonDemonicTyrant matches t
             <dfn
               data-tip="Number of pets empowered by each Demonic Tyrant summon."
             >
-              7.00 Demons Empowered Per Cast
+              12.00
             </dfn>
           </div>
         </div>
