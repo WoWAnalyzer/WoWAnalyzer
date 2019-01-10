@@ -1,8 +1,14 @@
 import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
-import SPELLS from 'common/SPELLS';
 
 import Background from './images/Backgrounds/Zekvoz.jpg';
 import Headshot from './images/Headshots/Zekvoz.png';
+
+
+export const ENCOUNTER_EVENT = {
+  id: 181089,
+  name: "Encounter Event",
+  icon: "inv_misc_questionmark",
+};
 
 export default {
   id: 2136,
@@ -63,7 +69,7 @@ export default {
         filter: {
           type: 'cast',
           ability: {
-            id: SPELLS.ZEKVOZ_ENCOUNTER_EVENT.id,
+            id: ENCOUNTER_EVENT.id,
           },
           eventInstance: 0,
         },
@@ -86,7 +92,7 @@ export default {
         filter: {
           type: 'cast',
           ability: {
-            id: SPELLS.ZEKVOZ_ENCOUNTER_EVENT.id,
+            id: ENCOUNTER_EVENT.id,
           },
           eventInstance: 0,
         },
@@ -98,7 +104,7 @@ export default {
         filter: {
           type: 'cast',
           ability: {
-            id: SPELLS.ZEKVOZ_ENCOUNTER_EVENT.id,
+            id: ENCOUNTER_EVENT.id,
           },
           eventInstance: 1,
         },

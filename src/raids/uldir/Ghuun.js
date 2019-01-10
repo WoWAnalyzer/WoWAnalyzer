@@ -4,6 +4,12 @@ import SPELLS from 'common/SPELLS';
 import Background from './images/Backgrounds/Ghuun.jpg';
 import Headshot from './images/Headshots/Ghuun.png';
 
+export const GHUUN_REORIGINATION_BLAST_STUN = {
+  id: 263504,
+  name: "Reorigination Blast",
+  icon: "ability_druid_cresentburn",
+};
+
 export default {
   id: 2122,
   name: 'G\'huun',
@@ -34,7 +40,7 @@ export default {
         filter: {
           type: 'removedebuff',
           ability: {
-            id: SPELLS.GHUUN_REORIGINATION_BLAST_3.id,
+            id: GHUUN_REORIGINATION_BLAST_STUN.id,
           },
           eventInstance: 0,
         },

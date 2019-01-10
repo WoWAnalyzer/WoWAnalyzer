@@ -7,7 +7,9 @@ import { Trans } from '@lingui/macro';
 import ExtendableError from 'es6-error';
 
 import { makeCharacterApiUrl } from 'common/makeApiUrl';
+import { makeWclBossPhaseFilter } from 'common/makeWclBossPhaseFilter';
 import { fetchEvents, LogNotFoundError } from 'common/fetchWclApi';
+import { fabricateBossPhaseEvents } from 'common/fabricateBossPhaseEvents';
 import { captureException } from 'common/errorLogger';
 import getFightName from 'common/getFightName';
 import sleep from 'common/sleep';
@@ -62,7 +64,6 @@ class EventParser extends React.PureComponent {
     setReportProgress: PropTypes.func.isRequired,
     appendReportHistory: PropTypes.func.isRequired,
     config: PropTypes.object.isRequired,
-    bossEvents: PropTypes.array.isRequired,
     children: PropTypes.func.isRequired,
     history: PropTypes.shape({
       push: PropTypes.func.isRequired, // adds to browser history
@@ -100,7 +101,7 @@ class EventParser extends React.PureComponent {
   }
 
   async parse() {
-    const { report, fight, combatants, player, bossEvents } = this.props;
+    const { report, fight, combatants, player } = this.props;
 
     this.reset();
     this.appendHistory(report, fight, player);
@@ -113,6 +114,7 @@ class EventParser extends React.PureComponent {
     let parserClass = null;
     let characterProfile = null;
     let events = null;
+    let bossPhaseEvents = [];
     return Promise.all([
       this.loadParser().then(result => {
         parserClass = result;
@@ -123,12 +125,15 @@ class EventParser extends React.PureComponent {
       this.loadEvents().then(result => {
         events = result;
       }),
+      this.loadBossPhaseEvents().then(result => {
+        bossPhaseEvents = fabricateBossPhaseEvents(result, report, fight);
+      }),
     ])
       .then(() => {
         this.stopFakeNetworkProgress();
         timeAvailable && console.time('full parse');
         const parser = new parserClass(report, player, fight, combatants, characterProfile);
-        return this.parseEvents(parser, report, player, fight, [...bossEvents, ...events]);
+        return this.parseEvents(parser, report, player, fight, [...bossPhaseEvents, ...events]);
       })
       .catch(error => {
         this.stopFakeNetworkProgress();
@@ -253,6 +258,12 @@ class EventParser extends React.PureComponent {
     const { report, fight, player } = this.props;
 
     return fetchEvents(report.code, fight.start_time, fight.end_time, player.id);
+  }
+
+  loadBossPhaseEvents() {
+    const { report, fight } = this.props;
+
+    return fetchEvents(report.code, fight.start_time, fight.end_time, undefined, makeWclBossPhaseFilter(fight));
   }
 
   async setStatePromise(newState) {

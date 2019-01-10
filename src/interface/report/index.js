@@ -4,7 +4,6 @@ import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 
 import ReportLoader from './ReportLoader';
 import FightSelection from './FightSelection';
-import BossEventLoader from './BossEventLoader';
 import PlayerSelection from './PlayerSelection';
 import ConfigLoader from './ConfigLoader';
 import PatchChecker from './PatchChecker';
@@ -24,50 +23,42 @@ const Report = props => (
           refreshReport={refreshReport}
         >
           {fight => (
-            <BossEventLoader
+            <PlayerSelection
               report={report}
               fight={fight}
             >
-              {bossEvents => (
-                <PlayerSelection
-                  report={report}
-                  fight={fight}
+              {(player, combatant, combatants) => (
+                <ConfigLoader
+                  specId={combatant.specID}
                 >
-                  {(player, combatant, combatants) => (
-                    <ConfigLoader
-                      specId={combatant.specID}
+                  {config => (
+                    <SupportChecker
+                      config={config}
+                      report={report}
+                      fight={fight}
+                      player={player}
                     >
-                      {config => (
-                        <SupportChecker
-                          config={config}
-                          report={report}
-                          fight={fight}
-                          player={player}
-                        >
-                          <EventParser
-                            {...props}
-                            report={report}
-                            fight={fight}
-                            player={player}
-                            combatants={combatants}
-                            config={config}
-                            bossEvents={bossEvents}
-                          >
-                            {parser => (
-                              <Results
-                                parser={parser}
-                                characterProfile={parser.characterProfile}
-                                makeTabUrl={tab => makeAnalyzerUrl(report, fight.id, player.id, tab)}
-                              />
-                            )}
-                          </EventParser>
-                        </SupportChecker>
-                      )}
-                    </ConfigLoader>
+                      <EventParser
+                        {...props}
+                        report={report}
+                        fight={fight}
+                        player={player}
+                        combatants={combatants}
+                        config={config}
+                      >
+                        {parser => (
+                          <Results
+                            parser={parser}
+                            characterProfile={parser.characterProfile}
+                            makeTabUrl={tab => makeAnalyzerUrl(report, fight.id, player.id, tab)}
+                          />
+                        )}
+                      </EventParser>
+                    </SupportChecker>
                   )}
-                </PlayerSelection>
+                </ConfigLoader>
               )}
-            </BossEventLoader>
+            </PlayerSelection>
           )}
         </FightSelection>
       </PatchChecker>

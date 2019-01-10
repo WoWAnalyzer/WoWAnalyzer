@@ -1,5 +1,5 @@
 import { END_EVENT_TYPE } from 'parser/shared/normalizers/FightEnd';
-import { PHASE_START_EVENT_TYPE, PHASE_END_EVENT_TYPE } from 'parser/shared/normalizers/PhaseChanges';
+import { PHASE_START_EVENT_TYPE, PHASE_END_EVENT_TYPE } from 'common/fabricateBossPhaseEvents';
 import EventFilter from './EventFilter';
 
 const Events = {
