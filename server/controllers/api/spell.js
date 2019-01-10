@@ -2,7 +2,7 @@ import Express from 'express';
 import Sequelize from 'sequelize';
 import Raven from 'raven';
 
-import WowCommunityApi from 'helpers/WowCommunityApi';
+import BlizzardCommunityApi from 'helpers/BlizzardCommunityApi';
 
 import models from '../../models';
 
@@ -26,7 +26,7 @@ function send404(res) {
 
 async function proxySpellApi(res, spellId) {
   try {
-    const response = await WowCommunityApi.fetchSpell(spellId);
+    const response = await BlizzardCommunityApi.fetchSpell(spellId);
     const json = JSON.parse(response);
     sendJson(res, json);
     return json;
