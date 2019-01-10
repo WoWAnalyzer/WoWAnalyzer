@@ -6,8 +6,10 @@ import Events from 'parser/core/Events';
 
 import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 
 import DemoPets from '../pets/DemoPets';
+
 
 class SummonDemonicTyrant extends Analyzer {
   static dependencies = {
@@ -35,7 +37,6 @@ class SummonDemonicTyrant extends Analyzer {
 
 
   statistic() {
-    console.log(this._petsPerCast);
     const avgPets = (this._petsPerCast.reduce((total, cast) =>
       total + Object.values(cast).reduce((totalPerSource, source) =>
         totalPerSource + source, 0)
@@ -51,7 +52,7 @@ class SummonDemonicTyrant extends Analyzer {
     Object.keys(mergedPets).forEach(demonSource => {
       petTableRows.push(
         <tr key={demonSource}>
-          <td><SpellIcon id={parseInt(demonSource)} /></td>
+          <td><SpellLink id={Number(demonSource)} /></td>
           <td>{(mergedPets[demonSource]/this._petsPerCast.length).toFixed(2)}</td>
         </tr>
       );
