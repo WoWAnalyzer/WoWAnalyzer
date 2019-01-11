@@ -17,7 +17,7 @@ class CastBehavior extends Analyzer {
   };
 
   get iolProcsPerHolyShockCrit() {
-    return this.selectedCombatant.hasBuff(SPELLS.HOLY_PALADIN_T19_4SET_BONUS_BUFF.id) ? 2 : 1;
+    return 1;
   }
 
   iolCastRatioChart() {

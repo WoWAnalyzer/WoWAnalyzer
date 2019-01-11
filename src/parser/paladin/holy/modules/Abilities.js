@@ -31,8 +31,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LIGHT_OF_DAWN_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        // Item - Paladin T20 Holy 2P Bonus: Reduces the cooldown of Light of Dawn by 2.0 sec.
-        cooldown: haste => (12 - (combatant.hasBuff(SPELLS.HOLY_PALADIN_T20_2SET_BONUS_BUFF.id) ? 2 : 0)) / (1 + haste),
+        cooldown: haste => 12 / (1 + haste),
         gcd: {
           base: 1500,
         },
