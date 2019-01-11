@@ -14,8 +14,9 @@ class DonutChart extends React.PureComponent {
       value: PropTypes.number.isRequired,
       label: PropTypes.string.isRequired,
       color: PropTypes.string.isRequired,
-      tooltip: PropTypes.string,
+      tooltip: PropTypes.node,
       spellId: PropTypes.number,
+      valueTooltip: PropTypes.node,
     })).isRequired,
     // While you could change the chart size, I strongly recommend you do not for consistency and to avoid breaking whenever this component is modified. Do you really need to adjust the size?
     chartSize: PropTypes.number,
@@ -31,7 +32,7 @@ class DonutChart extends React.PureComponent {
 
     return (
       <div className="legend">
-        {items.map(({ color, label, tooltip, value, spellId }, index) => {
+        {items.map(({ color, label, tooltip, value, spellId, valueTooltip }, index) => {
           label = tooltip ? (
             <TooltipElement content={tooltip}>{label}</TooltipElement>
           ) : label;
@@ -47,7 +48,7 @@ class DonutChart extends React.PureComponent {
                 {label}
               </div>
               <div className="flex-sub">
-                <TooltipElement content={value}>
+                <TooltipElement content={valueTooltip ? valueTooltip : value}>
                   {formatPercentage(value / total, 0)}%
                 </TooltipElement>
               </div>

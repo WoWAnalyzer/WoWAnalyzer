@@ -1,11 +1,9 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import { Doughnut as DoughnutChart } from 'react-chartjs-2';
 
 import SpellLink from 'common/SpellLink';
-import { formatPercentage, formatThousands } from 'common/format';
-import { TooltipElement } from 'common/Tooltip';
+import { formatThousands } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
 import EssenceFontMastery from 'parser/monk/mistweaver/modules/features/EssenceFontMastery';
@@ -14,9 +12,10 @@ import SoothingMist from 'parser/monk/mistweaver/modules/spells/SoothingMist';
 import RenewingMist from 'parser/monk/mistweaver/modules/spells/RenewingMist';
 import Vivify from 'parser/monk/mistweaver/modules/spells/Vivify';
 
-import StatisticsListBox, { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
+import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
+import DonutChart from 'interface/statistics/components/DonutChart';
+import Statistic from 'interface/statistics/Statistic';
 
-const CHART_SIZE = 75;
 const debug = false;
 
 class MasteryStats extends Analyzer {
@@ -26,7 +25,7 @@ class MasteryStats extends Analyzer {
     soothingMist: SoothingMist,
     renewingMist: RenewingMist,
     vivify: Vivify,
-  }
+  };
 
   get totalMasteryHealing() {
     return (this.vivify.gustsHealing || 0)
@@ -36,121 +35,49 @@ class MasteryStats extends Analyzer {
             + (this.essenceFontMastery.healing || 0);
   }
 
-  legend(items, total) {
-    const numItems = items.length;
-    return items.map(({ color, label, tooltip, value, spellId }, index) => {
-      label = tooltip ? (
-        <TooltipElement content={tooltip}>{label}</TooltipElement>
-      ) : label;
-      label = spellId ? (
-        <SpellLink id={spellId}>{label}</SpellLink>
-      ) : label;
-      return (
-        <div
-          className="flex"
-          style={{
-            borderBottom: '3px solid rgba(255,255,255,0.1)',
-            marginBottom: ((numItems - 1) === index) ? 0 : 5,
-          }}
-          key={index}
-        >
-          <div className="flex-sub">
-            <div
-              style={{
-                display: 'inline-block',
-                background: color,
-                borderRadius: '50%',
-                width: 16,
-                height: 16,
-                marginBottom: -3,
-              }}
-            />
-          </div>
-          <div className="flex-main" style={{ paddingLeft: 5 }}>
-            {label}
-          </div>
-          <div className="flex-sub">
-            <TooltipElement content={formatThousands(value)}>
-              {formatPercentage(value / total, 0)}%
-            </TooltipElement>
-          </div>
-        </div>
-      );
-    });
-  }
-
-  chart(items) {
-    return (
-      <DoughnutChart
-        data={{
-          datasets: [{
-            data: items.map(item => item.value),
-            backgroundColor: items.map(item => item.color),
-            borderColor: '#666',
-            borderWidth: 1.5,
-          }],
-          labels: items.map(item => item.label),
-        }}
-        options={{
-          legend: {
-            display: false,
-          },
-          tooltips: {
-            bodyFontSize: 8,
-          },
-          cutoutPercentage: 45,
-          animation: false,
-          responsive: false,
-        }}
-        width={CHART_SIZE}
-        height={CHART_SIZE}
-      />
-    );
-  }
-
-  masterySourceChart() {
+  get masterySourceChart() {
     const items = [
       {
         color: '#00b159',
         label: 'Vivify',
         spellId: SPELLS.VIVIFY.id,
         value: this.vivify.gustsHealing,
+        valueTooltip: formatThousands(this.vivify.gustsHealing),
       },
       {
         color: '#db00db',
         label: 'Renewing Mist',
         spellId: SPELLS.RENEWING_MIST.id,
         value: this.renewingMist.gustsHealing,
+        valueTooltip: formatThousands(this.renewingMist.gustsHealing),
       },
       {
         color: '#f37735',
         label: 'Enveloping Mists',
         spellId: SPELLS.ENVELOPING_MIST.id,
         value: this.envelopingMists.gustsHealing,
+        valueTooltip: formatThousands(this.envelopingMists.gustsHealing),
       },
       {
         color: '#ffc425',
         label: 'Soothing Mist',
         spellId: SPELLS.SOOTHING_MIST.id,
         value: this.soothingMist.gustsHealing,
+        valueTooltip: formatThousands(this.soothingMist.gustsHealing),
       },
       {
         color: '#00bbcc',
         label: 'Essence font',
         spellId: SPELLS.ESSENCE_FONT.id,
         value: this.essenceFontMastery.healing,
+        valueTooltip: formatThousands(this.essenceFontMastery.healing),
       },
     ];
 
     return (
-      <div className="flex">
-        <div className="flex-sub" style={{ paddingRight: 12 }}>
-          {this.chart(items)}
-        </div>
-        <div className="flex-main" style={{ fontSize: '80%', paddingTop: 3 }}>
-          {this.legend(items, this.totalMasteryHealing)}
-        </div>
-      </div>
+      <DonutChart
+        items={items}
+      />
     );
   }
 
@@ -167,12 +94,15 @@ class MasteryStats extends Analyzer {
 
   statistic() {
     return (
-      <StatisticsListBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(20)}
-        title={<><SpellLink id={SPELLS.GUSTS_OF_MISTS.id}>Gusts of Mists</SpellLink> breakdown</>}
+        style={{ height: '220px' }}
       >
-        {this.masterySourceChart()}
-      </StatisticsListBox>
+        <div className="pad">
+          <label><SpellLink id={SPELLS.GUSTS_OF_MISTS.id}>Gusts of Mists</SpellLink> breakdown</label>
+          {this.masterySourceChart}
+        </div>
+      </Statistic>
     );
   }
 }
