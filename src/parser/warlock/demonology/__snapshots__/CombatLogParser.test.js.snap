@@ -443,6 +443,97 @@ exports[`The Demonology Warlock Analyzer analyzers SoulStrike matches the statis
 
 exports[`The Demonology Warlock Analyzer analyzers SoulStrike matches the suggestions snapshot 1`] = `"module inactive"`;
 
+exports[`The Demonology Warlock Analyzer analyzers SummonDemonicTyrant matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=265187"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/inv_summondemonictyrant.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Average Demons Empowered
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="Number of pets empowered by each Demonic Tyrant summon."
+            >
+              12.00
+            </dfn>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-xs-12"
+        />
+      </div>
+      <div
+        className="statistic-expansion-button-holster"
+      >
+        <button
+          className="btn btn-primary"
+          onClick={[Function]}
+        >
+          <span
+            className="glyphicon glyphicon-chevron-down"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Demonology Warlock Analyzer analyzers SummonDemonicTyrant matches the suggestions snapshot 1`] = `Array []`;
+
 exports[`The Demonology Warlock Analyzer analyzers SummonVilefiend matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`The Demonology Warlock Analyzer analyzers SummonVilefiend matches the suggestions snapshot 1`] = `Array []`;
