@@ -1,5 +1,7 @@
 import React from 'react';
-import { Line as LineChart } from 'react-chartjs-2';
+import PropTypes from 'prop-types';
+import { FlexibleWidthXYPlot as XYPlot, XAxis, YAxis, LineSeries, AreaSeries, MarkSeries, Crosshair } from 'react-vis';
+import 'react-vis/dist/style.css';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Analyzer from 'parser/core/Analyzer';
@@ -8,6 +10,8 @@ import LazyLoadStatisticBox from 'interface/others/LazyLoadStatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import DamageTaken from './DamageTaken';
+
+import './MasteryValue.css';
 
 // coefficients to calculate dodge chance from agility
 const MONK_DODGE_COEFFS = {
@@ -103,6 +107,63 @@ export function baseDodge(agility, dodge_rating = 0) {
   // the x / (x + k) formula is commonly used by the wow team to
   // implement diminishing returns
   return (base + chance / (chance * MONK_DODGE_COEFFS.v + MONK_DODGE_COEFFS.h)) / 100;
+}
+
+class DodgeGraph extends React.Component {
+  static propTypes = {
+    dodgeableHits: PropTypes.number.isRequired,
+    dodgeProbabilities: PropTypes.array.isRequired,
+    actualDodge: PropTypes.object.isRequired,
+  };
+
+  state = {
+    hover: null,
+  };
+
+  render() {
+    const { dodgeableHits, dodgeProbabilities, actualDodge } = this.props;
+    return (
+      <XYPlot
+        height={150}
+        yDomain={[0, 0.4]}
+        onMouseLeave={() => this.setState({ hover: null })}
+      >
+        <XAxis title="Dodge %" tickFormat={value => `${formatPercentage(value / dodgeableHits, 0)}%`} />
+        <YAxis title="Likelihood" tickFormat={value => `${formatPercentage(value, 0)}%`} />
+        <AreaSeries
+          data={dodgeProbabilities}
+          color="rgba(255, 139, 45, 0.2)"
+          stroke="transparent"
+          curve="curveCardinal"
+        />
+        <LineSeries
+          data={dodgeProbabilities}
+          opacity={1}
+          stroke="rgba(255, 139, 45)"
+          strokeStyle="solid"
+          curve="curveCardinal"
+        />
+        <MarkSeries
+          data={[ actualDodge ]}
+          color="#00ff96"
+          onNearestX={d => this.setState({ hover: d })}
+          size={3}
+        />
+        {this.state.hover && (
+          <Crosshair
+            values={[ actualDodge ]}
+            style={{
+              line: { display: 'none' },
+            }}
+          >
+            <div className="react-tooltip-lite mastery-value-tooltip">
+              Actual Dodge: {formatPercentage(actualDodge.x / dodgeableHits, 2)}%
+            </div>
+          </Crosshair>
+        )}
+      </XYPlot>
+    );
+  }
 }
 
 /**
@@ -251,7 +312,7 @@ class MasteryValue extends Analyzer {
         }
       } else if (event.type === 'damage') {
         const noMasteryDodgeChance = this.dodgeChance(noMasteryStacks.expected, 0, event._agility, event.sourceID, event.timestamp);
-        const noAgiDodgeChance = this.dodgeChance(noAgiStacks.expected, event._masteryRating, 
+        const noAgiDodgeChance = this.dodgeChance(noAgiStacks.expected, event._masteryRating,
                                                   MONK_DODGE_COEFFS.base_agi, event.sourceID, event.timestamp);
         const expectedDodgeChance = this.dodgeChance(stacks.expected, event._masteryRating, event._agility, event.sourceID, event.timestamp);
         const baseDodgeChance = this.dodgeChance(0, 0, event._agility, event.sourceID, event.timestamp);
@@ -341,7 +402,7 @@ class MasteryValue extends Analyzer {
     return this.noMasteryExpectedMitigation / this.owner.fightDuration * 1000;
   }
 
-  plot() {
+  get plot() {
     // not the most efficient, but close enough and pretty safe
     function binom(n, k) {
       if(k > n) {
@@ -363,68 +424,17 @@ class MasteryValue extends Analyzer {
     const dodge_probs = Array.from({length: this.totalDodgeableHits}, (_x, i) => {
       return { x: i, y: dodge_prob(i) };
     });
+    const actualDodge = {
+      x: this.totalDodges,
+      y: dodge_prob(this.totalDodges),
+    };
 
     return (
-      <LineChart
-        data={{
-          labels: Array.from({length: this.totalDodgeableHits}, (_x, i) => i),
-          datasets: [
-            {
-              label: 'Actual Dodge',
-              data: [{ x: this.totalDodges, y: dodge_prob(this.totalDodges) }],
-              backgroundColor: '#00ff96',
-              type: 'scatter',
-            },
-            {
-              label: 'Dodge',
-              data: dodge_probs,
-              backgroundColor: 'rgba(255, 139, 45, 0.2)',
-              borderColor: 'rgb(255, 139, 45)',
-              borderWidth: 2,
-              radius: 0,
-            },
-          ],
-        }}
-        options={{
-          tooltips: {
-            callbacks: {
-              title: (tooltipItem, data) => data.datasets[tooltipItem[0].datasetIndex].label,
-              label: (tooltipItem, data) => `${formatPercentage(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].x / this.totalDodgeableHits)}%`,
-            },
-          },
-          legend: {
-            display: false,
-          },
-          scales: {
-            xAxes: [{
-              stacked: true,
-              scaleLabel: {
-                display: true,
-                labelString: 'Dodge %',
-                lineHeight: 1,
-                padding: 0,
-                fontColor: '#ccc',
-              },
-              ticks: {
-                fontColor: '#ccc',
-                callback: (x) => `${formatPercentage(x / this.totalDodgeableHits, 0)}%`,
-              },
-            }],
-            yAxes: [{
-              stacked: true,
-              scaleLabel: {
-                display: true,
-                labelString: 'Likelihood',
-                fontColor: '#ccc',
-              },
-              ticks: {
-                fontColor: '#ccc',
-                callback: (y) => `${formatPercentage(y, 0)}%`,
-              },
-            }],
-          },
-        }}
-        />
+      <DodgeGraph
+        dodgeableHits={this.totalDodgeableHits}
+        dodgeProbabilities={dodge_probs}
+        actualDodge={actualDodge}
+      />
     );
   }
 
@@ -453,7 +463,7 @@ class MasteryValue extends Analyzer {
           </>) : null}
         >
         <div style={{padding: '8px'}}>
-          {this._loaded ? this.plot() : null}
+          {this._loaded ? this.plot : null}
           <p>Likelihood of dodging <em>exactly</em> as much as you did with your level of Mastery.</p>
         </div>
       </LazyLoadStatisticBox>
