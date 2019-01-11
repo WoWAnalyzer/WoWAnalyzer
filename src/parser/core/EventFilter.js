@@ -8,6 +8,10 @@ class EventFilter {
     this.eventType = eventType;
   }
   _by;
+  /**
+   * @param {number} value
+   * @returns {EventFilter}
+   */
   by(value) {
     if (value === undefined) {
       return this._by;
@@ -22,6 +26,10 @@ class EventFilter {
     return (value & VALID_BY_FLAGS) === value;
   }
   _to;
+  /**
+   * @param {number} value
+   * @returns {EventFilter}
+   */
   to(value) {
     if (value === undefined) {
       return this._to;
@@ -30,6 +38,10 @@ class EventFilter {
     return this;
   }
   _spell;
+  /**
+   * @param {object} value
+   * @returns {EventFilter}
+   */
   spell(value) {
     if (value === undefined) {
       return this._spell;
