@@ -5,13 +5,15 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import { formatThousands } from 'common/format';
+import { formatPercentage, formatThousands } from 'common/format';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
+import { binomialPMF, findMax } from 'parser/warlock/shared/probability';
 import SoulShardTracker from '../soulshards/SoulShardTracker';
 
-const FRAGMENTS_PER_CHAOS_BOLT = 20;
+const FRAGMENTS_PER_SHARD = 10;
+const SC_PROC_CHANCE = 0.15;
 
 class SoulConduit extends Analyzer {
   static dependencies = {
@@ -30,15 +32,19 @@ class SoulConduit extends Analyzer {
   }
 
   subStatistic() {
-    const generated = this.soulShardTracker.getGeneratedBySpell(SPELLS.SOUL_CONDUIT_SHARD_GEN.id);
-    const estimatedDamage = Math.floor(generated / FRAGMENTS_PER_CHAOS_BOLT) * this.averageChaosBoltDamage;
-
+    const generatedShards = this.soulShardTracker.getGeneratedBySpell(SPELLS.SOUL_CONDUIT_SHARD_GEN.id) / FRAGMENTS_PER_SHARD;
+    const estimatedDamage = Math.floor(generatedShards / 2) * this.averageChaosBoltDamage; // Chaos Bolt costs 2 shards to cast
+    const totalSpent = this.soulShardTracker.spent / FRAGMENTS_PER_SHARD; // Destruction Soul Shard Tracker tracks fragments (10 fragments per shard)
+    // find number of Shards we were MOST LIKELY to get in the fight
+    const { max } = findMax(totalSpent, SC_PROC_CHANCE, binomialPMF);
     return (
       <StatisticListBoxItem
-        title={<>Fragments generated with <SpellLink id={SPELLS.SOUL_CONDUIT_TALENT.id} /></>}
-        value={generated}
-        valueTooltip={`Estimated damage: ${formatThousands(estimatedDamage)} (${this.owner.formatItemDamageDone(estimatedDamage)}).
-          This result is estimated by multiplying average Chaos Bolt damage by potential casts you would get from these bonus fragments.`}
+        title={<>Shards generated with <SpellLink id={SPELLS.SOUL_CONDUIT_TALENT.id} /></>}
+        value={generatedShards}
+        valueTooltip={`You gained ${generatedShards} Shards from this talent, which is <strong>${formatPercentage(generatedShards / max)}%</strong> of Shards you were most likely to get in this fight (${max} Shards).<br />
+          Estimated damage: ${formatThousands(estimatedDamage)} (${this.owner.formatItemDamageDone(estimatedDamage)}).<br /><br />
+
+          This result is estimated by multiplying average Chaos Bolt damage by potential casts you would get from these bonus Shards.`}
       />
     );
   }
