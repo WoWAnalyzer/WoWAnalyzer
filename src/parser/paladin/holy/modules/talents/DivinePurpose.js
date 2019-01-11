@@ -100,7 +100,7 @@ class DivinePurpose extends Analyzer {
             </div>
             <div className="flex-main">
               {this.holyShockProcs} <small>{formatPercentage(this.holyShockProcs / (holyShockHeals - this.holyShockProcs))}%</small><br />
-              <small>Best streak: {this.highestHolyShockProcStreak}x</small>
+              <small>Best streak: {this.highestHolyShockProcStreak < 2 ? 'N/A' : `${this.highestHolyShockProcStreak}x`}</small>
             </div>
             <div className="flex-sub content-middle" style={{ marginRight: 5 }}>
               <SpellIcon
@@ -113,7 +113,7 @@ class DivinePurpose extends Analyzer {
             </div>
             <div className="flex-main">
               {this.lightOfDawnProcs} <small>{formatPercentage(this.lightOfDawnProcs / (lightOfDawnHeals - this.lightOfDawnProcs))}%</small><br />
-              <small>Best streak: {this.highestLightOfDawnProcStreak}x</small>
+              <small>Best streak: {this.highestLightOfDawnProcStreak < 2 ? 'N/A' : `${this.highestLightOfDawnProcStreak}x`}</small>
             </div>
           </div>
         )}
