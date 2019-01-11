@@ -18,14 +18,12 @@ export default {
       physical: [],
       magical: [],
     },
-    phases: [
-      {
-        id: '1',
+    phases: {
+      P1: {
         name: 'Stage One: The Forces of Blood',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
       },
-      {
-        id: '2',
+      P2: {
         name: 'Stage Two: Zul, Awakened',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
@@ -35,6 +33,6 @@ export default {
           },
         },
       },
-    ],
+    },
   },
 };

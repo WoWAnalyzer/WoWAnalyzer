@@ -5,24 +5,24 @@ export const PHASE_END_EVENT_TYPE = 'phaseend';
 
 export function fabricateBossPhaseEvents(events, report, fight) {  
   const bossConfig = findByBossId(fight.boss);
-  const phases = bossConfig.fight.phases;
   const fightDifficulty = fight.difficulty;
 
   const phaseEvents = [];
   const bossPhaseEvents = [];
 
-  if (phases && phases.length !== 0) {
-    const phasesForDifficulty = phases.filter(phase => phase.difficulties.includes(fightDifficulty));
+  if (bossConfig && bossConfig.fight && bossConfig.fight.phases && bossConfig.fight.phases.length !== 0) {
+    const phasesKeys = Object.keys(bossConfig.fight.phases).filter(key => bossConfig.fight.phases[key].difficulties.includes(fightDifficulty));
 
-    if (phasesForDifficulty && phasesForDifficulty.length !== 0) {
+    if (phasesKeys && phasesKeys.length !== 0) {
       phaseEvents.push({
-        id: phasesForDifficulty[0].id,
-        phase: phasesForDifficulty[0],
+        key: phasesKeys[0],
+        phase: bossConfig.fight.phases[phasesKeys[0]],
         start: fight.start_time,
         end: null,
       });
 
-      phasesForDifficulty.forEach(phase => {
+      phasesKeys.forEach(key => {
+        const phase = bossConfig.fight.phases[key];
         if (phase.filter && phase.filter.type) {
           switch (phase.filter.type) {
             case 'removebuff':
@@ -38,7 +38,7 @@ export function fabricateBossPhaseEvents(events, report, fight) {
 
               bossEvents.forEach(bossEvent => {
                 phaseEvents.push({
-                  id: phase.id,
+                  key: key,
                   phase: phase,
                   start: bossEvent.timestamp,
                   end: null,
@@ -63,7 +63,7 @@ export function fabricateBossPhaseEvents(events, report, fight) {
 
                 firstSpawnOfWaveEvents.forEach((timestamp, index) => {
                   phaseEvents.push({
-                    id: `${phase.id}_${index}`,
+                    key: `${key}_${index}`,
                     phase: phase,
                     start: timestamp,
                     end: null,
@@ -81,7 +81,7 @@ export function fabricateBossPhaseEvents(events, report, fight) {
                 }, []);
 
                 lastDeathOfWaveEvents.forEach((timestamp, index) => {
-                  const startIndex = phaseEvents.findIndex(event => event.id === `${phase.id}_${index}`);
+                  const startIndex = phaseEvents.findIndex(event => event.key === `${key}_${index}`);
                   phaseEvents[startIndex].end = timestamp;
                 });
               }

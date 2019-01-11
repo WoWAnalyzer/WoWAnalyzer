@@ -27,14 +27,12 @@ export default {
       ],
       magical: [],
     },
-    phases: [
-      {
-        id: '1',
+    phases: {
+      P1: {
         name: 'Stage One: My Minions Are Endless!',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
       },
-      {
-        id: '2',
+      P2: {
         name: 'Stage Two: Behold the Power of Ghuun!',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
@@ -45,8 +43,7 @@ export default {
           eventInstance: 0,
         },
       },
-      {
-        id: '3',
+      P3: {
         name: 'Stage Three: Your Destruction is Assured!',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
@@ -56,6 +53,6 @@ export default {
           },
         },
       },
-    ],
+    },
   },
 };

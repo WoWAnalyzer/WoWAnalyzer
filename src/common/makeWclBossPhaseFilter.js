@@ -2,33 +2,19 @@ import { findByBossId } from 'raids';
 
 export function makeWclBossPhaseFilter(fight) {
   const bossConfig = findByBossId(fight.boss);
-  if (bossConfig.fight.phases && bossConfig.fight.phases.length !== 0) {
+  if (bossConfig && bossConfig.fight && bossConfig.fight.phases && bossConfig.fight.phases.length !== 0) {
     const filters = [];
+    const phasesForDifficulty = Object.values(bossConfig.fight.phases).filter(phase => phase.difficulties.includes(fight.difficulty));
 
-    const phasesForDifficulty = bossConfig.fight.phases.filter(phase => phase.difficulties.includes(fight.difficulty));
-
-    const abilities = phasesForDifficulty.reduce((abilityIds, phase) => {
-      if (phase.filter && phase.filter.ability && !abilityIds.includes(phase.filter.ability.id)) {
-        return abilityIds.concat(phase.filter.ability.id);
+    phasesForDifficulty.forEach(phase => {
+      if (phase.filter) {
+        if (phase.filter.ability) {
+          filters.push(`(ability.id = ${phase.filter.ability.id} AND type = "${phase.filter.type}")`);
+        } else if (phase.filter.query) {
+          filters.push(`(${phase.filter.query})`);
+        }
       }
-      return abilityIds;
-    }, []);
-
-    if (abilities.length > 0) {
-      filters.push(`(ability.id in (${abilities.join(',')}))`);
-    }
-
-    const queries = phasesForDifficulty.reduce((queryAcc, phase) => {
-      if (phase.filter && phase.filter.query && !queryAcc.includes(phase.filter.query)) {
-        return queryAcc.concat(`(${phase.filter.query})`);
-      }
-      return queryAcc;
-    }, []);
-
-    if (queries.length > 0) {
-      filters.push(...queries);
-    }
-
+    });
     return filters.join(' OR ');
   }
   return undefined;

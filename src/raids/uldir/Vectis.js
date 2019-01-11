@@ -19,9 +19,8 @@ export default {
       physical: [],
       magical: [],
     },
-    phases: [
-      {
-        id: '1',
+    phases: {
+      P1: {
         name: 'Stage One: Probing Its Hosts',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
@@ -31,8 +30,7 @@ export default {
           },
         },
       },
-      {
-        id: '2',
+      P2: {
         name: 'Stage Two: Spreading Pandemic',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
@@ -42,6 +40,6 @@ export default {
           },
         },
       },
-    ],
+    },
   },
 };

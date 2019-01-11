@@ -29,19 +29,16 @@ export default {
         265264, // Void Lash
       ],
     },
-    phases: [
-      {
-        id: '1',
+    phases: {
+      P1: {
         name: 'Stage One: Chaos',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC],
       },
-      {
-        id: '1',
+      P1_M: {
         name: 'Stage One: Chaos and Deception',
         difficulties: [FIGHT_DIFFICULTIES.MYTHIC],
       },
-      {
-        id: '1_A_SW',
+      SW: {
         name: 'Wave: Silithid Warriors',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
@@ -51,8 +48,7 @@ export default {
           guid: 134503,
         },
       },
-      {
-        id: '1_A_NW',
+      NW_M: {
         name: 'Wave: Nerubian Voidweavers',
         difficulties: [FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
@@ -62,8 +58,7 @@ export default {
           guid: 135824,
         },
       },
-      {
-        id: '2',
+      P2: {
         name: 'Stage Two: Deception',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC],
         filter: {
@@ -74,8 +69,7 @@ export default {
           eventInstance: 0,
         },
       },
-      {
-        id: '2_A_NW',
+      NW: {
         name: 'Wave: Nerubian Voidweavers',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC],
         filter: {
@@ -85,8 +79,7 @@ export default {
           guid: 135824,
         },
       },
-      {
-        id: '2',
+      P2_M: {
         name: 'Stage Two: Corruption',
         difficulties: [FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
@@ -97,8 +90,7 @@ export default {
           eventInstance: 0,
         },
       },
-      {
-        id: '3',
+      P3: {
         name: 'Stage Three: Corruption',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC],
         filter: {
@@ -109,6 +101,6 @@ export default {
           eventInstance: 1,
         },
       },
-    ],
+    },
   },
 };

@@ -21,9 +21,8 @@ export default {
         273282, // Essence Shear
       ],
     },
-    phases: [
-      {
-        id: '1',
+    phases: {
+      P1: {
         name: 'Stage One: Oblivion\'s Call',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
@@ -33,8 +32,7 @@ export default {
           },
         },
       },
-      {
-        id: '2',
+      P2: {
         name: 'Stage Two: Ancient Awakening',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
@@ -44,6 +42,6 @@ export default {
           },
         },
       },
-    ],
+    },
   },
 };

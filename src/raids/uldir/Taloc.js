@@ -21,14 +21,12 @@ export default {
         271811, // Cudgel of Gore
       ],
     },
-    phases: [
-      {
-        id: '1',
+    phases: {
+      P1: {
         name: 'Stage One: The Corrupted Construct',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
       },
-      {
-        id: '2',
+      P2: {
         name: 'Stage Two: Ruin\'s Descent',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
@@ -38,8 +36,7 @@ export default {
           },
         },
       },
-      {
-        id: '3',
+      P3: {
         name: 'Stage Three: The Bottom Floor',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
@@ -49,6 +46,6 @@ export default {
           },
         },
       },
-    ],
+    },
   },
 };
