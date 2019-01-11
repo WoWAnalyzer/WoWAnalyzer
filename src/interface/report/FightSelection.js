@@ -34,11 +34,11 @@ class FightSelection extends React.PureComponent {
         <div className="row">
           <div className="col-lg-10 col-md-8" style={{ position: 'relative' }}>
             <div className="back-button" style={{ fontSize: 36, width: 20 }}>
-              <Link to={makeAnalyzerUrl()}>
-                <Tooltip content={i18n._(t`Back to home`)} tagName="div">
+              <Tooltip content={i18n._(t`Back to home`)}>
+                <Link to={makeAnalyzerUrl()}>
                   <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
-                </Tooltip>
-              </Link>
+                </Link>
+              </Tooltip>
             </div>
             <h1>
               {report.title}

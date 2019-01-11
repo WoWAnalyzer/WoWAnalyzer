@@ -9,7 +9,6 @@ import Buffs from 'parser/core/modules/Buffs';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import DeathTracker from 'parser/shared/modules/DeathTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import TimelineBuffEvents from 'parser/shared/modules/TimelineBuffEvents';
 
 import Component from './Component';
 
@@ -42,7 +41,6 @@ class Container extends React.PureComponent {
         resurrections={parser.getModule(DeathTracker).resurrections}
         isAbilityCooldownsAccurate={parser.getModule(SpellUsable).isAccurate}
         isGlobalCooldownAccurate={parser.getModule(GlobalCooldown).isAccurate}
-        buffEvents={parser.getModule(TimelineBuffEvents).buffHistoryBySpellId}
       />
     );
   }

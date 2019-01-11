@@ -70,20 +70,18 @@ class DefensiveStance extends Analyzer {
   statistic() {
     const footer = (
       <div className="statistic-bar">
-        <Tooltip
-          className="stat-health-bg"
-          tagName="div"
-          wrapperStyles={{ width: `${this.damageTradeoff() * 100}%` }}
-          content={`You effectively reduced damage taken by a total of ${formatThousands(this.totalDamageMitigated)} damage (${formatThousands(this.perSecond(this.totalDamageMitigated))} DRPS).`}
-        >
-          <img src="/img/shield.png" alt="Damage reduced" />
+        <Tooltip content={`You effectively reduced damage taken by a total of ${formatThousands(this.totalDamageMitigated)} damage (${formatThousands(this.perSecond(this.totalDamageMitigated))} DRPS).`}>
+          <div
+            className="stat-health-bg"
+            style={{ width: `${this.damageTradeoff() * 100}%` }}
+          >
+            <img src="/img/shield.png" alt="Damage reduced" />
+          </div>
         </Tooltip>
-        <Tooltip
-          className="remainder DeathKnight-bg"
-          tagName="div"
-          content={`You lost ${formatThousands(this.totalDamageLost)} damage through the use of Defensive Stance. (${formatThousands(this.perSecond(this.totalDamageLost))} DLPS).`}
-        >
-          <img src="/img/sword.png" alt="Damage lost" />
+        <Tooltip content={`You lost ${formatThousands(this.totalDamageLost)} damage through the use of Defensive Stance. (${formatThousands(this.perSecond(this.totalDamageLost))} DLPS).`}>
+          <div className="remainder DeathKnight-bg">
+            <img src="/img/sword.png" alt="Damage lost" />
+          </div>
         </Tooltip>
       </div>
     );
@@ -94,11 +92,13 @@ class DefensiveStance extends Analyzer {
         icon={<SpellIcon id={SPELLS.DEFENSIVE_STANCE_TALENT.id} />}
         value={`≈${formatNumber(this.drps)} DRPS, ${formatNumber(this.dlps)} DLPS`}
         label="Damage reduced & lost"
-        tooltip={(<>
-          <strong>Total:</strong><br />
-          Effective damage reduction: {formatThousands(this.totalDamageMitigated)} damage ({formatThousands(this.perSecond(this.totalDamageMitigated))} DRPS)<br />
-          Effective damage lost: {formatThousands(this.totalDamageLost)} damage ({formatThousands(this.perSecond(this.totalDamageLost))} DLPS)
-        </>)}
+        tooltip={(
+          <>
+            <strong>Total:</strong><br />
+            Effective damage reduction: {formatThousands(this.totalDamageMitigated)} damage ({formatThousands(this.perSecond(this.totalDamageMitigated))} DRPS)<br />
+            Effective damage lost: {formatThousands(this.totalDamageLost)} damage ({formatThousands(this.perSecond(this.totalDamageLost))} DLPS)
+          </>
+        )}
         footer={footer}
       />
     );

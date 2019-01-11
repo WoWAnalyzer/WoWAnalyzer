@@ -1,7 +1,7 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 import {formatNumber} from 'common/format';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import Analyzer from 'parser/core/Analyzer';
@@ -34,9 +34,9 @@ class VigilantsBloodshaper extends Analyzer {
     return {
       item: ITEMS.VIGILANTS_BLOODSHAPER,
       result: (
-        <Tooltip content={<>Hit <strong>{this.hits}</strong> targets, causing <strong>{formatNumber(this.damage)}</strong> damage.</>}>
+        <TooltipElement content={<>Hit <strong>{this.hits}</strong> targets, causing <strong>{formatNumber(this.damage)}</strong> damage.</>}>
           <ItemDamageDone amount={this.damage} />
-        </Tooltip>
+        </TooltipElement>
       ),
     };
   }

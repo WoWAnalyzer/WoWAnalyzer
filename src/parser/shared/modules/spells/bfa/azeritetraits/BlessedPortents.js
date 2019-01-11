@@ -73,14 +73,16 @@ class BlessedPortents extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.BLESSED_PORTENTS.id}
         value={`${formatPercentage(healingThroughputPercent)} % / ${formatNumber(hps)} HPS`}
-        tooltip={(<>
-          Applied <strong>{formatNumber(this.totalBuffs)}</strong> buffs, <strong>{formatNumber(this.refreshedBuffs)}</strong> were refreshes.
-          <ul>
-            <li>Procced: <strong>{formatNumber(this.proccedBuffs)}</strong></li>
-            <li>Expired: <strong>{formatNumber(this.expiredBuffs)}</strong></li>
-            <li>Active at encounter end: <strong>{formatNumber(this.activeBuffs)}</strong></li>
-          </ul>
-        </>)}
+        tooltip={(
+          <>
+            Applied <strong>{formatNumber(this.totalBuffs)}</strong> buffs, <strong>{formatNumber(this.refreshedBuffs)}</strong> were refreshes.
+            <ul>
+              <li>Procced: <strong>{formatNumber(this.proccedBuffs)}</strong></li>
+              <li>Expired: <strong>{formatNumber(this.expiredBuffs)}</strong></li>
+              <li>Active at encounter end: <strong>{formatNumber(this.activeBuffs)}</strong></li>
+            </ul>
+          </>
+        )}
       />
     );
   }

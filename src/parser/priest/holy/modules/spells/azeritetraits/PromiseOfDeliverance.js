@@ -81,10 +81,12 @@ class PromiseOfDeliverance extends Analyzer {
       <TraitStatisticBox
         trait={SPELLS.PROMISE_OF_DELIVERANCE.id}
         value={<ItemHealingDone amount={this.healingDone} />}
-        tooltip={(<>
+        tooltip={(
+          <>
           Healing Done: {formatNumber(this.healingDone)} ({formatPercentage(this.overhealingDone / (this.healingDone + this.overhealingDone))}% OH).<br />
-          {SPELLS.HOLY_WORD_SERENITY.name} Cooldown reduced by {Math.floor(this.cooldownReduced / 1000)} seconds.
-        </>)}
+            {SPELLS.HOLY_WORD_SERENITY.name} Cooldown reduced by {Math.floor(this.cooldownReduced / 1000)} seconds.
+          </>
+        )}
       />
     );
   }

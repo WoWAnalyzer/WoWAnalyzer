@@ -84,14 +84,16 @@ class Shield_Block extends Analyzer {
         icon={<SpellIcon id={SPELLS.SHIELD_BLOCK_BUFF.id} />}
         value={`${formatPercentage (physicalHitsMitigatedPercent)}%`}
         label="Physical Hits Mitigated"
-        tooltip={(<>
-          Shield Block usage breakdown:
-          <ul>
-            <li>You were hit <strong>{this.physicalHitsWithShield_Block}</strong> times with your Shield Block buff (<strong>{formatThousands(this.physicalDamageWithShield_Block)}</strong> damage).</li>
-            <li>You were hit <strong>{this.physicalHitsWithoutShield_Block}</strong> times <strong><em>without</em></strong> your Shield Block buff (<strong>{formatThousands(this.physicalDamageWithoutShield_Block)}</strong> damage).</li>
-          </ul>
-          <strong>{formatPercentage(physicalHitsMitigatedPercent)}%</strong> of physical attacks were mitigated with Shield Block (<strong>{formatPercentage(physicalDamageMitigatedPercent)}%</strong> of physical damage taken).
-        </>)}
+        tooltip={(
+          <>
+            Shield Block usage breakdown:
+            <ul>
+              <li>You were hit <strong>{this.physicalHitsWithShield_Block}</strong> times with your Shield Block buff (<strong>{formatThousands(this.physicalDamageWithShield_Block)}</strong> damage).</li>
+              <li>You were hit <strong>{this.physicalHitsWithoutShield_Block}</strong> times <strong><em>without</em></strong> your Shield Block buff (<strong>{formatThousands(this.physicalDamageWithoutShield_Block)}</strong> damage).</li>
+            </ul>
+            <strong>{formatPercentage(physicalHitsMitigatedPercent)}%</strong> of physical attacks were mitigated with Shield Block (<strong>{formatPercentage(physicalDamageMitigatedPercent)}%</strong> of physical damage taken).
+          </>
+        )}
       />
     );
   }

@@ -4,7 +4,7 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import HIT_TYPES from 'game/HIT_TYPES';
@@ -91,9 +91,9 @@ class UpliftedSpirits extends Analyzer {
         icon={<SpellIcon id={SPELLS.UPLIFTED_SPIRITS.id} />}
         value={`${formatNumber(this.cooldownReductionUsed / 1000) || 0}`}
         label={(
-          <Tooltip content={`You wasted ${this.cooldownReductionWasted / 1000 || 0} seconds of cooldown reduction.`}>
+          <TooltipElement content={`You wasted ${this.cooldownReductionWasted / 1000 || 0} seconds of cooldown reduction.`}>
             Revival Seconds Reduced
-          </Tooltip>
+          </TooltipElement>
         )}
       />
     );

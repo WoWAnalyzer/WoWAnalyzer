@@ -6,7 +6,7 @@ import Analyzer from 'parser/core/Analyzer';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import { formatNumber, formatPercentage } from 'common/format';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 /**
  * Lady Waycrest's Music Box -
@@ -51,13 +51,13 @@ class LadyWaycrestsMusicBox extends Analyzer {
       item: ITEMS.LADY_WAYCRESTS_MUSIC_BOX,
       result: (
         <>
-          <Tooltip content={`Healing done: ${formatNumber(this.healing)} (${formatPercentage(this.overhealPercent)}% OH)`}>
+          <TooltipElement content={`Healing done: ${formatNumber(this.healing)} (${formatPercentage(this.overhealPercent)}% OH)`}>
             <ItemHealingDone amount={this.healing} />
-          </Tooltip>
+          </TooltipElement>
           <br />
-          <Tooltip content={`Damage done: ${formatNumber(this.damage)}`}>
+          <TooltipElement content={`Damage done: ${formatNumber(this.damage)}`}>
             <ItemDamageDone amount={this.damage} />
-          </Tooltip>
+          </TooltipElement>
         </>
       ),
     };

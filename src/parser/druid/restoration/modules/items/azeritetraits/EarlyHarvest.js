@@ -66,10 +66,12 @@ class EarlyHarvest extends Analyzer{
             {formatNumber(innervateCooldownReducedInSeconds)} seconds
           </>
         )}
-        tooltip={(<>
-          Healed {formatNumber(this.numEarlyHarvestHeals)} times for a total of {formatNumber(this.healingFromWildGrowthExpiration)} <br />
-          Reduced innervate cooldown {this.numEarlyHarvestCooldownReductions} times for a total of {innervateCooldownReducedInSeconds} seconds
-        </>)}
+        tooltip={(
+          <>
+            Healed {formatNumber(this.numEarlyHarvestHeals)} times for a total of {formatNumber(this.healingFromWildGrowthExpiration)} <br />
+            Reduced innervate cooldown {this.numEarlyHarvestCooldownReductions} times for a total of {innervateCooldownReducedInSeconds} seconds
+          </>
+        )}
       />
     );
   }

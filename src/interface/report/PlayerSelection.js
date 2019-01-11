@@ -144,11 +144,11 @@ class PlayerSelection extends React.PureComponent {
         <div className="container">
           <h1>
             <div className="back-button">
-              <Link to={`/report/${report.code}`}>
-                <Tooltip content={i18n._(t`Back to fight selection`)} tagName="div">
+              <Tooltip content={i18n._(t`Back to fight selection`)}>
+                <Link to={`/report/${report.code}`}>
                   <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
-                </Tooltip>
-              </Link>
+                </Link>
+              </Tooltip>
             </div>
             <Trans>Player selection</Trans>
           </h1>

@@ -67,10 +67,12 @@ class SwirlingSands extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.SWIRLING_SANDS.id}
         value={`${this.averageCrit} average crit`}
-        tooltip={(<>
-          {SPELLS.SWIRLING_SANDS.name} grants <strong>{this.crit} crit</strong> while active.<br />
-          You procced <strong>{SPELLS.SWIRLING_SANDS.name} {this.swirlingSandsProcs} times</strong> with an uptime of {formatPercentage(this.uptime)}%.
-        </>)}
+        tooltip={(
+          <>
+            {SPELLS.SWIRLING_SANDS.name} grants <strong>{this.crit} crit</strong> while active.<br />
+            You procced <strong>{SPELLS.SWIRLING_SANDS.name} {this.swirlingSandsProcs} times</strong> with an uptime of {formatPercentage(this.uptime)}%.
+          </>
+        )}
       />
     );
   }

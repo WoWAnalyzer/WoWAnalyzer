@@ -4,7 +4,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 import Analyzer from 'parser/core/Analyzer';
 import Haste from 'parser/shared/modules/Haste';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
@@ -256,9 +256,9 @@ class Voidform extends Analyzer {
         icon={<SpellIcon id={SPELLS.VOIDFORM.id} />}
         value={`${formatPercentage(this.selectedCombatant.getBuffUptime(SPELLS.VOIDFORM_BUFF.id) / (this.owner.fightDuration - this.selectedCombatant.getBuffUptime(SPELLS.DISPERSION.id)))} %`}
         label={(
-          <Tooltip content={`Time spent in dispersion (${Math.round(this.selectedCombatant.getBuffUptime(SPELLS.DISPERSION.id) / 1000)} seconds) is excluded from the fight.`}>
+          <TooltipElement content={`Time spent in dispersion (${Math.round(this.selectedCombatant.getBuffUptime(SPELLS.DISPERSION.id) / 1000)} seconds) is excluded from the fight.`}>
             Voidform uptime
-          </Tooltip>
+          </TooltipElement>
         )}
       />
     );

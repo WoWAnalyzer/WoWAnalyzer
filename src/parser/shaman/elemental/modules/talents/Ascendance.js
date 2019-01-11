@@ -103,16 +103,18 @@ class Ascendance extends Analyzer {
         icon={<SpellIcon id={SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id} />}
         value={`~ ${formatNumber(this.averageLavaBurstCasts)}`}
         label="Average Number Of Lava Bursts Per Ascendance"
-        tooltip={(<>
-          With a uptime of: {formatPercentage(this.AscendanceUptime)} %<br />
-          Casts while Ascendance was up:
-          <ul>
-            <li>Earth Shock: {this.numCasts[SPELLS.EARTH_SHOCK.id]}</li>
-            <li>Lava Burst: {this.numCasts[SPELLS.LAVA_BURST.id]}</li>
-            {hasEB && <li>Elemental Blast: {this.numCasts[SPELLS.ELEMENTAL_BLAST_TALENT.id]}</li>}
-            <li>Other Spells: {this.numCasts.others}</li>
-          </ul>
-        </>)}
+        tooltip={(
+          <>
+            With a uptime of: {formatPercentage(this.AscendanceUptime)} %<br />
+            Casts while Ascendance was up:
+            <ul>
+              <li>Earth Shock: {this.numCasts[SPELLS.EARTH_SHOCK.id]}</li>
+              <li>Lava Burst: {this.numCasts[SPELLS.LAVA_BURST.id]}</li>
+              {hasEB && <li>Elemental Blast: {this.numCasts[SPELLS.ELEMENTAL_BLAST_TALENT.id]}</li>}
+              <li>Other Spells: {this.numCasts.others}</li>
+            </ul>
+          </>
+        )}
       />
     );
   }

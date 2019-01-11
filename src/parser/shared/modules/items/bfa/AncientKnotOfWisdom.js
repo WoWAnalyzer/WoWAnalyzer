@@ -8,7 +8,7 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import { formatPercentage } from 'common/format';
 import { formatNumber } from 'common/format';
 import { calculatePrimaryStat } from 'common/stats';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 /*
 * Ancient Knot of Wisdom
@@ -78,10 +78,10 @@ class AncientKnotOfWisdom extends Analyzer {
     return {
       item: ITEMS.ANCIENT_KNOT_OF_WISDOM,
       result: (
-        <Tooltip content={`Used ${this.casts} times`}>
+        <TooltipElement content={`Used ${this.casts} times`}>
           {formatPercentage(this.totalBuffUptime)}% uptime<br />
           {formatNumber(this.averageIntellect)} average Intellect
-        </Tooltip>
+        </TooltipElement>
       ),
     };
   }

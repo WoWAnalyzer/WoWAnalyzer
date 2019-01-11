@@ -66,14 +66,16 @@ class HolyWordsReductionBySpell extends Analyzer {
         icon={<SpellIcon id={Number(SPELLS.HOLY_WORDS.id)} />}
         value={`${formatPercentage(reductionRatio)} %`}
         label="Effective Holy Word reduction"
-        tooltip={(<>
-          The % above is the total CD reduction normalize against the fight length.<br />
-          This allows for comparision across different fights more easily.<br /><br />
+        tooltip={(
+          <>
+            The % above is the total CD reduction normalize against the fight length.<br />
+            This allows for comparision across different fights more easily.<br /><br />
 
-          Talents like <strong>Light of the Naaru</strong> and <strong>Apotheosis</strong> which provide further CD reduction are taken into account when calculating these numbers.<br /><br />
+            Talents like <strong>Light of the Naaru</strong> and <strong>Apotheosis</strong> which provide further CD reduction are taken into account when calculating these numbers.<br /><br />
 
-          If you took the talent <strong>Holy Word Salvation, Holy Words Sanctify	and Serenity</strong> will show since they provide CD reduction for <strong>Holy World Salvation</strong>.
-        </>)}
+            If you took the talent <strong>Holy Word Salvation, Holy Words Sanctify	and Serenity</strong> will show since they provide CD reduction for <strong>Holy World Salvation</strong>.
+          </>
+        )}
       >
         <table className="table table-condensed">
           <thead>

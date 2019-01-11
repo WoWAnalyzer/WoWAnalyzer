@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import {formatNumber} from 'common/format';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 import Analyzer from 'parser/core/Analyzer';
 
 /**
@@ -35,9 +35,9 @@ class DiscOfSystematicRegression extends Analyzer {
     return {
       item: ITEMS.DISC_OF_SYSTEMATIC_REGRESSION,
       result: (
-        <Tooltip content={<>Hit <strong>{this.hits}</strong> times for an average of <strong>{formatNumber(this.totalDamage/this.hits)}</strong> damage per hit.</>}>
+        <TooltipElement content={<>Hit <strong>{this.hits}</strong> times for an average of <strong>{formatNumber(this.totalDamage/this.hits)}</strong> damage per hit.</>}>
           <ItemDamageDone amount={this.totalDamage} />
-        </Tooltip>
+        </TooltipElement>
       ),
     };
   }

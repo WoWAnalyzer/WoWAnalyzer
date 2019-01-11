@@ -93,33 +93,39 @@ class NavigationBar extends React.PureComponent {
           <div className="spacer" />
           <div className="menu-item required">
             {user && user.premium ? (
-              <Link to="/premium">
-                <Tooltip content="Premium active" tagName="div">
+              <Tooltip content="Premium active">
+                <Link to="/premium">
                   <PremiumIcon /> <span className="optional">{user.name}</span>
-                </Tooltip>
-              </Link>
+                </Link>
+              </Tooltip>
             ) : (
-              <Link to="/premium" className="premium">
-                <Tooltip content={i18n._(t`Premium`)} tagName="div">
+              <Tooltip content={i18n._(t`Premium`)}>
+                <Link to="/premium" className="premium">
                   <PremiumIcon /> <span className="optional"><Trans>Premium</Trans></span>
-                </Tooltip>
-              </Link>
+                </Link>
+              </Tooltip>
             )}
           </div>
-          <Tooltip className="menu-item optional" content="Discord" tagName="div">
-            <a href="https://wowanalyzer.com/discord">
-              <DiscordIcon />
-            </a>
+          <Tooltip content="Discord">
+            <div className="menu-item optional">
+              <a href="https://wowanalyzer.com/discord">
+                <DiscordIcon />
+              </a>
+            </div>
           </Tooltip>
-          <Tooltip className="menu-item optional" content="GitHub" tagName="div">
-            <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
-              <GitHubIcon />
-            </a>
+          <Tooltip content="GitHub">
+            <div className="menu-item optional">
+              <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
+                <GitHubIcon />
+              </a>
+            </div>
           </Tooltip>
-          <Tooltip className="menu-item optional" content="Patreon" tagName="div">
-            <a href="https://www.patreon.com/wowanalyzer">
-              <PatreonIcon />
-            </a>
+          <Tooltip content="Patreon">
+            <div className="menu-item optional">
+              <a href="https://www.patreon.com/wowanalyzer">
+                <PatreonIcon />
+              </a>
+            </div>
           </Tooltip>
         </div>
         <LoadingBar progress={progress} />

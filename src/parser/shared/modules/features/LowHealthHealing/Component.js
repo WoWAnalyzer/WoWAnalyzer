@@ -9,7 +9,7 @@ import Icon from 'common/Icon';
 
 import { formatNumber, formatPercentage, formatDuration } from 'common/format';
 import SpecIcon from 'common/SpecIcon';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 class LowHealthHealing extends React.Component {
   static propTypes = {
@@ -126,9 +126,9 @@ class LowHealthHealing extends React.Component {
                       <td style={{ width: 170, paddingRight: 5, textAlign: 'right' }}>
                         {formatNumber(effectiveHealing)} @{' '}
                         {healthPercentage < 0 ? (
-                          <Tooltip content="This number may be negative when the player had an absorb larger than his health pool.">
+                          <TooltipElement content="This number may be negative when the player had an absorb larger than his health pool.">
                             {formatPercentage(healthPercentage)}% health
-                          </Tooltip>
+                          </TooltipElement>
                         ) : `${formatPercentage(healthPercentage)}% health`}
                       </td>
                       <td style={{ width: '35%' }}>

@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -108,16 +108,19 @@ class EssenceFontMastery extends Analyzer {
         icon={<SpellIcon id={SPELLS.GUSTS_OF_MISTS.id} />}
         value={efMasteryCasts}
         label={(
-          <Tooltip content={(<>
-            You healed an average of {this.avgMasteryCastsPerEF.toFixed(2)} targets per Essence Font cast.
-            <ul>
-              <li>{formatNumber(avgEFMasteryHealing)} average healing per cast</li>
-              <li>{formatNumber(this.secondGustOverheal)} Second Gust of Mists overhealing ({formatPercentage(this.secondGustOverheal / this.secondGustHealing)}%)</li>
-            </ul>
-            </>)}
+          <TooltipElement
+            content={(
+              <>
+                You healed an average of {this.avgMasteryCastsPerEF.toFixed(2)} targets per Essence Font cast.
+                <ul>
+                  <li>{formatNumber(avgEFMasteryHealing)} average healing per cast</li>
+                  <li>{formatNumber(this.secondGustOverheal)} Second Gust of Mists overhealing ({formatPercentage(this.secondGustOverheal / this.secondGustHealing)}%)</li>
+                </ul>
+              </>
+            )}
           >
             Mastery Buffs utilized
-          </Tooltip>
+          </TooltipElement>
         )}
       />
     );

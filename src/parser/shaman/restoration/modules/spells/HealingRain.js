@@ -5,7 +5,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -85,9 +85,9 @@ class HealingRain extends Analyzer {
         value={`${this.averageHitsPerTick.toFixed(2)}`}
         position={STATISTIC_ORDER.OPTIONAL()}
         label={(
-          <Tooltip content="The average number of targets healed by Healing Rain out of the maximum amount of 6 targets.">
+          <TooltipElement content="The average number of targets healed by Healing Rain out of the maximum amount of 6 targets.">
             Average Healing Rain Targets
-          </Tooltip>
+          </TooltipElement>
         )}
       />
     );

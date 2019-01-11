@@ -64,8 +64,8 @@ class AuraOfSacrificeDamageReduction extends Analyzer {
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.handlePassiveTransfer);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.handleHealthUpdate);
     this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.handleHealthUpdate);
-    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.AURA_MASTERY.id), this.handleApplyAuraMastery);
-    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.AURA_MASTERY.id), this.handleRemoveAuraMastery);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.AURA_MASTERY), this.handleApplyAuraMastery);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.AURA_MASTERY), this.handleRemoveAuraMastery);
   }
 
   // TODO: Account for passive damage transferred during Divine Shield
@@ -179,20 +179,18 @@ class AuraOfSacrificeDamageReduction extends Analyzer {
     </>) : 'Click to load the required data.';
     const footer = this.loaded && (
       <div className="statistic-bar">
-        <Tooltip
-          className="stat-health-bg"
-          tagName="div"
-          wrapperStyles={{ width: `${totalDamageReduced / totalDamageTransferred * 100}%` }}
-          content={`You effectively reduced damage taken by a total of ${formatThousands(totalDamageReduced)} damage (${formatThousands(this.perSecond(totalDamageReduced))} DRPS).`}
-        >
-          <img src="/img/shield.png" alt="Damage reduced" />
+        <Tooltip content={`You effectively reduced damage taken by a total of ${formatThousands(totalDamageReduced)} damage (${formatThousands(this.perSecond(totalDamageReduced))} DRPS).`}>
+          <div
+            className="stat-health-bg"
+            style={{ width: `${totalDamageReduced / totalDamageTransferred * 100}%` }}
+          >
+            <img src="/img/shield.png" alt="Damage reduced" />
+          </div>
         </Tooltip>
-        <Tooltip
-          className="remainder DeathKnight-bg"
-          tagName="div"
-          content={`You transferred a total of ${formatThousands(totalDamageTransferred)} damage (${formatThousands(this.perSecond(totalDamageTransferred))} DTPS).`}
-        >
-          <img src="/img/shield-open.png" alt="Damage transferred" />
+        <Tooltip content={`You transferred a total of ${formatThousands(totalDamageTransferred)} damage (${formatThousands(this.perSecond(totalDamageTransferred))} DTPS).`}>
+          <div className="remainder DeathKnight-bg">
+            <img src="/img/shield-open.png" alt="Damage transferred" />
+          </div>
         </Tooltip>
       </div>
     );

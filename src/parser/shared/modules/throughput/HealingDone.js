@@ -7,13 +7,13 @@ import { formatThousands, formatPercentage } from 'common/format';
 import rankingColor from 'common/getRankingColor';
 import groupDataForChart from 'common/groupDataForChart';
 import makeWclUrl from 'common/makeWclUrl';
+import Tooltip from 'common/Tooltip';
 import StatisticBar from 'interface/statistics/StatisticBar';
 import ThroughputPerformance, { UNAVAILABLE } from 'interface/report/Results/ThroughputPerformance';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer from 'parser/core/Analyzer';
 
 import HealingValue from '../HealingValue';
-import Tooltip from 'common/Tooltip';
 
 class HealingDone extends Analyzer {
   _total = new HealingValue();
@@ -79,7 +79,7 @@ class HealingDone extends Analyzer {
       return null;
     }
 
-    const groupedData = groupDataForChart(this.bySecond, this.owner.fightDuration);
+    const groupedData = groupDataForChart(this.bySecond, this.owner.fightDuration, item => item.effective);
     const perSecond = this.total.effective / this.owner.fightDuration * 1000;
     const wclUrl = makeWclUrl(this.owner.report.code, {
       fight: this.owner.fightId,
@@ -100,24 +100,32 @@ class HealingDone extends Analyzer {
               alt="Healing"
             />
           </div>
-          <Tooltip
-            className="flex-sub value"
-            wrapperStyles={{ width: 190 }}
-            content={<>Total healing done: <strong>${formatThousands(this.total.effective)}</strong></>}
-            tagName="div"
-          >
+          <Tooltip content={<>Total healing done: <strong>${formatThousands(this.total.effective)}</strong></>}>
+            <div
+              className="flex-sub value"
+              style={{ width: 190 }}
+            >
             {formatThousands(perSecond)} HPS
+            </div>
           </Tooltip>
           <div className="flex-sub" style={{ width: 110, textAlign: 'center' }}>
             <ThroughputPerformance throughput={perSecond} metric="hps">
               {({ performance, topThroughput }) => performance && performance !== UNAVAILABLE && (
                 <Tooltip
-                  className={rankingColor(performance)}
-                  content={<>Your HPS compared to the HPS of a top 100 player. To become a top 100 <span className={this.selectedCombatant.spec.className.replace(' ', '')}>{this.selectedCombatant.spec.specName} {this.selectedCombatant.spec.className}</span> on this fight you need to do at least <strong>{formatThousands(topThroughput)} HPS</strong>.</>}
-                  wrapperStyles={{ cursor: 'help' }}
-                  tagName="div"
+                  content={(
+                    <>
+                      Your HPS compared to the HPS of a top 100 player.
+                      To become a top 100 <span className={this.selectedCombatant.spec.className.replace(' ', '')}>{this.selectedCombatant.spec.specName} {this.selectedCombatant.spec.className}</span>
+                      on this fight you need to do at least <strong>{formatThousands(topThroughput)} HPS</strong>.
+                    </>
+                  )}
                 >
-                  {formatPercentage(performance, 0)}%
+                  <div
+                    className={rankingColor(performance)}
+                    style={{ cursor: 'help' }}
+                  >
+                    {formatPercentage(performance, 0)}%
+                  </div>
                 </Tooltip>
               )}
             </ThroughputPerformance>

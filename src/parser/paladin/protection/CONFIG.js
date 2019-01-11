@@ -4,7 +4,7 @@ import { emallson } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 import retryingPromise from 'common/retryingPromise';
 import Warning from 'interface/common/Alert/Warning';
 
@@ -28,7 +28,7 @@ export default {
       If you have questions about the output, please ask in the <code>#protection-questions</code> channel of the <a href="https://discord.gg/0dvRDgpa5xZHFfnD">Hammer of Wrath</a>. If you have theorycrafting questions or want to contribute, feel free to ask in <code>#protection</code>.<br /><br />
 
       <Warning>
-        Because <SpellLink id={SPELLS.GRAND_CRUSADER.id} /> <Tooltip content="The combatlog does not contain any events for random cooldown resets.">can't be tracked</Tooltip> properly without the <SpellLink id={SPELLS.INSPIRING_VANGUARD.id} /> trait, any cooldown information of <SpellLink id={SPELLS.AVENGERS_SHIELD.id} /> should be treated as <Tooltip content="Whenever Avenger's Shield would be cast before its cooldown would have expired normally, the cooldown expiry will be set back to the last possible trigger of Grand Crusade. This may lead to higher times on cooldown than you actually experienced in-game.">educated guesses</Tooltip> (unless you have the trait).
+        Because <SpellLink id={SPELLS.GRAND_CRUSADER.id} /> <TooltipElement content="The combatlog does not contain any events for random cooldown resets.">can't be tracked</TooltipElement> properly without the <SpellLink id={SPELLS.INSPIRING_VANGUARD.id} /> trait, any cooldown information of <SpellLink id={SPELLS.AVENGERS_SHIELD.id} /> should be treated as <TooltipElement content="Whenever Avenger's Shield would be cast before its cooldown would have expired normally, the cooldown expiry will be set back to the last possible trigger of Grand Crusade. This may lead to higher times on cooldown than you actually experienced in-game.">educated guesses</TooltipElement> (unless you have the trait).
       </Warning>
     </>
   ),

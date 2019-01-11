@@ -78,13 +78,15 @@ class SplittingIce extends Analyzer {
         position={STATISTIC_ORDER.CORE(100)}
         value={`${this.hasGlacialSpike ? '≈' : ''}${formatPercentage(this.damagePercent)} %`}
         label="Splitting Ice damage"
-        tooltip={(<>
-          This is all the secondary target damage summed with the portion of primary target damage attributable to Splitting Ice.{this.hasGlacialSpike && ' Because only the icicles inside each Glacial Spike are boosted, the damage bonus to Glacial Spike is estimated.'}
-          <ul>
-            <li>Primary Target Boosted: <strong>{this.hasGlacialSpike && '≈'}{formatPercentage(this.boostDamagePercent)}%</strong></li>
-            <li>Secondary Target Total: <strong>{formatPercentage(this.cleaveDamagePercent)}%</strong></li>
-          </ul>
-        </>)}
+        tooltip={(
+          <>
+            This is all the secondary target damage summed with the portion of primary target damage attributable to Splitting Ice.{this.hasGlacialSpike && ' Because only the icicles inside each Glacial Spike are boosted, the damage bonus to Glacial Spike is estimated.'}
+            <ul>
+              <li>Primary Target Boosted: <strong>{this.hasGlacialSpike && '≈'}{formatPercentage(this.boostDamagePercent)}%</strong></li>
+              <li>Secondary Target Total: <strong>{formatPercentage(this.cleaveDamagePercent)}%</strong></li>
+            </ul>
+          </>
+        )}
       />
     );
   }

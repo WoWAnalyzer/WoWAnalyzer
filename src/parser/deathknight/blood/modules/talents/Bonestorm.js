@@ -84,16 +84,13 @@ class Bonestorm extends Analyzer {
   }
 
   statistic() {
-
     return (
       <TalentStatisticBox
         talent={SPELLS.BONESTORM_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(7)}
         value={`${ formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalBonestormDamage)) } %`}
         label="of your total damage"
-        tooltip={(<>
-          {this.bonestormTooltip}
-        </>)}
+        tooltip={this.bonestormTooltip}
       />
     );
   }

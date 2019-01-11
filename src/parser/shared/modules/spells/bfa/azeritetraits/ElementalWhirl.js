@@ -123,25 +123,27 @@ class ElementalWhirl extends Analyzer {
             {formatNumber(this.averageCrit)} average Crit <br />
             {formatNumber(this.averageMast)} average Mastery
           </>)}
-        tooltip={(<>
-          {SPELLS.ELEMENTAL_WHIRL.name} grants <strong>{this.stat}</strong> of a secondary stat while active.<br />
-          <ul>
-            <li>
-              You procced {SPELLS.ELEMENTAL_WHIRL_HASTE.name} <strong>{this.hasteProcs} {(this.hasteProcs > 1 || this.hasteProcs === 0) ? 'times' : 'time'}</strong>.
-              ({formatPercentage(this.uptime(SPELLS.ELEMENTAL_WHIRL_HASTE.id))}% uptime)
-            </li>
-            <li>
-              You procced {SPELLS.ELEMENTAL_WHIRL_VERSATILITY.name} <strong>{this.versProcs} {(this.versProcs > 1 || this.versProcs === 0) ? 'times' : 'time'}</strong>.
-              ({formatPercentage(this.uptime(SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id))}% uptime)
-            </li>
-            <li>You procced {SPELLS.ELEMENTAL_WHIRL_CRIT.name} <strong>{this.critProcs}  {(this.critProcs > 1 || this.critProcs === 0) ? 'times' : 'time'}</strong>.
-                ({formatPercentage(this.uptime(SPELLS.ELEMENTAL_WHIRL_CRIT.id))}% uptime)
-            </li>
-            <li>You procced {SPELLS.ELEMENTAL_WHIRL_MASTERY.name} <strong>{this.masteryProcs}  {(this.masteryProcs > 1 || this.masteryProcs === 0) ? 'times' : 'time'}</strong>.
-                ({formatPercentage(this.uptime(SPELLS.ELEMENTAL_WHIRL_MASTERY.id))}% uptime)
-            </li>
-          </ul>
-        </>)}
+        tooltip={(
+          <>
+            {SPELLS.ELEMENTAL_WHIRL.name} grants <strong>{this.stat}</strong> of a secondary stat while active.<br />
+            <ul>
+              <li>
+                You procced {SPELLS.ELEMENTAL_WHIRL_HASTE.name} <strong>{this.hasteProcs} {(this.hasteProcs > 1 || this.hasteProcs === 0) ? 'times' : 'time'}</strong>.
+                ({formatPercentage(this.uptime(SPELLS.ELEMENTAL_WHIRL_HASTE.id))}% uptime)
+              </li>
+              <li>
+                You procced {SPELLS.ELEMENTAL_WHIRL_VERSATILITY.name} <strong>{this.versProcs} {(this.versProcs > 1 || this.versProcs === 0) ? 'times' : 'time'}</strong>.
+                ({formatPercentage(this.uptime(SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id))}% uptime)
+              </li>
+              <li>You procced {SPELLS.ELEMENTAL_WHIRL_CRIT.name} <strong>{this.critProcs}  {(this.critProcs > 1 || this.critProcs === 0) ? 'times' : 'time'}</strong>.
+                  ({formatPercentage(this.uptime(SPELLS.ELEMENTAL_WHIRL_CRIT.id))}% uptime)
+              </li>
+              <li>You procced {SPELLS.ELEMENTAL_WHIRL_MASTERY.name} <strong>{this.masteryProcs}  {(this.masteryProcs > 1 || this.masteryProcs === 0) ? 'times' : 'time'}</strong>.
+                  ({formatPercentage(this.uptime(SPELLS.ELEMENTAL_WHIRL_MASTERY.id))}% uptime)
+              </li>
+            </ul>
+          </>
+        )}
       />
     );
   }

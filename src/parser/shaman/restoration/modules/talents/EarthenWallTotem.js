@@ -137,12 +137,14 @@ class EarthenWallTotem extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(60)}
         label="Earthen Wall Totem efficiency"
-        tooltip={(<>
-          The percentage of the potential absorb of Earthen Wall Totem that was actually used. You cast a total of {casts} Earthen Wall Totems with a combined health of {formatNumber(this.totalPotentialHealing)}, which absorbed a total of {formatNumber(this.totalEffectiveHealing)} damage.<br /><br />
+        tooltip={(
+          <>
+            The percentage of the potential absorb of Earthen Wall Totem that was actually used. You cast a total of {casts} Earthen Wall Totems with a combined health of {formatNumber(this.totalPotentialHealing)}, which absorbed a total of {formatNumber(this.totalEffectiveHealing)} damage.<br /><br />
 
-          This can be higher than 100% because it sometimes absorbs a few more damage hits before the totem realizes it is supposed to be dead already.<br /><br />
-          <strong>Pet healing is filtered out.</strong>
-        </>)}
+            This can be higher than 100% because it sometimes absorbs a few more damage hits before the totem realizes it is supposed to be dead already.<br /><br />
+            <strong>Pet healing is filtered out.</strong>
+          </>
+        )}
       >
         <table className="table table-condensed">
           <thead>

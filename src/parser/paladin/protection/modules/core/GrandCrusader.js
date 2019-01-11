@@ -159,10 +159,12 @@ class GrandCrusader extends Analyzer {
         icon={<SpellIcon id={SPELLS.GRAND_CRUSADER.id} />}
         value={`${this._totalResets} Resets`}
         label="Grand Crusader"
-        tooltip={(<>
-          Grand Crusader reset the cooldown of Avenger's Shield at least {this._totalResets} times. {this._inferredResets} are inferred from using it before its cooldown normally be up.<br />
-          You had {this._resetChances} chances for Grand Crusader to trigger with a {formatPercentage(this.procChance, 0)}% chance to trigger.
-        </>)}
+        tooltip={(
+          <>
+            Grand Crusader reset the cooldown of Avenger's Shield at least {this._totalResets} times. {this._inferredResets} are inferred from using it before its cooldown normally be up.<br />
+            You had {this._resetChances} chances for Grand Crusader to trigger with a {formatPercentage(this.procChance, 0)}% chance to trigger.
+          </>
+        )}
       >
         <div style={{padding: '8px'}}>
           {this.plot()}

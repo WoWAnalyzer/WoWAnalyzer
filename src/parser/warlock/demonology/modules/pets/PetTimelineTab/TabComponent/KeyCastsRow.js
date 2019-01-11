@@ -38,11 +38,13 @@ class KeyCastsRow extends React.PureComponent {
                 }}
               >
                 {hasTooltip ? (
-                  <Tooltip content={tooltipInfo.join('\n')} tagName="div">
-                    <SpellIcon
-                      id={event.abilityId}
-                      className={event.important && 'enhanced'}
-                    />
+                  <Tooltip content={tooltipInfo.join('\n')}>
+                    <div>
+                      <SpellIcon
+                        id={event.abilityId}
+                        className={event.important && 'enhanced'}
+                      />
+                    </div>
                   </Tooltip>
                 ) : (
                   <SpellIcon
@@ -58,15 +60,15 @@ class KeyCastsRow extends React.PureComponent {
             const maxWidth = totalWidth - left; // don't expand beyond the container width
             const width = Math.min(maxWidth, (event.endTimestamp - event.timestamp) / 1000 * secondWidth);
             return (
-                <div
-                  key={index}
-                  style={{
-                    left,
-                    width,
-                    background: 'rgba(133, 59, 255, 0.7)',
-                  }}
-                  data-effect="float"
-                />
+              <div
+                key={index}
+                style={{
+                  left,
+                  width,
+                  background: 'rgba(133, 59, 255, 0.7)',
+                }}
+                data-effect="float"
+              />
             );
           }
           return null;

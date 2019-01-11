@@ -61,17 +61,19 @@ class ElementalBlast extends Analyzer {
         icon={<SpellIcon id={SPELLS.ELEMENTAL_BLAST_TALENT.id} />}
         value={`${formatPercentage(this.elementalBlastUptime)} %`}
         label="Uptime"
-        tooltip={(<>
-          <span class="stat-mastery">
-            <strong>{formatPercentage(this.masteryUptime)}% Mastery</strong>
-          </span><br />
-          <span class="stat-criticalstrike">
-            <strong>{formatPercentage(this.critUptime)}% Crit</strong>
-          </span><br />
-          <span class="stat-haste">
-            <strong>{formatPercentage(this.hasteUptime)}% Haste</strong>
-          </span>
-        </>)}
+        tooltip={(
+          <>
+            <span className="stat-mastery">
+              <strong>{formatPercentage(this.masteryUptime)}% Mastery</strong>
+            </span><br />
+            <span className="stat-criticalstrike">
+              <strong>{formatPercentage(this.critUptime)}% Crit</strong>
+            </span><br />
+            <span className="stat-haste">
+              <strong>{formatPercentage(this.hasteUptime)}% Haste</strong>
+            </span>
+          </>
+        )}
       />
     );
   }

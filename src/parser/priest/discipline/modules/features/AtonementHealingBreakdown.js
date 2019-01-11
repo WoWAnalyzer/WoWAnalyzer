@@ -6,7 +6,7 @@ import Icon from 'common/Icon';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 class AtonementHealingBreakdown extends React.Component {
   static propTypes = {
@@ -77,9 +77,9 @@ class AtonementHealingBreakdown extends React.Component {
                     />
                   </td>
                   <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
-                    <Tooltip content={`Total: ${formatNumber(healing.effective)}`}>
+                    <TooltipElement content={`Total: ${formatNumber(healing.effective)}`}>
                       {formatNumber(healing.effective / parser.fightDuration * 1000)} HPS
-                    </Tooltip>
+                    </TooltipElement>
                   </td>
                   <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
                     {formatPercentage(healing.overheal / healing.raw)} %
@@ -109,9 +109,9 @@ class AtonementHealingBreakdown extends React.Component {
                         />
                       </td>
                       <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
-                        <Tooltip content={`Total: ${formatNumber(value.effective)}`}>
+                        <TooltipElement content={`Total: ${formatNumber(value.effective)}`}>
                           {formatNumber(value.effective / parser.fightDuration * 1000)} HPS
-                        </Tooltip>
+                        </TooltipElement>
                       </td>
                       <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
                         {formatPercentage(value.overheal / healing.raw)} %

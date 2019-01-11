@@ -42,14 +42,14 @@ class FightSelectionPanel extends React.PureComponent {
               <label htmlFor="kills-only-toggle">
                 {' '}<Trans>Kills only</Trans>
               </label>
-              <Link
-                to={makeAnalyzerUrl(report)}
-                onClick={refreshReport}
-              >
-                <Tooltip content={i18n._(t`This will refresh the fights list which can be useful if you're live logging.`)} tagName="div">
+              <Tooltip content={i18n._(t`This will refresh the fights list which can be useful if you're live logging.`)}>
+                <Link
+                  to={makeAnalyzerUrl(report)}
+                  onClick={refreshReport}
+                >
                   <span className="glyphicon glyphicon-refresh" aria-hidden="true" /> <Trans>Refresh</Trans>
-                </Tooltip>
-              </Link>
+                </Link>
+              </Tooltip>
             </div>
           </div>
         </div>

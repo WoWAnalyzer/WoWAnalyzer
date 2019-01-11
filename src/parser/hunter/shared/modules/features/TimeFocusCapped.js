@@ -47,27 +47,29 @@ class TimeFocusCapped extends Analyzer {
         position={STATISTIC_ORDER.CORE(11)}
         icon={<Icon icon="ability_hunter_focusfire" alt="Focus Wasted" />}
         label="Time focus capped"
-        tooltip={(<>
-          You wasted <strong>{this.getTotalWaste}</strong> Focus. <br />
-          That's <strong>{formatPercentage(this.getTotalWaste / this.totalGenerated)}%</strong> of your total Focus generated.<br />
-          For more details, see the Focus Chart tab.
-        </>)}
+        tooltip={(
+          <>
+            You wasted <strong>{this.getTotalWaste}</strong> Focus. <br />
+            That's <strong>{formatPercentage(this.getTotalWaste / this.totalGenerated)}%</strong> of your total Focus generated.<br />
+            For more details, see the Focus Chart tab.
+          </>
+        )}
         value={`${percentCapped}%`}
         //Time not Focus-Capped: {Math.round((this.owner.fightDuration / 1000 - this.focusTracker.secondsCapped) * 100) / 100}s / {Math.floor(this.owner.fightDuration / 1000)}
         footer={(
           <div className="statistic-bar">
-            <Tooltip
-              className="stat-health-bg"
-              tagName="div"
-              wrapperStyles={{ width: `${(100 - percentCapped)}%` }}
-              content={<>You spent <strong>{100 - percentCapped}%</strong> of your time, or <strong>{Math.round(Math.floor(this.owner.fightDuration / 1000) - this.focusTracker.secondsCapped)}s</strong> under the focus cap.</>}
-            />
-            <Tooltip
-              className="DeathKnight-bg"
-              tagName="div"
-              wrapperStyles={{ width: `${percentCapped}%` }}
-              content={<>You spent <strong>{percentCapped}%</strong>, or <strong>{Math.round(this.focusTracker.secondsCapped)}s</strong> of your time focus capped.</>}
-            />
+            <Tooltip content={<>You spent <strong>{100 - percentCapped}%</strong> of your time, or <strong>{Math.round(Math.floor(this.owner.fightDuration / 1000) - this.focusTracker.secondsCapped)}s</strong> under the focus cap.</>}>
+              <div
+                className="stat-health-bg"
+                style={{ width: `${(100 - percentCapped)}%` }}
+              />
+            </Tooltip>
+            <Tooltip content={<>You spent <strong>{percentCapped}%</strong>, or <strong>{Math.round(this.focusTracker.secondsCapped)}s</strong> of your time focus capped.</>}>
+              <div
+                className="DeathKnight-bg"
+                style={{ width: `${percentCapped}%` }}
+              />
+            </Tooltip>
           </div>
         )}
       />

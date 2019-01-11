@@ -1,7 +1,7 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 import ItemLink from 'common/ItemLink';
 import { formatPercentage } from 'common/format';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
@@ -66,9 +66,9 @@ class InoculatingExtract extends Analyzer{
     return{
       item: ITEMS.INOCULATING_EXTRACT,
       result: (
-        <Tooltip content={<>Used <strong>{this.uses}</strong> times, consuming <strong>{this.charges}</strong> charges.</>}>
+        <TooltipElement content={<>Used <strong>{this.uses}</strong> times, consuming <strong>{this.charges}</strong> charges.</>}>
           <ItemHealingDone amount={this.healing} />
-        </Tooltip>
+        </TooltipElement>
       ),
     };
   }

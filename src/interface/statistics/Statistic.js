@@ -35,14 +35,13 @@ class Statistic extends React.PureComponent {
             {children}
           </div>
           {tooltip && (
-            <Tooltip
-              className="detail-corner"
-              content={tooltip}
-              data-place="top"
-              tagName="div"
-              wrapperStyles={{ position: 'absolute' }}
-            >
-              <InfoIcon />
+            <Tooltip content={tooltip}>
+              <div
+                className="detail-corner"
+                data-place="top"
+              >
+                <InfoIcon />
+              </div>
             </Tooltip>
           )}
         </div>

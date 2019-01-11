@@ -75,10 +75,12 @@ class LayeredMane extends Analyzer {
             {this.averageAgility.toFixed(0)} Agility
           </>
         )}
-        tooltip={(<>
-          You cast Ironfur {this._totalCasts} times and gained {this._totalStacks} stacks, for {this.bonusStacks} additional stacks ({formatPercentage(this.bonusStacks / this._totalStacks)}% proc rate).<br />
-          Your Layered Mane(s) granted <strong>{this.agility} Agility</strong> per stack of Ironfur, and you averaged {this.averageStacks.toFixed(2)} stacks.
-        </>)}
+        tooltip={(
+          <>
+            You cast Ironfur {this._totalCasts} times and gained {this._totalStacks} stacks, for {this.bonusStacks} additional stacks ({formatPercentage(this.bonusStacks / this._totalStacks)}% proc rate).<br />
+            Your Layered Mane(s) granted <strong>{this.agility} Agility</strong> per stack of Ironfur, and you averaged {this.averageStacks.toFixed(2)} stacks.
+          </>
+        )}
       />
     );
   }

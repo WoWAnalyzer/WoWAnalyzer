@@ -106,35 +106,37 @@ class ReportSelecter extends React.PureComponent {
     return (
       <form onSubmit={this.handleSubmit} className="form-inline">
         <div className="report-selector">
-          <Tooltip content={(
-            <Trans>
-              Parsable links:<br />
-              <ul>
-                <li>https://www.warcraftlogs.com/reports/&lt;report code&gt;</li>
-                <li>https://www.warcraftlogs.com/character/&lt;region&gt;/&lt;realm&gt;/&lt;name&gt;</li>
-                <li>https://worldofwarcraft.com/&lt;language-code&gt;/character/&lt;realm&gt;/&lt;name&gt;</li>
-                <li>https://www.wowchina.com/&lt;language-code&gt;/character/&lt;realm&gt;/&lt;name&gt;</li>
-              </ul>
-            </Trans>
-          )}
-            tagName="div"
-            wrapperStyles={{ flex: '1 1', cursor: 'help', padding: 0 }}
+          <Tooltip
+            content={(
+              <Trans>
+                Parsable links:<br />
+                <ul>
+                  <li>https://www.warcraftlogs.com/reports/&lt;report code&gt;</li>
+                  <li>https://www.warcraftlogs.com/character/&lt;region&gt;/&lt;realm&gt;/&lt;name&gt;</li>
+                  <li>https://worldofwarcraft.com/&lt;language-code&gt;/character/&lt;realm&gt;/&lt;name&gt;</li>
+                  <li>https://www.wowchina.com/&lt;language-code&gt;/character/&lt;realm&gt;/&lt;name&gt;</li>
+                </ul>
+              </Trans>
+            )}
           >
-            <input
-              data-delay-show="200"
-              type="text"
-              name="code"
-              className="form-control"
-              style={{ width: '100%', height: '100%' }}
-              ref={elem => {
-                this.codeInput = elem;
-              }}
-              onChange={this.handleChange}
-              placeholder={i18n._(t`https://www.warcraftlogs.com/reports/<report code>`)}
-              autoCorrect="off"
-              autoCapitalize="off"
-              spellCheck="false"
-            />
+            {/*the div needs to be there (previously the tooltip was on input directly) because input sets its own ref and Tooltip would overwrite it*/}
+            <div style={{ flex: '1 1', cursor: 'help', padding: 0 }}>
+              <input
+                data-delay-show="200"
+                type="text"
+                name="code"
+                className="form-control"
+                style={{ width: '100%', height: '100%' }}
+                ref={elem => {
+                  this.codeInput = elem;
+                }}
+                onChange={this.handleChange}
+                placeholder={i18n._(t`https://www.warcraftlogs.com/reports/<report code>`)}
+                autoCorrect="off"
+                autoCapitalize="off"
+                spellCheck="false"
+              />
+            </div>
           </Tooltip>
 
           <button type="submit" className="btn btn-primary analyze">

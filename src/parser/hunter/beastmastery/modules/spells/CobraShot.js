@@ -108,10 +108,12 @@ class CobraShot extends Analyzer {
           </>
         )}
         label={<><SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} icon={false} /> CDR</>}
-        tooltip={(<>
-          {this.wastedCasts > 0 && <>You had {this.wastedCasts} {this.wastedCasts > 1 ? 'casts' : 'cast'} of Cobra Shot when Kill Command wasn't on cooldown. <br /></>}
-          {this.wastedKCReductionMs > 0 && `You wasted ${this.wastedCDR} seconds of potential cooldown reduction by casting Cobra Shot while Kill Command had less than 1 + GCD seconds remaining on its CD.`}
-        </>)}
+        tooltip={(
+          <>
+            {this.wastedCasts > 0 && <>You had {this.wastedCasts} {this.wastedCasts > 1 ? 'casts' : 'cast'} of Cobra Shot when Kill Command wasn't on cooldown. <br /></>}
+            {this.wastedKCReductionMs > 0 && `You wasted ${this.wastedCDR} seconds of potential cooldown reduction by casting Cobra Shot while Kill Command had less than 1 + GCD seconds remaining on its CD.`}
+          </>
+        )}
       />
     );
   }

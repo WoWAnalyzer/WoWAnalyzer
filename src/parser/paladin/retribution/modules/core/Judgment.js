@@ -88,12 +88,14 @@ class Judgment extends Analyzer {
         icon={<SpellIcon id={SPELLS.JUDGMENT_DEBUFF.id} />}
         value={`${formatPercentage(this.percentageJudgmentsConsumed)}%`}
         label="Judgments Consumed"
-        tooltip={(<>
-          Judgments Applied: {this.judgmentsApplied}<br />
-          Templars Verdicts consumptions: {this.templarsVerdictConsumptions}<br />
-          Divine Storm consumptions: {this.divineStormConsumptions}
-          {hasJV && <><br />Justicars Vengeance consumptions: {this.justicarsVengeanceConsumptions}</>}
-        </>)}
+        tooltip={(
+          <>
+            Judgments Applied: {this.judgmentsApplied}<br />
+            Templars Verdicts consumptions: {this.templarsVerdictConsumptions}<br />
+            Divine Storm consumptions: {this.divineStormConsumptions}
+            {hasJV && <><br />Justicars Vengeance consumptions: {this.justicarsVengeanceConsumptions}</>}
+          </>
+        )}
       />
     );
   }

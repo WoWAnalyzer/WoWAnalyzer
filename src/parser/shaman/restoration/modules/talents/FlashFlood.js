@@ -2,7 +2,7 @@ import React from 'react';
 
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
@@ -180,9 +180,16 @@ class FlashFlood extends Analyzer {
               Total Cast Time Saved:
             </div>
             <div className="flex-sub text-right">
-              <Tooltip content={<>Cast time saved by Flash Flood. <br /> {(this.totalTimeWasted / 1000).toFixed(2)} seconds 'saved' on reductions below GCD.</>}>
+              <TooltipElement
+                content={(
+                  <>
+                    Cast time saved by Flash Flood. <br />
+                    {(this.totalTimeWasted / 1000).toFixed(2)} seconds 'saved' on reductions below GCD.
+                  </>
+                )}
+              >
                 {(this.totalTimeSaved / 1000).toFixed(2)} seconds
-              </Tooltip>
+              </TooltipElement>
             </div>
           </div>
           {this.flashFloodUsageRatioChart}

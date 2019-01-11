@@ -75,10 +75,12 @@ class FeedTheDemon extends Analyzer {
         position={STATISTIC_ORDER.CORE(6)}
         value={`${formatNumber(this.averageReduction)} sec`}
         label="Feed the Demon average reduction"
-        tooltip={(<>
-          {formatNumber(this.reduction)} sec total effective reduction.<br />
-          {formatNumber(this.wastedReduction)} sec ({formatPercentage(this.wastedPercent)}%) wasted reduction.
-        </>)}
+        tooltip={(
+          <>
+            {formatNumber(this.reduction)} sec total effective reduction.<br />
+            {formatNumber(this.wastedReduction)} sec ({formatPercentage(this.wastedPercent)}%) wasted reduction.
+          </>
+        )}
       />
     );
   }

@@ -56,11 +56,13 @@ class Guard extends Analyzer {
         icon={<SpellIcon id={SPELLS.GUARD_TALENT.id} />}
         value={`${formatNumber(aps)} DTPS`}
         label="Effective Mitigation by Guard"
-        tooltip={(<>
-          Your average Guard could absorb up to <strong>{formatNumber(avgGuardSize)}</strong> damage.<br />
-          You wasted <strong>{formatNumber(this._guardWasted)}</strong> of Guard's absorb.<br />
-          Your Guard absorbed a total of <strong>{formatNumber(this._absorbed)}</strong> damage.
-        </>)}
+        tooltip={(
+          <>
+            Your average Guard could absorb up to <strong>{formatNumber(avgGuardSize)}</strong> damage.<br />
+            You wasted <strong>{formatNumber(this._guardWasted)}</strong> of Guard's absorb.<br />
+            Your Guard absorbed a total of <strong>{formatNumber(this._absorbed)}</strong> damage.
+          </>
+        )}
       />
     );
   }

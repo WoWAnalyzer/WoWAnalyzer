@@ -11,9 +11,8 @@ import { formatDuration, formatThousands } from 'common/format';
 import Icon from 'common/Icon';
 import SpellLink from 'common/SpellLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import Info from 'interface/common/Alert/Info';
 import HIT_TYPES from 'game/HIT_TYPES';
-import Tooltip from 'common/Tooltip';
+import Tooltip, { TooltipElement } from 'common/Tooltip';
 
 import 'react-virtualized/styles.css';
 import './EventsTab.css';
@@ -160,8 +159,10 @@ class EventsTab extends React.Component {
         </label>
         {explanation && (
           <div className="flex-sub" style={{ padding: '0 10px' }}>
-            <Tooltip content={explanation} tagName="div">
-              <InformationIcon style={{ fontSize: '1.4em' }} />
+            <Tooltip content={explanation}>
+              <div>
+                <InformationIcon style={{ fontSize: '1.4em' }} />
+              </div>
             </Tooltip>
           </div>
         )}
@@ -267,7 +268,7 @@ class EventsTab extends React.Component {
             {this.renderToggle('rawNames', 'Raw names')}
             <br />
             <div className="modified-legend" style={{ width: 240, padding: 10 }}>
-              Events with an orange background were <Tooltip content="This generally means their order was changed from the original combatlog to fix inconsistencies or bugs, but it may include other modifications.">modified</Tooltip>.
+              Events with an orange background were <TooltipElement content="This generally means their order was changed from the original combatlog to fix inconsistencies or bugs, but it may include other modifications.">modified</TooltipElement>.
             </div>
           </div>
           <div className="flex-main" style={{ background: 'hsla(44, 1%, 8%, 0.5)', paddingTop: 10 }}>

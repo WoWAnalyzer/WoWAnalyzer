@@ -18,4 +18,5 @@ export default combineReducers({
 
   // Caching
   charactersById: require('./charactersById').default,
+  reportCodesIgnoredPreviousPatchWarning: require('./reportCodesIgnoredPreviousPatchWarning').default,
 });

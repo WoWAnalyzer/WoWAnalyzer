@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-01-05'),
+    changes: 'Added tracking of time spent at maximum energy',
+    contributors: [Juko8],
+  },
+  {
     date: new Date('2019-01-02'),
     changes: <>Added Azerite statistic for <SpellLink id={SPELLS.FURY_OF_XUEN.id} />.</>,
     contributors: [Juko8],

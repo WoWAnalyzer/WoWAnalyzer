@@ -68,10 +68,12 @@ class GuardianAngel extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.GUARDIAN_ANGEL_TALENT.id}
         value={<ItemHealingDone amount={this.guardianSpiritSelfHealing} />}
-        tooltip={(<>
-          Total Guardian Spirits Cast: {this.guardianSpiritCasts}<br />
-          Total Guardian Spirit Resets: {this.guardianSpiritRefreshes}
-        </>)}
+        tooltip={(
+          <>
+            Total Guardian Spirits Cast: {this.guardianSpiritCasts}<br />
+            Total Guardian Spirit Resets: {this.guardianSpiritRefreshes}
+          </>
+        )}
         position={STATISTIC_ORDER.CORE(3)}
       />
     );

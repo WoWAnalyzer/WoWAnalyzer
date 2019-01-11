@@ -6,13 +6,28 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
-    date: new Date('2018-11-26'),
-    changes: <>Improved accuracy of mastery effectiveness by using an advanced algorithm to determine if a player would actually have had an increased chance of survival from a potential increase in mastery effectiveness.</>,
+    date: new Date('2019-01-05'),
+    changes: <><SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> that did negative healing are now highlighted in the timeline.</>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-01-05'),
+    changes: <><SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> cast while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was available will now be highlighted in the timeline.</>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-01-05'),
+    changes: <>Fixed a bug in the analysis of <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} /> that caused the active damage reduction to sometimes not properly be accounted for.</>,
     contributors: [Zerotorescue],
   },
   {
     date: new Date('2018-12-13'),
     changes: <>Fixed a bug in the analysis of <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} /> that caused the passive damage reduction to not be properly accounted for.</>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2018-11-26'),
+    changes: <>Improved accuracy of mastery effectiveness by using an advanced algorithm to determine if a player would actually have had an increased chance of survival from a potential increase in mastery effectiveness.</>,
     contributors: [Zerotorescue],
   },
   {

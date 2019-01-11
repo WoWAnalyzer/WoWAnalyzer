@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Tooltip from 'common/Tooltip';
+import { TooltipElement } from 'common/Tooltip';
 
 import './StatisticBox.css';
 import STATISTIC_CATEGORY from './STATISTIC_CATEGORY';
@@ -23,7 +23,7 @@ const SmallStatisticBox = ({ icon, value, tooltip, label, containerProps, ...oth
             {icon} {label}
           </div>
           <div className="flex-sub text-right">
-            {tooltip ? <Tooltip wrapperStyles={{ display: 'inline' }} content={tooltip}>{value}</Tooltip> : value}
+            {tooltip ? <TooltipElement content={tooltip}>{value}</TooltipElement> : value}
           </div>
         </div>
       </div>

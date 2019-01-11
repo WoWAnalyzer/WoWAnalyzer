@@ -37,12 +37,14 @@ class ChaoticInferno extends Analyzer {
       <TraitStatisticBox
         trait={SPELLS.CHAOTIC_INFERNO.id}
         value={<ItemDamageDone amount={this.core.chaoticInfernoDamage} approximate />}
-        tooltip={(<>
-          Estimated bonus Chaos Bolt damage: {formatThousands(this.core.chaoticInfernoDamage)}<br />
-          You procced instant Incinerate {totalProcs} times.<br /><br />
+        tooltip={(
+          <>
+            Estimated bonus Chaos Bolt damage: {formatThousands(this.core.chaoticInfernoDamage)}<br />
+            You procced instant Incinerate {totalProcs} times.<br /><br />
 
-          The damage is an approximation using current Intellect values at given time, but because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be a little incorrect.
-        </>)}
+            The damage is an approximation using current Intellect values at given time, but because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be a little incorrect.
+          </>
+        )}
       />
     );
   }
