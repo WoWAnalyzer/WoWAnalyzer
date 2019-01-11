@@ -1,19 +1,18 @@
 import React from 'react';
-import { Doughnut as DoughnutChart } from 'react-chartjs-2';
 
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
-import { formatPercentage } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
-import StatisticsListBox, { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
+import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'interface/statistics/Statistic';
+import DonutChart from 'interface/statistics/components/DonutChart';
 
 const FLASH_FLOOD_HASTE = 0.2;
 const BUFFER_MS = 50;
-const CHART_SIZE = 75;
 
 class FlashFlood extends Analyzer {
   static dependencies = {
@@ -110,156 +109,92 @@ class FlashFlood extends Analyzer {
     return Object.values(this.spellsConsumingFlashFlood).reduce((sum, spell) => {return sum + spell.timeWasted;}, 0);
   }
 
-  legend(items, total) {
-    const numItems = items.length;
-    return items.map(({ color, label, tooltip, value, spellId }, index) => {
-      label = tooltip ? (
-        <TooltipElement content={tooltip}>{label}</TooltipElement>
-      ) : label;
-      label = spellId ? (
-        <SpellLink id={spellId} icon={false}>{label}</SpellLink>
-      ) : label;
-      return (
-        <div
-          className="flex"
-          style={{
-            borderBottom: '3px solid rgba(255,255,255,0.1)',
-            marginBottom: ((numItems - 1) === index) ? 0 : 5,
-          }}
-          key={index}
-        >
-          <div className="flex-sub">
-            <div
-              style={{
-                display: 'inline-block',
-                background: color,
-                borderRadius: '50%',
-                width: 16,
-                height: 16,
-                marginBottom: -3,
-              }}
-            />
-          </div>
-          <div className="flex-main" style={{ paddingLeft: 5 }}>
-            {label}
-          </div>
-          <div className="flex-sub">
-            <TooltipElement
-              content={(
-                <>
-                  <strong>{(value.timeSaved / 1000).toFixed(2)} seconds saved</strong> <br />
-                  {(value.timeWasted / 1000).toFixed(2)} seconds reduced below GCD <br />
-                  You buffed this spell <strong>{value.timesBuffed}</strong> times.
-                </>
-              )}
-            >
-              {formatPercentage(value.timeSaved / total, 0)}%
-            </TooltipElement>
-          </div>
-        </div>
-      );
-    });
-  }
-  chart(items) {
-    return (
-      <DoughnutChart
-        data={{
-          datasets: [{
-            data: items.map(item => item.value.timeSaved),
-            backgroundColor: items.map(item => item.color),
-            borderColor: '#000000',
-            borderWidth: 0,
-          }],
-          labels: items.map(item => item.label),
-        }}
-        options={{
-          legend: {
-            display: false,
-          },
-          tooltips: {
-            bodyFontSize: 8,
-          },
-          cutoutPercentage: 45,
-          animation: false,
-          responsive: false,
-        }}
-        width={CHART_SIZE}
-        height={CHART_SIZE}
-      />
+  get flashFloodUsageRatioChart() {
+    const makeTooltip = (value) => (
+      <>
+        <strong>{(value.timeSaved / 1000).toFixed(2)} seconds saved</strong> <br />
+        {(value.timeWasted / 1000).toFixed(2)} seconds reduced below GCD <br />
+        You buffed this spell <strong>{value.timesBuffed}</strong> times.
+      </>
     );
-  }
-
-  flashFloodUsageRatioChart() {
-
     const items = [
       {
         color: SPELLS.CHAIN_HEAL.color,
         label: 'Chain Heal',
         spellId: SPELLS.CHAIN_HEAL.id,
-        value: this.spellsConsumingFlashFlood[SPELLS.CHAIN_HEAL.id],
+        value: this.spellsConsumingFlashFlood[SPELLS.CHAIN_HEAL.id].timeSaved,
+        valueTooltip: makeTooltip(this.spellsConsumingFlashFlood[SPELLS.CHAIN_HEAL.id]),
       },
       {
         color: SPELLS.HEALING_WAVE.color,
         label: 'Healing Wave',
         spellId: SPELLS.HEALING_WAVE.id,
-        value: this.spellsConsumingFlashFlood[SPELLS.HEALING_WAVE.id],
+        value: this.spellsConsumingFlashFlood[SPELLS.HEALING_WAVE.id].timeSaved,
+        valueTooltip: makeTooltip(this.spellsConsumingFlashFlood[SPELLS.HEALING_WAVE.id]),
       },
       {
         color: SPELLS.HEALING_SURGE_RESTORATION.color,
         label: 'Healing Surge',
         spellId: SPELLS.HEALING_SURGE_RESTORATION.id,
-        value: this.spellsConsumingFlashFlood[SPELLS.HEALING_SURGE_RESTORATION.id],
+        value: this.spellsConsumingFlashFlood[SPELLS.HEALING_SURGE_RESTORATION.id].timeSaved,
+        valueTooltip: makeTooltip(this.spellsConsumingFlashFlood[SPELLS.HEALING_SURGE_RESTORATION.id]),
       },
       {
         color: SPELLS.RIPTIDE.color,
         label: 'Healing Rain',
         spellId: SPELLS.HEALING_RAIN_CAST.id,
-        value: this.spellsConsumingFlashFlood[SPELLS.HEALING_RAIN_CAST.id],
+        value: this.spellsConsumingFlashFlood[SPELLS.HEALING_RAIN_CAST.id].timeSaved,
+        valueTooltip: makeTooltip(this.spellsConsumingFlashFlood[SPELLS.HEALING_RAIN_CAST.id]),
       },
     ];
 
-    if(this.spellsConsumingFlashFlood[SPELLS.WELLSPRING_TALENT.id]) {
-      const wellspring_item = {
+    if (this.spellsConsumingFlashFlood[SPELLS.WELLSPRING_TALENT.id]) {
+      const wellspring = {
         color: '#FEFEFE',
         label: 'Wellspring',
         spellId: SPELLS.WELLSPRING_TALENT.id,
-        value: this.spellsConsumingFlashFlood[SPELLS.WELLSPRING_TALENT.id],
+        value: this.spellsConsumingFlashFlood[SPELLS.WELLSPRING_TALENT.id].timeSaved,
+        valueTooltip: makeTooltip(this.spellsConsumingFlashFlood[SPELLS.WELLSPRING_TALENT.id]),
       };
-      items.splice(4,0,wellspring_item);
+      items.splice(4, 0, wellspring);
     }
 
     return (
-      <div className="flex">
-        <div className="flex-sub" style={{ paddingRight: 12 }}>
-          {this.chart(items)}
-        </div>
-        <div className="flex-main" style={{ fontSize: '80%', paddingTop: 3 }}>
-          {this.legend(items, this.totalTimeSaved)}
-        </div>
-      </div>
+      <DonutChart
+        items={items}
+      />
     );
   }
 
   statistic() {
     return (
-      <StatisticsListBox
-        title={<span><SpellLink id={SPELLS.FLASH_FLOOD_TALENT.id} /> usage</span>}
+      <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(90)}
-        containerProps={{ className: 'col-lg-3 col-md-4 col-sm-6 col-xs-12' }}
+        style={{ height: '230px' }}
       >
-        <div className="flex">
-          <div className="flex-main">
-            Total Cast Time Saved:
+        <div className="pad">
+          <label><SpellLink id={SPELLS.FLASH_FLOOD_TALENT.id} /> usage</label>
+          <div className="flex">
+            <div className="flex-main">
+              Total Cast Time Saved:
+            </div>
+            <div className="flex-sub text-right">
+              <TooltipElement
+                content={(
+                  <>
+                    Cast time saved by Flash Flood. <br />
+                    {(this.totalTimeWasted / 1000).toFixed(2)} seconds 'saved' on reductions below GCD.
+                  </>
+                )}
+              >
+                {(this.totalTimeSaved / 1000).toFixed(2)} seconds
+              </TooltipElement>
+            </div>
           </div>
-          <div className="flex-sub text-right">
-            <TooltipElement content={<>Cast time saved by Flash Flood. <br /> {(this.totalTimeWasted / 1000).toFixed(2)} seconds 'saved' on reductions below GCD.</>}>
-              {(this.totalTimeSaved / 1000).toFixed(2)} seconds
-            </TooltipElement>
-          </div>
+          {this.flashFloodUsageRatioChart}
         </div>
-        {this.flashFloodUsageRatioChart()}
-      </StatisticsListBox>
+      </Statistic>
     );
   }
 

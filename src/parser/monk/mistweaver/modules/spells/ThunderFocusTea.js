@@ -1,93 +1,17 @@
 import React from 'react';
-import { Doughnut as DoughnutChart } from 'react-chartjs-2';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage } from 'common/format';
-import { TooltipElement } from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 
-import StatisticsListBox, { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
+import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
+import Statistic from 'interface/statistics/Statistic';
+import DonutChart from 'interface/statistics/components/DonutChart';
 
 const debug = false;
 
-const CHART_SIZE = 75;
-
 class ThunderFocusTea extends Analyzer {
-
-  legend(items, total) {
-    const numItems = items.length;
-    return items.map(({ color, label, tooltip, value, spellId }, index) => {
-      label = tooltip ? (
-        <TooltipElement content={tooltip}>{label}</TooltipElement>
-      ) : label;
-      label = spellId ? (
-        <SpellLink id={spellId}>{label}</SpellLink>
-      ) : label;
-      return (
-        <div
-          className="flex"
-          style={{
-            borderBottom: '3px solid rgba(255,255,255,0.1)',
-            marginBottom: ((numItems - 1) === index) ? 0 : 5,
-          }}
-          key={index}
-        >
-          <div className="flex-sub">
-            <div
-              style={{
-                display: 'inline-block',
-                background: color,
-                borderRadius: '50%',
-                width: 16,
-                height: 16,
-                marginBottom: -3,
-              }}
-            />
-          </div>
-          <div className="flex-main" style={{ paddingLeft: 5 }}>
-            {label}
-          </div>
-          <div className="flex-sub">
-            <TooltipElement content={value}>
-              {formatPercentage(value / total, 0)}%
-            </TooltipElement>
-          </div>
-        </div>
-      );
-    });
-  }
-
-  chart(items) {
-    return (
-      <DoughnutChart
-        data={{
-          datasets: [{
-            data: items.map(item => item.value),
-            backgroundColor: items.map(item => item.color),
-            borderColor: '#666',
-            borderWidth: 1.5,
-          }],
-          labels: items.map(item => item.label),
-        }}
-        options={{
-          legend: {
-            display: false,
-          },
-          tooltips: {
-            bodyFontSize: 8,
-          },
-          cutoutPercentage: 45,
-          animation: false,
-          responsive: false,
-        }}
-        width={CHART_SIZE}
-        height={CHART_SIZE}
-      />
-    );
-  }
-
   castsTftRsk = 0;
   castsTftViv = 0;
   castsTftEnm = 0;
@@ -145,7 +69,7 @@ class ThunderFocusTea extends Analyzer {
     }
   }
 
-  tftCastRatioChart() {
+  get tftCastRatioChart() {
     const items = [
       {
         color: '#00b159',
@@ -174,14 +98,9 @@ class ThunderFocusTea extends Analyzer {
     ];
 
     return (
-      <div className="flex">
-        <div className="flex-sub" style={{ paddingRight: 12 }}>
-          {this.chart(items)}
-        </div>
-        <div className="flex-main" style={{ fontSize: '80%', paddingTop: 3 }}>
-          {this.legend(items, this.castsUnderTft)}
-        </div>
-      </div>
+      <DonutChart
+        items={items}
+      />
     );
   }
 
@@ -230,12 +149,15 @@ class ThunderFocusTea extends Analyzer {
 
   statistic() {
     return (
-      <StatisticsListBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(20)}
-        title={<><SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id}>Thunder Focus Tea</SpellLink> usage</>}
+        style={{ height: '200px' }}
       >
-        {this.tftCastRatioChart()}
-      </StatisticsListBox>
+        <div className="pad">
+          <label><SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} /> usage</label>
+          {this.tftCastRatioChart}
+        </div>
+      </Statistic>
     );
   }
 }

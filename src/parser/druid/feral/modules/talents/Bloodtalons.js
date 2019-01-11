@@ -1,12 +1,11 @@
 import React from 'react';
-import { Doughnut as DoughnutChart } from 'react-chartjs-2';
-import StatisticsListBox, { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
+import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import HIT_TYPES from 'game/HIT_TYPES';
-import { TooltipElement } from 'common/Tooltip';
+import Statistic from 'interface/statistics/Statistic';
+import DonutChart from 'interface/statistics/components/DonutChart';
 
 const debug = false;
 
@@ -32,7 +31,6 @@ const HIT_TYPES_THAT_DONT_CONSUME = [
   HIT_TYPES.PARRY,
 ];
 
-const CHART_SIZE = 100;
 const CHART_COLOR_WASTED = '#d53805';
 const CHART_COLOR_SPENDERS = [
   '#987284',
@@ -220,93 +218,22 @@ class Bloodtalons extends Analyzer {
     });
   }
 
-  legend(items, total) {
-    const numItems = items.length;
-    return items.map(({ color, label, tooltip, value, spellId }, index) => {
-      label = spellId ? (
-        <SpellLink id={spellId}>{label}</SpellLink>
-      ) : label;
-      return (
-        <div
-          className="flex"
-          style={{
-            borderBottom: '1px solid rgba(255,255,255,0.1)',
-            marginBottom: ((numItems - 1) === index) ? 0 : 5,
-          }}
-          key={index}
-        >
-          <div className="flex-sub">
-            <div
-              style={{
-                display: 'inline-block',
-                background: color,
-                borderRadius: '50%',
-                width: 16,
-                height: 16,
-                marginBottom: -3,
-              }}
-            />
-          </div>
-          <div className="flex-main" style={{ paddingLeft: 5 }}>
-            {label}
-          </div>
-          <div className="flex-sub">
-            <TooltipElement content={tooltip}>
-              {formatPercentage(value / total, 0)}%
-            </TooltipElement>
-          </div>
-        </div>
-      );
-    });
-  }
-
-  doughnut(items) {
-    return (
-      <DoughnutChart
-        data={{
-          datasets: [{
-            data: items.map(item => item.value),
-            backgroundColor: items.map(item => item.color),
-            borderColor: '#000000',
-            borderWidth: 1.5,
-          }],
-          labels: items.map(item => item.label),
-        }}
-        options={{
-          legend: {
-            display: false,
-          },
-          tooltips: {
-            bodyFontSize: 10,
-          },
-          cutoutPercentage: 45,
-          animation: false,
-          responsive: false,
-        }}
-        width={CHART_SIZE}
-        height={CHART_SIZE}
-      />
-    );
-  }
-
-  combinedChart() {
+  get combinedChart() {
     const items = this.spenders
       .filter(spender => spender.count !== 0)
-      .map((spender, index) => {
-        return {
-          color: spender.chartColor,
-          label: spender.spell.name,
-          spellId: spender.spell.id,
-          value: spender.count,
-          tooltip: <><b>{spender.count}</b> charge{spender.count !== 1 ? 's' : ''} used on {spender.spell.name}.</>,
-        };
-      });
+      .map(spender => ({
+        color: spender.chartColor,
+        label: spender.spell.name,
+        spellId: spender.spell.id,
+        value: spender.count,
+        valueTooltip: <><b>{spender.count}</b> charge{spender.count !== 1 ? 's' : ''} used on {spender.spell.name}.</>,
+      }));
 
     items.push({
       color: CHART_COLOR_WASTED,
       label: 'Wasted',
       value: this.wasted,
-      tooltip: (<>
+      valueTooltip: (<>
         <b>{this.wasted}</b> Bloodtalons charge{this.wasted !== 1 ? 's were' : ' was'} wasted.<br />
         <ul>
           <li>You lost <b>{this.overwritten}</b> by casting Regrowth or Entangling Roots when you already had charges.</li>
@@ -317,29 +244,23 @@ class Bloodtalons extends Analyzer {
     });
 
     return (
-      <div className="flex">
-        <div className="flex-sub" style={{ paddingRight: 12 }}>
-          {this.doughnut(items)}
-        </div>
-        <div className="flex-main" style={{ fontSize: '90%', paddingTop: 3 }}>
-          {this.legend(items, this.used + this.wasted)}
-        </div>
-      </div>
+      <DonutChart
+        items={items}
+      />
     );
   }
 
   statistic() {
     return (
-      <StatisticsListBox
-        title={(
-          <>
-            <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> usage
-          </>
-        )}
+      <Statistic
         position={STATISTIC_ORDER.OPTIONAL(4)}
+        style={{ height: '230px' }}
       >
-        {this.combinedChart()}
-      </StatisticsListBox>
+        <div className="pad">
+          <label><SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> usage</label>
+          {this.combinedChart}
+        </div>
+      </Statistic>
     );
   }
 }
