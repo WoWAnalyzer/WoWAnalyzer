@@ -1,4 +1,6 @@
-.react-tooltip-lite {
+.react-tooltip-lite,
+.tooltip-crosshair .rv-crosshair__inner
+{
   color: #fff;
   background: rgba(10, 10, 10, 0.9) !important;
   border-radius: 4px;

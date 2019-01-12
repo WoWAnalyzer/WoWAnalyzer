@@ -22,3 +22,24 @@
 .tooltip-crosshair .rv-crosshair__line {
     background: white;
 }
+
+.tooltip-crosshair  .rv-crosshair__inner__content {
+    padding: 0;
+    background: inherit;
+}
+
+.tooltip-crosshair .rv-crosshair__inner {
+    left: 14px;
+}
+
+.tooltip-crosshair .rv-crosshair__inner:before {
+    content: '\A';
+    left: -10px;
+    position: absolute;
+    width: 0;
+    height: 0;
+    z-index: 1001;
+    border-top: 10px transparent solid;
+    border-right: 10px rgba(10, 10, 10, 0.9) solid;
+    border-bottom: 10px transparent solid;
+}
