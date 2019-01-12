@@ -377,7 +377,7 @@ export default class MitigationSheet extends Analyzer {
             <td className="text-right">
               {perPointEl}
             </td>
-            <td/>
+            <td />
             <td className="text-right">
               {valueEl}
             </td>
