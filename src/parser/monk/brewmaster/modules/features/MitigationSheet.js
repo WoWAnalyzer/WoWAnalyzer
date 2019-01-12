@@ -233,7 +233,7 @@ export default class MitigationSheet extends Analyzer {
   }
 
   increment(fn, amount) {
-    return fn(Math.floor(this.avgIlvl), amount, Math.floor(this.avgIlvl)+5) - amount;
+    return amount - fn(Math.floor(this.avgIlvl), amount, Math.floor(this.avgIlvl)-5);
   }
 
   get results() {
@@ -352,6 +352,13 @@ export default class MitigationSheet extends Analyzer {
           gainEl = <dfn data-tip="Not Yet Loaded">NYL</dfn>;
         }
 
+        let perPointEl;
+        if(isLoaded !== false) {
+          perPointEl = formatWeight(gain, avg, this.normalizer, 1);
+        } else {
+          perPointEl = <dfn data-tip="Not Yet Loaded">NYL</dfn>;
+        }
+
         let valueEl;
         if(isLoaded !== false) {
           valueEl = formatWeight(gain, avg, this.normalizer, increment);
@@ -367,6 +374,10 @@ export default class MitigationSheet extends Analyzer {
             <td className="text-right">
               {gainEl}
             </td>
+            <td className="text-right">
+              {perPointEl}
+            </td>
+            <td/>
             <td className="text-right">
               {valueEl}
             </td>
@@ -385,7 +396,13 @@ export default class MitigationSheet extends Analyzer {
             <b>{formatGain(totalGain)}</b>
           </td>
           <td className="text-right">
-            <b>{formatWeight(totalGain, avg, this.normalizer, increment)}</b>
+            <b>{formatWeight(totalGain, avg, this.normalizer, 1)}</b>
+          </td>
+          <td className="text-right">
+            <b>&times; {increment.toFixed(2)}</b>
+          </td>
+          <td className="text-right">
+            <b>= {formatWeight(totalGain, avg, this.normalizer, increment)}</b>
           </td>
         </tr>
         {rows}
@@ -399,14 +416,20 @@ export default class MitigationSheet extends Analyzer {
       <>
       <thead>
         <tr>
-          <th>
+          <th width="45%">
             <b>Stat</b>
           </th>
           <th className="text-right">
             <b>Total</b>
           </th>
           <th className="text-right">
-            <dfn data-tip="Value gained by scaling your gear up by 5 ilvls. Normalized so that Armor is always equal to the Armor rating gained in those 5 ilvls.<br/><br/>For secondary stats, this assumes the relative amounts of each stat don't change (as if you upgraded each piece by 5 ilvls without actually changing any of them)."><b>+5 ilvl (Normalized)</b></dfn>
+            <dfn data-tip="The <em>average</em> stat value throughout a fight, including buffs and debuffs, is used here. The value is normalized so that Armor is always 1, and other stats are relative to this."><b>Per Rating (Normalized)</b></dfn>
+          </th>
+          <th className="text-right">
+            <dfn data-tip="Amount of rating gained from the last 5 average ilvls of your gear. For secondary stats, this assumes the relative amounts of each stat don't change (as if you upgraded each piece by 5 ilvls without actually changing any of them)."><b>Rating &mdash; Last 5 ilvls</b></dfn>
+          </th>
+          <th className="text-right">
+            <b>Value &mdash; Last 5 ilvls</b>
           </th>
         </tr>
       </thead>
