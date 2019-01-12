@@ -5,17 +5,14 @@ import ReactTooltip from 'react-tooltip';
 import { connect } from 'react-redux';
 import { Trans } from '@lingui/macro';
 
+import PATCHES from 'common/PATCHES';
 import Icon from 'common/Icon';
 import DiscordButton from 'interface/common/thirdpartybuttons/Discord';
 import GitHubButton from 'interface/common/thirdpartybuttons/GitHub';
-import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import { ignorePreviousPatchWarning } from 'interface/actions/previousPatch';
 import { getReportCodesIgnoredPreviousPatchWarning } from 'interface/selectors/skipPreviousPatchWarning';
 
 import Background from './images/weirdnelf.png';
-
-const EXPANSION_START = 1534197600000;
-const LATEST_PATCH = 1537221600000;
 
 class PatchChecker extends React.PureComponent {
   static propTypes = {
@@ -42,6 +39,10 @@ class PatchChecker extends React.PureComponent {
     this.props.ignorePreviousPatchWarning(this.props.report.code);
   }
 
+  makePreviousPatchUrl(patch) {
+    return `${window.location.protocol}//${patch.urlPrefix}.${window.location.host}${window.location.pathname}`;
+  }
+
   get continue() {
     return this.props.ignored.includes(this.props.report.code);
   }
@@ -52,7 +53,13 @@ class PatchChecker extends React.PureComponent {
     const reportTimestamp = report.start;
     const reportDate = new Date(report.start).toString();
 
-    if (reportTimestamp >= LATEST_PATCH || this.continue) {
+    // Sort from latest to oldest
+    const orderedPatches = PATCHES.sort((a, b) => b.timestamp - a.timestamp);
+
+    const expansionStartPatch = orderedPatches[orderedPatches.length - 1];
+    const reportPatch = orderedPatches.find(patch => reportTimestamp > patch.timestamp);
+
+    if ((reportPatch && reportPatch.isCurrent) || this.continue) {
       return children;
     } else {
       return (
@@ -61,20 +68,31 @@ class PatchChecker extends React.PureComponent {
 
           <div className="panel">
             <div className="panel-heading">
-              <h2><Trans>{reportTimestamp >= EXPANSION_START ? "This report is for an earlier patch" : "Sorry, this report is for a previous expansion" }</Trans></h2>
+              <h2><Trans>{reportTimestamp >= expansionStartPatch.timestamp ? "This report is for an earlier patch" : "Sorry, this report is for a previous expansion" }</Trans></h2>
             </div>
             <div className="panel-body">
               <div className="flex wrapable">
                 <div className="flex-main" style={{ minWidth: 400 }}>
                   <>
                   {
-                    reportTimestamp >= EXPANSION_START ? (
+                    reportTimestamp >= expansionStartPatch.timestamp ? (
                       <Trans>
                         WoWAnalyzer is constantly being updated to support the latest changes. This can cause some functionality to be modified for the latest talents/traits/trinkets or be removed.
                         <br /><br />
                         This could mean that some parts of your report will no longer be analysed accurately.
                         <br /><br />
-                        If you would still like to view the analysis, you can click 'Continue anyway' below. 
+                        If you would like to view the analysis on an older version of WoWAnalyzer, please 
+                        { 
+                          <a
+                            href={this.makePreviousPatchUrl(reportPatch)}
+                            onClick={this.handleClickContinue}
+                            style={{ fontSize: '1.1em' }}
+                          >
+                            <Trans>click here</Trans>
+                          </a>
+                        }.
+                        <br /><br />
+                        If you would still like to view the analysis using the latest updates, you can click 'Continue anyway' below.
                       </Trans>
                     ) : (
                       <Trans>
@@ -92,7 +110,7 @@ class PatchChecker extends React.PureComponent {
                     <DiscordButton />
                   </div>
                   <Link
-                    to={makeAnalyzerUrl(report)}
+                    to={window.location.pathname}
                     onClick={this.handleClickContinue}
                     style={{ fontSize: '1.1em' }}
                     data-tip="Khadgar approves your bravery"

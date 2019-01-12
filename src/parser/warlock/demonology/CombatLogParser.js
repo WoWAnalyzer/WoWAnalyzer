@@ -7,6 +7,7 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Felstorm from './modules/features/Felstorm';
 import Checklist from './modules/features/Checklist/Module';
+import SummonDemonicTyrant from './modules/features/SummonDemonicTyrant';
 
 
 import SoulShardTracker from './modules/soulshards/SoulShardTracker';
@@ -57,6 +58,7 @@ class CombatLogParser extends CoreCombatLogParser {
     damageDone: [DamageDone, { showStatistic: true }],
     felstorm: Felstorm,
     checklist: Checklist,
+    summonDemonicTyrant: SummonDemonicTyrant,
 
     // Core
     soulShardTracker: SoulShardTracker,

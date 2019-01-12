@@ -12,6 +12,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatDuration, formatPercentage, formatThousands } from 'common/format';
 import ActivityIndicator from 'interface/common/ActivityIndicator';
 import { makeItemApiUrl } from 'common/makeApiUrl';
+
 /**
  * Show statistics (talents and trinkets) for the current boss, specID and difficulty
  */
@@ -266,7 +267,7 @@ class EncounterStats extends React.PureComponent {
     return (
       <div className="col-md-12 flex-main" style={{ textAlign: 'left', margin: '5px auto' }}>
         {this.state.similiarKillTimes.length > 1 ? 'These are' : 'This is'} the {this.state.similiarKillTimes.length} top {this.amountOfParses} {this.state.similiarKillTimes.length > 1 ? 'logs' : 'log'} that {this.state.similiarKillTimes.length > 1 ? 'are' : 'is'} closest to your kill-time within {formatPercentage(this.durationVariancePercentage, 0)}% variance.
-        {this.state.closestKillTimes.map(log => this.singleLog(log.rank))}
+        {this.state.similiarKillTimes.map(log => this.singleLog(log.rank))}
       </div>
     );
   }
@@ -282,7 +283,6 @@ class EncounterStats extends React.PureComponent {
 
   render() {
     const rows = [15, 30, 45, 60, 75, 90, 100];
-
     if (!this.state.loaded) {
       return (
         <div className="panel-heading" style={{ marginTop: 40, padding: 20, boxShadow: 'none', borderBottom: 0 }}>

@@ -20,7 +20,7 @@ const HTTP_CODES = {
   NOT_FOUND: 404,
 };
 
-class WowCommunityApi { // TODO: extends ExternalApi that provides a generic _fetch method for third party APIs
+class BlizzardCommunityApi { // TODO: extends ExternalApi that provides a generic _fetch method for third party APIs
   static localeByRegion = {
     [REGIONS.EU]: 'en_US',
     [REGIONS.US]: 'en_US',
@@ -108,7 +108,7 @@ class WowCommunityApi { // TODO: extends ExternalApi that provides a generic _fe
       // we'll be making several requests, so pool connections
       forever: true,
       // ms after which to abort the request, when a character is uncached it's not uncommon to take ~2sec
-      timeout: 4000,
+      timeout: 5000, // TODO: Set to 4000 when EU's latency is fixed and average request is below 4 sec
       // The Blizzard API isn't very reliable in its HTTP codes, so we're very liberal
       shouldRetry: error => error.statusCode !== HTTP_CODES.NOT_FOUND,
       onBeforeAttempt: () => {
@@ -135,4 +135,4 @@ class WowCommunityApi { // TODO: extends ExternalApi that provides a generic _fe
   // endregion
 }
 
-export default new WowCommunityApi();
+export default new BlizzardCommunityApi();

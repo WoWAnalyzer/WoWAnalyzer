@@ -4,15 +4,17 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
-import { formatThousands } from 'common/format';
+import { formatPercentage, formatThousands } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
+import { binomialPMF, findMax } from 'parser/warlock/shared/probability';
 import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
 import SoulShardTracker from '../soulshards/SoulShardTracker';
 
 const TICKS_PER_UA = 4;
+const SC_PROC_CHANCE = 0.15;
 
 class SoulConduit extends Analyzer {
   static dependencies = {
@@ -39,11 +41,15 @@ class SoulConduit extends Analyzer {
     const avgDamage = this._totalUAdamage / (this._totalTicks > 0 ? this._totalTicks : 1);
     const shardsGained = this.soulShardTracker.getGeneratedBySpell(SPELLS.SOUL_CONDUIT_SHARD_GEN.id);
     const estimatedUAdamage = shardsGained * TICKS_PER_UA * avgDamage;
+    const totalSpent = this.soulShardTracker.spent;
+    // find number of Shards we were MOST LIKELY to get in the fight
+    const { max } = findMax(totalSpent, SC_PROC_CHANCE, binomialPMF);
     return (
       <StatisticListBoxItem
         title={<>Shards generated with <SpellLink id={SPELLS.SOUL_CONDUIT_TALENT.id} /></>}
         value={shardsGained}
-        valueTooltip={`Estimated damage: ${formatThousands(estimatedUAdamage)} (${this.owner.formatItemDamageDone(estimatedUAdamage)})<br />
+        valueTooltip={`You gained ${shardsGained} Shards from this talent, which is <strong>${formatPercentage(shardsGained / max)}%</strong> of Shards you were most likely to get in this fight (${max} Shards).<br />
+                      Estimated damage: ${formatThousands(estimatedUAdamage)} (${this.owner.formatItemDamageDone(estimatedUAdamage)})<br /><br />
                       This result is estimated by multiplying number of Soul Shards gained from this talent by the average Unstable Affliction damage for the whole fight.`}
       />
     );

@@ -4,7 +4,7 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import { formatNumber } from 'common/format';
-import ChiTracker from 'parser/monk/windwalker/modules/chi/ChiTracker';
+import ChiTracker from 'parser/monk/windwalker/modules/resources/ChiTracker';
 
 /**
  * Rising Sun Kick has a 25% chance to trigger a second time, dealing 4950 Physical damage and restoring 1 Chi.

@@ -3,7 +3,7 @@ import Sequelize from 'sequelize';
 import Raven from 'raven';
 import { StatusCodeError } from 'request-promise-native/errors';
 
-import WowCommunityApi from 'helpers/WowCommunityApi';
+import BlizzardCommunityApi from 'helpers/BlizzardCommunityApi';
 import RegionNotSupportedError from 'helpers/RegionNotSupportedError';
 
 import models from '../../models';
@@ -46,7 +46,7 @@ function getCharacterId(thumbnail) {
 }
 
 async function getCharacterFromBlizzardApi(region, realm, name) {
-  const response = await WowCommunityApi.fetchCharacter(region, realm, name, 'talents');
+  const response = await BlizzardCommunityApi.fetchCharacter(region, realm, name, 'talents');
   const data = JSON.parse(response);
   if (!data || !data.thumbnail) {
     throw new Error('Corrupt response received');
