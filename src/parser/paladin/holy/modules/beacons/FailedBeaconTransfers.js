@@ -2,12 +2,16 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import BeaconTransferFactor from './BeaconTransferFactor';
 import BeaconHealSource from './BeaconHealSource';
 
+/**
+ * @property {BeaconTransferFactor} beaconTransferFactor
+ * @property {BeaconHealSource} beaconHealSource
+ */
 class FailedBeaconTransfers extends Analyzer {
   static dependencies = {
     beaconTransferFactor: BeaconTransferFactor,
@@ -15,8 +19,12 @@ class FailedBeaconTransfers extends Analyzer {
   };
 
   lostBeaconHealing = 0;
+  constructor(options) {
+    super(options);
+    this.addEventListener(this.beaconHealSource.beacontransferfailed.by(SELECTED_PLAYER), this._onBeaconTransferFailed);
+  }
 
-  on_byPlayer_beacontransferfailed(event) {
+  _onBeaconTransferFailed(event) {
     this.lostBeaconHealing += this.beaconTransferFactor.getExpectedTransfer(event);
   }
 
@@ -32,7 +40,11 @@ class FailedBeaconTransfers extends Analyzer {
         icon={<SpellIcon id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id} />}
         value={<span style={{ fontSize: '75%' }}>Up to {this.owner.formatItemHealingDone(this.lostBeaconHealing)}</span>}
         label="Beacon healing lost (line of sight)"
-        tooltip={<>The amount of <strong>raw</strong> healing that didn't transfer to one or more beacon targets due to an issue such as Line of Sight or phasing.</>}
+        tooltip={(
+          <>
+            The amount of <strong>raw</strong> healing that didn't transfer to one or more beacon targets due to an issue such as Line of Sight or phasing.
+          </>
+        )}
       />
     );
   }

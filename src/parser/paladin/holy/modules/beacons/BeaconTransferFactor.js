@@ -1,16 +1,8 @@
 import Analyzer from 'parser/core/Analyzer';
-import Combatants from 'parser/shared/modules/Combatants';
 
-import BeaconTargets from './BeaconTargets';
 import { BEACON_TRANSFERING_ABILITIES, BEACON_TYPES } from '../../constants';
 
 class BeaconTransferFactor extends Analyzer {
-  static dependencies = {
-    combatants: Combatants,
-    beaconTargets: BeaconTargets,
-    // This also relies on the BeaconOfVirtueNormalizer so precasting FoL into BoV is accounted for properly.
-  };
-
   get beaconType() {
     return this.selectedCombatant.lv100Talent;
   }
