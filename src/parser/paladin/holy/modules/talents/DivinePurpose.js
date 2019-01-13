@@ -91,7 +91,7 @@ class DivinePurpose extends Analyzer {
           </label>
 
           <div className="flex" style={{ marginTop: 18 }}>
-            <div className="flex-sub content-middle" style={{ marginRight: 10 }}>
+            <div className="flex-sub content-middle" style={{ marginRight: 7 }}>
               <SpellIcon
                 id={SPELLS.HOLY_SHOCK_CAST.id}
                 style={{
@@ -101,7 +101,8 @@ class DivinePurpose extends Analyzer {
               />
             </div>
             <div className="flex-sub content-bottom value" style={{ lineHeight: 1, marginRight: 5 }}>
-              {this.holyShockProcs}x
+              {/* I want less than a space of width between the two */}
+              x<span style={{ width: 3 }} />{this.holyShockProcs}
             </div>
             <div className="flex-main content-bottom">
               <small>{formatPercentage(this.holyShockProcs / (holyShockHeals - this.holyShockProcs))}%</small>
@@ -111,7 +112,7 @@ class DivinePurpose extends Analyzer {
             </div>
           </div>
           <div className="flex" style={{ marginTop: 20 }}>
-            <div className="flex-sub content-middle" style={{ marginRight: 10 }}>
+            <div className="flex-sub content-middle" style={{ marginRight: 7 }}>
               <SpellIcon
                 id={SPELLS.LIGHT_OF_DAWN_CAST.id}
                 style={{
@@ -121,7 +122,8 @@ class DivinePurpose extends Analyzer {
               />
             </div>
             <div className="flex-sub content-bottom value" style={{ lineHeight: 1, marginRight: 5 }}>
-              {this.lightOfDawnProcs}x
+              {/* I want less than a space of width between the two */}
+              x<span style={{ width: 3 }} />{this.lightOfDawnProcs}
             </div>
             <div className="flex-main content-bottom">
               <small>{formatPercentage(this.lightOfDawnProcs / (lightOfDawnHeals - this.lightOfDawnProcs))}%</small>
