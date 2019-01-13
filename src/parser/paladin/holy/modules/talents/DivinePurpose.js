@@ -3,12 +3,11 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Events from 'parser/core/Events';
 
 /**
@@ -84,41 +83,55 @@ class DivinePurpose extends Analyzer {
     const holyShockHeals = holyShockHeal.healingHits || 0;
 
     return (
-      <StatisticBox
-        position={STATISTIC_ORDER.OPTIONAL(75)}
-        icon={<SpellIcon id={SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id} />}
-        value={(
-          <div className="flex">
-            <div className="flex-sub content-middle" style={{ marginRight: 5 }}>
+      <Statistic position={STATISTIC_ORDER.OPTIONAL(75)}>
+        <div className="pad">
+          <label>
+            <SpellIcon id={SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id} />{' '}
+            Divine Purpose procs
+          </label>
+
+          <div className="flex" style={{ marginTop: 18 }}>
+            <div className="flex-sub content-middle" style={{ marginRight: 10 }}>
               <SpellIcon
                 id={SPELLS.HOLY_SHOCK_CAST.id}
                 style={{
-                  height: '1.3em',
+                  height: '2.5em',
                   marginTop: '-.1em',
                 }}
               />
             </div>
-            <div className="flex-main">
-              {this.holyShockProcs} <small>{formatPercentage(this.holyShockProcs / (holyShockHeals - this.holyShockProcs))}%</small><br />
-              <small>Best streak: {this.highestHolyShockProcStreak < 2 ? 'N/A' : `${this.highestHolyShockProcStreak}x`}</small>
+            <div className="flex-sub content-bottom value" style={{ lineHeight: 1, marginRight: 5 }}>
+              {this.holyShockProcs}x
             </div>
-            <div className="flex-sub content-middle" style={{ marginRight: 5 }}>
+            <div className="flex-main content-bottom">
+              <small>{formatPercentage(this.holyShockProcs / (holyShockHeals - this.holyShockProcs))}%</small>
+            </div>
+            <div className="flex-sub content-bottom">
+              <div><small>Best streak: {this.highestHolyShockProcStreak < 2 ? 'N/A' : `${this.highestHolyShockProcStreak}x`}</small></div>
+            </div>
+          </div>
+          <div className="flex" style={{ marginTop: 20 }}>
+            <div className="flex-sub content-middle" style={{ marginRight: 10 }}>
               <SpellIcon
                 id={SPELLS.LIGHT_OF_DAWN_CAST.id}
                 style={{
-                  height: '1.3em',
+                  height: '2.5em',
                   marginTop: '-.1em',
                 }}
               />
             </div>
-            <div className="flex-main">
-              {this.lightOfDawnProcs} <small>{formatPercentage(this.lightOfDawnProcs / (lightOfDawnHeals - this.lightOfDawnProcs))}%</small><br />
-              <small>Best streak: {this.highestLightOfDawnProcStreak < 2 ? 'N/A' : `${this.highestLightOfDawnProcStreak}x`}</small>
+            <div className="flex-sub content-bottom value" style={{ lineHeight: 1, marginRight: 5 }}>
+              {this.lightOfDawnProcs}x
+            </div>
+            <div className="flex-main content-bottom">
+              <small>{formatPercentage(this.lightOfDawnProcs / (lightOfDawnHeals - this.lightOfDawnProcs))}%</small>
+            </div>
+            <div className="flex-sub content-bottom">
+              <div><small>Best streak: {this.highestLightOfDawnProcStreak < 2 ? 'N/A' : `${this.highestLightOfDawnProcStreak}x`}</small></div>
             </div>
           </div>
-        )}
-        label="Divine Purpose procs"
-      />
+        </div>
+      </Statistic>
     );
   }
 }
