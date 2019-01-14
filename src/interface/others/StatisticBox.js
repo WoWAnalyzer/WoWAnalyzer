@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Tooltip, { TooltipElement } from 'common/Tooltip';
-import './StatisticBox.css';
+import Tooltip from 'common/Tooltip';
+import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from './STATISTIC_CATEGORY';
 
 export { default as STATISTIC_ORDER } from './STATISTIC_ORDER';
@@ -18,7 +18,6 @@ class StatisticBox extends React.PureComponent {
     tooltip: PropTypes.node,
     label: PropTypes.node.isRequired,
     footer: PropTypes.node,
-    containerProps: PropTypes.object,
     warcraftLogs: PropTypes.string,
     category: PropTypes.string,
     position: PropTypes.number,
@@ -55,65 +54,64 @@ class StatisticBox extends React.PureComponent {
   }
 
   render() {
-    const { icon, value, tooltip, label, footer, containerProps, warcraftLogs, children, ...others } = this.props;
+    const { icon, value, label, footer, warcraftLogs, children, ...others } = this.props;
     delete others.category;
     delete others.position;
     // TODO: make sure "tooltip" properties are correctly passed, if some contain HTML tags, fix them into <>...</>
     return (
-      <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12" style={{ zIndex: this.state.expanded ? 2 : 1 }} {...containerProps}>
-        <div className="panel statistic statistic-box expandable" {...others}>
-          <div className="panel-body">
-            <div className="pad" style={{ position: 'relative' }}>
-              <div className="label">
-                {icon} {label}
-              </div>
-              <div className="value">
-                {tooltip ? <TooltipElement content={tooltip}>{value}</TooltipElement> : value}
-              </div>
-
-              {footer && (
-                <div style={{ marginTop: '2em' }}>
-                  {footer}
-                </div>
-              )}
-
-              {warcraftLogs && (
-                <div className="warcraft-logs-link">
-                  <Tooltip content="View details on Warcraft Logs">
-                    <a
-                      href={warcraftLogs}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <img src="/img/wcl.png" alt="Warcraft Logs logo" />
-                    </a>
-                  </Tooltip>
-                </div>
-              )}
-            </div>
-            {children && (
-              <>
-                <div className="row">
-                  <div className="col-xs-12">
-                    {this.state.expanded && (
-                      <div className="statistic-expansion">
-                        {children}
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                <div className="statistic-expansion-button-holster">
-                  <button onClick={this.toggleExpansion} className="btn btn-primary">
-                    {!this.state.expanded && <span className="glyphicon glyphicon-chevron-down" />}
-                    {this.state.expanded && <span className="glyphicon glyphicon-chevron-up" />}
-                  </button>
-                </div>
-              </>
-            )}
+      <Statistic
+        {...others}
+        style={{ height: 'auto', zIndex: this.state.expanded ? 2 : 1 }}
+      >
+        <div className="pad">
+          <label>
+            {icon} {label}
+          </label>
+          <div className="value">
+            {value}
           </div>
+
+          {footer && (
+            <div style={{ marginTop: '2em' }}>
+              {footer}
+            </div>
+          )}
+
+          {warcraftLogs && (
+            <div className="warcraft-logs-link">
+              <Tooltip content="View details on Warcraft Logs">
+                <a
+                  href={warcraftLogs}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img src="/img/wcl.png" alt="Warcraft Logs logo" />
+                </a>
+              </Tooltip>
+            </div>
+          )}
         </div>
-      </div>
+        {children && (
+          <>
+            <div className="row">
+              <div className="col-xs-12">
+                {this.state.expanded && (
+                  <div className="statistic-expansion">
+                    {children}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="statistic-expansion-button-holster">
+              <button onClick={this.toggleExpansion} className="btn btn-primary">
+                {!this.state.expanded && <span className="glyphicon glyphicon-chevron-down" />}
+                {this.state.expanded && <span className="glyphicon glyphicon-chevron-up" />}
+              </button>
+            </div>
+          </>
+        )}
+      </Statistic>
     );
   }
 }

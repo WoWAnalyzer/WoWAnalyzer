@@ -12,12 +12,11 @@ export { default as STATISTIC_ORDER } from './STATISTIC_ORDER';
 /**
  * @deprecated Use `interface/statistic/Statistic` instead.
  */
-const TraitStatisticBox = ({ trait, icon, label, className, ...others }) => (
+const TraitStatisticBox = ({ trait, icon, label, ...others }) => (
   <StatisticBox
     {...others}
     icon={icon || <SpellIcon id={trait} />}
     label={label || <SpellLink id={trait} icon={false} />}
-    className={`panel statistic-box item ${className || ''}`}
   />
 );
 TraitStatisticBox.propTypes = {
@@ -30,11 +29,9 @@ TraitStatisticBox.propTypes = {
    * Override the trait's label.
    */
   label: PropTypes.node,
-  className: PropTypes.string,
 };
-
 TraitStatisticBox.defaultProps = {
-  category: STATISTIC_CATEGORY.AZERITE_POWERS,
+  category: STATISTIC_CATEGORY.ITEMS, // combine with the items category since they're related and items never has more than 2 so keeping them separate is unnecessary
 };
 
 export default TraitStatisticBox;

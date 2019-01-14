@@ -12,11 +12,11 @@ export { default as STATISTIC_CATEGORY } from './STATISTIC_CATEGORY';
 /**
  * @deprecated Use `interface/statistic/Statistic` instead.
  */
-const SmallStatisticBox = ({ icon, value, tooltip, label, containerProps, ...others }) => {
+const SmallStatisticBox = ({ icon, value, tooltip, label, ...others }) => {
   delete others.category;
   delete others.position;
   return (
-    <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12" {...containerProps}>
+    <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
       <div className="panel statistic-box small" {...others}>
         <div className="panel-body flex wrapable">
           <div className="flex-main">
@@ -35,7 +35,6 @@ SmallStatisticBox.propTypes = {
   value: PropTypes.node.isRequired,
   tooltip: PropTypes.node,
   label: PropTypes.node.isRequired,
-  containerProps: PropTypes.object,
   category: PropTypes.string,
   position: PropTypes.number,
 };

@@ -1,9 +1,10 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+
 import { calculateAzeriteEffects } from 'common/stats';
 import SPELLS from 'common/SPELLS/index';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import SpellLink from 'common/SpellLink';
+import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import Analyzer from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
 const archiveOfTheTitansStats = traits => Object.values(traits).reduce((total, rank) => {
@@ -15,7 +16,7 @@ const archiveOfTheTitansStats = traits => Object.values(traits).reduce((total, r
  * Archive of the Titans
  * Your armor gathers and analyzes combat data every 5 sec, increasing your primary stat by 6, stacking up to 20 times.
  * The data decays while out of combat.
- * 
+ *
  * Enables Reorigination Array within Uldir.
  */
 class ArchiveOfTheTitans extends Analyzer {
@@ -94,8 +95,8 @@ class ArchiveOfTheTitans extends Analyzer {
         trait={SPELLS.ARCHIVE_OF_THE_TITANS.id}
         value={(
           <>
-          {this.averagePrimaryStat} average {this.selectedCombatant.spec.primaryStat}<br />
-          Gained <SpellLink id={SPELLS.REORIGINATION_ARRAY.id} /><br />
+            {this.averagePrimaryStat} <small>average {this.selectedCombatant.spec.primaryStat} gained</small><br />
+            <small><SpellLink id={SPELLS.REORIGINATION_ARRAY.id} /> enabled</small>
           </>
         )}
       />

@@ -12,11 +12,11 @@ export { default as STATISTIC_CATEGORY } from './STATISTIC_CATEGORY';
 /**
  * @deprecated Use `interface/statistic/Statistic` instead.
  */
-const StatisticsListBox = ({ title, tooltip, children, bodyStyle, containerProps, ...others }) => {
+const StatisticsListBox = ({ title, tooltip, children, bodyStyle, ...others }) => {
   delete others.category;
   delete others.position;
   return (
-    <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12" {...containerProps}>
+    <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
       <div className="panel statistic-box statistic-list" {...others}>
         {title && (
           <div className="panel-heading">
@@ -35,7 +35,6 @@ StatisticsListBox.propTypes = {
   children: PropTypes.node.isRequired,
   tooltip: PropTypes.node,
   bodyStyle: PropTypes.object,
-  containerProps: PropTypes.object,
   category: PropTypes.string,
   position: PropTypes.number,
 };
