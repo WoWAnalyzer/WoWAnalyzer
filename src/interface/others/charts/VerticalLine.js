@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './VerticalLine.css';
+import './VerticalLine.scss';
 
 class VerticalLine extends React.Component {
   static propTypes = {

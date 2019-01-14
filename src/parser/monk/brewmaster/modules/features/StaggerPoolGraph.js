@@ -10,7 +10,7 @@ import Analyzer from 'parser/core/Analyzer';
 import Panel from 'interface/others/Panel';
 import VerticalLine from 'interface/others/charts/VerticalLine';
 
-import './StaggerPoolGraph.css';
+import './StaggerPoolGraph.scss';
 import StaggerFabricator from '../core/StaggerFabricator';
 
 const COLORS = {
@@ -61,11 +61,12 @@ class StaggerGraph extends React.Component {
             { title: 'Purify', color: COLORS.purify },
             { title: 'Health', color: COLORS.hp },
             { title: 'Max Health', color: COLORS.maxHp },
+            { title: 'Player Death', color: COLORS.death },
           ]}
           style={{
             position: 'absolute',
             top: '-15px',
-            left: '35%',
+            left: '30%',
           }}
         />
         <XAxis title="Time" tickFormat={value => formatDuration((value - startTime) / 1000)} />
@@ -80,7 +81,7 @@ class StaggerGraph extends React.Component {
           color={COLORS.stagger}
           style={{strokeWidth: 2, fillOpacity: 0.2}}
           onNearestX={d => this.setState({hover: d})}
-          onSeriesMouseOut={d => this.setState({hover: null})}
+          onSeriesMouseOut={() => this.setState({hover: null})}
         />
         <LineSeries
           data={maxHp}
@@ -92,7 +93,7 @@ class StaggerGraph extends React.Component {
             key={`death-${idx}`}
             value={x}
             style={{
-              line: { background: 'red' },
+              line: { background: COLORS.death },
             }}
           />
         ))}

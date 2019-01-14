@@ -17,7 +17,7 @@ import { formatNumber, formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
-import './SelfHealTimingGraph.css';
+import './SelfHealTimingGraph.scss';
 
 const DEATH_BUFFER = 200;
 

@@ -1,0 +1,14 @@
+@import "common/Tooltip.scss";
+@import "interface/others/charts/DiscreteColorLegend.scss";
+
+.selfheal-value-tooltip {
+  @include tooltip-right(15px);
+  position: absolute;
+  top: -18px;
+}
+
+.selfheal-value-tooltip:before {
+  @include tooltip-arrow-right;
+}
+
+@include align-legend;

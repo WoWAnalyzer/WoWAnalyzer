@@ -11,7 +11,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import DamageTaken from './DamageTaken';
 
-import './MasteryValue.css';
+import './MasteryValue.scss';
 
 // coefficients to calculate dodge chance from agility
 const MONK_DODGE_COEFFS = {

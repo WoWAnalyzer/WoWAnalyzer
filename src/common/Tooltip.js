@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactTooltip from '@wowanalyzer/react-tooltip-lite';
 
-import './Tooltip.css';
+import './Tooltip.scss';
 
 export default class Tooltip extends React.Component {
   static propTypes = {
