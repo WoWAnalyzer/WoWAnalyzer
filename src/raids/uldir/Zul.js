@@ -1,3 +1,5 @@
+import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
+
 import Background from './images/Backgrounds/Zul.jpg';
 import Headshot from './images/Headshots/Zul.png';
 
@@ -15,6 +17,22 @@ export default {
     softMitigationChecks: {
       physical: [],
       magical: [],
+    },
+    phases: {
+      P1: {
+        name: 'Stage One: The Forces of Blood',
+        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+      },
+      P2: {
+        name: 'Stage Two: Zul, Awakened',
+        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        filter: {
+          type: 'begincast',
+          ability: {
+            id: 274168,
+          },
+        },
+      },
     },
   },
 };
