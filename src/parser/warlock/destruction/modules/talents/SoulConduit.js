@@ -36,7 +36,7 @@ class SoulConduit extends Analyzer {
     const estimatedDamage = Math.floor(generatedShards / 2) * this.averageChaosBoltDamage; // Chaos Bolt costs 2 shards to cast
     const totalSpent = this.soulShardTracker.spent / FRAGMENTS_PER_SHARD; // Destruction Soul Shard Tracker tracks fragments (10 fragments per shard)
     // find number of Shards we were MOST LIKELY to get in the fight
-    const { max } = findMax(totalSpent, SC_PROC_CHANCE, binomialPMF);
+    const { max } = findMax(totalSpent, (k, n) => binomialPMF(k, n, SC_PROC_CHANCE));
     return (
       <StatisticListBoxItem
         title={<>Shards generated with <SpellLink id={SPELLS.SOUL_CONDUIT_TALENT.id} /></>}

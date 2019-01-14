@@ -29,7 +29,7 @@ class SoulConduit extends Analyzer {
     const extraHogs = Math.floor(generated / SHARDS_PER_HOG);
     const totalSpent = this.soulShardTracker.spent;
     // find number of Shards we were MOST LIKELY to get in the fight
-    const { max } = findMax(totalSpent, SC_PROC_CHANCE, binomialPMF);
+    const { max } = findMax(totalSpent, (k, n) => binomialPMF(k, n, SC_PROC_CHANCE));
     return (
       <StatisticListBoxItem
         title={<>Shards generated with <SpellLink id={SPELLS.SOUL_CONDUIT_TALENT.id} /></>}
