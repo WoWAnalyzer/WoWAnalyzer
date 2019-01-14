@@ -54,7 +54,7 @@ class TwitchingTentacleofXalzaix extends Analyzer {
             <UptimeIcon /> {formatPercentage(this.totalBuffUptime, 0)}% <small>uptime</small>
           </div>
           <div className="value" style={{ marginTop: 5 }}>
-            <IntellectIcon /> {formatNumber(this.totalBuffUptime * this.statBuff)} <small>average {this.selectedCombatant.spec.primaryStat}</small>
+            <IntellectIcon /> {formatNumber(this.totalBuffUptime * this.statBuff)} <small>average {this.selectedCombatant.spec.primaryStat} gained</small>
           </div>
         </div>
       </Statistic>
