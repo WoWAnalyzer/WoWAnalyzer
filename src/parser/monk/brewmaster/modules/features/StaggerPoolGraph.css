@@ -10,10 +10,6 @@
     margin-left: 1em !important;
 }
 
-.rv-discrete-color-legend-item__color {
-    vertical-align: bottom !important;
-}
-
 .death-line .rv-crosshair__line {
     background: red;
     width: 2px;

@@ -1,0 +1,24 @@
+.selfheal-value-tooltip {
+  white-space: nowrap;
+  left: 15px;
+  position: absolute;
+  top: -18px;
+}
+
+.selfheal-value-tooltip:before {
+  content: '\A';
+  position: absolute;
+  left: -10px;
+  width: 0;
+  height: 0;
+  z-index: 1001;
+  border-right: 10px rgba(10, 10, 10, 0.9) solid;
+  border-top: 10px transparent solid;
+  border-bottom: 10px transparent solid;
+}
+
+.rv-discrete-color-legend-item__title {
+  color: #fff;
+  display: inline-block !important;
+  margin-left: 1em !important;
+}

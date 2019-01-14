@@ -1,0 +1,38 @@
+/* majority stolen from Crosshair styles and react-tooltip-lite styles */
+.rv-vertical-line {
+  position: absolute;
+  font-size: 11px;
+}
+.rv-vertical-line__line {
+  background: #ffffff;
+  width: 2px;
+}
+.rv-vertical-line__tooltip {
+  position: absolute;
+  top: 10px;
+  white-space: nowrap;
+}
+.rv-vertical-line__tooltip:before {
+  content: '\A';
+  position: absolute;
+  width: 0;
+  height: 0;
+  z-index: 1001;
+  border-top: 10px transparent solid;
+  border-bottom: 10px transparent solid;
+}
+.rv-vertical-line__tooltip--left {
+  right: 12px;
+}
+.rv-vertical-line__tooltip--left:before {
+  right: -10px;
+  border-left: 10px rgba(10, 10, 10, 0.9) solid;
+}
+.rv-vertical-line__tooltip--right {
+  left: 12px;
+}
+.rv-vertical-line__tooltip--right:before {
+  left: -10px;
+  border-right: 10px rgba(10, 10, 10, 0.9) solid;
+}
+
