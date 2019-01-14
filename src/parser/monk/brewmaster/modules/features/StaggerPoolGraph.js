@@ -8,6 +8,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'parser/core/Analyzer';
 import Panel from 'interface/others/Panel';
+import VerticalLine from 'interface/others/charts/VerticalLine';
 
 import './StaggerPoolGraph.css';
 import StaggerFabricator from '../core/StaggerFabricator';
@@ -46,7 +47,12 @@ class StaggerGraph extends React.Component {
         style={{
           fill: '#fff',
           stroke: '#fff',
-        }}>
+        }}
+        onMouseLeave={() => this.setState({ hover: null })}
+        margin={{
+          top: 30,
+        }}
+      >
         <DiscreteColorLegend
           orientation="horizontal"
           strokeWidth={2}
@@ -55,7 +61,13 @@ class StaggerGraph extends React.Component {
             { title: 'Purify', color: COLORS.purify },
             { title: 'Health', color: COLORS.hp },
             { title: 'Max Health', color: COLORS.maxHp },
-          ]} />
+          ]}
+          style={{
+            position: 'absolute',
+            top: '-15px',
+            left: '35%',
+          }}
+        />
         <XAxis title="Time" tickFormat={value => formatDuration((value - startTime) / 1000)} />
         <YAxis title="Health" tickFormat={value => formatNumber(value)} />
         <AreaSeries
@@ -76,12 +88,13 @@ class StaggerGraph extends React.Component {
           strokeWidth={2}
         />
         {deaths.map(({x}, idx) => (
-          <Crosshair
+          <VerticalLine
             key={`death-${idx}`}
-            values={[{x}]}
-            className="death-line">
-            <React.Fragment />
-          </Crosshair>
+            value={x}
+            style={{
+              line: { background: 'red' },
+            }}
+          />
         ))}
         {!this.state.dragging && this.state.hover && (
           <Crosshair
