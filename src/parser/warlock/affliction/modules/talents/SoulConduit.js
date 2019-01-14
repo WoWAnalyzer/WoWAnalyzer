@@ -48,7 +48,12 @@ class SoulConduit extends Analyzer {
       <StatisticListBoxItem
         title={<>Shards generated with <SpellLink id={SPELLS.SOUL_CONDUIT_TALENT.id} /></>}
         value={shardsGained}
-        valueTooltip={`You gained ${shardsGained} Shards from this talent, which is <strong>${formatPercentage(shardsGained / max)}%</strong> of Shards you were most likely to get in this fight (${max} Shards).<br />
+        valueTooltip={`You gained ${shardsGained} Shards from this talent
+                      ${max > 0 ?
+                          `, which is <strong>${formatPercentage(shardsGained / max)}%</strong> of Shards you were most likely to get in this fight (${max} Shards).`
+                        :
+                          ', while you were most likely to not get any Shards.'
+                      }<br />
                       Estimated damage: ${formatThousands(estimatedUAdamage)} (${this.owner.formatItemDamageDone(estimatedUAdamage)})<br /><br />
                       This result is estimated by multiplying number of Soul Shards gained from this talent by the average Unstable Affliction damage for the whole fight.`}
       />
