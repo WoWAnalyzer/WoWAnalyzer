@@ -326,6 +326,7 @@ class CombatLogParser {
       return obj;
     }, {});
   }
+  /** @var {Combatant} */
   get selectedCombatant() {
     return this.getModule(Combatants).selected;
   }

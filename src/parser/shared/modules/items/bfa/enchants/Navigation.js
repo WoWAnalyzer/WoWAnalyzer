@@ -136,7 +136,7 @@ class Navigation extends Analyzer {
   item() {
     const buffStacks = this.cleanStacks;
     const maxStackBuffDuration = this.maxStackBuffUptime;
-    const tooltipData = (
+    return (
       <StatisticBox
         icon={<SpellIcon id={this.constructor.smallBuffId} />}
         value={(
@@ -185,7 +185,6 @@ class Navigation extends Analyzer {
         </table>
       </StatisticBox>
     );
-    return tooltipData;
   }
 }
 export default Navigation;

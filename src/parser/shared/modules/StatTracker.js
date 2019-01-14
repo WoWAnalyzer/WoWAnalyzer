@@ -261,6 +261,9 @@ class StatTracker extends Analyzer {
     264878: { crit: 650 }, // Crow's Nest Scope
     //endregion
 
+    // DEFINING STAT BUFFS HERE IS DEPRECATED.
+    // Instead you should lazily add the buffs by adding the StatTracker as a dependency to your module, and calling `add` in the constructor.
+
     // region Trinkets
     [SPELLS.LOADED_DIE_CRITICAL_STRIKE_SMALL.id]: {
       itemId: ITEMS.HARLANS_LOADED_DICE.id,
@@ -382,12 +385,6 @@ class StatTracker extends Analyzer {
     [SPELLS.BENEFICIAL_VIBRATIONS.id]: {
       itemId: ITEMS.AZEROKKS_RESONATING_HEART.id,
       agility: (_, item) => calculatePrimaryStat(300, 593, item.itemLevel),
-    },
-    // endregion
-    // region Raids
-    [SPELLS.UNCONTAINED_POWER.id]: {
-      itemId: ITEMS.TWITCHING_TENTACLE_OF_XALZAIX.id,
-      intellect: (_, item) => calculatePrimaryStat(340, 850, item.itemLevel),
     },
     // endregion
     // endregion

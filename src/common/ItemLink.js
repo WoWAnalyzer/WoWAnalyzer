@@ -36,8 +36,12 @@ class ItemLink extends React.PureComponent {
       throw new Error(`Unknown item: ${id}`);
     }
 
-    let quality = this.props.quality;
-    if (quality === undefined || quality === null) {
+    let quality;
+    if (this.props.quality !== undefined && this.props.quality !== null) {
+      quality = this.props.quality;
+    } else if (this.props.details) {
+      quality = this.props.details.quality;
+    } else {
       quality = ITEMS[id] ? ITEMS[id].quality : 0;
     }
 

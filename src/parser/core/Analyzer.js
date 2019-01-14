@@ -79,6 +79,10 @@ class Analyzer extends EventSubscriber {
   }
 
   // Override these with functions that return info about their rendering in the specific slots
+  /**
+   * @deprecated Use statistic() with category set to ITEM instead.
+   * @returns {object}
+   */
   item() { return undefined; }
   statistic() { return undefined; }
   /**
