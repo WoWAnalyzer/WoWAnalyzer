@@ -72,6 +72,11 @@ export default class LightOfTheProtector extends Analyzer {
   }
 
   _countDelay(event) {
+    if(this._lastHit === null) {
+      // haven't been hit yet, might have started with less than 100% hp
+      // (or are fighting Mythrax)
+      return;
+    }
     const delay = event.timestamp - (this._lastHit ? this._lastHit.timestamp : 0) - this._msTilHeal;
     if(delay < 0) {
       console.error("LotP/HotP delay came out negative", delay);
