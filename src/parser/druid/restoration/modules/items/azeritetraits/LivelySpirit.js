@@ -1,14 +1,13 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatThousands } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import StatWeights from '../../features/StatWeights';
-import {getPrimaryStatForItemLevel, findItemLevelByPrimaryStat} from './/common';
 
 /**
- When Innervate expires, your Intellect is increased by 77 for each spell the target cast using Innervate. Lasts 20 sec.
+ When Innervate expires, for each spell the target cast using Innervate, you gain 54 Intellect for 20 sec and 0.5% mana.
  TODO - The implementation of this can be more sophisticated, i.e. calculating the actual gain per heal occurring during lively spirit.
  TODO - Assumes that the druid cast innervate on themselves, is it possible to track this for targetId as well or tracking the int buff in any other way? :thinking:
  */
@@ -44,6 +43,7 @@ class LivelySpirit extends Analyzer{
   intGainPerSpell = 0;
   livelySpirits = [];
   innervateTimestamp = 0;
+  manaGained = 0;
 
   constructor(...args){
     super(...args);
@@ -81,12 +81,20 @@ class LivelySpirit extends Analyzer{
     }
   }
 
+  on_toPlayer_energize(event) {
+    const spellId = event.ability.guid;
+
+    if (spellId !== SPELLS.LIVELY_SPIRIT_MANA_RETURN.id) {
+      return;
+    }
+    this.manaGained += event.resourceChange;
+  }
+
   statistic(){
     this.livelySpirits.forEach(
       function (element) {
         this.intGain += element * (LIVELY_SPIRIT_DURATION / this.owner.fightDuration);
       }, this);
-    const ilvlGain = findItemLevelByPrimaryStat(getPrimaryStatForItemLevel(this.avgItemLevel) + this.intGain) - this.avgItemLevel;
 
     return(
       <TraitStatisticBox
@@ -95,11 +103,11 @@ class LivelySpirit extends Analyzer{
         value={(
           <>
             {formatNumber(this.intGain)} average Intellect gained.<br />
+            {formatThousands(this.manaGained)} mana gained.<br />
           </>
         )}
         tooltip={`This assumes that you cast your innervates on yourself. <br />
-                  This only shows average int gained from using this trait and not how much your heals actually benefited from the int gain.  <br />
-                  This is worth roughly <b>${formatNumber(ilvlGain)}</b> (${formatNumber(ilvlGain/this.traitLevel)} per level) item levels.`}
+                  This only shows average int gained from using this trait and not how much your heals actually benefited from the int gain.  <br />`}
       />
     );
   }

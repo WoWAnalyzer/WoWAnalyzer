@@ -5,6 +5,11 @@ import { Yajinni, blazyb, fel1ne, Qbz } from 'CONTRIBUTORS';
 export default [
   {
     date: new Date('2019-01-14'),
+    changes: 'Updated Lively spirit module to include the extra mana gained',
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2019-01-14'),
     changes: 'Updated Autumn Leaves module to include the extra second on rejuvenation',
     contributors: [blazyb],
   },
