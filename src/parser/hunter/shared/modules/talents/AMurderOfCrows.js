@@ -130,10 +130,12 @@ class AMurderOfCrows extends Analyzer {
     return (
       <TalentStatisticBox
         talent={SPELLS.A_MURDER_OF_CROWS_TALENT.id}
-        value={<>
-          <ItemDamageDone amount={this.damage} /> <br />
-          {this.resets} resets
-        </>}
+        value={(
+          <>
+            <ItemDamageDone amount={this.damage} /><br />
+            {this.resets} <small>resets</small>
+          </>
+        )}
       />
     );
   }

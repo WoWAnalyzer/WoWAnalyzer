@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import Analyzer from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import { getIcon } from 'parser/shared/modules/features/STAT';
 
 const archiveOfTheTitansStats = traits => Object.values(traits).reduce((total, rank) => {
   const [stat] = calculateAzeriteEffects(SPELLS.ARCHIVE_OF_THE_TITANS.id, rank);
@@ -89,13 +90,14 @@ class ArchiveOfTheTitans extends Analyzer {
 
   // todo: reorigination array
   statistic() {
+    const Icon = getIcon(this.selectedCombatant.spec.primaryStat.toLowerCase());
     return (
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.ARCHIVE_OF_THE_TITANS.id}
         value={(
           <>
-            {this.averagePrimaryStat} <small>average {this.selectedCombatant.spec.primaryStat} gained</small><br />
+            <Icon /> {this.averagePrimaryStat} <small>average {this.selectedCombatant.spec.primaryStat} gained</small><br />
             <small><SpellLink id={SPELLS.REORIGINATION_ARRAY.id} /> enabled</small>
           </>
         )}

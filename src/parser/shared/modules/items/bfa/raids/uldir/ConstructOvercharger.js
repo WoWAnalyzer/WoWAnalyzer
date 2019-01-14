@@ -4,7 +4,8 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { calculateSecondaryStatDefault } from 'common/stats';
 import { formatPercentage, formatNumber } from 'common/format';
-import { TooltipElement } from 'common/Tooltip';
+import UptimeIcon from 'interface/icons/Uptime';
+import HasteIcon from 'interface/icons/Haste';
 import Analyzer from 'parser/core/Analyzer';
 
 /**
@@ -23,12 +24,11 @@ class ConstructOvercharger extends Analyzer {
     }
   }
 
-  averageStatGain() {
+  get averageStatGain() {
     const averageStacks = this.selectedCombatant.getStackWeightedBuffUptime(SPELLS.TITANIC_OVERCHARGE.id) / this.owner.fightDuration;
     return averageStacks * this.statBuff;
   }
-
-  totalBuffUptime() {
+  get totalBuffUptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.TITANIC_OVERCHARGE.id) / this.owner.fightDuration;
   }
 
@@ -39,11 +39,12 @@ class ConstructOvercharger extends Analyzer {
   item() {
     return {
       item: ITEMS.CONSTRUCT_OVERCHARGER,
+      tooltip: `Procced ${this.buffTriggerCount()} times.`,
       result: (
-        <TooltipElement content={`Procced ${this.buffTriggerCount()} times.`}>
-          {formatPercentage(this.totalBuffUptime())}% uptime.<br />
-          {formatNumber(this.averageStatGain())} average Haste.
-        </TooltipElement>
+        <>
+          <UptimeIcon /> {formatPercentage(this.totalBuffUptime, 0)}% <small>uptime</small><br />
+          <HasteIcon /> {formatNumber(this.averageStatGain)} <small>average Haste gained</small>
+        </>
       ),
     };
   }

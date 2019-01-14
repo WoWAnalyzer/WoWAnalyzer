@@ -1,10 +1,11 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
-import Analyzer from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import HasteIcon from 'interface/icons/Haste';
+import Analyzer from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
 const MAX_OVERWHELMING_POWER_STACKS = 25;
@@ -109,7 +110,11 @@ class OverWhelmingPower extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.OVERWHELMING_POWER.id}
-        value={`${this.averageHaste} average Haste`}
+        value={(
+          <>
+            <HasteIcon /> {this.averageHaste} <small>average Haste gained</small>
+          </>
+        )}
         tooltip={(
           <>
             {SPELLS.OVERWHELMING_POWER.name} grants <strong>{this.haste} haste per stack</strong> ({this.haste * MAX_OVERWHELMING_POWER_STACKS} haste @{MAX_OVERWHELMING_POWER_STACKS} stacks) while active.<br />

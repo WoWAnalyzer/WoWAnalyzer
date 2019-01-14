@@ -1,10 +1,12 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+
 import { formatNumber, formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
+import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import MasteryIcon from 'interface/icons/Mastery';
+import Analyzer from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
 const primalInstinctsStats = traits => Object.values(traits).reduce((obj, rank) => {
@@ -60,8 +62,8 @@ class PrimalInstincts extends Analyzer {
         trait={SPELLS.PRIMAL_INSTINCTS.id}
         value={(
           <>
-            {formatNumber(this.avgMastery)} Average Mastery <br />
-            Up to {this.numProcs} <SpellIcon id={SPELLS.BARBED_SHOT.id} /> charges regained
+            <MasteryIcon /> {formatNumber(this.avgMastery)} <small>average Mastery gained</small><br />
+            <SpellIcon id={SPELLS.BARBED_SHOT.id} /> <small>Up to</small> {this.numProcs} <small>charges regained</small>
           </>
         )}
         tooltip={<>Primal Instincts granted <strong>{this.mastery}</strong> Mastery for <strong>{formatPercentage(this.uptime)}%</strong> of the fight.</>}

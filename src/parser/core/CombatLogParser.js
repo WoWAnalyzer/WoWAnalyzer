@@ -586,6 +586,7 @@ class CombatLogParser {
                   icon={icon}
                   label={title}
                   value={item.result}
+                  tooltip={item.tooltip}
                 />
               );
             }

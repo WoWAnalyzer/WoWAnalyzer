@@ -37,8 +37,12 @@ class SoulConduit extends Analyzer {
       <StatisticListBoxItem
         title={<>Fragments generated with <SpellLink id={SPELLS.SOUL_CONDUIT_TALENT.id} /></>}
         value={generated}
-        valueTooltip={`Estimated damage: ${formatThousands(estimatedDamage)} (${this.owner.formatItemDamageDone(estimatedDamage)}).
-          This result is estimated by multiplying average Chaos Bolt damage by potential casts you would get from these bonus fragments.`}
+        valueTooltip={(
+          <>
+            Estimated damage: {formatThousands(estimatedDamage)} ({this.owner.formatItemDamageDone(estimatedDamage)}).
+            This result is estimated by multiplying average Chaos Bolt damage by potential casts you would get from these bonus fragments.
+          </>
+        )}
       />
     );
   }

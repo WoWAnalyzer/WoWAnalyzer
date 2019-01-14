@@ -125,8 +125,8 @@ class BestialWrath extends Analyzer {
       <StatisticBox
         position={STATISTIC_ORDER.CORE(14)}
         icon={<SpellIcon id={SPELLS.BESTIAL_WRATH.id} />}
-        value={<>{this.percentUptime}% uptime</>}
-        label="Bestial Wrath"
+        label={<SpellLink id={SPELLS.BESTIAL_WRATH.id} icon={false} />}
+        value={<>{this.percentUptime}% <small>uptime</small></>}
       >
         <table className="table table-condensed">
           <thead>

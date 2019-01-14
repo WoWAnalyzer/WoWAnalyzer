@@ -173,8 +173,12 @@ class BarbedShot extends Analyzer {
       <StatisticBox
         position={STATISTIC_ORDER.CORE(15)}
         icon={<SpellIcon id={SPELLS.BARBED_SHOT_PET_BUFF.id} />}
-        value={`${formatPercentage(this.percentUptimeMaxStacks)} %`}
-        label="3 stack uptime"
+        label={<SpellLink id={SPELLS.BARBED_SHOT_PET_BUFF.id} icon={false} />}
+        value={(
+          <>
+            {formatPercentage(this.percentUptimeMaxStacks)}% <small>3 stack uptime</small>
+          </>
+        )}
         tooltip={(
           <ul>
             <li>Your pet had an average of {this.getAverageBarbedShotStacks()} {this.getAverageBarbedShotStacks() > 1 ? 'stacks' : 'stack'} active throughout the fight.</li>
