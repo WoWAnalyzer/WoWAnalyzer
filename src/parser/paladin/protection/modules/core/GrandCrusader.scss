@@ -1,0 +1,10 @@
+@import "common/Tooltip.scss";
+
+.grand-crusader-tooltip {
+  @include tooltip-right(15px);
+  top: -18px;
+  position: absolute;
+}
+.grand-crusader-tooltip:before {
+  @include tooltip-arrow-right;
+}
