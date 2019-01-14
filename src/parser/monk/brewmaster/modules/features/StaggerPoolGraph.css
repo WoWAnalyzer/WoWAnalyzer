@@ -25,7 +25,7 @@
 
 .tooltip-crosshair  .rv-crosshair__inner__content {
     padding: 0;
-    background: inherit;
+    background: none;
 }
 
 .tooltip-crosshair .rv-crosshair__inner {
