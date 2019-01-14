@@ -76,7 +76,7 @@ a.hidden-link {
   text-transform: uppercase;
 }
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary:active:hover, .btn-primary:active:focus {
-  background: #ad4b4b;
+  background: darken($primaryColor, 10%);
   border: 1px solid $primaryColor;
   outline: 0;
   color: #ccc;
@@ -152,11 +152,11 @@ ul {
 }
 .statistic-expansion-button-holster {
   width: 100%;
-  margin-top: 15px;
 }
 .statistic-expansion-button-holster button {
   width: 100%;
   outline: none;
+  padding: 1px 20px;
 }
 .statistic-expansion-button-holster button:focus {
   outline: none;

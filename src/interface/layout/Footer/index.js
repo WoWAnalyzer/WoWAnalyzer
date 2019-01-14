@@ -70,6 +70,7 @@ class Footer extends React.PureComponent {
                     <li>Grid Many Rows by Justin White</li>
                     <li>Info by Gregor Cresnar</li>
                     <li>Plus by Galaxicon</li>
+                    <li>duration by Bohdan Burmich</li>
                   </ul>
                 </>
               )}

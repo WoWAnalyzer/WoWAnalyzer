@@ -1,10 +1,15 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS/index';
-import ITEMS from 'common/ITEMS/index';
-import Analyzer from 'parser/core/Analyzer';
+import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import { formatPercentage, formatNumber } from 'common/format';
 import { calculatePrimaryStat } from 'common/stats';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import IntellectIcon from 'interface/icons/Intellect';
+import UptimeIcon from 'interface/icons/Uptime';
+import Analyzer from 'parser/core/Analyzer';
+import ItemLink from 'common/ItemLink';
 
 /**
  * Twitching Tentacle of Xalzaix -
@@ -27,16 +32,19 @@ class TwitchingTentacleofXalzaix extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.UNCONTAINED_POWER.id) / this.owner.fightDuration;
   }
 
-  item() {
-    return {
-      item: ITEMS.TWITCHING_TENTACLE_OF_XALZAIX,
-      result: (
-        <>
-          {formatPercentage(this.totalBuffUptime)}% uptime<br />
-          {formatNumber(this.totalBuffUptime * this.statBuff)} average {this.selectedCombatant.spec.primaryStat}
-        </>
-      ),
-    };
+  statistic() {
+    return (
+      <Statistic category={STATISTIC_CATEGORY.ITEMS}>
+        <div className="pad">
+          <label><ItemLink id={ITEMS.TWITCHING_TENTACLE_OF_XALZAIX.id} /></label>
+
+          <div className="value">
+            <UptimeIcon /> {formatPercentage(this.totalBuffUptime, 0)}% <small>uptime</small><br />
+            <IntellectIcon /> {formatNumber(this.totalBuffUptime * this.statBuff)} <small>average {this.selectedCombatant.spec.primaryStat}</small>
+          </div>
+        </div>
+      </Statistic>
+    );
   }
 }
 

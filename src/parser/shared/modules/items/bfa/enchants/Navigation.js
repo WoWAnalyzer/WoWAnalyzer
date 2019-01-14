@@ -1,9 +1,13 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
-import StatisticBox from 'interface/others/StatisticBox';
+
 import SpellIcon from 'common/SpellIcon';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import { formatDuration, formatPercentage } from 'common/format';
+import SpellLink from 'common/SpellLink';
+import StatisticBox from 'interface/others/StatisticBox';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import UptimeIcon from 'interface/icons/Uptime';
+import CriticalStrikeIcon from 'interface/icons/CriticalStrike';
+import Analyzer from 'parser/core/Analyzer';
 
 const MS_BUFFER = 100;
 
@@ -107,7 +111,10 @@ class Navigation extends Analyzer {
 
     return cleanStacks;
   }
-  maxStackBuffUptime() {
+  get smallStackBuffUptime() {
+    return this.selectedCombatant.getBuffUptime(this.constructor.smallBuffId);
+  }
+  get maxStackBuffUptime() {
     return this.selectedCombatant.getBuffUptime(this.constructor.bigBuffId);
   }
   get averageStat() {
@@ -122,18 +129,23 @@ class Navigation extends Analyzer {
     }, 0);
 
     const smallBuffIncrease = smallBuffDuration * this.constructor.statPerStack;
-    const bigBuffIncrease = this.maxStackBuffUptime() * this.constructor.statAtMax;
+    const bigBuffIncrease = this.maxStackBuffUptime * this.constructor.statAtMax;
 
-    return ((smallBuffIncrease + bigBuffIncrease) / this.owner.fightDuration).toFixed(2);
+    return ((smallBuffIncrease + bigBuffIncrease) / this.owner.fightDuration).toFixed(0);
   }
   item() {
     const buffStacks = this.cleanStacks;
-    const maxStackBuffDuration = this.maxStackBuffUptime();
+    const maxStackBuffDuration = this.maxStackBuffUptime;
     const tooltipData = (
       <StatisticBox
         icon={<SpellIcon id={this.constructor.smallBuffId} />}
-        value={this.averageStat}
-        label={`average ${this.constructor.primaryStat} gained`}
+        value={(
+          <>
+            <UptimeIcon /> {formatPercentage((this.smallStackBuffUptime + maxStackBuffDuration) / this.owner.fightDuration, 0)}% <small>uptime</small><br />
+            <CriticalStrikeIcon /> {this.averageStat} <small>average {this.constructor.primaryStat} gained</small>
+          </>
+        )}
+        label={<SpellLink id={this.constructor.smallBuffId} icon={false} />}
         category={STATISTIC_CATEGORY.ITEMS}
       >
         <table className="table table-condensed">
