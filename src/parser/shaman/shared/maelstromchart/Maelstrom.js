@@ -3,12 +3,29 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Line } from 'react-chartjs-2';
+import {
+  FlexibleWidthXYPlot as XYPlot,
+  DiscreteColorLegend,
+  XAxis,
+  YAxis,
+  AreaSeries,
+  LineSeries,
+  VerticalGridLines,
+  HorizontalGridLines,
+} from 'react-vis';
 import SPELLS from 'common/SPELLS';
 
 import { formatDuration } from 'common/format';
 
 import MaelstromComponent from './MaelstromComponent';
+import './Maelstrom.scss';
+
+const COLORS = {
+  MAELSTROM_FILL: 'rgba(0, 139, 215, 0.2)',
+  MAELSTROM_BORDER: 'rgba(0, 145, 255, 1)',
+  WASTED_MAELSTROM_FILL: 'rgba(255, 20, 147, 0.3)',
+  WASTED_MAELSTROM_BORDER: 'rgba(255, 90, 160, 1)',
+};
 
 class Maelstrom extends React.PureComponent {
   static propTypes = {
@@ -23,34 +40,25 @@ class Maelstrom extends React.PureComponent {
     activeMaelstromWastedTimeline: PropTypes.object,
   };
 
-  render() {
-    if (!this.props.tracker) {
-      return (
-        <div>
-          Loading...
-        </div>
-      );
-    }
+  get plot() {
+    const { start, end, maelstromMax, maelstromPerSecond, activeMaelstromWastedTimeline } = this.props;
 
-    const maxMaelstrom = this.props.maelstromMax;
-    const { start, end } = this.props;
+    // (by Chizu): I'm scared to touch what's underneath, someone rework this please
 
     //not it's own module since it's "fake data" meant to look visually accurate, not be numerically accurate
     let lastCatch = 0; //records the timestamp of the last event
     const overCapBySecond = [];
     const maelstromBySecond = [];
-    const magicGraphNumber = Math.floor(maxMaelstrom / 2);
+    const magicGraphNumber = Math.floor(maelstromMax / 2);
     let passiveWasteIndex = 0;
-    if (this.props.maelstromPerSecond && this.props.activeMaelstromWastedTimeline) {
-      this.props.maelstromPerSecond.forEach(item => {
+    if (maelstromPerSecond && activeMaelstromWastedTimeline) {
+      maelstromPerSecond.forEach(item => {
         const secIntoFight = Math.floor(passiveWasteIndex / 1000);
         if (Math.max(maelstromBySecond[secIntoFight], item) >= magicGraphNumber) { //aims to get highest peak
           maelstromBySecond[secIntoFight] = Math.max(maelstromBySecond[secIntoFight], item);
-        }
-        else if (Math.max(maelstromBySecond[secIntoFight], item) < magicGraphNumber) { //aims to get lowest valley
+        } else if (Math.max(maelstromBySecond[secIntoFight], item) < magicGraphNumber) { //aims to get lowest valley
           maelstromBySecond[secIntoFight] = Math.min(maelstromBySecond[secIntoFight], item);
-        }
-        else if (!maelstromBySecond[secIntoFight]) {
+        } else if (!maelstromBySecond[secIntoFight]) {
           maelstromBySecond[secIntoFight] = item;
         }
         lastCatch = Math.floor(passiveWasteIndex / 1000);
@@ -60,27 +68,109 @@ class Maelstrom extends React.PureComponent {
 
     for (let i = 0; i < lastCatch; i++) {
       if (!maelstromBySecond[i]) {
-        if (maelstromBySecond[i - 1] > maxMaelstrom) {
-          maelstromBySecond[i] = maxMaelstrom;
+        if (maelstromBySecond[i - 1] > maelstromMax) {
+          maelstromBySecond[i] = maelstromMax;
         } else {
           maelstromBySecond[i] = maelstromBySecond[i - 1];
         }
       }
 
-      if (this.props.activeMaelstromWastedTimeline[i] && maelstromBySecond[i] + this.props.activeMaelstromWastedTimeline[i] > maxMaelstrom) {
-        overCapBySecond[i] = (maelstromBySecond[i] + this.props.activeMaelstromWastedTimeline[i]) - maxMaelstrom;
+      if (activeMaelstromWastedTimeline[i] && maelstromBySecond[i] + activeMaelstromWastedTimeline[i] > maelstromMax) {
+        overCapBySecond[i] = (maelstromBySecond[i] + activeMaelstromWastedTimeline[i]) - maelstromMax;
       } else {
         overCapBySecond[i] = 0;
       }
     }
+
+    const fightDurationSec = Math.floor((end - start) / 1000);
+    for (let i = 0; i <= fightDurationSec; i++) {
+      maelstromBySecond[i] = maelstromBySecond[i] !== undefined ? maelstromBySecond[i] : null;
+      if (maelstromBySecond[i] !== null) {
+        maelstromBySecond[i] = maelstromBySecond[i] > 0 ? maelstromBySecond[i] : 0;
+      }
+      overCapBySecond[i] = overCapBySecond[i] !== undefined ? overCapBySecond[i] : null;
+    }
+
+    // transform the weird data to a format react-vis uses
+    const transformedMaelstrom = Object.entries(maelstromBySecond).map(([key, value]) => ({ x: Number(key), y: value }));
+    const transformedWaste = Object.entries(overCapBySecond).map(([key, value]) => ({ x: Number(key), y: value }));
+    return (
+      <XYPlot
+        height={400}
+        yDomain={[0, maelstromMax]}
+        margin={{
+          top: 30,
+        }}
+      >
+        <DiscreteColorLegend
+          orientation="horizontal"
+          strokeWidth={2}
+          items={[
+            { title: 'Maelstrom', color: COLORS.MAELSTROM_BORDER },
+            { title: 'Wasted Maelstrom', color: COLORS.WASTED_MAELSTROM_BORDER },
+          ]}
+          style={{
+            position: 'absolute',
+            top: '-15px',
+            left: '40%',
+          }}
+        />
+        <XAxis title="Time" tickFormat={value => formatDuration(value)} />
+        <YAxis title="Maelstrom" />
+        <VerticalGridLines
+          tickValues={transformedMaelstrom.filter(p => p.x % 30 === 0).map(p => p.x)}
+          style={{
+            strokeDasharray: 3,
+            stroke: 'white',
+          }}
+        />
+        <HorizontalGridLines
+          tickValues={[30, 60, 90, maelstromMax]}
+          style={{
+            strokeDasharray: 3,
+            stroke: 'white',
+          }}
+        />
+        <AreaSeries
+          data={transformedMaelstrom}
+          color={COLORS.MAELSTROM_FILL}
+          stroke="transparent"
+        />
+        <LineSeries
+          data={transformedMaelstrom}
+          color={COLORS.MAELSTROM_BORDER}
+        />
+        <AreaSeries
+          data={transformedWaste}
+          color={COLORS.WASTED_MAELSTROM_FILL}
+          stroke="transparent"
+        />
+        <LineSeries
+          data={transformedWaste}
+          color={COLORS.WASTED_MAELSTROM_BORDER}
+        />
+      </XYPlot>
+    );
+  }
+
+  render() {
+    if (!this.props.tracker) {
+      return (
+        <div>
+          Loading...
+        </div>
+      );
+    }
+
+    const { generatorCasts, activeMaelstromWasted, activeMaelstromGenerated } = this.props;
 
     const abilitiesAll = {};
     const categories = {
       generated: 'Maelstrom Generators',
       //spent: 'Focus Spenders', //I see no reason to display focus spenders, but leaving this in if someone later wants to add them
     };
-    if (this.props.generatorCasts && this.props.activeMaelstromWasted && this.props.activeMaelstromGenerated) {
-      Object.keys(this.props.generatorCasts).forEach((generator) => {
+    if (generatorCasts && activeMaelstromWasted && activeMaelstromGenerated) {
+      Object.keys(generatorCasts).forEach((generator) => {
         const spell = SPELLS[generator];
         abilitiesAll[`${generator}_gen`] = {
           ability: {
@@ -88,9 +178,9 @@ class Maelstrom extends React.PureComponent {
             name: spell.name,
             spellId: Number(generator),
           },
-          casts: this.props.generatorCasts[generator],
-          created: this.props.activeMaelstromGenerated[generator],
-          wasted: this.props.activeMaelstromWasted[generator],
+          casts: generatorCasts[generator],
+          created: activeMaelstromGenerated[generator],
+          wasted: activeMaelstromWasted[generator],
         };
 
       });
@@ -107,103 +197,15 @@ class Maelstrom extends React.PureComponent {
       return -1;
     });
 
-    const fightDurationSec = Math.floor((end - start) / 1000);
-    const labels = [];
-    for (let i = 0; i <= fightDurationSec; i++) {
-      labels.push(i);
-
-      maelstromBySecond[i] = maelstromBySecond[i] !== undefined ? maelstromBySecond[i] : null;
-      if (maelstromBySecond[i] !== null) {
-        maelstromBySecond[i] = maelstromBySecond[i] > 0 ? maelstromBySecond[i] : 0;
-      }
-      overCapBySecond[i] = overCapBySecond[i] !== undefined ? overCapBySecond[i] : null;
-    }
-
-    let maxX;
-    const myLabels = [];
-    for (maxX = 0; maxX < maelstromBySecond.length; maxX++) {
-      if (maxX % 30 === 0) {
-        myLabels[maxX] = (formatDuration(maxX));
-      }
-    }
-    myLabels[maxX - 1] = formatDuration(maxX - 1);
-    const myData = {
-      labels: myLabels,
-      datasets: [
-        {
-          label: 'Maelstrom',
-          data: maelstromBySecond,
-          lineTension: 0.4,
-          backgroundColor: [
-            'rgba(0, 139, 215, 0.2)',
-          ],
-          borderColor: [
-            'rgba(0,145,255,1)',
-          ],
-          borderWidth: 2,
-        },
-        {
-          label: 'Wasted Maelstrom',
-          data: overCapBySecond,
-          lineTension: 0.4,
-          backgroundColor: [
-            'rgba(255,20,147, 0.3)',
-          ],
-          borderColor: [
-            'rgba(255,90,160,1)',
-          ],
-          borderWidth: 2,
-        },
-      ],
-    };
-    const chartOptions = {
-      lineTension: 0,
-      elements: {
-        point: { radius: 0 },
-      },
-      scales: {
-        xAxes: [{
-          ticks: {
-            beginAtZero: true,
-            autoSkip: false,
-          },
-          gridLines: {
-            color: 'rgba(255,255,255,0.7)',
-            borderDash: [2, 2],
-          },
-          position: 'bottom',
-          beginAtZero: true,
-        }],
-        yAxes: [{
-          gridLines: {
-            color: 'rgba(255,255,255,0.7)',
-            borderDash: [2, 2],
-          },
-          type: 'linear',
-          ticks: {
-            beginAtZero: true,
-            stepSize: 30,
-            max: maxMaelstrom,
-          },
-        }],
-      },
-    };
-
     return (
       <div>
-        <Line
-          data={myData}
-          options={chartOptions}
-          height={100}
-          width={300}
-        />
+        {this.plot}
         <MaelstromComponent
           abilities={abilities}
           categories={categories}
         />
       </div>
     );
-
   }
 }
 
