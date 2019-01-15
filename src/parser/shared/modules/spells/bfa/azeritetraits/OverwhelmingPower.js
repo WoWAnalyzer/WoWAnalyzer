@@ -3,8 +3,10 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import UptimeIcon from 'interface/icons/Uptime';
 import HasteIcon from 'interface/icons/Haste';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Analyzer from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
@@ -107,21 +109,22 @@ class OverWhelmingPower extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
-        trait={SPELLS.OVERWHELMING_POWER.id}
-        value={(
-          <>
-            <HasteIcon /> {this.averageHaste} <small>average Haste gained</small>
-          </>
-        )}
+      <AzeritePowerStatistic
+        size="medium"
         tooltip={(
           <>
             {SPELLS.OVERWHELMING_POWER.name} grants <strong>{this.haste} haste per stack</strong> ({this.haste * MAX_OVERWHELMING_POWER_STACKS} haste @{MAX_OVERWHELMING_POWER_STACKS} stacks) while active.<br />
             You procced <strong>{SPELLS.OVERWHELMING_POWER.name} {this.overwhelmingPowerProcs} times</strong> with an uptime of {formatPercentage(this.uptime)}%.
           </>
         )}
-      />
+      >
+        <BoringSpellValueText
+          spell={SPELLS.OVERWHELMING_POWER}
+        >
+          <UptimeIcon /> {formatPercentage(this.uptime, 0)}% <small>uptime</small><br />
+          <HasteIcon /> {this.averageHaste} <small>average Haste gained</small>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }

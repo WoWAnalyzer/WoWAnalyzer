@@ -2,13 +2,14 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
+import { formatPercentage, formatNumber } from 'common/format';
+import { calculatePrimaryStat } from 'common/stats';
+import { TooltipElement } from 'common/Tooltip';
+import UptimeIcon from 'interface/icons/Uptime';
+import IntellectIcon from 'interface/icons/Intellect';
 import Analyzer from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import { formatPercentage } from 'common/format';
-import { formatNumber } from 'common/format';
-import { calculatePrimaryStat } from 'common/stats';
-import { TooltipElement } from 'common/Tooltip';
 
 /*
 * Ancient Knot of Wisdom
@@ -79,8 +80,8 @@ class AncientKnotOfWisdom extends Analyzer {
       item: ITEMS.ANCIENT_KNOT_OF_WISDOM,
       result: (
         <TooltipElement content={`Used ${this.casts} times`}>
-          {formatPercentage(this.totalBuffUptime)}% uptime<br />
-          {formatNumber(this.averageIntellect)} average Intellect
+          <UptimeIcon /> {formatPercentage(this.totalBuffUptime)}% <small>uptime</small><br />
+          <IntellectIcon /> {formatNumber(this.averageIntellect)} <small>average Intellect</small>
         </TooltipElement>
       ),
     };

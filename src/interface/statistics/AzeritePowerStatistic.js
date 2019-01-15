@@ -4,7 +4,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { STATISTIC_CATEGORY } from 'interface/others/StatisticBox';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import Statistic from './Statistic';
 
@@ -14,6 +15,7 @@ AzeritePowerStatistic.propTypes = {
 };
 AzeritePowerStatistic.defaultProps = {
   category: STATISTIC_CATEGORY.ITEMS,
+  position: STATISTIC_ORDER.OPTIONAL(),
 };
 
 export default AzeritePowerStatistic;

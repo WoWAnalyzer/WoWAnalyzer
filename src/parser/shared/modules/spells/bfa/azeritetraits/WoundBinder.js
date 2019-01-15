@@ -8,7 +8,6 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 const woundBinderStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [haste] = calculateAzeriteEffects(SPELLS.WOUNDBINDER.id, rank);
@@ -83,7 +82,6 @@ class WoundBinder extends Analyzer {
   statistic() {
     return (
       <AzeritePowerStatistic
-        position={STATISTIC_ORDER.OPTIONAL()}
         tooltip={`${this.proccedOnce ? this.procs.length : '0'} total ${this.procs.length > 1 || this.procs.length === 0 ? 'procs' : 'proc'}${this.proccedOnce ? ` for [${this.procs.map((value) => Math.floor(value)).join(', ')}] haste` : ''}. `}
         size="small"
       >
