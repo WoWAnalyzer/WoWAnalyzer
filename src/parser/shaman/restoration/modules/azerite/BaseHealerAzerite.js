@@ -94,7 +94,7 @@ class BaseHealerAzerite extends Analyzer {
 
     if (!this.disableStatistic) {
       return (
-        <StatisticWrapper position={STATISTIC_ORDER.CORE()} category={STATISTIC_CATEGORY.AZERITE_POWERS}>
+        <StatisticWrapper position={STATISTIC_ORDER.CORE()} category={STATISTIC_CATEGORY.ITEMS}>
           <div className="col-lg-4 col-md-6 col-sm-6 col-xs-12">
             <div className="panel items" style={{ borderTop: '1px solid #e45a5a' }}>
               <div className="panel-heading">

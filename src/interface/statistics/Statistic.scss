@@ -45,6 +45,10 @@
   line-height: 1.4;
   font-weight: 600;
   color: hsla(41, 3%, 91%, 1);
+
+  small {
+    font-weight: 400;
+  }
 }
 // If the value is right after the label, we need to adjust its positioning further up to cancel out the combination of label's margin-bottom and value's line-height
 .statistic label + .value {

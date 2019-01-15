@@ -3,7 +3,9 @@ import React from 'react';
 import { calculateAzeriteEffects } from 'common/stats';
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { getIcon } from 'parser/shared/modules/features/STAT';
@@ -92,16 +94,16 @@ class ArchiveOfTheTitans extends Analyzer {
   statistic() {
     const Icon = getIcon(this.selectedCombatant.spec.primaryStat.toLowerCase());
     return (
-      <TraitStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
-        trait={SPELLS.ARCHIVE_OF_THE_TITANS.id}
-        value={(
-          <>
+      <AzeritePowerStatistic position={STATISTIC_ORDER.OPTIONAL()}>
+        <BoringSpellValueText
+          spell={SPELLS.ARCHIVE_OF_THE_TITANS}
+        >
+          <div style={{ marginTop: 25 }}>
             <Icon /> {this.averagePrimaryStat} <small>average {this.selectedCombatant.spec.primaryStat} gained</small><br />
-            <small><SpellLink id={SPELLS.REORIGINATION_ARRAY.id} /> enabled</small>
-          </>
-        )}
-      />
+            <small>Enabled the <SpellLink id={SPELLS.REORIGINATION_ARRAY.id} /></small>
+          </div>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }

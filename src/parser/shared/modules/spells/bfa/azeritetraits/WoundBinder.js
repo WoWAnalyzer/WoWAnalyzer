@@ -3,10 +3,12 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatNumber } from 'common/format';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import HasteIcon from 'interface/icons/Haste';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 const woundBinderStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [haste] = calculateAzeriteEffects(SPELLS.WOUNDBINDER.id, rank);
@@ -80,16 +82,17 @@ class WoundBinder extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
+      <AzeritePowerStatistic
         position={STATISTIC_ORDER.OPTIONAL()}
-        trait={SPELLS.WOUNDBINDER.id}
-        value={(
-          <>
-            <HasteIcon /> {formatNumber(this.averageHaste)} <small>average Haste gained</small>
-          </>
-        )}
         tooltip={`${this.proccedOnce ? this.procs.length : '0'} total ${this.procs.length > 1 || this.procs.length === 0 ? 'procs' : 'proc'}${this.proccedOnce ? ` for [${this.procs.map((value) => Math.floor(value)).join(', ')}] haste` : ''}. `}
-      />
+        size="small"
+      >
+        <BoringSpellValueText
+          spell={SPELLS.WOUNDBINDER}
+        >
+          <HasteIcon /> {formatNumber(this.averageHaste)} <small>average Haste gained</small>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }
