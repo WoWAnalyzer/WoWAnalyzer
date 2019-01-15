@@ -1,92 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {
-  FlexibleWidthXYPlot as XYPlot,
-  XAxis,
-  YAxis,
-  AreaSeries,
-  LineSeries,
-  MarkSeries,
-  Hint,
-} from 'react-vis';
 import Analyzer from 'parser/core/Analyzer';
 import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { formatPercentage } from 'common/format';
-
-import './GrandCrusader.scss';
+import OneVariableBinomialChart from 'interface/others/charts/OneVariableBinomialChart';
 
 const BASE_PROC_CHANCE = 0.15;
 const FA_PROC_CHANCE = 0.1;
 const IV_PROC_CHANCE = 0.05;
-
-class GrandCrusaderGraph extends React.Component {
-  static propTypes = {
-    resetChanceCount: PropTypes.number.isRequired,
-    resetProbabilities: PropTypes.arrayOf(
-      PropTypes.shape({
-        x: PropTypes.number.isRequired,
-        y: PropTypes.number.isRequired,
-      })
-    ).isRequired,
-    actualReset: PropTypes.shape({
-      x: PropTypes.number.isRequired,
-      y: PropTypes.number.isRequired,
-    }).isRequired,
-  };
-
-  state = {
-    hover: null,
-  };
-
-  render() {
-    const { resetChanceCount, resetProbabilities, actualReset } = this.props;
-    return (
-      <XYPlot
-        height={150}
-        yDomain={[0, 0.2]}
-        onMouseLeave={() => this.setState({ hover: null })}
-      >
-        <XAxis title="Reset %" tickFormat={value => `${formatPercentage(value / resetChanceCount, 0)}%`} />
-        <YAxis title="Likelihood" tickFormat={value => `${formatPercentage(value, 0)}%`} />
-        <AreaSeries
-          data={resetProbabilities}
-          color="rgba(255, 139, 45, 0.2)"
-          stroke="transparent"
-          curve="curveCardinal"
-        />
-        <LineSeries
-          data={resetProbabilities}
-          opacity={1}
-          stroke="rgba(255, 139, 45)"
-          strokeStyle="solid"
-          curve="curveCardinal"
-        />
-        <MarkSeries
-          data={[ actualReset ]}
-          color="#00ff96"
-          onNearestX={d => this.setState({ hover: d })}
-          size={3}
-        />
-        {this.state.hover && (
-          <Hint
-            value={this.state.hover}
-            align={{
-              horizontal: 'right',
-              vertical: 'bottom',
-            }}
-          >
-            <div className="react-tooltip-lite grand-crusader-tooltip">
-              Actual Resets: {formatPercentage(this.state.hover.x / resetChanceCount, 2)}%
-            </div>
-          </Hint>
-        )}
-      </XYPlot>
-    );
-  }
-}
 
 class GrandCrusader extends Analyzer {
   _totalResets = 0;
@@ -166,16 +89,31 @@ class GrandCrusader extends Analyzer {
       return { x: i, y: reset_prob(i) };
     });
 
-    const actualResets = {
+    const actualReset = {
       x: this._totalResets,
       y: reset_prob(this._totalResets),
     };
 
     return (
-      <GrandCrusaderGraph
-        resetChanceCount={this._resetChances}
-        resetProbabilities={resetProbabilities}
-        actualReset={actualResets}
+      <OneVariableBinomialChart
+        probabilities={resetProbabilities}
+        actualEvent={actualReset}
+        xAxis={{
+          title: 'Reset %',
+          tickFormat: (value) => `${formatPercentage(value / this._resetChances, 0)}%`,
+          style: {
+            fill: 'white',
+          },
+        }}
+        yAxis={{
+          title: 'Likelihood',
+          tickFormat: (value) => `${formatPercentage(value, 0)}%`,
+          style: {
+            fill: 'white',
+          },
+        }}
+        tooltip={(point) => `Actual Resets: ${formatPercentage(point.x / this._resetChances, 2)}%`}
+        yDomain={[0, 0.2]}
       />
     );
   }

@@ -1,6 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { FlexibleWidthXYPlot as XYPlot, XAxis, YAxis, AreaSeries, LineSeries, MarkSeries, Hint } from 'react-vis/es';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
@@ -9,84 +7,11 @@ import TraitStatisticBox from 'interface/others/TraitStatisticBox';
 import SpellLink from 'common/SpellLink';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { formatNumber, formatPercentage } from 'common/format';
+import OneVariableBinomialChart from 'interface/others/charts/OneVariableBinomialChart';
 
 import SpellUsable from '../../core/SpellUsable';
-import './StraightNoChaser.scss';
 
 const SNC_PROC_CHANCE = 0.08;
-
-class StraightNoChaserGraph extends React.Component {
-  static propTypes = {
-    resetProbabilities: PropTypes.arrayOf(
-      PropTypes.shape({
-        x: PropTypes.number.isRequired,
-        y: PropTypes.number.isRequired,
-      })
-    ).isRequired,
-    actualReset: PropTypes.shape({
-      x: PropTypes.number.isRequired,
-      y: PropTypes.number.isRequired,
-    }).isRequired,
-  };
-
-  state = {
-    hover: null,
-  };
-
-  render() {
-    const { resetProbabilities, actualReset } = this.props;
-    return (
-      <XYPlot
-        height={150}
-        yDomain={[0, 0.4]}
-        onMouseLeave={() => this.setState({ hover: null })}
-      >
-        <XAxis
-          title="Charges Gained"
-          tickFormat={value => formatNumber(value)}
-          style={{ fill: 'white' }}
-        />
-        <YAxis
-          title="Likelihood"
-          tickFormat={value => `${formatPercentage(value, 0)}%`}
-          style={{ fill: 'white' }}
-        />
-        <AreaSeries
-          data={resetProbabilities}
-          color="rgba(255, 139, 45, 0.2)"
-          stroke="transparent"
-          curve="curveMonotoneX"
-        />
-        <LineSeries
-          data={resetProbabilities}
-          opacity={1}
-          stroke="rgba(255, 139, 45)"
-          strokeStyle="solid"
-          curve="curveMonotoneX"
-        />
-        <MarkSeries
-          data={[ actualReset ]}
-          color="#00ff96"
-          onNearestX={d => this.setState({ hover: d })}
-          size={3}
-        />
-        {this.state.hover && (
-          <Hint
-            value={this.state.hover}
-            align={{
-              horizontal: 'right',
-              vertical: 'bottom',
-            }}
-          >
-            <div className="react-tooltip-lite straight-no-chaser-tooltip">
-              Estimated Charges Gained: {formatNumber(this.state.hover.x)}
-            </div>
-          </Hint>
-        )}
-      </XYPlot>
-    );
-  }
-}
 
 export default class StraightNoChaser extends Analyzer {
   static dependencies = {
@@ -163,9 +88,26 @@ export default class StraightNoChaser extends Analyzer {
     const rangeMax = rangeMin + resetProbabilities.slice(rangeMin).findIndex(({y}) => y < RANGE_THRESHOLD);
 
     return (
-      <StraightNoChaserGraph
-        actualReset={actualReset}
-        resetProbabilities={resetProbabilities.slice(rangeMin, rangeMax + 1)}
+      <OneVariableBinomialChart
+        probabilities={resetProbabilities.slice(rangeMin, rangeMax + 1)}
+        actualEvent={actualReset}
+        yDomain={[0, 0.4]}
+        xAxis={{
+          title: 'Charges Gained',
+          tickFormat: (value) => formatNumber(value),
+          style: {
+            fill: 'white',
+          },
+        }}
+        yAxis={{
+          title: 'Likelihood',
+          tickFormat: (value) => `${formatPercentage(value, 0)}%`,
+          style: {
+            fill: 'white',
+          },
+        }}
+        curve="curveMonotoneX"
+        tooltip={(point) => `Estimated Charges Gained: ${formatNumber(point.x)}`}
       />
     );
   }
