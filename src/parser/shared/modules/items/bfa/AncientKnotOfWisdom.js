@@ -73,7 +73,7 @@ class AncientKnotOfWisdom extends Analyzer {
     return (averageStacks * this.intellectPerStack).toFixed(0);
   }
 
-  item() {
+  statistic() {
     return {
       item: ITEMS.ANCIENT_KNOT_OF_WISDOM,
       result: (

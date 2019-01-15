@@ -33,7 +33,7 @@ class ShacklesofBryndaor extends Analyzer {
     return this.runicPowerGained / this.owner.fightDuration * 1000 * 60;
   }
 
-  item() {
+  statistic() {
     const rpPercent=this.runicPowerGained / this.runicPowerTracker.generated;
     const extraDS=this.runicPowerGained / this.dsCost;
     return {

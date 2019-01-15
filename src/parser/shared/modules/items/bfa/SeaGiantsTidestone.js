@@ -65,8 +65,8 @@ class SeaGiantsTidestone extends Analyzer {
   get totalBuffUptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.FEROCITY_OF_THE_SKROG.id) / this.owner.fightDuration;
   }
-  
-  item() {
+
+  statistic() {
     return {
       item: ITEMS.SEA_GIANTS_TIDESTONE,
       result: (

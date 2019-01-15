@@ -61,7 +61,7 @@ class HarlansLoadedDice extends Analyzer {
     return this.selectedCombatant.getBuffTriggerCount(SPELLS.LOADED_DIE_MASTERY_SMALL.id) + this.selectedCombatant.getBuffTriggerCount(SPELLS.LOADED_DIE_MASTERY_BIG.id);
   }
 
-  item() {
+  statistic() {
     return {
       item: ITEMS.HARLANS_LOADED_DICE,
       result: (

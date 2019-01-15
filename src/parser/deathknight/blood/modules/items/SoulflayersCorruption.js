@@ -49,7 +49,7 @@ class SoulflayersCorruption extends Analyzer {
     }
   }
 
-  item() {
+  statistic() {
     const perProc=this.absorb/this.umbilicusEternusCount;
     return {
       item: ITEMS.SOULFLAYERS_CORRUPTION,

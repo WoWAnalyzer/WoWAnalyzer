@@ -34,7 +34,7 @@ class Seabreeze extends Analyzer {
     return averageStacks * this.statBuff;
   }
 
-  item() {
+  statistic() {
     return {
       item: ITEMS.SEABREEZE,
       result: (

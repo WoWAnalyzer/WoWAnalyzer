@@ -29,7 +29,7 @@ class VigilantsBloodshaper extends Analyzer{
     }
   }
 
-  item(){
+  statistic(){
     return{
       item: ITEMS.VIGILANTS_BLOODSHAPER,
       result: (

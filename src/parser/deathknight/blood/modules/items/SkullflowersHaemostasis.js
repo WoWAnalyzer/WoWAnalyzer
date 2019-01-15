@@ -65,7 +65,7 @@ class SkullflowersHaemostasis extends Analyzer {
     }
   }
 
-  item() {
+  statistic() {
     return {
       item: ITEMS.SKULLFLOWERS_HAEMOSTASIS,
       result:(

@@ -28,7 +28,7 @@ class RezansGleamingEye extends Analyzer {
         return this.selectedCombatant.getBuffUptime(SPELLS.REZANS_GLEAMING_EYE_BUFF.id) / this.owner.fightDuration;
     }
 
-    item() {
+  statistic() {
         return {
         item: ITEMS.REZANS_GLEAMING_EYE,
         result: (

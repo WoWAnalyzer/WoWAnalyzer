@@ -41,7 +41,7 @@ class DreadGladiatorsBadge extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.DIG_DEEP.id) / this.owner.fightDuration;
   }
 
-  item() {
+  statistic() {
     return {
       item: ITEMS.DREAD_GLADIATORS_BADGE,
       result: (

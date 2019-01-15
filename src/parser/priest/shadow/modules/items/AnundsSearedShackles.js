@@ -40,7 +40,7 @@ class AnundsSearedShackles extends Analyzer {
     }
   }
 
-  item() {
+  statistic() {
     return {
       item: ITEMS.ANUNDS_SEARED_SHACKLES,
       result: <ItemDamageDone amount={this.bonusDmg} />,

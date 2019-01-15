@@ -51,7 +51,7 @@ class DarkmoonDeckTides extends Analyzer {
     this.manaGained += event.resourceChange;
   }
 
-  item() {
+  statistic() {
     return {
       item: ITEMS.DARKMOON_DECK_TIDES,
       result: (

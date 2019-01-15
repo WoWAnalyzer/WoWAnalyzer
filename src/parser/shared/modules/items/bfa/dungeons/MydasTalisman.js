@@ -44,7 +44,7 @@ class MydasTalisman extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
-  item() {
+  statistic() {
     return {
       item: ITEMS.MYDAS_TALISMAN,
       result: <ItemDamageDone amount={this.damage} />,

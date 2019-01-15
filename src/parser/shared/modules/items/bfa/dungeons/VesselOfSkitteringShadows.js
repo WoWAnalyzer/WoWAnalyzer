@@ -29,7 +29,7 @@ class VesselOfSkitteringShadows extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
-  item() {
+  statistic() {
     return {
       item: ITEMS.VESSEL_OF_SKITTERING_SHADOWS,
       result: <ItemDamageDone amount={this.damage} />,

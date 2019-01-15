@@ -41,7 +41,7 @@ class LustrousGoldenPlumage extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.GOLDEN_LUSTER.id) / this.owner.fightDuration;
   }
 
-  item() {
+  statistic() {
     return {
       item: ITEMS.LUSTROUS_GOLDEN_PLUMAGE,
       result: (

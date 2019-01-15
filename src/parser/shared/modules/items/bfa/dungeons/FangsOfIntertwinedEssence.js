@@ -66,8 +66,8 @@ class FangsOfIntertwinedEssence extends Analyzer {
   get restoresPerUse() {
     return this.restoreCount / this.useCount;
   }
-  
-  item() {
+
+  statistic() {
     return {
       item: ITEMS.FANGS_OF_INTERTWINED_ESSENCE,
       result: (

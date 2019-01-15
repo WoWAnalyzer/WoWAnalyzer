@@ -229,7 +229,7 @@ class EventEmitter extends Module {
       const currentBatch = this._finally;
       // Reset before running so if an item calls another event, it doesn't do the same finally multiple times
       this._finally = null;
-      currentBatch.forEach(item => item());
+      currentBatch.forEach(statistic => statistic());
     }
   }
   fabricateEvent(event, trigger = null) {
