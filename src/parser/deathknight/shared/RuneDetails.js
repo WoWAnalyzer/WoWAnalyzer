@@ -1,82 +1,55 @@
 import React from 'react';
-import { Scatter } from 'react-chartjs-2';
+import {
+  FlexibleWidthXYPlot as XYPlot,
+  DiscreteColorLegend,
+  XAxis,
+  YAxis,
+  LineSeries,
+} from 'react-vis';
 
 import Analyzer from 'parser/core/Analyzer';
 import Panel from 'interface/others/Panel';
-import { formatDuration } from 'common/format';
+import { formatDuration, formatNumber } from 'common/format';
 
 import RuneBreakdown from './RuneBreakdown';
 import RuneTracker from './RuneTracker';
+
+import './RuneDetails.scss';
 
 class RuneDetails extends Analyzer {
   static dependencies = {
     runeTracker: RuneTracker,
   };
 
-  formatLabel(number){
-    return formatDuration(number, 0);
-  }
-
-  render() {
-
-    const labels = Array.from({length: Math.ceil(this.owner.fightDuration / 1000)}, (x, i) => i);
-
-    const runeData = {
-      labels: labels,
-      datasets: [{
-        label: 'Runes',
-        data: this.runeTracker.runesReady,
-        backgroundColor: 'rgba(196, 31, 59, 0)',
-        borderColor: 'rgb(196, 31, 59)',
-        borderWidth: 2,
-        pointStyle: 'line',
-      }],
-    };
-
-    const chartOptions = {
-      showLines: true,
-      elements: {
-        point: { radius: 0 },
-        line: {
-          tension: 0,
-          skipNull: true,
-         },
-      },
-      scales: {
-        xAxes: [{
-          labelString: 'Time',
-          ticks: {
-            fontColor: '#ccc',
-            callback: this.formatLabel,
-            beginAtZero: true,
-            stepSize: 10,
-            max: this.owner.fightDuration / 1000,
-          },
-        }],
-        yAxes: [{
-          labelString: 'Runes',
-          ticks: {
-            fontColor: '#ccc',
-            beginAtZero: true,
-          },
-        }],
-      },
-    };
-
+  get plot() {
+    const data = this.runeTracker.runesReady;
     return (
-      <div>
-        <Scatter
-          data={runeData}
-          options={chartOptions}
-          height={100}
-          width={300}
+      <XYPlot
+        xDomain={[0, this.owner.fightDuration / 1000]}
+        height={400}
+        margin={{
+          top: 30,
+        }}
+      >
+        <DiscreteColorLegend
+          items={[
+            { title: 'Runes', color: 'rgb(196, 31, 59)' },
+          ]}
+          orientation="horizontal"
+          style={{
+            position: 'absolute',
+            top: '-15px',
+            left: '45%',
+          }}
         />
-
-        <RuneBreakdown
-          tracker={this.runeTracker}
-          showSpenders
+        <XAxis tickFormat={value => formatDuration(value, 0)} style={{ fill: 'white' }} />
+        <YAxis tickValues={[0, 1, 2, 3, 4, 5, 6]} tickFormat={value => formatNumber(value)} style={{ fill: 'white' }} />
+        <LineSeries
+          data={data}
+          color="rgb(196, 31, 59)"
+          strokeWidth={2}
         />
-      </div>
+      </XYPlot>
     );
   }
 
@@ -86,7 +59,11 @@ class RuneDetails extends Analyzer {
       url: 'rune-usage',
       render: () => (
         <Panel>
-          {this.render()}
+          {this.plot}
+          <RuneBreakdown
+            tracker={this.runeTracker}
+            showSpenders
+          />
         </Panel>
       ),
     };
