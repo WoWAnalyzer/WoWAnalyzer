@@ -54,13 +54,24 @@ class RaidHealthChart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentPlayers: this.props.players,
+      players: this.props.players.map(player => ({ disabled: false, ...player })),
     };
+    this.togglePlayer = this.togglePlayer.bind(this);
   }
 
   state = {
-    currentPlayers: [],
+    players: [],
   };
+
+  togglePlayer(index) {
+    this.setState((prevState) => {
+      const players = prevState.players;
+      players[index].disabled = !players[index].disabled;
+      return {
+        players,
+      };
+    });
+  }
 
   render() {
     const { players, deaths, startTime, endTime } = this.props;
@@ -87,9 +98,14 @@ class RaidHealthChart extends React.Component {
         <DiscreteColorLegend
           orientation="horizontal"
           items={[
-            ...players.map(player => ({ title: player.title, color: player.borderColor })),
+            ...this.state.players.map(player => ({
+              title: player.title,
+              color: player.borderColor,
+              disabled: player.disabled,
+            })),
             { title: 'Deaths', color: DEATH_COLOR },
           ]}
+          onItemClick={(_, i) => this.togglePlayer(i)}
         />
         <XAxis tickValues={xValues} tickFormat={value => formatDuration(value)} />
         <YAxis tickValues={yValues} tickFormat={value => `${value}%`} />
@@ -109,7 +125,7 @@ class RaidHealthChart extends React.Component {
             fill: 'white',
           }}
         />
-        {players.map(player => (
+        {this.state.players.filter(player => !player.disabled).map(player => (
           <AreaSeries
             data={player.data}
             color={player.backgroundColor}
