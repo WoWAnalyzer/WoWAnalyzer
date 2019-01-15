@@ -1,14 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Chart from 'chart.js';
-import {Line} from 'react-chartjs-2';
+import {
+  FlexibleWidthXYPlot as XYPlot,
+  DiscreteColorLegend,
+  XAxis,
+  YAxis,
+  VerticalGridLines,
+  HorizontalGridLines,
+  AreaSeries,
+  LineSeries,
+} from 'react-vis';
 
 import fetchWcl from 'common/fetchWclApi';
 
 import ManaStyles from 'interface/others/ManaStyles.js';
-import { FlexibleWidthXYPlot as XYPlot, DiscreteColorLegend, XAxis, YAxis, VerticalGridLines, HorizontalGridLines, AreaSeries, LineSeries } from 'react-vis/es';
 import VerticalLine from 'interface/others/charts/VerticalLine';
-import { formatDuration, formatNumber, formatThousands } from 'common/format';
+import { formatDuration } from 'common/format';
 
 import './ManaLevelGraph.scss';
 
