@@ -125,9 +125,9 @@ class EventParser extends React.PureComponent {
       this.loadEvents().then(result => {
         events = result;
       }),
-      this.loadBossPhaseEvents().then(result => {
-        bossPhaseEvents = fabricateBossPhaseEvents(result, report, fight);
-      }),
+      // this.loadBossPhaseEvents().then(result => {
+      //   bossPhaseEvents = fabricateBossPhaseEvents(result, report, fight);
+      // }),
     ])
       .then(() => {
         this.stopFakeNetworkProgress();
