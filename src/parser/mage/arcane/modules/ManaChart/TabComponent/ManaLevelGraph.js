@@ -94,7 +94,6 @@ class ManaChart extends React.PureComponent {
             data={boss.data}
             color={boss.backgroundColor}
             stroke="transparent"
-            curve="curveCardinal"
           />
         ))}
         {bossData.map(boss => (
@@ -102,20 +101,17 @@ class ManaChart extends React.PureComponent {
             data={boss.data}
             color={boss.borderColor}
             strokeWidth={2}
-            curve="curveCardinal"
           />
         ))}
         <AreaSeries
           data={mana}
           color={this.colors.mana.background}
           stroke="transparent"
-          curve="curveMonotoneX"
         />
         <LineSeries
           data={mana}
           color={this.colors.mana.border}
           strokeWidth={2}
-          curve="curveMonotoneX"
         />
         {deaths.map(({ x }) => (
           <VerticalLine
