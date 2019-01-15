@@ -3,7 +3,7 @@ import { findByBossId } from 'raids';
 export const PHASE_START_EVENT_TYPE = 'phasestart';
 export const PHASE_END_EVENT_TYPE = 'phaseend';
 
-export function fabricateBossPhaseEvents(events, report, fight) {  
+export function fabricateBossPhaseEvents(events, report, fight) {
   const bossConfig = findByBossId(fight.boss);
   const fightDifficulty = fight.difficulty;
 
@@ -32,8 +32,15 @@ export function fabricateBossPhaseEvents(events, report, fight) {
             case 'cast': {
               let bossEvents = events.filter(e => e.type === phase.filter.type && e.ability.guid === phase.filter.ability.id);
 
-              if (typeof phase.filter.eventInstance != undefined && phase.filter.eventInstance >= 0 && bossEvents.length >= 1) {
-                bossEvents = [bossEvents[phase.filter.eventInstance]];
+              if (phase.filter.eventInstance !== undefined && phase.filter.eventInstance >= 0) {
+                if (bossEvents.length >= (phase.filter.eventInstance + 1)) {
+                  // If the instance exists, only that specific instance is relevant
+                  bossEvents = [bossEvents[phase.filter.eventInstance]];
+                } else {
+                  // Otherwise the phase does not exist (it was probably a wipe)
+                  console.warn('Phase not found:', phase);
+                  break;
+                }
               }
 
               bossEvents.forEach(bossEvent => {
