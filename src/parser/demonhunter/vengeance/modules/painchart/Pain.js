@@ -1,8 +1,15 @@
-// Based on Main/Mana.js
-
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Line} from 'react-chartjs-2';
+import {
+  FlexibleWidthXYPlot as XYPlot,
+  DiscreteColorLegend,
+  XAxis,
+  YAxis,
+  VerticalGridLines,
+  HorizontalGridLines,
+  AreaSeries,
+  LineSeries
+} from 'react-vis';
 
 import fetchWcl from 'common/fetchWclApi';
 import {formatDuration} from 'common/format';
@@ -10,9 +17,147 @@ import SPELLS from 'common/SPELLS';
 import ManaStyles from 'interface/others/ManaStyles';
 
 import PainComponent from './PainComponent';
-import './Pain.css';
-import PainStyles from './PainStyles';
+import './Pain.scss';
 
+class PainChart extends React.PureComponent {
+  static propTypes = {
+    pain: PropTypes.arrayOf(PropTypes.shape({
+      x: PropTypes.number.isRequired,
+      y: PropTypes.number.isRequired,
+    })).isRequired,
+    wasted: PropTypes.arrayOf(PropTypes.shape({
+      x: PropTypes.number.isRequired,
+      y: PropTypes.number.isRequired,
+    })).isRequired,
+    bossData: PropTypes.arrayOf(PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      borderColor: PropTypes.string.isRequired,
+      backgroundColor: PropTypes.string.isRequired,
+      data: PropTypes.arrayOf(PropTypes.shape({
+        x: PropTypes.number.isRequired,
+        y: PropTypes.number.isRequired,
+      })).isRequired,
+    })).isRequired,
+  };
+
+  colors = {
+    pain: {
+      border: 'rgba(0, 143, 255, 0.6)',
+      background: 'rgba(0, 143, 255, 0.08)',
+    },
+    wasted: {
+      border: 'rgba(255, 109, 215, 0.6)',
+      background: 'rgba(255, 45, 215, 0.2)',
+    },
+  };
+
+  fillMissingData(data) {
+    // returns a copy of `data` where missing values are equal to the last known value
+    // [0, null, 1, null, null, null, 3] => [0, 0, 1, 1, 1, 1, 3]
+    const newData = [];
+    let lastY = 0;
+    data.forEach(({ x, y }) => {
+      if (y !== null) {
+        lastY = y;
+      }
+      newData.push({ x, y: lastY });
+    });
+    return newData;
+  }
+
+  render() {
+    const { pain, wasted, bossData } = this.props;
+
+    const xValues = [];
+    const yValues = [0, 25, 50, 75, 100];
+    const start = pain[0].x;
+    const end = pain[pain.length - 1].x;
+    for (let i = 0; i < (end - start); i += 60) {
+      xValues.push(i);
+    }
+
+    const fixedPain = this.fillMissingData(pain);
+    const fixedWasted = this.fillMissingData(wasted);
+    const fixedBossData = bossData.map(({ borderColor, backgroundColor, data }) => ({
+      borderColor,
+      backgroundColor,
+      data: this.fillMissingData(data),
+    }));
+
+    return (
+      <XYPlot
+        height={400}
+        yDomain={[0, 100]}
+        margin={{
+          top: 30,
+        }}
+      >
+        <DiscreteColorLegend
+          orientation="horizontal"
+          items={[
+            ...bossData.map(boss => ({ title: boss.title, color: boss.borderColor })),
+            { title: 'Pain', color: this.colors.pain.border },
+            { title: 'Pain wasted', color: this.colors.wasted.border },
+          ]}
+        />
+        <XAxis tickValues={xValues} tickFormat={value => formatDuration(value)} />
+        <YAxis tickValues={yValues} />
+        <VerticalGridLines
+          tickValues={xValues}
+          style={{
+            strokeDasharray: 3,
+            stroke: 'white',
+            fill: 'white',
+          }}
+        />
+        <HorizontalGridLines
+          tickValues={yValues}
+          style={{
+            strokeDasharray: 3,
+            stroke: 'white',
+            fill: 'white',
+          }}
+        />
+        {fixedBossData.map(boss => (
+          <AreaSeries
+            data={boss.data}
+            color={boss.backgroundColor}
+            stroke="transparent"
+            curve="curveCardinal"
+          />
+        ))}
+        {fixedBossData.map(boss => (
+          <LineSeries
+            data={boss.data}
+            color={boss.borderColor}
+            strokeWidth={2}
+            curve="curveCardinal"
+          />
+        ))}
+        <AreaSeries
+          data={fixedPain}
+          color={this.colors.pain.background}
+          stroke="transparent"
+        />
+        <LineSeries
+          data={fixedPain}
+          color={this.colors.pain.border}
+          strokeWidth={2}
+        />
+        <AreaSeries
+          data={fixedWasted}
+          color={this.colors.wasted.background}
+          stroke="transparent"
+        />
+        <LineSeries
+          data={fixedWasted}
+          color={this.colors.wasted.border}
+          strokeWidth={2}
+        />
+      </XYPlot>
+    );
+  }
+}
 
 class Pain extends React.PureComponent {
   static propTypes = {
@@ -22,8 +167,8 @@ class Pain extends React.PureComponent {
     end: PropTypes.number.isRequired,
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       pain: null,
       bossHealth: null,
@@ -33,11 +178,13 @@ class Pain extends React.PureComponent {
   componentWillMount() {
     this.load(this.props.reportCode, this.props.actorId, this.props.start, this.props.end);
   }
+
   componentWillReceiveProps(newProps) {
     if (newProps.reportCode !== this.props.reportCode || newProps.actorId !== this.props.actorId || newProps.start !== this.props.start || newProps.end !== this.props.end) {
       this.load(newProps.reportCode, newProps.actorId, newProps.start, newProps.end);
     }
   }
+
   load(reportCode, actorId, start, end) {
     const painPromise = fetchWcl(`report/tables/resources/${reportCode}`, {
       start,
@@ -67,33 +214,15 @@ class Pain extends React.PureComponent {
     return Promise.all([painPromise, bossHealthPromise]);
   }
 
-  render() {
-    if (!this.state.pain || !this.state.bossHealth) {
-      return (
-        <div>
-          Loading...
-        </div>
-      );
-    }
-
-    if(!this.state.pain.series[0]) {
-      return (
-        <div>
-          This pain chart data from Warcraft Logs is corrupted and it cannot be parsed.
-        </div>
-      );
-    }
-
+  get plot() {
     const { start, end } = this.props;
     const painBySecond = {
       0: 0,
     };
-
     this.state.pain.series[0].data.forEach((item) => {
       const secIntoFight = Math.floor((item[0] - start) / 1000);
       painBySecond[secIntoFight] = item[1];
     });
-
     const bosses = [];
     const deadBosses = [];
     this.state.bossHealth.series.forEach((series) => {
@@ -117,12 +246,6 @@ class Pain extends React.PureComponent {
       bosses.push(newSeries);
     });
 
-    const abilitiesAll = {};
-    const categories = {
-      generated: 'Pain Generators',
-      spent: 'Pain Spenders',
-    };
-
     const overCapBySecond = {};
     let lastOverCap;
     let lastSecFight = start;
@@ -134,9 +257,74 @@ class Pain extends React.PureComponent {
       overCapBySecond[secIntoFight] = event.waste;
       if (event.waste > 0) {
         lastOverCap = secIntoFight;
-        // if (!overCapBySecond[secIntoFight - 1])
-        //  overCapBySecond[secIntoFight - 1] = 0;
       }
+      if (secIntoFight !== lastSecFight) {
+        lastSecFight = secIntoFight;
+      }
+    });
+
+    const fightDurationSec = Math.ceil((end - start) / 1000);
+    for (let i = 0; i <= fightDurationSec; i += 1) {
+      painBySecond[i] = painBySecond[i] !== undefined ? painBySecond[i] : null;
+      overCapBySecond[i] = overCapBySecond[i] !== undefined ? overCapBySecond[i] : null;
+      bosses.forEach((series) => {
+        series.data[i] = series.data[i] !== undefined ? series.data[i] : null;
+      });
+    }
+
+    const pain = Object.entries(painBySecond).filter(([key]) => !Number.isNaN(Number(key))).map(([key, value]) => ({ x: Number(key), y: value / 10 }));
+    const wasted = Object.entries(overCapBySecond).filter(([key]) => !Number.isNaN(Number(key))).map(([key, value]) => ({ x: Number(key), y: value }));
+    const bossData = bosses.map((series, index) => ({
+      title: `${series.name} Health`,
+      borderColor: ManaStyles[`Boss-${index}`].borderColor,
+      backgroundColor: ManaStyles[`Boss-${index}`].backgroundColor,
+      data: Object.entries(series.data).map(([key, value]) => ({ x: Number(key), y: value })),
+    }));
+
+    return (
+      <PainChart
+        pain={pain}
+        wasted={wasted}
+        bossData={bossData}
+      />
+    );
+  }
+
+  render() {
+    if (!this.state.pain || !this.state.bossHealth) {
+      return (
+        <div>
+          Loading...
+        </div>
+      );
+    }
+
+    if(!this.state.pain.series[0]) {
+      return (
+        <div>
+          This pain chart data from Warcraft Logs is corrupted and it cannot be parsed.
+        </div>
+      );
+    }
+
+    const { start } = this.props;
+    const painBySecond = {
+      0: 0,
+    };
+    this.state.pain.series[0].data.forEach((item) => {
+      const secIntoFight = Math.floor((item[0] - start) / 1000);
+      painBySecond[secIntoFight] = item[1];
+    });
+
+    const abilitiesAll = {};
+    const categories = {
+      generated: 'Pain Generators',
+      spent: 'Pain Spenders',
+    };
+
+    let lastSecFight = start;
+    this.state.pain.series[0].events.forEach((event) => {
+      const secIntoFight = Math.floor((event.timestamp - start) / 1000);
       if (event.type === 'cast') {
         const spell = SPELLS[event.ability.guid];
         if (!abilitiesAll[`${event.ability.guid}_spend`]) {
@@ -191,104 +379,14 @@ class Pain extends React.PureComponent {
       return -1;
     });
 
-    const fightDurationSec = Math.ceil((end - start) / 1000);
-    const labels = [];
-    for (let i = 0; i <= fightDurationSec; i += 1) {
-      labels.push(i);
-
-      painBySecond[i] = painBySecond[i] !== undefined ? painBySecond[i] : null;
-      overCapBySecond[i] = overCapBySecond[i] !== undefined ? overCapBySecond[i] : null;
-      bosses.forEach((series) => {
-        series.data[i] = series.data[i] !== undefined ? series.data[i] : null;
-      });
-    }
-
-
-    const chartData = {
-      labels,
-      datasets: [
-        ...bosses.map((series, index) => ({
-          label: `${series.name} Health`,
-          ...ManaStyles[`Boss-${index}`],
-          ...ManaStyles[`Boss-${series.guid}`],
-          data: Object.keys(series.data).map(key => series.data[key]),
-        })),
-        {
-          label: `Pain`,
-          ...PainStyles.Pain,
-          data: Object.keys(painBySecond).map(key => painBySecond[key] / 10),
-        },
-        {
-          label: `Pain wasted`,
-          ...PainStyles.Wasted,
-          data: Object.keys(overCapBySecond).map(key => overCapBySecond[key]),
-        },
-      ],
-    };
-
-    const gridLines = ManaStyles.gridLines;
-
-    const chartOptions = {
-      responsive: true,
-      scales: {
-        yAxes: [{
-          gridLines: gridLines,
-          ticks: {
-            callback: (percentage, index, values) => {
-              return `${percentage}`;
-            },
-            min: 0,
-            max: 100,
-            stepSize: 25,
-            fontSize: 14,
-          },
-        }],
-        xAxes: [{
-          gridLines: gridLines,
-          ticks: {
-            callback: (seconds, index, values) => {
-              if (seconds < ((step - 1) * 30)) {
-                step = 0;
-              }
-              if (step === 0 || seconds >= (step * 30)) {
-                step += 1;
-                return formatDuration(seconds);
-              }
-              return null;
-            },
-            fontSize: 14,
-          },
-        }],
-      },
-      animation: {
-        duration: 0,
-      },
-      hover: {
-        animationDuration: 0,
-      },
-      responsiveAnimationDuration: 0,
-      tooltips: {
-        enabled: false,
-      },
-      legend: ManaStyles.legend,
-    };
-
-    let step = 0;
-
     return (
-      <div>
-        <Line
-          data={chartData}
-          options={chartOptions}
-          width={1100}
-          height={400}
-        />
-
+      <>
+        {this.plot}
         <PainComponent
           abilities={abilities}
           categories={categories}
         />
-      </div>
+      </>
     );
   }
 }

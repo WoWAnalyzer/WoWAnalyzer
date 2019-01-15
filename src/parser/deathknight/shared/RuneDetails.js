@@ -36,11 +36,6 @@ class RuneDetails extends Analyzer {
             { title: 'Runes', color: 'rgb(196, 31, 59)' },
           ]}
           orientation="horizontal"
-          style={{
-            position: 'absolute',
-            top: '-15px',
-            left: '45%',
-          }}
         />
         <XAxis tickFormat={value => formatDuration(value, 0)} style={{ fill: 'white' }} />
         <YAxis tickValues={[0, 1, 2, 3, 4, 5, 6]} tickFormat={value => formatNumber(value)} style={{ fill: 'white' }} />
