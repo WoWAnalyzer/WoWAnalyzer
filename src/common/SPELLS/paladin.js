@@ -394,6 +394,12 @@ export default {
     name: 'Guardian of Ancient Kings',
     icon: 'spell_holy_heroism',
   },
+  // GoAK has a different spell ID with Glyph of the Queen
+  GUARDIAN_OF_ANCIENT_KINGS_QUEEN: {
+    id: 212641,
+    name: 'Guardian of Ancient Kings',
+    icon: 'spell_holy_heroism',
+  },
   HAMMER_OF_THE_RIGHTEOUS: {
     id: 53595,
     name: 'Hammer of the Righteous',
