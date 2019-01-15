@@ -9,7 +9,7 @@ import ExtendableError from 'es6-error';
 import { makeCharacterApiUrl } from 'common/makeApiUrl';
 import { makeWclBossPhaseFilter } from 'common/makeWclBossPhaseFilter';
 import { fetchEvents, LogNotFoundError } from 'common/fetchWclApi';
-// import { fabricateBossPhaseEvents } from 'common/fabricateBossPhaseEvents';
+import { fabricateBossPhaseEvents } from 'common/fabricateBossPhaseEvents';
 import { captureException } from 'common/errorLogger';
 import getFightName from 'common/getFightName';
 import sleep from 'common/sleep';
@@ -114,7 +114,7 @@ class EventParser extends React.PureComponent {
     let parserClass = null;
     let characterProfile = null;
     let events = null;
-    // let bossPhaseEvents = [];
+    let bossPhaseEvents = [];
     return Promise.all([
       this.loadParser().then(result => {
         parserClass = result;
@@ -125,15 +125,15 @@ class EventParser extends React.PureComponent {
       this.loadEvents().then(result => {
         events = result;
       }),
-      // this.loadBossPhaseEvents().then(result => {
-      //   bossPhaseEvents = fabricateBossPhaseEvents(result, report, fight);
-      // }),
+      this.loadBossPhaseEvents().then(result => {
+        bossPhaseEvents = fabricateBossPhaseEvents(result, report, fight);
+      }),
     ])
       .then(() => {
         this.stopFakeNetworkProgress();
         timeAvailable && console.time('full parse');
         const parser = new parserClass(report, player, fight, combatants, characterProfile);
-        return this.parseEvents(parser, report, player, fight, events);
+        return this.parseEvents(parser, report, player, fight, [...bossPhaseEvents, ...events]);
       })
       .catch(error => {
         this.stopFakeNetworkProgress();
@@ -263,7 +263,13 @@ class EventParser extends React.PureComponent {
   loadBossPhaseEvents() {
     const { report, fight } = this.props;
 
-    return fetchEvents(report.code, fight.start_time, fight.end_time, undefined, makeWclBossPhaseFilter(fight));
+    const filter = makeWclBossPhaseFilter(fight);
+
+    if (filter) {
+      return fetchEvents(report.code, fight.start_time, fight.end_time, undefined, makeWclBossPhaseFilter(fight));
+    } else {
+      return Promise.resolve([]);
+    }
   }
 
   async setStatePromise(newState) {
