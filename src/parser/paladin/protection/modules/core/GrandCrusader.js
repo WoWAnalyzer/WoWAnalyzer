@@ -24,14 +24,14 @@ const IV_PROC_CHANCE = 0.05;
 
 class GrandCrusaderGraph extends React.Component {
   static propTypes = {
-    resetChances: PropTypes.number.isRequired,
+    resetChanceCount: PropTypes.number.isRequired,
     resetProbabilities: PropTypes.arrayOf(
       PropTypes.shape({
         x: PropTypes.number.isRequired,
         y: PropTypes.number.isRequired,
       })
     ).isRequired,
-    actualResets: PropTypes.shape({
+    actualReset: PropTypes.shape({
       x: PropTypes.number.isRequired,
       y: PropTypes.number.isRequired,
     }).isRequired,
@@ -42,14 +42,14 @@ class GrandCrusaderGraph extends React.Component {
   };
 
   render() {
-    const { resetChances, resetProbabilities, actualResets } = this.props;
+    const { resetChanceCount, resetProbabilities, actualReset } = this.props;
     return (
       <XYPlot
         height={150}
         yDomain={[0, 0.2]}
         onMouseLeave={() => this.setState({ hover: null })}
       >
-        <XAxis title="Reset %" tickFormat={value => `${formatPercentage(value / resetChances, 0)}%`} />
+        <XAxis title="Reset %" tickFormat={value => `${formatPercentage(value / resetChanceCount, 0)}%`} />
         <YAxis title="Likelihood" tickFormat={value => `${formatPercentage(value, 0)}%`} />
         <AreaSeries
           data={resetProbabilities}
@@ -65,7 +65,7 @@ class GrandCrusaderGraph extends React.Component {
           curve="curveCardinal"
         />
         <MarkSeries
-          data={[ actualResets ]}
+          data={[ actualReset ]}
           color="#00ff96"
           onNearestX={d => this.setState({ hover: d })}
           size={3}
@@ -79,7 +79,7 @@ class GrandCrusaderGraph extends React.Component {
             }}
           >
             <div className="react-tooltip-lite grand-crusader-tooltip">
-              Actual Resets: {formatPercentage(this.state.hover.x / resetChances, 2)}%
+              Actual Resets: {formatPercentage(this.state.hover.x / resetChanceCount, 2)}%
             </div>
           </Hint>
         )}
@@ -173,9 +173,9 @@ class GrandCrusader extends Analyzer {
 
     return (
       <GrandCrusaderGraph
-        resetChances={this._resetChances}
+        resetChanceCount={this._resetChances}
         resetProbabilities={resetProbabilities}
-        actualResets={actualResets}
+        actualReset={actualResets}
       />
     );
   }
