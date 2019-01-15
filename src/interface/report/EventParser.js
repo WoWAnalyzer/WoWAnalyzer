@@ -9,7 +9,7 @@ import ExtendableError from 'es6-error';
 import { makeCharacterApiUrl } from 'common/makeApiUrl';
 import { makeWclBossPhaseFilter } from 'common/makeWclBossPhaseFilter';
 import { fetchEvents, LogNotFoundError } from 'common/fetchWclApi';
-import { fabricateBossPhaseEvents } from 'common/fabricateBossPhaseEvents';
+// import { fabricateBossPhaseEvents } from 'common/fabricateBossPhaseEvents';
 import { captureException } from 'common/errorLogger';
 import getFightName from 'common/getFightName';
 import sleep from 'common/sleep';
@@ -114,7 +114,7 @@ class EventParser extends React.PureComponent {
     let parserClass = null;
     let characterProfile = null;
     let events = null;
-    let bossPhaseEvents = [];
+    // let bossPhaseEvents = [];
     return Promise.all([
       this.loadParser().then(result => {
         parserClass = result;
@@ -133,7 +133,7 @@ class EventParser extends React.PureComponent {
         this.stopFakeNetworkProgress();
         timeAvailable && console.time('full parse');
         const parser = new parserClass(report, player, fight, combatants, characterProfile);
-        return this.parseEvents(parser, report, player, fight, [...bossPhaseEvents, ...events]);
+        return this.parseEvents(parser, report, player, fight, events);
       })
       .catch(error => {
         this.stopFakeNetworkProgress();
