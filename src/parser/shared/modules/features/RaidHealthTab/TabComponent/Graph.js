@@ -1,17 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Chart from 'chart.js/src/chart';
-import { Line } from 'react-chartjs-2';
+import {
+  FlexibleWidthXYPlot as XYPlot,
+  DiscreteColorLegend,
+  XAxis,
+  YAxis,
+  VerticalGridLines,
+  HorizontalGridLines,
+  AreaSeries,
+} from 'react-vis';
 
 import fetchWcl from 'common/fetchWclApi';
 
-import ManaStyles from 'interface/others/ManaStyles.js';
+import VerticalLine from 'interface/others/charts/VerticalLine';
+import { formatDuration } from 'common/format';
 
-const formatDuration = (duration) => {
-  const seconds = Math.floor(duration % 60);
-  return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
-};
+import './RaidHealthChart.scss';
 
+const DEATH_COLOR = 'rgba(255, 0, 0, 0.8)';
 const CLASS_CHART_LINE_COLORS = {
   DeathKnight: 'rgba(196, 31, 59, 0.6)',
   Druid: 'rgba(255, 125, 10, 0.6)',
@@ -26,6 +32,103 @@ const CLASS_CHART_LINE_COLORS = {
   Warrior: 'rgba(199, 156, 110, 0.6)',
   DemonHunter: 'rgba(163, 48, 201, 0.6)',
 };
+
+class RaidHealthChart extends React.Component {
+  static propTypes = {
+    players: PropTypes.arrayOf(PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      borderColor: PropTypes.string.isRequired,
+      backgroundColor: PropTypes.string.isRequired,
+      data: PropTypes.arrayOf(PropTypes.shape({
+        x: PropTypes.number.isRequired,
+        y: PropTypes.number.isRequired,
+      })).isRequired,
+    })).isRequired,
+    deaths: PropTypes.arrayOf(PropTypes.shape({
+      x: PropTypes.number.isRequired,
+    })).isRequired,
+    startTime: PropTypes.number.isRequired,
+    endTime: PropTypes.number.isRequired,
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentPlayers: this.props.players,
+    };
+  }
+
+  state = {
+    currentPlayers: [],
+  };
+
+  render() {
+    const { players, deaths, startTime, endTime } = this.props;
+
+    const xValues = [];
+    const yValues = [];
+    for (let i = 0; i < (endTime - startTime) / 1000; i += 30) {
+      xValues.push(i);
+    }
+    for (let i = 0; i < players.length; i += 2) {
+      yValues.push(i * 100);
+    }
+
+    return (
+      <XYPlot
+        height={400}
+        yDomain={[0, players.length * 100]}
+        margin={{
+          left: 60,
+          top: 30,
+        }}
+        stackBy="y"
+      >
+        <DiscreteColorLegend
+          orientation="horizontal"
+          items={[
+            ...players.map(player => ({ title: player.title, color: player.borderColor })),
+            { title: 'Deaths', color: DEATH_COLOR },
+          ]}
+        />
+        <XAxis tickValues={xValues} tickFormat={value => formatDuration(value)} />
+        <YAxis tickValues={yValues} tickFormat={value => `${value}%`} />
+        <VerticalGridLines
+          tickValues={xValues}
+          style={{
+            strokeDasharray: 3,
+            stroke: 'white',
+            fill: 'white',
+          }}
+        />
+        <HorizontalGridLines
+          tickValues={yValues}
+          style={{
+            strokeDasharray: 3,
+            stroke: 'white',
+            fill: 'white',
+          }}
+        />
+        {players.map(player => (
+          <AreaSeries
+            data={player.data}
+            color={player.backgroundColor}
+            stroke="transparent"
+            stack
+          />
+        ))}
+        {deaths.map(({ x }) => (
+          <VerticalLine
+            value={x}
+            style={{
+              line: { background: DEATH_COLOR },
+            }}
+          />
+        ))}
+      </XYPlot>
+    );
+  }
+}
 
 class Graph extends React.PureComponent {
   static propTypes = {
@@ -65,20 +168,11 @@ class Graph extends React.PureComponent {
       });
   }
 
-  render() {
-    const data = this.state.data;
-    if (!data) {
-      return (
-        <div>
-          Loading...
-        </div>
-      );
-    }
-
+  get plot() {
     const { start, end } = this.props;
+    const data = this.state.data;
 
-    const series = data.series;
-    const players = series.filter(item => !!CLASS_CHART_LINE_COLORS[item.type]);
+    const players = data.series.filter(item => !!CLASS_CHART_LINE_COLORS[item.type]);
 
     const entities = [];
 
@@ -110,10 +204,7 @@ class Graph extends React.PureComponent {
     }
 
     const fightDurationSec = Math.ceil((end - start) / 1000);
-    const labels = [];
     for (let i = 0; i <= fightDurationSec; i += 1) {
-      labels.push(i);
-
       entities.forEach((series) => {
         series.data[i] = series.data[i] !== undefined ? series.data[i] : series.lastValue;
         series.lastValue = series.data[i];
@@ -121,100 +212,41 @@ class Graph extends React.PureComponent {
       deathsBySecond[i] = deathsBySecond[i] !== undefined ? deathsBySecond[i] : undefined;
     }
 
-    const chartData = {
-      labels,
-      datasets: [
-        ...entities.map((series, index) => ({
-          label: series.name,
-          ...ManaStyles['Boss-0'],
-          backgroundColor: CLASS_CHART_LINE_COLORS[series.type],
-          borderColor: CLASS_CHART_LINE_COLORS[series.type],
-          data: Object.keys(series.data).map(key => series.data[key]),
-        })),
-        {
-          label: `Deaths`,
-          ...ManaStyles.Deaths,
-          data: Object.keys(deathsBySecond).map(key => deathsBySecond[key]),
-        },
-      ],
-    };
-
-    const gridLines = ManaStyles.gridLines;
-
-    const options = {
-      responsive: true,
-      scales: {
-        yAxes: [{
-          gridLines: gridLines,
-          ticks: {
-            callback: (value, index, values) => {
-              return `${value}%`;
-            },
-            min: 0,
-            max: players.length * 100,
-            fontSize: 14,
-          },
-          stacked: true,
-        }],
-        xAxes: [{
-          gridLines: gridLines,
-          ticks: {
-            callback: (value, index, values) => {
-              if (value % 30 === 0) {
-                return formatDuration(value);
-              }
-              return null;
-            },
-            fontSize: 14,
-          },
-        }],
-      },
-      animation: {
-        duration: 0,
-      },
-      hover: {
-        animationDuration: 0,
-      },
-      responsiveAnimationDuration: 0,
-      tooltips: {
-        enabled: false,
-      },
-      legend: ManaStyles.legend,
-    };
-
-    Chart.plugins.register({
-      id: 'specialEventIndiactor',
-      afterDatasetsDraw: (chart) => {
-        const ctx = chart.ctx;
-
-        chart.data.datasets.forEach(function (dataset, i) {
-          const meta = chart.getDatasetMeta(i);
-          if (dataset.label === 'Deaths' && !meta.hidden) {
-            meta.data.forEach(function (element, index) {
-              const position = element.tooltipPosition();
-              if (!isNaN(position.y)) {
-                ctx.strokeStyle = element._view.borderColor;
-                ctx.beginPath();
-                ctx.lineWidth = ManaStyles.Deaths.borderWidth;
-                ctx.moveTo(position.x, chart.chartArea.top);
-                ctx.lineTo(position.x, chart.chartArea.bottom);
-                ctx.stroke();
-              }
-            });
-          }
-        });
-
-      },
+    // transform data into react-vis format
+    const playerHealth = entities.map(player => {
+      const data = Object.entries(player.data).map(([key, value]) => ({ x: Number(key), y: value }));
+      return {
+        title: player.name,
+        backgroundColor: CLASS_CHART_LINE_COLORS[player.type],
+        borderColor: CLASS_CHART_LINE_COLORS[player.type],
+        data,
+      };
     });
+    const deaths = Object.entries(deathsBySecond).filter(([_, value]) => !!value).map(([key]) => ({ x: Number(key) }));
+
+    return (
+      <RaidHealthChart
+        players={playerHealth}
+        deaths={deaths}
+        startTime={start}
+        endTime={end}
+      />
+    );
+  }
+
+  render() {
+    const data = this.state.data;
+    if (!data) {
+      return (
+        <div>
+          Loading...
+        </div>
+      );
+    }
 
     return (
       <div className="graph-container">
-        <Line
-          data={chartData}
-          options={options}
-          width={1100}
-          height={400}
-        />
+        {this.plot}
       </div>
     );
   }
