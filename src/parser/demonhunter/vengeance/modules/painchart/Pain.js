@@ -8,7 +8,7 @@ import {
   VerticalGridLines,
   HorizontalGridLines,
   AreaSeries,
-  LineSeries
+  LineSeries,
 } from 'react-vis';
 
 import fetchWcl from 'common/fetchWclApi';

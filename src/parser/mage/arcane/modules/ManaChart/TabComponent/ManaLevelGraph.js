@@ -6,11 +6,150 @@ import {Line} from 'react-chartjs-2';
 import fetchWcl from 'common/fetchWclApi';
 
 import ManaStyles from 'interface/others/ManaStyles.js';
+import { FlexibleWidthXYPlot as XYPlot, DiscreteColorLegend, XAxis, YAxis, VerticalGridLines, HorizontalGridLines, AreaSeries, LineSeries } from 'react-vis/es';
+import VerticalLine from 'interface/others/charts/VerticalLine';
+import { formatDuration } from 'common/format';
 
-const formatDuration = (duration) => {
-  const seconds = Math.floor(duration % 60);
-  return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
-};
+import './ManaLevelGraph.scss';
+
+class ManaChart extends React.PureComponent {
+  static propTypes = {
+    mana: PropTypes.arrayOf(PropTypes.shape({
+      x: PropTypes.number.isRequired,
+      y: PropTypes.number.isRequired,
+    })).isRequired,
+    deaths: PropTypes.arrayOf(PropTypes.shape({
+      x: PropTypes.number.isRequired,
+    })),
+    bossData: PropTypes.arrayOf(PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      borderColor: PropTypes.string.isRequired,
+      backgroundColor: PropTypes.string.isRequired,
+      data: PropTypes.arrayOf(PropTypes.shape({
+        x: PropTypes.number.isRequired,
+        y: PropTypes.number.isRequired,
+      })).isRequired,
+    })).isRequired,
+  };
+
+  static defaultProps = {
+    deaths: [],
+  };
+
+  colors = {
+    mana: {
+      border: 'rgba(2, 109, 215, 0.6)',
+      background: 'rgba(2, 109, 215, 0.25)',
+    },
+    death: 'rgba(255, 0, 0, 0.8)',
+  };
+
+  fillMissingData(data) {
+    // returns a copy of `data` where missing values are equal to the last known value
+    // [0, null, 1, null, null, null, 3] => [0, 0, 1, 1, 1, 1, 3]
+    const newData = [];
+    let lastY = 0;
+    data.forEach(({ x, y }) => {
+      if (y !== null) {
+        lastY = y;
+      }
+      newData.push({ x, y: lastY });
+    });
+    return newData;
+  }
+
+  render() {
+    const { mana, deaths, bossData } = this.props;
+
+    const xValues = [];
+    const yValues = [0, 25, 50, 75, 100];
+    const start = mana[0].x;
+    const end = mana[mana.length - 1].x;
+    for (let i = 0; i < (end - start); i += 30) {
+      xValues.push(i);
+    }
+
+    const fixedMana = this.fillMissingData(mana);
+    const fixedBossData = bossData.map(({ borderColor, backgroundColor, data }) => ({
+      borderColor,
+      backgroundColor,
+      data: this.fillMissingData(data),
+    }));
+
+    return (
+      <XYPlot
+        height={400}
+        yDomain={[0, 100]}
+        margin={{
+          top: 30,
+        }}
+      >
+        <DiscreteColorLegend
+          orientation="horizontal"
+          items={[
+            ...bossData.map(boss => ({ title: boss.title, color: boss.borderColor })),
+            { title: 'Mana', color: this.colors.mana.border },
+            { title: 'Deaths', color: this.colors.death },
+          ]}
+        />
+        <XAxis tickValues={xValues} tickFormat={value => formatDuration(value)} />
+        <YAxis tickValues={yValues} tickFormat={value => `${value}%`} />
+        <VerticalGridLines
+          tickValues={xValues}
+          style={{
+            strokeDasharray: 3,
+            stroke: 'white',
+            fill: 'white',
+          }}
+        />
+        <HorizontalGridLines
+          tickValues={yValues}
+          style={{
+            strokeDasharray: 3,
+            stroke: 'white',
+            fill: 'white',
+          }}
+        />
+        {fixedBossData.map(boss => (
+          <AreaSeries
+            data={boss.data}
+            color={boss.backgroundColor}
+            stroke="transparent"
+            curve="curveCardinal"
+          />
+        ))}
+        {fixedBossData.map(boss => (
+          <LineSeries
+            data={boss.data}
+            color={boss.borderColor}
+            strokeWidth={2}
+            curve="curveCardinal"
+          />
+        ))}
+        <AreaSeries
+          data={fixedMana}
+          color={this.colors.mana.background}
+          stroke="transparent"
+          curve="curveMonotoneX"
+        />
+        <LineSeries
+          data={fixedMana}
+          color={this.colors.mana.border}
+          strokeWidth={2}
+          curve="curveMonotoneX"
+        />
+        {deaths.map(death => (
+          <VerticalLine
+            value={death.x}
+            style={{
+              line: { background: this.colors.death },
+            }}
+          />
+        ))}
+      </XYPlot>
+    );
+  }
+}
 
 class Mana extends React.PureComponent {
   static propTypes = {
@@ -21,8 +160,8 @@ class Mana extends React.PureComponent {
     manaUpdates: PropTypes.array.isRequired,
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       bossHealth: null,
     };
@@ -53,15 +192,7 @@ class Mana extends React.PureComponent {
       });
   }
 
-  render() {
-    if (!this.state.bossHealth) {
-      return (
-        <div>
-          Loading...
-        </div>
-      );
-    }
-
+  get plot() {
     const { start, end, manaUpdates } = this.props;
 
     const manaBySecond = {
@@ -105,9 +236,7 @@ class Mana extends React.PureComponent {
     }
 
     const fightDurationSec = Math.ceil((end - start) / 1000);
-    const labels = [];
     for (let i = 0; i <= fightDurationSec; i += 1) {
-      labels.push(i);
 
       manaBySecond[i] = manaBySecond[i] !== undefined ? manaBySecond[i] : null;
       bosses.forEach((series) => {
@@ -116,107 +245,41 @@ class Mana extends React.PureComponent {
       deathsBySecond[i] = deathsBySecond[i] !== undefined ? deathsBySecond[i] : undefined;
     }
 
-    const data = {
-      labels,
-      datasets: [
-        ...bosses.map((series, index) => ({
-          label: `${series.name} Health`,
-          ...ManaStyles[`Boss-${index}`],
-          ...ManaStyles[`Boss-${series.guid}`],
-          data: Object.keys(series.data).map(key => series.data[key]),
-        })),
-        {
-          label: `Deaths`,
-          ...ManaStyles.Deaths,
-          data: Object.keys(deathsBySecond).map(key => deathsBySecond[key]),
-        },
-        {
-          label: `Mana`,
-          ...ManaStyles.Mana,
-          data: Object.keys(manaBySecond).map(key => manaBySecond[key]),
-        },
-      ],
-    };
+    const mana = Object.entries(manaBySecond)
+      .filter(([key]) => Number(key) >= 0) // for unknown reason, there was a value at -1 second which messes up the chart
+      .map(([key, value]) => ({ x: Number(key), y: value }));
+    const deaths = Object.entries(deathsBySecond).filter(([key, value]) => !Number.isNaN(Number(key)) && value).map(([key]) => ({ x: Number(key) }));
+    const bossData = bosses.map((series, index) => ({
+      title: `${series.name} Health`,
+      borderColor: ManaStyles[`Boss-${index}`].borderColor,
+      backgroundColor: ManaStyles[`Boss-${index}`].backgroundColor,
+      data: Object.entries(series.data).map(([key, value]) => ({ x: Number(key), y: value })),
+    }));
 
-    const gridLines = ManaStyles.gridLines;
+    return (
+      <ManaChart
+        mana={mana}
+        deaths={deaths}
+        bossData={bossData}
+      />
+    );
+  }
 
-    const options = {
-      responsive: true,
-      scales: {
-        yAxes: [{
-          gridLines: gridLines,
-          ticks: {
-            callback: (value, index, values) => {
-              return `${value}%`;
-            },
-            min: 0,
-            max: 100,
-            stepSize: 25,
-            fontSize: 14,
-          },
-        }],
-        xAxes: [{
-          gridLines: gridLines,
-          ticks: {
-            callback: (value, index, values) => {
-              if(value%30 === 0) {
-                return formatDuration(value);
-              }
-              return null;
-            },
-            fontSize: 14,
-          },
-        }],
-      },
-      animation: {
-        duration: 0,
-      },
-      hover: {
-        animationDuration: 0,
-      },
-      responsiveAnimationDuration: 0,
-      tooltips: {
-        enabled: false,
-      },
-      legend: ManaStyles.legend,
-    };
-
-    Chart.plugins.register({
-      id: 'specialEventIndiactor',
-      afterDatasetsDraw : (chart) => {
-        const ctx = chart.ctx;
-
-        chart.data.datasets.forEach(function(dataset, i) {
-          const meta = chart.getDatasetMeta(i);
-          if(dataset.label === 'Deaths' && !meta.hidden) {
-            meta.data.forEach(function(element, index) {
-              const position = element.tooltipPosition();
-              if(!isNaN(position.y)) {
-                  ctx.strokeStyle=element._view.borderColor;
-                  ctx.beginPath();
-                  ctx.lineWidth = ManaStyles.Deaths.borderWidth;
-                  ctx.moveTo(position.x, chart.chartArea.top);
-                  ctx.lineTo(position.x, chart.chartArea.bottom);
-                  ctx.stroke();
-              }
-            });
-          }
-        });
-
-      },
-    });
+  render() {
+    if (!this.state.bossHealth) {
+      return (
+        <div>
+          Loading...
+        </div>
+      );
+    }
 
     return (
       <div>
         Playing Arcane well typically involves managing your mana properly. Things such as not going OOM during Arcane Power, not letting your mana cap, and ensuring you end the fight with as little mana as possible will all help in improving your DPS.<br /><br />
 
         <div className="graph-container">
-          <Line
-            data={data}
-            options={options}
-            width={1100}
-            height={400}
-          />
+          {this.plot}
         </div>
       </div>
     );
