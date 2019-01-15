@@ -8,7 +8,7 @@ import fetchWcl from 'common/fetchWclApi';
 import ManaStyles from 'interface/others/ManaStyles.js';
 import { FlexibleWidthXYPlot as XYPlot, DiscreteColorLegend, XAxis, YAxis, VerticalGridLines, HorizontalGridLines, AreaSeries, LineSeries } from 'react-vis/es';
 import VerticalLine from 'interface/others/charts/VerticalLine';
-import { formatDuration } from 'common/format';
+import { formatDuration, formatNumber, formatThousands } from 'common/format';
 
 import './ManaLevelGraph.scss';
 
@@ -30,6 +30,8 @@ class ManaChart extends React.PureComponent {
         y: PropTypes.number.isRequired,
       })).isRequired,
     })).isRequired,
+    startTime: PropTypes.number.isRequired,
+    endTime: PropTypes.number.isRequired,
   };
 
   static defaultProps = {
@@ -44,37 +46,14 @@ class ManaChart extends React.PureComponent {
     death: 'rgba(255, 0, 0, 0.8)',
   };
 
-  fillMissingData(data) {
-    // returns a copy of `data` where missing values are equal to the last known value
-    // [0, null, 1, null, null, null, 3] => [0, 0, 1, 1, 1, 1, 3]
-    const newData = [];
-    let lastY = 0;
-    data.forEach(({ x, y }) => {
-      if (y !== null) {
-        lastY = y;
-      }
-      newData.push({ x, y: lastY });
-    });
-    return newData;
-  }
-
   render() {
-    const { mana, deaths, bossData } = this.props;
+    const { mana, deaths, bossData, startTime, endTime } = this.props;
 
     const xValues = [];
     const yValues = [0, 25, 50, 75, 100];
-    const start = mana[0].x;
-    const end = mana[mana.length - 1].x;
-    for (let i = 0; i < (end - start); i += 30) {
+    for (let i = startTime; i < endTime; i += 30*1000) {
       xValues.push(i);
     }
-
-    const fixedMana = this.fillMissingData(mana);
-    const fixedBossData = bossData.map(({ borderColor, backgroundColor, data }) => ({
-      borderColor,
-      backgroundColor,
-      data: this.fillMissingData(data),
-    }));
 
     return (
       <XYPlot
@@ -92,7 +71,7 @@ class ManaChart extends React.PureComponent {
             { title: 'Deaths', color: this.colors.death },
           ]}
         />
-        <XAxis tickValues={xValues} tickFormat={value => formatDuration(value)} />
+        <XAxis tickValues={xValues} tickFormat={value => formatDuration((value - startTime) / 1000)} />
         <YAxis tickValues={yValues} tickFormat={value => `${value}%`} />
         <VerticalGridLines
           tickValues={xValues}
@@ -110,7 +89,7 @@ class ManaChart extends React.PureComponent {
             fill: 'white',
           }}
         />
-        {fixedBossData.map(boss => (
+        {bossData.map(boss => (
           <AreaSeries
             data={boss.data}
             color={boss.backgroundColor}
@@ -118,7 +97,7 @@ class ManaChart extends React.PureComponent {
             curve="curveCardinal"
           />
         ))}
-        {fixedBossData.map(boss => (
+        {bossData.map(boss => (
           <LineSeries
             data={boss.data}
             color={boss.borderColor}
@@ -127,20 +106,20 @@ class ManaChart extends React.PureComponent {
           />
         ))}
         <AreaSeries
-          data={fixedMana}
+          data={mana}
           color={this.colors.mana.background}
           stroke="transparent"
           curve="curveMonotoneX"
         />
         <LineSeries
-          data={fixedMana}
+          data={mana}
           color={this.colors.mana.border}
           strokeWidth={2}
           curve="curveMonotoneX"
         />
-        {deaths.map(death => (
+        {deaths.map(({ x }) => (
           <VerticalLine
-            value={death.x}
+            value={x}
             style={{
               line: { background: this.colors.death },
             }}
@@ -195,72 +174,38 @@ class Mana extends React.PureComponent {
   get plot() {
     const { start, end, manaUpdates } = this.props;
 
-    const manaBySecond = {
-      0: 100,
-    };
-    manaUpdates.forEach((item) => {
-      const secIntoFight = Math.floor((item.timestamp - start) / 1000);
-
-      manaBySecond[secIntoFight] = item.current / item.max * 100;
-    });
-    const bosses = [];
-    const deadBosses = [];
-    this.state.bossHealth.series.forEach((series) => {
-      const newSeries = {
-        ...series,
-        data: {},
+    const mana = manaUpdates.map(({ timestamp, current, max }) => {
+      const x = Math.max(timestamp, start);
+      return {
+        x,
+        y: (current / max) * 100,
       };
-
-      series.data.forEach((item) => {
-        const secIntoFight = Math.floor((item[0] - start) / 1000);
-
-        if (!deadBosses.includes(series.guid)) {
-          const health = item[1];
-          newSeries.data[secIntoFight] = health;
-
-          if (health === 0) {
-            deadBosses.push(series.guid);
-          }
-        }
-      });
-      bosses.push(newSeries);
     });
-    const deathsBySecond = {};
+
+    let deaths = null;
     if (this.state.bossHealth.deaths) {
-      this.state.bossHealth.deaths.forEach((death) => {
-        const secIntoFight = Math.floor((death.timestamp - start) / 1000);
-        if (death.targetID === this.props.actorId) {
-          deathsBySecond[secIntoFight] = true;
-        }
-      });
+      deaths = this.state.bossHealth.deaths
+        .filter(death => death.targetID === this.props.actorId)
+        .map(({ timestamp }) => ({ x: timestamp }));
     }
 
-    const fightDurationSec = Math.ceil((end - start) / 1000);
-    for (let i = 0; i <= fightDurationSec; i += 1) {
-
-      manaBySecond[i] = manaBySecond[i] !== undefined ? manaBySecond[i] : null;
-      bosses.forEach((series) => {
-        series.data[i] = series.data[i] !== undefined ? series.data[i] : null;
-      });
-      deathsBySecond[i] = deathsBySecond[i] !== undefined ? deathsBySecond[i] : undefined;
-    }
-
-    const mana = Object.entries(manaBySecond)
-      .filter(([key]) => Number(key) >= 0) // for unknown reason, there was a value at -1 second which messes up the chart
-      .map(([key, value]) => ({ x: Number(key), y: value }));
-    const deaths = Object.entries(deathsBySecond).filter(([key, value]) => !Number.isNaN(Number(key)) && value).map(([key]) => ({ x: Number(key) }));
-    const bossData = bosses.map((series, index) => ({
-      title: `${series.name} Health`,
-      borderColor: ManaStyles[`Boss-${index}`].borderColor,
-      backgroundColor: ManaStyles[`Boss-${index}`].backgroundColor,
-      data: Object.entries(series.data).map(([key, value]) => ({ x: Number(key), y: value })),
-    }));
+    const bossData = this.state.bossHealth.series.map((series, i) => {
+      const data = series.data.map(([timestamp, health]) => ({ x: timestamp, y: health }));
+      return {
+        title: `${series.name} Health`,
+        borderColor: ManaStyles[`Boss-${i}`].borderColor,
+        backgroundColor: ManaStyles[`Boss-${i}`].backgroundColor,
+        data,
+      };
+    });
 
     return (
       <ManaChart
         mana={mana}
         deaths={deaths}
         bossData={bossData}
+        startTime={start}
+        endTime={end}
       />
     );
   }
