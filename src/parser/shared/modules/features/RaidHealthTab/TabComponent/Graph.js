@@ -81,32 +81,46 @@ class RaidHealthChart extends React.Component {
     for (let i = 0; i < (endTime - startTime) / 1000; i += 30) {
       xValues.push(i);
     }
-    for (let i = 0; i < players.length; i += 2) {
+    for (let i = 0; i <= players.length; i += 2) {
       yValues.push(i * 100);
     }
 
+    // XYPlot injects ton of properties into its children, I want a plain div
+    const LegendWrapper = (props) => (
+      <div className="legend-wrapper horizontal">
+        {props.children}
+      </div>
+    );
+
     return (
       <XYPlot
-        height={400}
+        height={500}
         yDomain={[0, players.length * 100]}
         margin={{
           left: 60,
-          top: 30,
+          top: 70,
         }}
         stackBy="y"
       >
-        <DiscreteColorLegend
-          orientation="horizontal"
-          items={[
-            ...this.state.players.map(player => ({
-              title: player.title,
-              color: player.borderColor,
-              disabled: player.disabled,
-            })),
-            { title: 'Deaths', color: DEATH_COLOR },
-          ]}
-          onItemClick={(_, i) => this.togglePlayer(i)}
-        />
+        <LegendWrapper>
+          <DiscreteColorLegend
+            orientation="horizontal"
+            items={[
+              ...this.state.players.map(player => ({
+                title: player.title,
+                color: player.borderColor,
+                disabled: player.disabled,
+              })),
+              { title: 'Deaths', color: DEATH_COLOR },
+            ]}
+            onItemClick={(item, i) => {
+              if (item.title === 'Deaths') {
+                return;
+              }
+              this.togglePlayer(i);
+            }}
+          />
+        </LegendWrapper>
         <XAxis tickValues={xValues} tickFormat={value => formatDuration(value)} />
         <YAxis tickValues={yValues} tickFormat={value => `${value}%`} />
         <VerticalGridLines
