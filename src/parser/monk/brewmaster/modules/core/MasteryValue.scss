@@ -1,8 +1,8 @@
 @import "common/Tooltip.scss";
 
 .mastery-value-tooltip {
-  @include tooltip-right;
-  top: 3px;
+  @include tooltip-right(15px);
+  top: -18px;
   position: absolute;
 }
 .mastery-value-tooltip:before {

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FlexibleWidthXYPlot as XYPlot, XAxis, YAxis, LineSeries, AreaSeries, MarkSeries, Crosshair } from 'react-vis';
+import { FlexibleWidthXYPlot as XYPlot, XAxis, YAxis, LineSeries, AreaSeries, MarkSeries, Hint } from 'react-vis';
 import 'react-vis/dist/style.css';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
@@ -150,16 +150,17 @@ class DodgeGraph extends React.Component {
           size={3}
         />
         {this.state.hover && (
-          <Crosshair
-            values={[ actualDodge ]}
-            style={{
-              line: { display: 'none' },
+          <Hint
+            value={this.state.hover}
+            align={{
+              horizontal: 'right',
+              vertical: 'bottom',
             }}
           >
             <div className="react-tooltip-lite mastery-value-tooltip">
-              Actual Dodge: {formatPercentage(actualDodge.x / dodgeableHits, 2)}%
+              Actual Dodge: {formatPercentage(this.state.hover.x / dodgeableHits, 2)}%
             </div>
-          </Crosshair>
+          </Hint>
         )}
       </XYPlot>
     );
