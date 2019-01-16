@@ -7,10 +7,14 @@ import ItemLink from 'common/ItemLink';
 import DeathRecapTracker from 'interface/others/DeathRecapTracker';
 import ItemStatisticBox from 'interface/others/ItemStatisticBox';
 
-import ApplyBuffNormalizer from 'parser/shared/normalizers/ApplyBuff';
-import CancelledCastsNormalizer from 'parser/shared/normalizers/CancelledCasts';
-import PrePullCooldownsNormalizer from 'parser/shared/normalizers/PrePullCooldowns';
-import FightEndNormalizer from 'parser/shared/normalizers/FightEnd';
+// Normalizers
+import ApplyBuffNormalizer from '../shared/normalizers/ApplyBuff';
+import CancelledCastsNormalizer from '../shared/normalizers/CancelledCasts';
+import PrePullCooldownsNormalizer from '../shared/normalizers/PrePullCooldowns';
+import FightEndNormalizer from '../shared/normalizers/FightEnd';
+import PhaseChangesNormalizer from '../shared/normalizers/PhaseChanges';
+
+// Core modules
 import HealingDone from '../shared/modules/throughput/HealingDone';
 import DamageDone from '../shared/modules/throughput/DamageDone';
 import DamageTaken from '../shared/modules/throughput/DamageTaken';
@@ -37,7 +41,6 @@ import SpellManaCost from '../shared/modules/SpellManaCost';
 import Channeling from '../shared/modules/Channeling';
 import DeathDowntime from '../shared/modules/downtime/DeathDowntime';
 import TotalDowntime from '../shared/modules/downtime/TotalDowntime';
-
 import DistanceMoved from '../shared/modules/others/DistanceMoved';
 
 import CharacterTab from '../shared/modules/features/CharacterTab';
@@ -157,6 +160,7 @@ class CombatLogParser {
     applyBuffNormalizer: ApplyBuffNormalizer,
     cancelledCastsNormalizer: CancelledCastsNormalizer,
     prepullNormalizer: PrePullCooldownsNormalizer,
+    phaseChangesNormalizer: PhaseChangesNormalizer,
 
     // Analyzers
     healingDone: HealingDone,

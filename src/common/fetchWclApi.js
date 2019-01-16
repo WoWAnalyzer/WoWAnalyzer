@@ -151,10 +151,11 @@ function rawFetchEventsPage(code, start, end, actorId = undefined, filter = unde
     translate: true, // it's better to have 1 consistent language so long as we don't have the entire site localized
   });
 }
-export async function fetchEvents(reportCode, fightStart, fightEnd, actorId = undefined, filter = undefined) {
+export async function fetchEvents(reportCode, fightStart, fightEnd, actorId = undefined, filter = undefined, maxPages = 3) {
   let pageStartTimestamp = fightStart;
 
   let events = [];
+  let page = 0;
   // eslint-disable-next-line no-constant-condition
   while (true) {
     // eslint-disable-next-line no-await-in-loop
@@ -168,6 +169,10 @@ export async function fetchEvents(reportCode, fightStart, fightEnd, actorId = un
         console.error('nextPageTimestamp is after fightEnd, do we need to manually filter too?');
       }
       pageStartTimestamp = json.nextPageTimestamp;
+      page += 1;
+      if (page >= maxPages) {
+        throw new Error('Interrupting due to exceeded max events pages. Something has gone wrong.');
+      }
     } else {
       break;
     }
