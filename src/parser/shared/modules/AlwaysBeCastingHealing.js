@@ -55,20 +55,29 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
       return null;
     }
 
-    const downtimePercentage = this.downtimePercentage;
+    const activeTimePercentage = this.activeTimePercentage;
     const healingTimePercentage = this.healingTimePercentage;
-    // TODO: Put this in the extra box
-    const nonHealCastTimePercentage = this.activeTimePercentage - healingTimePercentage;
+    const downtimePercentage = this.downtimePercentage;
 
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(10)}
-        tooltip="For more details, see the timeline. Created by Zerotorescue."
+        tooltip={(
+          <>
+            This is the precise amount of time you were actively casting something or waiting for a Global Cooldown. The remaining time was downtime; you cast nothing and wasn't waiting for a global cooldown (i.e. "AFK time").<br /><br />
+
+            You were active for <strong>{formatPercentage(activeTimePercentage)}%</strong> of the fight. You spent <strong>{formatPercentage(healingTimePercentage)}%</strong> of your time casting supportive spells, <strong>{formatPercentage(activeTimePercentage - healingTimePercentage)}%</strong> of the time casting offensive spells and <strong>{formatPercentage(downtimePercentage)}%</strong> of the time doing nothing.<br /><br />
+
+            See the timeline for details.
+          </>
+        )}
+        drilldown="timeline"
+        creator={Zerotorescue}
       >
         <div className="pad">
           <label>Active time</label>
 
-          <Gauge value={1 - downtimePercentage} />
+          <Gauge value={activeTimePercentage} />
         </div>
       </Statistic>
 

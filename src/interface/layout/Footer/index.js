@@ -71,6 +71,7 @@ class Footer extends React.PureComponent {
                     <li>Info by Gregor Cresnar</li>
                     <li>Plus by Galaxicon</li>
                     <li>duration by Bohdan Burmich</li>
+                    <li>link by arjuazka</li>
                   </ul>
                 </>
               )}

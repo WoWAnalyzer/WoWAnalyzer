@@ -1,3 +1,5 @@
+@import 'interface/layout/Theme.scss';
+
 .statistic {
   margin-bottom: 30px;
   border: 0 !important;
@@ -79,4 +81,42 @@
   font-size: 12px;
   margin-top: 0;
   opacity: 0.5;
+}
+.statistic .drilldown {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 100%);
+  background: $panelColor;
+  display: none;
+  line-height: 1;
+
+  a {
+    padding: 1px 10px;
+    font-size: 16px;
+    display: block;
+  }
+
+  &:before, &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    transform: translateX(-100%);
+    top: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 20px 20px 0;
+    border-color: transparent $panelColor transparent transparent;
+  }
+  &:after {
+    left: auto;
+    right: 0;
+    transform: translateX(100%);
+    border-width: 20px 20px 0 0;
+    border-color: $panelColor transparent transparent transparent;
+  }
+}
+.statistic:hover .drilldown {
+  display: block;
 }
