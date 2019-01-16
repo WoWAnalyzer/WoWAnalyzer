@@ -2,16 +2,11 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage, formatThousands } from 'common/format';
+import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import StatisticBar from 'interface/statistics/StatisticBar';
 import UptimeBar from 'interface/statistics/components/UptimeBar';
-import ThroughputPerformance from 'parser/shared/modules/throughput/DamageDone';
-import { UNAVAILABLE } from 'interface/report/Results/ThroughputPerformance';
-import rankingColor from 'common/getRankingColor';
-import { AutoSizer } from 'react-virtualized';
-import { AreaSeries, XYPlot } from 'react-vis/es';
 import SpellIcon from 'common/SpellIcon';
 
 class RuleOfLaw extends Analyzer {

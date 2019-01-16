@@ -6,13 +6,13 @@ import { Trans } from '@lingui/macro';
 
 import PATCHES from 'common/PATCHES';
 import Icon from 'common/Icon';
+import Tooltip from 'common/Tooltip';
 import DiscordButton from 'interface/common/thirdpartybuttons/Discord';
 import GitHubButton from 'interface/common/thirdpartybuttons/GitHub';
 import { ignorePreviousPatchWarning } from 'interface/actions/previousPatch';
 import { getReportCodesIgnoredPreviousPatchWarning } from 'interface/selectors/skipPreviousPatchWarning';
 
 import Background from './images/weirdnelf.png';
-import Tooltip from 'common/Tooltip';
 
 class PatchChecker extends React.PureComponent {
   static propTypes = {

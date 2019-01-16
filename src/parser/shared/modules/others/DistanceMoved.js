@@ -4,9 +4,7 @@ import { AutoSizer } from 'react-virtualized';
 import 'react-vis/dist/style.css';
 
 import { formatPercentage, formatThousands } from 'common/format';
-import Tooltip from 'common/Tooltip';
 import groupDataForChart from 'common/groupDataForChart';
-import makeWclUrl from 'common/makeWclUrl';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';

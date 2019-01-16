@@ -4,9 +4,8 @@ import CoreBuffs, { BuffDuration } from 'parser/core/modules/Buffs';
 
 class Buffs extends CoreBuffs {
   buffs() {
-    const combatant = this.selectedCombatant;
+    // const combatant = this.selectedCombatant;
 
-    // Documentation:
     return [
       {
         spell: SPELLS.BESTIAL_WRATH,

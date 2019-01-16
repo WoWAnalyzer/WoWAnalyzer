@@ -167,7 +167,7 @@ class DeathRecap extends React.PureComponent {
                                 `You damaged yourself for ${formatNumber(event.amount)}` :
                                 `${sourceName} damaged you for a total of ${formatNumber(event.amount + (event.absorbed || 0))}`
                               }<br />
-                              {event.absorbed > 0 ? <>{formatNumber(event.absorbed)} of this damage was absorbed and you took {formatNumber(event.amount)} damage<br/></> : ''}
+                              {event.absorbed > 0 ? <>{formatNumber(event.absorbed)} of this damage was absorbed and you took {formatNumber(event.amount)} damage<br /></> : ''}
                             </>
                           )}
                           style={{ color: 'red' }}>

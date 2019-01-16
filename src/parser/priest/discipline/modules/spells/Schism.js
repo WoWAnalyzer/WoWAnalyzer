@@ -3,24 +3,21 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-
+import { TooltipElement } from 'common/Tooltip';
+import { formatNumber, formatPercentage } from 'common/format';
+import DualStatisticBox, { STATISTIC_ORDER } from 'interface/others/DualStatisticBox';
+import Analyzer from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Enemies from 'parser/shared/modules/Enemies';
-
-import DualStatisticBox, { STATISTIC_ORDER } from 'interface/others/DualStatisticBox';
-import { formatNumber, formatPercentage } from 'common/format';
-import Analyzer from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import isAtonement from '../core/isAtonement';
-import Penance from './/Penance';
+import Penance from './Penance';
 import AtonementDamageSource from '../features/AtonementDamageSource';
-
 import { calculateOverhealing, SmiteEstimation } from '../../SpellCalculations';
-import Atonement from './/Atonement';
-import SinsOfTheMany from './/SinsOfTheMany';
-import { TooltipElement } from 'common/Tooltip';
+import Atonement from './Atonement';
+import SinsOfTheMany from './SinsOfTheMany';
 
 class Schism extends Analyzer {
   static dependencies = {

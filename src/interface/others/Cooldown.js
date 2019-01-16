@@ -5,12 +5,12 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 import { formatThousands, formatNumber, formatPercentage, formatDuration } from 'common/format';
+import { TooltipElement } from 'common/Tooltip';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 import { BUILT_IN_SUMMARY_TYPES } from 'parser/shared/modules/CooldownThroughputTracker';
 
 import './Cooldown.css';
-import { TooltipElement } from 'common/Tooltip';
 
 class Cooldown extends React.Component {
   static propTypes = {
