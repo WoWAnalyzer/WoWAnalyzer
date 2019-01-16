@@ -21,40 +21,34 @@ class RuneDetails extends Analyzer {
     runeTracker: RuneTracker,
   };
 
-  get plot() {
-    const data = this.runeTracker.runesReady;
-    return (
-      <XYPlot
-        xDomain={[0, this.owner.fightDuration / 1000]}
-        height={400}
-        margin={{
-          top: 30,
-        }}
-      >
-        <DiscreteColorLegend
-          items={[
-            { title: 'Runes', color: 'rgb(196, 31, 59)' },
-          ]}
-          orientation="horizontal"
-        />
-        <XAxis tickFormat={value => formatDuration(value, 0)} style={{ fill: 'white' }} />
-        <YAxis tickValues={[0, 1, 2, 3, 4, 5, 6]} tickFormat={value => formatNumber(value)} style={{ fill: 'white' }} />
-        <LineSeries
-          data={data}
-          color="rgb(196, 31, 59)"
-          strokeWidth={2}
-        />
-      </XYPlot>
-    );
-  }
-
   tab() {
+    const data = this.runeTracker.runesReady;
     return {
       title: 'Rune usage',
       url: 'rune-usage',
       render: () => (
         <Panel>
-          {this.plot}
+          <XYPlot
+            xDomain={[0, this.owner.fightDuration / 1000]}
+            height={400}
+            margin={{
+              top: 30,
+            }}
+          >
+            <DiscreteColorLegend
+              items={[
+                { title: 'Runes', color: 'rgb(196, 31, 59)' },
+              ]}
+              orientation="horizontal"
+            />
+            <XAxis tickFormat={value => formatDuration(value, 0)} style={{ fill: 'white' }} />
+            <YAxis tickValues={[0, 1, 2, 3, 4, 5, 6]} tickFormat={value => formatNumber(value)} style={{ fill: 'white' }} />
+            <LineSeries
+              data={data}
+              color="rgb(196, 31, 59)"
+              strokeWidth={2}
+            />
+          </XYPlot>
           <RuneBreakdown
             tracker={this.runeTracker}
             showSpenders

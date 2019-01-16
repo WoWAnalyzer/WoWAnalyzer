@@ -1,5 +1,4 @@
 import React from 'react';
-import 'react-vis/dist/style.css';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Analyzer from 'parser/core/Analyzer';
