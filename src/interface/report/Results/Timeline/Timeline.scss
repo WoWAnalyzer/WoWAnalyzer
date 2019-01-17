@@ -1,6 +1,21 @@
 .spell-timeline-container {
   width: 100%;
   overflow: auto;
+  padding-bottom: 6px;
+
+  &::-webkit-scrollbar {
+    height: 12px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(104, 103, 100, 0.15);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #fab700;
+  }
 }
 .spell-timeline > * {
   position: relative;
