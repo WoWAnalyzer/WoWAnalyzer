@@ -390,6 +390,7 @@ code {
 
 table.data-table {
   width: 100%;
+  margin-bottom: 20px;
 
   tr:nth-child(even) {
     background: rgba(255, 255, 255, .03);
@@ -401,26 +402,15 @@ table.data-table {
     padding: 6px;
   }
   tr th:first-of-type, tr td:first-of-type {
-    padding-left: 22px;
+    padding-left: 30px;
   }
   tr th:last-of-type, tr td:last-of-type {
-    padding-right: 22px;
+    padding-right: 30px;
   }
   img {
     width: 1.6em;
     height: 1.6em;
     margin-top: -.1em;
-  }
-}
-
-.panel-body > table.data-table {
-  margin-bottom: 20px;
-
-  tr th:first-of-type, tr td:first-of-type {
-    padding-left: 30px;
-  }
-  tr th:last-of-type, tr td:last-of-type {
-    padding-right: 30px;
   }
 }
 
