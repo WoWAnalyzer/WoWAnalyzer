@@ -3,11 +3,13 @@ import { Trans } from '@lingui/macro';
 
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
+import Panel from 'interface/statistics/Panel';
+import CastEfficiencyComponent from 'interface/others/CastEfficiency';
 import Analyzer from 'parser/core/Analyzer';
 import SpellHistory from 'parser/shared/modules/SpellHistory';
 import Channeling from 'parser/shared/modules/Channeling';
+import Abilities from 'parser/core/modules/Abilities';
 
-import Abilities from '../../core/modules/Abilities';
 import AbilityTracker from './AbilityTracker';
 import Haste from './Haste';
 
@@ -110,7 +112,7 @@ class CastEfficiency extends Analyzer {
           return acc;
         }
       }, 0);
-      
+
     return timeSpentCasting;
   }
 
@@ -310,6 +312,20 @@ class CastEfficiency extends Analyzer {
           .staticImportance(ability.castEfficiency.importance);
       });
     });
+  }
+  statistic() {
+    return (
+      <Panel
+        title="Abilities"
+        position={500}
+        pad={false}
+      >
+        <CastEfficiencyComponent
+          categories={this.abilities.constructor.SPELL_CATEGORIES}
+          abilities={this.getCastEfficiency()}
+        />
+      </Panel>
+    );
   }
 }
 

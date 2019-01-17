@@ -7,6 +7,7 @@ import { t, Trans } from '@lingui/macro';
 import { TooltipElement } from 'common/Tooltip';
 import { i18n } from 'interface/RootLocalizationProvider';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+
 import StatisticsSectionTitle from './StatisticsSectionTitle';
 
 class Statistics extends React.PureComponent {
@@ -63,7 +64,7 @@ class Statistics extends React.PureComponent {
     delete groups[STATISTIC_CATEGORY.PANELS];
 
     return (
-      <>
+      <div className="container">
         {Object.keys(groups).map(name => {
           const statistics = groups[name];
           return (
@@ -86,7 +87,7 @@ class Statistics extends React.PureComponent {
         })}
 
         {panels && panels.sort(this.sortByPosition)}
-      </>
+      </div>
     );
   }
 }
