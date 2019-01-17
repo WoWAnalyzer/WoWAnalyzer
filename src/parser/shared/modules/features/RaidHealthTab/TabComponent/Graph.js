@@ -1,16 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Chart from 'chart.js/src/chart';
-import { Line } from 'react-chartjs-2';
 
 import fetchWcl from 'common/fetchWclApi';
 
-import ManaStyles from 'interface/others/ManaStyles.js';
-
-const formatDuration = (duration) => {
-  const seconds = Math.floor(duration % 60);
-  return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
-};
+import RaidHealthChart from './RaidHealthChart';
 
 const CLASS_CHART_LINE_COLORS = {
   DeathKnight: 'rgba(196, 31, 59, 0.6)',
@@ -26,6 +19,7 @@ const CLASS_CHART_LINE_COLORS = {
   Warrior: 'rgba(199, 156, 110, 0.6)',
   DemonHunter: 'rgba(163, 48, 201, 0.6)',
 };
+
 
 class Graph extends React.PureComponent {
   static propTypes = {
@@ -77,8 +71,7 @@ class Graph extends React.PureComponent {
 
     const { start, end } = this.props;
 
-    const series = data.series;
-    const players = series.filter(item => !!CLASS_CHART_LINE_COLORS[item.type]);
+    const players = data.series.filter(item => !!CLASS_CHART_LINE_COLORS[item.type]);
 
     const entities = [];
 
@@ -110,10 +103,7 @@ class Graph extends React.PureComponent {
     }
 
     const fightDurationSec = Math.ceil((end - start) / 1000);
-    const labels = [];
     for (let i = 0; i <= fightDurationSec; i += 1) {
-      labels.push(i);
-
       entities.forEach((series) => {
         series.data[i] = series.data[i] !== undefined ? series.data[i] : series.lastValue;
         series.lastValue = series.data[i];
@@ -121,99 +111,25 @@ class Graph extends React.PureComponent {
       deathsBySecond[i] = deathsBySecond[i] !== undefined ? deathsBySecond[i] : undefined;
     }
 
-    const chartData = {
-      labels,
-      datasets: [
-        ...entities.map((series, index) => ({
-          label: series.name,
-          ...ManaStyles['Boss-0'],
-          backgroundColor: CLASS_CHART_LINE_COLORS[series.type],
-          borderColor: CLASS_CHART_LINE_COLORS[series.type],
-          data: Object.keys(series.data).map(key => series.data[key]),
-        })),
-        {
-          label: `Deaths`,
-          ...ManaStyles.Deaths,
-          data: Object.keys(deathsBySecond).map(key => deathsBySecond[key]),
-        },
-      ],
-    };
-
-    const gridLines = ManaStyles.gridLines;
-
-    const options = {
-      responsive: true,
-      scales: {
-        yAxes: [{
-          gridLines: gridLines,
-          ticks: {
-            callback: (value, index, values) => {
-              return `${value}%`;
-            },
-            min: 0,
-            max: players.length * 100,
-            fontSize: 14,
-          },
-          stacked: true,
-        }],
-        xAxes: [{
-          gridLines: gridLines,
-          ticks: {
-            callback: (value, index, values) => {
-              if (value % 30 === 0) {
-                return formatDuration(value);
-              }
-              return null;
-            },
-            fontSize: 14,
-          },
-        }],
-      },
-      animation: {
-        duration: 0,
-      },
-      hover: {
-        animationDuration: 0,
-      },
-      responsiveAnimationDuration: 0,
-      tooltips: {
-        enabled: false,
-      },
-      legend: ManaStyles.legend,
-    };
-
-    Chart.plugins.register({
-      id: 'specialEventIndiactor',
-      afterDatasetsDraw: (chart) => {
-        const ctx = chart.ctx;
-
-        chart.data.datasets.forEach(function (dataset, i) {
-          const meta = chart.getDatasetMeta(i);
-          if (dataset.label === 'Deaths' && !meta.hidden) {
-            meta.data.forEach(function (element, index) {
-              const position = element.tooltipPosition();
-              if (!isNaN(position.y)) {
-                ctx.strokeStyle = element._view.borderColor;
-                ctx.beginPath();
-                ctx.lineWidth = ManaStyles.Deaths.borderWidth;
-                ctx.moveTo(position.x, chart.chartArea.top);
-                ctx.lineTo(position.x, chart.chartArea.bottom);
-                ctx.stroke();
-              }
-            });
-          }
-        });
-
-      },
+    // transform data into react-vis format
+    const playerHealth = entities.map(player => {
+      const data = Object.entries(player.data).map(([key, value]) => ({ x: Number(key), y: value }));
+      return {
+        title: player.name,
+        backgroundColor: CLASS_CHART_LINE_COLORS[player.type],
+        borderColor: CLASS_CHART_LINE_COLORS[player.type],
+        data,
+      };
     });
+    const deaths = Object.entries(deathsBySecond).filter(([_, value]) => !!value).map(([key]) => ({ x: Number(key) }));
 
     return (
       <div className="graph-container">
-        <Line
-          data={chartData}
-          options={options}
-          width={1100}
-          height={400}
+        <RaidHealthChart
+          players={playerHealth}
+          deaths={deaths}
+          startTime={start}
+          endTime={end}
         />
       </div>
     );

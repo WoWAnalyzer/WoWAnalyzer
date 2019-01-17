@@ -1,0 +1,25 @@
+.legend-wrapper.horizontal {
+  position: absolute;
+  top: -15px;
+  width: 90%;
+  left: 5%;
+
+  .rv-discrete-color-legend.horizontal {
+    white-space: nowrap;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+  }
+  .rv-discrete-color-legend-item.clickable:hover {
+    background: #2f2f2f;
+  }
+  .rv-discrete-color-legend-item.disabled .rv-discrete-color-legend-item__title {
+    text-decoration: line-through;
+  }
+}
+.rv-discrete-color-legend-item__title {
+  color: #fff;
+  display: inline-block !important;
+  margin-left: 1em !important;
+}

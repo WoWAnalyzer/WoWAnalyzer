@@ -1,163 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  FlexibleWidthXYPlot as XYPlot,
-  DiscreteColorLegend,
-  XAxis,
-  YAxis,
-  VerticalGridLines,
-  HorizontalGridLines,
-  AreaSeries,
-  LineSeries
-} from 'react-vis';
 
 import fetchWcl from 'common/fetchWclApi';
-import {formatDuration} from 'common/format';
 import SPELLS from 'common/SPELLS';
 import ManaStyles from 'interface/others/ManaStyles';
 
 import PainComponent from './PainComponent';
-import './Pain.scss';
-
-class PainChart extends React.PureComponent {
-  static propTypes = {
-    pain: PropTypes.arrayOf(PropTypes.shape({
-      x: PropTypes.number.isRequired,
-      y: PropTypes.number.isRequired,
-    })).isRequired,
-    wasted: PropTypes.arrayOf(PropTypes.shape({
-      x: PropTypes.number.isRequired,
-      y: PropTypes.number.isRequired,
-    })).isRequired,
-    bossData: PropTypes.arrayOf(PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      borderColor: PropTypes.string.isRequired,
-      backgroundColor: PropTypes.string.isRequired,
-      data: PropTypes.arrayOf(PropTypes.shape({
-        x: PropTypes.number.isRequired,
-        y: PropTypes.number.isRequired,
-      })).isRequired,
-    })).isRequired,
-  };
-
-  colors = {
-    pain: {
-      border: 'rgba(0, 143, 255, 0.6)',
-      background: 'rgba(0, 143, 255, 0.08)',
-    },
-    wasted: {
-      border: 'rgba(255, 109, 215, 0.6)',
-      background: 'rgba(255, 45, 215, 0.2)',
-    },
-  };
-
-  fillMissingData(data) {
-    // returns a copy of `data` where missing values are equal to the last known value
-    // [0, null, 1, null, null, null, 3] => [0, 0, 1, 1, 1, 1, 3]
-    const newData = [];
-    let lastY = 0;
-    data.forEach(({ x, y }) => {
-      if (y !== null) {
-        lastY = y;
-      }
-      newData.push({ x, y: lastY });
-    });
-    return newData;
-  }
-
-  render() {
-    const { pain, wasted, bossData } = this.props;
-
-    const xValues = [];
-    const yValues = [0, 25, 50, 75, 100];
-    const start = pain[0].x;
-    const end = pain[pain.length - 1].x;
-    for (let i = 0; i < (end - start); i += 60) {
-      xValues.push(i);
-    }
-
-    const fixedPain = this.fillMissingData(pain);
-    const fixedWasted = this.fillMissingData(wasted);
-    const fixedBossData = bossData.map(({ borderColor, backgroundColor, data }) => ({
-      borderColor,
-      backgroundColor,
-      data: this.fillMissingData(data),
-    }));
-
-    return (
-      <XYPlot
-        height={400}
-        yDomain={[0, 100]}
-        margin={{
-          top: 30,
-        }}
-      >
-        <DiscreteColorLegend
-          orientation="horizontal"
-          items={[
-            ...bossData.map(boss => ({ title: boss.title, color: boss.borderColor })),
-            { title: 'Pain', color: this.colors.pain.border },
-            { title: 'Pain wasted', color: this.colors.wasted.border },
-          ]}
-        />
-        <XAxis tickValues={xValues} tickFormat={value => formatDuration(value)} />
-        <YAxis tickValues={yValues} />
-        <VerticalGridLines
-          tickValues={xValues}
-          style={{
-            strokeDasharray: 3,
-            stroke: 'white',
-            fill: 'white',
-          }}
-        />
-        <HorizontalGridLines
-          tickValues={yValues}
-          style={{
-            strokeDasharray: 3,
-            stroke: 'white',
-            fill: 'white',
-          }}
-        />
-        {fixedBossData.map(boss => (
-          <AreaSeries
-            data={boss.data}
-            color={boss.backgroundColor}
-            stroke="transparent"
-            curve="curveCardinal"
-          />
-        ))}
-        {fixedBossData.map(boss => (
-          <LineSeries
-            data={boss.data}
-            color={boss.borderColor}
-            strokeWidth={2}
-            curve="curveCardinal"
-          />
-        ))}
-        <AreaSeries
-          data={fixedPain}
-          color={this.colors.pain.background}
-          stroke="transparent"
-        />
-        <LineSeries
-          data={fixedPain}
-          color={this.colors.pain.border}
-          strokeWidth={2}
-        />
-        <AreaSeries
-          data={fixedWasted}
-          color={this.colors.wasted.background}
-          stroke="transparent"
-        />
-        <LineSeries
-          data={fixedWasted}
-          color={this.colors.wasted.border}
-          strokeWidth={2}
-        />
-      </XYPlot>
-    );
-  }
-}
+import PainChart from './PainChart';
 
 class Pain extends React.PureComponent {
   static propTypes = {
@@ -216,76 +65,36 @@ class Pain extends React.PureComponent {
 
   get plot() {
     const { start, end } = this.props;
-    const painBySecond = {
-      0: 0,
-    };
-    this.state.pain.series[0].data.forEach((item) => {
-      const secIntoFight = Math.floor((item[0] - start) / 1000);
-      painBySecond[secIntoFight] = item[1];
-    });
-    const bosses = [];
-    const deadBosses = [];
-    this.state.bossHealth.series.forEach((series) => {
-      const newSeries = {
-        ...series,
-        data: {},
+
+    const pain = this.state.pain.series[0].data.map(([timestamp, amount]) => {
+      const x = Math.max(timestamp, start);
+      return {
+        x,
+        y: amount / 10,
       };
-
-      series.data.forEach((item) => {
-        const secIntoFight = Math.floor((item[0] - start) / 1000);
-
-        if (!deadBosses.includes(series.guid)) {
-          const health = item[1];
-          newSeries.data[secIntoFight] = health;
-
-          if (health === 0) {
-            deadBosses.push(series.guid);
-          }
-        }
-      });
-      bosses.push(newSeries);
     });
 
-    const overCapBySecond = {};
-    let lastOverCap;
-    let lastSecFight = start;
-    this.state.pain.series[0].events.forEach((event) => {
-      const secIntoFight = Math.floor((event.timestamp - start) / 1000);
-      if (event.waste === 0 && lastOverCap) {
-        overCapBySecond[lastOverCap + 1] = 0;
-      }
-      overCapBySecond[secIntoFight] = event.waste;
-      if (event.waste > 0) {
-        lastOverCap = secIntoFight;
-      }
-      if (secIntoFight !== lastSecFight) {
-        lastSecFight = secIntoFight;
-      }
+    const wasted = this.state.pain.series[0].events
+      .filter(event => event.waste !== undefined)
+      .map(({ timestamp, waste }) => ({ x: timestamp, y: waste }));
+
+    const bossData = this.state.bossHealth.series.map((series, i) => {
+      const data = series.data.map(([timestamp, health]) => ({ x: timestamp, y: health }));
+      return {
+        title: `${series.name} Health`,
+        borderColor: ManaStyles[`Boss-${i}`].borderColor,
+        backgroundColor: ManaStyles[`Boss-${i}`].backgroundColor,
+        data,
+      };
     });
-
-    const fightDurationSec = Math.ceil((end - start) / 1000);
-    for (let i = 0; i <= fightDurationSec; i += 1) {
-      painBySecond[i] = painBySecond[i] !== undefined ? painBySecond[i] : null;
-      overCapBySecond[i] = overCapBySecond[i] !== undefined ? overCapBySecond[i] : null;
-      bosses.forEach((series) => {
-        series.data[i] = series.data[i] !== undefined ? series.data[i] : null;
-      });
-    }
-
-    const pain = Object.entries(painBySecond).filter(([key]) => !Number.isNaN(Number(key))).map(([key, value]) => ({ x: Number(key), y: value / 10 }));
-    const wasted = Object.entries(overCapBySecond).filter(([key]) => !Number.isNaN(Number(key))).map(([key, value]) => ({ x: Number(key), y: value }));
-    const bossData = bosses.map((series, index) => ({
-      title: `${series.name} Health`,
-      borderColor: ManaStyles[`Boss-${index}`].borderColor,
-      backgroundColor: ManaStyles[`Boss-${index}`].backgroundColor,
-      data: Object.entries(series.data).map(([key, value]) => ({ x: Number(key), y: value })),
-    }));
 
     return (
       <PainChart
         pain={pain}
         wasted={wasted}
         bossData={bossData}
+        startTime={start}
+        endTime={end}
       />
     );
   }
