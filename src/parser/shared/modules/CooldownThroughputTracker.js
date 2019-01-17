@@ -1,12 +1,10 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
-
-import Analyzer from 'parser/core/Analyzer';
-
 import Panel from 'interface/others/Panel';
 import CooldownIcon from 'interface/icons/Cooldown';
 import CooldownOverview from 'interface/others/CooldownOverview';
+import Analyzer from 'parser/core/Analyzer';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 
 const debug = false;

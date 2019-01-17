@@ -4,7 +4,7 @@ import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'parser/sh
 
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
-    ...CooldownThroughputTracker.cooldownSpells,
+    ...CoreCooldownThroughputTracker.cooldownSpells,
     {
       spell: SPELLS.MANA_TEA_TALENT,
       summary: [
@@ -16,7 +16,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   ];
 
   static ignoredSpells = [
-    ...CooldownThroughputTracker.ignoredSpells,
+    ...CoreCooldownThroughputTracker.ignoredSpells,
     SPELLS.CHI_BURST_HEAL.id,
     SPELLS.REFRESHING_JADE_WIND_HEAL.id,
     SPELLS.SPIRIT_TETHER.id,

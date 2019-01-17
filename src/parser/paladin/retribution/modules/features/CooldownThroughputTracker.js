@@ -3,7 +3,7 @@ import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'parser/sh
 
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
-    ...CooldownThroughputTracker.cooldownSpells,
+    ...CoreCooldownThroughputTracker.cooldownSpells,
     {
       spell: SPELLS.AVENGING_WRATH,
       summary: [
@@ -23,9 +23,9 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       ],
     },
   ];
-  
+
   static ignoredSpells = [
-    ...CooldownThroughputTracker.ignoredSpells,
+    ...CoreCooldownThroughputTracker.ignoredSpells,
     SPELLS.UMBRAL_GLAIVE_STORM_TICK.id,
   ];
 }
