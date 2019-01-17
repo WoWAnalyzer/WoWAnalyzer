@@ -127,7 +127,7 @@ class CooldownThroughputTracker extends Analyzer {
           title="Throughput cooldowns"
           explanation={(
             <>
-              This shows the effectiveness of your throughput cooldowns and your cast behavior during them. Click on <i>More</i> to see more details.
+              This shows the effectiveness of your throughput cooldowns and your cast behavior during them. Click on <i>More</i> to see details such as the delay between casting spells and the healing or damage done with them. Take a look at the timeline for a different kind of view of your casts during buffs.
             </>
           )}
           pad={false}
