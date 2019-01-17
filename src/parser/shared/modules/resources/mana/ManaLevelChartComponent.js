@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import fetchWcl from 'common/fetchWclApi';
 
 import ManaStyles from 'interface/others/ManaStyles.js';
-import ManaLevelGraph from './ManaLevelGraph';
+import ManaLevelGraph from 'interface/others/charts/ManaLevelGraph';
 
 class Mana extends React.PureComponent {
   static propTypes = {

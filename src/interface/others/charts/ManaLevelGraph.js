@@ -11,7 +11,7 @@ import {
   LineSeries,
 } from 'react-vis';
 import { formatDuration } from 'common/format';
-import VerticalLine from 'interface/others/charts/VerticalLine';
+import VerticalLine from './VerticalLine';
 
 import './ManaLevelGraph.scss';
 
