@@ -1,0 +1,35 @@
+@import "common/Tooltip.scss";
+@import "interface/others/charts/DiscreteColorLegend.scss";
+
+@include align-legend;
+
+.tooltip-crosshair .rv-crosshair__line {
+    background: white;
+}
+
+.tooltip-crosshair  .rv-crosshair__inner__content {
+    padding: 0;
+    background: none;
+}
+
+.tooltip-crosshair .rv-crosshair__inner {
+    position: absolute;
+}
+
+.tooltip-crosshair .rv-crosshair__inner--left {
+    @include tooltip-left(14px);
+}
+
+.tooltip-crosshair .rv-crosshair__inner--left:before {
+    @include tooltip-arrow-left;
+}
+
+.tooltip-crosshair .rv-crosshair__inner--right {
+    @include tooltip-right(14px);
+}
+
+.tooltip-crosshair .rv-crosshair__inner--right:before {
+    @include tooltip-arrow-right;
+}
+
+

@@ -1,0 +1,7 @@
+@mixin align-legend {
+  .rv-discrete-color-legend-item__title {
+    color: #fff;
+    display: inline-block !important;
+    margin-left: 1em !important;
+  }
+}
