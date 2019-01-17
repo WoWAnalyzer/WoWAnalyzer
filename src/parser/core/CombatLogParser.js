@@ -544,6 +544,17 @@ class CombatLogParser {
 
     results.tabs = [];
 
+    const addStatistic = (statistic, basePosition, key) => {
+      const position = statistic.props.position !== undefined ? statistic.props.position : basePosition;
+
+      results.statistics.push(
+        React.cloneElement(statistic, {
+          key,
+          position,
+        })
+      );
+    };
+
     Object.keys(this._modules)
       .filter(key => this._modules[key].active)
       .sort((a, b) => this._modules[b].priority - this._modules[a].priority)
@@ -551,22 +562,21 @@ class CombatLogParser {
         const module = this._modules[key];
 
         if (module.statistic) {
+          let basePosition = index;
+          if (module.statisticOrder !== undefined) {
+            basePosition = module.statisticOrder;
+            console.warn('DEPRECATED', 'Setting the position of a statistic via a module\'s `statisticOrder` prop is deprecated. Set the `position` prop on the `StatisticBox` instead. Example commit: https://github.com/WoWAnalyzer/WoWAnalyzer/commit/ece1bbeca0d3721ede078d256a30576faacb803d');
+          }
+
           const statistic = module.statistic({ i18n });
           if (statistic) {
-            let position = index;
-            if (statistic.props.position !== undefined) {
-              position = statistic.props.position;
-            } else if (module.statisticOrder !== undefined) {
-              position = module.statisticOrder;
-              console.warn('DEPRECATED', 'Setting the position of a statistic via a module\'s `statisticOrder` prop is deprecated. Set the `position` prop on the `StatisticBox` instead. Example commit: https://github.com/WoWAnalyzer/WoWAnalyzer/commit/ece1bbeca0d3721ede078d256a30576faacb803d');
+            if (Array.isArray(statistic)) {
+              statistic.forEach((statistic, statisticIndex) => {
+                addStatistic(statistic, basePosition, `${key}-statistic-${statisticIndex}`);
+              });
+            } else {
+              addStatistic(statistic, basePosition, `${key}-statistic`);
             }
-
-            results.statistics.push(
-              React.cloneElement(statistic, {
-                key: `${key}-statistic`,
-                position,
-              })
-            );
           }
         }
         if (module.item) {

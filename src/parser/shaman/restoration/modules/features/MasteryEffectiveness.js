@@ -9,10 +9,11 @@ import Combatants from 'parser/shared/modules/Combatants';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import PlayerBreakdownTab from 'interface/others/PlayerBreakdownTab';
-
+import Panel from 'interface/statistics/Panel';
+import PlayerBreakdown from 'interface/others/PlayerBreakdown';
 
 import { ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
+import Statistic from 'parser/paladin/holy/modules/MasteryEffectiveness';
 
 class MasteryEffectiveness extends Analyzer {
   static dependencies = {
@@ -74,18 +75,32 @@ class MasteryEffectiveness extends Analyzer {
     const masteryPercent = this.statTracker.currentMasteryPercentage;
     const avgEffectiveMasteryPercent = this.masteryEffectivenessPercent * masteryPercent;
 
-    return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.DEEP_HEALING.id} />}
-        value={`${formatPercentage(this.masteryEffectivenessPercent)} %`}
-        position={STATISTIC_ORDER.CORE(30)}
-        label={(
-          <TooltipElement content={`The percent of your mastery that you benefited from on average (so always between 0% and 100%). Since you have ${formatPercentage(masteryPercent)}% mastery, this means that on average your heals were increased by ${formatPercentage(avgEffectiveMasteryPercent)}% by your mastery.`}>
-            Mastery benefit
-          </TooltipElement>
-        )}
-      />
-    );
+    return [
+      (
+        <StatisticBox
+          icon={<SpellIcon id={SPELLS.DEEP_HEALING.id} />}
+          value={`${formatPercentage(this.masteryEffectivenessPercent)} %`}
+          position={STATISTIC_ORDER.CORE(30)}
+          label={(
+            <TooltipElement content={`The percent of your mastery that you benefited from on average (so always between 0% and 100%). Since you have ${formatPercentage(masteryPercent)}% mastery, this means that on average your heals were increased by ${formatPercentage(avgEffectiveMasteryPercent)}% by your mastery.`}>
+              Mastery benefit
+            </TooltipElement>
+          )}
+        />
+      ),
+      (
+        <Panel
+          title="Mastery effectiveness breakdown"
+          position={200}
+          pad={false}
+        >
+          <PlayerBreakdown
+            report={this.report}
+            playersById={this.owner.playersById}
+          />
+        </Panel>
+      ),
+  ];
   }
 
   get report() {
@@ -122,19 +137,6 @@ class MasteryEffectiveness extends Analyzer {
       totalHealingWithMasteryAffectedAbilities,
       totalHealingFromMastery,
       totalMaxPotentialMasteryHealing,
-    };
-  }
-
-  tab() {
-    return {
-      title: 'Mastery',
-      url: 'mastery',
-      render: () => (
-        <PlayerBreakdownTab
-          report={this.report}
-          playersById={this.owner.playersById}
-        />
-      ),
     };
   }
 }

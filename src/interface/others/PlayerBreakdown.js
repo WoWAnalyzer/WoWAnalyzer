@@ -43,7 +43,7 @@ class PlayerBreakdown extends React.Component {
     return (
       <table className="data-table">
         <thead>
-          <tr>
+          <tr style={{ textTransform: 'uppercase' }}>
             <th>Name</th>
             <th colSpan="2">Mastery effectiveness</th>
             <th colSpan="3"><TooltipElement content="This is the amount of healing done by mastery. Things like Holy Paladin beacons or Restoration Shaman feeding are NOT included.">Healing done</TooltipElement></th>
@@ -72,7 +72,7 @@ class PlayerBreakdown extends React.Component {
                     <SpecIcon id={spec.id} />{' '}
                     {combatant.name}
                   </td>
-                  <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
+                  <td style={{ width: 50, textAlign: 'right' }}>
                     {(Math.round(player.masteryEffectiveness * 10000) / 100).toFixed(2)}%
                   </td>
                   <td style={{ width: '40%' }}>
@@ -83,7 +83,7 @@ class PlayerBreakdown extends React.Component {
                       />
                     </div>
                   </td>
-                  <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
+                  <td style={{ width: 50, textAlign: 'right' }}>
                     {(Math.round(actualHealingReceivedPercentage * 10000) / 100).toFixed(2)}%
                   </td>
                   <td style={{ width: '40%' }}>
@@ -94,7 +94,7 @@ class PlayerBreakdown extends React.Component {
                       />
                     </div>
                   </td>
-                  <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
+                  <td style={{ width: 50, textAlign: 'right' }}>
                     {(formatNumber(player.healingFromMastery))}
                   </td>
                 </tr>

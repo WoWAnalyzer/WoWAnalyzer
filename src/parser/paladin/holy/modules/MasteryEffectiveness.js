@@ -10,14 +10,20 @@ import HealingValue from 'parser/shared/modules/HealingValue';
 import { i18n } from 'interface/RootLocalizationProvider';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Statistic from 'interface/statistics/Statistic';
+import Panel from 'interface/statistics/Panel';
 import Radar from 'interface/statistics/components/DistanceRadar';
-import PlayerBreakdownTab from 'interface/others/PlayerBreakdownTab';
+import PlayerBreakdown from 'interface/others/PlayerBreakdown';
 
 import BeaconTargets from './beacons/BeaconTargets';
 import { ABILITIES_AFFECTED_BY_MASTERY } from '../constants';
 
 const debug = false;
 
+/**
+ * @property {Combatants} combatants
+ * @property {BeaconTargets} beaconTargets
+ * @property {StatTracker} statTracker
+ */
 class MasteryEffectiveness extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -205,34 +211,49 @@ class MasteryEffectiveness extends Analyzer {
     console.log('scaling (health capped)', this.scaledMasteryEffectivenessAverage);
     console.log('total mastery healing done', this.owner.formatItemHealingDone(this.totalMasteryHealingDone));
     // TODO: Should overallMasteryEffectiveness account for overhealing? It would probably be cleaner
-    return (
-      <Statistic position={STATISTIC_ORDER.CORE(10)}>
-        <div className="pad" style={{ position: 'relative' }}>
-          <label><Trans>Mastery effectiveness</Trans></label>
-          <div className="value">
-            {formatPercentage(this.overallMasteryEffectiveness, 0)}%
-          </div>
+    return [
+      (
+        <Statistic position={STATISTIC_ORDER.CORE(10)}>
+          <div className="pad" style={{ position: 'relative' }}>
+            <label><Trans>Mastery effectiveness</Trans></label>
+            <div className="value">
+              {formatPercentage(this.overallMasteryEffectiveness, 0)}%
+            </div>
 
-          <div
-            style={{
-              position: 'absolute',
-              top: 12,
-              right: 0,
-              textAlign: 'center',
-            }}
-          >
-            <Radar
-              distance={this.distanceSum / this.distanceCount}
+            <div
               style={{
-                display: 'inline-block',
+                position: 'absolute',
+                top: 12,
+                right: 0,
+                textAlign: 'center',
               }}
-              playerColor="#f58cba" // Paladin color
-            />
-            <div style={{ opacity: 0.5, lineHeight: 1, marginTop: -4, fontSize: 13 }}>Average distance</div>
+            >
+              <Radar
+                distance={this.distanceSum / this.distanceCount}
+                style={{
+                  display: 'inline-block',
+                }}
+                playerColor="#f58cba" // Paladin color
+              />
+              <div style={{ opacity: 0.5, lineHeight: 1, marginTop: -4, fontSize: 13 }}>Average distance</div>
+            </div>
           </div>
-        </div>
-      </Statistic>
-    );
+        </Statistic>
+      ),
+      (
+        <Panel
+          title="Mastery effectiveness breakdown"
+          explanation="This shows you your mastery effectiveness on each individual player and the amount of healing done to those players."
+          position={200}
+          pad={false}
+        >
+          <PlayerBreakdown
+            report={this.report}
+            playersById={this.owner.playersById}
+          />
+        </Panel>
+      ),
+    ];
   }
 
   get suggestionThresholds() {
@@ -253,19 +274,6 @@ class MasteryEffectiveness extends Analyzer {
         .actual(i18n._(t`${formatPercentage(actual)}% mastery effectiveness`))
         .recommended(i18n._(t`>${formatPercentage(recommended)}% is recommended`));
     });
-  }
-
-  tab() {
-    return {
-      title: i18n._(t`Mastery effectiveness`),
-      url: 'mastery-effectiveness',
-      render: () => (
-        <PlayerBreakdownTab
-          report={this.report}
-          playersById={this.owner.playersById}
-        />
-      ),
-    };
   }
 }
 
