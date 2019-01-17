@@ -390,30 +390,40 @@ code {
 
 table.data-table {
   width: 100%;
+
+  tr:nth-child(even) {
+    background: rgba(255, 255, 255, .03);
+  }
+  tr th, tr td {
+    padding: 7px;
+  }
+  &.compact tr th, &.compact tr td {
+    padding: 6px;
+  }
+  tr th:first-of-type, tr td:first-of-type {
+    padding-left: 22px;
+  }
+  tr th:last-of-type, tr td:last-of-type {
+    padding-right: 22px;
+  }
+  img {
+    width: 1.6em;
+    height: 1.6em;
+    margin-top: -.1em;
+  }
 }
-table.data-table thead tr, table.data-table tbody tr:not(:last-child) {
-  border-bottom: 1px solid rgba(0, 0, 0, .8);
+
+.panel-body > table.data-table {
+  margin-bottom: 20px;
+
+  tr th:first-of-type, tr td:first-of-type {
+    padding-left: 30px;
+  }
+  tr th:last-of-type, tr td:last-of-type {
+    padding-right: 30px;
+  }
 }
-table.data-table tr:nth-child(even) {
-  background: rgba(255, 255, 255, .04);
-}
-table.data-table tr th, table.data-table tr td {
-  padding: 7px;
-}
-table.data-table.compact tr th, table.data-table.compact tr td {
-  padding: 6px;
-}
-table.data-table tr th:first-of-type, table.data-table tr td:first-of-type {
-  padding-left: 22px;
-}
-table.data-table tr th:last-of-type, table.data-table tr td:last-of-type {
-  padding-right: 22px;
-}
-table.data-table img {
-  width: 1.6em;
-  height: 1.6em;
-  margin-top: -.1em;
-}
+
 .performance-bar-container {
   background: rgba(20, 20, 20, 0.8);
   border: 1px solid #000;

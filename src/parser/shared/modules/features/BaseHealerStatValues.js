@@ -440,7 +440,7 @@ class BaseHealerStatValues extends Analyzer {
                 )}
               </h4>
             </div>
-            <div className="panel-body" style={{ padding: 0 }}>
+            <div className="panel-body">
               <table className="data-table compact">
                 <thead>
                   <tr>

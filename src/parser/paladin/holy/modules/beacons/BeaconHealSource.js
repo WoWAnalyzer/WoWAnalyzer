@@ -27,8 +27,11 @@ class BeaconHealSource extends Analyzer {
     beaconTransferFactor: BeaconTransferFactor,
     // This relies on the BeaconOfVirtueNormalizer so precasting FoL into BoV is accounted for properly.
     beaconOfVirtueNormalizer: BeaconOfVirtue,
-};
+  };
 
+  get beacontransfer() {
+    return new EventFilter('beacontransfer');
+  }
   get beacontransferfailed() {
     return new EventFilter('beacontransferfailed');
   }

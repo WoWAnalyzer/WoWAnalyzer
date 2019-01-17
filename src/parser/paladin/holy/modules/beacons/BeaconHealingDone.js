@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Panel from 'interface/others/Panel';
-import Analyzer from 'parser/core/Analyzer';
+import Panel from 'interface/statistics/Panel';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 
@@ -10,14 +10,19 @@ import BeaconHealingBreakdown from './BeaconHealingBreakdown';
 
 class BeaconHealingDone extends Analyzer {
   static dependencies = {
-    beaconHealSource: BeaconHealSource, // for the events
+    beaconHealSource: BeaconHealSource,
     healingDone: HealingDone,
   };
 
   _totalBeaconHealing = new HealingValue();
   _beaconHealingBySource = {};
 
-  on_beacontransfer(event) {
+  constructor(options) {
+    super(options);
+    this.addEventListener(this.beaconHealSource.beacontransfer.by(SELECTED_PLAYER), this._onBeaconTransfer);
+  }
+
+  _onBeaconTransfer(event) {
     this._totalBeaconHealing = this._totalBeaconHealing.add(event.amount, event.absorbed, event.overheal);
 
     const source = event.originalHeal;
@@ -32,28 +37,26 @@ class BeaconHealingDone extends Analyzer {
     sourceHealing.healing = sourceHealing.healing.add(event.amount, event.absorbed, event.overheal);
   }
 
-  tab() {
-    return {
-      title: 'Beacons',
-      url: 'beacons',
-      render: () => (
-        <Panel
-          title="Beacon healing sources"
-          explanation={(
-            <>
-              Beacon healing is triggered by the <b>raw</b> healing done of your primary spells. This breakdown shows the amount of effective beacon healing replicated by each beacon transfering heal.
-            </>
-          )}
-        >
-          <BeaconHealingBreakdown
-            totalHealingDone={this.healingDone.total}
-            totalBeaconHealing={this._totalBeaconHealing}
-            beaconHealingBySource={this._beaconHealingBySource}
-            fightDuration={this.owner.fightDuration}
-          />
-        </Panel>
-      ),
-    };
+  statistic() {
+    return (
+      <Panel
+        title="Beacon healing sources"
+        explanation={(
+          <>
+            Beacon healing is triggered by the <b>raw</b> healing done of your primary spells. This breakdown shows the amount of effective beacon healing replicated by each beacon transfering heal.
+          </>
+        )}
+        position={120}
+        pad={false}
+      >
+        <BeaconHealingBreakdown
+          totalHealingDone={this.healingDone.total}
+          totalBeaconHealing={this._totalBeaconHealing}
+          beaconHealingBySource={this._beaconHealingBySource}
+          fightDuration={this.owner.fightDuration}
+        />
+      </Panel>
+    );
   }
 }
 
