@@ -86,6 +86,12 @@ class Statistics extends React.PureComponent {
           );
         })}
 
+        {panels.length > 0 && (
+          <StatisticsSectionTitle>
+            Details
+          </StatisticsSectionTitle>
+        )}
+
         {panels && panels.sort(this.sortByPosition)}
       </div>
     );
