@@ -169,11 +169,6 @@ class SelfHealChart extends React.Component {
             { title: 'Health', color: this.colors.HEALTH },
             { title: `${selfHealSpell.name} Cast`, color: this.colors.SELF_HEAL },
           ]}
-          style={{
-            position: 'absolute',
-            top: '-15px',
-            left: '35%',
-          }}
         />
         <XAxis title="Time" tickFormat={value => formatDuration((value - startTime) / 1000)} />
         <YAxis title="Health %" position="middle" tickFormat={value => formatNumber(value)} />

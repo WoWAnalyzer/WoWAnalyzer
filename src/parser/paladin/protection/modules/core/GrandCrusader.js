@@ -1,11 +1,11 @@
 import React from 'react';
-import { Line as LineChart } from 'react-chartjs-2';
 import Analyzer from 'parser/core/Analyzer';
 import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { formatPercentage } from 'common/format';
+import OneVariableBinomialChart from 'interface/others/charts/OneVariableBinomialChart';
 
 const BASE_PROC_CHANCE = 0.15;
 const FA_PROC_CHANCE = 0.1;
@@ -65,7 +65,7 @@ class GrandCrusader extends Analyzer {
     this._inferredResets += 1;
   }
 
-  plot() {
+  get plot() {
     // stolen from BrM code
 
     // not the most efficient, but close enough and pretty safe
@@ -85,71 +85,36 @@ class GrandCrusader extends Analyzer {
     const reset_prob = (i) => binom(this._resetChances, i) * Math.pow(this.procChance, i) * Math.pow(1 - this.procChance, this._resetChances - i);
 
     // probability of having exactly k resets of the n chances
-    const reset_probs = Array.from({length: this._resetChances}, (_x, i) => {
+    const resetProbabilities = Array.from({length: this._resetChances}, (_x, i) => {
       return { x: i, y: reset_prob(i) };
     });
 
+    const actualReset = {
+      x: this._totalResets,
+      y: reset_prob(this._totalResets),
+    };
+
     return (
-      <LineChart
-        data={{
-          labels: Array.from({length: this._resetChances}, (_x, i) => i),
-          datasets: [
-            {
-              label: 'Actual Resets',
-              data: [{ x: this._totalResets, y: reset_prob(this._totalResets) }],
-              backgroundColor: '#00ff96',
-              type: 'scatter',
-            },
-            {
-              label: 'Reset Probability',
-              data: reset_probs,
-              backgroundColor: 'rgba(255, 139, 45, 0.2)',
-              borderColor: 'rgb(255, 139, 45)',
-              borderWidth: 2,
-              radius: 0,
-            },
-          ],
-        }}
-        options={{
-          tooltips: {
-            callbacks: {
-              title: (tooltipItem, data) => data.datasets[tooltipItem[0].datasetIndex].label,
-              label: (tooltipItem, data) => `${formatPercentage(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].x / this._resetChances)}%`,
-            },
-          },
-          legend: {
-            display: false,
-          },
-          scales: {
-            xAxes: [{
-              stacked: true,
-              scaleLabel: {
-                display: true,
-                labelString: 'Reset %',
-                lineHeight: 1,
-                padding: 0,
-                fontColor: '#ccc',
-              },
-              ticks: {
-                fontColor: '#ccc',
-                callback: (x) => `${formatPercentage(x / this._resetChances, 0)}%`,
-              },
-            }],
-            yAxes: [{
-              stacked: true,
-              scaleLabel: {
-                display: true,
-                labelString: 'Likelihood',
-                fontColor: '#ccc',
-              },
-              ticks: {
-                fontColor: '#ccc',
-                callback: (y) => `${formatPercentage(y, 0)}%`,
-              },
-            }],
+      <OneVariableBinomialChart
+        probabilities={resetProbabilities}
+        actualEvent={actualReset}
+        xAxis={{
+          title: 'Reset %',
+          tickFormat: (value) => `${formatPercentage(value / this._resetChances, 0)}%`,
+          style: {
+            fill: 'white',
           },
         }}
-        />
+        yAxis={{
+          title: 'Likelihood',
+          tickFormat: (value) => `${formatPercentage(value, 0)}%`,
+          style: {
+            fill: 'white',
+          },
+        }}
+        tooltip={(point) => `Actual Resets: ${formatPercentage(point.x / this._resetChances, 2)}%`}
+        yDomain={[0, 0.2]}
+      />
     );
   }
 
@@ -167,7 +132,7 @@ class GrandCrusader extends Analyzer {
         )}
       >
         <div style={{padding: '8px'}}>
-          {this.plot()}
+          {this.plot}
           <p>Likelihood of having <em>exactly</em> as many resets as you did with your traits and talents.</p>
         </div>
       </StatisticBox>

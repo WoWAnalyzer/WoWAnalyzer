@@ -109,11 +109,6 @@ class Maelstrom extends React.PureComponent {
             { title: 'Maelstrom', color: COLORS.MAELSTROM_BORDER },
             { title: 'Wasted Maelstrom', color: COLORS.WASTED_MAELSTROM_BORDER },
           ]}
-          style={{
-            position: 'absolute',
-            top: '-15px',
-            left: '40%',
-          }}
         />
         <XAxis title="Time" tickFormat={value => formatDuration(value)} />
         <YAxis title="Maelstrom" />

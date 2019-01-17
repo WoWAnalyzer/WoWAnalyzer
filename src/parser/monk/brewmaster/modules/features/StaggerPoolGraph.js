@@ -63,11 +63,6 @@ class StaggerGraph extends React.Component {
             { title: 'Max Health', color: COLORS.maxHp },
             { title: 'Player Death', color: COLORS.death },
           ]}
-          style={{
-            position: 'absolute',
-            top: '-15px',
-            left: '30%',
-          }}
         />
         <XAxis title="Time" tickFormat={value => formatDuration((value - startTime) / 1000)} />
         <YAxis title="Health" tickFormat={value => formatNumber(value)} />

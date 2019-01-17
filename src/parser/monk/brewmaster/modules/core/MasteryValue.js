@@ -1,6 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { FlexibleWidthXYPlot as XYPlot, XAxis, YAxis, LineSeries, AreaSeries, MarkSeries, Crosshair } from 'react-vis';
 import 'react-vis/dist/style.css';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
@@ -9,9 +7,9 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import LazyLoadStatisticBox from 'interface/others/LazyLoadStatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
+import OneVariableBinomialChart from 'interface/others/charts/OneVariableBinomialChart';
 import DamageTaken from './DamageTaken';
 
-import './MasteryValue.scss';
 
 // coefficients to calculate dodge chance from agility
 const MONK_DODGE_COEFFS = {
@@ -107,63 +105,6 @@ export function baseDodge(agility, dodge_rating = 0) {
   // the x / (x + k) formula is commonly used by the wow team to
   // implement diminishing returns
   return (base + chance / (chance * MONK_DODGE_COEFFS.v + MONK_DODGE_COEFFS.h)) / 100;
-}
-
-class DodgeGraph extends React.Component {
-  static propTypes = {
-    dodgeableHits: PropTypes.number.isRequired,
-    dodgeProbabilities: PropTypes.array.isRequired,
-    actualDodge: PropTypes.object.isRequired,
-  };
-
-  state = {
-    hover: null,
-  };
-
-  render() {
-    const { dodgeableHits, dodgeProbabilities, actualDodge } = this.props;
-    return (
-      <XYPlot
-        height={150}
-        yDomain={[0, 0.4]}
-        onMouseLeave={() => this.setState({ hover: null })}
-      >
-        <XAxis title="Dodge %" tickFormat={value => `${formatPercentage(value / dodgeableHits, 0)}%`} />
-        <YAxis title="Likelihood" tickFormat={value => `${formatPercentage(value, 0)}%`} />
-        <AreaSeries
-          data={dodgeProbabilities}
-          color="rgba(255, 139, 45, 0.2)"
-          stroke="transparent"
-          curve="curveCardinal"
-        />
-        <LineSeries
-          data={dodgeProbabilities}
-          opacity={1}
-          stroke="rgba(255, 139, 45)"
-          strokeStyle="solid"
-          curve="curveCardinal"
-        />
-        <MarkSeries
-          data={[ actualDodge ]}
-          color="#00ff96"
-          onNearestX={d => this.setState({ hover: d })}
-          size={3}
-        />
-        {this.state.hover && (
-          <Crosshair
-            values={[ actualDodge ]}
-            style={{
-              line: { display: 'none' },
-            }}
-          >
-            <div className="react-tooltip-lite mastery-value-tooltip">
-              Actual Dodge: {formatPercentage(actualDodge.x / dodgeableHits, 2)}%
-            </div>
-          </Crosshair>
-        )}
-      </XYPlot>
-    );
-  }
 }
 
 /**
@@ -430,10 +371,15 @@ class MasteryValue extends Analyzer {
     };
 
     return (
-      <DodgeGraph
-        dodgeableHits={this.totalDodgeableHits}
-        dodgeProbabilities={dodge_probs}
-        actualDodge={actualDodge}
+      <OneVariableBinomialChart
+        probabilities={dodge_probs}
+        actualEvent={actualDodge}
+        yDomain={[0, 0.4]}
+        xAxis={{
+          title: 'Dodge %',
+          tickFormat: (value) => `${formatPercentage(value / this.totalDodgeableHits, 0)}%`,
+        }}
+        tooltip={(point) => `Actual Dodge: ${formatPercentage(point.x / this.totalDodgeableHits, 2)}%`}
       />
     );
   }
