@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './VerticalLine.scss';
+import Tooltip from 'common/Tooltip';
+
+import './VerticalLine.css';
 
 class VerticalLine extends React.Component {
   static propTypes = {
@@ -17,13 +19,6 @@ class VerticalLine extends React.Component {
     style: {},
     className: '',
   };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      showTooltip: false,
-    };
-  }
 
   render() {
     const {
@@ -54,20 +49,30 @@ class VerticalLine extends React.Component {
           ...style.wrapper,
         }}
       >
-        <div
-          className="rv-vertical-line__line"
-          style={{
-            height: `${innerHeight}px`,
-            ...style.line,
-          }}
-          onMouseEnter={() => this.setState({ showTooltip: true })}
-          onMouseLeave={() => this.setState({ showTooltip: false })}
-        />
 
-        {children && this.state.showTooltip && (
-          <div className={`rv-vertical-line__tooltip rv-vertical-line__tooltip--${orientation} react-tooltip-lite`}>
-            {children}
-          </div>
+        {!children && (
+          <div
+            className="rv-vertical-line__line"
+            style={{
+              height: `${innerHeight}px`,
+              ...style.line,
+            }}
+          />
+        )}
+
+        {children && (
+          <Tooltip
+            content={children}
+            direction={orientation}
+          >
+            <div
+              className="rv-vertical-line__line"
+              style={{
+                height: `${innerHeight}px`,
+                ...style.line,
+              }}
+            />
+          </Tooltip>
         )}
       </div>
     );

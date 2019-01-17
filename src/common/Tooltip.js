@@ -20,6 +20,11 @@ export default class Tooltip extends React.Component {
      */
     className: PropTypes.string,
     /**
+     * Direction of the tooltip, where is it rendered
+     * Default: 'down'
+     */
+    direction: PropTypes.string,
+    /**
      * Boolean which states, if a person can access the tooltip contents (and click links, select and copy text etc.)
      * Default: false
      */
@@ -28,6 +33,7 @@ export default class Tooltip extends React.Component {
 
   static defaultProps = {
     className: '',
+    direction: 'down',
     hoverable: false,
   };
 
@@ -36,13 +42,14 @@ export default class Tooltip extends React.Component {
       content,
       children,
       className,
+      direction,
       hoverable,
       ...others
     } = this.props;
     return (
       <ReactTooltip
         className={className}
-        direction="down"
+        direction={direction}
         tipContentHover={hoverable}
         content={content}
         {...others}
@@ -69,6 +76,11 @@ export class TooltipElement extends React.Component {
      */
     className: PropTypes.string,
     /**
+     * Direction of the tooltip, where is it rendered
+     * Default: 'down'
+     */
+    direction: PropTypes.string,
+    /**
      * Additional inline styles that are appended to the wrapper element
      * Default: {}
      */
@@ -87,6 +99,7 @@ export class TooltipElement extends React.Component {
 
   static defaultProps = {
     className: '',
+    direction: 'down',
     style: {},
     tooltipClassName: '',
     hoverable: false,
@@ -97,6 +110,7 @@ export class TooltipElement extends React.Component {
       content,
       children,
       className,
+      direction,
       style,
       tooltipClassName,
       hoverable,
@@ -106,7 +120,7 @@ export class TooltipElement extends React.Component {
       <ReactTooltip
         content={content}
         className={tooltipClassName}
-        direction="down"
+        direction={direction}
         tipContentHover={hoverable}
         {...others}
       >
