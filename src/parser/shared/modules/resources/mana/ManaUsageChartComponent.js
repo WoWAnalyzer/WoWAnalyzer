@@ -1,50 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Line} from 'react-chartjs-2';
 
 import { TooltipElement } from 'common/Tooltip';
-import {formatThousands } from '../../../../../common/format';
-import {formatDuration} from '../../../../../common/format';
 
-import ManaStyles from '../../../../../interface/others/ManaStyles.js';
-
-const baseConfig = {
-  responsive: true,
-  scales: {
-    yAxes: [{
-      gridLines: ManaStyles.gridLines,
-      ticks: {
-        callback: (percentage, index, values) => {
-          return formatThousands(percentage);
-        },
-        fontSize: 14,
-      },
-    }],
-    xAxes: [{
-      gridLines: ManaStyles.gridLines,
-      ticks: {
-        callback: (seconds, index, values) => {
-          if (seconds % 30 === 0) {
-            return formatDuration(seconds);
-          }
-          return null;
-        },
-        fontSize: 14,
-      },
-    }],
-  },
-  animation: {
-    duration: 0,
-  },
-  hover: {
-    animationDuration: 0,
-  },
-  responsiveAnimationDuration: 0,
-  tooltips: {
-    enabled: false,
-  },
-  legend: ManaStyles.legend,
-};
+import ManaUsageGraph from './ManaUsageGraph';
 
 class HealingDoneGraph extends React.PureComponent {
   static propTypes = {
@@ -98,7 +57,7 @@ class HealingDoneGraph extends React.PureComponent {
       0: 0,
     };
     const manaLevelPerFrame = {
-      0: 100,
+      0: 1,
     };
     manaUpdates.forEach((item) => {
       const frame = Math.floor((item.timestamp - start) / 1000 / interval);
@@ -116,26 +75,18 @@ class HealingDoneGraph extends React.PureComponent {
       manaLevelPerFrame[i] = manaLevelPerFrame[i] !== undefined ? manaLevelPerFrame[i] : null;
     }
 
-    const chartData = {
-      labels,
-      datasets: [
-        {
-          label: `Mana`,
-          ...ManaStyles.Mana,
-          data: Object.keys(manaLevelPerFrame).map(key => manaLevelPerFrame[key] !== null ? manaLevelPerFrame[key] * max : null),
-        },
-        {
-          label: `HPS`,
-          ...ManaStyles.HPS,
-          data: Object.keys(healingPerFrame).map(key => healingPerFrame[key] !== null ? healingPerFrame[key] / interval : null),
-        },
-        {
-          label: `Mana used`,
-          ...ManaStyles.ManaUsed,
-          data: Object.keys(manaUsagePerFrame).map(key => manaUsagePerFrame[key] !== null ? manaUsagePerFrame[key] * max : null),
-        },
-      ],
-    };
+    let lastKnown = null;
+    const mana = Object.values(manaLevelPerFrame).map((value, i) => {
+      if (value !== null) {
+        lastKnown = value;
+      }
+      return {
+        x: labels[i],
+        y: lastKnown * max,
+      };
+    });
+    const healing = Object.values(healingPerFrame).map((value, i) => ({ x: labels[i], y: value / interval }));
+    const manaUsed = Object.values(manaUsagePerFrame).map((value, i) => ({ x: labels[i], y: value * max }));
 
     return (
       <>
@@ -145,12 +96,11 @@ class HealingDoneGraph extends React.PureComponent {
           </TooltipElement>: <input type="number" min="1" max="30" value={interval} className="form-control" onChange={e => this.setState({ interval: Number(e.target.value) || 5 })} /> seconds
         </div>
 
-        <div className="graph-container">
-          <Line
-            data={chartData}
-            options={baseConfig}
-            width={1100}
-            height={400}
+        <div className="graph-container" style={{ marginBottom: 20 }}>
+          <ManaUsageGraph
+            mana={mana}
+            healing={healing}
+            manaUsed={manaUsed}
           />
         </div>
       </>
