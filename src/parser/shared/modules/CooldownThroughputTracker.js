@@ -123,7 +123,15 @@ class CooldownThroughputTracker extends Analyzer {
       icon: CooldownIcon,
       url: 'cooldowns',
       render: () => (
-        <Panel>
+        <Panel
+          title="Throughput cooldowns"
+          explanation={(
+            <>
+              This shows the effectiveness of your throughput cooldowns and your cast behavior during them. Click on <i>More</i> to see more details.
+            </>
+          )}
+          pad={false}
+        >
           <CooldownOverview
             fightStart={this.owner.fight.start_time}
             fightEnd={this.owner.fight.end_time}
