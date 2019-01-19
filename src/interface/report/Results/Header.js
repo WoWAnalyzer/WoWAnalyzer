@@ -96,9 +96,16 @@ class Headers extends React.PureComponent {
   renderBackground() {
     const { boss } = this.props;
 
+    let backgroundImage = null;
+    let backgroundPosition = null;
+    if (boss) {
+      backgroundImage = boss.background;
+      backgroundPosition = boss.backgroundPosition;
+    }
+
     return (
       <div className="background">
-        <div className="img" style={{ backgroundImage: `url(${boss.background})`, backgroundPosition: boss.backgroundPosition }} />
+        <div className="img" style={{ backgroundImage: `url(${backgroundImage})`, backgroundPosition: backgroundPosition }} />
       </div>
     );
   }
