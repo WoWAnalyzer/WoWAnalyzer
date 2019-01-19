@@ -61,18 +61,24 @@ class PlayerSelection extends React.PureComponent {
 
     players.forEach(player => {
       const character = charactersById[player.guid];
+      player.parsable = true;
+      if (player.combatant.error) {
+        player.parsable = false;
+        player.error = 'Warcraft Logs ran into an error parsing the log and is not giving us all the necessary information. Please update your Warcraft Logs Uploader and reupload your log to try again.';
+      }
+
       player.avatar = character && character.thumbnail ? `https://render-${character.region}.worldofwarcraft.com/character/${character.thumbnail.replace('avatar','inset')}` : '/img/fallback-character.jpg';
       player.background = character && character.thumbnail ? `https://render-${character.region}.worldofwarcraft.com/character/${character.thumbnail.replace('avatar','main')}` : '/img/fallback-character.jpg';
       player.spec = SPECS[player.combatant.specID];
       player.analysisUrl = makeUrl(player.id);
     });
-    
+
     return (
       <div className={`player-selection-container${this.state.selectedPlayer ? ' show-info' : ''}`}>
         <div className="player-selection">
           {players.sort(sortPlayers).map(player => (
             <PlayerTile
-              key={player.guid} 
+              key={player.guid}
               player={player}
               selectedPlayer={this.state.selectedPlayer}
               analysisUrl={player.analysisUrl}
@@ -82,7 +88,7 @@ class PlayerSelection extends React.PureComponent {
         </div>
         <div className="player-info">
           {
-            this.state.selectedPlayer && 
+            this.state.selectedPlayer &&
             <PlayerInfo player={this.state.selectedPlayer} />
           }
         </div>
