@@ -6,17 +6,20 @@
   text-shadow: 0 0 0.6px currentColor;
   position: relative;
 
+  &.standard {
+    height: 165px;
+  }
   &.small {
     height: 100px;
   }
   &.medium {
     height: 140px;
   }
-  &.standard {
-    height: 165px;
-  }
   &.large {
     height: 360px;
+  }
+  &.flexible {
+    height: auto;
   }
 }
 .statistic .pad {

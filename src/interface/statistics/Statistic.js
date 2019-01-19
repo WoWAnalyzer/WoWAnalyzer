@@ -19,7 +19,7 @@ class Statistic extends React.PureComponent {
     category: PropTypes.oneOf(Object.values(STATISTIC_CATEGORY)),
     // eslint-disable-next-line react/no-unused-prop-types
     position: PropTypes.number,
-    size: PropTypes.oneOf(['small', 'medium', 'standard']),
+    size: PropTypes.oneOf(['standard', 'small', 'medium', 'large', 'flexible']),
     creator: PropTypes.shape({
       name: PropTypes.string.isRequired,
     }),

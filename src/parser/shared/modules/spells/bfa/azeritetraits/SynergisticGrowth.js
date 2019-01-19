@@ -1,9 +1,13 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+
 import { formatPercentage, formatNumber } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
-import SPELLS from 'common/SPELLS/index';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import SPELLS from 'common/SPELLS';
+import UptimeIcon from 'interface/icons/Uptime';
+import MasteryIcon from 'interface/icons/Mastery';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Analyzer from 'parser/core/Analyzer';
 
 /**
  Casting Wild Growth grants you 165 Mastery for 10 sec sec. This cannot occur more than once every 30 sec.
@@ -37,17 +41,14 @@ class SynergisticGrowth extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
-        trait={SPELLS.SYNERGISTIC_GROWTH.id}
-        value={`${formatNumber(this.averageStatGain)} average Mastery`}
-        tooltip={(
-          <>
-            {formatPercentage(this.totalBuffUptime)}% Uptime<br />
-            {this.totalBuffProcs} Total Procs
-          </>
-        )}
-      />
+      <AzeritePowerStatistic size="medium">
+        <BoringSpellValueText
+          spell={SPELLS.SYNERGISTIC_GROWTH}
+        >
+          <UptimeIcon /> {formatPercentage(this.totalBuffUptime, 0)}% <small>uptime</small><br />
+          <MasteryIcon /> {formatNumber(this.averageStatGain)} <small>average Mastery gained</small>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }

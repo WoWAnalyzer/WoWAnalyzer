@@ -1,10 +1,16 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
-import Analyzer from 'parser/core/Analyzer';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
+import UptimeIcon from 'interface/icons/Uptime';
+import CriticalStrikeIcon from 'interface/icons/CriticalStrike';
+import VersatilityIcon from 'interface/icons/Versatility';
+import HasteIcon from 'interface/icons/Haste';
+import MasteryIcon from 'interface/icons/Mastery';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Analyzer from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
 const elementalWhirlStats = traits => Object.values(traits).reduce((obj, rank) => {
@@ -112,39 +118,38 @@ class ElementalWhirl extends Analyzer {
   statistic() {
 
     return (
-      <TraitStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
-        trait={SPELLS.ELEMENTAL_WHIRL.id}
-        value={(
-          <>
-            {formatPercentage(this.averageUptime)}% average uptime <br />
-            {formatNumber(this.averageHaste)} average Haste <br />
-            {formatNumber(this.averageVers)} average Versatility <br />
-            {formatNumber(this.averageCrit)} average Crit <br />
-            {formatNumber(this.averageMast)} average Mastery
-          </>)}
-        tooltip={(
-          <>
-            {SPELLS.ELEMENTAL_WHIRL.name} grants <strong>{this.stat}</strong> of a secondary stat while active.<br />
-            <ul>
-              <li>
-                You procced {SPELLS.ELEMENTAL_WHIRL_HASTE.name} <strong>{this.hasteProcs} {(this.hasteProcs > 1 || this.hasteProcs === 0) ? 'times' : 'time'}</strong>.
-                ({formatPercentage(this.uptime(SPELLS.ELEMENTAL_WHIRL_HASTE.id))}% uptime)
-              </li>
-              <li>
-                You procced {SPELLS.ELEMENTAL_WHIRL_VERSATILITY.name} <strong>{this.versProcs} {(this.versProcs > 1 || this.versProcs === 0) ? 'times' : 'time'}</strong>.
-                ({formatPercentage(this.uptime(SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id))}% uptime)
-              </li>
-              <li>You procced {SPELLS.ELEMENTAL_WHIRL_CRIT.name} <strong>{this.critProcs}  {(this.critProcs > 1 || this.critProcs === 0) ? 'times' : 'time'}</strong>.
+      <AzeritePowerStatistic size="flexible">
+        <BoringSpellValueText
+          spell={SPELLS.ELEMENTAL_WHIRL}
+          tooltip={(
+            <>
+              {SPELLS.ELEMENTAL_WHIRL.name} grants <strong>{this.stat}</strong> of a secondary stat while active.<br />
+              <ul>
+                <li>
+                  You procced {SPELLS.ELEMENTAL_WHIRL_HASTE.name} <strong>{this.hasteProcs} {(this.hasteProcs > 1 || this.hasteProcs === 0) ? 'times' : 'time'}</strong>.
+                  ({formatPercentage(this.uptime(SPELLS.ELEMENTAL_WHIRL_HASTE.id))}% uptime)
+                </li>
+                <li>
+                  You procced {SPELLS.ELEMENTAL_WHIRL_VERSATILITY.name} <strong>{this.versProcs} {(this.versProcs > 1 || this.versProcs === 0) ? 'times' : 'time'}</strong>.
+                  ({formatPercentage(this.uptime(SPELLS.ELEMENTAL_WHIRL_VERSATILITY.id))}% uptime)
+                </li>
+                <li>You procced {SPELLS.ELEMENTAL_WHIRL_CRIT.name} <strong>{this.critProcs}  {(this.critProcs > 1 || this.critProcs === 0) ? 'times' : 'time'}</strong>.
                   ({formatPercentage(this.uptime(SPELLS.ELEMENTAL_WHIRL_CRIT.id))}% uptime)
-              </li>
-              <li>You procced {SPELLS.ELEMENTAL_WHIRL_MASTERY.name} <strong>{this.masteryProcs}  {(this.masteryProcs > 1 || this.masteryProcs === 0) ? 'times' : 'time'}</strong>.
+                </li>
+                <li>You procced {SPELLS.ELEMENTAL_WHIRL_MASTERY.name} <strong>{this.masteryProcs}  {(this.masteryProcs > 1 || this.masteryProcs === 0) ? 'times' : 'time'}</strong>.
                   ({formatPercentage(this.uptime(SPELLS.ELEMENTAL_WHIRL_MASTERY.id))}% uptime)
-              </li>
-            </ul>
-          </>
-        )}
-      />
+                </li>
+              </ul>
+            </>
+          )}
+        >
+          <UptimeIcon /> {formatPercentage(this.averageUptime, 0)}% <small>uptime</small><br />
+          <CriticalStrikeIcon /> {formatNumber(this.averageCrit)} <small>average Critical Strike gained</small><br />
+          <HasteIcon /> {formatNumber(this.averageHaste)} <small>average Haste gained</small><br />
+          <MasteryIcon /> {formatNumber(this.averageMast)} <small>average Mastery gained</small><br />
+          <VersatilityIcon /> {formatNumber(this.averageVers)} <small>average Versatility gained</small>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }
