@@ -1,10 +1,10 @@
-// import Background from './images/backgrounds/FridaIronbellows.jpg';
+import Background from './images/backgrounds/OpulenceTreasureGuardian.jpg';
 // import Headshot from './images/headshots/FridaIronbellows.png';
 
 export default {
   id: 2271,
   name: 'Opulence Treasure Guardian', // Alliance
-  // TODO: background: Background,
+  background: Background,
   // TODO: headshot: Headshot,
   icon: 'achievement_boss_zuldazar_treasuregolem',
   fight: {
