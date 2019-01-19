@@ -2,7 +2,7 @@
 // import Headshot from './images/headshots/FridaIronbellows.png';
 
 export default {
-  id: 2337,
+  id: 2280,
   name: 'Stormwall Blockade', // Horde
   // TODO: background: Background,
   // TODO: headshot: Headshot,

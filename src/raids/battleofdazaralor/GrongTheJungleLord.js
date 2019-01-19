@@ -2,7 +2,7 @@
 // import Headshot from './images/headshots/FridaIronbellows.png';
 
 export default {
-  id: 2325,
+  id: 2263,
   name: 'Grong, the Jungle Lord', // Horde
   // TODO: background: Background,
   // TODO: headshot: Headshot,

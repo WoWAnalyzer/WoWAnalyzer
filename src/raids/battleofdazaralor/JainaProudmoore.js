@@ -2,7 +2,7 @@
 // import Headshot from './images/headshots/FridaIronbellows.png';
 
 export default {
-  id: 2343,
+  id: 2281,
   name: 'Jaina Proudmoore', // Horde
   // TODO: background: Background,
   // TODO: headshot: Headshot,

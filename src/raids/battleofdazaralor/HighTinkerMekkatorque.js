@@ -2,7 +2,7 @@
 // import Headshot from './images/headshots/FridaIronbellows.png';
 
 export default {
-  id: 2334,
+  id: 2276,
   name: 'High Tinker Mekkatorque',
   // TODO: background: Background,
   // TODO: headshot: Headshot,

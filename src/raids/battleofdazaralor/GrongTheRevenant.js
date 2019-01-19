@@ -2,7 +2,7 @@
 // import Headshot from './images/headshots/FridaIronbellows.png';
 
 export default {
-  id: 2340,
+  id: 2284,
   name: 'Grong the Revenant', // Alliance only
   // TODO: background: Background,
   // TODO: headshot: Headshot,

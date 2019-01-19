@@ -1,8 +1,9 @@
 // import Background from './images/backgrounds/FridaIronbellows.jpg';
 // import Headshot from './images/headshots/FridaIronbellows.png';
 
+// aka Jadefire Masters (A)
 export default {
-  id: 2323,
+  id: 2285,
   name: 'Jadefire Masters - Grimfang and Firecaller', // Alliance
   // TODO: background: Background,
   // TODO: headshot: Headshot,

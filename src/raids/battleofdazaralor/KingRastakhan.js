@@ -2,7 +2,7 @@
 // import Headshot from './images/headshots/FridaIronbellows.png';
 
 export default {
-  id: 2335,
+  id: 2272,
   name: 'King Rastakhan', // Alliance
   // TODO: background: Background,
   // TODO: headshot: Headshot,

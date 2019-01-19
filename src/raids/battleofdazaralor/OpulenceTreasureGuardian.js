@@ -2,7 +2,7 @@
 // import Headshot from './images/headshots/FridaIronbellows.png';
 
 export default {
-  id: 2342,
+  id: 2271,
   name: 'Opulence Treasure Guardian', // Alliance
   // TODO: background: Background,
   // TODO: headshot: Headshot,

@@ -2,7 +2,7 @@
 // import Headshot from './images/headshots/FridaIronbellows.png';
 
 export default {
-  id: 2330,
+  id: 2268,
   name: 'Conclave of the Chosen', // Alliance only
   // TODO: background: Background,
   // TODO: headshot: Headshot,
