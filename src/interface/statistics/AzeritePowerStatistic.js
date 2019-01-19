@@ -15,7 +15,7 @@ AzeritePowerStatistic.propTypes = {
 };
 AzeritePowerStatistic.defaultProps = {
   category: STATISTIC_CATEGORY.ITEMS,
-  position: STATISTIC_ORDER.OPTIONAL(),
+  position: STATISTIC_ORDER.OPTIONAL(1),
 };
 
 export default AzeritePowerStatistic;

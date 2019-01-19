@@ -10,6 +10,17 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
 import StatisticsSectionTitle from './StatisticsSectionTitle';
 
+function sizeToInt(size) {
+  switch (size) {
+    case 'standard': return 0;
+    case 'small': return -2;
+    case 'medium': return -1;
+    case 'large': return 2;
+    case 'flexible': return 1;
+    default: return 0;
+  }
+}
+
 class Statistics extends React.PureComponent {
   static propTypes = {
     parser: PropTypes.object.isRequired,
@@ -21,7 +32,10 @@ class Statistics extends React.PureComponent {
   };
 
   sortByPosition(a, b) {
-    return a.props.position - b.props.position;
+    if (a.props.position !== b.props.position) {
+      return a.props.position - b.props.position;
+    }
+    return sizeToInt(b.props.size) - sizeToInt(a.props.size);
   }
 
   renderFightDowntimeToggle() {
