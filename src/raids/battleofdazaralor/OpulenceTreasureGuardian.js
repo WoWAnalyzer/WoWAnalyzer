@@ -1,11 +1,11 @@
 import Background from './images/backgrounds/OpulenceTreasureGuardian.jpg';
-// import Headshot from './images/headshots/FridaIronbellows.png';
+import Headshot from './images/headshots/OpulenceTreasureGuardian.png';
 
 export default {
   id: 2271,
   name: 'Opulence Treasure Guardian', // Alliance
   background: Background,
-  // TODO: headshot: Headshot,
+  headshot: Headshot,
   icon: 'achievement_boss_zuldazar_treasuregolem',
   fight: {
     // TODO: Add vantusRuneBuffId: 250144,
