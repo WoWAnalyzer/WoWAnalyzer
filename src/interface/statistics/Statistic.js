@@ -31,6 +31,25 @@ class Statistic extends React.PureComponent {
     ultrawide: false,
   };
 
+  renderDrilldown(drilldown) {
+    const isAbsolute = drilldown.includes('://');
+
+    return (
+      <div className="drilldown">
+        <Tooltip content="Drill down">
+          {isAbsolute ? (
+            <a href={drilldown} target="_blank" rel="noopener noreferrer">
+              <DrilldownIcon />
+            </a>
+          ) : (
+            <Link to={drilldown}>
+              <DrilldownIcon />
+            </Link>
+          )}
+        </Tooltip>
+      </div>
+    );
+  }
   render() {
     const { children, wide, ultrawide, tooltip, size, drilldown, ...others } = this.props;
 
@@ -53,15 +72,7 @@ class Statistic extends React.PureComponent {
               </div>
             </Tooltip>
           )}
-          {drilldown && (
-            <div className="drilldown">
-              <Tooltip content="View drilldown">
-                <Link to={drilldown}>
-                  <DrilldownIcon />
-                </Link>
-              </Tooltip>
-            </div>
-          )}
+          {drilldown && this.renderDrilldown(drilldown)}
         </div>
       </div>
     );

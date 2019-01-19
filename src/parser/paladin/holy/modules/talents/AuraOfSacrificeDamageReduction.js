@@ -204,7 +204,7 @@ class AuraOfSacrificeDamageReduction extends Analyzer {
         label="Damage reduced"
         tooltip={tooltip}
         footer={footer}
-        warcraftLogs={makeWclUrl(this.owner.report.code, {
+        drilldown={makeWclUrl(this.owner.report.code, {
           fight: this.owner.fightId,
           type: 'damage-taken',
           pins: `2$Off$#244F4B$expression$${this.filter}`,

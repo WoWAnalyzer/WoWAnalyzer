@@ -163,7 +163,7 @@ class DevotionAuraDamageReduction extends Analyzer {
         value={`≈${formatNumber(this.totalDrps)} DRPS`}
         label="Estimated damage reduced"
         tooltip={tooltip}
-        warcraftLogs={makeWclUrl(this.owner.report.code, {
+        drilldown={makeWclUrl(this.owner.report.code, {
           fight: this.owner.fightId,
           type: 'damage-taken',
           pins: `2$Off$#244F4B$expression$${this.filter}`,

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Tooltip from 'common/Tooltip';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from './STATISTIC_CATEGORY';
 
@@ -18,7 +17,6 @@ class StatisticBox extends React.PureComponent {
     tooltip: PropTypes.node,
     label: PropTypes.node.isRequired,
     footer: PropTypes.node,
-    warcraftLogs: PropTypes.string,
     category: PropTypes.string,
     position: PropTypes.number,
     children: PropTypes.node,
@@ -54,7 +52,7 @@ class StatisticBox extends React.PureComponent {
   }
 
   render() {
-    const { icon, value, label, footer, warcraftLogs, children, ...others } = this.props;
+    const { icon, value, label, footer, children, ...others } = this.props;
     delete others.category;
     delete others.position;
     // TODO: make sure "tooltip" properties are correctly passed, if some contain HTML tags, fix them into <>...</>
@@ -74,20 +72,6 @@ class StatisticBox extends React.PureComponent {
           {footer && (
             <div style={{ marginTop: '2em' }}>
               {footer}
-            </div>
-          )}
-
-          {warcraftLogs && (
-            <div className="warcraft-logs-link">
-              <Tooltip content="View details on Warcraft Logs">
-                <a
-                  href={warcraftLogs}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img src="/img/wcl.png" alt="Warcraft Logs logo" />
-                </a>
-              </Tooltip>
             </div>
           )}
         </div>
