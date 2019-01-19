@@ -347,7 +347,6 @@ class CombatLogParser {
     this.characterProfile = characterProfile;
     this._timestamp = selectedFight.start_time;
     this.boss = findByBossId(selectedFight.boss);
-    console.log(selectedFight.boss)
 
     this.initializeModules({
       ...this.constructor.internalModules,
