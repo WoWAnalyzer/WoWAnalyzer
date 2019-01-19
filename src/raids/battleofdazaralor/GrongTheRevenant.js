@@ -1,11 +1,11 @@
 // import Background from './images/backgrounds/FridaIronbellows.jpg';
-// import Headshot from './images/headshots/FridaIronbellows.png';
+import Headshot from './images/headshots/GrongTheRevenant.jpg';
 
 export default {
-  id: 2340,
+  id: 2284,
   name: 'Grong the Revenant', // Alliance only
   // TODO: background: Background,
-  // TODO: headshot: Headshot,
+  headshot: Headshot,
   icon: 'achievement_boss_zuldazar_grongrevenant',
   fight: {
     // TODO: Add vantusRuneBuffId: 250144,

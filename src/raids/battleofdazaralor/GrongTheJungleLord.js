@@ -1,11 +1,11 @@
 // import Background from './images/backgrounds/FridaIronbellows.jpg';
-// import Headshot from './images/headshots/FridaIronbellows.png';
+import Headshot from './images/headshots/GrongTheJungleLord.jpg';
 
 export default {
-  id: 2325,
+  id: 2263,
   name: 'Grong, the Jungle Lord', // Horde
   // TODO: background: Background,
-  // TODO: headshot: Headshot,
+  headshot: Headshot,
   icon: 'achievement_boss_zuldazar_grong',
   fight: {
     // TODO: Add vantusRuneBuffId: 250144,
