@@ -292,7 +292,7 @@ class EncounterStats extends React.PureComponent {
     }
     // If there are below 100 parses for a given spec, use this amount to divide with to get accurate percentages.
     // This also enables us to work around certain logs being anonymised - as this will then ignore those, and cause us to divide by 99, making our percentages accurate again.
-    this.amountOfParses = Object.values(this.state.mostUsedTalents[LEVEL_15_TALENT_ROW_INDEX]).reduce((total, parses) => total + parses);
+    this.amountOfParses = Object.values(this.state.mostUsedTalents[LEVEL_15_TALENT_ROW_INDEX]).reduce((total, parses) => total + parses, 0);
     return (
       <>
         <div className="panel-heading" style={{ padding: 20, marginBottom: '2em' }}>
@@ -326,7 +326,7 @@ class EncounterStats extends React.PureComponent {
                   </div>
                 </div>
                 {this.state.mostUsedTalents.map((row, index) => (
-                  <div className="row" key={index} style={{ marginBottom: 15, paddingLeft: 20 }}>
+                  <div key={index} className="row" style={{ marginBottom: 15, paddingLeft: 20 }}>
                     <div className="col-lg-1 col-xs-2" style={{ lineHeight: '3em', textAlign: 'right' }}>{rows[index]}</div>
                     {Object.keys(row).sort((a, b) => row[b] - row[a]).map((talent, talentIndex) => (
                       <div key={talentIndex} className="col-lg-3 col-xs-4" style={{ textAlign: 'center' }}>
