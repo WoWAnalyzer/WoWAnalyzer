@@ -1,16 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Chart from 'chart.js/src/chart';
-import {Line} from 'react-chartjs-2';
 
-import fetchWcl from '../../../../../common/fetchWclApi';
+import fetchWcl from 'common/fetchWclApi';
 
-import ManaStyles from '../../../../../interface/others/ManaStyles.js';
-
-const formatDuration = (duration) => {
-  const seconds = Math.floor(duration % 60);
-  return `${Math.floor(duration / 60)}:${seconds < 10 ? `0${seconds}` : seconds}`;
-};
+import ManaStyles from 'interface/others/ManaStyles.js';
+import ManaLevelGraph from 'interface/others/charts/ManaLevelGraph';
 
 class Mana extends React.PureComponent {
   static propTypes = {
@@ -64,156 +58,42 @@ class Mana extends React.PureComponent {
 
     const { start, end, manaUpdates } = this.props;
 
-    const manaBySecond = {
-      0: 100,
-    };
-    manaUpdates.forEach((item) => {
-      const secIntoFight = Math.floor((item.timestamp - start) / 1000);
-
-      manaBySecond[secIntoFight] = item.current / item.max * 100;
-    });
-    const bosses = [];
-    const deadBosses = [];
-    this.state.bossHealth.series.forEach((series) => {
-      const newSeries = {
-        ...series,
-        data: {},
+    const mana = [{ x: start, y: 100 }]; // start with full mana
+    mana.push(...manaUpdates.map(({ timestamp, current, max }) => {
+      const x = Math.max(timestamp, start);
+      return {
+        x,
+        y: (current / max) * 100,
       };
+    }));
 
-      series.data.forEach((item) => {
-        const secIntoFight = Math.floor((item[0] - start) / 1000);
-
-        if (!deadBosses.includes(series.guid)) {
-          const health = item[1];
-          newSeries.data[secIntoFight] = health;
-
-          if (health === 0) {
-            deadBosses.push(series.guid);
-          }
-        }
-      });
-      bosses.push(newSeries);
+    const bossData = this.state.bossHealth.series.map((series, i) => {
+      const data = series.data.map(([timestamp, health]) => ({ x: timestamp, y: health }));
+      return {
+        title: `${series.name} Health`,
+        backgroundColor: ManaStyles[`Boss-${i}`].backgroundColor,
+        borderColor: ManaStyles[`Boss-${i}`].borderColor,
+        data,
+      };
     });
-    const deathsBySecond = {};
+
+    let deaths = [];
     if (this.state.bossHealth.deaths) {
-      this.state.bossHealth.deaths.forEach((death) => {
-        const secIntoFight = Math.floor((death.timestamp - start) / 1000);
-
-        if (death.targetIsFriendly) {
-          deathsBySecond[secIntoFight] = true;
-        }
-      });
+      deaths = this.state.bossHealth.deaths
+        .filter(death => !!death.targetIsFriendly)
+        .map(({ timestamp }) => ({
+          x: timestamp,
+        }));
     }
-
-    const fightDurationSec = Math.ceil((end - start) / 1000);
-    const labels = [];
-    for (let i = 0; i <= fightDurationSec; i += 1) {
-      labels.push(i);
-
-      manaBySecond[i] = manaBySecond[i] !== undefined ? manaBySecond[i] : null;
-      bosses.forEach((series) => {
-        series.data[i] = series.data[i] !== undefined ? series.data[i] : null;
-      });
-      deathsBySecond[i] = deathsBySecond[i] !== undefined ? deathsBySecond[i] : undefined;
-    }
-
-    const data = {
-      labels,
-      datasets: [
-        ...bosses.map((series, index) => ({
-          label: `${series.name} Health`,
-          ...ManaStyles[`Boss-${index}`],
-          ...ManaStyles[`Boss-${series.guid}`],
-          data: Object.keys(series.data).map(key => series.data[key]),
-        })),
-        {
-          label: `Deaths`,
-          ...ManaStyles.Deaths,
-          data: Object.keys(deathsBySecond).map(key => deathsBySecond[key]),
-        },
-        {
-          label: `Mana`,
-          ...ManaStyles.Mana,
-          data: Object.keys(manaBySecond).map(key => manaBySecond[key]),
-        },
-      ],
-    };
-
-    const gridLines = ManaStyles.gridLines;
-
-    const options = {
-      responsive: true,
-      scales: {
-        yAxes: [{
-          gridLines: gridLines,
-          ticks: {
-            callback: (value, index, values) => {
-              return `${value}%`;
-            },
-            min: 0,
-            max: 100,
-            stepSize: 25,
-            fontSize: 14,
-          },
-        }],
-        xAxes: [{
-          gridLines: gridLines,
-          ticks: {
-            callback: (value, index, values) => {
-              if(value%30 === 0) {
-                return formatDuration(value);
-              }
-              return null;
-            },
-            fontSize: 14,
-          },
-        }],
-      },
-      animation: {
-        duration: 0,
-      },
-      hover: {
-        animationDuration: 0,
-      },
-      responsiveAnimationDuration: 0,
-      tooltips: {
-        enabled: false,
-      },
-      legend: ManaStyles.legend,
-    };
-
-    Chart.plugins.register({
-      id: 'specialEventIndiactor',
-      afterDatasetsDraw : (chart) => {
-        const ctx = chart.ctx;
-
-        chart.data.datasets.forEach(function(dataset, i) {
-          const meta = chart.getDatasetMeta(i);
-          if(dataset.label === 'Deaths' && !meta.hidden) {
-            meta.data.forEach(function(element, index) {
-              const position = element.tooltipPosition();
-              if(!isNaN(position.y)) {
-                  ctx.strokeStyle=element._view.borderColor;
-                  ctx.beginPath();
-                  ctx.lineWidth = ManaStyles.Deaths.borderWidth;
-                  ctx.moveTo(position.x, chart.chartArea.top);
-                  ctx.lineTo(position.x, chart.chartArea.bottom);
-                  ctx.stroke();
-              }
-            });
-          }
-        });
-
-      },
-    });
 
     return (
       <div className="graph-container">
-        <Line
-          data={data}
-          options={options}
-          width={1100}
-          height={400}
+        <ManaLevelGraph
+          mana={mana}
+          bossData={bossData}
+          deaths={deaths}
+          startTime={start}
+          endTime={end}
         />
       </div>
     );
