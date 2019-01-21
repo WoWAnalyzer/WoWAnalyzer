@@ -9,6 +9,11 @@ import ItemLink from 'common/ItemLink';
 export default [
   {
     date: new Date('2019-01-21'),
+    changes: <>Ignore cooldown errors caused by <SpellLink id={SPELLS.FONT_OF_LIFE.id} /> (it is not detectable in logs so we can't make it 100% accurate).</>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-01-21'),
     changes: <>Fixed a bug where <SpellLink id={SPELLS.SOOTHING_MIST.id} /> incorrectly triggered two GCDs, making downtime off.</>,
     contributors: [Zerotorescue],
   },

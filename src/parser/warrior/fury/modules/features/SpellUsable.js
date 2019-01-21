@@ -4,10 +4,6 @@ import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 const FURY_EXECUTES = [SPELLS.EXECUTE_FURY.id, SPELLS.EXECUTE_FURY_MASSACRE.id];
 
 class SpellUsable extends CoreSpellUsable {
-  static dependencies = {
-    ...CoreSpellUsable.dependencies,
-  };
-
   hasSuddenDeath = false;
 
   constructor(...args) {
