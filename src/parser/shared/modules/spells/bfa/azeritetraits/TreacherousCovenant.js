@@ -22,7 +22,10 @@ const DAMAGE_MODIFIER = .15;
  * Treacherous Covenant
  * Your primary stat is increased by 151 while you are above 50% health. You take 15% increased damage while below 20% health..
  *
- * Example report: /report/L9AFD1kHxTrGK43t/1-Heroic+Champion+of+the+Light+-+Kill+(3:08)/20-Wiridian
+ * Example reports
+ *  Int: /report/L9AFD1kHxTrGK43t/1-Heroic+Champion+of+the+Light+-+Kill+(3:08)/20-Wiridian
+ *  Agi: /report/1YJ98MzR6qPvydGA/13-Heroic+Grong+-+Kill+(4:56)/19-Cleah
+ *  Str: /report/TMjpXkaYKVhncmfb/11-Heroic+Jadefire+Masters+-+Kill+(4:45)/11-Jhonson
  */
 class TreacherousCovenant extends Analyzer {
   statModifier = 0;
