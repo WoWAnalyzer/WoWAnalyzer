@@ -11,11 +11,11 @@ import {
   LineSeries,
 } from 'react-vis';
 import { formatDuration } from 'common/format';
-import VerticalLine from 'interface/others/charts/VerticalLine';
+import VerticalLine from './VerticalLine';
 
-import './ManaChart.scss';
+import './ManaLevelGraph.scss';
 
-class ManaChart extends React.PureComponent {
+class ManaLevelGraph extends React.PureComponent {
   static propTypes = {
     mana: PropTypes.arrayOf(PropTypes.shape({
       x: PropTypes.number.isRequired,
@@ -128,5 +128,4 @@ class ManaChart extends React.PureComponent {
     );
   }
 }
-
-export default ManaChart;
+export default ManaLevelGraph;

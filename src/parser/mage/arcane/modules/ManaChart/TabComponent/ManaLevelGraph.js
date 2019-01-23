@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import fetchWcl from 'common/fetchWclApi';
 
 import ManaStyles from 'interface/others/ManaStyles.js';
-import ManaChart from './ManaChart';
+import ManaLevelGraph from 'interface/others/charts/ManaLevelGraph';
 
 class Mana extends React.PureComponent {
   static propTypes = {
@@ -66,7 +66,7 @@ class Mana extends React.PureComponent {
       };
     });
 
-    let deaths = null;
+    let deaths = [];
     if (this.state.bossHealth.deaths) {
       deaths = this.state.bossHealth.deaths
         .filter(death => death.targetID === this.props.actorId)
@@ -88,7 +88,7 @@ class Mana extends React.PureComponent {
         Playing Arcane well typically involves managing your mana properly. Things such as not going OOM during Arcane Power, not letting your mana cap, and ensuring you end the fight with as little mana as possible will all help in improving your DPS.<br /><br />
 
         <div className="graph-container">
-          <ManaChart
+          <ManaLevelGraph
             mana={mana}
             deaths={deaths}
             bossData={bossData}
