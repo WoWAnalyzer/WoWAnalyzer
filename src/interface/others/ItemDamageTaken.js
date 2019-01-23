@@ -18,7 +18,7 @@ class ItemDamageTaken extends React.PureComponent {
       <>
         <img
           src="/img/damage-taken.png"
-          alt="Damage"
+          alt="Damage Taken"
           className="icon"
         />{' '}
         {approximate && '≈'}{parser.formatItemDamageTaken(amount)}

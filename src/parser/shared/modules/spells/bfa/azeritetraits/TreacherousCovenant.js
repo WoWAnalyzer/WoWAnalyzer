@@ -70,10 +70,6 @@ class TreacherousCovenant extends Analyzer {
     return this.buffUptime * this.statModifier;
   }
 
-  get primaryStat() {
-    return this.selectedCombatant.spec.primaryStat.substring(0,3);
-  }
-
   statistic() {
     return (
       <TraitStatisticBox
@@ -87,7 +83,6 @@ class TreacherousCovenant extends Analyzer {
           </>
         )}
         tooltip={`
-
           Grants <b>${this.statModifier} ${this.selectedCombatant.spec.primaryStat}</b> while above 50% health.<br/>
           Extra damage taken: ${formatNumber(this.extraDamageTaken)}.
         `}
