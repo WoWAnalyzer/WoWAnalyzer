@@ -4,7 +4,7 @@ footer {
   margin-top: 60px;
   background: #0e0d0b;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='-100 -100 400 400'%3E%3Cpath fill='%23000000' fill-opacity='0.3' d='M-6 99.684V100h.182L-6 99.684zm14.426.325L.344 86.011 50 .001 99.66 86.013l-8.077 13.991-.002-.003H63V86h20.497L50.005 27.99 16.514 86H37v14H8.43l-.004.009zM105.82 100h.257v-.444l-.257.444z'%3E%3C/path%3E%3C/svg%3E");
-  padding: 50px 0 80px 0;
+  padding: 50px 0;
   box-shadow: inset 0 0 40px rgba(0, 0, 0, 1);
   border-bottom: 1px solid #000;
   position: relative; /* for the :before */
@@ -22,5 +22,12 @@ footer {
   .wowanalyzer-logo {
     width: 150px;
     margin: 4em 0;
+  }
+  .attribution {
+    opacity: 0.5;
+    color: hsl(44, 3%, 50%);
+    font-size: 0.8em;
+    font-weight: 400;
+    margin-top: 1em;
   }
 }

@@ -39,14 +39,7 @@ class Footer extends React.PureComponent {
             </Tooltip>
           </div><br />
 
-          <div
-            style={{
-              opacity: 0.5,
-              fontSize: '0.8em',
-              fontWeight: 400,
-              marginTop: '1em',
-            }}
-          >
+          <div className="attribution">
             Log data from <a href="https://www.warcraftlogs.com">Warcaft Logs</a>.{' '}
             <TooltipElement
               content={(
