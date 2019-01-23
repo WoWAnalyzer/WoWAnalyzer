@@ -6,7 +6,7 @@ import PatreonIcon from 'interface/icons/PatreonTiny';
 import Logo from 'interface/images/logo.svg';
 import Tooltip, { TooltipElement } from 'common/Tooltip';
 
-import './style.css';
+import './style.scss';
 
 class Footer extends React.PureComponent {
   render() {
@@ -47,10 +47,12 @@ class Footer extends React.PureComponent {
               marginTop: '1em',
             }}
           >
-            Log data from <a href="https://www.warcraftlogs.com">Warcaft Logs</a>.
+            Log data from <a href="https://www.warcraftlogs.com">Warcaft Logs</a>.{' '}
             <TooltipElement
               content={(
                 <>
+                  Icon creators:<br />
+
                   <ul>
                     <li>Fingerprint by IconsGhost</li>
                     <li>Scroll by jngll</li>

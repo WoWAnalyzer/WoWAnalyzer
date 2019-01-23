@@ -5,13 +5,12 @@
 
   &::-webkit-scrollbar {
     height: 12px;
+    cursor: default !important;
   }
-
   &::-webkit-scrollbar-track {
     background: rgba(104, 103, 100, 0.15);
     border-radius: 10px;
   }
-
   &::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-color: #fab700;
