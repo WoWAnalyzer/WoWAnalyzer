@@ -34,13 +34,16 @@ class DivinePurpose extends Analyzer {
     const spellId = event.ability.guid;
     if (!this.selectedCombatant.hasBuff(SPELLS.DIVINE_PURPOSE_BUFF.id)) {
       return;
-    }
-    this.lastDivinePurposeConsumption = event.timestamp;
+    }  
     switch (spellId) {
       case SPELLS.TEMPLARS_VERDICT.id:
         this.templarsVerdictConsumptions += 1;
         break;
       case SPELLS.DIVINE_STORM.id:
+      // Empyrean Power grants a free Divine Storm and is prioritized over Divine Purpose if both are active
+        if (this.selectedCombatant.hasBuff(SPELLS.EMPYREAN_POWER_BUFF.id)) {
+          return;
+        }
         this.divineStormConsumptions += 1;
         break;
       case SPELLS.JUSTICARS_VENGEANCE_TALENT.id:
@@ -49,6 +52,7 @@ class DivinePurpose extends Analyzer {
       default:
         break;
     }
+    this.lastDivinePurposeConsumption = event.timestamp;
   }
 
   onApplyDivinePurpose(event){
@@ -71,14 +75,20 @@ class DivinePurpose extends Analyzer {
   }
 
   statistic() {
-    const chainProcText = this.largestProcChain > 1 ? `Your longest chain of procs was ${this.largestProcChain}` : ``;
+    const chainProcText = this.largestProcChain > 1 ? `<br>Your longest chain of procs was ${this.largestProcChain}` : ``;
+    const justicarsVengeanceText = this.selectedCombatant.hasTalent(SPELLS.JUSTICARS_VENGEANCE_TALENT.id) ? `<br>Justicars Vengeance: ${this.justicarsVengeanceConsumptions}` : ``; 
     return (
       <StatisticBox
         position={STATISTIC_ORDER.OPTIONAL(1)}
         icon={<SpellIcon id={SPELLS.DIVINE_PURPOSE_TALENT_RETRIBUTION.id} />}
         value={`${formatNumber(this.divinePurposeProcs)}`}
         label="Divine Purpose procs"
-        tooltip={chainProcText}
+        tooltip={`
+          Your Divine Purpose procs were used on:<br>
+          Templars Verdict: ${this.templarsVerdictConsumptions}<br>
+          Divine Storm: ${this.divineStormConsumptions}
+          ${justicarsVengeanceText}
+          ${chainProcText}`}
       />
     );
   }
