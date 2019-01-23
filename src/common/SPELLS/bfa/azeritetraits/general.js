@@ -321,4 +321,19 @@ export default {
     name: 'Tradewinds',
     icon: 'ability_skyreach_wind',
   },
+  TREACHEROUS_COVENANT: {
+    id: 288953,
+    name: 'Treacherous Covenant',
+    icon: 'ability_argus_deathfog',
+  },
+  TREACHEROUS_COVENANT_BUFF: {
+    id: 288981,
+    name: 'Treacherous Covenant',
+    icon: 'ability_argus_deathfog',
+  },
+  TREACHEROUS_COVENANT_DEBUFF: {
+    id: 288989,
+    name: 'Treacherous Covenant',
+    icon: 'ability_argus_deathfog',
+  },
 };
