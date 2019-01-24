@@ -30,15 +30,13 @@ class HealingEfficiencyBreakdown extends React.Component {
       if (this.state.showHealing) {
         if (a.hpm < b.hpm) {
           return 1;
-        }
-        else if (a.hpm > b.hpm) {
+        } else if (a.hpm > b.hpm) {
           return -1;
         }
       } else {
         if (a.dpm < b.dpm) {
           return 1;
-        }
-        else if (a.dpm > b.dpm) {
+        } else if (a.dpm > b.dpm) {
           return -1;
         }
       }
@@ -200,65 +198,61 @@ class HealingEfficiencyBreakdown extends React.Component {
     const { tracker } = this.props;
 
     return (
-      <div>
-        <div className="row">
-          <div className="col-md-12">
-            <div className="pull-left">
-              <div className="toggle-control pull-right" style={{ marginLeft: '.5em', marginRight: '.5em' }}>
-                <Toggle
-                  defaultChecked={false}
-                  icons={false}
-                  onChange={event => this.setState({ detailedView: event.target.checked })}
-                  id="detailed-toggle"
-                />
-                <label htmlFor="detailed-toggle" style={{ marginLeft: '0.5em' }}>
-                  Detailed View
-                </label>
-              </div>
-            </div>
-            <div className="pull-right">
-              <div className="toggle-control pull-left" style={{ marginLeft: '.5em', marginRight: '.5em' }}>
-                <Toggle
-                  defaultChecked={false}
-                  icons={false}
-                  onChange={event => this.setState({ showCooldowns: event.target.checked })}
-                  id="cooldown-toggle"
-                />
-                <label htmlFor="cooldown-toggle" style={{ marginLeft: '0.5em' }}>
-                  Show Cooldowns
-                </label>
-              </div>
-              <div className="toggle-control pull-left" style={{ marginLeft: '.5em', marginRight: '.5em' }}>
-                <label htmlFor="healing-toggle" style={{ marginLeft: '0.5em', marginRight: '1em' }}>
-                  Show Damage
-                </label>
-                <Toggle
-                  defaultChecked
-                  icons={false}
-                  onChange={event => this.setState({ showHealing: event.target.checked })}
-                  id="healing-toggle"
-                />
-                <label htmlFor="healing-toggle" style={{ marginLeft: '0.5em' }}>
-                  Show Healing
-                </label>
-              </div>
+      <>
+        <div className="pad">
+          <div className="pull-left">
+            <div className="toggle-control pull-right" style={{ marginRight: '.5em' }}>
+              <Toggle
+                defaultChecked={false}
+                icons={false}
+                onChange={event => this.setState({ detailedView: event.target.checked })}
+                id="detailed-toggle"
+              />
+              <label htmlFor="detailed-toggle" style={{ marginLeft: '0.5em' }}>
+                Detailed View
+              </label>
             </div>
           </div>
-          <div className="col-md-12">
-            <table className="data-table">
-              <thead>
-                <tr>
-                  <th>Ability</th>
-                  {this.state.detailedView ? <this.DetailHeader /> : <this.BarHeader />}
-                </tr>
-              </thead>
-              <tbody>
-                <this.HealingEfficiencyTable tracker={tracker} showHealing={this.state.showHealing} />
-              </tbody>
-            </table>
+          <div className="pull-right">
+            <div className="toggle-control pull-left" style={{ marginLeft: '.5em', marginRight: '.5em' }}>
+              <Toggle
+                defaultChecked={false}
+                icons={false}
+                onChange={event => this.setState({ showCooldowns: event.target.checked })}
+                id="cooldown-toggle"
+              />
+              <label htmlFor="cooldown-toggle" style={{ marginLeft: '0.5em' }}>
+                Show Cooldowns
+              </label>
+            </div>
+            <div className="toggle-control pull-left" style={{ marginLeft: '.5em' }}>
+              <label htmlFor="healing-toggle" style={{ marginLeft: '0.5em', marginRight: '1em' }}>
+                Show Damage
+              </label>
+              <Toggle
+                defaultChecked
+                icons={false}
+                onChange={event => this.setState({ showHealing: event.target.checked })}
+                id="healing-toggle"
+              />
+              <label htmlFor="healing-toggle" style={{ marginLeft: '0.5em' }}>
+                Show Healing
+              </label>
+            </div>
           </div>
         </div>
-      </div>
+        <table className="data-table">
+          <thead>
+            <tr>
+              <th>Ability</th>
+              {this.state.detailedView ? <this.DetailHeader /> : <this.BarHeader />}
+            </tr>
+          </thead>
+          <tbody>
+            <this.HealingEfficiencyTable tracker={tracker} showHealing={this.state.showHealing} />
+          </tbody>
+        </table>
+      </>
     );
   }
 }

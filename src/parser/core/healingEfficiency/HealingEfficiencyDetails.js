@@ -16,7 +16,7 @@ class HealingEfficiencyDetails extends Analyzer {
       url: 'mana-efficiency',
       render: () => {
         return (
-          <Panel>
+          <Panel title="Mana Efficiency">
             <HealingEfficiencyBreakdown
               tracker={this.healingEfficiencyTracker}
               showSpenders
