@@ -141,7 +141,7 @@ class PlayerSelection extends React.PureComponent {
         }
       }
       return (
-        <div className="container">
+        <div className="container offset">
           <h1>
             <div className="back-button">
               <Tooltip content={i18n._(t`Back to fight selection`)}>

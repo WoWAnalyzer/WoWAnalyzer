@@ -30,7 +30,7 @@ class FightSelection extends React.PureComponent {
     const { report, refreshReport } = this.props;
 
     return (
-      <div className="container">
+      <div className="container offset">
         <div className="row">
           <div className="col-lg-10 col-md-8" style={{ position: 'relative' }}>
             <div className="back-button" style={{ fontSize: 36, width: 20 }}>

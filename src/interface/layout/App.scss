@@ -46,6 +46,9 @@ body {
 main {
   min-height: 800px;
 }
+main > .offset {
+  margin-top: 100px;
+}
 
 a {
   color: $primaryColor;
