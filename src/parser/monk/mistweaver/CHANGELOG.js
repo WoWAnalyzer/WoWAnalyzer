@@ -1,12 +1,22 @@
 import React from 'react';
 
-import { Anomoly, Gao } from 'CONTRIBUTORS';
+import { Anomoly, Gao, Zerotorescue } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
 
 export default [
+  {
+    date: new Date('2019-01-21'),
+    changes: <>Ignore cooldown errors caused by <SpellLink id={SPELLS.FONT_OF_LIFE.id} /> (it is not detectable in logs so we can't make it 100% accurate).</>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-01-21'),
+    changes: <>Fixed a bug where <SpellLink id={SPELLS.SOOTHING_MIST.id} /> incorrectly triggered two GCDs, making downtime off.</>,
+    contributors: [Zerotorescue],
+  },
   {
     date: new Date('2018-11-14'),
     changes: <>Added <SpellLink id={SPELLS.GUSTS_OF_MISTS.id}>Gusts of Mists</SpellLink> breakdown chart. Fixed bug with the ReM and Vivify mana efficiency.</>,

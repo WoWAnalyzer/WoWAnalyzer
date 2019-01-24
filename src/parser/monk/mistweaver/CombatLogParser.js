@@ -20,6 +20,7 @@ import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart'
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import CoreChanneling from './modules/core/Channeling';
 import HotTracker from './modules/core/HotTracker';
+import SpellUsable from './modules/core/SpellUsable';
 
 // Normalizers
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
@@ -80,6 +81,7 @@ class CombatLogParser extends CoreCombatLogParser {
     channeling: CoreChanneling,
     globalCooldown: GlobalCooldown,
     hotTracker: HotTracker,
+    spellUsable: SpellUsable,
 
     // Generic healer things
     manaLevelChart: ManaLevelChart,
