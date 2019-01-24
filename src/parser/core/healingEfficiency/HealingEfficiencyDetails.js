@@ -1,8 +1,9 @@
 import React from 'react';
 
+import Panel from 'interface/statistics/Panel';
 import Analyzer from 'parser/core/Analyzer';
-import Panel from 'interface/others/Panel';
-import HealingEfficiencyTracker from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
+
+import HealingEfficiencyTracker from './HealingEfficiencyTracker';
 import HealingEfficiencyBreakdown from './HealingEfficiencyBreakdown';
 
 class HealingEfficiencyDetails extends Analyzer {
@@ -10,21 +11,18 @@ class HealingEfficiencyDetails extends Analyzer {
     healingEfficiencyTracker: HealingEfficiencyTracker,
   };
 
-  tab() {
-    return {
-      title: 'Mana Efficiency',
-      url: 'mana-efficiency',
-      render: () => {
-        return (
-          <Panel title="Mana Efficiency">
-            <HealingEfficiencyBreakdown
-              tracker={this.healingEfficiencyTracker}
-              showSpenders
-            />
-          </Panel>
-        );
-      },
-    };
+  statistic() {
+    return (
+      <Panel
+        title="Mana Efficiency"
+        position={120}
+      >
+        <HealingEfficiencyBreakdown
+          tracker={this.healingEfficiencyTracker}
+          showSpenders
+        />
+      </Panel>
+    );
   }
 }
 
