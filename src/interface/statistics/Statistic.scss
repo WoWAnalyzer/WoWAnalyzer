@@ -22,8 +22,10 @@
     height: auto;
   }
 }
-.statistic .pad {
+// We need to override Panel's body .pad's padding to avoid applying padding twice
+.statistic .pad, .statistic.panel .pad {
   margin: 16px 18px 15px;
+  padding: 0;
 }
 .statistic svg {
   text-shadow: none;
