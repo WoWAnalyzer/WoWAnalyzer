@@ -69,7 +69,7 @@ class ThunderFocusTea extends Analyzer {
     }
   }
 
-  get tftCastRatioChart() {
+  renderCastRatioChart() {
     const items = [
       {
         color: '#00b159',
@@ -133,7 +133,6 @@ class ThunderFocusTea extends Analyzer {
     };
   }
 
-
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
           return suggest(
@@ -151,11 +150,11 @@ class ThunderFocusTea extends Analyzer {
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(20)}
-        style={{ height: '200px' }}
+        size="flexible"
       >
         <div className="pad">
           <label><SpellLink id={SPELLS.THUNDER_FOCUS_TEA.id} /> usage</label>
-          {this.tftCastRatioChart}
+          {this.renderCastRatioChart()}
         </div>
       </Statistic>
     );

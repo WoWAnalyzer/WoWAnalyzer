@@ -35,7 +35,7 @@ class MasteryStats extends Analyzer {
             + (this.essenceFontMastery.healing || 0);
   }
 
-  get masterySourceChart() {
+  renderMasterySourceChart() {
     const items = [
       {
         color: '#00b159',
@@ -96,11 +96,11 @@ class MasteryStats extends Analyzer {
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(20)}
-        style={{ height: '220px' }}
+        size="flexible"
       >
         <div className="pad">
           <label><SpellLink id={SPELLS.GUSTS_OF_MISTS.id}>Gusts of Mists</SpellLink> breakdown</label>
-          {this.masterySourceChart}
+          {this.renderMasterySourceChart()}
         </div>
       </Statistic>
     );
