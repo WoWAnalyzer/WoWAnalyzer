@@ -8,6 +8,11 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
+    date: new Date('2019-01-25'),
+    changes: 'Add Battle of Dazar\'alor to the selectable raids in the character page filters.',
+    contributors: [joshinator],
+  },
+  {
     date: new Date('2018-12-29'),
     changes: 'Split mitigation check into Physical and Magical.',
     contributors: [emallson, Hordehobbs],
