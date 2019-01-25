@@ -56,9 +56,11 @@ const ZONES = [
         "npcID": 146416
       }
     ],
-   }, {
+  },
+  {
     "id": 19,
     "name": "Uldir",
+    "frozen": true,
     "encounters": [
       {
         "id": 2144,
@@ -101,6 +103,23 @@ const ZONES = [
         "npcID": 132998
       }
     ],
+    "brackets": {
+      "min": 340,
+      "max": 397,
+      "bucket": 3,
+      "type": "Item Level"
+    },
+    "partitions": [
+      {
+        "name": "8.0",
+        "compact": "8.0",
+        "default": true
+      },
+      {
+        "name": "8.1",
+        "compact": "8.1"
+      }
+    ]
   },
 ];
 
