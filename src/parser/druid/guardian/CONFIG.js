@@ -29,7 +29,7 @@ export default {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/qzG1RMkt42mWgKP6/39-Heroic+Vectis+-+Kill+(6:41)/23-Idame',
+  exampleReport: '/report/wptPT3mfWavbj9KY/33-Heroic+Conclave+of+the+Chosen+-+Kill+(6:22)/1-Gorelol',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

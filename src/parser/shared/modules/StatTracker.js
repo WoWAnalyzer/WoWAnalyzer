@@ -207,9 +207,7 @@ class StatTracker extends Analyzer {
     // region Misc
     [SPELLS.JACINS_RUSE.id]: { mastery: 136 },
     [SPELLS.MARK_OF_THE_CLAW.id]: { crit: 45, haste: 45 },
-    // Antorus: Argus the Unmaker debuffs
-    [SPELLS.STRENGTH_OF_THE_SKY.id]: { crit: 114, mastery: 114 },
-    [SPELLS.STRENGTH_OF_THE_SEA.id]: { haste: 114, versatility: 114 },
+    [SPELLS.OPULENCE_QUICKENED_PULSE.id]: { haste: 261, crit: 261, mastery: 261, versatility: 261 }, // Quickened Pulse by Opulence (BoD - BFA)
     // endregion
 
     // region Death Knight
@@ -568,6 +566,8 @@ class StatTracker extends Analyzer {
     let critChance = 0.05;
     if (this.selectedCombatant.race === RACES.BloodElf) {
       critChance += 0.01;
+    } else if (this.selectedCombatant.hasBuff(SPELLS.OPULENCE_BRILLAINT_AURA.id)) {
+      critChance += 1.0;
     }
     switch (this.selectedCombatant.spec) {
       case SPECS.FIRE_MAGE:
