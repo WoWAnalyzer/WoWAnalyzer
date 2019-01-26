@@ -8,6 +8,11 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
+    date: new Date('2019-01-26'),
+    changes: <>Account for Hate gained from <SpellLink id={SPELLS.OPULENCE_AMETHYST_OF_THE_SHADOW_KING.id} />.</>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2019-01-25'),
     changes: 'Add Battle of Dazar\'alor to the selectable raids in the character page filters.',
     contributors: [joshinator],
