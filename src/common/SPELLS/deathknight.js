@@ -318,6 +318,12 @@ export default {
     icon: 'boss_odunrunes_blue',
   },
 
+  PESTILENT_PUSTULES: {
+    id: 220211,
+    name: 'Pestilent Pustules',
+    icon: 'spell_yorsahj_bloodboil_purpleoil',
+  },
+  
   // Unholy:
   // Spells
   APOCALYPSE: {
