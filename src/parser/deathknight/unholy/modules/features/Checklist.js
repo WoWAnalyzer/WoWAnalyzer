@@ -37,16 +37,16 @@ class Checklist extends CoreChecklist {
         const combatant = this.selectedCombatant;
         return [
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.DARK_TRANSFORMATION,
-            onlyWithSuggestion: false,
-          }),
-          new GenericCastEfficiencyRequirement({
             spell: SPELLS.DEFILE_TALENT,
             when: combatant.hasTalent(SPELLS.DEFILE_TALENT.id),
           }),
           new GenericCastEfficiencyRequirement({
-            spell: SPELLS.SOUL_REAPER_TALENT,
-            when: combatant.hasTalent(SPELLS.SOUL_REAPER_TALENT.id),
+            spell: SPELLS.UNHOLY_BLIGHT_TALENT,
+            when: combatant.hasTalent(SPELLS.UNHOLY_BLIGHT_TALENT.id),
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.DARK_TRANSFORMATION,
+            onlyWithSuggestion: false,
           }),
         ];
       },
@@ -62,7 +62,11 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.SUMMON_GARGOYLE_TALENT,
-            when: combatant.hasTalent(SPELLS.SUMMON_GARGOYLE_TALENT.id) && (combatant.hasTalent(SPELLS.DEFILE_TALENT.id) || combatant.hasTalent(SPELLS.SOUL_REAPER_TALENT.id)),
+            when: combatant.hasTalent(SPELLS.SUMMON_GARGOYLE_TALENT.id) ,
+          }),
+          new GenericCastEfficiencyRequirement({
+            spell: SPELLS.UNHOLY_FRENZY_TALENT,
+            when: combatant.hasTalents(SPELLS.UNHOLY_FRENZY_TALENT.id)
           }),
           // TODO: AOTD
         ];

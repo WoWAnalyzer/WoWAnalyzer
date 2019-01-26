@@ -55,7 +55,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DARK_TRANSFORMATION,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 60, 
+        cooldown: 60,
         gcd: {
           base: 1500,
         },
@@ -101,6 +101,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.90,
         },
       },
+
       {
         spell: SPELLS.ARMY_OF_THE_DEAD,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
@@ -123,7 +124,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 60,
         gcd: null,
-      },      
+      },
       // talents
       {
         spell: SPELLS.DEFILE_TALENT,
