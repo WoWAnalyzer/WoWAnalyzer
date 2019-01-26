@@ -23,7 +23,10 @@ class Headers extends React.PureComponent {
     selectedCombatant: PropTypes.shape({
       name: PropTypes.string.isRequired,
     }).isRequired,
-    playerIcon: PropTypes.string,
+    characterProfile: PropTypes.shape({
+      region: PropTypes.string.isRequired,
+      thumbnail: PropTypes.string.isRequired,
+    }),
     boss: PropTypes.shape({
       headshot: PropTypes.string.isRequired,
     }),
@@ -92,6 +95,14 @@ class Headers extends React.PureComponent {
     //   });
     // }
   }
+  get playerIcon() {
+    const { characterProfile } = this.props;
+    if (characterProfile && characterProfile.thumbnail) {
+      return `https://render-${characterProfile.region}.worldofwarcraft.com/character/${characterProfile.thumbnail}`;
+    }
+    const config = this.context.config;
+    return `/specs/${config.spec.className}-${config.spec.specName}.jpg`.replace(/ /, '');
+  }
 
   renderBackground() {
     const { boss } = this.props;
@@ -110,7 +121,7 @@ class Headers extends React.PureComponent {
     );
   }
   renderInfo() {
-    const { config: { spec }, selectedCombatant, playerIcon, fight } = this.props;
+    const { config: { spec }, selectedCombatant, fight } = this.props;
 
     return (
       <div className="info">
@@ -125,7 +136,7 @@ class Headers extends React.PureComponent {
           </div>
           <div className="player">
             <div className="avatar">
-              <img src={playerIcon} alt="" />
+              <img src={this.playerIcon} alt="" />
             </div>
             <div className="details">
               <h2>

@@ -16,7 +16,6 @@ import Combatants from 'parser/shared/modules/Combatants';
 import Checklist from 'parser/shared/modules/features/Checklist/Module';
 import CharacterTab from 'parser/shared/modules/features/CharacterTab';
 import EncounterPanel from 'parser/shared/modules/features/EncounterPanel';
-import StatTracker from 'parser/shared/modules/StatTracker';
 
 import ChangelogTab from 'interface/others/ChangelogTab';
 import ResultsWarning from './ResultsWarning';
@@ -24,7 +23,6 @@ import Header from './Header';
 import About from './About';
 import Suggestions from './Suggestions';
 import Statistics from './Statistics';
-import StatisticsSectionTitle from './StatisticsSectionTitle';
 import Timeline from './Timeline/Container';
 import './Results.scss';
 
@@ -46,10 +44,7 @@ class Results extends React.PureComponent {
     selectedTab: PropTypes.string,
     makeTabUrl: PropTypes.func.isRequired,
     premium: PropTypes.bool,
-    characterProfile: PropTypes.shape({
-      region: PropTypes.string.isRequired,
-      thumbnail: PropTypes.string.isRequired,
-    }),
+    characterProfile: PropTypes.object,
   };
   static childContextTypes = {
     updateResults: PropTypes.func.isRequired,
@@ -155,7 +150,7 @@ class Results extends React.PureComponent {
     }
   }
   render() {
-    const { parser, characterProfile, makeTabUrl, selectedTab, premium } = this.props;
+    const { parser, makeTabUrl, characterProfile, selectedTab, premium } = this.props;
     const fight = parser.fight;
     const config = this.context.config;
     const combatants = parser.getModule(Combatants);
@@ -166,12 +161,13 @@ class Results extends React.PureComponent {
       adjustForDowntime: this.state.adjustForDowntime,
     });
 
+
     return (
       <div className={`results boss-${fight.boss}`}>
         <Header
           config={config}
           selectedCombatant={selectedCombatant}
-          playerIcon={characterProfile && characterProfile.thumbnail ? `https://render-${characterProfile.region}.worldofwarcraft.com/character/${characterProfile.thumbnail}` : null}
+          characterProfile={characterProfile}
           boss={parser.boss}
           fight={fight}
           makeTabUrl={makeTabUrl}
