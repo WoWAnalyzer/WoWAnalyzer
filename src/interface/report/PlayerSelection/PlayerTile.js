@@ -40,6 +40,7 @@ class PlayerTile extends React.PureComponent {
         </span>
       );
     }
+    console.log(player.name, getAverageItemLevel(player.combatant.gear), player.combatant.gear);
 
     return (
       <Link
