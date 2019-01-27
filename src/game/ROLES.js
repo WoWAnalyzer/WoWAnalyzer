@@ -23,14 +23,26 @@ const naming = {
   }),
   [ROLES.DPS.MELEE]: num => plural({
     value: num,
+    one: 'Melee DPS',
     other: 'Melee DPS',
   }),
   [ROLES.DPS.RANGED]: num => plural({
     value: num,
+    one: 'Ranged DPS',
     other: 'Ranged DPS',
   }),
 };
 
 export function getName(role) {
   return naming[role];
+}
+
+export function getClassName(role) {
+  switch (Number(role)) {
+    case ROLES.TANK: return 'tank';
+    case ROLES.HEALER: return 'healer';
+    case ROLES.DPS.MELEE: return 'dps melee';
+    case ROLES.DPS.RANGED: return 'dps ranged';
+    default: return undefined;
+  }
 }

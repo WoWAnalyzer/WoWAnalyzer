@@ -29,31 +29,13 @@
         display: grid;
         grid-template-columns: 45px 15px auto 30px 15px 45px 45px 15px 30px auto 15px 45px;
         grid-template-rows: 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px 20px;
-        grid-template-areas:
-        "item-slot-0 item-slot-0-gem . avg-ilvl avg-ilvl avg-ilvl avg-ilvl avg-ilvl avg-ilvl . item-slot-9-gem item-slot-9"
-        "item-slot-0 item-slot-0-enchant . avg-ilvl avg-ilvl avg-ilvl avg-ilvl avg-ilvl avg-ilvl . item-slot-9-enchant item-slot-9"
-        "item-slot-1 item-slot-1-gem . avg-ilvl avg-ilvl avg-ilvl avg-ilvl avg-ilvl avg-ilvl . item-slot-5-gem item-slot-5"
-        "item-slot-1 item-slot-1-enchant . . . . . . . . item-slot-5-enchant item-slot-5"
-        "item-slot-2 item-slot-2-gem . . . . . . . . item-slot-6-gem item-slot-6"
-        "item-slot-2 item-slot-2-enchant . . . . . . . . item-slot-6-enchant item-slot-6"
-        "item-slot-14 item-slot-14-gem . . . . . . . . item-slot-7-gem item-slot-7"
-        "item-slot-14 item-slot-14-enchant . . . . . . . . item-slot-7-enchant item-slot-7"
-        "item-slot-4 item-slot-4-gem . . . . . . . . item-slot-10-gem item-slot-10"
-        "item-slot-4 item-slot-4-enchant . . . . . . . . item-slot-10-enchant item-slot-10"
-        "item-slot-3 item-slot-3-gem . . . . . . . . item-slot-11-gem item-slot-11"
-        "item-slot-3 item-slot-3-enchant . . . . . . . . item-slot-11-enchant item-slot-11"
-        "item-slot-17 item-slot-17-gem . . . . . . . . item-slot-12-gem item-slot-12"
-        "item-slot-17 item-slot-17-enchant . . . . . . . . item-slot-12-enchant item-slot-12"
-        "item-slot-8 item-slot-8-gem . . . . . . . . item-slot-13-gem item-slot-13"
-        "item-slot-8 item-slot-8-enchant . . . . . . . . item-slot-13-enchant item-slot-13"
-        ". . . . item-slot-15-gem item-slot-15 item-slot-16 item-slot-16-gem . . . ."
-        ". . . . item-slot-15-enchant item-slot-15 item-slot-16 item-slot-16-enchant . . . .";
+        grid-template-areas: "item-slot-0 item-slot-0-gem . avg-ilvl avg-ilvl avg-ilvl avg-ilvl avg-ilvl avg-ilvl . item-slot-9-gem item-slot-9" "item-slot-0 item-slot-0-enchant . avg-ilvl avg-ilvl avg-ilvl avg-ilvl avg-ilvl avg-ilvl . item-slot-9-enchant item-slot-9" "item-slot-1 item-slot-1-gem . avg-ilvl avg-ilvl avg-ilvl avg-ilvl avg-ilvl avg-ilvl . item-slot-5-gem item-slot-5" "item-slot-1 item-slot-1-enchant . . . . . . . . item-slot-5-enchant item-slot-5" "item-slot-2 item-slot-2-gem . . . . . . . . item-slot-6-gem item-slot-6" "item-slot-2 item-slot-2-enchant . . . . . . . . item-slot-6-enchant item-slot-6" "item-slot-14 item-slot-14-gem . . . . . . . . item-slot-7-gem item-slot-7" "item-slot-14 item-slot-14-enchant . . . . . . . . item-slot-7-enchant item-slot-7" "item-slot-4 item-slot-4-gem . . . . . . . . item-slot-10-gem item-slot-10" "item-slot-4 item-slot-4-enchant . . . . . . . . item-slot-10-enchant item-slot-10" "item-slot-3 item-slot-3-gem . . . . . . . . item-slot-11-gem item-slot-11" "item-slot-3 item-slot-3-enchant . . . . . . . . item-slot-11-enchant item-slot-11" "item-slot-17 item-slot-17-gem . . . . . . . . item-slot-12-gem item-slot-12" "item-slot-17 item-slot-17-enchant . . . . . . . . item-slot-12-enchant item-slot-12" "item-slot-8 item-slot-8-gem . . . . . . . . item-slot-13-gem item-slot-13" "item-slot-8 item-slot-8-enchant . . . . . . . . item-slot-13-enchant item-slot-13" ". . . . item-slot-15-gem item-slot-15 item-slot-16 item-slot-16-gem . . . ." ". . . . item-slot-15-enchant item-slot-15 item-slot-16 item-slot-16-enchant . . . .";
         padding: 20px;
         grid-gap: 10px;
 
         .player-gear-header {
-          background-color: rgba(29,27,27,0.4);
-          border: 1px solid rgba(29,27,27,0.5);
+          background-color: rgba(29, 27, 27, 0.4);
+          border: 1px solid rgba(29, 27, 27, 0.5);
           grid-area: avg-ilvl;
           display: flex;
           flex-direction: column;
@@ -82,7 +64,7 @@
           font-size: 15px;
           position: relative;
           bottom: 17px;
-          background-color: rgba(0,0,0,0.5);
+          background-color: rgba(0, 0, 0, 0.5);
           color: #fff;
           width: 41px;
           left: 2px;
@@ -135,7 +117,7 @@
       }
 
       img.icon {
-          height: 45px;
+        height: 45px;
       }
 
       .analyze {
@@ -203,87 +185,98 @@
   }
 
   .player-selection {
-    > div {
+    > .player {
+      cursor: pointer;
+      width: 230px;
+      border-radius: 3px;
+      margin: 15px 0 0 15px;
+      background: $panelColor;
+      border: 1px solid transparent;
       display: flex;
+      flex-flow: column;
+      float: left;
+      overflow: hidden;
 
-      > .name {
+      &:hover, &.selected {
+        text-decoration: none;
+        background: transparentize($primaryColor, 0.9);
+        border: 1px solid rgba(248, 183, 0, 1);
+      }
+      .role {
         flex: 0 0 auto;
-        font-weight: 700;
+        text-align: center;
         font-family: Poppins, 'Open Sans', 'Century Gothic', sans-serif;
         text-transform: uppercase;
-        color: $primaryColor;
-        font-size: 26px;
-        width: 200px;
+        font-weight: 700;
+        font-size: 12px;
+        letter-spacing: 0.5px;
+
+        &.tank {
+          background: gray;
+        }
+        &.healer {
+          background: green;
+        }
+        &.dps {
+          background: #d84141; // the old primary color. I guess it's kind of an easter egg/homage.
+        }
+        &.dps.ranged {
+          background: purple;
+        }
+        .icon {
+          border: 0;
+        }
       }
-      > .players {
-        flex: 1 1 auto;
 
-        > .player {
-          width: 200px;
-          display: inline-block;
-          padding: 5px 5px 15px 5px;
+      .card {
+        display: flex;
+        position: relative;
+        color: #fff;
+        flex-direction: column;
+        padding: 5px;
+
+        > .avatar {
+          flex: 0 0 auto;
+          width: 100%;
+          height: 90px;
+          margin-right: 15px;
+          background-size: cover;
+          background-position: top center;
+          position: relative;
+          border: 1px solid #000;
           border-radius: 3px;
-          margin: 5px;
-          background: $panelColor;
-          border: 1px solid transparent;
 
-          &:hover, &.selected {
-            text-decoration: none;
-            background: transparentize($primaryColor, 0.9);
-            border: 1px solid rgba(248, 183, 0, 1);
+          .role-icon {
+            position: absolute;
+            left: 5px;
+            top: 10px;
+            transform: translateY(-50%);
+            margin-top: 5px;
+            width: 18px;
+            height: 18px;
+            opacity: 0.9;
           }
         }
-        .card {
-          display: flex;
+        > .about {
+          flex: 1;
           position: relative;
-          text-align: left;
-          color: #fff;
-          flex-direction: column;
+          z-index: 1;
 
-          > .avatar {
-            flex: 0 0 auto;
-            width: 100%;
-            height: 90px;
-            margin-right: 15px;
-            background-size: cover;
-            background-position: top center;
-            position: relative;
-            border: 1px solid #000;
-            border-radius: 3px;
-
-
-            .role-icon {
-              position: absolute;
-              left: 5px;
-              top: 10px;
-              transform: translateY(-50%);
-              margin-top: 5px;
-              width: 18px;
-              height: 18px;
-              opacity: 0.9;
-            }
+          h1 {
+            font-size: 18px;
+            margin: 6px 0 -5px;
+            line-height: 1.6;
+            text-shadow: text-stroke(1, #000);
           }
-          > .about {
-            flex: 1;
-            position: relative;
-            z-index: 1;
 
-            h1 {
-              font-size: 18px;
-              margin: 10px 0 8px;
-              line-height: 1;
-              text-shadow: text-stroke(1, #000);
-            }
-            small {
-              font-size: 14px;
-              color: #bbb;
-            }
-
-            .spec-icon {
-              width: 1em;
-              height: 1em;
-              border-radius: 50%;
-            }
+          small {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
+          }
+          small > .icon {
+            border-radius: 50%;
           }
         }
       }

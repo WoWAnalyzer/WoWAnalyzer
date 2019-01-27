@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
 import RoleIcon from 'common/RoleIcon';
+import SpecIcon from 'common/SpecIcon';
+import { getClassName, getName as getRoleName } from 'game/ROLES';
+import { i18n } from 'interface/RootLocalizationProvider';
 
 class PlayerTile extends React.PureComponent {
   static propTypes = {
@@ -37,7 +40,8 @@ class PlayerTile extends React.PureComponent {
     }
 
     return (
-      <span
+      <div
+        className={`player ${(selectedPlayer && selectedPlayer.guid === player.guid) ? 'selected' : ''}`}
         onClick={() => {
           this.timeout = setTimeout(handleClick, 200);
         }}
@@ -45,18 +49,18 @@ class PlayerTile extends React.PureComponent {
           clearTimeout(this.timeout);
           history.push(analysisUrl);
         }}
-        className={`player${(selectedPlayer && selectedPlayer.guid === player.guid) ? ' selected' : ''}`}
       >
+        <div className={`role ${getClassName(player.spec.role)}`}>
+          <RoleIcon id={player.spec.role} className="role-icon" /> {i18n._(getRoleName(player.spec.role)(1))}
+        </div>
         <div className="card">
-          <div className="avatar" style={{ backgroundImage: `url(${player.avatar})` }}>
-            <RoleIcon id={player.spec.role} className="role-icon" />
-          </div>
+          <div className="avatar" style={{ backgroundImage: `url(${player.avatar})` }} />
           <div className="about">
             <h1 className={player.spec.className.replace(' ', '')}>{player.name}</h1>
-            <small>{player.spec.specName} {player.spec.className}</small>
+            <small><SpecIcon id={player.spec.id} /> {player.spec.specName} {player.spec.className}</small>
           </div>
         </div>
-      </span>
+      </div>
     );
   }
 }
