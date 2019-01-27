@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Trans } from '@lingui/macro';
 
 import traitIdMap from 'common/TraitIdMap';
+import getAverageItemLevel from 'game/getAverageItemLevel';
 
 import Azerite from './playerInfo/Azerite';
 import Enchants from './playerInfo/Enchants';
@@ -11,8 +12,6 @@ import Gear from './playerInfo/Gear';
 import Gems from './playerInfo/Gems';
 import PlayerGearHeader from './playerInfo/PlayerGearHeader';
 import Talents from './playerInfo/Talents';
-
-const EXCLUDED_ITEM_SLOTS = [3, 17]; // Some Tabards have a higher ilvl than 1 so exclude them from the avg ilvl (not sure about shirts, but including them)
 
 class PlayerInfo extends React.PureComponent {
   static propTypes = {
@@ -35,10 +34,7 @@ class PlayerInfo extends React.PureComponent {
   }
 
   get averageIlvl() {
-    const gear = this.state.gear;
-
-    const filteredGear = gear.filter((item, slotId) => !EXCLUDED_ITEM_SLOTS.includes(slotId));
-    return filteredGear.reduce((total, item) => total + item.itemLevel, 0 ) / filteredGear.length;
+    return getAverageItemLevel(this.state.gear);
   }
 
   render() {

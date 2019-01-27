@@ -6,9 +6,9 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import ItemLink from 'common/ItemLink';
 import Icon from 'common/Icon';
+import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import rankingColor from 'common/getRankingColor';
 import { makePlainUrl } from 'interface/common/makeAnalyzerUrl';
-import { GEAR_SLOTS } from 'parser/core/Combatant';
 
 const TRINKET_SLOTS = [GEAR_SLOTS.TRINKET1, GEAR_SLOTS.TRINKET2];
 

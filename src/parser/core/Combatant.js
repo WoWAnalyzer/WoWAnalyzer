@@ -1,38 +1,10 @@
 import SPECS from 'game/SPECS';
 import RACES from 'game/RACES';
+import TALENT_ROWS from 'game/TALENT_ROWS';
+import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import traitIdMap from 'common/TraitIdMap';
 
 import Entity from './Entity';
-
-export const TALENT_ROWS = {
-  LV15: 0,
-  LV30: 1,
-  LV45: 2,
-  LV60: 3,
-  LV75: 4,
-  LV90: 5,
-  LV100: 6,
-};
-export const GEAR_SLOTS = {
-  HEAD: 0,
-  NECK: 1,
-  SHOULDER: 2,
-  SHIRT: 3,
-  CHEST: 4,
-  WAIST: 5,
-  LEGS: 6,
-  FEET: 7,
-  WRISTS: 8,
-  HANDS: 9,
-  FINGER1: 10,
-  FINGER2: 11,
-  TRINKET1: 12,
-  TRINKET2: 13,
-  BACK: 14,
-  MAINHAND: 15,
-  OFFHAND: 16,
-  TABARD: 17,
-};
 
 class Combatant extends Entity {
   get name() {

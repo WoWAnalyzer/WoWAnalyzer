@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import SPECS from 'game/SPECS';
+import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Icon from 'common/Icon';
@@ -11,7 +12,6 @@ import getItemQualityLabel from 'common/getItemQualityLabel';
 
 import Combatants from 'parser/shared/modules/Combatants';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import { GEAR_SLOTS } from 'parser/core/Combatant';
 import { makeSpellApiUrl, makeItemApiUrl } from 'common/makeApiUrl';
 // Source: https://stackoverflow.com/a/20079910/684353
 function selectText(node) {

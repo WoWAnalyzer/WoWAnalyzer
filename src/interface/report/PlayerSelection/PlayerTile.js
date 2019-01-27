@@ -5,7 +5,9 @@ import { Link, withRouter } from 'react-router-dom';
 import RoleIcon from 'common/RoleIcon';
 import SpecIcon from 'common/SpecIcon';
 import { getClassName, getName as getRoleName } from 'game/ROLES';
+import getAverageItemLevel from 'game/getAverageItemLevel';
 import { i18n } from 'interface/RootLocalizationProvider';
+import Icon from 'common/Icon';
 
 class PlayerTile extends React.PureComponent {
   static propTypes = {
@@ -62,6 +64,12 @@ class PlayerTile extends React.PureComponent {
           <div className="about">
             <h1 className={player.spec.className.replace(' ', '')}>{player.name}</h1>
             <small><SpecIcon id={player.spec.id} /> {player.spec.specName} {player.spec.className}</small>
+            <div className="flex text-muted text-small">
+              <div className="flex-main">
+                <Icon icon="inv_helmet_03" /> {Math.round(getAverageItemLevel(player.combatant.gear))}
+              </div>
+              <div className="flex-main text-right" />
+            </div>
           </div>
         </div>
       </Link>
