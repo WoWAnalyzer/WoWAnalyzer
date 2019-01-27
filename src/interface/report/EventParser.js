@@ -103,6 +103,8 @@ class EventParser extends React.PureComponent {
   async parse() {
     const { report, fight, combatants, player } = this.props;
 
+    timeAvailable && console.time('initialize');
+
     this.reset();
     this.appendHistory(report, fight, player);
     this._jobId += 1;
@@ -131,6 +133,7 @@ class EventParser extends React.PureComponent {
     ])
       .then(() => {
         this.stopFakeNetworkProgress();
+        timeAvailable && console.timeEnd('initialize');
         timeAvailable && console.time('full parse');
         const parser = new parserClass(report, player, fight, combatants, characterProfile);
         return this.parseEvents(parser, report, player, fight, [...bossPhaseEvents, ...events]);

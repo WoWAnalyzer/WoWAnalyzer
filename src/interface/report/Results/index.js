@@ -161,7 +161,6 @@ class Results extends React.PureComponent {
       adjustForDowntime: this.state.adjustForDowntime,
     });
 
-
     return (
       <div className={`results boss-${fight.boss}`}>
         <Header
@@ -170,9 +169,9 @@ class Results extends React.PureComponent {
           characterProfile={characterProfile}
           boss={parser.boss}
           fight={fight}
+          tabs={results.tabs}
           makeTabUrl={makeTabUrl}
           selectedTab={selectedTab}
-          tabs={results.tabs}
         />
 
         {this.renderContent(selectedTab, results)}

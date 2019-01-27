@@ -96,20 +96,19 @@ class Headers extends React.PureComponent {
     // }
   }
   get playerIcon() {
-    const { characterProfile } = this.props;
+    const { characterProfile, config } = this.props;
     if (characterProfile && characterProfile.thumbnail) {
       return `https://render-${characterProfile.region}.worldofwarcraft.com/character/${characterProfile.thumbnail}`;
     }
-    const config = this.context.config;
     return `/specs/${config.spec.className}-${config.spec.specName}.jpg`.replace(/ /, '');
   }
 
   renderBackground() {
     const { boss } = this.props;
 
-    let backgroundImage = null;
-    let backgroundPosition = null;
-    if (boss) {
+    let backgroundImage = '/img/header.jpg';
+    let backgroundPosition = 'center';
+    if (boss && boss.background) {
       backgroundImage = boss.background;
       backgroundPosition = boss.backgroundPosition;
     }
