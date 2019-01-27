@@ -90,6 +90,11 @@ class EarlyDotRefreshes extends Analyzer {
     }
     this.lastCast = event;
     this.lastCastGoodExtension = false;
+    this.afterLastCastSet(event);
+  }
+
+  afterLastCastSet(event) {
+    //Extension to help capture state during the "LastCast".
   }
 
   // Determines whether the last cast should be checked or not.
@@ -115,8 +120,15 @@ class EarlyDotRefreshes extends Analyzer {
     const dot = this.constructor.dots.find(element => {
       return element.castId === this.lastCast.ability.guid;
     });
-    const text = `${dot.name} was cast while it had more than 30% of its duration remaining on all targets hit.`;
-    this.addBadCast(this.lastCast, text);
+    const text = this.getLastBadCastText(event, dot);
+    if (text !== '') {
+      this.addBadCast(this.lastCast, text);
+    }
+  }
+
+  // Get the suggestion for last bad cast. If empty, cast will be considered good.
+  getLastBadCastText(event, dot) {
+    return `${dot.name} was cast while it had more than 30% of its duration remaining on all targets hit.`;
   }
 
   // Extends the dot and returns true if it was a good extension (no duration wasted) or false if it was a bad extension.

@@ -3,8 +3,6 @@ import React from 'react';
 import { tsabo } from 'CONTRIBUTORS';
 import retryingPromise from 'common/retryingPromise';
 import SPECS from 'game/SPECS';
-import Warning from 'interface/common/Alert/Warning';
-
 import CHANGELOG from './CHANGELOG';
 
 export default {
@@ -18,19 +16,16 @@ export default {
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      <Warning>
-        The Subtlety Rogue analysis isn't complete yet.
-        All recomendations and analysis should be in line with <a href="http://www.ravenholdt.net/subtlety-guide/"> wEak's guide </a> and Simcraft APL.
-        TODO:
-        <ul>
-         <li>Target values still need to be adjusted.</li>
-         <li>More mistkes need highlighting.</li>
-         <li>Nightblade refresh analysis accuracy needs to be improved.</li>
-        </ul>
+      Hey Subtlety Rogues! <br /> <br />
 
-        <br />
-        If there is something missing, incorrect, or inaccurate, please report it on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact <kbd>@tsabo</kbd> on <a href="https://discord.gg/AxphPxU">Discord</a>.<br /><br />
-      </Warning>
+      The Subtlety Rogue module is still being worked on.
+      Currently, it gives a good analysis of the single target rotation, and highlights major mistakes.
+
+      <br /> <br />
+      All recommendations and analysis should be in line with <a href="http://www.ravenholdt.net/subtlety-guide/"> wEak's guide </a> and Simcraft APL.
+
+      <br /> <br />
+       If there is something missing, incorrect, or inaccurate, please report it on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a> or contact <kbd>@tsabo</kbd> on <a href="https://discord.gg/AxphPxU">Discord</a>.<br /><br />
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.

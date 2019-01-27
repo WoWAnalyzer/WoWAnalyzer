@@ -7,6 +7,11 @@ import { Zerotorescue, tsabo, Gebuz, Aelexe } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2019-01-27'),
+    changes: 'Improvements to the Nightblade analysis.',
+    contributors: [tsabo],
+  },
+  {
     date: new Date('2018-12-28'),
     changes: 'Updates for 8.1, minor fixes.',
     contributors: [tsabo],
