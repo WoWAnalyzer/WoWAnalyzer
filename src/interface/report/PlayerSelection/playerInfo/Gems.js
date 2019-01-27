@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ItemIcon from '../../../../common/ItemIcon';
 
+import ItemIcon from 'common/ItemIcon';
 
 class Gems extends React.PureComponent {
   static propTypes = {

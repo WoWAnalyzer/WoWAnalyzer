@@ -1,4 +1,4 @@
-@import '../../layout/Theme';
+@import 'interface/layout/Theme';
 
 .player-selection-container {
   display: grid;
@@ -113,13 +113,13 @@
         .item-slot-11-enchant,
         .item-slot-12-enchant,
         .item-slot-13-enchant,
-        .item-slot-15-enchant, {
+        .item-slot-15-enchant {
           .enchant-info {
             float: right;
           }
         }
 
-        .item-slot-0-enchant
+        .item-slot-0-enchant,
         .item-slot-1-enchant,
         .item-slot-2-enchant,
         .item-slot-3-enchant,
@@ -127,7 +127,7 @@
         .item-slot-8-enchant,
         .item-slot-14-enchant,
         .item-slot-16-enchant,
-        .item-slot-17-enchant, {
+        .item-slot-17-enchant {
           .enchant-info {
             float: left;
           }

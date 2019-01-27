@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import SPELLS from '../../../../common/SPELLS';
-import Icon from '../../../../common/Icon';
-import SpellIcon from '../../../../common/SpellIcon';
-import SpellLink from '../../../../common/SpellLink';
+import SPELLS from 'common/SPELLS';
+import Icon from 'common/Icon';
+import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 
 const FALLBACK_ICON = 'inv_misc_questionmark';
 

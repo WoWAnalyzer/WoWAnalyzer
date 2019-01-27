@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Trans } from '@lingui/macro';
 
-import traitIdMap from '../../../common/TraitIdMap';
+import traitIdMap from 'common/TraitIdMap';
 
 import Azerite from './playerInfo/Azerite';
 import Enchants from './playerInfo/Enchants';

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Icon from '../../../../common/Icon';
-import SpellLink from '../../../../common/SpellLink';
-import AZERITE_SPELLS from '../../../../common/SPELLS/bfa/azeritetraits';
+import Icon from 'common/Icon';
+import SpellLink from 'common/SpellLink';
+import AZERITE_SPELLS from 'common/SPELLS/bfa/azeritetraits';
 
 const FALLBACK_ICON = 'inv_misc_questionmark';
 const ITEM_SLOT = {
@@ -54,7 +54,7 @@ class Azerite extends React.PureComponent {
                     >
                       <Icon icon={spell ? spell.icon : FALLBACK_ICON} style={{ border: '3px solid currentColor' }} />
                     </SpellLink>
-                  </div>  
+                  </div>
                 );
               })
             }
@@ -71,12 +71,12 @@ class Azerite extends React.PureComponent {
     const traits = Object.values(this.props.azerite).reduce((acc, val) => acc.concat(val), []);
     traits.forEach(traitId => {
       const trait = this.state.azerite.find(e => e.id === parseInt(traitId, 10));
-  
+
       if (!trait && !missingIcons.find(i => i.id === traitId)) {
         missingIcons.push({ id: traitId, icon: FALLBACK_ICON, name: 'Unknown' });
       }
     });
-  
+
     Object.keys(missingIcons).forEach(e => {
       const traitId = parseInt(missingIcons[e].id, 10);
       fetch(`https://eu.api.battle.net/wow/spell/${traitId}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
@@ -87,7 +87,7 @@ class Azerite extends React.PureComponent {
             name: data.name,
             icon: data.icon,
           };
-  
+
           const newAzerite = [...this.state.azerite, newTrait];
           this.setState({
             azerite: newAzerite,

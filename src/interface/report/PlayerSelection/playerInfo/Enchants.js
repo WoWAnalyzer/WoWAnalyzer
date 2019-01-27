@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import enchantIdMap from '../../../../common/enchantIdMap';
 
+import enchantIdMap from 'common/enchantIdMap';
 
 class Enchants extends React.PureComponent {
   static propTypes = {

@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import SPECS from '../../../game/SPECS';
-import ROLES from '../../../game/ROLES';
-import { fetchCharacter } from '../../actions/characters';
-import { getCharactersById } from '../../selectors/characters';
+import SPECS from 'game/SPECS';
+import ROLES from 'game/ROLES';
+import { fetchCharacter } from 'interface/actions/characters';
+import { getCharactersById } from 'interface/selectors/characters';
 
 import PlayerTile from './PlayerTile';
 import PlayerInfo from './PlayerInfo';
