@@ -1,4 +1,4 @@
-@import 'interface/layout/Theme';
+@import 'interface/layout/Theme.scss';
 
 .player-selection-container {
   display: grid;
@@ -203,77 +203,88 @@
   }
 
   .player-selection {
-    text-align: center;
-    line-height: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-    margin: -15px;
-
-
-    > .player {
-      display: inline-block;
-      padding: 5px 5px 15px 5px;
-      border-radius: 3px;
-      margin: 5px;
-      background: $panelColor;
-      border: 1px solid transparent;
-
-      &:hover, &.selected {
-        text-decoration: none;
-        background: transparentize($primaryColor, 0.9);
-        border: 1px solid rgba(248, 183, 0, 1);
-      }
-    }
-    .card {
+    > div {
       display: flex;
-      position: relative;
-      text-align: left;
-      color: #fff;
-      flex-direction: column;
 
-      > .avatar {
+      > .name {
         flex: 0 0 auto;
-        width: 100%;
-        height: 90px;
-        margin-right: 15px;
-        background-size: cover;
-        background-position: top center;
-        position: relative;
-        border: 1px solid #000;
-        border-radius: 3px;
-
-
-        .role-icon {
-          position: absolute;
-          left: 5px;
-          top: 10px;
-          transform: translateY(-50%);
-          margin-top: 5px;
-          width: 18px;
-          height: 18px;
-          opacity: 0.9;
-        }
+        font-weight: 700;
+        font-family: Poppins, 'Open Sans', 'Century Gothic', sans-serif;
+        text-transform: uppercase;
+        color: $primaryColor;
+        font-size: 26px;
+        width: 200px;
       }
-      > .about {
-        flex: 1;
-        position: relative;
-        z-index: 1;
+      > .players {
+        flex: 1 1 auto;
 
-        h1 {
-          font-size: 18px;
-          margin: 10px 0 8px;
-          line-height: 1;
-          text-shadow: text-stroke(1, #000);
-        }
-        small {
-          font-size: 14px;
-          color: #bbb;
-        }
+        > .player {
+          width: 200px;
+          display: inline-block;
+          padding: 5px 5px 15px 5px;
+          border-radius: 3px;
+          margin: 5px;
+          background: $panelColor;
+          border: 1px solid transparent;
 
-        .spec-icon {
-          width: 1em;
-          height: 1em;
-          border-radius: 50%;
+          &:hover, &.selected {
+            text-decoration: none;
+            background: transparentize($primaryColor, 0.9);
+            border: 1px solid rgba(248, 183, 0, 1);
+          }
+        }
+        .card {
+          display: flex;
+          position: relative;
+          text-align: left;
+          color: #fff;
+          flex-direction: column;
+
+          > .avatar {
+            flex: 0 0 auto;
+            width: 100%;
+            height: 90px;
+            margin-right: 15px;
+            background-size: cover;
+            background-position: top center;
+            position: relative;
+            border: 1px solid #000;
+            border-radius: 3px;
+
+
+            .role-icon {
+              position: absolute;
+              left: 5px;
+              top: 10px;
+              transform: translateY(-50%);
+              margin-top: 5px;
+              width: 18px;
+              height: 18px;
+              opacity: 0.9;
+            }
+          }
+          > .about {
+            flex: 1;
+            position: relative;
+            z-index: 1;
+
+            h1 {
+              font-size: 18px;
+              margin: 10px 0 8px;
+              line-height: 1;
+              text-shadow: text-stroke(1, #000);
+            }
+            small {
+              font-size: 14px;
+              color: #bbb;
+            }
+
+            .spec-icon {
+              width: 1em;
+              height: 1em;
+              border-radius: 50%;
+            }
+          }
         }
       }
     }

@@ -4,7 +4,7 @@ import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 
 import ReportLoader from './ReportLoader';
 import FightSelection from './FightSelection';
-import PlayerSelection from './PlayerSelection';
+import PlayerLoader from './PlayerLoader';
 import ConfigLoader from './ConfigLoader';
 import PatchChecker from './PatchChecker';
 import SupportChecker from './SupportChecker';
@@ -23,7 +23,7 @@ const Report = props => (
           refreshReport={refreshReport}
         >
           {fight => (
-            <PlayerSelection
+            <PlayerLoader
               report={report}
               fight={fight}
             >
@@ -58,7 +58,7 @@ const Report = props => (
                   )}
                 </ConfigLoader>
               )}
-            </PlayerSelection>
+            </PlayerLoader>
           )}
         </FightSelection>
       </PatchChecker>

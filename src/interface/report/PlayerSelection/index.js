@@ -3,33 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import SPECS from 'game/SPECS';
-import ROLES from 'game/ROLES';
+import { getName as getRoleName } from 'game/ROLES';
+import { i18n } from 'interface/RootLocalizationProvider';
 import { fetchCharacter } from 'interface/actions/characters';
 import { getCharactersById } from 'interface/selectors/characters';
 
 import PlayerTile from './PlayerTile';
 import PlayerInfo from './PlayerInfo';
 import './PlayerSelection.scss';
-
-const ROLE_SORT_KEY = {
-  [ROLES.TANK]: 0,
-  [ROLES.HEALER]: 1,
-  [ROLES.DPS.MELEE]: 2,
-  [ROLES.DPS.RANGED]: 2,
-};
-function roleSortKey(player) {
-  const spec = SPECS[player.combatant.specID];
-  return ROLE_SORT_KEY[spec.role];
-}
-function sortPlayers(a, b) {
-  const aRoleSortKey = roleSortKey(a);
-  const bRoleSortKey = roleSortKey(b);
-
-  if (aRoleSortKey === bRoleSortKey) {
-    return a.name.localeCompare(b.name);
-  }
-  return aRoleSortKey - bRoleSortKey;
-}
 
 class PlayerSelection extends React.PureComponent {
   static propTypes = {
@@ -81,18 +62,37 @@ class PlayerSelection extends React.PureComponent {
       player.analysisUrl = makeUrl(player.id);
     });
 
+    const playersByRole = players.reduce((obj, player) => {
+      if (!obj[player.spec.role]) {
+        obj[player.spec.role] = [];
+      }
+      obj[player.spec.role].push(player);
+      return obj;
+    }, {});
+
     return (
       <div className={`player-selection-container${this.state.selectedPlayer ? ' show-info' : ''}`}>
         <div className="player-selection">
-          {players.sort(sortPlayers).map(player => (
-            <PlayerTile
-              key={player.guid}
-              player={player}
-              selectedPlayer={this.state.selectedPlayer}
-              analysisUrl={player.analysisUrl}
-              handleClick={() => this.handlePlayerClick(player)}
-            />
-          ))}
+          {Object.keys(playersByRole).sort((a, b) => a - b).map(role => {
+            const players = playersByRole[role];
+
+            return (
+              <div key={role}>
+                <div className="name">{i18n._(getRoleName(role)(players.length))}</div>
+                <div className="players">
+                  {players.sort((a, b) => a.name.localeCompare(b.name)).map(player => (
+                    <PlayerTile
+                      key={player.guid}
+                      player={player}
+                      selectedPlayer={this.state.selectedPlayer}
+                      analysisUrl={player.analysisUrl}
+                      handleClick={() => this.handlePlayerClick(player)}
+                    />
+                  ))}
+                </div>
+              </div>
+            );
+          })}
         </div>
         <div className="player-info">
           {this.state.selectedPlayer && <PlayerInfo player={this.state.selectedPlayer} />}

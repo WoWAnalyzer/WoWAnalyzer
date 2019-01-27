@@ -150,7 +150,7 @@ class PlayerLoader extends React.PureComponent {
                 </Link>
               </Tooltip>
             </div>
-            <Trans>Player selection</Trans>
+            <Trans>Select a player</Trans>
           </h1>
           <PlayerSelectionPanel
             players={report.friendlies.map(friendly => {
