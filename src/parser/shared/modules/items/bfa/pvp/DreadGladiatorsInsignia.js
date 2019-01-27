@@ -58,7 +58,7 @@ class DreadGladiatorsInsignia extends Analyzer {
     return (this.primaryStatBuff * this.uptime).toFixed(0);
   }
 
-  item() {
+  statistic() {
     return {
       item: ITEMS.DREAD_GLADIATORS_INSIGNIA,
       result: (

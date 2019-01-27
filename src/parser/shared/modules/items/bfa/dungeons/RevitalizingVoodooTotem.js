@@ -45,7 +45,7 @@ class RevitalizingVoodooTotem extends Analyzer {
     this.healing += event.amount + (event.absorbed || 0);
   }
 
-  item() {
+  statistic() {
     return {
       item: ITEMS.REVITALIZING_VOODOO_TOTEM,
       result: <ItemHealingDone amount={this.healing} />,

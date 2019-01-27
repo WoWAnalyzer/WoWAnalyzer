@@ -55,7 +55,7 @@ class SyringeOfBloodborneInfirmity extends Analyzer{
         return this.selectedCombatant.getBuffTriggerCount(SPELLS.CRITICAL_PROWESS.id);
     }
 
-    item() {
+    statistic() {
         return {
             item: ITEMS.SYRINGE_OF_BLOODBORNE_INFIRMITY,
             result: (

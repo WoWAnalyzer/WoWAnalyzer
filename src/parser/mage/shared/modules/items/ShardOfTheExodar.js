@@ -49,7 +49,7 @@ class ShardOfTheExodar extends Analyzer {
     return this.teamCasts + this.personalCasts;
   }
 
-  item() {
+  statistic() {
     return {
       item: ITEMS.SHARD_OF_THE_EXODAR,
       result: `Gained Time Warp effect ${formatNumber(this.actualCasts)} Times. (${formatNumber(this.possibleCasts)} Possible)`,

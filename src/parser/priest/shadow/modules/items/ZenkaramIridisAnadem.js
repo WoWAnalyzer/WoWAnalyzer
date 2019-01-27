@@ -35,7 +35,7 @@ class ZenkaramIridisAnadem extends Analyzer {
     }
   }
 
-  item() {
+  statistic() {
     return {
       item: ITEMS.ZENKARAM_IRIDIS_ANADEM,
       result: (

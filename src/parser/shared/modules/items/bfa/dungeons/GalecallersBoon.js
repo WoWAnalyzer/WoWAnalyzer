@@ -43,7 +43,7 @@ class GalecallersBoon extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.GALECALLERS_BOON_BUFF.id) / this.owner.fightDuration;
   }
 
-  item() {
+  statistic() {
     return {
       item: ITEMS.GALECALLERS_BOON,
       result: (

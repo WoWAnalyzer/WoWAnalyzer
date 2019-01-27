@@ -29,7 +29,7 @@ class DarkmoonDeckFathoms extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
-  item() {
+  statistic() {
     return {
       item: ITEMS.DARKMOON_DECK_FATHOMS,
       result: <ItemDamageDone amount={this.damage} />,

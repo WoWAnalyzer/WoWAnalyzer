@@ -50,7 +50,7 @@ class RotcrustedVoodooDoll extends Analyzer {
     this.ticks += 1;
   }
 
-  item() {
+  statistic() {
     return {
       item: ITEMS.ROTCRUSTED_VOODOO_DOLL,
       result: (

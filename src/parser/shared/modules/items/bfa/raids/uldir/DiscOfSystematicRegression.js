@@ -30,7 +30,7 @@ class DiscOfSystematicRegression extends Analyzer {
         }
     }
 
-    item(){
+    statistic(){
         return {
         item: ITEMS.DISC_OF_SYSTEMATIC_REGRESSION,
         result: (

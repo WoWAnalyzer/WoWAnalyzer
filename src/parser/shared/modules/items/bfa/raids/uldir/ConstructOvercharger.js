@@ -35,7 +35,7 @@ class ConstructOvercharger extends Analyzer {
     return this.selectedCombatant.getBuffTriggerCount(SPELLS.TITANIC_OVERCHARGE.id);
   }
 
-  item() {
+  statistic() {
     return {
       item: ITEMS.CONSTRUCT_OVERCHARGER,
       result: (

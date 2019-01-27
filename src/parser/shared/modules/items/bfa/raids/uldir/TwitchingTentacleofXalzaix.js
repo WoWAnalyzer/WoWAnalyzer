@@ -27,7 +27,7 @@ class TwitchingTentacleofXalzaix extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.UNCONTAINED_POWER.id) / this.owner.fightDuration;
   }
 
-  item() {
+  statistic() {
     return {
       item: ITEMS.TWITCHING_TENTACLE_OF_XALZAIX,
       result: (

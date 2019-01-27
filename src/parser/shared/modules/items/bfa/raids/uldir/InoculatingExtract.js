@@ -61,7 +61,7 @@ class InoculatingExtract extends Analyzer{
   }
 
 
-  item(){
+  statistic(){
     return{
       item: ITEMS.INOCULATING_EXTRACT,
       result: (

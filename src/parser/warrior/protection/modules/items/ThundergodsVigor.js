@@ -40,7 +40,7 @@ class ThundergodsVigor extends Analyzer {
   }
 
 
-  item() {
+  statistic() {
     return {
       item: ITEMS.THUNDERGODS_VIGOR,
       result: (

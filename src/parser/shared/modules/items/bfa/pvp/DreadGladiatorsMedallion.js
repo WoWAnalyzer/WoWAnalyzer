@@ -40,7 +40,7 @@ class DreadGladiatorsMedallion extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.RAPID_ADAPTATION.id) / this.owner.fightDuration;
   }
 
-  item() {
+  statistic() {
     return {
       item: ITEMS.DREAD_GLADIATORS_MEDALLION,
       result: (

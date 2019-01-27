@@ -73,7 +73,7 @@ class FirstMatesSpyglass extends Analyzer {
       return this.selectedCombatant.getBuffUptime(SPELLS.SPYGLASS_SIGHT.id) / this.owner.fightDuration;
   }
   
-  item() {
+  statistic() {
     return {
       item: ITEMS.FIRST_MATES_SPYGLASS,
       result: (

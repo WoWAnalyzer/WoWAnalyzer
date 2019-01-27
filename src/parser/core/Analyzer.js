@@ -79,7 +79,6 @@ class Analyzer extends EventSubscriber {
   }
 
   // Override these with functions that return info about their rendering in the specific slots
-  item() { return undefined; }
   statistic() { return undefined; }
   /**
    * @deprecated Set the `position` property on the Statistic component instead.

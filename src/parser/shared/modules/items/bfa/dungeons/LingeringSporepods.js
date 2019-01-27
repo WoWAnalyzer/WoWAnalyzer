@@ -53,7 +53,7 @@ class LingeringSporepods extends Analyzer {
     this.healing += (event.amount || 0) + (event.absorbed || 0);
   }
   
-  item() {
+  statistic() {
     return {
       item: ITEMS.LINGERING_SPOREPODS,
       result: (

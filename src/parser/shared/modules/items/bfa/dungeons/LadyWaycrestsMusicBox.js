@@ -45,7 +45,7 @@ class LadyWaycrestsMusicBox extends Analyzer {
     this.active = this.selectedCombatant.hasTrinket(ITEMS.LADY_WAYCRESTS_MUSIC_BOX.id);
   }
 
-  item() {
+  statistic() {
     return {
       item: ITEMS.LADY_WAYCRESTS_MUSIC_BOX,
       result: (

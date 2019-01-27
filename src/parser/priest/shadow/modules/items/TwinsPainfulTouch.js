@@ -47,7 +47,7 @@ class TwinsPainfulTouch extends Analyzer {
     }
   }
 
-  item() {
+  statistic() {
     const totalApplied = this.totalApplied || 0;
 
     return {

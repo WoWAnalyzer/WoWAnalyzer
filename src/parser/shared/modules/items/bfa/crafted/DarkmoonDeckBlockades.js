@@ -142,7 +142,7 @@ class DarkmoonDeckBlockades extends Analyzer {
     };
   }
 
-  item() {
+  statistic() {
     const summary = this.staminaSummary;
     const totals = this._getSummaryTotals(summary);
     const tooltipData = (

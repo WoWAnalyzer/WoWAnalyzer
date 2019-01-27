@@ -58,7 +58,7 @@ class AzerokksResonatingHeart extends Analyzer {
     return (this.agilityBuff * this.uptime).toFixed(0);
   }
 
-  item() {
+  statistic() {
     return {
       item: ITEMS.AZEROKKS_RESONATING_HEART,
       result: (

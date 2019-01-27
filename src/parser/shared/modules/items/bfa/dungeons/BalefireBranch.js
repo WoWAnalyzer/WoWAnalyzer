@@ -163,7 +163,7 @@ class BalefireBranch extends Analyzer {
     return this.intellectPerStack * (this.sumStacks / (this.owner.fightDuration / 1000));
   }
 
-  item() {
+  statistic() {
     const expectedIntellectWithoutDamage = this.intellectPerStack * (this.expectedSumStacks / (this.owner.fightDuration / 1000));
     return {
       item: ITEMS.BALEFIRE_BRANCH,

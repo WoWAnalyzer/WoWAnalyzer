@@ -30,7 +30,7 @@ class GildedLoaFigurine extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.WILL_OF_THE_LOA.id) / this.owner.fightDuration;
   }
 
-  item() {
+  statistic() {
     return {
       item: ITEMS.GILDED_LOA_FIGURINE,
       result: (

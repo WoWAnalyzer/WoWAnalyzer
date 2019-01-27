@@ -28,7 +28,7 @@ class FreneticCorpuscle extends Analyzer {
     }
   }
 
-  item(){
+  statistic(){
     return {
       item: ITEMS.FRENETIC_CORPUSCLE,
       result: (

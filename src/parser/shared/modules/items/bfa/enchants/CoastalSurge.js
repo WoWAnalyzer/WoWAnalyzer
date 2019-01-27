@@ -28,7 +28,7 @@ class CostalSurge extends Analyzer {
   }
 
 
-  item() {
+  statistic() {
     return {
       id: SPELLS.COASTAL_SURGE.id,
       icon: <SpellIcon id={SPELLS.COASTAL_SURGE.id} />,

@@ -26,7 +26,7 @@ class ConchofDarkWhispers extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.CONCH_OF_DARK_WHISPERS_BUFF.id) / this.owner.fightDuration;
   }
 
-  item() {
+  statistic() {
     return {
       item: ITEMS.CONCH_OF_DARK_WHISPERS,
       result: (

@@ -39,7 +39,7 @@ class SoulOfTheSlayer extends Analyzer {
     this.hasPickedOtherTalent = this.selectedCombatant.hasTalent(this.option1) || this.selectedCombatant.hasTalent(this.option2);
   }
 
-  item() {
+  statistic() {
     return {
       item: ITEMS.SOUL_OF_THE_SLAYER,
       result: <>This gave you <SpellLink id={this.talentGained} />.</>,

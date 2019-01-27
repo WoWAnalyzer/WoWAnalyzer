@@ -32,7 +32,7 @@ class HeartOfTheVoid extends Analyzer {
     }
   }
 
-  item() {
+  statistic() {
     return {
       item: ITEMS.HEART_OF_THE_VOID,
       result: (
