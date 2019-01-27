@@ -2,10 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 
-import RoleIcon from 'common/RoleIcon';
 import SpecIcon from 'common/SpecIcon';
-import { getClassName, getName as getRoleName } from 'game/ROLES';
-import { i18n } from 'interface/RootLocalizationProvider';
+import { getClassName } from 'game/ROLES';
 
 class PlayerTile extends React.PureComponent {
   static propTypes = {
@@ -52,11 +50,7 @@ class PlayerTile extends React.PureComponent {
           history.push(analysisUrl);
         }}
       >
-        <div className={`role ${getClassName(player.spec.role)}`}>
-          <div>
-            <RoleIcon id={player.spec.role} className="role-icon" /> {i18n._(getRoleName(player.spec.role)(1))}
-          </div>
-        </div>
+        <div className={`role ${getClassName(player.spec.role)}`} />
         <div className="card">
           <div className="avatar" style={{ backgroundImage: `url(${player.avatar})` }} />
           <div className="about">

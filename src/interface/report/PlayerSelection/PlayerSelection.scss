@@ -208,20 +208,6 @@
         text-align: center;
         min-height: 5px;
 
-        > div {
-          display: none;
-          font-family: Poppins, 'Open Sans', 'Century Gothic', sans-serif;
-          text-transform: uppercase;
-          font-weight: 700;
-          font-size: 12px;
-          letter-spacing: 0.5px;
-          line-height: 1;
-        }
-        &:hover > div {
-          display: block;
-          padding: 3px;
-        }
-
         &.tank {
           background: #002b80;
         }
