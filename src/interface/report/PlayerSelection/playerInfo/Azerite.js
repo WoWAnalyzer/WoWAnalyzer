@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Icon from 'common/Icon';
-import SpellLink from 'common/SpellLink';
-import AZERITE_SPELLS from 'common/SPELLS/bfa/azeritetraits';
+import Icon from '../../../../common/Icon';
+import SpellLink from '../../../../common/SpellLink';
+import AZERITE_SPELLS from '../../../../common/SPELLS/bfa/azeritetraits';
 
 const FALLBACK_ICON = 'inv_misc_questionmark';
 const ITEM_SLOT = {

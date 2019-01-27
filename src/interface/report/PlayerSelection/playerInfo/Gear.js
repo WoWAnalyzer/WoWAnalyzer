@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Icon from 'common/Icon';
-import ItemLink from 'common/ItemLink';
-import ITEM_QUALITIES from 'game/ITEM_QUALITIES';
+import Icon from '../../../../common/Icon';
+import ItemLink from '../../../../common/ItemLink';
+import ITEM_QUALITIES from '../../../../game/ITEM_QUALITIES';
 
 const EPIC_ITEMS_ILVL = 340;
 

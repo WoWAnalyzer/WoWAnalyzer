@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Trans } from '@lingui/macro';
 
-import traitIdMap from 'common/TraitIdMap';
+import traitIdMap from '../../../common/TraitIdMap';
 
 import Azerite from './playerInfo/Azerite';
 import Enchants from './playerInfo/Enchants';
@@ -44,7 +44,7 @@ class PlayerInfo extends React.PureComponent {
             <Gear gear={this.state.gear} player={player} />
             <Gems gear={this.state.gear} />
             <Enchants gear={this.state.gear} />
-          </div>          
+          </div>
         </div>
         <a href={player.analysisUrl} className="btn btn-primary analyze">
           <Trans>Analyze</Trans> <span className="glyphicon glyphicon-chevron-right" aria-hidden />

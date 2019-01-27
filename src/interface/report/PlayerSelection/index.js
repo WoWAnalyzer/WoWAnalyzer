@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import SPECS from 'game/SPECS';
-import ROLES from 'game/ROLES';
-import { fetchCharacter } from 'interface/actions/characters';
-import { getCharactersById } from 'interface/selectors/characters';
+import SPECS from '../../../game/SPECS';
+import ROLES from '../../../game/ROLES';
+import { fetchCharacter } from '../../actions/characters';
+import { getCharactersById } from '../../selectors/characters';
 
 import PlayerTile from './PlayerTile';
 import PlayerInfo from './PlayerInfo';
@@ -56,6 +56,14 @@ class PlayerSelection extends React.PureComponent {
     });
   }
 
+  handlePlayerClick(player) {
+    if (this.state.selectedPlayer === player) {
+      this.setState({selectedPlayer: null});
+    } else {
+      this.setState({selectedPlayer: player});
+    }
+  }
+
   render() {
     const { players, charactersById, makeUrl } = this.props;
 
@@ -87,21 +95,10 @@ class PlayerSelection extends React.PureComponent {
           ))}
         </div>
         <div className="player-info">
-          {
-            this.state.selectedPlayer &&
-            <PlayerInfo player={this.state.selectedPlayer} />
-          }
+          {this.state.selectedPlayer && <PlayerInfo player={this.state.selectedPlayer} />}
         </div>
       </div>
     );
-  }
-
-  handlePlayerClick(player) {
-    if (this.state.selectedPlayer === player) {
-      this.setState({selectedPlayer: null});
-    } else {
-      this.setState({selectedPlayer: player});
-    }
   }
 }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
-import RoleIcon from 'common/RoleIcon';
+import RoleIcon from '../../../common/RoleIcon';
 
 class PlayerTile extends React.PureComponent {
   static propTypes = {
