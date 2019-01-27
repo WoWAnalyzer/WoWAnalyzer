@@ -25,7 +25,7 @@ const defaultState = {
   combatantsFightId: null,
 };
 
-class PlayerSelection extends React.PureComponent {
+class PlayerLoader extends React.PureComponent {
   static propTypes = {
     report: PropTypes.shape({
       code: PropTypes.string.isRequired,
@@ -193,4 +193,4 @@ export default compose(
   connect(mapStateToProps, {
     setCombatants,
   })
-)(PlayerSelection);
+)(PlayerLoader);
