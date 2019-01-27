@@ -142,16 +142,20 @@ class PlayerLoader extends React.PureComponent {
       }
       return (
         <div className="container offset">
-          <h1>
+          <div style={{ position: 'relative', marginBottom: 15 }}>
             <div className="back-button">
               <Tooltip content={i18n._(t`Back to fight selection`)}>
                 <Link to={`/report/${report.code}`}>
                   <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
+                  <label>
+                    {' '}Fight selection
+                  </label>
                 </Link>
               </Tooltip>
             </div>
-            <Trans>Select a player</Trans>
-          </h1>
+            <h1 style={{ lineHeight: 1.4, marginBottom: 0 }}><Trans>Raid composition</Trans></h1>
+            <small style={{ marginTop: -5 }}><Trans>Select the player you wish to analyze.</Trans></small>
+          </div>
           <PlayerSelectionPanel
             players={report.friendlies.map(friendly => {
               const combatant = combatants.find(combatant => combatant.sourceID === friendly.id);

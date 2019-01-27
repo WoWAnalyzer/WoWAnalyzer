@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import RoleIcon from 'common/RoleIcon';
 import SpecIcon from 'common/SpecIcon';
@@ -40,9 +40,11 @@ class PlayerTile extends React.PureComponent {
     }
 
     return (
-      <div
+      <Link
+        to={analysisUrl}
         className={`player ${(selectedPlayer && selectedPlayer.guid === player.guid) ? 'selected' : ''}`}
-        onClick={() => {
+        onClick={e => {
+          e.preventDefault();
           this.timeout = setTimeout(handleClick, 200);
         }}
         onDoubleClick={() => {
@@ -51,7 +53,9 @@ class PlayerTile extends React.PureComponent {
         }}
       >
         <div className={`role ${getClassName(player.spec.role)}`}>
-          <RoleIcon id={player.spec.role} className="role-icon" /> {i18n._(getRoleName(player.spec.role)(1))}
+          <div>
+            <RoleIcon id={player.spec.role} className="role-icon" /> {i18n._(getRoleName(player.spec.role)(1))}
+          </div>
         </div>
         <div className="card">
           <div className="avatar" style={{ backgroundImage: `url(${player.avatar})` }} />
@@ -60,7 +64,7 @@ class PlayerTile extends React.PureComponent {
             <small><SpecIcon id={player.spec.id} /> {player.spec.specName} {player.spec.className}</small>
           </div>
         </div>
-      </div>
+      </Link>
     );
   }
 }

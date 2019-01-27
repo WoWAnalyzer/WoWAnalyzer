@@ -234,12 +234,21 @@ h1 {
   position: absolute;
   left: 0;
   transform: translateX(-100%);
+  font-size: 26px;
+
+  label {
+    display: none;
+  }
 }
 @media (max-width: 620px) {
   .back-button {
     position: static;
-    display: inline-block;
+    display: block;
     transform: none;
+
+    label {
+      display: inline-block;
+    }
   }
 }
 

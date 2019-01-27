@@ -23,7 +23,7 @@ class PlayerInfo extends React.PureComponent {
     gear: [],
     traits: {},
     talents: [],
-  }
+  };
 
   static getDerivedStateFromProps(props) {
     const { player } = props;
@@ -32,6 +32,13 @@ class PlayerInfo extends React.PureComponent {
       traits: _parseTraits(player.combatant.artifact),
       talents: _parseTalents(player.combatant.talents),
     };
+  }
+
+  get averageIlvl() {
+    const gear = this.state.gear;
+
+    const filteredGear = gear.filter((item, slotId) => !EXCLUDED_ITEM_SLOTS.includes(slotId));
+    return filteredGear.reduce((total, item) => total + item.itemLevel, 0 ) / filteredGear.length;
   }
 
   render() {
@@ -59,13 +66,6 @@ class PlayerInfo extends React.PureComponent {
         </div>
       </>
     );
-  }
-
-  get averageIlvl() {
-    const gear = this.state.gear;
-
-    const filteredGear = gear.filter((item, slotId) => !EXCLUDED_ITEM_SLOTS.includes(slotId));
-    return filteredGear.reduce((total, item) => total + item.itemLevel, 0 ) / filteredGear.length;
   }
 }
 
