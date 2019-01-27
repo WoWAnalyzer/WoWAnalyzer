@@ -186,8 +186,8 @@
 
   .player-selection {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-    grid-gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
+    grid-gap: 0px;
 
     .player {
       cursor: pointer;
@@ -196,7 +196,6 @@
       display: flex;
       flex-flow: column;
       float: left;
-      overflow: hidden;
       color: #fff;
 
       &:hover, &.selected {
@@ -205,26 +204,30 @@
       }
       .role {
         flex: 0 0 auto;
-        text-align: center;
-        min-height: 5px;
+        min-height: 3px;
+        position: relative;
 
-        &.tank {
-          background: #002b80;
+        > div {
+          display: none;
+          color: $primaryColor;
+          position: absolute;
+          transform: translateY(-100%);
         }
-        &.healer {
-          background: #014a00;
-        }
-        &.dps {
-          background: #d84141; // the old primary color. I guess it's kind of an easter egg/homage.
-        }
-        &.dps.ranged {
-          background: adjust_hue(#d84141, 28deg);
-        }
+
         .icon {
           border: 0;
           height: 11px;
           margin-top: -3px;
         }
+      }
+      &.tank .role {
+        background: #002b80;
+      }
+      &.healer .role {
+        background: #014a00;
+      }
+      &.dps .role {
+        background: #d84141; // the old primary color. I guess it's kind of an easter egg/homage.
       }
 
       .card {
@@ -266,6 +269,8 @@
             margin: 6px 0 -5px;
             line-height: 1.6;
             text-shadow: text-stroke(1, #000);
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
 
           small {

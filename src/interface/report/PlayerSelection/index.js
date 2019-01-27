@@ -15,7 +15,7 @@ const ROLE_SORT_KEY = {
   [ROLES.TANK]: 0,
   [ROLES.HEALER]: 1,
   [ROLES.DPS.MELEE]: 2,
-  [ROLES.DPS.RANGED]: 3,
+  [ROLES.DPS.RANGED]: 2,
 };
 function roleSortKey(player) {
   const spec = SPECS[player.combatant.specID];
@@ -25,10 +25,17 @@ function sortPlayers(a, b) {
   const aRoleSortKey = roleSortKey(a);
   const bRoleSortKey = roleSortKey(b);
 
-  if (aRoleSortKey === bRoleSortKey) {
-    return a.name.localeCompare(b.name);
+  if (aRoleSortKey !== bRoleSortKey) {
+    return aRoleSortKey - bRoleSortKey;
   }
-  return aRoleSortKey - bRoleSortKey;
+
+  const aSpecSortKey = a.spec.className;
+  const bSpecSortKey = b.spec.className;
+  if (aSpecSortKey !== bSpecSortKey) {
+    return aSpecSortKey.localeCompare(bSpecSortKey);
+  }
+
+  return a.name.localeCompare(b.name);
 }
 
 class PlayerSelection extends React.PureComponent {
