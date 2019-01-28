@@ -9,6 +9,10 @@
 
     .player-selection {
       border-right: 1px solid rgba(255, 255, 255, 0.15);
+
+      .player {
+        width: 20%;
+      }
     }
 
     .player-info {
@@ -185,9 +189,6 @@
   }
 
   .player-selection {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
-    grid-gap: 0px;
 
     .player {
       cursor: pointer;
@@ -197,6 +198,9 @@
       flex-flow: column;
       float: left;
       color: #fff;
+      min-width: 120px;
+      max-width: 150px;
+      width: 10%;
 
       &:hover, &.selected {
         text-decoration: none;
