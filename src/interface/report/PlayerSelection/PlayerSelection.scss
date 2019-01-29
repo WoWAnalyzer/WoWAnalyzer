@@ -9,10 +9,6 @@
 
     .player-selection {
       border-right: 1px solid rgba(255, 255, 255, 0.15);
-
-      .player {
-        width: 20%;
-      }
     }
 
     .player-info {
@@ -189,18 +185,17 @@
   }
 
   .player-selection {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
 
     .player {
       cursor: pointer;
       border-radius: 4px;
+      overflow: hidden;
       border: 2px solid transparent;
       display: flex;
       flex-flow: column;
-      float: left;
       color: #fff;
-      min-width: 120px;
-      max-width: 150px;
-      width: 10%;
 
       &:hover, &.selected {
         text-decoration: none;
@@ -208,21 +203,7 @@
       }
       .role {
         flex: 0 0 auto;
-        min-height: 3px;
-        position: relative;
-
-        > div {
-          display: none;
-          color: $primaryColor;
-          position: absolute;
-          transform: translateY(-100%);
-        }
-
-        .icon {
-          border: 0;
-          height: 11px;
-          margin-top: -3px;
-        }
+        height: 3px;
       }
       &.tank .role {
         background: #002b80;
@@ -266,12 +247,14 @@
           flex: 1;
           position: relative;
           z-index: 1;
-          padding: 0 10px 5px;
+          padding: 5px 10px;
 
           h1 {
-            font-size: 18px;
-            margin: 6px 0 -5px;
+            font-size: 14px;
+            text-transform: none;
             line-height: 1.6;
+            margin-top: 1px;
+            margin-bottom: -2px;
             text-shadow: text-stroke(1, #000);
             overflow: hidden;
             text-overflow: ellipsis;
@@ -285,6 +268,10 @@
           }
           small > .icon {
             border-radius: 50%;
+          }
+          small, .text-small {
+            // The small text has to be in a certain balance with the player name
+            font-size: 11px;
           }
         }
       }

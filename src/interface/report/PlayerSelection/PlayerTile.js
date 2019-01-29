@@ -47,23 +47,29 @@ class PlayerTile extends React.PureComponent {
         className={`player ${(selectedPlayer && selectedPlayer.guid === player.guid) ? 'selected' : ''} ${getClassName(player.spec.role)}`}
         onClick={e => {
           e.preventDefault();
-          this.timeout = setTimeout(handleClick, 200);
+          handleClick();
         }}
         onDoubleClick={() => {
           clearTimeout(this.timeout);
           history.push(analysisUrl);
         }}
       >
-        <div className="role">
-          <div>
-            <RoleIcon id={player.spec.role} className="role-icon" /> {i18n._(getRoleName(player.spec.role)(1))}
-          </div>
-        </div>
+        <div className="role" />
         <div className="card">
           <div className="avatar" style={{ backgroundImage: `url(${player.avatar})` }} />
           <div className="about">
-            <h1 className={player.spec.className.replace(' ', '')}>{player.name}</h1>
-            <small><SpecIcon id={player.spec.id} /> {player.spec.specName} {player.spec.className}</small>
+            <h1
+              className={player.spec.className.replace(' ', '')}
+              // The name can't always fit so use a tooltip. We use title instead of the tooltip library for this because we don't want it to be distracting and the tooltip library would popup when hovering just to click an item, while this has a delay.
+              title={player.name}
+            >
+              {player.name}
+            </h1>
+            <small
+              title={`${player.spec.specName} ${player.spec.className}`}
+            >
+              <SpecIcon id={player.spec.id} /> {player.spec.specName} {player.spec.className}
+            </small>
             <div className="flex text-muted text-small">
               <div className="flex-main">
                 <Icon icon="inv_helmet_03" /> {Math.round(getAverageItemLevel(player.combatant.gear))}

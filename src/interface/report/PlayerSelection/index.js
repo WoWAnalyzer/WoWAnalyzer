@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Masonry from 'react-masonry-component';
 
 import SPECS from 'game/SPECS';
 import ROLES from 'game/ROLES';
@@ -91,7 +90,7 @@ class PlayerSelection extends React.PureComponent {
 
     return (
       <div className={`player-selection-container${this.state.selectedPlayer ? ' show-info' : ''}`}>
-        <Masonry className="player-selection">
+        <div className="player-selection">
           {players.sort(sortPlayers).map(player => (
             <PlayerTile
               key={player.guid}
@@ -101,7 +100,7 @@ class PlayerSelection extends React.PureComponent {
               handleClick={() => this.handlePlayerClick(player)}
             />
           ))}
-        </Masonry>
+        </div>
         <div className="player-info">
           {this.state.selectedPlayer && <PlayerInfo player={this.state.selectedPlayer} />}
         </div>
