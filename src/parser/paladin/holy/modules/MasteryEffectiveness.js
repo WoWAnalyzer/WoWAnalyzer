@@ -205,9 +205,11 @@ class MasteryEffectiveness extends Analyzer {
   }
 
   statistic() {
+    // TODO: Review this and figure out the correct approach to use for the main stat (probably scaledMasteryEffectivenessAverage?)
     // is raw unadjusted mastery effectiveness (each cast is equal, even if it's a tiny heal or fully overhealed)
     console.log('raw', this.rawMasteryEffectivenessAverage);
     // heal size adjusted (e.g. a big heal's mastery effectiveness outweights a small heal's) and capped by remaining health missing (so if 1 more mastery lead to overhealing, it wouldn't count)
+    console.log('original', this.overallMasteryEffectiveness);
     console.log('scaling (health capped)', this.scaledMasteryEffectivenessAverage);
     console.log('total mastery healing done', this.owner.formatItemHealingDone(this.totalMasteryHealingDone));
     // TODO: Should overallMasteryEffectiveness account for overhealing? It would probably be cleaner
@@ -217,7 +219,7 @@ class MasteryEffectiveness extends Analyzer {
           <div className="pad" style={{ position: 'relative' }}>
             <label><Trans>Mastery effectiveness</Trans></label>
             <div className="value">
-              {formatPercentage(this.overallMasteryEffectiveness, 0)}%
+              {formatPercentage(this.scaledMasteryEffectivenessAverage, 0)}%
             </div>
 
             <div
