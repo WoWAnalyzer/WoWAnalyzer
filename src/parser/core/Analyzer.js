@@ -1,4 +1,3 @@
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import EventSubscriber from './EventSubscriber';
 import EventFilter, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from './EventFilter';
 
@@ -88,7 +87,7 @@ class Analyzer extends EventSubscriber {
   /**
    * @deprecated Set the `position` property on the Statistic component instead.
    */
-  statisticOrder = STATISTIC_ORDER.DEFAULT;
+  statisticOrder = undefined;
   suggestions(when) { return undefined; }
   tab() { return undefined; }
 }

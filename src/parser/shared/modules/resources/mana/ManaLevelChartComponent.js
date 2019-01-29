@@ -69,7 +69,9 @@ class Mana extends React.PureComponent {
 
     const bossData = this.state.bossHealth.series.map((series, i) => {
       const data = series.data.map(([timestamp, health]) => ({ x: timestamp, y: health }));
+
       return {
+        id: series.id,
         title: `${series.name} Health`,
         backgroundColor: ManaStyles[`Boss-${i}`].backgroundColor,
         borderColor: ManaStyles[`Boss-${i}`].borderColor,

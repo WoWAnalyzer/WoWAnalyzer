@@ -21,7 +21,7 @@ class Statistic extends React.PureComponent {
     position: PropTypes.number,
     size: PropTypes.oneOf(['standard', 'small', 'medium', 'large', 'flexible']),
     creator: PropTypes.shape({
-      name: PropTypes.string.isRequired,
+      nickname: PropTypes.string.isRequired,
     }),
     drilldown: PropTypes.string,
   };

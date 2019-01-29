@@ -7,7 +7,7 @@ class UptimeBar extends React.PureComponent {
   static propTypes = {
     uptimeHistory: PropTypes.arrayOf(PropTypes.shape({
       start: PropTypes.number.isRequired,
-      end: PropTypes.number.isRequired,
+      end: PropTypes.number, // may be null if lasts until fight end
     })).isRequired,
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,

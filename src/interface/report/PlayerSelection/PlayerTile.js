@@ -2,11 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 
-import RoleIcon from 'common/RoleIcon';
 import SpecIcon from 'common/SpecIcon';
-import { getClassName, getName as getRoleName } from 'game/ROLES';
+import { getClassName } from 'game/ROLES';
 import getAverageItemLevel from 'game/getAverageItemLevel';
-import { i18n } from 'interface/RootLocalizationProvider';
 import Icon from 'common/Icon';
 
 class PlayerTile extends React.PureComponent {

@@ -7,6 +7,9 @@ import traitIdMap from 'common/TraitIdMap';
 import Entity from './Entity';
 
 class Combatant extends Entity {
+  get id() {
+    return this._combatantInfo.sourceID;
+  }
   get name() {
     return this._combatantInfo.name;
   }

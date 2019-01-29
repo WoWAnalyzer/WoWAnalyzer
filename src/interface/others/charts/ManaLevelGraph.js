@@ -94,6 +94,7 @@ class ManaLevelGraph extends React.PureComponent {
         />
         {bossData.map(boss => (
           <AreaSeries
+            key={boss.id}
             data={boss.data}
             color={boss.backgroundColor}
             stroke="transparent"
@@ -101,6 +102,7 @@ class ManaLevelGraph extends React.PureComponent {
         ))}
         {bossData.map(boss => (
           <LineSeries
+            key={boss.id}
             data={boss.data}
             color={boss.borderColor}
             strokeWidth={2}
@@ -116,8 +118,9 @@ class ManaLevelGraph extends React.PureComponent {
           color={this.colors.mana.border}
           strokeWidth={2}
         />
-        {deaths.map(({ x }) => (
+        {deaths.map(({ x }, index) => (
           <VerticalLine
+            key={index}
             value={x}
             style={{
               line: { background: this.colors.death },
