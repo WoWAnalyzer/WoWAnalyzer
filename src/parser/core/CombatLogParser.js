@@ -116,6 +116,7 @@ import MeticulousScheming from '../shared/modules/spells/bfa/azeritetraits/Metic
 import OverWhelmingPower from '../shared/modules/spells/bfa/azeritetraits/OverwhelmingPower';
 import ElementalWhirl from '../shared/modules/spells/bfa/azeritetraits/ElementalWhirl';
 import BloodRite from '../shared/modules/spells/bfa/azeritetraits/BloodRite';
+import BondedSouls from '../shared/modules/spells/bfa/azeritetraits/BondedSouls';
 import ConcentratedMending from '../shared/modules/spells/bfa/azeritetraits/ConcentratedMending';
 import BlessedPortents from '../shared/modules/spells/bfa/azeritetraits/BlessedPortents';
 import TidalSurge from '../shared/modules/spells/bfa/azeritetraits/TidalSurge';
@@ -264,6 +265,7 @@ class CombatLogParser {
     overwhelmingPower: OverWhelmingPower,
     elementalWhirl: ElementalWhirl,
     bloodRite: BloodRite,
+    bondedSouls: BondedSouls,
     concentratedMending: ConcentratedMending,
     blessedPortents: BlessedPortents,
     tidalSurge: TidalSurge,
