@@ -9,6 +9,11 @@ import Contributor from 'interface/contributor/Button';
 export default [
   {
     date: new Date('2019-01-30'),
+    changes: <>Added <ItemLink id={ITEMS.CREST_OF_PAKU_ALLIANCE.id} /> analyzer and accounted for its Haste gain.</>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-01-30'),
     changes: <>Added <SpellLink id={SPELLS.BONDED_SOULS_TRAIT.id} /> azerite trait and accounted for its Haste gain.</>,
     contributors: [Zerotorescue],
   },

@@ -138,6 +138,8 @@ import FreneticCorpuscle from '../shared/modules/items/bfa/raids/uldir/FreneticC
 import ConstructOvercharger from '../shared/modules/items/bfa/raids/uldir/ConstructOvercharger';
 import SyringeOfBloodborneInfirmity from '../shared/modules/items/bfa/raids/uldir/SyringeOfBloodborneInfirmity';
 import DiscOfSystematicRegression from '../shared/modules/items/bfa/raids/uldir/DiscOfSystematicRegression';
+// BoD
+import CrestOfPaku from '../shared/modules/items/bfa/raids/bod/CrestOfPaku';
 
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
@@ -288,6 +290,8 @@ class CombatLogParser {
     constructOvercharger: ConstructOvercharger,
     syringeOfBloodborneInfirmity: SyringeOfBloodborneInfirmity,
     discOfSystematicRegression: DiscOfSystematicRegression,
+    // BoD
+    crestOfPaku: CrestOfPaku,
   };
   // Override this with spec specific modules when extending
   static specModules = {};

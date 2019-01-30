@@ -33,7 +33,7 @@ class BondedSouls extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.BONDED_SOULS_BUFF_AND_HEAL.id) / this.owner.fightDuration;
   }
   get averageHaste() {
-    return (this.haste * this.uptime).toFixed(0);
+    return this.haste * this.uptime;
   }
 
   constructor(...args) {
@@ -65,7 +65,7 @@ class BondedSouls extends Analyzer {
         value={(
           <>
             {this.owner.formatItemHealingDone(this.healing)}<br />
-            and {this.averageHaste} average Haste gained
+            and {this.averageHaste.toFixed(0)} average Haste gained
           </>
         )}
         tooltip={`<strong>${formatPercentage(this.uptime)}% uptime</strong>. Each proc grants <strong>${this.haste} Haste</strong> while active.`}
