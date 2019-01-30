@@ -29,12 +29,18 @@ class SoulConduit extends Analyzer {
     const extraHogs = Math.floor(generated / SHARDS_PER_HOG);
     const totalSpent = this.soulShardTracker.spent;
     // find number of Shards we were MOST LIKELY to get in the fight
-    const { max } = findMax(totalSpent, SC_PROC_CHANCE, binomialPMF);
+    const { max } = findMax(totalSpent, (k, n) => binomialPMF(k, n, SC_PROC_CHANCE));
     return (
       <StatisticListBoxItem
         title={<>Shards generated with <SpellLink id={SPELLS.SOUL_CONDUIT_TALENT.id} /></>}
         value={generated}
-        valueTooltip={`You gained ${generated} Shards from this talent, which is <strong>${formatPercentage(generated / max)}%</strong> of Shards you were most likely to get in this fight (${max} Shards)<br />
+        valueTooltip={`You gained ${generated} Shards from this talent
+                       ${max > 0 ?
+                          `, which is <strong>${formatPercentage(generated / max)}%</strong> of Shards you were most likely to get in this fight (${max} Shards).`
+                        :
+                          ', while you were most likely to not get any Shards.'
+                        }
+                      <br />
                       You would get ${extraHogs} extra 3 shard Hands of Gul'dan with shards from this talent.`}
       />
     );
