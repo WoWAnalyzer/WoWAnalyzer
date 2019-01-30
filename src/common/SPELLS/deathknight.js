@@ -195,69 +195,10 @@ export default {
     icon: 'ability_deathknight_asphixiate',
   },
 
-  // Blood Tier Sets
-  // T20 2 Piece
-  BLOOD_DEATH_KNIGHT_T20_2SET_BONUS_BUFF: {
-    id: 242001,
-    name: 'T20 2 Set Bonus',
-    icon: 'spell_deathknight_bloodpresence',
-  },
-  // T20 4 Piece
-  BLOOD_DEATH_KNIGHT_T20_4SET_BONUS_BUFF: {
-    id: 242009,
-    name: 'T20 4 Set Bonus',
-    icon: 'spell_deathknight_bloodpresence',
-  },
-  // T21 2 Piece
-  BLOOD_DEATH_KNIGHT_T21_2SET_BONUS_BUFF: {
-    id: 251876,
-    name: 'T21 2 Set Bonus',
-    icon: 'ability_paladin_conviction',
-  },
-  // T21 4 Piece
-  BLOOD_DEATH_KNIGHT_T21_4SET_BONUS_BUFF: {
-    id: 251877,
-    name: 'T21 4 Set Bonus',
-    icon: 'ability_paladin_conviction',
-  },
-
-  // Blood T21 4 Piece buff
-  RUNE_MASTER: {
-    id: 253381,
-    name: 'Rune Master',
-    icon: '70_inscription_vantus_rune_nightmare',
-  },
-
-  // T20 Buff
-  GRAVEWARDEN: {
-    id: 242010,
-    name: 'Gravewarden',
-    icon: 'ability_warrior_bloodsurge',
-  },
-
   // Frost:
-  // Artifact
-  SINDRAGOSAS_FURY_ARTIFACT: {
-    id: 190778,
-    name: 'Sindragosa\'s Fury',
-    icon: 'achievement_boss_sindragosa',
-  },
-  CRYSTALLINE_SWORDS_1: {
-    id: 205164,
-    name: 'Crystalline Swords',
-    icon: 'spell_frost_iceshard',
-  },
-  CRYSTALLINE_SWORDS_2: {
-    id: 205165,
-    name: 'Crystalline Swords',
-    icon: 'spell_frost_iceshard',
-  },
-  CRYSTALLINE_SWORDS_THRONEBREAKER: {
-    id: 243122,
-    name: 'Crystalline Swords (Thronebreaker)',
-    icon: 'spell_frost_iceshard',
-  },
+
   // Damage Dealing
+
   FROST_FEVER: {
     id: 55095,
     name: 'Frost Fever',
@@ -340,107 +281,57 @@ export default {
     name: 'Rime',
     icon: 'spell_frost_arcticwinds',
   },
+
   KILLING_MACHINE: {
     id: 51124,
     name: 'Killing Machine',
     icon: 'inv_sword_122',
   },
+
   RAZORICE: {
     id: 50401,
     name: 'Razorice',
     icon: 'spell_deathknight_frozenruneweapon',
   },
+
   RUNIC_EMPOWERMENT: {
     id: 193486,
     name: 'Runic Empowerment',
     icon: 'inv_misc_rune_10',
   },
+
   MURDEROUS_EFFICIENCY: {
     id: 207062,
     name: 'Murderous Efficiency',
     icon: 'spell_frost_frostarmor',
   },
+
   FROST_FEVER_RP_GAIN:{
     id: 195617,
     name: 'Frost Fever',
     icon: 'spell_deathknight_frostfever',
   },
+
   RUNIC_ATTENUATION_RP_GAIN:{
     id: 221322,
     name: 'Runic Attenuation',
     icon: 'boss_odunrunes_blue',
   },
-  KOLTIRAS_NEWFOUND_WILL: {
-    id: 208783,
-    name: 'Koltira\'s Newfound Will',
-    icon: 'ability_warrior_unrelentingassault',
-  },
-  DRAUGR_GIRDLE_OF_THE_EVERLASTING_KING: {
-    id: 224166,
-    name: 'Draugr, Girdle of the Everlasting King',
-    icon: 'ability_warrior_unrelentingassault',
-  },
-  UVARNIMOR_THE_UNBEATIFUL: {
-    id: 208800,
-    name: 'Uvanimor, the Unbeautiful',
-    icon: 'ability_warrior_unrelentingassault',
-  },
-  SCOURGE_THE_UNBELIEVER: {
-    id: 191492,
-    name: 'Scourge the Unbeliever',
-    icon: 'spell_deathknight_plaguestrike',
-  },
+
   PESTILENT_PUSTULES: {
     id: 220211,
     name: 'Pestilent Pustules',
     icon: 'spell_yorsahj_bloodboil_purpleoil',
   },
-
-  // Frost tier
-  // T20 2P
-  FROST_DEATH_KNIGHT_T20_2SET_BONUS_BUFF: {
-    id: 242058,
-    name: 'T20 2 Set Bonus',
-    icon: 'spell_deathknight_frostpresence',
-  },
-  // T20 4P
-  FROST_DEATH_KNIGHT_T20_4SET_BONUS_BUFF: {
-    id: 242063,
-    name: 'T20 4 Set Bonus',
-    icon: 'spell_deathknight_frostpresence',
-  },
-  // T21 2P
-  FROST_DEATH_KNIGHT_T21_2SET_BONUS: {
-    id: 251873,
-    name: 'T21 2 Set Bonus',
-    icon: 'spell_deathknight_frostpresence',
-  },
-  // T21 4P
-  FROST_DEATH_KNIGHT_T21_4SET_BONUS: {
-    id: 251875,
-    name: 'T21 4 Set Bonus',
-    icon: 'spell_deathknight_frostpresence',
-  },
-  FREEZING_DEATH: { // damage event from 4 set
-    id: 253590,
-    name: 'Freezing Death',
-    icon: 'ability_deathknight_chillstreak',
-  },
-  TORAVONS_WHITEOUT_BINDINGS: {
-    id: 205659,
-    name: 'Toravon\'s Whiteout Bindings',
-    icon: 'ability_warrior_unrelentingassault',
-  },
-
+  
   // Unholy:
-  // Aritfact ability
+  // Spells
   APOCALYPSE: {
     id: 275699,
     name: 'Apocalypse',
     icon: 'artifactability_unholydeathknight_deathsembrace',
   },
 
-  // Spells
   ARMY_OF_THE_DEAD: {
     id: 42650,
     name: 'Army of the Dead',
@@ -521,42 +412,10 @@ export default {
     icon: 'ability_creature_disease_02',
   },
 
-  UNHOLY_FRENZY_BUFF: {
-    id: 207290,
-    name: 'Unholy Frenzy',
-    icon: 'spell_shadow_unholyfrenzy',
-  },
-
   UNHOLY_STRENGTH_BUFF: {
 	  id: 53365,
 	  name: 'Unholy Strength',
 	  icon: 'spell_holy_blessingofstrength',
-  },
-
-  // Unholy Tier Sets
-  // T20 2 Piece and buff
-  UNHOLY_DEATH_KNIGHT_T20_2SET_BONUS: {
-    id: 242064,
-    name: 'T20 2 Set Bonus',
-    icon: 'spell_deathknight_unholypresence',
-  },
-
-  MASTER_OF_GHOULS_BUFF: {
-    id: 246995,
-    name: 'Master of Ghouls',
-    icon: 'spell_deathknight_unholypresence',
-  },
-
-  UNHOLY_DEATH_KNIGHT_T21_4SET_BONUS: {
-    id: 251872,
-    name: 'T21 4 Set Bonus',
-    icon: 'ability_paladin_conviction',
-  },
-
-  UNHOLY_DEATH_KNIGHT_T21_2SET_BONUS: {
-    id: 251871,
-    name: 'T21 2 Set Bonus',
-    icon: 'ability_paladin_conviction',
   },
 
   // Shared:
@@ -668,36 +527,10 @@ export default {
     icon: 'spell_shadow_demonicempathy',
   },
 
-  COLD_HEART_BUFF: {
-    id: 235599,
-    name: 'Cold Heart',
-    icon: 'spell_frost_chainsofice',
-  },
-
   COLD_HEART_DEBUFF: {
     id: 248397,
     name: 'Cold Heart',
     icon: 'spell_frost_chainsofice',
-  },
-
-  //Skullflower's Haemostasis blood dk legendary buff
-  HAEMOSTASIS_BUFF: {
-    id: 235559,
-    name: 'Haemostasis',
-    icon: 'ability_deathwing_bloodcorruption_earth',
-  },
-
-  HEMOSTASIS_BUFF: {
-    id: 273947,
-    name: 'Hemostasis',
-    icon: 'ability_deathwing_bloodcorruption_earth',
-  },
-
-  //Shackles of Bryndaor blood dk legendary buff
-  SHACKLES_OF_BRYNDAOR_BUFF: {
-    id: 209232,
-    name: 'Shackles of Bryndaor',
-    icon: 'ability_deathknight_runicimpowerment',
   },
 
   RUNE_1: {
