@@ -1,5 +1,5 @@
 function ga() {
-  if (window.ga !== undefined) {
+  if (window.ga !== undefined && window.ga.getAll !== undefined) {
     return window.ga.getAll()[0];
   }
   return undefined;
