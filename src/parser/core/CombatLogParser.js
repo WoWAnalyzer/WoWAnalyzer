@@ -114,6 +114,7 @@ import MeticulousScheming from '../shared/modules/spells/bfa/azeritetraits/Metic
 import OverWhelmingPower from '../shared/modules/spells/bfa/azeritetraits/OverwhelmingPower';
 import ElementalWhirl from '../shared/modules/spells/bfa/azeritetraits/ElementalWhirl';
 import BloodRite from '../shared/modules/spells/bfa/azeritetraits/BloodRite';
+import BondedSouls from '../shared/modules/spells/bfa/azeritetraits/BondedSouls';
 import ConcentratedMending from '../shared/modules/spells/bfa/azeritetraits/ConcentratedMending';
 import BlessedPortents from '../shared/modules/spells/bfa/azeritetraits/BlessedPortents';
 import TidalSurge from '../shared/modules/spells/bfa/azeritetraits/TidalSurge';
@@ -135,6 +136,8 @@ import FreneticCorpuscle from '../shared/modules/items/bfa/raids/uldir/FreneticC
 import ConstructOvercharger from '../shared/modules/items/bfa/raids/uldir/ConstructOvercharger';
 import SyringeOfBloodborneInfirmity from '../shared/modules/items/bfa/raids/uldir/SyringeOfBloodborneInfirmity';
 import DiscOfSystematicRegression from '../shared/modules/items/bfa/raids/uldir/DiscOfSystematicRegression';
+// BoD
+import CrestOfPaku from '../shared/modules/items/bfa/raids/bod/CrestOfPaku';
 
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
@@ -260,6 +263,7 @@ class CombatLogParser {
     overwhelmingPower: OverWhelmingPower,
     elementalWhirl: ElementalWhirl,
     bloodRite: BloodRite,
+    bondedSouls: BondedSouls,
     concentratedMending: ConcentratedMending,
     blessedPortents: BlessedPortents,
     tidalSurge: TidalSurge,
@@ -282,6 +286,8 @@ class CombatLogParser {
     constructOvercharger: ConstructOvercharger,
     syringeOfBloodborneInfirmity: SyringeOfBloodborneInfirmity,
     discOfSystematicRegression: DiscOfSystematicRegression,
+    // BoD
+    crestOfPaku: CrestOfPaku,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
