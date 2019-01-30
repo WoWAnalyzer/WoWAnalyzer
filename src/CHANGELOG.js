@@ -14,7 +14,7 @@ export default [
   },
   {
     date: new Date('2019-01-26'),
-    changes: <>Account for Hate gained from <SpellLink id={SPELLS.OPULENCE_AMETHYST_OF_THE_SHADOW_KING.id} />.</>,
+    changes: <>Account for Haste gained from <SpellLink id={SPELLS.OPULENCE_AMETHYST_OF_THE_SHADOW_KING.id} />.</>,
     contributors: [Zerotorescue],
   },
   {
