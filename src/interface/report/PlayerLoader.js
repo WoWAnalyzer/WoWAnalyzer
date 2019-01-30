@@ -16,7 +16,7 @@ import { getPlayerId, getPlayerName } from 'interface/selectors/url/report';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import Tooltip from 'common/Tooltip';
 
-import PlayerSelectionPanel from 'interface/report/PlayerSelection';
+import PlayerSelection from 'interface/report/PlayerSelection';
 import handleApiError from './handleApiError';
 
 const defaultState = {
@@ -156,7 +156,7 @@ class PlayerLoader extends React.PureComponent {
             <h1 style={{ lineHeight: 1.4, marginBottom: 0 }}><Trans>Raid composition</Trans></h1>
             <small style={{ marginTop: -5 }}><Trans>Select the player you wish to analyze.</Trans></small>
           </div>
-          <PlayerSelectionPanel
+          <PlayerSelection
             players={report.friendlies.map(friendly => {
               const combatant = combatants.find(combatant => combatant.sourceID === friendly.id);
               if (!combatant) {

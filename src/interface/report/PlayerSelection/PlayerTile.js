@@ -1,36 +1,68 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import SpecIcon from 'common/SpecIcon';
 import { getClassName } from 'game/ROLES';
 import getAverageItemLevel from 'game/getAverageItemLevel';
 import Icon from 'common/Icon';
+import SPECS from 'game/SPECS';
+import { getCharacterById } from 'interface/selectors/characters';
+import { fetchCharacter } from 'interface/actions/characters';
+import ROLES from 'game/ROLES';
 
 class PlayerTile extends React.PureComponent {
   static propTypes = {
     player: PropTypes.object.isRequired,
-    selectedPlayer: PropTypes.object,
-    analysisUrl: PropTypes.string.isRequired,
-    handleClick: PropTypes.func.isRequired,
-    history: PropTypes.object.isRequired,
+    makeUrl: PropTypes.func.isRequired,
+    characterInfo: PropTypes.shape({
+      region: PropTypes.string.isRequired,
+      thumbnail: PropTypes.string.isRequired,
+    }),
+    fetchCharacter: PropTypes.func.isRequired,
   };
 
   timeout = null;
 
-  render() {
-    const { player, selectedPlayer, analysisUrl, handleClick, history } = this.props;
+  constructor(props) {
+    super(props);
+    if (!this.props.characterInfo) {
+      // noinspection JSIgnoredPromiseFromCall
+      this.load();
+    }
+  }
 
+  async load() {
+    const { player, fetchCharacter } = this.props;
+    try {
+      return await fetchCharacter(player.guid, player.region, player.realm, player.name);
+    } catch (err) {
+      // No biggy, just show less info
+      console.error('An error occured fetching', player, '. The error:', err);
+      return null;
+    }
+  }
+
+  render() {
+    const { player, characterInfo, makeUrl } = this.props;
+
+    const avatar = characterInfo && characterInfo.thumbnail ? `https://render-${characterInfo.region}.worldofwarcraft.com/character/${characterInfo.thumbnail.replace('avatar', 'inset')}` : '/img/fallback-character.jpg';
+    const spec = SPECS[player.combatant.specID];
+    const analysisUrl = makeUrl(player.id);
+
+    player.parsable = !player.combatant.error && spec;
     if (!player.parsable) {
       return (
         <span
           className="player"
           onClick={() => {
-            alert(`This player can not be parsed. ${player.error}`);
+            alert(`This player can not be parsed. Warcraft Logs ran into an error parsing the log and is not giving us all the necessary information. Please update your Warcraft Logs Uploader and reupload your log to try again.`);
           }}
         >
+          <div className="role" />
           <div className="card">
-            <div className="avatar" style={{ backgroundImage: `url(${player.avatar})` }} />
+            <div className="avatar" style={{ backgroundImage: `url(${avatar})` }} />
             <div className="about">
               <h1>{player.name}</h1>
             </div>
@@ -42,31 +74,23 @@ class PlayerTile extends React.PureComponent {
     return (
       <Link
         to={analysisUrl}
-        className={`player ${(selectedPlayer && selectedPlayer.guid === player.guid) ? 'selected' : ''} ${getClassName(player.spec.role)}`}
-        onClick={e => {
-          e.preventDefault();
-          handleClick();
-        }}
-        onDoubleClick={() => {
-          clearTimeout(this.timeout);
-          history.push(analysisUrl);
-        }}
+        className={`player ${getClassName(spec.role)}`}
       >
         <div className="role" />
         <div className="card">
-          <div className="avatar" style={{ backgroundImage: `url(${player.avatar})` }} />
+          <div className="avatar" style={{ backgroundImage: `url(${avatar})` }} />
           <div className="about">
             <h1
-              className={player.spec.className.replace(' ', '')}
+              className={spec.className.replace(' ', '')}
               // The name can't always fit so use a tooltip. We use title instead of the tooltip library for this because we don't want it to be distracting and the tooltip library would popup when hovering just to click an item, while this has a delay.
               title={player.name}
             >
               {player.name}
             </h1>
             <small
-              title={`${player.spec.specName} ${player.spec.className}`}
+              title={`${spec.specName} ${spec.className}`}
             >
-              <SpecIcon id={player.spec.id} /> {player.spec.specName} {player.spec.className}
+              <SpecIcon id={spec.id} /> {spec.specName} {spec.className}
             </small>
             <div className="flex text-muted text-small">
               <div className="flex-main">
@@ -81,4 +105,12 @@ class PlayerTile extends React.PureComponent {
   }
 }
 
-export default withRouter(PlayerTile);
+const mapStateToProps = (state, { player }) => ({
+  characterInfo: getCharacterById(state, player.guid),
+});
+export default connect(
+  mapStateToProps,
+  {
+    fetchCharacter,
+  },
+)(PlayerTile);
