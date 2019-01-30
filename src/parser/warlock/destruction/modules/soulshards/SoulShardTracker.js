@@ -1,6 +1,7 @@
 import ResourceTracker from 'parser/shared/modules/resourcetracker/ResourceTracker';
 import HIT_TYPES from 'game/HIT_TYPES';
 import Enemies from 'parser/shared/modules/Enemies';
+import EventFilter from 'parser/core/EventFilter';
 
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -20,6 +21,7 @@ const INFERNAL_DURATION = 30000;
 const INFERNAL_FRAGMENT_TICK_PERIOD = 500;
 const CHAOS_SHARDS_COUNT = 5; // Chaos Shards trait regenerates full Soul Shard (10 fragments) in 2 seconds (5 "ticks", each worth 2 fragments)
 const FRAGMENTS_PER_CHAOS_SHARDS_ENERGIZE = 2;
+const FULL_SHARD_GAINED_EVENT_TYPE = 'fullshardgained';
 
 class SoulShardTracker extends ResourceTracker {
   static dependencies = {
@@ -166,6 +168,28 @@ class SoulShardTracker extends ResourceTracker {
     if (this.hasInferno) {
       // makes no sense to even show this if the player doesn't have Inferno
       this.processInvisibleEnergize(SPELLS.RAIN_OF_FIRE_DAMAGE.id, distribution.rainOfFire);
+    }
+  }
+
+  static get fullshardgained() {
+    return new EventFilter(FULL_SHARD_GAINED_EVENT_TYPE);
+  }
+
+  _applyBuilder(spellId, resource, gain, waste) {
+    const beforeBuilder = this.current % 10;
+    super._applyBuilder(spellId, resource, gain, waste);
+    const afterBuilder = this.current % 10;
+    // for trait Chaos Shards we need to know when we generated a full Shard
+    // can be either to full shard (39 => 40, beforebuilder = 9, afterBuilder = 0)
+    // or over full shard (39 => 41, before = 9, after = 1)
+    // but not something like 34 => 39, before = 4, after = 9
+    // also, Chaos Shards can't proc off itself
+    if (spellId !== SPELLS.CHAOS_SHARDS_BUFF_ENERGIZE.id && beforeBuilder > afterBuilder) {
+      this.eventEmitter.fabricateEvent({
+        timestamp: this.owner.currentTimestamp,
+        type: FULL_SHARD_GAINED_EVENT_TYPE,
+        current: this.current,
+      });
     }
   }
 

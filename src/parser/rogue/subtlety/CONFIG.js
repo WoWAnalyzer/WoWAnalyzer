@@ -20,12 +20,12 @@ export default {
     <>
       <Warning>
         The Subtlety Rogue analysis isn't complete yet.
-        All recomendations and analysis should be in line with <a href="http://www.ravenholdt.net/subtlety-guide/"> wEak's guide </a> and Simcraft APL.
+        All recommendations and analysis should be in line with <a href="http://www.ravenholdt.net/subtlety-guide/"> wEak's guide </a> and Simcraft APL.
         TODO:
         <ul>
          <li>Target values still need to be adjusted.</li>
          <li>More mistkes need highlighting.</li>
-         <li>Nightblade refresh analysis accuracy needs to be improved.</li>
+         <li>Nightblade usage analysis accuracy needs to be improved.</li>
         </ul>
 
         <br />
