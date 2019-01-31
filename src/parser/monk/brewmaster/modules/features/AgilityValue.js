@@ -4,7 +4,7 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import SPELLS from 'common/SPELLS';
 
 import { BASE_AGI } from '../../constants';
-import { diminish, ULDIR_K, MPLUS_K } from '../constants/Mitigation';
+import { diminish, lookupK } from '../constants/Mitigation';
 import { EVENT_STAGGER_POOL_ADDED, EVENT_STAGGER_POOL_REMOVED } from '../core/StaggerFabricator';
 import GiftOfTheOx from '../spells/GiftOfTheOx';
 
@@ -37,7 +37,9 @@ export default class AgilityValue extends Analyzer {
     gotox: GiftOfTheOx,
   };
 
-  K = 0;
+  get K() {
+    return lookupK(this.owner.fight);
+  }
 
   totalAgiStaggered = 0;
   totalAgiPurified = 0;
@@ -52,13 +54,6 @@ export default class AgilityValue extends Analyzer {
     super(...args);
 
     this._hasHT = this.selectedCombatant.hasTalent(SPELLS.HIGH_TOLERANCE_TALENT.id);
-
-    const fight = this.owner.fight;
-    if(fight.size === 5) {
-      this.K = MPLUS_K;
-    } else {
-      this.K = ULDIR_K[fight.difficulty];
-    }
 
     this.addEventListener(EVENT_STAGGER_POOL_ADDED, this._onStaggerGained);
     this.addEventListener(EVENT_STAGGER_POOL_REMOVED, this._onPurify);

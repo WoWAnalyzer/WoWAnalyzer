@@ -17,7 +17,7 @@ import GiftOfTheOx from '../spells/GiftOfTheOx';
 import MasteryValue from '../core/MasteryValue';
 import Stagger from '../core/Stagger';
 import AgilityValue from './AgilityValue';
-import { diminish, ULDIR_K, MPLUS_K } from '../constants/Mitigation';
+import { diminish, lookupK } from '../constants/Mitigation';
 
 
 function formatGain(gain) {
@@ -90,8 +90,6 @@ export default class MitigationSheet extends Analyzer {
     gotox: GiftOfTheOx,
   };
 
-  K = null;
-
   armorDamageMitigated = 0;
   versDamageMitigated = 0;
   versHealing = 0;
@@ -131,15 +129,12 @@ export default class MitigationSheet extends Analyzer {
     return gear.reduce((sum, {itemLevel}) => sum + itemLevel, 0) / gear.length;
   }
 
+  get K() {
+    return lookupK(this.owner.fight);
+  }
+
   constructor(...args) {
     super(...args);
-
-    const fight = this.owner.fight;
-    if(fight.size === 5) {
-      this.K = MPLUS_K;
-    } else {
-      this.K = ULDIR_K[fight.difficulty];
-    }
 
     this._lastStatUpdate = fight.start_time;
     this._avgStats = MitigationSheet.statsToAvg.reduce((obj, stat) => {

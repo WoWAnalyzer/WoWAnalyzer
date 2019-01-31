@@ -9,8 +9,25 @@ export const ULDIR_K = [
   9311.4, // Mythic
 ];
 
-export const MPLUS_K = 7100.1;
+export const MPLUS_K = 8467.2;
+
+export const BOD_K = [
+  null,
+  8467.2, // LFR
+  null,
+  9311.4,  // Normal
+  10275.3, // Heroic
+  11390.4, // Mythic
+];
 
 export function diminish(stat, K) {
   return stat / (stat + K);
+}
+
+export function lookupK(fight) {
+    if(fight.size === 5) {
+      return MPLUS_K;
+    } else {
+      return BOD_K[fight.difficulty];
+    }
 }
