@@ -132,8 +132,12 @@ class EventParser extends React.PureComponent {
       .then(() => {
         this.stopFakeNetworkProgress();
         timeAvailable && console.time('full parse');
-        const parser = new parserClass(report, player, fight, combatants, characterProfile);
-        return this.parseEvents(parser, report, player, fight, [...bossPhaseEvents, ...events]);
+        try {
+          const parser = new parserClass(report, player, fight, combatants, characterProfile);
+          return this.parseEvents(parser, report, player, fight, [...bossPhaseEvents, ...events]);
+        } catch (err) {
+          throw new EventsParseError(err);
+        }
       })
       .catch(error => {
         this.stopFakeNetworkProgress();
