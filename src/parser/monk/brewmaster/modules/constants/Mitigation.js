@@ -12,10 +12,10 @@ export const ULDIR_K = [
 export const MPLUS_K = 8467.2;
 
 export const BOD_K = [
-  null,
-  8467.2, // LFR
-  null,
-  9311.4,  // Normal
+     null,
+   8467.2, // LFR
+     null,
+   9311.4, // Normal
   10275.3, // Heroic
   11390.4, // Mythic
 ];
