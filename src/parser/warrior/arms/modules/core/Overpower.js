@@ -31,7 +31,7 @@ class OverpowerAnalyzer extends Analyzer {
       return;
     }
 
-    if (!this.executeRange.isTargetInExecuteRange(event) && !this.hasEP) {
+    if (!this.executeRange.isTargetInExecuteRange(event)) {
       this.wastedProc += 1;
 
       event.meta = event.meta || {};

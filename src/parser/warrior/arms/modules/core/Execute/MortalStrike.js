@@ -70,7 +70,7 @@ class MortalStrikeAnalyzer extends Analyzer {
     when(this.badMortalStrikeThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(<>Try to avoid using <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> on a target in <SpellLink id={SPELLS.EXECUTE.id} icon /> range, as <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> is less rage efficient than <SpellLink id={SPELLS.EXECUTE.id} />.</>)
         .icon(SPELLS.MORTAL_STRIKE.icon)
-        .actual(`Mortal Strike was used ${formatPercentage(actual)}% of the time on a target in execute range.`)
+        .actual(`Mortal Strike was cast ${this.mortalStrikesInExecuteRange} times accounting for ${formatPercentage(actual)}% of the total possible casts of Mortal Strike during a time a target was in execute range.`)
         .recommended(`${formatPercentage(recommended)}% is recommended`);
     });
     when(this.goodMortalStrikeThresholds).addSuggestion((suggest, actual, recommended) => {
