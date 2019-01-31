@@ -256,7 +256,7 @@ class EncounterStats extends React.PureComponent {
             </div>
           </div>
           <div className="col-md-6">
-            {formatThousands(log.total)} DPS
+            {formatThousands(log.total)} {this.metric}
           </div>
         </div>
       </div>
