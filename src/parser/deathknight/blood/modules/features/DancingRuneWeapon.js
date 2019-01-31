@@ -29,6 +29,7 @@ class DancingRuneWeapon extends Analyzer {
 
     //push all casts during DRW that were on the GCD in array
     if (event.ability.guid !== SPELLS.RAISE_ALLY.id && //probably usefull to rezz someone even if it's a personal DPS-loss
+      event.ability.guid !== SPELLS.DANCING_RUNE_WEAPON.id && //because you get the DRW buff before the cast event since BFA
       this.abilities.getAbility(event.ability.guid) !== undefined &&
       this.abilities.getAbility(event.ability.guid).gcd) {
       this.castsDuringDRW.push(event.ability.guid);

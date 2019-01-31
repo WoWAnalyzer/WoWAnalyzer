@@ -29,6 +29,11 @@ export default {
     name: 'Lively Spirit',
     icon: 'spell_nature_lightning',
   },
+  LIVELY_SPIRIT_MANA_RETURN: {
+    id: 289335,
+    name: 'Lively Spirit',
+    icon: 'spell_nature_lightning',
+  },
   GROVE_TENDING_TRAIT: {
     id: 279778,
     name: 'Grove Tending',
@@ -50,12 +55,12 @@ export default {
     icon: 'inv_misc_herb_talandrasrose',
   },
   EARLY_HARVEST_TRAIT: {
-    id: 287251, 
+    id: 287251,
     name: 'Early Harvest',
     icon: 'ability_druid_flourish',
   },
   EARLY_HARVEST: {
-    id: 287255, 
+    id: 287255,
     name: 'Early Harvest',
     icon: 'ability_druid_flourish',
   },

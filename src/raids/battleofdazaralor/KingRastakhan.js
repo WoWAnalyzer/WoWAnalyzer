@@ -1,11 +1,11 @@
-// import Background from './images/backgrounds/FridaIronbellows.jpg';
-// import Headshot from './images/headshots/FridaIronbellows.png';
+import Background from './images/backgrounds/KingRastakhan.jpg';
+import Headshot from './images/headshots/KingRastakhan.png';
 
 export default {
-  id: 2335,
+  id: 2272,
   name: 'King Rastakhan', // Alliance
-  // TODO: background: Background,
-  // TODO: headshot: Headshot,
+  background: Background,
+  headshot: Headshot,
   icon: 'achievement_boss_zuldazar_rastakhan',
   fight: {
     // TODO: Add vantusRuneBuffId: 250144,

@@ -251,6 +251,16 @@ export default {
     name: 'Blood Rite',
     icon: 'inv_misc_volatilelife',
   },
+  BONDED_SOULS_TRAIT: {
+    id: 288802,
+    name: 'Bonded Souls',
+    icon: 'sha_spell_warlock_demonsoul',
+  },
+  BONDED_SOULS_BUFF_AND_HEAL: {
+    id: 288839,
+    name: 'Bonded Souls',
+    icon: 'sha_spell_warlock_demonsoul',
+  },
   GUTRIPPER: {
     id: 266937,
     name: 'Gutripper',
@@ -320,5 +330,20 @@ export default {
     id: 281843,
     name: 'Tradewinds',
     icon: 'ability_skyreach_wind',
+  },
+  TREACHEROUS_COVENANT: {
+    id: 288953,
+    name: 'Treacherous Covenant',
+    icon: 'ability_argus_deathfog',
+  },
+  TREACHEROUS_COVENANT_BUFF: {
+    id: 288981,
+    name: 'Treacherous Covenant',
+    icon: 'ability_argus_deathfog',
+  },
+  TREACHEROUS_COVENANT_DEBUFF: {
+    id: 288989,
+    name: 'Treacherous Covenant',
+    icon: 'ability_argus_deathfog',
   },
 };

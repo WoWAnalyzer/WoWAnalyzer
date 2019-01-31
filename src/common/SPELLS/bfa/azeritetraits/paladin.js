@@ -22,6 +22,11 @@ export default {
     name: 'Grace of the Justicar',
     icon: 'spell_holy_healingaura',
   },
+  GLIMMER_OF_LIGHT: {
+    id: 287286,
+    name: 'Glimmer of Light',
+    icon: 'ability_paladin_toweroflight',
+  },
 
   // Retribution
   EXPURGATION: {

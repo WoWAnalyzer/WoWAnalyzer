@@ -125,8 +125,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.GUARDIAN_OF_ANCIENT_KINGS,
-        buffSpellId: SPELLS.GUARDIAN_OF_ANCIENT_KINGS.id,
+        spell: [SPELLS.GUARDIAN_OF_ANCIENT_KINGS, SPELLS.GUARDIAN_OF_ANCIENT_KINGS_QUEEN],
+        buffSpellId: [SPELLS.GUARDIAN_OF_ANCIENT_KINGS.id, SPELLS.GUARDIAN_OF_ANCIENT_KINGS_QUEEN.id],
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 300,
         castEfficiency: {

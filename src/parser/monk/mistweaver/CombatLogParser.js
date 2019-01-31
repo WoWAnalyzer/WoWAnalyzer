@@ -19,6 +19,7 @@ import HealingDone from 'parser/shared/modules/HealingDone';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import CoreChanneling from './modules/core/Channeling';
 import HotTracker from './modules/core/HotTracker';
+import SpellUsable from './modules/core/SpellUsable';
 
 // Normalizers
 import HotApplicationNormalizer from './normalizers/HotApplicationNormalizer';
@@ -80,6 +81,7 @@ class CombatLogParser extends CoreCombatLogParser {
     channeling: CoreChanneling,
     globalCooldown: GlobalCooldown,
     hotTracker: HotTracker,
+    spellUsable: SpellUsable,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,

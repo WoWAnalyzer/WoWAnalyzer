@@ -817,77 +817,7 @@ exports[`The Blood Deathknight Analyzer analyzers DamageTaken matches the sugges
 
 exports[`The Blood Deathknight Analyzer analyzers DancingRuneWeapon matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Blood Deathknight Analyzer analyzers DancingRuneWeapon matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "inv_sword_07",
-    "importance": "regular",
-    "issue": <React.Fragment>
-      Avoid casting spells during 
-      <SpellLink
-        icon={true}
-        id={49028}
-      />
-       that don't benefit from the coppies such as 
-      <SpellLink
-        icon={true}
-        id={206931}
-      />
-       and 
-      <SpellLink
-        icon={true}
-        id={43265}
-      />
-      . Check the cooldown-tab below for more detailed breakdown.
-      <div>
-        Try and prioritize 
-        <React.Fragment>
-          <SpellLink
-            icon={true}
-            id={49998}
-          />
-          , 
-        </React.Fragment>
-        <React.Fragment>
-          <SpellLink
-            icon={true}
-            id={206930}
-          />
-          , 
-        </React.Fragment>
-        <React.Fragment>
-          <SpellLink
-            icon={true}
-            id={50842}
-          />
-          , 
-        </React.Fragment>
-        <React.Fragment>
-          <SpellLink
-            icon={true}
-            id={195182}
-          />
-           
-        </React.Fragment>
-        <React.Fragment>
-          and (if in AoE)
-          <SpellLink
-            icon={true}
-            id={274156}
-          />
-        </React.Fragment>
-      </div>
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      13 out of 15 casts during DRW were good
-       (
-      15 recommended
-      )
-    </React.Fragment>,
-  },
-]
-`;
+exports[`The Blood Deathknight Analyzer analyzers DancingRuneWeapon matches the suggestions snapshot 1`] = `Array []`;
 
 exports[`The Blood Deathknight Analyzer analyzers DeathStrikeTiming matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
@@ -1548,18 +1478,6 @@ exports[`The Blood Deathknight Analyzer analyzers RunicPowerDetails matches the 
 exports[`The Blood Deathknight Analyzer analyzers RunicPowerTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`The Blood Deathknight Analyzer analyzers RunicPowerTracker matches the suggestions snapshot 1`] = `Array []`;
-
-exports[`The Blood Deathknight Analyzer analyzers ShacklesofBryndaor matches the statistic snapshot 1`] = `"module inactive"`;
-
-exports[`The Blood Deathknight Analyzer analyzers ShacklesofBryndaor matches the suggestions snapshot 1`] = `"module inactive"`;
-
-exports[`The Blood Deathknight Analyzer analyzers SkullflowersHaemostasis matches the statistic snapshot 1`] = `"module inactive"`;
-
-exports[`The Blood Deathknight Analyzer analyzers SkullflowersHaemostasis matches the suggestions snapshot 1`] = `"module inactive"`;
-
-exports[`The Blood Deathknight Analyzer analyzers SoulflayersCorruption matches the statistic snapshot 1`] = `"module inactive"`;
-
-exports[`The Blood Deathknight Analyzer analyzers SoulflayersCorruption matches the suggestions snapshot 1`] = `"module inactive"`;
 
 exports[`The Blood Deathknight Analyzer analyzers Tombstone matches the statistic snapshot 1`] = `"module inactive"`;
 

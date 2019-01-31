@@ -256,7 +256,7 @@ class EncounterStats extends React.PureComponent {
             </div>
           </div>
           <div className="col-md-6">
-            {formatThousands(log.total)} DPS
+            {formatThousands(log.total)} {this.metric}
           </div>
         </div>
       </div>
@@ -266,7 +266,7 @@ class EncounterStats extends React.PureComponent {
   similiarLogs() {
     return (
       <div className="col-md-12 flex-main" style={{ textAlign: 'left', margin: '5px auto' }}>
-        {this.state.similiarKillTimes.length > 1 ? 'These are' : 'This is'} the {this.state.similiarKillTimes.length} top {this.amountOfParses} {this.state.similiarKillTimes.length > 1 ? 'logs' : 'log'} that {this.state.similiarKillTimes.length > 1 ? 'are' : 'is'} closest to your kill-time within {formatPercentage(this.durationVariancePercentage, 0)}% variance.
+        {this.state.similiarKillTimes.length > 1 ? 'These are' : 'This is'} {this.state.similiarKillTimes.length} of the top {this.amountOfParses} {this.state.similiarKillTimes.length > 1 ? 'logs' : 'log'} that {this.state.similiarKillTimes.length > 1 ? 'are' : 'is'} closest to your kill-time within {formatPercentage(this.durationVariancePercentage, 0)}% variance.
         {this.state.similiarKillTimes.map(log => this.singleLog(log.rank))}
       </div>
     );
@@ -275,7 +275,7 @@ class EncounterStats extends React.PureComponent {
   closestLogs() {
     return (
       <div className="col-md-12 flex-main" style={{ textAlign: 'left', margin: '5px auto' }}>
-        {this.state.closestKillTimes.length > 1 ? 'These are' : 'This is'} the {this.state.closestKillTimes.length} top {this.amountOfParses} {this.state.closestKillTimes.length > 1 ? 'logs' : 'log'} that {this.state.closestKillTimes.length > 1 ? 'are' : 'is'} closest to your kill-time. Large differences won't be good for comparing.
+        {this.state.closestKillTimes.length > 1 ? 'These are' : 'This is'} {this.state.closestKillTimes.length} of the top {this.amountOfParses} {this.state.closestKillTimes.length > 1 ? 'logs' : 'log'} that {this.state.closestKillTimes.length > 1 ? 'are' : 'is'} closest to your kill-time. Large differences won't be good for comparing.
         {this.state.closestKillTimes.map(log => this.singleLog(log.rank))}
       </div>
     );
@@ -292,7 +292,7 @@ class EncounterStats extends React.PureComponent {
     }
     // If there are below 100 parses for a given spec, use this amount to divide with to get accurate percentages.
     // This also enables us to work around certain logs being anonymised - as this will then ignore those, and cause us to divide by 99, making our percentages accurate again.
-    this.amountOfParses = Object.values(this.state.mostUsedTalents[LEVEL_15_TALENT_ROW_INDEX]).reduce((total, parses) => total + parses);
+    this.amountOfParses = Object.values(this.state.mostUsedTalents[LEVEL_15_TALENT_ROW_INDEX]).reduce((total, parses) => total + parses, 0);
     return (
       <>
         <div className="panel-heading" style={{ padding: 20, marginBottom: '2em' }}>
@@ -326,7 +326,7 @@ class EncounterStats extends React.PureComponent {
                   </div>
                 </div>
                 {this.state.mostUsedTalents.map((row, index) => (
-                  <div className="row" key={index} style={{ marginBottom: 15, paddingLeft: 20 }}>
+                  <div key={index} className="row" style={{ marginBottom: 15, paddingLeft: 20 }}>
                     <div className="col-lg-1 col-xs-2" style={{ lineHeight: '3em', textAlign: 'right' }}>{rows[index]}</div>
                     {Object.keys(row).sort((a, b) => row[b] - row[a]).map((talent, talentIndex) => (
                       <div key={talentIndex} className="col-lg-3 col-xs-4" style={{ textAlign: 'center' }}>

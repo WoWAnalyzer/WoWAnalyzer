@@ -46,10 +46,10 @@ class EnhancementShamanChecklist extends React.PureComponent {
           )}
          >
           <AbilityRequirement spell={SPELLS.FERAL_SPIRIT.id} />
-          {combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id) && 
+          {combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id) &&
             <AbilityRequirement spell={SPELLS.ASCENDANCE_TALENT_ENHANCEMENT.id} />}
-          {combatant.hasTalent(SPELLS.EARTHEN_SPIKE_TALENT.id) && 
-            <AbilityRequirement spell={SPELLS.EARTHEN_SPIKE_TALENT} />}
+          {combatant.hasTalent(SPELLS.EARTHEN_SPIKE_TALENT.id) &&
+            <AbilityRequirement spell={SPELLS.EARTHEN_SPIKE_TALENT.id} />}
           {combatant.hasTalent(SPELLS.TOTEM_MASTERY_TALENT_ENHANCEMENT.id) &&
             <AbilityRequirement spell={SPELLS.TOTEM_MASTERY_TALENT_ENHANCEMENT.id} />}
          </Rule>
