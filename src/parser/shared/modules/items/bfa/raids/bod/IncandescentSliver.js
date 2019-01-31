@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { calculateSecondaryStatDefault } from 'common/stats';
-import { formatPercentage, formatNumber } from 'common/format';
+import { formatNumber } from 'common/format';
 
 import SPELLS from 'common/SPELLS/index';
 import ITEMS from 'common/ITEMS/index';
@@ -64,35 +64,21 @@ class IncandescentSliver extends Analyzer {
         playersWithTrinket.push(player);
       }
     });
-    const playersTable = (
-      <table className="table table-condensed">
-        <thead>
-          <tr>
-            <th>Other Players With Trinket</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            playersWithTrinket.map((player) => {
-              return (
-                <tr key={player._combatantInfo.name}>
-                  <th><p className={player.spec.className}>{player._combatantInfo.name}</p></th>
-                </tr>
-              );
-            })
-          }
-        </tbody>
-      </table>
-    );
     return (
       <StatisticBox
         icon={<ItemIcon id={ITEMS.INCANDESCENT_SLIVER.id} />}
-        value={`${formatNumber(this.averageCritRating())} Average Crit, ${formatNumber(this.averageMasteryRating())} Average Mastery`}
-        label={`Incandescent Sliver`}
-        tooltip={`Your crit buff had an uptime of <b>${formatPercentage(this.critUptime)}%</b> and your mastery buff had an uptime of <b>${formatPercentage(this.masteryUptime)}%</b>`}
-        category={STATISTIC_CATEGORY.ITEMS}>
-        {playersTable}
-      </StatisticBox>
+        value={(
+          <span>
+            {' '}{formatNumber(this.averageCritRating())}{' Average Crit'}
+            <br />
+            {' '}{formatNumber(this.averageMasteryRating())}{' Average Mastery'}
+          </span>
+        )}
+        label="Incandescent Sliver"
+        tooltip={`The following players also had this trinket equipped: ${playersWithTrinket.map(player => {
+          return ` ${player._combatantInfo.name} (${player.spec.className})`;
+        })}.`}
+        category={STATISTIC_CATEGORY.ITEMS} />
     );
   }
 }
