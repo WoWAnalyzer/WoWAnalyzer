@@ -1,9 +1,8 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import Enemies from 'parser/shared/modules/Enemies';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import { formatDuration, formatNumber, formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
@@ -41,9 +40,6 @@ const MASTER_OF_THE_ELEMENTS = {
 };
 
 class MasterOfTheElements extends Analyzer {
-  static dependencies = {
-    enemies: Enemies,
-  };
   moteBuffedAbilities = {};
   moteActivationTimestamp = null;
   moteConsumptionTimestamp = null;
