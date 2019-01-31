@@ -17,7 +17,7 @@ class ItemDamageTaken extends React.PureComponent {
     return (
       <>
         <img
-          src="/img/damage-taken.png"
+          src="/img/shield.png"
           alt="Damage Taken"
           className="icon"
         />{' '}
