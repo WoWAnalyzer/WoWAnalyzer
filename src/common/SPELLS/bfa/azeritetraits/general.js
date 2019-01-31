@@ -251,6 +251,16 @@ export default {
     name: 'Blood Rite',
     icon: 'inv_misc_volatilelife',
   },
+  BONDED_SOULS_TRAIT: {
+    id: 288802,
+    name: 'Bonded Souls',
+    icon: 'sha_spell_warlock_demonsoul',
+  },
+  BONDED_SOULS_BUFF_AND_HEAL: {
+    id: 288839,
+    name: 'Bonded Souls',
+    icon: 'sha_spell_warlock_demonsoul',
+  },
   GUTRIPPER: {
     id: 266937,
     name: 'Gutripper',
