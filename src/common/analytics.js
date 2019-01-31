@@ -5,7 +5,7 @@ function ga() {
   return undefined;
 }
 function installed() {
-  return ga !== undefined;
+  return ga() !== undefined;
 }
 
 export function install() {}
