@@ -45,6 +45,12 @@ class TreacherousCovenant extends Analyzer {
     this.addEventListener(Events.removedebuff.to(SELECTED_PLAYER).spell(SPELLS.TREACHEROUS_COVENANT_DEBUFF), this._removeDebuff);
 
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this._takeDamage);
+
+    this.statTracker.add(SPELLS.TREACHEROUS_COVENANT_BUFF.id, {
+      strength: this.statModifier,
+      intellect: this.statModifier,
+      agility: this.statModifier,
+    });
   }
 
   _applyDebuff(event) {
