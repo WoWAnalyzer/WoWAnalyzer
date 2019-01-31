@@ -1,5 +1,5 @@
 import Background from './images/backgrounds/KingRastakhan.jpg';
-import Headshot from './images/headshots/KingRastakhan.jpg';
+import Headshot from './images/headshots/KingRastakhan.png';
 
 export default {
   id: 2272,
