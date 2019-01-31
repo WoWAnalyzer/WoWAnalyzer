@@ -136,7 +136,7 @@ export default class MitigationSheet extends Analyzer {
   constructor(...args) {
     super(...args);
 
-    this._lastStatUpdate = fight.start_time;
+    this._lastStatUpdate = this.owner.fight.start_time;
     this._avgStats = MitigationSheet.statsToAvg.reduce((obj, stat) => {
       obj[stat] = this.stats._pullStats[stat];
       return obj;
