@@ -130,6 +130,8 @@ import EphemeralRecovery from '../shared/modules/spells/bfa/azeritetraits/Epheme
 import UnstableCatalyst from '../shared/modules/spells/bfa/azeritetraits/UnstableCatalyst';
 import SwirlingSands from '../shared/modules/spells/bfa/azeritetraits/SwirlingSands';
 import Tradewinds from '../shared/modules/spells/bfa/azeritetraits/Tradewinds';
+import TreacherousCovenant from '../shared/modules/spells/bfa/azeritetraits/TreacherousCovenant';
+
 // Uldir
 import TwitchingTentacleofXalzaix from '../shared/modules/items/bfa/raids/uldir/TwitchingTentacleofXalzaix';
 import VigilantsBloodshaper from '../shared/modules/items/bfa/raids/uldir/VigilantsBloodshaper';
@@ -281,6 +283,7 @@ class CombatLogParser {
     unstableCatalyst: UnstableCatalyst,
     swirlingSands: SwirlingSands,
     tradewinds: Tradewinds,
+    treacherousCovenant: TreacherousCovenant,
 
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
@@ -538,6 +541,12 @@ class CombatLogParser {
   }
   formatItemDamageDone(damageDone) {
     return `${formatPercentage(this.getPercentageOfTotalDamageDone(damageDone))} % / ${formatNumber(damageDone / this.fightDuration * 1000)} DPS`;
+  }
+  getPercentageOfTotalDamageTaken(damageTaken) {
+    return damageTaken / this.getModule(DamageTaken).total.effective;
+  }
+  formatItemDamageTaken(damageTaken) {
+    return `${formatPercentage(this.getPercentageOfTotalDamageTaken(damageTaken))} % / ${formatNumber(damageTaken / this.fightDuration * 1000)} DTPS`;
   }
   formatManaRestored(manaRestored) {
     return `${formatThousands(manaRestored)} mana / ${formatThousands(manaRestored / this.fightDuration * 1000 * 5)} MP5`;
