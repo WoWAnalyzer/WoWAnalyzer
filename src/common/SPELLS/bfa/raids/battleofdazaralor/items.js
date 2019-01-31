@@ -24,9 +24,14 @@ export default {
 
   //Opulence
   INCANDESCENT_LUSTER: { //Incandescent Sliver
-    id: 289522,
+    id: 289523,
     name: "Incandescent Luster",
     icon: "ability_priest_casecade",
+  },
+  INCANDESCENT_BRILLIANCE: { //Incandescent Sliver
+    id: 289524,
+    name: "Incandescent Brilliance",
+    icon: "paladin_holy",
   },
   DIAMOND_BARRIER: { //Diamond-laced Refracting Prism
     id: 288034,
