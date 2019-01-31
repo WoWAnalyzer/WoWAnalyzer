@@ -7,6 +7,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import TraitStatisticBox from 'interface/others/TraitStatisticBox';
 import Events from 'parser/core/Events';
 import ItemDamageTaken from 'interface/others/ItemDamageTaken';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 const treacherousCovenantStat = traits => Object.values(traits).reduce((obj, rank) => {
   const stat = calculateAzeriteEffects(SPELLS.TREACHEROUS_COVENANT.id, rank);
@@ -28,6 +29,10 @@ const DAMAGE_MODIFIER = .15;
  *  Str: /report/TMjpXkaYKVhncmfb/11-Heroic+Jadefire+Masters+-+Kill+(4:45)/11-Jhonson
  */
 class TreacherousCovenant extends Analyzer {
+  static dependencies = {
+    statTracker: StatTracker,
+  };
+
   statModifier = 0;
   debuffActive = false;
   extraDamageTaken = 0;
