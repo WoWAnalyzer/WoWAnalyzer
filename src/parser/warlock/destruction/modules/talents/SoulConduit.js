@@ -36,14 +36,14 @@ class SoulConduit extends Analyzer {
     const estimatedDamage = Math.floor(generatedShards / 2) * this.averageChaosBoltDamage; // Chaos Bolt costs 2 shards to cast
     const totalSpent = this.soulShardTracker.spent / FRAGMENTS_PER_SHARD; // Destruction Soul Shard Tracker tracks fragments (10 fragments per shard)
     // find number of Shards we were MOST LIKELY to get in the fight
-    const { max } = findMax(totalSpent, SC_PROC_CHANCE, binomialPMF);
+    const { max } = findMax(totalSpent, (k, n) => binomialPMF(k, n, SC_PROC_CHANCE));
     return (
       <StatisticListBoxItem
         title={<>Shards generated with <SpellLink id={SPELLS.SOUL_CONDUIT_TALENT.id} /></>}
         value={generatedShards}
         valueTooltip={(
           <>
-            You gained {generatedShards} Shards from this talent, which is <strong>{formatPercentage(generatedShards / max)}%</strong> of Shards you were most likely to get in this fight ({max} Shards).<br />
+            You gained {generatedShards} Shards from this talent, {max > 0 ? <>which is <strong>{formatPercentage(generatedShards / max)}%</strong> of Shards you were most likely to get in this fight ({max} Shards)</> : ', while you were most likely to not get any Shards'}.<br />
             Estimated damage: {formatThousands(estimatedDamage)} ({this.owner.formatItemDamageDone(estimatedDamage)}).<br /><br />
 
             This result is estimated by multiplying average Chaos Bolt damage by potential casts you would get from these bonus Shards.

@@ -5,7 +5,7 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import VirulentPlagueUptime from './modules/features/VirulentPlagueUptime';
 import FesteringStrike from './modules/features/FesteringStrike';
-// TODO: import Checklist from './modules/features/Checklist';
+import Checklist from './modules/features/checklist/Module';
 import ScourgeStrikeEfficiency from './modules/features/ScourgeStrikeEfficiency';
 import ClawingShadowsEfficiency from './modules/features/ClawingShadowsEfficiency';
 import Apocalypse from './modules/features/Apocalypse';
@@ -29,7 +29,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     virulentPlagueUptime: VirulentPlagueUptime,
     festeringStrike: FesteringStrike,
-    // TODO: checklist: Checklist,
+    checklist: Checklist,
     scourgeStrikeEfficiency: ScourgeStrikeEfficiency,
     clawingShadowsEfficiency: ClawingShadowsEfficiency,
   	apocalypse: Apocalypse,
@@ -51,4 +51,3 @@ class CombatLogParser extends CoreCombatLogParser {
 }
 
 export default CombatLogParser;
-

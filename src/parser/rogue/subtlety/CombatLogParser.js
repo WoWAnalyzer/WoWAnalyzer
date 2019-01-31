@@ -6,6 +6,9 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/checklist/Module';
 import SpellUsable from '../shared/SpellUsable';
 
+//Normalizers
+import ShurikenStormNormalizer from './normalizers/ShurikenStormNormalizer';
+
 import ComboPointDetails from '../shared/resources/ComboPointDetails';
 import ComboPointTracker from '../shared/resources/ComboPointTracker';
 import EnergyDetails from '../shared/resources/EnergyDetails';
@@ -38,6 +41,9 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
     alwaysBeCasting: AlwaysBeCasting,
     spellUsable: SpellUsable,
+    
+    //Normalizers
+    shurikenStormNormalizer: ShurikenStormNormalizer,
 
     //Resource
     comboPointTracker: ComboPointTracker,

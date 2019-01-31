@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-01-30'),
+    changes: <><SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> has been added to the list of spells that beacon transfer (50% efficiency).</>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2019-01-05'),
     changes: <><SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> that did negative healing are now highlighted in the timeline.</>,
     contributors: [Zerotorescue],

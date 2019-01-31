@@ -37,8 +37,8 @@ const STR_SPECS = [
   SPECS.RETRIBUTION_PALADIN.id,
   SPECS.ARMS_WARRIOR.id, //They use str pot for AoE
   SPECS.FURY_WARRIOR.id, //They use str pot for AoE
-  SPECS.FROST_DEATH_KNIGHT.id, //They str agi pot for AoE
-  SPECS.UNHOLY_DEATH_KNIGHT.id, //They str agi pot for AoE
+  SPECS.FROST_DEATH_KNIGHT.id,
+  SPECS.UNHOLY_DEATH_KNIGHT.id,
 ];
 
 const INT_SPECS = [
@@ -66,8 +66,6 @@ const BURSTING_BLOOD = [
   SPECS.SURVIVAL_HUNTER.id,
   SPECS.ARMS_WARRIOR.id,
   SPECS.FURY_WARRIOR.id,
-  SPECS.FROST_DEATH_KNIGHT.id,
-  SPECS.UNHOLY_DEATH_KNIGHT.id,
 ];
 
 const RISING_DEATH = [
@@ -199,4 +197,3 @@ class PrePotion extends Analyzer {
 }
 
 export default PrePotion;
-
