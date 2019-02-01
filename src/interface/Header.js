@@ -41,7 +41,7 @@ class Header extends React.PureComponent {
     return (
       <header>
         <div className="container image-overlay">
-          <div className="row flex">
+          <div className={premium === false ? 'row flex' : 'row'}>
             <div className="col-lg-6 col-md-10">
               <h1><Trans>WoW&shy;Analyzer</Trans></h1>
               <div className="description">
@@ -80,7 +80,7 @@ class Header extends React.PureComponent {
                 {' '}| <LanguageSwitcher />
               </div>
             </div>
-            {!premium && (
+            {premium === false && (
               <div className="col-lg-6 text-right hidden-md">
                 <Ad format="mediumrectangle" />
               </div>

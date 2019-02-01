@@ -8,7 +8,7 @@ import Ad from 'interface/common/Ad';
 import './SectionDivider.css';
 
 const SectionDivider = ({ premium }) => (
-  premium ? (
+  premium === false ? (
     <div className="section-divider" />
   ) : (
     <div className="text-center" style={{ margin: '40px 0' }}>
@@ -20,7 +20,7 @@ SectionDivider.propTypes = {
   premium: PropTypes.bool,
 };
 SectionDivider.defaultProps = {
-  premium: false,
+  premium: null,
 };
 
 const mapStateToProps = state => ({

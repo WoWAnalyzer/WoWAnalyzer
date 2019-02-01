@@ -19,11 +19,14 @@ import LoginPanel from './LoginPanel';
 
 export class Premium extends React.PureComponent {
   static propTypes = {
-    user: PropTypes.shape({
-      name: PropTypes.string,
-      avatar: PropTypes.string,
-      premium: PropTypes.bool,
-    }),
+    user: PropTypes.oneOfType([
+      PropTypes.shape({
+        name: PropTypes.string,
+        avatar: PropTypes.string,
+        premium: PropTypes.bool,
+      }),
+      PropTypes.bool, // false; logged out
+    ]),
     dateToLocaleString: PropTypes.func,
   };
   static defaultProps = {

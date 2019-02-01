@@ -31,6 +31,8 @@ export function fetchUser() {
         if (response.status !== 200) {
           if (response.status === 401) {
             // Unauthorized
+            // We need to store this explicitely so we know the diff between "unknown" and "logged out"
+            dispatch(setUser(false));
             return null;
           }
           throw new Error(response.statusText);
