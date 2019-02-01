@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import StatisticBox from 'interface/others/StatisticBox';
 
 import StaggerFabricator from './StaggerFabricator';
 
@@ -46,13 +46,20 @@ class Stagger extends Analyzer {
     }
   }
 
+  get totalStaggered() { 
+    return this.totalPhysicalStaggered + this.totalMagicalStaggered;
+  }
+
+  get pctPurified() {
+    return (this.totalStaggered - this.totalStaggerTaken) / this.totalStaggered;
+  }
+
   statistic() {
-    const totalStaggered = this.totalPhysicalStaggered + this.totalMagicalStaggered;
-    const damageAvoided = totalStaggered - this.totalStaggerTaken - this.staggerMissingFromFight;
+    const damageAvoided = this.totalStaggered - this.totalStaggerTaken - this.staggerMissingFromFight;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.IRONSKIN_BREW.id} />}
-        value={`${formatNumber(totalStaggered)} `}
+        value={`${formatNumber(this.totalStaggered)} `}
         label="Damage staggered"
         tooltip={`Incoming damage added to stagger:
           <ul>
@@ -61,14 +68,13 @@ class Stagger extends Analyzer {
           </ul>
           Damage taken from stagger:
           <ul>
-            <li>Total damage from stagger dot: ${formatThousands(this.totalStaggerTaken)} (${formatPercentage(this.totalStaggerTaken / totalStaggered)}% of total staggered)</li>
-            <li>Total damage removed from stagger dot before damaging you: ${formatThousands(damageAvoided)} (${formatPercentage(damageAvoided / totalStaggered)}% of total staggered)</li>
+            <li>Total damage from stagger dot: ${formatThousands(this.totalStaggerTaken)} (${formatPercentage(this.totalStaggerTaken / this.totalStaggered)}% of total staggered)</li>
+            <li>Total damage removed from stagger dot before damaging you: ${formatThousands(damageAvoided)} (${formatPercentage(damageAvoided / this.totalStaggered)}% of total staggered)</li>
           </ul>
         `}
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default Stagger;
