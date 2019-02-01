@@ -9,11 +9,11 @@ import './SectionDivider.css';
 
 const SectionDivider = ({ premium }) => (
   premium === false ? (
-    <div className="section-divider" />
-  ) : (
     <div className="text-center" style={{ margin: '40px 0' }}>
       <Ad format="leaderboard" />
     </div>
+  ) : (
+    <div className="section-divider" />
   )
 );
 SectionDivider.propTypes = {
