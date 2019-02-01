@@ -14,7 +14,6 @@ class Ad extends React.PureComponent {
         data-ad-slot="5976455458"
         data-ad-format="auto"
         data-full-width-responsive="true"
-        data-adtest="on"
       />
     );
   }
