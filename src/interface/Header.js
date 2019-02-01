@@ -82,7 +82,7 @@ class Header extends React.PureComponent {
             </div>
             {premium === false && (
               <div className="col-lg-6 text-right hidden-md">
-                <Ad format="mediumrectangle" />
+                <Ad style={{ height: '100%' }} />
               </div>
             )}
           </div>
