@@ -41,7 +41,7 @@ class Header extends React.PureComponent {
     return (
       <header>
         <div className="container image-overlay">
-          <div className="row">
+          <div className="row flex">
             <div className="col-lg-6 col-md-10">
               <h1><Trans>WoW&shy;Analyzer</Trans></h1>
               <div className="description">
@@ -70,7 +70,7 @@ class Header extends React.PureComponent {
                   )}
                 </div>
               )}
-                
+
               <div className="about">
                 <Link to={makeNewsUrl(AboutArticleTitle)}><Trans>About WoWAnalyzer</Trans></Link>
                 {' '}| <Link to={makeNewsUrl(UnlistedLogsTitle)}><Trans>About unlisted logs</Trans></Link>
