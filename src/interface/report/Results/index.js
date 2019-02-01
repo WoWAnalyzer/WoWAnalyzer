@@ -305,7 +305,7 @@ class Results extends React.PureComponent {
         </div>
 
         {premium === false && (
-          <div className="text-center" style={{ marginTop: 40, marginBottom: -40 }}>
+          <div className="text-center" style={{ marginTop: 40, marginBottom: -20 }}>
             <Ad format="leaderboard" />
           </div>
         )}
@@ -313,7 +313,7 @@ class Results extends React.PureComponent {
         {this.renderStatistics(results.statistics)}
 
         {premium === false && (
-          <div className="text-center" style={{ marginTop: 40, marginBottom: -40 }}>
+          <div className="text-center" style={{ marginTop: 40, marginBottom: -20 }}>
             <Ad format="leaderboard" />
           </div>
         )}
@@ -327,6 +327,12 @@ class Results extends React.PureComponent {
           selected={selectedDetailsTab}
           makeTabUrl={makeTabUrl}
         />
+
+        {premium === false && (
+          <div className="text-center" style={{ marginTop: 40 }}>
+            <Ad format="leaderboard" />
+          </div>
+        )}
       </div>
     );
   }
