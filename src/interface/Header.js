@@ -41,7 +41,7 @@ class Header extends React.PureComponent {
     return (
       <header>
         <div className="container image-overlay">
-          <div className={premium === false ? 'row flex' : 'row'}>
+          <div className="row">
             <div className="col-lg-6 col-md-10">
               <h1><Trans>WoW&shy;Analyzer</Trans></h1>
               <div className="description">
@@ -82,7 +82,8 @@ class Header extends React.PureComponent {
             </div>
             {premium === false && (
               <div className="col-lg-6 text-right hidden-md">
-                <Ad style={{ height: '100%' }} />
+                {/* Frontpage Header */}
+                <Ad style={{ width: 300, height: 250 }} data-ad-slot="4939486206" />
               </div>
             )}
           </div>
