@@ -661,10 +661,6 @@ class StatTracker extends Analyzer {
   speedPercentage(rating, withBase = false) {
     return (withBase ? this.baseSpeedPercentage : 0) + rating / this.speedRatingPerPercent;
   }
-  armorPercentage(rating) {
-    // tfw you get a formula from a rando on the wow forums
-    return rating / (rating + 7390);
-  }
 
   /*
    * For percentage stats, the current stat percentage as tracked by this module.
@@ -691,9 +687,6 @@ class StatTracker extends Analyzer {
   }
   get currentSpeedPercentage() {
     return this.speedPercentage(this.currentSpeedRating, true);
-  }
-  get currentArmorPercentage() {
-    return this.armorPercentage(this.currentArmorRating);
   }
 
   on_toPlayer_changebuffstack(event) {
