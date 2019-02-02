@@ -306,7 +306,7 @@ class Results extends React.PureComponent {
 
         {premium === false && (
           <div className="text-center" style={{ marginTop: 40, marginBottom: -20 }}>
-            <Ad format="leaderboard" />
+            <Ad />
           </div>
         )}
 
@@ -314,7 +314,7 @@ class Results extends React.PureComponent {
 
         {premium === false && (
           <div className="text-center" style={{ marginTop: 40, marginBottom: -20 }}>
-            <Ad format="leaderboard" />
+            <Ad />
           </div>
         )}
 
@@ -330,7 +330,7 @@ class Results extends React.PureComponent {
 
         {premium === false && (
           <div className="text-center" style={{ marginTop: 40 }}>
-            <Ad format="leaderboard" />
+            <Ad />
           </div>
         )}
       </div>

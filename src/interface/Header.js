@@ -86,7 +86,6 @@ class Header extends React.PureComponent {
                 <Ad
                   style={{ width: 336, height: 280, float: 'right' }}
                   data-ad-slot="6838783431"
-                  data-ad-format="rectangle"
                 />
               </div>
             )}

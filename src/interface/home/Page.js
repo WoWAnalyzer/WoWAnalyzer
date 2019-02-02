@@ -110,7 +110,8 @@ class Home extends React.PureComponent {
                   </div>
                   <div className="panel-body" style={{ padding: 0, overflow: 'hidden', textAlign: 'center', background: '#222' }}>
                     <Ad
-                      data-format="vertical"
+                      data-ad-slot="8953934590"
+                      style={{ width: 300, height: 600 }}
                     />
                   </div>
                   <div className="panel-footer" style={{ lineHeight: 1 }}>
