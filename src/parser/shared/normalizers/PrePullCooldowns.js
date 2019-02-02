@@ -39,31 +39,45 @@ class PrePullCooldowns extends EventsNormalizer {
   getApplicableSpells() {
     const buffSpells = [];
     const damageSpells = [];
+    const addBuff = (ability, buffId) => {
+      let castId;
+      if (ability.spell instanceof Array) {
+        if (ability.spell.includes(buffId)) {
+          // If the spell ids for the buff is also a castable spell, default to the spell id of the buff for the fabricated cast event.
+          // This fixes an issue with potions where previously the cast even listed the first potion in the list. This wasn't always the potion the player used, leading to confusion. Instead this will correctly list the potion they used.
+          castId = buffId;
+        } else {
+          castId = ability.primarySpell.id;
+        }
+      } else {
+        castId = ability.spell.id;
+      }
+
+      buffSpells.push({
+        castId,
+        buffId: buffId,
+      });
+    };
 
     // TODO what filtering should we use to determine what spells we care about?
-    for (const ability of this.abilities.activeAbilities) {
+    this.abilities.activeAbilities.forEach(ability => {
       if (ability.buffSpellId) {
         if (ability.buffSpellId instanceof Array) {
           ability.buffSpellId.forEach(buffId => {
-            buffSpells.push({
-              castId: ability.spell.id,
-              buffId: buffId,
-            });
+            addBuff(ability, buffId);
           });
         } else {
-          buffSpells.push({
-            castId: ability.spell.id,
-            buffId: ability.buffSpellId,
-          });
+          addBuff(ability, ability.buffSpellId);
         }
       }
+
       if (ability.damageSpellIds) {
         damageSpells.push({
           castId: ability.spell.id,
           damageIds: ability.damageSpellIds,
         });
       }
-    }
+    });
 
     return {
       buffSpells,
@@ -157,7 +171,7 @@ class PrePullCooldowns extends EventsNormalizer {
      * resolve this, we could also listen for buffremove events and use that
      * to deduce the cast time. This would require ability info about durations.
      */
-      // Working backwards, assume worst-case GCD timestamps
+    // Working backwards, assume worst-case GCD timestamps
     let totalGCD = 0;
     for (let i = prepullCasts.length - 1; i >= 0; i -= 1) {
       const event = prepullCasts[i];

@@ -7,11 +7,15 @@ const ONE_HOUR_MS = 3600000; // one hour
 const COOLDOWN_MS = 60000; // one minute
 
 /**
- * Abstract class for potions and healthstone. 
+ * Abstract class for potions and healthstone.
  * There are three different categories of pots that share cooldown:
  * Healthstones, health pots and combat pots (DPS, HPS, mana and mitigation).
  * pot cooldown is one minute, but the cooldown does not start until the
  * actor is out of combat or dead.
+ *
+ * @property {Abilities} abilities
+ * @property {SpellUsable} spellUsable
+ * @property {AbilityTracker} abilityTracker
  */
 class Potion extends Analyzer {
   static dependencies = {
