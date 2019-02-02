@@ -61,6 +61,8 @@ class Abilities extends Module {
 
   /**
    * Returns the first ACTIVE spellInfo with the given spellId (or undefined if there is no such spellInfo)
+   *
+   * @return {Ability}
    */
   getAbility(spellId) {
     const ability = this.activeAbilities.find(ability => {

@@ -20,6 +20,7 @@ class CombatPotion extends Potion {
   ];
   static recommendedEfficiency = 0;
   static extraAbilityInfo = {
+    name: 'Combat Potion',
     buffSpellId: [
       SPELLS.BATTLE_POTION_OF_INTELLECT.id,
       SPELLS.BATTLE_POTION_OF_STRENGTH.id,

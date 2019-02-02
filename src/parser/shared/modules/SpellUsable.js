@@ -269,6 +269,7 @@ class SpellUsable extends Analyzer {
   _makeEvent(spellId, timestamp, trigger, others = {}) {
     const cooldown = this._currentCooldowns[spellId];
     const chargesOnCooldown = cooldown ? cooldown.chargesOnCooldown : 0;
+    const ability = this.abilities.getAbility(spellId);
     const maxCharges = this.abilities.getMaxCharges(spellId) || 1;
     const spell = SPELLS[spellId];
 
@@ -279,6 +280,7 @@ class SpellUsable extends Analyzer {
         name: spell ? spell.name : undefined,
         abilityIcon: spell ? spell.icon : undefined,
       },
+      name: ability.name,
       trigger,
       timestamp,
       isOnCooldown: this.isOnCooldown(spellId),

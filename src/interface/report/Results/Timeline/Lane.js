@@ -61,7 +61,7 @@ class Lane extends React.PureComponent {
     return (
       <Tooltip
         key={`cooldown-${left}`}
-        content={`${event.ability.name} cooldown: ${((event.timestamp - event.start) / 1000).toFixed(1)}s`}
+        content={`${event.name || event.ability.name} cooldown: ${((event.timestamp - event.start) / 1000).toFixed(1)}s`}
       >
         <div
           className="cooldown"
