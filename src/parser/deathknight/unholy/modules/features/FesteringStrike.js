@@ -72,7 +72,7 @@ class FesteringStrike extends Analyzer {
   }
 
   statistic() {
-    const percentCastsOverThreeStacks = this.festeringStrikeCastsOverThreeStacks/this.totalFestFfoueringStrikeCasts;
+    const percentCastsOverThreeStacks = this.festeringStrikeCastsOverThreeStacks/this.totalFesteringStrikeCasts;
     const strikeEfficiency = 1 - percentCastsOverThreeStacks;
     return (
       <StatisticBox
