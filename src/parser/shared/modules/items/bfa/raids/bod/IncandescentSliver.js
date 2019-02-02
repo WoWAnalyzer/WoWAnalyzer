@@ -39,12 +39,12 @@ class IncandescentSliver extends Analyzer {
     }
   }
 
-  averageCritRating() {
+  get averageCritRating() {
     const averageStacks = this.selectedCombatant.getStackWeightedBuffUptime(SPELLS.INCANDESCENT_LUSTER.id) / this.owner.fightDuration;
     return averageStacks * this.critRating;
   }
 
-  averageMasteryRating() {
+  get averageMasteryRating() {
     return this.masteryRating * this.masteryUptime;
   }
 
@@ -68,11 +68,11 @@ class IncandescentSliver extends Analyzer {
       <StatisticBox
         icon={<ItemIcon id={ITEMS.INCANDESCENT_SLIVER.id} />}
         value={(
-          <span>
-            {' '}{formatNumber(this.averageCritRating())}{' Average Crit'}
+          <>
+            {formatNumber(this.averageCritRating)} average Crit
             <br />
-            {' '}{formatNumber(this.averageMasteryRating())}{' Average Mastery'}
-          </span>
+            {formatNumber(this.averageMasteryRating)} average Mastery
+          </>
         )}
         label="Incandescent Sliver"
         tooltip={`The following players also had this trinket equipped: ${playersWithTrinket.map(player => {
