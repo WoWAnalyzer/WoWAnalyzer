@@ -41,7 +41,7 @@ class LockAndLoad extends Analyzer {
     this.totalProcs += 1;
     this.hasLnLBuff = true;
     if (this.spellUsable.isOnCooldown(SPELLS.AIMED_SHOT.id)) {
-      const newChargeCDR = this.abilities.getExpectedCooldownDuration(SPELLS.AIMED_SHOT.id) - this.spellUsable.cooldownRemaining(SPELLS.AIMED_SHOT.id);
+      const newChargeCDR = this.abilities.getExpectedCooldownDuration(SPELLS.AIMED_SHOT.id, this.spellUsable.cooldownTriggerEvent(SPELLS.AIMED_SHOT.id)) - this.spellUsable.cooldownRemaining(SPELLS.AIMED_SHOT.id);
       this.spellUsable.endCooldown(SPELLS.AIMED_SHOT.id, false, event.timestamp, newChargeCDR);
     }
   }

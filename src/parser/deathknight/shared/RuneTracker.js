@@ -164,7 +164,7 @@ class RuneTracker extends ResourceTracker {
     if (!this.spellUsable.isOnCooldown(runeId)) {
       return;
     }
-    const expectedCooldown = this.abilities.getExpectedCooldownDuration(runeId);
+    const expectedCooldown = this.abilities.getExpectedCooldownDuration(runeId, this.spellUsable.cooldownTriggerEvent(runeId));
     this.spellUsable.reduceCooldown(runeId, expectedCooldown);
   }
 
@@ -215,7 +215,7 @@ class RuneTracker extends ResourceTracker {
     }
     const chargesOnCooldown = 2 - this.spellUsable.chargesAvailable(spellId);
     const cooldownRemaining = this.spellUsable.cooldownRemaining(spellId);
-    const fullChargeCooldown = this.abilities.getExpectedCooldownDuration(spellId);
+    const fullChargeCooldown = this.abilities.getExpectedCooldownDuration(spellId, this.spellUsable.cooldownTriggerEvent(spellId));
     return (chargesOnCooldown - 1) * fullChargeCooldown + cooldownRemaining;
   }
 

@@ -45,8 +45,8 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL, // 6 / (1 + haste)
-        cooldown: (haste, selectedCombatant) => {
-          if (selectedCombatant.hasTalent(SPELLS.UNSTOPPABLE_FORCE_TALENT.id) && selectedCombatant.hasBuff(SPELLS.AVATAR_TALENT.id)) {
+        cooldown: haste => {
+          if (combatant.hasTalent(SPELLS.UNSTOPPABLE_FORCE_TALENT.id) && combatant.hasBuff(SPELLS.AVATAR_TALENT.id)) {
             return 6 / 2 / (1 + haste);
           }
           return 6 / (1 + haste);

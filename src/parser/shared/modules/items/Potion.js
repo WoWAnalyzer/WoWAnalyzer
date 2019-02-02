@@ -35,7 +35,14 @@ class Potion extends Analyzer {
     this.abilities.add({
       spell: this.constructor.spells,
       category: Abilities.SPELL_CATEGORIES.CONSUMABLE,
-      cooldown: ONE_HOUR_MS / 1000, // The cooldown does not start while in combat so setting it to one hour.
+      cooldown: (_, cooldownTriggerEvent) => {
+        if (cooldownTriggerEvent && cooldownTriggerEvent.prepull) {
+          return 60;
+        }
+
+        // The cooldown does not start while in combat so setting it to one hour.
+        return ONE_HOUR_MS / 1000;
+      },
       castEfficiency: {
         suggestion: false,
         maxCasts: () => this.maxCasts,

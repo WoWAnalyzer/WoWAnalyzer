@@ -163,12 +163,15 @@ class Ability {
   }
   /** @return {number} */
   get cooldown() {
+    return this.getCooldown(this._owner.haste.current);
+  }
+  getCooldown(haste, cooldownTriggerEvent = undefined) {
     if (this._cooldown === undefined) {
       // Most abilities will always be active and don't provide this prop at all
       return 0;
     }
     if (typeof this._cooldown === 'function') {
-      return this._cooldown.call(this._owner, this._owner.haste.current, this._owner.selectedCombatant);
+      return this._cooldown.call(null, haste, cooldownTriggerEvent);
     }
 
     return this._cooldown;

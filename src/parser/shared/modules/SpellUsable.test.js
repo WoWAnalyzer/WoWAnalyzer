@@ -156,7 +156,7 @@ describe('core/Modules/SpellUsable', () => {
       triggerCast(SPELLS.FAKE_SPELL.id);
       parser.currentTimestamp = 6000; //Leaves 1500ms cooldown remaining of the total 7500ms of the first charge recharging.
       const reduction = module.reduceCooldown(SPELLS.FAKE_SPELL.id, 5000);
-      expect(reduction).toBe(5000);    
+      expect(reduction).toBe(5000);
     });
     it('reduceCooldown on a spell not on cooldown throws', () => {
       // We throw instead of returning something like null so that implementers *have* to take this into consideration.
@@ -168,14 +168,18 @@ describe('core/Modules/SpellUsable', () => {
       triggerCast(SPELLS.FAKE_SPELL.id);
       parser.currentTimestamp = 5000;
 
-      module.refreshCooldown(SPELLS.FAKE_SPELL.id);
+      module.refreshCooldown(SPELLS.FAKE_SPELL.id, {
+        timestamp: 5000,
+      });
 
       expect(module.cooldownRemaining(SPELLS.FAKE_SPELL.id)).toBe(7500);
     });
     it('refreshCooldown on a spell not on cooldown throws', () => {
       // We throw instead of returning something like null so that implementers *have* to take this into consideration.
       expect(() => {
-        module.refreshCooldown(SPELLS.FAKE_SPELL.id);
+        module.refreshCooldown(SPELLS.FAKE_SPELL.id, {
+          timestamp: 5000,
+        });
       }).toThrow();
     });
     it('endCooldown on a spell not on cooldown throws', () => {
