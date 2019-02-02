@@ -1,9 +1,11 @@
 import Abilities from 'parser/core/modules/Abilities';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
+import ApplyBuff from './ApplyBuff';
+
 const debug = false;
 
-/*
+/**
  * This normalizer attempts to track all potentially relevant casts that
  * happened before the pull. It then fabricates cast events in order to help
  * other modules (like cast efficiency) be more accurate.
@@ -11,9 +13,11 @@ const debug = false;
  * Additionally, because there is currently no ability info on whether or not a
  * spell is instant or has a cast time, we cannot (yet) accurately fabricate
  * the right type of event (begincast + cast vs only a cast).
+ *
+ * @property {Abilities} abilities
+ * @property {ApplyBuff} applyBuff
  */
 class PrePullCooldowns extends EventsNormalizer {
-
   /*
    * Abilities is an analyzer, which means that accessing it from a
    * normalizer like this one is not ideal design. For now, to avoid having to
@@ -25,38 +29,57 @@ class PrePullCooldowns extends EventsNormalizer {
    */
   static dependencies = {
     abilities: Abilities,
+    applyBuff: ApplyBuff, // we need fabricated events for untracked prepull applied buffs
   };
 
-  normalize(events) {
-
-    // region Build cooldown search arrays
-    /*
-     * Rather than constantly querying Abilities, here we simplify into two
-     * new arrays that we can modify without messing with the spellbook
-     */
+  /**
+   * Rather than constantly querying Abilities, here we simplify into two
+   * new arrays that we can modify without messing with the spellbook
+   */
+  getApplicableSpells() {
     const buffSpells = [];
     const damageSpells = [];
 
     // TODO what filtering should we use to determine what spells we care about?
     for (const ability of this.abilities.activeAbilities) {
       if (ability.buffSpellId) {
-        if(ability.buffSpellId instanceof Array) {
+        if (ability.buffSpellId instanceof Array) {
           ability.buffSpellId.forEach(buffId => {
-            buffSpells.push({ castId: ability.spell.id, buffId: buffId });
+            buffSpells.push({
+              castId: ability.spell.id,
+              buffId: buffId,
+            });
           });
         } else {
-          buffSpells.push({ castId: ability.spell.id, buffId: ability.buffSpellId });
+          buffSpells.push({
+            castId: ability.spell.id,
+            buffId: ability.buffSpellId,
+          });
         }
       }
       if (ability.damageSpellIds) {
-        damageSpells.push({ castId: ability.spell.id, damageIds: ability.damageSpellIds });
+        damageSpells.push({
+          castId: ability.spell.id,
+          damageIds: ability.damageSpellIds,
+        });
       }
     }
-    // endregion
+
+    return {
+      buffSpells,
+      damageSpells,
+    };
+  }
+
+  normalize(events) {
+    const { buffSpells, damageSpells } = this.getApplicableSpells();
 
     const prepullCasts = [];
     let precastClassResources = null;
 
+    // When the fight started. Used for instants.
+    const fightStartTimestamp = this.owner.fight.start_time;
+    // When the player first cast something. Used for everything else (this is intended to optimally estimate channeled spells).
     const firstEventIndex = this.getFightStartIndex(events);
     const firstTimestamp = events[firstEventIndex].timestamp;
     const playerId = this.owner.playerId;
@@ -71,7 +94,7 @@ class PrePullCooldowns extends EventsNormalizer {
       }
 
       if (event.type === 'applybuff') {
-        // We rely on the buffapply normalizer to set the prepull property
+        // We rely on the ApplyBuff normalizer to set the prepull property
         if (targetId !== playerId || !event.prepull) {
           continue;
         }
@@ -88,8 +111,7 @@ class PrePullCooldowns extends EventsNormalizer {
       }
 
       if (event.type === 'cast') {
-
-        /*
+        /**
          * This will copy the first resource information to all precast events.
          * It's not pretty or 100% accurate, but it prevents errors on analyzers
          * that require resource information and usually wont be too far off.
@@ -100,7 +122,7 @@ class PrePullCooldowns extends EventsNormalizer {
          * information more accurately.
          */
         if (precastClassResources === null && event.classResources) {
-          debug && console.debug("Setting prepull class resources to:", event.classResources);
+          debug && console.debug('Setting prepull class resources to:', event.classResources);
           precastClassResources = event.classResources;
         }
 
@@ -125,10 +147,9 @@ class PrePullCooldowns extends EventsNormalizer {
           }
         }
       }
-
     }
 
-    /*
+    /**
      * Potential issue: If players cast buffs long before the pull that have a
      * long duration, this normalizer doesn't know that and assumes they
      * cast it optimized right before the pull. This means that the next time
@@ -136,12 +157,18 @@ class PrePullCooldowns extends EventsNormalizer {
      * resolve this, we could also listen for buffremove events and use that
      * to deduce the cast time. This would require ability info about durations.
      */
-    // Working backwards, assume worst-case GCD timestamps
+      // Working backwards, assume worst-case GCD timestamps
     let totalGCD = 0;
     for (let i = prepullCasts.length - 1; i >= 0; i -= 1) {
       const event = prepullCasts[i];
-      totalGCD += this._resolveAbilityGcd(event.ability.guid);
-      event.timestamp = firstTimestamp - totalGCD;
+      const gcd = this._resolveAbilityGcd(event.ability.guid);
+      if (gcd === null) {
+        // When the ability is off the GCD give it at least some margin so it properly appears as cast before the pull and out of combat
+        event.timestamp = fightStartTimestamp - 100;
+      } else {
+        totalGCD += gcd;
+        event.timestamp = firstTimestamp - totalGCD;
+      }
       event.classResources = precastClassResources;
     }
     events.unshift(...prepullCasts);
@@ -155,7 +182,7 @@ class PrePullCooldowns extends EventsNormalizer {
     }
     const gcdProp = ability.gcd;
     if (!gcdProp) {
-      return 0;
+      return null;
     }
     if (typeof gcdProp.static === 'number') {
       return gcdProp.static;
@@ -188,7 +215,6 @@ class PrePullCooldowns extends EventsNormalizer {
       __fabricated: true,
     };
   }
-
 }
 
 export default PrePullCooldowns;
