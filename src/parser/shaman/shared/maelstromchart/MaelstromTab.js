@@ -18,13 +18,8 @@ class MaelstromTab extends Analyzer {
           <MaelstromChart
             start={this.owner.fight.start_time}
             end={this.owner.fight.end_time}
-            maelstromMax={this.maelstromTracker._maxMaelstrom}
-            maelstromPerSecond={this.maelstromTracker.maelstromBySecond}
-            tracker={this.maelstromTracker.tracker}
-            activeMaelstromGenerated={this.maelstromTracker.activeMaelstromGenerated}
-            activeMaelstromWasted={this.maelstromTracker.activeMaelstromWasted}
-            generatorCasts={this.maelstromTracker.generatorCasts}
-            activeMaelstromWastedTimeline={this.maelstromTracker.activeMaelstromWastedTimeline}
+            maelstromMax={100}
+            tracker={this.maelstromTracker}
           />
         </Tab>
       ),

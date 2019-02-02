@@ -4,23 +4,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Line } from 'react-chartjs-2';
-import SPELLS from 'common/SPELLS';
 
 import { formatDuration } from 'common/format';
-
-import MaelstromComponent from './MaelstromComponent';
 
 class Maelstrom extends React.PureComponent {
   static propTypes = {
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
     maelstromMax: PropTypes.number,
-    maelstromPerSecond: PropTypes.array,
-    tracker: PropTypes.number,
-    activeMaelstromGenerated: PropTypes.object,
-    activeMaelstromWasted: PropTypes.object,
-    generatorCasts: PropTypes.object,
-    activeMaelstromWastedTimeline: PropTypes.object,
+    tracker: PropTypes.object,
   };
 
   render() {
@@ -35,104 +27,46 @@ class Maelstrom extends React.PureComponent {
     const maxMaelstrom = this.props.maelstromMax;
     const { start, end } = this.props;
 
-    //not it's own module since it's "fake data" meant to look visually accurate, not be numerically accurate
-    let lastCatch = 0; //records the timestamp of the last event
-    const overCapBySecond = [];
-    const maelstromBySecond = [];
-    const magicGraphNumber = Math.floor(maxMaelstrom / 2);
-    let passiveWasteIndex = 0;
-    if (this.props.maelstromPerSecond && this.props.activeMaelstromWastedTimeline) {
-      this.props.maelstromPerSecond.forEach(item => {
-        const secIntoFight = Math.floor(passiveWasteIndex / 1000);
-        if (Math.max(maelstromBySecond[secIntoFight], item) >= magicGraphNumber) { //aims to get highest peak
-          maelstromBySecond[secIntoFight] = Math.max(maelstromBySecond[secIntoFight], item);
-        }
-        else if (Math.max(maelstromBySecond[secIntoFight], item) < magicGraphNumber) { //aims to get lowest valley
-          maelstromBySecond[secIntoFight] = Math.min(maelstromBySecond[secIntoFight], item);
-        }
-        else if (!maelstromBySecond[secIntoFight]) {
-          maelstromBySecond[secIntoFight] = item;
-        }
-        lastCatch = Math.floor(passiveWasteIndex / 1000);
-        passiveWasteIndex++;
-      });
-    }
 
-    for (let i = 0; i < lastCatch; i++) {
-      if (!maelstromBySecond[i]) {
-        if (maelstromBySecond[i - 1] > maxMaelstrom) {
-          maelstromBySecond[i] = maxMaelstrom;
-        } else {
-          maelstromBySecond[i] = maelstromBySecond[i - 1];
-        }
-      }
-
-      if (this.props.activeMaelstromWastedTimeline[i] && maelstromBySecond[i] + this.props.activeMaelstromWastedTimeline[i] > maxMaelstrom) {
-        overCapBySecond[i] = (maelstromBySecond[i] + this.props.activeMaelstromWastedTimeline[i]) - maxMaelstrom;
-      } else {
-        overCapBySecond[i] = 0;
-      }
-    }
-
-    const abilitiesAll = {};
-    const categories = {
-      generated: 'Maelstrom Generators',
-      //spent: 'Focus Spenders', //I see no reason to display focus spenders, but leaving this in if someone later wants to add them
+    const resourceBySecond = {
+      0:0,
     };
-    if (this.props.generatorCasts && this.props.activeMaelstromWasted && this.props.activeMaelstromGenerated) {
-      Object.keys(this.props.generatorCasts).forEach((generator) => {
-        const spell = SPELLS[generator];
-        abilitiesAll[`${generator}_gen`] = {
-          ability: {
-            category: 'Maelstrom Generators',
-            name: spell.name,
-            spellId: Number(generator),
-          },
-          casts: this.props.generatorCasts[generator],
-          created: this.props.activeMaelstromGenerated[generator],
-          wasted: this.props.activeMaelstromWasted[generator],
-        };
-
-      });
-    }
-
-    const abilities = Object.keys(abilitiesAll).map(key => abilitiesAll[key]);
-    abilities.sort((a, b) => {
-      if (a.created < b.created) {
-        return 1;
-      }
-      if (a.created === b.created) {
-        return 0;
-      }
-      return -1;
+    const overCapBySecond = {
+      0:0,
+    };
+    this.props.tracker.resourceUpdates.forEach((item) => {
+      const secIntoFight = Math.floor((item.timestamp - start) / 1000);
+      resourceBySecond[secIntoFight] = item.current;
+      overCapBySecond[secIntoFight] = item.waste;
     });
 
-    const fightDurationSec = Math.floor((end - start) / 1000);
+
     const labels = [];
+    const fightDurationSec = Math.ceil((end-start) / 1000);
     for (let i = 0; i <= fightDurationSec; i++) {
       labels.push(i);
-
-      maelstromBySecond[i] = maelstromBySecond[i] !== undefined ? maelstromBySecond[i] : null;
-      if (maelstromBySecond[i] !== null) {
-        maelstromBySecond[i] = maelstromBySecond[i] > 0 ? maelstromBySecond[i] : 0;
+      resourceBySecond[i] = resourceBySecond[i] !== undefined ? resourceBySecond[i] : resourceBySecond[i-1];
+      if (resourceBySecond[i] !== null) {
+        resourceBySecond[i] = resourceBySecond[i] > 0 ? resourceBySecond[i] : 0;
       }
-      overCapBySecond[i] = overCapBySecond[i] !== undefined ? overCapBySecond[i] : null;
+      overCapBySecond[i] = overCapBySecond[i] !== undefined ? overCapBySecond[i] : resourceBySecond[i-1];
     }
 
     let maxX;
     const myLabels = [];
-    for (maxX = 0; maxX < maelstromBySecond.length; maxX++) {
+    for (maxX = 0; maxX < resourceBySecond.length; maxX++) {
       if (maxX % 30 === 0) {
         myLabels[maxX] = (formatDuration(maxX));
       }
     }
     myLabels[maxX - 1] = formatDuration(maxX - 1);
+
     const myData = {
       labels: myLabels,
       datasets: [
         {
           label: 'Maelstrom',
-          data: maelstromBySecond,
+          data: resourceBySecond,
           lineTension: 0.4,
           backgroundColor: [
             'rgba(0, 139, 215, 0.2)',
@@ -183,7 +117,7 @@ class Maelstrom extends React.PureComponent {
           ticks: {
             beginAtZero: true,
             stepSize: 30,
-            max: maxMaelstrom,
+            max: 100,
           },
         }],
       },
@@ -196,10 +130,6 @@ class Maelstrom extends React.PureComponent {
           options={chartOptions}
           height={100}
           width={300}
-        />
-        <MaelstromComponent
-          abilities={abilities}
-          categories={categories}
         />
       </div>
     );
