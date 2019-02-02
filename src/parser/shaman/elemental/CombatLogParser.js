@@ -37,7 +37,6 @@ import SereneSpirit from '../shared/azerite/SereneSpirit';
 import MaelstromDetails from '../shared/maelstromchart/MaelstromDetails';
 import MaelstromTracker from '../shared/maelstromchart/MaelstromTracker';
 import MaelstromTab from '../shared/maelstromchart/MaelstromTab';
-import MSValues from '../shared/maelstromchart/MalestromValues';
 
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -75,7 +74,6 @@ class CombatLogParser extends CoreCombatLogParser {
     maelstromTracker: MaelstromTracker,
     maelstromDetails: MaelstromDetails,
     maelstromTab: MaelstromTab,
-    msValues: MSValues,
     ankhNormalizer: AnkhNormalizer,
     checklist: Checklist,
     astralShift: AstralShift,

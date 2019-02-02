@@ -155,7 +155,6 @@ class Focus extends React.PureComponent {
     }
     myLabels[maxX - 1] = formatDuration(maxX - 1);
 
-    console.log(focusBySecond);
     const myData = {
       labels: myLabels,
       datasets: [{

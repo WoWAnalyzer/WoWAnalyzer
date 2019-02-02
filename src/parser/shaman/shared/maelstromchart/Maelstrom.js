@@ -11,7 +11,7 @@ class Maelstrom extends React.PureComponent {
   static propTypes = {
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
-    maelstromMax: PropTypes.number,
+    max: PropTypes.number,
     tracker: PropTypes.object,
   };
 
@@ -24,16 +24,12 @@ class Maelstrom extends React.PureComponent {
       );
     }
 
-    const maxMaelstrom = this.props.maelstromMax;
+    const maxResource = this.props.tracker.maxResource || this.props.max;
     const { start, end } = this.props;
 
 
-    const resourceBySecond = {
-      0:0,
-    };
-    const overCapBySecond = {
-      0:0,
-    };
+    const resourceBySecond = [];
+    const overCapBySecond = [];
     this.props.tracker.resourceUpdates.forEach((item) => {
       const secIntoFight = Math.floor((item.timestamp - start) / 1000);
       resourceBySecond[secIntoFight] = item.current;
@@ -41,15 +37,13 @@ class Maelstrom extends React.PureComponent {
     });
 
 
-    const labels = [];
     const fightDurationSec = Math.ceil((end-start) / 1000);
     for (let i = 0; i <= fightDurationSec; i++) {
-      labels.push(i);
       resourceBySecond[i] = resourceBySecond[i] !== undefined ? resourceBySecond[i] : resourceBySecond[i-1];
       if (resourceBySecond[i] !== null) {
         resourceBySecond[i] = resourceBySecond[i] > 0 ? resourceBySecond[i] : 0;
       }
-      overCapBySecond[i] = overCapBySecond[i] !== undefined ? overCapBySecond[i] : resourceBySecond[i-1];
+      overCapBySecond[i] = overCapBySecond[i] !== undefined ? overCapBySecond[i] : overCapBySecond[i-1];
     }
 
     let maxX;
@@ -117,7 +111,7 @@ class Maelstrom extends React.PureComponent {
           ticks: {
             beginAtZero: true,
             stepSize: 30,
-            max: 100,
+            max: maxResource,
           },
         }],
       },
