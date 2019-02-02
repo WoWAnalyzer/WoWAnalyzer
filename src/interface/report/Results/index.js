@@ -23,11 +23,11 @@ import Header from './Header';
 import About from './About';
 import Suggestions from './Suggestions';
 import Statistics from './Statistics';
-import Timeline from './Timeline/Container';
 import './Results.scss';
 
 // Gone for now, reintroduce if we can make it useful
 // const DevelopmentTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'DevelopmentTab' */ 'interface/others/DevelopmentTab').then(exports => exports.default)));
+const TimelineTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'TimelineTab' */ './Timeline/Container').then(exports => exports.default)));
 const EventsTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'EventsTab' */ 'interface/others/EventsTab').then(exports => exports.default)));
 
 const CORE_TABS = {
@@ -120,7 +120,7 @@ class Results extends React.PureComponent {
         );
       case CORE_TABS.TIMELINE:
         return (
-          <Timeline parser={parser} />
+          <TimelineTab parser={parser} />
         );
       case CORE_TABS.EVENTS:
         return (

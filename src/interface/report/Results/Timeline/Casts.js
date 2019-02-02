@@ -131,9 +131,11 @@ class Casts extends React.PureComponent {
     const fightDuration = (event.start - start) / 1000;
 
     return (
-      <Tooltip content={`${formatDuration(fightDuration, 3)}: ${(event.duration / 1000).toFixed(2)}s channel by ${event.ability.name}`}>
+      <Tooltip
+        key={`channel-${left}-${event.ability.guid}`}
+        content={`${formatDuration(fightDuration, 3)}: ${(event.duration / 1000).toFixed(2)}s channel by ${event.ability.name}`}
+      >
         <div
-          key={`channel-${left}-${event.ability.guid}`}
           className="channel"
           style={{
             left,
@@ -149,9 +151,11 @@ class Casts extends React.PureComponent {
     const fightDuration = (event.timestamp - start) / 1000;
 
     return (
-      <Tooltip content={`${formatDuration(fightDuration, 3)}: ${(event.duration / 1000).toFixed(2)}s Global Cooldown by ${event.ability.name}`}>
+      <Tooltip
+        key={`gcd-${left}-${event.ability.guid}`}
+        content={`${formatDuration(fightDuration, 3)}: ${(event.duration / 1000).toFixed(2)}s Global Cooldown by ${event.ability.name}`}
+      >
         <div
-          key={`gcd-${left}-${event.ability.guid}`}
           className="gcd"
           style={{
             left,

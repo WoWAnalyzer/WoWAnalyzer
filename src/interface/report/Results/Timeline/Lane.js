@@ -59,9 +59,11 @@ class Lane extends React.PureComponent {
     const left = this.getOffsetLeft(event.start);
     const width = (event.timestamp - event.start) / 1000 * this.props.secondWidth;
     return (
-      <Tooltip content={`${event.ability.name} cooldown: ${((event.timestamp - event.start) / 1000).toFixed(1)}s`}>
+      <Tooltip
+        key={`cooldown-${left}`}
+        content={`${event.ability.name} cooldown: ${((event.timestamp - event.start) / 1000).toFixed(1)}s`}
+      >
         <div
-          key={`cooldown-${left}`}
           className="cooldown"
           style={{
             left,
@@ -92,7 +94,6 @@ class Lane extends React.PureComponent {
 
     const ability = children[0].ability;
 
-    console.log(ability, children)
 
     return (
       <div
