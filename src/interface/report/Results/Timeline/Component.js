@@ -5,6 +5,7 @@ import { formatDuration } from 'common/format';
 import DragScroll from 'interface/common/DragScroll';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import BuffsModule from 'parser/core/modules/Buffs';
+import CombatLogParser from 'parser/core/CombatLogParser';
 
 import Buffs from './Buffs';
 import Casts from './Casts';
@@ -13,19 +14,9 @@ import './Timeline.scss';
 
 class Timeline extends React.PureComponent {
   static propTypes = {
-    historyBySpellId: PropTypes.object.isRequired,
-    globalCooldownHistory: PropTypes.array.isRequired,
-    channelHistory: PropTypes.array.isRequired,
     abilities: PropTypes.object.isRequired,
-    abilityTracker: PropTypes.object.isRequired,
-    spellId: PropTypes.number,
-    start: PropTypes.number.isRequired,
-    end: PropTypes.number.isRequired,
-    deaths: PropTypes.array.isRequired,
-    resurrections: PropTypes.array.isRequired,
-    showCooldowns: PropTypes.bool,
-    showGlobalCooldownDuration: PropTypes.bool,
     buffs: PropTypes.instanceOf(BuffsModule).isRequired,
+    parser: PropTypes.instanceOf(CombatLogParser).isRequired,
   };
   static defaultProps = {
     showCooldowns: true,
@@ -41,8 +32,17 @@ class Timeline extends React.PureComponent {
     this.setContainerRef = this.setContainerRef.bind(this);
   }
 
+  get fight() {
+    return this.props.parser.fight;
+  }
+  get start() {
+    return this.fight.start_time;
+  }
+  get end() {
+    return this.fight.end_time;
+  }
   get duration() {
-    return this.props.end - this.props.start;
+    return this.end - this.start;
   }
   get seconds() {
     return Math.ceil(this.duration / 1000);
@@ -53,8 +53,8 @@ class Timeline extends React.PureComponent {
   get totalWidth() {
     return this.seconds * this.secondWidth;
   }
-  laneHeight = 16;
-  centerOffset = 23;
+  laneHeight = 18;
+  centerOffset = 25;
 
   isApplicableEvent(event) {
     switch (event.type) {
@@ -134,7 +134,7 @@ class Timeline extends React.PureComponent {
     return this.centerOffset + index * this.laneHeight;
   }
   getOffsetLeft(timestamp) {
-    return (timestamp - this.props.start) / 1000 * this.secondWidth;
+    return (timestamp - this.start) / 1000 * this.secondWidth;
   }
 
   getSortIndex([spellId, events]) {
@@ -164,7 +164,7 @@ class Timeline extends React.PureComponent {
           top: this.getOffsetTop(index) * (growUp ? -1 : 1),
           width: this.totalWidth,
         }}
-        timestampOffset={this.props.start}
+        timestampOffset={this.start}
         secondWidth={this.secondWidth}
       >
         {events}
@@ -178,7 +178,7 @@ class Timeline extends React.PureComponent {
   }
 
   render() {
-    const { start, parser, buffs } = this.props;
+    const { parser, buffs } = this.props;
 
     const skipInterval = Math.ceil(40 / this.secondWidth);
 
@@ -198,24 +198,22 @@ class Timeline extends React.PureComponent {
               paddingRight: this.state.padding, // we also want the user to have the satisfying feeling of being able to get the right side to line up
             }}>
             <Buffs
-              start={start}
+              start={this.start}
               secondWidth={this.secondWidth}
               parser={parser}
               buffs={buffs}
             />
             <div className="time-line">
-              {this.seconds > 0 && [...Array(this.seconds)].map((_, second) => {
-                return (
-                  <div
-                    key={second}
-                    style={{ width: this.secondWidth * skipInterval }}
-                    data-duration={formatDuration(second)}
-                  />
-                );
-              })}
+              {this.seconds > 0 && [...Array(this.seconds)].map((_, second) => (
+                <div
+                  key={second}
+                  style={{ width: this.secondWidth * skipInterval }}
+                  data-duration={formatDuration(second)}
+                />
+              ))}
             </div>
             <Casts
-              start={start}
+              start={this.start}
               secondWidth={this.secondWidth}
               parser={parser}
             />

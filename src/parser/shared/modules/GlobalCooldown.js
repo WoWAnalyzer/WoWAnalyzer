@@ -139,9 +139,7 @@ class GlobalCooldown extends Analyzer {
 
   /** @type {object} The last GCD event that occured, can be used to check if the player is affected by the GCD. */
   lastGlobalCooldown = null;
-  history = []; // TODO: Move this to SpellTimeline, it's only used for that so it should track it itself
   on_toPlayer_globalcooldown(event) {
-    this.history.push(event);
     this._verifyAccuracy(event);
   }
   _verifyAccuracy(event) {

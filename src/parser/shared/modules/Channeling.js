@@ -103,12 +103,6 @@ class Channeling extends Analyzer {
     return this._currentChannel && this._currentChannel.ability.guid === spellId;
   }
 
-  // TODO: Move this to SpellTimeline, it's only used for that so it should track it itself
-  history = [];
-  on_endchannel(event) {
-    this.history.push(event);
-  }
-
   // TODO: Re-implement below
   /**
    * Can be used to determine the accuracy of the Haste tracking. This does not work properly on abilities that can get reduced channel times from other effects such as talents or traits.
