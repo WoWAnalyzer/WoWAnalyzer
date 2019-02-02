@@ -21,10 +21,10 @@ import DiscordButton from 'interface/common/thirdpartybuttons/Discord';
 import DocumentTitle from 'interface/common/DocumentTitle';
 import MasteryRadiusImage from 'interface/images/mastery-radius.png';
 import ChangelogPanel from 'interface/home/ChangelogPanel';
+import Ad from 'interface/common/Ad';
 
 import DiscordBanner from './images/discord-banner.jpg';
 import ReportHistory from './ReportHistory/Panel';
-
 
 import './Home.css';
 
@@ -109,9 +109,9 @@ class Home extends React.PureComponent {
                     <h2><Trans>Advertisement</Trans></h2>
                   </div>
                   <div className="panel-body" style={{ padding: 0, overflow: 'hidden', textAlign: 'center', background: '#222' }}>
-                    <a href="https://www.patreon.com/wowanalyzer">
-                      <img src="/img/patreon6.jpg" alt={i18n._(t`WoWAnalyzer Premium`)} />
-                    </a>
+                    <Ad
+                      data-format="vertical"
+                    />
                   </div>
                   <div className="panel-footer" style={{ lineHeight: 1 }}>
                     <a href="mailto:wowanalyzer-ad@martijnhols.nl" className="text-muted"><Trans>Your ad here?</Trans></a>
