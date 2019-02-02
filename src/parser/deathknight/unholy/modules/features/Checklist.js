@@ -66,7 +66,7 @@ class Checklist extends CoreChecklist {
           }),
           new GenericCastEfficiencyRequirement({
             spell: SPELLS.UNHOLY_FRENZY_TALENT,
-            when: combatant.hasTalents(SPELLS.UNHOLY_FRENZY_TALENT.id)
+            when: combatant.hasTalents(SPELLS.UNHOLY_FRENZY_TALENT.id) ,
           }),
           // TODO: AOTD
         ];

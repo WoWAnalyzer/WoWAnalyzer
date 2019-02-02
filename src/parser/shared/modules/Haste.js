@@ -35,9 +35,7 @@ class Haste extends Analyzer {
     [SPELLS.EMPOWER_RUNE_WEAPON.id]: 0.15, // Frost DK
 
     // Boss abilities:
-    [209166]: 0.3, // DEBUFF - Fast Time from Elisande
-    [209165]: -0.3, // DEBUFF - Slow Time from Elisande
-    // [208944]: -Infinity, // DEBUFF - Time Stop from Elisande
+    [SPELLS.OPULENCE_AMETHYST_OF_THE_SHADOW_KING.id]: 0.5, // Amethyst of the Shadow King by Opulence (BoD - BFA)
   };
 
   current = null;

@@ -116,6 +116,7 @@ import MeticulousScheming from '../shared/modules/spells/bfa/azeritetraits/Metic
 import OverWhelmingPower from '../shared/modules/spells/bfa/azeritetraits/OverwhelmingPower';
 import ElementalWhirl from '../shared/modules/spells/bfa/azeritetraits/ElementalWhirl';
 import BloodRite from '../shared/modules/spells/bfa/azeritetraits/BloodRite';
+import BondedSouls from '../shared/modules/spells/bfa/azeritetraits/BondedSouls';
 import ConcentratedMending from '../shared/modules/spells/bfa/azeritetraits/ConcentratedMending';
 import BlessedPortents from '../shared/modules/spells/bfa/azeritetraits/BlessedPortents';
 import TidalSurge from '../shared/modules/spells/bfa/azeritetraits/TidalSurge';
@@ -129,6 +130,8 @@ import EphemeralRecovery from '../shared/modules/spells/bfa/azeritetraits/Epheme
 import UnstableCatalyst from '../shared/modules/spells/bfa/azeritetraits/UnstableCatalyst';
 import SwirlingSands from '../shared/modules/spells/bfa/azeritetraits/SwirlingSands';
 import Tradewinds from '../shared/modules/spells/bfa/azeritetraits/Tradewinds';
+import TreacherousCovenant from '../shared/modules/spells/bfa/azeritetraits/TreacherousCovenant';
+
 // Uldir
 import TwitchingTentacleofXalzaix from '../shared/modules/items/bfa/raids/uldir/TwitchingTentacleofXalzaix';
 import VigilantsBloodshaper from '../shared/modules/items/bfa/raids/uldir/VigilantsBloodshaper';
@@ -137,6 +140,8 @@ import FreneticCorpuscle from '../shared/modules/items/bfa/raids/uldir/FreneticC
 import ConstructOvercharger from '../shared/modules/items/bfa/raids/uldir/ConstructOvercharger';
 import SyringeOfBloodborneInfirmity from '../shared/modules/items/bfa/raids/uldir/SyringeOfBloodborneInfirmity';
 import DiscOfSystematicRegression from '../shared/modules/items/bfa/raids/uldir/DiscOfSystematicRegression';
+// BoD
+import CrestOfPaku from '../shared/modules/items/bfa/raids/bod/CrestOfPaku';
 
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
@@ -264,6 +269,7 @@ class CombatLogParser {
     overwhelmingPower: OverWhelmingPower,
     elementalWhirl: ElementalWhirl,
     bloodRite: BloodRite,
+    bondedSouls: BondedSouls,
     concentratedMending: ConcentratedMending,
     blessedPortents: BlessedPortents,
     tidalSurge: TidalSurge,
@@ -277,6 +283,7 @@ class CombatLogParser {
     unstableCatalyst: UnstableCatalyst,
     swirlingSands: SwirlingSands,
     tradewinds: Tradewinds,
+    treacherousCovenant: TreacherousCovenant,
 
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
@@ -286,6 +293,8 @@ class CombatLogParser {
     constructOvercharger: ConstructOvercharger,
     syringeOfBloodborneInfirmity: SyringeOfBloodborneInfirmity,
     discOfSystematicRegression: DiscOfSystematicRegression,
+    // BoD
+    crestOfPaku: CrestOfPaku,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
@@ -532,6 +541,12 @@ class CombatLogParser {
   }
   formatItemDamageDone(damageDone) {
     return `${formatPercentage(this.getPercentageOfTotalDamageDone(damageDone))} % / ${formatNumber(damageDone / this.fightDuration * 1000)} DPS`;
+  }
+  getPercentageOfTotalDamageTaken(damageTaken) {
+    return damageTaken / this.getModule(DamageTaken).total.effective;
+  }
+  formatItemDamageTaken(damageTaken) {
+    return `${formatPercentage(this.getPercentageOfTotalDamageTaken(damageTaken))} % / ${formatNumber(damageTaken / this.fightDuration * 1000)} DTPS`;
   }
   formatManaRestored(manaRestored) {
     return `${formatThousands(manaRestored)} mana / ${formatThousands(manaRestored / this.fightDuration * 1000 * 5)} MP5`;

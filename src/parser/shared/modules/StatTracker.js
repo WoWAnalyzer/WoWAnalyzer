@@ -207,9 +207,7 @@ class StatTracker extends Analyzer {
     // region Misc
     [SPELLS.JACINS_RUSE.id]: { mastery: 136 },
     [SPELLS.MARK_OF_THE_CLAW.id]: { crit: 45, haste: 45 },
-    // Antorus: Argus the Unmaker debuffs
-    [SPELLS.STRENGTH_OF_THE_SKY.id]: { crit: 114, mastery: 114 },
-    [SPELLS.STRENGTH_OF_THE_SEA.id]: { haste: 114, versatility: 114 },
+    [SPELLS.OPULENCE_QUICKENED_PULSE.id]: { haste: 261, crit: 261, mastery: 261, versatility: 261 }, // Quickened Pulse by Opulence (BoD - BFA)
     // endregion
 
     // region Death Knight
@@ -571,6 +569,8 @@ class StatTracker extends Analyzer {
     let critChance = 0.05;
     if (this.selectedCombatant.race === RACES.BloodElf) {
       critChance += 0.01;
+    } else if (this.selectedCombatant.hasBuff(SPELLS.OPULENCE_BRILLAINT_AURA.id)) {
+      critChance += 1.0;
     }
     switch (this.selectedCombatant.spec) {
       case SPECS.FIRE_MAGE:
@@ -661,10 +661,6 @@ class StatTracker extends Analyzer {
   speedPercentage(rating, withBase = false) {
     return (withBase ? this.baseSpeedPercentage : 0) + rating / this.speedRatingPerPercent;
   }
-  armorPercentage(rating) {
-    // tfw you get a formula from a rando on the wow forums
-    return rating / (rating + 7390);
-  }
 
   /*
    * For percentage stats, the current stat percentage as tracked by this module.
@@ -691,9 +687,6 @@ class StatTracker extends Analyzer {
   }
   get currentSpeedPercentage() {
     return this.speedPercentage(this.currentSpeedRating, true);
-  }
-  get currentArmorPercentage() {
-    return this.armorPercentage(this.currentArmorRating);
   }
 
   on_toPlayer_changebuffstack(event) {

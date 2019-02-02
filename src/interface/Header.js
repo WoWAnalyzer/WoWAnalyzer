@@ -70,7 +70,7 @@ class Header extends React.PureComponent {
                   )}
                 </div>
               )}
-                
+
               <div className="about">
                 <Link to={makeNewsUrl(AboutArticleTitle)}><Trans>About WoWAnalyzer</Trans></Link>
                 {' '}| <Link to={makeNewsUrl(UnlistedLogsTitle)}><Trans>About unlisted logs</Trans></Link>
@@ -80,9 +80,13 @@ class Header extends React.PureComponent {
                 {' '}| <LanguageSwitcher />
               </div>
             </div>
-            {!premium && (
+            {premium === false && (
               <div className="col-lg-6 text-right hidden-md">
-                <Ad format="mediumrectangle" />
+                {/* Frontpage Header */}
+                <Ad
+                  style={{ width: 336, height: 280, float: 'right' }}
+                  data-ad-slot="6838783431"
+                />
               </div>
             )}
           </div>

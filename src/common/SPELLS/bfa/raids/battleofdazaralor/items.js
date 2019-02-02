@@ -40,10 +40,10 @@ export default {
   },
 
   //Conclave of the Chosen
-  GIFT_OF_WIND: { //Crest of Pa'ku
-    id: 288304,
-    name: "Gift of Wind",
-    icon: "ability_skyreach_wind",
+  GIFT_OF_WIND_BUFF: { //Crest of Pa'ku
+    id: 288305,
+    name: 'Gift of Wind',
+    icon: 'ability_skyreach_wind',
   },
   KIMBULS_RAZOR_CLAWS: {
     id: 288328,

@@ -319,11 +319,19 @@ export default {
   },
 
   PESTILENT_PUSTULES: {
+<<<<<<< HEAD
      id: 220211,
      name: 'Pestilent Pustules',
      icon: 'spell_yorsahj_bloodboil_purpleoil',
    },
    
+=======
+    id: 220211,
+    name: 'Pestilent Pustules',
+    icon: 'spell_yorsahj_bloodboil_purpleoil',
+  },
+  
+>>>>>>> upstream/master
   // Unholy:
   // Spells
   APOCALYPSE: {

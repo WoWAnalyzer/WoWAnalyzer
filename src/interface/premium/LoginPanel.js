@@ -37,11 +37,13 @@ const INITIAL_BACKGROUNDS = [
 
 export class LoginPanel extends React.PureComponent {
   static propTypes = {
-    user: PropTypes.shape({
-      name: PropTypes.string,
-      avatar: PropTypes.string,
-      premium: PropTypes.bool,
-    }),
+    user: PropTypes.oneOfType([
+      PropTypes.shape({
+        name: PropTypes.string,
+        premium: PropTypes.bool,
+      }),
+      PropTypes.bool, // false; logged out
+    ]),
     logout: PropTypes.func,
   };
 

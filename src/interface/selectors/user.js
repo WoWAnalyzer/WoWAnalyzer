@@ -5,5 +5,13 @@ export const hasPremium = state => {
     return true;
   }
   const user = getUser(state);
-  return user ? user.premium : false;
+  if (user) {
+    return user.premium;
+  } else if (user === false) {
+    // We have received the user status and it is: not logged in
+    return false;
+  } else {
+    // We don't know yet, user status pending.
+    return null;
+  }
 };

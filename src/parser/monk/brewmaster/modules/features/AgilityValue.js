@@ -3,10 +3,10 @@ import Events from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import SPELLS from 'common/SPELLS';
 
-import { diminish, ULDIR_K, MPLUS_K } from '../constants/Mitigation';
+import { BASE_AGI } from '../../constants';
+import { diminish, lookupK } from '../constants/Mitigation';
 import { EVENT_STAGGER_POOL_ADDED, EVENT_STAGGER_POOL_REMOVED } from '../core/StaggerFabricator';
-
-export const BASE_AGI = 1450; // based on my panda monk, TODO get actual base value
+import GiftOfTheOx from '../spells/GiftOfTheOx';
 
 const STAGGER_COEFFS = {
   base: 1.05,
@@ -21,17 +21,32 @@ export function staggerPct(agi, K, hasIsb, hasHT) {
 
 /**
  * Calculates the amount of damage staggered & purified due to agility.
+ *
+ * Method:
+ *
+ * 1. Each time damage is staggered, calculate the amount of damage that
+ * was staggered due to agility. Add this to a pool.
+ * 2. Each time damage is removed from stagger, if the agility pool is
+ * non-empty, remove it from the agility pool.
+ * 2.a. If the damage is not removed by the stagger dot, add the removed
+ * amount to the total value of agility->stagger.
  */
 export default class AgilityValue extends Analyzer {
   static dependencies = {
     stats: StatTracker,
+    gotox: GiftOfTheOx,
   };
 
-  K = 0;
+  get K() {
+    return lookupK(this.owner.fight);
+  }
 
   totalAgiStaggered = 0;
   totalAgiPurified = 0;
 
+  get totalAgiHealing() {
+    return this.gotox.agiBonusHealing;
+  }
   _agiDamagePooled = 0;
   _hasHT = false;
 
@@ -39,13 +54,6 @@ export default class AgilityValue extends Analyzer {
     super(...args);
 
     this._hasHT = this.selectedCombatant.hasTalent(SPELLS.HIGH_TOLERANCE_TALENT.id);
-
-    const fight = this.owner.fight;
-    if(fight.size === 5) {
-      this.K = MPLUS_K;
-    } else {
-      this.K = ULDIR_K[fight.difficulty];
-    }
 
     this.addEventListener(EVENT_STAGGER_POOL_ADDED, this._onStaggerGained);
     this.addEventListener(EVENT_STAGGER_POOL_REMOVED, this._onPurify);
