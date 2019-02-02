@@ -84,8 +84,8 @@ class Header extends React.PureComponent {
               <div className="col-lg-6 text-right hidden-md">
                 {/* Frontpage Header */}
                 <Ad
-                  style={{ width: 300, height: 250, float: 'right' }}
-                  data-ad-slot="4939486206"
+                  style={{ width: 336, height: 280, float: 'right' }}
+                  data-ad-slot="6838783431"
                   data-ad-format="rectangle"
                 />
               </div>
