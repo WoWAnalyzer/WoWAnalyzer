@@ -108,6 +108,7 @@ class MasterOfTheElements extends Analyzer {
 
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.OPTIONAL()}
         icon={<SpellIcon id={SPELLS.MASTER_OF_THE_ELEMENTS_TALENT.id} />}
         value={`${formatPercentage(this.damagePercent)} %`}
         label={`Contributed ${formatNumber(this.damagePerSecond)} DPS (${formatNumber(this.damageGained)} total damage, excluding EQ).`}
@@ -122,7 +123,7 @@ class MasterOfTheElements extends Analyzer {
           <tbody>
             {Object.keys(this.moteBuffedAbilities).map((e) => (
               <tr key={e}>
-                <th>{<SpellLink id={e} />}</th>
+                <th>{<SpellLink id={Number(e)} />}</th>
                 <td>{this.moteBuffedAbilities[e]}</td>
               </tr>
             ))}
@@ -132,8 +133,6 @@ class MasterOfTheElements extends Analyzer {
 
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL;
 }
 
 export default MasterOfTheElements;
