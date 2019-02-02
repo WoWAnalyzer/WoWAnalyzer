@@ -83,7 +83,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FIRE_ELEMENTAL,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 60 * 5,
+        cooldown: 60 * 2.5,
         gcd: {
           base: 1500,
         },
@@ -164,6 +164,45 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.ASTRAL_SHIFT.id,
         cooldown: 90,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
+      },
+      {
+        spell: SPELLS.THUNDERSTORM,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1000,
+        },
+        cooldown: 45,
+      },
+      {
+        spell: SPELLS.TREMOR_TOTEM,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.WIND_SHEAR,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+      },
+      {
+        spell: SPELLS.TOTEM_MASTERY_TALENT_ELEMENTAL,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        enabled: combatant.hasTalent(SPELLS.TOTEM_MASTERY_TALENT_ELEMENTAL),
+        gcd: {
+          base: 1000,
+        },
+      },
+      {
+        spell: SPELLS.BLOODLUST,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      },
+      {
+        spell: SPELLS.HEROISM,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+      },
+      {
+        spell: SPELLS.REINCARNATION,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
       },
     ];
   }

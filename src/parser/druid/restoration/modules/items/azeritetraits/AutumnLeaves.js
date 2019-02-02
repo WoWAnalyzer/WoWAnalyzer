@@ -104,7 +104,7 @@ class AutumnLeaves extends Analyzer{
 
     const throughputPercent = this.owner.getPercentageOfTotalHealingDone(this.healing);
     const onePercentThroughputInInt = this.statWeights._ratingPerOnePercent(this.statWeights.totalOneInt);
-    const intGain = onePercentThroughputInInt * throughputPercent * 100;
+    const intGain = onePercentThroughputInInt * (throughputPercent+totalOneSecondValue) * 100;
     const ilvlGain = findItemLevelByPrimaryStat(getPrimaryStatForItemLevel(this.avgItemLevel) + intGain) - this.avgItemLevel;
 
     return(
