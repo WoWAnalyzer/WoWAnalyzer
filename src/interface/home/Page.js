@@ -103,7 +103,7 @@ class Home extends React.PureComponent {
                 </div>
               </div>
 
-              {!premium && (
+              {premium === false && (
                 <div className="panel">
                   <div className="panel-heading">
                     <h2><Trans>Advertisement</Trans></h2>

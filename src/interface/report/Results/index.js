@@ -176,11 +176,9 @@ class Results extends React.PureComponent {
 
         {this.renderContent(selectedTab, results)}
 
-        {!premium && (
-          <div className="container">
-            <div className="text-center" style={{ marginTop: 40, marginBottom: -40 }}>
-              <Ad format="leaderboard" />
-            </div>
+        {premium === false && (
+          <div className="text-center" style={{ marginTop: 40 }}>
+            <Ad format="leaderboard" />
           </div>
         )}
       </div>

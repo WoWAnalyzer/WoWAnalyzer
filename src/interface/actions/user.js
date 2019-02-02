@@ -31,13 +31,17 @@ export function fetchUser() {
         if (response.status !== 200) {
           if (response.status === 401) {
             // Unauthorized
-            return null;
+            // We need to store this explicitely so we know the diff between "unknown" and "logged out"
+            return false;
           }
           throw new Error(response.statusText);
         }
         return response.json();
       })
-      .then(user => dispatch(setUser(user)))
+      .then(user => {
+        dispatch(setUser(user));
+        return user;
+      })
       .catch(err => {
         captureException(err, {
           extra: 'user',

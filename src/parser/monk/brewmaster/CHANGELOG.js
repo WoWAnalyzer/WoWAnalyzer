@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-01-31'),
+    changes: <>Added Mitigation Values tab showing estimated stat values for damage mitigation.</>,
+    contributors: [emallson],
+  },
+  {
     date: new Date('2018-12-30'),
     changes: <>Added <SpellLink id={SPELLS.STRAIGHT_NO_CHASER.id} /> module.</>,
     contributors: [emallson],

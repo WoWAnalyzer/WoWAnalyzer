@@ -16,6 +16,11 @@ import DocumentTitle from 'interface/common/DocumentTitle';
 
 import handleApiError from './handleApiError';
 
+// During peak traffic we might want to disable automatic refreshes to avoid hitting the rate limit.
+// During regular traffic we should enable this as the fight caching is confusing users.
+// Actually leaving this disabled for now so we can continue to serve reports when WCL goes down and high traffic to a specific report page doesn't bring us down (since everything would be logged). To solve the issue of confusion, I'll try improving the fight selection text instead.
+const REFRESH_BY_DEFAULT = false;
+
 class ReportLoader extends React.PureComponent {
   static propTypes = {
     children: PropTypes.func.isRequired,
@@ -49,7 +54,7 @@ class ReportLoader extends React.PureComponent {
   componentDidMount() {
     if (this.props.reportCode) {
       // noinspection JSIgnoredPromiseFromCall
-      this.loadReport(this.props.reportCode);
+      this.loadReport(this.props.reportCode, REFRESH_BY_DEFAULT);
     }
   }
   componentDidUpdate(prevProps, prevState) {

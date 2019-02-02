@@ -15,6 +15,6 @@ export function captureException(exception, options) {
     console.error('An error occured and was sent to Sentry.', exception);
     Raven.captureException(exception, options);
   } else {
-    throw exception;
+    // throw exception;
   }
 }

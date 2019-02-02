@@ -8,6 +8,7 @@ import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import OneVariableBinomialChart from 'interface/others/charts/OneVariableBinomialChart';
 import DamageTaken from './DamageTaken';
+import GiftOfTheOx from '../spells/GiftOfTheOx';
 
 
 // coefficients to calculate dodge chance from agility
@@ -132,6 +133,7 @@ class MasteryValue extends Analyzer {
   static dependencies = {
     dmg: DamageTaken,
     stats: StatTracker,
+    gotox: GiftOfTheOx,
   };
 
   _loaded = false;
@@ -340,6 +342,10 @@ class MasteryValue extends Analyzer {
 
   get noMasteryExpectedMitigationPerSecond() {
     return this.noMasteryExpectedMitigation / this.owner.fightDuration * 1000;
+  }
+
+  get totalMasteryHealing() {
+    return this.gotox.masteryBonusHealing;
   }
 
   get plot() {
