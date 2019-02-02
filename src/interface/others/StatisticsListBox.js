@@ -17,7 +17,7 @@ const StatisticsListBox = ({ title, tooltip, children, bodyStyle, ...others }) =
   delete others.position;
   return (
     <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-      <div className="panel statistic-box statistic-list" {...others}>
+      <div className="panel statistic statistic-list" {...others}>
         {title && (
           <div className="panel-heading">
             <h2>{tooltip ? <TooltipElement content={tooltip}>{title}</TooltipElement> : title}</h2>

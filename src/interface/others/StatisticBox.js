@@ -70,7 +70,7 @@ class StatisticBox extends React.PureComponent {
           </div>
 
           {footer && (
-            <div style={{ marginTop: '2em' }}>
+            <div style={{ marginTop: '0.5em' }}>
               {footer}
             </div>
           )}
