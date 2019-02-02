@@ -13,6 +13,10 @@ function spellName(spellId) {
   return SPELLS[spellId] ? SPELLS[spellId].name : '???';
 }
 
+/**
+ * @property {EventEmitter} eventEmitter
+ * @property {Abilities} abilities
+ */
 class SpellUsable extends Analyzer {
   static dependencies = {
     eventEmitter: EventEmitter,
@@ -98,9 +102,15 @@ class SpellUsable extends Analyzer {
   /**
    * Start the cooldown for the provided spell.
    * @param {number} spellId The ID of the spell.
-   * @param {number} timestamp Override the timestamp if it may be different from the current timestamp.
+   * @param {object} cooldownTriggerEvent Which event triggered the cooldown. This MUST include a timestamp. This is used by potions to determine if it was a prepull cast, but may be used for other things too.
    */
-  beginCooldown(spellId, timestamp = this.owner.currentTimestamp) {
+  beginCooldown(spellId, cooldownTriggerEvent) {
+    if (process.env.NODE_ENV === 'development') {
+      if (cooldownTriggerEvent.timestamp === undefined) {
+        throw new Error('cooldownTriggerEvent must at least have a timestamp property.');
+      }
+    }
+
     const canSpellId = this._getCanonicalId(spellId);
     const expectedCooldownDuration = this.abilities.getExpectedCooldownDuration(canSpellId);
     if (!expectedCooldownDuration) {
@@ -110,19 +120,19 @@ class SpellUsable extends Analyzer {
 
     if (!this.isOnCooldown(canSpellId)) {
       this._currentCooldowns[canSpellId] = {
-        start: timestamp,
+        start: cooldownTriggerEvent.timestamp,
         expectedDuration: expectedCooldownDuration,
         totalReductionTime: 0,
         chargesOnCooldown: 1,
       };
-      this._triggerEvent(this._makeEvent(canSpellId, timestamp, 'begincooldown'));
+      this._triggerEvent(this._makeEvent(canSpellId, cooldownTriggerEvent.timestamp, 'begincooldown'));
     } else {
       if (this.isAvailable(canSpellId)) {
         // Another charge is available
         this._currentCooldowns[canSpellId].chargesOnCooldown += 1;
-        this._triggerEvent(this._makeEvent(canSpellId, timestamp, 'addcooldowncharge'));
+        this._triggerEvent(this._makeEvent(canSpellId, cooldownTriggerEvent.timestamp, 'addcooldowncharge'));
       } else {
-        const remainingCooldown = this.cooldownRemaining(canSpellId, timestamp);
+        const remainingCooldown = this.cooldownRemaining(canSpellId, cooldownTriggerEvent.timestamp);
         if (remainingCooldown > INVALID_COOLDOWN_CONFIG_LAG_MARGIN) {
           // No need to report if it was expected to reset within the set margin, as latency can cause this fluctuation.
           // Count errors so we can disable features if this exceeds a threshold
@@ -137,15 +147,15 @@ class SpellUsable extends Analyzer {
           }
           this.error(
             spellName(canSpellId), canSpellId, 'was cast while already marked as on cooldown.',
-            'time passed:', (timestamp - this._currentCooldowns[canSpellId].start),
+            'time passed:', (cooldownTriggerEvent.timestamp - this._currentCooldowns[canSpellId].start),
             'cooldown remaining:', remainingCooldown,
             'expectedDuration:', this._currentCooldowns[canSpellId].expectedDuration,
             ...reductionInfo,
           );
           fullExplanation = false;
         }
-        this.endCooldown(canSpellId, false, timestamp);
-        this.beginCooldown(canSpellId, timestamp);
+        this.endCooldown(canSpellId, false, cooldownTriggerEvent.timestamp);
+        this.beginCooldown(canSpellId, cooldownTriggerEvent);
       }
     }
   }
@@ -301,7 +311,7 @@ class SpellUsable extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    this.beginCooldown(spellId, event.timestamp);
+    this.beginCooldown(spellId, event);
   }
   _checkCooldownExpiry(timestamp) {
     Object.keys(this._currentCooldowns).forEach(spellId => {

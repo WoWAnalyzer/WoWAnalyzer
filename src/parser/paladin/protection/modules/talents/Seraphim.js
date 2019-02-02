@@ -29,8 +29,8 @@ class Seraphim extends Analyzer {
 
     //should end up always with 0 charges when cast with <2 charges (seraphim can consume charges that are not fully recharges)
     //proper tracking of SotR charges used by seraphim only possible once SotR charges are 100% accurate
-    this.spellUsable.beginCooldown(SPELLS.SHIELD_OF_THE_RIGHTEOUS.id, event.timestamp);
-    this.spellUsable.beginCooldown(SPELLS.SHIELD_OF_THE_RIGHTEOUS.id, event.timestamp);
+    this.spellUsable.beginCooldown(SPELLS.SHIELD_OF_THE_RIGHTEOUS.id, event);
+    this.spellUsable.beginCooldown(SPELLS.SHIELD_OF_THE_RIGHTEOUS.id, event);
   }
 
   get uptime() {

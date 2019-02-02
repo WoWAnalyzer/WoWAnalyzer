@@ -10,7 +10,7 @@ class SpellUsable extends CoreSpellUsable {
 
   constructor(...args) {
     super(...args);
-    this.hasDevastator = this.selectedCombatant.hasTalent(SPELLS.DEVASTATOR_TALENT.id);  
+    this.hasDevastator = this.selectedCombatant.hasTalent(SPELLS.DEVASTATOR_TALENT.id);
   }
 
   lastPotentialTriggerForShieldSlam = null;
@@ -31,14 +31,14 @@ class SpellUsable extends CoreSpellUsable {
     }
   }
 
-  beginCooldown(spellId, timestamp) {
+  beginCooldown(spellId, cooldownTriggerEvent) {
     if (spellId === SPELLS.SHIELD_SLAM.id) {
       if (this.isOnCooldown(spellId)) {
         this.endCooldown(spellId, undefined, this.lastPotentialTriggerForShieldSlam ? this.lastPotentialTriggerForShieldSlam.timestamp : undefined);
       }
     }
 
-    super.beginCooldown(spellId, timestamp);
+    super.beginCooldown(spellId, cooldownTriggerEvent);
   }
 }
 

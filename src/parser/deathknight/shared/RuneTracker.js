@@ -69,7 +69,7 @@ class RuneTracker extends ResourceTracker {
           return;
         }
         for (let i = 0; i < runeCost; i++) { //start rune cooldown
-          this.startCooldown();
+          this.startCooldown(event);
         }
       });
   }
@@ -168,9 +168,9 @@ class RuneTracker extends ResourceTracker {
     this.spellUsable.reduceCooldown(runeId, expectedCooldown);
   }
 
-  startCooldown() {
+  startCooldown(event) {
     const runeId = this.shortestCooldown;
-    this.spellUsable.beginCooldown(runeId);
+    this.spellUsable.beginCooldown(runeId, event);
   }
 
   get shortestCooldown() {

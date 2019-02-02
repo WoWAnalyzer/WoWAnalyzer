@@ -13,13 +13,13 @@ const BLEED_BASE_DURATIONS = {
 /**
  * Predator:
  * The cooldown on Tiger's Fury resets when a target dies with one of your Bleed effects active
- * 
+ *
  * We cannot directly detect enemy death, but can infer it from a bleed debuff ending early.
  * Death is not the only cause of a bleed ending early, for instance a Monk's paralysis ability
  * removes DoTs when it's applied to a target.
  * We know for certain that an enemy died when Tiger's Fury is used earlier than should be possible.
  * When that happens assume the most recent possible enemy death was when the cooldown reset.
- * 
+ *
  * TODO: Since 8.1 the duration of Rip is more complex. It can be extended by Sabertooth, its initial
  * duration will vary depending on combo points, and it can be applied to multiple targets by Primal Wrath.
  * Currently none of this is handled here, so tracking Rip has been disabled.
@@ -98,14 +98,14 @@ class SpellUsable extends CoreSpellUsable {
     return !!Object.keys(BLEED_BASE_DURATIONS).includes(spellId.toString());
   }
 
-  beginCooldown(spellId, timestamp) {
+  beginCooldown(spellId, cooldownTriggerEvent) {
     if (SPELLS.TIGERS_FURY.id === spellId &&
         this.hasPredator && this.isOnCooldown(spellId)) {
-      const resetTime = this.possibleRecentKill ? this.possibleRecentKill : timestamp;
+      const resetTime = this.possibleRecentKill ? this.possibleRecentKill : cooldownTriggerEvent.timestamp;
       this.earlyCastsOfTigersFury += 1;
-      this.endCooldown(spellId, null, resetTime);
+      this.endCooldown(spellId, false, resetTime);
     }
-    super.beginCooldown(spellId, timestamp);
+    super.beginCooldown(spellId, cooldownTriggerEvent);
   }
 }
 
