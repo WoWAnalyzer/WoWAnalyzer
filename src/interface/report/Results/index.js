@@ -305,7 +305,7 @@ class Results extends React.PureComponent {
         </div>
 
         {premium === false && (
-          <div className="text-center" style={{ marginTop: 40, marginBottom: -20 }}>
+          <div className="text-center" style={{ marginTop: 40 }}>
             <Ad />
           </div>
         )}
@@ -313,7 +313,7 @@ class Results extends React.PureComponent {
         {this.renderStatistics(results.statistics)}
 
         {premium === false && (
-          <div className="text-center" style={{ marginTop: 40, marginBottom: -20 }}>
+          <div className="text-center" style={{ marginTop: 40 }}>
             <Ad />
           </div>
         )}
