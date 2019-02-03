@@ -29,8 +29,8 @@ class BloddyRuneblade extends Analyzer{
   };
 
   haste = 0;
-  bloddyRubebladeProcsCounter = 0;
-  bloddyRubebladeRPGain = 0;
+  bloodyRunebladeProcsCounter = 0;
+  bloodyRunebladeRPGain = 0;
 
   constructor(...args) {
     super(...args);
@@ -52,14 +52,14 @@ class BloddyRuneblade extends Analyzer{
     if (spellId !== SPELLS.BLOODY_RUNEBLADE_BUFF.id) {
       return;
     }
-    this.bloddyRubebladeProcsCounter += 1;
+    this.bloodyRunebladeProcsCounter += 1;
   }
   on_byPlayer_energize(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.BLOODY_RUNEBLADE_RP_GAIN.id) {
       return;
     }
-    this.bloddyRubebladeRPGain += event.resourceChange;
+    this.bloodyRunebladeRPGain += event.resourceChange;
   }
 
   get averageHaste() {
@@ -73,12 +73,12 @@ class BloddyRuneblade extends Analyzer{
         trait={SPELLS.BLOODY_RUNEBLADE.id}
         value={(
           <>
-            {this.bloddyRubebladeProcsCounter} Procs <br />
+            {this.bloodyRunebladeRPGain} RP Gained<br />
             {formatNumber(this.averageHaste)} average Haste
           </>
         )}
         tooltip={`
-          ${this.bloddyRubebladeRPGain} RP Gained
+          ${this.bloodyRunebladeProcsCounter} Procs
         `}
       />
     );
