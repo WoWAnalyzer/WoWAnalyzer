@@ -59,6 +59,7 @@ class StatisticBox extends React.PureComponent {
     return (
       <Statistic
         {...others}
+        className="statistic-box"
         style={{ height: 'auto', zIndex: this.state.expanded ? 2 : 1 }}
       >
         <div className="pad">

@@ -178,7 +178,7 @@ class AuraOfSacrificeDamageReduction extends Analyzer {
       Any damage transferred by the <strong>passive</strong> while immune (if applicable) is <em>not</em> included.
     </>) : 'Click to load the required data.';
     const footer = this.loaded && (
-      <div className="statistic-bar">
+      <div className="statistic-box-bar">
         <Tooltip content={`You effectively reduced damage taken by a total of ${formatThousands(totalDamageReduced)} damage (${formatThousands(this.perSecond(totalDamageReduced))} DRPS).`}>
           <div
             className="stat-health-bg"

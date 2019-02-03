@@ -113,7 +113,7 @@ class AlwaysBeCasting extends Analyzer {
           </>
         )}
         footer={(
-          <div className="statistic-bar">
+          <div className="statistic-box-bar">
             <Tooltip content={<>You spent <strong>{formatPercentage(this.activeTimePercentage)}%</strong> of your time casting something.</>}>
               <div
                 className="stat-health-bg"

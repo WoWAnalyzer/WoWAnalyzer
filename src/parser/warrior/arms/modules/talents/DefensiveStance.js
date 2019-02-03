@@ -69,7 +69,7 @@ class DefensiveStance extends Analyzer {
 
   statistic() {
     const footer = (
-      <div className="statistic-bar">
+      <div className="statistic-box-bar">
         <Tooltip content={`You effectively reduced damage taken by a total of ${formatThousands(this.totalDamageMitigated)} damage (${formatThousands(this.perSecond(this.totalDamageMitigated))} DRPS).`}>
           <div
             className="stat-health-bg"

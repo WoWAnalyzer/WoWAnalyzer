@@ -92,7 +92,7 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
       //   <li>You spent <b>${formatPercentage(downtimePercentage)}%</b> of your time casting nothing at all.</li>
       //   `}
       //   footer={(
-      //     <div className="statistic-bar">
+      //     <div className="statistic-box-bar">
       //       <div
       //         className="stat-health-bg"
       //         style={{ width: `${healingTimePercentage * 100}%` }}

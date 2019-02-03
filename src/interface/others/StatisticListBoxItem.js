@@ -17,7 +17,6 @@ const StatisticListBoxItem = ({ title, value, titleTooltip, valueTooltip}) => {
     </div>
   );
 };
-
 StatisticListBoxItem.propTypes = {
   title: PropTypes.node.isRequired,
   value: PropTypes.node.isRequired,

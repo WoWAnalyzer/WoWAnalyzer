@@ -98,7 +98,7 @@ class EnergyCapTracker extends RegenResourceCapTracker {
           </>
         )}
         footer={(
-          <div className="statistic-bar">
+          <div className="statistic-box-bar">
             <Tooltip content={`Not at capped energy for ${formatDuration((this.owner.fightDuration - this.atCap) / 1000)}`}>
               <div
                 className="stat-healing-bg"

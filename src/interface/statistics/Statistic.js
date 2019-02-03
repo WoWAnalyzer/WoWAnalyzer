@@ -24,11 +24,13 @@ class Statistic extends React.PureComponent {
       nickname: PropTypes.string.isRequired,
     }),
     drilldown: PropTypes.string,
+    className: PropTypes.string,
   };
   static defaultProps = {
     size: 'standard',
     wide: false,
     ultrawide: false,
+    className: '',
   };
 
   renderDrilldown(drilldown) {
@@ -51,14 +53,14 @@ class Statistic extends React.PureComponent {
     );
   }
   render() {
-    const { children, wide, ultrawide, tooltip, size, drilldown, ...others } = this.props;
+    const { children, wide, ultrawide, tooltip, size, drilldown, className, ...others } = this.props;
 
     // TODO: Determine if drilldown is a relative or absolute URL. Absolute: has protocol. Relative: has no protocol.
     // TODO: Render drilldown link. Maybe on mouseover a small box expand below the statistic with a link?
 
     return (
       <div className={ultrawide ? 'col-md-12' : (wide ? 'col-md-6 col-sm-12 col-xs-12' : 'col-lg-3 col-md-4 col-sm-6 col-xs-12')}>
-        <div className={`panel statistic ${size}`} {...others}>
+        <div className={`panel statistic ${size} ${className}`} {...others}>
           <div className="panel-body">
             {children}
           </div>

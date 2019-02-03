@@ -57,7 +57,7 @@ class TimeFocusCapped extends Analyzer {
         value={`${percentCapped}%`}
         //Time not Focus-Capped: {Math.round((this.owner.fightDuration / 1000 - this.focusTracker.secondsCapped) * 100) / 100}s / {Math.floor(this.owner.fightDuration / 1000)}
         footer={(
-          <div className="statistic-bar">
+          <div className="statistic-box-bar">
             <Tooltip content={<>You spent <strong>{100 - percentCapped}%</strong> of your time, or <strong>{Math.round(Math.floor(this.owner.fightDuration / 1000) - this.focusTracker.secondsCapped)}s</strong> under the focus cap.</>}>
               <div
                 className="stat-health-bg"
