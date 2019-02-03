@@ -40,7 +40,6 @@ class Mana extends React.PureComponent {
       abilityid: 1000,
     })
       .then(json => {
-        console.log('Received boss health', json);
         this.setState({
           bossHealth: json,
         });
