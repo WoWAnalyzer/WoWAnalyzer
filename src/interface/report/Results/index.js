@@ -9,6 +9,7 @@ import makeWclUrl from 'common/makeWclUrl';
 import { getResultTab } from 'interface/selectors/url/report';
 import { hasPremium } from 'interface/selectors/user';
 import ErrorBoundary from 'interface/common/ErrorBoundary';
+import Warning from 'interface/common/Alert/Warning';
 import Ad from 'interface/common/Ad';
 import WipefestLogo from 'interface/images/Wipefest-logo.png';
 import { i18n } from 'interface/RootLocalizationProvider';
@@ -18,7 +19,6 @@ import CharacterTab from 'parser/shared/modules/features/CharacterTab';
 import EncounterPanel from 'parser/shared/modules/features/EncounterPanel';
 
 import ChangelogTab from 'interface/others/ChangelogTab';
-import ResultsWarning from './ResultsWarning';
 import Header from './Header';
 import About from './About';
 import Overview from './Overview';
@@ -154,11 +154,19 @@ class Results extends React.PureComponent {
           selectedTab={selectedTab}
         />
 
+        {parser.boss && parser.boss.fight.resultsWarning && (
+          <div className="container">
+            <Warning style={{ marginBottom: 30 }}>
+              {parser.boss.fight.resultsWarning}
+            </Warning>
+          </div>
+        )}
+
         {this.renderContent(selectedTab, results)}
 
         {premium === false && (
-          <div className="text-center" style={{ marginTop: 40 }}>
-            <Ad format="leaderboard" />
+          <div className="container text-center" style={{ marginTop: 40 }}>
+            <Ad />
           </div>
         )}
       </div>
