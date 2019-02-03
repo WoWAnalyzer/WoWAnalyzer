@@ -137,6 +137,7 @@ class EventParser extends React.PureComponent {
         timeAvailable && console.time('full parse');
         try {
           const parser = new parserClass(report, player, fight, combatants, characterProfile);
+          window.parser = parser;
           return this.parseEvents(parser, report, player, fight, [...bossPhaseEvents, ...events]);
         } catch (err) {
           throw new EventsParseError(err);
