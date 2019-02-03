@@ -69,8 +69,6 @@ class BloddyRuneblade extends Analyzer{
             {formatNumber(this.averageHaste)} average Haste
           </>
         )}
-        tooltip={`
-          `}
       />
     );
   }
