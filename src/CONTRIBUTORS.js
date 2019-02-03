@@ -547,3 +547,7 @@ export const Eylwen = {
   github: 'Alastair-Scott',
   discord: 'Eylwen#0287',
 };
+export const Korebian = {
+  nickname: 'Korebian',
+  github: 'Asamsig',
+};

@@ -1,9 +1,14 @@
 import React from 'react';
-import { Aelexe, Zerotorescue, Sharrq, Matardarix } from 'CONTRIBUTORS';
+import { Aelexe, Zerotorescue, Sharrq, Matardarix, Korebian } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2019-02-02'),
+    changes: <>Added more information to the <SpellLink id={SPELLS.CRUSHING_ASSAULT_TRAIT.id} /> module. Added <SpellLink id={SPELLS.LORD_OF_WAR.id} /> module.</>,
+    contributors: [Korebian],
+  },
   {
     date: new Date('2018-12-12'),
     changes: <>Updated for patch 8.1, <SpellLink id={SPELLS.CHARGE.id} /> is no longer on the GCD and <SpellLink id={SPELLS.EXECUTIONERS_PRECISION_TRAIT.id} /> have been replaced by <SpellLink id={SPELLS.STRIKING_THE_ANVIL.id} />.</>,
