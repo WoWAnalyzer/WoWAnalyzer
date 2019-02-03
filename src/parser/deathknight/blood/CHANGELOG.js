@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-02-03'),
+    changes: <>Added <SpellLink id={SPELLS.BLOODY_RUNEBLADE.id} /> azerite trait and marked patch 8.1 compatible.</>,
+    contributors: [Yajinni],
+  },
+  {
     date: new Date('2018-11-30'),
     changes: <>Readd the checklist, make <SpellLink id={SPELLS.OSSUARY_TALENT.id} />-suggestion based on <SpellLink id={SPELLS.DEATH_STRIKE.id} /> casts without <SpellLink id={SPELLS.OSSUARY_TALENT.id} />.</>,
     contributors: [joshinator],
