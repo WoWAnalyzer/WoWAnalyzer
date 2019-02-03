@@ -64,13 +64,13 @@ class ThroughputPerformance extends React.PureComponent {
   _getCacheKey(specIndex) {
     // We want to stagger the requests so not all specs are refreshed at the same time.
     // We achieve this by adding a static amount of time to `now` based on the spec index (0-35).
-    const secondsOffset = (DAYS_PER_WEEK * SECONDS_PER_DAY * specIndex / TOTAL_SPECS);
+    const specStaggerOffset = (DAYS_PER_WEEK * SECONDS_PER_DAY * specIndex / TOTAL_SPECS);
     // We mutate now so that if there's a year crossover it will properly go to week 1 instead of 53/54
-    const now = new Date((new Date()).getTime() + (secondsOffset * 1000));
+    const specAdjustedNow = new Date((new Date()).getTime() + (specStaggerOffset * 1000));
     // We need this to calculate the amount of weeks difference
-    const onejan = new Date(now.getFullYear(), 0, 1);
+    const onejan = new Date(specAdjustedNow.getFullYear(), 0, 1);
     // Calculate the current week number
-    return Math.ceil((((now - onejan) / SECONDS_PER_DAY / 1000) + onejan.getDay() + 1) / DAYS_PER_WEEK); // current calendar-week
+    return Math.ceil((((specAdjustedNow - onejan) / SECONDS_PER_DAY / 1000) + onejan.getDay() + 1) / DAYS_PER_WEEK); // current calendar-week
   }
   _getRank(rankings, desiredRank) {
     return rankings[desiredRank - 1];

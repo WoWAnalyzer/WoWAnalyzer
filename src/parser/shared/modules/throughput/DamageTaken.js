@@ -132,7 +132,7 @@ class DamageTaken extends Analyzer {
           <Tooltip content={this.tooltip}>
             <div
               className="flex-sub value"
-              style={{ width: 190 }}
+              style={{ width: 190, fontSize: 27 }}
             >
               {formatThousands(perSecond)} DTPS
             </div>

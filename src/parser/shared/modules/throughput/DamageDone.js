@@ -81,7 +81,7 @@ class DamageDone extends Analyzer {
           <Tooltip content={<>Total damage done: <strong>{formatThousands(this.total.effective)}</strong></>}>
             <div
               className="flex-sub value"
-              style={{ width: 190 }}
+              style={{ width: 190, fontSize: 27 }}
             >
               {formatThousands(perSecond)} DPS
             </div>
