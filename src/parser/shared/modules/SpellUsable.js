@@ -367,6 +367,24 @@ class SpellUsable extends Analyzer {
       debug && this.log('Adjusted', spellName(spellId), spellId, 'cooldown duration due to Haste change; old duration without CDRs:', originalExpectedDuration, 'CDRs:', cooldown.totalReductionTime, 'time expired:', timePassed, 'progress:', `${formatPercentage(progress)}%`, 'cooldown duration with current Haste:', cooldownDurationWithCurrentHaste, '(without CDRs)', 'actual new expected duration:', newExpectedDuration, '(without CDRs)');
     });
   }
+  on_fightend() {
+    const timestamp = this.owner.fight.end_time;
+    // Get the remaining cooldowns in order of expiration
+    const expiringCooldowns = Object.keys(this._currentCooldowns).map(spellId => {
+      const remainingDuration = this.cooldownRemaining(spellId, timestamp);
+      return {
+        spellId,
+        remainingDuration,
+      };
+    }).sort((a, b) => a.remainingDuration - b.remainingDuration);
+    // Expire them
+    expiringCooldowns.forEach(({ spellId }) => {
+      const cooldown = this._currentCooldowns[spellId];
+      const expectedEnd = Math.round(cooldown.start + cooldown.expectedDuration - cooldown.totalReductionTime);
+      debug && this.log('Clearing', spellName(spellId), spellId, 'due to fightend');
+      this.endCooldown(Number(spellId), false, expectedEnd);
+    });
+  }
   _calculateNewCooldownDuration(progress, newDuration) {
     return newDuration * (1 - progress);
   }
