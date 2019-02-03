@@ -9,7 +9,7 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 
 
 const bloodyRunebladeStats = traits => Object.values(traits).reduce((obj, rank) => {
-  const [haste] = calculateAzeriteEffects(SPELLS.BLOODY_RUNEBLADE_BUFF.id, rank);
+  const [haste] = calculateAzeriteEffects(SPELLS.BLOODY_RUNEBLADE.id, rank);
   obj.haste += haste;
   return obj;
 }, {
