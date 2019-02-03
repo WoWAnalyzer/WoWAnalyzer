@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import StatTracker from 'parser/shared/modules/StatTracker';
@@ -62,6 +62,10 @@ class BloddyRuneblade extends Analyzer{
     return this.selectedCombatant.getBuffUptime(SPELLS.BLOODY_RUNEBLADE_BUFF.id) / this.owner.fightDuration * this.haste;
   }
 
+  get buffUptime() {
+    return this.selectedCombatant.getBuffUptime(SPELLS.BLOODY_RUNEBLADE_BUFF.id) / this.owner.fightDuration;
+  }
+
   statistic(){
     return (
       <TraitStatisticBox
@@ -69,11 +73,12 @@ class BloddyRuneblade extends Analyzer{
         trait={SPELLS.BLOODY_RUNEBLADE.id}
         value={(
           <>
-            {this.bloodyRunebladeRPGain} RP Gained<br />
+            {formatPercentage(this.buffUptime)}% uptime<br />
             {formatNumber(this.averageHaste)} average Haste
           </>
         )}
         tooltip={`
+          ${this.bloodyRunebladeRPGain} RP Gained<br />
           ${this.bloodyRunebladeProcsCounter} Procs
         `}
       />
