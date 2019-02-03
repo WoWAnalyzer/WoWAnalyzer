@@ -2,9 +2,6 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import DamageDone from 'parser/shared/modules/DamageDone';
 import Abilities from './modules/Abilities';
 
-import MaelstromTracker from '../shared/maelstromchart/MaelstromTracker';
-import MaelstromTab from '../shared/maelstromchart/MaelstromTab';
-
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/Checklist/Module';
@@ -28,6 +25,10 @@ import AnkhNormalizer from '../shared/normalizers/AnkhNormalizer';
 import AstralShift from '../shared/spells/AstralShift';
 import PackSpirit from '../shared/azerite/PackSpirit';
 import SereneSpirit from '../shared/azerite/SereneSpirit';
+
+//Resources
+import MaelstromDetails from '../shared/maelstromchart/MaelstromDetails';
+import MaelstromTracker from '../shared/maelstromchart/MaelstromTracker';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -56,12 +57,14 @@ class CombatLogParser extends CoreCombatLogParser {
 
     spiritWolf: SpiritWolf,
     staticCharge: StaticCharge,
-    maelstromTracker: MaelstromTracker,
-    maelstromTab: MaelstromTab,
     ankhNormalizer: AnkhNormalizer,
     astralShift: AstralShift,
     packSpirit: PackSpirit,
     sereneSpirit: SereneSpirit,
+
+    maelstromTracker: MaelstromTracker,
+    maelstromDetails: MaelstromDetails,
+
   };
 }
 

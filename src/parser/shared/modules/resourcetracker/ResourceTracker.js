@@ -13,6 +13,7 @@ class ResourceTracker extends Analyzer {
   };
 
   current = 0;
+  resourceUpdates = [];
 
   // stores resource gained/spent/wasted by ability ID
   buildersObj = {};
@@ -49,7 +50,7 @@ class ResourceTracker extends Analyzer {
 
     const waste = event.waste;
     const gain = event.resourceChange - waste;
-    this._applyBuilder(spellId, this.getResource(event), gain, waste);
+    this._applyBuilder(spellId, this.getResource(event), gain, waste, event.timestamp);
   }
 
   // FIXME Track resource drains too, so that the 'current' value can be more accurate
@@ -68,7 +69,7 @@ class ResourceTracker extends Analyzer {
     this._applyBuilder(spellId, null, gain, waste);
   }
 
-  _applyBuilder(spellId, resource, gain, waste) {
+  _applyBuilder(spellId, resource, gain, waste, timestamp) {
     if (!this.buildersObj[spellId]) {
         this.initBuilderAbility(spellId);
     }
@@ -86,6 +87,14 @@ class ResourceTracker extends Analyzer {
     } else {
       this.current += gain;
     }
+
+    this.resourceUpdates.push({
+      timestamp: timestamp,
+      current: this.current,
+      waste: waste,
+      generated: gain,
+      used: 0,
+    });
   }
 
   // SPENDERS - Handled on cast, using the 'classResources' field
@@ -118,6 +127,14 @@ class ResourceTracker extends Analyzer {
 
     //Re-sync current amount, to update not-tracked gains.
     this.current = eventResource.amount - cost;
+
+    this.resourceUpdates.push({
+      timestamp: event.timestamp,
+      current: this.current,
+      waste: 0,
+      generated: 0,
+      used: eventResource.amount,
+    });
 
     this.triggerSpendEvent(cost, event);
   }
