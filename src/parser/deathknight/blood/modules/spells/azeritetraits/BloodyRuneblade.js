@@ -10,7 +10,7 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 
 const bloodyRunebladeStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [haste] = calculateAzeriteEffects(SPELLS.BONES_OF_THE_DAMNED.id, rank);
-  obj.armor += haste;
+  obj.haste += haste;
   return obj;
 }, {
   haste: 0,
@@ -39,7 +39,7 @@ class BloddyRuneblade extends Analyzer{
     }
 
     const { haste } = bloodyRunebladeStats(this.selectedCombatant.traitsBySpellId[SPELLS.BLOODY_RUNEBLADE.id]);
-    this.armor = haste;
+    this.haste = haste;
 
     this.statTracker.add(SPELLS.BLOODY_RUNEBLADE_BUFF.id, {
       haste,
