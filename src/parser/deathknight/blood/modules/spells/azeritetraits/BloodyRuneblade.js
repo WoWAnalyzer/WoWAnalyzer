@@ -73,12 +73,12 @@ class BloddyRuneblade extends Analyzer{
         trait={SPELLS.BLOODY_RUNEBLADE.id}
         value={(
           <>
-            {formatPercentage(this.buffUptime)}% uptime<br />
-            {formatNumber(this.averageHaste)} average Haste
+            {formatNumber(this.averageHaste)} average Haste<br />
+            {this.bloodyRunebladeRPGain} RP Gained
           </>
         )}
         tooltip={`
-          ${this.bloodyRunebladeRPGain} RP Gained<br />
+          ${formatPercentage(this.buffUptime)}% uptime<br />
           ${this.bloodyRunebladeProcsCounter} Procs
         `}
       />
