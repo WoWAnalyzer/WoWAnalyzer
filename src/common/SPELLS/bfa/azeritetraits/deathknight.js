@@ -36,6 +36,11 @@ export default {
     name: 'Bloody Runeblade',
     icon: 'inv_sword_2h_blood_c_02',
   },
+  BLOODY_RUNEBLADE_RP_GAIN: {
+    id: 289348,
+    name: 'Bloody Runeblade',
+    icon: 'inv_sword_2h_blood_c_02',
+  },
 
   //Shared
   BONE_SPIKE_GRAVEYARD: {

@@ -30,6 +30,7 @@ class BloddyRuneblade extends Analyzer{
 
   haste = 0;
   bloddyRubebladeProcsCounter = 0;
+  bloddyRubebladeRPGain = 0;
 
   constructor(...args) {
     super(...args);
@@ -53,6 +54,13 @@ class BloddyRuneblade extends Analyzer{
     }
     this.bloddyRubebladeProcsCounter += 1;
   }
+  on_byPlayer_energize(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.BLOODY_RUNEBLADE_RP_GAIN.id) {
+      return;
+    }
+    this.bloddyRubebladeRPGain += event.resourceChange;
+  }
 
   get averageHaste() {
     return this.selectedCombatant.getBuffUptime(SPELLS.BLOODY_RUNEBLADE_BUFF.id) / this.owner.fightDuration * this.haste;
@@ -69,6 +77,9 @@ class BloddyRuneblade extends Analyzer{
             {formatNumber(this.averageHaste)} average Haste
           </>
         )}
+        tooltip={`
+          ${this.bloddyRubebladeRPGain} RP Gained
+        `}
       />
     );
   }
