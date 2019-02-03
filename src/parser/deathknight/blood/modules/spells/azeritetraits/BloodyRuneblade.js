@@ -3,9 +3,10 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
-import Analyzer from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import Events from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 
 const bloodyRunebladeStats = traits => Object.values(traits).reduce((obj, rank) => {
@@ -45,20 +46,15 @@ class BloddyRuneblade extends Analyzer{
     this.statTracker.add(SPELLS.BLOODY_RUNEBLADE_BUFF.id, {
       haste,
     });
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLOODY_RUNEBLADE_BUFF), this.onBuffEvent);
+    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.BLOODY_RUNEBLADE_RP_GAIN), this.onEnergizeEvent);
   }
 
-  on_byPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BLOODY_RUNEBLADE_BUFF.id) {
-      return;
-    }
+  onBuffEvent(event) {
     this.bloodyRunebladeProcsCounter += 1;
   }
-  on_byPlayer_energize(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BLOODY_RUNEBLADE_RP_GAIN.id) {
-      return;
-    }
+
+  onEnergizeEvent(event) {
     this.bloodyRunebladeRPGain += event.resourceChange;
   }
 
