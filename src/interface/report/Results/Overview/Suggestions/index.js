@@ -9,9 +9,9 @@ import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import Suggestion from './Suggestion';
 import './Suggestions.scss';
 
-class Suggestions extends React.Component {
+class Suggestions extends React.PureComponent {
   static propTypes = {
-    issues: PropTypes.array,
+    children: PropTypes.array,
   };
 
   constructor() {
@@ -22,7 +22,7 @@ class Suggestions extends React.Component {
   }
 
   render() {
-    const { issues } = this.props;
+    const { children } = this.props;
 
     return (
       <div className="panel">
@@ -43,7 +43,7 @@ class Suggestions extends React.Component {
         </div>
         <div className="panel-body">
           <ul className="list issues">
-            {!issues.find(issue => issue.importance === ISSUE_IMPORTANCE.MAJOR) && (
+            {!children.find(issue => issue.importance === ISSUE_IMPORTANCE.MAJOR) && (
               <li className="item major" style={{ color: '#25ff00' }}>
                 <div className="icon">
                   <Icon icon="thumbsup" alt="Thumbsup" />
@@ -53,7 +53,7 @@ class Suggestions extends React.Component {
                 </div>
               </li>
             )}
-            {issues
+            {children
               .filter(issue => this.state.showMinorIssues || issue.importance !== ISSUE_IMPORTANCE.MINOR)
               .map((issue, i) => <Suggestion key={i} {...issue} />)}
             <li>
