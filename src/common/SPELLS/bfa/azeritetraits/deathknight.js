@@ -26,6 +26,16 @@ export default {
     name: 'Eternal Rune Weapon',
     icon: 'inv_sword_07',
   },
+  BLOODY_RUNEBLADE: {
+    id: 289339,
+    name: 'Bloody Runeblade',
+    icon: 'inv_sword_2h_blood_c_02',
+  },
+  BLOODY_RUNEBLADE_BUFF: {
+    id: 289349,
+    name: 'Bloody Runeblade',
+    icon: 'inv_sword_2h_blood_c_02',
+  },
 
   //Shared
   BONE_SPIKE_GRAVEYARD: {
