@@ -3,7 +3,6 @@ import Tab from 'interface/others/Tab';
 import Analyzer from 'parser/core/Analyzer';
 import MaelstromChart from './Maelstrom';
 import MaelstromTracker from './MaelstromTracker';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 class MaelstromTab extends Analyzer {
 
   static dependencies = {
