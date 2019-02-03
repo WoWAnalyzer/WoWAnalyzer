@@ -19,9 +19,7 @@ const lordOfWarDamage = traits => Object.values(traits).reduce((obj, rank) => {
 /**
  * Example report: /report/YXFby87mzNrLtwj1/7-Normal+Conclave+of+the+Chosen+-+Kill+(4:17)/30-Korebian/timeline
  */
-
 class LordOfWar extends Analyzer {
-
   damage = 0;
   traits = 0;
 
@@ -29,15 +27,17 @@ class LordOfWar extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    
+
     this.active = this.selectedCombatant.hasTrait(SPELLS.LORD_OF_WAR.id);
 
-    const { damage, traits } = lordOfWarDamage(this.selectedCombatant.traitsBySpellId[SPELLS.LORD_OF_WAR.id]);
-    this.damage = damage;
-    this.traits = traits;
+    if (this.active) {
+      const { damage, traits } = lordOfWarDamage(this.selectedCombatant.traitsBySpellId[SPELLS.LORD_OF_WAR.id]);
+      this.damage = damage;
+      this.traits = traits;
 
-    const spell = this.selectedCombatant.hasTalent(SPELLS.WARBREAKER_TALENT.id) ? SPELLS.WARBREAKER_TALENT : SPELLS.COLOSSUS_SMASH;
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(spell), this._onColossusSmashDamage);
+      const spell = this.selectedCombatant.hasTalent(SPELLS.WARBREAKER_TALENT.id) ? SPELLS.WARBREAKER_TALENT : SPELLS.COLOSSUS_SMASH;
+      this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(spell), this._onColossusSmashDamage);
+    }
   }
 
   _onColossusSmashDamage() {
