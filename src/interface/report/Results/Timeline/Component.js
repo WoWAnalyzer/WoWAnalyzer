@@ -164,7 +164,8 @@ class Timeline extends React.PureComponent {
           top: this.getOffsetTop(index) * (growUp ? -1 : 1),
           width: this.totalWidth,
         }}
-        timestampOffset={this.start}
+        fightStartTimestamp={this.start}
+        fightEndTimestamp={this.end}
         secondWidth={this.secondWidth}
       >
         {events}

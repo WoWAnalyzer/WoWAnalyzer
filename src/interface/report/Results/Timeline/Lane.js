@@ -7,13 +7,14 @@ import Icon from 'common/Icon';
 class Lane extends React.PureComponent {
   static propTypes = {
     children: PropTypes.arrayOf(PropTypes.object).isRequired,
-    timestampOffset: PropTypes.number.isRequired,
+    fightStartTimestamp: PropTypes.number.isRequired,
+    fightEndTimestamp: PropTypes.number.isRequired,
     secondWidth: PropTypes.number.isRequired,
     style: PropTypes.object,
   };
 
   getOffsetLeft(timestamp) {
-    return (timestamp - this.props.timestampOffset) / 1000 * this.props.secondWidth;
+    return (timestamp - this.props.fightStartTimestamp) / 1000 * this.props.secondWidth;
   }
 
   renderEvent(event) {
@@ -57,7 +58,7 @@ class Lane extends React.PureComponent {
   }
   renderCooldown(event) {
     const left = this.getOffsetLeft(event.start);
-    const width = (event.timestamp - event.start) / 1000 * this.props.secondWidth;
+    const width = (Math.min(this.props.fightEndTimestamp, event.timestamp) - event.start) / 1000 * this.props.secondWidth;
     return (
       <Tooltip
         key={`cooldown-${left}`}
@@ -75,6 +76,9 @@ class Lane extends React.PureComponent {
     );
   }
   renderRecharge(event) {
+    if (event.timestamp > this.props.fightEndTimestamp) {
+      return null;
+    }
     const left = this.getOffsetLeft(event.timestamp);
     return (
       <Tooltip content="Charge Restored">
