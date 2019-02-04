@@ -15,7 +15,7 @@ import { title as UnlistedLogsTitle } from 'articles/2017-01-31-UnlistedLogs/ind
 import ReportSelecter from './others/ReportSelecter';
 import LanguageSwitcher from './LanguageSwitcher';
 
-import './Header.css';
+import './Header.scss';
 
 const CharacterSearch = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'CharacterSearch', webpackPrefetch: true */ 'interface/character/Search').then(exports => exports.default)));
 

@@ -16,7 +16,7 @@ class Page extends React.PureComponent {
     const { region, realm, name, ...others } = this.props;
 
     return (
-      <div className="container">
+      <>
         <DocumentTitle title={`${name}-${realm} (${region})`} />
 
         <Parses
@@ -25,7 +25,7 @@ class Page extends React.PureComponent {
           name={name}
           {...others}
         />
-      </div>
+      </>
     );
   }
 }

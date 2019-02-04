@@ -1,3 +1,5 @@
+@import '../layout/Theme.scss';
+
 .charparse .filter {
   margin: 0;
 }
@@ -12,7 +14,7 @@
 }
 
 .charparse .form-control.selected {
-  background-color: #d84141;
+  background-color: $primaryColor;
 }
 
 .charparse .row.filter {
@@ -56,4 +58,10 @@
     rgba(0, 0, 0, 0) 50%, 
     rgba(15, 15, 15, 1) 100%
   ); 
+}
+
+.character-parse img.spec-icon {
+  border-radius: 50%;
+  border: 2px solid $primaryColor;
+  margin-right: 20px;
 }

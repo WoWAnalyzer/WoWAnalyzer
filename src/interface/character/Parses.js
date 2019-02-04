@@ -22,7 +22,7 @@ import REPORT_HISTORY_TYPES from 'interface/home/ReportHistory/REPORT_HISTORY_TY
 import { captureException } from 'common/errorLogger';
 import retryingPromise from 'common/retryingPromise';
 
-import './Parses.css';
+import './Parses.scss';
 import ParsesList from './ParsesList';
 
 const loadRealms = () => retryingPromise(() => import('common/REALMS').then(exports => exports.default));
@@ -70,6 +70,7 @@ class Parses extends React.Component {
       sortBy: ORDER_BY.DATE,
       metric: 'dps',
       image: null,
+      avatarImage: null,
       parses: [],
       isLoading: true,
       error: null,
@@ -266,10 +267,12 @@ class Parses extends React.Component {
     }
     const image = data.thumbnail.replace('-avatar.jpg', '');
     const imageUrl = `https://render-${this.props.region}.worldofwarcraft.com/character/${image}-main.jpg`;
+    const avatarImage = `https://render-${this.props.region}.worldofwarcraft.com/character/${image}-avatar.jpg`;
     const role = data.role;
     const metric = role === 'HEALING' ? 'hps' : 'dps';
     this.setState({
       image: imageUrl,
+      avatarImage: avatarImage,
       metric: metric,
     }, () => {
       this.load();
@@ -446,62 +449,64 @@ class Parses extends React.Component {
     }
 
     return (
-      <div className="charparse">
-        <div className="row">
-          <div className="col-md-5">
-            <div className="panel">
-              <div className="row filter">
-                <div className="col-md-12" style={{ marginBottom: 20, position: 'relative', height: 280 }}>
-                  {this.state.image && (
-                    <div className="char-image">
-                      <img
-                        src={this.state.image}
-                        alt={'Character render of ' + this.props.name}
-                        onError={e => this.setState({ image: FALLBACK_PICTURE })}
-                        style={{ width: '100%' }}
-                      />
-                    </div>
-                  )}
-                  <h2 style={{ fontSize: '1.8em', marginTop: 10 }}>{this.props.region} - {this.props.realm}</h2>
-                  <h2 style={{ fontSize: '2.4em', margin: '10px 10px' }}>
-                    {this.props.name}
-                  </h2>
-                  {this.state.class && (
-                    <img
-                      src={`/specs/${this.state.class.replace(' ', '')}-New.png`}
-                      alt={`Class icon of ${this.state.class}s`}
-                      style={{ height: 50, position: 'absolute', right: 12, top: 10 }}
-                    />
-                  )}
+      <div className="results">
+        <header>
+          <div className="background">
+            <div className="img" style={{ backgroundImage: `url(${this.state.image})`, backgroundPosition: 'center center'}}></div>
+          </div>
+          <div class="info">
+            <div class="container">
+              <div class="boss">
+                <a
+                  href={`https://www.warcraftlogs.com/character/${this.props.region}/${this.state.realmSlug}/${this.props.name}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn"
+                  style={{ fontSize: 22 }}
+                >
+                  <img src={WarcraftLogsLogo} alt="Warcraft Logs logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
+                </a>
+                <br/>
+                <a
+                  href={battleNetUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn"
+                  style={{ fontSize: 22 }}
+                >
+                  <img src={ArmoryLogo} alt="Armory logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Armory
+                </a>
+                <br/>
+                {this.props.region !== 'CN' && (
+                  <a
+                    href={`https://www.wipefest.net/character/${this.props.name}/${this.state.realmSlug}/${this.props.region}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn"
+                    style={{ fontSize: 22 }}
+                  >
+                    <img src={WipefestLogo} alt="Wipefest logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Wipefest
+                  </a>
+                )}
+                <br/>
+                <br/>
+              </div>
+              <div class="player">
+                <div class="avatar">
+                  <img src={this.state.avatarImage} alt="" />
                 </div>
-                <div className="col-md-4">
-                  Specs:
-                  {this.state.specs.map((elem, index) => (
-                    <div
-                      key={index}
-                      onClick={() => this.updateSpec(elem.replace(' ', ''))}
-                      className={this.state.activeSpec.includes(elem.replace(' ', '')) ? 'selected form-control' : 'form-control'}
-                    >
-                      <img src={this.iconPath(elem)} style={{ height: 18, marginRight: 10 }} alt="Icon" />
-                      {elem}
-                    </div>
-                  ))}
+                <div class="details">
+                  <h2>{this.props.region} - {this.props.realm}</h2>
+                  <h1 class="name">{this.props.name}</h1>
                 </div>
-
-                <div className="col-md-4">
-                  Difficulties:
-                  {DIFFICULTIES.filter(elem => elem).map((elem, index) => (
-                    <div
-                      key={index}
-                      onClick={() => this.updateDifficulty(elem)}
-                      className={this.state.activeDifficulty.includes(elem) ? 'selected form-control' : 'form-control'}
-                    >
-                      {elem}
-                    </div>
-                  ))}
-                </div>
-                <div className="col-md-4">
-                  Raid:
+              </div>
+            </div>
+          </div>
+          <nav>
+            <div class="container">
+              <ul>
+                <li>
+                  Raid
                   <select
                     className="form-control"
                     value={this.state.activeZoneID}
@@ -511,7 +516,9 @@ class Parses extends React.Component {
                       <option key={elem.id} value={elem.id}>{elem.name}</option>
                     )}
                   </select>
-                  Boss:
+                </li>
+                <li>
+                  Boss
                   <select
                     className="form-control"
                     value={this.state.activeEncounter}
@@ -522,7 +529,9 @@ class Parses extends React.Component {
                       <option key={e.id} value={e.name}>{e.name}</option>
                     )}
                   </select>
-                  Metric:
+                </li>
+                <li>
+                  Metric
                   <select
                     className="form-control"
                     value={this.state.metric}
@@ -531,7 +540,9 @@ class Parses extends React.Component {
                     <option defaultValue value="dps">DPS</option>
                     <option value="hps">HPS</option>
                   </select>
-                  Sort by:
+                </li>
+                <li>
+                  Sort by
                   <select
                     className="form-control"
                     value={this.state.sortBy}
@@ -541,84 +552,58 @@ class Parses extends React.Component {
                     <option value={ORDER_BY.DPS}>DPS / HPS</option>
                     <option value={ORDER_BY.PERCENTILE}>Percentile</option>
                   </select>
-                </div>
-              </div>
+                </li>
+
+              </ul>
             </div>
-            <div>
-              <a
-                href={`https://www.warcraftlogs.com/character/${this.props.region}/${this.state.realmSlug}/${this.props.name}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn"
-                style={{ fontSize: 22 }}
-              >
-                <img src={WarcraftLogsLogo} alt="Warcraft Logs logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
-              </a>
-              <a
-                href={battleNetUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn"
-                style={{ fontSize: 22 }}
-              >
-                <img src={ArmoryLogo} alt="Armory logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Armory
-              </a>
-              {this.props.region !== 'CN' && (
-                <a
-                  href={`https://www.wipefest.net/character/${this.props.name}/${this.state.realmSlug}/${this.props.region}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn"
-                  style={{ fontSize: 22 }}
-                >
-                  <img src={WipefestLogo} alt="Wipefest logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Wipefest
-                </a>
-              )}
-            </div>
-          </div>
-          <div className="col-md-7">
-            {this.state.error && (
-              <span>
-                <Link to="/">
-                  Home
-                </Link> &gt;{' '}
+          </nav>
+        </header>
+        <div class="container">
+          <div className="row">
+            <div className="col-md-12">
+              {this.state.error && (
                 <span>
-                  {this.props.region}  &gt; {this.props.realm}  &gt; {this.props.name}
+                  <Link to="/">
+                    Home
+                  </Link> &gt;{' '}
+                  <span>
+                    {this.props.region}  &gt; {this.props.realm}  &gt; {this.props.name}
+                  </span>
+                  <br /><br />
                 </span>
-                <br /><br />
-              </span>
-            )}
-            <div className="panel" style={{ overflow: 'auto' }}>
-              <div className="flex-main">
-                {this.state.isLoading && !this.state.error && (
-                  <div style={{ textAlign: 'center', fontSize: '2em', margin: '20px 0' }}>
-                    <ActivityIndicator text="Fetching logs..." />
-                  </div>
-                )}
-                {!this.state.isLoading && (
-                  <div className="panel-heading">
-                    <h2 style={{ display: 'inline' }}>{this.state.error ? this.state.error : 'Parses'}</h2>
-                    <Link
-                      to=""
-                      className="pull-right"
-                      onClick={e => {
-                        e.preventDefault();
-                        this.load(true);
-                      }}
-                    >
-                      <span className="glyphicon glyphicon-refresh" aria-hidden="true" /> Refresh
-                    </Link>
-                  </div>
-                )}
-                {!this.state.isLoading && errorMessage}
-                {!this.state.isLoading && (
-                  <ParsesList
-                    parses={this.filterParses}
-                    class={this.state.class}
-                    metric={this.state.metric}
-                    trinkets={this.state.trinkets}
-                  />
-                )}
+              )}
+              <div className="panel" style={{ overflow: 'auto' }}>
+                <div className="flex-main">
+                  {this.state.isLoading && !this.state.error && (
+                    <div style={{ textAlign: 'center', fontSize: '2em', margin: '20px 0' }}>
+                      <ActivityIndicator text="Fetching logs..." />
+                    </div>
+                  )}
+                  {!this.state.isLoading && (
+                    <div className="panel-heading">
+                      <h2 style={{ display: 'inline' }}>{this.state.error ? this.state.error : 'Parses'}</h2>
+                      <Link
+                        to=""
+                        className="pull-right"
+                        onClick={e => {
+                          e.preventDefault();
+                          this.load(true);
+                        }}
+                      >
+                        <span className="glyphicon glyphicon-refresh" aria-hidden="true" /> Refresh
+                      </Link>
+                    </div>
+                  )}
+                  {!this.state.isLoading && errorMessage}
+                  {!this.state.isLoading && (
+                    <ParsesList
+                      parses={this.filterParses}
+                      class={this.state.class}
+                      metric={this.state.metric}
+                      trinkets={this.state.trinkets}
+                    />
+                  )}
+                </div>
               </div>
             </div>
           </div>

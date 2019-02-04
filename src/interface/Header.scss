@@ -1,3 +1,5 @@
+@import 'layout/Theme.scss';
+
 .app > header {
   background-image: url(images/header.jpg); /* Created and property of Blizzard Entertainment. source: https://worldofwarcraft.com/en-us/ */
   background-size: cover;
@@ -95,7 +97,7 @@
 }
 .realm-search__search:focus {
   box-shadow: none;
-  border: 1px solid #d84141;
+  border: 1px solid $primaryColor;
 }
 .realm-search__options {
   max-height: 200px;
@@ -113,7 +115,7 @@
   cursor: pointer;
 }
 .realm-search__option--selected {
-  color: #d84141;
+  color: $primaryColor;
 }
 .image-overlay .parse-tabs {
   margin-bottom: 2px;
@@ -126,14 +128,14 @@
   margin-right: 2px;
 }
 .image-overlay .parse-tabs > span.selected {
-  background-color: rgba(216, 65, 65, .8);
+  background-color: rgba($primaryColor, .8);
 }
 .animated-button {
-  box-shadow: inset 0 0 0 0 #582c2c;
+  box-shadow: inset 0 0 0 0 $muted;
   transition: box-shadow 1.2s linear;
 }
 .animated-button.fill-button {
-  box-shadow: inset 200px 0 0 0 #582c2c;
+  box-shadow: inset 200px 0 0 0 $muted;
 }
 .app > header .form-control, .app > header .realm-search__search, .app > header .parse-tabs > span {
   background: rgba(0, 0, 0, 0.4);
