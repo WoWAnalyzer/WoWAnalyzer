@@ -86,6 +86,9 @@ class PrayerfulLitany extends Analyzer {
   }
 
   statistic() {
+    if (this.lowestHealthHealEvent != null) {
+      this._applyLowestHealthEvent();
+    }
     return (
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
