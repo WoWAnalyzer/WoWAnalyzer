@@ -13,6 +13,7 @@ import ItemHealingDone from 'interface/others/ItemHealingDone';
  */
 class PrayerfulLitany extends Analyzer {
   lowestHealthHealEvent = null;
+  numberOfHeals = 0;
 
   prayerOfHealingCasts = 0;
   prayerfulLitanyHealing = 0;
@@ -50,7 +51,7 @@ class PrayerfulLitany extends Analyzer {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.PRAYER_OF_HEALING.id) {
       this.prayerOfHealingCasts++;
-      if (this.lowestHealthHealEvent != null) {
+      if (this.lowestHealthHealEvent != null && this.numberOfHeals > 1) {
         this._applyLowestHealthEvent();
       }
     }
@@ -59,6 +60,10 @@ class PrayerfulLitany extends Analyzer {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.PRAYER_OF_HEALING.id) {
+      if (this.numberOfHeals >= 5) {
+        this._applyLowestHealthEvent();
+      }
+      this.numberOfHeals += 1;
       if (this.lowestHealthHealEvent == null || event.hitPoints < this.lowestHealthHealEvent.hitPoints) {
         this.lowestHealthHealEvent = event;
       }
@@ -77,6 +82,7 @@ class PrayerfulLitany extends Analyzer {
     this.prayerfulLitanyHealing += eventHealing;
     this.prayerfulLitanyOverHealing += eventOverhealing;
     this.lowestHealthHealEvent = null;
+    this.numberOfHeals = 0;
   }
 
   statistic() {
