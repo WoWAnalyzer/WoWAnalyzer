@@ -4,10 +4,13 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import { calculateAzeriteEffects } from 'common/stats';
-import { formatThousands } from 'common/format';
+import { formatPercentage, formatThousands } from 'common/format';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 
-// Example Log: https://www.warcraftlogs.com/reports/7rLHkgCBhJZ3t1KX#fight=6&type=healing
+/*
+  Prayer of Healing restores an additional 988 health to the most injured ally it affects.
+  Example Report: /report/Wjw8TPfgBKYbzF3k/3-Heroic+Champion+of+the+Light+-+Kill+(1:36)/11-Dinazorr
+ */
 class PrayerfulLitany extends Analyzer {
   lowestHealthHealEvent = null;
 
@@ -87,7 +90,7 @@ class PrayerfulLitany extends Analyzer {
           </>
         )}
         tooltip={`
-          ${formatThousands(this.prayerfulLitanyHealing)} Total Healing
+          Total Healing: ${formatThousands(this.prayerfulLitanyHealing)} (${formatPercentage(this.prayerfulLitanyOverHealing / this.rawPrayerfulLitanyHealing)}% OH)<br />
         `}
       />
     );
