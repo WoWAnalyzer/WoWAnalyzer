@@ -38,8 +38,10 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
       spellInfo = this.getPomDetails(spellInfo);
     } else if (spellId === SPELLS.HOLY_WORD_SALVATION_TALENT.id) {
       spellInfo = this.getSalvationDetails(spellInfo);
-    } else if (this.includeEchoOfLight) {
-      spellInfo = this.addEcho(spellInfo, healingSpellIds);
+    }
+
+    if (this.includeEchoOfLight) {
+      spellInfo = this.addEcho(spellInfo);
     }
 
     return spellInfo;
@@ -53,10 +55,6 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
     spellInfo.healingAbsorbed = this.renew.absorptionFromRenew(this.renew.renewsCast);
     spellInfo.healingHits = (this.renew.renewsCast / this.renew.totalRenewApplications) * this.renew.totalRenewTicks;
 
-    if (this.includeEchoOfLight) {
-      spellInfo = this.addEcho(spellInfo);
-    }
-
     return spellInfo;
   }
 
@@ -69,10 +67,6 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
     spellInfo.healingAbsorbed = this.prayerOfMending.pomTicksFromCast * this.prayerOfMending.averagePomTickAbsorption;
     spellInfo.healingHits = this.prayerOfMending.pomTicksFromCast;
 
-    if (this.includeEchoOfLight) {
-      spellInfo = this.addEcho(spellInfo);
-    }
-
     return spellInfo;
   }
 
@@ -80,10 +74,6 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
     spellInfo.healingDone = this.salvation.totalHealing;
     spellInfo.overhealingDone = this.salvation.totalOverHealing;
     spellInfo.healingAbsorbed = this.salvation.totalAbsorbed;
-
-    if (this.includeEchoOfLight) {
-      spellInfo = this.addEcho(spellInfo);
-    }
 
     return spellInfo;
   }
