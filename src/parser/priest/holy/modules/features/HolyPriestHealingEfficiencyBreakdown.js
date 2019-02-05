@@ -35,7 +35,10 @@ class HolyPriestHealingEfficiencyBreakdown extends HealingEfficiencyBreakdown {
                 <Toggle
                   defaultChecked={false}
                   icons={false}
-                  onChange={event => {this.setState({ showEchoOfLight: event.target.checked }); tracker.includeEchoOfLight = event.target.checked}}
+                  onChange={event => {
+                    this.setState({ showEchoOfLight: event.target.checked });
+                    tracker.includeEchoOfLight = event.target.checked;
+                  }}
                   id="cooldown-toggle"
                 />
                 <label htmlFor="cooldown-toggle" style={{ marginLeft: '0.5em' }}>
