@@ -39,7 +39,7 @@ class HolyPriestHealingEfficiencyBreakdown extends HealingEfficiencyBreakdown {
                   id="cooldown-toggle"
                 />
                 <label htmlFor="cooldown-toggle" style={{ marginLeft: '0.5em' }}>
-                  Include <SpellLink id={SPELLS.ECHO_OF_LIGHT.id} />
+                  Include <SpellLink id={SPELLS.ECHO_OF_LIGHT_MASTERY.id} />
                 </label>
               </div>
               <div className="toggle-control pull-left" style={{ marginLeft: '.5em', marginRight: '.5em' }}>

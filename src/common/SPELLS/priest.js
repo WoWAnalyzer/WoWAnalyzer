@@ -342,7 +342,12 @@ export default {
     icon: 'spell_holy_prayerofhealing02',
     manaCost: 4500,
   },
-  ECHO_OF_LIGHT: {
+  ECHO_OF_LIGHT_MASTERY: {
+    id: 77485,
+    name: 'Echo of Light',
+    icon: 'spell_holy_aspiration',
+  },
+  ECHO_OF_LIGHT_HEAL: {
     id: 77489,
     name: 'Echo of Light',
     icon: 'spell_holy_aspiration',

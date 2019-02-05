@@ -441,8 +441,8 @@ class HolyPriestSpreadsheet extends React.Component {
               </tr>
               <tr>
                 <td>Echo of Light</td>
-                <td>{rawHealing(SPELLS.ECHO_OF_LIGHT.id)}</td>
-                <td>{overhealingSpell(SPELLS.ECHO_OF_LIGHT.id)}</td>
+                <td>{rawHealing(SPELLS.ECHO_OF_LIGHT_HEAL.id)}</td>
+                <td>{overhealingSpell(SPELLS.ECHO_OF_LIGHT_HEAL.id)}</td>
                 <td>N/A</td>
                 <td>N/A</td>
                 <td>1</td>
