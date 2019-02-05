@@ -17,6 +17,7 @@ import Nemesis from './modules/spells/Nemesis';
 import Felblade from './modules/talents/Felblade';
 import DemonicAppetite from './modules/talents/DemonicAppetite';
 import BlindFury from './modules/talents/BlindFury';
+import DemonBlades from './modules/talents/DemonBlades';
 
 
 //Resources
@@ -50,6 +51,7 @@ class CombatLogParser extends CoreCombatLogParser {
     felblade: Felblade,
     demonicAppetite: DemonicAppetite,
     blindFury: BlindFury,
+    demonBlades: DemonBlades,
 
     //Resources
     furyTracker: FuryTracker,
