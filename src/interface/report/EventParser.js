@@ -16,12 +16,10 @@ import sleep from 'common/sleep';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import REPORT_HISTORY_TYPES from 'interface/home/ReportHistory/REPORT_HISTORY_TYPES';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
-import { setReportProgress } from 'interface/actions/reportProgress';
 import { appendReportHistory } from 'interface/actions/reportHistory';
 
-import Ghuun from './images/Ghuun.gif';
 import handleApiError from './handleApiError';
-import './EventParser.css';
+import './EventParser.scss';
 
 const timeAvailable = console.time && console.timeEnd;
 
@@ -61,7 +59,6 @@ class EventParser extends React.PureComponent {
     combatants: PropTypes.arrayOf(PropTypes.shape({
       sourceID: PropTypes.number.isRequired,
     })),
-    setReportProgress: PropTypes.func.isRequired,
     appendReportHistory: PropTypes.func.isRequired,
     config: PropTypes.object.isRequired,
     children: PropTypes.func.isRequired,
@@ -75,8 +72,10 @@ class EventParser extends React.PureComponent {
   };
   state = {
     error: null,
+    characterProfile: null,
     parser: null,
     finished: false,
+    progress: 0,
   };
 
   // Parsing a fight for a player is a "job", if the selected player or fight changes we want to cancel parsing it. This integer gives each job an id that if it mismatches stops the job.
@@ -109,7 +108,9 @@ class EventParser extends React.PureComponent {
     this.appendHistory(report, fight, player);
     this._jobId += 1;
 
-    this.props.setReportProgress(0);
+    this.setState({
+      progress: 0,
+    });
     // noinspection JSIgnoredPromiseFromCall
     this.startFakeNetworkProgress();
     // Make 3 requests asynchronous so we don't waste any time waiting
@@ -123,6 +124,9 @@ class EventParser extends React.PureComponent {
       }),
       this.loadCharacterProfile().then(result => {
         characterProfile = result;
+        this.setState({
+          characterProfile: result,
+        });
       }),
       this.loadEvents().then(result => {
         events = result;
@@ -163,7 +167,9 @@ class EventParser extends React.PureComponent {
       events = events.filter(event => event.type !== 'combatantinfo');
       events = parser.normalize(events);
       if (!BENCHMARK) {
-        this.props.setReportProgress(PROGRESS_STEP2_FETCH_EVENTS);
+        this.setState({
+          progress: PROGRESS_STEP2_FETCH_EVENTS,
+        });
       }
 
       const numEvents = events.length;
@@ -185,7 +191,9 @@ class EventParser extends React.PureComponent {
         }
         const progress = Math.min(1, eventIndex / numEvents);
         if (!BENCHMARK) {
-          this.props.setReportProgress(PROGRESS_STEP2_FETCH_EVENTS + (PROGRESS_STEP3_PARSE_EVENTS - PROGRESS_STEP2_FETCH_EVENTS) * progress);
+          this.setState({
+            progress: PROGRESS_STEP2_FETCH_EVENTS + (PROGRESS_STEP3_PARSE_EVENTS - PROGRESS_STEP2_FETCH_EVENTS) * progress,
+          });
           // Delay the next iteration until next frame so the browser doesn't appear to be frozen
           await sleep(0); // eslint-disable-line no-await-in-loop
         }
@@ -194,9 +202,11 @@ class EventParser extends React.PureComponent {
 
       parser.finish();
       timeAvailable && console.timeEnd('full parse');
-      this.props.setReportProgress(PROGRESS_COMPLETE);
       this.setState({
-        parser: parser,
+        progress: PROGRESS_COMPLETE,
+      });
+      this.setState({
+        parser,
         finished: true,
       });
     } catch (err) {
@@ -224,7 +234,9 @@ class EventParser extends React.PureComponent {
         break;
       }
       const progress = Math.min(1, step * stepInterval / expectedDuration);
-      this.props.setReportProgress(PROGRESS_STEP1_INITIALIZATION + ((PROGRESS_STEP2_FETCH_EVENTS - PROGRESS_STEP1_INITIALIZATION) * progress));
+      this.setState({
+        progress: PROGRESS_STEP1_INITIALIZATION + ((PROGRESS_STEP2_FETCH_EVENTS - PROGRESS_STEP1_INITIALIZATION) * progress),
+      });
       // eslint-disable-next-line no-await-in-loop
       await sleep(stepInterval);
       step += 1;
@@ -292,8 +304,8 @@ class EventParser extends React.PureComponent {
       parser: null,
       finished: false,
       events: null,
+      progress: null,
     });
-    this.props.setReportProgress(null);
     this.stopFakeNetworkProgress();
   }
 
@@ -319,33 +331,26 @@ class EventParser extends React.PureComponent {
       this.props.history.push(makeAnalyzerUrl());
     });
   }
-  renderLoading() {
-    return (
-      <div className="event-parser-loading-text">
-        <Trans>Loading...</Trans><br /><br />
-
-        <img src={Ghuun} alt="Ghuun" style={{ transform: 'scaleX(-1)' }} />
-      </div>
-    );
-  }
   render() {
     const error = this.state.error;
     if (error) {
       return this.renderError(error);
     }
 
-    if (!this.state.finished) {
-      return this.renderLoading();
-    }
+    const isLoading = !this.state.finished;
 
-    return this.props.children(this.state.parser);
+    return this.props.children({
+      isLoading,
+      progress: this.state.progress,
+      parser: this.state.parser,
+      characterProfile: this.state.characterProfile,
+    });
   }
 }
 
 export default compose(
   withRouter,
   connect(null, {
-    setReportProgress,
     appendReportHistory,
   })
 )(EventParser);

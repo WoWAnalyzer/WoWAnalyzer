@@ -27,6 +27,8 @@ import About from './About';
 import Overview from './Overview';
 import Statistics from './Statistics';
 import './Results.scss';
+import { findByBossId } from 'raids';
+import LoadingBar from 'interface/layout/NavigationBar/LoadingBar';
 
 // Gone for now, reintroduce if we can make it useful
 // const DevelopmentTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'DevelopmentTab' */ 'interface/others/DevelopmentTab').then(exports => exports.default)));
@@ -44,11 +46,22 @@ const CORE_TABS = {
 
 class Results extends React.PureComponent {
   static propTypes = {
-    parser: PropTypes.object.isRequired,
+    parser: PropTypes.shape({
+    }).isRequired,
+    characterProfile: PropTypes.object,
     selectedTab: PropTypes.string,
     makeTabUrl: PropTypes.func.isRequired,
+    fight: PropTypes.shape({
+      start_time: PropTypes.number.isRequired,
+      end_time: PropTypes.number.isRequired,
+      boss: PropTypes.number.isRequired,
+    }).isRequired,
+    player: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    }).isRequired,
+    isLoading: PropTypes.bool,
+    progress: PropTypes.number,
     premium: PropTypes.bool,
-    characterProfile: PropTypes.object,
   };
   static childContextTypes = {
     updateResults: PropTypes.func.isRequired,
@@ -133,13 +146,12 @@ class Results extends React.PureComponent {
     }
   }
   render() {
-    const { parser, makeTabUrl, characterProfile, selectedTab, premium } = this.props;
-    const fight = parser.fight;
+    const { parser, fight, player, characterProfile, makeTabUrl, selectedTab, premium, isLoading, progress } = this.props;
     const config = this.context.config;
-    const combatants = parser.getModule(Combatants);
-    const selectedCombatant = combatants.selected;
 
-    const results = parser.generateResults({
+    const boss = findByBossId(fight.boss);
+
+    const results = !isLoading && parser.generateResults({
       i18n, // TODO: Remove and use singleton
       adjustForDowntime: this.state.adjustForDowntime,
     });
@@ -150,24 +162,29 @@ class Results extends React.PureComponent {
       <div className={`results boss-${fight.boss}`}>
         <Header
           config={config}
-          selectedCombatant={selectedCombatant}
+          name={player.name}
           characterProfile={characterProfile}
-          boss={parser.boss}
+          boss={boss}
           fight={fight}
-          tabs={results.tabs}
+          tabs={results && results.tabs}
           makeTabUrl={makeTabUrl}
           selectedTab={selectedTab}
         />
 
-        {parser.boss && parser.boss.fight.resultsWarning && (
+        {boss && boss.fight.resultsWarning && (
           <div className="container">
             <Warning style={{ marginBottom: 30 }}>
-              {parser.boss.fight.resultsWarning}
+              {boss.fight.resultsWarning}
             </Warning>
           </div>
         )}
 
-        {this.renderContent(selectedTab, results)}
+        {isLoading && (
+          <div className="container" style={{ marginBottom: 40 }}>
+            <LoadingBar progress={progress} />
+          </div>
+        )}
+        {parser && this.renderContent(selectedTab, results)}
 
         {premium === false && (
           <div className="container text-center" style={{ marginTop: 40 }}>

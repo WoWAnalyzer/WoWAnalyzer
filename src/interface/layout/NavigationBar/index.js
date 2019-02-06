@@ -15,13 +15,11 @@ import { i18n } from 'interface/RootLocalizationProvider';
 import { getFightId, getPlayerName, getReportCode } from 'interface/selectors/url/report';
 import { getReport } from 'interface/selectors/report';
 import { getFightById } from 'interface/selectors/fight';
-import { getReportProgress } from 'interface/selectors/reportProgress';
 import { getUser } from 'interface/selectors/user';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import FightSelectionPanel from 'interface/report/FightSelectionPanel';
 import Modal from 'interface/modals/Modal';
 
-import LoadingBar from './LoadingBar';
 import './NavigationBar.scss';
 
 class NavigationBar extends React.PureComponent {
@@ -31,7 +29,6 @@ class NavigationBar extends React.PureComponent {
       title: PropTypes.string.isRequired,
     }),
     fight: PropTypes.object,
-    progress: PropTypes.number,
     user: PropTypes.oneOfType([
       PropTypes.shape({
         name: PropTypes.string,
@@ -63,7 +60,7 @@ class NavigationBar extends React.PureComponent {
   }
 
   render() {
-    const { playerName, report, fight, progress, user } = this.props;
+    const { playerName, report, fight, user } = this.props;
 
     return (
       <nav className="global">
@@ -131,7 +128,6 @@ class NavigationBar extends React.PureComponent {
             </div>
           </Tooltip>
         </div>
-        <LoadingBar progress={progress} />
       </nav>
     );
   }
@@ -142,7 +138,6 @@ const mapStateToProps = state => ({
 
   report: getReportCode(state) && getReport(state),
   fight: getFightById(state, getFightId(state)),
-  progress: getReportProgress(state),
   user: getUser(state),
 });
 

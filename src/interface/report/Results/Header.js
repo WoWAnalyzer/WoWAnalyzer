@@ -20,9 +20,7 @@ class Headers extends React.PureComponent {
         specName: PropTypes.string.isRequired,
       }).isRequired,
     }).isRequired,
-    selectedCombatant: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-    }).isRequired,
+    name: PropTypes.string.isRequired,
     characterProfile: PropTypes.shape({
       region: PropTypes.string.isRequired,
       thumbnail: PropTypes.string.isRequired,
@@ -37,7 +35,7 @@ class Headers extends React.PureComponent {
       title: PropTypes.node.isRequired,
       url: PropTypes.string.isRequired,
       order: PropTypes.number,
-    })).isRequired,
+    })),
   };
 
   get pages() {
@@ -59,11 +57,11 @@ class Headers extends React.PureComponent {
         name: <Trans>Timeline</Trans>,
         url: 'timeline',
       },
-      ...tabs.sort((a, b) => a.order - b.order).map(tab => ({
+      ...tabs ? tabs.sort((a, b) => a.order - b.order).map(tab => ({
         icon: tab.icon || TimelineIcon,
         name: tab.title,
         url: tab.url,
-      })),
+      })) : [],
       {
         icon: EventsIcon,
         name: <Trans>Events</Trans>,
@@ -120,7 +118,7 @@ class Headers extends React.PureComponent {
     );
   }
   renderInfo() {
-    const { config: { spec }, selectedCombatant, fight } = this.props;
+    const { config: { spec }, name, fight } = this.props;
 
     return (
       <div className="info">
@@ -142,7 +140,7 @@ class Headers extends React.PureComponent {
                 {spec.specName} {spec.className}
               </h2>
               <h1 className="name">
-                {selectedCombatant.name}
+                {name}
               </h1>
             </div>
           </div>

@@ -1,8 +1,4 @@
 .LoadingBar {
-  position: absolute;
-  left: 60px;
-  right: 60px;
-  bottom: -10px;
   height: 10px;
   background: #000;
   box-shadow: 0 0 3px 0 #000;

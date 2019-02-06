@@ -46,10 +46,14 @@ const Report = props => (
                         combatants={combatants}
                         config={config}
                       >
-                        {parser => (
+                        {({ isLoading, progress, parser, characterProfile }) => (
                           <Results
+                            isLoading={isLoading}
+                            progress={progress}
+                            fight={fight}
+                            player={player}
+                            characterProfile={characterProfile}
                             parser={parser}
-                            characterProfile={parser.characterProfile}
                             makeTabUrl={tab => makeAnalyzerUrl(report, fight.id, player.id, tab)}
                           />
                         )}
