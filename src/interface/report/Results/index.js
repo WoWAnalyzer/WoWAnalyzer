@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Trans, t } from '@lingui/macro';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
@@ -11,6 +12,8 @@ import { hasPremium } from 'interface/selectors/user';
 import ErrorBoundary from 'interface/common/ErrorBoundary';
 import Warning from 'interface/common/Alert/Warning';
 import Ad from 'interface/common/Ad';
+import ReadableList from 'interface/common/ReadableList';
+import Contributor from 'interface/contributor/Button';
 import WipefestLogo from 'interface/images/Wipefest-logo.png';
 import { i18n } from 'interface/RootLocalizationProvider';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -141,6 +144,8 @@ class Results extends React.PureComponent {
       adjustForDowntime: this.state.adjustForDowntime,
     });
 
+    const contributorinfo = <ReadableList>{(config.contributors.length !== 0) ? config.contributors.map(contributor => <Contributor key={contributor.nickname} {...contributor} />) : 'CURRENTLY UNMAINTAINED'}</ReadableList>;
+
     return (
       <div className={`results boss-${fight.boss}`}>
         <Header
@@ -169,6 +174,10 @@ class Results extends React.PureComponent {
             <Ad />
           </div>
         )}
+
+        <div className="container">
+          <Trans>{config.spec.specName} {config.spec.className} analysis has been provided by {contributorinfo}. They love hearing what you think, so please let them know! <Link to={makeTabUrl('about')}>More info about this spec analysis.</Link></Trans>
+        </div>
       </div>
     );
   }
