@@ -422,6 +422,18 @@ export default {
     icon: 'ability_warlock_improvedsoulleech',
   },
 
+  TRAIL_OF_RUIN_DAMAGE: {
+    id: 258883,
+    name: 'Trail of Ruin',
+    icon: 'ability_demonhunter_bladedance',
+  },
+
+  FEL_BARRAGE_DAMAGE: {
+    id: 258926,
+    name: 'Fel Barrage',
+    icon: 'inv_felbarrage',
+  },
+
   // Legendary Buffs
   ANGER_OF_THE_HALF_GIANTS_FURY: {
     id: 208828,

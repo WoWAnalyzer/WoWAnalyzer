@@ -14,6 +14,8 @@ import Checklist from './modules/features/Checklist/Module';
 
 import Momentum from './modules/spells/Momentum';
 import Nemesis from './modules/spells/Nemesis';
+import TrailofRuin from './modules/talents/TrailofRuin';
+import FelBarrage from './modules/talents/FelBarrage';
 
 //Resources
 import FuryDetails from './modules/resourcetracker/FuryDetails';
@@ -41,6 +43,10 @@ class CombatLogParser extends CoreCombatLogParser {
     // Spells
     momentum: Momentum,
     nemesis: Nemesis,
+
+    // Talents
+    trailofRuin: TrailofRuin,
+    felBarrage: FelBarrage,
 
     //Resources
     furyTracker: FuryTracker,
