@@ -30,10 +30,13 @@ class NavigationBar extends React.PureComponent {
     }),
     fight: PropTypes.object,
     progress: PropTypes.number,
-    user: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      premium: PropTypes.bool.isRequired,
-    }),
+    user: PropTypes.oneOfType([
+      PropTypes.shape({
+        name: PropTypes.string,
+        premium: PropTypes.bool,
+      }),
+      PropTypes.bool, // false; logged out
+    ]),
   };
 
   render() {

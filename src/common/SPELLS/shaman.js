@@ -298,7 +298,11 @@ export default {
     id: 196840,
     name: 'Frost Shock',
     icon: 'spell_frost_frostshock',
-    max_maelstrom: 20,
+  },
+  FROST_SHOCK_ENERGIZE: {
+    icon: "spell_frost_frostshock.jpg",
+    id: 289439,
+    name: "Frost Shock",
   },
   ICEFURY_OVERLOAD: {
     id: 219271,
@@ -329,6 +333,11 @@ export default {
     id: 272737,
     name: "Unlimited Power Buff",
     icon: "ability_shaman_ascendance",
+  },
+  THUNDERSTORM: {
+    icon: "spell_shaman_thunderstorm.jpg",
+    id: 51490,
+    name: "Thunderstorm",
   },
   // Elemental Pet Spells
   WIND_GUST: {

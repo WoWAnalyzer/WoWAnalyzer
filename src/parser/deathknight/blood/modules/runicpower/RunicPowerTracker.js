@@ -25,10 +25,6 @@ class RunicPowerTracker extends ResourceTracker {
     const abilityId = event.ability.guid;
     if (abilityId === SPELLS.DEATH_STRIKE.id) {
       this.reduceCooldown(cost); //Red Thirst does not care about cost reduction
-      if (this.selectedCombatant.hasBuff(SPELLS.BLOOD_DEATH_KNIGHT_T20_4SET_BONUS_BUFF.id) &&
-        this.selectedCombatant.hasBuff(SPELLS.GRAVEWARDEN.id, event.timestamp)) {
-        cost -= 5;
-      }
       if (this.selectedCombatant.hasBuff(SPELLS.OSSUARY.id)) {
         cost -= 5;
       }

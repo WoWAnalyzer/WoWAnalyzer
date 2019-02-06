@@ -8,8 +8,28 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
+    date: new Date('2019-01-31'),
+    changes: <>Fixed an issue where the "A connection error occured." message might be shown when an error occured during module initialization.</>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-01-31'),
+    changes: <>Added <SpellLink id={SPELLS.TREACHEROUS_COVENANT.id} /> module.</>,
+    contributors: [Khadaj],
+  },
+  {
+    date: new Date('2019-01-30'),
+    changes: <>Added <ItemLink id={ITEMS.CREST_OF_PAKU_ALLIANCE.id} /> analyzer and accounted for its Haste gain.</>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-01-30'),
+    changes: <>Added <SpellLink id={SPELLS.BONDED_SOULS_TRAIT.id} /> azerite trait and accounted for its Haste gain.</>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2019-01-26'),
-    changes: <>Account for Hate gained from <SpellLink id={SPELLS.OPULENCE_AMETHYST_OF_THE_SHADOW_KING.id} />.</>,
+    changes: <>Account for Haste gained from <SpellLink id={SPELLS.OPULENCE_AMETHYST_OF_THE_SHADOW_KING.id} />.</>,
     contributors: [Zerotorescue],
   },
   {

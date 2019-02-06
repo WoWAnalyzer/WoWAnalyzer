@@ -294,8 +294,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.RUNE_1,
         category: Abilities.SPELL_CATEGORIES.HIDDEN,
         cooldown: (haste, combatantCurrent) => {
-          const multiplier = combatantCurrent.hasBuff(SPELLS.RUNE_MASTER.id) ? 0.4 : 0;
-          return 10 / (1 + haste) / (1 + multiplier);
+          return 10 / (1 + haste);
         },
         charges: 2,
       },
@@ -303,8 +302,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.RUNE_2,
         category: Abilities.SPELL_CATEGORIES.HIDDEN,
         cooldown: (haste, combatantCurrent) => {
-          const multiplier = combatantCurrent.hasBuff(SPELLS.RUNE_MASTER.id) ? 0.4 : 0;
-          return 10 / (1 + haste) / (1 + multiplier);
+          return 10 / (1 + haste);
         },
         charges: 2,
       },
@@ -312,8 +310,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.RUNE_3,
         category: Abilities.SPELL_CATEGORIES.HIDDEN,
         cooldown: (haste, combatantCurrent) => {
-          const multiplier = combatantCurrent.hasBuff(SPELLS.RUNE_MASTER.id) ? 0.4 : 0;
-          return 10 / (1 + haste) / (1 + multiplier);
+          return 10 / (1 + haste);
         },
         charges: 2,
       },

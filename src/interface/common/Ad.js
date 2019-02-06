@@ -3,40 +3,32 @@ import PropTypes from 'prop-types';
 
 class Ad extends React.PureComponent {
   static propTypes = {
-    format: PropTypes.oneOf([
-      'mediumrectangle',
-      'largerectangle',
-      'leaderboard',
-    ]),
+    style: PropTypes.object,
   };
 
-  get style() {
-    switch (this.props.format) {
-      case 'mediumrectangle':
-        return { width: 300, height: 250 };
-      case 'largerectangle':
-        return { width: 336, height: 280 };
-      case 'leaderboard':
-        return { width: 728, height: 90 };
-      default:
-        return {};
-    }
+  componentDidMount() {
+    (window.adsbygoogle = window.adsbygoogle || []).push({});
   }
 
   render() {
-    // Totally lazy implementation
-    if (this.props.format === 'leaderboard') {
-      return (
-        <a href="/premium">
-          <img src="/img/728.jpg" alt="Ad" style={this.style} />
-        </a>
-      );
+    const { style, ...others } = this.props;
+
+    const props = {};
+    if (!others['data-ad-slot']) {
+      // Default to responsive
+      props['data-ad-slot'] = '5976455458';
+      props['data-ad-format'] = 'auto';
+      props['data-full-width-responsive'] = 'true';
     }
 
     return (
-      <a href="/premium">
-        <img src="/img/patreon6.jpg" alt="Ad" style={this.style} />
-      </a>
+      <ins
+        className="adsbygoogle"
+        style={style ? { display: 'block', ...style } : { display: 'block' }}
+        data-ad-client="ca-pub-8048055232081854"
+        {...props}
+        {...others}
+      />
     );
   }
 }

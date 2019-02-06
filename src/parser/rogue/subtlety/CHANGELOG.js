@@ -12,6 +12,11 @@ export default [
     contributors: [tsabo],
   },
   {
+    date: new Date('2019-01-19'),
+    changes: 'Fix Shuriken Storm CP waste. Any Shuriken Storm that generates at least 3CPs will not be considered waste, otherwise waste will be limited by the CP pool size.',
+    contributors: [tsabo],
+  },
+  {
     date: new Date('2018-12-28'),
     changes: 'Updates for 8.1, minor fixes.',
     contributors: [tsabo],

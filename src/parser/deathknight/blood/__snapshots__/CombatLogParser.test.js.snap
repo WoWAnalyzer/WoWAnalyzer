@@ -136,6 +136,10 @@ Array [
 ]
 `;
 
+exports[`The Blood Deathknight Analyzer analyzers BloddyRuneblade matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers BloddyRuneblade matches the suggestions snapshot 1`] = `"module inactive"`;
+
 exports[`The Blood Deathknight Analyzer analyzers BloodPlagueUptime matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -1478,18 +1482,6 @@ exports[`The Blood Deathknight Analyzer analyzers RunicPowerDetails matches the 
 exports[`The Blood Deathknight Analyzer analyzers RunicPowerTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`The Blood Deathknight Analyzer analyzers RunicPowerTracker matches the suggestions snapshot 1`] = `Array []`;
-
-exports[`The Blood Deathknight Analyzer analyzers ShacklesofBryndaor matches the statistic snapshot 1`] = `"module inactive"`;
-
-exports[`The Blood Deathknight Analyzer analyzers ShacklesofBryndaor matches the suggestions snapshot 1`] = `"module inactive"`;
-
-exports[`The Blood Deathknight Analyzer analyzers SkullflowersHaemostasis matches the statistic snapshot 1`] = `"module inactive"`;
-
-exports[`The Blood Deathknight Analyzer analyzers SkullflowersHaemostasis matches the suggestions snapshot 1`] = `"module inactive"`;
-
-exports[`The Blood Deathknight Analyzer analyzers SoulflayersCorruption matches the statistic snapshot 1`] = `"module inactive"`;
-
-exports[`The Blood Deathknight Analyzer analyzers SoulflayersCorruption matches the suggestions snapshot 1`] = `"module inactive"`;
 
 exports[`The Blood Deathknight Analyzer analyzers Tombstone matches the statistic snapshot 1`] = `"module inactive"`;
 

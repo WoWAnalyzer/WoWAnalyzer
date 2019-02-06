@@ -24,9 +24,14 @@ export default {
 
   //Opulence
   INCANDESCENT_LUSTER: { //Incandescent Sliver
-    id: 289522,
+    id: 289523,
     name: "Incandescent Luster",
     icon: "ability_priest_casecade",
+  },
+  INCANDESCENT_BRILLIANCE: { //Incandescent Sliver
+    id: 289524,
+    name: "Incandescent Brilliance",
+    icon: "paladin_holy",
   },
   DIAMOND_BARRIER: { //Diamond-laced Refracting Prism
     id: 288034,
@@ -40,10 +45,10 @@ export default {
   },
 
   //Conclave of the Chosen
-  GIFT_OF_WIND: { //Crest of Pa'ku
-    id: 288304,
-    name: "Gift of Wind",
-    icon: "ability_skyreach_wind",
+  GIFT_OF_WIND_BUFF: { //Crest of Pa'ku
+    id: 288305,
+    name: 'Gift of Wind',
+    icon: 'ability_skyreach_wind',
   },
   KIMBULS_RAZOR_CLAWS: {
     id: 288328,

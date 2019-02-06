@@ -259,8 +259,8 @@ class Results extends React.PureComponent {
               </a>
               {' '}
               {characterProfile && characterProfile.realm && characterProfile.name && characterProfile.region && (
-                <Link 
-                  to={`/character/${characterProfile.region.toUpperCase()}/${characterProfile.realm}/${characterProfile.name}/`} 
+                <Link
+                  to={`/character/${characterProfile.region.toUpperCase()}/${characterProfile.realm}/${characterProfile.name}/`}
                   data-tip={`View ${characterProfile.realm} - ${characterProfile.name}'s most recent reports`}
                   className="btn"
                   style={{ fontSize: 24 }}
@@ -304,17 +304,17 @@ class Results extends React.PureComponent {
           </div>
         </div>
 
-        {!premium && (
-          <div className="text-center" style={{ marginTop: 40, marginBottom: -40 }}>
-            <Ad format="leaderboard" />
+        {premium === false && (
+          <div className="text-center" style={{ marginTop: 40 }}>
+            <Ad />
           </div>
         )}
 
         {this.renderStatistics(results.statistics)}
 
-        {!premium && (
-          <div className="text-center" style={{ marginTop: 40, marginBottom: -40 }}>
-            <Ad format="leaderboard" />
+        {premium === false && (
+          <div className="text-center" style={{ marginTop: 40 }}>
+            <Ad />
           </div>
         )}
 
@@ -327,6 +327,12 @@ class Results extends React.PureComponent {
           selected={selectedDetailsTab}
           makeTabUrl={makeTabUrl}
         />
+
+        {premium === false && (
+          <div className="text-center" style={{ marginTop: 40 }}>
+            <Ad />
+          </div>
+        )}
       </div>
     );
   }

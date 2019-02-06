@@ -1,11 +1,11 @@
-// import Background from './images/backgrounds/FridaIronbellows.jpg';
-import Headshot from './images/headshots/JadefireMastersGrimfangAndFirecaller.jpg';
+import Background from './images/backgrounds/JadefireMastersA.jpg';
+import Headshot from './images/headshots/JadefireMastersA.png';
 
 // aka Jadefire Masters (A)
 export default {
   id: 2285,
   name: 'Jadefire Masters - Grimfang and Firecaller', // Alliance
-  // TODO: background: Background,
+  background: Background,
   headshot: Headshot,
   icon: 'achievement_boss_zuldazar_grimfang_anathos',
   fight: {
@@ -14,5 +14,6 @@ export default {
       physical: [],
       magical: [],
     },
+    resultsWarning: 'Logs recorded for this fight contain many issues that may make analysis inaccurate. Please consider analyzing a different fight.',
   },
 };

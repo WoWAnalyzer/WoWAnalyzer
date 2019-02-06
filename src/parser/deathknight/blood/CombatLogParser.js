@@ -45,15 +45,11 @@ import Ossuary from './modules/talents/Ossuary';
 import RuneStrike from './modules/talents/RuneStrike';
 import Consumption from './modules/talents/Consumption';
 
-// Items
-import SkullflowersHaemostasis from './modules/items/SkullflowersHaemostasis';
-import ShacklesofBryndaor from './modules/items/ShacklesofBryndaor';
-import SoulflayersCorruption from './modules/items/SoulflayersCorruption';
-
 // Azerite Traits
 import BonesOfTheDamned from './modules/spells/azeritetraits/BonesOfTheDamned';
 import BoneSpikeGraveyard from '../shared/spells/azeritetraits/BoneSpikeGraveyard';
 import EternalRuneWeapon from './modules/spells/azeritetraits/EternalRuneWeapon';
+import BloodyRuneblade from './modules/spells/azeritetraits/BloodyRuneblade';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -107,15 +103,11 @@ class CombatLogParser extends CoreCombatLogParser {
     runeStrike: RuneStrike,
     consumption: Consumption,
 
-    // Items:
-    skullflowersHaemostasis: SkullflowersHaemostasis,
-    shacklesofBryndaor:ShacklesofBryndaor,
-    soulflayersCorruption:SoulflayersCorruption,
-
     // Azerite Traits
     bonesOfTheDamned: BonesOfTheDamned,
     boneSpikeGraveyard: BoneSpikeGraveyard,
     eternalRuneWeapon: EternalRuneWeapon,
+    bloodyRuneblade: BloodyRuneblade,
   };
 }
 

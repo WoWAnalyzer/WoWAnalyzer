@@ -4,6 +4,16 @@ import { Yajinni, blazyb, fel1ne, Qbz } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2019-02-02'),
+    changes: 'Int gain from extra rejuvenation duration from Autumn Leaves is added.',
+    contributors: [blazyb],
+  },
+  {
+    date: new Date('2019-02-02'),
+    changes: 'Fixed a minor bug with rampanth growth module.',
+    contributors: [blazyb],
+  },
+  {
     date: new Date('2019-01-14'),
     changes: 'Updated Lively spirit module to include the extra mana gained',
     contributors: [blazyb],
