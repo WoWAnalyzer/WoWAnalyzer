@@ -58,28 +58,6 @@ class ImmolationAura extends Analyzer{
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<> Be mindful of your fury levels and spend it before capping.</>)
-          .icon(SPELLS.DEMON_BLADES_TALENT.icon)
-          .actual(`${formatPercentage(actual)}% fury wasted`)
-          .recommended(`0% is recommended.`);
-      });
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.furyWaste / this.furyGain,
-      isGreaterThan: {
-        minor: 0.03,
-        average: 0.07,
-        major: 0.1,
-      },
-      style: 'percentage',
-    };
-  }
-
-  suggestions(when) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<> Be mindful of your fury levels and spend it before capping.</>)
           .icon(SPELLS.IMMOLATION_AURA_TALENT.icon)
           .actual(`${formatPercentage(actual)}% fury wasted`)
           .recommended(`0% is recommended.`);
