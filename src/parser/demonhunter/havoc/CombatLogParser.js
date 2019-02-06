@@ -18,7 +18,7 @@ import Felblade from './modules/talents/Felblade';
 import DemonicAppetite from './modules/talents/DemonicAppetite';
 import BlindFury from './modules/talents/BlindFury';
 import DemonBlades from './modules/talents/DemonBlades';
-
+import ImmolationAura from './modules/talents/ImmolationAura';
 
 //Resources
 import FuryDetails from './modules/resourcetracker/FuryDetails';
@@ -52,6 +52,7 @@ class CombatLogParser extends CoreCombatLogParser {
     demonicAppetite: DemonicAppetite,
     blindFury: BlindFury,
     demonBlades: DemonBlades,
+    immolationAura: ImmolationAura,
 
     //Resources
     furyTracker: FuryTracker,

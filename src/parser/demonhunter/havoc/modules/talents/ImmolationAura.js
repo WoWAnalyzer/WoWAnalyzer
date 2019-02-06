@@ -7,9 +7,12 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatThousands, formatPercentage } from 'common/format';
 
 /**
- * Example Report: https://www.warcraftlogs.com/reports/4GR2pwAYW8KtgFJn/#fight=6&source=18
+ * Example Report:
  */
-class DemonBlades extends Analyzer{
+
+const IMMOLATION_AURA = [SPELLS.IMMOLATION_AURA_FIRST_STRIKE_DPS, SPELLS.IMMOLATION_AURA_BUFF_DPS];
+
+class ImmolationAura extends Analyzer{
 
   effectiveFuryGain = 0;
   furyGain = 0;
@@ -18,12 +21,12 @@ class DemonBlades extends Analyzer{
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.DEMON_BLADES_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.IMMOLATION_AURA_TALENT.id);
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DEMON_BLADES_FURY), this.onEnergizeEvent);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DEMON_BLADES_FURY), this.onDamageEvent);
+    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.IMMOLATION_AURA_BUFF_DPS), this.onEnergizeEvent);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(IMMOLATION_AURA), this.onDamageEvent);
   }
 
   onEnergizeEvent(event) {
@@ -61,11 +64,33 @@ class DemonBlades extends Analyzer{
       });
   }
 
+  get suggestionThresholds() {
+    return {
+      actual: this.furyWaste / this.furyGain,
+      isGreaterThan: {
+        minor: 0.03,
+        average: 0.07,
+        major: 0.1,
+      },
+      style: 'percentage',
+    };
+  }
+
+  suggestions(when) {
+    when(this.suggestionThresholds)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<> Be mindful of your fury levels and spend it before capping.</>)
+          .icon(SPELLS.IMMOLATION_AURA_TALENT.icon)
+          .actual(`${formatPercentage(actual)}% fury wasted`)
+          .recommended(`0% is recommended.`);
+      });
+  }
+
   statistic(){
     this.effectiveFuryGain = this.furyGain - this.furyWaste;
     return (
       <TalentStatisticBox
-        talent={SPELLS.DEMON_BLADES_TALENT.id}
+        talent={SPELLS.IMMOLATION_AURA_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
         value={(<>{this.furyPerMin} fury per min <br />
                 {this.owner.formatItemDamageDone(this.damage)}</>)}
@@ -79,4 +104,4 @@ class DemonBlades extends Analyzer{
     );
   }
 }
-export default DemonBlades;
+export default ImmolationAura;
