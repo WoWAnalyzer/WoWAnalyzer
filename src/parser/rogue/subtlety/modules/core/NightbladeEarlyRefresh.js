@@ -6,15 +6,6 @@ import suggest from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesSu
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 
-const DOTS = [
-  {
-    name: 'Nightblade',
-    debuffId: SPELLS.NIGHTBLADE.id,
-    castId: SPELLS.NIGHTBLADE.id,
-    duration: 18000,
-  },
-];
-
 const MAX_SYMBOLS_COOLDOWN = 5000;
 const MINOR_THRESHOLD = 0.95;
 const AVERAGE_THRESHOLD = 0.9;
@@ -26,7 +17,14 @@ class NightbladeEarlyRefresh extends EarlyDotRefreshesCore {
     spellUsable: SpellUsable,
   };
 
-  static dots = DOTS;
+  static dots = [
+    {
+      name: 'Nightblade',
+      debuffId: SPELLS.NIGHTBLADE.id,
+      castId: SPELLS.NIGHTBLADE.id,
+      duration: 18000,
+    },
+  ];
   
   lastCastGoodCdStatus = false;
   afterLastCastSet(event) {    
@@ -40,13 +38,16 @@ class NightbladeEarlyRefresh extends EarlyDotRefreshesCore {
         this.lastCastGoodCdStatus = false;
       }
     }
-    //This is questionable, when executing the rotation properly Symbols should never be on cooldown.
-    //The only reasonable explanation for symbols being off cooldown is saving for burst.
-    //In this case, we also may want to refresh Nightblade for this burst.
-    //So putting an error here would be like double punishment for legitimate play.
-    this.lastCastGoodCdStatus = true;
+    else{
+      //This is questionable, when executing the rotation properly Symbols should never be on cooldown.
+      //The only reasonable explanation for symbols being off cooldown is saving for burst.
+      //In this case, we also may want to refresh Nightblade for this burst.
+      //So putting an error here would be like double punishment for legitimate play.
+      this.lastCastGoodCdStatus = true;
+    }
   }
 
+  nextDuration = 0;
   // Checks the status of the last cast and marks it accordingly.
   getLastBadCastText(event, dot) {    
     if (this.lastCastGoodCdStatus) {
@@ -62,14 +63,18 @@ class NightbladeEarlyRefresh extends EarlyDotRefreshesCore {
     }
 
     //Update duration.
-    DOTS[0].duration = (comboPointsSpent * 2 + 6) * 1000;
+    this.getDot(SPELLS.NIGHTBLADE.id).duration = (comboPointsSpent * 2 + 6) * 1000;
+  }
+
+  getDuration() {
+    return this.nextDuration;
   }
 
   get suggestionThresholdsNightblade() {
     return {
       spell: SPELLS.NIGHTBLADE,
-      count: this.badCasts[DOTS[0].castId],
-      actual: this.badCastsPercent(DOTS[0].castId),
+      count: this.badCasts[SPELLS.NIGHTBLADE.id],
+      actual: this.badCastsPercent(SPELLS.NIGHTBLADE.id),
       isGreaterThan: {
         minor: 1 - MINOR_THRESHOLD,
         average: 1 - AVERAGE_THRESHOLD,
@@ -82,7 +87,7 @@ class NightbladeEarlyRefresh extends EarlyDotRefreshesCore {
   get suggestionThresholdsNightbladeEfficiency() {
     return {
       spell: SPELLS.NIGHTBLADE,
-      actual: 1 - this.badCastsPercent(DOTS[0].castId),
+      actual: 1 - this.badCastsPercent(SPELLS.NIGHTBLADE.id),
       isLessThan: {
         minor: MINOR_THRESHOLD,
         average: AVERAGE_THRESHOLD,

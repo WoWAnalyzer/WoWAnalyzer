@@ -14,7 +14,7 @@ import AlwaysBeCasting from '../AlwaysBeCasting';
 import CastsInShadowDance from '../../core/CastsInShadowDance';
 import CastsInStealth from '../../core/CastsInStealth';
 import NightbladeDuringSymbols from '../../core/NightbladeDuringSymbols';
-import NightbladeEarlyRefresh from '../..//core/NightbladeEarlyRefresh';
+import NightbladeEarlyRefresh from '../../core/NightbladeEarlyRefresh';
 import NightbladeUptime from '../../core/NightbladeUptime';
 
 //Talents
