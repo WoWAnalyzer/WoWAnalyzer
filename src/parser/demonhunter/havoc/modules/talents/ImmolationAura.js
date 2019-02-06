@@ -7,7 +7,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatThousands, formatPercentage } from 'common/format';
 
 /**
- * Example Report:
+ * Example Report: https://www.warcraftlogs.com/reports/tYjD6fp9cJ7nbAkm/#fight=7&source=12
  */
 
 const IMMOLATION_AURA = [SPELLS.IMMOLATION_AURA_FIRST_STRIKE_DPS, SPELLS.IMMOLATION_AURA_BUFF_DPS];
