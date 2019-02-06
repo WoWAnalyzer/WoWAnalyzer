@@ -7,7 +7,12 @@ class Ad extends React.PureComponent {
   };
 
   componentDidMount() {
-    (window.adsbygoogle = window.adsbygoogle || []).push({});
+    try {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (err) {
+      // "adsbygoogle.push() error: No slot size for availableWidth=0" error that I can't explain
+      console.error(err);
+    }
   }
 
   render() {
