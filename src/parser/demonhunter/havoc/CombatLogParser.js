@@ -17,6 +17,8 @@ import Nemesis from './modules/spells/Nemesis';
 import Felblade from './modules/talents/Felblade';
 import DemonicAppetite from './modules/talents/DemonicAppetite';
 import BlindFury from './modules/talents/BlindFury';
+import DemonBlades from './modules/talents/DemonBlades';
+import ImmolationAura from './modules/talents/ImmolationAura';
 
 import TrailofRuin from './modules/talents/TrailofRuin';
 import FelBarrage from './modules/talents/FelBarrage';
@@ -53,6 +55,8 @@ class CombatLogParser extends CoreCombatLogParser {
     felblade: Felblade,
     demonicAppetite: DemonicAppetite,
     blindFury: BlindFury,
+    demonBlades: DemonBlades,
+    immolationAura: ImmolationAura,
     trailofRuin: TrailofRuin,
     felBarrage: FelBarrage,
     felMastery: FelMastery,
