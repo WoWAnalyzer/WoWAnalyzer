@@ -70,28 +70,34 @@ class TreacherousCovenant extends Analyzer {
     this._buffUptime += event.timestamp - this._buffApplied;
   }
 
+  get buffUptime() {
+    // This is returning the wrong value which is greatly increasing the uptime. I'm not sure why, but I want to get a quick patch out as this is a very popular trait.
+    //return this.selectedCombatant.getBuffUptime(SPELLS.TREACHEROUS_COVENANT_BUFF.id) / this.owner.fightDuration;
+    return this._buffUptime / this.owner.fightDuration;
+  }
+
+  _debuffUptime = 0;
+  _debuffApplied = 0;
   _applyDebuff(event) {
     this.debuffActive = true;
+    this._debuffApplied = event.timestamp;
   }
 
   _removeDebuff(event) {
     this.debuffActive = false;
+    this._debuffUptime += event.timestamp - this._debuffApplied;
+  }
+
+  get debuffUptime() {
+    // This is returning the *correct* value, but I don't want to have two different ways of calculating these.
+    // return this.selectedCombatant.getBuffUptime(SPELLS.TREACHEROUS_COVENANT_DEBUFF.id) / this.owner.fightDuration;
+    return this._debuffUptime / this.owner.fightDuration;
   }
 
   _takeDamage(event) {
     if (this.debuffActive) {
       this.extraDamageTaken += (event.amount || 0) * DAMAGE_MODIFIER;
     }
-  }
-
-  get debuffUptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.TREACHEROUS_COVENANT_DEBUFF.id) / this.owner.fightDuration;
-  }
-
-  get buffUptime() {
-    // This is returning the wrong value which is greatly increasing the uptime. I'm not sure why, but I want to get a quick patch out as this is a very popular trait.
-    //return this.selectedCombatant.getBuffUptime(SPELLS.TREACHEROUS_COVENANT_BUFF.id) / this.owner.fightDuration;
-    return this._buffUptime / this.owner.fightDuration;
   }
 
   get averageStatModifier() {
