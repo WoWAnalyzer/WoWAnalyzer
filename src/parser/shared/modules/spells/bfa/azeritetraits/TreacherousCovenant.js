@@ -46,6 +46,9 @@ class TreacherousCovenant extends Analyzer {
     const { stat } = treacherousCovenantStat(this.selectedCombatant.traitsBySpellId[SPELLS.TREACHEROUS_COVENANT.id]);
     this.statModifier = stat;
 
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.TREACHEROUS_COVENANT_BUFF), this._applyBuff);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.TREACHEROUS_COVENANT_BUFF), this._removeBuff);
+
     this.addEventListener(Events.applydebuff.to(SELECTED_PLAYER).spell(SPELLS.TREACHEROUS_COVENANT_DEBUFF), this._applyDebuff);
     this.addEventListener(Events.removedebuff.to(SELECTED_PLAYER).spell(SPELLS.TREACHEROUS_COVENANT_DEBUFF), this._removeDebuff);
 
@@ -56,6 +59,15 @@ class TreacherousCovenant extends Analyzer {
       intellect: this.statModifier,
       agility: this.statModifier,
     });
+  }
+
+  _buffUptime = 0;
+  _buffApplied = 0;
+  _applyBuff(event) {
+    this._buffApplied = event.timestamp;
+  }
+  _removeBuff(event) {
+    this._buffUptime += event.timestamp - this._buffApplied;
   }
 
   _applyDebuff(event) {
@@ -77,10 +89,12 @@ class TreacherousCovenant extends Analyzer {
   }
 
   get buffUptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.TREACHEROUS_COVENANT_BUFF.id) / this.owner.fightDuration;
+    // This is returning the wrong value which is greatly increasing the uptime. I'm not sure why, but I want to get a quick patch out as this is a very popular trait.
+    //return this.selectedCombatant.getBuffUptime(SPELLS.TREACHEROUS_COVENANT_BUFF.id) / this.owner.fightDuration;
+    return this._buffUptime / this.owner.fightDuration;
   }
 
-  get averageStatModifier(){
+  get averageStatModifier() {
     return this.buffUptime * this.statModifier;
   }
 
