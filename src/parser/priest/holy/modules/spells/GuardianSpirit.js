@@ -9,12 +9,21 @@ import LazyLoadStatisticBox from 'interface/others/LazyLoadStatisticBox';
 
 import Analyzer from 'parser/core/Analyzer';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 const DIVINE_HYMN_HEALING_INCREASE = 0.6;
 
 class GuardianSpirit extends Analyzer {
+  static dependencies = {
+    abilityTracker: AbilityTracker,
+  };
+
   // This is an approximation. See the reasoning below.
   totalHealingFromGSBuff = 0;
+
+  get totalGSCasts() {
+    return this.abilityTracker.getAbility(SPELLS.GUARDIAN_SPIRIT.id).casts;
+  }
 
   load() {
     return fetchWcl(`report/tables/healing/${this.owner.report.code}`, {
@@ -33,6 +42,7 @@ class GuardianSpirit extends Analyzer {
       });
   }
 
+
   statistic() {
     return (
       <LazyLoadStatisticBox
@@ -43,7 +53,7 @@ class GuardianSpirit extends Analyzer {
         )}
         label="Guardian Spirit Buff Contribution"
         tooltip={
-          `The Guardian Spirit Buff contributed ${formatNumber(this.totalHealingFromGSBuff)} healing. This includes healing from other healers.<br/>
+          `You casted Guardian Spirit ${this.totalGSCasts} times, and it contributed ${formatNumber(this.totalHealingFromGSBuff)} healing. This includes healing from other healers.<br/>
           NOTE: This metric uses an approximation to calculate contribution from the buff due to technical limitations.`
         }
       />
