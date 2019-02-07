@@ -139,7 +139,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.FEL_RUSH,
+        spell: SPELLS.FEL_RUSH_CAST,
         category: combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id) ? Abilities.SPELL_CATEGORIES.ROTATIONAL : Abilities.SPELL_CATEGORIES.UTILITY,
         charges: 2,
         cooldown: 10,

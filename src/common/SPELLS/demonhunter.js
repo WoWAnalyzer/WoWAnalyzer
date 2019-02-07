@@ -282,8 +282,13 @@ export default {
     name: 'Death Sweep',
     icon: 'inv_glaive_1h_artifactaldrochi_d_02dual',
   },
-  FEL_RUSH: {
+  FEL_RUSH_CAST: {
     id: 195072,
+    name: 'Fel Rush',
+    icon: 'ability_demonhunter_felrush',
+  },
+  FEL_RUSH_DAMAGE: {
+    id: 192611,
     name: 'Fel Rush',
     icon: 'ability_demonhunter_felrush',
   },
