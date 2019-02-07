@@ -13,6 +13,11 @@ export default [
     contributors: [Yajinni],
   },
   {
+    date: new Date('2019-02-03'),
+    changes: <>Added stats and suggestions for level 99 talent row.</>,
+    contributors: [Yajinni],
+  },
+  {
     date: new Date('2018-08-05'),
     changes: <>Added <ItemLink id={ITEMS.SOUL_OF_THE_SLAYER.id} icon /> suggestions talents picks for BfA.</>,
     contributors: [Mamtooth],
