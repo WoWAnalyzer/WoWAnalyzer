@@ -14,6 +14,10 @@ import Checklist from './modules/features/Checklist/Module';
 
 import Momentum from './modules/spells/Momentum';
 import Nemesis from './modules/spells/Nemesis';
+import Felblade from './modules/talents/Felblade';
+import DemonicAppetite from './modules/talents/DemonicAppetite';
+import BlindFury from './modules/talents/BlindFury';
+
 import TrailofRuin from './modules/talents/TrailofRuin';
 import FelBarrage from './modules/talents/FelBarrage';
 
@@ -43,6 +47,11 @@ class CombatLogParser extends CoreCombatLogParser {
     // Spells
     momentum: Momentum,
     nemesis: Nemesis,
+
+    //Talents
+    felblade: Felblade,
+    demonicAppetite: DemonicAppetite,
+    blindFury: BlindFury,
 
     // Talents
     trailofRuin: TrailofRuin,

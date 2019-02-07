@@ -11,35 +11,18 @@ export default {
     name: 'Glide',
     icon: 'ability_demonhunter_glide',
   },
-
-  // Vengeance Demon Hunter
-
-  // Tier 20 Bonus:
-  VENG_DH_T20_2P_BONUS: {
-    id: 242228,
-    name: 'Vengeance Demon Hunter T20 2P bonus',
-    icon: 'ability_demonhunter_spectank',
+  CONSUME_SOUL: {
+    id: 228532,
+    name: 'Consume Soul',
+    icon: 'ability_warlock_improvedsoulleech',
   },
-  VENG_DH_T20_4P_BONUS: {
-    id: 242229,
-    name: 'Vengeance Demon Hunter T20 4P bonus',
-    icon: 'spell_warlock_soulburn',
-  },
-
-  // Tier 20 Bonus Buffs:
-  VENG_DH_T20_2P_BONUS_BUFF: {
-    id: 246115,
-    name: 'Tormented',
-    icon: 'ability_demonhunter_vengefulretreat2',
-  },
-  VENG_DH_T20_4P_BONUS_BUFF: {
-    id: 242230,
-    name: 'Sigil of Versatility',
-    icon: 'spell_warlock_soulburn',
+  FELBLADE_PAIN_GENERATION: {
+    id: 213243,
+    name: 'Felblade',
+    icon: 'ability_demonhunter_felblade',
   },
 
   // Vengeance
-
   // Passive:
   DEMONIC_WARDS: {
     id: 207014,
@@ -386,11 +369,6 @@ export default {
     name: 'Chaos Nova',
     icon: 'spell_fire_felfirenova',
   },
-  DEMONIC_APPETITE_FURY: {
-    id: 210041,
-    name: 'Demonic Appetite',
-    icon: 'spell_misc_zandalari_council_soulswap',
-  },
   DEMON_BLADES_FURY: {
     id: 203796,
     name: 'Demon Blades',
@@ -466,7 +444,13 @@ export default {
     icon: 'inv_glaive_1h_artifactaldrochi_d_03dual',
   },
 
-  //Havoc Talents
+  // Havoc Talents
+  // Level 99
+  DEMONIC_APPETITE_FURY: { //Generates Fury for the Demonic Appetite talent
+    id: 210041,
+    name: 'Demonic Appetite',
+    icon: 'spell_misc_zandalari_council_soulswap',
+  },
   CHAOS_CLEAVE_DAMAGE: {
     id: 236237,
     name: 'Chaos Cleave',
@@ -533,11 +517,8 @@ export default {
     name: 'Spirit Bomb',
     icon: 'inv_icon_shadowcouncilorb_purple',
   },
-  FELBLADE_PAIN_GENERATION: {
-    id: 213243,
-    name: 'Felblade',
-    icon: 'ability_demonhunter_felblade',
-  },
+
+  //Might need to delete/clean up the below stuff. From previous expac.
 
   // Artifact Traits Vengence:
   SOUL_CARVER: {
@@ -685,5 +666,79 @@ export default {
     id: 201456,
     name: 'Chaos Vision',
     icon: 'ability_demonhunter_eyebeam',
+  },
+
+
+  // Tier 20 Bonus:
+  VENG_DH_T20_2P_BONUS: {
+    id: 242228,
+    name: 'Vengeance Demon Hunter T20 2P bonus',
+    icon: 'ability_demonhunter_spectank',
+  },
+  VENG_DH_T20_4P_BONUS: {
+    id: 242229,
+    name: 'Vengeance Demon Hunter T20 4P bonus',
+    icon: 'spell_warlock_soulburn',
+  },
+
+  // Tier 20 Bonus Buffs:
+  VENG_DH_T20_2P_BONUS_BUFF: {
+    id: 246115,
+    name: 'Tormented',
+    icon: 'ability_demonhunter_vengefulretreat2',
+  },
+  VENG_DH_T20_4P_BONUS_BUFF: {
+    id: 242230,
+    name: 'Sigil of Versatility',
+    icon: 'spell_warlock_soulburn',
+  },
+
+  //T21 Bonus
+  HAVOC_T21_2PC_BONUS: {
+    id: 251767,
+    name: 'Havoc T21 2PC Bonus',
+    icon: 'ability_demonhunter_eyebeam',
+  },
+  HAVOC_T21_4PC_BONUS: {
+    id: 251769,
+    name: 'Havoc T21 4PC Bonus',
+    icon: 'ability_demonhunter_eyebeam',
+  },
+  //T21 Buff
+  HAVOC_T21_4PC_BUFF: {
+    id: 252165,
+    name: 'Betrayer\'s Fury',
+    icon: 'ability_demonhunter_eyebeam',
+  },
+  // Legendary Buffs
+  ANGER_OF_THE_HALF_GIANTS_FURY: {
+    id: 208828,
+    name: 'Gigantic Anger',
+    icon: 'inv_60pvp_ring1a',
+  },
+  ANGER_OF_THE_HALF_GIANTS_BUFF: {
+    id: 208827,
+    name: 'Anger of the Half Giants',
+    icon: 'inv_60pvp_ring1a',
+  },
+  RADDONS_CASCADING_EYES: {
+    id: 215149,
+    name: 'Raddon\'s Cascading Eyes',
+    icon: 'inv_misc_bandana_01',
+  },
+  CHAOS_BLADES_DAMAGE_MH: {
+    id: 211796,
+    name: 'Chaos Blades',
+    icon: 'inv_glaive_1h_artifactaldrochi_d_03dual',
+  },
+  CHAOS_BLADES_DAMAGE_OH: {
+    id: 211797,
+    name: 'Chaos Blades',
+    icon: 'inv_glaive_1h_artifactaldrochi_d_03dual',
+  },
+  CHAOS_BLADES_BUFF: {
+    id: 247938,
+    name: 'Chaos Blades',
+    icon: 'inv_glaive_1h_artifactaldrochi_d_03dual',
   },
 };
