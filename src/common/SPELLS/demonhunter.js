@@ -211,23 +211,6 @@ export default {
   },
 
   // Havoc
-  //T21 Bonus
-  HAVOC_T21_2PC_BONUS: {
-    id: 251767,
-    name: 'Havoc T21 2PC Bonus',
-    icon: 'ability_demonhunter_eyebeam',
-  },
-  HAVOC_T21_4PC_BONUS: {
-    id: 251769,
-    name: 'Havoc T21 4PC Bonus',
-    icon: 'ability_demonhunter_eyebeam',
-  },
-  //T21 Buff
-  HAVOC_T21_4PC_BUFF: {
-    id: 252165,
-    name: 'Betrayer\'s Fury',
-    icon: 'ability_demonhunter_eyebeam',
-  },
   //spells
   IMMOLATION_AURA_FIRST_STRIKE_DPS: {
     id: 258921,
@@ -410,38 +393,6 @@ export default {
     id: 258926,
     name: 'Fel Barrage',
     icon: 'inv_felbarrage',
-  },
-
-  // Legendary Buffs
-  ANGER_OF_THE_HALF_GIANTS_FURY: {
-    id: 208828,
-    name: 'Gigantic Anger',
-    icon: 'inv_60pvp_ring1a',
-  },
-  ANGER_OF_THE_HALF_GIANTS_BUFF: {
-    id: 208827,
-    name: 'Anger of the Half Giants',
-    icon: 'inv_60pvp_ring1a',
-  },
-  RADDONS_CASCADING_EYES: {
-    id: 215149,
-    name: 'Raddon\'s Cascading Eyes',
-    icon: 'inv_misc_bandana_01',
-  },
-  CHAOS_BLADES_DAMAGE_MH: {
-    id: 211796,
-    name: 'Chaos Blades',
-    icon: 'inv_glaive_1h_artifactaldrochi_d_03dual',
-  },
-  CHAOS_BLADES_DAMAGE_OH: {
-    id: 211797,
-    name: 'Chaos Blades',
-    icon: 'inv_glaive_1h_artifactaldrochi_d_03dual',
-  },
-  CHAOS_BLADES_BUFF: {
-    id: 247938,
-    name: 'Chaos Blades',
-    icon: 'inv_glaive_1h_artifactaldrochi_d_03dual',
   },
 
   // Havoc Talents
