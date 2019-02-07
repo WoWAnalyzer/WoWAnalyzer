@@ -8,89 +8,7 @@ class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
     return [
-      {
-        spell: SPELLS.METAMORPHOSIS_HAVOC,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        buffSpellId: SPELLS.METAMORPHOSIS_HAVOC_BUFF.id,
-        cooldown: 240,
-        gcd: null, // Logs track the "landing" spell which is not on GCD
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-        },
-      },
-      {
-        spell: SPELLS.NEMESIS_TALENT,
-        enabled: combatant.hasTalent(SPELLS.NEMESIS_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 120,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-          extraSuggestion: 'This is your main damage increase buff. You should use it as much as you can to maximize your damage output.',
-        },
-      },
-      {
-        spell: SPELLS.FEL_ERUPTION_TALENT,
-        enabled: combatant.hasTalent(SPELLS.FEL_ERUPTION_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.FEL_BARRAGE_TALENT,
-        enabled: combatant.hasTalent(SPELLS.FEL_BARRAGE_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.85,
-          extraSuggestion: `This is a great AoE damage spell, but also does a great damage on single target. You should cast it as soon as it gets off cooldown. The only moment you can delay it's cast is if you already expect an add wave to maximize it's efficiency and damage output.`,
-        },
-      },
-      {
-        spell: SPELLS.FELBLADE_TALENT,
-        enabled: combatant.hasTalent(SPELLS.FELBLADE_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-         // Felblade cooldown can be reset by Shear or Demon Blades (when talented). But it's CD reset is not any event, so can't track if it resets or not.
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.85,
-          extraSuggestion: 'This is your main Fury filler spell. Try to always cast on cooldown, but beware to not waste the Fury generation it provides. So use it when you have 30 or more Fury missing. And also it can be used to charge to the desired target, making it very strong movement spell.',
-        },
-      },
-      {
-        spell: SPELLS.EYE_BEAM,
-        enabled: !combatant.hasTalent(SPELLS.DEMONIC_TALENT.id) && !combatant.hasBuff(SPELLS.HAVOC_T21_4PC_BONUS.id),
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-      },
-      //T21 Eye Beam
-      {
-        spell: SPELLS.EYE_BEAM,
-        enabled: combatant.hasTalent(SPELLS.DEMONIC_TALENT.id) || combatant.hasBuff(SPELLS.HAVOC_T21_4PC_BONUS.id),
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: .9,
-          extraSuggestion: <>With <SpellLink id={SPELLS.DEMONIC_TALENT.id} icon /> or <SpellLink id={SPELLS.HAVOC_T21_4PC_BONUS.id} icon /> you should be using <SpellLink id={SPELLS.EYE_BEAM.id} icon /> as much as possible to have high uptime on <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} icon /> and/or <SpellLink id={SPELLS.HAVOC_T21_4PC_BUFF.id} icon />.</>,
-        },
-      },
+      //Rotation Spells
       {
         spell: SPELLS.DEMONS_BITE,
         enabled: !combatant.hasTalent(SPELLS.DEMON_BLADES_TALENT.id),
@@ -107,7 +25,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.ANNIHILATION,
+        spell: SPELLS.ANNIHILATION, //During meta chaos strike becomes this.
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -115,18 +33,80 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BLADE_DANCE,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id) ? Abilities.SPELL_CATEGORIES.ROTATIONAL : Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
         cooldown: haste => 9 / (1 + haste),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id),
+          recommendedEfficiency: 0.85,
+          extraSuggestion: <>This should be part of your single target rotation due to the <SpellLink id={SPELLS.FIRST_BLOOD_TALENT} icon /> talent.</>,
+        },
+      },
+      {
+        spell: SPELLS.DEATH_SWEEP, //During meta blade dance becomes this.
+        category: combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id) ? Abilities.SPELL_CATEGORIES.ROTATIONAL : Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        cooldown: haste => 9 / (1 + haste),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id),
+          recommendedEfficiency: 0.85,
+          extraSuggestion: <>This should be part of your single target rotation due to the <SpellLink id={SPELLS.FIRST_BLOOD_TALENT} icon /> talent.</>,
+        },
+      },
+      {
+        spell: SPELLS.EYE_BEAM,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 30,
         gcd: {
           base: 1500,
         },
       },
       {
-        spell: SPELLS.DEATH_SWEEP,
+        spell: SPELLS.FELBLADE_TALENT,
+        enabled: combatant.hasTalent(SPELLS.FELBLADE_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 9 / (1 + haste),
+        // Felblade cooldown can be reset by Shear or Demon Blades (when talented). But it's CD reset is not any event, so can't track if it resets or not.
         gcd: {
           base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.85,
+          extraSuggestion: 'This is an important Fury generator spell. Try to always cast on cooldown, but beware to not waste the Fury generation it provides. And also it can be used to charge to the desired target, making it very strong movement spell.',
+        },
+      },
+      {
+        spell: SPELLS.IMMOLATION_AURA_TALENT,
+        // IMMOLATION_AURA_TALENT is the ID for cast and the buff. But damage is done from IMMOLATION_AURA_FIRST_STRIKE_DPS and IMMOLATION_AURA_BUFF_DPS
+        buffSpellId: SPELLS.IMMOLATION_AURA_TALENT.id,
+        enabled: combatant.hasTalent(SPELLS.IMMOLATION_AURA_TALENT.id),
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: haste => 30 / (1 + haste),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.85,
+          extraSuggestion: 'This is an important Fury generator spell. Try to always cast on cooldown, but beware to not waste the Fury generation it provides.',
+        },
+      },
+      {
+        spell: SPELLS.DARK_SLASH_TALENT,
+        enabled: combatant.hasTalent(SPELLS.DARK_SLASH_TALENT.id),
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 20,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.85,
+          extraSuggestion: <>Pool your fury before hand to maximizing casting <SpellLink id={SPELLS.CHAOS_STRIKE} icon /> / <SpellLink id={SPELLS.ANNIHILATION} icon /> during its buff window.</>,
         },
       },
       {
@@ -138,22 +118,137 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+
+      //Movement
       {
-        spell: SPELLS.FEL_RUSH_CAST,
+        spell: SPELLS.FEL_RUSH_CAST, //Becomes a rotational ability with the Momentum talent
         category: combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id) ? Abilities.SPELL_CATEGORIES.ROTATIONAL : Abilities.SPELL_CATEGORIES.UTILITY,
         charges: 2,
         cooldown: 10,
         gcd: {
           static: 250,
         },
+        castEfficiency: {
+          suggestion: combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id),
+          recommendedEfficiency: 0.85,
+          extraSuggestion: <>Use it to keep your <SpellLink id={SPELLS.MOMENTUM_TALENT} icon /> buff going.</>,
+        },
       },
       {
-        spell: SPELLS.VENGEFUL_RETREAT,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        spell: SPELLS.VENGEFUL_RETREAT, //Becomes a rotational ability with the Momentum talent
+        category: combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id) ? Abilities.SPELL_CATEGORIES.ROTATIONAL : Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id) ? 20 : 25,
         // Not actually on the GCD but blocks all spells during its animation for 1 second. The issue is you can follow up any ability on the GCD with Vengeful Retreat, so it can still cause overlap.
         gcd: null,
+        castEfficiency: {
+          suggestion: combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id),
+          recommendedEfficiency: 0.85,
+          extraSuggestion: <>Use it to generate fury due to the <SpellLink id={SPELLS.MOMENTUM_TALENT} icon /> talent.</>,
+        },
       },
+      {
+        spell: SPELLS.GLIDE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 1.5,
+        gcd: null,
+      },
+
+      // CC, interupts, and utility
+      {
+        spell: SPELLS.FEL_ERUPTION_TALENT,
+        enabled: combatant.hasTalent(SPELLS.FEL_ERUPTION_TALENT.id),
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 30,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.CHAOS_NOVA,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: combatant.hasTalent(SPELLS.UNLEASHED_POWER_TALENT.id) ? 40 : 60,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.DISRUPT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 15,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.CONSUME_MAGIC,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 10,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.TORMENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 8,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.IMPRISON,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 45,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.SPECTRAL_SIGHT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 30,
+        gcd: {
+          base: 1500,
+        },
+      },
+
+      // DPS Cooldowns 1+ min
+      {
+        spell: SPELLS.FEL_BARRAGE_TALENT,
+        enabled: combatant.hasTalent(SPELLS.FEL_BARRAGE_TALENT.id),
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 60,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.85,
+          extraSuggestion: `This is a great AoE damage spell, but also does a great damage on single target. You should cast it as soon as it gets off cooldown. The only moment you can delay it's cast is if you already expect an add wave to maximize it's efficiency and damage output.`,
+        },
+      },
+
+      // Big DPS Cooldowns 2+ min
+      {
+        spell: SPELLS.METAMORPHOSIS_HAVOC,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        buffSpellId: SPELLS.METAMORPHOSIS_HAVOC_BUFF.id,
+        cooldown: 240,
+        gcd: null, // Logs track the "landing" spell which is not on GCD
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.80, //4 minute cd. You want some leeway in when to burn it.
+        },
+      },
+      {
+        spell: SPELLS.NEMESIS_TALENT,
+        enabled: combatant.hasTalent(SPELLS.NEMESIS_TALENT.id),
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 120,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.95,
+          extraSuggestion: 'This is your main damage increase buff. You should use it as much as you can to maximize your damage output.',
+        },
+      },
+
+      // Defensives
       {
         spell: SPELLS.BLUR,
         buffSpellId: SPELLS.BLUR.id,
@@ -167,42 +262,11 @@ class Abilities extends CoreAbilities {
         cooldown: 180,
       },
       {
-        spell: SPELLS.CHAOS_NOVA,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: combatant.hasTalent(SPELLS.UNLEASHED_POWER_TALENT.id) ? 40 : 60,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: SPELLS.NETHERWALK_TALENT,
         enabled: combatant.hasTalent(SPELLS.NETHERWALK_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         cooldown: 120,
       },
-      {
-        spell: SPELLS.IMMOLATION_AURA_TALENT,
-        // IMMOLATION_AURA_TALENT is the ID for cast and the buff. But damage is done from IMMOLATION_AURA_FIRST_STRIKE_DPS and IMMOLATION_AURA_BUFF_DPS
-        buffSpellId: SPELLS.IMMOLATION_AURA_TALENT.id,
-        enabled: combatant.hasTalent(SPELLS.IMMOLATION_AURA_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 30 / (1 + haste),
-        gcd: {
-          base: 1500,
-        },
-      },
-	    {
-        spell: SPELLS.DISRUPT,
-		    category: Abilities.SPELL_CATEGORIES.UTILITY,
-		    cooldown: 15,
-		    gcd: null,
-      },
-      {
-        spell: SPELLS.GLIDE,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 1.5,
-        gcd: null,
-	    },
     ];
   }
 }
