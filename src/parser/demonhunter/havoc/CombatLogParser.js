@@ -53,8 +53,6 @@ class CombatLogParser extends CoreCombatLogParser {
     felblade: Felblade,
     demonicAppetite: DemonicAppetite,
     blindFury: BlindFury,
-
-    // Talents
     trailofRuin: TrailofRuin,
     felBarrage: FelBarrage,
     felMastery: FelMastery,
