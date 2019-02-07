@@ -46,6 +46,7 @@ import TestOfMight from './modules/spells/azeritetraits/TestOfMight';
 import CrushingAssault from './modules/spells/azeritetraits/CrushingAssault';
 import StrikingTheAnvil from './modules/spells/azeritetraits/StrikingTheAnvil';
 import LordOfWar from './modules/spells/azeritetraits/LordOfWar';
+import SweepingStrikes from './modules/core/SweepingStrikes';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -72,6 +73,7 @@ class CombatLogParser extends CoreCombatLogParser {
     tacticianProc: TacticianProc,
     overpower: Overpower,
     slam: Slam,
+    sweepingStrikes: SweepingStrikes,
 
     // Execute range
     executeRange: ExecuteRange,
