@@ -4,7 +4,7 @@ import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStat
 import React from 'react';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 
-const GUARDIAN_SPIRIT_HEALING_MULTIPLIER = .4;
+const GUARDIAN_SPIRIT_HEALING_MULTIPLIER = .6;
 
 // Example Log: /report/mFarpncVW9ALwTq4/7-Mythic+Zek'voz+-+Kill+(8:52)/14-Praydien
 class GuardianAngel extends Analyzer {
@@ -57,15 +57,13 @@ class GuardianAngel extends Analyzer {
       this.guardianSpiritHealing += event.amount || 0;
     }
 
-    if (this.spiritedTarget != null) {
-      // TODO: This is not accurate, but it's close enough for now.
-      this.guardianSpiritBonusHealingFromSelf += event.amount * GUARDIAN_SPIRIT_HEALING_MULTIPLIER;
+    if (this.spiritedTarget != null && this.spiritedTarget === event.targetID) {
+      this.guardianSpiritBonusHealingFromSelf += (event.amount * (1 - GUARDIAN_SPIRIT_HEALING_MULTIPLIER));
     }
   }
 
   statistic() {
     return (
-
       <TalentStatisticBox
         talent={SPELLS.GUARDIAN_ANGEL_TALENT.id}
         value={(
