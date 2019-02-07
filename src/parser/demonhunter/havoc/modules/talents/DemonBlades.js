@@ -67,8 +67,10 @@ class DemonBlades extends Analyzer{
       <TalentStatisticBox
         talent={SPELLS.DEMON_BLADES_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={(<>{this.furyPerMin} fury per min <br />
-                {this.owner.formatItemDamageDone(this.damage)}</>)}
+        value={(<>
+                {this.furyPerMin} fury per min <br />
+                {this.owner.formatItemDamageDone(this.damage)}
+              </>)}
         tooltip={`
           ${formatThousands(this.damage)} Total damage<br />
           ${this.effectiveFuryGain} Effective fury gained<br />
