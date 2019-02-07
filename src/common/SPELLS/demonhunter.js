@@ -282,8 +282,13 @@ export default {
     name: 'Death Sweep',
     icon: 'inv_glaive_1h_artifactaldrochi_d_02dual',
   },
-  FEL_RUSH: {
+  FEL_RUSH_CAST: {
     id: 195072,
+    name: 'Fel Rush',
+    icon: 'ability_demonhunter_felrush',
+  },
+  FEL_RUSH_DAMAGE: {
+    id: 192611,
     name: 'Fel Rush',
     icon: 'ability_demonhunter_felrush',
   },
@@ -376,6 +381,16 @@ export default {
     id: 234244,
     name: 'Fel Mastery',
     icon: 'ability_skyreach_piercing_rush',
+  },
+  TRAIL_OF_RUIN_DAMAGE: {
+    id: 258883,
+    name: 'Trail of Ruin',
+    icon: 'ability_demonhunter_bladedance',
+  },
+  FEL_BARRAGE_DAMAGE: {
+    id: 258926,
+    name: 'Fel Barrage',
+    icon: 'inv_felbarrage',
   },
 
   // Havoc Talents
