@@ -3,11 +3,23 @@ import React from 'react';
 import { Mamtooth, Yajinni } from 'CONTRIBUTORS';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-02-07'),
+    changes: <>Added stats for <SpellLink id={SPELLS.FEL_BARRAGE_TALENT.id} />, <SpellLink id={SPELLS.TRAIL_OF_RUIN_TALENT.id} />, and <SpellLink id={SPELLS.FEL_MASTERY_TALENT.id} /> talents.</>,
+    contributors: [Yajinni],
+  },
+  {
+    date: new Date('2019-02-06'),
+    changes: <>Added stats and suggestions for <SpellLink id={SPELLS.IMMOLATION_AURA_TALENT.id} /> and <SpellLink id={SPELLS.DEMON_BLADES_TALENT.id} />.</>,
+    contributors: [Yajinni],
+  },
+  {
     date: new Date('2019-02-03'),
-    changes: <>Added stats and suggestions for level 99 talent row.</>,
+    changes: <>Added stats and suggestions for <SpellLink id={SPELLS.BLIND_FURY_TALENT.id} />, <SpellLink id={SPELLS.DEMONIC_APPETITE_TALENT.id} />, and <SpellLink id={SPELLS.FELBLADE_TALENT.id} /> talents.</>,
     contributors: [Yajinni],
   },
   {
