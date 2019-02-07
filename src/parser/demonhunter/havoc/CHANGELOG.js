@@ -1,10 +1,17 @@
 import React from 'react';
 
-import { Mamtooth } from 'CONTRIBUTORS';
+import { Mamtooth, Yajinni } from 'CONTRIBUTORS';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2019-02-06'),
+    changes: <>Added stats and suggestions for <SpellLink id={SPELLS.IMMOLATION_AURA_TALENT.id} /> and <SpellLink id={SPELLS.DEMON_BLADES_TALENT.id} />.</>,
+    contributors: [Yajinni],
+  },
   {
     date: new Date('2018-08-05'),
     changes: <>Added <ItemLink id={ITEMS.SOUL_OF_THE_SLAYER.id} icon /> suggestions talents picks for BfA.</>,
