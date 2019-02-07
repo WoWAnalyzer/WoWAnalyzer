@@ -377,18 +377,11 @@ export default {
     name: 'Fel Mastery',
     icon: 'ability_skyreach_piercing_rush',
   },
-  CONSUME_SOUL: {
-    id: 228532,
-    name: 'Consume Soul',
-    icon: 'ability_warlock_improvedsoulleech',
-  },
-
   TRAIL_OF_RUIN_DAMAGE: {
     id: 258883,
     name: 'Trail of Ruin',
     icon: 'ability_demonhunter_bladedance',
   },
-
   FEL_BARRAGE_DAMAGE: {
     id: 258926,
     name: 'Fel Barrage',
