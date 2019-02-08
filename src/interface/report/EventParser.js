@@ -3,10 +3,8 @@ import PropTypes from 'prop-types';
 import ExtendableError from 'es6-error';
 
 import sleep from 'common/sleep';
-import EventEmitter from 'parser/core/modules/EventEmitter';
-
-import './EventParser.scss';
 import { captureException } from 'common/errorLogger';
+import EventEmitter from 'parser/core/modules/EventEmitter';
 
 const BENCHMARK = false;
 // Picking a correct batch duration is hard. I tried various durations to get the batch sizes to 1 frame, but that results in a lot of wasted time waiting for the next frame. 30ms (33 fps) as well causes a lot of wasted time. 60ms (16fps) seem to have really low wasted time while not blocking the UI anymore than a user might expect.
