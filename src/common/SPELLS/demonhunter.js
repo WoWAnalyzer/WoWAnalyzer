@@ -209,6 +209,16 @@ export default {
     name: 'Consume Soul',
     icon: 'ability_warlock_improvedsoulleech',
   },
+  FRAILTY_SPIRIT_BOMB_DEBUFF: {
+    id: 247456,
+    name: 'Frailty',
+    icon: 'inv_icon_shadowcouncilorb_purple',
+  },
+  SPIRIT_BOMB_DAMAGE: {
+    id: 247455,
+    name: 'Spirit Bomb',
+    icon: 'inv_icon_shadowcouncilorb_purple',
+  },
 
   // Havoc
   //spells
@@ -394,7 +404,6 @@ export default {
   },
 
   // Havoc Talents
-  // Level 99
   DEMONIC_APPETITE_FURY: { //Generates Fury for the Demonic Appetite talent
     id: 210041,
     name: 'Demonic Appetite',
@@ -455,17 +464,12 @@ export default {
     name: 'Nemesis',
     icon: 'spell_holy_senseundead',
   },
-  // Vengeance Talents
-  FRAILTY_SPIRIT_BOMB_DEBUFF: {
-    id: 247456,
-    name: 'Frailty',
-    icon: 'inv_icon_shadowcouncilorb_purple',
+  MOMENTUM_BUFF: {
+    id: 208628,
+    name: 'Momentum',
+    icon: 'ability_foundryraid_demolition',
   },
-  SPIRIT_BOMB_DAMAGE: {
-    id: 247455,
-    name: 'Spirit Bomb',
-    icon: 'inv_icon_shadowcouncilorb_purple',
-  },
+
 
   //Might need to delete/clean up the below stuff. From previous expac.
 
