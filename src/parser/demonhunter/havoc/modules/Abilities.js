@@ -3,6 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import CoreAbilities from 'parser/core/modules/Abilities';
+import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -41,6 +42,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id),
           recommendedEfficiency: 0.85,
+          maxCasts: cooldown => calculateMaxCasts(cooldown, this.owner.fightDuration - combatant.getBuffUptime(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id)),
           extraSuggestion: <>This should be part of your single target rotation due to the <SpellLink id={SPELLS.FIRST_BLOOD_TALENT.id} icon /> talent.</>,
         },
       },
@@ -54,6 +56,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id),
           recommendedEfficiency: 0.85,
+          maxCasts: cooldown => calculateMaxCasts(cooldown, combatant.getBuffUptime(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id)),
           extraSuggestion: <>This should be part of your single target rotation due to the <SpellLink id={SPELLS.FIRST_BLOOD_TALENT.id} icon /> talent.</>,
         },
       },
