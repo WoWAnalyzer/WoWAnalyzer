@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Trans, t } from '@lingui/macro';
 
+import { findByBossId } from 'raids';
 import lazyLoadComponent from 'common/lazyLoadComponent';
 import retryingPromise from 'common/retryingPromise';
 import makeWclUrl from 'common/makeWclUrl';
@@ -16,7 +17,7 @@ import ReadableList from 'interface/common/ReadableList';
 import Contributor from 'interface/contributor/Button';
 import WipefestLogo from 'interface/images/Wipefest-logo.png';
 import { i18n } from 'interface/RootLocalizationProvider';
-import Combatants from 'parser/shared/modules/Combatants';
+import LoadingBar from 'interface/layout/NavigationBar/LoadingBar';
 import Checklist from 'parser/shared/modules/features/Checklist/Module';
 import CharacterTab from 'parser/shared/modules/features/CharacterTab';
 import EncounterPanel from 'parser/shared/modules/features/EncounterPanel';
@@ -27,8 +28,6 @@ import About from './About';
 import Overview from './Overview';
 import Statistics from './Statistics';
 import './Results.scss';
-import { findByBossId } from 'raids';
-import LoadingBar from 'interface/layout/NavigationBar/LoadingBar';
 
 // Gone for now, reintroduce if we can make it useful
 // const DevelopmentTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'DevelopmentTab' */ 'interface/others/DevelopmentTab').then(exports => exports.default)));
@@ -59,7 +58,11 @@ class Results extends React.PureComponent {
     player: PropTypes.shape({
       name: PropTypes.string.isRequired,
     }).isRequired,
-    isLoading: PropTypes.bool,
+    isLoadingParser: PropTypes.bool,
+    isLoadingEvents: PropTypes.bool,
+    isLoadingBossPhaseEvents: PropTypes.bool,
+    isLoadingCharacterProfile: PropTypes.bool,
+    isParsingEvents: PropTypes.bool,
     progress: PropTypes.number,
     premium: PropTypes.bool,
   };
@@ -91,6 +94,13 @@ class Results extends React.PureComponent {
       return boss.fight.resultsWarning;
     }
     return null;
+  }
+  get isLoading() {
+    return this.props.isLoadingParser
+      || this.props.isLoadingEvents
+      || this.props.isLoadingBossPhaseEvents
+      || this.props.isLoadingCharacterProfile
+      || this.props.isParsingEvents;
   }
 
   renderContent(selectedTab, results) {
@@ -149,12 +159,12 @@ class Results extends React.PureComponent {
     }
   }
   render() {
-    const { parser, fight, player, characterProfile, makeTabUrl, selectedTab, premium, isLoading, progress } = this.props;
+    const { parser, fight, player, characterProfile, makeTabUrl, selectedTab, premium, progress } = this.props;
     const config = this.context.config;
 
     const boss = findByBossId(fight.boss);
 
-    const results = !isLoading && parser.generateResults({
+    const results = !this.isLoading && parser.generateResults({
       i18n, // TODO: Remove and use singleton
       adjustForDowntime: this.state.adjustForDowntime,
     });
@@ -182,13 +192,29 @@ class Results extends React.PureComponent {
           </div>
         )}
 
-        {isLoading && (
+        {this.isLoading && (
           <div className="container" style={{ marginBottom: 40 }}>
             <LoadingBar progress={progress} />
+
+            <div>
+              Loading spec analyzer...........{!this.props.isLoadingParser && 'OK'}
+            </div>
+            <div>
+              Loading events for player.......{!this.props.isLoadingEvents && 'OK'}
+            </div>
+            <div>
+              Loading phase events............{!this.props.isLoadingBossPhaseEvents && 'OK'}
+            </div>
+            <div>
+              Loading character info..........{!this.props.isLoadingCharacterProfile && 'OK'}
+            </div>
+            <div>
+              Analyzing events................{!this.props.isParsingEvents && 'OK'}
+            </div>
           </div>
         )}
 
-        {!isLoading && this.renderContent(selectedTab, results)}
+        {!this.isLoading && this.renderContent(selectedTab, results)}
 
         {premium === false && (
           <div className="container text-center" style={{ marginTop: 40 }}>

@@ -84,19 +84,12 @@ class ResultsLoader extends React.PureComponent {
     return null;
   }
 
-  get isLoading() {
-    return this.state.isLoadingParser
-      || this.state.isLoadingEvents
-      || this.state.isLoadingBossPhaseEvents
-      || this.state.isLoadingCharacterProfile
-      || this.state.isParsingEvents;
-  }
   get progress() {
     return (
-      (this.state.isLoadingParser ? 0.05 : 0)
-      + (this.state.isLoadingEvents ? 0.05 : 0)
-      + (this.state.isLoadingBossPhaseEvents ? 0.05 : 0)
-      + (this.state.isLoadingCharacterProfile ? 0.05 : 0)
+      (!this.state.isLoadingParser ? 0.05 : 0)
+      + (!this.state.isLoadingEvents ? 0.05 : 0)
+      + (!this.state.isLoadingBossPhaseEvents ? 0.05 : 0)
+      + (!this.state.isLoadingCharacterProfile ? 0.05 : 0)
       + (this.state.parsingEventsProgress * 0.75)
     );
   }
@@ -150,6 +143,11 @@ class ResultsLoader extends React.PureComponent {
 
         <Results
           isLoading={this.isLoading}
+          isLoadingParser={this.state.isLoadingParser}
+          isLoadingEvents={this.state.isLoadingEvents}
+          isLoadingBossPhaseEvents={this.state.isLoadingBossPhaseEvents}
+          isLoadingCharacterProfile={this.state.isLoadingCharacterProfile}
+          isParsingEvents={this.state.isParsingEvents}
           progress={this.progress}
           fight={fight}
           player={player}
