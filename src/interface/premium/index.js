@@ -39,18 +39,18 @@ export class Premium extends React.PureComponent {
 
     return (
       <div className="row">
-        <div className="col-lg-3 col-lg-offset-1 col-md-4 col-sm-5">
+        <div className="col-md-4 col-sm-5">
           <LoginPanel />
         </div>
-        <div className="col-lg-7 col-md-8 col-sm-7">
+        <div className="col-md-8 col-sm-7">
           <div className="panel">
             <div className="panel-heading">
               <h2>WoWAnalyzer premium</h2>
             </div>
             <div className="panel-body">
-              <PremiumIcon style={{ fontSize: '6em', float: 'right', color: '#e45a5a', marginTop: 0 }} />
+              <PremiumIcon style={{ fontSize: '6em', float: 'right', color: '#fab700', marginTop: 0 }} />
               <div style={{ fontSize: '1.4em', fontWeight: 400 }}>
-                Help out development to unlock <span style={{ color: '#e45a5a', fontWeight: 700 }}>WoWAnalyzer Premium</span>!
+                Help out development to unlock <span style={{ color: '#fab700', fontWeight: 700 }}>WoWAnalyzer Premium</span>!
               </div>
               <br />
 

@@ -47,7 +47,7 @@ const CORE_TABS = {
 class Results extends React.PureComponent {
   static propTypes = {
     parser: PropTypes.shape({
-    }).isRequired,
+    }),
     characterProfile: PropTypes.object,
     selectedTab: PropTypes.string,
     makeTabUrl: PropTypes.func.isRequired,
@@ -65,7 +65,7 @@ class Results extends React.PureComponent {
   };
   static childContextTypes = {
     updateResults: PropTypes.func.isRequired,
-    parser: PropTypes.object.isRequired,
+    parser: PropTypes.object,
   };
   getChildContext() {
     return {
@@ -95,9 +95,6 @@ class Results extends React.PureComponent {
 
   renderContent(selectedTab, results) {
     const { parser } = this.props;
-    const characterTab = parser.getModule(CharacterTab);
-    const encounterPanel = parser.getModule(EncounterPanel);
-    const config = this.context.config;
 
     switch (selectedTab) {
       case CORE_TABS.OVERVIEW: {
@@ -123,20 +120,26 @@ class Results extends React.PureComponent {
             <EventsTab parser={parser} />
           </div>
         );
-      case CORE_TABS.CHARACTER:
+      case CORE_TABS.CHARACTER: {
+        const characterTab = parser.getModule(CharacterTab);
+        const encounterPanel = parser.getModule(EncounterPanel);
+
         return (
           <div className="container">
             {characterTab.render()}
             {encounterPanel.render()}
           </div>
         );
-      case CORE_TABS.ABOUT:
+      }
+      case CORE_TABS.ABOUT: {
+        const config = this.context.config;
         return (
           <div className="container">
             <About config={config} />
             <ChangelogTab />
           </div>
         );
+      }
       default:
         return (
           <div className="container">
@@ -166,7 +169,7 @@ class Results extends React.PureComponent {
           characterProfile={characterProfile}
           boss={boss}
           fight={fight}
-          tabs={results && results.tabs}
+          tabs={results ? results.tabs : []}
           makeTabUrl={makeTabUrl}
           selectedTab={selectedTab}
         />
@@ -184,7 +187,8 @@ class Results extends React.PureComponent {
             <LoadingBar progress={progress} />
           </div>
         )}
-        {parser && this.renderContent(selectedTab, results)}
+
+        {!isLoading && this.renderContent(selectedTab, results)}
 
         {premium === false && (
           <div className="container text-center" style={{ marginTop: 40 }}>

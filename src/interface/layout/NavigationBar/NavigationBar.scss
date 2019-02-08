@@ -1,3 +1,5 @@
+@import 'interface/layout/Theme.scss';
+
 nav.global {
   position: absolute;
   top: 0;
@@ -36,7 +38,7 @@ nav.global {
     padding-right: 0;
   }
   .menu-item a:hover {
-    color: #e45a5a;
+    color: $primaryColor;
     text-decoration: none;
   }
   .menu-item img, .menu-item svg {
