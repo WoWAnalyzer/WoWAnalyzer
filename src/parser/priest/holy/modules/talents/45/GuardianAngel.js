@@ -59,8 +59,8 @@ class GuardianAngel extends Analyzer {
         talent={SPELLS.GUARDIAN_ANGEL_TALENT.id}
         value={
           <>
-            {this.guardianSpiritRefreshCount} &nbsp;
-            <SpellLink id={SPELLS.GUARDIAN_SPIRIT.id} /> resets
+            {this.guardianSpiritRefreshCount} Guardian Spirit resets<br />
+            {this.guardianSpiritHealCount} Guardian Spirits consumed
           </>
         }
         tooltip={`
