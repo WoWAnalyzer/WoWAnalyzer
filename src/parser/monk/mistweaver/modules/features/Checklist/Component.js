@@ -55,6 +55,7 @@ class MistweaverMonkChecklist extends React.PureComponent {
         >
           <AbilityRequirement spell={SPELLS.THUNDER_FOCUS_TEA.id} />
           {combatant.hasTalent(SPELLS.MANA_TEA_TALENT.id) && <AbilityRequirement spell={SPELLS.MANA_TEA_TALENT.id} />}
+          {combatant.hasTalent(SPELLS.MANA_TEA_TALENT.id) && <Requirement name={(<><SpellLink id={SPELLS.RENEWING_MIST.id} /> active during MT</>)} thresholds={thresholds.renewingMistDuringManaTea} />}
           {combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id) && <AbilityRequirement spell={SPELLS.CHI_BURST_TALENT.id} />}
           {combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id) && <AbilityRequirement spell={SPELLS.CHI_WAVE_TALENT.id} />}
           {combatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id) && <AbilityRequirement spell={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id} />}
