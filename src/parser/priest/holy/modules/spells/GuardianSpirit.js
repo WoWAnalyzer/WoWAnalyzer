@@ -11,7 +11,7 @@ import Analyzer from 'parser/core/Analyzer';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
-const DIVINE_HYMN_HEALING_INCREASE = 0.6;
+const GUARDIAN_SPIRIT_HEALING_INCREASE = 0.6;
 
 class GuardianSpirit extends Analyzer {
   static dependencies = {
@@ -37,7 +37,7 @@ class GuardianSpirit extends Analyzer {
           // we need to do some "approximations" using the total overheal in tandem with the total healing. We do not want to naively
           // assume all healing was fully effective, as this would drastically overweight the power of the buff in situations where a
           // lot of overhealing occurs.
-          (healingFromBuff, entry) => healingFromBuff + ((entry.total - entry.total / (1 + DIVINE_HYMN_HEALING_INCREASE)) * (entry.total / (entry.total + (entry.overheal || 0)))),
+          (healingFromBuff, entry) => healingFromBuff + ((entry.total - entry.total / (1 + GUARDIAN_SPIRIT_HEALING_INCREASE)) * (entry.total / (entry.total + (entry.overheal || 0)))),
           0);
       });
   }
