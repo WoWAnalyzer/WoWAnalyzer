@@ -50,7 +50,7 @@ class BossPhaseEventsLoader extends React.PureComponent {
     const filter = makeWclBossPhaseFilter(fight);
 
     if (filter) {
-      const events = fetchEvents(report.code, fight.start_time, fight.end_time, undefined, makeWclBossPhaseFilter(fight));
+      const events = await fetchEvents(report.code, fight.start_time, fight.end_time, undefined, makeWclBossPhaseFilter(fight));
       return fabricateBossPhaseEvents(events, report, fight);
     } else {
       return [];
