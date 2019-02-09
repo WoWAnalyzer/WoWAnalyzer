@@ -19,14 +19,15 @@ import WipefestLogo from 'interface/images/Wipefest-logo.png';
 import { i18n } from 'interface/RootLocalizationProvider';
 import LoadingBar from 'interface/layout/NavigationBar/LoadingBar';
 import Checklist from 'parser/shared/modules/features/Checklist/Module';
-import CharacterTab from 'parser/shared/modules/features/CharacterTab';
-import EncounterPanel from 'parser/shared/modules/features/EncounterPanel';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 import ChangelogTab from 'interface/others/ChangelogTab';
 import Header from './Header';
 import About from './About';
 import Overview from './Overview';
 import Statistics from './Statistics';
+import Character from './Character';
+import EncounterStats from './EncounterStats';
 import './Results.scss';
 
 // Gone for now, reintroduce if we can make it useful
@@ -131,13 +132,20 @@ class Results extends React.PureComponent {
           </div>
         );
       case CORE_TABS.CHARACTER: {
-        const characterTab = parser.getModule(CharacterTab);
-        const encounterPanel = parser.getModule(EncounterPanel);
+        const statTracker = parser.getModule(StatTracker);
 
         return (
           <div className="container">
-            {characterTab.render()}
-            {encounterPanel.render()}
+            <Character
+              statTracker={statTracker}
+              combatant={parser.selectedCombatant}
+            />
+            <EncounterStats
+              currentBoss={parser.fight.boss}
+              difficulty={parser.fight.difficulty}
+              spec={parser.selectedCombatant._combatantInfo.specID}
+              duration={parser.fight.end_time - parser.fight.start_time}
+            />
           </div>
         );
       }

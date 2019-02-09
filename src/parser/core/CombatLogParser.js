@@ -43,8 +43,6 @@ import DeathDowntime from '../shared/modules/downtime/DeathDowntime';
 import TotalDowntime from '../shared/modules/downtime/TotalDowntime';
 import DistanceMoved from '../shared/modules/others/DistanceMoved';
 
-import CharacterTab from '../shared/modules/features/CharacterTab';
-import EncounterPanel from '../shared/modules/features/EncounterPanel';
 // Tabs
 import RaidHealthTab from '../shared/modules/features/RaidHealthTab';
 
@@ -198,8 +196,6 @@ class CombatLogParser {
     critEffectBonus: CritEffectBonus,
 
     // Tabs
-    characterTab: CharacterTab,
-    encounterPanel: EncounterPanel,
     raidHealthTab: RaidHealthTab,
 
     prePotion: PrePotion,
