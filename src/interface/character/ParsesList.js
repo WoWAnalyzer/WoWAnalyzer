@@ -76,12 +76,12 @@ class ParsesList extends React.PureComponent {
                   <div className="col-md-4" style={{ color: 'white' }}>
                     <div>
                       <img
-                        class="spec-icon"
+                        className="spec-icon"
                         src={this.iconPath(elem.spec)}
                         alt={elem.spec}
                       />
                       <h4 style={{ display: 'inline-block' }}>
-                        {elem.difficulty}<br/>
+                        {elem.difficulty}<br />
                         {elem.name}
                       </h4>
                     </div>

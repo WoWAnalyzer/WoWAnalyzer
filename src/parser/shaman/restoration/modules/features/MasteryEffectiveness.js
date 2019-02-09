@@ -4,17 +4,16 @@ import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
+import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Panel from 'interface/statistics/Panel';
+import PlayerBreakdown from 'interface/others/PlayerBreakdown';
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import Panel from 'interface/statistics/Panel';
-import PlayerBreakdown from 'interface/others/PlayerBreakdown';
+import HealingValue from 'parser/shared/modules/HealingValue';
 
 import { ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
-import Statistic from 'parser/paladin/holy/modules/MasteryEffectiveness';
-import HealingValue from 'parser/shared/modules/HealingValue';
 
 class MasteryEffectiveness extends Analyzer {
   static dependencies = {

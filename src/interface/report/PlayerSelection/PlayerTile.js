@@ -10,7 +10,6 @@ import Icon from 'common/Icon';
 import SPECS from 'game/SPECS';
 import { getCharacterById } from 'interface/selectors/characters';
 import { fetchCharacter } from 'interface/actions/characters';
-import ROLES from 'game/ROLES';
 
 class PlayerTile extends React.PureComponent {
   static propTypes = {

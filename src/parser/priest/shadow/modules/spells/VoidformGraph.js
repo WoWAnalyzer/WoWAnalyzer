@@ -8,7 +8,7 @@ import {
   LineSeries,
   AreaSeries,
   HorizontalGridLines,
-  VerticalGridLines
+  VerticalGridLines,
 } from 'react-vis';
 import SPELLS from 'common/SPELLS';
 import { formatDuration } from 'common/format';

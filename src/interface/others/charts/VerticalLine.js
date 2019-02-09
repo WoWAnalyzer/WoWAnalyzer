@@ -13,8 +13,14 @@ class VerticalLine extends React.Component {
       line: PropTypes.object,
     }),
     className: PropTypes.string,
+    children: PropTypes.node,
+    xRange: PropTypes.array,
+    xDomain: PropTypes.array,
+    marginLeft: PropTypes.number,
+    marginTop: PropTypes.number,
+    innerHeight: PropTypes.number,
+    innerWidth: PropTypes.number,
   };
-
   static defaultProps = {
     style: {},
     className: '',
