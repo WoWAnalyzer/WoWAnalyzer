@@ -52,14 +52,14 @@ class NavigationBar extends React.PureComponent {
               <Link to={makeAnalyzerUrl(report)}>{report.title}</Link>
             </div>
           )}
-          {report && fight && (
+          {report && (
             <div className="menu-item">
-              <Link to={makeAnalyzerUrl(report)}>{getFightName(report, fight)}</Link>
+              <Link to={makeAnalyzerUrl(report)}>{fight ? getFightName(report, fight) : 'Fight selection'}</Link>
             </div>
           )}
-          {report && playerName && (
+          {report && (fight || playerName) && (
             <div className="menu-item">
-              <Link to={makeAnalyzerUrl(report, fight ? fight.id : undefined)}>{playerName}</Link>
+              <Link to={makeAnalyzerUrl(report, fight ? fight.id : undefined)}>{playerName || 'Player selection'}</Link>
             </div>
           )}
           <div className="spacer" />

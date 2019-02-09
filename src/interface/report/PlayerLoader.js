@@ -153,7 +153,7 @@ class PlayerLoader extends React.PureComponent {
                 </Link>
               </Tooltip>
             </div>
-            <h1 style={{ lineHeight: 1.4, marginBottom: 0 }}><Trans>Raid composition</Trans></h1>
+            <h1 style={{ lineHeight: 1.4, marginBottom: 0 }}><Trans>Player selection</Trans></h1>
             <small style={{ marginTop: -5 }}><Trans>Select the player you wish to analyze.</Trans></small>
           </div>
           <PlayerSelection
