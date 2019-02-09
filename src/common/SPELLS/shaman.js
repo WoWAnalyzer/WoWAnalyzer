@@ -324,11 +324,6 @@ export default {
     name: 'Aftershock',
     icon: 'spell_nature_stormreach',
   },
-  EXPOSED_ELEMENTS_TALENT_DEBUFF: {
-    id: 269808,
-    name: "Exposed Elements Debuff",
-    icon: "spell_nature_callstorm",
-  },
   MASTER_OF_THE_ELEMENTS_BUFF: {
     id: 260734,
     name: "Master Of The Elements Buff",

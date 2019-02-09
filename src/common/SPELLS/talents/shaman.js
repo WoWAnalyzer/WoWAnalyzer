@@ -24,22 +24,37 @@ export default {
   EARTHEN_SPIKE_TALENT: { id: 188089, name: 'Earthen Spike', icon: 'ability_earthen_pillar', maelstromCost: 20 },
   TOTEM_MASTERY_TALENT_ENHANCEMENT: { id: 262395, name: 'Totem Mastery', icon: 'spell_nature_wrathofair_totem' },
   ASCENDANCE_TALENT_ENHANCEMENT: { id: 114051, name: 'Ascendance', icon: 'spell_fire_elementaldevastation' },
+  
   // Elemental
-  EXPOSED_ELEMENTS_TALENT: { id: 260694, name: 'Exposed Elements', icon: 'spell_nature_callstorm' },
+  // 15
+  EARTHEN_RAGE_TALENT: { id: 170374, name: 'Earthen Rage', icon: 'ability_earthen_pillar' },
+  // Echo of the Elements is shared
   ELEMENTAL_BLAST_TALENT: { id: 117014, name: 'Elemental Blast', icon: 'shaman_talent_elementalblast' },
+  // 30
   AFTERSHOCK_TALENT: { id: 273221, name: 'Aftershock', icon: 'spell_nature_stormreach' },
+  CALL_THE_THUNDER_TALENT: { id: 260897, name: 'Call the Thunder', icon: 'ability_thunderking_thunderstruck' },
+  TOTEM_MASTERY_TALENT_ELEMENTAL: { id: 210643, name: 'Totem Mastery', icon: 'spell_nature_wrathofair_totem' },
+  // 45
+  // Spirit Wolf is shared
+  // Earth Shield is shared
+  // Static Charge is shared
+  // 60
   MASTER_OF_THE_ELEMENTS_TALENT: { id: 16166, name: 'Master of the Elements', icon: 'spell_nature_elementalabsorption' },
-  HIGH_VOLTAGE_TALENT: { id: 260890, name: 'High Voltage', icon: 'ability_vehicle_electrocharge' },
   STORM_ELEMENTAL_TALENT: { id: 192249, name: 'Storm Elemental', icon: 'inv_stormelemental' },
   LIQUID_MAGMA_TOTEM_TALENT: { id: 192222, name: 'Liquid Magma Totem', icon: 'spell_shaman_spewlava' },
+  // 75
+  // Nature's Guardian is shared
   ANCESTRAL_GUIDANCE_TALENT: { id: 108281, name: 'Ancestral Guidance', icon: 'ability_shaman_ancestralguidance' },
-  EARTHEN_RAGE_TALENT: { id: 170374, name: 'Earthen Rage', icon: 'ability_earthen_pillar' },
+  // Wind Rush Totem is shared
+  // 90
+  SURGE_OF_POWER_TALENT: { id: 262303, name: 'Surge of Power', icon: 'spell_nature_shamanrage' },
   PRIMAL_ELEMENTALIST_TALENT: { id: 117013, name: 'Primal Elementalist', icon: 'shaman_talent_primalelementalist' },
   ICEFURY_TALENT: { id: 210714, name: 'Icefury', icon: 'spell_frost_iceshard' },
+  // 100
   UNLIMITED_POWER_TALENT: { id: 260895, name: 'Unlimited Power', icon: 'ability_shaman_ascendance' },
   STORMKEEPER_TALENT: { id: 191634, name: 'Stormkeeper', icon: 'ability_thunderking_lightningwhip' },
-  TOTEM_MASTERY_TALENT_ELEMENTAL: { id: 210643, name: 'Totem Mastery', icon: 'spell_nature_wrathofair_totem' },
   ASCENDANCE_TALENT_ELEMENTAL: { id: 114050, name: 'Ascendance', icon: 'spell_fire_elementaldevastation' },
+
   // Restoration
   TORRENT_TALENT: { id: 200072, name: 'Torrent', icon: 'spell_nature_riptide' },
   UNDULATION_TALENT: { id: 200071, name: 'Undulation', icon: 'spell_nature_healingwavelesser' },
