@@ -62,6 +62,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.WIND_SHEAR,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
+        cooldown: 12,
+        gcd: null,
       },
       {
         spell: SPELLS.ROCKBITER,
