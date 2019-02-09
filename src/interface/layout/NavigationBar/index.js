@@ -17,8 +17,6 @@ import { getReport } from 'interface/selectors/report';
 import { getFightById } from 'interface/selectors/fight';
 import { getUser } from 'interface/selectors/user';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
-import FightSelectionPanel from 'interface/report/FightSelectionPanel';
-import Modal from 'interface/modals/Modal';
 
 import './NavigationBar.scss';
 
@@ -38,27 +36,6 @@ class NavigationBar extends React.PureComponent {
     ]),
   };
 
-  constructor() {
-    super();
-    this.handleFightClick = this.handleFightClick.bind(this);
-    this.handleFightSelectionModalClose = this.handleFightSelectionModalClose.bind(this);
-    this.state = {
-      isFightSelectionModalOpen: false,
-    };
-  }
-
-  handleFightClick(e) {
-    e.preventDefault();
-    this.setState({
-      isFightSelectionModalOpen: true,
-    });
-  }
-  handleFightSelectionModalClose() {
-    this.setState({
-      isFightSelectionModalOpen: false,
-    });
-  }
-
   render() {
     const { playerName, report, fight, user } = this.props;
 
@@ -77,12 +54,7 @@ class NavigationBar extends React.PureComponent {
           )}
           {report && fight && (
             <div className="menu-item">
-              <Link to={makeAnalyzerUrl(report)} onClick={this.handleFightClick}>{getFightName(report, fight)}</Link>
-              {this.state.isFightSelectionModalOpen && (
-                <Modal onClose={this.handleFightSelectionModalClose}>
-                  <FightSelectionPanel report={report} />
-                </Modal>
-              )}
+              <Link to={makeAnalyzerUrl(report)}>{getFightName(report, fight)}</Link>
             </div>
           )}
           {report && playerName && (
