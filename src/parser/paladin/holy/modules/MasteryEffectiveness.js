@@ -20,6 +20,25 @@ import { ABILITIES_AFFECTED_BY_MASTERY } from '../constants';
 const debug = false;
 
 /**
+ * Options:
+ *
+ * A. Get average regardless of health or amount.
+ * This gets the average based on just the range per heal. This ignores the heal amount and ignores the health pool of the target. A 999 tiny heals and 1 huge heal will get a linear average based on the 1000 heals. This means the result will lean more towards the tiny heals.
+ *
+ * B. Get average adjusted for healing amount.
+ * This gets the average based on the amount healed. This ignores the health pool of the target (and thus overhealing). A 999 tiny heals and 1 huge heal will lean more towards the huge heal.
+ *
+ * C. Get average adjusted for target health.
+ * This gets the average based on the target's health and potential overhealing. Any overhealing is excluded for the max potential. Image you cast a heal where the mastery gain was 90 healing at 50% effectiveness (based on range). After the heal, the target only has 10 health missing. In this situation the total potential mastery gain would be considered 100. This gives you a 90% adjusted effectiveness (instead of the 50% based on range).
+ *
+ * D. Get average adjusted for target health and amount.
+ * Combines B and C so that 100 potential mastery gain is valued much less than 1,000 potential.
+ *
+ * Option A might incorrectly inflate the mastery effectiveness due to certain tiny heals having high effectiveness while they might unevenly contribute to total healing. In addition other tools using this to calculate stat weights do so based on total average healing done and have no idea about tiny heals potentially having better mastery effectiveness.
+ * Option C doesn't have any benefits for this statistic or outside of it. This mastery effectiveness can not be used for stat weights as stat weights already account for overhealing and it would throw off the calculation. It's also misleading for analysis for various reasons.
+ * Option D suffers from the same problems as option C, but with the benefits from option B.
+ * Option B is the best choice. It gets the right average both for analysis and for stat weights. It's the most natural.
+ *
  * @property {Combatants} combatants
  * @property {BeaconTargets} beaconTargets
  * @property {StatTracker} statTracker
@@ -31,19 +50,31 @@ class MasteryEffectiveness extends Analyzer {
     statTracker: StatTracker,
   };
 
-  lastPlayerPositionUpdate = null;
+  _lastPlayerPositionUpdate = null;
   distanceSum = 0;
   distanceCount = 0;
+  get averageDistance() {
+    return this.distanceSum / this.distanceCount;
+  }
   rawMasteryEffectivenessSum = 0;
   rawMasteryEffectivenessCount = 0;
-  get rawMasteryEffectivenessAverage() {
+  /**
+   * @return {number} The mastery effectiveness based solely on your range to the target being healed. Health levels and healing amounts are not included. This means if you do 999 tiny heals and 1 big one, it still takes the average range-based mastery effectiveness of the 1000 heals.
+   */
+  get averageRawMasteryEffectiveness() {
     return this.rawMasteryEffectivenessSum / this.rawMasteryEffectivenessCount;
   }
-  scaledMasteryEffectivenessSum = 0;
-  scaledMasteryEffectivenessCount = 0;
-  get scaledMasteryEffectivenessAverage() {
-    return this.scaledMasteryEffectivenessSum / this.scaledMasteryEffectivenessCount;
+  masteryEffectivenessRawMasteryGainSum = 0;
+  masteryEffectivenessRawPotentialMasteryGainSum = 0;
+  /**
+   * @return {number} The mastery effectiveness based on your range to the target being healed and the amount healed. Smaller heals weigh less than bigger heals (linearly).
+   */
+  get masteryEffectivenessMasteryHealingGainAverage() {
+    return this.masteryEffectivenessRawMasteryGainSum / this.masteryEffectivenessRawPotentialMasteryGainSum;
   }
+  /**
+   * @type {number} The total amount of healing done by just the mastery gain. Precisely calculated for every spell.
+   */
   totalMasteryHealingDone = 0;
 
   masteryHealEvents = [];
@@ -76,7 +107,7 @@ class MasteryEffectiveness extends Analyzer {
   }
 
   processForMasteryEffectiveness(event) {
-    if (!this.lastPlayerPositionUpdate) {
+    if (!this._lastPlayerPositionUpdate) {
       console.error('Received a heal before we know the player location. Can\'t process since player location is still unknown.', event);
       return;
     }
@@ -86,45 +117,36 @@ class MasteryEffectiveness extends Analyzer {
     }
 
     const distance = this.getPlayerDistance(event);
+    const isRuleOfLawActive = this.selectedCombatant.hasBuff(SPELLS.RULE_OF_LAW_TALENT.id, event.timestamp);
+
     this.distanceSum += distance;
     this.distanceCount += 1;
 
-    const isRuleOfLawActive = this.selectedCombatant.hasBuff(SPELLS.RULE_OF_LAW_TALENT.id, event.timestamp);
-    // We calculate the mastery effectiveness of this *one* heal
     const masteryEffectiveness = this.constructor.calculateMasteryEffectiveness(distance, isRuleOfLawActive);
+    // Raw is the mastery effectiveness regardless of health pool and heal amount.
     this.rawMasteryEffectivenessSum += masteryEffectiveness;
     this.rawMasteryEffectivenessCount += 1;
 
-    // Hit points are the hitpoints after the heal event was applied
-    const hp = event.hitPoints;
-    // Events shortly after applying a new max HP buff can have HP higher than max HP
-    // e.g. https://www.warcraftlogs.com/reports/2XNbQcDgrjtqpPJF#fight=3&start=911368&end=911419&view=events&translate=true
-    const remainingHealthMissing = Math.max(0, event.maxHitPoints - hp);
     const heal = new HealingValue(event.amount, event.absorbed, event.overheal);
     const applicableMasteryPercentage = this.statTracker.currentMasteryPercentage * masteryEffectiveness;
 
     // The base healing of the spell (excluding any healing added by mastery)
-    const baseHealingDone = heal.raw / (1 + applicableMasteryPercentage);
-    const actualMasteryHealingDone = Math.max(0, heal.effective - baseHealingDone);
+    const baseHealing = heal.raw / (1 + applicableMasteryPercentage);
+    const rawMasteryGain = heal.raw - baseHealing;
+    const actualMasteryHealingDone = Math.max(0, heal.effective - baseHealing);
     this.totalMasteryHealingDone += actualMasteryHealingDone;
-    // The max potential mastery healing if we had a mastery effectiveness of 100% on this spell. This does NOT include the base healing. Example: a heal that did 1,324 healing with 32.4% mastery with 100% mastery effectiveness will have a max potential mastery healing of 324.
-    const maxPotentialRawMasteryHealing = baseHealingDone * this.statTracker.currentMasteryPercentage; // * 100% mastery effectiveness
-    const maxPotentialRawMasteryGain = maxPotentialRawMasteryHealing - actualMasteryHealingDone;
-    const maxPotentialMasteryGain = actualMasteryHealingDone + Math.min(remainingHealthMissing, maxPotentialRawMasteryGain);
 
-    const adjustedMasteryEffectiveness = actualMasteryHealingDone / maxPotentialMasteryGain;
-    if (!isNaN(adjustedMasteryEffectiveness)) {
-      this.scaledMasteryEffectivenessSum += adjustedMasteryEffectiveness;
-      this.scaledMasteryEffectivenessCount += 1;
-    }
+    // The max potential mastery healing if we had a mastery effectiveness of 100% on this spell. This does NOT include the base healing. Example: a heal that did 1,324 healing with 32.4% mastery with 100% mastery effectiveness will have a max potential mastery healing of 324.
+    const maxPotentialRawMasteryHealing = baseHealing * this.statTracker.currentMasteryPercentage; // * 100% mastery effectiveness
+
+    this.masteryEffectivenessRawMasteryGainSum += rawMasteryGain;
+    this.masteryEffectivenessRawPotentialMasteryGainSum += maxPotentialRawMasteryHealing;
 
     this.masteryHealEvents.push({
       ...event,
-      distance,
-      masteryEffectiveness,
-      baseHealingDone,
-      actualMasteryHealingDone,
-      maxPotentialMasteryGain,
+      effectiveHealing: heal.effective,
+      rawMasteryGain,
+      maxPotentialRawMasteryHealing,
     });
     // Update the event information to include the heal's mastery effectiveness in case we want to use this elsewhere (hint: StatValues)
     event.masteryEffectiveness = masteryEffectiveness;
@@ -134,8 +156,8 @@ class MasteryEffectiveness extends Analyzer {
     if (!event.x || !event.y) {
       return;
     }
-    this.verifyPlayerPositionUpdate(event, this.lastPlayerPositionUpdate, 'player');
-    this.lastPlayerPositionUpdate = event;
+    this.verifyPlayerPositionUpdate(event, this._lastPlayerPositionUpdate, 'player');
+    this._lastPlayerPositionUpdate = event;
   }
   verifyPlayerPositionUpdate(event, lastPositionUpdate, forWho) {
     if (!event.x || !event.y || !lastPositionUpdate) {
@@ -150,7 +172,7 @@ class MasteryEffectiveness extends Analyzer {
   }
 
   getPlayerDistance(event) {
-    return this.constructor.calculateDistance(this.lastPlayerPositionUpdate.x, this.lastPlayerPositionUpdate.y, event.x, event.y);
+    return this.constructor.calculateDistance(this._lastPlayerPositionUpdate.x, this._lastPlayerPositionUpdate.y, event.x, event.y);
   }
   static calculateDistance(x1, y1, x2, y2) {
     return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)) / 100;
@@ -164,62 +186,40 @@ class MasteryEffectiveness extends Analyzer {
   }
 
   get report() {
-    let totalHealingWithMasteryAffectedAbilities = 0;
-    let totalActualMasteryHealingDone = 0;
-    let totalMaxPotentialMasteryGain = 0;
-
     const statsByTargetId = this.masteryHealEvents.reduce((obj, event) => {
-      // Update the fight-totals
-      totalHealingWithMasteryAffectedAbilities += event.amount;
-      totalActualMasteryHealingDone += event.actualMasteryHealingDone;
-      totalMaxPotentialMasteryGain += event.maxPotentialMasteryGain;
-
       // Update the player-totals
       if (!obj[event.targetID]) {
         const combatant = this.combatants.players[event.targetID];
         obj[event.targetID] = {
           combatant,
+          effectiveHealing: 0,
           healingReceived: 0,
           healingFromMastery: 0,
           maxPotentialHealingFromMastery: 0,
         };
       }
       const playerStats = obj[event.targetID];
+      playerStats.effectiveHealing += event.effectiveHealing;
       playerStats.healingReceived += event.amount;
-      playerStats.healingFromMastery += event.actualMasteryHealingDone;
-      playerStats.maxPotentialHealingFromMastery += event.maxPotentialMasteryGain;
+      playerStats.healingFromMastery += event.rawMasteryGain;
+      playerStats.maxPotentialHealingFromMastery += event.maxPotentialRawMasteryHealing;
 
       return obj;
     }, {});
 
-    return {
-      statsByTargetId,
-      totalHealingWithMasteryAffectedAbilities,
-      totalActualMasteryHealingDone,
-      totalMaxPotentialMasteryGain,
-    };
-  }
-
-  get overallMasteryEffectiveness() {
-    return this.report.totalActualMasteryHealingDone / (this.report.totalMaxPotentialMasteryGain || 1);
+    return statsByTargetId;
   }
 
   statistic() {
-    // TODO: Review this and figure out the correct approach to use for the main stat (probably scaledMasteryEffectivenessAverage?)
-    // is raw unadjusted mastery effectiveness (each cast is equal, even if it's a tiny heal or fully overhealed)
-    console.log('raw', this.rawMasteryEffectivenessAverage);
     // heal size adjusted (e.g. a big heal's mastery effectiveness outweights a small heal's) and capped by remaining health missing (so if 1 more mastery lead to overhealing, it wouldn't count)
-    console.log('original', this.overallMasteryEffectiveness);
-    console.log('scaling (health capped)', this.scaledMasteryEffectivenessAverage);
     console.log('total mastery healing done', this.owner.formatItemHealingDone(this.totalMasteryHealingDone));
-    // TODO: Should overallMasteryEffectiveness account for overhealing? It would probably be cleaner
     return [
       (
         <Statistic position={STATISTIC_ORDER.CORE(10)}>
           <div className="pad" style={{ position: 'relative' }}>
             <label><Trans>Mastery effectiveness</Trans></label>
             <div className="value">
-              {formatPercentage(this.scaledMasteryEffectivenessAverage, 0)}%
+              {formatPercentage(this.masteryEffectivenessMasteryHealingGainAverage, 0)}%
             </div>
 
             <div
@@ -260,7 +260,7 @@ class MasteryEffectiveness extends Analyzer {
 
   get suggestionThresholds() {
     return {
-      actual: this.overallMasteryEffectiveness,
+      actual: this.masteryEffectivenessMasteryHealingGainAverage,
       isLessThan: {
         minor: 0.75,
         average: 0.7,
