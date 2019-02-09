@@ -22,7 +22,7 @@
 				"role": "TANK",
 				"backgroundImage": "bg-warrior-protection",
 				"icon": "ability_warrior_defensivestance",
-				"description": "A stalwart protector who uses a shield to safeguard herself and her allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
+				"description": "A stalwart protector who uses a shield to safeguard himself and his allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
 				"order": 2
 			}
 		],
@@ -44,8 +44,27 @@
 							"role": "TANK",
 							"backgroundImage": "bg-warrior-protection",
 							"icon": "ability_warrior_defensivestance",
-							"description": "A stalwart protector who uses a shield to safeguard herself and her allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
+							"description": "A stalwart protector who uses a shield to safeguard himself and his allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
 							"order": 2
+						}
+					},
+					{
+						"tier": 0,
+						"column": 0,
+						"spell": {
+							"id": 262231,
+							"name": "War Machine",
+							"icon": "ability_hunter_rapidkilling",
+							"description": "Your auto attacks generate 10% more Rage.\n\n\n\nKilling an enemy instantly generates 10 Rage, and increases your movement speed by 30% for 8 sec.",
+							"castTime": "Passive"
+						},
+						"spec": {
+							"name": "Arms",
+							"role": "DPS",
+							"backgroundImage": "bg-warrior-arms",
+							"icon": "ability_warrior_savageblow",
+							"description": "A battle-hardened master of weapons, using mobility and overpowering attacks to strike his opponents down.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
+							"order": 0
 						}
 					},
 					{
@@ -66,28 +85,28 @@
 							"description": "A furious berserker unleashing a flurry of attacks to carve his opponents to pieces.\r\n\r\nPreferred Weapons: Dual Two-Handed Axes, Maces, Swords",
 							"order": 1
 						}
-					},
-					{
-						"tier": 0,
-						"column": 0,
-						"spell": {
-							"id": 262231,
-							"name": "War Machine",
-							"icon": "ability_hunter_rapidkilling",
-							"description": "Your auto attacks generate 10% more Rage.\n\n\n\nKilling an enemy instantly generates 10 Rage, and increases your movement speed by 30% for 8 sec.",
-							"castTime": "Passive"
-						},
-						"spec": {
-							"name": "Arms",
-							"role": "DPS",
-							"backgroundImage": "bg-warrior-arms",
-							"icon": "ability_warrior_savageblow",
-							"description": "A battle-hardened master of weapons, using mobility and overpowering attacks to strike his opponents down.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
-							"order": 0
-						}
 					}
 				],
 				[
+					{
+						"tier": 0,
+						"column": 1,
+						"spell": {
+							"id": 275334,
+							"name": "Punish",
+							"icon": "ability_deathknight_sanguinfortitude",
+							"description": "Shield Slam deals 20% increased damage, and reduces enemies' damage against you by 3% for 9 sec.",
+							"castTime": "Passive"
+						},
+						"spec": {
+							"name": "Protection",
+							"role": "TANK",
+							"backgroundImage": "bg-warrior-protection",
+							"icon": "ability_warrior_defensivestance",
+							"description": "A stalwart protector who uses a shield to safeguard himself and his allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
+							"order": 2
+						}
+					},
 					{
 						"tier": 0,
 						"column": 1,
@@ -105,25 +124,6 @@
 							"icon": "ability_warrior_savageblow",
 							"description": "A battle-hardened master of weapons, using mobility and overpowering attacks to strike his opponents down.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
 							"order": 0
-						}
-					},
-					{
-						"tier": 0,
-						"column": 1,
-						"spell": {
-							"id": 275334,
-							"name": "Punish",
-							"icon": "ability_deathknight_sanguinfortitude",
-							"description": "Shield Slam deals 20% increased damage, and reduces enemies' damage against you by 3% for 9 sec.",
-							"castTime": "Passive"
-						},
-						"spec": {
-							"name": "Protection",
-							"role": "TANK",
-							"backgroundImage": "bg-warrior-protection",
-							"icon": "ability_warrior_defensivestance",
-							"description": "A stalwart protector who uses a shield to safeguard herself and her allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
-							"order": 2
 						}
 					},
 					{
@@ -165,8 +165,27 @@
 							"role": "TANK",
 							"backgroundImage": "bg-warrior-protection",
 							"icon": "ability_warrior_defensivestance",
-							"description": "A stalwart protector who uses a shield to safeguard herself and her allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
+							"description": "A stalwart protector who uses a shield to safeguard himself and his allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
 							"order": 2
+						}
+					},
+					{
+						"tier": 0,
+						"column": 2,
+						"spell": {
+							"id": 215568,
+							"name": "Fresh Meat",
+							"icon": "ability_deathwing_bloodcorruption_death",
+							"description": "Bloodthirst has a 15% increased chance to trigger Enrage and heals for 20% more.",
+							"castTime": "Passive"
+						},
+						"spec": {
+							"name": "Fury",
+							"role": "DPS",
+							"backgroundImage": "bg-warrior-fury",
+							"icon": "ability_warrior_innerrage",
+							"description": "A furious berserker unleashing a flurry of attacks to carve his opponents to pieces.\r\n\r\nPreferred Weapons: Dual Two-Handed Axes, Maces, Swords",
+							"order": 1
 						}
 					},
 					{
@@ -189,30 +208,22 @@
 							"description": "A battle-hardened master of weapons, using mobility and overpowering attacks to strike his opponents down.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
 							"order": 0
 						}
-					},
-					{
-						"tier": 0,
-						"column": 2,
-						"spell": {
-							"id": 215568,
-							"name": "Fresh Meat",
-							"icon": "ability_deathwing_bloodcorruption_death",
-							"description": "Bloodthirst has a 15% increased chance to trigger Enrage and heals for 20% more.",
-							"castTime": "Passive"
-						},
-						"spec": {
-							"name": "Fury",
-							"role": "DPS",
-							"backgroundImage": "bg-warrior-fury",
-							"icon": "ability_warrior_innerrage",
-							"description": "A furious berserker unleashing a flurry of attacks to carve his opponents to pieces.\r\n\r\nPreferred Weapons: Dual Two-Handed Axes, Maces, Swords",
-							"order": 1
-						}
 					}
 				]
 			],
 			[
 				[
+					{
+						"tier": 1,
+						"column": 0,
+						"spell": {
+							"id": 103827,
+							"name": "Double Time",
+							"icon": "inv_misc_horn_04",
+							"description": "Increases the maximum number of charges on Charge by 1, and reduces its cooldown by 3 sec.",
+							"castTime": "Passive"
+						}
+					},
 					{
 						"tier": 1,
 						"column": 0,
@@ -228,19 +239,8 @@
 							"role": "TANK",
 							"backgroundImage": "bg-warrior-protection",
 							"icon": "ability_warrior_defensivestance",
-							"description": "A stalwart protector who uses a shield to safeguard herself and her allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
+							"description": "A stalwart protector who uses a shield to safeguard himself and his allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
 							"order": 2
-						}
-					},
-					{
-						"tier": 1,
-						"column": 0,
-						"spell": {
-							"id": 103827,
-							"name": "Double Time",
-							"icon": "inv_misc_horn_04",
-							"description": "Increases the maximum number of charges on Charge by 1, and reduces its cooldown by 3 sec.",
-							"castTime": "Passive"
 						}
 					}
 				],
@@ -304,31 +304,12 @@
 							"role": "TANK",
 							"backgroundImage": "bg-warrior-protection",
 							"icon": "ability_warrior_defensivestance",
-							"description": "A stalwart protector who uses a shield to safeguard herself and her allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
+							"description": "A stalwart protector who uses a shield to safeguard himself and his allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
 							"order": 2
 						}
 					}
 				],
 				[
-					{
-						"tier": 1,
-						"column": 2,
-						"spell": {
-							"id": 223657,
-							"name": "Safeguard",
-							"icon": "ability_warrior_safeguard",
-							"description": "Intercepting a friendly target now also causes 30% of their damage taken to transfer to you for 6 sec.",
-							"castTime": "Passive"
-						},
-						"spec": {
-							"name": "Protection",
-							"role": "TANK",
-							"backgroundImage": "bg-warrior-protection",
-							"icon": "ability_warrior_defensivestance",
-							"description": "A stalwart protector who uses a shield to safeguard herself and her allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
-							"order": 2
-						}
-					},
 					{
 						"tier": 1,
 						"column": 2,
@@ -348,6 +329,25 @@
 							"icon": "ability_warrior_innerrage",
 							"description": "A furious berserker unleashing a flurry of attacks to carve his opponents to pieces.\r\n\r\nPreferred Weapons: Dual Two-Handed Axes, Maces, Swords",
 							"order": 1
+						}
+					},
+					{
+						"tier": 1,
+						"column": 2,
+						"spell": {
+							"id": 223657,
+							"name": "Safeguard",
+							"icon": "ability_warrior_safeguard",
+							"description": "Intercepting a friendly target now also causes 30% of their damage taken to transfer to you for 6 sec.",
+							"castTime": "Passive"
+						},
+						"spec": {
+							"name": "Protection",
+							"role": "TANK",
+							"backgroundImage": "bg-warrior-protection",
+							"icon": "ability_warrior_defensivestance",
+							"description": "A stalwart protector who uses a shield to safeguard himself and his allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
+							"order": 2
 						}
 					},
 					{
@@ -375,6 +375,25 @@
 			],
 			[
 				[
+					{
+						"tier": 2,
+						"column": 0,
+						"spell": {
+							"id": 281001,
+							"name": "Massacre",
+							"icon": "inv_sword_48",
+							"description": "Execute is now usable on targets below 35% health.",
+							"castTime": "Passive"
+						},
+						"spec": {
+							"name": "Arms",
+							"role": "DPS",
+							"backgroundImage": "bg-warrior-arms",
+							"icon": "ability_warrior_savageblow",
+							"description": "A battle-hardened master of weapons, using mobility and overpowering attacks to strike his opponents down.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
+							"order": 0
+						}
+					},
 					{
 						"tier": 2,
 						"column": 0,
@@ -409,69 +428,12 @@
 							"role": "TANK",
 							"backgroundImage": "bg-warrior-protection",
 							"icon": "ability_warrior_defensivestance",
-							"description": "A stalwart protector who uses a shield to safeguard herself and her allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
+							"description": "A stalwart protector who uses a shield to safeguard himself and his allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
 							"order": 2
-						}
-					},
-					{
-						"tier": 2,
-						"column": 0,
-						"spell": {
-							"id": 281001,
-							"name": "Massacre",
-							"icon": "inv_sword_48",
-							"description": "Execute is now usable on targets below 35% health.",
-							"castTime": "Passive"
-						},
-						"spec": {
-							"name": "Arms",
-							"role": "DPS",
-							"backgroundImage": "bg-warrior-arms",
-							"icon": "ability_warrior_savageblow",
-							"description": "A battle-hardened master of weapons, using mobility and overpowering attacks to strike his opponents down.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
-							"order": 0
 						}
 					}
 				],
 				[
-					{
-						"tier": 2,
-						"column": 1,
-						"spell": {
-							"id": 280721,
-							"name": "Sudden Death",
-							"icon": "ability_warrior_improveddisciplines",
-							"description": "Your attacks have a chance to reset the cooldown of Execute and make it usable on any target, regardless of their health.",
-							"castTime": "Passive"
-						},
-						"spec": {
-							"name": "Fury",
-							"role": "DPS",
-							"backgroundImage": "bg-warrior-fury",
-							"icon": "ability_warrior_innerrage",
-							"description": "A furious berserker unleashing a flurry of attacks to carve his opponents to pieces.\r\n\r\nPreferred Weapons: Dual Two-Handed Axes, Maces, Swords",
-							"order": 1
-						}
-					},
-					{
-						"tier": 2,
-						"column": 1,
-						"spell": {
-							"id": 275336,
-							"name": "Unstoppable Force",
-							"icon": "warrior_talent_icon_thunderstruck",
-							"description": "Avatar increases the damage of Thunder Clap by 100%, and reduces its cooldown by 50%.",
-							"castTime": "Passive"
-						},
-						"spec": {
-							"name": "Protection",
-							"role": "TANK",
-							"backgroundImage": "bg-warrior-protection",
-							"icon": "ability_warrior_defensivestance",
-							"description": "A stalwart protector who uses a shield to safeguard herself and her allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
-							"order": 2
-						}
-					},
 					{
 						"tier": 2,
 						"column": 1,
@@ -490,29 +452,47 @@
 							"description": "A battle-hardened master of weapons, using mobility and overpowering attacks to strike his opponents down.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
 							"order": 0
 						}
-					}
-				],
-				[
+					},
 					{
 						"tier": 2,
-						"column": 2,
+						"column": 1,
 						"spell": {
-							"id": 118000,
-							"name": "Dragon Roar",
-							"icon": "ability_warrior_dragonroar",
-							"description": "Roar explosively, dealing 528 Physical damage to all enemies within 12 yds and reducing their movement speed by 50% for 6 sec.\n\n\n\nGenerates 10 Rage.",
-							"castTime": "Instant",
-							"cooldown": "35 sec cooldown"
+							"id": 275336,
+							"name": "Unstoppable Force",
+							"icon": "warrior_talent_icon_thunderstruck",
+							"description": "Avatar increases the damage of Thunder Clap by 100%, and reduces its cooldown by 50%.",
+							"castTime": "Passive"
 						},
 						"spec": {
 							"name": "Protection",
 							"role": "TANK",
 							"backgroundImage": "bg-warrior-protection",
 							"icon": "ability_warrior_defensivestance",
-							"description": "A stalwart protector who uses a shield to safeguard herself and her allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
+							"description": "A stalwart protector who uses a shield to safeguard himself and his allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
 							"order": 2
 						}
 					},
+					{
+						"tier": 2,
+						"column": 1,
+						"spell": {
+							"id": 280721,
+							"name": "Sudden Death",
+							"icon": "ability_warrior_improveddisciplines",
+							"description": "Your attacks have a chance to reset the cooldown of Execute and make it usable on any target, regardless of their health.",
+							"castTime": "Passive"
+						},
+						"spec": {
+							"name": "Fury",
+							"role": "DPS",
+							"backgroundImage": "bg-warrior-fury",
+							"icon": "ability_warrior_innerrage",
+							"description": "A furious berserker unleashing a flurry of attacks to carve his opponents to pieces.\r\n\r\nPreferred Weapons: Dual Two-Handed Axes, Maces, Swords",
+							"order": 1
+						}
+					}
+				],
+				[
 					{
 						"tier": 2,
 						"column": 2,
@@ -553,22 +533,31 @@
 							"description": "A battle-hardened master of weapons, using mobility and overpowering attacks to strike his opponents down.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
 							"order": 0
 						}
+					},
+					{
+						"tier": 2,
+						"column": 2,
+						"spell": {
+							"id": 118000,
+							"name": "Dragon Roar",
+							"icon": "ability_warrior_dragonroar",
+							"description": "Roar explosively, dealing 528 Physical damage to all enemies within 12 yds and reducing their movement speed by 50% for 6 sec.\n\n\n\nGenerates 10 Rage.",
+							"castTime": "Instant",
+							"cooldown": "35 sec cooldown"
+						},
+						"spec": {
+							"name": "Protection",
+							"role": "TANK",
+							"backgroundImage": "bg-warrior-protection",
+							"icon": "ability_warrior_defensivestance",
+							"description": "A stalwart protector who uses a shield to safeguard himself and his allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
+							"order": 2
+						}
 					}
 				]
 			],
 			[
 				[
-					{
-						"tier": 3,
-						"column": 0,
-						"spell": {
-							"id": 29838,
-							"name": "Second Wind",
-							"icon": "ability_hunter_harass",
-							"description": "Restores 6% health every 1 sec when you have not taken damage for 5 sec.",
-							"castTime": "Passive"
-						}
-					},
 					{
 						"tier": 3,
 						"column": 0,
@@ -592,6 +581,17 @@
 						"tier": 3,
 						"column": 0,
 						"spell": {
+							"id": 29838,
+							"name": "Second Wind",
+							"icon": "ability_hunter_harass",
+							"description": "Restores 6% health every 1 sec when you have not taken damage for 5 sec.",
+							"castTime": "Passive"
+						}
+					},
+					{
+						"tier": 3,
+						"column": 0,
+						"spell": {
 							"id": 202095,
 							"name": "Indomitable",
 							"icon": "ability_warrior_intensifyrage",
@@ -603,7 +603,7 @@
 							"role": "TANK",
 							"backgroundImage": "bg-warrior-protection",
 							"icon": "ability_warrior_defensivestance",
-							"description": "A stalwart protector who uses a shield to safeguard herself and her allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
+							"description": "A stalwart protector who uses a shield to safeguard himself and his allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
 							"order": 2
 						}
 					}
@@ -624,7 +624,7 @@
 							"role": "TANK",
 							"backgroundImage": "bg-warrior-protection",
 							"icon": "ability_warrior_defensivestance",
-							"description": "A stalwart protector who uses a shield to safeguard herself and her allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
+							"description": "A stalwart protector who uses a shield to safeguard himself and his allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
 							"order": 2
 						}
 					},
@@ -645,26 +645,6 @@
 						"tier": 3,
 						"column": 2,
 						"spell": {
-							"id": 197690,
-							"name": "Defensive Stance",
-							"icon": "ability_warrior_defensivestance",
-							"description": "A defensive combat state that reduces all damage you take by 20%, and all damage you deal by 10%. Lasts until cancelled.",
-							"castTime": "Instant",
-							"cooldown": "6 sec cooldown"
-						},
-						"spec": {
-							"name": "Arms",
-							"role": "DPS",
-							"backgroundImage": "bg-warrior-arms",
-							"icon": "ability_warrior_savageblow",
-							"description": "A battle-hardened master of weapons, using mobility and overpowering attacks to strike his opponents down.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
-							"order": 0
-						}
-					},
-					{
-						"tier": 3,
-						"column": 2,
-						"spell": {
 							"id": 280001,
 							"name": "Bolster",
 							"icon": "shield_draenorcrafted_d_02_c_alliance",
@@ -676,7 +656,7 @@
 							"role": "TANK",
 							"backgroundImage": "bg-warrior-protection",
 							"icon": "ability_warrior_defensivestance",
-							"description": "A stalwart protector who uses a shield to safeguard herself and her allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
+							"description": "A stalwart protector who uses a shield to safeguard himself and his allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
 							"order": 2
 						}
 					},
@@ -697,6 +677,26 @@
 							"icon": "ability_warrior_innerrage",
 							"description": "A furious berserker unleashing a flurry of attacks to carve his opponents to pieces.\r\n\r\nPreferred Weapons: Dual Two-Handed Axes, Maces, Swords",
 							"order": 1
+						}
+					},
+					{
+						"tier": 3,
+						"column": 2,
+						"spell": {
+							"id": 197690,
+							"name": "Defensive Stance",
+							"icon": "ability_warrior_defensivestance",
+							"description": "A defensive combat state that reduces all damage you take by 20%, and all damage you deal by 10%. Lasts until cancelled.",
+							"castTime": "Instant",
+							"cooldown": "6 sec cooldown"
+						},
+						"spec": {
+							"name": "Arms",
+							"role": "DPS",
+							"backgroundImage": "bg-warrior-arms",
+							"icon": "ability_warrior_savageblow",
+							"description": "A battle-hardened master of weapons, using mobility and overpowering attacks to strike his opponents down.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
+							"order": 0
 						}
 					}
 				]
@@ -756,12 +756,32 @@
 							"role": "TANK",
 							"backgroundImage": "bg-warrior-protection",
 							"icon": "ability_warrior_defensivestance",
-							"description": "A stalwart protector who uses a shield to safeguard herself and her allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
+							"description": "A stalwart protector who uses a shield to safeguard himself and his allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
 							"order": 2
 						}
 					}
 				],
 				[
+					{
+						"tier": 4,
+						"column": 1,
+						"spell": {
+							"id": 262161,
+							"name": "Warbreaker",
+							"icon": "inv_warbreaker",
+							"description": "Smash the ground and shatter the armor of all enemies within 8 yds, dealing 466 Physical damage and increasing damage you deal to them by 30% for 10 sec.",
+							"castTime": "Instant",
+							"cooldown": "45 sec cooldown"
+						},
+						"spec": {
+							"name": "Arms",
+							"role": "DPS",
+							"backgroundImage": "bg-warrior-arms",
+							"icon": "ability_warrior_savageblow",
+							"description": "A battle-hardened master of weapons, using mobility and overpowering attacks to strike his opponents down.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
+							"order": 0
+						}
+					},
 					{
 						"tier": 4,
 						"column": 1,
@@ -796,28 +816,8 @@
 							"role": "TANK",
 							"backgroundImage": "bg-warrior-protection",
 							"icon": "ability_warrior_defensivestance",
-							"description": "A stalwart protector who uses a shield to safeguard herself and her allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
+							"description": "A stalwart protector who uses a shield to safeguard himself and his allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
 							"order": 2
-						}
-					},
-					{
-						"tier": 4,
-						"column": 1,
-						"spell": {
-							"id": 262161,
-							"name": "Warbreaker",
-							"icon": "inv_warbreaker",
-							"description": "Smash the ground and shatter the armor of all enemies within 8 yds, dealing 466 Physical damage and increasing damage you deal to them by 30% for 10 sec.",
-							"castTime": "Instant",
-							"cooldown": "45 sec cooldown"
-						},
-						"spec": {
-							"name": "Arms",
-							"role": "DPS",
-							"backgroundImage": "bg-warrior-arms",
-							"icon": "ability_warrior_savageblow",
-							"description": "A battle-hardened master of weapons, using mobility and overpowering attacks to strike his opponents down.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
-							"order": 0
 						}
 					}
 				],
@@ -861,7 +861,7 @@
 							"role": "TANK",
 							"backgroundImage": "bg-warrior-protection",
 							"icon": "ability_warrior_defensivestance",
-							"description": "A stalwart protector who uses a shield to safeguard herself and her allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
+							"description": "A stalwart protector who uses a shield to safeguard himself and his allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
 							"order": 2
 						}
 					},
@@ -903,7 +903,7 @@
 							"role": "TANK",
 							"backgroundImage": "bg-warrior-protection",
 							"icon": "ability_warrior_defensivestance",
-							"description": "A stalwart protector who uses a shield to safeguard herself and her allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
+							"description": "A stalwart protector who uses a shield to safeguard himself and his allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
 							"order": 2
 						}
 					},
@@ -962,7 +962,7 @@
 							"role": "TANK",
 							"backgroundImage": "bg-warrior-protection",
 							"icon": "ability_warrior_defensivestance",
-							"description": "A stalwart protector who uses a shield to safeguard herself and her allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
+							"description": "A stalwart protector who uses a shield to safeguard himself and his allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
 							"order": 2
 						}
 					},
@@ -1012,19 +1012,20 @@
 						"tier": 5,
 						"column": 2,
 						"spell": {
-							"id": 236279,
-							"name": "Devastator",
-							"icon": "inv_sword_11",
-							"description": "Your auto attacks deal an additional 65 Physical damage and have a 20% chance to reset the remaining cooldown on Shield Slam.",
-							"castTime": "Passive"
+							"id": 262228,
+							"name": "Deadly Calm",
+							"icon": "achievement_boss_kingymiron",
+							"description": "Reduces the Rage cost of your abilities by 100% for 6 sec.",
+							"castTime": "Instant",
+							"cooldown": "1 min cooldown"
 						},
 						"spec": {
-							"name": "Protection",
-							"role": "TANK",
-							"backgroundImage": "bg-warrior-protection",
-							"icon": "ability_warrior_defensivestance",
-							"description": "A stalwart protector who uses a shield to safeguard herself and her allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
-							"order": 2
+							"name": "Arms",
+							"role": "DPS",
+							"backgroundImage": "bg-warrior-arms",
+							"icon": "ability_warrior_savageblow",
+							"description": "A battle-hardened master of weapons, using mobility and overpowering attacks to strike his opponents down.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
+							"order": 0
 						}
 					},
 					{
@@ -1051,20 +1052,19 @@
 						"tier": 5,
 						"column": 2,
 						"spell": {
-							"id": 262228,
-							"name": "Deadly Calm",
-							"icon": "achievement_boss_kingymiron",
-							"description": "Reduces the Rage cost of your abilities by 100% for 6 sec.",
-							"castTime": "Instant",
-							"cooldown": "1 min cooldown"
+							"id": 236279,
+							"name": "Devastator",
+							"icon": "inv_sword_11",
+							"description": "Your auto attacks deal an additional 65 Physical damage and have a 20% chance to reset the remaining cooldown on Shield Slam.",
+							"castTime": "Passive"
 						},
 						"spec": {
-							"name": "Arms",
-							"role": "DPS",
-							"backgroundImage": "bg-warrior-arms",
-							"icon": "ability_warrior_savageblow",
-							"description": "A battle-hardened master of weapons, using mobility and overpowering attacks to strike his opponents down.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
-							"order": 0
+							"name": "Protection",
+							"role": "TANK",
+							"backgroundImage": "bg-warrior-protection",
+							"icon": "ability_warrior_defensivestance",
+							"description": "A stalwart protector who uses a shield to safeguard himself and his allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
+							"order": 2
 						}
 					}
 				]
@@ -1107,6 +1107,25 @@
 						"tier": 6,
 						"column": 1,
 						"spell": {
+							"id": 262150,
+							"name": "Dreadnaught",
+							"icon": "inv_sword_05",
+							"description": "Overpower has 2 charges, and it increases the damage of your next Mortal Strike by an additional 10%.",
+							"castTime": "Passive"
+						},
+						"spec": {
+							"name": "Arms",
+							"role": "DPS",
+							"backgroundImage": "bg-warrior-arms",
+							"icon": "ability_warrior_savageblow",
+							"description": "A battle-hardened master of weapons, using mobility and overpowering attacks to strike his opponents down.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
+							"order": 0
+						}
+					},
+					{
+						"tier": 6,
+						"column": 1,
+						"spell": {
 							"id": 203177,
 							"name": "Heavy Repercussions",
 							"icon": "inv_shield_32",
@@ -1118,7 +1137,7 @@
 							"role": "TANK",
 							"backgroundImage": "bg-warrior-protection",
 							"icon": "ability_warrior_defensivestance",
-							"description": "A stalwart protector who uses a shield to safeguard herself and her allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
+							"description": "A stalwart protector who uses a shield to safeguard himself and his allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
 							"order": 2
 						}
 					},
@@ -1140,49 +1159,9 @@
 							"description": "A furious berserker unleashing a flurry of attacks to carve his opponents to pieces.\r\n\r\nPreferred Weapons: Dual Two-Handed Axes, Maces, Swords",
 							"order": 1
 						}
-					},
-					{
-						"tier": 6,
-						"column": 1,
-						"spell": {
-							"id": 262150,
-							"name": "Dreadnaught",
-							"icon": "inv_sword_05",
-							"description": "Overpower has 2 charges, and it increases the damage of your next Mortal Strike by an additional 10%.",
-							"castTime": "Passive"
-						},
-						"spec": {
-							"name": "Arms",
-							"role": "DPS",
-							"backgroundImage": "bg-warrior-arms",
-							"icon": "ability_warrior_savageblow",
-							"description": "A battle-hardened master of weapons, using mobility and overpowering attacks to strike his opponents down.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
-							"order": 0
-						}
 					}
 				],
 				[
-					{
-						"tier": 6,
-						"column": 2,
-						"spell": {
-							"id": 228920,
-							"name": "Ravager",
-							"icon": "warrior_talent_icon_ravager",
-							"description": "Throws a whirling weapon at the target location that inflicts 959 damage to all enemies within 8 yards over 6.5 sec.",
-							"range": "40 yd range",
-							"castTime": "Instant",
-							"cooldown": "1 min cooldown"
-						},
-						"spec": {
-							"name": "Protection",
-							"role": "TANK",
-							"backgroundImage": "bg-warrior-protection",
-							"icon": "ability_warrior_defensivestance",
-							"description": "A stalwart protector who uses a shield to safeguard herself and her allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
-							"order": 2
-						}
-					},
 					{
 						"tier": 6,
 						"column": 2,
@@ -1223,6 +1202,27 @@
 							"icon": "ability_warrior_savageblow",
 							"description": "A battle-hardened master of weapons, using mobility and overpowering attacks to strike his opponents down.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
 							"order": 0
+						}
+					},
+					{
+						"tier": 6,
+						"column": 2,
+						"spell": {
+							"id": 228920,
+							"name": "Ravager",
+							"icon": "warrior_talent_icon_ravager",
+							"description": "Throws a whirling weapon at the target location that inflicts 959 damage to all enemies within 8 yards over 6.5 sec.",
+							"range": "40 yd range",
+							"castTime": "Instant",
+							"cooldown": "1 min cooldown"
+						},
+						"spec": {
+							"name": "Protection",
+							"role": "TANK",
+							"backgroundImage": "bg-warrior-protection",
+							"icon": "ability_warrior_defensivestance",
+							"description": "A stalwart protector who uses a shield to safeguard himself and his allies.\r\n\r\nPreferred Weapon: Axe, Mace, Sword, and Shield",
+							"order": 2
 						}
 					}
 				]
@@ -1429,7 +1429,7 @@
 							"id": 267798,
 							"name": "Execution Sentence",
 							"icon": "spell_paladin_executionsentence",
-							"description": "Calls down the Light's punishment upon an enemy target, dealing 373 Holy damage and increasing the target's Holy damage taken from your attacks by 20% for 12 sec.",
+							"description": "Calls down the Light's punishment upon an enemy target, dealing 621 Holy damage and increasing the target's Holy damage taken from your attacks by 20% for 12 sec.",
 							"range": "20 yd range",
 							"powerCost": "3 Holy Power",
 							"castTime": "Instant",
@@ -1762,7 +1762,7 @@
 							"id": 205228,
 							"name": "Consecration",
 							"icon": "spell_holy_innerfire",
-							"description": "Consecrates the land beneath you, causing 91 Holy damage over 6 sec to enemies who enter the area.\n\n\n\nGenerates 1 Holy Power.",
+							"description": "Consecrates the land beneath you, causing 112 Holy damage over 6 sec to enemies who enter the area.\n\n\n\nGenerates 1 Holy Power.",
 							"castTime": "Instant",
 							"cooldown": "20 sec cooldown"
 						},
@@ -1822,7 +1822,7 @@
 							"id": 255937,
 							"name": "Wake of Ashes",
 							"icon": "inv_sword_2h_artifactashbringerfire_d_03",
-							"description": "Lash out at your enemies, dealing 528 Radiant damage to all enemies within 12 yd in front of you and reducing their movement speed by 50% for 5 sec.\n\n\n\nDemon and Undead enemies are also stunned for 5 sec.\n\n\n\nGenerates 5 Holy Power.",
+							"description": "Lash out at your enemies, dealing 653 Radiant damage to all enemies within 12 yd in front of you and reducing their movement speed by 50% for 5 sec.\n\n\n\nDemon and Undead enemies are also stunned for 5 sec.\n\n\n\nGenerates 5 Holy Power.",
 							"castTime": "Instant",
 							"cooldown": "45 sec cooldown"
 						},
@@ -1985,7 +1985,7 @@
 							"id": 114165,
 							"name": "Holy Prism",
 							"icon": "spell_paladin_holyprism",
-							"description": "Fires a beam of light that scatters to strike a clump of targets. \n\n\n\nIf the beam is aimed at an enemy target, it deals 2,935 Holy damage and radiates 1,829 healing to 5 allies within 15 yards.\n\n\n\nIf the beam is aimed at a friendly target, it heals for 3,913 and radiates 1,761 Holy damage to 5 enemies within 15 yards.",
+							"description": "Fires a beam of light that scatters to strike a clump of targets. \n\n\n\nIf the beam is aimed at an enemy target, it deals 2,935 Holy damage and radiates 1,926 healing to 5 allies within 15 yards.\n\n\n\nIf the beam is aimed at a friendly target, it heals for 3,913 and radiates 1,761 Holy damage to 5 enemies within 15 yards.",
 							"range": "40 yd range",
 							"powerCost": "17% of base mana",
 							"castTime": "Instant",
@@ -2029,7 +2029,7 @@
 							"id": 213652,
 							"name": "Hand of the Protector",
 							"icon": "ability_paladin_blessedhands",
-							"description": "Calls down the Light to heal a friendly target for 10,956, increased by up to 200% based on your missing health.",
+							"description": "Calls down the Light to heal a friendly target for 10,956, increased by up to 200% based on their missing health.",
 							"range": "40 yd range",
 							"castTime": "Instant"
 						},
@@ -2083,7 +2083,7 @@
 						"spell": {
 							"id": 85804,
 							"name": "Selfless Healer",
-							"icon": "ability_paladin_gaurdedbythelight",
+							"icon": "ability_paladin_guardedbythelight",
 							"description": "Your Holy Power spending abilities reduce the cast time of your next Flash of Light by 25%, and increase its healing done by 10%. Stacks up to 4 times.",
 							"castTime": "Passive"
 						},
@@ -2164,7 +2164,7 @@
 							"id": 215661,
 							"name": "Justicar's Vengeance",
 							"icon": "spell_holy_retributionaura",
-							"description": "Focuses Holy energy to deliver a powerful weapon strike that deals 280 Holy damage, and restores health equal to the damage done.\n\n\n\nDamage is increased by 50% when used against a stunned target.",
+							"description": "Focuses Holy energy to deliver a powerful weapon strike that deals 466 Holy damage, and restores health equal to the damage done.\n\n\n\nDamage is increased by 50% when used against a stunned target.",
 							"range": "Melee Range",
 							"powerCost": "5 Holy Power",
 							"castTime": "Instant"
@@ -2251,7 +2251,7 @@
 							"id": 223817,
 							"name": "Divine Purpose",
 							"icon": "spell_holy_divinepurpose",
-							"description": "Your abilities that consume Holy Power have a 15% chance to make your next ability that consumes Holy Power free and deal 30% increased damage and healing.",
+							"description": "Your abilities that consume Holy Power have a 15% chance to make your next ability that consumes Holy Power free and deal 20% increased damage and healing.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -2439,7 +2439,7 @@
 				"role": "DPS",
 				"backgroundImage": "bg-hunter-beastmaster",
 				"icon": "ability_hunter_bestialdiscipline",
-				"description": "A master of the wild who can tame a wide variety of beasts to assist her in combat.\r\n\r\nPreferred Weapon: Bow, Crossbow, Gun",
+				"description": "A master of the wild who can tame a wide variety of beasts to assist him in combat.\r\n\r\nPreferred Weapon: Bow, Crossbow, Gun",
 				"order": 0
 			},
 			{
@@ -2546,7 +2546,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-hunter-beastmaster",
 							"icon": "ability_hunter_bestialdiscipline",
-							"description": "A master of the wild who can tame a wide variety of beasts to assist her in combat.\r\n\r\nPreferred Weapon: Bow, Crossbow, Gun",
+							"description": "A master of the wild who can tame a wide variety of beasts to assist him in combat.\r\n\r\nPreferred Weapon: Bow, Crossbow, Gun",
 							"order": 0
 						}
 					},
@@ -2586,7 +2586,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-hunter-beastmaster",
 							"icon": "ability_hunter_bestialdiscipline",
-							"description": "A master of the wild who can tame a wide variety of beasts to assist her in combat.\r\n\r\nPreferred Weapon: Bow, Crossbow, Gun",
+							"description": "A master of the wild who can tame a wide variety of beasts to assist him in combat.\r\n\r\nPreferred Weapon: Bow, Crossbow, Gun",
 							"order": 0
 						}
 					},
@@ -2616,7 +2616,7 @@
 							"id": 271788,
 							"name": "Serpent Sting",
 							"icon": "spell_hunter_exoticmunitions_poisoned",
-							"description": "Fire a shot that poisons your target, causing them to take 47 Nature damage instantly and an additional 201 Nature damage over 12 sec.",
+							"description": "Fire a shot that poisons your target, causing them to take 51 Nature damage instantly and an additional 218 Nature damage over 12 sec.",
 							"range": "40 yd range",
 							"powerCost": "10 Focus",
 							"castTime": "Instant"
@@ -2669,7 +2669,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-hunter-beastmaster",
 							"icon": "ability_hunter_bestialdiscipline",
-							"description": "A master of the wild who can tame a wide variety of beasts to assist her in combat.\r\n\r\nPreferred Weapon: Bow, Crossbow, Gun",
+							"description": "A master of the wild who can tame a wide variety of beasts to assist him in combat.\r\n\r\nPreferred Weapon: Bow, Crossbow, Gun",
 							"order": 0
 						}
 					},
@@ -2725,7 +2725,7 @@
 							"id": 260228,
 							"name": "Careful Aim",
 							"icon": "ability_hunter_zenarchery",
-							"description": "Aimed Shot has a 50% chance to deal 100% bonus damage to targets who are above 80% health or below 20% health.",
+							"description": "Aimed Shot deals 50% bonus damage to targets who are above 80% health or below 20% health.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -2752,7 +2752,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-hunter-beastmaster",
 							"icon": "ability_hunter_bestialdiscipline",
-							"description": "A master of the wild who can tame a wide variety of beasts to assist her in combat.\r\n\r\nPreferred Weapon: Bow, Crossbow, Gun",
+							"description": "A master of the wild who can tame a wide variety of beasts to assist him in combat.\r\n\r\nPreferred Weapon: Bow, Crossbow, Gun",
 							"order": 0
 						}
 					}
@@ -2792,7 +2792,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-hunter-beastmaster",
 							"icon": "ability_hunter_bestialdiscipline",
-							"description": "A master of the wild who can tame a wide variety of beasts to assist her in combat.\r\n\r\nPreferred Weapon: Bow, Crossbow, Gun",
+							"description": "A master of the wild who can tame a wide variety of beasts to assist him in combat.\r\n\r\nPreferred Weapon: Bow, Crossbow, Gun",
 							"order": 0
 						}
 					},
@@ -2803,7 +2803,7 @@
 							"id": 260243,
 							"name": "Volley",
 							"icon": "buff_epichunter",
-							"description": "Your auto-shots have a 10% chance to cause a volley of arrows to rain down around the target, dealing 233 Physical damage to each enemy within 8 yards.",
+							"description": "Your auto-shots have a 25% chance to cause a volley of arrows to rain down around the target, dealing 109 Physical damage to each enemy within 8 yards.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -2834,7 +2834,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-hunter-beastmaster",
 							"icon": "ability_hunter_bestialdiscipline",
-							"description": "A master of the wild who can tame a wide variety of beasts to assist her in combat.\r\n\r\nPreferred Weapon: Bow, Crossbow, Gun",
+							"description": "A master of the wild who can tame a wide variety of beasts to assist him in combat.\r\n\r\nPreferred Weapon: Bow, Crossbow, Gun",
 							"order": 0
 						}
 					},
@@ -2866,7 +2866,7 @@
 							"id": 212431,
 							"name": "Explosive Shot",
 							"icon": "ability_hunter_explosiveshot",
-							"description": "Fires a slow-moving munition directly forward. Activating this ability a second time detonates the Shot, dealing up to 407 Fire damage to all enemies within 8 yds.\n\n\n\nIf you do not detonate Explosive Shot, 10 Focus and some of the cooldown will be refunded.",
+							"description": "Fires an explosive shot at your target. After 3 sec, the shot will explode, dealing 407 Fire damage to all enemies within 8 yards.",
 							"range": "40 yd range",
 							"powerCost": "20 Focus",
 							"castTime": "Instant",
@@ -2934,7 +2934,7 @@
 							"id": 260248,
 							"name": "Bloodseeker",
 							"icon": "ability_druid_primaltenacity",
-							"description": "Kill Command causes the target to bleed for 118 damage over 8 sec.\n\n\n\nYou and your pet gain 10% attack speed for every bleeding enemy within 12 yds.",
+							"description": "Kill Command causes the target to bleed for 126 damage over 8 sec.\n\n\n\nYou and your pet gain 10% attack speed for every bleeding enemy within 12 yds.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -2953,7 +2953,7 @@
 							"id": 193533,
 							"name": "Steady Focus",
 							"icon": "ability_hunter_improvedsteadyshot",
-							"description": "Using Steady Shot reduces the cast time of Steady Shot by 20%, stacking up to 2 times.  Using any other shot removes this effect.",
+							"description": "Using Steady Shot reduces the cast time of Steady Shot by 20%, stacking up to 2 times. Using any other shot removes this effect.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -2980,7 +2980,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-hunter-beastmaster",
 							"icon": "ability_hunter_bestialdiscipline",
-							"description": "A master of the wild who can tame a wide variety of beasts to assist her in combat.\r\n\r\nPreferred Weapon: Bow, Crossbow, Gun",
+							"description": "A master of the wild who can tame a wide variety of beasts to assist him in combat.\r\n\r\nPreferred Weapon: Bow, Crossbow, Gun",
 							"order": 0
 						}
 					}
@@ -3014,7 +3014,7 @@
 							"id": 260367,
 							"name": "Streamline",
 							"icon": "ability_hunter_runningshot",
-							"description": "Rapid Fire now lasts 30% longer.",
+							"description": "Rapid Fire now lasts 20% longer.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -3041,7 +3041,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-hunter-beastmaster",
 							"icon": "ability_hunter_bestialdiscipline",
-							"description": "A master of the wild who can tame a wide variety of beasts to assist her in combat.\r\n\r\nPreferred Weapon: Bow, Crossbow, Gun",
+							"description": "A master of the wild who can tame a wide variety of beasts to assist him in combat.\r\n\r\nPreferred Weapon: Bow, Crossbow, Gun",
 							"order": 0
 						}
 					}
@@ -3085,7 +3085,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-hunter-beastmaster",
 							"icon": "ability_hunter_bestialdiscipline",
-							"description": "A master of the wild who can tame a wide variety of beasts to assist her in combat.\r\n\r\nPreferred Weapon: Bow, Crossbow, Gun",
+							"description": "A master of the wild who can tame a wide variety of beasts to assist him in combat.\r\n\r\nPreferred Weapon: Bow, Crossbow, Gun",
 							"order": 0
 						}
 					},
@@ -3165,7 +3165,7 @@
 							"id": 260393,
 							"name": "Lethal Shots",
 							"icon": "ability_hunter_resistanceisfutile",
-							"description": "Steady Shot has a 25% chance to cause your next Aimed Shot or Rapid Fire to be guaranteed critical strikes.",
+							"description": "Arcane Shot and Multi-Shot have a 20% chance to reduce the cooldown of Rapid Fire by 5.0 sec.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -3192,7 +3192,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-hunter-beastmaster",
 							"icon": "ability_hunter_bestialdiscipline",
-							"description": "A master of the wild who can tame a wide variety of beasts to assist her in combat.\r\n\r\nPreferred Weapon: Bow, Crossbow, Gun",
+							"description": "A master of the wild who can tame a wide variety of beasts to assist him in combat.\r\n\r\nPreferred Weapon: Bow, Crossbow, Gun",
 							"order": 0
 						}
 					},
@@ -3224,7 +3224,7 @@
 							"id": 120360,
 							"name": "Barrage",
 							"icon": "ability_hunter_rapidregeneration",
-							"description": "Rapidly fires a spray of shots for 2.8 sec, dealing an average of 440 Physical damage to all enemies in front of you. Usable while moving.",
+							"description": "Rapidly fires a spray of shots for 2.8 sec, dealing an average of 484 Physical damage to all enemies in front of you. Usable while moving.",
 							"range": "40 yd range",
 							"powerCost": "60 Focus",
 							"castTime": "Channeled",
@@ -3246,7 +3246,7 @@
 							"id": 120360,
 							"name": "Barrage",
 							"icon": "ability_hunter_rapidregeneration",
-							"description": "Rapidly fires a spray of shots for 2.8 sec, dealing an average of 440 Physical damage to all enemies in front of you. Usable while moving.",
+							"description": "Rapidly fires a spray of shots for 2.8 sec, dealing an average of 484 Physical damage to all enemies in front of you. Usable while moving.",
 							"range": "40 yd range",
 							"powerCost": "60 Focus",
 							"castTime": "Channeled",
@@ -3257,7 +3257,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-hunter-beastmaster",
 							"icon": "ability_hunter_bestialdiscipline",
-							"description": "A master of the wild who can tame a wide variety of beasts to assist her in combat.\r\n\r\nPreferred Weapon: Bow, Crossbow, Gun",
+							"description": "A master of the wild who can tame a wide variety of beasts to assist him in combat.\r\n\r\nPreferred Weapon: Bow, Crossbow, Gun",
 							"order": 0
 						}
 					},
@@ -3268,7 +3268,7 @@
 							"id": 259387,
 							"name": "Mongoose Bite",
 							"icon": "ability_hunter_mongoosebite",
-							"description": "A brutal attack that deals 311 Physical damage and grants you Mongoose Fury.\n\n\n\nMongoose Fury\n\nIncreases the damage of Mongoose Bite by 15% for 14 sec, stacking up to 5 times. Successive attacks do not increase duration.",
+							"description": "A brutal attack that deals 280 Physical damage and grants you Mongoose Fury.\n\n\n\nMongoose Fury\n\nIncreases the damage of Mongoose Bite by 15% for 14 sec, stacking up to 5 times. Successive attacks do not increase duration.",
 							"range": "Melee Range",
 							"powerCost": "30 Focus",
 							"castTime": "Instant"
@@ -3311,7 +3311,7 @@
 							"id": 269751,
 							"name": "Flanking Strike",
 							"icon": "ability_hunter_invigeration",
-							"description": "You and your pet leap to the target and strike it as one, dealing a total of 280 Physical damage.\n\n\n\nGenerates 30 Focus for you and your pet.",
+							"description": "You and your pet leap to the target and strike it as one, dealing a total of 364 Physical damage.\n\n\n\nGenerates 30 Focus for you and your pet.",
 							"range": "15 yd range",
 							"castTime": "Instant",
 							"cooldown": "40 sec cooldown"
@@ -3342,7 +3342,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-hunter-beastmaster",
 							"icon": "ability_hunter_bestialdiscipline",
-							"description": "A master of the wild who can tame a wide variety of beasts to assist her in combat.\r\n\r\nPreferred Weapon: Bow, Crossbow, Gun",
+							"description": "A master of the wild who can tame a wide variety of beasts to assist him in combat.\r\n\r\nPreferred Weapon: Bow, Crossbow, Gun",
 							"order": 0
 						}
 					}
@@ -3365,7 +3365,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-hunter-beastmaster",
 							"icon": "ability_hunter_bestialdiscipline",
-							"description": "A master of the wild who can tame a wide variety of beasts to assist her in combat.\r\n\r\nPreferred Weapon: Bow, Crossbow, Gun",
+							"description": "A master of the wild who can tame a wide variety of beasts to assist him in combat.\r\n\r\nPreferred Weapon: Bow, Crossbow, Gun",
 							"order": 0
 						}
 					},
@@ -3424,7 +3424,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-hunter-beastmaster",
 							"icon": "ability_hunter_bestialdiscipline",
-							"description": "A master of the wild who can tame a wide variety of beasts to assist her in combat.\r\n\r\nPreferred Weapon: Bow, Crossbow, Gun",
+							"description": "A master of the wild who can tame a wide variety of beasts to assist him in combat.\r\n\r\nPreferred Weapon: Bow, Crossbow, Gun",
 							"order": 0
 						}
 					},
@@ -3484,7 +3484,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-hunter-beastmaster",
 							"icon": "ability_hunter_bestialdiscipline",
-							"description": "A master of the wild who can tame a wide variety of beasts to assist her in combat.\r\n\r\nPreferred Weapon: Bow, Crossbow, Gun",
+							"description": "A master of the wild who can tame a wide variety of beasts to assist him in combat.\r\n\r\nPreferred Weapon: Bow, Crossbow, Gun",
 							"order": 0
 						}
 					},
@@ -3495,7 +3495,7 @@
 							"id": 198670,
 							"name": "Piercing Shot",
 							"icon": "ability_cheapshot",
-							"description": "A powerful shot which deals 350 Physical damage to the target and up to 140 Physical damage to all enemies between you and the target.",
+							"description": "A powerful shot which deals 350 Physical damage to the target and up to 140 Physical damage to all enemies between you and the target. \n\n\n\nPiercing Shot ignores the target's armor.",
 							"range": "40 yd range",
 							"powerCost": "35 Focus",
 							"castTime": "Instant",
@@ -3708,7 +3708,7 @@
 							"id": 111240,
 							"name": "Blindside",
 							"icon": "ability_rogue_focusedattacks",
-							"description": "Exploits the vulnerability of foes with less than 30% health, dealing 186 Physical damage to the target.\n\n\n\nMutilate has a 25% chance to make your next Blindside free and usable on any target, regardless of their health.\n\n\n\nAwards 1 combo point.",
+							"description": "Exploits the vulnerability of foes with less than 35% health, dealing 186 Physical damage to the target.\n\n\n\nMutilate has a 25% chance to make your next Blindside free and usable on any target, regardless of their health.\n\n\n\nAwards 1 combo point.",
 							"range": "Melee Range",
 							"powerCost": "30 Energy",
 							"castTime": "Instant"
@@ -3860,7 +3860,7 @@
 							"id": 108209,
 							"name": "Shadow Focus",
 							"icon": "rogue_shadowfocus",
-							"description": "Abilities cost 25% less Energy while Stealth or Shadow Dance is active.",
+							"description": "Abilities cost 20% less Energy while Stealth or Shadow Dance is active.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -4504,7 +4504,7 @@
 							"id": 121411,
 							"name": "Crimson Tempest",
 							"icon": "inv_knife_1h_cataclysm_c_05",
-							"description": "Finishing move that slashes at all enemies within 10 yards, dealing instant damage and causing victims to bleed for additional damage. Lasts longer per combo point.\n\n\n\n   1 point  : 24 plus 66 over 4 sec\n\n   2 points: 36 plus 100 over 6 sec\n\n   3 points: 48 plus 133 over 8 sec\n\n   4 points: 60 plus 166 over 10 sec\n\n   5 points: 72 plus 199 over 12 sec",
+							"description": "Finishing move that slashes at all enemies within 10 yards, dealing instant damage and causing victims to bleed for additional damage. Lasts longer per combo point.\n\n\n\n   1 point  : 22 plus 60 over 4 sec\n\n   2 points: 33 plus 90 over 6 sec\n\n   3 points: 44 plus 120 over 8 sec\n\n   4 points: 55 plus 150 over 10 sec\n\n   5 points: 66 plus 180 over 12 sec",
 							"powerCost": "35 Energy",
 							"castTime": "Instant"
 						},
@@ -4556,6 +4556,25 @@
 						"tier": 0,
 						"column": 0,
 						"spell": {
+							"id": 193155,
+							"name": "Enlightenment",
+							"icon": "spell_arcane_mindmastery",
+							"description": "You regenerate mana 10% faster.",
+							"castTime": "Passive"
+						},
+						"spec": {
+							"name": "Holy",
+							"role": "HEALING",
+							"backgroundImage": "bg-priest-holy",
+							"icon": "spell_holy_guardianspirit",
+							"description": "A versatile healer who can reverse damage on individuals or groups and even heal from beyond the grave.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
+							"order": 1
+						}
+					},
+					{
+						"tier": 0,
+						"column": 0,
+						"spell": {
 							"id": 193134,
 							"name": "Castigation",
 							"icon": "spell_holy_searinglightpriest",
@@ -4581,25 +4600,6 @@
 							"description": "Uses sinister Shadow magic and terrifying Void magic to eradicate enemies.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
 							"order": 2
 						}
-					},
-					{
-						"tier": 0,
-						"column": 0,
-						"spell": {
-							"id": 193155,
-							"name": "Enlightenment",
-							"icon": "spell_arcane_mindmastery",
-							"description": "You regenerate mana 10% faster.",
-							"castTime": "Passive"
-						},
-						"spec": {
-							"name": "Holy",
-							"role": "HEALING",
-							"backgroundImage": "bg-priest-holy",
-							"icon": "spell_holy_guardianspirit",
-							"description": "A versatile healer who can reverse damage on individuals or groups and even heal from beyond the grave.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
-							"order": 1
-						}
 					}
 				],
 				[
@@ -4607,10 +4607,29 @@
 						"tier": 0,
 						"column": 1,
 						"spell": {
+							"id": 162452,
+							"name": "Shadowy Insight",
+							"icon": "spell_shadow_possession",
+							"description": "Shadow Word: Pain periodic damage has a chance to reset the remaining cooldown on Mind Blast and cause your next Mind Blast to be instant.",
+							"castTime": "Passive"
+						},
+						"spec": {
+							"name": "Shadow",
+							"role": "DPS",
+							"backgroundImage": "bg-priest-shadow",
+							"icon": "spell_shadow_shadowwordpain",
+							"description": "Uses sinister Shadow magic and terrifying Void magic to eradicate enemies.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
+							"order": 2
+						}
+					},
+					{
+						"tier": 0,
+						"column": 1,
+						"spell": {
 							"id": 200128,
 							"name": "Trail of Light",
 							"icon": "ability_priest_wordsofmeaning",
-							"description": "When you cast Flash Heal, 40% of the healing is replicated to the previous target you healed with Flash Heal.",
+							"description": "When you cast Heal or Flash Heal, 35% of the healing is replicated to the previous target you healed with Heal or Flash Heal.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -4640,69 +4659,9 @@
 							"description": "Uses magic to shield allies from taking damage as well as heal their wounds.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
 							"order": 0
 						}
-					},
-					{
-						"tier": 0,
-						"column": 1,
-						"spell": {
-							"id": 162452,
-							"name": "Shadowy Insight",
-							"icon": "spell_shadow_possession",
-							"description": "Shadow Word: Pain periodic damage has a chance to reset the remaining cooldown on Mind Blast and cause your next Mind Blast to be instant.",
-							"castTime": "Passive"
-						},
-						"spec": {
-							"name": "Shadow",
-							"role": "DPS",
-							"backgroundImage": "bg-priest-shadow",
-							"icon": "spell_shadow_shadowwordpain",
-							"description": "Uses sinister Shadow magic and terrifying Void magic to eradicate enemies.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
-							"order": 2
-						}
 					}
 				],
 				[
-					{
-						"tier": 0,
-						"column": 2,
-						"spell": {
-							"id": 200153,
-							"name": "Enduring Renewal",
-							"icon": "priest_icon_chakra",
-							"description": "Your single-target healing spells refresh the duration of your Renew on the target.",
-							"castTime": "Passive"
-						},
-						"spec": {
-							"name": "Holy",
-							"role": "HEALING",
-							"backgroundImage": "bg-priest-holy",
-							"icon": "spell_holy_guardianspirit",
-							"description": "A versatile healer who can reverse damage on individuals or groups and even heal from beyond the grave.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
-							"order": 1
-						}
-					},
-					{
-						"tier": 0,
-						"column": 2,
-						"spell": {
-							"id": 214621,
-							"name": "Schism",
-							"icon": "spell_warlock_focusshadow",
-							"description": "Attack the enemy's soul with a surge of Shadow energy, dealing 5,478 Shadow damage and increasing damage that you deal to the target by 40% for 9 sec.",
-							"range": "40 yd range",
-							"powerCost": "0.5% of base mana",
-							"castTime": "1.5 sec cast",
-							"cooldown": "24 sec cooldown"
-						},
-						"spec": {
-							"name": "Discipline",
-							"role": "HEALING",
-							"backgroundImage": "bg-priest-discipline",
-							"icon": "spell_holy_powerwordshield",
-							"description": "Uses magic to shield allies from taking damage as well as heal their wounds.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
-							"order": 0
-						}
-					},
 					{
 						"tier": 0,
 						"column": 2,
@@ -4721,6 +4680,47 @@
 							"icon": "spell_shadow_shadowwordpain",
 							"description": "Uses sinister Shadow magic and terrifying Void magic to eradicate enemies.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
 							"order": 2
+						}
+					},
+					{
+						"tier": 0,
+						"column": 2,
+						"spell": {
+							"id": 214621,
+							"name": "Schism",
+							"icon": "spell_warlock_focusshadow",
+							"description": "Attack the enemy's soul with a surge of Shadow energy, dealing 5,048 Shadow damage and increasing damage that you deal to the target by 40% for 9 sec.",
+							"range": "40 yd range",
+							"powerCost": "0.5% of base mana",
+							"castTime": "1.5 sec cast",
+							"cooldown": "24 sec cooldown"
+						},
+						"spec": {
+							"name": "Discipline",
+							"role": "HEALING",
+							"backgroundImage": "bg-priest-discipline",
+							"icon": "spell_holy_powerwordshield",
+							"description": "Uses magic to shield allies from taking damage as well as heal their wounds.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
+							"order": 0
+						}
+					},
+					{
+						"tier": 0,
+						"column": 2,
+						"spell": {
+							"id": 200153,
+							"name": "Enduring Renewal",
+							"icon": "priest_icon_chakra",
+							"description": "Your single-target healing spells refresh the duration of your Renew on the target.",
+							"castTime": "Passive"
+						},
+						"spec": {
+							"name": "Holy",
+							"role": "HEALING",
+							"backgroundImage": "bg-priest-holy",
+							"icon": "spell_holy_guardianspirit",
+							"description": "A versatile healer who can reverse damage on individuals or groups and even heal from beyond the grave.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
+							"order": 1
 						}
 					}
 				]
@@ -4782,25 +4782,6 @@
 						"tier": 1,
 						"column": 1,
 						"spell": {
-							"id": 199855,
-							"name": "San'layn",
-							"icon": "achievement_boss_lanathel",
-							"description": "Reduces the cooldown of Vampiric Embrace by 45 sec and increases its healing done by 25%.",
-							"castTime": "Passive"
-						},
-						"spec": {
-							"name": "Shadow",
-							"role": "DPS",
-							"backgroundImage": "bg-priest-shadow",
-							"icon": "spell_shadow_shadowwordpain",
-							"description": "Uses sinister Shadow magic and terrifying Void magic to eradicate enemies.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
-							"order": 2
-						}
-					},
-					{
-						"tier": 1,
-						"column": 1,
-						"spell": {
 							"id": 193063,
 							"name": "Masochism",
 							"icon": "spell_shadow_misery",
@@ -4815,9 +4796,47 @@
 							"description": "Uses magic to shield allies from taking damage as well as heal their wounds.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
 							"order": 0
 						}
+					},
+					{
+						"tier": 1,
+						"column": 1,
+						"spell": {
+							"id": 199855,
+							"name": "San'layn",
+							"icon": "achievement_boss_lanathel",
+							"description": "Reduces the cooldown of Vampiric Embrace by 45 sec and increases its healing done by 25%.",
+							"castTime": "Passive"
+						},
+						"spec": {
+							"name": "Shadow",
+							"role": "DPS",
+							"backgroundImage": "bg-priest-shadow",
+							"icon": "spell_shadow_shadowwordpain",
+							"description": "Uses sinister Shadow magic and terrifying Void magic to eradicate enemies.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
+							"order": 2
+						}
 					}
 				],
 				[
+					{
+						"tier": 1,
+						"column": 2,
+						"spell": {
+							"id": 288733,
+							"name": "Intangibility",
+							"icon": "spell_shadow_dispersion",
+							"description": "Dispersion heals for 50% of your maximum health over its duration and has 30 sec reduced cooldown.",
+							"castTime": "Passive"
+						},
+						"spec": {
+							"name": "Shadow",
+							"role": "DPS",
+							"backgroundImage": "bg-priest-shadow",
+							"icon": "spell_shadow_shadowwordpain",
+							"description": "Uses sinister Shadow magic and terrifying Void magic to eradicate enemies.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
+							"order": 2
+						}
+					},
 					{
 						"tier": 1,
 						"column": 2,
@@ -4828,25 +4847,6 @@
 							"description": "Places a feather at the target location, granting the first ally to walk through it 40% increased movement speed for 5 sec. Only 3 feathers can be placed at one time.",
 							"range": "40 yd range",
 							"castTime": "Instant"
-						}
-					},
-					{
-						"tier": 1,
-						"column": 2,
-						"spell": {
-							"id": 193173,
-							"name": "Mania",
-							"icon": "spell_shadow_skull",
-							"description": "Increases your movement speed by up to 35% based on your current Insanity.",
-							"castTime": "Passive"
-						},
-						"spec": {
-							"name": "Shadow",
-							"role": "DPS",
-							"backgroundImage": "bg-priest-shadow",
-							"icon": "spell_shadow_shadowwordpain",
-							"description": "Uses sinister Shadow magic and terrifying Void magic to eradicate enemies.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
-							"order": 2
 						}
 					}
 				]
@@ -4876,6 +4876,17 @@
 						"tier": 2,
 						"column": 0,
 						"spell": {
+							"id": 197045,
+							"name": "Shield Discipline",
+							"icon": "spell_holy_divineprotection",
+							"description": "When your Power Word: Shield is completely absorbed, you restore 0.5% of your maximum mana.",
+							"castTime": "Passive"
+						}
+					},
+					{
+						"tier": 2,
+						"column": 0,
+						"spell": {
 							"id": 238136,
 							"name": "Cosmic Ripple",
 							"icon": "spell_holy_summonlightwell",
@@ -4889,17 +4900,6 @@
 							"icon": "spell_holy_guardianspirit",
 							"description": "A versatile healer who can reverse damage on individuals or groups and even heal from beyond the grave.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
 							"order": 1
-						}
-					},
-					{
-						"tier": 2,
-						"column": 0,
-						"spell": {
-							"id": 197045,
-							"name": "Shield Discipline",
-							"icon": "spell_holy_divineprotection",
-							"description": "When your Power Word: Shield is completely absorbed, you restore 0.5% of your maximum mana.",
-							"castTime": "Passive"
 						}
 					}
 				],
@@ -4927,6 +4927,19 @@
 						"tier": 2,
 						"column": 1,
 						"spell": {
+							"id": 123040,
+							"name": "Mindbender",
+							"icon": "spell_shadow_soulleech_3",
+							"description": "Summons a Mindbender to attack the target for 12 sec. You regenerate 0.5% of maximum mana each time the Mindbender attacks.",
+							"range": "40 yd range",
+							"castTime": "Instant",
+							"cooldown": "1 min cooldown"
+						}
+					},
+					{
+						"tier": 2,
+						"column": 1,
+						"spell": {
 							"id": 238558,
 							"name": "Misery",
 							"icon": "ability_rogue_envelopingshadows",
@@ -4941,41 +4954,9 @@
 							"description": "Uses sinister Shadow magic and terrifying Void magic to eradicate enemies.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
 							"order": 2
 						}
-					},
-					{
-						"tier": 2,
-						"column": 1,
-						"spell": {
-							"id": 123040,
-							"name": "Mindbender",
-							"icon": "spell_shadow_soulleech_3",
-							"description": "Summons a Mindbender to attack the target for 12 sec. You regenerate 0.5% of maximum mana each time the Mindbender attacks.",
-							"range": "40 yd range",
-							"castTime": "Instant",
-							"cooldown": "1 min cooldown"
-						}
 					}
 				],
 				[
-					{
-						"tier": 2,
-						"column": 2,
-						"spell": {
-							"id": 196707,
-							"name": "Afterlife",
-							"icon": "inv_enchant_essencemagiclarge",
-							"description": "Increases the duration of Spirit of Redemption by 50%.",
-							"castTime": "Passive"
-						},
-						"spec": {
-							"name": "Holy",
-							"role": "HEALING",
-							"backgroundImage": "bg-priest-holy",
-							"icon": "spell_holy_guardianspirit",
-							"description": "A versatile healer who can reverse damage on individuals or groups and even heal from beyond the grave.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
-							"order": 1
-						}
-					},
 					{
 						"tier": 2,
 						"column": 2,
@@ -4984,7 +4965,7 @@
 							"name": "Power Word: Solace",
 							"subtext": "Talent",
 							"icon": "ability_priest_flashoflight",
-							"description": "Strikes an enemy with heavenly power, dealing 3,913 Holy damage and restoring 1% of your maximum mana.",
+							"description": "Strikes an enemy with heavenly power, dealing 3,600 Holy damage and restoring 1% of your maximum mana.",
 							"range": "40 yd range",
 							"castTime": "Instant",
 							"cooldown": "12 sec cooldown"
@@ -5009,6 +4990,25 @@
 							"icon": "spell_shadow_shadowwordpain",
 							"description": "Uses sinister Shadow magic and terrifying Void magic to eradicate enemies.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
 							"order": 2
+						}
+					},
+					{
+						"tier": 2,
+						"column": 2,
+						"spell": {
+							"id": 196707,
+							"name": "Afterlife",
+							"icon": "inv_enchant_essencemagiclarge",
+							"description": "Increases the duration of Spirit of Redemption by 50%.",
+							"castTime": "Passive"
+						},
+						"spec": {
+							"name": "Holy",
+							"role": "HEALING",
+							"backgroundImage": "bg-priest-holy",
+							"icon": "spell_holy_guardianspirit",
+							"description": "A versatile healer who can reverse damage on individuals or groups and even heal from beyond the grave.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
+							"order": 1
 						}
 					}
 				]
@@ -5081,7 +5081,7 @@
 							"id": 205369,
 							"name": "Mind Bomb",
 							"icon": "spell_shadow_mindbomb",
-							"description": "Inflicts the target with a Mind Bomb.\n\n\n\nAfter 2 sec or if the target dies, it unleashes a psychic explosion, disorienting all enemies within 8 yds of the target for 5 sec.",
+							"description": "Inflicts the target with a Mind Bomb.\n\n\n\nAfter 2 sec or if the target dies, it unleashes a psychic explosion, disorienting all enemies within 8 yds of the target for 6 sec.",
 							"range": "30 yd range",
 							"castTime": "Instant",
 							"cooldown": "30 sec cooldown"
@@ -5093,25 +5093,6 @@
 							"icon": "spell_shadow_shadowwordpain",
 							"description": "Uses sinister Shadow magic and terrifying Void magic to eradicate enemies.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
 							"order": 2
-						}
-					},
-					{
-						"tier": 3,
-						"column": 1,
-						"spell": {
-							"id": 200199,
-							"name": "Censure",
-							"icon": "spell_holy_eyeforaneye",
-							"description": "Holy Word: Chastise stuns the target for 4 sec and is not broken by damage.",
-							"castTime": "Passive"
-						},
-						"spec": {
-							"name": "Holy",
-							"role": "HEALING",
-							"backgroundImage": "bg-priest-holy",
-							"icon": "spell_holy_guardianspirit",
-							"description": "A versatile healer who can reverse damage on individuals or groups and even heal from beyond the grave.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
-							"order": 1
 						}
 					},
 					{
@@ -5131,6 +5112,25 @@
 							"icon": "spell_holy_powerwordshield",
 							"description": "Uses magic to shield allies from taking damage as well as heal their wounds.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
 							"order": 0
+						}
+					},
+					{
+						"tier": 3,
+						"column": 1,
+						"spell": {
+							"id": 200199,
+							"name": "Censure",
+							"icon": "spell_holy_eyeforaneye",
+							"description": "Holy Word: Chastise stuns the target for 4 sec and is not broken by damage.",
+							"castTime": "Passive"
+						},
+						"spec": {
+							"name": "Holy",
+							"role": "HEALING",
+							"backgroundImage": "bg-priest-holy",
+							"icon": "spell_holy_guardianspirit",
+							"description": "A versatile healer who can reverse damage on individuals or groups and even heal from beyond the grave.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
+							"order": 1
 						}
 					}
 				],
@@ -5178,6 +5178,25 @@
 						"tier": 4,
 						"column": 0,
 						"spell": {
+							"id": 155271,
+							"name": "Auspicious Spirits",
+							"icon": "ability_priest_auspiciousspirits",
+							"description": "Your Shadowy Apparitions now deal 100% increased damage and generate 2 Insanity.",
+							"castTime": "Passive"
+						},
+						"spec": {
+							"name": "Shadow",
+							"role": "DPS",
+							"backgroundImage": "bg-priest-shadow",
+							"icon": "spell_shadow_shadowwordpain",
+							"description": "Uses sinister Shadow magic and terrifying Void magic to eradicate enemies.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
+							"order": 2
+						}
+					},
+					{
+						"tier": 4,
+						"column": 0,
+						"spell": {
 							"id": 280391,
 							"name": "Sins of the Many",
 							"icon": "spell_holy_holyguidance",
@@ -5211,28 +5230,30 @@
 							"description": "A versatile healer who can reverse damage on individuals or groups and even heal from beyond the grave.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
 							"order": 1
 						}
-					},
-					{
-						"tier": 4,
-						"column": 0,
-						"spell": {
-							"id": 155271,
-							"name": "Auspicious Spirits",
-							"icon": "ability_priest_auspiciousspirits",
-							"description": "Your Shadowy Apparitions now deal 100% increased damage and generate 2 Insanity.",
-							"castTime": "Passive"
-						},
-						"spec": {
-							"name": "Shadow",
-							"role": "DPS",
-							"backgroundImage": "bg-priest-shadow",
-							"icon": "spell_shadow_shadowwordpain",
-							"description": "Uses sinister Shadow magic and terrifying Void magic to eradicate enemies.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
-							"order": 2
-						}
 					}
 				],
 				[
+					{
+						"tier": 4,
+						"column": 1,
+						"spell": {
+							"id": 32546,
+							"name": "Binding Heal",
+							"icon": "spell_holy_blindingheal",
+							"description": "Heals you, your target, and another friendly target within 20 yards for 2,622.\n\n\n\nReduces the remaining cooldown on both Holy Word: Serenity and Holy Word: Sanctify by 3 sec",
+							"range": "40 yd range",
+							"powerCost": "2.9% of base mana",
+							"castTime": "1.5 sec cast"
+						},
+						"spec": {
+							"name": "Holy",
+							"role": "HEALING",
+							"backgroundImage": "bg-priest-holy",
+							"icon": "spell_holy_guardianspirit",
+							"description": "A versatile healer who can reverse damage on individuals or groups and even heal from beyond the grave.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
+							"order": 1
+						}
+					},
 					{
 						"tier": 4,
 						"column": 1,
@@ -5251,27 +5272,6 @@
 							"icon": "spell_shadow_shadowwordpain",
 							"description": "Uses sinister Shadow magic and terrifying Void magic to eradicate enemies.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
 							"order": 2
-						}
-					},
-					{
-						"tier": 4,
-						"column": 1,
-						"spell": {
-							"id": 32546,
-							"name": "Binding Heal",
-							"icon": "spell_holy_blindingheal",
-							"description": "Heals you, your target, and another friendly target within 20 yards for 2,935.\n\n\n\nReduces the remaining cooldown on both Holy Word: Serenity and Holy Word: Sanctify by 3 sec",
-							"range": "40 yd range",
-							"powerCost": "2.4% of base mana",
-							"castTime": "1.5 sec cast"
-						},
-						"spec": {
-							"name": "Holy",
-							"role": "HEALING",
-							"backgroundImage": "bg-priest-holy",
-							"icon": "spell_holy_guardianspirit",
-							"description": "A versatile healer who can reverse damage on individuals or groups and even heal from beyond the grave.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
-							"order": 1
 						}
 					},
 					{
@@ -5355,7 +5355,7 @@
 							"id": 199849,
 							"name": "Lingering Insanity",
 							"icon": "spell_shadow_twistedfaith",
-							"description": "When Voidform ends, its Haste bonus fades by 1% every 2 sec, instead of ending immediately.",
+							"description": "When Voidform ends, its Haste bonus fades by 1% every 3 sec, instead of ending immediately.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -5374,7 +5374,7 @@
 							"id": 193157,
 							"name": "Benediction",
 							"icon": "spell_monk_diffusemagic",
-							"description": "Your Prayer of Mending has a 30% chance to leave a Renew on each target it heals.",
+							"description": "Your Prayer of Mending has a 25% chance to leave a Renew on each target it heals.",
 							"castTime": "Passive"
 						}
 					},
@@ -5385,7 +5385,7 @@
 							"id": 204197,
 							"name": "Purge the Wicked",
 							"icon": "ability_mage_firestarter",
-							"description": "Cleanses the target with fire, causing 1,174 Fire damage and an additional 6,916 Fire damage over 20 sec. Spreads to an additional nearby enemy when you cast Penance on the target.",
+							"description": "Cleanses the target with fire, causing 1,115 Fire damage and an additional 6,573 Fire damage over 20 sec. Spreads to an additional nearby enemy when you cast Penance on the target.",
 							"range": "40 yd range",
 							"powerCost": "1.79% of base mana",
 							"castTime": "Instant"
@@ -5401,20 +5401,6 @@
 					}
 				],
 				[
-					{
-						"tier": 5,
-						"column": 1,
-						"spell": {
-							"id": 110744,
-							"name": "Divine Star",
-							"icon": "spell_priest_divinestar",
-							"description": "Throw a Divine Star forward 24 yds, healing allies in its path for 1,565 and dealing 1,565 Holy damage to enemies. After reaching its destination, the Divine Star returns to you, healing allies and damaging enemies in its path again.",
-							"range": "30 yd range",
-							"powerCost": "2% of base mana",
-							"castTime": "Instant",
-							"cooldown": "15 sec cooldown"
-						}
-					},
 					{
 						"tier": 5,
 						"column": 1,
@@ -5435,29 +5421,23 @@
 							"description": "Uses sinister Shadow magic and terrifying Void magic to eradicate enemies.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
 							"order": 2
 						}
+					},
+					{
+						"tier": 5,
+						"column": 1,
+						"spell": {
+							"id": 110744,
+							"name": "Divine Star",
+							"icon": "spell_priest_divinestar",
+							"description": "Throw a Divine Star forward 24 yds, healing allies in its path for 1,956 and dealing 1,565 Holy damage to enemies. After reaching its destination, the Divine Star returns to you, healing allies and damaging enemies in its path again.",
+							"range": "30 yd range",
+							"powerCost": "2% of base mana",
+							"castTime": "Instant",
+							"cooldown": "15 sec cooldown"
+						}
 					}
 				],
 				[
-					{
-						"tier": 5,
-						"column": 2,
-						"spell": {
-							"id": 263165,
-							"name": "Void Torrent",
-							"icon": "spell_priest_voidsear",
-							"description": "Channel a torrent of void energy into the target, dealing 15,504 Shadow damage over 4 sec. Insanity does not drain during this channel.\n\n\n\nRequires Voidform.",
-							"castTime": "Channeled",
-							"cooldown": "45 sec cooldown"
-						},
-						"spec": {
-							"name": "Shadow",
-							"role": "DPS",
-							"backgroundImage": "bg-priest-shadow",
-							"icon": "spell_shadow_shadowwordpain",
-							"description": "Uses sinister Shadow magic and terrifying Void magic to eradicate enemies.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
-							"order": 2
-						}
-					},
 					{
 						"tier": 5,
 						"column": 2,
@@ -5471,11 +5451,50 @@
 							"castTime": "1.5 sec cast",
 							"cooldown": "40 sec cooldown"
 						}
+					},
+					{
+						"tier": 5,
+						"column": 2,
+						"spell": {
+							"id": 263165,
+							"name": "Void Torrent",
+							"icon": "spell_priest_voidsear",
+							"description": "Channel a torrent of void energy into the target, dealing 18,605 Shadow damage over 4 sec.\n\n\n\nInsanity does not drain during this channel.\n\n\n\nGenerates 30 Insanity over the duration.",
+							"castTime": "Channeled",
+							"cooldown": "45 sec cooldown"
+						},
+						"spec": {
+							"name": "Shadow",
+							"role": "DPS",
+							"backgroundImage": "bg-priest-shadow",
+							"icon": "spell_shadow_shadowwordpain",
+							"description": "Uses sinister Shadow magic and terrifying Void magic to eradicate enemies.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
+							"order": 2
+						}
 					}
 				]
 			],
 			[
 				[
+					{
+						"tier": 6,
+						"column": 0,
+						"spell": {
+							"id": 193225,
+							"name": "Legacy of the Void",
+							"icon": "inv_enchant_voidcrystal",
+							"description": "Void Eruption's cast time is reduced by 40% and may be cast anytime your Insanity level is 60 or higher.\n\n\n\nVoidform increases spell damage by an additional 5%.",
+							"castTime": "Passive"
+						},
+						"spec": {
+							"name": "Shadow",
+							"role": "DPS",
+							"backgroundImage": "bg-priest-shadow",
+							"icon": "spell_shadow_shadowwordpain",
+							"description": "Uses sinister Shadow magic and terrifying Void magic to eradicate enemies.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
+							"order": 2
+						}
+					},
 					{
 						"tier": 6,
 						"column": 0,
@@ -5493,25 +5512,6 @@
 							"icon": "spell_holy_guardianspirit",
 							"description": "A versatile healer who can reverse damage on individuals or groups and even heal from beyond the grave.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
 							"order": 1
-						}
-					},
-					{
-						"tier": 6,
-						"column": 0,
-						"spell": {
-							"id": 193225,
-							"name": "Legacy of the Void",
-							"icon": "inv_enchant_voidcrystal",
-							"description": "Void Eruption's cast time is reduced by 40% and may be cast anytime your Insanity level is 60 or higher.",
-							"castTime": "Passive"
-						},
-						"spec": {
-							"name": "Shadow",
-							"role": "DPS",
-							"backgroundImage": "bg-priest-shadow",
-							"icon": "spell_shadow_shadowwordpain",
-							"description": "Uses sinister Shadow magic and terrifying Void magic to eradicate enemies.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
-							"order": 2
 						}
 					},
 					{
@@ -5539,24 +5539,10 @@
 						"tier": 6,
 						"column": 1,
 						"spell": {
-							"id": 271466,
-							"name": "Luminous Barrier",
-							"icon": "spell_priest_burningwill",
-							"description": "Create a shield on all allies within 40 yards, absorbing 10,956 damage on each of them for 10 sec.",
-							"range": "40 yd range",
-							"powerCost": "4% of base mana",
-							"castTime": "Instant",
-							"cooldown": "3 min cooldown"
-						}
-					},
-					{
-						"tier": 6,
-						"column": 1,
-						"spell": {
 							"id": 280711,
 							"name": "Dark Ascension",
 							"icon": "achievement_boss_triumvirate_darknaaru",
-							"description": "Immediately activates a new Voidform, then releases an explosive blast of pure void energy, causing 6,260 Shadow damage to all enemies within 10 yds of your target.\n\n\n\nGenerates 50 Insanity.",
+							"description": "Immediately activates a new Voidform, then releases an explosive blast of pure void energy, causing 7,434 Shadow damage to all enemies within 10 yds of your target.\n\n\n\nGenerates 50 Insanity.",
 							"range": "40 yd range",
 							"castTime": "Instant",
 							"cooldown": "1 min cooldown"
@@ -5589,6 +5575,20 @@
 							"description": "A versatile healer who can reverse damage on individuals or groups and even heal from beyond the grave.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
 							"order": 1
 						}
+					},
+					{
+						"tier": 6,
+						"column": 1,
+						"spell": {
+							"id": 271466,
+							"name": "Luminous Barrier",
+							"icon": "spell_priest_burningwill",
+							"description": "Create a shield on all allies within 40 yards, absorbing 10,956 damage on each of them for 10 sec.",
+							"range": "40 yd range",
+							"powerCost": "4% of base mana",
+							"castTime": "Instant",
+							"cooldown": "3 min cooldown"
+						}
 					}
 				],
 				[
@@ -5596,20 +5596,22 @@
 						"tier": 6,
 						"column": 2,
 						"spell": {
-							"id": 246287,
-							"name": "Evangelism",
-							"icon": "spell_holy_divineillumination",
-							"description": "Extends the duration of all of your active Atonements by 6 sec.",
-							"castTime": "Instant",
-							"cooldown": "1.25 min cooldown"
+							"id": 265202,
+							"name": "Holy Word: Salvation",
+							"icon": "ability_priest_archangel",
+							"description": "Heals all allies within 40 yards for 4,304, and applies Renew and 2 stacks of Prayer of Mending to each of them.\n\n\n\nCooldown reduced by 30 sec when you cast Holy Word: Serenity or Holy Word: Sanctify.",
+							"range": "40 yd range",
+							"powerCost": "6% of base mana",
+							"castTime": "2.5 sec cast",
+							"cooldown": "12 min cooldown"
 						},
 						"spec": {
-							"name": "Discipline",
+							"name": "Holy",
 							"role": "HEALING",
-							"backgroundImage": "bg-priest-discipline",
-							"icon": "spell_holy_powerwordshield",
-							"description": "Uses magic to shield allies from taking damage as well as heal their wounds.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
-							"order": 0
+							"backgroundImage": "bg-priest-holy",
+							"icon": "spell_holy_guardianspirit",
+							"description": "A versatile healer who can reverse damage on individuals or groups and even heal from beyond the grave.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
+							"order": 1
 						}
 					},
 					{
@@ -5619,9 +5621,9 @@
 							"id": 193223,
 							"name": "Surrender to Madness",
 							"icon": "achievement_boss_generalvezax_01",
-							"description": "All your Insanity-generating abilities generate 100% more Insanity and you can cast while moving for 1 min.\n\n\n\nThen, you take damage equal to 90% of your maximum health and cannot generate Insanity for 30 sec.",
+							"description": "All your Insanity-generating abilities generate 100% more Insanity and you can cast while moving for 1 min.\n\n\n\nThen, you take damage equal to 90% of your maximum health and cannot generate Insanity for 15 sec.",
 							"castTime": "Instant",
-							"cooldown": "4 min cooldown"
+							"cooldown": "3 min cooldown"
 						},
 						"spec": {
 							"name": "Shadow",
@@ -5636,22 +5638,20 @@
 						"tier": 6,
 						"column": 2,
 						"spell": {
-							"id": 265202,
-							"name": "Holy Word: Salvation",
-							"icon": "ability_priest_archangel",
-							"description": "Heals all allies within 40 yards for 5,869, and applies Renew and 2 stacks of Prayer of Mending to each of them.\n\n\n\nCooldown reduced by 30 sec when you cast Holy Word: Serenity or Holy Word: Sanctify.",
-							"range": "40 yd range",
-							"powerCost": "6% of base mana",
-							"castTime": "2.5 sec cast",
-							"cooldown": "12 min cooldown"
+							"id": 246287,
+							"name": "Evangelism",
+							"icon": "spell_holy_divineillumination",
+							"description": "Extends the duration of all of your active Atonements by 6 sec.",
+							"castTime": "Instant",
+							"cooldown": "1.5 min cooldown"
 						},
 						"spec": {
-							"name": "Holy",
+							"name": "Discipline",
 							"role": "HEALING",
-							"backgroundImage": "bg-priest-holy",
-							"icon": "spell_holy_guardianspirit",
-							"description": "A versatile healer who can reverse damage on individuals or groups and even heal from beyond the grave.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
-							"order": 1
+							"backgroundImage": "bg-priest-discipline",
+							"icon": "spell_holy_powerwordshield",
+							"description": "Uses magic to shield allies from taking damage as well as heal their wounds.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Mace",
+							"order": 0
 						}
 					}
 				]
@@ -5682,7 +5682,7 @@
 				"role": "DPS",
 				"backgroundImage": "bg-deathknight-unholy",
 				"icon": "spell_deathknight_unholypresence",
-				"description": "A master of death and decay, spreading infection and controlling undead minions to do her bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
+				"description": "A master of death and decay, spreading infection and controlling undead minions to do his bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
 				"order": 2
 			}
 		],
@@ -5723,7 +5723,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-deathknight-unholy",
 							"icon": "spell_deathknight_unholypresence",
-							"description": "A master of death and decay, spreading infection and controlling undead minions to do her bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
+							"description": "A master of death and decay, spreading infection and controlling undead minions to do his bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
 							"order": 2
 						}
 					},
@@ -5803,7 +5803,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-deathknight-unholy",
 							"icon": "spell_deathknight_unholypresence",
-							"description": "A master of death and decay, spreading infection and controlling undead minions to do her bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
+							"description": "A master of death and decay, spreading infection and controlling undead minions to do his bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
 							"order": 2
 						}
 					}
@@ -5845,7 +5845,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-deathknight-unholy",
 							"icon": "spell_deathknight_unholypresence",
-							"description": "A master of death and decay, spreading infection and controlling undead minions to do her bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
+							"description": "A master of death and decay, spreading infection and controlling undead minions to do his bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
 							"order": 2
 						}
 					},
@@ -5918,7 +5918,7 @@
 							"id": 207264,
 							"name": "Bursting Sores",
 							"icon": "ability_druid_infectedwound",
-							"description": "Festering Wounds deal 25% more damage when burst, and all enemies within 8 yds of a burst Festering Wound suffer 62 Shadow damage.",
+							"description": "Bursting a Festering Wound deals 25% more damage, and deals 62 Shadow damage to all nearby targets.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -5926,7 +5926,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-deathknight-unholy",
 							"icon": "spell_deathknight_unholypresence",
-							"description": "A master of death and decay, spreading infection and controlling undead minions to do her bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
+							"description": "A master of death and decay, spreading infection and controlling undead minions to do his bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
 							"order": 2
 						}
 					}
@@ -5947,7 +5947,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-deathknight-unholy",
 							"icon": "spell_deathknight_unholypresence",
-							"description": "A master of death and decay, spreading infection and controlling undead minions to do her bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
+							"description": "A master of death and decay, spreading infection and controlling undead minions to do his bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
 							"order": 2
 						}
 					},
@@ -6007,7 +6007,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-deathknight-unholy",
 							"icon": "spell_deathknight_unholypresence",
-							"description": "A master of death and decay, spreading infection and controlling undead minions to do her bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
+							"description": "A master of death and decay, spreading infection and controlling undead minions to do his bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
 							"order": 2
 						}
 					},
@@ -6090,7 +6090,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-deathknight-unholy",
 							"icon": "spell_deathknight_unholypresence",
-							"description": "A master of death and decay, spreading infection and controlling undead minions to do her bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
+							"description": "A master of death and decay, spreading infection and controlling undead minions to do his bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
 							"order": 2
 						}
 					},
@@ -6149,7 +6149,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-deathknight-unholy",
 							"icon": "spell_deathknight_unholypresence",
-							"description": "A master of death and decay, spreading infection and controlling undead minions to do her bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
+							"description": "A master of death and decay, spreading infection and controlling undead minions to do his bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
 							"order": 2
 						}
 					},
@@ -6233,7 +6233,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-deathknight-unholy",
 							"icon": "spell_deathknight_unholypresence",
-							"description": "A master of death and decay, spreading infection and controlling undead minions to do her bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
+							"description": "A master of death and decay, spreading infection and controlling undead minions to do his bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
 							"order": 2
 						}
 					}
@@ -6275,7 +6275,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-deathknight-unholy",
 							"icon": "spell_deathknight_unholypresence",
-							"description": "A master of death and decay, spreading infection and controlling undead minions to do her bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
+							"description": "A master of death and decay, spreading infection and controlling undead minions to do his bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
 							"order": 2
 						}
 					},
@@ -6287,7 +6287,7 @@
 							"name": "Will of the Necropolis",
 							"subtext": "Passive Talent",
 							"icon": "achievement_boss_kelthuzad_01",
-							"description": "Damage taken below 35% Health is reduced by 35%.",
+							"description": "Damage taken below 30% Health is reduced by 30%.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -6354,7 +6354,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-deathknight-unholy",
 							"icon": "spell_deathknight_unholypresence",
-							"description": "A master of death and decay, spreading infection and controlling undead minions to do her bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
+							"description": "A master of death and decay, spreading infection and controlling undead minions to do his bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
 							"order": 2
 						}
 					}
@@ -6418,7 +6418,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-deathknight-unholy",
 							"icon": "spell_deathknight_unholypresence",
-							"description": "A master of death and decay, spreading infection and controlling undead minions to do her bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
+							"description": "A master of death and decay, spreading infection and controlling undead minions to do his bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
 							"order": 2
 						}
 					}
@@ -6479,7 +6479,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-deathknight-unholy",
 							"icon": "spell_deathknight_unholypresence",
-							"description": "A master of death and decay, spreading infection and controlling undead minions to do her bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
+							"description": "A master of death and decay, spreading infection and controlling undead minions to do his bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
 							"order": 2
 						}
 					}
@@ -6540,7 +6540,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-deathknight-unholy",
 							"icon": "spell_deathknight_unholypresence",
-							"description": "A master of death and decay, spreading infection and controlling undead minions to do her bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
+							"description": "A master of death and decay, spreading infection and controlling undead minions to do his bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
 							"order": 2
 						}
 					}
@@ -6616,7 +6616,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-deathknight-unholy",
 							"icon": "spell_deathknight_unholypresence",
-							"description": "A master of death and decay, spreading infection and controlling undead minions to do her bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
+							"description": "A master of death and decay, spreading infection and controlling undead minions to do his bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
 							"order": 2
 						}
 					},
@@ -6659,7 +6659,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-deathknight-unholy",
 							"icon": "spell_deathknight_unholypresence",
-							"description": "A master of death and decay, spreading infection and controlling undead minions to do her bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
+							"description": "A master of death and decay, spreading infection and controlling undead minions to do his bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
 							"order": 2
 						}
 					},
@@ -6712,7 +6712,7 @@
 							"id": 279302,
 							"name": "Frostwyrm's Fury",
 							"icon": "achievement_boss_sindragosa",
-							"description": "Summons a frostwyrm who breathes on all enemies within 40 yd in front of you, dealing 897 Frost damage and slowing movement speed by 50% for 10 sec.",
+							"description": "Summons a frostwyrm who breathes on all enemies within 40 yd in front of you, dealing 948 Frost damage and slowing movement speed by 50% for 10 sec.",
 							"castTime": "Instant",
 							"cooldown": "3 min cooldown"
 						},
@@ -6763,7 +6763,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-deathknight-unholy",
 							"icon": "spell_deathknight_unholypresence",
-							"description": "A master of death and decay, spreading infection and controlling undead minions to do her bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
+							"description": "A master of death and decay, spreading infection and controlling undead minions to do his bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
 							"order": 2
 						}
 					}
@@ -6805,7 +6805,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-deathknight-unholy",
 							"icon": "spell_deathknight_unholypresence",
-							"description": "A master of death and decay, spreading infection and controlling undead minions to do her bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
+							"description": "A master of death and decay, spreading infection and controlling undead minions to do his bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
 							"order": 2
 						}
 					},
@@ -6846,7 +6846,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-deathknight-unholy",
 							"icon": "spell_deathknight_unholypresence",
-							"description": "A master of death and decay, spreading infection and controlling undead minions to do her bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
+							"description": "A master of death and decay, spreading infection and controlling undead minions to do his bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
 							"order": 2
 						}
 					},
@@ -6907,7 +6907,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-deathknight-unholy",
 							"icon": "spell_deathknight_unholypresence",
-							"description": "A master of death and decay, spreading infection and controlling undead minions to do her bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
+							"description": "A master of death and decay, spreading infection and controlling undead minions to do his bidding.\r\n\r\nPreferred Weapon: Two-Handed Axe, Mace, Sword",
 							"order": 2
 						}
 					},
@@ -6918,7 +6918,7 @@
 							"id": 152279,
 							"name": "Breath of Sindragosa",
 							"icon": "spell_deathknight_breathofsindragosa",
-							"description": "Continuously deal 138 Frost damage every 1 sec to enemies in a cone in front of you. Deals reduced damage to secondary targets. You will continue breathing until your Runic Power is exhausted or you cancel the effect.",
+							"description": "Continuously deal 109 Frost damage every 1 sec to enemies in a cone in front of you. Deals reduced damage to secondary targets. You will continue breathing until your Runic Power is exhausted or you cancel the effect.",
 							"powerCost": "",
 							"castTime": "Instant",
 							"cooldown": "2 min cooldown"
@@ -6939,7 +6939,7 @@
 							"id": 194844,
 							"name": "Bonestorm",
 							"icon": "achievement_boss_lordmarrowgar",
-							"description": "A whirl of bone and gore batters nearby enemies, dealing 47 Shadow damage every 1 sec, and healing you for 3% of your maximum health every time it deals damage. Lasts 1 sec per 10 Runic Power spent.",
+							"description": "A whirl of bone and gore batters nearby enemies, dealing 47 Shadow damage every 1 sec, and healing you for 3% of your maximum health every time it deals damage (up to 15%). Lasts 1 sec per 10 Runic Power spent.",
 							"powerCost": "20 Runic Power",
 							"castTime": "Instant",
 							"cooldown": "1 min cooldown"
@@ -6995,7 +6995,7 @@
 							"id": 246035,
 							"name": "Boulderfist",
 							"icon": "ability_earthenfury_giftofearth",
-							"description": "Rockbiter's recharge time is reduced by 15% and it deals 20% increased damage.",
+							"description": "Rockbiter's recharge time is reduced by 15% and it deals 35% increased damage.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -7011,10 +7011,10 @@
 						"tier": 0,
 						"column": 0,
 						"spell": {
-							"id": 260694,
-							"name": "Exposed Elements",
-							"icon": "spell_nature_callstorm",
-							"description": "Earth Shock now increases the damage of your next Lightning Bolt on the target by 75%.",
+							"id": 170374,
+							"name": "Earthen Rage",
+							"icon": "ability_earthen_pillar",
+							"description": "Your damaging spells incite the earth around you to come to your aid for 6 sec, repeatedly dealing 538 Nature damage to your most recently attacked target.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -7054,7 +7054,7 @@
 							"id": 200071,
 							"name": "Undulation",
 							"icon": "spell_nature_healingwavelesser",
-							"description": "Every third Healing Wave or Healing Surge you cast heals for an additional 50%.",
+							"description": "Every third Healing Wave or Healing Surge heals for an additional 50%.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -7064,25 +7064,6 @@
 							"icon": "spell_nature_magicimmunity",
 							"description": "A healer who calls upon ancestral spirits and the cleansing power of water to mend allies' wounds.\r\n\r\nPreferred Weapon: Mace, Dagger, and Shield",
 							"order": 2
-						}
-					},
-					{
-						"tier": 0,
-						"column": 1,
-						"spell": {
-							"id": 108283,
-							"name": "Echo of the Elements",
-							"icon": "ability_shaman_echooftheelements",
-							"description": "Riptide, Healing Stream Totem, and Lava Burst now have 2 charges. Effects that reset their remaining cooldown will instead grant 1 charge.",
-							"castTime": "Passive"
-						},
-						"spec": {
-							"name": "Elemental",
-							"role": "DPS",
-							"backgroundImage": "bg-shaman-elemental",
-							"icon": "spell_nature_lightning",
-							"description": "A spellcaster who harnesses the destructive forces of nature and the elements.\r\n\r\nPreferred Weapon: Mace, Dagger, and Shield",
-							"order": 0
 						}
 					},
 					{
@@ -7103,6 +7084,25 @@
 							"description": "A totemic warrior who strikes foes with weapons imbued with elemental power.\r\n\r\nPreferred Weapons: Dual Axes, Maces, Fist Weapons",
 							"order": 1
 						}
+					},
+					{
+						"tier": 0,
+						"column": 1,
+						"spell": {
+							"id": 108283,
+							"name": "Echo of the Elements",
+							"icon": "ability_shaman_echooftheelements",
+							"description": "Riptide, Healing Stream Totem, and Lava Burst now have 2 charges. Effects that reset their remaining cooldown will instead grant 1 charge.",
+							"castTime": "Passive"
+						},
+						"spec": {
+							"name": "Elemental",
+							"role": "DPS",
+							"backgroundImage": "bg-shaman-elemental",
+							"icon": "spell_nature_lightning",
+							"description": "A spellcaster who harnesses the destructive forces of nature and the elements.\r\n\r\nPreferred Weapon: Mace, Dagger, and Shield",
+							"order": 0
+						}
 					}
 				],
 				[
@@ -7110,20 +7110,19 @@
 						"tier": 0,
 						"column": 2,
 						"spell": {
-							"id": 73685,
-							"name": "Unleash Life",
-							"icon": "spell_shaman_unleashweapon_life",
-							"description": "Unleashes elemental forces of Life, healing a friendly target for 3,424 and increasing the effect of the Shaman's next direct heal by 45%.",
-							"powerCost": "5% of base mana",
+							"id": 192106,
+							"name": "Lightning Shield",
+							"icon": "spell_nature_lightningshield",
+							"description": "Surround yourself with a shield of lightning for 1 hour.\n\n\n\nMelee attackers have a chance to suffer 11 Nature damage, and add a charge to your shield.\n\nWhen you Stormstrike, it gains 2 charges.\n\n\n\nAt 20 charges, the shield overcharges, causing you to deal an additional 19 Nature damage with each attack for 10 sec.",
 							"castTime": "Instant"
 						},
 						"spec": {
-							"name": "Restoration",
-							"role": "HEALING",
-							"backgroundImage": "bg-shaman-restoration",
-							"icon": "spell_nature_magicimmunity",
-							"description": "A healer who calls upon ancestral spirits and the cleansing power of water to mend allies' wounds.\r\n\r\nPreferred Weapon: Mace, Dagger, and Shield",
-							"order": 2
+							"name": "Enhancement",
+							"role": "DPS",
+							"backgroundImage": "bg-shaman-enhancement",
+							"icon": "spell_shaman_improvedstormstrike",
+							"description": "A totemic warrior who strikes foes with weapons imbued with elemental power.\r\n\r\nPreferred Weapons: Dual Axes, Maces, Fist Weapons",
+							"order": 1
 						}
 					},
 					{
@@ -7133,7 +7132,7 @@
 							"id": 117014,
 							"name": "Elemental Blast",
 							"icon": "shaman_talent_elementalblast",
-							"description": "Harnesses the raw power of the elements, dealing 2,465 Elemental damage and increasing your Critical Strike, Haste, or Mastery by 11,773 for 10 sec.",
+							"description": "Harnesses the raw power of the elements, dealing 2,465 Elemental damage and increasing your Critical Strike, Haste, or Mastery by 11,773 for 10 sec.\n\n\n\nCan cause an Elemental Overload.",
 							"range": "40 yd range",
 							"castTime": "2 sec cast",
 							"cooldown": "12 sec cooldown"
@@ -7151,19 +7150,20 @@
 						"tier": 0,
 						"column": 2,
 						"spell": {
-							"id": 192106,
-							"name": "Lightning Shield",
-							"icon": "spell_nature_lightningshield",
-							"description": "Surround yourself with a shield of lightning for 1 hour.\n\n\n\nMelee attackers have a chance to suffer 19 Nature damage, and add a charge to your shield.\n\nWhen you Stormstrike, it gains 2 charges.\n\n\n\nAt 20 charges, the shield overcharges, causing you to deal 31 Nature damage with each attack and generate 100 Maelstrom over 10 sec.",
+							"id": 73685,
+							"name": "Unleash Life",
+							"icon": "spell_shaman_unleashweapon_life",
+							"description": "Unleashes elemental forces of Life, healing a friendly target for 5,087 and increasing the effect of the Shaman's next direct heal by 35%.",
+							"powerCost": "4% of base mana",
 							"castTime": "Instant"
 						},
 						"spec": {
-							"name": "Enhancement",
-							"role": "DPS",
-							"backgroundImage": "bg-shaman-enhancement",
-							"icon": "spell_shaman_improvedstormstrike",
-							"description": "A totemic warrior who strikes foes with weapons imbued with elemental power.\r\n\r\nPreferred Weapons: Dual Axes, Maces, Fist Weapons",
-							"order": 1
+							"name": "Restoration",
+							"role": "HEALING",
+							"backgroundImage": "bg-shaman-restoration",
+							"icon": "spell_nature_magicimmunity",
+							"description": "A healer who calls upon ancestral spirits and the cleansing power of water to mend allies' wounds.\r\n\r\nPreferred Weapon: Mace, Dagger, and Shield",
+							"order": 2
 						}
 					}
 				]
@@ -7174,10 +7174,21 @@
 						"tier": 1,
 						"column": 0,
 						"spell": {
+							"id": 108283,
+							"name": "Echo of the Elements",
+							"icon": "ability_shaman_echooftheelements",
+							"description": "Riptide, Healing Stream Totem, and Lava Burst now have 2 charges. Effects that reset their remaining cooldown will instead grant 1 charge.",
+							"castTime": "Passive"
+						}
+					},
+					{
+						"tier": 1,
+						"column": 0,
+						"spell": {
 							"id": 273221,
 							"name": "Aftershock",
 							"icon": "spell_nature_stormreach",
-							"description": "Your spells have a 25% chance to refund the Maelstrom spent on them.",
+							"description": "Earth Shock and Earthquake have a 25% chance to refund the Maelstrom spent on them.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -7196,7 +7207,7 @@
 							"id": 197992,
 							"name": "Landslide",
 							"icon": "inv_ore_blackrock_nugget",
-							"description": "Rockbiter has a 20% chance to increase the damage of your next Stormstrike by 100%.",
+							"description": "Rockbiter has a 40% chance to increase the damage of your next Stormstrike by 100%.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -7207,17 +7218,6 @@
 							"description": "A totemic warrior who strikes foes with weapons imbued with elemental power.\r\n\r\nPreferred Weapons: Dual Axes, Maces, Fist Weapons",
 							"order": 1
 						}
-					},
-					{
-						"tier": 1,
-						"column": 0,
-						"spell": {
-							"id": 108283,
-							"name": "Echo of the Elements",
-							"icon": "ability_shaman_echooftheelements",
-							"description": "Riptide, Healing Stream Totem, and Lava Burst now have 2 charges. Effects that reset their remaining cooldown will instead grant 1 charge.",
-							"castTime": "Passive"
-						}
 					}
 				],
 				[
@@ -7225,20 +7225,19 @@
 						"tier": 1,
 						"column": 1,
 						"spell": {
-							"id": 16166,
-							"name": "Master of the Elements",
-							"icon": "spell_nature_elementalabsorption",
-							"description": "Casting Lava Burst increases the damage of your next Nature or Frost spell by 20%.",
-							"castTime": "Passive",
-							"cooldown": "2 min cooldown"
+							"id": 262647,
+							"name": "Forceful Winds",
+							"icon": "spell_shaman_unleashweapon_wind",
+							"description": "Windfury causes each successive Windfury attack within 15 sec to increase the damage of Windfury by 80% and the Maelstrom generated by 1, stacking up to 5 times.",
+							"castTime": "Passive"
 						},
 						"spec": {
-							"name": "Elemental",
+							"name": "Enhancement",
 							"role": "DPS",
-							"backgroundImage": "bg-shaman-elemental",
-							"icon": "spell_nature_lightning",
-							"description": "A spellcaster who harnesses the destructive forces of nature and the elements.\r\n\r\nPreferred Weapon: Mace, Dagger, and Shield",
-							"order": 0
+							"backgroundImage": "bg-shaman-enhancement",
+							"icon": "spell_shaman_improvedstormstrike",
+							"description": "A totemic warrior who strikes foes with weapons imbued with elemental power.\r\n\r\nPreferred Weapons: Dual Axes, Maces, Fist Weapons",
+							"order": 1
 						}
 					},
 					{
@@ -7264,19 +7263,19 @@
 						"tier": 1,
 						"column": 1,
 						"spell": {
-							"id": 262647,
-							"name": "Forceful Winds",
-							"icon": "spell_shaman_unleashweapon_wind",
-							"description": "Windfury causes each successive Windfury attack within 15 sec to increase the damage of Windfury by 100% and the Maelstrom generated by 1, stacking up to 5 times.",
+							"id": 260897,
+							"name": "Call the Thunder",
+							"icon": "ability_thunderking_thunderstruck",
+							"description": "Your maximum Maelstrom increased by 30, and the Maelstrom cost of Earth Shock and Earthquake is reduced by 10.",
 							"castTime": "Passive"
 						},
 						"spec": {
-							"name": "Enhancement",
+							"name": "Elemental",
 							"role": "DPS",
-							"backgroundImage": "bg-shaman-enhancement",
-							"icon": "spell_shaman_improvedstormstrike",
-							"description": "A totemic warrior who strikes foes with weapons imbued with elemental power.\r\n\r\nPreferred Weapons: Dual Axes, Maces, Fist Weapons",
-							"order": 1
+							"backgroundImage": "bg-shaman-elemental",
+							"icon": "spell_nature_lightning",
+							"description": "A spellcaster who harnesses the destructive forces of nature and the elements.\r\n\r\nPreferred Weapon: Mace, Dagger, and Shield",
+							"order": 0
 						}
 					}
 				],
@@ -7308,7 +7307,7 @@
 							"id": 262395,
 							"name": "Totem Mastery",
 							"icon": "spell_nature_wrathofair_totem",
-							"description": "Summons four totems that increase your combat capabilities for 2 min.\n\n\n\nResonance Totem\n\nGenerates 1 Maelstrom every 1 sec.\n\n\n\nStorm Totem\n\nIncreases the damage of Stormstrike by 5%.\n\n\n\nEmber Totem\n\nIncreases Lava Lash damage by 10%.\n\n\n\nTailwind Totem\n\nIncreases your chance to trigger Windfury by 2%.",
+							"description": "Summons four totems that increase your combat capabilities for 2 min.\n\n\n\nResonance Totem\n\nGenerates 1 Maelstrom every 1 sec.\n\n\n\nStorm Totem\n\nIncreases the damage of Stormstrike by 10%.\n\n\n\nEmber Totem\n\nIncreases Lava Lash damage by 10%.\n\n\n\nTailwind Totem\n\nIncreases your chance to trigger Windfury by 2%.",
 							"range": "40 yd range",
 							"castTime": "Instant"
 						},
@@ -7357,6 +7356,25 @@
 							"castTime": "Passive"
 						},
 						"spec": {
+							"name": "Elemental",
+							"role": "DPS",
+							"backgroundImage": "bg-shaman-elemental",
+							"icon": "spell_nature_lightning",
+							"description": "A spellcaster who harnesses the destructive forces of nature and the elements.\r\n\r\nPreferred Weapon: Mace, Dagger, and Shield",
+							"order": 0
+						}
+					},
+					{
+						"tier": 2,
+						"column": 0,
+						"spell": {
+							"id": 260878,
+							"name": "Spirit Wolf",
+							"icon": "spell_hunter_lonewolf",
+							"description": "While transformed into a Ghost Wolf, you gain 5% increased movement speed and 5% damage reduction every 1 sec, stacking up to 4 times.",
+							"castTime": "Passive"
+						},
+						"spec": {
 							"name": "Enhancement",
 							"role": "DPS",
 							"backgroundImage": "bg-shaman-enhancement",
@@ -7375,49 +7393,9 @@
 							"description": "While transformed into a Ghost Wolf, you gain 5% increased movement speed and 5% damage reduction every 1 sec, stacking up to 4 times.",
 							"castTime": "Passive"
 						}
-					},
-					{
-						"tier": 2,
-						"column": 0,
-						"spell": {
-							"id": 260878,
-							"name": "Spirit Wolf",
-							"icon": "spell_hunter_lonewolf",
-							"description": "While transformed into a Ghost Wolf, you gain 5% increased movement speed and 5% damage reduction every 1 sec, stacking up to 4 times.",
-							"castTime": "Passive"
-						},
-						"spec": {
-							"name": "Elemental",
-							"role": "DPS",
-							"backgroundImage": "bg-shaman-elemental",
-							"icon": "spell_nature_lightning",
-							"description": "A spellcaster who harnesses the destructive forces of nature and the elements.\r\n\r\nPreferred Weapon: Mace, Dagger, and Shield",
-							"order": 0
-						}
 					}
 				],
 				[
-					{
-						"tier": 2,
-						"column": 1,
-						"spell": {
-							"id": 974,
-							"name": "Earth Shield",
-							"icon": "spell_nature_skinofearth",
-							"description": "Protects the target with an earthen shield, increasing your healing on them by 10% and healing them for 1,075 when they take damage. 9 charges. This heal can only occur once every few seconds. \n\n\n\nEarth Shield can only be placed on one target at a time.",
-							"range": "40 yd range",
-							"powerCost": "10% of base mana",
-							"castTime": "Instant"
-						},
-						"spec": {
-							"name": "Elemental",
-							"role": "DPS",
-							"backgroundImage": "bg-shaman-elemental",
-							"icon": "spell_nature_lightning",
-							"description": "A spellcaster who harnesses the destructive forces of nature and the elements.\r\n\r\nPreferred Weapon: Mace, Dagger, and Shield",
-							"order": 0
-						}
-					},
 					{
 						"tier": 2,
 						"column": 1,
@@ -7460,6 +7438,27 @@
 							"description": "A totemic warrior who strikes foes with weapons imbued with elemental power.\r\n\r\nPreferred Weapons: Dual Axes, Maces, Fist Weapons",
 							"order": 1
 						}
+					},
+					{
+						"tier": 2,
+						"column": 1,
+						"spell": {
+							"id": 974,
+							"name": "Earth Shield",
+							"icon": "spell_nature_skinofearth",
+							"description": "Protects the target with an earthen shield, increasing your healing on them by 10% and healing them for 1,075 when they take damage. 9 charges. This heal can only occur once every few seconds. \n\n\n\nEarth Shield can only be placed on one target at a time.",
+							"range": "40 yd range",
+							"powerCost": "10% of base mana",
+							"castTime": "Instant"
+						},
+						"spec": {
+							"name": "Elemental",
+							"role": "DPS",
+							"backgroundImage": "bg-shaman-elemental",
+							"icon": "spell_nature_lightning",
+							"description": "A spellcaster who harnesses the destructive forces of nature and the elements.\r\n\r\nPreferred Weapon: Mace, Dagger, and Shield",
+							"order": 0
+						}
 					}
 				],
 				[
@@ -7523,29 +7522,10 @@
 						"tier": 3,
 						"column": 0,
 						"spell": {
-							"id": 192087,
-							"name": "Searing Assault",
-							"icon": "ability_rhyolith_magmaflow_wave",
-							"description": "Flametongue now causes the target to burn for 279 Fire damage over 6 sec.",
-							"castTime": "Passive"
-						},
-						"spec": {
-							"name": "Enhancement",
-							"role": "DPS",
-							"backgroundImage": "bg-shaman-enhancement",
-							"icon": "spell_shaman_improvedstormstrike",
-							"description": "A totemic warrior who strikes foes with weapons imbued with elemental power.\r\n\r\nPreferred Weapons: Dual Axes, Maces, Fist Weapons",
-							"order": 1
-						}
-					},
-					{
-						"tier": 3,
-						"column": 0,
-						"spell": {
-							"id": 260890,
-							"name": "High Voltage",
-							"icon": "ability_vehicle_electrocharge",
-							"description": "Lightning Bolt and Chain Lightning have a 50% of normal chance to cause a second Elemental Overload.",
+							"id": 16166,
+							"name": "Master of the Elements",
+							"icon": "spell_nature_elementalabsorption",
+							"description": "Casting Lava Burst increases the damage of your next Nature, Physical, or Frost spell by 20%.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -7555,6 +7535,25 @@
 							"icon": "spell_nature_lightning",
 							"description": "A spellcaster who harnesses the destructive forces of nature and the elements.\r\n\r\nPreferred Weapon: Mace, Dagger, and Shield",
 							"order": 0
+						}
+					},
+					{
+						"tier": 3,
+						"column": 0,
+						"spell": {
+							"id": 192087,
+							"name": "Searing Assault",
+							"icon": "ability_rhyolith_magmaflow_wave",
+							"description": "Flametongue now causes the target to burn for 168 Fire damage over 6 sec.",
+							"castTime": "Passive"
+						},
+						"spec": {
+							"name": "Enhancement",
+							"role": "DPS",
+							"backgroundImage": "bg-shaman-enhancement",
+							"icon": "spell_shaman_improvedstormstrike",
+							"description": "A totemic warrior who strikes foes with weapons imbued with elemental power.\r\n\r\nPreferred Weapons: Dual Axes, Maces, Fist Weapons",
+							"order": 1
 						}
 					},
 					{
@@ -7582,10 +7581,30 @@
 						"tier": 3,
 						"column": 1,
 						"spell": {
+							"id": 192249,
+							"name": "Storm Elemental",
+							"icon": "inv_stormelemental",
+							"description": "Calls forth a Greater Storm Elemental to hurl gusts of wind that damage the Shaman's enemies for 30 sec.\n\n\n\nWhile the Storm Elemental is active, each time you cast Lightning Bolt or Chain Lightning, the cast time of Lightning Bolt and Chain Lightning is reduced by 3%, stacking up to 20 times.",
+							"range": "40 yd range",
+							"castTime": "Instant"
+						},
+						"spec": {
+							"name": "Elemental",
+							"role": "DPS",
+							"backgroundImage": "bg-shaman-elemental",
+							"icon": "spell_nature_lightning",
+							"description": "A spellcaster who harnesses the destructive forces of nature and the elements.\r\n\r\nPreferred Weapon: Mace, Dagger, and Shield",
+							"order": 0
+						}
+					},
+					{
+						"tier": 3,
+						"column": 1,
+						"spell": {
 							"id": 210853,
 							"name": "Hailstorm",
 							"icon": "spell_frost_frostbrand",
-							"description": "Frostbrand now also enhances your weapon's damage, causing each of your weapon attacks to also deal 11 Frost damage.",
+							"description": "Frostbrand now also enhances your weapon's damage, causing each of your weapon attacks to also deal 10 Frost damage.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -7618,27 +7637,6 @@
 							"description": "A healer who calls upon ancestral spirits and the cleansing power of water to mend allies' wounds.\r\n\r\nPreferred Weapon: Mace, Dagger, and Shield",
 							"order": 2
 						}
-					},
-					{
-						"tier": 3,
-						"column": 1,
-						"spell": {
-							"id": 192249,
-							"name": "Storm Elemental",
-							"icon": "inv_stormelemental",
-							"description": "Calls forth a Greater Storm Elemental to hurl gusts of wind that damage the Shaman's enemies for 30 sec.\n\n\n\nWhile the Storm Elemental is active, each time you cast Lightning Bolt or Chain Lightning, the cast time of Lightning Bolt and Chain Lightning is reduced by 3%, stacking up to 20 times.",
-							"range": "40 yd range",
-							"castTime": "Instant",
-							"cooldown": "2.5 min cooldown"
-						},
-						"spec": {
-							"name": "Elemental",
-							"role": "DPS",
-							"backgroundImage": "bg-shaman-elemental",
-							"icon": "spell_nature_lightning",
-							"description": "A spellcaster who harnesses the destructive forces of nature and the elements.\r\n\r\nPreferred Weapon: Mace, Dagger, and Shield",
-							"order": 0
-						}
 					}
 				],
 				[
@@ -7649,7 +7647,7 @@
 							"id": 192222,
 							"name": "Liquid Magma Totem",
 							"icon": "spell_shaman_spewlava",
-							"description": "Summons a totem at the target location for 15 sec that hurls liquid magma at a random nearby target every 0.9 sec, dealing 569 Fire damage to all enemies within 8 yards.",
+							"description": "Summons a totem at the target location for 15 sec that hurls liquid magma at a random nearby target every 0.9 sec, dealing 575 Fire damage to all enemies within 8 yards.",
 							"range": "40 yd range",
 							"castTime": "Instant",
 							"cooldown": "1 min cooldown"
@@ -7670,7 +7668,7 @@
 							"id": 210727,
 							"name": "Overcharge",
 							"icon": "spell_nature_callstorm",
-							"description": "Lightning Bolt now consumes up to 40 Maelstrom for up to 1,200% increased damage, but has a 11.2 sec cooldown.",
+							"description": "Lightning Bolt now consumes up to 40 Maelstrom for up to 1,200% increased damage, but has a 8.4 sec cooldown.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -7728,7 +7726,7 @@
 							"id": 196884,
 							"name": "Feral Lunge",
 							"icon": "spell_beastmaster_wolf",
-							"description": "Lunge at your enemy as a ghostly wolf, biting them to deal 47 Physical damage.",
+							"description": "Lunge at your enemy as a ghostly wolf, biting them to deal 28 Physical damage.",
 							"range": "8-25 yd range",
 							"castTime": "Instant",
 							"cooldown": "30 sec cooldown"
@@ -7804,6 +7802,44 @@
 						"tier": 5,
 						"column": 0,
 						"spell": {
+							"id": 262303,
+							"name": "Surge of Power",
+							"icon": "spell_nature_shamanrage",
+							"description": "Earth Shock also enhances your next spell cast within 15 sec:\n\n\n\nFlame Shock: The next cast also applies Flame Shock to 1 additional target within 8 yards of the target.\n\nLightning Bolt: Your next cast will cause an additional 1-3 Elemental Overloads.\n\nLava Burst: Reduces the cooldown of your Fire Elemental by 6.0 sec.\n\nFrost Shock: Freezes the target in place for 6 sec.",
+							"castTime": "Passive"
+						},
+						"spec": {
+							"name": "Elemental",
+							"role": "DPS",
+							"backgroundImage": "bg-shaman-elemental",
+							"icon": "spell_nature_lightning",
+							"description": "A spellcaster who harnesses the destructive forces of nature and the elements.\r\n\r\nPreferred Weapon: Mace, Dagger, and Shield",
+							"order": 0
+						}
+					},
+					{
+						"tier": 5,
+						"column": 0,
+						"spell": {
+							"id": 192246,
+							"name": "Crashing Storm",
+							"icon": "spell_nature_unrelentingstorm",
+							"description": "Crash Lightning also electrifies the ground, leaving an electrical field behind which damages enemies within it for 56 Nature damage over 6 sec.",
+							"castTime": "Passive"
+						},
+						"spec": {
+							"name": "Enhancement",
+							"role": "DPS",
+							"backgroundImage": "bg-shaman-enhancement",
+							"icon": "spell_shaman_improvedstormstrike",
+							"description": "A totemic warrior who strikes foes with weapons imbued with elemental power.\r\n\r\nPreferred Weapons: Dual Axes, Maces, Fist Weapons",
+							"order": 1
+						}
+					},
+					{
+						"tier": 5,
+						"column": 0,
+						"spell": {
 							"id": 280614,
 							"name": "Flash Flood",
 							"icon": "spell_frost_summonwaterelemental",
@@ -7818,44 +7854,6 @@
 							"description": "A healer who calls upon ancestral spirits and the cleansing power of water to mend allies' wounds.\r\n\r\nPreferred Weapon: Mace, Dagger, and Shield",
 							"order": 2
 						}
-					},
-					{
-						"tier": 5,
-						"column": 0,
-						"spell": {
-							"id": 192246,
-							"name": "Crashing Storm",
-							"icon": "spell_nature_unrelentingstorm",
-							"description": "Crash Lightning also electrifies the ground, leaving an electrical field behind which damages enemies within it for 70 Nature damage over 6 sec.",
-							"castTime": "Passive"
-						},
-						"spec": {
-							"name": "Enhancement",
-							"role": "DPS",
-							"backgroundImage": "bg-shaman-enhancement",
-							"icon": "spell_shaman_improvedstormstrike",
-							"description": "A totemic warrior who strikes foes with weapons imbued with elemental power.\r\n\r\nPreferred Weapons: Dual Axes, Maces, Fist Weapons",
-							"order": 1
-						}
-					},
-					{
-						"tier": 5,
-						"column": 0,
-						"spell": {
-							"id": 170374,
-							"name": "Earthen Rage",
-							"icon": "ability_earthen_pillar",
-							"description": "Your damaging spells incite the earth around you to come to your aid for 6 sec, repeatedly dealing 538 Nature damage to your most recently attacked target.",
-							"castTime": "Passive"
-						},
-						"spec": {
-							"name": "Elemental",
-							"role": "DPS",
-							"backgroundImage": "bg-shaman-elemental",
-							"icon": "spell_nature_lightning",
-							"description": "A spellcaster who harnesses the destructive forces of nature and the elements.\r\n\r\nPreferred Weapon: Mace, Dagger, and Shield",
-							"order": 0
-						}
 					}
 				],
 				[
@@ -7863,20 +7861,22 @@
 						"tier": 5,
 						"column": 1,
 						"spell": {
-							"id": 197211,
-							"name": "Fury of Air",
-							"icon": "ability_ironmaidens_swirlingvortex",
-							"description": "Creates a vortex of wind 8 yards around you, dealing 13 Nature damage every 1 sec to enemies caught in the storm, and slowing them by 30% for 3 sec.",
-							"powerCost": "3 Maelstrom",
-							"castTime": "Instant"
+							"id": 207778,
+							"name": "Downpour",
+							"icon": "ability_mage_waterjet",
+							"description": "A burst of water at the target location heals up to six injured allies within 12 yards for 4,696.\n\n\n\nCooldown increased by 5 sec for each target effectively healed.",
+							"range": "40 yd range",
+							"powerCost": "15% of base mana",
+							"castTime": "1.5 sec cast",
+							"cooldown": "5 sec cooldown"
 						},
 						"spec": {
-							"name": "Enhancement",
-							"role": "DPS",
-							"backgroundImage": "bg-shaman-enhancement",
-							"icon": "spell_shaman_improvedstormstrike",
-							"description": "A totemic warrior who strikes foes with weapons imbued with elemental power.\r\n\r\nPreferred Weapons: Dual Axes, Maces, Fist Weapons",
-							"order": 1
+							"name": "Restoration",
+							"role": "HEALING",
+							"backgroundImage": "bg-shaman-restoration",
+							"icon": "spell_nature_magicimmunity",
+							"description": "A healer who calls upon ancestral spirits and the cleansing power of water to mend allies' wounds.\r\n\r\nPreferred Weapon: Mace, Dagger, and Shield",
+							"order": 2
 						}
 					},
 					{
@@ -7902,22 +7902,20 @@
 						"tier": 5,
 						"column": 1,
 						"spell": {
-							"id": 207778,
-							"name": "Downpour",
-							"icon": "ability_mage_waterjet",
-							"description": "A burst of water at the target location heals up to six injured allies within 12 yards for 4,696.\n\n\n\nCooldown increased by 5 sec for each target effectively healed.",
-							"range": "40 yd range",
-							"powerCost": "15% of base mana",
-							"castTime": "1.5 sec cast",
-							"cooldown": "5 sec cooldown"
+							"id": 197211,
+							"name": "Fury of Air",
+							"icon": "ability_ironmaidens_swirlingvortex",
+							"description": "Creates a vortex of wind 8 yards around you, dealing 11 Nature damage every 1 sec to enemies caught in the storm, and slowing them by 30% for 3 sec.",
+							"powerCost": "3 Maelstrom",
+							"castTime": "Instant"
 						},
 						"spec": {
-							"name": "Restoration",
-							"role": "HEALING",
-							"backgroundImage": "bg-shaman-restoration",
-							"icon": "spell_nature_magicimmunity",
-							"description": "A healer who calls upon ancestral spirits and the cleansing power of water to mend allies' wounds.\r\n\r\nPreferred Weapon: Mace, Dagger, and Shield",
-							"order": 2
+							"name": "Enhancement",
+							"role": "DPS",
+							"backgroundImage": "bg-shaman-enhancement",
+							"icon": "spell_shaman_improvedstormstrike",
+							"description": "A totemic warrior who strikes foes with weapons imbued with elemental power.\r\n\r\nPreferred Weapons: Dual Axes, Maces, Fist Weapons",
+							"order": 1
 						}
 					}
 				],
@@ -7926,10 +7924,31 @@
 						"tier": 5,
 						"column": 2,
 						"spell": {
+							"id": 197214,
+							"name": "Sundering",
+							"icon": "ability_rhyolith_lavapool",
+							"description": "Shatters a line of earth in front of you with your main hand weapon, causing 582 Flamestrike damage and Incapacitating any enemy hit for 2 sec.",
+							"powerCost": "20 Maelstrom",
+							"castTime": "Instant",
+							"cooldown": "40 sec cooldown"
+						},
+						"spec": {
+							"name": "Enhancement",
+							"role": "DPS",
+							"backgroundImage": "bg-shaman-enhancement",
+							"icon": "spell_shaman_improvedstormstrike",
+							"description": "A totemic warrior who strikes foes with weapons imbued with elemental power.\r\n\r\nPreferred Weapons: Dual Axes, Maces, Fist Weapons",
+							"order": 1
+						}
+					},
+					{
+						"tier": 5,
+						"column": 2,
+						"spell": {
 							"id": 210714,
 							"name": "Icefury",
 							"icon": "spell_frost_iceshard",
-							"description": "Hurls frigid ice at the target, dealing 2,152 Frost damage and causing your next 4 Frost Shocks to deal 100% increased damage.\n\n\n\nGenerates 15 Maelstom.",
+							"description": "Hurls frigid ice at the target, dealing 2,152 Frost damage and causing your next 4 Frost Shocks to deal 200% increased damage and generate 8 Maelstrom.\n\n\n\nGenerates 25 Maelstom.\n\n\n\nCan cause an Elemental Overload.",
 							"range": "40 yd range",
 							"castTime": "2 sec cast",
 							"cooldown": "30 sec cooldown"
@@ -7950,31 +7969,10 @@
 							"id": 157153,
 							"name": "Cloudburst Totem",
 							"icon": "ability_shaman_condensationtotem",
-							"description": "Summons a totem at your feet for 15 sec that collects power from all of your healing spells. When the totem expires or dies, the stored power is released, healing all injured allies within 40 yards for 25% of all healing done while it was active, divided evenly among targets.\n\n\n\nCasting this spell a second time recalls the totem and releases the healing.",
+							"description": "Summons a totem at your feet for 15 sec that collects power from all of your healing spells. When the totem expires or dies, the stored power is released, healing all injured allies within 40 yards for 30% of all healing done while it was active, divided evenly among targets.\n\n\n\nCasting this spell a second time recalls the totem and releases the healing.",
 							"powerCost": "8.6% of base mana",
 							"castTime": "Instant",
 							"cooldown": "1 sec cooldown"
-						}
-					},
-					{
-						"tier": 5,
-						"column": 2,
-						"spell": {
-							"id": 197214,
-							"name": "Sundering",
-							"icon": "ability_rhyolith_lavapool",
-							"description": "Shatters a line of earth in front of you with your main hand weapon, causing 969 Flamestrike damage and Incapacitating any enemy hit for 2 sec.",
-							"powerCost": "20 Maelstrom",
-							"castTime": "Instant",
-							"cooldown": "40 sec cooldown"
-						},
-						"spec": {
-							"name": "Enhancement",
-							"role": "DPS",
-							"backgroundImage": "bg-shaman-enhancement",
-							"icon": "spell_shaman_improvedstormstrike",
-							"description": "A totemic warrior who strikes foes with weapons imbued with elemental power.\r\n\r\nPreferred Weapons: Dual Axes, Maces, Fist Weapons",
-							"order": 1
 						}
 					}
 				]
@@ -7985,10 +7983,30 @@
 						"tier": 6,
 						"column": 0,
 						"spell": {
+							"id": 260895,
+							"name": "Unlimited Power",
+							"icon": "ability_shaman_ascendance",
+							"description": "When your spells cause an elemental overload, you gain 2% Haste for 10 sec. Gaining a stack does not refresh the duration.",
+							"castTime": "Passive"
+						},
+						"spec": {
+							"name": "Elemental",
+							"role": "DPS",
+							"backgroundImage": "bg-shaman-elemental",
+							"icon": "spell_nature_lightning",
+							"description": "A spellcaster who harnesses the destructive forces of nature and the elements.\r\n\r\nPreferred Weapon: Mace, Dagger, and Shield",
+							"order": 0
+						}
+					},
+					{
+						"tier": 6,
+						"column": 0,
+						"spell": {
 							"id": 157154,
 							"name": "High Tide",
 							"icon": "spell_shaman_hightide",
-							"description": "Chain Heal bounces to 1 additional target, and its falloff with each bounce is reduced by half.",
+							"description": "Every 200,000 mana you spend brings a High Tide, making your next 2 Chain Heals heal for an additional 20% and not reduce with each jump.",
+							"powerCost": "1% of base mana",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -8018,50 +8036,9 @@
 							"description": "A totemic warrior who strikes foes with weapons imbued with elemental power.\r\n\r\nPreferred Weapons: Dual Axes, Maces, Fist Weapons",
 							"order": 1
 						}
-					},
-					{
-						"tier": 6,
-						"column": 0,
-						"spell": {
-							"id": 260895,
-							"name": "Unlimited Power",
-							"icon": "ability_shaman_ascendance",
-							"description": "When your spells cause an elemental overload, you gain 2% Haste for 10 sec. Gaining a stack does not refresh the duration.",
-							"castTime": "Passive"
-						},
-						"spec": {
-							"name": "Elemental",
-							"role": "DPS",
-							"backgroundImage": "bg-shaman-elemental",
-							"icon": "spell_nature_lightning",
-							"description": "A spellcaster who harnesses the destructive forces of nature and the elements.\r\n\r\nPreferred Weapon: Mace, Dagger, and Shield",
-							"order": 0
-						}
 					}
 				],
 				[
-					{
-						"tier": 6,
-						"column": 1,
-						"spell": {
-							"id": 188089,
-							"name": "Earthen Spike",
-							"icon": "ability_earthen_pillar",
-							"description": "Summons an Earthen Spike under an enemy, dealing 559 Physical damage and increasing Physical and Nature damage you deal to the target by 20% for 10 sec.",
-							"range": "10 yd range",
-							"powerCost": "20 Maelstrom",
-							"castTime": "Instant",
-							"cooldown": "20 sec cooldown"
-						},
-						"spec": {
-							"name": "Enhancement",
-							"role": "DPS",
-							"backgroundImage": "bg-shaman-enhancement",
-							"icon": "spell_shaman_improvedstormstrike",
-							"description": "A totemic warrior who strikes foes with weapons imbued with elemental power.\r\n\r\nPreferred Weapons: Dual Axes, Maces, Fist Weapons",
-							"order": 1
-						}
-					},
 					{
 						"tier": 6,
 						"column": 1,
@@ -8091,7 +8068,7 @@
 							"id": 191634,
 							"name": "Stormkeeper",
 							"icon": "ability_thunderking_lightningwhip",
-							"description": "Charge yourself with lightning, causing your next 2 Lightning Bolts or Chain Lightnings to be instant cast and trigger an Elemental Overload on every target.",
+							"description": "Charge yourself with lightning, causing your next 2 Lightning Bolts to deal 150% more damage, and also causes your next 2 Lightning Bolts or Chain Lightnings to be instant cast and trigger an Elemental Overload on every target.",
 							"castTime": "1.5 sec cast",
 							"cooldown": "1 min cooldown"
 						},
@@ -8103,29 +8080,31 @@
 							"description": "A spellcaster who harnesses the destructive forces of nature and the elements.\r\n\r\nPreferred Weapon: Mace, Dagger, and Shield",
 							"order": 0
 						}
+					},
+					{
+						"tier": 6,
+						"column": 1,
+						"spell": {
+							"id": 188089,
+							"name": "Earthen Spike",
+							"icon": "ability_earthen_pillar",
+							"description": "Summons an Earthen Spike under an enemy, dealing 336 Physical damage and increasing Physical and Nature damage you deal to the target by 20% for 10 sec.",
+							"range": "10 yd range",
+							"powerCost": "20 Maelstrom",
+							"castTime": "Instant",
+							"cooldown": "20 sec cooldown"
+						},
+						"spec": {
+							"name": "Enhancement",
+							"role": "DPS",
+							"backgroundImage": "bg-shaman-enhancement",
+							"icon": "spell_shaman_improvedstormstrike",
+							"description": "A totemic warrior who strikes foes with weapons imbued with elemental power.\r\n\r\nPreferred Weapons: Dual Axes, Maces, Fist Weapons",
+							"order": 1
+						}
 					}
 				],
 				[
-					{
-						"tier": 6,
-						"column": 2,
-						"spell": {
-							"id": 114052,
-							"name": "Ascendance",
-							"icon": "spell_fire_elementaldevastation",
-							"description": "Transform into a Water Ascendant for 15 sec, causing all healing you deal to be duplicated and distributed evenly among nearby allies.",
-							"castTime": "Instant",
-							"cooldown": "3 min cooldown"
-						},
-						"spec": {
-							"name": "Restoration",
-							"role": "HEALING",
-							"backgroundImage": "bg-shaman-restoration",
-							"icon": "spell_nature_magicimmunity",
-							"description": "A healer who calls upon ancestral spirits and the cleansing power of water to mend allies' wounds.\r\n\r\nPreferred Weapon: Mace, Dagger, and Shield",
-							"order": 2
-						}
-					},
 					{
 						"tier": 6,
 						"column": 2,
@@ -8144,6 +8123,26 @@
 							"icon": "spell_nature_lightning",
 							"description": "A spellcaster who harnesses the destructive forces of nature and the elements.\r\n\r\nPreferred Weapon: Mace, Dagger, and Shield",
 							"order": 0
+						}
+					},
+					{
+						"tier": 6,
+						"column": 2,
+						"spell": {
+							"id": 114052,
+							"name": "Ascendance",
+							"icon": "spell_fire_elementaldevastation",
+							"description": "Transform into a Water Ascendant for 15 sec, causing all healing you deal to be duplicated and distributed evenly among nearby allies.",
+							"castTime": "Instant",
+							"cooldown": "3 min cooldown"
+						},
+						"spec": {
+							"name": "Restoration",
+							"role": "HEALING",
+							"backgroundImage": "bg-shaman-restoration",
+							"icon": "spell_nature_magicimmunity",
+							"description": "A healer who calls upon ancestral spirits and the cleansing power of water to mend allies' wounds.\r\n\r\nPreferred Weapon: Mace, Dagger, and Shield",
+							"order": 2
 						}
 					},
 					{
@@ -8346,7 +8345,7 @@
 							"id": 157997,
 							"name": "Ice Nova",
 							"icon": "spell_mage_icenova",
-							"description": "Causes a whirl of icy wind around the enemy, dealing 5,352 Frost damage to the target and 1,338 Frost damage to all other enemies within 8 yards, and freezing them in place for 2 sec.",
+							"description": "Causes a whirl of icy wind around the enemy, dealing 5,492 Frost damage to the target and 1,373 Frost damage to all other enemies within 8 yards, and freezing them in place for 2 sec.",
 							"range": "40 yd range",
 							"castTime": "Instant",
 							"cooldown": "25 sec cooldown"
@@ -8428,7 +8427,7 @@
 							"id": 235463,
 							"name": "Mana Shield",
 							"icon": "spell_shadow_detectlesserinvisibility",
-							"description": "Prismatic Barrier has no cooldown, but your mana is drained by 20% of the damage it absorbs.",
+							"description": "Prismatic Barrier has no cooldown, but your mana is drained by 50% of the damage it absorbs.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -8483,7 +8482,7 @@
 							"id": 157981,
 							"name": "Blast Wave",
 							"icon": "spell_holy_excorcism_02",
-							"description": "Causes an explosion around yourself, dealing 1,338 Fire damage to all enemies within 8 yards, knocking them back, and reducing movement speed by 70% for 4 sec.",
+							"description": "Causes an explosion around yourself, dealing 1,373 Fire damage to all enemies within 8 yards, knocking them back, and reducing movement speed by 70% for 4 sec.",
 							"castTime": "Instant",
 							"cooldown": "25 sec cooldown"
 						},
@@ -8692,7 +8691,7 @@
 							"id": 157980,
 							"name": "Supernova",
 							"icon": "spell_mage_supernova",
-							"description": "Pulses arcane energy around the target enemy or ally, dealing 892 Arcane damage to all enemies within 8 yards, and knocking them upward. A primary enemy target will take 100% increased damage.",
+							"description": "Pulses arcane energy around the target enemy or ally, dealing 916 Arcane damage to all enemies within 8 yards, and knocking them upward. A primary enemy target will take 100% increased damage.",
 							"range": "40 yd range",
 							"castTime": "Instant",
 							"cooldown": "25 sec cooldown"
@@ -8713,7 +8712,7 @@
 							"id": 257541,
 							"name": "Phoenix Flames",
 							"icon": "artifactability_firemage_phoenixbolt",
-							"description": "Hurls a Phoenix that deals 2,230 Fire damage to the target and splashes 595 Fire damage to other nearby enemies. Always deals a critical strike.",
+							"description": "Hurls a Phoenix that deals 2,289 Fire damage to the target and splashes 610 Fire damage to other nearby enemies. Always deals a critical strike.",
 							"range": "40 yd range",
 							"castTime": "Instant"
 						},
@@ -8733,7 +8732,7 @@
 							"id": 257537,
 							"name": "Ebonbolt",
 							"icon": "artifactability_frostmage_ebonbolt",
-							"description": "Launch a bolt of ice at the enemy, dealing 5,948 Frost damage and granting you Brain Freeze.",
+							"description": "Launch a bolt of ice at the enemy, dealing 6,104 Frost damage and granting you Brain Freeze.",
 							"range": "40 yd range",
 							"castTime": "2.5 sec cast",
 							"cooldown": "45 sec cooldown"
@@ -8848,7 +8847,7 @@
 							"id": 270233,
 							"name": "Freezing Rain",
 							"icon": "spell_frost_frozenorb",
-							"description": "Frozen Orb makes Blizzard instant cast and increases its damage done by 35% for 12 sec.",
+							"description": "Frozen Orb makes Blizzard instant cast and increases its damage done by 50% for 12 sec.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -8886,7 +8885,7 @@
 							"id": 205037,
 							"name": "Flame Patch",
 							"icon": "spell_mage_flameorb",
-							"description": "Flamestrike leaves behind a patch of flames which burns enemies within it for 1,424 Fire damage over 8 sec.",
+							"description": "Flamestrike leaves behind a patch of flames which burns enemies within it for 1,464 Fire damage over 8 sec.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -8945,7 +8944,7 @@
 							"id": 205023,
 							"name": "Conflagration",
 							"icon": "spell_shaman_firenova",
-							"description": "Fireball applies Conflagration to the target, dealing an additional 209 Fire damage over 8 sec.\n\n\n\nEnemies affected by either Conflagration or Ignite have a 10% chance to flare up and deal 201 Fire damage to nearby enemies.",
+							"description": "Fireball applies Conflagration to the target, dealing an additional 214 Fire damage over 8 sec.\n\n\n\nEnemies affected by either Conflagration or Ignite have a 10% chance to flare up and deal 206 Fire damage to nearby enemies.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -8966,7 +8965,7 @@
 							"id": 44457,
 							"name": "Living Bomb",
 							"icon": "ability_mage_livingbomb",
-							"description": "The target becomes a Living Bomb, taking 711 Fire damage over 3.7 sec, and then exploding to deal an additional 416 Fire damage to the target and all other enemies within 10 yards.\n\n\n\nOther enemies hit by this explosion also become a Living Bomb, but this effect cannot spread further.",
+							"description": "The target becomes a Living Bomb, taking 731 Fire damage over 3.7 sec, and then exploding to deal an additional 427 Fire damage to the target and all other enemies within 10 yards.\n\n\n\nOther enemies hit by this explosion also become a Living Bomb, but this effect cannot spread further.",
 							"range": "40 yd range",
 							"powerCost": "1.5% of base mana",
 							"castTime": "Instant",
@@ -8988,7 +8987,7 @@
 							"id": 114923,
 							"name": "Nether Tempest",
 							"icon": "spell_mage_nethertempest",
-							"description": "Places a Nether Tempest on the target which deals 539 Arcane damage over 12 sec to the target and 424 to all enemies within 10 yards. Limit 1 target.\n\n\n\nDamage increased by 60% per Arcane Charge.",
+							"description": "Places a Nether Tempest on the target which deals 552 Arcane damage over 12 sec to the target and 437 to all enemies within 10 yards. Limit 1 target.\n\n\n\nDamage increased by 60% per Arcane Charge.",
 							"range": "40 yd range",
 							"powerCost": "1.5% of base mana",
 							"castTime": "Instant"
@@ -9009,7 +9008,7 @@
 							"id": 153595,
 							"name": "Comet Storm",
 							"icon": "spell_mage_cometstorm2",
-							"description": "Calls down a series of 7 icy comets on and around the target, that deals up to 9,366 Frost damage to all enemies within 6 yds of its impacts.",
+							"description": "Calls down a series of 7 icy comets on and around the target, that deals up to 8,547 Frost damage to all enemies within 6 yds of its impacts.",
 							"range": "40 yd range",
 							"powerCost": "1% of base mana",
 							"castTime": "Instant",
@@ -9035,7 +9034,7 @@
 							"id": 155148,
 							"name": "Kindling",
 							"icon": "spell_mage_kindling",
-							"description": "Your Fireball, Pyroblast, Fire Blast, and Phoenix Flames critical strikes reduce the remaining cooldown on Combustion by 1 sec.",
+							"description": "Your Fireball, Pyroblast, Fire Blast, and Phoenix Flames critical strikes reduce the remaining cooldown on Combustion by 1.0 sec.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -9086,7 +9085,7 @@
 							"id": 205021,
 							"name": "Ray of Frost",
 							"icon": "ability_mage_rayoffrost",
-							"description": "Channel an icy beam at the enemy for 4.7 sec, dealing 3,569 Frost damage every 0.9 sec and slowing movement by 60%. Each time Ray of Frost deals damage, its damage and snare increases by 10%.\n\n\n\nGenerates 2 charges of Fingers of Frost over its duration.",
+							"description": "Channel an icy beam at the enemy for 4.7 sec, dealing 3,663 Frost damage every 0.9 sec and slowing movement by 60%. Each time Ray of Frost deals damage, its damage and snare increases by 10%.\n\n\n\nGenerates 2 charges of Fingers of Frost over its duration.",
 							"range": "40 yd range",
 							"powerCost": "2% of base mana",
 							"castTime": "Channeled",
@@ -9109,7 +9108,7 @@
 							"name": "Time Anomaly",
 							"subtext": "PvP Talent",
 							"icon": "ability_mage_timewarp",
-							"description": "At any moment, you have a chance to gain Arcane Power for 10 sec, gain Evocation for 1 sec, or gain 4 Arcane Charges.",
+							"description": "At any moment, you have a chance to gain Arcane Power for 8 sec, gain Evocation for 1 sec, or gain 4 Arcane Charges.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -9128,7 +9127,7 @@
 							"id": 269650,
 							"name": "Pyroclasm",
 							"icon": "spell_shaman_lavasurge",
-							"description": "Consuming Hot Streak has a 15% chance to make your next non-instant Pyroblast cast within 15 sec deal 250% additional damage.\n\n\n\nMaximum 2 charges.",
+							"description": "Consuming Hot Streak has a 15% chance to make your next non-instant Pyroblast cast within 15 sec deal 225% additional damage.\n\n\n\nMaximum 2 stacks.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -9149,7 +9148,7 @@
 							"id": 153561,
 							"name": "Meteor",
 							"icon": "spell_mage_meteor",
-							"description": "Calls down a meteor which lands at the target location after 3 sec, dealing 7,732 Fire damage, split evenly between all targets within 8 yards, and burns the ground, dealing 1,960 Fire damage over 8 sec to all enemies in the area.",
+							"description": "Calls down a meteor which lands at the target location after 3 sec, dealing 7,936 Fire damage, split evenly between all targets within 8 yards, and burns the ground, dealing 2,016 Fire damage over 8.5 sec to all enemies in the area.",
 							"range": "40 yd range",
 							"powerCost": "1% of base mana",
 							"castTime": "Instant",
@@ -9171,7 +9170,7 @@
 							"id": 199786,
 							"name": "Glacial Spike",
 							"icon": "ability_mage_glacialspike",
-							"description": "Conjures a massive spike of ice, and merges your current Icicles into it. It impales your target, dealing 9,516 damage plus all of the damage stored in your Icicles, and freezes the target in place for 4 sec. Damage may interrupt the freeze effect.\n\n\n\nRequires 5 Icicles to cast.\n\n\n\nPassive: Ice Lance no longer launches Icicles.",
+							"description": "Conjures a massive spike of ice, and merges your current Icicles into it. It impales your target, dealing 9,767 damage plus all of the damage stored in your Icicles, and freezes the target in place for 4 sec. Damage may interrupt the freeze effect.\n\n\n\nRequires 5 Icicles to cast.\n\n\n\nPassive: Ice Lance no longer launches Icicles.",
 							"range": "40 yd range",
 							"powerCost": "1% of base mana",
 							"castTime": "3 sec cast"
@@ -9192,7 +9191,7 @@
 							"id": 153626,
 							"name": "Arcane Orb",
 							"icon": "spell_mage_arcaneorb",
-							"description": "Launches an Arcane Orb forward from your position, traveling up to 40 yards, dealing 3,569 Arcane damage to enemies it passes through.\n\n\n\nGrants 1 Arcane Charge when cast and every time it deals damage.",
+							"description": "Launches an Arcane Orb forward from your position, traveling up to 40 yards, dealing 3,663 Arcane damage to enemies it passes through.\n\n\n\nGrants 1 Arcane Charge when cast and every time it deals damage.",
 							"range": "40 yd range",
 							"powerCost": "1% of base mana",
 							"castTime": "Instant",
@@ -9227,7 +9226,7 @@
 				"role": "DPS",
 				"backgroundImage": "bg-warlock-demonology",
 				"icon": "spell_shadow_metamorphosis",
-				"description": "A commander of demons who twists the souls of him army into devastating power.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Sword",
+				"description": "A commander of demons who twists the souls of her army into devastating power.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Sword",
 				"order": 1
 			},
 			{
@@ -9257,7 +9256,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-warlock-demonology",
 							"icon": "spell_shadow_metamorphosis",
-							"description": "A commander of demons who twists the souls of him army into devastating power.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Sword",
+							"description": "A commander of demons who twists the souls of her army into devastating power.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Sword",
 							"order": 1
 						}
 					},
@@ -9317,7 +9316,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-warlock-demonology",
 							"icon": "spell_shadow_metamorphosis",
-							"description": "A commander of demons who twists the souls of him army into devastating power.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Sword",
+							"description": "A commander of demons who twists the souls of her army into devastating power.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Sword",
 							"order": 1
 						}
 					},
@@ -9370,7 +9369,7 @@
 							"id": 267211,
 							"name": "Bilescourge Bombers",
 							"icon": "ability_hunter_pet_bat",
-							"description": "Tear open a portal to the nether above the target location, from which several Bilescourge will pour out of and crash into the ground over 6 sec, dealing 391 Shadow damage to all enemies within 8 yards.",
+							"description": "Tear open a portal to the nether above the target location, from which several Bilescourge will pour out of and crash into the ground over 6 sec, dealing 822 Shadow damage to all enemies within 8 yards.",
 							"range": "40 yd range",
 							"powerCost": "0 Soul Shard",
 							"castTime": "Instant",
@@ -9381,7 +9380,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-warlock-demonology",
 							"icon": "spell_shadow_metamorphosis",
-							"description": "A commander of demons who twists the souls of him army into devastating power.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Sword",
+							"description": "A commander of demons who twists the souls of her army into devastating power.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Sword",
 							"order": 1
 						}
 					},
@@ -9448,7 +9447,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-warlock-demonology",
 							"icon": "spell_shadow_metamorphosis",
-							"description": "A commander of demons who twists the souls of him army into devastating power.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Sword",
+							"description": "A commander of demons who twists the souls of her army into devastating power.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Sword",
 							"order": 1
 						}
 					},
@@ -9546,7 +9545,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-warlock-demonology",
 							"icon": "spell_shadow_metamorphosis",
-							"description": "A commander of demons who twists the souls of him army into devastating power.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Sword",
+							"description": "A commander of demons who twists the souls of her army into devastating power.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Sword",
 							"order": 1
 						}
 					}
@@ -9610,7 +9609,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-warlock-demonology",
 							"icon": "spell_shadow_metamorphosis",
-							"description": "A commander of demons who twists the souls of him army into devastating power.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Sword",
+							"description": "A commander of demons who twists the souls of her army into devastating power.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Sword",
 							"order": 1
 						}
 					}
@@ -9713,7 +9712,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-warlock-demonology",
 							"icon": "spell_shadow_metamorphosis",
-							"description": "A commander of demons who twists the souls of him army into devastating power.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Sword",
+							"description": "A commander of demons who twists the souls of her army into devastating power.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Sword",
 							"order": 1
 						}
 					}
@@ -9739,7 +9738,7 @@
 							"id": 264057,
 							"name": "Soul Strike",
 							"icon": "inv_polearm_2h_fellord_04",
-							"description": "Command your Felguard to strike into the soul of its enemy, dealing 1,369 Shadow damage.",
+							"description": "Command your Felguard to strike into the soul of its enemy, dealing 1,956 Shadow damage.",
 							"range": "50 yd range",
 							"castTime": "Instant",
 							"cooldown": "10 sec cooldown"
@@ -9749,7 +9748,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-warlock-demonology",
 							"icon": "spell_shadow_metamorphosis",
-							"description": "A commander of demons who twists the souls of him army into devastating power.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Sword",
+							"description": "A commander of demons who twists the souls of her army into devastating power.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Sword",
 							"order": 1
 						}
 					},
@@ -9814,7 +9813,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-warlock-demonology",
 							"icon": "spell_shadow_metamorphosis",
-							"description": "A commander of demons who twists the souls of him army into devastating power.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Sword",
+							"description": "A commander of demons who twists the souls of her army into devastating power.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Sword",
 							"order": 1
 						}
 					},
@@ -9905,7 +9904,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-warlock-demonology",
 							"icon": "spell_shadow_metamorphosis",
-							"description": "A commander of demons who twists the souls of him army into devastating power.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Sword",
+							"description": "A commander of demons who twists the souls of her army into devastating power.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Sword",
 							"order": 1
 						}
 					},
@@ -9986,7 +9985,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-warlock-demonology",
 							"icon": "spell_shadow_metamorphosis",
-							"description": "A commander of demons who twists the souls of him army into devastating power.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Sword",
+							"description": "A commander of demons who twists the souls of her army into devastating power.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Sword",
 							"order": 1
 						}
 					},
@@ -10031,7 +10030,7 @@
 							"name": "Grimoire: Felguard",
 							"subtext": "Summon",
 							"icon": "spell_shadow_summonfelguard",
-							"description": "Summons a Felguard who attacks the target for 15 sec that deals 50% increased damage.\n\n\n\nThis Felguard will stun their target when summoned.",
+							"description": "Summons a Felguard who attacks the target for 15 sec that deals 25% increased damage.\n\n\n\nThis Felguard will stun their target when summoned.",
 							"range": "40 yd range",
 							"powerCost": "0 Soul Shard",
 							"castTime": "Instant",
@@ -10042,7 +10041,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-warlock-demonology",
 							"icon": "spell_shadow_metamorphosis",
-							"description": "A commander of demons who twists the souls of him army into devastating power.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Sword",
+							"description": "A commander of demons who twists the souls of her army into devastating power.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Sword",
 							"order": 1
 						}
 					}
@@ -10057,7 +10056,7 @@
 							"id": 267214,
 							"name": "Sacrificed Souls",
 							"icon": "ability_creature_disease_05",
-							"description": "Shadow Bolt and Demonbolt deal 5% additional damage per demon you have summoned.",
+							"description": "Shadow Bolt and Demonbolt deal 4% additional damage per demon you have summoned.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -10065,7 +10064,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-warlock-demonology",
 							"icon": "spell_shadow_metamorphosis",
-							"description": "A commander of demons who twists the souls of him army into devastating power.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Sword",
+							"description": "A commander of demons who twists the souls of her army into devastating power.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Sword",
 							"order": 1
 						}
 					},
@@ -10097,7 +10096,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-warlock-demonology",
 							"icon": "spell_shadow_metamorphosis",
-							"description": "A commander of demons who twists the souls of him army into devastating power.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Sword",
+							"description": "A commander of demons who twists the souls of her army into devastating power.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Sword",
 							"order": 1
 						}
 					},
@@ -10151,7 +10150,7 @@
 							"id": 267217,
 							"name": "Nether Portal",
 							"icon": "inv_netherportal",
-							"description": "Tear open a portal to the Twisting Nether for 20 sec. Every time you spend Soul Shards, you will also command demons from the Nether to come out and fight for you.",
+							"description": "Tear open a portal to the Twisting Nether for 15 sec. Every time you spend Soul Shards, you will also command demons from the Nether to come out and fight for you.",
 							"range": "40 yd range",
 							"powerCost": "0 Soul Shard",
 							"castTime": "2.5 sec cast",
@@ -10162,7 +10161,7 @@
 							"role": "DPS",
 							"backgroundImage": "bg-warlock-demonology",
 							"icon": "spell_shadow_metamorphosis",
-							"description": "A commander of demons who twists the souls of him army into devastating power.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Sword",
+							"description": "A commander of demons who twists the souls of her army into devastating power.\r\n\r\nPreferred Weapon: Staff, Wand, Dagger, Sword",
 							"order": 1
 						}
 					},
@@ -10280,7 +10279,7 @@
 							"id": 115098,
 							"name": "Chi Wave",
 							"icon": "ability_monk_chiwave",
-							"description": "A wave of Chi energy flows through friends and foes, dealing 44 Nature damage or 76 healing. Bounces up to 7 times to targets within 25 yards.",
+							"description": "A wave of Chi energy flows through friends and foes, dealing 44 Nature damage or 93 healing. Bounces up to 7 times to targets within 25 yards.",
 							"range": "40 yd range",
 							"castTime": "Instant",
 							"cooldown": "15 sec cooldown"
@@ -10554,8 +10553,7 @@
 							"id": 280195,
 							"name": "Good Karma",
 							"icon": "ability_monk_touchofkarma",
-							"description": "Touch of Karma can now redirect an additional 50% of your maximum health.",
-							"range": "40 yd range",
+							"description": "100% of the damage redirected by Touch of Karma also heals you.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -10595,7 +10593,7 @@
 							"id": 115315,
 							"name": "Summon Black Ox Statue",
 							"icon": "monk_ability_summonoxstatue",
-							"description": "Summons a Black Ox Statue at the target location for 15 min, pulsing threat to all enemies within 30 yards.\n\n\n\nYou may cast Provoke on the statue to taunt all enemies near the statue.",
+							"description": "Summons a Black Ox Statue at the target location for 15 min, pulsing threat to all enemies within 20 yards.\n\n\n\nYou may cast Provoke on the statue to taunt all enemies near the statue.",
 							"range": "40 yd range",
 							"castTime": "Instant",
 							"cooldown": "10 sec cooldown"
@@ -10793,48 +10791,6 @@
 						"tier": 5,
 						"column": 1,
 						"spell": {
-							"id": 196725,
-							"name": "Refreshing Jade Wind",
-							"icon": "ability_monk_rushingjadewind",
-							"description": "Summon a whirling tornado around you, causing 4,199 healing over 8.4 sec to up to 6 allies within 10 yards.",
-							"powerCost": "3.5% of base mana",
-							"castTime": "Instant",
-							"cooldown": "9 sec cooldown"
-						},
-						"spec": {
-							"name": "Mistweaver",
-							"role": "HEALING",
-							"backgroundImage": "bg-monk-mistweaver",
-							"icon": "spell_monk_mistweaver_spec",
-							"description": "A healer who masters the mysterious art of manipulating life energies aided by the wisdom of the Jade Serpent.\r\n\r\nPreferred Weapon: Staff, Mace, Sword",
-							"order": 1
-						}
-					},
-					{
-						"tier": 5,
-						"column": 1,
-						"spell": {
-							"id": 261715,
-							"name": "Rushing Jade Wind",
-							"icon": "ability_monk_rushingjadewind",
-							"description": "Summons a whirling tornado around you, causing 31 damage every 0.7 sec to all enemies within 8 yards.",
-							"powerCost": "3 Energy",
-							"castTime": "Instant",
-							"cooldown": "6 sec cooldown"
-						},
-						"spec": {
-							"name": "Windwalker",
-							"role": "DPS",
-							"backgroundImage": "bg-monk-battledancer",
-							"icon": "spell_monk_windwalker_spec",
-							"description": "A martial artist without peer who pummels foes with hands and fists.\r\n\r\nPreferred Weapons: Fist Weapons, Axes, Maces, Swords",
-							"order": 2
-						}
-					},
-					{
-						"tier": 5,
-						"column": 1,
-						"spell": {
 							"id": 116847,
 							"name": "Rushing Jade Wind",
 							"icon": "ability_monk_rushingjadewind",
@@ -10851,20 +10807,18 @@
 							"description": "A sturdy brawler who uses unpredictable movement and mystical brews to avoid damage and protect allies.\r\n\r\nPreferred Weapon: Staff, Polearm",
 							"order": 0
 						}
-					}
-				],
-				[
+					},
 					{
 						"tier": 5,
-						"column": 2,
+						"column": 1,
 						"spell": {
-							"id": 123904,
-							"name": "Invoke Xuen, the White Tiger",
-							"icon": "ability_monk_summontigerstatue",
-							"description": "Summons an effigy of Xuen, the White Tiger for 20 sec. Xuen attacks your primary target, and strikes 3 enemies within 10 yards every 1 sec with Tiger Lightning for 71 Nature damage.",
-							"range": "40 yd range",
+							"id": 116847,
+							"name": "Rushing Jade Wind",
+							"icon": "ability_monk_rushingjadewind",
+							"description": "Summons a whirling tornado around you, causing 279 damage over 5.6 sec to enemies within 8 yards.",
+							"powerCost": "1 Chi",
 							"castTime": "Instant",
-							"cooldown": "2 min cooldown"
+							"cooldown": "6 sec cooldown"
 						},
 						"spec": {
 							"name": "Windwalker",
@@ -10875,6 +10829,29 @@
 							"order": 2
 						}
 					},
+					{
+						"tier": 5,
+						"column": 1,
+						"spell": {
+							"id": 196725,
+							"name": "Refreshing Jade Wind",
+							"icon": "ability_monk_rushingjadewind",
+							"description": "Summon a whirling tornado around you, causing 4,199 healing over 8.4 sec to up to 6 allies within 10 yards.",
+							"powerCost": "3.5% of base mana",
+							"castTime": "Instant",
+							"cooldown": "9 sec cooldown"
+						},
+						"spec": {
+							"name": "Mistweaver",
+							"role": "HEALING",
+							"backgroundImage": "bg-monk-mistweaver",
+							"icon": "spell_monk_mistweaver_spec",
+							"description": "A healer who masters the mysterious art of manipulating life energies aided by the wisdom of the Jade Serpent.\r\n\r\nPreferred Weapon: Staff, Mace, Sword",
+							"order": 1
+						}
+					}
+				],
+				[
 					{
 						"tier": 5,
 						"column": 2,
@@ -10915,6 +10892,27 @@
 							"icon": "spell_monk_brewmaster_spec",
 							"description": "A sturdy brawler who uses unpredictable movement and mystical brews to avoid damage and protect allies.\r\n\r\nPreferred Weapon: Staff, Polearm",
 							"order": 0
+						}
+					},
+					{
+						"tier": 5,
+						"column": 2,
+						"spell": {
+							"id": 123904,
+							"name": "Invoke Xuen, the White Tiger",
+							"icon": "ability_monk_summontigerstatue",
+							"description": "Summons an effigy of Xuen, the White Tiger for 20 sec. Xuen attacks your primary target, and strikes 3 enemies within 10 yards every 1 sec with Tiger Lightning for 71 Nature damage.",
+							"range": "40 yd range",
+							"castTime": "Instant",
+							"cooldown": "2 min cooldown"
+						},
+						"spec": {
+							"name": "Windwalker",
+							"role": "DPS",
+							"backgroundImage": "bg-monk-battledancer",
+							"icon": "spell_monk_windwalker_spec",
+							"description": "A martial artist without peer who pummels foes with hands and fists.\r\n\r\nPreferred Weapons: Fist Weapons, Axes, Maces, Swords",
+							"order": 2
 						}
 					}
 				]
@@ -11146,10 +11144,10 @@
 						"tier": 0,
 						"column": 0,
 						"spell": {
-							"id": 202022,
-							"name": "Blood Scent",
-							"icon": "ability_mount_pinktiger",
-							"description": "Your melee abilities in Cat Form have a 10% increased critical strike chance on targets with a Bleed effect.",
+							"id": 202021,
+							"name": "Predator",
+							"icon": "ability_hunter_catlikereflexes",
+							"description": "The cooldown on Tiger's Fury resets when a target dies with one of your Bleed effects active, and Tiger's Fury last 5 additional seconds.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -11244,10 +11242,10 @@
 						"tier": 0,
 						"column": 1,
 						"spell": {
-							"id": 202021,
-							"name": "Predator",
-							"icon": "ability_hunter_catlikereflexes",
-							"description": "The cooldown on Tiger's Fury resets when a target dies with one of your Bleed effects active, and Tiger's Fury last 5 additional seconds.",
+							"id": 202031,
+							"name": "Sabertooth",
+							"icon": "inv_misc_monsterfang_01",
+							"description": "Ferocious Bite deals 20% increased damage and increases the duration of Rip on your target by 4 sec per combo point spent.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -11417,12 +11415,13 @@
 						"tier": 1,
 						"column": 1,
 						"spell": {
-							"id": 236748,
-							"name": "Intimidating Roar",
-							"icon": "ability_druid_challangingroar",
-							"description": "Unleash a terrifying roar, causing all enemies within 10 yards to cower in fear, disorienting them for 3 sec. Usable in all shapeshift forms.",
+							"id": 102793,
+							"name": "Ursol's Vortex",
+							"icon": "spell_druid_ursolsvortex",
+							"description": "Conjures a vortex of wind for 10 sec at the destination, reducing the movement speed of all enemies within 8 yards by 50%. The first time an enemy attempts to leave the vortex, winds will pull that enemy back to its center.  Usable in all shapeshift forms.",
+							"range": "30 yd range",
 							"castTime": "Instant",
-							"cooldown": "30 sec cooldown"
+							"cooldown": "1 min cooldown"
 						},
 						"spec": {
 							"name": "Guardian",
@@ -11489,7 +11488,7 @@
 							"id": 202157,
 							"name": "Feral Affinity",
 							"icon": "talentspec_druid_feral_cat",
-							"description": "You gain:\n\n\n\nT538517:24 Feline Swiftness\n\nIncreases your movement speed by 15%.\n\n\n\nYou also learn:\n\n\n\nT132122:24 Rake\n\nT132152:24 Rip\n\nT134296:24 Swipe\n\n\n\nYour energy regeneration is increased by 35%.",
+							"description": "You gain:\n\n\n\nT538517:24 Feline Swiftness\n\nIncreases your movement speed by 15%.\n\n\n\nYou also learn:\n\n\n\nT132122:24 Rake\n\nT132152:24 Rip\n\nT132127:24 Ferocious Bite\n\nT134296:24 Swipe\n\n\n\nYour energy regeneration is increased by 45%.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -11510,7 +11509,7 @@
 							"id": 197490,
 							"name": "Feral Affinity",
 							"icon": "talentspec_druid_feral_cat",
-							"description": "You gain:\n\n\n\nT538517:24 Feline Swiftness\n\nIncreases your movement speed by 15%.\n\n\n\nYou also learn:\n\n\n\nT132122:24 Rake\n\nT132152:24 Rip\n\nT132127:24 Ferocious Bite\n\nT134296:24 Swipe\n\n\n\nYour energy regeneration is increased by 35%.",
+							"description": "You gain:\n\n\n\nT538517:24 Feline Swiftness\n\nIncreases your movement speed by 15%.\n\n\n\nYou also learn:\n\n\n\nT132122:24 Rake\n\nT132152:24 Rip\n\nT132127:24 Ferocious Bite\n\nT134296:24 Swipe\n\n\n\nYour energy regeneration is increased by 45%.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -11567,7 +11566,7 @@
 							"id": 202155,
 							"name": "Feral Affinity",
 							"icon": "talentspec_druid_feral_cat",
-							"description": "You gain:\n\n\n\nT538517:24 Feline Swiftness\n\nIncreases your movement speed by 15%.\n\n\n\nYou also learn:\n\n\n\nT132122:24 Rake\n\nT132152:24 Rip\n\nT132127:24 Ferocious Bite\n\n\n\nYour energy regeneration is increased by 35%.",
+							"description": "You gain:\n\n\n\nT538517:24 Feline Swiftness\n\nIncreases your movement speed by 15%.\n\n\n\nYou also learn:\n\n\n\nT132122:24 Rake\n\nT132152:24 Rip\n\nT132127:24 Ferocious Bite\n\n\n\nYour energy regeneration is increased by 45%.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -11637,7 +11636,7 @@
 							"id": 102359,
 							"name": "Mass Entanglement",
 							"icon": "spell_druid_massentanglement",
-							"description": "Roots the target and all enemies with 15 yards in place for 30 sec. Damage may interrupt the effect. Usable in all shapeshift forms.",
+							"description": "Roots the target and all enemies within 15 yards in place for 30 sec. Damage may interrupt the effect. Usable in all shapeshift forms.",
 							"range": "30 yd range",
 							"castTime": "Instant",
 							"cooldown": "30 sec cooldown"
@@ -11762,11 +11761,12 @@
 						"tier": 4,
 						"column": 1,
 						"spell": {
-							"id": 202032,
-							"name": "Jagged Wounds",
-							"icon": "ability_druid_disembowel",
-							"description": "Your Rip, Rake, and Thrash abilities deal their full damage 20% faster.",
-							"castTime": "Passive"
+							"id": 52610,
+							"name": "Savage Roar",
+							"icon": "ability_druid_skinteeth",
+							"description": "Finishing move that increases damage by 10% and energy regeneration rate by 10% while in Cat Form. Lasts longer per combo point:\n\n\n\n   1 point  : 12 seconds\n\n   2 points: 18 seconds\n\n   3 points: 24 seconds\n\n   4 points: 30 seconds\n\n   5 points: 36 seconds",
+							"powerCost": "25 Energy",
+							"castTime": "Instant"
 						},
 						"spec": {
 							"name": "Feral",
@@ -11803,7 +11803,7 @@
 							"id": 200390,
 							"name": "Cultivation",
 							"icon": "ability_druid_nourish",
-							"description": "When Rejuvenation heals a target below 60% health, it applies Cultivation to the target, healing them for 1,006 over 6 sec.",
+							"description": "When Rejuvenation heals a target below 60% health, it applies Cultivation to the target, healing them for 837 over 6 sec.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -11920,10 +11920,10 @@
 						"tier": 5,
 						"column": 0,
 						"spell": {
-							"id": 202031,
-							"name": "Sabertooth",
-							"icon": "inv_misc_monsterfang_01",
-							"description": "Ferocious Bite deals 20% increased damage and always refreshes the duration of Rip.",
+							"id": 285564,
+							"name": "Scent of Blood",
+							"icon": "spell_druid_thrash",
+							"description": "Each enemy hit by Thrash reduces the cost of Swipe by 3 Energy for the next 6 sec.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -11982,7 +11982,7 @@
 							"id": 279620,
 							"name": "Twin Moons",
 							"icon": "spell_nature_starfall",
-							"description": "Moonfire deals 20% increased damage and also hits another nearby enemy within 15 yds of the target.",
+							"description": "Moonfire deals 10% increased damage and also hits another nearby enemy within 15 yds of the target.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -12001,9 +12001,9 @@
 							"id": 202028,
 							"name": "Brutal Slash",
 							"icon": "ability_druid_ravage",
-							"description": "Strikes all nearby enemies with a massive slash, inflicting 155 Physical damage.\n\n\n\nAwards 1 combo point.",
+							"description": "Strikes all nearby enemies with a massive slash, inflicting 214 Physical damage.\n\n\n\nAwards 1 combo point.",
 							"range": "8 yd range",
-							"powerCost": "30 Energy",
+							"powerCost": "25 Energy",
 							"castTime": "Instant"
 						},
 						"spec": {
@@ -12059,11 +12059,12 @@
 						"tier": 5,
 						"column": 2,
 						"spell": {
-							"id": 52610,
-							"name": "Savage Roar",
-							"icon": "ability_druid_skinteeth",
-							"description": "Finishing move that increases damage by 15% while in Cat Form. Lasts longer per combo point:\n\n\n\n   1 point  : 12 seconds\n\n   2 points: 18 seconds\n\n   3 points: 24 seconds\n\n   4 points: 30 seconds\n\n   5 points: 36 seconds",
-							"powerCost": "30 Energy",
+							"id": 285381,
+							"name": "Primal Wrath",
+							"icon": "artifactability_feraldruid_ashamanesbite",
+							"description": "Finishing move that deals instant damage and applies Rip to all enemies within 8 yards. Lasts longer per combo point.\n\n\n\n   1 point  : 32 plus Rip for 4 sec\n\n   2 points: 48 plus Rip for 6 sec\n\n   3 points: 64 plus Rip for 8 sec\n\n   4 points: 80 plus Rip for 10 sec\n\n   5 points: 96 plus Rip for 12 sec",
+							"range": "8 yd range",
+							"powerCost": "20 Energy",
 							"castTime": "Instant"
 						},
 						"spec": {
@@ -12082,7 +12083,7 @@
 							"id": 202347,
 							"name": "Stellar Flare",
 							"icon": "ability_druid_stellarflare",
-							"description": "Burns the target for 391 Astral damage, and then an additional 3,520 damage over 24 sec.\n\n\n\nGenerates 8 Astral Power.",
+							"description": "Burns the target for 489 Astral damage, and then an additional 4,394 damage over 24 sec.\n\n\n\nGenerates 8 Astral Power.",
 							"range": "40 yd range",
 							"castTime": "1.5 sec cast"
 						},
@@ -12144,7 +12145,7 @@
 							"id": 202342,
 							"name": "Shooting Stars",
 							"icon": "spell_priest_divinestar_shadow2",
-							"description": "Moonfire and Sunfire damage over time has a chance to call down a falling star, dealing 7,518 Astral damage and generating 4 Astral Power.",
+							"description": "Moonfire and Sunfire damage over time has a chance to call down a falling star, dealing 1,409 Astral damage and generating 4 Astral Power.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -12182,7 +12183,7 @@
 							"id": 274902,
 							"name": "Photosynthesis",
 							"icon": "spell_lifegivingseed",
-							"description": "While your Lifebloom is on yourself, your periodic heals heal 15% faster.\n\n\n\nWhile your Lifebloom is on an ally, your periodic heals on them have a 5% chance to cause it to bloom.",
+							"description": "While your Lifebloom is on yourself, your periodic heals heal 20% faster.\n\n\n\nWhile your Lifebloom is on an ally, your periodic heals on them have a 5% chance to cause it to bloom.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -12616,7 +12617,7 @@
 							"id": 207739,
 							"name": "Burning Alive",
 							"icon": "spell_fire_elementaldevastation",
-							"description": "Every 2 sec, your Fiery Brand deals 10,548 Fire damage and spreads to one nearby enemy.",
+							"description": "Every 2 sec, your Fiery Brand deals 16 Fire damage and spreads to one nearby enemy.",
 							"castTime": "Passive"
 						},
 						"spec": {
@@ -13075,7 +13076,6 @@
 							"name": "Spirit Bomb",
 							"icon": "inv_icon_shadowcouncilorb_purple",
 							"description": "",
-							"range": "40 yd range",
 							"powerCost": "30 Pain",
 							"castTime": "Instant"
 						},
