@@ -149,6 +149,7 @@ class ResultsLoader extends React.PureComponent {
           isLoadingCharacterProfile={this.state.isLoadingCharacterProfile}
           isParsingEvents={this.state.isParsingEvents}
           progress={this.progress}
+          report={report}
           fight={fight}
           player={player}
           characterProfile={this.state.characterProfile}

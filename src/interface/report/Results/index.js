@@ -8,6 +8,7 @@ import { findByBossId } from 'raids';
 import lazyLoadComponent from 'common/lazyLoadComponent';
 import retryingPromise from 'common/retryingPromise';
 import makeWclUrl from 'common/makeWclUrl';
+import Tooltip from 'common/Tooltip';
 import { getResultTab } from 'interface/selectors/url/report';
 import { hasPremium } from 'interface/selectors/user';
 import ErrorBoundary from 'interface/common/ErrorBoundary';
@@ -51,6 +52,9 @@ class Results extends React.PureComponent {
     characterProfile: PropTypes.object,
     selectedTab: PropTypes.string,
     makeTabUrl: PropTypes.func.isRequired,
+    report: PropTypes.shape({
+      code: PropTypes.string.isRequired,
+    }).isRequired,
     fight: PropTypes.shape({
       start_time: PropTypes.number.isRequired,
       end_time: PropTypes.number.isRequired,
@@ -167,7 +171,7 @@ class Results extends React.PureComponent {
     }
   }
   render() {
-    const { parser, fight, player, characterProfile, makeTabUrl, selectedTab, premium, progress } = this.props;
+    const { parser, report, fight, player, characterProfile, makeTabUrl, selectedTab, premium, progress } = this.props;
     const config = this.context.config;
 
     const boss = findByBossId(fight.boss);
@@ -231,7 +235,39 @@ class Results extends React.PureComponent {
         )}
 
         <div className="container" style={{ marginTop: 40 }}>
-          <Trans>{config.spec.specName} {config.spec.className} analysis has been provided by {contributorinfo}. They love hearing what you think, so please let them know! <Link to={makeTabUrl('about')}>More info about this spec analysis.</Link></Trans>
+          <div className="row">
+            <div className="col-md-8">
+              <small>Provided by</small>
+              <div style={{ fontSize: 16 }}>
+                <Trans>{config.spec.specName} {config.spec.className} analysis has been provided by {contributorinfo}. They love hearing what you think, so please let them know! <Link to={makeTabUrl('about')}>More information about this spec's analyzer.</Link></Trans>
+              </div>
+            </div>
+            <div className="col-md-4">
+              <small>View on</small><br />
+              <Tooltip content={i18n._(t`View the original report`)}>
+                <a
+                  href={makeWclUrl(report.code, { fight: fight.id, source: parser ? parser.playerId : undefined })}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn"
+                  style={{ fontSize: 24, padding: '6px 0' }}
+                >
+                  <img src="/img/wcl.png" alt="" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
+                </a>
+              </Tooltip><br />
+              <Tooltip content={i18n._(t`View insights and timelines for raid encounters`)}>
+                <a
+                  href={`https://www.wipefest.net/report/${report.code}/fight/${fight.id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn"
+                  style={{ fontSize: 24, padding: '6px 0' }}
+                >
+                  <img src={WipefestLogo} alt="" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Wipefest
+                </a>
+              </Tooltip>
+            </div>
+          </div>
         </div>
       </div>
     );
