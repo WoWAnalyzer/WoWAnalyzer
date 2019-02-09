@@ -1,21 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Trans } from '@lingui/macro';
-
 import traitIdMap from 'common/TraitIdMap';
 import getAverageItemLevel from 'game/getAverageItemLevel';
+import Combatant from 'parser/core/Combatant';
 
-import Azerite from './playerInfo/Azerite';
-import Enchants from './playerInfo/Enchants';
-import Gear from './playerInfo/Gear';
-import Gems from './playerInfo/Gems';
-import PlayerGearHeader from './playerInfo/PlayerGearHeader';
-import Talents from './playerInfo/Talents';
+import './PlayerInfo.scss';
+import Azerite from './Azerite';
+import Enchants from './Enchants';
+import Gear from './Gear';
+import Gems from './Gems';
+import PlayerGearHeader from './PlayerGearHeader';
+import Talents from './Talents';
 
 class PlayerInfo extends React.PureComponent {
   static propTypes = {
-    player: PropTypes.object.isRequired,
+    combatant: PropTypes.objectOf(Combatant).isRequired,
   };
 
   state = {
@@ -25,11 +25,12 @@ class PlayerInfo extends React.PureComponent {
   };
 
   static getDerivedStateFromProps(props) {
-    const { player } = props;
+    const { combatant } = props;
+
     return {
-      gear: _parseGear(player.combatant.gear),
-      traits: _parseTraits(player.combatant.artifact),
-      talents: _parseTalents(player.combatant.talents),
+      gear: _parseGear(combatant._combatantInfo.gear),
+      traits: _parseTraits(combatant._combatantInfo.artifact),
+      talents: _parseTalents(combatant._combatantInfo.talents),
     };
   }
 
@@ -38,20 +39,21 @@ class PlayerInfo extends React.PureComponent {
   }
 
   render() {
-    const { player } = this.props;
+    const { combatant } = this.props;
+    console.log(combatant);
+
+    const background = combatant.characterProfile && combatant.characterProfile.thumbnail ? `https://render-${combatant.characterProfile.region}.worldofwarcraft.com/character/${combatant.characterProfile.thumbnail.replace('avatar','main')}` : '/img/fallback-character.jpg';
+
     return (
-      <>
-        <div className="player-background" style={{ backgroundImage: `url(${player.background})` }}>
+      <div className="player-info">
+        <div className="player-background" style={{ backgroundImage: `url(${background})` }}>
           <div className="player-gear">
-            <PlayerGearHeader player={player} averageIlvl={this.averageIlvl} />
-            <Gear gear={this.state.gear} player={player} />
+            <PlayerGearHeader player={combatant} averageIlvl={this.averageIlvl} />
+            <Gear gear={this.state.gear} player={combatant} />
             <Gems gear={this.state.gear} />
             <Enchants gear={this.state.gear} />
           </div>
         </div>
-        <a href={player.analysisUrl} className="btn btn-primary analyze">
-          <Trans>Analyze</Trans> <span className="glyphicon glyphicon-chevron-right" aria-hidden />
-        </a>
         <div className="player-details">
           <div className="player-details-talents">
             <Talents talents={this.state.talents} />
@@ -60,7 +62,7 @@ class PlayerInfo extends React.PureComponent {
             <Azerite azerite={this.state.traits} />
           </div>
         </div>
-      </>
+      </div>
     );
   }
 }
