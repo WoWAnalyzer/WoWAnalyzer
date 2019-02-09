@@ -37,7 +37,6 @@ import MaelstromDetails from '../shared/maelstromchart/MaelstromDetails';
 import MaelstromTracker from '../shared/maelstromchart/MaelstromTracker';
 import MaelstromTab from '../shared/maelstromchart/MaelstromTab';
 
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Features

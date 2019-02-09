@@ -3,8 +3,8 @@ import Panel from 'interface/others/Panel';
 import Analyzer from 'parser/core/Analyzer';
 import MaelstromChart from './Maelstrom';
 import MaelstromTracker from './MaelstromTracker';
-class MaelstromTab extends Analyzer {
 
+class MaelstromTab extends Analyzer {
   static dependencies = {
     maelstromTracker: MaelstromTracker,
   };
@@ -25,4 +25,5 @@ class MaelstromTab extends Analyzer {
     };
   }
 }
+
 export default MaelstromTab;
