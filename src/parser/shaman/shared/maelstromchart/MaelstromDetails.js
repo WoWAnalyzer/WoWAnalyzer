@@ -83,6 +83,7 @@ class MaelstromDetails extends Analyzer {
         <Panel
           title="Maelstrom usage"
           position={200}
+          pad={false}
         >
           <ResourceBreakdown
             tracker={this.maelstromTracker}

@@ -35,6 +35,7 @@ class ResourceBreakdown extends React.Component {
   render() {
     const { tracker, showSpenders } = this.props;
     const resourceName = tracker.resource.name;
+
     const generated = this.prepareGenerated(tracker.buildersObj);
     const spent = this.prepareSpent(tracker.spendersObj);
 

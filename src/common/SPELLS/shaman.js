@@ -26,6 +26,11 @@ export default {
     name: 'Earthbind Totem',
     icon: 'spell_nature_strengthofearthtotem02',
   },
+  RESONANCE_TOTEM: {
+    id: 262417,
+    name: 'Resonance Totem',
+    icon: 'spell_nature_stoneskintotem',
+  },
   PURGE: {
     id: 370,
     name: 'Purge',
