@@ -29,12 +29,20 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.TOTEM_MASTERY_TALENT_ENHANCEMENT,
+        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        enabled: combatant.hasTalent(SPELLS.TOTEM_MASTERY_TALENT_ENHANCEMENT.id),
+        gcd: {
+          base: 1000,
+        },
+      },
+      {
         spell: SPELLS.FERAL_SPIRIT,
         buffSpellId: [ //Feral Spirit isn't an actual buff, so we can only show the Elemental Spirits buffs
           SPELLS.ELEMENTAL_SPIRITS_BUFF_MOLTEN_WEAPON.id,
           SPELLS.ELEMENTAL_SPIRITS_BUFF_ICY_EDGE.id,
-          SPELLS.ELEMENTAL_SPIRITS_BUFF_CRACKLING_SURGE.id, 
-        ], 
+          SPELLS.ELEMENTAL_SPIRITS_BUFF_CRACKLING_SURGE.id,
+        ],
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: combatant.hasTalent(SPELLS.ELEMENTAL_SPIRITS_TALENT) ? 150 : 180,
         gcd: {

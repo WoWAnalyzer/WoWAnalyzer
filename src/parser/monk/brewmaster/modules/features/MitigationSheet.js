@@ -18,8 +18,6 @@ import MasteryValue from '../core/MasteryValue';
 import Stagger from '../core/Stagger';
 import AgilityValue from './AgilityValue';
 import { diminish, lookupK } from '../constants/Mitigation';
-import PlayerBreakdown from 'parser/paladin/holy/modules/MasteryEffectiveness';
-
 
 function formatGain(gain) {
   if(typeof gain === 'number') {
