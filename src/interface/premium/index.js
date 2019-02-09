@@ -13,7 +13,7 @@ import { TooltipElement } from 'common/Tooltip';
 import { logout } from 'interface/actions/user';
 import { getUser } from 'interface/selectors/user';
 
-import './index.css';
+import './index.scss';
 
 import LoginPanel from './LoginPanel';
 
@@ -38,23 +38,22 @@ export class Premium extends React.PureComponent {
     const { user } = this.props;
 
     return (
-      <div className="row">
+      <div className="premium row">
         <div className="col-md-4 col-sm-5">
           <LoginPanel />
         </div>
         <div className="col-md-8 col-sm-7">
           <div className="panel">
             <div className="panel-heading">
-              <h2>WoWAnalyzer premium</h2>
+              <h1>WoWAnalyzer premium</h1>
             </div>
-            <div className="panel-body">
+            <div className="panel-body pad">
               <PremiumIcon style={{ fontSize: '6em', float: 'right', color: '#fab700', marginTop: 0 }} />
               <div style={{ fontSize: '1.4em', fontWeight: 400 }}>
-                Help out development to unlock <span style={{ color: '#fab700', fontWeight: 700 }}>WoWAnalyzer Premium</span>!
+                Help out development and unlock <span style={{ color: '#fab700', fontWeight: 700 }}>WoWAnalyzer Premium</span>!
               </div>
-              <br />
 
-              <div className="row" style={{ marginBottom: 5, marginTop: '2em' }}>
+              <div className="row" style={{ marginBottom: 5, marginTop: 60 }}>
                 <div className="col-md-12 text-center text-muted">
                   How to unlock WoWAnalyzer Premium:
                 </div>
@@ -74,12 +73,11 @@ export class Premium extends React.PureComponent {
                 </div>
               </div>
 
-              <div className="row" style={{ marginBottom: 5, marginTop: '2em' }}>
+              <div className="row" style={{ marginBottom: 5, marginTop: 60 }}>
                 <div className="col-md-12 text-center text-muted">
                   WoWAnalyzer Premium unlocks the following things:
                 </div>
               </div>
-
               <div>
                 <div className="premium-feature flex">
                   <div className="content-middle flex-sub">
@@ -88,9 +86,17 @@ export class Premium extends React.PureComponent {
                   <div className="flex-main">
                     <h2>New things</h2>
 
-                    Your contributions will help fund new things for the site, making it even better.<br /><br />
+                    <strong>Nothing develops itself.</strong> Your contributions will help fund new things for the site, making it even better. We'll post bounties on the best ideas via <a href="https://www.bountysource.com/teams/wowanalyzer">Bountysource</a> as a motivation to get developers to build them.
+                  </div>
+                </div>
+                <div className="premium-feature flex">
+                  <div className="content-middle flex-sub">
+                    <ViralContentIcon />
+                  </div>
+                  <div className="flex-main">
+                    <h2>Updates for patches</h2>
 
-                    We'll post bounties on the best ideas via <a href="https://www.bountysource.com/teams/wowanalyzer">Bountysource</a> as a motivation to get developers to build them.
+                    <strong>Updating for patches is a lot of work.</strong> We need to apply all spell changes, add new traits, add support for the new fights, make screenshots, add fight phases, buffs and debuffs, etc. Your contributions make it possible for us to keep specs updated as they're changed in patches.
                   </div>
                 </div>
                 <div className="premium-feature flex">
@@ -100,7 +106,7 @@ export class Premium extends React.PureComponent {
                   <div className="flex-main">
                     <h2>No ads</h2>
 
-                    We'll remove ads from the platform for you so you can consume our content with less distractions and less clutter.
+                    <strong>Nobody likes them, but we need them.</strong> Any contribution is worth more than the ads, so we'll remove ads from the platform for you so you can consume our content with less distractions and less clutter.
                   </div>
                 </div>
                 <div className="premium-feature flex">
@@ -110,7 +116,7 @@ export class Premium extends React.PureComponent {
                   <div className="flex-main">
                     <h2>Discord name color</h2>
 
-                    Get a distinct Discord name color befitting your contribution. See Patreon for Patron specific name colors. Serious GitHub contributors get the yellow contributor name color.
+                    <strong>We'll help anyone, but sometimes we can't avoid favoritism.</strong> Get a distinct Discord name color befitting your contribution. See Patreon for Patron specific name colors. Serious GitHub contributors get the yellow contributor name color.
                   </div>
                 </div>
                 <div className="premium-feature flex">
@@ -120,8 +126,19 @@ export class Premium extends React.PureComponent {
                   <div className="flex-main">
                     <h2>Access to secret channels on Discord</h2>
 
-                    Get access to special Discord channels to discuss things privately in the sub-community.
+                    <strong>You don't know what you're missing out on.</strong> Get access to special Discord channels to discuss things privately in the sub-community.
                   </div>
+                </div>
+              </div>
+
+              <div className="row" style={{ marginBottom: 5, marginTop: 60 }}>
+                <div className="col-md-12 text-center text-muted">
+                  How to login for WoWAnalyzer Premium:
+                </div>
+              </div>
+              <div className="row flex">
+                <div className="col-md-12">
+                  Logging in is easy, just click one of the buttons on the panel to the left. If you have any more questions ask away <a href="/discord">at Discord</a>.
                 </div>
               </div>
             </div>

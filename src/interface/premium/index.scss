@@ -1,3 +1,33 @@
+@import 'interface/layout/Theme.scss';
+
+.premium {
+  h2 {
+    opacity: .9;
+    text-transform: uppercase;
+    letter-spacing: .2em;
+    font-weight: 600;
+    margin: 0;
+    font-size: 1em;
+    line-height: 1.4;
+  }
+
+
+  .premium-feature {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    padding: 30px;
+    margin-bottom: 30px;
+
+    svg {
+      font-size: 5em;
+      min-width: 1em;
+      text-align: center;
+      margin-right: 30px;
+      margin-top: 0;
+    }
+  }
+}
+
 .patreon-login, .github-login {
   font-size: 2em;
   border-radius: 0;
@@ -17,20 +47,6 @@
 }
 .github-login:hover {
   background: #cdcdcd;
-}
-
-.premium-feature {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 5px;
-  padding: 15px 10px;
-  margin-bottom: 15px;
-}
-.premium-feature svg {
-  font-size: 5em;
-  min-width: 1em;
-  text-align: center;
-  margin-right: 15px;
-  margin-top: 0;
 }
 
 .logged-in-enter, .logged-in-appear, .logged-in-leave.logged-in-leave-active {
