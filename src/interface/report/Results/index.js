@@ -92,6 +92,16 @@ class Results extends React.PureComponent {
     };
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
+  componentDidUpdate(prevProps, prevState, prevContext) {
+    if (this.props.selectedTab !== prevProps.selectedTab) {
+      // TODO: To improve user experience we could try to avoid scrolling when the header is still within vision.
+      window.scrollTo(0, 0);
+    }
+  }
+
   get warning() {
     const parser = this.props.parser;
     const boss = parser.boss;
