@@ -138,6 +138,7 @@ import SyringeOfBloodborneInfirmity from '../shared/modules/items/bfa/raids/uldi
 import DiscOfSystematicRegression from '../shared/modules/items/bfa/raids/uldir/DiscOfSystematicRegression';
 // BoD
 import CrestOfPaku from '../shared/modules/items/bfa/raids/bod/CrestOfPaku';
+import IncandescentSliver from '../shared/modules/items/bfa/raids/bod/IncandescentSliver';
 
 import ParseResults from './ParseResults';
 import Analyzer from './Analyzer';
@@ -287,6 +288,7 @@ class CombatLogParser {
     discOfSystematicRegression: DiscOfSystematicRegression,
     // BoD
     crestOfPaku: CrestOfPaku,
+    incandescentSliver: IncandescentSliver,
   };
   // Override this with spec specific modules when extending
   static specModules = {};

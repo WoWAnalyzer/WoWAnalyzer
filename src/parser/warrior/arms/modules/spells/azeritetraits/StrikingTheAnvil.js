@@ -5,6 +5,8 @@ import SPELLS from 'common/SPELLS/index';
 import TraitStatisticBox from 'interface/others/TraitStatisticBox';
 import Events from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import Enemies from 'parser/shared/modules/Enemies';
+import ExecuteRange from 'parser/warrior/arms/modules/core/Execute/ExecuteRange';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 /**
@@ -29,6 +31,8 @@ const CDR_PER_PROC = 1500; // ms
 
 class StrikingTheAnvil extends Analyzer {
   static dependencies = {
+    executeRange: ExecuteRange,
+    enemies: Enemies,
     spellUsable: SpellUsable,
   };
 
@@ -41,12 +45,14 @@ class StrikingTheAnvil extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.OVERPOWER), this._onOverpowerCast);
   }
 
-  _onOverpowerCast() {
+  _onOverpowerCast(event) {
     if (!this.selectedCombatant.hasBuff(SPELLS.STRIKING_THE_ANVIL_BUFF.id)) {
       return;
     }
     if (!this.spellUsable.isOnCooldown(SPELLS.MORTAL_STRIKE.id)) {
-      this.wastedReduction += CDR_PER_PROC;
+      if (!this.executeRange.isTargetInExecuteRange(event)) {
+        this.wastedReduction += CDR_PER_PROC;
+      }
     } else {
       const effectiveReduction = this.spellUsable.reduceCooldown(SPELLS.MORTAL_STRIKE.id, CDR_PER_PROC);
       this.effectiveReduction += effectiveReduction;

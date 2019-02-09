@@ -16,4 +16,12 @@ export default {
     icon: "inv_icon_wing01a",
     quality: ITEM_QUALITIES.PURPLE,
   },
+
+  //Opulence
+  INCANDESCENT_SLIVER: {
+    id: 165571,
+    name: 'Incandescent Sliver',
+    icon: 'ability_priest_cascade',
+    quality: ITEM_QUALITIES.PURPLE,
+  },
 };

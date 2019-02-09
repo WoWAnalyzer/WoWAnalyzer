@@ -46,6 +46,7 @@ import Consumption from './modules/talents/Consumption';
 import BonesOfTheDamned from './modules/spells/azeritetraits/BonesOfTheDamned';
 import BoneSpikeGraveyard from '../shared/spells/azeritetraits/BoneSpikeGraveyard';
 import EternalRuneWeapon from './modules/spells/azeritetraits/EternalRuneWeapon';
+import BloodyRuneblade from './modules/spells/azeritetraits/BloodyRuneblade';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -100,6 +101,7 @@ class CombatLogParser extends CoreCombatLogParser {
     bonesOfTheDamned: BonesOfTheDamned,
     boneSpikeGraveyard: BoneSpikeGraveyard,
     eternalRuneWeapon: EternalRuneWeapon,
+    bloodyRuneblade: BloodyRuneblade,
   };
 }
 

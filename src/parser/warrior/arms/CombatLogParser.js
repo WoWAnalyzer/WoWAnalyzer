@@ -44,6 +44,7 @@ import SeismicWave from './modules/spells/azeritetraits/SeismicWave';
 import TestOfMight from './modules/spells/azeritetraits/TestOfMight';
 import CrushingAssault from './modules/spells/azeritetraits/CrushingAssault';
 import StrikingTheAnvil from './modules/spells/azeritetraits/StrikingTheAnvil';
+import LordOfWar from './modules/spells/azeritetraits/LordOfWar';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -101,6 +102,7 @@ class CombatLogParser extends CoreCombatLogParser {
     testOfMight: TestOfMight,
     crushingAssault: CrushingAssault,
     strikingTheAnvil: StrikingTheAnvil,
+    lordOfWar: LordOfWar,
   };
 }
 
