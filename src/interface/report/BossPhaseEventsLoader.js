@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { fetchEvents } from 'common/fetchWclApi';
 import { makeWclBossPhaseFilter } from 'common/makeWclBossPhaseFilter';
 import { fabricateBossPhaseEvents } from 'common/fabricateBossPhaseEvents';
+import { captureException } from 'common/errorLogger';
 
 class BossPhaseEventsLoader extends React.PureComponent {
   static propTypes = {
@@ -38,7 +39,15 @@ class BossPhaseEventsLoader extends React.PureComponent {
   }
 
   async load() {
-    const events = await this.loadEvents();
+    let events;
+    try {
+      events = await this.loadEvents();
+    } catch (err) {
+      // The boss events are very nice, but we can still continue without it and just provide the entire fight for analysis.
+      // We still want to log the error though, so we can potentially improve this.
+      captureException(err);
+    }
+
     this.setState({
       isLoading: false,
       events,

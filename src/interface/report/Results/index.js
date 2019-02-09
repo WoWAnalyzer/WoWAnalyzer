@@ -222,7 +222,7 @@ class Results extends React.PureComponent {
           </div>
         )}
 
-        <div className="container">
+        <div className="container" style={{ marginTop: 40 }}>
           <Trans>{config.spec.specName} {config.spec.className} analysis has been provided by {contributorinfo}. They love hearing what you think, so please let them know! <Link to={makeTabUrl('about')}>More info about this spec analysis.</Link></Trans>
         </div>
       </div>

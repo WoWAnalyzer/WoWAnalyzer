@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { makeCharacterApiUrl } from 'common/makeApiUrl';
+import { captureException } from 'common/errorLogger';
 
 const CHINESE_REGION = 'cn';
 
@@ -41,7 +42,15 @@ class CharacterProfileLoader extends React.PureComponent {
   }
 
   async load() {
-    const characterProfile = await this.loadCharacterProfile();
+    let characterProfile;
+    try {
+      characterProfile = await this.loadCharacterProfile();
+    } catch (err) {
+      // This only provides optional info, so it's no big deal if it fails.
+      // We still want to log it though, so we can potentially improve this.
+      captureException(err);
+    }
+
     this.setState({
       isLoading: false,
       characterProfile,
@@ -69,13 +78,7 @@ class CharacterProfileLoader extends React.PureComponent {
       }
     }
 
-    try {
-      return await fetch(makeCharacterApiUrl(id, region, realm, name)).then(data => data.json());
-    } catch (error) {
-      // This only provides optional info, so it's no big deal if it fails
-      console.warn('Unable to obtain character information because of:', error);
-      return null;
-    }
+    return fetch(makeCharacterApiUrl(id, region, realm, name)).then(data => data.json());
   }
 
   render() {
