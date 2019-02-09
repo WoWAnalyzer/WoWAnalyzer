@@ -244,7 +244,7 @@ class Results extends React.PureComponent {
             </div>
             <div className="col-md-4">
               <small>View on</small><br />
-              <Tooltip content={i18n._(t`View the original report`)}>
+              <Tooltip content={i18n._(t`Opens in a new tab. View the original report.`)}>
                 <a
                   href={makeWclUrl(report.code, { fight: fight.id, source: parser ? parser.playerId : undefined })}
                   target="_blank"
@@ -255,7 +255,7 @@ class Results extends React.PureComponent {
                   <img src="/img/wcl.png" alt="" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
                 </a>
               </Tooltip><br />
-              <Tooltip content={i18n._(t`View insights and timelines for raid encounters`)}>
+              <Tooltip content={i18n._(t`Opens in a new tab. View insights and timelines for raid encounters.`)}>
                 <a
                   href={`https://www.wipefest.net/report/${report.code}/fight/${fight.id}`}
                   target="_blank"
