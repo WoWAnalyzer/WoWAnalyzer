@@ -3,6 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import CoreAbilities from 'parser/core/modules/Abilities';
+import calculateMaxCasts from 'parser/core/calculateMaxCasts';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -41,7 +42,8 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id),
           recommendedEfficiency: 0.85,
-          extraSuggestion: <>This should be part of your single target rotation due to the <SpellLink id={SPELLS.FIRST_BLOOD_TALENT} icon /> talent.</>,
+          maxCasts: cooldown => calculateMaxCasts(cooldown, this.owner.fightDuration - combatant.getBuffUptime(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id)),
+          extraSuggestion: <>This should be part of your single target rotation due to the <SpellLink id={SPELLS.FIRST_BLOOD_TALENT.id} icon /> talent.</>,
         },
       },
       {
@@ -54,15 +56,8 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id),
           recommendedEfficiency: 0.85,
-          extraSuggestion: <>This should be part of your single target rotation due to the <SpellLink id={SPELLS.FIRST_BLOOD_TALENT} icon /> talent.</>,
-        },
-      },
-      {
-        spell: SPELLS.EYE_BEAM,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
+          maxCasts: cooldown => calculateMaxCasts(cooldown, combatant.getBuffUptime(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id)),
+          extraSuggestion: <>This should be part of your single target rotation due to the <SpellLink id={SPELLS.FIRST_BLOOD_TALENT.id} icon /> talent.</>,
         },
       },
       {
@@ -98,7 +93,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DARK_SLASH_TALENT,
         enabled: combatant.hasTalent(SPELLS.DARK_SLASH_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 20,
         gcd: {
           base: 1500,
@@ -106,7 +101,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
-          extraSuggestion: <>Pool your fury before hand to maximizing casting <SpellLink id={SPELLS.CHAOS_STRIKE} icon /> / <SpellLink id={SPELLS.ANNIHILATION} icon /> during its buff window.</>,
+          extraSuggestion: <>Pool your fury before hand to maximizing casting <SpellLink id={SPELLS.CHAOS_STRIKE.id} icon /> / <SpellLink id={SPELLS.ANNIHILATION.id} icon /> during its buff window.</>,
         },
       },
       {
@@ -131,7 +126,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id),
           recommendedEfficiency: 0.85,
-          extraSuggestion: <>Use it to keep your <SpellLink id={SPELLS.MOMENTUM_TALENT} icon /> buff going.</>,
+          extraSuggestion: <>Use it to keep your <SpellLink id={SPELLS.MOMENTUM_TALENT.id} icon /> buff going.</>,
         },
       },
       {
@@ -143,7 +138,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id),
           recommendedEfficiency: 0.85,
-          extraSuggestion: <>Use it to generate fury due to the <SpellLink id={SPELLS.MOMENTUM_TALENT} icon /> talent.</>,
+          extraSuggestion: <>Use it to generate fury due to the <SpellLink id={SPELLS.MOMENTUM_TALENT.id} icon /> talent.</>,
         },
       },
       {
@@ -208,7 +203,15 @@ class Abilities extends CoreAbilities {
         },
       },
 
-      // DPS Cooldowns 1+ min
+      // DPS Cooldowns
+      {
+        spell: SPELLS.EYE_BEAM,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 30,
+        gcd: {
+          base: 1500,
+        },
+      },
       {
         spell: SPELLS.FEL_BARRAGE_TALENT,
         enabled: combatant.hasTalent(SPELLS.FEL_BARRAGE_TALENT.id),
@@ -224,7 +227,7 @@ class Abilities extends CoreAbilities {
         },
       },
 
-      // Big DPS Cooldowns 2+ min
+      // Big DPS Cooldowns
       {
         spell: SPELLS.METAMORPHOSIS_HAVOC,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,

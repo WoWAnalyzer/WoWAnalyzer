@@ -5,6 +5,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellLink from 'common/SpellLink';
+import { formatPercentage } from 'common/format';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/GdDhNAZgp2X3PbVC#fight=31&type=summary&source=10
@@ -53,7 +54,7 @@ class BlindFury extends Analyzer{
         return suggest(<>Try to cast <SpellLink id={SPELLS.EYE_BEAM.id} /> at 30 to 50 fury. Having more than 50 fury at cast is considered a dps loss.</>)
           .icon(SPELLS.BLIND_FURY_TALENT.icon)
           .actual(`${actual} bad casts`)
-          .recommended(`0 is recommended.`);
+          .recommended(`${formatPercentage(recommended)}% is recommended.`);
       });
   }
 

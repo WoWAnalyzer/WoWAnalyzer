@@ -14,7 +14,6 @@ const IMMOLATION_AURA = [SPELLS.IMMOLATION_AURA_FIRST_STRIKE_DPS, SPELLS.IMMOLAT
 
 class ImmolationAura extends Analyzer{
 
-  effectiveFuryGain = 0;
   furyGain = 0;
   furyWaste = 0;
   damage = 0;
@@ -60,12 +59,12 @@ class ImmolationAura extends Analyzer{
         return suggest(<> Be mindful of your fury levels and spend it before capping.</>)
           .icon(SPELLS.IMMOLATION_AURA_TALENT.icon)
           .actual(`${formatPercentage(actual)}% fury wasted`)
-          .recommended(`0% is recommended.`);
+          .recommended(`${formatPercentage(recommended)}% is recommended.`);
       });
   }
 
   statistic(){
-    this.effectiveFuryGain = this.furyGain - this.furyWaste;
+    const effectiveFuryGain = this.furyGain - this.furyWaste;
     return (
       <TalentStatisticBox
         talent={SPELLS.IMMOLATION_AURA_TALENT.id}
@@ -76,7 +75,7 @@ class ImmolationAura extends Analyzer{
               </>)}
         tooltip={`
           ${formatThousands(this.damage)} Total damage<br />
-          ${this.effectiveFuryGain} Effective fury gained<br />
+          ${effectiveFuryGain} Effective fury gained<br />
           ${this.furyGain} Total fury gained<br />
           ${this.furyWaste} Fury wasted
         `}
