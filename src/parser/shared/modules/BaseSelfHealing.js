@@ -8,13 +8,12 @@ import Events from 'parser/core/Events';
 import { formatThousands, formatPercentage } from 'common/format';
 import HealingDone from 'parser/shared/modules/HealingDone';
 
-import { DIRECT_SELF_HEALING_ABILITIES } from '../constants';
-
 /*
- * Calculates targeted healing on self
+ * Base class for self healing calculations. Handles rendering and calculations, each spec 
+ * has a class that inherits from this to grab spec specific spell IDs. I.E. HolyPaladinSelfHealing
  */
 
-class SelfHealing extends Analyzer {
+class BaseSelfHealing extends Analyzer {
     static dependencies = {
         healingDone: HealingDone,
     };
@@ -22,22 +21,20 @@ class SelfHealing extends Analyzer {
     _healing = 0;
     _overhealing = 0;
     _selfHealPercent = 0;
+    static SPELL_ARRAY = [];
 
     constructor(...args) {
         super(...args);
-        this.addEventListener(Events.heal.by(SELECTED_PLAYER), this._onCast);
+        this.addEventListener(Events.heal.by(SELECTED_PLAYER).to(SELECTED_PLAYER).spell(this.constructor.SPELL_ARRAY), this._onHeal);
     }
 
-    _onCast(event) {
-        if (DIRECT_SELF_HEALING_ABILITIES.includes(event.ability.guid)) {
-            if (this.owner.player.id === event.targetID) {
-                this._healing += event.amount;
-                this._overhealing += event.overheal || 0;
-            }
-        }
+    _onHeal(event) {
+        this._healing += event.amount;
+        this._healing += event.absorbed || 0;
+        this._overhealing += event.overheal || 0;
     }
 
-    getSelfHealingPercent() {
+    get selfHealingPercent() {
         return this._healing / this.healingDone.total._regular;
     }
 
@@ -46,7 +43,7 @@ class SelfHealing extends Analyzer {
             <StatisticBox
               position={STATISTIC_ORDER.CORE(61)}
               icon={<SpellIcon id={SPELLS.LIGHT_OF_DAWN_CAST.id} />}
-              value={`${formatPercentage(this.getSelfHealingPercent())} %`}
+              value={`${formatPercentage(this.selfHealingPercent)} %`}
               tooltip={`self-healing: <b>${formatThousands(this._healing)}</b>
                         self-overhealing:<b> ${formatThousands(this._overhealing)}</b>`}
               label="Self Healing"
@@ -55,4 +52,4 @@ class SelfHealing extends Analyzer {
     }
 }
 
-export default SelfHealing;
+export default BaseSelfHealing;

@@ -23,7 +23,7 @@ import FillerFlashOfLight from './modules/FillerFlashOfLight';
 import LightOfDawn from './modules/LightOfDawn';
 import LightOfDawnIndexer from './modules/LightOfDawnIndexer';
 import SpellManaCost from './modules/core/SpellManaCost';
-import SelfHealing from './modules/SelfHealing';
+import HolyPaladinSelfHealing from './modules/HolyPaladinSelfHealing';
 
 import Abilities from './modules/Abilities';
 import Checklist from './modules/checklist/Module';
@@ -76,7 +76,7 @@ class CombatLogParser extends CoreCombatLogParser {
     lightOfDawn: LightOfDawn,
     lightOfDawnIndexer: LightOfDawnIndexer,
     spellManaCost: SpellManaCost,
-    selfHealing: SelfHealing,
+    holyPaladinSelfHealing: HolyPaladinSelfHealing,
     
     // Features
     checklist: Checklist,
