@@ -105,7 +105,10 @@ class DeathRecapTracker extends Analyzer {
       title: 'Death Recap',
       url: 'death-recap',
       render: () => (
-        <Panel>
+        <Panel
+          title="Death recap"
+          pad={false}
+        >
           <DeathRecap
             report={this.owner}
             events={this.secondsBeforeDeath}

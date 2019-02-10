@@ -45,63 +45,66 @@ class DeathRecap extends React.PureComponent {
 
     const sliderProps = {
       min: 0,
-      max: 1,
+      max: 0.5,
       step: 0.05,
       marks: {
         0: '0%',
+        0.05: '5%',
         0.1: '10%',
+        0.15: '15%',
         0.2: '20%',
+        0.25: '25%',
         0.3: '30%',
+        0.35: '35%',
         0.4: '40%',
+        0.45: '45%',
         0.5: '50%',
-        0.6: '60%',
-        0.7: '70%',
-        0.8: '80%',
-        0.9: '90%',
-        1: '100%',
       },
       style: {
-        margin: '0px 2em 4em 2em',
-        width: 'calc(100% - 4em)',
+        margin: '0 5px',
       },
     };
 
     const events = this.props.events;
 
     return (
-      <div>
-        <div style={{ overflow: 'auto' }}>
-          <div style={{ float: 'left', width: 'calc(100% - 20em)' }}>
-            <div style={{ margin: '2em 0 0 2em' }}>
-              Filter events based on min amount (percentage of players health):
+      <>
+        <div className="pad" style={{ marginBottom: 15 }}>
+          <div className="row">
+            <div className="col-md-8">
+              <div>
+                Filter events based on min amount (percentage of players health):
+              </div>
+              <Slider
+                {...sliderProps}
+                defaultValue={this.state.amountThreshold}
+                onChange={(value) => {
+                  this.setState({
+                    amountThreshold: value,
+                  });
+                }}
+              />
             </div>
-            <Slider
-              {...sliderProps}
-              defaultValue={this.state.amountThreshold}
-              onChange={(value) => {
-                this.setState({
-                  amountThreshold: value,
-                });
-              }}
-            />
-          </div>
-          <div style={{ width: '18em', float: 'left', marginTop: '2em' }}>
-            <Tooltip content="Open the deaths on Warcraft Logs">
-              <a
-                href={`https://www.warcraftlogs.com/reports/${this.props.report.report.code}#fight=${this.props.report.fight.id}&type=deaths&source=${this.props.report.player.id}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn"
-                style={{ fontSize: 24 }}
-              >
-                <img src={WarcraftLogsLogo} alt="Warcraft Logs logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
-              </a>
-            </Tooltip>
+            <div className="col-md-4">
+              <Tooltip content="Open the deaths on Warcraft Logs">
+                <a
+                  href={`https://www.warcraftlogs.com/reports/${this.props.report.report.code}#fight=${this.props.report.fight.id}&type=deaths&source=${this.props.report.player.id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn"
+                  style={{ fontSize: 24 }}
+                >
+                  <img src={WarcraftLogsLogo} alt="Warcraft Logs logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
+                </a>
+              </Tooltip>
+            </div>
           </div>
         </div>
         {events.map((death, i) => (
-          <div className="item-divider-top">
-            <h2 onClick={() => this.handleClick(i)} style={{ padding: '10px 20px', cursor: 'pointer' }}>Death #{i + 1}</h2>
+          <>
+            {events.length > 1 && (
+              <h2 onClick={() => this.handleClick(i)} style={{ padding: '10px 20px', cursor: 'pointer' }}>Death #{i + 1}</h2>
+            )}
             <table style={{ display: this.state.detailedView === i ? 'block' : 'none' }} className="data-table">
               <thead>
                 <tr>
@@ -235,9 +238,9 @@ class DeathRecap extends React.PureComponent {
                 </tr>
               </tbody>
             </table>
-          </div>
+          </>
         ))}
-      </div>
+      </>
     );
   }
 }
