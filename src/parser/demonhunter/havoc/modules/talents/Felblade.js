@@ -51,12 +51,12 @@ class Felblade extends Analyzer{
         return suggest(<> Avoid casting <SpellLink id={SPELLS.FELBLADE_TALENT.id} /> close to fury cap and cast abilities regularly to avoid accidently capping.</>)
           .icon(SPELLS.FELBLADE_TALENT.icon)
           .actual(`${formatPercentage(actual)}% fury wasted`)
-          .recommended(`0% is recommended.`);
+          .recommended(`${formatPercentage(recommended)}% is recommended.`);
       });
   }
 
   statistic(){
-    this.effectiveFuryGain = this.furyGain - this.furyWaste;
+    const effectiveFuryGain = this.furyGain - this.furyWaste;
     console.log("testr", this.furyWaste / this.furyGain);
     return (
       <TalentStatisticBox
@@ -64,7 +64,7 @@ class Felblade extends Analyzer{
         position={STATISTIC_ORDER.OPTIONAL(6)}
         value={`${this.furyPerMin} fury per min`}
         tooltip={`
-          ${this.effectiveFuryGain} Effective fury gained<br />
+          ${effectiveFuryGain} Effective fury gained<br />
           ${this.furyGain} Total fury gained<br />
           ${this.furyWaste} Fury wasted
         `}

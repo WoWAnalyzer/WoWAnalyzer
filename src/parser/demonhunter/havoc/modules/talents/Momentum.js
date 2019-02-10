@@ -32,9 +32,9 @@ class Momentum extends Analyzer {
     return {
       actual: this.buffUptime,
       isLessThan: {
-        minor: 0.95,
-        average: 0.90,
-        major: 0.85,
+        minor: 0.55,
+        average: 0.45,
+        major: 0.40,
       },
       style: 'percentage',
     };
@@ -45,8 +45,8 @@ class Momentum extends Analyzer {
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<> Maintain the <SpellLink id={SPELLS.MOMENTUM_TALENT.id} /> buff to maximize damage.</>)
           .icon(SPELLS.MOMENTUM_TALENT.icon)
-          .actual(`${formatPercentage(actual)}% fury wasted`)
-          .recommended(`0% is recommended.`);
+          .actual(`${formatPercentage(actual)}% buff uptime`)
+          .recommended(`${formatPercentage(recommended)}% is recommended.`);
       });
   }
 

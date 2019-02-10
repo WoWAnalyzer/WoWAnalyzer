@@ -11,7 +11,6 @@ import { formatPercentage } from 'common/format';
  */
 class DemonicAppetite extends Analyzer{
 
-  effectiveFuryGain = 0;
   furyGain = 0;
   furyWaste = 0;
 
@@ -51,19 +50,19 @@ class DemonicAppetite extends Analyzer{
         return suggest(<> Avoid picking up souls close to fury cap and cast abilities regularly to avoid accidently capping.</>)
           .icon(SPELLS.DEMONIC_APPETITE_TALENT.icon)
           .actual(`${formatPercentage(actual)}% fury wasted`)
-          .recommended(`0% is recommended.`);
+          .recommended(`${formatPercentage(recommended)}% is recommended.`);
       });
   }
 
   statistic(){
-    this.effectiveFuryGain = this.furyGain - this.furyWaste;
+    const effectiveFuryGain = this.furyGain - this.furyWaste;
     return (
       <TalentStatisticBox
         talent={SPELLS.DEMONIC_APPETITE_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
         value={`${this.furyPerMin} fury per min`}
         tooltip={`
-          ${this.effectiveFuryGain} Effective fury gained<br />
+          ${effectiveFuryGain} Effective fury gained<br />
           ${this.furyGain} Total fury gained<br />
           ${this.furyWaste} Fury wasted
         `}
