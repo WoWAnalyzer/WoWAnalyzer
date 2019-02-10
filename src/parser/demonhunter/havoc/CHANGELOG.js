@@ -8,6 +8,16 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-02-08'),
+    changes: <>Large update to the checklist. Added all previous talents/suggestions that have been added from previous updates. Made the buff category hide if no <SpellLink id={SPELLS.MOMENTUM_TALENT.id} /> buff to show.</>,
+    contributors: [Yajinni],
+  },
+  {
+    date: new Date('2019-02-08'),
+    changes: <>Added stat for <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC_BUFF.id} /> buff uptime. Made a few small updates to abilities. Reworked the <SpellLink id={SPELLS.MOMENTUM_TALENT.id} /> module.</>,
+    contributors: [Yajinni],
+  },
+  {
     date: new Date('2019-02-07'),
     changes: <>Did a passover of all abilities and verified the correct spell id info. Added missing abilities. Updated gcds, cooldowns, suggestion thresholds/comments.</>,
     contributors: [Yajinni],

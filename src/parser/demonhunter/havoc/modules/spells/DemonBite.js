@@ -1,32 +1,33 @@
 import React from 'react';
-import SPELLS from 'common/SPELLS';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import SPELLS from 'common/SPELLS/index';
+import SpellIcon from 'common/SpellIcon';
+import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { formatPercentage } from 'common/format';
-import SpellLink from 'common/SpellLink';
+import { formatThousands, formatPercentage } from 'common/format';
 
 /**
- * Example Report: https://www.warcraftlogs.com/reports/1HRhNZa2cCkgK9AV#fight=48&type=summary&source=10
+ * Example Report: https://www.warcraftlogs.com/reports/4GR2pwAYW8KtgFJn/#fight=6&source=18
  */
-class Felblade extends Analyzer{
+class DemonBite extends Analyzer{
 
   furyGain = 0;
   furyWaste = 0;
+  damage = 0;
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.FELBLADE_TALENT.id);
-    if (!this.active) {
-      return;
-    }
-    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.FELBLADE_PAIN_GENERATION), this.onEnergizeEvent);
+    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DEMONS_BITE), this.onEnergizeEvent);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DEMONS_BITE), this.onDamageEvent);
   }
 
   onEnergizeEvent(event) {
     this.furyGain += event.resourceChange;
     this.furyWaste += event.waste;
+  }
+
+  onDamageEvent(event) {
+    this.damage += event.amount;
   }
 
   get furyPerMin() {
@@ -48,8 +49,8 @@ class Felblade extends Analyzer{
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<> Avoid casting <SpellLink id={SPELLS.FELBLADE_TALENT.id} /> close to fury cap and cast abilities regularly to avoid accidently capping.</>)
-          .icon(SPELLS.FELBLADE_TALENT.icon)
+        return suggest(<> Be mindful of your fury levels and spend it before capping.</>)
+          .icon(SPELLS.DEMONS_BITE.icon)
           .actual(`${formatPercentage(actual)}% fury wasted`)
           .recommended(`${formatPercentage(recommended)}% is recommended.`);
       });
@@ -57,13 +58,17 @@ class Felblade extends Analyzer{
 
   statistic(){
     const effectiveFuryGain = this.furyGain - this.furyWaste;
-    console.log("testr", this.furyWaste / this.furyGain);
     return (
-      <TalentStatisticBox
-        talent={SPELLS.FELBLADE_TALENT.id}
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.DEMONS_BITE.id} />}
+        label="Demon Bite"
         position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={`${this.furyPerMin} fury per min`}
+        value={(<><span style={{ fontSize: '75%' }}>
+                {this.furyPerMin} fury per min <br />
+                {this.owner.formatItemDamageDone(this.damage)}
+              </span></>)}
         tooltip={`
+          ${formatThousands(this.damage)} Total damage<br />
           ${effectiveFuryGain} Effective fury gained<br />
           ${this.furyGain} Total fury gained<br />
           ${this.furyWaste} Fury wasted
@@ -72,4 +77,4 @@ class Felblade extends Analyzer{
     );
   }
 }
-export default Felblade;
+export default DemonBite;

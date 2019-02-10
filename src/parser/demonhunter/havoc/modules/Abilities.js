@@ -61,14 +61,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.EYE_BEAM,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: SPELLS.FELBLADE_TALENT,
         enabled: combatant.hasTalent(SPELLS.FELBLADE_TALENT.id),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
@@ -101,7 +93,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DARK_SLASH_TALENT,
         enabled: combatant.hasTalent(SPELLS.DARK_SLASH_TALENT.id),
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 20,
         gcd: {
           base: 1500,
@@ -211,7 +203,15 @@ class Abilities extends CoreAbilities {
         },
       },
 
-      // DPS Cooldowns 1+ min
+      // DPS Cooldowns
+      {
+        spell: SPELLS.EYE_BEAM,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
+        cooldown: 30,
+        gcd: {
+          base: 1500,
+        },
+      },
       {
         spell: SPELLS.FEL_BARRAGE_TALENT,
         enabled: combatant.hasTalent(SPELLS.FEL_BARRAGE_TALENT.id),
@@ -227,7 +227,7 @@ class Abilities extends CoreAbilities {
         },
       },
 
-      // Big DPS Cooldowns 2+ min
+      // Big DPS Cooldowns
       {
         spell: SPELLS.METAMORPHOSIS_HAVOC,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
