@@ -95,8 +95,9 @@ h1 {
   color: $primaryColor;
 }
 h2 {
-  font-size: 28px;
+  font-size: 26px;
   line-height: 36px;
+  font-weight: 700;
 }
 h3 {
   font-size: 20px;
@@ -201,6 +202,9 @@ ul {
   border-bottom: 1px solid transparent;
   background-color: rgba(255, 255, 255, 0.0);
   transition: background-color 0.1s ease-in-out;
+}
+.list > li:nth-of-type(odd) {
+  background-color: rgba(255, 255, 255, 0.03);
 }
 .list.text > li {
   padding: 7px 22px;
