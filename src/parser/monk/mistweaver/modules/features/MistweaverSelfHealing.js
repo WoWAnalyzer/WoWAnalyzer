@@ -1,4 +1,5 @@
 import BaseSelfHealing from 'parser/shared/modules/BaseSelfHealing';
+import SPELLS from 'common/SPELLS';
 
 class MistweaverSelfHealing extends BaseSelfHealing {
     static SPELL_ARRAY = [
@@ -8,6 +9,10 @@ class MistweaverSelfHealing extends BaseSelfHealing {
         SPELLS.LIFE_COCOON,
         SPELLS.SOOTHING_MIST_STATUE,
     ];
+
+    constructor(...args) {
+
+    }
 
     _onHeal(event) {
         if (event.ability.guid === 116670) {

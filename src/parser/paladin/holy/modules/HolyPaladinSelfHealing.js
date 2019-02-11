@@ -1,4 +1,5 @@
 import BaseSelfHealing from 'parser/shared/modules/BaseSelfHealing';
+import SPELLS from 'common/SPELLS';
 
 class HolyPaladinSelfHealing extends BaseSelfHealing {
     static SPELL_ARRAY = [
