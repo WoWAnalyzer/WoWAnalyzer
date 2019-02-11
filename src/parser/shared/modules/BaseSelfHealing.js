@@ -41,12 +41,12 @@ class BaseSelfHealing extends Analyzer {
     statistic() {
         return (
             <StatisticBox
-              position={STATISTIC_ORDER.CORE(61)}
-              icon={<SpellIcon id={SPELLS.LIGHT_OF_DAWN_CAST.id} />}
-              value={`${formatPercentage(this.selfHealingPercent)} %`}
-              tooltip={`self-healing: <b>${formatThousands(this._healing)}</b>
-                        self-overhealing:<b> ${formatThousands(this._overhealing)}</b>`}
-              label="Self Healing"
+                position={STATISTIC_ORDER.CORE(61)}
+                icon={<SpellIcon id={SPELLS.LIGHT_OF_DAWN_CAST.id} />}
+                value={`${formatPercentage(this.selfHealingPercent)} %`}
+                tooltip={`This is the amount of healing that you targeted yourself with. Self-healing: <b>${formatThousands(this._healing)}</b>
+                        Self-overhealing:<b> ${formatThousands(this._overhealing)}</b>`}
+                label="Direct Single Target Self Healing"
             />
         );
     }
