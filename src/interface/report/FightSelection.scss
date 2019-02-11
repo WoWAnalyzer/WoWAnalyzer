@@ -1,0 +1,23 @@
+@import 'interface/layout/Theme.scss';
+
+.fight-selection {
+  .pulls {
+    margin: -5px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  .pull {
+    margin: 5px;
+    padding: 7px 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    color: $primaryColor;
+    font-weight: 600;
+
+    &:hover {
+      background: transparentize($primaryColor, 0.6);
+      text-decoration: none;
+    }
+  }
+}

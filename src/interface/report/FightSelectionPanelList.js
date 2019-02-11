@@ -6,13 +6,13 @@ import { Trans, t } from '@lingui/macro';
 import getWipeCount from 'common/getWipeCount';
 import { formatDuration } from 'common/format';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
+import SkullIcon from 'interface/icons/Skull';
+import CancelIcon from 'interface/icons/Cancel';
 
 import DIFFICULTIES from 'game/DIFFICULTIES';
 import { findByBossId } from 'raids';
 
 import ProgressBar from './ProgressBar';
-import SkullIcon from 'interface/icons/Skull';
-import CancelIcon from 'interface/icons/Cancel';
 
 class FightSelectionPanelList extends React.PureComponent {
   static propTypes = {
@@ -75,7 +75,7 @@ class FightSelectionPanelList extends React.PureComponent {
                     <img
                       src={boss.headshot}
                       alt=""
-                      style={{ height: '4em', borderRadius: '50%', marginRight: 30 }}
+                      style={{ height: '6.5em', borderRadius: '50%', marginRight: 30 }}
                     />
                   )}
                 </div>
@@ -83,17 +83,25 @@ class FightSelectionPanelList extends React.PureComponent {
                   <h2 style={{ marginTop: 0 }}>
                     {DIFFICULTIES[firstPull.difficulty]} {firstPull.name}
                   </h2>
-                  <div style={{ margin: -5 }}>
+                  <div className="pulls">
                     {pulls.map(pull => {
                       const duration = Math.round((pull.end_time - pull.start_time) / 1000);
                       const Icon = pull.kill ? SkullIcon : CancelIcon;
 
                       return (
-                        <Link key={pull.id} to={makeAnalyzerUrl(report, firstPull.id, playerId, resultTab)}>
-                          <div style={{ display: 'inline-block', width: 100, margin: 5, padding: 5, border: '1px solid #333' }}>
-                            <Icon /> {!pull.kill && getWipeCount(fights, pull)}
-                            {' '}{formatDuration(duration)}
-                            <ProgressBar percentage={pull.kill ? 100 : (10000 - pull.fightPercentage) / 100} width={65} height={8} />
+                        <Link key={pull.id} to={makeAnalyzerUrl(report, firstPull.id, playerId, resultTab)} className="pull">
+                          <div className="flex">
+                            <div className="flex-main">
+                              <Icon /> {pull.kill ? 'Kill' : 'Wipe'} {!pull.kill && getWipeCount(fights, pull)}
+                            </div>
+                            <div className="flex-sub">
+                              <small>{formatDuration(duration)}</small>{' '}
+                              <ProgressBar
+                                percentage={pull.kill ? 100 : (10000 - pull.fightPercentage) / 100}
+                                width={100}
+                                height={8}
+                              />
+                            </div>
                           </div>
                         </Link>
                       );

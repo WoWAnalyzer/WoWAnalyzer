@@ -8,6 +8,7 @@ import { i18n } from 'interface/RootLocalizationProvider';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import Tooltip from 'common/Tooltip';
 
+import './FightSelection.scss';
 import FightSelectionPanelList from './FightSelectionPanelList';
 
 class FightSelectionPanel extends React.PureComponent {
@@ -26,7 +27,7 @@ class FightSelectionPanel extends React.PureComponent {
     const { killsOnly } = this.state;
 
     return (
-      <div className="panel">
+      <div className="panel fight-selection">
         <div className="panel-heading">
           <div className="row">
             <div className="col-md-8">
