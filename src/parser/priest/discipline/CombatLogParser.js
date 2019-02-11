@@ -23,6 +23,7 @@ import AtonementHealingDone from './modules/features/AtonementHealingDone';
 import PowerWordBarrier from './modules/features/PowerWordBarrier';
 import Lenience from './modules/spells/Lenience';
 import PurgeTheWicked from './modules/features/PurgeTheWicked';
+import DiscPriestSelfHealing from './modules/features/DiscPriestSelfHealing';
 
 import TwistOfFate from './modules/spells/TwistOfFate';
 import Castigation from './modules/spells/Castigation';
@@ -60,6 +61,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Features
     checklist: Checklist,
+    discPriestSelfHealing: DiscPriestSelfHealing,
 
     // Abilities
     penance: Penance,

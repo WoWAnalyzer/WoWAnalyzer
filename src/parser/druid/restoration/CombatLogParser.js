@@ -28,6 +28,7 @@ import Clearcasting from './modules/features/Clearcasting';
 import Innervate from './modules/features/Innervate';
 import Ironbark from './modules/features/Ironbark';
 import PrematureRejuvenations from './modules/features/PrematureRejuvenations';
+import RestoDruidSelfHealing from './modules/features/RestoDruidSelfHealing';
 
 import CenarionWard from './modules/talents/CenarionWard';
 import Cultivation from './modules/talents/Cultivation';
@@ -96,7 +97,8 @@ class CombatLogParser extends CoreCombatLogParser {
     cultivation: Cultivation,
     ironbark: Ironbark,
     prematureRejuvenations: PrematureRejuvenations,
-
+    restoDruidSelfHealing: RestoDruidSelfHealing,
+    
     // Talents
     stonebark: Stonebark,
     soulOfTheForest: SoulOfTheForest,

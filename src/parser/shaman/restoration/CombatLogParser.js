@@ -21,6 +21,7 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import Checklist from './modules/features/checklist/Module';
 import SpellUsable from './modules/features/SpellUsable';
 import StatValues from './modules/features/StatValues';
+import RestoShamanSelfHealing from './modules/features/RestoShamanSelfHealing';
 
 import TidalWaves from './modules/features/TidalWaves';
 import CastBehavior from './modules/features/CastBehavior';
@@ -88,7 +89,8 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
     spellUsable: SpellUsable,
     statValues: StatValues,
-
+    restoShamanSelfHealing: RestoShamanSelfHealing,
+    
     // Talents:
     torrent: Torrent,
     unleashLife: UnleashLife,
