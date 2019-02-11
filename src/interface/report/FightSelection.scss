@@ -16,7 +16,7 @@
     font-weight: 600;
 
     &:hover {
-      background: transparentize($primaryColor, 0.6);
+      background: transparentize($primaryColor, 0.5);
       text-decoration: none;
     }
   }
