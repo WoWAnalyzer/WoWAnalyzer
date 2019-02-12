@@ -89,7 +89,11 @@ class FightSelectionPanelList extends React.PureComponent {
                       const Icon = pull.kill ? SkullIcon : CancelIcon;
 
                       return (
-                        <Link key={pull.id} to={makeAnalyzerUrl(report, firstPull.id, playerId, resultTab)} className="pull">
+                        <Link
+                          key={pull.id}
+                          to={makeAnalyzerUrl(report, firstPull.id, playerId, resultTab)}
+                          className={`pull ${pull.kill ? 'kill' : 'wipe'}`}
+                        >
                           <div className="flex">
                             <div className="flex-main">
                               <Icon /> {pull.kill ? 'Kill' : 'Wipe'} {!pull.kill && getWipeCount(fights, pull)}
