@@ -68,14 +68,14 @@ class FightSelectionPanelList extends React.PureComponent {
           const boss = findByBossId(firstPull.boss);
 
           return (
-            <li key={firstPull.id} className="item" style={{ padding: '15px 30px' }}>
+            <li key={firstPull.id} className="item">
               <div className="flex">
                 <div className="flex-sub content">
                   {boss && boss.headshot && (
                     <img
                       src={boss.headshot}
+                      className="headshot"
                       alt=""
-                      style={{ height: '6.5em', borderRadius: '50%', marginRight: 30 }}
                     />
                   )}
                 </div>

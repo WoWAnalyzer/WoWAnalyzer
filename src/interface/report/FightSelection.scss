@@ -1,23 +1,43 @@
 @import 'interface/layout/Theme.scss';
 
 .fight-selection {
-  .pulls {
-    margin: -5px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  }
+  .item {
+    padding: 15px 30px 20px 30px !important;
 
-  .pull {
-    margin: 5px;
-    padding: 7px 10px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 4px;
-    color: $primaryColor;
-    font-weight: 600;
+    .headshot {
+      width: 6.5em;
+      height: 6.5em;
+      border-radius: 50%;
+      margin-right: 30px;
+    }
+    .pulls {
+      margin: -5px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
 
-    &:hover {
-      background: transparentize($primaryColor, 0.5);
-      text-decoration: none;
+    .pull {
+      margin: 5px;
+      padding: 7px 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+      color: $primaryColor;
+      font-weight: 600;
+
+      .icon {
+        font-size: 1.22em;
+        margin-right: 2px;
+      }
+
+      &:hover {
+        background: transparentize($primaryColor, 0.15);
+        text-decoration: none;
+        color: #fff;
+
+        small {
+          color: darken($muted, 70%);
+        }
+      }
     }
   }
 }
