@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Trans, t } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 
 import getWipeCount from 'common/getWipeCount';
 import { formatDuration } from 'common/format';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import SkullIcon from 'interface/icons/Skull';
 import CancelIcon from 'interface/icons/Cancel';
+import InformationIcon from 'interface/icons/Information';
 
 import DIFFICULTIES from 'game/DIFFICULTIES';
 import { findByBossId } from 'raids';
@@ -62,7 +63,7 @@ class FightSelectionPanelList extends React.PureComponent {
     });
 
     return (
-      <ul className="list selection">
+      <ul className="list">
         {this.constructor.groupByFight(filteredFights).map(pulls => {
           const firstPull = pulls[0];
           const boss = findByBossId(firstPull.boss);
@@ -117,7 +118,7 @@ class FightSelectionPanelList extends React.PureComponent {
           );
         })}
         <li className="item clearfix text-muted" style={{ paddingTop: 10, paddingBottom: 10 }}>
-          <Trans>You will usually get the most helpful results using raid fights where you're being challenged, such as progress raids.</Trans>
+          <InformationIcon /> <Trans>You will usually get the most helpful results using raid fights where you're being challenged, such as progress raids.</Trans>
         </li>
       </ul>
     );
