@@ -251,7 +251,7 @@ class MasteryEffectiveness extends Analyzer {
         >
           <PlayerBreakdown
             report={this.report}
-            playersById={this.owner.playersById}
+            players={this.owner.players}
           />
         </Panel>
       ),

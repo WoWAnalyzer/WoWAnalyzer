@@ -30,7 +30,7 @@ class Combatant extends Entity {
   constructor(parser, combatantInfo) {
     super(parser);
 
-    const playerInfo = parser.playersById[combatantInfo.sourceID];
+    const playerInfo = parser.players.find(player => player.id === combatantInfo.sourceID);
     this._combatantInfo = {
       // In super rare cases `playerInfo` can be undefined, not taking this into account would cause the log to be unparsable
       name: playerInfo && playerInfo.name,

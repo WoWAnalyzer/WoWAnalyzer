@@ -5,15 +5,17 @@ import SPECS from 'game/SPECS';
 import SpecIcon from 'common/SpecIcon';
 import { formatNumber } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
+import indexByProperty from 'common/indexByProperty';
 
 class PlayerBreakdown extends React.Component {
   static propTypes = {
     report: PropTypes.object.isRequired,
-    playersById: PropTypes.object.isRequired,
+    players: PropTypes.array.isRequired,
   };
 
-  calculatePlayerBreakdown(statsByTargetId, playersById) {
+  calculatePlayerBreakdown(statsByTargetId, players) {
     const friendlyStats = [];
+    const playersById = indexByProperty(players, 'id');
     Object.keys(statsByTargetId)
       .forEach(targetId => {
         const playerStats = statsByTargetId[targetId];
@@ -32,9 +34,9 @@ class PlayerBreakdown extends React.Component {
   }
 
   render() {
-    const { report, playersById } = this.props;
+    const { report, players } = this.props;
 
-    const friendlyStats = this.calculatePlayerBreakdown(report, playersById);
+    const friendlyStats = this.calculatePlayerBreakdown(report, players);
     const totalEffectiveHealing = Object.values(report).reduce((sum, player) => sum + player.effectiveHealing, 0);
     const highestEffectiveHealing = friendlyStats.reduce((highest, player) => Math.max(highest, player.effectiveHealing), 1);
     const highestMasteryEffectiveness = friendlyStats.reduce((highest, player) => Math.max(highest, player.masteryEffectiveness), 0);

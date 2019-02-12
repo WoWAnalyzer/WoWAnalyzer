@@ -19,7 +19,10 @@ class ApplyBuff extends EventsNormalizer {
 
   normalize(events) {
     const firstEventIndex = this.getFightStartIndex(events);
-    const playersById = this.owner.playersById;
+    const playersById = this.owner.players.reduce((obj, player) => {
+      obj[player.id] = player;
+      return obj;
+    }, {});
     const playerId = this.owner.playerId;
 
     // region Buff event based detection

@@ -331,11 +331,8 @@ class CombatLogParser {
   }
   finished = false;
 
-  get playersById() {
-    return this.report.friendlies.reduce((obj, player) => {
-      obj[player.id] = player;
-      return obj;
-    }, {});
+  get players() {
+    return this.report.friendlies;
   }
   /** @var {Combatant} */
   get selectedCombatant() {
