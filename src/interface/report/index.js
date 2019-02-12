@@ -15,6 +15,7 @@ import BossPhaseEventsLoader from './BossPhaseEventsLoader';
 import CharacterProfileLoader from './CharacterProfileLoader';
 import EventParser from './EventParser';
 import Results from './Results';
+import EVENT_PARSING_STATE from './EVENT_PARSING_STATE';
 
 class ResultsLoader extends React.PureComponent {
   static propTypes = {
@@ -36,7 +37,7 @@ class ResultsLoader extends React.PureComponent {
       bossPhaseEvents: null,
       isLoadingCharacterProfile: true,
       characterProfile: null,
-      isParsingEvents: true,
+      parsingState: EVENT_PARSING_STATE.WAITING,
       parsingEventsProgress: null,
       parser: null,
     };
@@ -77,7 +78,7 @@ class ResultsLoader extends React.PureComponent {
   }
   handleEventsParser(isParsingEvents, parsingEventsProgress, parser) {
     this.setState({
-      isParsingEvents,
+      parsingState: isParsingEvents ? EVENT_PARSING_STATE.PARSING : EVENT_PARSING_STATE.DONE,
       parsingEventsProgress,
       parser,
     });
@@ -147,7 +148,7 @@ class ResultsLoader extends React.PureComponent {
           isLoadingEvents={this.state.isLoadingEvents}
           isLoadingBossPhaseEvents={this.state.isLoadingBossPhaseEvents}
           isLoadingCharacterProfile={this.state.isLoadingCharacterProfile}
-          isParsingEvents={this.state.isParsingEvents}
+          parsingState={this.state.parsingState}
           progress={this.progress}
           report={report}
           fight={fight}

@@ -19,17 +19,18 @@ import Contributor from 'interface/contributor/Button';
 import WipefestLogo from 'interface/images/Wipefest-logo.png';
 import { i18n } from 'interface/RootLocalizationProvider';
 import LoadingBar from 'interface/layout/NavigationBar/LoadingBar';
+import ChangelogTab from 'interface/others/ChangelogTab';
 import Checklist from 'parser/shared/modules/features/Checklist/Module';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
-import ChangelogTab from 'interface/others/ChangelogTab';
+import './Results.scss';
 import Header from './Header';
 import About from './About';
 import Overview from './Overview';
 import Statistics from './Statistics';
 import Character from './Character';
 import EncounterStats from './EncounterStats';
-import './Results.scss';
+import EVENT_PARSING_STATE from '../EVENT_PARSING_STATE';
 
 // Gone for now, reintroduce if we can make it useful
 // const DevelopmentTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'DevelopmentTab' */ 'interface/others/DevelopmentTab').then(exports => exports.default)));
@@ -67,7 +68,7 @@ class Results extends React.PureComponent {
     isLoadingEvents: PropTypes.bool,
     isLoadingBossPhaseEvents: PropTypes.bool,
     isLoadingCharacterProfile: PropTypes.bool,
-    isParsingEvents: PropTypes.bool,
+    parsingState: PropTypes.oneOf(EVENT_PARSING_STATE),
     progress: PropTypes.number,
     premium: PropTypes.bool,
   };
@@ -115,7 +116,7 @@ class Results extends React.PureComponent {
       || this.props.isLoadingEvents
       || this.props.isLoadingBossPhaseEvents
       || this.props.isLoadingCharacterProfile
-      || this.props.isParsingEvents;
+      || this.props.parsingState !== EVENT_PARSING_STATE.DONE;
   }
 
   renderContent(selectedTab, results) {
@@ -218,20 +219,49 @@ class Results extends React.PureComponent {
           <div className="container" style={{ marginBottom: 40 }}>
             <LoadingBar progress={progress} />
 
-            <div>
-              Loading spec analyzer...........{!this.props.isLoadingParser && 'OK'}
-            </div>
-            <div>
-              Loading events for player.......{!this.props.isLoadingEvents && 'OK'}
-            </div>
-            <div>
-              Loading phase events............{!this.props.isLoadingBossPhaseEvents && 'OK'}
-            </div>
-            <div>
-              Loading character info..........{!this.props.isLoadingCharacterProfile && 'OK'}
-            </div>
-            <div>
-              Analyzing events................{!this.props.isParsingEvents && 'OK'}
+            <div className="loading-indicators" style={{ marginTop: 30 }}>
+              <div className="row">
+                <div className="col-md-8">
+                  WoWAnalyzer spec analyzer
+                </div>
+                <div className="col-md-4">
+                  {this.props.isLoadingParser ? 'Loading...' : 'OK'}
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-8">
+                  Player events from Warcraft Logs
+                </div>
+                <div className="col-md-4">
+                  {this.props.isLoadingEvents ? 'Loading...' : 'OK'}
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-8">
+                  Boss events from Warcraft Logs
+                </div>
+                <div className="col-md-4">
+                  {this.props.isLoadingBossPhaseEvents ? 'Loading...' : 'OK'}
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-8">
+                  Character info from Blizzard
+                </div>
+                <div className="col-md-4">
+                  {this.props.isLoadingCharacterProfile ? 'Loading...' : 'OK'}
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-8">
+                  Analyzing events
+                </div>
+                <div className="col-md-4">
+                  {this.props.parsingState === EVENT_PARSING_STATE.WAITING && 'Waiting'}
+                  {this.props.parsingState === EVENT_PARSING_STATE.PARSING && 'Loading...'}
+                  {this.props.parsingState === EVENT_PARSING_STATE.DONE && 'OK'}
+                </div>
+              </div>
             </div>
           </div>
         )}
