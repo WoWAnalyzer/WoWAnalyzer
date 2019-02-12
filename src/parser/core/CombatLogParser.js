@@ -334,9 +334,14 @@ class CombatLogParser {
   get players() {
     return this.report.friendlies;
   }
+  _selectedCombatant = null;
   /** @var {Combatant} */
   get selectedCombatant() {
-    return this.getModule(Combatants).selected;
+    if (this._selectedCombatant === null) {
+      // Caching this is about a 200ms performance increase
+      this._selectedCombatant = this.getModule(Combatants).selected;
+    }
+    return this._selectedCombatant;
   }
 
   constructor(report, selectedPlayer, selectedFight, combatantInfoEvents, characterProfile) {
