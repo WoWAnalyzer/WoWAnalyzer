@@ -92,7 +92,7 @@ class FightSelectionPanelList extends React.PureComponent {
                       return (
                         <Link
                           key={pull.id}
-                          to={makeAnalyzerUrl(report, firstPull.id, playerId, resultTab)}
+                          to={makeAnalyzerUrl(report, pull.id, playerId, resultTab)}
                           className={`pull ${pull.kill ? 'kill' : 'wipe'}`}
                         >
                           <div className="flex">
