@@ -5,7 +5,7 @@ import AnimateHeight from 'react-animate-height';
 class Expandable extends React.PureComponent {
   static propTypes = {
     header: PropTypes.node.isRequired,
-    children: PropTypes.func.isRequired,
+    children: PropTypes.node.isRequired,
     element: PropTypes.string,
     className: PropTypes.string,
   };
