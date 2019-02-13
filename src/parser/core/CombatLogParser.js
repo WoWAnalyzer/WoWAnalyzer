@@ -308,11 +308,8 @@ class CombatLogParser {
   }
 
   _modules = {};
-  _activeAnalyzers = {};
   get activeModules() {
-    return Object.keys(this._modules)
-      .map(key => this._modules[key])
-      .filter(module => module.active);
+    return Object.values(this._modules).filter(module => module.active);
   }
 
   get playerId() {
@@ -334,14 +331,9 @@ class CombatLogParser {
   get players() {
     return this.report.friendlies;
   }
-  _selectedCombatant = null;
   /** @var {Combatant} */
   get selectedCombatant() {
-    if (this._selectedCombatant === null) {
-      // Caching this is about a 200ms performance increase
-      this._selectedCombatant = this.getModule(Combatants).selected;
-    }
-    return this._selectedCombatant;
+    return this.getModule(Combatants).selected;
   }
 
   constructor(report, selectedPlayer, selectedFight, combatantInfoEvents, characterProfile) {
@@ -385,7 +377,7 @@ class CombatLogParser {
       Object.keys(dependencies).forEach(desiredDependencyName => {
         const dependencyClass = dependencies[desiredDependencyName];
 
-        const dependencyModule = this.getModule(dependencyClass, false);
+        const dependencyModule = this.getModule(dependencyClass, true);
         if (dependencyModule) {
           availableDependencies[desiredDependencyName] = dependencyModule;
         } else {
@@ -466,17 +458,22 @@ class CombatLogParser {
     }
   }
   allModulesInitialized() {
-    this._activeAnalyzers = Object.values(this._modules)
-      .filter(module => module instanceof Analyzer)
-      .sort((a, b) => a.priority - b.priority); // lowest should go first, as `priority = 0` will have highest prio
+    // Executed when module initialization is complete
   }
-  getModule(type, required = true) {
-    const module = Object.keys(this._modules)
-      .map(key => this._modules[key])
-      .find(module => module instanceof type);
-    if (required && !module) {
+  _moduleCache = new Map();
+  getModule(type, optional = false) {
+    // We need to use a cache and can't just set this on initialization because we sometimes search by the inheritance chain.
+    const cacheEntry = this._moduleCache.get(type);
+    if (cacheEntry !== undefined) {
+      return cacheEntry;
+    }
+
+    // Search for a specific module by its type, accepting any modules that have the type somewhere in the inheritance chain
+    const module = Object.values(this._modules).find(module => module instanceof type);
+    if (optional === false && module === undefined) {
       throw new Error(`Module not found: ${type.name}`);
     }
+    this._moduleCache.set(type, module);
     return module;
   }
 
