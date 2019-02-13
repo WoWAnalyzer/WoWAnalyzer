@@ -19,6 +19,7 @@ import Contributor from 'interface/contributor/Button';
 import WipefestLogo from 'interface/images/Wipefest-logo.png';
 import { i18n } from 'interface/RootLocalizationProvider';
 import LoadingBar from 'interface/layout/NavigationBar/LoadingBar';
+import Panel from 'interface/others/Panel';
 import ChangelogTab from 'interface/others/ChangelogTab';
 import Checklist from 'parser/shared/modules/features/Checklist/Module';
 import StatTracker from 'parser/shared/modules/StatTracker';
@@ -217,14 +218,17 @@ class Results extends React.PureComponent {
 
         {this.isLoading && (
           <div className="container" style={{ marginBottom: 40 }}>
-            <LoadingBar progress={progress} />
+            <Panel
+              title="Loading..."
+              className="loading-indicators"
+            >
+              <LoadingBar progress={progress} style={{ marginBottom: 30 }} />
 
-            <div className="loading-indicators" style={{ marginTop: 30 }}>
               <div className="row">
                 <div className="col-md-8">
-                  WoWAnalyzer spec analyzer
+                  Spec analyzer from WoWAnalyzer
                 </div>
-                <div className="col-md-4">
+                <div className={`col-md-4 ${this.props.isLoadingParser ? 'loading' : 'ok'}`}>
                   {this.props.isLoadingParser ? 'Loading...' : 'OK'}
                 </div>
               </div>
@@ -232,7 +236,7 @@ class Results extends React.PureComponent {
                 <div className="col-md-8">
                   Player events from Warcraft Logs
                 </div>
-                <div className="col-md-4">
+                <div className={`col-md-4 ${this.props.isLoadingEvents ? 'loading' : 'ok'}`}>
                   {this.props.isLoadingEvents ? 'Loading...' : 'OK'}
                 </div>
               </div>
@@ -240,7 +244,7 @@ class Results extends React.PureComponent {
                 <div className="col-md-8">
                   Boss events from Warcraft Logs
                 </div>
-                <div className="col-md-4">
+                <div className={`col-md-4 ${this.props.isLoadingBossPhaseEvents ? 'loading' : 'ok'}`}>
                   {this.props.isLoadingBossPhaseEvents ? 'Loading...' : 'OK'}
                 </div>
               </div>
@@ -248,7 +252,7 @@ class Results extends React.PureComponent {
                 <div className="col-md-8">
                   Character info from Blizzard
                 </div>
-                <div className="col-md-4">
+                <div className={`col-md-4 ${this.props.isLoadingCharacterProfile ? 'loading' : 'ok'}`}>
                   {this.props.isLoadingCharacterProfile ? 'Loading...' : 'OK'}
                 </div>
               </div>
@@ -256,13 +260,13 @@ class Results extends React.PureComponent {
                 <div className="col-md-8">
                   Analyzing events
                 </div>
-                <div className="col-md-4">
+                <div className={`col-md-4 ${this.props.parsingState === EVENT_PARSING_STATE.WAITING ? 'waiting' : (this.props.parsingState === EVENT_PARSING_STATE.PARSING ? 'loading' : 'ok')}`}>
                   {this.props.parsingState === EVENT_PARSING_STATE.WAITING && 'Waiting'}
                   {this.props.parsingState === EVENT_PARSING_STATE.PARSING && 'Loading...'}
                   {this.props.parsingState === EVENT_PARSING_STATE.DONE && 'OK'}
                 </div>
               </div>
-            </div>
+            </Panel>
           </div>
         )}
 
