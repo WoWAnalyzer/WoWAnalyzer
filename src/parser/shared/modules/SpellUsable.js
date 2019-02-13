@@ -336,15 +336,14 @@ class SpellUsable extends Analyzer {
       }
     });
   }
-  _isCheckingCooldowns = false;
+  _lastTimestamp = null;
   on_event(event) {
-    if (!this._isCheckingCooldowns) {
-      // This ensures this method isn't called again before it's finished executing (_checkCooldowns might trigger events).
-      this._isCheckingCooldowns = true;
-      const timestamp = (event && event.timestamp) || this.owner.currentTimestamp;
-      this._checkCooldownExpiry(timestamp);
-      this._isCheckingCooldowns = false;
+    const timestamp = (event && event.timestamp) || this.owner.currentTimestamp;
+    if (timestamp === this._lastTimestamp) {
+      return;
     }
+    this._lastTimestamp = timestamp;
+    this._checkCooldownExpiry(timestamp);
   }
   // Haste-based cooldowns gets longer/shorter when your Haste changes
   // `newDuration = timePassed + (newCooldownDuration * (1 - progress))` (where `timePassed` is the time since the spell went on cooldown, `newCooldownDuration` is the full cooldown duration based on the new Haste, `progress` is the percentage of progress cooling down the spell)
