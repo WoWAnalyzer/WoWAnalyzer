@@ -7,7 +7,7 @@ import EventFilter from '../EventFilter';
 
 const CATCH_ALL_EVENT = 'event';
 
-const PROFILE = true;
+const PROFILE = false;
 
 /**
  * This (core) module takes care of:
