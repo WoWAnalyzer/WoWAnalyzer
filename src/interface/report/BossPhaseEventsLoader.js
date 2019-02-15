@@ -69,7 +69,6 @@ class BossPhaseEventsLoader extends React.PureComponent {
   }
 
   render() {
-    console.log(this.state.loadingState)
     return this.props.children(this.state.loadingState, this.state.events);
   }
 }

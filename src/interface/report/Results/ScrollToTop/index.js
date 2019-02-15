@@ -21,7 +21,7 @@ function scrollToTop() {
 }
 
 const ScrollToTop = () => (
-  <div className="clickable" onClick={scrollToTop} onMouseEnter={useElevator && loadElevator}>
+  <div className="clickable" onClick={scrollToTop} onMouseEnter={useElevator ? loadElevator : undefined}>
     <Logo
       style={{ '--arrow': '#fab700', '--main': '#1c1c1b' }}
     />

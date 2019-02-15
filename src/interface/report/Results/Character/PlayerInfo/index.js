@@ -15,7 +15,7 @@ import Talents from './Talents';
 
 class PlayerInfo extends React.PureComponent {
   static propTypes = {
-    combatant: PropTypes.objectOf(Combatant).isRequired,
+    combatant: PropTypes.instanceOf(Combatant).isRequired,
   };
 
   state = {
@@ -40,7 +40,6 @@ class PlayerInfo extends React.PureComponent {
 
   render() {
     const { combatant } = this.props;
-    console.log(combatant);
 
     const background = combatant.characterProfile && combatant.characterProfile.thumbnail ? `https://render-${combatant.characterProfile.region}.worldofwarcraft.com/character/${combatant.characterProfile.thumbnail.replace('avatar','main')}` : '/img/fallback-character.jpg';
 

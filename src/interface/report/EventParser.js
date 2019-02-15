@@ -44,7 +44,7 @@ class EventParser extends React.PureComponent {
     })),
     parserClass: PropTypes.func.isRequired,
     characterProfile: PropTypes.object,
-    bossPhaseEvents: PropTypes.array.isRequired,
+    bossPhaseEvents: PropTypes.array,
     events: PropTypes.array.isRequired,
     children: PropTypes.func.isRequired,
   };
@@ -92,7 +92,7 @@ class EventParser extends React.PureComponent {
   }
   makeEvents(parser) {
     const { bossPhaseEvents, events } = this.props;
-    let combinedEvents = [...(bossPhaseEvents || []), ...events];
+    let combinedEvents = bossPhaseEvents ? [...bossPhaseEvents, ...events] : events;
     // The events we fetched will be all events related to the selected player. This includes the `combatantinfo` for the selected player. However we have already parsed this event when we loaded the combatants in the `initializeAnalyzers` of the CombatLogParser. Loading the selected player again could lead to bugs since it would reinitialize and overwrite the existing entity (the selected player) in the Combatants module.
     combinedEvents = combinedEvents.filter(event => event.type !== 'combatantinfo');
     combinedEvents = parser.normalize(combinedEvents);
