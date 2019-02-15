@@ -16,6 +16,7 @@ import CharacterProfileLoader from './CharacterProfileLoader';
 import EventParser from './EventParser';
 import Results from './Results';
 import EVENT_PARSING_STATE from './EVENT_PARSING_STATE';
+import BOSS_PHASES_STATE from './BOSS_PHASES_STATE';
 
 class ResultsLoader extends React.PureComponent {
   static propTypes = {
@@ -33,7 +34,7 @@ class ResultsLoader extends React.PureComponent {
       parserClass: null,
       isLoadingEvents: true,
       events: null,
-      isLoadingBossPhaseEvents: true,
+      bossPhaseEventsLoadingState: BOSS_PHASES_STATE.LOADING,
       bossPhaseEvents: null,
       isLoadingCharacterProfile: true,
       characterProfile: null,
@@ -48,30 +49,30 @@ class ResultsLoader extends React.PureComponent {
     this.handleEventsParser = this.handleEventsParser.bind(this);
   }
 
-  handleParserLoader(isLoadingParser, parserClass) {
+  handleParserLoader(isLoading, parserClass) {
     this.setState({
-      isLoadingParser,
+      isLoadingParser: isLoading,
       parserClass,
     });
     return null;
   }
-  handleEventsLoader(isLoadingEvents, events) {
+  handleEventsLoader(isLoading, events) {
     this.setState({
-      isLoadingEvents,
+      isLoadingEvents: isLoading,
       events,
     });
     return null;
   }
-  handleBossPhaseEventsLoader(isLoadingBossPhaseEvents, bossPhaseEvents) {
+  handleBossPhaseEventsLoader(loadingState, bossPhaseEvents) {
     this.setState({
-      isLoadingBossPhaseEvents,
+      bossPhaseEventsLoadingState: loadingState,
       bossPhaseEvents,
     });
     return null;
   }
-  handleCharacterProfileLoader(isLoadingCharacterProfile, characterProfile) {
+  handleCharacterProfileLoader(isLoading, characterProfile) {
     this.setState({
-      isLoadingCharacterProfile,
+      isLoadingCharacterProfile: isLoading,
       characterProfile,
     });
     return null;
@@ -89,7 +90,7 @@ class ResultsLoader extends React.PureComponent {
     return (
       (!this.state.isLoadingParser ? 0.05 : 0)
       + (!this.state.isLoadingEvents ? 0.05 : 0)
-      + (!this.state.isLoadingBossPhaseEvents ? 0.05 : 0)
+      + (this.state.bossPhaseEventsLoadingState !== BOSS_PHASES_STATE.LOADING ? 0.05 : 0)
       + (!this.state.isLoadingCharacterProfile ? 0.05 : 0)
       + (this.state.parsingEventsProgress * 0.75)
     );
@@ -127,7 +128,7 @@ class ResultsLoader extends React.PureComponent {
           {this.handleCharacterProfileLoader}
         </CharacterProfileLoader>
 
-        {!this.state.isLoadingParser && !this.state.isLoadingEvents && !this.state.isLoadingBossPhaseEvents && !this.state.isLoadingCharacterProfile && (
+        {!this.state.isLoadingParser && !this.state.isLoadingEvents && this.state.bossPhaseEventsLoadingState !== BOSS_PHASES_STATE.LOADING && !this.state.isLoadingCharacterProfile && (
           <EventParser
             report={report}
             fight={fight}
@@ -143,10 +144,9 @@ class ResultsLoader extends React.PureComponent {
         )}
 
         <Results
-          isLoading={this.isLoading}
           isLoadingParser={this.state.isLoadingParser}
           isLoadingEvents={this.state.isLoadingEvents}
-          isLoadingBossPhaseEvents={this.state.isLoadingBossPhaseEvents}
+          bossPhaseEventsLoadingState={this.state.bossPhaseEventsLoadingState}
           isLoadingCharacterProfile={this.state.isLoadingCharacterProfile}
           parsingState={this.state.parsingState}
           progress={this.progress}

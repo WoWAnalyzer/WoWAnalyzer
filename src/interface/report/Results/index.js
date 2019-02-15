@@ -32,6 +32,7 @@ import Statistics from './Statistics';
 import Character from './Character';
 import EncounterStats from './EncounterStats';
 import EVENT_PARSING_STATE from '../EVENT_PARSING_STATE';
+import BOSS_PHASES_STATE from '../BOSS_PHASES_STATE';
 import ScrollToTop from './ScrollToTop';
 
 const TimelineTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'TimelineTab' */ './Timeline/Container').then(exports => exports.default)));
@@ -66,7 +67,7 @@ class Results extends React.PureComponent {
     }).isRequired,
     isLoadingParser: PropTypes.bool,
     isLoadingEvents: PropTypes.bool,
-    isLoadingBossPhaseEvents: PropTypes.bool,
+    bossPhaseEventsLoadingState: PropTypes.oneOf(BOSS_PHASES_STATE),
     isLoadingCharacterProfile: PropTypes.bool,
     parsingState: PropTypes.oneOf(EVENT_PARSING_STATE),
     progress: PropTypes.number,
@@ -117,7 +118,7 @@ class Results extends React.PureComponent {
   get isLoading() {
     return this.props.isLoadingParser
       || this.props.isLoadingEvents
-      || this.props.isLoadingBossPhaseEvents
+      || this.props.bossPhaseEventsLoadingState === BOSS_PHASES_STATE.LOADING
       || this.props.isLoadingCharacterProfile
       || this.props.parsingState !== EVENT_PARSING_STATE.DONE;
   }
@@ -203,7 +204,7 @@ class Results extends React.PureComponent {
     }
   }
   renderLoadingIndicator() {
-    const { progress, isLoadingParser, isLoadingEvents, isLoadingBossPhaseEvents, isLoadingCharacterProfile, parsingState } = this.props;
+    const { progress, isLoadingParser, isLoadingEvents, bossPhaseEventsLoadingState, isLoadingCharacterProfile, parsingState } = this.props;
 
     return (
       <div className="container" style={{ marginBottom: 40 }}>
@@ -233,8 +234,10 @@ class Results extends React.PureComponent {
             <div className="col-md-8">
               Boss events from Warcraft Logs
             </div>
-            <div className={`col-md-4 ${isLoadingBossPhaseEvents ? 'loading' : 'ok'}`}>
-              {isLoadingBossPhaseEvents ? 'Loading...' : 'OK'}
+            <div className={`col-md-4 ${bossPhaseEventsLoadingState === BOSS_PHASES_STATE.LOADING ? 'loading' : (bossPhaseEventsLoadingState === BOSS_PHASES_STATE.SKIPPED ? 'skipped' : 'ok')}`}>
+              {bossPhaseEventsLoadingState === BOSS_PHASES_STATE.SKIPPED && 'Skipped'}
+              {bossPhaseEventsLoadingState === BOSS_PHASES_STATE.LOADING && 'Loading...'}
+              {bossPhaseEventsLoadingState === BOSS_PHASES_STATE.DONE && 'OK'}
             </div>
           </div>
           <div className="row">

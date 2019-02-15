@@ -2,13 +2,13 @@ import React from 'react';
 
 import { ReactComponent as Logo } from 'interface/images/logo.svg';
 
-// This has an elevator music easter egg that occurs randomly once every 10 times.
+// This has an elevator music easter egg that occurs randomly once every 5 times.
 // Lazy load it to minimize bundle impact. This whole joke has a tiny amount of overhead.
 let elevator;
 async function loadElevator() {
   elevator = (await import('./elevate')).default;
 }
-let useElevator = Math.random() < 0.1;
+let useElevator = Math.random() < 0.2;
 
 function scrollToTop() {
   if (!useElevator || !elevator) {

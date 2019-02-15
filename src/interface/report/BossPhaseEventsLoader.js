@@ -6,6 +6,8 @@ import { makeWclBossPhaseFilter } from 'common/makeWclBossPhaseFilter';
 import { fabricateBossPhaseEvents } from 'common/fabricateBossPhaseEvents';
 import { captureException } from 'common/errorLogger';
 
+import BOSS_PHASES_STATE from './BOSS_PHASES_STATE';
+
 class BossPhaseEventsLoader extends React.PureComponent {
   static propTypes = {
     report: PropTypes.shape({
@@ -22,7 +24,7 @@ class BossPhaseEventsLoader extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: true,
+      loadingState: BOSS_PHASES_STATE.LOADING,
       events: null,
     };
     this.load();
@@ -31,7 +33,7 @@ class BossPhaseEventsLoader extends React.PureComponent {
   componentDidUpdate(prevProps, prevState, prevContext) {
     if (prevProps.report !== this.props.report || prevProps.fight !== this.props.fight) {
       this.setState({
-        isLoading: true,
+        loadingState: BOSS_PHASES_STATE.LOADING,
         events: null,
       });
       this.load();
@@ -49,7 +51,7 @@ class BossPhaseEventsLoader extends React.PureComponent {
     }
 
     this.setState({
-      isLoading: false,
+      loadingState: events === null ? BOSS_PHASES_STATE.SKIPPED : BOSS_PHASES_STATE.DONE,
       events,
     });
   }
@@ -62,12 +64,13 @@ class BossPhaseEventsLoader extends React.PureComponent {
       const events = await fetchEvents(report.code, fight.start_time, fight.end_time, undefined, makeWclBossPhaseFilter(fight));
       return fabricateBossPhaseEvents(events, report, fight);
     } else {
-      return [];
+      return null;
     }
   }
 
   render() {
-    return this.props.children(this.state.isLoading, this.state.events);
+    console.log(this.state.loadingState)
+    return this.props.children(this.state.loadingState, this.state.events);
   }
 }
 

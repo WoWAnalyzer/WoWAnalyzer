@@ -15,7 +15,7 @@
   .loading {
     background: transparentize($primaryColor, 0.5);
   }
-  .waiting {
+  .waiting, .skipped {
     background: rgba(102, 102, 102, 0.5);
   }
 }
