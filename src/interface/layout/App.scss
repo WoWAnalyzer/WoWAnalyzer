@@ -346,8 +346,10 @@ code {
   margin-right: 10px;
 }
 .panel-body > .alert {
-  margin-left: -22px;
-  margin-right: -22px;
+  // 2px extra on both sides + box-shadow to make it appear further in front
+  margin-left: -32px;
+  margin-right: -32px;
+  box-shadow: 0 0 3px #000;
 }
 .alert-info {
   background-color: rgba(52, 152, 219, 0.6);

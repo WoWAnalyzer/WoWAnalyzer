@@ -41,9 +41,9 @@ class Headers extends React.PureComponent {
   };
 
   get pages() {
-    const { tabs } = this.props;
+    const { tabs, selectedTab } = this.props;
 
-    return [
+    const pages = [
       {
         icon: ChecklistIcon,
         name: <Trans>Overview</Trans>,
@@ -65,11 +65,6 @@ class Headers extends React.PureComponent {
         url: tab.url,
       })) : [],
       {
-        icon: EventsIcon,
-        name: <Trans>Events</Trans>,
-        url: 'events',
-      },
-      {
         icon: ArmorIcon,
         name: <Trans>Character</Trans>,
         url: 'character',
@@ -80,6 +75,15 @@ class Headers extends React.PureComponent {
         url: 'about',
       },
     ];
+
+    if (selectedTab === 'events') {
+      pages.push({
+        icon: EventsIcon,
+        name: <Trans>Events</Trans>,
+        url: 'events',
+      });
+    }
+    return pages;
   }
   get playerIcon() {
     const { characterProfile, config } = this.props;
