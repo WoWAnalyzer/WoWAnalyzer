@@ -80,20 +80,6 @@ class Headers extends React.PureComponent {
         url: 'about',
       },
     ];
-    // TODO: Reimplement?
-    // if (process.env.NODE_ENV === 'development') {
-    //   results.tabs.push({
-    //     title: i18n._(t`Development`),
-    //     url: 'development',
-    //     order: 100000,
-    //     render: () => (
-    //       <DevelopmentTab
-    //         parser={parser}
-    //         results={results}
-    //       />
-    //     ),
-    //   });
-    // }
   }
   get playerIcon() {
     const { characterProfile, config } = this.props;

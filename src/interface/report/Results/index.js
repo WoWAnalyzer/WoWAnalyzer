@@ -33,8 +33,6 @@ import Character from './Character';
 import EncounterStats from './EncounterStats';
 import EVENT_PARSING_STATE from '../EVENT_PARSING_STATE';
 
-// Gone for now, reintroduce if we can make it useful
-// const DevelopmentTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'DevelopmentTab' */ 'interface/others/DevelopmentTab').then(exports => exports.default)));
 const TimelineTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'TimelineTab' */ './Timeline/Container').then(exports => exports.default)));
 const EventsTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'EventsTab' */ 'interface/others/EventsTab').then(exports => exports.default)));
 
