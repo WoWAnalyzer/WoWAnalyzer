@@ -12,6 +12,8 @@ import ArmorIcon from 'interface/icons/Armor';
 import EventsIcon from 'interface/icons/Events';
 import AboutIcon from 'interface/icons/About';
 
+import './Header.scss';
+
 class Headers extends React.PureComponent {
   static propTypes = {
     config: PropTypes.shape({
@@ -121,28 +123,26 @@ class Headers extends React.PureComponent {
     const { config: { spec }, name, fight } = this.props;
 
     return (
-      <div className="info">
-        <div className="container">
-          <div className="boss">
-            <h2>
-              {getDifficulty(fight)}
-            </h2>
-            <h1>
-              {getBossName(fight, false)}
-            </h1>
+      <div className="info container">
+        <div className="boss">
+          <h2>
+            {getDifficulty(fight)}
+          </h2>
+          <h1>
+            {getBossName(fight, false)}
+          </h1>
+        </div>
+        <div className="player">
+          <div className="avatar">
+            <img src={this.playerIcon} alt="" />
           </div>
-          <div className="player">
-            <div className="avatar">
-              <img src={this.playerIcon} alt="" />
-            </div>
-            <div className="details">
-              <h2>
-                {spec.specName} {spec.className}
-              </h2>
-              <h1 className="name">
-                {name}
-              </h1>
-            </div>
+          <div className="details">
+            <h2>
+              {spec.specName} {spec.className}
+            </h2>
+            <h1 className="name">
+              {name}
+            </h1>
           </div>
         </div>
       </div>
