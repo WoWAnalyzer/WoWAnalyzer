@@ -44,7 +44,7 @@ class Abilities extends CoreAbilities {
           SPELLS.ELEMENTAL_SPIRITS_BUFF_CRACKLING_SURGE.id,
         ],
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: combatant.hasTalent(SPELLS.ELEMENTAL_SPIRITS_TALENT) ? 150 : 180,
+        cooldown: combatant.hasTalent(SPELLS.ELEMENTAL_SPIRITS_TALENT) ? 90 : 120,
         gcd: {
           base: 1500,
         },
@@ -75,7 +75,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FROSTBRAND,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        enabled: combatant.hasTalent(SPELLS.FROSTBRAND.id),
+
         gcd: {
           base: 1500,
         },
@@ -118,6 +118,13 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.FERAL_LUNGE,
+        enabled: combatant.hasTalent(SPELLS.FERAL_LUNGE_TALENT),
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 30,
+      },
+      {
+        spell: SPELLS.FERAL_LUNGE_TALENT,
+        enabled: combatant.hasTalent(SPELLS.FERAL_LUNGE_TALENT),
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 30,
       },

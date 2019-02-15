@@ -8,6 +8,11 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
+    date: new Date('2019-02-15'),
+    changes: <>If Warcraft Logs sends a corrupt JSON message, try to automatically decorrupt it.</>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2019-01-31'),
     changes: <>Fixed an issue where the "A connection error occured." message might be shown when an error occured during module initialization.</>,
     contributors: [Zerotorescue],

@@ -26,6 +26,7 @@ class Vivify extends Analyzer {
   remVivifyHealing = 0;
   gustsHealing = 0;
   lastCastTarget = null;
+  remDuringManaTea = 0;
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
@@ -45,6 +46,9 @@ class Vivify extends Analyzer {
     if ((spellId === SPELLS.VIVIFY.id) && (this.lastCastTarget !== event.targetID)) {
       this.remVivifyHealCount += 1;
       this.remVivifyHealing += (event.amount || 0 ) + (event.absorbed || 0);
+      if (this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_TALENT.id)) {
+        this.remDuringManaTea += 1;
+      }
     }
   }
 

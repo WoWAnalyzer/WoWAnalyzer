@@ -2,10 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
+import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 
 class HavocDemonHunterChecklist extends React.PureComponent {
   static propTypes = {
@@ -39,10 +41,15 @@ class HavocDemonHunterChecklist extends React.PureComponent {
             </>
           )}
         >
-          {combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id) && <AbilityRequirement spell={SPELLS.FEL_RUSH.id} />}
           {combatant.hasTalent(SPELLS.IMMOLATION_AURA_TALENT.id) && <AbilityRequirement spell={SPELLS.IMMOLATION_AURA_TALENT.id} />}
+          {combatant.hasTalent(SPELLS.FELBLADE_TALENT.id) && <AbilityRequirement spell={SPELLS.FELBLADE_TALENT.id} />}
+          {combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id) && <AbilityRequirement spell={SPELLS.BLADE_DANCE.id} />}
+          {combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id) && <AbilityRequirement spell={SPELLS.DEATH_SWEEP.id} />}
+          {combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id) && <AbilityRequirement spell={SPELLS.FEL_RUSH_CAST.id} />}
+          {combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id) && <AbilityRequirement spell={SPELLS.VENGEFUL_RETREAT.id} />}
         </Rule>
 
+        {combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id) && (
         <Rule
           name="Maintain your buffs and debuffs"
           description={(
@@ -53,8 +60,18 @@ class HavocDemonHunterChecklist extends React.PureComponent {
           )}
         >
           {combatant.hasTalent(SPELLS.NEMESIS_TALENT.id) && <AbilityRequirement spell={SPELLS.NEMESIS_TALENT.id} />}
-          {/*Uptime of buff from Momentum (talent which gives +damage buff when Fel Rush is used) could be tracked here, or when using Momentum talent check that Fel Rush has high cast efficiency (currently tracked in the "Use your short cooldowns" section)*/}
+          {combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id) &&(
+            <Requirement
+              name={(
+                <>
+                <SpellLink id={SPELLS.MOMENTUM_TALENT.id} /> buff uptime
+                </>
+              )}
+              thresholds={thresholds.momentumBuffUptime}
+            />
+          )}
         </Rule>
+        )}
 
         <Rule
           name="Use your offensive cooldowns"
@@ -67,6 +84,82 @@ class HavocDemonHunterChecklist extends React.PureComponent {
         >
           <AbilityRequirement spell={SPELLS.METAMORPHOSIS_HAVOC.id} />
           <AbilityRequirement spell={SPELLS.EYE_BEAM.id} />
+          {combatant.hasTalent(SPELLS.FEL_BARRAGE_TALENT.id) && <AbilityRequirement spell={SPELLS.FEL_BARRAGE_TALENT.id} />}
+          {combatant.hasTalent(SPELLS.DARK_SLASH_TALENT.id) && <AbilityRequirement spell={SPELLS.DARK_SLASH_TALENT.id} />}
+        </Rule>
+
+        <Rule
+          name="Manage your resources/fury properly"
+          description={(
+            <>
+            <p>You should always avoid capping your fury and spend it regularly.</p>
+            <a href="https://www.wowhead.com/guides/havoc-demon-hunter-get-good-how-to-improve#major-pitfalls" target="_blank" rel="noopener noreferrer">More info.</a>
+            </>
+          )}
+        >
+          <Requirement
+            name="Total Fury Efficiency"
+            thresholds={thresholds.totalFuryWasted}
+          />
+
+            <Requirement
+              name={(
+                <>
+                <SpellLink id={SPELLS.DEMONS_BITE.id} /> wasted fury
+                </>
+              )}
+              thresholds={thresholds.demonBiteFury}
+            />
+          {combatant.hasTalent(SPELLS.BLIND_FURY_TALENT.id) &&(
+            <Requirement
+              name={(
+                <>
+                <SpellLink id={SPELLS.BLIND_FURY_TALENT.id} /> bad casts
+                </>
+              )}
+              thresholds={thresholds.blindFuryEfficiency}
+            />
+          )}
+          {combatant.hasTalent(SPELLS.IMMOLATION_AURA_TALENT.id) &&(
+            <Requirement
+              name={(
+                <>
+                <SpellLink id={SPELLS.IMMOLATION_AURA_TALENT.id} /> fury wasted
+                </>
+              )}
+              thresholds={thresholds.immolationAuraEfficiency}
+            />
+          )}
+          {combatant.hasTalent(SPELLS.FELBLADE_TALENT.id) &&(
+            <Requirement
+              name={(
+                <>
+                <SpellLink id={SPELLS.FELBLADE_TALENT.id} /> fury wasted
+                </>
+              )}
+              thresholds={thresholds.felbladeEfficiency}
+            />
+          )}
+          {combatant.hasTalent(SPELLS.DEMONIC_APPETITE_TALENT.id) &&(
+            <Requirement
+              name={(
+                <>
+                <SpellLink id={SPELLS.DEMONIC_APPETITE_TALENT.id} /> fury wasted
+                </>
+              )}
+              thresholds={thresholds.demonicAppetite}
+            />
+          )}
+          {combatant.hasTalent(SPELLS.DEMON_BLADES_TALENT.id) &&(
+            <Requirement
+              name={(
+                <>
+                <SpellLink id={SPELLS.DEMON_BLADES_TALENT.id} /> fury wasted
+                </>
+              )}
+              thresholds={thresholds.demonBladesEfficiency}
+            />
+          )}
         </Rule>
 
         <PreparationRule thresholds={thresholds} />

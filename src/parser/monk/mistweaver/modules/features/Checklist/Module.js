@@ -15,6 +15,7 @@ import ManaTea from '../../talents/ManaTea';
 import Lifecycles from '../../talents/Lifecycles';
 import ThunderFocusTea from '../../spells/ThunderFocusTea';
 import EssenceFontMastery from '../EssenceFontMastery';
+import RenewingMistDuringManaTea from '../../talents/RenewingMistDuringManaTea';
 
 import Component from './Component';
 
@@ -33,6 +34,7 @@ class Checklist extends BaseChecklist {
     lifecycles: Lifecycles,
     thunderFocusTea: ThunderFocusTea,
     essenceFontMastery: EssenceFontMastery,
+    renewingMistDuringManaTea: RenewingMistDuringManaTea,
   };
 
   render() {
@@ -54,6 +56,7 @@ class Checklist extends BaseChecklist {
           lifecycles: this.lifecycles.suggestionThresholds,
           thunderFocusTea: this.thunderFocusTea.suggestionThresholds,
           essenceFontMastery: this.essenceFontMastery.suggestionThresholds,
+          renewingMistDuringManaTea: this.renewingMistDuringManaTea.suggestionThresholds,
 
         }}
       />
