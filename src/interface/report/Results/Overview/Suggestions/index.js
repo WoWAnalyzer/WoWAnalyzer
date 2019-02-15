@@ -8,6 +8,7 @@ import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
 import Suggestion from './Suggestion';
 import './Suggestions.scss';
+import Panel from 'interface/others/Panel';
 
 class Suggestions extends React.PureComponent {
   static propTypes = {
@@ -25,8 +26,10 @@ class Suggestions extends React.PureComponent {
     const { children } = this.props;
 
     return (
-      <div className="panel">
-        <div className="panel-heading">
+      <Panel
+        title={<Trans>Suggestions</Trans>}
+        explanation="Based on what you did here are some things we think you might be able to improve."
+        actions={(
           <div className="pull-right toggle-control">
             <Toggle
               defaultChecked={this.state.showMinorIssues}
@@ -38,30 +41,28 @@ class Suggestions extends React.PureComponent {
               <Trans>Minor importance</Trans>
             </label>
           </div>
-          <h1><Trans>Suggestions</Trans></h1>
-          <small>Based on what you did here are some things we think you can improve.</small>
-        </div>
-        <div className="panel-body">
-          <ul className="list issues">
-            {!children.find(issue => issue.importance === ISSUE_IMPORTANCE.MAJOR) && (
-              <li className="item major" style={{ color: '#25ff00' }}>
-                <div className="icon">
-                  <Icon icon="thumbsup" alt="Thumbsup" />
-                </div>
-                <div className="suggestion">
-                  <Trans>There are no major issues in this fight. Good job!</Trans>
-                </div>
-              </li>
-            )}
-            {children
-              .filter(issue => this.state.showMinorIssues || issue.importance !== ISSUE_IMPORTANCE.MINOR)
-              .map((issue, i) => <Suggestion key={i} {...issue} />)}
-            <li>
-              <small><Trans>Some of these suggestions may be nitpicky or fight dependent, but often it's still something you could look to improve. Try to focus on improving one thing at a time - don't try to improve everything at once.</Trans></small>
+        )}
+        pad={false}
+      >
+        <ul className="list issues">
+          {!children.find(issue => issue.importance === ISSUE_IMPORTANCE.MAJOR) && (
+            <li className="item major" style={{ color: '#25ff00' }}>
+              <div className="icon">
+                <Icon icon="thumbsup" alt="Thumbsup" />
+              </div>
+              <div className="suggestion">
+                <Trans>There are no major issues in this fight. Good job!</Trans>
+              </div>
             </li>
-          </ul>
-        </div>
-      </div>
+          )}
+          {children
+            .filter(issue => this.state.showMinorIssues || issue.importance !== ISSUE_IMPORTANCE.MINOR)
+            .map((issue, i) => <Suggestion key={i} {...issue} />)}
+          <li>
+            <small><Trans>Some of these suggestions may be nitpicky or fight dependent, but often it's still something you could look to improve. Try to focus on improving one thing at a time - don't try to improve everything at once.</Trans></small>
+          </li>
+        </ul>
+      </Panel>
     );
   }
 }

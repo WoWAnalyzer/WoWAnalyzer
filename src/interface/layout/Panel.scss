@@ -35,7 +35,6 @@
       list-style: none;
       padding: 0;
       margin: 0;
-      margin-bottom: -10px; // compensate for the :last-of-type padding
     }
     > ul > li:not(.expandable), ul > li.expandable .meta {
       padding: 10px 30px;
@@ -50,11 +49,8 @@
     //  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     //}
   }
-  .panel-body:last-of-type > ul {
+  .panel-body.pad:last-of-type > ul {
     margin-bottom: 30px;
-  }
-  .panel-body:last-of-type > ul > li:not(.expandable):last-of-type {
-    padding-bottom: 0;
   }
 }
 .panel-cell:not(:first-child) {
