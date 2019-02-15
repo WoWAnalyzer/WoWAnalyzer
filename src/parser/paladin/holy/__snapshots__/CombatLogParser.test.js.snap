@@ -240,10 +240,6 @@ exports[`Holy Paladin integration test analyzers BeaconTransferFactor matches th
 
 exports[`Holy Paladin integration test analyzers BeaconTransferFactor matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`Holy Paladin integration test analyzers Buffs matches the statistic snapshot 1`] = `"module has no statistic method"`;
-
-exports[`Holy Paladin integration test analyzers Buffs matches the suggestions snapshot 1`] = `"module has no suggestions"`;
-
 exports[`Holy Paladin integration test analyzers CastBehavior matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -1142,40 +1138,6 @@ exports[`Holy Paladin integration test analyzers LightOfDawnIndexer matches the 
 exports[`Holy Paladin integration test analyzers LowHealthHealing matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`Holy Paladin integration test analyzers LowHealthHealing matches the suggestions snapshot 1`] = `Array []`;
-
-exports[`Holy Paladin integration test analyzers ManaLevelChart matches the statistic snapshot 1`] = `
-<div
-  className="panel "
->
-  <div
-    className="panel-heading"
-  >
-    <h1
-      style={
-        Object {
-          "position": "relative",
-        }
-      }
-    >
-      Mana pool
-    </h1>
-    <small>
-      As a rule of thumb aim to burn mana about as quickly as the boss is losing health. Some fights require specific mana management though.
-    </small>
-  </div>
-  <div
-    className="panel-body pad"
-  >
-    <div>
-      Loading...
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Holy Paladin integration test analyzers ManaLevelChart matches the suggestions snapshot 1`] = `Array []`;
-
-exports[`Holy Paladin integration test analyzers ManaUsageChart matches the suggestions snapshot 1`] = `Array []`;
 
 exports[`Holy Paladin integration test analyzers MasteryEffectiveness matches the statistic snapshot 1`] = `
 <div
