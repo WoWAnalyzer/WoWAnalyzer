@@ -158,9 +158,6 @@
           z-index: -1;
           background-image: radial-gradient(closest-side, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0));
         }
-        a:hover:before, &.active a:before {
-          background-image: radial-gradient(closest-side, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
-        }
         a:hover {
           border: 2px solid $primaryColor;
           background: rgba(0, 0, 0, 0.1);

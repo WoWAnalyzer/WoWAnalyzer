@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import Panel from 'interface/others/Panel';
+import Panel from 'interface/statistics/Panel';
 import { formatNumber, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBreakdown';
@@ -42,28 +42,26 @@ class HolyPowerDetails extends Analyzer {
   }
 
   statistic() {
-    return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(4)}
-        icon={(
-          <img
-            src={WastedHPIcon}
-            alt="Wasted Holy Power"
-          />
-        )}
-        value={formatNumber(this.holyPowerTracker.wasted)}
-        label="Holy Power Wasted"
-        tooltip={`${formatPercentage(this.wastedHolyPowerPercent)}% wasted`}
-      />
-    );
-  }
-
-  tab() {
-    return {
-      title: 'Holy Power Usage',
-      url: 'holy-power-usage',
-      render: () => (
-        <Panel>
+    return [
+      (
+        <StatisticBox
+          position={STATISTIC_ORDER.CORE(4)}
+          icon={(
+            <img
+              src={WastedHPIcon}
+              alt="Wasted Holy Power"
+            />
+          )}
+          value={formatNumber(this.holyPowerTracker.wasted)}
+          label="Holy Power Wasted"
+          tooltip={`${formatPercentage(this.wastedHolyPowerPercent)}% wasted`}
+        />
+      ),
+      (
+        <Panel
+          title="Holy power usage"
+          pad={false}
+        >
           <ResourceBreakdown
             tracker={this.holyPowerTracker}
             resourceName="Holy Power"
@@ -71,7 +69,7 @@ class HolyPowerDetails extends Analyzer {
           />
         </Panel>
       ),
-    };
+    ];
   }
 }
 

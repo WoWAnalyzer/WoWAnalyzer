@@ -53,7 +53,7 @@ class ResourceBreakdown extends React.Component {
     totalCasts = (totalCasts === 0) ? 1 : totalCasts;
 
     return (
-      <div>
+      <>
         <table className="data-table">
           <thead>
             <tr>
@@ -130,7 +130,7 @@ class ResourceBreakdown extends React.Component {
             </tbody>
           </table>
         )}
-      </div>
+      </>
     );
   }
 }
