@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { Trans } from '@lingui/macro';
-import { t } from '@lingui/macro';
+import { Trans, t } from '@lingui/macro';
 
 import REGION_CODES from 'common/REGION_CODES';
 import { i18n } from 'interface/RootLocalizationProvider';

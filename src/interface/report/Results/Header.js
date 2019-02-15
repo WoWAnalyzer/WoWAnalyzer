@@ -120,7 +120,7 @@ class Headers extends React.PureComponent {
     );
   }
   renderInfo() {
-    const { config: { spec }, name, fight } = this.props;
+    const { config: { spec }, name, fight, boss } = this.props;
 
     return (
       <div className="info container">
@@ -129,7 +129,7 @@ class Headers extends React.PureComponent {
             {getDifficulty(fight)}
           </h2>
           <h1>
-            {getBossName(fight, false)}
+            {boss.name || getBossName(fight, false)}
           </h1>
         </div>
         <div className="player">

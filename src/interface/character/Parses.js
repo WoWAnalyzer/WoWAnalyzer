@@ -64,7 +64,7 @@ class Parses extends React.Component {
       specs: [],
       class: '',
       activeSpec: [],
-      activeDifficulty: DIFFICULTIES,
+      activeDifficulty: Object.keys(DIFFICULTIES),
       activeZoneID: ZONE_DEFAULT_BATTLE_OF_DAZARALOR,
       activeEncounter: BOSS_DEFAULT_ALL_BOSSES,
       sortBy: ORDER_BY.DATE,
