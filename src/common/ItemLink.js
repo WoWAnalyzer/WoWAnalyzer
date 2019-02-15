@@ -40,7 +40,7 @@ class ItemLink extends React.PureComponent {
     if (this.props.quality !== undefined && this.props.quality !== null) {
       quality = this.props.quality;
     } else if (this.props.details) {
-      quality = this.props.details.quality;
+      quality = Math.max(this.props.details.itemLevel >= 370 ? 4 : 3, this.props.details.quality);
     } else {
       quality = ITEMS[id] ? ITEMS[id].quality : 0;
     }
