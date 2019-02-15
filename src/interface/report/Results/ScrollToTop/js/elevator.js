@@ -1,4 +1,4 @@
-// eslint-disable
+/* eslint-disable */
 // Source: https://github.com/tholman/elevator.js
 // MIT licensed.
 
