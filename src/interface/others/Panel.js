@@ -1,12 +1,55 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Panel = ({ children, title, explanation, className, style, pad }) => (
-  <div className={`panel ${className}`} style={style}>
-    <div className="panel-heading">
-      <h1>{title}</h1>
+const Heading = ({ title, explanation, actions, backButton }) => {
+  if (!title) {
+    return null;
+  }
+
+  let content = (
+    <>
+      <h1 style={{ position: 'relative' }}>
+        {backButton && (
+          <div className="back-button">
+            {backButton}
+          </div>
+        )}
+
+        {title}
+      </h1>
       {explanation && <small>{explanation}</small>}
+    </>
+  );
+
+  if (actions) {
+    content = (
+      <div className="flex">
+        <div className="flex-main">
+          {content}
+        </div>
+        <div className="flex-sub action-buttons">
+          {actions}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="panel-heading">
+      {content}
     </div>
+  );
+};
+Heading.propTypes = {
+  title: PropTypes.node,
+  explanation: PropTypes.node,
+  actions: PropTypes.node,
+  backButton: PropTypes.node,
+};
+
+const Panel = ({ children, className, style, pad, title, explanation, actions, backButton }) => (
+  <div className={`panel ${className}`} style={style}>
+    <Heading title={title} explanation={explanation} actions={actions} backButton={backButton} />
     <div className={`panel-body ${pad ? 'pad' : ''}`}>
       {children}
     </div>
@@ -14,11 +57,14 @@ const Panel = ({ children, title, explanation, className, style, pad }) => (
 );
 Panel.propTypes = {
   children: PropTypes.node.isRequired,
-  title: PropTypes.node,
-  explanation: PropTypes.node,
   className: PropTypes.string,
   style: PropTypes.object,
   pad: PropTypes.bool,
+  // Heading
+  title: PropTypes.node,
+  explanation: PropTypes.node,
+  actions: PropTypes.node,
+  backButton: PropTypes.node,
 };
 Panel.defaultProps = {
   pad: true,

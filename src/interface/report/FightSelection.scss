@@ -26,20 +26,16 @@
       border-radius: 4px;
       color: $primaryColor;
       font-weight: 600;
+      border: 2px solid transparent;
 
+      &:hover, &:focus, &:active {
+        border: 2px solid $primaryColor;
+        outline: 0;
+        text-decoration: none;
+      }
       .icon {
         font-size: 1.22em;
         margin-right: 2px;
-      }
-
-      &:hover {
-        background: transparentize($primaryColor, 0.15);
-        text-decoration: none;
-        color: #fff;
-
-        small {
-          color: darken($muted, 70%);
-        }
       }
     }
   }

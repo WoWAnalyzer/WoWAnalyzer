@@ -1,12 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Toggle from 'react-toggle';
-import { Link } from 'react-router-dom';
-import { Trans, t } from '@lingui/macro';
 
-import { i18n } from 'interface/RootLocalizationProvider';
-import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
-import Tooltip from 'common/Tooltip';
+import Panel from 'interface/others/Panel';
 
 import './FightSelection.scss';
 import FightSelectionPanelList from './FightSelectionPanelList';
@@ -16,53 +11,22 @@ class FightSelectionPanel extends React.PureComponent {
     report: PropTypes.shape({
       fights: PropTypes.array.isRequired,
     }).isRequired,
-    refreshReport: PropTypes.func.isRequired,
-  };
-  state = {
-    killsOnly: false,
+    killsOnly: PropTypes.bool.isRequired,
   };
 
   render() {
-    const { report, refreshReport } = this.props;
-    const { killsOnly } = this.state;
+    const { report, killsOnly } = this.props;
 
     return (
-      <div className="panel fight-selection">
-        <div className="panel-heading">
-          <div className="row">
-            <div className="col-md-8">
-              <h1><Trans>Fight selection</Trans></h1>
-              <small><Trans>Select the fight you wish to analyze.</Trans></small>
-            </div>
-            <div className="col-md-4 text-right toggle-control action-buttons">
-              <Toggle
-                checked={killsOnly}
-                icons={false}
-                onChange={event => this.setState({ killsOnly: event.currentTarget.checked })}
-                id="kills-only-toggle"
-              />
-              <label htmlFor="kills-only-toggle">
-                {' '}<Trans>Kills only</Trans>
-              </label>
-              <Tooltip content={i18n._(t`This will refresh the fights list which can be useful if you're live logging.`)}>
-                <Link
-                  to={makeAnalyzerUrl(report)}
-                  onClick={refreshReport}
-                >
-                  <span className="glyphicon glyphicon-refresh" aria-hidden="true" /> <Trans>Refresh</Trans>
-                </Link>
-              </Tooltip>
-            </div>
-          </div>
-        </div>
-        <div className="panel-body" style={{ padding: 0 }}>
+      <>
+        <Panel pad={false}>
           <FightSelectionPanelList
             report={report}
             fights={report.fights}
             killsOnly={killsOnly}
           />
-        </div>
-      </div>
+        </Panel>
+      </>
     );
   }
 }

@@ -45,30 +45,29 @@ body {
 }
 main {
   min-height: 800px;
-}
-main > .offset {
-  margin-top: 100px;
+
+  > .offset {
+    margin-top: 110px;
+  }
 }
 
 a {
   color: $primaryColor;
   cursor: pointer;
+
+  &:hover {
+    color: lighten(hsl(44, 100%, 49%), 30%);
+  }
+  &.hidden-link {
+    color: inherit;
+  }
 }
-a:hover {
-  color: lighten(hsl(44, 100%, 49%), 30%);
-}
-a.hidden-link {
-  color: inherit;
-}
-.btn:hover,
-.btn:focus,
-.btn.focus {
+.btn:hover, .btn:focus, .btn.focus {
   color: #964747;
-}
-.btn:hover img,
-.btn:focus img,
-.btn.focus img {
-  opacity: 0.5;
+
+  img {
+    opacity: 0.5;
+  }
 }
 .btn-primary {
   background: $primaryColor;
@@ -77,12 +76,13 @@ a.hidden-link {
   border-radius: 0;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
   text-transform: uppercase;
-}
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary:active:hover, .btn-primary:active:focus {
-  background: darken($primaryColor, 10%);
-  border: 1px solid $primaryColor;
-  outline: 0;
-  color: #ccc;
+
+  &:hover, &:focus, &:active, &:active:hover, &:active:focus {
+    background: darken($primaryColor, 10%);
+    border: 1px solid $primaryColor;
+    outline: 0;
+    color: #ccc;
+  }
 }
 h1, h2, h3, h4, h5 {
   font-family: Poppins, 'Open Sans', 'Century Gothic', sans-serif;
