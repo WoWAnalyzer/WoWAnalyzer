@@ -123,6 +123,9 @@ class Results extends React.PureComponent {
 
     switch (selectedTab) {
       case CORE_TABS.OVERVIEW: {
+        if (this.isLoading) {
+          return this.renderLoadingIndicator();
+        }
         const checklist = parser.getModule(Checklist, false);
         return (
           <Overview
@@ -132,20 +135,32 @@ class Results extends React.PureComponent {
         );
       }
       case CORE_TABS.STATISTICS:
+        if (this.isLoading) {
+          return this.renderLoadingIndicator();
+        }
         return (
           <Statistics parser={parser}>{results.statistics}</Statistics>
         );
       case CORE_TABS.TIMELINE:
+        if (this.isLoading) {
+          return this.renderLoadingIndicator();
+        }
         return (
           <TimelineTab parser={parser} />
         );
       case CORE_TABS.EVENTS:
+        if (this.isLoading) {
+          return this.renderLoadingIndicator();
+        }
         return (
           <div className="container">
             <EventsTab parser={parser} />
           </div>
         );
       case CORE_TABS.CHARACTER: {
+        if (this.isLoading) {
+          return this.renderLoadingIndicator();
+        }
         const statTracker = parser.getModule(StatTracker);
 
         return (
@@ -173,6 +188,9 @@ class Results extends React.PureComponent {
         );
       }
       default:
+        if (this.isLoading) {
+          return this.renderLoadingIndicator();
+        }
         return (
           <div className="container">
             {results.tabs.find(tab => tab.url === selectedTab).render()}
@@ -180,8 +198,65 @@ class Results extends React.PureComponent {
         );
     }
   }
+  renderLoadingIndicator() {
+    const { progress, isLoadingParser, isLoadingEvents, isLoadingBossPhaseEvents, isLoadingCharacterProfile, parsingState } = this.props;
+
+    return (
+      <div className="container" style={{ marginBottom: 40 }}>
+        <Panel
+          title="Loading..."
+          className="loading-indicators"
+        >
+          <LoadingBar progress={progress} style={{ marginBottom: 30 }} />
+
+          <div className="row">
+            <div className="col-md-8">
+              Spec analyzer from WoWAnalyzer
+            </div>
+            <div className={`col-md-4 ${isLoadingParser ? 'loading' : 'ok'}`}>
+              {isLoadingParser ? 'Loading...' : 'OK'}
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-8">
+              Player events from Warcraft Logs
+            </div>
+            <div className={`col-md-4 ${isLoadingEvents ? 'loading' : 'ok'}`}>
+              {isLoadingEvents ? 'Loading...' : 'OK'}
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-8">
+              Boss events from Warcraft Logs
+            </div>
+            <div className={`col-md-4 ${isLoadingBossPhaseEvents ? 'loading' : 'ok'}`}>
+              {isLoadingBossPhaseEvents ? 'Loading...' : 'OK'}
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-8">
+              Character info from Blizzard
+            </div>
+            <div className={`col-md-4 ${isLoadingCharacterProfile ? 'loading' : 'ok'}`}>
+              {isLoadingCharacterProfile ? 'Loading...' : 'OK'}
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-8">
+              Analyzing events
+            </div>
+            <div className={`col-md-4 ${parsingState === EVENT_PARSING_STATE.WAITING ? 'waiting' : (parsingState === EVENT_PARSING_STATE.PARSING ? 'loading' : 'ok')}`}>
+              {parsingState === EVENT_PARSING_STATE.WAITING && 'Waiting'}
+              {parsingState === EVENT_PARSING_STATE.PARSING && 'Loading...'}
+              {parsingState === EVENT_PARSING_STATE.DONE && 'OK'}
+            </div>
+          </div>
+        </Panel>
+      </div>
+    );
+  }
   render() {
-    const { parser, report, fight, player, characterProfile, makeTabUrl, selectedTab, premium, progress } = this.props;
+    const { parser, report, fight, player, characterProfile, makeTabUrl, selectedTab, premium } = this.props;
     const config = this.context.config;
 
     const boss = findByBossId(fight.boss);
@@ -214,61 +289,7 @@ class Results extends React.PureComponent {
           </div>
         )}
 
-        {this.isLoading && (
-          <div className="container" style={{ marginBottom: 40 }}>
-            <Panel
-              title="Loading..."
-              className="loading-indicators"
-            >
-              <LoadingBar progress={progress} style={{ marginBottom: 30 }} />
-
-              <div className="row">
-                <div className="col-md-8">
-                  Spec analyzer from WoWAnalyzer
-                </div>
-                <div className={`col-md-4 ${this.props.isLoadingParser ? 'loading' : 'ok'}`}>
-                  {this.props.isLoadingParser ? 'Loading...' : 'OK'}
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-md-8">
-                  Player events from Warcraft Logs
-                </div>
-                <div className={`col-md-4 ${this.props.isLoadingEvents ? 'loading' : 'ok'}`}>
-                  {this.props.isLoadingEvents ? 'Loading...' : 'OK'}
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-md-8">
-                  Boss events from Warcraft Logs
-                </div>
-                <div className={`col-md-4 ${this.props.isLoadingBossPhaseEvents ? 'loading' : 'ok'}`}>
-                  {this.props.isLoadingBossPhaseEvents ? 'Loading...' : 'OK'}
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-md-8">
-                  Character info from Blizzard
-                </div>
-                <div className={`col-md-4 ${this.props.isLoadingCharacterProfile ? 'loading' : 'ok'}`}>
-                  {this.props.isLoadingCharacterProfile ? 'Loading...' : 'OK'}
-                </div>
-              </div>
-              <div className="row">
-                <div className="col-md-8">
-                  Analyzing events
-                </div>
-                <div className={`col-md-4 ${this.props.parsingState === EVENT_PARSING_STATE.WAITING ? 'waiting' : (this.props.parsingState === EVENT_PARSING_STATE.PARSING ? 'loading' : 'ok')}`}>
-                  {this.props.parsingState === EVENT_PARSING_STATE.WAITING && 'Waiting'}
-                  {this.props.parsingState === EVENT_PARSING_STATE.PARSING && 'Loading...'}
-                  {this.props.parsingState === EVENT_PARSING_STATE.DONE && 'OK'}
-                </div>
-              </div>
-            </Panel>
-          </div>
-        )}
-
-        {!this.isLoading && this.renderContent(selectedTab, results)}
+        {this.renderContent(selectedTab, results)}
 
         {premium === false && (
           <div className="container text-center" style={{ marginTop: 40 }}>
