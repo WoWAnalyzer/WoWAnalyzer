@@ -54,6 +54,7 @@ import RefreshingJadeWind from './modules/talents/RefreshingJadeWind';
 import Lifecycles from './modules/talents/Lifecycles';
 import SpiritOfTheCrane from './modules/talents/SpiritOfTheCrane';
 import RisingMist from './modules/talents/RisingMist';
+import RenewingMistDuringManaTea from './modules/talents/RenewingMistDuringManaTea';
 
 // Azerite Traits
 import FontOfLife from './modules/spells/azeritetraits/FontOfLife';
@@ -112,6 +113,7 @@ class CombatLogParser extends CoreCombatLogParser {
     spiritOfTheCrane: SpiritOfTheCrane,
     risingMist: RisingMist,
     jadeSerpentStatue: JadeSerpentStatue,
+    renewingMistDuringManaTea: RenewingMistDuringManaTea,
 
     // Azerite Traits
     fontOfLife: FontOfLife,

@@ -24,7 +24,7 @@ class MistweaverHealingEfficiencyDetails extends HealingEfficiencyDetails {
           /> 
         </Tab>), 
         <Tab style={{ padding: '15px 22px 15px 15px' }} className="flex" key={"healingEfficiencyTrackerTextInfo"}>
-            <SpellLink id={SPELLS.GUSTS_OF_MISTS.id} /> healing is added to the appropriate spell that caused the gust. Essence font is given the healing from duplicated gusts, since without EF the second gust would not have happened. Renewing mist is given the splash healing of vivify's heal since without ReM, vivify wouldn't have splashed.
+            <SpellLink id={SPELLS.GUSTS_OF_MISTS.id} /> healing is added to the appropriate spell that caused the gust. <SpellLink id={SPELLS.ESSENCE_FONT.id} /> is given the healing from duplicated gusts, since without <SpellLink id={SPELLS.ESSENCE_FONT.id} /> the second gust would not have happened. <SpellLink id={SPELLS.RENEWING_MIST.id} /> is given the splash healing of <SpellLink id={SPELLS.VIVIFY.id} />'s heal since without <SpellLink id={SPELLS.RENEWING_MIST.id} />, <SpellLink id={SPELLS.VIVIFY.id} /> wouldn't have splashed.
         </Tab>];
       },
     };

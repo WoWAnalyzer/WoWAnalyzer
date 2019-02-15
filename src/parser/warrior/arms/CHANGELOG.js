@@ -5,6 +5,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-02-03'),
+    changes: <>Added a suggestion to not use <SpellLink id={SPELLS.SWEEPING_STRIKES.id} /> during <SpellLink id={SPELLS.COLOSSUS_SMASH.id} /> / <SpellLink id={SPELLS.WARBREAKER_TALENT.id} />.</>,
+    contributors: [Korebian],
+  },
+  {
     date: new Date('2019-02-02'),
     changes: <>Added more information to the <SpellLink id={SPELLS.CRUSHING_ASSAULT_TRAIT.id} /> module. Added <SpellLink id={SPELLS.LORD_OF_WAR.id} /> module.</>,
     contributors: [Korebian],
