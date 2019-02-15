@@ -21,6 +21,7 @@ import { i18n } from 'interface/RootLocalizationProvider';
 import LoadingBar from 'interface/layout/NavigationBar/LoadingBar';
 import Panel from 'interface/others/Panel';
 import ChangelogTab from 'interface/others/ChangelogTab';
+import { ReactComponent as Logo } from 'interface/images/logo.svg';
 import Checklist from 'parser/shared/modules/features/Checklist/Module';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
@@ -93,13 +94,16 @@ class Results extends React.PureComponent {
   }
 
   componentDidMount() {
-    window.scrollTo(0, 0);
+    this.scrollToTop();
   }
   componentDidUpdate(prevProps, prevState, prevContext) {
     if (this.props.selectedTab !== prevProps.selectedTab) {
       // TODO: To improve user experience we could try to avoid scrolling when the header is still within vision.
-      window.scrollTo(0, 0);
+      this.scrollToTop();
     }
+  }
+  scrollToTop() {
+    window.scrollTo(0, 0);
   }
 
   get warning() {
@@ -305,7 +309,7 @@ class Results extends React.PureComponent {
                 <Trans>{config.spec.specName} {config.spec.className} analysis has been provided by {contributorinfo}. They love hearing what you think, so please let them know! <Link to={makeTabUrl('about')}>More information about this spec's analyzer.</Link></Trans>
               </div>
             </div>
-            <div className="col-md-4">
+            <div className="col-md-3">
               <small>View on</small><br />
               <Tooltip content={i18n._(t`Opens in a new tab. View the original report.`)}>
                 <a
@@ -328,6 +332,15 @@ class Results extends React.PureComponent {
                 >
                   <img src={WipefestLogo} alt="" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Wipefest
                 </a>
+              </Tooltip>
+            </div>
+            <div className="col-md-1">
+              <Tooltip content={<Trans>Back to the top.</Trans>}>
+                <div className="clickable" onClick={() => this.scrollToTop()}>
+                  <Logo
+                    style={{ '--arrow': '#fab700', '--main': 'rgba(0, 0, 0, 0.2)' }}
+                  />
+                </div>
               </Tooltip>
             </div>
           </div>
