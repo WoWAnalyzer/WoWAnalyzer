@@ -7,7 +7,6 @@ import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist2/P
 import IronSkinBrew from '../../spells/IronSkinBrew';
 import PurifyingBrew from '../../spells/PurifyingBrew';
 import BrewCDR from '../../core/BrewCDR';
-import BreathOfFire from '../../spells/BreathOfFire';
 import TigerPalm from '../../spells/TigerPalm';
 import RushingJadeWind from '../../spells/RushingJadeWind';
 import BlackoutCombo from '../../spells/BlackoutCombo';
