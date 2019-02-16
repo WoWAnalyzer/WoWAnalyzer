@@ -62,6 +62,7 @@ import ArcaneTorrent from '../shared/modules/racials/bloodelf/ArcaneTorrent';
 import GiftOfTheNaaru from '../shared/modules/racials/draenei/GiftOfTheNaaru';
 import MightOfTheMountain from '../shared/modules/racials/dwarf/MightOfTheMountain';
 import Stoneform from '../shared/modules/racials/dwarf/Stoneform';
+import Berserking from '../shared/modules/racials/troll/Berserking';
 
 // Shared Buffs
 import VantusRune from '../shared/modules/spells/VantusRune';
@@ -141,7 +142,6 @@ import CrestOfPaku from '../shared/modules/items/bfa/raids/bod/CrestOfPaku';
 import IncandescentSliver from '../shared/modules/items/bfa/raids/bod/IncandescentSliver';
 
 import ParseResults from './ParseResults';
-import Analyzer from './Analyzer';
 import EventsNormalizer from './EventsNormalizer';
 import EventEmitter from './modules/EventEmitter';
 
@@ -213,6 +213,7 @@ class CombatLogParser {
     giftOfTheNaaru: GiftOfTheNaaru,
     mightOfTheMountain: MightOfTheMountain,
     stoneform: Stoneform,
+    berserking: Berserking,
 
     // Items:
     // BFA
