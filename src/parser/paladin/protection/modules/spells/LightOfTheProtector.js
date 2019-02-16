@@ -41,10 +41,14 @@ export default class LightOfTheProtector extends Analyzer {
     super(props);
     if(this.selectedCombatant.hasTalent(SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id)) {
       this.activeSpell = SPELLS.HAND_OF_THE_PROTECTOR_TALENT;
+      this.addEventListener(Events.cast.by(SELECTED_PLAYER).to(SELECTED_PLAYER).spell(this.activeSpell), this._countDelay);
+    } else {
+      // LotP has no target, so .to(SELECTED_PLAYER) filters out ALL
+      // casts
+      this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.activeSpell), this._countDelay);
     }
 
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this._startDelayTimer);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.activeSpell), this._countDelay);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(this.activeSpell), this._countHeal);
 
     if(this.selectedCombatant.hasTalent(SPELLS.RIGHTEOUS_PROTECTOR_TALENT.id)) {
