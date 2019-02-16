@@ -33,6 +33,13 @@ class Bonestorm extends Analyzer {
       return;
     }
 
+    if (this.bsCasts.length === 0) {
+      // to account for prepull-cheese, assuming 100RP because I dont know how much RP was spend prepull
+      this.bsCasts.push({
+        cost: 100,
+        hits: [],
+      });
+    }
     this.bsCasts[this.bsCasts.length - 1].hits.push(event.amount + event.absorbed);
     this.totalBonestormDamage += event.amount + event.absorbed;
   }

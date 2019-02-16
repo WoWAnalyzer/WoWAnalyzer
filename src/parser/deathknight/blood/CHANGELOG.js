@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-02-14'),
+    changes: <>Updated <SpellLink id={SPELLS.BONE_SHIELD.id} />-suggestion to account for different types of bad <SpellLink id={SPELLS.MARROWREND.id} />s</>,
+    contributors: [joshinator],
+  },
+  {
     date: new Date('2019-02-03'),
     changes: <>Added <SpellLink id={SPELLS.BLOODY_RUNEBLADE.id} /> azerite trait and marked patch 8.1 compatible.</>,
     contributors: [Yajinni],
