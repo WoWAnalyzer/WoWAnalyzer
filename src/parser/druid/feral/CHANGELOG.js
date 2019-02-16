@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-02-08'),
+    changes: <>Added tracking of <SpellLink id={SPELLS.UNTAMED_FEROCITY.id} /> and updated <SpellLink id={SPELLS.WILD_FLESHRENDING.id} />.</>,
+    contributors: [Anatta336],
+  },
+  {
     date: new Date('2018-12-20'),
     changes: <>Updated tracking of <SpellLink id={SPELLS.RIP.id} /> snapshots, and interaction with <SpellLink id={SPELLS.SABERTOOTH_TALENT.id} /> for patch 8.1.</>,
     contributors: [Anatta336],
