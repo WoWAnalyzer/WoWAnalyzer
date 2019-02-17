@@ -9,6 +9,9 @@ function getCombatant(parser = null, combatantInfo = null) {
         name: 'Test',
       },
     },
+    fight: {
+      start_time: 0,
+    },
   };
   return new Combatant(parser || parserStub, combatantInfo || COMBATANTINFO);
 }
