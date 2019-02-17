@@ -68,7 +68,6 @@ class Entities extends Analyzer {
       ...event,
       start: event.timestamp,
       end: null,
-      stackHistory: [{ stacks: 1, timestamp: event.timestamp }],
       isDebuff,
       // The initial buff counts as 1 stack, to make the `changebuffstack` event complete it's fired for all applybuff events, including buffs that aren't actually stackable.
       stacks: 1,
@@ -76,12 +75,12 @@ class Entities extends Analyzer {
 
     this._triggerChangeBuffStack(buff, event.timestamp, 0, 1);
 
-    if (event.prepull && entity.buffs.find(buff => buff.ability.guid === event.ability.guid) !== null) {
+    if (event.prepull && entity.__fromCombatantinfo) {
       // Prepull buffs were already applied in the Combatant constructor
       return;
     }
 
-    entity.buffs.push(buff);
+    entity.applyBuff(buff);
   }
 
   updateBuffStack(event) {
@@ -127,16 +126,8 @@ class Entities extends Analyzer {
 
       this._triggerChangeBuffStack(existingBuff, event.timestamp, existingBuff.stacks, 0);
     } else {
-      const buff = {
-        ...event,
-        start: this.owner.fight.start_time,
-        end: event.timestamp,
-        stackHistory: [{ stacks: 1, timestamp: this.owner.fight.start_time }, { stacks: 0, timestamp: event.timestamp }],
-        isDebuff,
-      };
-      entity.buffs.push(buff);
-
-      this._triggerChangeBuffStack(buff, event.timestamp, 1, 0);
+      // The only possible legit way this could occur that I can imagine is if the log was bugged and had more removebuff events than applybuff events. This might be caused by range or phasing issues.
+      throw new Error('Buff wasn\'t correctly applied in the ApplyBuff normalizer.');
     }
   }
 

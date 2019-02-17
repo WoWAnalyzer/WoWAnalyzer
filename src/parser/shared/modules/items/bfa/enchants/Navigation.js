@@ -23,7 +23,6 @@ class Navigation extends Analyzer {
   static statPerStack = 50;
   static statAtMax = 600;
 
-  buffStacks = {};
   getEnchantableGear() {
     return Object.keys(this.constructor.enchantableSlots).reduce((obj, slot) => {
       obj[slot] = this.selectedCombatant._getGearItemBySlotId(slot);
@@ -40,13 +39,6 @@ class Navigation extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.hasTrackedEnchant();
-  }
-  on_byPlayer_changebuffstack(event) {
-    if (event.ability.guid !== this.constructor.smallBuffId) {
-      return;
-    }
-
-    this.buffStacks[event.start] = event.stackHistory;
   }
 
   isBuggedStackChange(previousTime, currentTime){
@@ -65,7 +57,12 @@ class Navigation extends Analyzer {
     };
     let lastHandledStack = 0;
 
-    Object.values(this.buffStacks).forEach((stackChain) => {
+    const buffStacks = this.selectedCombatant.getBuffHistory(this.constructor.smallBuffId).reduce((obj, buff) => {
+      obj[buff.start] = buff.stackHistory;
+      return obj;
+    }, {});
+
+    Object.values(buffStacks).forEach((stackChain) => {
       stackChain.forEach((stack) => {
         const stackSize = stack.stacks;
         const stackStart = stack.timestamp;

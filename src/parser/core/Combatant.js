@@ -266,18 +266,14 @@ class Combatant extends Entity {
     const timestamp = this.owner.fight.start_time;
     buffs.forEach(buff => {
       const spell = SPELLS[buff.ability];
-      this.buffs.push({
+      this.applyBuff({
         ability: {
           abilityIcon: buff.icon.replace('.jpg', ''),
           guid: buff.ability,
           name: spell ? spell.name : undefined,
         },
         sourceID: buff.source,
-        targetID: this.id,
         start: timestamp,
-        end: null,
-        stackHistory: [{ stacks: 1, timestamp: timestamp }],
-        stacks: 1,
       });
     });
   }
