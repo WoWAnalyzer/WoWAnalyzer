@@ -6,6 +6,7 @@ import { calculateAzeriteEffects } from 'common/stats';
 import Analyzer from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import SpellLink from 'common/SpellLink';
 
 import MarrowrendUsage from '../../features/MarrowrendUsage';
 import BoneShieldTimesByStacks from '../../features/BoneShieldTimesByStacks';
@@ -50,6 +51,26 @@ class BonesOfTheDamned extends Analyzer{
     });
   }
 
+  get suggestionThresholds() {
+    // suggestion based on wasted possible procs in relation to total MR casts
+    return {
+      actual: this.marrowrendUsage.wastedbonesOfTheDamnedProcs / this.marrowrendUsage.marrowrendCasts,
+      isGreaterThan: {
+        minor: 0,
+        average: 0.3,
+      },
+      style: 'percentage',
+    };
+  }
+
+  suggestions(when) {
+    when(this.suggestionThresholds)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<>{formatPercentage(actual)}% <SpellLink id={SPELLS.MARROWREND.id} /> casts locked you out of possible <SpellLink id={SPELLS.BONES_OF_THE_DAMNED.id} /> procs. Only cast <SpellLink id={SPELLS.MARROWREND.id} /> at {this.marrowrendUsage.refreshWithStacks} stacks or below to maximize the benefit of this trait.</>)
+          .icon(SPELLS.BONES_OF_THE_DAMNED.icon);
+      });
+  }
+
   get bonesOfTheDamnedProcPercentage() {
     return this.marrowrendUsage.bonesOfTheDamnedProcs / (this.marrowrendUsage.totalBoneShieldStacksGenerated - this.marrowrendUsage.bonesOfTheDamnedProcs);
   }
@@ -75,7 +96,8 @@ class BonesOfTheDamned extends Analyzer{
         )}
         tooltip={`
           ${formatPercentage(this.bonesOfTheDamnedProcPercentage)}% of your gained ${SPELLS.BONE_SHIELD.name} stacks are from ${SPELLS.BONES_OF_THE_DAMNED.name}.<br/>
-          ${formatPercentage(this.bonesOfTheDamnedMarrowrendProcPercentage)}% of your ${SPELLS.MARROWREND.name} casts procced ${SPELLS.BONES_OF_THE_DAMNED.name}.
+          ${formatPercentage(this.bonesOfTheDamnedMarrowrendProcPercentage)}% of your ${SPELLS.MARROWREND.name} casts procced ${SPELLS.BONES_OF_THE_DAMNED.name}.<br/>
+          ${formatNumber(this.marrowrendUsage.wastedbonesOfTheDamnedProcs)} of your ${SPELLS.MARROWREND.name} casts locked you out of an potential ${SPELLS.BONES_OF_THE_DAMNED.name} proc
         `}
       />
     );

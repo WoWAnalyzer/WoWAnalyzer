@@ -1110,10 +1110,11 @@ exports[`The Blood Deathknight Analyzer analyzers MarrowrendUsage matches the st
           >
             <dfn
               data-tip="
-          3 casts to refresh Bone Shield<br>
-          0 casts with more than 7 stacks of Bone Shield wasting at least 0 stacks<br>
+          3 casts to refresh Bone Shield, those do not count towards bad casts.<br>
+          
+          0 casts with more than 7 stacks of Bone Shield wasting 0 stacks.<br>
           <br>
-          Avoid casting Marrowrend unless you have 7 or less stacks or if Bone Shield has less than 6sec duration left.
+          Avoid casting Marrowrend unless you have 7 or less stacks or if Bone Shield has less than 6sec of its duration left.
         "
             >
               0 / 10

@@ -69,6 +69,11 @@ export default {
     name: 'Wild Fleshrending',
     icon: 'ability_warrior_bloodnova',
   },
+  UNTAMED_FEROCITY: {
+    id: 273338,
+    name: 'Untamed Ferocity',
+    icon: 'ability_druid_disembowel',
+  },
   MASTERFUL_INSTINCTS: {
     id: 273344,
     name: 'Masterful Instincts',
