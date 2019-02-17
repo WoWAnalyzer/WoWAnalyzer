@@ -76,10 +76,10 @@ class Entities extends Analyzer {
     buff.stacks = 1;
     this._triggerChangeBuffStack(buff, event.timestamp, 0, 1);
 
-    if (event.prepull && entity.buffs.find(buff => buff.ability.guid === event.ability.guid) !== null) {
-      // Prepull buffs were already applied in the Combatant constructor
-      return;
-    }
+    // if (event.prepull && entity.buffs.find(buff => buff.ability.guid === event.ability.guid) !== null) {
+    //   // Prepull buffs were already applied in the Combatant constructor
+    //   return;
+    // }
 
     entity.buffs.push(buff);
   }

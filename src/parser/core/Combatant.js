@@ -66,7 +66,7 @@ class Combatant extends Entity {
     this._parseTalents(combatantInfo.talents);
     this._parseTraits(combatantInfo.artifact);
     this._parseGear(combatantInfo.gear);
-    this._parsePrepullBuffs(combatantInfo.auras);
+    // this._parsePrepullBuffs(combatantInfo.auras);
   }
 
   // region Talents
