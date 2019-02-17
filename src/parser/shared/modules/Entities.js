@@ -127,7 +127,19 @@ class Entities extends Analyzer {
       this._triggerChangeBuffStack(existingBuff, event.timestamp, existingBuff.stacks, 0);
     } else {
       // The only possible legit way this could occur that I can imagine is if the log was bugged and had more removebuff events than applybuff events. This might be caused by range or phasing issues.
-      throw new Error('Buff wasn\'t correctly applied in the ApplyBuff normalizer.');
+      // TODO: throw new Error(`Buff ${event.ability.name} wasn't correctly applied in the ApplyBuff normalizer.`);
+      // TODO: Remove below and add above. http://localhost:3000/report/YcbxZv1hKX4GVr82/33-Mythic+Grong+-+Wipe+23+(4:26)/45-Teish has issues due to Tricks of the Trade being applied twice at the start by different people. Need to change ApplyBuff to fix this, probably not super complicated but too late to do now.
+
+      const buff = {
+        ...event,
+        start: this.owner.fight.start_time,
+        end: event.timestamp,
+        stackHistory: [{ stacks: 1, timestamp: this.owner.fight.start_time }, { stacks: 0, timestamp: event.timestamp }],
+        isDebuff,
+      };
+      entity.buffs.push(buff);
+
+      this._triggerChangeBuffStack(buff, event.timestamp, 1, 0);
     }
   }
 
