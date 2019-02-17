@@ -14,6 +14,10 @@ class Entities extends Analyzer {
   getEntities() {
     throw new Error('Not implemented');
   }
+  /**
+   * @param event
+   * @return {Entity}
+   */
   getEntity(event) {
     throw new Error('Not implemented');
   }
@@ -60,8 +64,6 @@ class Entities extends Analyzer {
       return;
     }
 
-    debug && this.log(`Apply buff ${event.ability.name} to ${entity.name}`);
-
     const buff = {
       ...event,
       start: event.timestamp,
@@ -73,6 +75,11 @@ class Entities extends Analyzer {
     // The initial buff counts as 1 stack, to make the `changebuffstack` event complete it's fired for all applybuff events, including buffs that aren't actually stackable.
     buff.stacks = 1;
     this._triggerChangeBuffStack(buff, event.timestamp, 0, 1);
+
+    if (event.prepull && entity.buffs.find(buff => buff.ability.guid === event.ability.guid) !== null) {
+      // Prepull buffs were already applied in the Combatant constructor
+      return;
+    }
 
     entity.buffs.push(buff);
   }
