@@ -66,7 +66,7 @@ class Combatant extends Entity {
     this._parseTalents(combatantInfo.talents);
     this._parseTraits(combatantInfo.artifact);
     this._parseGear(combatantInfo.gear);
-    // this._parsePrepullBuffs(combatantInfo.auras);
+    this._parsePrepullBuffs(combatantInfo.auras);
   }
 
   // region Talents
@@ -277,6 +277,7 @@ class Combatant extends Entity {
         start: timestamp,
         end: null,
         stackHistory: [{ stacks: 1, timestamp: timestamp }],
+        stacks: 1,
       });
     });
   }
