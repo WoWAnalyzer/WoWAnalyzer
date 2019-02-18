@@ -9,6 +9,11 @@ import ItemLink from 'common/ItemLink';
 export default [
   {
     date: new Date('2019-02-7'),
+    changes: <>Added statistics for tracking the number of <SpellLink id={SPELLS.RENEWING_MIST.id} /> during <SpellLink id={SPELLS.VIVIFY.id} /> casts. Also, did a quick bug fix for the Monk Spreadsheet import.</>,
+    contributors: [Anomoly],
+  },
+  {
+    date: new Date('2019-02-7'),
     changes: <>Added statistics, suggestions, and checklist item for tracking the number of <SpellLink id={SPELLS.RENEWING_MIST.id} /> during <SpellLink id={SPELLS.MANA_TEA_TALENT.id} />. Also, adding some additional tooltips to the Healing Efficiency page.</>,
     contributors: [Anomoly],
   },
