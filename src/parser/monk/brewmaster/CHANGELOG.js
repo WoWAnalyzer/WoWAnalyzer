@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-02-16'),
+    changes: <>Removed <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> from the checklist.</>,
+    contributors: [emallson],
+  },
+  {
     date: new Date('2019-01-31'),
     changes: <>Added Mitigation Values tab showing estimated stat values for damage mitigation.</>,
     contributors: [emallson],

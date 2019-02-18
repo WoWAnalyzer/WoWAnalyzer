@@ -7,7 +7,6 @@ import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist2/P
 import IronSkinBrew from '../../spells/IronSkinBrew';
 import PurifyingBrew from '../../spells/PurifyingBrew';
 import BrewCDR from '../../core/BrewCDR';
-import BreathOfFire from '../../spells/BreathOfFire';
 import TigerPalm from '../../spells/TigerPalm';
 import RushingJadeWind from '../../spells/RushingJadeWind';
 import BlackoutCombo from '../../spells/BlackoutCombo';
@@ -19,7 +18,6 @@ class Checklist extends BaseChecklist {
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     castEfficiency: CastEfficiency,
 
-    bof: BreathOfFire,
     isb: IronSkinBrew,
     pb: PurifyingBrew,
     brewcdr: BrewCDR,
@@ -42,7 +40,6 @@ class Checklist extends BaseChecklist {
           purifyCasts: this.pb.purifyCastSuggestion,
           totalCDR: this.brewcdr.suggestionThreshold,
           isbClipping: this.isb.clipSuggestionThreshold,
-          bof: this.bof.suggestionThreshold,
           bocTp: this.tp.bocEmpoweredThreshold,
           bocDpsWaste: this.boc.dpsWasteThreshold,
           rjw: this.rjw.uptimeThreshold,
