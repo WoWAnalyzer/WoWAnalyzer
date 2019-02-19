@@ -41,7 +41,7 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
     }
 
     if (this.includeEchoOfLight) {
-      spellInfo = this.addEcho(spellInfo);
+      spellInfo = this.addEcho(spellInfo, healingSpellIds);
     }
 
     return spellInfo;
@@ -85,13 +85,12 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
     }
 
     if (healingSpellIds) {
-      for (const healingSpellId in healingSpellIds) {
-        const spellId = healingSpellIds[healingSpellId];
-        if (this.echoOfLight.masteryHealingBySpell[spellId]) {
-          spellInfo.healingDone += this.echoOfLight.masteryHealingBySpell[spellId].effectiveHealing;
-          spellInfo.overhealingDone += this.echoOfLight.masteryHealingBySpell[spellId].overHealing;
+      healingSpellIds.forEach(healingSpellId => {
+        if (this.echoOfLight.masteryHealingBySpell[healingSpellId]) {
+          spellInfo.healingDone += this.echoOfLight.masteryHealingBySpell[healingSpellId].effectiveHealing;
+          spellInfo.overhealingDone += this.echoOfLight.masteryHealingBySpell[healingSpellId].overHealing;
         }
-      }
+      });
     }
 
     return spellInfo;
