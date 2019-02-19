@@ -14,5 +14,7 @@
     <orderEntry type="library" name="@types/node" level="application" />
     <orderEntry type="library" name="@types/express" level="application" />
     <orderEntry type="library" name="@types/lingui__react" level="application" />
+    <orderEntry type="library" name="@types/expect" level="application" />
+    <orderEntry type="library" name="@types/jest" level="application" />
   </component>
 </module>

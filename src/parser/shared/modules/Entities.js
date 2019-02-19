@@ -14,6 +14,10 @@ class Entities extends Analyzer {
   getEntities() {
     throw new Error('Not implemented');
   }
+  /**
+   * @param event
+   * @return {Entity}
+   */
   getEntity(event) {
     throw new Error('Not implemented');
   }
@@ -60,21 +64,23 @@ class Entities extends Analyzer {
       return;
     }
 
-    debug && this.log(`Apply buff ${event.ability.name} to ${entity.name}`);
-
     const buff = {
       ...event,
       start: event.timestamp,
       end: null,
-      stackHistory: [{ stacks: 1, timestamp: event.timestamp }],
       isDebuff,
+      // The initial buff counts as 1 stack, to make the `changebuffstack` event complete it's fired for all applybuff events, including buffs that aren't actually stackable.
+      stacks: 1,
     };
 
-    // The initial buff counts as 1 stack, to make the `changebuffstack` event complete it's fired for all applybuff events, including buffs that aren't actually stackable.
-    buff.stacks = 1;
     this._triggerChangeBuffStack(buff, event.timestamp, 0, 1);
 
-    entity.buffs.push(buff);
+    if (event.prepull && event.__fromCombatantinfo) {
+      // Prepull buffs were already applied in the Combatant constructor
+      return;
+    }
+
+    entity.applyBuff(buff);
   }
 
   updateBuffStack(event) {
@@ -120,6 +126,10 @@ class Entities extends Analyzer {
 
       this._triggerChangeBuffStack(existingBuff, event.timestamp, existingBuff.stacks, 0);
     } else {
+      // The only possible legit way this could occur that I can imagine is if the log was bugged and had more removebuff events than applybuff events. This might be caused by range or phasing issues.
+      // TODO: throw new Error(`Buff ${event.ability.name} wasn't correctly applied in the ApplyBuff normalizer.`);
+      // TODO: Remove below and add above. http://localhost:3000/report/YcbxZv1hKX4GVr82/33-Mythic+Grong+-+Wipe+23+(4:26)/45-Teish has issues due to Tricks of the Trade being applied twice at the start by different people. Need to change ApplyBuff to fix this, probably not super complicated but too late to do now.
+
       const buff = {
         ...event,
         start: this.owner.fight.start_time,

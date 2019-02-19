@@ -5,20 +5,19 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { calculateAzeriteEffects } from 'common/stats';
 import HIT_TYPES from 'game/HIT_TYPES';
-import RACES from 'game/RACES';
 import Analyzer from 'parser/core/Analyzer';
+import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage';
 import Enemies from 'parser/shared/modules/Enemies';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
-import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage';
 
-import { FERAL_DRUID_DAMAGE_AURA, INCARNATION_SHRED_DAMAGE, SAVAGE_ROAR_DAMAGE_BONUS, TIGERS_FURY_DAMAGE_BONUS, BLOODTALONS_DAMAGE_BONUS, MOMENT_OF_CLARITY_DAMAGE_BONUS, SHRED_SWIPE_BONUS_ON_BLEEDING } from '../../constants.js';
-import Abilities from '../Abilities.js';
+import { AFFECTED_SPELLS as UNTAMED_FEROCITY_SPELLS, calcBonus as calcUntamedFerocityBonus } from '../azeritetraits/UntamedFerocity';
+import Abilities from '../Abilities';
 
 const debug = false;
 // Swipe has a bear and a cat version, both are affected by the trait. It can be replaced by the talent Brutal Slash which benefits in the same way.
-const SWIPE_SPELLS = [
+export const SWIPE_SPELLS = [
   SPELLS.SWIPE_BEAR.id,
   SPELLS.SWIPE_CAT.id,
   SPELLS.BRUTAL_SLASH_TALENT.id,
@@ -28,6 +27,35 @@ const HIT_TYPES_TO_IGNORE = [
   HIT_TYPES.DODGE,
   HIT_TYPES.PARRY,
 ];
+
+export function isAffectedByWildFleshrending(damageEvent, owner, enemies) {
+  if (!(damageEvent.ability.guid === SPELLS.SHRED.id) && !SWIPE_SPELLS.includes(damageEvent.ability.guid)) {
+    // Only shred and swipe spells can be affected
+    return false; 
+  }
+  const target = enemies.getEntities()[damageEvent.targetID];
+  if (!target || (
+      !target.hasBuff(SPELLS.THRASH_FERAL.id, damageEvent.timestamp, 0, 0, owner.playerId) &&
+      !target.hasBuff(SPELLS.THRASH_BEAR_DOT.id, damageEvent.timestamp, 0, 0, owner.playerId))) {
+    // The target must have the player's Thrash active
+    return false;
+  }
+  return true;
+}
+export function calcShredBonus(combatant) {
+  if (!combatant.hasTrait(SPELLS.WILD_FLESHRENDING.id)) {
+    return 0;
+  }
+  return combatant.traitsBySpellId[SPELLS.WILD_FLESHRENDING.id]
+      .reduce((sum, rank) => sum + calculateAzeriteEffects(SPELLS.WILD_FLESHRENDING.id, rank)[0], 0);
+}
+export function calcSwipeBonus(combatant) {
+  if (!combatant.hasTrait(SPELLS.WILD_FLESHRENDING.id)) {
+    return 0;
+  }
+  return combatant.traitsBySpellId[SPELLS.WILD_FLESHRENDING.id]
+      .reduce((sum, rank) => sum + calculateAzeriteEffects(SPELLS.WILD_FLESHRENDING.id, rank)[1], 0);
+}
 
 /**
  * Wild Fleshrending
@@ -40,6 +68,9 @@ class WildFleshrending extends Analyzer {
     enemies: Enemies,
     statTracker: StatTracker,
   };
+
+  // Untamed Ferocity is another azerite trait that increases shred and swipe damage, so needs to be accounted for.
+  untamedFerocityBonus = 0;
 
   shredBonus = 0;
   shredsWithThrash = 0;
@@ -56,18 +87,15 @@ class WildFleshrending extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    if(!this.selectedCombatant.hasTrait(SPELLS.WILD_FLESHRENDING.id)) {
+    if (!this.selectedCombatant.hasTrait(SPELLS.WILD_FLESHRENDING.id)) {
       this.active = false;
       return;
     }
 
-    this.shredBonus = this.selectedCombatant.traitsBySpellId[SPELLS.WILD_FLESHRENDING.id]
-      .reduce((sum, rank) => sum + calculateAzeriteEffects(SPELLS.WILD_FLESHRENDING.id, rank)[0], 0);
-    debug && console.log(`shredBonus from items: ${this.shredBonus}`);
-
-    this.swipeBonus = this.selectedCombatant.traitsBySpellId[SPELLS.WILD_FLESHRENDING.id]
-      .reduce((sum, rank) => sum + calculateAzeriteEffects(SPELLS.WILD_FLESHRENDING.id, rank)[1], 0);
-    debug && console.log(`swipeBonus from items: ${this.swipeBonus}`);
+    this.shredBonus = calcShredBonus(this.selectedCombatant);
+    this.swipeBonus = calcSwipeBonus(this.selectedCombatant);
+    this.untamedFerocityBonus = calcUntamedFerocityBonus(this.selectedCombatant);
+    debug && this.log(`untamedFerocityBonus: ${this.untamedFerocityBonus}, shredBonus: ${this.shredBonus}, swipeBonus: ${this.swipeBonus}`);
   }
 
   on_byPlayer_cast(event) {
@@ -96,12 +124,8 @@ class WildFleshrending extends Analyzer {
       this.swipesTotal += 1;
     }
 
-    const target = this.enemies.getEntities()[event.targetID];
-    if (!target || (
-        !target.hasBuff(SPELLS.THRASH_FERAL.id, event.timestamp, 0, 0, this.owner.playerId) &&
-        !target.hasBuff(SPELLS.THRASH_BEAR_DOT.id, event.timestamp, 0, 0, this.owner.playerId))) {
-      // Only applies bonus damage if hitting a target with player's Thrash (either cat or bear version) active on it
-      debug && console.log(`${this.owner.formatTimestamp(event.timestamp, 3)} hit without Thrash`);
+    if (!isAffectedByWildFleshrending(event, this.owner, this.enemies)) {
+      debug && this.log('hit without Thrash');
       return;
     }
 
@@ -120,52 +144,22 @@ class WildFleshrending extends Analyzer {
      * We know the damageDone, attackPower, ABILITY_COEFFICIENT, and traitBonus which means we can calculate the modifier's value for this attack. With the modifier known we can multiply that by traitBonus to find how much damage it actually contributed to this attack.
      * 
      * Assumptions: There are no effects in play that adjust damage by a set number rather than by multiplying, apart from those that appear in the log as absorbed damage. Everything that modifies the ability's base damage also modifies the trait's bonus damage in the same way. I've yet to find anything that violates these assumptions.
+     * 
+     * With the addition of Untamed Ferocity that damage bonus needs to be accounted for too:
+     * damageDone = (attackPower * ABILITY_COEFFICIENT + wildFleshrendingBonus + untamedFerocityBonus) * modifier
      */
     
     const traitBonus = isShred ? this.shredBonus : this.swipeBonus;
+    // there are situations such as using Bear's Swipe ability where Wild Fleshrending is active and Untamed Ferocity is not
+    const otherBonus = UNTAMED_FEROCITY_SPELLS.includes(event.ability.guid) ? this.untamedFerocityBonus : 0;
     const coefficient = this.abilities.getAbility(event.ability.guid).primaryCoefficient;
-    const [ traitDamageContribution ] = calculateBonusAzeriteDamage(event, [traitBonus], this.attackPower, coefficient);
+    const [ traitDamageContribution ] = calculateBonusAzeriteDamage(event, [traitBonus, otherBonus], this.attackPower, coefficient);
     if (isShred) {
       this.shredDamage += traitDamageContribution;
-      debug && console.log(`${this.owner.formatTimestamp(event.timestamp, 3)} Shred increased by ${traitDamageContribution.toFixed(0)}.`);
+      debug && this.log(`Shred increased by ${traitDamageContribution.toFixed(0)}.`);
     } else {
       this.swipeDamage += traitDamageContribution;
-      debug && console.log(`${this.owner.formatTimestamp(event.timestamp, 3)} Swipe (or BrS) increased by ${traitDamageContribution.toFixed(0)}.`);
-    }
-
-    // As an accuracy check, during debug also calculate the trait's damage bonus using a method based on that used for Frost Mage's Whiteout trait.
-    if (debug) {
-      const critMultiplier = this.selectedCombatant.race === RACES.Tauren ? 2.04 : 2.00;
-      const externalModifier = (event.amount / event.unmitigatedAmount) / (event.hitType === HIT_TYPES.CRIT ? critMultiplier : 1.0);
-      console.log(`externalModifier: ${externalModifier.toFixed(3)}`);
-
-      let estimatedDamage = traitBonus * (1 + this.statTracker.currentVersatilityPercentage) * FERAL_DRUID_DAMAGE_AURA;
-      if (event.ability.guid === SPELLS.SHRED.id || event.ability.guid === SPELLS.SWIPE_CAT.id) {
-        estimatedDamage *= SHRED_SWIPE_BONUS_ON_BLEEDING;
-      }
-      if (isShred && this.selectedCombatant.hasBuff(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id)) {
-        estimatedDamage *= INCARNATION_SHRED_DAMAGE;
-      }
-      if (this.selectedCombatant.hasTalent(SPELLS.MOMENT_OF_CLARITY_TALENT.id) && this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING_FERAL.id, event.timestamp, 500)) {
-        estimatedDamage *= 1 + MOMENT_OF_CLARITY_DAMAGE_BONUS;
-      }
-      if (this.selectedCombatant.hasBuff(SPELLS.TIGERS_FURY.id)) {
-        estimatedDamage *= 1 + TIGERS_FURY_DAMAGE_BONUS;
-      }
-      if (this.selectedCombatant.hasBuff(SPELLS.BLOODTALONS_BUFF.id, null, 100)) {
-        estimatedDamage *= 1 + BLOODTALONS_DAMAGE_BONUS;
-      }
-      if (this.selectedCombatant.hasBuff(SPELLS.SAVAGE_ROAR_TALENT.id)) {
-        estimatedDamage *= 1 + SAVAGE_ROAR_DAMAGE_BONUS;
-      }
-      if (event.hitType === HIT_TYPES.CRIT) {
-        estimatedDamage *= critMultiplier;
-      }
-      estimatedDamage *= externalModifier;
-      console.log(`estimatedDamage: ${estimatedDamage.toFixed(0)}`);
-
-      const variation = estimatedDamage / traitDamageContribution;
-      console.log(`Matching of contribution calculations: ${(variation * 100).toFixed(1)}%`);
+      debug && this.log(`Swipe (or BrS) increased by ${traitDamageContribution.toFixed(0)}.`);
     }
   }
 
@@ -178,9 +172,11 @@ class WildFleshrending extends Analyzer {
         value={(
           <ItemDamageDone amount={this.shredDamage + this.swipeDamage} />
         )}
-        tooltip={`The Wild Fleshrending trait increased your Shred damage by a total of <b>${formatNumber(this.shredDamage)}</b> and ${swipeName} by <b>${formatNumber(this.swipeDamage)}</b>.
+        tooltip={`Increased your Shred damage by a total of <b>${formatNumber(this.shredDamage)}</b> and ${swipeName} by <b>${formatNumber(this.swipeDamage)}</b>.
+        <ul>
           <li><b>${(100 * this.shredsWithThrash / this.shredsTotal).toFixed(0)}%</b> of your Shreds benefited from Wild Fleshrending.
-          <li><b>${(100 * this.swipesWithThrash / this.swipesTotal).toFixed(0)}%</b> of your ${swipeName}s benefited from Wild Fleshrending.`}
+          <li><b>${(100 * this.swipesWithThrash / this.swipesTotal).toFixed(0)}%</b> of your ${swipeName}s benefited from Wild Fleshrending.
+        </ul>`}
       />
     );
   }

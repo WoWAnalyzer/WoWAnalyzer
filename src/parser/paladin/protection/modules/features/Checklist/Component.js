@@ -88,7 +88,10 @@ class ProtectionPaladinChecklist extends React.PureComponent{
         >
           <AbilityRequirement name={<><SpellLink id={this.props.extras.lotpAbility.id} /> Cast Efficiency</>} 
             spell={this.props.extras.lotpAbility.id} />
-          <Requirement name="Avg. Cast Delay" thresholds={thresholds.lotpDelay} />
+          <Requirement name="Avg. Cast Delay"
+            tooltip={this.props.extras.lotpAbility.id === SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id ? 
+                "Only self-casts are counted for delay tracking." : null}
+            thresholds={thresholds.lotpDelay} />
           <Requirement name="Overhealing" thresholds={thresholds.lotpOverheal} />
         </Rule>
         <PreparationRule thresholds={thresholds} />

@@ -5,6 +5,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('16 February 2019'),
+    contributors: [emallson],
+    changes: <><SpellLink id={SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id} /> cast delay is now only tracked for self-targeted casts.</>,
+  },
+  {
     date: new Date('29 December 2018'),
     contributors: [emallson],
     changes: <>Added support for <SpellLink id={SPELLS.AVENGERS_VALOR_BUFF.id} /> to the Good <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> casts check.</>,

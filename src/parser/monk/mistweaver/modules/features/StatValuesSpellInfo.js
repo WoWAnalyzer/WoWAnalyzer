@@ -174,4 +174,12 @@ export default {
     mastery: false,
     vers: true,
   },
+  [SPELLS.SOOTHING_MIST_STATUE.id]: {
+    int: true,
+    crit: true,
+    hasteHpm: false,
+    hasteHpct: true,
+    mastery: false,
+    vers: true,
+  },
 };

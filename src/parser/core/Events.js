@@ -156,14 +156,6 @@ const Events = {
   get summon() {
     return new EventFilter('summon');
   },
-  /**
-   * Triggered at the start of the fight with advanced combat logging on. This includes gear, talents, etc.
-   * BEWARE: It should generally not be used as all its data should be available in `this.selectedCombatant`.
-   * @returns {EventFilter}
-   */
-  get combatantinfo() {
-    return new EventFilter('combatantinfo');
-  },
   get energize() {
     return new EventFilter('energize');
   },

@@ -42,6 +42,7 @@ class GuardianSpirit extends Analyzer {
       });
   }
 
+
   statistic() {
     return (
       <LazyLoadStatisticBox

@@ -12,9 +12,22 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 
 import Checklist from './modules/features/Checklist/Module';
 
-import Momentum from './modules/spells/Momentum';
-import Nemesis from './modules/spells/Nemesis';
+// Spells
+import DemonBite from './modules/spells/DemonBite';
+import MetaBuffUptime from './modules/spells/MetaBuffUptime';
 
+// Talents
+import Momentum from './modules/talents/Momentum';
+import Nemesis from './modules/talents/Nemesis';
+import Felblade from './modules/talents/Felblade';
+import DemonicAppetite from './modules/talents/DemonicAppetite';
+import BlindFury from './modules/talents/BlindFury';
+import DemonBlades from './modules/talents/DemonBlades';
+import ImmolationAura from './modules/talents/ImmolationAura';
+import TrailofRuin from './modules/talents/TrailofRuin';
+import FelBarrage from './modules/talents/FelBarrage';
+import FelMastery from './modules/talents/FelMastery';
+import Netherwalk from './modules/talents/Netherwalk';
 //Resources
 import FuryDetails from './modules/resourcetracker/FuryDetails';
 import FuryTracker from './modules/resourcetracker/FuryTracker';
@@ -39,8 +52,22 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
 
     // Spells
+    demonBite: DemonBite,
+    metaBuffUptime: MetaBuffUptime,
+
+    //Talents
+    felblade: Felblade,
+    demonicAppetite: DemonicAppetite,
+    blindFury: BlindFury,
+    demonBlades: DemonBlades,
+    immolationAura: ImmolationAura,
+    trailofRuin: TrailofRuin,
+    felBarrage: FelBarrage,
+    felMastery: FelMastery,
     momentum: Momentum,
     nemesis: Nemesis,
+    netherwalk: Netherwalk,
+
 
     //Resources
     furyTracker: FuryTracker,

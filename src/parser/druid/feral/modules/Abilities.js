@@ -22,6 +22,7 @@ class Abilities extends CoreAbilities {
           static: 1000,
         },
         timelineSortIndex: 2,
+        primaryCoefficient: 0.1822, // initial damage, not DoT damage
       },
       {
         spell: SPELLS.RIP,
@@ -57,6 +58,7 @@ class Abilities extends CoreAbilities {
           base: 1000,
         },
         timelineSortIndex: 3,
+        primaryCoefficient: 0.15, // initial damage, not DoT damage
       },
 
       {
@@ -66,6 +68,7 @@ class Abilities extends CoreAbilities {
           static: 1000,
         },
         timelineSortIndex: 10,
+        primaryCoefficient: 0.055, // initial damage, not DoT damage
       },
       {
         spell: SPELLS.SWIPE_CAT,

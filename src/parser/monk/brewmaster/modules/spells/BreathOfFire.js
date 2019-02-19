@@ -30,9 +30,9 @@ class BreathOfFire extends Analyzer {
       actual: this.mitigatedHits,
       // max possible now is 0.8 w/o shenanigans
       isLessThan: {
-        minor: 0.75,
-        average: 0.65,
-        major: 0.55,
+        minor: 0.7,
+        average: 0.6,
+        major: 0.5,
       },
       style: 'percentage',
     };

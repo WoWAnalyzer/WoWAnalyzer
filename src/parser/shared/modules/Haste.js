@@ -179,6 +179,9 @@ class Haste extends Analyzer {
     this._setHaste(event, this.constructor.removeHaste(this.current, haste));
   }
   _setHaste(event, haste) {
+    if (isNaN(haste)) {
+      throw new Error('Attempted to set an invalid Haste value. Something broke.');
+    }
     const oldHaste = this.current;
     this.current = haste;
 

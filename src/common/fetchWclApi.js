@@ -34,17 +34,38 @@ const HTTP_CODES = {
 };
 const WCL_API_ERROR_TEXT = 'Warcraft Logs API error';
 
-async function toJson(response) {
+function fixControlCharacters(text) {
+  // Try to replace non-ascii chars on "unexpected character"-errors
+  // hotfixes the german logs that have control-characters in their names
+  return text.replace(/[^\x20-\x7E]/g, '');
+}
+function fixSpellNameEscaping(text) {
+  // WCL fails to escape spell names when using translate=true, leading to invalid JSON.
+  // this fixes these logs by removing those
+  const regex = /"name": ?"(.+?)",/g;
+  // eslint-disable-next-line
+  while (true) {
+    const match = regex.exec(text);
+    if (match === null) {
+      break;
+    }
+    const spellName = match[1];
+    if (spellName.includes('"')) {
+      text = text.replace(spellName, spellName.replace(/\\"/g, '"').replace(/"/g, '\\"'));
+    }
+  }
+  return text;
+}
+export async function toJson(response) {
   // Manually parse the response JSON so we keep the original data in memory so we can pass it to Sentry if something is wrong.
-  let text = await response.text();
+  let text = typeof response === 'string' ? response : await response.text();
   try {
     return JSON.parse(text);
   } catch (error) {
-    // tries to replace non-ascii chars on "unexpected character"-errors
-    // hotfixes the german logs that have control-characters in their names
     if (error instanceof SyntaxError) {
       try {
-        text = text.replace(/[^\x20-\x7E]/g, '');
+        text = fixControlCharacters(text);
+        text = fixSpellNameEscaping(text);
         return JSON.parse(text);
       } catch (asciiFixError) {
         // Ignore the error since we're more interested in the original error.

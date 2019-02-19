@@ -37,11 +37,12 @@ class MistweaverMonkChecklist extends React.PureComponent {
           name="Use core abilities as often as possible"
           description={(
             <>
-              As a Mistweaver you only have a single rotational spell that should be cast on CD <SpellLink id={SPELLS.RENEWING_MIST.id} />.
+              As a Mistweaver you only have a single rotational spell that should be cast on CD <SpellLink id={SPELLS.RENEWING_MIST.id} />. The other piece is ensuring you have enough <SpellLink id={SPELLS.RENEWING_MIST.id} />'s on the raid so that you maximize the cleave healing from <SpellLink id={SPELLS.VIVIFY.id} />.
             </>
           )}
         >
           <AbilityRequirement spell={SPELLS.RENEWING_MIST.id} />
+          <Requirement name={(<><SpellLink id={SPELLS.RENEWING_MIST.id} /> avg per Vivify cast</>)} thresholds={thresholds.vivify} />
         </Rule>
 
         <Rule
@@ -55,6 +56,7 @@ class MistweaverMonkChecklist extends React.PureComponent {
         >
           <AbilityRequirement spell={SPELLS.THUNDER_FOCUS_TEA.id} />
           {combatant.hasTalent(SPELLS.MANA_TEA_TALENT.id) && <AbilityRequirement spell={SPELLS.MANA_TEA_TALENT.id} />}
+          {combatant.hasTalent(SPELLS.MANA_TEA_TALENT.id) && <Requirement name={(<><SpellLink id={SPELLS.RENEWING_MIST.id} /> active during MT</>)} thresholds={thresholds.renewingMistDuringManaTea} />}
           {combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id) && <AbilityRequirement spell={SPELLS.CHI_BURST_TALENT.id} />}
           {combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id) && <AbilityRequirement spell={SPELLS.CHI_WAVE_TALENT.id} />}
           {combatant.hasTalent(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id) && <AbilityRequirement spell={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id} />}

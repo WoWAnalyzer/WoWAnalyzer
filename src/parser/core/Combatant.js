@@ -1,6 +1,7 @@
 import SPECS from 'game/SPECS';
 import RACES from 'game/RACES';
 import traitIdMap from 'common/TraitIdMap';
+import SPELLS from 'common/SPELLS';
 
 import Entity from './Entity';
 
@@ -35,6 +36,9 @@ export const GEAR_SLOTS = {
 };
 
 class Combatant extends Entity {
+  get id() {
+    return this._combatantInfo.sourceID;
+  }
   get name() {
     return this._combatantInfo.name;
   }
@@ -62,6 +66,7 @@ class Combatant extends Entity {
     this._parseTalents(combatantInfo.talents);
     this._parseTraits(combatantInfo.artifact);
     this._parseGear(combatantInfo.gear);
+    this._parsePrepullBuffs(combatantInfo.auras);
   }
 
   // region Talents
@@ -255,6 +260,23 @@ class Combatant extends Entity {
       .find(item => item.id === itemId);
   }
   // endregion
+
+  _parsePrepullBuffs(buffs) {
+    // TODO: We only apply prepull buffs in the `auras` prop of combatantinfo, but not all prepull buffs are in there and ApplyBuff finds more. We should update ApplyBuff to add the other buffs to the auras prop of the combatantinfo too (or better yet, make a new normalizer for that).
+    const timestamp = this.owner.fight.start_time;
+    buffs.forEach(buff => {
+      const spell = SPELLS[buff.ability];
+      this.applyBuff({
+        ability: {
+          abilityIcon: buff.icon.replace('.jpg', ''),
+          guid: buff.ability,
+          name: spell ? spell.name : undefined,
+        },
+        sourceID: buff.source,
+        start: timestamp,
+      });
+    });
+  }
 }
 
 export default Combatant;

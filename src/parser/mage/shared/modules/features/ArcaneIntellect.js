@@ -5,7 +5,6 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 
 class ArcaneIntellect extends Analyzer {
-
 	get uptime() {
 		return this.selectedCombatant.getBuffUptime(SPELLS.ARCANE_INTELLECT.id) / this.owner.fightDuration;
 	}

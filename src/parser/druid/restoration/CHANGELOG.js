@@ -4,6 +4,11 @@ import { Yajinni, blazyb, fel1ne, Qbz } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2019-02-08'),
+    changes: 'Grove Tending now has mastery healing included.',
+    contributors: [blazyb],
+  },
+  {
     date: new Date('2019-02-02'),
     changes: 'Int gain from extra rejuvenation duration from Autumn Leaves is added.',
     contributors: [blazyb],

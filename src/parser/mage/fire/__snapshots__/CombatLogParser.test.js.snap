@@ -134,30 +134,7 @@ Array [
 
 exports[`The Fire Mage Analyzer analyzers ArcaneIntellect matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers ArcaneIntellect matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "spell_holy_magicalsentry",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      <SpellLink
-        icon={true}
-        id={1459}
-      />
-       was up for 
-      99.85
-      % of the fight. Ensure you are casting this before the pull and recasting it every time you are ressurected.
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      99.85% Uptime
-       (
-      100.00% is recommended
-      )
-    </React.Fragment>,
-  },
-]
-`;
+exports[`The Fire Mage Analyzer analyzers ArcaneIntellect matches the suggestions snapshot 1`] = `Array []`;
 
 exports[`The Fire Mage Analyzer analyzers ArcaneTorrent matches the statistic snapshot 1`] = `"module inactive"`;
 
@@ -2836,9 +2813,9 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
               className="performance-bar small"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
+                  "backgroundColor": "#4ec04e",
                   "transition": "background-color 800ms",
-                  "width": "99.92496437709478%",
+                  "width": "100%",
                 }
               }
             />
@@ -3360,7 +3337,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                 }
               >
                  
-                99.85%
+                100.00%
                  
                  
               </div>
@@ -3380,9 +3357,9 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                   className="performance-bar small"
                   style={
                     Object {
-                      "backgroundColor": "#a6c34c",
+                      "backgroundColor": "#4ec04e",
                       "transition": "background-color 800ms",
-                      "width": "99.39971501675825%",
+                      "width": "100%",
                     }
                   }
                 />
