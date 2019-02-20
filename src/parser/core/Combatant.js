@@ -265,6 +265,9 @@ class Combatant extends Entity {
     // TODO: We only apply prepull buffs in the `auras` prop of combatantinfo, but not all prepull buffs are in there and ApplyBuff finds more. We should update ApplyBuff to add the other buffs to the auras prop of the combatantinfo too (or better yet, make a new normalizer for that).
     const timestamp = this.owner.fight.start_time;
     buffs.forEach(buff => {
+      if(buff.source!==this.id){
+        return;
+      }
       const spell = SPELLS[buff.ability];
       this.applyBuff({
         ability: {
