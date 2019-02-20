@@ -16,10 +16,7 @@ class Lifebloom extends Analyzer {
   };
 
   get uptime() {
-    return Object.keys(this.combatants.players)
-      .map(key => this.combatants.players[key])
-      .reduce((uptime, player) =>
-        uptime + player.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id), 0);
+    return this.combatants.getBuffUptime(SPELLS.LIFEBLOOM_HOT_HEAL.id);
   }
 
   get uptimePercent() {

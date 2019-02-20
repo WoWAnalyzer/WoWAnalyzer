@@ -64,6 +64,8 @@ class Entities extends Analyzer {
       return;
     }
 
+    debug && this.log(`Apply buff ${event.ability.name} to ${entity.name}`);
+
     const buff = {
       ...event,
       start: event.timestamp,
