@@ -261,18 +261,18 @@ class Combatant extends Entity {
   }
   // endregion
 
-  _parsePrepullBuffs(buffs) {
-    // TODO: We only apply prepull buffs in the `auras` prop of combatantinfo, but not all prepull buffs are in there and ApplyBuff finds more. We should update ApplyBuff to add the other buffs to the auras prop of the combatantinfo too (or better yet, make a new normalizer for that).
+  _parsePrepullBuffs(auras) {
     const timestamp = this.owner.fight.start_time;
-    buffs.forEach(buff => {
-      const spell = SPELLS[buff.ability];
+    auras.forEach(aura => {
+      const extra = aura.__extra;
+      const spell = SPELLS[aura.ability];
       this.applyBuff({
-        ability: {
-          abilityIcon: buff.icon.replace('.jpg', ''),
-          guid: buff.ability,
+        ability: extra ? extra.ability : {
+          abilityIcon: aura.icon,
+          guid: aura.ability,
           name: spell ? spell.name : undefined,
         },
-        sourceID: buff.source,
+        sourceID: aura.source,
         start: timestamp,
       });
     });
