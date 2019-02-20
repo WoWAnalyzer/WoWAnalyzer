@@ -494,9 +494,7 @@ class CombatLogParser {
       .filter(module => module instanceof EventsNormalizer)
       .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
       .forEach(module => {
-        if (module.normalize) {
-          events = module.normalize(events);
-        }
+        events = module.normalize(events);
       });
     return events;
   }

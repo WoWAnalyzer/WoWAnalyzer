@@ -29,7 +29,7 @@ class CombatantInfoAuras extends EventsNormalizer {
       completeBuffs[targetId] = completeBuffs[targetId] || {};
       completeBuffs[targetId][sourceId] = completeBuffs[targetId][sourceId] || [];
       completeBuffs[targetId][sourceId].push(Number(spellId));
-      debug && this.log(`Marked ${spellId} as complete`);
+      debug && this.log(`Marked ${spellId} on ${targetId} by ${sourceId} as complete`);
     };
     const isComplete = (sourceId, targetId, spellId) => {
       if (!completeBuffs[targetId] || !completeBuffs[targetId][sourceId]) {
@@ -77,7 +77,7 @@ class CombatantInfoAuras extends EventsNormalizer {
             combatant.auras = [];
           }
 
-          debug && this.log('Found a buff on', ((playersById[targetId] && playersById[targetId].name) || '???'), 'that was applied before the pull:', event.ability.name, spellId, '! Fabricating an entry in `auras` of the `combatantinfo` so you don\'t have to do anything special to take this into account.');
+          debug && this.log('Found', spellId, event.ability.name, 'on', targetId, ((playersById[targetId] && playersById[targetId].name) || '???'), 'by', sourceId, ((playersById[sourceId] && playersById[sourceId].name) || '???'), 'that was applied before the pull! Fabricating an entry in `auras` of the `combatantinfo` so you don\'t have to do anything special to take this into account.');
           combatant.auras.push({
             source: event.sourceID,
             ability: spellId,

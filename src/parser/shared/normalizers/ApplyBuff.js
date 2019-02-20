@@ -21,7 +21,7 @@ class ApplyBuff extends EventsNormalizer {
         const sourceId = aura.source;
         const extra = aura.__extra;
 
-        debug && console.warn('Found a buff on', ((playersById[targetId] && playersById[targetId].name) || '???'), 'in the combatantinfo that was applied before the pull:', (SPELLS[spellId] && SPELLS[spellId].name) || '???', spellId, '! Fabricating an `applybuff` event so you don\'t have to do anything special to take this into account.');
+        debug && this.log('Found a buff on', ((playersById[targetId] && playersById[targetId].name) || '???'), 'in the combatantinfo that was applied before the pull:', (SPELLS[spellId] && SPELLS[spellId].name) || '???', spellId, '! Fabricating an `applybuff` event so you don\'t have to do anything special to take this into account.');
         const applybuff = {
           // These are all the properties a normal `applybuff` event would have.
           timestamp: firstStartTimestamp,
