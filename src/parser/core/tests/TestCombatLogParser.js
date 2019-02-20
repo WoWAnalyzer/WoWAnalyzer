@@ -29,6 +29,7 @@ class TestCombatLogParser extends CombatLogParser {
 
   constructor(
     report = {
+      friendlies: [],
       friendlyPets: [],
     },
     selectedPlayer = {

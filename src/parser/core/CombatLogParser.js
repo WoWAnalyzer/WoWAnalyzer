@@ -9,6 +9,7 @@ import ChangelogTabTitle from 'interface/others/ChangelogTabTitle';
 import DeathRecapTracker from 'interface/others/DeathRecapTracker';
 import ItemStatisticBox from 'interface/others/ItemStatisticBox';
 
+import CombatantInfoAurasNormalizer from 'parser/shared/normalizers/CombatantInfoAuras';
 import ApplyBuffNormalizer from 'parser/shared/normalizers/ApplyBuff';
 import CancelledCastsNormalizer from 'parser/shared/normalizers/CancelledCasts';
 import PrePullCooldownsNormalizer from 'parser/shared/normalizers/PrePullCooldowns';
@@ -157,6 +158,7 @@ class CombatLogParser {
   static abilitiesAffectedByDamageIncreases = [];
 
   static internalModules = {
+    combatantInfoAurasNormalizer: CombatantInfoAurasNormalizer,
     fightEndNormalizer: FightEndNormalizer,
     eventEmitter: EventEmitter,
     combatants: Combatants,
