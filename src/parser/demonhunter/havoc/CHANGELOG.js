@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-02-21'),
+    changes: <>Added proper tracking for the azerite trait <SpellLink id={SPELLS.FURIOUS_GAZE.id} />.</>,
+    contributors: [Yajinni],
+  },
+  {
     date: new Date('2019-02-08'),
     changes: <>Large update to the checklist. Added all previous talents/suggestions that have been added from previous updates. Made the buff category hide if no <SpellLink id={SPELLS.MOMENTUM_TALENT.id} /> buff to show.</>,
     contributors: [Yajinni],
