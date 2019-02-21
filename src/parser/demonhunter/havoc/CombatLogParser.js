@@ -28,6 +28,7 @@ import TrailofRuin from './modules/talents/TrailofRuin';
 import FelBarrage from './modules/talents/FelBarrage';
 import FelMastery from './modules/talents/FelMastery';
 import Netherwalk from './modules/talents/Netherwalk';
+import FelEruption from './modules/talents/FelEruption';
 //Resources
 import FuryDetails from './modules/resourcetracker/FuryDetails';
 import FuryTracker from './modules/resourcetracker/FuryTracker';
@@ -67,6 +68,7 @@ class CombatLogParser extends CoreCombatLogParser {
     momentum: Momentum,
     nemesis: Nemesis,
     netherwalk: Netherwalk,
+    felEruption: FelEruption,
 
 
     //Resources
