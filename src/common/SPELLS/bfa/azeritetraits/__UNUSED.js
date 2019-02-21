@@ -304,11 +304,6 @@ export default {
     name: 'Fortifying Auras',
     icon: 'spell_holy_auramastery',
   },
-  FURIOUS_GAZE: {
-    id: 273231,
-    name: 'Furious Gaze',
-    icon: 'ability_demonhunter_eyebeam',
-  },
   FURY_OF_THE_SANDS: {
     id: 263989,
     name: 'Fury of the Sands',
