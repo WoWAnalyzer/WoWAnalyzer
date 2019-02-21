@@ -551,3 +551,13 @@ export const Korebian = {
   nickname: 'Korebian',
   github: 'Asamsig',
 };
+export const _4Ply = {
+  nickname: '4Ply',
+  github: '4Ply',
+  discord: '4Ply#9270',
+  mains: [{
+    name: 'Uzdrowiciela',
+    spec: SPECS.RESTORATION_DRUID,
+    link: 'https://worldofwarcraft.com/en-gb/character/sylvanas/Uzdrowiciela',
+  }],
+};
