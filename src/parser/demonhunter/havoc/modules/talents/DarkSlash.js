@@ -8,6 +8,10 @@ import { formatThousands } from 'common/format';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
+/*
+  example report: https://www.warcraftlogs.com/reports/3DFqkLhgRMB9wHQ7/#fight=33&source=16
+ */
+
 const DAMAGE_SPELLS = [
   SPELLS.CHAOS_STRIKE_MH_DAMAGE,
   SPELLS.CHAOS_STRIKE_OH_DAMAGE,

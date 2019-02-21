@@ -7,6 +7,10 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatNumber } from 'common/format';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
+/*
+  example report: https://www.warcraftlogs.com/reports/QxHJ9MTtmVYNXPLd/#fight=1&source=2
+ */
+
 const COOLDOWN_REDUCTION_MS = 3000;
 
 class CycleOfHatred extends Analyzer {
