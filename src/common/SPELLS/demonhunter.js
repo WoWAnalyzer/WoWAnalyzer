@@ -387,21 +387,6 @@ export default {
     name: 'Deceiver\'s Fury',
     icon: 'ability_demonhunter_blur',
   },
-  FEL_MASTERY_FURY: {
-    id: 234244,
-    name: 'Fel Mastery',
-    icon: 'ability_skyreach_piercing_rush',
-  },
-  TRAIL_OF_RUIN_DAMAGE: {
-    id: 258883,
-    name: 'Trail of Ruin',
-    icon: 'ability_demonhunter_bladedance',
-  },
-  FEL_BARRAGE_DAMAGE: {
-    id: 258926,
-    name: 'Fel Barrage',
-    icon: 'inv_felbarrage',
-  },
 
   // Havoc Talents
   DEMONIC_APPETITE_FURY: { //Generates Fury for the Demonic Appetite talent
@@ -469,7 +454,26 @@ export default {
     name: 'Momentum',
     icon: 'ability_foundryraid_demolition',
   },
-
+  FEL_MASTERY_FURY: {
+    id: 234244,
+    name: 'Fel Mastery',
+    icon: 'ability_skyreach_piercing_rush',
+  },
+  TRAIL_OF_RUIN_DAMAGE: {
+    id: 258883,
+    name: 'Trail of Ruin',
+    icon: 'ability_demonhunter_bladedance',
+  },
+  FEL_BARRAGE_DAMAGE: {
+    id: 258926,
+    name: 'Fel Barrage',
+    icon: 'inv_felbarrage',
+  },
+  MASTER_OF_THE_GLAIVE_DEBUFF: {
+    id: 213405,
+    name: 'Master of the Glaive Debuff',
+    icon: 'inv_glaive_1h_demonhunter_a_01',
+  },
 
   //Might need to delete/clean up the below stuff. From previous expac.
 

@@ -29,6 +29,7 @@ import FelBarrage from './modules/talents/FelBarrage';
 import FelMastery from './modules/talents/FelMastery';
 import Netherwalk from './modules/talents/Netherwalk';
 import FelEruption from './modules/talents/FelEruption';
+import MasterOfTheGlaives from './modules/talents/MasterOfTheGlaives';
 //Resources
 import FuryDetails from './modules/resourcetracker/FuryDetails';
 import FuryTracker from './modules/resourcetracker/FuryTracker';
@@ -69,6 +70,7 @@ class CombatLogParser extends CoreCombatLogParser {
     nemesis: Nemesis,
     netherwalk: Netherwalk,
     felEruption: FelEruption,
+    masterOfTheGlaives: MasterOfTheGlaives,
 
 
     //Resources
