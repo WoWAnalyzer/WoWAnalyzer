@@ -49,6 +49,7 @@ class PlayerTile extends React.PureComponent {
     const avatar = characterInfo && characterInfo.thumbnail ? `https://render-${characterInfo.region}.worldofwarcraft.com/character/${characterInfo.thumbnail.replace('avatar', 'inset')}` : '/img/fallback-character.jpg';
     const spec = SPECS[player.combatant.specID];
     const analysisUrl = makeUrl(player.id);
+    const heartOfAzeroth = characterInfo && characterInfo.heartOfAzeroth;
 
     player.parsable = !player.combatant.error && spec;
     if (!player.parsable) {
@@ -95,7 +96,13 @@ class PlayerTile extends React.PureComponent {
               <div className="flex-main">
                 <Icon icon="inv_helmet_03" /> {Math.round(getAverageItemLevel(player.combatant.gear))}
               </div>
-              <div className="flex-main text-right" />
+
+              {
+                heartOfAzeroth
+                && <div className="flex-main text-right">
+                  <Icon icon={heartOfAzeroth.icon}/> {heartOfAzeroth.itemLevel}
+                </div>
+              }
             </div>
           </div>
         </div>
