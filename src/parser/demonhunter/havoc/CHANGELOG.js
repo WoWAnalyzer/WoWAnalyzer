@@ -9,7 +9,7 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2019-02-21'),
-    changes: <>Added proper tracking for the azerite trait <SpellLink id={SPELLS.FURIOUS_GAZE.id} />.</>,
+    changes: <>Added tracking of the azerite trait <SpellLink id={SPELLS.FURIOUS_GAZE.id} />.</>,
     contributors: [Yajinni],
   },
   {
