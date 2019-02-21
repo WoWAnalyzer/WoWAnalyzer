@@ -42,7 +42,7 @@ class FuriousGaze extends Analyzer{
     const { haste } = furiousGazeStats(this.selectedCombatant.traitsBySpellId[SPELLS.FURIOUS_GAZE.id]);
     this.haste = haste;
 
-    this.statTracker.add(SPELLS.FURIOUS_GAZE.id, {
+    this.statTracker.add(SPELLS.FURIOUS_GAZE_BUFF.id, {
       haste,
     });
     console.log("haste amount? ", haste);
