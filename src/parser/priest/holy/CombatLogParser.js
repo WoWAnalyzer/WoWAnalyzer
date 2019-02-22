@@ -13,6 +13,7 @@ import Abilities from './modules/Abilities';
 import SpellManaCost from './modules/core/SpellManaCost';
 // Spell data
 import DivineHymn from './modules/spells/DivineHymn';
+import GuardianSpirit from './modules/spells/GuardianSpirit';
 import HolyWordSanctify from './modules/spells/holyword/HolyWordSanctify';
 import HolyWordSerenity from './modules/spells/holyword/HolyWordSerenity';
 import HolyWordChastise from './modules/spells/holyword/HolyWordChastise';
@@ -49,7 +50,7 @@ import PromiseOfDeliverance from './modules/spells/azeritetraits/PromiseOfDelive
 import DeathDenied from '../shared/modules/spells/azeritetraits/DeathDenied';
 
 // Mana Tracker
-import HealingEfficiencyDetails from '../../core/healingEfficiency/HealingEfficiencyDetails';
+import HealingEfficiencyDetails from './modules/features/HolyPriestHealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/HolyPriestHealingEfficiencyTracker';
 import ManaTracker from '../../core/healingEfficiency/ManaTracker';
 
@@ -81,6 +82,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Spells
     divineHymn: DivineHymn,
+    guardianSpirit: GuardianSpirit,
     hymnBuffBenefit: HymnBuffBenefit,
     holyWordSanctify: HolyWordSanctify,
     holyWordSerenity: HolyWordSerenity,

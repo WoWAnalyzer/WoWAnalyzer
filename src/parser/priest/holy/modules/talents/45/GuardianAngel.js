@@ -1,76 +1,71 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import React from 'react';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import Events from 'parser/core/Events';
 
-const GUARDIAN_SPIRIT_HEALING_MULTIPLIER = .6;
+const GS_BASE_COOLDOWN_TIME = (60 * 3) * 1000;
+const GS_MODIFIED_COOLDOWN_TIME = (60 + 10) * 1000; // one minute plus 10 seconds to account for the duration of the buff.
 
 // Example Log: /report/mFarpncVW9ALwTq4/7-Mythic+Zek'voz+-+Kill+(8:52)/14-Praydien
 class GuardianAngel extends Analyzer {
-  guardianSpiritCasts = 0;
-  guardianSpiritRemovals = 0;
-  guardianSpiritHeals = 0;
-  guardianSpiritHealing = 0;
-  guardianSpiritBonusHealingFromSelf = 0;
-  guardianSpiritBonusHealingFromOther = 0;
+  static dependencies = {
+    abilityTracker: AbilityTracker,
+  };
 
-  spiritedTarget = null;
-
-  get guardianSpiritRefreshes() {
-    return this.guardianSpiritRemovals - this.guardianSpiritHeals;
+  get guardianSpiritCastCount() {
+    return this.abilityTracker.getAbility(SPELLS.GUARDIAN_SPIRIT.id).casts;
   }
-
-  get guardianSpiritSelfHealing() {
-    return this.guardianSpiritHealing + this.guardianSpiritBonusHealingFromSelf;
+  guardianSpiritRemovalCount = 0;
+  guardianSpiritHealCount = 0;
+  get guardianSpiritRefreshCount() {
+    return this.guardianSpiritRemovalCount - this.guardianSpiritHealCount;
   }
-
-  get guardianSpiritEffectiveHealing() {
-    return this.guardianSpiritHealing + this.guardianSpiritBonusHealingFromSelf + this.guardianSpiritBonusHealingFromOther;
+  get baseGuardianSpiritCastsPossible() {
+    return Math.floor(this.owner.fightDuration / GS_BASE_COOLDOWN_TIME);
+  }
+  get gsGuardianSpiritCastsPossible() {
+    return Math.floor(this.owner.fightDuration / GS_MODIFIED_COOLDOWN_TIME);
+  }
+  get gsValue() {
+    const castDelta = this.guardianSpiritCastCount - this.baseGuardianSpiritCastsPossible;
+    return (castDelta) >= 0 ? (castDelta) : 0;
   }
 
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.GUARDIAN_ANGEL_TALENT.id);
+
+    if (!this.active) {
+      return;
+    }
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.GUARDIAN_SPIRIT), this._parseGsRemove);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUARDIAN_SPIRIT), this._parseGsHeal);
   }
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.GUARDIAN_SPIRIT.id) {
-      this.guardianSpiritCasts++;
-      this.spiritedTarget = event.targetID;
-    }
+  _parseGsRemove(event) {
+    this.guardianSpiritRemovalCount += 1;
   }
 
-  on_byPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.GUARDIAN_SPIRIT.id) {
-      this.guardianSpiritRemovals++;
-      this.spiritedTarget = null;
-    }
-  }
-
-  on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.GUARDIAN_SPIRIT_HEAL.id) {
-      this.guardianSpiritHeals++;
-      this.guardianSpiritHealing += event.amount || 0;
-    }
-
-    if (this.spiritedTarget != null && this.spiritedTarget === event.targetID) {
-      this.guardianSpiritBonusHealingFromSelf += (event.amount * (1 - GUARDIAN_SPIRIT_HEALING_MULTIPLIER));
-    }
+  _parseGsHeal(event) {
+    this.guardianSpiritHealCount += 1;
   }
 
   statistic() {
     return (
       <TalentStatisticBox
         talent={SPELLS.GUARDIAN_ANGEL_TALENT.id}
-        value={<ItemHealingDone amount={this.guardianSpiritSelfHealing} />}
+        value={(
+          <>
+            {this.guardianSpiritRefreshCount} Guardian Spirit resets<br />
+            {this.guardianSpiritHealCount} Guardian Spirits consumed
+          </>
+        )}
         tooltip={(
           <>
-            Total Guardian Spirits Cast: {this.guardianSpiritCasts}<br />
-            Total Guardian Spirit Resets: {this.guardianSpiritRefreshes}
+            You casted Guardian Spirit {this.gsValue} more times than you would have been able to without Guardian Angel.<br />
+            You could have theoretically cast Guardian Spirit {this.gsGuardianSpiritCastsPossible - this.guardianSpiritCastCount} more times.
           </>
         )}
         position={STATISTIC_ORDER.CORE(3)}

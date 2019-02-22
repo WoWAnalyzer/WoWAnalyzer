@@ -8,35 +8,35 @@ import HIT_TYPES from 'game/HIT_TYPES';
 const debug = false;
 const verboseDebug = false;
 
-/*
+/**
  * Tracks when a regenerating resource reaches its cap. Most useful for specs such as rogues
  * and feral druids where their energy resource quickly recharges through natural regeneration
  * and may frequently reach its cap during a fight.
- * 
+ *
  * It is an 'abstract' class, so should be extended and provided with settings for the resource
  * being tracked by your spec. Search for "IMPLEMENTME" for what should be set up.
- * 
+ *
  * Reductions in spell costs should be handled by implementing parser/core/Modules/SpellResourceCost
  * for the relevant resource.
- * 
+ *
  * If your derived class shares event handlers remember to call the original, e.g.
  * on_byPlayer_cast(event) {
  *  super.on_byPlayer_cast(event);
  *  // stuff related to your spec's implementation
  * }
- * 
+ *
  * Example derived class: parser/Druid/Feral/Modules/Features/EnergyCapTracker
- * 
+ *
  * For a more complete picture of how a combatant is using their resources you may want to
  * also use parser/core/Modules/ResourceTracker
  * ResourceTracker handles how it's energized and spent, RegenResourceCapTracker will tell
  * you about natural regeneration and how long it's at cap.
- * 
+ *
  * The accuracy of this module's predictions depends heavily on finding the "quirks" of how
  * abilities and their resource behaviours appear in the combat log. It can never be perfectly
  * accurate due to resources being rounded to integer values and latency issues, but an error
  * of less than ±2 should be possible.
- * 
+ *
  * Fabricates events 'beginresourcecap' and 'endresourcecap'. See the functions fabricateBeginCap
  * and fabricateEndCap for details on these events and their limitations.
  */
@@ -45,14 +45,19 @@ const verboseDebug = false;
  * How far (in ms) damage event can be separated from a cast and still use its information
  * to decide there should be a resource refund due to not hiting. 208ms is highest I've seen.
  */
- const REFUND_SPENDER_WINDOW = 500;
- const HIT_TYPES_THAT_REFUND = [
+const REFUND_SPENDER_WINDOW = 500;
+const HIT_TYPES_THAT_REFUND = [
   HIT_TYPES.MISS,
   HIT_TYPES.DODGE,
   HIT_TYPES.PARRY,
 ];
- 
- class RegenResourceCapTracker extends Analyzer {
+
+/**
+ * @property {EventEmitter} eventEmitter
+ * @property {Haste} haste
+ * @property {SpellResourceCost} spellResourceCost
+ */
+class RegenResourceCapTracker extends Analyzer {
   static dependencies = {
     eventEmitter: EventEmitter,
     haste: Haste,
@@ -64,10 +69,10 @@ const verboseDebug = false;
 
   // One of game/RESOURCE_TYPES
   static resourceType;
-  
+
   // Resource's base regeneration rate in points per second (e.g. 10 for Energy)
   static baseRegenRate = 0;
-  
+
   /**
    * Is natural regeneration rate increased by haste.
    * If a resource is affected by haste in an unusual way, set false and handle it manually in naturalRegenRate
@@ -93,19 +98,19 @@ const verboseDebug = false;
 
   /**
    * How close (in ms) a resource changing event must be to the last one to have the change handled cumulatively.
-   * 
-   * When resource changing events occur in a very short time the values in the combat log can become inaccurate. 
+   *
+   * When resource changing events occur in a very short time the values in the combat log can become inaccurate.
    *  What happens in the fight:
    * t: 1  player has 50 energy
    * t: 2  cast spending 20 energy
    * t: 2  energize gaining 30 energy
    * t: 3  player has 60 energy
-   * 
+   *
    *  What the log shows:
    * cast {timestamp: 2, classResources[i]: {amount: 50, cost: 20}}
    * energize {timestamp: 2, resourceChange: 30, classResources[i]: {amount: 80}}
    * ('amount' for cast events is what it was before the event, for energize events it's after.)
-   * 
+   *
    * If we trusted the resource information given by the last parsed event we'd expect energy to
    * be 80 at t = 3.
    */
@@ -130,11 +135,11 @@ const verboseDebug = false;
 
   // Total resources generated from natural regeneration, includes wasted resources.
   naturalRegen = 0;
-  
+
   regenState = null;
   prevSpender = null;
   hasReportedBelowCap = false;
-  
+
   /**
    * Amount of resource that should be available at current timestamp, accounting for natural regeneration.
    * @returns {number}
@@ -189,7 +194,7 @@ const verboseDebug = false;
   getReducedDrain(event) {
     return event.resourceChange;
   }
-  
+
   /**
    * IMPLEMENTME
    * Calculate current natural regeneration rate of the resource.
@@ -340,7 +345,7 @@ const verboseDebug = false;
         timestamp: event.timestamp,
       };
     }
-    
+
     const shouldAccumulate = eventResource.amount == null ||
       this.constructor.castsToApplyCumulatively.includes(event.ability.guid) ||
       this.isLastUpdateRecent(event.timestamp);
@@ -371,11 +376,11 @@ const verboseDebug = false;
     }
     const eventResource = this.getResource(event);
     const drain = this.getReducedDrain(event);
-    
+
     const shouldAccumulate = !eventResource || eventResource.amount == null ||
       this.constructor.energizersToApplyCumulatively.includes(event.ability.guid) ||
       this.isLastUpdateRecent(event.timestamp);
-    
+
     // eventResource.amount for a drain is the value before the change
     const current = (shouldAccumulate ? this.predictValue(event.timestamp) : eventResource.amount) - drain;
     if (debug && !shouldAccumulate) {
@@ -421,7 +426,7 @@ const verboseDebug = false;
     const regen = this.naturalRegenRate();
     this.updateState(null, null, regen);
   }
-  
+
   /**
    * Called when current, max, or regen rate for the resource has changed.
    * Builds a new regenState reflecting the current state.
@@ -454,14 +459,14 @@ const verboseDebug = false;
     if (oldState) {
       const durationCapped = this.timeCappedBetweenStates(oldState, newState);
       this.atCap += durationCapped;
-      this.missedRegen += durationCapped * oldState.regen;      
+      this.missedRegen += durationCapped * oldState.regen;
       this.naturalRegen += (newState.timestamp - oldState.timestamp) * oldState.regen;
     }
     if (newState.amount < newState.max) {
       this.onBelowCap(newState.timestamp);
     }
   }
-  
+
   timeCappedBetweenStates(oldState, newState) {
     if (!oldState || !newState){
       throw new Error(`timeCappedBetweenStates called without required parameters. oldState: ${oldState}, newState: ${newState}`);
@@ -471,7 +476,7 @@ const verboseDebug = false;
       return 0;
     }
     this.onAtCap(reachCap);
-    
+
     return newState.timestamp - reachCap;
   }
 
@@ -550,16 +555,16 @@ const verboseDebug = false;
    * Fabricates an event indicating the tracked resource has reached its cap value.
    * May be triggered by an energize or natural regeneration bringing the value to the cap, or
    * by the cap being lowered.
-   * 
+   *
    * Although the timestamp of this event should be accurate, because cap events are sometimes
    * only detected after they happen it may be misplaced within the event stream.
    * So do NOT assume that an event parsed between beginresourcecap and endresourcecap events
    * being parsed happened while the resource was capped. Either look at the timestamps of
    * the events or if you're interested in the current cap state use this analyzer's isCapped
-   * 
+   *
    * Also note that endresourcecap and beginresourcecap events may occur extremely close to
    * one-another, sometimes on the same timestamp if there's a spend and energize event.
-   * 
+   *
    * @param {number} time Timestamp for when the resource reached cap.
    */
   fabricateBeginCap(time) {
@@ -572,7 +577,7 @@ const verboseDebug = false;
       timestamp: time,
       sourceID: this.owner.playerId,
       targetID: this.owner.playerId,
-      resourceType: this.constructor.resourceType.id, 
+      resourceType: this.constructor.resourceType.id,
     });
   }
 
@@ -591,7 +596,7 @@ const verboseDebug = false;
       timestamp: time,
       sourceID: this.owner.playerId,
       targetID: this.owner.playerId,
-      resourceType: this.constructor.resourceType.id, 
+      resourceType: this.constructor.resourceType.id,
     });
   }
 
@@ -617,4 +622,5 @@ const verboseDebug = false;
     return this.debugErrorSum / this.debugAccuracyCheckCount;
   }
 }
+
 export default RegenResourceCapTracker;

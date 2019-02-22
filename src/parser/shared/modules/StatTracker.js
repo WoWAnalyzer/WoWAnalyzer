@@ -727,12 +727,12 @@ class StatTracker extends Analyzer {
     const before = Object.assign({}, this._currentStats);
     const delta = this._changeStats(change, 1);
     const after = Object.assign({}, this._currentStats);
-    this._triggerChangeStats(eventReason, before, delta, after);
     if (debug) {
       const spellName = eventReason && eventReason.ability ? eventReason.ability.name : 'unspecified';
       console.log(`StatTracker: FORCED CHANGE from ${spellName} - Change: ${this._statPrint(delta)}`);
       debug && this._debugPrintStats(this._currentStats);
     }
+    this._triggerChangeStats(eventReason, before, delta, after);
   }
 
   _changeBuffStack(event) {
@@ -741,7 +741,7 @@ class StatTracker extends Analyzer {
     if (statBuff) {
       // ignore prepull buff application, as they're already accounted for in combatantinfo
       // we have to check the stacks count because Entities incorrectly copies the prepull property onto changes and removal following the application
-      if (event.oldStacks === 0 && event.prepull) {
+      if (event.prepull && event.oldStacks === 0) {
         debug && console.log(`StatTracker prepull application IGNORED for ${SPELLS[spellId] ? SPELLS[spellId].name : spellId}`);
         return;
       }
@@ -749,9 +749,9 @@ class StatTracker extends Analyzer {
       const before = Object.assign({}, this._currentStats);
       const delta = this._changeStats(statBuff, event.newStacks - event.oldStacks);
       const after = Object.assign({}, this._currentStats);
-      this._triggerChangeStats(event, before, delta, after);
       debug && console.log(`StatTracker: (${event.oldStacks} -> ${event.newStacks}) ${SPELLS[spellId] ? SPELLS[spellId].name : spellId} @ ${formatMilliseconds(this.owner.fightDuration)} - Change: ${this._statPrint(delta)}`);
       debug && this._debugPrintStats(this._currentStats);
+      this._triggerChangeStats(event, before, delta, after);
     }
   }
 
@@ -778,7 +778,7 @@ class StatTracker extends Analyzer {
     return delta;
   }
 
-  /*
+  /**
    * Fabricates an event indicating when stats change
    */
   _triggerChangeStats(event, before, delta, after) {

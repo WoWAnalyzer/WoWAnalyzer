@@ -64,24 +64,25 @@ class Entities extends Analyzer {
       return;
     }
 
+    debug && this.log(`Apply buff ${event.ability.name} to ${entity.name}`);
+
     const buff = {
       ...event,
       start: event.timestamp,
       end: null,
-      stackHistory: [{ stacks: 1, timestamp: event.timestamp }],
       isDebuff,
+      // The initial buff counts as 1 stack, to make the `changebuffstack` event complete it's fired for all applybuff events, including buffs that aren't actually stackable.
+      stacks: 1,
     };
 
-    // The initial buff counts as 1 stack, to make the `changebuffstack` event complete it's fired for all applybuff events, including buffs that aren't actually stackable.
-    buff.stacks = 1;
     this._triggerChangeBuffStack(buff, event.timestamp, 0, 1);
 
-    if (event.prepull && entity.buffs.find(buff => buff.ability.guid === event.ability.guid) !== null) {
+    if (event.prepull && event.__fromCombatantinfo) {
       // Prepull buffs were already applied in the Combatant constructor
       return;
     }
 
-    entity.buffs.push(buff);
+    entity.applyBuff(buff);
   }
 
   updateBuffStack(event) {
@@ -96,7 +97,7 @@ class Entities extends Analyzer {
 
     debug && this.log(`Apply buff stack ${event.ability.name} to ${entity.name}`);
 
-    const existingBuff = entity.buffs.find(item => item.ability.guid === event.ability.guid && item.end === null);
+    const existingBuff = entity.buffs.find(item => item.ability.guid === event.ability.guid && item.end === null && event.sourceID === item.sourceID);
     if (existingBuff) {
       const oldStacks = existingBuff.stacks || 1; // the original spell counts as 1 stack
       existingBuff.stacks = event.stack;
@@ -119,14 +120,18 @@ class Entities extends Analyzer {
     }
 
     debug && this.log(`Remove buff ${event.ability.name} from ${entity.name}`);
-
-    const existingBuff = entity.buffs.find(item => item.ability.guid === event.ability.guid && item.end === null);
+    
+    const existingBuff = entity.buffs.find(item => item.ability.guid === event.ability.guid && item.end === null && event.sourceID === item.sourceID);
     if (existingBuff) {
       existingBuff.end = event.timestamp;
       existingBuff.stackHistory.push({ stacks: 0, timestamp: event.timestamp });
 
       this._triggerChangeBuffStack(existingBuff, event.timestamp, existingBuff.stacks, 0);
     } else {
+      // The only possible legit way this could occur that I can imagine is if the log was bugged and had more removebuff events than applybuff events. This might be caused by range or phasing issues.
+      // TODO: throw new Error(`Buff ${event.ability.name} wasn't correctly applied in the ApplyBuff normalizer.`);
+      // TODO: Remove below and add above. http://localhost:3000/report/YcbxZv1hKX4GVr82/33-Mythic+Grong+-+Wipe+23+(4:26)/45-Teish has issues due to Tricks of the Trade being applied twice at the start by different people. Need to change ApplyBuff to fix this, probably not super complicated but too late to do now.
+
       const buff = {
         ...event,
         start: this.owner.fight.start_time,

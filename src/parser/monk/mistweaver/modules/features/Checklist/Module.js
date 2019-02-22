@@ -16,6 +16,7 @@ import Lifecycles from '../../talents/Lifecycles';
 import ThunderFocusTea from '../../spells/ThunderFocusTea';
 import EssenceFontMastery from '../EssenceFontMastery';
 import RenewingMistDuringManaTea from '../../talents/RenewingMistDuringManaTea';
+import Vivify from '../../spells/Vivify';
 
 import Component from './Component';
 
@@ -35,6 +36,7 @@ class Checklist extends BaseChecklist {
     thunderFocusTea: ThunderFocusTea,
     essenceFontMastery: EssenceFontMastery,
     renewingMistDuringManaTea: RenewingMistDuringManaTea,
+    vivify: Vivify,
   };
 
   render() {
@@ -57,6 +59,7 @@ class Checklist extends BaseChecklist {
           thunderFocusTea: this.thunderFocusTea.suggestionThresholds,
           essenceFontMastery: this.essenceFontMastery.suggestionThresholds,
           renewingMistDuringManaTea: this.renewingMistDuringManaTea.suggestionThresholds,
+          vivify: this.vivify.suggestionThresholds,
 
         }}
       />

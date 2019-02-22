@@ -49,16 +49,6 @@ class BrewmasterMonkChecklist extends React.PureComponent {
           tooltip={<>A low cast efficiency indicates that brews are being wasted to capping charges.<br />The cast efficiency of Ironskin Brew is shared with Purifying Brew.</>}
         />
       </Rule>
-      <Rule
-        name={<>Mitigate damage with <SpellLink id={SPELLS.BREATH_OF_FIRE.id} onClick={e => e.preventDefault()} />.</>}
-        description={
-            <>
-              <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> provides a 5% damage reduction. It is possible to maintain 80% uptime on this debuff without any particular gear or talents by simply using it on cooldown.
-            </>
-        } >
-        <Requirement name={<>Hits mitigated with <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /></>}
-          thresholds={thresholds.bof} />
-      </Rule>
       <Rule name={'Generate enough brews through your rotation'}
         performanceMethod={PERFORMANCE_METHOD.FIRST}
         description={

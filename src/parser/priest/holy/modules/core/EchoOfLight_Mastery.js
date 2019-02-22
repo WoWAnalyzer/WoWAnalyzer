@@ -40,11 +40,11 @@ class EchoOfLight_Mastery extends Analyzer {
   };
 
   get effectiveHealing() {
-    return this.abilityTracker.getAbility(SPELLS.ECHO_OF_LIGHT.id).healingEffective + this.abilityTracker.getAbility(SPELLS.ECHO_OF_LIGHT.id).healingAbsorbed;
+    return this.abilityTracker.getAbility(SPELLS.ECHO_OF_LIGHT_HEAL.id).healingEffective + this.abilityTracker.getAbility(SPELLS.ECHO_OF_LIGHT_HEAL.id).healingAbsorbed;
   }
 
   get overHealing() {
-    return this.abilityTracker.getAbility(SPELLS.ECHO_OF_LIGHT.id).healingOverheal;
+    return this.abilityTracker.getAbility(SPELLS.ECHO_OF_LIGHT_HEAL.id).healingOverheal;
   }
 
   get overHealingPercent() {
@@ -69,7 +69,7 @@ class EchoOfLight_Mastery extends Analyzer {
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.ECHO_OF_LIGHT.id) {
+    if (spellId === SPELLS.ECHO_OF_LIGHT_HEAL.id) {
       this.handleEolTick(event);
     }
     if (ABILITIES_THAT_TRIGGER_MASTERY.includes(spellId)) {
@@ -161,7 +161,7 @@ class EchoOfLight_Mastery extends Analyzer {
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     const targetId = event.targetID;
-    if (spellId === SPELLS.ECHO_OF_LIGHT.id) {
+    if (spellId === SPELLS.ECHO_OF_LIGHT_HEAL.id) {
       if (!this.targetMasteryPool[targetId]) {
         this.targetMasteryPool[targetId] = {
           pendingHealingTotal: 0,
@@ -177,7 +177,7 @@ class EchoOfLight_Mastery extends Analyzer {
   on_byPlayer_refreshbuff(event) {
     const spellId = event.ability.guid;
     const targetId = event.targetID;
-    if (spellId === SPELLS.ECHO_OF_LIGHT.id) {
+    if (spellId === SPELLS.ECHO_OF_LIGHT_HEAL.id) {
       // There is a bug when you apply and refresh EoL at the same exact millisecond.
       // When you do this (via benediction or some other means) there can be 4 ticks of EoL.
       // This code compensates for that.
@@ -239,9 +239,14 @@ class EchoOfLight_Mastery extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.CORE(2)}
-        icon={<SpellIcon id={SPELLS.ECHO_OF_LIGHT.id} />}
-        value={<ItemHealingDone amount={this.effectiveHealing} />}
-        tooltip={`Total Healing: ${formatNumber(this.effectiveHealing)} (${formatPercentage(this.overHealingPercent)}% OH)`}
+        icon={<SpellIcon id={SPELLS.ECHO_OF_LIGHT_MASTERY.id} />}
+        value={(
+          <dfn
+            data-tip={`Total Healing: ${formatNumber(this.effectiveHealing)} (${formatPercentage(this.overHealingPercent)}% OH)`}
+          >
+            <ItemHealingDone amount={this.effectiveHealing} />
+          </dfn>
+        )}
         label={(
           <TooltipElement
             content={(

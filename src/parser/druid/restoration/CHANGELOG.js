@@ -1,8 +1,13 @@
 // import React from 'react';
 
-import { Yajinni, blazyb, fel1ne, Qbz } from 'CONTRIBUTORS';
+import { Yajinni, blazyb, fel1ne, Qbz, Zerotorescue } from 'CONTRIBUTORS';
 
 export default [
+  {
+    date: new Date('2019-02-20'),
+    changes: 'Fixed a bug where Lifebloom showed an incorrect uptime value in fights with multiple resto druids.',
+    contributors: [Zerotorescue],
+  },
   {
     date: new Date('2019-02-08'),
     changes: 'Grove Tending now has mastery healing included.',

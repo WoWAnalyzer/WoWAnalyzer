@@ -72,7 +72,11 @@ class HealingEfficiencyBreakdown extends React.Component {
         {this.state.showHealing && (
           <>
             <th colSpan={2} className="text-center">Healing per mana spent</th>
-            <th colSpan={2} className="text-center">Healing per second spent casting</th>
+            <th colSpan={2} className="text-center">
+              <dfn data-tip="This includes time spent waiting on the GCD">
+                Healing per second spent casting
+              </dfn>
+            </th>
           </>
         )}
         {!this.state.showHealing && (
@@ -134,7 +138,7 @@ class HealingEfficiencyBreakdown extends React.Component {
               <TooltipElement content={`Healing per mana spent casting the spell`}>HPM</TooltipElement>
             </th>
             <th>
-              <TooltipElement content={`Healing per second spent casting the spell`}>HPET</TooltipElement>
+              <TooltipElement content={`Healing per second spent casting the spell, including GCD wait time.`}>HPET</TooltipElement>
             </th>
           </>
         )}

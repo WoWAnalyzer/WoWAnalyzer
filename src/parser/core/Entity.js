@@ -116,6 +116,14 @@ class Entity {
         return totalUptime + buffUptime;
       }, 0);
   }
+  applyBuff(buff) {
+    this.buffs.push({
+      end: null,
+      stackHistory: [{ stacks: 1, timestamp: buff.timestamp }],
+      stacks: 1,
+      ...buff,
+    });
+  }
 }
 
 export default Entity;
