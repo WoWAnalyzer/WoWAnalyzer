@@ -54,7 +54,7 @@ async function getCharacterFromBlizzardApi(region, realm, name) {
   }
   // This is the only field that we need and isn't always otherwise obtainable (e.g. when this is fetched by character id)
   // eslint-disable-next-line prefer-const
-  const {talents, thumbnail, items, ...other} = data;
+  const { talents, thumbnail, items, ...other } = data;
   delete other.calcClass;
   delete other.totalHonorableKills;
   delete other.level;
@@ -81,6 +81,7 @@ async function getCharacterFromBlizzardApi(region, realm, name) {
       quality: heartOfAzerothItem.quality,
       itemLevel: heartOfAzerothItem.itemLevel,
       timewalkerLevel: heartOfAzerothItem.tooltipParams && heartOfAzerothItem.tooltipParams.timewalkerLevel,
+      azeriteItemLevel: heartOfAzerothItem.azeriteItem && heartOfAzerothItem.azeriteItem.azeriteLevel,
     };
   }
   delete json.items;

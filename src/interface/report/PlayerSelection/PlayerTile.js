@@ -100,7 +100,7 @@ class PlayerTile extends React.PureComponent {
               {
                 heartOfAzeroth
                 && <div className="flex-main text-right">
-                  <Icon icon={heartOfAzeroth.icon}/> {heartOfAzeroth.itemLevel}
+                  <Icon icon={heartOfAzeroth.icon}/> {heartOfAzeroth.azeriteItemLevel}
                 </div>
               }
             </div>
