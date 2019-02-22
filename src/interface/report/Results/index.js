@@ -320,7 +320,7 @@ class Results extends React.PureComponent {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn"
-                  style={{ fontSize: 24, padding: '6px 0' }}
+                  style={{ fontSize: 20, padding: '6px 0' }}
                 >
                   <img src="/img/wcl.png" alt="" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
                 </a>
@@ -331,7 +331,7 @@ class Results extends React.PureComponent {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn"
-                  style={{ fontSize: 24, padding: '6px 0' }}
+                  style={{ fontSize: 20, padding: '6px 0' }}
                 >
                   <img src={WipefestLogo} alt="" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Wipefest
                 </a>
