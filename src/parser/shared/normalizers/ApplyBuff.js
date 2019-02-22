@@ -8,7 +8,7 @@ const debug = false;
  * Some buffs like Bloodlust and Holy Avenger when they are applied pre-combat it doesn't show up as an `applybuff` event nor in the `combatantinfo` buffs array. It can still be detected by looking for a `removebuff` event, this uses that to detect it and then fabricates an `applybuff` event at the start of the log.
  */
 class ApplyBuff extends EventsNormalizer {
-  // We need to track `combatantinfo` events this way since they are included in the `events` passed to `normalize` due to technical reasons (it's a different API call). We still need `combatantinfo` for all players, so cache it manually.
+  // We need to track `combatantinfo` events this way since they aren't included in the `events` passed to `normalize` due to technical reasons (it's a different API call). We still need `combatantinfo` for all players, so cache it manually.
   _combatantInfoEvents = [];
   constructor(...args) {
     super(...args);
@@ -19,6 +19,7 @@ class ApplyBuff extends EventsNormalizer {
 
   normalize(events) {
     const firstEventIndex = this.getFightStartIndex(events);
+    const firstStartTimestamp = this.owner.fight.start_time;
     const playersById = this.owner.players.reduce((obj, player) => {
       obj[player.id] = player;
       return obj;
@@ -54,7 +55,7 @@ class ApplyBuff extends EventsNormalizer {
         const targetInfo = this._combatantInfoEvents.find(combatantInfoEvent => combatantInfoEvent.sourceID === targetId);
         const applybuff = {
           // These are all the properties a normal `applybuff` event would have.
-          timestamp: events[firstEventIndex].timestamp,
+          timestamp: firstStartTimestamp,
           type: 'applybuff',
           ability: event.ability,
           sourceID: sourceId,
@@ -76,7 +77,7 @@ class ApplyBuff extends EventsNormalizer {
     // endregion
 
     // region `combatantinfo` based detection
-    // This catches buffs that never drop, such as Flasks and more importantly Atonements and Beacons.
+    // This catches buffs that never drop, such as Flasks and more importantly Atonements, Beacons and Vantus runes.
     this._combatantInfoEvents.forEach(event => {
       const targetId = event.sourceID;
       // event.auras can be undefined if combatantinfo for any player in the fight errored
@@ -99,7 +100,7 @@ class ApplyBuff extends EventsNormalizer {
         debug && console.warn('Found a buff on', ((playersById[targetId] && playersById[targetId].name) || '???'), 'in the combatantinfo that was applied before the pull and never dropped:', (SPELLS[spellId] && SPELLS[spellId].name) || '???', spellId, '! Fabricating an `applybuff` event so you don\'t have to do anything special to take this into account.');
         const applybuff = {
           // These are all the properties a normal `applybuff` event would have.
-          timestamp: events[firstEventIndex].timestamp,
+          timestamp: firstStartTimestamp,
           type: 'applybuff',
           ability: {
             guid: spellId,

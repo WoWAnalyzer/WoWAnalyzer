@@ -11,6 +11,7 @@ import Analyzer from 'parser/core/Analyzer';
 
 const REFRESH_AT_STACKS_WITH_BONES_OF_THE_DAMNED = 6;
 const REFRESH_AT_STACKS_WITHOUT_BONES_OF_THE_DAMNED = 7;
+
 const REFRESH_AT_SECONDS = 6;
 const BS_DURATION = 30;
 const MR_GAIN = 3;
@@ -31,12 +32,15 @@ class MarrowrendUsage extends Analyzer {
   lastMarrowrendCast = 0;
 
   bsStacksWasted = 0;
-  badMRCasts = 0;
+  botdStacksWasted = 0;
+
   refreshMRCasts = 0;
   totalMRCasts = 0;
 
+  badMRCasts = 0;
+
   hasBonesOfTheDamned = false;
-  refreshAtStacks = REFRESH_AT_STACKS_WITHOUT_BONES_OF_THE_DAMNED;
+  refreshAtStacks = REFRESH_AT_STACKS_WITHOUT_BONES_OF_THE_DAMNED; // contains number for the tooltip for proper MR-usage, not used for calculations
 
   bonesOfTheDamnedProc = 0;
   totalStacksGenerated = 0;
@@ -88,16 +92,26 @@ class MarrowrendUsage extends Analyzer {
       this.refreshMRCasts += 1;
     } else {
       const boneShieldStacks = this.currentBoneShieldStacks - this.currentBoneShieldBuffer;
-      if (boneShieldStacks > this.refreshAtStacks) {
-        this.badMRCasts += 1;
-        const wasted = MR_GAIN - this.currentBoneShieldBuffer;
-        if (wasted > 0) {
-          this.bsStacksWasted += wasted;
+      let badCast = '';
 
-          event.meta = event.meta || {};
-          event.meta.isInefficientCast = true;
-          event.meta.inefficientCastReason = `You made this cast with ${boneShieldStacks} stacks of Bone Shield while it had ${(durationLeft).toFixed(1)} seconds left.`;
-        }
+      if (boneShieldStacks > REFRESH_AT_STACKS_WITHOUT_BONES_OF_THE_DAMNED) {
+        // this was a wasted charge for sure
+        const wasted = MR_GAIN - this.currentBoneShieldBuffer;
+        this.badMRCasts += 1;
+        this.bsStacksWasted += wasted;
+        badCast = badCast + `You made this cast with ${boneShieldStacks} stacks of Bone Shield while it had ${(durationLeft).toFixed(1)} seconds left, wasting ${wasted} charges.<br />`;
+      }
+
+      if (this.hasBonesOfTheDamned && boneShieldStacks >= REFRESH_AT_STACKS_WITHOUT_BONES_OF_THE_DAMNED) {
+        // this was a potentially proc of BotD
+        this.botdStacksWasted += 1;
+        badCast = badCast + `This cast couldn't proc ${SPELLS.BONES_OF_THE_DAMNED.name} because you had already ${boneShieldStacks} stacks.`;
+      }
+
+      if (badCast !== '') {
+        event.meta = event.meta || {};
+        event.meta.isInefficientCast = true;
+        event.meta.inefficientCastReason = badCast;
       }
     }
 
@@ -119,23 +133,31 @@ class MarrowrendUsage extends Analyzer {
     return this.bonesOfTheDamnedProc;
   }
 
+  get wastedbonesOfTheDamnedProcs() {
+    return this.botdStacksWasted;
+  }
+
   get totalBoneShieldStacksGenerated() {
     return this.totalStacksGenerated;
   }
 
-  get badCastsPercent() {
-    return this.badMRCasts / this.totalMRCasts;
+  get wastedBoneShieldStacksPercent() {
+    return this.bsStacksWasted / (this.totalStacksGenerated + this.bsStacksWasted);
   }
 
   get marrowrendCasts() {
     return this.totalMRCasts;
   }
 
+  get refreshWithStacks() {
+    return this.refreshAtStacks;
+  }
+
   get suggestionThresholds() {
     return {
-      actual: this.badCastsPercent,
+      actual: this.wastedBoneShieldStacksPercent,
       isGreaterThan: {
-        minor: 0.05,
+        minor: 0,
         average: 0.1,
         major: .2,
       },
@@ -145,9 +167,9 @@ class MarrowrendUsage extends Analyzer {
 
   get suggestionThresholdsEfficiency() {
     return {
-      actual: 1 - this.badCastsPercent,
+      actual: 1 - this.wastedBoneShieldStacksPercent,
       isLessThan: {
-        minor: 0.95,
+        minor: 1,
         average: 0.9,
         major: .8,
       },
@@ -158,14 +180,20 @@ class MarrowrendUsage extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>You casted {this.badMRCasts} Marrowrends with more than {this.refreshAtStacks} stacks of <SpellLink id={SPELLS.BONE_SHIELD.id} /> that were not about to expire. Try to cast <SpellLink id={SPELLS.HEART_STRIKE.id} /> instead under those conditions.</>)
+        const botDDisclaimer = this.hasBonesOfTheDamned ? ` (not counting possible ${SPELLS.BONES_OF_THE_DAMNED.name} procs)` : '';
+        return suggest(<>You casted {this.badMRCasts} Marrowrends with more than {REFRESH_AT_STACKS_WITHOUT_BONES_OF_THE_DAMNED} stacks of <SpellLink id={SPELLS.BONE_SHIELD.id} /> that were not about to expire, wasting {this.bsStacksWasted} stacks{botDDisclaimer}.<br />Cast <SpellLink id={SPELLS.HEART_STRIKE.id} /> instead if you are at {this.refreshAtStacks} stacks or above.</>)
           .icon(SPELLS.MARROWREND.icon)
-          .actual(`${formatPercentage(actual)}% bad Marrowrend casts`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`);
+          .actual(`${formatPercentage(actual)}% wasted ${SPELLS.BONE_SHIELD.name} stacks`)
+          .recommended(`${this.bsStacksWasted} stacks wasted, ${this.totalStacksGenerated} stacks generated`);
       });
   }
 
   statistic() {
+
+    let botDText = '';
+    if (this.hasBonesOfTheDamned) {
+      botDText = `${ this.wastedbonesOfTheDamnedProcs } casts with ${REFRESH_AT_STACKS_WITHOUT_BONES_OF_THE_DAMNED} stacks of ${SPELLS.BONE_SHIELD.name}, wasting potential ${SPELLS.BONES_OF_THE_DAMNED.name} procs.<br/>`;
+    }
 
     return (
       <StatisticBox
@@ -174,10 +202,11 @@ class MarrowrendUsage extends Analyzer {
         label="Bad Marrowrend casts"
         tooltip={(
           <>
-            {this.refreshMRCasts} casts to refresh Bone Shield<br />
-            {this.badMRCasts} casts with more than {this.refreshAtStacks} stacks of Bone Shield wasting at least {this.bsStacksWasted} stacks<br />
-            <br />
-            Avoid casting Marrowrend unless you have {this.refreshAtStacks} or less stacks or if Bone Shield has less than 6sec duration left.
+            {this.refreshMRCasts} casts to refresh Bone Shield, those do not count towards bad casts.<br />
+            {botDText}
+            {this.badMRCasts} casts with more than {REFRESH_AT_STACKS_WITHOUT_BONES_OF_THE_DAMNED} stacks of Bone Shield wasting {this.bsStacksWasted} stacks.<br /><br />
+
+            Avoid casting Marrowrend unless you have {this.refreshAtStacks} or less stacks or if Bone Shield has less than 6sec of its duration left.
           </>
         )}
       />

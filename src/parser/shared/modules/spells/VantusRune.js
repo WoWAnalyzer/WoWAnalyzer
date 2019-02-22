@@ -11,14 +11,18 @@ import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import DamageDone from 'parser/shared/modules/throughput/DamageDone';
 import DamageTaken from 'parser/shared/modules/throughput/DamageTaken';
 
-// http://www.wowhead.com/uncategorized-spells/name:Vantus+Rune:?filter=29;42;0 $.makeArray($('.listview-cleartext[href^="/spell="]')).map(item => `${item.href.replace(/^.*spell=([0-9]+)$/, '$1')}, // ${item.innerText}`).join("\n")
-
-const VANTUS_RUNE_VERSATILITY = 68;
+// https://www.wowhead.com/uncategorized-spells/name:Vantus+Rune:?filter=29:21;42:2;0:80100
+const VANTUS_RUNE_VERSATILITY = 277;
 const VERSATILITY_PER_PERCENT_THROUGHPUT = 85 * 100;
 const VERSATILITY_PER_PERCENT_DAMAGE_REDUCTION = VERSATILITY_PER_PERCENT_THROUGHPUT * 2;
 const VANTUS_RUNE_PERCENTAGE_THROUGHPUT = VANTUS_RUNE_VERSATILITY / VERSATILITY_PER_PERCENT_THROUGHPUT;
 const VANTUS_RUNE_PERCENTAGE_DAMAGE_REDUCTION = VANTUS_RUNE_VERSATILITY / VERSATILITY_PER_PERCENT_DAMAGE_REDUCTION;
 
+/**
+ * @property {HealingDone} healingDone
+ * @property {DamageDone} damageDone
+ * @property {DamageTaken} damageTaken
+ */
 class VantusRune extends Analyzer {
   static dependencies = {
     healingDone: HealingDone,

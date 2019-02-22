@@ -37,6 +37,7 @@ import TigersFuryEnergy from './modules/spells/TigersFuryEnergy';
 import Shadowmeld from './modules/racials/Shadowmeld';
 
 import WildFleshrending from './modules/azeritetraits/WildFleshrending';
+import UntamedFerocity from './modules/azeritetraits/UntamedFerocity';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -84,6 +85,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // azerite traits
     wildFleshrending: WildFleshrending,
+    untamedFerocity: UntamedFerocity,
   };
 }
 
