@@ -48,7 +48,7 @@ import PromiseOfDeliverance from './modules/spells/azeritetraits/PromiseOfDelive
 import DeathDenied from '../shared/modules/spells/azeritetraits/DeathDenied';
 
 // Mana Tracker
-import HealingEfficiencyDetails from '../../core/healingEfficiency/HealingEfficiencyDetails';
+import HealingEfficiencyDetails from './modules/features/HolyPriestHealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/HolyPriestHealingEfficiencyTracker';
 import ManaTracker from '../../core/healingEfficiency/ManaTracker';
 
