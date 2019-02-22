@@ -3,7 +3,6 @@
 .checklist {
   li {
     .meta {
-      position: relative;
       font-size: 16px;
 
       &:before {
@@ -21,15 +20,6 @@
       }
       .name {
         margin-left: 30px;
-      }
-      .chevron {
-        position: absolute;
-        right: 30px;
-        top: 50%;
-        transform: translateY(-50%) rotate(0deg);
-        color: $primaryColor;
-        font-size: 0.5em;
-        transition: all 400ms;
       }
       .perf {
         margin-right: 40px;
@@ -86,8 +76,5 @@
     line-height: 1;
     text-align: center;
     background-color: $primaryColor;
-  }
-  li.expanded .chevron {
-    transform: translateY(-50%) rotate(180deg);
   }
 }

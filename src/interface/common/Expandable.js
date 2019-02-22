@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AnimateHeight from 'react-animate-height';
 
+import './Expandable.scss';
+
 class Expandable extends React.PureComponent {
   static propTypes = {
     header: PropTypes.node.isRequired,

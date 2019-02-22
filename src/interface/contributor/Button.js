@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
 import retryingPromise from 'common/retryingPromise';
+import Portal from 'interface/Portal';
+import Modal from 'interface/modals/Modal';
 
-import Portal from './Portal';
 import makeContributorUrl from './makeUrl';
 
 const ContributorDetails = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'ContributorPage' */ './Details').then(exports => exports.default)));
@@ -46,11 +47,9 @@ class Button extends React.PureComponent {
 
     if (this.state.open) {
       return (
-        <Portal onClose={this.handleOnClose}>
-          <div className="container">
-            <ContributorDetails contributorId={nickname} />
-          </div>
-        </Portal>
+        <Modal onClose={this.handleOnClose}>
+          <ContributorDetails contributorId={nickname} />
+        </Modal>
       );
     }
 

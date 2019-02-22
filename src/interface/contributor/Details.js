@@ -5,15 +5,15 @@ import * as contributors from 'CONTRIBUTORS';
 import CoreChangelog from 'CHANGELOG';
 import SPECS from 'game/SPECS';
 import SpecIcon from 'common/SpecIcon';
+import DropdownIcon from 'interface/icons/Dropdown';
+import Panel from 'interface/others/Panel';
+import Expandable from 'interface/common/Expandable';
 import AVAILABLE_CONFIGS from 'parser/AVAILABLE_CONFIGS';
 
 class Details extends React.PureComponent {
   static propTypes = {
     contributorId: PropTypes.string.isRequired,
     ownPage: PropTypes.bool,
-  };
-  state = {
-    openChangelogs: [],
   };
 
   constructor() {
@@ -39,15 +39,6 @@ class Details extends React.PureComponent {
 
   filterChangelog(contribution) {
     return contribution.contributors.includes(contributors[this.props.contributorId]);
-  }
-
-  toggleClass(index) {
-    const stateList = this.state.openChangelogs;
-    stateList[index] = !stateList[index];
-    this.setState({
-      openChangelogs: stateList,
-    });
-    this.forceUpdate();
   }
 
   contributionHeader(spec) {
@@ -245,12 +236,13 @@ class Details extends React.PureComponent {
         <div className="flex-main">
           <div className="row">
             <div className="col-md-5">
-              <div className="panel">
+              <Panel
+                title={contributor.nickname}
+              >
                 <div style={{ textAlign: 'center' }}>
-                  <h2>{contributor.nickname}</h2>
                   <img src={contributor.avatar} alt="Avatar" style={{ marginTop: 20, maxHeight: 200, borderRadius: '50%' }} />
                 </div>
-                <div className="flex-main contributorlist" style={{ padding: '0 5px 20px 5px' }}>
+                <div className="flex-main contributorlist">
                   {this.text(contributor.about, 'About')}
                   <div className="row">
                     <div className="col-md-3"><b>GitHub:</b></div>
@@ -265,32 +257,46 @@ class Details extends React.PureComponent {
                   {this.chars(contributor, 'mains')}
                   {this.chars(contributor, 'alts')}
                 </div>
-              </div>
+              </Panel>
             </div>
 
-
             <div className="col-md-7">
-              <div className="panel scrollable">
-                {Object.keys(contributions).map((type, index) => (
-                  <div key={index}>
-                    <div className="panel-heading" style={{ cursor: 'pointer', userSelect: 'none' }} onClick={() => this.toggleClass(index)}>
-                      <h2>{this.contributionHeader(type)} ({contributions[type].length} commits)</h2>
-                    </div>
-                    <ul className="list text" style={{ marginBottom: 20, display: this.state.openChangelogs[index] ? 'block' : 'none' }}>
-                      {contributions[type].map((contribution, index) => (
-                        <li key={index} className="row">
-                          <div className="col-md-2">
-                            {contribution.date.toLocaleDateString()}
+              <Panel
+                title="Contributions"
+                pad={false}
+              >
+                <ul className="list">
+                  {Object.keys(contributions).map((type, index) => (
+                    <Expandable
+                      key={index}
+                      element="li"
+                      header={(
+                        <div className="flex">
+                          <div className="flex-main name">
+                            {this.contributionHeader(type)} ({contributions[type].length} commits)
                           </div>
-                          <div className="col-md-10">
-                            {contribution.changes}
+                          <div className="chevron">
+                            <DropdownIcon />
                           </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
+                        </div>
+                      )}
+                    >
+                      <ul className="list text depad">
+                        {contributions[type].map((contribution, index) => (
+                          <li key={index} className="row">
+                            <div className="col-md-2">
+                              {contribution.date.toLocaleDateString()}
+                            </div>
+                            <div className="col-md-10">
+                              {contribution.changes}
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    </Expandable>
+                  ))}
+                </ul>
+              </Panel>
             </div>
           </div>
         </div>

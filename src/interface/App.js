@@ -260,7 +260,6 @@ class App extends React.Component {
         </div>
         <PortalTarget />
         {!error && <Footer />}
-        <div id="portal" />
       </>
     );
   }
