@@ -49,7 +49,16 @@ class Combatant extends Entity {
     return SPECS[this.specId];
   }
   get race() {
-    return this.owner.characterProfile ? Object.values(RACES).find(race => race.id === this.owner.characterProfile.race) : null;
+    if(!this.owner.characterProfile) {
+      return null;
+    }
+    const raceId = this.owner.characterProfile.race;
+    let race = Object.values(RACES).find(race => race.id === raceId);
+    const raceTranslation = this.owner.fight.boss.fight.raceTranslation;
+    if(raceTranslation) {
+      race = raceTranslation(race, this.spec);
+    }
+    return race;
   }
 
   _combatantInfo = null;
