@@ -10,18 +10,25 @@ class Stormbringer extends Analyzer {
     spellUsable: SpellUsable,
   };
 
+
   constructor(...args){
     super(...args);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.STORMBRINGER), this.onReset());
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STORMSTRIKE), this.onNoCooldown());
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.STORMBRINGER_BUFF), this._onReset);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STORMSTRIKE), this._onNoCooldown);
   }
 
-  onReset(event) {
+  _onReset() {
+    if(!this.spellUsable.isOnCooldown(SPELLS.STORMSTRIKE.id)){
+      return;
+    }
     this.spellUsable.endCooldown(SPELLS.STORMSTRIKE.id);
   }
 
-  onNoCooldown() {
-    if(!this.selectedCombatant.hasBuff(SPELLS.STORMBRINGER.id)){
+  _onNoCooldown() {
+    if(!this.selectedCombatant.hasBuff(SPELLS.STORMBRINGER_BUFF.id)){
+      return;
+    }
+    if(!this.spellUsable.isOnCooldown(SPELLS.STORMSTRIKE.id)){
       return;
     }
     this.spellUsable.endCooldown(SPELLS.STORMSTRIKE.id);
