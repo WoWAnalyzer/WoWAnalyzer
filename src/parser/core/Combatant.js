@@ -2,7 +2,7 @@ import SPECS from 'game/SPECS';
 import RACES from 'game/RACES';
 import traitIdMap from 'common/TraitIdMap';
 import SPELLS from 'common/SPELLS';
-
+import { findByBossId } from 'raids/index';
 import Entity from './Entity';
 
 export const TALENT_ROWS = {
@@ -54,9 +54,9 @@ class Combatant extends Entity {
     }
     const raceId = this.owner.characterProfile.race;
     let race = Object.values(RACES).find(race => race.id === raceId);
-    const raceTranslation = this.owner.fight.boss.fight.raceTranslation;
-    if(raceTranslation) {
-      race = raceTranslation(race, this.spec);
+    const boss = findByBossId(this.owner.boss.id);
+    if(boss && boss.fight.raceTranslation) {
+      race = boss.fight.raceTranslation(race, this.spec);
     }
     return race;
   }
