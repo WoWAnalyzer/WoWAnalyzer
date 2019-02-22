@@ -1,5 +1,6 @@
 // import Background from './images/backgrounds/FridaIronbellows.jpg';
 import Headshot from './images/headshots/StormwallBlockade.jpg';
+import { BOD_ALLIANCE_TO_HORDE } from './RaceTranslation';
 
 export default {
   id: 2280,
@@ -13,5 +14,6 @@ export default {
       physical: [],
       magical: [],
     },
+    raceTranslation: BOD_ALLIANCE_TO_HORDE,
   },
 };
