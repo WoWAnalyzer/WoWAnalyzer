@@ -45,7 +45,7 @@ class Header extends React.PureComponent {
             <div className="col-lg-6 col-md-10">
               <div className="call-to-action">
                 <div className="description">
-                  <Trans>Improve your performance with personal feedback and stats. Just enter a Warcraft Logs report link:</Trans>
+                  <Trans>Improve your performance with personal feedback and stats. Just enter the link of a <a href="https://warcraftlogs.com" target="_blank" rel="noopener noreferrer">Warcraft Logs</a> report:</Trans>
                 </div>
                 {showReportSelecter && (
                   <div>
