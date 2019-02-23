@@ -44,7 +44,7 @@ class CycleOfHatred extends Analyzer {
         talent={SPELLS.CYCLE_OF_HATRED_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(7)}
         value={`${formatNumber(this.totalCooldownReduction / 1000)} sec`}
-        label="Total cool down reduction"
+        label="Total cooldown reduction"
         />
     );
   }
