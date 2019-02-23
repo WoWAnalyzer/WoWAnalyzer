@@ -338,7 +338,7 @@ class Results extends React.PureComponent {
               </Tooltip>
             </div>
             <div className="col-md-1">
-              <Tooltip content={<Trans>Back to the top.</Trans>}>
+              <Tooltip content={<Trans>Scroll back to the top.</Trans>}>
                 <ScrollToTop />
               </Tooltip>
             </div>

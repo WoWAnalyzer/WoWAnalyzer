@@ -49,7 +49,7 @@ nav.global {
   .menu-item span.optional {
     margin-left: 6px;
   }
-  .menu-item.logo img {
+  .menu-item.logo img, .menu-item.logo svg {
     font-size: 1.2em;
     margin-top: -0.2em;
   }
@@ -60,6 +60,14 @@ nav.global {
     max-width: 170px;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+  .brand-name {
+    font-size: 28px;
+    font-weight: 700;
+
+    > a {
+      padding-left: 5px;
+    }
   }
 }
 

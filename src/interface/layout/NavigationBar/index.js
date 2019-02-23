@@ -10,7 +10,7 @@ import PatreonIcon from 'interface/icons/PatreonTiny';
 import DiscordIcon from 'interface/icons/DiscordTiny';
 import GitHubIcon from 'interface/icons/GitHubMarkSmall';
 import PremiumIcon from 'interface/icons/Premium';
-import Logo from 'interface/images/logo.svg';
+import { ReactComponent as Logo } from 'interface/images/logo.svg';
 import { i18n } from 'interface/RootLocalizationProvider';
 import { getFightId, getPlayerName, getReportCode } from 'interface/selectors/url/report';
 import { getReport } from 'interface/selectors/report';
@@ -44,12 +44,16 @@ class NavigationBar extends React.PureComponent {
         <div className="container">
           <div className="menu-item logo required">
             <Link to={makeAnalyzerUrl()}>
-              <img src={Logo} alt="WoWAnalyzer logo" />
+              <Logo />
             </Link>
           </div>
-          {report && (
+          {report ? (
             <div className="menu-item report-title">
               <Link to={makeAnalyzerUrl(report)}>{report.title}</Link>
+            </div>
+          ) : (
+            <div className="menu-item brand-name">
+              <Link to="/">WoWAnalyzer</Link>
             </div>
           )}
           {report && (

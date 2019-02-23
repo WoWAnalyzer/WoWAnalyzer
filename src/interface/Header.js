@@ -40,36 +40,37 @@ class Header extends React.PureComponent {
 
     return (
       <header>
-        <div className="container image-overlay">
+        <div className="container">
           <div className="row">
             <div className="col-lg-6 col-md-10">
-              <h1><Trans>WoW&shy;Analyzer</Trans></h1>
-              <div className="description">
-                <Trans>Analyze your raid logs to get personal suggestions and metrics to improve your performance. Just enter a Warcraft Logs report:</Trans>
-              </div>
-              {showReportSelecter && (
-                <div>
-                  <div className="parse-tabs">
-                    <span
-                      onClick={() => this.setState({ reportActive: true })}
-                      className={this.state.reportActive ? 'selected' : ''}
-                    >
-                      <Trans>Report</Trans>
-                    </span>
-                    <span
-                      onClick={() => this.setState({ reportActive: false })}
-                      className={this.state.reportActive ? '' : 'selected'}
-                    >
-                      <Trans>Character</Trans>
-                    </span>
-                  </div>
-                  {this.state.reportActive ? (
-                    <ReportSelecter />
-                  ) : (
-                    <CharacterSearch />
-                  )}
+              <div className="call-to-action">
+                <div className="description">
+                  <Trans>Improve your performance with personal feedback and stats. Just enter a Warcraft Logs report link:</Trans>
                 </div>
-              )}
+                {showReportSelecter && (
+                  <div>
+                    {this.state.reportActive ? (
+                      <ReportSelecter />
+                    ) : (
+                      <CharacterSearch />
+                    )}
+                    <div className="parse-tabs">
+                      <span
+                        onClick={() => this.setState({ reportActive: true })}
+                        className={this.state.reportActive ? 'selected' : ''}
+                      >
+                        <Trans>Report</Trans>
+                      </span>
+                      <span
+                        onClick={() => this.setState({ reportActive: false })}
+                        className={this.state.reportActive ? '' : 'selected'}
+                      >
+                        <Trans>Character</Trans>
+                      </span>
+                    </div>
+                  </div>
+                )}
+              </div>
 
               <div className="about">
                 <Link to={makeNewsUrl(AboutArticleTitle)}><Trans>About WoWAnalyzer</Trans></Link>

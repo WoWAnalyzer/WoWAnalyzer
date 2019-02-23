@@ -45,29 +45,29 @@ class Button extends React.PureComponent {
   render() {
     const { nickname, avatar, link } = this.props;
 
-    if (this.state.open) {
-      return (
-        <Modal onClose={this.handleOnClose}>
-          <ContributorDetails contributorId={nickname} />
-        </Modal>
-      );
-    }
-
-    const content = (
+    let content = (
       <div className="contributor">
         {avatar && <img src={avatar} alt="Avatar" />}
         {nickname}
       </div>
     );
-
-    if (!link) {
-      return content;
+    if (link) {
+      content = (
+        <Link to={makeContributorUrl(nickname)} onClick={this.handleClick}>
+          {content}
+        </Link>
+      );
     }
 
     return (
-      <Link to={makeContributorUrl(nickname)} onClick={this.handleClick}>
+      <>
         {content}
-      </Link>
+        {this.state.open && (
+          <Modal onClose={this.handleOnClose}>
+            <ContributorDetails contributorId={nickname} />
+          </Modal>
+        )}
+      </>
     );
   }
 }
