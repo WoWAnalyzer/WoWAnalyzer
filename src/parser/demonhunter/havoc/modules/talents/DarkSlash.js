@@ -52,7 +52,7 @@ class DarkSlash extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(6)}
         value={this.owner.formatItemDamageDone(this.extraDamage)}
         tooltip={`
-          ${formatThousands(this.extraDamage)} Total damage
+          ${formatThousands(this.extraDamage)} total damage
         `}
       />
     );
