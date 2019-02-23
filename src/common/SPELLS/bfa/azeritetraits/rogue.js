@@ -14,9 +14,22 @@ export default {
     name: 'Perforate',
     icon: 'ability_backstab',
   },
+  
+  //Outlaw Specific Azerite Traits
+  KEEP_YOUR_WITS_ABOUT_YOU: {
+    id: 288979,
+    name: 'Keep Your Wits About You',
+    icon: 'ability_warrior_punishingblow',
+  },
+  //Subtelty Specific Azerite Traits
   THE_FIRST_DANCE: {
     id: 278981,
     name: 'The First Dance',
     icon: 'ability_rogue_shadowdance',
   },
+  NIGHTS_VENGEANCE 
+  },
+
+  //Assassination Specific Azerite Traits
+
 };
