@@ -51,7 +51,7 @@ class FrostMageChecklist extends React.PureComponent {
           name="Shatter your spells"
           description={(
             <>
-              The biggest aspect to etting the most damage out of your rotation, is to ensure that you are <SpellLink id={SPELLS.SHATTER.id} />ing as many of your spells as possible while they are frozen or acting as if they are frozen. The biggest aspect of this is taking advantage of the <SpellLink id={SPELLS.WINTERS_CHILL.id} /> debuff. Winter's Chill is applied to the target when you use a <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc and makes the target act as if it is frozen for a short duration of time. Therefore, you should cast a rotational ability like <SpellLink id={SPELLS.FROSTBOLT.id} />, <SpellLink id={SPELLS.EBONBOLT_TALENT.id} />, or <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} />, followed immediately by the Brain Freeze buffed Flurry and then end with an <SpellLink id={SPELLS.ICE_LANCE.id} />. You can also do other things like use your pet's <SpellLink id={SPELLS.FREEZE.id} /> or other abilities that freeze non boss enemies to shatter spells as well. 
+              The most important element of maximizing the damage of your rotation is ensuring that you are <SpellLink id={SPELLS.SHATTER.id} />ing as many of your spells as possible. The key aspect of this is taking advantage of the <SpellLink id={SPELLS.WINTERS_CHILL.id} /> debuff. Winter's Chill is applied to the target when you use a <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc and makes the target act as if it is frozen for a short duration of time. Therefore, you should cast a rotational ability like <SpellLink id={SPELLS.FROSTBOLT.id} />, <SpellLink id={SPELLS.EBONBOLT_TALENT.id} />, or <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} />, followed immediately by the Brain Freeze buffed Flurry and then end with an <SpellLink id={SPELLS.ICE_LANCE.id} />. Against non-boss enemies, you can also utilize other things like <SpellLink id={SPELLS.FROST_NOVA.id} /> or your pet's <SpellLink id={SPELLS.FREEZE.id} /> to shatter spells as well.
             </>
           )}
         >
@@ -84,7 +84,6 @@ class FrostMageChecklist extends React.PureComponent {
           name="Use your talents effectively"
           description="Regardless of which talents you select, you should ensure that you are utilizing them properly. If you are having trouble effectively using a particular talent, you should consider taking a different talent that you can utilize properly or focus on effectively using the talents that you have selected."
         >
-          {combatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id) && <Requirement name="Glacial Spike utilization" thresholds={thresholds.glacialSpikeUtilization} />}
           {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) && <Requirement name="Rune of Power uptime" thresholds={thresholds.runeOfPowerBuffUptime} tooltip="Using Rune of Power effectively means being able to stay within the range of it for it's entire duration. If you are unable to do so or if you frequently have to move out of the range of the buff, consider taking a different talent instead." />}
           {!combatant.hasTalent(SPELLS.LONELY_WINTER_TALENT.id) && <Requirement name="Water Elemental utilization" thresholds={thresholds.waterElementalUptime} />}
         </Rule>
