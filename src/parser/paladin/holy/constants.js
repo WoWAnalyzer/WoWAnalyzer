@@ -35,6 +35,7 @@ export const ABILITIES_AFFECTED_BY_MASTERY = [
   SPELLS.GRACE_OF_THE_JUSTICAR.id,
   SPELLS.CONCENTRATED_MENDING_HEALING.id, // TODO: Re-evaluate, going on word of mouth and I have my doubts
   SPELLS.RADIANT_INCANDESCENCE.id, // https://www.warcraftlogs.com/reports/n4kTCKyhp1G2ANDx/#fight=12&source=2&type=healing&ability=278147&view=events
+  SPELLS.GLIMMER_OF_LIGHT.id,
 ];
 
 export const BEACON_TRANSFERING_ABILITIES = {
