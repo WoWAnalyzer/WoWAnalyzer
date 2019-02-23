@@ -54,6 +54,9 @@ class Combatant extends Entity {
     }
     const raceId = this.owner.characterProfile.race;
     let race = Object.values(RACES).find(race => race.id === raceId);
+    if(!this.owner.boss) {
+      return race;
+    }
     const boss = findByBossId(this.owner.boss.id);
     if(boss && boss.fight.raceTranslation) {
       race = boss.fight.raceTranslation(race, this.spec);
