@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-02-20'),
+    changes: <>Added stats for <SpellLink id={SPELLS.DARK_SLASH_TALENT.id} /> and <SpellLink id={SPELLS.CYCLE_OF_HATRED_TALENT.id} /> talents.</>,
+    contributors: [Yajinni],
+  },
+  {
     date: new Date('2019-02-08'),
     changes: <>Large update to the checklist. Added all previous talents/suggestions that have been added from previous updates. Made the buff category hide if no <SpellLink id={SPELLS.MOMENTUM_TALENT.id} /> buff to show.</>,
     contributors: [Yajinni],
