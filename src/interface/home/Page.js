@@ -26,7 +26,7 @@ import Ad from 'interface/common/Ad';
 import DiscordBanner from './images/discord-banner.jpg';
 import ReportHistory from './ReportHistory/Panel';
 
-import './Home.css';
+import './Home.scss';
 
 class Home extends React.PureComponent {
   static propTypes = {
@@ -40,8 +40,17 @@ class Home extends React.PureComponent {
     const { premium } = this.props;
 
     return (
-      <div className="container">
+      <div className="container home-page">
         <DocumentTitle /> {/* prettiest is if the Home page has no title at all */}
+
+        <nav>
+          <ul>
+            <li><a>News</a></li>
+            <li><a>Specs</a></li>
+            <li><a>Premium</a></li>
+            <li><a>About</a></li>
+          </ul>
+        </nav>
 
         <section>
           <header>

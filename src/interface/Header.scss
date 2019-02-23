@@ -1,30 +1,28 @@
 @import 'layout/Theme.scss';
 
 .app > header {
-  margin-bottom: 90px;
+  text-align: center;
+  padding-top: 60px;
+  padding-bottom: 60px;
   transition: all 600ms;
   opacity: 1;
-  padding-top: 100px;
-  padding-bottom: 30px;
 
   a {
     color: #fff;
+    text-decoration: underline;
   }
-  .call-to-action {
-    background: $primaryColor;
-    padding: 30px;
+  .brand-name {
     margin-bottom: 30px;
-    color: #251a01;
 
-    a {
-      color: inherit;
-      text-decoration: underline;
-
-      &:hover {
-        color: #fff;
-      }
+    svg {
+      height: 50px;
+      margin-bottom: -7px;
+      margin-right: 25px;
     }
-    .description {
+    h1 {
+      display: inline-block;
+      text-transform: none;
+      font-size: 50px;
     }
   }
 }
@@ -36,9 +34,6 @@
   margin-bottom: 90px;
   opacity: 0;
   pointer-events: none;
-}
-.app > header h1 {
-  font-size: 4em;
 }
 .app > header .description {
   font-size: 1.4em;

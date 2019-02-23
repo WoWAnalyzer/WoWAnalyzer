@@ -250,7 +250,7 @@ class App extends React.Component {
     return (
       <>
         <div className={`app ${this.showReportSelecter ? 'show-report-selecter' : ''} ${openModals > 0 ? 'modal-open' : ''}`}>
-          <NavigationBar />
+          {!this.showReportSelecter && <NavigationBar />}
           {this.showReportSelecter && <Header showReportSelecter={this.showReportSelecter} />}
           <main>
             <ErrorBoundary>

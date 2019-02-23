@@ -1,0 +1,99 @@
+@import 'interface/layout/Theme.scss';
+
+.app > main > section:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
+}
+section {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  position: relative;
+}
+section:first-child {
+  margin-top: 0;
+}
+section header h1 {
+  font-size: 3em;
+  margin: 0 0 0.7em;
+  text-align: center;
+}
+
+.home-page {
+  nav {
+    position: relative;
+    flex: 0 0 auto;
+    text-shadow: 1px -1px 3px #150a0a, -1px 1px 3px #150a0a;
+    padding: 0 15px;
+    text-align: center;
+
+    div {
+      margin: 0 auto;
+      text-align: center;
+    }
+    ul {
+      width: 100%;
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      padding: 15px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.25);
+
+      li {
+        position: relative;
+        height: 69px;
+        margin-right: 15px;
+
+        a {
+          display: block;
+          padding: 10px 20px;
+          color: #fff;
+          border: 2px solid transparent;
+          background-color: transparent;
+          line-height: 1.2;
+          border-radius: 2px;
+
+          svg {
+            margin-top: 0;
+            margin-bottom: 5px;
+          }
+        }
+        a:before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          z-index: -1;
+          background-image: radial-gradient(closest-side, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0));
+        }
+        a:hover {
+          border: 2px solid $primaryColor;
+          background: rgba(0, 0, 0, 0.1);
+          text-decoration: none;
+        }
+        a:focus {
+          text-decoration: none;
+        }
+        &.active a {
+          background-color: $primaryColor;
+          color: #211510;
+          text-shadow: none;
+
+          svg {
+            color: currentColor;
+          }
+        }
+      }
+      li:last-of-type {
+        margin-right: 0;
+      }
+    }
+    svg {
+      display: block;
+      margin: 0 auto;
+      font-size: 24px;
+      color: $primaryColor;
+    }
+  }
+}

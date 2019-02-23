@@ -10,12 +10,14 @@ import { hasPremium } from 'interface/selectors/user';
 import Ad from 'interface/common/Ad';
 import makeNewsUrl from 'interface/news/makeUrl';
 import { title as AboutArticleTitle } from 'articles/2017-01-31-About/index';
-import { title as UnlistedLogsTitle } from 'articles/2017-01-31-UnlistedLogs/index';
+import { title as UnlistedLogsTitle } from 'articles/2017-01-31-UnlistedLogs';
+import { ReactComponent as Logo } from 'interface/images/logo.svg';
 
 import ReportSelecter from './others/ReportSelecter';
 import LanguageSwitcher from './LanguageSwitcher';
 
 import './Header.scss';
+import Warning from 'interface/common/Alert/Warning';
 
 const CharacterSearch = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'CharacterSearch', webpackPrefetch: true */ 'interface/character/Search').then(exports => exports.default)));
 
@@ -31,8 +33,23 @@ class Header extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      reportActive: true,
+      reportSelectionActive: true,
     };
+    this.handleToggleCharacterSearchClick = this.handleToggleCharacterSearchClick.bind(this);
+    this.handleToggleReportSelectorClick = this.handleToggleReportSelectorClick.bind(this);
+  }
+
+  handleToggleCharacterSearchClick(e) {
+    e.preventDefault();
+    this.setState({
+      reportSelectionActive: false,
+    });
+  }
+  handleToggleReportSelectorClick(e) {
+    e.preventDefault();
+    this.setState({
+      reportSelectionActive: true,
+    });
   }
 
   render() {
@@ -41,54 +58,32 @@ class Header extends React.PureComponent {
     return (
       <header>
         <div className="container">
-          <div className="row">
-            <div className="col-lg-6 col-md-10">
-              <div className="call-to-action">
-                <div className="description">
-                  <Trans>Improve your performance with personal feedback and stats. Just enter the link of a <a href="https://warcraftlogs.com" target="_blank" rel="noopener noreferrer">Warcraft Logs</a> report:</Trans>
-                </div>
-                {showReportSelecter && (
-                  <div>
-                    {this.state.reportActive ? (
-                      <ReportSelecter />
-                    ) : (
-                      <CharacterSearch />
-                    )}
-                    <div className="parse-tabs">
-                      <span
-                        onClick={() => this.setState({ reportActive: true })}
-                        className={this.state.reportActive ? 'selected' : ''}
-                      >
-                        <Trans>Report</Trans>
-                      </span>
-                      <span
-                        onClick={() => this.setState({ reportActive: false })}
-                        className={this.state.reportActive ? '' : 'selected'}
-                      >
-                        <Trans>Character</Trans>
-                      </span>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <div className="about">
-                <Link to={makeNewsUrl(AboutArticleTitle)}><Trans>About WoWAnalyzer</Trans></Link>
-                {' '}| <Link to={makeNewsUrl(UnlistedLogsTitle)}><Trans>About unlisted logs</Trans></Link>
-                {' '}| <Link to="/premium"><Trans>Premium</Trans></Link>
-                {' '}| <LanguageSwitcher />
-              </div>
-            </div>
-            {premium === false && (
-              <div className="col-lg-6 text-right hidden-md">
-                {/* Frontpage Header */}
-                <Ad
-                  style={{ width: 336, height: 280, float: 'right' }}
-                  data-ad-slot="6838783431"
-                />
-              </div>
+          <div className="brand-name">
+            <Logo />
+            <h1>WoWAnalyzer</h1>
+          </div>
+          <Trans>Improve your performance with personal feedback and stats. Just enter the link of a <a href="https://warcraftlogs.com" target="_blank" rel="noopener noreferrer">Warcraft Logs</a> report:</Trans>
+          <div style={{ margin: '30px auto', maxWidth: 700, textAlign: 'left' }}>
+            {this.state.reportSelectionActive ? (
+              <>
+                <ReportSelecter />
+                <Trans>or <a href="/" onClick={this.handleToggleCharacterSearchClick}>
+                  search for a character
+                </a>.</Trans>
+              </>
+            ) : (
+              <>
+                <CharacterSearch />
+                <Trans>or <a href="/" onClick={this.handleToggleReportSelectorClick}>
+                  enter a report link
+                </a>.</Trans><br /><br />
+                <Warning>
+                  The character page will only show fights that have been ranked by Warcraft Logs. During busy periods there might be a delay before new fights appear. Wipes are also not included. Find the report on Warcraft Logs and copy the direct report link to still analyze these fights.
+                </Warning>
+              </>
             )}
           </div>
+
         </div>
       </header>
     );
