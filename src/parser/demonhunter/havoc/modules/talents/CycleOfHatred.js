@@ -31,12 +31,11 @@ class CycleOfHatred extends Analyzer {
   }
 
   onEnergizeEvent(event) {
-    if (!this.spellUsable.isOnCooldown(SPELLS.METAMORPHOSIS_HAVOC.id)){
+    if (!this.spellUsable.isOnCooldown(SPELLS.METAMORPHOSIS_HAVOC.id)) {
       return;
-    } else {
+    }
       const effectiveReduction = this.spellUsable.reduceCooldown(SPELLS.METAMORPHOSIS_HAVOC.id, COOLDOWN_REDUCTION_MS);
       this.totalCooldownReduction += effectiveReduction;
-    }
   }
 
   statistic() {
