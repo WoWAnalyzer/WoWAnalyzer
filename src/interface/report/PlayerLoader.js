@@ -28,6 +28,10 @@ const defaultState = {
 };
 
 class PlayerLoader extends React.PureComponent {
+  tanks = 0;
+  healers = 0;
+  melees = 0;
+  ranged = 0;
   static propTypes = {
     report: PropTypes.shape({
       code: PropTypes.string.isRequired,
@@ -79,10 +83,6 @@ class PlayerLoader extends React.PureComponent {
   async loadCombatants(report, fight) {
     try {
       const combatants = await fetchCombatants(report.code, fight.start_time, fight.end_time);
-      this.tanks = 0;
-      this.healers = 0;
-      this.melees = 0;
-      this.ranged = 0;
       combatants.forEach(player => {
         switch (SPECS[player.specID].role) {
           case ROLES.TANK:
@@ -100,6 +100,9 @@ class PlayerLoader extends React.PureComponent {
           case ROLES.DPS.RANGED:
             this.ranged += 1;
             break;
+            
+          default:
+          break;
         }
       });
       if (this.props.report !== report || this.props.fight !== fight) {
