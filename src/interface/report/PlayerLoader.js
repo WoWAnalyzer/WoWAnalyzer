@@ -79,31 +79,29 @@ class PlayerLoader extends React.PureComponent {
   async loadCombatants(report, fight) {
     try {
       const combatants = await fetchCombatants(report.code, fight.start_time, fight.end_time);
-      this.tanks = this.healers = this.melees = this.ranged = this.noRole = 0;
-      for (var player in combatants){
-      switch(SPECS[combatants[player].specID].role)
-      {
-        case ROLES.TANK:
-        this.tanks++;
-        break;
-        
-        case ROLES.HEALER:
-        this.healers++;
-        break;
-        
-        case ROLES.DPS.MELEE:
-        this.melees++;
-        break;
-        
-        case ROLES.DPS.RANGED:
-        this.ranged++;
-        break;
+      this.tanks = 0;
+      this.healers = 0;
+      this.melees = 0;
+      this.ranged = 0;
+      combatants.forEach(player => {
+        switch (SPECS[player.specID].role) {
+          case ROLES.TANK:
+            this.tanks += 1;
+            break;
 
-        default:
-        this.noRole++;
-        break;
-      }
-    }
+          case ROLES.HEALER:
+            this.healers += 1;
+            break;
+
+          case ROLES.DPS.MELEE:
+            this.melees += 1;
+            break;
+
+          case ROLES.DPS.RANGED:
+            this.ranged += 1;
+            break;
+        }
+      });
       if (this.props.report !== report || this.props.fight !== fight) {
         return; // the user switched report/fight already
       }
@@ -183,8 +181,7 @@ class PlayerLoader extends React.PureComponent {
             <div className="flex wrapable" style={{ marginBottom: 15 }}>
               <div className="flex-main" style={{ position: 'relative' }}>
                 <h1 style={{ lineHeight: 1.4, margin: 0 }}><Trans>Player selection</Trans></h1>
-                <small style={{ marginTop: -5 }}><Trans>Select the player you wish to analyze.</Trans></small><br/>
-                <small style={{ marginTop: -5 }}><Trans>Amount of combatants without a role: {this.noRole}</Trans></small>
+                <small style={{ marginTop: -5 }}><Trans>Select the player you wish to analyze.</Trans></small><br />
               </div>
               <div className="flex-sub">
                 <div className="raid-composition">
