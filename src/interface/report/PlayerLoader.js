@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { Trans, t } from '@lingui/macro';
 
+import SPECS from 'game/SPECS';
+import ROLES from 'game/ROLES';
 import getFightName from 'common/getFightName';
 import { fetchCombatants, LogNotFoundError } from 'common/fetchWclApi';
 import { captureException } from 'common/errorLogger';
@@ -77,6 +79,31 @@ class PlayerLoader extends React.PureComponent {
   async loadCombatants(report, fight) {
     try {
       const combatants = await fetchCombatants(report.code, fight.start_time, fight.end_time);
+      this.tanks = this.healers = this.melees = this.ranged = this.noRole = 0;
+      for (var player in combatants){
+      switch(SPECS[combatants[player].specID].role)
+      {
+        case ROLES.TANK:
+        this.tanks++;
+        break;
+        
+        case ROLES.HEALER:
+        this.healers++;
+        break;
+        
+        case ROLES.DPS.MELEE:
+        this.melees++;
+        break;
+        
+        case ROLES.DPS.RANGED:
+        this.ranged++;
+        break;
+
+        default:
+        this.noRole++;
+        break;
+      }
+    }
       if (this.props.report !== report || this.props.fight !== fight) {
         return; // the user switched report/fight already
       }
@@ -153,8 +180,64 @@ class PlayerLoader extends React.PureComponent {
                 </Link>
               </Tooltip>
             </div>
-            <h1 style={{ lineHeight: 1.4, margin: 0 }}><Trans>Player selection</Trans></h1>
-            <small style={{ marginTop: -5 }}><Trans>Select the player you wish to analyze.</Trans></small>
+            <div className="flex wrapable" style={{ marginBottom: 15 }}>
+              <div className="flex-main" style={{ position: 'relative' }}>
+                <h1 style={{ lineHeight: 1.4, margin: 0 }}><Trans>Player selection</Trans></h1>
+                <small style={{ marginTop: -5 }}><Trans>Select the player you wish to analyze.</Trans></small><br/>
+                <small style={{ marginTop: -5 }}><Trans>Amount of combatants without a role: {this.noRole}</Trans></small>
+              </div>
+              <div className="flex-sub">
+                <div className="raid-composition">
+                  <div className="bar">
+                    <div className="panel-body" style={{ padding: 0 }}>
+                      <div className="flex">
+                        <div className="flex-sub icon">
+                          <img
+                            src="/roles/tank.jpg"
+                            alt="Tanks"
+                            className="compositionIcon"
+                          />
+                          <div className="role-count">
+                            {this.tanks}
+                          </div>
+                        </div>
+                        <div className="flex-sub icon">
+                          <img
+                            src="/roles/healer.jpg"
+                            alt="Healers"
+                            className="compositionIcon"
+                          />
+                          <div className="role-count">
+                            {this.healers}
+                          </div>
+                        </div>
+                        <div className="flex-sub icon">
+                          <img
+                            src="/roles/dps.jpg"
+                            alt="DPS"
+                            className="compositionIcon"
+                          />
+                          <div className="role-count">
+                            {this.melees}
+                          </div>
+                        </div>
+                        <div className="flex-sub icon">
+                          <img
+                            src="/roles/dps.ranged.jpg"
+                            alt="Ranged DPS"
+                            className="compositionIcon"
+                          />
+                          <br />
+                          <div className="role-count">
+                            {this.ranged}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <PlayerSelection
             players={report.friendlies.map(friendly => {

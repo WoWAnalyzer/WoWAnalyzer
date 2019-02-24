@@ -1,5 +1,38 @@
 @import 'interface/layout/Theme.scss';
 
+.raid-composition{
+  align-content:"center";
+
+    // My abd
+    .role-count {
+      text-align: center;
+      font-size: 0.86em;
+    }
+
+    .bar {
+      height: auto;
+      padding: 0;
+    }
+    .bar .flex > * {
+      padding: 10px 15px;
+      font-size: 22px;
+      line-height: 1;
+      border-radius: 3px;
+      background: $panelColor;
+      &:last-of-type {
+        border-right: none;
+      }
+    }
+    .bar .flex > .icon {
+      img {
+        height: 1.34em;
+        vertical-align: top;
+        border-radius: 50%;
+        margin-bottom: 4px;
+      }
+      margin: 0 1.5px 0 1.5px;
+    }
+  }
 .player-selection {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
