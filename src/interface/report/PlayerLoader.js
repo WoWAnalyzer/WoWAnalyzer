@@ -7,6 +7,7 @@ import { Trans, t } from '@lingui/macro';
 
 import SPECS from 'game/SPECS';
 import ROLES from 'game/ROLES';
+import getAverageItemLevel from 'game/getAverageItemLevel';
 import getFightName from 'common/getFightName';
 import { fetchCombatants, LogNotFoundError } from 'common/fetchWclApi';
 import { captureException } from 'common/errorLogger';
@@ -32,6 +33,7 @@ class PlayerLoader extends React.PureComponent {
   healers = 0;
   melees = 0;
   ranged = 0;
+  ilvl = 0;
   static propTypes = {
     report: PropTypes.shape({
       code: PropTypes.string.isRequired,
@@ -104,7 +106,10 @@ class PlayerLoader extends React.PureComponent {
           default:
           break;
         }
+        this.ilvl += getAverageItemLevel(player.gear);
       });
+      this.ilvl /= combatants.length;
+      console.log(this.ilvl);
       if (this.props.report !== report || this.props.fight !== fight) {
         return; // the user switched report/fight already
       }
