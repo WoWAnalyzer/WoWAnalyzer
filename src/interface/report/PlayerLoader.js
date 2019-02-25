@@ -199,7 +199,7 @@ class PlayerLoader extends React.PureComponent {
                       <div className="flex">
                         <div className="flex-sub icon">
                           <Icon icon="inv_helmet_03" />
-                          <div className="role-count" >//style={{fontSize:"0.78em", marginTop:"1px"}}>
+                          <div className="role-count" style={{fontSize:"0.78em"}}>
                             {Math.round(this.ilvl)}
                           </div>
                         </div>
