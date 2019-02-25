@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Trans } from '@lingui/macro';
 
@@ -7,15 +8,20 @@ import retryingPromise from 'common/retryingPromise';
 import { hasPremium } from 'interface/selectors/user';
 import { ReactComponent as Logo } from 'interface/images/logo.svg';
 import Warning from 'interface/common/Alert/Warning';
+import { getReportHistory } from 'interface/selectors/reportHistory';
 
 import ReportSelecter from './others/ReportSelecter';
-import ReportHistory from './home/ReportHistory/Panel';
+import ReportHistory from './home/ReportHistory';
 
 import './Header.scss';
 
 const CharacterSearch = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'CharacterSearch', webpackPrefetch: true */ 'interface/character/Search').then(exports => exports.default)));
 
 class Header extends React.PureComponent {
+  static propTypes = {
+    reportHistory: PropTypes.array.isRequired,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -39,11 +45,13 @@ class Header extends React.PureComponent {
   }
 
   render() {
+    const { reportHistory } = this.props;
+
     return (
       <header className="report-selection">
         <div className="container">
           <div className="row">
-            <div className="col-md-8">
+            <div className={reportHistory.length !== 0 ? 'col-md-8' : 'col-md-12'}>
               <a href="/" className="brand-name">
                 <Logo />
                 <h1>WoWAnalyzer</h1>
@@ -70,9 +78,13 @@ class Header extends React.PureComponent {
                 )}
               </div>
             </div>
-            <div className="col-md-4 text-left">
-              <ReportHistory />
-            </div>
+            {reportHistory.length !== 0 && (
+              <div className="col-md-4 text-left">
+                <small><Trans>Recently viewed</Trans></small><br />
+                
+                <ReportHistory reportHistory={reportHistory} />
+              </div>
+            )}
           </div>
         </div>
       </header>
@@ -81,6 +93,7 @@ class Header extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
+  reportHistory: getReportHistory(state),
   premium: hasPremium(state),
 });
 
