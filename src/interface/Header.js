@@ -81,7 +81,7 @@ class Header extends React.PureComponent {
             {reportHistory.length !== 0 && (
               <div className="col-md-4 text-left">
                 <small><Trans>Recently viewed</Trans></small><br />
-                
+
                 <ReportHistory reportHistory={reportHistory} />
               </div>
             )}

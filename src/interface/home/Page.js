@@ -5,12 +5,17 @@ import { Trans, t } from '@lingui/macro';
 import { Link } from 'react-router-dom';
 
 import ScrollFilledIcon from 'interface/icons/ScrollFilled';
-import MegaphoneIcon from 'interface/icons/Megaphone';
+import NewsIcon from 'interface/icons/Megaphone';
 import DiscordIcon from 'interface/icons/DiscordTiny';
 import GitHubIcon from 'interface/icons/GitHubMarkLarge';
 import PatreonIcon from 'interface/icons/PatreonTiny';
 import TwitterIcon from 'interface/icons/Twitter';
 import DiscordLogo from 'interface/images/Discord-Logo+Wordmark-White.svg';
+import PremiumIcon from 'interface/icons/Premium';
+import { ReactComponent as Logo } from 'interface/images/logo.svg';
+import FingerprintFilledIcon from 'interface/icons/FingerprintFilled';
+import HelpWantedIcon from 'interface/icons/Information';
+import ReportSelectionIcon from 'interface/icons/Performance';
 
 import { i18n } from 'interface/RootLocalizationProvider';
 import DelayRender from 'interface/common/DelayRender';
@@ -23,8 +28,6 @@ import DocumentTitle from 'interface/common/DocumentTitle';
 import MasteryRadiusImage from 'interface/images/mastery-radius.png';
 import ChangelogPanel from 'interface/home/ChangelogPanel';
 import Ad from 'interface/common/Ad';
-
-import DiscordBanner from './images/discord-banner.jpg';
 
 import './Home.scss';
 import Header from '../Header';
@@ -40,27 +43,27 @@ class Home extends React.PureComponent {
   get pages() {
     return [
       {
-        icon: null,
+        icon: NewsIcon,
         name: <Trans>News</Trans>,
         url: 'news',
       },
       {
-        icon: null,
+        icon: FingerprintFilledIcon,
         name: <Trans>Specs</Trans>,
         url: 'specs',
       },
       {
-        icon: null,
+        icon: PremiumIcon,
         name: <Trans>Premium</Trans>,
         url: 'premium',
       },
       {
-        icon: null,
+        icon: Logo,
         name: <Trans>About</Trans>,
         url: 'about',
       },
       {
-        icon: null,
+        icon: HelpWantedIcon,
         name: <Trans>Help wanted</Trans>,
         url: 'help-wanted',
       },
@@ -69,6 +72,7 @@ class Home extends React.PureComponent {
 
   render() {
     const { premium } = this.props;
+    const url = 'news';
 
     return (
       <div className="container home-page">
@@ -80,16 +84,22 @@ class Home extends React.PureComponent {
           <ul>
             <li className="active">
               <a>
+                <ReportSelectionIcon />
                 Report selection
               </a>
             </li>
-            {this.pages.map(page => (
-              <li key={page.url}>
-                <Link to={page.url}>
-                  {page.name}
-                </Link>
-              </li>
-            ))}
+            {this.pages.map(page => {
+              const Icon = page.icon;
+
+              return (
+                <li key={page.url} className={page.url === url ? 'active' : undefined}>
+                  <Link to={page.url}>
+                    <Icon className="icon" />
+                    {page.name}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
@@ -97,7 +107,7 @@ class Home extends React.PureComponent {
           <header>
             <div className="row">
               <div className="col-md-12">
-                <h1 id="Announcements"><MegaphoneIcon /> <Trans>Announcements</Trans></h1>
+                <h1 id="Announcements"><NewsIcon /> <Trans>Announcements</Trans></h1>
               </div>
             </div>
           </header>
