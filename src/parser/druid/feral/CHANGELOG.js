@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-02-25'),
+    changes: <>Updated explanatory text to reflect changes from patch 8.1.</>,
+    contributors: [Anatta336],
+  },
+  {
     date: new Date('2019-02-23'),
     changes: <>Added tracking of <SpellLink id={SPELLS.JUNGLE_FURY_TRAIT.id} />.</>,
     contributors: [Anatta336],
