@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Trans, t } from '@lingui/macro';
+import { Link } from 'react-router-dom';
 
 import ScrollFilledIcon from 'interface/icons/ScrollFilled';
 import MegaphoneIcon from 'interface/icons/Megaphone';
@@ -24,9 +25,9 @@ import ChangelogPanel from 'interface/home/ChangelogPanel';
 import Ad from 'interface/common/Ad';
 
 import DiscordBanner from './images/discord-banner.jpg';
-import ReportHistory from './ReportHistory/Panel';
 
 import './Home.scss';
+import Header from '../Header';
 
 class Home extends React.PureComponent {
   static propTypes = {
@@ -36,6 +37,36 @@ class Home extends React.PureComponent {
     premium: false,
   };
 
+  get pages() {
+    return [
+      {
+        icon: null,
+        name: <Trans>News</Trans>,
+        url: 'news',
+      },
+      {
+        icon: null,
+        name: <Trans>Specs</Trans>,
+        url: 'specs',
+      },
+      {
+        icon: null,
+        name: <Trans>Premium</Trans>,
+        url: 'premium',
+      },
+      {
+        icon: null,
+        name: <Trans>About</Trans>,
+        url: 'about',
+      },
+      {
+        icon: null,
+        name: <Trans>Help wanted</Trans>,
+        url: 'help-wanted',
+      },
+    ];
+  }
+
   render() {
     const { premium } = this.props;
 
@@ -43,12 +74,22 @@ class Home extends React.PureComponent {
       <div className="container home-page">
         <DocumentTitle /> {/* prettiest is if the Home page has no title at all */}
 
+        <Header />
+
         <nav>
           <ul>
-            <li><a>News</a></li>
-            <li><a>Specs</a></li>
-            <li><a>Premium</a></li>
-            <li><a>About</a></li>
+            <li className="active">
+              <a>
+                Report selection
+              </a>
+            </li>
+            {this.pages.map(page => (
+              <li key={page.url}>
+                <Link to={page.url}>
+                  {page.name}
+                </Link>
+              </li>
+            ))}
           </ul>
         </nav>
 
@@ -63,8 +104,6 @@ class Home extends React.PureComponent {
 
           <div className="row">
             <div className="col-lg-4 col-md-5">
-              <ReportHistory />
-
               <div className="panel">
                 <div className="panel-heading">
                   <h2><Trans>About WoWAnalyzer</Trans></h2>
@@ -84,16 +123,6 @@ class Home extends React.PureComponent {
                   </Trans><br /><br />
 
                   <Trans>Wondering how to use WoWAnalyzer? See the <a href="https://www.wowhead.com/how-to-use-wowanalyzer"><img src="/img/wowhead-tiny.png" style={{ height: '1em' }} alt="Wowhead" /> Wowhead guide</a>. If you want to see an example report, click on your spec in the <a href="/#Specializations">Specializations</a> list.</Trans>
-                </div>
-              </div>
-
-              <div className="panel">
-                <div className="panel-heading" style={{ padding: 0 }}>
-                  <img src={DiscordBanner} alt="Discord" style={{ width: '100%' }} />
-                </div>
-                <div className="panel-body" style={{ textAlign: 'justify' }}>
-                  <Trans>Join us on Discord with any questions, suggestions or for more information about contributing.</Trans><br /><br />
-                  <DiscordButton />
                 </div>
               </div>
 
