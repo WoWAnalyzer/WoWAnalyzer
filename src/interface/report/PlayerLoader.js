@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { Trans, t } from '@lingui/macro';
 
+import Icon from 'common/Icon';
 import SPECS from 'game/SPECS';
 import ROLES from 'game/ROLES';
 import getAverageItemLevel from 'game/getAverageItemLevel';
@@ -197,10 +198,15 @@ class PlayerLoader extends React.PureComponent {
                     <div className="panel-body" style={{ padding: 0 }}>
                       <div className="flex">
                         <div className="flex-sub icon">
+                          <Icon icon="inv_helmet_03" />
+                          <div className="role-count" >//style={{fontSize:"0.78em", marginTop:"1px"}}>
+                            {Math.round(this.ilvl)}
+                          </div>
+                        </div>
+                        <div className="flex-sub icon">
                           <img
                             src="/roles/tank.jpg"
                             alt="Tanks"
-                            className="compositionIcon"
                           />
                           <div className="role-count">
                             {this.tanks}
@@ -210,7 +216,6 @@ class PlayerLoader extends React.PureComponent {
                           <img
                             src="/roles/healer.jpg"
                             alt="Healers"
-                            className="compositionIcon"
                           />
                           <div className="role-count">
                             {this.healers}
@@ -220,7 +225,6 @@ class PlayerLoader extends React.PureComponent {
                           <img
                             src="/roles/dps.jpg"
                             alt="DPS"
-                            className="compositionIcon"
                           />
                           <div className="role-count">
                             {this.melees}
@@ -230,7 +234,6 @@ class PlayerLoader extends React.PureComponent {
                           <img
                             src="/roles/dps.ranged.jpg"
                             alt="Ranged DPS"
-                            className="compositionIcon"
                           />
                           <br />
                           <div className="role-count">
