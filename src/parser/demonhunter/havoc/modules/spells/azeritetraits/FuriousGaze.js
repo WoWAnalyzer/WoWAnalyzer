@@ -45,7 +45,6 @@ class FuriousGaze extends Analyzer{
     this.statTracker.add(SPELLS.FURIOUS_GAZE_BUFF.id, {
       haste,
     });
-    console.log("haste amount? ", haste);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FURIOUS_GAZE_BUFF), this.onBuffEvent);
   }
 
@@ -54,7 +53,7 @@ class FuriousGaze extends Analyzer{
   }
 
   get averageHaste() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.FURIOUS_GAZE_BUFF.id) / this.owner.fightDuration * this.haste;
+    return this.buffUptime * this.haste;
   }
 
   get buffUptime() {
@@ -66,11 +65,7 @@ class FuriousGaze extends Analyzer{
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.FURIOUS_GAZE.id}
-        value={(
-          <>
-            {formatNumber(this.averageHaste)} average Haste
-          </>
-        )}
+        value={`${formatNumber(this.averageHaste)} average Haste`}
         tooltip={`
           ${formatPercentage(this.buffUptime)}% uptime<br />
           ${this.furiousGazeProcsCounter} Procs
