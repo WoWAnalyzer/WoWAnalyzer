@@ -47,10 +47,10 @@ Heading.propTypes = {
   backButton: PropTypes.node,
 };
 
-const Panel = ({ children, className, style, pad, title, explanation, actions, backButton }) => (
+const Panel = ({ children, className, style, pad, title, explanation, actions, backButton, bodyStyle }) => (
   <div className={`panel ${className}`} style={style}>
     <Heading title={title} explanation={explanation} actions={actions} backButton={backButton} />
-    <div className={`panel-body ${pad ? 'pad' : ''}`}>
+    <div className={`panel-body ${pad ? 'pad' : ''}`} style={bodyStyle}>
       {children}
     </div>
   </div>
@@ -59,6 +59,7 @@ Panel.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
   style: PropTypes.object,
+  bodyStyle: PropTypes.object,
   pad: PropTypes.bool,
   // Heading
   title: PropTypes.node,
