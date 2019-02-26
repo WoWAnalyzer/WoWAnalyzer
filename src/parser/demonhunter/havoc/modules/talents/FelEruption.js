@@ -66,11 +66,9 @@ class FelEruption extends Analyzer {
         talent={SPELLS.FEL_ERUPTION_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
         value={`${this.badCasts} bad casts`}
-        tooltip={`
-          This ability should only be used for its stun. Its a dps loss.
-        `}
+        tooltip={`This ability should only be used for its stun. Its a dps loss.`}
       />
     );
   }
 }
-export default FelEruptionn;
+export default FelEruption;
