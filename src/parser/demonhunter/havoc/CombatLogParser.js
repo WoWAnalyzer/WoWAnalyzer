@@ -35,6 +35,9 @@ import CycleOfHatred from './modules/talents/CycleOfHatred';
 import FuryDetails from './modules/resourcetracker/FuryDetails';
 import FuryTracker from './modules/resourcetracker/FuryTracker';
 
+// Azerite Traits
+import FuriousGaze from './modules/spells/azeritetraits/FuriousGaze';
+
 //Items
 import SoulOfTheSlayer from '../shared/modules/items/SoulOfTheSlayer';
 
@@ -73,6 +76,8 @@ class CombatLogParser extends CoreCombatLogParser {
     darkSlash: DarkSlash,
     cycleOfHatred: CycleOfHatred,
 
+    // Azerite Traits
+    furiousGaze: FuriousGaze,
 
     //Resources
     furyTracker: FuryTracker,
