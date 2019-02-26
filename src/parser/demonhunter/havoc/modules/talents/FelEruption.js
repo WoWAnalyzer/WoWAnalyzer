@@ -56,7 +56,7 @@ class FelEruptionn extends Analyzer{
         return suggest(<>Try to cast <SpellLink id={SPELLS.FEL_ERUPTION_TALENT.id} /> only for its stun. Its not worth casting for its damage since its a dps loss.</>)
           .icon(SPELLS.FEL_ERUPTION_TALENT.icon)
           .actual(`${actual} bad casts`)
-          .recommended(`${formatPercentage(recommended)}% is recommended.`);
+          .recommended('No bad casts are recommended.');
       });
   }
 
