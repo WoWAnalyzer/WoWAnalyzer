@@ -10,6 +10,8 @@ import { formatThousands } from 'common/format';
 
 import StatisticBox from 'interface/others/StatisticBox';
 
+import { isPermanentPet } from '../pets/helpers';
+
 class LegionStrike extends Analyzer {
   casts = 0;
   damage = 0;
@@ -20,12 +22,26 @@ class LegionStrike extends Analyzer {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.FELGUARD_LEGION_STRIKE), this.legionStrikeDamage);
   }
 
-  legionStrikeCast() {
-    this.casts += 1;
+  legionStrikeCast(event) {
+    // Grimoire: Felguard casts Legion Strike with the same spell ID, only count LS casts from the permanent pet
+    if (this._isPermanentPet(event.sourceID)) {
+      this.casts += 1;
+    }
   }
 
   legionStrikeDamage(event) {
-    this.damage += event.amount + (event.absorbed || 0);
+    if (this._isPermanentPet(event.sourceID)) {
+      this.damage += event.amount + (event.absorbed || 0);
+    }
+  }
+
+  _getPetGuid(id) {
+    return this.owner.playerPets.find(pet => pet.id === id).guid;
+  }
+
+  _isPermanentPet(id) {
+    const guid = this._getPetGuid(id);
+    return isPermanentPet(guid);
   }
 
   get suggestionThresholds() {
