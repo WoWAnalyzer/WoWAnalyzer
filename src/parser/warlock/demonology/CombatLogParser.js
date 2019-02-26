@@ -8,7 +8,7 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import Felstorm from './modules/features/Felstorm';
 import Checklist from './modules/features/Checklist/Module';
 import SummonDemonicTyrant from './modules/features/SummonDemonicTyrant';
-
+import LegionStrike from './modules/features/LegionStrike';
 
 import SoulShardTracker from './modules/soulshards/SoulShardTracker';
 import SoulShardDetails from './modules/soulshards/SoulShardDetails';
@@ -59,6 +59,7 @@ class CombatLogParser extends CoreCombatLogParser {
     felstorm: Felstorm,
     checklist: Checklist,
     summonDemonicTyrant: SummonDemonicTyrant,
+    legionStrike: LegionStrike,
 
     // Core
     soulShardTracker: SoulShardTracker,
@@ -103,7 +104,7 @@ class CombatLogParser extends CoreCombatLogParser {
     supremeCommander: SupremeCommander,
     shadowsBite: ShadowsBite,
     balefulInvocation: BalefulInvocation,
-    
+
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],
   };
