@@ -79,11 +79,6 @@ export default {
     name: 'Bindings of Fate',
     icon: 'spell_holy_greaterheal',
   },
-  BLADE_IN_THE_SHADOWS: {
-    id: 275896,
-    name: 'Blade In The Shadows',
-    icon: 'ability_rogue_shadowstrike',
-  },
   BLAST_RADIUS: {
     id: 269387,
     name: 'Blast Radius',
@@ -129,11 +124,6 @@ export default {
     name: 'Breach',
     icon: 'ability_heroicleap',
   },
-  BRIGANDS_BLITZ: {
-    id: 277723,
-    name: 'Brigand\'s Blitz',
-    icon: 'spell_shadow_shadowworddominate',
-  },
   BULWARK_OF_LIGHT: {
     id: 272976,
     name: 'Bulwark of Light',
@@ -169,11 +159,6 @@ export default {
     name: 'Dawning Sun',
     icon: 'spell_arcane_starfire',
   },
-  DEADSHOT: {
-    id: 272936,
-    name: 'Deadshot',
-    icon: 'inv_weapon_rifle_01',
-  },
   DEAFENING_CRASH: {
     id: 272824,
     name: 'Deafening Crash',
@@ -208,11 +193,6 @@ export default {
     id: 275463,
     name: 'Divine Revelations',
     icon: 'ability_paladin_infusionoflight',
-  },
-  DOUBLE_DOSE: {
-    id: 273007,
-    name: 'Double Dose',
-    icon: 'ability_rogue_shadowstrikes',
   },
   ECHOING_HOWL: {
     id: 275917,
@@ -479,11 +459,6 @@ export default {
     name: 'Mote in the Eye',
     icon: 'achievement_zone_thousandneedles_01',
   },
-  NIGHTS_VENGEANCE: {
-    id: 273419,
-    name: 'Night\'s Vengeance',
-    icon: 'ability_rogue_nightblade',
-  },
   ON_MY_WAY: {
     id: 267879,
     name: 'On My Way',
@@ -513,11 +488,6 @@ export default {
     id: 272970,
     name: 'Packed Ice',
     icon: 'spell_frost_frostblast',
-  },
-  PERFORATE: {
-    id: 277719,
-    name: 'Perforate',
-    icon: 'ability_backstab',
   },
   PERMEATING_GLOW: {
     id: 272783,
@@ -674,11 +644,6 @@ export default {
     name: 'Shellshock',
     icon: 'ability_hunter_pet_turtle',
   },
-  SNAKE_EYES: {
-    id: 275863,
-    name: 'Snake Eyes',
-    icon: 'ability_rogue_rollthebones',
-  },
   SOLITARY_REJUVENATION: {
     id: 274432,
     name: 'Solitary Rejuvenation',
@@ -803,11 +768,6 @@ export default {
     id: 277656,
     name: 'Trailing Embers',
     icon: 'spell_fire_fireball02',
-  },
-  TWIST_THE_KNIFE: {
-    id: 273488,
-    name: 'Twist the Knife',
-    icon: 'ability_rogue_garrote',
   },
   TWISTED_CLAWS: {
     id: 275906,
