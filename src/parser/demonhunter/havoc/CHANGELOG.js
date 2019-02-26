@@ -14,6 +14,11 @@ export default [
   },
   {
     date: new Date('2019-02-20'),
+    changes: <>Added stats for <SpellLink id={SPELLS.MASTER_OF_THE_GLAIVE_TALENT.id} /> and <SpellLink id={SPELLS.FEL_ERUPTION_TALENT.id} /> talents.</>,
+    contributors: [Yajinni],
+  },
+  {
+    date: new Date('2019-02-20'),
     changes: <>Added stats for <SpellLink id={SPELLS.DARK_SLASH_TALENT.id} /> and <SpellLink id={SPELLS.CYCLE_OF_HATRED_TALENT.id} /> talents.</>,
     contributors: [Yajinni],
   },
