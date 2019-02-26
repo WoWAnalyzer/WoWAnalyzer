@@ -11,7 +11,7 @@ import SpellLink from 'common/SpellLink';
  * Example Report: https://www.warcraftlogs.com/reports/9tAcN6PLwjMF4vm1/#fight=1&source=1
  */
 
-class FelEruptionn extends Analyzer{
+class FelEruption extends Analyzer {
 
   casts = 0;
   stuns = 0;
