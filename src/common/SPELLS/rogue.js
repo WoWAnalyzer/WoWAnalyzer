@@ -478,7 +478,7 @@ export default {
   },
 
   //Buffs
-  SCULL_AND_CROSSBONES: {
+  SKULL_AND_CROSSBONES: {
     id: 199603,
     name: 'Skull and Crossbones',
     icon: 'ability_rogue_rollthebones01',
@@ -503,9 +503,9 @@ export default {
     name: 'Buried Treasure',
     icon: 'ability_rogue_rollthebones05',
   },
-  BROADSIDES: {
+  BROADSIDE: {
     id: 193356,
-    name: 'Broadsides',
+    name: 'Broadside',
     icon: 'ability_rogue_rollthebones06',
   },
 
