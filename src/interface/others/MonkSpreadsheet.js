@@ -45,7 +45,7 @@ class MonkSpreadsheet extends React.Component {
       <div>
         <div style={{ padding: '0px 22px 15px 0px' }}>Please use the below table to populate the Player Log section of the Mistweaver Spreadsheet by Garg.                                                                                                                                    <a href="http://www.peakofserenity.com/mistweaver/spreadsheet/" target="_blank" rel="noopener noreferrer">Link to the sheet</a><br /></div>
         <div>
-          <table style={styles.table}>
+          <table style={styles.table}> 
           <tbody>
             <tr><td>Intellect Rating</td><td>{parser.selectedCombatant._combatantInfo.intellect - prePotion}</td></tr>
             <tr><td>Critical Strike Rating</td><td>{parser.selectedCombatant._combatantInfo.critSpell}</td></tr>
@@ -59,7 +59,7 @@ class MonkSpreadsheet extends React.Component {
             <tr><td>Total healing from Life Cocoon HoT Bonus</td><td>{parser.getModule(LifeCocoon).healing.toFixed(2)}</td></tr>
             <tr><td>Essence Font Bolts per Cast</td><td>{parser.getModule(EssenceFont).avgTargetsHitPerEF.toFixed(2) || ''}</td></tr>
             <tr><td>Essence Font HoT Effectiveness</td><td>{parser.getModule(EssenceFont).efHotOverlap}</td></tr>
-            <tr><td>Revival Targets per Cast</td><td>{(getAbility(SPELLS.REVIVAL.id).healingHits / getAbility(SPELLS.REVIVAL.id).casts).toFixed(2) || ''}</td></tr>
+            <tr><td>Revival Targets per Cast</td><td>{(getAbility(SPELLS.REVIVAL.id).healingHits / getAbility(SPELLS.REVIVAL.id).casts).toFixed(2) >= 0 ? (getAbility(SPELLS.REVIVAL.id).healingHits / getAbility(SPELLS.REVIVAL.id).casts).toFixed(2) : ''}</td></tr>
             <tr><td>Gust of Mists from Essence Font HoT per Min</td><td>{((parser.getModule(EssenceFontMastery).healEF / 2) / (parser.fightDuration / 1000 / 60)).toFixed(2) || ''}</td></tr>
             <tr><td>Gust of Mists from Soothing Mist Deck per Min</td><td>{((parser.getModule(SoothingMist).gustProc) / (parser.fightDuration / 1000 / 60)).toFixed(2) || ''}</td></tr>
             <tr><td>Chi Burst Targets per Cast</td><td>{parser.getModule(ChiBurst).active === true ? (parser.getModule(ChiBurst).targetsChiBurst / parser.getModule(ChiBurst).castChiBurst).toFixed(2) : ''}</td></tr>

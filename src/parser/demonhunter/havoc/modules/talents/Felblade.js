@@ -57,7 +57,6 @@ class Felblade extends Analyzer{
 
   statistic(){
     const effectiveFuryGain = this.furyGain - this.furyWaste;
-    console.log("testr", this.furyWaste / this.furyGain);
     return (
       <TalentStatisticBox
         talent={SPELLS.FELBLADE_TALENT.id}

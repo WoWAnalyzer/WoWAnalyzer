@@ -47,6 +47,7 @@ class FeralDruidChecklist extends React.PureComponent {
           </>
         )}
         thresholds={props.thresholds}
+        tooltip="Downgrading a snapshot can be unavoidable, but you should let the upgraded version last as long as possible by avoiding early refreshes."
       />
     );
 
@@ -65,9 +66,9 @@ class FeralDruidChecklist extends React.PureComponent {
           name="Generate combo points"
           description={(
             <>
-              Builders use energy and give you combo points. Keep your <dfn data-tip={'Rake and Moonfire if you have the Lunar Inspiration talent, and Thrash if you have high levels of Haste and/or Mastery or are fighting multiple enemies.'}>DoTs</dfn> active, use <SpellLink id={SPELLS.BRUTAL_SLASH_TALENT.id} /> and <SpellLink id={SPELLS.FERAL_FRENZY_TALENT.id} /> if you have those talents, then fill with <SpellLink id={SPELLS.SHRED.id} />. Don't waste combo points by continuing to use builders when at full combo points.<br /><br />
+              Builders use energy and give you combo points. Keep your <dfn data-tip={'Rake and Moonfire if you have the Lunar Inspiration talent, and Thrash if you the Wild Fleshrending azerite trait.'}>DoTs</dfn> active, use <SpellLink id={SPELLS.BRUTAL_SLASH_TALENT.id} /> and <SpellLink id={SPELLS.FERAL_FRENZY_TALENT.id} /> if you have those talents, then fill with <SpellLink id={SPELLS.SHRED.id} />. Don't waste combo points by continuing to use builders when at full combo points.<br /><br />
 
-              You should adapt your behaviour in AoE situations (note that the analyzer only accounts for some of this, so use your discretion when looking at AoE-heavy fights.) If you'll hit 2 or more targets, keep up the <SpellLink id={SPELLS.THRASH_FERAL.id} /> bleed and replace <SpellLink id={SPELLS.SHRED.id} /> with <SpellLink id={SPELLS.SWIPE_CAT.id} />. When fighting <dfn data-tip={'The threshold varies depending on your stats. Higher haste and mastery means you should continue to use Rake against higher numbers of enemies.'}>5 targets</dfn> or more it's no longer worth using <SpellLink id={SPELLS.RAKE.id} /> and <SpellLink id={SPELLS.MOONFIRE_FERAL.id} />. At <dfn data-tip={'Above 10 to 15 enemies, depending on your haste and mastery'}>very high</dfn> target counts you should stop using <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> and <SpellLink id={SPELLS.RIP.id} /> entirely, as it's more damage to use the energy on <SpellLink id={SPELLS.SWIPE_CAT.id} />. Unlike in the Legion expansion you should never spam <SpellLink id={SPELLS.THRASH_FERAL.id} />.
+              You should adapt your behaviour in AoE situations (the analyzer only accounts for some of this, so use your discretion when looking at AoE-heavy fights.) If you'll hit 2 or more targets replace <SpellLink id={SPELLS.SHRED.id} /> with <SpellLink id={SPELLS.SWIPE_CAT.id} />. When fighting <dfn data-tip={'The threshold varies slightly depending on your stats and azerite traits.'}>5 targets</dfn> or more it's no longer worth using <SpellLink id={SPELLS.RAKE.id} /> and <SpellLink id={SPELLS.MOONFIRE_FERAL.id} />. Unlike in the Legion expansion you should never spam <SpellLink id={SPELLS.THRASH_FERAL.id} />, keep it active only if you have <SpellLink id={SPELLS.WILD_FLESHRENDING.id} /> traits or if you would otherwise be using <SpellLink id={SPELLS.SWIPE_CAT.id} /> on targets without any bleeds.
             </>
           )}
         >
@@ -84,10 +85,11 @@ class FeralDruidChecklist extends React.PureComponent {
           <Requirement
             name={(
               <>
-                <SpellLink id={SPELLS.SWIPE_CAT.id} /> that hit only one target
+                Inappropriate <SpellLink id={SPELLS.SWIPE_CAT.id} />
               </>
             )}
             thresholds={thresholds.swipeHitOne}
+            tooltip="How many times you used Swipe but had it only hit 1 target. Against a single target you should use Shred instead."
           />
           <Requirement
             name={(
@@ -96,6 +98,7 @@ class FeralDruidChecklist extends React.PureComponent {
               </>
             )}
             thresholds={thresholds.comboPointsWaste}
+            tooltip="Generating combo points after already reaching the maximum 5 wastes them."
           />
         </Rule>
 
@@ -111,9 +114,9 @@ class FeralDruidChecklist extends React.PureComponent {
           name="Spend combo points"
           description={(
             <>
-              You should generally only use finishers with a full 5 combo points. The exception is the first <SpellLink id={SPELLS.SAVAGE_ROAR_TALENT.id} /> of a fight, which can be used with fewer. Because it takes time to build combo points some planning is needed to keep <SpellLink id={SPELLS.RIP.id} /> and <SpellLink id={SPELLS.SAVAGE_ROAR_TALENT.id} /> active all the time. Avoid using resources on <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> if you'll need a more important finisher soon. When you do cast <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> make sure you have at least <dfn data-tip={'Ferocious Bite\'s tooltip says it needs just 25 energy, but you should always give it an additional 25 to double its damage.'}>50 energy.</dfn><br /><br />
+              You should generally only use finishers with a full 5 combo points. The exception is the first <SpellLink id={SPELLS.RIP.id} /> of the fight which should be applied as early as possible. <SpellLink id={SPELLS.SABERTOOTH_TALENT.id} /> is a damage gain in many situations and simplifies your finisher use, allowing you to almost always use <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> as your single target finisher. When casting <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> make sure you have at least <dfn data-tip={'Ferocious Bite\'s tooltip says it needs just 25 energy, but you should always give it an additional 25 to double its damage.'}>50 energy.</dfn><br /><br />
 
-              Against <dfn data-tip={'Above 10 to 15 enemies, depending on your haste and mastery'}>very high</dfn> numbers of enemies it becomes more effective to use your energy on <SpellLink id={SPELLS.SWIPE_CAT.id} /> rather than using <SpellLink id={SPELLS.RIP.id} /> or <SpellLink id={SPELLS.FEROCIOUS_BITE.id} />. You should still maintain <SpellLink id={SPELLS.SAVAGE_ROAR_TALENT.id} /> if you have the talent selected.
+              <SpellLink id={SPELLS.PRIMAL_WRATH_TALENT.id} /> can replace both <SpellLink id={SPELLS.RIP.id} /> and <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> when against approximately 3 or more enemies.
             </>
           )}
         >
@@ -124,26 +127,31 @@ class FeralDruidChecklist extends React.PureComponent {
           <Requirement
             name={(
               <>
-                Average energy consumed by <SpellLink id={SPELLS.FEROCIOUS_BITE.id} />
+                Average <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> energy
               </>
             )}
             thresholds={thresholds.ferociousBiteEnergy}
+            tooltip="Ferocious Bite consumes up to 50 energy, and should always be given that full 50 energy to significantly increase its damage."
           />
+          {combatant.hasTalent(SPELLS.SABERTOOTH_TALENT.id) && (
+            <Requirement
+              name={(
+                <>
+                  <SpellLink id={SPELLS.RIP.id} /> which should have been <SpellLink id={SPELLS.FEROCIOUS_BITE.id} />
+                </>
+              )}
+              thresholds={thresholds.ripShouldBeBite}
+              tooltip="With the Sabertooth talent you can maintain your Rip by using Ferocious Bite. If you instead cast Rip you are missing out on the Ferocious Bite damage. If the replacement Rip has a better snapshot then it may have been worth using, so those cases are not counted here."
+            />
+          )}
           <Requirement
             name={(
               <>
-                <SpellLink id={SPELLS.RIP.id} /> which should have been replaced by <SpellLink id={SPELLS.FEROCIOUS_BITE.id} />
-              </>
-            )}
-            thresholds={thresholds.ripShouldBeBite}
-          />
-          <Requirement
-            name={(
-              <>
-                <SpellLink id={SPELLS.RIP.id} /> which reduced duration by refreshing early with low combo points
+                <SpellLink id={SPELLS.RIP.id} /> casts which reduced duration
               </>
             )}
             thresholds={thresholds.ripDurationReduction}
+            tooltip="Because Rip's duration is based on combo points used it is possible to reduce the duration of your existing bleed by reapplying it with low combo points. Not only is this a waste of resources but you're doing less damage than you would if you'd done nothing at all."
           />
           <Requirement
             name={(
@@ -167,7 +175,7 @@ class FeralDruidChecklist extends React.PureComponent {
             name="Manage your energy"
             description={(
               <>
-                Your actions are usually limited by available energy so managing it well is important. Don't let it reach the cap and miss out on regeneration, and avoid wasting generated energy from <SpellLink id={SPELLS.TIGERS_FURY.id} />. Allowing your energy to "pool" before using a finisher is often <dfn data-tip="Using a finisher when at low energy leaves you with little of both your main resources which greatly limits your options. Pooling energy first means you'll have energy left over to react to whatever happens in the fight around you. Although pooling is useful never let your uptime of DoTs and Savage Roar drop because of it.">beneficial</dfn>.
+                Your actions are <dfn data-tip="Notable exceptions are when you have the Predator talent with enemies regularly dying, or large AoE situations with certain builds.">usually</dfn> limited by available energy so managing it well is important. Don't let it reach the cap and miss out on regeneration, and avoid wasting generated energy from <SpellLink id={SPELLS.TIGERS_FURY.id} />. Allowing your energy to "pool" before using a finisher is often <dfn data-tip="Using a finisher when at low energy leaves you with little of both your main resources which greatly limits your options. Pooling energy first means you'll have energy left over to react to whatever happens in the fight around you. Although pooling is useful never let your uptime of DoTs and Savage Roar drop because of it.">beneficial</dfn>.
               </>
             )}
           >
@@ -178,15 +186,17 @@ class FeralDruidChecklist extends React.PureComponent {
                 </>
               )}
               thresholds={thresholds.energyCapped}
+              tooltip="Some waste during Berserk or Incarnation (especially with Bloodlust active) is not a concern. If the fight mechanics force you to not attack for periods of time then capping energy is inevitable. Please use your knowledge of the fight when weighing the importance of this metric."
             />
-              <Requirement
-                name={(
-                  <>
-                    Wasted energy from <SpellLink id={SPELLS.TIGERS_FURY.id} />
-                  </>
-                )}
-                thresholds={thresholds.tigersFuryEnergy}
-              />
+            <Requirement
+              name={(
+                <>
+                  Wasted energy from <SpellLink id={SPELLS.TIGERS_FURY.id} />
+                </>
+              )}
+              thresholds={thresholds.tigersFuryEnergy}
+              tooltip="There are some situations where energy is very abundant and the energy gain from Tiger's Fury becomes unimportant, but that is rare in boss fights. Generally you should aim to use Tiger's Fury both for its energy and damage increase."
+            />
           </Rule>
         )}
         {thresholds.tigersFuryIgnoreEnergy && combatant.hasTalent(SPELLS.PREDATOR_TALENT.id) && (
@@ -219,7 +229,7 @@ class FeralDruidChecklist extends React.PureComponent {
           name="Use your cooldowns"
           description={(
             <>
-              Aim to use your cooldowns as often as possible, try to get prepared to use the ability when you see it nearing the end of its cooldown. <SpellLink id={SPELLS.BERSERK.id} /> (or <SpellLink id={SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id} />) should be used when you have plenty of energy so that you get the most effect from its cost reduction. Make sure you don't cap energy when using <SpellLink id={SPELLS.TIGERS_FURY.id} />, but still use it as often as possible. Slightly delaying one so it lines up with the other can be beneficial, but avoid delaying so much that you'd miss out on an extra use during the fight.
+              Aim to use your cooldowns as often as possible, try to get prepared to use the ability when you see it's nearly ready. <SpellLink id={SPELLS.BERSERK.id} /> (or <SpellLink id={SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id} />) should be used when you have plenty of energy so that you get the most effect from its cost reduction. Make sure you don't cap energy when using <SpellLink id={SPELLS.TIGERS_FURY.id} />, but still use it as often as possible. Slightly delaying one so it lines up with the other can be beneficial, but avoid delaying so much that you'd miss out on an extra use during the fight.
             </>
           )}
         >
@@ -250,7 +260,8 @@ class FeralDruidChecklist extends React.PureComponent {
           description={(
             <>
               <dfn data-tip={'Tiger\'s Fury affects all DoTs, Bloodtalons affects all except Moonfire.'}>Certain buffs</dfn> will increase the damage of your DoTs for their full duration, even after the buff wears off. Making the most of this mechanic can be the difference between good and great results.<br /> 
-              As a general rule it's beneficial to refresh a DoT early if you would increase the snapshot. It's better to refresh with a weaker version of the DoT during the <dfn data-tip={'The last 30% of the DoT\'s duration. If you refresh during this time you don\'t lose any duration in the process.'}>pandemic window</dfn> than to let it wear off. The exception is <SpellLink id={SPELLS.RAKE.id} /> empowered by <dfn data-tip={'The effect is also provided by Incarnation: King of the Jungle, and Shadowmeld for Night Elves'}>Prowl</dfn> which is so much stronger that you should wait until the DoT wears off when replacing it with an unbuffed version.
+              As a general rule it's beneficial to refresh a DoT early if you would increase the snapshot. It's better to refresh with a weaker version of the DoT during the <dfn data-tip={'The last 30% of the DoT\'s duration. If you refresh during this time you don\'t lose any duration in the process.'}>pandemic window</dfn> than to let it wear off. The exception is <SpellLink id={SPELLS.RAKE.id} /> empowered by <dfn data-tip={'The effect is also provided by Incarnation: King of the Jungle, and Shadowmeld for Night Elves'}>Prowl</dfn> which is so much stronger that you should wait until the DoT wears off when replacing it with an unbuffed version.<br />
+              <SpellLink id={SPELLS.SABERTOOTH_TALENT.id} /> allows you to use <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> to maintain the existing snapshot on <SpellLink id={SPELLS.RIP.id} /> and should be used to do so.
             </>
           )}
         >
@@ -279,7 +290,7 @@ class FeralDruidChecklist extends React.PureComponent {
             name="Weave in Bloodtalons"
             description={(
               <>
-                Taking the <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> talent adds an extra set of mechanics to weave into your rotation. You should use every <SpellLink id={SPELLS.PREDATORY_SWIFTNESS.id} /> proc to generate <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> charges, which you then spend to buff attacks. Aim to always have the buff active on <SpellLink id={SPELLS.RIP.id} /> and <SpellLink id={SPELLS.RAKE.id} />. Depending on your other talent choices and the number of targets you'll usually have access to more charges than needed to keep those two DoTs buffed, use the rest to buff other high damage attacks. Choose the right time to cast <SpellLink id={SPELLS.REGROWTH.id} /> or <SpellLink id={SPELLS.ENTANGLING_ROOTS.id} /> and generate charges, a good starting point is to do it whenever you're about to use a finisher.
+                Taking the <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> talent adds an extra set of mechanics to weave into your rotation. You should use every <SpellLink id={SPELLS.PREDATORY_SWIFTNESS.id} /> proc to generate <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> charges, which you then spend to buff attacks. Aim to always have the buff active on <SpellLink id={SPELLS.RIP.id} /> and <SpellLink id={SPELLS.RAKE.id} />. Depending on your other talent choices and the number of targets you'll usually have access to more charges than needed to keep those two DoTs buffed, use the rest to buff other high damage attacks such as <SpellLink id={SPELLS.BRUTAL_SLASH_TALENT.id} />. Choose the right time to cast <SpellLink id={SPELLS.REGROWTH.id} /> or <SpellLink id={SPELLS.ENTANGLING_ROOTS.id} /> and generate charges, usually the best time is when you reach 4 or 5 combo points so <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> is active for your finisher.
               </>
             )}
           >
@@ -298,6 +309,7 @@ class FeralDruidChecklist extends React.PureComponent {
                 </>
               )}
               thresholds={thresholds.bloodtalonsWasted}
+              tooltip="Using Bloodtalons to buff any ability counts as it not being wasted. See the statistics results section for details on how those charges were used."
             />
           </Rule>
         )}
