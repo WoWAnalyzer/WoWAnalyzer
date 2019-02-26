@@ -84,6 +84,16 @@ export default {
     name: 'Jungle Fury',
     icon: 'ability_mount_jungletiger',
   },
+  IRON_JAWS_TRAIT: {
+    id: 276021,
+    name: 'Iron Jaws',
+    icon: 'ability_druid_mangle',
+  },
+  IRON_JAWS_BUFF: {
+    id: 276026,
+    name: 'Iron Jaws',
+    icon: 'inv_misc_bone_09',
+  },
   MASTERFUL_INSTINCTS: {
     id: 273344,
     name: 'Masterful Instincts',
