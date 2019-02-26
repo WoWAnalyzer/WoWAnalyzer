@@ -242,6 +242,11 @@ export default {
     name: 'Chaos Strike',
     icon: 'ability_demonhunter_chaosstrike',
   },
+  CHAOS_STRIKE_ENERGIZE: { //This occures due the cycle of hatred talent
+    id: 193840,
+    name: 'Chaos Strike',
+    icon: 'ability_demonhunter_chaosstrike',
+  },
   CHAOS_STRIKE_MH_DAMAGE: {
     id: 222031,
     name: 'Chaos Strike',
@@ -249,11 +254,6 @@ export default {
   },
   CHAOS_STRIKE_OH_DAMAGE: {
     id: 199547,
-    name: 'Chaos Strike',
-    icon: 'ability_demonhunter_chaosstrike',
-  },
-  CHAOS_STRIKE_FURY: {
-    id: 193840,
     name: 'Chaos Strike',
     icon: 'ability_demonhunter_chaosstrike',
   },

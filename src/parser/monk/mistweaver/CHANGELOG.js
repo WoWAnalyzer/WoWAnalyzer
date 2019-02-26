@@ -8,6 +8,11 @@ import ItemLink from 'common/ItemLink';
 
 export default [
   {
+    date: new Date('2019-02-21'),
+    changes: <>Added statistics for tracking the average stat gain from <SpellLink id={SPELLS.SECRET_INFUSION.id} />.</>,
+    contributors: [Anomoly],
+  },
+  {
     date: new Date('2019-02-7'),
     changes: <>Added statistics for tracking the number of <SpellLink id={SPELLS.RENEWING_MIST.id} /> during <SpellLink id={SPELLS.VIVIFY.id} /> casts. Also, did a quick bug fix for the Monk Spreadsheet import.</>,
     contributors: [Anomoly],

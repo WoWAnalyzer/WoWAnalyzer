@@ -130,4 +130,11 @@ export default {
     mastery: true,
     vers: true,
   },
+  [SPELLS.GLIMMER_OF_LIGHT.id]: { // Holy Paladin Azerite trait
+    int: false,
+    crit: true,
+    hasteHpct: true,
+    mastery: true,
+    vers: true,
+  },
 };

@@ -97,7 +97,7 @@ class Entities extends Analyzer {
 
     debug && this.log(`Apply buff stack ${event.ability.name} to ${entity.name}`);
 
-    const existingBuff = entity.buffs.find(item => item.ability.guid === event.ability.guid && item.end === null);
+    const existingBuff = entity.buffs.find(item => item.ability.guid === event.ability.guid && item.end === null && event.sourceID === item.sourceID);
     if (existingBuff) {
       const oldStacks = existingBuff.stacks || 1; // the original spell counts as 1 stack
       existingBuff.stacks = event.stack;
@@ -120,8 +120,8 @@ class Entities extends Analyzer {
     }
 
     debug && this.log(`Remove buff ${event.ability.name} from ${entity.name}`);
-
-    const existingBuff = entity.buffs.find(item => item.ability.guid === event.ability.guid && item.end === null);
+    
+    const existingBuff = entity.buffs.find(item => item.ability.guid === event.ability.guid && item.end === null && event.sourceID === item.sourceID);
     if (existingBuff) {
       existingBuff.end = event.timestamp;
       existingBuff.stackHistory.push({ stacks: 0, timestamp: event.timestamp });
