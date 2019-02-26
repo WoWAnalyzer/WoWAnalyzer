@@ -1,5 +1,6 @@
 import Background from './images/backgrounds/KingRastakhan.jpg';
 import Headshot from './images/headshots/KingRastakhan.png';
+import { BOD_HORDE_TO_ALLIANCE } from './RaceTranslation';
 
 export default {
   id: 2272,
@@ -13,5 +14,6 @@ export default {
       physical: [],
       magical: [],
     },
+    raceTranslation: BOD_HORDE_TO_ALLIANCE,
   },
 };
