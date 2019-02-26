@@ -17,6 +17,7 @@ import ThunderFocusTea from '../../spells/ThunderFocusTea';
 import EssenceFontMastery from '../EssenceFontMastery';
 import RenewingMistDuringManaTea from '../../talents/RenewingMistDuringManaTea';
 import Vivify from '../../spells/Vivify';
+import JadeSerpentStatue from '../../talents/JadeSerpentStatue';
 
 import Component from './Component';
 
@@ -37,6 +38,7 @@ class Checklist extends BaseChecklist {
     essenceFontMastery: EssenceFontMastery,
     renewingMistDuringManaTea: RenewingMistDuringManaTea,
     vivify: Vivify,
+    jadeSerpentStatue: JadeSerpentStatue,
   };
 
   render() {
@@ -60,6 +62,7 @@ class Checklist extends BaseChecklist {
           essenceFontMastery: this.essenceFontMastery.suggestionThresholds,
           renewingMistDuringManaTea: this.renewingMistDuringManaTea.suggestionThresholds,
           vivify: this.vivify.suggestionThresholds,
+          jadeSerpentStatue: this.jadeSerpentStatue.suggestionThresholds,
 
         }}
       />
