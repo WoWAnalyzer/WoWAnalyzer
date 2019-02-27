@@ -10,14 +10,14 @@ import { ReactComponent as Logo } from 'interface/images/logo.svg';
 import Warning from 'interface/common/Alert/Warning';
 import { getReportHistory } from 'interface/selectors/reportHistory';
 
-import ReportSelecter from './others/ReportSelecter';
-import ReportHistory from './home/ReportHistory';
+import ReportSelecter from '../others/ReportSelecter';
+import ReportHistory from './ReportHistory';
 
-import './Header.scss';
+import '../Header.scss';
 
 const CharacterSearch = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'CharacterSearch', webpackPrefetch: true */ 'interface/character/Search').then(exports => exports.default)));
 
-class Header extends React.PureComponent {
+class ReportSelectionHeader extends React.PureComponent {
   static propTypes = {
     reportHistory: PropTypes.array.isRequired,
   };
@@ -99,4 +99,4 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps
-)(Header);
+)(ReportSelectionHeader);

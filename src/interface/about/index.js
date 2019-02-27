@@ -1,16 +1,17 @@
 import React from 'react';
 import { Trans } from '@lingui/macro';
 
-import NewsIcon from 'interface/icons/Megaphone';
+import DocumentTitle from 'interface/common/DocumentTitle';
 import MasteryRadiusImage from 'interface/images/mastery-radius.png';
-import ScrollFilledIcon from 'interface/icons/ScrollFilled';
-import ChangelogPanel from 'interface/home/ChangelogPanel';
+import ChangelogPanel from 'interface/home/Changelog/Panel';
 import Panel from 'interface/others/Panel';
 
 class About extends React.PureComponent {
   render() {
     return (
       <>
+        <DocumentTitle title="About WoWAnalyzer" />
+
         <Panel
           title="About WoWAnalyzer"
         >
@@ -30,19 +31,7 @@ class About extends React.PureComponent {
           <Trans>Wondering how to use WoWAnalyzer? See the <a href="https://www.wowhead.com/how-to-use-wowanalyzer"><img src="/img/wowhead-tiny.png" style={{ height: '1em' }} alt="Wowhead" /> Wowhead guide</a>. If you want to see an example report, click on your spec in the <a href="/#Specializations">Specializations</a> list.</Trans>
         </Panel><br />
 
-        <header>
-          <div className="row">
-            <div className="col-md-12 text-center">
-              <h1><ScrollFilledIcon /> <Trans>Changelog</Trans></h1>
-            </div>
-          </div>
-        </header>
-
-        <div className="row">
-          <div className="col-md-12">
-            <ChangelogPanel />
-          </div>
-        </div>
+        <ChangelogPanel />
       </>
     );
   }

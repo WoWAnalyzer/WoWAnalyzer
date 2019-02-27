@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getLocation, push } from 'react-router-redux';
-import { Link, Route, Switch, withRouter } from 'react-router-dom';
+import { push } from 'react-router-redux';
+import { Route, Switch, withRouter } from 'react-router-dom';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
 import TooltipProvider from 'interface/common/TooltipProvider/index';
@@ -14,12 +14,9 @@ import { getError } from 'interface/selectors/error';
 import { getOpenModals } from 'interface/selectors/openModals';
 import ApiDownBackground from 'interface/common/images/api-down-background.gif';
 import FullscreenError from 'interface/common/FullscreenError';
-import ErrorBoundary from 'interface/common/ErrorBoundary';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
-import NavigationBar from 'interface/layout/NavigationBar/index';
 import Footer from 'interface/layout/Footer/index';
 import HomePage from 'interface/home/Page';
-import NewsPage from 'interface/news/Page';
 import ThunderSoundEffect from 'interface/audio/Thunder Sound effect.mp3';
 import ReportPage from 'interface/report';
 import PortalTarget from 'interface/PortalTarget';
@@ -27,7 +24,6 @@ import PortalTarget from 'interface/PortalTarget';
 import 'react-toggle/style.css';
 import './layout/App.scss';
 
-const ContributorPage = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'ContributorPage' */ 'interface/contributor/Page').then(exports => exports.default)));
 const CharacterParsesPage = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'CharacterParsesPage' */ 'interface/character/Page').then(exports => exports.default)));
 
 function isIE() {
@@ -37,7 +33,6 @@ function isIE() {
 
 class App extends React.Component {
   static propTypes = {
-    isHome: PropTypes.bool,
     push: PropTypes.func.isRequired,
 
     error: PropTypes.shape({
@@ -169,14 +164,6 @@ class App extends React.Component {
     return (
       <Switch>
         <Route
-          path="/contributor/:id"
-          render={({ match }) => (
-            <ContributorPage
-              contributorId={decodeURI(match.params.id.replace(/\+/g, ' '))}
-            />
-          )}
-        />
-        <Route
           path="/character/:region/:realm/:name"
           render={({ match }) => (
             <CharacterParsesPage
@@ -187,33 +174,18 @@ class App extends React.Component {
           )}
         />
         <Route
-          path="/news/:articleId"
-          render={({ match }) => (
-            <NewsPage
-              articleId={decodeURI(match.params.articleId.replace(/\+/g, ' '))}
-            />
-          )}
-        />
-        <Route
           path="/report/:reportCode?/:fightId?/:player?/:resultTab?"
-          render={props => (
-            <ReportPage {...props} />
-          )}
+          component={ReportPage}
         />
         <Route component={HomePage} />
       </Switch>
     );
   }
 
-  get showReportSelecter() {
-    return this.props.isHome && !this.props.error;
-  }
-
   getPath(location) {
     return `${location.pathname}${location.search}`;
   }
   componentDidUpdate(prevProps) {
-    // The primary reason to use this lifecycle method is so the document.title is updated in time
     if (prevProps.location !== this.props.location) {
       // console.log('Location changed. Old:', prevProps.location, 'new:', this.props.location, document.title);
       track(this.getPath(prevProps.location), this.getPath(this.props.location));
@@ -225,13 +197,8 @@ class App extends React.Component {
 
     return (
       <>
-        <div className={`app ${this.showReportSelecter ? 'show-report-selecter' : ''} ${openModals > 0 ? 'modal-open' : ''}`}>
-          {!this.showReportSelecter && <NavigationBar />}
-          <main>
-            <ErrorBoundary>
-              {this.renderContent()}
-            </ErrorBoundary>
-          </main>
+        <div className={`app ${openModals > 0 ? 'modal-open' : ''}`}>
+          {this.renderContent()}
         </div>
         <PortalTarget />
         {!error && <Footer />}
@@ -242,7 +209,6 @@ class App extends React.Component {
 
 const mapStateToProps = state => ({
   error: getError(state),
-  isHome: getLocation(state).pathname === '/', // createMatchSelector doesn't seem to be consistent
   openModals: getOpenModals(state),
 });
 

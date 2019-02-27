@@ -43,7 +43,7 @@ class Spec extends React.PureComponent {
           </figure>
         </div>
         <div className="description">
-          <h1 className={className}>{spec.specName} {spec.className}</h1>
+          <h2 className={className}>{spec.specName} {spec.className}</h2>
           {builtinfo} <ReadableList>
             {contributors.map(contributor => <Contributor key={contributor.nickname} link={false} {...contributor} />)}
           </ReadableList>.<br />
