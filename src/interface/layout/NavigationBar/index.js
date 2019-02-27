@@ -47,13 +47,9 @@ class NavigationBar extends React.PureComponent {
               <Logo />
             </Link>
           </div>
-          {report ? (
+          {report && (
             <div className="menu-item report-title">
               <Link to={makeAnalyzerUrl(report)}>{report.title}</Link>
-            </div>
-          ) : (
-            <div className="menu-item brand-name">
-              <Link to="/">WoWAnalyzer</Link>
             </div>
           )}
           {report && (

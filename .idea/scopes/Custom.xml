@@ -1,3 +1,3 @@
 <component name="DependencyValidationManager">
-  <scope name="Custom" pattern="file[WoWAnalyzer]:*/&amp;&amp;!file[WoWAnalyzer]:build//*&amp;&amp;!file[WoWAnalyzer]:.idea//*&amp;&amp;!file[WoWAnalyzer]:src/static//*" />
+  <scope name="Custom" pattern="file[WoWAnalyzer]:*/&amp;&amp;!file[WoWAnalyzer]:build//*&amp;&amp;!file[WoWAnalyzer]:.idea//*&amp;&amp;!file[WoWAnalyzer]:src/static//*&amp;&amp;!file[WoWAnalyzer]:src/localization//*" />
 </component>

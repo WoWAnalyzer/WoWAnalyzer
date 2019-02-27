@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import Contributor from 'interface/contributor/Button';
 import makeNewsUrl from 'interface/news/makeUrl';
+import Panel from 'interface/others/Panel';
 
 class RegularArticle extends React.PureComponent {
   static propTypes = {
@@ -21,18 +22,16 @@ class RegularArticle extends React.PureComponent {
 
     return (
       <article>
-        <div className="panel">
-          <div className="panel-heading">
-            <Link to={makeNewsUrl(title)} className="hidden-link"><h2>{title}</h2></Link>
-          </div>
-          <div className="panel-body" style={bodyStyle}>
-            {children}
+        <Panel
+          title={<Link to={makeNewsUrl(title)} className="hidden-link">{title}</Link>}
+          bodyStyle={bodyStyle}
+        >
+          {children}
 
-            <div style={{ marginTop: '1em' }}>
-              Published at {publishedAt} by <Contributor {...publishedBy} />.
-            </div>
+          <div style={{ marginTop: '1em' }}>
+            Published at {publishedAt} by <Contributor {...publishedBy} />.
           </div>
-        </div>
+        </Panel>
       </article>
     );
   }

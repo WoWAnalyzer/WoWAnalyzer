@@ -56,6 +56,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true,
     },
+    heartOfAzeroth: {
+      type: DataTypes.JSON,
+      allowNull: true,
+    },
     createdAt: {
       type: DataTypes.DATE, // this is actually DATETIME
       defaultValue: DataTypes.NOW,
