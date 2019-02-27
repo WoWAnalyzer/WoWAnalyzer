@@ -1,18 +1,15 @@
 @import 'layout/Theme.scss';
 
-.app > header {
+header.report-selection {
   text-align: center;
   padding-top: 60px;
   padding-bottom: 60px;
   transition: all 600ms;
   opacity: 1;
 
-  a {
-    color: #fff;
-    text-decoration: underline;
-  }
   .brand-name {
     margin-bottom: 30px;
+    display: block;
 
     svg {
       height: 50px;
@@ -26,40 +23,31 @@
     }
   }
 }
-.menu-item.logo svg {
-  --main: #fff;
-}
-.app:not(.show-report-selecter) > header {
-  margin-top: -535px;
-  margin-bottom: 90px;
-  opacity: 0;
-  pointer-events: none;
-}
-.app > header .description {
+header.report-selection .description {
   font-size: 1.4em;
   margin-bottom: 1em;
 }
-.app > header .report-selector {
+header.report-selection .report-selector {
   margin-bottom: 10px;
 }
-.app > header .about {
+header.report-selection .about {
   font-size: 0.9em;
 }
 @media (max-width: 600px) {
-  .app > header {
+  header.report-selection {
     padding-top: 60px;
   }
-  .app > header h1 {
+  header.report-selection h1 {
     font-size: 3em;
     margin-bottom: 0.2em;
   }
-  .app > header .description {
+  header.report-selection .description {
     font-size: 1.2em;
     margin-bottom: 0.5em;
   }
 }
 @media (max-width: 400px) {
-  .app > header {
+  header.report-selection {
     padding-top: 40px;
   }
 }
@@ -116,19 +104,6 @@
 .realm-search__option--selected {
   color: $primaryColor;
 }
-.image-overlay .parse-tabs {
-  margin-bottom: 2px;
-}
-.image-overlay .parse-tabs > span {
-  display: inline-block;
-  padding: 3px 8px;
-  cursor: pointer;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  margin-right: 2px;
-}
-.image-overlay .parse-tabs > span.selected {
-  background-color: rgba($primaryColor, .8);
-}
 .animated-button {
   box-shadow: inset 0 0 0 0 $muted;
   transition: box-shadow 1.2s linear;
@@ -136,9 +111,9 @@
 .animated-button.fill-button {
   box-shadow: inset 200px 0 0 0 $muted;
 }
-.app > header .form-control, .app > header .realm-search__search, .app > header .parse-tabs > span {
+header.report-selection .form-control, header.report-selection .realm-search__search, header.report-selection .parse-tabs > span {
   background: rgba(0, 0, 0, 0.8);
 }
-.app > header .form-control::placeholder, .app > header .realm-search__search::placeholder {
+header.report-selection .form-control::placeholder, header.report-selection .realm-search__search::placeholder {
   color: #777;
 }

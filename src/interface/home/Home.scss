@@ -23,7 +23,6 @@ section header h1 {
     position: relative;
     flex: 0 0 auto;
     text-shadow: 1px -1px 3px #150a0a, -1px 1px 3px #150a0a;
-    padding: 0 15px;
     text-align: center;
 
     div {
@@ -76,6 +75,9 @@ section header h1 {
           text-decoration: none;
         }
         &.active a {
+          border: 2px solid $primaryColor;
+        }
+        &:first-of-type.active a {
           background-color: $primaryColor;
           color: #211510;
           text-shadow: none;

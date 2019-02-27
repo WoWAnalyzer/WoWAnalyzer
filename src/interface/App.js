@@ -20,15 +20,12 @@ import NavigationBar from 'interface/layout/NavigationBar/index';
 import Footer from 'interface/layout/Footer/index';
 import HomePage from 'interface/home/Page';
 import NewsPage from 'interface/news/Page';
-import PremiumPage from 'interface/premium/Page';
 import ThunderSoundEffect from 'interface/audio/Thunder Sound effect.mp3';
 import ReportPage from 'interface/report';
 import PortalTarget from 'interface/PortalTarget';
 
 import 'react-toggle/style.css';
 import './layout/App.scss';
-
-import Header from './Header';
 
 const ContributorPage = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'ContributorPage' */ 'interface/contributor/Page').then(exports => exports.default)));
 const CharacterParsesPage = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'CharacterParsesPage' */ 'interface/character/Page').then(exports => exports.default)));
@@ -203,28 +200,7 @@ class App extends React.Component {
             <ReportPage {...props} />
           )}
         />
-        <Route
-          path="/premium"
-          render={() => (
-            <PremiumPage />
-          )}
-        />
-        <Route
-          path="/"
-          exact
-          render={() => (
-            <HomePage />
-          )}
-        />
-        <Route
-          render={() => (
-            <div className="container">
-              <h1>404: Content not found</h1>
-
-              <Link to="/">Go back home</Link>
-            </div>
-          )}
-        />
+        <Route component={HomePage} />
       </Switch>
     );
   }
@@ -251,7 +227,6 @@ class App extends React.Component {
       <>
         <div className={`app ${this.showReportSelecter ? 'show-report-selecter' : ''} ${openModals > 0 ? 'modal-open' : ''}`}>
           {!this.showReportSelecter && <NavigationBar />}
-          {this.showReportSelecter && <Header showReportSelecter={this.showReportSelecter} />}
           <main>
             <ErrorBoundary>
               {this.renderContent()}
