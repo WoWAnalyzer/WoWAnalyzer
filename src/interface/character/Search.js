@@ -21,21 +21,23 @@ class Search extends React.PureComponent {
     currentRealm: '',
   };
 
+  regionInput = null;
   constructor() {
     super();
+    this.regionInput = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
-    if (this.regionInput) {
-      this.regionInput.focus();
+    if (this.regionInput.current) {
+      this.regionInput.current.focus();
     }
   }
 
   async handleSubmit(e) {
     e.preventDefault();
 
-    const region = this.regionInput.value;
+    const region = this.regionInput.current.value;
     const realm = this.state.currentRealm;
     const char = this.charInput.value;
 
@@ -85,9 +87,7 @@ class Search extends React.PureComponent {
         <div className="character-selector">
           <select
             className="form-control"
-            ref={elem => {
-              this.regionInput = elem;
-            }}
+            ref={this.regionInput}
             defaultValue={this.state.currentRegion}
             onChange={e => this.setState({ currentRegion: e.target.value })}
           >

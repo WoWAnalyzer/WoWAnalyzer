@@ -3,19 +3,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Trans } from '@lingui/macro';
 
-import lazyLoadComponent from 'common/lazyLoadComponent';
-import retryingPromise from 'common/retryingPromise';
 import { hasPremium } from 'interface/selectors/user';
 import { ReactComponent as Logo } from 'interface/images/logo.svg';
 import Warning from 'interface/common/Alert/Warning';
 import { getReportHistory } from 'interface/selectors/reportHistory';
+import CharacterSearch from 'interface/character/Search';
 
 import ReportSelecter from '../others/ReportSelecter';
 import ReportHistory from './ReportHistory';
 
 import '../Header.scss';
-
-const CharacterSearch = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'CharacterSearch', webpackPrefetch: true */ 'interface/character/Search').then(exports => exports.default)));
 
 class ReportSelectionHeader extends React.PureComponent {
   static propTypes = {
