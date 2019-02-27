@@ -9,7 +9,7 @@ import Contributor from 'interface/contributor/Button';
 export default [
   {
     date: new Date('2019-02-24'),
-    changes: <>Added role count to raid composition screen</>,
+    changes: <>Added composition details to raid composition screen showing role counts and avarage ilvl.</>,
     contributors: [Dorixius],
   },
   {

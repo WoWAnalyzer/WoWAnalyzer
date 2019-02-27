@@ -18,16 +18,14 @@
       line-height: 1;
       border-radius: 3px;
       background: $panelColor;
-      &:last-of-type {
-        border-right: none;
-      }
     }
     .bar .flex > .icon {
       img {
-        height: 1.34em;
+        height: 1.38em;
         vertical-align: top;
         border-radius: 50%;
-        margin-bottom: 4px;
+        margin: 0 0 4px 0;
+        border: 0;
       }
       margin: 0 1.5px 0 1.5px;
     }
