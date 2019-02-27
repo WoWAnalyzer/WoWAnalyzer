@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { formatPercentage, formatNumber } from 'common/format';
 
 class ItemHealingDone extends React.PureComponent {
   static propTypes = {
     amount: PropTypes.number.isRequired,
-    approximate: PropTypes.bool,  
+    approximate: PropTypes.bool,
     greaterThan: PropTypes.bool,
   };
   static contextTypes = {
@@ -23,7 +24,7 @@ class ItemHealingDone extends React.PureComponent {
           className="icon"
         />{' '}
         {approximate && '≈'}
-        {greaterThan && '>'}{parser.formatItemHealingDone(amount)}
+        {greaterThan && '>'}{formatNumber(amount / parser.fightDuration * 1000)} HPS <small>{formatPercentage(parser.getPercentageOfTotalHealingDone(amount))}% of total</small>
       </>
     );
   }

@@ -545,9 +545,6 @@ class CombatLogParser {
   formatItemDamageTaken(damageTaken) {
     return `${formatPercentage(this.getPercentageOfTotalDamageTaken(damageTaken))} % / ${formatNumber(damageTaken / this.fightDuration * 1000)} DTPS`;
   }
-  formatManaRestored(manaRestored) {
-    return `${formatThousands(manaRestored)} mana / ${formatThousands(manaRestored / this.fightDuration * 1000 * 5)} MP5`;
-  }
   formatTimestamp(timestamp, precision = 0) {
     return formatDuration((timestamp - this.fight.start_time) / 1000, precision);
   }

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { formatNumber, formatPercentage } from 'common/format';
 
 class ItemDamageDone extends React.PureComponent {
   static propTypes = {
@@ -21,7 +22,7 @@ class ItemDamageDone extends React.PureComponent {
           alt="Damage"
           className="icon"
         />{' '}
-        {approximate && '≈'}{parser.formatItemDamageDone(amount)}
+        {approximate && '≈'}{formatNumber(amount / parser.fightDuration * 1000)} DPS <small>{formatPercentage(parser.getPercentageOfTotalDamageDone(amount))} % of total</small>
       </>
     );
   }

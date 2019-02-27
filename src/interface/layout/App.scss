@@ -218,10 +218,15 @@ svg.stroke {
   stroke: currentColor;
 }
 img.icon {
-  height: 1.2em;
+  height: 1em;
   margin-top: -0.15em;
   border: 1px solid #111;
   border-radius: 9%;
+
+  &.game {
+    height: 1.2em;
+    margin-top: -0.2em;
+  }
 }
 h1 {
   position: relative;
