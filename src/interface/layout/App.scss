@@ -43,8 +43,8 @@ body {
   0% { filter: blur(0px); }
   100% { filter: blur(10px); }
 }
-main {
-  min-height: 800px;
+.app {
+  min-height: 700px;
 
   > .offset {
     margin-top: 110px;
