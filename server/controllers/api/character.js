@@ -2,13 +2,13 @@ import Express from 'express';
 import Sequelize from 'sequelize';
 import Raven from 'raven';
 import { StatusCodeError } from 'request-promise-native/errors';
-import { HEART_OF_AZEROTH } from '../../constants'
 
 import BlizzardCommunityApi from 'helpers/BlizzardCommunityApi';
 import RegionNotSupportedError from 'helpers/RegionNotSupportedError';
 
 import models from '../../models';
 
+const HEART_OF_AZEROTH_ID = 158075;
 const Character = models.Character;
 
 /**
@@ -72,7 +72,7 @@ async function getCharacterFromBlizzardApi(region, realm, name) {
     json.role = selectedSpec.spec.role;
     json.talents = selectedSpec.calcTalent;
   }
-  if (items && items.neck && items.neck.id === HEART_OF_AZEROTH.id) {
+  if (items && items.neck && items.neck.id === HEART_OF_AZEROTH_ID) {
     const heartOfAzerothItem = items.neck;
     json.heartOfAzeroth = {
       id: heartOfAzerothItem.id,
