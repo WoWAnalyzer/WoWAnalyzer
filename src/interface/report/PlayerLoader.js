@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { Trans, t } from '@lingui/macro';
 
+import SPECS from 'game/SPECS';
+import ROLES from 'game/ROLES';
+import getAverageItemLevel from 'game/getAverageItemLevel';
 import getFightName from 'common/getFightName';
 import { fetchCombatants, LogNotFoundError } from 'common/fetchWclApi';
 import { captureException } from 'common/errorLogger';
@@ -18,6 +21,7 @@ import Tooltip from 'common/Tooltip';
 
 import PlayerSelection from 'interface/report/PlayerSelection';
 import handleApiError from './handleApiError';
+import RaidCompositionDetails from 'interface/report/RaidCompositionDetails'
 
 const defaultState = {
   error: null,
@@ -26,6 +30,11 @@ const defaultState = {
 };
 
 class PlayerLoader extends React.PureComponent {
+  tanks = 0;
+  healers = 0;
+  dps = 0;
+  ranged = 0;
+  ilvl = 0;
   static propTypes = {
     report: PropTypes.shape({
       code: PropTypes.string.isRequired,
@@ -77,6 +86,30 @@ class PlayerLoader extends React.PureComponent {
   async loadCombatants(report, fight) {
     try {
       const combatants = await fetchCombatants(report.code, fight.start_time, fight.end_time);
+      combatants.forEach(player => {
+        switch (SPECS[player.specID].role) {
+          case ROLES.TANK:
+            this.tanks += 1;
+            break;
+
+          case ROLES.HEALER:
+            this.healers += 1;
+            break;
+
+          case ROLES.DPS.MELEE:
+            this.dps += 1;
+            break;
+
+          case ROLES.DPS.RANGED:
+            this.ranged += 1;
+            break;
+            
+          default:
+          break;
+        }
+        this.ilvl += getAverageItemLevel(player.gear);
+      });
+      this.ilvl /= combatants.length;
       if (this.props.report !== report || this.props.fight !== fight) {
         return; // the user switched report/fight already
       }
@@ -153,8 +186,21 @@ class PlayerLoader extends React.PureComponent {
                 </Link>
               </Tooltip>
             </div>
-            <h1 style={{ lineHeight: 1.4, margin: 0 }}><Trans>Player selection</Trans></h1>
-            <small style={{ marginTop: -5 }}><Trans>Select the player you wish to analyze.</Trans></small>
+            <div className="flex wrapable" style={{ marginBottom: 15 }}>
+              <div className="flex-main">
+                <h1 style={{ lineHeight: 1.4, margin: 0 }}><Trans>Player selection</Trans></h1>
+                <small style={{ marginTop: -5 }}><Trans>Select the player you wish to analyze.</Trans></small>
+              </div>
+              <div className="flex-sub">
+                <RaidCompositionDetails
+                  tanks={this.tanks}
+                  healers={this.healers}
+                  dps={this.dps}
+                  ranged={this.ranged}
+                  ilvl={this.ilvl}
+                />
+              </div>
+            </div>
           </div>
           <PlayerSelection
             players={report.friendlies.map(friendly => {

@@ -561,3 +561,14 @@ export const _4Ply = {
     link: 'https://worldofwarcraft.com/en-gb/character/sylvanas/Uzdrowiciela',
   }],
 };
+export const Dorixius = {
+  nickname: 'Dorixius',
+  github: 'florianschut',
+  avatar: require('./interface/images/avatars/dorixius-avatar.jpeg'),
+  discord: 'Florian#9270',
+  mains: [{
+    name:'Dorixius',
+    spec: SPECS.UNHOLY_DEATH_KNIGHT,
+    link: 'https://worldofwarcraft.com/en-gb/character/steamwheedle-cartel/Dorixius',
+  }],
+};
