@@ -68,15 +68,16 @@ class ReportSelectionHeader extends React.PureComponent {
                     <Trans>or <a href="/" onClick={this.handleToggleReportSelectorClick}>
                       enter a report link
                     </a>.</Trans><br /><br />
+
                     <Warning>
-                      The character page will only show fights that have been ranked by Warcraft Logs. During busy periods there might be a delay before new fights appear. Wipes are also not included. Find the report on Warcraft Logs and copy the direct report link to still analyze these fights.
+                      The character page will only show fights that have been ranked by Warcraft Logs. Wipes are not included and during busy periods there might be a delay before new reports appear. Manually find the report on Warcraft Logs and copy the direct report link to still analyze these fights.
                     </Warning>
                   </>
                 )}
               </div>
             </div>
             {reportHistory.length !== 0 && (
-              <div className="col-md-4 text-left">
+              <div className="col-md-4 text-left" style={{ marginTop: -10, marginBottom: -10 }}>
                 <small><Trans>Recently viewed</Trans></small><br />
 
                 <ReportHistory reportHistory={reportHistory} />
