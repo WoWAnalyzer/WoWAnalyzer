@@ -1,10 +1,12 @@
 import React from 'react';
-import TraitStatisticBox from 'interface/others/TraitStatisticBox';
-import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ItemHealingDone from 'interface/others/ItemHealingDone';
+import Analyzer from 'parser/core/Analyzer';
 
 import isAtonement from '../core/isAtonement';
 
@@ -12,7 +14,6 @@ const DEPTH_OF_THE_SHADOWS_BONUS_MS = 2000;
 const EVANGELISM_BONUS_MS = 6000;
 
 class DepthOfTheShadows extends Analyzer {
-
   _bonusFromAtonementDuration = 0;
   _bonusFromDirectHealBuff = 0;
   _bonusHealingForSingleDepthStack = 0;
@@ -130,25 +131,30 @@ class DepthOfTheShadows extends Analyzer {
   }
 
   statistic() {
-
-    const fightDuration = this.owner.fightDuration;
     const total = this._bonusFromAtonementDuration + this._bonusFromDirectHealBuff;
     const totalPct = this.owner.getPercentageOfTotalHealingDone(total);
     const bonusFromAtonementPct = this.owner.getPercentageOfTotalHealingDone(this._bonusFromAtonementDuration);
     const bonusFromDirectHealBuffPct = this.owner.getPercentageOfTotalHealingDone(this._bonusFromDirectHealBuff);
 
     return (
-      <TraitStatisticBox
-        trait={SPELLS.DEPTH_OF_THE_SHADOWS.id}
-        value={`${formatNumber(total / fightDuration * 1000)} HPS`}
-        tooltip={
-        `Depth of the Shadow provided <b>${formatPercentage(totalPct)}%</b> healing.
-          <ul>
-            <li><b>${formatPercentage(bonusFromAtonementPct)}%</b> from extended Atonement
-            <li><b>${formatPercentage(bonusFromDirectHealBuffPct)}%</b> from direct shadow mend buff
-          </ul>
-        `}
-      />
+      <AzeritePowerStatistic
+        size="small"
+        tooltip={(
+          <>
+            Depth of the Shadow provided <b>{formatPercentage(totalPct)}%</b> healing.
+            <ul>
+              <li><b>{formatPercentage(bonusFromAtonementPct)}%</b> from extended Atonement</li>
+              <li><b>{formatPercentage(bonusFromDirectHealBuffPct)}%</b> from direct shadow mend buff</li>
+            </ul>
+          </>
+        )}
+      >
+        <BoringSpellValueText
+          spell={SPELLS.DEPTH_OF_THE_SHADOWS}
+        >
+          <ItemHealingDone amount={total} />
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }
