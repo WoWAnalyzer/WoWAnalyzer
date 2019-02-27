@@ -66,7 +66,7 @@ class BondedSouls extends Analyzer {
       <Statistic
         category={STATISTIC_CATEGORY.ITEMS}
         size="flexible"
-        tooltip={`<strong>${formatPercentage(this.uptime)}% uptime</strong>. Each proc grants <strong>${this.haste} Haste</strong> while active.`}
+        tooltip={<><strong>{formatPercentage(this.uptime)}% uptime</strong>. Each proc grants <strong>{this.haste} Haste</strong> while active.</>}
       >
         <div className="pad">
           <label><SpellLink id={SPELLS.BONDED_SOULS_TRAIT.id} /></label>

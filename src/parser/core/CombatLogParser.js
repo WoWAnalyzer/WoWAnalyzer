@@ -543,7 +543,7 @@ class CombatLogParser {
     return damageTaken / this.getModule(DamageTaken).total.effective;
   }
   formatItemDamageTaken(damageTaken) {
-    return `${formatPercentage(this.getPercentageOfTotalDamageTaken(damageTaken))} % / ${formatNumber(damageTaken / this.fightDuration * 1000)} DTPS`;
+    return `$`;
   }
   formatTimestamp(timestamp, precision = 0) {
     return formatDuration((timestamp - this.fight.start_time) / 1000, precision);
