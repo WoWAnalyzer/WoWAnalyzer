@@ -6,7 +6,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 import Analyzer from 'parser/core/Analyzer';
 
- /**
+/**
  * Your healing effects have a chance to grant the target X additional healing
  * every 2 sec for 12 sec. This effect doubles every 2 sec.
  */
@@ -18,7 +18,7 @@ class ConcentratedMending extends Analyzer {
     this.active = this.selectedCombatant.hasTrait(SPELLS.CONCENTRATED_MENDING.id);
   }
 
-   on_byPlayer_heal(event) {
+  on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.CONCENTRATED_MENDING_HEALING.id) {
       return;
@@ -27,19 +27,19 @@ class ConcentratedMending extends Analyzer {
     this.healing += event.amount + (event.absorbed || 0);
   }
 
-   statistic() {
-     return (
-       <AzeritePowerStatistic
-         size="small"
-       >
-         <BoringSpellValueText
-           spell={SPELLS.CONCENTRATED_MENDING}
-         >
-           <ItemHealingDone amount={this.healing} />
-         </BoringSpellValueText>
-       </AzeritePowerStatistic>
-     );
-   }
+  statistic() {
+    return (
+      <AzeritePowerStatistic
+        size="small"
+      >
+        <BoringSpellValueText
+          spell={SPELLS.CONCENTRATED_MENDING}
+        >
+          <ItemHealingDone amount={this.healing} />
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
+    );
+  }
 }
 
- export default ConcentratedMending;
+export default ConcentratedMending;
