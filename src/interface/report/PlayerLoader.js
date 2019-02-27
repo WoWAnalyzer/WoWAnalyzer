@@ -110,7 +110,6 @@ class PlayerLoader extends React.PureComponent {
         this.ilvl += getAverageItemLevel(player.gear);
       });
       this.ilvl /= combatants.length;
-      console.log(this.ilvl);
       if (this.props.report !== report || this.props.fight !== fight) {
         return; // the user switched report/fight already
       }
