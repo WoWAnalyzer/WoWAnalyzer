@@ -1,8 +1,10 @@
 import React from 'react';
+
+import SPELLS from 'common/SPELLS';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ItemHealingDone from 'interface/others/ItemHealingDone';
 import Analyzer from 'parser/core/Analyzer';
-import { formatNumber, formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS/index';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 
  /**
  * Your healing effects have a chance to grant the target X additional healing
@@ -24,18 +26,20 @@ class ConcentratedMending extends Analyzer {
 
     this.healing += event.amount + (event.absorbed || 0);
   }
+
    statistic() {
-    const healingThroughputPercent = this.owner.getPercentageOfTotalHealingDone(this.healing);
-    const hps = this.healing / this.owner.fightDuration * 1000;
-    return (
-      <TraitStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
-        trait={SPELLS.CONCENTRATED_MENDING.id}
-        value={`${formatPercentage(healingThroughputPercent)} % / ${formatNumber(hps)} HPS`}
-        tooltip={`Healing done: ${formatNumber(this.healing)}`}
-      />
-    );
-  }
+     return (
+       <AzeritePowerStatistic
+         size="small"
+       >
+         <BoringSpellValueText
+           spell={SPELLS.CONCENTRATED_MENDING}
+         >
+           <ItemHealingDone amount={this.healing} />
+         </BoringSpellValueText>
+       </AzeritePowerStatistic>
+     );
+   }
 }
 
  export default ConcentratedMending;

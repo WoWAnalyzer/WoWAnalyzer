@@ -6,7 +6,7 @@ import { calculateAzeriteEffects } from 'common/stats';
 import SpellLink from 'common/SpellLink';
 import UptimeIcon from 'interface/icons/Uptime';
 import PrimaryStatIcon from 'interface/icons/PrimaryStat';
-import Statistic from 'interface/statistics/Statistic';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemDamageTaken from 'interface/others/ItemDamageTaken';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -92,8 +92,7 @@ class TreacherousCovenant extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        category={STATISTIC_CATEGORY.ITEMS}
+      <AzeritePowerStatistic
         size="flexible"
         tooltip={(
           <>
@@ -118,7 +117,7 @@ class TreacherousCovenant extends Analyzer {
             <ItemDamageTaken amount={this.extraDamageTaken} />
           </div>
         </div>
-      </Statistic>
+      </AzeritePowerStatistic>
     );
   }
 }
