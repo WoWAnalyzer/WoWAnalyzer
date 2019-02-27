@@ -22,9 +22,11 @@ class Search extends React.PureComponent {
   };
 
   regionInput = null;
+  charInput = null;
   constructor() {
     super();
     this.regionInput = React.createRef();
+    this.charInput = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -39,7 +41,7 @@ class Search extends React.PureComponent {
 
     const region = this.regionInput.current.value;
     const realm = this.state.currentRealm;
-    const char = this.charInput.value;
+    const char = this.charInput.current.value;
 
     if (!region || !realm || !char) {
       alert(i18n._(t`Please select a region, realm and player.`));
@@ -83,45 +85,41 @@ class Search extends React.PureComponent {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit} className="form-inline">
-        <div className="character-selector">
-          <select
-            className="form-control"
-            ref={this.regionInput}
-            defaultValue={this.state.currentRegion}
-            onChange={e => this.setState({ currentRegion: e.target.value })}
-          >
-            {Object.keys(REALMS).map(elem =>
-              <option key={elem} value={elem}>{elem}</option>
-            )}
-          </select>
-          <SelectSearch
-            options={REALMS[this.state.currentRegion].map(elem => ({
-              value: elem.name,
-              name: elem.name,
-            }))}
-            className="realm-search"
-            onChange={value => {
-              this.setState({ currentRealm: value.name });
-            }}
-            placeholder={i18n._(t`Realm`)}
-          />
-          <input
-            type="text"
-            name="code"
-            ref={elem => {
-              this.charInput = elem;
-            }}
-            className="form-control"
-            autoCorrect="off"
-            autoCapitalize="off"
-            spellCheck="false"
-            placeholder={i18n._(t`Character`)}
-          />
-          <button type="submit" className={`btn btn-primary analyze animated-button ${this.state.loading ? 'fill-button' : ''}`}>
-            <Trans>Search</Trans> <span className="glyphicon glyphicon-chevron-right" aria-hidden />
-          </button>
-        </div>
+      <form onSubmit={this.handleSubmit} className="character-selector">
+        <select
+          className="form-control region"
+          ref={this.regionInput}
+          defaultValue={this.state.currentRegion}
+          onChange={e => this.setState({ currentRegion: e.target.value })}
+        >
+          {Object.keys(REALMS).map(elem =>
+            <option key={elem} value={elem}>{elem}</option>
+          )}
+        </select>
+        <SelectSearch
+          options={REALMS[this.state.currentRegion].map(elem => ({
+            value: elem.name,
+            name: elem.name,
+          }))}
+          className="realm"
+          onChange={value => {
+            this.setState({ currentRealm: value.name });
+          }}
+          placeholder={i18n._(t`Realm`)}
+        />
+        <input
+          type="text"
+          name="code"
+          ref={this.charInput}
+          className="character form-control"
+          autoCorrect="off"
+          autoCapitalize="off"
+          spellCheck="false"
+          placeholder={i18n._(t`Character`)}
+        />
+        <button type="submit" className={`btn btn-primary analyze animated-button ${this.state.loading ? 'fill-button' : ''}`}>
+          <Trans>Search</Trans> <span className="glyphicon glyphicon-chevron-right" aria-hidden />
+        </button>
       </form>
     );
   }
