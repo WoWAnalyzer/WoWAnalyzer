@@ -131,7 +131,7 @@ class Results extends React.PureComponent {
         if (this.isLoading) {
           return this.renderLoadingIndicator();
         }
-        const checklist = parser.getModule(Checklist, false);
+        const checklist = parser.getModule(Checklist, true);
         return (
           <Overview
             checklist={checklist && checklist.render()}
