@@ -187,9 +187,9 @@ class PlayerLoader extends React.PureComponent {
               </Tooltip>
             </div>
             <div className="flex wrapable" style={{ marginBottom: 15 }}>
-              <div className="flex-main" style={{ position: 'relative' }}>
+              <div className="flex-main">
                 <h1 style={{ lineHeight: 1.4, margin: 0 }}><Trans>Player selection</Trans></h1>
-                <small style={{ marginTop: -5 }}><Trans>Select the player you wish to analyze.</Trans></small><br />
+                <small style={{ marginTop: -5 }}><Trans>Select the player you wish to analyze.</Trans></small>
               </div>
               <div className="flex-sub">
                 <RaidCompositionDetails
