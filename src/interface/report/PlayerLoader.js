@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { Trans, t } from '@lingui/macro';
 
-import Icon from 'common/Icon';
 import SPECS from 'game/SPECS';
 import ROLES from 'game/ROLES';
 import getAverageItemLevel from 'game/getAverageItemLevel';
@@ -22,6 +21,7 @@ import Tooltip from 'common/Tooltip';
 
 import PlayerSelection from 'interface/report/PlayerSelection';
 import handleApiError from './handleApiError';
+import RaidCompositionDetails from 'interface/report/RaidCompositionDetails'
 
 const defaultState = {
   error: null,
@@ -32,7 +32,7 @@ const defaultState = {
 class PlayerLoader extends React.PureComponent {
   tanks = 0;
   healers = 0;
-  melees = 0;
+  dps = 0;
   ranged = 0;
   ilvl = 0;
   static propTypes = {
@@ -97,7 +97,7 @@ class PlayerLoader extends React.PureComponent {
             break;
 
           case ROLES.DPS.MELEE:
-            this.melees += 1;
+            this.dps += 1;
             break;
 
           case ROLES.DPS.RANGED:
@@ -193,57 +193,13 @@ class PlayerLoader extends React.PureComponent {
                 <small style={{ marginTop: -5 }}><Trans>Select the player you wish to analyze.</Trans></small><br />
               </div>
               <div className="flex-sub">
-                <div className="raid-composition">
-                  <div className="bar">
-                    <div className="panel-body" style={{ padding: 0 }}>
-                      <div className="flex">
-                        <div className="flex-sub icon">
-                          <Icon icon="inv_helmet_03" />
-                          <div className="role-count" style={{fontSize:"0.78em"}}>
-                            {Math.round(this.ilvl)}
-                          </div>
-                        </div>
-                        <div className="flex-sub icon">
-                          <img
-                            src="/roles/tank.jpg"
-                            alt="Tanks"
-                          />
-                          <div className="role-count">
-                            {this.tanks}
-                          </div>
-                        </div>
-                        <div className="flex-sub icon">
-                          <img
-                            src="/roles/healer.jpg"
-                            alt="Healers"
-                          />
-                          <div className="role-count">
-                            {this.healers}
-                          </div>
-                        </div>
-                        <div className="flex-sub icon">
-                          <img
-                            src="/roles/dps.jpg"
-                            alt="DPS"
-                          />
-                          <div className="role-count">
-                            {this.melees}
-                          </div>
-                        </div>
-                        <div className="flex-sub icon">
-                          <img
-                            src="/roles/dps.ranged.jpg"
-                            alt="Ranged DPS"
-                          />
-                          <br />
-                          <div className="role-count">
-                            {this.ranged}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <RaidCompositionDetails
+                  tanks={this.tanks}
+                  healers={this.healers}
+                  dps={this.dps}
+                  ranged={this.ranged}
+                  ilvl={this.ilvl}
+                />
               </div>
             </div>
           </div>
