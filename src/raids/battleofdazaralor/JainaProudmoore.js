@@ -1,10 +1,10 @@
-// import Background from './images/backgrounds/FridaIronbellows.jpg';
-import Headshot from './images/headshots/JainaProudmoore.jpg';
+import Background from './images/backgrounds/JainaProudmoore.jpg';
+import Headshot from './images/headshots/JainaProudmoore.png';
 
 export default {
   id: 2281,
   name: 'Jaina Proudmoore', // Horde
-  // TODO: background: Background,
+  background: Background,
   headshot: Headshot,
   icon: 'achievement_boss_zuldazar_jaina',
   fight: {
