@@ -7,118 +7,211 @@ exports[`Holy Paladin integration test analyzers Abilities matches the suggestio
 exports[`Holy Paladin integration test analyzers AlwaysBeCasting matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "zIndex": 1,
-    }
-  }
 >
   <div
-    className="panel statistic-box expandable "
+    className="panel statistic standard "
+    position={10}
   >
     <div
       className="panel-body"
     >
       <div
-        className="flex"
+        className="pad"
       >
+        <label>
+          Active time
+        </label>
         <div
-          className="flex-sub statistic-icon"
+          className="flex"
           style={
             Object {
-              "alignItems": "center",
-              "display": "flex",
-            }
-          }
-        >
-          <img
-            alt=""
-            className="icon"
-            src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
-          />
-        </div>
-        <div
-          className="flex-main"
-          style={
-            Object {
-              "paddingLeft": 16,
-              "position": "relative",
+              "marginTop": 12,
+              "textAlign": "center",
             }
           }
         >
           <div
-            className="slabel"
+            className="flex-main text-right text-muted"
+            style={
+              Object {
+                "fontSize": 12,
+                "paddingRight": 8,
+                "paddingTop": 23,
+              }
+            }
           >
-            Downtime
+            Low
           </div>
           <div
-            className="value"
+            className="flex-sub"
+            style={
+              Object {
+                "position": "relative",
+              }
+            }
           >
-            <dfn
-              data-tip="Downtime is available time not used to cast anything (including not having your GCD rolling). This can be caused by delays between casting spells, latency, cast interrupting or just simply not casting anything (e.g. due to movement/stunned).<br/>
-        <li>You spent <b>40.59%</b> of your time casting heals.</li>
-        <li>You spent <b>26.01%</b> of your time casting non-healing spells.</li>
-        <li>You spent <b>33.40%</b> of your time casting nothing at all.</li>
-        "
+            <svg
+              fill="none"
+              height="85"
+              style={
+                Object {
+                  "fill": "none",
+                }
+              }
+              viewBox="19 19 101 88"
+              width="98"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              33.40 %
-            </dfn>
+              <path
+                d="M101.459 101.459C119.033 83.8858 119.033 55.3934 101.459 37.8198C83.8859 20.2462 55.3934 20.2462 37.8198 37.8198C20.2463 55.3934 20.2463 83.8858 37.8198 101.459"
+                stroke="#f8b700"
+                strokeLinecap="round"
+                strokeWidth="8"
+              />
+              <path
+                clipRule="evenodd"
+                d="M68.6396 28.6396H70.6396V32.6396H68.6396V28.6396Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M87.7656 32.8389L89.5485 33.7451L87.7368 37.3097L85.9539 36.4035L87.7656 32.8389Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M101.207 50.1829L100.077 48.5324L103.378 46.2732L104.508 47.9236L101.207 50.1829Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M106.622 67.3762L106.417 65.3868L110.398 64.9765L110.603 66.966L106.622 67.3762Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M103.658 84.4276L104.376 82.5609L108.11 83.9969L107.392 85.8635L103.658 84.4276Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M52.0547 32.5298L50.2627 33.4179L52.039 37.0019L53.831 36.1137L52.0547 32.5298Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M36.1157 45.9784L34.965 47.6142L38.2354 49.9147L39.3861 48.2789L36.1157 45.9784Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M28.8926 64.968L28.6883 66.9576L32.6626 67.3657L32.8669 65.3761L28.8926 64.968Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M31.3486 84.3921L32.0806 86.2533L35.8031 84.7895L35.0711 82.9282L31.3486 84.3921Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+            </svg>
+            <div
+              style={
+                Object {
+                  "height": 32,
+                  "left": "50%",
+                  "marginTop": -13,
+                  "position": "absolute",
+                  "top": 49,
+                  "transform": "translate(-50%, -50%)",
+                  "width": 32,
+                }
+              }
+            >
+              <svg
+                fill="none"
+                height="32"
+                style={
+                  Object {
+                    "fill": "none",
+                    "margin": 0,
+                    "transform": "rotate(46.46870773225828deg)",
+                    "transformOrigin": "5px 27px",
+                  }
+                }
+                viewBox="0 0 10 32"
+                width="10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9 27C9 29.2091 7.20914 31 5 31C2.79086 31 1 29.2091 1 27C1 24.7909 2.79086 23 5 23C7.20914 23 9 24.7909 9 27Z"
+                  stroke="#f8b700"
+                  strokeWidth="2"
+                />
+                <path
+                  clipRule="evenodd"
+                  d="M6 0L6 23H4L4 0L6 0Z"
+                  fill="#f8b700"
+                  fillRule="evenodd"
+                />
+              </svg>
+            </div>
+            <div
+              className="value"
+              style={
+                Object {
+                  "fontSize": "1.25em",
+                  "marginTop": -18,
+                }
+              }
+            >
+              67
+              %
+            </div>
+          </div>
+          <div
+            className="flex-main text-left text-muted"
+            style={
+              Object {
+                "fontSize": 12,
+                "paddingLeft": 8,
+                "paddingTop": 23,
+              }
+            }
+          >
+            High
           </div>
         </div>
       </div>
     </div>
     <div
-      className="panel-footer"
-      style={
-        Object {
-          "borderTop": 0,
-          "overflow": "hidden",
-          "padding": 0,
-        }
-      }
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
     >
-      <div
-        className="statistic-bar"
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <div
-          className="stat-health-bg"
-          data-tip="You spent <b>40.59%</b> of your time casting heals."
-          style={
-            Object {
-              "width": "40.58915067630533%",
-            }
-          }
-        >
-          <img
-            alt="Healing time"
-            src="/img/healing.png"
-          />
-        </div>
-        <div
-          className="Druid-bg"
-          data-tip="You spent <b>26.01%</b> of your time casting non-healing spells."
-          style={
-            Object {
-              "width": "26.006816370929776%",
-            }
-          }
-        >
-          <img
-            alt="Non-heal cast time"
-            src="/img/sword.png"
-          />
-        </div>
-        <div
-          className="remainder DeathKnight-bg"
-          data-tip="You spent <b>33.40%</b> of your time casting nothing at all."
-        >
-          <img
-            alt="Downtime"
-            src="/img/afk.png"
-          />
-        </div>
-      </div>
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
     </div>
+    <div
+      className="drilldown"
+    />
   </div>
 </div>
 `;

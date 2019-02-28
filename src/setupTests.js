@@ -15,3 +15,5 @@ if (process.env.CI) {
 
 // chartjs doesn't like being tested, so mock it and save us a world of trouble
 jest.mock('react-chartjs-2');
+// Link doesn't like being outside of a Router, and we don't really need to test its implementation anyway
+jest.mock('react-router-dom');
