@@ -9,6 +9,9 @@ import lazyLoadComponent from 'common/lazyLoadComponent';
 import retryingPromise from 'common/retryingPromise';
 import makeWclUrl from 'common/makeWclUrl';
 import Tooltip from 'common/Tooltip';
+import getFightName from 'common/getFightName';
+import REPORT_HISTORY_TYPES from 'interface/home/ReportHistory/REPORT_HISTORY_TYPES';
+import { appendReportHistory } from 'interface/actions/reportHistory';
 import { getResultTab } from 'interface/selectors/url/report';
 import { hasPremium } from 'interface/selectors/user';
 import Warning from 'interface/common/Alert/Warning';
@@ -71,6 +74,7 @@ class Results extends React.PureComponent {
     parsingState: PropTypes.oneOf(EVENT_PARSING_STATE),
     progress: PropTypes.number,
     premium: PropTypes.bool,
+    appendReportHistory: PropTypes.func.isRequired,
   };
   static childContextTypes = {
     updateResults: PropTypes.func.isRequired,
@@ -95,6 +99,7 @@ class Results extends React.PureComponent {
 
   componentDidMount() {
     this.scrollToTop();
+    this.appendHistory(this.props.report, this.props.fight, this.props.player);
   }
   componentDidUpdate(prevProps, prevState, prevContext) {
     if (this.props.selectedTab !== prevProps.selectedTab) {
@@ -104,6 +109,21 @@ class Results extends React.PureComponent {
   }
   scrollToTop() {
     window.scrollTo(0, 0);
+  }
+
+  appendHistory(report, fight, player) {
+    this.props.appendReportHistory({
+      code: report.code,
+      title: report.title,
+      start: Math.floor(report.start / 1000),
+      end: Math.floor(report.end / 1000),
+      fightId: fight.id,
+      fightName: getFightName(report, fight),
+      playerId: player.id,
+      playerName: player.name,
+      playerClass: player.type,
+      type: REPORT_HISTORY_TYPES.REPORT,
+    });
   }
 
   get warning() {
@@ -354,5 +374,8 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  {
+    appendReportHistory,
+  }
 )(Results);
