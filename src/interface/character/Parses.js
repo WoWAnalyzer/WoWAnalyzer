@@ -59,12 +59,11 @@ class Parses extends React.Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
       specs: [],
       class: '',
       activeSpec: [],
-      activeDifficulty: Object.keys(DIFFICULTIES),
+      activeDifficulty: Object.values(DIFFICULTIES),
       activeZoneID: ZONE_DEFAULT_BATTLE_OF_DAZARALOR,
       activeEncounter: BOSS_DEFAULT_ALL_BOSSES,
       sortBy: ORDER_BY.DATE,
@@ -563,6 +562,32 @@ class Parses extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
+              <div className="panel character-filters">
+                {this.state.specs.map((elem, index) => (
+                  <div
+                    key={index}
+                    onClick={() => this.updateSpec(elem.replace(' ', ''))}
+                    className={this.state.activeSpec.includes(elem.replace(' ', '')) ? 'selected spec-filter character-filter' : 'spec-filter character-filter'}
+                    style={{ backgroundImage: `url(${this.iconPath(elem)})` }}
+                  >
+                    {elem}
+                  </div>
+                ))}
+
+                {Object.values(DIFFICULTIES).filter(elem => elem).map((elem, index) => (
+                  <div
+                    key={index}
+                    onClick={() => this.updateDifficulty(elem)}
+                    className={this.state.activeDifficulty.includes(elem) ? 'selected diff-filter character-filter' : 'diff-filter character-filter'}
+                  >
+                    {elem}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-12">
               {this.state.error && (
                 <span>
                   <Link to="/">
@@ -588,11 +613,11 @@ class Parses extends React.Component {
                         <span className="glyphicon glyphicon-refresh" aria-hidden="true" /> Refresh
                       </Link>
                     </div>
-                    <h1>{this.state.error ? this.state.error : 'Parses'}</h1>
+                    <h1 style={{ display: 'inline-block' }}>{this.state.error ? this.state.error : 'Parses'}</h1>
                   </div>
                 )}
-                <div className="panel-body pad">
-                  <div className="flex-main">
+                <div className="panel-body">
+                  <div className="flex-main" style={{ padding: errorMessage ? 20 : 0 }}>
                     {this.state.isLoading && !this.state.error && (
                       <div style={{ textAlign: 'center', fontSize: '2em', margin: '20px 0' }}>
                         <ActivityIndicator text="Fetching logs..." />
