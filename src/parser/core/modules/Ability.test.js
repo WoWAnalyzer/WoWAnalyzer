@@ -35,17 +35,4 @@ describe('core/Modules/Ability', () => {
     expect(instance.cooldown).toBe(0.5);
     expect(cooldown.mock.calls[cooldown.mock.calls.length - 1][0]).toBe(0.5);
   });
-  it('provides the abilities module as this to the method', () => {
-    let cooldownThis = null;
-    const cooldown = jest.fn(function () {
-      cooldownThis = this;
-      return 41;
-    });
-    const instance = new Ability(abilitiesMock, {
-      cooldown,
-    });
-
-    expect(instance.cooldown).toBe(41);
-    expect(cooldownThis).toBe(abilitiesMock);
-  });
 });
