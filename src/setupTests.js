@@ -17,3 +17,5 @@ if (process.env.CI) {
 jest.mock('react-chartjs-2');
 // Link doesn't like being outside of a Router, and we don't really need to test its implementation anyway
 jest.mock('react-router-dom');
+// react-vis needs browser interface or it crashes
+jest.mock('react-vis/dist/make-vis-flexible.js');
