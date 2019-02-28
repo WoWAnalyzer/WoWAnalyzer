@@ -3,6 +3,15 @@ import ITEM_QUALITIES from 'game/ITEM_QUALITIES';
 
 export default {
   // Group by boss (with comments)
+
+  // Champions of Light
+  WARD_OF_ENVELOPMENT: {
+    id: 165569,
+    name: 'Ward of Envelopment',
+    icon: "misc_legionfall_paladin",
+    quality: ITEM_QUALITIES.PURPLE,
+  },
+
   // Taloc
   CREST_OF_PAKU_HORDE: {
     id: 165581,
