@@ -17,6 +17,9 @@ const ACTIVATION_COOLDOWN = 120; // seconds
  * 
  * Allies affected have the Enveloping Protection buff, lasts 10 seconds or until all damage is absorbed.
  * Hitting 1 ally gives the base value, each additional ally hit adds 7.5% of the base value. Maximum of 5 people hit for 30% extra on top of the base value.
+ *
+ * Tested with log:
+ * https://wowanalyzer.com/report/MBqH3rCN7wa2fvjR/13-Normal+Conclave+of+the+Chosen+-+Kill+(7:45)/18-Holyschmidt
  */
 class WardOfEnvelopment extends Analyzer {
   static dependencies = {
