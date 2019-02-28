@@ -127,7 +127,6 @@ class Maelstrom extends React.PureComponent {
         />
       </div>
     );
-
   }
 }
 

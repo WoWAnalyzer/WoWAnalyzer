@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import renderer from 'react-test-renderer';
-import { Router } from 'react-router-dom';
-import createHistory from 'history/createBrowserHistory';
 
 import { i18n } from 'interface/RootLocalizationProvider';
 
