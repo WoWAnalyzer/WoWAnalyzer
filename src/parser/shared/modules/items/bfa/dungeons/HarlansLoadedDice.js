@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatPercentage, formatNumber } from 'common/format';
 import { calculateSecondaryStatDefault } from 'common/stats';
-import { TooltipElement } from 'common/Tooltip';
 import ItemLink from 'common/ItemLink';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import UptimeIcon from 'interface/icons/Uptime';
@@ -18,7 +17,6 @@ import Analyzer from 'parser/core/Analyzer';
  * Your attacks and abilities have a chance to roll the loaded dice, gaining a random combination of Mastery, Haste, and Critical Strike for 15 sec.
  *
  * Example: https://www.warcraftlogs.com/reports/LR2jNyrk3GmPXgZ9#fight=4&type=auras&source=5
-
  */
 class HarlansLoadedDice extends Analyzer {
   _item = null;

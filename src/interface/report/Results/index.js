@@ -11,7 +11,6 @@ import makeWclUrl from 'common/makeWclUrl';
 import Tooltip from 'common/Tooltip';
 import { getResultTab } from 'interface/selectors/url/report';
 import { hasPremium } from 'interface/selectors/user';
-import ErrorBoundary from 'interface/common/ErrorBoundary';
 import Warning from 'interface/common/Alert/Warning';
 import Ad from 'interface/common/Ad';
 import ReadableList from 'interface/common/ReadableList';

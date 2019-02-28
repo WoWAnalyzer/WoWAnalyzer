@@ -28,7 +28,6 @@ const ContributorPage = lazyLoadComponent(() => retryingPromise(() => import(/* 
 
 class Home extends React.PureComponent {
   static propTypes = {
-    premium: PropTypes.bool,
     location: PropTypes.shape({
       pathname: PropTypes.string.isRequired,
     }).isRequired,
@@ -68,7 +67,7 @@ class Home extends React.PureComponent {
   }
 
   render() {
-    const { premium, location } = this.props;
+    const { location } = this.props;
 
     const url = location.pathname === '/' ? 'news' : location.pathname.replace(/^\/|\/$/g, '');
 

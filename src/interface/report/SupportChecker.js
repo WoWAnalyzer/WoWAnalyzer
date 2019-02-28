@@ -5,16 +5,16 @@ import { connect } from 'react-redux';
 import { Trans, t } from '@lingui/macro';
 
 import Icon from 'common/Icon';
+import Tooltip from 'common/Tooltip';
 import { i18n } from 'interface/RootLocalizationProvider';
 import DiscordButton from 'interface/common/thirdpartybuttons/Discord';
 import GitHubButton from 'interface/common/thirdpartybuttons/GitHub';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import { ignoreSpecNotSupportedWarning } from 'interface/actions/specNotSupported';
 import { getSpecsIgnoredNotSupportedWarning } from 'interface/selectors/skipSpecNotSupported';
-import Tooltip from 'common/Tooltip';
+import Panel from 'interface/others/Panel';
 
 import Background from './images/weirdnelf.png';
-import Panel from 'interface/others/Panel';
 
 class SupportChecker extends React.PureComponent {
   static propTypes = {

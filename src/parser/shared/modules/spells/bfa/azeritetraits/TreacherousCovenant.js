@@ -7,7 +7,6 @@ import SpellLink from 'common/SpellLink';
 import UptimeIcon from 'interface/icons/Uptime';
 import PrimaryStatIcon from 'interface/icons/PrimaryStat';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemDamageTaken from 'interface/others/ItemDamageTaken';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
@@ -86,7 +85,7 @@ class TreacherousCovenant extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.TREACHEROUS_COVENANT_BUFF.id) / this.owner.fightDuration;
   }
 
-  get averageStatModifier(){
+  get averageStatModifier() {
     return this.buffUptime * this.statModifier;
   }
 

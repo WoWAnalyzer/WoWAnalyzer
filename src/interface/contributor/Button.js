@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
 import retryingPromise from 'common/retryingPromise';
-import Portal from 'interface/Portal';
 import Modal from 'interface/modals/Modal';
 
 import makeContributorUrl from './makeUrl';

@@ -1,16 +1,14 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 
 import BeaconHealSource from '../beacons/BeaconHealSource';
-import PlayerHits from 'parser/paladin/holy/modules/LightOfDawn';
 
 const HOLY_AVENGER_HASTE_INCREASE = 0.3;
 const HOLY_AVENGER_HOLY_SHOCK_HEALING_INCREASE = 0.3;

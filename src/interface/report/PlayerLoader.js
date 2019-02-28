@@ -18,10 +18,10 @@ import { setCombatants } from 'interface/actions/combatants';
 import { getPlayerId, getPlayerName } from 'interface/selectors/url/report';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import Tooltip from 'common/Tooltip';
-
 import PlayerSelection from 'interface/report/PlayerSelection';
+import RaidCompositionDetails from 'interface/report/RaidCompositionDetails';
+
 import handleApiError from './handleApiError';
-import RaidCompositionDetails from 'interface/report/RaidCompositionDetails'
 
 const defaultState = {
   error: null,
@@ -103,7 +103,7 @@ class PlayerLoader extends React.PureComponent {
           case ROLES.DPS.RANGED:
             this.ranged += 1;
             break;
-            
+
           default:
           break;
         }

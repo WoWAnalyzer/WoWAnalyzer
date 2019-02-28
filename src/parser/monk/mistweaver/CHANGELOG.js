@@ -2,9 +2,7 @@ import React from 'react';
 
 import { Anomoly, Gao, Zerotorescue } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
-import ItemLink from 'common/ItemLink';
 
 export default [
   {
