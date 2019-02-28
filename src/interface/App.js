@@ -2,11 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
 import TooltipProvider from 'interface/common/TooltipProvider/index';
-import { track } from 'common/analytics';
 import retryingPromise from 'common/retryingPromise';
 import { API_DOWN, clearError, INTERNET_EXPLORER, internetExplorerError, REPORT_NOT_FOUND, UNKNOWN_NETWORK_ISSUE } from 'interface/actions/error';
 import { fetchUser } from 'interface/actions/user';
@@ -23,6 +22,7 @@ import PortalTarget from 'interface/PortalTarget';
 
 import 'react-toggle/style.css';
 import './layout/App.scss';
+import Tracker from './Tracker';
 
 const CharacterParsesPage = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'CharacterParsesPage' */ 'interface/character/Page').then(exports => exports.default)));
 
@@ -42,11 +42,6 @@ class App extends React.Component {
     clearError: PropTypes.func.isRequired,
     internetExplorerError: PropTypes.func.isRequired,
     fetchUser: PropTypes.func.isRequired,
-    location: PropTypes.shape({
-      pathname: PropTypes.string.isRequired,
-      search: PropTypes.string.isRequired,
-      hash: PropTypes.string.isRequired,
-    }).isRequired,
     openModals: PropTypes.number.isRequired,
   };
 
@@ -182,16 +177,6 @@ class App extends React.Component {
     );
   }
 
-  getPath(location) {
-    return `${location.pathname}${location.search}`;
-  }
-  componentDidUpdate(prevProps) {
-    if (prevProps.location !== this.props.location) {
-      // console.log('Location changed. Old:', prevProps.location, 'new:', this.props.location, document.title);
-      track(this.getPath(prevProps.location), this.getPath(this.props.location));
-    }
-  }
-
   render() {
     const { error, openModals } = this.props;
 
@@ -200,8 +185,10 @@ class App extends React.Component {
         <div className={`app ${openModals > 0 ? 'modal-open' : ''}`}>
           {this.renderContent()}
         </div>
-        <PortalTarget />
         {!error && <Footer />}
+
+        <PortalTarget />
+        <Tracker />
       </>
     );
   }
@@ -212,7 +199,7 @@ const mapStateToProps = state => ({
   openModals: getOpenModals(state),
 });
 
-export default withRouter(connect(
+export default connect(
   mapStateToProps,
   {
     push,
@@ -220,4 +207,4 @@ export default withRouter(connect(
     internetExplorerError,
     fetchUser,
   }
-)(App));
+)(App);
