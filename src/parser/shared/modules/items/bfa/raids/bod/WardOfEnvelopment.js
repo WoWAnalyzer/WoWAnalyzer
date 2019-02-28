@@ -35,22 +35,23 @@ class WardOfEnvelopment extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrinket(ITEMS.WARD_OF_ENVELOPMENT.id);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.ENVELOPING_PROTECTION]), this.onCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_PROTECTION), this.onCast);
     this.addEventListener(Events.absorbed.by(SELECTED_PLAYER).spell([SPELLS.ENVELOPING_PROTECTION]), this.onAbsorb);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.ENVELOPING_PROTECTION]), this.onBuff);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell([SPELLS.ENVELOPING_PROTECTION]), this.onRemoveBuff);
 
-    if (this.active) {
-      this.abilities.add({
-        spell: SPELLS.ENVELOPING_PROTECTION,
-        name: ITEMS.WARD_OF_ENVELOPMENT.name,
-        category: Abilities.SPELL_CATEGORIES.ITEMS,
-        cooldown: ACTIVATION_COOLDOWN,
-        castEfficiency: {
-          suggestion: true,
-        },
-      });
+    if (!this.active) {
+      return;
     }
+    this.abilities.add({
+      spell: SPELLS.ENVELOPING_PROTECTION,
+      name: ITEMS.WARD_OF_ENVELOPMENT.name,
+      category: Abilities.SPELL_CATEGORIES.ITEMS,
+      cooldown: ACTIVATION_COOLDOWN,
+      castEfficiency: {
+        suggestion: true,
+      },
+    });
   }
 
   onCast(event) {
@@ -78,7 +79,7 @@ class WardOfEnvelopment extends Analyzer {
   onRemoveBuff(event) {
     const spellId = event.ability.guid;
     if(spellId === SPELLS.ENVELOPING_PROTECTION.id){
-      if (this.firstExpiration === true) { // If this is the first buff expiration for this cast, add it to the total wasted
+      if (this.firstExpiration) { // If this is the first buff expiration for this cast, add it to the total wasted
         this.absorbWasted += event.absorb;
         this.firstExpiration = false; // Set it to false so it doesn't add the absorb for every other buff
       }
@@ -137,7 +138,7 @@ class WardOfEnvelopment extends Analyzer {
         average: 4,
         major: 3,
       },
-      style: 'percentage',
+      style: 'number',
     };
   }
   suggestions(when) {
