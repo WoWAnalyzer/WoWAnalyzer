@@ -1,9 +1,8 @@
 import React from 'react';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import StatisticBox from 'interface/others/StatisticBox';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import SPELLS from 'common/SPELLS';
@@ -122,15 +121,11 @@ class JadeSerpentStatue extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(25)}
-        icon={<SpellIcon id={SPELLS.SOOTHING_MIST_STATUE.id} />}
+      <TalentStatisticBox
+        talent={SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.id}
+        position={STATISTIC_ORDER.OPTIONAL(25)}
         value={`${formatPercentage(this.jadeSerpentStatueUptime)}`}
-        label={(
-          <dfn>
-            % Uptime
-          </dfn>
-        )}
+        label={(`% Uptime`)}
       />
     );
   }

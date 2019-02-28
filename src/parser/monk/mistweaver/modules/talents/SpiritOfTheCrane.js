@@ -2,12 +2,12 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
 import Analyzer from 'parser/core/Analyzer';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 const SOTC_MANA_PER_SECOND_RETURN_MINOR = 80;
 const SOTC_MANA_PER_SECOND_RETURN_AVERAGE = SOTC_MANA_PER_SECOND_RETURN_MINOR - 15;
@@ -132,30 +132,25 @@ class SpiritOfTheCrane extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <TalentStatisticBox
+        talent={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id}
         position={STATISTIC_ORDER.CORE(30)}
-        icon={<SpellIcon id={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id} />}
         value={`${formatNumber(this.manaReturnSotc)}`}
-        label={(
-          <dfn
-            data-tip={`
-              You gained a raw total of ${((this.manaReturnSotc + this.sotcWasted) / 1000).toFixed(0)}k mana from SotC with ${(this.sotcWasted / 1000).toFixed(0)}k wasted.<br>
-              You lost ${(this.totmOverCap + this.totmBuffWasted)} Teachings of the Monestery stacks
-            <ul>
-              ${this.totmOverCap > 0 ?
-              `<li>You overcapped Teachings ${(this.totmOverCap)} times</li>`
-              : ''
-              }
-              ${this.totmBuffWasted > 0 ?
-              `<li>You let Teachings drop off ${(this.totmBuffWasted)} times</li>`
-              : ''
-              }
-            </ul>
-            `}
-          >
-            Mana Returned
-          </dfn>
-        )}
+        label="Mana Returned"
+        tooltip={`
+          You gained a raw total of ${((this.manaReturnSotc + this.sotcWasted) / 1000).toFixed(0)}k mana from SotC with ${(this.sotcWasted / 1000).toFixed(0)}k wasted.<br>
+          You lost ${(this.totmOverCap + this.totmBuffWasted)} Teachings of the Monestery stacks
+          <ul>
+          ${this.totmOverCap > 0 ?
+          `<li>You overcapped Teachings ${(this.totmOverCap)} times</li>`
+          : ''
+          }
+          ${this.totmBuffWasted > 0 ?
+          `<li>You let Teachings drop off ${(this.totmBuffWasted)} times</li>`
+          : ''
+          }
+          </ul>
+        `}
       />
     );
   }
