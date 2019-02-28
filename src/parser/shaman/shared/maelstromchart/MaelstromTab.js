@@ -18,6 +18,7 @@ class MaelstromTab extends Analyzer {
           <MaelstromChart
             start={this.owner.fight.start_time}
             end={this.owner.fight.end_time}
+            max={this.maelstromTracker.maxResource}
             tracker={this.maelstromTracker}
           />
         </Panel>

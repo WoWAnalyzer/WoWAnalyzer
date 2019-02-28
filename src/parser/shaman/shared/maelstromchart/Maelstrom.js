@@ -3,9 +3,25 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Line } from 'react-chartjs-2';
 
 import { formatDuration } from 'common/format';
+import {
+  DiscreteColorLegend,
+  XAxis,
+  YAxis,
+  VerticalGridLines,
+  HorizontalGridLines,
+  AreaSeries,
+  LineSeries,
+  FlexibleWidthXYPlot as XYPlot,
+} from 'react-vis/es';
+
+const COLORS = {
+  MAELSTROM_FILL: 'rgba(0, 139, 215, 0.2)',
+  MAELSTROM_BORDER: 'rgba(0, 145, 255, 1)',
+  WASTED_MAELSTROM_FILL: 'rgba(255, 20, 147, 0.3)',
+  WASTED_MAELSTROM_BORDER: 'rgba(255, 90, 160, 1)',
+};
 
 class Maelstrom extends React.PureComponent {
   static propTypes = {
@@ -27,7 +43,6 @@ class Maelstrom extends React.PureComponent {
     const maxResource = this.props.tracker.maxResource || this.props.max;
     const { start, end } = this.props;
 
-
     const resourceBySecond = [];
     const overCapBySecond = [];
     this.props.tracker.resourceUpdates.forEach((item) => {
@@ -36,95 +51,74 @@ class Maelstrom extends React.PureComponent {
       overCapBySecond[secIntoFight] = item.waste;
     });
 
-
-    const fightDurationSec = Math.ceil((end-start) / 1000);
+    const fightDurationSec = Math.ceil((end - start) / 1000);
     for (let i = 0; i <= fightDurationSec; i++) {
-      resourceBySecond[i] = resourceBySecond[i] !== undefined ? resourceBySecond[i] : resourceBySecond[i-1];
+      resourceBySecond[i] = resourceBySecond[i] !== undefined ? resourceBySecond[i] : resourceBySecond[i - 1];
       if (resourceBySecond[i] !== null) {
         resourceBySecond[i] = resourceBySecond[i] > 0 ? resourceBySecond[i] : 0;
       }
-      overCapBySecond[i] = overCapBySecond[i] !== undefined ? overCapBySecond[i] : overCapBySecond[i-1];
+      overCapBySecond[i] = overCapBySecond[i] !== undefined ? overCapBySecond[i] : overCapBySecond[i - 1];
     }
 
-    let maxX;
-    const myLabels = [];
-    for (maxX = 0; maxX < resourceBySecond.length; maxX++) {
-      if (maxX % 30 === 0) {
-        myLabels[maxX] = (formatDuration(maxX));
-      }
-    }
-    myLabels[maxX - 1] = formatDuration(maxX - 1);
-
-    const myData = {
-      labels: myLabels,
-      datasets: [
-        {
-          label: 'Maelstrom',
-          data: resourceBySecond,
-          lineTension: 0.4,
-          backgroundColor: [
-            'rgba(0, 139, 215, 0.2)',
-          ],
-          borderColor: [
-            'rgba(0,145,255,1)',
-          ],
-          borderWidth: 2,
-        },
-        {
-          label: 'Wasted Maelstrom',
-          data: overCapBySecond,
-          lineTension: 0.4,
-          backgroundColor: [
-            'rgba(255,20,147, 0.3)',
-          ],
-          borderColor: [
-            'rgba(255,90,160,1)',
-          ],
-          borderWidth: 2,
-        },
-      ],
-    };
-    const chartOptions = {
-      lineTension: 0,
-      elements: {
-        point: { radius: 0 },
-      },
-      scales: {
-        xAxes: [{
-          ticks: {
-            beginAtZero: true,
-            autoSkip: false,
-          },
-          gridLines: {
-            color: 'rgba(255,255,255,0.7)',
-            borderDash: [2, 2],
-          },
-          position: 'bottom',
-          beginAtZero: true,
-        }],
-        yAxes: [{
-          gridLines: {
-            color: 'rgba(255,255,255,0.7)',
-            borderDash: [2, 2],
-          },
-          type: 'linear',
-          ticks: {
-            beginAtZero: true,
-            stepSize: 30,
-            max: maxResource,
-          },
-        }],
-      },
-    };
-
+    const transformedResource = Object.entries(resourceBySecond).map(([key, value]) => ({ x: Number(key), y: value }));
+    const transformedWaste = Object.entries(overCapBySecond).map(([key, value]) => ({ x: Number(key), y: value }));
     return (
       <div>
-        <Line
-          data={myData}
-          options={chartOptions}
-          height={100}
-          width={300}
-        />
+        <XYPlot
+          height={400}
+          yDomain={[0, maxResource]}
+          margin={{
+            top: 30,
+          }}
+        >
+          <DiscreteColorLegend
+            orientation="horizontal"
+            strokeWidth={2}
+            items={[
+              { title: 'Maelstrom', color: COLORS.MAELSTROM_BORDER },
+              { title: 'Wasted Maelstrom', color: COLORS.WASTED_MAELSTROM_BORDER },
+            ]}
+            style={{
+              position: 'absolute',
+              top: '-15px',
+              left: '40%',
+            }}
+          />
+          <XAxis title="Time" tickFormat={value => formatDuration(value)} />
+          <YAxis title="Maelstrom" />
+          <VerticalGridLines
+            tickValues={transformedResource.filter(p => p.x % 30 === 0).map(p => p.x)}
+            style={{
+              strokeDasharray: 3,
+              stroke: 'white',
+            }}
+          />
+          <HorizontalGridLines
+            tickValues={[30, 60, 90, maxResource]}
+            style={{
+              strokeDasharray: 3,
+              stroke: 'white',
+            }}
+          />
+          <AreaSeries
+            data={transformedResource}
+            color={COLORS.MAELSTROM_FILL}
+            stroke="transparent"
+          />
+          <LineSeries
+            data={transformedResource}
+            color={COLORS.MAELSTROM_BORDER}
+          />
+          <AreaSeries
+            data={transformedWaste}
+            color={COLORS.WASTED_MAELSTROM_FILL}
+            stroke="transparent"
+          />
+          <LineSeries
+            data={transformedWaste}
+            color={COLORS.WASTED_MAELSTROM_BORDER}
+          />
+        </XYPlot>
       </div>
     );
   }
