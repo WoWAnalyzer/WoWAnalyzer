@@ -228,7 +228,7 @@ export default {
     id: 248210,
     name: 'The First of the Dead',
     icon: 'inv_glove_cloth_raidwarlockmythic_q_01',
-  }, 
+  },
   FIND_WEAKNESS_BUFF: {
     id: 91021,
     name: 'Find Weakness',
@@ -410,7 +410,7 @@ export default {
     name: 'Toxic Blade',
     icon: 'inv_weapon_shortblade_62',
   },
-  
+
 
   //Outlaw
 
@@ -478,7 +478,7 @@ export default {
   },
 
   //Buffs
-  SCULL_AND_CROSSBONES: {
+  SKULL_AND_CROSSBONES: {
     id: 199603,
     name: 'Skull and Crossbones',
     icon: 'ability_rogue_rollthebones01',
@@ -503,9 +503,9 @@ export default {
     name: 'Buried Treasure',
     icon: 'ability_rogue_rollthebones05',
   },
-  BROADSIDES: {
+  BROADSIDE: {
     id: 193356,
-    name: 'Broadsides',
+    name: 'Broadside',
     icon: 'ability_rogue_rollthebones06',
   },
 
@@ -525,12 +525,5 @@ export default {
     id: 86392,
     name: 'Main Gauche',
     icon: 'inv_weapon_shortblade_15',
-  },
-
-  //Traits
-  ACE_UP_YOUR_SLEEVE: {
-    id: 279714,
-    name: 'Ace Up Your Sleeve',
-    icon: 'inv_weapon_rifle_01',
   },
 };

@@ -1,5 +1,6 @@
 import Background from './images/backgrounds/JainaProudmoore.jpg';
 import Headshot from './images/headshots/JainaProudmoore.png';
+import { BOD_ALLIANCE_TO_HORDE } from './RaceTranslation';
 
 export default {
   id: 2281,
@@ -15,5 +16,6 @@ export default {
         287565, // Avalanche
       ],
     },
+    raceTranslation: BOD_ALLIANCE_TO_HORDE,
   },
 };

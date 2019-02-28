@@ -2,8 +2,6 @@ import React from 'react';
 
 import { Anatta336 } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
-import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
 import retryingPromise from 'common/retryingPromise';
 import Warning from 'interface/common/Alert/Warning';
 
@@ -21,13 +19,11 @@ export default {
   description: (
     <>
       <Warning>
-        This analyzer is in the process of being updated for Feral's changes in patch 8.1. Some results may be misleading until that's complete.
-      </Warning><br />
-      <Warning>
-      AoE encounters are not currently well covered. You'll get the most useful feedback on fights which are primarily against a single target.
+        This analyzer is in the process of being updated for Feral's changes in patch 8.1. Some analysis may be missing until that's complete.<br />
+        You can follow the <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/2843">update progress</a>.
       </Warning><br />
 
-      We hope this analyzer will help improve your Feral druid experience. As always it's best to focus on improving one aspect of your play at a time. Keeping good uptimes on your DoTs is key to good damage output, so is a great place to start. Unless you have very high haste you can expect to spend time waiting for energy, use this to your advantage as it gives you time to plan what to do next rather than spamming buttons. The talents <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} />, <SpellLink id={SPELLS.LUNAR_INSPIRATION_TALENT.id} />, and <SpellLink id={SPELLS.SAVAGE_ROAR_TALENT.id} /> are usually good for single target fights but add extra things to keep track of, so swapping out from those can simplify the spec while you learn.<br /><br />
+      We hope this analyzer will help improve your Feral druid experience. As always it's best to focus on improving one aspect of your play at a time. Keeping good uptimes on your DoTs is key to good damage output, so is a great place to start. Unless you have very high haste you can expect to spend time waiting for energy during bos fights, use this to your advantage as it gives you time to plan what to do next rather than spamming buttons.<br /><br />
 
       Most of the mechanics are now covered in this analyzer but there's always things to improve. If you have suggestions or comments about the analyzer you can reach the WoWAnalyzer team on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a>, on <a href="https://discord.gg/AxphPxU">Discord</a>, or message me (<a href="/contributor/Anatta336">Anatta</a>) directly on Discord. We're always interested in improving the analyzer, whether it's in-depth theorycraft or rewording some text to be easier to understand. The whole project is open source and welcomes contributions so you can directly improve it too!<br /><br />
 
@@ -35,7 +31,7 @@ export default {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/1tmwMPzBdYkcah8r/14-Heroic+Grong+-+Kill+(5:26)/25-Derzertt',
+  exampleReport: '/report/tQRnCGHaTgKrA2JV/9-Heroic+Grong+the+Revenant+-+Kill+(3:18)/555-Hoofhartd',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

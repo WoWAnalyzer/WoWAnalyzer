@@ -47,6 +47,16 @@ class HavocDemonHunterChecklist extends React.PureComponent {
           {combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id) && <AbilityRequirement spell={SPELLS.DEATH_SWEEP.id} />}
           {combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id) && <AbilityRequirement spell={SPELLS.FEL_RUSH_CAST.id} />}
           {combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id) && <AbilityRequirement spell={SPELLS.VENGEFUL_RETREAT.id} />}
+          {combatant.hasTalent(SPELLS.FEL_ERUPTION_TALENT.id) &&(
+            <Requirement
+              name={(
+                <>
+                <SpellLink id={SPELLS.FEL_ERUPTION_TALENT.id} /> bad casts
+                </>
+              )}
+              thresholds={thresholds.felEruptionBadCasts}
+            />
+          )}
         </Rule>
 
         {combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id) && (

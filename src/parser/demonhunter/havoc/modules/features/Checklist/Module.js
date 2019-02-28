@@ -18,6 +18,7 @@ import BlindFury from '../../talents/BlindFury';
 import DemonBlades from '../../talents/DemonBlades';
 import ImmolationAura from '../../talents/ImmolationAura';
 import Momentum from '../../talents/Momentum';
+import FelEruption from '../../talents/FelEruption';
 
 // Fury Resource
 import FuryDetails from '../../resourcetracker/FuryDetails';
@@ -42,6 +43,7 @@ class Checklist extends BaseModule {
     demonBlades: DemonBlades,
     immolationAura: ImmolationAura,
     momentum: Momentum,
+    felEruption: FelEruption,
 
     // Fury Resource
     furyDetails: FuryDetails,
@@ -68,6 +70,7 @@ class Checklist extends BaseModule {
           immolationAuraEfficiency: this.immolationAura.suggestionThresholds,
           momentumBuffUptime: this.momentum.suggestionThresholds,
           totalFuryWasted: this.furyDetails.suggestionThresholds,
+          felEruptionBadCasts: this.felEruption.suggestionThresholds,
         }}
       />
     );

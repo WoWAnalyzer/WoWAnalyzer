@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-02-24'),
+    changes: <><SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> has been marked as scaling with Mastery and Haste and should now affect the stat values.</>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2019-01-30'),
     changes: <><SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> has been added to the list of spells that beacon transfer (50% efficiency).</>,
     contributors: [Zerotorescue],

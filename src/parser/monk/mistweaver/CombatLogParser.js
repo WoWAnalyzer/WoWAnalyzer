@@ -60,6 +60,7 @@ import RenewingMistDuringManaTea from './modules/talents/RenewingMistDuringManaT
 // Azerite Traits
 import FontOfLife from './modules/spells/azeritetraits/FontOfLife';
 import UpliftedSpirits from './modules/spells/azeritetraits/UpliftedSpirits';
+import SecretInfusion from './modules/spells/azeritetraits/SecretInfusion';
 
 // Mana Tracker
 import MistweaverHealingEfficiencyDetails from './modules/features/MistweaverHealingEfficiencyDetails';
@@ -122,6 +123,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Azerite Traits
     fontOfLife: FontOfLife,
     upliftedSpirits: UpliftedSpirits,
+    secretInfusion: SecretInfusion,
 
     // Mana Tab
     manaTracker: ManaTracker,

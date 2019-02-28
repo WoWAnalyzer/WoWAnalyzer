@@ -31,4 +31,5 @@ export default [
   SPELLS.DIVINE_HYMN_HEAL.id, //The heal component of divine hymn
   SPELLS.CHARGE_2.id, // The damage component of charge
   285503, // Lady Jaina Proudmoore boss mechanic (picking up munitions barrel)
+  285347, // Plague of Fire - King Rastakhan mechanic
 ];

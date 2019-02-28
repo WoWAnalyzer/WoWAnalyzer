@@ -1,5 +1,6 @@
 import Background from './images/backgrounds/HighTinkerMekkatorque.jpg';
 import Headshot from './images/headshots/HighTinkerMekkatorque.png';
+import { BOD_ALLIANCE_TO_HORDE } from './RaceTranslation';
 
 export default {
   id: 2276,
@@ -13,5 +14,6 @@ export default {
       physical: [],
       magical: [],
     },
+    raceTranslation: BOD_ALLIANCE_TO_HORDE,
   },
 };
