@@ -7,6 +7,10 @@ import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 
 import ManaUsageChartComponent from './ManaUsageChartComponent';
 
+/**
+ * @property {ManaValues} manaValues
+ * @property {HealingDone} healingDone
+ */
 class ManaUsageChart extends Analyzer {
   static dependencies = {
     manaValues: ManaValues,
