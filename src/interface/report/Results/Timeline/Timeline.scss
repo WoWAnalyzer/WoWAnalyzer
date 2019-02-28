@@ -163,8 +163,9 @@
 .spell-timeline .buffs {
   width: 100%;
   border-radius: 10px;
-  top: 0;
-  height: 22px;
+  position: relative;
+  bottom: -22px;
+  height: calc(30px + var(--levels) * 30px);
   box-sizing: content-box;
 
   > * {
@@ -187,15 +188,16 @@
   a.hoist {
     --level: 0;
     height: 22px;
-    top: -13px;
-    top: calc(-13px + var(--level) * -30px);
+    bottom: 13px;
+    bottom: calc(35px + var(--level) * 30px);
   }
   //noinspection CssOverwrittenProperties
   a.hoist .time-indicator {
     position: absolute;
-    top: 7px;
+    bottom: 0;
     height: 50px;
-    height: calc(50px + var(--level) * 30px);
+    height: calc(57px + var(--level) * 30px);
+    top: 0;
     width: 1px;
     background: #f8b700;
   }
@@ -207,8 +209,7 @@
     z-index: 2;
     height: calc(50px + var(--level) * 30px);
     --level: 0;
-    top: -6px;
-    top: calc(-6px + var(--level) * -30px);
+    bottom: 0;
     cursor: default;
   }
 }

@@ -67,6 +67,7 @@ class Buffs extends React.PureComponent {
   }
   _applied = {};
   _levels = [];
+  _maxLevel = 0;
   _getLevel() {
     // Look for the first available level, reusing levels that are no longer used
     let level = 0;
@@ -82,6 +83,7 @@ class Buffs extends React.PureComponent {
     const level = this._getLevel();
     this._applied[spellId] = event.timestamp;
     this._levels[level] = spellId;
+    this._maxLevel = Math.max(this._maxLevel, level);
 
     return this.renderIcon(event, {
       className: 'hoist',
@@ -140,9 +142,11 @@ class Buffs extends React.PureComponent {
   render() {
     const { parser } = this.props;
 
+    const buffs = parser.eventHistory.map(this.renderEvent);
+
     return (
-      <div className="buffs">
-        {parser.eventHistory.map(this.renderEvent)}
+      <div className="buffs" style={{ '--levels': this._maxLevel + 1 }}>
+        {buffs}
       </div>
     );
   }

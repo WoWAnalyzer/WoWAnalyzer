@@ -193,7 +193,7 @@ class Timeline extends React.PureComponent {
             className="spell-timeline"
             style={{
               width: this.totalWidth + this.state.padding * 2,
-              paddingTop: 80, // max 4 buffs at the same time
+              paddingTop: 0,
               paddingBottom: this.getOffsetTop(eventsBySpellId.size), // automaticly fit perfectly
               paddingLeft: this.state.padding,
               paddingRight: this.state.padding, // we also want the user to have the satisfying feeling of being able to get the right side to line up
