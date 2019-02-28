@@ -8,22 +8,22 @@ class Buffs extends CoreBuffs {
 
     return [
       {
-        spell: SPELLS.BESTIAL_WRATH,
+        spellId: SPELLS.BESTIAL_WRATH.id,
         duration: BuffDuration.STATIC(15000),
         timelineHightlight: true,
       },
       {
-        spell: SPELLS.ASPECT_OF_THE_WILD,
+        spellId: SPELLS.ASPECT_OF_THE_WILD.id,
         duration: BuffDuration.STATIC(20000),
         timelineHightlight: true,
       },
       {
-        spell: SPELLS.ASPECT_OF_THE_TURTLE,
+        spellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
         duration: BuffDuration.STATIC(20000),
         timelineHightlight: true, // showing because it's relevant to know when we couldn't attack (this could explain some downtime)
       },
       {
-        spell: Object.keys(BLOODLUST_BUFFS).map(spellId => SPELLS[spellId]),
+        spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
         duration: BuffDuration.STATIC(40000),
         timelineHightlight: true,
       },

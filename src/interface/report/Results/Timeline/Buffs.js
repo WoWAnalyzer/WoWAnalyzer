@@ -39,7 +39,6 @@ class Buffs extends React.PureComponent {
     }
     const spellId = event.ability.guid;
     const buff = this.props.buffs.getBuff(spellId);
-    // console.log(buff, spellId, event.ability.name, this.props.buffs.activeBuffs)
     if (!buff || !buff.timelineHightlight) {
       return false;
     }

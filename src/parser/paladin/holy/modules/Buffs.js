@@ -10,101 +10,101 @@ class Buffs extends CoreBuffs {
     // This data can be used by various kinds of modules to improve their results, and modules added in the future may rely on buffs that aren't used today.
     return [
       {
-        spell: SPELLS.BESTOW_FAITH_TALENT,
+        spellId: SPELLS.BESTOW_FAITH_TALENT.id,
         duration: BuffDuration.STATIC(5000),
         enabled: combatant.hasTalent(SPELLS.BESTOW_FAITH_TALENT),
       },
       {
-        spell: SPELLS.INFUSION_OF_LIGHT,
+        spellId: SPELLS.INFUSION_OF_LIGHT.id,
         duration: BuffDuration.AT_MOST(15000),
         triggeredBy: SPELLS.HOLY_SHOCK_CAST,
         timelineHightlight: true,
       },
       {
-        spell: SPELLS.RULE_OF_LAW_TALENT,
+        spellId: SPELLS.RULE_OF_LAW_TALENT.id,
         duration: BuffDuration.STATIC(10000),
         enabled: combatant.hasTalent(SPELLS.RULE_OF_LAW_TALENT),
       },
       {
-        spell: SPELLS.DIVINE_PURPOSE_HOLY_SHOCK_BUFF,
+        spellId: SPELLS.DIVINE_PURPOSE_HOLY_SHOCK_BUFF.id,
         duration: BuffDuration.STATIC(10000),
         enabled: combatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY),
         timelineHightlight: true,
       },
       {
-        spell: SPELLS.DIVINE_PURPOSE_LIGHT_OF_DAWN_BUFF,
+        spellId: SPELLS.DIVINE_PURPOSE_LIGHT_OF_DAWN_BUFF.id,
         duration: BuffDuration.STATIC(10000),
         enabled: combatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY),
         timelineHightlight: true,
       },
       // Throughput cooldowns
       {
-        spell: SPELLS.AVENGING_CRUSADER_TALENT,
+        spellId: SPELLS.AVENGING_CRUSADER_TALENT.id,
         duration: BuffDuration.STATIC(20000),
         enabled: combatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT),
         timelineHightlight: true,
       },
       {
-        spell: SPELLS.AVENGING_WRATH,
+        spellId: SPELLS.AVENGING_WRATH.id,
         duration: BuffDuration.STATIC(20000 * (combatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT) ? 1.25 : 1)),
         enabled: !combatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT),
         timelineHightlight: true,
       },
       {
-        spell: SPELLS.HOLY_AVENGER_TALENT,
+        spellId: SPELLS.HOLY_AVENGER_TALENT.id,
         duration: BuffDuration.STATIC(20000),
         enabled: combatant.hasTalent(SPELLS.HOLY_AVENGER_TALENT),
         timelineHightlight: true,
       },
       // Beacons
       {
-        spell: SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF,
+        spellId: SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id,
         duration: BuffDuration.PERMANENT(),
         // TODO: recommendedUptime: 1.0,
       },
       {
-        spell: SPELLS.BEACON_OF_FAITH_TALENT,
+        spellId: SPELLS.BEACON_OF_FAITH_TALENT.id,
         duration: BuffDuration.PERMANENT(),
         // TODO: recommendedUptime: 1.0,
         enabled: combatant.hasTalent(SPELLS.BEACON_OF_FAITH_TALENT),
       },
       {
-        spell: SPELLS.BEACON_OF_VIRTUE_TALENT,
+        spellId: SPELLS.BEACON_OF_VIRTUE_TALENT.id,
         duration: BuffDuration.PERMANENT(),
         enabled: combatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT),
       },
       // Utility
       {
-        spell: [SPELLS.DIVINE_STEED_BUFF, SPELLS.DIVINE_STEED_BUFF_ALT, SPELLS.DIVINE_STEED_BUFF_ALT_2, SPELLS.DIVINE_STEED_BUFF_ALT_3],
+        spellId: [SPELLS.DIVINE_STEED_BUFF.id, SPELLS.DIVINE_STEED_BUFF_ALT.id, SPELLS.DIVINE_STEED_BUFF_ALT_2.id, SPELLS.DIVINE_STEED_BUFF_ALT_3.id],
         duration: BuffDuration.STATIC(3000),
         triggeredBy: SPELLS.DIVINE_STEED,
       },
       {
-        spell: SPELLS.DIVINE_PROTECTION,
+        spellId: SPELLS.DIVINE_PROTECTION.id,
         duration: BuffDuration.STATIC(8000),
       },
       {
-        spell: SPELLS.DIVINE_SHIELD,
+        spellId: SPELLS.DIVINE_SHIELD.id,
         duration: BuffDuration.STATIC(8000),
       },
       {
-        spell: SPELLS.AURA_MASTERY,
+        spellId: SPELLS.AURA_MASTERY.id,
         duration: BuffDuration.STATIC(8000),
       },
       {
-        spell: SPELLS.BLESSING_OF_FREEDOM,
+        spellId: SPELLS.BLESSING_OF_FREEDOM.id,
         duration: BuffDuration.STATIC(8000),
       },
       {
-        spell: SPELLS.BLESSING_OF_PROTECTION,
+        spellId: SPELLS.BLESSING_OF_PROTECTION.id,
         duration: BuffDuration.STATIC(10000),
       },
       {
-        spell: SPELLS.BLESSING_OF_SACRIFICE,
+        spellId: SPELLS.BLESSING_OF_SACRIFICE.id,
         duration: BuffDuration.AT_MOST(12000),
       },
       {
-        spell: Object.keys(BLOODLUST_BUFFS).map(spellId => SPELLS[spellId]),
+        spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
         duration: BuffDuration.STATIC(40000),
         timelineHightlight: true,
       },
