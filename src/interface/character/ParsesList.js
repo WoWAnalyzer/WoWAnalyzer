@@ -80,46 +80,36 @@ class ParsesList extends React.PureComponent {
                         src={this.iconPath(elem.spec)}
                         alt={elem.spec}
                       />
-                      <h4 style={{ display: 'inline-block' }}>
-                        {elem.difficulty}<br />
-                        {elem.name}
-                      </h4>
+                      <h6 style={{ display: 'inline-block', marginRight: 10 }}>{elem.difficulty} </h6>
+                      <h4 style={{ display: 'inline-block' }}>{elem.name}</h4>
                     </div>
+                  </div>
+                  <div className="col-md-2">
+                    <div className={`${rankingColor(elem.historical_percent / 100)}`}>
+                      {this.formatPerformance(elem)}
+                    </div>
+                  </div>
+                  <div className="col-md-1">
+                    {elem.advanced && (
+                      elem.gear
+                        .filter(this.itemFilter)
+                        .map(this.renderItem)
+                    )}
                   </div>
                   <div className="col-md-3">
-                    <div>
-                      <h4 className={`${rankingColor(elem.historical_percent / 100)}`} style={{ margin: '10px 0' }}>
-                        {this.formatPerformance(elem)}
-                      </h4>
-                    </div>
-                  </div>
-                  <div className="col-md-3" style={{ height: 32 }}>
-                    <div>
-                      {elem.advanced && elem.talents.map(talent => (
-                        <SpellIcon
-                          key={talent.id}
-                          id={talent.id}
-                          style={styles.icon}
-                        />
-                      ))}
-                    </div>
-                    <div>
-                      {elem.advanced && (
-                        elem.gear
-                          .filter(this.itemFilter)
-                          .map(this.renderItem)
-                      )}
-                    </div>
+                    {elem.advanced && elem.talents.map(talent => (
+                      <SpellIcon
+                        key={talent.id}
+                        id={talent.id}
+                        style={styles.icon}
+                      />
+                    ))}
                   </div>
                   <div className="col-md-2" style={{ color: 'white', textAlign: 'right' }}>
-                    <div>
-                      {new Date(elem.start_time).toLocaleDateString()}
-                    </div>
-                    <div>
-                      {elem.advanced && (
-                        <span className="glyphicon glyphicon-chevron-right" aria-hidden="true" />
-                      )}
-                    </div>
+                    {new Date(elem.start_time).toLocaleDateString()}
+                    {elem.advanced && (
+                      <span className="glyphicon glyphicon-chevron-right" aria-hidden="true" style={{ marginLeft: 10 }} />
+                    )}
                   </div>
                 </div>
               </div>
