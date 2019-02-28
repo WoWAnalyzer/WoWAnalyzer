@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { findByBossId } from 'raids';
-import { formatDuration, formatNumber, formatPercentage, formatThousands } from 'common/format';
+import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import ItemIcon from 'common/ItemIcon';
 import ItemLink from 'common/ItemLink';
 import DeathRecapTracker from 'interface/others/DeathRecapTracker';
@@ -103,6 +103,7 @@ import CoastalSurge from '../shared/modules/items/bfa/enchants/CoastalSurge';
 import DarkmoonDeckTides from '../shared/modules/items/bfa/crafted/DarkmoonDeckTides';
 import DarkmoonDeckFathoms from '../shared/modules/items/bfa/crafted/DarkmoonDeckFathoms';
 import DarkmoonDeckBlockades from '../shared/modules/items/bfa/crafted/DarkmoonDeckBlockades';
+import EternalAlchemistStone from '../shared/modules/items/bfa/crafted/EternalAlchemistStone';
 // Azerite Traits
 import Gemhide from '../shared/modules/spells/bfa/azeritetraits/Gemhide';
 import CrystallineCarapace from '../shared/modules/spells/bfa/azeritetraits/CrystallineCarapace';
@@ -245,6 +246,7 @@ class CombatLogParser {
     darkmoonDeckTides: DarkmoonDeckTides,
     darkmoonDeckFathoms: DarkmoonDeckFathoms,
     darkmoonDeckBlockades: DarkmoonDeckBlockades,
+    eternalAlchemistStone: EternalAlchemistStone,
     // Enchants
     deadlyNavigation: DeadlyNavigation,
     masterfulNavigation: MasterfulNavigation,
@@ -541,9 +543,6 @@ class CombatLogParser {
   }
   getPercentageOfTotalDamageTaken(damageTaken) {
     return damageTaken / this.getModule(DamageTaken).total.effective;
-  }
-  formatItemDamageTaken(damageTaken) {
-    return `$`;
   }
   formatTimestamp(timestamp, precision = 0) {
     return formatDuration((timestamp - this.fight.start_time) / 1000, precision);

@@ -31,4 +31,9 @@ export default {
     name: 'Surging Alchemist Stone',
     icon: 'inv_alchemy_80_alchemiststone02',
   },
+  ETERNAL_ALCHEMIST_STONE: {
+    id: 165928,
+    name: 'Eternal Alchemist Stone',
+    icon: 'inv_alchemist_81_eternalalchemiststone',
+  },
 };

@@ -25,6 +25,18 @@ class Buffs extends CoreBuffs {
         duration: BuffDuration.STATIC(10000),
         enabled: combatant.hasTalent(SPELLS.RULE_OF_LAW_TALENT),
       },
+      {
+        spell: SPELLS.DIVINE_PURPOSE_HOLY_SHOCK_BUFF,
+        duration: BuffDuration.STATIC(10000),
+        enabled: combatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY),
+        timelineHightlight: true,
+      },
+      {
+        spell: SPELLS.DIVINE_PURPOSE_LIGHT_OF_DAWN_BUFF,
+        duration: BuffDuration.STATIC(10000),
+        enabled: combatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY),
+        timelineHightlight: true,
+      },
       // Throughput cooldowns
       {
         spell: SPELLS.AVENGING_CRUSADER_TALENT,

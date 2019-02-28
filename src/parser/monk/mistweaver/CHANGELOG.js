@@ -74,7 +74,7 @@ export default [
   },
   {
     date: new Date('2018-07-22'),
-    changes: <>Fix crash when <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} /> is used.</>,
+    changes: <>Fix crash when Drape of Shame is used.</>,
     contributors: [Anomoly],
   },
   {

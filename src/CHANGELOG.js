@@ -339,7 +339,7 @@ export default [
   },
   {
     date: new Date('2018-07-19'),
-    changes: <>Fixed a crash when wearing <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />.</>,
+    changes: <>Fixed a crash when wearing Drape of Shame.</>,
     contributors: [Zerotorescue],
   },
   {
