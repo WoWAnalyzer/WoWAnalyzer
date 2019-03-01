@@ -53,8 +53,6 @@ class Maelstrom extends React.PureComponent {
       waste.push({x: secIntoFight, y:item.waste});
     });
 
-    console.log(resource.filter(p=>p.x%30===0).map(p=>p.x));
-
    return (
       <div>
         <XYPlot
