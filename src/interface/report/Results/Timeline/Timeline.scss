@@ -66,14 +66,25 @@
   width: 100%;
   border-radius: 10px;
   top: -32px;
-  height: 22px;
-  background: hsla(44, 2%, 40%, 0.15);
+  margin-bottom: -32px;
+  height: 54px;
+  height: calc(54px + var(--levels) * 25px);
   box-shadow: 0 0 3px rgba(0, 0, 0, .3);
   box-sizing: content-box;
 
+  &:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 22px;
+    background: hsla(44, 2%, 40%, 0.15);
+    border-radius: 10px;
+  }
   > * {
     position: absolute;
-    height: 100%;
+    height: 22px;
   }
   a {
     z-index: 3;
@@ -214,51 +225,55 @@
   }
 }
 /* Cooldown lanes */
-.spell-timeline .cooldowns .lane {
-  position: absolute;
-  left: 0;
-  height: 16px;
-  /*background: rgba(255, 255, 255, 0.1);*/
+.spell-timeline .cooldowns {
+  position: relative;
 
-  > * {
-    position: absolute;
-    top: 0;
-    display: block;
-    height: 100%;
-  }
-  img {
-    height: 100%;
-    margin: 0;
-    display: block;
-    border: 1px solid #75736d;
-    box-shadow: 0 0 3px #000;
-  }
-  a > div:first-child {
-    content: '';
-    width: 1px;
-    background: rgba(255, 255, 255, 0.3);
+  .lane {
     position: absolute;
     left: 0;
-  }
-  > .legend {
-    left: -20px;
-    filter: grayscale(100%);
-    display: none;
-  }
-  > .cooldown {
-    height: 60%;
-    top: 20%;
-    border-radius: 3px;
-    background: #75736d;
-    box-shadow: 0 0 2px #75736d;
-    z-index: 2;
-  }
-  > .recharge {
-    width: 3px;
-    background: rgba(250, 250, 250, 0.6);
-    z-index: 4;
-  }
-  > .cast {
-    z-index: 3;
+    height: 16px;
+    /*background: rgba(255, 255, 255, 0.1);*/
+
+    > * {
+      position: absolute;
+      top: 0;
+      display: block;
+      height: 100%;
+    }
+    img {
+      height: 100%;
+      margin: 0;
+      display: block;
+      border: 1px solid #75736d;
+      box-shadow: 0 0 3px #000;
+    }
+    a > div:first-child {
+      content: '';
+      width: 1px;
+      background: rgba(255, 255, 255, 0.3);
+      position: absolute;
+      left: 0;
+    }
+    > .legend {
+      left: -20px;
+      filter: grayscale(100%);
+      display: none;
+    }
+    > .cooldown {
+      height: 60%;
+      top: 20%;
+      border-radius: 3px;
+      background: #75736d;
+      box-shadow: 0 0 2px #75736d;
+      z-index: 2;
+    }
+    > .recharge {
+      width: 3px;
+      background: rgba(250, 250, 250, 0.6);
+      z-index: 4;
+    }
+    > .cast {
+      z-index: 3;
+    }
   }
 }

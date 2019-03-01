@@ -67,6 +67,7 @@ class Casts extends React.PureComponent {
   }
   _lastLowered = null;
   _level = 0;
+  _maxLevel = 0;
   renderCast(event) {
     if (event.channel) {
       return null;
@@ -83,6 +84,7 @@ class Casts extends React.PureComponent {
       if (this._lastLowered && margin < ICON_WIDTH) {
         this._level += 1;
         level = this._level;
+        this._maxLevel = Math.max(this._maxLevel, level);
       } else {
         this._level = 0;
       }
@@ -168,9 +170,11 @@ class Casts extends React.PureComponent {
   render() {
     const { parser } = this.props;
 
+    const content = parser.eventHistory.map(this.renderEvent);
+
     return (
-      <div className="casts">
-        {parser.eventHistory.map(this.renderEvent)}
+      <div className="casts" style={{ '--levels': this._maxLevel + 1 }}>
+        {content}
       </div>
     );
   }

@@ -54,7 +54,7 @@ class Timeline extends React.PureComponent {
     return this.seconds * this.secondWidth;
   }
   laneHeight = 18;
-  centerOffset = 25;
+  centerOffset = 0;
 
   isApplicableEvent(event) {
     switch (event.type) {
