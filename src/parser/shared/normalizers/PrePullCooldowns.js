@@ -16,6 +16,7 @@ const debug = false;
  * spell is instant or has a cast time, we cannot (yet) accurately fabricate
  * the right type of event (begincast + cast vs only a cast).
  *
+ * @property {Abilities} abilities
  * @property {Buffs} buffs
  * @property {ApplyBuff} applyBuff
  */
@@ -213,12 +214,15 @@ class PrePullCooldowns extends EventsNormalizer {
   static _fabricateCastEvent(event, castId = null) {
     let ability = event.ability;
     if (castId) {
+      if (castId instanceof Array) {
+        castId = castId[0];
+      }
       const spell = SPELLS[castId];
       ability = {
         ...ability,
         guid: castId,
-        abilityIcon: spell.icon || ability.abilityIcon,
-        name: spell.name || event.ability.name,
+        abilityIcon: spell ? spell.icon : ability.abilityIcon,
+        name: spell ? spell.name : event.ability.name,
       };
     }
 

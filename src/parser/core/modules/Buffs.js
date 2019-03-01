@@ -29,7 +29,7 @@ class Buffs extends Module {
       // Convert the legacy buffSpellId prop
       ...this.abilities.activeAbilities.filter(ability => !!ability.buffSpellId).map(ability => ({
         spellId: ability.buffSpellId,
-        triggeredBySpellId: ability.spell !== ability.buffSpellId ? ability.primarySpell.id : undefined,
+        triggeredBySpellId: ability.spell.id !== ability.buffSpellId ? ability.primarySpell.id : undefined,
         timelineHightlight: true,
       })),
       {

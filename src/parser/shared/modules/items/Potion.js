@@ -1,5 +1,6 @@
 import Analyzer from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
+import Buffs from 'parser/core/modules/Buffs';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
@@ -14,12 +15,14 @@ const COOLDOWN_MS = 60000; // one minute
  * actor is out of combat or dead.
  *
  * @property {Abilities} abilities
+ * @property {Buffs} buffs
  * @property {SpellUsable} spellUsable
  * @property {AbilityTracker} abilityTracker
  */
 class Potion extends Analyzer {
   static dependencies = {
     abilities: Abilities,
+    buffs: Buffs,
     spellUsable: SpellUsable,
     abilityTracker: AbilityTracker,
   };
@@ -49,6 +52,12 @@ class Potion extends Analyzer {
       },
       ...this.constructor.extraAbilityInfo,
     });
+    if (this.constructor.extraAbilityInfo.buffSpellId) {
+      this.buffs.add({
+        spellId: this.constructor.extraAbilityInfo.buffSpellId,
+        triggeredBySpellId: this.constructor.spells.map(spell => spell.id),
+      });
+    }
   }
 
   get spellId() {
