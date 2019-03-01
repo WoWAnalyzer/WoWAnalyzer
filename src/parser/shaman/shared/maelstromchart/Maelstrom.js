@@ -43,26 +43,19 @@ class Maelstrom extends React.PureComponent {
     const maxResource = this.props.tracker.maxResource || this.props.max;
     const { start, end } = this.props;
 
-    const resourceBySecond = [];
-    const overCapBySecond = [];
+    const resource = [];
+    const waste = [];
+
+
     this.props.tracker.resourceUpdates.forEach((item) => {
       const secIntoFight = Math.floor((item.timestamp - start) / 1000);
-      resourceBySecond[secIntoFight] = item.current;
-      overCapBySecond[secIntoFight] = item.waste;
+      resource.push({x: secIntoFight, y:item.current});
+      waste.push({x: secIntoFight, y:item.waste});
     });
 
-    const fightDurationSec = Math.ceil((end - start) / 1000);
-    for (let i = 0; i <= fightDurationSec; i++) {
-      resourceBySecond[i] = resourceBySecond[i] !== undefined ? resourceBySecond[i] : resourceBySecond[i - 1];
-      if (resourceBySecond[i] !== null) {
-        resourceBySecond[i] = resourceBySecond[i] > 0 ? resourceBySecond[i] : 0;
-      }
-      overCapBySecond[i] = overCapBySecond[i] !== undefined ? overCapBySecond[i] : overCapBySecond[i - 1];
-    }
+    console.log(resource.filter(p=>p.x%30===0).map(p=>p.x));
 
-    const transformedResource = Object.entries(resourceBySecond).map(([key, value]) => ({ x: Number(key), y: value }));
-    const transformedWaste = Object.entries(overCapBySecond).map(([key, value]) => ({ x: Number(key), y: value }));
-    return (
+   return (
       <div>
         <XYPlot
           height={400}
@@ -87,7 +80,7 @@ class Maelstrom extends React.PureComponent {
           <XAxis title="Time" tickFormat={value => formatDuration(value)} />
           <YAxis title="Maelstrom" />
           <VerticalGridLines
-            tickValues={transformedResource.filter(p => p.x % 30 === 0).map(p => p.x)}
+            tickValues={resource.filter(p => p.x % 30 === 0).map(p => p.x)}
             style={{
               strokeDasharray: 3,
               stroke: 'white',
@@ -101,21 +94,21 @@ class Maelstrom extends React.PureComponent {
             }}
           />
           <AreaSeries
-            data={transformedResource}
+            data={resource}
             color={COLORS.MAELSTROM_FILL}
             stroke="transparent"
           />
           <LineSeries
-            data={transformedResource}
+            data={resource}
             color={COLORS.MAELSTROM_BORDER}
           />
           <AreaSeries
-            data={transformedWaste}
+            data={waste}
             color={COLORS.WASTED_MAELSTROM_FILL}
             stroke="transparent"
           />
           <LineSeries
-            data={transformedWaste}
+            data={waste}
             color={COLORS.WASTED_MAELSTROM_BORDER}
           />
         </XYPlot>
