@@ -29,8 +29,9 @@ class WardOfEnvelopment extends Analyzer {
   absorbUsed = 0;
   absorbWasted = 0;
   targetsHit = 0;
-  firstExpiration = false;
   uses = 0;
+  shieldedNoOne = 0;
+  shieldsActive = false;
 
   constructor(...args) {
     super(...args);
@@ -42,7 +43,7 @@ class WardOfEnvelopment extends Analyzer {
     this.addEventListener(Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_PROTECTION), this.onAbsorb);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_PROTECTION), this.onBuff);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_PROTECTION), this.onRemoveBuff);
-    
+
     this.abilities.add({
       spell: SPELLS.ENVELOPING_PROTECTION,
       name: ITEMS.WARD_OF_ENVELOPMENT.name,
@@ -56,7 +57,14 @@ class WardOfEnvelopment extends Analyzer {
 
   onCast(event) {
     this.uses += 1;
-    this.firstExpiration = true; // Reset it back to the first expiration
+    /* After the spell is cast the shield will drop off before the item it off CD to be used again.
+     * If onRemoveBuff was never triggered, this means you missed the raid with the targeting circle.
+     * In order to accurately calculate the average players buffed you need this.
+     */
+    if (this.shieldsActive === true) {
+      this.shieldedNoOne += 1; 
+    }
+    this.shieldsActive = true;
   }
 
   onAbsorb(event) {
@@ -68,14 +76,12 @@ class WardOfEnvelopment extends Analyzer {
   }
 
   onRemoveBuff(event) {
-    if (this.firstExpiration) { // If this is the first buff expiration for this cast, add it to the total wasted
-      this.absorbWasted += event.absorb;
-      this.firstExpiration = false; // Set it to false so it doesn't add the absorb for every other buff
-    }
+    this.absorbWasted += event.absorb;
+    this.shieldsActive = false;
   }
 
   get possibleUseCount() {
-    return 1 + Math.floor(this.owner.fightDuration / (ACTIVATION_COOLDOWN * 1000));
+    return Math.ceil(this.owner.fightDuration / (ACTIVATION_COOLDOWN * 1000));
   }
 
   // Average amount of damage absorbed on each cast
@@ -100,7 +106,7 @@ class WardOfEnvelopment extends Analyzer {
 
   // Extra shield value gained by hitting multiple allies (up to 5, 7.5% for each after base)
   get gainedShieldValue() {
-    return Math.ceil((this.targetsHit / this.uses) - 1) * 0.075;
+    return this.targetsHit / (this.uses - this.shieldedNoOne) * 0.075;
   }
 
   item() {
@@ -110,7 +116,7 @@ class WardOfEnvelopment extends Analyzer {
         <dfn data-tip={`
           You activated your Ward of Envelopment <b>${this.uses}</b> of <b>${this.possibleUseCount}</b> possible time${this.uses === 1 ? '' : 's'} with an average of <b>${formatNumber(this.averageAbsorbPerCast)}</b> absorption per use.
           It absorbed <b>${formatNumber(this.absorbUsed)}</b> out of <b>${formatNumber(this.totalAbsorb)}</b> damage and <b>${formatNumber(this.absorbWasted)} (${formatPercentage(this.wastedPercentage)}%)</b> was unused. <br />
-          On average you hit <b>${formatNumber(this.averageTargetsHit)}</b> out of <b>5</b> allies and gained <b>${formatPercentage(this.gainedShieldValue)}%</b> extra absorption value. <br />
+          On average you hit <b>${formatPercentage(this.averageTargetsHit / 100)}</b> out of <b>5</b> allies and gained <b>${formatPercentage(this.gainedShieldValue)}%</b> extra absorption value per cast. <br />
           `}>
           <ItemHealingDone amount={this.absorbUsed} />
         </dfn>
