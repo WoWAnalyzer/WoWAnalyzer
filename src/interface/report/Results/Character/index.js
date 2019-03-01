@@ -7,7 +7,6 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import './CharacterTab.css';
 import PlayerInfo from './PlayerInfo';
 import Stats from './Stats';
-import Race from './Race';
 
 class CharacterTab extends React.PureComponent {
   static propTypes = {
@@ -26,8 +25,6 @@ class CharacterTab extends React.PureComponent {
           </div>
           <div className="col-sm-6">
             <Stats statTracker={statTracker} />
-
-            <Race race={combatant.race} />
           </div>
         </div>
       </div>
