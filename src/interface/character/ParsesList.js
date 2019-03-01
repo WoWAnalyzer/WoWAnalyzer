@@ -57,21 +57,18 @@ class ParsesList extends React.PureComponent {
   }
   formatPerformance(elem) {
     const { metric } = this.props;
-    return `${formatNumber(elem.persecondamount)} ${metric.toLocaleUpperCase()} (${formatPercentage(elem.historical_percent / 100)}%)`;
+    return `${formatNumber(elem.persecondamount)} ${metric.toLocaleUpperCase()} (${formatPercentage(elem.historical_percent / 100, 0)}%)`;
   }
 
   render() {
     const { parses } = this.props;
     return (
-      parses.map(elem => {
-        const url = makePlainUrl(elem.report_code, elem.report_fight, elem.difficulty + ' ' + elem.name, elem.advanced ? elem.character_name : '');
-        return (
-          <Link
-            key={url}
-            to={url}
-          >
-            <div className="row character-parse">
-              <div className="col-md-12">
+      <ul className="list parses-list">
+        {parses.map(elem => {
+          const url = makePlainUrl(elem.report_code, elem.report_fight, elem.difficulty + ' ' + elem.name, elem.advanced ? elem.character_name : '');
+          return (
+            <li key={url}>
+              <Link to={url}>
                 <div className="row">
                   <div className="col-md-4" style={{ color: 'white' }}>
                     <div>
@@ -80,16 +77,16 @@ class ParsesList extends React.PureComponent {
                         src={this.iconPath(elem.spec)}
                         alt={elem.spec}
                       />
-                      <h6 style={{ display: 'inline-block', marginRight: 10 }}>{elem.difficulty} </h6>
-                      <h4 style={{ display: 'inline-block' }}>{elem.name}</h4>
+                      <span className="difficulty">{elem.difficulty}</span>
+                      <span className="boss">{elem.name}</span>
                     </div>
                   </div>
-                  <div className="col-md-2">
-                    <div className={`${rankingColor(elem.historical_percent / 100)}`}>
+                  <div className="col-md-2 text-right">
+                    <div className={rankingColor(elem.historical_percent / 100)}>
                       {this.formatPerformance(elem)}
                     </div>
                   </div>
-                  <div className="col-md-1">
+                  <div className="col-md-1 text-right">
                     {elem.advanced && (
                       elem.gear
                         .filter(this.itemFilter)
@@ -112,11 +109,11 @@ class ParsesList extends React.PureComponent {
                     )}
                   </div>
                 </div>
-              </div>
-            </div>
-          </Link>
-        );
-      })
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
     );
   }
 }

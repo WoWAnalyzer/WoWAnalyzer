@@ -194,7 +194,7 @@ class Parses extends React.Component {
         character_name: elem.characterName,
         talents: elem.talents,
         gear: elem.gear,
-        advanced: Object.values(elem.talents).filter(talent => talent.id === null).length === 0 ? true : false,
+        advanced: Object.values(elem.talents).filter(talent => talent.id === null).length === 0,
       };
     });
 
@@ -457,49 +457,47 @@ class Parses extends React.Component {
           <div className="background">
             <div className="img" style={{ backgroundImage: `url(${this.state.image})`, backgroundPosition: 'center center'}} />
           </div>
-          <div className="info">
-            <div className="container">
-              <div className="boss">
+          <div className="info container">
+            <div className="boss">
+              <a
+                href={`https://www.warcraftlogs.com/character/${this.props.region}/${this.state.realmSlug}/${this.props.name}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn"
+                style={{ fontSize: 22 }}
+              >
+                <img src={WarcraftLogsLogo} alt="Warcraft Logs logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
+              </a>
+              <br />
+              <a
+                href={battleNetUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn"
+                style={{ fontSize: 22 }}
+              >
+                <img src={ArmoryLogo} alt="Armory logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Armory
+              </a>
+              <br />
+              {this.props.region !== 'CN' && (
                 <a
-                  href={`https://www.warcraftlogs.com/character/${this.props.region}/${this.state.realmSlug}/${this.props.name}`}
+                  href={`https://www.wipefest.net/character/${this.props.name}/${this.state.realmSlug}/${this.props.region}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn"
                   style={{ fontSize: 22 }}
                 >
-                  <img src={WarcraftLogsLogo} alt="Warcraft Logs logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
+                  <img src={WipefestLogo} alt="Wipefest logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Wipefest
                 </a>
-                <br />
-                <a
-                  href={battleNetUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn"
-                  style={{ fontSize: 22 }}
-                >
-                  <img src={ArmoryLogo} alt="Armory logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Armory
-                </a>
-                <br />
-                {this.props.region !== 'CN' && (
-                  <a
-                    href={`https://www.wipefest.net/character/${this.props.name}/${this.state.realmSlug}/${this.props.region}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn"
-                    style={{ fontSize: 22 }}
-                  >
-                    <img src={WipefestLogo} alt="Wipefest logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Wipefest
-                  </a>
-                )}
+              )}
+            </div>
+            <div className="player">
+              <div className="avatar">
+                <img src={this.state.avatarImage} alt="" />
               </div>
-              <div className="player">
-                <div className="avatar">
-                  <img src={this.state.avatarImage} alt="" />
-                </div>
-                <div className="details">
-                  <h2>{this.props.region} - {this.props.realm}</h2>
-                  <h1 className="name">{this.props.name}</h1>
-                </div>
+              <div className="details">
+                <h2>{this.props.region} - {this.props.realm}</h2>
+                <h1 className="name">{this.props.name}</h1>
               </div>
             </div>
           </div>
@@ -614,6 +612,7 @@ class Parses extends React.Component {
                       </Link>
                     </div>
                     <h1 style={{ display: 'inline-block' }}>{this.state.error ? this.state.error : 'Parses'}</h1>
+                    <small>This page will only show fights that have been ranked by Warcraft Logs. Wipes are not included and during busy periods there might be a delay before new reports appear. Manually find the report on Warcraft Logs and copy the direct report link to analyze a fight missing from this page.</small>
                   </div>
                 )}
                 <div className="panel-body">
