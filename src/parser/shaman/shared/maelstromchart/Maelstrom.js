@@ -26,7 +26,6 @@ const COLORS = {
 class Maelstrom extends React.PureComponent {
   static propTypes = {
     start: PropTypes.number.isRequired,
-    end: PropTypes.number.isRequired,
     max: PropTypes.number,
     tracker: PropTypes.object,
   };
