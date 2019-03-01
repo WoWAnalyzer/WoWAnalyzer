@@ -14,7 +14,7 @@ To configure buffs, override the `buffs()` method of the module, and return an a
      A skeleton for the buffs module
     </strong>
   </summary>
-  
+
 ```jsx
 import SPELLS from 'common/SPELLS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
@@ -27,7 +27,6 @@ class Buffs extends CoreBuffs {
     return [
       {
         spell: SPELLS.BESTIAL_WRATH,
-        duration: BuffDuration.STATIC(15000),
         timelineHightlight: true,
       },
     ];

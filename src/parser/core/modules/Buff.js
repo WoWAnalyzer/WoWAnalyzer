@@ -1,7 +1,5 @@
 import PropTypes from 'prop-types';
 
-import { PERMANENT } from './BuffDuration';
-
 class Ability {
   static propTypes = {
     /**
@@ -11,14 +9,6 @@ class Ability {
       PropTypes.number,
       PropTypes.arrayOf(PropTypes.number),
     ]).isRequired,
-    /**
-     * The duration of a buff at the time of the application. Use one of the available values from the BuffDuration object.
-     */
-    duration: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.number,
-      PropTypes.oneOf([PERMANENT]),
-    ]),
     /**
      * Whether the spell is enabled (available to the player) and should be displayed. This should only be used for hiding spells that are unavailable, for example due to talents. Defaults to true.
      */
@@ -37,7 +27,6 @@ class Ability {
   };
 
   spellId = null;
-  duration = null;
   enabled = true;
   triggeredBySpellId = null;
   timelineHightlight = false;
