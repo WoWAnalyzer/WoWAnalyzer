@@ -18,7 +18,7 @@ To configure buffs, override the `buffs()` method of the module, and return an a
 ```jsx
 import SPELLS from 'common/SPELLS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
-import CoreBuffs, { BuffDuration } from 'parser/core/modules/Buffs';
+import CoreBuffs from 'parser/core/modules/Buffs';
 
 class Buffs extends CoreBuffs {
   buffs() {

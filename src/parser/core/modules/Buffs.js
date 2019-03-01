@@ -2,11 +2,8 @@ import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import Module from 'parser/core/Module';
 import Haste from 'parser/shared/modules/Haste';
 
-import BuffDuration from './BuffDuration';
 import Buff from './Buff';
 import Abilities from './Abilities';
-
-export { BuffDuration };
 
 // TODO: Make a separate but similar Debuffs module
 /**
@@ -37,7 +34,6 @@ class Buffs extends Module {
       })),
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
-        duration: BuffDuration.STATIC(40000),
         timelineHightlight: true,
       },
     ];
