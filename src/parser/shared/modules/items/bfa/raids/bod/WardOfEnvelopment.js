@@ -19,7 +19,7 @@ const ACTIVATION_COOLDOWN = 120; // seconds
  * Hitting 1 ally gives the base value, each additional ally hit adds 7.5% of the base value. Maximum of 5 people hit for 30% extra on top of the base value.
  *
  * Tested with log:
- * https://wowanalyzer.com/report/MBqH3rCN7wa2fvjR/13-Normal+Conclave+of+the+Chosen+-+Kill+(7:45)/18-Holyschmidt
+ * https://www.warcraftlogs.com/reports/dfyb3XRFk6J2zpm8/#fight=13&type=healing&source=96&ability=287568&view=events
  */
 class WardOfEnvelopment extends Analyzer {
   static dependencies = {
