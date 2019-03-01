@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import CoreBuffs, { BuffDuration } from 'parser/core/modules/Buffs';
+import CoreBuffs from 'parser/core/modules/Buffs';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 
 class Buffs extends CoreBuffs {
