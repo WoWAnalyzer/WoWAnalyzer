@@ -41,7 +41,7 @@ class Maelstrom extends React.PureComponent {
     }
 
     const maxResource = this.props.tracker.maxResource || this.props.max;
-    const { start, end } = this.props;
+    const { start } = this.props;
 
     const resource = [];
     const waste = [];
