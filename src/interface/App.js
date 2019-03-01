@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
 import TooltipProvider from 'interface/common/TooltipProvider/index';
@@ -199,7 +199,7 @@ const mapStateToProps = state => ({
   openModals: getOpenModals(state),
 });
 
-export default connect(
+const ConnectedComponent = connect(
   mapStateToProps,
   {
     push,
@@ -208,3 +208,6 @@ export default connect(
     fetchUser,
   }
 )(App);
+
+// This needs the `withRouter` so its props change (causing a render) when the route changes
+export default withRouter(ConnectedComponent);
