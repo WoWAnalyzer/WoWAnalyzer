@@ -26,17 +26,9 @@ class Ability {
     /**
      * The spells that trigger this buff. Defaults to the same spell as the buff (this is most commonly the same spell). Only configure this if it's different.
      */
-    triggeredBy: PropTypes.oneOfType([
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        icon: PropTypes.string.isRequired,
-      }),
-      PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        icon: PropTypes.string.isRequired,
-      })),
+    triggeredBySpellId: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.arrayOf(PropTypes.number),
     ]),
     /**
      * Whether the spell should be highlighted on the timeline. You should only highlight important buffs that may affect your cast behavior. Defaults to false.
@@ -44,10 +36,10 @@ class Ability {
     timelineHightlight: PropTypes.bool,
   };
 
-  spell = null;
+  spellId = null;
   duration = null;
   enabled = true;
-  triggerBy = null;
+  triggeredBySpellId = null;
   timelineHightlight = false;
   /**
    * When extending this class you MUST copy-paste this function into the new class. Otherwise your new props will not be set properly.

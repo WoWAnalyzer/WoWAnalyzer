@@ -30,10 +30,9 @@ class Buffs extends Module {
     // I think anyway, this might all change lul.
     return [
       // Convert the legacy buffSpellId prop
-      ...this.abilities.spellbook().filter(ability => !!ability.buffSpellId).map(ability => ({
+      ...this.abilities.activeAbilities.filter(ability => !!ability.buffSpellId).map(ability => ({
         spellId: ability.buffSpellId,
-        enabled: ability.enabled,
-        triggeredBy: ability.spell !== ability.buffSpellId ? ability.spell : undefined,
+        triggeredBySpellId: ability.spell !== ability.buffSpellId ? ability.primarySpell.id : undefined,
         timelineHightlight: true,
       })),
       {

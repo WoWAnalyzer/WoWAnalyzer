@@ -17,7 +17,7 @@ class Buffs extends CoreBuffs {
       {
         spellId: SPELLS.INFUSION_OF_LIGHT.id,
         duration: BuffDuration.AT_MOST(15000),
-        triggeredBy: SPELLS.HOLY_SHOCK_CAST,
+        triggeredBySpellId: SPELLS.HOLY_SHOCK_CAST.id,
         timelineHightlight: true,
       },
       {
@@ -77,7 +77,7 @@ class Buffs extends CoreBuffs {
       {
         spellId: [SPELLS.DIVINE_STEED_BUFF.id, SPELLS.DIVINE_STEED_BUFF_ALT.id, SPELLS.DIVINE_STEED_BUFF_ALT_2.id, SPELLS.DIVINE_STEED_BUFF_ALT_3.id],
         duration: BuffDuration.STATIC(3000),
-        triggeredBy: SPELLS.DIVINE_STEED,
+        triggeredBySpellId: SPELLS.DIVINE_STEED,
       },
       {
         spellId: SPELLS.DIVINE_PROTECTION.id,

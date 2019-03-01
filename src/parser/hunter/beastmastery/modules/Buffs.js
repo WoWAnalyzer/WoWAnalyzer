@@ -13,14 +13,35 @@ class Buffs extends CoreBuffs {
         timelineHightlight: true,
       },
       {
+        spellId: SPELLS.DIRE_BEAST_BUFF.id,
+        duration: BuffDuration.STATIC(8000),
+        timelineHightlight: true,
+      },
+      {
+        //shows pet buff, since that is what is interesting to see and the player buff is 5 different spellIDs
+        spellId: SPELLS.BARBED_SHOT_PET_BUFF.id,
+        duration: BuffDuration.STATIC(8000),
+        timelineHightlight: true,
+      },
+      {
+        spellId: SPELLS.BEAST_CLEAVE_BUFF.id,
+        duration: BuffDuration.STATIC(4000),
+        timelineHightlight: true,
+      },
+      {
         spellId: SPELLS.ASPECT_OF_THE_WILD.id,
         duration: BuffDuration.STATIC(20000),
         timelineHightlight: true,
       },
       {
         spellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
-        duration: BuffDuration.STATIC(20000),
+        duration: BuffDuration.AT_MOST(8000),
         timelineHightlight: true, // showing because it's relevant to know when we couldn't attack (this could explain some downtime)
+      },
+      {
+        spellId: SPELLS.BERSERKING.id,
+        duration: BuffDuration.AT_MOST(12000),
+        timelineHightlight: true,
       },
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),

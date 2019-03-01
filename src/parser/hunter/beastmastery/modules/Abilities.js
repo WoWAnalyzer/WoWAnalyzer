@@ -12,7 +12,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BESTIAL_WRATH,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
-        buffSpellId: SPELLS.BESTIAL_WRATH.id,
         timelineSortIndex: -1,
         gcd: {
           base: 1500,
@@ -53,7 +52,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        buffSpellId: SPELLS.DIRE_BEAST_BUFF.id,
         cooldown: 15,
         castEfficiency: {
           suggestion: true,
@@ -68,12 +66,10 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        buffSpellId: SPELLS.BARBED_SHOT_PET_BUFF.id, //shows pet buff, since that is what is interesting to see and the player buff is 5 different spellIDs
       },
       {
         spell: SPELLS.MULTISHOT_BM,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        buffSpellId: SPELLS.BEAST_CLEAVE_BUFF.id,
         gcd: {
           base: 1500,
         },
@@ -81,7 +77,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ASPECT_OF_THE_WILD,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        buffSpellId: SPELLS.ASPECT_OF_THE_WILD.id,
         cooldown: 120,
         timelineSortIndex: -1,
         gcd: {
@@ -162,7 +157,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.PRIMAL_RAGE_1, SPELLS.PRIMAL_RAGE_2],
-        buffSpellId: [SPELLS.PRIMAL_RAGE_1.id, SPELLS.PRIMAL_RAGE_2.id],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 360,
         gcd: null,
@@ -224,7 +218,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ASPECT_OF_THE_TURTLE,
-        buffSpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         isDefensive: true,
         cooldown: 180 * (1 - (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0)),
@@ -274,7 +267,6 @@ class Abilities extends CoreAbilities {
        */
       {
         spell: SPELLS.BERSERKING,
-        buffSpellId: SPELLS.BERSERKING.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         isUndetectable: true,
