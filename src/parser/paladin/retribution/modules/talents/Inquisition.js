@@ -64,9 +64,9 @@ class Inquisition extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>Your <SpellLink id={SPELLS.INQUISITION_TALENT.id} icon /> efficiency is low. You should aim to have it active as often as possible while dealing damage</>)
+      return suggest(<>Your <SpellLink id={SPELLS.INQUISITION_TALENT.id} icon /> efficiency is low. You should aim to have it active as often as possible while dealing damage.</>)
         .icon(SPELLS.INQUISITION_TALENT.icon)
-        .actual(`${formatPercentage(actual)}% of damage buffed`)
+        .actual(`${formatPercentage(actual)}% of damage buffed.`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
     });
   }
@@ -77,8 +77,8 @@ class Inquisition extends Analyzer {
         position={STATISTIC_ORDER.CORE(5)}
         icon={<SpellIcon id={SPELLS.INQUISITION_TALENT.id} />}
         value={`${formatPercentage(this.efficiency)}%`}
-        label="Damage done while buffed"
-        tooltip={`Relative amount of damage done while Inquisition was active. You had Inquisition active for ${formatPercentage(this.uptime)}% of the fight`}
+        label="Damage Buffed"
+        tooltip={`Relative amount of damage done while Inquisition was active. You had Inquisition active for ${formatPercentage(this.uptime)}% of the fight.`}
       />
     );
   }

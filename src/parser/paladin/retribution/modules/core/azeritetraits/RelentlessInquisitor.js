@@ -70,7 +70,7 @@ class RelentlessInquisitor extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You had a low average of <SpellLink id={SPELLS.RELENTLESS_INQUISITOR.id} /> stacks. You can use spells like <SpellLink id={SPELLS.DIVINE_STORM.id} /> or <SpellLink id={SPELLS.INQUISITION_TALENT.id} /> while out of range to refresh the buff, or consider using another trait if you're dropping the buff often because of fight mechanics</>)
+      return suggest(<>You had a low average of <SpellLink id={SPELLS.RELENTLESS_INQUISITOR.id} /> stacks. Consider using another trait if you're dropping the buff often because of fight mechanics.</>)
         .icon(SPELLS.RELENTLESS_INQUISITOR.icon)
         .actual(`${formatNumber(actual)} average stacks`)
         .recommended(`as close to 20 as possible is recommended`);

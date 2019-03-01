@@ -37,7 +37,7 @@ class HolyPowerDetails extends Analyzer {
       return suggest(`You wasted ${formatNumber(this.holyPowerTracker.wasted)} Holy Power.`)
         .icon(holyPowerIcon)
         .actual(`${formatPercentage(this.wastedHolyPowerPercent)}% Holy Power wasted`)
-        .recommended(`Wasting <${formatPercentage(1 - recommended)}% is recommended.`);
+        .recommended(`Wasting <${formatPercentage(1 - recommended)}% is recommended`);
     });
   }
 

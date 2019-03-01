@@ -4,6 +4,7 @@ import Haste from './modules/core/Haste';
 
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import Buffs from './modules/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Checklist from './modules/features/Checklist/Module';
 import Judgment from './modules/core/Judgment';
@@ -33,6 +34,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
+    buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
     checklist: Checklist,
     judgment: Judgment,
