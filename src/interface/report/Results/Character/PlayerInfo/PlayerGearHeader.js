@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Link from 'react-router-dom/es/Link';
 
 const ArmoryLink = function (player) {
   const profile = player.characterProfile;
@@ -10,15 +11,27 @@ const ArmoryLink = function (player) {
   return battleNetUrl;
 };
 
+const WoWALink = function (player) {
+  const profile = player.characterProfile;
+  return `/character/${profile.region}/${profile.realm}/${player.name}`;
+};
+
 const PlayerGearHeader = ({ player, averageIlvl }) => (
   <div className="player-gear-header">
     <span className={`${player.spec.className.replace(' ', '')} player-name`}>
       <b>
-        <a
+        {/*<a
           href={ArmoryLink(player)}
+          href=Link
           target="_blank"
           rel="noopener noreferrer"
-          >{player.name}-{player.characterProfile.realm}</a></b>
+          >*/}
+        <Link to={WoWALink(player)}>{player.name}</Link></b>
+    </span>
+    <span className="">
+      <b>
+        {player.characterProfile.realm}
+      </b>
     </span>
     <span>
       {player.race.name} {player.spec.className}
