@@ -143,7 +143,7 @@ class WardOfEnvelopment extends Analyzer {
         </>
       )
         .icon(ITEMS.WARD_OF_ENVELOPMENT.icon)
-        .actual(`Average ${formatNumber(actual)} out of ${MAX_ALLIES_HIT} allies hit.`)
+        .actual(`Average ${formatPercentage(actual) / 100} out of ${MAX_ALLIES_HIT} allies hit.`)
         .recommended(`5 is recommended`);
     });
   }
