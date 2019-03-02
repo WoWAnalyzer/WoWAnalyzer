@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
-import { TooltipElement } from 'common/Tooltip';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
 import Analyzer from 'parser/core/Analyzer';
