@@ -9,7 +9,7 @@ import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
 const BUFFS = [
-  //SPELLS.RUTHLESS_PRECISION,
+  SPELLS.RUTHLESS_PRECISION,
   SPELLS.GRAND_MELEE,
   SPELLS.BROADSIDE,
   SPELLS.SKULL_AND_CROSSBONES,

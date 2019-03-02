@@ -477,7 +477,7 @@ export default {
     name: 'Grand Melee',
     icon: 'ability_rogue_rollthebones02',
   },
-  SHARK_INFESTED_WATERS: {
+  RUTHLESS_PRECISION: {
     id: 193357,
     name: 'Shark Infested Waters',
     icon: 'ability_rogue_rollthebones03',
