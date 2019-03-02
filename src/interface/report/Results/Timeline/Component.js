@@ -45,7 +45,7 @@ class Timeline extends React.PureComponent {
     return this.end - this.start;
   }
   get seconds() {
-    return Math.ceil(this.duration / 1000);
+    return this.duration / 1000;
   }
   get secondWidth() {
     return 120 / this.state.zoom;
@@ -197,7 +197,8 @@ class Timeline extends React.PureComponent {
               paddingBottom: this.getOffsetTop(eventsBySpellId.size), // automaticly fit perfectly
               paddingLeft: this.state.padding,
               paddingRight: this.state.padding, // we also want the user to have the satisfying feeling of being able to get the right side to line up
-            }}>
+            }}
+          >
             <Buffs
               start={this.start}
               secondWidth={this.secondWidth}
@@ -205,7 +206,7 @@ class Timeline extends React.PureComponent {
               buffs={buffs}
             />
             <div className="time-line">
-              {this.seconds > 0 && [...Array(this.seconds)].map((_, second) => (
+              {this.seconds > 0 && [...Array(Math.ceil(this.seconds))].map((_, second) => (
                 <div
                   key={second}
                   style={{ width: this.secondWidth * skipInterval }}
