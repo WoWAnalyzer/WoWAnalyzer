@@ -33,13 +33,13 @@ class FelEruption extends Analyzer {
     this.stuns += 1;
   }
 
-  get badCast() {
+  get badCasts() {
     return this.casts - this.stuns;
   }
 
   get suggestionThresholds() {
     return {
-      actual: this.badCast,
+      actual: this.badCasts,
       isGreaterThan: {
         minor: 0,
         average: 0,
@@ -64,7 +64,7 @@ class FelEruption extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.FEL_ERUPTION_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={`${this.badCast} bad casts`}
+        value={`${this.badCasts} bad casts`}
         tooltip={`This ability should only be used for its stun. Its a dps loss.`}
       />
     );

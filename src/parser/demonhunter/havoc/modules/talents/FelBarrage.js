@@ -43,7 +43,7 @@ class FelBarrage extends Analyzer{
 
   get suggestionThresholds() {
     return {
-      actual: this.badCast,
+      actual: this.badCasts,
       isGreaterThan: {
         minor: 0,
         average: 0,
