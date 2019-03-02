@@ -252,11 +252,13 @@ var Elevator = function(options) {
       mainAudio = new Audio(_options.mainAudio);
       mainAudio.setAttribute("preload", _options.preloadAudio);
       mainAudio.setAttribute("loop", _options.loopAudio);
+      mainAudio.volume = 0.5;
     }
 
     if (_options.endAudio) {
       endAudio = new Audio(_options.endAudio);
       endAudio.setAttribute("preload", "true");
+      endAudio.volume = 0.5;
     }
 
     if (_options.endCallback) {
