@@ -1,5 +1,5 @@
-import Background from './images/backgrounds/JainaProudmoore.jpg';
-import Headshot from './images/headshots/JainaProudmoore.png';
+import Background from './images/backgrounds/StormwallBlockade.jpg';
+import Headshot from './images/headshots/StormwallBlockade.png';
 import { BOD_ALLIANCE_TO_HORDE } from './RaceTranslation';
 
 export default {
