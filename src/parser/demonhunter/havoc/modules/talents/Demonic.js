@@ -7,17 +7,17 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellLink from 'common/SpellLink';
 
 /**
- * Example Report:
+ * Example Report: https://www.warcraftlogs.com/reports/23dHWCrT18qhaJbz/#fight=1&source=16
  */
 
-const META_BUFF_DURATION_EYEBEAM = 8000;
+const META_BUFF_DURATION_EYEBEAM = 9000;
 
 class Demonic extends Analyzer{
 
   eyeBeamCasts = 0;
   goodDeathSweep = 0;
   eyeBeamTimeStamp = undefined;
-  counter = 0;
+  counter = undefined;
   badCasts = 0;
 
   constructor(...args) {
@@ -26,26 +26,37 @@ class Demonic extends Analyzer{
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.METAMORPHOSIS_HAVOC_BUFF), this.getTimeStamp);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EYE_BEAM), this.getTimeStamp);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEATH_SWEEP), this.countCasts);
   }
 
   getTimeStamp(event) {
-    const hasMetaBuff = this.selectedCombatant.hasBuff(SPELLS.EYE_BEAM.id, event.timestamp);
+    const hasMetaBuff = this.selectedCombatant.hasBuff(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id, event.timestamp - 1000);
 
     if (hasMetaBuff) {
       return;
     }
     this.eyeBeamCasts += 1;
     this.eyeBeamTimeStamp = event.timestamp;
+
+    if (this.counter === undefined) {
+      this.counter = 0;
+      return;
+    }
+
+    if (this.counter < 2) {
+      this.badCasts += 1;
+    }
+
     this.counter = 0;
+    console.log("reset to 0");
   }
 
   countCasts(event) {
     if (this.eyeBeamTimeStamp !== undefined && (event.timestamp - this.eyeBeamTimeStamp) < META_BUFF_DURATION_EYEBEAM) {
       this.goodDeathSweep += 1;
-      console.log("time dif", event.timestamp - this.eyeBeamTimeStamp);
       this.counter += 1;
+      console.log("counter #", this.counter, "  TS: ", this.eyeBeamTimeStamp );
     }
   }
 
