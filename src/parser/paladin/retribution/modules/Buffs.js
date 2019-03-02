@@ -78,7 +78,7 @@ class Buffs extends CoreBuffs {
       },
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
-        timelineHightlight: false,
+        timelineHightlight: true,
       },
     ];
   }
