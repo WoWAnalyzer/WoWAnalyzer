@@ -2,9 +2,9 @@ import SPELLS from 'common/SPELLS';
 import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Buffs';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
+import { captureException } from 'common/errorLogger';
 
 import ApplyBuff from './ApplyBuff';
-import { captureException } from 'common/errorLogger';
 
 const debug = false;
 
