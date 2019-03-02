@@ -411,7 +411,7 @@ exports[`Root matches snapshot 1`] = `
                                                                         <li />,
                                                                       ]
                                                                     }
-                                                                    id="Parsable links:<0/><1><2>https://www.warcraftlogs.com/reports/<report code></2><3>https://www.warcraftlogs.com/character/<region>/<realm>/<name></3><4>https://worldofwarcraft.com/<language-code>/character/<realm>/<name></4><5>https://www.wowchina.com/<language-code>/character/<realm>/<name></5></1>"
+                                                                    id="Supported links:<0/><1><2>https://www.warcraftlogs.com/reports/<report code></2><3>https://www.warcraftlogs.com/character/<region>/<realm>/<name></3><4>https://worldofwarcraft.com/<language-code>/character/<realm>/<name></4><5>https://www.wowchina.com/<language-code>/character/<realm>/<name></5></1>"
                                                                   />
                                                                 }
                                                                 direction="down"
@@ -435,7 +435,7 @@ exports[`Root matches snapshot 1`] = `
                                                                           <li />,
                                                                         ]
                                                                       }
-                                                                      id="Parsable links:<0/><1><2>https://www.warcraftlogs.com/reports/<report code></2><3>https://www.warcraftlogs.com/character/<region>/<realm>/<name></3><4>https://worldofwarcraft.com/<language-code>/character/<realm>/<name></4><5>https://www.wowchina.com/<language-code>/character/<realm>/<name></5></1>"
+                                                                      id="Supported links:<0/><1><2>https://www.warcraftlogs.com/reports/<report code></2><3>https://www.warcraftlogs.com/character/<region>/<realm>/<name></3><4>https://worldofwarcraft.com/<language-code>/character/<realm>/<name></4><5>https://www.wowchina.com/<language-code>/character/<realm>/<name></5></1>"
                                                                     />
                                                                   }
                                                                   direction="down"
