@@ -73,7 +73,7 @@ class Judgment extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You're not consuming all your <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> debuffs.</>)
+      return suggest(<>You're not consuming all of your <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> debuffs. Ensure your target will live long enough to consume the debuff when possible.</>)
         .icon(SPELLS.JUDGMENT_DEBUFF.icon)
         .actual(`${formatPercentage(this.percentageJudgmentsConsumed)}% Judgments consumed`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);

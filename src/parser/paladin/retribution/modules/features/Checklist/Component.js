@@ -70,7 +70,7 @@ class RetributionPaladinChecklist extends React.PureComponent {
             <Requirement
               name={(
                 <>
-                  Good first global with <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon /> buff
+                  Good first global with <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon />
                 </>
               )}
               thresholds={thresholds.crusade}
@@ -81,7 +81,7 @@ class RetributionPaladinChecklist extends React.PureComponent {
           name="Use procs and buffs efficiently"
           description={(
             <>
-              Buffs and procs like <SpellLink id={SPELLS.INQUISITION_TALENT.id} icon />, <SpellLink id={SPELLS.ART_OF_WAR.id} icon /> and <SpellLink id={SPELLS.RIGHTEOUS_VERDICT_TALENT.id} icon /> have a significant impact on your damage, use them well
+              Buffs and procs like <SpellLink id={SPELLS.INQUISITION_TALENT.id} icon />, <SpellLink id={SPELLS.ART_OF_WAR.id} icon /> and <SpellLink id={SPELLS.RIGHTEOUS_VERDICT_TALENT.id} icon /> have a significant impact on your damage, use them well.
           </>
           )}
         >
