@@ -17,7 +17,7 @@ const BUFFS = [
   SPELLS.TRUE_BEARING,
 ];
 
-class SliceAndDiceUptime extends Analyzer {
+class RollTheBonesBuffs extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = !this.selectedCombatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id);
@@ -54,4 +54,4 @@ class SliceAndDiceUptime extends Analyzer {
   }
 }
 
-export default SliceAndDiceUptime;
+export default RollTheBonesBuffs;
