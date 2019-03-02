@@ -159,7 +159,6 @@ class PlayerLoader extends React.PureComponent {
     }
 
     const players = playerId ? report.friendlies.filter(friendly => friendly.id === playerId) : report.friendlies.filter(friendly => friendly.name === playerName);
-    console.log('players', report.friendlies, playerName)
     const player = players[0];
     const hasDuplicatePlayers = players.length > 1;
     const combatant = player && combatants.find(combatant => combatant.sourceID === player.id);
