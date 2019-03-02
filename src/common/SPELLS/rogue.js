@@ -173,17 +173,6 @@ export default {
     name: 'Symbols of Death',
     icon: 'spell_shadow_rune',
   },
-  // Triggered damage
-  SHADOW_NOVA: {
-    id: 197800,
-    name: 'Shadow Nova',
-    icon: 'spell_fire_twilightnova',
-  },
-  INSIGNIA_OF_RAVENHOLDT: {
-    id: 209043,
-    name: 'Insignia of Ravenholdt',
-    icon: 'ability_rogue_shadowstrikes',
-  },
 
   // CP Generation
   SHADOW_TECHNIQUES: {

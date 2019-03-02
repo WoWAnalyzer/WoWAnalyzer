@@ -38,13 +38,7 @@ class EarlyDotRefreshesInstants extends EarlyDotRefreshes {
   }
 
   // Checks the status of the last cast and marks it accordingly.
-  isLastCastBad(event) {
-    if (this.lastCastGoodExtension) {
-      return; // Should not be marked as bad.
-    }
-    const dot = this.constructor.dots.find(element => {
-      return element.castId === this.lastCast.ability.guid;
-    });
+  getLastBadCastText(event, dot) {
     let text = '';
     if (!this.movedSinceCast(event)) { // Dot was refreshed early while standing still.
       text = `${dot.name} was cast while it had more than 30% of its duration remaining on all targets hit and you were standing still.`;
@@ -66,9 +60,7 @@ class EarlyDotRefreshesInstants extends EarlyDotRefreshes {
       }
       text = `${dot.name} was cast while it had more than 30% of its duration remaining on all targets hit and you had ${fillers} available as a better filler.`;
     }
-    if (text !== '') {
-      this.addBadCast(this.lastCast, text);
-    }
+    return text; 
   }
 
   movedSinceCast(event) {
