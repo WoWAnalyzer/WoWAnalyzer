@@ -10,7 +10,7 @@ import SpellLink from 'common/SpellLink';
  * Example Report: https://www.warcraftlogs.com/reports/23dHWCrT18qhaJbz/#fight=1&source=16
  */
 
-const META_BUFF_DURATION_EYEBEAM = 9000;
+const META_BUFF_DURATION_EYEBEAM = 10000;
 
 class Demonic extends Analyzer{
 
