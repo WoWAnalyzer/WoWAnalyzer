@@ -14,6 +14,7 @@ import EnergyCapTracker from '../shared/resources/EnergyCapTracker';
 import Energy from './modules/core/Energy';
 import SpellEnergyCost from '../shared/resources/SpellEnergyCost';
 
+import RollTheBonesBuffs from './modules/core/RollTheBonesBuffs';
 import RestlessBlades from './modules/core/RestlessBlades';
 import SliceAndDiceUptime from './modules/talents/SliceAndDiceUptime';
 
@@ -36,6 +37,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Core
     restlessBlades: RestlessBlades,
+    rolltheBonesBuffs: RollTheBonesBuffs,
     //Items
 
     //Casts
