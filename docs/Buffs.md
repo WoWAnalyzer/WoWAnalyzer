@@ -26,7 +26,7 @@ class Buffs extends CoreBuffs {
 
     return [
       {
-        spell: SPELLS.BESTIAL_WRATH,
+        spellId: SPELLS.BESTIAL_WRATH.id,
         timelineHightlight: true,
       },
     ];
@@ -45,6 +45,10 @@ You can configure each buff by providing an object with options to configure the
 # Adding buffs in other modules
 
 You can add buffs from other modules by adding the `Buffs` module to your dependencies and calling the `this.buffs.add(options)` method, where options is the config described in the previous section. You should only add buffs the player can actually receive or apply.
+
+# Defaults
+
+The Buffs module is configured with defaults from the Abilities module where each ability with the (deprecated) `buffSpellId` property is added as a prop. Once you add the Buffs module, the default will no longer be used so you'll have to add all buffs you could want manually. Please don't forget to remove all usages of the `buffSpellId` prop in the Abilities config as they're useless with a Buffs modules.
 
 # Using buff info
 
