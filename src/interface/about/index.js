@@ -1,10 +1,14 @@
 import React from 'react';
 import { Trans } from '@lingui/macro';
+import { Link } from 'react-router-dom';
 
 import DocumentTitle from 'interface/common/DocumentTitle';
 import MasteryRadiusImage from 'interface/images/mastery-radius.png';
 import ChangelogPanel from 'interface/home/Changelog/Panel';
 import Panel from 'interface/others/Panel';
+import DiscordButton from 'interface/common/thirdpartybuttons/Discord';
+import GithubButton from 'interface/common/thirdpartybuttons/GitHub';
+import PatreonButton from 'interface/common/thirdpartybuttons/Patreon';
 
 class About extends React.PureComponent {
   render() {
@@ -28,7 +32,9 @@ class About extends React.PureComponent {
             Using WoWAnalyzer you will find a wealth of information about the mechanics of your spec, your actual behavior in fights and the optimal playstyle. Analyze your raids after every raid night to continuously improve your performance and become a better player. Whether you're a new player learning a spec for the first time or an experienced player looking for information to help you min-max, WoWAnalyzer is a great tool to have in your arsenal!
           </Trans><br /><br />
 
-          <Trans>Wondering how to use WoWAnalyzer? See the <a href="https://www.wowhead.com/how-to-use-wowanalyzer"><img src="/img/wowhead-tiny.png" style={{ height: '1em' }} alt="Wowhead" /> Wowhead guide</a>. If you want to see an example report, click on your spec in the <a href="/#Specializations">Specializations</a> list.</Trans>
+          <Trans>Wondering how to use WoWAnalyzer? See the <a href="https://www.wowhead.com/how-to-use-wowanalyzer"><img src="/img/wowhead-tiny.png" style={{ height: '1em' }} alt="Wowhead" /> Wowhead guide</a>. If you want to see an example report, click on your spec in the <Link to="/specs">Specializations</Link> list.</Trans><br /><br />
+
+          <DiscordButton /> <GithubButton /> <PatreonButton />
         </Panel><br />
 
         <ChangelogPanel />
