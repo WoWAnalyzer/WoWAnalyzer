@@ -32,6 +32,7 @@ import FelEruption from './modules/talents/FelEruption';
 import MasterOfTheGlaives from './modules/talents/MasterOfTheGlaives';
 import DarkSlash from './modules/talents/DarkSlash';
 import CycleOfHatred from './modules/talents/CycleOfHatred';
+import Demonic from './modules/talents/Demonic';
 
 //Resources
 import FuryDetails from './modules/resourcetracker/FuryDetails';
@@ -79,6 +80,7 @@ class CombatLogParser extends CoreCombatLogParser {
     masterOfTheGlaives: MasterOfTheGlaives,
     darkSlash: DarkSlash,
     cycleOfHatred: CycleOfHatred,
+    demonic: Demonic,
 
     // Azerite Traits
     furiousGaze: FuriousGaze,

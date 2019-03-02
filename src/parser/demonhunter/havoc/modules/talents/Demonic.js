@@ -1,0 +1,93 @@
+import React from 'react';
+import SPELLS from 'common/SPELLS';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Events from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import SpellLink from 'common/SpellLink';
+
+/**
+ * Example Report:
+ */
+
+const META_BUFF_DURATION_EYEBEAM = 8000;
+
+class Demonic extends Analyzer{
+
+  eyeBeamCasts = 0;
+  goodDeathSweep = 0;
+  eyeBeamTimeStamp = undefined;
+  counter = 0;
+  badCasts = 0;
+
+  constructor(...args) {
+    super(...args);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.DEMONIC_TALENT.id);
+    if (!this.active) {
+      return;
+    }
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.METAMORPHOSIS_HAVOC_BUFF), this.getTimeStamp);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEATH_SWEEP), this.countCasts);
+  }
+
+  getTimeStamp(event) {
+    const hasMetaBuff = this.selectedCombatant.hasBuff(SPELLS.EYE_BEAM.id, event.timestamp);
+
+    if (hasMetaBuff) {
+      return;
+    }
+    this.eyeBeamCasts += 1;
+    this.eyeBeamTimeStamp = event.timestamp;
+    this.counter = 0;
+  }
+
+  countCasts(event) {
+    if (this.eyeBeamTimeStamp !== undefined && (event.timestamp - this.eyeBeamTimeStamp) < META_BUFF_DURATION_EYEBEAM) {
+      this.goodDeathSweep += 1;
+      console.log("time dif", event.timestamp - this.eyeBeamTimeStamp);
+      this.counter += 1;
+    }
+  }
+
+  get AvgPerEyeBeam(){
+    return this.goodDeathSweep / this.eyeBeamCasts;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.badCasts,
+      isGreaterThan: {
+        minor: 0,
+        average: 0,
+        major: 1,
+      },
+      style: 'number',
+    };
+  }
+
+  suggestions(when) {
+    when(this.suggestionThresholds)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<>Squeezing in atleast 2 <SpellLink id={SPELLS.DEATH_SWEEP.id} /> during the meta phase you gain from <SpellLink id={SPELLS.EYE_BEAM.id} /> due to the <SpellLink id={SPELLS.DEMONIC_TALENT.id} /> talent is important to maximizing your dps.</>)
+          .icon(SPELLS.DEMONIC_TALENT.icon)
+          .actual(`${actual} bad casts`)
+          .recommended(`No bad casts is recommended.`);
+      });
+  }
+
+  statistic(){
+    return (
+      <TalentStatisticBox
+        talent={SPELLS.DEMONIC_TALENT.id}
+        position={STATISTIC_ORDER.OPTIONAL(6)}
+        value={(<>
+                  {this.badCasts} Bad casts<br />
+                  {this.AvgPerEyeBeam} Avg Death Sweep casts
+                </>)}
+        tooltip={`A bad cast is triggered when you don't do atleast 2 Death Sweep casts inside <br />
+                  the Meta window you get from Eye Beam due to the Demonic talent.`}
+      />
+    );
+  }
+}
+export default Demonic;
