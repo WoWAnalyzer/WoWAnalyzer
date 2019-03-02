@@ -41,6 +41,7 @@ import Shadowmeld from './modules/racials/Shadowmeld';
 import WildFleshrending from './modules/azeritetraits/WildFleshrending';
 import UntamedFerocity from './modules/azeritetraits/UntamedFerocity';
 import JungleFury from './modules/azeritetraits/JungleFury';
+import IronJaws from './modules/azeritetraits/IronJaws';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -93,6 +94,7 @@ class CombatLogParser extends CoreCombatLogParser {
     wildFleshrending: WildFleshrending,
     untamedFerocity: UntamedFerocity,
     jungleFury: JungleFury,
+    ironJaws: IronJaws,
   };
 }
 
