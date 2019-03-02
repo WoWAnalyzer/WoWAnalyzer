@@ -60,6 +60,8 @@ class Buffs extends React.PureComponent {
         } else {
           return null;
         }
+      case 'fightend':
+        return this.renderLeftOverBuffs(event);
       default:
         return null;
     }
@@ -80,7 +82,7 @@ class Buffs extends React.PureComponent {
 
     // Avoid overlapping icons
     const level = this._getLevel();
-    this._applied[spellId] = event.timestamp;
+    this._applied[spellId] = event;
     this._levels[level] = spellId;
     this._maxLevel = Math.max(this._maxLevel, level);
 
@@ -94,28 +96,43 @@ class Buffs extends React.PureComponent {
   }
   renderRemoveBuff(event) {
     const applied = this._applied[event.ability.guid];
-    const left = this.getOffsetLeft(applied);
-    const duration = event.timestamp - applied;
-    const fightDuration = (applied - this.props.start) / 1000;
+    const left = this.getOffsetLeft(applied.timestamp);
+    const duration = event.timestamp - applied.timestamp;
+    const fightDuration = (applied.timestamp - this.props.start) / 1000;
 
     const level = this._levels.indexOf(event.ability.guid);
     this._levels[level] = undefined;
+    delete this._applied[event.ability.guid];
 
     // TODO: tooltip renders at completely wrong places
     return (
-      <Tooltip content={`${formatDuration(fightDuration, 3)}: gained ${event.ability.name} for ${(duration / 1000).toFixed(2)}s`}>
+      <Tooltip
+        content={`${formatDuration(fightDuration, 3)}: gained ${event.ability.name} for ${(duration / 1000).toFixed(2)}s`}
+      >
         <div
           key={`buff-${left}-${event.ability.guid}`}
           className="buff hoist"
           style={{
             left,
-            width: (event.timestamp - applied) / 1000 * this.props.secondWidth,
+            width: (event.timestamp - applied.timestamp) / 1000 * this.props.secondWidth,
             '--level': level,
           }}
           data-effect="float"
-          />
+        />
       </Tooltip>
     );
+  }
+  renderLeftOverBuffs(event) {
+    // We don't have a removebuff event for buffs that end *after* the fight, so instead we go through all remaining active buffs and manually trigger the removebuff render.
+    const elems = [];
+    Object.keys(this._applied).forEach(spellId => {
+      const applied = this._applied[spellId];
+      elems.push(this.renderRemoveBuff({
+        ...applied,
+        timestamp: event.timestamp,
+      }));
+    });
+    return elems;
   }
   renderIcon(event, { className = '', style = {}, children } = {}) {
     const left = this.getOffsetLeft(event.timestamp);
