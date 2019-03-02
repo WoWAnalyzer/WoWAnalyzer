@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Buffs';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
+import { captureException } from 'common/errorLogger';
 
 import ApplyBuff from './ApplyBuff';
 
@@ -198,7 +199,8 @@ class PrePullCooldowns extends EventsNormalizer {
   _resolveAbilityGcd(id) {
     const ability = this.abilities.getAbility(id);
     if (!ability) {
-      throw new Error(`No ability available for spell: ${id}`);
+      captureException(new Error(`No ability available for spell: ${id}`));
+      return null;
     }
     const gcdProp = ability.gcd;
     if (!gcdProp) {
