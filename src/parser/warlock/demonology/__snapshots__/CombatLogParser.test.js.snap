@@ -260,30 +260,23 @@ exports[`The Demonology Warlock Analyzer analyzers InnerDemons matches the sugge
 exports[`The Demonology Warlock Analyzer analyzers LegionStrike matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "zIndex": 1,
-    }
-  }
 >
   <div
-    className="panel statistic-box expandable "
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
   >
     <div
       className="panel-body"
     >
       <div
-        className="flex"
+        className="pad"
       >
-        <div
-          className="flex-sub statistic-icon"
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-            }
-          }
-        >
+        <label>
           <a
             href="http://wowhead.com/spell=30213"
             rel="noopener noreferrer"
@@ -291,37 +284,37 @@ exports[`The Demonology Warlock Analyzer analyzers LegionStrike matches the stat
           >
              
             <img
-              alt=""
-              className="icon"
+              alt="Legion Strike"
+              className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/inv_axe_09.jpg"
             />
           </a>
-        </div>
+           
+          Legion Strike damage
+        </label>
         <div
-          className="flex-main"
-          style={
-            Object {
-              "paddingLeft": 16,
-              "position": "relative",
-            }
-          }
+          className="value"
         >
-          <div
-            className="slabel"
-          >
-            Legion Strike damage
-          </div>
-          <div
-            className="value"
-          >
-            <dfn
-              data-tip="758,292 damage"
-            >
-              13.12 % / 3,009 DPS
-            </dfn>
-          </div>
+          13.12 % / 3,009 DPS
         </div>
       </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
     </div>
   </div>
 </div>
