@@ -42,7 +42,6 @@ import EnvelopingMists from './modules/spells/EnvelopingMists';
 import SoothingMist from './modules/spells/SoothingMist';
 import Vivify from './modules/spells/Vivify';
 import LifeCocoon from './modules/spells/LifeCocoon';
-import AzeriteTraits from './modules/spells/AzeriteTraits';
 import RenewingMist from './modules/spells/RenewingMist';
 
 // Talents
@@ -103,7 +102,6 @@ class CombatLogParser extends CoreCombatLogParser {
     vivify: Vivify,
     renewingMist: RenewingMist,
     lifeCocoon: LifeCocoon,
-    azeriteTraits: AzeriteTraits,
 
     // Talents
     chiBurst: ChiBurst,
