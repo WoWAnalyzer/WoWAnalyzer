@@ -231,6 +231,20 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.GREATER_BLESSING_OF_WISDOM,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.GREATER_BLESSING_OF_KINGS,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.BLESSING_OF_PROTECTION,
         buffSpellId: SPELLS.BLESSING_OF_PROTECTION.id,
         isDefensive: true,
