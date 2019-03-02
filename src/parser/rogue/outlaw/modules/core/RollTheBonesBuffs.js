@@ -31,7 +31,7 @@ class RollTheBonesBuffs extends Analyzer {
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(100)}
-        tooltip="Slice and Dice uptime"
+        tooltip="Roll The Bones Buff Uptime"
       >
         <table className="table table-condensed">
           <thead>
