@@ -379,11 +379,6 @@ export default {
     name: 'Invigorating Brew',
     icon: 'ability_monk_vivify',
   },
-  IRON_JAWS: {
-    id: 276021,
-    name: 'Iron Jaws',
-    icon: 'ability_druid_mangle-tga',
-  },
   ITEM__PROC_MASTERY: {
     id: 92322,
     name: 'Item - Proc Mastery',

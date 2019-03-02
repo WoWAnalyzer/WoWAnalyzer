@@ -257,6 +257,78 @@ exports[`The Demonology Warlock Analyzer analyzers InnerDemons matches the stati
 
 exports[`The Demonology Warlock Analyzer analyzers InnerDemons matches the suggestions snapshot 1`] = `"module inactive"`;
 
+exports[`The Demonology Warlock Analyzer analyzers LegionStrike matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  style={
+    Object {
+      "zIndex": 1,
+    }
+  }
+>
+  <div
+    className="panel statistic-box expandable "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub statistic-icon"
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+            }
+          }
+        >
+          <a
+            href="http://wowhead.com/spell=30213"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            <img
+              alt=""
+              className="icon"
+              src="//render-us.worldofwarcraft.com/icons/56/inv_axe_09.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main"
+          style={
+            Object {
+              "paddingLeft": 16,
+              "position": "relative",
+            }
+          }
+        >
+          <div
+            className="slabel"
+          >
+            Legion Strike damage
+          </div>
+          <div
+            className="value"
+          >
+            <dfn
+              data-tip="758,292 damage"
+            >
+              13.12 % / 3,009 DPS
+            </dfn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Demonology Warlock Analyzer analyzers LegionStrike matches the suggestions snapshot 1`] = `Array []`;
+
 exports[`The Demonology Warlock Analyzer analyzers NetherPortal matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`The Demonology Warlock Analyzer analyzers NetherPortal matches the suggestions snapshot 1`] = `Array []`;

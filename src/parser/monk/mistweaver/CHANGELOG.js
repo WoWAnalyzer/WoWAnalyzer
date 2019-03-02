@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-02-25'),
+    changes: <>Added statistics, suggestion, and checklist item for  <SpellLink id={SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.id} /> casting uptime.</>,
+    contributors: [Anomoly],
+  },
+  {
     date: new Date('2019-02-21'),
     changes: <>Added statistics for tracking the average stat gain from <SpellLink id={SPELLS.SECRET_INFUSION.id} />.</>,
     contributors: [Anomoly],

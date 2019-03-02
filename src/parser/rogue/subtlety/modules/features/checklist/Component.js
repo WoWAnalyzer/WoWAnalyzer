@@ -77,7 +77,7 @@ class SubRogueChecklist extends React.PureComponent {
           name="Manage Nightblade correctly"
           description={(
             <>
-              <SpellLink id={SPELLS.NIGHTBLADE.id} /> is a crucial part of Subtlety rotation, due to the 15% damage buff it provides. However you do not want to apply it during <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} /> or <SpellLink id={SPELLS.SHADOW_DANCE.id} /> if speced in to <SpellLink id={SPELLS.DARK_SHADOW_TALENT.id} /> because it will take the place of an <SpellLink id={SPELLS.EVISCERATE.id} />. <TooltipElement content="refresh Nightbalde when Symbols has less then 5 seconds cooldown left">Instead, you should refresh Nightbalde early, so that it covers the full duration of Symbols*</TooltipElement>
+              <SpellLink id={SPELLS.NIGHTBLADE.id} /> is a crucial part of Subtlety rotation, due to the 15% damage buff it provides. However you do not want to apply it during <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} /> or <SpellLink id={SPELLS.SHADOW_DANCE.id} /> if specced in to <SpellLink id={SPELLS.DARK_SHADOW_TALENT.id} /> because it will take the place of an <SpellLink id={SPELLS.EVISCERATE.id} />. <TooltipElement content="Refresh Nightblade when Symbols has less then 5 seconds cooldown left">Instead, you should refresh Nightblade early, so that it covers the full duration of Symbols*</TooltipElement>
             </>
           )}
         >
@@ -92,10 +92,26 @@ class SubRogueChecklist extends React.PureComponent {
           <Requirement
             name={(
               <>
+                Damage buffed by <SpellLink id={SPELLS.NIGHTBLADE.id} />
+              </>
+            )}
+            thresholds={thresholds.nightbladeEffect}
+          />
+          <Requirement
+            name={(
+              <>
                 <SpellLink id={SPELLS.NIGHTBLADE.id} /> refreshed during  <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} />
               </>
             )}
             thresholds={thresholds.nightbladeDuringSymbols}
+          />
+          <Requirement
+            name={(
+              <>
+                <SpellLink id={SPELLS.NIGHTBLADE.id} /> refreshed early
+              </>
+            )}
+            thresholds={thresholds.nightbladeEarlyRefresh}
           />
           {combatant.hasTalent(SPELLS.DARK_SHADOW_TALENT.id) && (
           <Requirement

@@ -18,6 +18,7 @@ import EnergyCapTracker from '../shared/resources/EnergyCapTracker';
 import SpellEnergyCost from '../shared/resources/SpellEnergyCost';
 
 import NightbladeDuringSymbols from './modules/core/NightbladeDuringSymbols';
+import NightbladeEarlyRefresh from './modules/core/NightbladeEarlyRefresh';
 import CastsInShadowDance from './modules/core/CastsInShadowDance';
 import NightbladeUptime from './modules/core/NightbladeUptime';
 import CastsInStealth from './modules/core/CastsInStealth';
@@ -68,6 +69,7 @@ class CombatLogParser extends CoreCombatLogParser {
     shadowBladesUptime : ShadowBladesUptime,
     nightbladeUptime: NightbladeUptime,
     nightbladeDuringSymbols: NightbladeDuringSymbols,
+    nightbladeEarlyRefresh: NightbladeEarlyRefresh,
     castsInShadowDance: CastsInShadowDance,
     castsInStealth: CastsInStealth,
 

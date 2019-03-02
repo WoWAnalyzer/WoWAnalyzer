@@ -197,6 +197,9 @@ class PrePullCooldowns extends EventsNormalizer {
 
   _resolveAbilityGcd(id) {
     const ability = this.abilities.getAbility(id);
+    if (!ability) {
+      throw new Error(`No ability available for spell: ${id}`);
+    }
     const gcdProp = ability.gcd;
     if (!gcdProp) {
       return null;
