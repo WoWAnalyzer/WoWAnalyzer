@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-3-2'),
+    changes: 'Added spec buffs to the timeline.',
+    contributors: [Sharrq],
+  },
+  {
     date: new Date('2019-02-18'),
     changes: 'Updated Checklist to better explain the primary aspects of the Frost Rotation.',
     contributors: [Sharrq],

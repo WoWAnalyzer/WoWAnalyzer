@@ -241,6 +241,10 @@ Array [
 ]
 `;
 
+exports[`The Fire Mage Analyzer analyzers Buffs matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Fire Mage Analyzer analyzers Buffs matches the suggestions snapshot 1`] = `"module has no suggestions"`;
+
 exports[`The Fire Mage Analyzer analyzers CancelledCasts matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
