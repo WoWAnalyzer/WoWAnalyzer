@@ -1,6 +1,5 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
@@ -15,11 +14,11 @@ class ArcaneOrb extends Analyzer {
 
 	totalHits = 0;
 	badCasts = 0;
-	orbCast = true;
+	orbCast = false;
 
 	constructor(...args) {
     super(...args);
-	   this.active = this.selectedCombatant.hasTalent(SPELLS.ARCANE_ORB_TALENT.id) && !this.selectedCombatant.hasShoulder(ITEMS.MANTLE_OF_THE_FIRST_KIRIN_TOR.id);
+	   this.active = this.selectedCombatant.hasTalent(SPELLS.ARCANE_ORB_TALENT.id);
   }
 
 	on_byPlayer_damage(event) {
