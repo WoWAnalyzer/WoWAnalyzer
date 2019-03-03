@@ -71,6 +71,7 @@ class PlayerLoader extends React.PureComponent {
   componentDidMount() {
     // noinspection JSIgnoredPromiseFromCall
     this.loadCombatants(this.props.report, this.props.fight);
+    this.scrollToTop();
   }
   componentDidUpdate(prevProps, prevState, prevContext) {
     const changedReport = this.props.report !== prevProps.report;
@@ -132,6 +133,9 @@ class PlayerLoader extends React.PureComponent {
       // We need to set the combatants in the global state so the NavigationBar, which is not a child of this component, can also use it
       this.props.setCombatants(null);
     }
+  }
+  scrollToTop() {
+    window.scrollTo(0, 0);
   }
 
   renderError(error) {

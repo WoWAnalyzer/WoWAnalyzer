@@ -30,6 +30,13 @@ class FightSelection extends React.PureComponent {
     killsOnly: false,
   };
 
+  componentDidMount() {
+    this.scrollToTop();
+  }
+  scrollToTop() {
+    window.scrollTo(0, 0);
+  }
+
   renderFightSelection() {
     const { report, refreshReport } = this.props;
     const { killsOnly } = this.state;
