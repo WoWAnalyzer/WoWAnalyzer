@@ -3,13 +3,13 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import Analyzer from 'parser/core/Analyzer';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import Vivify from '../spells/Vivify';
 import ManaTea from './ManaTea';
@@ -57,19 +57,12 @@ class RenewingMistDuringManaTea extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(25)}
-        icon={<SpellIcon id={SPELLS.MANA_TEA_TALENT.id} />}
+      <TalentStatisticBox
+        talent={SPELLS.MANA_TEA_TALENT.id}
+        position={STATISTIC_ORDER.CORE(30)}
         value={`${this.avgRemDuringMT.toFixed(2)}`}
-        label={(
-          <dfn
-            data-tip={`
-              This is the average number of Renewing Mists active during Mana Tea
-            `}
-          >
-            Average Renewing Mists
-          </dfn>
-        )}
+        label="Average Renewing Mists"
+        tooltip={`This is the average number of Renewing Mists active during Mana Tea`}
       />
     );
   }

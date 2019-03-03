@@ -6,7 +6,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 class StormFireElemental extends Analyzer {
 
   static dependencies = {
-    spellUsable:SpellUsable,
+    spellUsable: SpellUsable,
   };
   elementalData = {
     FireElemental: {

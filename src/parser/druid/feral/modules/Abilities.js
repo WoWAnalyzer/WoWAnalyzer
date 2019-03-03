@@ -187,6 +187,7 @@ class Abilities extends CoreAbilities {
           static: 1000,
         },
         timelineSortIndex: 32,
+        primaryCoefficient: 0.092, // damage per combo point
       },
       {
         spell: SPELLS.DASH,

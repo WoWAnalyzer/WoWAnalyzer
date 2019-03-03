@@ -454,6 +454,11 @@ export default {
     name: 'Stormbringer',
     icon: 'spell_nature_stormreach',
   },
+  STORMBRINGER_BUFF: {
+    id: 201846,
+    name: 'Stormbringer Buff',
+    icon: 'spell_nature_stormreach',
+  },
   MAELSTROM_WEAPON: {
     id: 187890,
     name: 'Maelstrom Weapon',
