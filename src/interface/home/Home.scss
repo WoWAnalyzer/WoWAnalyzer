@@ -25,24 +25,24 @@ section header h1 {
     text-shadow: 1px -1px 3px #150a0a, -1px 1px 3px #150a0a;
     text-align: center;
     margin: 15px 0;
-    background: $panelColor;
     border-radius: 3px;
+    overflow: hidden;
 
-    div {
-      margin: 0 auto;
-      text-align: center;
-    }
     ul {
       width: 100%;
       list-style: none;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
-      grid-gap: 15px;
+      grid-gap: 1px;
       padding: 0;
 
       li {
         position: relative;
+        background: $panelColor;
 
+        &:last-of-type {
+          border-right: 0;
+        }
         a {
           display: block;
           padding: 10px 20px;
