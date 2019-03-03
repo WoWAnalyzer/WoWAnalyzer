@@ -6,6 +6,7 @@ import Scorch from './normalizers/Scorch';
 import PyroclasmBuff from './normalizers/PyroclasmBuff';
 
 import Checklist from './modules/Checklist/Module';
+import Buffs from './modules/features/Buffs';
 
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Abilities from './modules/features/Abilities';
@@ -38,6 +39,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Checklist
     checklist: Checklist,
+    buffs: Buffs,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
