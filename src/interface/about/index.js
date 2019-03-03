@@ -9,6 +9,8 @@ import Panel from 'interface/others/Panel';
 import DiscordButton from 'interface/common/thirdpartybuttons/Discord';
 import GithubButton from 'interface/common/thirdpartybuttons/GitHub';
 import PatreonButton from 'interface/common/thirdpartybuttons/Patreon';
+import DiscordLogo from 'interface/images/Discord-Logo+Wordmark-White.svg';
+import DiscordBotGif from 'articles/2017-10-21-DiscordBot/discord-bot.gif';
 
 class About extends React.PureComponent {
   render() {
@@ -35,6 +37,42 @@ class About extends React.PureComponent {
           <Trans>Wondering how to use WoWAnalyzer? See the <a href="https://www.wowhead.com/how-to-use-wowanalyzer"><img src="/img/wowhead-tiny.png" style={{ height: '1em' }} alt="Wowhead" /> Wowhead guide</a>. If you want to see an example report, click on your spec in the <Link to="/specs">Specializations</Link> list.</Trans><br /><br />
 
           <DiscordButton /> <GithubButton /> <PatreonButton />
+        </Panel><br />
+
+        <Panel
+          title="The WoWAnalyzer Discord bot"
+        >
+          <div className="flex wrapable">
+            <div className="flex-main" style={{ padding: '20px 15px', minWidth: 300 }}>
+              <div className="flex">
+                <div className="flex-sub" style={{ padding: 5 }}>
+                  <img src="/favicon.png" alt="Logo" style={{ width: 80, float: 'left' }} />
+                </div>
+                <div className="flex-main" style={{ fontSize: 24, padding: '5px 15px', lineHeight: 1.4 }}>
+                  Introducing the <b>WoWAnalyzer</b> <img src={DiscordLogo} alt="Discord logo" style={{ height: '2em', marginTop: 3 }} /> bot
+                </div>
+              </div>
+              <div className="text-center">
+                <div style={{ fontSize: 16, margin: '10px 25px 20px 25px' }}>
+                  Get users to analyze themselves without lifting a finger (even if they don't read the pins).<br />
+                </div>
+                <div style={{ marginBottom: 7 }}>
+                  <a
+                    className="btn btn-default btn-lg"
+                    style={{ borderRadius: 0 }}
+                    href="https://discordapp.com/oauth2/authorize?&client_id=368144406181838861&scope=bot&permissions=3072"
+                  >
+                    Add to Discord
+                  </a>
+                </div>
+
+                <a href="https://github.com/WoWAnalyzer/DiscordBot#wowanalyzer-discord-bot-">More info</a>
+              </div>
+            </div>
+            <div className="flex-sub">
+              <img src={DiscordBotGif} alt="Bot example gif" style={{ height: 300 }} />
+            </div>
+          </div>
         </Panel><br />
 
         <ChangelogPanel />
