@@ -6,10 +6,8 @@ header.report-selection {
   padding-bottom: 60px;
   transition: all 600ms;
   opacity: 1;
-  background: transparentize($primaryColor, 0.95);
-  border: 5px solid transparentize($primaryColor, 0.1);
-  border-left: 0;
-  border-right: 0;
+  background: rgba(255, 255, 255, 0.05);
+  margin-bottom: 15px;
 
   .brand-name {
     margin-bottom: 30px;
