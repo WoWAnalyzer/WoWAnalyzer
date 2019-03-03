@@ -70,6 +70,14 @@ class Rule extends React.PureComponent {
     }
   }
 
+  checkEmptyRule(child) {
+    if (child.props) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   setRequirementPerformance(performance) {
     // We don't have to worry about adding the same Requirement's performance multiple times here because it's only called in the Requirement's constructor, which is only called once.
     this.setState(state => ({
@@ -94,6 +102,11 @@ class Rule extends React.PureComponent {
 
     const performance = this.performance;
     const passed = this.passed;
+    const requirements = this.props.children;
+
+    if (!requirements || (Array.isArray(requirements) && !requirements.some(this.checkEmptyRule))) {
+      return null;
+    }
 
     return (
       <RuleContext.Provider value={this.setRequirementPerformance}>
