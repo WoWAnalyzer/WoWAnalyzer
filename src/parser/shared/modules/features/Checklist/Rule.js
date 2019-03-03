@@ -102,8 +102,11 @@ class Rule extends React.PureComponent {
 
     const performance = this.performance;
     const passed = this.passed;
+    const requirements = this.props.children;
+    console.log(this.props);
+    console.log(requirements);
 
-    if (!this.props.children || !this.props.children.some(this.checkEmptyRule)) {
+    if (!requirements || (Array.isArray(requirements) && !requirements.some(this.checkEmptyRule))) {
       return null;
     }
 
