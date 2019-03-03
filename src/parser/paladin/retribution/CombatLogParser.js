@@ -14,6 +14,7 @@ import DivinePurpose from './modules/talents/DivinePurpose';
 import ArtOfWar from './modules/core/ArtOfWar';
 import Retribution from './modules/core/Retribution';
 import Crusade from './modules/talents/Crusade';
+import WakeofAshes from './modules/talents/WakeofAshes';
 import Inquisition from './modules/talents/Inquisition';
 import RighteousVerdict from './modules/talents/RighteousVerdict';
 
@@ -44,6 +45,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     divinePurpose: DivinePurpose,
     crusade: Crusade,
+    wakeofAshes: WakeofAshes,
     inquisition: Inquisition,
     righteousVerdict: RighteousVerdict,
 
