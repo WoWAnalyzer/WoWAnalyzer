@@ -24,6 +24,9 @@ section header h1 {
     flex: 0 0 auto;
     text-shadow: 1px -1px 3px #150a0a, -1px 1px 3px #150a0a;
     text-align: center;
+    margin: 15px 0;
+    background: $panelColor;
+    border-radius: 3px;
 
     div {
       margin: 0 auto;
@@ -35,11 +38,10 @@ section header h1 {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
       grid-gap: 15px;
-      padding: 15px 0;
+      padding: 0;
 
       li {
         position: relative;
-        height: 69px;
 
         a {
           display: block;
@@ -49,11 +51,6 @@ section header h1 {
           background-color: transparent;
           line-height: 1.2;
           border-radius: 2px;
-
-          svg {
-            margin-top: 0;
-            margin-bottom: 5px;
-          }
         }
         a:before {
           content: '';
@@ -73,6 +70,11 @@ section header h1 {
         a:focus {
           text-decoration: none;
         }
+        svg {
+          margin: 0 10px 0 0;
+          font-size: 24px;
+          color: $primaryColor;
+        }
         &.active a {
           background-color: $primaryColor;
           color: #211510;
@@ -84,12 +86,6 @@ section header h1 {
           }
         }
       }
-    }
-    svg {
-      display: block;
-      margin: 0 auto;
-      font-size: 24px;
-      color: $primaryColor;
     }
   }
 }

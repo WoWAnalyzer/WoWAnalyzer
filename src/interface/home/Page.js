@@ -11,6 +11,8 @@ import PremiumIcon from 'interface/icons/Premium';
 import { ReactComponent as Logo } from 'interface/images/logo.svg';
 import FingerprintFilledIcon from 'interface/icons/FingerprintFilled';
 import HelpWantedIcon from 'interface/icons/Information';
+import GitHubIcon from 'interface/icons/GitHubMarkLarge';
+import DiscordIcon from 'interface/icons/DiscordTiny';
 import { hasPremium } from 'interface/selectors/user';
 import ErrorBoundary from 'interface/common/ErrorBoundary';
 
@@ -49,19 +51,29 @@ class Home extends React.PureComponent {
         url: 'specs',
       },
       {
-        icon: PremiumIcon,
-        name: <Trans>Premium</Trans>,
-        url: 'premium',
-      },
-      {
         icon: Logo,
         name: <Trans>About</Trans>,
         url: 'about',
       },
       {
+        icon: PremiumIcon,
+        name: <Trans>Premium</Trans>,
+        url: 'premium',
+      },
+      {
         icon: HelpWantedIcon,
         name: <Trans>Help wanted</Trans>,
         url: 'help-wanted',
+      },
+      {
+        icon: GitHubIcon,
+        name: <Trans>Source code</Trans>,
+        url: 'https://github.com/WoWAnalyzer/WoWAnalyzer',
+      },
+      {
+        icon: DiscordIcon,
+        name: <Trans>Discord</Trans>,
+        url: 'https://wowanalyzer.com/discord',
       },
     ];
   }
@@ -80,13 +92,21 @@ class Home extends React.PureComponent {
             <ul>
               {this.pages.map(page => {
                 const Icon = page.icon;
+                const isRelativeLink = !page.url.includes('://');
+                const content = (
+                  <>
+                    <Icon className="icon" />
+                    {page.name}
+                  </>
+                );
 
                 return (
                   <li key={page.url} className={page.url === url ? 'active' : undefined}>
-                    <Link to={`/${page.url}`}>
-                      <Icon className="icon" />
-                      {page.name}
-                    </Link>
+                    {isRelativeLink ? (
+                      <Link to={`/${page.url}`}>{content}</Link>
+                    ) : (
+                      <a href={page.url}>{content}</a>
+                    )}
                   </li>
                 );
               })}
