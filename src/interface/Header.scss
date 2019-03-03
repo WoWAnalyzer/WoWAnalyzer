@@ -7,7 +7,9 @@ header.report-selection {
   transition: all 600ms;
   opacity: 1;
   background: transparentize($primaryColor, 0.95);
-  border-bottom: 4px solid rgba(0, 0, 0, 0.25);
+  border: 5px solid transparentize($primaryColor, 0.1);
+  border-left: 0;
+  border-right: 0;
 
   .brand-name {
     margin-bottom: 30px;
