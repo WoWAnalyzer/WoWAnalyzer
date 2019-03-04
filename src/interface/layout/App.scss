@@ -9,7 +9,7 @@ body {
   font-family: 'Open Sans', 'Century Gothic', sans-serif;
   text-rendering: optimizeLegibility;
   background-color: $backgroundColor;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='-100 -100 400 400'%3E%3Cpath fill='%23000000' fill-opacity='0.2' d='M-6 99.684V100h.182L-6 99.684zm14.426.325L.344 86.011 50 .001 99.66 86.013l-8.077 13.991-.002-.003H63V86h20.497L50.005 27.99 16.514 86H37v14H8.43l-.004.009zM105.82 100h.257v-.444l-.257.444z'%3E%3C/path%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='-100 -100 400 400'%3E%3Cpath fill='%23000000' fill-opacity='0.2' d='M11.4842 102.243L1.02185 84.2455L49.9996 -7.62939e-06L98.9777 84.2461L88.5199 102.236L87.2159 99.9931H62.5V81.9943H76.7519L50.0041 35.986L23.2562 81.9943H37.5V99.9931H12.7923L11.4842 102.243ZM106.771 99.9931H106.809V99.9271L106.771 99.9931Z'%3E%3C/path%3E%3C/svg%3E");
   color: #f3eded;
 }
 @media (max-width: 1200px) {
