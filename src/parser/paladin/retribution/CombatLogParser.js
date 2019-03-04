@@ -41,7 +41,7 @@ class CombatLogParser extends CoreCombatLogParser {
     judgment: Judgment,
     retribution: Retribution,
     shieldOfVengeance: ShieldOfVengeance,
-    
+
     // Talents
     divinePurpose: DivinePurpose,
     crusade: Crusade,
