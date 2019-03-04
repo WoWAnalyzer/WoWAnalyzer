@@ -112,6 +112,7 @@ class Results extends React.PureComponent {
   }
 
   appendHistory(report, fight, player) {
+    // TODO: Add spec and show it in the list
     this.props.appendReportHistory({
       code: report.code,
       title: report.title,
