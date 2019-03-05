@@ -116,7 +116,7 @@ class WardOfEnvelopment extends Analyzer {
         <dfn data-tip={`
           You activated your Ward of Envelopment <b>${this.uses}</b> of <b>${this.possibleUseCount}</b> possible time${this.uses === 1 ? '' : 's'} with an average of <b>${formatNumber(this.averageAbsorbPerCast)}</b> absorption per use.
           It absorbed <b>${formatNumber(this.absorbUsed)}</b> out of <b>${formatNumber(this.totalAbsorb)}</b> damage and <b>${formatNumber(this.absorbWasted)} (${formatPercentage(this.wastedPercentage)}%)</b> was unused. <br />
-          On average you hit <b>${formatPercentage(this.averageTargetsHit / 100)}</b> out of <b>5</b> allies and gained <b>${formatPercentage(this.gainedShieldValue)}%</b> extra absorption value per cast. <br />
+          On average you hit <b>${this.averageTargetsHit.toFixed(2)}</b> out of <b>5</b> allies and gained <b>${formatPercentage(this.gainedShieldValue)}%</b> extra absorption value per cast. <br />
           `}>
           <ItemHealingDone amount={this.absorbUsed} />
         </dfn>
@@ -143,7 +143,7 @@ class WardOfEnvelopment extends Analyzer {
         </>
       )
         .icon(ITEMS.WARD_OF_ENVELOPMENT.icon)
-        .actual(`Average ${formatPercentage(actual) / 100} out of ${MAX_ALLIES_HIT} allies hit.`)
+        .actual(`Average ${actual.toFixed(2)} out of ${MAX_ALLIES_HIT} allies hit.`)
         .recommended(`5 is recommended`);
     });
   }
