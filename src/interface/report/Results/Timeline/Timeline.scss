@@ -26,7 +26,7 @@
 
   > * {
     height: 100%;
-    float: left;
+    display: inline-block;
     border-left: 1px solid rgba(255, 255, 255, 0.3);
     padding-left: 3px;
     line-height: 1;
@@ -51,7 +51,6 @@
     left: 50%;
   }
   > *:first-of-type {
-    top: 14px;
     height: calc(100% - 14px);
   }
   > *:first-of-type:before {
