@@ -4,17 +4,18 @@ import PropTypes from 'prop-types';
 import { formatDuration } from 'common/format';
 import DragScroll from 'interface/common/DragScroll';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
+import Abilities from 'parser/core/modules/Abilities';
 import BuffsModule from 'parser/core/modules/Buffs';
 import CombatLogParser from 'parser/core/CombatLogParser';
 
+import './Timeline.scss';
 import Buffs from './Buffs';
 import Casts from './Casts';
-import Lane from './Lane';
-import './Timeline.scss';
+import Cooldowns from './Cooldowns';
 
 class Timeline extends React.PureComponent {
   static propTypes = {
-    abilities: PropTypes.object.isRequired,
+    abilities: PropTypes.instanceOf(Abilities).isRequired,
     buffs: PropTypes.instanceOf(BuffsModule).isRequired,
     parser: PropTypes.instanceOf(CombatLogParser).isRequired,
   };
@@ -53,8 +54,6 @@ class Timeline extends React.PureComponent {
   get totalWidth() {
     return this.seconds * this.secondWidth;
   }
-  laneHeight = 18;
-  centerOffset = 0;
 
   isApplicableEvent(event) {
     switch (event.type) {
@@ -109,42 +108,6 @@ class Timeline extends React.PureComponent {
     });
     return eventsBySpellId;
   }
-  /**
-   * Separate cast windows from the rest of the spells.
-   * @param {Map<int, object[]>} eventsBySpellId
-   * @returns {{castWindows: Map<int, object[]>, others: Map<int, object[]>}}
-   */
-  separateCastWindows(eventsBySpellId) {
-    const abilities = this.props.abilities;
-    const castWindows = new Map();
-    const others = new Map();
-
-    eventsBySpellId.forEach((value, spellId) => {
-      const ability = abilities.getAbility(spellId);
-      if (ability && ability.timelineSortIndex < 0) {
-        castWindows.set(spellId, value);
-      } else {
-        others.set(spellId, value);
-      }
-    });
-
-    return { castWindows, others };
-  }
-  getOffsetTop(index) {
-    return this.centerOffset + index * this.laneHeight;
-  }
-  getOffsetLeft(timestamp) {
-    return (timestamp - this.start) / 1000 * this.secondWidth;
-  }
-
-  getSortIndex([spellId, events]) {
-    const ability = this.props.abilities.getAbility(spellId);
-    if (!ability || ability.timelineSortIndex === undefined) {
-      return 1000 - events.length;
-    } else {
-      return ability.timelineSortIndex;
-    }
-  }
 
   setContainerRef(elem) {
     if (!elem || !elem.getBoundingClientRect) {
@@ -155,31 +118,8 @@ class Timeline extends React.PureComponent {
     });
   }
 
-  renderLane([spellId, events], index, growUp) {
-    return (
-      <Lane
-        key={spellId}
-        spellId={spellId}
-        style={{
-          top: this.getOffsetTop(index) * (growUp ? -1 : 1),
-          width: this.totalWidth,
-        }}
-        fightStartTimestamp={this.start}
-        fightEndTimestamp={this.end}
-        secondWidth={this.secondWidth}
-      >
-        {events}
-      </Lane>
-    );
-  }
-  renderLanes(eventsBySpellId, growUp) {
-    return Array.from(eventsBySpellId)
-      .sort((a, b) => this.getSortIndex(growUp ? b : a) - this.getSortIndex(growUp ? a : b))
-      .map((item, index) => this.renderLane(item, index, growUp));
-  }
-
   render() {
-    const { parser, buffs } = this.props;
+    const { parser, abilities, buffs } = this.props;
 
     const skipInterval = Math.ceil(40 / this.secondWidth);
 
@@ -194,7 +134,7 @@ class Timeline extends React.PureComponent {
             style={{
               width: this.totalWidth + this.state.padding * 2,
               paddingTop: 0,
-              paddingBottom: this.getOffsetTop(eventsBySpellId.size), // automaticly fit perfectly
+              paddingBottom: 0,
               paddingLeft: this.state.padding,
               paddingRight: this.state.padding, // we also want the user to have the satisfying feeling of being able to get the right side to line up
             }}
@@ -219,9 +159,13 @@ class Timeline extends React.PureComponent {
               secondWidth={this.secondWidth}
               parser={parser}
             />
-            <div className="cooldowns">
-              {this.renderLanes(eventsBySpellId, false)}
-            </div>
+            <Cooldowns
+              start={this.start}
+              end={this.end}
+              secondWidth={this.secondWidth}
+              eventsBySpellId={eventsBySpellId}
+              abilities={abilities}
+            />
           </div>
         </DragScroll>
       </>

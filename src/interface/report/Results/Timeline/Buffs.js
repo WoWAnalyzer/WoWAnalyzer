@@ -7,6 +7,8 @@ import SpellLink from 'common/SpellLink';
 import BuffsModule from 'parser/core/modules/Buffs';
 import Tooltip from 'common/Tooltip';
 
+import './Buffs.scss';
+
 class Buffs extends React.PureComponent {
   static propTypes = {
     start: PropTypes.number.isRequired,

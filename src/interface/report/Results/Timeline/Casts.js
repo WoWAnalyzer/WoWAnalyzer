@@ -7,6 +7,8 @@ import Icon from 'common/Icon';
 import SpellLink from 'common/SpellLink';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 
+import './Casts.scss';
+
 const ICON_WIDTH = 22;
 
 class Casts extends React.PureComponent {

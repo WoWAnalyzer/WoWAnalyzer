@@ -1,0 +1,58 @@
+.spell-timeline .buffs {
+  width: 100%;
+  border-radius: 10px;
+  position: relative;
+  z-index: 0; // this relativizes the nested z-indexes so they don't overlap casts
+  bottom: -22px;
+  height: calc(30px + var(--levels) * 30px);
+  box-sizing: content-box;
+
+  > * {
+    position: absolute;
+    height: 100%;
+  }
+  a {
+    --level: 0;
+    z-index: 3; // fallback
+    // Inverse z-index from the level so that if a buff overlaps, the lowest level will get the highest z-index. This works because newer levels are higher so can still be hovered.
+    z-index: calc(100 - var(--level));
+    display: block;
+  }
+  a img {
+    border: 1px solid #f8b700;
+    box-shadow: 0 0 3px #000;
+    border-radius: 2px;
+    margin-top: 0;
+    height: 100%;
+    display: block;
+  }
+  //noinspection CssOverwrittenProperties
+  a.hoist {
+    height: 22px;
+    bottom: 13px;
+    bottom: calc(35px + var(--level) * 30px);
+  }
+  //noinspection CssOverwrittenProperties
+  a.hoist .time-indicator {
+    position: absolute;
+    bottom: 0;
+    height: 50px;
+    height: calc(57px + var(--level) * 30px);
+    top: 0;
+    width: 1px;
+    background: #f8b700;
+  }
+  //noinspection CssOverwrittenProperties
+  .buff {
+    border-top-right-radius: 5px;
+    background: hsla(41, 10%, 68%, 0.2);
+    box-shadow: 0 0 3px #000;
+    z-index: 2; // fallback
+    // Inverse z-index from the level so that if a buff overlaps, the lowest level will get the highest z-index. This works because newer levels are higher so can still be hovered.
+    z-index: calc(99 - var(--level));
+    height: calc(50px + var(--level) * 30px);
+    --level: 0;
+    bottom: 0;
+    cursor: default;
+  }
+}
