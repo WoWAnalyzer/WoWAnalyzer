@@ -98,22 +98,6 @@
     height: 100%;
     display: block;
   }
-  a.cancelled:before {
-    content: '❌';
-    position: absolute;
-    text-align: center;
-    font-size: 15px;
-    line-height: 22px;
-    font-weight: 800;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    color: red;
-  }
-  a.cancelled img {
-    border-color: red;
-  }
   //noinspection CssOverwrittenProperties
   a.lower {
     --level: 0;
@@ -148,6 +132,40 @@
     left: 50%;
     transform: translateX(-50%);
   }
+  a.cancelled {
+    &:before {
+      content: '❌';
+      position: absolute;
+      text-align: center;
+      font-size: 15px;
+      line-height: 22px;
+      font-weight: 800;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      color: red;
+    }
+    img {
+      border-color: red;
+    }
+  }
+  a.inefficient img {
+    border: 2px solid red;
+    box-sizing: content-box;
+    margin-left: -1px;
+    margin-top: -1px;
+    box-shadow: 0 0 11px red;
+    border-radius: 2px;
+  }
+  a.enhanced img {
+    border: 2px solid rgb(226, 226, 226);
+    box-sizing: content-box;
+    margin-left: -1px;
+    margin-top: -1px;
+    box-shadow: 0 0 11px rgb(173, 173, 173);
+    border-radius: 2px;
+  }
   .gcd {
     border-radius: 5px;
     background: #f8b700;
@@ -169,6 +187,7 @@
     height: 10px;
     top: 6px;
   }
+
 }
 /* Buffs */
 .spell-timeline .buffs {
