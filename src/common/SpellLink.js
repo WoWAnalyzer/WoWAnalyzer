@@ -13,6 +13,7 @@ class SpellLink extends React.PureComponent {
     category: PropTypes.string,
     icon: PropTypes.bool,
     iconStyle: PropTypes.object,
+    innerRef: PropTypes.object,
     ilvl: PropTypes.number,
   };
   static defaultProps = {
@@ -47,4 +48,4 @@ class SpellLink extends React.PureComponent {
   }
 }
 
-export default React.forwardRef((props, ref) => <SpellLink innerRef={ref} {...props} />);
+export default SpellLink;

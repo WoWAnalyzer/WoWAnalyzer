@@ -648,7 +648,7 @@ Array [
         icon={true}
         id={269644}
       />
-       always use Scorch isntead of Fireball when the target is under 30% health since Scorch does 150% damage and is guaranteed to crit.
+       always use Scorch instead of Fireball when the target is under 30% health since Scorch does 150% damage and is guaranteed to crit.
     </React.Fragment>,
     "stat": <React.Fragment>
       86.21% Utilization
