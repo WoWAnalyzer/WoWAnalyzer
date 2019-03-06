@@ -3,8 +3,6 @@ import Events from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 
 class HammerofWrath extends Analyzer {
-  static dependencies = {
-  };
 
   wasteHP = false;
 
@@ -28,7 +26,7 @@ class HammerofWrath extends Analyzer {
     if (this.wasteHP) {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = 'Hammer of Wrath was cast while at max HP. Make sure to use a HP spender first to avoid overcapping.';
+      event.meta.inefficientCastReason = 'Hammer of Wrath was cast while at max Holy Power. Make sure to use a Holy Power spender first to avoid overcapping.';
       this.wasteHP = false;
     }
   }

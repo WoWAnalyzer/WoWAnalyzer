@@ -54,13 +54,13 @@ class WakeofAshes extends Analyzer {
         if (this.wasteHP) {
             event.meta = event.meta || {};
             event.meta.isInefficientCast = true;
-            event.meta.inefficientCastReason = '2HP or more wasted. You should either use or wait for a HP generator and spend before using Wake.';
+            event.meta.inefficientCastReason = '2 Holy Power or more wasted. You should either use or wait for a Holy Power generator and spend before using Wake.';
             this.wasteHP = false;
         }
         if (this.wasteBlade) {
             event.meta = event.meta || {};
             event.meta.isInefficientCast = true;
-            event.meta.inefficientCastReason = '1HP wasted while Blade of Justice was off of CD. Use Blade and a HP spender before using Wake.';
+            event.meta.inefficientCastReason = '1 Holy Power wasted while Blade of Justice was off of CD. Use Blade of Justice and a Holy Power spender before using Wake.';
             this.wasteBlade = false;
         }
     }
