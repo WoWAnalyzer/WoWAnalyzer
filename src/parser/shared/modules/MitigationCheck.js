@@ -41,7 +41,7 @@ class MitigationCheck extends Analyzer {
       return;
     }
     const boss = findByBossId(this.owner.boss.id);
-    if (boss.fight.softMitigationChecks.physical && boss.fight.softMitigationChecks.magical) {
+    if (boss.fight.softMitigationChecks && boss.fight.softMitigationChecks.physical && boss.fight.softMitigationChecks.magical) {
       this.checksPhysical = boss.fight.softMitigationChecks.physical;
       this.checksMagical = boss.fight.softMitigationChecks.magical;
       if (this.checksPhysical === undefined || this.checksMagical === undefined) {
