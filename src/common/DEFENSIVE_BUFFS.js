@@ -27,9 +27,6 @@ const DEFENSIVE_BUFFS = [
   {
     spell: SPELLS.POWER_WORD_BARRIER_BUFF,
   },
-  {
-    spell: SPELLS.CELESTIAL_BULWARK,
-  },
 
   //Blood Death-Knight
   {

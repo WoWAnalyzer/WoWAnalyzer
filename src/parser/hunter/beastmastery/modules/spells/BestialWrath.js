@@ -33,7 +33,11 @@ class BestialWrath extends Analyzer {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.BESTIAL_WRATH.id) {
       this.casts += 1;
-      this.accumulatedFocusAtBWCast += event.classResources[0].amount || 0;
+      if (event.classResources) {
+        event.classResources.forEach(resource => {
+          this.accumulatedFocusAtBWCast += resource.amount || 0;
+        });
+      }
       return;
     }
     if (spellId !== SPELLS.BARBED_SHOT.id) {

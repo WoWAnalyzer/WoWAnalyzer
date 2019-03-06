@@ -5,8 +5,10 @@ import {
   DiscreteColorLegend,
   XAxis,
   YAxis,
+  VerticalGridLines,
+  HorizontalGridLines,
   AreaSeries,
-  LineSeries, VerticalGridLines, HorizontalGridLines,
+  LineSeries,
 } from 'react-vis';
 
 import { formatDuration, formatThousands } from 'common/format';

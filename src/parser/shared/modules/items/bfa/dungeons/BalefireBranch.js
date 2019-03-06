@@ -2,9 +2,8 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import { formatDuration, formatPercentage, formatNumber } from 'common/format';
+import { formatDuration, formatNumber } from 'common/format';
 import { calculatePrimaryStat } from 'common/stats';
-import { TooltipElement } from 'common/Tooltip';
 import ItemLink from 'common/ItemLink';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';

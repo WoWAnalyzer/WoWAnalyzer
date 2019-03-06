@@ -1,11 +1,12 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 
 import BeaconHealSource from '../beacons/BeaconHealSource';
 
@@ -61,11 +62,9 @@ class HolyAvenger extends Analyzer {
     const totalHealing = this.regularHealing + this.holyShockHealing;
 
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.OPTIONAL(75)}
-        icon={<SpellIcon id={SPELLS.HOLY_AVENGER_TALENT.id} />}
-        value={`≈${formatNumber(totalHealing / this.owner.fightDuration * 1000)} HPS`}
-        label="Estimated healing"
+        size="small"
         tooltip={(
           <>
             Calculating Holy Avenger healing contribution is hard.<br /><br />
@@ -77,7 +76,13 @@ class HolyAvenger extends Analyzer {
             This statistic can see high numbers if Holy Avenger is paired with Avenging Wrath and/or AoS Aura Masatery. **This is perfectly right.** Those spells increase the ST/cleave healing you do and work nicely with a Haste increaser that increases the amount of heals you can do in that short period of time. But stacking HA with AW/AM may still not be best when you look at the overall fight, as spread out cooldowns often still provide more effective healing.
           </>
         )}
-      />
+      >
+        <BoringSpellValue
+          spell={SPELLS.HOLY_AVENGER_TALENT}
+          value={`≈${formatNumber(totalHealing / this.owner.fightDuration * 1000)} HPS`}
+          label="Estimated healing"
+        />
+      </Statistic>
     );
   }
 }

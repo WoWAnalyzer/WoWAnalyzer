@@ -59,12 +59,11 @@ class Parses extends React.Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
       specs: [],
       class: '',
       activeSpec: [],
-      activeDifficulty: Object.keys(DIFFICULTIES),
+      activeDifficulty: Object.values(DIFFICULTIES),
       activeZoneID: ZONE_DEFAULT_BATTLE_OF_DAZARALOR,
       activeEncounter: BOSS_DEFAULT_ALL_BOSSES,
       sortBy: ORDER_BY.DATE,
@@ -195,7 +194,7 @@ class Parses extends React.Component {
         character_name: elem.characterName,
         talents: elem.talents,
         gear: elem.gear,
-        advanced: Object.values(elem.talents).filter(talent => talent.id === null).length === 0 ? true : false,
+        advanced: Object.values(elem.talents).filter(talent => talent.id === null).length === 0,
       };
     });
 
@@ -406,40 +405,44 @@ class Parses extends React.Component {
     let errorMessage;
     if (this.state.error === ERRORS.CHARACTER_NOT_FOUND) {
       errorMessage = (
-        <div style={{ padding: 20 }}>
+        <>
           Please check your input and make sure that you've selected the correct region and realm.<br />
           If your input was correct, then make sure that someone in your raid logged the fight for you or check <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">Warcraft Logs guide</a> to get started with logging on your own.<br /><br />
+
           When you know for sure that you have logs on Warcraft Logs and you still get this error, please message us on <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">Discord</a> or create an issue on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer" target="_blank" rel="noopener noreferrer">Github</a>.
-        </div>
+        </>
       );
     } else if (this.state.error === ERRORS.NOT_RESPONDING) {
       errorMessage = (
-        <div style={{ padding: 20 }}>
+        <>
           It looks like we couldn't get a response in time from the API, this usually happens when the servers are under heavy load.<br /><br />
+
           You could try and enter your report-code manually <Link to="/">here</Link>.<br />
           That would bypass the load-intensive character lookup and we should be able to analyze your report.<br />
-        </div>
+        </>
       );
     } else if (this.state.error === ERRORS.CHARACTER_HIDDEN) {
       errorMessage = (
-        <div style={{ padding: 20 }}>
+        <>
           This character is hidden on warcraftlogs and we can't access the parses.<br /><br />
+
           You don't know how to make your character visible again? Check <a href="https://www.warcraftlogs.com/help/hidingcharacters/" target="_blank" rel="noopener noreferrer">Warcraft Logs </a> and hit the 'Refresh' button above once you're done.
-        </div>
+        </>
       );
     } else if (this.state.error === ERRORS.WCL_API_ERROR || this.state.error === ERRORS.UNKNOWN_API_ERROR || this.state.error === ERRORS.UNEXPECTED) {
       errorMessage = (
-        <div style={{ padding: 20 }}>
+        <>
           {this.state.errorMessage}{' '}
           Please message us on <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">Discord</a> or create an issue on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer" target="_blank" rel="noopener noreferrer">Github</a> if this issue persists and we will fix it, eventually.
-        </div>
+        </>
       );
     } else if (this.state.error === ERRORS.NO_PARSES_FOR_TIER || this.filterParses.length === 0) {
       errorMessage = (
-        <div style={{ padding: 20 }}>
+        <>
           Please check your filters and make sure that you logged those fights on Warcraft Logs.<br /><br />
-          You don't know how to log your fights? Check <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">Warcraft Logs guide</a> to get started.
-        </div>
+
+          Don't know how to log your fights? Check <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">Warcraft Logs guide</a> to get started.
+        </>
       );
     }
 
@@ -452,58 +455,54 @@ class Parses extends React.Component {
       <div className="results">
         <header>
           <div className="background">
-            <div className="img" style={{ backgroundImage: `url(${this.state.image})`, backgroundPosition: 'center center'}}></div>
+            <div className="img" style={{ backgroundImage: `url(${this.state.image})`, backgroundPosition: 'center center'}} />
           </div>
-          <div class="info">
-            <div class="container">
-              <div class="boss">
+          <div className="info container">
+            <div className="boss">
+              <a
+                href={`https://www.warcraftlogs.com/character/${this.props.region}/${this.state.realmSlug}/${this.props.name}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn"
+                style={{ fontSize: 22 }}
+              >
+                <img src={WarcraftLogsLogo} alt="Warcraft Logs logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
+              </a>
+              <br />
+              <a
+                href={battleNetUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn"
+                style={{ fontSize: 22 }}
+              >
+                <img src={ArmoryLogo} alt="Armory logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Armory
+              </a>
+              <br />
+              {this.props.region !== 'CN' && (
                 <a
-                  href={`https://www.warcraftlogs.com/character/${this.props.region}/${this.state.realmSlug}/${this.props.name}`}
+                  href={`https://www.wipefest.net/character/${this.props.name}/${this.state.realmSlug}/${this.props.region}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn"
                   style={{ fontSize: 22 }}
                 >
-                  <img src={WarcraftLogsLogo} alt="Warcraft Logs logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
+                  <img src={WipefestLogo} alt="Wipefest logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Wipefest
                 </a>
-                <br/>
-                <a
-                  href={battleNetUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn"
-                  style={{ fontSize: 22 }}
-                >
-                  <img src={ArmoryLogo} alt="Armory logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Armory
-                </a>
-                <br/>
-                {this.props.region !== 'CN' && (
-                  <a
-                    href={`https://www.wipefest.net/character/${this.props.name}/${this.state.realmSlug}/${this.props.region}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn"
-                    style={{ fontSize: 22 }}
-                  >
-                    <img src={WipefestLogo} alt="Wipefest logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Wipefest
-                  </a>
-                )}
-                <br/>
-                <br/>
+              )}
+            </div>
+            <div className="player">
+              <div className="avatar">
+                <img src={this.state.avatarImage} alt="" />
               </div>
-              <div class="player">
-                <div class="avatar">
-                  <img src={this.state.avatarImage} alt="" />
-                </div>
-                <div class="details">
-                  <h2>{this.props.region} - {this.props.realm}</h2>
-                  <h1 class="name">{this.props.name}</h1>
-                </div>
+              <div className="details">
+                <h2>{this.props.region} - {this.props.realm}</h2>
+                <h1 className="name">{this.props.name}</h1>
               </div>
             </div>
           </div>
           <nav>
-            <div class="container">
+            <div className="container">
               <ul>
                 <li>
                   Raid
@@ -558,7 +557,33 @@ class Parses extends React.Component {
             </div>
           </nav>
         </header>
-        <div class="container">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12">
+              <div className="panel character-filters">
+                {this.state.specs.map((elem, index) => (
+                  <div
+                    key={index}
+                    onClick={() => this.updateSpec(elem.replace(' ', ''))}
+                    className={this.state.activeSpec.includes(elem.replace(' ', '')) ? 'selected spec-filter character-filter' : 'spec-filter character-filter'}
+                    style={{ backgroundImage: `url(${this.iconPath(elem)})` }}
+                  >
+                    {elem}
+                  </div>
+                ))}
+
+                {Object.values(DIFFICULTIES).filter(elem => elem).map((elem, index) => (
+                  <div
+                    key={index}
+                    onClick={() => this.updateDifficulty(elem)}
+                    className={this.state.activeDifficulty.includes(elem) ? 'selected diff-filter character-filter' : 'diff-filter character-filter'}
+                  >
+                    {elem}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
           <div className="row">
             <div className="col-md-12">
               {this.state.error && (
@@ -573,18 +598,11 @@ class Parses extends React.Component {
                 </span>
               )}
               <div className="panel" style={{ overflow: 'auto' }}>
-                <div className="flex-main">
-                  {this.state.isLoading && !this.state.error && (
-                    <div style={{ textAlign: 'center', fontSize: '2em', margin: '20px 0' }}>
-                      <ActivityIndicator text="Fetching logs..." />
-                    </div>
-                  )}
-                  {!this.state.isLoading && (
-                    <div className="panel-heading">
-                      <h2 style={{ display: 'inline' }}>{this.state.error ? this.state.error : 'Parses'}</h2>
+                {!this.state.isLoading && (
+                  <div className="panel-heading">
+                    <div className="pull-right">
                       <Link
                         to=""
-                        className="pull-right"
                         onClick={e => {
                           e.preventDefault();
                           this.load(true);
@@ -593,16 +611,27 @@ class Parses extends React.Component {
                         <span className="glyphicon glyphicon-refresh" aria-hidden="true" /> Refresh
                       </Link>
                     </div>
-                  )}
-                  {!this.state.isLoading && errorMessage}
-                  {!this.state.isLoading && (
-                    <ParsesList
-                      parses={this.filterParses}
-                      class={this.state.class}
-                      metric={this.state.metric}
-                      trinkets={this.state.trinkets}
-                    />
-                  )}
+                    <h1 style={{ display: 'inline-block' }}>{this.state.error ? this.state.error : 'Parses'}</h1>
+                    <small>This page will only show fights that have been ranked by Warcraft Logs. Wipes are not included and during busy periods there might be a delay before new reports appear. Manually find the report on Warcraft Logs and copy the direct report link to analyze a fight missing from this page.</small>
+                  </div>
+                )}
+                <div className="panel-body">
+                  <div className="flex-main" style={{ padding: errorMessage ? 20 : 0 }}>
+                    {this.state.isLoading && !this.state.error && (
+                      <div style={{ textAlign: 'center', fontSize: '2em', margin: '20px 0' }}>
+                        <ActivityIndicator text="Fetching logs..." />
+                      </div>
+                    )}
+                    {!this.state.isLoading && errorMessage}
+                    {!this.state.isLoading && (
+                      <ParsesList
+                        parses={this.filterParses}
+                        class={this.state.class}
+                        metric={this.state.metric}
+                        trinkets={this.state.trinkets}
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

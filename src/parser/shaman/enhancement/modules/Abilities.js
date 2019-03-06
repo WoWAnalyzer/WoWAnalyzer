@@ -68,6 +68,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ROCKBITER,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: haste => (combatant.hasTalent(SPELLS.BOULDERFIST_TALENT.id) ? 0.85*6 : 6) / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -90,6 +91,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.STORMSTRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: haste => 9 / (1+haste),
         gcd: {
           base: 1500,
         },
@@ -104,6 +106,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.WINDSTRIKE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        charges: 2,
+        cooldown: 9,
         gcd: {
           base: 1500,
         },

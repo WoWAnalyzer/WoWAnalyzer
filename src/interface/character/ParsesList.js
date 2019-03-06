@@ -57,21 +57,18 @@ class ParsesList extends React.PureComponent {
   }
   formatPerformance(elem) {
     const { metric } = this.props;
-    return `${formatNumber(elem.persecondamount)} ${metric.toLocaleUpperCase()} (${formatPercentage(elem.historical_percent / 100)}%)`;
+    return `${formatNumber(elem.persecondamount)} ${metric.toLocaleUpperCase()} (${formatPercentage(elem.historical_percent / 100, 0)}%)`;
   }
 
   render() {
     const { parses } = this.props;
     return (
-      parses.map(elem => {
-        const url = makePlainUrl(elem.report_code, elem.report_fight, elem.difficulty + ' ' + elem.name, elem.advanced ? elem.character_name : '');
-        return (
-          <Link
-            key={url}
-            to={url}
-          >
-            <div className="row character-parse">
-              <div className="col-md-12">
+      <ul className="list parses-list">
+        {parses.map(elem => {
+          const url = makePlainUrl(elem.report_code, elem.report_fight, elem.difficulty + ' ' + elem.name, elem.advanced ? elem.character_name : '');
+          return (
+            <li key={url}>
+              <Link to={url}>
                 <div className="row">
                   <div className="col-md-4" style={{ color: 'white' }}>
                     <div>
@@ -80,53 +77,43 @@ class ParsesList extends React.PureComponent {
                         src={this.iconPath(elem.spec)}
                         alt={elem.spec}
                       />
-                      <h4 style={{ display: 'inline-block' }}>
-                        {elem.difficulty}<br />
-                        {elem.name}
-                      </h4>
+                      <span className="difficulty">{elem.difficulty}</span>
+                      <span className="boss">{elem.name}</span>
                     </div>
+                  </div>
+                  <div className="col-md-2 text-right">
+                    <div className={rankingColor(elem.historical_percent / 100)}>
+                      {this.formatPerformance(elem)}
+                    </div>
+                  </div>
+                  <div className="col-md-1 text-right">
+                    {elem.advanced && (
+                      elem.gear
+                        .filter(this.itemFilter)
+                        .map(this.renderItem)
+                    )}
                   </div>
                   <div className="col-md-3">
-                    <div>
-                      <h4 className={`${rankingColor(elem.historical_percent / 100)}`} style={{ margin: '10px 0' }}>
-                        {this.formatPerformance(elem)}
-                      </h4>
-                    </div>
-                  </div>
-                  <div className="col-md-3" style={{ height: 32 }}>
-                    <div>
-                      {elem.advanced && elem.talents.map(talent => (
-                        <SpellIcon
-                          key={talent.id}
-                          id={talent.id}
-                          style={styles.icon}
-                        />
-                      ))}
-                    </div>
-                    <div>
-                      {elem.advanced && (
-                        elem.gear
-                          .filter(this.itemFilter)
-                          .map(this.renderItem)
-                      )}
-                    </div>
+                    {elem.advanced && elem.talents.map(talent => (
+                      <SpellIcon
+                        key={talent.id}
+                        id={talent.id}
+                        style={styles.icon}
+                      />
+                    ))}
                   </div>
                   <div className="col-md-2" style={{ color: 'white', textAlign: 'right' }}>
-                    <div>
-                      {new Date(elem.start_time).toLocaleDateString()}
-                    </div>
-                    <div>
-                      {elem.advanced && (
-                        <span className="glyphicon glyphicon-chevron-right" aria-hidden="true" />
-                      )}
-                    </div>
+                    {new Date(elem.start_time).toLocaleDateString()}
+                    {elem.advanced && (
+                      <span className="glyphicon glyphicon-chevron-right" aria-hidden="true" style={{ marginLeft: 10 }} />
+                    )}
                   </div>
                 </div>
-              </div>
-            </div>
-          </Link>
-        );
-      })
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
     );
   }
 }

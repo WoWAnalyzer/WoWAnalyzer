@@ -5,10 +5,10 @@ import { Trans } from '@lingui/macro';
 
 import Icon from 'common/Icon';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
+import Panel from 'interface/others/Panel';
 
 import Suggestion from './Suggestion';
 import './Suggestions.scss';
-import Panel from 'interface/others/Panel';
 
 class Suggestions extends React.PureComponent {
   static propTypes = {

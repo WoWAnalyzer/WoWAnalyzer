@@ -20,9 +20,11 @@ class StatisticBox extends React.PureComponent {
     category: PropTypes.string,
     position: PropTypes.number,
     children: PropTypes.node,
+    style: PropTypes.object,
   };
   static defaultProps = {
     category: STATISTIC_CATEGORY.GENERAL,
+    style: {},
   };
 
   constructor() {
@@ -52,7 +54,7 @@ class StatisticBox extends React.PureComponent {
   }
 
   render() {
-    const { icon, value, label, footer, children, ...others } = this.props;
+    const { icon, value, label, footer, children, style, ...others } = this.props;
     delete others.category;
     delete others.position;
     // TODO: make sure "tooltip" properties are correctly passed, if some contain HTML tags, fix them into <>...</>
@@ -60,7 +62,7 @@ class StatisticBox extends React.PureComponent {
       <Statistic
         {...others}
         className="statistic-box"
-        style={{ height: 'auto', zIndex: this.state.expanded ? 2 : 1 }}
+        style={{ ...style, height: 'auto', zIndex: this.state.expanded ? 2 : 1 }}
       >
         <div className="pad">
           <label>

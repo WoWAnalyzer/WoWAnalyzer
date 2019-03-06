@@ -211,8 +211,8 @@ class MasteryEffectiveness extends Analyzer {
   }
 
   statistic() {
-    // heal size adjusted (e.g. a big heal's mastery effectiveness outweights a small heal's) and capped by remaining health missing (so if 1 more mastery lead to overhealing, it wouldn't count)
-    console.log('total mastery healing done', this.owner.formatItemHealingDone(this.totalMasteryHealingDone));
+    // console.log('total mastery healing done', this.owner.formatItemHealingDone(this.totalMasteryHealingDone));
+
     return [
       (
         <Statistic position={STATISTIC_ORDER.CORE(10)}>

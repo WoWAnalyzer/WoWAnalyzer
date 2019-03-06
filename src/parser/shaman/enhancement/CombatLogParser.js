@@ -1,5 +1,6 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import Abilities from './modules/Abilities';
+import Stormbringer from './modules/core/Stormbringer';
 
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -35,6 +36,7 @@ class CombatLogParser extends CoreCombatLogParser {
     flametongue: Flametongue,
     rockbiter: Rockbiter,
     flametongueRefresh: FlametongueRefresh,
+    stormbringer: Stormbringer,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,

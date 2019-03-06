@@ -3,12 +3,14 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Analyzer from 'parser/core/Analyzer';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import PrimaryStat from 'interface/icons/PrimaryStat';
 
 const unstableCatalystStats = traits => Object.values(traits).reduce((total, rank) => {
-  const [ stat ] = calculateAzeriteEffects(SPELLS.UNSTABLE_CATALYST.id, rank);
+  const [stat] = calculateAzeriteEffects(SPELLS.UNSTABLE_CATALYST.id, rank);
   return total + stat;
 }, 0);
 
@@ -50,17 +52,21 @@ class UnstableCatalyst extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
-        trait={SPELLS.UNSTABLE_CATALYST.id}
-        value={`${this.averageStat} average ${this.selectedCombatant.spec.primaryStat}`}
+      <AzeritePowerStatistic
+        size="small"
         tooltip={(
           <>
             {SPELLS.UNSTABLE_CATALYST.name} grants <strong>{this.stat} {this.selectedCombatant.spec.primaryStat}</strong> while active.<br />
             You had an uptime of {formatPercentage(this.uptime)}%.
           </>
         )}
-      />
+      >
+        <BoringSpellValueText
+          spell={SPELLS.UNSTABLE_CATALYST}
+        >
+          <PrimaryStat stat={this.selectedCombatant.spec.primaryStat} /> {this.averageStat} <small>average {this.selectedCombatant.spec.primaryStat} gained</small>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }

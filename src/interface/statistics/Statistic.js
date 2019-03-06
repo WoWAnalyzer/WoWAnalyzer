@@ -20,9 +20,6 @@ class Statistic extends React.PureComponent {
     // eslint-disable-next-line react/no-unused-prop-types
     position: PropTypes.number,
     size: PropTypes.oneOf(['standard', 'small', 'medium', 'large', 'flexible']),
-    creator: PropTypes.shape({
-      nickname: PropTypes.string.isRequired,
-    }),
     drilldown: PropTypes.string,
     className: PropTypes.string,
   };

@@ -46,23 +46,23 @@ class ReportSelecter extends React.PureComponent {
   }
 
   codeInput = null;
-
   constructor() {
     super();
+    this.codeInput = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    if (this.codeInput) {
-      this.codeInput.focus();
+    if (this.codeInput.current) {
+      this.codeInput.current.focus();
     }
   }
 
   handleSubmit(e) {
     e.preventDefault();
 
-    const code = this.codeInput.value;
+    const code = this.codeInput.current.value;
 
     if (!code) {
       // eslint-disable-next-line no-alert
@@ -73,7 +73,7 @@ class ReportSelecter extends React.PureComponent {
     this.handleCodeInputChange(code);
   }
   handleChange(e) {
-    this.handleCodeInputChange(this.codeInput.value);
+    this.handleCodeInputChange(this.codeInput.current.value);
   }
   handleCodeInputChange(value) {
     const code = getReportCode(value);
@@ -108,7 +108,7 @@ class ReportSelecter extends React.PureComponent {
           <Tooltip
             content={(
               <Trans>
-                Parsable links:<br />
+                Supported links:<br />
                 <ul>
                   <li>https://www.warcraftlogs.com/reports/&lt;report code&gt;</li>
                   <li>https://www.warcraftlogs.com/character/&lt;region&gt;/&lt;realm&gt;/&lt;name&gt;</li>
@@ -126,9 +126,7 @@ class ReportSelecter extends React.PureComponent {
                 name="code"
                 className="form-control"
                 style={{ width: '100%', height: '100%' }}
-                ref={elem => {
-                  this.codeInput = elem;
-                }}
+                ref={this.codeInput}
                 onChange={this.handleChange}
                 placeholder={i18n._(t`https://www.warcraftlogs.com/reports/<report code>`)}
                 autoCorrect="off"

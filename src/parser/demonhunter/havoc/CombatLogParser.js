@@ -27,9 +27,17 @@ import TrailofRuin from './modules/talents/TrailofRuin';
 import FelBarrage from './modules/talents/FelBarrage';
 import FelMastery from './modules/talents/FelMastery';
 import Netherwalk from './modules/talents/Netherwalk';
+import FelEruption from './modules/talents/FelEruption';
+import MasterOfTheGlaives from './modules/talents/MasterOfTheGlaives';
+import DarkSlash from './modules/talents/DarkSlash';
+import CycleOfHatred from './modules/talents/CycleOfHatred';
+
 //Resources
 import FuryDetails from './modules/resourcetracker/FuryDetails';
 import FuryTracker from './modules/resourcetracker/FuryTracker';
+
+// Azerite Traits
+import FuriousGaze from './modules/spells/azeritetraits/FuriousGaze';
 
 //Items
 import SoulOfTheSlayer from '../shared/modules/items/SoulOfTheSlayer';
@@ -65,7 +73,13 @@ class CombatLogParser extends CoreCombatLogParser {
     momentum: Momentum,
     nemesis: Nemesis,
     netherwalk: Netherwalk,
+    felEruption: FelEruption,
+    masterOfTheGlaives: MasterOfTheGlaives,
+    darkSlash: DarkSlash,
+    cycleOfHatred: CycleOfHatred,
 
+    // Azerite Traits
+    furiousGaze: FuriousGaze,
 
     //Resources
     furyTracker: FuryTracker,

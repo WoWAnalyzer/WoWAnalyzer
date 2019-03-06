@@ -60,7 +60,7 @@ describe('core/modules/Abilities', () => {
   });
   describe('getExpectedCooldownDuration', () => {
     it('calculates the cooldown duration using the cooldown property of an ability', () => {
-      module.getAbility = jest.fn(() => ({
+      module.getAbility = jest.fn(() => new Ability(parserMock, {
         spell: SPELLS.HOLY_SHOCK_CAST,
         cooldown: 41,
       }));

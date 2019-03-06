@@ -9,9 +9,11 @@ import lazyLoadComponent from 'common/lazyLoadComponent';
 import retryingPromise from 'common/retryingPromise';
 import makeWclUrl from 'common/makeWclUrl';
 import Tooltip from 'common/Tooltip';
+import getFightName from 'common/getFightName';
+import REPORT_HISTORY_TYPES from 'interface/home/ReportHistory/REPORT_HISTORY_TYPES';
+import { appendReportHistory } from 'interface/actions/reportHistory';
 import { getResultTab } from 'interface/selectors/url/report';
 import { hasPremium } from 'interface/selectors/user';
-import ErrorBoundary from 'interface/common/ErrorBoundary';
 import Warning from 'interface/common/Alert/Warning';
 import Ad from 'interface/common/Ad';
 import ReadableList from 'interface/common/ReadableList';
@@ -35,7 +37,7 @@ import EVENT_PARSING_STATE from '../EVENT_PARSING_STATE';
 import BOSS_PHASES_STATE from '../BOSS_PHASES_STATE';
 import ScrollToTop from './ScrollToTop';
 
-const TimelineTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'TimelineTab' */ './Timeline/Container').then(exports => exports.default)));
+const TimelineTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'TimelineTab' */ './Timeline/Container').then(exports => exports.default)), 0);
 const EventsTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'EventsTab' */ 'interface/others/EventsTab').then(exports => exports.default)));
 
 const CORE_TABS = {
@@ -72,6 +74,7 @@ class Results extends React.PureComponent {
     parsingState: PropTypes.oneOf(EVENT_PARSING_STATE),
     progress: PropTypes.number,
     premium: PropTypes.bool,
+    appendReportHistory: PropTypes.func.isRequired,
   };
   static childContextTypes = {
     updateResults: PropTypes.func.isRequired,
@@ -96,6 +99,7 @@ class Results extends React.PureComponent {
 
   componentDidMount() {
     this.scrollToTop();
+    this.appendHistory(this.props.report, this.props.fight, this.props.player);
   }
   componentDidUpdate(prevProps, prevState, prevContext) {
     if (this.props.selectedTab !== prevProps.selectedTab) {
@@ -105,6 +109,22 @@ class Results extends React.PureComponent {
   }
   scrollToTop() {
     window.scrollTo(0, 0);
+  }
+
+  appendHistory(report, fight, player) {
+    // TODO: Add spec and show it in the list
+    this.props.appendReportHistory({
+      code: report.code,
+      title: report.title,
+      start: Math.floor(report.start / 1000),
+      end: Math.floor(report.end / 1000),
+      fightId: fight.id,
+      fightName: getFightName(report, fight),
+      playerId: player.id,
+      playerName: player.name,
+      playerClass: player.type,
+      type: REPORT_HISTORY_TYPES.REPORT,
+    });
   }
 
   get warning() {
@@ -131,7 +151,7 @@ class Results extends React.PureComponent {
         if (this.isLoading) {
           return this.renderLoadingIndicator();
         }
-        const checklist = parser.getModule(Checklist, false);
+        const checklist = parser.getModule(Checklist, true);
         return (
           <Overview
             checklist={checklist && checklist.render()}
@@ -338,7 +358,7 @@ class Results extends React.PureComponent {
               </Tooltip>
             </div>
             <div className="col-md-1">
-              <Tooltip content={<Trans>Back to the top.</Trans>}>
+              <Tooltip content={<Trans>Scroll back to the top.</Trans>}>
                 <ScrollToTop />
               </Tooltip>
             </div>
@@ -355,5 +375,8 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  {
+    appendReportHistory,
+  }
 )(Results);

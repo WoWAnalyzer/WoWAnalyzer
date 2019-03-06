@@ -98,7 +98,6 @@ class Lane extends React.PureComponent {
 
     const ability = children[0].ability;
 
-
     return (
       <div
         className="lane"

@@ -43,7 +43,6 @@ import EnvelopingMists from './modules/spells/EnvelopingMists';
 import SoothingMist from './modules/spells/SoothingMist';
 import Vivify from './modules/spells/Vivify';
 import LifeCocoon from './modules/spells/LifeCocoon';
-import AzeriteTraits from './modules/spells/AzeriteTraits';
 import RenewingMist from './modules/spells/RenewingMist';
 
 // Talents
@@ -60,6 +59,7 @@ import RenewingMistDuringManaTea from './modules/talents/RenewingMistDuringManaT
 // Azerite Traits
 import FontOfLife from './modules/spells/azeritetraits/FontOfLife';
 import UpliftedSpirits from './modules/spells/azeritetraits/UpliftedSpirits';
+import SecretInfusion from './modules/spells/azeritetraits/SecretInfusion';
 
 // Mana Tracker
 import MistweaverHealingEfficiencyDetails from './modules/features/MistweaverHealingEfficiencyDetails';
@@ -106,7 +106,6 @@ class CombatLogParser extends CoreCombatLogParser {
     vivify: Vivify,
     renewingMist: RenewingMist,
     lifeCocoon: LifeCocoon,
-    azeriteTraits: AzeriteTraits,
 
     // Talents
     chiBurst: ChiBurst,
@@ -122,6 +121,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Azerite Traits
     fontOfLife: FontOfLife,
     upliftedSpirits: UpliftedSpirits,
+    secretInfusion: SecretInfusion,
 
     // Mana Tab
     manaTracker: ManaTracker,

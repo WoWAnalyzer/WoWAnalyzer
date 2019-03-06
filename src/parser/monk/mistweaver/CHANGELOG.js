@@ -2,11 +2,19 @@ import React from 'react';
 
 import { Anomoly, Gao, Zerotorescue } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
-import ItemLink from 'common/ItemLink';
 
 export default [
+  {
+    date: new Date('2019-02-25'),
+    changes: <>Added statistics, suggestion, and checklist item for  <SpellLink id={SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.id} /> casting uptime.</>,
+    contributors: [Anomoly],
+  },
+  {
+    date: new Date('2019-02-21'),
+    changes: <>Added statistics for tracking the average stat gain from <SpellLink id={SPELLS.SECRET_INFUSION.id} />.</>,
+    contributors: [Anomoly],
+  },
   {
     date: new Date('2019-02-7'),
     changes: <>Added statistics for tracking the number of <SpellLink id={SPELLS.RENEWING_MIST.id} /> during <SpellLink id={SPELLS.VIVIFY.id} /> casts. Also, did a quick bug fix for the Monk Spreadsheet import.</>,
@@ -74,7 +82,7 @@ export default [
   },
   {
     date: new Date('2018-07-22'),
-    changes: <>Fix crash when <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} /> is used.</>,
+    changes: <>Fix crash when Drape of Shame is used.</>,
     contributors: [Anomoly],
   },
   {

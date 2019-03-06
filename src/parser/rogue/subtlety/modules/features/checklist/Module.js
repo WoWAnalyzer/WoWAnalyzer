@@ -14,6 +14,7 @@ import AlwaysBeCasting from '../AlwaysBeCasting';
 import CastsInShadowDance from '../../core/CastsInShadowDance';
 import CastsInStealth from '../../core/CastsInStealth';
 import NightbladeDuringSymbols from '../../core/NightbladeDuringSymbols';
+import NightbladeEarlyRefresh from '../../core/NightbladeEarlyRefresh';
 import NightbladeUptime from '../../core/NightbladeUptime';
 
 //Talents
@@ -38,6 +39,7 @@ class Checklist extends BaseChecklist {
     castsInStealth: CastsInStealth,
     nightbladeUptime: NightbladeUptime,
     nightbladeDuringSymbols: NightbladeDuringSymbols,
+    nightbladeEarlyRefresh: NightbladeEarlyRefresh,
 
     //Talents
     darkShadowNightblade: DarkShadowNightblade,
@@ -61,8 +63,10 @@ class Checklist extends BaseChecklist {
           backstabInShadowDance: this.castsInShadowDance.danceBackstabThresholds,
           castsInStealth: this.castsInStealth.castsInStealthThresholds,
           backstabInStealth: this.castsInStealth.stealthBackstabThresholds,
-          nightbladeUptime:  this.nightbladeUptime.thresholds,
+          nightbladeUptime:  this.nightbladeUptime.uptimeThresholds,
+          nightbladeEffect:  this.nightbladeUptime.effectThresholds,
           nightbladeDuringSymbols: this.nightbladeDuringSymbols.thresholds,
+          nightbladeEarlyRefresh: this.nightbladeEarlyRefresh.suggestionThresholdsNightbladeEfficiency,
 
           //Talents
           darkShadowNightblade: this.darkShadowNightblade.thresholds,

@@ -4,6 +4,7 @@ import Haste from './modules/core/Haste';
 
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import Buffs from './modules/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Checklist from './modules/features/Checklist/Module';
 import Judgment from './modules/core/Judgment';
@@ -13,6 +14,7 @@ import DivinePurpose from './modules/talents/DivinePurpose';
 import ArtOfWar from './modules/core/ArtOfWar';
 import Retribution from './modules/core/Retribution';
 import Crusade from './modules/talents/Crusade';
+import WakeofAshes from './modules/talents/WakeofAshes';
 import Inquisition from './modules/talents/Inquisition';
 import RighteousVerdict from './modules/talents/RighteousVerdict';
 
@@ -33,15 +35,17 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
+    buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
     checklist: Checklist,
     judgment: Judgment,
     retribution: Retribution,
     shieldOfVengeance: ShieldOfVengeance,
-    
+
     // Talents
     divinePurpose: DivinePurpose,
     crusade: Crusade,
+    wakeofAshes: WakeofAshes,
     inquisition: Inquisition,
     righteousVerdict: RighteousVerdict,
 

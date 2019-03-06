@@ -1,5 +1,6 @@
 import Background from './images/backgrounds/OpulenceTreasureGuardian.jpg';
 import Headshot from './images/headshots/OpulenceTreasureGuardian.png';
+import { BOD_HORDE_TO_ALLIANCE } from './RaceTranslation';
 
 export default {
   id: 2271,
@@ -15,5 +16,6 @@ export default {
       ],
       magical: [],
     },
+    raceTranslation: BOD_HORDE_TO_ALLIANCE,
   },
 };

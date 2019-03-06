@@ -74,6 +74,26 @@ export default {
     name: 'Untamed Ferocity',
     icon: 'ability_druid_disembowel',
   },
+  JUNGLE_FURY_TRAIT: {
+    id: 274424,
+    name: 'Jungle Fury',
+    icon: 'ability_mount_jungletiger',
+  },
+  JUNGLE_FURY_BUFF: {
+    id: 274426,
+    name: 'Jungle Fury',
+    icon: 'ability_mount_jungletiger',
+  },
+  IRON_JAWS_TRAIT: {
+    id: 276021,
+    name: 'Iron Jaws',
+    icon: 'ability_druid_mangle',
+  },
+  IRON_JAWS_BUFF: {
+    id: 276026,
+    name: 'Iron Jaws',
+    icon: 'inv_misc_bone_09',
+  },
   MASTERFUL_INSTINCTS: {
     id: 273344,
     name: 'Masterful Instincts',

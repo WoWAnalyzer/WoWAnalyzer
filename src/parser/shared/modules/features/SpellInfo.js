@@ -18,13 +18,6 @@ export default {
   [SPELLS.LEECH.id]: { // procs a percent of all your healing, so we ignore for weights and total healing
     multiplier: true,
   },
-  [SPELLS.XAVARICS_MAGNUM_OPUS.id]: { // Prydaz
-    int: false,
-    crit: false,
-    hasteHpct: false,
-    mastery: false,
-    vers: true,
-  },
   [SPELLS.HEALTHSTONE.id]: {
     int: false,
     crit: false,

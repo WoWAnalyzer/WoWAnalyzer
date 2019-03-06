@@ -10,9 +10,10 @@ import {
   AreaSeries,
   LineSeries,
 } from 'react-vis';
-import { formatDuration } from 'common/format';
-import VerticalLine from './VerticalLine';
 
+import { formatDuration } from 'common/format';
+
+import VerticalLine from './VerticalLine';
 import './ManaLevelGraph.scss';
 
 class ManaLevelGraph extends React.PureComponent {

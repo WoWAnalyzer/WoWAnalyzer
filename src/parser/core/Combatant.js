@@ -4,7 +4,7 @@ import TALENT_ROWS from 'game/TALENT_ROWS';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import traitIdMap from 'common/TraitIdMap';
 import SPELLS from 'common/SPELLS';
-
+import { findByBossId } from 'raids/index';
 import Entity from './Entity';
 
 class Combatant extends Entity {
@@ -21,7 +21,19 @@ class Combatant extends Entity {
     return SPECS[this.specId];
   }
   get race() {
-    return this.characterProfile ? Object.values(RACES).find(race => race.id === this.characterProfile.race) : null;
+    if (!this.owner.characterProfile) {
+      return null;
+    }
+    const raceId = this.owner.characterProfile.race;
+    let race = Object.values(RACES).find(race => race.id === raceId);
+    if (!this.owner.boss) {
+      return race;
+    }
+    const boss = findByBossId(this.owner.boss.id);
+    if (boss && boss.fight.raceTranslation) {
+      race = boss.fight.raceTranslation(race, this.spec);
+    }
+    return race;
   }
   get characterProfile() {
     return this.owner.characterProfile;

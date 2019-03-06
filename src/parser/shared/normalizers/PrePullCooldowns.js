@@ -1,5 +1,8 @@
+import SPELLS from 'common/SPELLS';
 import Abilities from 'parser/core/modules/Abilities';
+import Buffs from 'parser/core/modules/Buffs';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
+import { captureException } from 'common/errorLogger';
 
 import ApplyBuff from './ApplyBuff';
 
@@ -15,6 +18,7 @@ const debug = false;
  * the right type of event (begincast + cast vs only a cast).
  *
  * @property {Abilities} abilities
+ * @property {Buffs} buffs
  * @property {ApplyBuff} applyBuff
  */
 class PrePullCooldowns extends EventsNormalizer {
@@ -29,6 +33,7 @@ class PrePullCooldowns extends EventsNormalizer {
    */
   static dependencies = {
     abilities: Abilities,
+    buffs: Buffs,
     applyBuff: ApplyBuff, // we need fabricated events for untracked prepull applied buffs
   };
 
@@ -39,38 +44,40 @@ class PrePullCooldowns extends EventsNormalizer {
   getApplicableSpells() {
     const buffSpells = [];
     const damageSpells = [];
-    const addBuff = (ability, buffId) => {
+    const addBuff = (buff, buffId) => {
       let castId;
-      if (ability.spell instanceof Array) {
-        if (ability.spell.includes(buffId)) {
+      if (buff.triggeredBySpellId) {
+        castId = buff.triggeredBySpellId;
+      } else if (buff.spellId instanceof Array) {
+        if (buff.spellId.includes(buffId)) {
           // If the spell ids for the buff is also a castable spell, default to the spell id of the buff for the fabricated cast event.
           // This fixes an issue with potions where previously the cast even listed the first potion in the list. This wasn't always the potion the player used, leading to confusion. Instead this will correctly list the potion they used.
           castId = buffId;
         } else {
-          castId = ability.primarySpell.id;
+          castId = buff.spellId[0];
         }
       } else {
-        castId = ability.spell.id;
+        castId = buff.spellId;
       }
 
       buffSpells.push({
         castId,
-        buffId: buffId,
+        buffId,
       });
     };
 
-    // TODO what filtering should we use to determine what spells we care about?
-    this.abilities.activeAbilities.forEach(ability => {
-      if (ability.buffSpellId) {
-        if (ability.buffSpellId instanceof Array) {
-          ability.buffSpellId.forEach(buffId => {
-            addBuff(ability, buffId);
-          });
-        } else {
-          addBuff(ability, ability.buffSpellId);
-        }
+    this.buffs.activeBuffs.forEach(buff => {
+      if (buff.spellId instanceof Array) {
+        // Add each buff separate to make usage easier
+        buff.spellId.forEach(spellId => {
+          addBuff(buff, spellId);
+        });
+      } else {
+        addBuff(buff, buff.spellId);
       }
+    });
 
+    this.abilities.activeAbilities.forEach(ability => {
       if (ability.damageSpellIds) {
         damageSpells.push({
           castId: ability.spell.id,
@@ -103,10 +110,6 @@ class PrePullCooldowns extends EventsNormalizer {
       const targetId = event.targetID;
       const sourceId = event.sourceID;
 
-      if (sourceId !== playerId) {
-        continue;
-      }
-
       if (event.type === 'applybuff') {
         // We rely on the ApplyBuff normalizer to set the prepull property
         if (targetId !== playerId || !event.prepull) {
@@ -121,6 +124,10 @@ class PrePullCooldowns extends EventsNormalizer {
             break;
           }
         }
+        continue;
+      }
+
+      if (sourceId !== playerId) {
         continue;
       }
 
@@ -190,9 +197,10 @@ class PrePullCooldowns extends EventsNormalizer {
   }
 
   _resolveAbilityGcd(id) {
-    let ability = this.abilities.getAbility(id);
+    const ability = this.abilities.getAbility(id);
     if (!ability) {
-      ability = this.abilities.getSpellBuffAbility(id);
+      captureException(new Error(`No ability available for spell: ${id}`));
+      return null;
     }
     const gcdProp = ability.gcd;
     if (!gcdProp) {
@@ -208,13 +216,20 @@ class PrePullCooldowns extends EventsNormalizer {
     return 1500;
   }
 
-  static _fabricateCastEvent(event, abilityId = null) {
-    const ability = {
-      abilityIcon: event.ability.abilityIcon,
-      guid: abilityId || event.ability.guid,
-      name: event.ability.name,
-      type: event.ability.type,
-    };
+  static _fabricateCastEvent(event, castId = null) {
+    let ability = event.ability;
+    if (castId) {
+      if (castId instanceof Array) {
+        castId = castId[0];
+      }
+      const spell = SPELLS[castId];
+      ability = {
+        ...ability,
+        guid: castId,
+        abilityIcon: spell ? spell.icon : ability.abilityIcon,
+        name: spell ? spell.name : event.ability.name,
+      };
+    }
 
     return {
       type: 'cast',

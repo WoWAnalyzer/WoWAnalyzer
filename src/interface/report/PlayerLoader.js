@@ -5,6 +5,9 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { Trans, t } from '@lingui/macro';
 
+import SPECS from 'game/SPECS';
+import ROLES from 'game/ROLES';
+import getAverageItemLevel from 'game/getAverageItemLevel';
 import getFightName from 'common/getFightName';
 import { fetchCombatants, LogNotFoundError } from 'common/fetchWclApi';
 import { captureException } from 'common/errorLogger';
@@ -15,8 +18,9 @@ import { setCombatants } from 'interface/actions/combatants';
 import { getPlayerId, getPlayerName } from 'interface/selectors/url/report';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import Tooltip from 'common/Tooltip';
-
 import PlayerSelection from 'interface/report/PlayerSelection';
+import RaidCompositionDetails from 'interface/report/RaidCompositionDetails';
+
 import handleApiError from './handleApiError';
 
 const defaultState = {
@@ -26,6 +30,11 @@ const defaultState = {
 };
 
 class PlayerLoader extends React.PureComponent {
+  tanks = 0;
+  healers = 0;
+  dps = 0;
+  ranged = 0;
+  ilvl = 0;
   static propTypes = {
     report: PropTypes.shape({
       code: PropTypes.string.isRequired,
@@ -62,6 +71,7 @@ class PlayerLoader extends React.PureComponent {
   componentDidMount() {
     // noinspection JSIgnoredPromiseFromCall
     this.loadCombatants(this.props.report, this.props.fight);
+    this.scrollToTop();
   }
   componentDidUpdate(prevProps, prevState, prevContext) {
     const changedReport = this.props.report !== prevProps.report;
@@ -77,6 +87,30 @@ class PlayerLoader extends React.PureComponent {
   async loadCombatants(report, fight) {
     try {
       const combatants = await fetchCombatants(report.code, fight.start_time, fight.end_time);
+      combatants.forEach(player => {
+        switch (SPECS[player.specID].role) {
+          case ROLES.TANK:
+            this.tanks += 1;
+            break;
+
+          case ROLES.HEALER:
+            this.healers += 1;
+            break;
+
+          case ROLES.DPS.MELEE:
+            this.dps += 1;
+            break;
+
+          case ROLES.DPS.RANGED:
+            this.ranged += 1;
+            break;
+
+          default:
+          break;
+        }
+        this.ilvl += getAverageItemLevel(player.gear);
+      });
+      this.ilvl /= combatants.length;
       if (this.props.report !== report || this.props.fight !== fight) {
         return; // the user switched report/fight already
       }
@@ -99,6 +133,9 @@ class PlayerLoader extends React.PureComponent {
       // We need to set the combatants in the global state so the NavigationBar, which is not a child of this component, can also use it
       this.props.setCombatants(null);
     }
+  }
+  scrollToTop() {
+    window.scrollTo(0, 0);
   }
 
   renderError(error) {
@@ -153,8 +190,21 @@ class PlayerLoader extends React.PureComponent {
                 </Link>
               </Tooltip>
             </div>
-            <h1 style={{ lineHeight: 1.4, margin: 0 }}><Trans>Player selection</Trans></h1>
-            <small style={{ marginTop: -5 }}><Trans>Select the player you wish to analyze.</Trans></small>
+            <div className="flex wrapable" style={{ marginBottom: 15 }}>
+              <div className="flex-main">
+                <h1 style={{ lineHeight: 1.4, margin: 0 }}><Trans>Player selection</Trans></h1>
+                <small style={{ marginTop: -5 }}><Trans>Select the player you wish to analyze.</Trans></small>
+              </div>
+              <div className="flex-sub">
+                <RaidCompositionDetails
+                  tanks={this.tanks}
+                  healers={this.healers}
+                  dps={this.dps}
+                  ranged={this.ranged}
+                  ilvl={this.ilvl}
+                />
+              </div>
+            </div>
           </div>
           <PlayerSelection
             players={report.friendlies.map(friendly => {

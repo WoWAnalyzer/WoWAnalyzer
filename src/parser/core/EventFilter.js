@@ -31,6 +31,7 @@ class EventFilter {
    * @returns {EventFilter}
    */
   to(value) {
+    // TODO: Allow `this.selectedCombatant` (i.e. instances of Combatant) as value instead
     if (value === undefined) {
       return this._to;
     }
@@ -43,6 +44,7 @@ class EventFilter {
    * @returns {EventFilter}
    */
   spell(value) {
+    // TODO: Use spell id instead
     if (value === undefined) {
       return this._spell;
     } else if (typeof value !== 'object') {

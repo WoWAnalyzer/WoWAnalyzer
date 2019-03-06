@@ -107,7 +107,7 @@ export default {
     name: 'Fury of Xuen',
     icon: 'ability_monk_prideofthetiger',
   },
-  //MW Specific
+  //MW Specific Traits
   BURST_OF_LIFE: {
     id: 277667,
     name: 'Burst of Life',
@@ -132,5 +132,31 @@ export default {
     id: 278576,
     name: 'Uplifted Spirits',
     icon: 'spell_monk_revival',
+  },
+  SECRET_INFUSION: {
+    id: 287829,
+    name: 'Secret Infusion',
+    icon: 'ability_monk_thunderfocustea',
+  },
+  //MW Specific Trait Effects
+  SECRET_INFUSION_MASTERY: {
+    id: 287836,
+    name: 'Secret Infusion',
+    icon: 'ability_monk_thunderfocustea',
+  },  
+  SECRET_INFUSION_HASTE: {
+    id: 287831,
+    name: 'Secret Infusion',
+    icon: 'ability_monk_thunderfocustea',
+  },  
+  SECRET_INFUSION_CRIT: {
+    id: 287835,
+    name: 'Secret Infusion',
+    icon: 'ability_monk_thunderfocustea',
+  },  
+  SECRET_INFUSION_VERSATILITY: {
+    id: 287837,
+    name: 'Secret Infusion',
+    icon: 'ability_monk_thunderfocustea',
   },
 };

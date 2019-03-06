@@ -43,7 +43,7 @@ class ShieldOfVengeance extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You consumed a low amount of your total <SpellLink id={SPELLS.SHIELD_OF_VENGEANCE.id} /> absorb. It's best used when you can take enough damage to consume most of the absorb. Getting full absorb usage can be difficult on lower difficulty encounters </>)
+      return suggest(<>You consumed a low amount of your total <SpellLink id={SPELLS.SHIELD_OF_VENGEANCE.id} /> absorb. It's best used when you can take enough damage to consume most of the absorb. Getting full absorb usage can be difficult on lower difficulty encounters.</>)
         .icon(SPELLS.SHIELD_OF_VENGEANCE.icon)
         .actual(`${formatPercentage(actual)}% Shield of Vengeance absorb used`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
@@ -56,8 +56,8 @@ class ShieldOfVengeance extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(2)}
         icon={<SpellIcon id={SPELLS.SHIELD_OF_VENGEANCE.id} />}
         value={`${formatPercentage(this.pctAbsorbUsed)}%`}
-        label="Shield of Vengeance absorb used"
-        tooltip="This does not account for possible absorb from missed Shield of Vengeance casts"
+        label="Shield of Vengeance Absorb Used"
+        tooltip="This does not account for possible absorb from missed Shield of Vengeance casts."
         />
     );
   }

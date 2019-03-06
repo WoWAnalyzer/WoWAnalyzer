@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import * as CONTRIBUTORS from 'CONTRIBUTORS';
 import SpellLink from 'common/SpellLink';
 import ItemLink from 'common/ItemLink';
-import ItemIcon from 'common/ItemIcon';
+import Icon from 'common/Icon';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SPECS from 'game/SPECS';
@@ -138,8 +138,8 @@ class Article extends React.PureComponent {
           With the mantra <a href="https://en.wikipedia.org/wiki/Release_early,_release_often">release early, release often</a> in mind the project quickly went through a lot of minor versions during this month. Among other things the need for users to enter their own WCL API key was removed, URL routing was added (so you can directly link to a log) and a <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> uptime display (which improves a Holy Paladin's mastery effectiveness so was related) was added.
         </Item>
 
-        <Item title={<>Analyzing the first item: <ItemIcon id={ITEMS.DRAPE_OF_SHAME.id} /> Drape of Shame</>} date="18 Mar">
-          In March a statistic that broadened the scope of project was added as it wasn't just related to a Holy Paladin's mastery effectiveness; the <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} /> healing contribution statistic. For the first time this statistic gave insight into the exact value of <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />.<br /><br />
+        <Item title={<>Analyzing the first item: <Icon icon="inv_cape_legionendgame_c_03" /> Drape of Shame</>} date="18 Mar">
+          In March a statistic that broadened the scope of project was added as it wasn't just related to a Holy Paladin's mastery effectiveness; the Drape of Shame healing contribution statistic. For the first time this statistic gave insight into the exact value of Drape of Shame.<br /><br />
 
           <Image source={v031} description="Holy Paladin mastery effectiveness calculator v0.3.1 statistics at 18 Mar 2017" /><br />
 

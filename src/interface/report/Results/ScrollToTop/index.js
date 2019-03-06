@@ -8,7 +8,7 @@ let elevator;
 async function loadElevator() {
   elevator = (await import('./elevate')).default;
 }
-let useElevator = Math.random() < 0.2;
+let useElevator = Math.random() < 0.1;
 
 function scrollToTop() {
   if (!useElevator || !elevator) {

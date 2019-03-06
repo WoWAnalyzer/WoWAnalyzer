@@ -1,14 +1,19 @@
+import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import Module from 'parser/core/Module';
 import Haste from 'parser/shared/modules/Haste';
-import BuffDuration from './BuffDuration';
-import Buff from './Buff';
 
-export { BuffDuration };
+import Buff from './Buff';
+import Abilities from './Abilities';
 
 // TODO: Make a separate but similar Debuffs module
+/**
+ * @property {Haste} haste
+ * @property {Abilities} abilities
+ */
 class Buffs extends Module {
   static dependencies = {
     haste: Haste,
+    abilities: Abilities,
   };
   static BUFF_CLASS = Buff;
 
@@ -20,7 +25,18 @@ class Buffs extends Module {
     // This list will NOT be recomputed during the fight. If a cooldown changes based on something like Haste or a Buff you need to put it in a function.
     // While you can put checks for talents/traits outside of the cooldown prop, you generally should aim to keep everything about a single spell together. In general only move a prop up if you're regularly checking for the same talent/trait in multiple spells.
     // I think anyway, this might all change lul.
-    return [];
+    return [
+      // Convert the legacy buffSpellId prop
+      ...this.abilities.activeAbilities.filter(ability => !!ability.buffSpellId).map(ability => ({
+        spellId: ability.buffSpellId,
+        triggeredBySpellId: ability.spell.id !== ability.buffSpellId ? ability.primarySpell.id : undefined,
+        timelineHightlight: true,
+      })),
+      {
+        spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
+        timelineHightlight: true,
+      },
+    ];
   }
 
   activeBuffs = [];
@@ -46,10 +62,10 @@ class Buffs extends Module {
    */
   getBuff(spellId) {
     return this.activeBuffs.find(buff => {
-      if (buff.spell instanceof Array) {
-        return buff.spell.some(spell => spell.id === spellId);
+      if (buff.spellId instanceof Array) {
+        return buff.spellId.includes(spellId);
       } else {
-        return buff.spell.id === spellId;
+        return buff.spellId === spellId;
       }
     });
   }

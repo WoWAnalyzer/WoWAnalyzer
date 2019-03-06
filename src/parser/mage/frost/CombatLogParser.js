@@ -2,6 +2,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 import Checklist from './modules/checklist/Module';
+import Buffs from './modules/features/Buffs';
 
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -27,6 +28,7 @@ import LonelyWinter from './modules/talents/LonelyWinter';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     checklist: Checklist,
+    buffs: Buffs,
 
     // Features
     abilities: Abilities,

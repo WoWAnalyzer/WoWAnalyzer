@@ -3,10 +3,13 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import TraitStatisticBox from 'interface/others/TraitStatisticBox';
-import Events from 'parser/core/Events';
+import SpellLink from 'common/SpellLink';
+import UptimeIcon from 'interface/icons/Uptime';
+import PrimaryStatIcon from 'interface/icons/PrimaryStat';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 import ItemDamageTaken from 'interface/others/ItemDamageTaken';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
 const treacherousCovenantStat = traits => Object.values(traits).reduce((obj, rank) => {
@@ -27,6 +30,8 @@ const DAMAGE_MODIFIER = .15;
  *  Int: /report/L9AFD1kHxTrGK43t/1-Heroic+Champion+of+the+Light+-+Kill+(3:08)/20-Wiridian
  *  Agi: /report/1YJ98MzR6qPvydGA/13-Heroic+Grong+-+Kill+(4:56)/19-Cleah
  *  Str: /report/TMjpXkaYKVhncmfb/11-Heroic+Jadefire+Masters+-+Kill+(4:45)/11-Jhonson
+ *
+ *  @property {StatTracker} statTracker
  */
 class TreacherousCovenant extends Analyzer {
   static dependencies = {
@@ -80,27 +85,38 @@ class TreacherousCovenant extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.TREACHEROUS_COVENANT_BUFF.id) / this.owner.fightDuration;
   }
 
-  get averageStatModifier(){
+  get averageStatModifier() {
     return this.buffUptime * this.statModifier;
   }
 
   statistic() {
     return (
-      <TraitStatisticBox
-        trait={SPELLS.TREACHEROUS_COVENANT.id}
-        value={(
+      <AzeritePowerStatistic
+        size="flexible"
+        tooltip={(
           <>
-            {formatNumber(this.averageStatModifier)} Average {this.selectedCombatant.spec.primaryStat}<br />
-            {formatPercentage(this.buffUptime)}% buff uptime<br />
-            <ItemDamageTaken amount={this.extraDamageTaken} /><br />
-            {formatPercentage(this.debuffUptime)}% debuff uptime
+            Grants <b>{this.statModifier} {this.selectedCombatant.spec.primaryStat}</b> while above 50% health.<br />
+            Extra damage taken: {formatNumber(this.extraDamageTaken)}.
           </>
         )}
-        tooltip={`
-          Grants <b>${this.statModifier} ${this.selectedCombatant.spec.primaryStat}</b> while above 50% health.<br/>
-          Extra damage taken: ${formatNumber(this.extraDamageTaken)}.
-        `}
-      />
+      >
+        <div className="pad">
+          <label><SpellLink id={SPELLS.TREACHEROUS_COVENANT.id} /></label>
+
+          <div className="value" style={{ marginTop: 15 }}>
+            <UptimeIcon /> {formatPercentage(this.buffUptime)}% <small>buff uptime</small>
+          </div>
+          <div className="value" style={{ marginTop: 5 }}>
+            <PrimaryStatIcon stat={this.selectedCombatant.spec.primaryStat} /> {formatNumber(this.averageStatModifier)} <small>average {this.selectedCombatant.spec.primaryStat} gained</small>
+          </div>
+          <div className="value" style={{ marginTop: 5 }}>
+            <UptimeIcon /> {formatPercentage(this.debuffUptime)}% <small>debuff uptime</small>
+          </div>
+          <div className="value" style={{ marginTop: 5 }}>
+            <ItemDamageTaken amount={this.extraDamageTaken} />
+          </div>
+        </div>
+      </AzeritePowerStatistic>
     );
   }
 }

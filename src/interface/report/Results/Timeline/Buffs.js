@@ -7,6 +7,8 @@ import SpellLink from 'common/SpellLink';
 import BuffsModule from 'parser/core/modules/Buffs';
 import Tooltip from 'common/Tooltip';
 
+import './Buffs.scss';
+
 class Buffs extends React.PureComponent {
   static propTypes = {
     start: PropTypes.number.isRequired,
@@ -39,7 +41,6 @@ class Buffs extends React.PureComponent {
     }
     const spellId = event.ability.guid;
     const buff = this.props.buffs.getBuff(spellId);
-    // console.log(buff, spellId, event.ability.name, this.props.buffs.activeBuffs)
     if (!buff || !buff.timelineHightlight) {
       return false;
     }
@@ -61,12 +62,15 @@ class Buffs extends React.PureComponent {
         } else {
           return null;
         }
+      case 'fightend':
+        return this.renderLeftOverBuffs(event);
       default:
         return null;
     }
   }
   _applied = {};
   _levels = [];
+  _maxLevel = 0;
   _getLevel() {
     // Look for the first available level, reusing levels that are no longer used
     let level = 0;
@@ -80,8 +84,9 @@ class Buffs extends React.PureComponent {
 
     // Avoid overlapping icons
     const level = this._getLevel();
-    this._applied[spellId] = event.timestamp;
+    this._applied[spellId] = event;
     this._levels[level] = spellId;
+    this._maxLevel = Math.max(this._maxLevel, level);
 
     return this.renderIcon(event, {
       className: 'hoist',
@@ -93,28 +98,43 @@ class Buffs extends React.PureComponent {
   }
   renderRemoveBuff(event) {
     const applied = this._applied[event.ability.guid];
-    const left = this.getOffsetLeft(applied);
-    const duration = event.timestamp - applied;
-    const fightDuration = (applied - this.props.start) / 1000;
+    const left = this.getOffsetLeft(applied.timestamp);
+    const duration = event.timestamp - applied.timestamp;
+    const fightDuration = (applied.timestamp - this.props.start) / 1000;
 
     const level = this._levels.indexOf(event.ability.guid);
     this._levels[level] = undefined;
+    delete this._applied[event.ability.guid];
 
     // TODO: tooltip renders at completely wrong places
     return (
-      <Tooltip content={`${formatDuration(fightDuration, 3)}: gained ${event.ability.name} for ${(duration / 1000).toFixed(2)}s`}>
+      <Tooltip
+        content={`${formatDuration(fightDuration, 3)}: gained ${event.ability.name} for ${(duration / 1000).toFixed(2)}s`}
+      >
         <div
           key={`buff-${left}-${event.ability.guid}`}
           className="buff hoist"
           style={{
             left,
-            width: (event.timestamp - applied) / 1000 * this.props.secondWidth,
+            width: (event.timestamp - applied.timestamp) / 1000 * this.props.secondWidth,
             '--level': level,
           }}
           data-effect="float"
-          />
+        />
       </Tooltip>
     );
+  }
+  renderLeftOverBuffs(event) {
+    // We don't have a removebuff event for buffs that end *after* the fight, so instead we go through all remaining active buffs and manually trigger the removebuff render.
+    const elems = [];
+    Object.keys(this._applied).forEach(spellId => {
+      const applied = this._applied[spellId];
+      elems.push(this.renderRemoveBuff({
+        ...applied,
+        timestamp: event.timestamp,
+      }));
+    });
+    return elems;
   }
   renderIcon(event, { className = '', style = {}, children } = {}) {
     const left = this.getOffsetLeft(event.timestamp);
@@ -140,9 +160,11 @@ class Buffs extends React.PureComponent {
   render() {
     const { parser } = this.props;
 
+    const buffs = parser.eventHistory.map(this.renderEvent);
+
     return (
-      <div className="buffs">
-        {parser.eventHistory.map(this.renderEvent)}
+      <div className="buffs" style={{ '--levels': this._maxLevel + 1 }}>
+        {buffs}
       </div>
     );
   }

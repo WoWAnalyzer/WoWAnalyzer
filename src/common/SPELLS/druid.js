@@ -693,12 +693,12 @@ export default {
   MAIM: {
     id: 22570,
     name: 'Maim',
-    icon: 'ability_druid_mangle-tga',
+    icon: 'ability_druid_mangle',
   },
-  MAIM_DEBUFF: {
+  MAIM_DEBUFF: { // the stun caused by Maim, which shows in the log as a 0 damage event
     id: 203123,
     name: 'Maim',
-    icon: 'ability_druid_mangle-tga',
+    icon: 'ability_druid_mangle',
   },
   RAKE_BLEED: {
     id: 155722,

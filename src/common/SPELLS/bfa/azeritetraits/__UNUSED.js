@@ -284,11 +284,6 @@ export default {
     name: 'Fortifying Auras',
     icon: 'spell_holy_auramastery',
   },
-  FURIOUS_GAZE: {
-    id: 273231,
-    name: 'Furious Gaze',
-    icon: 'ability_demonhunter_eyebeam',
-  },
   FURY_OF_THE_SANDS: {
     id: 263989,
     name: 'Fury of the Sands',
@@ -383,11 +378,6 @@ export default {
     id: 270639,
     name: 'Invigorating Brew',
     icon: 'ability_monk_vivify',
-  },
-  IRON_JAWS: {
-    id: 276021,
-    name: 'Iron Jaws',
-    icon: 'ability_druid_mangle-tga',
   },
   ITEM__PROC_MASTERY: {
     id: 92322,

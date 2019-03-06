@@ -95,6 +95,8 @@ class Ability {
      */
     timelineSortIndex: PropTypes.number,
     /**
+     * DEPRECATED. Use the Buffs module to define your buffs instead. If your spec has no Buffs module, this prop will be used to prefill it.
+     *
      * The buff(s) belonging to the ability. Setting this will display the buff on the timeline.
      */
     buffSpellId: PropTypes.oneOfType([
@@ -213,6 +215,9 @@ class Ability {
   };
   charges = 1;
   enabled = true;
+  timelineSortIndex = null;
+  /** @deprecated Use the Buffs module to define your buffs instead. If your spec has no Buffs module, this prop will be used to prefill it. */
+  buffSpellId = null;
   shownSpell = null;
 
   /**

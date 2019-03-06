@@ -1,32 +1,14 @@
 import PropTypes from 'prop-types';
 
-import { PERMANENT } from './BuffDuration';
-
 class Ability {
   static propTypes = {
     /**
-     * REQUIRED The spell definition. If an array of spell definitions is provided, the first element in the array will be what shows in suggestions / cast timeline. Multiple spell definitions in the same ability can be used to tie multiple cast / buff IDs together as the same ability (with a shared cooldown)
+     * REQUIRED The spell id. If an array of spell ids is provided, the first element in the array will be what shows in suggestions / cast timeline. Multiple spell definitions in the same ability can be used to tie multiple cast / buff IDs together as the same ability (with a shared cooldown)
      */
-    spell: PropTypes.oneOfType([
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        icon: PropTypes.string.isRequired,
-      }),
-      PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        icon: PropTypes.string.isRequired,
-      })),
-    ]).isRequired,
-    /**
-     * The duration of a buff at the time of the application. Use one of the available values from the BuffDuration object.
-     */
-    duration: PropTypes.oneOfType([
-      PropTypes.func,
+    spellId: PropTypes.oneOfType([
       PropTypes.number,
-      PropTypes.oneOf([PERMANENT]),
-    ]),
+      PropTypes.arrayOf(PropTypes.number),
+    ]).isRequired,
     /**
      * Whether the spell is enabled (available to the player) and should be displayed. This should only be used for hiding spells that are unavailable, for example due to talents. Defaults to true.
      */
@@ -34,17 +16,9 @@ class Ability {
     /**
      * The spells that trigger this buff. Defaults to the same spell as the buff (this is most commonly the same spell). Only configure this if it's different.
      */
-    triggeredBy: PropTypes.oneOfType([
-      PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        icon: PropTypes.string.isRequired,
-      }),
-      PropTypes.arrayOf(PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        icon: PropTypes.string.isRequired,
-      })),
+    triggeredBySpellId: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.arrayOf(PropTypes.number),
     ]),
     /**
      * Whether the spell should be highlighted on the timeline. You should only highlight important buffs that may affect your cast behavior. Defaults to false.
@@ -52,10 +26,9 @@ class Ability {
     timelineHightlight: PropTypes.bool,
   };
 
-  spell = null;
-  duration = null;
+  spellId = null;
   enabled = true;
-  triggerBy = null;
+  triggeredBySpellId = null;
   timelineHightlight = false;
   /**
    * When extending this class you MUST copy-paste this function into the new class. Otherwise your new props will not be set properly.

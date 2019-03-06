@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
+import NavigationBar from 'interface/layout/NavigationBar';
 
 import ReportLoader from './ReportLoader';
 import FightSelection from './FightSelection';
@@ -164,48 +165,52 @@ class ResultsLoader extends React.PureComponent {
 
 const Report = () => (
   // TODO: Error boundary so all sub components don't need the errorHandler with the silly withRouter dependency. Instead just throw the error and let the boundary catch it - if possible.
-  <ReportLoader>
-    {(report, refreshReport) => (
-      <PatchChecker
-        report={report}
-      >
-        <FightSelection
+  <>
+    <NavigationBar />
+
+    <ReportLoader>
+      {(report, refreshReport) => (
+        <PatchChecker
           report={report}
-          refreshReport={refreshReport}
         >
-          {fight => (
-            <PlayerLoader
-              report={report}
-              fight={fight}
-            >
-              {(player, combatant, combatants) => (
-                <ConfigLoader
-                  specId={combatant.specID}
-                >
-                  {config => (
-                    <SupportChecker
-                      config={config}
-                      report={report}
-                      fight={fight}
-                      player={player}
-                    >
-                      <ResultsLoader
+          <FightSelection
+            report={report}
+            refreshReport={refreshReport}
+          >
+            {fight => (
+              <PlayerLoader
+                report={report}
+                fight={fight}
+              >
+                {(player, combatant, combatants) => (
+                  <ConfigLoader
+                    specId={combatant.specID}
+                  >
+                    {config => (
+                      <SupportChecker
                         config={config}
                         report={report}
                         fight={fight}
                         player={player}
-                        combatants={combatants}
-                      />
-                    </SupportChecker>
-                  )}
-                </ConfigLoader>
-              )}
-            </PlayerLoader>
-          )}
-        </FightSelection>
-      </PatchChecker>
-    )}
-  </ReportLoader>
+                      >
+                        <ResultsLoader
+                          config={config}
+                          report={report}
+                          fight={fight}
+                          player={player}
+                          combatants={combatants}
+                        />
+                      </SupportChecker>
+                    )}
+                  </ConfigLoader>
+                )}
+              </PlayerLoader>
+            )}
+          </FightSelection>
+        </PatchChecker>
+      )}
+    </ReportLoader>
+  </>
 );
 
 export default Report;

@@ -1,8 +1,7 @@
 import React from 'react';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import StatisticBox from 'interface/others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
-import SpellIcon from 'common/SpellIcon';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
 import SPELLS from 'common/SPELLS';
 
@@ -109,9 +108,9 @@ class RisingMist extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <TalentStatisticBox
+        talent={SPELLS.RISING_MIST_TALENT.di}
         position={STATISTIC_ORDER.CORE(10)}
-        icon={<SpellIcon id={SPELLS.RISING_MIST_TALENT.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalHealing))}%`}
         label="Healing Contributed"
         tooltip={(

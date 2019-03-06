@@ -1,20 +1,16 @@
 import React from 'react';
 
-import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { TooltipElement } from 'common/Tooltip';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import StatisticBox from 'interface/others/StatisticBox';
+import TraitStatisticBox from 'interface/others/TraitStatisticBox';
 
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 import { MISTWEAVER_HEALING_AURA, VIVIFY_SPELLPOWER_COEFFICIENT, VIVIFY_REM_SPELLPOWER_COEFFICIENT } from '../../../constants';
 
@@ -86,25 +82,21 @@ class UpliftedSpirits extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        position={STATISTIC_ORDER.OPTIONAL(70)}
-        icon={<SpellIcon id={SPELLS.UPLIFTED_SPIRITS.id} />}
-        value={`${formatNumber(this.cooldownReductionUsed / 1000) || 0}`}
-        label={(
-          <TooltipElement content={`You wasted ${this.cooldownReductionWasted / 1000 || 0} seconds of cooldown reduction.`}>
-            Revival Seconds Reduced
-          </TooltipElement>
+      <TraitStatisticBox
+        position={STATISTIC_ORDER.OPTIONAL()}
+        trait={SPELLS.UPLIFTED_SPIRITS.id}
+        value={(
+          <>
+            {formatPercentage(this.healing / this.getAbility(SPELLS.VIVIFY.id).healingEffective)} % of Vivify Healing <br />
+            {formatNumber(this.cooldownReductionUsed / 1000) || 0} Revival Seconds Reduced
+          </>
         )}
-      />
-    );
-  }
-
-  subStatistic() {
-    return (
-      <StatisticListBoxItem
-        title={<SpellLink id={SPELLS.UPLIFTED_SPIRITS.id} />}
-        value={`${formatPercentage(this.healing / this.getAbility(SPELLS.VIVIFY.id).healingEffective)} % of Vivify Healing`}
-        valueTooltip={`Added a total of ${formatNumber(this.healing)} to your Vivify.`}
+        tooltip={(
+          <>
+            Added a total of {formatNumber(this.healing)} to your Vivify.<br />
+            You wasted {this.cooldownReductionWasted / 1000 || 0} seconds of cooldown reduction.
+          </>
+        )}
       />
     );
   }

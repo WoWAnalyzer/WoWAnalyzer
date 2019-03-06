@@ -23,11 +23,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       ],
     },
   ];
-
-  static ignoredSpells = [
-    ...CoreCooldownThroughputTracker.ignoredSpells,
-    SPELLS.UMBRAL_GLAIVE_STORM_TICK.id,
-  ];
 }
 
 export default CooldownThroughputTracker;

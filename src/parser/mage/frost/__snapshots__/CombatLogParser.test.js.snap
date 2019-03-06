@@ -7,102 +7,93 @@ exports[`The Frost Mage Analyzer analyzers Abilities matches the suggestions sna
 exports[`The Frost Mage Analyzer analyzers AlwaysBeCasting matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "zIndex": 1,
-    }
-  }
 >
   <div
-    className="panel statistic-box expandable "
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
   >
     <div
       className="panel-body"
     >
       <div
-        className="flex"
+        className="pad"
       >
-        <div
-          className="flex-sub statistic-icon"
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-            }
-          }
-        >
+        <label>
           <img
-            alt=""
-            className="icon"
+            alt="Downtime"
+            className="icon game "
             src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
           />
+           
+          Downtime
+        </label>
+        <div
+          className="value"
+        >
+          12.68 %
         </div>
         <div
-          className="flex-main"
           style={
             Object {
-              "paddingLeft": 16,
-              "position": "relative",
+              "marginTop": "0.5em",
             }
           }
         >
           <div
-            className="slabel"
+            className="statistic-box-bar"
           >
-            Downtime
-          </div>
-          <div
-            className="value"
-          >
-            <dfn
-              data-tip="Downtime is available time not used to cast anything (including not having your GCD rolling). This can be caused by delays between casting spells, latency, cast interrupting or just simply not casting anything (e.g. due to movement/stunned).<br/>
-        <li>You spent <b>87.18%</b> of your time casting something.</li>
-        <li>You spent <b>12.82%</b> of your time casting nothing at all.</li>
-        "
+            <div
+              className="stat-health-bg"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={[Function]}
+              style={
+                Object {
+                  "width": "87.31834823563669%",
+                }
+              }
             >
-              12.82 %
-            </dfn>
+              <img
+                alt="Active time"
+                src="/img/sword.png"
+              />
+            </div>
+            <div
+              className="remainder DeathKnight-bg"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={[Function]}
+            >
+              <img
+                alt="Downtime"
+                src="/img/afk.png"
+              />
+            </div>
           </div>
         </div>
       </div>
     </div>
     <div
-      className="panel-footer"
-      style={
-        Object {
-          "borderTop": 0,
-          "overflow": "hidden",
-          "padding": 0,
-        }
-      }
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
     >
-      <div
-        className="statistic-bar"
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <div
-          className="stat-health-bg"
-          data-tip="You spent <b>87.18%</b> of your time casting something."
-          style={
-            Object {
-              "width": "87.17673964789996%",
-            }
-          }
-        >
-          <img
-            alt="Active time"
-            src="/img/sword.png"
-          />
-        </div>
-        <div
-          className="remainder DeathKnight-bg"
-          data-tip="You spent <b>12.82%</b> of your time casting nothing at all."
-        >
-          <img
-            alt="Downtime"
-            src="/img/afk.png"
-          />
-        </div>
-      </div>
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
     </div>
   </div>
 </div>
@@ -133,7 +124,7 @@ Array [
       .
     </span>,
     "stat": <React.Fragment>
-      12.82% downtime
+      12.68% downtime
        (
       &lt;5.00% is recommended
       )
@@ -153,30 +144,23 @@ exports[`The Frost Mage Analyzer analyzers ArcaneTorrent matches the suggestions
 exports[`The Frost Mage Analyzer analyzers BoneChilling matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "zIndex": 1,
-    }
-  }
 >
   <div
-    className="panel statistic-box expandable item"
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
   >
     <div
       className="panel-body"
     >
       <div
-        className="flex"
+        className="pad"
       >
-        <div
-          className="flex-sub statistic-icon"
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-            }
-          }
-        >
+        <label>
           <a
             href="http://wowhead.com/spell=205027"
             rel="noopener noreferrer"
@@ -184,44 +168,44 @@ exports[`The Frost Mage Analyzer analyzers BoneChilling matches the statistic sn
           >
              
             <img
-              alt=""
-              className="icon"
+              alt="Bone Chilling"
+              className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/ability_mage_chilledtothebone.jpg"
             />
           </a>
-        </div>
+           
+          <a
+            href="http://wowhead.com/spell=205027"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            Bone Chilling
+          </a>
+        </label>
         <div
-          className="flex-main"
-          style={
-            Object {
-              "paddingLeft": 16,
-              "position": "relative",
-            }
-          }
+          className="value"
         >
-          <div
-            className="slabel"
-          >
-            <a
-              href="http://wowhead.com/spell=205027"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-               
-              Bone Chilling
-            </a>
-          </div>
-          <div
-            className="value"
-          >
-            <dfn
-              data-tip="Total damage increase: 334k"
-            >
-              4.31 % / 744 DPS
-            </dfn>
-          </div>
+          4.31 % / 744 DPS
         </div>
       </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
     </div>
   </div>
 </div>
@@ -232,30 +216,23 @@ exports[`The Frost Mage Analyzer analyzers BoneChilling matches the suggestions 
 exports[`The Frost Mage Analyzer analyzers BrainFreeze matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "zIndex": 1,
-    }
-  }
 >
   <div
-    className="panel statistic-box expandable "
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
   >
     <div
       className="panel-body"
     >
       <div
-        className="flex"
+        className="pad"
       >
-        <div
-          className="flex-sub statistic-icon"
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-            }
-          }
-        >
+        <label>
           <a
             href="http://wowhead.com/spell=190446"
             rel="noopener noreferrer"
@@ -263,43 +240,37 @@ exports[`The Frost Mage Analyzer analyzers BrainFreeze matches the statistic sna
           >
              
             <img
-              alt=""
-              className="icon"
+              alt="Brain Freeze"
+              className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/ability_mage_brainfreeze.jpg"
             />
           </a>
-        </div>
+           
+          Brain Freeze Utilization
+        </label>
         <div
-          className="flex-main"
-          style={
-            Object {
-              "paddingLeft": 16,
-              "position": "relative",
-            }
-          }
+          className="value"
         >
-          <div
-            className="slabel"
-          >
-            Brain Freeze Utilization
-          </div>
-          <div
-            className="value"
-          >
-            <dfn
-              data-tip="You got 35 total procs.
-					<ul>
-						<li>34 used</li>
-						<li>1 overwritten</li>
-						<li>0 expired</li>
-					</ul>
-				"
-            >
-              97 %
-            </dfn>
-          </div>
+          97 %
         </div>
       </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
     </div>
   </div>
 </div>
@@ -401,69 +372,61 @@ Array [
 ]
 `;
 
+exports[`The Frost Mage Analyzer analyzers Buffs matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Frost Mage Analyzer analyzers Buffs matches the suggestions snapshot 1`] = `"module has no suggestions"`;
+
 exports[`The Frost Mage Analyzer analyzers CancelledCasts matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "zIndex": 1,
-    }
-  }
 >
   <div
-    className="panel statistic-box expandable "
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
   >
     <div
       className="panel-body"
     >
       <div
-        className="flex"
+        className="pad"
       >
-        <div
-          className="flex-sub statistic-icon"
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-            }
-          }
-        >
+        <label>
           <img
-            alt=""
-            className="icon"
+            alt="Cancelled Casts"
+            className="icon game "
             src="//render-us.worldofwarcraft.com/icons/56/inv_misc_map_01.jpg"
           />
-        </div>
+           
+          Casts Cancelled
+        </label>
         <div
-          className="flex-main"
-          style={
-            Object {
-              "paddingLeft": 16,
-              "position": "relative",
-            }
-          }
+          className="value"
         >
-          <div
-            className="slabel"
-          >
-            Casts Cancelled
-          </div>
-          <div
-            className="value"
-          >
-            <dfn
-              data-tip="You cast 196 spells.
-          <ul>
-            <li>173 casts were completed</li>
-            <li>23 casts were cancelled</li>
-          </ul>
-        "
-            >
-              11.73 %
-            </dfn>
-          </div>
+          11.73 %
         </div>
       </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
     </div>
   </div>
 </div>
@@ -519,75 +482,6 @@ exports[`The Frost Mage Analyzer analyzers CooldownThroughputTracker matches the
 
 exports[`The Frost Mage Analyzer analyzers CooldownThroughputTracker matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Frost Mage Analyzer analyzers DamageDone matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "zIndex": 1,
-    }
-  }
->
-  <div
-    className="panel statistic-box expandable "
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="flex"
-      >
-        <div
-          className="flex-sub statistic-icon"
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-            }
-          }
-        >
-          <img
-            alt="Sword"
-            src="/img/sword.png"
-            style={
-              Object {
-                "border": 0,
-              }
-            }
-          />
-        </div>
-        <div
-          className="flex-main"
-          style={
-            Object {
-              "paddingLeft": 16,
-              "position": "relative",
-            }
-          }
-        >
-          <div
-            className="slabel"
-          >
-            Damage done
-          </div>
-          <div
-            className="value"
-          >
-            <dfn
-              data-tip="Total damage done: <b>7,751,826</b> <br>Contribution from pets: 7.06 % / 1,217 DPS"
-            >
-              17k DPS
-            </dfn>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`The Frost Mage Analyzer analyzers DamageDone matches the suggestions snapshot 1`] = `Array []`;
-
 exports[`The Frost Mage Analyzer analyzers FrozenOrb matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`The Frost Mage Analyzer analyzers FrozenOrb matches the suggestions snapshot 1`] = `Array []`;
@@ -599,30 +493,23 @@ exports[`The Frost Mage Analyzer analyzers GlacialAssault matches the suggestion
 exports[`The Frost Mage Analyzer analyzers GlacialSpike matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "zIndex": 1,
-    }
-  }
 >
   <div
-    className="panel statistic-box expandable item"
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
   >
     <div
       className="panel-body"
     >
       <div
-        className="flex"
+        className="pad"
       >
-        <div
-          className="flex-sub statistic-icon"
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-            }
-          }
-        >
+        <label>
           <a
             href="http://wowhead.com/spell=199786"
             rel="noopener noreferrer"
@@ -630,41 +517,37 @@ exports[`The Frost Mage Analyzer analyzers GlacialSpike matches the statistic sn
           >
              
             <img
-              alt=""
-              className="icon"
+              alt="Glacial Spike"
+              className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/ability_mage_glacialspike.jpg"
             />
           </a>
-        </div>
+           
+          Glacial Spike efficiency
+        </label>
         <div
-          className="flex-main"
-          style={
-            Object {
-              "paddingLeft": 16,
-              "position": "relative",
-            }
-          }
+          className="value"
         >
-          <div
-            className="slabel"
-          >
-            Glacial Spike efficiency
-          </div>
-          <div
-            className="value"
-          >
-            <dfn
-              data-tip="You cast Glacial Spike 18 times, 16 casts of which met at least one of the requirements:
-        <ul>
-          <li>It was shattered via Brain Freeze (or some other freeze effect).</li>
-          <li>It hit a second target via Splitting Ice.</li>
-        </ul>"
-            >
-              89 %
-            </dfn>
-          </div>
+          89 %
         </div>
       </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
     </div>
   </div>
 </div>
@@ -692,12 +575,25 @@ Array [
             icon={true}
             id={190446}
           />
-           proc to 
-          <dfn
-            data-tip="<i>Glacial Spike > (empowered) Flurry > Ice Lance</i><br />Because of Flurry's extremely fast travel time, using a Brain Freeze proc immediately following a slower spell like Glacial Spike will apply Winter's Chill to the target before the slower spell hits."
+           proc to
+          <TooltipElement
+            className=""
+            content={
+              <React.Fragment>
+                <em>
+                  Glacial Spike &gt; (empowered) Flurry &gt; Ice Lance
+                </em>
+                <br />
+                Because of Flurry's extremely fast travel time, using a Brain Freeze proc immediately following a slower spell like Glacial Spike will apply Winter's Chill to the target before the slower spell hits.
+              </React.Fragment>
+            }
+            direction="down"
+            hoverable={false}
+            style={Object {}}
+            tooltipClassName=""
           >
             use on it
-          </dfn>
+          </TooltipElement>
           .
         </li>
         <li>
@@ -728,30 +624,23 @@ Array [
 exports[`The Frost Mage Analyzer analyzers IceLance matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "zIndex": 1,
-    }
-  }
 >
   <div
-    className="panel statistic-box expandable "
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
   >
     <div
       className="panel-body"
     >
       <div
-        className="flex"
+        className="pad"
       >
-        <div
-          className="flex-sub statistic-icon"
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-            }
-          }
-        >
+        <label>
           <a
             href="http://wowhead.com/spell=30455"
             rel="noopener noreferrer"
@@ -759,37 +648,37 @@ exports[`The Frost Mage Analyzer analyzers IceLance matches the statistic snapsh
           >
              
             <img
-              alt=""
-              className="icon"
+              alt="Ice Lance"
+              className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/spell_frost_frostblast.jpg"
             />
           </a>
-        </div>
+           
+          Ice Lance Shattered
+        </label>
         <div
-          className="flex-main"
-          style={
-            Object {
-              "paddingLeft": 16,
-              "position": "relative",
-            }
-          }
+          className="value"
         >
-          <div
-            className="slabel"
-          >
-            Ice Lance Shattered
-          </div>
-          <div
-            className="value"
-          >
-            <dfn
-              data-tip="This is the percentage of Ice Lance casts that were shattered. The only time it is acceptable to cast Ice Lance without Shatter is if you are moving and you cant use anything else."
-            >
-              97 %
-            </dfn>
-          </div>
+          97 %
         </div>
       </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
     </div>
   </div>
 </div>
@@ -820,30 +709,23 @@ exports[`The Frost Mage Analyzer analyzers ThermalVoid matches the suggestions s
 exports[`The Frost Mage Analyzer analyzers WaterElemental matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "zIndex": 1,
-    }
-  }
 >
   <div
-    className="panel statistic-box expandable "
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
   >
     <div
       className="panel-body"
     >
       <div
-        className="flex"
+        className="pad"
       >
-        <div
-          className="flex-sub statistic-icon"
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-            }
-          }
-        >
+        <label>
           <a
             href="http://wowhead.com/spell=31687"
             rel="noopener noreferrer"
@@ -851,75 +733,70 @@ exports[`The Frost Mage Analyzer analyzers WaterElemental matches the statistic 
           >
              
             <img
-              alt=""
-              className="icon"
+              alt="Summon Water Elemental"
+              className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/spell_frost_summonwaterelemental_2.jpg"
             />
           </a>
-        </div>
+           
+          Water Elemental utilization
+        </label>
         <div
-          className="flex-main"
-          style={
-            Object {
-              "paddingLeft": 16,
-              "position": "relative",
-            }
-          }
+          className="value"
         >
-          <div
-            className="slabel"
+          <img
+            alt=""
+            className="icon game "
+            src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
+            style={
+              Object {
+                "height": "1.2em",
+                "marginBottom": ".15em",
+              }
+            }
+          />
+          95.31
+           %
+          <br />
+          <a
+            href="http://wowhead.com/spell=31707"
+            rel="noopener noreferrer"
+            target="_blank"
           >
-            Water Elemental utilization
-          </div>
-          <div
-            className="value"
-          >
-            <dfn
-              data-tip="Water Elemental was casting for 95.31 % of the fight (Downtime: 4.69 %).<br>
-                Your Water Elemental began casting 231 times.<br>
-                <ul>
-                  <li>217 casts dealt a total damage of 547,402.</li>
-                  <li>11 casts were cancelled.</li>
-                  <li>3 did not hit a target in time.</li>
-                </ul>
-    "
-            >
-              <img
-                alt=""
-                className="icon"
-                src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
-                style={
-                  Object {
-                    "height": "1.2em",
-                    "marginBottom": ".15em",
-                  }
+             
+            <img
+              alt="Waterbolt"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_frost_frostbolt.jpg"
+              style={
+                Object {
+                  "height": "1.2em",
+                  "marginBottom": ".15em",
                 }
-              />
-              95.31 %
-              <br />
-              <a
-                href="http://wowhead.com/spell=31707"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                 
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_frost_frostbolt.jpg"
-                  style={
-                    Object {
-                      "height": "1.2em",
-                      "marginBottom": ".15em",
-                    }
-                  }
-                />
-              </a>
-              1,217 DPS
-            </dfn>
-          </div>
+              }
+            />
+          </a>
+          1,217
+           DPS
         </div>
       </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
     </div>
   </div>
 </div>
@@ -934,30 +811,23 @@ exports[`The Frost Mage Analyzer analyzers Whiteout matches the suggestions snap
 exports[`The Frost Mage Analyzer analyzers WintersChill matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "zIndex": 1,
-    }
-  }
 >
   <div
-    className="panel statistic-box expandable "
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
   >
     <div
       className="panel-body"
     >
       <div
-        className="flex"
+        className="pad"
       >
-        <div
-          className="flex-sub statistic-icon"
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-            }
-          }
-        >
+        <label>
           <a
             href="http://wowhead.com/spell=228358"
             rel="noopener noreferrer"
@@ -965,81 +835,79 @@ exports[`The Frost Mage Analyzer analyzers WintersChill matches the statistic sn
           >
              
             <img
-              alt=""
-              className="icon"
+              alt="Winter's Chill"
+              className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/spell_frost_frostward.jpg"
             />
           </a>
-        </div>
+           
+          Winter's Chill Utilization
+        </label>
         <div
-          className="flex-main"
-          style={
-            Object {
-              "paddingLeft": 16,
-              "position": "relative",
-            }
-          }
+          className="value"
         >
-          <div
-            className="slabel"
+          <a
+            href="http://wowhead.com/spell=30455"
+            rel="noopener noreferrer"
+            target="_blank"
           >
-            Winter's Chill Utilization
-          </div>
-          <div
-            className="value"
+             
+            <img
+              alt="Ice Lance"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_frost_frostblast.jpg"
+              style={
+                Object {
+                  "height": "1.2em",
+                  "marginBottom": ".15em",
+                }
+              }
+            />
+          </a>
+           
+          88
+           %
+          <br />
+          <a
+            href="http://wowhead.com/spell=116"
+            rel="noopener noreferrer"
+            target="_blank"
           >
-            <dfn
-              data-tip="Every Brain Freeze Flurry should be preceded by a Frostbolt, Glacial Spike, or Ebonbolt and followed by an Ice Lance, so that both the preceding and following spells benefit from Shatter. <br><br> You double Ice Lance'd into Winter's Chill 0 times (0.0%). Note this is usually impossible, it can only be done with strong haste buffs active and by moving towards the target while casting. It should mostly be considered 'extra credit'."
-            >
-              <span>
-                <a
-                  href="http://wowhead.com/spell=30455"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                   
-                  <img
-                    alt=""
-                    className="icon"
-                    src="//render-us.worldofwarcraft.com/icons/56/spell_frost_frostblast.jpg"
-                    style={
-                      Object {
-                        "height": "1.2em",
-                        "marginBottom": ".15em",
-                      }
-                    }
-                  />
-                </a>
-                 
-                88
-                 %
-                <br />
-                <a
-                  href="http://wowhead.com/spell=116"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                   
-                  <img
-                    alt=""
-                    className="icon"
-                    src="//render-us.worldofwarcraft.com/icons/56/spell_frost_frostbolt02.jpg"
-                    style={
-                      Object {
-                        "height": "1.2em",
-                        "marginBottom": ".15em",
-                      }
-                    }
-                  />
-                </a>
-                 
-                91
-                 %
-              </span>
-            </dfn>
-          </div>
+             
+            <img
+              alt="Frostbolt"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_frost_frostbolt02.jpg"
+              style={
+                Object {
+                  "height": "1.2em",
+                  "marginBottom": ".15em",
+                }
+              }
+            />
+          </a>
+           
+          91
+           %
         </div>
       </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
     </div>
   </div>
 </div>
@@ -1089,2008 +957,2262 @@ Array [
 `;
 
 exports[`The Frost Mage Analyzer should match the checklist snapshot 1`] = `
-<div
+<ul
   className="checklist"
 >
-  <div
-    className="expandable "
+  <li
+    className="expandable  passed"
   >
     <div
-      className="meta checklist-item"
+      className="meta"
       onClick={[Function]}
     >
       <div
         className="flex"
       >
         <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
-          <div
-            className="chevron"
-          >
-            <svg
-              viewBox="0 0 16 9"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-              />
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
-          <div>
-            <svg
-              style={
-                Object {
-                  "color": "green",
-                }
-              }
-              viewBox="0 0 50 50"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
-              />
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-main"
+          className="flex-main name"
         >
           Use your cooldowns
         </div>
         <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "width": 100,
-            }
-          }
+          className="flex-sub perf"
         >
           <div
-            className="performance-bar-container"
+            className="perf-container"
           >
             <div
-              className="performance-bar small"
+              className="perf-bar"
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "transition": "background-color 800ms",
-                  "width": "83.82960165374769%",
+                  "width": "87.48076480642287%",
                 }
               }
             />
           </div>
         </div>
+        <div
+          className="chevron"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 16 9"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+            />
+          </svg>
+        </div>
       </div>
     </div>
     <div
-      className="details"
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
       style={
         Object {
-          "display": "none",
-          "minHeight": 80,
-          "paddingLeft": 65,
-          "paddingRight": 65,
-          "position": "relative",
+          "height": 0,
+          "overflow": "hidden",
         }
       }
     >
       <div
-        className="row"
-        style={
-          Object {
-            "marginBottom": 10,
-            "position": "relative",
-          }
-        }
+        style={Object {}}
       >
-        <svg
-          className="text-muted"
-          style={
-            Object {
-              "fontSize": "2em",
-              "left": -33,
-              "position": "absolute",
-              "top": "50%",
-              "transform": "translateY(-33%)",
-            }
-          }
-          viewBox="0 0 100 100"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-          />
-          <path
-            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-          />
-          <path
-            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-          />
-        </svg>
         <div
-          className="col-md-12 text-muted"
+          className="row text-muted description"
         >
-          <div
-            className="flex"
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <div
-              className="flex-main"
-            >
-              Using your cooldown abilities as often as possible can help raise your dps significantly. Some help more than others, but as a general rule of thumb you should be looking to use most of your damaging abilities and damage cooldowns as often as possible unless you need to save them for a priority burst phase that is coming up soon.
-            </div>
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+            Using your cooldown abilities as often as possible can help raise your dps significantly. Some help more than others, but as a general rule of thumb you should be looking to use most of your damaging abilities and damage cooldowns as often as possible unless you need to save them for a priority burst phase that is coming up soon.
           </div>
         </div>
-      </div>
-      <div
-        className="row"
-      >
         <div
-          className="col-md-6"
+          className="row"
         >
           <div
-            className="flex"
+            className="col-md-6"
           >
             <div
-              className="flex-main"
-            >
-              <a
-                href="http://wowhead.com/spell=12472"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_frost_coldhearted.jpg"
-                />
-                 
-                Icy Veins
-              </a>
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
+              className="flex"
             >
               <div
-                className="text-right"
+                className="flex-main"
+              >
+                <a
+                  href="http://wowhead.com/spell=12472"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_frost_coldhearted.jpg"
+                  />
+                   
+                  Icy Veins
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
                 style={
                   Object {
-                    "width": "100%",
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
                   }
                 }
               >
-                 
-                100.00%
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
                 <div
-                  className="performance-bar small"
+                  className="text-right"
                   style={
                     Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
                       "width": "100%",
                     }
                   }
-                />
+                >
+                   
+                  100.00%
+                   
+                   
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              <a
-                href="http://wowhead.com/spell=84714"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_frost_frozenorb.jpg"
-                />
-                 
-                Frozen Orb
-              </a>
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
-            >
               <div
-                className="text-right"
+                className="flex-sub content-middle"
                 style={
                   Object {
-                    "width": "100%",
+                    "width": 50,
                   }
                 }
               >
-                 
-                80.46%
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
                 <div
-                  className="performance-bar small"
-                  style={
-                    Object {
-                      "backgroundColor": "#ffc84a",
-                      "transition": "background-color 800ms",
-                      "width": "51.488804961243076%",
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
                     }
-                  }
-                />
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
           <div
-            className="flex"
+            className="col-md-6"
           >
             <div
-              className="flex-main"
-            >
-              <a
-                href="http://wowhead.com/spell=153595"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_mage_cometstorm2.jpg"
-                />
-                 
-                Comet Storm
-              </a>
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
+              className="flex"
             >
               <div
-                className="text-right"
+                className="flex-main"
+              >
+                <a
+                  href="http://wowhead.com/spell=84714"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_frost_frozenorb.jpg"
+                  />
+                   
+                  Frozen Orb
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
                 style={
                   Object {
-                    "width": "100%",
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
                   }
                 }
               >
-                 
-                91.11%
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
                 <div
-                  className="performance-bar small"
+                  className="text-right"
                   style={
                     Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
                       "width": "100%",
                     }
                   }
-                />
+                >
+                   
+                  83.75%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ffc84a",
+                        "transition": "background-color 800ms",
+                        "width": "62.44229441926863%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  href="http://wowhead.com/spell=153595"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_mage_cometstorm2.jpg"
+                  />
+                   
+                  Comet Storm
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  93.39%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div
-    className="expandable "
+  </li>
+  <li
+    className="expandable  passed"
   >
     <div
-      className="meta checklist-item"
+      className="meta"
       onClick={[Function]}
     >
       <div
         className="flex"
       >
         <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
+          className="flex-main name"
+        >
+          Shatter your spells
+        </div>
+        <div
+          className="flex-sub perf"
         >
           <div
-            className="chevron"
+            className="perf-container"
           >
-            <svg
-              viewBox="0 0 16 9"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-              />
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
-          <div>
-            <svg
+            <div
+              className="perf-bar"
               style={
                 Object {
-                  "color": "green",
+                  "backgroundColor": "#a6c34c",
+                  "width": "88.09318181818182%",
                 }
               }
-              viewBox="0 0 50 50"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
-              />
-            </svg>
+            />
           </div>
         </div>
         <div
-          className="flex-main"
+          className="chevron"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 16 9"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
+      style={
+        Object {
+          "height": 0,
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        style={Object {}}
+      >
+        <div
+          className="row text-muted description"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+            The most important element of maximizing the damage of your rotation is ensuring that you are 
+            <a
+              href="http://wowhead.com/spell=12982"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_frost_frostshock.jpg"
+              />
+               
+              Shatter
+            </a>
+            ing as many of your spells as possible. The key aspect of this is taking advantage of the 
+            <a
+              href="http://wowhead.com/spell=228358"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_frost_frostward.jpg"
+              />
+               
+              Winter's Chill
+            </a>
+             debuff. Winter's Chill is applied to the target when you use a 
+            <a
+              href="http://wowhead.com/spell=190446"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_mage_brainfreeze.jpg"
+              />
+               
+              Brain Freeze
+            </a>
+             proc and makes the target act as if it is frozen for a short duration of time. Therefore, you should cast a rotational ability like 
+            <a
+              href="http://wowhead.com/spell=116"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_frost_frostbolt02.jpg"
+              />
+               
+              Frostbolt
+            </a>
+            , 
+            <a
+              href="http://wowhead.com/spell=257537"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/artifactability_frostmage_ebonbolt.jpg"
+              />
+               
+              Ebonbolt
+            </a>
+            , or 
+            <a
+              href="http://wowhead.com/spell=199786"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_mage_glacialspike.jpg"
+              />
+               
+              Glacial Spike
+            </a>
+            , followed immediately by the Brain Freeze buffed Flurry and then end with an 
+            <a
+              href="http://wowhead.com/spell=30455"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_frost_frostblast.jpg"
+              />
+               
+              Ice Lance
+            </a>
+            . Against non-boss enemies, you can also utilize other things like 
+            <a
+              href="http://wowhead.com/spell=122"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_frost_frostnova.jpg"
+              />
+               
+              Frost Nova
+            </a>
+             or your pet's 
+            <a
+              href="http://wowhead.com/spell=33395"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_mage_freeze.jpg"
+              />
+               
+              Freeze
+            </a>
+             to shatter spells as well.
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Ice Lance into Winter's Chill
+              </div>
+              <div
+                className="flex-sub"
+                style={
+                  Object {
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  <svg
+                    className="icon"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                    />
+                    <path
+                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                    />
+                    <path
+                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  87.88%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#a6c34c",
+                        "transition": "background-color 800ms",
+                        "width": "76.18636363636365%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Hardcast into Winter's Chill
+              </div>
+              <div
+                className="flex-sub"
+                style={
+                  Object {
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  <svg
+                    className="icon"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                    />
+                    <path
+                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                    />
+                    <path
+                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  90.91%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li
+    className="expandable  passed"
+  >
+    <div
+      className="meta"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-main name"
         >
           Use your procs effectively
         </div>
         <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "width": 100,
-            }
-          }
+          className="flex-sub perf"
         >
           <div
-            className="performance-bar-container"
+            className="perf-container"
           >
             <div
-              className="performance-bar small"
-              style={
-                Object {
-                  "backgroundColor": "#a6c34c",
-                  "transition": "background-color 800ms",
-                  "width": "94.04659090909091%",
-                }
-              }
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="details"
-      style={
-        Object {
-          "display": "none",
-          "minHeight": 80,
-          "paddingLeft": 65,
-          "paddingRight": 65,
-          "position": "relative",
-        }
-      }
-    >
-      <div
-        className="row"
-        style={
-          Object {
-            "marginBottom": 10,
-            "position": "relative",
-          }
-        }
-      >
-        <svg
-          className="text-muted"
-          style={
-            Object {
-              "fontSize": "2em",
-              "left": -33,
-              "position": "absolute",
-              "top": "50%",
-              "transform": "translateY(-33%)",
-            }
-          }
-          viewBox="0 0 100 100"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-          />
-          <path
-            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-          />
-          <path
-            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-          />
-        </svg>
-        <div
-          className="col-md-12 text-muted"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              Frost Mage revolves almost entirely around utilizing your procs effectively. Therefore it is very important that when you get a proc, you use it correctly to prevent them from expiring and to lessen the likelyhood of overwriting them or wasting them.
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="row"
-      >
-        <div
-          className="col-md-6"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              Used Brain Freeze procs
-            </div>
-            <div
-              className="flex-sub"
-              style={
-                Object {
-                  "marginLeft": 10,
-                }
-              }
-            >
-              <svg
-                data-tip="Your Brain Freeze utilization. Brain Freeze is your most important proc and it is very important that you utilize them properly."
-                viewBox="0 0 100 100"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-                />
-                <path
-                  d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-                />
-                <path
-                  d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-                />
-              </svg>
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
-            >
-              <div
-                className="text-right"
-                style={
-                  Object {
-                    "width": "100%",
-                  }
-                }
-              >
-                 
-                97.14%
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
-                <div
-                  className="performance-bar small"
-                  style={
-                    Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
-                      "width": "100%",
-                    }
-                  }
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              Used Fingers of Frost procs
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
-            >
-              <div
-                className="text-right"
-                style={
-                  Object {
-                    "width": "100%",
-                  }
-                }
-              >
-                 
-                100.00%
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
-                <div
-                  className="performance-bar small"
-                  style={
-                    Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
-                      "width": "100%",
-                    }
-                  }
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              Ice Lance into Winter's Chill
-            </div>
-            <div
-              className="flex-sub"
-              style={
-                Object {
-                  "marginLeft": 10,
-                }
-              }
-            >
-              <svg
-                data-tip="Using Brain Freeze will apply the Winter's Chill debuff to the target which causes your spells to act as if the target is frozen. Therefore, you should always cast Ice Lance after every instant cast Flurry so that the Ice Lance hits the target while Winter's Chill is up."
-                viewBox="0 0 100 100"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-                />
-                <path
-                  d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-                />
-                <path
-                  d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-                />
-              </svg>
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
-            >
-              <div
-                className="text-right"
-                style={
-                  Object {
-                    "width": "100%",
-                  }
-                }
-              >
-                 
-                87.88%
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
-                <div
-                  className="performance-bar small"
-                  style={
-                    Object {
-                      "backgroundColor": "#a6c34c",
-                      "transition": "background-color 800ms",
-                      "width": "76.18636363636365%",
-                    }
-                  }
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              Hardcast into Winter's Chill
-            </div>
-            <div
-              className="flex-sub"
-              style={
-                Object {
-                  "marginLeft": 10,
-                }
-              }
-            >
-              <svg
-                data-tip="Flurry travels faster than your other spells, so you can pre-cast Frostbolt, Ebonbolt, or Glacial Spike before using your instant cast Flurry. This will result in the pre-cast spell landing in the Winter's Chill debuff and dealing bonus shatter damage."
-                viewBox="0 0 100 100"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-                />
-                <path
-                  d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-                />
-                <path
-                  d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-                />
-              </svg>
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
-            >
-              <div
-                className="text-right"
-                style={
-                  Object {
-                    "width": "100%",
-                  }
-                }
-              >
-                 
-                90.91%
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
-                <div
-                  className="performance-bar small"
-                  style={
-                    Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
-                      "width": "100%",
-                    }
-                  }
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    className="expandable "
-  >
-    <div
-      className="meta checklist-item"
-      onClick={[Function]}
-    >
-      <div
-        className="flex"
-      >
-        <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
-          <div
-            className="chevron"
-          >
-            <svg
-              viewBox="0 0 16 9"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-              />
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
-          <div>
-            <svg
-              style={
-                Object {
-                  "color": "green",
-                }
-              }
-              viewBox="0 0 50 50"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
-              />
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-main"
-        >
-          Use your talents effectively
-        </div>
-        <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "width": 100,
-            }
-          }
-        >
-          <div
-            className="performance-bar-container"
-          >
-            <div
-              className="performance-bar small"
-              style={
-                Object {
-                  "backgroundColor": "#a6c34c",
-                  "transition": "background-color 800ms",
-                  "width": "87.61666666666666%",
-                }
-              }
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="details"
-      style={
-        Object {
-          "display": "none",
-          "minHeight": 80,
-          "paddingLeft": 65,
-          "paddingRight": 65,
-          "position": "relative",
-        }
-      }
-    >
-      <div
-        className="row"
-        style={
-          Object {
-            "marginBottom": 10,
-            "position": "relative",
-          }
-        }
-      >
-        <svg
-          className="text-muted"
-          style={
-            Object {
-              "fontSize": "2em",
-              "left": -33,
-              "position": "absolute",
-              "top": "50%",
-              "transform": "translateY(-33%)",
-            }
-          }
-          viewBox="0 0 100 100"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-          />
-          <path
-            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-          />
-          <path
-            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-          />
-        </svg>
-        <div
-          className="col-md-12 text-muted"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              Regardless of which talents you select, you should ensure that you are utilizing them properly. If you are having trouble effectively using a particular talent, you should consider taking a different talent that you can utilize properly or focus on effectively using the talents that you have selected.
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="row"
-      >
-        <div
-          className="col-md-6"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              Glacial Spike utilization
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
-            >
-              <div
-                className="text-right"
-                style={
-                  Object {
-                    "width": "100%",
-                  }
-                }
-              >
-                 
-                88.89%
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
-                <div
-                  className="performance-bar small"
-                  style={
-                    Object {
-                      "backgroundColor": "#a6c34c",
-                      "transition": "background-color 800ms",
-                      "width": "75.23333333333333%",
-                    }
-                  }
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              Water Elemental utilization
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
-            >
-              <div
-                className="text-right"
-                style={
-                  Object {
-                    "width": "100%",
-                  }
-                }
-              >
-                 
-                95.31%
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
-                <div
-                  className="performance-bar small"
-                  style={
-                    Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
-                      "width": "100%",
-                    }
-                  }
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    className="expandable "
-  >
-    <div
-      className="meta checklist-item"
-      onClick={[Function]}
-    >
-      <div
-        className="flex"
-      >
-        <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
-          <div
-            className="chevron"
-          >
-            <svg
-              viewBox="0 0 16 9"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-              />
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
-          <div>
-            <svg
-              style={
-                Object {
-                  "color": "green",
-                }
-              }
-              viewBox="0 0 50 50"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
-              />
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-main"
-        >
-          Avoid downtime
-        </div>
-        <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "width": 100,
-            }
-          }
-        >
-          <div
-            className="performance-bar-container"
-          >
-            <div
-              className="performance-bar small"
-              style={
-                Object {
-                  "backgroundColor": "#a6c34c",
-                  "transition": "background-color 800ms",
-                  "width": "67.38600620763097%",
-                }
-              }
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="details"
-      style={
-        Object {
-          "display": "none",
-          "minHeight": 80,
-          "paddingLeft": 65,
-          "paddingRight": 65,
-          "position": "relative",
-        }
-      }
-    >
-      <div
-        className="row"
-        style={
-          Object {
-            "marginBottom": 10,
-            "position": "relative",
-          }
-        }
-      >
-        <svg
-          className="text-muted"
-          style={
-            Object {
-              "fontSize": "2em",
-              "left": -33,
-              "position": "absolute",
-              "top": "50%",
-              "transform": "translateY(-33%)",
-            }
-          }
-          viewBox="0 0 100 100"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-          />
-          <path
-            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-          />
-          <path
-            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-          />
-        </svg>
-        <div
-          className="col-md-12 text-muted"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              As a DPS, it is important to spend as much time casting as possible since if you arent casting you arent doing damage. Therefore it is important to minimize your movements, stay within range of the target, and try to avoid cancelling casts (unless you have to). While some fights will have an amount of time that is unavoidable downtime; the more you can minimize that downtime, the better.
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="row"
-      >
-        <div
-          className="col-md-6"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              Downtime
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
-            >
-              <div
-                className="text-right"
-                style={
-                  Object {
-                    "width": "100%",
-                  }
-                }
-              >
-                 
-                12.82%
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
-                <div
-                  className="performance-bar small"
-                  style={
-                    Object {
-                      "backgroundColor": "#a6c34c",
-                      "transition": "background-color 800ms",
-                      "width": "73.94854302750686%",
-                    }
-                  }
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              Cancelled casts
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
-            >
-              <div
-                className="text-right"
-                style={
-                  Object {
-                    "width": "100%",
-                  }
-                }
-              >
-                 
-                11.73%
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
-                <div
-                  className="performance-bar small"
-                  style={
-                    Object {
-                      "backgroundColor": "#ffc84a",
-                      "transition": "background-color 800ms",
-                      "width": "60.823469387755104%",
-                    }
-                  }
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    className="expandable "
-  >
-    <div
-      className="meta checklist-item"
-      onClick={[Function]}
-    >
-      <div
-        className="flex"
-      >
-        <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
-          <div
-            className="chevron"
-          >
-            <svg
-              viewBox="0 0 16 9"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-              />
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
-          <div>
-            <svg
-              style={
-                Object {
-                  "color": "green",
-                }
-              }
-              viewBox="0 0 50 50"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
-              />
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-main"
-        >
-          Be well prepared
-        </div>
-        <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "width": 100,
-            }
-          }
-        >
-          <div
-            className="performance-bar-container"
-          >
-            <div
-              className="performance-bar small"
+              className="perf-bar"
               style={
                 Object {
                   "backgroundColor": "#4ec04e",
-                  "transition": "background-color 800ms",
                   "width": "100%",
                 }
               }
             />
           </div>
         </div>
+        <div
+          className="chevron"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 16 9"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+            />
+          </svg>
+        </div>
       </div>
     </div>
     <div
-      className="details"
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
       style={
         Object {
-          "display": "none",
-          "minHeight": 80,
-          "paddingLeft": 65,
-          "paddingRight": 65,
-          "position": "relative",
+          "height": 0,
+          "overflow": "hidden",
         }
       }
     >
       <div
-        className="row"
-        style={
-          Object {
-            "marginBottom": 10,
-            "position": "relative",
-          }
-        }
-      >
-        <svg
-          className="text-muted"
-          style={
-            Object {
-              "fontSize": "2em",
-              "left": -33,
-              "position": "absolute",
-              "top": "50%",
-              "transform": "translateY(-33%)",
-            }
-          }
-          viewBox="0 0 100 100"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-          />
-          <path
-            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-          />
-          <path
-            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-          />
-        </svg>
-        <div
-          className="col-md-12 text-muted"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              Being well prepared with food, flasks, potions and enchants is an easy way to improve your performance.
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="row"
+        style={Object {}}
       >
         <div
-          className="col-md-6"
+          className="row text-muted description"
         >
-          <div
-            className="flex"
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <div
-              className="flex-main"
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+            Frost Mage revolves almost entirely around utilizing your procs effectively. Therefore it is very important that when you get a proc, you use it quickly and efficiently to prevent them from expiring and to lessen the likelyhood of overwriting them or wasting them. You should aim to use your 
+            <a
+              href="http://wowhead.com/spell=44544"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              All items enchanted
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_mage_wintersgrasp.jpg"
+              />
+               
+              Fingers of Frost
+            </a>
+             as quickly as possible to ensure that you do not overcap and to avoid wasting them. Additionally, you should try to ensure that you use all of your Fingers of Frost procs before you use your 
+            <a
+              href="http://wowhead.com/spell=190446"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              <div
-                className="text-right"
-                style={
-                  Object {
-                    "width": "100%",
-                  }
-                }
-              >
-                 
-                3
-                 
-                / 3
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_mage_brainfreeze.jpg"
+              />
+               
+              Brain Freeze
+            </a>
+             proc, but sometimes this is not possible. If you are already casting 
+            <a
+              href="http://wowhead.com/spell=116"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              <div
-                className="performance-bar-container"
-              >
-                <div
-                  className="performance-bar small"
-                  style={
-                    Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
-                      "width": "100%",
-                    }
-                  }
-                />
-              </div>
-            </div>
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_frost_frostbolt02.jpg"
+              />
+               
+              Frostbolt
+            </a>
+            , 
+            <a
+              href="http://wowhead.com/spell=257537"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/artifactability_frostmage_ebonbolt.jpg"
+              />
+               
+              Ebonbolt
+            </a>
+            , or 
+            <a
+              href="http://wowhead.com/spell=199786"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_mage_glacialspike.jpg"
+              />
+               
+              Glacial Spike
+            </a>
+             and you have both a 
+            <a
+              href="http://wowhead.com/spell=190446"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_mage_brainfreeze.jpg"
+              />
+               
+              Brain Freeze
+            </a>
+             and a 
+            <a
+              href="http://wowhead.com/spell=44544"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_mage_wintersgrasp.jpg"
+              />
+               
+              Fingers of Frost
+            </a>
+             proc, you should prioritize using the Brain Freeze and let the Fingers of Frost proc get wasted. /&gt;
           </div>
         </div>
         <div
-          className="col-md-6"
+          className="row"
         >
           <div
-            className="flex"
+            className="col-md-6"
           >
             <div
-              className="flex-main"
-            >
-              Using high quality enchants
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
+              className="flex"
             >
               <div
-                className="text-right"
+                className="flex-main"
+              >
+                Used Brain Freeze procs
+              </div>
+              <div
+                className="flex-sub"
                 style={
                   Object {
-                    "width": "100%",
+                    "marginLeft": 10,
                   }
                 }
               >
-                 
-                3
-                 
-                / 3
-                 
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  <svg
+                    className="icon"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                    />
+                    <path
+                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                    />
+                    <path
+                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                    />
+                  </svg>
+                </div>
               </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
               <div
-                className="performance-bar-container"
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
               >
                 <div
-                  className="performance-bar small"
+                  className="text-right"
                   style={
                     Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
                       "width": "100%",
                     }
                   }
-                />
+                >
+                   
+                  97.14%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
           <div
-            className="flex"
+            className="col-md-6"
           >
             <div
-              className="flex-main"
-            >
-              Used a pre-potion
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
+              className="flex"
             >
               <div
-                className="text-right"
+                className="flex-main"
+              >
+                Used Fingers of Frost procs
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
                 style={
                   Object {
-                    "width": "100%",
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
                   }
                 }
               >
-                 
-                Yes
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
                 <div
-                  className="performance-bar small"
+                  className="text-right"
                   style={
                     Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
                       "width": "100%",
                     }
                   }
-                />
+                >
+                   
+                  100.00%
+                   
+                   
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              Used a second potion
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
-            >
               <div
-                className="text-right"
+                className="flex-sub content-middle"
                 style={
                   Object {
-                    "width": "100%",
+                    "width": 50,
                   }
                 }
-              >
-                 
-                Yes
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
               >
                 <div
-                  className="performance-bar small"
-                  style={
-                    Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
-                      "width": "100%",
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
                     }
-                  }
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              Flask used
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
-            >
-              <div
-                className="text-right"
-                style={
-                  Object {
-                    "width": "100%",
-                  }
-                }
-              >
-                 
-                Yes
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
-                <div
-                  className="performance-bar small"
-                  style={
-                    Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
-                      "width": "100%",
-                    }
-                  }
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              High quality food used
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
-            >
-              <div
-                className="text-right"
-                style={
-                  Object {
-                    "width": "100%",
-                  }
-                }
-              >
-                 
-                Yes
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
-                <div
-                  className="performance-bar small"
-                  style={
-                    Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
-                      "width": "100%",
-                    }
-                  }
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              Food used
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
-            >
-              <div
-                className="text-right"
-                style={
-                  Object {
-                    "width": "100%",
-                  }
-                }
-              >
-                 
-                Yes
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
-                <div
-                  className="performance-bar small"
-                  style={
-                    Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
-                      "width": "100%",
-                    }
-                  }
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              Arcane Intellect active
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
-            >
-              <div
-                className="text-right"
-                style={
-                  Object {
-                    "width": "100%",
-                  }
-                }
-              >
-                 
-                100.00%
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
-                <div
-                  className="performance-bar small"
-                  style={
-                    Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
-                      "width": "100%",
-                    }
-                  }
-                />
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
+  </li>
+  <li
+    className="expandable  passed"
+  >
+    <div
+      className="meta"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-main name"
+        >
+          Use Glacial Spike properly
+        </div>
+        <div
+          className="flex-sub perf"
+        >
+          <div
+            className="perf-container"
+          >
+            <div
+              className="perf-bar"
+              style={
+                Object {
+                  "backgroundColor": "#a6c34c",
+                  "width": "75.23333333333333%",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="chevron"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 16 9"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
+      style={
+        Object {
+          "height": 0,
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        style={Object {}}
+      >
+        <div
+          className="row text-muted description"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+            <a
+              href="http://wowhead.com/spell=199786"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_mage_glacialspike.jpg"
+              />
+               
+              Glacial Spike
+            </a>
+             is one of the most impactful talents that you can choose and it plays a large part in your rotation; So you should always ensure that you are getting the most out of it, because a large part of your damage will come from making sure that you are handling Glacial Spike properly. As a rule, once you have Glacial Spike available, you should not cast it unless you have a 
+            <a
+              href="http://wowhead.com/spell=190446"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_mage_brainfreeze.jpg"
+              />
+               
+              Brain Freeze
+            </a>
+             proc to use alongside it (
+            <a
+              href="http://wowhead.com/spell=199786"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_mage_glacialspike.jpg"
+              />
+               
+              Glacial Spike
+            </a>
+             &gt; 
+            <a
+              href="http://wowhead.com/spell=44614"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_burningembersblue.jpg"
+              />
+               
+              Flurry
+            </a>
+             &gt; 
+            <a
+              href="http://wowhead.com/spell=30455"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_frost_frostblast.jpg"
+              />
+               
+              Ice Lance
+            </a>
+            ) or if you also have the 
+            <a
+              href="http://wowhead.com/spell=56377"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_frost_iceshards.jpg"
+              />
+               
+              Splitting Ice
+            </a>
+             and the Glacial Spike will hit a second target. If neither of those are true, then you should continue casting 
+            <a
+              href="http://wowhead.com/spell=116"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_frost_frostbolt02.jpg"
+              />
+               
+              Frostbolt
+            </a>
+             until you have a 
+            <a
+              href="http://wowhead.com/spell=190446"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_mage_brainfreeze.jpg"
+              />
+               
+              Brain Freeze
+            </a>
+             proc. If you are consistently in situations where you are waiting to get a Brain Freeze proc, then consider taking the 
+            <a
+              href="http://wowhead.com/spell=257537"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/artifactability_frostmage_ebonbolt.jpg"
+              />
+               
+              Ebonbolt
+            </a>
+             talent and saving it for when you need to generate a proc to use with Glacial Spike.
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Glacial Spike utilization
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  88.89%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#a6c34c",
+                        "transition": "background-color 800ms",
+                        "width": "75.23333333333333%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li
+    className="expandable  passed"
+  >
+    <div
+      className="meta"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-main name"
+        >
+          Use your talents effectively
+        </div>
+        <div
+          className="flex-sub perf"
+        >
+          <div
+            className="perf-container"
+          >
+            <div
+              className="perf-bar"
+              style={
+                Object {
+                  "backgroundColor": "#4ec04e",
+                  "width": "100%",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="chevron"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 16 9"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
+      style={
+        Object {
+          "height": 0,
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        style={Object {}}
+      >
+        <div
+          className="row text-muted description"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+            Regardless of which talents you select, you should ensure that you are utilizing them properly. If you are having trouble effectively using a particular talent, you should consider taking a different talent that you can utilize properly or focus on effectively using the talents that you have selected.
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Water Elemental utilization
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  95.31%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li
+    className="expandable  passed"
+  >
+    <div
+      className="meta"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-main name"
+        >
+          Avoid downtime
+        </div>
+        <div
+          className="flex-sub perf"
+        >
+          <div
+            className="perf-container"
+          >
+            <div
+              className="perf-bar"
+              style={
+                Object {
+                  "backgroundColor": "#a6c34c",
+                  "width": "67.62178450621263%",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="chevron"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 16 9"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
+      style={
+        Object {
+          "height": 0,
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        style={Object {}}
+      >
+        <div
+          className="row text-muted description"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+            As a DPS, it is important to spend as much time casting as possible since if you arent casting you arent doing damage. Therefore it is important to minimize your movements, stay within range of the target, and try to avoid cancelling casts (unless you have to). While some fights will have an amount of time that is unavoidable downtime; the more you can minimize that downtime, the better.
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Downtime
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  12.68%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#a6c34c",
+                        "transition": "background-color 800ms",
+                        "width": "74.42009962467017%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Cancelled casts
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  11.73%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ffc84a",
+                        "transition": "background-color 800ms",
+                        "width": "60.823469387755104%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li
+    className="expandable  passed"
+  >
+    <div
+      className="meta"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-main name"
+        >
+          Be well prepared
+        </div>
+        <div
+          className="flex-sub perf"
+        >
+          <div
+            className="perf-container"
+          >
+            <div
+              className="perf-bar"
+              style={
+                Object {
+                  "backgroundColor": "#4ec04e",
+                  "width": "100%",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="chevron"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 16 9"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
+      style={
+        Object {
+          "height": 0,
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        style={Object {}}
+      >
+        <div
+          className="row text-muted description"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+            Being well prepared with food, flasks, potions and enchants is an easy way to improve your performance.
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                All items enchanted
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  3
+                   
+                  / 3
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Using high quality enchants
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  3
+                   
+                  / 3
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Used a pre-potion
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  Yes
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Used a second potion
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  Yes
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Flask used
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  Yes
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                High quality food used
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  Yes
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Food used
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  Yes
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Arcane Intellect active
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  100.00%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+</ul>
 `;
