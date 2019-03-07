@@ -69,9 +69,9 @@ class Results extends React.PureComponent {
     }).isRequired,
     isLoadingParser: PropTypes.bool,
     isLoadingEvents: PropTypes.bool,
-    bossPhaseEventsLoadingState: PropTypes.oneOf(BOSS_PHASES_STATE),
+    bossPhaseEventsLoadingState: PropTypes.oneOf(Object.values(BOSS_PHASES_STATE)),
     isLoadingCharacterProfile: PropTypes.bool,
-    parsingState: PropTypes.oneOf(EVENT_PARSING_STATE),
+    parsingState: PropTypes.oneOf(Object.values(EVENT_PARSING_STATE)),
     progress: PropTypes.number,
     premium: PropTypes.bool,
     appendReportHistory: PropTypes.func.isRequired,
@@ -319,7 +319,7 @@ class Results extends React.PureComponent {
         {this.renderContent(selectedTab, results)}
 
         {premium === false && (
-          <div className="container text-center" style={{ marginTop: 40 }}>
+          <div key={`${selectedTab}-1`} className="container text-center" style={{ marginTop: 40 }}>
             <Ad />
           </div>
         )}
@@ -364,6 +364,12 @@ class Results extends React.PureComponent {
             </div>
           </div>
         </div>
+
+        {premium === false && (
+          <div key={`${selectedTab}-2`} className="container text-center" style={{ marginTop: 40 }}>
+            <Ad />
+          </div>
+        )}
       </div>
     );
   }

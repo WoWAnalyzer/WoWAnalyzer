@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-class Ability {
+class Buff {
   static propTypes = {
     /**
      * REQUIRED The spell id. If an array of spell ids is provided, the first element in the array will be what shows in suggestions / cast timeline. Multiple spell definitions in the same ability can be used to tie multiple cast / buff IDs together as the same ability (with a shared cooldown)
@@ -60,4 +60,4 @@ class Ability {
   }
 }
 
-export default Ability;
+export default Buff;
