@@ -36,6 +36,7 @@ import EncounterStats from './EncounterStats';
 import EVENT_PARSING_STATE from '../EVENT_PARSING_STATE';
 import BOSS_PHASES_STATE from '../BOSS_PHASES_STATE';
 import ScrollToTop from './ScrollToTop';
+import ErrorBoundary from 'interface/common/ErrorBoundary';
 
 const TimelineTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'TimelineTab' */ './Timeline/Container').then(exports => exports.default)), 0);
 const EventsTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'EventsTab' */ 'interface/others/EventsTab').then(exports => exports.default)));
@@ -226,15 +227,21 @@ class Results extends React.PureComponent {
           </div>
         );
       }
-      default:
+      default: {
         if (this.isLoading) {
           return this.renderLoadingIndicator();
         }
+
+        const tab = results.tabs.find(tab => tab.url === selectedTab);
+
         return (
           <div className="container">
-            {results.tabs.find(tab => tab.url === selectedTab).render()}
+            <ErrorBoundary>
+              {tab ? tab.render() : '404 tab not found'}
+            </ErrorBoundary>
           </div>
         );
+      }
     }
   }
   renderLoadingIndicator() {
