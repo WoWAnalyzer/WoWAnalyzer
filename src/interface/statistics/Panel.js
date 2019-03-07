@@ -3,11 +3,14 @@ import PropTypes from 'prop-types';
 
 import InterfacePanel from 'interface/others/Panel';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import ErrorBoundary from 'interface/common/ErrorBoundary';
 
 const Panel = ({ category, position, ...others }) => (
-  <InterfacePanel
-    {...others}
-  />
+  <ErrorBoundary>
+    <InterfacePanel
+      {...others}
+    />
+  </ErrorBoundary>
 );
 Panel.propTypes = {
   children: PropTypes.node.isRequired,
