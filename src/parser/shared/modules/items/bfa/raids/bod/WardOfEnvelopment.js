@@ -61,7 +61,7 @@ class WardOfEnvelopment extends Analyzer {
      * If onRemoveBuff was never triggered, this means you missed the raid with the targeting circle.
      * In order to accurately calculate the average players buffed you need this.
      */
-    if (this.shieldsActive === true) {
+    if (this.shieldsActive) {
       this.shieldedNoOne += 1; 
     }
     this.shieldsActive = true;
@@ -86,7 +86,7 @@ class WardOfEnvelopment extends Analyzer {
 
   // Average amount of damage absorbed on each cast
   get averageAbsorbPerCast() {
-    return this.absorbUsed / this.uses;
+    return (this.absorbUsed / this.uses) || 0;
   }
 
   // Total amount of absorbs put out
@@ -96,17 +96,18 @@ class WardOfEnvelopment extends Analyzer {
 
   // Percentage of absorbs put out that was wasted by expiring
   get wastedPercentage() {
-    return this.absorbWasted / (this.absorbUsed + this.absorbWasted);
+    return (this.absorbWasted / (this.absorbUsed + this.absorbWasted)) || 0;
   }
 
   // Average number of allies hit (max of 5)
   get averageTargetsHit() {
-    return this.targetsHit / this.uses;
+    return (this.targetsHit / this.uses) || 0;
   }
 
   // Extra shield value gained by hitting multiple allies (up to 5, 7.5% for each after base)
   get gainedShieldValue() {
-    return this.targetsHit / (this.uses - this.shieldedNoOne) * 0.075;
+    const effectiveTargetsHit = (this.targetsHit / (this.uses - this.shieldedNoOne)) || 0;
+    return effectiveTargetsHit * 0.075;
   }
 
   item() {
