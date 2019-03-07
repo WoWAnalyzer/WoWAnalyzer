@@ -24,7 +24,7 @@ class Overview extends React.PureComponent {
         </Checklist>
 
         {premium === false && (
-          <div className="text-center" style={{ margin: '40px 0' }}>
+          <div style={{ margin: '40px 0' }}>
             <Ad />
           </div>
         )}

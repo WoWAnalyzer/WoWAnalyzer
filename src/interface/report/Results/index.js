@@ -340,7 +340,7 @@ class Results extends React.PureComponent {
         {this.renderContent(selectedTab, results)}
 
         {premium === false && (
-          <div key={`${selectedTab}-1`} className="container text-center" style={{ marginTop: 40 }}>
+          <div key={`${selectedTab}-1`} className="container" style={{ marginTop: 40 }}>
             <Ad />
           </div>
         )}
@@ -387,7 +387,7 @@ class Results extends React.PureComponent {
         </div>
 
         {premium === false && (
-          <div key={`${selectedTab}-2`} className="container text-center" style={{ marginTop: 40 }}>
+          <div key={`${selectedTab}-2`} className="container" style={{ marginTop: 40 }}>
             <Ad />
           </div>
         )}
