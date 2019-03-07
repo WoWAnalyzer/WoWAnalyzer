@@ -34,6 +34,10 @@ class Ad extends React.PureComponent {
       props.style.background = 'rgba(255, 0, 0, 0.3)';
     }
 
+    if (window.adblocked === undefined) {
+      console.log('Adblock enabled');
+    }
+
     return (
       <ins
         className="adsbygoogle"
