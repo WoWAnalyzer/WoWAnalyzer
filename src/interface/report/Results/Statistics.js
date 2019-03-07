@@ -83,6 +83,7 @@ class Statistics extends React.PureComponent {
 
     return (
       <div className="container">
+        {/* eslint-disable-next-line no-restricted-syntax */}
         {Object.keys(groups).sort((a, b) => categoryByIndex.indexOf(a) - categoryByIndex.indexOf(b)).map(name => {
           const statistics = groups[name];
           return (
