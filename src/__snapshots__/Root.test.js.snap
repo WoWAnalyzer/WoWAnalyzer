@@ -1045,82 +1045,74 @@ exports[`Root matches snapshot 1`] = `
                                               </li>
                                             </ul>
                                           </nav>
-                                          <div
-                                            className="row"
-                                          >
-                                            <div
-                                              className="col-lg-12"
-                                            >
-                                              <ErrorBoundary>
-                                                <Switch>
-                                                  <Route
-                                                    component={[Function]}
-                                                    computedMatch={
-                                                      Object {
-                                                        "isExact": true,
-                                                        "params": Object {},
-                                                        "path": "/",
-                                                        "url": "/",
-                                                      }
-                                                    }
-                                                    exact={true}
-                                                    location={
-                                                      Object {
+                                          <ErrorBoundary>
+                                            <Switch>
+                                              <Route
+                                                component={[Function]}
+                                                computedMatch={
+                                                  Object {
+                                                    "isExact": true,
+                                                    "params": Object {},
+                                                    "path": "/",
+                                                    "url": "/",
+                                                  }
+                                                }
+                                                exact={true}
+                                                location={
+                                                  Object {
+                                                    "hash": "",
+                                                    "pathname": "/",
+                                                    "search": "",
+                                                    "state": undefined,
+                                                  }
+                                                }
+                                                path="/"
+                                              >
+                                                <ComponentLazyLoader
+                                                  history={
+                                                    Object {
+                                                      "action": "POP",
+                                                      "block": [Function],
+                                                      "createHref": [Function],
+                                                      "go": [Function],
+                                                      "goBack": [Function],
+                                                      "goForward": [Function],
+                                                      "length": 1,
+                                                      "listen": [Function],
+                                                      "location": Object {
                                                         "hash": "",
                                                         "pathname": "/",
                                                         "search": "",
                                                         "state": undefined,
-                                                      }
+                                                      },
+                                                      "push": [Function],
+                                                      "replace": [Function],
                                                     }
-                                                    path="/"
-                                                  >
-                                                    <ComponentLazyLoader
-                                                      history={
-                                                        Object {
-                                                          "action": "POP",
-                                                          "block": [Function],
-                                                          "createHref": [Function],
-                                                          "go": [Function],
-                                                          "goBack": [Function],
-                                                          "goForward": [Function],
-                                                          "length": 1,
-                                                          "listen": [Function],
-                                                          "location": Object {
-                                                            "hash": "",
-                                                            "pathname": "/",
-                                                            "search": "",
-                                                            "state": undefined,
-                                                          },
-                                                          "push": [Function],
-                                                          "replace": [Function],
-                                                        }
-                                                      }
-                                                      location={
-                                                        Object {
-                                                          "hash": "",
-                                                          "pathname": "/",
-                                                          "search": "",
-                                                          "state": undefined,
-                                                        }
-                                                      }
-                                                      match={
-                                                        Object {
-                                                          "isExact": true,
-                                                          "params": Object {},
-                                                          "path": "/",
-                                                          "url": "/",
-                                                        }
-                                                      }
-                                                    >
-                                                      <DelayRender
-                                                        delay={1000}
-                                                      />
-                                                    </ComponentLazyLoader>
-                                                  </Route>
-                                                </Switch>
-                                              </ErrorBoundary>
-                                            </div>
-                                          </div>
+                                                  }
+                                                  location={
+                                                    Object {
+                                                      "hash": "",
+                                                      "pathname": "/",
+                                                      "search": "",
+                                                      "state": undefined,
+                                                    }
+                                                  }
+                                                  match={
+                                                    Object {
+                                                      "isExact": true,
+                                                      "params": Object {},
+                                                      "path": "/",
+                                                      "url": "/",
+                                                    }
+                                                  }
+                                                >
+                                                  <DelayRender
+                                                    delay={1000}
+                                                  />
+                                                </ComponentLazyLoader>
+                                              </Route>
+                                            </Switch>
+                                          </ErrorBoundary>
                                         </main>
                                       </div>
                                     </Home>
@@ -1135,11 +1127,9 @@ exports[`Root matches snapshot 1`] = `
                               >
                                 <footer>
                                   <div
-                                    className="container text-center flex wrapable"
+                                    className="container text-center"
                                   >
-                                    <div
-                                      className="flex-main"
-                                    >
+                                    <div>
                                       <a
                                         href="/"
                                       >
