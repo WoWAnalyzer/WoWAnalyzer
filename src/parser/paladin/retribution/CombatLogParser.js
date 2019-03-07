@@ -12,9 +12,13 @@ import ShieldOfVengeance from './modules/core/ShieldOfVengeance';
 
 import DivinePurpose from './modules/talents/DivinePurpose';
 import ArtOfWar from './modules/core/ArtOfWar';
+import BladeofJustice from './modules/core/BladeofJustice';
+import CrusaderStrike from './modules/core/CrusaderStrike';
 import Retribution from './modules/core/Retribution';
 import Crusade from './modules/talents/Crusade';
 import WakeofAshes from './modules/talents/WakeofAshes';
+import Consecration from './modules/talents/Consecration';
+import HammerofWrath from './modules/talents/HammerofWrath';
 import Inquisition from './modules/talents/Inquisition';
 import RighteousVerdict from './modules/talents/RighteousVerdict';
 
@@ -38,6 +42,8 @@ class CombatLogParser extends CoreCombatLogParser {
     buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
     checklist: Checklist,
+    bladeofJustice: BladeofJustice,
+    crusaderStrike: CrusaderStrike,
     judgment: Judgment,
     retribution: Retribution,
     shieldOfVengeance: ShieldOfVengeance,
@@ -46,6 +52,8 @@ class CombatLogParser extends CoreCombatLogParser {
     divinePurpose: DivinePurpose,
     crusade: Crusade,
     wakeofAshes: WakeofAshes,
+    consecration: Consecration,
+    hammerofWrath: HammerofWrath,
     inquisition: Inquisition,
     righteousVerdict: RighteousVerdict,
 
