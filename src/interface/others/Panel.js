@@ -15,7 +15,7 @@ const Heading = ({ title, explanation, actions, backButton }) => {
           </div>
         )}
 
-        <a href={`#${title}`} id={title}>{title}</a>
+        {typeof title === 'string' ? <a href={`#${title}`} id={title}>{title}</a> : title}
       </h1>
       {explanation && <small>{explanation}</small>}
     </>
