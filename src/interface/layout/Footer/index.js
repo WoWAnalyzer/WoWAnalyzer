@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Tooltip, { TooltipElement } from 'common/Tooltip';
@@ -12,6 +13,10 @@ import Ad from 'interface/common/Ad';
 import './style.scss';
 
 class Footer extends React.PureComponent {
+  static propTypes = {
+    premium: PropTypes.bool,
+  };
+
   render() {
     const { premium } = this.props;
 
