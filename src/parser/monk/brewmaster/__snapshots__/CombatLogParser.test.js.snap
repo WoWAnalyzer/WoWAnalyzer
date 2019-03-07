@@ -570,7 +570,12 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
         }
       }
     >
-      Mitigation Values
+      <a
+        href="#Mitigation Values"
+        id="Mitigation Values"
+      >
+        Mitigation Values
+      </a>
     </h1>
     <small>
       Relative value of different stats for mitigation on this specific log measured by 
