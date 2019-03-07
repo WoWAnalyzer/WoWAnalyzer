@@ -79,10 +79,11 @@ class Statistics extends React.PureComponent {
     }, {});
     const panels = groups[STATISTIC_CATEGORY.PANELS];
     delete groups[STATISTIC_CATEGORY.PANELS];
+    const categoryByIndex = Object.values(STATISTIC_CATEGORY); // objects have a guaranteed order
 
     return (
       <div className="container">
-        {Object.keys(groups).map(name => {
+        {Object.keys(groups).sort((a, b) => categoryByIndex.indexOf(a) - categoryByIndex.indexOf(b)).map(name => {
           const statistics = groups[name];
           return (
             <React.Fragment key={name}>
