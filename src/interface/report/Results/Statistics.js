@@ -2,11 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Masonry from 'react-masonry-component';
 import Toggle from 'react-toggle';
+import { connect } from 'react-redux';
 import { t, Trans } from '@lingui/macro';
 
 import { TooltipElement } from 'common/Tooltip';
 import { i18n } from 'interface/RootLocalizationProvider';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import { hasPremium } from 'interface/selectors/user';
+import Ad from 'interface/common/Ad';
 
 import StatisticsSectionTitle from './StatisticsSectionTitle';
 
@@ -25,6 +28,7 @@ class Statistics extends React.PureComponent {
   static propTypes = {
     parser: PropTypes.object.isRequired,
     children: PropTypes.arrayOf(PropTypes.node).isRequired,
+    premium: PropTypes.bool,
   };
   state = {
     // TODO: Implement
@@ -65,7 +69,7 @@ class Statistics extends React.PureComponent {
     }
   }
   render() {
-    const { parser, children } = this.props;
+    const { parser, children, premium } = this.props;
 
     const groups = children.reduce((obj, statistic) => {
       const category = statistic.props.category || STATISTIC_CATEGORY.GENERAL;
@@ -94,15 +98,27 @@ class Statistics extends React.PureComponent {
                 {/* And we need this second div to use the rest of the space so masonry layouts the first item first */}
                 <div className="col-lg-9 col-md-8 col-sm-6 hidden-xs" />
                 {statistics.sort(this.sortByPosition)}
+
+                {name === STATISTIC_CATEGORY.GENERAL && premium === false && (
+                  <div className="col-md-6 hidden-xs">
+                    <Ad data-ad-format="rectangle" />
+                  </div>
+                )}
               </Masonry>
             </React.Fragment>
           );
         })}
 
         {panels.length > 0 && (
-          <StatisticsSectionTitle>
-            Details
-          </StatisticsSectionTitle>
+          <>
+            {premium === false && (
+              <Ad />
+            )}
+
+            <StatisticsSectionTitle>
+              Details
+            </StatisticsSectionTitle>
+          </>
         )}
 
         {panels && panels.sort(this.sortByPosition)}
@@ -111,4 +127,8 @@ class Statistics extends React.PureComponent {
   }
 }
 
-export default Statistics;
+const mapStateToProps = state => ({
+  premium: hasPremium(state),
+});
+
+export default connect(mapStateToProps)(Statistics);

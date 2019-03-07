@@ -144,7 +144,7 @@ class Results extends React.PureComponent {
   }
 
   renderContent(selectedTab, results) {
-    const { parser } = this.props;
+    const { parser, premium } = this.props;
 
     switch (selectedTab) {
       case CORE_TABS.OVERVIEW: {
@@ -194,6 +194,13 @@ class Results extends React.PureComponent {
               statTracker={statTracker}
               combatant={parser.selectedCombatant}
             />
+
+            {premium === false && (
+              <div style={{ margin: '40px 0' }}>
+                <Ad />
+              </div>
+            )}
+
             <EncounterStats
               currentBoss={parser.fight.boss}
               difficulty={parser.fight.difficulty}
@@ -208,6 +215,13 @@ class Results extends React.PureComponent {
         return (
           <div className="container">
             <About config={config} />
+
+            {premium === false && (
+              <div style={{ margin: '40px 0' }}>
+                <Ad />
+              </div>
+            )}
+
             <ChangelogTab />
           </div>
         );
