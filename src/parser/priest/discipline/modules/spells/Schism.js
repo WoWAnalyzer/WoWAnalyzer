@@ -3,7 +3,6 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { TooltipElement } from 'common/Tooltip';
 import { formatNumber, formatPercentage } from 'common/format';
 import DualStatisticBox, { STATISTIC_ORDER } from 'interface/others/DualStatisticBox';
 import Analyzer from 'parser/core/Analyzer';
@@ -178,17 +177,16 @@ class Schism extends Analyzer {
           `${formatNumber(((this.directDamage + this.damageFromBuff) / this.owner.fightDuration) * 1000)} DPS`,
         ]}
         footer={(
-          <TooltipElement
-            content={(
-              <>
-                The effective healing contributed by Schism was {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))}% of total healing done.<br />
-                The direct damage contributed by the Schism talent was {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.directDamage))}% of total damage done.<br />
-                The effective damage contributed by the Schism bonus was {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damageFromBuff))}% of total damage done. <br />
-              </>
-            )}
-          >
-            Schism Output Details
-          </TooltipElement>
+          <>
+            <SpellLink id={SPELLS.SCHISM_TALENT.id} /> throughput
+          </>
+        )}
+        tooltip={(
+          <>
+            The effective healing contributed by Schism was {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))}% of total healing done.<br />
+            The direct damage contributed by the Schism talent was {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.directDamage))}% of total damage done.<br />
+            The effective damage contributed by the Schism bonus was {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damageFromBuff))}% of total damage done. <br />
+          </>
         )}
       />
     );

@@ -1,24 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Statistic from 'interface/statistics/Statistic';
+
 import STATISTIC_CATEGORY from './STATISTIC_CATEGORY';
 
 export { default as STATISTIC_ORDER } from './STATISTIC_ORDER';
 export { default as STATISTIC_CATEGORY } from './STATISTIC_CATEGORY';
 
+/**
+ * @deprecated Use `interface/statistics/*` instead (add a component to display dual spell values and use that instead).
+ */
 const DualStatisticBox = ({
   icon,
   values,
-  tooltip,
   footer,
   alignIcon,
+  ...others
 }) => (
-  <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-    <div className="panel statistic">
-      <div className="panel-body flex">
+  <Statistic {...others}>
+    <div className="pad">
+      <small>{footer}</small>
+
+      <div className="flex" style={{ marginTop: 15 }}>
         <div
           className="flex-sub"
-          style={{ display: 'flex', alignItems: alignIcon }}
+          style={{ display: 'flex', alignItems: alignIcon, minWidth: 30 }}
         >
           {icon}
         </div>
@@ -29,15 +36,13 @@ const DualStatisticBox = ({
             </div>
           ))}
         </div>
-      </div>
-      {footer && <div className="panel-footer">{footer}</div>}
+        </div>
     </div>
-  </div>
+  </Statistic>
 );
 DualStatisticBox.propTypes = {
   icon: PropTypes.node.isRequired,
   values: PropTypes.node.isRequired,
-  tooltip: PropTypes.string,
   alignIcon: PropTypes.string,
   footer: PropTypes.node,
 };
