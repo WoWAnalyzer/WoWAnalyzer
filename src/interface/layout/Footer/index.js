@@ -22,8 +22,8 @@ class Footer extends React.PureComponent {
 
     return (
       <footer>
-        <div className="container text-center flex wrapable">
-          <div className="flex-main">
+        <div className="container text-center">
+          <div>
             <a href="/">
               <img src={Logo} alt="Logo" className="wowanalyzer-logo" />
             </a>
@@ -88,8 +88,8 @@ class Footer extends React.PureComponent {
             </div>
           </div>
           {premium === false && (
-            <div className="flex-sub" style={{ width: '50%' }}>
-              <Ad style={{ height: '100%' }} />
+            <div>
+              <Ad data-ad-format="rectangle" />
             </div>
           )}
         </div>
