@@ -34,8 +34,9 @@ class GushingLacerations extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    if (!this.selectedCombatant.hasTrait(SPELLS.GUSHING_LACERATIONS_TRAIT.id)) {
-      this.active = false;
+
+    this.active = this.selectedCombatant.hasTrait(SPELLS.GUSHING_LACERATIONS_TRAIT.id);
+    if (!this.active) {
       return;
     }
 
@@ -71,6 +72,10 @@ class GushingLacerations extends Analyzer {
     debug && this.log(`Rip tick with extra ${damageContribution.toFixed(0)} damage`);
   }
 
+  get effectiveComboPointsPerMinute() {
+    return (this.comboProcs - this.wastedCombo) / (this.owner.fightDuration / 1000 / 60);
+  }
+
   statistic() {
     return (
       <TraitStatisticBox
@@ -79,7 +84,7 @@ class GushingLacerations extends Analyzer {
         value={(
           <>
             <ItemDamageDone amount={this.totalDamage} /><br />
-            {((this.comboProcs - this.wastedCombo) / (this.owner.fightDuration / 1000 / 60)).toFixed(1)} combo points per minute
+            {this.effectiveComboPointsPerMinute.toFixed(1)} combo points per minute
           </>
         )}
         tooltip={
