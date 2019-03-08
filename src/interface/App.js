@@ -53,15 +53,24 @@ class App extends React.Component {
 
     TooltipProvider.load();
     if (process.env.REACT_APP_FORCE_PREMIUM !== 'true') {
-      // If Premium is forced (development environments), fetching the user would probably fail too
-      props.fetchUser().then(user => {
-        if (user === false || (user && !user.premium)) {
-          (window.adsbygoogle = window.adsbygoogle || []).push({
-            google_ad_client: "ca-pub-8048055232081854",
-            enable_page_level_ads: true,
-          });
-        }
-      });
+      const initializeAds = () => {
+        (window.adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-8048055232081854",
+          enable_page_level_ads: true,
+        });
+      };
+
+      if (process.env.REACT_APP_FORCE_PREMIUM === 'false') {
+        // Force no premium, so skip user request (this is essential in development mode)
+        initializeAds();
+      } else {
+        // If Premium is forced (development environments), fetching the user would probably fail too
+        props.fetchUser().then(user => {
+          if (user === false || (user && !user.premium)) {
+            initializeAds();
+          }
+        });
+      }
     }
   }
 

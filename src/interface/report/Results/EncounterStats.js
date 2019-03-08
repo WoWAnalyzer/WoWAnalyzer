@@ -295,9 +295,8 @@ class EncounterStats extends React.PureComponent {
     this.amountOfParses = Object.values(this.state.mostUsedTalents[LEVEL_15_TALENT_ROW_INDEX]).reduce((total, parses) => total + parses, 0);
     return (
       <>
-        <div className="panel-heading" style={{ padding: 20, marginBottom: '2em' }}>
-          <h2>Statistics for this fight using the top {this.amountOfParses} logs, ranked by {this.metric.toLocaleUpperCase()}</h2>
-        </div>
+        <h1>Statistics for this fight using the top {this.amountOfParses} logs, ranked by {this.metric.toLocaleUpperCase()}</h1>
+
         <div className="row">
           <div className="col-md-12" style={{ padding: '0 30px' }}>
             <div className="row">

@@ -14,7 +14,7 @@ import AboutIcon from 'interface/icons/About';
 
 import './Header.scss';
 
-class Headers extends React.PureComponent {
+class Header extends React.PureComponent {
   static propTypes = {
     config: PropTypes.shape({
       spec: PropTypes.shape({
@@ -119,7 +119,7 @@ class Headers extends React.PureComponent {
             {getDifficulty(fight)}
           </h2>
           <h1>
-            {boss.name || getBossName(fight, false)}
+            {boss ? boss.name : getBossName(fight, false)}
           </h1>
         </div>
         <div className="player">
@@ -170,4 +170,4 @@ class Headers extends React.PureComponent {
   }
 }
 
-export default Headers;
+export default Header;

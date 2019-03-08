@@ -23,6 +23,7 @@ import { i18n } from 'interface/RootLocalizationProvider';
 import LoadingBar from 'interface/layout/NavigationBar/LoadingBar';
 import Panel from 'interface/others/Panel';
 import ChangelogTab from 'interface/others/ChangelogTab';
+import ErrorBoundary from 'interface/common/ErrorBoundary';
 import Checklist from 'parser/shared/modules/features/Checklist/Module';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
@@ -69,9 +70,9 @@ class Results extends React.PureComponent {
     }).isRequired,
     isLoadingParser: PropTypes.bool,
     isLoadingEvents: PropTypes.bool,
-    bossPhaseEventsLoadingState: PropTypes.oneOf(BOSS_PHASES_STATE),
+    bossPhaseEventsLoadingState: PropTypes.oneOf(Object.values(BOSS_PHASES_STATE)),
     isLoadingCharacterProfile: PropTypes.bool,
-    parsingState: PropTypes.oneOf(EVENT_PARSING_STATE),
+    parsingState: PropTypes.oneOf(Object.values(EVENT_PARSING_STATE)),
     progress: PropTypes.number,
     premium: PropTypes.bool,
     appendReportHistory: PropTypes.func.isRequired,
@@ -144,7 +145,7 @@ class Results extends React.PureComponent {
   }
 
   renderContent(selectedTab, results) {
-    const { parser } = this.props;
+    const { parser, premium } = this.props;
 
     switch (selectedTab) {
       case CORE_TABS.OVERVIEW: {
@@ -194,6 +195,13 @@ class Results extends React.PureComponent {
               statTracker={statTracker}
               combatant={parser.selectedCombatant}
             />
+
+            {premium === false && (
+              <div style={{ margin: '40px 0' }}>
+                <Ad />
+              </div>
+            )}
+
             <EncounterStats
               currentBoss={parser.fight.boss}
               difficulty={parser.fight.difficulty}
@@ -208,19 +216,32 @@ class Results extends React.PureComponent {
         return (
           <div className="container">
             <About config={config} />
+
+            {premium === false && (
+              <div style={{ margin: '40px 0' }}>
+                <Ad />
+              </div>
+            )}
+
             <ChangelogTab />
           </div>
         );
       }
-      default:
+      default: {
         if (this.isLoading) {
           return this.renderLoadingIndicator();
         }
+
+        const tab = results.tabs.find(tab => tab.url === selectedTab);
+
         return (
           <div className="container">
-            {results.tabs.find(tab => tab.url === selectedTab).render()}
+            <ErrorBoundary>
+              {tab ? tab.render() : '404 tab not found'}
+            </ErrorBoundary>
           </div>
         );
+      }
     }
   }
   renderLoadingIndicator() {
@@ -319,7 +340,7 @@ class Results extends React.PureComponent {
         {this.renderContent(selectedTab, results)}
 
         {premium === false && (
-          <div className="container text-center" style={{ marginTop: 40 }}>
+          <div key={`${selectedTab}-1`} className="container" style={{ marginTop: 40 }}>
             <Ad />
           </div>
         )}
@@ -364,6 +385,12 @@ class Results extends React.PureComponent {
             </div>
           </div>
         </div>
+
+        {premium === false && (
+          <div key={`${selectedTab}-2`} className="container" style={{ marginTop: 40 }}>
+            <Ad />
+          </div>
+        )}
       </div>
     );
   }

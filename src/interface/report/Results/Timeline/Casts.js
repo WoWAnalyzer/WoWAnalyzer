@@ -121,10 +121,11 @@ class Casts extends React.PureComponent {
   }
   renderBeginChannel(event) {
     let className = '';
+    let castReason;
     if (event.isCancelled) {
       className += ' cancelled';
+      castReason = 'Cast never finished.';
     }
-    let castReason;
     // If the beginchannel has a meta prop use that.
     // If it doesn't, look inside the trigger (which should be a begincast).
     // If the trigger doesn't have a meta prop, and it's a begincast event, use the cast event's instead. We need to do this since often we can only determine if something was a bad cast on cast finish, e.g. if a player should only cast something while a buff is up on finish.

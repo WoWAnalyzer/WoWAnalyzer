@@ -338,7 +338,12 @@ exports[`Holy Paladin integration test analyzers BeaconHealingDone matches the s
         }
       }
     >
-      Beacon healing sources
+      <a
+        href="#Beacon healing sources"
+        id="Beacon healing sources"
+      >
+        Beacon healing sources
+      </a>
     </h1>
     <small>
       Beacon healing is triggered by the 
@@ -2281,7 +2286,12 @@ exports[`Holy Paladin integration test analyzers ManaLevelChart matches the stat
         }
       }
     >
-      Mana pool
+      <a
+        href="#Mana pool"
+        id="Mana pool"
+      >
+        Mana pool
+      </a>
     </h1>
     <small>
       As a rule of thumb aim to burn mana about as quickly as the boss is losing health. Some fights require specific mana management though.
@@ -2313,7 +2323,12 @@ exports[`Holy Paladin integration test analyzers ManaUsageChart matches the stat
         }
       }
     >
-      Mana usage
+      <a
+        href="#Mana usage"
+        id="Mana usage"
+      >
+        Mana usage
+      </a>
     </h1>
     <small>
       This shows you your mana usage in correlation with your throughput. Big spikes in mana usage without increases in throughput may indicate poor mana usage. The scale for both mana lines is 0-100% where 100% is aligned with the max HPS throughput.
@@ -2534,7 +2549,12 @@ Array [
           }
         }
       >
-        Mastery effectiveness breakdown
+        <a
+          href="#Mastery effectiveness breakdown"
+          id="Mastery effectiveness breakdown"
+        >
+          Mastery effectiveness breakdown
+        </a>
       </h1>
       <small>
         This shows you your mastery effectiveness on each individual player and the amount of healing done to those players.

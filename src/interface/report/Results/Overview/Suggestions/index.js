@@ -23,7 +23,7 @@ class Suggestions extends React.PureComponent {
   }
 
   render() {
-    const { children } = this.props;
+    const { children, ...others } = this.props;
 
     return (
       <Panel
@@ -43,6 +43,7 @@ class Suggestions extends React.PureComponent {
           </div>
         )}
         pad={false}
+        {...others}
       >
         <ul className="list issues">
           {!children.find(issue => issue.importance === ISSUE_IMPORTANCE.MAJOR) && (

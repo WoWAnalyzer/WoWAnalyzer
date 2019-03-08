@@ -1,11 +1,12 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
-import { TooltipElement } from 'common/Tooltip';
 import Analyzer from 'parser/core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 import EventGrouper from 'parser/core/EventGrouper';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import SpellLink from 'common/SpellLink';
 
 const PENANCE_MINIMUM_RECAST_TIME = 3500; // Minimum duration from one Penance to Another
 
@@ -65,18 +66,27 @@ class Penance extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.PENANCE.id} />}
-        value={this.missedBolts}
-        label={(
-          <TooltipElement content={`Each Penance cast has 3 bolts (4 if you're using Castigation). You should try to let this channel finish as much as possible. You channeled Penance ${this.casts} times.`}>
-            Wasted Penance bolts
-          </TooltipElement>
+      <Statistic
+        position={STATISTIC_ORDER.CORE(13)}
+        size="small"
+        tooltip={(
+          <>
+            Each <SpellLink id={SPELLS.PENANCE.id} /> cast has 3 bolts (4 if you're using <SpellLink id={SPELLS.CASTIGATION_TALENT.id} />). You should try to let this channel finish as much as possible. You channeled Penance {this.casts} times.
+          </>
         )}
-      />
+      >
+        <BoringSpellValue
+          spell={SPELLS.PENANCE}
+          value={this.missedBolts}
+          label={(
+            <>
+              Wasted <SpellLink id={SPELLS.PENANCE.id} /> bolts
+            </>
+          )}
+        />
+      </Statistic>
     );
   }
-  statisticOrder = STATISTIC_ORDER.OPTIONAL();
 }
 
 export default Penance;

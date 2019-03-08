@@ -114,7 +114,7 @@ class PlayerLoader extends React.PureComponent {
       if (this.props.report !== report || this.props.fight !== fight) {
         return; // the user switched report/fight already
       }
-      super.setState({
+      this.setState({
         ...defaultState,
         combatants,
         combatantsFightId: fight.id,
@@ -126,7 +126,7 @@ class PlayerLoader extends React.PureComponent {
       if (!isCommonError) {
         captureException(error);
       }
-      super.setState({
+      this.setState({
         ...defaultState,
         error,
       });
@@ -140,7 +140,7 @@ class PlayerLoader extends React.PureComponent {
 
   renderError(error) {
     return handleApiError(error, () => {
-      super.setState(defaultState);
+      this.setState(defaultState);
       // We need to set the combatants in the global state so the NavigationBar, which is not a child of this component, can also use it
       this.props.setCombatants(null);
       this.props.history.push(makeAnalyzerUrl());

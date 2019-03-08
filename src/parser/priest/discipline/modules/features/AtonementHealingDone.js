@@ -1,8 +1,8 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-
-import Panel from 'interface/others/Panel';
+import SpellLink from 'common/SpellLink';
+import Panel from 'interface/statistics/Panel';
 import Analyzer from 'parser/core/Analyzer';
 import HealingValue from 'parser/shared/modules/HealingValue';
 
@@ -73,16 +73,21 @@ class AtonementHealingDone extends Analyzer {
     }
   }
 
-  tab() {
-    return {
-      title: 'Atonement sources',
-      url: 'atonement-sources',
-      render: () => (
-        <Panel>
-          <AtonementHealingBreakdown analyzer={this} />
-        </Panel>
-      ),
-    };
+  statistic() {
+    return (
+      <Panel
+        title="Atonement sources"
+        explanation={(
+          <>
+            This shows a breakdown of the damage that caused <SpellLink id={SPELLS.ATONEMENT_BUFF.id} /> healing.
+          </>
+        )}
+        position={90}
+        pad={false}
+      >
+        <AtonementHealingBreakdown analyzer={this} />
+      </Panel>
+    );
   }
 }
 

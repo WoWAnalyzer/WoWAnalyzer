@@ -52,7 +52,7 @@ class Buffs extends CoreBuffs {
       // Utility
       {
         spellId: [SPELLS.DIVINE_STEED_BUFF.id, SPELLS.DIVINE_STEED_BUFF_ALT.id, SPELLS.DIVINE_STEED_BUFF_ALT_2.id, SPELLS.DIVINE_STEED_BUFF_ALT_3.id],
-        triggeredBySpellId: SPELLS.DIVINE_STEED,
+        triggeredBySpellId: SPELLS.DIVINE_STEED.id,
       },
       {
         spellId: SPELLS.DIVINE_SHIELD.id,

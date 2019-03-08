@@ -60,6 +60,10 @@
   .panel-body.pad:last-of-type > ul {
     margin-bottom: 30px;
   }
+
+  .panel-footer {
+    background: transparent;
+  }
 }
 .panel-cell:not(:first-child) {
   margin-top: 4px;

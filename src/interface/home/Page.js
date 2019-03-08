@@ -15,6 +15,7 @@ import GitHubIcon from 'interface/icons/GitHubMarkLarge';
 import DiscordIcon from 'interface/icons/DiscordTiny';
 import { hasPremium } from 'interface/selectors/user';
 import ErrorBoundary from 'interface/common/ErrorBoundary';
+import Ad from 'interface/common/Ad';
 
 import './Home.scss';
 import ReportSelectionHeader from './ReportSelectionHeader';
@@ -33,6 +34,7 @@ class Home extends React.PureComponent {
     location: PropTypes.shape({
       pathname: PropTypes.string.isRequired,
     }).isRequired,
+    premium: PropTypes.bool,
   };
   static defaultProps = {
     premium: false,
@@ -79,7 +81,7 @@ class Home extends React.PureComponent {
   }
 
   render() {
-    const { location } = this.props;
+    const { location, premium } = this.props;
 
     const url = location.pathname === '/' ? 'news' : location.pathname.replace(/^\/|\/$/g, '');
 
@@ -88,6 +90,12 @@ class Home extends React.PureComponent {
         <ReportSelectionHeader />
 
         <main className="container">
+          {premium === false && (
+            <div style={{ marginTop: 40 }}>
+              <Ad key={url} />
+            </div>
+          )}
+
           <nav>
             <ul>
               {this.pages.map(page => {
@@ -113,56 +121,58 @@ class Home extends React.PureComponent {
             </ul>
           </nav>
 
-          <div className="row">
-            <div className="col-lg-12">
-              <ErrorBoundary>
-                <Switch>
-                  <Route
-                    path="/"
-                    exact
-                    component={News}
+          <ErrorBoundary>
+            <Switch>
+              <Route
+                path="/"
+                exact
+                component={News}
+              />
+              <Route
+                path="/news"
+                component={News}
+              />
+              <Route
+                path="/news/:articleId"
+                render={({ match }) => (
+                  <NewsPage
+                    articleId={decodeURI(match.params.articleId.replace(/\+/g, ' '))}
                   />
-                  <Route
-                    path="/news"
-                    component={News}
+                )}
+              />
+              <Route
+                path="/specs"
+                component={SpecListing}
+              />
+              <Route
+                path="/premium"
+                component={Premium}
+              />
+              <Route
+                path="/about"
+                component={About}
+              />
+              <Route
+                path="/help-wanted"
+                component={HelpWanted}
+              />
+              <Route
+                path="/contributor/:id"
+                render={({ match }) => (
+                  <ContributorPage
+                    contributorId={decodeURI(match.params.id.replace(/\+/g, ' '))}
                   />
-                  <Route
-                    path="/news/:articleId"
-                    render={({ match }) => (
-                      <NewsPage
-                        articleId={decodeURI(match.params.articleId.replace(/\+/g, ' '))}
-                      />
-                    )}
-                  />
-                  <Route
-                    path="/specs"
-                    component={SpecListing}
-                  />
-                  <Route
-                    path="/premium"
-                    component={Premium}
-                  />
-                  <Route
-                    path="/about"
-                    component={About}
-                  />
-                  <Route
-                    path="/help-wanted"
-                    component={HelpWanted}
-                  />
-                  <Route
-                    path="/contributor/:id"
-                    render={({ match }) => (
-                      <ContributorPage
-                        contributorId={decodeURI(match.params.id.replace(/\+/g, ' '))}
-                      />
-                    )}
-                  />
-                  <Route component={NotFound} />
-                </Switch>
-              </ErrorBoundary>
+                )}
+              />
+              <Route component={NotFound} />
+            </Switch>
+          </ErrorBoundary>
+
+          {premium === false && (
+            <div style={{ marginTop: 40 }}>
+              <Ad key={url} />
             </div>
-          </div>
+          )}
         </main>
       </div>
     );
