@@ -1,8 +1,4 @@
-//Shneeki's work in progress (aka Playground) please don't publish this if I mistakenly PR on it with this line here!
-
-//Below is taken from HawkCorrigans lavashock.js file as he explains it's similar as a flat damage boosting trait so we should be able to grab most of the basics from here
-
-//This section looks the Outlaw Azerite trait 'Deadshot' which gives a flat damage buff to pistol shot after 'Between the Eyes' has been used.  
+//This module looks the Outlaw Azerite trait 'Deadshot' which gives a flat damage buff to pistol shot after 'Between the Eyes' has been used.  
 //This trait has a 100% chance on cast to provide the damage buff.
 
 import React from 'react';
@@ -15,7 +11,7 @@ import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
-const ES_AP_COEFFICIENT = 2.1;  //ES_AP_COEFFICIENT (?)** Need to find An AP coefficient to use.  ?Ravenholdt
+const ES_AP_COEFFICIENT = 0.35135;  //Coefficient is taken from Pistolshot AP coefficient 
 
 class Deadshot extends Analyzer {  
   static dependencies = {
@@ -55,7 +51,7 @@ class Deadshot extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.DEADSHOT.id} 
         value={<ItemDamageDone amount={this.damageGained} />}
-        tooltip={`Deadshot trait added ${formatNumber(this.damageGained)} damage with ${formatNumber(this.procs)} procs.`} 
+        tooltip={`Deadshot did ${formatNumber(this.damageGained)} damage with ${formatNumber(this.procs)} procs.`} 
       />
     );
   }
