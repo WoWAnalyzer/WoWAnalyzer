@@ -88,8 +88,6 @@ class DeathTracker extends Analyzer {
     const isWipe = !fight.kill;
     const isWipeDeath = isWipe && this.totalTimeDead < WIPE_MAX_DEAD_TIME;
 
-    console.log(`THIS.OWNER IS: ${JSON.stringify(this.owner.fight)}`);
-//  report: this.owner.report , fightId: fight.id, playerId: this.owner.player.id , tab: 
     if (!disableDeathSuggestion && !isWipeDeath) {
       when(this.timeDeadPercent).isGreaterThan(0)
         .addSuggestion((suggest, actual, recommended) => {
