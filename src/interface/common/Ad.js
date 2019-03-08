@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
-class Ad extends React.PureComponent {
+class Ad extends React.Component { // can't be a PureComponent as react-router-dom mutates objects
   static propTypes = {
     style: PropTypes.object,
     location: PropTypes.shape({
