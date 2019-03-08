@@ -42,6 +42,7 @@ import WildFleshrending from './modules/azeritetraits/WildFleshrending';
 import UntamedFerocity from './modules/azeritetraits/UntamedFerocity';
 import JungleFury from './modules/azeritetraits/JungleFury';
 import IronJaws from './modules/azeritetraits/IronJaws';
+import GushingLacerations from './modules/azeritetraits/GushingLacerations';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -95,6 +96,7 @@ class CombatLogParser extends CoreCombatLogParser {
     untamedFerocity: UntamedFerocity,
     jungleFury: JungleFury,
     ironJaws: IronJaws,
+    gushingLacerations: GushingLacerations,
   };
 }
 

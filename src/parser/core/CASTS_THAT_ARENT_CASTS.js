@@ -15,6 +15,7 @@ export default [
   SPELLS.DEFILED_AUGMENT_RUNE.id,
   SPELLS.UMBRAL_GLAIVE_STORM_TICK.id, // ticks of the Umbral Moonglaives trinket proc a cast event
   SPELLS.PRIMAL_FURY.id, // Feral Druid "extra CP on crit" proc causes a cast event
+  SPELLS.GUSHING_LACERATIONS_PROC.id, // Feral Druid azerite trait causes a cast event when it procs a combo point
   SPELLS.BARBED_SHOT_PET_BUFF.id, //The buff applied to BM Hunter pet when casting Barbed Shot
   SPELLS.BLOW_DARKMOON_WHISTLE.id, //Darkmoon Whistle active that some people macro into abilities
   SPELLS.DARKMOON_FIREWORK.id, //Darkmoon Firework toy

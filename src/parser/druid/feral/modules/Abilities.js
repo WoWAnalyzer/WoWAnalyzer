@@ -31,6 +31,7 @@ class Abilities extends CoreAbilities {
           static: 1000,
         },
         timelineSortIndex: 5,
+        primaryCoefficient: 0.125, // damage per tick
       },
       {
         spell: SPELLS.FEROCIOUS_BITE,

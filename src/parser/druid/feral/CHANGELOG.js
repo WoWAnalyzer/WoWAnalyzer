@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-03-06'),
+    changes: <>Added tracking of <SpellLink id={SPELLS.GUSHING_LACERATIONS_TRAIT.id} />.</>,
+    contributors: [Anatta336],
+  },
+  {
     date: new Date('2019-02-26'),
     changes: <>Added tracking of <SpellLink id={SPELLS.IRON_JAWS_TRAIT.id} />.</>,
     contributors: [Anatta336],
