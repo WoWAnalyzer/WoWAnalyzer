@@ -92,7 +92,7 @@ class Home extends React.PureComponent {
         <main className="container">
           {premium === false && (
             <div style={{ marginTop: 40 }}>
-              <Ad key={url} />
+              <Ad />
             </div>
           )}
 
@@ -170,7 +170,7 @@ class Home extends React.PureComponent {
 
           {premium === false && (
             <div style={{ marginTop: 40 }}>
-              <Ad key={url} />
+              <Ad />
             </div>
           )}
         </main>

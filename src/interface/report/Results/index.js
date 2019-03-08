@@ -37,18 +37,10 @@ import EncounterStats from './EncounterStats';
 import EVENT_PARSING_STATE from '../EVENT_PARSING_STATE';
 import BOSS_PHASES_STATE from '../BOSS_PHASES_STATE';
 import ScrollToTop from './ScrollToTop';
+import TABS from './TABS';
 
 const TimelineTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'TimelineTab' */ './Timeline/Container').then(exports => exports.default)), 0);
 const EventsTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'EventsTab' */ 'interface/others/EventsTab').then(exports => exports.default)));
-
-const CORE_TABS = {
-  OVERVIEW: 'overview',
-  STATISTICS: 'statistics',
-  TIMELINE: 'timeline',
-  CHARACTER: 'character',
-  EVENTS: 'events',
-  ABOUT: 'about',
-};
 
 class Results extends React.PureComponent {
   static propTypes = {
@@ -148,7 +140,7 @@ class Results extends React.PureComponent {
     const { parser, premium } = this.props;
 
     switch (selectedTab) {
-      case CORE_TABS.OVERVIEW: {
+      case TABS.OVERVIEW: {
         if (this.isLoading) {
           return this.renderLoadingIndicator();
         }
@@ -160,21 +152,21 @@ class Results extends React.PureComponent {
           />
         );
       }
-      case CORE_TABS.STATISTICS:
+      case TABS.STATISTICS:
         if (this.isLoading) {
           return this.renderLoadingIndicator();
         }
         return (
           <Statistics parser={parser}>{results.statistics}</Statistics>
         );
-      case CORE_TABS.TIMELINE:
+      case TABS.TIMELINE:
         if (this.isLoading) {
           return this.renderLoadingIndicator();
         }
         return (
           <TimelineTab parser={parser} />
         );
-      case CORE_TABS.EVENTS:
+      case TABS.EVENTS:
         if (this.isLoading) {
           return this.renderLoadingIndicator();
         }
@@ -183,7 +175,7 @@ class Results extends React.PureComponent {
             <EventsTab parser={parser} />
           </div>
         );
-      case CORE_TABS.CHARACTER: {
+      case TABS.CHARACTER: {
         if (this.isLoading) {
           return this.renderLoadingIndicator();
         }
@@ -211,7 +203,7 @@ class Results extends React.PureComponent {
           </div>
         );
       }
-      case CORE_TABS.ABOUT: {
+      case TABS.ABOUT: {
         const config = this.context.config;
         return (
           <div className="container">
@@ -340,7 +332,7 @@ class Results extends React.PureComponent {
         {this.renderContent(selectedTab, results)}
 
         {premium === false && (
-          <div key={`${selectedTab}-1`} className="container" style={{ marginTop: 40 }}>
+          <div className="container" style={{ marginTop: 40 }}>
             <Ad />
           </div>
         )}
@@ -387,7 +379,7 @@ class Results extends React.PureComponent {
         </div>
 
         {premium === false && (
-          <div key={`${selectedTab}-2`} className="container" style={{ marginTop: 40 }}>
+          <div className="container" style={{ marginTop: 40 }}>
             <Ad />
           </div>
         )}
@@ -397,7 +389,7 @@ class Results extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-  selectedTab: getResultTab(state) || CORE_TABS.OVERVIEW,
+  selectedTab: getResultTab(state),
   premium: hasPremium(state),
 });
 
