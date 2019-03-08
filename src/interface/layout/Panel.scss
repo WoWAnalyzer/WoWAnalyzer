@@ -56,6 +56,9 @@
       //  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
       //}
     }
+    img {
+      max-width: 100%;
+    }
   }
   .panel-body.pad:last-of-type > ul {
     margin-bottom: 30px;
