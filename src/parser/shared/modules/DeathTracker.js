@@ -1,5 +1,8 @@
+import React from 'react';
+import {Link} from 'react-router-dom';
 import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
+import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 
 const WIPE_MAX_DEAD_TIME = 15 * 1000; // 15sec
 
@@ -79,16 +82,20 @@ class DeathTracker extends Analyzer {
   suggestions(when) {
     const boss = this.owner.boss;
     const fight = this.owner.fight;
+    const player = this.owner.player;
+    const report = this.owner.report;
     const disableDeathSuggestion = boss && boss.fight.disableDeathSuggestion;
     const isWipe = !fight.kill;
     const isWipeDeath = isWipe && this.totalTimeDead < WIPE_MAX_DEAD_TIME;
 
+    console.log(`THIS.OWNER IS: ${JSON.stringify(this.owner.fight)}`);
+//  report: this.owner.report , fightId: fight.id, playerId: this.owner.player.id , tab: 
     if (!disableDeathSuggestion && !isWipeDeath) {
       when(this.timeDeadPercent).isGreaterThan(0)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(`
-            You died during this fight and were dead for ${formatPercentage(actual)}% of the fight duration (${formatNumber(this.totalTimeDead / 1000)} seconds). Dying has a significant performance cost. View the death recap below to see the damage taken and what defensives and potions were still available.
-          `)
+          return suggest(<>
+            You died during this fight and were dead for {formatPercentage(actual)}% of the fight duration ({formatNumber(this.totalTimeDead / 1000)} seconds). Dying has a significant performance cost. View the <Link to={makeAnalyzerUrl(report, fight.id, player.id, 'death-recap')}>Death Recap</Link> to see the damage taken and what defensives and potions were still available.
+          </>)
             .icon('ability_fiegndead')
             .actual(`You were dead for ${formatPercentage(actual)}% of the fight`)
             .recommended('0% is recommended')
