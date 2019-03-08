@@ -11,7 +11,7 @@ import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
-const ES_AP_COEFFICIENT = 0.35135;  //Coefficient is taken from Pistolshot AP coefficient 
+const ES_AP_COEFFICIENT = 0.35135; //Coefficient is taken from Pistolshot AP coefficient 
 
 class Deadshot extends Analyzer {  
   static dependencies = {
