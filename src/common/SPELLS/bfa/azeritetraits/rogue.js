@@ -15,6 +15,11 @@ export default {
     name: 'Deadshot',
     icon: 'ability_rogue_pistolshot',
   },
+  DEADSHOT_BUFF: {
+    id: 272940,
+    name: 'Deadshot',
+    icon: 'ability_rogue_pistolshot',
+  },
   BRIGANDS_BLITZ: {
     id: 277676,
     name: 'Brigand\'s Blitz',
