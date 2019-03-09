@@ -17,6 +17,11 @@ export default {
   },
 
   // Holy
+  GRACE_OF_THE_JUSTICAR_TRAIT: {
+    id: 278593,
+    name: 'Grace of the Justicar',
+    icon: 'spell_holy_healingaura',
+  },
   GRACE_OF_THE_JUSTICAR: {
     id: 278785,
     name: 'Grace of the Justicar',
