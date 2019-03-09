@@ -43,3 +43,17 @@ export default function makeReportUrl(report = undefined, fightId = undefined, p
   }
   return `/${parts.join('/')}`;
 }
+
+export function makeCharacterUrl(player) {
+  const profile = player.characterProfile;
+  return `/character/${profile.region}/${profile.realm}/${player.name}`;
+}
+
+export function makeArmoryUrl(player) {
+  const profile = player.characterProfile;
+  let battleNetUrl = `https://worldofwarcraft.com/en-us/character/${profile.region}/${profile.realm}/${player.name}`;
+  if (profile.region === 'CN') {
+    battleNetUrl = `https://www.wowchina.com/zh-cn/character/${profile.realm}/${player.name}`;
+  }
+  return battleNetUrl;
+}

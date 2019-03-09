@@ -1,3 +1,5 @@
+@import 'interface/layout/Theme.scss';
+
 .player-info {
   display: block;
 
@@ -19,16 +21,16 @@
     grid-gap: 10px;
 
     .player-gear-header {
-      background-color: rgba(29, 27, 27, 0.4);
-      border: 1px solid rgba(29, 27, 27, 0.5);
       grid-area: avg-ilvl;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      text-shadow: text-stroke(1, #000);
 
       .player-name {
         font-size: 22px;
+        font-weight: bold;
       }
     }
 

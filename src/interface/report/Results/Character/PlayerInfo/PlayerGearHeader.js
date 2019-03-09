@@ -1,14 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+
+import { makeCharacterUrl } from 'interface/common/makeAnalyzerUrl';
 
 const PlayerGearHeader = ({ player, averageIlvl }) => (
   <div className="player-gear-header">
-    <span className={`${player.spec.className.replace(' ', '')} player-name`}>
-      <b>{player.name}</b>
-    </span>
-    <span>
-      <b>Item Level:</b> {averageIlvl.toFixed(1)}
-    </span>
+    <div className={`${player.spec.className.replace(' ', '')} player-name`}>
+      <Link to={makeCharacterUrl(player)}>{player.name} - {player.characterProfile.realm}</Link>
+    </div>
+    <div>
+      {player.race.name} {player.spec.className}
+    </div>
+    <div>
+      <b>Average ilvl:</b> {Math.round(averageIlvl)}
+    </div>
   </div>
 );
 

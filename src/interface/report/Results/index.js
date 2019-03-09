@@ -18,7 +18,8 @@ import Warning from 'interface/common/Alert/Warning';
 import Ad from 'interface/common/Ad';
 import ReadableList from 'interface/common/ReadableList';
 import Contributor from 'interface/contributor/Button';
-import WipefestLogo from 'interface/images/Wipefest-logo.png';
+import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
+import WipefestIcon from 'interface/icons/Wipefest';
 import { i18n } from 'interface/RootLocalizationProvider';
 import LoadingBar from 'interface/layout/NavigationBar/LoadingBar';
 import Panel from 'interface/others/Panel';
@@ -355,7 +356,7 @@ class Results extends React.PureComponent {
                   className="btn"
                   style={{ fontSize: 20, padding: '6px 0' }}
                 >
-                  <img src="/img/wcl.png" alt="" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
+                  <WarcraftLogsIcon style={{ height: '1.2em', marginTop: '-0.1em' }} /> Warcraft Logs
                 </a>
               </Tooltip><br />
               <Tooltip content={i18n._(t`Opens in a new tab. View insights and timelines for raid encounters.`)}>
@@ -366,7 +367,7 @@ class Results extends React.PureComponent {
                   className="btn"
                   style={{ fontSize: 20, padding: '6px 0' }}
                 >
-                  <img src={WipefestLogo} alt="" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Wipefest
+                  <WipefestIcon style={{ height: '1.2em', marginTop: '-0.1em' }} /> Wipefest
                 </a>
               </Tooltip>
             </div>

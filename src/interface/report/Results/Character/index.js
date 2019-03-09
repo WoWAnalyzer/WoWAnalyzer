@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
+import { makeCharacterUrl, makeArmoryUrl } from 'interface/common/makeAnalyzerUrl';
+import WoWAnalyzerIcon from 'interface/icons/WoWAnalyzer';
+import ArmoryIcon from 'interface/icons/Armory';
 import Combatant from 'parser/core/Combatant';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
@@ -28,6 +32,26 @@ class CharacterTab extends React.PureComponent {
             <Stats statTracker={statTracker} />
 
             <Race race={combatant.race} />
+
+            <div className="row">
+              <div className="col-md-12">
+                <h2>
+                  Other pages
+                </h2>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-md-12 hpadding-lg-30" style={{ fontSize: 24 }}>{/* some bonus padding so it looks to be aligned with the icon for stats */}
+                <Link to={makeCharacterUrl(combatant)}><WoWAnalyzerIcon /> Character parses</Link><br />
+                <a
+                  href={makeArmoryUrl(combatant)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <ArmoryIcon /> Armory
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>

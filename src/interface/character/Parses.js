@@ -10,9 +10,9 @@ import { makeCharacterApiUrl, makeItemApiUrl } from 'common/makeApiUrl';
 
 import { appendReportHistory } from 'interface/actions/reportHistory';
 import ActivityIndicator from 'interface/common/ActivityIndicator';
-import WarcraftLogsLogo from 'interface/images/WarcraftLogs-logo.png';
-import ArmoryLogo from 'interface/images/Armory-logo.png';
-import WipefestLogo from 'interface/images/Wipefest-logo.png';
+import ArmoryIcon from 'interface/icons/Armory';
+import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
+import WipefestIcon from 'interface/icons/Wipefest';
 
 import ZONES from 'game/ZONES';
 import SPECS from 'game/SPECS';
@@ -466,7 +466,7 @@ class Parses extends React.Component {
                 className="btn"
                 style={{ fontSize: 22 }}
               >
-                <img src={WarcraftLogsLogo} alt="Warcraft Logs logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
+                <WarcraftLogsIcon /> Warcraft Logs
               </a>
               <br />
               <a
@@ -476,7 +476,7 @@ class Parses extends React.Component {
                 className="btn"
                 style={{ fontSize: 22 }}
               >
-                <img src={ArmoryLogo} alt="Armory logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Armory
+                <ArmoryIcon /> Armory
               </a>
               <br />
               {this.props.region !== 'CN' && (
@@ -487,7 +487,7 @@ class Parses extends React.Component {
                   className="btn"
                   style={{ fontSize: 22 }}
                 >
-                  <img src={WipefestLogo} alt="Wipefest logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Wipefest
+                  <WipefestIcon /> Wipefest
                 </a>
               )}
             </div>

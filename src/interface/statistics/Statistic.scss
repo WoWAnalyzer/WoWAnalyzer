@@ -78,14 +78,15 @@
   border-left: none;
   border-bottom: 30px solid transparent;
   cursor: help;
-}
-.statistic .detail-corner svg {
-  position: absolute;
-  top: 4px;
-  right: -28px;
-  font-size: 12px;
-  margin-top: 0;
-  opacity: 0.5;
+
+  svg {
+    position: absolute;
+    top: 4px;
+    right: -28px;
+    height: 12px;
+    margin-top: 0;
+    opacity: 0.5;
+  }
 }
 .statistic .drilldown {
   position: absolute;

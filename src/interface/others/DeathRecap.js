@@ -7,7 +7,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
-import WarcraftLogsLogo from 'interface/images/WarcraftLogs-logo.png';
+import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
 import Tooltip, { TooltipElement } from 'common/Tooltip';
 
 const SHOW_SECONDS_BEFORE_DEATH = 10;
@@ -94,7 +94,7 @@ class DeathRecap extends React.PureComponent {
                   className="btn"
                   style={{ fontSize: 24 }}
                 >
-                  <img src={WarcraftLogsLogo} alt="Warcraft Logs logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
+                  <WarcraftLogsIcon /> Warcraft Logs
                 </a>
               </Tooltip>
             </div>
