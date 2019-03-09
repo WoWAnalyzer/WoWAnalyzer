@@ -2,14 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
-class Ad extends React.Component { // can't be a PureComponent as react-router-dom mutates objects
+class Ad extends React.PureComponent {
   static propTypes = {
     style: PropTypes.object,
-    location: PropTypes.shape({
-      pathname: PropTypes.string.isRequired,
-      search: PropTypes.string.isRequired,
-      hash: PropTypes.string.isRequired,
-    }).isRequired,
   };
 
   componentDidMount() {
@@ -22,7 +17,7 @@ class Ad extends React.Component { // can't be a PureComponent as react-router-d
   }
 
   render() {
-    const { style, location, ...others } = this.props;
+    const { style, ...others } = this.props;
 
     const props = {
       style: style ? { display: 'block', ...style } : { display: 'block' },
@@ -46,8 +41,6 @@ class Ad extends React.Component { // can't be a PureComponent as react-router-d
 
     return (
       <ins
-        // This reloads the ad whenever the URL changes (aka a new page is opened). This does NOT refresh the ad outside of user navigation. This matches the behavior that would be in place if we were a classic server rendered app. Therefore it should be allowed within the terms of Google AdSense.
-        key={location.pathname}
         className="adsbygoogle"
         data-ad-client="ca-pub-8048055232081854"
         {...props}
@@ -57,4 +50,11 @@ class Ad extends React.Component { // can't be a PureComponent as react-router-d
   }
 }
 
-export default withRouter(Ad);
+// This reloads the ad whenever the URL changes (aka a new page is opened). This does NOT refresh the ad outside of user navigation. This matches the behavior that would be in place if we were a classic server rendered app. Therefore it should be allowed within the terms of Google AdSense.
+export default withRouter(({ location, ...others }) => {
+  delete others.history;
+  delete others.match;
+  return (
+    <Ad key={location.pathname} {...others} />
+  );
+});
