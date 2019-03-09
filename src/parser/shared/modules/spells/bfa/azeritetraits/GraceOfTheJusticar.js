@@ -11,22 +11,44 @@ import ItemHealingDone from 'interface/others/ItemHealingDone';
  * Example Log: https://www.warcraftlogs.com/reports/kMbVanmJwCg7WrAz#fight=last&type=summary&source=2
  */
 class GraceOfTheJusticar extends Analyzer {
-  healing = 0;
-  procs = 0;
+  graceHealing = 0;
+  targetsHit = 0;
+  beaconTransfer = 0;
+  casts = 0;
+  justJudged = false;
 
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.GRACE_OF_THE_JUSTICAR_TRAIT.id);
   }
 
+  on_byPlayer_cast(event) {
+    if (event.ability.guid === SPELLS.JUDGMENT_CAST_ALT.id) {
+      this.justJudged = true;
+      this.casts += 1;
+    }
+    else {
+      this.justJudged = false;
+    }
+  }
+
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.GRACE_OF_THE_JUSTICAR.id) {
+    if (spellId === SPELLS.GRACE_OF_THE_JUSTICAR.id) {
+      this.graceHealing += event.amount + (event.absorbed || 0);
+      this.targetsHit += 1;
       return;
     }
+    if (spellId === SPELLS.BEACON_OF_LIGHT_HEAL.id && this.justJudged) {
+      this.beaconTransfer += event.amount + (event.absorbed || 0);
+    }
+  }
 
-    this.healing += event.amount + (event.absorbed || 0);
-    this.procs += 1;
+  get playersHitPerCast() {
+    return (this.targetsHit / this.casts) || 0;
+  }
+  get totalHealing() {
+    return this.graceHealing + this.beaconTransfer;
   }
 
   statistic() {
@@ -34,10 +56,10 @@ class GraceOfTheJusticar extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.GRACE_OF_THE_JUSTICAR.id}
-        value={<ItemHealingDone amount={this.healing} />}
+        value={<ItemHealingDone amount={this.totalHealing} />}
         tooltip={`
-          Healing done: ${formatNumber(this.healing)}<br />
-          Total heals: ${this.procs}
+          Total healing done: ${formatNumber(this.totalHealing)}<br />
+          Players hit per cast: ${this.playersHitPerCast.toFixed(2)}
         `}
       />
     );
