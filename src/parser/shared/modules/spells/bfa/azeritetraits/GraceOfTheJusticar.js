@@ -17,7 +17,9 @@ class GraceOfTheJusticar extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.GRACE_OF_THE_JUSTICAR.id);
-    this.active = true;
+
+    // comment out this line //
+    this.active = true;  // this.selectedCombatant.hasTrait() is not returning true
   }
 
   on_byPlayer_heal(event) {
