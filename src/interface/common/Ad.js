@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+
+import { Consumer } from 'interface/LocationContext';
 
 class Ad extends React.PureComponent {
   static propTypes = {
@@ -51,10 +52,8 @@ class Ad extends React.PureComponent {
 }
 
 // This reloads the ad whenever the URL changes (aka a new page is opened). This does NOT refresh the ad outside of user navigation. This matches the behavior that would be in place if we were a classic server rendered app. Therefore it should be allowed within the terms of Google AdSense.
-export default withRouter(({ location, ...others }) => {
-  delete others.history;
-  delete others.match;
-  return (
-    <Ad key={location.pathname} {...others} />
-  );
-});
+export default props => (
+  <Consumer>
+    {location => <Ad key={location.pathname} {...props} />}
+  </Consumer>
+);
