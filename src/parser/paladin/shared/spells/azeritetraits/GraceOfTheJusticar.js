@@ -65,10 +65,12 @@ class GraceOfTheJusticar extends Analyzer {
             {this.playersHitPerCast.toFixed(1)} players hit per judgement.
           </>
         )}
-        tooltip={`
-          Total healing done: <b>${formatNumber(this.totalHealing)}</b><br />
-          Beacon healing transfered: <b>${formatNumber(this.beaconTransfer)}</b>
-        `}
+        tooltip={(
+          <>
+            Total healing done: <b>{formatNumber(this.totalHealing)}</b><br />
+            Beacon healing transfered: <b>{formatNumber(this.beaconTransfer)}</b>
+          </>
+        )}
       />
     );
   }
