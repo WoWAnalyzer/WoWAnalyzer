@@ -59,11 +59,15 @@ class GraceOfTheJusticar extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.GRACE_OF_THE_JUSTICAR.id}
-        value={<ItemHealingDone amount={this.totalHealing} />}
+        value={(
+          <>
+            <ItemHealingDone amount={this.totalHealing} /><br />
+            {this.playersHitPerCast.toFixed(1)} players hit per judgement.
+          </>
+        )}
         tooltip={`
-          Total healing done: ${formatNumber(this.totalHealing)}<br />
-          Becon Transfer: ${formatNumber(this.beaconTransfer)}<br />
-          Players hit per cast: ${this.playersHitPerCast.toFixed(2)}
+          Total healing done: <b>${formatNumber(this.totalHealing)}</b><br />
+          Becon Transfer: ${formatNumber(this.beaconTransfer)}
         `}
       />
     );
