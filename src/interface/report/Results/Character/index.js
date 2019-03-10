@@ -41,15 +41,20 @@ class CharacterTab extends React.PureComponent {
               </div>
             </div>
             <div className="row">
-              <div className="col-md-12 hpadding-lg-30" style={{ fontSize: 24 }}>{/* some bonus padding so it looks to be aligned with the icon for stats */}
-                <Link to={makeCharacterUrl(combatant)}><WoWAnalyzerIcon /> Character parses</Link><br />
-                <a
-                  href={makeArmoryUrl(combatant)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <ArmoryIcon /> Armory
-                </a>
+              <div className="col-md-12 hpadding-lg-30" style={{ fontSize: 24 }}>
+                {/* some bonus padding so it looks to be aligned with the icon for stats */}
+                {combatant.characterProfile ? (
+                  <>
+                    <Link to={makeCharacterUrl(combatant)}><WoWAnalyzerIcon /> Character parses</Link><br />
+                    <a
+                      href={makeArmoryUrl(combatant)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <ArmoryIcon /> Armory
+                    </a>
+                  </>
+                ) : <small>Unavailable because your character could not be found.</small>}
               </div>
             </div>
           </div>
