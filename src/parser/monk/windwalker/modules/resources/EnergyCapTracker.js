@@ -52,8 +52,12 @@ class EnergyCapTracker extends RegenResourceCapTracker {
         icon={<Icon icon="spell_shadow_shadowworddominate" alt="Capped Energy" />}
         value={`${formatPercentage(this.cappedProportion)}%`}
         label="Time with capped energy"
-        tooltip={`Although it can be beneficial to wait and let your energy pool ready to be used at the right time, you should still avoid letting it reach the cap.<br/>
-        You spent <b>${formatPercentage(this.cappedProportion)}%</b> of the fight at capped energy, causing you to miss out on <b>${this.missedRegenPerMinute.toFixed(1)}</b> energy per minute from regeneration.`}
+        tooltip={(
+          <>
+            Although it can be beneficial to wait and let your energy pool ready to be used at the right time, you should still avoid letting it reach the cap.<br />
+            You spent <b>{formatPercentage(this.cappedProportion)}%</b> of the fight at capped energy, causing you to miss out on <b>{this.missedRegenPerMinute.toFixed(1)}</b> energy per minute from regeneration.
+          </>
+        )}
         footer={(
           <div className="statistic-box-bar">
             <Tooltip content={`Not at capped energy for ${formatDuration((this.owner.fightDuration - this.atCap) / 1000)}`}>

@@ -61,11 +61,13 @@ class DemonicAppetite extends Analyzer{
         talent={SPELLS.DEMONIC_APPETITE_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
         value={`${this.furyPerMin} fury per min`}
-        tooltip={`
-          ${effectiveFuryGain} Effective fury gained<br />
-          ${this.furyGain} Total fury gained<br />
-          ${this.furyWaste} Fury wasted
-        `}
+        tooltip={(
+          <>
+            {effectiveFuryGain} Effective fury gained<br />
+            {this.furyGain} Total fury gained<br />
+            {this.furyWaste} Fury wasted
+          </>
+        )}
       />
     );
   }

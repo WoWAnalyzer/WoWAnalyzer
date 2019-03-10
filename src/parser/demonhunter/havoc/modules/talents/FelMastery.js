@@ -34,9 +34,7 @@ class FelMastery extends Analyzer{
         talent={SPELLS.FEL_MASTERY_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
         value={`Extra damage done by Fel Rush ${this.owner.formatItemDamageDone(this.damage)}`}
-        tooltip={`
-          ${formatThousands(this.damage)} Total damage
-        `}
+        tooltip={`${formatThousands(this.damage)} Total damage`}
       />
     );
   }

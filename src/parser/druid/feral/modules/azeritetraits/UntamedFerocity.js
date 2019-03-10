@@ -99,7 +99,7 @@ class UntamedFerocity extends Analyzer {
       // only interested in direct damage from whitelisted spells which hit the target
       return;
     }
-    
+
     if (this.hasWildFleshrending && isAffectedByWildFleshrending(event, this.owner, this.enemies)) {
       // if the ability was given bonus damage from both Wild Fleshrending and Untamed Ferocity need to account for that to accurately attribute damage to each.
       const fleshrendingBonus = (event.ability.guid === SPELLS.SHRED.id) ? this.shredBonus : this.swipeBonus;
@@ -126,7 +126,7 @@ class UntamedFerocity extends Analyzer {
     const basePossibleCasts = Math.floor(this.owner.fightDuration / cooldownDuration) + 1;
     const improvedPossibleCasts = Math.floor((this.owner.fightDuration + this.cooldownReduction) / cooldownDuration) + 1;
     const extraCastsPossible = improvedPossibleCasts - basePossibleCasts;
-    const extraCastsComment = (improvedPossibleCasts === basePossibleCasts) ? `This wasn't enough to allow any extra casts during the fight, but may have given you more freedom in timing those casts.` : `This gave you the opportunity over the duration of the fight to use ${cooldownName} <b>${extraCastsPossible}</b> extra time${extraCastsPossible === 1 ? '' : 's'}.`;
+    const extraCastsComment = (improvedPossibleCasts === basePossibleCasts) ? `This wasn't enough to allow any extra casts during the fight, but may have given you more freedom in timing those casts.` : <>This gave you the opportunity over the duration of the fight to use {cooldownName} <b>{extraCastsPossible}</b> extra time{extraCastsPossible === 1 ? '' : 's'}.</>;
 
     return (
       <TraitStatisticBox
@@ -138,9 +138,13 @@ class UntamedFerocity extends Analyzer {
           {(this.cooldownReduction / 1000).toFixed(1)} seconds cooldown reduction
           </>
         )}
-        tooltip={`Increased the damage of your combo point generators by a total of <b>${formatNumber(this.untamedDamage)}</b><br />
-          The cooldown on your ${cooldownName} was reduced by a total of <b>${(this.cooldownReduction / 1000).toFixed(1)}</b> seconds.<br />
-          ${extraCastsComment}`}
+        tooltip={(
+          <>
+            Increased the damage of your combo point generators by a total of <b>{formatNumber(this.untamedDamage)}</b><br />
+            The cooldown on your {cooldownName} was reduced by a total of <b>{(this.cooldownReduction / 1000).toFixed(1)}</b> seconds.<br />
+            {extraCastsComment}
+          </>
+        )}
       />
     );
   }

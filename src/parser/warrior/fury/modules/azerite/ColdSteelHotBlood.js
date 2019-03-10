@@ -16,7 +16,7 @@ class ColdSteelHotBlood extends Analyzer {
     super(...args);
 
     this.active = this.selectedCombatant.hasTrait(SPELLS.COLD_STEEL_HOT_BLOOD.id);
-    
+
     if(!this.active) {
       return;
     }
@@ -48,7 +48,7 @@ class ColdSteelHotBlood extends Analyzer {
       <TraitStatisticBox
         trait={SPELLS.COLD_STEEL_HOT_BLOOD.id}
         value={`${formatNumber(this.rageGained)} rage gained`}
-        tooltip={`Cold Steel, Hot Blood did <b>${formatThousands(this.totalDamage)} (${formatPercentage(this.damagePercentage)}%)</b> damage and <b>${formatThousands(this.totalHealing)}</b> healing (<b>${formatThousands(this.totalOverhealing)}</b> overhealing).`}
+        tooltip={<>Cold Steel, Hot Blood did <b>{formatThousands(this.totalDamage)} ({formatPercentage(this.damagePercentage)}%)</b> damage and <b>{formatThousands(this.totalHealing)}</b> healing (<b>{formatThousands(this.totalOverhealing)}</b> overhealing).</>}
       />
     );
   }

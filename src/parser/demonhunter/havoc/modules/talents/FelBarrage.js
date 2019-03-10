@@ -33,9 +33,7 @@ class FelBarrage extends Analyzer{
         talent={SPELLS.FEL_BARRAGE_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
         value={this.owner.formatItemDamageDone(this.damage)}
-        tooltip={`
-          ${formatThousands(this.damage)} Total damage
-        `}
+        tooltip={`${formatThousands(this.damage)} Total damage`}
       />
     );
   }
