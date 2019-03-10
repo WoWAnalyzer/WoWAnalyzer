@@ -38,8 +38,8 @@ class LavaShock extends Analyzer {
     if (buff === undefined) {
       return;
     }
-    const [bonusDamage] = calculateBonusAzeriteDamage(event, [this.traitBonus], ES_SP_COEFFICIENT, this.statTracker.currentIntellectRating);
-    this.damageGained += (buff.stacks || 0) * bonusDamage;
+    const [bonusDamage] = calculateBonusAzeriteDamage(event, [(buff.stacks || 0) * this.traitBonus], ES_SP_COEFFICIENT, this.statTracker.currentIntellectRating);
+    this.damageGained += bonusDamage;
     this.procs += 1;
   }
 
