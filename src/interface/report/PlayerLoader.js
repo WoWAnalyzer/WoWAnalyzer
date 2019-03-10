@@ -88,6 +88,9 @@ class PlayerLoader extends React.PureComponent {
     try {
       const combatants = await fetchCombatants(report.code, fight.start_time, fight.end_time);
       combatants.forEach(player => {
+        if (player.error || player.specID === -1) {
+          return;
+        }
         switch (SPECS[player.specID].role) {
           case ROLES.TANK:
             this.tanks += 1;
@@ -101,8 +104,7 @@ class PlayerLoader extends React.PureComponent {
           case ROLES.DPS.RANGED:
             this.ranged += 1;
             break;
-          default:
-          break;
+          default: break;
         }
         // Gear may be null for broken combatants
         this.ilvl += player.gear ? getAverageItemLevel(player.gear) : 0;
