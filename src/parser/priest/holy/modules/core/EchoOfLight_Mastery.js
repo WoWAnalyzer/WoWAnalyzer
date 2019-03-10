@@ -9,9 +9,8 @@ import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import Combatants from 'parser/shared/modules/Combatants';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 import { formatNumber, formatPercentage } from 'common/format';
-import { TooltipElement } from 'common/Tooltip';
+import Tooltip, { TooltipElement } from 'common/Tooltip';
 import { ABILITIES_THAT_TRIGGER_MASTERY } from '../../constants';
-import Tooltip from 'common/Tooltip';
 
 const DEBUG = false;
 const CUTOFF_PERCENT = .01;

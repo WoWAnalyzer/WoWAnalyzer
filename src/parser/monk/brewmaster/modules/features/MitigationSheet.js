@@ -9,6 +9,7 @@ import STAT, { getClassNameColor, getIcon, getName } from 'parser/shared/modules
 import { formatNumber } from 'common/format';
 import Panel from 'interface/statistics/Panel';
 import SpellLink from 'common/SpellLink';
+import Tooltip, { TooltipElement } from 'common/Tooltip';
 import { calculatePrimaryStat, calculateSecondaryStatDefault } from 'common/stats';
 
 import { BASE_AGI } from '../../constants';
@@ -18,8 +19,6 @@ import MasteryValue from '../core/MasteryValue';
 import Stagger from '../core/Stagger';
 import AgilityValue from './AgilityValue';
 import { diminish, lookupK } from '../constants/Mitigation';
-import { TooltipElement } from 'common/Tooltip';
-import Tooltip from 'common/Tooltip';
 
 function formatGain(gain) {
   if(typeof gain === 'number') {
