@@ -46,7 +46,7 @@ export default function makeReportUrl(report = undefined, fightId = undefined, p
 
 export function makeCharacterUrl(player) {
   const profile = player.characterProfile;
-  return `/character/${profile.region}/${profile.realm}/${player.name}`;
+  return profile ? `/character/${profile.region}/${profile.realm}/${player.name}` : '#';
 }
 
 export function makeArmoryUrl(player) {

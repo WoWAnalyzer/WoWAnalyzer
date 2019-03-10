@@ -7,7 +7,7 @@ import { makeCharacterUrl } from 'interface/common/makeAnalyzerUrl';
 const PlayerGearHeader = ({ player, averageIlvl }) => (
   <div className="player-gear-header">
     <div className={`${player.spec.className.replace(' ', '')} player-name`}>
-      <Link to={makeCharacterUrl(player)}>{player.name} - {player.characterProfile.realm}</Link>
+      <Link to={makeCharacterUrl(player)}>{player.name}{player.characterProfile && <> - {player.characterProfile.realm}</>}</Link>
     </div>
     <div>
       {player.race.name} {player.spec.className}
