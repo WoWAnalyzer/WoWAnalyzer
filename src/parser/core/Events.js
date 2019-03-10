@@ -78,24 +78,24 @@ const Events = {
   get absorbed() {
     return new EventFilter('absorbed');
   },
-  /**
+   /**
+   * This event is called when a beacon transfer occurs.
+   * @returns {EventFilter}}
+   */
+  get beacontransfer() {
+    return new EventFilter('beacontransfer');
+  },
+   /**
    * This event is called when the player begins casting an ability that has a cast time. This is also called for some channeled abilities, but not everyone. This is NOT cast for most instant abilities.
    * @returns {EventFilter}
    */
-  get begincast() {
+   get begincast() {
     return new EventFilter('begincast');
   },
   /**
    * This event is called when the player successfully cast an ability.
    * BEWARE: Blizzard also sometimes uses this event type for mechanics and spell ticks or bolts. This can even occur in between a begincast and cast finish!
    * @returns {EventFilter}
-   */
-  get beacontransfer() {
-    return new EventFilter('beacontransfer');
-  },
-  /**
-   * This event is called when a beacon transfer occurs.
-   * @returns {EventFilter}}
    */
   get cast() {
     return new EventFilter('cast');
