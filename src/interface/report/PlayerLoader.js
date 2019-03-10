@@ -92,23 +92,20 @@ class PlayerLoader extends React.PureComponent {
           case ROLES.TANK:
             this.tanks += 1;
             break;
-
           case ROLES.HEALER:
             this.healers += 1;
             break;
-
           case ROLES.DPS.MELEE:
             this.dps += 1;
             break;
-
           case ROLES.DPS.RANGED:
             this.ranged += 1;
             break;
-
           default:
           break;
         }
-        this.ilvl += getAverageItemLevel(player.gear);
+        // Gear may be null for broken combatants
+        this.ilvl += player.gear ? getAverageItemLevel(player.gear) : 0;
       });
       this.ilvl /= combatants.length;
       if (this.props.report !== report || this.props.fight !== fight) {
