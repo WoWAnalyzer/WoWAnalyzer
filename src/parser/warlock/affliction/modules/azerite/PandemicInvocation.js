@@ -104,7 +104,7 @@ class PandemicInvocation extends Analyzer {
         tooltip={(
           <>
             Pandemic Invocation damage: {formatThousands(this.damage)}<br />
-            You gained {generated} Soul Shards and wasted ${wasted} Soul Shards with this trait, {max > 0 ? <>which is <strong>{formatPercentage(generated / max)}%</strong> of Shards you were most likely to get in this fight ({max} Shards).</> : 'while you were most likely to not get any Shards.'}
+            You gained {generated} Soul Shards and wasted {wasted} Soul Shards with this trait, {max > 0 ? <>which is <strong>{formatPercentage(generated / max)}%</strong> of Shards you were most likely to get in this fight ({max} Shards).</> : 'while you were most likely to not get any Shards.'}
           </>
         )}
       />

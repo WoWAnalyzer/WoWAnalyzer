@@ -87,10 +87,12 @@ class GushingLacerations extends Analyzer {
             {this.effectiveComboPointsPerMinute.toFixed(1)} combo points per minute
           </>
         )}
-        tooltip={
-          `Provided a total of <b>${formatNumber(this.totalDamage)}</b> extra damage through your Rip.<br />
-          Triggered the generation an extra <b>${this.comboProcs}</b> combo point${this.comboProcs === 1 ? '' : 's'}, of which <b>${this.wastedCombo}</b> ${this.wastedCombo === 1 ? 'was' : 'were'} wasted.`
-        }
+        tooltip={(
+          <>
+            Provided a total of <b>{formatNumber(this.totalDamage)}</b> extra damage through your Rip.<br />
+            Triggered the generation an extra <b>{this.comboProcs}</b> combo point{this.comboProcs === 1 ? '' : 's'}, of which <b>{this.wastedCombo}</b> {this.wastedCombo === 1 ? 'was' : 'were'} wasted.
+          </>
+        )}
       />
     );
   }

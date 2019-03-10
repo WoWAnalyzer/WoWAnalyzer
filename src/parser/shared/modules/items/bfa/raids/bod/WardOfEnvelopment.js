@@ -116,12 +116,12 @@ class WardOfEnvelopment extends Analyzer {
       item: ITEMS.WARD_OF_ENVELOPMENT,
       result: (
         <Tooltip content={(
-            <>
-              You activated your Ward of Envelopment <b>{this.uses}</b> of <b>{this.possibleUseCount}</b> possible time{this.uses === 1 ? '' : 's'} with an average of <b>{formatNumber(this.averageAbsorbPerCast)}</b> absorption per use.
-              It absorbed <b>{formatNumber(this.absorbUsed)}</b> out of <b>{formatNumber(this.totalAbsorb)}</b> damage and <b>{formatNumber(this.absorbWasted)} ({formatPercentage(this.wastedPercentage)}%)</b> was unused. <br />
-              On average you hit <b>{this.averageTargetsHit.toFixed(2)}</b> out of <b>5</b> allies and gained <b>{formatPercentage(this.gainedShieldValue)}%</b> extra absorption value per cast. <br />
-            </>
-          )}>
+          <>
+            You activated your Ward of Envelopment <b>{this.uses}</b> of <b>{this.possibleUseCount}</b> possible time{this.uses === 1 ? '' : 's'} with an average of <b>{formatNumber(this.averageAbsorbPerCast)}</b> absorption per use.
+            It absorbed <b>{formatNumber(this.absorbUsed)}</b> out of <b>{formatNumber(this.totalAbsorb)}</b> damage and <b>{formatNumber(this.absorbWasted)} ({formatPercentage(this.wastedPercentage)}%)</b> was unused. <br />
+            On average you hit <b>{this.averageTargetsHit.toFixed(2)}</b> out of <b>5</b> allies and gained <b>{formatPercentage(this.gainedShieldValue)}%</b> extra absorption value per cast. <br />
+          </>
+        )}>
           <ItemHealingDone amount={this.absorbUsed} />
         </Tooltip>
       ),
