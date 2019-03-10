@@ -27,7 +27,7 @@ class GraceOfTheJusticar extends Analyzer {
     }
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.JUDGMENT_CAST_ALT), this.onCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GRACE_OF_THE_JUSTICAR), this.onHeal);
-    //this.addEventListener(Events.beacontransfer.by(SELECTED_PLAYER).originalHeal(SPELLS.GRACE_OF_THE_JUSTICAR), this.onBeaconTransfer);
+    this.addEventListener(Events.beacontransfer.by(SELECTED_PLAYER), this.onBeaconTransfer);
   }
 
   onBeaconTransfer(event) {
@@ -67,7 +67,7 @@ class GraceOfTheJusticar extends Analyzer {
         )}
         tooltip={`
           Total healing done: <b>${formatNumber(this.totalHealing)}</b><br />
-          Becon Transfer: ${formatNumber(this.beaconTransfer)}
+          Beacon healing transfered: <b>${formatNumber(this.beaconTransfer)}</b>
         `}
       />
     );
