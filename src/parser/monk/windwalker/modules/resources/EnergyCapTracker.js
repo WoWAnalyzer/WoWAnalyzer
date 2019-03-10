@@ -5,6 +5,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatDuration, formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import RegenResourceCapTracker from 'parser/shared/modules/RegenResourceCapTracker';
+import Tooltip from 'common/Tooltip';
 
 const BASE_ENERGY_REGEN = 10;
 const ASCENSION_REGEN_MULTIPLIER = 1.1;
@@ -55,20 +56,20 @@ class EnergyCapTracker extends RegenResourceCapTracker {
         You spent <b>${formatPercentage(this.cappedProportion)}%</b> of the fight at capped energy, causing you to miss out on <b>${this.missedRegenPerMinute.toFixed(1)}</b> energy per minute from regeneration.`}
         footer={(
           <div className="statistic-box-bar">
-            <div
-              className="stat-healing-bg"
-              style={{ width: `${(1 - this.cappedProportion) * 100}%` }}
-              data-tip={`Not at capped energy for ${formatDuration((this.owner.fightDuration - this.atCap) / 1000)}`}
-            >
-              <img src="/img/sword.png" alt="Uncapped Energy" />
-            </div>
+            <Tooltip content={`Not at capped energy for ${formatDuration((this.owner.fightDuration - this.atCap) / 1000)}`}>
+              <div
+                className="stat-healing-bg"
+                style={{ width: `${(1 - this.cappedProportion) * 100}%` }}
+              >
+                <img src="/img/sword.png" alt="Uncapped Energy" />
+              </div>
+            </Tooltip>
 
-            <div
-              className="remainder DeathKnight-bg"
-              data-tip={`At capped energy for ${formatDuration(this.atCap / 1000)}`}
-            >
-              <img src="/img/overhealing.png" alt="Capped Energy" />
-            </div>
+            <Tooltip content={`At capped energy for ${formatDuration(this.atCap / 1000)}`}>
+              <div className="remainder DeathKnight-bg" >
+                <img src="/img/overhealing.png" alt="Capped Energy" />
+              </div>
+            </Tooltip>
           </div>
         )}
         footerStyle={{ overflow: 'hidden' }}

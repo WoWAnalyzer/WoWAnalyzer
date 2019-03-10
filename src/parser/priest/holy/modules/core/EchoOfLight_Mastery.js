@@ -11,6 +11,7 @@ import ItemHealingDone from 'interface/others/ItemHealingDone';
 import { formatNumber, formatPercentage } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
 import { ABILITIES_THAT_TRIGGER_MASTERY } from '../../constants';
+import Tooltip from 'common/Tooltip';
 
 const DEBUG = false;
 const CUTOFF_PERCENT = .01;
@@ -241,11 +242,9 @@ class EchoOfLight_Mastery extends Analyzer {
         position={STATISTIC_ORDER.CORE(2)}
         icon={<SpellIcon id={SPELLS.ECHO_OF_LIGHT_MASTERY.id} />}
         value={(
-          <dfn
-            data-tip={`Total Healing: ${formatNumber(this.effectiveHealing)} (${formatPercentage(this.overHealingPercent)}% OH)`}
-          >
+          <Tooltip content={`Total Healing: ${formatNumber(this.effectiveHealing)} (${formatPercentage(this.overHealingPercent)}% OH)`}>
             <ItemHealingDone amount={this.effectiveHealing} />
-          </dfn>
+          </Tooltip>
         )}
         label={(
           <TooltipElement

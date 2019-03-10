@@ -18,6 +18,8 @@ import MasteryValue from '../core/MasteryValue';
 import Stagger from '../core/Stagger';
 import AgilityValue from './AgilityValue';
 import { diminish, lookupK } from '../constants/Mitigation';
+import { TooltipElement } from 'common/Tooltip';
+import Tooltip from 'common/Tooltip';
 
 function formatGain(gain) {
   if(typeof gain === 'number') {
@@ -278,7 +280,7 @@ export default class MitigationSheet extends Analyzer {
         gain: [
           { name: <><SpellLink id={SPELLS.GIFT_OF_THE_OX_1.id} /> Healing</>, amount: this.agiHealing },
           {
-            name: <dfn data-tip="The amount of damage avoided by dodging may be reduced by purification. This is reflected in the range of values.">Dodge</dfn>,
+            name: <TooltipElement content="The amount of damage avoided by dodging may be reduced by purification. This is reflected in the range of values.">Dodge</TooltipElement>,
             amount: {
               low: this.agiDamageDodged * (1 - this.stagger.pctPurified),
               high: this.agiDamageDodged,
@@ -297,7 +299,7 @@ export default class MitigationSheet extends Analyzer {
         gain: [
           { name: <><SpellLink id={SPELLS.GIFT_OF_THE_OX_1.id} /> Healing</>, amount: this.masteryHealing },
           {
-            name: <dfn data-tip="The amount of damage avoided by dodging may be reduced by purification. This is reflected in the range of values.">Dodge</dfn>,
+            name: <TooltipElement content="The amount of damage avoided by dodging may be reduced by purification. This is reflected in the range of values.">Dodge</TooltipElement>,
             amount:{
               low: this.masteryDamageMitigated * (1 - this.stagger.pctPurified),
               high: this.masteryDamageMitigated,
@@ -343,21 +345,21 @@ export default class MitigationSheet extends Analyzer {
         if(isLoaded !== false) {
           gainEl = formatGain(gain);
         } else {
-          gainEl = <dfn data-tip="Not Yet Loaded">NYL</dfn>;
+          gainEl = <TooltipElement content="Not Yet Loaded">NYL</TooltipElement>;
         }
 
         let perPointEl;
         if(isLoaded !== false) {
           perPointEl = formatWeight(gain, avg, this.normalizer, 1);
         } else {
-          perPointEl = <dfn data-tip="Not Yet Loaded">NYL</dfn>;
+          perPointEl = <TooltipElement content="Not Yet Loaded">NYL</TooltipElement>;
         }
 
         let valueEl;
         if(isLoaded !== false) {
           valueEl = formatWeight(gain, avg, this.normalizer, increment);
         } else {
-          valueEl = <dfn data-tip="Not Yet Loaded">NYL</dfn>;
+          valueEl = <TooltipElement content="Not Yet Loaded">NYL</TooltipElement>;
         }
 
         return (
@@ -384,7 +386,7 @@ export default class MitigationSheet extends Analyzer {
         <tr key={stat}>
           <td className={className}>
               {icon}{' '}
-              {tooltip ? <dfn data-tip={tooltip}>{name}</dfn> : name}
+              {tooltip ? <TooltipElement content={tooltip}>{name}</TooltipElement> : name}
           </td>
           <td className="text-right">
             <b>{formatGain(totalGain)}</b>
@@ -417,10 +419,10 @@ export default class MitigationSheet extends Analyzer {
             <b>Total</b>
           </th>
           <th className="text-right">
-            <dfn data-tip="The <em>average</em> stat value throughout a fight, including buffs and debuffs, is used here. The value is normalized so that Armor is always 1, and other stats are relative to this."><b>Per Rating (Normalized)</b></dfn>
+            <Tooltip content={<>The <em>average</em> stat value throughout a fight, including buffs and debuffs, is used here. The value is normalized so that Armor is always 1, and other stats are relative to this.</>}><b>Per Rating (Normalized)</b></Tooltip>
           </th>
           <th className="text-right">
-            <dfn data-tip="Amount of rating gained from the last 5 average ilvls of your gear. For secondary stats, this assumes the relative amounts of each stat don't change (as if you upgraded each piece by 5 ilvls without actually changing any of them)."><b>Rating &mdash; Last 5 ilvls</b></dfn>
+            <Tooltip content="Amount of rating gained from the last 5 average ilvls of your gear. For secondary stats, this assumes the relative amounts of each stat don't change (as if you upgraded each piece by 5 ilvls without actually changing any of them)."><b>Rating &mdash; Last 5 ilvls</b></Tooltip>
           </th>
           <th className="text-right">
             <b>Value &mdash; Last 5 ilvls</b>
