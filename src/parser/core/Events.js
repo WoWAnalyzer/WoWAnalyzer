@@ -90,6 +90,13 @@ const Events = {
    * BEWARE: Blizzard also sometimes uses this event type for mechanics and spell ticks or bolts. This can even occur in between a begincast and cast finish!
    * @returns {EventFilter}
    */
+  get beacontransfer() {
+    return new EventFilter('beacontransfer');
+  },
+  /**
+   * This event is called when a beacon transfer occurs.
+   * @returns {EventFilter}}
+   */
   get cast() {
     return new EventFilter('cast');
   },
