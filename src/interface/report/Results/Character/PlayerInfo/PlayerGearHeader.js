@@ -10,7 +10,7 @@ const PlayerGearHeader = ({ player, averageIlvl }) => (
       <Link to={makeCharacterUrl(player)}>{player.name}{player.characterProfile && <> - {player.characterProfile.realm}</>}</Link>
     </div>
     <div>
-      {player.race.name} {player.spec.className}
+      {player.race && player.race.name} {player.spec.className}
     </div>
     <div>
       <b>Average ilvl:</b> {Math.round(averageIlvl)}
