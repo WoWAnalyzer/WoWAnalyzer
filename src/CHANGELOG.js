@@ -9,7 +9,7 @@ import Contributor from 'interface/contributor/Button';
 export default [
   {
     date: new Date('2019-03-10'),
-    changes: 'WoWAnalyzer 3.0! This is the biggest update since the release, featuring a completely new interface, with a new logo, color scheme, and various new pages and improvements to the results page with the biggest change being a complete rework of the timeline. Many people worked on this, thanks so much to all of the contributors!',
+    changes: 'WoWAnalyzer 3.0! This is the biggest update since the release, featuring a completely new interface, with a new logo, color scheme, and various new pages and improvements to the results page including a complete rework of the timeline. Many people worked on this, thanks so much to everyone who contributed!',
     contributors: [Zerotorescue],
   },
   {
