@@ -43,6 +43,10 @@ import HolyAvenger from './modules/talents/HolyAvenger';
 import DivinePurpose from './modules/talents/DivinePurpose';
 import CrusadersMight from './modules/talents/CrusadersMight';
 
+// azurite traits //
+//"C:\Users\Developer\source\repos\WoWAnalyzer\src\parser\paladin\holy\CombatLogParser.js"
+import GraceOfTheJusticar from '../shared/spells/azeritetraits/GraceOfTheJusticar';
+
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -97,6 +101,9 @@ class CombatLogParser extends CoreCombatLogParser {
     holyAvenger: HolyAvenger,
     divinePurpose: DivinePurpose,
     crusadersMight: CrusadersMight,
+
+    // Azureite Traits //
+    graceOfTheJusticar: GraceOfTheJusticar,
   };
 }
 
