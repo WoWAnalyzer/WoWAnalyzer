@@ -4,7 +4,7 @@ import Headshot from './images/headshots/JadefireMastersA.png';
 // aka Jadefire Masters (A)
 export default {
   id: 2285,
-  name: 'Jadefire Masters - Grimfang and Firecaller', // Alliance
+  name: 'Jadefire Masters', // Alliance
   background: Background,
   headshot: Headshot,
   icon: 'achievement_boss_zuldazar_grimfang_anathos',
