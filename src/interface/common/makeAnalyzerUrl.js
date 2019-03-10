@@ -51,6 +51,9 @@ export function makeCharacterUrl(player) {
 
 export function makeArmoryUrl(player) {
   const profile = player.characterProfile;
+  if (!profile) {
+    return '#';
+  }
   let battleNetUrl = `https://worldofwarcraft.com/en-us/character/${profile.region}/${profile.realm}/${player.name}`;
   if (profile.region === 'CN') {
     battleNetUrl = `https://www.wowchina.com/zh-cn/character/${profile.realm}/${player.name}`;
