@@ -58,7 +58,7 @@ class FontOfLife extends Analyzer {
     return (
       <AzeritePowerStatistic
         size="flexible"
-        tooltip={(<>Added a total of ${formatNumber(this.healing)} to your Essence Font Bolts.</>)}
+        tooltip={`Added a total of ${formatNumber(this.healing)} to your Essence Font Bolts.`}
       >
         <div className="pad">
           <label><SpellLink id={SPELLS.FONT_OF_LIFE.id} /></label>
