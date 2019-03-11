@@ -1,10 +1,15 @@
 import React from 'react';
 
-import { Anomoly, Gao, Zerotorescue } from 'CONTRIBUTORS';
+import { Anomoly, Gao, Zerotorescue, Abelito75 } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2019-03-10'),
+    changes: <>Added overhealing check for <SpellLink id={SPELLS.MANA_TEA_TALENT.id} />.</>,
+    contributors: [Abelito75],
+  },
   {
     date: new Date('2019-02-25'),
     changes: <>Added statistics, suggestion, and checklist item for  <SpellLink id={SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.id} /> casting uptime.</>,

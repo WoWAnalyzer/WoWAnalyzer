@@ -3,7 +3,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import { formatNumber, formatThousands } from 'common/format';
+import { formatNumber, formatThousands, formatPercentage } from 'common/format';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -24,7 +24,6 @@ class ManaTea extends Analyzer {
   manaSavedMT = 0;
   manateaCount = 0;
 
-  effCasts = 0;
   enmCasts = 0;
   efCasts = 0;
   lcCasts = 0;
@@ -32,12 +31,16 @@ class ManaTea extends Analyzer {
   revCasts = 0;
   vivCasts = 0;
   rjwCasts = 0;
+  soomTicks = 0;
 
   nonManaCasts = 0;
   castsUnderManaTea = 0;
 
   hasLifeCycles = false;
   casted = false;
+
+  effectivehealing = 0;
+  overhealing = 0;
 
   constructor(...args) {
     super(...args);
@@ -50,8 +53,14 @@ class ManaTea extends Analyzer {
   on_toPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (SPELLS.MANA_TEA_TALENT.id === spellId) {
-      this.manateaCount += 1;
-      debug && console.log(`Mana Tea Cast +1. Total:${this.manateaCount}`);
+      this.manateaCount += 1;//count the number of mana teas to make an average over teas
+    }
+  }
+
+  on_byPlayer_heal(event){
+    if (this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_TALENT.id)) {//if this is in a mana tea window
+      this.effectivehealing += (event.amount || 0) + (event.absorbed || 0);
+      this.overhealing +=(event.overheal || 0);
     }
   }
 
@@ -59,6 +68,13 @@ class ManaTea extends Analyzer {
     const spellId = event.ability.guid;
 
     if (this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_TALENT.id)) {
+      if(SPELLS.SOOTHING_MIST.id === spellId){//added soothing mist since it costs mana now
+        this.addToManaSaved(SPELLS.SOOTHING_MIST.manaCost, spellId);
+        this.castsUnderManaTea += 1;
+        this.soomTicks += 1;
+        this.casted = true;
+      }
+
       if (SPELLS.ENVELOPING_MIST.id === spellId) {
         this.addToManaSaved(SPELLS.ENVELOPING_MIST.manaCost, spellId);
         this.castsUnderManaTea += 1;
@@ -115,28 +131,21 @@ class ManaTea extends Analyzer {
       this.nonManaCasts += 1;
       return;
     }
-    // Lifecycles reduces the mana cost of both Vivify and Enveloping Mists.  We must take that into account when calculating mana saved.
-    if (this.hasLifeCycles) {
-      if (this.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id) && spellId === SPELLS.VIVIFY.id) {
-        this.manaSavedMT += ((spellBaseMana * (1 - (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed))) * (1 - manaTeaReduction));
-        debug && console.log('LC Viv Cast');
-      } else if ((this.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id) && spellId === SPELLS.ENVELOPING_MIST.id)) {
-        this.manaSavedMT += ((spellBaseMana * (1 - (SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed))) * (1 - manaTeaReduction));
-      } else {
-        this.manaSavedMT += (spellBaseMana * (1 - manaTeaReduction));
-      }
-    } else {
-      this.manaSavedMT += (spellBaseMana * (1 - manaTeaReduction));
-    }
+    this.manaSavedMT += (spellBaseMana * (1 - manaTeaReduction));//removed lifecycles as the combo isn't possible anymore
   }
   on_fightend() {
-    if (debug) {
-      console.log(`Mana Tea Casted: ${this.manateaCount}`);
-      console.log(`Mana saved: ${this.manaSavedMT}`);
-      console.log(`Avg. Mana saved: ${this.manaSavedMT / this.manateaCount}`);
-      console.log(`Total Casts under Mana Tea: ${this.castsUnderManaTea}`);
-      console.log(`Avg Casts under Mana Tea: ${this.castsUnderManaTea / this.manateaCount}`);
-      console.log(`Free spells cast: ${this.nonManaCasts}`);
+    this.overHealingPercent = this.overhealing/(this.overhealing+this.effectivehealing);
+    this.overHealingPercent = Math.round(this.overHealingPercent * 1000)/1000;
+    if(debug){
+    console.log(`Mana Tea Casted: ${this.manateaCount}`);
+    console.log(`Mana saved: ${this.manaSavedMT}`);
+    console.log(`Avg. Mana saved: ${this.manaSavedMT / this.manateaCount}`);
+    console.log(`Total Casts under Mana Tea: ${this.castsUnderManaTea}`);
+    console.log(`Avg Casts under Mana Tea: ${this.castsUnderManaTea / this.manateaCount}`);
+    console.log(`Free spells cast: ${this.nonManaCasts}`);
+    console.log(`Effective healing: ${this.effectivehealing}`);
+    console.log(`Overhealing healing: ${this.overhealing}`);
+    console.log(`OverHealing percentage: ${this.overHealingPercent}`);
     }
   }
 
@@ -162,16 +171,44 @@ class ManaTea extends Analyzer {
     };
   }
 
+  get avgOverHealing(){
+    let overHealingPercent = this.overhealing/(this.overhealing+this.effectivehealing);
+    overHealingPercent = Math.round(overHealingPercent * 1000)/1000;
+    return overHealingPercent;
+  }
+
+  get suggestionThresholdsMana(){
+    return {
+      actual: this.avgOverHealing,
+      isGreaterThan: {
+        minor: .20,
+        average: .30,
+        major: .40,
+      },
+      style: 'percentage',
+    };
+  }
+
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
-          Your mana spent during <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> can be improved. Always aim to cast your highest mana spells such as <SpellLink id={SPELLS.ESSENCE_FONT.id} /> or <SpellLink id={SPELLS.VIVIFY.id} />.
+          Your mana spent during <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> can be improved. Aim to only cast <SpellLink id={SPELLS.VIVIFY.id} /> untill the last second then cast <SpellLink id={SPELLS.ESSENCE_FONT.id} />.
         </>
       )
         .icon(SPELLS.MANA_TEA_TALENT.icon)
         .actual(`${formatNumber(this.avgMtSaves)} average mana saved per Mana Tea cast`)
         .recommended(`${(recommended / 1000).toFixed(0)}k average mana saved is recommended`);
+    });
+    when(this.suggestionThresholdsMana).addSuggestion((suggest, actual, recommended) => {
+      return suggest(
+        <>
+          Your overhealing was high during your <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> usages. Consider using <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> during periods of high damage to the raid and also look to target low health raid members.
+        </>
+      )
+        .icon(SPELLS.MANA_TEA_TALENT.icon)
+        .actual(`${formatPercentage(this.overHealingPercent)} % average overhealing per Mana Tea cast`)
+        .recommended(`under ${formatPercentage(recommended)}% over healing is recommended`);
     });
   }
 
@@ -189,7 +226,7 @@ class ManaTea extends Analyzer {
               {this.efCasts > 0 && <li>{(this.efCasts)} Essence Font casts</li>}
               {this.efCasts > 0 && <li>{(this.vivCasts)} Vivfy casts</li>}
               {this.efCasts > 0 && <li>{(this.enmCasts)} Enveloping Mists casts</li>}
-              <li>{(this.rjwCasts + this.revCasts + this.remCasts + this.lcCasts + this.effCasts)} other spells casted.</li>
+              <li>{(this.rjwCasts + this.revCasts + this.remCasts + this.lcCasts)} other spells casted.</li>
               <li>{(this.nonManaCasts)} non-mana casts during Mana Tea</li>
             </ul>
           </>
