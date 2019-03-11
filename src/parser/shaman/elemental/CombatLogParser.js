@@ -1,5 +1,4 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/shared/modules/DamageDone';
 
 import Abilities from './modules/Abilities';
 import Overload from './modules/features/Overload';
@@ -38,11 +37,8 @@ import MaelstromDetails from '../shared/maelstromchart/MaelstromDetails';
 import MaelstromTracker from '../shared/maelstromchart/MaelstromTracker';
 import MaelstromTab from '../shared/maelstromchart/MaelstromTab';
 
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
-    damageDone: [DamageDone, { showStatistic: true }],
-
     // Features
     abilities: Abilities,
     flameShock: FlameShock,

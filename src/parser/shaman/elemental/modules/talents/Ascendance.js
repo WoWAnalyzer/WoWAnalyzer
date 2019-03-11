@@ -96,26 +96,25 @@ class Ascendance extends Analyzer {
   }
 
   statistic() {
-    let EBtooltip = "";
-    if(this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id)) {
-      EBtooltip = <li>Elemental Blast: ${this.numCasts[SPELLS.ELEMENTAL_BLAST_TALENT.id]}</li>;
-    }
-    const tooltip = `With a uptime of: ${formatPercentage(this.AscendanceUptime)} %<br>
-        Casts while Ascendance was up:<br>
-        <ul>
-          <li>Earth Shock: ${this.numCasts[SPELLS.EARTH_SHOCK.id]}</li>
-          <li>Lava Burst: ${this.numCasts[SPELLS.LAVA_BURST.id]}</li>
-          ${EBtooltip}
-          <li>Other Spells: ${this.numCasts.others}</li>
-        </ul>
-        `;
+    const hasEB = this.selectedCombatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id);
 
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id} />}
         value={`~ ${formatNumber(this.averageLavaBurstCasts)}`}
         label="Average Number Of Lava Bursts Per Ascendance"
-        tooltip={tooltip}
+        tooltip={(
+          <>
+            With a uptime of: {formatPercentage(this.AscendanceUptime)} %<br />
+            Casts while Ascendance was up:
+            <ul>
+              <li>Earth Shock: {this.numCasts[SPELLS.EARTH_SHOCK.id]}</li>
+              <li>Lava Burst: {this.numCasts[SPELLS.LAVA_BURST.id]}</li>
+              {hasEB && <li>Elemental Blast: {this.numCasts[SPELLS.ELEMENTAL_BLAST_TALENT.id]}</li>}
+              <li>Other Spells: {this.numCasts.others}</li>
+            </ul>
+          </>
+        )}
       />
     );
   }

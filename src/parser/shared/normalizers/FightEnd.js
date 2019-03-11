@@ -8,7 +8,6 @@ export const END_EVENT_TYPE = 'fightend';
  * ensure that pending analyzer logic completes cleanly.
  */
 class FightEnd extends EventsNormalizer {
-
   normalize(events) {
     const event = {
       timestamp: this.owner.fight.end_time,
@@ -18,7 +17,6 @@ class FightEnd extends EventsNormalizer {
     events.push(event);
     return events;
   }
-
 }
 
 export default FightEnd;

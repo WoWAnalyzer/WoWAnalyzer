@@ -20,6 +20,7 @@ class CombatPotion extends Potion {
   ];
   static recommendedEfficiency = 0;
   static extraAbilityInfo = {
+    name: 'Combat Potion',
     buffSpellId: [
       SPELLS.BATTLE_POTION_OF_INTELLECT.id,
       SPELLS.BATTLE_POTION_OF_STRENGTH.id,
@@ -29,8 +30,9 @@ class CombatPotion extends Potion {
       SPELLS.POTION_OF_BURSTING_BLOOD.id,
       SPELLS.STEELSKIN_POTION.id,
       SPELLS.COASTAL_REJUVENATION_POTION.id,
-      SPELLS.POTION_OF_REPLENISHMENT.id],
-  }
+      SPELLS.POTION_OF_REPLENISHMENT.id,
+    ],
+  };
 }
 
 export default CombatPotion;

@@ -1,12 +1,16 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import { formatPercentage } from 'common/format';
+import { formatPercentage, formatNumber } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import HasteIcon from 'interface/icons/Haste';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Events from 'parser/core/Events';
+import SpellLink from 'common/SpellLink';
+import ItemHealingDone from 'interface/others/ItemHealingDone';
 
 const bloodRiteStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [haste] = calculateAzeriteEffects(SPELLS.BONDED_SOULS_TRAIT.id, rank);
@@ -59,17 +63,22 @@ class BondedSouls extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
-        trait={SPELLS.BONDED_SOULS_TRAIT.id}
-        value={(
-          <>
-            {this.owner.formatItemHealingDone(this.healing)}<br />
-            and {this.averageHaste.toFixed(0)} average Haste gained
-          </>
-        )}
-        tooltip={`<strong>${formatPercentage(this.uptime)}% uptime</strong>. Each proc grants <strong>${this.haste} Haste</strong> while active.`}
-      />
+      <Statistic
+        category={STATISTIC_CATEGORY.ITEMS}
+        size="flexible"
+        tooltip={<><strong>{formatPercentage(this.uptime)}% uptime</strong>. Each proc grants <strong>{this.haste} Haste</strong> while active.</>}
+      >
+        <div className="pad">
+          <label><SpellLink id={SPELLS.BONDED_SOULS_TRAIT.id} /></label>
+
+          <div className="value" style={{ marginTop: 15 }}>
+            <ItemHealingDone amount={this.healing} />
+          </div>
+          <div className="value" style={{ marginTop: 5 }}>
+            <HasteIcon /> {formatNumber(this.averageHaste)} <small>average Haste gained</small>
+          </div>
+        </div>
+      </Statistic>
     );
   }
 }

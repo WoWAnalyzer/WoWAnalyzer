@@ -20,9 +20,7 @@ const crushingAssaultDamage = traits => Object.values(traits).reduce((obj, rank)
 /**
  * Example report: /report/4h3ZrkcXBYgzVtaL/14-Normal+Fetid+Devourer+-+Kill+(1:38)/32-Prime
  */
-
 class CrushingAssault extends Analyzer {
-
   damage = 0;
   traits = 0;
 
@@ -64,9 +62,13 @@ class CrushingAssault extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.CRUSHING_ASSAULT_TRAIT.id}
-        value={`${this.owner.formatItemDamageDone(this.crushingAssaultDamage)}`}
-        tooltip={`Damage done: <b>${formatNumber(this.crushingAssaultDamage)}</b><br />
-        Crushing Assault procced a total of <b>${this.totalProcs}</b> times, <b>${critPercent}</b> of which were critital hits.`}
+        value={this.owner.formatItemDamageDone(this.crushingAssaultDamage)}
+        tooltip={(
+          <>
+            Damage done: <b>{formatNumber(this.crushingAssaultDamage)}</b><br />
+            Crushing Assault procced a total of <b>{this.totalProcs}</b> times, <b>{critPercent}</b> of which were critital hits.
+          </>
+        )}
       />
     );
   }

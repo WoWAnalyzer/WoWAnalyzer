@@ -33,19 +33,25 @@ class LonelyWinter extends Analyzer {
 
   statistic() {
     let totalDamage = 0;
-    let tooltip = "When analyzing this talent, take into account any DPS you lost by not having a Water Elemental.";
-    tooltip += Object.keys(this.bonusDamage).reduce((acc, spellId) => {
+    const tooltip = Object.keys(this.bonusDamage).map(spellId => {
       const spellBonus = this.bonusDamage[spellId];
       totalDamage += spellBonus;
-      return acc + `<li>Bonus <b>${SPELLS[spellId].name}</b> damage: ${formatNumber(spellBonus)}</li>`;
-    }, '<ul>');
-    tooltip += `</ul>Total damage increase: ${formatNumber(totalDamage)}`;
+      return <li>Bonus <strong>{SPELLS[spellId].name}</strong> damage: {formatNumber(spellBonus)}</li>;
+    });
 
     return (
       <TalentStatisticBox
         talent={SPELLS.LONELY_WINTER_TALENT.id}
         value={this.owner.formatItemDamageDone(totalDamage)}
-        tooltip={tooltip}
+        tooltip={(
+          <>
+            When analyzing this talent, take into account any DPS you lost by not having a Water Elemental.
+            <ul>
+              {tooltip}
+            </ul>
+            Total damage increase: {formatNumber(totalDamage)}
+          </>
+        )}
       />
     );
   }

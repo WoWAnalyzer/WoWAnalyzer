@@ -70,9 +70,9 @@ class Predator extends Analyzer {
 
   statistic() {
     // There may be early casts without any extra casts overall
-    const earlyCastsComment = this.earlyCasts > 0 ? `<br/>Thanks to Predator <b>${this.earlyCasts}</b> of your Tiger's Fury casts ${this.earlyCasts !== 1 ? 'were' : 'was'} before when the cooldown would have been ready.` : '';
-    const hadExtraCasts = `Your Predator talent allowed you to use Tiger's Fury at least <b>${this.extraCasts}</b> extra time${this.extraCasts !== 1 ? 's' : ''}. Without it you would have had time for <b>${this.baseCasts}</b> cast${this.baseCasts !== 1 ? 's' : ''} but with it you were able to use Tiger's Fury <b>${this.totalCasts}</b> time${this.totalCasts !== 1 ? 's' : ''}.${earlyCastsComment}`;
-    const noExtraCasts = `Your Predator talent didn't allow you to cast more Tiger's Fury overall than you would have been able to without it, with the fight lasting long enough for all <b>${this.totalCasts}</b> of your cast${this.totalCasts !== 1 ? 's' : ''}. Either there were no enemies dying with your bleeds on them during this fight or you didn't make use of Tiger's Fury when it came off cooldown.${earlyCastsComment}`;
+    const earlyCastsComment = <><br />Thanks to Predator <strong>{this.earlyCasts}</strong> of your Tiger's Fury casts {this.earlyCasts !== 1 ? 'were' : 'was'} before when the cooldown would have been ready.</>;
+    const hadExtraCasts = <>Your Predator talent allowed you to use Tiger's Fury at least <strong>{this.extraCasts}</strong> extra time{this.extraCasts !== 1 ? 's' : ''}. Without it you would have had time for <strong>{this.baseCasts}</strong> cast{this.baseCasts !== 1 ? 's' : ''} but with it you were able to use Tiger's Fury <strong>{this.totalCasts}</strong> time{this.totalCasts !== 1 ? 's' : ''}.{this.earlyCasts > 0 && earlyCastsComment}</>;
+    const noExtraCasts = <>Your Predator talent didn't allow you to cast more Tiger's Fury overall than you would have been able to without it, with the fight lasting long enough for all <strong>{this.totalCasts}</strong> of your cast{this.totalCasts !== 1 ? 's' : ''}. Either there were no enemies dying with your bleeds on them during this fight or you didn't make use of Tiger's Fury when it came off cooldown.{this.earlyCasts > 0 && earlyCastsComment}</>;
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.PREDATOR_TALENT.id} />}

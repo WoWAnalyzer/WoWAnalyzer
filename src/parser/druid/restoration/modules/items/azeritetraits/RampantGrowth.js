@@ -125,18 +125,17 @@ class RampantGrowth extends Analyzer{
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.RAMPANT_GROWTH_TRAIT.id}
-        value={(
+        value={`${formatPercentage(throughputPercent)} %`}
+        tooltip={(
           <>
-            {formatPercentage(throughputPercent)} %<br />
+            Healing from HoT increase: {formatPercentage(healingFromHotIncrease)}% <br />
+            Healing from free Regrowth HoT: {formatPercentage(freeRegrowthHoT)}% <br />
+            Healing from free Regrowth mastery stack: {formatPercentage(freeRegrowthMastery)}% <br />
+            Healing missed from free Regrowth because of direct Regrowth casts on LB target: {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.discountHealing))}% (# of times: {this.directRegrowthCastsOnLB}) <br />
+            Rampant Growth gave you equivalent to <strong>{formatNumber(intGain)}</strong> ({formatNumber(intGain/this.traitLevel)} per level) Intellect.
+            This is worth roughly <strong>{formatNumber(ilvlGain)}</strong> ({formatNumber(ilvlGain/this.traitLevel)} per level) item levels.
           </>
         )}
-        tooltip={`Healing from HoT increase: ${formatPercentage(healingFromHotIncrease)}% <br/>
-                  Healing from free Regrowth HoT: ${formatPercentage(freeRegrowthHoT)}% <br/>
-                  Healing from free Regrowth mastery stack: ${formatPercentage(freeRegrowthMastery)}% <br/>
-                  Healing missed from free Regrowth because of direct Regrowth casts on LB target: ${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.discountHealing))}% (# of times: ${this.directRegrowthCastsOnLB}) <br/>
-                  Rampant Growth gave you equivalent to <b>${formatNumber(intGain)}</b> (${formatNumber(intGain/this.traitLevel)}
-                    per level) int. This is worth roughly <b>${formatNumber(ilvlGain)}</b> (${formatNumber(ilvlGain/this.traitLevel)}
-                    per level) item levels.`}
       />
     );
   }

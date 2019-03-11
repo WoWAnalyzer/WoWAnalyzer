@@ -52,11 +52,14 @@ class WillOfTheNecropolis extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.WILL_OF_THE_NECROPOLIS_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(4)}
-        value={`${this.owner.formatItemHealingDone(this.totalWotnAbsorbed)}`}
-        tooltip={`<strong>Total Damage Absorbed: </strong> ${formatNumber(this.totalWotnAbsorbed)} </br>
-                  <strong>Activated: </strong> ${this.activated}</br>
-                  <strong>Absorbed 5% Max Health or more count: </strong> ${this.goodAbsorbCount}  `}
-
+        value={this.owner.formatItemHealingDone(this.totalWotnAbsorbed)}
+        tooltip={(
+          <>
+            <strong>Total Damage Absorbed: </strong> {formatNumber(this.totalWotnAbsorbed)} <br />
+            <strong>Activated: </strong> {this.activated}<br />
+            <strong>Absorbed 5% Max Health or more count: </strong> {this.goodAbsorbCount}
+          </>
+        )}
       />
     );
   }

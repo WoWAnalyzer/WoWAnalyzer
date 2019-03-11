@@ -77,11 +77,7 @@ class EnduringRenewal extends Analyzer {
 
       <TalentStatisticBox
         talent={SPELLS.ENDURING_RENEWAL_TALENT.id}
-        value={(
-          <>
-            <ItemHealingDone amount={this.healing} />
-          </>
-        )}
+        value={<ItemHealingDone amount={this.healing} />}
         tooltip={`Refreshed Renews: ${this.refreshedRenews}`}
         position={STATISTIC_ORDER.CORE(1)}
       />

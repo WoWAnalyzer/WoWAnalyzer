@@ -1,7 +1,9 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS/index';
-import ITEMS from 'common/ITEMS/index';
+import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
+import UptimeIcon from 'interface/icons/Uptime';
+import CriticalStrikeIcon from 'interface/icons/CriticalStrike';
 import Analyzer from 'parser/core/Analyzer';
 import { formatPercentage, formatNumber } from 'common/format';
 import { calculateSecondaryStatDefault } from 'common/stats';
@@ -31,8 +33,8 @@ class ConchofDarkWhispers extends Analyzer {
       item: ITEMS.CONCH_OF_DARK_WHISPERS,
       result: (
         <>
-          {formatPercentage(this.totalBuffUptime)}% uptime<br />
-          {formatNumber(this.totalBuffUptime * this.statBuff)} average Critical Strike
+          <UptimeIcon /> {formatPercentage(this.totalBuffUptime)}% <small>uptime</small><br />
+          <CriticalStrikeIcon /> {formatNumber(this.totalBuffUptime * this.statBuff)} <small>average Critical Strike gained</small>
         </>
       ),
     };

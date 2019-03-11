@@ -165,10 +165,11 @@ class Atonement extends Analyzer {
         icon={<SpellIcon id={SPELLS.ATONEMENT_HEAL_NON_CRIT.id} />}
         value={improperLength}
         label={(
-          <dfn data-tip={`The amount of Atonement instances that were refreshed earlier than within 3 seconds of the buff expiring. You applied Atonement ${totalAtones} times in total, ${totalAtonementRefreshes} (${formatPercentage((totalAtonementRefreshes / totalAtones), 2)}%) of them were refreshes of existing Atonement instances, and ${improperLength} (${formatPercentage((improperLength / totalAtones), 2)}%) of them were considered early.`}>
+          <>
             Early Atonement refreshes
-          </dfn>
+          </>
         )}
+        tooltip={`The amount of Atonement instances that were refreshed earlier than within 3 seconds of the buff expiring. You applied Atonement ${totalAtones} times in total, ${totalAtonementRefreshes} (${formatPercentage((totalAtonementRefreshes / totalAtones), 2)}%) of them were refreshes of existing Atonement instances, and ${improperLength} (${formatPercentage((improperLength / totalAtones), 2)}%) of them were considered early.`}
       />
     );
   }

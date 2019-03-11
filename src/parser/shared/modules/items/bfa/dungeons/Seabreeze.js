@@ -1,7 +1,8 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS/index';
-import ITEMS from 'common/ITEMS/index';
+import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
+import { TooltipElement } from 'common/Tooltip';
 import Analyzer from 'parser/core/Analyzer';
 import { formatPercentage, formatNumber } from 'common/format';
 import { calculateSecondaryStatDefault } from 'common/stats';
@@ -40,7 +41,9 @@ class Seabreeze extends Analyzer {
       result: (
         <>
           {formatPercentage(this.totalBuffUptime)}% uptime<br />
-          <dfn data-tip={`The stat budget for a non-proc main hand would yield ${formatNumber(this.statBudget)} secondary stats`}>{formatNumber(this.averageStatGain)} average Haste gained.</dfn>
+          <TooltipElement content={`The stat budget for a non-proc main hand would yield ${formatNumber(this.statBudget)} secondary stats`}>
+            {formatNumber(this.averageStatGain)} average Haste gained.
+          </TooltipElement>
         </>
       ),
     };

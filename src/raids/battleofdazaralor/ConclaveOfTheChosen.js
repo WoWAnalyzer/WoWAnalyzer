@@ -1,11 +1,11 @@
-// import Background from './images/backgrounds/FridaIronbellows.jpg';
-import Headshot from './images/headshots/ConclaveOfTheChosen.jpg';
+import Background from './images/backgrounds/ConclaveOfTheChosen.jpg';
+import Headshot from './images/headshots/ConclaveOfTheChosen.png';
 import { BOD_HORDE_TO_ALLIANCE } from './RaceTranslation';
 
 export default {
   id: 2268,
-  name: 'Conclave of the Chosen', // Alliance only
-  // TODO: background: Background,
+  name: 'Conclave of the Chosen',
+  background: Background,
   headshot: Headshot,
   icon: 'achievement_boss_zuldazar_loacouncil',
   fight: {

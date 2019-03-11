@@ -46,12 +46,15 @@ class LaserMatrix extends Analyzer{
           <>
             {formatPercentage(healingThroughputPercent)} % healing<br />
             {formatPercentage(damageThroughputPercent)} % damage<br />
-            Gained <SpellLink id={SPELLS.REORIGINATION_ARRAY.id} /><br />
+            Gained <SpellLink id={SPELLS.REORIGINATION_ARRAY.id} />
           </>
         )}
-        tooltip={`Healing done: ${formatNumber(this.healing)} <br />
-                  Damage done: ${formatNumber(this.damage)} <br />`
-        }
+        tooltip={(
+          <>
+            Healing done: {formatNumber(this.healing)} <br />
+            Damage done: {formatNumber(this.damage)}
+          </>
+        )}
       />
     );
   }

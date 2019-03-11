@@ -5,6 +5,7 @@ import Toggle from 'react-toggle';
 import Icon from 'common/Icon';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
+import { TooltipElement } from 'common/Tooltip';
 import HealingValue from 'parser/shared/modules/HealingValue';
 
 class BeaconHealingBreakdown extends React.Component {
@@ -56,9 +57,9 @@ class BeaconHealingBreakdown extends React.Component {
                   />
                 </td>
                 <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
-                  <dfn data-tip={`Total: ${formatNumber(healing.effective)}`}>
+                  <TooltipElement content={`Total: ${formatNumber(healing.effective)}`}>
                     {formatNumber(healing.effective / fightDuration * 1000)} HPS
-                  </dfn>
+                  </TooltipElement>
                 </td>
                 <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
                   {formatPercentage(healing.overheal / healing.raw)} %
@@ -76,9 +77,9 @@ class BeaconHealingBreakdown extends React.Component {
         <thead>
           <tr>
             <th style={{ fontWeight: 700, textTransform: 'uppercase' }}>Name</th>
-            <th style={{ fontWeight: 700, textTransform: 'uppercase' }}>Healing</th>
-            <th colSpan="2">
-              <div className="text-right toggle-control">
+            <th colSpan="3">
+              <span style={{ fontWeight: 700, textTransform: 'uppercase' }}>Beacon healing caused</span>
+              <div className="pull-right toggle-control">
                 <Toggle
                   defaultChecked={false}
                   icons={false}

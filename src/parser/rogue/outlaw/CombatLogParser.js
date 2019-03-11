@@ -1,5 +1,4 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/shared/modules/DamageDone';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 import Abilities from './modules/Abilities';
@@ -15,13 +14,13 @@ import EnergyCapTracker from '../shared/resources/EnergyCapTracker';
 import Energy from './modules/core/Energy';
 import SpellEnergyCost from '../shared/resources/SpellEnergyCost';
 
+import RollTheBonesBuffs from './modules/core/RollTheBonesBuffs';
 import RestlessBlades from './modules/core/RestlessBlades';
 import SliceAndDiceUptime from './modules/talents/SliceAndDiceUptime';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Feature
-    damageDone: [DamageDone, { showStatistic: true }],
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     spellUsable: SpellUsable,
@@ -38,6 +37,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Core
     restlessBlades: RestlessBlades,
+    rolltheBonesBuffs: RollTheBonesBuffs,
     //Items
 
     //Casts

@@ -62,11 +62,14 @@ class SoulsOvercap extends Analyzer {
         icon={<SpellIcon id={SPELLS.SOUL_FRAGMENT.id} />}
         value={`${formatPercentage(this.wasterPerGenerated())}% Souls`}
         label="Inefficiently generated"
-        tooltip={`You generated ${formatNumber(this.soulFragmentsTracker.soulsWasted)} souls at cap. These are absorbed automatically <br/>
-                  and aren't avalible to boost Spirit Bomb's damage.<br/>
-                  Total Soul Fragments generated: ${formatNumber(this.soulFragmentsTracker.soulsGenerated)}<br/>
-                  Total Soul Fragments spent: ${formatNumber(this.soulFragmentsTracker.soulsSpent)}<br/>
-                  At the end of the fight, you had ${formatNumber(this.soulFragmentsTracker.currentSouls)} unused Soul Fragments.`}
+        tooltip={(
+          <>
+            You generated {formatNumber(this.soulFragmentsTracker.soulsWasted)} souls at cap. These are absorbed automatically and aren't avalible to boost Spirit Bomb's damage.<br />
+            Total Soul Fragments generated: {formatNumber(this.soulFragmentsTracker.soulsGenerated)}<br />
+            Total Soul Fragments spent: {formatNumber(this.soulFragmentsTracker.soulsSpent)}<br />
+            At the end of the fight, you had {formatNumber(this.soulFragmentsTracker.currentSouls)} unused Soul Fragments.
+          </>
+        )}
       />
     );
   }

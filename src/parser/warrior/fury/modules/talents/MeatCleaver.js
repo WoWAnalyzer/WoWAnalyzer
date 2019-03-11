@@ -78,8 +78,8 @@ class MeatCleaver extends Analyzer {
         talent={SPELLS.MEAT_CLEAVER_TALENT.id}
         value={`${this.rageGainedByMeatCleaver} rage gained`}
         label="Meat Cleaver"
-        tooltip={`Enrage was triggered <b>${this.numberOfEnrageTriggers}</b> times by Meat Cleaver.`}
-        />
+        tooltip={<>Enrage was triggered <strong>{this.numberOfEnrageTriggers}</strong> times by Meat Cleaver.</>}
+      />
     );
   }
 }

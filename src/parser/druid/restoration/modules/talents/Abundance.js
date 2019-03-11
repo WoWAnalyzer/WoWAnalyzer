@@ -56,16 +56,15 @@ class Abundance extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.ABUNDANCE_TALENT.id} />}
-        value={(
+        value={`${avgStacks.toFixed(2)}  Avg. stacks`}
+        label="Abundance"
+        tooltip={(
           <>
-            {avgStacks.toFixed(2)}  Avg. stacks<br />
+            Average mana reductions gained was {formatPercentage(avgManaSavingsPercent)}% or {formatNumber(avgManaSaings)} mana per cast.<br />
+            Maximum mana saved was {avgManaSaings * this.manaSavings.length} <br />
+            Average crit gain was {formatPercentage(avgCritGains)}%.
           </>
         )}
-        label={'Abundance'}
-        tooltip={`Average mana reductions gained was ${formatPercentage(avgManaSavingsPercent)}% or ${formatNumber(avgManaSaings)} mana per cast.<br />
-                  Maximum mana saved was ${avgManaSaings * this.manaSavings.length} <br />
-                  Average crit gain was ${formatPercentage(avgCritGains)}%.
-                `}
       />
     );
   }

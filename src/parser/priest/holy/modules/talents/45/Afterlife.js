@@ -60,9 +60,7 @@ class Afterlife extends Analyzer {
 
       <TalentStatisticBox
         talent={SPELLS.AFTERLIFE_TALENT.id}
-        value={(
-          <ItemHealingDone amount={this.healingInAfterlife} />
-        )}
+        value={<ItemHealingDone amount={this.healingInAfterlife} />}
         tooltip={`Extra Spirit of Redemption time: ${Math.floor(this.spiritOfRedemptionBonusTime / 1000)}s`}
         position={STATISTIC_ORDER.CORE(3)}
       />

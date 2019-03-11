@@ -1,10 +1,9 @@
-import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'parser/shared/modules/CooldownThroughputTracker';
-
 import SPELLS from 'common/SPELLS';
+import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'parser/shared/modules/CooldownThroughputTracker';
 
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
-    ...CooldownThroughputTracker.cooldownSpells,
+    ...CoreCooldownThroughputTracker.cooldownSpells,
     {
       spell: SPELLS.BREATH_OF_SINDRAGOSA_TALENT,
       summary: [
@@ -24,10 +23,9 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       ],
     },
   ];
-  
 
   static ignoredSpells = [
-    ...CooldownThroughputTracker.ignoredSpells,
+    ...CoreCooldownThroughputTracker.ignoredSpells,
     SPELLS.REMORSELESS_WINTER_DAMAGE.id,
     SPELLS.REMORSELESS_WINTER_ENV_CAST.id,
   ];

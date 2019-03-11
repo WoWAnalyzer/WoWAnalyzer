@@ -6,9 +6,9 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import ItemLink from 'common/ItemLink';
 import Icon from 'common/Icon';
+import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import rankingColor from 'common/getRankingColor';
 import { makePlainUrl } from 'interface/common/makeAnalyzerUrl';
-import { GEAR_SLOTS } from 'parser/core/Combatant';
 
 const TRINKET_SLOTS = [GEAR_SLOTS.TRINKET1, GEAR_SLOTS.TRINKET2];
 
@@ -57,31 +57,43 @@ class ParsesList extends React.PureComponent {
   }
   formatPerformance(elem) {
     const { metric } = this.props;
-    return `${formatNumber(elem.persecondamount)} ${metric.toLocaleUpperCase()} (${formatPercentage(elem.historical_percent / 100)}%)`;
+    return `${formatNumber(elem.persecondamount)} ${metric.toLocaleUpperCase()} (${formatPercentage(elem.historical_percent / 100, 0)}%)`;
   }
 
   render() {
     const { parses } = this.props;
     return (
-      parses.map(elem => {
-        const url = makePlainUrl(elem.report_code, elem.report_fight, elem.difficulty + ' ' + elem.name, elem.advanced ? elem.character_name : '');
-        return (
-          <Link
-            key={url}
-            to={url}
-          >
-            <div className="row character-parse">
-              <div className="col-md-12">
+      <ul className="list parses-list">
+        {parses.map(elem => {
+          const url = makePlainUrl(elem.report_code, elem.report_fight, elem.difficulty + ' ' + elem.name, elem.advanced ? elem.character_name : '');
+          return (
+            <li key={url}>
+              <Link to={url}>
                 <div className="row">
-                  <div className="col-md-5" style={{ color: 'white' }}>
-                    <img
-                      src={this.iconPath(elem.spec)}
-                      style={{ height: 30, marginRight: 10 }}
-                      alt={elem.spec}
-                    />
-                    {elem.difficulty} - {elem.name}
+                  <div className="col-md-4" style={{ color: 'white' }}>
+                    <div>
+                      <img
+                        className="spec-icon"
+                        src={this.iconPath(elem.spec)}
+                        alt={elem.spec}
+                      />
+                      <span className="difficulty">{elem.difficulty}</span>
+                      <span className="boss">{elem.name}</span>
+                    </div>
                   </div>
-                  <div className="col-md-5" style={{ height: 32 }}>
+                  <div className="col-md-2 text-right">
+                    <div className={rankingColor(elem.historical_percent / 100)}>
+                      {this.formatPerformance(elem)}
+                    </div>
+                  </div>
+                  <div className="col-md-1 text-right">
+                    {elem.advanced && (
+                      elem.gear
+                        .filter(this.itemFilter)
+                        .map(this.renderItem)
+                    )}
+                  </div>
+                  <div className="col-md-3">
                     {elem.advanced && elem.talents.map(talent => (
                       <SpellIcon
                         key={talent.id}
@@ -92,30 +104,16 @@ class ParsesList extends React.PureComponent {
                   </div>
                   <div className="col-md-2" style={{ color: 'white', textAlign: 'right' }}>
                     {new Date(elem.start_time).toLocaleDateString()}
-                  </div>
-                </div>
-                <div className="row">
-                  <div className={`col-md-5 ${rankingColor(elem.historical_percent)}`} style={{ paddingLeft: 55 }}>
-                    {this.formatPerformance(elem)}
-                  </div>
-                  <div className="col-md-5">
                     {elem.advanced && (
-                      elem.gear
-                        .filter(this.itemFilter)
-                        .map(this.renderItem)
-                    )}
-                  </div>
-                  <div className="col-md-2 text-right">
-                    {elem.advanced && (
-                      <span className="glyphicon glyphicon-chevron-right" aria-hidden="true" />
+                      <span className="glyphicon glyphicon-chevron-right" aria-hidden="true" style={{ marginLeft: 10 }} />
                     )}
                   </div>
                 </div>
-              </div>
-            </div>
-          </Link>
-        );
-      })
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
     );
   }
 }

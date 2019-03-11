@@ -20,14 +20,14 @@ class SpellUsable extends CoreSpellUsable {
     }
   }
 
-  beginCooldown(spellId, timestamp) {
+  beginCooldown(spellId, cooldownTriggerEvent) {
     if (spellId === SPELLS.BARBED_SHOT.id) {
       if (this.isOnCooldown(spellId)) {
         this.endCooldown(spellId, undefined, this.lastPotentialTriggerForBarbedShotReset ? this.lastPotentialTriggerForBarbedShotReset.timestamp : undefined);
       }
     }
 
-    super.beginCooldown(spellId, timestamp);
+    super.beginCooldown(spellId, cooldownTriggerEvent);
   }
 }
 

@@ -1,5 +1,4 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/shared/modules/DamageDone';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 import EyeBeamNormalizer from './normalizers/EyeBeam';
@@ -47,7 +46,6 @@ import SoulOfTheSlayer from '../shared/modules/items/SoulOfTheSlayer';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core Statistics
-    damageDone: [DamageDone, { showStatistic: true }],
     channeling: Channeling,
     globalCooldown: GlobalCooldown,
 

@@ -1,11 +1,10 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
-
-import Analyzer from 'parser/core/Analyzer';
-
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
+import CooldownIcon from 'interface/icons/Cooldown';
 import CooldownOverview from 'interface/others/CooldownOverview';
+import Analyzer from 'parser/core/Analyzer';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 
 const debug = false;
@@ -121,15 +120,24 @@ class CooldownThroughputTracker extends Analyzer {
   tab() {
     return {
       title: 'Cooldowns',
+      icon: CooldownIcon,
       url: 'cooldowns',
       render: () => (
-        <Tab>
+        <Panel
+          title="Throughput cooldowns"
+          explanation={(
+            <>
+              This shows the effectiveness of your throughput cooldowns and your cast behavior during them. Click on <i>More</i> to see details such as the delay between casting spells and the healing or damage done with them. Take a look at the timeline for a different kind of view of your casts during buffs.
+            </>
+          )}
+          pad={false}
+        >
           <CooldownOverview
             fightStart={this.owner.fight.start_time}
             fightEnd={this.owner.fight.end_time}
             cooldowns={this.pastCooldowns}
           />
-        </Tab>
+        </Panel>
       ),
     };
   }

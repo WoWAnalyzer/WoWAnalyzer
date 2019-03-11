@@ -7,7 +7,7 @@ class ManaValues extends Analyzer {
   lowestMana = null; // start at `null` and fill it with the first value to account for users starting at a non-default amount for whatever reason
   endingMana = 0;
 
-  maxMana = 110000;
+  maxMana = 100000;
   manaUpdates = [];
 
   constructor(...args) {
@@ -16,6 +16,10 @@ class ManaValues extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
+    if (event.prepull) {
+      // These are fabricated by the PrePullCooldowns normalizer which guesses class resources which could introduce issues.
+      return;
+    }
     if (event.classResources) {
       event.classResources
         .filter(resource => resource.type === RESOURCE_TYPES.MANA.id)

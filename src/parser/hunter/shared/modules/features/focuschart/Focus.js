@@ -3,15 +3,15 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Line } from 'react-chartjs-2';
 import SPELLS from 'common/SPELLS';
 
-import { formatDuration } from 'common/format';
 import Haste from 'parser/shared/modules/Haste';
 
 import FocusComponent from './FocusComponent';
+import FocusChart from './FocusChart';
 
-const passiveWasteThresholdPercentage = .03; // (wasted passive focus generated) / (total passive focus generated), anything higher will trigger "CAN BE IMPROVED"
+const PASSIVE_WASTE_THRESHOLD_PERCENTAGE = .03; // (wasted passive focus generated) / (total passive focus generated), anything higher will trigger "CAN BE IMPROVED"
+
 //TODO: Purge the entire focuschart folder and implement the more modern implementation
 class Focus extends React.PureComponent {
   static propTypes = {
@@ -32,28 +32,25 @@ class Focus extends React.PureComponent {
     haste: Haste,
   };
 
-  render() {
-    if (!this.props.tracker) {
-      return (
-        <div>
-          Loading...
-        </div>
-      );
-    }
-    const focusGen = Math.round((10 + .1 * this.props.playerHaste / 375) * 100) / 100;
-
-    const maxFocus = this.props.focusMax;
-    const { start, end } = this.props;
+  get plot() {
+    const {
+      playerHaste,
+      focusMax,
+      start,
+      end,
+      focusPerSecond,
+      activeFocusWastedTimeline,
+    } = this.props;
+    const focusGen = Math.round((10 + .1 * playerHaste / 375) * 100) / 100;
 
     //not it's own module since it's "fake data" meant to look visually accurate, not be numerically accurate
-    const passiveCap = this.props.secondsCapped; //counts time focus capped (in seconds)
     let lastCatch = 0; //records the timestamp of the last event
     const overCapBySecond = [];
     const focusBySecond = [];
-    const magicGraphNumber = Math.floor(maxFocus / 2);
+    const magicGraphNumber = Math.floor(focusMax / 2);
     let passiveWasteIndex = 0;
-    if (this.props.focusPerSecond && this.props.activeFocusWastedTimeline) {
-      this.props.focusPerSecond.forEach((item) => {
+    if (focusPerSecond && activeFocusWastedTimeline) {
+      focusPerSecond.forEach((item) => {
         const secIntoFight = Math.floor(passiveWasteIndex / 1000);
         if (Math.max(focusBySecond[secIntoFight], item) >= magicGraphNumber) { //aims to get highest peak
           focusBySecond[secIntoFight] = Math.max(focusBySecond[secIntoFight], item);
@@ -69,23 +66,23 @@ class Focus extends React.PureComponent {
       });
       for (let i = 0; i < lastCatch; i++) { //extrapolates for passive focus gain
         if (!focusBySecond[i]) {
-          if (focusBySecond[i - 1] > maxFocus - focusGen) {
-            focusBySecond[i] = maxFocus;
+          if (focusBySecond[i - 1] > focusMax - focusGen) {
+            focusBySecond[i] = focusMax;
           }
           else {
             focusBySecond[i] = focusBySecond[i - 1] + focusGen;
           }
         }
-        if (focusBySecond[i] >= maxFocus) {
-          if (this.props.activeFocusWastedTimeline[i]) {
-            overCapBySecond[i] = focusGen + this.props.activeFocusWastedTimeline[i];
+        if (focusBySecond[i] >= focusMax) {
+          if (activeFocusWastedTimeline[i]) {
+            overCapBySecond[i] = focusGen + activeFocusWastedTimeline[i];
           }
           else {
             overCapBySecond[i] = focusGen;
           }
         }
-        else if (this.props.activeFocusWastedTimeline[i] && focusBySecond[i] + this.props.activeFocusWastedTimeline[i] > maxFocus) {
-          overCapBySecond[i] = (focusBySecond[i] + this.props.activeFocusWastedTimeline[i]) - maxFocus;
+        else if (activeFocusWastedTimeline[i] && focusBySecond[i] + activeFocusWastedTimeline[i] > focusMax) {
+          overCapBySecond[i] = (focusBySecond[i] + activeFocusWastedTimeline[i]) - focusMax;
         }
         else {
           overCapBySecond[i] = 0;
@@ -93,13 +90,57 @@ class Focus extends React.PureComponent {
       }
     }
 
+    const fightDurationSec = Math.floor((end - start) / 1000);
+    for (let i = 0; i <= fightDurationSec; i += 1) {
+      focusBySecond[i] = focusBySecond[i] !== undefined ? focusBySecond[i] : null;
+      if (focusBySecond[i] !== null) {
+        focusBySecond[i] = focusBySecond[i] > 0 ? focusBySecond[i] : 0;
+      }
+      overCapBySecond[i] = overCapBySecond[i] !== undefined ? overCapBySecond[i] : null;
+    }
+
+    // transform the data to a format react-vis uses
+    const focus = Object.entries(focusBySecond).map(([key, value]) => ({ x: Number(key), y: value }));
+    const wasted = Object.entries(overCapBySecond).map(([key, value]) => ({ x: Number(key), y: value }));
+
+    return (
+      <FocusChart
+        maxFocus={focusMax}
+        focus={focus}
+        wasted={wasted}
+      />
+    );
+  }
+
+  render() {
+    if (!this.props.tracker) {
+      return (
+        <div>
+          Loading...
+        </div>
+      );
+    }
+
+    const {
+      playerHaste,
+      start,
+      end,
+      secondsCapped, //counts time focus capped (in seconds)
+      generatorCasts,
+      activeFocusWasted,
+      activeFocusGenerated,
+    } = this.props;
+
+    const focusGen = Math.round((10 + .1 * playerHaste / 375) * 100) / 100;
+
+    //not it's own module since it's "fake data" meant to look visually accurate, not be numerically accurate
     const abilitiesAll = {};
     const categories = {
       generated: 'Focus Generators',
       //spent: 'Focus Spenders', //I see no reason to display focus spenders, but leaving this in if someone later wants to add them
     };
-    if (this.props.generatorCasts && this.props.activeFocusWasted && this.props.activeFocusGenerated) {
-      Object.keys(this.props.generatorCasts).forEach(generator => {
+    if (generatorCasts && activeFocusWasted && activeFocusGenerated) {
+      Object.keys(generatorCasts).forEach(generator => {
         const spell = SPELLS[generator];
         if (!spell) {
           throw new Error(`Missing spell: ${generator}`);
@@ -110,9 +151,9 @@ class Focus extends React.PureComponent {
             name: spell.name,
             spellId: Number(generator),
           },
-          casts: this.props.generatorCasts[generator],
-          created: this.props.activeFocusGenerated[generator],
-          wasted: this.props.activeFocusWasted[generator],
+          casts: generatorCasts[generator],
+          created: activeFocusGenerated[generator],
+          wasted: activeFocusWasted[generator],
         };
       });
     }
@@ -128,103 +169,17 @@ class Focus extends React.PureComponent {
     });
 
     const fightDurationSec = Math.floor((end - start) / 1000);
-    const labels = [];
-    for (let i = 0; i <= fightDurationSec; i += 1) {
-      labels.push(i);
-
-      focusBySecond[i] = focusBySecond[i] !== undefined ? focusBySecond[i] : null;
-      if (focusBySecond[i] !== null) {
-        focusBySecond[i] = focusBySecond[i] > 0 ? focusBySecond[i] : 0;
-      }
-      overCapBySecond[i] = overCapBySecond[i] !== undefined ? overCapBySecond[i] : null;
-    }
-    const wastedFocus = Math.round(passiveCap * focusGen);
+    const wastedFocus = Math.round(secondsCapped * focusGen);
     const totalFocus = Math.floor(fightDurationSec * focusGen);
     let ratingOfPassiveWaste = '';
-    if (passiveCap / this.totalFocus > passiveWasteThresholdPercentage) {
+    if ((secondsCapped / totalFocus) > PASSIVE_WASTE_THRESHOLD_PERCENTAGE) {
       ratingOfPassiveWaste = 'Can be improved.';
     }
     const totalWasted = [totalFocus, wastedFocus, ratingOfPassiveWaste];
 
-    let maxX;
-    const myLabels = [];
-    for (maxX = 0; maxX < focusBySecond.length; maxX++) {
-      if (maxX % 30 === 0) {
-        myLabels[maxX] = (formatDuration(maxX));
-      }
-    }
-    myLabels[maxX - 1] = formatDuration(maxX - 1);
-
-    const myData = {
-      labels: myLabels,
-      datasets: [{
-        label: 'Focus',
-        data: focusBySecond,
-        lineTension: 0.4,
-        backgroundColor: [
-          'rgba(0, 139, 215, 0.2)',
-        ],
-        borderColor: [
-          'rgba(0,145,255,1)',
-        ],
-        borderWidth: 2,
-      },
-        {
-          label: 'Wasted Focus',
-          data: overCapBySecond,
-          lineTension: 0.4,
-          backgroundColor: [
-            'rgba(255,20,147, 0.3)',
-          ],
-          borderColor: [
-            'rgba(255,90,160,1)',
-          ],
-          borderWidth: 2,
-        }],
-
-    };
-    const chartOptions = {
-      lineTension: 0,
-      elements: {
-        point: { radius: 0 },
-      },
-      scales: {
-        xAxes: [{
-          ticks: {
-            beginAtZero: true,
-            autoSkip: false,
-          },
-          gridLines: {
-            color: 'rgba(255,255,255,0.7)',
-            borderDash: [2, 2],
-          },
-          position: 'bottom',
-          beginAtZero: true,
-        }],
-        yAxes: [{
-          gridLines: {
-            color: 'rgba(255,255,255,0.7)',
-            borderDash: [2, 2],
-          },
-          type: 'linear',
-          ticks: {
-            beginAtZero: true,
-            stepSize: 30,
-            max: maxFocus,
-          },
-        }],
-      },
-    };
-
     return (
       <div>
-        <Line
-          data={myData}
-          options={chartOptions}
-          height={100}
-          width={300}
-        />
-
+        {this.plot}
         <FocusComponent
           abilities={abilities}
           categories={categories}

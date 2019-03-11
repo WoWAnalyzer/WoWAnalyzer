@@ -1,5 +1,4 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/shared/modules/DamageDone';
 import Abilities from './modules/Abilities';
 import Stormbringer from './modules/core/Stormbringer';
 
@@ -34,7 +33,6 @@ import MaelstromTracker from '../shared/maelstromchart/MaelstromTracker';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // ShamanCore
-    damageDone: [DamageDone, { showStatistic: true }],
     flametongue: Flametongue,
     rockbiter: Rockbiter,
     flametongueRefresh: FlametongueRefresh,

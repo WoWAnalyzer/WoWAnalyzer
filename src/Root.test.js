@@ -1,17 +1,19 @@
 import React from 'react';
 import { mount } from 'enzyme';
+
 import Root from './Root';
 
-describe('Root', () => {
-  it('renders without crashing', () => {
-    // I don't think this helps us more than `mount()`
-    // const div = document.createElement('div');
-    // ReactDOM.render(<Root />, div);
+jest.unmock('react-router-dom');
 
+describe('Root', () => {
+  const tree = mount(
+    <Root />
+  );
+  it('renders without crashing', () => {
     // At least the code input field should be visible
-    const tree = mount(
-      <Root />
-    );
     expect(tree.find('input[name="code"]').exists()).toBe(true);
+  });
+  it('matches snapshot', () => {
+    expect(tree).toMatchSnapshot();
   });
 });

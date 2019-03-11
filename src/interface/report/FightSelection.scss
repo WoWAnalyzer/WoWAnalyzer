@@ -1,0 +1,42 @@
+@import 'interface/layout/Theme.scss';
+
+.fight-selection {
+  .list {
+    margin: 0 !important;
+  }
+  .item {
+    padding: 15px 30px 20px 30px !important;
+
+    .headshot {
+      width: 6.5em;
+      height: 6.5em;
+      border-radius: 50%;
+      margin-right: 30px;
+    }
+    .pulls {
+      margin: -5px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+
+    .pull {
+      margin: 5px;
+      padding: 7px 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+      color: $primaryColor;
+      font-weight: 600;
+      border: 2px solid transparent;
+
+      &:hover, &:focus, &:active {
+        border: 2px solid $primaryColor;
+        outline: 0;
+        text-decoration: none;
+      }
+      .icon {
+        font-size: 1.22em;
+        margin-right: 2px;
+      }
+    }
+  }
+}

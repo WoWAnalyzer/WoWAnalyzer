@@ -1,7 +1,8 @@
 const raids = {
   // Battle for Azeroth
+  Dungeons: require('./dungeons').default,
   Uldir: require('./uldir').default, // tier 23
-  BattleOfDazaralor: require('./battleofdazaralor').default, // tier 22
+  BattleOfDazaralor: require('./battleofdazaralor').default, // tier 24
 };
 export default raids;
 

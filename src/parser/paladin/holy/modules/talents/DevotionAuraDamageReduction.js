@@ -10,6 +10,7 @@ import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'interface/others/LazyLoad
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import makeWclUrl from 'common/makeWclUrl';
+import SpellLink from 'common/SpellLink';
 
 // Source: https://github.com/MartijnHols/HolyPaladin/blob/master/Spells/Talents/60/DevotionAura.md#about-the-passive-effect
 const DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION = n => Math.max(3, (2.25 + 7.75 / n)) / 100;
@@ -146,14 +147,16 @@ class DevotionAuraDamageReduction extends Analyzer {
   }
 
   statistic() {
-    const tooltip = `
-      The total estimated damage reduced <b>by the passive</b> was ${formatThousands(this.passiveDamageReduced)} (${formatNumber(this.passiveDrps)} DRPS). This has high accuracy.<br />
-      The total estimated damage reduced <b>during Aura Mastery</b> was ${formatThousands(this.activeDamageReduced)} (${formatNumber(this.activeDrps)} DRPS). This has a 99% accuracy.<br /><br />
+    const tooltip = (
+      <>
+        The total estimated damage reduced <strong>by the passive</strong> was {formatThousands(this.passiveDamageReduced)} ({formatNumber(this.passiveDrps)} DRPS). This has high accuracy.<br />
+        The total estimated damage reduced <strong>during Aura Mastery</strong> was {formatThousands(this.activeDamageReduced)} ({formatNumber(this.activeDrps)} DRPS). This has a 99% accuracy.<br /><br />
 
-      This is the lowest possible value. This value is pretty accurate for this log if you are looking at the actual gain over not having Devotion Aura bonus at all, but the gain may end up higher when taking interactions with other damage reductions into account.<br /><br />
+        This value is calculated using the <i>Optional DRs</i> method. This results in the lowest possible damage reduction value being shown. This should be the correct value in most circumstances.<br /><br />
 
-      Calculating exact Devotion Aura damage reduced is very time and resource consuming. This gets the total damage taken during and outside Aura Mastery and calculates the damage reduced for those totals by taking 20% of the original damage taken during Aura Mastery and 20% of all damage you've taken outside Aura Mastery. Even though the 20% damage taken is split among other nearby players, using your personal damage taken should average it out very closely. More extensive tests that go over all damage events and that is aware of the exact Devotion Aura reduction at each event have shown that this is usually a close approximation.
-    `;
+        Calculating the exact damage reduced by Devotion Aura is very time and resource consuming. This method uses a very close estimation. The active damage reduced is calculated by taking the total damage taken of the entire raid during <SpellLink id={SPELLS.AURA_MASTERY.id} /> and calculating the damage reduced during this time. The passive damage reduction is calculated by taking the exact damage reduction factor applicable and calculating the damage reduced if that full effect was applied to the Paladin. Even though the passive damage reduction is split among other nearby players, using your personal damage taken should average it out very closely. More extensive tests that go over all damage events have shown that this is usually a close approximation.
+      </>
+    );
 
     return (
       <LazyLoadStatisticBox
@@ -161,9 +164,9 @@ class DevotionAuraDamageReduction extends Analyzer {
         loader={this.load.bind(this)}
         icon={<SpellIcon id={SPELLS.DEVOTION_AURA_TALENT.id} />}
         value={`≈${formatNumber(this.totalDrps)} DRPS`}
-        label="Estimated damage reduced"
+        label="Damage reduction"
         tooltip={tooltip}
-        warcraftLogs={makeWclUrl(this.owner.report.code, {
+        drilldown={makeWclUrl(this.owner.report.code, {
           fight: this.owner.fightId,
           type: 'damage-taken',
           pins: `2$Off$#244F4B$expression$${this.filter}`,

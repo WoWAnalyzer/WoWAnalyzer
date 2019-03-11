@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 import HealingEfficiencyTracker from './HolyPriestHealingEfficiencyTracker';
 import HealingEfficiencyBreakdown from './HolyPriestHealingEfficiencyBreakdown';
 
@@ -15,12 +15,14 @@ class HolyPriestHealingEfficiencyDetails extends Analyzer {
       title: 'Mana Efficiency',
       url: 'mana-efficiency',
       render: () => {
-        return [(<Tab>
-          <HealingEfficiencyBreakdown
-            tracker={this.healingEfficiencyTracker}
-            showSpenders
-          />
-        </Tab>), null];
+        return (
+          <Panel>
+            <HealingEfficiencyBreakdown
+              tracker={this.healingEfficiencyTracker}
+              showSpenders
+            />
+          </Panel>
+        );
       },
     };
   }

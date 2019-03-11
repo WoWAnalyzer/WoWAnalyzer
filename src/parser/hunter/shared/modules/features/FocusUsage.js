@@ -1,18 +1,12 @@
 import React from 'react';
-import { Doughnut as DoughnutChart } from 'react-chartjs-2';
 
 import SPELLS from 'common/SPELLS';
 
-import SpellLink from 'common/SpellLink';
-import { formatPercentage } from 'common/format';
-
 import Analyzer from 'parser/core/Analyzer';
-import StatisticsListBox from 'interface/others/StatisticsListBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import StatisticWrapper from 'interface/others/StatisticWrapper';
 import { RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
-
-const CHART_SIZE = 100;
+import Statistic from 'interface/statistics/Statistic';
+import DonutChart from 'interface/statistics/components/DonutChart';
 
 /**
  * Tracks the focus usage of all 3 hunter specs and creates a piechart with the breakdown.
@@ -183,77 +177,6 @@ class FocusUsage extends Analyzer {
   };
   lastVolleyHit = 0;
 
-  legend(items, total) {
-    const numItems = items.length;
-    return items.map(({ color, label, tooltip, value, casts, spellId }, index) => {
-      label = tooltip ? (
-        <dfn data-tip={tooltip}>{label}</dfn>
-      ) : label;
-      label = spellId ? (
-        <SpellLink id={spellId}>{label}</SpellLink>
-      ) : label;
-      return (
-        <div
-          className="flex"
-          style={{
-            borderBottom: '3px solid rgba(255,255,255,0.1)',
-            marginBottom: ((numItems - 1) === index) ? 0 : 5,
-          }}
-          key={index}
-        >
-          <div className="flex-sub">
-            <div
-              style={{
-                display: 'inline-block',
-                background: color,
-                borderRadius: '50%',
-                width: 16,
-                height: 16,
-                marginBottom: -3,
-              }}
-            />
-          </div>
-          <div className="flex-main" style={{ paddingLeft: 5 }}>
-            {label}
-          </div>
-          <div className="flex-sub">
-            <dfn data-tip={`${casts} casts <br/> ${value} focus used`}>
-              {formatPercentage(value / total, 1)}%
-            </dfn>
-          </div>
-        </div>
-      );
-    });
-  }
-  chart(items) {
-    return (
-      <DoughnutChart
-        data={{
-          datasets: [{
-            data: items.map(item => item.value),
-            backgroundColor: items.map(item => item.color),
-            borderColor: '#666',
-            borderWidth: 1.5,
-          }],
-          labels: items.map(item => item.label),
-        }}
-        options={{
-          legend: {
-            display: false,
-          },
-          tooltips: {
-            bodyFontSize: 8,
-          },
-          cutoutPercentage: 45,
-          animation: false,
-          responsive: false,
-        }}
-        width={CHART_SIZE}
-        height={CHART_SIZE}
-      />
-    );
-  }
-
   on_byPlayer_cast(event) {
     let spellId = event.ability.guid;
     if (!LIST_OF_FOCUS_SPENDERS.includes(spellId) && !RAPTOR_MONGOOSE_VARIANTS.includes(spellId)) {
@@ -275,9 +198,14 @@ class FocusUsage extends Analyzer {
     this.focusSpenderCasts[spellId].focusUsed += event.classResources[0].cost || 0;
   }
 
-  focusUsageChart() {
-    let totalFocusUsed = 0;
+  get focusUsageChart() {
     const items = [];
+    const makeTooltip = (spell) => (
+      <>
+        {spell.casts} casts <br />
+        {Math.round(spell.focusUsed)} Focus used
+      </>
+    );
 
     LIST_OF_FOCUS_SPENDERS.forEach(id => {
       if (this.focusSpenderCasts[id].casts > 0 && this.focusSpenderCasts[id].focusUsed > 0) {
@@ -286,41 +214,27 @@ class FocusUsage extends Analyzer {
           label: this.focusSpenderCasts[id].name,
           spellId: id,
           value: Math.round(this.focusSpenderCasts[id].focusUsed),
-          casts: this.focusSpenderCasts[id].casts,
+          valueTooltip: makeTooltip(this.focusSpenderCasts[id]),
         });
-        totalFocusUsed += this.focusSpenderCasts[id].focusUsed;
       }
     });
     return (
-      <div className="flex">
-        <div className="flex-sub" style={{ paddingRight: 12 }}>
-          {this.chart(items)}
-        </div>
-        <div className="flex-main" style={{ fontSize: '80%', paddingTop: 3 }}>
-          {this.legend(items, totalFocusUsed.toFixed(1))}
-        </div>
-      </div>
-    )
-      ;
+      <DonutChart
+        items={items}
+      />
+    );
   }
 
   statistic() {
     return (
-      <StatisticWrapper position={STATISTIC_ORDER.CORE(13)}>
-        <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-          <div className="row">
-            <StatisticsListBox
-              title="Focus usage"
-              containerProps={{ className: 'col-xs-12' }}
-            >
-              {this.focusUsageChart()}
-            </StatisticsListBox>
-          </div>
+      <Statistic position={STATISTIC_ORDER.CORE(13)}>
+        <div className="pad">
+          <label>Focus usage</label>
+          {this.focusUsageChart}
         </div>
-      </StatisticWrapper>
+      </Statistic>
     );
   }
-
 }
 
 export default FocusUsage;

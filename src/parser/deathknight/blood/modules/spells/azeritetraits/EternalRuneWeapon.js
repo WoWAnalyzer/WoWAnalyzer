@@ -113,7 +113,7 @@ class EternalRuneWeapon extends Analyzer {
   }
 
   get averageDancingRuneWeaponBonusDuration() {
-    return (this.totalBonusDuration / this.bonusDurations.length).toFixed(1);
+    return ((this.totalBonusDuration / this.bonusDurations.length) || 0).toFixed(1);
   }
 
   statistic() {
@@ -124,14 +124,16 @@ class EternalRuneWeapon extends Analyzer {
         value={(
           <>
             {this.averageStrength} average Strength <br />
-            {this.averageDancingRuneWeaponBonusDuration}sec average bonus duration
+            {this.averageDancingRuneWeaponBonusDuration} sec average bonus duration
           </>
         )}
-        tooltip={`
-          ${SPELLS.ETERNAL_RUNE_WEAPON.name} grants <b>${this.strength} strength</b> while active and an uptime of ${formatPercentage(this.uptime)}%.<br/>
-          You extended ${SPELLS.DANCING_RUNE_WEAPON.name} on <b>average by ${this.averageDancingRuneWeaponBonusDuration} seconds</b> (${this.totalBonusDuration}sec total bonus duration over ${this.bonusDurations.length} casts)<br />
-          You wasted ${this.wastedBonusDuration} seconds worth of bonus duration by reaching the 5sec cap.
-        `}
+        tooltip={(
+          <>
+            {SPELLS.ETERNAL_RUNE_WEAPON.name} grants <strong>{this.strength} strength</strong> while active and an uptime of {formatPercentage(this.uptime)} %.<br />
+            You extended {SPELLS.DANCING_RUNE_WEAPON.name} on <strong>average by {this.averageDancingRuneWeaponBonusDuration} seconds</strong> ({this.totalBonusDuration} sec total bonus duration over {this.bonusDurations.length} casts)<br />
+            You wasted {this.wastedBonusDuration} seconds worth of bonus duration by reaching the 5 sec cap.
+          </>
+        )}
       />
     );
   }

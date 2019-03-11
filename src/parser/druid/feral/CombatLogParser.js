@@ -1,7 +1,5 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
-import DamageDone from 'parser/shared/modules/DamageDone';
-
 import RakeBleed from './normalizers/RakeBleed';
 import ComboPointsFromAoE from './normalizers/ComboPointsFromAoE';
 
@@ -42,15 +40,13 @@ import WildFleshrending from './modules/azeritetraits/WildFleshrending';
 import UntamedFerocity from './modules/azeritetraits/UntamedFerocity';
 import JungleFury from './modules/azeritetraits/JungleFury';
 import IronJaws from './modules/azeritetraits/IronJaws';
+import GushingLacerations from './modules/azeritetraits/GushingLacerations';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizers
     rakeBleed: RakeBleed,
     comboPointsFromAoE: ComboPointsFromAoE,
-
-    // FeralCore
-    damageDone: [DamageDone, { showStatistic: true }],
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -95,6 +91,7 @@ class CombatLogParser extends CoreCombatLogParser {
     untamedFerocity: UntamedFerocity,
     jungleFury: JungleFury,
     ironJaws: IronJaws,
+    gushingLacerations: GushingLacerations,
   };
 }
 

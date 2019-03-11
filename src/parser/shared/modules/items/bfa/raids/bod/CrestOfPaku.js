@@ -1,9 +1,14 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS/index';
-import ITEMS from 'common/ITEMS/index';
+import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import { calculateSecondaryStatDefault } from 'common/stats';
 import { formatPercentage, formatNumber } from 'common/format';
+import ItemLink from 'common/ItemLink';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import HasteIcon from 'interface/icons/Haste';
+import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
@@ -18,6 +23,7 @@ class CrestOfPaku extends Analyzer {
     statTracker: StatTracker,
   };
 
+  _item = null;
   hasteRating = null;
   speedRating = null;
   get uptime() {
@@ -32,12 +38,12 @@ class CrestOfPaku extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    const item = this.selectedCombatant.getItem(ITEMS.CREST_OF_PAKU_ALLIANCE.id) || this.selectedCombatant.getItem(ITEMS.CREST_OF_PAKU_HORDE.id);
-    this.active = !!item;
+    this._item = this.selectedCombatant.getTrinket(ITEMS.CREST_OF_PAKU_ALLIANCE.id) || this.selectedCombatant.getTrinket(ITEMS.CREST_OF_PAKU_HORDE.id);
+    this.active = !!this._item;
 
     if (this.active) {
-      this.hasteRating = calculateSecondaryStatDefault(385, 467, item.itemLevel);
-      this.speedRating = calculateSecondaryStatDefault(385, 79, item.itemLevel);
+      this.hasteRating = calculateSecondaryStatDefault(385, 467, this._item.itemLevel);
+      this.speedRating = calculateSecondaryStatDefault(385, 79, this._item.itemLevel);
       this.statTracker.add(SPELLS.GIFT_OF_WIND_BUFF.id, {
         haste: this.hasteRating,
         speed: this.speedRating,
@@ -45,17 +51,24 @@ class CrestOfPaku extends Analyzer {
     }
   }
 
-  item() {
-    return {
-      item: ITEMS.CREST_OF_PAKU_ALLIANCE,
-      result: (
-        <>
-          {formatPercentage(this.uptime)}% uptime<br />
-          {formatNumber(this.averageHasteRating)} average Haste gained<br />
-          {formatNumber(this.averageSpeedRating)} average Speed gained
-        </>
-      ),
-    };
+  statistic() {
+    return (
+      <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible">
+        <div className="pad">
+          <label><ItemLink id={ITEMS.CREST_OF_PAKU_ALLIANCE.id} details={this._item} /></label>
+
+          <div className="value" style={{ marginTop: 15 }}>
+            <UptimeIcon /> {formatPercentage(this.uptime, 0)}% <small>uptime</small>
+          </div>
+          <div className="value" style={{ marginTop: 5 }}>
+            <HasteIcon /> {formatNumber(this.averageHasteRating)} <small>average Haste gained</small>
+          </div>
+          <div className="value" style={{ marginTop: 5 }}>
+            {formatNumber(this.averageHasteRating)} <small>average Speed gained</small>
+          </div>
+        </div>
+      </Statistic>
+    );
   }
 }
 

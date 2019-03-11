@@ -29,9 +29,7 @@ class TrailOfLight extends Analyzer {
     return (
       <TalentStatisticBox
         talent={SPELLS.TRAIL_OF_LIGHT_TALENT.id}
-        value={(
-          <ItemHealingDone amount={this.totalToLHealing} />
-        )}
+        value={<ItemHealingDone amount={this.totalToLHealing} />}
         tooltip={`Trail of Light Procs: ${this.totalToLProcs}`}
         position={STATISTIC_ORDER.CORE(1)}
       />

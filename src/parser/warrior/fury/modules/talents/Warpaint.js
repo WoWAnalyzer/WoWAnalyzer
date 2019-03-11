@@ -48,7 +48,7 @@ class Warpaint extends Analyzer {
         talent={SPELLS.WARPAINT_TALENT.id}
         value={`${formatPercentage(this.damageMitigatedPercent)}% damage mitigated`}
         label="Warpaint"
-        tooltip={`Warpaint mitigated a total of <b>${formatThousands(this.damageMitigated)}</b> damage.`}
+        tooltip={<>Warpaint mitigated a total of <strong>{formatThousands(this.damageMitigated)}</strong> damage.</>}
       />
     );
   }

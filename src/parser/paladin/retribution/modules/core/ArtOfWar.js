@@ -78,10 +78,10 @@ class AoWProcTracker extends Analyzer {
 
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You used {formatPercentage(this.consumedProcsPercent)}% of your <SpellLink id={SPELLS.ART_OF_WAR.id} icon /> procs</>)
+      return suggest(<>You used {formatPercentage(this.consumedProcsPercent)}% of your <SpellLink id={SPELLS.ART_OF_WAR.id} icon /> procs.</>)
         .icon(SPELLS.ART_OF_WAR.icon)
-        .actual(`${formatPercentage(this.consumedProcsPercent)}% proc(s) used`)
-        .recommended(`Using >${formatPercentage(recommended)}% is recommended.`);
+        .actual(`${formatPercentage(this.consumedProcsPercent)}% proc(s) used.`)
+        .recommended(`Using >${formatPercentage(recommended)}% is recommended`);
     });
   }
 
@@ -91,8 +91,8 @@ class AoWProcTracker extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(2)}
         icon={<SpellIcon id={SPELLS.ART_OF_WAR.id} />}
         value={`${formatPercentage(this.consumedProcsPercent)}%`}
-        label="Art of War procs used"
-        tooltip={`You got ${this.totalAoWProcs} Art of War procs and used ${this.consumedAoWProcs} of them`}
+        label="Art of War Procs Used"
+        tooltip={`You got ${this.totalAoWProcs} Art of War procs and used ${this.consumedAoWProcs} of them.`}
       />
     );
   }

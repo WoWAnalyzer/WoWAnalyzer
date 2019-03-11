@@ -75,7 +75,7 @@ class Wellspring extends Analyzer {
     if (event.overheal && event.amount === 0) {
       return;
     }
-    
+
     this.wellspringCasts[this.castNumber] += 1;
   }
 
@@ -148,7 +148,7 @@ class Wellspring extends Analyzer {
         icon={<SpellIcon id={SPELLS.WELLSPRING_TALENT.id} />}
         label="Wellspring target efficiency"
         value={`${formatPercentage(this.wellspringEfficiency)} %`}
-        tooltip={`The average number of targets healed by Wellspring out of the minimum amount of 6 targets to archive the maximum potential healing.`}
+        tooltip="The average number of targets healed by Wellspring out of the minimum amount of 6 targets to archive the maximum potential healing."
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(100)}
       >

@@ -6,6 +6,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { TooltipElement } from 'common/Tooltip';
 
 class MoonfireUptime extends Analyzer {
   static dependencies = {
@@ -37,7 +38,7 @@ class MoonfireUptime extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
-          Your <SpellLink id={SPELLS.MOONFIRE_FERAL.id} /> uptime can be improved. You should refresh the DoT once it has reached its <dfn data-tip={`The last 30% of the DoT's duration. When you refresh during this time you don't lose any duration in the process.`}>pandemic window</dfn>, don't wait for it to wear off. You may wish to consider switching talents to <SpellLink id={SPELLS.SABERTOOTH_TALENT.id} /> which is simpler to use and provides more damage in most situations.
+          Your <SpellLink id={SPELLS.MOONFIRE_FERAL.id} /> uptime can be improved. You should refresh the DoT once it has reached its <TooltipElement content="The last 30% of the DoT's duration. When you refresh during this time you don't lose any duration in the process.">pandemic window</TooltipElement>, don't wait for it to wear off. You may wish to consider switching talents to <SpellLink id={SPELLS.SABERTOOTH_TALENT.id} /> which is simpler to use and provides more damage in most situations.
         </>
       )
         .icon(SPELLS.MOONFIRE_FERAL.icon)

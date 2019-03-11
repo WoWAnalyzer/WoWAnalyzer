@@ -1,10 +1,13 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
+import UptimeIcon from 'interface/icons/Uptime';
+import HasteIcon from 'interface/icons/Haste';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Analyzer from 'parser/core/Analyzer';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
 const MAX_OVERWHELMING_POWER_STACKS = 25;
@@ -106,15 +109,22 @@ class OverWhelmingPower extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
-        trait={SPELLS.OVERWHELMING_POWER.id}
-        value={`${this.averageHaste} average Haste`}
-        tooltip={`
-          ${SPELLS.OVERWHELMING_POWER.name} grants <b>${this.haste} haste per stack</b> (${this.haste * MAX_OVERWHELMING_POWER_STACKS} haste @${MAX_OVERWHELMING_POWER_STACKS} stacks) while active.<br/>
-          You procced <b>${SPELLS.OVERWHELMING_POWER.name} ${this.overwhelmingPowerProcs} times</b> with an uptime of ${formatPercentage(this.uptime)}%.
-        `}
-      />
+      <AzeritePowerStatistic
+        size="medium"
+        tooltip={(
+          <>
+            {SPELLS.OVERWHELMING_POWER.name} grants <strong>{this.haste} haste per stack</strong> ({this.haste * MAX_OVERWHELMING_POWER_STACKS} haste @{MAX_OVERWHELMING_POWER_STACKS} stacks) while active.<br />
+            You procced <strong>{SPELLS.OVERWHELMING_POWER.name} {this.overwhelmingPowerProcs} times</strong> with an uptime of {formatPercentage(this.uptime)}%.
+          </>
+        )}
+      >
+        <BoringSpellValueText
+          spell={SPELLS.OVERWHELMING_POWER}
+        >
+          <UptimeIcon /> {formatPercentage(this.uptime, 0)}% <small>uptime</small><br />
+          <HasteIcon /> {this.averageHaste} <small>average Haste gained</small>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }

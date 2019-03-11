@@ -9,6 +9,9 @@ export default state => {
     if (hasSeparator) {
       return player.substr(index + 1);
     }
+    if (!Number.isInteger(player)) {
+      return player;
+    }
     return null;
   }
   return null;

@@ -11,8 +11,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FISTS_OF_FURY_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste, combatant) =>
-          24 / (1 + haste) * (combatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? 0.5 : 1),
+        cooldown: haste => 24 / (1 + haste) * (combatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? 0.5 : 1),
         gcd: {
           static: 1000,
         },
@@ -25,8 +24,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RISING_SUN_KICK,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste, combatant) =>
-          (10 / (1 + haste)) * (combatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? 0.5 : 1),
+        cooldown: haste => (10 / (1 + haste)) * (combatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? 0.5 : 1),
         gcd: {
           static: 1000,
         },

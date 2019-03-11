@@ -17,7 +17,7 @@ export default {
     icon: 'spell_holy_righteousfury',
     manaCost: 600,
   },
-  JUDGMENT_CAST_ALT: {
+  JUDGMENT_CAST_HOLY: {
     id: 275773,
     name: 'Judgment',
     icon: 'spell_holy_righteousfury',
@@ -206,41 +206,6 @@ export default {
     name: 'Blessing of Sacrifice',
     icon: 'spell_holy_sealofsacrifice',
   },
-  HOLY_PALADIN_T19_4SET_BONUS_BUFF: {
-    id: 211438,
-    name: 'T19 4 set bonus',
-    icon: 'ability_paladin_infusionoflight',
-  },
-  HOLY_PALADIN_T20_2SET_BONUS_BUFF: {
-    id: 242261,
-    name: 'T20 2 set bonus',
-    icon: 'spell_holy_holybolt',
-  },
-  HOLY_PALADIN_T20_4SET_BONUS_BUFF: {
-    id: 242262,
-    name: 'T20 4 set bonus',
-    icon: 'ability_paladin_beaconoflight',
-  },
-  LIGHTS_EMBRACE_BUFF: {
-    id: 247237,
-    name: 'Light\'s Embrace',
-    icon: 'spell_holy_holybolt',
-  },
-  HOLY_PALADIN_T21_2SET_BONUS_BUFF: {
-    id: 251863,
-    name: 'T21 2 set bonus',
-    icon: 'ability_paladin_conviction',
-  },
-  HOLY_PALADIN_T21_4SET_BONUS_BUFF: {
-    id: 251865,
-    name: 'T21 4 set bonus',
-    icon: 'ability_paladin_conviction',
-  },
-  PURITY_OF_LIGHT: {
-    id: 254332,
-    name: 'Purity of Light',
-    icon: 'ability_paladin_conviction',
-  },
   INFUSION_OF_LIGHT: {
     id: 54149,
     name: 'Infusion of Light',
@@ -255,11 +220,6 @@ export default {
     id: 216413,
     name: 'Divine Purpose',
     icon: 'spell_holy_divinepurpose',
-  },
-  OBSIDIAN_STONE_SPAULDERS_HEAL: {
-    id: 210999,
-    name: 'Obsidian Stone Spaulders',
-    icon: 'inv_shoulder_plate_pvppaladin_o_01',
   },
   CLEANSE: {
     id: 4987,

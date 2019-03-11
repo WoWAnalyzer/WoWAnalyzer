@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
+import { TooltipElement } from 'common/Tooltip';
 
 class ResourceBreakdown extends React.Component {
   static propTypes = {
@@ -34,6 +35,7 @@ class ResourceBreakdown extends React.Component {
   render() {
     const { tracker, showSpenders } = this.props;
     const resourceName = tracker.resource.name;
+
     const generated = this.prepareGenerated(tracker.buildersObj);
     const spent = this.prepareSpent(tracker.spendersObj);
 
@@ -51,13 +53,13 @@ class ResourceBreakdown extends React.Component {
     totalCasts = (totalCasts === 0) ? 1 : totalCasts;
 
     return (
-      <div>
+      <>
         <table className="data-table">
           <thead>
             <tr>
               <th>Ability</th>
               <th colSpan="2">{resourceName} generated</th>
-              <th colSpan="2"><dfn data-tip="This is the amount of resources that were generated while you were already at cap.">{resourceName} wasted</dfn></th>
+              <th colSpan="2"><TooltipElement content="This is the amount of resources that were generated while you were already at cap.">{resourceName} wasted</TooltipElement></th>
             </tr>
           </thead>
           <tbody>
@@ -68,7 +70,7 @@ class ResourceBreakdown extends React.Component {
                     <SpellLink id={ability.abilityId} />
                   </td>
                   <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
-                    <dfn data-tip={`${formatPercentage(ability.generated / totalGenerated)} %`}>{ability.generated.toFixed(0)}</dfn>
+                    <TooltipElement content={`${formatPercentage(ability.generated / totalGenerated)} %`}>{ability.generated.toFixed(0)}</TooltipElement>
                   </td>
                   <td style={{ width: '40%' }}>
                     <div
@@ -77,7 +79,7 @@ class ResourceBreakdown extends React.Component {
                     />
                   </td>
                   <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
-                    <dfn data-tip={`${formatPercentage(ability.wasted / totalWasted)} %`}>{ability.wasted.toFixed(0)}</dfn>
+                    <TooltipElement content={`${formatPercentage(ability.wasted / totalWasted)} %`}>{ability.wasted.toFixed(0)}</TooltipElement>
                   </td>
                   <td style={{ width: '30%' }}>
                     <div
@@ -106,7 +108,7 @@ class ResourceBreakdown extends React.Component {
                       <SpellLink id={ability.abilityId} />
                     </td>
                     <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
-                      <dfn data-tip={`${formatPercentage(ability.spent / totalSpent)} %`}>{ability.spent.toFixed(0)}</dfn>
+                      <TooltipElement content={`${formatPercentage(ability.spent / totalSpent)} %`}>{ability.spent.toFixed(0)}</TooltipElement>
                     </td>
                     <td style={{ width: '40%' }}>
                       <div
@@ -115,7 +117,7 @@ class ResourceBreakdown extends React.Component {
                       />
                     </td>
                     <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
-                      <dfn data-tip={`${formatPercentage(ability.casts / totalCasts)} %`}>{ability.casts}</dfn>
+                      <TooltipElement content={`${formatPercentage(ability.casts / totalCasts)} %`}>{ability.casts}</TooltipElement>
                     </td>
                     <td style={{ width: '30%' }}>
                       <div
@@ -128,7 +130,7 @@ class ResourceBreakdown extends React.Component {
             </tbody>
           </table>
         )}
-      </div>
+      </>
     );
   }
 }

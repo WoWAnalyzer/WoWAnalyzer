@@ -13,13 +13,11 @@ export default [
   SPELLS.REFRESHING_JADE_WIND_HEAL.id, // this is the "tick" when you hit a player, the actual cast has a different id
   SPELLS.SHADOWY_APPARITION.id,
   SPELLS.DEFILED_AUGMENT_RUNE.id,
-  SPELLS.UMBRAL_GLAIVE_STORM_TICK.id, // ticks of the Umbral Moonglaives trinket proc a cast event
   SPELLS.PRIMAL_FURY.id, // Feral Druid "extra CP on crit" proc causes a cast event
+  SPELLS.GUSHING_LACERATIONS_PROC.id, // Feral Druid azerite trait causes a cast event when it procs a combo point
   SPELLS.BARBED_SHOT_PET_BUFF.id, //The buff applied to BM Hunter pet when casting Barbed Shot
   SPELLS.BLOW_DARKMOON_WHISTLE.id, //Darkmoon Whistle active that some people macro into abilities
   SPELLS.DARKMOON_FIREWORK.id, //Darkmoon Firework toy
-  SPELLS.FIRE_MINES.id, // Forgefiends fabricator
-  SPELLS.FIRE_MINES_2.id, // Forgefiends fabricator
   SPELLS.BIG_RED_RAYS.id, //Big Red Raygun active effect
   SPELLS.FRACTURE_MAIN_HAND.id, // Fracture main hand damage ability
   SPELLS.FRACTURE_OFF_HAND.id, // Fracture off hand damage ability
@@ -33,5 +31,6 @@ export default [
   SPELLS.DIRE_BEAST_SECONDARY_WITHOUT_SCENT.id, //A secondary cast event from Dire Beast talent
   SPELLS.DIVINE_HYMN_HEAL.id, //The heal component of divine hymn
   SPELLS.CHARGE_2.id, // The damage component of charge
+  285503, // Lady Jaina Proudmoore boss mechanic (picking up munitions barrel)
   285347, // Plague of Fire - King Rastakhan mechanic
 ];

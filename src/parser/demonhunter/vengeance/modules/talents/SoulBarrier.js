@@ -88,10 +88,14 @@ class SoulBarrier extends Analyzer {
         position={STATISTIC_ORDER.CORE(7)}
         value={`${formatPercentage(this.uptime)} %`}
         label="Soul Barrier uptime"
-        tooltip={`Average Buff Length: <strong>${formatNumber(avgBuffLength)} seconds</strong></br>
-                  Total Damage Absorbed: <strong>${formatNumber(this.totalAbsorbed)}</strong></br>
-                  Healing <strong>${this.owner.formatItemHealingDone(this.totalAbsorbed)}</strong></br>
-                  Total Casts: <strong>${this.casts}</strong></br>`}
+        tooltip={(
+          <>
+            Average Buff Length: <strong>{formatNumber(avgBuffLength)} seconds</strong><br />
+            Total Damage Absorbed: <strong>{formatNumber(this.totalAbsorbed)}</strong><br />
+            Healing <strong>{this.owner.formatItemHealingDone(this.totalAbsorbed)}</strong><br />
+            Total Casts: <strong>{this.casts}</strong>
+          </>
+        )}
       />
     );
   }

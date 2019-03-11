@@ -1,22 +1,18 @@
 //expects a percentile between 0 - 100 and returns the class to color the text accordingly
-export default function rankingColor(rank) {
-  if (rank < 25) {
+export default function rankingColor(percentage) {
+  if (percentage < 0.25) {
     return 'parse-grey';
-  }
-  if (rank < 50) {
+  } else if (percentage < 0.50) {
     return 'parse-green';
-  }
-  if (rank < 75) {
+  } else if (percentage < 0.75) {
     return 'parse-blue';
-  }
-  if (rank < 95) {
+  } else if (percentage < 0.95) {
     return 'parse-purple';
-  }
-  if (rank < 100) {
+  } else if (percentage < 1.00) {
     return 'parse-orange';
-  }
-  if (rank === 100) {
+  } else if (percentage >= 1.00) {
     return 'parse-artifact';
+  } else {
+    return 'parse-none';
   }
-  return 'parse-none';
 }

@@ -11,102 +11,93 @@ exports[`The Brewmaster Analyzer analyzers AgilityValue matches the suggestions 
 exports[`The Brewmaster Analyzer analyzers AlwaysBeCasting matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "zIndex": 1,
-    }
-  }
 >
   <div
-    className="panel statistic-box expandable "
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
   >
     <div
       className="panel-body"
     >
       <div
-        className="flex"
+        className="pad"
       >
-        <div
-          className="flex-sub statistic-icon"
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-            }
-          }
-        >
+        <label>
           <img
-            alt=""
-            className="icon"
+            alt="Downtime"
+            className="icon game "
             src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
           />
+           
+          Downtime
+        </label>
+        <div
+          className="value"
+        >
+          41.61 %
         </div>
         <div
-          className="flex-main"
           style={
             Object {
-              "paddingLeft": 16,
-              "position": "relative",
+              "marginTop": "0.5em",
             }
           }
         >
           <div
-            className="slabel"
+            className="statistic-box-bar"
           >
-            Downtime
-          </div>
-          <div
-            className="value"
-          >
-            <dfn
-              data-tip="Downtime is available time not used to cast anything (including not having your GCD rolling). This can be caused by delays between casting spells, latency, cast interrupting or just simply not casting anything (e.g. due to movement/stunned).<br/>
-        <li>You spent <b>58.39%</b> of your time casting something.</li>
-        <li>You spent <b>41.61%</b> of your time casting nothing at all.</li>
-        "
+            <div
+              className="stat-health-bg"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={[Function]}
+              style={
+                Object {
+                  "width": "58.38917441936113%",
+                }
+              }
             >
-              41.61 %
-            </dfn>
+              <img
+                alt="Active time"
+                src="/img/sword.png"
+              />
+            </div>
+            <div
+              className="remainder DeathKnight-bg"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={[Function]}
+            >
+              <img
+                alt="Downtime"
+                src="/img/afk.png"
+              />
+            </div>
           </div>
         </div>
       </div>
     </div>
     <div
-      className="panel-footer"
-      style={
-        Object {
-          "borderTop": 0,
-          "overflow": "hidden",
-          "padding": 0,
-        }
-      }
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
     >
-      <div
-        className="statistic-bar"
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <div
-          className="stat-health-bg"
-          data-tip="You spent <b>58.39%</b> of your time casting something."
-          style={
-            Object {
-              "width": "58.38917441936113%",
-            }
-          }
-        >
-          <img
-            alt="Active time"
-            src="/img/sword.png"
-          />
-        </div>
-        <div
-          className="remainder DeathKnight-bg"
-          data-tip="You spent <b>41.61%</b> of your time casting nothing at all."
-        >
-          <img
-            alt="Downtime"
-            src="/img/afk.png"
-          />
-        </div>
-      </div>
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
     </div>
   </div>
 </div>
@@ -166,30 +157,23 @@ Array [
 exports[`The Brewmaster Analyzer analyzers BrewCDR matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "zIndex": 1,
-    }
-  }
 >
   <div
-    className="panel statistic-box expandable "
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
   >
     <div
       className="panel-body"
     >
       <div
-        className="flex"
+        className="pad"
       >
-        <div
-          className="flex-sub statistic-icon"
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-            }
-          }
-        >
+        <label>
           <a
             href="http://wowhead.com/spell=100780"
             rel="noopener noreferrer"
@@ -197,45 +181,37 @@ exports[`The Brewmaster Analyzer analyzers BrewCDR matches the statistic snapsho
           >
              
             <img
-              alt=""
-              className="icon"
+              alt="Tiger Palm"
+              className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/ability_monk_tigerpalm.jpg"
             />
           </a>
-        </div>
+           
+          Effective Brew CDR
+        </label>
         <div
-          className="flex-main"
-          style={
-            Object {
-              "paddingLeft": 16,
-              "position": "relative",
-            }
-          }
+          className="value"
         >
-          <div
-            className="slabel"
-          >
-            Effective Brew CDR
-          </div>
-          <div
-            className="value"
-          >
-            <dfn
-              data-tip="Your cooldowns were reduced by: <ul>
-              <li>31 Keg Smash casts— <b>105.59s</b> (<b>18.41s</b> wasted)</li>
-              
-              <li>66 Tiger Palm hits — <b>57.00s</b> (<b>9.00s</b> wasted)</li>
-              
-              
-            </ul>
-            <b>Total cooldown reduction:</b> 162.59s.</b><br/>
-            <b>Minimum Cooldown Reduction for 100% ISB uptime:</b> 25.88%"
-            >
-              34.59%
-            </dfn>
-          </div>
+          34.59%
         </div>
       </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
     </div>
   </div>
 </div>
@@ -246,30 +222,23 @@ exports[`The Brewmaster Analyzer analyzers BrewCDR matches the suggestions snaps
 exports[`The Brewmaster Analyzer analyzers CelestialFortune matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "zIndex": 1,
-    }
-  }
 >
   <div
-    className="panel statistic-box expandable "
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
   >
     <div
       className="panel-body"
     >
       <div
-        className="flex"
+        className="pad"
       >
-        <div
-          className="flex-sub statistic-icon"
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-            }
-          }
-        >
+        <label>
           <a
             href="http://wowhead.com/spell=216521"
             rel="noopener noreferrer"
@@ -277,31 +246,18 @@ exports[`The Brewmaster Analyzer analyzers CelestialFortune matches the statisti
           >
              
             <img
-              alt=""
-              className="icon"
+              alt="Celestial Fortune"
+              className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/inv_celestialserpentmount.jpg"
             />
           </a>
-        </div>
+           
+          Celestial Fortune Healing
+        </label>
         <div
-          className="flex-main"
-          style={
-            Object {
-              "paddingLeft": 16,
-              "position": "relative",
-            }
-          }
+          className="value"
         >
-          <div
-            className="slabel"
-          >
-            Celestial Fortune Healing
-          </div>
-          <div
-            className="value"
-          >
-            2,084 HPS
-          </div>
+          2,084 HPS
         </div>
       </div>
     </div>
@@ -319,188 +275,7 @@ exports[`The Brewmaster Analyzer analyzers Checklist matches the statistic snaps
 
 exports[`The Brewmaster Analyzer analyzers Checklist matches the suggestions snapshot 1`] = `"module has no suggestions"`;
 
-exports[`The Brewmaster Analyzer analyzers DamageDone matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "zIndex": 1,
-    }
-  }
->
-  <div
-    className="panel statistic-box expandable "
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="flex"
-      >
-        <div
-          className="flex-sub statistic-icon"
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-            }
-          }
-        >
-          <img
-            alt="Sword"
-            src="/img/sword.png"
-            style={
-              Object {
-                "border": 0,
-              }
-            }
-          />
-        </div>
-        <div
-          className="flex-main"
-          style={
-            Object {
-              "paddingLeft": 16,
-              "position": "relative",
-            }
-          }
-        >
-          <div
-            className="slabel"
-          >
-            Damage done
-          </div>
-          <div
-            className="value"
-          >
-            <dfn
-              data-tip="Total damage done: <b>1,711,282</b> "
-            >
-              5,567 DPS
-            </dfn>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`The Brewmaster Analyzer analyzers DamageDone matches the suggestions snapshot 1`] = `Array []`;
-
-exports[`The Brewmaster Analyzer analyzers DamageTaken matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "zIndex": 1,
-    }
-  }
->
-  <div
-    className="panel statistic-box expandable "
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="flex"
-      >
-        <div
-          className="flex-sub statistic-icon"
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-            }
-          }
-        >
-          <img
-            alt="Shield"
-            src="/img/shield.png"
-            style={
-              Object {
-                "border": 0,
-              }
-            }
-          />
-        </div>
-        <div
-          className="flex-main"
-          style={
-            Object {
-              "paddingLeft": 16,
-              "position": "relative",
-            }
-          }
-        >
-          <div
-            className="slabel"
-          >
-            Damage taken
-          </div>
-          <div
-            className="value"
-          >
-            <dfn
-              data-tip="The total damage taken was 4,244,362 (0 overkill)."
-            >
-              14k DTPS
-            </dfn>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="panel-footer"
-      style={
-        Object {
-          "borderTop": 0,
-          "overflow": "hidden",
-          "padding": 0,
-        }
-      }
-    >
-      <div
-        className="statistic-bar"
-        data-tip="Damage taken by type:
-      <ul>
-      <li><b>Physical</b>: 2,075,386 (48.90%)</li>
-      <li><b>Magic</b>: 2,168,976 (51.10%)</li>
-      </ul>
-      Damage taken by magic school:
-      <ul>
-        <li><b>Physical</b>: 2,075,386 (48.90%)</li><li><b>Nature</b>: 1,856,517 (43.74%)</li><li><b>Shadow</b>: 312,459 (7.36%)</li>
-      </ul>
-      Click the bar to switch between simple and detailed mode."
-        onClick={[Function]}
-        style={
-          Object {
-            "cursor": "pointer",
-          }
-        }
-      >
-        <div
-          className="spell-school-1-bg"
-          style={
-            Object {
-              "width": "48.89747858453167%",
-            }
-          }
-        />
-        <div
-          className="spell-school-32-bg"
-          style={
-            Object {
-              "width": "51.102521415468324%",
-            }
-          }
-        />
-      </div>
-    </div>
-  </div>
-</div>
-`;
+exports[`The Brewmaster Analyzer analyzers DamageTaken matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`The Brewmaster Analyzer analyzers DamageTaken matches the suggestions snapshot 1`] = `Array []`;
 
@@ -515,30 +290,23 @@ exports[`The Brewmaster Analyzer analyzers FitToBurst matches the suggestions sn
 exports[`The Brewmaster Analyzer analyzers GiftOfTheOx matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "zIndex": 1,
-    }
-  }
 >
   <div
-    className="panel statistic-box expandable "
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
   >
     <div
       className="panel-body"
     >
       <div
-        className="flex"
+        className="pad"
       >
-        <div
-          className="flex-sub statistic-icon"
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-            }
-          }
-        >
+        <label>
           <a
             href="http://wowhead.com/spell=124507"
             rel="noopener noreferrer"
@@ -546,37 +314,37 @@ exports[`The Brewmaster Analyzer analyzers GiftOfTheOx matches the statistic sna
           >
              
             <img
-              alt=""
-              className="icon"
+              alt="Gift of the Ox"
+              className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/ability_monk_healthsphere.jpg"
             />
           </a>
-        </div>
+           
+          Gift of the Ox Healing
+        </label>
         <div
-          className="flex-main"
-          style={
-            Object {
-              "paddingLeft": 16,
-              "position": "relative",
-            }
-          }
+          className="value"
         >
-          <div
-            className="slabel"
-          >
-            Gift of the Ox Healing
-          </div>
-          <div
-            className="value"
-          >
-            <dfn
-              data-tip="You generated 40 healing spheres and consumed 40 of them, healing for <b>639k</b>. 30 of these were consumed with Expel Harm over 21 casts."
-            >
-              2,079 HPS
-            </dfn>
-          </div>
+          2,079 HPS
         </div>
       </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
     </div>
   </div>
 </div>
@@ -592,138 +360,7 @@ exports[`The Brewmaster Analyzer analyzers Guard matches the statistic snapshot 
 
 exports[`The Brewmaster Analyzer analyzers Guard matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Brewmaster Analyzer analyzers HealingDone matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "zIndex": 1,
-    }
-  }
->
-  <div
-    className="panel statistic-box expandable "
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="flex"
-      >
-        <div
-          className="flex-sub statistic-icon"
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-            }
-          }
-        >
-          <img
-            alt="Healing"
-            src="/img/healing.png"
-            style={
-              Object {
-                "border": 0,
-              }
-            }
-          />
-        </div>
-        <div
-          className="flex-main"
-          style={
-            Object {
-              "paddingLeft": 16,
-              "position": "relative",
-            }
-          }
-        >
-          <div
-            className="slabel"
-          >
-            Healing done
-          </div>
-          <div
-            className="value"
-          >
-            <dfn
-              data-tip="Total healing done: <b>1,624,806</b>"
-            >
-              5,285 HPS
-            </dfn>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="panel-footer"
-      style={
-        Object {
-          "borderTop": 0,
-          "overflow": "hidden",
-          "padding": 0,
-        }
-      }
-    >
-      <div
-        className="statistic-bar"
-      >
-        <div
-          className="stat-healing-bg"
-          data-tip="Regular healing done, not including absorbs. You did a total of 1.44m regular healing (74.65% of raw healing)."
-          style={
-            Object {
-              "width": "74.64725935818505%",
-            }
-          }
-        >
-          <img
-            alt="Healing"
-            src="/img/healing.png"
-          />
-        </div>
-        <div
-          className="stat-healing-absorbs-bg"
-          data-tip="Healing by absorbs. This only includes damage prevented by absorbs. You did a total of 97k healing with absorbs (5.02% of raw healing)."
-          style={
-            Object {
-              "width": "5.020635049532912%",
-            }
-          }
-        >
-          <img
-            alt="Absorb Healing"
-            src="/img/absorbed.png"
-          />
-        </div>
-        <div
-          className="stat-negative-absorbs-bg"
-          data-tip="Absorbed healing. This only includes healing that gets absorbed by debuffs. You had a total of 85k healing absorbed (4.37% of raw healing)."
-          style={
-            Object {
-              "width": "4.37259259910591%",
-            }
-          }
-        >
-          <img
-            alt="Absorbed Healing"
-            src="/img/negative-absorbed.png"
-          />
-        </div>
-        <div
-          className="remainder stat-overhealing-bg"
-          data-tip="Overhealing. You did a total of 309k overhealing (15.96 % of raw healing). Overhealing can be caused by playing poorly such as selecting the wrong targets or casting abilities at the wrong time, other healers sniping, and/or bringing too many healers."
-        >
-          <img
-            alt="Overhealing"
-            src="/img/overhealing.png"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
+exports[`The Brewmaster Analyzer analyzers HealingDone matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`The Brewmaster Analyzer analyzers HealingDone matches the suggestions snapshot 1`] = `Array []`;
 
@@ -734,30 +371,23 @@ exports[`The Brewmaster Analyzer analyzers HealingReceived matches the suggestio
 exports[`The Brewmaster Analyzer analyzers HighTolerance matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "zIndex": 1,
-    }
-  }
 >
   <div
-    className="panel statistic-box expandable "
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
   >
     <div
       className="panel-body"
     >
       <div
-        className="flex"
+        className="pad"
       >
-        <div
-          className="flex-sub statistic-icon"
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-            }
-          }
-        >
+        <label>
           <a
             href="http://wowhead.com/spell=196737"
             rel="noopener noreferrer"
@@ -765,42 +395,37 @@ exports[`The Brewmaster Analyzer analyzers HighTolerance matches the statistic s
           >
              
             <img
-              alt=""
-              className="icon"
+              alt="High Tolerance"
+              className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/monk_ability_avertharm.jpg"
             />
           </a>
-        </div>
+           
+          Avg. Haste from High Tolerance
+        </label>
         <div
-          className="flex-main"
-          style={
-            Object {
-              "paddingLeft": 16,
-              "position": "relative",
-            }
-          }
+          className="value"
         >
-          <div
-            className="slabel"
-          >
-            Avg. Haste from High Tolerance
-          </div>
-          <div
-            className="value"
-          >
-            <dfn
-              data-tip="You spent: <ul>
-              <li><b>81s</b> (26.25%) without Stagger.</li>
-              <li><b>108s</b> (35.23%) in Light Stagger.</li>
-              <li><b>97s</b> (31.66%) in Moderate Stagger.</li>
-              <li><b>21s</b> (6.87%) in Heavy Stagger.</li>
-            </ul>"
-            >
-              7.65%
-            </dfn>
-          </div>
+          7.65%
         </div>
       </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
     </div>
   </div>
 </div>
@@ -811,30 +436,23 @@ exports[`The Brewmaster Analyzer analyzers HighTolerance matches the suggestions
 exports[`The Brewmaster Analyzer analyzers IronSkinBrew matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "zIndex": 1,
-    }
-  }
 >
   <div
-    className="panel statistic-box expandable "
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
   >
     <div
       className="panel-body"
     >
       <div
-        className="flex"
+        className="pad"
       >
-        <div
-          className="flex-sub statistic-icon"
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-            }
-          }
-        >
+        <label>
           <a
             href="http://wowhead.com/spell=115308"
             rel="noopener noreferrer"
@@ -842,43 +460,37 @@ exports[`The Brewmaster Analyzer analyzers IronSkinBrew matches the statistic sn
           >
              
             <img
-              alt=""
-              className="icon"
+              alt="Ironskin Brew"
+              className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/ability_monk_ironskinbrew.jpg"
             />
           </a>
-        </div>
+           
+          Hits Mitigated w/ Ironskin Brew
+        </label>
         <div
-          className="flex-main"
-          style={
-            Object {
-              "paddingLeft": 16,
-              "position": "relative",
-            }
-          }
+          className="value"
         >
-          <div
-            className="slabel"
-          >
-            Hits Mitigated w/ Ironskin Brew
-          </div>
-          <div
-            className="value"
-          >
-            <dfn
-              data-tip="Ironskin Brew breakdown (these values are direct damage and does not include damage added to stagger):
-            <ul>
-                <li>You were hit <b>137</b> times with your Ironskin Brew buff (<b>2,408,958</b> damage).</li>
-                <li>You were hit <b>1</b> times <b><i>without</i></b> your Ironskin Brew buff (<b>15,189</b> damage).</li>
-            </ul>
-            <b>99.28%</b> of attacks were mitigated with Ironskin Brew.<br/>
-            <b>90.42%</b> uptime on the Ironskin Brew buff."
-            >
-              99.28%
-            </dfn>
-          </div>
+          99.28%
         </div>
       </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
     </div>
   </div>
 </div>
@@ -893,18 +505,15 @@ exports[`The Brewmaster Analyzer analyzers KegSmash matches the suggestions snap
 exports[`The Brewmaster Analyzer analyzers MasteryValue matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "zIndex": 1,
-    }
-  }
 >
   <div
-    className="panel statistic-box expandable "
+    className="panel statistic standard statistic-box"
     onClick={[Function]}
     style={
       Object {
         "cursor": "pointer",
+        "height": "auto",
+        "zIndex": 1,
       }
     }
   >
@@ -912,17 +521,9 @@ exports[`The Brewmaster Analyzer analyzers MasteryValue matches the statistic sn
       className="panel-body"
     >
       <div
-        className="flex"
+        className="pad"
       >
-        <div
-          className="flex-sub statistic-icon"
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-            }
-          }
-        >
+        <label>
           <a
             href="http://wowhead.com/spell=117906"
             rel="noopener noreferrer"
@@ -930,31 +531,18 @@ exports[`The Brewmaster Analyzer analyzers MasteryValue matches the statistic sn
           >
              
             <img
-              alt=""
-              className="icon"
+              alt="Mastery: Elusive Brawler"
+              className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/ability_monk_shuffle.jpg"
             />
           </a>
-        </div>
+           
+          Expected Mitigation by Mastery
+        </label>
         <div
-          className="flex-main"
-          style={
-            Object {
-              "paddingLeft": 16,
-              "position": "relative",
-            }
-          }
+          className="value"
         >
-          <div
-            className="slabel"
-          >
-            Expected Mitigation by Mastery
-          </div>
-          <div
-            className="value"
-          >
-            Click to load
-          </div>
+          Click to load
         </div>
       </div>
     </div>
@@ -968,37 +556,871 @@ exports[`The Brewmaster Analyzer analyzers MitigationCheck matches the statistic
 
 exports[`The Brewmaster Analyzer analyzers MitigationCheck matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic snapshot 1`] = `
+<div
+  className="panel "
+>
+  <div
+    className="panel-heading"
+  >
+    <h1
+      style={
+        Object {
+          "position": "relative",
+        }
+      }
+    >
+      <a
+        href="#Mitigation Values"
+        id="Mitigation Values"
+      >
+        Mitigation Values
+      </a>
+    </h1>
+    <small>
+      Relative value of different stats for mitigation on this specific log measured by 
+      <em>
+        Effective Healing
+      </em>
+      . 
+      <b>
+        These values are not stat weights, and should not be used with Pawn or other stat-weight addons.
+      </b>
+      <br />
+      <br />
+      <b>
+        Effective Healing
+      </b>
+       is the amount of damage that was either 
+      <em>
+        prevented
+      </em>
+       or 
+      <em>
+        healed
+      </em>
+       by an ability. These values are calculated using the actual circumstances of this encounter. While these are informative for understanding the effectiveness of various stats, they may not necessarily be the best way to gear. The stat values are likely to differ based on personal play, fight, raid size, items used, talents chosen, etc.
+      <br />
+      <br />
+      DPS gains are not included in any of the stat values. See 
+      <a
+        href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/parser/monk/brewmaster/modules/features/MitigationSheet.md"
+      >
+        here
+      </a>
+       for more information on valuation methods.
+    </small>
+  </div>
+  <div
+    className="panel-body "
+  >
+    <table
+      className="data-table"
+    >
+      <thead>
+        <tr>
+          <th
+            width="45%"
+          >
+            <b>
+              Stat
+            </b>
+          </th>
+          <th
+            className="text-right"
+          >
+            <b>
+              Total
+            </b>
+          </th>
+          <th
+            className="text-right"
+          >
+            <dfn
+              data-tip="The <em>average</em> stat value throughout a fight, including buffs and debuffs, is used here. The value is normalized so that Armor is always 1, and other stats are relative to this."
+            >
+              <b>
+                Per Rating (Normalized)
+              </b>
+            </dfn>
+          </th>
+          <th
+            className="text-right"
+          >
+            <dfn
+              data-tip="Amount of rating gained from the last 5 average ilvls of your gear. For secondary stats, this assumes the relative amounts of each stat don't change (as if you upgraded each piece by 5 ilvls without actually changing any of them)."
+            >
+              <b>
+                Rating — Last 5 ilvls
+              </b>
+            </dfn>
+          </th>
+          <th
+            className="text-right"
+          >
+            <b>
+              Value — Last 5 ilvls
+            </b>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td
+            className="stat-stamina"
+          >
+            <img
+              alt="Shield"
+              src="/img/shield.png"
+              style={
+                Object {
+                  "border": 0,
+                  "marginRight": 10,
+                }
+              }
+            />
+             
+            Armor
+          </td>
+          <td
+            className="text-right"
+          >
+            <b>
+              815k
+            </b>
+          </td>
+          <td
+            className="text-right"
+          >
+            <b>
+              1.00
+            </b>
+          </td>
+          <td
+            className="text-right"
+          >
+            <b>
+              × 
+              79.56
+            </b>
+          </td>
+          <td
+            className="text-right"
+          >
+            <b>
+              = 
+              79.56
+            </b>
+          </td>
+        </tr>
+        <tr>
+          <td
+            style={
+              Object {
+                "paddingLeft": "5em",
+              }
+            }
+          >
+            Physical Damage Mitigated
+          </td>
+          <td
+            className="text-right"
+          >
+            815k
+          </td>
+          <td
+            className="text-right"
+          >
+            1.00
+          </td>
+          <td />
+          <td
+            className="text-right"
+          >
+            79.56
+          </td>
+        </tr>
+        <tr>
+          <td
+            className="stat-criticalstrike"
+          >
+            <img
+              alt="Sword"
+              src="/img/sword.png"
+              style={
+                Object {
+                  "border": 0,
+                  "marginRight": 10,
+                }
+              }
+            />
+             
+            Weapon DPS
+          </td>
+          <td
+            className="text-right"
+          >
+            <b>
+              130k
+            </b>
+          </td>
+          <td
+            className="text-right"
+          >
+            <b>
+              1.78
+            </b>
+          </td>
+          <td
+            className="text-right"
+          >
+            <b>
+              × 
+              11.00
+            </b>
+          </td>
+          <td
+            className="text-right"
+          >
+            <b>
+              = 
+              19.54
+            </b>
+          </td>
+        </tr>
+        <tr>
+          <td
+            style={
+              Object {
+                "paddingLeft": "5em",
+              }
+            }
+          >
+            <a
+              href="http://wowhead.com/spell=124507"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_monk_healthsphere.jpg"
+              />
+               
+              Gift of the Ox
+            </a>
+             Healing
+          </td>
+          <td
+            className="text-right"
+          >
+            130k
+          </td>
+          <td
+            className="text-right"
+          >
+            1.78
+          </td>
+          <td />
+          <td
+            className="text-right"
+          >
+            19.54
+          </td>
+        </tr>
+        <tr>
+          <td
+            className="stat-agility"
+          >
+            <svg
+              className="icon"
+              style={
+                Object {
+                  "height": "1.6em",
+                  "marginRight": 10,
+                  "width": "1.6em",
+                }
+              }
+              version="1.1"
+              viewBox="16 16 32 32"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M46.804,34.219c0.179,3.128-6.415,10.197-7.82,4.58c-0.414-1.655,0.806-3.86,1.905-5.034 c0.877-0.937,3.26-2.676,4.614-2.312c0.515,0.139,1.057,0.698,1.159,1.126L46.804,34.219z"
+              />
+              <path
+                d="M38.589,32.38c-4.919-0.719-1.104-7.935,1.369-9.446c2.494-1.524,5.354,0.637,4.918,3.456 C44.551,28.494,41.014,32.735,38.589,32.38z"
+              />
+              <path
+                d="M37.197,19.278c1.996,2.27-2.691,9.045-5.34,8.312c-4.923-1.363-0.48-8.416,1.495-9.475 c0.671-0.36,1.341-0.582,2.183-0.27L37.197,19.278z"
+              />
+              <path
+                d="M22.058,28.788c-2.339-2.141,0.838-8.034,3.039-9.299c3.92-2.253,3.392,5.612,2.012,7.496 c-0.858,1.172-2.537,2.562-3.989,2.618L22.058,28.788z"
+              />
+              <path
+                d="M36.151,41.028c-0.003,0.132,0.003,0.234,0.019,0.295c0.493,1.816,1.522,3.409-0.036,5.133 c-1.427,1.579-4.028,1.509-5.731,0.345c-1.638-1.12-2.027-3.49-3.449-4.853c-1.705-1.634-3.554-1.703-5.701-2.009 c-2.349-0.335-3.406-2.041-3.771-4.325c-0.376-2.355,0.885-3.062,3.061-3.379c1.45-0.211,2.958-0.352,4.245-1.081 c2.406-1.364,2.797-3.668,5.762-1.705c1.754,1.161,3.994,2.469,5.233,4.215c0.733,1.033,1.435,1.805,1.283,2.982 C36.879,38.107,36.191,39.452,36.151,41.028z"
+              />
+            </svg>
+             
+            Agility
+          </td>
+          <td
+            className="text-right"
+          >
+            <b>
+              407k
+            </b>
+          </td>
+          <td
+            className="text-right"
+          >
+            <b>
+              0.33
+            </b>
+          </td>
+          <td
+            className="text-right"
+          >
+            <b>
+              × 
+              269.00
+            </b>
+          </td>
+          <td
+            className="text-right"
+          >
+            <b>
+              = 
+              89.70
+            </b>
+          </td>
+        </tr>
+        <tr>
+          <td
+            style={
+              Object {
+                "paddingLeft": "5em",
+              }
+            }
+          >
+            <a
+              href="http://wowhead.com/spell=124507"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_monk_healthsphere.jpg"
+              />
+               
+              Gift of the Ox
+            </a>
+             Healing
+          </td>
+          <td
+            className="text-right"
+          >
+            368k
+          </td>
+          <td
+            className="text-right"
+          >
+            0.30
+          </td>
+          <td />
+          <td
+            className="text-right"
+          >
+            81.19
+          </td>
+        </tr>
+        <tr>
+          <td
+            style={
+              Object {
+                "paddingLeft": "5em",
+              }
+            }
+          >
+            <dfn
+              data-tip="The amount of damage avoided by dodging may be reduced by purification. This is reflected in the range of values."
+            >
+              Dodge
+            </dfn>
+          </td>
+          <td
+            className="text-right"
+          >
+            <dfn
+              data-tip="Not Yet Loaded"
+            >
+              NYL
+            </dfn>
+          </td>
+          <td
+            className="text-right"
+          >
+            <dfn
+              data-tip="Not Yet Loaded"
+            >
+              NYL
+            </dfn>
+          </td>
+          <td />
+          <td
+            className="text-right"
+          >
+            <dfn
+              data-tip="Not Yet Loaded"
+            >
+              NYL
+            </dfn>
+          </td>
+        </tr>
+        <tr>
+          <td
+            style={
+              Object {
+                "paddingLeft": "5em",
+              }
+            }
+          >
+            Extra 
+            <a
+              href="http://wowhead.com/spell=119582"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/inv_misc_beer_06.jpg"
+              />
+               
+              Purifying Brew
+            </a>
+             Effectiveness
+          </td>
+          <td
+            className="text-right"
+          >
+            39k
+          </td>
+          <td
+            className="text-right"
+          >
+            0.03
+          </td>
+          <td />
+          <td
+            className="text-right"
+          >
+            8.51
+          </td>
+        </tr>
+        <tr>
+          <td
+            className="stat-mastery"
+          >
+            <svg
+              className="icon"
+              style={
+                Object {
+                  "height": "1.6em",
+                  "marginRight": 10,
+                  "width": "1.6em",
+                }
+              }
+              version="1.1"
+              viewBox="16 16 32 32"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M46.934,26.287c-1.107,0-2.004,0.885-2.004,1.976c0,0.31,0.079,0.599,0.208,0.861l-6.74,4.691 l-0.387-8.422c1.064-0.048,1.914-0.906,1.914-1.967c0-1.091-0.898-1.976-2.005-1.976c-1.107,0-2.004,0.885-2.004,1.976 c0,0.732,0.408,1.364,1.008,1.705l-4.812,8.237l-4.812-8.237c0.6-0.341,1.008-0.973,1.008-1.705c0-1.091-0.897-1.976-2.004-1.976 c-1.107,0-2.004,0.885-2.004,1.976c0,1.061,0.85,1.919,1.914,1.967l-0.387,8.422l-6.74-4.691c0.129-0.261,0.208-0.551,0.208-0.861 c0-1.092-0.897-1.976-2.005-1.976c-1.107,0-2.004,0.885-2.004,1.976c0,1.091,0.897,1.976,2.004,1.976 c0.298,0,0.578-0.068,0.832-0.183l5.048,13.236c2.178-0.849,5.377-1.385,8.943-1.385c3.566,0,6.764,0.536,8.942,1.385l5.048-13.236 c0.254,0.115,0.534,0.183,0.832,0.183c1.107,0,2.005-0.885,2.005-1.976C48.939,27.172,48.041,26.287,46.934,26.287z"
+              />
+            </svg>
+             
+            Mastery
+          </td>
+          <td
+            className="text-right"
+          >
+            <b>
+              47k
+            </b>
+          </td>
+          <td
+            className="text-right"
+          >
+            <b>
+              0.23
+            </b>
+          </td>
+          <td
+            className="text-right"
+          >
+            <b>
+              × 
+              14.00
+            </b>
+          </td>
+          <td
+            className="text-right"
+          >
+            <b>
+              = 
+              3.28
+            </b>
+          </td>
+        </tr>
+        <tr>
+          <td
+            style={
+              Object {
+                "paddingLeft": "5em",
+              }
+            }
+          >
+            <a
+              href="http://wowhead.com/spell=124507"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_monk_healthsphere.jpg"
+              />
+               
+              Gift of the Ox
+            </a>
+             Healing
+          </td>
+          <td
+            className="text-right"
+          >
+            47k
+          </td>
+          <td
+            className="text-right"
+          >
+            0.23
+          </td>
+          <td />
+          <td
+            className="text-right"
+          >
+            3.28
+          </td>
+        </tr>
+        <tr>
+          <td
+            style={
+              Object {
+                "paddingLeft": "5em",
+              }
+            }
+          >
+            <dfn
+              data-tip="The amount of damage avoided by dodging may be reduced by purification. This is reflected in the range of values."
+            >
+              Dodge
+            </dfn>
+          </td>
+          <td
+            className="text-right"
+          >
+            <dfn
+              data-tip="Not Yet Loaded"
+            >
+              NYL
+            </dfn>
+          </td>
+          <td
+            className="text-right"
+          >
+            <dfn
+              data-tip="Not Yet Loaded"
+            >
+              NYL
+            </dfn>
+          </td>
+          <td />
+          <td
+            className="text-right"
+          >
+            <dfn
+              data-tip="Not Yet Loaded"
+            >
+              NYL
+            </dfn>
+          </td>
+        </tr>
+        <tr>
+          <td
+            className="stat-versatility"
+          >
+            <svg
+              className="icon"
+              style={
+                Object {
+                  "height": "1.6em",
+                  "marginRight": 10,
+                  "width": "1.6em",
+                }
+              }
+              version="1.1"
+              viewBox="16 16 32 32"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <polygon
+                points="40.128,30.517 43.92,31.535 48.567,26.883 47.893,24.366 44.461,27.802 40.628,26.774 39.601,22.935 43.032,19.499 40.519,18.825 35.873,23.477 36.889,27.275 33.991,30.177 27.422,23.6 29.315,21.705 34.293,19.143 26.654,19.04 24.761,20.935 24.04,20.213 21.065,23.192 21.786,23.914 19.668,26.035 17.91,26.531 15.656,28.788 19.613,32.749 21.866,30.493 22.362,28.733 22.329,28.7 24.448,26.579 31.016,33.155 28.23,35.945 24.437,34.927 19.791,39.579 20.465,42.096 23.896,38.66 27.73,39.689 28.757,43.527 25.325,46.963 27.838,47.637 32.485,42.985 31.468,39.187 34.254,36.398 42.875,45.03 45.85,42.051 37.229,33.419"
+              />
+            </svg>
+             
+            Versatility
+          </td>
+          <td
+            className="text-right"
+          >
+            <b>
+              291k
+            </b>
+          </td>
+          <td
+            className="text-right"
+          >
+            <b>
+              1.49
+            </b>
+          </td>
+          <td
+            className="text-right"
+          >
+            <b>
+              × 
+              14.00
+            </b>
+          </td>
+          <td
+            className="text-right"
+          >
+            <b>
+              = 
+              20.85
+            </b>
+          </td>
+        </tr>
+        <tr>
+          <td
+            style={
+              Object {
+                "paddingLeft": "5em",
+              }
+            }
+          >
+            Damage Mitigated
+          </td>
+          <td
+            className="text-right"
+          >
+            235k
+          </td>
+          <td
+            className="text-right"
+          >
+            1.20
+          </td>
+          <td />
+          <td
+            className="text-right"
+          >
+            16.83
+          </td>
+        </tr>
+        <tr>
+          <td
+            style={
+              Object {
+                "paddingLeft": "5em",
+              }
+            }
+          >
+            Additional Healing
+          </td>
+          <td
+            className="text-right"
+          >
+            56k
+          </td>
+          <td
+            className="text-right"
+          >
+            0.29
+          </td>
+          <td />
+          <td
+            className="text-right"
+          >
+            4.02
+          </td>
+        </tr>
+        <tr>
+          <td
+            className="stat-criticalstrike"
+          >
+            <svg
+              className="icon"
+              style={
+                Object {
+                  "height": "1.6em",
+                  "marginRight": 10,
+                  "width": "1.6em",
+                }
+              }
+              version="1.1"
+              viewBox="16 16 32 32"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="32.111"
+                cy="32.678"
+                r="2.989"
+              />
+              <path
+                d="M41.603,33.535l9.219-0.857l-9.219-0.857c-0.41-4.574-4.06-8.223-8.634-8.633l-0.857-9.218l-0.857,9.218 c-4.574,0.41-8.224,4.06-8.634,8.633l-9.219,0.857l9.219,0.857c0.41,4.573,4.06,8.224,8.634,8.633l0.857,9.218l0.857-9.218 C37.542,41.758,41.193,38.108,41.603,33.535z M33.076,41.007l0.215-2.313h-2.36l0.215,2.313c-3.856-0.444-6.921-3.509-7.365-7.364 l2.313,0.215v-2.359l-2.313,0.215c0.444-3.855,3.509-6.92,7.365-7.364l-0.215,2.313h2.36l-0.215-2.313 c3.856,0.444,6.921,3.509,7.365,7.364l-2.314-0.215v2.359l2.314-0.215C39.998,37.498,36.932,40.563,33.076,41.007z"
+              />
+            </svg>
+             
+            Critical Strike
+          </td>
+          <td
+            className="text-right"
+          >
+            <b>
+              621k
+            </b>
+          </td>
+          <td
+            className="text-right"
+          >
+            <b>
+              1.49
+            </b>
+          </td>
+          <td
+            className="text-right"
+          >
+            <b>
+              × 
+              29.00
+            </b>
+          </td>
+          <td
+            className="text-right"
+          >
+            <b>
+              = 
+              43.32
+            </b>
+          </td>
+        </tr>
+        <tr>
+          <td
+            style={
+              Object {
+                "paddingLeft": "5em",
+              }
+            }
+          >
+            <a
+              href="http://wowhead.com/spell=216521"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/inv_celestialserpentmount.jpg"
+              />
+               
+              Celestial Fortune
+            </a>
+             Healing
+          </td>
+          <td
+            className="text-right"
+          >
+            500k
+          </td>
+          <td
+            className="text-right"
+          >
+            1.20
+          </td>
+          <td />
+          <td
+            className="text-right"
+          >
+            34.89
+          </td>
+        </tr>
+        <tr>
+          <td
+            style={
+              Object {
+                "paddingLeft": "5em",
+              }
+            }
+          >
+            Critical Heals
+          </td>
+          <td
+            className="text-right"
+          >
+            121k
+          </td>
+          <td
+            className="text-right"
+          >
+            0.29
+          </td>
+          <td />
+          <td
+            className="text-right"
+          >
+            8.44
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+`;
 
 exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the suggestions snapshot 1`] = `Array []`;
 
 exports[`The Brewmaster Analyzer analyzers PurifyingBrew matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "zIndex": 1,
-    }
-  }
 >
   <div
-    className="panel statistic-box expandable "
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
   >
     <div
       className="panel-body"
     >
       <div
-        className="flex"
+        className="pad"
       >
-        <div
-          className="flex-sub statistic-icon"
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-            }
-          }
-        >
+        <label>
           <a
             href="http://wowhead.com/spell=119582"
             rel="noopener noreferrer"
@@ -1006,40 +1428,37 @@ exports[`The Brewmaster Analyzer analyzers PurifyingBrew matches the statistic s
           >
              
             <img
-              alt=""
-              className="icon"
+              alt="Purifying Brew"
+              className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/inv_misc_beer_06.jpg"
             />
           </a>
-        </div>
+           
+          Avg. Mitigation per Purifying Brew
+        </label>
         <div
-          className="flex-main"
-          style={
-            Object {
-              "paddingLeft": 16,
-              "position": "relative",
-            }
-          }
+          className="value"
         >
-          <div
-            className="slabel"
-          >
-            Avg. Mitigation per Purifying Brew
-          </div>
-          <div
-            className="value"
-          >
-            <dfn
-              data-tip="Purifying Brew removed <b>387k</b> damage in total over 6 casts.<br/>
-                  The smallest purify removed <b>13k</b> and the largest purify removed <b>95k</b>.<br/>
-                  You purified <b>2</b> (33.33%) times without reaching Heavy Stagger.<br/>
-                  Your purifies were delayed from the nearest peak by <b>2.19s</b> on average."
-            >
-              64k
-            </dfn>
-          </div>
+          64k
         </div>
       </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
     </div>
   </div>
 </div>
@@ -1170,30 +1589,23 @@ exports[`The Brewmaster Analyzer analyzers SpellUsable matches the suggestions s
 exports[`The Brewmaster Analyzer analyzers Stagger matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "zIndex": 1,
-    }
-  }
 >
   <div
-    className="panel statistic-box expandable "
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
   >
     <div
       className="panel-body"
     >
       <div
-        className="flex"
+        className="pad"
       >
-        <div
-          className="flex-sub statistic-icon"
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-            }
-          }
-        >
+        <label>
           <a
             href="http://wowhead.com/spell=115308"
             rel="noopener noreferrer"
@@ -1201,47 +1613,37 @@ exports[`The Brewmaster Analyzer analyzers Stagger matches the statistic snapsho
           >
              
             <img
-              alt=""
-              className="icon"
+              alt="Ironskin Brew"
+              className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/ability_monk_ironskinbrew.jpg"
             />
           </a>
-        </div>
+           
+          Damage staggered
+        </label>
         <div
-          className="flex-main"
-          style={
-            Object {
-              "paddingLeft": 16,
-              "position": "relative",
-            }
-          }
+          className="value"
         >
-          <div
-            className="slabel"
-          >
-            Damage staggered
-          </div>
-          <div
-            className="value"
-          >
-            <dfn
-              data-tip="Incoming damage added to stagger:
-          <ul>
-            <li>Total physical damage added to stagger: 1,452,326</li>
-            <li>Total magical damage added to stagger: 855,778</li>
-          </ul>
-          Damage taken from stagger:
-          <ul>
-            <li>Total damage from stagger dot: 1,736,876 (75.25% of total staggered)</li>
-            <li>Total damage removed from stagger dot before damaging you: 446,937 (19.36% of total staggered)</li>
-          </ul>
-        "
-            >
-              2.31m 
-            </dfn>
-          </div>
+          2.31m
         </div>
       </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
     </div>
   </div>
 </div>
@@ -1260,30 +1662,23 @@ exports[`The Brewmaster Analyzer analyzers StaggerPoolGraph matches the suggesti
 exports[`The Brewmaster Analyzer analyzers StaggeringStrikes matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "zIndex": 1,
-    }
-  }
 >
   <div
-    className="panel statistic-box expandable item"
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
   >
     <div
       className="panel-body"
     >
       <div
-        className="flex"
+        className="pad"
       >
-        <div
-          className="flex-sub statistic-icon"
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-            }
-          }
-        >
+        <label>
           <a
             href="http://wowhead.com/spell=273464"
             rel="noopener noreferrer"
@@ -1291,52 +1686,55 @@ exports[`The Brewmaster Analyzer analyzers StaggeringStrikes matches the statist
           >
              
             <img
-              alt=""
-              className="icon"
+              alt="Staggering Strikes"
+              className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/ability_monk_blackoutstrike.jpg"
             />
           </a>
-        </div>
+           
+          <a
+            href="http://wowhead.com/spell=273464"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            Staggering Strikes
+          </a>
+        </label>
         <div
-          className="flex-main"
-          style={
-            Object {
-              "paddingLeft": 16,
-              "position": "relative",
-            }
-          }
+          className="value"
         >
-          <div
-            className="slabel"
-          >
-            <a
-              href="http://wowhead.com/spell=273464"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-               
-              Staggering Strikes
-            </a>
-          </div>
-          <div
-            className="value"
-          >
-            <dfn
-              data-tip="Your Blackout Strike casts each remove 1,877 staggered damage.
-            
-            A total of 34 casts removed 60k staggered damage (3,754 overhealed)."
-            >
-              <img
-                alt="Healing"
-                className="icon"
-                src="/img/healing.png"
-              />
-               
-              3.70 % / 195 HPS
-            </dfn>
-          </div>
+          <img
+            alt="Healing"
+            className="icon"
+            src="/img/healing.png"
+          />
+           
+          195
+           HPS 
+          <small>
+            3.70
+            % of total
+          </small>
         </div>
       </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
     </div>
   </div>
 </div>
@@ -1357,76 +1755,32 @@ exports[`The Brewmaster Analyzer analyzers TrainingOfNiuzao matches the statisti
 exports[`The Brewmaster Analyzer analyzers TrainingOfNiuzao matches the suggestions snapshot 1`] = `"module inactive"`;
 
 exports[`The Brewmaster Analyzer should match the checklist snapshot 1`] = `
-<div
+<ul
   className="checklist"
 >
-  <div
-    className="expandable "
+  <li
+    className="expandable  passed"
   >
     <div
-      className="meta checklist-item"
+      className="meta"
       onClick={[Function]}
     >
       <div
         className="flex"
       >
         <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
-          <div
-            className="chevron"
-          >
-            <svg
-              viewBox="0 0 16 9"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-              />
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
-          <div>
-            <svg
-              style={
-                Object {
-                  "color": "green",
-                }
-              }
-              viewBox="0 0 50 50"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
-              />
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-main"
+          className="flex-main name"
         >
           Mitigate damage with 
           <a
             href="http://wowhead.com/spell=115308"
+            onClick={[Function]}
             rel="noopener noreferrer"
             target="_blank"
           >
             <img
               alt=""
-              className="icon"
+              className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/ability_monk_ironskinbrew.jpg"
             />
              
@@ -1435,112 +1789,395 @@ exports[`The Brewmaster Analyzer should match the checklist snapshot 1`] = `
           .
         </div>
         <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "width": 100,
-            }
-          }
+          className="flex-sub perf"
         >
           <div
-            className="performance-bar-container"
+            className="perf-container"
           >
             <div
-              className="performance-bar small"
+              className="perf-bar"
               style={
                 Object {
                   "backgroundColor": "#4ec04e",
-                  "transition": "background-color 800ms",
                   "width": "100%",
                 }
               }
             />
           </div>
         </div>
+        <div
+          className="chevron"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 16 9"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+            />
+          </svg>
+        </div>
       </div>
     </div>
     <div
-      className="details"
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
       style={
         Object {
-          "display": "none",
-          "minHeight": 80,
-          "paddingLeft": 65,
-          "paddingRight": 65,
-          "position": "relative",
+          "height": 0,
+          "overflow": "hidden",
         }
       }
     >
       <div
-        className="row"
-        style={
-          Object {
-            "marginBottom": 10,
-            "position": "relative",
-          }
-        }
+        style={Object {}}
       >
-        <svg
-          className="text-muted"
-          style={
-            Object {
-              "fontSize": "2em",
-              "left": -33,
-              "position": "absolute",
-              "top": "50%",
-              "transform": "translateY(-33%)",
-            }
-          }
-          viewBox="0 0 100 100"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-          />
-          <path
-            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-          />
-          <path
-            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-          />
-        </svg>
         <div
-          className="col-md-12 text-muted"
+          className="row text-muted description"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+            <a
+              href="http://wowhead.com/spell=115069"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/monk_stance_drunkenox.jpg"
+              />
+               
+              Stagger
+            </a>
+             is our main damage mitigation tool. 
+            <a
+              href="http://wowhead.com/spell=115308"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_monk_ironskinbrew.jpg"
+              />
+               
+              Ironskin Brew
+            </a>
+             increases the amount of damage that we can mitigate with Stagger while active. It is possible to maintain 100% uptime without reaching any particular haste threshold due to the cooldown reduction applied by 
+            <a
+              href="http://wowhead.com/spell=121253"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/achievement_brewery_2.jpg"
+              />
+               
+              Keg Smash
+            </a>
+             and 
+            <a
+              href="http://wowhead.com/spell=100780"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_monk_tigerpalm.jpg"
+              />
+               
+              Tiger Palm
+            </a>
+            . If you are having difficulty maintaining your buff you may need to improve your cast efficiency or reduce the amount of purification you are doing.
+          </div>
+        </div>
+        <div
+          className="row"
         >
           <div
-            className="flex"
+            className="col-md-6"
           >
             <div
-              className="flex-main"
+              className="flex"
             >
-              <a
-                href="http://wowhead.com/spell=115069"
-                rel="noopener noreferrer"
-                target="_blank"
+              <div
+                className="flex-main"
               >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/monk_stance_drunkenox.jpg"
-                />
-                 
-                Stagger
-              </a>
-               is our main damage mitigation tool. 
-              <a
-                href="http://wowhead.com/spell=115308"
-                rel="noopener noreferrer"
-                target="_blank"
+                Hits mitigated with 
+                <a
+                  href="http://wowhead.com/spell=115308"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_monk_ironskinbrew.jpg"
+                  />
+                   
+                  Ironskin Brew
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
               >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/ability_monk_ironskinbrew.jpg"
-                />
-                 
-                Ironskin Brew
-              </a>
-               increases the amount of damage that we can mitigate with Stagger while active. It is possible to maintain 100% uptime without reaching any particular haste threshold due to the cooldown reduction applied by 
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  99.28%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  href="http://wowhead.com/spell=115308"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_monk_ironskinbrew.jpg"
+                  />
+                   
+                  Ironskin Brew
+                </a>
+                 Cast Efficiency
+              </div>
+              <div
+                className="flex-sub"
+                style={
+                  Object {
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  <svg
+                    className="icon"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                    />
+                    <path
+                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                    />
+                    <path
+                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  92.16%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li
+    className="expandable  passed"
+  >
+    <div
+      className="meta"
+      onClick={[Function]}
+    >
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-main name"
+        >
+          Generate enough brews through your rotation
+        </div>
+        <div
+          className="flex-sub perf"
+        >
+          <div
+            className="perf-container"
+          >
+            <div
+              className="perf-bar"
+              style={
+                Object {
+                  "backgroundColor": "#4ec04e",
+                  "width": "100%",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="chevron"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 16 9"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
+      style={
+        Object {
+          "height": 0,
+          "overflow": "hidden",
+        }
+      }
+    >
+      <div
+        style={Object {}}
+      >
+        <div
+          className="row text-muted description"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+            <p>
+              The cooldown of all brews is reduced by your key rotational abilities: 
               <a
                 href="http://wowhead.com/spell=121253"
                 rel="noopener noreferrer"
@@ -1548,7 +2185,7 @@ exports[`The Brewmaster Analyzer should match the checklist snapshot 1`] = `
               >
                 <img
                   alt=""
-                  className="icon"
+                  className="icon game "
                   src="//render-us.worldofwarcraft.com/icons/56/achievement_brewery_2.jpg"
                 />
                  
@@ -1562,30 +2199,13 @@ exports[`The Brewmaster Analyzer should match the checklist snapshot 1`] = `
               >
                 <img
                   alt=""
-                  className="icon"
+                  className="icon game "
                   src="//render-us.worldofwarcraft.com/icons/56/ability_monk_tigerpalm.jpg"
                 />
                  
                 Tiger Palm
               </a>
-              . If you are having difficulty maintaining your buff you may need to improve your cast efficiency or reduce the amount of purification you are doing.
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="row"
-      >
-        <div
-          className="col-md-6"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              Hits mitigated with 
+              . Maintaining a proper rotation will help ensure you have enough brews available to maintain 
               <a
                 href="http://wowhead.com/spell=115308"
                 rel="noopener noreferrer"
@@ -1593,303 +2213,123 @@ exports[`The Brewmaster Analyzer should match the checklist snapshot 1`] = `
               >
                 <img
                   alt=""
-                  className="icon"
+                  className="icon game "
                   src="//render-us.worldofwarcraft.com/icons/56/ability_monk_ironskinbrew.jpg"
                 />
                  
                 Ironskin Brew
               </a>
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
-            >
-              <div
-                className="text-right"
-                style={
-                  Object {
-                    "width": "100%",
-                  }
-                }
-              >
-                 
-                99.28%
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
-                <div
-                  className="performance-bar small"
-                  style={
-                    Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
-                      "width": "100%",
-                    }
-                  }
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
+              .
+            </p>
+            <p>
+              Note that 
               <a
-                href="http://wowhead.com/spell=115308"
+                href="http://wowhead.com/spell=115399"
                 rel="noopener noreferrer"
                 target="_blank"
               >
                 <img
                   alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/ability_monk_ironskinbrew.jpg"
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_monk_chibrew.jpg"
                 />
                  
-                Ironskin Brew
+                Black Ox Brew
               </a>
-               Cast Efficiency
-            </div>
-            <div
-              className="flex-sub"
-              style={
-                Object {
-                  "marginLeft": 10,
-                }
-              }
-            >
-              <svg
-                data-tip="A low cast efficiency indicates that brews are being wasted to capping charges.<br/>The cast efficiency of Ironskin Brew is shared with Purifying Brew."
-                viewBox="0 0 100 100"
-                xmlns="http://www.w3.org/2000/svg"
+               is 
+              <em>
+                almost always
+              </em>
+               the best talent for brew generation in a raiding environment. Unless specific fight mechanics require using 3+ brews in rapid succession, use it as close to on cooldown as possible without wasting brew charges. If you are using 
+              <a
+                href="http://wowhead.com/spell=196721"
+                rel="noopener noreferrer"
+                target="_blank"
               >
-                <path
-                  d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                <img
+                  alt=""
+                  className="icon game "
+                  src="//render-us.worldofwarcraft.com/icons/56/spell_brew_wheat.jpg"
                 />
-                <path
-                  d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-                />
-                <path
-                  d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-                />
-              </svg>
-            </div>
+                 
+                Light Brewing
+              </a>
+               and seeing low brew CDR, consider switching talents.
+            </p>
+          </div>
+        </div>
+        <div
+          className="row"
+        >
+          <div
+            className="col-md-6"
+          >
             <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
+              className="flex"
             >
               <div
-                className="text-right"
+                className="flex-main"
+              >
+                Effective CDR from your rotation
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
                 style={
                   Object {
-                    "width": "100%",
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
                   }
                 }
               >
-                 
-                91.87%
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
                 <div
-                  className="performance-bar small"
+                  className="text-right"
                   style={
                     Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
                       "width": "100%",
                     }
                   }
-                />
+                >
+                   
+                  34.59%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    className="expandable "
-  >
-    <div
-      className="meta checklist-item"
-      onClick={[Function]}
-    >
-      <div
-        className="flex"
-      >
-        <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
           <div
-            className="chevron"
-          >
-            <svg
-              viewBox="0 0 16 9"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-              />
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
-          <div>
-            <svg
-              style={
-                Object {
-                  "color": "green",
-                }
-              }
-              viewBox="0 0 50 50"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
-              />
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-main"
-        >
-          Generate enough brews through your rotation
-        </div>
-        <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "width": 100,
-            }
-          }
-        >
-          <div
-            className="performance-bar-container"
+            className="col-md-6"
           >
             <div
-              className="performance-bar small"
-              style={
-                Object {
-                  "backgroundColor": "#4ec04e",
-                  "transition": "background-color 800ms",
-                  "width": "100%",
-                }
-              }
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      className="details"
-      style={
-        Object {
-          "display": "none",
-          "minHeight": 80,
-          "paddingLeft": 65,
-          "paddingRight": 65,
-          "position": "relative",
-        }
-      }
-    >
-      <div
-        className="row"
-        style={
-          Object {
-            "marginBottom": 10,
-            "position": "relative",
-          }
-        }
-      >
-        <svg
-          className="text-muted"
-          style={
-            Object {
-              "fontSize": "2em",
-              "left": -33,
-              "position": "absolute",
-              "top": "50%",
-              "transform": "translateY(-33%)",
-            }
-          }
-          viewBox="0 0 100 100"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-          />
-          <path
-            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-          />
-          <path
-            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-          />
-        </svg>
-        <div
-          className="col-md-12 text-muted"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
+              className="flex"
             >
-              <p>
-                The cooldown of all brews is reduced by your key rotational abilities: 
+              <div
+                className="flex-main"
+              >
                 <a
                   href="http://wowhead.com/spell=121253"
                   rel="noopener noreferrer"
@@ -1897,27 +2337,72 @@ exports[`The Brewmaster Analyzer should match the checklist snapshot 1`] = `
                 >
                   <img
                     alt=""
-                    className="icon"
+                    className="icon game "
                     src="//render-us.worldofwarcraft.com/icons/56/achievement_brewery_2.jpg"
                   />
                    
                   Keg Smash
                 </a>
-                 and 
-                <a
-                  href="http://wowhead.com/spell=100780"
-                  rel="noopener noreferrer"
-                  target="_blank"
+                 Cast Efficiency
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
                 >
-                  <img
-                    alt=""
-                    className="icon"
-                    src="//render-us.worldofwarcraft.com/icons/56/ability_monk_tigerpalm.jpg"
-                  />
                    
-                  Tiger Palm
-                </a>
-                . Maintaining a proper rotation will help ensure you have enough brews available to maintain 
+                  62.65%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "32.098471647407955%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
                 <a
                   href="http://wowhead.com/spell=115308"
                   rel="noopener noreferrer"
@@ -1925,375 +2410,120 @@ exports[`The Brewmaster Analyzer should match the checklist snapshot 1`] = `
                 >
                   <img
                     alt=""
-                    className="icon"
+                    className="icon game "
                     src="//render-us.worldofwarcraft.com/icons/56/ability_monk_ironskinbrew.jpg"
                   />
                    
                   Ironskin Brew
                 </a>
-                .
-              </p>
-              <p>
-                Note that 
-                <a
-                  href="http://wowhead.com/spell=115399"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon"
-                    src="//render-us.worldofwarcraft.com/icons/56/ability_monk_chibrew.jpg"
-                  />
-                   
-                  Black Ox Brew
-                </a>
-                 is 
-                <em>
-                  almost always
-                </em>
-                 the best talent for brew generation in a raiding environment. Unless specific fight mechanics require using 3+ brews in rapid succession, use it as close to on cooldown as possible without wasting brew charges. If you are using 
-                <a
-                  href="http://wowhead.com/spell=196721"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt=""
-                    className="icon"
-                    src="//render-us.worldofwarcraft.com/icons/56/spell_brew_wheat.jpg"
-                  />
-                   
-                  Light Brewing
-                </a>
-                 and seeing low brew CDR, consider switching talents.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="row"
-      >
-        <div
-          className="col-md-6"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              Effective CDR from your rotation
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
-            >
+                 duration clipped
+              </div>
               <div
-                className="text-right"
+                className="flex-sub"
                 style={
                   Object {
-                    "width": "100%",
+                    "marginLeft": 10,
                   }
                 }
               >
-                 
-                34.59%
-                 
-                 
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  <svg
+                    className="icon"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                    />
+                    <path
+                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                    />
+                    <path
+                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                    />
+                  </svg>
+                </div>
               </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
               <div
-                className="performance-bar-container"
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
               >
                 <div
-                  className="performance-bar small"
+                  className="text-right"
                   style={
                     Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
                       "width": "100%",
                     }
                   }
-                />
+                >
+                   
+                  2.73%
+                   
+                   
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              <a
-                href="http://wowhead.com/spell=121253"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/achievement_brewery_2.jpg"
-                />
-                 
-                Keg Smash
-              </a>
-               Cast Efficiency
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
-            >
               <div
-                className="text-right"
+                className="flex-sub content-middle"
                 style={
                   Object {
-                    "width": "100%",
+                    "width": 50,
                   }
                 }
-              >
-                 
-                61.68%
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
               >
                 <div
-                  className="performance-bar small"
-                  style={
-                    Object {
-                      "backgroundColor": "#ac1f39",
-                      "transition": "background-color 800ms",
-                      "width": "31.596696076027285%",
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
                     }
-                  }
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              <a
-                href="http://wowhead.com/spell=115308"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/ability_monk_ironskinbrew.jpg"
-                />
-                 
-                Ironskin Brew
-              </a>
-               duration clipped
-            </div>
-            <div
-              className="flex-sub"
-              style={
-                Object {
-                  "marginLeft": 10,
-                }
-              }
-            >
-              <svg
-                data-tip="Ironskin Brew has a <em>cap</em> on total buff duration of three times the base duration. Casting Ironskin Brew with more time remaining than twice the base duration (normally 14 seconds) wastes part of the brew."
-                viewBox="0 0 100 100"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-                />
-                <path
-                  d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-                />
-                <path
-                  d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-                />
-              </svg>
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
-            >
-              <div
-                className="text-right"
-                style={
-                  Object {
-                    "width": "100%",
-                  }
-                }
-              >
-                 
-                2.73%
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
-                <div
-                  className="performance-bar small"
-                  style={
-                    Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
-                      "width": "100%",
-                    }
-                  }
-                />
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div
-    className="expandable "
+  </li>
+  <li
+    className="expandable expanded failed"
   >
     <div
-      className="meta checklist-item"
+      className="meta"
       onClick={[Function]}
     >
       <div
         className="flex"
       >
         <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
-          <div
-            className="chevron"
-          >
-            <svg
-              viewBox="0 0 16 9"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-              />
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
-          <div>
-            <svg
-              style={
-                Object {
-                  "color": "red",
-                }
-              }
-              viewBox="15 15 70 70"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g
-                style={
-                  Object {
-                    "strokeLinecap": "round",
-                    "strokeMiterlimit": 10,
-                    "strokeWidth": 10,
-                  }
-                }
-              >
-                <line
-                  x1="21.19"
-                  x2="78.81"
-                  y1="21.19"
-                  y2="78.81"
-                />
-                <line
-                  x1="78.81"
-                  x2="21.19"
-                  y1="21.19"
-                  y2="78.81"
-                />
-              </g>
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-main"
+          className="flex-main name"
         >
           Use 
           <a
             href="http://wowhead.com/spell=119582"
+            onClick={[Function]}
             rel="noopener noreferrer"
             target="_blank"
           >
             <img
               alt=""
-              className="icon"
+              className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/inv_misc_beer_06.jpg"
             />
              
@@ -2302,1425 +2532,1286 @@ exports[`The Brewmaster Analyzer should match the checklist snapshot 1`] = `
            effectively
         </div>
         <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "width": 100,
-            }
-          }
+          className="flex-sub perf"
         >
           <div
-            className="performance-bar-container"
+            className="perf-container"
           >
             <div
-              className="performance-bar small"
+              className="perf-bar"
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "transition": "background-color 800ms",
                   "width": "32.801003785663%",
                 }
               }
             />
           </div>
         </div>
+        <div
+          className="chevron"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 16 9"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+            />
+          </svg>
+        </div>
       </div>
     </div>
     <div
-      className="details"
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
       style={
         Object {
-          "display": "none",
-          "minHeight": 80,
-          "paddingLeft": 65,
-          "paddingRight": 65,
-          "position": "relative",
+          "height": 0,
+          "overflow": "hidden",
         }
       }
     >
       <div
-        className="row"
-        style={
-          Object {
-            "marginBottom": 10,
-            "position": "relative",
-          }
-        }
-      >
-        <svg
-          className="text-muted"
-          style={
-            Object {
-              "fontSize": "2em",
-              "left": -33,
-              "position": "absolute",
-              "top": "50%",
-              "transform": "translateY(-33%)",
-            }
-          }
-          viewBox="0 0 100 100"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-          />
-          <path
-            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-          />
-          <path
-            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-          />
-        </svg>
-        <div
-          className="col-md-12 text-muted"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              Effective use of 
-              <a
-                href="http://wowhead.com/spell=119582"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_misc_beer_06.jpg"
-                />
-                 
-                Purifying Brew
-              </a>
-               is fundamental to playing Brewmaster successfully. While we cannot 
-              <em>
-                automatically
-              </em>
-               tell whether a purify is effective or not, there are some simple guidelines that naturally lead to more effective purifies:
-              <ul>
-                <li>
-                  Avoid casting 
-                  <a
-                    href="http://wowhead.com/spell=119582"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    <img
-                      alt=""
-                      className="icon"
-                      src="//render-us.worldofwarcraft.com/icons/56/inv_misc_beer_06.jpg"
-                    />
-                     
-                    Purifying Brew
-                  </a>
-                   at less than 
-                  <a
-                    href="http://wowhead.com/spell=124273"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    <img
-                      alt=""
-                      className="icon"
-                      src="//render-us.worldofwarcraft.com/icons/56/priest_icon_chakra_red.jpg"
-                    />
-                     
-                    Heavy Stagger
-                  </a>
-                  . In a raid environment, 
-                  <a
-                    href="http://wowhead.com/spell=124273"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    <img
-                      alt=""
-                      className="icon"
-                      src="//render-us.worldofwarcraft.com/icons/56/priest_icon_chakra_red.jpg"
-                    />
-                     
-                    Heavy Stagger
-                  </a>
-                   is not dangerous in itself. You should almost never purify lower than this unless you cannot be healed.
-                </li>
-                <li>
-                  If you are going to purify a hit, do so as soon as possible after it lands. Every half-second delayed after the hit causes you to take 5% of the hit's damage from 
-                  <a
-                    href="http://wowhead.com/spell=115069"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    <img
-                      alt=""
-                      className="icon"
-                      src="//render-us.worldofwarcraft.com/icons/56/monk_stance_drunkenox.jpg"
-                    />
-                     
-                    Stagger
-                  </a>
-                  .
-                </li>
-              </ul>
-              For more information on effective use of 
-              <a
-                href="http://wowhead.com/spell=119582"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_misc_beer_06.jpg"
-                />
-                 
-                Purifying Brew
-              </a>
-              , see the 
-              <a
-                href="https://www.peakofserenity.com/bfa/brewmaster/purifying/"
-              >
-                Peak of Serenity guide
-              </a>
-              .
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="row"
+        style={Object {}}
       >
         <div
-          className="col-md-6"
+          className="row text-muted description"
         >
-          <div
-            className="flex"
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <div
-              className="flex-main"
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+            Effective use of 
+            <a
+              href="http://wowhead.com/spell=119582"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              Purifies with less than 
-              <a
-                href="http://wowhead.com/spell=124273"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/priest_icon_chakra_red.jpg"
-                />
-                 
-                Heavy Stagger
-              </a>
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/inv_misc_beer_06.jpg"
+              />
+               
+              Purifying Brew
+            </a>
+             is fundamental to playing Brewmaster successfully. While we cannot 
+            <em>
+              automatically
+            </em>
+             tell whether a purify is effective or not, there are some simple guidelines that naturally lead to more effective purifies:
+            <ul>
+              <li>
+                Avoid casting 
+                <a
+                  href="http://wowhead.com/spell=119582"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/inv_misc_beer_06.jpg"
+                  />
+                   
+                  Purifying Brew
+                </a>
+                 at less than 
+                <a
+                  href="http://wowhead.com/spell=124273"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/priest_icon_chakra_red.jpg"
+                  />
+                   
+                  Heavy Stagger
+                </a>
+                . In a raid environment, 
+                <a
+                  href="http://wowhead.com/spell=124273"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/priest_icon_chakra_red.jpg"
+                  />
+                   
+                  Heavy Stagger
+                </a>
+                 is not dangerous in itself. You should almost never purify lower than this unless you cannot be healed.
+              </li>
+              <li>
+                If you are going to purify a hit, do so as soon as possible after it lands. Every half-second delayed after the hit causes you to take 5% of the hit's damage from 
+                <a
+                  href="http://wowhead.com/spell=115069"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/monk_stance_drunkenox.jpg"
+                  />
+                   
+                  Stagger
+                </a>
+                .
+              </li>
+            </ul>
+            For more information on effective use of 
+            <a
+              href="http://wowhead.com/spell=119582"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              <div
-                className="text-right"
-                style={
-                  Object {
-                    "width": "100%",
-                  }
-                }
-              >
-                 
-                33.33%
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/inv_misc_beer_06.jpg"
+              />
+               
+              Purifying Brew
+            </a>
+            , see the 
+            <a
+              href="https://www.peakofserenity.com/bfa/brewmaster/purifying/"
             >
-              <div
-                className="performance-bar-container"
-              >
-                <div
-                  className="performance-bar small"
-                  style={
-                    Object {
-                      "backgroundColor": "#ac1f39",
-                      "transition": "background-color 800ms",
-                      "width": "19.980000000000004%",
-                    }
-                  }
-                />
-              </div>
-            </div>
+              Peak of Serenity guide
+            </a>
+            .
           </div>
         </div>
         <div
-          className="col-md-6"
+          className="row"
         >
           <div
-            className="flex"
+            className="col-md-6"
           >
             <div
-              className="flex-main"
-            >
-              Average Purification Delay
-            </div>
-            <div
-              className="flex-sub"
-              style={
-                Object {
-                  "marginLeft": 10,
-                }
-              }
-            >
-              <svg
-                data-tip="The delay is tracked from the most recent time you were able to purify after a hit. If the hit occurred when no charges were available, you are not penalized."
-                viewBox="0 0 100 100"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-                />
-                <path
-                  d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-                />
-                <path
-                  d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-                />
-              </svg>
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
+              className="flex"
             >
               <div
-                className="text-right"
+                className="flex-main"
+              >
+                Purifies with less than 
+                <a
+                  href="http://wowhead.com/spell=124273"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/priest_icon_chakra_red.jpg"
+                  />
+                   
+                  Heavy Stagger
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
                 style={
                   Object {
-                    "width": "100%",
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
                   }
                 }
-              >
-                 
-                2.19s
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
               >
                 <div
-                  className="performance-bar small"
+                  className="text-right"
                   style={
                     Object {
-                      "backgroundColor": "#df7102",
-                      "transition": "background-color 800ms",
-                      "width": "35.37015%",
+                      "width": "100%",
                     }
                   }
-                />
+                >
+                   
+                  33.33%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "19.980000000000004%",
+                      }
+                    }
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
           <div
-            className="flex"
+            className="col-md-6"
           >
             <div
-              className="flex-main"
-            >
-              Available 
-              <a
-                href="http://wowhead.com/spell=119582"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_misc_beer_06.jpg"
-                />
-                 
-                Purifying Brew
-              </a>
-               charges used
-            </div>
-            <div
-              className="flex-sub"
-              style={
-                Object {
-                  "marginLeft": 10,
-                }
-              }
-            >
-              <svg
-                data-tip="While maintaining Ironskin is critical to your survival, with proper play it is possible to generate more brews than you need to maintain it. These excess brews should be spent on Purifying."
-                viewBox="0 0 100 100"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-                />
-                <path
-                  d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-                />
-                <path
-                  d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-                />
-              </svg>
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
+              className="flex"
             >
               <div
-                className="text-right"
+                className="flex-main"
+              >
+                Average Purification Delay
+              </div>
+              <div
+                className="flex-sub"
                 style={
                   Object {
-                    "width": "100%",
+                    "marginLeft": 10,
                   }
                 }
-              >
-                 
-                6
-                 
-                / 7
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
               >
                 <div
-                  className="performance-bar small"
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  <svg
+                    className="icon"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                    />
+                    <path
+                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                    />
+                    <path
+                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
                   style={
                     Object {
-                      "backgroundColor": "#a6c34c",
-                      "transition": "background-color 800ms",
-                      "width": "76.11428571428571%",
+                      "width": "100%",
                     }
                   }
-                />
+                >
+                   
+                  2.19s
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#df7102",
+                        "transition": "background-color 800ms",
+                        "width": "35.37015%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Available 
+                <a
+                  href="http://wowhead.com/spell=119582"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/inv_misc_beer_06.jpg"
+                  />
+                   
+                  Purifying Brew
+                </a>
+                 charges used
+              </div>
+              <div
+                className="flex-sub"
+                style={
+                  Object {
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  <svg
+                    className="icon"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                    />
+                    <path
+                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                    />
+                    <path
+                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  6
+                   
+                  / 7
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#a6c34c",
+                        "transition": "background-color 800ms",
+                        "width": "76.11428571428571%",
+                      }
+                    }
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div
-    className="expandable "
+  </li>
+  <li
+    className="expandable expanded failed"
   >
     <div
-      className="meta checklist-item"
+      className="meta"
       onClick={[Function]}
     >
       <div
         className="flex"
       >
         <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
-          <div
-            className="chevron"
-          >
-            <svg
-              viewBox="0 0 16 9"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-              />
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
-          <div>
-            <svg
-              style={
-                Object {
-                  "color": "red",
-                }
-              }
-              viewBox="15 15 70 70"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g
-                style={
-                  Object {
-                    "strokeLinecap": "round",
-                    "strokeMiterlimit": 10,
-                    "strokeWidth": 10,
-                  }
-                }
-              >
-                <line
-                  x1="21.19"
-                  x2="78.81"
-                  y1="21.19"
-                  y2="78.81"
-                />
-                <line
-                  x1="78.81"
-                  x2="21.19"
-                  y1="21.19"
-                  y2="78.81"
-                />
-              </g>
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-main"
+          className="flex-main name"
         >
           Top the DPS Charts
         </div>
         <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "width": 100,
-            }
-          }
+          className="flex-sub perf"
         >
           <div
-            className="performance-bar-container"
+            className="perf-container"
           >
             <div
-              className="performance-bar small"
+              className="perf-bar"
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "transition": "background-color 800ms",
-                  "width": "25.11005389769947%",
+                  "width": "25.418407290452055%",
                 }
               }
             />
           </div>
         </div>
+        <div
+          className="chevron"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 16 9"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+            />
+          </svg>
+        </div>
       </div>
     </div>
     <div
-      className="details"
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
       style={
         Object {
-          "display": "none",
-          "minHeight": 80,
-          "paddingLeft": 65,
-          "paddingRight": 65,
-          "position": "relative",
+          "height": 0,
+          "overflow": "hidden",
         }
       }
     >
       <div
-        className="row"
-        style={
-          Object {
-            "marginBottom": 10,
-            "position": "relative",
-          }
-        }
-      >
-        <svg
-          className="text-muted"
-          style={
-            Object {
-              "fontSize": "2em",
-              "left": -33,
-              "position": "absolute",
-              "top": "50%",
-              "transform": "translateY(-33%)",
-            }
-          }
-          viewBox="0 0 100 100"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-          />
-          <path
-            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-          />
-          <path
-            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-          />
-        </svg>
-        <div
-          className="col-md-12 text-muted"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              While the 
-              <em>
-                primary
-              </em>
-               role of a tank is to get hit in the face a bunch and not die in the process, once that is under control we get to spend some energy dealing damage! Maintaining a 
-              <a
-                href="https://www.peakofserenity.com/bfa/brewmaster/guide/"
-              >
-                correct DPS rotation
-              </a>
-               also provides optimal brew generation. 
-              <strong>
-                However, if you are dying, ignore this checklist item!
-              </strong>
-               As much as we may enjoy padding for those sweet orange parses, not-wiping takes precedence.
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="row"
+        style={Object {}}
       >
         <div
-          className="col-md-6"
+          className="row text-muted description"
         >
-          <div
-            className="flex"
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <div
-              className="flex-main"
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+            While the 
+            <em>
+              primary
+            </em>
+             role of a tank is to get hit in the face a bunch and not die in the process, once that is under control we get to spend some energy dealing damage! Maintaining a 
+            <a
+              href="https://www.peakofserenity.com/bfa/brewmaster/guide/"
             >
-              <a
-                href="http://wowhead.com/spell=121253"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/achievement_brewery_2.jpg"
-                />
-                 
-                Keg Smash
-              </a>
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
-            >
-              <div
-                className="text-right"
-                style={
-                  Object {
-                    "width": "100%",
-                  }
-                }
-              >
-                 
-                61.68%
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
-                <div
-                  className="performance-bar small"
-                  style={
-                    Object {
-                      "backgroundColor": "#ac1f39",
-                      "transition": "background-color 800ms",
-                      "width": "31.596696076027285%",
-                    }
-                  }
-                />
-              </div>
-            </div>
+              correct DPS rotation
+            </a>
+             also provides optimal brew generation. 
+            <strong>
+              However, if you are dying, ignore this checklist item!
+            </strong>
+             As much as we may enjoy padding for those sweet orange parses, not-wiping takes precedence.
           </div>
         </div>
         <div
-          className="col-md-6"
+          className="row"
         >
           <div
-            className="flex"
+            className="col-md-6"
           >
             <div
-              className="flex-main"
-            >
-              <a
-                href="http://wowhead.com/spell=205523"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/ability_monk_blackoutstrike.jpg"
-                />
-                 
-                Blackout Strike
-              </a>
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
+              className="flex"
             >
               <div
-                className="text-right"
+                className="flex-main"
+              >
+                <a
+                  href="http://wowhead.com/spell=121253"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/achievement_brewery_2.jpg"
+                  />
+                   
+                  Keg Smash
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
                 style={
                   Object {
-                    "width": "100%",
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
                   }
                 }
-              >
-                 
-                32.35%
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
               >
                 <div
-                  className="performance-bar small"
+                  className="text-right"
                   style={
                     Object {
-                      "backgroundColor": "#ac1f39",
-                      "transition": "background-color 800ms",
-                      "width": "16.574758661415352%",
+                      "width": "100%",
                     }
                   }
-                />
+                >
+                   
+                  62.65%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "32.098471647407955%",
+                      }
+                    }
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
           <div
-            className="flex"
+            className="col-md-6"
           >
             <div
-              className="flex-main"
-            >
-              <a
-                href="http://wowhead.com/spell=148187"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/ability_monk_rushingjadewind.jpg"
-                />
-                 
-                Rushing Jade Wind
-              </a>
-               uptime
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
+              className="flex"
             >
               <div
-                className="text-right"
+                className="flex-main"
+              >
+                <a
+                  href="http://wowhead.com/spell=205523"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_monk_blackoutstrike.jpg"
+                  />
+                   
+                  Blackout Strike
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
                 style={
                   Object {
-                    "width": "100%",
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
                   }
                 }
-              >
-                 
-                53.01%
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
               >
                 <div
-                  className="performance-bar small"
+                  className="text-right"
                   style={
                     Object {
-                      "backgroundColor": "#ac1f39",
-                      "transition": "background-color 800ms",
-                      "width": "27.15870695565576%",
+                      "width": "100%",
                     }
                   }
-                />
+                >
+                   
+                  33.18%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "16.99804326829244%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  href="http://wowhead.com/spell=148187"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_monk_rushingjadewind.jpg"
+                  />
+                   
+                  Rushing Jade Wind
+                </a>
+                 uptime
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  53.01%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "27.15870695565576%",
+                      }
+                    }
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div
-    className="expandable "
+  </li>
+  <li
+    className="expandable  passed"
   >
     <div
-      className="meta checklist-item"
+      className="meta"
       onClick={[Function]}
     >
       <div
         className="flex"
       >
         <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
-          <div
-            className="chevron"
-          >
-            <svg
-              viewBox="0 0 16 9"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-              />
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
-          <div>
-            <svg
-              style={
-                Object {
-                  "color": "green",
-                }
-              }
-              viewBox="0 0 50 50"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
-              />
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-main"
+          className="flex-main name"
         >
           Be well prepared
         </div>
         <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "width": 100,
-            }
-          }
+          className="flex-sub perf"
         >
           <div
-            className="performance-bar-container"
+            className="perf-container"
           >
             <div
-              className="performance-bar small"
+              className="perf-bar"
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "transition": "background-color 800ms",
                   "width": "90.47619047619048%",
                 }
               }
             />
           </div>
         </div>
+        <div
+          className="chevron"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 16 9"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+            />
+          </svg>
+        </div>
       </div>
     </div>
     <div
-      className="details"
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
       style={
         Object {
-          "display": "none",
-          "minHeight": 80,
-          "paddingLeft": 65,
-          "paddingRight": 65,
-          "position": "relative",
+          "height": 0,
+          "overflow": "hidden",
         }
       }
     >
       <div
-        className="row"
-        style={
-          Object {
-            "marginBottom": 10,
-            "position": "relative",
-          }
-        }
-      >
-        <svg
-          className="text-muted"
-          style={
-            Object {
-              "fontSize": "2em",
-              "left": -33,
-              "position": "absolute",
-              "top": "50%",
-              "transform": "translateY(-33%)",
-            }
-          }
-          viewBox="0 0 100 100"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-          />
-          <path
-            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-          />
-          <path
-            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-          />
-        </svg>
-        <div
-          className="col-md-12 text-muted"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              Being well prepared with food, flasks, potions and enchants is an easy way to improve your performance.
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="row"
+        style={Object {}}
       >
         <div
-          className="col-md-6"
+          className="row text-muted description"
         >
-          <div
-            className="flex"
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <div
-              className="flex-main"
-            >
-              All items enchanted
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
-            >
-              <div
-                className="text-right"
-                style={
-                  Object {
-                    "width": "100%",
-                  }
-                }
-              >
-                 
-                3
-                 
-                / 3
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
-                <div
-                  className="performance-bar small"
-                  style={
-                    Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
-                      "width": "100%",
-                    }
-                  }
-                />
-              </div>
-            </div>
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+            Being well prepared with food, flasks, potions and enchants is an easy way to improve your performance.
           </div>
         </div>
         <div
-          className="col-md-6"
+          className="row"
         >
           <div
-            className="flex"
+            className="col-md-6"
           >
             <div
-              className="flex-main"
-            >
-              Using high quality enchants
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
+              className="flex"
             >
               <div
-                className="text-right"
+                className="flex-main"
+              >
+                All items enchanted
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
                 style={
                   Object {
-                    "width": "100%",
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
                   }
                 }
-              >
-                 
-                1
-                 
-                / 3
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
               >
                 <div
-                  className="performance-bar small"
+                  className="text-right"
                   style={
                     Object {
-                      "backgroundColor": "#df7102",
-                      "transition": "background-color 800ms",
-                      "width": "33.33333333333333%",
-                    }
-                  }
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              Used a pre-potion
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
-            >
-              <div
-                className="text-right"
-                style={
-                  Object {
-                    "width": "100%",
-                  }
-                }
-              >
-                 
-                Yes
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
-                <div
-                  className="performance-bar small"
-                  style={
-                    Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
                       "width": "100%",
                     }
                   }
-                />
+                >
+                   
+                  3
+                   
+                  / 3
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
           <div
-            className="flex"
+            className="col-md-6"
           >
             <div
-              className="flex-main"
-            >
-              Used a second potion
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
+              className="flex"
             >
               <div
-                className="text-right"
+                className="flex-main"
+              >
+                Using high quality enchants
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
                 style={
                   Object {
-                    "width": "100%",
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
                   }
                 }
               >
-                 
-                Yes
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
                 <div
-                  className="performance-bar small"
+                  className="text-right"
                   style={
                     Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
                       "width": "100%",
                     }
                   }
-                />
+                >
+                   
+                  1
+                   
+                  / 3
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#df7102",
+                        "transition": "background-color 800ms",
+                        "width": "33.33333333333333%",
+                      }
+                    }
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
           <div
-            className="flex"
+            className="col-md-6"
           >
             <div
-              className="flex-main"
-            >
-              Flask used
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
+              className="flex"
             >
               <div
-                className="text-right"
+                className="flex-main"
+              >
+                Used a pre-potion
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
                 style={
                   Object {
-                    "width": "100%",
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
                   }
                 }
               >
-                 
-                Yes
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
                 <div
-                  className="performance-bar small"
+                  className="text-right"
                   style={
                     Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
                       "width": "100%",
                     }
                   }
-                />
+                >
+                   
+                  Yes
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
           <div
-            className="flex"
+            className="col-md-6"
           >
             <div
-              className="flex-main"
-            >
-              High quality food used
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
+              className="flex"
             >
               <div
-                className="text-right"
+                className="flex-main"
+              >
+                Used a second potion
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
                 style={
                   Object {
-                    "width": "100%",
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
                   }
                 }
               >
-                 
-                Yes
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
                 <div
-                  className="performance-bar small"
+                  className="text-right"
                   style={
                     Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
                       "width": "100%",
                     }
                   }
-                />
+                >
+                   
+                  Yes
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
           <div
-            className="flex"
+            className="col-md-6"
           >
             <div
-              className="flex-main"
-            >
-              Food used
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
+              className="flex"
             >
               <div
-                className="text-right"
+                className="flex-main"
+              >
+                Flask used
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
                 style={
                   Object {
-                    "width": "100%",
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
                   }
                 }
               >
-                 
-                Yes
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
                 <div
-                  className="performance-bar small"
+                  className="text-right"
                   style={
                     Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
                       "width": "100%",
                     }
                   }
-                />
+                >
+                   
+                  Yes
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                High quality food used
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  Yes
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Food used
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  Yes
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
+  </li>
+</ul>
 `;

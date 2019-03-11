@@ -183,6 +183,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.WIND_SHEAR,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 12,
+        gcd: null,
       },
       {
         spell: SPELLS.TOTEM_MASTERY_TALENT_ELEMENTAL,

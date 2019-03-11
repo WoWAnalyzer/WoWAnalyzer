@@ -10,9 +10,9 @@ import { makeCharacterApiUrl, makeItemApiUrl } from 'common/makeApiUrl';
 
 import { appendReportHistory } from 'interface/actions/reportHistory';
 import ActivityIndicator from 'interface/common/ActivityIndicator';
-import WarcraftLogsLogo from 'interface/images/WarcraftLogs-logo.png';
-import ArmoryLogo from 'interface/images/Armory-logo.png';
-import WipefestLogo from 'interface/images/Wipefest-logo.png';
+import ArmoryIcon from 'interface/icons/Armory';
+import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
+import WipefestIcon from 'interface/icons/Wipefest';
 
 import ZONES from 'game/ZONES';
 import SPECS from 'game/SPECS';
@@ -22,7 +22,7 @@ import REPORT_HISTORY_TYPES from 'interface/home/ReportHistory/REPORT_HISTORY_TY
 import { captureException } from 'common/errorLogger';
 import retryingPromise from 'common/retryingPromise';
 
-import './Parses.css';
+import './Parses.scss';
 import ParsesList from './ParsesList';
 
 const loadRealms = () => retryingPromise(() => import('common/REALMS').then(exports => exports.default));
@@ -59,17 +59,17 @@ class Parses extends React.Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
       specs: [],
       class: '',
       activeSpec: [],
-      activeDifficulty: DIFFICULTIES,
+      activeDifficulty: Object.values(DIFFICULTIES),
       activeZoneID: ZONE_DEFAULT_BATTLE_OF_DAZARALOR,
       activeEncounter: BOSS_DEFAULT_ALL_BOSSES,
       sortBy: ORDER_BY.DATE,
       metric: 'dps',
       image: null,
+      avatarImage: null,
       parses: [],
       isLoading: true,
       error: null,
@@ -194,7 +194,7 @@ class Parses extends React.Component {
         character_name: elem.characterName,
         talents: elem.talents,
         gear: elem.gear,
-        advanced: Object.values(elem.talents).filter(talent => talent.id === null).length === 0 ? true : false,
+        advanced: Object.values(elem.talents).filter(talent => talent.id === null).length === 0,
       };
     });
 
@@ -266,10 +266,12 @@ class Parses extends React.Component {
     }
     const image = data.thumbnail.replace('-avatar.jpg', '');
     const imageUrl = `https://render-${this.props.region}.worldofwarcraft.com/character/${image}-main.jpg`;
+    const avatarImage = `https://render-${this.props.region}.worldofwarcraft.com/character/${image}-avatar.jpg`;
     const role = data.role;
     const metric = role === 'HEALING' ? 'hps' : 'dps';
     this.setState({
       image: imageUrl,
+      avatarImage: avatarImage,
       metric: metric,
     }, () => {
       this.load();
@@ -403,40 +405,44 @@ class Parses extends React.Component {
     let errorMessage;
     if (this.state.error === ERRORS.CHARACTER_NOT_FOUND) {
       errorMessage = (
-        <div style={{ padding: 20 }}>
+        <>
           Please check your input and make sure that you've selected the correct region and realm.<br />
           If your input was correct, then make sure that someone in your raid logged the fight for you or check <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">Warcraft Logs guide</a> to get started with logging on your own.<br /><br />
+
           When you know for sure that you have logs on Warcraft Logs and you still get this error, please message us on <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">Discord</a> or create an issue on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer" target="_blank" rel="noopener noreferrer">Github</a>.
-        </div>
+        </>
       );
     } else if (this.state.error === ERRORS.NOT_RESPONDING) {
       errorMessage = (
-        <div style={{ padding: 20 }}>
+        <>
           It looks like we couldn't get a response in time from the API, this usually happens when the servers are under heavy load.<br /><br />
+
           You could try and enter your report-code manually <Link to="/">here</Link>.<br />
           That would bypass the load-intensive character lookup and we should be able to analyze your report.<br />
-        </div>
+        </>
       );
     } else if (this.state.error === ERRORS.CHARACTER_HIDDEN) {
       errorMessage = (
-        <div style={{ padding: 20 }}>
+        <>
           This character is hidden on warcraftlogs and we can't access the parses.<br /><br />
+
           You don't know how to make your character visible again? Check <a href="https://www.warcraftlogs.com/help/hidingcharacters/" target="_blank" rel="noopener noreferrer">Warcraft Logs </a> and hit the 'Refresh' button above once you're done.
-        </div>
+        </>
       );
     } else if (this.state.error === ERRORS.WCL_API_ERROR || this.state.error === ERRORS.UNKNOWN_API_ERROR || this.state.error === ERRORS.UNEXPECTED) {
       errorMessage = (
-        <div style={{ padding: 20 }}>
+        <>
           {this.state.errorMessage}{' '}
           Please message us on <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">Discord</a> or create an issue on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer" target="_blank" rel="noopener noreferrer">Github</a> if this issue persists and we will fix it, eventually.
-        </div>
+        </>
       );
     } else if (this.state.error === ERRORS.NO_PARSES_FOR_TIER || this.filterParses.length === 0) {
       errorMessage = (
-        <div style={{ padding: 20 }}>
+        <>
           Please check your filters and make sure that you logged those fights on Warcraft Logs.<br /><br />
-          You don't know how to log your fights? Check <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">Warcraft Logs guide</a> to get started.
-        </div>
+
+          Don't know how to log your fights? Check <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">Warcraft Logs guide</a> to get started.
+        </>
       );
     }
 
@@ -446,62 +452,60 @@ class Parses extends React.Component {
     }
 
     return (
-      <div className="charparse">
-        <div className="row">
-          <div className="col-md-5">
-            <div className="panel">
-              <div className="row filter">
-                <div className="col-md-12" style={{ marginBottom: 20, position: 'relative', height: 280 }}>
-                  {this.state.image && (
-                    <div className="char-image">
-                      <img
-                        src={this.state.image}
-                        alt={'Character render of ' + this.props.name}
-                        onError={e => this.setState({ image: FALLBACK_PICTURE })}
-                        style={{ width: '100%' }}
-                      />
-                    </div>
-                  )}
-                  <h2 style={{ fontSize: '1.8em', marginTop: 10 }}>{this.props.region} - {this.props.realm}</h2>
-                  <h2 style={{ fontSize: '2.4em', margin: '10px 10px' }}>
-                    {this.props.name}
-                  </h2>
-                  {this.state.class && (
-                    <img
-                      src={`/specs/${this.state.class.replace(' ', '')}-New.png`}
-                      alt={`Class icon of ${this.state.class}s`}
-                      style={{ height: 50, position: 'absolute', right: 12, top: 10 }}
-                    />
-                  )}
-                </div>
-                <div className="col-md-4">
-                  Specs:
-                  {this.state.specs.map((elem, index) => (
-                    <div
-                      key={index}
-                      onClick={() => this.updateSpec(elem.replace(' ', ''))}
-                      className={this.state.activeSpec.includes(elem.replace(' ', '')) ? 'selected form-control' : 'form-control'}
-                    >
-                      <img src={this.iconPath(elem)} style={{ height: 18, marginRight: 10 }} alt="Icon" />
-                      {elem}
-                    </div>
-                  ))}
-                </div>
-
-                <div className="col-md-4">
-                  Difficulties:
-                  {DIFFICULTIES.filter(elem => elem).map((elem, index) => (
-                    <div
-                      key={index}
-                      onClick={() => this.updateDifficulty(elem)}
-                      className={this.state.activeDifficulty.includes(elem) ? 'selected form-control' : 'form-control'}
-                    >
-                      {elem}
-                    </div>
-                  ))}
-                </div>
-                <div className="col-md-4">
-                  Raid:
+      <div className="results">
+        <header>
+          <div className="background">
+            <div className="img" style={{ backgroundImage: `url(${this.state.image})`, backgroundPosition: 'center center'}} />
+          </div>
+          <div className="info container">
+            <div className="boss">
+              <a
+                href={`https://www.warcraftlogs.com/character/${this.props.region}/${this.state.realmSlug}/${this.props.name}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn"
+                style={{ fontSize: 22 }}
+              >
+                <WarcraftLogsIcon /> Warcraft Logs
+              </a>
+              <br />
+              <a
+                href={battleNetUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn"
+                style={{ fontSize: 22 }}
+              >
+                <ArmoryIcon /> Armory
+              </a>
+              <br />
+              {this.props.region !== 'CN' && (
+                <a
+                  href={`https://www.wipefest.net/character/${this.props.name}/${this.state.realmSlug}/${this.props.region}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn"
+                  style={{ fontSize: 22 }}
+                >
+                  <WipefestIcon /> Wipefest
+                </a>
+              )}
+            </div>
+            <div className="player">
+              <div className="avatar">
+                <img src={this.state.avatarImage} alt="" />
+              </div>
+              <div className="details">
+                <h2>{this.props.region} - {this.props.realm}</h2>
+                <h1 className="name">{this.props.name}</h1>
+              </div>
+            </div>
+          </div>
+          <nav>
+            <div className="container">
+              <ul>
+                <li>
+                  Raid
                   <select
                     className="form-control"
                     value={this.state.activeZoneID}
@@ -511,7 +515,9 @@ class Parses extends React.Component {
                       <option key={elem.id} value={elem.id}>{elem.name}</option>
                     )}
                   </select>
-                  Boss:
+                </li>
+                <li>
+                  Boss
                   <select
                     className="form-control"
                     value={this.state.activeEncounter}
@@ -522,7 +528,9 @@ class Parses extends React.Component {
                       <option key={e.id} value={e.name}>{e.name}</option>
                     )}
                   </select>
-                  Metric:
+                </li>
+                <li>
+                  Metric
                   <select
                     className="form-control"
                     value={this.state.metric}
@@ -531,7 +539,9 @@ class Parses extends React.Component {
                     <option defaultValue value="dps">DPS</option>
                     <option value="hps">HPS</option>
                   </select>
-                  Sort by:
+                </li>
+                <li>
+                  Sort by
                   <select
                     className="form-control"
                     value={this.state.sortBy}
@@ -541,84 +551,88 @@ class Parses extends React.Component {
                     <option value={ORDER_BY.DPS}>DPS / HPS</option>
                     <option value={ORDER_BY.PERCENTILE}>Percentile</option>
                   </select>
-                </div>
+                </li>
+
+              </ul>
+            </div>
+          </nav>
+        </header>
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12">
+              <div className="panel character-filters">
+                {this.state.specs.map((elem, index) => (
+                  <div
+                    key={index}
+                    onClick={() => this.updateSpec(elem.replace(' ', ''))}
+                    className={this.state.activeSpec.includes(elem.replace(' ', '')) ? 'selected spec-filter character-filter' : 'spec-filter character-filter'}
+                    style={{ backgroundImage: `url(${this.iconPath(elem)})` }}
+                  >
+                    {elem}
+                  </div>
+                ))}
+
+                {Object.values(DIFFICULTIES).filter(elem => elem).map((elem, index) => (
+                  <div
+                    key={index}
+                    onClick={() => this.updateDifficulty(elem)}
+                    className={this.state.activeDifficulty.includes(elem) ? 'selected diff-filter character-filter' : 'diff-filter character-filter'}
+                  >
+                    {elem}
+                  </div>
+                ))}
               </div>
             </div>
-            <div>
-              <a
-                href={`https://www.warcraftlogs.com/character/${this.props.region}/${this.state.realmSlug}/${this.props.name}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn"
-                style={{ fontSize: 22 }}
-              >
-                <img src={WarcraftLogsLogo} alt="Warcraft Logs logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
-              </a>
-              <a
-                href={battleNetUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn"
-                style={{ fontSize: 22 }}
-              >
-                <img src={ArmoryLogo} alt="Armory logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Armory
-              </a>
-              {this.props.region !== 'CN' && (
-                <a
-                  href={`https://www.wipefest.net/character/${this.props.name}/${this.state.realmSlug}/${this.props.region}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn"
-                  style={{ fontSize: 22 }}
-                >
-                  <img src={WipefestLogo} alt="Wipefest logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Wipefest
-                </a>
-              )}
-            </div>
           </div>
-          <div className="col-md-7">
-            {this.state.error && (
-              <span>
-                <Link to="/">
-                  Home
-                </Link> &gt;{' '}
+          <div className="row">
+            <div className="col-md-12">
+              {this.state.error && (
                 <span>
-                  {this.props.region}  &gt; {this.props.realm}  &gt; {this.props.name}
+                  <Link to="/">
+                    Home
+                  </Link> &gt;{' '}
+                  <span>
+                    {this.props.region}  &gt; {this.props.realm}  &gt; {this.props.name}
+                  </span>
+                  <br /><br />
                 </span>
-                <br /><br />
-              </span>
-            )}
-            <div className="panel" style={{ overflow: 'auto' }}>
-              <div className="flex-main">
-                {this.state.isLoading && !this.state.error && (
-                  <div style={{ textAlign: 'center', fontSize: '2em', margin: '20px 0' }}>
-                    <ActivityIndicator text="Fetching logs..." />
-                  </div>
-                )}
+              )}
+              <div className="panel" style={{ overflow: 'auto' }}>
                 {!this.state.isLoading && (
                   <div className="panel-heading">
-                    <h2 style={{ display: 'inline' }}>{this.state.error ? this.state.error : 'Parses'}</h2>
-                    <Link
-                      to=""
-                      className="pull-right"
-                      onClick={e => {
-                        e.preventDefault();
-                        this.load(true);
-                      }}
-                    >
-                      <span className="glyphicon glyphicon-refresh" aria-hidden="true" /> Refresh
-                    </Link>
+                    <div className="pull-right">
+                      <Link
+                        to=""
+                        onClick={e => {
+                          e.preventDefault();
+                          this.load(true);
+                        }}
+                      >
+                        <span className="glyphicon glyphicon-refresh" aria-hidden="true" /> Refresh
+                      </Link>
+                    </div>
+                    <h1 style={{ display: 'inline-block' }}>{this.state.error ? this.state.error : 'Parses'}</h1>
+                    <small>This page will only show fights that have been ranked by Warcraft Logs. Wipes are not included and during busy periods there might be a delay before new reports appear. Manually find the report on Warcraft Logs and copy the direct report link to analyze a fight missing from this page.</small>
                   </div>
                 )}
-                {!this.state.isLoading && errorMessage}
-                {!this.state.isLoading && (
-                  <ParsesList
-                    parses={this.filterParses}
-                    class={this.state.class}
-                    metric={this.state.metric}
-                    trinkets={this.state.trinkets}
-                  />
-                )}
+                <div className="panel-body">
+                  <div className="flex-main" style={{ padding: errorMessage ? 20 : 0 }}>
+                    {this.state.isLoading && !this.state.error && (
+                      <div style={{ textAlign: 'center', fontSize: '2em', margin: '20px 0' }}>
+                        <ActivityIndicator text="Fetching logs..." />
+                      </div>
+                    )}
+                    {!this.state.isLoading && errorMessage}
+                    {!this.state.isLoading && (
+                      <ParsesList
+                        parses={this.filterParses}
+                        class={this.state.class}
+                        metric={this.state.metric}
+                        trinkets={this.state.trinkets}
+                      />
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
           </div>

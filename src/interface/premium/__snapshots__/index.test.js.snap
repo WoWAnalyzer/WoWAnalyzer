@@ -2,15 +2,15 @@
 
 exports[`Premium matches snapshot when logged in with GitHub 1`] = `
 <div
-  className="row"
+  className="premium row"
 >
   <div
-    className="col-lg-3 col-lg-offset-1 col-md-4 col-sm-5"
+    className="col-md-4 col-sm-5"
   >
     <Connect(LoginPanel) />
   </div>
   <div
-    className="col-lg-7 col-md-8 col-sm-7"
+    className="col-md-8 col-sm-7"
   >
     <div
       className="panel"
@@ -18,17 +18,17 @@ exports[`Premium matches snapshot when logged in with GitHub 1`] = `
       <div
         className="panel-heading"
       >
-        <h2>
+        <h1>
           WoWAnalyzer premium
-        </h2>
+        </h1>
       </div>
       <div
-        className="panel-body"
+        className="panel-body pad"
       >
         <Icon
           style={
             Object {
-              "color": "#e45a5a",
+              "color": "#fab700",
               "float": "right",
               "fontSize": "6em",
               "marginTop": 0,
@@ -43,11 +43,11 @@ exports[`Premium matches snapshot when logged in with GitHub 1`] = `
             }
           }
         >
-          Help out development to unlock 
+          Help out development and unlock 
           <span
             style={
               Object {
-                "color": "#e45a5a",
+                "color": "#fab700",
                 "fontWeight": 700,
               }
             }
@@ -56,13 +56,12 @@ exports[`Premium matches snapshot when logged in with GitHub 1`] = `
           </span>
           !
         </div>
-        <br />
         <div
           className="row"
           style={
             Object {
               "marginBottom": 5,
-              "marginTop": "2em",
+              "marginTop": 60,
             }
           }
         >
@@ -100,11 +99,16 @@ exports[`Premium matches snapshot when logged in with GitHub 1`] = `
               GitHub
             </h2>
             Improve the analysis of a spec or build a new feature to get 1 month of Premium free
-            <dfn
-              data-tip="Only commits that are merged to the master branch are eligible. Your work will have to pass a pull request review before it can be merged."
+            <TooltipElement
+              className=""
+              content="Only commits that are merged to the master branch are eligible. Your work will have to pass a pull request review before it can be merged."
+              direction="down"
+              hoverable={false}
+              style={Object {}}
+              tooltipClassName=""
             >
               *
-            </dfn>
+            </TooltipElement>
             .
             <br />
             <br />
@@ -118,7 +122,7 @@ exports[`Premium matches snapshot when logged in with GitHub 1`] = `
           style={
             Object {
               "marginBottom": 5,
-              "marginTop": "2em",
+              "marginTop": 60,
             }
           }
         >
@@ -143,10 +147,10 @@ exports[`Premium matches snapshot when logged in with GitHub 1`] = `
               <h2>
                 New things
               </h2>
-              Your contributions will help fund new things for the site, making it even better.
-              <br />
-              <br />
-              We'll post bounties on the best ideas via 
+              <strong>
+                Nothing develops itself.
+              </strong>
+               Your contributions will help fund new things for the site, making it even better. We'll post bounties on the best ideas via 
               <a
                 href="https://www.bountysource.com/teams/wowanalyzer"
               >
@@ -167,9 +171,32 @@ exports[`Premium matches snapshot when logged in with GitHub 1`] = `
               className="flex-main"
             >
               <h2>
+                Updates for patches
+              </h2>
+              <strong>
+                Updating for patches is a lot of work.
+              </strong>
+               We need to apply all spell changes, add new traits, add support for the new fights, make screenshots, add fight phases, buffs and debuffs, etc. Your contributions make it possible for us to keep specs updated as they're changed in patches.
+            </div>
+          </div>
+          <div
+            className="premium-feature flex"
+          >
+            <div
+              className="content-middle flex-sub"
+            >
+              <Icon />
+            </div>
+            <div
+              className="flex-main"
+            >
+              <h2>
                 No ads
               </h2>
-              We'll remove ads from the platform for you so you can consume our content with less distractions and less clutter.
+              <strong>
+                Nobody likes them, but we need them.
+              </strong>
+               Any contribution is worth more than the ads, so we'll remove ads from the platform for you so you can consume our content with less distractions and less clutter.
             </div>
           </div>
           <div
@@ -192,7 +219,10 @@ exports[`Premium matches snapshot when logged in with GitHub 1`] = `
               <h2>
                 Discord name color
               </h2>
-              Get a distinct Discord name color befitting your contribution. See Patreon for Patron specific name colors. Serious GitHub contributors get the yellow contributor name color.
+              <strong>
+                We'll help anyone, but sometimes we can't avoid favoritism.
+              </strong>
+               Get a distinct Discord name color befitting your contribution. See Patreon for Patron specific name colors. Serious GitHub contributors get the yellow contributor name color.
             </div>
           </div>
           <div
@@ -209,8 +239,41 @@ exports[`Premium matches snapshot when logged in with GitHub 1`] = `
               <h2>
                 Access to secret channels on Discord
               </h2>
-              Get access to special Discord channels to discuss things privately in the sub-community.
+              <strong>
+                You don't know what you're missing out on.
+              </strong>
+               Get access to special Discord channels to discuss things privately in the sub-community.
             </div>
+          </div>
+        </div>
+        <div
+          className="row"
+          style={
+            Object {
+              "marginBottom": 5,
+              "marginTop": 60,
+            }
+          }
+        >
+          <div
+            className="col-md-12 text-center text-muted"
+          >
+            How to login for WoWAnalyzer Premium:
+          </div>
+        </div>
+        <div
+          className="row flex"
+        >
+          <div
+            className="col-md-12"
+          >
+            Logging in is easy, just click one of the buttons on the panel to the left. If you have any more questions ask away 
+            <a
+              href="/discord"
+            >
+              at Discord
+            </a>
+            .
           </div>
         </div>
       </div>
@@ -250,15 +313,15 @@ exports[`Premium matches snapshot when logged in with GitHub 1`] = `
 
 exports[`Premium matches snapshot when logged in with Patreon 1`] = `
 <div
-  className="row"
+  className="premium row"
 >
   <div
-    className="col-lg-3 col-lg-offset-1 col-md-4 col-sm-5"
+    className="col-md-4 col-sm-5"
   >
     <Connect(LoginPanel) />
   </div>
   <div
-    className="col-lg-7 col-md-8 col-sm-7"
+    className="col-md-8 col-sm-7"
   >
     <div
       className="panel"
@@ -266,17 +329,17 @@ exports[`Premium matches snapshot when logged in with Patreon 1`] = `
       <div
         className="panel-heading"
       >
-        <h2>
+        <h1>
           WoWAnalyzer premium
-        </h2>
+        </h1>
       </div>
       <div
-        className="panel-body"
+        className="panel-body pad"
       >
         <Icon
           style={
             Object {
-              "color": "#e45a5a",
+              "color": "#fab700",
               "float": "right",
               "fontSize": "6em",
               "marginTop": 0,
@@ -291,11 +354,11 @@ exports[`Premium matches snapshot when logged in with Patreon 1`] = `
             }
           }
         >
-          Help out development to unlock 
+          Help out development and unlock 
           <span
             style={
               Object {
-                "color": "#e45a5a",
+                "color": "#fab700",
                 "fontWeight": 700,
               }
             }
@@ -304,13 +367,12 @@ exports[`Premium matches snapshot when logged in with Patreon 1`] = `
           </span>
           !
         </div>
-        <br />
         <div
           className="row"
           style={
             Object {
               "marginBottom": 5,
-              "marginTop": "2em",
+              "marginTop": 60,
             }
           }
         >
@@ -348,11 +410,16 @@ exports[`Premium matches snapshot when logged in with Patreon 1`] = `
               GitHub
             </h2>
             Improve the analysis of a spec or build a new feature to get 1 month of Premium free
-            <dfn
-              data-tip="Only commits that are merged to the master branch are eligible. Your work will have to pass a pull request review before it can be merged."
+            <TooltipElement
+              className=""
+              content="Only commits that are merged to the master branch are eligible. Your work will have to pass a pull request review before it can be merged."
+              direction="down"
+              hoverable={false}
+              style={Object {}}
+              tooltipClassName=""
             >
               *
-            </dfn>
+            </TooltipElement>
             .
             <br />
             <br />
@@ -366,7 +433,7 @@ exports[`Premium matches snapshot when logged in with Patreon 1`] = `
           style={
             Object {
               "marginBottom": 5,
-              "marginTop": "2em",
+              "marginTop": 60,
             }
           }
         >
@@ -391,10 +458,10 @@ exports[`Premium matches snapshot when logged in with Patreon 1`] = `
               <h2>
                 New things
               </h2>
-              Your contributions will help fund new things for the site, making it even better.
-              <br />
-              <br />
-              We'll post bounties on the best ideas via 
+              <strong>
+                Nothing develops itself.
+              </strong>
+               Your contributions will help fund new things for the site, making it even better. We'll post bounties on the best ideas via 
               <a
                 href="https://www.bountysource.com/teams/wowanalyzer"
               >
@@ -415,9 +482,32 @@ exports[`Premium matches snapshot when logged in with Patreon 1`] = `
               className="flex-main"
             >
               <h2>
+                Updates for patches
+              </h2>
+              <strong>
+                Updating for patches is a lot of work.
+              </strong>
+               We need to apply all spell changes, add new traits, add support for the new fights, make screenshots, add fight phases, buffs and debuffs, etc. Your contributions make it possible for us to keep specs updated as they're changed in patches.
+            </div>
+          </div>
+          <div
+            className="premium-feature flex"
+          >
+            <div
+              className="content-middle flex-sub"
+            >
+              <Icon />
+            </div>
+            <div
+              className="flex-main"
+            >
+              <h2>
                 No ads
               </h2>
-              We'll remove ads from the platform for you so you can consume our content with less distractions and less clutter.
+              <strong>
+                Nobody likes them, but we need them.
+              </strong>
+               Any contribution is worth more than the ads, so we'll remove ads from the platform for you so you can consume our content with less distractions and less clutter.
             </div>
           </div>
           <div
@@ -440,7 +530,10 @@ exports[`Premium matches snapshot when logged in with Patreon 1`] = `
               <h2>
                 Discord name color
               </h2>
-              Get a distinct Discord name color befitting your contribution. See Patreon for Patron specific name colors. Serious GitHub contributors get the yellow contributor name color.
+              <strong>
+                We'll help anyone, but sometimes we can't avoid favoritism.
+              </strong>
+               Get a distinct Discord name color befitting your contribution. See Patreon for Patron specific name colors. Serious GitHub contributors get the yellow contributor name color.
             </div>
           </div>
           <div
@@ -457,8 +550,41 @@ exports[`Premium matches snapshot when logged in with Patreon 1`] = `
               <h2>
                 Access to secret channels on Discord
               </h2>
-              Get access to special Discord channels to discuss things privately in the sub-community.
+              <strong>
+                You don't know what you're missing out on.
+              </strong>
+               Get access to special Discord channels to discuss things privately in the sub-community.
             </div>
+          </div>
+        </div>
+        <div
+          className="row"
+          style={
+            Object {
+              "marginBottom": 5,
+              "marginTop": 60,
+            }
+          }
+        >
+          <div
+            className="col-md-12 text-center text-muted"
+          >
+            How to login for WoWAnalyzer Premium:
+          </div>
+        </div>
+        <div
+          className="row flex"
+        >
+          <div
+            className="col-md-12"
+          >
+            Logging in is easy, just click one of the buttons on the panel to the left. If you have any more questions ask away 
+            <a
+              href="/discord"
+            >
+              at Discord
+            </a>
+            .
           </div>
         </div>
       </div>
@@ -495,15 +621,15 @@ exports[`Premium matches snapshot when logged in with Patreon 1`] = `
 
 exports[`Premium matches snapshot when logged out 1`] = `
 <div
-  className="row"
+  className="premium row"
 >
   <div
-    className="col-lg-3 col-lg-offset-1 col-md-4 col-sm-5"
+    className="col-md-4 col-sm-5"
   >
     <Connect(LoginPanel) />
   </div>
   <div
-    className="col-lg-7 col-md-8 col-sm-7"
+    className="col-md-8 col-sm-7"
   >
     <div
       className="panel"
@@ -511,17 +637,17 @@ exports[`Premium matches snapshot when logged out 1`] = `
       <div
         className="panel-heading"
       >
-        <h2>
+        <h1>
           WoWAnalyzer premium
-        </h2>
+        </h1>
       </div>
       <div
-        className="panel-body"
+        className="panel-body pad"
       >
         <Icon
           style={
             Object {
-              "color": "#e45a5a",
+              "color": "#fab700",
               "float": "right",
               "fontSize": "6em",
               "marginTop": 0,
@@ -536,11 +662,11 @@ exports[`Premium matches snapshot when logged out 1`] = `
             }
           }
         >
-          Help out development to unlock 
+          Help out development and unlock 
           <span
             style={
               Object {
-                "color": "#e45a5a",
+                "color": "#fab700",
                 "fontWeight": 700,
               }
             }
@@ -549,13 +675,12 @@ exports[`Premium matches snapshot when logged out 1`] = `
           </span>
           !
         </div>
-        <br />
         <div
           className="row"
           style={
             Object {
               "marginBottom": 5,
-              "marginTop": "2em",
+              "marginTop": 60,
             }
           }
         >
@@ -593,11 +718,16 @@ exports[`Premium matches snapshot when logged out 1`] = `
               GitHub
             </h2>
             Improve the analysis of a spec or build a new feature to get 1 month of Premium free
-            <dfn
-              data-tip="Only commits that are merged to the master branch are eligible. Your work will have to pass a pull request review before it can be merged."
+            <TooltipElement
+              className=""
+              content="Only commits that are merged to the master branch are eligible. Your work will have to pass a pull request review before it can be merged."
+              direction="down"
+              hoverable={false}
+              style={Object {}}
+              tooltipClassName=""
             >
               *
-            </dfn>
+            </TooltipElement>
             .
             <br />
             <br />
@@ -611,7 +741,7 @@ exports[`Premium matches snapshot when logged out 1`] = `
           style={
             Object {
               "marginBottom": 5,
-              "marginTop": "2em",
+              "marginTop": 60,
             }
           }
         >
@@ -636,10 +766,10 @@ exports[`Premium matches snapshot when logged out 1`] = `
               <h2>
                 New things
               </h2>
-              Your contributions will help fund new things for the site, making it even better.
-              <br />
-              <br />
-              We'll post bounties on the best ideas via 
+              <strong>
+                Nothing develops itself.
+              </strong>
+               Your contributions will help fund new things for the site, making it even better. We'll post bounties on the best ideas via 
               <a
                 href="https://www.bountysource.com/teams/wowanalyzer"
               >
@@ -660,9 +790,32 @@ exports[`Premium matches snapshot when logged out 1`] = `
               className="flex-main"
             >
               <h2>
+                Updates for patches
+              </h2>
+              <strong>
+                Updating for patches is a lot of work.
+              </strong>
+               We need to apply all spell changes, add new traits, add support for the new fights, make screenshots, add fight phases, buffs and debuffs, etc. Your contributions make it possible for us to keep specs updated as they're changed in patches.
+            </div>
+          </div>
+          <div
+            className="premium-feature flex"
+          >
+            <div
+              className="content-middle flex-sub"
+            >
+              <Icon />
+            </div>
+            <div
+              className="flex-main"
+            >
+              <h2>
                 No ads
               </h2>
-              We'll remove ads from the platform for you so you can consume our content with less distractions and less clutter.
+              <strong>
+                Nobody likes them, but we need them.
+              </strong>
+               Any contribution is worth more than the ads, so we'll remove ads from the platform for you so you can consume our content with less distractions and less clutter.
             </div>
           </div>
           <div
@@ -685,7 +838,10 @@ exports[`Premium matches snapshot when logged out 1`] = `
               <h2>
                 Discord name color
               </h2>
-              Get a distinct Discord name color befitting your contribution. See Patreon for Patron specific name colors. Serious GitHub contributors get the yellow contributor name color.
+              <strong>
+                We'll help anyone, but sometimes we can't avoid favoritism.
+              </strong>
+               Get a distinct Discord name color befitting your contribution. See Patreon for Patron specific name colors. Serious GitHub contributors get the yellow contributor name color.
             </div>
           </div>
           <div
@@ -702,8 +858,41 @@ exports[`Premium matches snapshot when logged out 1`] = `
               <h2>
                 Access to secret channels on Discord
               </h2>
-              Get access to special Discord channels to discuss things privately in the sub-community.
+              <strong>
+                You don't know what you're missing out on.
+              </strong>
+               Get access to special Discord channels to discuss things privately in the sub-community.
             </div>
+          </div>
+        </div>
+        <div
+          className="row"
+          style={
+            Object {
+              "marginBottom": 5,
+              "marginTop": 60,
+            }
+          }
+        >
+          <div
+            className="col-md-12 text-center text-muted"
+          >
+            How to login for WoWAnalyzer Premium:
+          </div>
+        </div>
+        <div
+          className="row flex"
+        >
+          <div
+            className="col-md-12"
+          >
+            Logging in is easy, just click one of the buttons on the panel to the left. If you have any more questions ask away 
+            <a
+              href="/discord"
+            >
+              at Discord
+            </a>
+            .
           </div>
         </div>
       </div>

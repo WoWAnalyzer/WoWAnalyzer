@@ -10,9 +10,9 @@ class Abilities extends CoreAbilities {
     return [
       {
         spell: SPELLS.BESTIAL_WRATH,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
-        buffSpellId: SPELLS.BESTIAL_WRATH.id,
+        timelineSortIndex: -1,
         gcd: {
           base: 1500,
         },
@@ -52,7 +52,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        buffSpellId: SPELLS.DIRE_BEAST_BUFF.id,
         cooldown: 15,
         castEfficiency: {
           suggestion: true,
@@ -67,21 +66,19 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        buffSpellId: SPELLS.BARBED_SHOT_PET_BUFF.id, //shows pet buff, since that is what is interesting to see and the player buff is 5 different spellIDs
       },
       {
         spell: SPELLS.MULTISHOT_BM,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        buffSpellId: SPELLS.BEAST_CLEAVE_BUFF.id,
         gcd: {
           base: 1500,
         },
       },
       {
         spell: SPELLS.ASPECT_OF_THE_WILD,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        buffSpellId: SPELLS.ASPECT_OF_THE_WILD.id,
+        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
+        timelineSortIndex: -1,
         gcd: {
           base: 1500, //This is set to 1500 currently, but it's altered to be accurate inside the GlobalCooldown module because it is currently bugged in-game
         },
@@ -160,7 +157,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.PRIMAL_RAGE_1, SPELLS.PRIMAL_RAGE_2],
-        buffSpellId: [SPELLS.PRIMAL_RAGE_1.id, SPELLS.PRIMAL_RAGE_2.id],
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 360,
         gcd: null,
@@ -217,21 +213,14 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: () => {
-          const bornToBeWildCDR = combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0;
-          return 180 * (1 - bornToBeWildCDR);
-        },
+        cooldown: 180 * (1 - (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0)),
         gcd: null,
       },
       {
         spell: SPELLS.ASPECT_OF_THE_TURTLE,
-        buffSpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         isDefensive: true,
-        cooldown: () => {
-          const bornToBeWildCDR = combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0;
-          return 180 * (1 - bornToBeWildCDR);
-        },
+        cooldown: 180 * (1 - (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0)),
         gcd: null,
       },
       {
@@ -278,7 +267,6 @@ class Abilities extends CoreAbilities {
        */
       {
         spell: SPELLS.BERSERKING,
-        buffSpellId: SPELLS.BERSERKING.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         isUndetectable: true,

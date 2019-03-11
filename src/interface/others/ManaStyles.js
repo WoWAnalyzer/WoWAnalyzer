@@ -29,19 +29,19 @@ const ManaStyles = {
     ...BaseStyles,
     fill: true,
   },
-  'Boss-109041': {
+  'Boss-3': {
     backgroundColor: 'rgba(0,0,0,0.08)',
     borderColor: 'rgba(153,196,57,0.6)',
     ...BaseStyles,
     fill: true,
   },
-  'Boss-109040': {
+  'Boss-4': {
     backgroundColor: 'rgba(0,0,0,0.08)',
     borderColor: 'rgba(86,76,172,0.6)',
     ...BaseStyles,
     fill: true,
   },
-  'Boss-109038': {
+  'Boss-5': {
     backgroundColor: 'rgba(0,0,0,0.08)',
     borderColor: 'rgba(243,234,143,0.6)',
     ...BaseStyles,

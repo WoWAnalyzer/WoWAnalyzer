@@ -5,10 +5,11 @@ import DEFENSIVE_BUFFS from 'common/DEFENSIVE_BUFFS';
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import Abilities from 'parser/core/modules/Abilities';
+import Buffs from 'parser/core/modules/Buffs';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Enemies from 'parser/shared/modules/Enemies';
 import Healthstone from 'parser/shared/modules/items/Healthstone';
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 
 import DeathRecap from './DeathRecap';
 
@@ -24,6 +25,7 @@ class DeathRecapTracker extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     abilities: Abilities,
+    buffsModule: Buffs,
     spellUsable: SpellUsable,
     enemies: Enemies,
     healthstone: Healthstone,
@@ -31,17 +33,30 @@ class DeathRecapTracker extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.cooldowns = this.abilities.abilities.filter(ability => (
-      (
-        ability.category === Abilities.SPELL_CATEGORIES.DEFENSIVE
-        || ability.category === Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE
-        || ability.isDefensive
-      )
-      && ability.enabled === true
+    this.cooldowns = this.abilities.activeAbilities.filter(ability => (
+      ability.category === Abilities.SPELL_CATEGORIES.DEFENSIVE
+      || ability.category === Abilities.SPELL_CATEGORIES.SEMI_DEFENSIVE
+      || ability.isDefensive
     ));
-    //add additional defensive buffs/debuffs to common/DEFENSIVE_BUFFS
-    DEFENSIVE_BUFFS.forEach(e => this.buffs.push({ id: e.spell.id }));
-    this.cooldowns.forEach(e => this.buffs.push({ id: e.buffSpellId || e.primarySpell.id }));
+    // Add additional defensive buffs/debuffs to common/DEFENSIVE_BUFFS
+    DEFENSIVE_BUFFS.forEach(e => {
+      this.buffs.push({
+        id: e.spell.id,
+      });
+    });
+    this.buffsModule.activeBuffs.forEach(buff => {
+      if (buff.spellId instanceof Array) {
+        buff.spellId.forEach(spellId => {
+          this.buffs.push({
+            id: spellId,
+          });
+        });
+      } else {
+        this.buffs.push({
+          id: buff.spellId,
+        });
+      }
+    });
   }
 
   addEvent(event) {
@@ -105,14 +120,17 @@ class DeathRecapTracker extends Analyzer {
       title: 'Death Recap',
       url: 'death-recap',
       render: () => (
-        <Tab>
+        <Panel
+          title="Death recap"
+          pad={false}
+        >
           <DeathRecap
             report={this.owner}
             events={this.secondsBeforeDeath}
             combatants={this.combatants.players}
             enemies={this.enemies.enemies}
           />
-        </Tab>
+        </Panel>
       ),
     };
   }

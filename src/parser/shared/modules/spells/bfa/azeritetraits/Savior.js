@@ -32,9 +32,7 @@ class Savior extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.SAVIOR.id}
-        value={(
-          <ItemHealingDone amount={this.healing} />
-        )}
+        value={<ItemHealingDone amount={this.healing} />}
         tooltip={`${formatNumber(this.healing)} total healing from ${this.procs} total procs.`}
       />
     );

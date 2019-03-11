@@ -7,102 +7,93 @@ exports[`The Demonology Warlock Analyzer analyzers Abilities matches the suggest
 exports[`The Demonology Warlock Analyzer analyzers AlwaysBeCasting matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "zIndex": 1,
-    }
-  }
 >
   <div
-    className="panel statistic-box expandable "
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
   >
     <div
       className="panel-body"
     >
       <div
-        className="flex"
+        className="pad"
       >
-        <div
-          className="flex-sub statistic-icon"
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-            }
-          }
-        >
+        <label>
           <img
-            alt=""
-            className="icon"
+            alt="Downtime"
+            className="icon game "
             src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
           />
+           
+          Downtime
+        </label>
+        <div
+          className="value"
+        >
+          8.63 %
         </div>
         <div
-          className="flex-main"
           style={
             Object {
-              "paddingLeft": 16,
-              "position": "relative",
+              "marginTop": "0.5em",
             }
           }
         >
           <div
-            className="slabel"
+            className="statistic-box-bar"
           >
-            Downtime
-          </div>
-          <div
-            className="value"
-          >
-            <dfn
-              data-tip="Downtime is available time not used to cast anything (including not having your GCD rolling). This can be caused by delays between casting spells, latency, cast interrupting or just simply not casting anything (e.g. due to movement/stunned).<br/>
-        <li>You spent <b>91.37%</b> of your time casting something.</li>
-        <li>You spent <b>8.63%</b> of your time casting nothing at all.</li>
-        "
+            <div
+              className="stat-health-bg"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={[Function]}
+              style={
+                Object {
+                  "width": "91.36691677673147%",
+                }
+              }
             >
-              8.63 %
-            </dfn>
+              <img
+                alt="Active time"
+                src="/img/sword.png"
+              />
+            </div>
+            <div
+              className="remainder DeathKnight-bg"
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={[Function]}
+            >
+              <img
+                alt="Downtime"
+                src="/img/afk.png"
+              />
+            </div>
           </div>
         </div>
       </div>
     </div>
     <div
-      className="panel-footer"
-      style={
-        Object {
-          "borderTop": 0,
-          "overflow": "hidden",
-          "padding": 0,
-        }
-      }
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
     >
-      <div
-        className="statistic-bar"
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <div
-          className="stat-health-bg"
-          data-tip="You spent <b>91.37%</b> of your time casting something."
-          style={
-            Object {
-              "width": "91.36691677673147%",
-            }
-          }
-        >
-          <img
-            alt="Active time"
-            src="/img/sword.png"
-          />
-        </div>
-        <div
-          className="remainder DeathKnight-bg"
-          data-tip="You spent <b>8.63%</b> of your time casting nothing at all."
-        >
-          <img
-            alt="Downtime"
-            src="/img/afk.png"
-          />
-        </div>
-      </div>
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
     </div>
   </div>
 </div>
@@ -117,30 +108,23 @@ exports[`The Demonology Warlock Analyzer analyzers ArcaneTorrent matches the sug
 exports[`The Demonology Warlock Analyzer analyzers BalefulInvocation matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "zIndex": 1,
-    }
-  }
 >
   <div
-    className="panel statistic-box expandable item"
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
   >
     <div
       className="panel-body"
     >
       <div
-        className="flex"
+        className="pad"
       >
-        <div
-          className="flex-sub statistic-icon"
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-            }
-          }
-        >
+        <label>
           <a
             href="http://wowhead.com/spell=287059"
             rel="noopener noreferrer"
@@ -148,53 +132,56 @@ exports[`The Demonology Warlock Analyzer analyzers BalefulInvocation matches the
           >
              
             <img
-              alt=""
-              className="icon"
+              alt="Baleful Invocation"
+              className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_demonicempathy.jpg"
             />
           </a>
-        </div>
+           
+          <a
+            href="http://wowhead.com/spell=287059"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            Baleful Invocation
+          </a>
+        </label>
         <div
-          className="flex-main"
-          style={
-            Object {
-              "paddingLeft": 16,
-              "position": "relative",
-            }
-          }
+          className="value"
         >
-          <div
-            className="slabel"
-          >
-            <a
-              href="http://wowhead.com/spell=287059"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-               
-              Baleful Invocation
-            </a>
-          </div>
-          <div
-            className="value"
-          >
-            <dfn
-              data-tip="Estimated bonus Demonfire damage: 48,323<br />
-                  You gained 15 Soul Shards and wasted 0 Soul Shards with this trait.<br /><br />
-                  The damage is an approximation using current Intellect values at given time, but because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be a little incorrect."
-            >
-              <img
-                alt="Damage"
-                className="icon"
-                src="/img/sword.png"
-              />
-               
-              ≈
-              0.84 % / 192 DPS
-            </dfn>
-          </div>
+          <img
+            alt="Damage"
+            className="icon"
+            src="/img/sword.png"
+          />
+           
+          ≈
+          192
+           DPS 
+          <small>
+            0.84
+             % of total
+          </small>
         </div>
       </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
     </div>
   </div>
 </div>
@@ -213,75 +200,6 @@ exports[`The Demonology Warlock Analyzer analyzers Checklist matches the suggest
 exports[`The Demonology Warlock Analyzer analyzers CooldownThroughputTracker matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`The Demonology Warlock Analyzer analyzers CooldownThroughputTracker matches the suggestions snapshot 1`] = `Array []`;
-
-exports[`The Demonology Warlock Analyzer analyzers DamageDone matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "zIndex": 1,
-    }
-  }
->
-  <div
-    className="panel statistic-box expandable "
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="flex"
-      >
-        <div
-          className="flex-sub statistic-icon"
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-            }
-          }
-        >
-          <img
-            alt="Sword"
-            src="/img/sword.png"
-            style={
-              Object {
-                "border": 0,
-              }
-            }
-          />
-        </div>
-        <div
-          className="flex-main"
-          style={
-            Object {
-              "paddingLeft": 16,
-              "position": "relative",
-            }
-          }
-        >
-          <div
-            className="slabel"
-          >
-            Damage done
-          </div>
-          <div
-            className="value"
-          >
-            <dfn
-              data-tip="Total damage done: <b>5,778,507</b> <br>Contribution from pets: 76.34 % / 18k DPS"
-            >
-              23k DPS
-            </dfn>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`The Demonology Warlock Analyzer analyzers DamageDone matches the suggestions snapshot 1`] = `Array []`;
 
 exports[`The Demonology Warlock Analyzer analyzers DemoPets matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
@@ -342,30 +260,23 @@ exports[`The Demonology Warlock Analyzer analyzers InnerDemons matches the sugge
 exports[`The Demonology Warlock Analyzer analyzers LegionStrike matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "zIndex": 1,
-    }
-  }
 >
   <div
-    className="panel statistic-box expandable "
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
   >
     <div
       className="panel-body"
     >
       <div
-        className="flex"
+        className="pad"
       >
-        <div
-          className="flex-sub statistic-icon"
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-            }
-          }
-        >
+        <label>
           <a
             href="http://wowhead.com/spell=30213"
             rel="noopener noreferrer"
@@ -373,37 +284,37 @@ exports[`The Demonology Warlock Analyzer analyzers LegionStrike matches the stat
           >
              
             <img
-              alt=""
-              className="icon"
+              alt="Legion Strike"
+              className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/inv_axe_09.jpg"
             />
           </a>
-        </div>
+           
+          Legion Strike damage
+        </label>
         <div
-          className="flex-main"
-          style={
-            Object {
-              "paddingLeft": 16,
-              "position": "relative",
-            }
-          }
+          className="value"
         >
-          <div
-            className="slabel"
-          >
-            Legion Strike damage
-          </div>
-          <div
-            className="value"
-          >
-            <dfn
-              data-tip="758,292 damage"
-            >
-              13.12 % / 3,009 DPS
-            </dfn>
-          </div>
+          13.12 % / 3,009 DPS
         </div>
       </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
     </div>
   </div>
 </div>
@@ -450,54 +361,34 @@ exports[`The Demonology Warlock Analyzer analyzers SoulConduit matches the sugge
 exports[`The Demonology Warlock Analyzer analyzers SoulShardDetails matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "zIndex": 1,
-    }
-  }
 >
   <div
-    className="panel statistic-box expandable "
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
   >
     <div
       className="panel-body"
     >
       <div
-        className="flex"
+        className="pad"
       >
-        <div
-          className="flex-sub statistic-icon"
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-            }
-          }
-        >
+        <label>
           <img
             alt="Wasted Soul Shards"
             src="warlock_soulshard_bw.jpg"
           />
-        </div>
+           
+          Wasted Soul Shards
+        </label>
         <div
-          className="flex-main"
-          style={
-            Object {
-              "paddingLeft": 16,
-              "position": "relative",
-            }
-          }
+          className="value"
         >
-          <div
-            className="slabel"
-          >
-            Wasted Soul Shards
-          </div>
-          <div
-            className="value"
-          >
-            2
-          </div>
+          2
         </div>
       </div>
     </div>
@@ -518,30 +409,23 @@ exports[`The Demonology Warlock Analyzer analyzers SoulStrike matches the sugges
 exports[`The Demonology Warlock Analyzer analyzers SummonDemonicTyrant matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "zIndex": 1,
-    }
-  }
 >
   <div
-    className="panel statistic-box expandable "
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
   >
     <div
       className="panel-body"
     >
       <div
-        className="flex"
+        className="pad"
       >
-        <div
-          className="flex-sub statistic-icon"
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-            }
-          }
-        >
+        <label>
           <a
             href="http://wowhead.com/spell=265187"
             rel="noopener noreferrer"
@@ -549,35 +433,18 @@ exports[`The Demonology Warlock Analyzer analyzers SummonDemonicTyrant matches t
           >
              
             <img
-              alt=""
-              className="icon"
+              alt="Summon Demonic Tyrant"
+              className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/inv_summondemonictyrant.jpg"
             />
           </a>
-        </div>
+           
+          Average Demons Empowered
+        </label>
         <div
-          className="flex-main"
-          style={
-            Object {
-              "paddingLeft": 16,
-              "position": "relative",
-            }
-          }
+          className="value"
         >
-          <div
-            className="slabel"
-          >
-            Average Demons Empowered
-          </div>
-          <div
-            className="value"
-          >
-            <dfn
-              data-tip="Number of pets empowered by each Demonic Tyrant summon."
-            >
-              12.00
-            </dfn>
-          </div>
+          12.00
         </div>
       </div>
       <div
@@ -600,6 +467,23 @@ exports[`The Demonology Warlock Analyzer analyzers SummonDemonicTyrant matches t
         </button>
       </div>
     </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
   </div>
 </div>
 `;
@@ -613,30 +497,23 @@ exports[`The Demonology Warlock Analyzer analyzers SummonVilefiend matches the s
 exports[`The Demonology Warlock Analyzer analyzers SupremeCommander matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
-  style={
-    Object {
-      "zIndex": 1,
-    }
-  }
 >
   <div
-    className="panel statistic-box expandable item"
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
   >
     <div
       className="panel-body"
     >
       <div
-        className="flex"
+        className="pad"
       >
-        <div
-          className="flex-sub statistic-icon"
-          style={
-            Object {
-              "alignItems": "center",
-              "display": "flex",
-            }
-          }
-        >
+        <label>
           <a
             href="http://wowhead.com/spell=279878"
             rel="noopener noreferrer"
@@ -644,44 +521,44 @@ exports[`The Demonology Warlock Analyzer analyzers SupremeCommander matches the 
           >
              
             <img
-              alt=""
-              className="icon"
+              alt="Supreme Commander"
+              className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/inv_summondemonictyrant.jpg"
             />
           </a>
-        </div>
+           
+          <a
+            href="http://wowhead.com/spell=279878"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+             
+            Supreme Commander
+          </a>
+        </label>
         <div
-          className="flex-main"
-          style={
-            Object {
-              "paddingLeft": 16,
-              "position": "relative",
-            }
-          }
+          className="value"
         >
-          <div
-            className="slabel"
-          >
-            <a
-              href="http://wowhead.com/spell=279878"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-               
-              Supreme Commander
-            </a>
-          </div>
-          <div
-            className="value"
-          >
-            <dfn
-              data-tip="Supreme Commander grants 837 Intellect while active. You had 17.85 % uptime on the buff."
-            >
-              149 average Intellect
-            </dfn>
-          </div>
+          149 average Intellect
         </div>
       </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
     </div>
   </div>
 </div>
@@ -694,7 +571,7 @@ exports[`The Demonology Warlock Analyzer analyzers TalentStatisticBox matches th
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic-box statistic-list"
+    className="panel statistic statistic-box statistic-box-list"
   >
     <div
       className="panel-heading"
@@ -719,7 +596,7 @@ exports[`The Demonology Warlock Analyzer analyzers TalentStatisticBox matches th
           >
             <img
               alt=""
-              className="icon"
+              className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_demonicempowerment.jpg"
             />
              
@@ -731,7 +608,11 @@ exports[`The Demonology Warlock Analyzer analyzers TalentStatisticBox matches th
           className="flex-sub text-right"
         >
           <dfn
-            data-tip="420,801 damage"
+            className=""
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={[Function]}
+            style={Object {}}
           >
             7.28 % / 1,670 DPS
           </dfn>
@@ -751,7 +632,7 @@ exports[`The Demonology Warlock Analyzer analyzers TalentStatisticBox matches th
           >
             <img
               alt=""
-              className="icon"
+              className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_impoweredimp.jpg"
             />
              
@@ -778,7 +659,7 @@ exports[`The Demonology Warlock Analyzer analyzers TalentStatisticBox matches th
           >
             <img
               alt=""
-              className="icon"
+              className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/inv_argusfelstalkermount.jpg"
             />
              
@@ -790,7 +671,11 @@ exports[`The Demonology Warlock Analyzer analyzers TalentStatisticBox matches th
           className="flex-sub text-right"
         >
           <dfn
-            data-tip="335,796 damage"
+            className=""
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={[Function]}
+            style={Object {}}
           >
             5.81 % / 1,332 DPS
           </dfn>
@@ -809,7 +694,7 @@ exports[`The Demonology Warlock Analyzer analyzers TalentStatisticBox matches th
           >
             <img
               alt=""
-              className="icon"
+              className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_summonfelguard.jpg"
             />
              
@@ -821,7 +706,11 @@ exports[`The Demonology Warlock Analyzer analyzers TalentStatisticBox matches th
           className="flex-sub text-right"
         >
           <dfn
-            data-tip="422,558 damage"
+            className=""
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={[Function]}
+            style={Object {}}
           >
             7.31 % / 1,677 DPS
           </dfn>
@@ -840,7 +729,7 @@ exports[`The Demonology Warlock Analyzer analyzers TalentStatisticBox matches th
           >
             <img
               alt=""
-              className="icon"
+              className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/inv_netherportal.jpg"
             />
              
@@ -852,7 +741,11 @@ exports[`The Demonology Warlock Analyzer analyzers TalentStatisticBox matches th
           className="flex-sub text-right"
         >
           <dfn
-            data-tip="439,020 damage"
+            className=""
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={[Function]}
+            style={Object {}}
           >
             7.60 % / 1,742 DPS
           </dfn>
@@ -874,2277 +767,1908 @@ exports[`The Demonology Warlock Analyzer analyzers WildImpEnergyHandler matches 
 exports[`The Demonology Warlock Analyzer analyzers WildImpEnergyHandler matches the suggestions snapshot 1`] = `Array []`;
 
 exports[`The Demonology Warlock Analyzer should match the checklist snapshot 1`] = `
-<div
+<ul
   className="checklist"
 >
-  <div
-    className="expandable "
+  <li
+    className="expandable  passed"
   >
     <div
-      className="meta checklist-item"
+      className="meta"
       onClick={[Function]}
     >
       <div
         className="flex"
       >
         <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
-          <div
-            className="chevron"
-          >
-            <svg
-              viewBox="0 0 16 9"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-              />
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
-          <div>
-            <svg
-              style={
-                Object {
-                  "color": "green",
-                }
-              }
-              viewBox="0 0 50 50"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
-              />
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-main"
+          className="flex-main name"
         >
           Use your core spells
         </div>
         <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "width": 100,
-            }
-          }
+          className="flex-sub perf"
         >
           <div
-            className="performance-bar-container"
+            className="perf-container"
           >
             <div
-              className="performance-bar small"
+              className="perf-bar"
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "transition": "background-color 800ms",
-                  "width": "97.15450871547436%",
+                  "width": "98.84974684850192%",
                 }
               }
             />
           </div>
         </div>
+        <div
+          className="chevron"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 16 9"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+            />
+          </svg>
+        </div>
       </div>
     </div>
     <div
-      className="details"
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
       style={
         Object {
-          "display": "none",
-          "minHeight": 80,
-          "paddingLeft": 65,
-          "paddingRight": 65,
-          "position": "relative",
+          "height": 0,
+          "overflow": "hidden",
         }
       }
     >
       <div
-        className="row"
-        style={
-          Object {
-            "marginBottom": 10,
-            "position": "relative",
-          }
-        }
-      >
-        <svg
-          className="text-muted"
-          style={
-            Object {
-              "fontSize": "2em",
-              "left": -33,
-              "position": "absolute",
-              "top": "50%",
-              "transform": "translateY(-33%)",
-            }
-          }
-          viewBox="0 0 100 100"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-          />
-          <path
-            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-          />
-          <path
-            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-          />
-        </svg>
-        <div
-          className="col-md-12 text-muted"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              Demonology has a lot of short cooldowns that make up majority of your rotation, such as 
-              <a
-                href="http://wowhead.com/spell=104316"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_warlock_calldreadstalkers.jpg"
-                />
-                 
-                Call Dreadstalkers
-              </a>
-               or Felguard's 
-              <a
-                href="http://wowhead.com/spell=89751"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/ability_warrior_bladestorm.jpg"
-                />
-                 
-                Felstorm
-              </a>
-              . Try to use them as much as possible.
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="row"
+        style={Object {}}
       >
         <div
-          className="col-md-6"
+          className="row text-muted description"
         >
-          <div
-            className="flex"
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <div
-              className="flex-main"
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+            Demonology has a lot of short cooldowns that make up majority of your rotation, such as 
+            <a
+              href="http://wowhead.com/spell=104316"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              <a
-                href="http://wowhead.com/spell=104316"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_warlock_calldreadstalkers.jpg"
-                />
-                 
-                Call Dreadstalkers
-              </a>
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_warlock_calldreadstalkers.jpg"
+              />
+               
+              Call Dreadstalkers
+            </a>
+             or Felguard's 
+            <a
+              href="http://wowhead.com/spell=89751"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              <div
-                className="text-right"
-                style={
-                  Object {
-                    "width": "100%",
-                  }
-                }
-              >
-                 
-                89.16%
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
-                <div
-                  className="performance-bar small"
-                  style={
-                    Object {
-                      "backgroundColor": "#a6c34c",
-                      "transition": "background-color 800ms",
-                      "width": "94.30901743094873%",
-                    }
-                  }
-                />
-              </div>
-            </div>
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_warrior_bladestorm.jpg"
+              />
+               
+              Felstorm
+            </a>
+            . Try to use them as much as possible.
           </div>
         </div>
         <div
-          className="col-md-6"
+          className="row"
         >
           <div
-            className="flex"
+            className="col-md-6"
           >
             <div
-              className="flex-main"
-            >
-              <a
-                href="http://wowhead.com/spell=89751"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/ability_warrior_bladestorm.jpg"
-                />
-                 
-                Felstorm
-              </a>
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
+              className="flex"
             >
               <div
-                className="text-right"
+                className="flex-main"
+              >
+                <a
+                  href="http://wowhead.com/spell=104316"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_warlock_calldreadstalkers.jpg"
+                  />
+                   
+                  Call Dreadstalkers
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
                 style={
                   Object {
-                    "width": "100%",
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
                   }
                 }
               >
-                 
-                100.00%
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
                 <div
-                  className="performance-bar small"
+                  className="text-right"
                   style={
                     Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
                       "width": "100%",
                     }
                   }
-                />
+                >
+                   
+                  89.67%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#a6c34c",
+                        "transition": "background-color 800ms",
+                        "width": "97.69949369700383%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  href="http://wowhead.com/spell=89751"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_warrior_bladestorm.jpg"
+                  />
+                   
+                  Felstorm
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  100.00%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div
-    className="expandable "
+  </li>
+  <li
+    className="expandable  passed"
   >
     <div
-      className="meta checklist-item"
+      className="meta"
       onClick={[Function]}
     >
       <div
         className="flex"
       >
         <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
-          <div
-            className="chevron"
-          >
-            <svg
-              viewBox="0 0 16 9"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-              />
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
-          <div>
-            <svg
-              style={
-                Object {
-                  "color": "green",
-                }
-              }
-              viewBox="0 0 50 50"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
-              />
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-main"
+          className="flex-main name"
         >
           Don't cap your Soul Shards
         </div>
         <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "width": 100,
-            }
-          }
+          className="flex-sub perf"
         >
           <div
-            className="performance-bar-container"
+            className="perf-container"
           >
             <div
-              className="performance-bar small"
+              className="perf-bar"
               style={
                 Object {
                   "backgroundColor": "#4ec04e",
-                  "transition": "background-color 800ms",
                   "width": "100%",
                 }
               }
             />
           </div>
         </div>
+        <div
+          className="chevron"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 16 9"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+            />
+          </svg>
+        </div>
       </div>
     </div>
     <div
-      className="details"
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
       style={
         Object {
-          "display": "none",
-          "minHeight": 80,
-          "paddingLeft": 65,
-          "paddingRight": 65,
-          "position": "relative",
+          "height": 0,
+          "overflow": "hidden",
         }
       }
     >
       <div
-        className="row"
-        style={
-          Object {
-            "marginBottom": 10,
-            "position": "relative",
-          }
-        }
+        style={Object {}}
       >
-        <svg
-          className="text-muted"
-          style={
-            Object {
-              "fontSize": "2em",
-              "left": -33,
-              "position": "absolute",
-              "top": "50%",
-              "transform": "translateY(-33%)",
-            }
-          }
-          viewBox="0 0 100 100"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-          />
-          <path
-            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-          />
-          <path
-            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-          />
-        </svg>
         <div
-          className="col-md-12 text-muted"
+          className="row text-muted description"
         >
-          <div
-            className="flex"
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <div
-              className="flex-main"
-            >
-              Avoid overcapping Soul Shards.
-            </div>
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+            Avoid overcapping Soul Shards.
           </div>
         </div>
-      </div>
-      <div
-        className="row"
-      >
         <div
-          className="col-md-6"
+          className="row"
         >
           <div
-            className="flex"
+            className="col-md-6"
           >
             <div
-              className="flex-main"
-            >
-              Wasted shards per minute
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
+              className="flex"
             >
               <div
-                className="text-right"
+                className="flex-main"
+              >
+                Wasted shards per minute
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
                 style={
                   Object {
-                    "width": "100%",
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
                   }
                 }
               >
-                <dfn
-                  data-tip="You wasted 2 shards."
-                >
-                   
-                  0
-                   
-                   
-                </dfn>
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
                 <div
-                  className="performance-bar small"
+                  className="text-right"
                   style={
                     Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
                       "width": "100%",
                     }
                   }
-                />
+                >
+                  <dfn
+                    className=""
+                    onMouseEnter={[Function]}
+                    onMouseLeave={[Function]}
+                    onTouchStart={[Function]}
+                    style={Object {}}
+                  >
+                     
+                    0
+                     
+                     
+                  </dfn>
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div
-    className="expandable "
+  </li>
+  <li
+    className="expandable  passed"
   >
     <div
-      className="meta checklist-item"
+      className="meta"
       onClick={[Function]}
     >
       <div
         className="flex"
       >
         <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
-          <div
-            className="chevron"
-          >
-            <svg
-              viewBox="0 0 16 9"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-              />
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
-          <div>
-            <svg
-              style={
-                Object {
-                  "color": "green",
-                }
-              }
-              viewBox="0 0 50 50"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
-              />
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-main"
+          className="flex-main name"
         >
           Use your cooldowns
         </div>
         <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "width": 100,
-            }
-          }
+          className="flex-sub perf"
         >
           <div
-            className="performance-bar-container"
+            className="perf-container"
           >
             <div
-              className="performance-bar small"
+              className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "transition": "background-color 800ms",
-                  "width": "77.73770450089306%",
+                  "backgroundColor": "#4ec04e",
+                  "width": "100%",
                 }
               }
             />
           </div>
         </div>
+        <div
+          className="chevron"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 16 9"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+            />
+          </svg>
+        </div>
       </div>
     </div>
     <div
-      className="details"
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
       style={
         Object {
-          "display": "none",
-          "minHeight": 80,
-          "paddingLeft": 65,
-          "paddingRight": 65,
-          "position": "relative",
+          "height": 0,
+          "overflow": "hidden",
         }
       }
     >
       <div
-        className="row"
-        style={
-          Object {
-            "marginBottom": 10,
-            "position": "relative",
-          }
-        }
-      >
-        <svg
-          className="text-muted"
-          style={
-            Object {
-              "fontSize": "2em",
-              "left": -33,
-              "position": "absolute",
-              "top": "50%",
-              "transform": "translateY(-33%)",
-            }
-          }
-          viewBox="0 0 100 100"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-          />
-          <path
-            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-          />
-          <path
-            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-          />
-        </svg>
-        <div
-          className="col-md-12 text-muted"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              Be mindful of your cooldowns if you are specced into them and use them when it's appropriate. It's okay to hold a cooldown for a little bit when the encounter requires it (burn phases), but generally speaking you should use them as much as you can.
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="row"
+        style={Object {}}
       >
         <div
-          className="col-md-6"
+          className="row text-muted description"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+            Be mindful of your cooldowns if you are specced into them and use them when it's appropriate. It's okay to hold a cooldown for a little bit when the encounter requires it (burn phases), but generally speaking you should use them as much as you can.
+          </div>
+        </div>
+        <div
+          className="row"
         >
           <div
-            className="flex"
+            className="col-md-6"
           >
             <div
-              className="flex-main"
-            >
-              <a
-                href="http://wowhead.com/spell=265187"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_summondemonictyrant.jpg"
-                />
-                 
-                Summon Demonic Tyrant
-              </a>
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
+              className="flex"
             >
               <div
-                className="text-right"
+                className="flex-main"
+              >
+                <a
+                  href="http://wowhead.com/spell=265187"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/inv_summondemonictyrant.jpg"
+                  />
+                   
+                  Summon Demonic Tyrant
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
                 style={
                   Object {
-                    "width": "100%",
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
                   }
                 }
               >
-                 
-                100.00%
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
                 <div
-                  className="performance-bar small"
+                  className="text-right"
                   style={
                     Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
                       "width": "100%",
                     }
                   }
-                />
+                >
+                   
+                  100.00%
+                   
+                   
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              <a
-                href="http://wowhead.com/spell=267171"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_demonicempowerment.jpg"
-                />
-                 
-                Demonic Strength
-              </a>
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
-            >
               <div
-                className="text-right"
+                className="flex-sub content-middle"
                 style={
                   Object {
-                    "width": "100%",
+                    "width": 50,
                   }
                 }
               >
-                 
-                82.42%
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
                 <div
-                  className="performance-bar small"
-                  style={
-                    Object {
-                      "backgroundColor": "#ffc84a",
-                      "transition": "background-color 800ms",
-                      "width": "57.99623704979307%",
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
                     }
-                  }
-                />
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
           <div
-            className="flex"
+            className="col-md-6"
           >
             <div
-              className="flex-main"
-            >
-              <a
-                href="http://wowhead.com/spell=264119"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_argusfelstalkermount.jpg"
-                />
-                 
-                Summon Vilefiend
-              </a>
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
+              className="flex"
             >
               <div
-                className="text-right"
+                className="flex-main"
+              >
+                <a
+                  href="http://wowhead.com/spell=267171"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_demonicempowerment.jpg"
+                  />
+                   
+                  Demonic Strength
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
                 style={
                   Object {
-                    "width": "100%",
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
                   }
                 }
               >
-                 
-                93.14%
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
                 <div
-                  className="performance-bar small"
+                  className="text-right"
                   style={
                     Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
                       "width": "100%",
                     }
                   }
-                />
+                >
+                   
+                  95.23%
+                   
+                   
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              <a
-                href="http://wowhead.com/spell=111898"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_summonfelguard.jpg"
-                />
-                 
-                Grimoire: Felguard
-              </a>
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
-            >
               <div
-                className="text-right"
+                className="flex-sub content-middle"
                 style={
                   Object {
-                    "width": "100%",
+                    "width": 50,
                   }
                 }
               >
-                 
-                64.52%
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
                 <div
-                  className="performance-bar small"
-                  style={
-                    Object {
-                      "backgroundColor": "#ac1f39",
-                      "transition": "background-color 800ms",
-                      "width": "30.692285454672223%",
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
                     }
-                  }
-                />
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
           <div
-            className="flex"
+            className="col-md-6"
           >
             <div
-              className="flex-main"
-            >
-              <a
-                href="http://wowhead.com/spell=267217"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_netherportal.jpg"
-                />
-                 
-                Nether Portal
-              </a>
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
+              className="flex"
             >
               <div
-                className="text-right"
+                className="flex-main"
+              >
+                <a
+                  href="http://wowhead.com/spell=264119"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/inv_argusfelstalkermount.jpg"
+                  />
+                   
+                  Summon Vilefiend
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
                 style={
                   Object {
-                    "width": "100%",
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
                   }
                 }
               >
-                 
-                100.00%
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
                 <div
-                  className="performance-bar small"
+                  className="text-right"
                   style={
                     Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
                       "width": "100%",
                     }
                   }
-                />
+                >
+                   
+                  94.89%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  href="http://wowhead.com/spell=111898"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_summonfelguard.jpg"
+                  />
+                   
+                  Grimoire: Felguard
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  95.23%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  href="http://wowhead.com/spell=267217"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/inv_netherportal.jpg"
+                  />
+                   
+                  Nether Portal
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  100.00%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div
-    className="expandable "
+  </li>
+  <li
+    className="expandable expanded failed"
   >
     <div
-      className="meta checklist-item"
+      className="meta"
       onClick={[Function]}
     >
       <div
         className="flex"
       >
         <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
-          <div
-            className="chevron"
-          >
-            <svg
-              viewBox="0 0 16 9"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-              />
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
-          <div>
-            <svg
-              style={
-                Object {
-                  "color": "red",
-                }
-              }
-              viewBox="15 15 70 70"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g
-                style={
-                  Object {
-                    "strokeLinecap": "round",
-                    "strokeMiterlimit": 10,
-                    "strokeWidth": 10,
-                  }
-                }
-              >
-                <line
-                  x1="21.19"
-                  x2="78.81"
-                  y1="21.19"
-                  y2="78.81"
-                />
-                <line
-                  x1="78.81"
-                  x2="21.19"
-                  y1="21.19"
-                  y2="78.81"
-                />
-              </g>
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-main"
+          className="flex-main name"
         >
           Use your utility and defensive spells
         </div>
         <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "width": 100,
-            }
-          }
+          className="flex-sub perf"
         >
           <div
-            className="performance-bar-container"
+            className="perf-container"
           >
             <div
-              className="performance-bar small"
+              className="perf-bar"
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "transition": "background-color 800ms",
                   "width": "3.0491722519831064%",
                 }
               }
             />
           </div>
         </div>
+        <div
+          className="chevron"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 16 9"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+            />
+          </svg>
+        </div>
       </div>
     </div>
     <div
-      className="details"
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
       style={
         Object {
-          "display": "none",
-          "minHeight": 80,
-          "paddingLeft": 65,
-          "paddingRight": 65,
-          "position": "relative",
+          "height": 0,
+          "overflow": "hidden",
         }
       }
     >
       <div
-        className="row"
-        style={
-          Object {
-            "marginBottom": 10,
-            "position": "relative",
-          }
-        }
-      >
-        <svg
-          className="text-muted"
-          style={
-            Object {
-              "fontSize": "2em",
-              "left": -33,
-              "position": "absolute",
-              "top": "50%",
-              "transform": "translateY(-33%)",
-            }
-          }
-          viewBox="0 0 100 100"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-          />
-          <path
-            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-          />
-          <path
-            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-          />
-        </svg>
-        <div
-          className="col-md-12 text-muted"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              Use other spells in your toolkit to your advantage. For example, you can try to minimize necessary movement by using 
-              <a
-                href="http://wowhead.com/spell=111771"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_warlock_demonicportal_green.jpg"
-                />
-                 
-                Demonic Gateway
-              </a>
-              , 
-              <a
-                href="http://wowhead.com/spell=268358"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_demoniccirclesummon.jpg"
-                />
-                 
-                Demonic Circle
-              </a>
-              , 
-              <a
-                href="http://wowhead.com/spell=111400"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/ability_deathwing_sealarmorbreachtga.jpg"
-                />
-                 
-                Burning Rush
-              </a>
-               or mitigate incoming damage with 
-              <a
-                href="http://wowhead.com/spell=104773"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_demonictactics.jpg"
-                />
-                 
-                Unending Resolve
-              </a>
-              /
-              <a
-                href="http://wowhead.com/spell=108416"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/warlock_sacrificial_pact.jpg"
-                />
-                 
-                Dark Pact
-              </a>
-              .
-              <br />
-              While you shouldn't cast these defensives on cooldown, be aware of them and use them whenever effective. Not using them at all indicates you might not be aware of them or not using them optimally.
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="row"
+        style={Object {}}
       >
         <div
-          className="col-md-6"
+          className="row text-muted description"
         >
-          <div
-            className="flex"
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <div
-              className="flex-main"
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+            Use other spells in your toolkit to your advantage. For example, you can try to minimize necessary movement by using 
+            <a
+              href="http://wowhead.com/spell=111771"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              <a
-                href="http://wowhead.com/spell=48020"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_demoniccircleteleport.jpg"
-                />
-                 
-                Demonic Circle Teleport
-              </a>
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_warlock_demonicportal_green.jpg"
+              />
+               
+              Demonic Gateway
+            </a>
+            , 
+            <a
+              href="http://wowhead.com/spell=268358"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              <div
-                className="text-right"
-                style={
-                  Object {
-                    "width": "100%",
-                  }
-                }
-              >
-                 
-                11.90%
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_demoniccirclesummon.jpg"
+              />
+               
+              Demonic Circle
+            </a>
+            , 
+            <a
+              href="http://wowhead.com/spell=111400"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              <div
-                className="performance-bar-container"
-              >
-                <div
-                  className="performance-bar small"
-                  style={
-                    Object {
-                      "backgroundColor": "#ac1f39",
-                      "transition": "background-color 800ms",
-                      "width": "6.098344503966213%",
-                    }
-                  }
-                />
-              </div>
-            </div>
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_deathwing_sealarmorbreachtga.jpg"
+              />
+               
+              Burning Rush
+            </a>
+             or mitigate incoming damage with 
+            <a
+              href="http://wowhead.com/spell=104773"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_demonictactics.jpg"
+              />
+               
+              Unending Resolve
+            </a>
+            /
+            <a
+              href="http://wowhead.com/spell=108416"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/warlock_sacrificial_pact.jpg"
+              />
+               
+              Dark Pact
+            </a>
+            .
+            <br />
+            While you shouldn't cast these defensives on cooldown, be aware of them and use them whenever effective. Not using them at all indicates you might not be aware of them or not using them optimally.
           </div>
         </div>
         <div
-          className="col-md-6"
+          className="row"
         >
           <div
-            className="flex"
+            className="col-md-6"
           >
             <div
-              className="flex-main"
-            >
-              <a
-                href="http://wowhead.com/spell=104773"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_demonictactics.jpg"
-                />
-                 
-                Unending Resolve
-              </a>
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
+              className="flex"
             >
               <div
-                className="text-right"
+                className="flex-main"
+              >
+                <a
+                  href="http://wowhead.com/spell=48020"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_demoniccircleteleport.jpg"
+                  />
+                   
+                  Demonic Circle Teleport
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
                 style={
                   Object {
-                    "width": "100%",
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
                   }
                 }
-              >
-                 
-                0.00%
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
               >
                 <div
-                  className="performance-bar small"
+                  className="text-right"
                   style={
                     Object {
-                      "backgroundColor": "#ac1f39",
-                      "transition": "background-color 800ms",
-                      "width": "0%",
+                      "width": "100%",
                     }
                   }
-                />
+                >
+                   
+                  11.90%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "6.098344503966213%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                <a
+                  href="http://wowhead.com/spell=104773"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_demonictactics.jpg"
+                  />
+                   
+                  Unending Resolve
+                </a>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  0.00%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div
-    className="expandable "
+  </li>
+  <li
+    className="expandable  passed"
   >
     <div
-      className="meta checklist-item"
+      className="meta"
       onClick={[Function]}
     >
       <div
         className="flex"
       >
         <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
-          <div
-            className="chevron"
-          >
-            <svg
-              viewBox="0 0 16 9"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-              />
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
-          <div>
-            <svg
-              style={
-                Object {
-                  "color": "green",
-                }
-              }
-              viewBox="0 0 50 50"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
-              />
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-main"
+          className="flex-main name"
         >
           Always be casting
         </div>
         <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "width": 100,
-            }
-          }
+          className="flex-sub perf"
         >
           <div
-            className="performance-bar-container"
+            className="perf-container"
           >
             <div
-              className="performance-bar small"
+              className="perf-bar"
               style={
                 Object {
                   "backgroundColor": "#4ec04e",
-                  "transition": "background-color 800ms",
                   "width": "100%",
                 }
               }
             />
           </div>
         </div>
+        <div
+          className="chevron"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 16 9"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+            />
+          </svg>
+        </div>
       </div>
     </div>
     <div
-      className="details"
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
       style={
         Object {
-          "display": "none",
-          "minHeight": 80,
-          "paddingLeft": 65,
-          "paddingRight": 65,
-          "position": "relative",
+          "height": 0,
+          "overflow": "hidden",
         }
       }
     >
       <div
-        className="row"
-        style={
-          Object {
-            "marginBottom": 10,
-            "position": "relative",
-          }
-        }
+        style={Object {}}
       >
-        <svg
-          className="text-muted"
-          style={
-            Object {
-              "fontSize": "2em",
-              "left": -33,
-              "position": "absolute",
-              "top": "50%",
-              "transform": "translateY(-33%)",
-            }
-          }
-          viewBox="0 0 100 100"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-          />
-          <path
-            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-          />
-          <path
-            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-          />
-        </svg>
         <div
-          className="col-md-12 text-muted"
+          className="row text-muted description"
         >
-          <div
-            className="flex"
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <div
-              className="flex-main"
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+            You should try to avoid doing nothing during the fight. When you're waiting for cooldowns, keep building Soul Shards to summon additional Wild Imps. When you have to move, use your instant abilities like 
+            <a
+              href="http://wowhead.com/spell=264178"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              You should try to avoid doing nothing during the fight. When you're waiting for cooldowns, keep building Soul Shards to summon additional Wild Imps. When you have to move, use your instant abilities like 
-              <a
-                href="http://wowhead.com/spell=264178"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/inv__demonbolt.jpg"
-                />
-                 
-                Demonbolt
-              </a>
-               (with Demonic Core) or 
-              <a
-                href="http://wowhead.com/spell=264057"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/inv_polearm_2h_fellord_04.jpg"
-                />
-                 
-                Soul Strike
-              </a>
-               or try to utilize 
-              <a
-                href="http://wowhead.com/spell=268358"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_demoniccirclesummon.jpg"
-                />
-                 
-                Teleport
-              </a>
-               or 
-              <a
-                href="http://wowhead.com/spell=111771"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt=""
-                  className="icon"
-                  src="//render-us.worldofwarcraft.com/icons/56/spell_warlock_demonicportal_green.jpg"
-                />
-                 
-                Gateway
-              </a>
-               to reduce the movement even further.
-            </div>
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/inv__demonbolt.jpg"
+              />
+               
+              Demonbolt
+            </a>
+             (with Demonic Core) or 
+            <a
+              href="http://wowhead.com/spell=264057"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/inv_polearm_2h_fellord_04.jpg"
+              />
+               
+              Soul Strike
+            </a>
+             or try to utilize 
+            <a
+              href="http://wowhead.com/spell=268358"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_demoniccirclesummon.jpg"
+              />
+               
+              Teleport
+            </a>
+             or 
+            <a
+              href="http://wowhead.com/spell=111771"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt=""
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/spell_warlock_demonicportal_green.jpg"
+              />
+               
+              Gateway
+            </a>
+             to reduce the movement even further.
           </div>
         </div>
-      </div>
-      <div
-        className="row"
-      >
         <div
-          className="col-md-6"
+          className="row"
         >
           <div
-            className="flex"
+            className="col-md-6"
           >
             <div
-              className="flex-main"
-            >
-              Downtime
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
+              className="flex"
             >
               <div
-                className="text-right"
+                className="flex-main"
+              >
+                Downtime
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
                 style={
                   Object {
-                    "width": "100%",
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
                   }
                 }
               >
-                 
-                8.63%
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
                 <div
-                  className="performance-bar small"
+                  className="text-right"
                   style={
                     Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
                       "width": "100%",
                     }
                   }
-                />
+                >
+                   
+                  8.63%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div
-    className="expandable "
+  </li>
+  <li
+    className="expandable  passed"
   >
     <div
-      className="meta checklist-item"
+      className="meta"
       onClick={[Function]}
     >
       <div
         className="flex"
       >
         <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
-          <div
-            className="chevron"
-          >
-            <svg
-              viewBox="0 0 16 9"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-              />
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "paddingRight": 18,
-            }
-          }
-        >
-          <div>
-            <svg
-              style={
-                Object {
-                  "color": "green",
-                }
-              }
-              viewBox="0 0 50 50"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M 5.701 23.894 C 4.24 22.837 2.199 23.163 1.141 24.624 C 0.083 26.085 0.411 28.126 1.871 29.184 C 6.96 32.869 11.124 38.618 14.539 46.197 C 15.688 48.746 19.3 48.767 20.478 46.231 C 27.135 31.905 36.787 18.058 48.359 8.153 C 49.728 6.98 49.888 4.919 48.715 3.548 C 47.543 2.178 45.481 2.018 44.111 3.191 C 33.372 12.385 24.283 24.61 17.478 37.569 C 14.203 31.848 10.328 27.245 5.701 23.894 Z"
-              />
-            </svg>
-          </div>
-        </div>
-        <div
-          className="flex-main"
+          className="flex-main name"
         >
           Be well prepared
         </div>
         <div
-          className="flex-sub content-middle"
-          style={
-            Object {
-              "width": 100,
-            }
-          }
+          className="flex-sub perf"
         >
           <div
-            className="performance-bar-container"
+            className="perf-container"
           >
             <div
-              className="performance-bar small"
+              className="perf-bar"
               style={
                 Object {
                   "backgroundColor": "#4ec04e",
-                  "transition": "background-color 800ms",
                   "width": "100%",
                 }
               }
             />
           </div>
         </div>
+        <div
+          className="chevron"
+        >
+          <svg
+            className="icon"
+            viewBox="0 0 16 9"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+            />
+          </svg>
+        </div>
       </div>
     </div>
     <div
-      className="details"
+      aria-hidden={true}
+      className="rah-static rah-static--height-zero details"
       style={
         Object {
-          "display": "none",
-          "minHeight": 80,
-          "paddingLeft": 65,
-          "paddingRight": 65,
-          "position": "relative",
+          "height": 0,
+          "overflow": "hidden",
         }
       }
     >
       <div
-        className="row"
-        style={
-          Object {
-            "marginBottom": 10,
-            "position": "relative",
-          }
-        }
-      >
-        <svg
-          className="text-muted"
-          style={
-            Object {
-              "fontSize": "2em",
-              "left": -33,
-              "position": "absolute",
-              "top": "50%",
-              "transform": "translateY(-33%)",
-            }
-          }
-          viewBox="0 0 100 100"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-          />
-          <path
-            d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-          />
-          <path
-            d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-          />
-        </svg>
-        <div
-          className="col-md-12 text-muted"
-        >
-          <div
-            className="flex"
-          >
-            <div
-              className="flex-main"
-            >
-              Being well prepared with food, flasks, potions and enchants is an easy way to improve your performance.
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="row"
+        style={Object {}}
       >
         <div
-          className="col-md-6"
+          className="row text-muted description"
         >
-          <div
-            className="flex"
+          <svg
+            className="icon"
+            viewBox="0 0 100 100"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <div
-              className="flex-main"
-            >
-              All items enchanted
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
-            >
-              <div
-                className="text-right"
-                style={
-                  Object {
-                    "width": "100%",
-                  }
-                }
-              >
-                 
-                3
-                 
-                / 3
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
-                <div
-                  className="performance-bar small"
-                  style={
-                    Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
-                      "width": "100%",
-                    }
-                  }
-                />
-              </div>
-            </div>
+            <path
+              d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+            />
+            <path
+              d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+            />
+            <path
+              d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+            />
+          </svg>
+          <div
+            className="col-md-12"
+          >
+            Being well prepared with food, flasks, potions and enchants is an easy way to improve your performance.
           </div>
         </div>
         <div
-          className="col-md-6"
+          className="row"
         >
           <div
-            className="flex"
+            className="col-md-6"
           >
             <div
-              className="flex-main"
-            >
-              Using high quality enchants
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
+              className="flex"
             >
               <div
-                className="text-right"
+                className="flex-main"
+              >
+                All items enchanted
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
                 style={
                   Object {
-                    "width": "100%",
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
                   }
                 }
               >
-                 
-                3
-                 
-                / 3
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
                 <div
-                  className="performance-bar small"
+                  className="text-right"
                   style={
                     Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
                       "width": "100%",
                     }
                   }
-                />
+                >
+                   
+                  3
+                   
+                  / 3
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
           <div
-            className="flex"
+            className="col-md-6"
           >
             <div
-              className="flex-main"
-            >
-              Used a pre-potion
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
+              className="flex"
             >
               <div
-                className="text-right"
+                className="flex-main"
+              >
+                Using high quality enchants
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
                 style={
                   Object {
-                    "width": "100%",
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
                   }
                 }
               >
-                 
-                Yes
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
                 <div
-                  className="performance-bar small"
+                  className="text-right"
                   style={
                     Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
                       "width": "100%",
                     }
                   }
-                />
+                >
+                   
+                  3
+                   
+                  / 3
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
           <div
-            className="flex"
+            className="col-md-6"
           >
             <div
-              className="flex-main"
-            >
-              Used a second potion
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
+              className="flex"
             >
               <div
-                className="text-right"
+                className="flex-main"
+              >
+                Used a pre-potion
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
                 style={
                   Object {
-                    "width": "100%",
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
                   }
                 }
               >
-                 
-                Yes
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
                 <div
-                  className="performance-bar small"
+                  className="text-right"
                   style={
                     Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
                       "width": "100%",
                     }
                   }
-                />
+                >
+                   
+                  Yes
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
           <div
-            className="flex"
+            className="col-md-6"
           >
             <div
-              className="flex-main"
-            >
-              Flask used
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
+              className="flex"
             >
               <div
-                className="text-right"
+                className="flex-main"
+              >
+                Used a second potion
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
                 style={
                   Object {
-                    "width": "100%",
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
                   }
                 }
               >
-                 
-                Yes
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
                 <div
-                  className="performance-bar small"
+                  className="text-right"
                   style={
                     Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
                       "width": "100%",
                     }
                   }
-                />
+                >
+                   
+                  Yes
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
           <div
-            className="flex"
+            className="col-md-6"
           >
             <div
-              className="flex-main"
-            >
-              High quality food used
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
+              className="flex"
             >
               <div
-                className="text-right"
+                className="flex-main"
+              >
+                Flask used
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
                 style={
                   Object {
-                    "width": "100%",
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
                   }
                 }
               >
-                 
-                Yes
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
                 <div
-                  className="performance-bar small"
+                  className="text-right"
                   style={
                     Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
                       "width": "100%",
                     }
                   }
-                />
+                >
+                   
+                  Yes
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className="col-md-6"
-        >
           <div
-            className="flex"
+            className="col-md-6"
           >
             <div
-              className="flex-main"
-            >
-              Food used
-            </div>
-            <div
-              className="flex-sub content-middle text-muted"
-              style={
-                Object {
-                  "marginLeft": 5,
-                  "marginRight": 10,
-                  "minWidth": 55,
-                }
-              }
+              className="flex"
             >
               <div
-                className="text-right"
+                className="flex-main"
+              >
+                High quality food used
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
                 style={
                   Object {
-                    "width": "100%",
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
                   }
                 }
               >
-                 
-                Yes
-                 
-                 
-              </div>
-            </div>
-            <div
-              className="flex-sub content-middle"
-              style={
-                Object {
-                  "width": 50,
-                }
-              }
-            >
-              <div
-                className="performance-bar-container"
-              >
                 <div
-                  className="performance-bar small"
+                  className="text-right"
                   style={
                     Object {
-                      "backgroundColor": "#4ec04e",
-                      "transition": "background-color 800ms",
                       "width": "100%",
                     }
                   }
-                />
+                >
+                   
+                  Yes
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Food used
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  Yes
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
+  </li>
+</ul>
 `;

@@ -4,10 +4,11 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
+import { TooltipElement } from 'common/Tooltip';
 import Analyzer from 'parser/core/Analyzer';
 import Haste from 'parser/shared/modules/Haste';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 
 import Insanity from '../core/Insanity';
 import VoidformsTab from './VoidformsTab';
@@ -234,13 +235,13 @@ class Voidform extends Analyzer {
 
     when(this.uptime).isLessThan(minor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.VOIDFORM.id} /> uptime can be improved. Try to maximize the uptime by using your insanity generating spells and cast <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> on cooldown.
+        return suggest(<>Your <SpellLink id={SPELLS.VOIDFORM.id} /> uptime can be improved. Try to maximize the uptime by using your insanity generating spells and cast <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> on cooldown.
           <br /><br />
-          Use the generators with the priority:
-          <br /><SpellLink id={SPELLS.VOID_BOLT.id} />
-          <br /><SpellLink id={SPELLS.MIND_BLAST.id} />
-          <br /><SpellLink id={SPELLS.MIND_FLAY.id} />
-        </span>)
+          Use the generators with the priority: <br />
+          <SpellLink id={SPELLS.VOID_BOLT.id} /> <br />
+          <SpellLink id={SPELLS.MIND_BLAST.id} /> <br />
+          <SpellLink id={SPELLS.MIND_FLAY.id} />
+        </>)
           .icon(SPELLS.VOIDFORM_BUFF.icon)
           .actual(`${formatPercentage(actual)}% Voidform uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)
@@ -255,9 +256,9 @@ class Voidform extends Analyzer {
         icon={<SpellIcon id={SPELLS.VOIDFORM.id} />}
         value={`${formatPercentage(this.selectedCombatant.getBuffUptime(SPELLS.VOIDFORM_BUFF.id) / (this.owner.fightDuration - this.selectedCombatant.getBuffUptime(SPELLS.DISPERSION.id)))} %`}
         label={(
-          <dfn data-tip={`Time spent in dispersion (${Math.round(this.selectedCombatant.getBuffUptime(SPELLS.DISPERSION.id) / 1000)} seconds) is excluded from the fight.`}>
+          <TooltipElement content={`Time spent in dispersion (${Math.round(this.selectedCombatant.getBuffUptime(SPELLS.DISPERSION.id) / 1000)} seconds) is excluded from the fight.`}>
             Voidform uptime
-          </dfn>
+          </TooltipElement>
         )}
       />
     );
@@ -268,14 +269,14 @@ class Voidform extends Analyzer {
       title: 'Voidforms',
       url: 'voidforms',
       render: () => (
-        <Tab>
+        <Panel>
           <VoidformsTab
             voidforms={this.voidforms}
             insanityEvents={this.insanity.events}
             fightEnd={this.owner.fight.end_time}
             surrenderToMadness={!!this.selectedCombatant.hasTalent(SPELLS.SURRENDER_TO_MADNESS_TALENT.id)}
           />
-        </Tab>
+        </Panel>
       ),
     };
   }

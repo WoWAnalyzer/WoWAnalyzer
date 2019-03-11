@@ -1,5 +1,4 @@
 import MainCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/shared/modules/DamageDone';
 import Haste from './modules/core/Haste';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 
@@ -35,7 +34,6 @@ import AstralPowerTracker from './modules/resourcetracker/AstralPowerTracker';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
-    damageDone: [DamageDone, { showStatistic: true }],
     haste: Haste,
     globalCooldown: GlobalCooldown,
 

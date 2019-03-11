@@ -56,19 +56,20 @@ class GuardianAngel extends Analyzer {
     return (
       <TalentStatisticBox
         talent={SPELLS.GUARDIAN_ANGEL_TALENT.id}
-        value={
+        value={(
           <>
             {this.guardianSpiritRefreshCount} Guardian Spirit resets<br />
             {this.guardianSpiritHealCount} Guardian Spirits consumed
           </>
-        }
-        tooltip={`
-          You casted Guardian Spirit ${this.gsValue} more times than you would have been able to without Guardian Angel.<br />
-          You could have theoretically cast Guardian Spirit ${this.gsGuardianSpiritCastsPossible - this.guardianSpiritCastCount} more times.
-        `}
+        )}
+        tooltip={(
+          <>
+            You casted Guardian Spirit {this.gsValue} more times than you would have been able to without Guardian Angel.<br />
+            You could have theoretically cast Guardian Spirit {this.gsGuardianSpiritCastsPossible - this.guardianSpiritCastCount} more times.
+          </>
+        )}
         position={STATISTIC_ORDER.CORE(3)}
       />
-
     );
   }
 }

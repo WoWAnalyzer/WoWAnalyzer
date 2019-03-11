@@ -5,7 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
-import HealingDone from 'parser/shared/modules/HealingDone';
+import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
@@ -181,14 +181,17 @@ class TreeOfLife extends Analyzer {
         icon={<SpellIcon id={SPELLS.INCARNATION_TREE_OF_LIFE_TALENT.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this._getTotalHealing(this.hardcast)))} %`}
         label="Tree of Life Healing"
-        tooltip={`The Tree of Life buff was active for <b>${(this.hardcastUptime / 1000).toFixed(0)}s</b>, or <b>${formatPercentage(this.hardcastUptimePercent, 1)}%</b> of the encounter. The displayed healing number is the sum of several benefits, listed below:
-          <ul>
-            <li>Overall Increased Healing: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.hardcast.allBoostHealing))}%</b></li>
-            <li>Rejuv Increased Healing: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.hardcast.rejuvBoostHealing))}%</b></li>
-            <li>Rejuv Mana Saved: <b>${formatNumber(this._getManaSaved(this.hardcast))}</b> (assuming mana used to fill with Rejuvs: <b>≈${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this._getManaSavedHealing(this.hardcast)))}%</b> healing)</li>
-            <li>Increased Wild Growths: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.hardcast.extraWgHealing))}%</b></li>
-          </ul>
-        `}
+        tooltip={(
+          <>
+            The Tree of Life buff was active for <strong>{(this.hardcastUptime / 1000).toFixed(0)}s</strong>, or <strong>{formatPercentage(this.hardcastUptimePercent, 1)}%</strong> of the encounter. The displayed healing number is the sum of several benefits, listed below:
+            <ul>
+              <li>Overall Increased Healing: <strong>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.hardcast.allBoostHealing))}%</strong></li>
+              <li>Rejuv Increased Healing: <strong>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.hardcast.rejuvBoostHealing))}%</strong></li>
+              <li>Rejuv Mana Saved: <strong>{formatNumber(this._getManaSaved(this.hardcast))}</strong> (assuming mana used to fill with Rejuvs: <strong>≈{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this._getManaSavedHealing(this.hardcast)))}%</strong> healing)</li>
+              <li>Increased Wild Growths: <strong>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.hardcast.extraWgHealing))}%</strong></li>
+            </ul>
+          </>
+        )}
       />
     );
   }

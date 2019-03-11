@@ -70,12 +70,16 @@ class Trueshot extends Analyzer {
           </>
         )}
         label="Trueshot info"
-        tooltip={`Information regarding your average Trueshot window:
-        <ul>
-          <li>You started your Trueshot windows with an average of ${this.averageFocus} focus.</li>
-          <li>You hit an average of ${this.averageAimedShots} Aimed Shots inside each Trueshot window. </li>
-          <li>You gained ${this.trueshotCasts - this.wastedAimedShotCharges} charges of Aimed Shot and lost out on ${this.wastedAimedShotCharges} charges by activating Trueshot whilst Aimed Shot wasn't on cooldown.</li>
-        </ul>`}
+        tooltip={(
+          <>
+            Information regarding your average Trueshot window:
+            <ul>
+              <li>You started your Trueshot windows with an average of {this.averageFocus} Focus.</li>
+              <li>You hit an average of {this.averageAimedShots} Aimed Shots inside each Trueshot window. </li>
+              <li>You gained {this.trueshotCasts - this.wastedAimedShotCharges} charges of Aimed Shot and lost out on {this.wastedAimedShotCharges} charges by activating Trueshot whilst Aimed Shot wasn't on cooldown.</li>
+            </ul>
+          </>
+        )}
       />
     );
   }

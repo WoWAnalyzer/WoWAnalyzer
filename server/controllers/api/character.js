@@ -8,6 +8,7 @@ import RegionNotSupportedError from 'helpers/RegionNotSupportedError';
 
 import models from '../../models';
 
+const HEART_OF_AZEROTH_ID = 158075;
 const Character = models.Character;
 
 /**
@@ -46,14 +47,14 @@ function getCharacterId(thumbnail) {
 }
 
 async function getCharacterFromBlizzardApi(region, realm, name) {
-  const response = await BlizzardCommunityApi.fetchCharacter(region, realm, name, 'talents');
+  const response = await BlizzardCommunityApi.fetchCharacter(region, realm, name, 'talents,items');
   const data = JSON.parse(response);
   if (!data || !data.thumbnail) {
     throw new Error('Corrupt response received');
   }
   // This is the only field that we need and isn't always otherwise obtainable (e.g. when this is fetched by character id)
   // eslint-disable-next-line prefer-const
-  const { talents, thumbnail, ...other } = data;
+  const { talents, thumbnail, items, ...other } = data;
   delete other.calcClass;
   delete other.totalHonorableKills;
   delete other.level;
@@ -71,8 +72,23 @@ async function getCharacterFromBlizzardApi(region, realm, name) {
     json.role = selectedSpec.spec.role;
     json.talents = selectedSpec.calcTalent;
   }
+  if (items && items.neck && items.neck.id === HEART_OF_AZEROTH_ID) {
+    const heartOfAzerothItem = items.neck;
+    json.heartOfAzeroth = JSON.stringify({
+      id: heartOfAzerothItem.id,
+      name: heartOfAzerothItem.name,
+      icon: heartOfAzerothItem.icon,
+      quality: heartOfAzerothItem.quality,
+      itemLevel: heartOfAzerothItem.itemLevel,
+      timewalkerLevel: heartOfAzerothItem.tooltipParams && heartOfAzerothItem.tooltipParams.timewalkerLevel,
+      azeriteItemLevel: heartOfAzerothItem.azeriteItem && heartOfAzerothItem.azeriteItem.azeriteLevel,
+    });
+  }
+  delete json.items;
+
   return json;
 }
+
 async function getStoredCharacter(id, realm, region, name) {
   if (id) {
     return Character.findByPk(id);

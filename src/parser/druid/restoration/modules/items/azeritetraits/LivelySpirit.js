@@ -15,7 +15,7 @@ import StatWeights from '../../features/StatWeights';
 const LIVELY_SPIRIT_DURATION = 20000;
 const INNERVATE_DURATION = 12000;
 
-class LivelySpirit extends Analyzer{
+class LivelySpirit extends Analyzer {
   static dependencies = {
     statWeights: StatWeights,
   };
@@ -45,10 +45,10 @@ class LivelySpirit extends Analyzer{
   innervateTimestamp = 0;
   manaGained = 0;
 
-  constructor(...args){
+  constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.LIVELY_SPIRIT_TRAIT.id);
-    if(this.active) {
+    if (this.active) {
       this.avgItemLevel = this.selectedCombatant.traitsBySpellId[SPELLS.LIVELY_SPIRIT_TRAIT.id]
         .reduce((a, b) => a + b) / this.selectedCombatant.traitsBySpellId[SPELLS.LIVELY_SPIRIT_TRAIT.id].length;
       this.traitLevel = this.selectedCombatant.traitsBySpellId[SPELLS.LIVELY_SPIRIT_TRAIT.id].length;
@@ -60,14 +60,14 @@ class LivelySpirit extends Analyzer{
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if(SPELLS.INNERVATE.id === spellId && event.sourceId === event.targetId) {
+    if (SPELLS.INNERVATE.id === spellId && event.sourceId === event.targetId) {
       this.innervateTimestamp = event.timestamp;
     }
 
     if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)
-          && this.ABILITIES_BUFFING_LIVELY_SPIRIT.includes(spellId)
-          && this.innervateTimestamp !== 0
-          && (this.innervateTimestamp+INNERVATE_DURATION) >= event.timestamp) {
+      && this.ABILITIES_BUFFING_LIVELY_SPIRIT.includes(spellId)
+      && this.innervateTimestamp !== 0
+      && (this.innervateTimestamp + INNERVATE_DURATION) >= event.timestamp) {
       this.castsDuringInnervate++;
     }
   }
@@ -90,24 +90,27 @@ class LivelySpirit extends Analyzer{
     this.manaGained += event.resourceChange;
   }
 
-  statistic(){
-    this.livelySpirits.forEach(
-      function (element) {
-        this.intGain += element * (LIVELY_SPIRIT_DURATION / this.owner.fightDuration);
-      }, this);
+  statistic() {
+    this.livelySpirits.forEach(function (element) {
+      this.intGain += element * (LIVELY_SPIRIT_DURATION / this.owner.fightDuration);
+    }, this);
 
-    return(
+    return (
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.LIVELY_SPIRIT_TRAIT.id}
         value={(
           <>
-            {formatNumber(this.intGain)} average Intellect gained.<br />
-            {formatThousands(this.manaGained)} mana gained.<br />
+            {formatNumber(this.intGain)} <small>average Intellect gained</small><br />
+            {formatThousands(this.manaGained)} <small>mana gained</small>
           </>
         )}
-        tooltip={`This assumes that you cast your innervates on yourself. <br />
-                  This only shows average int gained from using this trait and not how much your heals actually benefited from the int gain.  <br />`}
+        tooltip={(
+          <>
+            This assumes that you cast your innervates on yourself.<br />
+            This only shows average int gained from using this trait and not how much your heals actually benefited from the int gain.
+          </>
+        )}
       />
     );
   }

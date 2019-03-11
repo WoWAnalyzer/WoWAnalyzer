@@ -156,7 +156,7 @@ describe('core/Modules/SpellUsable', () => {
       triggerCast(SPELLS.FAKE_SPELL.id);
       parser.currentTimestamp = 6000; //Leaves 1500ms cooldown remaining of the total 7500ms of the first charge recharging.
       const reduction = module.reduceCooldown(SPELLS.FAKE_SPELL.id, 5000);
-      expect(reduction).toBe(5000);    
+      expect(reduction).toBe(5000);
     });
     it('reduceCooldown on a spell not on cooldown throws', () => {
       // We throw instead of returning something like null so that implementers *have* to take this into consideration.
@@ -168,14 +168,18 @@ describe('core/Modules/SpellUsable', () => {
       triggerCast(SPELLS.FAKE_SPELL.id);
       parser.currentTimestamp = 5000;
 
-      module.refreshCooldown(SPELLS.FAKE_SPELL.id);
+      module.refreshCooldown(SPELLS.FAKE_SPELL.id, {
+        timestamp: 5000,
+      });
 
       expect(module.cooldownRemaining(SPELLS.FAKE_SPELL.id)).toBe(7500);
     });
     it('refreshCooldown on a spell not on cooldown throws', () => {
       // We throw instead of returning something like null so that implementers *have* to take this into consideration.
       expect(() => {
-        module.refreshCooldown(SPELLS.FAKE_SPELL.id);
+        module.refreshCooldown(SPELLS.FAKE_SPELL.id, {
+          timestamp: 5000,
+        });
       }).toThrow();
     });
     it('endCooldown on a spell not on cooldown throws', () => {
@@ -204,7 +208,9 @@ describe('core/Modules/SpellUsable', () => {
       expect(call[0]).toEqual({
         type: 'updatespellusable',
         ability: {
+          abilityIcon: SPELLS.FAKE_SPELL.icon,
           guid: SPELLS.FAKE_SPELL.id,
+          name: SPELLS.FAKE_SPELL.name,
         },
         timestamp: 0,
         start: 0,
@@ -215,6 +221,13 @@ describe('core/Modules/SpellUsable', () => {
         isAvailable: false,
         chargesAvailable: 0,
         chargesOnCooldown: 1,
+        cooldownTriggerEvent: {
+          ability: {
+            guid: SPELLS.FAKE_SPELL.id,
+          },
+          timestamp: 0,
+          type: 'cast',
+        },
         maxCharges: 1,
         timePassed: 0,
         sourceID: parser.playerId,
@@ -232,7 +245,9 @@ describe('core/Modules/SpellUsable', () => {
         expect(call[0]).toEqual({
           type: 'updatespellusable',
           ability: {
+            abilityIcon: SPELLS.FAKE_SPELL.icon,
             guid: SPELLS.FAKE_SPELL.id,
+            name: SPELLS.FAKE_SPELL.name,
           },
           timestamp: 0,
           start: 0,
@@ -244,6 +259,13 @@ describe('core/Modules/SpellUsable', () => {
           isAvailable: true,
           chargesAvailable: 1,
           chargesOnCooldown: 1,
+          cooldownTriggerEvent: {
+            ability: {
+              guid: SPELLS.FAKE_SPELL.id,
+            },
+            timestamp: 0,
+            type: 'cast',
+          },
           maxCharges: 1,
           sourceID: parser.playerId,
           targetID: parser.playerId,
@@ -254,7 +276,9 @@ describe('core/Modules/SpellUsable', () => {
         expect(call[0]).toEqual({
           type: 'updatespellusable',
           ability: {
+            abilityIcon: SPELLS.FAKE_SPELL.icon,
             guid: SPELLS.FAKE_SPELL.id,
+            name: SPELLS.FAKE_SPELL.name,
           },
           timestamp: 0,
           start: 0,
@@ -265,6 +289,13 @@ describe('core/Modules/SpellUsable', () => {
           isAvailable: false,
           chargesAvailable: 0,
           chargesOnCooldown: 1,
+          cooldownTriggerEvent: {
+            ability: {
+              guid: SPELLS.FAKE_SPELL.id,
+            },
+            timestamp: 0,
+            type: 'cast',
+          },
           maxCharges: 1,
           timePassed: 0,
           sourceID: parser.playerId,
@@ -283,7 +314,9 @@ describe('core/Modules/SpellUsable', () => {
       expect(call[0]).toEqual({
         type: 'updatespellusable',
         ability: {
+          abilityIcon: SPELLS.FAKE_SPELL.icon,
           guid: SPELLS.FAKE_SPELL.id,
+          name: SPELLS.FAKE_SPELL.name,
         },
         timestamp: 0,
         start: 0,
@@ -294,6 +327,13 @@ describe('core/Modules/SpellUsable', () => {
         isAvailable: false,
         chargesAvailable: 0,
         chargesOnCooldown: 2,
+        cooldownTriggerEvent: {
+          ability: {
+            guid: SPELLS.FAKE_SPELL.id,
+          },
+          timestamp: 0,
+          type: 'cast',
+        },
         maxCharges: 2,
         timePassed: 0,
         sourceID: parser.playerId,
@@ -312,7 +352,9 @@ describe('core/Modules/SpellUsable', () => {
       expect(call[0]).toEqual({
         type: 'updatespellusable',
         ability: {
+          abilityIcon: SPELLS.FAKE_SPELL.icon,
           guid: SPELLS.FAKE_SPELL.id,
+          name: SPELLS.FAKE_SPELL.name,
         },
         timestamp: 7500, // it should be simulated at the time of expiry
         start: 0,
@@ -324,6 +366,13 @@ describe('core/Modules/SpellUsable', () => {
         isAvailable: true,
         chargesAvailable: 1,
         chargesOnCooldown: 1,
+        cooldownTriggerEvent: {
+          ability: {
+            guid: SPELLS.FAKE_SPELL.id,
+          },
+          timestamp: 0,
+          type: 'cast',
+        },
         maxCharges: 1,
         sourceID: parser.playerId,
         targetID: parser.playerId,
@@ -344,7 +393,9 @@ describe('core/Modules/SpellUsable', () => {
         expect(call[0]).toEqual({
           type: 'updatespellusable',
           ability: {
+            abilityIcon: SPELLS.FAKE_SPELL.icon,
             guid: SPELLS.FAKE_SPELL.id,
+            name: SPELLS.FAKE_SPELL.name,
           },
           timestamp: 7500, // it should be simulated at the time of expiry
           start: 0,
@@ -355,6 +406,13 @@ describe('core/Modules/SpellUsable', () => {
           isAvailable: true,
           chargesAvailable: 1,
           chargesOnCooldown: 1,
+          cooldownTriggerEvent: {
+            ability: {
+              guid: SPELLS.FAKE_SPELL.id,
+            },
+            timestamp: 0,
+            type: 'cast',
+          },
           maxCharges: 2,
           timePassed: 7500,
           sourceID: parser.playerId,
@@ -366,7 +424,9 @@ describe('core/Modules/SpellUsable', () => {
         expect(call[0]).toEqual({
           type: 'updatespellusable',
           ability: {
+            abilityIcon: SPELLS.FAKE_SPELL.icon,
             guid: SPELLS.FAKE_SPELL.id,
+            name: SPELLS.FAKE_SPELL.name,
           },
           timestamp: 7500, // it should be simulated at the time of expiry
           start: 7500,
@@ -377,6 +437,13 @@ describe('core/Modules/SpellUsable', () => {
           isAvailable: true,
           chargesAvailable: 1,
           chargesOnCooldown: 1,
+          cooldownTriggerEvent: {
+            ability: {
+              guid: SPELLS.FAKE_SPELL.id,
+            },
+            timestamp: 0,
+            type: 'cast',
+          },
           maxCharges: 2,
           timePassed: 0,
           sourceID: parser.playerId,

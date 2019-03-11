@@ -4,18 +4,20 @@ import PropTypes from 'prop-types';
 import SPECS from 'game/SPECS';
 import SpecIcon from 'common/SpecIcon';
 import { formatNumber } from 'common/format';
+import { TooltipElement } from 'common/Tooltip';
+import indexByProperty from 'common/indexByProperty';
 
 class PlayerBreakdown extends React.Component {
   static propTypes = {
     report: PropTypes.object.isRequired,
-    playersById: PropTypes.object.isRequired,
+    players: PropTypes.array.isRequired,
   };
 
-  calculatePlayerBreakdown(stats, playersById) {
-    const statsByTargetId = stats.statsByTargetId;
+  calculatePlayerBreakdown(statsByTargetId, players) {
     const friendlyStats = [];
+    const playersById = indexByProperty(players, 'id');
     Object.keys(statsByTargetId)
-      .forEach((targetId) => {
+      .forEach(targetId => {
         const playerStats = statsByTargetId[targetId];
         const playerInfo = playersById[targetId];
 
@@ -24,7 +26,6 @@ class PlayerBreakdown extends React.Component {
             ...playerInfo,
             ...playerStats,
             masteryEffectiveness: playerStats.healingFromMastery / (playerStats.maxPotentialHealingFromMastery || 1),
-            healingReceivedPercentage: playerStats.healingReceived / stats.totalHealingWithMasteryAffectedAbilities,
           });
         }
       });
@@ -33,19 +34,20 @@ class PlayerBreakdown extends React.Component {
   }
 
   render() {
-    const { report, playersById } = this.props;
+    const { report, players } = this.props;
 
-    const friendlyStats = this.calculatePlayerBreakdown(report, playersById);
-    const highestHealingFromMastery = friendlyStats.reduce((highest, player) => Math.max(highest, player.healingFromMastery), 1);
+    const friendlyStats = this.calculatePlayerBreakdown(report, players);
+    const totalEffectiveHealing = Object.values(report).reduce((sum, player) => sum + player.effectiveHealing, 0);
+    const highestEffectiveHealing = friendlyStats.reduce((highest, player) => Math.max(highest, player.effectiveHealing), 1);
     const highestMasteryEffectiveness = friendlyStats.reduce((highest, player) => Math.max(highest, player.masteryEffectiveness), 0);
 
     return (
       <table className="data-table">
         <thead>
-          <tr>
+          <tr style={{ textTransform: 'uppercase' }}>
             <th>Name</th>
             <th colSpan="2">Mastery effectiveness</th>
-            <th colSpan="3"><dfn data-tip="This is the amount of healing done by mastery. Things like Holy Paladin beacons or Restoration Shaman feeding are NOT included.">Healing done</dfn></th>
+            <th colSpan="3"><TooltipElement content="This is the amount of healing done by spells affected by mastery. Things like Holy Paladin beacons or Restoration Shaman feeding are NOT included.">Healing done</TooltipElement></th>
           </tr>
         </thead>
         <tbody>
@@ -61,9 +63,9 @@ class PlayerBreakdown extends React.Component {
               const specClassName = spec.className.replace(' ', '');
               // We want the performance bar to show a full bar for whatever healing done percentage is highest to make
               // it easier to see relative amounts.
-              const performanceBarHealingReceivedPercentage = player.healingFromMastery / highestHealingFromMastery;
-              const actualHealingReceivedPercentage = player.healingFromMastery / (report.totalHealingFromMastery || 1);
               const performanceBarMasteryEffectiveness = player.masteryEffectiveness / highestMasteryEffectiveness;
+              const performanceBarHealingReceivedPercentage = player.effectiveHealing / highestEffectiveHealing;
+              const actualHealingReceivedPercentage = player.effectiveHealing / totalEffectiveHealing;
 
               return (
                 <tr key={combatant.id}>
@@ -71,7 +73,7 @@ class PlayerBreakdown extends React.Component {
                     <SpecIcon id={spec.id} />{' '}
                     {combatant.name}
                   </td>
-                  <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
+                  <td style={{ width: 50, textAlign: 'right' }}>
                     {(Math.round(player.masteryEffectiveness * 10000) / 100).toFixed(2)}%
                   </td>
                   <td style={{ width: '40%' }}>
@@ -82,7 +84,7 @@ class PlayerBreakdown extends React.Component {
                       />
                     </div>
                   </td>
-                  <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
+                  <td style={{ width: 50, textAlign: 'right' }}>
                     {(Math.round(actualHealingReceivedPercentage * 10000) / 100).toFixed(2)}%
                   </td>
                   <td style={{ width: '40%' }}>
@@ -93,8 +95,8 @@ class PlayerBreakdown extends React.Component {
                       />
                     </div>
                   </td>
-                  <td style={{ width: 50, paddingRight: 5, textAlign: 'right' }}>
-                    {(formatNumber(player.healingFromMastery))}
+                  <td style={{ width: 50, textAlign: 'right' }}>
+                    {(formatNumber(player.effectiveHealing))}
                   </td>
                 </tr>
               );

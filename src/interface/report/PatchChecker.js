@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import ReactTooltip from 'react-tooltip';
 import { connect } from 'react-redux';
 import { Trans } from '@lingui/macro';
 
 import PATCHES from 'common/PATCHES';
 import Icon from 'common/Icon';
+import Tooltip from 'common/Tooltip';
 import DiscordButton from 'interface/common/thirdpartybuttons/Discord';
 import GitHubButton from 'interface/common/thirdpartybuttons/GitHub';
 import { ignorePreviousPatchWarning } from 'interface/actions/previousPatch';
@@ -25,13 +25,6 @@ class PatchChecker extends React.PureComponent {
   constructor() {
     super();
     this.handleClickContinue = this.handleClickContinue.bind(this);
-  }
-
-  componentDidMount() {
-    ReactTooltip.rebuild();
-  }
-  componentDidUpdate() {
-    ReactTooltip.hide();
   }
 
   handleClickContinue() {
@@ -81,8 +74,8 @@ class PatchChecker extends React.PureComponent {
                         <br /><br />
                         This could mean that some parts of your report will no longer be analysed accurately.
                         <br /><br />
-                        If you would like to view the analysis on an older version of WoWAnalyzer, please 
-                        { 
+                        If you would like to view the analysis on an older version of WoWAnalyzer, please
+                        {
                           <a
                             href={this.makePreviousPatchUrl(reportPatch)}
                             onClick={this.handleClickContinue}
@@ -109,14 +102,15 @@ class PatchChecker extends React.PureComponent {
                     <GitHubButton />{' '}
                     <DiscordButton />
                   </div>
-                  <Link
-                    to={window.location.pathname}
-                    onClick={this.handleClickContinue}
-                    style={{ fontSize: '1.1em' }}
-                    data-tip="Khadgar approves your bravery"
-                  >
-                    <Icon icon="quest_khadgar" /> <Trans>Continue anyway</Trans>
-                  </Link>
+                  <Tooltip content="Khadgar approves your bravery">
+                    <Link
+                      to={window.location.pathname}
+                      onClick={this.handleClickContinue}
+                      style={{ fontSize: '1.1em' }}
+                    >
+                      <Icon icon="quest_khadgar" /> <Trans>Continue anyway</Trans>
+                    </Link>
+                  </Tooltip>
                 </div>
                 <div className="flex-sub">
                   <img

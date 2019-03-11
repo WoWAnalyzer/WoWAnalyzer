@@ -40,9 +40,12 @@ class TidalSurge extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.TIDAL_SURGE.id}
         value={`${formatPercentage(damageThroughputPercent)} % / ${formatNumber(dps)} DPS`}
-        tooltip={`Damage done: ${formatNumber(this.damage)}<br />
-                  Tidal Surge procced a total of <b>${this.totalProcs}</b> times, <b>${critPercent}</b> of which were critital hits.`
-        }
+        tooltip={(
+          <>
+            Damage done: {formatNumber(this.damage)}<br />
+            Tidal Surge procced a total of <strong>{this.totalProcs}</strong> times, <strong>{critPercent}</strong> of which were critital hits.
+          </>
+        )}
       />
     );
   }

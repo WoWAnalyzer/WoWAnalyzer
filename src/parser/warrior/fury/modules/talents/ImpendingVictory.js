@@ -17,7 +17,7 @@ class ImpendingVicory extends Analyzer {
     if (!this.active) {
       return;
     }
-    
+
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.IMPENDING_VICTORY_TALENT_HEAL), this.onImpendingVictoryHeal);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.IMPENDING_VICTORY_TALENT), this.onImpendingVictoryDamage);
   }
@@ -30,7 +30,7 @@ class ImpendingVicory extends Analyzer {
     this.totalHeal += event.amount;
   }
 
-  get percentageDamage() {    
+  get percentageDamage() {
     return this.owner.getPercentageOfTotalDamageDone(this.totalDamage);
   }
 
@@ -40,7 +40,7 @@ class ImpendingVicory extends Analyzer {
         talent={SPELLS.IMPENDING_VICTORY_TALENT.id}
         value={`${formatNumber(this.totalHeal)} Healing`}
         label="Impending Victory"
-        tooltip={`<b>${formatThousands(this.totalDamage)} (${formatPercentage(this.percentageDamage)}%)</b> damage was done by Impending Victory.`}
+        tooltip={<><strong>{formatThousands(this.totalDamage)} ({formatPercentage(this.percentageDamage)}%)</strong> damage was done by Impending Victory.</>}
       />
     );
   }

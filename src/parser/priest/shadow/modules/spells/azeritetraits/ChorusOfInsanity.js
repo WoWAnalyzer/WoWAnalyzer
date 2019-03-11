@@ -86,10 +86,12 @@ class ChorusOfInsanity extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.CHORUS_OF_INSANITY.id}
         value={`${formatNumber(this.averageCrit)} average Crit`}
-        tooltip={`
-          ${SPELLS.CHORUS_OF_INSANITY.name} grants <b>${this.crit} crit per stack</b><br/>
-          You procced ${SPELLS.CHORUS_OF_INSANITY.name} <b>${this.buffTriggerCount} times</b> with an uptime of ${formatPercentage(this.uptime)}%.
-        `}
+        tooltip={(
+          <>
+            {SPELLS.CHORUS_OF_INSANITY.name} grants <strong>{this.crit} crit per stack</strong><br />
+            You procced {SPELLS.CHORUS_OF_INSANITY.name} <strong>{this.buffTriggerCount} times</strong> with an uptime of {formatPercentage(this.uptime)}%.
+          </>
+        )}
       />
     );
   }

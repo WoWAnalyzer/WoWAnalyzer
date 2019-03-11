@@ -39,7 +39,12 @@ class ImpendingVictory extends Analyzer {
       <StatisticListBoxItem
         title={<>Average <SpellLink id={SPELLS.IMPENDING_VICTORY_TALENT.id} /> heal</>}
         value={formatThousands(avg)}
-        valueTooltip={`Total Impending Victory heal: ${formatThousands(this.totalHeal)} <br />Total Impending Victory damages: ${formatThousands(total)}`}
+        valueTooltip={(
+          <>
+            Total Impending Victory heal: {formatThousands(this.totalHeal)} <br />
+            Total Impending Victory damages: {formatThousands(total)}
+          </>
+        )}
       />
     );
   }

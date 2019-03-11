@@ -182,15 +182,18 @@ class ManaTea extends Analyzer {
         position={STATISTIC_ORDER.CORE(25)}
         value={`${formatNumber(this.avgMtSaves)}`}
         label="Average mana saved"
-        tooltip={`
-        During your ${this.manateaCount} Mana Teas saved the following mana (${formatThousands(this.manaSavedMT / this.owner.fightDuration * 1000 * 5)} MP5):
-        <ul>
-          ${this.efCasts > 0 ? `<li>${(this.efCasts)} Essence Font casts</li>` : ''}
-          ${this.efCasts > 0 ? `<li>${(this.vivCasts)} Vivfy casts</li>` : ''}
-          ${this.efCasts > 0 ? `<li>${(this.enmCasts)} Enveloping Mists casts</li>` : ''}
-          <li>${(this.rjwCasts + this.revCasts + this.remCasts + this.lcCasts + this.effCasts)} other spells casted.</li>
-          <li>${(this.nonManaCasts)} non-mana casts during Mana Tea</li>
-        </ul>`}
+        tooltip={(
+          <>
+            During your {this.manateaCount} Mana Teas saved the following mana ({formatThousands(this.manaSavedMT / this.owner.fightDuration * 1000 * 5)} MP5):
+            <ul>
+              {this.efCasts > 0 && <li>{(this.efCasts)} Essence Font casts</li>}
+              {this.efCasts > 0 && <li>{(this.vivCasts)} Vivfy casts</li>}
+              {this.efCasts > 0 && <li>{(this.enmCasts)} Enveloping Mists casts</li>}
+              <li>{(this.rjwCasts + this.revCasts + this.remCasts + this.lcCasts + this.effCasts)} other spells casted.</li>
+              <li>{(this.nonManaCasts)} non-mana casts during Mana Tea</li>
+            </ul>
+          </>
+        )}
       />
     );
   }

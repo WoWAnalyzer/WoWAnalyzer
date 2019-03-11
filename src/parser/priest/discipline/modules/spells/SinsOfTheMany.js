@@ -2,9 +2,9 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-
-import DualStatisticBox, { STATISTIC_ORDER } from 'interface/others/DualStatisticBox';
+import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatNumber } from 'common/format';
+import DualStatisticBox, { STATISTIC_ORDER } from 'interface/others/DualStatisticBox';
 import Combatants from 'parser/shared/modules/Combatants';
 import Analyzer from 'parser/core/Analyzer';
 
@@ -86,29 +86,19 @@ class SinsOfTheMany extends Analyzer {
       <DualStatisticBox
         icon={<SpellIcon id={SPELLS.SINS_OF_THE_MANY_TALENT.id} />}
         values={[
-          `${formatNumber(
-            (this.bonusHealing / this.owner.fightDuration) * 1000
-          )} HPS`,
-          `${formatNumber(
-            (this.bonusDamage /
-              this.owner.fightDuration) *
-              1000
-          )} DPS`,
+          `${formatNumber((this.bonusHealing / this.owner.fightDuration) * 1000)} HPS`,
+          `${formatNumber((this.bonusDamage / this.owner.fightDuration) * 1000)} DPS`,
         ]}
         footer={(
-          <dfn
-            data-tip={`
-              The effective healing contributed by Sins of the Many was ${formatPercentage(
-                this.owner.getPercentageOfTotalHealingDone(this.bonusHealing)
-              )}% of total healing done.
-
-              The direct damage contributed by Sins of the Many was ${formatPercentage(
-                this.owner.getPercentageOfTotalDamageDone(this.bonusDamage)
-              )}% of total damage done.
-            `}
-          >
-            Sins of the Many Output Details
-          </dfn>
+          <>
+            <SpellLink id={SPELLS.SINS_OF_THE_MANY_TALENT.id} /> throughput
+          </>
+        )}
+        tooltip={(
+          <>
+            The effective healing contributed by Sins of the Many was {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.bonusHealing))}% of total healing done.<br />
+            The direct damage contributed by Sins of the Many was {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDamage))}% of total damage done.
+          </>
         )}
       />
     );

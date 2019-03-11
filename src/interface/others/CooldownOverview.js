@@ -4,15 +4,13 @@ import PropTypes from 'prop-types';
 import Cooldown from './Cooldown';
 
 const CooldownOverview = ({ fightStart, fightEnd, cooldowns }) => (
-  <div style={{ marginTop: -10, marginBottom: -10 }}>
-    <ul className="list">
-      {cooldowns.map(cooldown => (
-        <li key={`${cooldown.spell.id}-${cooldown.start}`} className="item clearfix" style={{ padding: '1em' }}>
-          <Cooldown cooldown={cooldown} fightStart={fightStart} fightEnd={fightEnd} />
-        </li>
-      ))}
-    </ul>
-  </div>
+  <ul className="list">
+    {cooldowns.map(cooldown => (
+      <li key={`${cooldown.spell.id}-${cooldown.start}`} className="item clearfix" style={{ padding: '10px 30px' }}>
+        <Cooldown cooldown={cooldown} fightStart={fightStart} fightEnd={fightEnd} />
+      </li>
+    ))}
+  </ul>
 );
 CooldownOverview.propTypes = {
   fightStart: PropTypes.number.isRequired,

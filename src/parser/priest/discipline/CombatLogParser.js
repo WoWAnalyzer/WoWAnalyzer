@@ -1,6 +1,7 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
-import HealingDone from 'parser/shared/modules/HealingDone';
+import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
+import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
 
 import AtonementSuccessiveDamageNormalizer from './normalizers/AtonementSuccessiveDamage';
 import ShadowfiendNormalizer from '../shared/normalizers/ShadowfiendNormalizer';
@@ -49,7 +50,6 @@ class CombatLogParser extends CoreCombatLogParser {
     shadowfiendNormalizer: ShadowfiendNormalizer,
     powerWordRadianceNormalizer: PowerWordRadianceNormalizer,
 
-    healingDone: [HealingDone, { showStatistic: true }],
     spellUsable: SpellUsable,
     spellManaCost: SpellManaCost,
     abilityTracker: AbilityTracker,
@@ -57,6 +57,10 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     channeling: Channeling,
     globalCooldown: GlobalCooldown,
+
+    // Generic healer things
+    manaLevelChart: ManaLevelChart,
+    manaUsageChart: ManaUsageChart,
 
     // Features
     checklist: Checklist,

@@ -31,7 +31,7 @@ class Bladestorm extends Analyzer {
     this.rageGained += event.resourceChange;
   }
 
-  get percentageDamage() {    
+  get percentageDamage() {
     return this.owner.getPercentageOfTotalDamageDone(this.totalDamage);
   }
 
@@ -41,7 +41,7 @@ class Bladestorm extends Analyzer {
         talent={SPELLS.BLADESTORM_TALENT.id}
         value={`${formatNumber(this.totalDamage / this.owner.fightDuration * 1000)} DPS`}
         label="Bladestorm"
-        tooltip={`<b>${formatThousands(this.totalDamage)} (${formatPercentage(this.percentageDamage)}%)</b> damage was done by Bladestorm, and <b>${formatThousands(this.rageGained)}</b> rage was generated.`}
+        tooltip={<><strong>{formatThousands(this.totalDamage)} ({formatPercentage(this.percentageDamage)}%)</strong> damage was done by Bladestorm, and <strong>{formatThousands(this.rageGained)}</strong> rage was generated.</>}
       />
     );
   }

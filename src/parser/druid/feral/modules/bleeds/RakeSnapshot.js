@@ -3,6 +3,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
+import { TooltipElement } from 'common/Tooltip';
 import { RAKE_BASE_DURATION, PANDEMIC_FRACTION } from '../../constants';
 import Snapshot from '../core/Snapshot';
 
@@ -48,7 +49,7 @@ class RakeSnapshot extends Snapshot {
       // refresh removed a powerful prowl-buffed bleed
       const timeLost = stateOld.expireTime - stateNew.startTime;
       this.prowlLostTimeSum += timeLost;
-      
+
       // only mark significant time loss events. Still add up the "insignificant" time lost for possible suggestion.
       if (timeLost > FORGIVE_PROWL_LOSS_TIME) {
         this.prowlLostCastCount += 1;
@@ -116,7 +117,7 @@ class RakeSnapshot extends Snapshot {
     when(this.downgradeSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
-          Try to only refresh <SpellLink id={SPELLS.RAKE.id} /> before the <dfn data-tip={`The last ${(this.constructor.durationOfFresh * PANDEMIC_FRACTION / 1000).toFixed(1)} seconds of Rake's duration. When you refresh during this time you don't lose any duration in the process.`}>pandemic window</dfn> if you have more powerful <dfn data-tip={"Applying Rake with Prowl, Tiger's Fury or Bloodtalons will boost its damage until you reapply it."}>snapshot buffs</dfn> than were present when it was first cast.
+          Try to only refresh <SpellLink id={SPELLS.RAKE.id} /> before the <TooltipElement content={`The last ${(this.constructor.durationOfFresh * PANDEMIC_FRACTION / 1000).toFixed(1)} seconds of Rake's duration. When you refresh during this time you don't lose any duration in the process.`}>pandemic window</TooltipElement> if you have more powerful <TooltipElement content="Applying Rake with Prowl, Tiger's Fury or Bloodtalons will boost its damage until you reapply it.">snapshot buffs</TooltipElement> than were present when it was first cast.
         </>
       )
         .icon(SPELLS.RAKE.icon)

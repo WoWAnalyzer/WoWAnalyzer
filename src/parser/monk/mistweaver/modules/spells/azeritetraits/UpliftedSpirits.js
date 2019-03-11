@@ -82,19 +82,22 @@ class UpliftedSpirits extends Analyzer {
 
   statistic() {
     return (
-        <TraitStatisticBox
-          position={STATISTIC_ORDER.OPTIONAL()}
-          trait={SPELLS.UPLIFTED_SPIRITS.id}
-          value={(
-            <>
+      <TraitStatisticBox
+        position={STATISTIC_ORDER.OPTIONAL()}
+        trait={SPELLS.UPLIFTED_SPIRITS.id}
+        value={(
+          <>
             {formatPercentage(this.healing / this.getAbility(SPELLS.VIVIFY.id).healingEffective)} % of Vivify Healing <br />
-            {`${formatNumber(this.cooldownReductionUsed / 1000) || 0}`} Revival Seconds Reduced
-            </>
-          )}
-          tooltip={`Added a total of ${formatNumber(this.healing)} to your Vivify.<br />
-          You wasted ${this.cooldownReductionWasted / 1000 || 0} seconds of cooldown reduction.`}
-        />
-
+            {formatNumber(this.cooldownReductionUsed / 1000) || 0} Revival Seconds Reduced
+          </>
+        )}
+        tooltip={(
+          <>
+            Added a total of {formatNumber(this.healing)} to your Vivify.<br />
+            You wasted {this.cooldownReductionWasted / 1000 || 0} seconds of cooldown reduction.
+          </>
+        )}
+      />
     );
   }
 }

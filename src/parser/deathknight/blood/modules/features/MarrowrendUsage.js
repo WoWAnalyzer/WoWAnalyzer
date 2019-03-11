@@ -198,17 +198,18 @@ class MarrowrendUsage extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.MARROWREND.id} />}
-        value={`${ this.badMRCasts } / ${ this.totalMRCasts }`}
+        value={`${this.badMRCasts} / ${this.totalMRCasts}`}
         label="Bad Marrowrend casts"
-        tooltip={`
-          ${ this.refreshMRCasts } casts to refresh Bone Shield, those do not count towards bad casts.<br>
-          ${ botDText }
-          ${ this.badMRCasts } casts with more than ${ REFRESH_AT_STACKS_WITHOUT_BONES_OF_THE_DAMNED } stacks of Bone Shield wasting ${ this.bsStacksWasted } stacks.<br>
-          <br>
-          Avoid casting Marrowrend unless you have ${ this.refreshAtStacks } or less stacks or if Bone Shield has less than 6sec of its duration left.
-        `}
-      />
+        tooltip={(
+          <>
+            {this.refreshMRCasts} casts to refresh Bone Shield, those do not count towards bad casts.<br />
+            {botDText}
+            {this.badMRCasts} casts with more than {REFRESH_AT_STACKS_WITHOUT_BONES_OF_THE_DAMNED} stacks of Bone Shield wasting {this.bsStacksWasted} stacks.<br /><br />
 
+            Avoid casting Marrowrend unless you have {this.refreshAtStacks} or less stacks or if Bone Shield has less than 6sec of its duration left.
+          </>
+        )}
+      />
     );
   }
   statisticOrder = STATISTIC_ORDER.CORE(3);

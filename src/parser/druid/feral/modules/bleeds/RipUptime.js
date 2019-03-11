@@ -6,6 +6,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { TooltipElement } from 'common/Tooltip';
 
 class RipUptime extends Analyzer {
   static dependencies = {
@@ -32,7 +33,7 @@ class RipUptime extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
-          Your <SpellLink id={SPELLS.RIP.id} /> uptime can be improved. You can refresh the DoT once it has reached its <dfn data-tip={`The last 30% of the DoT's duration. When you refresh during this time you don't lose any duration in the process.`}>pandemic window</dfn>, don't wait for it to wear off.
+          Your <SpellLink id={SPELLS.RIP.id} /> uptime can be improved. You can refresh the DoT once it has reached its <TooltipElement content="The last 30% of the DoT's duration. When you refresh during this time you don't lose any duration in the process.">pandemic window</TooltipElement>, don't wait for it to wear off.
           {!this.selectedCombatant.hasTalent(SPELLS.SABERTOOTH_TALENT.id) ?
             <> Avoid spending combo points on <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> if <SpellLink id={SPELLS.RIP.id} /> will need refreshing soon.</> : <></>
           }

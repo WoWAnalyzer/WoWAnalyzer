@@ -15,7 +15,7 @@ export default (
     Fights such as Antorus's Argus and Imonar have a high amount of unavoidable downtime caused by mechanics. Argus kills the entire raid during which nobody can do anything, and Imonar moves between platforms, making it impossible for DPS to deal any damage (but healers still have to heal).<br /><br />
 
     <figure>
-      <img src={ImonarTransition} alt="The imonar transitions" style={{ maxWidth: 500 }} />
+      <img src={ImonarTransition} alt="The imonar transitions" style={{ width: 500 }} />
       <figcaption>
         Downtime caused by Imonar transitioning between platforms.
       </figcaption>

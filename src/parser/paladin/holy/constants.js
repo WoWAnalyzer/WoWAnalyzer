@@ -21,6 +21,7 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES = [
   271682, // Harmonious Chord - https://www.warcraftlogs.com/reports/cXnPABVbLjk68qyM#fight=6&type=healing&source=10&ability=271682&view=events
 ];
 
+// TODO: Feed this with the SpellInfo config
 export const ABILITIES_AFFECTED_BY_MASTERY = [
   SPELLS.HOLY_SHOCK_HEAL.id,
   SPELLS.LIGHT_OF_DAWN_HEAL.id,

@@ -85,11 +85,16 @@ class Lifecycles extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(70)}
         value={`${formatNumber(this.manaSaved)}`}
         label="Mana Saved"
-        tooltip={`You saved a total of ${this.manaSaved} mana from the Lifecycles talent.
-        <ul><li>On ${this.castsRedViv} Vivify casts, you saved ${(this.manaSavedViv / 1000).toFixed(0)}k mana. (${formatPercentage(this.castsRedViv / (this.castsRedViv + this.castsNonRedViv))}%)</li>
-        <li>On ${this.castsRedEnm} Enveloping Mists casts, you saved ${(this.manaSavedEnm / 1000).toFixed(0)}k mana. (${formatPercentage(this.castsRedEnm / (this.castsRedEnm + this.castsNonRedEnm))}%)</li>
-        <li>You casted ${this.castsNonRedViv} Vivify's and ${this.castsNonRedEnm} Enveloping Mists at full mana.</li>
-        </ul>`}
+        tooltip={(
+          <>
+            You saved a total of {this.manaSaved} mana from the Lifecycles talent.
+            <ul>
+              <li>On {this.castsRedViv} Vivify casts, you saved {(this.manaSavedViv / 1000).toFixed(0)}k mana. ({formatPercentage(this.castsRedViv / (this.castsRedViv + this.castsNonRedViv))}%)</li>
+              <li>On {this.castsRedEnm} Enveloping Mists casts, you saved {(this.manaSavedEnm / 1000).toFixed(0)}k mana. ({formatPercentage(this.castsRedEnm / (this.castsRedEnm + this.castsNonRedEnm))}%)</li>
+              <li>You casted {this.castsNonRedViv} Vivify's and {this.castsNonRedEnm} Enveloping Mists at full mana.</li>
+            </ul>
+          </>
+        )}
       />
     );
   }

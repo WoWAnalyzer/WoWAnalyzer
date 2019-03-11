@@ -1,10 +1,9 @@
 import SPELLS from 'common/SPELLS';
-
 import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'parser/shared/modules/CooldownThroughputTracker';
 
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
-    ...CooldownThroughputTracker.cooldownSpells,
+    ...CoreCooldownThroughputTracker.cooldownSpells,
     {
       spell: SPELLS.BESTIAL_WRATH,
       summary: [
@@ -17,10 +16,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         BUILT_IN_SUMMARY_TYPES.DAMAGE,
       ],
     },
-  ];
-
-  static ignoredSpells = [
-    ...CooldownThroughputTracker.ignoredSpells,
   ];
 }
 

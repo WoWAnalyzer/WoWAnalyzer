@@ -4,6 +4,9 @@ import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 const debug = false;
 
+/**
+ * Some buffs like Bloodlust and Holy Avenger when they are applied pre-combat it doesn't show up as an `applybuff` event nor in the `combatantinfo` buffs array. It can still be detected by looking for a `removebuff` event, this uses that to detect it and then fabricates an `applybuff` event at the start of the log.
+ */
 class ApplyBuff extends EventsNormalizer {
   // We need to track `combatantinfo` events this way since they aren't included in the `events` passed to `normalize` due to technical reasons (it's a different API call). We still need `combatantinfo` for all players, so cache it manually.
   _combatantInfoEvents = [];
@@ -14,15 +17,13 @@ class ApplyBuff extends EventsNormalizer {
 
   _buffsAppliedByPlayerId = {};
 
-  /**
-   * Some buffs like Bloodlust and Holy Avenger when they are applied pre-combat it doesn't show up as an `applybuff` event nor in the `combatantinfo` buffs array. It can still be detected by looking for a `removebuff` event, this uses that to detect it and then fabricates an `applybuff` event at the start of the log.
-   * @param {Array} events
-   * @returns {Array}
-   */
   normalize(events) {
     const firstEventIndex = this.getFightStartIndex(events);
     const firstStartTimestamp = this.owner.fight.start_time;
-    const playersById = this.owner.playersById;
+    const playersById = this.owner.players.reduce((obj, player) => {
+      obj[player.id] = player;
+      return obj;
+    }, {});
     const playerId = this.owner.playerId;
 
     // region Buff event based detection

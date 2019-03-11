@@ -45,14 +45,13 @@ class FungalEssence extends Analyzer{
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.FUNGAL_ESSENCE_TRAIT.id}
-        value={(
+        value={`${formatPercentage(throughputPercent)} %`}
+        tooltip={(
           <>
-            {formatPercentage(throughputPercent)} %<br />
+            Fungal Essence healing gave you equivalent to <strong>{formatNumber(intGain)}</strong> ({formatNumber(intGain/this.traitLevel)} per level) Intellect.
+            This is worth roughly <strong>{formatNumber(ilvlGain)}</strong> ({formatNumber(ilvlGain/this.traitLevel)} per level) item levels.
           </>
         )}
-        tooltip={`Fungal essence healing gave you equivalent to <b>${formatNumber(intGain)}</b> (${formatNumber(intGain/this.traitLevel)}
-            per level) int. This is worth roughly <b>${formatNumber(ilvlGain)}</b> (${formatNumber(ilvlGain/this.traitLevel)}
-            per level) item levels.`}
       />
     );
   }

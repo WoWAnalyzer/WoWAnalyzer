@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import ITEMS from './ITEMS';
 import ItemLink from './ItemLink';
 import Icon from './Icon';
@@ -7,8 +8,8 @@ import Icon from './Icon';
 const ItemIcon = ({ id, noLink, details, alt, ...others }) => {
   const icon = (
     <Icon
-      icon={ITEMS[id].icon}
-      alt={alt !== '' ? ITEMS[id].name : ''}
+      icon={ITEMS[id] ? ITEMS[id].icon : 'inv_misc_questionmark'}
+      alt={alt !== '' && ITEMS[id] ? ITEMS[id].name : ''}
       {...others}
     />
   );

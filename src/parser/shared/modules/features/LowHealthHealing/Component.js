@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactTooltip from 'react-tooltip';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
@@ -10,6 +9,7 @@ import Icon from 'common/Icon';
 
 import { formatNumber, formatPercentage, formatDuration } from 'common/format';
 import SpecIcon from 'common/SpecIcon';
+import { TooltipElement } from 'common/Tooltip';
 
 class LowHealthHealing extends React.Component {
   static propTypes = {
@@ -21,10 +21,6 @@ class LowHealthHealing extends React.Component {
     maxPlayerHealthPercentage: 0.35,
     minHealOfMaxHealthPercentage: 0.1,
   };
-
-  componentDidUpdate() {
-    ReactTooltip.rebuild();
-  }
 
   render() {
     const { fightStart, combatants, healEvents } = this.props;
@@ -130,9 +126,9 @@ class LowHealthHealing extends React.Component {
                       <td style={{ width: 170, paddingRight: 5, textAlign: 'right' }}>
                         {formatNumber(effectiveHealing)} @{' '}
                         {healthPercentage < 0 ? (
-                          <dfn data-tip="This number may be negative when the player had an absorb larger than his health pool.">
+                          <TooltipElement content="This number may be negative when the player had an absorb larger than his health pool.">
                             {formatPercentage(healthPercentage)}% health
-                          </dfn>
+                          </TooltipElement>
                         ) : `${formatPercentage(healthPercentage)}% health`}
                       </td>
                       <td style={{ width: '35%' }}>

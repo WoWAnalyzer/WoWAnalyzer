@@ -7,6 +7,7 @@ import { formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { TooltipElement } from 'common/Tooltip';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import DeathTracker from 'parser/shared/modules/DeathTracker';
@@ -254,8 +255,8 @@ class ArcanePower extends Analyzer {
         return suggest(<>You cast <SpellLink id={SPELLS.ARCANE_POWER.id} /> without proper setup {this.badUses} times. Arcane Power has a short duration so you should get the most out of it by meeting all requirements before casting it.
         <ul>
           <li>You have 4 <SpellLink id={SPELLS.ARCANE_CHARGE.id} /> - You had this {this.abilityTracker.getAbility(SPELLS.ARCANE_POWER.id).casts - this.lowChargesCast} out of {this.abilityTracker.getAbility(SPELLS.ARCANE_POWER.id).casts} casts.</li>
-          {this.hasRuneOfPower ? <li>You cast <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> <dfn data-tip={`Arcane Power should be cast right on the end of the Rune of Power cast. There should not be any casts or any delay in between Rune of Power and Arcane Power to ensure that Rune of Power is up for the entire duration of Arcane Power.`}>immediately</dfn> before Arcane Power - You did this {this.abilityTracker.getAbility(SPELLS.ARCANE_POWER.id).casts - (this.delayedRuneCast + this.noRuneCast)} out of {this.abilityTracker.getAbility(SPELLS.ARCANE_POWER.id).casts} casts.</li> : ''}
-          {!this.hasOverpowered ? <li>You have more than 40% mana - You had this {this.abilityTracker.getAbility(SPELLS.ARCANE_POWER.id).casts - this.lowManaCast} out of {this.abilityTracker.getAbility(SPELLS.ARCANE_POWER.id).casts} casts.</li> : ''}  
+          {this.hasRuneOfPower ? <li>You cast <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> <TooltipElement content="Arcane Power should be cast right on the end of the Rune of Power cast. There should not be any casts or any delay in between Rune of Power and Arcane Power to ensure that Rune of Power is up for the entire duration of Arcane Power.">immediately</TooltipElement> before Arcane Power - You did this {this.abilityTracker.getAbility(SPELLS.ARCANE_POWER.id).casts - (this.delayedRuneCast + this.noRuneCast)} out of {this.abilityTracker.getAbility(SPELLS.ARCANE_POWER.id).casts} casts.</li> : ''}
+          {!this.hasOverpowered ? <li>You have more than 40% mana - You had this {this.abilityTracker.getAbility(SPELLS.ARCANE_POWER.id).casts - this.lowManaCast} out of {this.abilityTracker.getAbility(SPELLS.ARCANE_POWER.id).casts} casts.</li> : ''}
         </ul>
         </>)
           .icon(SPELLS.ARCANE_POWER.icon)
@@ -289,36 +290,36 @@ class ArcanePower extends Analyzer {
       <StatisticBox
         position={STATISTIC_ORDER.CORE(15)}
         icon={<SpellIcon id={SPELLS.ARCANE_POWER.id} />}
-        value={(
-          <span>
-      <SpellIcon
-        id={SPELLS.ARCANE_POWER.id}
-        style={{
-          height: '1.2em',
-          marginBottom: '.15em',
-        }}
-      />
-            {' '}{formatPercentage(this.cooldownUtilization, 0)}{' %'}
-            <br />
-      <SpellIcon
-        id={SPELLS.ARCANE_BLAST.id}
-        style={{
-          height: '1.2em',
-          marginBottom: '.15em',
-        }}
-      />
-            {' '}{formatPercentage(this.castUtilization, 0)}{' %'}
-    </span>
-        )}
+        value={(<>
+          <SpellIcon
+            id={SPELLS.ARCANE_POWER.id}
+            style={{
+              height: '1.2em',
+              marginBottom: '.15em',
+            }}
+          />
+          {' '}{formatPercentage(this.cooldownUtilization, 0)} %<br />
+          <SpellIcon
+            id={SPELLS.ARCANE_BLAST.id}
+            style={{
+              height: '1.2em',
+              marginBottom: '.15em',
+            }}
+          />
+          {' '}{formatPercentage(this.castUtilization, 0)} %
+        </>)}
         label="Arcane Power Utilization"
-        tooltip={`Before casting Arcane Power, you should ensure that you meet all of the following requirements. If Arcane Power frequently comes off cooldown and these requirements are not already met, then consider modifying your rotation to ensure that they are met before Arcane Power comes off cooldown
-		<ul>
-			<li>You have 4 Arcane Charges - Missed ${this.lowChargesCast} times</li>
-			${this.hasRuneOfPower ? `<li>You cast Rune of Power immediately before AP - Missed ${this.noRuneCast + this.delayedRuneCast} times</li>` : ''}
-			${!this.hasOverpowered ? `<li>You have more than 40% mana - Missed ${this.lowManaCast} times</li>` : ''}
-		</ul>
-
-		Additionally, you should only be casting Arcane Blast and Arcane Missiles (If you have a Clearcasting Proc) during Arcane Power to maximize the short cooldown duration.`}
+        tooltip={(
+          <>
+            Before casting Arcane Power, you should ensure that you meet all of the following requirements. If Arcane Power frequently comes off cooldown and these requirements are not already met, then consider modifying your rotation to ensure that they are met before Arcane Power comes off cooldown
+            <ul>
+              <li>You have 4 Arcane Charges - Missed {this.lowChargesCast} times</li>
+              {this.hasRuneOfPower && <li>You cast Rune of Power immediately before AP - Missed {this.noRuneCast + this.delayedRuneCast} times</li>}
+              {!this.hasOverpowered && <li>You have more than 40% mana - Missed {this.lowManaCast} times</li>}
+            </ul>
+            Additionally, you should only be casting Arcane Blast and Arcane Missiles (If you have a Clearcasting Proc) during Arcane Power to maximize the short cooldown duration.
+          </>
+        )}
       />
     );
   }

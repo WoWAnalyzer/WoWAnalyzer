@@ -134,7 +134,11 @@ class Eradication extends Analyzer {
         <StatisticListBoxItem
           title={<><SpellLink id={SPELLS.ERADICATION_TALENT.id} /> uptime</>}
           value={`${formatPercentage(this.uptime)} %`}
-          valueTooltip={`Bonus damage: ${formatThousands(this.bonusDmg)} (${this.owner.formatItemDamageDone(this.bonusDmg)}).`}
+          valueTooltip={(
+            <>
+              Bonus damage: {formatThousands(this.bonusDmg)} ({this.owner.formatItemDamageDone(this.bonusDmg)}).
+            </>
+          )}
         />
         <StatisticListBoxItem
           title={<><SpellLink id={SPELLS.CHAOS_BOLT.id}>Chaos Bolts</SpellLink> buffed by <SpellLink id={SPELLS.ERADICATION_TALENT.id} /></>}

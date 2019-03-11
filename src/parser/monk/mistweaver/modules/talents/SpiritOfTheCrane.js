@@ -137,20 +137,17 @@ class SpiritOfTheCrane extends Analyzer {
         position={STATISTIC_ORDER.CORE(30)}
         value={`${formatNumber(this.manaReturnSotc)}`}
         label="Mana Returned"
-        tooltip={`
-          You gained a raw total of ${((this.manaReturnSotc + this.sotcWasted) / 1000).toFixed(0)}k mana from SotC with ${(this.sotcWasted / 1000).toFixed(0)}k wasted.<br>
-          You lost ${(this.totmOverCap + this.totmBuffWasted)} Teachings of the Monestery stacks
-          <ul>
-          ${this.totmOverCap > 0 ?
-          `<li>You overcapped Teachings ${(this.totmOverCap)} times</li>`
-          : ''
-          }
-          ${this.totmBuffWasted > 0 ?
-          `<li>You let Teachings drop off ${(this.totmBuffWasted)} times</li>`
-          : ''
-          }
-          </ul>
-        `}
+        tooltip={(
+          <>
+            You gained a raw total of {((this.manaReturnSotc + this.sotcWasted) / 1000).toFixed(0)}k mana from SotC with {(this.sotcWasted / 1000).toFixed(0)}k wasted.<br />
+
+            You lost {(this.totmOverCap + this.totmBuffWasted)} Teachings of the Monestery stacks.<br />
+            <ul>
+              {this.totmOverCap > 0 && <li>You overcapped Teachings {(this.totmOverCap)} times</li>}
+              {this.totmBuffWasted > 0 && <li>You let Teachings drop off {(this.totmBuffWasted)} times</li>}
+            </ul>
+          </>
+        )}
       />
     );
   }

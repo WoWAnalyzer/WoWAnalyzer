@@ -2,9 +2,7 @@ import React from 'react';
 
 import { Anomoly, Gao, Zerotorescue } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
-import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
-import ItemLink from 'common/ItemLink';
 
 export default [
   {
@@ -84,7 +82,7 @@ export default [
   },
   {
     date: new Date('2018-07-22'),
-    changes: <>Fix crash when <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} /> is used.</>,
+    changes: <>Fix crash when Drape of Shame is used.</>,
     contributors: [Anomoly],
   },
   {

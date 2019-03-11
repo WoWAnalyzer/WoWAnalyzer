@@ -3,6 +3,7 @@ import React from 'react';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
+import { TooltipElement } from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 
@@ -72,9 +73,9 @@ class ChainHeal extends Analyzer {
         value={this.avgHits.toFixed(2)}
         position={STATISTIC_ORDER.OPTIONAL(70)}
         label={(
-          <dfn data-tip={`The average number of targets healed by Chain Heal out of the maximum amount of targets. You cast a total of ${this.casts} Chain Heals, which healed an average of ${this.avgHits.toFixed(2)} out of ${this.maxTargets} targets.`}>
+          <TooltipElement content={`The average number of targets healed by Chain Heal out of the maximum amount of targets. You cast a total of ${this.casts} Chain Heals, which healed an average of ${this.avgHits.toFixed(2)} out of ${this.maxTargets} targets.`}>
             Average Chain Heal targets
-          </dfn>
+          </TooltipElement>
         )}
       />
     );

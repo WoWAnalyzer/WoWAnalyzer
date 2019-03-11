@@ -5,10 +5,11 @@ import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import HealingDone from 'parser/shared/modules/HealingDone';
+import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import Combatants from 'parser/shared/modules/Combatants';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 import { formatNumber, formatPercentage } from 'common/format';
+import { TooltipElement } from 'common/Tooltip';
 import { ABILITIES_THAT_TRIGGER_MASTERY } from '../../constants';
 
 const DEBUG = false;
@@ -189,7 +190,7 @@ class EchoOfLight_Mastery extends Analyzer {
     }
   }
 
-  masteryTable = () => {
+  get masteryTable() {
     const spellDetails = Object.keys(this.masteryHealingBySpell).map((key) => {
       return {
         spellId: key,
@@ -207,9 +208,9 @@ class EchoOfLight_Mastery extends Analyzer {
             <td>{formatNumber(spellDetails[i].effectiveHealing)}</td>
             <td>{formatPercentage(this.getPercentOfTotalHealingBySpell(spellDetails[i].spellId))}%</td>
             <td>
-              <dfn data-tip={`${formatNumber(spellDetails[i].overHealing)} Overhealing`}>
+              <TooltipElement content={`${formatNumber(spellDetails[i].overHealing)} Overhealing`}>
                 {formatPercentage(this.getMasteryOverhealPercentBySpell(spellDetails[i].spellId))}%
-              </dfn>
+              </TooltipElement>
             </td>
           </tr>
         );
@@ -219,20 +220,20 @@ class EchoOfLight_Mastery extends Analyzer {
     if (DEBUG) {
       // Add precasted EoL
       rows.push(
-        <tr key={'mastery_precast'}>
+        <tr key="mastery_precast">
           <td>Precast</td>
           <td>{formatNumber(this.precastValues.effectiveHealing)}</td>
           <td>{formatPercentage(this.precastValues.effectiveHealing / this.healingDone.total.effective)}%</td>
           <td>
-            <dfn data-tip={`${formatNumber(this.precastValues.overhealing)} Overhealing`}>
+            <TooltipElement content={`${formatNumber(this.precastValues.overhealing)} Overhealing`}>
               {formatPercentage(this.precastValues.overhealing / this.precastValues.rawHealing)}%
-            </dfn>
+            </TooltipElement>
           </td>
         </tr>
       );
     }
     return rows;
-  };
+  }
 
   statistic() {
     return (
@@ -247,13 +248,17 @@ class EchoOfLight_Mastery extends Analyzer {
           </dfn>
         )}
         label={(
-          <dfn
-            data-tip={`Echo of Light healing breakdown. As our mastery is often very finicky, this could end up wrong in various situations. Please report any logs that seem strange to @Khadaj on the WoWAnalyzer discord.<br/><br/>
-            <strong>Please do note this may not be 100% accurate.</strong><br/><br/>
-            Also, a mastery value can be more than just "healing done times mastery percent" because Echo of Light is based off raw healing. If the heal itself overheals, but the mastery does not, it can surpass that assumed "limit". Don't use this as a reason for a "strange log" unless something is absurdly higher than its effective healing.`}
+          <TooltipElement
+            content={(
+              <>
+                Echo of Light healing breakdown. As our mastery is often very finicky, this could end up wrong in various situations. Please report any logs that seem strange to @Khadaj on the WoWAnalyzer discord.<br /><br />
+                <strong>Please do note this may not be 100% accurate.</strong><br /><br />
+                Also, a mastery value can be more than just "healing done times mastery percent" because Echo of Light is based off raw healing. If the heal itself overheals, but the mastery does not, it can surpass that assumed "limit". Don't use this as a reason for a "strange log" unless something is absurdly higher than its effective healing.
+              </>
+            )}
           >
             Echo of Light
-          </dfn>
+          </TooltipElement>
         )}
       >
         <div>Values under 1% of total are omitted.</div>
@@ -267,7 +272,7 @@ class EchoOfLight_Mastery extends Analyzer {
             </tr>
           </thead>
           <tbody>
-            <this.masteryTable />
+            {this.masteryTable}
           </tbody>
         </table>
       </StatisticBox>

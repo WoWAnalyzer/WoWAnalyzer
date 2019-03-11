@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatPercentage } from 'common/format';
 import Icon from 'common/Icon';
@@ -69,12 +69,12 @@ class RunicPowerDetails extends Analyzer {
       title: 'Runic Power usage',
       url: 'runic-power-usage',
       render: () => (
-        <Tab>
+        <Panel>
           <ResourceBreakdown
             tracker={this.runicPowerTracker}
             showSpenders
           />
-        </Tab>
+        </Panel>
       ),
     };
  }

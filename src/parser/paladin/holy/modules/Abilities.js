@@ -12,7 +12,6 @@ class Abilities extends CoreAbilities {
     return [
       {
         spell: SPELLS.HOLY_SHOCK_CAST,
-        buffSpellId: SPELLS.INFUSION_OF_LIGHT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => {
           const swCdr = (hasSanctifiedWrath && combatant.hasBuff(SPELLS.AVENGING_WRATH.id)) ? 0.5 : 0;
@@ -31,8 +30,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LIGHT_OF_DAWN_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        // Item - Paladin T20 Holy 2P Bonus: Reduces the cooldown of Light of Dawn by 2.0 sec.
-        cooldown: haste => (12 - (combatant.hasBuff(SPELLS.HOLY_PALADIN_T20_2SET_BONUS_BUFF.id) ? 2 : 0)) / (1 + haste),
+        cooldown: haste => 12 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -40,10 +38,10 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           extraSuggestion: 'Casting Light of Dawn regularly is very important for performing well.',
         },
-        timelineSortIndex: 10,
+        timelineSortIndex: 1,
       },
       {
-        spell: [SPELLS.JUDGMENT_CAST, SPELLS.JUDGMENT_CAST_ALT],
+        spell: [SPELLS.JUDGMENT_CAST_HOLY, SPELLS.JUDGMENT_CAST],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: haste => {
           const cdr = combatant.hasBuff(SPELLS.AVENGING_CRUSADER_TALENT.id) ? 0.3 : 0;
@@ -65,7 +63,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BESTOW_FAITH_TALENT,
-        buffSpellId: SPELLS.BESTOW_FAITH_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 12,
         gcd: {
@@ -80,7 +77,7 @@ class Abilities extends CoreAbilities {
             </>
           ),
         },
-        timelineSortIndex: 15,
+        timelineSortIndex: 3,
         enabled: combatant.hasTalent(SPELLS.BESTOW_FAITH_TALENT.id),
       },
       {
@@ -90,12 +87,11 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        timelineSortIndex: 15,
+        timelineSortIndex: 3,
         enabled: combatant.hasTalent(SPELLS.LIGHTS_HAMMER_TALENT.id),
       },
       {
         spell: SPELLS.BEACON_OF_VIRTUE_TALENT,
-        buffSpellId: SPELLS.BEACON_OF_VIRTUE_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 15,
         gcd: {
@@ -134,23 +130,21 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        timelineSortIndex: 11,
+        timelineSortIndex: 4,
         enabled: combatant.hasTalent(SPELLS.HOLY_PRISM_TALENT.id),
         isDefensive: true,
       },
       {
         spell: SPELLS.RULE_OF_LAW_TALENT,
-        buffSpellId: SPELLS.RULE_OF_LAW_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 30,
         gcd: null,
         charges: 2,
-        timelineSortIndex: 30,
+        timelineSortIndex: 11,
         enabled: combatant.hasTalent(SPELLS.RULE_OF_LAW_TALENT.id),
       },
       {
         spell: SPELLS.DIVINE_PROTECTION,
-        buffSpellId: SPELLS.DIVINE_PROTECTION.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60 * (1 - (combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 0.3 : 0)),
         gcd: null,
@@ -164,7 +158,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DIVINE_SHIELD,
-        buffSpellId: SPELLS.DIVINE_SHIELD.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: (5 * 60) * (1 - (combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 0.3 : 0)),
         gcd: {
@@ -175,7 +168,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HOLY_AVENGER_TALENT,
-        buffSpellId: SPELLS.HOLY_AVENGER_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 90,
         gcd: {
@@ -189,7 +181,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.AVENGING_WRATH,
-        buffSpellId: SPELLS.AVENGING_WRATH.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
         gcd: {
@@ -203,7 +194,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.AVENGING_CRUSADER_TALENT,
-        buffSpellId: SPELLS.AVENGING_CRUSADER_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
         gcd: {
@@ -217,7 +207,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.AURA_MASTERY,
-        buffSpellId: SPELLS.AURA_MASTERY.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 180,
         gcd: {
@@ -231,7 +220,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BLESSING_OF_SACRIFICE,
-        buffSpellId: SPELLS.BLESSING_OF_SACRIFICE.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
         gcd: null,
@@ -268,7 +256,7 @@ class Abilities extends CoreAbilities {
           name: `Filler ${SPELLS.FLASH_OF_LIGHT.name}`,
           casts: castCount => (castCount.casts || 0) - (castCount.healingIolHits || 0),
         },
-        timelineSortIndex: 1,
+        timelineSortIndex: 9,
       },
       {
         spell: SPELLS.FLASH_OF_LIGHT,
@@ -281,7 +269,7 @@ class Abilities extends CoreAbilities {
           name: `${SPELLS.INFUSION_OF_LIGHT.name} ${SPELLS.FLASH_OF_LIGHT.name}`,
           casts: castCount => castCount.healingIolHits || 0,
         },
-        timelineSortIndex: 1,
+        timelineSortIndex: 10,
       },
       {
         spell: SPELLS.HOLY_LIGHT,
@@ -309,7 +297,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.DIVINE_STEED,
-        buffSpellId: SPELLS.DIVINE_STEED_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         charges: combatant.hasTalent(SPELLS.CAVALIER_TALENT.id) ? 2 : 1,
         cooldown: 45,
@@ -331,7 +318,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BLESSING_OF_FREEDOM,
-        buffSpellId: SPELLS.BLESSING_OF_FREEDOM.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 25,
         gcd: {
@@ -342,7 +328,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BLESSING_OF_PROTECTION,
-        buffSpellId: SPELLS.BLESSING_OF_PROTECTION.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 5 * 60,
         gcd: {
@@ -405,7 +390,6 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HAMMER_OF_JUSTICE,
-        buffSpellId: SPELLS.HAMMER_OF_JUSTICE.id,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 60,
         timelineSortIndex: 105,

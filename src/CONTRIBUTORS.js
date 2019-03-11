@@ -551,3 +551,38 @@ export const Korebian = {
   nickname: 'Korebian',
   github: 'Asamsig',
 };
+export const _4Ply = {
+  nickname: '4Ply',
+  github: '4Ply',
+  discord: '4Ply#9270',
+  mains: [{
+    name: 'Uzdrowiciela',
+    spec: SPECS.RESTORATION_DRUID,
+    link: 'https://worldofwarcraft.com/en-gb/character/sylvanas/Uzdrowiciela',
+  }],
+};
+export const Dorixius = {
+  nickname: 'Dorixius',
+  github: 'florianschut',
+  avatar: require('./interface/images/avatars/dorixius-avatar.jpeg'),
+  discord: 'Florian#9270',
+  mains: [{
+    name:'Dorixius',
+    spec: SPECS.UNHOLY_DEATH_KNIGHT,
+    link: 'https://worldofwarcraft.com/en-gb/character/steamwheedle-cartel/Dorixius',
+  }],
+};
+export const Skeletor = {
+  nickname: 'Skeletor',
+  github: 'LordSkeletor',
+  discord: 'Skeletor#0001',
+  avatar: require('./interface/images/avatars/Skeletor_avatar.png'),
+  mains: [{
+    name: 'Ilivath',
+    spec: SPECS.RETRIBUTION_PALADIN,
+    link: 'https://worldofwarcraft.com/en-us/character/zuljin/Ilivath',
+    }],
+  links: {
+    'RetPaladin.XYZ': 'https://www.retpaladin.xyz/ret-paladin-8-1-0-pve-guide',
+  },
+};

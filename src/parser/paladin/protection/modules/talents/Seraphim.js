@@ -26,11 +26,11 @@ class Seraphim extends Analyzer {
     if (event.ability.guid !== SPELLS.SERAPHIM_TALENT.id) {
       return;
     }
-   
+
     //should end up always with 0 charges when cast with <2 charges (seraphim can consume charges that are not fully recharges)
     //proper tracking of SotR charges used by seraphim only possible once SotR charges are 100% accurate
-    this.spellUsable.beginCooldown(SPELLS.SHIELD_OF_THE_RIGHTEOUS.id, event.timestamp);
-    this.spellUsable.beginCooldown(SPELLS.SHIELD_OF_THE_RIGHTEOUS.id, event.timestamp);
+    this.spellUsable.beginCooldown(SPELLS.SHIELD_OF_THE_RIGHTEOUS.id, event);
+    this.spellUsable.beginCooldown(SPELLS.SHIELD_OF_THE_RIGHTEOUS.id, event);
   }
 
   get uptime() {
@@ -44,7 +44,7 @@ class Seraphim extends Analyzer {
         icon={<SpellIcon id={SPELLS.SERAPHIM_TALENT.id} />}
         value={`${ formatPercentage(this.uptime) }%`}
         label="Seraphim uptime"
-        tooltip={`Resulting in an average stat increase of ${ (SERAPHIM_STAT_BUFF * this.uptime).toFixed(0) } Haste, Critical Strike, Mastery, and Versatility`}
+        tooltip={`Resulting in an average stat increase of ${(SERAPHIM_STAT_BUFF * this.uptime).toFixed(0)} Haste, Critical Strike, Mastery, and Versatility`}
       />
     );
   }

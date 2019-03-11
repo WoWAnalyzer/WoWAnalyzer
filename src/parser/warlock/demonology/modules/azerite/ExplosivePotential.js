@@ -68,8 +68,12 @@ class ExplosivePotential extends Analyzer {
       <TraitStatisticBox
         trait={SPELLS.EXPLOSIVE_POTENTIAL.id}
         value={`${this.averageHaste} average Haste`}
-        tooltip={`Explosive Potential grants ${this.haste} Haste while active. You had ${formatPercentage(this.uptime)} % uptime on the buff.<br />
-                You procced the buff ${this.procs} out of ${casts} times.`}
+        tooltip={(
+          <>
+            Explosive Potential grants {this.haste} Haste while active. You had {formatPercentage(this.uptime)} % uptime on the buff.<br />
+            You procced the buff {this.procs} out of {casts} times.
+          </>
+        )}
       />
     );
   }

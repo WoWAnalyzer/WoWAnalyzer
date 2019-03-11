@@ -71,7 +71,7 @@ class HeatingUp extends Analyzer {
     }
   }
 
-  onFireBlastDamage(event) {    
+  onFireBlastDamage(event) {
     const hasCombustion = this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id);
     const hasHotStreak = this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id);
     const hasHeatingUp = this.selectedCombatant.hasBuff(SPELLS.HEATING_UP.id);
@@ -166,57 +166,70 @@ class HeatingUp extends Analyzer {
 			});
 	}
 
+	get phoenixFlamesStatistic() {
+    return (
+      <StatisticBox
+        position={STATISTIC_ORDER.CORE(14)}
+        icon={<SpellIcon id={SPELLS.HEATING_UP.id} />}
+        value={(<>
+          <SpellIcon
+            id={SPELLS.FIRE_BLAST.id}
+            style={{
+              height: '1.2em',
+              marginBottom: '.15em',
+            }}
+          />
+          {' '}{formatPercentage(this.fireBlastUtil, 0)} %<br />
+          <SpellIcon
+            id={SPELLS.PHOENIX_FLAMES_TALENT.id}
+            style={{
+              height: '1.2em',
+              marginBottom: '.15em',
+            }}
+          />
+          {' '}{formatPercentage(this.phoenixFlamesUtil, 0)} %
+        </>)}
+        label="Heating Up Utilization"
+        tooltip={(
+          <>
+            Spells that are guaranteed to crit like Fire Blast and Phoenix Flames should only be used to convert Heating Up to Hot Streak. While there are minor exceptions to this (like if you are about to cap on Phoenix Flames charges or using Fireball & Phoenixs Flames to bait Heating Up/Hot Streak just before Combustion), the goal should be to waste as few of these as possible.
+            <ul>
+              <li>Fireblast Used with no procs: {this.fireBlastWithoutHeatingUp}</li>
+              <li>Fireblast used during Hot Streak: {this.fireBlastWithHotStreak}</li>
+              <li>Phoenix Flames used with no procs: {this.phoenixFlamesWithoutHeatingUp}</li>
+              <li>Phoenix Flames used during Hot Streak: {this.phoenixFlamesWithHotStreak}</li>
+            </ul>
+          </>
+        )}
+      />
+    );
+  }
+
+  get regularStatistic() {
+    return (
+      <StatisticBox
+        position={STATISTIC_ORDER.CORE(14)}
+        icon={<SpellIcon id={SPELLS.HEATING_UP.id} />}
+        value={`${formatPercentage(this.fireBlastUtil, 0)} %`}
+        label="Heating Up Utilization"
+        tooltip={(
+          <>
+            Spells that are guaranteed to crit like Fire Blast should only be used to convert Heating Up to Hot Streak.
+            <ul>
+              <li>Fireblast Used with no procs: {this.fireBlastWithoutHeatingUp}</li>
+              <li>Fireblast used during Hot Streak: {this.fireBlastWithHotStreak}</li>
+            </ul>
+          </>
+        )}
+      />
+    );
+  }
+
   statistic() {
     if (this.hasPhoenixFlames) {
-      return (
-        <StatisticBox
-          position={STATISTIC_ORDER.CORE(14)}
-          icon={<SpellIcon id={SPELLS.HEATING_UP.id} />}
-          value={(
-            <span>
-              <SpellIcon
-                id={SPELLS.FIRE_BLAST.id}
-                style={{
-                  height: '1.2em',
-                  marginBottom: '.15em',
-                }}
-              />
-              {' '}{formatPercentage(this.fireBlastUtil, 0)}{' %'}
-              <br />
-              <SpellIcon
-                id={SPELLS.PHOENIX_FLAMES_TALENT.id}
-                style={{
-                  height: '1.2em',
-                  marginBottom: '.15em',
-                }}
-              />
-              {' '}{formatPercentage(this.phoenixFlamesUtil, 0)}{' %'}
-            </span>
-          )}
-          label="Heating Up Utilization"
-          tooltip={`Spells that are guaranteed to crit like Fire Blast and Phoenix Flames should only be used to convert Heating Up to Hot Streak. While there are minor exceptions to this (like if you are about to cap on Phoenix Flames charges or using Fireball & Phoenixs Flames to bait Heating Up/Hot Streak just before Combustion), the goal should be to waste as few of these as possible.
-            <ul>
-              <li>Fireblast Used with no procs: ${this.fireBlastWithoutHeatingUp}</li>
-              <li>Fireblast used during Hot Streak: ${this.fireBlastWithHotStreak}</li>
-              <li>Phoenix Flames used with no procs: ${this.phoenixFlamesWithoutHeatingUp}</li>
-              <li>Phoenix Flames used during Hot Streak: ${this.phoenixFlamesWithHotStreak}</li>
-            </ul>`}
-        />
-      );
+      return this.phoenixFlamesStatistic;
     } else {
-      return (
-        <StatisticBox
-          position={STATISTIC_ORDER.CORE(14)}
-          icon={<SpellIcon id={SPELLS.HEATING_UP.id} />}
-          value={`${formatPercentage(this.fireBlastUtil, 0)} %`}
-          label="Heating Up Utilization"
-          tooltip={`Spells that are guaranteed to crit like Fire Blast should only be used to convert Heating Up to Hot Streak.
-          <ul>
-            <li>Fireblast Used with no procs: ${this.fireBlastWithoutHeatingUp}</li>
-            <li>Fireblast used during Hot Streak: ${this.fireBlastWithHotStreak}</li>
-          </ul>`}
-        />
-      );
+      return this.regularStatistic;
     }
   }
 }

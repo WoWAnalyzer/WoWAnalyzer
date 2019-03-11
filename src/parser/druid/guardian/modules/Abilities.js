@@ -23,8 +23,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MANGLE_BEAR,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste, selectedCombatant) => {
-          if (selectedCombatant.hasBuff(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id)) {
+        cooldown: haste => {
+          if (combatant.hasBuff(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id)) {
             return hastedCooldown(1.5, haste);
           }
           return hastedCooldown(6, haste);
@@ -46,8 +46,8 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.THRASH_BEAR,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste, selectedCombatant) => {
-          if (selectedCombatant.hasBuff(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id)) {
+        cooldown: haste => {
+          if (combatant.hasBuff(SPELLS.INCARNATION_GUARDIAN_OF_URSOC_TALENT.id)) {
             return hastedCooldown(1.5, haste);
           }
           return hastedCooldown(6, haste);
@@ -147,16 +147,14 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BARKSKIN,
         buffSpellId: SPELLS.BARKSKIN.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: haste => combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id) ? 90 - (90 / 3) : 90,
+        cooldown: combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id) ? 90 - (90 / 3) : 90,
         timelineSortIndex: 9,
       },
       {
         spell: SPELLS.SURVIVAL_INSTINCTS,
         buffSpellId: SPELLS.SURVIVAL_INSTINCTS.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: (haste, selectedCombatant) => {
-          return combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id) ? 240 - (240 / 3) : 240;
-        },
+        cooldown: combatant.hasTalent(SPELLS.SURVIVAL_OF_THE_FITTEST_TALENT.id) ? 240 - (240 / 3) : 240,
         charges: 2,
         timelineSortIndex: 9,
       },

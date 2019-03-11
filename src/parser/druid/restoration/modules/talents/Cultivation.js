@@ -49,11 +49,15 @@ class Cultivation extends Analyzer {
         icon={<SpellIcon id={SPELLS.CULTIVATION.id} />}
         value={`${formatPercentage(this.totalPercent)} %`}
         label="Cultivation Healing"
-        tooltip={`This is the sum of the direct healing from Cultivation and the healing enabled by Cultivation's extra mastery stack.
+        tooltip={(
+          <>
+            This is the sum of the direct healing from Cultivation and the healing enabled by Cultivation's extra mastery stack.
             <ul>
-            <li>Direct: <b>${formatPercentage(this.directPercent)}%</b></li>
-            <li>Mastery: <b>${formatPercentage(this.masteryPercent)}%</b></li>
-            </ul>`}
+              <li>Direct: <strong>{formatPercentage(this.directPercent)}%</strong></li>
+              <li>Mastery: <strong>{formatPercentage(this.masteryPercent)}%</strong></li>
+            </ul>
+          </>
+        )}
       />
     );
   }

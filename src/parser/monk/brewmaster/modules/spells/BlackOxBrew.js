@@ -33,12 +33,13 @@ class BlackOxBrew extends Analyzer {
     //
     // loop until we've reset all the charges individually, recording
     // the amount of cooldown reduction for each charge.
-    while(this.spellUsable.isOnCooldown(SPELLS.IRONSKIN_BREW.id)) {
-      const cd = this.spellUsable.cooldownRemaining(SPELLS.IRONSKIN_BREW.id);
+    const spellId = SPELLS.IRONSKIN_BREW.id;
+    while(this.spellUsable.isOnCooldown(spellId)) {
+      const cd = this.spellUsable.cooldownRemaining(spellId);
       this.cdr += cd;
-      const wastedCDR = this.abilities.getExpectedCooldownDuration(SPELLS.IRONSKIN_BREW.id) - cd;
+      const wastedCDR = this.abilities.getExpectedCooldownDuration(spellId, this.spellUsable.cooldownTriggerEvent(spellId)) - cd;
       this.wastedCDR += wastedCDR;
-      this.spellUsable.endCooldown(SPELLS.IRONSKIN_BREW.id, false);
+      this.spellUsable.endCooldown(spellId, false);
     }
   }
 

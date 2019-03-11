@@ -64,14 +64,8 @@ class EverlastingLight extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.EVERLASTING_LIGHT.id}
-        value={(
-          <>
-            <ItemHealingDone amount={this.totalHealing} />
-          </>
-        )}
-        tooltip={`
-          ${formatThousands(this.totalHealing)} Total Healing
-        `}
+        value={<ItemHealingDone amount={this.totalHealing} />}
+        tooltip={`${formatThousands(this.totalHealing)} Total Healing`}
       />
     );
   }

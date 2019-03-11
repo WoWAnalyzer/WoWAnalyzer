@@ -1,22 +1,24 @@
 import React from 'react';
 
 import { findByBossId } from 'raids';
-import { formatDuration, formatNumber, formatPercentage, formatThousands } from 'common/format';
+import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import ItemIcon from 'common/ItemIcon';
 import ItemLink from 'common/ItemLink';
-import ChangelogTab from 'interface/others/ChangelogTab';
-import ChangelogTabTitle from 'interface/others/ChangelogTabTitle';
 import DeathRecapTracker from 'interface/others/DeathRecapTracker';
 import ItemStatisticBox from 'interface/others/ItemStatisticBox';
 
-import ApplyBuffNormalizer from 'parser/shared/normalizers/ApplyBuff';
-import CancelledCastsNormalizer from 'parser/shared/normalizers/CancelledCasts';
-import PrePullCooldownsNormalizer from 'parser/shared/normalizers/PrePullCooldowns';
-import FightEndNormalizer from 'parser/shared/normalizers/FightEnd';
-import PhaseChangesNormalizer from 'parser/shared/normalizers/PhaseChanges';
-import HealingDone from '../shared/modules/HealingDone';
-import DamageDone from '../shared/modules/DamageDone';
-import DamageTaken from '../shared/modules/DamageTaken';
+// Normalizers
+import ApplyBuffNormalizer from '../shared/normalizers/ApplyBuff';
+import CancelledCastsNormalizer from '../shared/normalizers/CancelledCasts';
+import PrePullCooldownsNormalizer from '../shared/normalizers/PrePullCooldowns';
+import FightEndNormalizer from '../shared/normalizers/FightEnd';
+import PhaseChangesNormalizer from '../shared/normalizers/PhaseChanges';
+
+// Core modules
+import HealingDone from '../shared/modules/throughput/HealingDone';
+import DamageDone from '../shared/modules/throughput/DamageDone';
+import DamageTaken from '../shared/modules/throughput/DamageTaken';
+import ThroughputStatisticGroup from '../shared/modules/throughput/ThroughputStatisticGroup';
 import DeathTracker from '../shared/modules/DeathTracker';
 
 import Combatants from '../shared/modules/Combatants';
@@ -37,17 +39,11 @@ import Pets from '../shared/modules/Pets';
 import ManaValues from '../shared/modules/ManaValues';
 import SpellManaCost from '../shared/modules/SpellManaCost';
 import Channeling from '../shared/modules/Channeling';
-import TimelineBuffEvents from '../shared/modules/TimelineBuffEvents';
 import DeathDowntime from '../shared/modules/downtime/DeathDowntime';
 import TotalDowntime from '../shared/modules/downtime/TotalDowntime';
-
 import DistanceMoved from '../shared/modules/others/DistanceMoved';
 
-import CharacterTab from '../shared/modules/features/CharacterTab';
-import EncounterPanel from '../shared/modules/features/EncounterPanel';
 // Tabs
-import TimelineTab from '../shared/modules/features/TimelineTab';
-import ManaTab from '../shared/modules/features/ManaTab';
 import RaidHealthTab from '../shared/modules/features/RaidHealthTab';
 
 import CritEffectBonus from '../shared/modules/helpers/CritEffectBonus';
@@ -59,13 +55,14 @@ import FoodChecker from '../shared/modules/items/FoodChecker';
 import Healthstone from '../shared/modules/items/Healthstone';
 import HealthPotion from '../shared/modules/items/HealthPotion';
 import CombatPotion from '../shared/modules/items/CombatPotion';
-import PreparationRuleAnalyzer from '../shared/modules/features/Checklist2/PreparationRuleAnalyzer';
+import PreparationRuleAnalyzer from '../shared/modules/features/Checklist/PreparationRuleAnalyzer';
 
 // Racials
 import ArcaneTorrent from '../shared/modules/racials/bloodelf/ArcaneTorrent';
 import GiftOfTheNaaru from '../shared/modules/racials/draenei/GiftOfTheNaaru';
 import MightOfTheMountain from '../shared/modules/racials/dwarf/MightOfTheMountain';
 import Stoneform from '../shared/modules/racials/dwarf/Stoneform';
+import Berserking from '../shared/modules/racials/troll/Berserking';
 
 // Shared Buffs
 import VantusRune from '../shared/modules/spells/VantusRune';
@@ -106,6 +103,7 @@ import CoastalSurge from '../shared/modules/items/bfa/enchants/CoastalSurge';
 import DarkmoonDeckTides from '../shared/modules/items/bfa/crafted/DarkmoonDeckTides';
 import DarkmoonDeckFathoms from '../shared/modules/items/bfa/crafted/DarkmoonDeckFathoms';
 import DarkmoonDeckBlockades from '../shared/modules/items/bfa/crafted/DarkmoonDeckBlockades';
+import EternalAlchemistStone from '../shared/modules/items/bfa/crafted/EternalAlchemistStone';
 // Azerite Traits
 import Gemhide from '../shared/modules/spells/bfa/azeritetraits/Gemhide';
 import CrystallineCarapace from '../shared/modules/spells/bfa/azeritetraits/CrystallineCarapace';
@@ -141,11 +139,11 @@ import ConstructOvercharger from '../shared/modules/items/bfa/raids/uldir/Constr
 import SyringeOfBloodborneInfirmity from '../shared/modules/items/bfa/raids/uldir/SyringeOfBloodborneInfirmity';
 import DiscOfSystematicRegression from '../shared/modules/items/bfa/raids/uldir/DiscOfSystematicRegression';
 // BoD
+import WardOfEnvelopment from '../shared/modules/items/bfa/raids/bod/WardOfEnvelopment';
 import CrestOfPaku from '../shared/modules/items/bfa/raids/bod/CrestOfPaku';
 import IncandescentSliver from '../shared/modules/items/bfa/raids/bod/IncandescentSliver';
 
 import ParseResults from './ParseResults';
-import Analyzer from './Analyzer';
 import EventsNormalizer from './EventsNormalizer';
 import EventEmitter from './modules/EventEmitter';
 
@@ -174,6 +172,7 @@ class CombatLogParser {
     healingDone: HealingDone,
     damageDone: DamageDone,
     damageTaken: DamageTaken,
+    throughputStatisticGroup: ThroughputStatisticGroup,
     deathTracker: DeathTracker,
 
     enemies: Enemies,
@@ -195,16 +194,11 @@ class CombatLogParser {
     manaValues: ManaValues,
     vantusRune: VantusRune,
     distanceMoved: DistanceMoved,
-    timelineBuffEvents: TimelineBuffEvents,
     deathRecapTracker: DeathRecapTracker,
 
     critEffectBonus: CritEffectBonus,
 
     // Tabs
-    characterTab: CharacterTab,
-    encounterPanel: EncounterPanel,
-    timelineTab: TimelineTab,
-    manaTab: ManaTab,
     raidHealthTab: RaidHealthTab,
 
     prePotion: PrePotion,
@@ -221,6 +215,7 @@ class CombatLogParser {
     giftOfTheNaaru: GiftOfTheNaaru,
     mightOfTheMountain: MightOfTheMountain,
     stoneform: Stoneform,
+    berserking: Berserking,
 
     // Items:
     // BFA
@@ -252,6 +247,7 @@ class CombatLogParser {
     darkmoonDeckTides: DarkmoonDeckTides,
     darkmoonDeckFathoms: DarkmoonDeckFathoms,
     darkmoonDeckBlockades: DarkmoonDeckBlockades,
+    eternalAlchemistStone: EternalAlchemistStone,
     // Enchants
     deadlyNavigation: DeadlyNavigation,
     masterfulNavigation: MasterfulNavigation,
@@ -295,6 +291,7 @@ class CombatLogParser {
     syringeOfBloodborneInfirmity: SyringeOfBloodborneInfirmity,
     discOfSystematicRegression: DiscOfSystematicRegression,
     // BoD
+    wardOfEnvelopment: WardOfEnvelopment,
     crestOfPaku: CrestOfPaku,
     incandescentSliver: IncandescentSliver,
   };
@@ -316,11 +313,8 @@ class CombatLogParser {
   }
 
   _modules = {};
-  _activeAnalyzers = {};
   get activeModules() {
-    return Object.keys(this._modules)
-      .map(key => this._modules[key])
-      .filter(module => module.active);
+    return Object.values(this._modules).filter(module => module.active);
   }
 
   get playerId() {
@@ -339,12 +333,10 @@ class CombatLogParser {
   }
   finished = false;
 
-  get playersById() {
-    return this.report.friendlies.reduce((obj, player) => {
-      obj[player.id] = player;
-      return obj;
-    }, {});
+  get players() {
+    return this.report.friendlies;
   }
+  /** @var {Combatant} */
   get selectedCombatant() {
     return this.getModule(Combatants).selected;
   }
@@ -392,7 +384,7 @@ class CombatLogParser {
       Object.keys(dependencies).forEach(desiredDependencyName => {
         const dependencyClass = dependencies[desiredDependencyName];
 
-        const dependencyModule = this.getModule(dependencyClass, false);
+        const dependencyModule = this.getModule(dependencyClass, true);
         if (dependencyModule) {
           availableDependencies[desiredDependencyName] = dependencyModule;
         } else {
@@ -473,17 +465,22 @@ class CombatLogParser {
     }
   }
   allModulesInitialized() {
-    this._activeAnalyzers = Object.values(this._modules)
-      .filter(module => module instanceof Analyzer)
-      .sort((a, b) => a.priority - b.priority); // lowest should go first, as `priority = 0` will have highest prio
+    // Executed when module initialization is complete
   }
-  getModule(type, required = true) {
-    const module = Object.keys(this._modules)
-      .map(key => this._modules[key])
-      .find(module => module instanceof type);
-    if (required && !module) {
+  _moduleCache = new Map();
+  getModule(type, optional = false) {
+    // We need to use a cache and can't just set this on initialization because we sometimes search by the inheritance chain.
+    const cacheEntry = this._moduleCache.get(type);
+    if (cacheEntry !== undefined) {
+      return cacheEntry;
+    }
+
+    // Search for a specific module by its type, accepting any modules that have the type somewhere in the inheritance chain
+    const module = Object.values(this._modules).find(module => module instanceof type);
+    if (optional === false && module === undefined) {
       throw new Error(`Module not found: ${type.name}`);
     }
+    this._moduleCache.set(type, module);
     return module;
   }
 
@@ -519,7 +516,7 @@ class CombatLogParser {
   }
 
   byPlayer(event, playerId = this.player.id) {
-    return (event.sourceID === playerId);
+    return event.sourceID === playerId;
   }
   toPlayer(event, playerId = this.player.id) {
     return (event.targetID === playerId);
@@ -549,12 +546,6 @@ class CombatLogParser {
   getPercentageOfTotalDamageTaken(damageTaken) {
     return damageTaken / this.getModule(DamageTaken).total.effective;
   }
-  formatItemDamageTaken(damageTaken) {
-    return `${formatPercentage(this.getPercentageOfTotalDamageTaken(damageTaken))} % / ${formatNumber(damageTaken / this.fightDuration * 1000)} DTPS`;
-  }
-  formatManaRestored(manaRestored) {
-    return `${formatThousands(manaRestored)} mana / ${formatThousands(manaRestored / this.fightDuration * 1000 * 5)} MP5`;
-  }
   formatTimestamp(timestamp, precision = 0) {
     return formatDuration((timestamp - this.fight.start_time) / 1000, precision);
   }
@@ -565,12 +556,17 @@ class CombatLogParser {
     const results = new ParseResults();
 
     results.tabs = [];
-    results.tabs.push({
-      title: <ChangelogTabTitle />,
-      url: 'changelog',
-      order: 1000,
-      render: () => <ChangelogTab />,
-    });
+
+    const addStatistic = (statistic, basePosition, key) => {
+      const position = statistic.props.position !== undefined ? statistic.props.position : basePosition;
+
+      results.statistics.push(
+        React.cloneElement(statistic, {
+          key,
+          position,
+        })
+      );
+    };
 
     Object.keys(this._modules)
       .filter(key => this._modules[key].active)
@@ -579,22 +575,21 @@ class CombatLogParser {
         const module = this._modules[key];
 
         if (module.statistic) {
+          let basePosition = index;
+          if (module.statisticOrder !== undefined) {
+            basePosition = module.statisticOrder;
+            console.warn('DEPRECATED', 'Setting the position of a statistic via a module\'s `statisticOrder` prop is deprecated. Set the `position` prop on the `StatisticBox` instead. Example commit: https://github.com/WoWAnalyzer/WoWAnalyzer/commit/ece1bbeca0d3721ede078d256a30576faacb803d', module);
+          }
+
           const statistic = module.statistic({ i18n });
           if (statistic) {
-            let position = index;
-            if (statistic.props.position !== undefined) {
-              position = statistic.props.position;
-            } else if (module.statisticOrder !== undefined) {
-              position = module.statisticOrder;
-              console.warn('DEPRECATED', 'Setting the position of a statistic via a module\'s `statisticOrder` prop is deprecated. Set the `position` prop on the `StatisticBox` instead. Example commit: https://github.com/WoWAnalyzer/WoWAnalyzer/commit/ece1bbeca0d3721ede078d256a30576faacb803d');
+            if (Array.isArray(statistic)) {
+              statistic.forEach((statistic, statisticIndex) => {
+                addStatistic(statistic, basePosition, `${key}-statistic-${statisticIndex}`);
+              });
+            } else {
+              addStatistic(statistic, basePosition, `${key}-statistic`);
             }
-
-            results.statistics.push(
-              React.cloneElement(statistic, {
-                key: `${key}-statistic`,
-                position,
-              })
-            );
           }
         }
         if (module.item) {
@@ -618,6 +613,7 @@ class CombatLogParser {
                   icon={icon}
                   label={title}
                   value={item.result}
+                  tooltip={item.tooltip}
                 />
               );
             }

@@ -26,6 +26,11 @@ export default {
     name: 'Earthbind Totem',
     icon: 'spell_nature_strengthofearthtotem02',
   },
+  RESONANCE_TOTEM: {
+    id: 262417,
+    name: 'Resonance Totem',
+    icon: 'spell_nature_stoneskintotem',
+  },
   PURGE: {
     id: 370,
     name: 'Purge',
@@ -318,11 +323,6 @@ export default {
     id: 210712,
     name: 'Aftershock',
     icon: 'spell_nature_stormreach',
-  },
-  EXPOSED_ELEMENTS_TALENT_DEBUFF: {
-    id: 269808,
-    name: "Exposed Elements Debuff",
-    icon: "spell_nature_callstorm",
   },
   MASTER_OF_THE_ELEMENTS_BUFF: {
     id: 260734,

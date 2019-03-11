@@ -12,7 +12,7 @@ const ProgressBar = ({ width, height, percentage, style, ...others }) => {
   const fillColor = percentage === 100 ? FULL_FILL_COLOR : FILL_COLOR;
   return (
     <svg
-      className="ProgressBar"
+      className="ProgressBar icon"
       style={{ width, height, ...style }}
       {...others}
     >

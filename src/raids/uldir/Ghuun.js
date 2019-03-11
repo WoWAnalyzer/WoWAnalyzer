@@ -3,6 +3,7 @@ import SPELLS from 'common/SPELLS';
 
 import Background from './images/Backgrounds/Ghuun.jpg';
 import Headshot from './images/Headshots/Ghuun.png';
+import './Ghuun.css';
 
 export const GHUUN_REORIGINATION_BLAST_STUN = {
   id: 263504,
@@ -14,6 +15,7 @@ export default {
   id: 2122,
   name: 'G\'huun',
   background: Background,
+  backgroundPosition: 'center center',
   headshot: Headshot,
   icon: 'achievement_nazmir_boss_ghuun',
   fight: {

@@ -22,7 +22,7 @@ class Siegebreaker extends Analyzer {
       if (!this.active) {
         return;
       }
-  
+
       this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onPlayerDamage);
   }
 
@@ -47,7 +47,7 @@ class Siegebreaker extends Analyzer {
         talent={SPELLS.SIEGEBREAKER_TALENT.id}
         label="Siegebreaker"
         value={`${formatThousands(this.dpsValue)} DPS`}
-        tooltip={`<b>${formatThousands(this.damage)} (${formatPercentage(this.damagePercent)}%)</b> of your damage can be attributed to Siegebreaker's damage bonus.`}
+        tooltip={<><strong>{formatThousands(this.damage)} ({formatPercentage(this.damagePercent)}%)</strong> of your damage can be attributed to Siegebreaker's damage bonus.</>}
       />
     );
   }

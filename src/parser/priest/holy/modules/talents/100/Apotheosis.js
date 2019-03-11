@@ -50,11 +50,13 @@ class Apotheosis extends Analyzer {
             {formatNumber((this.sanctify.apotheosisCooldownReduction + this.serenity.apotheosisCooldownReduction + this.chastise.apotheosisCooldownReduction) / 1000)}s Cooldown Reduction
           </>
         )}
-        tooltip={`
-          Serenity: ${this.sanctify.apotheosisCooldownReduction / 1000}s CDR | ${this.sanctify.apotheosisManaReduction} Mana saved <br />
-          Sanctify: ${this.serenity.apotheosisCooldownReduction / 1000}s CDR | ${this.serenity.apotheosisManaReduction} Mana saved <br />
-          Chastise: ${this.chastise.apotheosisCooldownReduction / 1000}s CDR | ${this.chastise.apotheosisManaReduction} Mana saved
-        `}
+        tooltip={(
+          <>
+            Serenity: {this.sanctify.apotheosisCooldownReduction / 1000}s CDR | {this.sanctify.apotheosisManaReduction} Mana saved <br />
+            Sanctify: {this.serenity.apotheosisCooldownReduction / 1000}s CDR | {this.serenity.apotheosisManaReduction} Mana saved <br />
+            Chastise: {this.chastise.apotheosisCooldownReduction / 1000}s CDR | {this.chastise.apotheosisManaReduction} Mana saved
+          </>
+        )}
         position={STATISTIC_ORDER.CORE(7)}
       />
 

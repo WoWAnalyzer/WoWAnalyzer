@@ -154,13 +154,17 @@ class IronSkinBrew extends Analyzer {
         icon={<SpellIcon id={SPELLS.IRONSKIN_BREW.id} />}
         value={`${formatPercentage(hitsMitigatedPercent)}%`}
         label="Hits Mitigated w/ Ironskin Brew"
-        tooltip={`Ironskin Brew breakdown (these values are direct damage and does not include damage added to stagger):
+        tooltip={(
+          <>
+            Ironskin Brew breakdown (these values are direct damage and does not include damage added to stagger):
             <ul>
-                <li>You were hit <b>${this.hitsWithIronSkinBrew}</b> times with your Ironskin Brew buff (<b>${formatThousands(this.damageWithIronSkinBrew)}</b> damage).</li>
-                <li>You were hit <b>${this.hitsWithoutIronSkinBrew}</b> times <b><i>without</i></b> your Ironskin Brew buff (<b>${formatThousands(this.damageWithoutIronSkinBrew)}</b> damage).</li>
+              <li>You were hit <strong>{this.hitsWithIronSkinBrew}</strong> times with your Ironskin Brew buff (<strong>{formatThousands(this.damageWithIronSkinBrew)}</strong> damage).</li>
+              <li>You were hit <strong>{this.hitsWithoutIronSkinBrew}</strong> times <strong><em>without</em></strong> your Ironskin Brew buff (<strong>{formatThousands(this.damageWithoutIronSkinBrew)}</strong> damage).</li>
             </ul>
-            <b>${formatPercentage(hitsMitigatedPercent)}%</b> of attacks were mitigated with Ironskin Brew.<br/>
-            <b>${formatPercentage(isbUptime)}%</b> uptime on the Ironskin Brew buff.`}
+            <strong>{formatPercentage(hitsMitigatedPercent)}%</strong> of attacks were mitigated with Ironskin Brew.<br />
+            <strong>{formatPercentage(isbUptime)}%</strong> uptime on the Ironskin Brew buff.
+          </>
+        )}
       />
     );
   }

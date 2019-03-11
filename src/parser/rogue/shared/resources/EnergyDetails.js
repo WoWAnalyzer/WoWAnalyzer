@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Icon from 'common/Icon';
 import { formatPercentage } from 'common/format';
@@ -59,12 +59,12 @@ class EnergyDetails extends Analyzer {
       title: 'Energy usage',
       url: 'energy-usage',
       render: () => (
-        <Tab>
+        <Panel>
           <ResourceBreakdown
             tracker={this.energyTracker}
             showSpenders
           />
-        </Tab>
+        </Panel>
       ),
     };
  }

@@ -4,11 +4,12 @@ import PropTypes from 'prop-types';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import RACES from 'game/RACES';
-import Checklist from 'parser/shared/modules/features/Checklist2';
-import Rule from 'parser/shared/modules/features/Checklist2/Rule';
-import Requirement from 'parser/shared/modules/features/Checklist2/Requirement';
-import PreparationRule from 'parser/shared/modules/features/Checklist2/PreparationRule';
-import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist2/GenericCastEfficiencyRequirement';
+import { TooltipElement } from 'common/Tooltip';
+import Checklist from 'parser/shared/modules/features/Checklist';
+import Rule from 'parser/shared/modules/features/Checklist/Rule';
+import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
+import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
+import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 
 class FeralDruidChecklist extends React.PureComponent {
   static propTypes = {
@@ -66,9 +67,9 @@ class FeralDruidChecklist extends React.PureComponent {
           name="Generate combo points"
           description={(
             <>
-              Builders use energy and give you combo points. Keep your <dfn data-tip={'Rake and Moonfire if you have the Lunar Inspiration talent, and Thrash if you the Wild Fleshrending azerite trait.'}>DoTs</dfn> active, use <SpellLink id={SPELLS.BRUTAL_SLASH_TALENT.id} /> and <SpellLink id={SPELLS.FERAL_FRENZY_TALENT.id} /> if you have those talents, then fill with <SpellLink id={SPELLS.SHRED.id} />. Don't waste combo points by continuing to use builders when at full combo points.<br /><br />
+              Builders use energy and give you combo points. Keep your <TooltipElement content="Rake and Moonfire if you have the Lunar Inspiration talent, and Thrash if you the Wild Fleshrending azerite trait.">DoTs</TooltipElement> active, use <SpellLink id={SPELLS.BRUTAL_SLASH_TALENT.id} /> and <SpellLink id={SPELLS.FERAL_FRENZY_TALENT.id} /> if you have those talents, then fill with <SpellLink id={SPELLS.SHRED.id} />. Don't waste combo points by continuing to use builders when at full combo points.<br /><br />
 
-              You should adapt your behaviour in AoE situations (the analyzer only accounts for some of this, so use your discretion when looking at AoE-heavy fights.) If you'll hit 2 or more targets replace <SpellLink id={SPELLS.SHRED.id} /> with <SpellLink id={SPELLS.SWIPE_CAT.id} />. When fighting <dfn data-tip={'The threshold varies slightly depending on your stats and azerite traits.'}>5 targets</dfn> or more it's no longer worth using <SpellLink id={SPELLS.RAKE.id} /> and <SpellLink id={SPELLS.MOONFIRE_FERAL.id} />. Unlike in the Legion expansion you should never spam <SpellLink id={SPELLS.THRASH_FERAL.id} />, keep it active only if you have <SpellLink id={SPELLS.WILD_FLESHRENDING.id} /> traits or if you would otherwise be using <SpellLink id={SPELLS.SWIPE_CAT.id} /> on targets without any bleeds.
+              You should adapt your behaviour in AoE situations (the analyzer only accounts for some of this, so use your discretion when looking at AoE-heavy fights.) If you'll hit 2 or more targets replace <SpellLink id={SPELLS.SHRED.id} /> with <SpellLink id={SPELLS.SWIPE_CAT.id} />. When fighting <TooltipElement content="The threshold varies slightly depending on your stats and azerite traits.">5 targets</TooltipElement> or more it's no longer worth using <SpellLink id={SPELLS.RAKE.id} /> and <SpellLink id={SPELLS.MOONFIRE_FERAL.id} />. Unlike in the Legion expansion you should never spam <SpellLink id={SPELLS.THRASH_FERAL.id} />, keep it active only if you have <SpellLink id={SPELLS.WILD_FLESHRENDING.id} /> traits or if you would otherwise be using <SpellLink id={SPELLS.SWIPE_CAT.id} /> on targets without any bleeds.
             </>
           )}
         >
@@ -114,7 +115,7 @@ class FeralDruidChecklist extends React.PureComponent {
           name="Spend combo points"
           description={(
             <>
-              You should generally only use finishers with a full 5 combo points. The exception is the first <SpellLink id={SPELLS.RIP.id} /> of the fight which should be applied as early as possible. <SpellLink id={SPELLS.SABERTOOTH_TALENT.id} /> is a damage gain in many situations and simplifies your finisher use, allowing you to almost always use <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> as your single target finisher. When casting <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> make sure you have at least <dfn data-tip={'Ferocious Bite\'s tooltip says it needs just 25 energy, but you should always give it an additional 25 to double its damage.'}>50 energy.</dfn><br /><br />
+              You should generally only use finishers with a full 5 combo points. The exception is the first <SpellLink id={SPELLS.RIP.id} /> of the fight which should be applied as early as possible. <SpellLink id={SPELLS.SABERTOOTH_TALENT.id} /> is a damage gain in many situations and simplifies your finisher use, allowing you to almost always use <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> as your single target finisher. When casting <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> make sure you have at least <TooltipElement content="Ferocious Bite's tooltip says it needs just 25 energy, but you should always give it an additional 25 to double its damage.">50 energy.</TooltipElement><br /><br />
 
               <SpellLink id={SPELLS.PRIMAL_WRATH_TALENT.id} /> can replace both <SpellLink id={SPELLS.RIP.id} /> and <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> when against approximately 3 or more enemies.
             </>
@@ -175,7 +176,7 @@ class FeralDruidChecklist extends React.PureComponent {
             name="Manage your energy"
             description={(
               <>
-                Your actions are <dfn data-tip="Notable exceptions are when you have the Predator talent with enemies regularly dying, or large AoE situations with certain builds.">usually</dfn> limited by available energy so managing it well is important. Don't let it reach the cap and miss out on regeneration, and avoid wasting generated energy from <SpellLink id={SPELLS.TIGERS_FURY.id} />. Allowing your energy to "pool" before using a finisher is often <dfn data-tip="Using a finisher when at low energy leaves you with little of both your main resources which greatly limits your options. Pooling energy first means you'll have energy left over to react to whatever happens in the fight around you. Although pooling is useful never let your uptime of DoTs and Savage Roar drop because of it.">beneficial</dfn>.
+                Your actions are <TooltipElement content="Notable exceptions are when you have the Predator talent with enemies regularly dying, or large AoE situations with certain builds.">usually</TooltipElement> limited by available energy so managing it well is important. Don't let it reach the cap and miss out on regeneration, and avoid wasting generated energy from <SpellLink id={SPELLS.TIGERS_FURY.id} />. Allowing your energy to "pool" before using a finisher is often <TooltipElement content="Using a finisher when at low energy leaves you with little of both your main resources which greatly limits your options. Pooling energy first means you'll have energy left over to react to whatever happens in the fight around you. Although pooling is useful never let your uptime of DoTs and Savage Roar drop because of it.">beneficial</TooltipElement>.
               </>
             )}
           >
@@ -259,8 +260,8 @@ class FeralDruidChecklist extends React.PureComponent {
           name="Make the most of snapshots"
           description={(
             <>
-              <dfn data-tip={'Tiger\'s Fury affects all DoTs, Bloodtalons affects all except Moonfire.'}>Certain buffs</dfn> will increase the damage of your DoTs for their full duration, even after the buff wears off. Making the most of this mechanic can be the difference between good and great results.<br /> 
-              As a general rule it's beneficial to refresh a DoT early if you would increase the snapshot. It's better to refresh with a weaker version of the DoT during the <dfn data-tip={'The last 30% of the DoT\'s duration. If you refresh during this time you don\'t lose any duration in the process.'}>pandemic window</dfn> than to let it wear off. The exception is <SpellLink id={SPELLS.RAKE.id} /> empowered by <dfn data-tip={'The effect is also provided by Incarnation: King of the Jungle, and Shadowmeld for Night Elves'}>Prowl</dfn> which is so much stronger that you should wait until the DoT wears off when replacing it with an unbuffed version.<br />
+              <TooltipElement content="Tiger's Fury affects all DoTs, Bloodtalons affects all except Moonfire.">Certain buffs</TooltipElement> will increase the damage of your DoTs for their full duration, even after the buff wears off. Making the most of this mechanic can be the difference between good and great results.<br />
+              As a general rule it's beneficial to refresh a DoT early if you would increase the snapshot. It's better to refresh with a weaker version of the DoT during the <TooltipElement content="The last 30% of the DoT's duration. If you refresh during this time you don't lose any duration in the process.">pandemic window</TooltipElement> than to let it wear off. The exception is <SpellLink id={SPELLS.RAKE.id} /> empowered by <TooltipElement content="The effect is also provided by Incarnation: King of the Jungle, and Shadowmeld for Night Elves">Prowl</TooltipElement> which is so much stronger that you should wait until the DoT wears off when replacing it with an unbuffed version.<br />
               <SpellLink id={SPELLS.SABERTOOTH_TALENT.id} /> allows you to use <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> to maintain the existing snapshot on <SpellLink id={SPELLS.RIP.id} /> and should be used to do so.
             </>
           )}
@@ -286,7 +287,7 @@ class FeralDruidChecklist extends React.PureComponent {
           ☐ Prioritize using charges on Rip and Rake
         */}
         {combatant.hasTalent(SPELLS.BLOODTALONS_TALENT.id) && (
-          <Rule 
+          <Rule
             name="Weave in Bloodtalons"
             description={(
               <>
@@ -336,7 +337,7 @@ class FeralDruidChecklist extends React.PureComponent {
                 thresholds={thresholds.predatorWrongTalent}
               />
             )}
-            
+
           </Rule>
         )}
 

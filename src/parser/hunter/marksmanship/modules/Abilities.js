@@ -11,8 +11,8 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.AIMED_SHOT,
         buffSpellId: [SPELLS.DOUBLE_TAP_TALENT.id, SPELLS.LOCK_AND_LOAD_BUFF.id],
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste, selectedCombatant) => {
-          if (selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
+        cooldown: haste => {
+          if (combatant.hasBuff(SPELLS.TRUESHOT.id)) {
             return hastedCooldown((12 / 3.25), haste);
           }
           return hastedCooldown(12, haste);
@@ -37,8 +37,8 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: (haste, selectedCombatant) => {
-          if (selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
+        cooldown: () => {
+          if (combatant.hasBuff(SPELLS.TRUESHOT.id)) {
             return 20 / 3.4;
           }
           return 20;
@@ -218,10 +218,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.ASPECT_OF_THE_CHEETAH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: () => {
-          const bornToBeWildCDR = combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0;
-          return 180 * (1 - bornToBeWildCDR);
-        },
+        cooldown: 180 * (1 - (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0)),
         gcd: null,
       },
       {
@@ -229,10 +226,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         isDefensive: true,
-        cooldown: () => {
-          const bornToBeWildCDR = combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0;
-          return 180 * (1 - bornToBeWildCDR);
-        },
+        cooldown: 180 * (1 - (combatant.hasTalent(SPELLS.BORN_TO_BE_WILD_TALENT.id) ? 0.2 : 0)),
         gcd: null,
       },
       {

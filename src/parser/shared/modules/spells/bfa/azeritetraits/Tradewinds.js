@@ -15,7 +15,7 @@ const tradewindsStats = traits => Object.values(traits).reduce((obj, rank) => {
 });
 
 /**
- * Your spells and abilities have a chance to grant you 583 Mastery for 15 sec. 
+ * Your spells and abilities have a chance to grant you 583 Mastery for 15 sec.
  * When this effect expires it jumps once to a nearby ally, granting them 115 Mastery for 8 sec.
  */
 class Tradewinds extends Analyzer {
@@ -70,10 +70,12 @@ class Tradewinds extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.TRADEWINDS.id}
         value={`${this.averageMastery} average Mastery`}
-        tooltip={`
-        ${SPELLS.TRADEWINDS.name} grants <b>${this.mastery} mastery</b> while active.<br/>
-        You had <b>${this.procs} ${SPELLS.TRADEWINDS.name} procs</b> resulting in ${formatPercentage(this.uptime)}% uptime.
-        `}
+        tooltip={(
+          <>
+            {SPELLS.TRADEWINDS.name} grants <strong>{this.mastery} mastery</strong> while active.<br />
+            You had <strong>{this.procs} {SPELLS.TRADEWINDS.name} procs</strong> resulting in {formatPercentage(this.uptime)}% uptime.
+          </>
+        )}
       />
     );
   }

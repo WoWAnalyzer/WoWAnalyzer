@@ -127,9 +127,7 @@ class PrayerfulLitany extends Analyzer {
         value={(
           <ItemHealingDone amount={this.prayerfulLitanyHealing} />
         )}
-        tooltip={`
-          Total Healing: ${formatThousands(this.prayerfulLitanyHealing)} (${formatPercentage(this.prayerfulLitanyOverHealing / this.rawPrayerfulLitanyHealing)}% OH)<br />
-        `}
+        tooltip={`Total Healing: ${formatThousands(this.prayerfulLitanyHealing)} (${formatPercentage(this.prayerfulLitanyOverHealing / this.rawPrayerfulLitanyHealing)}% OH)`}
       />
     );
   }

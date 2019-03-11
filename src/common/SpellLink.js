@@ -13,23 +13,15 @@ class SpellLink extends React.PureComponent {
     category: PropTypes.string,
     icon: PropTypes.bool,
     iconStyle: PropTypes.object,
+    innerRef: PropTypes.object,
     ilvl: PropTypes.number,
   };
   static defaultProps = {
     icon: true,
   };
 
-  elem = null;
-
-  componentDidMount() {
-    this.componentDidUpdate();
-  }
-  componentDidUpdate() {
-    TooltipProvider.refresh(this.elem);
-  }
-
   render() {
-    const { id, children, category = undefined, icon, iconStyle, ilvl, ...other } = this.props;
+    const { id, children, category = undefined, icon, iconStyle, ilvl, innerRef, ...other } = this.props;
 
     if (process.env.NODE_ENV === 'development' && !children && !SPELLS[id]) {
       throw new Error(`Unknown spell: ${id}`);
@@ -46,9 +38,7 @@ class SpellLink extends React.PureComponent {
         target="_blank"
         rel="noopener noreferrer"
         className={category}
-        ref={elem => {
-          this.elem = elem;
-        }}
+        ref={innerRef}
         {...other}
       >
         {icon && <SpellIcon id={id} noLink style={iconStyle} alt="" />}{' '}

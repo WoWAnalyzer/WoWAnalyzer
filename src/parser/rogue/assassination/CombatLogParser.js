@@ -1,6 +1,5 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
-import DamageDone from 'parser/shared/modules/DamageDone';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -51,7 +50,6 @@ class CombatLogParser extends CoreCombatLogParser {
     enemyHpTracker: EnemyHpTracker,
 
     //Feature
-    damageDone: [DamageDone, { showStatistic: true }],
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,

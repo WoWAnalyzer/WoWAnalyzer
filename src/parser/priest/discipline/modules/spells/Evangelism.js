@@ -2,6 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
+import { TooltipElement } from 'common/Tooltip';
 import StatisticBox from 'interface/others/StatisticBox';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
@@ -9,7 +10,7 @@ import { formatPercentage, formatNumber } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 
 import isAtonement from '../core/isAtonement';
-import Atonement from './/Atonement';
+import Atonement from './Atonement';
 
 const EVANGELISM_DURATION = 6;
 
@@ -68,9 +69,9 @@ class Evangelism extends Analyzer {
         icon={<SpellIcon id={SPELLS.EVANGELISM_TALENT.id} />}
         value={`${formatNumber(evangelismStatistics.reduce((total, c) => total + c.healing, 0) / this.owner.fightDuration * 1000)} HPS`}
         label={(
-          <dfn data-tip={`Evangelism accounted for approximately ${formatPercentage(this.owner.getPercentageOfTotalHealingDone(evangelismStatistics.reduce((p, c) => p + c.healing, 0)))}% of your healing.`}>
+          <TooltipElement content={`Evangelism accounted for approximately ${formatPercentage(this.owner.getPercentageOfTotalHealingDone(evangelismStatistics.reduce((p, c) => p + c.healing, 0)))}% of your healing.`}>
             Evangelism contribution
-          </dfn>
+          </TooltipElement>
         )}
       >
         <table className="table table-condensed">

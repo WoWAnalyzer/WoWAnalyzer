@@ -15,13 +15,13 @@ class AverageTargetsHit extends React.PureComponent {
     if (!unique) {
       return (
         <>
-          {approximate && '≈'}{averageHits}{' average '}{averageHits > 1 ? ' hits/cast' : 'target/cast'}
+          {approximate && '≈'}{averageHits} <small>average {averageHits > 1 ? 'targets hit per cast' : 'target hit per cast'}</small>
         </>
       );
     } else {
       return (
         <>
-          {approximate && '≈'}{averageHits}{' unique '}{averageHits > 1 ? 'targets/cast' : 'target/cast'}
+          {approximate && '≈'}{averageHits} <small>unique {averageHits > 1 ? 'targets per cast' : 'target per cast'}</small>
         </>
       );
     }

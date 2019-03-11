@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
+import { TooltipElement } from 'common/Tooltip';
 import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import { SHATTER_DEBUFFS } from '../../constants';
 
@@ -112,7 +113,19 @@ class GlacialSpike extends Analyzer {
           <>
             You cast <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> inefficiently {this.badCasts} times. Because it is such a potent ability, it is important to maximize its damage by only casting it when at least one of the following is true:
             <ul>
-              <li>You have a <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc to <dfn data-tip="<i>Glacial Spike > (empowered) Flurry > Ice Lance</i><br />Because of Flurry's extremely fast travel time, using a Brain Freeze proc immediately following a slower spell like Glacial Spike will apply Winter's Chill to the target before the slower spell hits.">use on it</dfn>.</li>
+              <li>
+                You have a <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc to
+                <TooltipElement
+                  content={(
+                    <>
+                      <em>Glacial Spike > (empowered) Flurry > Ice Lance</em><br />
+                      Because of Flurry's extremely fast travel time, using a Brain Freeze proc immediately following a slower spell like Glacial Spike will apply Winter's Chill to the target before the slower spell hits.
+                    </>
+                  )}
+                >
+                  use on it
+                </TooltipElement>.
+              </li>
               <li>The <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> will cleave to a second target via <SpellLink id={SPELLS.SPLITTING_ICE_TALENT.id} /> (if talented).</li>
             </ul>
           </>)
@@ -129,11 +142,15 @@ class GlacialSpike extends Analyzer {
         position={STATISTIC_ORDER.CORE(90)}
         value={`${formatPercentage(this.utilPercentage, 0)} %`}
         label="Glacial Spike efficiency"
-        tooltip={`You cast Glacial Spike ${this.totalCasts} times, ${this.goodCasts} casts of which met at least one of the requirements:
-        <ul>
-          <li>It was shattered via Brain Freeze (or some other freeze effect).</li>
-          <li>It hit a second target via Splitting Ice.</li>
-        </ul>`}
+        tooltip={(
+          <>
+            You cast Glacial Spike {this.totalCasts} times, {this.goodCasts} casts of which met at least one of the requirements:
+            <ul>
+              <li>It was shattered via Brain Freeze (or some other freeze effect).</li>
+              <li>It hit a second target via Splitting Ice.</li>
+            </ul>
+          </>
+        )}
       />
     );
   }

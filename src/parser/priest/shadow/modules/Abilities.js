@@ -24,7 +24,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MIND_BLAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste, combatant) => (7.5 - (combatant.hasBuff(SPELLS.VOIDFORM_BUFF.id) ? 1.5 : 0)) / (1 + haste),
+        cooldown: haste => (7.5 - (combatant.hasBuff(SPELLS.VOIDFORM_BUFF.id) ? 1.5 : 0)) / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -38,7 +38,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SHADOW_WORD_VOID_TALENT,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste, combatant) => (9 - (combatant.hasBuff(SPELLS.VOIDFORM_BUFF.id) ? 1.5 : 0)) / (1 + haste),
+        cooldown: haste => (9 - (combatant.hasBuff(SPELLS.VOIDFORM_BUFF.id) ? 1.5 : 0)) / (1 + haste),
         gcd: {
           base: 1500,
         },

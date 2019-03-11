@@ -1,6 +1,7 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
-import HealingDone from 'parser/shared/modules/HealingDone';
+import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
+import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
 
 import LightOfDawnNormalizer from './normalizers/LightOfDawn';
 import DivinePurposeNormalizer from './normalizers/DivinePurpose';
@@ -25,6 +26,7 @@ import LightOfDawnIndexer from './modules/LightOfDawnIndexer';
 import SpellManaCost from './modules/core/SpellManaCost';
 
 import Abilities from './modules/Abilities';
+import Buffs from './modules/Buffs';
 import Checklist from './modules/checklist/Module';
 import MasteryEffectiveness from './modules/MasteryEffectiveness';
 import AlwaysBeCasting from './modules/AlwaysBeCasting';
@@ -59,7 +61,6 @@ class CombatLogParser extends CoreCombatLogParser {
     lowHealthHealing: LowHealthHealing,
 
     // PaladinCore
-    healingDone: [HealingDone, { showStatistic: true }],
     beaconTransferFactor: BeaconTransferFactor,
     beaconHealSource: BeaconHealSource,
     beaconHealingDone: BeaconHealingDone,
@@ -76,9 +77,14 @@ class CombatLogParser extends CoreCombatLogParser {
     lightOfDawnIndexer: LightOfDawnIndexer,
     spellManaCost: SpellManaCost,
 
+    // Generic healer things
+    manaLevelChart: ManaLevelChart,
+    manaUsageChart: ManaUsageChart,
+
     // Features
     checklist: Checklist,
     abilities: Abilities,
+    buffs: Buffs,
     masteryEffectiveness: MasteryEffectiveness,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,

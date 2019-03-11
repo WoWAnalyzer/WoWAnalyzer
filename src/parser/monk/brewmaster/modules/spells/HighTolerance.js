@@ -92,12 +92,17 @@ class HighTolerance extends Analyzer {
         icon={<SpellIcon id={SPELLS.HIGH_TOLERANCE_TALENT.id} />}
         value={`${formatPercentage(this.meanHaste)}%`}
         label="Avg. Haste from High Tolerance"
-        tooltip={`You spent: <ul>
-              <li><b>${formatThousands(this.noneDuration / 1000)}s</b> (${formatPercentage(this.noneDuration / this.owner.fightDuration)}%) without Stagger.</li>
-              <li><b>${formatThousands(this.lightDuration / 1000)}s</b> (${formatPercentage(this.lightDuration / this.owner.fightDuration)}%) in Light Stagger.</li>
-              <li><b>${formatThousands(this.moderateDuration / 1000)}s</b> (${formatPercentage(this.moderateDuration / this.owner.fightDuration)}%) in Moderate Stagger.</li>
-              <li><b>${formatThousands(this.heavyDuration / 1000)}s</b> (${formatPercentage(this.heavyDuration / this.owner.fightDuration)}%) in Heavy Stagger.</li>
-            </ul>`}
+        tooltip={(
+          <>
+            You spent:
+            <ul>
+              <li><strong>{formatThousands(this.noneDuration / 1000)}s</strong> ({formatPercentage(this.noneDuration / this.owner.fightDuration)}%) without Stagger.</li>
+              <li><strong>{formatThousands(this.lightDuration / 1000)}s</strong> ({formatPercentage(this.lightDuration / this.owner.fightDuration)}%) in Light Stagger.</li>
+              <li><strong>{formatThousands(this.moderateDuration / 1000)}s</strong> ({formatPercentage(this.moderateDuration / this.owner.fightDuration)}%) in Moderate Stagger.</li>
+              <li><strong>{formatThousands(this.heavyDuration / 1000)}s</strong> ({formatPercentage(this.heavyDuration / this.owner.fightDuration)}%) in Heavy Stagger.</li>
+            </ul>
+          </>
+        )}
       />
     );
   }

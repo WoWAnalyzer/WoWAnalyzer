@@ -170,6 +170,7 @@ class EventEmitter extends Module {
       run = this.profile(run);
     }
 
+    this._isHandlingEvent = true;
     {
       // Handle on_event (listeners of all events)
       const listeners = this._eventListenersByEventType[CATCH_ALL_EVENT];
@@ -183,6 +184,7 @@ class EventEmitter extends Module {
         listeners.forEach(run);
       }
     }
+    this._isHandlingEvent = false;
 
     this.owner.eventHistory.push(event);
     // Some modules need to have a primitive value to cause re-renders
@@ -232,6 +234,11 @@ class EventEmitter extends Module {
       currentBatch.forEach(item => item());
     }
   }
+  /**
+   * @param {object} event
+   * @param {object|null} trigger
+   * @returns {object} The event that was triggered.
+   */
   fabricateEvent(event, trigger = null) {
     const fabricatedEvent = {
       // When no timestamp is provided in the event (you should always try to), the current timestamp will be used by default.
@@ -242,10 +249,14 @@ class EventEmitter extends Module {
       type: event.type instanceof EventFilter ? event.type.eventType : event.type,
       __fabricated: true,
     };
-    this.finally(() => {
-      this.triggerEvent(fabricatedEvent);
-    });
-    return fabricatedEvent;
+    if (this._isHandlingEvent) {
+      this.finally(() => {
+        this.triggerEvent(fabricatedEvent);
+      });
+      return fabricatedEvent;
+    } else {
+      return this.triggerEvent(fabricatedEvent);
+    }
   }
   _validateEvent(event) {
     if (!event.type) {

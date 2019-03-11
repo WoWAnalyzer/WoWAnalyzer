@@ -55,7 +55,6 @@ class FontOfLife extends Analyzer {
 
   statistic() {
     return (
-      
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.FONT_OF_LIFE.id}

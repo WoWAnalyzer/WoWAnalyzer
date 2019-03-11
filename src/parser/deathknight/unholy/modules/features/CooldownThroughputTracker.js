@@ -5,11 +5,10 @@ const debug = false;
 
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
-    ...CooldownThroughputTracker.cooldownSpells,
+    ...CoreCooldownThroughputTracker.cooldownSpells,
     // if im understanding correctly CooldownThroughputTracker tracks all abilities cast during the duration of some CD that buffs you in some way, (ex Battle Cry, Pillar of Frost)
     // Unholy's CDs are all based around summons so nothing goes here
   ];
-
   static castCooldowns = [
   ];
 

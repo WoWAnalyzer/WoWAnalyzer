@@ -4,6 +4,7 @@ import Icon from 'common/Icon';
 import { formatMilliseconds, formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Tooltip from 'common/Tooltip';
 
 import Abilities from '../../core/modules/Abilities';
 import GlobalCooldown from './GlobalCooldown';
@@ -102,28 +103,34 @@ class AlwaysBeCasting extends Analyzer {
         icon={<Icon icon="spell_mage_altertime" alt="Downtime" />}
         value={`${formatPercentage(this.downtimePercentage)} %`}
         label="Downtime"
-        tooltip={`Downtime is available time not used to cast anything (including not having your GCD rolling). This can be caused by delays between casting spells, latency, cast interrupting or just simply not casting anything (e.g. due to movement/stunned).<br/>
-        <li>You spent <b>${formatPercentage(this.activeTimePercentage)}%</b> of your time casting something.</li>
-        <li>You spent <b>${formatPercentage(this.downtimePercentage)}%</b> of your time casting nothing at all.</li>
-        `}
+        tooltip={(
+          <>
+            Downtime is available time not used to cast anything (including not having your GCD rolling). This can be caused by delays between casting spells, latency, cast interrupting or just simply not casting anything (e.g. due to movement/stunned).<br />
+            <ul>
+              <li>You spent <strong>{formatPercentage(this.activeTimePercentage)}%</strong> of your time casting something.</li>
+              <li>You spent <strong>{formatPercentage(this.downtimePercentage)}%</strong> of your time casting nothing at all.</li>
+            </ul>
+          </>
+        )}
         footer={(
-          <div className="statistic-bar">
-            <div
-              className="stat-health-bg"
-              style={{ width: `${this.activeTimePercentage * 100}%` }}
-              data-tip={`You spent <b>${formatPercentage(this.activeTimePercentage)}%</b> of your time casting something.`}
-            >
-              <img src={this.constructor.icons.activeTime} alt="Active time" />
-            </div>
-            <div
-              className="remainder DeathKnight-bg"
-              data-tip={`You spent <b>${formatPercentage(this.downtimePercentage)}%</b> of your time casting nothing at all.`}
-            >
-              <img src={this.constructor.icons.downtime} alt="Downtime" />
-            </div>
+          <div className="statistic-box-bar">
+            <Tooltip content={<>You spent <strong>{formatPercentage(this.activeTimePercentage)}%</strong> of your time casting something.</>}>
+              <div
+                className="stat-health-bg"
+                style={{
+                  width: `${this.activeTimePercentage * 100}%`,
+                }}
+              >
+                <img src={this.constructor.icons.activeTime} alt="Active time" />
+              </div>
+            </Tooltip>
+            <Tooltip content={<>You spent <strong>{formatPercentage(this.downtimePercentage)}%</strong> of your time casting nothing at all.</>}>
+              <div className="remainder DeathKnight-bg">
+                <img src={this.constructor.icons.downtime} alt="Downtime" />
+              </div>
+            </Tooltip>
           </div>
         )}
-        footerStyle={{ overflow: 'hidden' }}
       />
     );
   }

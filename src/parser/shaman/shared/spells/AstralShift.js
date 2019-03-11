@@ -26,18 +26,19 @@ class AstralShift extends Analyzer {
   }
 
   statistic() {
-    const tooltip = `
-      The total estimated damage reduced was ${formatThousands(this.damageReduced)}.<br /><br />
- 
-      This is the lowest possible value. This value is pretty accurate for this log if you are looking at the actual gain over not having Astral Shift bonus at all, but the gain may end up higher when taking interactions with other damage reductions into account.`;
-
     return (
       <StatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         icon={<SpellIcon id={SPELLS.ASTRAL_SHIFT.id} />}
         value={`≈${formatNumber(this.totalDrps)} DRPS`}
         label="Estimated damage reduced"
-        tooltip={tooltip}
+        tooltip={(
+          <>
+            The total estimated damage reduced was {formatThousands(this.damageReduced)}.<br /><br />
+
+            This is the lowest possible value. This value is pretty accurate for this log if you are looking at the actual gain over not having Astral Shift bonus at all, but the gain may end up higher when taking interactions with other damage reductions into account.
+          </>
+        )}
       />
     );
   }

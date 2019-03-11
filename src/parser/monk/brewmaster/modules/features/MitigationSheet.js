@@ -7,7 +7,7 @@ import HIT_TYPES from 'game/HIT_TYPES';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import STAT, { getClassNameColor, getIcon, getName } from 'parser/shared/modules/features/STAT';
 import { formatNumber } from 'common/format';
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/statistics/Panel';
 import SpellLink from 'common/SpellLink';
 import { calculatePrimaryStat, calculateSecondaryStatDefault } from 'common/stats';
 
@@ -18,7 +18,6 @@ import MasteryValue from '../core/MasteryValue';
 import Stagger from '../core/Stagger';
 import AgilityValue from './AgilityValue';
 import { diminish, lookupK } from '../constants/Mitigation';
-
 
 function formatGain(gain) {
   if(typeof gain === 'number') {
@@ -58,7 +57,7 @@ function calculateTotalGain(gain) {
     return low;
   }
 
-  return { 
+  return {
     low, high,
   };
 }
@@ -237,7 +236,7 @@ export default class MitigationSheet extends Analyzer {
         icon: (
           <img
             src="/img/shield.png"
-            style={{ 
+            style={{
               border: 0,
               marginRight: 10,
             }}
@@ -256,7 +255,7 @@ export default class MitigationSheet extends Analyzer {
         icon: (
           <img
             src="/img/sword.png"
-            style={{ 
+            style={{
               border: 0,
               marginRight: 10,
             }}
@@ -278,10 +277,10 @@ export default class MitigationSheet extends Analyzer {
         avg: this._avgStats.agility - BASE_AGI,
         gain: [
           { name: <><SpellLink id={SPELLS.GIFT_OF_THE_OX_1.id} /> Healing</>, amount: this.agiHealing },
-          { 
-            name: <dfn data-tip="The amount of damage avoided by dodging may be reduced by purification. This is reflected in the range of values.">Dodge</dfn>, 
-            amount: { 
-              low: this.agiDamageDodged * (1 - this.stagger.pctPurified), 
+          {
+            name: <dfn data-tip="The amount of damage avoided by dodging may be reduced by purification. This is reflected in the range of values.">Dodge</dfn>,
+            amount: {
+              low: this.agiDamageDodged * (1 - this.stagger.pctPurified),
               high: this.agiDamageDodged,
             },
             isLoaded: this.masteryValue._loaded,
@@ -297,8 +296,8 @@ export default class MitigationSheet extends Analyzer {
         avg: this._avgStats.mastery,
         gain: [
           { name: <><SpellLink id={SPELLS.GIFT_OF_THE_OX_1.id} /> Healing</>, amount: this.masteryHealing },
-          { 
-            name: <dfn data-tip="The amount of damage avoided by dodging may be reduced by purification. This is reflected in the range of values.">Dodge</dfn>, 
+          {
+            name: <dfn data-tip="The amount of damage avoided by dodging may be reduced by purification. This is reflected in the range of values.">Dodge</dfn>,
             amount:{
               low: this.masteryDamageMitigated * (1 - this.stagger.pctPurified),
               high: this.masteryDamageMitigated,
@@ -435,21 +434,24 @@ export default class MitigationSheet extends Analyzer {
     );
   }
 
-  tab() {
-    return {
-      title: 'Mitigation Values',
-      url: 'mitigation-sheet',
-      render: () => (
-        <Tab>
-          <div style={{ marginTop: -10, marginBottom: -10 }}>
-            <div style={{padding: '1em'}}>Relative value of different stats for mitigation on this specific log measured by <em>Effective Healing</em>. <b>These values are not stat weights, and should not be used with Pawn or other stat-weight addons.</b></div>
-            <div style={{padding: '1em'}}><b>Effective Healing</b> is the amount of damage that was either <em>prevented</em> or <em>healed</em> by an ability. These values are calculated using the actual circumstances of this encounter. While these are informative for understanding the effectiveness of various stats, they may not necessarily be the best way to gear. The stat values are likely to differ based on personal play, fight, raid size, items used, talents chosen, etc.<br /><br />DPS gains are not included in any of the stat values. See <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/parser/monk/brewmaster/modules/features/MitigationSheet.md">here</a> for more information on valuation methods.</div>
-            <table className="data-table" style={{ marginTop: 10, marginBottom: 10 }}>
-              {this.entries()}
-            </table>
-          </div>
-        </Tab>
-      ),
-    };
+  statistic() {
+    return (
+      <Panel
+        title="Mitigation Values"
+        explanation={(
+          <>
+            Relative value of different stats for mitigation on this specific log measured by <em>Effective Healing</em>. <b>These values are not stat weights, and should not be used with Pawn or other stat-weight addons.</b><br /><br />
+
+            <b>Effective Healing</b> is the amount of damage that was either <em>prevented</em> or <em>healed</em> by an ability. These values are calculated using the actual circumstances of this encounter. While these are informative for understanding the effectiveness of various stats, they may not necessarily be the best way to gear. The stat values are likely to differ based on personal play, fight, raid size, items used, talents chosen, etc.<br /><br />DPS gains are not included in any of the stat values. See <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/parser/monk/brewmaster/modules/features/MitigationSheet.md">here</a> for more information on valuation methods.
+          </>
+        )}
+        position={200}
+        pad={false}
+      >
+        <table className="data-table">
+          {this.entries()}
+        </table>
+      </Panel>
+    );
   }
 }

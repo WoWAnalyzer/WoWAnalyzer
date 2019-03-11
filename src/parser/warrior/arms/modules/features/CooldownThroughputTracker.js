@@ -3,7 +3,7 @@ import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'parser/sh
 
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
-    ...CooldownThroughputTracker.cooldownSpells,
+    ...CoreCooldownThroughputTracker.cooldownSpells,
     {
       spell: SPELLS.SWEEPING_STRIKES,
       summary: [

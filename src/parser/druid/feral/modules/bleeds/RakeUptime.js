@@ -6,6 +6,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { TooltipElement } from 'common/Tooltip';
 
 class RakeUptime extends Analyzer {
   static dependencies = {
@@ -32,7 +33,7 @@ class RakeUptime extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
-          Your <SpellLink id={SPELLS.RAKE.id} /> uptime can be improved. Unless the current application was buffed by Prowl you should refresh the DoT once it has reached its <dfn data-tip={`The last 30% of the DoT's duration. When you refresh during this time you don't lose any duration in the process.`}>pandemic window</dfn>, don't wait for it to wear off.
+          Your <SpellLink id={SPELLS.RAKE.id} /> uptime can be improved. Unless the current application was buffed by Prowl you should refresh the DoT once it has reached its <TooltipElement content="The last 30% of the DoT's duration. When you refresh during this time you don't lose any duration in the process.">pandemic window</TooltipElement>, don't wait for it to wear off.
         </>
       )
         .icon(SPELLS.RAKE.icon)

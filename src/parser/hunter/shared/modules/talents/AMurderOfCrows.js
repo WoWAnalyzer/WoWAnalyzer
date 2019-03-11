@@ -110,7 +110,9 @@ class AMurderOfCrows extends Analyzer {
     }
     if (this.casts === 0) {
       this.casts++;
-      this.spellUsable.beginCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT.id, this.owner.fight.start_time);
+      this.spellUsable.beginCooldown(SPELLS.A_MURDER_OF_CROWS_TALENT.id, {
+        timestamp: this.owner.fight.start_time,
+      });
       this.applicationTimestamp = this.owner.fight.start_time;
     }
     //This accounts for the travel time of crows, since the first damage marks the time where the crows debuff is applied
@@ -130,10 +132,12 @@ class AMurderOfCrows extends Analyzer {
     return (
       <TalentStatisticBox
         talent={SPELLS.A_MURDER_OF_CROWS_TALENT.id}
-        value={<>
-          <ItemDamageDone amount={this.damage} /> <br />
-          {this.resets} resets
-        </>}
+        value={(
+          <>
+            <ItemDamageDone amount={this.damage} /><br />
+            {this.resets} <small>resets</small>
+          </>
+        )}
       />
     );
   }

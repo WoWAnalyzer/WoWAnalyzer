@@ -100,7 +100,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.REVIVAL,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: (haste, combatant) => 180 - (combatant.traitsBySpellId[SPELLS.TENDRILS_OF_REVIVAL.id] || 0) * 10,
+        cooldown: 180 - (combatant.traitsBySpellId[SPELLS.TENDRILS_OF_REVIVAL.id] || 0) * 10,
         gcd: {
           base: 1500,
         },

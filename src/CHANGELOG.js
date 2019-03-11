@@ -1,5 +1,5 @@
 import React from 'react';
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs } from 'CONTRIBUTORS';
+import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -7,6 +7,21 @@ import SpellLink from 'common/SpellLink';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  {
+    date: new Date('2019-03-10'),
+    changes: 'WoWAnalyzer 3.0! This is the biggest update since the release, featuring a completely new interface, with a new logo, color scheme, and various new pages and improvements to the results page including a complete rework of the timeline. Many people worked on this, thanks so much to everyone who contributed!',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-03-2'),
+    changes: <>Hide checklist rules if all of the requirements beneath them are hidden/disabled.</>,
+    contributors: [Sharrq],
+  },
+  {
+    date: new Date('2019-02-24'),
+    changes: <>Added composition details to raid composition screen showing role counts and avarage ilvl.</>,
+    contributors: [Dorixius],
+  },
   {
     date: new Date('2019-02-15'),
     changes: <>If Warcraft Logs sends a corrupt JSON message, try to automatically decorrupt it.</>,
@@ -334,7 +349,7 @@ export default [
   },
   {
     date: new Date('2018-07-19'),
-    changes: <>Fixed a crash when wearing <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />.</>,
+    changes: <>Fixed a crash when wearing Drape of Shame.</>,
     contributors: [Zerotorescue],
   },
   {

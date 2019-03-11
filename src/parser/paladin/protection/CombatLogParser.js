@@ -1,7 +1,4 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import HealingDone from 'parser/shared/modules/HealingDone';
-import DamageDone from 'parser/shared/modules/DamageDone';
-import DamageTaken from 'parser/shared/modules/DamageTaken';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 import Abilities from './modules/Abilities';
@@ -31,11 +28,6 @@ import InspiringVanguard from './modules/spells/azeritetraits/InspiringVanguard'
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
-    // Core Statistics
-    damageTaken: [DamageTaken, { showStatistic: true }],
-    damageDone: [DamageDone, { showStatistic: true }],
-    healingDone: [HealingDone, { showStatistic: true }],
-
     // Core
     grandCrusader: GrandCrusader,
 

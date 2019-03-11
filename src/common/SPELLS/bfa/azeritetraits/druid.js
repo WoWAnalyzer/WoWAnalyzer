@@ -94,6 +94,16 @@ export default {
     name: 'Iron Jaws',
     icon: 'inv_misc_bone_09',
   },
+  GUSHING_LACERATIONS_TRAIT: {
+    id: 278509,
+    name: 'Gushing Lacerations',
+    icon: 'ability_ghoulfrenzy',
+  },
+  GUSHING_LACERATIONS_PROC: {
+    id: 279471,
+    name: 'Gushing Lacerations',
+    icon: 'ability_ghoulfrenzy',
+  },
   MASTERFUL_INSTINCTS: {
     id: 273344,
     name: 'Masterful Instincts',

@@ -1,0 +1,10 @@
+@import "common/Tooltip.scss";
+
+.value-tooltip {
+  @include tooltip-right(15px);
+  top: -18px;
+  position: absolute;
+}
+.value-tooltip:before {
+  @include tooltip-arrow-right;
+}
