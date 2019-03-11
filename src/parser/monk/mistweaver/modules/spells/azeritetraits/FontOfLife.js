@@ -4,11 +4,12 @@ import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HIT_TYPES from 'game/HIT_TYPES';
+import SpellLink from 'common/SpellLink';
 
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 
 import { MISTWEAVER_HEALING_AURA, ESSENCE_FONT_SPELLPOWER_COEFFICIENT } from '../../../constants';
 
@@ -55,16 +56,24 @@ class FontOfLife extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
-        trait={SPELLS.FONT_OF_LIFE.id}
-        value={(
-          <>
-            {formatPercentage(this.healing / this.getAbility(SPELLS.ESSENCE_FONT_BUFF.id).healingEffective)} % of Essence Font Healing
-          </>
-        )}
-        tooltip={`Added a total of ${formatNumber(this.healing)} to your Essence Font Bolts.`}
-      />
+      <AzeritePowerStatistic
+        size="flexible"
+        tooltip={(<>Added a total of ${formatNumber(this.healing)} to your Essence Font Bolts.</>)}
+      >
+        <div className="pad">
+          <label><SpellLink id={SPELLS.FONT_OF_LIFE.id} /></label>
+
+          <div className="value" style={{ marginTop: 15 }}>
+          <img
+            src="/img/healing.png"
+            alt="Healing"
+            className="icon"
+          /> 
+          { formatPercentage(this.healing / this.getAbility(SPELLS.ESSENCE_FONT_BUFF.id).healingEffective)}% <small>of Essence Font Healing</small>
+          </div>
+        </div>
+
+      </AzeritePowerStatistic>
     );
   }
 
