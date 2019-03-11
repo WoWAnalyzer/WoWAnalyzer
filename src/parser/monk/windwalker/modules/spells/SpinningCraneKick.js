@@ -116,7 +116,7 @@ class SpinningCraneKick extends Analyzer {
           </>
         )
           .icon(SPELLS.SPINNING_CRANE_KICK.icon)
-          .actual(`${actual} Bad Casts Per Minute`)
+          .actual(`${actual.toFixed(2)} Bad Casts Per Minute`)
           .recommended(`${recommended} Bad Casts are recommended`);
       });
   }
