@@ -7,7 +7,7 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2019-03-11'),
-    changes: <>Updated look and feel of Mistweaver Azerite traits to conform to new 3.0 style.</>,
+    changes: 'Updated look and feel of Mistweaver Azerite traits to conform to new 3.0 style.',
     contributors: [Anomoly],
   },
   {
