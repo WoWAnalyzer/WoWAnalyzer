@@ -75,9 +75,7 @@ class IncandescentSliver extends Analyzer {
           </>
         )}
         label="Incandescent Sliver"
-        tooltip={`The following players also had this trinket equipped: ${playersWithTrinket.map(player => {
-          return ` ${player._combatantInfo.name} (${player.spec.className})`;
-        })}.`}
+        tooltip={`The following players also had this trinket equipped: ${playersWithTrinket.map(player => ` ${player._combatantInfo.name} (${player.spec.className})`)}.`}
         category={STATISTIC_CATEGORY.ITEMS} />
     );
   }

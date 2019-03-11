@@ -402,16 +402,18 @@ class MasteryValue extends Analyzer {
         icon={<SpellIcon id={SPELLS.MASTERY_ELUSIVE_BRAWLER.id} />}
         value={`${formatNumber(this.expectedMitigationPerSecond - this.noMasteryExpectedMitigationPerSecond)} DTPS`}
         label="Expected Mitigation by Mastery"
-        tooltip={this._loaded ? (<>
-          On average, you would dodge about <strong>{formatNumber(this.expectedMitigation)}</strong> damage on this fight. This value was increased by about <strong>{formatNumber(this.expectedMitigation - this.noMasteryExpectedMitigation)}</strong> due to Mastery.
-          You had an average expected dodge chance of <strong>{formatPercentage(this.expectedMeanDodge)}%</strong> and actually dodged about <strong>{formatNumber(this.estimatedActualMitigation)}</strong> damage with an overall rate of <strong>{formatPercentage(this.actualDodgeRate)}%</strong>.
-          This amounts to an expected reduction of <strong>{formatNumber((this.expectedMitigationPerSecond - this.noMasteryExpectedMitigationPerSecond) / this.averageMasteryRating)} DTPS per 1 Mastery</strong> <em>on this fight</em>.<br /><br />
+        tooltip={this._loaded ? (
+          <>
+            On average, you would dodge about <strong>{formatNumber(this.expectedMitigation)}</strong> damage on this fight. This value was increased by about <strong>{formatNumber(this.expectedMitigation - this.noMasteryExpectedMitigation)}</strong> due to Mastery.
+            You had an average expected dodge chance of <strong>{formatPercentage(this.expectedMeanDodge)}%</strong> and actually dodged about <strong>{formatNumber(this.estimatedActualMitigation)}</strong> damage with an overall rate of <strong>{formatPercentage(this.actualDodgeRate)}%</strong>.
+            This amounts to an expected reduction of <strong>{formatNumber((this.expectedMitigationPerSecond - this.noMasteryExpectedMitigationPerSecond) / this.averageMasteryRating)} DTPS per 1 Mastery</strong> <em>on this fight</em>.<br /><br />
 
-          <em>Technical Information:</em><br />
-          <strong>Estimated Actual Damage</strong> is calculated by calculating the average damage per hit of an ability, then multiplying that by the number of times you dodged each ability.<br />
-          <strong>Expected</strong> values are calculated by computing the expected number of mastery stacks each time you <em>could</em> dodge an ability.<br />
-          An ability is considered <strong>dodgeable</strong> if you dodged it at least once.
-          </>) : null}
+            <em>Technical Information:</em><br />
+            <strong>Estimated Actual Damage</strong> is calculated by calculating the average damage per hit of an ability, then multiplying that by the number of times you dodged each ability.<br />
+            <strong>Expected</strong> values are calculated by computing the expected number of mastery stacks each time you <em>could</em> dodge an ability.<br />
+            An ability is considered <strong>dodgeable</strong> if you dodged it at least once.
+          </>
+        ) : null}
         >
         <div style={{padding: '8px'}}>
           {this._loaded ? this.plot : null}

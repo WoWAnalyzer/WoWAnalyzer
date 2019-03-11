@@ -189,12 +189,6 @@ class MarrowrendUsage extends Analyzer {
   }
 
   statistic() {
-
-    let botDText = '';
-    if (this.hasBonesOfTheDamned) {
-      botDText = `${ this.wastedbonesOfTheDamnedProcs } casts with ${REFRESH_AT_STACKS_WITHOUT_BONES_OF_THE_DAMNED} stacks of ${SPELLS.BONE_SHIELD.name}, wasting potential ${SPELLS.BONES_OF_THE_DAMNED.name} procs.<br/>`;
-    }
-
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.MARROWREND.id} />}
@@ -203,7 +197,7 @@ class MarrowrendUsage extends Analyzer {
         tooltip={(
           <>
             {this.refreshMRCasts} casts to refresh Bone Shield, those do not count towards bad casts.<br />
-            {botDText}
+            {this.hasBonesOfTheDamned && <>{this.wastedbonesOfTheDamnedProcs} casts with {REFRESH_AT_STACKS_WITHOUT_BONES_OF_THE_DAMNED} stacks of {SPELLS.BONE_SHIELD.name}, wasting potential {SPELLS.BONES_OF_THE_DAMNED.name} procs.<br /></>}
             {this.badMRCasts} casts with more than {REFRESH_AT_STACKS_WITHOUT_BONES_OF_THE_DAMNED} stacks of Bone Shield wasting {this.bsStacksWasted} stacks.<br /><br />
 
             Avoid casting Marrowrend unless you have {this.refreshAtStacks} or less stacks or if Bone Shield has less than 6sec of its duration left.

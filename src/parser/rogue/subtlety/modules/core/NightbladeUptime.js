@@ -31,7 +31,7 @@ class NightbladeUptime extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    
+
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_NIGHTBLADE), this.handleDamage);
   }
 
@@ -39,7 +39,7 @@ class NightbladeUptime extends Analyzer {
   totalDamage = 0;
   damageBonus = 0;
 
-  handleDamage(event) {    
+  handleDamage(event) {
     const target = this.enemies.getEntity(event);
     if (!target) {
       return;
@@ -62,7 +62,7 @@ class NightbladeUptime extends Analyzer {
   get uptimeThresholds() {
     return {
       actual: this.percentUptime,
-      isLessThan: { 
+      isLessThan: {
         minor: 0.98,
         average: 0.95,
         major: 0.9,
@@ -90,7 +90,7 @@ class NightbladeUptime extends Analyzer {
         icon={<SpellIcon id={SPELLS.NIGHTBLADE.id} />}
         value={`${formatPercentage(this.buffedPercent)}%`}
         label={`Damage Buffed by Nightblade`}
-        tooltip={`You buffed <b> ${formatPercentage(this.buffedPercent)}% </b> of your damage by Nightblade. <br/>The total increase was <b>${formatNumber(this.damageBonus/this.owner.fightDuration * 1000)} DPS </b>`}
+        tooltip={<>You buffed <b> {formatPercentage(this.buffedPercent)}% </b> of your damage by Nightblade. <br />The total increase was <b>{formatNumber(this.damageBonus/this.owner.fightDuration * 1000)} DPS </b></>}
       />
     );
   }

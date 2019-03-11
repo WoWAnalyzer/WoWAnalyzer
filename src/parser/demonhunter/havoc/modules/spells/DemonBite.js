@@ -63,16 +63,22 @@ class DemonBite extends Analyzer{
         icon={<SpellIcon id={SPELLS.DEMONS_BITE.id} />}
         label="Demon Bite"
         position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={(<><span style={{ fontSize: '75%' }}>
-                {this.furyPerMin} fury per min <br />
-                {this.owner.formatItemDamageDone(this.damage)}
-              </span></>)}
-        tooltip={`
-          ${formatThousands(this.damage)} Total damage<br />
-          ${effectiveFuryGain} Effective fury gained<br />
-          ${this.furyGain} Total fury gained<br />
-          ${this.furyWaste} Fury wasted
-        `}
+        value={(
+          <>
+            <span style={{ fontSize: '75%' }}>
+              {this.furyPerMin} fury per min <br />
+              {this.owner.formatItemDamageDone(this.damage)}
+            </span>
+          </>
+        )}
+        tooltip={(
+          <>
+            {formatThousands(this.damage)} Total damage<br />
+            {effectiveFuryGain} Effective fury gained<br />
+            {this.furyGain} Total fury gained<br />
+            {this.furyWaste} Fury wasted
+          </>
+        )}
       />
     );
   }

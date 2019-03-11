@@ -73,7 +73,7 @@ class SecretInfusion extends Analyzer {
     this.healingMasteryBuff += this.selectedCombatant.hasBuff(SPELLS.SECRET_INFUSION_VERSATILITY.id) ? effectiveHealing : 0;
     this.healingVersatilityBuff += this.selectedCombatant.hasBuff(SPELLS.SECRET_INFUSION_MASTERY.id) ? effectiveHealing : 0;
   }
-  
+
   get buffUptimeCrit() {
     return this.selectedCombatant.getBuffUptime(SPELLS.SECRET_INFUSION_CRIT.id) / this.owner.fightDuration;
   }
@@ -86,7 +86,7 @@ class SecretInfusion extends Analyzer {
   get buffUptimeVersatility() {
     return this.selectedCombatant.getBuffUptime(SPELLS.SECRET_INFUSION_VERSATILITY.id) / this.owner.fightDuration;
   }
-  
+
   averageStatModifier(buffUptime) {
     return buffUptime * this.statModifier;
   }
@@ -107,10 +107,12 @@ class SecretInfusion extends Analyzer {
             {formatNumber(this.averageStatModifier(this.buffUptimeVersatility))} Average Versatility Rating<br />
           </>
         )}
-        tooltip={`
-          Grants <b>${this.statModifier}</b> additional stats when Thunder Focus Tea is used.<br/>
-          Buff Uptime: ${formatPercentage(this.totalBuffUptime)}%
-        `}
+        tooltip={(
+          <>
+            Grants <b>{this.statModifier}</b> additional stats when Thunder Focus Tea is used.<br />
+            Buff Uptime: {formatPercentage(this.totalBuffUptime)}%
+          </>
+        )}
       />
     );
   }
