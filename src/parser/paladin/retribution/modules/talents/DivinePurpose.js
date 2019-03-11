@@ -75,20 +75,23 @@ class DivinePurpose extends Analyzer {
   }
 
   statistic() {
-    const chainProcText = this.largestProcChain > 1 ? `<br>Your longest chain of procs was ${this.largestProcChain}` : ``;
-    const justicarsVengeanceText = this.selectedCombatant.hasTalent(SPELLS.JUSTICARS_VENGEANCE_TALENT.id) ? `<br>Justicars Vengeance: ${this.justicarsVengeanceConsumptions}` : ``; 
+    const chainProcText = this.largestProcChain > 1 ? `<br />Your longest chain of procs was ${this.largestProcChain}` : ``;
+    const justicarsVengeanceText = this.selectedCombatant.hasTalent(SPELLS.JUSTICARS_VENGEANCE_TALENT.id) ? `<br />Justicars Vengeance: ${this.justicarsVengeanceConsumptions}` : ``; 
     return (
       <StatisticBox
         position={STATISTIC_ORDER.OPTIONAL(1)}
         icon={<SpellIcon id={SPELLS.DIVINE_PURPOSE_TALENT_RETRIBUTION.id} />}
         value={`${formatNumber(this.divinePurposeProcs)}`}
         label="Divine Purpose procs"
-        tooltip={`
-          Your Divine Purpose procs were used on:<br>
-          Templars Verdict: ${this.templarsVerdictConsumptions}<br>
-          Divine Storm: ${this.divineStormConsumptions}
-          ${justicarsVengeanceText}
-          ${chainProcText}`}
+        tooltip={(
+          <>
+          Your Divine Purpose procs were used on:<br />
+          Templars Verdict: {this.templarsVerdictConsumptions}<br />
+          Divine Storm: {this.divineStormConsumptions}
+          {justicarsVengeanceText}
+          {chainProcText}
+          </>
+          )}
       />
     );
   }
