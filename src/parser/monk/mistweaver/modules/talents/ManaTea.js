@@ -134,8 +134,6 @@ class ManaTea extends Analyzer {
     this.manaSavedMT += (spellBaseMana * (1 - manaTeaReduction));//removed lifecycles as the combo isn't possible anymore
   }
   on_fightend() {
-    this.overHealingPercent = this.overhealing/(this.overhealing+this.effectivehealing);
-    this.overHealingPercent = Math.round(this.overHealingPercent * 1000)/1000;
     if(debug){
     console.log(`Mana Tea Casted: ${this.manateaCount}`);
     console.log(`Mana saved: ${this.manaSavedMT}`);
@@ -207,7 +205,7 @@ class ManaTea extends Analyzer {
         </>
       )
         .icon(SPELLS.MANA_TEA_TALENT.icon)
-        .actual(`${formatPercentage(this.overHealingPercent)} % average overhealing per Mana Tea cast`)
+        .actual(`${formatPercentage(this.avgOverHealing)} % average overhealing per Mana Tea cast`)
         .recommended(`under ${formatPercentage(recommended)}% over healing is recommended`);
     });
   }
