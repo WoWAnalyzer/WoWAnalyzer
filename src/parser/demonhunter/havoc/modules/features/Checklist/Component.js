@@ -46,6 +46,37 @@ class HavocDemonHunterChecklist extends React.PureComponent {
           {combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id) && <AbilityRequirement spell={SPELLS.BLADE_DANCE.id} />}
           {combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id) && <AbilityRequirement spell={SPELLS.FEL_RUSH_CAST.id} />}
           {combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id) && <AbilityRequirement spell={SPELLS.VENGEFUL_RETREAT.id} />}
+        </Rule>
+
+        <Rule
+          name="Don't waste casts"
+          description={(
+            <>
+            <p>Ineffectively or improperly casting these spells will lead to dps loss</p>
+            <a href="http://www.wowhead.com/havoc-demon-hunter-rotation-guide#rotation-priority-list" target="_blank" rel="noopener noreferrer">More info.</a>
+            </>
+          )}
+        >
+          {combatant.hasTalent(SPELLS.BLIND_FURY_TALENT.id) &&(
+            <Requirement
+              name={(
+                <>
+                <SpellLink id={SPELLS.BLIND_FURY_TALENT.id} /> bad casts
+                </>
+              )}
+              thresholds={thresholds.blindFuryBadCasts}
+            />
+          )}
+          {combatant.hasTalent(SPELLS.DEMONIC_TALENT.id) &&(
+            <Requirement
+              name={(
+                <>
+                <SpellLink id={SPELLS.DEMONIC_TALENT.id} /> bad casts
+                </>
+              )}
+              thresholds={thresholds.demonicBadCasts}
+            />
+          )}
           {combatant.hasTalent(SPELLS.FEL_ERUPTION_TALENT.id) &&(
             <Requirement
               name={(
@@ -55,6 +86,17 @@ class HavocDemonHunterChecklist extends React.PureComponent {
               )}
               thresholds={thresholds.felEruptionBadCasts}
             />
+          )}
+          {combatant.hasTalent(SPELLS.FEL_BARRAGE_TALENT.id) &&(
+            <Requirement
+              name={(
+                <>
+                <SpellLink id={SPELLS.FEL_BARRAGE_TALENT.id} /> bad casts
+                </>
+              )}
+              thresholds={thresholds.felBarrageBadCasts}
+            />
+          )}
           )}
         </Rule>
 
@@ -96,7 +138,7 @@ class HavocDemonHunterChecklist extends React.PureComponent {
         </Rule>
 
         <Rule
-          name="Manage your resources/fury properly"
+          name="Manage your fury properly"
           description={(
             <>
             <p>You should always avoid capping your fury and spend it regularly.</p>
@@ -117,16 +159,6 @@ class HavocDemonHunterChecklist extends React.PureComponent {
               )}
               thresholds={thresholds.demonBiteFury}
             />
-          {combatant.hasTalent(SPELLS.BLIND_FURY_TALENT.id) &&(
-            <Requirement
-              name={(
-                <>
-                <SpellLink id={SPELLS.BLIND_FURY_TALENT.id} /> bad casts
-                </>
-              )}
-              thresholds={thresholds.blindFuryEfficiency}
-            />
-          )}
           {combatant.hasTalent(SPELLS.IMMOLATION_AURA_TALENT.id) &&(
             <Requirement
               name={(

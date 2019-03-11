@@ -51,7 +51,7 @@ class BlindFury extends Analyzer{
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Try to cast <SpellLink id={SPELLS.EYE_BEAM.id} /> at 30 to 50 fury. Having more than 50 fury at cast is considered a dps loss.</>)
+        return suggest(<>Try to cast <SpellLink id={SPELLS.EYE_BEAM.id} /> at 30 to 50 fury. Having more than 50 fury at cast leads to to much fury wasted and a dps loss.</>)
           .icon(SPELLS.BLIND_FURY_TALENT.icon)
           .actual(`${actual} bad casts`)
           .recommended(`${formatPercentage(recommended)}% is recommended.`);
