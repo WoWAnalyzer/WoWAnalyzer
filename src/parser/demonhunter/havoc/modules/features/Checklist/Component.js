@@ -44,7 +44,6 @@ class HavocDemonHunterChecklist extends React.PureComponent {
           {combatant.hasTalent(SPELLS.IMMOLATION_AURA_TALENT.id) && <AbilityRequirement spell={SPELLS.IMMOLATION_AURA_TALENT.id} />}
           {combatant.hasTalent(SPELLS.FELBLADE_TALENT.id) && <AbilityRequirement spell={SPELLS.FELBLADE_TALENT.id} />}
           {combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id) && <AbilityRequirement spell={SPELLS.BLADE_DANCE.id} />}
-          {combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id) && <AbilityRequirement spell={SPELLS.DEATH_SWEEP.id} />}
           {combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id) && <AbilityRequirement spell={SPELLS.FEL_RUSH_CAST.id} />}
           {combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id) && <AbilityRequirement spell={SPELLS.VENGEFUL_RETREAT.id} />}
           {combatant.hasTalent(SPELLS.FEL_ERUPTION_TALENT.id) &&(
@@ -59,7 +58,6 @@ class HavocDemonHunterChecklist extends React.PureComponent {
           )}
         </Rule>
 
-        {combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id) && (
         <Rule
           name="Maintain your buffs and debuffs"
           description={(
@@ -81,7 +79,6 @@ class HavocDemonHunterChecklist extends React.PureComponent {
             />
           )}
         </Rule>
-        )}
 
         <Rule
           name="Use your offensive cooldowns"
