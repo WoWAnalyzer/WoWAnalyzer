@@ -79,6 +79,7 @@ export default class PetTimelineProcesser {
     // positioning is done using start (from parser), secondWidth
     return events.map(event => ({
       left: this.getOffsetLeft(event.timestamp),
+      duration: event.endTimestamp && ((event.endTimestamp - event.timestamp) / 1000 * this.secondWidth),
       ...event,
     }));
   }
