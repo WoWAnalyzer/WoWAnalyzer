@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import NavigationBar from 'interface/layout/NavigationBar';
+import ErrorBoundary from 'interface/common/ErrorBoundary';
 
 import ReportLoader from './ReportLoader';
 import FightSelection from './FightSelection';
@@ -18,7 +19,6 @@ import EventParser from './EventParser';
 import Results from './Results';
 import EVENT_PARSING_STATE from './EVENT_PARSING_STATE';
 import BOSS_PHASES_STATE from './BOSS_PHASES_STATE';
-import ErrorBoundary from 'interface/common/ErrorBoundary';
 
 class ResultsLoader extends React.PureComponent {
   static propTypes = {
