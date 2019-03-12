@@ -35,7 +35,7 @@ exports[`The Fire Mage Analyzer analyzers AlwaysBeCasting matches the statistic 
         <div
           className="value"
         >
-          24.74 %
+          25.15 %
         </div>
         <div
           style={
@@ -54,7 +54,7 @@ exports[`The Fire Mage Analyzer analyzers AlwaysBeCasting matches the statistic 
               onTouchStart={[Function]}
               style={
                 Object {
-                  "width": "75.2647157966486%",
+                  "width": "74.84749715005334%",
                 }
               }
             >
@@ -114,7 +114,7 @@ Array [
       .
     </span>,
     "stat": <React.Fragment>
-      24.74% downtime
+      25.15% downtime
        (
       &lt;20.00% is recommended
       )
@@ -2161,7 +2161,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
               style={
                 Object {
                   "backgroundColor": "#df7102",
-                  "width": "34.04864523525383%",
+                  "width": "33.981651979135805%",
                 }
               }
             />
@@ -2252,7 +2252,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                   }
                 >
                    
-                  24.74%
+                  25.15%
                    
                    
                 </div>
@@ -2274,7 +2274,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "8.07752999146575%",
+                        "width": "7.943543479229692%",
                       }
                     }
                   />
