@@ -45,23 +45,13 @@ class PrePullCooldowns extends EventsNormalizer {
     const buffSpells = [];
     const damageSpells = [];
     const addBuff = (buff, buffId) => {
-      let castId;
-      if (buff.triggeredBySpellId) {
-        castId = buff.triggeredBySpellId;
-      } else if (buff.spellId instanceof Array) {
-        if (buff.spellId.includes(buffId)) {
-          // If the spell ids for the buff is also a castable spell, default to the spell id of the buff for the fabricated cast event.
-          // This fixes an issue with potions where previously the cast even listed the first potion in the list. This wasn't always the potion the player used, leading to confusion. Instead this will correctly list the potion they used.
-          castId = buffId;
-        } else {
-          castId = buff.spellId[0];
-        }
-      } else {
-        castId = buff.spellId;
+      if (!buff.triggeredBySpellId) {
+        // This normalizer is to fabricate prepull cast events that can be detected from buffs (and damage). If a buff isn't triggered by a spell, then there's nothing to fabricate.
+        return;
       }
 
       buffSpells.push({
-        castId,
+        castId: buff.triggeredBySpellId,
         buffId,
       });
     };
