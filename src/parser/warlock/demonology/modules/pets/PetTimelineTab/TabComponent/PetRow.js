@@ -99,10 +99,10 @@ export default class PetRow extends React.PureComponent {
     return (
       <div className="pet-row" style={{ borderBottom: 'none', marginBottom: 0, top: `${top}px` }}>
         {pets.map((pet, index) => (
-          <>
+          <React.Fragment key={`pet-${pet.summonAbility}-${index}`}>
             {this.renderIcon(pet, index)}
             {this.renderDuration(pet, index)}
-          </>
+          </React.Fragment>
         ))}
       </div>
     );

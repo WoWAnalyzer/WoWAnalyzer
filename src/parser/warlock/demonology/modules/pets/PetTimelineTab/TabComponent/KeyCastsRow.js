@@ -48,7 +48,13 @@ export default class KeyCastsRow extends React.PureComponent {
 
     if (hasTooltip) {
       return (
-        <Tooltip content={tooltipInfo.map(line => <>{line}<br /></>)}>
+        <Tooltip
+          content={tooltipInfo.map(line => (
+            <>
+              {line}<br />
+            </>
+          ))}
+        >
           {icon}
         </Tooltip>
       );
@@ -71,7 +77,6 @@ export default class KeyCastsRow extends React.PureComponent {
 
   render() {
     const { events } = this.props;
-    console.log(events);
     return (
       <div className="key-casts" style={{ borderBottom: 'none', marginBottom: 0 }}>
         {events.map(event => {
