@@ -1564,6 +1564,7 @@ exports[`Root matches snapshot 1`] = `
                                       />
                                     </Route>
                                   </withRouter(Tracker)>
+                                  <Hotkeys />
                                 </App>
                               </Connect(App)>
                             </Route>

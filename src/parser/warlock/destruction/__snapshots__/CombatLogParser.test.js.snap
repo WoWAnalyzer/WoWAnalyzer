@@ -130,7 +130,6 @@ exports[`The Destruction Warlock Analyzer analyzers Backdraft matches the statis
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Backdraft"
               className="icon game "
@@ -206,7 +205,6 @@ exports[`The Destruction Warlock Analyzer analyzers CrashingChaos matches the st
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Crashing Chaos"
               className="icon game "
@@ -219,7 +217,6 @@ exports[`The Destruction Warlock Analyzer analyzers CrashingChaos matches the st
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             Crashing Chaos
           </a>
         </label>
@@ -318,7 +315,6 @@ exports[`The Destruction Warlock Analyzer analyzers Havoc matches the statistic 
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Havoc"
               className="icon game "
@@ -383,7 +379,6 @@ exports[`The Destruction Warlock Analyzer analyzers ImmolateUptime matches the s
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Immolate"
               className="icon game "
