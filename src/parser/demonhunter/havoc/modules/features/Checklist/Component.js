@@ -97,7 +97,6 @@ class HavocDemonHunterChecklist extends React.PureComponent {
               thresholds={thresholds.felBarrageBadCasts}
             />
           )}
-          )}
         </Rule>
 
         <Rule
