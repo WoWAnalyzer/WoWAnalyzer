@@ -113,10 +113,10 @@ class Buffs extends React.PureComponent {
     // TODO: tooltip renders at completely wrong places
     return (
       <Tooltip
+        key={`buff-${left}-${event.ability.guid}`}
         content={`${formatDuration(fightDuration, 3)}: gained ${event.ability.name} for ${(duration / 1000).toFixed(2)}s`}
       >
         <div
-          key={`buff-${left}-${event.ability.guid}`}
           className="buff hoist"
           style={{
             left,
