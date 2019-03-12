@@ -151,8 +151,6 @@ class Casts extends React.PureComponent {
     const left = this.getOffsetLeft(event.timestamp);
     const icon = (
       <SpellLink
-        // It's possible this complains about "encountered two children with the same key". This is probably caused by fabricating a channel event at a cast time. If you can fix it by removing one of the events that would be great, otherwise you may just have to ignore this as while it's showing a warning, deduplicting the icons is correct behavior.
-        key={`cast-${left}-${event.ability.guid}`}
         id={event.ability.guid}
         icon={false}
         className={`cast ${className}`}
@@ -169,15 +167,18 @@ class Casts extends React.PureComponent {
       </SpellLink>
     );
 
-    if (tooltip) {
-      return (
-        <Tooltip content={tooltip}>
-          {icon}
-        </Tooltip>
-      );
-    } else {
-      return icon;
-    }
+    return (
+      <React.Fragment
+        // It's possible this complains about "encountered two children with the same key". This is probably caused by fabricating a channel event at a cast time. If you can fix it by removing one of the events that would be great, otherwise you may just have to ignore this as while it's showing a warning, deduplicting the icons is correct behavior.
+        key={`cast-${left}-${event.ability.guid}`}
+      >
+        {tooltip ? (
+          <Tooltip content={tooltip}>
+            {icon}
+          </Tooltip>
+        ) : icon}
+      </React.Fragment>
+    );
   }
   renderChannel(event) {
     const start = this.props.start;
