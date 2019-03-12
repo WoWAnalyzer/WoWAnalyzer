@@ -13,8 +13,8 @@ class Requirement extends React.PureComponent {
   static propTypes = {
     name: PropTypes.node.isRequired,
     thresholds: PropTypes.object.isRequired,
-    tooltip: PropTypes.string,
-    valueTooltip: PropTypes.string,
+    tooltip: PropTypes.node,
+    valueTooltip: PropTypes.node,
     setPerformance: PropTypes.func,
     prefix: PropTypes.node,
     suffix: PropTypes.node,
