@@ -23,6 +23,7 @@ import PortalTarget from 'interface/PortalTarget';
 import 'react-toggle/style.css';
 import './layout/App.scss';
 import Tracker from './Tracker';
+import Hotkeys from './Hotkeys';
 
 const CharacterParsesPage = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'CharacterParsesPage' */ 'interface/character/Page').then(exports => exports.default)));
 
@@ -198,6 +199,7 @@ class App extends React.Component {
 
         <PortalTarget />
         <Tracker />
+        <Hotkeys />
       </>
     );
   }
