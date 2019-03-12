@@ -19,9 +19,9 @@ const PROC_CHANCE_PER_COMBO = 0.08;
 /**
  * Iron Jaws
  * Ferocious Bite has a 8% chance per combo point to increase the damage of your next Maim by X per combo point.
- * 
+ *
  * Example log: /report/7ZjPwhdHXFb8r6ky/6-Normal+Grong+the+Revenant+-+Kill+(3:30)/17-Ashurabisha
- * 
+ *
  * Using Ferocious Bite has a chance to give the player the Iron Jaws buff, which lasts 30 seconds or until they next use Maim.
  * When Maim is used with the buff active the removebuff event appears before the cast event for Maim in the log.
  */
@@ -30,10 +30,10 @@ class IronJaws extends Analyzer {
     abilities: Abilities,
   };
 
-  traitBonus = 0; // trait bonus damage is per combo point on 
+  traitBonus = 0; // trait bonus damage is per combo point on
   coefficient = 0; // per combo point spent on Maim
   damage = 0;
-  
+
   // updated when Maim is cast, used when Maim damage is detected
   attackPower = 0;
   comboPoints = 0;
@@ -50,7 +50,7 @@ class IronJaws extends Analyzer {
       this.active = false;
       return;
     }
-    
+
     this.traitBonus = this.selectedCombatant.traitsBySpellId[SPELLS.IRON_JAWS_TRAIT.id]
       .reduce((sum, rank) => sum + calculateAzeriteEffects(SPELLS.IRON_JAWS_TRAIT.id, rank)[0], 0);
     this.coefficient = this.abilities.getAbility(SPELLS.MAIM.id).primaryCoefficient;
@@ -87,7 +87,7 @@ class IronJaws extends Analyzer {
     }
     this.buffedMaimCount += 1;
     debug && this.log('Buffed Maim');
-    
+
     this.comboPoints = this.getComboPoints(event);
     debug && this.log(`Maim used with ${this.comboPoints} combo points.`);
     if (this.comboPoints && this.comboPoints < 5) {
@@ -121,10 +121,14 @@ class IronJaws extends Analyzer {
         value={(
           <ItemDamageDone amount={this.damage} />
         )}
-        tooltip={`Increased your Maim damage by a total of <b>${formatNumber(this.damage)}</b>.<br />
-        From your use of Ferocious Bite you would expect on average to get <b>${this.expectedProcCount.toFixed(1)}</b> Iron Jaws procs. You actually got <b>${this.ironJawsProcCount}</b>.<br />
-        Of those <b>${this.ironJawsProcCount}</b> procs you made use of <b>${this.buffedMaimCount}</b> to buff Maim's damage.<br />
-        You cast Maim <b>${this.unbuffedMaimCount}</b> time${this.unbuffedMaimCount === 1 ? '' : 's'} without the Iron Jaws buff.`}
+        tooltip={(
+          <>
+            Increased your Maim damage by a total of <b>{formatNumber(this.damage)}</b>.<br />
+            From your use of Ferocious Bite you would expect on average to get <b>{this.expectedProcCount.toFixed(1)}</b> Iron Jaws procs. You actually got <b>{this.ironJawsProcCount}</b>.<br />
+            Of those <b>{this.ironJawsProcCount}</b> procs you made use of <b>{this.buffedMaimCount}</b> to buff Maim's damage.<br />
+            You cast Maim <b>{this.unbuffedMaimCount}</b> time{this.unbuffedMaimCount === 1 ? '' : 's'} without the Iron Jaws buff.
+          </>
+        )}
       />
     );
   }

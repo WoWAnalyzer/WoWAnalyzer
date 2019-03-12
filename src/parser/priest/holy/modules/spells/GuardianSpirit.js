@@ -52,10 +52,12 @@ class GuardianSpirit extends Analyzer {
           <ItemHealingDone amount={this.totalHealingFromGSBuff} />
         )}
         label="Guardian Spirit Buff Contribution"
-        tooltip={
-          `You casted Guardian Spirit ${this.totalGSCasts} times, and it contributed ${formatNumber(this.totalHealingFromGSBuff)} healing. This includes healing from other healers.<br/>
-          NOTE: This metric uses an approximation to calculate contribution from the buff due to technical limitations.`
-        }
+        tooltip={(
+          <>
+            You casted Guardian Spirit {this.totalGSCasts} times, and it contributed {formatNumber(this.totalHealingFromGSBuff)} healing. This includes healing from other healers.<br />
+            NOTE: This metric uses an approximation to calculate contribution from the buff due to technical limitations.
+          </>
+        )}
       />
     );
   }

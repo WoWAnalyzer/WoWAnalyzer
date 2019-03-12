@@ -4,9 +4,15 @@ import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import Analyzer from 'parser/core/Analyzer';
-import TraitStatisticBox from 'interface/others/TraitStatisticBox';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import SpellLink from 'common/SpellLink';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import StatValues from 'parser/monk/mistweaver/modules/features/StatValues';
+
+import Versatility from 'interface/icons/Versatility';
+import CriticalStrike from 'interface/icons/CriticalStrike';
+import Mastery from 'interface/icons/Mastery';
+import Haste from 'interface/icons/Haste';
 
 
 const secretInfusionStat = traits => Object.values(traits).reduce((obj, rank) => {
@@ -73,7 +79,7 @@ class SecretInfusion extends Analyzer {
     this.healingMasteryBuff += this.selectedCombatant.hasBuff(SPELLS.SECRET_INFUSION_VERSATILITY.id) ? effectiveHealing : 0;
     this.healingVersatilityBuff += this.selectedCombatant.hasBuff(SPELLS.SECRET_INFUSION_MASTERY.id) ? effectiveHealing : 0;
   }
-  
+
   get buffUptimeCrit() {
     return this.selectedCombatant.getBuffUptime(SPELLS.SECRET_INFUSION_CRIT.id) / this.owner.fightDuration;
   }
@@ -86,7 +92,7 @@ class SecretInfusion extends Analyzer {
   get buffUptimeVersatility() {
     return this.selectedCombatant.getBuffUptime(SPELLS.SECRET_INFUSION_VERSATILITY.id) / this.owner.fightDuration;
   }
-  
+
   averageStatModifier(buffUptime) {
     return buffUptime * this.statModifier;
   }
@@ -97,21 +103,32 @@ class SecretInfusion extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
-        trait={SPELLS.SECRET_INFUSION.id}
-        value={(
+      <AzeritePowerStatistic
+        size="flexible"
+        tooltip={(
           <>
-            {formatNumber(this.averageStatModifier(this.buffUptimeMastery))} Average Mastery Rating<br />
-            {formatNumber(this.averageStatModifier(this.buffUptimeCrit))} Average Crit Rating<br />
-            {formatNumber(this.averageStatModifier(this.buffUptimeHaste))} Average Haste Rating<br />
-            {formatNumber(this.averageStatModifier(this.buffUptimeVersatility))} Average Versatility Rating<br />
+            Grants <b>{this.statModifier}</b> additional stats when Thunder Focus Tea is used.<br />
+            Buff Uptime: {formatPercentage(this.totalBuffUptime)}%
           </>
         )}
-        tooltip={`
-          Grants <b>${this.statModifier}</b> additional stats when Thunder Focus Tea is used.<br/>
-          Buff Uptime: ${formatPercentage(this.totalBuffUptime)}%
-        `}
-      />
+      >
+        <div className="pad">
+          <label><SpellLink id={SPELLS.SECRET_INFUSION.id} /></label>
+
+          <div className="value" style={{ marginTop: 15 }}>
+            <CriticalStrike /> {formatNumber(this.averageStatModifier(this.buffUptimeCrit))} <small>average Crit Rating</small>
+          </div>
+          <div className="value" style={{ marginTop: 5 }}>
+            <Mastery /> {formatNumber(this.averageStatModifier(this.buffUptimeMastery))} <small>average Mastery Rating</small>
+          </div>
+          <div className="value" style={{ marginTop: 5 }}>
+            <Haste /> {formatNumber(this.averageStatModifier(this.buffUptimeHaste))} <small>average Haste Rating</small>
+          </div>
+          <div className="value" style={{ marginTop: 5 }}>
+            <Versatility /> {formatNumber(this.averageStatModifier(this.buffUptimeVersatility))} <small>average Versatility Rating</small>
+          </div>
+        </div>
+      </AzeritePowerStatistic>
     );
   }
 

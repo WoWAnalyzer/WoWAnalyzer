@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-03-11'),
+    changes: 'Updated look and feel of Mistweaver Azerite traits to conform to new 3.0 style.',
+    contributors: [Anomoly],
+  },
+  {
     date: new Date('2019-02-25'),
     changes: <>Added statistics, suggestion, and checklist item for  <SpellLink id={SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.id} /> casting uptime.</>,
     contributors: [Anomoly],

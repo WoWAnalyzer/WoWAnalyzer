@@ -66,10 +66,12 @@ class FuriousGaze extends Analyzer{
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.FURIOUS_GAZE.id}
         value={`${formatNumber(this.averageHaste)} average Haste`}
-        tooltip={`
-          ${formatPercentage(this.buffUptime)}% uptime<br />
-          ${this.furiousGazeProcsCounter} Procs
-        `}
+        tooltip={(
+          <>
+            {formatPercentage(this.buffUptime)}% uptime<br />
+            {this.furiousGazeProcsCounter} Procs
+          </>
+        )}
       />
     );
   }

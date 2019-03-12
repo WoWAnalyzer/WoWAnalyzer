@@ -69,9 +69,9 @@ class FelBarrage extends Analyzer{
         talent={SPELLS.FEL_BARRAGE_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
         value={(<>
-                  {this.badCasts} Bad casts<br />
-                  {this.owner.formatItemDamageDone(this.damage)}
-                </>)}
+          {this.badCasts} Bad casts<br />
+          {this.owner.formatItemDamageDone(this.damage)}
+        </>)}
         tooltip={`
           ${formatThousands(this.damage)} Total damage <br /><br />
           If you cast Fel Barage without Meta up its considered a bad cast.

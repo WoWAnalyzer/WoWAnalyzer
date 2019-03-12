@@ -126,17 +126,27 @@ class VipersVenom extends Analyzer {
   }
 
   statistic() {
-    let tooltip = `<ul><li>Average time between gaining Viper's Venom buff and using it was <b>${this.averageTimeBetweenBuffAndUsage}</b> seconds. <ul><li>Note: This accounts for the GCD after the ${this.spellKnown.name} proccing Viper's Venom. </li>`;
-    tooltip += this.wastedProcs > 0 ? `<li>You wasted ${this.wastedProcs} procs by gaining a new proc, whilst your current proc was still active.</li>` : ``;
-    tooltip += `</ul></li></ul>`;
     return (
       <TalentStatisticBox
         talent={SPELLS.VIPERS_VENOM_TALENT.id}
-        value={<>
-          {this.procs} / {this.wastedProcs + this.procs} procs used<br />
-          <ItemDamageDone amount={this.bonusDamage} />
-        </>}
-        tooltip={tooltip}
+        value={(
+          <>
+            {this.procs} / {this.wastedProcs + this.procs} procs used<br />
+            <ItemDamageDone amount={this.bonusDamage} />
+          </>
+        )}
+        tooltip={(
+          <>
+            <ul>
+              <li>Average time between gaining Viper's Venom buff and using it was <b>{this.averageTimeBetweenBuffAndUsage}</b> seconds.
+                <ul>
+                  <li>Note: This accounts for the GCD after the {this.spellKnown.name} proccing Viper's Venom. </li>
+                  {this.wastedProcs > 0 && <li>You wasted {this.wastedProcs} procs by gaining a new proc, whilst your current proc was still active.</li>}
+                </ul>
+              </li>
+            </ul>
+          </>
+        )}
       />
     );
   }

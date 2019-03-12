@@ -51,9 +51,7 @@ class DarkSlash extends Analyzer {
         talent={SPELLS.DARK_SLASH_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
         value={this.owner.formatItemDamageDone(this.extraDamage)}
-        tooltip={`
-          ${formatThousands(this.extraDamage)} total damage
-        `}
+        tooltip={`${formatThousands(this.extraDamage)} total damage`}
       />
     );
   }
