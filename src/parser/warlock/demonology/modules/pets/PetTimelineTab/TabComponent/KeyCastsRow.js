@@ -1,81 +1,88 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import SpellIcon from 'common/SpellIcon';
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
+import Icon from 'common/Icon';
 import Tooltip from 'common/Tooltip';
 
-class KeyCastsRow extends React.PureComponent {
+import './KeyCastsRow.scss';
+
+export default class KeyCastsRow extends React.PureComponent {
   static propTypes = {
-    className: PropTypes.string,
-    events: PropTypes.array,
-    start: PropTypes.number.isRequired,
-    totalWidth: PropTypes.number.isRequired,
-    secondWidth: PropTypes.number.isRequired,
+    events: PropTypes.array.isRequired,
   };
 
-  render() {
-    const { className, events, start, totalWidth, secondWidth } = this.props;
+  renderCast(event) {
+    const spell = SPELLS[event.abilityId] ||{
+      name: 'Spell not recognized',
+      icon: 'inv_misc_questionmark',
+    };
+
+    const icon = (
+      <SpellLink
+        key={`cast-${event.timestamp}-${event.abilityId}`}
+        id={event.abilityId}
+        className={`cast${event.important ? ' enhanced' : ''}`}
+        icon={false}
+        style={{
+          left: event.left,
+          zIndex: event.important ? 20 : 10,
+        }}
+      >
+        <Icon
+          icon={spell.icon}
+          alt={spell.name}
+        />
+      </SpellLink>
+    );
+
+    const tooltipInfo = [];
+    if (event.extraInfo) {
+      tooltipInfo.push(event.extraInfo);
+    }
+    if (event.nearbyCasts) {
+      tooltipInfo.push(`This cast overlaps with following casts: ${event.nearbyCasts.join(', ')}.`);
+    }
+    const hasTooltip = tooltipInfo.length > 0;
+
+    if (hasTooltip) {
+      return (
+        <Tooltip content={tooltipInfo.map(line => <>{line}<br /></>)}>
+          {icon}
+        </Tooltip>
+      );
+    }
+    return icon;
+  }
+
+  renderDuration(event) {
     return (
-      <div className={`events ${className || ''}`} style={{ width: totalWidth }}>
-        {events.map((event, index) => {
+      <div
+        key={`duration-${event.timestamp}`}
+        className="gcd"
+        style={{
+          left: event.left,
+          width: event.duration,
+        }}
+      />
+    );
+  }
+
+  render() {
+    const { events } = this.props;
+    console.log(events);
+    return (
+      <div className="key-casts" style={{ borderBottom: 'none', marginBottom: 0 }}>
+        {events.map(event => {
           if (event.type === 'cast') {
-            const left = (event.timestamp - start) / 1000 * secondWidth;
-            const tooltipInfo = [];
-            if (event.extraInfo) {
-              tooltipInfo.push(event.extraInfo);
-            }
-            if (event.nearbyCasts) {
-              tooltipInfo.push(`This cast overlaps with following casts: ${event.nearbyCasts.join(', ')}.`);
-            }
-            const hasTooltip = tooltipInfo.length > 0;
-            return (
-              <div
-                key={index}
-                style={{
-                  left,
-                  top: -1,
-                  zIndex: (event.important) ? 20 : 10,
-                }}
-              >
-                {hasTooltip ? (
-                  <Tooltip content={tooltipInfo.join('\n')}>
-                    <div>
-                      <SpellIcon
-                        id={event.abilityId}
-                        className={event.important && 'enhanced'}
-                      />
-                    </div>
-                  </Tooltip>
-                ) : (
-                  <SpellIcon
-                    id={event.abilityId}
-                    className={event.important && 'enhanced'}
-                  />
-                )}
-              </div>
-            );
+            return this.renderCast(event);
           }
-          else if (event.type === 'duration') {
-            const left = (event.timestamp - start) / 1000 * secondWidth;
-            const maxWidth = totalWidth - left; // don't expand beyond the container width
-            const width = Math.min(maxWidth, (event.endTimestamp - event.timestamp) / 1000 * secondWidth);
-            return (
-              <div
-                key={index}
-                style={{
-                  left,
-                  width,
-                  background: 'rgba(133, 59, 255, 0.7)',
-                }}
-                data-effect="float"
-              />
-            );
+          else {
+            return this.renderDuration(event);
           }
-          return null;
         })}
       </div>
     );
   }
 }
-
-export default KeyCastsRow;
