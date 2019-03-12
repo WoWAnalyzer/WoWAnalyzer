@@ -586,3 +586,8 @@ export const Skeletor = {
     'RetPaladin.XYZ': 'https://www.retpaladin.xyz/ret-paladin-8-1-0-pve-guide',
   },
 };
+export const Abelito75 = {
+  nickname: 'Abelito75',
+  github: 'abelito75',
+  avatar: require('./interface/images/avatars/Abelito75-avatar.png'),
+};

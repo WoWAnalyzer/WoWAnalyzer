@@ -94,6 +94,7 @@ class MistweaverMonkChecklist extends React.PureComponent {
 
           {combatant.hasTalent(SPELLS.MANA_TEA_TALENT.id) &&
           <Requirement name={(<><SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> mana saved</>)} thresholds={thresholds.manaTea} />}
+          <Requirement name={(<><SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> % overhealing</>)} thresholds={thresholds.manaTeaOverhealing} />
 
           {combatant.hasTalent(SPELLS.LIFECYCLES_TALENT.id) &&
           <Requirement name={(<><SpellLink id={SPELLS.LIFECYCLES_TALENT.id} /> mana saved</>)} thresholds={thresholds.lifecycles} />}
