@@ -59,7 +59,6 @@ class JungleFury extends Analyzer {
   }
 
   statistic() {
-    const timeComment = this.hasPredator ? '' : `<br />The trait provided you with an extra <b>${(this.buffCount * DURATION_INCREASE / 1000).toFixed(0)}</b> seconds of Tiger's Fury over the course of this fight.`;
     return (
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
@@ -70,7 +69,16 @@ class JungleFury extends Analyzer {
             {formatNumber(this.averageCritRating)} average Crit
           </>
         )}
-        tooltip={`Jungle Fury grants <b>${this.critRating}</b> critical strike rating while Tiger's Fury is active.${timeComment}`}
+        tooltip={(
+          <>
+            Jungle Fury grants <b>{this.critRating}</b> critical strike rating while Tiger's Fury is active.
+            {this.hasPredator && (
+              <>
+                <br />The trait provided you with an extra <b>{(this.buffCount * DURATION_INCREASE / 1000).toFixed(0)}</b> seconds of Tiger's Fury over the course of this fight.
+              </>
+            )}
+          </>
+        )}
       />
     );
   }

@@ -122,7 +122,12 @@ export default class StraightNoChaser extends Analyzer {
           {formatNumber(this.avgArmor)} Armor Gained
           </>
         )}
-        tooltip={`There are no logged events for SNC's generated brew charges, so this is an <em>estimate</em> based on casts that occurred while your brews are on cooldown. <b>If you have low cast efficiency, this will be <em>underestimated!</em></b><br/><br/>Straight, No Chaser gave <b>${this.armor}</b> armor, and was up for ${formatPercentage(this.uptimePct)}% of the fight.`}
+        tooltip={(
+          <>
+            There are no logged events for SNC's generated brew charges, so this is an <em>estimate</em> based on casts that occurred while your brews are on cooldown. <b>If you have low cast efficiency, this will be <em>underestimated!</em></b><br /><br />
+            Straight, No Chaser gave <b>{this.armor}</b> armor, and was up for {formatPercentage(this.uptimePct)}% of the fight.
+          </>
+        )}
       >
         <div style={{padding: '8px'}}>
           {this.plot}

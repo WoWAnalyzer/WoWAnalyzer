@@ -101,7 +101,12 @@ export default class GiftOfTheOx extends Analyzer {
         icon={<SpellIcon id={GIFT_OF_THE_OX_SPELLS[0].id} />}
         label={"Gift of the Ox Healing"}
         value={`${formatNumber(this.totalHealing / (this.owner.fightDuration / 1000))} HPS`}
-        tooltip={`You generated ${formatNumber(this.orbsGenerated)} healing spheres and consumed ${formatNumber(this.orbsConsumed)} of them, healing for <b>${formatNumber(this.totalHealing)}</b>. ${formatNumber(this.expelHarmOrbsConsumed)} of these were consumed with Expel Harm over ${formatNumber(this.expelHarmCasts)} casts.`}
+        tooltip={(
+          <>
+            You generated {formatNumber(this.orbsGenerated)} healing spheres and consumed {formatNumber(this.orbsConsumed)} of them, healing for <b>{formatNumber(this.totalHealing)}</b>.
+            {formatNumber(this.expelHarmOrbsConsumed)} of these were consumed with Expel Harm over {formatNumber(this.expelHarmCasts)} casts.
+          </>
+        )}
       />
     );
   }

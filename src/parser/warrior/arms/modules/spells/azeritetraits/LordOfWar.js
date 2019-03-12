@@ -50,7 +50,7 @@ class LordOfWar extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.LORD_OF_WAR.id}
         value={`${this.owner.formatItemDamageDone(this.lordOfWarDamage)}`}
-        tooltip={`Damage done: <b>${formatNumber(this.lordOfWarDamage)}</b>`}
+        tooltip={<>Damage done: <b>{formatNumber(this.lordOfWarDamage)}</b></>}
       />
     );
   }

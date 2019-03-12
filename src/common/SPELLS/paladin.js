@@ -486,6 +486,11 @@ export default {
     name: 'Consecration',
     icon: 'spell_holy_innerfire',
   },
+  CONSECRATION_DAMAGE: {
+    id: 81297,
+    name: 'Consecration',
+    icon: 'spell_holy_innerfire',
+  },
   DIVINE_SHIELD: {
     id: 642,
     name: 'Divine Shield',

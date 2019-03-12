@@ -98,6 +98,10 @@ class Buffs extends React.PureComponent {
   }
   renderRemoveBuff(event) {
     const applied = this._applied[event.ability.guid];
+    if (!applied) {
+      // This may occur for broken logs with missing events due to range/logger issues
+      return null;
+    }
     const left = this.getOffsetLeft(applied.timestamp);
     const duration = event.timestamp - applied.timestamp;
     const fightDuration = (applied.timestamp - this.props.start) / 1000;

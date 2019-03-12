@@ -77,7 +77,7 @@ class DemonicMeteor extends Analyzer {
         tooltip={(
           <>
             Estimated bonus Hand of Gul'dan damage: {formatThousands(this.damage)}<br />
-            You gained ${shardsGained} Shards with this trait, {max > 0 ? <>which is <strong>{formatPercentage(shardsGained / max)} %</strong> of Shards you were most likely to get in this fight ({max} Shards).</> : 'while you were most likely to not get any Shards.'}<br /><br />
+            You gained {shardsGained} Shards with this trait, {max > 0 ? <>which is <strong>{formatPercentage(shardsGained / max)} %</strong> of Shards you were most likely to get in this fight ({max} Shards).</> : 'while you were most likely to not get any Shards.'}<br /><br />
 
             The damage is an approximation using current Intellect values at given time, but because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be a little incorrect.
           </>

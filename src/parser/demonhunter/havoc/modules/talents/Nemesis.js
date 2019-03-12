@@ -72,7 +72,7 @@ class Nemesis extends Analyzer {
         tooltip={(
           <>
             Nemesis Contributed {formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS / {formatNumber(this.bonusDmg)} total damage.<br />
-            You had ${formatPercentage(this.nemesisUptimePercent)}% uptime.
+            You had {formatPercentage(this.nemesisUptimePercent)}% uptime.
             {this.everHadNemesisBuff && <><br /><br /> Due to technical limitations it is not currently possible to tell if your Nemesis buff type is the same as the boss type. This limitation may cause the damage contributed by Nemesis to appear higher than it otherwise would.</>}
           </>
         )}

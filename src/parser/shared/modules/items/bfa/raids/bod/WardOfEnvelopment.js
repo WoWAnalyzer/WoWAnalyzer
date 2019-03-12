@@ -8,13 +8,14 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 import Abilities from 'parser/core/modules/Abilities';
+import Tooltip from 'common/Tooltip';
 
 const MAX_ALLIES_HIT = 5;
 const ACTIVATION_COOLDOWN = 120; // seconds
 
 /**
  * Use: Envelop up to 5 allies in the targeted area in shared shields for 10 sec, preventing up to [x] damage taken by any of them. Damage prevented is increased when affecting multiple allies. (2 Min Cooldown)
- * 
+ *
  * Allies affected have the Enveloping Protection buff, lasts 10 seconds or until all damage is absorbed.
  * Hitting 1 ally gives the base value, each additional ally hit adds 7.5% of the base value. Maximum of 5 people hit for 30% extra on top of the base value.
  *
@@ -62,7 +63,7 @@ class WardOfEnvelopment extends Analyzer {
      * In order to accurately calculate the average players buffed you need this.
      */
     if (this.shieldsActive) {
-      this.shieldedNoOne += 1; 
+      this.shieldedNoOne += 1;
     }
     this.shieldsActive = true;
   }
@@ -114,13 +115,15 @@ class WardOfEnvelopment extends Analyzer {
     return {
       item: ITEMS.WARD_OF_ENVELOPMENT,
       result: (
-        <dfn data-tip={`
-          You activated your Ward of Envelopment <b>${this.uses}</b> of <b>${this.possibleUseCount}</b> possible time${this.uses === 1 ? '' : 's'} with an average of <b>${formatNumber(this.averageAbsorbPerCast)}</b> absorption per use.
-          It absorbed <b>${formatNumber(this.absorbUsed)}</b> out of <b>${formatNumber(this.totalAbsorb)}</b> damage and <b>${formatNumber(this.absorbWasted)} (${formatPercentage(this.wastedPercentage)}%)</b> was unused. <br />
-          On average you hit <b>${this.averageTargetsHit.toFixed(2)}</b> out of <b>5</b> allies and gained <b>${formatPercentage(this.gainedShieldValue)}%</b> extra absorption value per cast. <br />
-          `}>
+        <Tooltip content={(
+          <>
+            You activated your Ward of Envelopment <b>{this.uses}</b> of <b>{this.possibleUseCount}</b> possible time{this.uses === 1 ? '' : 's'} with an average of <b>{formatNumber(this.averageAbsorbPerCast)}</b> absorption per use.
+            It absorbed <b>{formatNumber(this.absorbUsed)}</b> out of <b>{formatNumber(this.totalAbsorb)}</b> damage and <b>{formatNumber(this.absorbWasted)} ({formatPercentage(this.wastedPercentage)}%)</b> was unused. <br />
+            On average you hit <b>{this.averageTargetsHit.toFixed(2)}</b> out of <b>5</b> allies and gained <b>{formatPercentage(this.gainedShieldValue)}%</b> extra absorption value per cast. <br />
+          </>
+        )}>
           <ItemHealingDone amount={this.absorbUsed} />
-        </dfn>
+        </Tooltip>
       ),
     };
   }
@@ -140,7 +143,7 @@ class WardOfEnvelopment extends Analyzer {
     when(this.suggestedShieldValue).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
-          Your usage of <ItemLink id={ITEMS.WARD_OF_ENVELOPMENT.id} /> can be improved. Try to place the it in an area with more allies to increase the overall abosorption it provides. 
+          Your usage of <ItemLink id={ITEMS.WARD_OF_ENVELOPMENT.id} /> can be improved. Try to place the it in an area with more allies to increase the overall abosorption it provides.
         </>
       )
         .icon(ITEMS.WARD_OF_ENVELOPMENT.icon)

@@ -6,6 +6,21 @@ import { Juko8, Skeletor } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2019-03-08'),
+    changes: <> Updated <SpellLink id={SPELLS.CONSECRATION_TALENT.id} icon /> module to display average targets hit.</>,
+    contributors: [Skeletor],
+  },
+  {
+    date: new Date('2019-03-07'),
+    changes: <> Added module to display <SpellLink id={SPELLS.INDOMITABLE_JUSTICE.id} icon /> benefit.</>,
+    contributors: [Skeletor],
+  },
+  {
+    date: new Date('2019-03-05'),
+    changes: 'Added Holy Power wastage highlights on timeline.',
+    contributors: [Skeletor],
+  },
+  {
     date: new Date('2019-03-03'),
     changes: <> Added module for <SpellLink id={SPELLS.WAKE_OF_ASHES_TALENT.id} icon />.</>,
     contributors: [Skeletor],

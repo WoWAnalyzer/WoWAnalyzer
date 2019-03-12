@@ -26,7 +26,7 @@ class UnbridledFerocity extends Analyzer {
     super(...args);
 
     this.active = this.selectedCombatant.hasTrait(SPELLS.UNBRIDLED_FEROCITY.id);
-    
+
     if(!this.active) {
       return;
     }
@@ -80,7 +80,7 @@ class UnbridledFerocity extends Analyzer {
     if (this.recklessnessEvents.length === 0) {
       return;
     }
-    
+
     const lastIndex = this.recklessnessEvents.length - 1;
 
     if(!this.recklessnessEvents[lastIndex].end) {
@@ -114,7 +114,7 @@ class UnbridledFerocity extends Analyzer {
       <TraitStatisticBox
         trait={SPELLS.UNBRIDLED_FEROCITY.id}
         value={`${formatNumber(this.increasedRecklessnessDuration / 1000)}s Recklessness`}
-        tooltip={`Unbridled Ferocity did <b>${formatThousands(this.totalDamage)} (${formatPercentage(this.damagePercentage)}%)</b> damage.`}
+        tooltip={<>Unbridled Ferocity did <b>{formatThousands(this.totalDamage)} ({formatPercentage(this.damagePercentage)}%)</b> damage.</>}
       />
     );
   }

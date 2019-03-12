@@ -135,13 +135,9 @@ class Deathbolt extends Analyzer {
     const avg = total / (deathbolt.casts || 1);
 
     const avgDotLengths = this.averageRemainingDotLengths;
-    let tooltip = 'Average remaining DoT durations on Deathbolt cast:<br /><br />';
-    Object.entries(avgDotLengths).forEach(([key, value]) => {
-      if (key === 'total') {
-        return;
-      }
-      tooltip += `${SPELLS[key].name}: ${(value / 1000).toFixed(2)} seconds<br />`;
-    });
+    const dotDurationsTooltip = Object.entries(avgDotLengths)
+      .filter(([key]) => key !== 'total')
+      .map(([key, value]) => <>{SPELLS[key].name}: {(value / 1000).toFixed(2)} seconds<br /></>);
 
     return (
       <>
@@ -157,7 +153,12 @@ class Deathbolt extends Analyzer {
         <StatisticListBoxItem
           title={<>Average DoT length on <SpellLink id={SPELLS.DEATHBOLT_TALENT.id} /> cast</>}
           value={`${(avgDotLengths.total / 1000).toFixed(2)} s`}
-          valueTooltip={tooltip}
+          valueTooltip={(
+            <>
+              Average remaining DoT durations on Deathbolt cast:<br /><br />
+              {dotDurationsTooltip}
+            </>
+          )}
         />
       </>
     );

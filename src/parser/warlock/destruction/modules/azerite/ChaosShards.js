@@ -68,7 +68,7 @@ class ChaosShards extends Analyzer {
         tooltip={(
           <>
             Estimated bonus Incinerate damage: {formatThousands(this.damage)}<br />
-            You gained {generated} Fragments and wasted ${wasted} Fragments with this trait, {max > 0 ? <>which is <strong>{formatPercentage(total / (max * 10))} %</strong> of Fragments you were most likely to get in this fight ({max * 10} Fragments).</> : 'while you were most likely to not get any Fragments.'}<br /><br />
+            You gained {generated} Fragments and wasted {wasted} Fragments with this trait, {max > 0 ? <>which is <strong>{formatPercentage(total / (max * 10))} %</strong> of Fragments you were most likely to get in this fight ({max * 10} Fragments).</> : 'while you were most likely to not get any Fragments.'}<br /><br />
 
             The damage is an approximation using current Intellect values at given time, but because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be a little incorrect.
           </>
