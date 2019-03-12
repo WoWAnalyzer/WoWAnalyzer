@@ -25,22 +25,14 @@ export default class PetTimelineProcesser {
   }
 
   get groupedPets() {
-    // should group pets and return an array of objects probably
+    // groups pets by their summon ability ID (or "unknown"), value contains array of respective pet summons + information about it
     const _pets = this.petTimeline.groupPetsBySummonAbility();
-    // pets is now object, where key is the summon ability (string, because it's a key) and value is an array
-    // PetRow needs start (from parser), secondWidth, totalWidth, and also the value of the individual pet
-
-    // pets in the array contain properties:
-    // spawn (number), realDespawn or expectedDespawn (numbers), summonAbility (number or string "unknown")
-    // meta (object with properties "tooltip" (string), "iconClass" (string)), name (string)
 
     const pets = {};
     Object.entries(_pets).forEach(([summonAbilityId, petObject]) => {
-      // summonAbilityId is either string "unknown" or summonedBy property of the pet (source of the pet from player's perspective)
       pets[summonAbilityId] = petObject.pets.map(pet => {
         const left = this.getOffsetLeft(pet.spawn);
         const isSummonAbilityKnown = !!SPELLS[pet.summonAbility];
-        // TODO: limit the pet duration with fight length? end - start?
         const maxDuration = this.getOffsetLeft(this.end);
         const petDuration = Math.min(maxDuration, ((pet.realDespawn || pet.expectedDespawn) - pet.spawn) / 1000 * this.secondWidth);
         return {
@@ -75,14 +67,6 @@ export default class PetTimelineProcesser {
     events = this.decorateCloseCasts(events);
     events = this.decorateImplosionCasts(events);
 
-    // KeyCastsRow also needs start, totalWidth, secondWidth, for positioning
-    // event here contains:
-    // if type === 'cast'
-    //    type (string), timestamp (number) extraInfo (string?), nearbyCasts (string[]), important (bool), abilityId (number)
-    // else if type === 'duration'
-    //    type (string), endTimestamp (number), timestamp (number)
-
-    // positioning is done using start (from parser), secondWidth
     return events.map(event => ({
       left: this.getOffsetLeft(event.timestamp),
       duration: event.endTimestamp && ((event.endTimestamp - event.timestamp) / 1000 * this.secondWidth),
