@@ -1,10 +1,8 @@
 .pet-row {
   width: 100%;
   border-radius: 10px;
-  //top: -32px;
   margin-top: 30px;
   margin-bottom: -32px;
-  height: 54px;
   height: calc(54px + var(--levels) * 25px);
   box-shadow: 0 0 3px rgba(0, 0, 0, .3);
   box-sizing: content-box;
@@ -36,11 +34,11 @@
     display: block;
   }
   a.inefficient img {
-    border: 2px solid red;
+    border: 2px solid #e8280c;
     box-sizing: content-box;
     margin-left: -1px;
     margin-top: -1px;
-    box-shadow: 0 0 11px red;
+    box-shadow: 0 0 11px #e8280c;
     border-radius: 2px;
   }
   a.enhanced img {
@@ -52,11 +50,11 @@
     border-radius: 2px;
   }
   a.empowered img {
-    border: 2px solid rgb(22, 226, 1);
+    border: 2px solid #7ae500;
     box-sizing: content-box;
     margin-left: -1px;
     margin-top: -1px;
-    box-shadow: 0 0 11px rgb(22, 226, 1);
+    box-shadow: 0 0 11px #7ae500;
     border-radius: 2px;
   }
   .gcd {
