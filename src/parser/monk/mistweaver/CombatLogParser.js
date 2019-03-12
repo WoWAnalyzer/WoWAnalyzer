@@ -35,6 +35,7 @@ import Checklist from './modules/features/Checklist/Module';
 import StatValues from './modules/features/StatValues';
 import EvmVivCastRatio from './modules/features/EvmVivCastRatio';
 import MasteryStats from './modules/features/MasteryStats';
+import Buffs from './modules/features/Buffs';
 
 // Spells
 import ThunderFocusTea from './modules/spells/ThunderFocusTea';
@@ -97,6 +98,7 @@ class CombatLogParser extends CoreCombatLogParser {
     statValues: StatValues,
     evmVivCastRatio: EvmVivCastRatio,
     masteryStats: MasteryStats,
+    buffs: Buffs,
 
     // Spells
     essenceFont: EssenceFont,
