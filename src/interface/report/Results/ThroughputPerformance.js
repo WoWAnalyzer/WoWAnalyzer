@@ -31,22 +31,31 @@ class ThroughputPerformance extends React.PureComponent {
   }
 
   async load() {
-    const { rankings } = await this.loadRankings();
-    // We want the 100th rank to give people a reasonable and easy to grasp goal to aim for.
-    const topRank = this._getRank(rankings, 100);
-    if (!topRank) {
+    try {
+      const { rankings } = await this.loadRankings();
+      // We want the 100th rank to give people a reasonable and easy to grasp goal to aim for.
+      const topRank = this._getRank(rankings, 100);
+      if (!topRank) {
+        this.setState({
+          performance: UNAVAILABLE,
+          topThroughput: UNAVAILABLE,
+        });
+        return;
+      }
+      const topThroughput = topRank.total;
+      this.setState({
+        // If the player is in the top 100, this may be >=100%.
+        performance: this.props.throughput / topThroughput,
+        topThroughput,
+      });
+    } catch (err) {
+      console.error('Failed to load encounter rankings. Not logging since this will happen as expected when WCL partitions the data.', err);
       this.setState({
         performance: UNAVAILABLE,
         topThroughput: UNAVAILABLE,
       });
       return;
     }
-    const topThroughput = topRank.total;
-    this.setState({
-      // If the player is in the top 100, this may be >=100%.
-      performance: this.props.throughput / topThroughput,
-      topThroughput,
-    });
   }
   async loadRankings() {
     const parser = this.context.parser;
