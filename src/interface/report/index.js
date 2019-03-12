@@ -18,6 +18,7 @@ import EventParser from './EventParser';
 import Results from './Results';
 import EVENT_PARSING_STATE from './EVENT_PARSING_STATE';
 import BOSS_PHASES_STATE from './BOSS_PHASES_STATE';
+import ErrorBoundary from 'interface/common/ErrorBoundary';
 
 class ResultsLoader extends React.PureComponent {
   static propTypes = {
@@ -168,48 +169,50 @@ const Report = () => (
   <>
     <NavigationBar />
 
-    <ReportLoader>
-      {(report, refreshReport) => (
-        <PatchChecker
-          report={report}
-        >
-          <FightSelection
+    <ErrorBoundary>
+      <ReportLoader>
+        {(report, refreshReport) => (
+          <PatchChecker
             report={report}
-            refreshReport={refreshReport}
           >
-            {fight => (
-              <PlayerLoader
-                report={report}
-                fight={fight}
-              >
-                {(player, combatant, combatants) => (
-                  <ConfigLoader
-                    specId={combatant.specID}
-                  >
-                    {config => (
-                      <SupportChecker
-                        config={config}
-                        report={report}
-                        fight={fight}
-                        player={player}
-                      >
-                        <ResultsLoader
+            <FightSelection
+              report={report}
+              refreshReport={refreshReport}
+            >
+              {fight => (
+                <PlayerLoader
+                  report={report}
+                  fight={fight}
+                >
+                  {(player, combatant, combatants) => (
+                    <ConfigLoader
+                      specId={combatant.specID}
+                    >
+                      {config => (
+                        <SupportChecker
                           config={config}
                           report={report}
                           fight={fight}
                           player={player}
-                          combatants={combatants}
-                        />
-                      </SupportChecker>
-                    )}
-                  </ConfigLoader>
-                )}
-              </PlayerLoader>
-            )}
-          </FightSelection>
-        </PatchChecker>
-      )}
-    </ReportLoader>
+                        >
+                          <ResultsLoader
+                            config={config}
+                            report={report}
+                            fight={fight}
+                            player={player}
+                            combatants={combatants}
+                          />
+                        </SupportChecker>
+                      )}
+                    </ConfigLoader>
+                  )}
+                </PlayerLoader>
+              )}
+            </FightSelection>
+          </PatchChecker>
+        )}
+      </ReportLoader>
+    </ErrorBoundary>
   </>
 );
 
