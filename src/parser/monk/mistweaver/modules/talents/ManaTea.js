@@ -39,7 +39,7 @@ class ManaTea extends Analyzer {
   hasLifeCycles = false;
   casted = false;
 
-  effectivehealing = 0;
+  effectiveHealing = 0;
   overhealing = 0;
 
   constructor(...args) {
@@ -59,7 +59,7 @@ class ManaTea extends Analyzer {
 
   on_byPlayer_heal(event){
     if (this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_TALENT.id)) {//if this is in a mana tea window
-      this.effectivehealing += (event.amount || 0) + (event.absorbed || 0);
+      this.effectiveHealing += (event.amount || 0) + (event.absorbed || 0);
       this.overhealing +=(event.overheal || 0);
     }
   }
@@ -141,7 +141,7 @@ class ManaTea extends Analyzer {
     console.log(`Total Casts under Mana Tea: ${this.castsUnderManaTea}`);
     console.log(`Avg Casts under Mana Tea: ${this.castsUnderManaTea / this.manateaCount}`);
     console.log(`Free spells cast: ${this.nonManaCasts}`);
-    console.log(`Effective healing: ${this.effectivehealing}`);
+    console.log(`Effective healing: ${this.effectiveHealing}`);
     console.log(`Overhealing healing: ${this.overhealing}`);
     console.log(`OverHealing percentage: ${this.overHealingPercent}`);
     }
@@ -169,15 +169,13 @@ class ManaTea extends Analyzer {
     };
   }
 
-  get avgOverHealing(){
-    let overHealingPercent = this.overhealing/(this.overhealing+this.effectivehealing);
-    overHealingPercent = Math.round(overHealingPercent * 1000)/1000;
-    return overHealingPercent;
+  get avgOverhealing(){
+    return (this.overhealing / (this.overhealing + this.effectiveHealing)).toFixed(4);
   }
 
-  get suggestionThresholdsMana(){
+  get suggestionThresholdsOverhealing(){
     return {
-      actual: this.avgOverHealing,
+      actual: this.avgOverhealing,
       isGreaterThan: {
         minor: .20,
         average: .30,
@@ -191,21 +189,21 @@ class ManaTea extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
-          Your mana spent during <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> can be improved. Aim to only cast <SpellLink id={SPELLS.VIVIFY.id} /> untill the last second then cast <SpellLink id={SPELLS.ESSENCE_FONT.id} />.
+          Your mana spent during <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> can be improved. Aim to prioritize as many <SpellLink id={SPELLS.VIVIFY.id} /> casts until the last second of the buff and then cast <SpellLink id={SPELLS.ESSENCE_FONT.id} />. <SpellLink id={SPELLS.ESSENCE_FONT.id} />'s mana cost is taken at the beginning of the channel, so you gain the benefit of <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> even if the channel continues past the buff.
         </>
       )
         .icon(SPELLS.MANA_TEA_TALENT.icon)
         .actual(`${formatNumber(this.avgMtSaves)} average mana saved per Mana Tea cast`)
         .recommended(`${(recommended / 1000).toFixed(0)}k average mana saved is recommended`);
     });
-    when(this.suggestionThresholdsMana).addSuggestion((suggest, actual, recommended) => {
+    when(this.suggestionThresholdsOverhealing).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
-          Your overhealing was high during your <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> usages. Consider using <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> during periods of high damage to the raid and also look to target low health raid members.
+          Your average overhealing was high during your <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> usage. Consider using <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> during specific boss abilities or general periods of high damage to the raid. Also look to target low health raid members to avoid large amounts of overhealing.
         </>
       )
         .icon(SPELLS.MANA_TEA_TALENT.icon)
-        .actual(`${formatPercentage(this.avgOverHealing)} % average overhealing per Mana Tea cast`)
+        .actual(`${formatPercentage(this.avgOverhealing)} % average overhealing per Mana Tea cast`)
         .recommended(`under ${formatPercentage(recommended)}% over healing is recommended`);
     });
   }
