@@ -1,8 +1,8 @@
 .lane {
   border-bottom: 1px solid hsla(0, 0%, 100%, .1);
   margin-bottom: 5px;
-  padding-top: 2px;
-  padding-bottom: 2px;
+  padding-top: 1px;
+  padding-bottom: 1px;
 }
 
 .spell-timeline-container {
@@ -53,17 +53,8 @@
     width: 1px;
     background: rgba(255, 255, 255, 0.2);
     position: absolute;
-    top: 22px;
-    height: 7px;
+    top: 15px;
+    height: 16px;
     left: 50%;
-  }
-  > *:first-of-type {
-    height: calc(100% - 14px);
-  }
-  > *:first-of-type:before {
-    top: calc(33px - 14px);
-  }
-  > *:first-of-type:after {
-    top: calc(22px - 14px);
   }
 }

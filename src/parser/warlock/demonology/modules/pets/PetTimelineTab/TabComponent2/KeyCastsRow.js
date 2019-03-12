@@ -23,10 +23,11 @@ export default class KeyCastsRow extends React.PureComponent {
       <SpellLink
         key={`cast-${event.timestamp}-${event.abilityId}`}
         id={event.abilityId}
-        className={`cast${event.important && ' enhanced'}`}
+        className={`cast${event.important ? ' enhanced' : ''}`}
         icon={false}
         style={{
           left: event.left,
+          zIndex: event.important ? 20 : 10,
         }}
       >
         <Icon
@@ -47,7 +48,7 @@ export default class KeyCastsRow extends React.PureComponent {
 
     if (hasTooltip) {
       return (
-        <Tooltip content={tooltipInfo.join('\n')}>
+        <Tooltip content={tooltipInfo.map(line => <>{line}<br /></>)}>
           {icon}
         </Tooltip>
       );

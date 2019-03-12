@@ -41,8 +41,10 @@ export default class PetTimelineProcesser {
         const left = this.getOffsetLeft(pet.spawn);
         const isSummonAbilityKnown = !!SPELLS[pet.summonAbility];
         // TODO: limit the pet duration with fight length? end - start?
-        const petDuration = ((pet.realDespawn || pet.expectedDespawn) - pet.spawn) / 1000 * this.secondWidth;
+        const maxDuration = this.getOffsetLeft(this.end);
+        const petDuration = Math.min(maxDuration, ((pet.realDespawn || pet.expectedDespawn) - pet.spawn) / 1000 * this.secondWidth);
         return {
+          guid: pet.guid,
           left,
           isSummonAbilityKnown,
           petDuration,
@@ -57,6 +59,10 @@ export default class PetTimelineProcesser {
 
   get start() {
     return this.parser.fight.start_time;
+  }
+
+  get end() {
+    return this.parser.fight.end_time;
   }
 
   getOffsetLeft(timestamp) {

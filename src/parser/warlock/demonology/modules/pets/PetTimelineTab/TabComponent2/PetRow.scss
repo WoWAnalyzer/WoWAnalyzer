@@ -1,7 +1,7 @@
-.key-casts {
+.pet-row {
   width: 100%;
   border-radius: 10px;
-  top: -32px;
+  //top: -32px;
   margin-top: 30px;
   margin-bottom: -32px;
   height: 54px;
@@ -51,9 +51,16 @@
     box-shadow: 0 0 11px rgb(173, 173, 173);
     border-radius: 2px;
   }
+  a.empowered img {
+    border: 2px solid rgb(22, 226, 1);
+    box-sizing: content-box;
+    margin-left: -1px;
+    margin-top: -1px;
+    box-shadow: 0 0 11px rgb(22, 226, 1);
+    border-radius: 2px;
+  }
   .gcd {
     border-radius: 5px;
-    background: rgba(133, 59, 255, 0.7);
     box-shadow: 0 0 3px #000;
     z-index: 2;
     height: 10px;

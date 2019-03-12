@@ -9,6 +9,7 @@ import Icon from 'common/Icon';
 
 import PetTimelineProcesser from './PetTimelineProcesser';
 import KeyCastsRow from './KeyCastsRow';
+import PetRow from './PetRow';
 import './Timeline.scss';
 
 const ZOOM = 2;
@@ -90,7 +91,7 @@ class TimelineTab extends React.Component {
             </div>
           ))}
         </div>
-        <div className="col-lg-9" style={{ height: this.state.timelineHeight + 40 }}>
+        <div className="col-lg-9" style={{ height: this.state.timelineHeight + 70 }}>
           <DragScroll className="spell-timeline-container" style={{ height: '100%' }}>
             <div
               className="spell-timeline"
@@ -100,13 +101,14 @@ class TimelineTab extends React.Component {
                 paddingBottom: 0,
                 paddingLeft: padding,
                 paddingRight: padding,
+                height: '100%',
               }}
             >
               <KeyCastsRow events={keyEvents} />
-              {/*{Object.values(pets).map((pet, index) => (*/}
-                {/*<PetRow key={`petRow-${index}`} pets={pet} />*/}
-              {/*))}*/}
-              <div className="time-line">
+              {Object.values(pets).map((petArray, index) => (
+                <PetRow key={`petRow-${index}`} pets={petArray} top={index * 33} />
+              ))}
+              <div className="time-line" style={{ top: `${Object.values(pets).length * 33}px` }}>
                 {this.seconds > 0 && [...Array(Math.ceil(this.seconds))].map((_, second) => (
                   <div
                     key={second}
