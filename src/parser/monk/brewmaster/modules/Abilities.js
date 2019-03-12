@@ -212,7 +212,7 @@ class Abilities extends CoreAbilities {
       },
       // Its unlikely that these spells will ever be cast but if they are they will show.
       {
-        spell: SPELLS.DETOX,
+        spell: SPELLS.DETOX_ENERGY,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           // This was tested in-game (in Legion): it does NOT have a static GCD but a base GCD of 1sec and scales with Haste

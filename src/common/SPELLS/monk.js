@@ -55,13 +55,23 @@ export default {
   },
   TRANSCENDENCE: {
     id: 101643,
-    name: 'Trancendance',
+    name: 'Transcendence',
     icon: 'monk_ability_transcendence',
   },
   TRANSCENDENCE_TRANSFER: {
     id: 119996,
-    name: 'Trancendance: Transfer',
+    name: 'Transcendence: Transfer',
     icon: 'spell_shaman_spectraltransformation',
+  },
+  LEG_SWEEP: {
+    id: 119381,
+    name: 'Leg Sweep',
+    icon: 'ability_monk_legsweep',
+  },
+  DETOX_ENERGY: {
+    id: 218164,
+    name: 'Detox',
+    icon: 'ability_rogue_imrovedrecuperate',
   },
   // Mistweaver Monk Spells
   RISING_MIST_HEAL: {
@@ -612,6 +622,11 @@ export default {
     name: 'Storm, Earth, and Fire',
     icon: 'spell_nature_giftofthewild',
   },
+  STORM_EARTH_AND_FIRE_FIXATE: {
+    id: 221771,
+    name: 'Storm, Earth, and Fire: Fixate',
+    icon: 'spell_nature_giftofthewild',
+  },
   FLYING_SERPENT_KICK: {
     id: 101545,
     name: 'Flying Serpent Kick',
@@ -696,5 +711,10 @@ export default {
     id: 261682,
     name: 'Chi Burst',
     icon: 'spell_arcane_arcanetorrent',
+  },
+  DISABLE: {
+    id: 116095,
+    name: 'Disable',
+    icon: 'ability_shockwave',
   },
 };
