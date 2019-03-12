@@ -165,14 +165,14 @@ class PlayerLoader extends React.PureComponent {
     const player = players[0];
     const hasDuplicatePlayers = players.length > 1;
     const combatant = player && combatants.find(combatant => combatant.sourceID === player.id);
-    if (!player || hasDuplicatePlayers || !combatant || !combatant.specID) {
+    if (!player || hasDuplicatePlayers || !combatant || !combatant.specID || combatant.error) {
       if (player) {
         // Player data was in the report, but there was another issue
         if (hasDuplicatePlayers) {
           alert(i18n._(t`It appears like another "${playerName}" is in this log, please select the correct one`));
         } else if (!combatant) {
           alert(i18n._(t`Player data does not seem to be available for the selected player in this fight.`));
-        } else if (!combatant.specID) {
+        } else if (combatant.error || !combatant.specID) {
           alert(i18n._(t`The data received from WCL for this player is corrupt, this player can not be analyzed in this fight.`));
         }
       }

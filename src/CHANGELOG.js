@@ -9,6 +9,11 @@ import Contributor from 'interface/contributor/Button';
 export default [
   {
     date: new Date('2019-03-12'),
+    changes: 'Fixed a crash on the results page when the player info received from Warcraft Logs is corrupt (now it shows an alert instead).',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-03-12'),
     changes: 'Fixed a crash on the statistics tab when WCL has no rankings data (e.g. due to the 8.1.5 partitioning).',
     contributors: [Zerotorescue],
   },
