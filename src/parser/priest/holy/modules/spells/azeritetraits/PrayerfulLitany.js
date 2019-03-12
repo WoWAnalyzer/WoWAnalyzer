@@ -44,14 +44,14 @@ class PrayerfulLitany extends Analyzer {
   }
 
   get totalPrayerfulLitanyHealing() {
-    if (this.lowestHealthHealEvent != null) {
+    if (this.lowestHealthHealEvent !== null) {
       this._applyLowestHealthEvent();
     }
     return this.prayerfulLitanyHealing;
   }
 
   get totalPrayerfulLitanyOverhealing() {
-    if (this.lowestHealthHealEvent != null) {
+    if (this.lowestHealthHealEvent !== null) {
       this._applyLowestHealthEvent();
     }
     return this.prayerfulLitanyOverHealing;
@@ -99,6 +99,9 @@ class PrayerfulLitany extends Analyzer {
   }
 
   _applyLowestHealthEvent() {
+    if (!this.lowestHealthHealEvent) {
+      return;
+    }
     let eventHealing = this.prayerfulLitanyProcHealing;
     let eventOverhealing = 0;
 
@@ -117,7 +120,7 @@ class PrayerfulLitany extends Analyzer {
   }
 
   statistic() {
-    if (this.lowestHealthHealEvent != null) {
+    if (this.lowestHealthHealEvent !== null) {
       this._applyLowestHealthEvent();
     }
     return (
