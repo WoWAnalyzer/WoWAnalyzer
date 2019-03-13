@@ -6,6 +6,11 @@ import { Juko8, Skeletor } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2019-03-11'),
+    changes: <> Updated <SpellLink id={SPELLS.DIVINE_PURPOSE_TALENT_RETRIBUTION.id} icon /> module with tooltip displaying what spells the procs were used for and longest chain of procs. </>,
+    contributors: [Juko8], 
+  },
+  {
     date: new Date('2019-03-08'),
     changes: <> Updated <SpellLink id={SPELLS.CONSECRATION_TALENT.id} icon /> module to display average targets hit.</>,
     contributors: [Skeletor],
@@ -32,7 +37,7 @@ export default [
   },
   {
     date: new Date('2018-10-04'),
-    changes: <React.Fragment> Added Divine Right.</React.Fragment>,
+    changes: 'Added Divine Right.',
     contributors: [Juko8],
   },
   {
