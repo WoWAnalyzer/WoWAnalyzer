@@ -93,7 +93,7 @@ class NavigationBar extends React.PureComponent {
           </Tooltip>
           <Tooltip content="Patreon">
             <div className="menu-item optional">
-              <a href="https://www.patreon.com/wowanalyzer">
+              <a href="https://www.patreon.com/join/wowanalyzer">
                 <PatreonIcon />
               </a>
             </div>
