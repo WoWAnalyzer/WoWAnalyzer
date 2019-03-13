@@ -126,6 +126,7 @@ class MistweaverMonkChecklist extends React.PureComponent {
           name="Use your defensive cooldowns effectively"
           description="Make sure you use your personal and defensive cooldowns at appropriate times throughout the fight. While it may not make sense to use these abilities on cooldown, saving them for large damage events is ideal."
         >
+          <AbilityRequirement spell={SPELLS.FORTIFYING_BREW.id} />
           <AbilityRequirement spell={SPELLS.LIFE_COCOON.id} />
           {combatant.hasTalent(SPELLS.DIFFUSE_MAGIC_TALENT.id) && <AbilityRequirement spell={SPELLS.DIFFUSE_MAGIC_TALENT.id} />}
           {combatant.hasTalent(SPELLS.DAMPEN_HARM_TALENT.id) && <AbilityRequirement spell={SPELLS.DAMPEN_HARM_TALENT.id} />}
