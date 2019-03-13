@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import { Consumer } from 'interface/LocationContext';
 
@@ -22,6 +23,7 @@ class Ad extends React.PureComponent {
 
     const props = {
       style: style ? { display: 'block', ...style } : { display: 'block' },
+      ...others,
     };
     if (!props['data-ad-slot']) {
       // Default to responsive
@@ -37,7 +39,22 @@ class Ad extends React.PureComponent {
     }
 
     if (window.adblocked === undefined) {
-      console.log('Adblock detected');
+      console.log('Adblock detected, falling back to premium ads.');
+      let image = "/img/728.jpg";
+      if (props['data-ad-slot'] === '3815063023') { // footer
+        image = '/img/premium-square.jpg';
+      }
+      return (
+        <div className="text-center">
+          <Link to="/premium">
+            <img
+              src={image}
+              alt="WoWAnalyzer Premium - Did we help? Support us and unlock cool perks."
+              style={{ maxWidth: '100%' }}
+            />
+          </Link>
+        </div>
+      );
     }
 
     return (
@@ -45,7 +62,6 @@ class Ad extends React.PureComponent {
         className="adsbygoogle"
         data-ad-client="ca-pub-8048055232081854"
         {...props}
-        {...others}
       />
     );
   }
