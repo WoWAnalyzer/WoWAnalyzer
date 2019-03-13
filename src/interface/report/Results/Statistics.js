@@ -105,8 +105,7 @@ class Statistics extends React.PureComponent {
                   <div className="col-md-6 hidden-xs">
                     <Ad
                       data-ad-format="fluid"
-                      data-ad-layout-key="-f1+5n+54-df+7k"
-                      data-ad-client="ca-pub-8048055232081854"
+                      data-ad-layout-key="-ei+3w+e8-ee-en"
                       data-ad-slot="2181760614"
                     />
                   </div>
