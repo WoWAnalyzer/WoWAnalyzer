@@ -89,7 +89,11 @@ class Footer extends React.PureComponent {
           </div>
           {premium === false && (
             <div>
-              <Ad data-ad-format="rectangle" />
+              <Ad
+                data-ad-slot="3815063023" // Footer
+                data-ad-format="rectangle"
+                data-full-width-responsive="true"
+              />
             </div>
           )}
         </div>
