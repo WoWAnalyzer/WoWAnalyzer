@@ -333,12 +333,8 @@ class Results extends React.PureComponent {
         {this.renderContent(selectedTab, results)}
 
         {premium === false && (
-          <div className="container">
-            <Ad
-              data-ad-format="fluid"
-              data-ad-layout-key="-cu+6a+50-py+ts"
-              data-ad-slot="1626570308" // Panel
-            />
+          <div className="container" style={{ marginTop: 20 }}>
+            <Ad />
           </div>
         )}
 
