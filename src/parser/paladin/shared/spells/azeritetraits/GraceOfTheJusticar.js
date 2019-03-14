@@ -5,7 +5,7 @@ import SPELLS from 'common/SPELLS/index';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 import Events from 'parser/core/Events';
-
+//import beacontransfer from '../../../holy/modules/beacons/BeaconHealingDone.js';
 
 
 /**
