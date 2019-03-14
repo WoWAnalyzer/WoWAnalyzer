@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Trans } from '@lingui/macro';
 
 import SPECS from 'game/SPECS';
 import SpecIcon from 'common/SpecIcon';
