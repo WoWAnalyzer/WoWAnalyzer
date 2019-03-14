@@ -10,7 +10,7 @@ class Ad extends React.PureComponent {
   };
 
   get isAdblocked() {
-    return window.adblocked !== false && !window.adsbygoogle.loaded;
+    return window.adblocked !== false && !(window.adsbygoogle && window.adsbygoogle.loaded);
   }
 
   componentDidMount() {
