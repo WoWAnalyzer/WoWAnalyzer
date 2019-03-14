@@ -78,8 +78,8 @@ class FillerLightOfTheMartyrs extends Analyzer {
         </Trans>
       ))
         .icon(SPELLS.LIGHT_OF_THE_MARTYR.icon)
-        .actual(i18n._(t`${this.cpm.toFixed(2)} casts per minute - ${this.casts} casts total`))
-        .recommended(i18n._(t`<${recommended} casts per minute is recommended`));
+        .actual(<Trans>{this.cpm.toFixed(2)} casts per minute - {this.casts} casts total</Trans>)
+        .recommended(<Trans>&lt;{recommended} casts per minute is recommended</Trans>);
     });
 
     when(this.inefficientCpmSuggestionThresholds).addSuggestion((suggest, actual) => {
@@ -89,8 +89,8 @@ class FillerLightOfTheMartyrs extends Analyzer {
         </Trans>
       )
         .icon(SPELLS.LIGHT_OF_THE_MARTYR.icon)
-        .actual(i18n._(t`${this.inefficientCasts.length} casts while Holy Shock was available`))
-        .recommended(i18n._(t`No inefficient casts is recommended`));
+        .actual(<Trans>{this.inefficientCasts.length} casts while Holy Shock was available</Trans>)
+        .recommended(<Trans>No inefficient casts is recommended</Trans>);
     });
   }
 }

@@ -301,7 +301,7 @@ exports[`Holy Paladin integration test analyzers AuraOfMercy matches the statist
           className="flex-main value"
         >
           <div>
-            1,166 HPS
+            {0} HPS
           </div>
           <small>
             Healing done
@@ -313,7 +313,50 @@ exports[`Holy Paladin integration test analyzers AuraOfMercy matches the statist
 </div>
 `;
 
-exports[`Holy Paladin integration test analyzers AuraOfMercy matches the suggestions snapshot 1`] = `Array []`;
+exports[`Holy Paladin integration test analyzers AuraOfMercy matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_holy_blessedlife",
+    "importance": "major",
+    "issue": <WithI18n
+      components={
+        Array [
+          <SpellLink
+            icon={true}
+            id={183415}
+          />,
+          <SpellLink
+            icon={true}
+            id={183425}
+          />,
+        ]
+      }
+      id="The healing done by your <0/> is low. Try to find a better moment to cast it or consider changing to <1/> which can be more reliable and generally offers more throughput."
+    />,
+    "stat": <React.Fragment>
+      <WithI18n
+        id="{0} HPS"
+        values={
+          Object {
+            "0": "1,166",
+          }
+        }
+      />
+       (
+      <WithI18n
+        id=">{0} HPS is recommended"
+        values={
+          Object {
+            "0": "2,500",
+          }
+        }
+      />
+      )
+    </React.Fragment>,
+  },
+]
+`;
 
 exports[`Holy Paladin integration test analyzers AuraOfSacrificeDamageReduction matches the statistic snapshot 1`] = `"module inactive"`;
 
@@ -337,12 +380,7 @@ exports[`Holy Paladin integration test analyzers BeaconHealingDone matches the s
         }
       }
     >
-      <a
-        href="#Beacon healing sources"
-        id="Beacon healing sources"
-      >
-        Beacon healing sources
-      </a>
+      Beacon healing sources
     </h1>
     <small>
       Beacon healing is triggered by the 
@@ -506,8 +544,7 @@ exports[`Holy Paladin integration test analyzers BeaconHealingDone matches the s
               onTouchStart={[Function]}
               style={Object {}}
             >
-              1,153
-               HPS
+              {0} HPS
             </dfn>
           </td>
           <td
@@ -587,8 +624,7 @@ exports[`Holy Paladin integration test analyzers BeaconHealingDone matches the s
               onTouchStart={[Function]}
               style={Object {}}
             >
-              826
-               HPS
+              {0} HPS
             </dfn>
           </td>
           <td
@@ -668,8 +704,7 @@ exports[`Holy Paladin integration test analyzers BeaconHealingDone matches the s
               onTouchStart={[Function]}
               style={Object {}}
             >
-              565
-               HPS
+              {0} HPS
             </dfn>
           </td>
           <td
@@ -749,8 +784,7 @@ exports[`Holy Paladin integration test analyzers BeaconHealingDone matches the s
               onTouchStart={[Function]}
               style={Object {}}
             >
-              342
-               HPS
+              {0} HPS
             </dfn>
           </td>
           <td
@@ -830,8 +864,7 @@ exports[`Holy Paladin integration test analyzers BeaconHealingDone matches the s
               onTouchStart={[Function]}
               style={Object {}}
             >
-              330
-               HPS
+              {0} HPS
             </dfn>
           </td>
           <td
@@ -911,8 +944,7 @@ exports[`Holy Paladin integration test analyzers BeaconHealingDone matches the s
               onTouchStart={[Function]}
               style={Object {}}
             >
-              185
-               HPS
+              {0} HPS
             </dfn>
           </td>
           <td
@@ -992,8 +1024,7 @@ exports[`Holy Paladin integration test analyzers BeaconHealingDone matches the s
               onTouchStart={[Function]}
               style={Object {}}
             >
-              132
-               HPS
+              {0} HPS
             </dfn>
           </td>
           <td
@@ -1073,8 +1104,7 @@ exports[`Holy Paladin integration test analyzers BeaconHealingDone matches the s
               onTouchStart={[Function]}
               style={Object {}}
             >
-              103
-               HPS
+              {0} HPS
             </dfn>
           </td>
           <td
@@ -1154,8 +1184,7 @@ exports[`Holy Paladin integration test analyzers BeaconHealingDone matches the s
               onTouchStart={[Function]}
               style={Object {}}
             >
-              75
-               HPS
+              {0} HPS
             </dfn>
           </td>
           <td
@@ -1933,8 +1962,7 @@ exports[`Holy Paladin integration test analyzers FailedBeaconTransfers matches t
               }
             }
           >
-            Up to 
-            0.90 % / 138 HPS
+            Up to {lostBeaconHealing}
           </span>
         </div>
       </div>
@@ -1970,54 +1998,73 @@ Array [
     "details": null,
     "icon": "spell_holy_flashheal",
     "importance": "major",
-    "issue": <React.Fragment>
-      You started casting 
-      20
-       filler 
-      <SpellLink
-        icon={true}
-        id={19750}
-      />
-      s while 
-      <SpellLink
-        icon={true}
-        id={20473}
-      />
-       was 
-      <TooltipElement
-        className=""
-        content="It was either already available or going to be available within 200ms."
-        direction="down"
-        hoverable={false}
-        style={Object {}}
-        tooltipClassName=""
-      >
-        available
-      </TooltipElement>
-       (at 
-      0:14, 0:25, 0:33, 0:34, 0:44, 0:54, 0:57, 1:14, 1:15, 1:54, 2:04, 2:15, 2:16, 2:49, 3:00, 3:41, 4:04, 4:08, 4:43, 4:53
-      ). 
-      <SpellLink
-        icon={true}
-        id={20473}
-      />
-       is a much more efficient spell and should be prioritized
-      <TooltipElement
-        className=""
-        content="There are very rare exceptions to this. For example it may be worth saving Holy Shock when you know you're going to be moving soon and you may have to heal yourself."
-        direction="down"
-        hoverable={false}
-        style={Object {}}
-        tooltipClassName=""
-      >
-        *
-      </TooltipElement>
-      .
-    </React.Fragment>,
+    "issue": <WithI18n
+      components={
+        Array [
+          <SpellLink
+            icon={true}
+            id={19750}
+          />,
+          <SpellLink
+            icon={true}
+            id={20473}
+          />,
+          <TooltipElement
+            className=""
+            content={
+              <WithI18n
+                id="It was either already available or going to be available within {HOLY_SHOCK_COOLDOWN_WAIT_TIME}ms."
+                values={
+                  Object {
+                    "HOLY_SHOCK_COOLDOWN_WAIT_TIME": 200,
+                  }
+                }
+              />
+            }
+            direction="down"
+            hoverable={false}
+            style={Object {}}
+            tooltipClassName=""
+          />,
+          <SpellLink
+            icon={true}
+            id={20473}
+          />,
+          <TooltipElement
+            className=""
+            content={
+              <WithI18n
+                id="There are very rare exceptions to this. For example it may be worth saving Holy Shock when you know you're going to be moving soon and you may have to heal yourself."
+              />
+            }
+            direction="down"
+            hoverable={false}
+            style={Object {}}
+            tooltipClassName=""
+          />,
+        ]
+      }
+      id="You started casting {0} filler <0/>s while <1/> was <2>available</2> (at {1}). <3/> is a much more efficient spell and should be prioritized<4>*</4>."
+      values={
+        Object {
+          "0": 20,
+          "1": "0:14, 0:25, 0:33, 0:34, 0:44, 0:54, 0:57, 1:14, 1:15, 1:54, 2:04, 2:15, 2:16, 2:49, 3:00, 3:41, 4:04, 4:08, 4:43, 4:53",
+        }
+      }
+    />,
     "stat": <React.Fragment>
-      20 casts while Holy Shock was available
+      <WithI18n
+        id="{actual} casts while Holy Shock was available"
+        values={
+          Object {
+            "actual": 20,
+          }
+        }
+      />
        (
-      No inefficient casts is recommended
+      <WithI18n
+        id="No inefficient casts is recommended"
+      />
       )
     </React.Fragment>,
   },
@@ -2032,18 +2079,36 @@ Array [
     "details": null,
     "icon": "ability_paladin_lightofthemartyr",
     "importance": "regular",
-    "issue": <React.Fragment>
-      You cast many 
-      <SpellLink
-        icon={true}
-        id={183998}
-      />
-      s. Light of the Martyr is an inefficient spell to cast, try to only cast Light of the Martyr when it will save someone's life or when moving and all other instant cast spells are on cooldown.
-    </React.Fragment>,
+    "issue": <WithI18n
+      components={
+        Array [
+          <SpellLink
+            icon={true}
+            id={183998}
+          />,
+        ]
+      }
+      id="You cast many <0/>s. Light of the Martyr is an inefficient spell to cast, try to only cast Light of the Martyr when it will save someone's life or when moving and all other instant cast spells are on cooldown."
+    />,
     "stat": <React.Fragment>
-      2.08 Casts Per Minute - 14 casts total
+      <WithI18n
+        id="{0} casts per minute - {1} casts total"
+        values={
+          Object {
+            "0": "2.08",
+            "1": 14,
+          }
+        }
+      />
        (
-      &lt;1.5 Casts Per Minute is recommended
+      <WithI18n
+        id="<{recommended} casts per minute is recommended"
+        values={
+          Object {
+            "recommended": 1.5,
+          }
+        }
+      />
       )
     </React.Fragment>,
   },
@@ -2051,58 +2116,74 @@ Array [
     "details": null,
     "icon": "ability_paladin_lightofthemartyr",
     "importance": "major",
-    "issue": <React.Fragment>
-      You cast 
-      4
-       
-      <SpellLink
-        icon={true}
-        id={183998}
-      />
-      s while 
-      <SpellLink
-        icon={true}
-        id={20473}
-      />
-       was 
-      <TooltipElement
-        className=""
-        content="It was either already available or going to be available within 200ms."
-        direction="down"
-        hoverable={false}
-        style={Object {}}
-        tooltipClassName=""
-      >
-        available
-      </TooltipElement>
-       (at 
-      1:07, 1:21, 2:35, 5:27
-      ). Try to 
-      <b>
-        never
-      </b>
-       cast 
-      <SpellLink
-        icon={true}
-        id={183998}
-      />
-       when something else is available
-      <TooltipElement
-        className=""
-        content="There are very rare exceptions to this. For example it may be worth saving Holy Shock when you know you're going to be moving soon and you may have to heal yourself."
-        direction="down"
-        hoverable={false}
-        style={Object {}}
-        tooltipClassName=""
-      >
-        *
-      </TooltipElement>
-      .
-    </React.Fragment>,
+    "issue": <WithI18n
+      components={
+        Array [
+          <SpellLink
+            icon={true}
+            id={183998}
+          />,
+          <SpellLink
+            icon={true}
+            id={20473}
+          />,
+          <TooltipElement
+            className=""
+            content={
+              <WithI18n
+                id="It was either already available or going to be available within {HOLY_SHOCK_COOLDOWN_WAIT_TIME}ms."
+                values={
+                  Object {
+                    "HOLY_SHOCK_COOLDOWN_WAIT_TIME": 200,
+                  }
+                }
+              />
+            }
+            direction="down"
+            hoverable={false}
+            style={Object {}}
+            tooltipClassName=""
+          />,
+          <b />,
+          <SpellLink
+            icon={true}
+            id={183998}
+          />,
+          <TooltipElement
+            className=""
+            content={
+              <WithI18n
+                id="There are very rare exceptions to this. For example it may be worth saving Holy Shock when you know you're going to be moving soon and you may have to heal yourself."
+              />
+            }
+            direction="down"
+            hoverable={false}
+            style={Object {}}
+            tooltipClassName=""
+          />,
+        ]
+      }
+      id="You cast {0} <0/>s while <1/> was <2>available</2> (at {1}). Try to <3>never</3> cast <4/> when something else is available<5>*</5>."
+      values={
+        Object {
+          "0": 4,
+          "1": "1:07, 1:21, 2:35, 5:27",
+        }
+      }
+    />,
     "stat": <React.Fragment>
-      4 casts while Holy Shock was available
+      <WithI18n
+        id="{0} casts while Holy Shock was available"
+        values={
+          Object {
+            "0": 4,
+          }
+        }
+      />
        (
-      No inefficient casts is recommended
+      <WithI18n
+        id="No inefficient casts is recommended"
+      />
       )
     </React.Fragment>,
   },
@@ -2536,12 +2617,7 @@ Array [
           }
         }
       >
-        <a
-          href="#Mastery effectiveness breakdown"
-          id="Mastery effectiveness breakdown"
-        >
-          Mastery effectiveness breakdown
-        </a>
+        Mastery effectiveness breakdown
       </h1>
       <small>
         This shows you your mastery effectiveness on each individual player and the amount of healing done to those players.
@@ -4034,14 +4110,17 @@ Array [
     "details": null,
     "icon": "ability_paladin_blessedmending",
     "importance": "minor",
-    "issue": <React.Fragment>
-      Try to avoid overhealing with 
-      <SpellLink
-        icon={true}
-        id={223306}
-      />
-      . Cast it just before someone is about to take damage and consider casting it on targets other than tanks.
-    </React.Fragment>,
+    "issue": <WithI18n
+      components={
+        Array [
+          <SpellLink
+            icon={true}
+            id={223306}
+          />,
+        ]
+      }
+      id="Try to avoid overhealing with <0/>. Cast it just before someone is about to take damage and consider casting it on targets other than tanks."
+    />,
     "stat": <React.Fragment>
       45.94% overhealing
        (
@@ -4089,8 +4168,7 @@ exports[`Holy Paladin integration test analyzers RuleOfLaw matches the statistic
         <div
           className="flex-sub value"
         >
-          0
-          % 
+          {0}% 
           <small>
             uptime
           </small>
@@ -4124,18 +4202,35 @@ Array [
     "details": null,
     "icon": "ability_paladin_longarmofthelaw",
     "importance": "major",
-    "issue": <React.Fragment>
-      Your 
-      <SpellLink
-        icon={true}
-        id={214202}
-      />
-       uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges.
-    </React.Fragment>,
+    "issue": <WithI18n
+      components={
+        Array [
+          <SpellLink
+            icon={true}
+            id={214202}
+          />,
+        ]
+      }
+      id="Your <0/> uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges."
+    />,
     "stat": <React.Fragment>
-      0.00% uptime
+      <WithI18n
+        id="{0}% uptime"
+        values={
+          Object {
+            "0": "0.00",
+          }
+        }
+      />
        (
-      &gt;25.00% is recommended
+      <WithI18n
+        id=">\${0}% is recommended"
+        values={
+          Object {
+            "0": "25.00",
+          }
+        }
+      />
       )
     </React.Fragment>,
   },
@@ -4815,8 +4910,7 @@ exports[`Holy Paladin integration test should match the checklist snapshot 1`] =
             >
               On Mythic
             </dfn>
-             you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and improving your target selection.
-             
+             you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and improving your target selection. 
             <a
               href="https://www.wowhead.com/holy-paladin-rotation-guide#gameplay-and-priority-list"
               rel="noopener noreferrer"
@@ -5140,8 +5234,7 @@ exports[`Holy Paladin integration test should match the checklist snapshot 1`] =
                    
                   Flash of Light
                 </a>
-                s cast while
-                 
+                s cast while 
                 <span
                   style={
                     Object {
@@ -5299,8 +5392,7 @@ exports[`Holy Paladin integration test should match the checklist snapshot 1`] =
           <div
             className="col-md-12"
           >
-            Your cooldowns are an important contributor to your healing throughput. Try to get in as many efficient casts as the fight allows.
-             
+            Your cooldowns are an important contributor to your healing throughput. Try to get in as many efficient casts as the fight allows. 
             <a
               href="https://www.wowhead.com/holy-paladin-rotation-guide#gameplay-and-priority-list"
               rel="noopener noreferrer"

@@ -1,10 +1,9 @@
 import React from 'react';
-import { Trans, t } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { TooltipElement } from 'common/Tooltip';
-import { i18n } from 'interface/RootLocalizationProvider';
 import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
@@ -100,8 +99,8 @@ class FillerFlashOfLight extends Analyzer {
         </Trans>
       )
         .icon(SPELLS.FLASH_OF_LIGHT.icon)
-        .actual(i18n._(t`${actual} casts while Holy Shock was available`))
-        .recommended(i18n._(t`No inefficient casts is recommended`));
+        .actual(<Trans>{actual} casts while Holy Shock was available</Trans>)
+        .recommended(<Trans>No inefficient casts is recommended</Trans>);
     });
   }
 }
