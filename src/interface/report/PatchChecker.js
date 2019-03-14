@@ -11,6 +11,7 @@ import DiscordButton from 'interface/common/thirdpartybuttons/Discord';
 import GitHubButton from 'interface/common/thirdpartybuttons/GitHub';
 import { ignorePreviousPatchWarning } from 'interface/actions/previousPatch';
 import { getReportCodesIgnoredPreviousPatchWarning } from 'interface/selectors/skipPreviousPatchWarning';
+import Panel from 'interface/others/Panel';
 
 import Background from './images/weirdnelf.png';
 
@@ -44,7 +45,7 @@ class PatchChecker extends React.PureComponent {
     const { children, report } = this.props;
 
     const reportTimestamp = report.start;
-    const reportDate = new Date(report.start).toString();
+    const reportDate = new Date(report.start).toLocaleDateString();
 
     // Sort from latest to oldest
     const orderedPatches = PATCHES.sort((a, b) => b.timestamp - a.timestamp);
@@ -55,77 +56,69 @@ class PatchChecker extends React.PureComponent {
     if ((reportPatch && reportPatch.isCurrent) || this.continue) {
       return children;
     } else {
+      const isThisExpansion = reportTimestamp >= expansionStartPatch.timestamp;
+
       return (
-        <div className="container">
-        <h1>{`${report.title} - ${reportDate}`}</h1>
+        <div className="container offset">
+          <h1>{report.title} - {reportDate}</h1>
 
-          <div className="panel">
-            <div className="panel-heading">
-              <h2><Trans>{reportTimestamp >= expansionStartPatch.timestamp ? "This report is for an earlier patch" : "Sorry, this report is for a previous expansion" }</Trans></h2>
-            </div>
-            <div className="panel-body">
-              <div className="flex wrapable">
-                <div className="flex-main" style={{ minWidth: 400 }}>
-                  <>
-                  {
-                    reportTimestamp >= expansionStartPatch.timestamp ? (
-                      <Trans>
-                        WoWAnalyzer is constantly being updated to support the latest changes. This can cause some functionality to be modified for the latest talents/traits/trinkets or be removed.
-                        <br /><br />
-                        This could mean that some parts of your report will no longer be analysed accurately.
-                        <br /><br />
-                        If you would like to view the analysis on an older version of WoWAnalyzer, please
-                        {
-                          <a
-                            href={this.makePreviousPatchUrl(reportPatch)}
-                            onClick={this.handleClickContinue}
-                            style={{ fontSize: '1.1em' }}
-                          >
-                            <Trans>click here</Trans>
-                          </a>
-                        }.
-                        <br /><br />
-                        If you would still like to view the analysis using the latest updates, you can click 'Continue anyway' below.
-                      </Trans>
-                    ) : (
-                      <Trans>
-                        Due to the number of class changes since the last expansion (class abilities, talents, etc.), the analysis provided by WoWAnalyzer will most likely be inaccurate.
-                        <br />
-                        <br />
-                        You can still access the Analysis by clicking 'Continue anyway' below if required.
-                      </Trans>
-                    )
-                  }
-                  </><br /><br />
+          <Panel
+            title={isThisExpansion ? <Trans>This report is for an earlier patch</Trans> : <Trans>This report is for a previous expansion</Trans>}
+            pad={false}
+          >
+            <div className="flex wrapable">
+              <div className="flex-main pad">
+                {isThisExpansion ? (
+                  <Trans>
+                    WoWAnalyzer is constantly being updated to support the latest changes. This can cause some functionality to be modified for the latest talents/traits/trinkets or be removed.<br /><br />
 
-                  <div style={{ paddingBottom: '0.5em' }}>
-                    <GitHubButton />{' '}
-                    <DiscordButton />
-                  </div>
-                  <Tooltip content="Khadgar approves your bravery">
-                    <Link
-                      to={window.location.pathname}
+                    This could mean that some parts of your report will no longer be analysed accurately.<br /><br />
+
+                    If you would like to view the analysis on an older version of WoWAnalyzer, <a
+                      href={this.makePreviousPatchUrl(reportPatch)}
                       onClick={this.handleClickContinue}
                       style={{ fontSize: '1.1em' }}
                     >
-                      <Icon icon="quest_khadgar" /> <Trans>Continue anyway</Trans>
-                    </Link>
-                  </Tooltip>
+                      <Trans>click here</Trans>
+                    </a>.<br /><br />
+
+                    If you would still like to view the analysis using the latest updates, you can click 'Continue anyway' below.
+                  </Trans>
+                ) : (
+                  <Trans>
+                    Due to the number of class changes since the last expansion (class abilities, talents, etc.), the analysis provided by WoWAnalyzer will most likely be inaccurate.<br /><br />
+
+                    You can still access the Analysis by clicking 'Continue anyway' below if required.
+                  </Trans>
+                )}<br /><br />
+
+                <div style={{ marginBottom: 15 }}>
+                  <GitHubButton />{' '}
+                  <DiscordButton />
                 </div>
-                <div className="flex-sub">
-                  <img
-                    src={Background}
-                    alt=""
-                    style={{
-                      paddingLeft: 15,
-                      maxWidth: 250,
-                      marginBottom: -15,
-                    }}
-                  />
-                </div>
+                <Tooltip content={<Trans>Khadgar approves your bravery</Trans>}>
+                  <Link
+                    to={window.location.pathname}
+                    onClick={this.handleClickContinue}
+                    style={{ fontSize: '1.1em' }}
+                  >
+                    <Icon icon="quest_khadgar" /> <Trans>Continue anyway</Trans>
+                  </Link>
+                </Tooltip>
+              </div>
+              <div className="flex-sub">
+                <img
+                  src={Background}
+                  alt=""
+                  style={{
+                    paddingLeft: 15,
+                    maxWidth: 250,
+                    marginBottom: -15,
+                  }}
+                />
               </div>
             </div>
-          </div>
+          </Panel>
         </div>
       );
     }
