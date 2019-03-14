@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { makeCharacterApiUrl } from 'common/makeApiUrl';
-import { captureException } from 'common/errorLogger';
 
 const CHINESE_REGION = 'cn';
 
