@@ -47,8 +47,8 @@ class CharacterProfileLoader extends React.PureComponent {
       characterProfile = await this.loadCharacterProfile();
     } catch (err) {
       // This only provides optional info, so it's no big deal if it fails.
-      // We still want to log it though, so we can potentially improve this.
-      captureException(err);
+      // We don't want to log it, as it will usually just be a 404 where the character moved or something
+      console.error(err);
     }
 
     this.setState({
