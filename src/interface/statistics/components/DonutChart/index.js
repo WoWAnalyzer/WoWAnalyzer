@@ -12,7 +12,7 @@ class DonutChart extends React.PureComponent {
   static propTypes = {
     items: PropTypes.arrayOf(PropTypes.shape({
       value: PropTypes.number.isRequired,
-      label: PropTypes.string.isRequired,
+      label: PropTypes.node.isRequired,
       color: PropTypes.string.isRequired,
       tooltip: PropTypes.node,
       spellId: PropTypes.number,

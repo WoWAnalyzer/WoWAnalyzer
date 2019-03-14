@@ -1,4 +1,5 @@
 import React from 'react';
+import { Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -34,16 +35,18 @@ class FailedBeaconTransfers extends Analyzer {
       return null;
     }
 
+    const lostBeaconHealing = this.owner.formatItemHealingDone(this.lostBeaconHealing);
+
     return (
       <StatisticBox
         position={STATISTIC_ORDER.UNIMPORTANT(0)}
         icon={<SpellIcon id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id} />}
-        value={<span style={{ fontSize: '75%' }}>Up to {this.owner.formatItemHealingDone(this.lostBeaconHealing)}</span>}
-        label="Beacon healing lost (line of sight)"
+        value={<span style={{ fontSize: '75%' }}><Trans>Up to {lostBeaconHealing}</Trans></span>}
+        label={<Trans>Beacon healing lost (line of sight)</Trans>}
         tooltip={(
-          <>
+          <Trans>
             The amount of <strong>raw</strong> healing that didn't transfer to one or more beacon targets due to an issue such as Line of Sight or phasing.
-          </>
+          </Trans>
         )}
       />
     );
