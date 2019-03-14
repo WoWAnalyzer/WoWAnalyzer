@@ -84,7 +84,7 @@ class SupportChecker extends React.PureComponent {
                   <GitHubButton />{' '}
                   <DiscordButton />
                 </div>
-                <Tooltip content="Khadgar approves your bravery">
+                <Tooltip content={<Trans>Khadgar approves your bravery</Trans>}>
                   <Link
                     to={makeAnalyzerUrl(report, fight.id, player.id)}
                     onClick={this.handleClickContinue}

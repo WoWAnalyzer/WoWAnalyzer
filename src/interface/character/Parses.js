@@ -5,22 +5,21 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 
+import ZONES from 'game/ZONES';
+import SPECS from 'game/SPECS';
+import DIFFICULTIES, { getLabel } from 'game/DIFFICULTIES';
 import fetchWcl, { CharacterNotFoundError, UnknownApiError, WclApiError } from 'common/fetchWclApi';
 import { makeCharacterApiUrl, makeItemApiUrl } from 'common/makeApiUrl';
-
+import ITEMS from 'common/ITEMS';
+import { captureException } from 'common/errorLogger';
+import retryingPromise from 'common/retryingPromise';
 import { appendReportHistory } from 'interface/actions/reportHistory';
 import ActivityIndicator from 'interface/common/ActivityIndicator';
 import ArmoryIcon from 'interface/icons/Armory';
 import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
 import WipefestIcon from 'interface/icons/Wipefest';
-
-import ZONES from 'game/ZONES';
-import SPECS from 'game/SPECS';
-import DIFFICULTIES from 'game/DIFFICULTIES';
-import ITEMS from 'common/ITEMS';
 import REPORT_HISTORY_TYPES from 'interface/home/ReportHistory/REPORT_HISTORY_TYPES';
-import { captureException } from 'common/errorLogger';
-import retryingPromise from 'common/retryingPromise';
+import { i18n } from 'interface/RootLocalizationProvider';
 
 import './Parses.scss';
 import ParsesList from './ParsesList';
@@ -63,7 +62,7 @@ class Parses extends React.Component {
       specs: [],
       class: '',
       activeSpec: [],
-      activeDifficulty: Object.values(DIFFICULTIES),
+      activeDifficultyIds: Object.values(DIFFICULTIES),
       activeZoneID: ZONE_DEFAULT_BATTLE_OF_DAZARALOR,
       activeEncounter: BOSS_DEFAULT_ALL_BOSSES,
       sortBy: ORDER_BY.DATE,
@@ -119,7 +118,7 @@ class Parses extends React.Component {
   }
 
   updateDifficulty(diff) {
-    let newDiff = this.state.activeDifficulty;
+    let newDiff = this.state.activeDifficultyIds;
     if (newDiff.includes(diff)) {
       newDiff = newDiff.filter(elem => elem !== diff);
     } else {
@@ -127,7 +126,7 @@ class Parses extends React.Component {
     }
 
     this.setState({
-      activeDifficulty: newDiff,
+      activeDifficultyIds: newDiff,
     });
   }
 
@@ -147,7 +146,7 @@ class Parses extends React.Component {
   get filterParses() {
     let filteredParses = this.state.parses;
     filteredParses = filteredParses
-      .filter(elem => this.state.activeDifficulty.includes(elem.difficulty))
+      .filter(elem => this.state.activeDifficultyIds.includes(elem.difficulty))
       .filter(elem => this.state.activeSpec.includes(elem.spec))
       .sort((a, b) => {
         if (this.state.sortBy === ORDER_BY.DATE) {
@@ -185,7 +184,7 @@ class Parses extends React.Component {
       return {
         name: elem.encounterName,
         spec: elem.spec.replace(' ', ''),
-        difficulty: DIFFICULTIES[elem.difficulty],
+        difficulty: elem.difficulty,
         report_code: elem.reportID,
         report_fight: elem.fightID,
         historical_percent: 100 - (elem.rank / elem.outOf * 100),
@@ -572,13 +571,13 @@ class Parses extends React.Component {
                   </div>
                 ))}
 
-                {Object.values(DIFFICULTIES).filter(elem => elem).map((elem, index) => (
+                {Object.values(DIFFICULTIES).map(difficultyId => (
                   <div
-                    key={index}
-                    onClick={() => this.updateDifficulty(elem)}
-                    className={this.state.activeDifficulty.includes(elem) ? 'selected diff-filter character-filter' : 'diff-filter character-filter'}
+                    key={difficultyId}
+                    onClick={() => this.updateDifficulty(difficultyId)}
+                    className={this.state.activeDifficultyIds.includes(difficultyId) ? 'selected diff-filter character-filter' : 'diff-filter character-filter'}
                   >
-                    {elem}
+                    {i18n._(getLabel(difficultyId))}
                   </div>
                 ))}
               </div>

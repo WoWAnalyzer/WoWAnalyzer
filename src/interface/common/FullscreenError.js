@@ -11,7 +11,7 @@ const FullscreenError = ({ error, details, background, children, errorDetails })
   // Do note there's another part to this page; below at AppBackgroundImage we're overriding the background image as well.
   return (
     <div className="container" style={{ fontSize: '2em' }}>
-      <h1 style={{ fontSize: 120, lineHeight: 85, marginBottom: 0, marginTop: '1em' }}>{error}</h1>
+      <h1 style={{ fontSize: 120, lineHeight: '85px', marginBottom: 0, marginTop: '1em' }}>{error}</h1>
       <div style={{ fontSize: '1.5em' }}>
         {details}
       </div>

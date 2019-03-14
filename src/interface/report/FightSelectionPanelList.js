@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Trans } from '@lingui/macro';
 
+import getFightName from 'common/getFightName';
 import getWipeCount from 'common/getWipeCount';
 import { formatDuration } from 'common/format';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
@@ -10,7 +11,6 @@ import SkullIcon from 'interface/icons/Skull';
 import CancelIcon from 'interface/icons/Cancel';
 import InformationIcon from 'interface/icons/Information';
 
-import DIFFICULTIES from 'game/DIFFICULTIES';
 import { findByBossId } from 'raids';
 
 import ProgressBar from './ProgressBar';
@@ -82,7 +82,7 @@ class FightSelectionPanelList extends React.PureComponent {
                 </div>
                 <div className="flex-main">
                   <h2 style={{ marginTop: 0 }}>
-                    {DIFFICULTIES[firstPull.difficulty]} {firstPull.name}
+                    {getFightName(report, firstPull)}
                   </h2>
                   <div className="pulls">
                     {pulls.map(pull => {
@@ -97,7 +97,7 @@ class FightSelectionPanelList extends React.PureComponent {
                         >
                           <div className="flex">
                             <div className="flex-main">
-                              <Icon /> {pull.kill ? 'Kill' : 'Wipe'} {!pull.kill && getWipeCount(fights, pull)}
+                              <Icon /> {pull.kill ? <Trans>Kill</Trans> : <Trans>Wipe {getWipeCount(fights, pull)}</Trans>}
                             </div>
                             <div className="flex-sub">
                               <small>{formatDuration(duration)}</small>{' '}
