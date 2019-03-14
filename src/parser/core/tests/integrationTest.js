@@ -68,6 +68,9 @@ export default function integrationTest(parserClass, filename, suppressLog = tru
     beforeAll(async () => {
       const log = await loadLog(filename);
       parser = parseLog(parserClass, log, suppressLog, suppressWarn);
+      window.fetch = jest.fn(url => {
+        throw new Error(`Attempt to fetch "${url}". These tests shouldn't do AJAX calls.`);
+      });
     });
 
     it('should match the checklist snapshot', () => {

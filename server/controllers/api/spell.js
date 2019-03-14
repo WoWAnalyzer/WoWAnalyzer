@@ -69,7 +69,7 @@ router.get('/:id([0-9]+)', async (req, res) => {
   const { id } = req.params;
   let spell = await Spell.findByPk(id);
   if (spell) {
-    res.send(spell);
+    sendJson(res, spell);
     spell.update({
       lastSeenAt: Sequelize.fn('NOW'),
     });
