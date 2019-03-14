@@ -23,7 +23,7 @@ class ErrorBoundary extends React.Component {
   }
 
   error(error, details = null) {
-    window.lastError = error;
+    (window.errors = window.errors || []).push(error);
 
     this.setState({
       error: error,

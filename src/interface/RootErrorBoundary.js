@@ -33,13 +33,13 @@ class RootErrorBoundary extends React.Component {
     const { error } = event;
     // XXX Ignore errors that will be processed by componentDidCatch.
     // SEE: https://github.com/facebook/react/issues/10474
-    if (error.stack && error.stack.includes('invokeGuardedCallbackDev')) {
+    if (error && error.stack && error.stack.includes('invokeGuardedCallbackDev')) {
       return;
     }
-    this.error(event);
+    this.error(event, 'error');
   }
   handleUnhandledrejectionEvent(event) {
-    this.error(event.reason);
+    this.error(event.reason, 'unhandledrejection');
   }
 
   error(error, details = null) {
@@ -48,7 +48,7 @@ class RootErrorBoundary extends React.Component {
       return;
     }
 
-    window.lastError = error;
+    (window.errors = window.errors || []).push(error);
 
     this.setState({
       error: error,
