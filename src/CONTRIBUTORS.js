@@ -585,4 +585,8 @@ export const Skeletor = {
   links: {
     'RetPaladin.XYZ': 'https://www.retpaladin.xyz/ret-paladin-8-1-0-pve-guide',
   },
+  export const Shneeki = {
+    nickname: 'Shneeki',
+    github: 'Shneeki#1987',
+  };
 };
