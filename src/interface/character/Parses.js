@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
+import { Trans, t } from '@lingui/macro';
 
 import ZONES from 'game/ZONES';
 import SPECS from 'game/SPECS';
-import DIFFICULTIES, { getLabel } from 'game/DIFFICULTIES';
+import DIFFICULTIES, { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
 import fetchWcl, { CharacterNotFoundError, UnknownApiError, WclApiError } from 'common/fetchWclApi';
 import { makeCharacterApiUrl, makeItemApiUrl } from 'common/makeApiUrl';
 import ITEMS from 'common/ITEMS';
@@ -39,13 +40,13 @@ const BOSS_DEFAULT_ALL_BOSSES = 0;
 const TRINKET_SLOTS = [12, 13];
 const FALLBACK_PICTURE = '/img/fallback-character.jpg';
 const ERRORS = {
-  CHARACTER_NOT_FOUND: 'We couldn\'t find your character on Warcraft Logs',
-  NO_PARSES_FOR_TIER: 'We couldn\'t find any logs',
-  CHARACTER_HIDDEN: 'We could find your character but he\'s very shy',
-  WCL_API_ERROR: 'Something went wrong talking to Warcraft Logs',
-  UNKNOWN_API_ERROR: 'Something went wrong talking to the server',
-  UNEXPECTED: 'Something went wrong',
-  NOT_RESPONDING: 'Request timed out',
+  CHARACTER_NOT_FOUND: t`We couldn't find your character on Warcraft Logs`,
+  NO_PARSES_FOR_TIER: t`We couldn't find any logs`,
+  CHARACTER_HIDDEN: t`We could find your character but he's very shy`,
+  WCL_API_ERROR: t`Something went wrong talking to Warcraft Logs`,
+  UNKNOWN_API_ERROR: t`Something went wrong talking to the server`,
+  UNEXPECTED: t`Something went wrong`,
+  NOT_RESPONDING: t`Request timed out`,
 };
 
 class Parses extends React.Component {
@@ -404,44 +405,44 @@ class Parses extends React.Component {
     let errorMessage;
     if (this.state.error === ERRORS.CHARACTER_NOT_FOUND) {
       errorMessage = (
-        <>
+        <Trans>
           Please check your input and make sure that you've selected the correct region and realm.<br />
           If your input was correct, then make sure that someone in your raid logged the fight for you or check <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">Warcraft Logs guide</a> to get started with logging on your own.<br /><br />
 
           When you know for sure that you have logs on Warcraft Logs and you still get this error, please message us on <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">Discord</a> or create an issue on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer" target="_blank" rel="noopener noreferrer">Github</a>.
-        </>
+        </Trans>
       );
     } else if (this.state.error === ERRORS.NOT_RESPONDING) {
       errorMessage = (
-        <>
+        <Trans>
           It looks like we couldn't get a response in time from the API, this usually happens when the servers are under heavy load.<br /><br />
 
           You could try and enter your report-code manually <Link to="/">here</Link>.<br />
           That would bypass the load-intensive character lookup and we should be able to analyze your report.<br />
-        </>
+        </Trans>
       );
     } else if (this.state.error === ERRORS.CHARACTER_HIDDEN) {
       errorMessage = (
-        <>
+        <Trans>
           This character is hidden on warcraftlogs and we can't access the parses.<br /><br />
 
           You don't know how to make your character visible again? Check <a href="https://www.warcraftlogs.com/help/hidingcharacters/" target="_blank" rel="noopener noreferrer">Warcraft Logs </a> and hit the 'Refresh' button above once you're done.
-        </>
+        </Trans>
       );
     } else if (this.state.error === ERRORS.WCL_API_ERROR || this.state.error === ERRORS.UNKNOWN_API_ERROR || this.state.error === ERRORS.UNEXPECTED) {
       errorMessage = (
-        <>
+        <Trans>
           {this.state.errorMessage}{' '}
           Please message us on <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">Discord</a> or create an issue on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer" target="_blank" rel="noopener noreferrer">Github</a> if this issue persists and we will fix it, eventually.
-        </>
+        </Trans>
       );
     } else if (this.state.error === ERRORS.NO_PARSES_FOR_TIER || this.filterParses.length === 0) {
       errorMessage = (
-        <>
+        <Trans>
           Please check your filters and make sure that you logged those fights on Warcraft Logs.<br /><br />
 
           Don't know how to log your fights? Check <a href="https://www.warcraftlogs.com/help/start/" target="_blank" rel="noopener noreferrer">Warcraft Logs guide</a> to get started.
-        </>
+        </Trans>
       );
     }
 
@@ -577,7 +578,7 @@ class Parses extends React.Component {
                     onClick={() => this.updateDifficulty(difficultyId)}
                     className={this.state.activeDifficultyIds.includes(difficultyId) ? 'selected diff-filter character-filter' : 'diff-filter character-filter'}
                   >
-                    {i18n._(getLabel(difficultyId))}
+                    {getDifficultyLabel(difficultyId)}
                   </div>
                 ))}
               </div>
@@ -588,7 +589,7 @@ class Parses extends React.Component {
               {this.state.error && (
                 <span>
                   <Link to="/">
-                    Home
+                    <Trans>Home</Trans>
                   </Link> &gt;{' '}
                   <span>
                     {this.props.region}  &gt; {this.props.realm}  &gt; {this.props.name}
@@ -607,18 +608,18 @@ class Parses extends React.Component {
                           this.load(true);
                         }}
                       >
-                        <span className="glyphicon glyphicon-refresh" aria-hidden="true" /> Refresh
+                        <span className="glyphicon glyphicon-refresh" aria-hidden="true" /> <Trans>Refresh</Trans>
                       </Link>
                     </div>
-                    <h1 style={{ display: 'inline-block' }}>{this.state.error ? this.state.error : 'Parses'}</h1>
-                    <small>This page will only show fights that have been ranked by Warcraft Logs. Wipes are not included and during busy periods there might be a delay before new reports appear. Manually find the report on Warcraft Logs and copy the direct report link to analyze a fight missing from this page.</small>
+                    <h1 style={{ display: 'inline-block' }}>{this.state.error ? i18n._(this.state.error) : <Trans>Parses</Trans>}</h1>
+                    <small><Trans>This page will only show fights that have been ranked by Warcraft Logs. Wipes are not included and during busy periods there might be a delay before new reports appear. Manually find the report on Warcraft Logs and copy the direct report link to analyze a fight missing from this page.</Trans></small>
                   </div>
                 )}
                 <div className="panel-body">
                   <div className="flex-main" style={{ padding: errorMessage ? 20 : 0 }}>
                     {this.state.isLoading && !this.state.error && (
                       <div style={{ textAlign: 'center', fontSize: '2em', margin: '20px 0' }}>
-                        <ActivityIndicator text="Fetching logs..." />
+                        <ActivityIndicator text={<Trans>Fetching logs...</Trans>} />
                       </div>
                     )}
                     {!this.state.isLoading && errorMessage}
