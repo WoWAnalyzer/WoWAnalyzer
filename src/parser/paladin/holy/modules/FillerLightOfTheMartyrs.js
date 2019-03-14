@@ -1,10 +1,9 @@
 import React from 'react';
-import { Trans, t } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { TooltipElement } from 'common/Tooltip';
-import { i18n } from 'interface/RootLocalizationProvider';
 import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
