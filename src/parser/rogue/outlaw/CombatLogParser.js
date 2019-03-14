@@ -17,7 +17,7 @@ import SpellEnergyCost from '../shared/resources/SpellEnergyCost';
 import RollTheBonesBuffs from './modules/core/RollTheBonesBuffs';
 import RestlessBlades from './modules/core/RestlessBlades';
 import SliceAndDiceUptime from './modules/talents/SliceAndDiceUptime';
-import DeadShot from './modules/azerite/Deadshot';
+import Deadshot from './modules/azerite/Deadshot';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -40,7 +40,7 @@ class CombatLogParser extends CoreCombatLogParser {
     restlessBlades: RestlessBlades,
     rolltheBonesBuffs: RollTheBonesBuffs,
     //Items
-    deadshot: DeadShot,
+    deadshot: Deadshot,
 
     //Casts
 
