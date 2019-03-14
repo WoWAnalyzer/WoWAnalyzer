@@ -70,7 +70,7 @@ class FillerFlashOfLight extends Analyzer {
     if (this._isCurrentCastInefficient) {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = 'Holy Shock was off cooldown when you started casting this unbuffed Flash of Light. You should cast Holy Shock instead.';
+      event.meta.inefficientCastReason = <Trans>Holy Shock was off cooldown when you started casting this unbuffed Flash of Light. You should cast Holy Shock instead.</Trans>;
     }
   }
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Trans } from '@lingui/macro';
 
 import { formatDuration } from 'common/format';
 import Icon from 'common/Icon';
@@ -114,7 +115,11 @@ class Buffs extends React.PureComponent {
     return (
       <Tooltip
         key={`buff-${left}-${event.ability.guid}`}
-        content={`${formatDuration(fightDuration, 3)}: gained ${event.ability.name} for ${(duration / 1000).toFixed(2)}s`}
+        content={(
+          <Trans>
+            {formatDuration(fightDuration, 3)}: gained {event.ability.name} for {(duration / 1000).toFixed(2)}s
+          </Trans>
+        )}
       >
         <div
           className="buff hoist"

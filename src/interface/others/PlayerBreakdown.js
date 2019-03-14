@@ -45,9 +45,9 @@ class PlayerBreakdown extends React.Component {
       <table className="data-table">
         <thead>
           <tr style={{ textTransform: 'uppercase' }}>
-            <th>Name</th>
-            <th colSpan="2">Mastery effectiveness</th>
-            <th colSpan="3"><TooltipElement content="This is the amount of healing done by spells affected by mastery. Things like Holy Paladin beacons or Restoration Shaman feeding are NOT included.">Healing done</TooltipElement></th>
+            <th><Trans>Name</Trans></th>
+            <th colSpan="2"><Trans>Mastery effectiveness</Trans></th>
+            <th colSpan="3"><TooltipElement content={<Trans>This is the amount of healing done by spells affected by mastery. Things like Holy Paladin beacons or Restoration Shaman feeding are NOT included.</Trans>}><Trans>Healing done</Trans></TooltipElement></th>
           </tr>
         </thead>
         <tbody>

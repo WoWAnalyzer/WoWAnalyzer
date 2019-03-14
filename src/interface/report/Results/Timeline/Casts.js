@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Trans } from '@lingui/macro';
 
 import Tooltip from 'common/Tooltip';
 import { formatDuration } from 'common/format';
@@ -124,7 +125,7 @@ class Casts extends React.PureComponent {
     let castReason;
     if (event.isCancelled) {
       className += ' cancelled';
-      castReason = 'Cast never finished.';
+      castReason = <Trans>Cast never finished.</Trans>;
     }
     // If the beginchannel has a meta prop use that.
     // If it doesn't, look inside the trigger (which should be a begincast).
@@ -188,7 +189,11 @@ class Casts extends React.PureComponent {
     return (
       <Tooltip
         key={`channel-${left}-${event.ability.guid}`}
-        content={`${formatDuration(fightDuration, 3)}: ${(event.duration / 1000).toFixed(2)}s channel by ${event.ability.name}`}
+        content={(
+          <Trans>
+            {formatDuration(fightDuration, 3)}: {(event.duration / 1000).toFixed(2)}s channel by {event.ability.name}
+          </Trans>
+        )}
       >
         <div
           className="channel"
@@ -208,7 +213,11 @@ class Casts extends React.PureComponent {
     return (
       <Tooltip
         key={`gcd-${left}-${event.ability.guid}`}
-        content={`${formatDuration(fightDuration, 3)}: ${(event.duration / 1000).toFixed(2)}s Global Cooldown by ${event.ability.name}`}
+        content={(
+          <Trans>
+            {formatDuration(fightDuration, 3)}: {(event.duration / 1000).toFixed(2)}s Global Cooldown by {event.ability.name}
+          </Trans>
+        )}
       >
         <div
           className="gcd"

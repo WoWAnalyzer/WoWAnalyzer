@@ -1,4 +1,5 @@
 import React from 'react';
+import { Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -22,7 +23,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          extraSuggestion: 'Casting Holy Shock regularly is very important for performing well.',
+          extraSuggestion: <Trans>Casting Holy Shock regularly is very important for performing well.</Trans>,
         },
         timelineSortIndex: 0,
         isDefensive: true,
@@ -36,7 +37,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          extraSuggestion: 'Casting Light of Dawn regularly is very important for performing well.',
+          extraSuggestion: <Trans>Casting Light of Dawn regularly is very important for performing well.</Trans>,
         },
         timelineSortIndex: 1,
       },
@@ -53,9 +54,9 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id),
           extraSuggestion: (
-            <>
+            <Trans>
               You should cast it whenever <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_TALENT.id} /> has dropped, which is usually on cooldown without delay. Alternatively you can ignore the debuff and just cast it whenever Judgment is available; there's nothing wrong with ignoring unimportant things to focus on important things.
-            </>
+            </Trans>
           ),
           recommendedEfficiency: 0.85, // this rarely overheals, so keeping this on cooldown is pretty much always best
         },
@@ -72,9 +73,9 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.7,
           extraSuggestion: (
-            <>
+            <Trans>
               If you can't or don't want to cast it more consider using <SpellLink id={SPELLS.LIGHTS_HAMMER_TALENT.id} /> or <SpellLink id={SPELLS.CRUSADERS_MIGHT_TALENT.id} /> instead.
-            </>
+            </Trans>
           ),
         },
         timelineSortIndex: 3,
@@ -114,9 +115,9 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           extraSuggestion: (
-            <>
+            <Trans>
               When you are using <SpellLink id={SPELLS.CRUSADERS_MIGHT_TALENT.id} /> it is important to use <SpellLink id={SPELLS.CRUSADER_STRIKE.id} /> often enough to benefit from the talent. Use a different talent if you are unable to.
-            </>
+            </Trans>
           ),
           recommendedEfficiency: 0.35,
         },
