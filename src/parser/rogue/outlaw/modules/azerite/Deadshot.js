@@ -11,7 +11,7 @@ import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
-const ES_AP_COEFFICIENT = 0.35135; //Coefficient is taken from Pistolshot AP coefficient 
+const PISTOL_SHOT_COEFFICIENT = 0.35135; //Coefficient is taken from Pistolshot AP coefficient 
 
 class Deadshot extends Analyzer {  
   static dependencies = {
@@ -37,10 +37,10 @@ class Deadshot extends Analyzer {
       return;
     }
     const buff = this.selectedCombatant.getBuff(SPELLS.DEADSHOT_BUFF.id);
-    if (buff === undefined) {
+    if (!buff) {
       return;
     }
-    const [bonusDamage] = calculateBonusAzeriteDamage(event, [this.traitBonus], ES_AP_COEFFICIENT, this.statTracker.currentAgilityRating);  
+    const [bonusDamage] = calculateBonusAzeriteDamage(event, [this.traitBonus], PISTOL_SHOT_COEFFICIENT, this.statTracker.currentAgilityRating);  
     this.damageGained += (buff.stacks || 0) * bonusDamage;
     this.procs += 1;
   }
