@@ -74,7 +74,7 @@ async function getCharacterFromBlizzardApi(region, realm, name) {
   }
   if (items && items.neck && items.neck.id === HEART_OF_AZEROTH_ID) {
     const heartOfAzerothItem = items.neck;
-    json.heartOfAzeroth = JSON.stringify({
+    json.heartOfAzeroth = {
       id: heartOfAzerothItem.id,
       name: heartOfAzerothItem.name,
       icon: heartOfAzerothItem.icon,
@@ -82,7 +82,7 @@ async function getCharacterFromBlizzardApi(region, realm, name) {
       itemLevel: heartOfAzerothItem.itemLevel,
       timewalkerLevel: heartOfAzerothItem.tooltipParams && heartOfAzerothItem.tooltipParams.timewalkerLevel,
       azeriteItemLevel: heartOfAzerothItem.azeriteItem && heartOfAzerothItem.azeriteItem.azeriteLevel,
-    });
+    };
   }
   delete json.items;
 

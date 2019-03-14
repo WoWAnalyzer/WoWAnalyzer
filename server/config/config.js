@@ -12,7 +12,7 @@ function config() {
   return {
     host: process.env.MYSQL_HOST,
     port: process.env.MYSQL_PORT || 3306,
-    dialect: 'mysql',
+    dialect: 'mariadb',
     username: process.env.MYSQL_USER || 'root',
     password: process.env.MYSQL_ROOT_PASSWORD,
     database: env === 'test' ? 'wowanalyzer_test' : 'wowanalyzer',

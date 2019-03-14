@@ -21,7 +21,7 @@
     "dotenv": "^6.2.0",
     "es6-error": "^4.1.1",
     "express": "^4.16.4",
-    "mysql2": "^1.6.5",
+    "mariadb": "^2.0.3",
     "nanoid": "^2.0.1",
     "passport": "^0.4.0",
     "passport-github": "^1.1.0",
@@ -30,7 +30,7 @@
     "raven": "^2.6.4",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.7",
-    "sequelize": "^4.43.0",
+    "sequelize": "^5.1.0",
     "sequelize-cli": "^5.4.0"
   },
   "devDependencies": {
