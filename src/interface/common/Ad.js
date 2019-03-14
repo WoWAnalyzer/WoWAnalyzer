@@ -9,7 +9,14 @@ class Ad extends React.PureComponent {
     style: PropTypes.object,
   };
 
+  get isAdblocked() {
+    return window.adblocked !== false && !window.adsbygoogle.loaded;
+  }
+
   componentDidMount() {
+    if (this.isAdblocked) {
+      return;
+    }
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     } catch (err) {
@@ -38,7 +45,7 @@ class Ad extends React.PureComponent {
       props.style.background = 'rgba(255, 0, 0, 0.3)';
     }
 
-    if (window.adblocked === undefined) {
+    if (this.isAdblocked) {
       console.log('Adblock detected, falling back to premium ads.');
       let image = "/img/728.jpg";
       if (props['data-ad-slot'] === '3815063023') { // footer
