@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Icon from 'common/Icon';
 import SpellLink from 'common/SpellLink';
 import AZERITE_SPELLS from 'common/SPELLS/bfa/azeritetraits';
+import { makeSpellApiUrl } from 'common/makeApiUrl';
 
 const FALLBACK_ICON = 'inv_misc_questionmark';
 const ITEM_SLOT = {
@@ -79,7 +80,7 @@ class Azerite extends React.PureComponent {
 
     Object.keys(missingIcons).forEach(e => {
       const traitId = parseInt(missingIcons[e].id, 10);
-      fetch(`https://eu.api.battle.net/wow/spell/${traitId}?locale=en_GB&apikey=n6q3eyvqh2v4gz8t893mjjgxsf9kjdgz`)
+      fetch(makeSpellApiUrl(traitId))
         .then(response => response.json())
         .then(data => {
           const newTrait = {
