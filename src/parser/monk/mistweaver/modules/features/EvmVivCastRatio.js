@@ -21,8 +21,8 @@ class CastRatio extends Analyzer {
   statistic() {
     const getAbility = spellId => this.abilityTracker.getAbility(spellId);
 
-    const evmCasts = getAbility(SPELLS.ENVELOPING_MIST.id).casts;
-    const vivCasts = getAbility(SPELLS.VIVIFY.id).casts;
+    const evmCasts = getAbility(SPELLS.ENVELOPING_MIST.id).casts || 0;
+    const vivCasts = getAbility(SPELLS.VIVIFY.id).casts || 0;
 
     return (
       <StatisticBox
