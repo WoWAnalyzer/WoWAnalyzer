@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-03-15'),
+    changes: <>Added SI to buffs to buffs module to track  <SpellLink id={SPELLS.SECRET_INFUSION.id} />.</>,
+    contributors: [Abelito75],
+  },
+  {
     date: new Date('2019-03-11'),
     changes: 'Added new Buffs module to track and highlight Mistweaver specific buffs on the timeline',
     contributors: [Anomoly],
