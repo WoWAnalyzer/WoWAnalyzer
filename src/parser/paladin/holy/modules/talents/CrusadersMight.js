@@ -1,4 +1,5 @@
 import React from 'react';
+import { Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -11,7 +12,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 const COOLDOWN_REDUCTION_MS = 1500;
 
 class CrusadersMight extends Analyzer {
-  static dependencies = {    
+  static dependencies = {
     spellUsable: SpellUsable,
   };
 
@@ -50,13 +51,15 @@ class CrusadersMight extends Analyzer {
   }
 
   statistic() {
+    const formatSeconds = seconds => <Trans>{seconds}s</Trans>;
+
     return (
       <StatisticBox
         position={STATISTIC_ORDER.OPTIONAL(75)}
         icon={<SpellIcon id={SPELLS.CRUSADERS_MIGHT_TALENT.id} />}
         value={(
           <span style={{ fontSize: '75%' }}>
-            {(this.effectiveHolyShockReductionMs / 1000).toFixed(1)}s{' '}
+            {formatSeconds((this.effectiveHolyShockReductionMs / 1000).toFixed(1))}{' '}
             <SpellIcon
               id={SPELLS.HOLY_SHOCK_CAST.id}
               style={{
@@ -65,7 +68,7 @@ class CrusadersMight extends Analyzer {
               }}
             />
             {' '}
-            {(this.effectiveLightOfDawnReductionMs / 1000).toFixed(1)}s{' '}
+            {formatSeconds((this.effectiveLightOfDawnReductionMs / 1000).toFixed(1))}{' '}
             <SpellIcon
               id={SPELLS.LIGHT_OF_DAWN_CAST.id}
               style={{
@@ -75,7 +78,7 @@ class CrusadersMight extends Analyzer {
             />
           </span>
         )}
-        label="Cooldown reduction"
+        label={<Trans>Cooldown reduction</Trans>}
       />
     );
   }

@@ -55,7 +55,11 @@ class ManaLevelGraph extends React.PureComponent {
 
     const xValues = [];
     const yValues = [0, 25, 50, 75, 100];
-    for (let i = startTime; i < endTime; i += 30*1000) {
+    const duration = endTime - startTime;
+    const steps = 20;
+    const optimalInterval = 30 * 1000; // seconds
+    const interval = Math.max(optimalInterval, Math.floor(duration / steps / optimalInterval) * optimalInterval);
+    for (let i = startTime; i < endTime; i += interval) {
       xValues.push(i);
     }
 

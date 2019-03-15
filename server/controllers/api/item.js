@@ -69,7 +69,7 @@ router.get('/:id([0-9]+)', async (req, res) => {
   const { id } = req.params;
   let item = await Item.findByPk(id);
   if (item) {
-    res.send(item);
+    sendJson(res, item);
     item.update({
       lastSeenAt: Sequelize.fn('NOW'),
     });

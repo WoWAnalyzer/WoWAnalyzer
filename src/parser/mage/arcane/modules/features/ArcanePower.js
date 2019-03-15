@@ -106,21 +106,22 @@ class ArcanePower extends Analyzer {
         debug && this.log('Cast ' + event.ability.name + ' during Arcane Power');
         this.badCastsDuringAP += 1;
       } else if (spellId === SPELLS.ARCANE_BLAST.id || spellId === SPELLS.ARCANE_EXPLOSION.id) {
-        const manaInfo = event.classResources.find(resource => resource.type === RESOURCE_TYPES.MANA.id);
-        if (!manaInfo) {
-          return;
-        }
-        const currentMana = manaInfo.amount;
-        const manaCost = (event.resourceCost[RESOURCE_TYPES.MANA.id] + (event.resourceCost[RESOURCE_TYPES.MANA.id] * this.arcaneChargeTracker.charges));
-        const manaRemaining = currentMana - manaCost;
-        const buffTimeRemaining = this.buffEndTimestamp - event.timestamp;
-        if (manaRemaining < this.estimatedManaCost(spellId) && buffTimeRemaining > 1000) {
-          debug && this.log('Ran Out of Mana during Arcane Power');
-          debug && this.log('Mana Remaining: ' + manaRemaining);
-          debug && this.log('Estimated Mana Cost: ' + this.estimatedManaCost(spellId));
-          debug && this.log('Time left on Arcane Power: ' + buffTimeRemaining);
-          this.outOfMana += 1;
-        }
+        event.classResources && event.classResources.forEach(resource => {
+          if (resource.type !== RESOURCE_TYPES.MANA.id) {
+            return;
+          }
+          const currentMana = resource.amount;
+          const manaCost = (event.resourceCost[RESOURCE_TYPES.MANA.id] + (event.resourceCost[RESOURCE_TYPES.MANA.id] * this.arcaneChargeTracker.charges));
+          const manaRemaining = currentMana - manaCost;
+          const buffTimeRemaining = this.buffEndTimestamp - event.timestamp;
+          if (manaRemaining < this.estimatedManaCost(spellId) && buffTimeRemaining > 1000) {
+            debug && this.log('Ran Out of Mana during Arcane Power');
+            debug && this.log('Mana Remaining: ' + manaRemaining);
+            debug && this.log('Estimated Mana Cost: ' + this.estimatedManaCost(spellId));
+            debug && this.log('Time left on Arcane Power: ' + buffTimeRemaining);
+            this.outOfMana += 1;
+          }
+        });
       }
     }
   }

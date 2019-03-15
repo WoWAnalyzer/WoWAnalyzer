@@ -72,8 +72,8 @@ class Mana extends React.PureComponent {
       return {
         id: series.id,
         title: `${series.name} Health`,
-        backgroundColor: ManaStyles[`Boss-${i}`].backgroundColor,
-        borderColor: ManaStyles[`Boss-${i}`].borderColor,
+        backgroundColor: ManaStyles[`Boss-${i % 6}`].backgroundColor,
+        borderColor: ManaStyles[`Boss-${i % 6}`].borderColor,
         data,
       };
     });

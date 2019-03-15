@@ -57,6 +57,7 @@ class Checklist extends BaseChecklist {
           chiBurst: this.chiBurst.suggestionThresholds,
           spiritOfTheCrane: this.spiritOfTheCrane.suggestionThresholds,
           manaTea: this.manaTea.suggestionThresholds,
+          manaTeaOverhealing: this.manaTea.suggestionThresholdsOverhealing,
           lifecycles: this.lifecycles.suggestionThresholds,
           thunderFocusTea: this.thunderFocusTea.suggestionThresholds,
           essenceFontMastery: this.essenceFontMastery.suggestionThresholds,

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Trans } from '@lingui/macro';
 import { Link } from 'react-router-dom';
 
-import getDifficulty from 'common/getDifficulty';
+import { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
 import getBossName from 'common/getBossName';
 import ChecklistIcon from 'interface/icons/Checklist';
 import StatisticsIcon from 'interface/icons/Statistics';
@@ -116,7 +116,7 @@ class Header extends React.PureComponent {
       <div className="info container">
         <div className="boss">
           <h2>
-            {getDifficulty(fight)}
+            {getDifficultyLabel(fight.difficulty)}
           </h2>
           <h1>
             {boss ? boss.name : getBossName(fight, false)}

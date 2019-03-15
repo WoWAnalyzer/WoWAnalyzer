@@ -13,7 +13,9 @@ class SpecListing extends React.PureComponent {
       <>
         <DocumentTitle title="Specializations" />
 
-        <h1>Specializations</h1>
+        <div>
+          <h1>Specializations</h1>
+        </div>
         <small>Click any specialization to view an example report for that spec.</small>
 
         <div className="spec-listing">

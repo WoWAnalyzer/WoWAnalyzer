@@ -78,9 +78,14 @@ class ManaUsageGraph extends React.Component {
 
   render() {
     const { mana, healing, manaUsed } = this.props;
+
     const yTicks = this.yAxisMarks;
     const xTicks = [];
-    for (let i = 0; i < mana[mana.length - 1].x; i += 30) {
+    const duration = mana[mana.length - 1].x - 0;
+    const steps = 20;
+    const optimalInterval = 30; // seconds
+    const interval = Math.max(optimalInterval, Math.floor(duration / steps / optimalInterval) * optimalInterval);
+    for (let i = 0; i < mana[mana.length - 1].x; i += interval) {
       xTicks.push(i);
     }
 

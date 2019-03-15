@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Toggle from 'react-toggle';
+import { Trans } from '@lingui/macro';
 
 import Icon from 'common/Icon';
 import SpellLink from 'common/SpellLink';
@@ -57,8 +58,8 @@ class BeaconHealingBreakdown extends React.Component {
                   />
                 </td>
                 <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
-                  <TooltipElement content={`Total: ${formatNumber(healing.effective)}`}>
-                    {formatNumber(healing.effective / fightDuration * 1000)} HPS
+                  <TooltipElement content={<Trans>Total: {formatNumber(healing.effective)}</Trans>}>
+                    <Trans>{formatNumber(healing.effective / fightDuration * 1000)} HPS</Trans>
                   </TooltipElement>
                 </td>
                 <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
@@ -76,9 +77,9 @@ class BeaconHealingBreakdown extends React.Component {
       <table className="data-table">
         <thead>
           <tr>
-            <th style={{ fontWeight: 700, textTransform: 'uppercase' }}>Name</th>
+            <th style={{ fontWeight: 700, textTransform: 'uppercase' }}><Trans>Name</Trans></th>
             <th colSpan="3">
-              <span style={{ fontWeight: 700, textTransform: 'uppercase' }}>Beacon healing caused</span>
+              <span style={{ fontWeight: 700, textTransform: 'uppercase' }}><Trans>Beacon healing caused</Trans></span>
               <div className="pull-right toggle-control">
                 <Toggle
                   defaultChecked={false}
@@ -87,11 +88,11 @@ class BeaconHealingBreakdown extends React.Component {
                   id="absolute-toggle"
                 />
                 <label htmlFor="absolute-toggle" style={{ marginLeft: '0.5em' }}>
-                  relative to total healing
+                  <Trans>relative to total healing</Trans>
                 </label>
               </div>
             </th>
-            <th style={{ fontWeight: 700, textTransform: 'uppercase' }}>Overheal</th>
+            <th style={{ fontWeight: 700, textTransform: 'uppercase' }}><Trans>Overheal</Trans></th>
           </tr>
         </thead>
         {this.renderTableBody()}

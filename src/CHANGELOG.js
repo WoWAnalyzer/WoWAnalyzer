@@ -8,6 +8,61 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
+    date: new Date('2019-03-14'),
+    changes: 'Fixed an issue that lead to not all azerite power icons showing up properly on the character tab.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-03-14'),
+    changes: 'Fixed a crash in player selection when WCL sent corrupt player info.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-03-14'),
+    changes: 'Fixed a crash when adblock is enabled.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-03-14'),
+    changes: 'Fixed the layout of the "outdated patch" warning screen.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-03-14'),
+    changes: 'Fixed a crash on initial load in Microsoft Edge.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-03-13'),
+    changes: 'Updated Discord link description text.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-03-13'),
+    changes: 'Fallback to ads for our Premium when adblock is enabled.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-03-13'),
+    changes: 'Replaced the statistics ad with an in-feed ad that better fits the layout.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-03-13'),
+    changes: 'Replaced the Patreon page links with direct join links to make it easier to sign up.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-03-12'),
+    changes: 'Fixed a crash on the results page when the player info received from Warcraft Logs is corrupt (now it shows an alert instead).',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-03-12'),
+    changes: 'Fixed a crash on the statistics tab when WCL has no rankings data (e.g. due to the 8.1.5 partitioning).',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2019-03-10'),
     changes: 'WoWAnalyzer 3.0! This is the biggest update since the release, featuring a completely new interface, with a new logo, color scheme, and various new pages and improvements to the results page including a complete rework of the timeline. Many people worked on this, thanks so much to everyone who contributed!',
     contributors: [Zerotorescue],

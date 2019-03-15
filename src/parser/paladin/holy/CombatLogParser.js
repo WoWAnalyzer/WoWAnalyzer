@@ -37,9 +37,7 @@ import MightOfTheMountain from './modules/MightOfTheMountain';
 
 import RuleOfLaw from './modules/talents/RuleOfLaw';
 import DevotionAuraDamageReduction from './modules/talents/DevotionAuraDamageReduction';
-// import DevotionAuraLivesSaved from './Modules/Talents/DevotionAuraLivesSaved';
 import AuraOfSacrificeDamageReduction from './modules/talents/AuraOfSacrificeDamageReduction';
-// import AuraOfSacrificeLivesSaved from './Modules/Talents/AuraOfSacrificeLivesSaved';
 import AuraOfMercy from './modules/talents/AuraOfMercy';
 import HolyAvenger from './modules/talents/HolyAvenger';
 import DivinePurpose from './modules/talents/DivinePurpose';
@@ -96,9 +94,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     ruleOfLaw: RuleOfLaw,
     devotionAuradamageReduction: DevotionAuraDamageReduction,
-    // devotionAuraLivesSaved: DevotionAuraLivesSaved,
     auraOfSacrificeDamageReduction: AuraOfSacrificeDamageReduction,
-    // auraOfSacrificeLivesSaved: AuraOfSacrificeLivesSaved,
     auraOfMercy: AuraOfMercy,
     holyAvenger: HolyAvenger,
     divinePurpose: DivinePurpose,

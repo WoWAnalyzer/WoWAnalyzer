@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Trans, t } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 
 import getFightName from 'common/getFightName';
 import Tooltip from 'common/Tooltip';
@@ -11,7 +11,6 @@ import DiscordIcon from 'interface/icons/DiscordTiny';
 import GitHubIcon from 'interface/icons/GitHubMarkSmall';
 import PremiumIcon from 'interface/icons/Premium';
 import { ReactComponent as Logo } from 'interface/images/logo.svg';
-import { i18n } from 'interface/RootLocalizationProvider';
 import { getFightId, getPlayerName, getReportCode } from 'interface/selectors/url/report';
 import { getReport } from 'interface/selectors/report';
 import { getFightById } from 'interface/selectors/fight';
@@ -54,24 +53,24 @@ class NavigationBar extends React.PureComponent {
           )}
           {report && (
             <div className="menu-item">
-              <Link to={makeAnalyzerUrl(report)}>{fight ? getFightName(report, fight) : 'Fight selection'}</Link>
+              <Link to={makeAnalyzerUrl(report)}>{fight ? getFightName(report, fight) : <Trans>Fight selection</Trans>}</Link>
             </div>
           )}
           {report && (fight || playerName) && (
             <div className="menu-item">
-              <Link to={makeAnalyzerUrl(report, fight ? fight.id : undefined)}>{playerName || 'Player selection'}</Link>
+              <Link to={makeAnalyzerUrl(report, fight ? fight.id : undefined)}>{playerName || <Trans>Player selection</Trans>}</Link>
             </div>
           )}
           <div className="spacer" />
           <div className="menu-item required">
             {user && user.premium ? (
-              <Tooltip content="Premium active">
+              <Tooltip content={<Trans>Premium active</Trans>}>
                 <Link to="/premium">
                   <PremiumIcon /> <span className="optional">{user.name}</span>
                 </Link>
               </Tooltip>
             ) : (
-              <Tooltip content={i18n._(t`Premium`)}>
+              <Tooltip content={<Trans>Premium</Trans>}>
                 <Link to="/premium" className="premium">
                   <PremiumIcon /> <span className="optional"><Trans>Premium</Trans></span>
                 </Link>
@@ -94,7 +93,7 @@ class NavigationBar extends React.PureComponent {
           </Tooltip>
           <Tooltip content="Patreon">
             <div className="menu-item optional">
-              <a href="https://www.patreon.com/wowanalyzer">
+              <a href="https://www.patreon.com/join/wowanalyzer">
                 <PatreonIcon />
               </a>
             </div>

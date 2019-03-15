@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Trans } from '@lingui/macro';
 
 import { formatDuration } from 'common/format';
 import Icon from 'common/Icon';
@@ -113,10 +114,14 @@ class Buffs extends React.PureComponent {
     // TODO: tooltip renders at completely wrong places
     return (
       <Tooltip
-        content={`${formatDuration(fightDuration, 3)}: gained ${event.ability.name} for ${(duration / 1000).toFixed(2)}s`}
+        key={`buff-${left}-${event.ability.guid}`}
+        content={(
+          <Trans>
+            {formatDuration(fightDuration, 3)}: gained {event.ability.name} for {(duration / 1000).toFixed(2)}s
+          </Trans>
+        )}
       >
         <div
-          key={`buff-${left}-${event.ability.guid}`}
           className="buff hoist"
           style={{
             left,

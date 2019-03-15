@@ -60,7 +60,7 @@ class FightSelection extends React.PureComponent {
           </div>
           <div className="flex-sub">
             <div>
-              <Tooltip content={i18n._(t`This will refresh the fights list which can be useful if you're live logging.`)}>
+              <Tooltip content={<Trans>This will refresh the fights list which can be useful if you're live logging.</Trans>}>
                 <Link
                   to={makeAnalyzerUrl(report)}
                   onClick={refreshReport}

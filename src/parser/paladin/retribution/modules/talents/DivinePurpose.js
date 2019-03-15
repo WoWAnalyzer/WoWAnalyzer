@@ -75,8 +75,7 @@ class DivinePurpose extends Analyzer {
   }
 
   statistic() {
-    const chainProcText = this.largestProcChain > 1 ? `<br />Your longest chain of procs was ${this.largestProcChain}` : ``;
-    const justicarsVengeanceText = this.selectedCombatant.hasTalent(SPELLS.JUSTICARS_VENGEANCE_TALENT.id) ? `<br />Justicars Vengeance: ${this.justicarsVengeanceConsumptions}` : ``; 
+    const hasJV = this.selectedCombatant.hasTalent(SPELLS.JUSTICARS_VENGEANCE_TALENT.id);
     return (
       <StatisticBox
         position={STATISTIC_ORDER.OPTIONAL(1)}
@@ -88,10 +87,10 @@ class DivinePurpose extends Analyzer {
           Your Divine Purpose procs were used on:<br />
           Templars Verdict: {this.templarsVerdictConsumptions}<br />
           Divine Storm: {this.divineStormConsumptions}
-          {justicarsVengeanceText}
-          {chainProcText}
+          {hasJV && <><br />Justicars Vengeance: {this.justicarsVengeanceConsumptions}</>}
+          {this.largestProcChain > 1 && <><br />Your longest chain of procs was {this.largestProcChain}</>}
           </>
-          )}
+        )}
       />
     );
   }

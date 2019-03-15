@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Trans } from '@lingui/macro';
+
 import Tooltip from 'common/Tooltip';
 import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
@@ -62,7 +64,11 @@ class Lane extends React.PureComponent {
     return (
       <Tooltip
         key={`cooldown-${left}`}
-        content={`${event.name || event.ability.name} cooldown: ${((event.timestamp - event.start) / 1000).toFixed(1)}s`}
+        content={(
+          <Trans>
+            {event.name || event.ability.name} cooldown: {((event.timestamp - event.start) / 1000).toFixed(1)}s
+          </Trans>
+        )}
       >
         <div
           className="cooldown"
@@ -81,7 +87,7 @@ class Lane extends React.PureComponent {
     }
     const left = this.getOffsetLeft(event.timestamp);
     return (
-      <Tooltip content="Charge Restored">
+      <Tooltip content={<Trans>Charge restored</Trans>}>
         <div
           key={`recharge-${left}`}
           className="recharge"

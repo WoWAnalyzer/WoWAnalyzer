@@ -179,7 +179,6 @@ exports[`The Brewmaster Analyzer analyzers BrewCDR matches the statistic snapsho
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Tiger Palm"
               className="icon game "
@@ -244,7 +243,6 @@ exports[`The Brewmaster Analyzer analyzers CelestialFortune matches the statisti
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Celestial Fortune"
               className="icon game "
@@ -312,7 +310,6 @@ exports[`The Brewmaster Analyzer analyzers GiftOfTheOx matches the statistic sna
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Gift of the Ox"
               className="icon game "
@@ -393,7 +390,6 @@ exports[`The Brewmaster Analyzer analyzers HighTolerance matches the statistic s
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="High Tolerance"
               className="icon game "
@@ -458,7 +454,6 @@ exports[`The Brewmaster Analyzer analyzers IronSkinBrew matches the statistic sn
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Ironskin Brew"
               className="icon game "
@@ -529,7 +524,6 @@ exports[`The Brewmaster Analyzer analyzers MasteryValue matches the statistic sn
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Mastery: Elusive Brawler"
               className="icon game "
@@ -1458,7 +1452,6 @@ exports[`The Brewmaster Analyzer analyzers PurifyingBrew matches the statistic s
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Purifying Brew"
               className="icon game "
@@ -1643,7 +1636,6 @@ exports[`The Brewmaster Analyzer analyzers Stagger matches the statistic snapsho
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Ironskin Brew"
               className="icon game "
@@ -1716,7 +1708,6 @@ exports[`The Brewmaster Analyzer analyzers StaggeringStrikes matches the statist
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Staggering Strikes"
               className="icon game "
@@ -1729,7 +1720,6 @@ exports[`The Brewmaster Analyzer analyzers StaggeringStrikes matches the statist
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             Staggering Strikes
           </a>
         </label>

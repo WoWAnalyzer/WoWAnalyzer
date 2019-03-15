@@ -1,12 +1,17 @@
 import React from 'react';
 
-import { Mamtooth, Yajinni } from 'CONTRIBUTORS';
+import { Mamtooth, Yajinni, Zerotorescue } from 'CONTRIBUTORS';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2019-03-12'),
+    changes: <>Fixed an error in the <SpellLink id={SPELLS.BLIND_FURY_TALENT.id} /> analyzer.</>,
+    contributors: [Zerotorescue],
+  },
   {
     date: new Date('2019-02-21'),
     changes: <>Added tracking of the azerite trait <SpellLink id={SPELLS.FURIOUS_GAZE.id} />.</>,

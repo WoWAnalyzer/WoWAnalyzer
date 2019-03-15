@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import NavigationBar from 'interface/layout/NavigationBar';
+import ErrorBoundary from 'interface/common/ErrorBoundary';
 
 import ReportLoader from './ReportLoader';
 import FightSelection from './FightSelection';
@@ -168,48 +169,50 @@ const Report = () => (
   <>
     <NavigationBar />
 
-    <ReportLoader>
-      {(report, refreshReport) => (
-        <PatchChecker
-          report={report}
-        >
-          <FightSelection
+    <ErrorBoundary>
+      <ReportLoader>
+        {(report, refreshReport) => (
+          <PatchChecker
             report={report}
-            refreshReport={refreshReport}
           >
-            {fight => (
-              <PlayerLoader
-                report={report}
-                fight={fight}
-              >
-                {(player, combatant, combatants) => (
-                  <ConfigLoader
-                    specId={combatant.specID}
-                  >
-                    {config => (
-                      <SupportChecker
-                        config={config}
-                        report={report}
-                        fight={fight}
-                        player={player}
-                      >
-                        <ResultsLoader
+            <FightSelection
+              report={report}
+              refreshReport={refreshReport}
+            >
+              {fight => (
+                <PlayerLoader
+                  report={report}
+                  fight={fight}
+                >
+                  {(player, combatant, combatants) => (
+                    <ConfigLoader
+                      specId={combatant.specID}
+                    >
+                      {config => (
+                        <SupportChecker
                           config={config}
                           report={report}
                           fight={fight}
                           player={player}
-                          combatants={combatants}
-                        />
-                      </SupportChecker>
-                    )}
-                  </ConfigLoader>
-                )}
-              </PlayerLoader>
-            )}
-          </FightSelection>
-        </PatchChecker>
-      )}
-    </ReportLoader>
+                        >
+                          <ResultsLoader
+                            config={config}
+                            report={report}
+                            fight={fight}
+                            player={player}
+                            combatants={combatants}
+                          />
+                        </SupportChecker>
+                      )}
+                    </ConfigLoader>
+                  )}
+                </PlayerLoader>
+              )}
+            </FightSelection>
+          </PatchChecker>
+        )}
+      </ReportLoader>
+    </ErrorBoundary>
   </>
 );
 

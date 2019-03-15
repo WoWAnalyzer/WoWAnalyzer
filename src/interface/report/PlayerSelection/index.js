@@ -17,15 +17,15 @@ function sortPlayers(a, b) {
   const aSpec = SPECS[a.combatant.specID];
   const bSpec = SPECS[b.combatant.specID];
 
-  const aRoleSortKey = ROLE_SORT_KEY[aSpec.role];
-  const bRoleSortKey = ROLE_SORT_KEY[bSpec.role];
+  const aRoleSortKey = aSpec ? ROLE_SORT_KEY[aSpec.role] : -1;
+  const bRoleSortKey = bSpec ? ROLE_SORT_KEY[bSpec.role] : -1;
 
   if (aRoleSortKey !== bRoleSortKey) {
     return aRoleSortKey - bRoleSortKey;
   }
 
-  const aSpecSortKey = aSpec.className;
-  const bSpecSortKey = bSpec.className;
+  const aSpecSortKey = aSpec ? aSpec.className : '';
+  const bSpecSortKey = bSpec ? bSpec.className : '';
   if (aSpecSortKey !== bSpecSortKey) {
     return aSpecSortKey.localeCompare(bSpecSortKey);
   }

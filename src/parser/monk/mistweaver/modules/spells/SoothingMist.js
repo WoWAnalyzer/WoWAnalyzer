@@ -38,6 +38,7 @@ class SoothingMist extends Analyzer {
       console.log(`SooM Ticks: ${this.soomTicks}`);
       console.log('SooM Perc Uptime: ', (this.soomTicks * 2 / this.owner.fightDuration * 1000));
       console.log('SooM Buff Update: ', this.selectedCombatant.getBuffUptime(SPELLS.SOOTHING_MIST.id), ' Percent: ', this.selectedCombatant.getBuffUptime(SPELLS.SOOTHING_MIST.id) / this.owner.fightDuration);
+      console.log('soom gusts', this.gustsHealing);
     }
   }
 

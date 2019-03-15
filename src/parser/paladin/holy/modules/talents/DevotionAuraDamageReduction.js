@@ -1,4 +1,5 @@
 import React from 'react';
+import { Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import fetchWcl from 'common/fetchWclApi';
@@ -148,14 +149,14 @@ class DevotionAuraDamageReduction extends Analyzer {
 
   statistic() {
     const tooltip = (
-      <>
+      <Trans>
         The total estimated damage reduced <strong>by the passive</strong> was {formatThousands(this.passiveDamageReduced)} ({formatNumber(this.passiveDrps)} DRPS). This has high accuracy.<br />
         The total estimated damage reduced <strong>during Aura Mastery</strong> was {formatThousands(this.activeDamageReduced)} ({formatNumber(this.activeDrps)} DRPS). This has a 99% accuracy.<br /><br />
 
         This value is calculated using the <i>Optional DRs</i> method. This results in the lowest possible damage reduction value being shown. This should be the correct value in most circumstances.<br /><br />
 
         Calculating the exact damage reduced by Devotion Aura is very time and resource consuming. This method uses a very close estimation. The active damage reduced is calculated by taking the total damage taken of the entire raid during <SpellLink id={SPELLS.AURA_MASTERY.id} /> and calculating the damage reduced during this time. The passive damage reduction is calculated by taking the exact damage reduction factor applicable and calculating the damage reduced if that full effect was applied to the Paladin. Even though the passive damage reduction is split among other nearby players, using your personal damage taken should average it out very closely. More extensive tests that go over all damage events have shown that this is usually a close approximation.
-      </>
+      </Trans>
     );
 
     return (
@@ -163,8 +164,8 @@ class DevotionAuraDamageReduction extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(60)}
         loader={this.load.bind(this)}
         icon={<SpellIcon id={SPELLS.DEVOTION_AURA_TALENT.id} />}
-        value={`≈${formatNumber(this.totalDrps)} DRPS`}
-        label="Damage reduction"
+        value={<Trans>≈{formatNumber(this.totalDrps)} DRPS</Trans>}
+        label={<Trans>Damage reduction</Trans>}
         tooltip={tooltip}
         drilldown={makeWclUrl(this.owner.report.code, {
           fight: this.owner.fightId,

@@ -1291,7 +1291,7 @@ exports[`Root matches snapshot 1`] = `
                                                   useHover={true}
                                                 >
                                                   <a
-                                                    href="https://www.patreon.com/wowanalyzer"
+                                                    href="https://www.patreon.com/join/wowanalyzer"
                                                     key=".0"
                                                     onMouseEnter={[Function]}
                                                     onMouseLeave={[Function]}
@@ -1564,6 +1564,7 @@ exports[`Root matches snapshot 1`] = `
                                       />
                                     </Route>
                                   </withRouter(Tracker)>
+                                  <Hotkeys />
                                 </App>
                               </Connect(App)>
                             </Route>

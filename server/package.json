@@ -12,8 +12,8 @@
     "serve": "node --harmony node_modules/sequelize-cli/lib/sequelize db:migrate && node --harmony build/index.js"
   },
   "dependencies": {
-    "agentkeepalive": "^4.0.0",
-    "babel-plugin-inline-dotenv": "^1.2.0",
+    "agentkeepalive": "^4.0.2",
+    "babel-plugin-inline-dotenv": "^1.2.1",
     "babel-runtime": "^6.26.0",
     "body-parser": "^1.18.3",
     "compression": "^1.7.3",
@@ -21,30 +21,30 @@
     "dotenv": "^6.2.0",
     "es6-error": "^4.1.1",
     "express": "^4.16.4",
-    "mysql2": "^1.6.4",
-    "nanoid": "^2.0.0",
+    "mysql2": "^1.6.5",
+    "nanoid": "^2.0.1",
     "passport": "^0.4.0",
     "passport-github": "^1.1.0",
     "passport-patreon": "^1.0.1",
     "prom-client": "^11.2.1",
     "raven": "^2.6.4",
     "request": "^2.88.0",
-    "request-promise-native": "^1.0.5",
-    "sequelize": "^4.42.0",
+    "request-promise-native": "^1.0.7",
+    "sequelize": "^4.43.0",
     "sequelize-cli": "^5.4.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-jest": "^23.6.0",
-    "babel-plugin-module-resolver": "^3.1.1",
+    "babel-plugin-module-resolver": "^3.2.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
-    "jest": "^23.6.0",
-    "nodemon": "^1.18.9"
+    "jest": "^24.5.0",
+    "nodemon": "^1.18.10"
   },
   "jest": {
     "testEnvironment": "node",

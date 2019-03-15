@@ -78,22 +78,6 @@ export default {
     mastery: true, // Procs Gusts
     vers: false,
   },
-  [SPELLS.WHISPERS_OF_SHAOHAO.id]: {
-    int: true,
-    crit: true,
-    hasteHpm: false,
-    hasteHpct: false,
-    mastery: false,
-    vers: true,
-  },
-  [SPELLS.CELESTIAL_BREATH.id]: {
-    int: true,
-    crit: true,
-    hasteHpm: false,
-    hasteHpct: false,
-    mastery: false,
-    vers: true,
-  },
   [SPELLS.SOOTHING_MIST.id]: {
     int: true,
     crit: true,
@@ -118,14 +102,6 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.BLESSINGS_OF_YULON.id]: {
-    int: true,
-    crit: true,
-    hasteHpm: false,
-    hasteHpct: false,
-    mastery: false,
-    vers: true,
-  },
   [SPELLS.LIFE_COCOON.id]: {
     int: true,
     crit: false,
@@ -142,15 +118,7 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.TRANQUIL_MIST.id]: { // T21 2P HoT
-    int: true,
-    crit: true,
-    hasteHpm: true,
-    hasteHpct: false,
-    mastery: false,
-    vers: true,
-  },
-  [SPELLS.CHI_BOLT.id]: { // T21 2P HoT
+  [SPELLS.RISING_MIST_HEAL.id]: { // t100 trait
     int: true,
     crit: true,
     hasteHpm: false,
@@ -158,15 +126,7 @@ export default {
     mastery: false,
     vers: true,
   },
-  [SPELLS.RISING_MIST_HEAL.id]: { // T21 2P HoT
-    int: true,
-    crit: true,
-    hasteHpm: false,
-    hasteHpct: false,
-    mastery: false,
-    vers: true,
-  },
-  [SPELLS.HEALING_ELIXIR_TALENT.id]: { // T21 2P HoT
+  [SPELLS.HEALING_ELIXIR_TALENT.id]: { // t75 trait
     int: true,
     crit: true,
     hasteHpm: false,
