@@ -44,6 +44,11 @@ class RefreshingJadeWind extends Analyzer {
     return (this.healsRJW / this.castRJW) / TARGETSPERCAST || 0;
   }
 
+  get rjwEffectiveness() {
+    const rjwEfficiency = (this.healsRJW / (this.castRJW * TARGETSPERCAST)) || 0;
+    return rjwEfficiency.toFixed(4);
+  }
+
   get suggestionThresholds() {
     return {
       actual: this.avgTargetsHitPerRJWPercentage,

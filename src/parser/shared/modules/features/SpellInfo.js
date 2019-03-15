@@ -166,4 +166,22 @@ export default {
     mastery: false,
     vers: true,
   },
+  // https://www.warcraftlogs.com/reports/ghpJGamyTKXzDqFt/#fight=47&source=9
+  [SPELLS.BONDED_SOULS_BUFF_AND_HEAL.id]: { // General BoD Azerite Trait
+    int: false,
+    crit: true,
+    hasteHpm: false,
+    hasteHpct: false,
+    mastery: false,
+    vers: true,
+  },
+  // https://www.warcraftlogs.com/reports/ghpJGamyTKXzDqFt/#fight=47&source=9
+  [SPELLS.MIRROR_OF_ENTWINED_FATE_BUFF.id]: { // BoD Trinket
+    int: false,
+    crit: true,
+    hasteHpm: false,
+    hasteHpct: false,
+    mastery: false,
+    vers: true,
+  },
 };
