@@ -1,4 +1,5 @@
 import React from 'react';
+import { Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -33,13 +34,13 @@ class RuleOfLaw extends Analyzer {
   suggestions(when) {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <>
+        <Trans>
           Your <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges.
-        </>
+        </Trans>
       )
         .icon(SPELLS.RULE_OF_LAW_TALENT.icon)
-        .actual(`${formatPercentage(actual)}% uptime`)
-        .recommended(`>${formatPercentage(recommended)}% is recommended`);
+        .actual(<Trans>{formatPercentage(actual)}% uptime</Trans>)
+        .recommended(<Trans>&gt;${formatPercentage(recommended)}% is recommended</Trans>);
     });
   }
   statistic() {
@@ -56,7 +57,9 @@ class RuleOfLaw extends Analyzer {
             <SpellIcon id={SPELLS.RULE_OF_LAW_TALENT.id} />
           </div>
           <div className="flex-sub value">
-            {formatPercentage(this.uptime, 0)}% <small>uptime</small>
+            <Trans>
+              {formatPercentage(this.uptime, 0)}% <small>uptime</small>
+            </Trans>
           </div>
           <div className="flex-main chart" style={{ padding: 15 }}>
             <UptimeBar

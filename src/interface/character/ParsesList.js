@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+import { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
 import { formatNumber, formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import ItemLink from 'common/ItemLink';
@@ -77,7 +78,7 @@ class ParsesList extends React.PureComponent {
                         src={this.iconPath(elem.spec)}
                         alt={elem.spec}
                       />
-                      <span className="difficulty">{elem.difficulty}</span>
+                      <span className="difficulty">{getDifficultyLabel(elem.difficulty)}</span>
                       <span className="boss">{elem.name}</span>
                     </div>
                   </div>

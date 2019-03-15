@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Trans } from '@lingui/macro';
 
 import Tooltip from 'common/Tooltip';
 import { formatDuration } from 'common/format';
@@ -124,7 +125,7 @@ class Casts extends React.PureComponent {
     let castReason;
     if (event.isCancelled) {
       className += ' cancelled';
-      castReason = 'Cast never finished.';
+      castReason = <Trans>Cast never finished.</Trans>;
     }
     // If the beginchannel has a meta prop use that.
     // If it doesn't, look inside the trigger (which should be a begincast).
@@ -151,7 +152,6 @@ class Casts extends React.PureComponent {
     const left = this.getOffsetLeft(event.timestamp);
     const icon = (
       <SpellLink
-        key={`cast-${left}-${event.ability.guid}`}
         id={event.ability.guid}
         icon={false}
         className={`cast ${className}`}
@@ -168,15 +168,18 @@ class Casts extends React.PureComponent {
       </SpellLink>
     );
 
-    if (tooltip) {
-      return (
-        <Tooltip content={tooltip}>
-          {icon}
-        </Tooltip>
-      );
-    } else {
-      return icon;
-    }
+    return (
+      <React.Fragment
+        // It's possible this complains about "encountered two children with the same key". This is probably caused by fabricating a channel event at a cast time. If you can fix it by removing one of the events that would be great, otherwise you may just have to ignore this as while it's showing a warning, deduplicting the icons is correct behavior.
+        key={`cast-${left}-${event.ability.guid}`}
+      >
+        {tooltip ? (
+          <Tooltip content={tooltip}>
+            {icon}
+          </Tooltip>
+        ) : icon}
+      </React.Fragment>
+    );
   }
   renderChannel(event) {
     const start = this.props.start;
@@ -186,7 +189,11 @@ class Casts extends React.PureComponent {
     return (
       <Tooltip
         key={`channel-${left}-${event.ability.guid}`}
-        content={`${formatDuration(fightDuration, 3)}: ${(event.duration / 1000).toFixed(2)}s channel by ${event.ability.name}`}
+        content={(
+          <Trans>
+            {formatDuration(fightDuration, 3)}: {(event.duration / 1000).toFixed(2)}s channel by {event.ability.name}
+          </Trans>
+        )}
       >
         <div
           className="channel"
@@ -206,7 +213,11 @@ class Casts extends React.PureComponent {
     return (
       <Tooltip
         key={`gcd-${left}-${event.ability.guid}`}
-        content={`${formatDuration(fightDuration, 3)}: ${(event.duration / 1000).toFixed(2)}s Global Cooldown by ${event.ability.name}`}
+        content={(
+          <Trans>
+            {formatDuration(fightDuration, 3)}: {(event.duration / 1000).toFixed(2)}s Global Cooldown by {event.ability.name}
+          </Trans>
+        )}
       >
         <div
           className="gcd"

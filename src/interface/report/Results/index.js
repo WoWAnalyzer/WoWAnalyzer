@@ -333,7 +333,7 @@ class Results extends React.PureComponent {
         {this.renderContent(selectedTab, results)}
 
         {premium === false && (
-          <div className="container" style={{ marginTop: 40 }}>
+          <div className="container" style={{ marginTop: 20 }}>
             <Ad />
           </div>
         )}

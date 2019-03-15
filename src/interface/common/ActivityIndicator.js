@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class ActivityIndicator extends React.PureComponent {
   static propTypes = {
-    text: PropTypes.string,
+    text: PropTypes.node,
   };
 
   timer = null;

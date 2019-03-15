@@ -103,7 +103,11 @@ class Statistics extends React.PureComponent {
 
                 {name === STATISTIC_CATEGORY.GENERAL && premium === false && (
                   <div className="col-md-6 hidden-xs">
-                    <Ad data-ad-format="rectangle" />
+                    <Ad
+                      data-ad-format="fluid"
+                      data-ad-layout-key="-ei+3w+e8-ee-en"
+                      data-ad-slot="2181760614"
+                    />
                   </div>
                 )}
               </Masonry>

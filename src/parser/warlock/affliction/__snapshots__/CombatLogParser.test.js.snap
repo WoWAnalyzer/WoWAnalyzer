@@ -138,7 +138,6 @@ exports[`The Affliction Warlock Analyzer analyzers CascadingCalamity matches the
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Cascading Calamity"
               className="icon game "
@@ -151,7 +150,6 @@ exports[`The Affliction Warlock Analyzer analyzers CascadingCalamity matches the
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             Cascading Calamity
           </a>
         </label>
@@ -813,7 +811,6 @@ exports[`The Affliction Warlock Analyzer analyzers WrackingBrilliance matches th
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Wracking Brilliance"
               className="icon game "
@@ -826,7 +823,6 @@ exports[`The Affliction Warlock Analyzer analyzers WrackingBrilliance matches th
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             Wracking Brilliance
           </a>
         </label>

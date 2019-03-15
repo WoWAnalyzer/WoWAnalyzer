@@ -237,15 +237,15 @@ class MasteryEffectiveness extends Analyzer {
                 }}
                 playerColor="#f58cba" // Paladin color
               />
-              <div style={{ opacity: 0.5, lineHeight: 1, marginTop: -4, fontSize: 13 }}>Average distance</div>
+              <div style={{ opacity: 0.5, lineHeight: 1, marginTop: -4, fontSize: 13 }}><Trans>Average distance</Trans></div>
             </div>
           </div>
         </Statistic>
       ),
       (
         <Panel
-          title="Mastery effectiveness breakdown"
-          explanation="This shows you your mastery effectiveness on each individual player and the amount of healing done to those players."
+          title={<Trans>Mastery effectiveness breakdown</Trans>}
+          explanation={<Trans>This shows you your mastery effectiveness on each individual player and the amount of healing done to those players.</Trans>}
           position={200}
           pad={false}
         >

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
@@ -38,7 +39,7 @@ class LightOfDawn extends Analyzer {
         <BoringSpellValue
           spell={SPELLS.LIGHT_OF_DAWN_CAST}
           value={playersHitPerCast.toFixed(2)}
-          label="Average targets hit per cast"
+          label={<Trans>Average targets hit per cast</Trans>}
           className="light-of-dawn-hits-per-cast"
           extra={<PlayerHits performance={performance} />}
         />

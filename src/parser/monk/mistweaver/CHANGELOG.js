@@ -1,10 +1,15 @@
 import React from 'react';
 
-import { Anomoly, Gao, Zerotorescue } from 'CONTRIBUTORS';
+import { Anomoly, Gao, Zerotorescue, Abelito75 } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2019-03-15'),
+    changes: <>Added SI to buffs to buffs module to track  <SpellLink id={SPELLS.SECRET_INFUSION.id} />.</>,
+    contributors: [Abelito75],
+  },
   {
     date: new Date('2019-03-11'),
     changes: 'Added new Buffs module to track and highlight Mistweaver specific buffs on the timeline',
@@ -14,6 +19,11 @@ export default [
     date: new Date('2019-03-11'),
     changes: 'Updated look and feel of Mistweaver Azerite traits to conform to new 3.0 style.',
     contributors: [Anomoly],
+  },
+  {
+    date: new Date('2019-03-10'),
+    changes: <>Added overhealing check for <SpellLink id={SPELLS.MANA_TEA_TALENT.id} />.</>,
+    contributors: [Abelito75],
   },
   {
     date: new Date('2019-02-25'),

@@ -63,6 +63,12 @@ export default {
     name: 'Trancendance: Transfer',
     icon: 'spell_shaman_spectraltransformation',
   },
+  LEG_SWEEP: {
+    id: 119381,
+    name: 'Leg Sweep',
+    icon: 'ability_monk_legsweep',
+  },
+
   // Mistweaver Monk Spells
   RISING_MIST_HEAL: {
     id: 274912,
@@ -214,170 +220,7 @@ export default {
     icon: 'ability_monk_fortifyingelixir',
   },
 
-  // Traits:
-  // Mistweaver Monk
-  DANCING_MISTS: {
-    id: 199573,
-    name: 'Dancing Mists',
-    icon: 'ability_monk_souldance',
-  },
-  TENDRILS_OF_REVIVAL: {
-    id: 238058,
-    name: 'Tendrils of Revival',
-    icon: 'spell_monk_revival',
-  },
-  WHISPERS_OF_SHAOHAO: {
-    id: 242400,
-    name: 'Whispers of Shaohao',
-    icon: 'inv_cloudserpent_egg_green',
-  },
-  WHISPERS_OF_SHAOHAO_TRAIT: {
-    id: 238130,
-    name: 'Whispers of Shaohao',
-    icon: 'inv_cloudserpent_egg_green',
-  },
-  MISTS_OF_SHEILUN: {
-    id: 199894,
-    name: 'The Mists of Sheilun',
-    icon: 'ability_monk_chiexplosion',
-  },
-  MISTS_OF_SHEILUN_TRAIT: {
-    id: 199887,
-    name: 'The Mists of Sheilun',
-    icon: 'ability_monk_chibrew',
-  },
-  MISTS_OF_SHEILUN_BUFF: {
-    id: 199888,
-    name: 'The Mists of Sheilun',
-    icon: 'ability_monk_chibrew',
-  },
-  CELESTIAL_BREATH: {
-    id: 199656,
-    name: 'Celestial Breath',
-    icon: 'ability_monk_chiexplosion',
-  },
-  CELESTIAL_BREATH_BUFF: {
-    id: 199641,
-    name: 'Celestial Breath',
-    icon: 'ability_monk_chiexplosion',
-  },
-  CELESTIAL_BREATH_TRAIT: {
-    id: 199640,
-    name: 'Celestial Breath',
-    icon: 'ability_monk_dragonkick',
-  },
-  BLESSINGS_OF_YULON: {
-    id: 199668,
-    name: 'Blessings of Yu\'lon',
-    icon: 'ability_monk_summonserpentstatue',
-  },
-  EFFUSIVE_MISTS: {
-    id: 238094,
-    name: 'Effusive Mists',
-    icon: 'ability_monk_effuse',
-  },
-  SPIRIT_TETHER: {
-    id: 199387,
-    name: 'Spirit Tether',
-    icon: 'monk_ability_transcendence',
-  },
-  COALESCING_MISTS: {
-    id: 199364,
-    name: 'Coalescing Mists',
-    icon: 'ability_monk_effuse',
-  },
-  SOOTHING_REMEDIES: {
-    id: 199377,
-    name: 'Soothing Remedies',
-    icon: 'ability_monk_soothingmists',
-  },
-  ESSENCE_OF_THE_MIST: {
-    id: 199485,
-    name: 'Essence of the Mist',
-    icon: 'ability_monk_essencefont',
-  },
-  WAY_OF_THE_MISTWEAVER: {
-    id: 199366,
-    name: 'Way of the Mistweaver',
-    icon: 'spell_monk_envelopingmist',
-  },
-  INFUSION_OF_LIFE: {
-    id: 199380,
-    name: 'Infusion of Life',
-    icon: 'ability_monk_vivify',
-  },
-  EXTENDED_HEALING: {
-    id: 199372,
-    name: 'Extended Healing',
-    icon: 'ability_monk_renewingmists',
-  },
-  PROTECTION_OF_SHAOHAO: {
-    id: 199367,
-    name: 'Protection of Shaohao',
-    icon: 'ability_monk_chicocoon',
-  },
-
-  // Legendary Effects
-  SHELTER_OF_RIN_HEAL: {
-    id: 235750,
-    name: 'Shelter of Rin',
-    icon: 'ability_monk_chiwave',
-  },
-  DOORWAY_TO_NOWHERE_SUMMON: {
-    id: 248293,
-    name: 'Doorway to Nowhere',
-    icon: 'inv_pet_cranegod',
-  },
-  OVYDS_WINTER_WRAP_BUFF: {
-    id: 217642,
-    name: 'Ovyd\'s Winter Wrap',
-    icon: 'ability_monk_souldance',
-  },
-
-  // Tier Set Bonus's
-  XUENS_BATTLEGEAR_4_PIECE_BUFF: {
-    id: 242258,
-    name: 'Monk T20 Mistweaver 4P Bonus',
-    icon: 'spell_monk_mistweaver_spec',
-  },
-  DANCE_OF_MISTS: {
-    id: 247891,
-    name: 'Dance of Mists',
-    icon: 'ability_monk_effuse',
-  },
-  XUENS_BATTLEGEAR_2_PIECE_BUFF: {
-    id: 242257,
-    name: 'Monk T20 Mistweaver 2P Bonus',
-    icon: 'spell_monk_mistweaver_spec',
-  },
-  SURGE_OF_MISTS: {
-    id: 246328,
-    name: 'Surge of Mists',
-    icon: 'spell_monk_mistweaver_spec',
-  },
-  CHIJIS_BATTLEGEAR_2_PIECE_BUFF: {
-    id: 251825,
-    name: 'Monk T21 Mistweaver 2P Bonus',
-    icon: 'ability_monk_surgingmist',
-  },
-  CHIJIS_BATTLEGEAR_4_PIECE_BUFF: {
-    id: 251826,
-    name: 'Monk T21 Mistweaver 4P Bonus',
-    icon: 'ability_monk_effuse',
-  },
-  CHI_BOLT: {
-    id: 253581,
-    name: 'Chi Bolt',
-    icon: 'ability_monk_effuse',
-  },
-  TRANQUIL_MIST: {
-    id: 253448,
-    name: 'Tranquil Mist',
-    icon: 'ability_monk_surgingmist',
-  },
-
   // Mistweaver Azerite Traits
-
   OVERFLOWING_MISTS_HEAL: {
     id: 273354,
     name: 'Overflowing Mists',

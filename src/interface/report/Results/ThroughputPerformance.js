@@ -31,22 +31,31 @@ class ThroughputPerformance extends React.PureComponent {
   }
 
   async load() {
-    const { rankings } = await this.loadRankings();
-    // We want the 100th rank to give people a reasonable and easy to grasp goal to aim for.
-    const topRank = this._getRank(rankings, 100);
-    if (!topRank) {
+    try {
+      const { rankings } = await this.loadRankings();
+      // We want the 100th rank to give people a reasonable and easy to grasp goal to aim for.
+      const topRank = this._getRank(rankings, 100);
+      if (!topRank) {
+        this.setState({
+          performance: UNAVAILABLE,
+          topThroughput: UNAVAILABLE,
+        });
+        return;
+      }
+      const topThroughput = topRank.total;
+      this.setState({
+        // If the player is in the top 100, this may be >=100%.
+        performance: this.props.throughput / topThroughput,
+        topThroughput,
+      });
+    } catch (err) {
+      console.error('Failed to load encounter rankings. Not logging since this will happen as expected when WCL partitions the data.', err);
       this.setState({
         performance: UNAVAILABLE,
         topThroughput: UNAVAILABLE,
       });
       return;
     }
-    const topThroughput = topRank.total;
-    this.setState({
-      // If the player is in the top 100, this may be >=100%.
-      performance: this.props.throughput / topThroughput,
-      topThroughput,
-    });
   }
   async loadRankings() {
     const parser = this.context.parser;
@@ -62,7 +71,7 @@ class ThroughputPerformance extends React.PureComponent {
     });
   }
   _getCacheKey(specIndex) {
-    // We want to stagger the requests so not all specs are refreshed at the same time.
+    // We want to cache data for 1 week. To avoid refreshing all specs at at the same time, we also want to stagger the requests.
     // We achieve this by adding a static amount of time to `now` based on the spec index (0-35).
     const specStaggerOffset = (DAYS_PER_WEEK * SECONDS_PER_DAY * specIndex / TOTAL_SPECS);
     // We mutate now so that if there's a year crossover it will properly go to week 1 instead of 53/54
@@ -70,7 +79,8 @@ class ThroughputPerformance extends React.PureComponent {
     // We need this to calculate the amount of weeks difference
     const onejan = new Date(specAdjustedNow.getFullYear(), 0, 1);
     // Calculate the current week number
-    return Math.ceil((((specAdjustedNow - onejan) / SECONDS_PER_DAY / 1000) + onejan.getDay() + 1) / DAYS_PER_WEEK); // current calendar-week
+    const staggeredWeek = Math.ceil((((specAdjustedNow - onejan) / SECONDS_PER_DAY / 1000) + onejan.getDay() + 1) / DAYS_PER_WEEK);
+    return `${staggeredWeek}-${process.env.REACT_APP_CURRENT_GAME_PATCH}`; // current calendar-week
   }
   _getRank(rankings, desiredRank) {
     return rankings[desiredRank - 1];

@@ -130,7 +130,6 @@ exports[`The Demonology Warlock Analyzer analyzers BalefulInvocation matches the
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Baleful Invocation"
               className="icon game "
@@ -143,7 +142,6 @@ exports[`The Demonology Warlock Analyzer analyzers BalefulInvocation matches the
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             Baleful Invocation
           </a>
         </label>
@@ -282,7 +280,6 @@ exports[`The Demonology Warlock Analyzer analyzers LegionStrike matches the stat
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Legion Strike"
               className="icon game "
@@ -431,7 +428,6 @@ exports[`The Demonology Warlock Analyzer analyzers SummonDemonicTyrant matches t
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Summon Demonic Tyrant"
               className="icon game "
@@ -519,7 +515,6 @@ exports[`The Demonology Warlock Analyzer analyzers SupremeCommander matches the 
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Supreme Commander"
               className="icon game "
@@ -532,7 +527,6 @@ exports[`The Demonology Warlock Analyzer analyzers SupremeCommander matches the 
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             Supreme Commander
           </a>
         </label>

@@ -19,7 +19,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     ...CoreCooldownThroughputTracker.ignoredSpells,
     SPELLS.CHI_BURST_HEAL.id,
     SPELLS.REFRESHING_JADE_WIND_HEAL.id,
-    SPELLS.SPIRIT_TETHER.id,
     SPELLS.TRANSCENDENCE.id,
   ];
 }
