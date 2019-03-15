@@ -28,7 +28,7 @@ jobs:
     - stage: build
       language: generic
       services: docker
-      script: docker build -f .docker/production/Dockerfile --tag wowanalyzer .
+      script: docker build --tag wowanalyzer .
       # Reminder: deploy doesn't run on PRs
       deploy:
         provider: script
