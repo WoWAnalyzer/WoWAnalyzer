@@ -2,12 +2,9 @@
 
 # dependencies
 /node_modules
-/browser-extensions/node_modules
 
 # production
 /build
-/browser-extensions/build
-/browser-extensions/dist
 
 # misc
 .DS_Store
