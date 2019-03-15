@@ -51,6 +51,28 @@ class Buffs extends CoreBuffs {
         spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
         timelineHightlight: true,
       },
+
+      //SI buffs
+      {
+        spellId: SPELLS.SECRET_INFUSION_MASTERY.id,
+        timelineHightlight: true,
+        //TODO: check for azerite
+      },
+      {
+        spellId: SPELLS.SECRET_INFUSION_HASTE.id,
+        timelineHightlight: true,
+        //TODO: check for azerite
+      },
+      {
+        spellId: SPELLS.SECRET_INFUSION_CRIT.id,
+        timelineHightlight: true,
+        //TODO: check for azerite
+      },
+      {
+        spellId: SPELLS.SECRET_INFUSION_VERSATILITY.id,
+        timelineHightlight: true,
+        //TODO: check for azerite
+      },
     ];
   }
 }
