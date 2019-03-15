@@ -11,18 +11,18 @@ jobs:
       name: "eslint"
       cache:
         directories:
-          - node_modules
+          - $HOME/.npm
       install:
-        - npm install --dev
+        - npm ci --dev
       script:
         - npm run lint -- --max-warnings=0
     - stage: test
       name: "tests"
       cache:
         directories:
-          - node_modules
+          - $HOME/.npm
       install:
-        - npm install --dev
+        - npm ci --dev
       script:
         - npm run test -- --maxWorkers=2
     - stage: build
