@@ -58,9 +58,7 @@ class FlameShock extends Analyzer {
         icon={<SpellIcon id={SPELLS.FLAME_SHOCK.id} />}
         value={`${formatPercentage(this.uptime)} %`}
         label="Uptime"
-        tooltip={
-          `Flameshock Uptime`
-        }
+        tooltip="Flame Shock Uptime"
       />
     );
   }

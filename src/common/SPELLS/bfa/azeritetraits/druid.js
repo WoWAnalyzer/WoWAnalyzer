@@ -84,6 +84,26 @@ export default {
     name: 'Jungle Fury',
     icon: 'ability_mount_jungletiger',
   },
+  IRON_JAWS_TRAIT: {
+    id: 276021,
+    name: 'Iron Jaws',
+    icon: 'ability_druid_mangle',
+  },
+  IRON_JAWS_BUFF: {
+    id: 276026,
+    name: 'Iron Jaws',
+    icon: 'inv_misc_bone_09',
+  },
+  GUSHING_LACERATIONS_TRAIT: {
+    id: 278509,
+    name: 'Gushing Lacerations',
+    icon: 'ability_ghoulfrenzy',
+  },
+  GUSHING_LACERATIONS_PROC: {
+    id: 279471,
+    name: 'Gushing Lacerations',
+    icon: 'ability_ghoulfrenzy',
+  },
   MASTERFUL_INSTINCTS: {
     id: 273344,
     name: 'Masterful Instincts',

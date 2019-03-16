@@ -3,7 +3,7 @@ import CoreCooldownThroughputTracker, { BUILT_IN_SUMMARY_TYPES } from 'parser/sh
 
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
-    ...CooldownThroughputTracker.cooldownSpells,
+    ...CoreCooldownThroughputTracker.cooldownSpells,
     {
       spell: SPELLS.DANCING_RUNE_WEAPON_BUFF,
       summary: [
@@ -29,7 +29,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   ];
 
   static ignoredSpells = [
-    ...CooldownThroughputTracker.ignoredSpells,
+    ...CoreCooldownThroughputTracker.ignoredSpells,
     242556, //Filtering procs from the Umbral Glaive Storm trinket
     242557, //Filtering procs from the Umbral Glaive Storm trinket
     242553, //Filtering procs from the Umbral Glaive Storm trinket

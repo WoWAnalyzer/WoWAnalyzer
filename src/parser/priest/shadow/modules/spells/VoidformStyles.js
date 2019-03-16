@@ -12,7 +12,7 @@ const BaseStyles = {
 
 const VoidformStyles = {
   Stacks: {
-    backgroundColor: 'gba(255,255,255,0.6)',
+    backgroundColor: 'rgba(255,255,255,0.6)',
     borderColor: 'rgba(255,255,255,0.6)',
     ...BaseStyles,
     spanGaps: true,

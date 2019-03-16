@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
@@ -16,7 +16,7 @@ class TimelineTab extends React.PureComponent {
   render() {
     const { selectedCombatant } = this.props;
     return (
-      <Tab style={{ padding: '10px 22px 0' }}>
+      <Panel style={{ padding: '10px 22px 0' }}>
         <div className="text-muted">
           This timeline shows the pets you have summoned over the fight, together with key spell casts like {selectedCombatant.hasTalent(SPELLS.POWER_SIPHON_TALENT.id) && <><SpellLink id={SPELLS.POWER_SIPHON_TALENT.id} />, </>}{selectedCombatant.hasTalent(SPELLS.NETHER_PORTAL_TALENT.id) && <><SpellLink id={SPELLS.NETHER_PORTAL_TALENT.id} />, </>}<SpellLink id={SPELLS.IMPLOSION_CAST.id} /> or <SpellLink id={SPELLS.SUMMON_DEMONIC_TYRANT.id} />.
         </div>
@@ -28,7 +28,7 @@ class TimelineTab extends React.PureComponent {
             marginRight: -22,
           }}
         />
-      </Tab>
+      </Panel>
     );
   }
 }

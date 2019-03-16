@@ -1,0 +1,21 @@
+@import 'interface/layout/Theme.scss';
+
+.statistics-section-title {
+  margin-bottom: 20px;
+}
+
+.statistics > div {
+  padding: 0 15px;
+}
+
+.loading-indicators {
+  .ok {
+    background: rgba(29, 156, 7, 0.5);
+  }
+  .loading {
+    background: transparentize($primaryColor, 0.5);
+  }
+  .waiting, .skipped {
+    background: rgba(102, 102, 102, 0.5);
+  }
+}

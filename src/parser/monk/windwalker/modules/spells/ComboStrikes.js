@@ -45,12 +45,13 @@ class ComboStrikes extends Analyzer {
   }
 
   get suggestionThresholds() {
+    const hitComboMultiplier = this.selectedCombatant.hasTalent(SPELLS.HIT_COMBO_TALENT.id) ? 1 : 2;
     return {
       actual: this.masteryDropSpellSequence.length,
       isGreaterThan: {
-        minor: 0,
-        average: 0,
-        major: 1,
+        minor: 1 * hitComboMultiplier,
+        average: 2 * hitComboMultiplier,
+        major: 3 * hitComboMultiplier,
       },
       style: 'number',
     };
@@ -61,7 +62,7 @@ class ComboStrikes extends Analyzer {
         return suggest(<span>You ignored your <SpellLink id={SPELLS.COMBO_STRIKES.id} /> buff by casting the same spell twice in a row. This directly lowers your overall damage, and if you have <SpellLink id={SPELLS.HIT_COMBO_TALENT.id} /> talented, you will also drop all stacks of this damage buff.</span>)
           .icon(SPELLS.COMBO_STRIKES.icon)
           .actual(`${actual} instances where mastery dropped.`)
-          .recommended(`${recommended} times mastery should be dropped`);
+          .recommended(`mastery should be dropped less than ${recommended} times`);
       });
   }
 
@@ -72,13 +73,9 @@ class ComboStrikes extends Analyzer {
       <StatisticBox
         position={STATISTIC_ORDER.CORE(2)}
         icon={<SpellIcon id={SPELLS.COMBO_STRIKES.id} />}
-        value={`${formatNumber(masteryDropEvents)}`}
-        label={(
-          <dfn data-tip="This is the number of times you incorrectly casted the same spell twice in a row. While on its own this may be a minor mistake, if you combine this with the Hit Combo talent, you will also lose all of the damage increase provided by that talent buff."
-          >
-            Mastery Benefit Mistakes
-          </dfn>
-        )}
+        value={formatNumber(masteryDropEvents)}
+        label="Mastery Benefit Mistakes"
+        tooltip="This is the number of times you incorrectly casted the same spell twice in a row. While on its own this may be a minor mistake, if you combine this with the Hit Combo talent, you will also lose all of the damage increase provided by that talent buff."
       >
         <div>
           Spell sequence when mastery dropped.

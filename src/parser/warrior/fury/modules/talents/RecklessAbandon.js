@@ -58,9 +58,13 @@ class RecklessAbandon extends Analyzer {
         talent={SPELLS.RECKLESS_ABANDON_TALENT.id}
         value={`${formatNumber(this.instantRageGained)} instant rage`}
         label="Reckless Abandon"
-        tooltip={`In the 4 additional seconds of Recklessness caused by Reckless Abandon:<br />
-        Additional rage generated: <b>${this.rageGained}</b><br />
-        Damage dealt: <b>${formatNumber(this.damage)} (${formatPercentage(this.damagePercent)}%)</b>`}
+        tooltip={(
+          <>
+            In the 4 additional seconds of Recklessness caused by Reckless Abandon:<br />
+            Additional rage generated: <strong>{this.rageGained}</strong><br />
+            Damage dealt: <strong>{formatNumber(this.damage)} ({formatPercentage(this.damagePercent)}%)</strong>
+          </>
+        )}
       />
     );
   }

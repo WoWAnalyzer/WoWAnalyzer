@@ -10,7 +10,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.TRANQUILITY_CAST,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: (_, combatant) => combatant.hasTalent(SPELLS.INNER_PEACE_TALENT.id) ? 120 : 180,
+        cooldown: combatant.hasTalent(SPELLS.INNER_PEACE_TALENT.id) ? 120 : 180,
         gcd: {
           base: 1500,
         },
@@ -38,16 +38,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.IRONBARK,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: (_, combatant) => {
-          let cd = 60;
-          if (combatant.hasTalent(SPELLS.STONEBARK_TALENT.id)) {
-            cd -= 15;
-          }
-          if (combatant.hasHands(ITEMS.XONIS_CARESS.id)) {
-            cd *= 0.80;
-          }
-          return cd;
-        },
+        cooldown: (60 - (combatant.hasTalent(SPELLS.STONEBARK_TALENT.id) ? 15 : 0)) * (combatant.hasHands(ITEMS.XONIS_CARESS.id) ? 0.8 : 1),
         castEfficiency: {
           suggestion: true,
           importance: ISSUE_IMPORTANCE.MINOR,
@@ -152,7 +143,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SWIFTMEND,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste, combatant) => combatant.hasTalent(SPELLS.PROSPERITY_TALENT.id) ? 22 : 25,
+        cooldown: combatant.hasTalent(SPELLS.PROSPERITY_TALENT.id) ? 22 : 25,
         charges: combatant.hasTalent(SPELLS.PROSPERITY_TALENT.id) ? 2 : 1,
         gcd: {
           base: 1500,

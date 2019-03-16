@@ -81,14 +81,16 @@ class Vengeance extends Analyzer {
         icon={<SpellIcon id={SPELLS.VENGEANCE_TALENT.id} />}
         value={`${formatPercentage(this.buffUsage)}%`}
         label="Buffs unused"
-        tooltip={`
-          ${this.buffedIgnoreCasts} buffed ${SPELLS.IGNORE_PAIN.name} casts<br/>
-          ${this.buffedRevengeCasts} buffed ${SPELLS.REVENGE.name} casts<br/>
-          You refreshed your "${SPELLS.VENGEANCE_IGNORE_PAIN.name}" buff ${this.ignoreBuffsOverwritten} times<br/>
-          You refreshed your "${SPELLS.VENGEANCE_REVENGE.name}" buff ${this.revengeBuffsOverwritten} times<br/><br/>
+        tooltip={(
+          <>
+            {this.buffedIgnoreCasts} buffed {SPELLS.IGNORE_PAIN.name} casts<br />
+            {this.buffedRevengeCasts} buffed {SPELLS.REVENGE.name} casts<br />
+            You refreshed your "{SPELLS.VENGEANCE_IGNORE_PAIN.name}" buff {this.ignoreBuffsOverwritten} times<br />
+            You refreshed your "{SPELLS.VENGEANCE_REVENGE.name}" buff {this.revengeBuffsOverwritten} times<br /><br />
 
-          You saved <b>${this.rageTracker.rageSavedByVengeance}</b> Rage by casting ${SPELLS.IGNORE_PAIN.name} and ${SPELLS.REVENGE.name} with Vengeance up.
-        `}
+            You saved <strong>{this.rageTracker.rageSavedByVengeance}</strong> Rage by casting {SPELLS.IGNORE_PAIN.name} and {SPELLS.REVENGE.name} with Vengeance up.
+          </>
+        )}
       />
     );
   }

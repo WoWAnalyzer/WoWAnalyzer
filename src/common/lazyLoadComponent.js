@@ -2,7 +2,7 @@ import React from 'react';
 
 import DelayRender from 'interface/common/DelayRender';
 
-export default function lazyLoadComponent(load) {
+export default function lazyLoadComponent(load, delay = 1000) {
   class ComponentLazyLoader extends React.PureComponent {
     static loadedComponent = null;
     state = {
@@ -28,7 +28,7 @@ export default function lazyLoadComponent(load) {
         return <Component {...this.props} />;
       }
       return (
-        <DelayRender delay={1000}>
+        <DelayRender delay={delay}>
           <div className="spinner" style={{ fontSize: 5 }} />
         </DelayRender>
       );

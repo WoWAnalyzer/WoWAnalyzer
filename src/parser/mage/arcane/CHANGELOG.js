@@ -6,6 +6,16 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-3-14'),
+    changes: 'Updated spec compatibility to 8.1.5.',
+    contributors: [Sharrq],
+  },
+  {
+    date: new Date('2019-3-2'),
+    changes: 'Added spec buffs to the timeline.',
+    contributors: [Sharrq],
+  },
+  {
     date: new Date('2018-12-16'),
     changes: 'Updated for Patch 8.1.',
     contributors: [Sharrq],

@@ -69,11 +69,13 @@ class Nemesis extends Analyzer {
         icon={<SpellIcon id={SPELLS.NEMESIS_TALENT.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%`}
         label="Damage Contributed"
-        tooltip={`
-          Nemesis Contributed ${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS / ${formatNumber(this.bonusDmg)} total damage.
-          <br/> You had ${formatPercentage(this.nemesisUptimePercent)}% uptime.
-          ${this.everHadNemesisBuff ? `<br/><br/> Due to technical limitations it is not currently possible to tell if your nemesis buff type is the same as the boss type. This limitation may cause the damage contributed by nemesis to appear higher than it otherwise would.` : ''}
-        `}
+        tooltip={(
+          <>
+            Nemesis Contributed {formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS / {formatNumber(this.bonusDmg)} total damage.<br />
+            You had {formatPercentage(this.nemesisUptimePercent)}% uptime.
+            {this.everHadNemesisBuff && <><br /><br /> Due to technical limitations it is not currently possible to tell if your Nemesis buff type is the same as the boss type. This limitation may cause the damage contributed by Nemesis to appear higher than it otherwise would.</>}
+          </>
+        )}
       />
     );
   }

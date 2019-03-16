@@ -21,19 +21,15 @@ class CastRatio extends Analyzer {
   statistic() {
     const getAbility = spellId => this.abilityTracker.getAbility(spellId);
 
-    const evmCasts = getAbility(SPELLS.ENVELOPING_MIST.id).casts;
-    const vivCasts = getAbility(SPELLS.VIVIFY.id).casts;
+    const evmCasts = getAbility(SPELLS.ENVELOPING_MIST.id).casts || 0;
+    const vivCasts = getAbility(SPELLS.VIVIFY.id).casts || 0;
 
     return (
       <StatisticBox
         position={STATISTIC_ORDER.OPTIONAL(10)}
-        icon={<React.Fragment><SpellIcon id={SPELLS.ENVELOPING_MIST.id} /> : <SpellIcon id={SPELLS.VIVIFY.id} /> </React.Fragment>}
-        value={<React.Fragment>{evmCasts} : {vivCasts}</React.Fragment>}
-        label={(
-          <dfn data-tip={``}>
-            Enveloping Mist to Vivify Casts
-          </dfn>
-        )}
+        icon={<><SpellIcon id={SPELLS.ENVELOPING_MIST.id} /> : <SpellIcon id={SPELLS.VIVIFY.id} /> </>}
+        value={`${evmCasts} : ${vivCasts}`}
+        label="Enveloping Mist to Vivify Casts"
       />
     );
   }

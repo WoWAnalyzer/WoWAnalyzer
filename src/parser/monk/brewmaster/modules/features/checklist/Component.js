@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Checklist from 'parser/shared/modules/features/Checklist2';
-import Rule, { PERFORMANCE_METHOD } from 'parser/shared/modules/features/Checklist2/Rule';
-import Requirement from 'parser/shared/modules/features/Checklist2/Requirement';
-import PreparationRule from 'parser/shared/modules/features/Checklist2/PreparationRule';
-import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist2/GenericCastEfficiencyRequirement';
+import Checklist from 'parser/shared/modules/features/Checklist';
+import Rule, { PERFORMANCE_METHOD } from 'parser/shared/modules/features/Checklist/Rule';
+import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
+import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
+import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 
 class BrewmasterMonkChecklist extends React.PureComponent {
   static propTypes = {
@@ -33,7 +33,7 @@ class BrewmasterMonkChecklist extends React.PureComponent {
       <Checklist>
         <Rule
           performanceMethod={PERFORMANCE_METHOD.FIRST}
-          name={<>Mitigate damage with <SpellLink id={SPELLS.IRONSKIN_BREW.id} />.</>}
+          name={<>Mitigate damage with <SpellLink id={SPELLS.IRONSKIN_BREW.id} onClick={e => e.preventDefault()} />.</>}
           description={
             <>
               <SpellLink id={SPELLS.STAGGER.id} /> is our main damage mitigation tool. <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> increases the amount of damage that we can mitigate with Stagger while active. It is possible to maintain 100% uptime without reaching any particular haste threshold due to the cooldown reduction applied by <SpellLink id={SPELLS.KEG_SMASH.id} /> and <SpellLink id={SPELLS.TIGER_PALM.id} />. If you are having difficulty maintaining your buff you may need to improve your cast efficiency or reduce the amount of purification you are doing.
@@ -42,10 +42,12 @@ class BrewmasterMonkChecklist extends React.PureComponent {
         >
         <Requirement
           name={<>Hits mitigated with <SpellLink id={SPELLS.IRONSKIN_BREW.id} /></>}
-          thresholds={thresholds.isb} />
+          thresholds={thresholds.isb}
+        />
         <AbilityRequirement spell={SPELLS.IRONSKIN_BREW.id}
-          name={<><SpellLink id={SPELLS.IRONSKIN_BREW.id} /> Cast Efficiency</>} 
-          tooltip="A low cast efficiency indicates that brews are being wasted to capping charges.<br/>The cast efficiency of Ironskin Brew is shared with Purifying Brew." />
+          name={<><SpellLink id={SPELLS.IRONSKIN_BREW.id} /> Cast Efficiency</>}
+          tooltip={<>A low cast efficiency indicates that brews are being wasted to capping charges.<br />The cast efficiency of Ironskin Brew is shared with Purifying Brew.</>}
+        />
       </Rule>
       <Rule name={'Generate enough brews through your rotation'}
         performanceMethod={PERFORMANCE_METHOD.FIRST}
@@ -66,9 +68,10 @@ class BrewmasterMonkChecklist extends React.PureComponent {
         )}
         <Requirement name={<><SpellLink id={SPELLS.IRONSKIN_BREW.id} /> duration clipped</>}
           thresholds={thresholds.isbClipping}
-          tooltip="Ironskin Brew has a <em>cap</em> on total buff duration of three times the base duration. Casting Ironskin Brew with more time remaining than twice the base duration (normally 14 seconds) wastes part of the brew." />
+          tooltip={<>Ironskin Brew has a <em>cap</em> on total buff duration of three times the base duration. Casting Ironskin Brew with more time remaining than twice the base duration (normally 14 seconds) wastes part of the brew.</>}
+        />
       </Rule>
-      <Rule name={<>Use <SpellLink id={SPELLS.PURIFYING_BREW.id} /> effectively</>}
+      <Rule name={<>Use <SpellLink id={SPELLS.PURIFYING_BREW.id} onClick={e => e.preventDefault()} /> effectively</>}
         performanceMethod={PERFORMANCE_METHOD.HARMONIC}
         description={
           <>
@@ -82,7 +85,7 @@ class BrewmasterMonkChecklist extends React.PureComponent {
         }
       >
         <Requirement name={<>Purifies with less than <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} /></>} thresholds={thresholds.purifyHeavy} />
-        <Requirement name={'Average Purification Delay'} thresholds={thresholds.purifyDelay} 
+        <Requirement name={'Average Purification Delay'} thresholds={thresholds.purifyDelay}
           tooltip="The delay is tracked from the most recent time you were able to purify after a hit. If the hit occurred when no charges were available, you are not penalized." />
         <Requirement name={<>Available <SpellLink id={SPELLS.PURIFYING_BREW.id} /> charges used</>} thresholds={thresholds.purifyCasts}
           tooltip="While maintaining Ironskin is critical to your survival, with proper play it is possible to generate more brews than you need to maintain it. These excess brews should be spent on Purifying." />

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import DocumentTitle from 'interface/common/DocumentTitle';
+import NavigationBar from 'interface/layout/NavigationBar';
 
 import Parses from './Parses';
 
@@ -16,8 +17,10 @@ class Page extends React.PureComponent {
     const { region, realm, name, ...others } = this.props;
 
     return (
-      <div className="container">
+      <>
         <DocumentTitle title={`${name}-${realm} (${region})`} />
+
+        <NavigationBar />
 
         <Parses
           region={region}
@@ -25,7 +28,7 @@ class Page extends React.PureComponent {
           name={name}
           {...others}
         />
-      </div>
+      </>
     );
   }
 }

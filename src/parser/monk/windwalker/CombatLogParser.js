@@ -1,6 +1,5 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 // Features
-import DamageDone from 'parser/shared/modules/DamageDone';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Abilities from './modules/Abilities';
@@ -35,7 +34,6 @@ class CombatLogParser extends CoreCombatLogParser {
     globalCooldown: GlobalCooldown,
 
     // Features
-    damageDone: [DamageDone, { showStatistic: true }],
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
     cooldownThroughputTracker: CooldownThroughputTracker,

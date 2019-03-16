@@ -22,10 +22,10 @@ export default (
       </div>
     </div>
 
-    You can unlock Premium by either making a monetary pledge on <a href="https://www.patreon.com/wowanalyzer">Patreon</a> or by making a contribution on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> (code or otherwise).<br /><br />
+    You can unlock Premium by either making a monetary pledge on <a href="https://www.patreon.com/join/wowanalyzer">Patreon</a> or by making a contribution on <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> (code or otherwise).<br /><br />
 
     <PatreonIcon style={{ fontSize: '2.7em' }} /><br />
-    There are several tiers on Patreon unlocking different things, see our <a href="https://www.patreon.com/wowanalyzer">Patreon</a> page for more information. The first tier will remove ads, the other tiers provide additional benefits. In the future we may restrict access to features funded by Patreon behind a certain Premium level.<br /><br />
+    There are several tiers on Patreon unlocking different things, see our <a href="https://www.patreon.com/join/wowanalyzer">Patreon</a> page for more information. The first tier will remove ads, the other tiers provide additional benefits. In the future we may restrict access to features funded by Patreon behind a certain Premium level.<br /><br />
 
     Any money generated via Patreon will go back to development. We'll either purchase new tools to make it easier to do things (e.g. servers, <a href="https://sentry.io/">Sentry</a>), or we'll place bounties on tasks to improve the site via <a href="https://www.bountysource.com/teams/wowanalyzer">Bountysource</a>. Bounties on Bountysource are a way to place a reward on completing a task on GitHub, such as building a new module to analyze a new item or spell.<br /><br />
 

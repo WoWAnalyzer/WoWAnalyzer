@@ -173,17 +173,6 @@ export default {
     name: 'Symbols of Death',
     icon: 'spell_shadow_rune',
   },
-  // Triggered damage
-  SHADOW_NOVA: {
-    id: 197800,
-    name: 'Shadow Nova',
-    icon: 'spell_fire_twilightnova',
-  },
-  INSIGNIA_OF_RAVENHOLDT: {
-    id: 209043,
-    name: 'Insignia of Ravenholdt',
-    icon: 'ability_rogue_shadowstrikes',
-  },
 
   // CP Generation
   SHADOW_TECHNIQUES: {
@@ -228,7 +217,7 @@ export default {
     id: 248210,
     name: 'The First of the Dead',
     icon: 'inv_glove_cloth_raidwarlockmythic_q_01',
-  }, 
+  },
   FIND_WEAKNESS_BUFF: {
     id: 91021,
     name: 'Find Weakness',
@@ -410,7 +399,7 @@ export default {
     name: 'Toxic Blade',
     icon: 'inv_weapon_shortblade_62',
   },
-  
+
 
   //Outlaw
 
@@ -478,7 +467,7 @@ export default {
   },
 
   //Buffs
-  SCULL_AND_CROSSBONES: {
+  SKULL_AND_CROSSBONES: {
     id: 199603,
     name: 'Skull and Crossbones',
     icon: 'ability_rogue_rollthebones01',
@@ -488,7 +477,7 @@ export default {
     name: 'Grand Melee',
     icon: 'ability_rogue_rollthebones02',
   },
-  SHARK_INFESTED_WATERS: {
+  RUTHLESS_PRECISION: {
     id: 193357,
     name: 'Shark Infested Waters',
     icon: 'ability_rogue_rollthebones03',
@@ -503,9 +492,9 @@ export default {
     name: 'Buried Treasure',
     icon: 'ability_rogue_rollthebones05',
   },
-  BROADSIDES: {
+  BROADSIDE: {
     id: 193356,
-    name: 'Broadsides',
+    name: 'Broadside',
     icon: 'ability_rogue_rollthebones06',
   },
 
@@ -525,12 +514,5 @@ export default {
     id: 86392,
     name: 'Main Gauche',
     icon: 'inv_weapon_shortblade_15',
-  },
-
-  //Traits
-  ACE_UP_YOUR_SLEEVE: {
-    id: 279714,
-    name: 'Ace Up Your Sleeve',
-    icon: 'inv_weapon_rifle_01',
   },
 };

@@ -1,11 +1,13 @@
 import React from 'react';
 
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 import HolyPriestSpreadsheet from 'interface/others/HolyPriestSpreadsheet';
 
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
-import HealingDone from 'parser/shared/modules/HealingDone';
+import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
+import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
+
 import Abilities from './modules/Abilities';
 
 import SpellManaCost from './modules/core/SpellManaCost';
@@ -57,9 +59,12 @@ class CombatLogParser extends CoreCombatLogParser {
 
   static specModules = {
     spellManaCost: SpellManaCost,
-    healingDone: [HealingDone, { showStatistic: true }],
     abilities: Abilities,
     lowHealthHealing: LowHealthHealing,
+
+    // Generic healer things
+    manaLevelChart: ManaLevelChart,
+    manaUsageChart: ManaUsageChart,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -143,9 +148,9 @@ class CombatLogParser extends CoreCombatLogParser {
         title: 'Player Log Data',
         url: 'player-log-data',
         render: () => (
-          <Tab style={{ padding: '15px 22px 15px 15px' }}>
+          <Panel style={{ padding: '15px 22px 15px 15px' }}>
             <HolyPriestSpreadsheet parser={this} />
-          </Tab>
+          </Panel>
         ),
       },
     ];

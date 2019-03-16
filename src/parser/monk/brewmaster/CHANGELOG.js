@@ -1,12 +1,17 @@
 import React from 'react';
 
-import { emallson } from 'CONTRIBUTORS';
+import { emallson, Zerotorescue } from 'CONTRIBUTORS';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2019-03-10'),
+    changes: <>Fixed a bug in the <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> normalizer that led to a crash in the new timeline.</>,
+    contributors: [Zerotorescue],
+  },
   {
     date: new Date('2019-02-16'),
     changes: <>Removed <SpellLink id={SPELLS.BREATH_OF_FIRE.id} /> from the checklist.</>,
@@ -61,7 +66,7 @@ export default [
     date: new Date('2018-09-22'),
     changes: <>Added support for <SpellLink id={SPELLS.FIT_TO_BURST.id} />.</>,
     contributors: [emallson],
-  }, 
+  },
   {
     date: new Date('2018-09-13'),
     changes: <>Added support for <SpellLink id={SPELLS.ELUSIVE_FOOTWORK.id} />.</>,

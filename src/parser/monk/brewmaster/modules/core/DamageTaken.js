@@ -1,4 +1,4 @@
-import CoreDamageTaken from 'parser/shared/modules/DamageTaken';
+import CoreDamageTaken from 'parser/shared/modules/throughput/DamageTaken';
 import SPELLS from 'common/SPELLS';
 
 class DamageTaken extends CoreDamageTaken {
@@ -16,7 +16,7 @@ class DamageTaken extends CoreDamageTaken {
     if (spellId !== SPELLS.STAGGER.id) {
       return;
     }
-    this._subtractDamage(event.extraAbility, 0, event.amount, 0);
+    this._subtractDamage(event, 0, event.amount, 0, 0, event.extraAbility);
     if (this._staggeredDamage[event.extraAbility.guid] === undefined) {
       this._staggeredDamage[event.extraAbility.guid] = 0;
     }

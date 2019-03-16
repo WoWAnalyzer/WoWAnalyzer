@@ -11,41 +11,29 @@ jobs:
       name: "eslint"
       cache:
         directories:
-          - node_modules
+          - $HOME/.npm
       install:
-        - npm install --dev
+        - npm ci --dev
       script:
         - npm run lint -- --max-warnings=0
     - stage: test
       name: "tests"
       cache:
         directories:
-          - node_modules
+          - $HOME/.npm
       install:
-        - npm install --dev
+        - npm ci --dev
       script:
         - npm run test -- --maxWorkers=2
-    - stage: test
-      name: "server tests"
-      cache:
-        directories:
-          - server/node_modules
-      env:
-        - NODE_ENV=test
-      install:
-        - cd server && npm install --dev && cd ..
-      script:
-        - cd server && npm run test:once -- --maxWorkers=2 && cd ..
-    # TODO: Code duplication calculator
     - stage: build
       language: generic
       services: docker
-      script: docker build -f .docker/production/Dockerfile --tag wowanalyzer .
+      script: docker build --tag wowanalyzer .
       # Reminder: deploy doesn't run on PRs
       deploy:
         provider: script
         skip_cleanup: true
-        script: bash .docker/production/deploy.sh
+        script: bash .travis/deploy.sh
         on:
           all_branches: true
 after_failure:

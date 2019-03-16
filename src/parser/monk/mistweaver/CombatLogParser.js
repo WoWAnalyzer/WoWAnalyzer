@@ -11,10 +11,11 @@ import React from 'react';
 
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 import MonkSpreadsheet from 'interface/others/MonkSpreadsheet';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
-import HealingDone from 'parser/shared/modules/HealingDone';
+import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
+import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
 
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import CoreChanneling from './modules/core/Channeling';
@@ -34,6 +35,7 @@ import Checklist from './modules/features/Checklist/Module';
 import StatValues from './modules/features/StatValues';
 import EvmVivCastRatio from './modules/features/EvmVivCastRatio';
 import MasteryStats from './modules/features/MasteryStats';
+import Buffs from './modules/features/Buffs';
 
 // Spells
 import ThunderFocusTea from './modules/spells/ThunderFocusTea';
@@ -42,7 +44,6 @@ import EnvelopingMists from './modules/spells/EnvelopingMists';
 import SoothingMist from './modules/spells/SoothingMist';
 import Vivify from './modules/spells/Vivify';
 import LifeCocoon from './modules/spells/LifeCocoon';
-import AzeriteTraits from './modules/spells/AzeriteTraits';
 import RenewingMist from './modules/spells/RenewingMist';
 
 // Talents
@@ -79,11 +80,14 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Core
     lowHealthHealing: LowHealthHealing,
-    healingDone: [HealingDone, { showStatistic: true }],
     channeling: CoreChanneling,
     globalCooldown: GlobalCooldown,
     hotTracker: HotTracker,
     spellUsable: SpellUsable,
+
+    // Generic healer things
+    manaLevelChart: ManaLevelChart,
+    manaUsageChart: ManaUsageChart,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -94,6 +98,7 @@ class CombatLogParser extends CoreCombatLogParser {
     statValues: StatValues,
     evmVivCastRatio: EvmVivCastRatio,
     masteryStats: MasteryStats,
+    buffs: Buffs,
 
     // Spells
     essenceFont: EssenceFont,
@@ -103,7 +108,6 @@ class CombatLogParser extends CoreCombatLogParser {
     vivify: Vivify,
     renewingMist: RenewingMist,
     lifeCocoon: LifeCocoon,
-    azeriteTraits: AzeriteTraits,
 
     // Talents
     chiBurst: ChiBurst,
@@ -136,9 +140,9 @@ class CombatLogParser extends CoreCombatLogParser {
         title: 'Player Log Data',
         url: 'player-log-data',
         render: () => (
-          <Tab style={{ padding: '15px 22px 15px 15px' }}>
+          <Panel style={{ padding: '15px 22px 15px 15px' }}>
             <MonkSpreadsheet parser={this} />
-          </Tab>
+          </Panel>
         ),
       },
     ];

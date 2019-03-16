@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
+import { TooltipElement } from 'common/Tooltip';
 
 const FocusComponent = ({ categories, abilities, passive, focusBySecondCoord, overCapBySecondCoord }) => {
   if (!abilities) {
@@ -16,10 +17,10 @@ const FocusComponent = ({ categories, abilities, passive, focusBySecondCoord, ov
           <tbody key={key}>
             <tr>
               <th>{categories[key]}</th>
-              <th className="text-center"><dfn data-tip="Times you gained focus from this ability">Times gained focus</dfn></th>
+              <th className="text-center"><TooltipElement content="Times you gained focus from this ability">Times gained focus</TooltipElement></th>
 
-              <th className="text-center">{key === 'generated' ? <dfn data-tip="Approximately.">Generated</dfn> : ''}</th>
-              <th className="text-center"><dfn data-tip="Approximately.">Wasted</dfn></th>
+              <th className="text-center">{key === 'generated' ? <TooltipElement content="Approximately.">Generated</TooltipElement> : ''}</th>
+              <th className="text-center"><TooltipElement content="Approximately.">Wasted</TooltipElement></th>
               <th />
             </tr>
             <tr key="Passive">

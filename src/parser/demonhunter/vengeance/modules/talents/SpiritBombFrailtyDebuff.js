@@ -56,8 +56,7 @@ class SpiritBombFrailtyDebuff extends Analyzer {
         position={STATISTIC_ORDER.CORE(5)}
         value={`${formatPercentage(this.uptime)}%`}
         label="Spirit Bomb debuff uptime"
-        tooltip={`Total damage was ${formatThousands(spiritBombDamage)}.<br/>
-                  Total uptime was ${formatDuration(spiritBombUptime / 1000)}.`}
+        tooltip={<>Total damage was {formatThousands(spiritBombDamage)}.<br />Total uptime was {formatDuration(spiritBombUptime / 1000)}.</>}
       />
     );
   }

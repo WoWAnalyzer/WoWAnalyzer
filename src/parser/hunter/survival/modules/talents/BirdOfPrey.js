@@ -105,7 +105,12 @@ class BirdOfPrey extends Analyzer {
         talent={SPELLS.BIRDS_OF_PREY_TALENT.id}
         position={STATISTIC_ORDER.CORE(17)}
         value={`extended CA by ${this.timeExtendedInSeconds}s`}
-        tooltip={`<ul><li>You extended Coordinated Assault by ${this.timeExtendedInSeconds} seconds.</li><li>You lost out on ${this.extensionTimeLostInSeconds} seconds of Coordinated Assault by attacking a different target than your pet.</li></ul>`}
+        tooltip={(
+          <ul>
+            <li>You extended Coordinated Assault by {this.timeExtendedInSeconds} seconds.</li>
+            <li>You lost out on {this.extensionTimeLostInSeconds} seconds of Coordinated Assault by attacking a different target than your pet.</li>
+          </ul>
+        )}
       />
     );
   }

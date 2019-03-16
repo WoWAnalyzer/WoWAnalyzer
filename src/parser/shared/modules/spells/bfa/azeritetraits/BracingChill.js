@@ -35,10 +35,12 @@ class BracingChill extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.BRACING_CHILL.id}
         value={<ItemHealingDone amount={this.healing} />}
-        tooltip={`
-          Healing done: ${formatNumber(this.healing)}<br />
-          Total heals: ${this.procs}
-        `}
+        tooltip={(
+          <>
+            Healing done: {formatNumber(this.healing)}<br />
+            Total heals: {this.procs}
+          </>
+        )}
       />
     );
   }

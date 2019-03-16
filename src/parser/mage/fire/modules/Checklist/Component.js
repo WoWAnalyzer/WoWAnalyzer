@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Checklist from 'parser/shared/modules/features/Checklist2';
-import Rule from 'parser/shared/modules/features/Checklist2/Rule';
-import Requirement from 'parser/shared/modules/features/Checklist2/Requirement';
-import PreparationRule from 'parser/shared/modules/features/Checklist2/PreparationRule';
-import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist2/GenericCastEfficiencyRequirement';
+import Checklist from 'parser/shared/modules/features/Checklist';
+import Rule from 'parser/shared/modules/features/Checklist/Rule';
+import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
+import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
+import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 
 class FireMageChecklist extends React.PureComponent {
   static propTypes = {
@@ -55,13 +55,42 @@ class FireMageChecklist extends React.PureComponent {
             </>
           )}
         >
-          <Requirement name="Fire Blast Charges" thresholds={thresholds.fireBlastCombustionCharges} tooltip="When Combustion is getting close to becomming available, it is important to save a couple Fire Blast charges to be used during the Combustion Window. This will help ensure that you can get as many Hot Streak procs as possible during Combustion." />
-          {combatant.hasTalent(SPELLS.PHOENIX_FLAMES_TALENT.id) && <Requirement name="Phoenix Flames Charges" thresholds={thresholds.phoenixFlamesCombustionCharges} tooltip="When outside of Combustion, you should avoid using your Phoenix Flames charges so that they have time to come off cooldown before Combustion is available again. This will ensure that you have a couple charges so you can get as many Hot Streak procs as possible before Combustion ends. If you are about to cap on Phoenix Flames charges, then it is acceptable to use one." />}
-          {combatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id) && <Requirement name="Combustion during Firestarter" thresholds={thresholds.firestarterCombustionUsage} tooltip="If you are talented into Firestarter, you should ensure that you do not cast Combustion while the boss is above 90% Health. This would be a waste considering every spell is guaranteed to crit while the boss is above 90% Health, which defeats the purpose of using Combustion. Instead, you should use Combustion when the boss gets to 89% so you can continue the streak of guaranteed crits once Firestarter finishes." />}
-          {combatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id) && <Requirement name="Pyroclasm Usage" thresholds={thresholds.pyroclasmCombustionUsage} tooltip="If you have enough time to complete the cast before Combustion ends, then you should always use your Pyroclasm procs to hard cast Pyroblast during Combustion. This is primarily because Combustion will guarantee that the spell crits, resulting in more damage on top of the 225% that the Pyroclasm buff gives." />}
-          <Requirement name="Bad Scorch Uses" thresholds={thresholds.scorchSpellUsageDuringCombustion} tooltip="It is very important to use your time during Combustion wisely to get as many Hot Streak procs as possible before Combustion ends. To accomplish this, you should be stringing your guaranteed crit spells (Fireblast and Phoenix Flames) together to perpetually convert Heating Up to Hot Streak as many times as possible. If you run out of instant spells, cast Scorch instead." />
-          <Requirement name="Bad Fireball Uses" thresholds={thresholds.fireballSpellUsageDuringCombustion} tooltip="Due to Combustion's short duration, you should never cast Fireball during Combustion. Instead, you should use your instant cast abilities like Fireblast and Phoenix Flames. If you run out of instant abilities, cast Scorch instead since it's cast time is shorter." />
-
+          <Requirement
+            name="Fire Blast Charges"
+            thresholds={thresholds.fireBlastCombustionCharges}
+            tooltip="When Combustion is getting close to becomming available, it is important to save a couple Fire Blast charges to be used during the Combustion Window. This will help ensure that you can get as many Hot Streak procs as possible during Combustion."
+          />
+          {combatant.hasTalent(SPELLS.PHOENIX_FLAMES_TALENT.id) && (
+            <Requirement
+              name="Phoenix Flames Charges"
+              thresholds={thresholds.phoenixFlamesCombustionCharges}
+              tooltip="When outside of Combustion, you should avoid using your Phoenix Flames charges so that they have time to come off cooldown before Combustion is available again. This will ensure that you have a couple charges so you can get as many Hot Streak procs as possible before Combustion ends. If you are about to cap on Phoenix Flames charges, then it is acceptable to use one."
+            />
+          )}
+          {combatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id) && (
+            <Requirement
+              name="Combustion during Firestarter"
+              thresholds={thresholds.firestarterCombustionUsage}
+              tooltip="If you are talented into Firestarter, you should ensure that you do not cast Combustion while the boss is above 90% Health. This would be a waste considering every spell is guaranteed to crit while the boss is above 90% Health, which defeats the purpose of using Combustion. Instead, you should use Combustion when the boss gets to 89% so you can continue the streak of guaranteed crits once Firestarter finishes."
+            />
+          )}
+          {combatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id) && (
+            <Requirement
+              name="Pyroclasm Usage"
+              thresholds={thresholds.pyroclasmCombustionUsage}
+              tooltip="If you have enough time to complete the cast before Combustion ends, then you should always use your Pyroclasm procs to hard cast Pyroblast during Combustion. This is primarily because Combustion will guarantee that the spell crits, resulting in more damage on top of the 225% that the Pyroclasm buff gives."
+            />
+          )}
+          <Requirement
+            name="Bad Scorch Uses"
+            thresholds={thresholds.scorchSpellUsageDuringCombustion}
+            tooltip="It is very important to use your time during Combustion wisely to get as many Hot Streak procs as possible before Combustion ends. To accomplish this, you should be stringing your guaranteed crit spells (Fireblast and Phoenix Flames) together to perpetually convert Heating Up to Hot Streak as many times as possible. If you run out of instant spells, cast Scorch instead."
+          />
+          <Requirement
+            name="Bad Fireball Uses"
+            thresholds={thresholds.fireballSpellUsageDuringCombustion}
+            tooltip="Due to Combustion's short duration, you should never cast Fireball during Combustion. Instead, you should use your instant cast abilities like Fireblast and Phoenix Flames. If you run out of instant abilities, cast Scorch instead since it's cast time is shorter."
+          />
         </Rule>
         <Rule
           name="Use your procs effectively"
@@ -71,19 +100,59 @@ class FireMageChecklist extends React.PureComponent {
             </>
           )}
         >
-          <Requirement name="Hot Streak Proc Utilization" thresholds={thresholds.hotStreakUtilization} tooltip="Your Hot Streak Utilization. The bulk of your rotation revolves around successfully converting Heating Up procs into Hot Streak and using those Hot Streak procs effectively. Unless it is unavoidable, you should never let your Hot Streak procs expire without using them." />
-          <Requirement name="Wasted Crits Per Minute" thresholds={thresholds.hotStreakWastedCrits} tooltip="In addition to converting Heating Up to Hot Streak, it is also very important to use your Hot Streak procs as quickly as possible. This is primarily because you are unable to get a Heating Up proc if you already have Hot Streak. Therefore, casting abilities that can give you Heating Up while you have Hot Streak would be a big waste." />
-          <Requirement name="Hardcast into Hot Streak" thresholds={thresholds.hotStreakPreCasts} tooltip="Unless you are in Combustion and have Fire Blast/Phoenix Flames charges, you should always cast an ability that can generate Heating Up before using your Hot Streak proc. As an example, if you have Hot Streak and you cast Fireball > Pyroblast to use your Hot Streak, and one of those spells crit, then you will get Heating Up. If both spells crit, then you will instantly get a new Hot Streak proc." />
-          {combatant.hasTalent(SPELLS.PHOENIX_FLAMES_TALENT.id) && <Requirement name="Phoenix Flames Usage" thresholds={thresholds.phoenixFlamesHeatingUpUsage} tooltip="Because Phoenix Flames is guaranteed to crit, you should only use it to convert Heating Up into Hot Streak." />}
-          <Requirement name="Fire Blast Usage" thresholds={thresholds.fireBlastHeatingUpUsage} tooltip="Because Fire Blast is guaranteed to crit, you should only use it to convert Heating Up into Hot Streak." />
+          <Requirement
+            name="Hot Streak Proc Utilization"
+            thresholds={thresholds.hotStreakUtilization}
+            tooltip="Your Hot Streak Utilization. The bulk of your rotation revolves around successfully converting Heating Up procs into Hot Streak and using those Hot Streak procs effectively. Unless it is unavoidable, you should never let your Hot Streak procs expire without using them."
+          />
+          <Requirement
+            name="Wasted Crits Per Minute"
+            thresholds={thresholds.hotStreakWastedCrits}
+            tooltip="In addition to converting Heating Up to Hot Streak, it is also very important to use your Hot Streak procs as quickly as possible. This is primarily because you are unable to get a Heating Up proc if you already have Hot Streak. Therefore, casting abilities that can give you Heating Up while you have Hot Streak would be a big waste."
+          />
+          <Requirement
+            name="Hardcast into Hot Streak"
+            thresholds={thresholds.hotStreakPreCasts}
+            tooltip="Unless you are in Combustion and have Fire Blast/Phoenix Flames charges, you should always cast an ability that can generate Heating Up before using your Hot Streak proc. As an example, if you have Hot Streak and you cast Fireball > Pyroblast to use your Hot Streak, and one of those spells crit, then you will get Heating Up. If both spells crit, then you will instantly get a new Hot Streak proc."
+          />
+          {combatant.hasTalent(SPELLS.PHOENIX_FLAMES_TALENT.id) && (
+            <Requirement
+              name="Phoenix Flames Usage"
+              thresholds={thresholds.phoenixFlamesHeatingUpUsage}
+              tooltip="Because Phoenix Flames is guaranteed to crit, you should only use it to convert Heating Up into Hot Streak."
+            />
+          )}
+          <Requirement
+            name="Fire Blast Usage"
+            thresholds={thresholds.fireBlastHeatingUpUsage}
+            tooltip="Because Fire Blast is guaranteed to crit, you should only use it to convert Heating Up into Hot Streak."
+          />
         </Rule>
         <Rule
           name="Use your talents effectively"
           description="Regardless of which talents you select, you should ensure that you are utilizing them properly. If you are having trouble effectively using a particular talent, you should consider taking a different talent that you can utilize properly or focus on effectively using the talents that you have selected."
         >
-          {combatant.hasTalent(SPELLS.PYROCLASM_TALENT.id) && <Requirement name="Pyroclasm Utilization" thresholds={thresholds.pyroclasmUtilization} tooltip="Pyroclasm has a chance to give you a buff that makes your next non instant Pyroblast deal 225% additional damage. You should ensure that you are using these procs (especially during Combustion) somewhat quickly to ensure you dont waste or overwrite any of these procs." />}
-          {combatant.hasTalent(SPELLS.SEARING_TOUCH_TALENT.id) && <Requirement name="Searing Touch Utilization" thresholds={thresholds.searingTouchUtilization} tooltip="Searing Touch causes your Scorch ability to deal 150% additional damage and be guaranteed to crit when the target is under 30% health. Therefore it is important that when the target is under 30% health, you cast Scorch instead of Fireball." />}
-          {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) && <Requirement name="Rune of Power Uptime" thresholds={thresholds.runeOfPowerBuffUptime} tooltip="Using Rune of Power effectively means being able to stay within the range of it for it's entire duration. If you are unable to do so or if you frequently have to move out of the range of the buff, consider taking a different talent instead." />}
+          {combatant.hasTalent(SPELLS.PYROCLASM_TALENT.id) && (
+            <Requirement
+              name="Pyroclasm Utilization"
+              thresholds={thresholds.pyroclasmUtilization}
+              tooltip="Pyroclasm has a chance to give you a buff that makes your next non instant Pyroblast deal 225% additional damage. You should ensure that you are using these procs (especially during Combustion) somewhat quickly to ensure you dont waste or overwrite any of these procs."
+            />
+          )}
+          {combatant.hasTalent(SPELLS.SEARING_TOUCH_TALENT.id) && (
+            <Requirement
+              name="Searing Touch Utilization"
+              thresholds={thresholds.searingTouchUtilization}
+              tooltip="Searing Touch causes your Scorch ability to deal 150% additional damage and be guaranteed to crit when the target is under 30% health. Therefore it is important that when the target is under 30% health, you cast Scorch instead of Fireball."
+            />
+          )}
+          {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) && (
+            <Requirement
+              name="Rune of Power Uptime"
+              thresholds={thresholds.runeOfPowerBuffUptime}
+              tooltip="Using Rune of Power effectively means being able to stay within the range of it for it's entire duration. If you are unable to do so or if you frequently have to move out of the range of the buff, consider taking a different talent instead."
+            />
+          )}
         </Rule>
         <Rule
           name="Avoid downtime"

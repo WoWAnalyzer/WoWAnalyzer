@@ -5,6 +5,8 @@ import SPELLS from 'common/SPELLS';
 
 const debug = false;
 
+// TODO: KILL THIS MODULE. It hasn't hold well with time, and it should probably be replaced with a normalizer. This normalizer could remove invalid `cast` events and maybe even go so far as to remove the `begincast` event entirely in favor of our own system to be easier to work with. This module also duplicates some logic from the CancelledCasts normalizer.
+
 class Channeling extends Analyzer {
   static dependencies = {
     eventEmitter: EventEmitter,
@@ -22,10 +24,12 @@ class Channeling extends Analyzer {
       timestamp: event.timestamp,
       ability,
       sourceID: event.sourceID,
+      isCancelled: event.isCancelled,
     };
+    event.channel = channelingEvent;
     this._currentChannel = channelingEvent;
-    this.eventEmitter.fabricateEvent(channelingEvent, event);
     debug && this.log('Beginning channel of', ability.name);
+    this.eventEmitter.fabricateEvent(channelingEvent, event);
   }
   endChannel(event) {
     const currentChannel = this._currentChannel;
@@ -38,7 +42,8 @@ class Channeling extends Analyzer {
     this._currentChannel = null;
     // Since `event` may not always be the spell being ended we default to the start of the casting since that must be the right spell
     const ability = currentChannel ? currentChannel.ability : event.ability;
-    this.eventEmitter.fabricateEvent({
+    debug && this.log('Ending channel of', ability.name);
+    return this.eventEmitter.fabricateEvent({
       type: 'endchannel',
       timestamp: event.timestamp,
       ability,
@@ -47,7 +52,6 @@ class Channeling extends Analyzer {
       start,
       beginChannel: currentChannel,
     }, event); // the trigger may be another spell, sometimes the indicator of 1 channel ending is the start of another
-    debug && this.log('Ending channel of', ability.name);
   }
   cancelChannel(event, ability) {
     // Manually handle Potion of Replenishment
@@ -88,7 +92,8 @@ class Channeling extends Analyzer {
     if (!this.isChannelingSpell(event.ability.guid)) {
       this.cancelChannel(event, this._currentChannel.ability);
     } else {
-      this.endChannel(event);
+      // Add info to the cast-event related to this channel so it can be used easily
+      event.channel = this.endChannel(event);
     }
   }
   isChanneling() {
@@ -96,12 +101,6 @@ class Channeling extends Analyzer {
   }
   isChannelingSpell(spellId) {
     return this._currentChannel && this._currentChannel.ability.guid === spellId;
-  }
-
-  // TODO: Move this to SpellTimeline, it's only used for that so it should track it itself
-  history = [];
-  on_endchannel(event) {
-    this.history.push(event);
   }
 
   // TODO: Re-implement below

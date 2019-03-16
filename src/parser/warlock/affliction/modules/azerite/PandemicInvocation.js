@@ -101,13 +101,12 @@ class PandemicInvocation extends Analyzer {
       <TraitStatisticBox
         trait={SPELLS.PANDEMIC_INVOCATION.id}
         value={<ItemDamageDone amount={this.damage} />}
-        tooltip={`Pandemic Invocation damage: ${formatThousands(this.damage)}<br />
-                  You gained ${generated} Soul Shards and wasted ${wasted} Soul Shards with this trait
-                  ${max > 0 ?
-                      `, which is <strong>${formatPercentage(generated / max)}%</strong> of Shards you were most likely to get in this fight (${max} Shards).`
-                    :
-                      ', while you were most likely to not get any Shards.'
-                  }`}
+        tooltip={(
+          <>
+            Pandemic Invocation damage: {formatThousands(this.damage)}<br />
+            You gained {generated} Soul Shards and wasted {wasted} Soul Shards with this trait, {max > 0 ? <>which is <strong>{formatPercentage(generated / max)}%</strong> of Shards you were most likely to get in this fight ({max} Shards).</> : 'while you were most likely to not get any Shards.'}
+          </>
+        )}
       />
     );
   }

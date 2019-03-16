@@ -60,7 +60,7 @@ class DanceOfDeath extends Analyzer {
             {formatPercentage(this.uptime)}% Uptime
           </>
         )}
-        tooltip={`Dance of Death granted <b>${this.agility}</b> agility for <b>${formatPercentage(this.uptime)}%</b> of the fight.`}
+        tooltip={<>Dance of Death granted <strong>{this.agility}</strong> Agility for <strong>{formatPercentage(this.uptime)}%</strong> of the fight.</>}
       />
     );
   }

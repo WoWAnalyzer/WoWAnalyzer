@@ -12,25 +12,25 @@ class DarkShadowContribution extends DarkShadow {
   static dependencies = {
     ...DarkShadow.dependencies,
     danceDamageTracker: DanceDamageTracker,
-  }  
+  };
 
   get darkShadowDamageFactor() {
     return 0.25;
   }
 
-  statistic() {    
+  statistic() {
     const danceDamage = Object.keys(this.danceDamageTracker.abilities)
     .map(abilityId => this.danceDamageTracker.abilities[abilityId].damageEffective || 0)
     .reduce((a,b) => a+b,0) * this.darkShadowDamageFactor / (1 + this.darkShadowDamageFactor);
-     
+
     return (
-        <StatisticBox
-          position={STATISTIC_ORDER.OPTIONAL(20)}
-          icon={<SpellIcon id={SPELLS.DARK_SHADOW_TALENT.id} />}
-          value={`${formatNumber(danceDamage / this.owner.fightDuration * 1000)} DPS`}
-          label="Damage contribution from Dark Shadow"
-          tooltip={`Total damage increase is ${formatNumber(danceDamage)} in ${this.totalShadowDanceCast} Shadow Dance casts.`}
-          />
+      <StatisticBox
+        position={STATISTIC_ORDER.OPTIONAL(20)}
+        icon={<SpellIcon id={SPELLS.DARK_SHADOW_TALENT.id} />}
+        value={`${formatNumber(danceDamage / this.owner.fightDuration * 1000)} DPS`}
+        label="Damage contribution from Dark Shadow"
+        tooltip={`Total damage increase is ${formatNumber(danceDamage)} in ${this.totalShadowDanceCast} Shadow Dance casts.`}
+      />
     );
   }
 }

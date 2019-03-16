@@ -1,3 +1,6 @@
+import React from 'react';
+import { Trans } from '@lingui/macro';
+
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import BaseHealerStatValues from 'parser/shared/modules/features/BaseHealerStatValues';
@@ -57,6 +60,11 @@ class StatValues extends BaseHealerStatValues {
     if (spellId === SPELLS.HOLY_SHOCK_HEAL.id) {
       // Holy Shock has a base 30% crit chance
       baseCritChance += 0.3;
+
+      if (this.selectedCombatant.hasBuff(SPELLS.AVENGING_WRATH_GUARANTEED_CRIT_BUFF.id)) {
+        // Avenging Wrath guarantees the first Holy Shock crits.
+        baseCritChance = 1;
+      }
     }
 
     return { baseCritChance, ratingCritChance };
@@ -116,22 +124,24 @@ class StatValues extends BaseHealerStatValues {
     return baseHeal * healIncreaseFromOneMastery;
   }
 
-  moreInformationLink = 'https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/parser/paladin/holy/modules/features/StatValues.md';
+  moreInformationLink = 'https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/parser/paladin/holy/modules/StatValues.md';
   _prepareResults() {
     return [
       STAT.INTELLECT,
       STAT.CRITICAL_STRIKE,
       {
         stat: STAT.HASTE_HPCT,
-        tooltip: `
-          HPCT stands for "Healing per Cast Time". This is the max value that 1% Haste would be worth if you would cast everything you are already casting and that can be casted quicker 1% faster. Mana and overhealing are not accounted for in any way.<br /><br />
-          
-          The real value of Haste (HPCT) will be between 0 and the shown value. It depends on if you have the mana left to spend, if the gained casts would overheal and how well you are at casting spells limited by Hasted cooldowns end-to-end. If you are going OOM before the end of the fight you might instead want to drop some Haste or cast less bad heals. If you had mana left-over, Haste could help you convert that into healing. If your Haste usage is optimal Haste will then be worth the shown max value.<br /><br />
-          
-          If there are intense moments of damage taken where people are dying due to lack of healing and you're GCD capped, Haste might also help increase your throughput during this period saving lifes and helping you kill the boss.<br /><br />
-          
-          <b>The easiest advice here is to get Haste to a point you're comfortable at. This is usually around 5-9%.</b>
-        `,
+        tooltip: (
+          <Trans>
+            HPCT stands for "Healing per Cast Time". This is the max value that 1% Haste would be worth if you would cast everything you are already casting and that can be casted quicker 1% faster. Mana and overhealing are not accounted for in any way.<br /><br />
+
+            The real value of Haste (HPCT) will be between 0 and the shown value. It depends on if you have the mana left to spend, if the gained casts would overheal and how well you are at casting spells limited by Hasted cooldowns end-to-end. If you are going OOM before the end of the fight you might instead want to drop some Haste or cast less bad heals. If you had mana left-over, Haste could help you convert that into healing. If your Haste usage is optimal Haste will then be worth the shown max value.<br /><br />
+
+            If there are intense moments of damage taken where people are dying due to lack of healing and you're GCD capped, Haste might also help increase your throughput during this period saving lifes and helping you kill the boss.<br /><br />
+
+            <b>The easiest advice here is to get Haste to a point you're comfortable at. This is usually around 5-9%.</b>
+          </Trans>
+        ),
       },
       // STAT.HASTE_HPM, this is always 0 for Holy Paladins
       STAT.MASTERY,

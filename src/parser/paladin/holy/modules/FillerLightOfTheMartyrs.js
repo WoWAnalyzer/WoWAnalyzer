@@ -1,7 +1,9 @@
 import React from 'react';
+import { Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import { TooltipElement } from 'common/Tooltip';
 import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
@@ -70,24 +72,24 @@ class FillerLightOfTheMartyrs extends Analyzer {
   suggestions(when) {
     when(this.cpmSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest((
-        <>
+        <Trans>
           You cast many <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />s. Light of the Martyr is an inefficient spell to cast, try to only cast Light of the Martyr when it will save someone's life or when moving and all other instant cast spells are on cooldown.
-        </>
+        </Trans>
       ))
         .icon(SPELLS.LIGHT_OF_THE_MARTYR.icon)
-        .actual(`${this.cpm.toFixed(2)} Casts Per Minute - ${this.casts} casts total`)
-        .recommended(`<${recommended} Casts Per Minute is recommended`);
+        .actual(<Trans>{this.cpm.toFixed(2)} casts per minute - {this.casts} casts total</Trans>)
+        .recommended(<Trans>&lt;{recommended} casts per minute is recommended</Trans>);
     });
 
     when(this.inefficientCpmSuggestionThresholds).addSuggestion((suggest, actual) => {
       return suggest(
-        <>
-          You cast {this.inefficientCasts.length} <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />s while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was <dfn data-tip={`It was either already available or going to be available within ${HOLY_SHOCK_COOLDOWN_WAIT_TIME}ms.`}>available</dfn> (at {this.inefficientCasts.map(event => this.owner.formatTimestamp(event.timestamp)).join(', ')}). Try to <b>never</b> cast <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> when something else is available<dfn data-tip="There are very rare exceptions to this. For example it may be worth saving Holy Shock when you know you're going to be moving soon and you may have to heal yourself.">*</dfn>.
-        </>
+        <Trans>
+          You cast {this.inefficientCasts.length} <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} />s while <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was <TooltipElement content={<Trans>It was either already available or going to be available within {HOLY_SHOCK_COOLDOWN_WAIT_TIME}ms.</Trans>}>available</TooltipElement> (at {this.inefficientCasts.map(event => this.owner.formatTimestamp(event.timestamp)).join(', ')}). Try to <b>never</b> cast <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> when something else is available<TooltipElement content={<Trans>There are very rare exceptions to this. For example it may be worth saving Holy Shock when you know you're going to be moving soon and you may have to heal yourself.</Trans>}>*</TooltipElement>.
+        </Trans>
       )
         .icon(SPELLS.LIGHT_OF_THE_MARTYR.icon)
-        .actual(`${this.inefficientCasts.length} casts while Holy Shock was available`)
-        .recommended(`No inefficient casts is recommended`);
+        .actual(<Trans>{this.inefficientCasts.length} casts while Holy Shock was available</Trans>)
+        .recommended(<Trans>No inefficient casts is recommended</Trans>);
     });
   }
 }

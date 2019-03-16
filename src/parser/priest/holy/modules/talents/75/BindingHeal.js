@@ -62,17 +62,16 @@ class BindingHeal extends Analyzer {
 
   statistic() {
     return (
-
       <TalentStatisticBox
         talent={SPELLS.BINDING_HEAL_TALENT.id}
-        value={(
-          <ItemHealingDone amount={this.bindingHealHealing} />
+        value={<ItemHealingDone amount={this.bindingHealHealing} />}
+        tooltip={(
+          <>
+            Casts: {this.bindingHealCasts}<br />
+            Self Healing: {formatThousands(this.bindingHealSelfHealing)} ({formatPercentage(this.getOverhealPercent(this.bindingHealSelfHealing, this.bindingHealSelfOverhealing))}% OH)<br />
+            Party Healing: {formatThousands(this.bindingHealPartyHealing)} ({formatPercentage(this.getOverhealPercent(this.bindingHealPartyHealing, this.bindingHealPartyOverhealing))}% OH)
+          </>
         )}
-        tooltip={`
-          Casts:&#9;${this.bindingHealCasts}<br />
-          Self Healing:&#9;${formatThousands(this.bindingHealSelfHealing)} (${formatPercentage(this.getOverhealPercent(this.bindingHealSelfHealing, this.bindingHealSelfOverhealing))}% OH)<br />
-          Party Healing:&#9;${formatThousands(this.bindingHealPartyHealing)} (${formatPercentage(this.getOverhealPercent(this.bindingHealPartyHealing, this.bindingHealPartyOverhealing))}% OH)
-        `}
         position={STATISTIC_ORDER.CORE(5)}
       />
 

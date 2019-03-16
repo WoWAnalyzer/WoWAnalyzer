@@ -1,0 +1,75 @@
+@import './Theme.scss';
+
+.panel {
+  width: 100%;
+  margin-bottom: 30px;
+  background: $panelColor;
+  border-radius: 3px;
+  border: 0;
+  position: relative;
+
+  .panel-heading {
+    padding: 20px 30px;
+
+    h1 {
+      margin: 0;
+    }
+
+    small {
+      display: block;
+    }
+  }
+  .panel-heading-image {
+    height: 250px;
+    background-size: cover;
+    background-position: center center;
+  }
+  .panel-body {
+    padding: 0;
+  }
+  .panel-body.pad, .panel-body .pad {
+    padding: 0 30px 30px;
+  }
+  .panel-body {
+    > ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      > li:not(.expandable), > li.expandable .meta {
+        padding: 10px 30px;
+
+        .depad {
+          margin: -10px -30px;
+        }
+      }
+      > li.expandable {
+        padding: 0;
+      }
+      > li.expandable .meta:hover {
+        background-color: rgba(255, 255, 255, .03);
+      }
+      //> li:first-child {
+      //  border-top: 1px solid rgba(255, 255, 255, 0.05);
+      //}
+      //> li {
+      //  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      //}
+    }
+    img {
+      max-width: 100%;
+    }
+  }
+  .panel-body.pad:last-of-type > ul {
+    margin-bottom: 30px;
+  }
+
+  .panel-footer {
+    background: transparent;
+  }
+}
+.panel-cell:not(:first-child) {
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px solid rgba(255,255,255, 0.1);
+}

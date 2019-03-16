@@ -52,7 +52,7 @@ export default {
   INDOMITABLE_JUSTICE: {
     id: 275496,
     name: 'Indomitable Justice',
-    ïcon: 'spell_holy_righteousfury',
+    icon: 'spell_holy_righteousfury',
   },
   LIGHTS_DECREE: {
     id: 286229,

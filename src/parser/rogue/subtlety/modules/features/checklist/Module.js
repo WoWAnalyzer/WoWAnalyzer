@@ -1,9 +1,9 @@
 import React from 'react';
 
-import BaseChecklist from 'parser/shared/modules/features/Checklist2/Module';
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
-import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist2/PreparationRuleAnalyzer';
+import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 
 //Core
 import ComboPoints from '../../core/ComboPoints';
@@ -14,6 +14,7 @@ import AlwaysBeCasting from '../AlwaysBeCasting';
 import CastsInShadowDance from '../../core/CastsInShadowDance';
 import CastsInStealth from '../../core/CastsInStealth';
 import NightbladeDuringSymbols from '../../core/NightbladeDuringSymbols';
+import NightbladeEarlyRefresh from '../../core/NightbladeEarlyRefresh';
 import NightbladeUptime from '../../core/NightbladeUptime';
 
 //Talents
@@ -38,6 +39,7 @@ class Checklist extends BaseChecklist {
     castsInStealth: CastsInStealth,
     nightbladeUptime: NightbladeUptime,
     nightbladeDuringSymbols: NightbladeDuringSymbols,
+    nightbladeEarlyRefresh: NightbladeEarlyRefresh,
 
     //Talents
     darkShadowNightblade: DarkShadowNightblade,
@@ -55,15 +57,17 @@ class Checklist extends BaseChecklist {
           //Core
           comboPoints: this.comboPoints.comboPointThresholds,
           energy: this.energy.energyThresholds,
-          
+
           //Base
           castsInShadowDance: this.castsInShadowDance.castsInStealthThresholds,
           backstabInShadowDance: this.castsInShadowDance.danceBackstabThresholds,
           castsInStealth: this.castsInStealth.castsInStealthThresholds,
           backstabInStealth: this.castsInStealth.stealthBackstabThresholds,
-          nightbladeUptime:  this.nightbladeUptime.thresholds,
+          nightbladeUptime:  this.nightbladeUptime.uptimeThresholds,
+          nightbladeEffect:  this.nightbladeUptime.effectThresholds,
           nightbladeDuringSymbols: this.nightbladeDuringSymbols.thresholds,
-          
+          nightbladeEarlyRefresh: this.nightbladeEarlyRefresh.suggestionThresholdsNightbladeEfficiency,
+
           //Talents
           darkShadowNightblade: this.darkShadowNightblade.thresholds,
           findWeaknessVanish: this.findWeakness.vanishThresholds,

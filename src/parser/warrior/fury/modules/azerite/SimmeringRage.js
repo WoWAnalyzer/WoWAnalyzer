@@ -24,7 +24,7 @@ class SimmeringRage extends Analyzer {
     super(...args);
 
     this.active = this.selectedCombatant.hasTrait(SPELLS.SIMMERING_RAGE.id);
-    
+
     if(!this.active) {
       return;
     }
@@ -60,7 +60,7 @@ class SimmeringRage extends Analyzer {
       <TraitStatisticBox
         trait={SPELLS.SIMMERING_RAGE.id}
         value={`${this.rageGen} rage generated`}
-        tooltip={`Simmering Rage did <b>${formatThousands(this.totalSimmeringDamage)}</b> damage, contributing to <b>${formatNumber(this.dps)} (${formatPercentage(this.dpsPercentage)}%)</b> of your DPS.`}
+        tooltip={<>Simmering Rage did <strong>{formatThousands(this.totalSimmeringDamage)}</strong> damage, contributing to <strong>{formatNumber(this.dps)} ({formatPercentage(this.dpsPercentage)}%)</strong> of your DPS.</>}
       />
     );
   }

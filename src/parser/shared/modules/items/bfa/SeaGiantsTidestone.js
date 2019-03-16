@@ -1,20 +1,21 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS/index';
-import ITEMS from 'common/ITEMS/index';
+import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import Analyzer from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { formatPercentage } from 'common/format';
 import { formatNumber } from 'common/format';
 import { calculateSecondaryStatDefault } from 'common/stats';
+import { TooltipElement } from 'common/Tooltip';
 
 /**
 * Sea Giant's Tidestone
 * Item Level 280
 * Binds when picked up
 * Unique-Equipped
-* Trinket	
+* Trinket
 * +117 Intellect
 * Use: Increase your Haste by 372 for 12 sec. (1 Min, 30 Sec Cooldown)
  *
@@ -27,7 +28,7 @@ class SeaGiantsTidestone extends Analyzer {
     abilities: Abilities,
     statTracker: StatTracker,
   };
-  
+
   casts = 0;
   haste = 0;
 
@@ -54,25 +55,25 @@ class SeaGiantsTidestone extends Analyzer {
       });
     }
   }
-  
+
   on_byPlayer_cast(event) {
     if (event.ability.guid !== SPELLS.FEROCITY_OF_THE_SKROG.id) {
     return;
     }
     this.casts += 1;
   }
-  
+
   get totalBuffUptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.FEROCITY_OF_THE_SKROG.id) / this.owner.fightDuration;
   }
-  
+
   item() {
     return {
       item: ITEMS.SEA_GIANTS_TIDESTONE,
       result: (
-        <dfn data-tip={`Average haste gained ${formatNumber(this.haste * this.totalBuffUptime)}`}>
+        <TooltipElement content={`Average Haste gained: ${formatNumber(this.haste * this.totalBuffUptime)}`}>
           Used {this.casts} times / {formatPercentage(this.totalBuffUptime)}% uptime
-        </dfn>
+        </TooltipElement>
       ),
     };
   }

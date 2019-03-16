@@ -61,6 +61,8 @@ class Abilities extends Module {
 
   /**
    * Returns the first ACTIVE spellInfo with the given spellId (or undefined if there is no such spellInfo)
+   *
+   * @return {Ability}
    */
   getAbility(spellId) {
     const ability = this.activeAbilities.find(ability => {
@@ -81,9 +83,9 @@ class Abilities extends Module {
   /**
    * Returns the expected cooldown (in seconds) of the given spellId at the current timestamp (or undefined if there is no such spellInfo)
    */
-  getExpectedCooldownDuration(spellId) {
+  getExpectedCooldownDuration(spellId, cooldownTriggerEvent) {
     const ability = this.getAbility(spellId);
-    return ability ? Math.round(ability.cooldown * 1000) : undefined;
+    return ability ? Math.round(ability.getCooldown(this.haste.current, cooldownTriggerEvent) * 1000) : undefined;
   }
 
   /**
@@ -100,27 +102,6 @@ class Abilities extends Module {
   getTimelineSortIndex(spellId) {
     const ability = this.getAbility(spellId);
     return ability ? ability.timelineSortIndex : undefined;
-  }
-
-  /**
-   * Returns the buff spell Id to a given spell, or null if none is set. (or undefined if there is no such spellInfo)
-   */
-  getBuffSpellId(spellId) {
-    const ability = this.getAbility(spellId);
-    return ability ? (ability.buffSpellId || null) : undefined;
-  }
-
-  /**
-   * Return the first ability that has the given SpellId set as the buff.
-   */
-  getSpellBuffAbility(spellId) {
-    return this.activeAbilities.find(ability => {
-      if (ability.buffSpellId instanceof Array) {
-        return ability.buffSpellId.some(spell => spell === spellId);
-      } else {
-        return ability.buffSpellId === spellId;
-      }
-    });
   }
 }
 

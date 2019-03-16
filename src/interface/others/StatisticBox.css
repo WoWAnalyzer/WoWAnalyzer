@@ -1,70 +1,71 @@
 .panel.statistic-box > .panel-body {
-  padding: 10px 12px;
+  font-size: 14px;
+  text-shadow: 0 0 0.6px currentColor;
+  padding: 0;
   transition: background-color 0.1s ease-in-out;
 }
-.panel.statistic-box > .panel-body:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-.panel.statistic-box > .panel-body > .flex-main {
-  padding-left: 16px;
+.panel.statistic-box .label {
+  color: #b3adad;
+  margin-bottom: 3px;
+  /* fucking bootstrap: */
+  display: block;
+  padding: 0;
+  font-size: inherit;
+  line-height: inherit;
+  text-align: inherit;
+  border-radius: inherit;
+  font-weight: 200;
 }
 .panel.statistic-box .value {
-  font-size: 1.8em;
-  font-weight: 600;
+  font-size: 2em;
   line-height: 1.4;
+  color: #d8d3d3;
 }
-.panel.statistic-box .slabel {
-  margin-top: -0.3em;
-  color: #c3c3c3;
-  font-weight: 400;
+.panel.statistic-box .label img {
+  height: 1.2em;
 }
-.panel.statistic-box > .panel-body .statistic-icon img {
-  height: 4.3em;
-  margin-top: 0;
-  border-radius: 3px;
-  border: 1px solid rgba(0, 0, 0, 0.6);
-}
-.panel.statistic-box.statistic-list .panel-heading {
+.panel.statistic-box.statistic-box-list .panel-heading {
   text-align: center;
   padding: 11px 22px 9px;
 }
-.panel.statistic-box.statistic-list .panel-body {
+.panel.statistic-box.statistic-box-list .panel-body {
   padding: 10px 12px;
 }
-.panel.statistic-box.statistic-list > .panel-body > div:first-child img {
+.panel.statistic-box.statistic-box-list > .panel-body > div:first-child img {
   height: 1.6em;
   margin-top: -0.2em;
 }
-.panel.statistic-box.statistic-list .items > *:not(:last-child) {
+.panel.statistic-box.statistic-box-list .items > *:not(:last-child) {
   margin-bottom: 0.3em;
   padding-bottom: 0.2em;
   border-bottom: 1px solid rgba(255,255,255,0.1);
 }
-.panel.statistic-box .statistic-bar {
+.panel.statistic-box .statistic-box-bar {
   display: flex;
   position: relative;
+  border-radius: 3px;
+  overflow: hidden;
 }
-.panel.statistic-box .statistic-bar:before {
+.panel.statistic-box .statistic-box-bar:before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 20%);
   pointer-events: none;
 }
-.panel.statistic-box .statistic-bar > div {
+.panel.statistic-box .statistic-box-bar > div {
   flex: 0 0 auto;
-  height: 22px;
+  height: 16px;
   padding: 4px 3px 3px;
   text-align: center;
 }
-.panel.statistic-box .statistic-bar > div.remainder {
+.panel.statistic-box .statistic-box-bar > div.remainder {
   flex: 1;
 }
-.panel.statistic-box .statistic-bar > div img {
-  height: 16px;
+.panel.statistic-box .statistic-box-bar > div img {
+  height: 10px;
   border: 0;
   border-radius: 0;
   vertical-align: top;
@@ -78,7 +79,7 @@
   height: 1.6em;
   margin-top: -0.2em;
 }
-.statistic-box.small > .panel-body > .flex-main {
+.statistic-box-box.small > .panel-body > .flex-main {
   padding-left: 0;
 }
 .panel.statistic-box .warcraft-logs-link {

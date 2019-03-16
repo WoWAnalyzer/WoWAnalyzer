@@ -61,17 +61,17 @@ class IronskinBrew extends EventsNormalizer {
     if(!isbBuffAbility) {
       isbBuffAbility = {
         guid: SPELLS.IRONSKIN_BREW_BUFF.id,
-        icon: SPELLS.IRONSKIN_BREW_BUFF.icon,
+        abilityIcon: SPELLS.IRONSKIN_BREW_BUFF.icon,
         name: SPELLS.IRONSKIN_BREW_BUFF.name,
       };
     }
-    
+
     // to maintain sanity, we insert our events after all the
     // combatantinfo events -- identified by this index
     const firstNonInfoIdx = this._getFirstEventIndex(events);
     for(let i = 0; i < buggedTargets.length; i++) {
       const targetID = Number(buggedTargets[i]);
-      const fab = (ty, ts) => { 
+      const fab = (ty, ts) => {
         return {
           timestamp: ts,
           type: ty,

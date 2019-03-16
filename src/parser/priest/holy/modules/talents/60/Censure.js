@@ -35,16 +35,15 @@ class Censure extends Analyzer {
 
   statistic() {
     return (
-
       <TalentStatisticBox
         talent={SPELLS.CENSURE_TALENT.id}
-        value={
-          `${this.censureStuns + this.censureIncomp} Censure CC(s)`
-        }
-        tooltip={`
-          ${this.chastiseCasts} Chastise Casts<br />
-          ${this.censureStuns} Chastise Stuns<br />
-        `}
+        value={`${this.censureStuns + this.censureIncomp} Censure CC(s)`}
+        tooltip={(
+          <>
+            {this.chastiseCasts} Chastise Casts<br />
+            {this.censureStuns} Chastise Stuns<br />
+          </>
+        )}
         position={STATISTIC_ORDER.CORE(4)}
       />
 

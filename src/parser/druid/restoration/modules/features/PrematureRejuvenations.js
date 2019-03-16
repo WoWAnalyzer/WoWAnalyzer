@@ -1,7 +1,7 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
-import HealingDone from 'parser/shared/modules/HealingDone';
+import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
@@ -120,9 +120,7 @@ class PrematureRejuvenations extends Analyzer {
         icon={<SpellIcon id={SPELLS.REJUVENATION.id} />}
         value={this.earlyRefreshments}
         label={`Early rejuvenation refreshments`}
-        tooltip={`
-          The total time lost from your early refreshments was ${this.timeLostInSeconds} seconds.</br>
-          `}
+        tooltip={`The total time lost from your early refreshments was ${this.timeLostInSeconds} seconds.`}
       />
     );
   }

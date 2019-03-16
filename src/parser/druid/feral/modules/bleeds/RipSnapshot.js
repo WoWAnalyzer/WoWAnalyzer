@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
+import { TooltipElement } from 'common/Tooltip';
 import Snapshot from '../core/Snapshot';
 import ComboPointTracker from '../combopoints/ComboPointTracker';
 import { PANDEMIC_FRACTION, RIP_DURATION_1_CP, RIP_DURATION_PER_CP, RIP_MAXIMUM_EXTENDED_DURATION, SABERTOOTH_EXTEND_PER_CP } from '../../constants';
@@ -117,7 +118,7 @@ class RipSnapshot extends Snapshot {
       const strengthComment = (stateOld.power > stateNew.power) ? 'a stronger' : 'the same strength';
       event.meta.inefficientCastReason = `Used Rip when you could have extended using Ferocious Bite and kept ${strengthComment} snapshot.`;
     }
-    
+
     if (stateOld.expireTime > (stateNew.expireTime - MAX_ALLOWED_DURATION_REDUCTION)) {
       // existing DoT would have lasted longer than the new one will, so would have been better off doing nothing at all
       const remainingOld = ((stateOld.expireTime - stateNew.startTime) / 1000).toFixed(1);
@@ -193,7 +194,7 @@ class RipSnapshot extends Snapshot {
     when(this.downgradeSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
-          Try not to refresh <SpellLink id={SPELLS.RIP.id} /> before the <dfn data-tip={`The last ${(this.constructor.durationOfFresh * PANDEMIC_FRACTION / 1000).toFixed(1)} seconds of Rip's duration. When you refresh during this time you don't lose any duration in the process.`}>pandemic window</dfn> unless you have more powerful <dfn data-tip={"Applying Rip with Tiger's Fury or Bloodtalons will boost its damage until you reapply it."}>snapshot buffs</dfn> than were present when it was first cast.
+          Try not to refresh <SpellLink id={SPELLS.RIP.id} /> before the <TooltipElement content={`The last ${(this.constructor.durationOfFresh * PANDEMIC_FRACTION / 1000).toFixed(1)} seconds of Rip's duration. When you refresh during this time you don't lose any duration in the process.`}>pandemic window</TooltipElement> unless you have more powerful <TooltipElement content="Applying Rip with Tiger's Fury or Bloodtalons will boost its damage until you reapply it.">snapshot buffs</TooltipElement> than were present when it was first cast.
         </>
       )
         .icon(SPELLS.RIP.icon)
@@ -204,7 +205,7 @@ class RipSnapshot extends Snapshot {
     when(this.shouldBeBiteSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
-          With <SpellLink id={SPELLS.SABERTOOTH_TALENT.id} /> you should use <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> to extend the duration of <SpellLink id={SPELLS.RIP.id} />. Only use <SpellLink id={SPELLS.RIP.id} /> when the bleed is missing or when you can improve the <dfn data-tip={"Applying Rip with Tiger's Fury or Bloodtalons will boost its damage until you reapply it. This boost is maintained when Bite extends the bleed."}>snapshot.</dfn>
+          With <SpellLink id={SPELLS.SABERTOOTH_TALENT.id} /> you should use <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> to extend the duration of <SpellLink id={SPELLS.RIP.id} />. Only use <SpellLink id={SPELLS.RIP.id} /> when the bleed is missing or when you can improve the <TooltipElement content="Applying Rip with Tiger's Fury or Bloodtalons will boost its damage until you reapply it. This boost is maintained when Bite extends the bleed.">snapshot.</TooltipElement>
         </>
       )
         .icon(SPELLS.RIP.icon)

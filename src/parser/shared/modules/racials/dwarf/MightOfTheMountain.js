@@ -120,7 +120,11 @@ class MightOfTheMountain extends Analyzer {
         icon={<SpellIcon id={SPELLS.MIGHT_OF_THE_MOUNTAIN.id} />}
         value={value}
         label="Dwarf crit racial"
-        tooltip={`The racial contributed ${this.owner.formatItemDamageDone(this.damage)} and ${this.owner.formatItemHealingDone(this.healing)}.`}
+        tooltip={(
+          <>
+            The racial contributed {this.owner.formatItemDamageDone(this.damage)} and {this.owner.formatItemHealingDone(this.healing)}.
+          </>
+        )}
       />
     );
   }

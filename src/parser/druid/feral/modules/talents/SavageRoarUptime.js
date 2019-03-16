@@ -5,6 +5,7 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { TooltipElement } from 'common/Tooltip';
 
 class SavageRoarUptime extends Analyzer {
   constructor(...args) {
@@ -32,7 +33,7 @@ class SavageRoarUptime extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
-          Your <SpellLink id={SPELLS.SAVAGE_ROAR_TALENT.id} /> uptime can be improved. You should refresh the buff once it has reached its <dfn data-tip={`The last 30% of the DoT's duration. When you refresh during this time you don't lose any duration in the process.`}>pandemic window</dfn>, don't wait for it to wear off. Avoid spending combo points on <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> if <SpellLink id={SPELLS.SAVAGE_ROAR_TALENT.id} /> will need refreshing soon.
+          Your <SpellLink id={SPELLS.SAVAGE_ROAR_TALENT.id} /> uptime can be improved. You should refresh the buff once it has reached its <TooltipElement content="The last 30% of the DoT's duration. When you refresh during this time you don't lose any duration in the process.">pandemic window</TooltipElement>, don't wait for it to wear off. You may also consider switching to <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_FERAL.id} /> which is simpler to use and provides more damage in many situations.
         </>
       )
         .icon(SPELLS.SAVAGE_ROAR_TALENT.icon)

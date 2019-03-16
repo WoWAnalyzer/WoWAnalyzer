@@ -2,64 +2,77 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import ReactTooltip from 'react-tooltip';
-import Masonry from 'react-masonry-component';
-import Toggle from 'react-toggle';
 import { Trans, t } from '@lingui/macro';
 
-import ChecklistIcon from 'interface/icons/Checklist';
-import SuggestionIcon from 'interface/icons/Suggestion';
-import ArmorIcon from 'interface/icons/Armor';
-import StatisticsIcon from 'interface/icons/Statistics';
-
+import { findByBossId } from 'raids';
 import lazyLoadComponent from 'common/lazyLoadComponent';
 import retryingPromise from 'common/retryingPromise';
 import makeWclUrl from 'common/makeWclUrl';
+import Tooltip from 'common/Tooltip';
+import getFightName from 'common/getFightName';
+import REPORT_HISTORY_TYPES from 'interface/home/ReportHistory/REPORT_HISTORY_TYPES';
+import { appendReportHistory } from 'interface/actions/reportHistory';
 import { getResultTab } from 'interface/selectors/url/report';
 import { hasPremium } from 'interface/selectors/user';
-import ErrorBoundary from 'interface/common/ErrorBoundary';
+import Warning from 'interface/common/Alert/Warning';
 import Ad from 'interface/common/Ad';
-import WipefestLogo from 'interface/images/Wipefest-logo.png';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import ReadableList from 'interface/common/ReadableList';
+import Contributor from 'interface/contributor/Button';
+import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
+import WipefestIcon from 'interface/icons/Wipefest';
 import { i18n } from 'interface/RootLocalizationProvider';
-import Combatants from 'parser/shared/modules/Combatants';
-import Checklist from 'parser/shared/modules/features/Checklist2/Module';
-import CharacterTab from 'parser/shared/modules/features/CharacterTab';
-import EncounterPanel from 'parser/shared/modules/features/EncounterPanel';
+import LoadingBar from 'interface/layout/NavigationBar/LoadingBar';
+import Panel from 'interface/others/Panel';
+import ChangelogTab from 'interface/others/ChangelogTab';
+import ErrorBoundary from 'interface/common/ErrorBoundary';
+import Checklist from 'parser/shared/modules/features/Checklist/Module';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
-import FightNavigationBar from '../FightNavigationBar';
-import ResultsWarning from './ResultsWarning';
+import './Results.scss';
 import Header from './Header';
-import DetailsTabPanel from './DetailsTabPanel';
 import About from './About';
-import StatisticsSectionTitle from './StatisticsSectionTitle';
-import SuggestionsTab from './SuggestionsTab';
-import './Results.css';
+import Overview from './Overview';
+import Statistics from './Statistics';
+import Character from './Character';
+import EncounterStats from './EncounterStats';
+import EVENT_PARSING_STATE from '../EVENT_PARSING_STATE';
+import BOSS_PHASES_STATE from '../BOSS_PHASES_STATE';
+import ScrollToTop from './ScrollToTop';
+import TABS from './TABS';
 
-const DevelopmentTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'DevelopmentTab' */ 'interface/others/DevelopmentTab').then(exports => exports.default)));
+const TimelineTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'TimelineTab' */ './Timeline/Container').then(exports => exports.default)), 0);
 const EventsTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'EventsTab' */ 'interface/others/EventsTab').then(exports => exports.default)));
-
-const MAIN_TAB = {
-  CHECKLIST: 'CHECKLIST',
-  SUGGESTIONS: 'SUGGESTIONS',
-  CHARACTER: 'CHARACTER',
-  STATS: 'STATS',
-};
 
 class Results extends React.PureComponent {
   static propTypes = {
-    parser: PropTypes.object.isRequired,
-    selectedDetailsTab: PropTypes.string,
-    makeTabUrl: PropTypes.func.isRequired,
-    premium: PropTypes.bool,
-    characterProfile: PropTypes.shape({
-      region: PropTypes.string.isRequired,
-      thumbnail: PropTypes.string.isRequired,
+    parser: PropTypes.shape({
     }),
+    characterProfile: PropTypes.object,
+    selectedTab: PropTypes.string,
+    makeTabUrl: PropTypes.func.isRequired,
+    report: PropTypes.shape({
+      code: PropTypes.string.isRequired,
+    }).isRequired,
+    fight: PropTypes.shape({
+      start_time: PropTypes.number.isRequired,
+      end_time: PropTypes.number.isRequired,
+      boss: PropTypes.number.isRequired,
+    }).isRequired,
+    player: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    }).isRequired,
+    isLoadingParser: PropTypes.bool,
+    isLoadingEvents: PropTypes.bool,
+    bossPhaseEventsLoadingState: PropTypes.oneOf(Object.values(BOSS_PHASES_STATE)),
+    isLoadingCharacterProfile: PropTypes.bool,
+    parsingState: PropTypes.oneOf(Object.values(EVENT_PARSING_STATE)),
+    progress: PropTypes.number,
+    premium: PropTypes.bool,
+    appendReportHistory: PropTypes.func.isRequired,
   };
   static childContextTypes = {
     updateResults: PropTypes.func.isRequired,
-    parser: PropTypes.object.isRequired,
+    parser: PropTypes.object,
   };
   getChildContext() {
     return {
@@ -74,98 +87,38 @@ class Results extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      mainTab: !props.parser.getModule(Checklist, false) ? MAIN_TAB.SUGGESTIONS : MAIN_TAB.CHECKLIST,
       adjustForDowntime: false,
     };
   }
 
-  componentDidUpdate() {
-    ReactTooltip.rebuild();
+  componentDidMount() {
+    this.scrollToTop();
+    this.appendHistory(this.props.report, this.props.fight, this.props.player);
   }
-
-  renderMainTabLabel(tab) {
-    switch (tab) {
-      case MAIN_TAB.CHECKLIST:
-        return (
-          <>
-            <ChecklistIcon /> <Trans>Checklist</Trans>
-          </>
-        );
-      case MAIN_TAB.SUGGESTIONS:
-        return (
-          <>
-            <SuggestionIcon /> <Trans>Suggestions</Trans>
-          </>
-        );
-      case MAIN_TAB.CHARACTER:
-        return (
-          <>
-            <ArmorIcon /> <Trans>Character</Trans>
-          </>
-        );
-      case MAIN_TAB.STATS:
-        return (
-          <>
-            <StatisticsIcon /> <Trans>Statistics</Trans>
-          </>
-        );
-      default: return tab;
+  componentDidUpdate(prevProps, prevState, prevContext) {
+    if (this.props.selectedTab !== prevProps.selectedTab) {
+      // TODO: To improve user experience we could try to avoid scrolling when the header is still within vision.
+      this.scrollToTop();
     }
   }
-  renderFightDowntimeToggle() {
-    return (
-      <div className="toggle-control" style={{ marginTop: 5 }}>
-        <Toggle
-          defaultChecked={this.state.adjustForDowntime}
-          icons={false}
-          onChange={event => this.setState({ adjustForDowntime: event.target.checked })}
-          id="adjust-for-downtime-toggle"
-        />
-        <label htmlFor="adjust-for-downtime-toggle">
-          <Trans>Adjust statistics for <dfn data-tip={i18n._(t`Fight downtime is any forced downtime caused by fight mechanics or dying. Downtime caused by simply not doing anything is not included.`)}>fight downtime</dfn> (<dfn data-tip={i18n._(t`We're still working out the kinks of this feature, some modules might output weird results with this on. When we're finished this will be enabled by default.`)}>experimental</dfn>)</Trans>
-        </label>
-      </div>
-    );
+  scrollToTop() {
+    window.scrollTo(0, 0);
   }
-  renderStatisticGroupName(key) {
-    switch (key) {
-      case STATISTIC_CATEGORY.GENERAL: return i18n._(t`Statistics`);
-      case STATISTIC_CATEGORY.TALENTS: return i18n._(t`Talents`);
-      case STATISTIC_CATEGORY.AZERITE_POWERS: return i18n._(t`Azerite Powers`);
-      case STATISTIC_CATEGORY.ITEMS: return i18n._(t`Items`);
-      default: throw new Error(`Unknown category: ${key}`);
-    }
-  }
-  renderStatistics(statistics) {
-    const parser = this.props.parser;
 
-    const groups = statistics.reduce((obj, statistic) => {
-      const category = statistic.props.category || STATISTIC_CATEGORY.GENERAL;
-      obj[category] = obj[category] || [];
-      obj[category].push(statistic);
-      return obj;
-    }, {});
-
-    return (
-      <>
-        {Object.keys(groups).map(name => {
-          const statistics = groups[name];
-          return (
-            <React.Fragment key={name}>
-              <StatisticsSectionTitle
-                rightAddon={name === STATISTIC_CATEGORY.GENERAL && parser.hasDowntime && this.renderFightDowntimeToggle()}
-              >
-                {this.renderStatisticGroupName(name)}
-              </StatisticsSectionTitle>
-
-              <Masonry className="row statistics">
-                {statistics.sort((a, b) => a.props.position - b.props.position)}
-              </Masonry>
-            </React.Fragment>
-          );
-        })}
-      </>
-    );
+  appendHistory(report, fight, player) {
+    // TODO: Add spec and show it in the list
+    this.props.appendReportHistory({
+      code: report.code,
+      title: report.title,
+      start: Math.floor(report.start / 1000),
+      end: Math.floor(report.end / 1000),
+      fightId: fight.id,
+      fightName: getFightName(report, fight),
+      playerId: player.id,
+      playerName: player.name,
+      playerClass: player.type,
+      type: REPORT_HISTORY_TYPES.REPORT,
+    });
   }
 
   get warning() {
@@ -176,201 +129,274 @@ class Results extends React.PureComponent {
     }
     return null;
   }
+  get isLoading() {
+    return this.props.isLoadingParser
+      || this.props.isLoadingEvents
+      || this.props.bossPhaseEventsLoadingState === BOSS_PHASES_STATE.LOADING
+      || this.props.isLoadingCharacterProfile
+      || this.props.parsingState !== EVENT_PARSING_STATE.DONE;
+  }
 
-  renderChecklist() {
-    const parser = this.props.parser;
-    const checklist = parser.getModule(Checklist, false);
-    return (
-      checklist ? (
-        checklist.render()
-      ) : (
-        <div className="item-divider" style={{ padding: '10px 22px' }}>
-          <div className="alert alert-danger">
-            <Trans>The checklist for this spec is not yet available. We could use your help to add this. See <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> or join us on <a href="https://discord.gg/AxphPxU">Discord</a> if you're interested in contributing this.</Trans>
+  renderContent(selectedTab, results) {
+    const { parser, premium } = this.props;
+
+    switch (selectedTab) {
+      case TABS.OVERVIEW: {
+        if (this.isLoading) {
+          return this.renderLoadingIndicator();
+        }
+        const checklist = parser.getModule(Checklist, true);
+        return (
+          <Overview
+            checklist={checklist && checklist.render()}
+            issues={results.issues}
+          />
+        );
+      }
+      case TABS.STATISTICS:
+        if (this.isLoading) {
+          return this.renderLoadingIndicator();
+        }
+        return (
+          <Statistics parser={parser}>{results.statistics}</Statistics>
+        );
+      case TABS.TIMELINE:
+        if (this.isLoading) {
+          return this.renderLoadingIndicator();
+        }
+        return (
+          <TimelineTab parser={parser} />
+        );
+      case TABS.EVENTS:
+        if (this.isLoading) {
+          return this.renderLoadingIndicator();
+        }
+        return (
+          <div className="container">
+            <EventsTab parser={parser} />
           </div>
-        </div>
-      )
+        );
+      case TABS.CHARACTER: {
+        if (this.isLoading) {
+          return this.renderLoadingIndicator();
+        }
+        const statTracker = parser.getModule(StatTracker);
+
+        return (
+          <div className="container">
+            <Character
+              statTracker={statTracker}
+              combatant={parser.selectedCombatant}
+            />
+
+            {premium === false && (
+              <div style={{ margin: '40px 0' }}>
+                <Ad />
+              </div>
+            )}
+
+            <EncounterStats
+              currentBoss={parser.fight.boss}
+              difficulty={parser.fight.difficulty}
+              spec={parser.selectedCombatant._combatantInfo.specID}
+              duration={parser.fight.end_time - parser.fight.start_time}
+            />
+          </div>
+        );
+      }
+      case TABS.ABOUT: {
+        const config = this.context.config;
+        return (
+          <div className="container">
+            <About config={config} />
+
+            {premium === false && (
+              <div style={{ margin: '40px 0' }}>
+                <Ad />
+              </div>
+            )}
+
+            <ChangelogTab />
+          </div>
+        );
+      }
+      default: {
+        if (this.isLoading) {
+          return this.renderLoadingIndicator();
+        }
+
+        const tab = results.tabs.find(tab => tab.url === selectedTab);
+
+        return (
+          <div className="container">
+            <ErrorBoundary>
+              {tab ? tab.render() : '404 tab not found'}
+            </ErrorBoundary>
+          </div>
+        );
+      }
+    }
+  }
+  renderLoadingIndicator() {
+    const { progress, isLoadingParser, isLoadingEvents, bossPhaseEventsLoadingState, isLoadingCharacterProfile, parsingState } = this.props;
+
+    return (
+      <div className="container" style={{ marginBottom: 40 }}>
+        <Panel
+          title="Loading..."
+          className="loading-indicators"
+        >
+          <LoadingBar progress={progress} style={{ marginBottom: 30 }} />
+
+          <div className="row">
+            <div className="col-md-8">
+              Spec analyzer from WoWAnalyzer
+            </div>
+            <div className={`col-md-4 ${isLoadingParser ? 'loading' : 'ok'}`}>
+              {isLoadingParser ? 'Loading...' : 'OK'}
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-8">
+              Player events from Warcraft Logs
+            </div>
+            <div className={`col-md-4 ${isLoadingEvents ? 'loading' : 'ok'}`}>
+              {isLoadingEvents ? 'Loading...' : 'OK'}
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-8">
+              Boss events from Warcraft Logs
+            </div>
+            <div className={`col-md-4 ${bossPhaseEventsLoadingState === BOSS_PHASES_STATE.LOADING ? 'loading' : (bossPhaseEventsLoadingState === BOSS_PHASES_STATE.SKIPPED ? 'skipped' : 'ok')}`}>
+              {bossPhaseEventsLoadingState === BOSS_PHASES_STATE.SKIPPED && 'Skipped'}
+              {bossPhaseEventsLoadingState === BOSS_PHASES_STATE.LOADING && 'Loading...'}
+              {bossPhaseEventsLoadingState === BOSS_PHASES_STATE.DONE && 'OK'}
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-8">
+              Character info from Blizzard
+            </div>
+            <div className={`col-md-4 ${isLoadingCharacterProfile ? 'loading' : 'ok'}`}>
+              {isLoadingCharacterProfile ? 'Loading...' : 'OK'}
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-8">
+              Analyzing events
+            </div>
+            <div className={`col-md-4 ${parsingState === EVENT_PARSING_STATE.WAITING ? 'waiting' : (parsingState === EVENT_PARSING_STATE.PARSING ? 'loading' : 'ok')}`}>
+              {parsingState === EVENT_PARSING_STATE.WAITING && 'Waiting'}
+              {parsingState === EVENT_PARSING_STATE.PARSING && 'Loading...'}
+              {parsingState === EVENT_PARSING_STATE.DONE && 'OK'}
+            </div>
+          </div>
+        </Panel>
+      </div>
     );
   }
-  renderContent() {
-    const { parser, selectedDetailsTab, makeTabUrl, premium, characterProfile } = this.props;
-    const report = parser.report;
-    const fight = parser.fight;
-    const characterTab = parser.getModule(CharacterTab);
-    const encounterPanel = parser.getModule(EncounterPanel);
+  render() {
+    const { parser, report, fight, player, characterProfile, makeTabUrl, selectedTab, premium } = this.props;
     const config = this.context.config;
 
-    const results = parser.generateResults({
+    const boss = findByBossId(fight.boss);
+
+    const results = !this.isLoading && parser.generateResults({
       i18n, // TODO: Remove and use singleton
       adjustForDowntime: this.state.adjustForDowntime,
     });
 
-    results.tabs.push({
-      title: i18n._(t`Events`),
-      url: 'events',
-      order: 99999,
-      render: () => (
-        <EventsTab
-          parser={parser}
-        />
-      ),
-    });
-    if (process.env.NODE_ENV === 'development') {
-      results.tabs.push({
-        title: i18n._(t`Development`),
-        url: 'development',
-        order: 100000,
-        render: () => (
-          <DevelopmentTab
-            parser={parser}
-            results={results}
-          />
-        ),
-      });
-    }
+    const contributorinfo = <ReadableList>{(config.contributors.length !== 0) ? config.contributors.map(contributor => <Contributor key={contributor.nickname} {...contributor} />) : 'CURRENTLY UNMAINTAINED'}</ReadableList>;
 
     return (
-      <div key={this.state.adjustForDowntime}>
-        <div className="row">
-          <div className="col-md-4">
-            <About config={config} />
+      <div className={`results boss-${fight.boss}`}>
+        <Header
+          config={config}
+          name={player.name}
+          characterProfile={characterProfile}
+          boss={boss}
+          fight={fight}
+          tabs={results ? results.tabs : []}
+          makeTabUrl={makeTabUrl}
+          selectedTab={selectedTab}
+        />
 
-            <div>
-              <a
-                href={makeWclUrl(report.code, { fight: fight.id, source: parser.playerId })}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn"
-                style={{ fontSize: 24 }}
-                data-tip={i18n._(t`View the original report`)}
-              >
-                <img src="/img/wcl.png" alt="Warcraft Logs logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Warcraft Logs
-              </a>
-              {' '}
-              <a
-                href={`https://www.wipefest.net/report/${report.code}/fight/${fight.id}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn"
-                style={{ fontSize: 24 }}
-                data-tip={i18n._(t`View insights and timelines for raid encounters`)}
-              >
-                <img src={WipefestLogo} alt="Wipefest logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> Wipefest
-              </a>
-              {' '}
-              {characterProfile && characterProfile.realm && characterProfile.name && characterProfile.region && (
-                <Link
-                  to={`/character/${characterProfile.region.toUpperCase()}/${characterProfile.realm}/${characterProfile.name}/`}
-                  data-tip={`View ${characterProfile.realm} - ${characterProfile.name}'s most recent reports`}
-                  className="btn"
-                  style={{ fontSize: 24 }}
-                >
-                  <img src="/favicon.png" alt="WoWAnalyzer logo" style={{ height: '1.4em', marginTop: '-0.15em' }} /> {characterProfile.name}
-                </Link>
-              )}
-            </div>
+        {boss && boss.fight.resultsWarning && (
+          <div className="container">
+            <Warning style={{ marginBottom: 30 }}>
+              {boss.fight.resultsWarning}
+            </Warning>
           </div>
-          <div className="col-md-8">
-            <div className="panel tabbed">
-              <div className="panel-body flex" style={{ flexDirection: 'column', padding: '0' }}>
-                <div className="navigation item-divider">
-                  <div className="flex" style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-                    {Object.values(MAIN_TAB).map(tab => (
-                      <button
-                        key={tab}
-                        className={this.state.mainTab === tab ? 'btn-link selected' : 'btn-link'}
-                        onClick={() => {
-                          this.setState({
-                            mainTab: tab,
-                          });
-                        }}
-                      >
-                        {this.renderMainTabLabel(tab)}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                <div>
-                  <ResultsWarning warning={this.warning} />
-                  <ErrorBoundary>
-                    {this.state.mainTab === MAIN_TAB.CHECKLIST && this.renderChecklist()}
-                    {this.state.mainTab === MAIN_TAB.SUGGESTIONS && <SuggestionsTab issues={results.issues} />}
-                    {this.state.mainTab === MAIN_TAB.CHARACTER && characterTab.render()}
-                    {this.state.mainTab === MAIN_TAB.STATS && encounterPanel.render()}
-                  </ErrorBoundary>
-                </div>
+        )}
+
+        {this.renderContent(selectedTab, results)}
+
+        {premium === false && (
+          <div className="container" style={{ marginTop: 20 }}>
+            <Ad />
+          </div>
+        )}
+
+        <div className="container" style={{ marginTop: 40 }}>
+          <div className="row">
+            <div className="col-md-8">
+              <small>Provided by</small>
+              <div style={{ fontSize: 16 }}>
+                <Trans>{config.spec.specName} {config.spec.className} analysis has been provided by {contributorinfo}. They love hearing what you think, so please let them know! <Link to={makeTabUrl('about')}>More information about this spec's analyzer.</Link></Trans>
               </div>
+            </div>
+            <div className="col-md-3">
+              <small>View on</small><br />
+              <Tooltip content={i18n._(t`Opens in a new tab. View the original report.`)}>
+                <a
+                  href={makeWclUrl(report.code, { fight: fight.id, source: parser ? parser.playerId : undefined })}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn"
+                  style={{ fontSize: 20, padding: '6px 0' }}
+                >
+                  <WarcraftLogsIcon style={{ height: '1.2em', marginTop: '-0.1em' }} /> Warcraft Logs
+                </a>
+              </Tooltip><br />
+              <Tooltip content={i18n._(t`Opens in a new tab. View insights and timelines for raid encounters.`)}>
+                <a
+                  href={`https://www.wipefest.net/report/${report.code}/fight/${fight.id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn"
+                  style={{ fontSize: 20, padding: '6px 0' }}
+                >
+                  <WipefestIcon style={{ height: '1.2em', marginTop: '-0.1em' }} /> Wipefest
+                </a>
+              </Tooltip>
+            </div>
+            <div className="col-md-1">
+              <Tooltip content={<Trans>Scroll back to the top.</Trans>}>
+                <ScrollToTop />
+              </Tooltip>
             </div>
           </div>
         </div>
 
         {premium === false && (
-          <div className="text-center" style={{ marginTop: 40 }}>
-            <Ad />
-          </div>
-        )}
-
-        {this.renderStatistics(results.statistics)}
-
-        {premium === false && (
-          <div className="text-center" style={{ marginTop: 40 }}>
-            <Ad />
-          </div>
-        )}
-
-        <StatisticsSectionTitle>
-          <Trans>Details</Trans>
-        </StatisticsSectionTitle>
-
-        <DetailsTabPanel
-          tabs={results.tabs}
-          selected={selectedDetailsTab}
-          makeTabUrl={makeTabUrl}
-        />
-
-        {premium === false && (
-          <div className="text-center" style={{ marginTop: 40 }}>
+          <div className="container" style={{ marginTop: 40 }}>
             <Ad />
           </div>
         )}
       </div>
     );
   }
-  render() {
-    const { parser, characterProfile } = this.props;
-    const fight = parser.fight;
-    const config = this.context.config;
-    const combatants = parser.getModule(Combatants);
-    const selectedCombatant = combatants.selected;
-
-    return (
-      <>
-        {/* TODO: Put this in a higher component such as ConfigLoader to make it easier to switch fights early */}
-        <FightNavigationBar />
-
-        <div className="container">
-          <div className="results">
-            <Header
-              config={config}
-              playerName={selectedCombatant.name}
-              playerIcon={characterProfile && characterProfile.thumbnail ? `https://render-${characterProfile.region}.worldofwarcraft.com/character/${characterProfile.thumbnail}` : null}
-              boss={parser.boss}
-              fight={fight}
-            />
-
-            {this.renderContent()}
-          </div>
-        </div>
-      </>
-    );
-  }
 }
 
 const mapStateToProps = state => ({
-  selectedDetailsTab: getResultTab(state),
+  selectedTab: getResultTab(state),
   premium: hasPremium(state),
 });
 
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  {
+    appendReportHistory,
+  }
 )(Results);

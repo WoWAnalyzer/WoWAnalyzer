@@ -1,5 +1,5 @@
 import React from 'react';
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs } from 'CONTRIBUTORS';
+import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -7,6 +7,91 @@ import SpellLink from 'common/SpellLink';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  {
+    date: new Date('2019-03-16'),
+    changes: <>Restructured the server setup to eliminate API downtime. The source code for the server can now be found <a href="https://github.com/WoWAnalyzer/server">here</a>.</>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-03-16'),
+    changes: 'Show "TOP 100" in the throughput bar performance when eligible.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-03-15'),
+    changes: 'Fixed an issue where the azerite levels didn\'t show up in the player selection.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-03-14'),
+    changes: 'Fixed an issue that lead to not all azerite power icons showing up properly on the character tab.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-03-14'),
+    changes: 'Fixed a crash in player selection when WCL sent corrupt player info.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-03-14'),
+    changes: 'Fixed a crash when adblock is enabled.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-03-14'),
+    changes: 'Fixed the layout of the "outdated patch" warning screen.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-03-14'),
+    changes: 'Fixed a crash on initial load in Microsoft Edge.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-03-13'),
+    changes: 'Updated Discord link description text.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-03-13'),
+    changes: 'Fallback to ads for our Premium when adblock is enabled.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-03-13'),
+    changes: 'Replaced the statistics ad with an in-feed ad that better fits the layout.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-03-13'),
+    changes: 'Replaced the Patreon page links with direct join links to make it easier to sign up.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-03-12'),
+    changes: 'Fixed a crash on the results page when the player info received from Warcraft Logs is corrupt (now it shows an alert instead).',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-03-12'),
+    changes: 'Fixed a crash on the statistics tab when WCL has no rankings data (e.g. due to the 8.1.5 partitioning).',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-03-10'),
+    changes: 'WoWAnalyzer 3.0! This is the biggest update since the release, featuring a completely new interface, with a new logo, color scheme, and various new pages and improvements to the results page including a complete rework of the timeline. Many people worked on this, thanks so much to everyone who contributed!',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-03-2'),
+    changes: <>Hide checklist rules if all of the requirements beneath them are hidden/disabled.</>,
+    contributors: [Sharrq],
+  },
+  {
+    date: new Date('2019-02-24'),
+    changes: <>Added composition details to raid composition screen showing role counts and avarage ilvl.</>,
+    contributors: [Dorixius],
+  },
   {
     date: new Date('2019-02-15'),
     changes: <>If Warcraft Logs sends a corrupt JSON message, try to automatically decorrupt it.</>,
@@ -334,7 +419,7 @@ export default [
   },
   {
     date: new Date('2018-07-19'),
-    changes: <>Fixed a crash when wearing <ItemLink id={ITEMS.DRAPE_OF_SHAME.id} />.</>,
+    changes: <>Fixed a crash when wearing Drape of Shame.</>,
     contributors: [Zerotorescue],
   },
   {

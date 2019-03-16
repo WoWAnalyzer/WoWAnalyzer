@@ -1,10 +1,14 @@
 import React from 'react';
+import { Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import UpArrowIcon from 'interface/icons/UpArrow';
+import PlusIcon from 'interface/icons/Plus';
 import Analyzer from 'parser/core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import Abilities from '../Abilities';
 import PaladinAbilityTracker from '../core/PaladinAbilityTracker';
@@ -16,6 +20,44 @@ class DirectBeaconHealing extends Analyzer {
     abilities: Abilities,
   };
 
+  get beaconTransferingAbilities() {
+    return this.abilities.activeAbilities
+      .filter(ability => BEACON_TRANSFERING_ABILITIES[ability.spell.id] !== undefined);
+  }
+  get totalFoLHLOnBeaconPercentage() {
+    const abilityTracker = this.abilityTracker;
+    const getCastCount = spellId => abilityTracker.getAbility(spellId);
+
+    let casts = 0;
+    let castsOnBeacon = 0;
+
+    this.beaconTransferingAbilities
+      .filter(ability => [SPELLS.FLASH_OF_LIGHT.id, SPELLS.HOLY_LIGHT.id].includes(ability.spell.id))
+      .forEach(ability => {
+        const castCount = getCastCount(ability.spell.id);
+        casts += castCount.healingHits || 0;
+        castsOnBeacon += castCount.healingBeaconHits || 0;
+      });
+
+    return castsOnBeacon / casts;
+  }
+  get totalOtherSpellsOnBeaconPercentage() {
+    const abilityTracker = this.abilityTracker;
+    const getCastCount = spellId => abilityTracker.getAbility(spellId);
+
+    let casts = 0;
+    let castsOnBeacon = 0;
+
+    this.beaconTransferingAbilities
+      .filter(ability => ![SPELLS.FLASH_OF_LIGHT.id, SPELLS.HOLY_LIGHT.id].includes(ability.spell.id))
+      .forEach(ability => {
+        const castCount = getCastCount(ability.spell.id);
+        casts += castCount.healingHits || 0;
+        castsOnBeacon += castCount.healingBeaconHits || 0;
+      });
+
+    return castsOnBeacon / casts;
+  }
   get totalHealsOnBeaconPercentage() {
     const abilityTracker = this.abilityTracker;
     const getCastCount = spellId => abilityTracker.getAbility(spellId);
@@ -23,13 +65,11 @@ class DirectBeaconHealing extends Analyzer {
     let casts = 0;
     let castsOnBeacon = 0;
 
-    this.abilities.activeAbilities
-      .filter(ability => BEACON_TRANSFERING_ABILITIES[ability.spell.id] !== undefined)
-      .forEach(ability => {
-        const castCount = getCastCount(ability.spell.id);
-        casts += castCount.healingHits || 0;
-        castsOnBeacon += castCount.healingBeaconHits || 0;
-      });
+    this.beaconTransferingAbilities.forEach(ability => {
+      const castCount = getCastCount(ability.spell.id);
+      casts += castCount.healingHits || 0;
+      castsOnBeacon += castCount.healingBeaconHits || 0;
+    });
 
     return castsOnBeacon / casts;
   }
@@ -48,37 +88,46 @@ class DirectBeaconHealing extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds.actual).isGreaterThan(this.suggestionThresholds.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest('You cast a lot of direct heals on beacon targets. Direct healing beacon targets is inefficient. Try to only cast on beacon targets when they would otherwise die.')
+        return suggest(<Trans>You cast a lot of direct heals on beacon targets. Direct healing beacon targets is inefficient. Try to only cast on beacon targets when they would otherwise die.</Trans>)
           .icon('ability_paladin_beaconoflight')
-          .actual(`${formatPercentage(actual)}% of all your healing spell casts were on a beacon target`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`)
+          .actual(<Trans>{formatPercentage(actual)}% of all your healing spell casts were on a beacon target</Trans>)
+          .recommended(<Trans>&lt;{formatPercentage(recommended)}% is recommended</Trans>)
           .regular(this.suggestionThresholds.isGreaterThan.average).major(this.suggestionThresholds.isGreaterThan.major);
       });
   }
   statistic() {
-    const abilityTracker = this.abilityTracker;
-    const getAbility = spellId => abilityTracker.getAbility(spellId);
-
-    const flashOfLight = getAbility(SPELLS.FLASH_OF_LIGHT.id);
-    const holyLight = getAbility(SPELLS.HOLY_LIGHT.id);
-
-    const flashOfLightHeals = flashOfLight.casts || 0;
-    const holyLightHeals = holyLight.casts || 0;
-    const totalFolsAndHls = flashOfLightHeals + holyLightHeals;
-
-    const beaconFlashOfLights = flashOfLight.healingBeaconHits || 0;
-    const beaconHolyLights = holyLight.healingBeaconHits || 0;
-    const totalFolsAndHlsOnBeacon = beaconFlashOfLights + beaconHolyLights;
-    const totalHealsOnBeaconPercentage = this.totalHealsOnBeaconPercentage;
-
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(50)}
-        icon={<SpellIcon id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id} />}
-        value={`${formatPercentage(totalHealsOnBeaconPercentage)} %`}
-        label="Direct beacon healing"
-        tooltip={`The amount of heals cast on beacon targets. ${formatPercentage(totalFolsAndHlsOnBeacon / totalFolsAndHls)} % of your Flash of Lights and Holy Lights were cast on a beacon target. You cast ${beaconFlashOfLights} Flash of Lights and ${beaconHolyLights} Holy Lights on beacon targets.`}
-      />
+        size="small"
+      >
+        <div className="pad">
+          <div className="pull-right">
+            <PlusIcon />{' '}
+            <UpArrowIcon style={{ transform: 'rotate(90deg)' }} />{' '}
+            <SpellIcon id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id} />
+          </div>
+          <label><Trans>Direct beacon healing</Trans></label>
+
+          <div className="flex" style={{ marginTop: -10 }}>
+            <div className="flex-main value" style={{ marginRight: 15 }}>
+              {formatPercentage(this.totalHealsOnBeaconPercentage, 0)}%
+            </div>
+            <div className="flex-main">
+              <div className="flex pull-right text-center" style={{ whiteSpace: 'nowrap' }}>
+                <div className="flex-main" style={{ marginRight: 15 }}>
+                  <small><Trans>HL/FoL</Trans></small>
+                  <div className="value" style={{ fontSize: '1em' }}>{formatPercentage(this.totalFoLHLOnBeaconPercentage, 0)}%</div>
+                </div>
+                <div className="flex-main">
+                  <small><Trans>Other spells</Trans></small>
+                  <div className="value" style={{ fontSize: '1em' }}>{formatPercentage(this.totalOtherSpellsOnBeaconPercentage, 0)}%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Statistic>
     );
   }
 }

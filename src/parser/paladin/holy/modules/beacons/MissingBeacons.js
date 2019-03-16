@@ -1,4 +1,5 @@
 import React from 'react';
+import { Trans } from '@lingui/macro';
 
 import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
@@ -35,13 +36,16 @@ class MissingBeacons extends Analyzer {
       // Normally we don't want optional statistics, but this is an exception as this giving any results is very rare.
       return null;
     }
+
+    const lostBeaconHealing = this.owner.formatItemHealingDone(this.lostBeaconHealing);
+
     return (
       <StatisticBox
         position={STATISTIC_ORDER.UNIMPORTANT(0)}
         icon={<SpellIcon id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id} />}
-        value={<span style={{ fontSize: '75%' }}>Up to {this.owner.formatItemHealingDone(this.lostBeaconHealing)}</span>}
-        label="Beacon healing lost (missing beacon)"
-        tooltip={'The amount of <b>raw</b> healing that didn\'t transfer to one or more beacon targets due to a missing beacon. When a beacon drops, re-apply it quickly.'}
+        value={<span style={{ fontSize: '75%' }}><Trans>Up to {lostBeaconHealing}</Trans></span>}
+        label={<Trans>Beacon healing lost (missing beacon)</Trans>}
+        tooltip={<Trans>The amount of <strong>raw</strong> healing that didn't transfer to one or more beacon targets due to a missing beacon. When a beacon drops, re-apply it quickly.</Trans>}
       />
     );
   }

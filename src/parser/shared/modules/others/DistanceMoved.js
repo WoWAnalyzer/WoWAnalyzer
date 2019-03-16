@@ -1,51 +1,32 @@
 import React from 'react';
+import { XYPlot, AreaSeries } from 'react-vis';
+import { AutoSizer } from 'react-virtualized';
+import 'react-vis/dist/style.css';
 
-import Icon from 'common/Icon';
 import { formatPercentage, formatThousands } from 'common/format';
-
-import Analyzer from 'parser/core/Analyzer';
-
-import { STATISTIC_ORDER } from 'interface/others/SmallStatisticBox';
-import StatisticWrapper from 'interface/others/StatisticWrapper';
+import groupDataForChart from 'common/groupDataForChart';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 
 const debug = false;
 
 class DistanceMoved extends Analyzer {
-  lastPositionUpdate = null;
+  lastPosition = null;
   lastPositionChange = null;
   totalDistanceMoved = 0;
   timeSpentMoving = 0;
+  bySecond = {};
 
-  // Events
-  on_cast(event) {
-    if (this.owner.byPlayer(event)) {
-      this.updatePlayerPosition(event);
-    }
-  }
-
-  on_damage(event) {
-    if (this.owner.toPlayer(event)) {
-      // Damage coordinates are for the target, so they are only accurate when done TO player
-      this.updatePlayerPosition(event);
-    }
-  }
-
-  on_energize(event) {
-    if (this.owner.toPlayer(event)) {
-      this.updatePlayerPosition(event);
-    }
-  }
-
-  on_heal(event) {
-    if (this.owner.toPlayer(event)) {
-      this.updatePlayerPosition(event);
-    }
-  }
-
-  on_absorbed(event) {
-    if (this.owner.toPlayer(event)) {
-      this.updatePlayerPosition(event);
-    }
+  constructor(options) {
+    super(options);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.updatePlayerPosition);
+    // These coordinates are for the target, so they are only accurate when done TO player
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.updatePlayerPosition);
+    this.addEventListener(Events.energize.to(SELECTED_PLAYER), this.updatePlayerPosition);
+    this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.updatePlayerPosition);
+    this.addEventListener(Events.absorbed.to(SELECTED_PLAYER), this.updatePlayerPosition);
   }
 
   timeSinceLastMovement() {
@@ -58,13 +39,15 @@ class DistanceMoved extends Analyzer {
   }
 
   updateTotalDistance(event) {
-    if (!this.lastPositionUpdate) {
+    if (!this.lastPosition) {
       return;
     }
-    const distanceMoved = this.calculateDistance(this.lastPositionUpdate.x, this.lastPositionUpdate.y, event.x, event.y);
+    const distanceMoved = this.calculateDistance(this.lastPosition.x, this.lastPosition.y, event.x, event.y);
     if (distanceMoved !== 0) {
-      this.timeSpentMoving += event.timestamp - this.lastPositionUpdate.timestamp;
+      this.timeSpentMoving += event.timestamp - this.lastPosition.timestamp;
       this.totalDistanceMoved += distanceMoved;
+      const secondsIntoFight = Math.floor((event.timestamp - this.owner.fight.start_time) / 1000);
+      this.bySecond[secondsIntoFight] = (this.bySecond[secondsIntoFight] || 0) + distanceMoved;
     }
   }
 
@@ -73,48 +56,59 @@ class DistanceMoved extends Analyzer {
       return;
     }
     this.updateTotalDistance(event);
-    if (!this.lastPositionChange || event.x !== this.lastPositionChange.x || event.y !== this.lastPositionChange.y) {
+    if (!this.lastPositionChange || this.lastPositionChange.x !== event.x || this.lastPositionChange.y !== event.y) {
       this.lastPositionChange = event;
     }
-    this.lastPositionUpdate = event;
+    this.lastPosition = event;
   }
 
   statistic() {
-    const dist_value = `≈${formatThousands(this.totalDistanceMoved)} yards`;
-    const dist_label = 'Distance moved';
-    const dist_tooltip = `≈${formatThousands(this.totalDistanceMoved / (this.owner.fightDuration / 1000) * 60)} yards per minute. Consider this when analyzing the fight, as some fights require more movement than others. Unnecessary movement can result in a DPS/HPS loss.`;
-    const dist_icon = <Icon icon="spell_fire_burningspeed" />;
+    debug && console.log(`Time spent moving: ${this.timeSpentMoving / 1000}s, Total distance moved: ${this.totalDistanceMoved} yds`);
 
-    const timeMoving_value = `≈${formatPercentage(this.timeSpentMoving / (this.owner.fightDuration))}%`;
-    const timeMoving_label = 'Time spent moving';
-    const timeMoving_tooltip = `In ≈${formatThousands(this.timeSpentMoving / 1000)} seconds of movement you moved ≈${formatThousands(this.totalDistanceMoved)} yards. This statistic is not entirely accurate and may be overstated for fights with lots of problems.`;
-    const timeMoving_icon = <Icon icon="inv_misc_pocketwatch_02" />;
-
-    debug && console.log(`Time spent moving: ${this.timeSpentMoving / 1000} s, Total distance moved: ${this.totalDistanceMoved} yds`);
+    const groupedData = groupDataForChart(this.bySecond, this.owner.fightDuration);
 
     return (
-      <StatisticWrapper position={STATISTIC_ORDER.UNIMPORTANT()}>
-        <div className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-          <div className="panel statistic-box small">
-            <div className="panel-body flex wrapable">
-              <div className="flex-main">
-                {dist_icon} {dist_label}
-              </div>
-              <div className="flex-sub text-right">
-                {dist_tooltip ? <dfn data-tip={dist_tooltip}>{dist_value}</dfn> : dist_value}
-              </div>
-            </div>
-            <div className="panel-body flex wrapable">
-              <div className="flex-main">
-                {timeMoving_icon} {timeMoving_label}
-              </div>
-              <div className="flex-sub text-right">
-                {timeMoving_tooltip ? <dfn data-tip={timeMoving_tooltip}>{timeMoving_value}</dfn> : timeMoving_value}
-              </div>
-            </div>
+      <Statistic
+        position={STATISTIC_ORDER.UNIMPORTANT()}
+        tooltip={(
+          <>
+            Consider this when analyzing the fight, as some fights require more movement than others. Unnecessary movement can result in a DPS/HPS loss.<br /><br />
+
+            In ≈{formatThousands(this.timeSpentMoving / 1000)} seconds of movement you moved ≈{formatThousands(this.totalDistanceMoved)} yards (≈{formatThousands(this.totalDistanceMoved / (this.owner.fightDuration / 1000) * 60)} yards per minute). This statistic may not be entirely accurate for fights with lots of problems.
+          </>
+        )}
+      >
+        <div className="pad">
+          <label>Distance moved</label>
+
+          <div className="value">
+            ≈ {formatThousands(this.totalDistanceMoved)} yards
+            <small style={{ marginLeft: 15 }}>
+              ≈ {formatPercentage(this.timeSpentMoving / (this.owner.fightDuration))}%
+            </small>
+          </div>
+
+          <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, width: '100%', height: '45%' }}>
+            <AutoSizer>
+              {({ width, height }) => (
+                <XYPlot
+                  margin={0}
+                  width={width}
+                  height={height}
+                >
+                  <AreaSeries
+                    data={Object.keys(groupedData).map(x => ({
+                      x: x / width,
+                      y: groupedData[x],
+                    }))}
+                    className="primary"
+                  />
+                </XYPlot>
+              )}
+            </AutoSizer>
           </div>
         </div>
-      </StatisticWrapper>
+      </Statistic>
     );
   }
 }

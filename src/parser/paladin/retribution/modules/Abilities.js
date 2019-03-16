@@ -19,7 +19,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
-          extraSuggestion: 'It has a high damage per execute time and generates a lot of holy power. It is better to waste 1-2 holy power than to hold the ability. Only hold the ability if adds are coming out in less than 3 seconds',
+          extraSuggestion: 'It has a high damage per execute time and generates a lot of Holy Power. You should never waste more than 1 Holy Power. Only hold the ability if adds are coming out in 15 seconds or less.',
         },
       },
       {
@@ -231,6 +231,20 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.GREATER_BLESSING_OF_WISDOM,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.GREATER_BLESSING_OF_KINGS,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
         spell: SPELLS.BLESSING_OF_PROTECTION,
         buffSpellId: SPELLS.BLESSING_OF_PROTECTION.id,
         isDefensive: true,
@@ -252,6 +266,11 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HAND_OF_RECKONING,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 8,
+      },
+      {
+        spell: SPELLS.REBUKE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 15,
       },
       {
         spell: SPELLS.DIVINE_SHIELD,

@@ -41,11 +41,11 @@ class CancelledCasts extends CoreCancelledCasts {
   }
 
   statistic() {
-    const tooltipText = Object.keys(this.cancelledSpellList).map(cancelledSpell =>
-      `<li>
-        ${this.cancelledSpellList[cancelledSpell].spellName}: ${this.cancelledSpellList[cancelledSpell].amount}
-      </li>`
-    ).join(' ');
+    const tooltipText = Object.keys(this.cancelledSpellList).map(cancelledSpell => (
+      <li>
+        {this.cancelledSpellList[cancelledSpell].spellName}: {this.cancelledSpellList[cancelledSpell].amount}
+      </li>
+    ));
 
     return (
       <StatisticBox
@@ -53,7 +53,14 @@ class CancelledCasts extends CoreCancelledCasts {
         icon={<Icon icon="inv_misc_map_01" />}
         value={`${formatPercentage(this.cancelledPercentage)}%`}
         label="Cancelled Casts"
-        tooltip={`You started casting a total of ${this.totalCasts} spells with a cast timer. You cancelled ${this.castsCancelled} of those casts. <ul>${tooltipText}</ul>`}
+        tooltip={(
+          <>
+            You started casting a total of {this.totalCasts} spells with a cast timer. You cancelled {this.castsCancelled} of those casts.
+            <ul>
+              {tooltipText}
+            </ul>
+          </>
+        )}
       />
     );
   }

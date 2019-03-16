@@ -1,5 +1,4 @@
 import MainCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/shared/modules/DamageDone';
 // core
 import Haste from './modules/core/Haste';
 import AbilityTracker from './modules/core/AbilityTracker';
@@ -42,7 +41,6 @@ class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // core
     haste: Haste,
-    damageDone: [DamageDone, { showStatistic: true }],
     abilityTracker: AbilityTracker,
     insanity: Insanity,
     channeling: Channeling,

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './LoadingBar.css';
+import './LoadingBar.scss';
 
 class LoadingBar extends React.PureComponent {
   static propTypes = {
@@ -28,7 +28,7 @@ class LoadingBar extends React.PureComponent {
   }
 
   render() {
-    const { progress, chunks } = this.props;
+    const { progress, chunks, ...others } = this.props;
 
     const progressPerChunk = 1 / chunks;
 
@@ -36,6 +36,7 @@ class LoadingBar extends React.PureComponent {
       <div
         className="LoadingBar"
         data-progress={progress}
+        {...others}
       >
         {this.state.chunksArray.map((_, chunk) => {
           const startProgress = chunk * progressPerChunk;

@@ -2,9 +2,8 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-
 import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBreakdown';
 import ChiTracker from './ChiTracker';
 
@@ -39,8 +38,8 @@ class ChiDetails extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest('You are wasting Chi. Try to use it and not let it cap and go to waste')
         .icon('creatureportrait_bubble')
-        .actual(`${this.chiWasted} Chi wasted (${actual} per minute)`)
-        .recommended(`${recommended.toFixed(2)} Chi wasted is recommended`);
+        .actual(`${this.chiWasted} Chi wasted (${(actual.toFixed(2))} per minute)`)
+        .recommended(`${recommended} Chi wasted is recommended`);
     });
   }
 
@@ -65,13 +64,13 @@ class ChiDetails extends Analyzer {
       title: 'Chi',
       url: 'chi',
       render: () => (
-        <Tab>
+        <Panel>
           <ResourceBreakdown
             tracker={this.chiTracker}
             resourceName="Chi"
             showSpenders
           />
-        </Tab>
+        </Panel>
       ),
     };
   }

@@ -52,10 +52,15 @@ class Inferno extends Analyzer {
       <StatisticListBoxItem
         title={<><strong>Estimated</strong> bonus fragments from <SpellLink id={SPELLS.INFERNO_TALENT.id} /></>}
         value={fragments}
-        valueTooltip={`While majority of sources of Soul Shard Fragments are certain, chance based sources (Inferno and Immolate crits) make tracking the fragments 100% correctly impossible (fragment generation is NOT in logs).<br /><br />
-            If you used all these bonus fragments on Chaos Bolts, they would do ${formatThousands(estimatedChaosBoltDamage)} damage (${this.owner.formatItemDamageDone(estimatedChaosBoltDamage)}).<br />
-            If you used them on Rain of Fires, they would do ${formatThousands(estimatedRofDamage)} damage (${this.owner.formatItemDamageDone(estimatedRofDamage)}) <strong>assuming an average of ${this.rainOfFire.averageTargetsHit.toFixed(2)} targets</strong>.<br />
-            Both of these estimates are based on average damage of respective spells during the fight.`}
+        valueTooltip={(
+          <>
+            While majority of sources of Soul Shard Fragments are certain, chance based sources (Inferno and Immolate crits) make tracking the fragments 100% correctly impossible (fragment generation is NOT in logs).<br /><br />
+
+            If you used all these bonus fragments on Chaos Bolts, they would do {formatThousands(estimatedChaosBoltDamage)} damage ({this.owner.formatItemDamageDone(estimatedChaosBoltDamage)}).<br />
+            If you used them on Rain of Fires, they would do {formatThousands(estimatedRofDamage)} damage ({this.owner.formatItemDamageDone(estimatedRofDamage)}) <strong>assuming an average of {this.rainOfFire.averageTargetsHit.toFixed(2)} targets</strong>.<br />
+            Both of these estimates are based on average damage of respective spells during the fight.
+          </>
+        )}
       />
     );
   }

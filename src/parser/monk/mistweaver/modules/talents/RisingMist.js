@@ -1,8 +1,7 @@
 import React from 'react';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import StatisticBox from 'interface/others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
-import SpellIcon from 'common/SpellIcon';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
 import SPELLS from 'common/SPELLS';
 
@@ -109,24 +108,26 @@ class RisingMist extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <TalentStatisticBox
+        talent={SPELLS.RISING_MIST_TALENT.di}
         position={STATISTIC_ORDER.CORE(10)}
-        icon={<SpellIcon id={SPELLS.RISING_MIST_TALENT.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalHealing))}%`}
         label="Healing Contributed"
-        tooltip={
-          `Your ${this.risingMistCount} Rising Sun Kick casts contributed the following healing:
-          <ul>
-            <li>HoT Extension Healing: ${formatNumber(this.hotHealing)}</li>
-            <li>Rising Mist Direct Healing: ${formatNumber(this.directHealing)}</li>
-            <li>Average HoT Extension Seconds per cast: ${this.averageExtension.toFixed(2)}</li>
+        tooltip={(
+          <>
+            Your {this.risingMistCount} Rising Sun Kick casts contributed the following healing:
             <ul>
-            <li>Essense Font HoTs Extended: ${this.efCount}</li>
-            <li>Renewing Mist HoTs Extended: ${this.remCount}</li>
-            <li>Enveloping Mist HoTs Extended: ${this.evmCount}</li>
+              <li>HoT Extension Healing: {formatNumber(this.hotHealing)}</li>
+              <li>Rising Mist Direct Healing: {formatNumber(this.directHealing)}</li>
+              <li>Average HoT Extension Seconds per cast: {this.averageExtension.toFixed(2)}</li>
+              <ul>
+                <li>Essense Font HoTs Extended: {this.efCount}</li>
+                <li>Renewing Mist HoTs Extended: {this.remCount}</li>
+                <li>Enveloping Mist HoTs Extended: {this.evmCount}</li>
+              </ul>
             </ul>
-          </ul>`
-        }
+          </>
+        )}
       />
     );
   }

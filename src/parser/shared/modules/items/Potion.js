@@ -1,5 +1,6 @@
 import Analyzer from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
+import Buffs from 'parser/core/modules/Buffs';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
@@ -7,15 +8,21 @@ const ONE_HOUR_MS = 3600000; // one hour
 const COOLDOWN_MS = 60000; // one minute
 
 /**
- * Abstract class for potions and healthstone. 
+ * Abstract class for potions and healthstone.
  * There are three different categories of pots that share cooldown:
  * Healthstones, health pots and combat pots (DPS, HPS, mana and mitigation).
  * pot cooldown is one minute, but the cooldown does not start until the
  * actor is out of combat or dead.
+ *
+ * @property {Abilities} abilities
+ * @property {Buffs} buffs
+ * @property {SpellUsable} spellUsable
+ * @property {AbilityTracker} abilityTracker
  */
 class Potion extends Analyzer {
   static dependencies = {
     abilities: Abilities,
+    buffs: Buffs,
     spellUsable: SpellUsable,
     abilityTracker: AbilityTracker,
   };
@@ -31,13 +38,26 @@ class Potion extends Analyzer {
     this.abilities.add({
       spell: this.constructor.spells,
       category: Abilities.SPELL_CATEGORIES.CONSUMABLE,
-      cooldown: ONE_HOUR_MS / 1000, // The cooldown does not start while in combat so setting it to one hour.
+      cooldown: (_, cooldownTriggerEvent) => {
+        if (cooldownTriggerEvent && cooldownTriggerEvent.prepull) {
+          return 60;
+        }
+
+        // The cooldown does not start while in combat so setting it to one hour.
+        return ONE_HOUR_MS / 1000;
+      },
       castEfficiency: {
         suggestion: false,
         maxCasts: () => this.maxCasts,
       },
       ...this.constructor.extraAbilityInfo,
     });
+    if (this.constructor.extraAbilityInfo.buffSpellId) {
+      this.buffs.add({
+        spellId: this.constructor.extraAbilityInfo.buffSpellId,
+        triggeredBySpellId: this.constructor.spells.map(spell => spell.id),
+      });
+    }
   }
 
   get spellId() {

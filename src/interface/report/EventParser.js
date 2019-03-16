@@ -1,36 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { Trans } from '@lingui/macro';
 import ExtendableError from 'es6-error';
 
-import { makeCharacterApiUrl } from 'common/makeApiUrl';
-import { makeWclBossPhaseFilter } from 'common/makeWclBossPhaseFilter';
-import { fetchEvents, LogNotFoundError } from 'common/fetchWclApi';
-import { fabricateBossPhaseEvents } from 'common/fabricateBossPhaseEvents';
-import { captureException } from 'common/errorLogger';
-import getFightName from 'common/getFightName';
 import sleep from 'common/sleep';
+import { captureException } from 'common/errorLogger';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import REPORT_HISTORY_TYPES from 'interface/home/ReportHistory/REPORT_HISTORY_TYPES';
-import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
-import { setReportProgress } from 'interface/actions/reportProgress';
-import { appendReportHistory } from 'interface/actions/reportHistory';
 
-import Ghuun from './images/Ghuun.gif';
-import handleApiError from './handleApiError';
-import './EventParser.css';
-
-const timeAvailable = console.time && console.timeEnd;
-
-const PROGRESS_STEP1_INITIALIZATION = 0.01;
-const PROGRESS_STEP2_FETCH_EVENTS = 0.13;
-const PROGRESS_STEP3_PARSE_EVENTS = 0.99;
-const PROGRESS_COMPLETE = 1.0;
-const CHINESE_REGION = 'cn';
 const BENCHMARK = false;
+// Picking a correct batch duration is hard. I tried various durations to get the batch sizes to 1 frame, but that results in a lot of wasted time waiting for the next frame. 30ms (33 fps) as well causes a lot of wasted time. 60ms (16fps) seem to have really low wasted time while not blocking the UI anymore than a user might expect.
+const MAX_BATCH_DURATION = 66.67; // ms
+const TIME_AVAILABLE = console.time && console.timeEnd;
+const bench = id => TIME_AVAILABLE && console.time(id);
+const benchEnd = id => TIME_AVAILABLE && console.timeEnd(id);
 
 export class EventsParseError extends ExtendableError {
   reason = null;
@@ -61,287 +42,105 @@ class EventParser extends React.PureComponent {
     combatants: PropTypes.arrayOf(PropTypes.shape({
       sourceID: PropTypes.number.isRequired,
     })),
-    setReportProgress: PropTypes.func.isRequired,
-    appendReportHistory: PropTypes.func.isRequired,
-    config: PropTypes.object.isRequired,
+    parserClass: PropTypes.func.isRequired,
+    characterProfile: PropTypes.object,
+    bossPhaseEvents: PropTypes.array,
+    events: PropTypes.array.isRequired,
     children: PropTypes.func.isRequired,
-    history: PropTypes.shape({
-      push: PropTypes.func.isRequired, // adds to browser history
-      replace: PropTypes.func.isRequired, // updates current browser history entry
-      location: PropTypes.shape({
-        pathname: PropTypes.string.isRequired,
-      }).isRequired,
-    }),
-  };
-  state = {
-    error: null,
-    parser: null,
-    finished: false,
   };
 
-  // Parsing a fight for a player is a "job", if the selected player or fight changes we want to cancel parsing it. This integer gives each job an id that if it mismatches stops the job.
-  _jobId = 0;
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: true,
+      progress: 0,
+      parser: null,
+    };
+  }
 
   componentDidMount() {
     // noinspection JSIgnoredPromiseFromCall
     this.parse();
   }
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState, prevContext) {
     const changed = this.props.report !== prevProps.report
       || this.props.fight !== prevProps.fight
       || this.props.player !== prevProps.player
-      || this.props.config !== prevProps.config;
+      || this.props.combatants !== prevProps.combatants
+      || this.props.parserClass !== prevProps.parserClass
+      || this.props.characterProfile !== prevProps.characterProfile
+      || this.props.bossPhaseEvents !== prevProps.bossPhaseEvents
+      || this.props.events !== prevProps.events;
     if (changed) {
+      this.setState({
+        isLoading: true,
+        progress: 0,
+        parser: null,
+      });
       // noinspection JSIgnoredPromiseFromCall
       this.parse();
     }
   }
-  componentWillUnmount() {
-    this._jobId += 1;
-  }
 
+  makeParser() {
+    const { report, fight, combatants, player, characterProfile, parserClass } = this.props;
+    const parser = new parserClass(report, player, fight, combatants, characterProfile);
+    this.setState({
+      parser,
+    });
+    return parser;
+  }
+  makeEvents(parser) {
+    const { bossPhaseEvents, events } = this.props;
+    let combinedEvents = bossPhaseEvents ? [...bossPhaseEvents, ...events] : events;
+    // The events we fetched will be all events related to the selected player. This includes the `combatantinfo` for the selected player. However we have already parsed this event when we loaded the combatants in the `initializeAnalyzers` of the CombatLogParser. Loading the selected player again could lead to bugs since it would reinitialize and overwrite the existing entity (the selected player) in the Combatants module.
+    combinedEvents = combinedEvents.filter(event => event.type !== 'combatantinfo');
+    combinedEvents = parser.normalize(combinedEvents);
+    return combinedEvents;
+  }
   async parse() {
-    const { report, fight, combatants, player } = this.props;
-
-    this.reset();
-    this.appendHistory(report, fight, player);
-    this._jobId += 1;
-
-    this.props.setReportProgress(0);
-    // noinspection JSIgnoredPromiseFromCall
-    this.startFakeNetworkProgress();
-    // Make 3 requests asynchronous so we don't waste any time waiting
-    let parserClass = null;
-    let characterProfile = null;
-    let events = null;
-    let bossPhaseEvents = [];
-    return Promise.all([
-      this.loadParser().then(result => {
-        parserClass = result;
-      }),
-      this.loadCharacterProfile().then(result => {
-        characterProfile = result;
-      }),
-      this.loadEvents().then(result => {
-        events = result;
-      }),
-      this.loadBossPhaseEvents().then(result => {
-        bossPhaseEvents = fabricateBossPhaseEvents(result, report, fight);
-      }),
-    ])
-      .then(() => {
-        this.stopFakeNetworkProgress();
-        timeAvailable && console.time('full parse');
-        try {
-          const parser = new parserClass(report, player, fight, combatants, characterProfile);
-          return this.parseEvents(parser, report, player, fight, [...bossPhaseEvents, ...events]);
-        } catch (err) {
-          console.error(err);
-          throw new EventsParseError(err);
-        }
-      })
-      .catch(error => {
-        this.stopFakeNetworkProgress();
-        const isCommonError = error instanceof LogNotFoundError;
-        if (!isCommonError) {
-          captureException(error);
-        }
-        this.reset();
-        this.setState({
-          error,
-        });
-      });
-
-  }
-  async parseEvents(parser, report, player, fight, events) {
-    const jobId = this._jobId;
     try {
-      // The events we fetched will be all events related to the selected player. This includes the `combatantinfo` for the selected player. However we have already parsed this event when we loaded the combatants in the `initializeAnalyzers` of the CombatLogParser. Loading the selected player again could lead to bugs since it would reinitialize and overwrite the existing entity (the selected player) in the Combatants module.
-      events = events.filter(event => event.type !== 'combatantinfo');
-      events = parser.normalize(events);
-      if (!BENCHMARK) {
-        this.props.setReportProgress(PROGRESS_STEP2_FETCH_EVENTS);
-      }
+      bench('total parse');
+      bench('initialize');
+      const parser = this.makeParser();
+      const events = this.makeEvents(parser);
 
       const numEvents = events.length;
-      // Picking a correct batch duration is hard. I tried various durations to get the batch sizes to 1 frame, but that results in a lot of wasted time waiting for the next frame. 30ms (30 fps) as well causes a lot of wasted time. 60ms seem to have really low wasted time while not blocking the UI anymore than a user might expect.
-      const maxBatchDuration = 60; // ms
 
       const eventEmitter = parser.getModule(EventEmitter);
-      timeAvailable && console.time('player event parsing');
+      benchEnd('initialize');
+      bench('events');
       let eventIndex = 0;
       while (eventIndex < numEvents) {
-        if (this._jobId !== jobId) {
-          return;
-        }
-
         const start = Date.now();
-        while ((BENCHMARK || (Date.now() - start) < maxBatchDuration) && eventIndex < numEvents) {
+        while ((BENCHMARK || (Date.now() - start) < MAX_BATCH_DURATION) && eventIndex < numEvents) {
           eventEmitter.triggerEvent(events[eventIndex]);
           eventIndex += 1;
         }
-        const progress = Math.min(1, eventIndex / numEvents);
         if (!BENCHMARK) {
-          this.props.setReportProgress(PROGRESS_STEP2_FETCH_EVENTS + (PROGRESS_STEP3_PARSE_EVENTS - PROGRESS_STEP2_FETCH_EVENTS) * progress);
+          this.setState({
+            progress: Math.min(1, eventIndex / numEvents),
+          });
           // Delay the next iteration until next frame so the browser doesn't appear to be frozen
           await sleep(0); // eslint-disable-line no-await-in-loop
         }
       }
-      timeAvailable && console.timeEnd('player event parsing');
-
       parser.finish();
-      timeAvailable && console.timeEnd('full parse');
-      this.props.setReportProgress(PROGRESS_COMPLETE);
+      benchEnd('events');
+      benchEnd('total parse');
       this.setState({
-        parser: parser,
-        finished: true,
+        isLoading: false,
+        progress: 1,
       });
     } catch (err) {
-      // Something went wrong during the analysis of the log, there's probably an issue in your analyzer or one of its modules.
-      if (process.env.NODE_ENV === 'production') {
-        throw new EventsParseError(err);
-      } else {
-        throw err;
-      }
+      captureException(err);
+      throw new EventsParseError(err);
     }
   }
 
-  _isFakeNetworking = false;
-  async startFakeNetworkProgress() {
-    this._isFakeNetworking = true;
-    const expectedDuration = 5000;
-    const stepInterval = 50;
-
-    const jobId = this._jobId;
-
-    let step = 1;
-    while (this._isFakeNetworking) {
-      if (this._jobId !== jobId) {
-        // This could happen when switching players/fights while still loading another one
-        break;
-      }
-      const progress = Math.min(1, step * stepInterval / expectedDuration);
-      this.props.setReportProgress(PROGRESS_STEP1_INITIALIZATION + ((PROGRESS_STEP2_FETCH_EVENTS - PROGRESS_STEP1_INITIALIZATION) * progress));
-      // eslint-disable-next-line no-await-in-loop
-      await sleep(stepInterval);
-      step += 1;
-    }
-  }
-  stopFakeNetworkProgress() {
-    this._isFakeNetworking = false;
-  }
-
-  async loadParser() {
-    return this.props.config.parser();
-  }
-  async loadCharacterProfile() {
-    const report = this.props.report;
-    const player = this.props.player;
-    const exportedCharacter = report.exportedCharacters ? report.exportedCharacters.find(char => char.name === player.name) : null;
-    const id = player.guid;
-    let region;
-    let realm;
-    let name;
-    if (exportedCharacter) {
-      region = exportedCharacter.region.toLowerCase();
-      realm = exportedCharacter.server;
-      name = exportedCharacter.name;
-      if (region === CHINESE_REGION) {
-        return null;
-      }
-    }
-
-    try {
-      return await fetch(makeCharacterApiUrl(id, region, realm, name)).then(data => data.json());
-    } catch (error) {
-      // This only provides optional info, so it's no big deal if it fails
-      console.warn('Unable to obtain character information because of:', error);
-      return null;
-    }
-  }
-  loadEvents() {
-    const { report, fight, player } = this.props;
-
-    return fetchEvents(report.code, fight.start_time, fight.end_time, player.id);
-  }
-
-  loadBossPhaseEvents() {
-    const { report, fight } = this.props;
-
-    const filter = makeWclBossPhaseFilter(fight);
-
-    if (filter) {
-      return fetchEvents(report.code, fight.start_time, fight.end_time, undefined, makeWclBossPhaseFilter(fight));
-    } else {
-      return Promise.resolve([]);
-    }
-  }
-
-  async setStatePromise(newState) {
-    return new Promise((resolve, reject) => {
-      this.setState(newState, resolve);
-    });
-  }
-
-  reset() {
-    this.setState({
-      parser: null,
-      finished: false,
-      events: null,
-    });
-    this.props.setReportProgress(null);
-    this.stopFakeNetworkProgress();
-  }
-
-  appendHistory(report, fight, player) {
-    // TODO: Move this to another component, it doesn't make sense here as it has nothing to do with event parsing
-    this.props.appendReportHistory({
-      code: report.code,
-      title: report.title,
-      start: Math.floor(report.start / 1000),
-      end: Math.floor(report.end / 1000),
-      fightId: fight.id,
-      fightName: getFightName(report, fight),
-      playerId: player.id,
-      playerName: player.name,
-      playerClass: player.type,
-      type: REPORT_HISTORY_TYPES.REPORT,
-    });
-  }
-
-  renderError(error) {
-    return handleApiError(error, () => {
-      this.reset();
-      this.props.history.push(makeAnalyzerUrl());
-    });
-  }
-  renderLoading() {
-    return (
-      <div className="event-parser-loading-text">
-        <Trans>Loading...</Trans><br /><br />
-
-        <img src={Ghuun} alt="Ghuun" style={{ transform: 'scaleX(-1)' }} />
-      </div>
-    );
-  }
   render() {
-    const error = this.state.error;
-    if (error) {
-      return this.renderError(error);
-    }
-
-    if (!this.state.finished) {
-      return this.renderLoading();
-    }
-
-    return this.props.children(this.state.parser);
+    return this.props.children(this.state.isLoading, this.state.progress, this.state.parser);
   }
 }
 
-export default compose(
-  withRouter,
-  connect(null, {
-    setReportProgress,
-    appendReportHistory,
-  })
-)(EventParser);
+export default EventParser;

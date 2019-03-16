@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Tab from 'interface/others/Tab';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Panel from 'interface/statistics/Panel';
 import Analyzer from 'parser/core/Analyzer';
 import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBreakdown';
 import { formatPercentage } from 'common/format';
@@ -69,32 +69,30 @@ class MaelstromDetails extends Analyzer {
   }
 
   statistic() {
-    return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(1)}
-        icon={<Icon icon="spell_shadow_mindflay" />}
-        value={`${formatPercentage(this.wastedPercent)} %`}
-        label="Overcapped Maelstrom"
-        tooltip={`${this.wasted} out of ${this.total} Maelstrom wasted.`}
-      />
-    );
-  }
-
-  tab() {
-    return {
-      title: 'Maelstrom usage',
-      url: 'maelstrom-usage',
-      render: () => (
-        <Tab>
+    return [
+      (
+        <StatisticBox
+          position={STATISTIC_ORDER.CORE(1)}
+          icon={<Icon icon="spell_shadow_mindflay" />}
+          value={`${formatPercentage(this.wastedPercent)} %`}
+          label="Overcapped Maelstrom"
+          tooltip={`${this.wasted} out of ${this.total} Maelstrom wasted.`}
+        />
+      ),
+      (
+        <Panel
+          title="Maelstrom usage"
+          position={200}
+          pad={false}
+        >
           <ResourceBreakdown
             tracker={this.maelstromTracker}
             showSpenders
           />
-        </Tab>
+        </Panel>
       ),
-    };
+    ];
   }
-
 }
 
 export default MaelstromDetails;

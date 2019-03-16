@@ -3,6 +3,7 @@ import React from 'react';
 import InformationIcon from 'interface/icons/Information';
 
 import SPELLS from 'common/SPELLS/index';
+import Tooltip, { TooltipElement } from 'common/Tooltip';
 import { formatNumber } from 'common/format';
 import { calculatePrimaryStat, calculateSecondaryStatDefault } from 'common/stats';
 import Analyzer from 'parser/core/Analyzer';
@@ -417,26 +418,39 @@ class BaseHealerStatValues extends Analyzer {
     const results = this._prepareResults();
     return (
       <StatisticWrapper position={STATISTIC_ORDER.CORE(11)}>
-        <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+        <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
           <div className="panel items">
             <div className="panel-heading">
-              <h2>
-                <dfn data-tip="These stat values are calculated using the actual circumstances of this encounter. These values reveal the value of the last 1 rating of each stat, they may not necessarily be the best way to gear. The stat values are likely to differ based on fight, raid size, items used, talents chosen, etc.<br /><br />DPS gains are not included in any of the stat values.">Stat Values</dfn>
+              <h4>
+                <TooltipElement
+                  content={(
+                    <>
+                      These stat values are calculated using the actual circumstances of this encounter. These values reveal the value of the last 1 rating of each stat, they may not necessarily be the best way to gear. The stat values are likely to differ based on fight, raid size, items used, talents chosen, etc.<br /><br />
+                      DPS gains are not included in any of the stat values.
+                    </>
+                  )}
+                >
+                  Stat Values
+                </TooltipElement>
 
                 {this.moreInformationLink && (
                   <a href={this.moreInformationLink} className="pull-right">
                     More info
                   </a>
                 )}
-              </h2>
+              </h4>
             </div>
-            <div className="panel-body" style={{ padding: 0 }}>
+            <div className="panel-body">
               <table className="data-table compact">
                 <thead>
                   <tr>
-                    <th style={{ minWidth: 30 }}><b>Stat</b></th>
+                    <th style={{ minWidth: 30 }}>
+                      <b>Stat</b>
+                    </th>
                     <th className="text-right" style={{ minWidth: 30 }} colSpan={2}>
-                      <dfn data-tip="Normalized so Intellect is always 1.00."><b>Value</b></dfn>
+                      <TooltipElement content="Normalized so Intellect is always 1.00.">
+                        <strong>Value</strong>
+                      </TooltipElement>
                     </th>
                   </tr>
                 </thead>
@@ -450,6 +464,10 @@ class BaseHealerStatValues extends Analyzer {
 
                     const Icon = getIcon(stat);
 
+                    const gainPerSecond = (gain / this.owner.fightDuration * 1000).toFixed(2);
+                    const rating = gain !== null ? (ratingForOne === Infinity ? '∞' : formatNumber(ratingForOne)) : 'NYI';
+                    const informationIconTooltip = `${gainPerSecond} HPS per 1 rating / ${rating} rating per 1% throughput`;
+
                     return (
                       <tr key={stat}>
                         <td className={getClassNameColor(stat)}>
@@ -460,15 +478,17 @@ class BaseHealerStatValues extends Analyzer {
                               marginRight: 10,
                             }}
                           />{' '}
-                          {tooltip ? <dfn data-tip={tooltip}>{getName(stat)}</dfn> : getName(stat)}
+                          {tooltip ? <TooltipElement content={tooltip}>{getName(stat)}</TooltipElement> : getName(stat)}
                         </td>
                         <td className="text-right">
                           {stat === STAT.HASTE_HPCT && '0.00 - '}{gain !== null ? weight.toFixed(2) : 'NYI'}
                         </td>
                         <td style={{ padding: 6 }}>
-                          <InformationIcon data-tip={`${(gain / this.owner.fightDuration * 1000).toFixed(2)} HPS per 1 rating / ${gain !== null ? (
-                            ratingForOne === Infinity ? '∞' : formatNumber(ratingForOne)
-                          ) : 'NYI'} rating per 1% throughput`} />
+                          <Tooltip content={informationIconTooltip}>
+                            <div>
+                              <InformationIcon />
+                            </div>
+                          </Tooltip>
                         </td>
                       </tr>
                     );

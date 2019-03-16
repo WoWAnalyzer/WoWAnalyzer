@@ -1,5 +1,4 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/shared/modules/DamageDone';
 
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -38,8 +37,6 @@ import UnbridledFerocity from './modules/azerite/UnbridledFerocity';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
-    damageDone: [DamageDone, {showStatistic: true}],
-
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     channeling: Channeling,

@@ -42,7 +42,7 @@ class SpellUsable extends CoreSpellUsable {
     }
   }
 
-  beginCooldown(spellId, timestamp) {
+  beginCooldown(spellId, cooldownTriggerEvent) {
     if (spellId === SPELLS.AVENGERS_SHIELD.id) {
       if (this.isOnCooldown(spellId)) {
         this.gc.triggerInferredReset(this.lastPotentialTriggerForAvengersShield);
@@ -54,7 +54,7 @@ class SpellUsable extends CoreSpellUsable {
       }
     }
 
-    super.beginCooldown(spellId, timestamp);
+    super.beginCooldown(spellId, cooldownTriggerEvent);
   }
 }
 

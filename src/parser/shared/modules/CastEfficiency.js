@@ -1,16 +1,15 @@
 import React from 'react';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
+import Panel from 'interface/statistics/Panel';
+import CastEfficiencyComponent from 'interface/others/CastEfficiency';
 import Analyzer from 'parser/core/Analyzer';
 import SpellHistory from 'parser/shared/modules/SpellHistory';
-import { i18n } from 'interface/RootLocalizationProvider';
-import Tab from 'interface/others/Tab';
-import CastEfficiencyComponent from 'interface/others/CastEfficiency';
 import Channeling from 'parser/shared/modules/Channeling';
+import Abilities from 'parser/core/modules/Abilities';
 
-import Abilities from '../../core/modules/Abilities';
 import AbilityTracker from './AbilityTracker';
 import Haste from './Haste';
 
@@ -113,7 +112,7 @@ class CastEfficiency extends Analyzer {
           return acc;
         }
       }, 0);
-      
+
     return timeSpentCasting;
   }
 
@@ -314,20 +313,19 @@ class CastEfficiency extends Analyzer {
       });
     });
   }
-
-  tab() {
-    return {
-      title: i18n._(t`Abilities`),
-      url: 'abilities',
-      render: () => (
-        <Tab>
-          <CastEfficiencyComponent
-            categories={this.abilities.constructor.SPELL_CATEGORIES}
-            abilities={this.getCastEfficiency()}
-          />
-        </Tab>
-      ),
-    };
+  statistic() {
+    return (
+      <Panel
+        title="Abilities"
+        position={500}
+        pad={false}
+      >
+        <CastEfficiencyComponent
+          categories={this.abilities.constructor.SPELL_CATEGORIES}
+          abilities={this.getCastEfficiency()}
+        />
+      </Panel>
+    );
   }
 }
 

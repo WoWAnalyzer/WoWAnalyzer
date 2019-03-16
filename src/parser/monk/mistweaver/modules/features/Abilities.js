@@ -100,7 +100,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.REVIVAL,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: (haste, combatant) => 180 - (combatant.traitsBySpellId[SPELLS.TENDRILS_OF_REVIVAL.id] || 0) * 10,
+        cooldown: 180,
         gcd: {
           base: 1500,
         },
@@ -194,7 +194,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.PARALYSIS,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 15,
+        cooldown: 45,
         gcd: {
           base: 1500,
         },
@@ -204,6 +204,15 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 45,
         enabled: combatant.hasTalent(SPELLS.RING_OF_PEACE_TALENT.id),
+        gcd: {
+          base: 1500,
+        },
+      },
+
+      {
+        spell:SPELLS.LEG_SWEEP,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: combatant.hasTalent(SPELLS.TIGER_TAIL_SWEEP_TALENT.id) ? 50 : 60,
         gcd: {
           base: 1500,
         },

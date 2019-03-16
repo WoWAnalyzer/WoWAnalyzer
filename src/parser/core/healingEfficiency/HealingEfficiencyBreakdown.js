@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { formatNumber, formatPercentage } from 'common/format';
 import Toggle from 'react-toggle';
-import ReactTooltip from 'react-tooltip';
 import PerformanceBar from 'common/PerformanceBar';
 import SpellLink from 'common/SpellLink';
+import { TooltipElement } from 'common/Tooltip';
 
 class HealingEfficiencyBreakdown extends React.Component {
   static propTypes = {
@@ -30,15 +30,13 @@ class HealingEfficiencyBreakdown extends React.Component {
       if (this.state.showHealing) {
         if (a.hpm < b.hpm) {
           return 1;
-        }
-        else if (a.hpm > b.hpm) {
+        } else if (a.hpm > b.hpm) {
           return -1;
         }
       } else {
         if (a.dpm < b.dpm) {
           return 1;
-        }
-        else if (a.dpm > b.dpm) {
+        } else if (a.dpm > b.dpm) {
           return -1;
         }
       }
@@ -75,9 +73,9 @@ class HealingEfficiencyBreakdown extends React.Component {
           <>
             <th colSpan={2} className="text-center">Healing per mana spent</th>
             <th colSpan={2} className="text-center">
-              <dfn data-tip="This includes time spent waiting on the GCD">
+              <TooltipElement content="This includes time spent waiting on the GCD">
                 Healing per second spent casting
-              </dfn>
+              </TooltipElement>
             </th>
           </>
         )}
@@ -129,7 +127,7 @@ class HealingEfficiencyBreakdown extends React.Component {
     return (
       <>
         <th>
-          <dfn data-tip={`Total Casts (Number of targets hit)`}>Casts</dfn>
+          <TooltipElement content="Total Casts (Number of targets hit)">Casts</TooltipElement>
         </th>
         <th>Mana Spent</th>
         {this.state.showHealing && (
@@ -137,10 +135,10 @@ class HealingEfficiencyBreakdown extends React.Component {
             <th>Healing Done</th>
             <th>Overhealing</th>
             <th>
-              <dfn data-tip={`Healing per mana spent casting the spell`}>HPM</dfn>
+              <TooltipElement content={`Healing per mana spent casting the spell`}>HPM</TooltipElement>
             </th>
             <th>
-              <dfn data-tip={`Healing per second spent casting the spell, including GCD wait time.`}>HPET</dfn>
+              <TooltipElement content={`Healing per second spent casting the spell, including GCD wait time.`}>HPET</TooltipElement>
             </th>
           </>
         )}
@@ -148,10 +146,10 @@ class HealingEfficiencyBreakdown extends React.Component {
           <>
             <th>Damage Done</th>
             <th>
-              <dfn data-tip={`Damage per mana spent casting the spell`}>DPM</dfn>
+              <TooltipElement content={`Damage per mana spent casting the spell`}>DPM</TooltipElement>
             </th>
             <th>
-              <dfn data-tip={`Damage per second spent casting the spell`}>DPET</dfn>
+              <TooltipElement content={`Damage per second spent casting the spell`}>DPET</TooltipElement>
             </th>
           </>
         )}
@@ -200,73 +198,65 @@ class HealingEfficiencyBreakdown extends React.Component {
     );
   };
 
-  componentDidUpdate() {
-    ReactTooltip.rebuild();
-  }
-
   render() {
     const { tracker } = this.props;
 
     return (
-      <div>
-        <div className="row">
-          <div className="col-md-12">
-            <div className="pull-left">
-              <div className="toggle-control pull-right" style={{ marginLeft: '.5em', marginRight: '.5em' }}>
-                <Toggle
-                  defaultChecked={false}
-                  icons={false}
-                  onChange={event => this.setState({ detailedView: event.target.checked })}
-                  id="detailed-toggle"
-                />
-                <label htmlFor="detailed-toggle" style={{ marginLeft: '0.5em' }}>
-                  Detailed View
-                </label>
-              </div>
-            </div>
-            <div className="pull-right">
-              <div className="toggle-control pull-left" style={{ marginLeft: '.5em', marginRight: '.5em' }}>
-                <Toggle
-                  defaultChecked={false}
-                  icons={false}
-                  onChange={event => this.setState({ showCooldowns: event.target.checked })}
-                  id="cooldown-toggle"
-                />
-                <label htmlFor="cooldown-toggle" style={{ marginLeft: '0.5em' }}>
-                  Show Cooldowns
-                </label>
-              </div>
-              <div className="toggle-control pull-left" style={{ marginLeft: '.5em', marginRight: '.5em' }}>
-                <label htmlFor="healing-toggle" style={{ marginLeft: '0.5em', marginRight: '1em' }}>
-                  Show Damage
-                </label>
-                <Toggle
-                  defaultChecked
-                  icons={false}
-                  onChange={event => this.setState({ showHealing: event.target.checked })}
-                  id="healing-toggle"
-                />
-                <label htmlFor="healing-toggle" style={{ marginLeft: '0.5em' }}>
-                  Show Healing
-                </label>
-              </div>
+      <>
+        <div className="pad">
+          <div className="pull-left">
+            <div className="toggle-control pull-right" style={{ marginRight: '.5em' }}>
+              <Toggle
+                defaultChecked={false}
+                icons={false}
+                onChange={event => this.setState({ detailedView: event.target.checked })}
+                id="detailed-toggle"
+              />
+              <label htmlFor="detailed-toggle" style={{ marginLeft: '0.5em' }}>
+                Detailed View
+              </label>
             </div>
           </div>
-          <div className="col-md-12">
-            <table className="data-table">
-              <thead>
-                <tr>
-                  <th>Ability</th>
-                  {this.state.detailedView ? <this.DetailHeader /> : <this.BarHeader />}
-                </tr>
-              </thead>
-              <tbody>
-                <this.HealingEfficiencyTable tracker={tracker} showHealing={this.state.showHealing} />
-              </tbody>
-            </table>
+          <div className="pull-right">
+            <div className="toggle-control pull-left" style={{ marginLeft: '.5em', marginRight: '.5em' }}>
+              <Toggle
+                defaultChecked={false}
+                icons={false}
+                onChange={event => this.setState({ showCooldowns: event.target.checked })}
+                id="cooldown-toggle"
+              />
+              <label htmlFor="cooldown-toggle" style={{ marginLeft: '0.5em' }}>
+                Show Cooldowns
+              </label>
+            </div>
+            <div className="toggle-control pull-left" style={{ marginLeft: '.5em' }}>
+              <label htmlFor="healing-toggle" style={{ marginLeft: '0.5em', marginRight: '1em' }}>
+                Show Damage
+              </label>
+              <Toggle
+                defaultChecked
+                icons={false}
+                onChange={event => this.setState({ showHealing: event.target.checked })}
+                id="healing-toggle"
+              />
+              <label htmlFor="healing-toggle" style={{ marginLeft: '0.5em' }}>
+                Show Healing
+              </label>
+            </div>
           </div>
         </div>
-      </div>
+        <table className="data-table">
+          <thead>
+            <tr>
+              <th>Ability</th>
+              {this.state.detailedView ? <this.DetailHeader /> : <this.BarHeader />}
+            </tr>
+          </thead>
+          <tbody>
+            <this.HealingEfficiencyTable tracker={tracker} showHealing={this.state.showHealing} />
+          </tbody>
+        </table>
+      </>
     );
   }
 }

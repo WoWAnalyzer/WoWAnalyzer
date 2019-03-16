@@ -49,11 +49,6 @@ class DoubleTap extends Analyzer {
   }
 
   statistic() {
-    let tooltipText = `You used Double Tap a total of ${this.activations} times, and utilised ${this.totalUsage} of them.<ul>`;
-    tooltipText += this.aimedUsage > 0 ? `<li>Out of the total activations, you used ${this.aimedUsage} of them on Aimed Shots.</li>` : ``;
-    tooltipText += this.RFUsage > 0 ? `<li>Out of the total activations, you used ${this.RFUsage} of them on Rapid Fires.</li>` : ``;
-    tooltipText += `</ul>`;
-
     return (
       <TalentStatisticBox
         talent={SPELLS.DOUBLE_TAP_TALENT.id}
@@ -78,7 +73,15 @@ class DoubleTap extends Analyzer {
             />
           </>
         )}
-        tooltip={tooltipText}
+        tooltip={(
+          <>
+            You used Double Tap a total of {this.activations} times, and utilised {this.totalUsage} of them.
+            <ul>
+              {this.aimedUsage > 0 && <li>Out of the total activations, you used {this.aimedUsage} of them on Aimed Shots.</li>}
+              {this.RFUsage > 0 && <li>Out of the total activations, you used {this.RFUsage} of them on Rapid Fires.</li>}
+            </ul>
+          </>
+        )}
       />
     );
   }

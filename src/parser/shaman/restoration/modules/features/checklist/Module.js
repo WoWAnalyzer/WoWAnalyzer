@@ -1,10 +1,10 @@
 import React from 'react';
 
-import BaseChecklist from 'parser/shared/modules/features/Checklist2/Module';
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import ManaValues from 'parser/shared/modules/ManaValues';
-import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist2/PreparationRuleAnalyzer';
+import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 
 import AlwaysBeCasting from '../AlwaysBeCasting';
 import TidalWaves from '../TidalWaves';
@@ -40,7 +40,7 @@ class Checklist extends BaseChecklist {
         castEfficiency={this.castEfficiency}
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
-          
+
           nonHealingTimeSuggestionThresholds: this.alwaysBeCasting.nonHealingTimeSuggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           unusedTidalWavesThresholds: this.tidalWaves.suggestionThresholds,

@@ -1,9 +1,13 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS/index';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+
+import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatNumber } from 'common/format';
+import HasteIcon from 'interface/icons/Haste';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 const woundBinderStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [haste] = calculateAzeriteEffects(SPELLS.WOUNDBINDER.id, rank);
@@ -35,9 +39,7 @@ class WoundBinder extends Analyzer {
   }
 
   get averageHasteProcAmount() {
-    const sum = this.procs.reduce(function (a, b) {
-      return a + b;
-    });
+    const sum = this.procs.reduce((a, b) => a + b);
     const avg = sum / this.procs.length;
     return avg;
   }
@@ -54,6 +56,9 @@ class WoundBinder extends Analyzer {
       const { haste } = woundBinderStats(this.selectedCombatant.traitsBySpellId[SPELLS.WOUNDBINDER.id]);
       this.fullHasteValue = haste;
     }
+
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this._onHeal);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.WOUNDBINDER_BUFF), this._onApplyWoundbinder);
   }
 
   calculateHasteAmount(targetHealthPercent = 1) {
@@ -61,16 +66,12 @@ class WoundBinder extends Analyzer {
     return this.fullHasteValue * (BASE_HASTE_AMOUNT + ((1 - BASE_HASTE_AMOUNT) * (1 - targetHealthPercent)));
   }
 
-  on_byPlayer_heal(event) {
+  _onHeal(event) {
     // We track the last heal from the player to use for the haste calculation
     this.lastTargetHealedPercent = (event.hitPoints / event.maxHitPoints);
   }
 
-  on_byPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.WOUNDBINDER_BUFF.id) {
-      return;
-    }
+  _onApplyWoundbinder() {
     if (!this.proccedOnce) {
       this.procs.splice(0, 1);
     }
@@ -80,12 +81,16 @@ class WoundBinder extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
-        trait={SPELLS.WOUNDBINDER.id}
-        value={`${formatNumber(this.averageHaste)} average Haste`}
+      <AzeritePowerStatistic
         tooltip={`${this.proccedOnce ? this.procs.length : '0'} total ${this.procs.length > 1 || this.procs.length === 0 ? 'procs' : 'proc'}${this.proccedOnce ? ` for [${this.procs.map((value) => Math.floor(value)).join(', ')}] haste` : ''}. `}
-      />
+        size="small"
+      >
+        <BoringSpellValueText
+          spell={SPELLS.WOUNDBINDER}
+        >
+          <HasteIcon /> {formatNumber(this.averageHaste)} <small>average Haste gained</small>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }

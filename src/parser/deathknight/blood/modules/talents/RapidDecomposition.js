@@ -34,9 +34,13 @@ class RapidDecomposition extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.RAPID_DECOMPOSITION_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(2)}
-        value={`${this.owner.formatItemDamageDone(this.totalDamage)}`}
-        tooltip={`<strong>Blood Plague:</strong> ${this.owner.formatItemDamageDone(this.bpDamage)}</br>
-                  <strong>Death And Decay:</strong> ${this.owner.formatItemDamageDone(this.dndDamage)}`}
+        value={this.owner.formatItemDamageDone(this.totalDamage)}
+        tooltip={(
+          <>
+            <strong>Blood Plague:</strong> {this.owner.formatItemDamageDone(this.bpDamage)}<br />
+            <strong>Death And Decay:</strong> {this.owner.formatItemDamageDone(this.dndDamage)}
+          </>
+        )}
       />
     );
   }

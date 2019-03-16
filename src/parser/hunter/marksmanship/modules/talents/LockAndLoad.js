@@ -41,7 +41,7 @@ class LockAndLoad extends Analyzer {
     this.totalProcs += 1;
     this.hasLnLBuff = true;
     if (this.spellUsable.isOnCooldown(SPELLS.AIMED_SHOT.id)) {
-      const newChargeCDR = this.abilities.getExpectedCooldownDuration(SPELLS.AIMED_SHOT.id) - this.spellUsable.cooldownRemaining(SPELLS.AIMED_SHOT.id);
+      const newChargeCDR = this.abilities.getExpectedCooldownDuration(SPELLS.AIMED_SHOT.id, this.spellUsable.cooldownTriggerEvent(SPELLS.AIMED_SHOT.id)) - this.spellUsable.cooldownRemaining(SPELLS.AIMED_SHOT.id);
       this.spellUsable.endCooldown(SPELLS.AIMED_SHOT.id, false, event.timestamp, newChargeCDR);
     }
   }
@@ -133,19 +133,29 @@ class LockAndLoad extends Analyzer {
 
   statistic() {
     const binomCalc = this.binomialCalculation(this.totalProcs, this.autoShots, PROC_CHANCE);
-    let tooltipText = `You had ${this.noGainLNLProcs} ${this.noGainLNLProcs > 1 || this.noGainLNLProcs === 0 ? `procs` : `proc`} with LnL already active. <br/> You had ${formatPercentage(this.totalProcs / this.expectedProcs, 1)}% procs of what you could expect to get over the encounter. <br /> You had a total of ${this.totalProcs} procs, and your expected amount of procs was ${this.expectedProcs}. <br /> <ul><li>You have a ~${formatPercentage(binomCalc)}% chance of getting this amount of procs or fewer in the future with this amount of autoattacks. </li><li>`;
-    //this two first tooltipText additions will probably NEVER happen, but it'd be fun if they ever did.
-    tooltipText += binomCalc === 1 ? `You had so many procs that the chance of you getting fewer procs than what you had on this attempt is going to be de facto 100%. Consider yourself the luckiest man alive.` : ``;
-    tooltipText += binomCalc === 0 ? `You had so few procs that the chance of you getting fewer procs than what you had on this attempt is going to be de facto 0%. Consider yourself the unluckiest man alive.` : ``;
-    // eslint-disable-next-line yoda
-    tooltipText += 1 > binomCalc > 0 ? (this.pn || this.qn) > 10 ? `Due to normal approximation these results are within 2% margin of error.` : `Because you had under ${10 / PROC_CHANCE} auto attacks and due to normal approximation these results have a margin of error of over 2%.` : ``;
-    tooltipText += `</li></ul>`;
-
     return (
       <TalentStatisticBox
         talent={SPELLS.LOCK_AND_LOAD_TALENT.id}
         value={`${this.wastedInstants} (${formatPercentage(this.wastedInstants / (this.totalProcs))}%) lost procs`}
-        tooltip={tooltipText}
+        tooltip={(
+          <>
+            You had {this.noGainLNLProcs} {this.noGainLNLProcs > 1 || this.noGainLNLProcs === 0 ? `procs` : `proc`} with LnL already active. <br />
+            You had {formatPercentage(this.totalProcs / this.expectedProcs, 1)}% procs of what you could expect to get over the encounter. <br />
+            You had a total of {this.totalProcs} procs, and your expected amount of procs was {this.expectedProcs}. <br />
+            <ul>
+              <li>You have a ~{formatPercentage(binomCalc)}% chance of getting this amount of procs or fewer in the future with this amount of autoattacks. </li>
+              {/*this two first tooltipText additions will probably NEVER happen, but it'd be fun if they ever did*/}
+              {binomCalc === 0 && <li>You had so few procs that the chance of you getting fewer procs than what you had on this attempt is going to be de facto 0%. Consider yourself the unluckiest man alive.</li>}
+              {binomCalc === 1 && <li>You had so many procs that the chance of you getting fewer procs than what you had on this attempt is going to be de facto 100%. Consider yourself the luckiest man alive.</li>}
+              {/* eslint-disable-next-line yoda */}
+              {(0 < binomCalc && binomCalc < 1) && (
+                (this.pn > 10 || this.qn > 10) ?
+                  <li>Due to normal approximation these results are within 2% margin of error.</li> :
+                  <li>Because you had under {10 / PROC_CHANCE} auto attacks and due to normal approximation these results have a margin of error of over 2%.</li>
+              )}
+            </ul>
+          </>
+        )}
       />
     );
   }

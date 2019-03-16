@@ -12,6 +12,7 @@ import EssenceFontMastery from 'parser/monk/mistweaver/modules/features/EssenceF
 import SoothingMist from 'parser/monk/mistweaver/modules/spells/SoothingMist';
 import ChiBurst from 'parser/monk/mistweaver/modules/talents/ChiBurst';
 import ChiJi from 'parser/monk/mistweaver/modules/talents/ChiJi';
+import RefreshingJadeWind from 'parser/monk/mistweaver/modules/talents/RefreshingJadeWind';
 import RisingMist from 'parser/monk/mistweaver/modules/talents/RisingMist';
 import FontOfLife from 'parser/monk/mistweaver/modules/spells/azeritetraits/FontOfLife';
 import UpliftedSpirits from 'parser/monk/mistweaver/modules/spells/azeritetraits/UpliftedSpirits';
@@ -63,6 +64,7 @@ class MonkSpreadsheet extends React.Component {
             <tr><td>Gust of Mists from Essence Font HoT per Min</td><td>{((parser.getModule(EssenceFontMastery).healEF / 2) / (parser.fightDuration / 1000 / 60)).toFixed(2) || ''}</td></tr>
             <tr><td>Gust of Mists from Soothing Mist Deck per Min</td><td>{((parser.getModule(SoothingMist).gustProc) / (parser.fightDuration / 1000 / 60)).toFixed(2) || ''}</td></tr>
             <tr><td>Chi Burst Targets per Cast</td><td>{parser.getModule(ChiBurst).active === true ? (parser.getModule(ChiBurst).targetsChiBurst / parser.getModule(ChiBurst).castChiBurst).toFixed(2) : ''}</td></tr>
+            <tr><td>Refreshing Jade Wind Effectiveness</td><td>{parser.getModule(RefreshingJadeWind).active === true ? (parser.getModule(RefreshingJadeWind).rjwEffectiveness) : ''}</td></tr>
             <tr><td>Invoke Chi-Ji Crane Heal Casts</td><td>{parser.getModule(ChiJi).active === true ? (parser.getModule(ChiJi).casts / getAbility(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_TALENT.id).casts).toFixed(2) : ''}</td></tr>
             <tr><td>Rising Mist Targets per Cast</td><td>{parser.getModule(RisingMist).active === true ? parser.getModule(RisingMist).averageTargetsPerRM.toFixed(2) : ''}</td></tr>
             <tr><td>Total Healing from Rising Mist HoT Extension</td><td>{parser.getModule(RisingMist).active === true ? parser.getModule(RisingMist).hotHealing.toFixed(2) : ''}</td></tr>

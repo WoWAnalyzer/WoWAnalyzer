@@ -4,11 +4,11 @@ import Combatant from './Combatant';
 
 function getCombatant(parser = null, combatantInfo = null) {
   const parserStub = {
-    playersById: {
-      11: {
+    players: [
+      {
         name: 'Test',
       },
-    },
+    ],
     fight: {
       start_time: 0,
     },

@@ -1,10 +1,15 @@
 import React from 'react';
 
-import { Khadaj, niseko, Yajinni } from 'CONTRIBUTORS';
+import { Khadaj, niseko, Yajinni, Zerotorescue } from 'CONTRIBUTORS';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  {
+    date: new Date('2019-03-12'),
+    changes: <>Fixed an error in the <SpellLink id={SPELLS.PRAYERFUL_LITANY.id} /> analyzer.</>,
+    contributors: [Zerotorescue],
+  },
   {
     date: new Date('2018-12-18'),
     changes: <>Adding <SpellLink id={SPELLS.PROMISE_OF_DELIVERANCE.id} /> and <SpellLink id={SPELLS.DEATH_DENIED.id} />.</>,

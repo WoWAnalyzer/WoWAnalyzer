@@ -1,14 +1,14 @@
-import HealthIcon from './images/Health';
-import StaminaIcon from './images/Stamina';
-import ManaIcon from './images/Mana';
-import StrengthIcon from './images/Strength';
-import AgilityIcon from './images/Agility';
-import IntellectIcon from './images/Intellect';
-import CriticalStrikeIcon from './images/CriticalStrike';
-import HasteIcon from './images/Haste';
-import MasteryIcon from './images/Mastery';
-import VersatilityIcon from './images/Versatility';
-import LeechIcon from './images/Leech';
+import HealthIcon from 'interface/icons/Health';
+import StaminaIcon from 'interface/icons/Stamina';
+import ManaIcon from 'interface/icons/Mana';
+import StrengthIcon from 'interface/icons/Strength';
+import AgilityIcon from 'interface/icons/Agility';
+import IntellectIcon from 'interface/icons/Intellect';
+import CriticalStrikeIcon from 'interface/icons/CriticalStrike';
+import HasteIcon from 'interface/icons/Haste';
+import MasteryIcon from 'interface/icons/Mastery';
+import VersatilityIcon from 'interface/icons/Versatility';
+import LeechIcon from 'interface/icons/Leech';
 
 const STAT = {
   HEALTH: 'health',

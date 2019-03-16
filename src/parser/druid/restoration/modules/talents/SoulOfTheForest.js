@@ -145,14 +145,16 @@ class SoulOfTheForest extends Analyzer {
         icon={<SpellIcon id={SPELLS.SOUL_OF_THE_FOREST_TALENT_RESTORATION.id} />}
         value={`${formatPercentage(totalPercent)} %`}
         label="Soul of the Forest"
-        tooltip={`
-          You gained ${this.proccs} total Soul of the Forest procs.
-          <ul>
-            <li>Consumed ${this.wildGrowths} procs with Wild Growth for ${formatPercentage(wgPercent)}% healing</li>
-            <li>Consumed ${this.rejuvenations} procs with Rejuvenation for ${formatPercentage(rejuvPercent)}% healing</li>
-            <li>Consumed ${this.regrowths} procs with Regrowth for ${formatPercentage(regrowthPercent)}% healing</li>
-          </ul>
-        `}
+        tooltip={(
+          <>
+            You gained {this.proccs} total Soul of the Forest procs.
+            <ul>
+              <li>Consumed {this.wildGrowths} procs with Wild Growth for {formatPercentage(wgPercent)}% healing</li>
+              <li>Consumed {this.rejuvenations} procs with Rejuvenation for {formatPercentage(rejuvPercent)}% healing</li>
+              <li>Consumed {this.regrowths} procs with Regrowth for {formatPercentage(regrowthPercent)}% healing</li>
+            </ul>
+          </>
+        )}
       />
     );
   }

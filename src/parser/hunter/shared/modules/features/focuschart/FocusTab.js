@@ -2,7 +2,8 @@ import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
+import FocusChartIcon from 'interface/icons/Vision';
 
 import FocusChart from './Focus';
 import FocusTracker from './FocusTracker';
@@ -17,8 +18,10 @@ class FocusTab extends Analyzer {
     return {
       title: 'Focus Chart',
       url: 'focus',
+      icon: FocusChartIcon,
+      order: 100,
       render: () => (
-        <Tab style={{ padding: '15px 22px' }}>
+        <Panel style={{ padding: '15px 22px' }}>
           <FocusChart
             start={this.owner.fight.start_time}
             end={this.owner.fight.end_time}
@@ -32,7 +35,7 @@ class FocusTab extends Analyzer {
             generatorCasts={this.focusTracker.generatorCasts}
             activeFocusWastedTimeline={this.focusTracker.activeFocusWastedTimeline}
           />
-        </Tab>
+        </Panel>
       ),
     };
   }

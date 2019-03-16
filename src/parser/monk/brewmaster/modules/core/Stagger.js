@@ -46,7 +46,7 @@ class Stagger extends Analyzer {
     }
   }
 
-  get totalStaggered() { 
+  get totalStaggered() {
     return this.totalPhysicalStaggered + this.totalMagicalStaggered;
   }
 
@@ -59,19 +59,22 @@ class Stagger extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.IRONSKIN_BREW.id} />}
-        value={`${formatNumber(this.totalStaggered)} `}
+        value={formatNumber(this.totalStaggered)}
         label="Damage staggered"
-        tooltip={`Incoming damage added to stagger:
-          <ul>
-            <li>Total physical damage added to stagger: ${formatThousands(this.totalPhysicalStaggered)}</li>
-            <li>Total magical damage added to stagger: ${formatThousands(this.totalMagicalStaggered)}</li>
-          </ul>
-          Damage taken from stagger:
-          <ul>
-            <li>Total damage from stagger dot: ${formatThousands(this.totalStaggerTaken)} (${formatPercentage(this.totalStaggerTaken / this.totalStaggered)}% of total staggered)</li>
-            <li>Total damage removed from stagger dot before damaging you: ${formatThousands(damageAvoided)} (${formatPercentage(damageAvoided / this.totalStaggered)}% of total staggered)</li>
-          </ul>
-        `}
+        tooltip={(
+          <>
+            Incoming damage added to stagger:
+            <ul>
+              <li>Total physical damage added to stagger: {formatThousands(this.totalPhysicalStaggered)}</li>
+              <li>Total magical damage added to stagger: {formatThousands(this.totalMagicalStaggered)}</li>
+            </ul>
+            Damage taken from stagger:
+            <ul>
+              <li>Total damage from stagger dot: {formatThousands(this.totalStaggerTaken)} ({formatPercentage(this.totalStaggerTaken / this.totalStaggered)}% of total staggered)</li>
+              <li>Total damage removed from stagger dot before damaging you: {formatThousands(damageAvoided)} ({formatPercentage(damageAvoided / this.totalStaggered)}% of total staggered)</li>
+            </ul>
+          </>
+        )}
       />
     );
   }

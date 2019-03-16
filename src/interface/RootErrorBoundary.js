@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Trans } from '@lingui/macro';
 
 import FullscreenError from 'interface/common/FullscreenError';
 import ErrorBoundary from 'interface/common/ErrorBoundary';
@@ -30,10 +31,16 @@ class RootErrorBoundary extends React.Component {
   }
 
   handleErrorEvent(event) {
-    this.error(event);
+    const { error } = event;
+    // XXX Ignore errors that will be processed by componentDidCatch.
+    // SEE: https://github.com/facebook/react/issues/10474
+    if (error && error.stack && error.stack.includes('invokeGuardedCallbackDev')) {
+      return;
+    }
+    this.error(event, 'error');
   }
   handleUnhandledrejectionEvent(event) {
-    this.error(event.reason);
+    this.error(event.reason, 'unhandledrejection');
   }
 
   error(error, details = null) {
@@ -42,7 +49,7 @@ class RootErrorBoundary extends React.Component {
       return;
     }
 
-    window.lastError = error;
+    (window.errors = window.errors || []).push(error);
 
     this.setState({
       error: error,
@@ -54,8 +61,8 @@ class RootErrorBoundary extends React.Component {
     if (this.state.error) {
       return (
         <FullscreenError
-          error="An error occured."
-          details="An unexpected error occured in the app. Please try again."
+          error={<Trans>An error occured.</Trans>}
+          details={<Trans>An unexpected error occured in the app. Please try again.</Trans>}
           background={ApiDownBackground}
           errorDetails={(
             <>
@@ -72,7 +79,7 @@ class RootErrorBoundary extends React.Component {
           )}
         >
           <div className="text-muted">
-            This is usually caused by a bug, please let us know about the issue on GitHub or Discord so we can fix it.
+            <Trans>This is usually caused by a bug, please let us know about the issue on GitHub or Discord so we can fix it.</Trans>
           </div>
         </FullscreenError>
       );

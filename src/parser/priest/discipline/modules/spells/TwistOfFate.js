@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
+import { TooltipElement } from 'common/Tooltip';
 import Analyzer from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
@@ -75,11 +76,13 @@ class TwistOfFate extends Analyzer {
         icon={<SpellIcon id={SPELLS.TWIST_OF_FATE_TALENT_DISCIPLINE.id} />}
         value={this.owner.formatItemHealingDone(healing)}
         label={(
-          <dfn data-tip={
-            `The effective healing contributed by Twist of Fate was ${formatPercentage(tofPercent)}% of total healing done. Twist of Fate also contributed ${formatNumber(damage / this.owner.fightDuration * 1000)} DPS (${formatPercentage(tofDamage)}% of total damage); the healing gain of this damage was included in the shown numbers.`
-          }>
+          <TooltipElement
+            content={
+              `The effective healing contributed by Twist of Fate was ${formatPercentage(tofPercent)}% of total healing done. Twist of Fate also contributed ${formatNumber(damage / this.owner.fightDuration * 1000)} DPS (${formatPercentage(tofDamage)}% of total damage); the healing gain of this damage was included in the shown numbers.`
+            }
+          >
             Twist of Fate Healing
-          </dfn>
+          </TooltipElement>
         )}
       />
     );

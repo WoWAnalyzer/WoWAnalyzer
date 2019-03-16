@@ -13,17 +13,17 @@ class SpellUsable extends CoreSpellUsable {
 
     const spellId = event.ability.guid;
     if (spellId === SPELLS.PURIFY.id) {
-      super.beginCooldown(spellId, event.timestamp);
+      super.beginCooldown(spellId, event);
     }
   }
 
-  beginCooldown(spellId, timestamp) {
+  beginCooldown(spellId, cooldownTriggerEvent) {
     // Essentially having the purify cast not be able to trigger the cooldown, the dispel event does it instead.
     if (spellId === SPELLS.PURIFY.id) {
       return;
     }
 
-    super.beginCooldown(spellId, timestamp);
+    super.beginCooldown(spellId, cooldownTriggerEvent);
   }
 }
 

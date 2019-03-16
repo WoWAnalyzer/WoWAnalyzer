@@ -5,11 +5,12 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ResourceLink from 'common/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import Checklist from 'parser/shared/modules/features/Checklist2';
-import Rule from 'parser/shared/modules/features/Checklist2/Rule';
-import Requirement from 'parser/shared/modules/features/Checklist2/Requirement';
-import PreparationRule from 'parser/shared/modules/features/Checklist2/PreparationRule';
-import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist2/GenericCastEfficiencyRequirement';
+import { TooltipElement } from 'common/Tooltip';
+import Checklist from 'parser/shared/modules/features/Checklist';
+import Rule from 'parser/shared/modules/features/Checklist/Rule';
+import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
+import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
+import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 
 class MistweaverMonkChecklist extends React.PureComponent {
   static propTypes = {
@@ -93,9 +94,12 @@ class MistweaverMonkChecklist extends React.PureComponent {
 
           {combatant.hasTalent(SPELLS.MANA_TEA_TALENT.id) &&
           <Requirement name={(<><SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> mana saved</>)} thresholds={thresholds.manaTea} />}
+          <Requirement name={(<><SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> % overhealing</>)} thresholds={thresholds.manaTeaOverhealing} />
 
           {combatant.hasTalent(SPELLS.LIFECYCLES_TALENT.id) &&
           <Requirement name={(<><SpellLink id={SPELLS.LIFECYCLES_TALENT.id} /> mana saved</>)} thresholds={thresholds.lifecycles} />}
+          {combatant.hasTalent(SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.id) &&
+          <Requirement name={(<><SpellLink id={SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.id} /> Cast Uptime</>)} thresholds={thresholds.jadeSerpentStatue} />}
         </Rule>
 
         <Rule
@@ -110,7 +114,7 @@ class MistweaverMonkChecklist extends React.PureComponent {
           name="Try to avoid being inactive for a large portion of the fight"
           description={(
             <>
-              While it's suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and <dfn data-tip="While helping with damage would be optimal, it's much less important as a healer than any of the other suggestions on this checklist. You should ignore this suggestion while you are having difficulties with anything else.">when you're not healing try to contribute some damage*</dfn>.
+              While it's suboptimal to always be casting as a healer you should still try to always be doing something during the entire fight and high downtime is inexcusable. You can reduce your downtime by reducing the delay between casting spells, anticipating movement, moving during the GCD, and <TooltipElement content="While helping with damage would be optimal, it's much less important as a healer than any of the other suggestions on this checklist. You should ignore this suggestion while you are having difficulties with anything else.">when you're not healing try to contribute some damage*</TooltipElement>.
             </>
           )}
         >
@@ -122,6 +126,7 @@ class MistweaverMonkChecklist extends React.PureComponent {
           name="Use your defensive cooldowns effectively"
           description="Make sure you use your personal and defensive cooldowns at appropriate times throughout the fight. While it may not make sense to use these abilities on cooldown, saving them for large damage events is ideal."
         >
+          <AbilityRequirement spell={SPELLS.FORTIFYING_BREW.id} />
           <AbilityRequirement spell={SPELLS.LIFE_COCOON.id} />
           {combatant.hasTalent(SPELLS.DIFFUSE_MAGIC_TALENT.id) && <AbilityRequirement spell={SPELLS.DIFFUSE_MAGIC_TALENT.id} />}
           {combatant.hasTalent(SPELLS.DAMPEN_HARM_TALENT.id) && <AbilityRequirement spell={SPELLS.DAMPEN_HARM_TALENT.id} />}

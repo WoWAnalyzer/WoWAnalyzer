@@ -1,13 +1,14 @@
 import React from 'react';
-import { t } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import { i18n } from 'interface/RootLocalizationProvider';
+import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import StatisticBar from 'interface/statistics/StatisticBar';
+import UptimeBar from 'interface/statistics/components/UptimeBar';
+import SpellIcon from 'common/SpellIcon';
 
 class RuleOfLaw extends Analyzer {
   constructor(...args) {
@@ -33,23 +34,43 @@ class RuleOfLaw extends Analyzer {
   suggestions(when) {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <>
+        <Trans>
           Your <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> uptime can be improved. Try keeping at least 1 charge on cooldown; you should (almost) never be at max charges.
-        </>
+        </Trans>
       )
         .icon(SPELLS.RULE_OF_LAW_TALENT.icon)
-        .actual(`${formatPercentage(actual)}% uptime`)
-        .recommended(`>${formatPercentage(recommended)}% is recommended`);
+        .actual(<Trans>{formatPercentage(actual)}% uptime</Trans>)
+        .recommended(<Trans>&gt;${formatPercentage(recommended)}% is recommended</Trans>);
     });
   }
   statistic() {
+    const history = this.selectedCombatant.getBuffHistory(SPELLS.RULE_OF_LAW_TALENT.id);
+
     return (
-      <StatisticBox
+      <StatisticBar
         position={STATISTIC_ORDER.CORE(31)}
-        icon={<SpellIcon id={SPELLS.RULE_OF_LAW_TALENT.id} />}
-        value={`${formatPercentage(this.uptime)} %`}
-        label={i18n._(t`${SPELLS.RULE_OF_LAW_TALENT.name} uptime`)}
-      />
+        wide
+        size="small"
+      >
+        <div className="flex">
+          <div className="flex-sub icon">
+            <SpellIcon id={SPELLS.RULE_OF_LAW_TALENT.id} />
+          </div>
+          <div className="flex-sub value">
+            <Trans>
+              {formatPercentage(this.uptime, 0)}% <small>uptime</small>
+            </Trans>
+          </div>
+          <div className="flex-main chart" style={{ padding: 15 }}>
+            <UptimeBar
+              uptimeHistory={history}
+              start={this.owner.fight.start_time}
+              end={this.owner.fight.end_time}
+              style={{ height: '100%' }}
+            />
+          </div>
+        </div>
+      </StatisticBar>
     );
   }
 }

@@ -1,6 +1,5 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
-import DamageDone from 'parser/shared/modules/DamageDone';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -19,6 +18,7 @@ import EnergyCapTracker from '../shared/resources/EnergyCapTracker';
 import SpellEnergyCost from '../shared/resources/SpellEnergyCost';
 
 import NightbladeDuringSymbols from './modules/core/NightbladeDuringSymbols';
+import NightbladeEarlyRefresh from './modules/core/NightbladeEarlyRefresh';
 import CastsInShadowDance from './modules/core/CastsInShadowDance';
 import NightbladeUptime from './modules/core/NightbladeUptime';
 import CastsInStealth from './modules/core/CastsInStealth';
@@ -38,7 +38,6 @@ import Perforate from "./modules/azerite/Perforate";
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Core
-    damageDone: [DamageDone, { showStatistic: true }],
     abilities: Abilities,
     checklist: Checklist,
     alwaysBeCasting: AlwaysBeCasting,
@@ -70,6 +69,7 @@ class CombatLogParser extends CoreCombatLogParser {
     shadowBladesUptime : ShadowBladesUptime,
     nightbladeUptime: NightbladeUptime,
     nightbladeDuringSymbols: NightbladeDuringSymbols,
+    nightbladeEarlyRefresh: NightbladeEarlyRefresh,
     castsInShadowDance: CastsInShadowDance,
     castsInStealth: CastsInStealth,
 

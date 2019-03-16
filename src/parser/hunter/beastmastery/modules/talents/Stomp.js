@@ -13,7 +13,6 @@ import AverageTargetsHit from 'interface/others/AverageTargetsHit';
  */
 
 class Stomp extends Analyzer {
-
   damage = 0;
   hits = 0;
   casts = 0;
@@ -44,10 +43,12 @@ class Stomp extends Analyzer {
     return (
       <TalentStatisticBox
         talent={SPELLS.STOMP_TALENT.id}
-        value={<>
-          <ItemDamageDone amount={this.damage} /> <br />
-          <AverageTargetsHit casts={this.casts} hits={this.hits} />
-        </>}
+        value={(
+          <>
+            <ItemDamageDone amount={this.damage} /><br />
+            <AverageTargetsHit casts={this.casts} hits={this.hits} />
+          </>
+        )}
       />
     );
   }

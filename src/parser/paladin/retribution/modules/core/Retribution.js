@@ -42,7 +42,7 @@ class Retribution extends Analyzer {
         position={STATISTIC_ORDER.UNIMPORTANT()}
         icon={<SpellIcon id={SPELLS.RETRIBUTION_BUFF.id} />}
         value={`${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS`}
-        label="Damage contributed"
+        label="Damage Contributed"
         tooltip={`Retribution contributed ${formatNumber(this.bonusDmg)} total damage (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} %).`}
       />
     );

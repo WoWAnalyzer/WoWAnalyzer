@@ -115,11 +115,17 @@ class HotStreakPreCasts extends Analyzer {
         icon={<SpellIcon id={SPELLS.HOT_STREAK.id} />}
         value={`${formatPercentage(this.castBeforeHotStreakUtil, 0)} %`}
         label="Hot Streak pre-casts"
-        tooltip={`By pre-casting Fireball (or hard casting Pyroblast to use a Pyroclasm proc), you are increasing the chances of getting another Heating Up or Hot Streak since if both the pre-cast and the instant Pyroblast crit, then you will instantly get a new Hot Streak, or if one of them procs then you will have a new Heating Up proc that you can convert to Hot Streak with a guaranteed crit ability like Fire Blast or Phoenix Flames. Therefore you should always do this, except in the below circumstances where you can guarantee a crit.        <ul>
-          <li>Combustion is active</li>
-          <li>You have Firestarter and the target is above 90% health</li>
-          <li>You have Searing Touch and the target is below 30% health</li>
-        </ul>`}
+        tooltip={(
+          <>
+            By pre-casting Fireball (or hard casting Pyroblast to use a Pyroclasm proc), you are increasing the chances of getting another Heating Up or Hot Streak since if both the pre-cast and the instant Pyroblast crit, then you will instantly get a new Hot Streak, or if one of them procs then you will have a new Heating Up proc that you can convert to Hot Streak with a guaranteed crit ability like Fire Blast or Phoenix Flames.
+            Therefore you should always do this, except in the below circumstances where you can guarantee a crit.
+            <ul>
+              <li>Combustion is active</li>
+              <li>You have Firestarter and the target is above 90% health</li>
+              <li>You have Searing Touch and the target is below 30% health</li>
+            </ul>
+          </>
+        )}
       />
     );
   }

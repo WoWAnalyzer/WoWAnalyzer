@@ -18,13 +18,6 @@ export default {
   [SPELLS.LEECH.id]: { // procs a percent of all your healing, so we ignore for weights and total healing
     multiplier: true,
   },
-  [SPELLS.XAVARICS_MAGNUM_OPUS.id]: { // Prydaz
-    int: false,
-    crit: false,
-    hasteHpct: false,
-    mastery: false,
-    vers: true,
-  },
   [SPELLS.HEALTHSTONE.id]: {
     int: false,
     crit: false,
@@ -169,6 +162,24 @@ export default {
   [SPELLS.MUTATING_ANTIBODY.id]: { // Inoculating Extract
     int: false,
     crit: true,
+    hasteHpct: false,
+    mastery: false,
+    vers: true,
+  },
+  // https://www.warcraftlogs.com/reports/ghpJGamyTKXzDqFt/#fight=47&source=9
+  [SPELLS.BONDED_SOULS_BUFF_AND_HEAL.id]: { // General BoD Azerite Trait
+    int: false,
+    crit: true,
+    hasteHpm: false,
+    hasteHpct: false,
+    mastery: false,
+    vers: true,
+  },
+  // https://www.warcraftlogs.com/reports/ghpJGamyTKXzDqFt/#fight=47&source=9
+  [SPELLS.MIRROR_OF_ENTWINED_FATE_BUFF.id]: { // BoD Trinket
+    int: false,
+    crit: true,
+    hasteHpm: false,
     hasteHpct: false,
     mastery: false,
     vers: true,

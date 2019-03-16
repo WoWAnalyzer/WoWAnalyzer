@@ -1,10 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Line } from 'react-chartjs-2';
+import {
+  FlexibleWidthXYPlot as XYPlot,
+  DiscreteColorLegend,
+  XAxis,
+  YAxis,
+  LineSeries,
+  AreaSeries,
+  HorizontalGridLines,
+  VerticalGridLines,
+} from 'react-vis';
 import SPELLS from 'common/SPELLS';
 import { formatDuration } from 'common/format';
 
 import VoidformStyles from './VoidformStyles';
+import './VoidformGraph.scss';
 
 // changing this value will have a large impact on webbrowser performance. About 200 seems to be best of 2 worlds.
 const RESOLUTION_MS = 200;
@@ -219,54 +229,87 @@ const VoidformGraph = ({
 
   }
 
-  const gridLines = VoidformStyles.gridLines;
+  // by Chizu: I give up on refactoring this thing.
+  // I *really* doubt it couldn't be done in a more comprehensible way but I'm not gonna waste my sanity on it.
 
-  const chartOptions = {
-    responsive: true,
-    scales: {
-      yAxes: [{
-        gridLines: gridLines,
-        ticks: {
-          callback: (numberOfStacks, index, values) => {
-            return numberOfStacks;
-          },
-          min: 0,
-          max: 100,
-          stepSize: 25,
-          fontSize: 14,
-        },
-      }],
-      xAxes: [{
-        gridLines: gridLines,
-        ticks: {
-          callback: (ms, index, values) => {
-            const everySecond = surrenderToMadness ? 10 : 5;
-            return (ms * (RESOLUTION_MS / 1000)) % everySecond === 0 ? formatDuration(ms * (RESOLUTION_MS / 1000)) : null;
-          },
-          fontSize: 14,
-        },
-      }],
-    },
-    animation: {
-      duration: 0,
-    },
-    hover: {
-      animationDuration: 0,
-    },
-    responsiveAnimationDuration: 0,
-    tooltips: {
-      enabled: false,
-    },
-    legend: VoidformStyles.legend,
-  };
+  // just try to use info that's already in chartData
+  const data = chartData.datasets.map(dataset => {
+    // looks like chartData.labels.length always === dataset.data.length (chartjs seemed to require this when it already was separated)
+    const _data = dataset.data.map((value, i) => ({
+      x: chartData.labels[i],
+      y: value,
+    }));
+    return {
+      title: dataset.label,
+      backgroundColor: dataset.backgroundColor,
+      borderColor: dataset.borderColor,
+      fill: dataset.fill,
+      data: _data,
+    };
+  });
+
+  // Chizu: I don't understand why the ticks are the way they are, but I extract them to array
+  // so the vertical grid lines can align (they don't do that automatically) to the XAxis ticks
+  const xTicks = [];
+  const everySecond = surrenderToMadness ? 10 : 5;
+  chartData.labels.forEach(label => {
+    if ((label * (RESOLUTION_MS / 1000)) % everySecond === 0) {
+      xTicks.push(label);
+    }
+  });
 
   return (
-    <Line
-      data={chartData}
-      options={chartOptions}
-      width={1100}
+    <XYPlot
       height={400}
-    />
+      yDomain={[0, 100]}
+      margin={{
+        top: 30,
+      }}
+    >
+      <DiscreteColorLegend
+        orientation="horizontal"
+        items={data.map(d => ({
+          title: d.title,
+          color: d.borderColor,
+        }))}
+      />
+      <XAxis
+        tickValues={xTicks}
+        tickFormat={value => formatDuration(value * (RESOLUTION_MS / 1000))}
+      />
+      <YAxis tickValues={[0, 25, 50, 75, 100]} />
+      <HorizontalGridLines
+        tickValues={[0, 25, 50, 75, 100]}
+        style={{
+          strokeDasharray: [2, 2],
+          stroke: 'rgba(255, 255, 255, 0.6)',
+        }}
+      />
+      <VerticalGridLines
+        tickValues={xTicks}
+        style={{
+          strokeDasharray: [2, 2],
+          stroke: 'rgba(255, 255, 255, 0.6)',
+        }}
+      />
+      {/*the getNull property tells react-vis to render only points that have y !== null*/}
+      {data.map(dataset => (
+        <LineSeries
+          data={dataset.data}
+          color={dataset.borderColor}
+          strokeWidth={2}
+          getNull={d => d.y !== null}
+        />
+      ))}
+      {data.filter(d => d.fill).map(dataset => (
+        <AreaSeries
+          data={dataset.data}
+          color={dataset.backgroundColor}
+          stroke="transparent"
+          getNull={d => d.y !== null}
+        />
+      ))}
+    </XYPlot>
   );
 };
 

@@ -1,14 +1,15 @@
 import React from 'react';
+import { Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
-
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 class AuraOfMercy extends Analyzer {
   static dependencies = {
@@ -34,9 +35,9 @@ class AuraOfMercy extends Analyzer {
     return {
       actual: this.hps,
       isLessThan: {
-        minor: 600,
-        average: 550,
-        major: 500,
+        minor: 2500,
+        average: 2000,
+        major: 1500,
       },
     };
   }
@@ -44,23 +45,27 @@ class AuraOfMercy extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <>
-          The healing done by your <SpellLink id={SPELLS.AURA_OF_MERCY_TALENT.id} /> is low. Try to find a better moment to cast it or consider changing to <SpellLink id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} /> or <SpellLink id={SPELLS.DEVOTION_AURA_TALENT.id} /> which can be more reliable.
-        </>
+        <Trans>
+          The healing done by your <SpellLink id={SPELLS.AURA_OF_MERCY_TALENT.id} /> is low. Try to find a better moment to cast it or consider changing to <SpellLink id={SPELLS.DEVOTION_AURA_TALENT.id} /> which can be more reliable and generally offers more throughput.
+        </Trans>
       )
         .icon(SPELLS.AURA_OF_MERCY_TALENT.icon)
-        .actual(`${formatNumber(actual)} HPS`)
-        .recommended(`>${formatNumber(recommended)} HPS is recommended`);
+        .actual(<Trans>{formatNumber(actual)} HPS</Trans>)
+        .recommended(<Trans>&gt;{formatNumber(recommended)} HPS is recommended</Trans>);
     });
   }
   statistic() {
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.OPTIONAL(60)}
-        icon={<SpellIcon id={SPELLS.AURA_OF_MERCY_TALENT.id} />}
-        value={`${formatNumber(this.hps)} HPS`}
-        label="Healing done"
-      />
+        size="small"
+      >
+        <BoringSpellValue
+          spell={SPELLS.AURA_OF_MERCY_TALENT}
+          value={<Trans>{formatNumber(this.hps)} HPS</Trans>}
+          label={<Trans>Healing done</Trans>}
+        />
+      </Statistic>
     );
   }
 }

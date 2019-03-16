@@ -3,6 +3,7 @@ import React from 'react';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatNumber } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
+import { TooltipElement } from 'common/Tooltip';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
@@ -34,9 +35,9 @@ class PowerWordShieldWasted extends Analyzer {
         icon={<SpellIcon id={SPELLS.POWER_WORD_SHIELD.id} />}
         value={`${formatNumber(wasted / this.owner.fightDuration * 1000)} HPS`}
         label={(
-          <dfn data-tip={`The amount of shield absorb remaining on Power Word: Shield instances that have expired. There was a total of ${formatNumber(wasted)} unused Power Word: Shield absorb from ${count} shields with absorb remaining (a total of ${totalCount} shields were applied).`}>
+          <TooltipElement content={`The amount of shield absorb remaining on Power Word: Shield instances that have expired. There was a total of ${formatNumber(wasted)} unused Power Word: Shield absorb from ${count} shields with absorb remaining (a total of ${totalCount} shields were applied).`}>
             Unused PW:S absorb
-          </dfn>
+          </TooltipElement>
           )}
       />
     );

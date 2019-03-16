@@ -1,11 +1,11 @@
-// import Background from './images/backgrounds/FridaIronbellows.jpg';
-import Headshot from './images/headshots/HighTinkerMekkatorque.jpg';
+import Background from './images/backgrounds/HighTinkerMekkatorque.jpg';
+import Headshot from './images/headshots/HighTinkerMekkatorque.png';
 import { BOD_ALLIANCE_TO_HORDE } from './RaceTranslation';
 
 export default {
   id: 2276,
   name: 'High Tinker Mekkatorque',
-  // TODO: background: Background,
+  background: Background,
   headshot: Headshot,
   icon: 'achievement_boss_zuldazar_mekkatorque',
   fight: {

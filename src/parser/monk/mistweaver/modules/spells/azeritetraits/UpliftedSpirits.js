@@ -1,19 +1,17 @@
 import React from 'react';
 
-import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import HIT_TYPES from 'game/HIT_TYPES';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import StatisticBox from 'interface/others/StatisticBox';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import SpellLink from 'common/SpellLink';
+import Uptime from 'interface/icons/Uptime';
 
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 import { MISTWEAVER_HEALING_AURA, VIVIFY_SPELLPOWER_COEFFICIENT, VIVIFY_REM_SPELLPOWER_COEFFICIENT } from '../../../constants';
 
@@ -85,26 +83,30 @@ class UpliftedSpirits extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        position={STATISTIC_ORDER.OPTIONAL(70)}
-        icon={<SpellIcon id={SPELLS.UPLIFTED_SPIRITS.id} />}
-        value={`${formatNumber(this.cooldownReductionUsed / 1000) || 0}`}
-        label={(
-          <dfn data-tip={`You wasted ${this.cooldownReductionWasted / 1000 || 0} seconds of cooldown reduction.`}
-          >
-            Revival Seconds Reduced
-          </dfn>
+      <AzeritePowerStatistic
+        size="flexible"
+        tooltip={(
+          <>
+            Added a total of {formatNumber(this.healing)} to your Vivify.<br />
+            You wasted {this.cooldownReductionWasted / 1000 || 0} seconds of cooldown reduction.
+          </>
         )}
-      />
-    );
-  }
+      >
+        <div className="pad">
+          <label><SpellLink id={SPELLS.UPLIFTED_SPIRITS.id} /></label>
 
-  subStatistic() {
-    return (
-      <StatisticListBoxItem
-        title={<SpellLink id={SPELLS.UPLIFTED_SPIRITS.id} />}
-        value={<dfn data-tip={`Added a total of ${formatNumber(this.healing)} to your Vivify.`}>{formatPercentage(this.healing / this.getAbility(SPELLS.VIVIFY.id).healingEffective)} % of Vivify Healing</dfn>}
-      />
+          <div className="value" style={{ marginTop: 15 }}>
+            <img
+              src="/img/healing.png"
+              alt="Healing"
+              className="icon"
+            /> {formatPercentage(this.healing / this.getAbility(SPELLS.VIVIFY.id).healingEffective)}% <small>of Vivify Healing</small>
+          </div>
+          <div className="value" style={{ marginTop: 5 }}>
+            <Uptime /> {formatNumber(this.cooldownReductionUsed / 1000) || 0} <small>Revival Seconds Reduced</small>
+          </div>
+        </div>
+      </AzeritePowerStatistic>
     );
   }
 }

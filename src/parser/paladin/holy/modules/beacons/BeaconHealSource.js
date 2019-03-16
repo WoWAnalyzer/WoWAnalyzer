@@ -1,27 +1,49 @@
 import SPELLS from 'common/SPELLS';
-
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import Combatants from 'parser/shared/modules/Combatants';
+import EventFilter from 'parser/core/EventFilter';
+import Events from 'parser/core/Events';
 
 import BeaconTargets from './BeaconTargets';
 import BeaconTransferFactor from './BeaconTransferFactor';
 import { BEACON_TRANSFERING_ABILITIES } from '../../constants';
+import BeaconOfVirtue from '../../normalizers/BeaconOfVirtue';
 
 const debug = false;
 
+/**
+ * @property {EventEmitter} eventEmitter
+ * @property {Combatants} combatants
+ * @property {BeaconTargets} beaconTargets
+ * @property {BeaconTransferFactor} beaconTransferFactor
+ * @property {BeaconOfVirtue} beaconOfVirtueNormalizer
+ */
 class BeaconHealSource extends Analyzer {
   static dependencies = {
     eventEmitter: EventEmitter,
     combatants: Combatants,
     beaconTargets: BeaconTargets,
     beaconTransferFactor: BeaconTransferFactor,
-    // This also relies on the BeaconOfVirtueNormalizer so precasting FoL into BoV is accounted for properly.
+    // This relies on the BeaconOfVirtueNormalizer so precasting FoL into BoV is accounted for properly.
+    beaconOfVirtueNormalizer: BeaconOfVirtue,
   };
+
+  get beacontransfer() {
+    return new EventFilter('beacontransfer');
+  }
+  get beacontransferfailed() {
+    return new EventFilter('beacontransferfailed');
+  }
+
+  constructor(options) {
+    super(options);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this._onHeal);
+  }
 
   healBacklog = [];
 
-  on_byPlayer_heal(event) {
+  _onHeal(event) {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.BEACON_OF_LIGHT_HEAL.id) {
       this.processBeaconHealing(event);
@@ -68,7 +90,7 @@ class BeaconHealSource extends Analyzer {
           ...healEvent,
           // Set the timestamp so we don't jump around in time (since healEvent's timestamp will be atleast 500ms in the past)
           timestamp: beaconTransferEvent.timestamp,
-          type: 'beacontransferfailed',
+          type: this.beacontransferfailed.eventType,
         });
 
         // Remove the heal from the backlog as it is not going to be relevant this late

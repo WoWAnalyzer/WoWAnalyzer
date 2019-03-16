@@ -1,0 +1,48 @@
+.react-tooltip-lite,
+.tooltip-crosshair .rv-crosshair__inner
+{
+  color: #fff;
+  background: rgba(10, 10, 10, 0.9) !important;
+  border-radius: 4px;
+  font-size: 13px;
+  opacity: 1 !important;
+  transition: opacity 0.3s ease-out;
+  max-width: 600px !important;
+  padding: 8px 15px !important;
+}
+.react-tooltip-lite-arrow {
+  color: rgba(10, 10, 10, 0.9) !important;
+}
+
+@mixin tooltip-element {
+  white-space: nowrap;
+}
+@mixin tooltip-arrow {
+  content: '\A';
+  position: absolute;
+  width: 0;
+  height: 0;
+  z-index: 1001;
+  border-top: 10px transparent solid;
+  border-bottom: 10px transparent solid;
+}
+// tooltip that's on the left of something
+@mixin tooltip-left($offset: 10px) {
+  @include tooltip-element;
+  right: $offset;
+}
+@mixin tooltip-arrow-left($offset: 10px) {
+  @include tooltip-arrow;
+  right: -$offset;
+  border-left: 10px rgba(10, 10, 10, 0.9) solid;
+}
+// tooltip that's on the right of something
+@mixin tooltip-right($offset: 10px) {
+  @include tooltip-element;
+  left: $offset;
+}
+@mixin tooltip-arrow-right($offset: 10px) {
+  @include tooltip-arrow;
+  left: -$offset;
+  border-right: 10px rgba(10, 10, 10, 0.9) solid;
+}

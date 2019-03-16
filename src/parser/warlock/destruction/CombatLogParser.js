@@ -1,5 +1,4 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/shared/modules/DamageDone';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 import SpellUsable from './modules/core/SpellUsable';
@@ -48,7 +47,6 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    damageDone: [DamageDone, { showStatistic: true }],
 
     // DoTs
     immolateUptime: ImmolateUptime,

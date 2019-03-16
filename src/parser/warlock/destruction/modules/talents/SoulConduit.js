@@ -41,16 +41,14 @@ class SoulConduit extends Analyzer {
       <StatisticListBoxItem
         title={<>Shards generated with <SpellLink id={SPELLS.SOUL_CONDUIT_TALENT.id} /></>}
         value={generatedShards}
-        valueTooltip={`You gained ${generatedShards} Shards from this talent
-                      ${max > 0 ?
-                          `, which is <strong>${formatPercentage(generatedShards / max)}%</strong> of Shards you were most likely to get in this fight (${max} Shards).`
-                        :
-                          ', while you were most likely to not get any Shards.'
-                      }
-                      <br />
-                      Estimated damage: ${formatThousands(estimatedDamage)} (${this.owner.formatItemDamageDone(estimatedDamage)}).<br /><br />
+        valueTooltip={(
+          <>
+            You gained {generatedShards} Shards from this talent, {max > 0 ? <>which is <strong>{formatPercentage(generatedShards / max)}%</strong> of Shards you were most likely to get in this fight ({max} Shards)</> : ', while you were most likely to not get any Shards'}.<br />
+            Estimated damage: {formatThousands(estimatedDamage)} ({this.owner.formatItemDamageDone(estimatedDamage)}).<br /><br />
 
-                      This result is estimated by multiplying average Chaos Bolt damage by potential casts you would get from these bonus Shards.`}
+            This result is estimated by multiplying average Chaos Bolt damage by potential casts you would get from these bonus Shards.
+          </>
+        )}
       />
     );
   }

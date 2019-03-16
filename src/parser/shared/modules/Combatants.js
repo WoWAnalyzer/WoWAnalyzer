@@ -18,9 +18,10 @@ class Combatants extends Entities {
     return combatant;
   }
 
+  _selected = null;
   /** @returns Combatant */
   get selected() {
-    return this.players[this.owner.playerId];
+    return this._selected;
   }
 
   constructor(...args) {
@@ -33,6 +34,7 @@ class Combatants extends Entities {
 
       this.players[combatantInfo.sourceID] = new Combatant(this.owner, combatantInfo);
     });
+    this._selected = this.players[this.owner.playerId];
   }
 }
 

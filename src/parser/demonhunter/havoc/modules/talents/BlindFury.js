@@ -6,6 +6,7 @@ import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/GdDhNAZgp2X3PbVC#fight=31&type=summary&source=10
@@ -26,10 +27,15 @@ class BlindFury extends Analyzer{
   }
 
   onEyeBeamsCast(event) {
-    this.gained += (MAX_FURY - (event.classResources[0].amount - event.classResources[0].cost));
-    if(event.classResources[0].amount >= 50 ){
-      this.badCast += 1;
-    }
+    event.classResources && event.classResources.forEach(resource => {
+      if (resource.type !== RESOURCE_TYPES.FURY.id) {
+        return;
+      }
+      this.gained += (MAX_FURY - (resource.amount - resource.cost));
+      if (resource.amount >= 50) {
+        this.badCast += 1;
+      }
+    });
   }
 
   get furyPerMin() {
@@ -65,11 +71,14 @@ class BlindFury extends Analyzer{
         talent={SPELLS.BLIND_FURY_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
         value={`${this.furyPerMin} fury per min`}
-        tooltip={`Since this will always max out your fury on cast, wasted and totals do not matter. Only the amount effectively gained. <br />
-                  A bad cast is when you cast Eye Beam with more than 50 fury. At that point you are wasting enough fury gained for it to be a dps loss. <br /><br />
-                  ${this.gained} Effective fury gained<br />
-                  ${this.badCast} Bad casts
-        `}
+        tooltip={(
+          <>
+            Since this will always max out your fury on cast, wasted and totals do not matter. Only the amount effectively gained. <br />
+            A bad cast is when you cast Eye Beam with more than 50 fury. At that point you are wasting enough fury gained for it to be a dps loss. <br /><br />
+            {this.gained} Effective fury gained<br />
+            {this.badCast} Bad casts
+          </>
+        )}
       />
     );
   }

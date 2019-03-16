@@ -127,22 +127,24 @@ class grace extends Analyzer {
           this.graceHealing / this.owner.fightDuration * 1000
         )} HPS`}
         label="Mastery Healing"
-        tooltip={`
-          Your mastery provided <b>${formatPercentage(graceHealingPerc)}%</b> healing
-          <ul>
-            <li><b>${formatPercentage(healingBuffedByMasteryPerc)}%</b> of your healing was buffed by mastery
-              <ul>
-                <li>Atonement: <b>${formatPercentage(atonementPerc)}%</b></li>
-                <li>Non-Atonement: <b>${formatPercentage(nonAtonementPerc)}%</b></li>
-              </ul>
-            </li>
-            <li><b>${formatPercentage(healingUnbuffedByMasteryPerc)}%</b> of your healing was spells unbuffed by mastery</li>
-            <li><b>${formatPercentage(healingUnaffectedByMasteryPerc)}%</b> of your healing was spells unaffected by mastery </li>
-          </ul>
-          <br />
-          <b>Unbuffed</b> healing is healing done to targets without atonement with spells that can benefit from mastery. <br />
-          <b>Unaffected</b> healing is healing done with spells that can't benefit from mastery (Trinkets, procs, etc...)
-        `}
+        tooltip={(
+          <>
+            Your mastery provided <strong>{formatPercentage(graceHealingPerc)}%</strong> healing
+            <ul>
+              <li><strong>{formatPercentage(healingBuffedByMasteryPerc)}%</strong> of your healing was buffed by mastery
+                <ul>
+                  <li>Atonement: <strong>{formatPercentage(atonementPerc)}%</strong></li>
+                  <li>Non-Atonement: <strong>{formatPercentage(nonAtonementPerc)}%</strong></li>
+                </ul>
+              </li>
+              <li><strong>{formatPercentage(healingUnbuffedByMasteryPerc)}%</strong> of your healing was spells unbuffed by mastery</li>
+              <li><strong>{formatPercentage(healingUnaffectedByMasteryPerc)}%</strong> of your healing was spells unaffected by mastery </li>
+            </ul>
+            <br />
+            <strong>Unbuffed</strong> healing is healing done to targets without atonement with spells that can benefit from mastery. <br />
+            <strong>Unaffected</strong> healing is healing done with spells that can't benefit from mastery (Trinkets, procs, etc...)
+          </>
+        )}
       />
     );
   }

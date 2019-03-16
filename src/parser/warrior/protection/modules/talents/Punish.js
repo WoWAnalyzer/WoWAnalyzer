@@ -39,10 +39,12 @@ class Punish extends Analyzer {
         icon={<SpellIcon id={SPELLS.PUNISH_TALENT.id} />}
         value={`${formatNumber(this.bonusDmg / this.owner.fightDuration * 1000)} DPS`}
         label="Damage contributed"
-        tooltip={`
-          Punish added a total of ${formatNumber(this.bonusDmg)} damage to your Shield Slams (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%). </br>
-          ${formatPercentage(this.uptime)}% debuff uptime.
-        `}
+        tooltip={(
+          <>
+            Punish added a total of {formatNumber(this.bonusDmg)} damage to your Shield Slams ({formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))}%). <br />
+            {formatPercentage(this.uptime)}% debuff uptime.
+          </>
+        )}
       />
     );
   }

@@ -27,17 +27,17 @@ class DemonSpikes extends Analyzer {
     }
     if (this.selectedCombatant.hasBuff(SPELLS.DEMON_SPIKES_BUFF.id, event.timestamp)) {
       this.hitsWithDS += 1;
-    }else{
+    } else {
       this.hitsWithoutDS += 1;
 
       const isAvailable = this.spellUsable.isAvailable(SPELLS.DEMON_SPIKES.id);
-      if(isAvailable) {
+      if (isAvailable) {
         this.hitsWithDSOffCD += 1;
       }
     }
   }
 
-  get mitigatedUptime(){
+  get mitigatedUptime() {
     return formatPercentage(this.hitsWithDS / (this.hitsWithDS + this.hitsWithoutDS));
   }
 
@@ -79,13 +79,17 @@ class DemonSpikes extends Analyzer {
         icon={<SpellIcon id={SPELLS.DEMON_SPIKES.id} />}
         value={`${this.mitigatedUptime}%`}
         label="Hits mitigated by Demon Spikes"
-        tooltip={`Demon Spikes usage breakdown:
-          <ul>
-          <li>You were hit <b>${this.hitsWithDS}</b> times with your Demon Spikes buff.</li>
-          <li>You were hit <b>${this.hitsWithoutDS}</b> times <b><i>without</i></b> your Demon Spikes buff.</li>
-          <li>You were hit <b>${this.hitsWithDSOffCD}</b> times <b><i>with</i></b> Demon Spikes avalible for use but not used.</li>
-          </ul>
-          <b>Your overall uptime was <b>${formatPercentage(demonSpikesUptimePercentage)}%</b>.`}
+        tooltip={(
+          <>
+            Demon Spikes usage breakdown:
+            <ul>
+              <li>You were hit <strong>{this.hitsWithDS}</strong> times with your Demon Spikes buff.</li>
+              <li>You were hit <strong>{this.hitsWithoutDS}</strong> times <strong><em>without</em></strong> your Demon Spikes buff.</li>
+              <li>You were hit <strong>{this.hitsWithDSOffCD}</strong> times <strong><em>with</em></strong> Demon Spikes avalible for use but not used.</li>
+            </ul>
+            <b>Your overall uptime was {formatPercentage(demonSpikesUptimePercentage)}%</b>.
+          </>
+        )}
       />
     );
   }

@@ -77,10 +77,12 @@ class BloddyRuneblade extends Analyzer{
             {this.bloodyRunebladeRPGain} RP Gained
           </>
         )}
-        tooltip={`
-          ${formatPercentage(this.buffUptime)}% uptime<br />
-          ${this.bloodyRunebladeProcsCounter} Procs
-        `}
+        tooltip={(
+          <>
+            {formatPercentage(this.buffUptime)}% uptime<br />
+            {this.bloodyRunebladeProcsCounter} Procs
+          </>
+        )}
       />
     );
   }

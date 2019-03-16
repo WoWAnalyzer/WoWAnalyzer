@@ -148,30 +148,32 @@ class Photosynthesis extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.PHOTOSYNTHESIS_TALENT.id} />}
         value={`${formatPercentage(totalPercent)} %`}
-        label={'Photosynthesis'}
-        tooltip={`
+        label="Photosynthesis"
+        tooltip={(
+          <>
             Healing contribution
             <ul>
-              <li>Rejuvenation: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateRejuvenationHealing))} %</b></li>
-              <li>Wild Growth: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateWildGrowthHealing))} %</b></li>
-              <li>Cenarion Ward: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateCenarionWardHealing))} %</b></li>
-              <li>Cultivation: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateCultivationHealing))} %</b></li>
-              <li>Lifebloom HoT: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateLifebloomHealing))} %</b></li>
-              <li>Regrowth HoT: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateRegrowthHealing))} %</b></li>
-              <li>Tranquility HoT: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateTranqHealing))} %</b></li>
-              <li>Spring blossoms: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateSpringBlossomsHealing))} %</b></li>
-              <li>Efflorescence: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateEffloHealing))} %</b></li>
-              <li>Grove Tending: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateGroveTendingHealing))} %</b></li>
-              <hr>
-              <li>Total HoT increase part: <b>${formatPercentage(totalPercent-this.owner.getPercentageOfTotalHealingDone(this.lifebloomIncrease))} %</b></li>
-              <li>Lifebloom random bloom: <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.lifebloomIncrease))} %</b> (Random proccs: ${this.randomProccs}, Natural proccs: ${this.naturalProccs})</li>
+              <li>Rejuvenation: <strong>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateRejuvenationHealing))} %</strong></li>
+              <li>Wild Growth: <strong>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateWildGrowthHealing))} %</strong></li>
+              <li>Cenarion Ward: <strong>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateCenarionWardHealing))} %</strong></li>
+              <li>Cultivation: <strong>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateCultivationHealing))} %</strong></li>
+              <li>Lifebloom HoT: <strong>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateLifebloomHealing))} %</strong></li>
+              <li>Regrowth HoT: <strong>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateRegrowthHealing))} %</strong></li>
+              <li>Tranquility HoT: <strong>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateTranqHealing))} %</strong></li>
+              <li>Spring Blossoms: <strong>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateSpringBlossomsHealing))} %</strong></li>
+              <li>Efflorescence: <strong>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateEffloHealing))} %</strong></li>
+              <li>Grove Tending: <strong>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.increasedRateGroveTendingHealing))} %</strong></li>
+              <hr />
+              <li>Total HoT increase part: <strong>{formatPercentage(totalPercent-this.owner.getPercentageOfTotalHealingDone(this.lifebloomIncrease))} %</strong></li>
+              <li>Lifebloom random bloom: <strong>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.lifebloomIncrease))} %</strong> (Random proccs: {this.randomProccs}, Natural proccs: {this.naturalProccs})</li>
             </ul>
             Lifebloom uptime
             <ul>
-              <li>On Self: <b>${formatPercentage(selfUptime/ this.owner.fightDuration)} %</b>
-              <li>On Others: <b>${formatPercentage((totalUptime - selfUptime) / this.owner.fightDuration)} %</b>
+              <li>On Self: <strong>{formatPercentage(selfUptime/ this.owner.fightDuration)} %</strong></li>
+              <li>On Others: <strong>{formatPercentage((totalUptime - selfUptime) / this.owner.fightDuration)} %</strong></li>
             </ul>
-        `}
+          </>
+        )}
       />
     );
   }

@@ -67,7 +67,7 @@ class MirrorImage extends Analyzer {
         position={STATISTIC_ORDER.CORE(100)}
         value={`${formatPercentage(this.damagePercent)} %`}
         label="Mirror Image damage"
-        tooltip={`This is the portion of your total damage attributable to Mirror Image. Expressed as an increase vs never using Mirror Image, this is a <b>${formatPercentage(this.damageIncreasePercent)}% damage increase</b>.`}
+        tooltip={<>This is the portion of your total damage attributable to Mirror Image. Expressed as an increase vs never using Mirror Image, this is a <strong>{formatPercentage(this.damageIncreasePercent)}% damage increase</strong></>}
       />
     );
   }

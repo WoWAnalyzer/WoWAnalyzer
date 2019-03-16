@@ -127,14 +127,17 @@ class Pyroclasm extends Analyzer {
         icon={<SpellIcon id={SPELLS.PYROCLASM_TALENT.id} />}
         value={`${formatPercentage(this.procUtilization, 0)} %`}
         label="Pyroclasm Utilization"
-        tooltip={`This is a measure of how well you utilized your Pyroclasm procs.
-        <ul>
-          <li>${this.procsPerMinute.toFixed(2)} Procs Per Minute (${this.totalProcs} Total)</li>
-          <li>${formatNumber(this.usedProcs)} Procs used</li>
-          <li>${formatNumber(this.unusedProcs)} Procs unused/expired</li>
-          <li>${formatNumber(this.overwrittenProcs)} Procs overwritten</li>
-        </ul>
-      `}
+        tooltip={(
+          <>
+            This is a measure of how well you utilized your Pyroclasm procs.
+            <ul>
+              <li>{this.procsPerMinute.toFixed(2)} Procs Per Minute ({this.totalProcs} Total)</li>
+              <li>{formatNumber(this.usedProcs)} Procs used</li>
+              <li>{formatNumber(this.unusedProcs)} Procs unused/expired</li>
+              <li>{formatNumber(this.overwrittenProcs)} Procs overwritten</li>
+            </ul>
+          </>
+        )}
       />
     );
   }

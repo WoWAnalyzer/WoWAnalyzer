@@ -2,12 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { Trans } from '@lingui/macro';
-import ReactTooltip from 'react-tooltip';
-import { t } from '@lingui/macro';
+import { Trans, t } from '@lingui/macro';
 
 import REGION_CODES from 'common/REGION_CODES';
 import { i18n } from 'interface/RootLocalizationProvider';
+import Tooltip from 'common/Tooltip';
 
 import './ReportSelecter.css';
 
@@ -47,29 +46,23 @@ class ReportSelecter extends React.PureComponent {
   }
 
   codeInput = null;
-
   constructor() {
     super();
+    this.codeInput = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    if (this.codeInput) {
-      this.codeInput.focus();
+    if (this.codeInput.current) {
+      this.codeInput.current.focus();
     }
-  }
-  componentDidUpdate() {
-    ReactTooltip.rebuild();
-  }
-  componentWillUnmount() {
-    ReactTooltip.hide();
   }
 
   handleSubmit(e) {
     e.preventDefault();
 
-    const code = this.codeInput.value;
+    const code = this.codeInput.current.value;
 
     if (!code) {
       // eslint-disable-next-line no-alert
@@ -80,7 +73,7 @@ class ReportSelecter extends React.PureComponent {
     this.handleCodeInputChange(code);
   }
   handleChange(e) {
-    this.handleCodeInputChange(this.codeInput.value);
+    this.handleCodeInputChange(this.codeInput.current.value);
   }
   handleCodeInputChange(value) {
     const code = getReportCode(value);
@@ -112,30 +105,36 @@ class ReportSelecter extends React.PureComponent {
     return (
       <form onSubmit={this.handleSubmit} className="form-inline">
         <div className="report-selector">
-          <input
-            data-tip={i18n._(t`
-              Parsable links:<br/>
-              <ul>
-                <li>https://www.warcraftlogs.com/reports/&lt;report code&gt;</li>
-                <li>https://www.warcraftlogs.com/character/&lt;region&gt;/&lt;realm&gt;/&lt;name&gt;</li>
-                <li>https://worldofwarcraft.com/&lt;language-code&gt;/character/&lt;realm&gt;/&lt;name&gt;</li>
-                <li>https://www.wowchina.com/&lt;language-code&gt;/character/&lt;realm&gt;/&lt;name&gt;</li>
-              </ul>
-            `)}
-            data-delay-show="200"
-            type="text"
-            name="code"
-            className="form-control"
-            ref={elem => {
-              this.codeInput = elem;
-            }}
-            onChange={this.handleChange}
-            style={{ width: 360, cursor: 'help' }}
-            placeholder={i18n._(t`https://www.warcraftlogs.com/reports/<report code>`)}
-            autoCorrect="off"
-            autoCapitalize="off"
-            spellCheck="false"
-          />
+          <Tooltip
+            content={(
+              <Trans>
+                Supported links:<br />
+                <ul>
+                  <li>https://www.warcraftlogs.com/reports/&lt;report code&gt;</li>
+                  <li>https://www.warcraftlogs.com/character/&lt;region&gt;/&lt;realm&gt;/&lt;name&gt;</li>
+                  <li>https://worldofwarcraft.com/&lt;language-code&gt;/character/&lt;realm&gt;/&lt;name&gt;</li>
+                  <li>https://www.wowchina.com/&lt;language-code&gt;/character/&lt;realm&gt;/&lt;name&gt;</li>
+                </ul>
+              </Trans>
+            )}
+          >
+            {/*the div needs to be there (previously the tooltip was on input directly) because input sets its own ref and Tooltip would overwrite it*/}
+            <div style={{ flex: '1 1', cursor: 'help', padding: 0 }}>
+              <input
+                data-delay-show="200"
+                type="text"
+                name="code"
+                className="form-control"
+                style={{ width: '100%', height: '100%' }}
+                ref={this.codeInput}
+                onChange={this.handleChange}
+                placeholder={i18n._(t`https://www.warcraftlogs.com/reports/<report code>`)}
+                autoCorrect="off"
+                autoCapitalize="off"
+                spellCheck="false"
+              />
+            </div>
+          </Tooltip>
 
           <button type="submit" className="btn btn-primary analyze">
             <Trans>Analyze</Trans> <span className="glyphicon glyphicon-chevron-right" aria-hidden />

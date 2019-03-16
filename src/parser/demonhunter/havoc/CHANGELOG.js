@@ -1,12 +1,27 @@
 import React from 'react';
 
-import { Mamtooth, Yajinni } from 'CONTRIBUTORS';
+import { Mamtooth, Yajinni, Zerotorescue } from 'CONTRIBUTORS';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2019-03-12'),
+    changes: <>Fixed an error in the <SpellLink id={SPELLS.BLIND_FURY_TALENT.id} /> analyzer.</>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-02-21'),
+    changes: <>Added tracking of the azerite trait <SpellLink id={SPELLS.FURIOUS_GAZE.id} />.</>,
+    contributors: [Yajinni],
+  },
+  {
+    date: new Date('2019-02-20'),
+    changes: <>Added stats for <SpellLink id={SPELLS.MASTER_OF_THE_GLAIVE_TALENT.id} /> and <SpellLink id={SPELLS.FEL_ERUPTION_TALENT.id} /> talents.</>,
+    contributors: [Yajinni],
+  },
   {
     date: new Date('2019-02-20'),
     changes: <>Added stats for <SpellLink id={SPELLS.DARK_SLASH_TALENT.id} /> and <SpellLink id={SPELLS.CYCLE_OF_HATRED_TALENT.id} /> talents.</>,

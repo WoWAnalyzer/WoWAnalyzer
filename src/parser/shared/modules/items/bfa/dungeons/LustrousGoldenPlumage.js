@@ -1,10 +1,12 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS/index';
-import ITEMS from 'common/ITEMS/index';
-import Analyzer from 'parser/core/Analyzer';
+import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import { formatPercentage, formatNumber } from 'common/format';
 import { calculateSecondaryStatDefault } from 'common/stats';
+import UptimeIcon from 'interface/icons/Uptime';
+import VersatilityIcon from 'interface/icons/Versatility';
+import Analyzer from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
 
 /**
@@ -46,8 +48,8 @@ class LustrousGoldenPlumage extends Analyzer {
       item: ITEMS.LUSTROUS_GOLDEN_PLUMAGE,
       result: (
         <>
-          {formatPercentage(this.totalBuffUptime)}% uptime<br />
-          {formatNumber(this.totalBuffUptime * this.statBuff)} average Versatility
+          <UptimeIcon /> {formatPercentage(this.totalBuffUptime)}% <small>uptime</small><br />
+          <VersatilityIcon /> {formatNumber(this.totalBuffUptime * this.statBuff)} <small>average Versatility gained</small>
         </>
       ),
     };

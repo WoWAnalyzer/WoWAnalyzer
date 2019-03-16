@@ -3,6 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
+import { TooltipElement } from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
@@ -70,9 +71,9 @@ class EnvelopingMists extends Analyzer {
         icon={<SpellIcon id={SPELLS.ENVELOPING_MIST.id} />}
         value={`${formatNumber(this.healingIncrease)}`}
         label={(
-          <dfn data-tip="This is the effective healing contributed by the Eveloping Mists buff.">
+          <TooltipElement content="This is the effective healing contributed by the Eveloping Mists buff.">
             Healing Contributed
-          </dfn>
+          </TooltipElement>
         )}
       />
     );

@@ -2,12 +2,13 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
+import { TooltipElement } from 'common/Tooltip';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 
 import isAtonement from '../core/isAtonement';
-import Penance from './/Penance';
+import Penance from './Penance';
 
 class Castigation extends Analyzer {
   static dependencies = {
@@ -61,9 +62,9 @@ class Castigation extends Analyzer {
         icon={<SpellIcon id={SPELLS.CASTIGATION_TALENT.id} />}
         value={`${formatNumber(healing / this.owner.fightDuration * 1000)} HPS`}
         label={(
-          <dfn data-tip={`The effective healing contributed by Castigation (${formatPercentage(this.owner.getPercentageOfTotalHealingDone(healing))}% of total healing done). Castigation also contributed ${formatNumber(damage / this.owner.fightDuration * 1000)} DPS (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))}% of total damage done), the healing gain of this damage was included in the shown numbers.`}>
+          <TooltipElement content={`The effective healing contributed by Castigation (${formatPercentage(this.owner.getPercentageOfTotalHealingDone(healing))}% of total healing done). Castigation also contributed ${formatNumber(damage / this.owner.fightDuration * 1000)} DPS (${formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))}% of total damage done), the healing gain of this damage was included in the shown numbers.`}>
             Castigation healing
-          </dfn>
+          </TooltipElement>
         )}
       />
     );

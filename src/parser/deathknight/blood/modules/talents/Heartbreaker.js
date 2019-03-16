@@ -45,12 +45,14 @@ class Heartbreaker extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.HEARTBREAKER_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(1)}
-        value={`${this.totalRPGained}`}
+        value={this.totalRPGained}
         label="Runic Power gained"
-        tooltip={`
-          Resulting in about ${Math.floor(this.totalRPGained / this.deathStrikeCost)} extra Death Strikes.<br/>
-          Your Heart Strike hit on average ${this.averageHearStrikeHits} targets.
-        `}
+        tooltip={(
+          <>
+            Resulting in about {Math.floor(this.totalRPGained / this.deathStrikeCost)} extra Death Strikes.<br />
+            Your Heart Strike hit on average {this.averageHearStrikeHits} targets.
+          </>
+        )}
       />
     );
   }

@@ -18,7 +18,7 @@ const furyOfXuenStats = traits => Object.values(traits).reduce((obj, rank) => {
 
 /**
  * Your Combo Strikes grant a stacking 2% chance for your next Fists of Fury to grant 768 Haste and invoke Xuen, The White Tiger for 8 sec.
- * 
+ *
  * The tooltip is rounded up and it actually gives 1.5% per stack
  */
 class FuryOfXuen extends Analyzer {
@@ -38,7 +38,7 @@ class FuryOfXuen extends Analyzer {
     }
     const {haste} = furyOfXuenStats(this.selectedCombatant.traitsBySpellId[SPELLS.FURY_OF_XUEN.id]);
     this.haste = haste;
-    
+
     this.statTracker.add(SPELLS.FURY_OF_XUEN_SUMMON.id, {
       haste,
     });
@@ -46,7 +46,7 @@ class FuryOfXuen extends Analyzer {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
     this.addEventListener(Events.summon.by(SELECTED_PLAYER).spell(SPELLS.FURY_OF_XUEN_SUMMON), this.onPlayerSummon);
   }
-  
+
   onPlayerSummon(event) {
     const furyXuen = {targetID: event.targetID, targetInstance: event.targetInstance};
     this.furyXuens.push(furyXuen);
@@ -83,7 +83,7 @@ class FuryOfXuen extends Analyzer {
             {formatNumber(this.avgHaste)} Average Haste
           </>
         )}
-        tooltip={`You procced Fury of Xuen <b>${this.furyXuens.length}</b> times and had <b>${this.haste}</b> extra haste for <b>${formatPercentage(this.uptime)}%</b> of the fight`}
+        tooltip={<>You procced Fury of Xuen <b>{this.furyXuens.length}</b> times and had <b>{this.haste}</b> extra haste for <b>{formatPercentage(this.uptime)}%</b> of the fight</>}
       />
     );
   }

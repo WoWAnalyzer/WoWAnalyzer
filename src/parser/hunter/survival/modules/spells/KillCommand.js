@@ -15,8 +15,10 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
  * Generates 15 Focus
  *
  * Example log: https://www.warcraftlogs.com/reports/pNJbYdLrMW2ynKGa#fight=3&type=damage-done&source=16&translate=true
+ *
+ * @property {SpellUsable} spellUsable
+ * @property {Abilities} abilities
  */
-
 class KillCommand extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
@@ -43,7 +45,7 @@ class KillCommand extends Analyzer {
       return;
     }
     this.resets++;
-    this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND_CAST_SV.id, this.abilities.getExpectedCooldownDuration(SPELLS.KILL_COMMAND_CAST_SV.id));
+    this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND_CAST_SV.id, this.abilities.getExpectedCooldownDuration(SPELLS.KILL_COMMAND_CAST_SV.id, this.spellUsable.cooldownTriggerEvent(SPELLS.KILL_COMMAND_CAST_SV.id)));
   }
 
   statistic() {

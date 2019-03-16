@@ -11,8 +11,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FISTS_OF_FURY_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste, combatant) =>
-          24 / (1 + haste) * (combatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? 0.5 : 1),
+        cooldown: haste => 24 / (1 + haste) * (combatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? 0.5 : 1),
         gcd: {
           static: 1000,
         },
@@ -25,8 +24,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RISING_SUN_KICK,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: (haste, combatant) =>
-          (10 / (1 + haste)) * (combatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? 0.5 : 1),
+        cooldown: haste => (10 / (1 + haste)) * (combatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? 0.5 : 1),
         gcd: {
           static: 1000,
         },
@@ -59,6 +57,59 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
+      },
+      {
+        spell: SPELLS.BLACKOUT_KICK,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          static: 1000,
+        },
+      },
+      {
+        spell: SPELLS.TIGER_PALM,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          static: 1000,
+        },
+      },
+      {
+        spell: SPELLS.CHI_WAVE_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 15,
+        gcd: {
+          base: 1000,
+          minimum: 750,
+        },
+        enabled: combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.65,
+        },
+      },
+      {
+        spell: SPELLS.SPINNING_CRANE_KICK,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          static: 1000,
+        },
+      },
+      {
+        spell: SPELLS.CHI_BURST_TALENT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 30,
+        gcd: {
+          base: 1000,
+          minimum: 750,
+        },
+      },
+      {
+        spell: SPELLS.RUSHING_JADE_WIND_TALENT_WINDWALKER,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
+        cooldown: haste => 6 / (1 + haste),
+        gcd: {
+          static: 1000,
+        },
+        enabled: combatant.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT_WINDWALKER.id),
       },
       // cooldowns
       {
@@ -135,88 +186,70 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(SPELLS.ENERGIZING_ELIXIR_TALENT.id),
       },
-      // other spells
-      {
-        spell: SPELLS.BLACKOUT_KICK,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
-        gcd: {
-          static: 1000,
-        },
-      },
-      {
-        spell: SPELLS.TIGER_PALM,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
-        gcd: {
-          static: 1000,
-        },
-      },
-      {
-        spell: SPELLS.CHI_WAVE_TALENT,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
-        cooldown: 15,
-        gcd: {
-          base: 1000,
-          minimum: 750,
-        },
-        enabled: combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.65,
-        },
-      },
-      {
-        spell: SPELLS.SPINNING_CRANE_KICK,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
-        gcd: {
-          static: 1000,
-        },
-      },
-      {
-        spell: SPELLS.CHI_BURST_TALENT,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
-        cooldown: 30,
-        gcd: {
-          base: 1000,
-          minimum: 750,
-        },
-      },
+      // Utility
       {
         spell: SPELLS.RING_OF_PEACE_TALENT,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
-        cooldown: 45,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
           base: 1000,
           minimum: 750,
         },
       },
       {
-        spell: SPELLS.CRACKLING_JADE_LIGHTNING,
-        category: Abilities.SPELL_CATEGORIES.OTHERS,
+        spell: SPELLS.LEG_SWEEP,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
-          base: 1000,
-          minimum: 750,
+          static: 1000,
         },
       },
       {
         spell: SPELLS.PARALYSIS,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 45,
         gcd: {
           static: 1000,
         },
       },
       {
-        spell: SPELLS.VIVIFY,
+        spell: SPELLS.DISABLE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
-          base: 1500,
-          minimum: 750,
+          static: 1000,
         },
+      },
+      {
+        spell: SPELLS.ROLL,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: combatant.hasTalent(SPELLS.CELERITY_TALENT.id) ? 15 : 20,
+        charges: combatant.hasTalent(SPELLS.CELERITY_TALENT.id) ? 3 : 2,
+        enabled: !combatant.hasTalent(SPELLS.CHI_TORPEDO_TALENT.id),
+      },
+      {
+        spell: SPELLS.CHI_TORPEDO_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 20,
+        charges: 2,
+        enabled: combatant.hasTalent(SPELLS.CHI_TORPEDO_TALENT.id),
+      },
+      {
+        spell: SPELLS.FLYING_SERPENT_KICK,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 25,
+        gcd: {
+          static: 1000,
+        },
+      },
+      {
+        spell: SPELLS.TIGERS_LUST_TALENT,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 30,
+        gcd: {
+          static: 1000,
+        },
+        enabled: combatant.hasTalent(SPELLS.TIGERS_LUST_TALENT.id),
       },
       {
         spell: SPELLS.TRANSCENDENCE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 10,
         gcd: {
           static: 1000,
         },
@@ -231,37 +264,40 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.FLYING_SERPENT_KICK,
+        spell: SPELLS.VIVIFY,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 25,
         gcd: {
-          static: 1000,
+          base: 1500,
+          minimum: 750,
         },
       },
       {
-        spell: SPELLS.RUSHING_JADE_WIND_TALENT_WINDWALKER,
-        category: Abilities.SPELL_CATEGORIES.ROTATIONAL_AOE,
-        cooldown: haste => 6 / (1 + haste),
+        spell: SPELLS.DETOX_ENERGY,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
-          static: 1000,
+          base: 1000,
+          mininum: 750,
         },
-        enabled: combatant.hasTalent(SPELLS.RUSHING_JADE_WIND_TALENT_WINDWALKER.id),
       },
       {
-        spell: SPELLS.ROLL,
+        spell: SPELLS.SPEAR_HAND_STRIKE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: combatant.hasTalent(SPELLS.CELERITY_TALENT.id) ? 15 : 20,
-        charges: combatant.hasTalent(SPELLS.CELERITY_TALENT.id) ? 3 : 2,
-        enabled: !combatant.hasTalent(SPELLS.CHI_TORPEDO_TALENT.id),
       },
       {
-        spell: SPELLS.TIGERS_LUST_TALENT,
+        spell: SPELLS.PROVOKE,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 30,
+      },
+      {
+        spell: SPELLS.CRACKLING_JADE_LIGHTNING,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
         gcd: {
-          static: 1000,
+          base: 1000,
+          minimum: 750,
         },
-        enabled: combatant.hasTalent(SPELLS.TIGERS_LUST_TALENT.id),
+      },
+      {
+        spell: SPELLS.STORM_EARTH_AND_FIRE_FIXATE,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
       },
       // Defensives
       {

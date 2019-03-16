@@ -70,13 +70,17 @@ class BornToBeWild extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.BORN_TO_BE_WILD_TALENT.id}
         value={`${formatNumber(this.effectiveTotalCDR / 1000)}s total effective CDR`}
-        tooltip={`Effective CDR constitutes the time that was left of the original CD (before reduction from Born To Be Wild) when you cast it again as that is the effective cooldown reduction it provided for you.
-                <ul>
-                  ${this.hasEagle ? `<li>Aspect of the Eagle: ${formatNumber(this._spells[SPELLS.ASPECT_OF_THE_EAGLE.id].effectiveCDR / 1000)}s</li>` : ``}
-                  <li>Aspect of the Cheetah: ${formatNumber(this._spells[SPELLS.ASPECT_OF_THE_CHEETAH.id].effectiveCDR / 1000)}s</li>
-                  <li>Aspect of the Turtle: ${formatNumber(this._spells[SPELLS.ASPECT_OF_THE_TURTLE.id].effectiveCDR / 1000)}s</li>
-                </ul>
-       `} />
+        tooltip={(
+          <>
+            Effective CDR constitutes the time that was left of the original CD (before reduction from Born To Be Wild) when you cast it again as that is the effective cooldown reduction it provided for you.
+            <ul>
+              {this.hasEagle && <li>Aspect of the Eagle: {formatNumber(this._spells[SPELLS.ASPECT_OF_THE_EAGLE.id].effectiveCDR / 1000)}s</li>}
+              <li>Aspect of the Cheetah: {formatNumber(this._spells[SPELLS.ASPECT_OF_THE_CHEETAH.id].effectiveCDR / 1000)}s</li>
+              <li>Aspect of the Turtle: {formatNumber(this._spells[SPELLS.ASPECT_OF_THE_TURTLE.id].effectiveCDR / 1000)}s</li>
+            </ul>
+         </>
+        )}
+      />
     );
   }
 }

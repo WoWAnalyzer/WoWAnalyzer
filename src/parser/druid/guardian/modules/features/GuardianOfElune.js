@@ -106,7 +106,7 @@ class GuardianOfElune extends Analyzer {
         icon={<SpellIcon id={SPELLS.GUARDIAN_OF_ELUNE.id} />}
         value={`${formatPercentage(unusedGoEProcs)}%`}
         label="Unused Guardian of Elune"
-        tooltip={`You got total <b>${this.GoEProcsTotal}</b> guardian of elune procs and <b>used ${this.consumedGoEProc}</b> of them.`}
+        tooltip={<>You got total <strong>{this.GoEProcsTotal}</strong> guardian of elune procs and <strong>used {this.consumedGoEProc}</strong> of them.</>}
       />
     );
   }

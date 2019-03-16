@@ -7,9 +7,9 @@ import { formatNumber } from 'common/format';
 import SmallStatisticBox, { STATISTIC_ORDER } from 'interface/others/SmallStatisticBox';
 
 import Analyzer from 'parser/core/Analyzer';
-import HealingDone from 'parser/shared/modules/HealingDone';
-import DamageDone from 'parser/shared/modules/DamageDone';
-import DamageTaken from 'parser/shared/modules/DamageTaken';
+import HealingDone from 'parser/shared/modules/throughput/HealingDone';
+import DamageDone from 'parser/shared/modules/throughput/DamageDone';
+import DamageTaken from 'parser/shared/modules/throughput/DamageTaken';
 
 // https://www.wowhead.com/uncategorized-spells/name:Vantus+Rune:?filter=29:21;42:2;0:80100
 const VANTUS_RUNE_VERSATILITY = 277;

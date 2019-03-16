@@ -21,7 +21,7 @@ class DreadGladiatorsMedallion extends Analyzer {
     super(...args);
     this.active = this.selectedCombatant.hasTrinket(ITEMS.DREAD_GLADIATORS_MEDALLION.id);
 
-    if(this.active) {
+    if (this.active) {
       this.statBuff = calculateSecondaryStatDefault(300, 576, this.selectedCombatant.getItem(ITEMS.DREAD_GLADIATORS_MEDALLION.id).itemLevel);
       this.abilities.add({
         spell: SPELLS.RAPID_ADAPTATION,
@@ -29,6 +29,7 @@ class DreadGladiatorsMedallion extends Analyzer {
         name: ITEMS.DREAD_GLADIATORS_MEDALLION.name,
         category: Abilities.SPELL_CATEGORIES.ITEMS,
         cooldown: 120,
+        gcd: null,
         castEfficiency: {
           suggestion: true,
         },

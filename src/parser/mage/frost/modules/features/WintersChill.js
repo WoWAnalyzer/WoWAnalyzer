@@ -155,29 +155,34 @@ class WintersChill extends Analyzer {
       <StatisticBox
         position={STATISTIC_ORDER.CORE(50)}
         icon={<SpellIcon id={SPELLS.WINTERS_CHILL.id} />}
-        value={(
-          <span>
-            <SpellIcon
-              id={SPELLS.ICE_LANCE.id}
-              style={{
-                height: '1.2em',
-                marginBottom: '.15em',
-              }}
-            />
-            {' '}{formatPercentage(this.iceLanceUtil, 0)}{' %'}
-            <br />
-            <SpellIcon
-              id={SPELLS.FROSTBOLT.id}
-              style={{
-                height: '1.2em',
-                marginBottom: '.15em',
-              }}
-            />
-            {' '}{formatPercentage(this.hardcastUtil, 0)}{' %'}
-          </span>
-        )}
+        value={(<>
+          <SpellIcon
+            id={SPELLS.ICE_LANCE.id}
+            style={{
+              height: '1.2em',
+              marginBottom: '.15em',
+            }}
+          />
+          {' '}{formatPercentage(this.iceLanceUtil, 0)} %
+          <br />
+          <SpellIcon
+            id={SPELLS.FROSTBOLT.id}
+            style={{
+              height: '1.2em',
+              marginBottom: '.15em',
+            }}
+          />
+          {' '}{formatPercentage(this.hardcastUtil, 0)} %
+        </>)}
         label="Winter's Chill Utilization"
-        tooltip={`Every Brain Freeze Flurry should be preceded by a Frostbolt, Glacial Spike, or Ebonbolt and followed by an Ice Lance, so that both the preceding and following spells benefit from Shatter. <br><br> You double Ice Lance'd into Winter's Chill ${this.doubleIceLanceCasts} times (${formatPercentage(this.doubleIceLancePercentage, 1)}%). Note this is usually impossible, it can only be done with strong haste buffs active and by moving towards the target while casting. It should mostly be considered 'extra credit'.`}
+        tooltip={(
+          <>
+            Every Brain Freeze Flurry should be preceded by a Frostbolt, Glacial Spike, or Ebonbolt and followed by an Ice Lance, so that both the preceding and following spells benefit from Shatter. <br /><br />
+
+            You double Ice Lance'd into Winter's Chill {this.doubleIceLanceCasts} times ({formatPercentage(this.doubleIceLancePercentage, 1)}%). Note this is usually impossible, it can only be done with strong Haste buffs active and by moving towards the target while casting.
+            It should mostly be considered 'extra credit'
+          </>
+        )}
       />
     );
   }

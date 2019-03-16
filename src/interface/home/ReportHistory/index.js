@@ -29,7 +29,7 @@ class ReportHistory extends React.PureComponent {
     const now = (+new Date()) / 1000;
 
     return (
-      <ul className="list selection">
+      <ul className="list selection" style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
         {[...reportHistory].reverse().map(report => (
           <li key={report.code} className="selectable">
             {report.type === REPORT_HISTORY_TYPES.CHARACTER && (

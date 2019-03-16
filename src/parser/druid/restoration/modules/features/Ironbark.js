@@ -45,9 +45,12 @@ class Ironbark extends Analyzer {
         icon={<SpellIcon id={SPELLS.IRONBARK.id} />}
         value={`${formatNumber(this.damageReduced / this.ironbarkCount)}`}
         label="Average Ironbark Mitigation"
-        tooltip={
-          `This is the average amount of damage you prevented per Ironbark cast. The total damage prevented over your <b>${this.ironbarkCount} casts</b> was <b>${formatNumber(this.damageReduced)}</b>. While this amount is not counted in your healing done, this is equivalent to <b>${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.damageReduced))}%</b> of your total healing.`
-        }
+        tooltip={(
+          <>
+            This is the average amount of damage you prevented per Ironbark cast. The total damage prevented over your <strong>{this.ironbarkCount} casts</strong> was <strong>{formatNumber(this.damageReduced)}</strong>.
+            While this amount is not counted in your healing done, this is equivalent to <strong>{formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.damageReduced))}%</strong> of your total healing.
+          </>
+        )}
       />
     );
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Changelog from 'interface/home/Changelog';
+import Changelog from 'interface/home/Changelog/SpecSpecificPanel';
 
 const ChangelogTab = (_, { config }) => <Changelog changelog={config.changelog} />;
 ChangelogTab.contextTypes = {

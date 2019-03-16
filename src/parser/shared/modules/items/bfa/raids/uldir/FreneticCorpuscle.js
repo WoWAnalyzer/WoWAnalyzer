@@ -1,10 +1,11 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS/index';
-import ITEMS from 'common/ITEMS/index';
+import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import {formatNumber} from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
+import { TooltipElement } from 'common/Tooltip';
 
 /**
  * Frenetic Corpuscle -
@@ -32,11 +33,9 @@ class FreneticCorpuscle extends Analyzer {
     return {
       item: ITEMS.FRENETIC_CORPUSCLE,
       result: (
-        <>
-          <dfn data-tip={`Hit <b>${this.hits}</b> times for an average of <b>${formatNumber(this.totalDamage/this.hits)}</b> damage per hit.`}>
-            <ItemDamageDone amount={this.totalDamage} />
-          </dfn>
-        </>
+        <TooltipElement content={<>Hit <strong>{this.hits}</strong> times for an average of <strong>{formatNumber(this.totalDamage/this.hits)}</strong> damage per hit.</>}>
+          <ItemDamageDone amount={this.totalDamage} />
+        </TooltipElement>
       ),
     };
   }

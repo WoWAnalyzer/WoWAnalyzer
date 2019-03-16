@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBreakdown';
 
 import EnergyTracker from './EnergyTracker';
@@ -16,12 +16,12 @@ class EnergyDetails extends Analyzer {
       title: 'Energy usage',
       url: 'energy-usage',
       render: () => (
-        <Tab>
+        <Panel>
           <ResourceBreakdown
             tracker={this.energyTracker}
             showSpenders
           />
-        </Tab>
+        </Panel>
       ),
     };
  }

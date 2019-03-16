@@ -88,7 +88,7 @@ class Blindside extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(1)}
         value={`${formatPercentage(this.efficiency)} %.`}
         label="Blindside efficiency"
-        tooltip={`The efficiency is the number of Blindside casts divided by the number of Blindside casts plus the number of Mutilate casts while Blindside was available.`}
+        tooltip="The efficiency is the number of Blindside casts divided by the number of Blindside casts plus the number of Mutilate casts while Blindside was available."
       />
     );
   }

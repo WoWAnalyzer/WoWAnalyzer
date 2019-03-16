@@ -1,10 +1,10 @@
 import React from 'react';
 
-import BaseModule from 'parser/shared/modules/features/Checklist2/Module';
+import BaseModule from 'parser/shared/modules/features/Checklist/Module';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import ManaValues from 'parser/shared/modules/ManaValues';
-import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist2/PreparationRuleAnalyzer';
+import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 
 import AlwaysBeCasting from '../AlwaysBeCasting';
 
@@ -18,6 +18,7 @@ import BlindFury from '../../talents/BlindFury';
 import DemonBlades from '../../talents/DemonBlades';
 import ImmolationAura from '../../talents/ImmolationAura';
 import Momentum from '../../talents/Momentum';
+import FelEruption from '../../talents/FelEruption';
 
 // Fury Resource
 import FuryDetails from '../../resourcetracker/FuryDetails';
@@ -42,6 +43,7 @@ class Checklist extends BaseModule {
     demonBlades: DemonBlades,
     immolationAura: ImmolationAura,
     momentum: Momentum,
+    felEruption: FelEruption,
 
     // Fury Resource
     furyDetails: FuryDetails,
@@ -68,6 +70,7 @@ class Checklist extends BaseModule {
           immolationAuraEfficiency: this.immolationAura.suggestionThresholds,
           momentumBuffUptime: this.momentum.suggestionThresholds,
           totalFuryWasted: this.furyDetails.suggestionThresholds,
+          felEruptionBadCasts: this.felEruption.suggestionThresholds,
         }}
       />
     );

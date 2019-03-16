@@ -41,7 +41,7 @@ class MitigationCheck extends Analyzer {
       return;
     }
     const boss = findByBossId(this.owner.boss.id);
-    if (boss.fight.softMitigationChecks.physical && boss.fight.softMitigationChecks.magical) {
+    if (boss.fight.softMitigationChecks && boss.fight.softMitigationChecks.physical && boss.fight.softMitigationChecks.magical) {
       this.checksPhysical = boss.fight.softMitigationChecks.physical;
       this.checksMagical = boss.fight.softMitigationChecks.magical;
       if (this.checksPhysical === undefined || this.checksMagical === undefined) {
@@ -101,9 +101,7 @@ class MitigationCheck extends Analyzer {
 
   get tooltip() {
     return [...this.buffCheckPhysical, ...this.buffCheckMagical, ...this.buffCheckPhysAndMag,
-      ...this.debuffCheckPhysical, ...this.debuffCheckMagical, ...this.debuffCheckPhysAndMag].reduce((prev, curr) => {
-      return prev + `<li>${SPELLS[curr].name}</li>`;
-    }, 'Checks if one of the following buffs or debuffs were up during the mechanic: <ul>') + '</ul>';
+      ...this.debuffCheckPhysical, ...this.debuffCheckMagical, ...this.debuffCheckPhysAndMag].map(id => <li>{SPELLS[id].name}</li>);
   }
 
   get physicalChecks() {
@@ -184,7 +182,14 @@ class MitigationCheck extends Analyzer {
         icon={<SpellIcon id={spellIconId} />}
         value={`${formatPercentage(passSum / (passSum + failSum))} %`}
         label={`Soft mitigation checks passed.`}
-        tooltip={this.tooltip}
+        tooltip={(
+          <>
+            Checks if one of the following buffs or debuffs were up during the mechanic:
+            <ul>
+              {this.tooltip}
+            </ul>
+          </>
+        )}
       >
         <table className="table table-condensed" style={{ fontWeight: 'bold' }}>
           {physicalTable}

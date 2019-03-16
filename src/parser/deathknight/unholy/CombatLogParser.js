@@ -1,5 +1,4 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import DamageDone from 'parser/shared/modules/DamageDone';
 
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -24,9 +23,6 @@ import BoneSpikeGraveyard from '../shared/spells/azeritetraits/BoneSpikeGraveyar
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
-    // Core
-    damageDone: [DamageDone, { showStatistic: true }],
-
     // Features
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,

@@ -1,6 +1,6 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -79,14 +79,14 @@ class ComboPointDetails extends Analyzer {
     return (
       <StatisticBox
         icon={(
-        <img
-          src={WastedPointsIcon}
-          alt="Wasted Combo Points"
-        />
-      )}
-        value={`${this.pointsWastedPerMinute.toFixed(2)}`}
+          <img
+            src={WastedPointsIcon}
+            alt="Wasted Combo Points"
+          />
+        )}
+        value={this.pointsWastedPerMinute.toFixed(2)}
         label="Wasted Combo Points per minute"
-        tooltip={`You wasted a total of <b>${this.pointsWasted}</b> combo points. This number does NOT include Primal Fury procs that happened on a point builder used at 4 CPs, because this waste can't be controlled.`}
+        tooltip={<>You wasted a total of <strong>{this.pointsWasted}</strong> combo points. This number does NOT include Primal Fury procs that happened on a point builder used at 4 CPs, because this waste can't be controlled.</>}
         position={STATISTIC_ORDER.CORE(6)}
       />
     );
@@ -97,12 +97,12 @@ class ComboPointDetails extends Analyzer {
       title: 'Combo Point usage',
       url: 'combo-points',
       render: () => (
-        <Tab>
+        <Panel>
           <ResourceBreakdown
             tracker={this.comboPointTracker}
             showSpenders
           />
-        </Tab>
+        </Panel>
       ),
     };
  }

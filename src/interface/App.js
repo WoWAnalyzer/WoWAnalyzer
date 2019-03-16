@@ -1,35 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ReactTooltip from 'react-tooltip';
-import { getLocation, push } from 'react-router-redux';
-import { Link, Route, Switch, withRouter } from 'react-router-dom';
+import { push } from 'react-router-redux';
+import { Route, Switch, withRouter } from 'react-router-dom';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
 import TooltipProvider from 'interface/common/TooltipProvider/index';
-import { track } from 'common/analytics';
 import retryingPromise from 'common/retryingPromise';
 import { API_DOWN, clearError, INTERNET_EXPLORER, internetExplorerError, REPORT_NOT_FOUND, UNKNOWN_NETWORK_ISSUE } from 'interface/actions/error';
 import { fetchUser } from 'interface/actions/user';
 import { getError } from 'interface/selectors/error';
+import { getOpenModals } from 'interface/selectors/openModals';
 import ApiDownBackground from 'interface/common/images/api-down-background.gif';
 import FullscreenError from 'interface/common/FullscreenError';
-import ErrorBoundary from 'interface/common/ErrorBoundary';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
-import NavigationBar from 'interface/layout/NavigationBar/index';
 import Footer from 'interface/layout/Footer/index';
 import HomePage from 'interface/home/Page';
-import NewsPage from 'interface/news/Page';
-import PremiumPage from 'interface/premium/Page';
 import ThunderSoundEffect from 'interface/audio/Thunder Sound effect.mp3';
-import ReportPage from 'interface/report/index';
+import ReportPage from 'interface/report';
+import PortalTarget from 'interface/PortalTarget';
 
 import 'react-toggle/style.css';
-import './App.css';
+import './layout/App.scss';
+import Tracker from './Tracker';
+import Hotkeys from './Hotkeys';
 
-import Header from './Header';
-
-const ContributorPage = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'ContributorPage' */ 'interface/contributor/Page').then(exports => exports.default)));
 const CharacterParsesPage = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'CharacterParsesPage' */ 'interface/character/Page').then(exports => exports.default)));
 
 function isIE() {
@@ -39,7 +34,6 @@ function isIE() {
 
 class App extends React.Component {
   static propTypes = {
-    isHome: PropTypes.bool,
     push: PropTypes.func.isRequired,
 
     error: PropTypes.shape({
@@ -49,11 +43,7 @@ class App extends React.Component {
     clearError: PropTypes.func.isRequired,
     internetExplorerError: PropTypes.func.isRequired,
     fetchUser: PropTypes.func.isRequired,
-    location: PropTypes.shape({
-      pathname: PropTypes.string.isRequired,
-      search: PropTypes.string.isRequired,
-      hash: PropTypes.string.isRequired,
-    }).isRequired,
+    openModals: PropTypes.number.isRequired,
   };
 
   constructor(props) {
@@ -64,15 +54,24 @@ class App extends React.Component {
 
     TooltipProvider.load();
     if (process.env.REACT_APP_FORCE_PREMIUM !== 'true') {
-      // If Premium is forced (development environments), fetching the user would probably fail too
-      props.fetchUser().then(user => {
-        if (user === false || (user && !user.premium)) {
-          (window.adsbygoogle = window.adsbygoogle || []).push({
-            google_ad_client: "ca-pub-8048055232081854",
-            enable_page_level_ads: true,
-          });
-        }
-      });
+      const initializeAds = () => {
+        (window.adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-8048055232081854",
+          enable_page_level_ads: true,
+        });
+      };
+
+      if (process.env.REACT_APP_FORCE_PREMIUM === 'false') {
+        // Force no premium, so skip user request (this is essential in development mode)
+        initializeAds();
+      } else {
+        // If Premium is forced (development environments), fetching the user would probably fail too
+        props.fetchUser().then(user => {
+          if (user === false || (user && !user.premium)) {
+            initializeAds();
+          }
+        });
+      }
     }
   }
 
@@ -170,14 +169,6 @@ class App extends React.Component {
     return (
       <Switch>
         <Route
-          path="/contributor/:id"
-          render={({ match }) => (
-            <ContributorPage
-              contributorId={decodeURI(match.params.id.replace(/\+/g, ' '))}
-            />
-          )}
-        />
-        <Route
           path="/character/:region/:realm/:name"
           render={({ match }) => (
             <CharacterParsesPage
@@ -188,78 +179,27 @@ class App extends React.Component {
           )}
         />
         <Route
-          path="/news/:articleId"
-          render={({ match }) => (
-            <NewsPage
-              articleId={decodeURI(match.params.articleId.replace(/\+/g, ' '))}
-            />
-          )}
-        />
-        <Route
           path="/report/:reportCode?/:fightId?/:player?/:resultTab?"
-          render={props => (
-            <ReportPage {...props} />
-          )}
+          component={ReportPage}
         />
-        <Route
-          path="/premium"
-          render={() => (
-            <PremiumPage />
-          )}
-        />
-        <Route
-          path="/"
-          exact
-          render={() => (
-            <HomePage />
-          )}
-        />
-        <Route
-          render={() => (
-            <div className="container">
-              <h1>404: Content not found</h1>
-
-              <Link to="/">Go back home</Link>
-            </div>
-          )}
-        />
+        <Route component={HomePage} />
       </Switch>
     );
   }
 
-  get showReportSelecter() {
-    return this.props.isHome && !this.props.error;
-  }
-
-  getPath(location) {
-    return `${location.pathname}${location.search}`;
-  }
-  componentDidUpdate(prevProps) {
-    // The primary reason to use this lifecycle method is so the document.title is updated in time
-    if (prevProps.location !== this.props.location) {
-      // console.log('Location changed. Old:', prevProps.location, 'new:', this.props.location, document.title);
-      track(this.getPath(prevProps.location), this.getPath(this.props.location));
-    }
-  }
-
   render() {
-    const { error } = this.props;
+    const { error, openModals } = this.props;
 
     return (
       <>
-        <div className={`app ${this.showReportSelecter ? 'show-report-selecter' : ''}`}>
-          <NavigationBar />
-          <Header showReportSelecter={this.showReportSelecter} />
-          <main>
-            <ErrorBoundary>
-              {this.renderContent()}
-            </ErrorBoundary>
-          </main>
-
-          <ReactTooltip html place="bottom" effect="solid" />
+        <div className={`app ${openModals > 0 ? 'modal-open' : ''}`}>
+          {this.renderContent()}
         </div>
         {!error && <Footer />}
-        <div id="portal" />
+
+        <PortalTarget />
+        <Tracker />
+        <Hotkeys />
       </>
     );
   }
@@ -267,10 +207,10 @@ class App extends React.Component {
 
 const mapStateToProps = state => ({
   error: getError(state),
-  isHome: getLocation(state).pathname === '/', // createMatchSelector doesn't seem to be consistent
+  openModals: getOpenModals(state),
 });
 
-export default withRouter(connect(
+const ConnectedComponent = connect(
   mapStateToProps,
   {
     push,
@@ -278,4 +218,7 @@ export default withRouter(connect(
     internetExplorerError,
     fetchUser,
   }
-)(App));
+)(App);
+
+// This needs the `withRouter` so its props change (causing a render) when the route changes
+export default withRouter(ConnectedComponent);

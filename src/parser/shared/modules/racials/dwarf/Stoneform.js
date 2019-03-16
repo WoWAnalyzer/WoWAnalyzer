@@ -22,7 +22,7 @@ class Stoneform extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
-  
+
   damageReduced = 0;
   physicalDamageTaken = 0;
 
@@ -48,8 +48,8 @@ class Stoneform extends Analyzer {
 
     const damageTaken = event.amount + (event.absorbed || 0);
     const isStoneformActive = this.selectedCombatant.hasBuff(SPELLS.STONEFORM_BUFF.id, event.timestamp, this.owner.playerId);
-    
-    if (isStoneformActive) { 
+
+    if (isStoneformActive) {
       this.physicalDamageTaken += damageTaken;
       this.damageReduced += damageTaken / (1 - STONEFORM_DAMAGE_REDUCTION) * STONEFORM_DAMAGE_REDUCTION;
     }
@@ -61,8 +61,12 @@ class Stoneform extends Analyzer {
         icon={<SpellIcon id={SPELLS.STONEFORM_BUFF.id} />}
         value={`≈${formatNumber(this.drps)} DRPS`}
         label="Stoneform damage reduced"
-        tooltip={`You took a total of ${formatNumber(this.physicalDamageTaken)} physical damage while Stoneform was active. </br>
-                  Stoneform reduced a total of ${formatNumber(this.damageReduced)} physical damage taken.`}
+        tooltip={(
+          <>
+            You took a total of {formatNumber(this.physicalDamageTaken)} physical damage while Stoneform was active. <br />
+            Stoneform reduced a total of {formatNumber(this.damageReduced)} physical damage taken.
+          </>
+        )}
       />
     );
 

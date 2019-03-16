@@ -4,6 +4,7 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SpellLink from 'common/SpellLink';
 import { formatDuration } from 'common/format';
+import { TooltipElement } from 'common/Tooltip';
 
 import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -35,7 +36,7 @@ class ThundergodsVigor extends Analyzer {
       this.wastedReduction += COOLDOWN_REDUCTION_MS - reductionEffective;
       return;
     }
-      
+
     this.wastedReduction += COOLDOWN_REDUCTION_MS;
   }
 
@@ -44,11 +45,9 @@ class ThundergodsVigor extends Analyzer {
     return {
       item: ITEMS.THUNDERGODS_VIGOR,
       result: (
-        <dfn data-tip={`${formatDuration(this.wastedReduction / 1000)} minutes wasted`}>
-          <>
-            Reduced the cooldown of <SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> by {formatDuration(this.effectiveReduction / 1000)} minutes
-          </>
-        </dfn>
+        <TooltipElement content={`${formatDuration(this.wastedReduction / 1000)} minutes wasted`}>
+          Reduced the cooldown of <SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> by {formatDuration(this.effectiveReduction / 1000)} minutes
+        </TooltipElement>
       ),
     };
   }

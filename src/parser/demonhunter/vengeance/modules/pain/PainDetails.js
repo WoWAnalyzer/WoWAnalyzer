@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
-import Tab from 'interface/others/Tab';
+import Panel from 'interface/others/Panel';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatPercentage } from 'common/format';
 import Icon from 'common/Icon';
@@ -70,12 +70,12 @@ class PainDetails extends Analyzer {
       title: 'Pain usage',
       url: 'pain-usage',
       render: () => (
-        <Tab>
+        <Panel>
           <ResourceBreakdown
             tracker={this.painTracker}
             showSpenders
           />
-        </Tab>
+        </Panel>
       ),
     };
  }

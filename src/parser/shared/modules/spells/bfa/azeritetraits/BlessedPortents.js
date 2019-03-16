@@ -15,7 +15,7 @@ class BlessedPortents extends Analyzer {
   expiredBuffs = 0;
   refreshedBuffs = 0;
   activeBuffs = 0;
-  
+
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.BLESSED_PORTENTS.id);
@@ -73,14 +73,16 @@ class BlessedPortents extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.BLESSED_PORTENTS.id}
         value={`${formatPercentage(healingThroughputPercent)} % / ${formatNumber(hps)} HPS`}
-        tooltip={`Applied <b>${formatNumber(this.totalBuffs)}</b> buffs,
-                  <b>${formatNumber(this.refreshedBuffs)}</b> were refreshes.
-                  <ul>
-                    <li>Procced: <b>${formatNumber(this.proccedBuffs)}</b></li>
-                    <li>Expired: <b>${formatNumber(this.expiredBuffs)}</b></li>
-                    <li>Active at encounter end: <b>${formatNumber(this.activeBuffs)}</b></li>
-                  </ul>
-                `}
+        tooltip={(
+          <>
+            Applied <strong>{formatNumber(this.totalBuffs)}</strong> buffs, <strong>{formatNumber(this.refreshedBuffs)}</strong> were refreshes.
+            <ul>
+              <li>Procced: <strong>{formatNumber(this.proccedBuffs)}</strong></li>
+              <li>Expired: <strong>{formatNumber(this.expiredBuffs)}</strong></li>
+              <li>Active at encounter end: <strong>{formatNumber(this.activeBuffs)}</strong></li>
+            </ul>
+          </>
+        )}
       />
     );
   }

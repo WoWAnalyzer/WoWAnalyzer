@@ -6,16 +6,43 @@ import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import HealingValue from 'parser/shared/modules/HealingValue';
 import { i18n } from 'interface/RootLocalizationProvider';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import MasteryRadiusImage from 'interface/images/mastery-radius.png';
-import PlayerBreakdownTab from 'interface/others/PlayerBreakdownTab';
+import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import Panel from 'interface/statistics/Panel';
+import Radar from 'interface/statistics/components/DistanceRadar';
+import PlayerBreakdown from 'interface/others/PlayerBreakdown';
 
 import BeaconTargets from './beacons/BeaconTargets';
-import { ABILITIES_AFFECTED_BY_MASTERY, BEACON_TYPES } from '../constants';
+import { ABILITIES_AFFECTED_BY_MASTERY } from '../constants';
 
 const debug = false;
 
+/**
+ * Options:
+ *
+ * A. Get average regardless of health or amount.
+ * This gets the average based on just the range per heal. This ignores the heal amount and ignores the health pool of the target. A 999 tiny heals and 1 huge heal will get a linear average based on the 1000 heals. This means the result will lean more towards the tiny heals.
+ *
+ * B. Get average adjusted for healing amount.
+ * This gets the average based on the amount healed. This ignores the health pool of the target (and thus overhealing). A 999 tiny heals and 1 huge heal will lean more towards the huge heal.
+ *
+ * C. Get average adjusted for target health.
+ * This gets the average based on the target's health and potential overhealing. Any overhealing is excluded for the max potential. Image you cast a heal where the mastery gain was 90 healing at 50% effectiveness (based on range). After the heal, the target only has 10 health missing. In this situation the total potential mastery gain would be considered 100. This gives you a 90% adjusted effectiveness (instead of the 50% based on range).
+ *
+ * D. Get average adjusted for target health and amount.
+ * Combines B and C so that 100 potential mastery gain is valued much less than 1,000 potential.
+ *
+ * Option A might incorrectly inflate the mastery effectiveness due to certain tiny heals having high effectiveness while they might unevenly contribute to total healing. In addition other tools using this to calculate stat weights do so based on total average healing done and have no idea about tiny heals potentially having better mastery effectiveness.
+ * Option C doesn't have any benefits for this statistic or outside of it. This mastery effectiveness can not be used for stat weights as stat weights already account for overhealing and it would throw off the calculation. It's also misleading for analysis for various reasons.
+ * Option D suffers from the same problems as option C, but with the benefits from option B.
+ * Option B is the best choice. It gets the right average both for analysis and for stat weights. It's the most natural.
+ *
+ * @property {Combatants} combatants
+ * @property {BeaconTargets} beaconTargets
+ * @property {StatTracker} statTracker
+ */
 class MasteryEffectiveness extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -23,30 +50,38 @@ class MasteryEffectiveness extends Analyzer {
     statTracker: StatTracker,
   };
 
-  lastPlayerPositionUpdate = null;
-  /** @type {object} With BotLB this will be the position of our beacon target. */
-  lastBeaconPositionUpdate = null;
+  _lastPlayerPositionUpdate = null;
+  distanceSum = 0;
+  distanceCount = 0;
+  get averageDistance() {
+    return this.distanceSum / this.distanceCount;
+  }
+  rawMasteryEffectivenessSum = 0;
+  rawMasteryEffectivenessCount = 0;
+  /**
+   * @return {number} The mastery effectiveness based solely on your range to the target being healed. Health levels and healing amounts are not included. This means if you do 999 tiny heals and 1 big one, it still takes the average range-based mastery effectiveness of the 1000 heals.
+   */
+  get averageRawMasteryEffectiveness() {
+    return this.rawMasteryEffectivenessSum / this.rawMasteryEffectivenessCount;
+  }
+  masteryEffectivenessRawMasteryGainSum = 0;
+  masteryEffectivenessRawPotentialMasteryGainSum = 0;
+  /**
+   * @return {number} The mastery effectiveness based on your range to the target being healed and the amount healed. Smaller heals weigh less than bigger heals (linearly).
+   */
+  get masteryEffectivenessMasteryHealingGainAverage() {
+    return this.masteryEffectivenessRawMasteryGainSum / this.masteryEffectivenessRawPotentialMasteryGainSum;
+  }
+  /**
+   * @type {number} The total amount of healing done by just the mastery gain. Precisely calculated for every spell.
+   */
+  totalMasteryHealingDone = 0;
 
   masteryHealEvents = [];
-
-  hasBeaconOfTheLightbringer = false;
-  constructor(...args) {
-    super(...args);
-    this.hasBeaconOfTheLightbringer = this.selectedCombatant.hasTalent(BEACON_TYPES.BEACON_OF_THE_LIGHTBRINGER);
-  }
 
   on_cast(event) {
     if (this.owner.byPlayer(event)) {
       this.updatePlayerPosition(event);
-    }
-    if (this.hasBeaconOfTheLightbringer) {
-      const beaconPlayerId = this.beaconOfTheLightbringerTarget;
-      if (beaconPlayerId === null) {
-        // No (valid) target so discard position to prevent an old position from being considered
-        this.lastBeaconPositionUpdate = null;
-      } else if (this.owner.byPlayer(event, beaconPlayerId)) {
-        this.updateBeaconPosition(event);
-      }
     }
   }
   on_damage(event) {
@@ -54,28 +89,10 @@ class MasteryEffectiveness extends Analyzer {
       // Damage coordinates are for the target, so they are only accurate when done TO player
       this.updatePlayerPosition(event);
     }
-    if (this.hasBeaconOfTheLightbringer) {
-      const beaconPlayerId = this.beaconOfTheLightbringerTarget;
-      if (beaconPlayerId === null) {
-        // No (valid) target so discard position to prevent an old position from being considered
-        this.lastBeaconPositionUpdate = null;
-      } else if (this.owner.toPlayer(event, beaconPlayerId)) {
-        this.updateBeaconPosition(event);
-      }
-    }
   }
   on_energize(event) {
     if (this.owner.toPlayer(event)) {
       this.updatePlayerPosition(event);
-    }
-    if (this.hasBeaconOfTheLightbringer) {
-      const beaconPlayerId = this.beaconOfTheLightbringerTarget;
-      if (beaconPlayerId === null) {
-        // No (valid) target so discard position to prevent an old position from being considered
-        this.lastBeaconPositionUpdate = null;
-      } else if (this.owner.toPlayer(event, beaconPlayerId)) {
-        this.updateBeaconPosition(event);
-      }
     }
   }
   on_heal(event) {
@@ -83,99 +100,64 @@ class MasteryEffectiveness extends Analyzer {
       // Do this before checking if this was done by player so that self-heals will apply full mastery properly
       this.updatePlayerPosition(event);
     }
-    if (this.hasBeaconOfTheLightbringer) {
-      const beaconPlayerId = this.beaconOfTheLightbringerTarget;
-      if (beaconPlayerId === null) {
-        // No (valid) target so discard position to prevent an old position from being considered
-        this.lastBeaconPositionUpdate = null;
-      } else if (this.owner.toPlayer(event, beaconPlayerId)) {
-        this.updateBeaconPosition(event);
-      }
-    }
 
     if (this.owner.byPlayer(event)) {
       this.processForMasteryEffectiveness(event);
     }
   }
 
-  get beaconOfTheLightbringerTarget() {
-    const beaconTargets = this.beaconTargets;
-    if (beaconTargets.numBeaconsActive === 0) {
-      debug && console.log('No beacon active right now');
-    } else if (beaconTargets.numBeaconsActive === 1) {
-      return beaconTargets.currentBeaconTargets[0];
-    } else {
-      debug && console.error('Expected a single beacon to be active since we have BotLB, found', beaconTargets.numBeaconsActive);
-    }
-    return null;
-  }
-
   processForMasteryEffectiveness(event) {
-    if (!this.lastPlayerPositionUpdate) {
+    if (!this._lastPlayerPositionUpdate) {
       console.error('Received a heal before we know the player location. Can\'t process since player location is still unknown.', event);
-      return;
-    } else if (this.selectedCombatant === null) {
-      console.error('Received a heal before selected combatant meta data was received.', event);
-      if (process.env.NODE_ENV === 'development') {
-        throw new Error('This shouldn\'t happen anymore. Save to remove after 8 march 2018.');
-      }
       return;
     }
     const isAbilityAffectedByMastery = ABILITIES_AFFECTED_BY_MASTERY.includes(event.ability.guid);
-
-    const healingDone = event.amount;
-
-    if (isAbilityAffectedByMastery) {
-      // console.log(event.ability.name,
-      //   `healing:${event.amount},distance:${distance},isRuleOfLawActive:${isRuleOfLawActive},masteryEffectiveness:${masteryEffectiveness}`,
-      //   `playerMasteryPerc:${this.playerMasteryPerc}`, event);
-
-      const distance = this.getDistanceForMastery(event);
-      const isRuleOfLawActive = this.selectedCombatant.hasBuff(SPELLS.RULE_OF_LAW_TALENT.id, event.timestamp);
-      // We calculate the mastery effectiveness of this *one* heal
-      const masteryEffectiveness = this.constructor.calculateMasteryEffectiveness(distance, isRuleOfLawActive);
-
-      // The base healing of the spell (excluding any healing added by mastery)
-      const baseHealingDone = healingDone / (1 + this.statTracker.currentMasteryPercentage * masteryEffectiveness);
-      const masteryHealingDone = healingDone - baseHealingDone;
-      // The max potential mastery healing if we had a mastery effectiveness of 100% on this spell. This does NOT include the base healing
-      // Example: a heal that did 1,324 healing with 32.4% mastery with 100% mastery effectiveness will have a max potential mastery healing of 324.
-      const maxPotentialMasteryHealing = baseHealingDone * this.statTracker.currentMasteryPercentage; // * 100% mastery effectiveness
-
-      this.masteryHealEvents.push({
-        ...event,
-        distance,
-        masteryEffectiveness,
-        baseHealingDone,
-        masteryHealingDone,
-        maxPotentialMasteryHealing,
-      });
-      // Update the event information to include the heal's mastery effectiveness in case we want to use this elsewhere (hint: StatValues)
-      event.masteryEffectiveness = masteryEffectiveness;
-    }
-  }
-  getDistanceForMastery(event) {
-    let distance = this.getPlayerDistance(event);
-    if (this.hasBeaconOfTheLightbringer && this.lastBeaconPositionUpdate) {
-      distance = Math.min(distance, this.getBeaconDistance(event));
+    if (!isAbilityAffectedByMastery) {
+      return;
     }
 
-    return distance;
+    const distance = this.getPlayerDistance(event);
+    const isRuleOfLawActive = this.selectedCombatant.hasBuff(SPELLS.RULE_OF_LAW_TALENT.id, event.timestamp);
+
+    this.distanceSum += distance;
+    this.distanceCount += 1;
+
+    const masteryEffectiveness = this.constructor.calculateMasteryEffectiveness(distance, isRuleOfLawActive);
+    // Raw is the mastery effectiveness regardless of health pool and heal amount.
+    this.rawMasteryEffectivenessSum += masteryEffectiveness;
+    this.rawMasteryEffectivenessCount += 1;
+
+    const heal = new HealingValue(event.amount, event.absorbed, event.overheal);
+    const applicableMasteryPercentage = this.statTracker.currentMasteryPercentage * masteryEffectiveness;
+
+    // The base healing of the spell (excluding any healing added by mastery)
+    const baseHealing = heal.raw / (1 + applicableMasteryPercentage);
+    const rawMasteryGain = heal.raw - baseHealing;
+    const actualMasteryHealingDone = Math.max(0, heal.effective - baseHealing);
+    this.totalMasteryHealingDone += actualMasteryHealingDone;
+
+    // The max potential mastery healing if we had a mastery effectiveness of 100% on this spell. This does NOT include the base healing. Example: a heal that did 1,324 healing with 32.4% mastery with 100% mastery effectiveness will have a max potential mastery healing of 324.
+    const maxPotentialRawMasteryHealing = baseHealing * this.statTracker.currentMasteryPercentage; // * 100% mastery effectiveness
+
+    this.masteryEffectivenessRawMasteryGainSum += rawMasteryGain;
+    this.masteryEffectivenessRawPotentialMasteryGainSum += maxPotentialRawMasteryHealing;
+
+    this.masteryHealEvents.push({
+      ...event,
+      effectiveHealing: heal.effective,
+      rawMasteryGain,
+      maxPotentialRawMasteryHealing,
+    });
+    // Update the event information to include the heal's mastery effectiveness in case we want to use this elsewhere (hint: StatValues)
+    event.masteryEffectiveness = masteryEffectiveness;
   }
 
   updatePlayerPosition(event) {
     if (!event.x || !event.y) {
       return;
     }
-    this.verifyPlayerPositionUpdate(event, this.lastPlayerPositionUpdate, 'player');
-    this.lastPlayerPositionUpdate = event;
-  }
-  updateBeaconPosition(event) {
-    if (!event.x || !event.y) {
-      return;
-    }
-    this.verifyPlayerPositionUpdate(event, this.lastBeaconPositionUpdate, 'beacon');
-    this.lastBeaconPositionUpdate = event;
+    this.verifyPlayerPositionUpdate(event, this._lastPlayerPositionUpdate, 'player');
+    this._lastPlayerPositionUpdate = event;
   }
   verifyPlayerPositionUpdate(event, lastPositionUpdate, forWho) {
     if (!event.x || !event.y || !lastPositionUpdate) {
@@ -190,10 +172,7 @@ class MasteryEffectiveness extends Analyzer {
   }
 
   getPlayerDistance(event) {
-    return this.constructor.calculateDistance(this.lastPlayerPositionUpdate.x, this.lastPlayerPositionUpdate.y, event.x, event.y);
-  }
-  getBeaconDistance(event) {
-    return this.constructor.calculateDistance(this.lastBeaconPositionUpdate.x, this.lastBeaconPositionUpdate.y, event.x, event.y);
+    return this.constructor.calculateDistance(this._lastPlayerPositionUpdate.x, this._lastPlayerPositionUpdate.y, event.x, event.y);
   }
   static calculateDistance(x1, y1, x2, y2) {
     return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)) / 100;
@@ -207,60 +186,81 @@ class MasteryEffectiveness extends Analyzer {
   }
 
   get report() {
-    let totalHealingWithMasteryAffectedAbilities = 0;
-    let totalHealingFromMastery = 0;
-    let totalMaxPotentialMasteryHealing = 0;
-
     const statsByTargetId = this.masteryHealEvents.reduce((obj, event) => {
-      // Update the fight-totals
-      totalHealingWithMasteryAffectedAbilities += event.amount;
-      totalHealingFromMastery += event.masteryHealingDone;
-      totalMaxPotentialMasteryHealing += event.maxPotentialMasteryHealing;
-
       // Update the player-totals
       if (!obj[event.targetID]) {
         const combatant = this.combatants.players[event.targetID];
         obj[event.targetID] = {
           combatant,
+          effectiveHealing: 0,
           healingReceived: 0,
           healingFromMastery: 0,
           maxPotentialHealingFromMastery: 0,
         };
       }
       const playerStats = obj[event.targetID];
+      playerStats.effectiveHealing += event.effectiveHealing;
       playerStats.healingReceived += event.amount;
-      playerStats.healingFromMastery += event.masteryHealingDone;
-      playerStats.maxPotentialHealingFromMastery += event.maxPotentialMasteryHealing;
+      playerStats.healingFromMastery += event.rawMasteryGain;
+      playerStats.maxPotentialHealingFromMastery += event.maxPotentialRawMasteryHealing;
 
       return obj;
     }, {});
 
-    return {
-      statsByTargetId,
-      totalHealingWithMasteryAffectedAbilities,
-      totalHealingFromMastery,
-      totalMaxPotentialMasteryHealing,
-    };
-  }
-
-  get overallMasteryEffectiveness() {
-    return this.report.totalHealingFromMastery / (this.report.totalMaxPotentialMasteryHealing || 1);
+    return statsByTargetId;
   }
 
   statistic() {
-    return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(10)}
-        icon={<img src={MasteryRadiusImage} style={{ border: 0 }} alt={i18n._(t`Mastery effectiveness`)} />}
-        value={`${formatPercentage(this.overallMasteryEffectiveness)} %`}
-        label={i18n._(t`Mastery effectiveness`)}
-      />
-    );
+    // console.log('total mastery healing done', this.owner.formatItemHealingDone(this.totalMasteryHealingDone));
+
+    return [
+      (
+        <Statistic position={STATISTIC_ORDER.CORE(10)}>
+          <div className="pad" style={{ position: 'relative' }}>
+            <label><Trans>Mastery effectiveness</Trans></label>
+            <div className="value">
+              {formatPercentage(this.masteryEffectivenessMasteryHealingGainAverage, 0)}%
+            </div>
+
+            <div
+              style={{
+                position: 'absolute',
+                top: 12,
+                right: 0,
+                textAlign: 'center',
+              }}
+            >
+              <Radar
+                distance={this.distanceSum / this.distanceCount}
+                style={{
+                  display: 'inline-block',
+                }}
+                playerColor="#f58cba" // Paladin color
+              />
+              <div style={{ opacity: 0.5, lineHeight: 1, marginTop: -4, fontSize: 13 }}><Trans>Average distance</Trans></div>
+            </div>
+          </div>
+        </Statistic>
+      ),
+      (
+        <Panel
+          title={<Trans>Mastery effectiveness breakdown</Trans>}
+          explanation={<Trans>This shows you your mastery effectiveness on each individual player and the amount of healing done to those players.</Trans>}
+          position={200}
+          pad={false}
+        >
+          <PlayerBreakdown
+            report={this.report}
+            players={this.owner.players}
+          />
+        </Panel>
+      ),
+    ];
   }
 
   get suggestionThresholds() {
     return {
-      actual: this.overallMasteryEffectiveness,
+      actual: this.masteryEffectivenessMasteryHealingGainAverage,
       isLessThan: {
         minor: 0.75,
         average: 0.7,
@@ -276,19 +276,6 @@ class MasteryEffectiveness extends Analyzer {
         .actual(i18n._(t`${formatPercentage(actual)}% mastery effectiveness`))
         .recommended(i18n._(t`>${formatPercentage(recommended)}% is recommended`));
     });
-  }
-
-  tab() {
-    return {
-      title: i18n._(t`Mastery effectiveness`),
-      url: 'mastery-effectiveness',
-      render: () => (
-        <PlayerBreakdownTab
-          report={this.report}
-          playersById={this.owner.playersById}
-        />
-      ),
-    };
   }
 }
 

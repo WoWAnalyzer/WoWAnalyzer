@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import SpellIcon from 'common/SpellIcon';
+import Tooltip from 'common/Tooltip';
 
 class KeyCastsRow extends React.PureComponent {
   static propTypes = {
@@ -26,6 +27,7 @@ class KeyCastsRow extends React.PureComponent {
             if (event.nearbyCasts) {
               tooltipInfo.push(`This cast overlaps with following casts: ${event.nearbyCasts.join(', ')}.`);
             }
+            const hasTooltip = tooltipInfo.length > 0;
             return (
               <div
                 key={index}
@@ -35,11 +37,21 @@ class KeyCastsRow extends React.PureComponent {
                   zIndex: (event.important) ? 20 : 10,
                 }}
               >
-                <SpellIcon
-                  id={event.abilityId}
-                  className={event.important && 'enhanced'}
-                  data-tip={tooltipInfo.join('\n')}
-                />
+                {hasTooltip ? (
+                  <Tooltip content={tooltipInfo.join('\n')}>
+                    <div>
+                      <SpellIcon
+                        id={event.abilityId}
+                        className={event.important && 'enhanced'}
+                      />
+                    </div>
+                  </Tooltip>
+                ) : (
+                  <SpellIcon
+                    id={event.abilityId}
+                    className={event.important && 'enhanced'}
+                  />
+                )}
               </div>
             );
           }
@@ -48,15 +60,15 @@ class KeyCastsRow extends React.PureComponent {
             const maxWidth = totalWidth - left; // don't expand beyond the container width
             const width = Math.min(maxWidth, (event.endTimestamp - event.timestamp) / 1000 * secondWidth);
             return (
-                <div
-                  key={index}
-                  style={{
-                    left,
-                    width,
-                    background: 'rgba(133, 59, 255, 0.7)',
-                  }}
-                  data-effect="float"
-                />
+              <div
+                key={index}
+                style={{
+                  left,
+                  width,
+                  background: 'rgba(133, 59, 255, 0.7)',
+                }}
+                data-effect="float"
+              />
             );
           }
           return null;

@@ -52,7 +52,9 @@ class CoordinatedAssault extends Analyzer {
     }
     if (this.casts === 0) {
       this.casts += 1;
-      this.spellUsable.beginCooldown(SPELLS.COORDINATED_ASSAULT.id, this.owner.fight.start_time);
+      this.spellUsable.beginCooldown(SPELLS.COORDINATED_ASSAULT.id, {
+        timestamp: this.owner.fight.start_time,
+      });
     }
     this.playerDamage += calculateEffectiveDamage(event, CA_DMG_MODIFIER);
   }
@@ -81,11 +83,15 @@ class CoordinatedAssault extends Analyzer {
       <StatisticListBoxItem
         title={<SpellLink id={SPELLS.COORDINATED_ASSAULT.id} />}
         value={<ItemDamageDone amount={this.totalDamage} />}
-        valueTooltip={`Total damage breakdown:
-                      <ul>
-                      <li>Player damage: ${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.playerDamage))}% / ${formatNumber(this.playerDamage / (this.owner.fightDuration / 1000))} DPS</li>
-                      <li>Pet damage: ${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.petDamage))}% / ${formatNumber(this.petDamage / (this.owner.fightDuration / 1000))} DPS</li>
-                      </ul>`}
+        valueTooltip={(
+          <>
+            Total damage breakdown:
+            <ul>
+              <li>Player damage: {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.playerDamage))}% / {formatNumber(this.playerDamage / (this.owner.fightDuration / 1000))} DPS</li>
+              <li>Pet damage: {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.petDamage))}% / {formatNumber(this.petDamage / (this.owner.fightDuration / 1000))} DPS</li>
+            </ul>
+          </>
+        )}
       />
     );
   }

@@ -35,9 +35,8 @@ class RazorSpikes extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.RAZOR_SPIKES_TALENT.id}
         position={STATISTIC_ORDER.CORE(5)}
-        value={`${this.owner.formatItemDamageDone(this.damage)}`}
-        tooltip={`This shows the extra dps that the talent provides.<br/>
-                  <b>Total extra damage:</b> ${formatNumber(this.damage)}`}
+        value={this.owner.formatItemDamageDone(this.damage)}
+        tooltip={<>This shows the extra dps that the talent provides.<br /><strong>Total extra damage:</strong> {formatNumber(this.damage)}</>}
       />
     );
   }

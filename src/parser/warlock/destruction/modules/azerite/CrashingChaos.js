@@ -30,9 +30,14 @@ class CrashingChaos extends Analyzer {
       <TraitStatisticBox
         trait={SPELLS.CRASHING_CHAOS.id}
         value={<ItemDamageDone amount={this.core.crashingChaosDamage} approximate />}
-        tooltip={`Estimated bonus Chaos Bolt damage: ${formatThousands(this.core.crashingChaosDamage)}<br />
-                  You used ${usedProcs} out of ${allProcs} Crashing Chaos stacks.<br /><br />
-                  The damage is an approximation using current Intellect values at given time, but because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be a little incorrect.`}
+        tooltip={(
+          <>
+            Estimated bonus Chaos Bolt damage: {formatThousands(this.core.crashingChaosDamage)}<br />
+            You used {usedProcs} out of {allProcs} Crashing Chaos stacks.<br /><br />
+
+            The damage is an approximation using current Intellect values at given time, but because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be a little incorrect.
+          </>
+        )}
       />
     );
   }

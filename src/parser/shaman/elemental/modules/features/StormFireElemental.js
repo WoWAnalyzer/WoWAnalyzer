@@ -6,7 +6,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 class StormFireElemental extends Analyzer {
 
   static dependencies = {
-    spellUsable:SpellUsable,
+    spellUsable: SpellUsable,
   };
   elementalData = {
     FireElemental: {
@@ -39,7 +39,9 @@ class StormFireElemental extends Analyzer {
       if(!this.relevantData.damageSpells.includes(event.ability.guid)) {
         return;
       }
-      this.spellUsable.beginCooldown(this.relevantData.summon, this.owner.fight.start_time);
+      this.spellUsable.beginCooldown(this.relevantData.summon, {
+        timestamp: this.owner.fight.start_time,
+      });
       this.last_pet_summon_timeStamp=event.timestamp;
 
   }

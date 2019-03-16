@@ -69,16 +69,20 @@ class ImmolationAura extends Analyzer{
       <TalentStatisticBox
         talent={SPELLS.IMMOLATION_AURA_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={(<>
-                {this.furyPerMin} fury per min <br />
-                {this.owner.formatItemDamageDone(this.damage)}
-              </>)}
-        tooltip={`
-          ${formatThousands(this.damage)} Total damage<br />
-          ${effectiveFuryGain} Effective fury gained<br />
-          ${this.furyGain} Total fury gained<br />
-          ${this.furyWaste} Fury wasted
-        `}
+        value={(
+          <>
+            {this.furyPerMin} fury per min <br />
+            {this.owner.formatItemDamageDone(this.damage)}
+          </>
+        )}
+        tooltip={(
+          <>
+            {formatThousands(this.damage)} Total damage<br />
+            {effectiveFuryGain} Effective fury gained<br />
+            {this.furyGain} Total fury gained<br />
+            {this.furyWaste} Fury wasted
+          </>
+        )}
       />
     );
   }

@@ -1,9 +1,13 @@
 import React from 'react';
-import SPELLS from 'common/SPELLS/index';
-import ITEMS from 'common/ITEMS/index';
-import { formatDuration } from 'common/format';
-import { calculatePrimaryStat } from 'common/stats';
 
+import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
+import { formatDuration, formatNumber } from 'common/format';
+import { calculatePrimaryStat } from 'common/stats';
+import ItemLink from 'common/ItemLink';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import IntellectIcon from 'interface/icons/Intellect';
 import Analyzer from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import Abilities from 'parser/core/modules/Abilities';
@@ -40,6 +44,7 @@ class BalefireBranch extends Analyzer {
     spellUsable: SpellUsable,
   };
 
+  _item = null;
   applyCount = 0;
   currentStack = 0;
   totalUptime = 0;
@@ -58,10 +63,11 @@ class BalefireBranch extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTrinket(ITEMS.BALEFIRE_BRANCH.id);
+    this._item = this.selectedCombatant.getTrinket(ITEMS.BALEFIRE_BRANCH.id);
+    this.active = !!this._item;
 
     if (this.active) {
-      const itemLevel = this.selectedCombatant.getItem(ITEMS.BALEFIRE_BRANCH.id).itemLevel;
+      const itemLevel = this._item.itemLevel;
       this.intellectPerStack = calculatePrimaryStat(BASE_ITEM_LEVEL, BASE_INTELLECT_PER_STACK, itemLevel);
 
       // remind the player to activate the trinket
@@ -109,14 +115,12 @@ class BalefireBranch extends Analyzer {
       type: 'applybuffstack',
     });
   }
-
   on_toPlayer_removebuffstack(event) {
     if (SPELLS.KINDLED_SOUL.id !== event.ability.guid) {
       return;
     }
     this.stackChange(event.stack, event.timestamp);
   }
-
   on_toPlayer_removebuff(event) {
     if (SPELLS.KINDLED_SOUL.id !== event.ability.guid) {
       return;
@@ -124,7 +128,6 @@ class BalefireBranch extends Analyzer {
     this.stackChange(0, event.timestamp);
     this.totalUptime += (event.timestamp - this.lastApply);
   }
-
   on_fightend() {
     if (!this.lastChange || !this.currentStack) {
       return;
@@ -163,18 +166,30 @@ class BalefireBranch extends Analyzer {
     return this.intellectPerStack * (this.sumStacks / (this.owner.fightDuration / 1000));
   }
 
-  item() {
+  statistic() {
     const expectedIntellectWithoutDamage = this.intellectPerStack * (this.expectedSumStacks / (this.owner.fightDuration / 1000));
-    return {
-      item: ITEMS.BALEFIRE_BRANCH,
-      result: (
-        <dfn data-tip={`Activated <b>${this.applyCount}</b> time${this.applyCount === 1 ? '' : 's'} of a possible <b>${this.possibleUseCount}</b>.<br/>
-          The buff was active for <b>${formatDuration(this.totalUptime / 1000)}</b>.<br/>
-          Average intellect reduced by <b>${(expectedIntellectWithoutDamage - this.averageIntellect).toFixed(1)}</b> due to damage taken while the buff was active.`}>
-          {this.averageIntellect.toFixed(1)} average intellect
-        </dfn>
-      ),
-    };
+
+    return (
+      <Statistic
+        category={STATISTIC_CATEGORY.ITEMS}
+        size="flexible"
+        tooltip={(
+          <>
+            Activated <strong>{this.applyCount}</strong> time{this.applyCount === 1 ? '' : 's'} of a possible <strong>{this.possibleUseCount}</strong>. <br />
+            The buff was active for <strong>{formatDuration(this.totalUptime / 1000)}</strong>. <br />
+            Average Intellect reduced by <strong>{(expectedIntellectWithoutDamage - this.averageIntellect).toFixed(1)}</strong> due to damage taken while the buff was active.
+          </>
+        )}
+      >
+        <div className="pad">
+          <label><ItemLink id={ITEMS.BALEFIRE_BRANCH.id} details={this._item} /></label>
+
+          <div className="value" style={{ marginTop: 15 }}>
+            <IntellectIcon /> {formatNumber(this.averageIntellect)} <small>average Intellect gained</small>
+          </div>
+        </div>
+      </Statistic>
+    );
   }
 }
 

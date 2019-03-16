@@ -84,12 +84,16 @@ class HotStreak extends Analyzer {
         icon={<SpellIcon id={SPELLS.HOT_STREAK.id} />}
         value={`${formatPercentage(this.hotStreakUtil, 0)} %`}
         label="Hot Streak utilization"
-        tooltip={`Hot Streak is a big part of your rotation and therefore it is important that you use all the procs that you get and avoid letting them expire.
-        <ul>
-          <li>Total procs - ${this.totalHotStreakProcs}</li>
-          <li>Used procs - ${this.usedProcs}</li>
-          <li>Expired procs - ${this.expiredProcs}</li>
-        </ul>`}
+        tooltip={(
+          <>
+            Hot Streak is a big part of your rotation and therefore it is important that you use all the procs that you get and avoid letting them expire.
+            <ul>
+              <li>Total procs - {this.totalHotStreakProcs}</li>
+              <li>Used procs - {this.usedProcs}</li>
+              <li>Expired procs - {this.expiredProcs}</li>
+            </ul>
+          </>
+        )}
       />
     );
   }
