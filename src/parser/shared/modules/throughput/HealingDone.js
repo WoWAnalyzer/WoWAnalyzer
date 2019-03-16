@@ -105,10 +105,10 @@ class HealingDone extends Analyzer {
               className="flex-sub value"
               style={{ width: 190 }}
             >
-            {formatThousands(perSecond)} HPS
+              {formatThousands(perSecond)} HPS
             </div>
           </Tooltip>
-          <div className="flex-sub" style={{ width: 110, textAlign: 'center' }}>
+          <div className="flex-sub" style={{ width: 110, textAlign: 'center', padding: '10px 5px' }}>
             <ThroughputPerformance throughput={perSecond} metric="hps">
               {({ performance, topThroughput }) => performance && performance !== UNAVAILABLE && (
                 <Tooltip
@@ -122,7 +122,7 @@ class HealingDone extends Analyzer {
                     className={rankingColor(performance)}
                     style={{ cursor: 'help' }}
                   >
-                    {formatPercentage(performance, 0)}%
+                    {performance >= 1 ? 'TOP 100' : `${formatPercentage(performance, 0)}%`}
                   </div>
                 </Tooltip>
               )}
