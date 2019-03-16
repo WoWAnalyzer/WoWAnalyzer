@@ -15,10 +15,6 @@ import BeaconHealSource from '../../../holy/modules/beacons/BeaconHealingDone.js
  * Example Log: https://www.warcraftlogs.com/reports/kMbVanmJwCg7WrAz#fight=last&type=summary&source=2
  */
 class GraceOfTheJusticar extends Analyzer {
-  static dependencies = {
-    beaconHealSource: BeaconHealSource,
-  };
-
   healing = 0;
   targetsHit = 0;
   beaconTransfer = 0;
@@ -33,7 +29,7 @@ class GraceOfTheJusticar extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(
       [SPELLS.JUDGMENT_CAST_HOLY, SPELLS.JUDGMENT_CAST, SPELLS.JUDGMENT_CAST_PROTECTION, SPELLS.JUDGMENT_HP_ENERGIZE]), this.onCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GRACE_OF_THE_JUSTICAR), this.onHeal);
-    this.addEventListener(this.beaconHealSource.beacontransfer.by(SELECTED_PLAYER), this.onBeaconTransfer);
+    this.addEventListener(BeaconHealSource.beacontransfer(SELECTED_PLAYER), this.onBeaconTransfer);
   }
 
   onBeaconTransfer(event) {
