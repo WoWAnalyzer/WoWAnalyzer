@@ -33,7 +33,7 @@ class GraceOfTheJusticar extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(
       [SPELLS.JUDGMENT_CAST_HOLY, SPELLS.JUDGMENT_CAST, SPELLS.JUDGMENT_CAST_PROTECTION, SPELLS.JUDGMENT_HP_ENERGIZE]), this.onCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GRACE_OF_THE_JUSTICAR), this.onHeal);
-    //this.addEventListener(this.beaconHealSource.beacontransfer.by(SELECTED_PLAYER), this.onBeaconTransfer);
+    this.addEventListener(this.beaconHealSource.beacontransfer.by(SELECTED_PLAYER), this.onBeaconTransfer);
   }
 
   onBeaconTransfer(event) {
@@ -75,8 +75,6 @@ class GraceOfTheJusticar extends Analyzer {
           <>
             Total healing done: <b>{formatNumber(this.totalHealing)}</b><br />
             Beacon healing transfered: <b>{formatNumber(this.beaconTransfer)}</b><br />
-            Players hit: <b>{formatNumber(this.targetsHit)}</b><br />
-            Judgement Casts: <b>{formatNumber(this.casts)}</b><br />
           </>
         )}
       />
