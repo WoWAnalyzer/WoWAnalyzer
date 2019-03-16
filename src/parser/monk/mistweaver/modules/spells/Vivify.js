@@ -27,20 +27,32 @@ class Vivify extends Analyzer {
   gustsHealing = 0;
   lastCastTarget = null;
   remDuringManaTea = 0;
+  countForGusts = false;
+  numberToCount = 0;
+
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
+
     if (SPELLS.VIVIFY.id !== spellId) {
       return;
     }
+    if (this.combatants.players[event.targetID]) {
+      if (this.combatants.players[event.targetID].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0) === true) {
+        this.numberToCount++;
+      }
+    }
+
+    this.numberToCount++;
     this.lastCastTarget = event.targetID;
   }
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if ((spellId === SPELLS.GUSTS_OF_MISTS.id) && (this.lastCastTarget === event.targetID)) {
+    if ((spellId === SPELLS.GUSTS_OF_MISTS.id) && (this.lastCastTarget === event.targetID) && this.numberToCount > 0) {
       this.gustsHealing += (event.amount || 0) + (event.absorbed || 0);
+      this.numberToCount--;
     }
 
     if ((spellId === SPELLS.VIVIFY.id) && (this.lastCastTarget !== event.targetID)) {
