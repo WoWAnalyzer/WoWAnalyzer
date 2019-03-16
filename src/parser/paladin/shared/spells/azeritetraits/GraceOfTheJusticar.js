@@ -5,7 +5,8 @@ import SPELLS from 'common/SPELLS/index';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 import Events from 'parser/core/Events';
-//import beacontransfer from '../../../holy/modules/beacons/BeaconHealingDone.js';
+
+import BeaconHealSource from '../../../holy/modules/beacons/BeaconHealingDone.js';
 
 
 /**
@@ -14,6 +15,10 @@ import Events from 'parser/core/Events';
  * Example Log: https://www.warcraftlogs.com/reports/kMbVanmJwCg7WrAz#fight=last&type=summary&source=2
  */
 class GraceOfTheJusticar extends Analyzer {
+  static dependencies = {
+    beaconHealSource: BeaconHealSource,
+  };
+
   healing = 0;
   targetsHit = 0;
   beaconTransfer = 0;
@@ -25,9 +30,10 @@ class GraceOfTheJusticar extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.JUDGMENT_CAST_ALT), this.onCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(
+      [SPELLS.JUDGMENT_CAST_HOLY, SPELLS.JUDGMENT_CAST, SPELLS.JUDGMENT_CAST_PROTECTION, SPELLS.JUDGMENT_HP_ENERGIZE]), this.onCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GRACE_OF_THE_JUSTICAR), this.onHeal);
-    this.addEventListener(Events.beacontransfer.by(SELECTED_PLAYER), this.onBeaconTransfer);
+    //this.addEventListener(this.beaconHealSource.beacontransfer.by(SELECTED_PLAYER), this.onBeaconTransfer);
   }
 
   onBeaconTransfer(event) {
@@ -68,7 +74,9 @@ class GraceOfTheJusticar extends Analyzer {
         tooltip={(
           <>
             Total healing done: <b>{formatNumber(this.totalHealing)}</b><br />
-            Beacon healing transfered: <b>{formatNumber(this.beaconTransfer)}</b>
+            Beacon healing transfered: <b>{formatNumber(this.beaconTransfer)}</b><br />
+            Players hit: <b>{formatNumber(this.targetsHit)}</b><br />
+            Judgement Casts: <b>{formatNumber(this.casts)}</b><br />
           </>
         )}
       />
