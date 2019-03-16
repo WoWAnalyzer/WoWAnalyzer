@@ -4263,7 +4263,7 @@ exports[`Holy Paladin integration test analyzers StatValues matches the statisti
         </dfn>
         <a
           className="pull-right"
-          href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/parser/paladin/holy/modules/features/StatValues.md"
+          href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/parser/paladin/holy/modules/StatValues.md"
         >
           More info
         </a>

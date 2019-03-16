@@ -18,7 +18,7 @@ class RenewingMist extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (SPELLS.VIVIFY.id !== spellId) {
+    if (SPELLS.RENEWING_MIST.id !== spellId) {
       return;
     }
     this.lastCastTarget = event.targetID;
@@ -41,7 +41,7 @@ class RenewingMist extends Analyzer {
 
   on_fightend() {
     if (debug) {
-      //if needed
+      console.log("gusts rem healing: ", this.gustsHealing);
     }
   }
 }
