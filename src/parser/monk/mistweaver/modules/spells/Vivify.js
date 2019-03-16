@@ -97,8 +97,8 @@ class Vivify extends Analyzer {
           </>
         )
           .icon(SPELLS.VIVIFY.icon)
-          .actual(`${this.averageRemPerVivify} Unused Uplifting Trance procs`)
-          .recommended(`${recommended} wasted UT Buffs is recommended`);
+          .actual(`${this.averageRemPerVivify.toFixed(2)} Renewing Mists per Vivify`)
+          .recommended(`${recommended} Renewing Mists are recommended per Vivify`);
       });
   }
 
