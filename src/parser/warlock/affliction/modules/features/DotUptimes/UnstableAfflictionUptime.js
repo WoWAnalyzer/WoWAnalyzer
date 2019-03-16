@@ -12,6 +12,12 @@ import SpellLink from 'common/SpellLink';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../../constants';
+import Statistic from 'interface/statistics/Statistic';
+import SpellIcon from 'common/SpellIcon';
+import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
+import StatisticBar from 'interface/statistics/StatisticBar';
+import UptimeBar from 'interface/statistics/components/UptimeBar';
+import Tooltip from 'common/Tooltip';
 
 const CONTAGION_DAMAGE_BONUS = 0.1; // former talent Contagion is now baked into UA
 class UnstableAfflictionUptime extends Analyzer {
@@ -89,16 +95,50 @@ class UnstableAfflictionUptime extends Analyzer {
   }
 
   subStatistic() {
-    return (
-      <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} /> uptime</>}
-        value={`${formatPercentage(this.uptime)} %`}
-        valueTooltip={(
+    /*
+      <Statistic
+        ultrawide
+        size="small"
+        tooltip={(
           <>
             Bonus damage from internal Contagion effect: {formatThousands(this.damage)} ({this.owner.formatItemDamageDone(this.damage)})
           </>
         )}
-      />
+      >
+        <div className="pad">
+          <label><SpellIcon id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} /> Unstable Affliction uptime</label>
+          <div className="value">
+            {formatPercentage(this.uptime)} %
+          </div>
+        </div>
+      </Statistic>*/
+    const history = this.enemies.getCombinedDebuffHistory(...UNSTABLE_AFFLICTION_DEBUFFS.map(spell => spell.id));
+    return (
+      <div className="flex">
+        <div className="flex-sub icon">
+          <SpellIcon id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} />
+        </div>
+        <Tooltip content={(
+          <>
+            Bonus damage from internal Contagion effect: {formatThousands(this.damage)} ({this.owner.formatItemDamageDone(this.damage)})
+          </>
+        )}>
+          <div
+            className="flex-sub value"
+            style={{ width: 140 }}
+          >
+            {formatPercentage(this.uptime, 0)} % <small>uptime</small>
+          </div>
+        </Tooltip>
+        <div className="flex-main chart" style={{ padding: 15 }}>
+          <UptimeBar
+            uptimeHistory={history}
+            start={this.owner.fight.start_time}
+            end={this.owner.fight.end_time}
+            style={{ height: '100%' }}
+          />
+        </div>
+      </div>
     );
   }
 }

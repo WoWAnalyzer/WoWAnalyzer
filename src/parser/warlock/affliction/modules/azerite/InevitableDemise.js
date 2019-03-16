@@ -7,10 +7,12 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
-import { formatThousands } from 'common/format';
+import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 
 import TraitStatisticBox from 'interface/others/TraitStatisticBox';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 const DRAIN_LIFE_SP_COEFFICIENT = 0.12; // taken from Simcraft SpellDataDump
 const debug = false;
@@ -57,9 +59,8 @@ class InevitableDemise extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
-        trait={SPELLS.INEVITABLE_DEMISE.id}
-        value={<ItemDamageDone amount={this.damage} approximate />}
+      <AzeritePowerStatistic
+        size="small"
         tooltip={(
           <>
             Estimated bonus Drain Life damage: {formatThousands(this.damage)}<br /><br />
@@ -67,7 +68,24 @@ class InevitableDemise extends Analyzer {
             The damage is an approximation using current Intellect values at given time. Note that because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be also little incorrect
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.INEVITABLE_DEMISE}>
+          <span style={{ fontSize: '29px' }}>
+            ≈ {formatNumber(this.damage / this.owner.fightDuration * 1000)} DPS <small>({formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total)</small>
+          </span>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
+      // <TraitStatisticBox
+      //   trait={SPELLS.INEVITABLE_DEMISE.id}
+      //   value={<ItemDamageDone amount={this.damage} approximate />}
+      //   tooltip={(
+      //     <>
+      //       Estimated bonus Drain Life damage: {formatThousands(this.damage)}<br /><br />
+      //
+      //       The damage is an approximation using current Intellect values at given time. Note that because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be also little incorrect
+      //     </>
+      //   )}
+      // />
     );
   }
 }

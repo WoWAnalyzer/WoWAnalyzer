@@ -8,6 +8,8 @@ import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import SpellIcon from 'common/SpellIcon';
+import UptimeBar from 'interface/statistics/components/UptimeBar';
 
 class SiphonLifeUptime extends Analyzer {
   static dependencies = {
@@ -46,11 +48,27 @@ class SiphonLifeUptime extends Analyzer {
   }
 
   subStatistic() {
+    const history = this.enemies.getDebuffHistory(SPELLS.SIPHON_LIFE_TALENT.id);
     return (
-      <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.SIPHON_LIFE_TALENT.id} /> uptime</>}
-        value={`${formatPercentage(this.uptime)} %`}
-      />
+      <div className="flex">
+        <div className="flex-sub icon">
+          <SpellIcon id={SPELLS.SIPHON_LIFE_TALENT.id} />
+        </div>
+        <div
+          className="flex-sub value"
+          style={{ width: 140 }}
+        >
+          {formatPercentage(this.uptime, 0)} % <small>uptime</small>
+        </div>
+        <div className="flex-main chart" style={{ padding: 15 }}>
+          <UptimeBar
+            uptimeHistory={history}
+            start={this.owner.fight.start_time}
+            end={this.owner.fight.end_time}
+            style={{ height: '100%' }}
+          />
+        </div>
+      </div>
     );
   }
 }

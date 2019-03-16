@@ -8,6 +8,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import WastedShardsIcon from 'parser/warlock/shared/images/warlock_soulshard_bw.jpg';
 import SoulShardTracker from './SoulShardTracker';
+import Statistic from 'interface/statistics/Statistic';
 
 const SOUL_SHARD_ICON = 'inv_misc_gem_amethyst_02';
 
@@ -44,17 +45,34 @@ class SoulShardDetails extends Analyzer {
   statistic() {
     const shardsWasted = this.soulShardTracker.wasted;
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(2)}
-        icon={(
-          <img
-            src={WastedShardsIcon}
-            alt="Wasted Soul Shards"
-          />
-        )}
-        value={`${shardsWasted}`}
-        label="Wasted Soul Shards"
-      />
+        size="small"
+      >
+        <div className="flex boring-spell-value">
+          <div className="flex-sub icon">
+            <img
+              src={WastedShardsIcon}
+              alt="Wasted shards"
+            />
+          </div>
+          <div className="flex-main value">
+            <div>{shardsWasted}</div>
+            <small>Wasted Soul Shards</small>
+          </div>
+        </div>
+      </Statistic>
+      // {/*<StatisticBox*/}
+      //   {/*position={STATISTIC_ORDER.CORE(2)}*/}
+      //   {/*icon={(*/}
+      //     {/*<img*/}
+      //       {/*src={WastedShardsIcon}*/}
+      //       {/*alt="Wasted Soul Shards"*/}
+      //     {/*/>*/}
+      //   {/*)}*/}
+      //   {/*value={`${shardsWasted}`}*/}
+      //   {/*label="Wasted Soul Shards"*/}
+      // {/*/>*/}
     );
   }
 

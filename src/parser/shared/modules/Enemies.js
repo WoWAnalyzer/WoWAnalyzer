@@ -28,6 +28,98 @@ class Enemies extends Entities {
     }
     return enemy;
   }
+
+  getCombinedDebuffHistory(...spellIds) {
+    const events = [];
+    spellIds.forEach(spellId => {
+      events.push(...this.getDebuffHistory(spellId));
+    });
+
+    const history = [];
+    let current = null;
+    events.sort((a, b) => a.start - b.start)
+      .forEach(event => {
+        if (current === null) {
+          current = event;
+        }
+        else {
+          /*
+           As, Ae = start, end of current buff A
+           Bs, Be = start, end of another buff B
+
+           3 situations can occur with 2 buffs A and B:
+
+           1) B is "inside" A
+             As ----- Bs ---- Be ---- Ae
+             do nothing
+           2) B is completely "outside" A
+             As --- Ae --- Bs --- Be
+             push A into history, current = B
+           3) B overlaps A and ends later
+             As --- Bs --- Ae --- Be
+             set current end to Be (current: As - Be)
+          */
+          if (current.end <= event.start) {
+            // situation 2
+            history.push(current);
+            current = event;
+          } else if (event.start <= current.end && current.end < event.end) {
+            // situation 3
+            current.end = event.end;
+          }
+        }
+      });
+    // the latest processed event doesn't get added to history, push it
+    history.push(current);
+    return history;
+  }
+
+  getDebuffHistory(spellId) {
+    const events = [];
+    const enemies = this.getEntities();
+    Object.values(enemies)
+      .forEach(enemy => {
+        enemy.getBuffHistory(spellId, this.owner.playerId)
+          .forEach(buff => {
+            events.push({
+              timestamp: buff.start,
+              type: 'apply',
+              buff,
+            });
+            events.push({
+              timestamp: buff.end !== null ? buff.end : this.owner.currentTimestamp, // buff end is null if it's still active, it can also be 0 if buff ended at pull
+              type: 'remove',
+              buff,
+            });
+          });
+      });
+
+    const history = [];
+    let current = null;
+    let active = 0;
+    events.sort((a, b) => a.timestamp - b.timestamp)
+      .forEach(event => {
+        if (event.type === 'apply') {
+          if (current === null) {
+            current = { start: event.timestamp, end: null };
+          }
+          active += 1;
+        }
+        if (event.type === 'remove') {
+          active -= 1;
+          if (active === 0) {
+            current.end = event.timestamp;
+            history.push(current);
+            current = null;
+          }
+        }
+      });
+    // if buff lasted till end of combat, maybe doesn't ever happen due to some normalizing
+    if (current !== null) {
+      history.push(current);
+    }
+    return history;
+  }
 }
 
 export default Enemies;

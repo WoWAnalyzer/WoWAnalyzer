@@ -8,6 +8,10 @@ import { calculateAzeriteEffects } from 'common/stats';
 import TraitStatisticBox from 'interface/others/TraitStatisticBox';
 import { formatPercentage } from 'common/format';
 
+import HasteIcon from 'interface/icons/Haste';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+
 const cascadingCalamityStats = traits => traits.reduce((total, rank) => {
   const [ haste ] = calculateAzeriteEffects(SPELLS.CASCADING_CALAMITY.id, rank);
   return total + haste;
@@ -48,11 +52,19 @@ class CascadingCalamity extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
-        trait={SPELLS.CASCADING_CALAMITY.id}
-        value={`${this.averageHaste} average Haste`}
+      <AzeritePowerStatistic
+        size="small"
         tooltip={`Cascading Calamity grants ${this.haste} Haste while active. You had ${formatPercentage(this.uptime)} % uptime on the buff.`}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.CASCADING_CALAMITY}>
+          <HasteIcon /> {this.averageHaste} <small>average Haste</small>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
+      // <TraitStatisticBox
+      //   trait={SPELLS.CASCADING_CALAMITY.id}
+      //   value={`${this.averageHaste} average Haste`}
+      //   tooltip={`Cascading Calamity grants ${this.haste} Haste while active. You had ${formatPercentage(this.uptime)} % uptime on the buff.`}
+      // />
     );
   }
 }

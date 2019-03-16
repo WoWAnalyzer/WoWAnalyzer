@@ -65,7 +65,7 @@ class CombatLogParser extends CoreCombatLogParser {
     globalCooldown: GlobalCooldown,
 
     // Talents
-    talents: Talents,
+    // talents: Talents,
     nightfall: Nightfall,
     drainSoul: DrainSoul,
     deathbolt: Deathbolt,

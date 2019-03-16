@@ -7,10 +7,13 @@ import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage
 
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
-import { formatThousands } from 'common/format';
+import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 
 import TraitStatisticBox from 'interface/others/TraitStatisticBox';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 
 const AGONY_SP_COEFFICIENT = 0.008; // taken from Simcraft SpellDataDump
 
@@ -46,10 +49,37 @@ class SuddenOnset extends Analyzer {
   }
 
   statistic() {
+    /*<TraitStatisticBox
+      trait={SPELLS.SUDDEN_ONSET.id}
+      value={<ItemDamageDone amount={this.damage} approximate />}
+      tooltip={(
+        <>
+          Estimated bonus Agony damage: {formatThousands(this.damage)}<br /><br />
+
+          The damage is an approximation using current Intellect values at given time. Note that this estimate does NOT take into account the increased initial stacks, just the bonus damage.
+          Also, because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be also little incorrect.
+        </>
+      )}
+    />*/
+
+    /*<BoringSpellValueText spell={SPELLS.SUDDEN_ONSET}>
+        <SwordIcon /> ≈ {formatNumber(this.damage / this.owner.fightDuration * 1000)} DPS <small>({formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} %)</small>
+      </BoringSpellValueText>*/
+    /*<BoringSpellValue
+      spell={SPELLS.SUDDEN_ONSET}
+      value={`≈ ${formatNumber(this.damage / this.owner.fightDuration * 1000)} DPS`}
+      label={`(${formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total)`}
+    />*/
+    const SwordIcon = () => (
+      <img
+        src="/img/sword.png"
+        alt="Damage"
+        className="icon"
+      />
+    );
     return (
-      <TraitStatisticBox
-        trait={SPELLS.SUDDEN_ONSET.id}
-        value={<ItemDamageDone amount={this.damage} approximate />}
+      <AzeritePowerStatistic
+        size="small"
         tooltip={(
           <>
             Estimated bonus Agony damage: {formatThousands(this.damage)}<br /><br />
@@ -58,7 +88,13 @@ class SuddenOnset extends Analyzer {
             Also, because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be also little incorrect.
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.SUDDEN_ONSET}>
+          <span style={{ fontSize: '29px' }}>
+            ≈ {formatNumber(this.damage / this.owner.fightDuration * 1000)} DPS <small>({formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total)</small>
+          </span>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }
