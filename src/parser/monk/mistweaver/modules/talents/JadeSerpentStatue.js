@@ -113,7 +113,7 @@ class JadeSerpentStatue extends Analyzer {
           You selected <SpellLink id={SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.id} /> as your talent. To gain the most value out of this talent you should have it casting on someone as often as possible. The priority should be tanks or any raid member taking heavy damage, such as from a specific DOT or boss mechanic.
         </>
       )
-        .icon(SPELLS.MANA_TEA_TALENT.icon)
+        .icon(SPELLS.SUMMON_JADE_SERPENT_STATUE_TALENT.icon)
         .actual(`${formatPercentage(actual)}% uptime`)
         .recommended(`${formatPercentage(recommended)}% uptime is recommended`);
     });
