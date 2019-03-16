@@ -54,7 +54,6 @@ class ThroughputPerformance extends React.PureComponent {
         performance: UNAVAILABLE,
         topThroughput: UNAVAILABLE,
       });
-      return;
     }
   }
   async loadRankings() {
