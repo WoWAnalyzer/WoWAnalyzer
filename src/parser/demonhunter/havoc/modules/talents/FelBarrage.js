@@ -56,9 +56,9 @@ class FelBarrage extends Analyzer{
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Try to cast <SpellLink id={SPELLS.FEL_BARRAGE_TALENT.id} /> when you have meta up to maximize its damage.</>)
+        return suggest(<>Try to cast <SpellLink id={SPELLS.FEL_BARRAGE_TALENT.id} /> during SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} />.</>)
           .icon(SPELLS.FEL_BARRAGE_TALENT.icon)
-          .actual(`${actual} bad casts`)
+          .actual(`${actual} # of bad casts without <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} />`)
           .recommended(`No bad casts is recommended.`);
       });
   }
@@ -69,12 +69,12 @@ class FelBarrage extends Analyzer{
         talent={SPELLS.FEL_BARRAGE_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
         value={(<>
-          {this.badCasts} Bad casts<br />
+          {this.badCasts} casts without <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} /> <br />
           {this.owner.formatItemDamageDone(this.damage)}
         </>)}
         tooltip={`
           ${formatThousands(this.damage)} Total damage <br /><br />
-          If you cast Fel Barage without Meta up its considered a bad cast.
+          If you cast Fel Barage without Metamorphosis up its considered a bad cast.
         `}
       />
     );

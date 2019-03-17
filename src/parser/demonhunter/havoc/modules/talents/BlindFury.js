@@ -51,9 +51,9 @@ class BlindFury extends Analyzer{
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Try to cast <SpellLink id={SPELLS.EYE_BEAM.id} /> at 30 to 50 fury. Having more than 50 fury at cast leads to to much fury wasted and a dps loss.</>)
+        return suggest(<>Cast <SpellLink id={SPELLS.EYE_BEAM.id} /> with 50 or less Fury to minimize Fury waste and maximize DPS.</>)
           .icon(SPELLS.BLIND_FURY_TALENT.icon)
-          .actual(`${actual} bad casts`)
+          .actual(`${actual} # of bad casts above 50 Fury`)
           .recommended(`${formatPercentage(recommended)}% is recommended.`);
       });
   }
@@ -70,7 +70,7 @@ class BlindFury extends Analyzer{
             Since this will always max out your fury on cast, wasted and totals do not matter. Only the amount effectively gained. <br />
             A bad cast is when you cast Eye Beam with more than 50 fury. At that point you are wasting enough fury gained for it to be a dps loss. <br /><br />
             {this.gained} Effective fury gained<br />
-            {this.badCast} Bad casts
+            {this.badCast} # of Bad casts above 50 Fury
           </>
         )}
       />
