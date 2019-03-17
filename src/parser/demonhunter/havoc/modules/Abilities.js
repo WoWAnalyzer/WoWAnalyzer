@@ -41,7 +41,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: combatant.hasTalent(SPELLS.FIRST_BLOOD_TALENT.id),
           recommendedEfficiency: 0.85,
-          extraSuggestion: <>This should be part of your single target rotation due to the <SpellLink id={SPELLS.FIRST_BLOOD_TALENT.id} icon /> talent. This includes the <SpellLink id={SPELLS.DEATH_SWEEP.id} icon /> casts since they are the same ability and share thier cool downs.</>,
+          extraSuggestion: <>This should be part of your single target rotation due to the <SpellLink id={SPELLS.FIRST_BLOOD_TALENT.id} /> talent. This includes the <SpellLink id={SPELLS.DEATH_SWEEP.id} /> casts since they are the same ability and share thier cooldowns.</>,
         },
       },
       {
