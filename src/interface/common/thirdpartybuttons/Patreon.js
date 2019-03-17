@@ -7,7 +7,7 @@ const PatreonButton = ({ text, ...others }) => (
   <a
     className="btn patreon"
     role="button"
-    href="https://www.patreon.com/wowanalyzer"
+    href="https://www.patreon.com/join/wowanalyzer"
     {...others}
   >
     <PatreonIcon /> {text}

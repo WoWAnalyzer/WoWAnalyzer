@@ -86,7 +86,7 @@ class DamageDone extends Analyzer {
               {formatThousands(perSecond)} DPS
             </div>
           </Tooltip>
-          <div className="flex-sub" style={{ width: 110, textAlign: 'center' }}>
+          <div className="flex-sub" style={{ width: 110, textAlign: 'center', padding: '10px 5px' }}>
             <ThroughputPerformance throughput={perSecond} metric="dps">
               {({ performance, topThroughput }) => performance && performance !== UNAVAILABLE && (
                 <Tooltip
@@ -100,7 +100,7 @@ class DamageDone extends Analyzer {
                     className={rankingColor(performance)}
                     style={{ cursor: 'help' }}
                   >
-                    {formatPercentage(performance, 0)}%
+                    {performance >= 1 ? 'TOP 100' : `${formatPercentage(performance, 0)}%`}
                   </div>
                 </Tooltip>
               )}

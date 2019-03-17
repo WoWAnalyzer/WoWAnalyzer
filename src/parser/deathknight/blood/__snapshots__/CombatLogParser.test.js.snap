@@ -156,7 +156,6 @@ exports[`The Blood Deathknight Analyzer analyzers BloodPlagueUptime matches the 
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Blood Plague"
               className="icon game "
@@ -204,7 +203,6 @@ exports[`The Blood Deathknight Analyzer analyzers Blooddrinker matches the stati
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Blooddrinker"
               className="icon game "
@@ -269,7 +267,6 @@ exports[`The Blood Deathknight Analyzer analyzers Bloodworms matches the statist
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Bloodworms"
               className="icon game "
@@ -334,7 +331,6 @@ exports[`The Blood Deathknight Analyzer analyzers BoneShield matches the statist
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Bone Shield"
               className="icon game "
@@ -413,7 +409,6 @@ exports[`The Blood Deathknight Analyzer analyzers Bonestorm matches the statisti
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Bonestorm"
               className="icon game "
@@ -494,7 +489,6 @@ exports[`The Blood Deathknight Analyzer analyzers CrimsonScourge matches the sta
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Crimson Scourge"
               className="icon game "
@@ -609,7 +603,6 @@ exports[`The Blood Deathknight Analyzer analyzers Hemostasis matches the statist
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Hemostasis"
               className="icon game "
@@ -682,7 +675,6 @@ exports[`The Blood Deathknight Analyzer analyzers MarrowrendUsage matches the st
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Marrowrend"
               className="icon game "
@@ -747,7 +739,6 @@ exports[`The Blood Deathknight Analyzer analyzers MitigationCheck matches the st
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Bone Shield"
               className="icon game "
@@ -831,7 +822,6 @@ exports[`The Blood Deathknight Analyzer analyzers Ossuary matches the statistic 
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Ossuary"
               className="icon game "
@@ -1074,7 +1064,6 @@ exports[`The Blood Deathknight Analyzer analyzers WillOfTheNecropolis matches th
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             <img
               alt="Will of the Necropolis"
               className="icon game "
@@ -1087,7 +1076,6 @@ exports[`The Blood Deathknight Analyzer analyzers WillOfTheNecropolis matches th
             rel="noopener noreferrer"
             target="_blank"
           >
-             
             Will of the Necropolis
           </a>
         </label>

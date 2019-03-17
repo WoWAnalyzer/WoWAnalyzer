@@ -1,4 +1,5 @@
 import React from 'react';
+import { Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -82,12 +83,16 @@ class DivinePurpose extends Analyzer {
     const lightOfDawnHeals = lightOfDawnCast.casts || 0;
     const holyShockHeals = holyShockHeal.healingHits || 0;
 
+    // I want less than a space of width between the two
+    const formatProcsLeft = procs => <Trans>x<span style={{ width: 3 }} />{procs}</Trans>;
+    const formatProcsRight = procs => <Trans>{procs}x</Trans>;
+
     return (
       <Statistic position={STATISTIC_ORDER.OPTIONAL(75)}>
         <div className="pad">
           <label>
             <SpellIcon id={SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id} />{' '}
-            Divine Purpose procs
+            <Trans>Divine Purpose procs</Trans>
           </label>
 
           <div className="flex" style={{ marginTop: 18 }}>
@@ -102,13 +107,15 @@ class DivinePurpose extends Analyzer {
             </div>
             <div className="flex-sub content-bottom value" style={{ lineHeight: 1, marginRight: 5 }}>
               {/* I want less than a space of width between the two */}
-              x<span style={{ width: 3 }} />{this.holyShockProcs}
+              {formatProcsLeft(this.holyShockProcs)}
             </div>
             <div className="flex-main content-bottom">
               <small>{formatPercentage(this.holyShockProcs / (holyShockHeals - this.holyShockProcs))}%</small>
             </div>
             <div className="flex-sub content-bottom">
-              <div><small>Best streak: {this.highestHolyShockProcStreak < 2 ? 'N/A' : `${this.highestHolyShockProcStreak}x`}</small></div>
+              <div>
+                <small><Trans>Best streak: {this.highestHolyShockProcStreak < 2 ? <Trans>N/A</Trans> : formatProcsRight(this.highestHolyShockProcStreak)}</Trans></small>
+              </div>
             </div>
           </div>
           <div className="flex" style={{ marginTop: 20 }}>
@@ -122,14 +129,13 @@ class DivinePurpose extends Analyzer {
               />
             </div>
             <div className="flex-sub content-bottom value" style={{ lineHeight: 1, marginRight: 5 }}>
-              {/* I want less than a space of width between the two */}
-              x<span style={{ width: 3 }} />{this.lightOfDawnProcs}
+              {formatProcsLeft(this.lightOfDawnProcs)}
             </div>
             <div className="flex-main content-bottom">
               <small>{formatPercentage(this.lightOfDawnProcs / (lightOfDawnHeals - this.lightOfDawnProcs))}%</small>
             </div>
             <div className="flex-sub content-bottom">
-              <div><small>Best streak: {this.highestLightOfDawnProcStreak < 2 ? 'N/A' : `${this.highestLightOfDawnProcStreak}x`}</small></div>
+              <div><small><Trans>Best streak: {this.highestLightOfDawnProcStreak < 2 ? <Trans>N/A</Trans> : formatProcsRight(this.highestLightOfDawnProcStreak)}</Trans></small></div>
             </div>
           </div>
         </div>

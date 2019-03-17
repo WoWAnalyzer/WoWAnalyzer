@@ -27,7 +27,7 @@ class About extends React.PureComponent {
   render() {
     const { spec, description, contributors, patchCompatibility } = this.props.config;
 
-    const contributorinfo = (contributors.length !== 0) ? contributors.map(contributor => <Contributor key={contributor.nickname} {...contributor} />) : 'CURRENTLY UNMAINTAINED';
+    const contributorinfo = (contributors.length !== 0) ? contributors.map(contributor => <Contributor key={contributor.nickname} {...contributor} />) : <Trans>CURRENTLY UNMAINTAINED</Trans>;
 
     return (
       <Panel

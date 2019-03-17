@@ -1,4 +1,5 @@
 import React from 'react';
+import { Trans } from '@lingui/macro';
 
 import Panel from 'interface/statistics/Panel';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -40,11 +41,11 @@ class BeaconHealingDone extends Analyzer {
   statistic() {
     return (
       <Panel
-        title="Beacon healing sources"
+        title={<Trans>Beacon healing sources</Trans>}
         explanation={(
-          <>
+          <Trans>
             Beacon healing is triggered by the <b>raw</b> healing done of your primary spells. This breakdown shows the amount of effective beacon healing replicated by each beacon transfering heal.
-          </>
+          </Trans>
         )}
         position={120}
         pad={false}

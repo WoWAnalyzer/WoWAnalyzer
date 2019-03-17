@@ -297,6 +297,11 @@ export default {
     name: 'Avenging Wrath',
     icon: 'spell_holy_avenginewrath',
   },
+  AVENGING_WRATH_GUARANTEED_CRIT_BUFF: {
+    id: 294027,
+    name: 'Avenging Wrath',
+    icon: 'spell_holy_avenginewrath',
+  },
   BLADE_OF_WRATH_PROC: {
     id: 231843,
     name: 'Blade of Wrath',

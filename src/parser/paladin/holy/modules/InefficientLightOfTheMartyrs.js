@@ -1,3 +1,6 @@
+import React from 'react';
+import { Trans } from '@lingui/macro';
+
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
@@ -40,7 +43,7 @@ class InefficientLightOfTheMartyrs extends Analyzer {
     if (effectiveHealing <= 0) {
       cast.meta = cast.meta || {};
       cast.meta.isInefficientCast = true;
-      cast.meta.inefficientCastReason = 'This cast dealt more damage to you than it healed the target. If there is nothing to heal you, deal damage instead.';
+      cast.meta.inefficientCastReason = <Trans>This cast dealt more damage to you than it healed the target. If there is nothing to heal you, deal damage instead.</Trans>;
     }
 
     this._heal = null;

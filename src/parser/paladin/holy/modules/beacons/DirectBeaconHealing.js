@@ -1,4 +1,5 @@
 import React from 'react';
+import { Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -87,10 +88,10 @@ class DirectBeaconHealing extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds.actual).isGreaterThan(this.suggestionThresholds.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest('You cast a lot of direct heals on beacon targets. Direct healing beacon targets is inefficient. Try to only cast on beacon targets when they would otherwise die.')
+        return suggest(<Trans>You cast a lot of direct heals on beacon targets. Direct healing beacon targets is inefficient. Try to only cast on beacon targets when they would otherwise die.</Trans>)
           .icon('ability_paladin_beaconoflight')
-          .actual(`${formatPercentage(actual)}% of all your healing spell casts were on a beacon target`)
-          .recommended(`<${formatPercentage(recommended)}% is recommended`)
+          .actual(<Trans>{formatPercentage(actual)}% of all your healing spell casts were on a beacon target</Trans>)
+          .recommended(<Trans>&lt;{formatPercentage(recommended)}% is recommended</Trans>)
           .regular(this.suggestionThresholds.isGreaterThan.average).major(this.suggestionThresholds.isGreaterThan.major);
       });
   }
@@ -99,7 +100,6 @@ class DirectBeaconHealing extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(50)}
         size="small"
-        // tooltip={`The amount of heals cast on beacon targets. ${formatPercentage(totalFolsAndHlsOnBeacon / totalFolsAndHls)} % of your Flash of Lights and Holy Lights were cast on a beacon target. You cast ${beaconFlashOfLights} Flash of Lights and ${beaconHolyLights} Holy Lights on beacon targets.`}
       >
         <div className="pad">
           <div className="pull-right">
@@ -107,7 +107,7 @@ class DirectBeaconHealing extends Analyzer {
             <UpArrowIcon style={{ transform: 'rotate(90deg)' }} />{' '}
             <SpellIcon id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id} />
           </div>
-          <label>Direct beacon healing</label>
+          <label><Trans>Direct beacon healing</Trans></label>
 
           <div className="flex" style={{ marginTop: -10 }}>
             <div className="flex-main value" style={{ marginRight: 15 }}>
@@ -116,11 +116,11 @@ class DirectBeaconHealing extends Analyzer {
             <div className="flex-main">
               <div className="flex pull-right text-center" style={{ whiteSpace: 'nowrap' }}>
                 <div className="flex-main" style={{ marginRight: 15 }}>
-                  <small>HL/FoL</small>
+                  <small><Trans>HL/FoL</Trans></small>
                   <div className="value" style={{ fontSize: '1em' }}>{formatPercentage(this.totalFoLHLOnBeaconPercentage, 0)}%</div>
                 </div>
                 <div className="flex-main">
-                  <small>Other spells</small>
+                  <small><Trans>Other spells</Trans></small>
                   <div className="value" style={{ fontSize: '1em' }}>{formatPercentage(this.totalOtherSpellsOnBeaconPercentage, 0)}%</div>
                 </div>
               </div>

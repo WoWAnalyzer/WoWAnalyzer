@@ -1,4 +1,5 @@
 import React from 'react';
+import { Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import fetchWcl from 'common/fetchWclApi';
@@ -163,7 +164,7 @@ class AuraOfSacrificeDamageReduction extends Analyzer {
     const totalDamageReduced = passiveDamageReduced + activeDamageReduced;
 
     const tooltip = this.loaded ? (
-      <>
+      <Trans>
         <strong>Passive:</strong><br />
         Damage transferred: {formatThousands(passiveDamageTransferred)} damage ({formatThousands(this.perSecond(passiveDamageTransferred))} DTPS)<br />
         Effectively damage reduction: {formatThousands(passiveDamageReduced)} ({formatThousands(this.passiveDrps)} DRPS)<br />
@@ -177,21 +178,21 @@ class AuraOfSacrificeDamageReduction extends Analyzer {
         This is an estimation. There are several ways to calculate the effective damage reduction of buffs, this uses the lowest method. At the same time the log's health tracking (and thus AM activity) isn't perfect, so there might be a few false positives when there's a lot of damage at the exact same moment.<br /><br />
 
         Any damage transferred by the <strong>passive</strong> while immune (if applicable) is <em>not</em> included.
-      </>
-    ) : 'Click to load the required data.';
+      </Trans>
+    ) : <Trans>Click to load the required data.</Trans>;
     const footer = this.loaded && (
       <div className="statistic-box-bar">
-        <Tooltip content={`You effectively reduced damage taken by a total of ${formatThousands(totalDamageReduced)} damage (${formatThousands(this.perSecond(totalDamageReduced))} DRPS).`}>
+        <Tooltip content={<Trans>You effectively reduced damage taken by a total of {formatThousands(totalDamageReduced)} damage ({formatThousands(this.perSecond(totalDamageReduced))} DRPS).</Trans>}>
           <div
             className="stat-health-bg"
             style={{ width: `${totalDamageReduced / totalDamageTransferred * 100}%` }}
           >
-            <img src="/img/shield.png" alt="Damage reduced" />
+            <img src="/img/shield.png" alt={<Trans>Damage reduced</Trans>} />
           </div>
         </Tooltip>
-        <Tooltip content={`You transferred a total of ${formatThousands(totalDamageTransferred)} damage (${formatThousands(this.perSecond(totalDamageTransferred))} DTPS).`}>
+        <Tooltip content={<Trans>You transferred a total of {formatThousands(totalDamageTransferred)} damage ({formatThousands(this.perSecond(totalDamageTransferred))} DTPS).</Trans>}>
           <div className="remainder DeathKnight-bg">
-            <img src="/img/shield-open.png" alt="Damage transferred" />
+            <img src="/img/shield-open.png" alt={<Trans>Damage transferred</Trans>} />
           </div>
         </Tooltip>
       </div>
@@ -202,8 +203,8 @@ class AuraOfSacrificeDamageReduction extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(60)}
         loader={this.load.bind(this)}
         icon={<SpellIcon id={SPELLS.AURA_OF_SACRIFICE_TALENT.id} />}
-        value={`≈${formatNumber(this.drps)} DRPS`}
-        label="Damage reduced"
+        value={<Trans>≈{formatNumber(this.drps)} DRPS</Trans>}
+        label={<Trans>Damage reduced</Trans>}
         tooltip={tooltip}
         footer={footer}
         drilldown={makeWclUrl(this.owner.report.code, {

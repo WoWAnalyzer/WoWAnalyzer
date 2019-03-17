@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Trans } from '@lingui/macro';
 
 import Rule from './Rule';
 import Requirement from './Requirement';
@@ -16,11 +17,11 @@ class PreparationRule extends React.PureComponent {
     return (
       <>
         <Requirement
-          name="Used a pre-potion"
+          name={<Trans>Used a pre-potion</Trans>}
           thresholds={thresholds.prePotion}
         />
         <Requirement
-          name="Used a second potion"
+          name={<Trans>Used a second potion</Trans>}
           thresholds={thresholds.secondPotion}
         />
       </>
@@ -32,11 +33,11 @@ class PreparationRule extends React.PureComponent {
     return (
       <>
         <Requirement
-          name="All items enchanted"
+          name={<Trans>All items enchanted</Trans>}
           thresholds={thresholds.itemsEnchanted}
         />
         <Requirement
-          name="Using high quality enchants"
+          name={<Trans>Using high quality enchants</Trans>}
           thresholds={thresholds.itemsBestEnchanted}
         />
       </>
@@ -47,7 +48,7 @@ class PreparationRule extends React.PureComponent {
     return (
       <>
         <Requirement
-          name="Flask used"
+          name={<Trans>Flask used</Trans>}
           thresholds={thresholds.flaskPresent}
         />
       </>
@@ -58,13 +59,13 @@ class PreparationRule extends React.PureComponent {
     return (
       <>
         <Requirement
-          name="High quality food used"
+          name={<Trans>High quality food used</Trans>}
           thresholds={thresholds.higherFoodPresent}
         />
-      <Requirement
-        name="Food used"
-        thresholds={thresholds.foodPresent}
-      />
+        <Requirement
+          name={<Trans>Food used</Trans>}
+          thresholds={thresholds.foodPresent}
+        />
       </>
     );
   }
@@ -74,8 +75,8 @@ class PreparationRule extends React.PureComponent {
 
     return (
       <Rule
-        name="Be well prepared"
-        description="Being well prepared with food, flasks, potions and enchants is an easy way to improve your performance."
+        name={<Trans>Be well prepared</Trans>}
+        description={<Trans>Being well prepared with food, flasks, potions and enchants is an easy way to improve your performance.</Trans>}
       >
         {this.renderEnchantRequirements()}
         {this.renderPotionRequirements()}

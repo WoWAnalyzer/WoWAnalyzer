@@ -44,7 +44,7 @@ class Footer extends React.PureComponent {
                 </a>
               </Tooltip>
               <Tooltip content="Patreon">
-                <a href="https://www.patreon.com/wowanalyzer">
+                <a href="https://www.patreon.com/join/wowanalyzer">
                   <PatreonIcon />
                 </a>
               </Tooltip>
@@ -89,7 +89,9 @@ class Footer extends React.PureComponent {
           </div>
           {premium === false && (
             <div>
-              <Ad data-ad-format="rectangle" />
+              <Ad
+                data-ad-slot="3815063023" // Footer
+              />
             </div>
           )}
         </div>

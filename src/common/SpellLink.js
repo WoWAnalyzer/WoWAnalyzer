@@ -41,7 +41,7 @@ class SpellLink extends React.PureComponent {
         ref={innerRef}
         {...other}
       >
-        {icon && <SpellIcon id={id} noLink style={iconStyle} alt="" />}{' '}
+        {icon && <><SpellIcon id={id} noLink style={iconStyle} alt="" /> </>}
         {children || (SPELLS[id] ? SPELLS[id].name : `Unknown spell: ${id}`)}
       </a>
     );

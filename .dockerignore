@@ -1,8 +1,6 @@
 # This greatly speeds up the build process if the user already has run `npm install` locally
 node_modules
 build
-server/node_modules
-server/build
 
 # Unused files
 .docker

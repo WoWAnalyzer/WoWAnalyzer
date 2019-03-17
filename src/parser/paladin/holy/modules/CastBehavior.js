@@ -1,4 +1,5 @@
 import React from 'react';
+import { Trans } from '@lingui/macro';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -43,20 +44,20 @@ class CastBehavior extends Analyzer {
     const items = [
       {
         color: '#FFFDE7',
-        label: 'Flash of Light',
+        label: SPELLS.FLASH_OF_LIGHT.name,
         spellId: SPELLS.FLASH_OF_LIGHT.id,
         value: iolFlashOfLights,
       },
       {
         color: '#F57C00',
-        label: 'Holy Light',
+        label: SPELLS.HOLY_LIGHT.name,
         spellId: SPELLS.HOLY_LIGHT.id,
         value: iolHolyLights,
       },
       {
         color: '#A93226',
-        label: 'Wasted procs',
-        tooltip: `The amount of Infusion of Lights you did not use out of the total available. You cast ${holyShockCasts} Holy Shocks with a ${formatPercentage(holyShockCrits / holyShockCasts)}% crit ratio. This gave you ${totalIolProcs} Infusion of Light procs, of which you used ${totalIolUsages}.`,
+        label: <Trans>Wasted procs</Trans>,
+        tooltip: <Trans>The amount of Infusion of Lights you did not use out of the total available. You cast {holyShockCasts} Holy Shocks with a {formatPercentage(holyShockCrits / holyShockCasts)}% crit ratio. This gave you {totalIolProcs} Infusion of Light procs, of which you used {totalIolUsages}.</Trans>,
         value: unusedProcs,
       },
     ];
@@ -88,19 +89,19 @@ class CastBehavior extends Analyzer {
     const items = [
       {
         color: '#FFFDE7',
-        label: 'Flash of Light',
+        label: SPELLS.FLASH_OF_LIGHT.name,
         spellId: SPELLS.FLASH_OF_LIGHT.id,
         value: fillerFlashOfLights,
       },
       {
         color: '#F57C00',
-        label: 'Holy Light',
+        label: SPELLS.HOLY_LIGHT.name,
         spellId: SPELLS.HOLY_LIGHT.id,
         value: fillerHolyLights,
       },
       {
         color: '#A93226',
-        label: 'Light of the Martyr',
+        label: SPELLS.LIGHT_OF_THE_MARTYR.name,
         spellId: SPELLS.LIGHT_OF_THE_MARTYR.id,
         value: lightOfTheMartyrHeals,
       },
@@ -118,14 +119,14 @@ class CastBehavior extends Analyzer {
       <StatisticGroup position={STATISTIC_ORDER.CORE(40)}>
         <Statistic ultrawide>
           <div className="pad">
-            <label><SpellLink id={SPELLS.INFUSION_OF_LIGHT.id} /> usage</label>
+            <label><Trans><SpellLink id={SPELLS.INFUSION_OF_LIGHT.id} /> usage</Trans></label>
 
             {this.iolCastRatioChart()}
           </div>
         </Statistic>
         <Statistic ultrawide>
           <div className="pad">
-            <label>Fillers</label>
+            <label><Trans>Fillers</Trans></label>
 
             {this.fillerCastRatioChart()}
           </div>
