@@ -17,7 +17,7 @@ class Demonic extends Analyzer{
   eyeBeamCasts = 0;
   goodDeathSweep = 0;
   eyeBeamTimeStamp = undefined;
-  counter = undefined;
+  deathsweepsInMetaCounter = undefined;
   badCasts = 0;
 
   constructor(...args) {
@@ -26,11 +26,11 @@ class Demonic extends Analyzer{
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EYE_BEAM), this.getTimeStamp);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EYE_BEAM), this.onEyeBeamCast);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEATH_SWEEP), this.countCasts);
   }
 
-  getTimeStamp(event) {
+  onEyeBeamCast(event) {
     const hasMetaBuff = this.selectedCombatant.hasBuff(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id, event.timestamp - 1000);
 
     if (hasMetaBuff) {
@@ -39,22 +39,22 @@ class Demonic extends Analyzer{
     this.eyeBeamCasts += 1;
     this.eyeBeamTimeStamp = event.timestamp;
 
-    if (this.counter === undefined) {
-      this.counter = 0;
+    if (this.deathsweepsInMetaCounter === undefined) {
+      this.deathsweepsInMetaCounter = 0;
       return;
     }
 
-    if (this.counter < 2) {
+    if (this.deathsweepsInMetaCounter < 2) {
       this.badCasts += 1;
     }
 
-    this.counter = 0;
+    this.deathsweepsInMetaCounter = 0;
   }
 
   countCasts(event) {
     if (this.eyeBeamTimeStamp !== undefined && (event.timestamp - this.eyeBeamTimeStamp) < META_BUFF_DURATION_EYEBEAM) {
       this.goodDeathSweep += 1;
-      this.counter += 1;
+      this.deathsweepsInMetaCounter += 1;
     }
   }
 
