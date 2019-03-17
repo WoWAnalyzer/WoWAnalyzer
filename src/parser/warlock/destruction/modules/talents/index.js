@@ -4,7 +4,7 @@ import Analyzer from 'parser/core/Analyzer';
 
 import StatisticsListBox from 'interface/others/StatisticsListBox';
 
-import GrimoireOfSacrifice from 'parser/warlock/shared/modules/talents/GrimoireOfSacrifice';
+// import GrimoireOfSacrifice from 'parser/warlock/shared/modules/talents/GrimoireOfSacrifice';
 import Flashover from './Flashover';
 import Eradication from './Eradication';
 import SoulFire from './SoulFire';
@@ -32,7 +32,7 @@ class TalentStatisticBox extends Analyzer {
     cataclysm: Cataclysm,
     roaringBlaze: RoaringBlaze,
     grimoireOfSupremacy: GrimoireOfSupremacy,
-    grimoireOfSacrifice: GrimoireOfSacrifice,
+    // grimoireOfSacrifice: GrimoireOfSacrifice,
     soulConduit: SoulConduit,
     channelDemonfire: ChannelDemonfire,
   };
