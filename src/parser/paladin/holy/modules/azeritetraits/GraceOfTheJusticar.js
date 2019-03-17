@@ -6,7 +6,7 @@ import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatis
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 import Events from 'parser/core/Events';
 
-import BeaconHealSource from '../../../holy/modules/beacons/BeaconHealingDone.js';
+import BeaconHealSource from '../beacons/BeaconHealSource.js';
 
 
 /**
@@ -15,9 +15,13 @@ import BeaconHealSource from '../../../holy/modules/beacons/BeaconHealingDone.js
  * Example Log: https://www.warcraftlogs.com/reports/kMbVanmJwCg7WrAz#fight=last&type=summary&source=2
  */
 class GraceOfTheJusticar extends Analyzer {
+  static dependencies = {
+    beaconHealSource: BeaconHealSource,
+  };
+
   healing = 0;
   targetsHit = 0;
-  beaconTransfer = 0;
+  healingTransfered = 0;
   casts = 0;
 
   constructor(...args) {
@@ -26,10 +30,9 @@ class GraceOfTheJusticar extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(
-      [SPELLS.JUDGMENT_CAST_HOLY, SPELLS.JUDGMENT_CAST, SPELLS.JUDGMENT_CAST_PROTECTION, SPELLS.JUDGMENT_HP_ENERGIZE]), this.onCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.JUDGMENT_CAST_HOLY), this.onCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GRACE_OF_THE_JUSTICAR), this.onHeal);
-    this.addEventListener(BeaconHealSource.beacontransfer(SELECTED_PLAYER), this.onBeaconTransfer);
+    this.addEventListener(this.beaconHealSource.beacontransfer.by(SELECTED_PLAYER), this.onBeaconTransfer);
   }
 
   onBeaconTransfer(event) {
@@ -37,7 +40,7 @@ class GraceOfTheJusticar extends Analyzer {
     if (spellId !== SPELLS.GRACE_OF_THE_JUSTICAR.id) {
       return;
     }
-    this.beaconTransfer += event.amount + (event.absorbed || 0);
+    this.healingTransfered += event.amount + (event.absorbed || 0);
   }
 
   onCast(event) {
@@ -53,7 +56,7 @@ class GraceOfTheJusticar extends Analyzer {
     return (this.targetsHit / this.casts) || 0;
   }
   get totalHealing() {
-    return this.healing + this.beaconTransfer;
+    return this.healing + this.healingTransfered;
   }
 
   statistic() {
@@ -64,13 +67,13 @@ class GraceOfTheJusticar extends Analyzer {
         value={(
           <>
             <ItemHealingDone amount={this.totalHealing} /><br />
-            {this.playersHitPerCast.toFixed(1)} players hit per judgement.
+            {this.playersHitPerCast.toFixed(1)} Hit/Cast
           </>
         )}
         tooltip={(
           <>
             Total healing done: <b>{formatNumber(this.totalHealing)}</b><br />
-            Beacon healing transfered: <b>{formatNumber(this.beaconTransfer)}</b><br />
+            Beacon healing transfered: <b>{formatNumber(this.healingTransfered)}</b><br />
           </>
         )}
       />
