@@ -94,7 +94,7 @@ class Demonic extends Analyzer{
                   {this.badCasts} Bad casts<br />
                   {this.AvgPerEyeBeam} Avg Death Sweep casts
                 </>)}
-        tooltip={`A bad cast is triggered when you don't do atleast 2 Death Sweep casts inside <br />
+        tooltip={`A bad cast is triggered when you don't do atleast 2 Death Sweep casts inside 
                   the Meta window you get from Eye Beam due to the Demonic talent.`}
       />
     );
