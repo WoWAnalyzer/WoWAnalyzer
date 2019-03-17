@@ -44,7 +44,7 @@ import DivinePurpose from './modules/talents/DivinePurpose';
 import CrusadersMight from './modules/talents/CrusadersMight';
 
 // azurite traits //
-import GraceOfTheJusticar from '../shared/spells/azeritetraits/GraceOfTheJusticar';
+import GraceOfTheJusticar from './modules/azeritetraits/GraceOfTheJusticar';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
