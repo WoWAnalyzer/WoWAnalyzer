@@ -13,7 +13,6 @@ import ComboStrikes from '../../spells/ComboStrikes';
 import BlackoutKick from '../../spells/BlackoutKick';
 
 import HitCombo from '../../talents/HitCombo';
-import EnergizingElixir from '../../talents/EnergizingElixir';
 import ChiDetails from '../../resources/ChiDetails';
 
 import Component from './Component';
@@ -32,7 +31,6 @@ class Checklist extends BaseChecklist {
     blackoutKick: BlackoutKick,
 
     hitCombo: HitCombo,
-    energizingElixir: EnergizingElixir,
     chiDetails: ChiDetails,
   };
 
@@ -52,7 +50,6 @@ class Checklist extends BaseChecklist {
           blackoutKick: this.blackoutKick.suggestionThresholds,
 
           hitCombo: this.hitCombo.suggestionThresholds,
-          energizingElixir: this.energizingElixir.suggestionThresholds,
           chiDetails: this.chiDetails.suggestionThresholds,
        }}
      />

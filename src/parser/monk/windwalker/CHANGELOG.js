@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-01-17'),
+    changes: <>Updated handling of <SpellLink id={SPELLS.ENERGIZING_ELIXIR_TALENT.id} /> and removed its energy gained statistic as it is no longer feasible to calculate it accurately</>,
+    contributors: [Juko8],
+  },
+  {
     date: new Date('2019-01-05'),
     changes: 'Added tracking of time spent at maximum energy',
     contributors: [Juko8],

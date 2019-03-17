@@ -9,6 +9,7 @@ import Tooltip from 'common/Tooltip';
 
 const BASE_ENERGY_REGEN = 10;
 const ASCENSION_REGEN_MULTIPLIER = 1.1;
+const EE_REGEN_ADDITION = 15;
 
 const BASE_ENERGY_MAX = 100;
 const ASCENSION_ENERGY_MAX_ADDITION = 20;
@@ -27,11 +28,16 @@ class EnergyCapTracker extends RegenResourceCapTracker {
   static isRegenHasted = true;
   static cumulativeEventWindow = 400;
   static resourceRefundOnMiss = RESOURCE_REFUND_ON_MISS;
+  static buffsChangeRegen = [SPELLS.ENERGIZING_ELIXIR_TALENT.id];
 
   naturalRegenRate() {
     let regen = super.naturalRegenRate();
     if (this.selectedCombatant.hasTalent(SPELLS.ASCENSION_TALENT.id)) {
       regen *= ASCENSION_REGEN_MULTIPLIER;
+    }
+    // Energizing Elixir adds 15 energy per second regen for 5 seconds, not increased by haste
+    if (this.combatantHasBuffActive(SPELLS.ENERGIZING_ELIXIR_TALENT.id)){
+      regen += EE_REGEN_ADDITION;
     }
     return regen;
   }
