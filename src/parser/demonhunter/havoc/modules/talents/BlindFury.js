@@ -70,9 +70,11 @@ class BlindFury extends Analyzer{
       <TalentStatisticBox
         talent={SPELLS.BLIND_FURY_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={<>
-        {this.badCast} bad <SpellLink id={SPELLS.EYE_BEAM.id} /> casts<br />
-        {this.furyPerMin} Fury per min</>}
+        value={
+          <>
+            {this.badCast} bad <SpellLink id={SPELLS.EYE_BEAM.id} /> casts<br />
+            {this.furyPerMin} Fury per min
+          </>}
         tooltip={(
           <>
             Since this will always max out your Fury on cast, wasted and totals do not matter. Only the amount effectively gained. <br />
