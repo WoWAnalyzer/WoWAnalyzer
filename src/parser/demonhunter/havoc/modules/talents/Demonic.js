@@ -49,7 +49,6 @@ class Demonic extends Analyzer{
     }
 
     this.counter = 0;
-    console.log("reset to 0");
   }
 
   countCasts(event) {
