@@ -1,5 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Events from 'parser/core/Events';
@@ -7,7 +8,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatThousands, formatPercentage } from 'common/format';
 
 /**
- * Example Report: https://www.warcraftlogs.com/reports/tYjD6fp9cJ7nbAkm/#fight=7&source=12
+ * Example Report: https://www.warcraftlogs.com/reports/KGJgZPxanBX82LzV/#fight=4&source=20
  */
 
 const IMMOLATION_AURA = [SPELLS.IMMOLATION_AURA_FIRST_STRIKE_DPS, SPELLS.IMMOLATION_AURA_BUFF_DPS];
@@ -56,7 +57,7 @@ class ImmolationAura extends Analyzer{
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<> Be mindful of your Fury levels and spend it before capping.</>)
+        return suggest(<> Avoid casting <SpellLink id={SPELLS.IMMOLATION_AURA_TALENT.id} /> when close to max Fury.</>)
           .icon(SPELLS.IMMOLATION_AURA_TALENT.icon)
           .actual(`${formatPercentage(actual)}% Fury wasted`)
           .recommended(`${formatPercentage(recommended)}% is recommended.`);

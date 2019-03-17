@@ -71,7 +71,7 @@ class BlindFury extends Analyzer{
         talent={SPELLS.BLIND_FURY_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
         value={<>
-        {this.badCast} bad Eye Beam casts<br />
+        {this.badCast} bad <SpellLink id={SPELLS.EYE_BEAM.id} /> casts<br />
         {this.furyPerMin} Fury per min</>}
         tooltip={(
           <>

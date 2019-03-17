@@ -185,7 +185,7 @@ class HavocDemonHunterChecklist extends React.PureComponent {
                 <SpellLink id={SPELLS.DEMONIC_APPETITE_TALENT.id} /> Fury wasted
                 </>
               )}
-              thresholds={thresholds.demonicAppetite}
+              thresholds={thresholds.demonicAppetiteEfficiency}
             />
           )}
           {combatant.hasTalent(SPELLS.DEMON_BLADES_TALENT.id) &&(

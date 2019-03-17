@@ -59,6 +59,10 @@ class Demonic extends Analyzer{
   }
 
   get avgDeathSweepPerEyeBeam(){
+    //Devide by 0 check incase they never cast Death Sweep
+    if(this.goodDeathSweep === 0){
+      return 0;
+    }
     return this.goodDeathSweep / this.eyeBeamCasts;
   }
 
@@ -79,7 +83,7 @@ class Demonic extends Analyzer{
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<>Try to have <SpellLink id={SPELLS.BLADE_DANCE.id} /> almost off cooldwon before casting <SpellLink id={SPELLS.EYE_BEAM.id} />. This will allow for two casts of <SpellLink id={SPELLS.DEATH_SWEEP.id} /> during the <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} />  buff you get from the <SpellLink id={SPELLS.DEMONIC_TALENT.id} /> talent.</>)
           .icon(SPELLS.DEMONIC_TALENT.icon)
-          .actual(<>{actual} times during <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} /> <SpellLink id={SPELLS.DEATH_SWEEP.id} /> wasnt casted twice.</>)
+          .actual(<>{actual} times during <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} /> <SpellLink id={SPELLS.DEATH_SWEEP.id} /> wasn't casted twice.</>)
           .recommended(`No bad casts is recommended.`);
       });
   }
