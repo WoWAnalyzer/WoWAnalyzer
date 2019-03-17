@@ -72,10 +72,13 @@ class FelBarrage extends Analyzer{
           {this.badCasts} casts without <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} /> <br />
           {this.owner.formatItemDamageDone(this.damage)}
         </>)}
-        tooltip={`
-          ${formatThousands(this.damage)} Total damage <br /><br />
-          If you cast Fel Barage without Metamorphosis up its considered a bad cast.
-        `}
+        tooltip={(
+          <>
+          A bad cast is casting Fel Barage without Meta up.<br /><br />
+
+          {formatThousands(this.damage)} total damage
+          </>
+        )}
       />
     );
   }

@@ -27,7 +27,7 @@ class Demonic extends Analyzer{
       return;
     }
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EYE_BEAM), this.onEyeBeamCast);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEATH_SWEEP), this.countCasts);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.DEATH_SWEEP), this.onDeathSweepCast);
   }
 
   onEyeBeamCast(event) {
@@ -51,14 +51,14 @@ class Demonic extends Analyzer{
     this.deathsweepsInMetaCounter = 0;
   }
 
-  countCasts(event) {
+  onDeathSweepCast(event) {
     if (this.eyeBeamTimeStamp !== undefined && (event.timestamp - this.eyeBeamTimeStamp) < META_BUFF_DURATION_EYEBEAM) {
       this.goodDeathSweep += 1;
       this.deathsweepsInMetaCounter += 1;
     }
   }
 
-  get AvgPerEyeBeam(){
+  get avgDeathSweepPerEyeBeam(){
     return this.goodDeathSweep / this.eyeBeamCasts;
   }
 
@@ -91,7 +91,7 @@ class Demonic extends Analyzer{
         position={STATISTIC_ORDER.OPTIONAL(6)}
         value={(<>
                   {this.badCasts} Bad casts<br />
-                  {this.AvgPerEyeBeam} Avg Death Sweep casts
+                  {this.avgDeathSweepPerEyeBeam} Avg Death Sweep casts
                 </>)}
         tooltip={`A bad cast is triggered when you don't do atleast 2 Death Sweep casts inside
                   the Metamorphosis window you get from Eye Beam due to the Demonic talent.`}
