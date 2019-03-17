@@ -8,12 +8,14 @@ import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage
 
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
-import { formatThousands } from 'common/format';
+import { formatThousands, formatPercentage, formatNumber } from 'common/format';
 
 import TraitStatisticBox from 'interface/others/TraitStatisticBox';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 
 import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 
 const CDR_PER_CAST = 1000;
 const UNSTABLE_AFFLICTION_SP_COEFFICIENT = 0.145;
@@ -64,10 +66,10 @@ class DreadfulCalling extends Analyzer {
   }
 
   statistic() {
+    const dps = this.damage / this.owner.fightDuration * 1000;
     return (
-      <TraitStatisticBox
-        trait={SPELLS.DREADFUL_CALLING.id}
-        value={<ItemDamageDone amount={this.damage} approximate />}
+      <AzeritePowerStatistic
+        size="small"
         tooltip={(
           <>
             Estimated bonus Unstable Affliction damage: {formatThousands(this.damage)}<br />
@@ -77,7 +79,11 @@ class DreadfulCalling extends Analyzer {
             Also, because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be also little incorrect.
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.DREADFUL_CALLING}>
+          ≈ {formatNumber(dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }
