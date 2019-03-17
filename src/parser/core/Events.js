@@ -78,11 +78,11 @@ const Events = {
   get absorbed() {
     return new EventFilter('absorbed');
   },
-   /**
-   * This event is called when a beacon transfer occurs.
-   * @returns {EventFilter}}
+  /**
+   * This event is called when the player begins casting an ability that has a cast time. This is also called for some channeled abilities, but not everyone. This is NOT cast for most instant abilities.
+   * @returns {EventFilter}
    */
-   get begincast() {
+  get begincast() {
     return new EventFilter('begincast');
   },
   /**
