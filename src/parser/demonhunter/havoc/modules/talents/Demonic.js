@@ -77,9 +77,9 @@ class Demonic extends Analyzer{
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Squeezing in atleast 2 <SpellLink id={SPELLS.DEATH_SWEEP.id} /> during the meta phase you gain from <SpellLink id={SPELLS.EYE_BEAM.id} /> due to the <SpellLink id={SPELLS.DEMONIC_TALENT.id} /> talent is important to maximizing your dps.</>)
+        return suggest(<>Try to have <SpellLink id={SPELLS.BLADE_DANCE.id} /> almost off cooldwon before casting <SpellLink id={SPELLS.EYE_BEAM.id} />. This will allow for two casts of <SpellLink id={SPELLS.DEATH_SWEEP.id} /> during the meta buff you get from the <SpellLink id={SPELLS.DEMONIC_TALENT.id} /> talent</>)
           .icon(SPELLS.DEMONIC_TALENT.icon)
-          .actual(`${actual} times without 2 <SpellLink id={SPELLS.DEATH_SWEEP.id} /> casts`)
+          .actual(`${actual} times <SpellLink id={SPELLS.DEATH_SWEEP.id} /> wasnt casted twice.`)
           .recommended(`No bad casts is recommended.`);
       });
   }
@@ -94,7 +94,7 @@ class Demonic extends Analyzer{
                   {this.AvgPerEyeBeam} Avg Death Sweep casts
                 </>)}
         tooltip={`A bad cast is triggered when you don't do atleast 2 Death Sweep casts inside
-                  the Meta window you get from Eye Beam due to the Demonic talent.`}
+                  the Metamorphosis window you get from Eye Beam due to the Demonic talent.`}
       />
     );
   }

@@ -137,10 +137,10 @@ class HavocDemonHunterChecklist extends React.PureComponent {
         </Rule>
 
         <Rule
-          name="Manage your fury properly"
+          name="Manage your Fury properly"
           description={(
             <>
-            <p>You should always avoid capping your fury and spend it regularly.</p>
+            <p>You should always avoid capping your Fury and spend it regularly.</p>
             <a href="https://www.wowhead.com/guides/havoc-demon-hunter-get-good-how-to-improve#major-pitfalls" target="_blank" rel="noopener noreferrer">More info.</a>
             </>
           )}
@@ -153,7 +153,7 @@ class HavocDemonHunterChecklist extends React.PureComponent {
             <Requirement
               name={(
                 <>
-                <SpellLink id={SPELLS.DEMONS_BITE.id} /> wasted fury
+                <SpellLink id={SPELLS.DEMONS_BITE.id} /> wasted Fury
                 </>
               )}
               thresholds={thresholds.demonBiteFury}
@@ -162,7 +162,7 @@ class HavocDemonHunterChecklist extends React.PureComponent {
             <Requirement
               name={(
                 <>
-                <SpellLink id={SPELLS.IMMOLATION_AURA_TALENT.id} /> fury wasted
+                <SpellLink id={SPELLS.IMMOLATION_AURA_TALENT.id} /> Fury wasted
                 </>
               )}
               thresholds={thresholds.immolationAuraEfficiency}
@@ -172,7 +172,7 @@ class HavocDemonHunterChecklist extends React.PureComponent {
             <Requirement
               name={(
                 <>
-                <SpellLink id={SPELLS.FELBLADE_TALENT.id} /> fury wasted
+                <SpellLink id={SPELLS.FELBLADE_TALENT.id} /> Fury wasted
                 </>
               )}
               thresholds={thresholds.felbladeEfficiency}
@@ -182,7 +182,7 @@ class HavocDemonHunterChecklist extends React.PureComponent {
             <Requirement
               name={(
                 <>
-                <SpellLink id={SPELLS.DEMONIC_APPETITE_TALENT.id} /> fury wasted
+                <SpellLink id={SPELLS.DEMONIC_APPETITE_TALENT.id} /> Fury wasted
                 </>
               )}
               thresholds={thresholds.demonicAppetite}
@@ -192,7 +192,7 @@ class HavocDemonHunterChecklist extends React.PureComponent {
             <Requirement
               name={(
                 <>
-                <SpellLink id={SPELLS.DEMON_BLADES_TALENT.id} /> fury wasted
+                <SpellLink id={SPELLS.DEMON_BLADES_TALENT.id} /> Fury wasted
                 </>
               )}
               thresholds={thresholds.demonBladesEfficiency}

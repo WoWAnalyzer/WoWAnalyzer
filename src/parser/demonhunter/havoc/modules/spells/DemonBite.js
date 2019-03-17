@@ -49,9 +49,9 @@ class DemonBite extends Analyzer{
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<> Be mindful of your fury levels and spend it before capping.</>)
+        return suggest(<> Be mindful of your Fury levels and spend it before capping.</>)
           .icon(SPELLS.DEMONS_BITE.icon)
-          .actual(`${formatPercentage(actual)}% fury wasted`)
+          .actual(`${formatPercentage(actual)}% Fury wasted`)
           .recommended(`${formatPercentage(recommended)}% is recommended.`);
       });
   }
@@ -66,7 +66,7 @@ class DemonBite extends Analyzer{
         value={(
           <>
             <span style={{ fontSize: '75%' }}>
-              {this.furyPerMin} fury per min <br />
+              {this.furyPerMin} Fury per min <br />
               {this.owner.formatItemDamageDone(this.damage)}
             </span>
           </>
@@ -74,8 +74,8 @@ class DemonBite extends Analyzer{
         tooltip={(
           <>
             {formatThousands(this.damage)} Total damage<br />
-            {effectiveFuryGain} Effective fury gained<br />
-            {this.furyGain} Total fury gained<br />
+            {effectiveFuryGain} Effective Fury gained<br />
+            {this.furyGain} Total Fury gained<br />
             {this.furyWaste} Fury wasted
           </>
         )}

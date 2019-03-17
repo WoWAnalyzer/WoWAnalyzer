@@ -86,7 +86,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
-          extraSuggestion: <>Pool your fury before hand to maximizing casting <SpellLink id={SPELLS.CHAOS_STRIKE.id} icon /> / <SpellLink id={SPELLS.ANNIHILATION.id} icon /> during its buff window.</>,
+          extraSuggestion: <>Pool your Fury before hand to maximizing casting <SpellLink id={SPELLS.CHAOS_STRIKE.id} icon /> / <SpellLink id={SPELLS.ANNIHILATION.id} icon /> during its buff window.</>,
         },
       },
       {
@@ -123,7 +123,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: combatant.hasTalent(SPELLS.MOMENTUM_TALENT.id),
           recommendedEfficiency: 0.85,
-          extraSuggestion: <>Use it to generate fury due to the <SpellLink id={SPELLS.MOMENTUM_TALENT.id} icon /> talent.</>,
+          extraSuggestion: <>Use it to generate Fury due to the <SpellLink id={SPELLS.MOMENTUM_TALENT.id} icon /> talent.</>,
         },
       },
       {
