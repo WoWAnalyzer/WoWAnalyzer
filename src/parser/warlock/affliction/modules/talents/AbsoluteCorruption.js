@@ -44,7 +44,7 @@ class AbsoluteCorruption extends Analyzer {
         )}
       >
         <div className="pad">
-          <label><SpellIcon id={SPELLS.ABSOLUTE_CORRUPTION_TALENT.id} /> Absolute Corruption bonus damage</label>
+          <label><SpellLink id={SPELLS.ABSOLUTE_CORRUPTION_TALENT.id} /> bonus damage</label>
           <div className="value">
             {formatNumber(this.dps)} DPS{'  '}
             <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total</small>

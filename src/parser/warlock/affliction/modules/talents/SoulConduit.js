@@ -12,6 +12,8 @@ import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import { binomialPMF, findMax } from 'parser/warlock/shared/probability';
 import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
 import SoulShardTracker from '../soulshards/SoulShardTracker';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 const TICKS_PER_UA = 4;
 const SC_PROC_CHANCE = 0.15;
@@ -35,7 +37,7 @@ class SoulConduit extends Analyzer {
     this._totalUAdamage += event.amount + (event.absorbed || 0);
   }
 
-  subStatistic() {
+  statistic() {
     // if we haven't cast any UAs, _totalTicks would be 0 and we would get an exception
     // but with denominator 1 in this case, if this._totalUAdamage = 0, then dividing by 1 still gives correct result of average damage = 0
     const avgDamage = this._totalUAdamage / (this._totalTicks > 0 ? this._totalTicks : 1);
@@ -45,17 +47,20 @@ class SoulConduit extends Analyzer {
     // find number of Shards we were MOST LIKELY to get in the fight
     const { max } = findMax(totalSpent, (k, n) => binomialPMF(k, n, SC_PROC_CHANCE));
     return (
-      <StatisticListBoxItem
-        title={<>Shards generated with <SpellLink id={SPELLS.SOUL_CONDUIT_TALENT.id} /></>}
-        value={shardsGained}
-        valueTooltip={(
+      <Statistic
+        size="small"
+        tooltip={(
           <>
             You gained {shardsGained} Shards from this talent, {max > 0 ? <>which is <strong>{formatPercentage(shardsGained / max)}%</strong> of Shards you were most likely to get in this fight ({max} Shards).</> : 'while you were most likely to not get any Shards.'}<br />
             Estimated damage: {formatThousands(estimatedUAdamage)} ({this.owner.formatItemDamageDone(estimatedUAdamage)})<br /><br />
             This result is estimated by multiplying number of Soul Shards gained from this talent by the average Unstable Affliction damage for the whole fight.
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.SOUL_CONDUIT_TALENT}>
+          {shardsGained} <small>Soul Shards generated</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

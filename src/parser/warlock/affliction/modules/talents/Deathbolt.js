@@ -6,12 +6,17 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import SPELLS from 'common/SPELLS';
-import { formatThousands } from 'common/format';
+import { formatThousands, formatNumber } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import { StatisticItem } from './index';
 
 import { getDotDurations, UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
+import StatisticGroup from 'interface/statistics/StatisticGroup';
+import Statistic from 'interface/statistics/Statistic';
+import SpellIcon from 'common/SpellIcon';
+import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 
 const PANDEMIC_WINDOW = 0.3;
 const DOT_DEBUFFS = [
@@ -129,7 +134,7 @@ class Deathbolt extends Analyzer {
     return result;
   }
 
-  subStatistic() {
+  statistic() {
     const deathbolt = this.abilityTracker.getAbility(SPELLS.DEATHBOLT_TALENT.id);
     const total = deathbolt.damageEffective || 0;
     const avg = total / (deathbolt.casts || 1);
@@ -139,28 +144,59 @@ class Deathbolt extends Analyzer {
       .filter(([key]) => key !== 'total')
       .map(([key, value]) => <>{SPELLS[key].name}: {(value / 1000).toFixed(2)} seconds<br /></>);
 
-    return (
-      <>
-        <StatisticListBoxItem
-          title={<>Average <SpellLink id={SPELLS.DEATHBOLT_TALENT.id} /> damage</>}
-          value={formatThousands(avg)}
-          valueTooltip={(
+    /*
+          <StatisticGroup>
+        <Statistic
+          ultrawide
+          size="small"
+          tooltip={(
             <>
               Total damage done with Deathbolt: {formatThousands(total)} ({this.owner.formatItemDamageDone(total)})
             </>
           )}
-        />
-        <StatisticListBoxItem
-          title={<>Average DoT length on <SpellLink id={SPELLS.DEATHBOLT_TALENT.id} /> cast</>}
-          value={`${(avgDotLengths.total / 1000).toFixed(2)} s`}
-          valueTooltip={(
+        >
+          <BoringSpellValue spell={SPELLS.DEATHBOLT_TALENT} value={formatThousands(avg)} label="average Deathbolt damage" />
+        </Statistic>
+        <Statistic
+          ultrawide
+          size="small"
+          tooltip={(
             <>
               Average remaining DoT durations on Deathbolt cast:<br /><br />
               {dotDurationsTooltip}
             </>
           )}
-        />
-      </>
+        >
+          <BoringSpellValue spell={SPELLS.DEATHBOLT_TALENT} value={`${(avgDotLengths.total / 1000).toFixed(2)} s`} label="average DoT length on Deathbolt cast" />
+        </Statistic>
+      </StatisticGroup>
+
+     */
+    return (
+      <Statistic
+        size="flexible"
+        tooltip={(
+          <>
+            Total damage done with Deathbolt: {formatThousands(total)} ({this.owner.formatItemDamageDone(total)}) <br />
+            Average remaining DoT durations on Deathbolt cast:<br /><br />
+            {dotDurationsTooltip}
+          </>
+        )}
+      >
+        <div className="pad">
+          <label><SpellLink id={SPELLS.DEATHBOLT_TALENT.id} /></label>
+          <div className="flex">
+            <div className="flex-main value">
+              {formatThousands(avg)} <small>average damage</small>
+            </div>
+          </div>
+          <div className="flex">
+            <div className="flex-main value">
+              {(avgDotLengths.total / 1000).toFixed(2)} s <small>average DoT length on cast</small>
+            </div>
+          </div>
+        </div>
+      </Statistic>
     );
   }
 }

@@ -7,12 +7,18 @@ import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import { formatThousands } from 'common/format';
+import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 
 import StatisticsListBox from 'interface/others/StatisticsListBox';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 
 import { getDotDurations, UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
+import Statistic from 'interface/statistics/Statistic';
+import { TooltipElement } from 'common/Tooltip';
+import Tooltip from 'common/Tooltip';
+import SpellIcon from 'common/SpellIcon';
+import StatisticGroup from 'interface/statistics/StatisticGroup';
+import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 
 const BONUS_DURATION = 8000;
 const DOT_DEBUFFS = [
@@ -198,35 +204,194 @@ class Darkglare extends Analyzer {
     });
     const averageExtendedDots = (totalExtendedDots / this.casts.length) || 0;
     const totalDamage = this.bonusDotDamage + this.darkglareDamage;
-    return (
-      <StatisticsListBox title={<SpellLink id={SPELLS.SUMMON_DARKGLARE.id} />}>
-        <StatisticListBoxItem
-          title="Bonus damage from dots"
-          value={this.owner.formatItemDamageDone(this.bonusDotDamage)}
-          valueTooltip={(
+    /*<StatisticsListBox title={<SpellLink id={SPELLS.SUMMON_DARKGLARE.id} />}>
+      <StatisticListBoxItem
+        title="Bonus damage from dots"
+        value={this.owner.formatItemDamageDone(this.bonusDotDamage)}
+        valueTooltip={(
+          <>
+            {formatThousands(this.bonusDotDamage)} damage<br />
+            This only counts the damage that happened after the dot <u>should have fallen off</u> (but instead was extended with Darkglare)
+          </>
+        )}
+      />
+      <StatisticListBoxItem
+        title="Average dots extended per cast"
+        value={averageExtendedDots.toFixed(2)}
+      />
+      <StatisticListBoxItem
+        title="Total damage"
+        titleTooltip="Combined damage from extended dots and the pet itself"
+        value={this.owner.formatItemDamageDone(totalDamage)}
+        valueTooltip={(
+          <>
+            Damage from extended dots: {formatThousands(this.bonusDotDamage)} ({this.owner.formatItemDamageDone(this.bonusDotDamage)})<br />
+            Pet damage: {formatThousands(this.darkglareDamage)} ({this.owner.formatItemDamageDone(this.darkglareDamage)})<br />
+            Combined damage: {formatThousands(totalDamage)}
+          </>
+        )}
+      />
+    </StatisticsListBox>*/
+
+    // Vaguely based on Divine Purpose code
+
+    const StatisticItem = ({ title, value, label = '', titleTooltip = '', valueTooltip = '' }) => (
+      <div className="flex">
+        <div className="flex-main content-middle" style={{ fontSize: '1em' }}>
+          {titleTooltip !== '' ? (
+            <TooltipElement content={titleTooltip}>
+              {title}:
+            </TooltipElement>
+          ) : (
+            <>{title}:</>
+          )}
+        </div>
+        <div className="flex-main content-bottom value">
+          {valueTooltip !== '' ? (
+            <TooltipElement content={valueTooltip}>
+              {value}
+            </TooltipElement>
+          ) : (
+            <>{value}</>
+          )}
+          {label && <>&nbsp;<small>{label}</small></>}
+        </div>
+      </div>
+    );
+
+    const formatDPS = (amount) => `${formatNumber(amount / this.owner.fightDuration * 1000)} DPS`;
+    const formatDmgPct = (amount) => `${formatPercentage(this.owner.getPercentageOfTotalDamageDone(amount))} % of total`;
+
+    /*
+    <Statistic wide size="flexible">
+        <div className="pad">
+          <label style={{ fontSize: '1.2em' }}><SpellLink id={SPELLS.SUMMON_DARKGLARE.id} /></label>
+
+          <StatisticItem
+            title="Bonus damage from dots"
+            value={formatDPS(this.bonusDotDamage)}
+            valueTooltip={(
+              <>
+                {formatThousands(this.bonusDotDamage)} damage<br />
+                This only counts the damage that happened after the dot <u>should have fallen off</u> (but instead was extended with Darkglare)
+              </>
+            )}
+            label={formatDmgPct(this.bonusDotDamage)}
+          />
+          <StatisticItem
+            title="Dots extended per cast"
+            value={averageExtendedDots.toFixed(2)}
+            label="on average"
+          />
+          <StatisticItem
+            title="Total damage"
+            value={formatDPS(totalDamage)}
+            label={formatDmgPct(totalDamage)}
+            valueTooltip={(
+              <>
+                Damage from extended dots: {formatThousands(this.bonusDotDamage)} ({this.owner.formatItemDamageDone(this.bonusDotDamage)})<br />
+                Pet damage: {formatThousands(this.darkglareDamage)} ({this.owner.formatItemDamageDone(this.darkglareDamage)})<br />
+                Combined damage: {formatThousands(totalDamage)}
+              </>
+            )}
+          />
+        </div>
+      </Statistic>
+    */
+
+    /*
+    <StatisticGroup>
+        <Statistic
+          ultrawide
+          size="small"
+          tooltip={(
             <>
               {formatThousands(this.bonusDotDamage)} damage<br />
               This only counts the damage that happened after the dot <u>should have fallen off</u> (but instead was extended with Darkglare)
             </>
           )}
-        />
-        <StatisticListBoxItem
-          title="Average dots extended per cast"
-          value={averageExtendedDots.toFixed(2)}
-        />
-        <StatisticListBoxItem
-          title="Total damage"
-          titleTooltip="Combined damage from extended dots and the pet itself"
-          value={this.owner.formatItemDamageDone(totalDamage)}
-          valueTooltip={(
+        >
+          <div className="pad">
+            <label><SpellIcon id={SPELLS.SUMMON_DARKGLARE.id} /> Bonus damage from extended dots</label>
+            <div className="value">
+              {formatDPS(this.bonusDotDamage)}{'  '}
+              <small>{formatDmgPct(this.bonusDotDamage)}</small>
+            </div>
+          </div>
+        </Statistic>
+        <Statistic
+          ultrawide
+          size="small"
+        >
+          <BoringSpellValue spell={SPELLS.SUMMON_DARKGLARE} value={averageExtendedDots.toFixed(2)} label="average DoTs extended per cast" />
+        </Statistic>
+        <Statistic
+          ultrawide
+          size="small"
+          tooltip={(
             <>
               Damage from extended dots: {formatThousands(this.bonusDotDamage)} ({this.owner.formatItemDamageDone(this.bonusDotDamage)})<br />
               Pet damage: {formatThousands(this.darkglareDamage)} ({this.owner.formatItemDamageDone(this.darkglareDamage)})<br />
               Combined damage: {formatThousands(totalDamage)}
             </>
           )}
-        />
-      </StatisticsListBox>
+        >
+          <div className="pad">
+            <label><SpellIcon id={SPELLS.SUMMON_DARKGLARE.id} /> Total Darkglare damage</label>
+            <div className="value">
+              {formatDPS(totalDamage)}{'  '}
+              <small>{formatDmgPct(totalDamage)}</small>
+            </div>
+          </div>
+        </Statistic>
+      </StatisticGroup>
+     */
+    return (
+      <Statistic
+        size="flexible"
+        tooltip={(
+          <>
+            Damage from extended dots <sup>*</sup>: {formatThousands(this.bonusDotDamage)} ({this.owner.formatItemDamageDone(this.bonusDotDamage)})<br />
+            Pet damage: {formatThousands(this.darkglareDamage)} ({this.owner.formatItemDamageDone(this.darkglareDamage)})<br />
+            Combined damage: {formatThousands(totalDamage)} ({this.owner.formatItemDamageDone(totalDamage)})<br /><br />
+
+            <sup>*</sup> This only counts the damage that happened after the dot <u>should have fallen off</u> (but instead was extended with Darkglare).
+          </>
+        )}
+      >
+        <div className="pad">
+          <label><SpellLink id={SPELLS.SUMMON_DARKGLARE.id} /></label>
+          <div className="flex">
+            <div className="flex-sub value">
+              {formatDPS(this.bonusDotDamage)}
+              <Tooltip
+                content={(
+                  <>
+                    damage from DoTs after they <u>should have fallen off</u>, but were extended instead
+                  </>
+                )}
+              >
+                <small style={{ marginLeft: 7 }}>bonus damage <sup>*</sup></small>
+              </Tooltip>
+            </div>
+          </div>
+          <div className="flex">
+            <div className="flex-sub value">
+              {averageExtendedDots.toFixed(1)} <small>average DoTs extended</small>
+            </div>
+          </div>
+          <div className="flex">
+            <div className="flex-sub value">
+              {formatDPS(totalDamage)}
+              <Tooltip
+                content="including pet damage"
+              >
+                <small style={{ marginLeft: 7 }}>total damage <sup>*</sup></small>
+              </Tooltip>
+            </div>
+          </div>
+        </div>
+      </Statistic>
     );
   }
 }

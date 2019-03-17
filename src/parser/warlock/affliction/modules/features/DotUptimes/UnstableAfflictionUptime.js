@@ -113,6 +113,7 @@ class UnstableAfflictionUptime extends Analyzer {
         </div>
       </Statistic>*/
     const history = this.enemies.getCombinedDebuffHistory(...UNSTABLE_AFFLICTION_DEBUFFS.map(spell => spell.id));
+    // TODO: make the tooltip more obvious it's there - icon? TooltipElement?
     return (
       <div className="flex">
         <div className="flex-sub icon">
