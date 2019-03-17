@@ -55,7 +55,6 @@ class Demonic extends Analyzer{
     if (this.eyeBeamTimeStamp !== undefined && (event.timestamp - this.eyeBeamTimeStamp) < META_BUFF_DURATION_EYEBEAM) {
       this.goodDeathSweep += 1;
       this.counter += 1;
-      console.log("counter #", this.counter, "  TS: ", this.eyeBeamTimeStamp );
     }
   }
 
