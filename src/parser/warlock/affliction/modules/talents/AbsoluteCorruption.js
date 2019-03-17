@@ -2,15 +2,13 @@ import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
 import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
-import Events from 'parser/core/Events';
 import Statistic from 'interface/statistics/Statistic';
-import SpellIcon from 'common/SpellIcon';
 
 const AC_DAMAGE_BONUS = 0.15;
 
@@ -46,8 +44,7 @@ class AbsoluteCorruption extends Analyzer {
         <div className="pad">
           <label><SpellLink id={SPELLS.ABSOLUTE_CORRUPTION_TALENT.id} /> bonus damage</label>
           <div className="value">
-            {formatNumber(this.dps)} DPS{'  '}
-            <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total</small>
+            {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total</small>
           </div>
         </div>
       </Statistic>

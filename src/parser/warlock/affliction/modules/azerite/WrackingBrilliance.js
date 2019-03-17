@@ -5,13 +5,11 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
-import { formatPercentage, formatThousands, formatNumber } from 'common/format';
+import { formatPercentage } from 'common/format';
 
-import TraitStatisticBox from 'interface/others/TraitStatisticBox';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import IntellectIcon from 'interface/icons/Intellect';
-import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 
 const wrackingBrillianceStats = traits => traits.reduce((total, rank) => {
   const [ intellect ] = calculateAzeriteEffects(SPELLS.WRACKING_BRILLIANCE.id, rank);

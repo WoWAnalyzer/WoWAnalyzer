@@ -5,6 +5,7 @@ import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
+
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Gauge from 'interface/statistics/components/Gauge';

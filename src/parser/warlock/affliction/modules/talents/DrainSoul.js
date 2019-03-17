@@ -9,11 +9,10 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
-
-import SoulShardTracker from '../soulshards/SoulShardTracker';
 import Statistic from 'interface/statistics/Statistic';
 import CriticalStrikeIcon from 'interface/icons/CriticalStrike';
+
+import SoulShardTracker from '../soulshards/SoulShardTracker';
 // limit to filter out relevant removedebuffs (those what I'm interested in happen either at the same timestamp as energize, or about 20ms afterwards (tested on 2 logs, didn't surpass 30ms))
 // it's still possible that it can be a coincidence (mob dies and at the same time something falls off somewhere unrelated), but shouldn't happen too much
 const ENERGIZE_REMOVEDEBUFF_THRESHOLD = 100;

@@ -6,18 +6,14 @@ import Events from 'parser/core/Events';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import { formatPercentage, formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import SpellIcon from 'common/SpellIcon';
+import Tooltip from 'common/Tooltip';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import UptimeBar from 'interface/statistics/components/UptimeBar';
 
 import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../../constants';
-import Statistic from 'interface/statistics/Statistic';
-import SpellIcon from 'common/SpellIcon';
-import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
-import StatisticBar from 'interface/statistics/StatisticBar';
-import UptimeBar from 'interface/statistics/components/UptimeBar';
-import Tooltip from 'common/Tooltip';
 
 const CONTAGION_DAMAGE_BONUS = 0.1; // former talent Contagion is now baked into UA
 class UnstableAfflictionUptime extends Analyzer {
@@ -95,23 +91,6 @@ class UnstableAfflictionUptime extends Analyzer {
   }
 
   subStatistic() {
-    /*
-      <Statistic
-        ultrawide
-        size="small"
-        tooltip={(
-          <>
-            Bonus damage from internal Contagion effect: {formatThousands(this.damage)} ({this.owner.formatItemDamageDone(this.damage)})
-          </>
-        )}
-      >
-        <div className="pad">
-          <label><SpellIcon id={SPELLS.UNSTABLE_AFFLICTION_CAST.id} /> Unstable Affliction uptime</label>
-          <div className="value">
-            {formatPercentage(this.uptime)} %
-          </div>
-        </div>
-      </Statistic>*/
     const history = this.enemies.getCombinedDebuffHistory(...UNSTABLE_AFFLICTION_DEBUFFS.map(spell => spell.id));
     // TODO: make the tooltip more obvious it's there - icon? TooltipElement?
     return (

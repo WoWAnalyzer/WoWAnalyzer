@@ -2,13 +2,12 @@ import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
 
-import StatisticsListBox, { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
+import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
+import StatisticBar from 'interface/statistics/StatisticBar';
 
 import AgonyUptime from './AgonyUptime';
 import CorruptionUptime from './CorruptionUptime';
 import UnstableAfflictionUptime from './UnstableAfflictionUptime';
-import StatisticGroup from 'interface/statistics/StatisticGroup';
-import StatisticBar from 'interface/statistics/StatisticBar';
 import SiphonLifeUptime from '../../talents/SiphonLifeUptime';
 
 class DotUptimeStatisticBox extends Analyzer {

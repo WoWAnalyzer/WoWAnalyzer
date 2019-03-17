@@ -6,17 +6,12 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import SPELLS from 'common/SPELLS';
-import { formatThousands, formatNumber } from 'common/format';
+import { formatThousands } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
-import { StatisticItem } from './index';
+import Statistic from 'interface/statistics/Statistic';
 
 import { getDotDurations, UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
-import StatisticGroup from 'interface/statistics/StatisticGroup';
-import Statistic from 'interface/statistics/Statistic';
-import SpellIcon from 'common/SpellIcon';
-import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 
 const PANDEMIC_WINDOW = 0.3;
 const DOT_DEBUFFS = [
@@ -144,34 +139,6 @@ class Deathbolt extends Analyzer {
       .filter(([key]) => key !== 'total')
       .map(([key, value]) => <>{SPELLS[key].name}: {(value / 1000).toFixed(2)} seconds<br /></>);
 
-    /*
-          <StatisticGroup>
-        <Statistic
-          ultrawide
-          size="small"
-          tooltip={(
-            <>
-              Total damage done with Deathbolt: {formatThousands(total)} ({this.owner.formatItemDamageDone(total)})
-            </>
-          )}
-        >
-          <BoringSpellValue spell={SPELLS.DEATHBOLT_TALENT} value={formatThousands(avg)} label="average Deathbolt damage" />
-        </Statistic>
-        <Statistic
-          ultrawide
-          size="small"
-          tooltip={(
-            <>
-              Average remaining DoT durations on Deathbolt cast:<br /><br />
-              {dotDurationsTooltip}
-            </>
-          )}
-        >
-          <BoringSpellValue spell={SPELLS.DEATHBOLT_TALENT} value={`${(avgDotLengths.total / 1000).toFixed(2)} s`} label="average DoT length on Deathbolt cast" />
-        </Statistic>
-      </StatisticGroup>
-
-     */
     return (
       <Statistic
         size="flexible"

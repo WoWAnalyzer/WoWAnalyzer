@@ -5,7 +5,6 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
-import TraitStatisticBox from 'interface/others/TraitStatisticBox';
 import { formatPercentage } from 'common/format';
 
 import HasteIcon from 'interface/icons/Haste';
@@ -60,11 +59,6 @@ class CascadingCalamity extends Analyzer {
           <HasteIcon /> {this.averageHaste} <small>average Haste</small>
         </BoringSpellValueText>
       </AzeritePowerStatistic>
-      // <TraitStatisticBox
-      //   trait={SPELLS.CASCADING_CALAMITY.id}
-      //   value={`${this.averageHaste} average Haste`}
-      //   tooltip={`Cascading Calamity grants ${this.haste} Haste while active. You had ${formatPercentage(this.uptime)} % uptime on the buff.`}
-      // />
     );
   }
 }

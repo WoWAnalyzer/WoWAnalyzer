@@ -5,11 +5,9 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import SPELLS from 'common/SPELLS';
 import { formatThousands, formatNumber, formatPercentage } from 'common/format';
-import SpellLink from 'common/SpellLink';
-
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
-import Statistic from 'interface/statistics/Statistic';
 import SpellIcon from 'common/SpellIcon';
+
+import Statistic from 'interface/statistics/Statistic';
 
 class PhantomSingularity extends Analyzer {
   static dependencies = {
@@ -33,8 +31,7 @@ class PhantomSingularity extends Analyzer {
         <div className="pad">
           <label><SpellIcon id={SPELLS.PHANTOM_SINGULARITY_TALENT.id} /> Phantom Singularity damage</label>
           <div className="value">
-            {formatNumber(dps)} DPS{'  '}
-            <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total</small>
+            {formatNumber(dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total</small>
           </div>
         </div>
       </Statistic>

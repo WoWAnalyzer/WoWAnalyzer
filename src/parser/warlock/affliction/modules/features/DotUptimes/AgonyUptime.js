@@ -3,16 +3,12 @@ import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
+import SpellIcon from 'common/SpellIcon';
 
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
-import StatisticBar from 'interface/statistics/StatisticBar';
-import SpellIcon from 'common/SpellIcon';
 import UptimeBar from 'interface/statistics/components/UptimeBar';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 
 class AgonyUptime extends Analyzer {
   static dependencies = {
@@ -52,19 +48,6 @@ class AgonyUptime extends Analyzer {
   }
 
   subStatistic() {
-    /*
-    <Statistic
-        ultrawide
-        size="small"
-      >
-        <div className="pad">
-          <label><SpellIcon id={SPELLS.AGONY.id} /> Agony uptime</label>
-          <div className="value">
-            {formatPercentage(this.uptime)} %
-          </div>
-        </div>
-      </Statistic>
-     */
     const history = this.enemies.getDebuffHistory(SPELLS.AGONY.id);
     return (
       <div className="flex">

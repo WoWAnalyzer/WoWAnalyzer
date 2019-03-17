@@ -6,9 +6,7 @@ import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
 import { formatThousands, formatPercentage, formatNumber } from 'common/format';
-import SpellLink from 'common/SpellLink';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
 

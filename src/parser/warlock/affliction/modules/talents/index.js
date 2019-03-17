@@ -3,7 +3,6 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 
 import StatisticsListBox, { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
-import { TooltipElement } from 'common/Tooltip';
 
 import GrimoireOfSacrifice from 'parser/warlock/shared/modules/talents/GrimoireOfSacrifice';
 import AbsoluteCorruption from './AbsoluteCorruption';
@@ -16,30 +15,6 @@ import Nightfall from './Nightfall';
 import PhantomSingularity from './PhantomSingularity';
 import SiphonLifeUptime from './SiphonLifeUptime';
 import SoulConduit from './SoulConduit';
-
-export const StatisticItem = ({ title, value, label = '', titleTooltip = '', valueTooltip = '' }) => (
-  <div className="flex">
-    <div className="flex-main content-middle" style={{ fontSize: '1em' }}>
-      {titleTooltip !== '' ? (
-        <TooltipElement content={titleTooltip}>
-          {title}:
-        </TooltipElement>
-      ) : (
-        <>{title}:</>
-      )}
-    </div>
-    <div className="flex-main content-bottom value">
-      {valueTooltip !== '' ? (
-        <TooltipElement content={valueTooltip}>
-          {value}
-        </TooltipElement>
-      ) : (
-        <>{value}</>
-      )}
-      {label && <>&nbsp;<small>{label}</small></>}
-    </div>
-  </div>
-);
 
 class TalentStatisticBox extends Analyzer {
   static dependencies = {

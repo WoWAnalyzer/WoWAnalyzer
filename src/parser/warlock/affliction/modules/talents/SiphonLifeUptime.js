@@ -6,9 +6,8 @@ import Enemies from 'parser/shared/modules/Enemies';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
-
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import SpellIcon from 'common/SpellIcon';
+
 import UptimeBar from 'interface/statistics/components/UptimeBar';
 
 class SiphonLifeUptime extends Analyzer {
@@ -60,7 +59,10 @@ class SiphonLifeUptime extends Analyzer {
         >
           {formatPercentage(this.uptime, 0)} % <small>uptime</small>
         </div>
-        <div className="flex-main chart" style={{ padding: 15 }}>
+        <div
+          className="flex-main chart"
+          style={{ padding: 15 }}
+        >
           <UptimeBar
             uptimeHistory={history}
             start={this.owner.fight.start_time}

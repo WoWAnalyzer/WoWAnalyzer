@@ -5,15 +5,13 @@ import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatThousands } from 'common/format';
-import SpellLink from 'common/SpellLink';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 import { binomialPMF, findMax } from 'parser/warlock/shared/probability';
 import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
 import SoulShardTracker from '../soulshards/SoulShardTracker';
-import Statistic from 'interface/statistics/Statistic';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 const TICKS_PER_UA = 4;
 const SC_PROC_CHANCE = 0.15;

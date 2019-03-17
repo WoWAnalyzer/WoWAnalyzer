@@ -8,10 +8,9 @@ import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
-
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
-import Statistic from 'interface/statistics/Statistic';
 import Tooltip from 'common/Tooltip';
+
+import Statistic from 'interface/statistics/Statistic';
 
 const BONUS_PER_STACK = 0.03;
 const BUFFER = 50; // for some reason, changedebuffstack triggers twice on the same timestamp for each event, ignore an event if it happened < BUFFER ms after another

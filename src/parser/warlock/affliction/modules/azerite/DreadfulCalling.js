@@ -10,12 +10,10 @@ import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatThousands, formatPercentage, formatNumber } from 'common/format';
 
-import TraitStatisticBox from 'interface/others/TraitStatisticBox';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
-
-import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+
+import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
 
 const CDR_PER_CAST = 1000;
 const UNSTABLE_AFFLICTION_SP_COEFFICIENT = 0.145;

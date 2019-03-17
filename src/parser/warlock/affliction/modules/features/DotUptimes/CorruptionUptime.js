@@ -3,16 +3,12 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
-
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
-import Statistic from 'interface/statistics/Statistic';
 import SpellIcon from 'common/SpellIcon';
-import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
+
 import UptimeBar from 'interface/statistics/components/UptimeBar';
-import StatisticBar from 'interface/statistics/StatisticBar';
 
 class CorruptionUptime extends Analyzer {
   static dependencies = {
@@ -50,14 +46,6 @@ class CorruptionUptime extends Analyzer {
   }
 
   subStatistic() {
-    /*
-        <div className="pad">
-          <label><SpellIcon id={SPELLS.CORRUPTION_DEBUFF.id} /> Corruption uptime</label>
-          <div className="value">
-            {formatPercentage(this.uptime)} %
-          </div>
-        </div>
-        */
     const history = this.enemies.getDebuffHistory(SPELLS.CORRUPTION_DEBUFF.id);
     return (
       <div className="flex">

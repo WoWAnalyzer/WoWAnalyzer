@@ -7,14 +7,12 @@ import Events from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 
-import TraitStatisticBox from 'interface/others/TraitStatisticBox';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 
 import { binomialPMF, findMax } from 'parser/warlock/shared/probability';
 import { getDotDurations } from '../../constants';
 import SoulShardTracker from '../soulshards/SoulShardTracker';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 
 const PROC_CHANCE = 0.0666;
 const PROC_WINDOW = 5000;
