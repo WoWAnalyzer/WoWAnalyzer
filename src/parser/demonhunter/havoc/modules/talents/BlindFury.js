@@ -9,7 +9,7 @@ import { formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 /**
- * Example Report: https://www.warcraftlogs.com/reports/GdDhNAZgp2X3PbVC#fight=31&type=summary&source=10
+ * Example Report: https://www.warcraftlogs.com/reports/KGJgZPxanBX82LzV/#fight=4&source=20
  */
 const MAX_FURY = 120;
 class BlindFury extends Analyzer{
@@ -59,7 +59,7 @@ class BlindFury extends Analyzer{
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<>Cast <SpellLink id={SPELLS.EYE_BEAM.id} /> with 50 or less Fury to minimize Fury waste and maximize DPS.</>)
           .icon(SPELLS.BLIND_FURY_TALENT.icon)
-          .actual(`${actual} # of bad casts above 50 Fury`)
+          .actual(<>{actual} bad <SpellLink id={SPELLS.EYE_BEAM.id} /> casts above 50 Fury. </>)
           .recommended(`${formatPercentage(recommended)}% is recommended.`);
       });
   }
@@ -70,13 +70,14 @@ class BlindFury extends Analyzer{
       <TalentStatisticBox
         talent={SPELLS.BLIND_FURY_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={`${this.furyPerMin} Fury per min`}
+        value={<>
+        {this.badCast} bad Eye Beam casts<br />
+        {this.furyPerMin} Fury per min</>}
         tooltip={(
           <>
             Since this will always max out your Fury on cast, wasted and totals do not matter. Only the amount effectively gained. <br />
             A bad cast is when you cast Eye Beam with more than 50 Fury. At that point you are wasting enough fury gained for it to be a dps loss. <br /><br />
             {this.gained} Effective Fury gained<br />
-            {this.badCast} # of Bad casts above 50 Fury
           </>
         )}
       />
