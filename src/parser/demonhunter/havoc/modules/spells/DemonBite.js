@@ -1,13 +1,14 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatThousands, formatPercentage } from 'common/format';
 
 /**
- * Example Report: https://www.warcraftlogs.com/reports/4GR2pwAYW8KtgFJn/#fight=6&source=18
+ * Example Report: https://www.warcraftlogs.com/reports/KGJgZPxanBX82LzV/#fight=4&source=20
  */
 class DemonBite extends Analyzer{
 
@@ -19,9 +20,7 @@ class DemonBite extends Analyzer{
     super(...args);
     //The Demon Blades talent replaces the ability Demon Bite if picked
     this.active = !this.selectedCombatant.hasTalent(SPELLS.DEMON_BLADES_TALENT.id);
-    if (this.active) {
-      return;
-    }
+
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DEMONS_BITE), this.onEnergizeEvent);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DEMONS_BITE), this.onDamageEvent);
   }
@@ -29,6 +28,7 @@ class DemonBite extends Analyzer{
   onEnergizeEvent(event) {
     this.furyGain += event.resourceChange;
     this.furyWaste += event.waste;
+    console.log("Fury Change");
   }
 
   onDamageEvent(event) {
@@ -54,7 +54,7 @@ class DemonBite extends Analyzer{
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<> Be mindful of your Fury levels and spend it before capping.</>)
+        return suggest(<> Try not to cast <SpellLink id={SPELLS.DEMONS_BITE.id} /> when close to max Fury.</>)
           .icon(SPELLS.DEMONS_BITE.icon)
           .actual(`${formatPercentage(actual)}% Fury wasted`)
           .recommended(`${formatPercentage(recommended)}% is recommended.`);

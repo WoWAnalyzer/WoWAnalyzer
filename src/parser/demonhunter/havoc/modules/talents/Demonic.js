@@ -77,9 +77,9 @@ class Demonic extends Analyzer{
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Try to have <SpellLink id={SPELLS.BLADE_DANCE.id} /> almost off cooldwon before casting <SpellLink id={SPELLS.EYE_BEAM.id} />. This will allow for two casts of <SpellLink id={SPELLS.DEATH_SWEEP.id} /> during the meta buff you get from the <SpellLink id={SPELLS.DEMONIC_TALENT.id} /> talent</>)
+        return suggest(<>Try to have <SpellLink id={SPELLS.BLADE_DANCE.id} /> almost off cooldwon before casting <SpellLink id={SPELLS.EYE_BEAM.id} />. This will allow for two casts of <SpellLink id={SPELLS.DEATH_SWEEP.id} /> during the <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} />  buff you get from the <SpellLink id={SPELLS.DEMONIC_TALENT.id} /> talent.</>)
           .icon(SPELLS.DEMONIC_TALENT.icon)
-          .actual(`${actual} times <SpellLink id={SPELLS.DEATH_SWEEP.id} /> wasnt casted twice.`)
+          .actual(<>{actual} times during <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} /> <SpellLink id={SPELLS.DEATH_SWEEP.id} /> wasnt casted twice.</>)
           .recommended(`No bad casts is recommended.`);
       });
   }
