@@ -4,11 +4,11 @@ import Analyzer, { SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import { formatThousands } from 'common/format';
+import { formatThousands, formatPercentage } from 'common/format';
 
-import StatisticBox from 'interface/others/StatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 import { isPermanentPet } from '../pets/helpers';
 
@@ -66,14 +66,20 @@ class LegionStrike extends Analyzer {
       });
   }
 
+  get dps() {
+    return this.damage / this.owner.fightDuration * 1000;
+  }
+
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.FELGUARD_LEGION_STRIKE.id} />}
-        value={this.owner.formatItemDamageDone(this.damage)}
-        label="Legion Strike damage"
-        tooltip={`${formatThousands(this.damage)} damage`}
-      />
+      <Statistic
+        size="small"
+        tooltip={`${formatThousands(this.damage)} damage. Counts only main pet's Legion Strike.`}
+      >
+        <BoringSpellValueText spell={SPELLS.FELGUARD_LEGION_STRIKE}>
+          {formatThousands(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }
