@@ -5,10 +5,10 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
-import { formatThousands } from 'common/format';
-import SpellLink from 'common/SpellLink';
+import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 const BUFFER = 100;
 const debug = false;
@@ -53,22 +53,23 @@ class Cataclysm extends Analyzer {
     this.casts.push(this._currentCastCount);
   }
 
-  subStatistic() {
+  statistic() {
     const spell = this.abilityTracker.getAbility(SPELLS.CATACLYSM_TALENT.id);
     const damage = spell.damageEffective + spell.damageAbsorbed;
+    const dps = damage / this.owner.fightDuration * 1000;
     const averageTargetsHit = (this.casts.reduce((total, current) => total + current, 0) / spell.casts) || 0;
     debug && this.log('Casts array at fight end: ', JSON.parse(JSON.stringify(this.casts)));
+
     return (
-      <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.CATACLYSM_TALENT.id} /> damage</>}
-        value={this.owner.formatItemDamageDone(damage)}
-        valueTooltip={(
-          <>
-            {formatThousands(damage)} damage<br />
-            Average targets hit: {averageTargetsHit.toFixed(2)}
-          </>
-        )}
-      />
+      <Statistic
+        size="flexible"
+        tooltip={`${formatThousands(damage)} damage`}
+      >
+        <BoringSpellValueText spell={SPELLS.CATACLYSM_TALENT}>
+          {formatNumber(dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total</small> <br />
+          {averageTargetsHit.toFixed(2)} <small>average targets hit</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

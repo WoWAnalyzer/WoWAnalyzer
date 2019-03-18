@@ -5,12 +5,13 @@ import Events from 'parser/core/Events';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
 import SpellLink from 'common/SpellLink';
-import { formatThousands } from 'common/format';
+import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 
 import HIT_TYPES from 'game/HIT_TYPES';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 const debug = false;
 class FireAndBrimstone extends Analyzer {
@@ -65,17 +66,21 @@ class FireAndBrimstone extends Analyzer {
       });
   }
 
-  subStatistic() {
+  get dps() {
+    return this.bonusDmg / this.owner.fightDuration * 1000;
+  }
+
+  statistic() {
     return (
-      <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.FIRE_AND_BRIMSTONE_TALENT.id} /> bonus fragments</>}
-        value={this.bonusFragments}
-        valueTooltip={(
-          <>
-            Bonus cleave damage: {formatThousands(this.bonusDmg)} ({this.owner.formatItemDamageDone(this.bonusDmg)}).
-          </>
-        )}
-      />
+      <Statistic
+        size="flexible"
+        tooltip={`${formatThousands(this.bonusDmg)} bonus cleaved damage`}
+      >
+        <BoringSpellValueText spell={SPELLS.FIRE_AND_BRIMSTONE_TALENT}>
+          {this.bonusFragments} <small>bonus Soul Shard Fragments</small> <br />
+          {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

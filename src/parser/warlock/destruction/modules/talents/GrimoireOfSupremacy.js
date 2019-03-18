@@ -4,10 +4,10 @@ import Analyzer from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
-import { formatThousands } from 'common/format';
-import SpellLink from 'common/SpellLink';
+import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 const BONUS_DAMAGE_PER_STACK = 0.08;
 
@@ -48,13 +48,27 @@ class GrimoireOfSupremacy extends Analyzer {
     return (this.casts.reduce((total, current) => total + current, 0) / this.casts.length) || 0;
   }
 
-  subStatistic() {
+  get dps() {
+    return this.damage / this.owner.fightDuration * 1000;
+  }
+
+  statistic() {
     return (
-      <StatisticListBoxItem
-        title={<>Average <SpellLink id={SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT.id} /> stacks</>}
-        value={this.averageStacks.toFixed(2)}
-        valueTooltip={<>Bonus Chaos Bolt damage: {formatThousands(this.damage)} ({this.owner.formatItemDamageDone(this.damage)}). Note that due to Destruction Mastery, this is only an <strong>estimate</strong> (not taking Mastery into account).</>}
-      />
+      <Statistic
+        size="flexible"
+        tooltip={(
+          <>
+            Bonus Chaos Bolt damage: {formatThousands(this.damage)}.<br /> <br />
+
+            Note that due to Destruction Mastery, this is only an <strong>estimate</strong> (not taking Mastery into account).
+          </>
+        )}
+      >
+        <BoringSpellValueText spell={SPELLS.GRIMOIRE_OF_SUPREMACY_TALENT}>
+          ≈ {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small> <br />
+          {this.averageStacks.toFixed(2)} <small>average stacks</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

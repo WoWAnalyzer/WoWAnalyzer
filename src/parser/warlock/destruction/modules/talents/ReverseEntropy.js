@@ -3,10 +3,11 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import UptimeIcon from 'interface/icons/Uptime';
 
 class ReverseEntropy extends Analyzer {
   constructor(...args) {
@@ -18,12 +19,13 @@ class ReverseEntropy extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.REVERSE_ENTROPY_BUFF.id) / this.owner.fightDuration;
   }
 
-  subStatistic() {
+  statistic() {
     return (
-      <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.REVERSE_ENTROPY_TALENT.id} /> uptime</>}
-        value={`${formatPercentage(this.uptime)} %`}
-      />
+      <Statistic size="small">
+        <BoringSpellValueText spell={SPELLS.REVERSE_ENTROPY_TALENT}>
+          <UptimeIcon /> {formatPercentage(this.uptime, 0)} % <small>uptime</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

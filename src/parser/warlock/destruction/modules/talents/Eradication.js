@@ -7,9 +7,12 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage, formatThousands } from 'common/format';
+import { formatPercentage, formatThousands, formatNumber } from 'common/format';
+import Tooltip from 'common/Tooltip';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import UptimeIcon from 'interface/icons/Uptime';
 
 const MAX_TRAVEL_TIME = 3000; // Chaos Bolt being the slowest, takes around 2 seconds to land from max range, added a second to account for maybe target movement?
 const ERADICATION_DAMAGE_BONUS = 0.1;
@@ -128,24 +131,25 @@ class Eradication extends Analyzer {
       });
   }
 
-  subStatistic() {
+  get dps() {
+    return this.bonusDmg / this.owner.fightDuration * 1000;
+  }
+
+  statistic() {
     return (
-      <>
-        <StatisticListBoxItem
-          title={<><SpellLink id={SPELLS.ERADICATION_TALENT.id} /> uptime</>}
-          value={`${formatPercentage(this.uptime)} %`}
-          valueTooltip={(
-            <>
-              Bonus damage: {formatThousands(this.bonusDmg)} ({this.owner.formatItemDamageDone(this.bonusDmg)}).
-            </>
-          )}
-        />
-        <StatisticListBoxItem
-          title={<><SpellLink id={SPELLS.CHAOS_BOLT.id}>Chaos Bolts</SpellLink> buffed by <SpellLink id={SPELLS.ERADICATION_TALENT.id} /></>}
-          value={`${formatPercentage(this.CBpercentage)} %`}
-          valueTooltip={`${this._buffedCB} / ${this._totalCB} Chaos Bolts`}
-        />
-      </>
+      <Statistic
+        size="flexible"
+        tooltip={`Bonus damage: ${formatThousands(this.bonusDmg)}`}
+      >
+        <BoringSpellValueText spell={SPELLS.ERADICATION_TALENT}>
+          {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total</small> <br />
+          <UptimeIcon /> {formatPercentage(this.uptime, 0)} % <small>uptime</small> <br />
+          {formatPercentage(this.CBpercentage, 0)} %
+          <Tooltip content={`${this._buffedCB} / ${this._totalCB} Chaos Bolts`}>
+            <small style={{ marginLeft: 7 }}>buffed Chaos Bolts <sup>*</sup></small>
+          </Tooltip>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }
