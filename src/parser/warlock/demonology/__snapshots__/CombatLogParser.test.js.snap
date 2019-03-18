@@ -9,13 +9,8 @@ exports[`The Demonology Warlock Analyzer analyzers AlwaysBeCasting matches the s
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic standard "
+    position={1}
   >
     <div
       className="panel-body"
@@ -24,56 +19,175 @@ exports[`The Demonology Warlock Analyzer analyzers AlwaysBeCasting matches the s
         className="pad"
       >
         <label>
-          <img
-            alt="Downtime"
-            className="icon game "
-            src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
-          />
-           
-          Downtime
+          Active time
         </label>
         <div
-          className="value"
-        >
-          8.63 %
-        </div>
-        <div
+          className="flex"
           style={
             Object {
-              "marginTop": "0.5em",
+              "marginTop": 12,
+              "textAlign": "center",
             }
           }
         >
           <div
-            className="statistic-box-bar"
+            className="flex-main text-right text-muted"
+            style={
+              Object {
+                "fontSize": 12,
+                "paddingRight": 8,
+                "paddingTop": 23,
+              }
+            }
           >
-            <div
-              className="stat-health-bg"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={[Function]}
+            Low
+          </div>
+          <div
+            className="flex-sub"
+            style={
+              Object {
+                "position": "relative",
+              }
+            }
+          >
+            <svg
+              fill="none"
+              height="85"
               style={
                 Object {
-                  "width": "91.36691677673147%",
+                  "fill": "none",
+                }
+              }
+              viewBox="19 19 101 88"
+              width="98"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M101.459 101.459C119.033 83.8858 119.033 55.3934 101.459 37.8198C83.8859 20.2462 55.3934 20.2462 37.8198 37.8198C20.2463 55.3934 20.2463 83.8858 37.8198 101.459"
+                stroke="#f8b700"
+                strokeLinecap="round"
+                strokeWidth="8"
+              />
+              <path
+                clipRule="evenodd"
+                d="M68.6396 28.6396H70.6396V32.6396H68.6396V28.6396Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M87.7656 32.8389L89.5485 33.7451L87.7368 37.3097L85.9539 36.4035L87.7656 32.8389Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M101.207 50.1829L100.077 48.5324L103.378 46.2732L104.508 47.9236L101.207 50.1829Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M106.622 67.3762L106.417 65.3868L110.398 64.9765L110.603 66.966L106.622 67.3762Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M103.658 84.4276L104.376 82.5609L108.11 83.9969L107.392 85.8635L103.658 84.4276Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M52.0547 32.5298L50.2627 33.4179L52.039 37.0019L53.831 36.1137L52.0547 32.5298Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M36.1157 45.9784L34.965 47.6142L38.2354 49.9147L39.3861 48.2789L36.1157 45.9784Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M28.8926 64.968L28.6883 66.9576L32.6626 67.3657L32.8669 65.3761L28.8926 64.968Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M31.3486 84.3921L32.0806 86.2533L35.8031 84.7895L35.0711 82.9282L31.3486 84.3921Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+            </svg>
+            <div
+              style={
+                Object {
+                  "height": 32,
+                  "left": "50%",
+                  "marginTop": -13,
+                  "position": "absolute",
+                  "top": 49,
+                  "transform": "translate(-50%, -50%)",
+                  "width": 32,
                 }
               }
             >
-              <img
-                alt="Active time"
-                src="/img/sword.png"
-              />
+              <svg
+                fill="none"
+                height="32"
+                style={
+                  Object {
+                    "fill": "none",
+                    "margin": 0,
+                    "transform": "rotate(115.8273669748481deg)",
+                    "transformOrigin": "5px 27px",
+                  }
+                }
+                viewBox="0 0 10 32"
+                width="10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9 27C9 29.2091 7.20914 31 5 31C2.79086 31 1 29.2091 1 27C1 24.7909 2.79086 23 5 23C7.20914 23 9 24.7909 9 27Z"
+                  stroke="#f8b700"
+                  strokeWidth="2"
+                />
+                <path
+                  clipRule="evenodd"
+                  d="M6 0L6 23H4L4 0L6 0Z"
+                  fill="#f8b700"
+                  fillRule="evenodd"
+                />
+              </svg>
             </div>
             <div
-              className="remainder DeathKnight-bg"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={[Function]}
+              className="value"
+              style={
+                Object {
+                  "fontSize": "1.25em",
+                  "marginTop": -18,
+                }
+              }
             >
-              <img
-                alt="Downtime"
-                src="/img/afk.png"
-              />
+              91
+              %
             </div>
+          </div>
+          <div
+            className="flex-main text-left text-muted"
+            style={
+              Object {
+                "fontSize": 12,
+                "paddingLeft": 8,
+                "paddingTop": 23,
+              }
+            }
+          >
+            High
           </div>
         </div>
       </div>
@@ -110,19 +224,15 @@ exports[`The Demonology Warlock Analyzer analyzers BalefulInvocation matches the
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    category="ITEMS"
+    className="panel statistic small "
+    position={1001}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -148,13 +258,6 @@ exports[`The Demonology Warlock Analyzer analyzers BalefulInvocation matches the
         <div
           className="value"
         >
-          <img
-            alt="Damage"
-            className="icon"
-            src="/img/sword.png"
-          />
-           
-          ≈
           192
            DPS 
           <small>
@@ -203,7 +306,55 @@ exports[`The Demonology Warlock Analyzer analyzers DemoPets matches the statisti
 
 exports[`The Demonology Warlock Analyzer analyzers DemoPets matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Demonology Warlock Analyzer analyzers DemonicCalling matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`The Demonology Warlock Analyzer analyzers DemonicCalling matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic small "
+    position={1002}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=205145"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Demonic Calling"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_impoweredimp.jpg"
+            />
+          </a>
+           
+          <a
+            href="http://wowhead.com/spell=205145"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Demonic Calling
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          0
+           
+          <small>
+            Wasted procs
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
 
 exports[`The Demonology Warlock Analyzer analyzers DemonicCalling matches the suggestions snapshot 1`] = `Array []`;
 
@@ -215,7 +366,73 @@ exports[`The Demonology Warlock Analyzer analyzers DemonicMeteor matches the sta
 
 exports[`The Demonology Warlock Analyzer analyzers DemonicMeteor matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Demonology Warlock Analyzer analyzers DemonicStrength matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`The Demonology Warlock Analyzer analyzers DemonicStrength matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic small "
+    position={1001}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=267171"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Demonic Strength"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_demonicempowerment.jpg"
+            />
+          </a>
+           
+          <a
+            href="http://wowhead.com/spell=267171"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Demonic Strength
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          1,670
+           DPS 
+          <small>
+            7.28
+             % of total
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
 
 exports[`The Demonology Warlock Analyzer analyzers DemonicStrength matches the suggestions snapshot 1`] = `Array []`;
 
@@ -243,7 +460,73 @@ exports[`The Demonology Warlock Analyzer analyzers FromTheShadows matches the st
 
 exports[`The Demonology Warlock Analyzer analyzers FromTheShadows matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Demonology Warlock Analyzer analyzers GrimoireFelguard matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`The Demonology Warlock Analyzer analyzers GrimoireFelguard matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic small "
+    position={1004}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=111898"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Grimoire: Felguard"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_summonfelguard.jpg"
+            />
+          </a>
+           
+          <a
+            href="http://wowhead.com/spell=111898"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Grimoire: Felguard
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          1,677
+           DPS 
+          <small>
+            7.31
+             % of total
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
 
 exports[`The Demonology Warlock Analyzer analyzers GrimoireFelguard matches the suggestions snapshot 1`] = `Array []`;
 
@@ -260,19 +543,14 @@ exports[`The Demonology Warlock Analyzer analyzers LegionStrike matches the stat
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic small "
+    position={4}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -287,12 +565,23 @@ exports[`The Demonology Warlock Analyzer analyzers LegionStrike matches the stat
             />
           </a>
            
-          Legion Strike damage
+          <a
+            href="http://wowhead.com/spell=30213"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Legion Strike
+          </a>
         </label>
         <div
           className="value"
         >
-          13.12 % / 3,009 DPS
+          3,009
+           DPS 
+          <small>
+            13.12
+             % of total
+          </small>
         </div>
       </div>
     </div>
@@ -319,7 +608,73 @@ exports[`The Demonology Warlock Analyzer analyzers LegionStrike matches the stat
 
 exports[`The Demonology Warlock Analyzer analyzers LegionStrike matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Demonology Warlock Analyzer analyzers NetherPortal matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`The Demonology Warlock Analyzer analyzers NetherPortal matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic small "
+    position={1005}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=267217"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Nether Portal"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/inv_netherportal.jpg"
+            />
+          </a>
+           
+          <a
+            href="http://wowhead.com/spell=267217"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Nether Portal
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          1,742
+           DPS 
+          <small>
+            7.60
+             % of total
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
 
 exports[`The Demonology Warlock Analyzer analyzers NetherPortal matches the suggestions snapshot 1`] = `Array []`;
 
@@ -360,32 +715,39 @@ exports[`The Demonology Warlock Analyzer analyzers SoulShardDetails matches the 
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic small "
+    position={2}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="flex boring-spell-value grayscale"
       >
-        <label>
-          <img
-            alt="Wasted Soul Shards"
-            src="warlock_soulshard_bw.jpg"
-          />
-           
-          Wasted Soul Shards
-        </label>
         <div
-          className="value"
+          className="flex-sub icon"
         >
-          2
+          <a
+            href="http://wowhead.com/spell=246985"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Soul Shards"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/inv_misc_gem_amethyst_02.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main value"
+        >
+          <div>
+            2
+          </div>
+          <small>
+            Wasted Soul Shards
+          </small>
         </div>
       </div>
     </div>
@@ -408,10 +770,10 @@ exports[`The Demonology Warlock Analyzer analyzers SummonDemonicTyrant matches t
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
+    className="panel statistic flexible "
+    position={3}
     style={
       Object {
-        "height": "auto",
         "zIndex": 1,
       }
     }
@@ -429,18 +791,22 @@ exports[`The Demonology Warlock Analyzer analyzers SummonDemonicTyrant matches t
             target="_blank"
           >
             <img
-              alt="Summon Demonic Tyrant"
+              alt=""
               className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/inv_summondemonictyrant.jpg"
             />
+             
+            Summon Demonic Tyrant
           </a>
-           
-          Average Demons Empowered
         </label>
         <div
           className="value"
         >
           12.00
+           
+          <small>
+            pets empowered on average
+          </small>
         </div>
       </div>
       <div
@@ -461,6 +827,59 @@ exports[`The Demonology Warlock Analyzer analyzers SummonDemonicTyrant matches t
             className="glyphicon glyphicon-chevron-down"
           />
         </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Demonology Warlock Analyzer analyzers SummonDemonicTyrant matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Demonology Warlock Analyzer analyzers SummonVilefiend matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic small "
+    position={1003}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=264119"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Summon Vilefiend"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/inv_argusfelstalkermount.jpg"
+            />
+          </a>
+           
+          <a
+            href="http://wowhead.com/spell=264119"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Summon Vilefiend
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          1,332
+           DPS 
+          <small>
+            5.81
+             % of total
+          </small>
+        </div>
       </div>
     </div>
     <div
@@ -484,10 +903,6 @@ exports[`The Demonology Warlock Analyzer analyzers SummonDemonicTyrant matches t
 </div>
 `;
 
-exports[`The Demonology Warlock Analyzer analyzers SummonDemonicTyrant matches the suggestions snapshot 1`] = `Array []`;
-
-exports[`The Demonology Warlock Analyzer analyzers SummonVilefiend matches the statistic snapshot 1`] = `"module has no statistic method"`;
-
 exports[`The Demonology Warlock Analyzer analyzers SummonVilefiend matches the suggestions snapshot 1`] = `Array []`;
 
 exports[`The Demonology Warlock Analyzer analyzers SupremeCommander matches the statistic snapshot 1`] = `
@@ -495,19 +910,15 @@ exports[`The Demonology Warlock Analyzer analyzers SupremeCommander matches the 
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    category="ITEMS"
+    className="panel statistic small "
+    position={1001}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -533,7 +944,22 @@ exports[`The Demonology Warlock Analyzer analyzers SupremeCommander matches the 
         <div
           className="value"
         >
-          149 average Intellect
+          <svg
+            className="icon"
+            version="1.1"
+            viewBox="16 17 32 32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M28.832,44.802h6.559v-1.101h-6.559V44.802z M29.91,47.004h4.402v-1.101H29.91V47.004z M32.156,18.379c-0.012,0-0.031,0-0.045,0c-0.014,0-0.033,0-0.045,0c-1.078,0-9.704,0.127-9.704,11.01 c0,2.696,1.5,4.496,2.949,6.234c1.255,1.507,2.442,2.928,2.442,4.776V42.6h8.715v-2.202c0-1.848,1.187-3.269,2.442-4.776 c1.449-1.737,2.949-3.537,2.949-6.234C41.86,18.506,33.235,18.379,32.156,18.379z"
+            />
+          </svg>
+           
+          149
+           
+          <small>
+            average Intellect
+          </small>
         </div>
       </div>
     </div>
@@ -559,198 +985,6 @@ exports[`The Demonology Warlock Analyzer analyzers SupremeCommander matches the 
 `;
 
 exports[`The Demonology Warlock Analyzer analyzers SupremeCommander matches the suggestions snapshot 1`] = `Array []`;
-
-exports[`The Demonology Warlock Analyzer analyzers TalentStatisticBox matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    className="panel statistic statistic-box statistic-box-list"
-  >
-    <div
-      className="panel-heading"
-    >
-      <h2>
-        Talents
-      </h2>
-    </div>
-    <div
-      className="panel-body items"
-    >
-      <div
-        className="flex"
-      >
-        <div
-          className="flex-main"
-        >
-          <a
-            href="http://wowhead.com/spell=267171"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt=""
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_demonicempowerment.jpg"
-            />
-             
-            Demonic Strength
-          </a>
-           Felstorm dmg
-        </div>
-        <div
-          className="flex-sub text-right"
-        >
-          <dfn
-            className=""
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onTouchStart={[Function]}
-            style={Object {}}
-          >
-            7.28 % / 1,670 DPS
-          </dfn>
-        </div>
-      </div>
-      <div
-        className="flex"
-      >
-        <div
-          className="flex-main"
-        >
-          Wasted 
-          <a
-            href="http://wowhead.com/spell=205145"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt=""
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_impoweredimp.jpg"
-            />
-             
-            Demonic Calling
-          </a>
-           procs
-        </div>
-        <div
-          className="flex-sub text-right"
-        >
-          0
-        </div>
-      </div>
-      <div
-        className="flex"
-      >
-        <div
-          className="flex-main"
-        >
-          <a
-            href="http://wowhead.com/spell=264119"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt=""
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/inv_argusfelstalkermount.jpg"
-            />
-             
-            Summon Vilefiend
-          </a>
-           dmg
-        </div>
-        <div
-          className="flex-sub text-right"
-        >
-          <dfn
-            className=""
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onTouchStart={[Function]}
-            style={Object {}}
-          >
-            5.81 % / 1,332 DPS
-          </dfn>
-        </div>
-      </div>
-      <div
-        className="flex"
-      >
-        <div
-          className="flex-main"
-        >
-          <a
-            href="http://wowhead.com/spell=111898"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt=""
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_summonfelguard.jpg"
-            />
-             
-            Grimoire: Felguard
-          </a>
-           dmg
-        </div>
-        <div
-          className="flex-sub text-right"
-        >
-          <dfn
-            className=""
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onTouchStart={[Function]}
-            style={Object {}}
-          >
-            7.31 % / 1,677 DPS
-          </dfn>
-        </div>
-      </div>
-      <div
-        className="flex"
-      >
-        <div
-          className="flex-main"
-        >
-          <a
-            href="http://wowhead.com/spell=267217"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt=""
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/inv_netherportal.jpg"
-            />
-             
-            Nether Portal
-          </a>
-           dmg
-        </div>
-        <div
-          className="flex-sub text-right"
-        >
-          <dfn
-            className=""
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onTouchStart={[Function]}
-            style={Object {}}
-          >
-            7.60 % / 1,742 DPS
-          </dfn>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`The Demonology Warlock Analyzer analyzers TalentStatisticBox matches the suggestions snapshot 1`] = `Array []`;
 
 exports[`The Demonology Warlock Analyzer analyzers UmbralBlaze matches the statistic snapshot 1`] = `"module inactive"`;
 
