@@ -74,7 +74,7 @@ class SpinningCraneKick extends Analyzer {
     }
     // Currently only marking casts with lower DPET than Blackout Kick
     // TODO: Expand to also mark targets with lower DPChi than Blackout Kick
-    if (this.markoftheCraneStacks <= 1) {
+    if (this.markoftheCraneStacks <= 1 && !this.selectedCombatant.hasBuff(SPELLS.DANCE_OF_CHIJI_BUFF.id)) {
       this.badCasts += 1;
     }
   }
@@ -116,7 +116,7 @@ class SpinningCraneKick extends Analyzer {
           </>
         )
           .icon(SPELLS.SPINNING_CRANE_KICK.icon)
-          .actual(`${actual} Bad Casts Per Minute`)
+          .actual(`${actual.toFixed(2)} Bad Casts Per Minute`)
           .recommended(`${recommended} Bad Casts are recommended`);
       });
   }

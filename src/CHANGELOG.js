@@ -8,6 +8,21 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
+    date: new Date('2019-03-16'),
+    changes: <>Restructured the server setup to eliminate API downtime. The source code for the server can now be found <a href="https://github.com/WoWAnalyzer/server">here</a>.</>,
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-03-16'),
+    changes: 'Show "TOP 100" in the throughput bar performance when eligible.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-03-15'),
+    changes: 'Fixed an issue where the azerite levels didn\'t show up in the player selection.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2019-03-14'),
     changes: 'Fixed an issue that lead to not all azerite power icons showing up properly on the character tab.',
     contributors: [Zerotorescue],
