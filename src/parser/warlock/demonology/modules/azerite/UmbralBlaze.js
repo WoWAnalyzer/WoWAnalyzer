@@ -27,6 +27,10 @@ class UmbralBlaze extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
+  get dps() {
+    return this.damage / this.owner.fightDuration * 1000;
+  }
+
   statistic() {
     return (
       <AzeritePowerStatistic
