@@ -5,6 +5,7 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 class DemonicTyrantStatistic extends React.PureComponent {
   static propTypes = {
@@ -54,6 +55,7 @@ class DemonicTyrantStatistic extends React.PureComponent {
     const { average, casts } = this.props;
     return (
       <Statistic
+        position={STATISTIC_ORDER.CORE(3)}
         size="flexible"
         style={{ zIndex: this.state.expanded ? 2 : 1 }}
       >

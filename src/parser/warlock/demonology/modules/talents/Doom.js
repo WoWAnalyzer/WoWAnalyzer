@@ -11,6 +11,7 @@ import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 class Doom extends Analyzer {
   static dependencies = {
@@ -62,6 +63,7 @@ class Doom extends Analyzer {
   statistic() {
     return (
       <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(2)}
         size="flexible"
         tooltip={`${formatThousands(this.damage)} damage`}
       >

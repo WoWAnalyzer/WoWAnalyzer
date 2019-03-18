@@ -9,6 +9,7 @@ import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import PETS from '../pets/PETS';
 
@@ -56,6 +57,7 @@ class DemonicStrength extends Analyzer {
   statistic() {
     return (
       <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(1)}
         size="small"
         tooltip={`${formatThousands(this.damage)} damage`}
       >

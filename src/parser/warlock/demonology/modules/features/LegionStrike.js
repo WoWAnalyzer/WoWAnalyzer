@@ -9,6 +9,7 @@ import { formatThousands, formatPercentage } from 'common/format';
 
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import { isPermanentPet } from '../pets/helpers';
 
@@ -73,6 +74,7 @@ class LegionStrike extends Analyzer {
   statistic() {
     return (
       <Statistic
+        position={STATISTIC_ORDER.CORE(4)}
         size="small"
         tooltip={`${formatThousands(this.damage)} damage. Counts only main pet's Legion Strike.`}
       >

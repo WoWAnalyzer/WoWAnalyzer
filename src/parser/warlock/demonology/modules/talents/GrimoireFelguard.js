@@ -8,6 +8,7 @@ import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import DemoPets from '../pets/DemoPets';
 import PETS from '../pets/PETS';
@@ -29,6 +30,7 @@ class GrimoireFelguard extends Analyzer {
 
     return (
       <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(4)}
         size="small"
         tooltip={`${formatThousands(damage)} damage`}
       >

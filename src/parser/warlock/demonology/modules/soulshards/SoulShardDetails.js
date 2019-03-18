@@ -48,7 +48,7 @@ class SoulShardDetails extends Analyzer {
     return (
       <Statistic
         size="small"
-        position={STATISTIC_ORDER.CORE(3)}
+        position={STATISTIC_ORDER.CORE(2)}
       >
         <BoringSpellValue
           spell={SPELLS.SOUL_SHARDS}

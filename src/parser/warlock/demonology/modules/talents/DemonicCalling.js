@@ -9,6 +9,7 @@ import SpellLink from 'common/SpellLink';
 
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 const BUFF_DURATION = 20000;
 const debug = false;
@@ -76,7 +77,10 @@ class DemonicCalling extends Analyzer {
 
   statistic() {
     return (
-      <Statistic size="small">
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(2)}
+        size="small"
+      >
         <BoringSpellValueText spell={SPELLS.DEMONIC_CALLING_TALENT}>
           {this.wastedProcs} <small>Wasted procs</small>
         </BoringSpellValueText>

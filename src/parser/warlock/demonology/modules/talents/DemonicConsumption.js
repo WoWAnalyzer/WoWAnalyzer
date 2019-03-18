@@ -9,6 +9,7 @@ import SPELLS from 'common/SPELLS';
 
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import DemoPets from '../pets/DemoPets';
 import { isWildImp } from '../pets/helpers';
@@ -49,6 +50,7 @@ class DemonicConsumption extends Analyzer {
   statistic() {
     return (
       <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(5)}
         size="small"
         tooltip={`${formatThousands(this.damage)} damage`}
       >

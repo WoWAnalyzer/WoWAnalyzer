@@ -7,6 +7,7 @@ import SPELLS from 'common/SPELLS';
 
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 const BUFFER = 350;
 
@@ -53,6 +54,7 @@ class PowerSiphon extends Analyzer {
   statistic() {
     return (
       <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(2)}
         size="small"
         tooltip={`Average Demonic Core stacks per cast: ${this.averageCores.toFixed(2)}`}
       >

@@ -8,6 +8,7 @@ import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import SoulShardTracker from '../soulshards/SoulShardTracker';
 
@@ -36,6 +37,7 @@ class SoulStrike extends Analyzer {
     const shardsGained = this.soulShardTracker.getGeneratedBySpell(SPELLS.SOUL_STRIKE_SHARD_GEN.id);
     return (
       <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(3)}
         size="flexible"
         tooltip={`${formatThousands(this.damage)} damage`}
       >
