@@ -4,12 +4,8 @@ import Analyzer , {SELECTED_PLAYER} from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import Events from 'parser/core/Events';
 
-import StatisticBox from 'interface/others/StatisticBox';
-import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
-
+import DemonicTyrantStatistic from './DemonicTyrantStatistic';
 import DemoPets from '../pets/DemoPets';
-
 
 class SummonDemonicTyrant extends Analyzer {
   static dependencies = {
@@ -24,65 +20,42 @@ class SummonDemonicTyrant extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SUMMON_DEMONIC_TYRANT), this.summonDemonicTyrantCast);
   }
 
-  summonDemonicTyrantCast(event) {
+  summonDemonicTyrantCast() {
     const pets = this.demoPets.currentPets;
     const countsPerCast = {};
 
     pets.forEach(pet => {
+      if (pet.summonedBy === SPELLS.SUMMON_DEMONIC_TYRANT.id) {
+        // skip Demonic Tyrant (it's the one that *empowers*, not that *gets empowered*), it sometimes gets counted, sometimes not
+        return;
+      }
       countsPerCast[pet.summonedBy] = (countsPerCast[pet.summonedBy] || 0) + 1;
     });
 
     this._petsPerCast.push(countsPerCast);
   }
 
-
   statistic() {
-    const avgPets = (this._petsPerCast.reduce((total, cast) =>
-      total + Object.values(cast).reduce((totalPerSource, source) =>
-        totalPerSource + source, 0)
-      , 0) / this._petsPerCast.length) || 0;
+    const totalPets = this._petsPerCast.reduce((total, cast) => {
+      const petsInCast = Object.values(cast).reduce((castTotal, count) => castTotal + count, 0);
+      return total + petsInCast;
+    }, 0);
+    const averagePets = (totalPets / this._petsPerCast.length) || 0;
+
     const mergedPets = {};
     this._petsPerCast.forEach(cast => {
-      Object.keys(cast).forEach(demonSource => {
-        mergedPets[demonSource] = (mergedPets[demonSource] || 0) + cast[demonSource];
+      Object.entries(cast).forEach(([source, value]) => {
+        mergedPets[source] = (mergedPets[source] || 0) + value;
       });
     });
 
-    const petTableRows = [];
-    Object.keys(mergedPets).forEach(demonSource => {
-      petTableRows.push(
-        <tr key={demonSource}>
-          <td><SpellLink id={Number(demonSource)} /></td>
-          <td>{(mergedPets[demonSource]/this._petsPerCast.length).toFixed(2)}</td>
-        </tr>
-      );
+    const averagePetsPerCast = {};
+    Object.entries(mergedPets).forEach(([source, count]) => {
+      averagePetsPerCast[source] = (count / this._petsPerCast.length) || 0;
     });
 
-    const petTable = (this._petsPerCast.length > 0) ? (
-      <>
-        <thead>
-          <tr>
-            <th>Pet Source</th>
-            <th>Average Pets Per Cast</th>
-          </tr>
-        </thead>
-        <tbody>
-          {petTableRows}
-        </tbody>
-      </>
-    ) : null;
-
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.SUMMON_DEMONIC_TYRANT.id} />}
-        value={`${avgPets.toFixed(2)}`} // Rather than formatNumber, because this value will always be low and the decimal points matter.
-        label={`Average Demons Empowered`}
-        tooltip={`Number of pets empowered by each Demonic Tyrant summon.`}
-      >
-        <table className="table table-condensed" style={{fontWeight: 'bold'}}>
-          {petTable}
-        </table>
-      </StatisticBox>
+      <DemonicTyrantStatistic pets={averagePetsPerCast} average={averagePets} casts={this._petsPerCast.length} />
     );
   }
 }
