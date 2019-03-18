@@ -9,6 +9,7 @@ import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import SoulShardTracker from '../soulshards/SoulShardTracker';
 
@@ -48,6 +49,7 @@ class Shadowburn extends Analyzer {
     const estimatedDamage = Math.floor(fragments / FRAGMENTS_PER_CHAOS_BOLT) * avg;
     return (
       <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(2)}
         size="flexible"
         tooltip={(
           <>

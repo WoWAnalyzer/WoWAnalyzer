@@ -9,6 +9,7 @@ import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 class Havoc extends Analyzer {
   static dependencies = {
@@ -42,6 +43,7 @@ class Havoc extends Analyzer {
 
     return (
       <Statistic
+        position={STATISTIC_ORDER.CORE(5)}
         size="small"
         tooltip={(
           <>

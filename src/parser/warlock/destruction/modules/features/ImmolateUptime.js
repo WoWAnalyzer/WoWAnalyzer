@@ -10,6 +10,7 @@ import { formatPercentage } from 'common/format';
 
 import StatisticBar from 'interface/statistics/StatisticBar';
 import UptimeBar from 'interface/statistics/components/UptimeBar';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 class ImmolateUptime extends Analyzer {
   static dependencies = {
@@ -45,7 +46,10 @@ class ImmolateUptime extends Analyzer {
   statistic() {
     const history = this.enemies.getDebuffHistory(SPELLS.IMMOLATE_DEBUFF.id);
     return (
-      <StatisticBar wide>
+      <StatisticBar
+        wide
+        position={STATISTIC_ORDER.CORE(1)}
+      >
         <div className="flex">
           <div className="flex-sub icon">
             <SpellIcon id={SPELLS.IMMOLATE.id} />

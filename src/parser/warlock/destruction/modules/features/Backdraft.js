@@ -8,6 +8,7 @@ import SpellLink from 'common/SpellLink';
 
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 const debug = false;
 
@@ -80,7 +81,10 @@ class Backdraft extends Analyzer {
 
   statistic() {
     return (
-      <Statistic size="small">
+      <Statistic
+        size="small"
+        position={STATISTIC_ORDER.CORE(4)}
+      >
         <BoringSpellValueText spell={SPELLS.BACKDRAFT}>
           {this.wastedStacks} <small>Wasted procs</small>
         </BoringSpellValueText>

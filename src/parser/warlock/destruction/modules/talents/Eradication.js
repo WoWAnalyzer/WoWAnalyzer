@@ -13,6 +13,7 @@ import Tooltip from 'common/Tooltip';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 const MAX_TRAVEL_TIME = 3000; // Chaos Bolt being the slowest, takes around 2 seconds to land from max range, added a second to account for maybe target movement?
 const ERADICATION_DAMAGE_BONUS = 0.1;
@@ -138,6 +139,7 @@ class Eradication extends Analyzer {
   statistic() {
     return (
       <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(1)}
         size="flexible"
         tooltip={`Bonus damage: ${formatThousands(this.bonusDmg)}`}
       >

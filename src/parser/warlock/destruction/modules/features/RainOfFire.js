@@ -9,6 +9,7 @@ import SPELLS from 'common/SPELLS';
 
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 const BUFFER = 100;
 const BASE_ROF_DURATION = 8000;
@@ -128,6 +129,7 @@ class RainOfFire extends Analyzer {
     }
     return (
       <Statistic
+        position={STATISTIC_ORDER.CORE(6)}
         size="small"
         tooltip="There's a possibility of a mistake in assigning targets hit to individual casts, when there are multiple Rains of Fire overlapping."
       >
