@@ -6,7 +6,7 @@ import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBre
 import SPELLS from 'common/SPELLS';
 
 import Panel from 'interface/others/Panel';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 
@@ -74,8 +74,6 @@ class SoulShardDetails extends Analyzer {
       ),
     };
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
 export default SoulShardDetails;
