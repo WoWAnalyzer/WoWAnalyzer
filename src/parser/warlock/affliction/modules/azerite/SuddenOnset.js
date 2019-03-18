@@ -45,6 +45,10 @@ class SuddenOnset extends Analyzer {
     this.damage += bonusDamage;
   }
 
+  get dps() {
+    return this.damage / this.owner.fightDuration * 1000;
+  }
+
   statistic() {
     return (
       <AzeritePowerStatistic
@@ -59,7 +63,7 @@ class SuddenOnset extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.SUDDEN_ONSET}>
           <span style={{ fontSize: 29 }}>
-            {formatNumber(this.damage / this.owner.fightDuration * 1000)} DPS <small>({formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total)</small>
+            {formatNumber(this.dps)} DPS <small>({formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total)</small>
           </span>
         </BoringSpellValueText>
       </AzeritePowerStatistic>

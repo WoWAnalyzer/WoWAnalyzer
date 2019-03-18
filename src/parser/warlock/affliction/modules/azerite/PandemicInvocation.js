@@ -93,11 +93,14 @@ class PandemicInvocation extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
+  get dps() {
+    return this.damage / this.owner.fightDuration * 1000;
+  }
+
   statistic() {
     const generated = this.soulShardTracker.getGeneratedBySpell(SPELLS.PANDEMIC_INVOCATION_ENERGIZE.id);
     const wasted = this.soulShardTracker.getWastedBySpell(SPELLS.PANDEMIC_INVOCATION_ENERGIZE.id);
     const { max } = findMax(this.opportunities, (k, n) => binomialPMF(k, n, PROC_CHANCE));
-    const dps = this.damage / this.owner.fightDuration * 1000;
     return (
       <AzeritePowerStatistic
         size="small"
@@ -110,7 +113,7 @@ class PandemicInvocation extends Analyzer {
         )}
       >
         <BoringSpellValueText spell={SPELLS.PANDEMIC_INVOCATION}>
-          {formatNumber(dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small>
+          {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small>
         </BoringSpellValueText>
       </AzeritePowerStatistic>
     );

@@ -63,8 +63,11 @@ class DreadfulCalling extends Analyzer {
     return (this.effectiveReduction / 1000).toFixed(1);
   }
 
+  get dps() {
+    return this.damage / this.owner.fightDuration * 1000;
+  }
+
   statistic() {
-    const dps = this.damage / this.owner.fightDuration * 1000;
     return (
       <AzeritePowerStatistic
         size="small"
@@ -78,7 +81,7 @@ class DreadfulCalling extends Analyzer {
         )}
       >
         <BoringSpellValueText spell={SPELLS.DREADFUL_CALLING}>
-          {formatNumber(dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small>
+          {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small>
         </BoringSpellValueText>
       </AzeritePowerStatistic>
     );
