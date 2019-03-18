@@ -92,7 +92,6 @@ class UnstableAfflictionUptime extends Analyzer {
 
   subStatistic() {
     const history = this.enemies.getCombinedDebuffHistory(...UNSTABLE_AFFLICTION_DEBUFFS.map(spell => spell.id));
-    // TODO: make the tooltip more obvious it's there - icon? TooltipElement?
     return (
       <div className="flex">
         <div className="flex-sub icon">
@@ -105,9 +104,12 @@ class UnstableAfflictionUptime extends Analyzer {
         )}>
           <div
             className="flex-sub value"
-            style={{ width: 140 }}
+            style={{
+              width: 140,
+              paddingRight: 8, // to compensate for the asterisk and align % values
+            }}
           >
-            {formatPercentage(this.uptime, 0)} % <small>uptime</small>
+            {formatPercentage(this.uptime, 0)} % <small>uptime <sup>*</sup></small>
           </div>
         </Tooltip>
         <div className="flex-main chart" style={{ padding: 15 }}>

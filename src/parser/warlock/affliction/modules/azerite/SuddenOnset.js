@@ -51,16 +51,15 @@ class SuddenOnset extends Analyzer {
         size="small"
         tooltip={(
           <>
-            Estimated bonus Agony damage: {formatThousands(this.damage)}<br /><br />
+            Bonus Agony damage: {formatThousands(this.damage)}<br /><br />
 
-            The damage is an approximation using current Intellect values at given time. Note that this estimate does NOT take into account the increased initial stacks, just the bonus damage.
-            Also, because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be also little incorrect.
+            Note that the bonus damage does <strong>NOT</strong> take into account the increased initial stacks, just the bonus damage.
           </>
         )}
       >
         <BoringSpellValueText spell={SPELLS.SUDDEN_ONSET}>
           <span style={{ fontSize: 29 }}>
-            ≈ {formatNumber(this.damage / this.owner.fightDuration * 1000)} DPS <small>({formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total)</small>
+            {formatNumber(this.damage / this.owner.fightDuration * 1000)} DPS <small>({formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total)</small>
           </span>
         </BoringSpellValueText>
       </AzeritePowerStatistic>

@@ -70,16 +70,15 @@ class DreadfulCalling extends Analyzer {
         size="small"
         tooltip={(
           <>
-            Estimated bonus Unstable Affliction damage: {formatThousands(this.damage)}<br />
+            Bonus Unstable Affliction damage: {formatThousands(this.damage)}<br />
             You also reduced your Summon Darkglare cooldown by {this.effectiveCDRseconds} seconds<br /><br />
 
-            The damage is an approximation using current Intellect values at given time. Note that this estimate does NOT take into account lowered cooldown of Darkglare.
-            Also, because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be also little incorrect.
+            Note that the bonus damage does <strong>NOT</strong> take into account lowered cooldown of Darkglare.
           </>
         )}
       >
         <BoringSpellValueText spell={SPELLS.DREADFUL_CALLING}>
-          ≈ {formatNumber(dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small>
+          {formatNumber(dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small>
         </BoringSpellValueText>
       </AzeritePowerStatistic>
     );

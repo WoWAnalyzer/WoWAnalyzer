@@ -59,17 +59,11 @@ class InevitableDemise extends Analyzer {
     return (
       <AzeritePowerStatistic
         size="small"
-        tooltip={(
-          <>
-            Estimated bonus Drain Life damage: {formatThousands(this.damage)}<br /><br />
-
-            The damage is an approximation using current Intellect values at given time. Note that because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be also little incorrect
-          </>
-        )}
+        tooltip={`Bonus Drain Life damage: ${formatThousands(this.damage)}`}
       >
         <BoringSpellValueText spell={SPELLS.INEVITABLE_DEMISE}>
           <span style={{ fontSize: 29 }}>
-            ≈ {formatNumber(this.damage / this.owner.fightDuration * 1000)} DPS <small>({formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total)</small>
+            {formatNumber(this.damage / this.owner.fightDuration * 1000)} DPS <small>({formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total)</small>
           </span>
         </BoringSpellValueText>
       </AzeritePowerStatistic>
