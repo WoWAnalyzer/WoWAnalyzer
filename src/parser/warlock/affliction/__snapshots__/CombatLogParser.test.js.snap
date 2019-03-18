@@ -17,13 +17,8 @@ exports[`The Affliction Warlock Analyzer analyzers AlwaysBeCasting matches the s
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic standard "
+    position={2}
   >
     <div
       className="panel-body"
@@ -32,56 +27,175 @@ exports[`The Affliction Warlock Analyzer analyzers AlwaysBeCasting matches the s
         className="pad"
       >
         <label>
-          <img
-            alt="Downtime"
-            className="icon game "
-            src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
-          />
-           
-          Downtime
+          Active time
         </label>
         <div
-          className="value"
-        >
-          4.29 %
-        </div>
-        <div
+          className="flex"
           style={
             Object {
-              "marginTop": "0.5em",
+              "marginTop": 12,
+              "textAlign": "center",
             }
           }
         >
           <div
-            className="statistic-box-bar"
+            className="flex-main text-right text-muted"
+            style={
+              Object {
+                "fontSize": 12,
+                "paddingRight": 8,
+                "paddingTop": 23,
+              }
+            }
           >
-            <div
-              className="stat-health-bg"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={[Function]}
+            Low
+          </div>
+          <div
+            className="flex-sub"
+            style={
+              Object {
+                "position": "relative",
+              }
+            }
+          >
+            <svg
+              fill="none"
+              height="85"
               style={
                 Object {
-                  "width": "95.70777132324379%",
+                  "fill": "none",
+                }
+              }
+              viewBox="19 19 101 88"
+              width="98"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M101.459 101.459C119.033 83.8858 119.033 55.3934 101.459 37.8198C83.8859 20.2462 55.3934 20.2462 37.8198 37.8198C20.2463 55.3934 20.2463 83.8858 37.8198 101.459"
+                stroke="#f8b700"
+                strokeLinecap="round"
+                strokeWidth="8"
+              />
+              <path
+                clipRule="evenodd"
+                d="M68.6396 28.6396H70.6396V32.6396H68.6396V28.6396Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M87.7656 32.8389L89.5485 33.7451L87.7368 37.3097L85.9539 36.4035L87.7656 32.8389Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M101.207 50.1829L100.077 48.5324L103.378 46.2732L104.508 47.9236L101.207 50.1829Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M106.622 67.3762L106.417 65.3868L110.398 64.9765L110.603 66.966L106.622 67.3762Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M103.658 84.4276L104.376 82.5609L108.11 83.9969L107.392 85.8635L103.658 84.4276Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M52.0547 32.5298L50.2627 33.4179L52.039 37.0019L53.831 36.1137L52.0547 32.5298Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M36.1157 45.9784L34.965 47.6142L38.2354 49.9147L39.3861 48.2789L36.1157 45.9784Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M28.8926 64.968L28.6883 66.9576L32.6626 67.3657L32.8669 65.3761L28.8926 64.968Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M31.3486 84.3921L32.0806 86.2533L35.8031 84.7895L35.0711 82.9282L31.3486 84.3921Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+            </svg>
+            <div
+              style={
+                Object {
+                  "height": 32,
+                  "left": "50%",
+                  "marginTop": -13,
+                  "position": "absolute",
+                  "top": 49,
+                  "transform": "translate(-50%, -50%)",
+                  "width": 32,
                 }
               }
             >
-              <img
-                alt="Active time"
-                src="/img/sword.png"
-              />
+              <svg
+                fill="none"
+                height="32"
+                style={
+                  Object {
+                    "fill": "none",
+                    "margin": 0,
+                    "transform": "rotate(127.9817597050826deg)",
+                    "transformOrigin": "5px 27px",
+                  }
+                }
+                viewBox="0 0 10 32"
+                width="10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9 27C9 29.2091 7.20914 31 5 31C2.79086 31 1 29.2091 1 27C1 24.7909 2.79086 23 5 23C7.20914 23 9 24.7909 9 27Z"
+                  stroke="#f8b700"
+                  strokeWidth="2"
+                />
+                <path
+                  clipRule="evenodd"
+                  d="M6 0L6 23H4L4 0L6 0Z"
+                  fill="#f8b700"
+                  fillRule="evenodd"
+                />
+              </svg>
             </div>
             <div
-              className="remainder DeathKnight-bg"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={[Function]}
+              className="value"
+              style={
+                Object {
+                  "fontSize": "1.25em",
+                  "marginTop": -18,
+                }
+              }
             >
-              <img
-                alt="Downtime"
-                src="/img/afk.png"
-              />
+              96
+              %
             </div>
+          </div>
+          <div
+            className="flex-main text-left text-muted"
+            style={
+              Object {
+                "fontSize": 12,
+                "paddingLeft": 8,
+                "paddingTop": 23,
+              }
+            }
+          >
+            High
           </div>
         </div>
       </div>
@@ -118,19 +232,15 @@ exports[`The Affliction Warlock Analyzer analyzers CascadingCalamity matches the
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    category="ITEMS"
+    className="panel statistic small "
+    position={1001}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -156,7 +266,22 @@ exports[`The Affliction Warlock Analyzer analyzers CascadingCalamity matches the
         <div
           className="value"
         >
-          257 average Haste
+          <svg
+            className="icon"
+            version="1.1"
+            viewBox="16 16 32 32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M33.446,23.135c-0.89,0-1.612,0.722-1.612,1.612v8.049l-4.079,4.078c-0.63,0.629-0.63,1.65,0,2.28 c0.315,0.314,0.728,0.472,1.14,0.472c0.413,0,0.825-0.157,1.14-0.472l4.551-4.55c0.302-0.302,0.472-0.712,0.472-1.14v-8.716 C35.059,23.856,34.337,23.135,33.446,23.135z M32.111,16.668c-8.509,0-15.431,6.92-15.431,15.427 c0,8.506,6.922,15.426,15.431,15.426c8.509,0,15.431-6.92,15.431-15.426C47.542,23.588,40.62,16.668,32.111,16.668z M19.179,38.606c-1.025-2.031-1.545-4.222-1.545-6.511c0-7.981,6.495-14.473,14.477-14.473v2.097 c-6.826,0-12.379,5.552-12.379,12.376c0,1.959,0.444,3.831,1.32,5.566L19.179,38.606z M32.111,43.516 c-6.3,0-11.426-5.124-11.426-11.422c0-6.298,5.126-11.422,11.426-11.422s11.426,5.124,11.426,11.422 C43.537,38.392,38.411,43.516,32.111,43.516z"
+            />
+          </svg>
+           
+          257
+           
+          <small>
+            average Haste
+          </small>
         </div>
       </div>
     </div>
@@ -204,96 +329,109 @@ exports[`The Affliction Warlock Analyzer analyzers Darkglare matches the statist
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic statistic-box statistic-box-list"
+    className="panel statistic flexible "
+    position={4}
   >
     <div
-      className="panel-heading"
+      className="panel-body"
     >
-      <h2>
-        <a
-          href="http://wowhead.com/spell=205180"
-          rel="noopener noreferrer"
-          target="_blank"
+      <div
+        className="pad"
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=205180"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt=""
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/inv_beholderwarlock.jpg"
+            />
+             
+            Summon Darkglare
+          </a>
+        </label>
+        <div
+          className="flex"
         >
-          <img
-            alt=""
-            className="icon game "
-            src="//render-us.worldofwarcraft.com/icons/56/inv_beholderwarlock.jpg"
-          />
-           
-          Summon Darkglare
-        </a>
-      </h2>
+          <div
+            className="flex-sub value"
+          >
+            1,072 DPS
+            <small
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={[Function]}
+              style={
+                Object {
+                  "marginLeft": 7,
+                }
+              }
+            >
+              bonus damage 
+              <sup>
+                *
+              </sup>
+            </small>
+          </div>
+        </div>
+        <div
+          className="flex"
+        >
+          <div
+            className="flex-sub value"
+          >
+            8.5
+             
+            <small>
+              average DoTs extended
+            </small>
+          </div>
+        </div>
+        <div
+          className="flex"
+        >
+          <div
+            className="flex-sub value"
+          >
+            2,319 DPS
+            <small
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchStart={[Function]}
+              style={
+                Object {
+                  "marginLeft": 7,
+                }
+              }
+            >
+              total damage 
+              <sup>
+                *
+              </sup>
+            </small>
+          </div>
+        </div>
+      </div>
     </div>
     <div
-      className="panel-body items"
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
     >
-      <div
-        className="flex"
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <div
-          className="flex-main"
-        >
-          Bonus damage from dots
-        </div>
-        <div
-          className="flex-sub text-right"
-        >
-          <dfn
-            className=""
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onTouchStart={[Function]}
-            style={Object {}}
-          >
-            5.84 % / 1,072 DPS
-          </dfn>
-        </div>
-      </div>
-      <div
-        className="flex"
-      >
-        <div
-          className="flex-main"
-        >
-          Average dots extended per cast
-        </div>
-        <div
-          className="flex-sub text-right"
-        >
-          8.50
-        </div>
-      </div>
-      <div
-        className="flex"
-      >
-        <div
-          className="flex-main"
-        >
-          <dfn
-            className=""
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onTouchStart={[Function]}
-            style={Object {}}
-          >
-            Total damage
-          </dfn>
-        </div>
-        <div
-          className="flex-sub text-right"
-        >
-          <dfn
-            className=""
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onTouchStart={[Function]}
-            style={Object {}}
-          >
-            12.63 % / 2,319 DPS
-          </dfn>
-        </div>
-      </div>
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
     </div>
   </div>
 </div>
@@ -301,32 +439,102 @@ exports[`The Affliction Warlock Analyzer analyzers Darkglare matches the statist
 
 exports[`The Affliction Warlock Analyzer analyzers Darkglare matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Affliction Warlock Analyzer analyzers Deathbolt matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`The Affliction Warlock Analyzer analyzers Deathbolt matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic flexible "
+    position={1001}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad"
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=264106"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt=""
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_fire_twilightflamebolt.jpg"
+            />
+             
+            Deathbolt
+          </a>
+        </label>
+        <div
+          className="flex"
+        >
+          <div
+            className="flex-main value"
+          >
+            51,480
+             
+            <small>
+              average damage
+            </small>
+          </div>
+        </div>
+        <div
+          className="flex"
+        >
+          <div
+            className="flex-main value"
+          >
+            5.37
+             s 
+            <small>
+              average DoT length on cast
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
 
 exports[`The Affliction Warlock Analyzer analyzers Deathbolt matches the suggestions snapshot 1`] = `Array []`;
 
 exports[`The Affliction Warlock Analyzer analyzers DotUptimeStatisticBox matches the statistic snapshot 1`] = `
 <div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  className="col-md-6 col-sm-12 col-xs-12"
 >
   <div
-    className="panel statistic statistic-box statistic-box-list"
+    className="panel statistic bar"
+    position={1}
   >
     <div
-      className="panel-heading"
-    >
-      <h2>
-        DoT uptimes
-      </h2>
-    </div>
-    <div
-      className="panel-body items"
+      className="panel-body"
     >
       <div
         className="flex"
       >
         <div
-          className="flex-main"
+          className="flex-sub icon"
         >
           <a
             href="http://wowhead.com/spell=980"
@@ -334,26 +542,58 @@ exports[`The Affliction Warlock Analyzer analyzers DotUptimeStatisticBox matches
             target="_blank"
           >
             <img
-              alt=""
+              alt="Agony"
               className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_curseofsargeras.jpg"
             />
-             
-            Agony
           </a>
-           uptime
         </div>
         <div
-          className="flex-sub text-right"
+          className="flex-sub value"
+          style={
+            Object {
+              "width": 140,
+            }
+          }
         >
-          99.80 %
+          100
+           % 
+          <small>
+            uptime
+          </small>
+        </div>
+        <div
+          className="flex-main chart"
+          style={
+            Object {
+              "padding": 15,
+            }
+          }
+        >
+          <div
+            className="uptime-bar"
+            style={
+              Object {
+                "height": "100%",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "left": "0.18079996322712613%",
+                  "width": "99.79583393983037%",
+                }
+              }
+            />
+          </div>
         </div>
       </div>
       <div
         className="flex"
       >
         <div
-          className="flex-main"
+          className="flex-sub icon"
         >
           <a
             href="http://wowhead.com/spell=172"
@@ -361,26 +601,90 @@ exports[`The Affliction Warlock Analyzer analyzers DotUptimeStatisticBox matches
             target="_blank"
           >
             <img
-              alt=""
+              alt="Corruption"
               className="icon game "
               src="/img/Icons/spell_shadow_abominationexplosion.jpg"
             />
-             
-            Corruption
           </a>
-           uptime
         </div>
         <div
-          className="flex-sub text-right"
+          className="flex-sub value"
+          style={
+            Object {
+              "width": 140,
+            }
+          }
         >
-          95.14 %
+          95
+           % 
+          <small>
+            uptime
+          </small>
+        </div>
+        <div
+          className="flex-main chart"
+          style={
+            Object {
+              "padding": 15,
+            }
+          }
+        >
+          <div
+            className="uptime-bar"
+            style={
+              Object {
+                "height": "100%",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "left": "0.6178608912825306%",
+                  "width": "33.222759344523524%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "35.39120975094039%",
+                  "width": "0.1631796278278723%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "36.432724793344114%",
+                  "width": "8.892906665849491%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "45.79755000727796%",
+                  "width": "7.021320605833097%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "54.13541610805096%",
+                  "width": "45.84121779500655%",
+                }
+              }
+            />
+          </div>
         </div>
       </div>
       <div
         className="flex"
       >
         <div
-          className="flex-main"
+          className="flex-sub icon"
         >
           <a
             href="http://wowhead.com/spell=30108"
@@ -388,27 +692,245 @@ exports[`The Affliction Warlock Analyzer analyzers DotUptimeStatisticBox matches
             target="_blank"
           >
             <img
-              alt=""
+              alt="Unstable Affliction"
               className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_unstableaffliction_3.jpg"
             />
-             
-            Unstable Affliction
           </a>
-           uptime
         </div>
         <div
-          className="flex-sub text-right"
+          className="flex-sub value"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onTouchStart={[Function]}
+          style={
+            Object {
+              "paddingRight": 8,
+              "width": 140,
+            }
+          }
         >
-          <dfn
-            className=""
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onTouchStart={[Function]}
-            style={Object {}}
+          79
+           % 
+          <small>
+            uptime 
+            <sup>
+              *
+            </sup>
+          </small>
+        </div>
+        <div
+          className="flex-main chart"
+          style={
+            Object {
+              "padding": 15,
+            }
+          }
+        >
+          <div
+            className="uptime-bar"
+            style={
+              Object {
+                "height": "100%",
+              }
+            }
           >
-            79.30 %
-          </dfn>
+            <div
+              style={
+                Object {
+                  "left": "1.7516911691475587%",
+                  "width": "23.122476653055596%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "24.98218813921597%",
+                  "width": "3.0544468363836943%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "30.20048877278195%",
+                  "width": "4.034673755659575%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "35.38393178631895%",
+                  "width": "0.17045759244930322%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "39.80433766691437%",
+                  "width": "4.916456627161364%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "49.176057794700114%",
+                  "width": "4.902283748688051%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "58.84808972581226%",
+                  "width": "4.854785453263975%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "64.16751576253917%",
+                  "width": "5.197615892010328%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "69.47506722541006%",
+                  "width": "4.032375451042281%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "74.74239835747831%",
+                  "width": "3.0697688671656542%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "77.92631635396955%",
+                  "width": "3.062490902544223%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "81.09031571044426%",
+                  "width": "18.88631819261325%",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="flex"
+      >
+        <div
+          className="flex-sub icon"
+        >
+          <a
+            href="http://wowhead.com/spell=63106"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Siphon Life"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_requiem.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-sub value"
+          style={
+            Object {
+              "width": 140,
+            }
+          }
+        >
+          93
+           % 
+          <small>
+            uptime
+          </small>
+        </div>
+        <div
+          className="flex-main chart"
+          style={
+            Object {
+              "padding": 15,
+            }
+          }
+        >
+          <div
+            className="uptime-bar"
+            style={
+              Object {
+                "height": "100%",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "left": "0.9947828485187428%",
+                  "width": "33.721491446476314%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "38.60500570745647%",
+                  "width": "6.720625751737135%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "46.219671955320955%",
+                  "width": "7.413564593851269%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "54.57247703610637%",
+                  "width": "28.726126360787855%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "83.36755253541305%",
+                  "width": "14.321885222667413%",
+                }
+              }
+            />
+            <div
+              style={
+                Object {
+                  "left": "97.80511909048425%",
+                  "width": "2.1715148125732586%",
+                }
+              }
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -434,7 +956,84 @@ exports[`The Affliction Warlock Analyzer analyzers GrimoireOfSacrifice matches t
 
 exports[`The Affliction Warlock Analyzer analyzers GrimoireOfSacrifice matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Affliction Warlock Analyzer analyzers Haunt matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`The Affliction Warlock Analyzer analyzers Haunt matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic flexible "
+    position={1004}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad"
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=48181"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt=""
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_haunt.jpg"
+            />
+             
+            Haunt
+          </a>
+        </label>
+        <div
+          className="flex"
+        >
+          <div
+            className="flex-main value"
+          >
+            77.53
+             % 
+            <small>
+              uptime
+            </small>
+          </div>
+        </div>
+        <div
+          className="flex"
+        >
+          <div
+            className="flex-main value"
+          >
+            1,184
+             DPS 
+            <small>
+              6.45
+               % of total
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
 
 exports[`The Affliction Warlock Analyzer analyzers Haunt matches the suggestions snapshot 1`] = `
 Array [
@@ -472,7 +1071,66 @@ exports[`The Affliction Warlock Analyzer analyzers PandemicInvocation matches th
 
 exports[`The Affliction Warlock Analyzer analyzers PandemicInvocation matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Affliction Warlock Analyzer analyzers PhantomSingularity matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`The Affliction Warlock Analyzer analyzers PhantomSingularity matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic small "
+    position={1003}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad"
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=205179"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Phantom Singularity"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/inv_enchant_voidsphere.jpg"
+            />
+          </a>
+           Phantom Singularity damage
+        </label>
+        <div
+          className="value"
+        >
+          1,064
+           DPS 
+          <small>
+            5.80
+             % of total
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
 
 exports[`The Affliction Warlock Analyzer analyzers PhantomSingularity matches the suggestions snapshot 1`] = `Array []`;
 
@@ -515,32 +1173,39 @@ exports[`The Affliction Warlock Analyzer analyzers SoulShardDetails matches the 
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic small "
+    position={3}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="flex boring-spell-value grayscale"
       >
-        <label>
-          <img
-            alt="Wasted Soul Shards"
-            src="warlock_soulshard_bw.jpg"
-          />
-           
-          Wasted Soul Shards
-        </label>
         <div
-          className="value"
+          className="flex-sub icon"
         >
-          0
+          <a
+            href="http://wowhead.com/spell=246985"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Soul Shards"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/inv_misc_gem_amethyst_02.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main value"
+        >
+          <div>
+            0
+          </div>
+          <small>
+            Wasted Soul Shards
+          </small>
         </div>
       </div>
     </div>
@@ -558,226 +1223,6 @@ exports[`The Affliction Warlock Analyzer analyzers SuddenOnset matches the stati
 
 exports[`The Affliction Warlock Analyzer analyzers SuddenOnset matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Affliction Warlock Analyzer analyzers TalentStatisticBox matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    className="panel statistic statistic-box statistic-box-list"
-  >
-    <div
-      className="panel-heading"
-    >
-      <h2>
-        Talents
-      </h2>
-    </div>
-    <div
-      className="panel-body items"
-    >
-      <div
-        className="flex"
-      >
-        <div
-          className="flex-main"
-        >
-          Average 
-          <a
-            href="http://wowhead.com/spell=264106"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt=""
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_fire_twilightflamebolt.jpg"
-            />
-             
-            Deathbolt
-          </a>
-           damage
-        </div>
-        <div
-          className="flex-sub text-right"
-        >
-          <dfn
-            className=""
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onTouchStart={[Function]}
-            style={Object {}}
-          >
-            51,480
-          </dfn>
-        </div>
-      </div>
-      <div
-        className="flex"
-      >
-        <div
-          className="flex-main"
-        >
-          Average DoT length on 
-          <a
-            href="http://wowhead.com/spell=264106"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt=""
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_fire_twilightflamebolt.jpg"
-            />
-             
-            Deathbolt
-          </a>
-           cast
-        </div>
-        <div
-          className="flex-sub text-right"
-        >
-          <dfn
-            className=""
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onTouchStart={[Function]}
-            style={Object {}}
-          >
-            5.37 s
-          </dfn>
-        </div>
-      </div>
-      <div
-        className="flex"
-      >
-        <div
-          className="flex-main"
-        >
-          <a
-            href="http://wowhead.com/spell=63106"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt=""
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_shadow_requiem.jpg"
-            />
-             
-            Siphon Life
-          </a>
-           uptime
-        </div>
-        <div
-          className="flex-sub text-right"
-        >
-          93.08 %
-        </div>
-      </div>
-      <div
-        className="flex"
-      >
-        <div
-          className="flex-main"
-        >
-          <a
-            href="http://wowhead.com/spell=205179"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt=""
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/inv_enchant_voidsphere.jpg"
-            />
-             
-            Phantom Singularity
-          </a>
-           damage
-        </div>
-        <div
-          className="flex-sub text-right"
-        >
-          <dfn
-            className=""
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onTouchStart={[Function]}
-            style={Object {}}
-          >
-            5.80 % / 1,064 DPS
-          </dfn>
-        </div>
-      </div>
-      <div
-        className="flex"
-      >
-        <div
-          className="flex-main"
-        >
-          <a
-            href="http://wowhead.com/spell=48181"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt=""
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_haunt.jpg"
-            />
-             
-            Haunt
-          </a>
-           uptime
-        </div>
-        <div
-          className="flex-sub text-right"
-        >
-          77.53 %
-        </div>
-      </div>
-      <div
-        className="flex"
-      >
-        <div
-          className="flex-main"
-        >
-          <a
-            href="http://wowhead.com/spell=48181"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt=""
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_haunt.jpg"
-            />
-             
-            Haunt
-          </a>
-           bonus damage
-        </div>
-        <div
-          className="flex-sub text-right"
-        >
-          <dfn
-            className=""
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onTouchStart={[Function]}
-            style={Object {}}
-          >
-            6.45 % / 1,184 DPS
-          </dfn>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`The Affliction Warlock Analyzer analyzers TalentStatisticBox matches the suggestions snapshot 1`] = `Array []`;
-
 exports[`The Affliction Warlock Analyzer analyzers UnstableAfflictionUptime matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`The Affliction Warlock Analyzer analyzers UnstableAfflictionUptime matches the suggestions snapshot 1`] = `Array []`;
@@ -791,19 +1236,15 @@ exports[`The Affliction Warlock Analyzer analyzers WrackingBrilliance matches th
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    category="ITEMS"
+    className="panel statistic small "
+    position={1001}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -829,7 +1270,22 @@ exports[`The Affliction Warlock Analyzer analyzers WrackingBrilliance matches th
         <div
           className="value"
         >
-          334 average Intellect
+          <svg
+            className="icon"
+            version="1.1"
+            viewBox="16 17 32 32"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M28.832,44.802h6.559v-1.101h-6.559V44.802z M29.91,47.004h4.402v-1.101H29.91V47.004z M32.156,18.379c-0.012,0-0.031,0-0.045,0c-0.014,0-0.033,0-0.045,0c-1.078,0-9.704,0.127-9.704,11.01 c0,2.696,1.5,4.496,2.949,6.234c1.255,1.507,2.442,2.928,2.442,4.776V42.6h8.715v-2.202c0-1.848,1.187-3.269,2.442-4.776 c1.449-1.737,2.949-3.537,2.949-6.234C41.86,18.506,33.235,18.379,32.156,18.379z"
+            />
+          </svg>
+           
+          334
+           
+          <small>
+            average Intellect
+          </small>
         </div>
       </div>
     </div>
