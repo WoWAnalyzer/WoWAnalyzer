@@ -5,10 +5,10 @@ import Enemies from 'parser/shared/modules/Enemies';
 import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
-import { formatThousands } from 'common/format';
+import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 class Havoc extends Analyzer {
   static dependencies = {
@@ -31,6 +31,9 @@ class Havoc extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
+  get dps() {
+    return this.damage / this.owner.fightDuration * 1000;
+  }
   // TODO: this could perhaps be reworked somehow to be more accurate but not sure how yet. Take it as a Havoc v1.0
   statistic() {
     if (this.damage === 0) {
@@ -38,10 +41,8 @@ class Havoc extends Analyzer {
     }
 
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.HAVOC.id} />}
-        value={this.owner.formatItemDamageDone(this.damage)}
-        label="Damage cleaved"
+      <Statistic
+        size="small"
         tooltip={(
           <>
             You cleaved {formatThousands(this.damage)} damage to targets afflicted by your Havoc.<br /><br />
@@ -49,11 +50,13 @@ class Havoc extends Analyzer {
             Note: This number is probably higher than it should be, as it also counts the damage you did directly to the Havoc target (not just the cleaved damage).
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.HAVOC}>
+          {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default Havoc;

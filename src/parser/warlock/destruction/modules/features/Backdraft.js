@@ -5,9 +5,9 @@ import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 
-import StatisticBox from 'interface/others/StatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 const debug = false;
 
@@ -80,11 +80,11 @@ class Backdraft extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.BACKDRAFT.id} />}
-        value={this.wastedStacks}
-        label="Wasted Backdraft procs"
-      />
+      <Statistic size="small">
+        <BoringSpellValueText spell={SPELLS.BACKDRAFT}>
+          {this.wastedStacks} <small>Wasted procs</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

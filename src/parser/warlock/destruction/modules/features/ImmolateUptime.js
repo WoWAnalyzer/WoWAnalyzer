@@ -8,7 +8,8 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import StatisticBar from 'interface/statistics/StatisticBar';
+import UptimeBar from 'interface/statistics/components/UptimeBar';
 
 class ImmolateUptime extends Analyzer {
   static dependencies = {
@@ -42,16 +43,28 @@ class ImmolateUptime extends Analyzer {
   }
 
   statistic() {
+    const history = this.enemies.getDebuffHistory(SPELLS.IMMOLATE_DEBUFF.id);
     return (
-      <StatisticBox
-        icon={<SpellIcon id={SPELLS.IMMOLATE_DEBUFF.id} />}
-        value={`${formatPercentage(this.uptime)} %`}
-        label="Immolate uptime"
-      />
+      <StatisticBar wide>
+        <div className="flex">
+          <div className="flex-sub icon">
+            <SpellIcon id={SPELLS.IMMOLATE.id} />
+          </div>
+          <div className="flex-sub value">
+            {formatPercentage(this.uptime, 0)} % <small>uptime</small>
+          </div>
+          <div className="flex-main chart" style={{ padding: 15 }}>
+            <UptimeBar
+              uptimeHistory={history}
+              start={this.owner.fight.start_time}
+              end={this.owner.fight.end_time}
+              style={{ height: '100%' }}
+            />
+          </div>
+        </div>
+      </StatisticBar>
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(3);
 }
 
 export default ImmolateUptime;
