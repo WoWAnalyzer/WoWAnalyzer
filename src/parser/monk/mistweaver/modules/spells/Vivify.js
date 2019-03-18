@@ -27,7 +27,6 @@ class Vivify extends Analyzer {
   gustsHealing = 0;
   lastCastTarget = null;
   remDuringManaTea = 0;
-  countForGusts = false;
   numberToCount = 0;
 
 
@@ -39,11 +38,11 @@ class Vivify extends Analyzer {
     }
     if (this.combatants.players[event.targetID]) {
       if (this.combatants.players[event.targetID].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0) === true) {
-        this.numberToCount++;
+        this.numberToCount += 1;
       }
     }
 
-    this.numberToCount++;
+    this.numberToCount += 1;
     this.lastCastTarget = event.targetID;
   }
 
@@ -52,7 +51,7 @@ class Vivify extends Analyzer {
 
     if ((spellId === SPELLS.GUSTS_OF_MISTS.id) && (this.lastCastTarget === event.targetID) && this.numberToCount > 0) {
       this.gustsHealing += (event.amount || 0) + (event.absorbed || 0);
-      this.numberToCount--;
+      this.numberToCount -= 1;
     }
 
     if ((spellId === SPELLS.VIVIFY.id) && (this.lastCastTarget !== event.targetID)) {
@@ -74,9 +73,9 @@ class Vivify extends Analyzer {
     return {
       actual: this.averageRemPerVivify,
       isLessThan: {
-        minor: 1.5,
-        average: 1,
-        major: 0.5,
+        minor: 1.75,
+        average: 1.25,
+        major: 0.75,
       },
       style: 'number',
     };

@@ -25,16 +25,13 @@ class EnvelopingMists extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    if (this.selectedCombatant.hasTalent(SPELLS.MIST_WRAP_TALENT.id)) {
-      this.EVM_HEALING_INCREASE=.4;
-    }
+    this.evmHealingIncrease = this.selectedCombatant.hasTalent(SPELLS.MIST_WRAP_TALENT.id) ? .4 : .3;
   }
 
-  EVM_HEALING_INCREASE = 0.3;//check for mistwrap
+  evmHealingIncrease = 0.3;//check for mistwrap
   healingIncrease = 0;
   gustsHealing = 0;
   lastCastTarget = null;
-  countForGusts = false;
   numberToCount = 0;
 
   on_byPlayer_cast(event) {
@@ -45,10 +42,10 @@ class EnvelopingMists extends Analyzer {
     }
     if (this.combatants.players[event.targetID]) {
       if (this.combatants.players[event.targetID].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0) === true) {
-        this.numberToCount++;
+        this.numberToCount += 1;
       }
     }
-    this.numberToCount++;
+    this.numberToCount += 1;
     this.lastCastTarget = event.targetID;
   }
 
@@ -64,12 +61,12 @@ class EnvelopingMists extends Analyzer {
     if ((spellId === SPELLS.GUSTS_OF_MISTS.id) && (this.lastCastTarget === event.targetID) && this.numberToCount >0) {
       this.gustProc += 1;
       this.gustsHealing += (event.amount || 0) + (event.absorbed || 0);
-      this.numberToCount--;
+      this.numberToCount -= 1;
     }
 
     if (this.combatants.players[targetId]) {
       if (this.combatants.players[targetId].hasBuff(SPELLS.ENVELOPING_MIST.id, event.timestamp, 0, 0) === true) {
-        this.healingIncrease += calculateEffectiveHealing(event, this.EVM_HEALING_INCREASE);
+        this.healingIncrease += calculateEffectiveHealing(event, this.evmHealingIncrease);
         debug && console.log('Event Details for Healing Increase: ' + event.ability.name);
       }
     }
@@ -78,7 +75,7 @@ class EnvelopingMists extends Analyzer {
   on_fightend() {
     if (debug) {
       console.log(`EvM Healing Contribution: ${this.healingIncrease}`);
-      console.log(`EnM Boost`, this.EVM_HEALING_INCREASE);
+      console.log(`EnM Boost`, this.evmHealingIncrease);
       console.log("gusts env healing: ", this.gustsHealing);
     }
   }
