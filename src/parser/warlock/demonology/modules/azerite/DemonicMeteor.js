@@ -8,10 +8,10 @@ import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
-import { formatPercentage, formatThousands } from 'common/format';
+import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 
-import TraitStatisticBox from 'interface/others/TraitStatisticBox';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 import { findMax, poissonBinomialPMF } from 'parser/warlock/shared/probability';
 import SoulShardTracker from '../soulshards/SoulShardTracker';
@@ -66,23 +66,28 @@ class DemonicMeteor extends Analyzer {
     this.damage += bonusDamage;
   }
 
+  get dps() {
+    return this.damage / this.owner.fightDuration * 1000;
+  }
+
   statistic() {
     const shardsGained = this.soulShardTracker.getGeneratedBySpell(SPELLS.DEMONIC_METEOR_SHARD_GEN.id);
     // we need to get the amount of shards we were most likely to get given certain probabilities
     const { max } = findMax(this.probabilities.length, (k, n) => poissonBinomialPMF(k, n, this.probabilities));
     return (
-      <TraitStatisticBox
-        trait={SPELLS.DEMONIC_METEOR.id}
-        value={<ItemDamageDone amount={this.damage} approximate />}
+      <AzeritePowerStatistic
+        size="small"
         tooltip={(
           <>
-            Estimated bonus Hand of Gul'dan damage: {formatThousands(this.damage)}<br />
-            You gained {shardsGained} Shards with this trait, {max > 0 ? <>which is <strong>{formatPercentage(shardsGained / max)} %</strong> of Shards you were most likely to get in this fight ({max} Shards).</> : 'while you were most likely to not get any Shards.'}<br /><br />
-
-            The damage is an approximation using current Intellect values at given time, but because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be a little incorrect.
+            Bonus Hand of Gul'dan damage: {formatThousands(this.damage)}<br />
+            You gained {shardsGained} Shards with this trait, {max > 0 ? <>which is <strong>{formatPercentage(shardsGained / max)} %</strong> of Shards you were most likely to get in this fight ({max} Shards).</> : 'while you were most likely to not get any Shards.'}
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.DEMONIC_METEOR}>
+          {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }

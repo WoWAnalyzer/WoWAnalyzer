@@ -9,7 +9,10 @@ import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatPercentage } from 'common/format';
 
-import TraitStatisticBox from 'interface/others/TraitStatisticBox';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import HasteIcon from 'interface/icons/Haste';
+import UptimeIcon from 'interface/icons/Uptime';
 
 const explosivePotentialStats = traits => traits.reduce((total, rank) => {
   const [ haste ] = calculateAzeriteEffects(SPELLS.EXPLOSIVE_POTENTIAL.id, rank);
@@ -65,16 +68,15 @@ class ExplosivePotential extends Analyzer {
     const implosion = this.abilityTracker.getAbility(SPELLS.IMPLOSION_CAST.id);
     const casts = (implosion && implosion.casts) || 0;
     return (
-      <TraitStatisticBox
-        trait={SPELLS.EXPLOSIVE_POTENTIAL.id}
-        value={`${this.averageHaste} average Haste`}
-        tooltip={(
-          <>
-            Explosive Potential grants {this.haste} Haste while active. You had {formatPercentage(this.uptime)} % uptime on the buff.<br />
-            You procced the buff {this.procs} out of {casts} times.
-          </>
-        )}
-      />
+      <AzeritePowerStatistic
+        size="flexible"
+        tooltip={`Explosive Potential grants ${this.haste} Haste while active. You procced the buff ${this.procs} out of ${casts} times.`}
+      >
+        <BoringSpellValueText spell={SPELLS.EXPLOSIVE_POTENTIAL}>
+          <UptimeIcon /> {formatPercentage(this.uptime, 0)} % <small>uptime</small> <br />
+          <HasteIcon /> {this.averageHaste} <small>average Haste</small>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }

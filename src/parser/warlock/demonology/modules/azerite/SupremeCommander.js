@@ -7,7 +7,9 @@ import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatPercentage } from 'common/format';
 
-import TraitStatisticBox from 'interface/others/TraitStatisticBox';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import IntellectIcon from 'interface/icons/Intellect';
 
 const supremeCommanderStats = traits => traits.reduce((total, rank) => {
   const [ intellect ] = calculateAzeriteEffects(SPELLS.SUPREME_COMMANDER.id, rank);
@@ -52,11 +54,14 @@ class SupremeCommander extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
-        trait={SPELLS.SUPREME_COMMANDER.id}
-        value={`${this.averageIntellect} average Intellect`}
+      <AzeritePowerStatistic
+        size="small"
         tooltip={`Supreme Commander grants ${this.intellect} Intellect while active. You had ${formatPercentage(this.uptime)} % uptime on the buff.`}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.SUPREME_COMMANDER}>
+          <IntellectIcon /> {this.averageIntellect} <small>average Intellect</small>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }

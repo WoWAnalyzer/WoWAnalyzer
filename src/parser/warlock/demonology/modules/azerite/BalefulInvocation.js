@@ -8,10 +8,10 @@ import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage
 
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
-import { formatThousands } from 'common/format';
+import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 
-import TraitStatisticBox from 'interface/others/TraitStatisticBox';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 const DEMONFIRE_SP_COEFFICIENT = 0.325;
 const debug = false;
@@ -55,22 +55,27 @@ class BalefulInvocation extends Analyzer {
     this.damage += damage;
   }
 
+  get dps() {
+    return this.damage / this.owner.fightDuration * 1000;
+  }
+
   statistic() {
     const generated = this.soulShardTracker.getGeneratedBySpell(SPELLS.BALEFUL_INVOCATION_ENERGIZE.id);
     const wasted = this.soulShardTracker.getWastedBySpell(SPELLS.BALEFUL_INVOCATION_ENERGIZE.id);
     return (
-      <TraitStatisticBox
-        trait={SPELLS.BALEFUL_INVOCATION.id}
-        value={<ItemDamageDone amount={this.damage} approximate />}
+      <AzeritePowerStatistic
+        size="small"
         tooltip={(
           <>
-            Estimated bonus Demonfire damage: {formatThousands(this.damage)}<br />
-            You gained {generated} Soul Shards and wasted {wasted} Soul Shards with this trait.<br /><br />
-
-            The damage is an approximation using current Intellect values at given time, but because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be a little incorrect.
+            Bonus Demonfire damage: {formatThousands(this.damage)}<br />
+            You gained {generated} Soul Shards and wasted {wasted} Soul Shards with this trait.
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.BALEFUL_INVOCATION}>
+          {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }

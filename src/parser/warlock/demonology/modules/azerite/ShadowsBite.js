@@ -6,11 +6,11 @@ import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage
 import StatTracker from 'parser/shared/modules/StatTracker';
 
 import SPELLS from 'common/SPELLS';
-import { formatThousands } from 'common/format';
+import { formatThousands, formatPercentage, formatNumber } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 
-import TraitStatisticBox from 'interface/others/TraitStatisticBox';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 
 const DEMONBOLT_SP_COEFFICIENT = 0.667;
 const MAX_TRAVEL_TIME = 2000;
@@ -89,19 +89,20 @@ class ShadowsBite extends Analyzer {
     this._queue.splice(castIndex, 1);
   }
 
+  get dps() {
+    return this.damage / this.owner.fightDuration * 1000;
+  }
+
   statistic() {
     return (
-      <TraitStatisticBox
-        trait={SPELLS.SHADOWS_BITE.id}
-        value={<ItemDamageDone amount={this.damage} approximate />}
-        tooltip={(
-          <>
-            Estimated bonus Demonbolt damage: {formatThousands(this.damage)}<br /><br />
-
-            The damage is an approximation using current Intellect values at given time, but because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be a little incorrect.
-          </>
-        )}
-      />
+      <AzeritePowerStatistic
+        size="small"
+        tooltip={`Bonus Demonbolt damage: ${formatThousands(this.damage)}`}
+      >
+        <BoringSpellValueText spell={SPELLS.SHADOWS_BITE}>
+          {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }

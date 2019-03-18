@@ -4,10 +4,10 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
-import { formatThousands } from 'common/format';
+import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 
-import TraitStatisticBox from 'interface/others/TraitStatisticBox';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 
 /*
   Umbral Blaze:
@@ -29,11 +29,14 @@ class UmbralBlaze extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
-        trait={SPELLS.UMBRAL_BLAZE.id}
-        value={<ItemDamageDone amount={this.damage} />}
+      <AzeritePowerStatistic
+        size="small"
         tooltip={`${formatThousands(this.damage)} damage`}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.UMBRAL_BLAZE}>
+          {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }
