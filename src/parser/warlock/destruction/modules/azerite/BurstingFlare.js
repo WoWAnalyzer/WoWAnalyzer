@@ -7,7 +7,10 @@ import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatPercentage } from 'common/format';
 
-import TraitStatisticBox from 'interface/others/TraitStatisticBox';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import UptimeIcon from 'interface/icons/Uptime';
+import MasteryIcon from 'interface/icons/Mastery';
 
 const burstingFlareStats = traits => traits.reduce((total, rank) => {
   const [ mastery ] = calculateAzeriteEffects(SPELLS.BURSTING_FLARE.id, rank);
@@ -53,11 +56,15 @@ class BurstingFlare extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
-        trait={SPELLS.BURSTING_FLARE.id}
-        value={`${this.averageMastery} average Mastery`}
+      <AzeritePowerStatistic
+        size="flexible"
         tooltip={`Bursting Flare grants ${this.mastery} Mastery per stack (${5 * this.mastery} Mastery at 5 stacks) while active. You had ${formatPercentage(this.uptime)} % uptime on the buff.`}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.BURSTING_FLARE}>
+          <UptimeIcon /> {formatPercentage(this.uptime, 0)} % <small>uptime</small> <br />
+          <MasteryIcon /> {this.averageMastery} <small>average Mastery</small>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }
