@@ -7,6 +7,7 @@ import SPELLS from 'common/SPELLS';
 
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 const BUFF_DURATION = 12000;
 const BUFFER = 100;
@@ -41,7 +42,10 @@ class Nightfall extends Analyzer {
 
   statistic() {
     return (
-      <Statistic size="small">
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(1)}
+        size="small"
+      >
         <BoringSpellValueText spell={SPELLS.NIGHTFALL_TALENT}>
           {this.wastedProcs} <small>wasted procs</small>
         </BoringSpellValueText>

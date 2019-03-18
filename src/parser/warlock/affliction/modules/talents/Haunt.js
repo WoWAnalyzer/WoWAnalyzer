@@ -10,6 +10,7 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
 
@@ -87,6 +88,7 @@ class Haunt extends Analyzer {
     const buffedTicksPercentage = (this.buffedTicks / this.totalTicks) || 1;
     return (
       <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(4)}
         size="flexible"
         tooltip={(
           <>

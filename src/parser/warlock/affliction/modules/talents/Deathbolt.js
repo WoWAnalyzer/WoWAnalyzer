@@ -10,6 +10,7 @@ import { formatThousands } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import { getDotDurations, UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
 
@@ -141,6 +142,7 @@ class Deathbolt extends Analyzer {
 
     return (
       <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(1)}
         size="flexible"
         tooltip={(
           <>

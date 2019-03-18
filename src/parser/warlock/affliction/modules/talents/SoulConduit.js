@@ -8,6 +8,7 @@ import { formatPercentage, formatThousands } from 'common/format';
 
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import { binomialPMF, findMax } from 'parser/warlock/shared/probability';
 import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
@@ -46,6 +47,7 @@ class SoulConduit extends Analyzer {
     const { max } = findMax(totalSpent, (k, n) => binomialPMF(k, n, SC_PROC_CHANCE));
     return (
       <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(5)}
         size="small"
         tooltip={(
           <>

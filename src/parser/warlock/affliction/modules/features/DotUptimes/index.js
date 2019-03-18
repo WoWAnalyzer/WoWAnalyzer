@@ -22,7 +22,7 @@ class DotUptimeStatisticBox extends Analyzer {
     return (
       <StatisticBar
         wide
-        position={STATISTIC_ORDER.CORE(3)}
+        position={STATISTIC_ORDER.CORE(1)}
       >
         {this.agonyUptime.subStatistic()}
         {this.corruptionUptime.subStatistic()}

@@ -8,6 +8,7 @@ import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 class PhantomSingularity extends Analyzer {
   static dependencies = {
@@ -25,6 +26,7 @@ class PhantomSingularity extends Analyzer {
     const dps = damage / this.owner.fightDuration * 1000;
     return (
       <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(3)}
         size="small"
         tooltip={`${formatThousands(damage)} damage`}
       >

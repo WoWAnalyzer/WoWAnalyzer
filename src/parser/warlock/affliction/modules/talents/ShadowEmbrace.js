@@ -11,6 +11,7 @@ import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import Tooltip from 'common/Tooltip';
 
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 const BONUS_PER_STACK = 0.03;
 const BUFFER = 50; // for some reason, changedebuffstack triggers twice on the same timestamp for each event, ignore an event if it happened < BUFFER ms after another
@@ -120,6 +121,7 @@ class ShadowEmbrace extends Analyzer {
     const uptimes = this.stackedUptime;
     return (
       <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(4)}
         size="flexible"
         tooltip={`${formatThousands(this.damage)} bonus damage`}
       >

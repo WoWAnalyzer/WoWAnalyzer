@@ -11,6 +11,7 @@ import { formatThousands, formatNumber } from 'common/format';
 import Tooltip from 'common/Tooltip';
 
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import { getDotDurations, UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
 
@@ -203,6 +204,7 @@ class Darkglare extends Analyzer {
 
     return (
       <Statistic
+        position={STATISTIC_ORDER.CORE(4)}
         size="flexible"
         tooltip={(
           <>

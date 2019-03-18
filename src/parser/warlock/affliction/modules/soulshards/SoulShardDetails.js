@@ -47,7 +47,7 @@ class SoulShardDetails extends Analyzer {
     const shardsWasted = this.soulShardTracker.wasted;
     return (
       <Statistic
-        position={STATISTIC_ORDER.CORE(2)}
+        position={STATISTIC_ORDER.CORE(3)}
         size="small"
       >
         <BoringSpellValue

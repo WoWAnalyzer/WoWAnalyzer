@@ -11,6 +11,7 @@ import SpellLink from 'common/SpellLink';
 
 import Statistic from 'interface/statistics/Statistic';
 import CriticalStrikeIcon from 'interface/icons/CriticalStrike';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import SoulShardTracker from '../soulshards/SoulShardTracker';
 // limit to filter out relevant removedebuffs (those what I'm interested in happen either at the same timestamp as energize, or about 20ms afterwards (tested on 2 logs, didn't surpass 30ms))
@@ -105,6 +106,7 @@ class DrainSoul extends Analyzer {
     const dps = damage / this.owner.fightDuration * 1000;
     return (
       <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(1)}
         size="flexible"
         tooltip={`${formatThousands(damage)} total damage`}
       >

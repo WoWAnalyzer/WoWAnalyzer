@@ -9,6 +9,7 @@ import SpellLink from 'common/SpellLink';
 
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 class GrimoireOfSacrifice extends Analyzer {
   static dependencies = {
@@ -52,6 +53,7 @@ class GrimoireOfSacrifice extends Analyzer {
     const dps = damage / this.owner.fightDuration * 1000;
     return (
       <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(4)}
         size="small"
         tooltip={(
           <>

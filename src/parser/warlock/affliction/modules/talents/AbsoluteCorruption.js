@@ -9,6 +9,7 @@ import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
 import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 const AC_DAMAGE_BONUS = 0.15;
 
@@ -32,6 +33,7 @@ class AbsoluteCorruption extends Analyzer {
   statistic() {
     return (
       <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(2)}
         size="small"
         tooltip={(
           <>
