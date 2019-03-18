@@ -4,11 +4,11 @@ import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Anal
 import Events from 'parser/core/Events';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
-import { formatThousands } from 'common/format';
+import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 import DemoPets from '../pets/DemoPets';
 import { isWildImp } from '../pets/helpers';
@@ -42,13 +42,20 @@ class DemonicConsumption extends Analyzer {
     this.damage += calculateEffectiveDamage(event, this._currentBonus);
   }
 
-  subStatistic() {
+  get dps() {
+    return this.damage / this.owner.fightDuration * 1000;
+  }
+
+  statistic() {
     return (
-      <StatisticListBoxItem
-        title={<>Bonus <SpellLink id={SPELLS.DEMONIC_CONSUMPTION_TALENT.id} /> dmg</>}
-        value={this.owner.formatItemDamageDone(this.damage)}
-        valueTooltip={`${formatThousands(this.damage)} damage`}
-      />
+      <Statistic
+        size="small"
+        tooltip={`${formatThousands(this.damage)} damage`}
+      >
+        <BoringSpellValueText spell={SPELLS.DEMONIC_CONSUMPTION_TALENT}>
+          {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

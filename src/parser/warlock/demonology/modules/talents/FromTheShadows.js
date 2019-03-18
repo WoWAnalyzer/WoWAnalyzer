@@ -6,10 +6,10 @@ import Events from 'parser/core/Events';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
-import { formatThousands } from 'common/format';
-import SpellLink from 'common/SpellLink';
+import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 const DAMAGE_BONUS = 0.2;
 /*
@@ -37,13 +37,20 @@ class FromTheShadows extends Analyzer {
     this.damage += calculateEffectiveDamage(event, DAMAGE_BONUS);
   }
 
-  subStatistic() {
+  get dps() {
+    return this.damage / this.owner.fightDuration * 1000;
+  }
+
+  statistic() {
     return (
-      <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.FROM_THE_SHADOWS_TALENT.id} /> bonus dmg</>}
-        value={this.owner.formatItemDamageDone(this.damage)}
-        valueTooltip={`${formatThousands(this.damage)} bonus damage`}
-      />
+      <Statistic
+        size="small"
+        tooltip={`${formatThousands(this.damage)} bonus damage`}
+      >
+        <BoringSpellValueText spell={SPELLS.FROM_THE_SHADOWS_TALENT}>
+          {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

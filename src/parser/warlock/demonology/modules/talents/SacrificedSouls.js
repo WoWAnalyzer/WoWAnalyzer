@@ -5,10 +5,10 @@ import Events from 'parser/core/Events';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
-import { formatThousands } from 'common/format';
+import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 import DemoPets from '../pets/DemoPets';
 
@@ -73,30 +73,33 @@ class SacrificedSouls extends Analyzer {
     return this._shadowBoltDamage + this._demonboltDamage;
   }
 
-  subStatistic() {
+  get dps() {
+    return this.totalBonusDamage / this.owner.fightDuration * 1000;
+  }
+
+  statistic() {
     const hasPS = this.selectedCombatant.hasTalent(SPELLS.POWER_SIPHON_TALENT.id);
     return (
-      <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.SACRIFICED_SOULS_TALENT.id} /> bonus dmg</>}
-        value={(
-          <>
-            {this.owner.formatItemDamageDone(this.totalBonusDamage)}${hasPS ? '*' : ''}
-          </>
-        )}
-        valueTooltip={(
+      <Statistic
+        size="small"
+        tooltip={(
           <>
             {formatThousands(this.totalBonusDamage)} bonus damage<br />
             Bonus Shadow Bolt damage: {formatThousands(this._shadowBoltDamage)} ({this.owner.formatItemDamageDone(this._shadowBoltDamage)})<br />
             Bonus Demonbolt damage: {formatThousands(this._demonboltDamage)} ({this.owner.formatItemDamageDone(this._demonboltDamage)})
             {hasPS && (
               <>
-                <br /><br />* Since you have Power Siphon talent, it's highly likely that it messes up getting current pets at certain time because sometimes
+                <br /><br /><sup>*</sup> Since you have Power Siphon talent, it's highly likely that it messes up getting current pets at certain time because sometimes
                 the number of Imps we sacrifice in code doesn't agree with what happens in logs. Therefore, this value is most likely a little wrong.
               </>
             )}
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.SACRIFICED_SOULS_TALENT}>
+          {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalBonusDamage))} % of total</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

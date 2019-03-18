@@ -7,8 +7,8 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Statistic from 'interface/statistics/Statistic';
 
 const BUFF_DURATION = 20000;
 const debug = false;
@@ -74,16 +74,15 @@ class DemonicCalling extends Analyzer {
       });
   }
 
-  subStatistic() {
+  statistic() {
     return (
-      <StatisticListBoxItem
-        title={<>Wasted <SpellLink id={SPELLS.DEMONIC_CALLING_TALENT.id} /> procs</>}
-        value={this.wastedProcs}
-      />
+      <Statistic size="small">
+        <BoringSpellValueText spell={SPELLS.DEMONIC_CALLING_TALENT}>
+          {this.wastedProcs} <small>Wasted procs</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(0);
 }
 
 export default DemonicCalling;

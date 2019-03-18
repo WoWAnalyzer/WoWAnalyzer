@@ -3,10 +3,10 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
-import { formatThousands } from 'common/format';
-import SpellLink from 'common/SpellLink';
+import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 import PETS from '../pets/PETS';
 import DemoPets from '../pets/DemoPets';
@@ -23,14 +23,19 @@ class SummonVilefiend extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.SUMMON_VILEFIEND_TALENT.id);
   }
 
-  subStatistic() {
+  statistic() {
     const damage = this.demoPets.getPetDamage(PETS.VILEFIEND.guid);
+    const dps = damage / this.owner.fightDuration * 1000;
+
     return (
-      <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.SUMMON_VILEFIEND_TALENT.id} /> dmg</>}
-        value={this.owner.formatItemDamageDone(damage)}
-        valueTooltip={`${formatThousands(damage)} damage`}
-      />
+      <Statistic
+        size="small"
+        tooltip={`${formatThousands(damage)} damage`}
+      >
+        <BoringSpellValueText spell={SPELLS.SUMMON_VILEFIEND_TALENT}>
+          {formatNumber(dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

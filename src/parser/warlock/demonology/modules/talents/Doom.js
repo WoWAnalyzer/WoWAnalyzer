@@ -6,10 +6,11 @@ import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage, formatThousands } from 'common/format';
+import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import UptimeIcon from 'interface/icons/Uptime';
 
 class Doom extends Analyzer {
   static dependencies = {
@@ -30,6 +31,10 @@ class Doom extends Analyzer {
 
   get uptime() {
     return this.enemies.getBuffUptime(SPELLS.DOOM_TALENT.id) / this.owner.fightDuration;
+  }
+
+  get dps() {
+    return this.damage / this.owner.fightDuration * 1000;
   }
 
   get suggestionThresholds() {
@@ -54,23 +59,19 @@ class Doom extends Analyzer {
       });
   }
 
-  subStatistic() {
+  statistic() {
     return (
-      <>
-        <StatisticListBoxItem
-          title={<><SpellLink id={SPELLS.DOOM_TALENT.id} /> dmg</>}
-          value={this.owner.formatItemDamageDone(this.damage)}
-          valueTooltip={`${formatThousands(this.damage)} damage`}
-        />
-        <StatisticListBoxItem
-          title={<><SpellLink id={SPELLS.DOOM_TALENT.id} /> uptime</>}
-          value={`${formatPercentage(this.uptime)} %`}
-        />
-      </>
+      <Statistic
+        size="flexible"
+        tooltip={`${formatThousands(this.damage)} damage`}
+      >
+        <BoringSpellValueText spell={SPELLS.DOOM_TALENT}>
+          <UptimeIcon /> {formatPercentage(this.uptime, 0)} % <small>uptime</small> <br />
+          {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(4);
 }
 
 export default Doom;

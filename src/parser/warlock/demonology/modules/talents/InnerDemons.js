@@ -3,10 +3,10 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
-import { formatThousands } from 'common/format';
+import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 import DemoPets from '../pets/DemoPets';
 import PETS from '../pets/PETS';
@@ -31,19 +31,24 @@ class InnerDemons extends Analyzer {
     return wildImps + other;
   }
 
-  subStatistic() {
+  statistic() {
     const damage = this.damage;
+    const dps = damage / this.owner.fightDuration * 1000;
+
     return (
-      <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.INNER_DEMONS_TALENT.id} /> dmg</>}
-        value={this.owner.formatItemDamageDone(damage)}
-        valueTooltip={(
+      <Statistic
+        size="small"
+        tooltip={(
           <>
             {formatThousands(damage)} damage<br />
             Note that this only counts the direct damage from them, not Implosion damage (if used) from Wild Imps
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.INNER_DEMONS_TALENT}>
+          {formatNumber(dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

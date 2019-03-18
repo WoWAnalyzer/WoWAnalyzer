@@ -4,11 +4,10 @@ import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import SPELLS from 'common/SPELLS';
-import { formatThousands } from 'common/format';
-import SpellLink from 'common/SpellLink';
+import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 import DemoPets from '../pets/DemoPets';
 import PETS from '../pets/PETS';
@@ -24,18 +23,21 @@ class GrimoireFelguard extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.GRIMOIRE_FELGUARD_TALENT.id);
   }
 
-  subStatistic() {
+  statistic() {
     const damage = this.demoPets.getPetDamage(PETS.GRIMOIRE_FELGUARD.guid);
+    const dps = damage / this.owner.fightDuration * 1000;
+
     return (
-      <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.GRIMOIRE_FELGUARD_TALENT.id} /> dmg</>}
-        value={this.owner.formatItemDamageDone(damage)}
-        valueTooltip={`${formatThousands(damage)} damage`}
-      />
+      <Statistic
+        size="small"
+        tooltip={`${formatThousands(damage)} damage`}
+      >
+        <BoringSpellValueText spell={SPELLS.GRIMOIRE_FELGUARD_TALENT}>
+          {formatNumber(dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.OPTIONAL(3);
 }
 
 export default GrimoireFelguard;

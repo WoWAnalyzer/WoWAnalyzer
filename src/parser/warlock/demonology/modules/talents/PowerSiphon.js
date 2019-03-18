@@ -5,8 +5,8 @@ import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
-import SpellLink from 'common/SpellLink';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 const BUFFER = 350;
 
@@ -50,13 +50,16 @@ class PowerSiphon extends Analyzer {
     return (this.totalCores / this.casts.length) || 0;
   }
 
-  subStatistic() {
+  statistic() {
     return (
-      <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.POWER_SIPHON_TALENT.id} /> bonus Cores</>}
-        value={this.totalCores}
-        valueTooltip={`Average Demonic Core stacks per cast: ${this.averageCores.toFixed(2)}`}
-      />
+      <Statistic
+        size="small"
+        tooltip={`Average Demonic Core stacks per cast: ${this.averageCores.toFixed(2)}`}
+      >
+        <BoringSpellValueText spell={SPELLS.POWER_SIPHON_TALENT}>
+          {this.totalCores} <small>bonus Demonic Cores</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

@@ -1,14 +1,15 @@
 import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-
-import SPELLS from 'common/SPELLS';
-import Events from 'parser/core/Events';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
-import SpellLink from 'common/SpellLink';
-import { formatThousands } from 'common/format';
+import Events from 'parser/core/Events';
+
+import SPELLS from 'common/SPELLS';
+import { formatThousands, formatNumber, formatPercentage } from 'common/format';
+
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 const DREADLASH_BONUS_DAMAGE = 0.25;
 const debug = false;
@@ -42,20 +43,25 @@ class Dreadlash extends Analyzer {
     debug && this.log(`Dreadstalkers cast on ${this._primaryTarget}`);
   }
 
-  subStatistic() {
+  statistic() {
     const total = this.cleavedDamage + this.bonusDamage;
+    const dps = total / this.owner.fightDuration * 1000;
+
     return (
-      <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.DREADLASH_TALENT.id} /> bonus dmg</>}
-        value={this.owner.formatItemDamageDone(total)}
-        valueTooltip={(
+      <Statistic
+        size="small"
+        tooltip={(
           <>
             {formatThousands(total)} bonus damage<br />
             Bonus damage on primary target hits: {formatThousands(this.bonusDamage)} ({this.owner.formatItemDamageDone(this.bonusDamage)})<br />
             Bonus cleaved damage: {formatThousands(this.cleavedDamage)} ({this.owner.formatItemDamageDone(this.cleavedDamage)})
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.DREADLASH_TALENT}>
+          {formatNumber(dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(total))} % of total</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

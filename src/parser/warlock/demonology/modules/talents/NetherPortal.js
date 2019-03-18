@@ -3,10 +3,10 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
-import { formatThousands } from 'common/format';
+import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 import DemoPets from '../pets/DemoPets';
 
@@ -27,14 +27,19 @@ class NetherPortal extends Analyzer {
       .reduce((total, current) => total + current, 0);
   }
 
-  subStatistic() {
+  statistic() {
     const damage = this.damage;
+    const dps = damage / this.owner.fightDuration * 1000;
+
     return (
-      <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.NETHER_PORTAL_TALENT.id} /> dmg</>}
-        value={this.owner.formatItemDamageDone(damage)}
-        valueTooltip={`${formatThousands(damage)} damage`}
-      />
+      <Statistic
+        size="small"
+        tooltip={`${formatThousands(damage)} damage`}
+      >
+        <BoringSpellValueText spell={SPELLS.NETHER_PORTAL_TALENT}>
+          {formatNumber(dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }
