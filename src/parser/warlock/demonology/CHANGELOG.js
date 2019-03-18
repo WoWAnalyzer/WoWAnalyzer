@@ -6,6 +6,11 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2019-03-18'),
+    changes: 'Updated the visuals to match new WoWAnalyzer look!',
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-12-29'),
     changes: 'Fixed a bug that caused a crash when player was wearing trinket that summons pets (like Vanquished Tendril of G\'huun).',
     contributors: [Chizu],
