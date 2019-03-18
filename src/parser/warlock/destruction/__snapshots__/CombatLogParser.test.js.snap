@@ -9,13 +9,8 @@ exports[`The Destruction Warlock Analyzer analyzers AlwaysBeCasting matches the 
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic standard "
+    position={2}
   >
     <div
       className="panel-body"
@@ -24,56 +19,175 @@ exports[`The Destruction Warlock Analyzer analyzers AlwaysBeCasting matches the 
         className="pad"
       >
         <label>
-          <img
-            alt="Downtime"
-            className="icon game "
-            src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
-          />
-           
-          Downtime
+          Active time
         </label>
         <div
-          className="value"
-        >
-          10.84 %
-        </div>
-        <div
+          className="flex"
           style={
             Object {
-              "marginTop": "0.5em",
+              "marginTop": 12,
+              "textAlign": "center",
             }
           }
         >
           <div
-            className="statistic-box-bar"
+            className="flex-main text-right text-muted"
+            style={
+              Object {
+                "fontSize": 12,
+                "paddingRight": 8,
+                "paddingTop": 23,
+              }
+            }
           >
-            <div
-              className="stat-health-bg"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={[Function]}
+            Low
+          </div>
+          <div
+            className="flex-sub"
+            style={
+              Object {
+                "position": "relative",
+              }
+            }
+          >
+            <svg
+              fill="none"
+              height="85"
               style={
                 Object {
-                  "width": "89.15935427051126%",
+                  "fill": "none",
+                }
+              }
+              viewBox="19 19 101 88"
+              width="98"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M101.459 101.459C119.033 83.8858 119.033 55.3934 101.459 37.8198C83.8859 20.2462 55.3934 20.2462 37.8198 37.8198C20.2463 55.3934 20.2463 83.8858 37.8198 101.459"
+                stroke="#f8b700"
+                strokeLinecap="round"
+                strokeWidth="8"
+              />
+              <path
+                clipRule="evenodd"
+                d="M68.6396 28.6396H70.6396V32.6396H68.6396V28.6396Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M87.7656 32.8389L89.5485 33.7451L87.7368 37.3097L85.9539 36.4035L87.7656 32.8389Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M101.207 50.1829L100.077 48.5324L103.378 46.2732L104.508 47.9236L101.207 50.1829Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M106.622 67.3762L106.417 65.3868L110.398 64.9765L110.603 66.966L106.622 67.3762Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M103.658 84.4276L104.376 82.5609L108.11 83.9969L107.392 85.8635L103.658 84.4276Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M52.0547 32.5298L50.2627 33.4179L52.039 37.0019L53.831 36.1137L52.0547 32.5298Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M36.1157 45.9784L34.965 47.6142L38.2354 49.9147L39.3861 48.2789L36.1157 45.9784Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M28.8926 64.968L28.6883 66.9576L32.6626 67.3657L32.8669 65.3761L28.8926 64.968Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M31.3486 84.3921L32.0806 86.2533L35.8031 84.7895L35.0711 82.9282L31.3486 84.3921Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+            </svg>
+            <div
+              style={
+                Object {
+                  "height": 32,
+                  "left": "50%",
+                  "marginTop": -13,
+                  "position": "absolute",
+                  "top": 49,
+                  "transform": "translate(-50%, -50%)",
+                  "width": 32,
                 }
               }
             >
-              <img
-                alt="Active time"
-                src="/img/sword.png"
-              />
+              <svg
+                fill="none"
+                height="32"
+                style={
+                  Object {
+                    "fill": "none",
+                    "margin": 0,
+                    "transform": "rotate(109.64619195743154deg)",
+                    "transformOrigin": "5px 27px",
+                  }
+                }
+                viewBox="0 0 10 32"
+                width="10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9 27C9 29.2091 7.20914 31 5 31C2.79086 31 1 29.2091 1 27C1 24.7909 2.79086 23 5 23C7.20914 23 9 24.7909 9 27Z"
+                  stroke="#f8b700"
+                  strokeWidth="2"
+                />
+                <path
+                  clipRule="evenodd"
+                  d="M6 0L6 23H4L4 0L6 0Z"
+                  fill="#f8b700"
+                  fillRule="evenodd"
+                />
+              </svg>
             </div>
             <div
-              className="remainder DeathKnight-bg"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={[Function]}
+              className="value"
+              style={
+                Object {
+                  "fontSize": "1.25em",
+                  "marginTop": -18,
+                }
+              }
             >
-              <img
-                alt="Downtime"
-                src="/img/afk.png"
-              />
+              89
+              %
             </div>
+          </div>
+          <div
+            className="flex-main text-left text-muted"
+            style={
+              Object {
+                "fontSize": 12,
+                "paddingLeft": 8,
+                "paddingTop": 23,
+              }
+            }
+          >
+            High
           </div>
         </div>
       </div>
@@ -110,19 +224,14 @@ exports[`The Destruction Warlock Analyzer analyzers Backdraft matches the statis
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic small "
+    position={4}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -137,12 +246,22 @@ exports[`The Destruction Warlock Analyzer analyzers Backdraft matches the statis
             />
           </a>
            
-          Wasted Backdraft procs
+          <a
+            href="http://wowhead.com/spell=117828"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Backdraft
+          </a>
         </label>
         <div
           className="value"
         >
           2
+           
+          <small>
+            Wasted procs
+          </small>
         </div>
       </div>
     </div>
@@ -156,7 +275,80 @@ exports[`The Destruction Warlock Analyzer analyzers BurstingFlare matches the st
 
 exports[`The Destruction Warlock Analyzer analyzers BurstingFlare matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Destruction Warlock Analyzer analyzers Cataclysm matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`The Destruction Warlock Analyzer analyzers Cataclysm matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic flexible "
+    position={1003}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=152108"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Cataclysm"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/achievement_zone_cataclysm.jpg"
+            />
+          </a>
+           
+          <a
+            href="http://wowhead.com/spell=152108"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Cataclysm
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          1,154
+           DPS 
+          <small>
+            5.87
+             % of total
+          </small>
+           
+          <br />
+          1.43
+           
+          <small>
+            average targets hit
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
 
 exports[`The Destruction Warlock Analyzer analyzers Cataclysm matches the suggestions snapshot 1`] = `Array []`;
 
@@ -185,19 +377,15 @@ exports[`The Destruction Warlock Analyzer analyzers CrashingChaos matches the st
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    category="ITEMS"
+    className="panel statistic small "
+    position={1001}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -223,13 +411,6 @@ exports[`The Destruction Warlock Analyzer analyzers CrashingChaos matches the st
         <div
           className="value"
         >
-          <img
-            alt="Damage"
-            className="icon"
-            src="/img/sword.png"
-          />
-           
-          ≈
           1,857
            DPS 
           <small>
@@ -274,7 +455,98 @@ exports[`The Destruction Warlock Analyzer analyzers FireAndBrimstone matches the
 
 exports[`The Destruction Warlock Analyzer analyzers FireAndBrimstone matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Destruction Warlock Analyzer analyzers Flashover matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`The Destruction Warlock Analyzer analyzers Flashover matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic flexible "
+    position={1001}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=267115"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Flashover"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_backdraft.jpg"
+            />
+          </a>
+           
+          <a
+            href="http://wowhead.com/spell=267115"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Flashover
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          395
+           DPS 
+          <small>
+            2.01
+             % of total
+          </small>
+           
+          <br />
+          26
+           
+          <small>
+            bonus Backdraft stacks
+          </small>
+           
+          <br />
+          0
+          <small
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchStart={[Function]}
+            style={
+              Object {
+                "marginLeft": 7,
+              }
+            }
+          >
+            wasted Backdraft stacks 
+            <sup>
+              *
+            </sup>
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
 
 exports[`The Destruction Warlock Analyzer analyzers Flashover matches the suggestions snapshot 1`] = `Array []`;
 
@@ -286,7 +558,80 @@ exports[`The Destruction Warlock Analyzer analyzers GrimoireOfSacrifice matches 
 
 exports[`The Destruction Warlock Analyzer analyzers GrimoireOfSacrifice matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Destruction Warlock Analyzer analyzers GrimoireOfSupremacy matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`The Destruction Warlock Analyzer analyzers GrimoireOfSupremacy matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic flexible "
+    position={1004}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=266086"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Grimoire of Supremacy"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/warlock_grimoireofcommand.jpg"
+            />
+          </a>
+           
+          <a
+            href="http://wowhead.com/spell=266086"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Grimoire of Supremacy
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          2,633
+           DPS 
+          <small>
+            13.39
+             % of total
+          </small>
+           
+          <br />
+          15.00
+           
+          <small>
+            average stacks
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
 
 exports[`The Destruction Warlock Analyzer analyzers GrimoireOfSupremacy matches the suggestions snapshot 1`] = `Array []`;
 
@@ -295,19 +640,14 @@ exports[`The Destruction Warlock Analyzer analyzers Havoc matches the statistic 
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic small "
+    position={5}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -322,12 +662,23 @@ exports[`The Destruction Warlock Analyzer analyzers Havoc matches the statistic 
             />
           </a>
            
-          Damage cleaved
+          <a
+            href="http://wowhead.com/spell=80240"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Havoc
+          </a>
         </label>
         <div
           className="value"
         >
-          0.40 % / 78 DPS
+          78
+           DPS 
+          <small>
+            0.40
+             % of total
+          </small>
         </div>
       </div>
     </div>
@@ -356,26 +707,23 @@ exports[`The Destruction Warlock Analyzer analyzers Havoc matches the suggestion
 
 exports[`The Destruction Warlock Analyzer analyzers ImmolateUptime matches the statistic snapshot 1`] = `
 <div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+  className="col-md-6 col-sm-12 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic bar"
+    position={1}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="flex"
       >
-        <label>
+        <div
+          className="flex-sub icon"
+        >
           <a
-            href="http://wowhead.com/spell=157736"
+            href="http://wowhead.com/spell=348"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -385,13 +733,41 @@ exports[`The Destruction Warlock Analyzer analyzers ImmolateUptime matches the s
               src="//render-us.worldofwarcraft.com/icons/56/spell_fire_immolation.jpg"
             />
           </a>
-           
-          Immolate uptime
-        </label>
+        </div>
         <div
-          className="value"
+          className="flex-sub value"
         >
-          99.25 %
+          99
+           % 
+          <small>
+            uptime
+          </small>
+        </div>
+        <div
+          className="flex-main chart"
+          style={
+            Object {
+              "padding": 15,
+            }
+          }
+        >
+          <div
+            className="uptime-bar"
+            style={
+              Object {
+                "height": "100%",
+              }
+            }
+          >
+            <div
+              style={
+                Object {
+                  "left": "0.7228444618207506%",
+                  "width": "99.25360866880217%",
+                }
+              }
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -413,7 +789,65 @@ exports[`The Destruction Warlock Analyzer analyzers RainOfFire matches the stati
 
 exports[`The Destruction Warlock Analyzer analyzers RainOfFire matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Destruction Warlock Analyzer analyzers ReverseEntropy matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`The Destruction Warlock Analyzer analyzers ReverseEntropy matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic small "
+    position={1002}
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=205148"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Reverse Entropy"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_backdraftgreen.jpg"
+            />
+          </a>
+           
+          <a
+            href="http://wowhead.com/spell=205148"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Reverse Entropy
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          <svg
+            className="icon"
+            viewBox="10 10 80 80"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M50,86.4865c17.4361,0,31.6216-14.1855,31.6216-31.6216c0-16.6168-12.8865-30.2714-29.1892-31.5189v-4.9677h7.2973v-4.8649  H40.2703v4.8649h7.2973v4.9677c-16.3027,1.2475-29.1892,14.902-29.1892,31.5189C18.3784,72.3009,32.5639,86.4865,50,86.4865z M52.4324,28.2236c3.1101,0.2817,6.0664,1.0982,8.7798,2.356l-8.7798,15.2073V28.2236z M47.5676,28.2236v26.6412 c0,1.1008,0.7393,2.0647,1.8029,2.3497c0.209,0.0561,0.4205,0.0827,0.6295,0.0827c0.8533,0,1.6642-0.4504,2.1065-1.2162 l13.3146-23.0616c6.8507,4.8503,11.3357,12.8315,11.3357,21.8454c0,14.7537-12.0031,26.7567-26.7568,26.7567 s-26.7568-12.003-26.7568-26.7567C23.2432,40.9315,33.9501,29.4573,47.5676,28.2236z"
+            />
+          </svg>
+           
+          43
+           % 
+          <small>
+            uptime
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
 
 exports[`The Destruction Warlock Analyzer analyzers ReverseEntropy matches the suggestions snapshot 1`] = `Array []`;
 
@@ -442,32 +876,39 @@ exports[`The Destruction Warlock Analyzer analyzers SoulShardDetails matches the
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic small "
+    position={3}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="flex boring-spell-value grayscale"
       >
-        <label>
-          <img
-            alt="Wasted Soul Shards"
-            src="warlock_soulshard_bw.jpg"
-          />
-           
-          Wasted Soul Shard Fragments
-        </label>
         <div
-          className="value"
+          className="flex-sub icon"
         >
-          2
+          <a
+            href="http://wowhead.com/spell=246985"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Soul Shards"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/inv_misc_gem_amethyst_02.jpg"
+            />
+          </a>
+        </div>
+        <div
+          className="flex-main value"
+        >
+          <div>
+            2
+          </div>
+          <small>
+            Wasted Soul Shard Fragments
+          </small>
         </div>
       </div>
     </div>
@@ -484,212 +925,6 @@ exports[`The Destruction Warlock Analyzer analyzers SoulShardTracker matches the
 exports[`The Destruction Warlock Analyzer analyzers SpellUsable matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`The Destruction Warlock Analyzer analyzers SpellUsable matches the suggestions snapshot 1`] = `Array []`;
-
-exports[`The Destruction Warlock Analyzer analyzers TalentStatisticBox matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    className="panel statistic statistic-box statistic-box-list"
-  >
-    <div
-      className="panel-heading"
-    >
-      <h2>
-        Talents
-      </h2>
-    </div>
-    <div
-      className="panel-body items"
-    >
-      <div
-        className="flex"
-      >
-        <div
-          className="flex-main"
-        >
-          <a
-            href="http://wowhead.com/spell=267115"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt=""
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_backdraft.jpg"
-            />
-             
-            Flashover
-          </a>
-           bonus damage
-        </div>
-        <div
-          className="flex-sub text-right"
-        >
-          <dfn
-            className=""
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onTouchStart={[Function]}
-            style={Object {}}
-          >
-            2.01 % / 395 DPS
-          </dfn>
-        </div>
-      </div>
-      <div
-        className="flex"
-      >
-        <div
-          className="flex-main"
-        >
-          Bonus 
-          <a
-            href="http://wowhead.com/spell=117828"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt=""
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_backdraft.jpg"
-            />
-             
-            Backdraft
-          </a>
-           stacks from 
-          <a
-            href="http://wowhead.com/spell=267115"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt=""
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_backdraft.jpg"
-            />
-             
-            Flashover
-          </a>
-        </div>
-        <div
-          className="flex-sub text-right"
-        >
-          <dfn
-            className=""
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onTouchStart={[Function]}
-            style={Object {}}
-          >
-            26
-          </dfn>
-        </div>
-      </div>
-      <div
-        className="flex"
-      >
-        <div
-          className="flex-main"
-        >
-          <a
-            href="http://wowhead.com/spell=205148"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt=""
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_backdraftgreen.jpg"
-            />
-             
-            Reverse Entropy
-          </a>
-           uptime
-        </div>
-        <div
-          className="flex-sub text-right"
-        >
-          42.84 %
-        </div>
-      </div>
-      <div
-        className="flex"
-      >
-        <div
-          className="flex-main"
-        >
-          <a
-            href="http://wowhead.com/spell=152108"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt=""
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/achievement_zone_cataclysm.jpg"
-            />
-             
-            Cataclysm
-          </a>
-           damage
-        </div>
-        <div
-          className="flex-sub text-right"
-        >
-          <dfn
-            className=""
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onTouchStart={[Function]}
-            style={Object {}}
-          >
-            5.87 % / 1,154 DPS
-          </dfn>
-        </div>
-      </div>
-      <div
-        className="flex"
-      >
-        <div
-          className="flex-main"
-        >
-          Average 
-          <a
-            href="http://wowhead.com/spell=266086"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt=""
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/warlock_grimoireofcommand.jpg"
-            />
-             
-            Grimoire of Supremacy
-          </a>
-           stacks
-        </div>
-        <div
-          className="flex-sub text-right"
-        >
-          <dfn
-            className=""
-            onMouseEnter={[Function]}
-            onMouseLeave={[Function]}
-            onTouchStart={[Function]}
-            style={Object {}}
-          >
-            15.00
-          </dfn>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`The Destruction Warlock Analyzer analyzers TalentStatisticBox matches the suggestions snapshot 1`] = `Array []`;
 
 exports[`The Destruction Warlock Analyzer should match the checklist snapshot 1`] = `
 <ul
