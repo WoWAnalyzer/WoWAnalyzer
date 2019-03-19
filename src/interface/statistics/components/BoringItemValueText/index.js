@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import ItemIcon from 'common/ItemIcon';
 import ItemLink from 'common/ItemLink';
 
-const BoringItemValue = ({ item, children, className }) => (
+const BoringItemValueText = ({ item, children, className }) => (
   <div className={`pad boring-text ${className || ''}`}>
     <label>
       <ItemIcon id={item.id} /> <ItemLink id={item.id} icon={false} />
@@ -18,7 +18,7 @@ const BoringItemValue = ({ item, children, className }) => (
     </div>
   </div>
 );
-BoringItemValue.propTypes = {
+BoringItemValueText.propTypes = {
   item: PropTypes.shape({
     id: PropTypes.number.isRequired,
   }).isRequired,
@@ -26,4 +26,4 @@ BoringItemValue.propTypes = {
   className: PropTypes.string,
 };
 
-export default BoringItemValue;
+export default BoringItemValueText;
