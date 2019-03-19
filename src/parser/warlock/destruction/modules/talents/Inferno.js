@@ -4,10 +4,11 @@ import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
 import { formatThousands } from 'common/format';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import RainOfFire from '../features/RainOfFire';
 import SoulShardTracker from '../soulshards/SoulShardTracker';
@@ -43,25 +44,29 @@ class Inferno extends Analyzer {
     return ((chaosBolt.damageEffective + chaosBolt.damageAbsorbed) / chaosBolt.casts) || 0;
   }
 
-  subStatistic() {
+  statistic() {
     // ESTIMATED fragments from Rain of Fire, see comments in SoulShardTracker._getRandomFragmentDistribution()
     const fragments = this.soulShardTracker.getGeneratedBySpell(SPELLS.RAIN_OF_FIRE_DAMAGE.id);
     const estimatedRofDamage = Math.floor(fragments / FRAGMENTS_PER_RAIN_OF_FIRE) * this.averageRainOfFireDamage;
     const estimatedChaosBoltDamage = Math.floor(fragments / FRAGMENTS_PER_CHAOS_BOLT) * this.averageChaosBoltDamage;
     return (
-      <StatisticListBoxItem
-        title={<><strong>Estimated</strong> bonus fragments from <SpellLink id={SPELLS.INFERNO_TALENT.id} /></>}
-        value={fragments}
-        valueTooltip={(
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(3)}
+        size="small"
+        tooltip={(
           <>
-            While majority of sources of Soul Shard Fragments are certain, chance based sources (Inferno and Immolate crits) make tracking the fragments 100% correctly impossible (fragment generation is NOT in logs).<br /><br />
+            While majority of sources of Soul Shard Fragments are certain, chance based sources (Inferno and Immolate crits) make tracking the fragments 100% correctly impossible (Fragment generation is NOT in logs).<br /><br />
 
             If you used all these bonus fragments on Chaos Bolts, they would do {formatThousands(estimatedChaosBoltDamage)} damage ({this.owner.formatItemDamageDone(estimatedChaosBoltDamage)}).<br />
             If you used them on Rain of Fires, they would do {formatThousands(estimatedRofDamage)} damage ({this.owner.formatItemDamageDone(estimatedRofDamage)}) <strong>assuming an average of {this.rainOfFire.averageTargetsHit.toFixed(2)} targets</strong>.<br />
             Both of these estimates are based on average damage of respective spells during the fight.
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.INFERNO_TALENT}>
+          {fragments} <small><strong>estimated</strong> bonus Fragments</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

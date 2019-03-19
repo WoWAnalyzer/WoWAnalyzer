@@ -3,16 +3,16 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBreakdown';
 
-import Panel from 'interface/others/Panel';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-
 import SPELLS from 'common/SPELLS';
+
+import Panel from 'interface/others/Panel';
 import Warning from 'interface/common/Alert/Warning';
+import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
-import WastedShardsIcon from 'parser/warlock/shared/images/warlock_soulshard_bw.jpg';
+import 'parser/warlock/shared/modules/soulshards/SoulShardDetails.css';
 import SoulShardTracker from './SoulShardTracker';
-
-const SOUL_SHARD_ICON = 'inv_misc_gem_amethyst_02';
 
 class SoulShardDetails extends Analyzer {
   static dependencies = {
@@ -40,7 +40,7 @@ class SoulShardDetails extends Analyzer {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest('You are wasting Soul Shards. Try to use them and not let them cap and go to waste unless you\'re preparing for bursting adds etc.')
-          .icon(SOUL_SHARD_ICON)
+          .icon(SPELLS.SOUL_SHARDS.icon)
           .actual(`${fragmentsWasted} Soul Shard Fragments wasted (${actual.toFixed(2)} per minute)`)
           .recommended(`< ${recommended} Soul Shard Fragments per minute wasted are recommended`);
       });
@@ -49,16 +49,17 @@ class SoulShardDetails extends Analyzer {
   statistic() {
     const fragmentsWasted = this.soulShardTracker.wasted;
     return (
-      <StatisticBox
-        icon={(
-          <img
-            src={WastedShardsIcon}
-            alt="Wasted Soul Shards"
-          />
-        )}
-        value={fragmentsWasted}
-        label="Wasted Soul Shard Fragments"
-      />
+      <Statistic
+        position={STATISTIC_ORDER.CORE(3)}
+        size="small"
+      >
+        <BoringSpellValue
+          spell={SPELLS.SOUL_SHARDS}
+          value={fragmentsWasted}
+          label="Wasted Soul Shard Fragments"
+          className="grayscale"
+        />
+      </Statistic>
     );
   }
 
@@ -80,8 +81,6 @@ class SoulShardDetails extends Analyzer {
       ),
     };
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(2);
 }
 
 export default SoulShardDetails;

@@ -8,6 +8,11 @@ export default {
   // -------------
   // Shared spells
   // -------------
+  SOUL_SHARDS: {
+    id: 246985,
+    name: 'Soul Shards',
+    icon: 'inv_misc_gem_amethyst_02',
+  },
   BANISH: {
     id: 710,
     name: 'Banish',
