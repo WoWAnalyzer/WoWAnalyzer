@@ -35,8 +35,6 @@ import DemonSpikes from './modules/spells/DemonSpikes';
 import SigilOfFlame from './modules/spells/SigilOfFlame';
 import SoulCleaveSoulsConsumed from './modules/spells/SoulCleaveSoulsConsumed';
 
-import SoulOfTheSlayer from '../shared/modules/items/SoulOfTheSlayer';
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core Statistics
@@ -74,9 +72,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Stats
     soulsOvercap: SoulsOvercap,
     soulFragmentsConsume: SoulFragmentsConsume,
-
-    /// Items
-    soulOfTheSlayer: SoulOfTheSlayer,
   };
 
   generateResults(...args) {

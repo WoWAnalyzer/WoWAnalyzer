@@ -4,10 +4,11 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
-import { formatThousands } from 'common/format';
+import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 /*
   Internal Combustion (Tier 30 Destruction talent):
@@ -26,13 +27,21 @@ class InternalCombustion extends Analyzer {
     this.damage += (event.amount || 0) + (event.absorbed || 0);
   }
 
-  subStatistic() {
+  get dps() {
+    return this.damage / this.owner.fightDuration * 1000;
+  }
+
+  statistic() {
     return (
-      <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.INTERNAL_COMBUSTION_TALENT.id} /> damage</>}
-        value={this.owner.formatItemDamageDone(this.damage)}
-        valueTooltip={`${formatThousands(this.damage)} damage`}
-      />
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(2)}
+        size="small"
+        tooltip={`${formatThousands(this.damage)} damage`}
+      >
+        <BoringSpellValueText spell={SPELLS.INTERNAL_COMBUSTION_TALENT}>
+          {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

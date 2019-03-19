@@ -21,7 +21,6 @@ import TouchOfDeath from './modules/spells/TouchOfDeath';
 import BlackoutKick from './modules/spells/BlackoutKick';
 // Talents
 import HitCombo from './modules/talents/HitCombo';
-import EnergizingElixir from './modules/talents/EnergizingElixir';
 import Serenity from './modules/talents/Serenity';
 // Azerite
 import GloryOfTheDawn from './modules/spells/azeritetraits/GloryOfTheDawn';
@@ -46,7 +45,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents:
     hitCombo: HitCombo,
-    energizingElixir: EnergizingElixir,
     serenity: Serenity,
 
     // Spells;

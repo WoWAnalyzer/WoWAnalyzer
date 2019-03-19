@@ -5,25 +5,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
+import ItemIcon from 'common/ItemIcon';
+import ItemLink from 'common/ItemLink';
 
-const BoringSpellValueText = ({ spell, children, className }) => (
+const BoringItemValueText = ({ item, children, className }) => (
   <div className={`pad boring-text ${className || ''}`}>
     <label>
-      <SpellIcon id={spell.id} /> <SpellLink id={spell.id} icon={false} />
+      <ItemIcon id={item.id} /> <ItemLink id={item.id} icon={false} />
     </label>
     <div className="value">
       {children}
     </div>
   </div>
 );
-BoringSpellValueText.propTypes = {
-  spell: PropTypes.shape({
+BoringItemValueText.propTypes = {
+  item: PropTypes.shape({
     id: PropTypes.number.isRequired,
   }).isRequired,
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
 };
 
-export default BoringSpellValueText;
+export default BoringItemValueText;

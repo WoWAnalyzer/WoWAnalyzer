@@ -6,7 +6,9 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
 
-import TraitStatisticBox from 'interface/others/TraitStatisticBox';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import IntellectIcon from 'interface/icons/Intellect';
 
 const rollingHavocStats = traits => traits.reduce((total, rank) => {
   const [ intellect ] = calculateAzeriteEffects(SPELLS.ROLLING_HAVOC.id, rank);
@@ -50,11 +52,14 @@ class RollingHavoc extends Analyzer {
     const history = this.selectedCombatant.getBuffHistory(SPELLS.ROLLING_HAVOC_BUFF.id);
     const averageStacksPerCast = (history.map(buff => buff.stacks).reduce((total, current) => total + current, 0) / history.length) || 0;
     return (
-      <TraitStatisticBox
-        trait={SPELLS.ROLLING_HAVOC.id}
-        value={`${this.averageIntellect} average Intellect`}
+      <AzeritePowerStatistic
+        size="flexible"
         tooltip={`Rolling Havoc grants ${this.intellect} Intellect per stack while active. On average you had ${averageStacksPerCast.toFixed(1)} stacks per Havoc cast (${(averageStacksPerCast * this.intellect).toFixed(0)} Intellect).`}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.ROLLING_HAVOC}>
+          <IntellectIcon /> {this.averageIntellect} <small>average Intellect</small>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }

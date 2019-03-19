@@ -4,7 +4,8 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatPercentage, formatNumber } from 'common/format';
 import { calculatePrimaryStat } from 'common/stats';
-import { TooltipElement } from 'common/Tooltip';
+import ItemStatistic from 'interface/statistics/ItemStatistic';
+import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import UptimeIcon from 'interface/icons/Uptime';
 import IntellectIcon from 'interface/icons/Intellect';
 import Analyzer from 'parser/core/Analyzer';
@@ -75,16 +76,18 @@ class AncientKnotOfWisdom extends Analyzer {
     return (averageStacks * this.intellectPerStack).toFixed(0);
   }
 
-  item() {
-    return {
-      item: ITEMS.ANCIENT_KNOT_OF_WISDOM,
-      result: (
-        <TooltipElement content={`Used ${this.casts} times`}>
+  statistic() {
+    return (
+      <ItemStatistic
+        size="flexible"
+        tooltip={`Used ${this.casts} times`}
+      >
+        <BoringItemValueText item={ITEMS.ANCIENT_KNOT_OF_WISDOM}>
           <UptimeIcon /> {formatPercentage(this.totalBuffUptime)}% <small>uptime</small><br />
           <IntellectIcon /> {formatNumber(this.averageIntellect)} <small>average Intellect</small>
-        </TooltipElement>
-      ),
-    };
+        </BoringItemValueText>
+      </ItemStatistic>
+    );
   }
 }
 

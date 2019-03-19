@@ -7,7 +7,10 @@ import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatPercentage } from 'common/format';
 
-import TraitStatisticBox from 'interface/others/TraitStatisticBox';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import UptimeIcon from 'interface/icons/Uptime';
+import HasteIcon from 'interface/icons/Haste';
 
 const flashpointStats = traits => traits.reduce((total, rank) => {
   const [ haste ] = calculateAzeriteEffects(SPELLS.FLASHPOINT.id, rank);
@@ -52,11 +55,15 @@ class Flashpoint extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
-        trait={SPELLS.FLASHPOINT.id}
-        value={`${this.averageHaste} average Haste`}
+      <AzeritePowerStatistic
+        size="flexible"
         tooltip={`Flashpoint grants ${this.haste} Haste while active. You had ${formatPercentage(this.uptime)} % uptime on the buff.`}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.FLASHPOINT}>
+          <UptimeIcon /> {formatPercentage(this.uptime, 0)} % <small>uptime</small> <br />
+          <HasteIcon /> {this.averageHaste} <small>average Haste</small>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }
