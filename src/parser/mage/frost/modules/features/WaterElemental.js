@@ -5,7 +5,7 @@ import UptimeIcon from 'interface/icons/Uptime';
 import CooldownIcon from 'interface/icons/Cooldown';
 import { formatPercentage, formatNumber, formatThousands, formatDuration } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
-import BoringNonSpellValueText from 'interface/statistics/components/BoringNonSpellValueText';
+import BoringValueText from 'interface/statistics/components/BoringValueText';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer from 'parser/core/Analyzer';
 import AlwaysBeCasting from './AlwaysBeCasting';
@@ -162,10 +162,10 @@ class WaterElemental extends Analyzer {
           </>
         )}
       >
-        <BoringNonSpellValueText label="Water Elemental">
+        <BoringValueText label="Water Elemental">
           <UptimeIcon /> {formatPercentage(this.petActiveTimePercentage)}% <small>Pet uptime</small><br />
           <CooldownIcon /> {formatNumber(this._waterboltDamage / (this.owner.fightDuration / 1000))} <small>Pet DPS</small>
-        </BoringNonSpellValueText>
+        </BoringValueText>
       </Statistic>
     );
   }

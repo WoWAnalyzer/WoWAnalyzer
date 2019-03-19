@@ -4,7 +4,7 @@ import { formatMilliseconds, formatNumber, formatPercentage } from 'common/forma
 import Analyzer from 'parser/core/Analyzer';
 import CrossIcon from 'interface/icons/Cross';
 import Statistic from 'interface/statistics/Statistic';
-import BoringNonSpellValueText from 'interface/statistics/components/BoringNonSpellValueText';
+import BoringValueText from 'interface/statistics/components/BoringValueText';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 const debug = false;
@@ -99,9 +99,9 @@ class CancelledCasts extends Analyzer {
           </>
         )}
         >
-          <BoringNonSpellValueText label="Cancelled Casts">
+          <BoringValueText label="Cancelled Casts">
             <CrossIcon /> {formatPercentage(this.cancelledPercentage)}% <small>Casts Cancelled</small>
-          </BoringNonSpellValueText>
+          </BoringValueText>
       </Statistic>
     );
   }  
