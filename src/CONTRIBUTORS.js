@@ -591,3 +591,14 @@ export const Abelito75 = {
   github: 'abelito75',
   avatar: require('./interface/images/avatars/Abelito75-avatar.png'),
 };
+export const HolySchmidt = {
+  nickname: 'HolySchmidt',
+  github: '5chmidt',
+  avatar: require('./interface/images/avatars/holyschmidt-avatar.jpg'),
+  desc: 'Holy Paladin, Tinkerer',
+  mains: [{
+    name: 'HolySchmidt',
+    spec: SPECS.HOLY_PALADIN,
+    link: 'https://worldofwarcraft.com/en-us/character/us/whisperwind/holyschmidt',
+  }],
+};
