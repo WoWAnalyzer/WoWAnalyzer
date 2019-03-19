@@ -83,7 +83,10 @@ class SoulShardTracker extends ResourceTracker {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.INCINERATE.id) {
+    if (spellId === SPELLS.SOUL_FIRE_TALENT.id) {
+      this.processInvisibleEnergize(spellId, 4);
+    }
+    else if (spellId === SPELLS.INCINERATE.id) {
       // Incinerate generates 2 fragments on cast (and another one if it crits, handled further down)
       this.processInvisibleEnergize(spellId, 2);
     }

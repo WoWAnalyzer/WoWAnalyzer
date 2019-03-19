@@ -31,7 +31,6 @@ import GrimoireOfSupremacy from './modules/talents/GrimoireOfSupremacy';
 import GrimoireOfSacrifice from '../shared/modules/talents/GrimoireOfSacrifice';
 import SoulConduit from './modules/talents/SoulConduit';
 import ChannelDemonfire from './modules/talents/ChannelDemonfire';
-import Talents from './modules/talents';
 
 import RollingHavoc from './modules/azerite/RollingHavoc';
 import BurstingFlare from './modules/azerite/BurstingFlare';
@@ -77,7 +76,6 @@ class CombatLogParser extends CoreCombatLogParser {
     grimoireOfSacrifice: GrimoireOfSacrifice,
     soulConduit: SoulConduit,
     channelDemonfire: ChannelDemonfire,
-    talents: Talents,
 
     // Azerite traits
     burstingFlare: BurstingFlare,

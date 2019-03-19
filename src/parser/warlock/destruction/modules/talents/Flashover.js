@@ -5,10 +5,12 @@ import Events from 'parser/core/Events';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
-import { formatThousands } from 'common/format';
+import { formatThousands, formatNumber, formatPercentage } from 'common/format';
+import Tooltip from 'common/Tooltip';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 const DAMAGE_BONUS = 0.25;
 const MAX_STACKS = 4;
@@ -59,20 +61,26 @@ class Flashover extends Analyzer {
     debug && this.log(`Remove buff, current: ${this._currentStacks}`);
   }
 
-  subStatistic() {
+  get dps() {
+    return this.damage / this.owner.fightDuration * 1000;
+  }
+
+  statistic() {
     return (
-      <>
-        <StatisticListBoxItem
-          title={<><SpellLink id={SPELLS.FLASHOVER_TALENT.id} /> bonus damage</>}
-          value={this.owner.formatItemDamageDone(this.damage)}
-          valueTooltip={`${formatThousands(this.damage)} bonus damage`}
-        />
-        <StatisticListBoxItem
-          title={<>Bonus <SpellLink id={SPELLS.BACKDRAFT.id} /> stacks from <SpellLink id={SPELLS.FLASHOVER_TALENT.id} /></>}
-          value={this.bonusStacks}
-          valueTooltip={`You wasted ${this.wastedStacks} bonus stacks (Conflagrate on 3 or 4 stacks of Backdraft).`}
-        />
-      </>
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(1)}
+        size="flexible"
+        tooltip={`${formatThousands(this.damage)} bonus damage`}
+      >
+        <BoringSpellValueText spell={SPELLS.FLASHOVER_TALENT}>
+          {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small> <br />
+          {this.bonusStacks} <small>bonus Backdraft stacks</small> <br />
+          {this.wastedStacks}
+          <Tooltip content="Conflagrate on 3 or 4 stacks of Backdraft">
+            <small style={{ marginLeft: 7 }}>wasted Backdraft stacks <sup>*</sup></small>
+          </Tooltip>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }
