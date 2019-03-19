@@ -215,33 +215,56 @@ exports[`The Arcane Mage Analyzer analyzers CancelledCasts matches the statistic
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic small value"
+    label="test"
+    position={10}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
-          <img
-            alt="Cancelled Casts"
-            className="icon game "
-            src="//render-us.worldofwarcraft.com/icons/56/inv_misc_map_01.jpg"
-          />
-           
-          Casts Cancelled
+          Cancelled Casts
         </label>
         <div
           className="value"
         >
-          4.02 %
+          <svg
+            className="icon stroke"
+            viewBox="15 15 70 70"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              style={
+                Object {
+                  "strokeLinecap": "round",
+                  "strokeMiterlimit": 10,
+                  "strokeWidth": 10,
+                }
+              }
+            >
+              <line
+                x1="21.19"
+                x2="78.81"
+                y1="21.19"
+                y2="78.81"
+              />
+              <line
+                x1="78.81"
+                x2="21.19"
+                y1="21.19"
+                y2="78.81"
+              />
+            </g>
+          </svg>
+           
+          4.02
+          % 
+          <small>
+            Casts Cancelled
+          </small>
         </div>
       </div>
     </div>

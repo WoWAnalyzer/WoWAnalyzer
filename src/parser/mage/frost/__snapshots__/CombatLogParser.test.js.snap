@@ -9,13 +9,8 @@ exports[`The Frost Mage Analyzer analyzers AlwaysBeCasting matches the statistic
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic standard "
+    position={10}
   >
     <div
       className="panel-body"
@@ -24,56 +19,175 @@ exports[`The Frost Mage Analyzer analyzers AlwaysBeCasting matches the statistic
         className="pad"
       >
         <label>
-          <img
-            alt="Downtime"
-            className="icon game "
-            src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
-          />
-           
-          Downtime
+          Active time
         </label>
         <div
-          className="value"
-        >
-          12.68 %
-        </div>
-        <div
+          className="flex"
           style={
             Object {
-              "marginTop": "0.5em",
+              "marginTop": 12,
+              "textAlign": "center",
             }
           }
         >
           <div
-            className="statistic-box-bar"
+            className="flex-main text-right text-muted"
+            style={
+              Object {
+                "fontSize": 12,
+                "paddingRight": 8,
+                "paddingTop": 23,
+              }
+            }
           >
-            <div
-              className="stat-health-bg"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={[Function]}
+            Low
+          </div>
+          <div
+            className="flex-sub"
+            style={
+              Object {
+                "position": "relative",
+              }
+            }
+          >
+            <svg
+              fill="none"
+              height="85"
               style={
                 Object {
-                  "width": "87.31834823563669%",
+                  "fill": "none",
+                }
+              }
+              viewBox="19 19 101 88"
+              width="98"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M101.459 101.459C119.033 83.8858 119.033 55.3934 101.459 37.8198C83.8859 20.2462 55.3934 20.2462 37.8198 37.8198C20.2463 55.3934 20.2463 83.8858 37.8198 101.459"
+                stroke="#f8b700"
+                strokeLinecap="round"
+                strokeWidth="8"
+              />
+              <path
+                clipRule="evenodd"
+                d="M68.6396 28.6396H70.6396V32.6396H68.6396V28.6396Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M87.7656 32.8389L89.5485 33.7451L87.7368 37.3097L85.9539 36.4035L87.7656 32.8389Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M101.207 50.1829L100.077 48.5324L103.378 46.2732L104.508 47.9236L101.207 50.1829Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M106.622 67.3762L106.417 65.3868L110.398 64.9765L110.603 66.966L106.622 67.3762Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M103.658 84.4276L104.376 82.5609L108.11 83.9969L107.392 85.8635L103.658 84.4276Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M52.0547 32.5298L50.2627 33.4179L52.039 37.0019L53.831 36.1137L52.0547 32.5298Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M36.1157 45.9784L34.965 47.6142L38.2354 49.9147L39.3861 48.2789L36.1157 45.9784Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M28.8926 64.968L28.6883 66.9576L32.6626 67.3657L32.8669 65.3761L28.8926 64.968Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+              <path
+                clipRule="evenodd"
+                d="M31.3486 84.3921L32.0806 86.2533L35.8031 84.7895L35.0711 82.9282L31.3486 84.3921Z"
+                fill="#f8b700"
+                fillRule="evenodd"
+              />
+            </svg>
+            <div
+              style={
+                Object {
+                  "height": 32,
+                  "left": "50%",
+                  "marginTop": -13,
+                  "position": "absolute",
+                  "top": 49,
+                  "transform": "translate(-50%, -50%)",
+                  "width": 32,
                 }
               }
             >
-              <img
-                alt="Active time"
-                src="/img/sword.png"
-              />
+              <svg
+                fill="none"
+                height="32"
+                style={
+                  Object {
+                    "fill": "none",
+                    "margin": 0,
+                    "transform": "rotate(104.49137505978274deg)",
+                    "transformOrigin": "5px 27px",
+                  }
+                }
+                viewBox="0 0 10 32"
+                width="10"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9 27C9 29.2091 7.20914 31 5 31C2.79086 31 1 29.2091 1 27C1 24.7909 2.79086 23 5 23C7.20914 23 9 24.7909 9 27Z"
+                  stroke="#f8b700"
+                  strokeWidth="2"
+                />
+                <path
+                  clipRule="evenodd"
+                  d="M6 0L6 23H4L4 0L6 0Z"
+                  fill="#f8b700"
+                  fillRule="evenodd"
+                />
+              </svg>
             </div>
             <div
-              className="remainder DeathKnight-bg"
-              onMouseEnter={[Function]}
-              onMouseLeave={[Function]}
-              onTouchStart={[Function]}
+              className="value"
+              style={
+                Object {
+                  "fontSize": "1.25em",
+                  "marginTop": -18,
+                }
+              }
             >
-              <img
-                alt="Downtime"
-                src="/img/afk.png"
-              />
+              87
+              %
             </div>
+          </div>
+          <div
+            className="flex-main text-left text-muted"
+            style={
+              Object {
+                "fontSize": 12,
+                "paddingLeft": 8,
+                "paddingTop": 23,
+              }
+            }
+          >
+            High
           </div>
         </div>
       </div>
@@ -146,19 +260,14 @@ exports[`The Frost Mage Analyzer analyzers BoneChilling matches the statistic sn
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={90}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -184,6 +293,22 @@ exports[`The Frost Mage Analyzer analyzers BoneChilling matches the statistic sn
         <div
           className="value"
         >
+          <svg
+            className="icon"
+            viewBox="10 10 80 80"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M50,86.4865c17.4361,0,31.6216-14.1855,31.6216-31.6216c0-16.6168-12.8865-30.2714-29.1892-31.5189v-4.9677h7.2973v-4.8649  H40.2703v4.8649h7.2973v4.9677c-16.3027,1.2475-29.1892,14.902-29.1892,31.5189C18.3784,72.3009,32.5639,86.4865,50,86.4865z M52.4324,28.2236c3.1101,0.2817,6.0664,1.0982,8.7798,2.356l-8.7798,15.2073V28.2236z M47.5676,28.2236v26.6412 c0,1.1008,0.7393,2.0647,1.8029,2.3497c0.209,0.0561,0.4205,0.0827,0.6295,0.0827c0.8533,0,1.6642-0.4504,2.1065-1.2162 l13.3146-23.0616c6.8507,4.8503,11.3357,12.8315,11.3357,21.8454c0,14.7537-12.0031,26.7567-26.7568,26.7567 s-26.7568-12.003-26.7568-26.7567C23.2432,40.9315,33.9501,29.4573,47.5676,28.2236z"
+            />
+          </svg>
+           
+          98.82
+          % 
+          <small>
+            Buff uptime
+          </small>
+          <br />
           4.31 % / 744 DPS
         </div>
       </div>
@@ -216,19 +341,14 @@ exports[`The Frost Mage Analyzer analyzers BrainFreeze matches the statistic sna
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={30}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -243,12 +363,22 @@ exports[`The Frost Mage Analyzer analyzers BrainFreeze matches the statistic sna
             />
           </a>
            
-          Brain Freeze Utilization
+          <a
+            href="http://wowhead.com/spell=190446"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Brain Freeze
+          </a>
         </label>
         <div
           className="value"
         >
-          97 %
+          97%
+           
+          <small>
+            Proc utilization
+          </small>
         </div>
       </div>
     </div>
@@ -378,33 +508,56 @@ exports[`The Frost Mage Analyzer analyzers CancelledCasts matches the statistic 
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic small value"
+    label="test"
+    position={10}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
-          <img
-            alt="Cancelled Casts"
-            className="icon game "
-            src="//render-us.worldofwarcraft.com/icons/56/inv_misc_map_01.jpg"
-          />
-           
-          Casts Cancelled
+          Cancelled Casts
         </label>
         <div
           className="value"
         >
-          11.73 %
+          <svg
+            className="icon stroke"
+            viewBox="15 15 70 70"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              style={
+                Object {
+                  "strokeLinecap": "round",
+                  "strokeMiterlimit": 10,
+                  "strokeWidth": 10,
+                }
+              }
+            >
+              <line
+                x1="21.19"
+                x2="78.81"
+                y1="21.19"
+                y2="78.81"
+              />
+              <line
+                x1="78.81"
+                x2="21.19"
+                y1="21.19"
+                y2="78.81"
+              />
+            </g>
+          </svg>
+           
+          11.73
+          % 
+          <small>
+            Casts Cancelled
+          </small>
         </div>
       </div>
     </div>
@@ -492,19 +645,14 @@ exports[`The Frost Mage Analyzer analyzers GlacialSpike matches the statistic sn
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={30}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -519,12 +667,22 @@ exports[`The Frost Mage Analyzer analyzers GlacialSpike matches the statistic sn
             />
           </a>
            
-          Glacial Spike efficiency
+          <a
+            href="http://wowhead.com/spell=199786"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Glacial Spike
+          </a>
         </label>
         <div
           className="value"
         >
-          89 %
+          89%
+           
+          <small>
+            Cast utilization
+          </small>
         </div>
       </div>
     </div>
@@ -622,19 +780,14 @@ exports[`The Frost Mage Analyzer analyzers IceLance matches the statistic snapsh
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={30}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -649,12 +802,22 @@ exports[`The Frost Mage Analyzer analyzers IceLance matches the statistic snapsh
             />
           </a>
            
-          Ice Lance Shattered
+          <a
+            href="http://wowhead.com/spell=30455"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Ice Lance
+          </a>
         </label>
         <div
           className="value"
         >
-          97 %
+          97%
+           
+          <small>
+            Casts shattered
+          </small>
         </div>
       </div>
     </div>
@@ -706,71 +869,55 @@ exports[`The Frost Mage Analyzer analyzers WaterElemental matches the statistic 
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={60}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
-          <a
-            href="http://wowhead.com/spell=31687"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Summon Water Elemental"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_frost_summonwaterelemental_2.jpg"
-            />
-          </a>
-           
-          Water Elemental utilization
+          Water Elemental
         </label>
         <div
           className="value"
         >
-          <img
-            alt=""
-            className="icon game "
-            src="//render-us.worldofwarcraft.com/icons/56/spell_mage_altertime.jpg"
-            style={
-              Object {
-                "height": "1.2em",
-                "marginBottom": ".15em",
-              }
-            }
-          />
-          95.31
-           %
-          <br />
-          <a
-            href="http://wowhead.com/spell=31707"
-            rel="noopener noreferrer"
-            target="_blank"
+          <svg
+            className="icon"
+            viewBox="10 10 80 80"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <img
-              alt="Waterbolt"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_frost_frostbolt.jpg"
-              style={
-                Object {
-                  "height": "1.2em",
-                  "marginBottom": ".15em",
-                }
-              }
+            <path
+              d="M50,86.4865c17.4361,0,31.6216-14.1855,31.6216-31.6216c0-16.6168-12.8865-30.2714-29.1892-31.5189v-4.9677h7.2973v-4.8649  H40.2703v4.8649h7.2973v4.9677c-16.3027,1.2475-29.1892,14.902-29.1892,31.5189C18.3784,72.3009,32.5639,86.4865,50,86.4865z M52.4324,28.2236c3.1101,0.2817,6.0664,1.0982,8.7798,2.356l-8.7798,15.2073V28.2236z M47.5676,28.2236v26.6412 c0,1.1008,0.7393,2.0647,1.8029,2.3497c0.209,0.0561,0.4205,0.0827,0.6295,0.0827c0.8533,0,1.6642-0.4504,2.1065-1.2162 l13.3146-23.0616c6.8507,4.8503,11.3357,12.8315,11.3357,21.8454c0,14.7537-12.0031,26.7567-26.7568,26.7567 s-26.7568-12.003-26.7568-26.7567C23.2432,40.9315,33.9501,29.4573,47.5676,28.2236z"
             />
-          </a>
+          </svg>
+           
+          95.31
+          % 
+          <small>
+            Pet uptime
+          </small>
+          <br />
+          <svg
+            className="stroke icon"
+            viewBox="0 0 64 64"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M32,0C14.355,0,0,14.355,0,32c0,17.6445,14.355,32,32,32c17.6445,0,32-14.3555,32-32C64,14.355,49.6445,0,32,0z M32,62   C15.458,62,2,48.542,2,32S15.458,2,32,2s30,13.458,30,30S48.542,62,32,62z"
+            />
+            <path
+              d="M46.2412,26.3555H36.292l4.1357-15.9072c0.1182-0.4541-0.0957-0.9297-0.5146-1.1426   c-0.415-0.2134-0.9277-0.1069-1.2266,0.2568L16.9858,36.0098c-0.2456,0.2998-0.2964,0.7129-0.1309,1.0625   c0.165,0.3496,0.5171,0.5723,0.9038,0.5723h9.9492l-4.1353,15.9062c-0.1182,0.4551,0.0957,0.9307,0.5142,1.1436   c0.1445,0.0732,0.2993,0.1084,0.4531,0.1084c0.292,0,0.5786-0.1279,0.7734-0.3652l21.7012-26.4478   c0.2451-0.2988,0.2959-0.7124,0.1309-1.062C46.9795,26.5781,46.6279,26.3555,46.2412,26.3555z M26.6528,49.6523l3.3159-12.7559   c0.0781-0.2998,0.0127-0.6191-0.1768-0.8633c-0.1895-0.2451-0.4814-0.3887-0.791-0.3887H19.873l17.4746-21.2969L34.0312,27.104   c-0.0781,0.2993-0.0127,0.6182,0.1768,0.8633c0.1895,0.2446,0.4814,0.3882,0.791,0.3882h9.1279L26.6528,49.6523z"
+            />
+          </svg>
+           
           1,217
-           DPS
+           
+          <small>
+            Pet DPS
+          </small>
         </div>
       </div>
     </div>
@@ -806,19 +953,14 @@ exports[`The Frost Mage Analyzer analyzers WintersChill matches the statistic sn
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={30}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -833,7 +975,13 @@ exports[`The Frost Mage Analyzer analyzers WintersChill matches the statistic sn
             />
           </a>
            
-          Winter's Chill Utilization
+          <a
+            href="http://wowhead.com/spell=228358"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Winter's Chill
+          </a>
         </label>
         <div
           className="value"
@@ -847,17 +995,14 @@ exports[`The Frost Mage Analyzer analyzers WintersChill matches the statistic sn
               alt="Ice Lance"
               className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/spell_frost_frostblast.jpg"
-              style={
-                Object {
-                  "height": "1.2em",
-                  "marginBottom": ".15em",
-                }
-              }
             />
           </a>
            
           88
-           %
+          % 
+          <small>
+            Ice Lances shattered
+          </small>
           <br />
           <a
             href="http://wowhead.com/spell=116"
@@ -868,17 +1013,14 @@ exports[`The Frost Mage Analyzer analyzers WintersChill matches the statistic sn
               alt="Frostbolt"
               className="icon game "
               src="//render-us.worldofwarcraft.com/icons/56/spell_frost_frostbolt02.jpg"
-              style={
-                Object {
-                  "height": "1.2em",
-                  "marginBottom": ".15em",
-                }
-              }
             />
           </a>
            
           91
-           %
+          % 
+          <small>
+            Pre-casts shattered
+          </small>
         </div>
       </div>
     </div>

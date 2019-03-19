@@ -4,7 +4,9 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import { TooltipElement } from 'common/Tooltip';
 import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import { SHATTER_DEBUFFS } from '../../constants';
@@ -137,11 +139,9 @@ class GlacialSpike extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.GLACIAL_SPIKE_TALENT.id}
-        position={STATISTIC_ORDER.CORE(90)}
-        value={`${formatPercentage(this.utilPercentage, 0)} %`}
-        label="Glacial Spike efficiency"
+      <Statistic
+        position={STATISTIC_ORDER.CORE(30)}
+        size="flexible"
         tooltip={(
           <>
             You cast Glacial Spike {this.totalCasts} times, {this.goodCasts} casts of which met at least one of the requirements:
@@ -151,7 +151,11 @@ class GlacialSpike extends Analyzer {
             </ul>
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.GLACIAL_SPIKE_TALENT}>
+        {`${formatPercentage(this.utilPercentage, 0)}%`} <small>Cast utilization</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }
