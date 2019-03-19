@@ -4,10 +4,10 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
-import { formatThousands } from 'common/format';
+import { formatThousands, formatPercentage, formatNumber } from 'common/format';
 
-import TraitStatisticBox from 'interface/others/TraitStatisticBox';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 import CrashingChaosChaoticInfernoCore from './CrashingChaosChaoticInfernoCore';
 
@@ -33,19 +33,22 @@ class ChaoticInferno extends Analyzer {
   statistic() {
     const triggerCount = this.selectedCombatant.getBuffTriggerCount(SPELLS.CHAOTIC_INFERNO_BUFF.id);
     const totalProcs = triggerCount + this.procs;
+    const dps = this.core.chaoticInfernoDamage / this.owner.fightDuration * 1000;
+
     return (
-      <TraitStatisticBox
-        trait={SPELLS.CHAOTIC_INFERNO.id}
-        value={<ItemDamageDone amount={this.core.chaoticInfernoDamage} approximate />}
+      <AzeritePowerStatistic
+        size="small"
         tooltip={(
           <>
-            Estimated bonus Chaos Bolt damage: {formatThousands(this.core.chaoticInfernoDamage)}<br />
-            You procced instant Incinerate {totalProcs} times.<br /><br />
-
-            The damage is an approximation using current Intellect values at given time, but because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be a little incorrect.
+            Bonus Chaos Bolt damage: {formatThousands(this.core.chaoticInfernoDamage)}<br />
+            You procced instant Incinerate {totalProcs} times.
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.CHAOTIC_INFERNO}>
+          {formatNumber(dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.core.chaoticInfernoDamage))} % of total</small>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }

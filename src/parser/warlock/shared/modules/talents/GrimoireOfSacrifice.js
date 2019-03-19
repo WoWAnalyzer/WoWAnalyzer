@@ -7,9 +7,9 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 class GrimoireOfSacrifice extends Analyzer {
   static dependencies = {
@@ -69,5 +69,4 @@ class GrimoireOfSacrifice extends Analyzer {
     );
   }
 }
-
 export default GrimoireOfSacrifice;

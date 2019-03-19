@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
-const BoringSpellValue = ({ spell, children, className }) => (
+const BoringSpellValueText = ({ spell, children, className }) => (
   <div className={`pad boring-text ${className || ''}`}>
     <label>
       <SpellIcon id={spell.id} /> <SpellLink id={spell.id} icon={false} />
@@ -18,7 +18,7 @@ const BoringSpellValue = ({ spell, children, className }) => (
     </div>
   </div>
 );
-BoringSpellValue.propTypes = {
+BoringSpellValueText.propTypes = {
   spell: PropTypes.shape({
     id: PropTypes.number.isRequired,
   }).isRequired,
@@ -26,4 +26,4 @@ BoringSpellValue.propTypes = {
   className: PropTypes.string,
 };
 
-export default BoringSpellValue;
+export default BoringSpellValueText;
