@@ -4,6 +4,8 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatPercentage, formatNumber } from 'common/format';
 import { calculateSecondaryStatDefault } from 'common/stats';
+import ItemStatistic from 'interface/statistics/ItemStatistic';
+import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import UptimeIcon from 'interface/icons/Uptime';
 import VersatilityIcon from 'interface/icons/Versatility';
 import Analyzer from 'parser/core/Analyzer';
@@ -12,6 +14,8 @@ import Abilities from 'parser/core/modules/Abilities';
 /**
  * Lustrous Golden Plumage -
  * Use: Increase your Versatility by 614 for 20 sec. (2 Min Cooldown)
+ * 
+ * Test Log: https://www.warcraftlogs.com/reports/atXvYRMFQZf4nC6d#fight=50&type=damage-done
  */
 class LustrousGoldenPlumage extends Analyzer {
   static dependencies = {
@@ -43,16 +47,17 @@ class LustrousGoldenPlumage extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.GOLDEN_LUSTER.id) / this.owner.fightDuration;
   }
 
-  item() {
-    return {
-      item: ITEMS.LUSTROUS_GOLDEN_PLUMAGE,
-      result: (
-        <>
+  statistic() {
+    return (
+      <ItemStatistic
+        size="flexible"
+      >
+        <BoringItemValueText item={ITEMS.LUSTROUS_GOLDEN_PLUMAGE}>
           <UptimeIcon /> {formatPercentage(this.totalBuffUptime)}% <small>uptime</small><br />
           <VersatilityIcon /> {formatNumber(this.totalBuffUptime * this.statBuff)} <small>average Versatility gained</small>
-        </>
-      ),
-    };
+        </BoringItemValueText>
+      </ItemStatistic>
+    );
   }
 }
 
