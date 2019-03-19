@@ -3,7 +3,8 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 import { formatPercentage } from 'common/format';
-import { TooltipElement } from 'common/Tooltip';
+import ItemStatistic from 'interface/statistics/ItemStatistic';
+import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 
 import Analyzer from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
@@ -18,6 +19,8 @@ const BUFF_DURATION = 20; // seconds
  *
  * The restored mana appears as energize events in the combat log.
  * The buff expires after 20 seconds or after casting 6 spells, whichever is sooner.
+ * 
+ * Test Log: https://www.warcraftlogs.com/reports/ML4k1XNYFDPJ6ARb#fight=1&type=damage-done
  */
 class FangsOfIntertwinedEssence extends Analyzer {
   static dependencies = {
@@ -68,22 +71,22 @@ class FangsOfIntertwinedEssence extends Analyzer {
     return this.restoreCount / this.useCount;
   }
 
-  item() {
-    return {
-      item: ITEMS.FANGS_OF_INTERTWINED_ESSENCE,
-      result: (
-        <TooltipElement
-          content={(
-            <>
-              Activated <strong>{this.useCount}</strong> time{this.useCount === 1 ? '' : 's'} of a possible <strong>{this.possibleUseCount}</strong>. <br />
-              You cast an average of <strong>{this.restoresPerUse.toFixed(1)}</strong> eligible spells during each activation, out of a possible <strong>{MAX_RESTORES_PER_USE}</strong>.
-            </>
-          )}
-        >
-          <ItemManaGained amount={this.manaRestored} />
-        </TooltipElement>
-      ),
-    };
+  statistic() {
+    return (
+      <ItemStatistic
+        size="flexible"
+        tooltip={(
+          <>
+            Activated <strong>{this.useCount}</strong> time{this.useCount === 1 ? '' : 's'} of a possible <strong>{this.possibleUseCount}</strong>. <br />
+            You cast an average of <strong>{this.restoresPerUse.toFixed(1)}</strong> eligible spells during each activation, out of a possible <strong>{MAX_RESTORES_PER_USE}</strong>.
+          </>
+        )}
+      >
+        <BoringItemValueText item={ITEMS.FANGS_OF_INTERTWINED_ESSENCE}>
+          <ItemManaGained amount={this.manaRestored} /> 
+        </BoringItemValueText>
+      </ItemStatistic>
+    );
   }
 
   get suggestionThresholds() {
