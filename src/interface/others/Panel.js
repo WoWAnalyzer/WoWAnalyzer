@@ -23,11 +23,11 @@ const Heading = ({ title, explanation, actions, backButton }) => {
 
   if (actions) {
     content = (
-      <div className="flex">
+      <div className="flex wrapable">
         <div className="flex-main">
           {content}
         </div>
-        <div className="flex-sub action-buttons">
+        <div className="flex-sub action-buttons" style={{ margin: '10px 0' }}>
           {actions}
         </div>
       </div>
