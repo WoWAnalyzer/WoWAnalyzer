@@ -1,13 +1,15 @@
 import React from 'react';
 
-import SPELLS from 'common/SPELLS';
-import { formatPercentage, formatThousands } from 'common/format';
-
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
+import SPELLS from 'common/SPELLS';
+import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import SpellLink from 'common/SpellLink';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 class GrimoireOfSacrifice extends Analyzer {
   static dependencies = {
@@ -45,22 +47,26 @@ class GrimoireOfSacrifice extends Analyzer {
       });
   }
 
-  subStatistic() {
+  statistic() {
     const spell = this.abilityTracker.getAbility(SPELLS.GRIMOIRE_OF_SACRIFICE_DAMAGE.id);
     const damage = spell.damageEffective + spell.damageAbsorbed;
+    const dps = damage / this.owner.fightDuration * 1000;
     return (
-      <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.GRIMOIRE_OF_SACRIFICE_TALENT.id} /> damage</>}
-        value={formatThousands(damage)}
-        valueTooltip={(
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(4)}
+        size="small"
+        tooltip={(
           <>
-            {this.owner.formatItemDamageDone(damage)}<br />
+            {formatThousands(damage)} damage<br />
             Buff uptime: {formatPercentage(this.uptime)} %
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.GRIMOIRE_OF_SACRIFICE_TALENT}>
+          {formatNumber(dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }
-
 export default GrimoireOfSacrifice;

@@ -5,17 +5,18 @@
   cursor: pointer;
 
   .chevron {
-    position: absolute;
-    right: 30px;
-    top: 50%;
-    transform: translateY(-50%) rotate(0deg);
     color: $primaryColor;
     font-size: 0.5em;
-    transition: all 400ms;
+    display: flex;
+    align-items: center;
+
+    svg {
+      transition: all 400ms;
+    }
   }
 }
-.expandable.expanded .chevron {
-  transform: translateY(-50%) rotate(180deg);
+.expandable.expanded .chevron svg {
+  transform: rotate(180deg);
 }
 .expandable:hover > .meta {
   background-color: rgba(255, 255, 255, .03);

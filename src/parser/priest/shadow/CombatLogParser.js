@@ -29,11 +29,6 @@ import VoidTorrent from './modules/talents/VoidTorrent';
 import ShadowCrash from './modules/talents/ShadowCrash';
 import AuspiciousSpirits from './modules/talents/AuspiciousSpirits';
 import DarkVoid from './modules/talents/DarkVoid';
-// items:
-import TwinsPainfulTouch from './modules/items/TwinsPainfulTouch';
-import AnundsSearedShackles from './modules/items/AnundsSearedShackles';
-import HeartOfTheVoid from './modules/items/HeartOfTheVoid';
-import ZenkaramIridisAnadem from './modules/items/ZenkaramIridisAnadem';
 // normalizers
 import ShadowfiendNormalizer from '../shared/normalizers/ShadowfiendNormalizer';
 
@@ -73,12 +68,6 @@ class CombatLogParser extends MainCombatLogParser {
     shadowCrash: ShadowCrash,
     auspiciousSpirits: AuspiciousSpirits,
     darkVoid: DarkVoid,
-
-    // items:
-    twinsPainfulTouch: TwinsPainfulTouch,
-    anundsSearedShackles: AnundsSearedShackles,
-    heartOfTheVoid: HeartOfTheVoid,
-    zenkaramIridisAnadem: ZenkaramIridisAnadem,
 
     shadowfiendNormalizer: ShadowfiendNormalizer,
   };

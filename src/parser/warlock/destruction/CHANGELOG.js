@@ -7,6 +7,11 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2019-03-18'),
+    changes: 'Updated the visuals to match new WoWAnalyzer look!',
+    contributors: [Chizu],
+  },
+  {
     date: new Date('2018-12-23'),
     changes: <>Added <SpellLink id={SPELLS.CHAOS_SHARDS.id} /> trait.</>,
     contributors: [Chizu],

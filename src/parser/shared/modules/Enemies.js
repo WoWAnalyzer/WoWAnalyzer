@@ -28,6 +28,53 @@ class Enemies extends Entities {
     }
     return enemy;
   }
+
+  getDebuffHistory(spellId) {
+    const events = [];
+    const enemies = this.getEntities();
+    Object.values(enemies)
+      .forEach(enemy => {
+        enemy.getBuffHistory(spellId, this.owner.playerId)
+          .forEach(buff => {
+            events.push({
+              timestamp: buff.start,
+              type: 'apply',
+              buff,
+            });
+            events.push({
+              timestamp: buff.end !== null ? buff.end : this.owner.currentTimestamp, // buff end is null if it's still active, it can also be 0 if buff ended at pull
+              type: 'remove',
+              buff,
+            });
+          });
+      });
+
+    const history = [];
+    let current = null;
+    let active = 0;
+    events.sort((a, b) => a.timestamp - b.timestamp)
+      .forEach(event => {
+        if (event.type === 'apply') {
+          if (current === null) {
+            current = { start: event.timestamp, end: null };
+          }
+          active += 1;
+        }
+        if (event.type === 'remove') {
+          active -= 1;
+          if (active === 0) {
+            current.end = event.timestamp;
+            history.push(current);
+            current = null;
+          }
+        }
+      });
+    // if buff lasted till end of combat, maybe doesn't ever happen due to some normalizing
+    if (current !== null) {
+      history.push(current);
+    }
+    return history;
+  }
 }
 
 export default Enemies;

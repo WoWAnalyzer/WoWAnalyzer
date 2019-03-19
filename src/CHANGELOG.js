@@ -13,6 +13,11 @@ export default [
     contributors: [HolySchmidt],
   },
   {
+    date: new Date('2019-03-19'),
+    changes: 'Improved the display of the checklist rules on mobile devices.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2019-03-16'),
     changes: <>Restructured the server setup to eliminate API downtime. The source code for the server can now be found <a href="https://github.com/WoWAnalyzer/server">here</a>.</>,
     contributors: [Zerotorescue],
