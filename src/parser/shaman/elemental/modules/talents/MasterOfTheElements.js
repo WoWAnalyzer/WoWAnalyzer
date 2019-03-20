@@ -7,31 +7,34 @@ import SpellIcon from 'common/SpellIcon';
 import SPELLS from 'common/SPELLS';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import SpellLink from 'common/SpellLink';
+import { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import Events from 'parser/core/Events';
+import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
 const MASTER_OF_THE_ELEMENTS = {
   INCREASE: 0.2,
   DURATION: 15000,
-  WINDOW_DURATION: 300,
+  WINDOW_DURATION: 500,
   AFFECTED_DAMAGE: [
-    SPELLS.ICEFURY_TALENT.id,
-    SPELLS.ICEFURY_OVERLOAD.id,
-    SPELLS.FROST_SHOCK.id,
-    SPELLS.LIGHTNING_BOLT.id,
-    SPELLS.LIGHTNING_BOLT_OVERLOAD.id,
-    SPELLS.CHAIN_LIGHTNING.id,
-    SPELLS.CHAIN_LIGHTNING_OVERLOAD.id,
-    SPELLS.ELEMENTAL_BLAST_TALENT.id,
-    SPELLS.ELEMENTAL_BLAST_OVERLOAD.id,
-    SPELLS.EARTH_SHOCK.id,
+    SPELLS.ICEFURY_TALENT,
+    SPELLS.ICEFURY_OVERLOAD,
+    SPELLS.FROST_SHOCK,
+    SPELLS.LIGHTNING_BOLT,
+    SPELLS.LIGHTNING_BOLT_OVERLOAD,
+    SPELLS.CHAIN_LIGHTNING,
+    SPELLS.CHAIN_LIGHTNING_OVERLOAD,
+    SPELLS.ELEMENTAL_BLAST_TALENT,
+    SPELLS.ELEMENTAL_BLAST_OVERLOAD,
+    SPELLS.EARTH_SHOCK,
   ],
   AFFECTED_CASTS: [
-    SPELLS.EARTHQUAKE.id,
-    SPELLS.ICEFURY_TALENT.id,
-    SPELLS.FROST_SHOCK.id,
-    SPELLS.ELEMENTAL_BLAST_TALENT.id,
-    SPELLS.CHAIN_LIGHTNING.id,
-    SPELLS.EARTH_SHOCK.id,
-    SPELLS.LIGHTNING_BOLT.id,
+    SPELLS.EARTHQUAKE,
+    SPELLS.ICEFURY_TALENT,
+    SPELLS.FROST_SHOCK,
+    SPELLS.ELEMENTAL_BLAST_TALENT,
+    SPELLS.CHAIN_LIGHTNING,
+    SPELLS.EARTH_SHOCK,
+    SPELLS.LIGHTNING_BOLT,
   ],
   TALENTS: [
     SPELLS.ICEFURY_TALENT.id,
@@ -45,6 +48,8 @@ class MasterOfTheElements extends Analyzer {
   moteConsumptionTimestamp = null;
   damageGained = 0;
   buffsWasted = 0;
+  bugCheckNecessary = false;
+  i=0;
 
 
   constructor(...args) {
@@ -52,46 +57,40 @@ class MasterOfTheElements extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.MASTER_OF_THE_ELEMENTS_TALENT.id);
 
     for (const key in MASTER_OF_THE_ELEMENTS.AFFECTED_CASTS) {
-      const spellid = MASTER_OF_THE_ELEMENTS.AFFECTED_CASTS[key];
+      const spellid = MASTER_OF_THE_ELEMENTS.AFFECTED_CASTS[key].id;
       if((this.selectedCombatant.hasTalent(spellid)) || (!MASTER_OF_THE_ELEMENTS.TALENTS.includes(spellid))) {
-
         this.moteBuffedAbilities[spellid] = 0;
       }
     }
+
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(MASTER_OF_THE_ELEMENTS.AFFECTED_CASTS), this._onCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LAVA_BURST), this._onLvBCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(MASTER_OF_THE_ELEMENTS.AFFECTED_DAMAGE), this._onDamage);
   }
 
-  on_byPlayer_cast(event) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.MASTER_OF_THE_ELEMENTS_BUFF.id)) {
+  _onCast(event){
+    if(this.moteActivationTimestamp===null){ //the buff is a clusterfuck so we just track it manually
       return;
     }
-    if (event.ability.guid === SPELLS.LAVA_BURST.id) {
-      this.buffsWasted++;
-      return;
-    }
+    this.moteConsumptionTimestamp=event.timestamp;
+    this.moteActivationTimestamp=null;
+    event.meta = event.meta || {};
+    event.meta.isEnhancedCast = true;
+    this.moteBuffedAbilities[event.ability.guid]++;
 
-    const spellid = event.ability.guid;
-
-    if (MASTER_OF_THE_ELEMENTS.AFFECTED_DAMAGE.includes(spellid)) {
-      this.moteActivationTimestamp = event.timestamp;
-    }
-    if(MASTER_OF_THE_ELEMENTS.AFFECTED_CASTS.includes(spellid)) {
-      this.moteBuffedAbilities[spellid]++;
-    }
   }
 
-  on_byPlayer_damage(event) {
-    if (this.moteActivationTimestamp === null) {
-      return;
-    }
+  _onLvBCast(event){
+    this.moteActivationTimestamp = event.timestamp;
+    this.bugCheckNecessary = true;
+  }
 
-    if (event.timestamp > this.moteActivationTimestamp + MASTER_OF_THE_ELEMENTS.WINDOW_DURATION) {
-      return;
-    }
-    const spellid = event.ability.guid;
-    if (!MASTER_OF_THE_ELEMENTS.AFFECTED_DAMAGE.includes(spellid)) {
+  _onDamage(event){
+    if (event.timestamp<this.moteConsumptionTimestamp || event.timestamp>this.moteConsumptionTimestamp+MASTER_OF_THE_ELEMENTS.WINDOW_DURATION){
       return;
     }
     this.damageGained += calculateEffectiveDamage(event, MASTER_OF_THE_ELEMENTS.INCREASE);
+    console.log(++this.i);
   }
 
   get damagePercent() {
@@ -102,16 +101,45 @@ class MasterOfTheElements extends Analyzer {
     return this.damageGained / (this.owner.fightDuration / 1000);
   }
 
+  get isBugged() {
+    return this.bugCheckNecessary && (this.selectedCombatant.getBuffUptime(SPELLS.MASTER_OF_THE_ELEMENTS_BUFF.id) || 0) === 0;
+  }
 
+  get suggestionTresholds() {
+    return {
+      actual: this.isBugged,
+      isEqual: true,
+      style: 'boolean',
+    };
+  }
+
+  reverseEffectiveDamageDonePerSecond(number, increase){
+    return number*(1 + increase)/this.owner.fightDuration*1000;
+  }
+
+  suggestions(when){
+    when(this.suggestionTresholds)
+      .addSuggestion((suggest) => {
+        return suggest(<>Master Of the Elements bugged out and you lost out on at least {formatNumber(this.reverseEffectiveDamageDonePerSecond(this.damageGained,MASTER_OF_THE_ELEMENTS.INCREASE))} DPS.
+          Consider getting this weakaura: <a href="https://wago.io/motecheck">MotE-Checker</a> to be notified when MotE goes belly up again.</>)
+          .icon(SPELLS.MASTER_OF_THE_ELEMENTS_TALENT.icon)
+          .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
+      });
+  }
 
   statistic() {
-
+    let value = `${formatPercentage(this.damagePercent)} %`;
+    let label = `Contributed ${formatNumber(this.damagePerSecond)} DPS (${formatNumber(this.damageGained)} total damage, excluding EQ).`;
+    if (this.isBugged) {
+      value = `BUGGED`;
+      label = `BUGGED`;
+    }
     return (
       <StatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         icon={<SpellIcon id={SPELLS.MASTER_OF_THE_ELEMENTS_TALENT.id} />}
-        value={`${formatPercentage(this.damagePercent)} %`}
-        label={`Contributed ${formatNumber(this.damagePerSecond)} DPS (${formatNumber(this.damageGained)} total damage, excluding EQ).`}
+        value={value}
+        label={label}
       >
         <table className="table table-condensed">
           <thead>
@@ -130,7 +158,6 @@ class MasterOfTheElements extends Analyzer {
           </tbody>
         </table>
       </StatisticBox>
-
     );
   }
 }
