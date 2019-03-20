@@ -57,13 +57,9 @@ class CrestOfPaku extends Analyzer {
         <div className="pad">
           <label><ItemLink id={ITEMS.CREST_OF_PAKU_ALLIANCE.id} details={this._item} /></label>
 
-          <div className="value" style={{ marginTop: 15 }}>
-            <UptimeIcon /> {formatPercentage(this.uptime, 0)}% <small>uptime</small>
-          </div>
-          <div className="value" style={{ marginTop: 5 }}>
-            <HasteIcon /> {formatNumber(this.averageHasteRating)} <small>average Haste gained</small>
-          </div>
-          <div className="value" style={{ marginTop: 5 }}>
+          <div className="value">
+            <UptimeIcon /> {formatPercentage(this.uptime, 0)}% <small>uptime</small><br />
+            <HasteIcon /> {formatNumber(this.averageHasteRating)} <small>average Haste gained</small><br />
             {formatNumber(this.averageHasteRating)} <small>average Speed gained</small>
           </div>
         </div>

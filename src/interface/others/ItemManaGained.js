@@ -20,10 +20,10 @@ class ItemManaGained extends React.PureComponent {
     const { parser } = this.context;
 
     return (
-      <TooltipElement content={`${formatThousands(amount)} mana`}>
+      <>
         <ResourceIcon id={RESOURCE_TYPES.MANA.id} />{' '}
-        {approximate && '≈'}{formatThousands(amount / parser.fightDuration * 1000 * 5)} MP5
-      </TooltipElement>
+        {approximate && '≈'}{formatThousands(amount / parser.fightDuration * 1000 * 5)} MP5 <small>{formatThousands(amount)} total mana</small>
+      </>
     );
   }
 }
