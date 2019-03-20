@@ -3,6 +3,6 @@ import React from 'react';
 import Icon from 'common/Icon';
 
 const icon = props => (
-  <Icon icon="spell_shadow_lifedrain02" {...props} />
+  <Icon icon="ability_rogue_quickrecovery" {...props} />
 );
 export default icon;

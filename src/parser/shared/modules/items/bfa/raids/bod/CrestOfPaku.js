@@ -9,6 +9,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import HasteIcon from 'interface/icons/Haste';
 import UptimeIcon from 'interface/icons/Uptime';
+import SpeedIcon from 'interface/icons/Speed';
 import Analyzer from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
@@ -60,7 +61,7 @@ class CrestOfPaku extends Analyzer {
           <div className="value">
             <UptimeIcon /> {formatPercentage(this.uptime, 0)}% <small>uptime</small><br />
             <HasteIcon /> {formatNumber(this.averageHasteRating)} <small>average Haste gained</small><br />
-            {formatNumber(this.averageHasteRating)} <small>average Speed gained</small>
+            <SpeedIcon /> {formatNumber(this.averageHasteRating)} <small>average Speed gained</small>
           </div>
         </div>
       </Statistic>
