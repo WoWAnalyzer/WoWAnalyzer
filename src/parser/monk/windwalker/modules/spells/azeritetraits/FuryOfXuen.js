@@ -82,7 +82,7 @@ class FuryOfXuen extends Analyzer {
   statistic() {
     return (
       <AzeritePowerStatistic
-        size="medium"
+        size="flexible"
         tooltip={<>You procced Fury of Xuen <b>{this.furyXuens.length}</b> times and had <b>{this.haste}</b> extra haste for <b>{formatPercentage(this.uptime)}%</b> of the fight</>}
       >
         <BoringSpellValueText spell={SPELLS.FURY_OF_XUEN}>

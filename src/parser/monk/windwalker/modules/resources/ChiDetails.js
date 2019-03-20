@@ -9,6 +9,7 @@ import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBre
 import ChiTracker from 'parser/monk/windwalker/modules/resources/ChiTracker';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import BoringResourceValue from 'interface/statistics/components/BoringResourceValue/index';
+import { formatPercentage } from 'common/format';
 
 class ChiDetails extends Analyzer {
   static dependencies = {
@@ -17,6 +18,10 @@ class ChiDetails extends Analyzer {
 
   get chiWasted() {
     return this.chiTracker.wasted;
+  }
+
+  get chiWastedPercent() {
+    return this.chiWasted / (this.chiWasted + this.chiTracker.generated);
   }
 
   get chiWastedPerMinute() {
@@ -49,6 +54,7 @@ class ChiDetails extends Analyzer {
       <Statistic
         size="small"
         position={STATISTIC_ORDER.CORE(1)}
+        tooltip={<>{formatPercentage(this.chiWastedPercent)}% wasted</>}
       >
         <BoringResourceValue
           resource={RESOURCE_TYPES.CHI}

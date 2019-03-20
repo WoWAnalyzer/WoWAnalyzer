@@ -6,6 +6,8 @@ import { formatNumber, formatPercentage } from 'common/format';
 import ChiTracker from 'parser/monk/windwalker/modules/resources/ChiTracker';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import ResourceIcon from 'common/ResourceIcon';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 /**
  * Rising Sun Kick has a 25% chance to trigger a second time, dealing 4950 Physical damage and restoring 1 Chi.
@@ -37,7 +39,7 @@ class GloryOfTheDawn extends Analyzer {
   statistic() {
     return (
       <AzeritePowerStatistic
-        size="medium"
+        size="flexible"
         tooltip={<>Damage done: {formatNumber(this.damageDone)}</>}
       >
         <BoringSpellValueText spell={SPELLS.GLORY_OF_THE_DAWN}>
@@ -45,9 +47,9 @@ class GloryOfTheDawn extends Analyzer {
           src="/img/sword.png"
           alt="Damage"
           className="icon"
-        /> {formatNumber(this.dps)} <small>DPS / {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damageDone))} % of total</small> 
+        /> {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damageDone))} % of total</small> 
           <br />
-          {this.chiGain} <small>Chi Gained</small>
+          <ResourceIcon id={RESOURCE_TYPES.CHI.id} /> {this.chiGain} <small>Chi Gained</small>
         </BoringSpellValueText>
       </AzeritePowerStatistic>
     );
