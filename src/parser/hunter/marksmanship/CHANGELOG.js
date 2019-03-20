@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS';
 export default [
   {
     date: new Date('2019-03-20'),
-    changes: <> Implemented a module for <SpellLink id={SPELLS.IN_THE_RHYTHM} />.</>,
+    changes: <> Implemented a module for <SpellLink id={SPELLS.IN_THE_RHYTHM.id} />.</>,
     contributors: [Putro],
   },
   {
