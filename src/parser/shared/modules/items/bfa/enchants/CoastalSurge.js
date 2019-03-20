@@ -1,7 +1,7 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
-import SpellIcon from 'common/SpellIcon';
-import SpellLink from 'common/SpellLink';
+import ItemStatistic from 'interface/statistics/ItemStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import SPELLS from 'common/SPELLS';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 
@@ -9,6 +9,8 @@ const COASTAL_SURGE_ENCHANT_ID = 5946;
 /**
  * Costal Surge:
  * Permanently enchant a weapon to sometimes cause the wielder's helpful spells to put a short heal over time effect on the target for 10 sec.
+ * 
+ * Test Log: /report/2fZTqh6VbNC1xXPL/6-Normal+Champion+of+the+Light+-+Kill+(1:31)/Akkame/statistics
  */
 class CostalSurge extends Analyzer {
   healing = 0;
@@ -27,14 +29,16 @@ class CostalSurge extends Analyzer {
     this.healing += event.amount + (event.absorbed || 0);
   }
 
-
-  item() {
-    return {
-      id: SPELLS.COASTAL_SURGE.id,
-      icon: <SpellIcon id={SPELLS.COASTAL_SURGE.id} />,
-      title: <SpellLink id={SPELLS.COASTAL_SURGE.id} icon={false} />,
-      result: <ItemHealingDone amount={this.healing} />,
-    };
+  statistic() {
+    return (
+      <ItemStatistic
+        size="flexible"
+      >
+        <BoringSpellValueText spell={SPELLS.COASTAL_SURGE}>
+          <ItemHealingDone amount={this.healing} />
+        </BoringSpellValueText>
+      </ItemStatistic>
+    );
   }
 
 }

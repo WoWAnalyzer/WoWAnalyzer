@@ -6,6 +6,7 @@ import { formatPercentage } from 'common/format';
 import { calculatePrimaryStat } from 'common/stats';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
+import AgilityIcon from 'interface/icons/Agility';
 
 import Analyzer from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
@@ -69,7 +70,7 @@ class AzerokksResonatingHeart extends Analyzer {
         tooltip={<>You procced <strong>{SPELLS.BENEFICIAL_VIBRATIONS.name}</strong> {this.procs} times with an uptime of {formatPercentage(this.uptime)}%.</>}
       >
         <BoringItemValueText item={ITEMS.AZEROKKS_RESONATING_HEART}>
-          {this.averageAgility} <small>Avg. agility gained</small>
+          <AgilityIcon /> {this.averageAgility} <small>Avg. agility gained</small>
         </BoringItemValueText>
       </ItemStatistic>
     );
