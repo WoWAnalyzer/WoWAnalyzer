@@ -58,7 +58,7 @@ class CrusadersMight extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(75)}
         icon={<SpellIcon id={SPELLS.CRUSADERS_MIGHT_TALENT.id} />}
         value={(
-          <span style={{ fontSize: '75%' }}>
+          <>
             {formatSeconds((this.effectiveHolyShockReductionMs / 1000).toFixed(1))}{' '}
             <SpellIcon
               id={SPELLS.HOLY_SHOCK_CAST.id}
@@ -76,7 +76,7 @@ class CrusadersMight extends Analyzer {
                 marginTop: '-.1em',
               }}
             />
-          </span>
+          </>
         )}
         label={<Trans>Cooldown reduction</Trans>}
       />

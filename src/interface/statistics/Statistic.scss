@@ -51,18 +51,18 @@
   font-weight: inherit;
 }
 .statistic .value {
-  font-size: 30px;
-  line-height: 1.4;
+  font-size: 26px;
   font-weight: 600;
   color: hsla(41, 3%, 91%, 1);
 
   small {
     font-weight: 400;
+    line-height: 1.4;
   }
 }
 // If the value is right after the label, we need to adjust its positioning further up to cancel out the combination of label's margin-bottom and value's line-height
 .statistic label + .value {
-  margin-top: -10px;
+  margin-top: -5px;
 }
 .statistic .text-muted {
   color: #777;

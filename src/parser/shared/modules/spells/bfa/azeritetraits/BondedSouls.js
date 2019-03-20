@@ -71,10 +71,8 @@ class BondedSouls extends Analyzer {
         <div className="pad">
           <label><SpellLink id={SPELLS.BONDED_SOULS_TRAIT.id} /></label>
 
-          <div className="value" style={{ marginTop: 15 }}>
-            <ItemHealingDone amount={this.healing} />
-          </div>
-          <div className="value" style={{ marginTop: 5 }}>
+          <div className="value">
+            <ItemHealingDone amount={this.healing} /><br />
             <HasteIcon /> {formatNumber(this.averageHaste)} <small>average Haste gained</small>
           </div>
         </div>
