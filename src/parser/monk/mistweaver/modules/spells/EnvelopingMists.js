@@ -23,16 +23,15 @@ class EnvelopingMists extends Analyzer {
     combatants: Combatants,
   };
 
-  constructor(...args) {
-    super(...args);
-    this.evmHealingIncrease = this.selectedCombatant.hasTalent(SPELLS.MIST_WRAP_TALENT.id) ? .4 : .3;
-  }
-
-  evmHealingIncrease = 0.3;//check for mistwrap
   healingIncrease = 0;
   gustsHealing = 0;
   lastCastTarget = null;
   numberToCount = 0;
+
+  constructor(...args) {
+    super(...args);
+    this.evmHealingIncrease = this.selectedCombatant.hasTalent(SPELLS.MIST_WRAP_TALENT.id) ? .4 : .3;
+  }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
