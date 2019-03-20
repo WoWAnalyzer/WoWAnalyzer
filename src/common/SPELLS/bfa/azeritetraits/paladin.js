@@ -15,6 +15,16 @@ export default {
     name: 'Radiant Incandescence',
     icon: 'spell_holy_searinglight',
   },
+  RADIANT_INCANDESCENCE_DAMAGE: {
+    id: 278145,
+    name: 'Radiant Incandescence',
+    icon: 'spell_holy_searinglight',
+  },
+  RADIANT_INCANDESCENCE_TRAIT: {
+    id: 277674,
+    name: 'Radiant Incandescence',
+    icon: 'spell_holy_searinglight',
+  },
 
   // Holy
   GRACE_OF_THE_JUSTICAR: {
