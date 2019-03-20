@@ -1,7 +1,5 @@
 /**
- * A simple component that shows the spell icon left and a value right.
- * Use this only for things that the player certainly should be familiar with, such as their own spells.
- * Do NOT use for items or azerite powers.
+ * A simple component that shows the resource icon left and a value right.
  */
 import React from 'react';
 import PropTypes from 'prop-types';
