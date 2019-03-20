@@ -3,11 +3,12 @@ import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
 import Panel from 'interface/others/Panel';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBreakdown';
-import ChiTracker from './ChiTracker';
-
-import WastedChiIcon from '../../images/ability_monk_forcesphere.jpg';
+import ChiTracker from 'parser/monk/windwalker/modules/resources/ChiTracker';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import BoringResourceValue from 'interface/statistics/components/BoringResourceValue/index';
 
 class ChiDetails extends Analyzer {
   static dependencies = {
@@ -45,17 +46,16 @@ class ChiDetails extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <Statistic
+        size="small"
         position={STATISTIC_ORDER.CORE(1)}
-        icon={(
-          <img
-            src={WastedChiIcon}
-            alt="Wasted Chi"
-          />
-        )}
-        value={`${this.chiWasted}`}
-        label="Wasted Chi"
-      />
+      >
+        <BoringResourceValue
+          resource={RESOURCE_TYPES.CHI}
+          value={this.chiWasted}
+          label="Wasted Chi"
+        />
+      </Statistic>
     );
   }
 
