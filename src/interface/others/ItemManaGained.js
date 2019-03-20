@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import ResourceIcon from 'common/ResourceIcon';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { TooltipElement } from 'common/Tooltip';
 import { formatThousands } from 'common/format';
 
 class ItemManaGained extends React.PureComponent {
