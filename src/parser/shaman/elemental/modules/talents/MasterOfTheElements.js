@@ -47,10 +47,7 @@ class MasterOfTheElements extends Analyzer {
   moteActivationTimestamp = null;
   moteConsumptionTimestamp = null;
   damageGained = 0;
-  buffsWasted = 0;
   bugCheckNecessary = false;
-  i=0;
-
 
   constructor(...args) {
     super(...args);
@@ -90,7 +87,6 @@ class MasterOfTheElements extends Analyzer {
       return;
     }
     this.damageGained += calculateEffectiveDamage(event, MASTER_OF_THE_ELEMENTS.INCREASE);
-    console.log(++this.i);
   }
 
   get damagePercent() {
