@@ -4,9 +4,12 @@ import Analyzer, { SELECTED_PLAYER_PET, SELECTED_PLAYER } from 'parser/core/Anal
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import {calculateAzeriteEffects} from 'common/stats';
 import SPELLS from 'common/SPELLS';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+
 import { formatNumber, formatPercentage } from 'common/format';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import HasteIcon from 'interface/icons/Haste';
 
 const furyOfXuenStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [haste] = calculateAzeriteEffects(SPELLS.FURY_OF_XUEN.id, rank);
@@ -72,19 +75,26 @@ class FuryOfXuen extends Analyzer {
     return this.uptime * this.haste;
   }
 
+  get dps(){
+    return this.damageDone / this.owner.fightDuration * 1000;
+  }
+
   statistic() {
     return (
-      <TraitStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
-        trait={SPELLS.FURY_OF_XUEN.id}
-        value={(
-          <>
-            {this.owner.formatItemDamageDone(this.damageDone)} <br />
-            {formatNumber(this.avgHaste)} Average Haste
-          </>
-        )}
+      <AzeritePowerStatistic
+        size="medium"
         tooltip={<>You procced Fury of Xuen <b>{this.furyXuens.length}</b> times and had <b>{this.haste}</b> extra haste for <b>{formatPercentage(this.uptime)}%</b> of the fight</>}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.FURY_OF_XUEN}>
+        <img
+          src="/img/sword.png"
+          alt="Damage"
+          className="icon"
+        /> {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damageDone))} % of total</small> 
+          <br />
+          <HasteIcon /> {formatNumber(this.avgHaste)} <small>average Haste gained</small>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }
