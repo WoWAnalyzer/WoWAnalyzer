@@ -28,7 +28,6 @@ class DemonBite extends Analyzer{
   onEnergizeEvent(event) {
     this.furyGain += event.resourceChange;
     this.furyWaste += event.waste;
-    console.log("Fury Change");
   }
 
   onDamageEvent(event) {
