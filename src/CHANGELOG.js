@@ -8,6 +8,16 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
+    date: new Date('2019-03-21'),
+    changes: 'Added Battle of Dazar\'alor Vantus Runes so they should now be shown in the statistics.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-03-21'),
+    changes: <>Added food buffs that were added since 8.1 so they'll correctly trigger the <i>food used</i> checklist item (<a href="https://twitter.com/BMHunterWow/status/1108717252243791873">the bug report</a>).</>,
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2019-03-19'),
     changes: 'Improved the display of the checklist rules on mobile devices.',
     contributors: [Zerotorescue],
