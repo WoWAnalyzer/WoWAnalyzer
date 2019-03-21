@@ -18,6 +18,9 @@ class PrepullPetNormalizer extends EventsNormalizer {
   // This normalizer looks at first 30 seconds (because that's hypothetically the longest any temporary pet can live, given a 15 second duration and 15 second extension via Demonic Tyrant, realistically lower because of GCD and cast time of DT)
   // And if it finds begincast, cast or damage events from a pet that isn't summoned yet, fabricates a summon event for them
 
+  // Sometimes pet's first cast happens before it's summon event(for example demonic consumption), both the event and the summon happens at the same time
+  // checkForPetsWhichSummonWasLaterThanItsFirstCast will check if they both have the same time, then it deletes the fabricated event
+
   normalize(events) {
     debug && console.log('playerPets', this.owner.playerPets.sort((pet1, pet2) => pet1.id - pet2.id));
     const maxTimestamp = this.owner.fight.start_time + MAX_TEMPORARY_PET_DURATION;
@@ -31,6 +34,7 @@ class PrepullPetNormalizer extends EventsNormalizer {
       }
       debug && console.log(`(${this.owner.formatTimestamp(event.timestamp, 3)}) Event`, event);
       if (event.type === 'summon' && event.ability && PET_SUMMON_ABILITY_IDS.includes(event.ability.guid)) {
+        this.checkForPetsWhichSummonWasLaterThanItsFirstCast(event, fabricatedEvents)
         summonedPets.push(encodeTargetString(event.targetID, event.targetInstance));
         debug && console.log(`(${this.owner.formatTimestamp(event.timestamp, 3)}) Pet summon, added to array. Current array: `, JSON.parse(JSON.stringify(summonedPets)));
       }
@@ -72,6 +76,7 @@ class PrepullPetNormalizer extends EventsNormalizer {
               abilityIcon: spell.icon,
             },
             __fabricated: true,
+            __originalTimeStamp: event.timestamp
           };
 
           summonedPets.push(petString);
@@ -85,6 +90,15 @@ class PrepullPetNormalizer extends EventsNormalizer {
     }
     events.unshift(...fabricatedEvents);
     return events;
+  }
+  checkForPetsWhichSummonWasLaterThanItsFirstCast(event, fabricatedEvents) {
+    // delete fabricated event, the pet immediately started casting something and events were pushed before the summon
+    for (var k = 0; k < fabricatedEvents.length; k++) {
+      if (fabricatedEvents[k].__originalTimeStamp == event.timestamp) {
+        debug && console.log(`(${this.owner.formatTimestamp(event.timestamp, 3)}) Deleting fabricated summon of pet`);
+        fabricatedEvents.splice(k, 1)
+      }
+    }
   }
 
   _getPetGuid(id) {
