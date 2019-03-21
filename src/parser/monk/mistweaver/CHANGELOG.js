@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-03-21'),
+    changes: 'Made mastery track more accurately and updated the donut chart to reflect that.',
+    contributors: [Abelito75],
+  },
+  {
     date: new Date('2019-03-15'),
     changes: <>Updated Mistweaver Spreadsheet tab to include  <SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} /> efficiency.</>,
     contributors: [Abelito75],
