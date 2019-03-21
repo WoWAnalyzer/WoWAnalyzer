@@ -19,7 +19,6 @@ const debug = false;
 
 class MasteryStats extends Analyzer {
   static dependencies = {
-    //essenceFontMastery: EssenceFontMastery,
     envelopingMists: EnvelopingMists,
     soothingMist: SoothingMist,
     renewingMist: RenewingMist,
