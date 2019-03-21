@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
-    date: new Date('2019-03-20'),
+    date: new Date('2019-03-21'),
     changes: 'Added Grace of the Justicar statistic showing total healing, players hit per cast and healing transfered to beacons.',
     contributors: [HolySchmidt],
   },
