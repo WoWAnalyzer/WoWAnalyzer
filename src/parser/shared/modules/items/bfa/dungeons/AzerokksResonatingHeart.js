@@ -70,7 +70,7 @@ class AzerokksResonatingHeart extends Analyzer {
         tooltip={<>You procced <strong>{SPELLS.BENEFICIAL_VIBRATIONS.name}</strong> {this.procs} times with an uptime of {formatPercentage(this.uptime)}%.</>}
       >
         <BoringItemValueText item={ITEMS.AZEROKKS_RESONATING_HEART}>
-          <AgilityIcon /> {this.averageAgility} <small>Avg. agility gained</small>
+          <AgilityIcon /> {this.averageAgility} <small>average Agility gained</small>
         </BoringItemValueText>
       </ItemStatistic>
     );
