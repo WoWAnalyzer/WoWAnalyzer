@@ -76,7 +76,7 @@ class PrepullPetNormalizer extends EventsNormalizer {
               abilityIcon: spell.icon,
             },
             __fabricated: true,
-            __originalTimeStamp: event.timestamp
+            __originalTimeStamp: event.timestamp,
           };
 
           summonedPets.push(petString);
@@ -93,10 +93,10 @@ class PrepullPetNormalizer extends EventsNormalizer {
   }
   checkForPetsWhichSummonWasLaterThanItsFirstCast(event, fabricatedEvents) {
     // delete fabricated event, the pet immediately started casting something and events were pushed before the summon
-    for (var k = 0; k < fabricatedEvents.length; k++) {
-      if (fabricatedEvents[k].__originalTimeStamp == event.timestamp) {
+    for (let k = 0; k < fabricatedEvents.length; k++) {
+      if (fabricatedEvents[k].__originalTimeStamp === event.timestamp) {
         debug && console.log(`(${this.owner.formatTimestamp(event.timestamp, 3)}) Deleting fabricated summon of pet`);
-        fabricatedEvents.splice(k, 1)
+        fabricatedEvents.splice(k, 1);
       }
     }
   }
