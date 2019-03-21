@@ -6,7 +6,6 @@ import SpellLink from 'common/SpellLink';
 import { formatThousands } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
-import EssenceFontMastery from 'parser/monk/mistweaver/modules/features/EssenceFontMastery';
 import EnvelopingMists from 'parser/monk/mistweaver/modules/spells/EnvelopingMists';
 import SoothingMist from 'parser/monk/mistweaver/modules/spells/SoothingMist';
 import RenewingMist from 'parser/monk/mistweaver/modules/spells/RenewingMist';
@@ -20,7 +19,7 @@ const debug = false;
 
 class MasteryStats extends Analyzer {
   static dependencies = {
-    essenceFontMastery: EssenceFontMastery,
+    //essenceFontMastery: EssenceFontMastery,
     envelopingMists: EnvelopingMists,
     soothingMist: SoothingMist,
     renewingMist: RenewingMist,
@@ -31,11 +30,15 @@ class MasteryStats extends Analyzer {
     return (this.vivify.gustsHealing || 0)
             + (this.renewingMist.gustsHealing || 0)
             + (this.envelopingMists.gustsHealing || 0)
-            + (this.soothingMist.gustsHealing || 0)
-            + (this.essenceFontMastery.healing || 0);
+            + (this.soothingMist.gustsHealing || 0);
   }
 
   renderMasterySourceChart() {
+    const efMasteryBonus = (this.vivify.efGusts || 0)
+    + (this.renewingMist.efGusts || 0)
+    + (this.envelopingMists.efGusts || 0)
+    + (this.soothingMist.efGusts || 0);
+
     const items = [
       {
         color: '#00b159',
@@ -69,8 +72,8 @@ class MasteryStats extends Analyzer {
         color: '#00bbcc',
         label: 'Essence font',
         spellId: SPELLS.ESSENCE_FONT.id,
-        value: this.essenceFontMastery.healing,
-        valueTooltip: formatThousands(this.essenceFontMastery.healing),
+        value: efMasteryBonus,
+        valueTooltip: formatThousands(efMasteryBonus),
       },
     ];
 
