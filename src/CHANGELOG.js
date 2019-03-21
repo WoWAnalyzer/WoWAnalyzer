@@ -9,11 +9,6 @@ import Contributor from 'interface/contributor/Button';
 export default [
   {
     date: new Date('2019-03-19'),
-    changes: 'Added statistic tracker for Radiant Incandescence showing healing, crit rate, damage and healing transfered to beacons.',
-    contributors: [HolySchmidt],
-  },
-  {
-    date: new Date('2019-03-19'),
     changes: 'Improved the display of the checklist rules on mobile devices.',
     contributors: [Zerotorescue],
   },
