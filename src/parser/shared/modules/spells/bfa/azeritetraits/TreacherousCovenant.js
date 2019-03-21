@@ -103,16 +103,10 @@ class TreacherousCovenant extends Analyzer {
         <div className="pad">
           <label><SpellLink id={SPELLS.TREACHEROUS_COVENANT.id} /></label>
 
-          <div className="value" style={{ marginTop: 15 }}>
-            <UptimeIcon /> {formatPercentage(this.buffUptime)}% <small>buff uptime</small>
-          </div>
-          <div className="value" style={{ marginTop: 5 }}>
-            <PrimaryStatIcon stat={this.selectedCombatant.spec.primaryStat} /> {formatNumber(this.averageStatModifier)} <small>average {this.selectedCombatant.spec.primaryStat} gained</small>
-          </div>
-          <div className="value" style={{ marginTop: 5 }}>
-            <UptimeIcon /> {formatPercentage(this.debuffUptime)}% <small>debuff uptime</small>
-          </div>
-          <div className="value" style={{ marginTop: 5 }}>
+          <div className="value">
+            <UptimeIcon /> {formatPercentage(this.buffUptime)}% <small>buff uptime</small><br />
+            <PrimaryStatIcon stat={this.selectedCombatant.spec.primaryStat} /> {formatNumber(this.averageStatModifier)} <small>average {this.selectedCombatant.spec.primaryStat} gained</small><br />
+            <UptimeIcon /> {formatPercentage(this.debuffUptime)}% <small>debuff uptime</small><br />
             <ItemDamageTaken amount={this.extraDamageTaken} />
           </div>
         </div>

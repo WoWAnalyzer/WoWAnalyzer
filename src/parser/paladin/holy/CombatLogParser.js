@@ -48,6 +48,9 @@ import GraceOfTheJusticar from './modules/azeritetraits/GraceOfTheJusticar';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
+// azurite traits //
+import RadiantIncandescence from './modules/azeritetraits/RadiantIncandescence';
+
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
 
@@ -105,6 +108,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Azureite Traits //
     graceOfTheJusticar: GraceOfTheJusticar,
+    radiantIncandescence: RadiantIncandescence,
   };
 }
 

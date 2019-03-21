@@ -9,6 +9,8 @@ import HasteIcon from 'interface/icons/Haste';
 import MasteryIcon from 'interface/icons/Mastery';
 import VersatilityIcon from 'interface/icons/Versatility';
 import LeechIcon from 'interface/icons/Leech';
+import AvoidanceIcon from 'interface/icons/Avoidance';
+import SpeedIcon from 'interface/icons/Speed';
 
 const STAT = {
   HEALTH: 'health',
@@ -91,6 +93,8 @@ export function getIcon(stat) {
     case STAT.VERSATILITY: return VersatilityIcon;
     case STAT.VERSATILITY_DR: return VersatilityIcon;
     case STAT.LEECH: return LeechIcon;
+    case STAT.AVOIDANCE: return AvoidanceIcon;
+    case STAT.SPEED: return SpeedIcon;
     default: return null;
   }
 }
