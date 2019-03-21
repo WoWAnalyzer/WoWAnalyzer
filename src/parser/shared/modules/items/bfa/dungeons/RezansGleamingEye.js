@@ -39,7 +39,7 @@ class RezansGleamingEye extends Analyzer {
           >
             <BoringItemValueText item={ITEMS.REZANS_GLEAMING_EYE}>
                 <UptimeIcon /> {formatPercentage(this.totalBuffUptime)}% <small>uptime</small><br />
-                <HasteIcon /> {formatNumber(this.totalBuffUptime * this.statBuff)} <small>average Haste</small>
+                <HasteIcon /> {formatNumber(this.totalBuffUptime * this.statBuff)} <small>average Haste gained</small>
             </BoringItemValueText>
           </ItemStatistic>
         );
