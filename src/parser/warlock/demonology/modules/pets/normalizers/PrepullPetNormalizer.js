@@ -34,7 +34,7 @@ class PrepullPetNormalizer extends EventsNormalizer {
       }
       debug && console.log(`(${this.owner.formatTimestamp(event.timestamp, 3)}) Event`, event);
       if (event.type === 'summon' && event.ability && PET_SUMMON_ABILITY_IDS.includes(event.ability.guid)) {
-        this.checkForPetsWhichSummonWasLaterThanItsFirstCast(event, fabricatedEvents)
+        this.checkForPetsWhichSummonWasLaterThanItsFirstCast(event, fabricatedEvents);
         summonedPets.push(encodeTargetString(event.targetID, event.targetInstance));
         debug && console.log(`(${this.owner.formatTimestamp(event.timestamp, 3)}) Pet summon, added to array. Current array: `, JSON.parse(JSON.stringify(summonedPets)));
       }
