@@ -27,7 +27,6 @@ class EnvelopingMists extends Analyzer {
   gustsHealing = 0;
   lastCastTarget = null;
   numberToCount = 0;
-  efGusts = 0;
 
   constructor(...args) {
     super(...args);
@@ -39,11 +38,6 @@ class EnvelopingMists extends Analyzer {
 
     if (SPELLS.ENVELOPING_MIST.id !== spellId) {//bail early if not the right spell
       return;
-    }
-    if (this.combatants.players[event.targetID]) {
-      if (this.combatants.players[event.targetID].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0) === true) {
-        this.numberToCount += 1;
-      }
     }
     this.numberToCount += 1;
     this.lastCastTarget = event.targetID;
@@ -60,11 +54,7 @@ class EnvelopingMists extends Analyzer {
 
     if ((spellId === SPELLS.GUSTS_OF_MISTS.id) && (this.lastCastTarget === event.targetID) && this.numberToCount >0) {
       this.gustProc += 1;
-      if(this.numberToCount >1){
-        this.efGusts += (event.amount || 0) + (event.absorbed || 0);
-      }else{
-        this.gustsHealing += (event.amount || 0) + (event.absorbed || 0);
-      }
+      this.gustsHealing += (event.amount || 0) + (event.absorbed || 0);
       this.numberToCount -= 1;
     }
 

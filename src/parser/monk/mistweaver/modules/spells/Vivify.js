@@ -28,18 +28,12 @@ class Vivify extends Analyzer {
   lastCastTarget = null;
   remDuringManaTea = 0;
   numberToCount = 0;
-  efGusts = 0;
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
     if (SPELLS.VIVIFY.id !== spellId) {
       return;
-    }
-    if (this.combatants.players[event.targetID]) {
-      if (this.combatants.players[event.targetID].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0) === true) {
-        this.numberToCount += 1;
-      }
     }
 
     this.numberToCount += 1;
@@ -50,11 +44,7 @@ class Vivify extends Analyzer {
     const spellId = event.ability.guid;
 
     if ((spellId === SPELLS.GUSTS_OF_MISTS.id) && (this.lastCastTarget === event.targetID) && this.numberToCount > 0) {
-      if(this.numberToCount >1){
-        this.efGusts += (event.amount || 0) + (event.absorbed || 0);
-      }else{
-        this.gustsHealing += (event.amount || 0) + (event.absorbed || 0);
-      }
+      this.gustsHealing += (event.amount || 0) + (event.absorbed || 0);
       this.numberToCount -= 1;
     }
 
