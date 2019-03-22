@@ -1,5 +1,5 @@
 import React from 'react';
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, HolySchmidt } from 'CONTRIBUTORS';
+import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -8,9 +8,14 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
-    date: new Date('2019-03-19'),
-    changes: 'Added statistic tracker for Radiant Incandescence showing healing, crit rate, damage and healing transfered to beacons.',
-    contributors: [HolySchmidt],
+    date: new Date('2019-03-21'),
+    changes: 'Added Battle of Dazar\'alor Vantus Runes so they should now be shown in the statistics.',
+    contributors: [Zerotorescue],
+  },
+  {
+    date: new Date('2019-03-21'),
+    changes: <>Added food buffs that were added since 8.1 so they'll correctly trigger the <i>food used</i> checklist item (<a href="https://twitter.com/BMHunterWow/status/1108717252243791873">the bug report</a>).</>,
+    contributors: [Zerotorescue],
   },
   {
     date: new Date('2019-03-19'),

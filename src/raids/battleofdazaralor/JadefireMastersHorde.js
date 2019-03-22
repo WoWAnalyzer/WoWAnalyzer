@@ -4,12 +4,12 @@ import Headshot from './images/headshots/JadefireMastersH.png';
 // aka Jadefire Masters (H)
 export default {
   id: 2266,
-  name: 'Jadefire Masters', // Horde
+  name: 'Jadefire Masters', // Horde - Flamefist and the Illuminated
   background: Background,
   headshot: Headshot,
   icon: 'achievement_boss_zuldazar_manceroy_mestrah',
   fight: {
-    // TODO: Add vantusRuneBuffId: 250144,
+    vantusRuneBuffId: 285537,
     softMitigationChecks: {
       physical: [],
       magical: [],

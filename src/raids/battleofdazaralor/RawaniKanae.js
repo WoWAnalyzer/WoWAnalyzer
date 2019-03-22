@@ -9,7 +9,7 @@ export default {
   headshot: Headshot,
   icon: 'achievement_boss_zuldazar_ralokar',
   fight: {
-    // TODO: Add vantusRuneBuffId: 250144,
+    vantusRuneBuffId: 285535,
     softMitigationChecks: {
       physical: [],
       magical: [],

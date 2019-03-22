@@ -71,10 +71,18 @@ class StatTracker extends Analyzer {
     [SPELLS.GALLEY_BANQUET_STR.id]: { strength: 75 },
     [SPELLS.GALLEY_BANQUET_AGI.id]: { agility: 75 },
     [SPELLS.GALLEY_BANQUET_STA.id]: { stamina: 113 },
+    [SPELLS.WELL_FED_WILD_BERRY_BREAD.id]: { stamina: 113 },
     [SPELLS.BOUNTIFUL_CAPTAIN_FEAST_INT.id]: { intellect: 100 },
     [SPELLS.BOUNTIFUL_CAPTAIN_FEAST_STR.id]: { strength: 100 },
     [SPELLS.BOUNTIFUL_CAPTAIN_FEAST_AGI.id]: { agility: 100 },
     [SPELLS.BOUNTIFUL_CAPTAIN_FEAST_STA.id]: { stamina: 150 },
+    [SPELLS.BORALUS_BLOOD_SAUSAGE_AGI.id]: { agility: 85 },
+    [SPELLS.BORALUS_BLOOD_SAUSAGE_INT.id]: { intellect: 85 },
+    [SPELLS.BORALUS_BLOOD_SAUSAGE_STR.id]: { strength: 85 },
+    [SPELLS.WELL_FED_REAWAKENING_INT.id]: { intellect: 60 },
+    [SPELLS.WELL_FED_REAWAKENING_STR.id]: { strength: 60 },
+    [SPELLS.WELL_FED_REAWAKENING_AGI.id]: { agility: 60 },
+    [SPELLS.WELL_FED_SEASONED_STEAK_AND_POTATOES.id]: { stamina: 150 },
     //endregion
 
     // region Dungeon Trinkets
@@ -282,17 +290,17 @@ class StatTracker extends Analyzer {
 
     // region Consumables
     //region Flasks
-    251836: { agility: 238 }, // Flask of the Currents
-    251839: { strength: 238 }, // Flask of the Undertow
-    152639: { intellect: 238 }, // Flask of Endless Fathoms
-    251838: { stamina: 357 }, // Flask of Vast Horizon
+    [SPELLS.FLASK_OF_THE_CURRENTS.id]: { agility: 238 },
+    [SPELLS.FLASK_OF_THE_UNDERTOW.id]: { strength: 238 },
+    [SPELLS.FLASK_OF_ENDLESS_FATHOMS.id]: { intellect: 238 },
+    [SPELLS.FLASK_OF_THE_VAST_HORIZON.id]: { stamina: 357 },
     // endregion
     // region Potions
-    279153: { strength: 900 }, // Battle Potion of Strength
-    279152: { agility: 900 }, // Battle Potion of Agility
-    279151: { intellect: 900 }, // Battle Potion of Intellect
-    279154: { stamina: 1100 }, // Battle Potion of Stamina
-    251231: { armor: 900 }, // Steelskin Potion
+    [SPELLS.BATTLE_POTION_OF_STRENGTH.id]: { strength: 900 }, // Battle Potion of Strength
+    [SPELLS.BATTLE_POTION_OF_AGILITY.id]: { agility: 900 }, // Battle Potion of Agility
+    [SPELLS.BATTLE_POTION_OF_INTELLECT.id]: { intellect: 900 }, // Battle Potion of Intellect
+    [SPELLS.BATTLE_POTION_OF_STAMINA.id]: { stamina: 1100 }, // Battle Potion of Stamina
+    [SPELLS.STEELSKIN_POTION.id]: { armor: 900 }, // Steelskin Potion
     // endregion
     // endregion
 
