@@ -6,6 +6,11 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2019-03-20'),
+    changes: <> Implemented a module for <SpellLink id={SPELLS.IN_THE_RHYTHM.id} />.</>,
+    contributors: [Putro],
+  },
+  {
     date: new Date('2018-12-12'),
     changes: <> Implemented <SpellLink id={SPELLS.CAREFUL_AIM_TALENT.id} /> module for patch 8.1.</>,
     contributors: [Putro],
