@@ -3,9 +3,10 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 
 import Analyzer from 'parser/core/Analyzer';
+import ItemStatistic from 'interface/statistics/ItemStatistic';
+import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
-import { TooltipElement } from 'common/Tooltip';
 
 /**
  * Equip: Your attacks and attacks made against you have a chance to trigger spores to grow for 4 sec before bursting.
@@ -15,6 +16,8 @@ import { TooltipElement } from 'common/Tooltip';
  * It's possible to get a second proc while the "growing spores" buff is already active. In that case
  * the old buff is triggered early, does its damage and healing, and is replaced by the new buff.
  * In short: overlapping procs are not wasted.
+ * 
+ * Test Log: https://www.warcraftlogs.com/reports/aMVBAP6Tc4YDkqrF#fight=1&type=damage-done&source=18
  */
 class LingeringSporepods extends Analyzer {
   damage = 0;
@@ -54,16 +57,18 @@ class LingeringSporepods extends Analyzer {
     this.healing += (event.amount || 0) + (event.absorbed || 0);
   }
 
-  item() {
-    return {
-      item: ITEMS.LINGERING_SPOREPODS,
-      result: (
-        <TooltipElement content={<>Procced <strong>{this.totalProcs}</strong> time{this.totalProcs === 1 ? '' : 's'}.</>}>
+  statistic() {
+    return (
+      <ItemStatistic
+        size="flexible"
+        tooltip={<>Procced <strong>{this.totalProcs}</strong> time{this.totalProcs === 1 ? '' : 's'}.</>}
+      >
+        <BoringItemValueText item={ITEMS.LINGERING_SPOREPODS}>
           <ItemDamageDone amount={this.damage} /><br />
           <ItemHealingDone amount={this.healing} />
-        </TooltipElement>
-      ),
-    };
+        </BoringItemValueText>
+      </ItemStatistic>
+    );
   }
 }
 

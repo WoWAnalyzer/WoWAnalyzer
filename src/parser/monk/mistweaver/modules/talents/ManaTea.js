@@ -36,7 +36,6 @@ class ManaTea extends Analyzer {
   nonManaCasts = 0;
   castsUnderManaTea = 0;
 
-  hasLifeCycles = false;
   casted = false;
 
   effectiveHealing = 0;
@@ -45,9 +44,6 @@ class ManaTea extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.MANA_TEA_TALENT.id);
-    if (this.selectedCombatant.hasTalent(SPELLS.LIFECYCLES_TALENT.id)) {
-      this.hasLifeCycles = true;
-    }
   }
 
   on_toPlayer_applybuff(event) {

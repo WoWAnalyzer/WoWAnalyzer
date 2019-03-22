@@ -110,7 +110,7 @@ class OverWhelmingPower extends Analyzer {
   statistic() {
     return (
       <AzeritePowerStatistic
-        size="medium"
+        size="flexible"
         tooltip={(
           <>
             {SPELLS.OVERWHELMING_POWER.name} grants <strong>{this.haste} haste per stack</strong> ({this.haste * MAX_OVERWHELMING_POWER_STACKS} haste @{MAX_OVERWHELMING_POWER_STACKS} stacks) while active.<br />

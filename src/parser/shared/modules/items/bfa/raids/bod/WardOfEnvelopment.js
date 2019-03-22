@@ -25,7 +25,7 @@ const ACTIVATION_COOLDOWN = 120; // seconds
 class WardOfEnvelopment extends Analyzer {
   static dependencies = {
     abilities: Abilities,
-  }
+  };
 
   absorbUsed = 0;
   absorbWasted = 0;

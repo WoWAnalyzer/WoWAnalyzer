@@ -35,7 +35,7 @@ export default {
     icon: 'trade_alchemy_potionc4',
   },
   BATTLE_POTION_OF_STAMINA: {
-    id: 279154,
+    id: 163225,
     name: 'Battle Potion of Stamina',
     icon: 'trade_alchemy_potionc3',
   },

@@ -8,7 +8,7 @@ export default {
   headshot: Headshot,
   icon: 'achievement_boss_zuldazar_grong',
   fight: {
-    // TODO: Add vantusRuneBuffId: 250144,
+    vantusRuneBuffId: 285536,
     softMitigationChecks: {
       physical: [
         283078, // Bestial Smash

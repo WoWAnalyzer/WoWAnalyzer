@@ -1,0 +1,3 @@
+.boring-spell-value.grayscale img {
+  filter: grayscale(100%);
+}

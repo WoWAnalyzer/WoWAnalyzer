@@ -40,9 +40,6 @@ import FuryTracker from './modules/resourcetracker/FuryTracker';
 // Azerite Traits
 import FuriousGaze from './modules/spells/azeritetraits/FuriousGaze';
 
-//Items
-import SoulOfTheSlayer from '../shared/modules/items/SoulOfTheSlayer';
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core Statistics
@@ -86,9 +83,6 @@ class CombatLogParser extends CoreCombatLogParser {
     //Resources
     furyTracker: FuryTracker,
     furyDetails: FuryDetails,
-
-    //Items
-    soulOfTheSlayer: SoulOfTheSlayer,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],

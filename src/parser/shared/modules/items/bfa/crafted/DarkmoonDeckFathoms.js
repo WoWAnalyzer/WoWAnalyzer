@@ -3,6 +3,8 @@ import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 import ITEMS from 'common/ITEMS/index';
 import Analyzer from 'parser/core/Analyzer';
+import ItemStatistic from 'interface/statistics/ItemStatistic';
+import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 
 /**
@@ -29,11 +31,16 @@ class DarkmoonDeckFathoms extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
-  item() {
-    return {
-      item: ITEMS.DARKMOON_DECK_FATHOMS,
-      result: <ItemDamageDone amount={this.damage} />,
-    };
+  statistic() {
+    return (
+      <ItemStatistic
+        size="flexible"
+      >
+        <BoringItemValueText item={ITEMS.DARKMOON_DECK_FATHOMS}>
+          <ItemDamageDone amount={this.damage} />
+        </BoringItemValueText>
+      </ItemStatistic>
+    );
   }
 }
 

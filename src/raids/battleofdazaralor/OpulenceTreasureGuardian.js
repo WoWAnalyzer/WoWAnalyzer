@@ -9,7 +9,7 @@ export default {
   headshot: Headshot,
   icon: 'achievement_boss_zuldazar_treasuregolem',
   fight: {
-    // TODO: Add vantusRuneBuffId: 250144,
+    vantusRuneBuffId: 285538,
     softMitigationChecks: {
       physical: [
         287037, // Coin Sweep
