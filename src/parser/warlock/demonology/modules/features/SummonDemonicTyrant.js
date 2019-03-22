@@ -69,7 +69,7 @@ class SummonDemonicTyrant extends Analyzer {
     });
 
     const avgTyrantPower = (this.demonicTyrantPower.reduce((acc, val) => acc + val)) / this.demonicTyrantPower.length;
-    const tyrantFooter = this._hasDemonicConsumption ? `Average demonic consumption power: ${avgTyrantPower.toFixed(2)}` : "";
+    const tyrantFooter = this._hasDemonicConsumption ? `Average demonic consumption power: ${avgTyrantPower.toFixed(2)}` : null;
 
     const petTable = (this._petsPerCast.length > 0) ? (
       <>
@@ -89,7 +89,7 @@ class SummonDemonicTyrant extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SUMMON_DEMONIC_TYRANT.id} />}
         value={`${avgPets.toFixed(2)}`} // Rather than formatNumber, because this value will always be low and the decimal points matter.
-        footer={`${tyrantFooter}`}
+        footer={tyrantFooter}
         label={`Average Demons Empowered`}
         tooltip={`Number of pets empowered by each Demonic Tyrant summon.`}
       >
