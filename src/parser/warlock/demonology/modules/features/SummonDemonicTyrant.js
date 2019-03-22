@@ -69,7 +69,7 @@ class SummonDemonicTyrant extends Analyzer {
     });
 
     const avgTyrantPower = (this.demonicTyrantPower.reduce((acc, val) => acc + val)) / this.demonicTyrantPower.length;
-    const tyrantFooter = this._hasDemonicConsumption ? `Average demonic consumption power: ${avgTyrantPower.toFixed(2)}` : null;
+    const tyrantFooter = this._hasDemonicConsumption ? `Average demonic consumption power: ${avgTyrantPower.toFixed(2)}%` : null;
 
     const petTable = (this._petsPerCast.length > 0) ? (
       <>
