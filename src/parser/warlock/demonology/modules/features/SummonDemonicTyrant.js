@@ -9,6 +9,8 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 
 import DemoPets from '../pets/DemoPets';
+import { isWildImp } from '../pets/helpers';
+
 
 
 class SummonDemonicTyrant extends Analyzer {
@@ -16,22 +18,30 @@ class SummonDemonicTyrant extends Analyzer {
     demoPets: DemoPets,
   };
 
+  demonicTyrantPower = [];
+  _hasDemonicConsumption = false;
+
   _petsPerCast = [];
 
 
   constructor(...args){
     super(...args);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SUMMON_DEMONIC_TYRANT), this.summonDemonicTyrantCast);
+    this._hasDemonicConsumption = this.selectedCombatant.hasTalent(SPELLS.DEMONIC_CONSUMPTION_TALENT.id);
   }
 
   summonDemonicTyrantCast(event) {
     const pets = this.demoPets.currentPets;
     const countsPerCast = {};
-
+    let tyrantPower = 0;
     pets.forEach(pet => {
+      if (isWildImp(pet.guid)) {
+        tyrantPower += pet.currentEnergy / 2;
+      }
       countsPerCast[pet.summonedBy] = (countsPerCast[pet.summonedBy] || 0) + 1;
     });
 
+    this.demonicTyrantPower.push(tyrantPower);
     this._petsPerCast.push(countsPerCast);
   }
 
@@ -58,6 +68,9 @@ class SummonDemonicTyrant extends Analyzer {
       );
     });
 
+    const avgTyrantPower = (this.demonicTyrantPower.reduce((acc, val) => acc + val)) / this.demonicTyrantPower.length;
+    const tyrantFooter = this._hasDemonicConsumption ? `Average demonic consumption power: ${avgTyrantPower.toFixed(2)}` : "";
+
     const petTable = (this._petsPerCast.length > 0) ? (
       <>
         <thead>
@@ -76,6 +89,7 @@ class SummonDemonicTyrant extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.SUMMON_DEMONIC_TYRANT.id} />}
         value={`${avgPets.toFixed(2)}`} // Rather than formatNumber, because this value will always be low and the decimal points matter.
+        footer={`${tyrantFooter}`}
         label={`Average Demons Empowered`}
         tooltip={`Number of pets empowered by each Demonic Tyrant summon.`}
       >

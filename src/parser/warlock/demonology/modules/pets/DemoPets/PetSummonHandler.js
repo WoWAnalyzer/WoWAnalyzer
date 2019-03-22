@@ -47,6 +47,13 @@ class PetSummonHandler extends Analyzer {
       // Wild Imps need few additional properties
       pet.setWildImpProperties(this._lastPlayerPosition);
     }
+    if (petInfo.name === "Demonic Tyrant") {
+      const power = this.demoPets.currentPets
+        .filter(pet => isWildImp(pet.guid))
+        .map(pet => pet.currentEnergy)
+        .reduce((acc, val) => (acc + val), 0);
+      pet.setMeta("absorbed", "Empowered by " + (power / 2) + "% from consuming imps");
+    }
     test && this.log('Pet summoned', pet);
     this.demoPets.timeline.addPet(pet);
     pet.pushHistory(event.timestamp, 'Summoned', event);
