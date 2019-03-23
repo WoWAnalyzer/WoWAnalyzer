@@ -18,6 +18,11 @@ class EssenceFontMastery extends Analyzer {
     combatants: Combatants,
   };
 
+  constructor(...args) {
+    super(...args);
+    this.hasUpwelling = this.selectedCombatant.hasTalent(SPELLS.UPWELLING_TALENT.id);
+  }
+
   healEF = 0;
   healing = 0;
   castEF = 0;
@@ -70,15 +75,27 @@ class EssenceFontMastery extends Analyzer {
   }
 
   get suggestionThresholds() {
-    return {
-      actual: this.avgMasteryCastsPerEF,
-      isLessThan: {
-        minor: 1.5,
-        average: 1,
-        major: .5,
-      },
-      style: 'decimal',
-    };
+    if(this.hasUpwelling){
+      return {
+        actual: this.avgMasteryCastsPerEF,
+        isLessThan: {
+          minor: 4,
+          average: 3.5,
+          major: 3,
+        },
+        style: 'decimal',
+      };
+    }else{
+     return {
+        actual: this.avgMasteryCastsPerEF,
+        isLessThan: {
+          minor: 3,
+          average: 2.5,
+          major: 2,
+       },
+       style: 'decimal',
+      };
+   }
   }
 
   suggestions(when) {
