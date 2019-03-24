@@ -1,12 +1,15 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import UptimeIcon from 'interface/icons/Uptime';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer from 'parser/core/Analyzer';
 import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/EventFilter';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import Events from 'parser/core/Events';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 
 const WHITELIST = [
   SPELLS.ICICLE_DAMAGE,
@@ -49,14 +52,22 @@ class BoneChilling extends Analyzer {
     this.totalDamage += increase;
   }
 
+  get uptime() {
+		return this.selectedCombatant.getBuffUptime(SPELLS.BONE_CHILLING_BUFF.id) / this.owner.fightDuration;
+	}
+
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.BONE_CHILLING_TALENT.id}
-        position={STATISTIC_ORDER.UNIMPORTANT()}
-        value={this.owner.formatItemDamageDone(this.totalDamage)}
+      <Statistic
+        position={STATISTIC_ORDER.CORE(90)}
+        size="flexible"
         tooltip={`Total damage increase: ${formatNumber(this.totalDamage)}`}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.BONE_CHILLING_TALENT}>
+          <UptimeIcon /> {formatPercentage(this.uptime)}% <small>Buff uptime</small><br />
+          {this.owner.formatItemDamageDone(this.totalDamage)}
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 
