@@ -4,6 +4,7 @@ import RakeBleed from './normalizers/RakeBleed';
 import ComboPointsFromAoE from './normalizers/ComboPointsFromAoE';
 
 import Abilities from './modules/Abilities';
+import Buffs from './modules/Buffs';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import SpellUsable from './modules/features/SpellUsable';
@@ -51,6 +52,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
+    buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
     ferociousBiteEnergy: FerociousBiteEnergy,
     spellUsable: SpellUsable,
