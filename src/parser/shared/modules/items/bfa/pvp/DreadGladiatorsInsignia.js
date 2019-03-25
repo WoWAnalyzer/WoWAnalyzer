@@ -5,9 +5,7 @@ import ITEMS from 'common/ITEMS';
 import { formatPercentage } from 'common/format';
 import { calculatePrimaryStat } from 'common/stats';
 import UptimeIcon from 'interface/icons/Uptime';
-import IntellectIcon from 'interface/icons/Intellect';
-import AgilityIcon from 'interface/icons/Agility';
-import StrengthIcon from 'interface/icons/Strength';
+import PrimaryStatIcon from 'interface/icons/PrimaryStat';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 
@@ -73,9 +71,14 @@ class DreadGladiatorsInsignia extends Analyzer {
       >
         <BoringItemValueText item={ITEMS.DREAD_GLADIATORS_BADGE}>
           <UptimeIcon /> {formatPercentage(this.uptime)}% uptime<br />
-          {this.selectedCombatant.spec.primaryStat === "Intellect" ? <><IntellectIcon /> {this.averagePrimaryStat} <small>average intellect</small></> : ''}
-          {this.selectedCombatant.spec.primaryStat === "Agility" ? <><AgilityIcon /> {this.averagePrimaryStat} <small>average agility</small></> : ''}
-          {this.selectedCombatant.spec.primaryStat === "Strength" ? <><StrengthIcon /> {this.averagePrimaryStat} <small>average strength</small></> : ''}
+          <PrimaryStatIcon stat={this.selectedCombatant.spec.primaryStat} /> {formatNumber(this.totalBuffUptime * this.statBuff)} <small>average {this.selectedCombatant.spec.primaryStat} gained</small>
+        </BoringItemValueText>
+      </ItemStatistic>
+    );
+  }
+}
+
+
         </BoringItemValueText>
       </ItemStatistic>
     );
