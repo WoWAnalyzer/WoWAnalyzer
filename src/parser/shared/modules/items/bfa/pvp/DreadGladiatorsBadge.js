@@ -60,11 +60,4 @@ class DreadGladiatorsBadge extends Analyzer {
   }
 }
 
-
-        </BoringItemValueText>
-      </ItemStatistic>
-    );
-  }
-}
-
 export default DreadGladiatorsBadge;
