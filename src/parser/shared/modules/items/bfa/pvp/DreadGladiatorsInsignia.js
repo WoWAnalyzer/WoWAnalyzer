@@ -71,7 +71,7 @@ class DreadGladiatorsInsignia extends Analyzer {
       >
         <BoringItemValueText item={ITEMS.DREAD_GLADIATORS_BADGE}>
           <UptimeIcon /> {formatPercentage(this.uptime)}% uptime<br />
-          <PrimaryStatIcon stat={this.selectedCombatant.spec.primaryStat} /> {formatNumber(this.totalBuffUptime * this.statBuff)} <small>average {this.selectedCombatant.spec.primaryStat} gained</small>
+          <PrimaryStatIcon stat={this.selectedCombatant.spec.primaryStat} /> {this.averagePrimaryStat} <small>average {this.selectedCombatant.spec.primaryStat} gained</small>
         </BoringItemValueText>
       </ItemStatistic>
     );
