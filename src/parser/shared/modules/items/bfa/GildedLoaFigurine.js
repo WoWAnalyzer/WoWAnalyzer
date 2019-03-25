@@ -4,9 +4,7 @@ import SPELLS from 'common/SPELLS/index';
 import ITEMS from 'common/ITEMS/index';
 import Analyzer from 'parser/core/Analyzer';
 import UptimeIcon from 'interface/icons/Uptime';
-import IntellectIcon from 'interface/icons/Intellect';
-import AgilityIcon from 'interface/icons/Agility';
-import StrengthIcon from 'interface/icons/Strength';
+import PrimaryStatIcon from 'interface/icons/PrimaryStat';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import { formatPercentage, formatNumber } from 'common/format';
@@ -41,7 +39,6 @@ class GildedLoaFigurine extends Analyzer {
   }
 
   statistic() {
-    console.log(this.selectedCombatant.spec.primaryStat);
     return (
       <ItemStatistic
         size="flexible"
@@ -49,9 +46,7 @@ class GildedLoaFigurine extends Analyzer {
       >
         <BoringItemValueText item={ITEMS.GILDED_LOA_FIGURINE}>
           <UptimeIcon /> {formatPercentage(this.totalBuffUptime)}% uptime<br />
-          {this.selectedCombatant.spec.primaryStat === "Intellect" ? <><IntellectIcon /> {formatNumber(this.totalBuffUptime * this.statBuff)} <small>average intellect</small></> : ''}
-          {this.selectedCombatant.spec.primaryStat === "Agility" ? <><AgilityIcon /> {formatNumber(this.totalBuffUptime * this.statBuff)} <small>average agility</small></> : ''}
-          {this.selectedCombatant.spec.primaryStat === "Strength" ? <><StrengthIcon /> {formatNumber(this.totalBuffUptime * this.statBuff)} <small>average strength</small></> : ''}
+          <PrimaryStatIcon stat={this.selectedCombatant.spec.primaryStat} /> {formatNumber(this.totalBuffUptime * this.statBuff)} <small>average {this.selectedCombatant.spec.primaryStat} gained</small>
         </BoringItemValueText>
       </ItemStatistic>
     );
