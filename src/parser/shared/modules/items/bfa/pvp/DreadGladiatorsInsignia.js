@@ -78,11 +78,4 @@ class DreadGladiatorsInsignia extends Analyzer {
   }
 }
 
-
-        </BoringItemValueText>
-      </ItemStatistic>
-    );
-  }
-}
-
 export default DreadGladiatorsInsignia;
