@@ -52,7 +52,7 @@ class PetSummonHandler extends Analyzer {
         .filter(pet => isWildImp(pet.guid))
         .map(pet => pet.currentEnergy)
         .reduce((acc, val) => (acc + val), 0);
-      pet.setMeta("absorbed", "Empowered by " + (power / 2) + "% from consuming imps");
+      pet.setMeta("absorbed", `Empowered by ${(power / 2).toFixed(2)} % from consuming imps`);
     }
     test && this.log('Pet summoned', pet);
     this.demoPets.timeline.addPet(pet);
