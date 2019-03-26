@@ -6,7 +6,7 @@ import CriticalStrike from 'interface/icons/CriticalStrike';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 import { calculateAzeriteEffects } from 'common/stats';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import { formatPercentage, formatNumber } from 'common/format';
+import { formatNumber } from 'common/format';
 
 const unerringVisionStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [crit] = calculateAzeriteEffects(SPELLS.UNERRING_VISION.id, rank);
@@ -53,11 +53,6 @@ class UnerringVision extends Analyzer {
     return (
       <AzeritePowerStatistic
         size="flexible"
-        tooltip={(
-          <>
-            Unerring Vision granted <strong>{this.crit}</strong> Crit for <strong>{formatPercentage(this.uptime)}%</strong> of the fight. <br />
-          </>
-        )}
       >
         <BoringSpellValueText spell={SPELLS.UNERRING_VISION}>
           <CriticalStrike /> {formatNumber(this.avgCrit)}
