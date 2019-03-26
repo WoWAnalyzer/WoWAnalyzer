@@ -22,6 +22,10 @@ const focusedFireStats = traits => Object.values(traits).reduce((obj, rank) => {
  * Example log: https://www.warcraftlogs.com/reports/47LJvZ9BgdhR8TXf#fight=43&type=summary&source=16
  */
 
+const TICKS_PER_CAST = 10;
+//Streamline increases amount of ticks by 30%, as it increases the duration by 20%
+const STREAMLINE_TICK_INCREASE = 0.2;
+
 class FocusedFire extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
@@ -37,7 +41,11 @@ class FocusedFire extends Analyzer {
       return;
     }
     const { damage } = focusedFireStats(this.selectedCombatant.traitsBySpellId[SPELLS.FOCUSED_FIRE.id]);
-    this.damagePotential = damage * 10;
+    if (this.selectedCombatant.hasTalent(SPELLS.STREAMLINE_TALENT.id)) {
+      this.damagePotential = damage * (TICKS_PER_CAST * (1 + STREAMLINE_TICK_INCREASE));
+    } else {
+      this.damagePotential = damage * TICKS_PER_CAST;
+    }
   }
 
   on_byPlayer_energize(event) {
