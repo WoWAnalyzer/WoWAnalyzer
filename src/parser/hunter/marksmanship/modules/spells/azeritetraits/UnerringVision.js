@@ -20,6 +20,8 @@ const MAX_STACKS = 10;
 
 /** Unerring Vision
  * While Trueshot is active you gain 158 Critical Strike rating every sec, stacking up to 10 times.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/47LJvZ9BgdhR8TXf#fight=43&type=summary&source=16
  */
 class UnerringVision extends Analyzer {
   static dependencies = {
