@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 import { calculateAzeriteEffects } from 'common/stats';
-import StatTracker from 'parser/shared/modules/StatTracker';
 import { formatNumber } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
@@ -27,9 +26,7 @@ const TICKS_PER_CAST = 10;
 const STREAMLINE_TICK_INCREASE = 0.2;
 
 class FocusedFire extends Analyzer {
-  static dependencies = {
-    statTracker: StatTracker,
-  };
+
   focusGained = 0;
   focusWasted = 0;
   damagePotential = 0;
