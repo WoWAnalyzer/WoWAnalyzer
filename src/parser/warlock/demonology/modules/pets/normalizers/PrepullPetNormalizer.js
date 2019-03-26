@@ -76,7 +76,7 @@ class PrepullPetNormalizer extends EventsNormalizer {
               abilityIcon: spell.icon,
             },
             __fabricated: true,
-            __originalTimeStamp: event.timestamp,
+            __originalTimestamp: event.timestamp,
           };
 
           summonedPets.push(petString);
