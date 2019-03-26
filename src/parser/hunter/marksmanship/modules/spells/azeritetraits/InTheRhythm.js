@@ -38,7 +38,7 @@ class InTheRhythm extends Analyzer {
     const { haste } = inTheRhythmStats(this.selectedCombatant.traitsBySpellId[SPELLS.IN_THE_RHYTHM.id]);
     this.haste = haste;
 
-    this.statTracker.add(SPELLS.IN_THE_RHYTHM.id, {
+    this.statTracker.add(SPELLS.IN_THE_RHYTHM_BUFF.id, {
       haste,
     });
   }
