@@ -78,7 +78,7 @@ class BlindFury extends Analyzer{
         tooltip={(
           <>
             Since this will always max out your Fury on cast, wasted and totals do not matter. Only the amount effectively gained. <br />
-            A bad cast is when you cast Eye Beam with more than 50 Fury. At that point you are wasting enough fury gained for it to be a dps loss. <br /><br />
+            A bad cast is when you cast Eye Beam with more than 50 Fury. At that point you are wasting enough fury gained for it to be a DPS loss. <br /><br />
             {this.gained} Effective Fury gained<br />
           </>
         )}

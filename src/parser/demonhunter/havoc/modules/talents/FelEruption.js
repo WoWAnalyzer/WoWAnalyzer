@@ -52,7 +52,7 @@ class FelEruption extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Try to cast <SpellLink id={SPELLS.FEL_ERUPTION_TALENT.id} /> only for its stun. It's not worth casting for its damage since it's a dps loss.</>)
+        return suggest(<>Try to cast <SpellLink id={SPELLS.FEL_ERUPTION_TALENT.id} /> only for its stun. It's not worth casting for its damage since it's a DPS loss.</>)
           .icon(SPELLS.FEL_ERUPTION_TALENT.icon)
           .actual(<>{actual} bad <SpellLink id={SPELLS.FEL_ERUPTION_TALENT.id} /> casts that didn't stun the target </>)
           .recommended('No bad casts are recommended.');
@@ -65,7 +65,7 @@ class FelEruption extends Analyzer {
         talent={SPELLS.FEL_ERUPTION_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
         value={`${this.badCasts} casts that didn't stun the target`}
-        tooltip={`This ability should only be used for its stun. Its a dps loss.`}
+        tooltip={`This ability should only be used for its stun. Its a DPS loss.`}
       />
     );
   }

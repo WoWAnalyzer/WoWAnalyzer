@@ -59,11 +59,7 @@ class Demonic extends Analyzer{
   }
 
   get avgDeathSweepPerEyeBeam(){
-    //Devide by 0 check incase they never cast Death Sweep
-    if(this.goodDeathSweep === 0){
-      return 0;
-    }
-    return this.goodDeathSweep / this.eyeBeamCasts;
+    return (this.goodDeathSweep / this.eyeBeamCasts) || 0;
   }
 
   get suggestionThresholds() {

@@ -52,7 +52,7 @@ class HavocDemonHunterChecklist extends React.PureComponent {
           name="Don't waste casts"
           description={(
             <>
-            Ineffectively or improperly casting these spells will lead to dps loss.
+            Ineffectively or improperly casting these spells will lead to DPS loss.
             <a href="http://www.wowhead.com/havoc-demon-hunter-rotation-guide#rotation-priority-list" target="_blank" rel="noopener noreferrer">More info.</a>
             </>
           )}
