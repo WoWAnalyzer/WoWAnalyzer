@@ -3,6 +3,10 @@ import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 import ITEMS from 'common/ITEMS/index';
 import Analyzer from 'parser/core/Analyzer';
+import UptimeIcon from 'interface/icons/Uptime';
+import PrimaryStatIcon from 'interface/icons/PrimaryStat';
+import ItemStatistic from 'interface/statistics/ItemStatistic';
+import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import { formatPercentage, formatNumber } from 'common/format';
 import { calculatePrimaryStat } from 'common/stats';
 import Abilities from 'parser/core/modules/Abilities';
@@ -41,16 +45,18 @@ class DreadGladiatorsBadge extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.DIG_DEEP.id) / this.owner.fightDuration;
   }
 
-  item() {
-    return {
-      item: ITEMS.DREAD_GLADIATORS_BADGE,
-      result: (
-        <>
-          {formatPercentage(this.totalBuffUptime)}% uptime<br />
-          {formatNumber(this.totalBuffUptime * this.statBuff)} average Primary Stat
-        </>
-      ),
-    };
+  statistic() {
+    console.log(this.selectedCombatant.spec.primaryStat);
+    return (
+      <ItemStatistic
+        size="flexible"
+      >
+        <BoringItemValueText item={ITEMS.DREAD_GLADIATORS_BADGE}>
+          <UptimeIcon /> {formatPercentage(this.totalBuffUptime)}% uptime<br />
+          <PrimaryStatIcon stat={this.selectedCombatant.spec.primaryStat} /> {formatNumber(this.totalBuffUptime * this.statBuff)} <small>average {this.selectedCombatant.spec.primaryStat} gained</small>
+        </BoringItemValueText>
+      </ItemStatistic>
+    );
   }
 }
 
