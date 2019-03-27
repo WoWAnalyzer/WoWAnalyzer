@@ -36,7 +36,7 @@ class HavocDemonHunterChecklist extends React.PureComponent {
           name="Use your short cooldowns"
           description={(
             <>
-              <p>These should generally always be on recharge to maximize DPS and efficiency.</p>
+              These should generally always be on recharge to maximize DPS and efficiency.
               <a href="http://www.wowhead.com/havoc-demon-hunter-rotation-guide#rotation-priority-list" target="_blank" rel="noopener noreferrer">More info.</a>
             </>
           )}
@@ -103,7 +103,7 @@ class HavocDemonHunterChecklist extends React.PureComponent {
           name="Maintain your buffs and debuffs"
           description={(
             <>
-              <p>It is important to maintain these as they contribute a large amount to your DPS and HPS.</p>
+              It is important to maintain these as they contribute a large amount to your DPS and HPS.
               <a href="http://www.wowhead.com/havoc-demon-hunter-rotation-guide#rotation-priority-list" target="_blank" rel="noopener noreferrer">More info.</a>
             </>
           )}
@@ -125,7 +125,7 @@ class HavocDemonHunterChecklist extends React.PureComponent {
           name="Use your offensive cooldowns"
           description={(
             <>
-              <p>You should aim to use these cooldowns as often as you can to maximize your damage output unless you are saving them for their defensive value.</p>
+              You should aim to use these cooldowns as often as you can to maximize your damage output unless you are saving them for their defensive value.
               <a href="http://www.wowhead.com/havoc-demon-hunter-rotation-guide#rotation-priority-list" target="_blank" rel="noopener noreferrer">More info.</a>
             </>
           )}
@@ -140,7 +140,7 @@ class HavocDemonHunterChecklist extends React.PureComponent {
           name="Manage your Fury properly"
           description={(
             <>
-            <p>You should always avoid capping your Fury and spend it regularly.</p>
+            You should always avoid capping your Fury and spend it regularly.
             <a href="https://www.wowhead.com/guides/havoc-demon-hunter-get-good-how-to-improve#major-pitfalls" target="_blank" rel="noopener noreferrer">More info.</a>
             </>
           )}
