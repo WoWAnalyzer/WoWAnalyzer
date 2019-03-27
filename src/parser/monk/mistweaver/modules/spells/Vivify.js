@@ -29,17 +29,11 @@ class Vivify extends Analyzer {
   remDuringManaTea = 0;
   numberToCount = 0;
 
-
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
     if (SPELLS.VIVIFY.id !== spellId) {
       return;
-    }
-    if (this.combatants.players[event.targetID]) {
-      if (this.combatants.players[event.targetID].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0) === true) {
-        this.numberToCount += 1;
-      }
     }
 
     this.numberToCount += 1;

@@ -1,9 +1,10 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer from 'parser/core/Analyzer';
@@ -128,13 +129,15 @@ class IceLance extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(15)}
-        icon={<SpellIcon id={SPELLS.ICE_LANCE.id} />}
-        value={`${formatPercentage(this.shatteredPercent, 0)} %`}
-        label="Ice Lance Shattered"
-        tooltip="This is the percentage of Ice Lance casts that were shattered. The only time it is acceptable to cast Ice Lance without Shatter is if you are moving and you cant use anything else."
-      />
+      <Statistic
+        position={STATISTIC_ORDER.CORE(30)}
+        size="flexible"
+        tooltip={'This is the percentage of Ice Lance casts that were shattered. The only time it is acceptable to cast Ice Lance without Shatter is if you are moving and you cant use anything else.'}
+      >
+        <BoringSpellValueText spell={SPELLS.ICE_LANCE}>
+          {`${formatPercentage(this.shatteredPercent, 0)}%`} <small>Casts shattered</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

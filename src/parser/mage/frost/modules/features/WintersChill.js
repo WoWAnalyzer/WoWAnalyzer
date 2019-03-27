@@ -6,8 +6,9 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
-
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 const debug = false;
 
@@ -152,29 +153,9 @@ class WintersChill extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(50)}
-        icon={<SpellIcon id={SPELLS.WINTERS_CHILL.id} />}
-        value={(<>
-          <SpellIcon
-            id={SPELLS.ICE_LANCE.id}
-            style={{
-              height: '1.2em',
-              marginBottom: '.15em',
-            }}
-          />
-          {' '}{formatPercentage(this.iceLanceUtil, 0)} %
-          <br />
-          <SpellIcon
-            id={SPELLS.FROSTBOLT.id}
-            style={{
-              height: '1.2em',
-              marginBottom: '.15em',
-            }}
-          />
-          {' '}{formatPercentage(this.hardcastUtil, 0)} %
-        </>)}
-        label="Winter's Chill Utilization"
+      <Statistic
+        position={STATISTIC_ORDER.CORE(30)}
+        size="flexible"
         tooltip={(
           <>
             Every Brain Freeze Flurry should be preceded by a Frostbolt, Glacial Spike, or Ebonbolt and followed by an Ice Lance, so that both the preceding and following spells benefit from Shatter. <br /><br />
@@ -183,7 +164,12 @@ class WintersChill extends Analyzer {
             It should mostly be considered 'extra credit'
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.WINTERS_CHILL}>
+          <SpellIcon id={SPELLS.ICE_LANCE.id} /> {formatPercentage(this.iceLanceUtil, 0)}% <small>Ice Lances shattered</small><br />
+          <SpellIcon id={SPELLS.FROSTBOLT.id} /> {formatPercentage(this.hardcastUtil, 0)}% <small>Pre-casts shattered</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

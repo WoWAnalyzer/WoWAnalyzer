@@ -53,6 +53,27 @@ export default {
     name: 'Steady Aim',
     icon: 'inv_spear_07',
   },
+  IN_THE_RHYTHM: {
+    id: 264198,
+    name: 'In The Rhythm',
+    icon: 'ability_hunter_efficiency',
+  },
+  IN_THE_RHYTHM_BUFF: {
+    id: 272733,
+    name: 'In The Rhythm',
+    icon: 'ability_hunter_efficiency',
+  },
+  UNERRING_VISION: {
+    id: 274444,
+    name: 'Unerring Vision',
+    icon: 'ability_trueshot',
+  },
+  UNERRING_VISION_BUFF: {
+    id: 274447,
+    name: 'Unerring Vision',
+    icon: 'ability_trueshot',
+  },
+
 
   //Survival
   WILDERNESS_SURVIVAL: {

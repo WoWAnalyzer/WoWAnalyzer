@@ -190,7 +190,7 @@ class StatTracker extends Analyzer {
     },
     [SPELLS.GALECALLERS_BOON_BUFF.id]: {
       itemId: ITEMS.GALECALLERS_BOON.id,
-      haste: (_, item) => calculateSecondaryStatDefault(310, 917, item.itemLevel),
+      haste: (_, item) => calculateSecondaryStatDefault(340, 753, item.itemLevel),
     },
     [SPELLS.TITANIC_OVERCHARGE.id]: {
       itemId: ITEMS.CONSTRUCT_OVERCHARGER.id,

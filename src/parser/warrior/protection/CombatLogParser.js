@@ -16,6 +16,7 @@ import Avatar from './modules/features/Avatar';
 import AngerManagement from './modules/talents/AngerManagement';
 import BoomingVoice from './modules/talents/BoomingVoice';
 import HeavyRepercussions from './modules/talents/HeavyRepercussions';
+import Bolster from './modules/talents/Bolster';
 import IntoTheFray from './modules/talents/IntoTheFray';
 import Vengeance from './modules/talents/Vengeance';
 import Punish from './modules/talents/Punish';
@@ -43,6 +44,7 @@ class CombatLogParser extends CoreCombatLogParser {
     boomingVoice: BoomingVoice,
     heavyRepercussions: HeavyRepercussions,
     intoTheFray: IntoTheFray,
+    bolster: Bolster,
     vengeance: Vengeance,
     punish: Punish,
     dragonRoar: DragonRoar,

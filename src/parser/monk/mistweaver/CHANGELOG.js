@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-03-21'),
+    changes: 'Updated mastery tracking to more accurately reflect the spell that triggered the <SpellLink id={SPELLS.GUST_OF_MIST.id} />. This includes updates to the statistic and healing efficiency sections.',
+    contributors: [Abelito75],
+  },
+  {
     date: new Date('2019-03-15'),
     changes: <>Updated Mistweaver Spreadsheet tab to include  <SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} /> efficiency.</>,
     contributors: [Abelito75],

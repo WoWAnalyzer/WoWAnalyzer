@@ -18,6 +18,11 @@ class EssenceFontMastery extends Analyzer {
     combatants: Combatants,
   };
 
+  constructor(...args) {
+    super(...args);
+    this.hasUpwelling = this.selectedCombatant.hasTalent(SPELLS.UPWELLING_TALENT.id);
+  }
+
   healEF = 0;
   healing = 0;
   castEF = 0;
@@ -36,13 +41,10 @@ class EssenceFontMastery extends Analyzer {
       if (this.combatants.players[targetId].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0) === true && !this.gustHeal) {
         debug && console.log(`First Gust Heal: Player ID: ${event.targetID}  Timestamp: ${event.timestamp}`);
         this.healEF += 1;
-        this.healing += (event.amount || 0) + (event.absorbed || 0);
         this.gustHeal = true;
       } else if (this.combatants.players[targetId].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0) === true && this.gustHeal) {
         this.healEF += 1;
         this.healing += (event.amount || 0) + (event.absorbed || 0);
-        this.secondGustHealing += (event.amount || 0) + (event.absorbed || 0) + (event.overheal || 0);
-        this.secondGustOverheal += (event.overheal || 0);
         this.gustHeal = false;
       }
     }
@@ -73,15 +75,27 @@ class EssenceFontMastery extends Analyzer {
   }
 
   get suggestionThresholds() {
-    return {
-      actual: this.avgMasteryCastsPerEF,
-      isLessThan: {
-        minor: 1.5,
-        average: 1,
-        major: .5,
-      },
-      style: 'decimal',
-    };
+    if (this.hasUpwelling) {
+      return {
+        actual: this.avgMasteryCastsPerEF,
+        isLessThan: {
+          minor: 4,
+          average: 3.5,
+          major: 3,
+        },
+        style: 'decimal',
+      };
+    } else {
+     return {
+        actual: this.avgMasteryCastsPerEF,
+        isLessThan: {
+          minor: 3,
+          average: 2.5,
+          major: 2,
+       },
+       style: 'decimal',
+      };
+   }
   }
 
   suggestions(when) {

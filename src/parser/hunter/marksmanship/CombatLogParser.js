@@ -42,6 +42,7 @@ import FocusTab from '../shared/modules/features/focuschart/FocusTab';
 
 //Azerite Traits
 import SteadyAim from './modules/spells/azeritetraits/SteadyAim';
+import InTheRhythm from './modules/spells/azeritetraits/InTheRhythm';
 
 //Traits and Talents
 import SpellsAndTalents from './modules/features/SpellsAndTalents';
@@ -90,6 +91,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Azerite Traits
     steadyAim: SteadyAim,
+    inTheRhythm: InTheRhythm,
 
     //Spells and Talents
     spellsAndTalents: SpellsAndTalents,
