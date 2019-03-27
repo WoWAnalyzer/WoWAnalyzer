@@ -75,7 +75,7 @@ class EssenceFontMastery extends Analyzer {
   }
 
   get suggestionThresholds() {
-    if(this.hasUpwelling){
+    if (this.hasUpwelling) {
       return {
         actual: this.avgMasteryCastsPerEF,
         isLessThan: {
@@ -85,7 +85,7 @@ class EssenceFontMastery extends Analyzer {
         },
         style: 'decimal',
       };
-    }else{
+    } else {
      return {
         actual: this.avgMasteryCastsPerEF,
         isLessThan: {

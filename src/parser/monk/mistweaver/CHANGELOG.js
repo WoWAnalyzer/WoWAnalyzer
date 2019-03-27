@@ -7,7 +7,7 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2019-03-21'),
-    changes: 'Made mastery track more accurately and updated the donut chart to reflect that.',
+    changes: 'Updated mastery tracking to more accurately reflect the spell that triggered the <SpellLink id={SPELLS.GUST_OF_MIST.id} />. This includes updates to the statistic and healing efficiency sections.',
     contributors: [Abelito75],
   },
   {
