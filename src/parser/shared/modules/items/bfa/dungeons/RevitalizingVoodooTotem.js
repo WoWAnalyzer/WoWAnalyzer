@@ -3,6 +3,8 @@ import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 import ITEMS from 'common/ITEMS/index';
 import Analyzer from 'parser/core/Analyzer';
+import ItemStatistic from 'interface/statistics/ItemStatistic';
+import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import Abilities from 'parser/core/modules/Abilities';
 
 import ItemHealingDone from 'interface/others/ItemHealingDone';
@@ -10,6 +12,8 @@ import ItemHealingDone from 'interface/others/ItemHealingDone';
 /**
  * Revitalizing Voodoo Totem -
  * Use: Heals the target for 0 every 0.5 sec, stacking up to 12 times. Healing starts low and increases over the duration. (1 Min, 30 Sec Cooldown)
+ * 
+ * Test Log: https://www.warcraftlogs.com/reports/2fZTqh6VbNC1xXPL#fight=6&type=damage-done&source=17
  */
 class RevitalizingVoodooTotem extends Analyzer {
   static dependencies = {
@@ -45,11 +49,16 @@ class RevitalizingVoodooTotem extends Analyzer {
     this.healing += event.amount + (event.absorbed || 0);
   }
 
-  item() {
-    return {
-      item: ITEMS.REVITALIZING_VOODOO_TOTEM,
-      result: <ItemHealingDone amount={this.healing} />,
-    };
+  statistic() {
+    return (
+      <ItemStatistic
+        size="flexible"
+      >
+        <BoringItemValueText item={ITEMS.REVITALIZING_VOODOO_TOTEM}>
+          <ItemHealingDone amount={this.healing} />
+        </BoringItemValueText>
+      </ItemStatistic>
+    );
   }
 }
 

@@ -42,9 +42,11 @@ import FocusTracker from '../shared/modules/features/focuschart/FocusTracker';
 import FocusTab from '../shared/modules/features/focuschart/FocusTab';
 
 //Azerite Traits
+import FocusedFire from './modules/spells/azeritetraits/FocusedFire';
 import SteadyAim from './modules/spells/azeritetraits/SteadyAim';
 import SurgingShots from './modules/spells/azeritetraits/SurgingShots';
 import InTheRhythm from './modules/spells/azeritetraits/InTheRhythm';
+import UnerringVision from './modules/spells/azeritetraits/UnerringVision';
 
 //Traits and Talents
 import SpellsAndTalents from './modules/features/SpellsAndTalents';
@@ -93,9 +95,11 @@ class CombatLogParser extends CoreCombatLogParser {
     carefulAim: CarefulAim,
 
     //Azerite Traits
+    focusedFire: FocusedFire,
     steadyAim: SteadyAim,
     surgingShots: SurgingShots,
     inTheRhythm: InTheRhythm,
+    unerringVision: UnerringVision,
 
     //Spells and Talents
     spellsAndTalents: SpellsAndTalents,
