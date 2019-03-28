@@ -7,7 +7,7 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2019-03-23'),
-    changes: <>Updated <SpellLink id={SPELLS.MANA_TEA_TALENT.id}/> to check if you have innervate before counting mana. </>,
+    changes: <>Updated <SpellLink id={SPELLS.MANA_TEA_TALENT.id}/> to check if you have innervate before counting mana.</>,
     contributors: [Abelito75],
   },
   {
