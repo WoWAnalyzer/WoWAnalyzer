@@ -41,6 +41,7 @@ import FocusTracker from '../shared/modules/features/focuschart/FocusTracker';
 import FocusTab from '../shared/modules/features/focuschart/FocusTab';
 
 //Azerite Traits
+import FocusedFire from './modules/spells/azeritetraits/FocusedFire';
 import SteadyAim from './modules/spells/azeritetraits/SteadyAim';
 import InTheRhythm from './modules/spells/azeritetraits/InTheRhythm';
 
@@ -90,6 +91,7 @@ class CombatLogParser extends CoreCombatLogParser {
     carefulAim: CarefulAim,
 
     //Azerite Traits
+    focusedFire: FocusedFire,
     steadyAim: SteadyAim,
     inTheRhythm: InTheRhythm,
 
