@@ -44,6 +44,7 @@ import FocusTab from '../shared/modules/features/focuschart/FocusTab';
 import FocusedFire from './modules/spells/azeritetraits/FocusedFire';
 import SteadyAim from './modules/spells/azeritetraits/SteadyAim';
 import InTheRhythm from './modules/spells/azeritetraits/InTheRhythm';
+import UnerringVision from './modules/spells/azeritetraits/UnerringVision';
 
 //Traits and Talents
 import SpellsAndTalents from './modules/features/SpellsAndTalents';
@@ -94,6 +95,7 @@ class CombatLogParser extends CoreCombatLogParser {
     focusedFire: FocusedFire,
     steadyAim: SteadyAim,
     inTheRhythm: InTheRhythm,
+    unerringVision: UnerringVision,
 
     //Spells and Talents
     spellsAndTalents: SpellsAndTalents,
