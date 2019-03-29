@@ -6,8 +6,13 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-03-23'),
+    changes: <>Updated <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> to check if you have innervate before counting mana.</>,
+    contributors: [Abelito75],
+  },
+  {
     date: new Date('2019-03-21'),
-    changes: 'Updated mastery tracking to more accurately reflect the spell that triggered the <SpellLink id={SPELLS.GUST_OF_MIST.id} />. This includes updates to the statistic and healing efficiency sections.',
+    changes: <>Updated mastery tracking to more accurately reflect the spell that triggered the <SpellLink id={SPELLS.GUSTS_OF_MISTS.id} />. This includes updates to the statistic and healing efficiency sections.</>,
     contributors: [Abelito75],
   },
   {
