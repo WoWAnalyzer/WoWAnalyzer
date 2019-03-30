@@ -83,6 +83,7 @@ class MistweaverMonkChecklist extends React.PureComponent {
         <Requirement name={(<><SpellLink id={SPELLS.REFRESHING_JADE_WIND_TALENT.id} /> % targets hit</>)} thresholds={thresholds.refreshingJadeWind} />}
         {combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id) &&
         <Requirement name={(<><SpellLink id={SPELLS.CHI_BURST_TALENT.id} /> targets hit</>)} thresholds={thresholds.chiBurst} />}
+        <Requirement name={(<><SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> Less Than 3 Targets hit</>)} thresholds={thresholds.spinningCraneKick} />
         </Rule>
 
         <Rule

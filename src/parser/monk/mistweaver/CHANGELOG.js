@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-03-30'),
+    changes: <>Added a check to make sure you cast <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> when there are enough targets around.</>,
+    contributors: [Abelito75],
+  },
+  {
     date: new Date('2019-03-23'),
     changes: <>Updated <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> to check if you have innervate before counting mana.</>,
     contributors: [Abelito75],
