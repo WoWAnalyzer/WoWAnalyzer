@@ -5,12 +5,15 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage';
-import TraitStatisticBox from 'interface/others/TraitStatisticBox';
+import ItemStatistic from 'interface/statistics/ItemStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import SPELLS from 'common/SPELLS';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import RAMPAGE_COEFFICIENTS from '../spells/RAMPAGE_COEFFICIENTS.js';
 
 const RAMPAGE = [SPELLS.RAMPAGE_1, SPELLS.RAMPAGE_2, SPELLS.RAMPAGE_3, SPELLS.RAMPAGE_4];
+
+//Test Log: /report/ABH7D8W1Qaqv96mt/2-Mythic+Taloc+-+Kill+(4:12)/Ghaz/statistics
 
 class SimmeringRage extends Analyzer {
   static dependencies = {
@@ -57,11 +60,14 @@ class SimmeringRage extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
-        trait={SPELLS.SIMMERING_RAGE.id}
-        value={`${this.rageGen} rage generated`}
+      <ItemStatistic
+        size="flexible"
         tooltip={<>Simmering Rage did <strong>{formatThousands(this.totalSimmeringDamage)}</strong> damage, contributing to <strong>{formatNumber(this.dps)} ({formatPercentage(this.dpsPercentage)}%)</strong> of your DPS.</>}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.SIMMERING_RAGE}>
+          {this.rageGen} <small>rage generated</small>
+        </BoringSpellValueText>
+      </ItemStatistic>
     );
   }
 }

@@ -2,9 +2,12 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
-import TraitStatisticBox from 'interface/others/TraitStatisticBox';
+import ItemStatistic from 'interface/statistics/ItemStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import SPELLS from 'common/SPELLS';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
+
+//Test Log: /report/ABH7D8W1Qaqv96mt/2-Mythic+Taloc+-+Kill+(4:12)/Ghaz/statistics
 
 class ColdSteelHotBlood extends Analyzer {
   totalDamage = 0;
@@ -45,11 +48,14 @@ class ColdSteelHotBlood extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
-        trait={SPELLS.COLD_STEEL_HOT_BLOOD.id}
-        value={`${formatNumber(this.rageGained)} rage gained`}
+      <ItemStatistic
+        size="flexible"
         tooltip={<>Cold Steel, Hot Blood did <b>{formatThousands(this.totalDamage)} ({formatPercentage(this.damagePercentage)}%)</b> damage and <b>{formatThousands(this.totalHealing)}</b> healing (<b>{formatThousands(this.totalOverhealing)}</b> overhealing).</>}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.COLD_STEEL_HOT_BLOOD}>
+          {formatNumber(this.rageGained)} <small>rage generated</small>
+        </BoringSpellValueText>
+      </ItemStatistic>
     );
   }
 }

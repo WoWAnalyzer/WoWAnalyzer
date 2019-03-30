@@ -4,7 +4,10 @@ import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import Analyzer from 'parser/core/Analyzer';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import ItemStatistic from 'interface/statistics/ItemStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import ArmorIcon from 'interface/icons/Armor';
+import AvoidanceIcon from 'interface/icons/Avoidance';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
 const gemhideStats = traits => Object.values(traits).reduce((obj, rank) => {
@@ -21,7 +24,7 @@ const gemhideStats = traits => Object.values(traits).reduce((obj, rank) => {
  * Gemhide
  * When dealt damage greater than 10% of your maximum health, gain 95 Avoidance and 475 Armor for 10 sec.
  *
- * Example report: https://www.warcraftlogs.com/reports/vyfNxYzcHr8mLXZ6#fight=12&type=summary&source=18
+ * Example report: /report/ABH7D8W1Qaqv96mt/2-Mythic+Taloc+-+Kill+(4:12)/Ghaz/statistics
  */
 class Gemhide extends Analyzer {
   static dependencies = {
@@ -74,17 +77,20 @@ class Gemhide extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
-        trait={SPELLS.GEMHIDE.id}
-        value={`${formatNumber(this.avgArmor)} Armor & ${formatNumber(this.avgAvoidance)} Avoidance`}
+      <ItemStatistic
+        size="flexible"
         tooltip={(
           <>
             Gemhide grants <strong>{this.armor} Armor</strong> and <strong>{this.avoidance} Avoidance</strong> while active.<br />
             It was active for <strong>{formatPercentage(this.uptime)}%</strong> of the fight, mitigating <strong>{formatPercentage(this.pctHitsMitigated)}%</strong> of incoming hits.
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.GEMHIDE}>
+          <ArmorIcon /> {formatNumber(this.avgArmor)} <small>average Armor</small> <br />
+          <AvoidanceIcon /> {formatNumber(this.avgAvoidance)} <small>average Avoidance</small>
+        </BoringSpellValueText>
+      </ItemStatistic>
     );
   }
 }
