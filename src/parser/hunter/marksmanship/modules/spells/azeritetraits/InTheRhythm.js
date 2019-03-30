@@ -19,6 +19,12 @@ const inTheRhythmStats = traits => Object.values(traits).reduce((obj, rank) => {
 
 const DURATION = 8000;
 
+/** Rapid Fire
+ * When Rapid Fire finishes fully channeling, your Haste is increased by 623 for 8 sec.
+ *
+ * Example log: https://www.warcraftlogs.com/reports/47LJvZ9BgdhR8TXf#fight=43&type=summary&source=16
+ */
+
 class InTheRhythm extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,

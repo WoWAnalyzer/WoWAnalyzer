@@ -43,6 +43,11 @@ export default {
   },
 
   //Marksmanship
+  SURGING_SHOTS: {
+    id: 287707,
+    name: 'Surging Shots',
+    icon: 'ability_hunter_snipershot',
+  },
   STEADY_AIM: {
     id: 277651,
     name: 'Steady Aim',
@@ -73,7 +78,16 @@ export default {
     name: 'Unerring Vision',
     icon: 'ability_trueshot',
   },
-
+  FOCUSED_FIRE: {
+    id: 278531,
+    name: 'Focused Fire',
+    icon: 'ability_hisek_aim',
+  },
+  FOCUSED_FIRE_FOCUS: {
+    id: 279637,
+    name: 'Focused Fire',
+    icon: 'ability_hisek_aim',
+  },
 
   //Survival
   WILDERNESS_SURVIVAL: {
