@@ -39,11 +39,6 @@ class EnvelopingMists extends Analyzer {
     if (SPELLS.ENVELOPING_MIST.id !== spellId) {//bail early if not the right spell
       return;
     }
-    if (this.combatants.players[event.targetID]) {
-      if (this.combatants.players[event.targetID].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0) === true) {
-        this.numberToCount += 1;
-      }
-    }
     this.numberToCount += 1;
     this.lastCastTarget = event.targetID;
   }

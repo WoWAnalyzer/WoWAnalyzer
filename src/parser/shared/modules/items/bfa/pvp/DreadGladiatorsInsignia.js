@@ -4,7 +4,10 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatPercentage } from 'common/format';
 import { calculatePrimaryStat } from 'common/stats';
-import { TooltipElement } from 'common/Tooltip';
+import UptimeIcon from 'interface/icons/Uptime';
+import PrimaryStatIcon from 'interface/icons/PrimaryStat';
+import ItemStatistic from 'interface/statistics/ItemStatistic';
+import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 
 import Analyzer from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
@@ -59,15 +62,19 @@ class DreadGladiatorsInsignia extends Analyzer {
     return (this.primaryStatBuff * this.uptime).toFixed(0);
   }
 
-  item() {
-    return {
-      item: ITEMS.DREAD_GLADIATORS_INSIGNIA,
-      result: (
-        <TooltipElement content={<>You procced <strong>{SPELLS.TASTE_OF_VICTORY.name}</strong> {this.procs} times with an uptime of {formatPercentage(this.uptime)}%.</>}>
-          {this.averagePrimaryStat} average Primary Stat
-        </TooltipElement>
-      ),
-    };
+  statistic() {
+    console.log(this.selectedCombatant.spec.primaryStat);
+    return (
+      <ItemStatistic
+        size="flexible"
+        tooltip={<>You procced <strong>{SPELLS.TASTE_OF_VICTORY.name}</strong> {this.procs} times</>}
+      >
+        <BoringItemValueText item={ITEMS.DREAD_GLADIATORS_BADGE}>
+          <UptimeIcon /> {formatPercentage(this.uptime)}% uptime<br />
+          <PrimaryStatIcon stat={this.selectedCombatant.spec.primaryStat} /> {this.averagePrimaryStat} <small>average {this.selectedCombatant.spec.primaryStat} gained</small>
+        </BoringItemValueText>
+      </ItemStatistic>
+    );
   }
 }
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Events from 'parser/core/Events';
@@ -7,7 +8,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatThousands, formatPercentage } from 'common/format';
 
 /**
- * Example Report: https://www.warcraftlogs.com/reports/tYjD6fp9cJ7nbAkm/#fight=7&source=12
+ * Example Report: https://www.warcraftlogs.com/reports/KGJgZPxanBX82LzV/#fight=4&source=20
  */
 
 const IMMOLATION_AURA = [SPELLS.IMMOLATION_AURA_FIRST_STRIKE_DPS, SPELLS.IMMOLATION_AURA_BUFF_DPS];
@@ -56,9 +57,9 @@ class ImmolationAura extends Analyzer{
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<> Be mindful of your fury levels and spend it before capping.</>)
+        return suggest(<> Avoid casting <SpellLink id={SPELLS.IMMOLATION_AURA_TALENT.id} /> when close to max Fury.</>)
           .icon(SPELLS.IMMOLATION_AURA_TALENT.icon)
-          .actual(`${formatPercentage(actual)}% fury wasted`)
+          .actual(`${formatPercentage(actual)}% Fury wasted`)
           .recommended(`${formatPercentage(recommended)}% is recommended.`);
       });
   }
@@ -71,15 +72,15 @@ class ImmolationAura extends Analyzer{
         position={STATISTIC_ORDER.OPTIONAL(6)}
         value={(
           <>
-            {this.furyPerMin} fury per min <br />
+            {this.furyPerMin} Fury per min <br />
             {this.owner.formatItemDamageDone(this.damage)}
           </>
         )}
         tooltip={(
           <>
             {formatThousands(this.damage)} Total damage<br />
-            {effectiveFuryGain} Effective fury gained<br />
-            {this.furyGain} Total fury gained<br />
+            {effectiveFuryGain} Effective Fury gained<br />
+            {this.furyGain} Total Fury gained<br />
             {this.furyWaste} Fury wasted
           </>
         )}

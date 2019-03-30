@@ -42,7 +42,6 @@ class DireBeast extends Analyzer {
     if (spellId !== SPELLS.DIRE_BEAST_GENERATOR.id) {
       return;
     }
-    console.log(event.waste);
     if (!this.hasSoB) {
       this.focusGained += event.resourceChange - event.waste;
       this.focusWasted += event.waste;
