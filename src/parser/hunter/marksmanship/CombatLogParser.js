@@ -4,6 +4,7 @@ import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent'
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import Channeling from './modules/features/Channeling';
 import Abilities from './modules/Abilities';
+import SpellUsable from './modules/core/SpellUsable';
 
 //Features
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
@@ -43,6 +44,7 @@ import FocusTab from '../shared/modules/features/focuschart/FocusTab';
 //Azerite Traits
 import FocusedFire from './modules/spells/azeritetraits/FocusedFire';
 import SteadyAim from './modules/spells/azeritetraits/SteadyAim';
+import SurgingShots from './modules/spells/azeritetraits/SurgingShots';
 import InTheRhythm from './modules/spells/azeritetraits/InTheRhythm';
 import UnerringVision from './modules/spells/azeritetraits/UnerringVision';
 
@@ -55,6 +57,7 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     channeling: Channeling,
     globalCooldown: GlobalCooldown,
+    spellUsable: SpellUsable,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -94,6 +97,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Azerite Traits
     focusedFire: FocusedFire,
     steadyAim: SteadyAim,
+    surgingShots: SurgingShots,
     inTheRhythm: InTheRhythm,
     unerringVision: UnerringVision,
 
