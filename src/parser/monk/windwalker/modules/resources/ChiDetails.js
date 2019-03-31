@@ -21,7 +21,7 @@ class ChiDetails extends Analyzer {
   }
 
   get chiWastedPercent() {
-    return this.chiWasted / (this.chiWasted + this.chiTracker.generated);
+    return this.chiWasted / (this.chiWasted + this.chiTracker.generated) || 0;
   }
 
   get chiWastedPerMinute() {

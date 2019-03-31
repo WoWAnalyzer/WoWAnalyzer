@@ -6,10 +6,10 @@ import PropTypes from 'prop-types';
 
 import ResourceIcon from 'common/ResourceIcon';
 
-import './BoringResourceValue.scss';
+import '../BoringValue.scss';
 
 const BoringResourceValue = ({ resource, value, label, extra, className }) => (
-  <div className={`flex boring-resource-value ${className || ''}`}>
+  <div className={`flex boring-value ${className || ''}`}>
     <div className="flex-sub icon">
       <ResourceIcon id={resource.id} />
     </div>
