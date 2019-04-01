@@ -11,8 +11,7 @@ class SummonOrderNormalizer extends EventsNormalizer {
     events.forEach((event, idx) => {
       _events.push(event);
 
-      // swap both dogs sharpened-dreadfangs cast and their summon
-      if (this.isDogSummon(event)) {
+      if (this.isDogSummon(event) || this.isTyrantSummon(event)) {
         const castTimestamp = event.timestamp;
 
         for (let previousEventIndex = idx; previousEventIndex >= 0; previousEventIndex -= 1) {
@@ -20,24 +19,11 @@ class SummonOrderNormalizer extends EventsNormalizer {
           if ((castTimestamp - previousEvent.timestamp) > MS_BUFFER) {
             break;
           }
-          if (previousEvent.type === 'cast' && previousEvent.ability.guid === SPELLS.SHARPENED_DREADFANGS.id && previousEvent.sourceInstance === event.targetInstance) {
+          if (this.isSharpenedDreadfangs(previousEvent, event) ||
+            this.isDemonicConsumption(previousEvent, event) ||
+            this.isDemonFire(previousEvent, event)) {
             this.swapEvents(_events, previousEventIndex, previousEvent);
             break;
-          }
-        }
-      }
-
-      // swap demonic tyrant and its demonic consumption & begin_cast event with its summon
-      if (event.type === 'summon' && event.ability.guid === SPELLS.SUMMON_DEMONIC_TYRANT.id) {
-        const castTimestamp = event.timestamp;
-
-        for (let previousEventIndex = idx; previousEventIndex >= 0; previousEventIndex -= 1) {
-          const previousEvent = _events[previousEventIndex];
-          if ((castTimestamp - previousEvent.timestamp) > MS_BUFFER) {
-            break;
-          }
-          if (this.isDemonicConsumption(previousEvent, event) || this.isDemonFire(previousEvent, event)) {
-            this.swapEvents(_events, previousEventIndex, previousEvent);
           }
         }
       }
@@ -46,6 +32,12 @@ class SummonOrderNormalizer extends EventsNormalizer {
   }
 
   // helper
+  isSharpenedDreadfangs(previousEvent, event) {
+    return previousEvent.type === 'cast' && previousEvent.ability.guid === SPELLS.SHARPENED_DREADFANGS.id && previousEvent.sourceInstance === event.targetInstance;
+  }
+  isTyrantSummon(event) {
+    return event.type === 'summon' && event.ability.guid === SPELLS.SUMMON_DEMONIC_TYRANT.id;
+  }
   isDogSummon(event) {
     return event.type === 'summon' && (event.ability.guid === SPELLS.DREADSTALKER_SUMMON_1.id || event.ability.guid === SPELLS.DREADSTALKER_SUMMON_2.id);
   }
@@ -53,7 +45,7 @@ class SummonOrderNormalizer extends EventsNormalizer {
   swapEvents(_events, previousEventIndex, previousEvent) {
     _events.splice(previousEventIndex, 1);
     _events.push(previousEvent);
-    _events.__modified = true;
+    previousEvent.__modified = true;
   }
 
   isDemonFire(previousEvent, event) {
