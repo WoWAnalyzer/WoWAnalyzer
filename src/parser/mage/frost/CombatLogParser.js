@@ -25,6 +25,8 @@ import ColdSnap from './modules/cooldowns/ColdSnap';
 import WaterElemental from './modules/features/WaterElemental';
 import LonelyWinter from './modules/talents/LonelyWinter';
 
+import AprilFools from '../shared/modules/features/AprilFools';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     checklist: Checklist,
@@ -70,6 +72,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],
+
+    aprilFools: AprilFools,
   };
 }
 

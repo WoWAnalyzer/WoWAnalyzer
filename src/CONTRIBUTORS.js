@@ -120,6 +120,10 @@ export const Sharrq = {
   github: 'Sharrq',
   avatar: require('./interface/images/avatars/Sharrq_avatar.jpg'),
 };
+export const Ragnaros = {
+  nickname: 'Ragnaros',
+  avatar: require('./interface/images/avatars/Ragnaros_avatar.jpg'),
+};
 export const Khazak = {
   nickname: 'Khazak',
   github: 'jjs451',

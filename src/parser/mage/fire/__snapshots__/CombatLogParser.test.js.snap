@@ -123,6 +123,20 @@ Array [
 ]
 `;
 
+exports[`The Fire Mage Analyzer analyzers AprilFools matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Fire Mage Analyzer analyzers AprilFools matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "inv_misc_food_73cinnamonroll",
+    "importance": "major",
+    "issue": "You dropped a table or placed a portal to current content. Make those lazy healers buy their own food and do your part to make the world bigger by sending them to the far edges of the world instead of the the main cities. I hear the swamps in Stonard are beutiful this time of year anyway.",
+    "stat": null,
+  },
+]
+`;
+
 exports[`The Fire Mage Analyzer analyzers ArcaneIntellect matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`The Fire Mage Analyzer analyzers ArcaneIntellect matches the suggestions snapshot 1`] = `Array []`;
@@ -695,7 +709,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
         <div
           className="flex-main name"
         >
-          Use your cooldowns
+          MY PATIENCE IS DWINDLING! COME, GNATS: TO YOUR DEATH!
         </div>
         <div
           className="flex-sub perf"
@@ -1076,7 +1090,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
         <div
           className="flex-main name"
         >
-          Use Combustion effectively
+          TASTE THE FLAMES OF SULFURION!
         </div>
         <div
           className="flex-sub perf"
@@ -1453,7 +1467,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
         <div
           className="flex-main name"
         >
-          Use your procs effectively
+          DIE INSECT!
         </div>
         <div
           className="flex-sub perf"
@@ -1906,7 +1920,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
         <div
           className="flex-main name"
         >
-          Use your talents effectively
+          BY FIRE BE PURGED!
         </div>
         <div
           className="flex-sub perf"
@@ -2179,7 +2193,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
         <div
           className="flex-main name"
         >
-          Avoid downtime
+          COME FORTH MY SERVANTS! DEFEND YOUR MASTER!
         </div>
         <div
           className="flex-sub perf"
