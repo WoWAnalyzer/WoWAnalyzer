@@ -32,10 +32,24 @@ class ArcaneMageChecklist extends React.PureComponent {
     return (
       <Checklist>
         <Rule
-          name="Use your cooldowns"
+          name="ONLY CAST ARCANE BLAST!"
           description={(
             <>
-              Using your cooldown abilities as often as possible can help raise your dps significantly. Some help more than others, but as a general rule of thumb you should be looking to use most of your damaging abilities and damage cooldowns as often as possible unless you need to save them for a priority burst phase that is coming up soon.
+              All your other spells suck, just cast Arcane Blast over and over again until the boss is dead.
+            </>
+          )}
+        >
+          <Requirement
+            name="Non Arcane Blast casts"
+            tooltip="Dont cast anything except Arcane Blast, the rest of your spells suck."
+            thresholds={thresholds.arcaneBlastCasts}
+          />
+        </Rule>
+        <Rule
+          name="You can use Arcane Power i guess"
+          description={(
+            <>
+              Arcane Power makes your Arcane Blast's hit harder and cost less, so you can use that.
             </>
           )}
         >
@@ -73,7 +87,7 @@ class ArcaneMageChecklist extends React.PureComponent {
 
         </Rule>
         <Rule
-          name="Use your talents effectively"
+          name="Dont bother using your talents"
           description="Regardless of which talents you select, you should ensure that you are utilizing them properly. If you are having trouble effectively using a particular talent, you should consider taking a different talent that you can utilize properly or focus on effectively using the talents that you have selected."
         >
           {combatant.hasTalent(SPELLS.ARCANE_ORB_TALENT.id && !combatant.hasShoulder(ITEMS.MANTLE_OF_THE_FIRST_KIRIN_TOR.id)) && (
@@ -102,7 +116,7 @@ class ArcaneMageChecklist extends React.PureComponent {
           name="Avoid downtime"
           description={(
             <>
-              As a DPS, it is important to spend as much time casting as possible as if you arent casting you arent doing damage. Therefore it is important to minimize your movements, stay within range of the target, and try to avoid cancelling casts (unless you have to). While some fights will have an amount of time that is unavoidable downtime; the more you can minimize that downtime, the better.
+              As a DPS, it is important to spend as much time casting Arcane Blast as possible as if you arent casting Arcane Blast, you arent doing damage. Therefore it is important to minimize your movements, stay within range of the target, and never cancel an Arcane Blast cast (even if you are standing in fire).
             </>
           )}
         >
@@ -110,7 +124,7 @@ class ArcaneMageChecklist extends React.PureComponent {
           <Requirement name="Cancelled Casts" thresholds={thresholds.cancelledCasts} />
         </Rule>
         <Rule
-          name="Maintain your buffs"
+          name="If they buff Arcane Blast, its important"
           description={(
             <>
               You should ensure that you maintain <SpellLink id={SPELLS.ARCANE_INTELLECT.id} /> for the entire fight and recast it whenever you are ressurected and likewise, if you have the appropriate classes/specs in your group you should also ensure that you maintain their buffs as possible. Additionally, you should also maintain other buffs such as <SpellLink id={SPELLS.ARCANE_FAMILIAR_TALENT.id} /> if you are talented into them.

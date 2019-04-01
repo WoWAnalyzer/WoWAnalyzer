@@ -31,7 +31,7 @@ class FireMageChecklist extends React.PureComponent {
     return (
       <Checklist>
         <Rule
-          name="Use your cooldowns"
+          name="MY PATIENCE IS DWINDLING! COME, GNATS: TO YOUR DEATH!"
           description={(
             <>
               Using your cooldown abilities as often as possible can help raise your dps significantly. Some help more than others, but as a general rule of thumb you should be looking to use most of your damaging abilities and damage cooldowns as often as possible unless you need to save them for a priority burst phase that is coming up soon.
@@ -48,7 +48,7 @@ class FireMageChecklist extends React.PureComponent {
           {combatant.hasTalent(SPELLS.METEOR_TALENT.id) && <AbilityRequirement spell={SPELLS.METEOR_TALENT.id} />}
         </Rule>
         <Rule
-          name="Use Combustion effectively"
+          name="TASTE THE FLAMES OF SULFURION!"
           description={(
             <>
               Using <SpellLink id={SPELLS.COMBUSTION.id} /> properly is one of the most important aspects of playing Fire well. Therefore it is critical that you make the most of the time that you have while Combustion is active. This include things such as not wasting time or GCDs while Combustion is active and ensuring that you properly setup for your "Combustion Window".
@@ -93,7 +93,7 @@ class FireMageChecklist extends React.PureComponent {
           />
         </Rule>
         <Rule
-          name="Use your procs effectively"
+          name="DIE INSECT!"
           description={(
             <>
               Fire Mage revolves almost entirely around utilizing your procs effectively. Therefore it is very important that you manage your procs correctly to ensure that you get the most out of them.
@@ -129,7 +129,7 @@ class FireMageChecklist extends React.PureComponent {
           />
         </Rule>
         <Rule
-          name="Use your talents effectively"
+          name="BY FIRE BE PURGED!"
           description="Regardless of which talents you select, you should ensure that you are utilizing them properly. If you are having trouble effectively using a particular talent, you should consider taking a different talent that you can utilize properly or focus on effectively using the talents that you have selected."
         >
           {combatant.hasTalent(SPELLS.PYROCLASM_TALENT.id) && (
@@ -155,7 +155,7 @@ class FireMageChecklist extends React.PureComponent {
           )}
         </Rule>
         <Rule
-          name="Avoid downtime"
+          name="COME FORTH MY SERVANTS! DEFEND YOUR MASTER!"
           description={(
             <>
               As a DPS, it is important to spend as much time casting as possible as if you are not casting then you are not doing damage. Therefore it is important to minimize your movements, stay within range of the target, and cancelling casts .. if you can avoid it. While some fights will have an amount of time that is unavoidable downtime; the more you can minimize that downtime, the better.
@@ -166,7 +166,7 @@ class FireMageChecklist extends React.PureComponent {
           <Requirement name="Cancelled Casts" thresholds={thresholds.cancelledCasts} />
         </Rule>
 
-        <PreparationRule thresholds={thresholds}>
+        <PreparationRule description={'test'} thresholds={thresholds}>
           <Requirement name="Arcane Intellect active" thresholds={thresholds.arcaneIntellectUptime} />
         </PreparationRule>
       </Checklist>

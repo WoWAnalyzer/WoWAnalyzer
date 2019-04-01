@@ -27,7 +27,8 @@ import ArcaneOrb from './modules/features/ArcaneOrb';
 import RuleOfThrees from './modules/features/RuleOfThrees';
 import TimeAnomaly from './modules/features/TimeAnomaly';
 
-
+import AprilFools from './modules/features/AprilFools';
+import AprilFoolsShared from '../shared/modules/features/AprilFools';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -57,6 +58,9 @@ class CombatLogParser extends CoreCombatLogParser {
     arcaneOrb: ArcaneOrb,
     ruleOfThrees: RuleOfThrees,
     timeAnomaly: TimeAnomaly,
+
+    aprilFools: AprilFools,
+    aprilFoolsShared: AprilFoolsShared,
   };
 }
 
