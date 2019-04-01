@@ -22,6 +22,28 @@ class MetaBuffUptime extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id);
   }
 
+  get suggestionThresholds() {
+    return {
+      actual: 100,
+      isGreaterThan: {
+        minor: 10,
+        average: 10,
+        major: 10,
+      },
+      style: 'percentage',
+    };
+  }
+
+  suggestions(when) {
+    when(this.suggestionThresholds)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<> Scream over discord "What have YOU sacrifice!!" for a 10% DPS increase.</>)
+          .icon(SPELLS.METAMORPHOSIS_HAVOC_BUFF.icon)
+          .actual(`${formatPercentage(actual)}% condensending screaming done`)
+          .recommended(`${formatPercentage(recommended)}% is recommended.`);
+      });
+  }
+
   statistic() {
     return (
       <StatisticBox
