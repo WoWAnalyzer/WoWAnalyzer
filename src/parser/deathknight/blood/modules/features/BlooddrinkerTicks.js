@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
-import { formatThousands } from 'common/format';
+import { formatThousands, formatPercentage } from 'common/format';
 
 const BLOODDRINKER_TICKS_PER_CAST = 4;
 
@@ -56,6 +56,28 @@ class Blooddrinker extends Analyzer {
         this._ruinedCasts += 1;
       }
       this._currentTicks = 0;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: 100,
+      isGreaterThan: {
+        minor: 10,
+        average: 10,
+        major: 10,
+      },
+      style: 'percentage',
+    };
+  }
+
+  suggestions(when) {
+    when(this.suggestionThresholds)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<> RIP Mythic+. Have you seen us in MDI? Neither have I...</>)
+          .icon(SPELLS.METAMORPHOSIS_HAVOC_BUFF.icon)
+          .actual(`${formatPercentage(actual)}% emoness directed at Prot Warrior`)
+          .recommended(`${formatPercentage(recommended)}% is recommended.`);
+      });
   }
 
   statistic() {
