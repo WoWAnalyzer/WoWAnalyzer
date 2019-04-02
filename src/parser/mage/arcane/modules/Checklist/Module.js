@@ -19,7 +19,6 @@ import MirrorImage from '../../../shared/modules/features/MirrorImage';
 import RuneOfPower from '../../../shared/modules/features/RuneOfPower';
 
 import Component from './Component';
-import AprilFools from '../features/AprilFools';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -38,7 +37,6 @@ class Checklist extends BaseChecklist {
     runeOfPower: RuneOfPower,
     alwaysBeCasting: AlwaysBeCasting,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
-    aprilFools: AprilFools,
   };
 
   render() {
@@ -63,7 +61,6 @@ class Checklist extends BaseChecklist {
           arcaneIntellectUptime: this.arcaneIntellect.suggestionThresholds,
           cancelledCasts: this.cancelledCasts.suggestionThresholds,
           runeOfPowerBuffUptime: this.runeOfPower.roundedSecondsSuggestionThresholds,
-          arcaneBlastCasts: this.aprilFools.suggestionThresholds,
         }}
       />
     );
