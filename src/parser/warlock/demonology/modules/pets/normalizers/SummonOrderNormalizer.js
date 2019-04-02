@@ -23,7 +23,6 @@ class SummonOrderNormalizer extends EventsNormalizer {
             this.isDemonicConsumption(previousEvent, event) ||
             this.isDemonFire(previousEvent, event)) {
             this.swapEvents(_events, previousEventIndex, previousEvent);
-            break;
           }
         }
       }
