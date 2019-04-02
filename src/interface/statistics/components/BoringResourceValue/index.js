@@ -1,19 +1,17 @@
 /**
- * A simple component that shows the spell icon left and a value right.
- * Use this only for things that the player certainly should be familiar with, such as their own spells.
- * Do NOT use for items or azerite powers.
+ * A simple component that shows the resource icon left and a value right.
  */
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import SpellIcon from 'common/SpellIcon';
+import ResourceIcon from 'common/ResourceIcon';
 
 import '../BoringValue.scss';
 
-const BoringSpellValue = ({ spell, value, label, extra, className }) => (
+const BoringResourceValue = ({ resource, value, label, extra, className }) => (
   <div className={`flex boring-value ${className || ''}`}>
     <div className="flex-sub icon">
-      <SpellIcon id={spell.id} />
+      <ResourceIcon id={resource.id} />
     </div>
     <div className="flex-main value">
       <div>{value}</div>
@@ -22,8 +20,8 @@ const BoringSpellValue = ({ spell, value, label, extra, className }) => (
     </div>
   </div>
 );
-BoringSpellValue.propTypes = {
-  spell: PropTypes.shape({
+BoringResourceValue.propTypes = {
+  resource: PropTypes.shape({
     id: PropTypes.number.isRequired,
   }).isRequired,
   value: PropTypes.node.isRequired,
@@ -32,4 +30,4 @@ BoringSpellValue.propTypes = {
   className: PropTypes.string,
 };
 
-export default BoringSpellValue;
+export default BoringResourceValue;
