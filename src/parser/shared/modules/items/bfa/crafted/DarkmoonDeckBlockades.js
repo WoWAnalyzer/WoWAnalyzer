@@ -1,6 +1,7 @@
 import React from 'react';
 
 import ITEMS from 'common/ITEMS/index';
+import ItemLink from 'common/ItemLink';
 import Analyzer from 'parser/core/Analyzer';
 import { calculatePrimaryStat } from 'common/stats';
 import StatisticBox from 'interface/others/StatisticBox';
@@ -142,14 +143,16 @@ class DarkmoonDeckBlockades extends Analyzer {
     };
   }
 
-  item() {
+
+
+  statistic() {
     const summary = this.staminaSummary;
     const totals = this._getSummaryTotals(summary);
     const tooltipData = (
       <StatisticBox
         icon={<ItemIcon id={ITEMS.DARKMOON_DECK_BLOCKADES.id} />}
         value={this.owner.formatItemHealingDone(this.healing)}
-        label="Darkmoon Deck: Blockades"
+        label={<ItemLink id={ITEMS.DARKMOON_DECK_BLOCKADES.id} icon={false} />}
         category={STATISTIC_CATEGORY.ITEMS}
       >
         <table className="table table-condensed">

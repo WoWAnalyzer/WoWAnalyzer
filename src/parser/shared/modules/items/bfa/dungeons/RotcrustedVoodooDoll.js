@@ -1,7 +1,8 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import { TooltipElement } from 'common/Tooltip';
+import ItemStatistic from 'interface/statistics/ItemStatistic';
+import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import Analyzer from 'parser/core/Analyzer';
 import { formatNumber } from 'common/format';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
@@ -51,15 +52,17 @@ class RotcrustedVoodooDoll extends Analyzer {
     this.ticks += 1;
   }
 
-  item() {
-    return {
-      item: ITEMS.ROTCRUSTED_VOODOO_DOLL,
-      result: (
-        <TooltipElement content={<><strong>{this.ticks}</strong> ticks, causing <strong>{formatNumber(this.damage)}</strong> damage.</>}>
+  statistic() {
+    return (
+      <ItemStatistic
+        size="flexible"
+        tooltip={<><strong>{this.ticks}</strong> ticks, causing <strong>{formatNumber(this.damage)}</strong> damage.</>}
+      >
+        <BoringItemValueText item={ITEMS.ROTCRUSTED_VOODOO_DOLL}>
           <ItemDamageDone amount={this.damage} />
-        </TooltipElement>
-      ),
-    };
+        </BoringItemValueText>
+      </ItemStatistic>
+    );
   }
 }
 

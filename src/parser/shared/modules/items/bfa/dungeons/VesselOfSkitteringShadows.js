@@ -1,6 +1,8 @@
 import React from 'react';
 import ITEMS from 'common/ITEMS';
 import Analyzer from 'parser/core/Analyzer';
+import ItemStatistic from 'interface/statistics/ItemStatistic';
+import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import SPELLS from 'common/SPELLS/';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 
@@ -29,11 +31,16 @@ class VesselOfSkitteringShadows extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
-  item() {
-    return {
-      item: ITEMS.VESSEL_OF_SKITTERING_SHADOWS,
-      result: <ItemDamageDone amount={this.damage} />,
-    };
+  statistic() {
+    return (
+      <ItemStatistic
+        size="flexible"
+      >
+        <BoringItemValueText item={ITEMS.VESSEL_OF_SKITTERING_SHADOWS}>
+          <ItemDamageDone amount={this.damage} />
+        </BoringItemValueText>
+      </ItemStatistic>
+    );
   }
 }
 

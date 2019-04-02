@@ -18,6 +18,7 @@ import EverlastingLight from 'parser/priest/holy/modules/spells/azeritetraits/Ev
 import PermeatingGlow from 'parser/priest/holy/modules/spells/azeritetraits/PermeatingGlow';
 import PrayerfulLitany from 'parser/priest/holy/modules/spells/azeritetraits/PrayerfulLitany';
 import WordOfMending from 'parser/priest/holy/modules/spells/azeritetraits/WordOfMending';
+import DamageDone from 'parser/shared/modules/throughput/DamageDone';
 
 class HolyPriestSpreadsheet extends React.Component {
   static propTypes = {
@@ -220,6 +221,10 @@ class HolyPriestSpreadsheet extends React.Component {
               <tr>
                 <td>Damage Taken</td>
                 <td>{parser.getModule(DamageTaken)._total._regular}</td>
+              </tr>
+              <tr>
+                <td>Damage Done</td>
+                <td>{parser.getModule(DamageDone)._total._regular}</td>
               </tr>
               <tr>
                 <td>Deaths</td>

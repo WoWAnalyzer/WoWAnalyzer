@@ -8,20 +8,27 @@ import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/Pr
 
 import AlwaysBeCasting from '../AlwaysBeCasting';
 
-// Spells
-import DemonBite from '../../spells/DemonBite';
 
-// Talents
-import Felblade from '../../talents/Felblade';
-import DemonicAppetite from '../../talents/DemonicAppetite';
-import BlindFury from '../../talents/BlindFury';
-import DemonBlades from '../../talents/DemonBlades';
+// Short CDs
 import ImmolationAura from '../../talents/ImmolationAura';
-import Momentum from '../../talents/Momentum';
+import Felblade from '../../talents/Felblade';
+
+// Don't waste casts
+import BlindFury from '../../talents/BlindFury';
+import Demonic from '../../talents/Demonic';
+import FelBarrage from '../../talents/FelBarrage';
 import FelEruption from '../../talents/FelEruption';
 
-// Fury Resource
+// Maintain buffs/debuffs
+import Momentum from '../../talents/Momentum';
+
+// Use your offensive cool downs
+
+// Manage your fury properly
 import FuryDetails from '../../resourcetracker/FuryDetails';
+import DemonBite from '../../spells/DemonBite';
+import DemonicAppetite from '../../talents/DemonicAppetite';
+import DemonBlades from '../../talents/DemonBlades';
 
 import Component from './Component';
 
@@ -33,19 +40,25 @@ class Checklist extends BaseModule {
     manaValues: ManaValues,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
 
-    // Spells
-    demonBite: DemonBite,
-
-    // Talents
+    // Short CDs
     felblade: Felblade,
-    demonicAppetite: DemonicAppetite,
-    blindFury: BlindFury,
-    demonBlades: DemonBlades,
     immolationAura: ImmolationAura,
-    momentum: Momentum,
+
+    // Don't waste casts
+    blindFury: BlindFury,
+    demonic: Demonic,
+    felBarrage: FelBarrage,
     felEruption: FelEruption,
 
-    // Fury Resource
+    // Maintain buffs/debuffs
+    momentum: Momentum,
+
+    // Use your offensive cool downs
+
+    // Manage your fury properly
+    demonBite: DemonBite,
+    demonicAppetite: DemonicAppetite,
+    demonBlades: DemonBlades,
     furyDetails: FuryDetails,
   };
 
@@ -59,18 +72,26 @@ class Checklist extends BaseModule {
 
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
 
-          // Spells
-          demonBiteFury: this.demonBite.suggestionThresholds,
-
-          // Talents
+          // Short CDs
           felbladeEfficiency: this.felblade.suggestionThresholds,
-          demonicAppetiteEfficiency: this.demonicAppetite.suggestionThresholds,
-          blindFuryEfficiency: this.blindFury.suggestionThresholds,
-          demonBladesEfficiency: this.demonBlades.suggestionThresholds,
           immolationAuraEfficiency: this.immolationAura.suggestionThresholds,
-          momentumBuffUptime: this.momentum.suggestionThresholds,
-          totalFuryWasted: this.furyDetails.suggestionThresholds,
+
+          // Don't waste casts
+          blindFuryBadCasts: this.blindFury.suggestionThresholds,
+          demonicBadCasts: this.demonic.suggestionThresholds,
+          felBarrageBadCasts: this.felBarrage.suggestionThresholds,
           felEruptionBadCasts: this.felEruption.suggestionThresholds,
+
+          // Maintain buffs/debuffs
+          momentumBuffUptime: this.momentum.suggestionThresholds,
+
+          // Use your offensive cool downs
+
+          // Manage your fury properly
+          demonBiteFury: this.demonBite.suggestionThresholds,
+          demonicAppetiteEfficiency: this.demonicAppetite.suggestionThresholds,
+          demonBladesEfficiency: this.demonBlades.suggestionThresholds,
+          totalFuryWasted: this.furyDetails.suggestionThresholds,
         }}
       />
     );

@@ -1,9 +1,11 @@
 import React from 'react';
 
-import Icon from 'common/Icon';
 import { formatMilliseconds, formatNumber, formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import CrossIcon from 'interface/icons/Cross';
+import Statistic from 'interface/statistics/Statistic';
+import BoringValueText from 'interface/statistics/components/BoringValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 const debug = false;
 
@@ -82,11 +84,11 @@ class CancelledCasts extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(10)}
-        icon={<Icon icon="inv_misc_map_01" alt="Cancelled Casts" />}
-        value={`${formatPercentage(this.cancelledPercentage)} %`}
-        label="Casts Cancelled"
+        size="small"
+        label="test"
+        className="value"
         tooltip={(
           <>
             You cast {this.totalCasts} spells.
@@ -96,9 +98,13 @@ class CancelledCasts extends Analyzer {
             </ul>
           </>
         )}
-      />
+        >
+          <BoringValueText label="Cancelled Casts">
+            <CrossIcon /> {formatPercentage(this.cancelledPercentage)}% <small>Casts Cancelled</small>
+          </BoringValueText>
+      </Statistic>
     );
-  }
+  }  
 }
 
 export default CancelledCasts;

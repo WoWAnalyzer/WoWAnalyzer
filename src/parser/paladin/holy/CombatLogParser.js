@@ -43,6 +43,9 @@ import HolyAvenger from './modules/talents/HolyAvenger';
 import DivinePurpose from './modules/talents/DivinePurpose';
 import CrusadersMight from './modules/talents/CrusadersMight';
 
+// azurite traits //
+import GraceOfTheJusticar from './modules/azeritetraits/GraceOfTheJusticar';
+
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
 // azurite traits //
@@ -104,6 +107,7 @@ class CombatLogParser extends CoreCombatLogParser {
     crusadersMight: CrusadersMight,
 
     // Azureite Traits //
+    graceOfTheJusticar: GraceOfTheJusticar,
     radiantIncandescence: RadiantIncandescence,
   };
 }

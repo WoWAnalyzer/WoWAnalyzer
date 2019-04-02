@@ -309,7 +309,7 @@ export default {
   },
   EYE_BEAM: {
     id: 198013,
-    name: 'Eye Beam',
+    name: 'I AM MY SCARS!!',
     icon: 'ability_demonhunter_eyebeam',
   },
   EYE_BEAM_DAMAGE: {

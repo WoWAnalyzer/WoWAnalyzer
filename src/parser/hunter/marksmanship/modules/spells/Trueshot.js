@@ -12,8 +12,10 @@ import Abilities from 'parser/core/modules/Abilities';
 import SpellLink from 'common/SpellLink';
 
 /**
- * Immediately gain 1 charge of Aimed Shot, and gain 30% Haste for 15 sec.
+ * Reduces the cooldown of your Aimed Shot and Rapid Fire by 60%, and causes Aimed Shot to cast 50% faster for 15 sec.
  * Lasts 15 sec.
+ *
+ * TODO: Verify if this is still bugged so that it reduces the cooldown of Aimed Shot by equivalent to 325% haste and Rapid Fire by the equivalent to 340% haste.
  *
  * Example log: https://www.warcraftlogs.com/reports/v6nrtTxNKGDmYJXy#fight=16&type=auras&source=6
  */
@@ -26,7 +28,6 @@ class Trueshot extends Analyzer {
   trueshotCasts = 0;
   accumulatedFocusAtTSCast = 0;
   aimedShotsPrTS = 0;
-  wastedAimedShotCharges = 0;
   startFocusForCombatant = 0;
 
   on_byPlayer_cast(event) {
@@ -76,7 +77,6 @@ class Trueshot extends Analyzer {
             <ul>
               <li>You started your Trueshot windows with an average of {this.averageFocus} Focus.</li>
               <li>You hit an average of {this.averageAimedShots} Aimed Shots inside each Trueshot window. </li>
-              <li>You gained {this.trueshotCasts - this.wastedAimedShotCharges} charges of Aimed Shot and lost out on {this.wastedAimedShotCharges} charges by activating Trueshot whilst Aimed Shot wasn't on cooldown.</li>
             </ul>
           </>
         )}

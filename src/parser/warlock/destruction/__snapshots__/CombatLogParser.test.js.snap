@@ -883,7 +883,7 @@ exports[`The Destruction Warlock Analyzer analyzers SoulShardDetails matches the
       className="panel-body"
     >
       <div
-        className="flex boring-spell-value grayscale"
+        className="flex boring-value grayscale"
       >
         <div
           className="flex-sub icon"
