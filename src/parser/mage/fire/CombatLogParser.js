@@ -30,8 +30,6 @@ import HeatingUp from './modules/features/HeatingUp';
 import Pyroclasm from './modules/features/Pyroclasm';
 import SearingTouch from './modules/features/SearingTouch';
 
-import AprilFools from '../shared/modules/features/AprilFools';
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Normalizers
@@ -70,8 +68,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],
-
-    aprilFools: AprilFools,
   };
 }
 
