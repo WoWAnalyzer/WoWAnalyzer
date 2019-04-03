@@ -59,7 +59,7 @@ export default [
   },
   {
     date: new Date('2018-08-05'),
-    changes: <>Added <ItemLink id={ITEMS.SOUL_OF_THE_SLAYER.id} icon /> suggestions talents picks for BfA.</>,
+    changes: <>Added <ItemLink id={ITEMS.SOUL_OF_THE_SLAYER.id} /> suggestions talents picks for BfA.</>,
     contributors: [Mamtooth],
   },
   {

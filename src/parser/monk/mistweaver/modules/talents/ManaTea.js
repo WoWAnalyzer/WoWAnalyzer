@@ -36,7 +36,6 @@ class ManaTea extends Analyzer {
   nonManaCasts = 0;
   castsUnderManaTea = 0;
 
-  hasLifeCycles = false;
   casted = false;
 
   effectiveHealing = 0;
@@ -45,9 +44,6 @@ class ManaTea extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.MANA_TEA_TALENT.id);
-    if (this.selectedCombatant.hasTalent(SPELLS.LIFECYCLES_TALENT.id)) {
-      this.hasLifeCycles = true;
-    }
   }
 
   on_toPlayer_applybuff(event) {
@@ -127,7 +123,7 @@ class ManaTea extends Analyzer {
 
   addToManaSaved(spellBaseMana, spellId) {
     // If we cast TFT -> Viv, mana cost of Viv is 0
-    if (this.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) && SPELLS.VIVIFY.id === spellId) {
+    if ((this.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) && SPELLS.VIVIFY.id === spellId) || this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
       this.nonManaCasts += 1;
       return;
     }

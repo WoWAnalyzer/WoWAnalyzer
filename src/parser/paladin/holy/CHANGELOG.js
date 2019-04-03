@@ -1,10 +1,20 @@
 import React from 'react';
 
-import { Zerotorescue } from 'CONTRIBUTORS';
+import { Zerotorescue, HolySchmidt } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2019-03-21'),
+    changes: <><SpellLink id={SPELLS.GRACE_OF_THE_JUSTICAR.id} /> statistic added showing total healing, players hit per cast and healing transfered to beacons.</>,
+    contributors: [HolySchmidt],
+  },
+  {
+    date: new Date('2019-03-19'),
+    changes: <><SpellLink id={SPELLS.RADIANT_INCANDESCENCE.id} /> statistic tracker added showing healing, crit rate, damage and healing transfered to beacons.</>,
+    contributors: [HolySchmidt],
+  },
   {
     date: new Date('2019-02-24'),
     changes: <><SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> has been marked as scaling with Mastery and Haste and should now affect the stat values.</>,

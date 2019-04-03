@@ -215,33 +215,56 @@ exports[`The Arcane Mage Analyzer analyzers CancelledCasts matches the statistic
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic small value"
+    label="test"
+    position={10}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
-          <img
-            alt="Cancelled Casts"
-            className="icon game "
-            src="//render-us.worldofwarcraft.com/icons/56/inv_misc_map_01.jpg"
-          />
-           
-          Casts Cancelled
+          Cancelled Casts
         </label>
         <div
           className="value"
         >
-          4.02 %
+          <svg
+            className="icon stroke"
+            viewBox="15 15 70 70"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              style={
+                Object {
+                  "strokeLinecap": "round",
+                  "strokeMiterlimit": 10,
+                  "strokeWidth": 10,
+                }
+              }
+            >
+              <line
+                x1="21.19"
+                x2="78.81"
+                y1="21.19"
+                y2="78.81"
+              />
+              <line
+                x1="78.81"
+                x2="21.19"
+                y1="21.19"
+                y2="78.81"
+              />
+            </g>
+          </svg>
+           
+          4.02
+          % 
+          <small>
+            Casts Cancelled
+          </small>
         </div>
       </div>
     </div>
@@ -394,7 +417,7 @@ exports[`The Arcane Mage Analyzer should match the checklist snapshot 1`] = `
       onClick={[Function]}
     >
       <div
-        className="flex"
+        className="flex wrapable"
       >
         <div
           className="flex-main name"
@@ -419,17 +442,19 @@ exports[`The Arcane Mage Analyzer should match the checklist snapshot 1`] = `
           </div>
         </div>
         <div
-          className="chevron"
+          className="flex-sub chevron"
         >
-          <svg
-            className="icon"
-            viewBox="0 0 16 9"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-            />
-          </svg>
+          <div>
+            <svg
+              className="icon"
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
         </div>
       </div>
     </div>
@@ -773,7 +798,7 @@ exports[`The Arcane Mage Analyzer should match the checklist snapshot 1`] = `
       onClick={[Function]}
     >
       <div
-        className="flex"
+        className="flex wrapable"
       >
         <div
           className="flex-main name"
@@ -798,17 +823,19 @@ exports[`The Arcane Mage Analyzer should match the checklist snapshot 1`] = `
           </div>
         </div>
         <div
-          className="chevron"
+          className="flex-sub chevron"
         >
-          <svg
-            className="icon"
-            viewBox="0 0 16 9"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-            />
-          </svg>
+          <div>
+            <svg
+              className="icon"
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
         </div>
       </div>
     </div>
@@ -1148,7 +1175,7 @@ exports[`The Arcane Mage Analyzer should match the checklist snapshot 1`] = `
       onClick={[Function]}
     >
       <div
-        className="flex"
+        className="flex wrapable"
       >
         <div
           className="flex-main name"
@@ -1173,17 +1200,19 @@ exports[`The Arcane Mage Analyzer should match the checklist snapshot 1`] = `
           </div>
         </div>
         <div
-          className="chevron"
+          className="flex-sub chevron"
         >
-          <svg
-            className="icon"
-            viewBox="0 0 16 9"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-            />
-          </svg>
+          <div>
+            <svg
+              className="icon"
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
         </div>
       </div>
     </div>
@@ -1419,7 +1448,7 @@ exports[`The Arcane Mage Analyzer should match the checklist snapshot 1`] = `
       onClick={[Function]}
     >
       <div
-        className="flex"
+        className="flex wrapable"
       >
         <div
           className="flex-main name"
@@ -1444,17 +1473,19 @@ exports[`The Arcane Mage Analyzer should match the checklist snapshot 1`] = `
           </div>
         </div>
         <div
-          className="chevron"
+          className="flex-sub chevron"
         >
-          <svg
-            className="icon"
-            viewBox="0 0 16 9"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-            />
-          </svg>
+          <div>
+            <svg
+              className="icon"
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
         </div>
       </div>
     </div>
@@ -1630,7 +1661,7 @@ exports[`The Arcane Mage Analyzer should match the checklist snapshot 1`] = `
       onClick={[Function]}
     >
       <div
-        className="flex"
+        className="flex wrapable"
       >
         <div
           className="flex-main name"
@@ -1655,17 +1686,19 @@ exports[`The Arcane Mage Analyzer should match the checklist snapshot 1`] = `
           </div>
         </div>
         <div
-          className="chevron"
+          className="flex-sub chevron"
         >
-          <svg
-            className="icon"
-            viewBox="0 0 16 9"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-            />
-          </svg>
+          <div>
+            <svg
+              className="icon"
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
         </div>
       </div>
     </div>
@@ -1809,7 +1842,7 @@ exports[`The Arcane Mage Analyzer should match the checklist snapshot 1`] = `
       onClick={[Function]}
     >
       <div
-        className="flex"
+        className="flex wrapable"
       >
         <div
           className="flex-main name"
@@ -1834,17 +1867,19 @@ exports[`The Arcane Mage Analyzer should match the checklist snapshot 1`] = `
           </div>
         </div>
         <div
-          className="chevron"
+          className="flex-sub chevron"
         >
-          <svg
-            className="icon"
-            viewBox="0 0 16 9"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-            />
-          </svg>
+          <div>
+            <svg
+              className="icon"
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
         </div>
       </div>
     </div>
@@ -2094,7 +2129,7 @@ exports[`The Arcane Mage Analyzer should match the checklist snapshot 1`] = `
       onClick={[Function]}
     >
       <div
-        className="flex"
+        className="flex wrapable"
       >
         <div
           className="flex-main name"
@@ -2119,17 +2154,19 @@ exports[`The Arcane Mage Analyzer should match the checklist snapshot 1`] = `
           </div>
         </div>
         <div
-          className="chevron"
+          className="flex-sub chevron"
         >
-          <svg
-            className="icon"
-            viewBox="0 0 16 9"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
-            />
-          </svg>
+          <div>
+            <svg
+              className="icon"
+              viewBox="0 0 16 9"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M14.0059397,2.26485497e-14 C15.1072288,2.26485497e-14 15.3722573,0.627746582 14.5881847,1.41182411 L8.70999225,7.29005337 C8.317902,7.68214607 7.67653023,7.6764822 7.29009898,7.29005337 L1.41183294,1.41182411 C0.632099139,0.632095183 0.894513756,2.26485497e-14 1.99406028,2.26485497e-14 L14.0059397,2.26485497e-14 Z"
+              />
+            </svg>
+          </div>
         </div>
       </div>
     </div>

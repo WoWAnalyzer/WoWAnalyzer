@@ -4,7 +4,9 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatPercentage } from 'common/format';
 import { calculatePrimaryStat } from 'common/stats';
-import { TooltipElement } from 'common/Tooltip';
+import ItemStatistic from 'interface/statistics/ItemStatistic';
+import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
+import AgilityIcon from 'interface/icons/Agility';
 
 import Analyzer from 'parser/core/Analyzer';
 import Abilities from 'parser/core/modules/Abilities';
@@ -15,6 +17,8 @@ const BASE_AGILITY_BUFF = 593;
 /**
  * Azerokk's Resonating Heart
  * Equip: Your attacks have a chance to harmonize with the shard, granting you X Agility for 15 sec.
+ * 
+ * Test log: http://wowanalyzer.com/report/PcaGB6n41NDMrbmA/1-Mythic+Champion+of+the+Light+-+Kill+(1:37)/Baboune/statistics
  */
 class AzerokksResonatingHeart extends Analyzer {
   static dependencies = {
@@ -59,15 +63,17 @@ class AzerokksResonatingHeart extends Analyzer {
     return (this.agilityBuff * this.uptime).toFixed(0);
   }
 
-  item() {
-    return {
-      item: ITEMS.AZEROKKS_RESONATING_HEART,
-      result: (
-        <TooltipElement content={<>You procced <strong>{SPELLS.BENEFICIAL_VIBRATIONS.name}</strong> {this.procs} times with an uptime of {formatPercentage(this.uptime)}%.</>}>
-          {this.averageAgility} average Agility
-        </TooltipElement>
-      ),
-    };
+  statistic() {
+    return (
+      <ItemStatistic
+        size="flexible"
+        tooltip={<>You procced <strong>{SPELLS.BENEFICIAL_VIBRATIONS.name}</strong> {this.procs} times with an uptime of {formatPercentage(this.uptime)}%.</>}
+      >
+        <BoringItemValueText item={ITEMS.AZEROKKS_RESONATING_HEART}>
+          <AgilityIcon /> {this.averageAgility} <small>average Agility gained</small>
+        </BoringItemValueText>
+      </ItemStatistic>
+    );
   }
 }
 

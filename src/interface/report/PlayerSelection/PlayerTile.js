@@ -9,7 +9,7 @@ import getAverageItemLevel from 'game/getAverageItemLevel';
 import Icon from 'common/Icon';
 import SPECS from 'game/SPECS';
 import { getCharacterById } from 'interface/selectors/characters';
-import { fetchCharacter } from 'interface/actions/characters';
+import { fetchCharacter, SUPPORTED_REGIONS } from 'interface/actions/characters';
 
 class PlayerTile extends React.PureComponent {
   static propTypes = {
@@ -34,6 +34,9 @@ class PlayerTile extends React.PureComponent {
 
   async load() {
     const { player, fetchCharacter } = this.props;
+    if (!SUPPORTED_REGIONS.includes(player.region)) {
+      return null;
+    }
     try {
       return await fetchCharacter(player.guid, player.region, player.realm, player.name);
     } catch (err) {

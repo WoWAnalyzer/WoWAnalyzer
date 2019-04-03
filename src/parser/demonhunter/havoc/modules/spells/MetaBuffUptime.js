@@ -9,7 +9,7 @@ import { formatPercentage, formatDuration } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 /*
-example report: https://www.warcraftlogs.com/reports/1HRhNZa2cCkgK9AV/#fight=48&source=10
+example report: https://www.warcraftlogs.com/reports/KGJgZPxanBX82LzV/#fight=4&source=20
 * */
 
 class MetaBuffUptime extends Analyzer {
@@ -20,6 +20,28 @@ class MetaBuffUptime extends Analyzer {
 
   get buffDuration() {
     return this.selectedCombatant.getBuffUptime(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id);
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: 100,
+      isGreaterThan: {
+        minor: 10,
+        average: 10,
+        major: 10,
+      },
+      style: 'percentage',
+    };
+  }
+
+  suggestions(when) {
+    when(this.suggestionThresholds)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<> Scream over discord "What have YOU sacrifice!!" for a 10% DPS increase.</>)
+          .icon(SPELLS.METAMORPHOSIS_HAVOC_BUFF.icon)
+          .actual(`${formatPercentage(actual)}% condensending screaming done`)
+          .recommended(`${formatPercentage(recommended)}% is recommended.`);
+      });
   }
 
   statistic() {

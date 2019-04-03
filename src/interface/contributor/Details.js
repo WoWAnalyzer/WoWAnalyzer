@@ -275,7 +275,7 @@ class Details extends React.PureComponent {
                           <div className="flex-main name">
                             {this.contributionHeader(type)} ({contributions[type].length} commits)
                           </div>
-                          <div className="chevron">
+                          <div className="flex-sub chevron">
                             <DropdownIcon />
                           </div>
                         </div>

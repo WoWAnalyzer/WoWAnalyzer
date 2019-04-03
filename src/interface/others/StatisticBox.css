@@ -16,11 +16,6 @@
   border-radius: inherit;
   font-weight: 200;
 }
-.panel.statistic-box .value {
-  font-size: 2em;
-  line-height: 1.4;
-  color: #d8d3d3;
-}
 .panel.statistic-box .label img {
   height: 1.2em;
 }

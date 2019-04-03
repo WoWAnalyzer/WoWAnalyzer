@@ -1,10 +1,12 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
-import Icon from 'common/Icon';
+import UptimeIcon from 'interface/icons/Uptime';
+import CooldownIcon from 'interface/icons/Cooldown';
 import { formatPercentage, formatNumber, formatThousands, formatDuration } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import BoringValueText from 'interface/statistics/components/BoringValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer from 'parser/core/Analyzer';
 import AlwaysBeCasting from './AlwaysBeCasting';
 
@@ -145,29 +147,9 @@ class WaterElemental extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(15)}
-        icon={<SpellIcon id={SPELLS.SUMMON_WATER_ELEMENTAL.id} />}
-        value={(<>
-          <Icon
-            icon="spell_mage_altertime"
-            style={{
-              height: '1.2em',
-              marginBottom: '.15em',
-            }}
-          />
-          {formatPercentage(this.petActiveTimePercentage)} %
-          <br />
-          <SpellIcon
-            id={SPELLS.WATERBOLT.id}
-            style={{
-              height: '1.2em',
-              marginBottom: '.15em',
-            }}
-          />
-          {formatNumber(this._waterboltDamage / (this.owner.fightDuration / 1000))} DPS
-        </>)}
-        label="Water Elemental utilization"
+      <Statistic
+        position={STATISTIC_ORDER.CORE(60)}
+        size="flexible"
         tooltip={(
           <>
             Water Elemental was casting for {formatPercentage(this.petActiveTimePercentage)} % of the fight (Downtime: {formatPercentage(this.petDowntimePercentage)} %).<br />
@@ -179,7 +161,12 @@ class WaterElemental extends Analyzer {
             </ul>
           </>
         )}
-      />
+      >
+        <BoringValueText label="Water Elemental">
+          <UptimeIcon /> {formatPercentage(this.petActiveTimePercentage)}% <small>Pet uptime</small><br />
+          <CooldownIcon /> {formatNumber(this._waterboltDamage / (this.owner.fightDuration / 1000))} <small>Pet DPS</small>
+        </BoringValueText>
+      </Statistic>
     );
   }
 }

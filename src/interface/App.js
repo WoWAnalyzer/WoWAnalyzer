@@ -172,7 +172,7 @@ class App extends React.Component {
           path="/character/:region/:realm/:name"
           render={({ match }) => (
             <CharacterParsesPage
-              region={decodeURI(match.params.region.replace(/\+/g, ' '))}
+              region={decodeURI(match.params.region.replace(/\+/g, ' ')).toUpperCase()}
               realm={decodeURI(match.params.realm.replace(/\+/g, ' '))}
               name={decodeURI(match.params.name.replace(/\+/g, ' '))}
             />

@@ -136,6 +136,46 @@ export default {
     name: 'Spiced Snapper',
     icon: 'inv_cooking_80_spicedcatfish',
   },
+  BORALUS_BLOOD_SAUSAGE_AGI: {
+    id: 290467,
+    name: 'Boralus Blood Sausage',
+    icon: 'inv_holiday_beerfestsausage01',
+  },
+  BORALUS_BLOOD_SAUSAGE_INT: {
+    id: 290468,
+    name: 'Boralus Blood Sausage',
+    icon: 'inv_holiday_beerfestsausage01',
+  },
+  BORALUS_BLOOD_SAUSAGE_STR: {
+    id: 290469,
+    name: 'Boralus Blood Sausage',
+    icon: 'inv_holiday_beerfestsausage01',
+  },
+  WELL_FED_REAWAKENING_INT: { // caused by the Reawakening trait
+    id: 285719,
+    name: 'Well Fed',
+    icon: 'spell_misc_food',
+  },
+  WELL_FED_REAWAKENING_STR: { // caused by the Reawakening trait
+    id: 285720,
+    name: 'Well Fed',
+    icon: 'spell_misc_food',
+  },
+  WELL_FED_REAWAKENING_AGI: { // caused by the Reawakening trait
+    id: 285721,
+    name: 'Well Fed',
+    icon: 'spell_misc_food',
+  },
+  WELL_FED_SEASONED_STEAK_AND_POTATOES: { // caused by the Seasoned Steak and Potatoes food
+    id: 288075,
+    name: 'Well Fed',
+    icon: 'spell_misc_food',
+  },
+  WELL_FED_WILD_BERRY_BREAD: { // caused by the Wild Berry Bread food
+    id: 288074,
+    name: 'Well Fed',
+    icon: 'spell_misc_food',
+  },
   GALLEY_BANQUET_INT: {
     id: 259449,
     name: 'Galley Banquet',

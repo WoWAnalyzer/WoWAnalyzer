@@ -5,6 +5,8 @@ import ITEMS from 'common/ITEMS';
 import Analyzer from 'parser/core/Analyzer';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemStatistic from 'interface/statistics/ItemStatistic';
+import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import { formatNumber, formatPercentage } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
 
@@ -46,11 +48,12 @@ class LadyWaycrestsMusicBox extends Analyzer {
     this.active = this.selectedCombatant.hasTrinket(ITEMS.LADY_WAYCRESTS_MUSIC_BOX.id);
   }
 
-  item() {
-    return {
-      item: ITEMS.LADY_WAYCRESTS_MUSIC_BOX,
-      result: (
-        <>
+  statistic() {
+    return (
+      <ItemStatistic
+        size="flexible"
+      >
+        <BoringItemValueText item={ITEMS.LADY_WAYCRESTS_MUSIC_BOX}>
           <TooltipElement content={`Healing done: ${formatNumber(this.healing)} (${formatPercentage(this.overhealPercent)}% OH)`}>
             <ItemHealingDone amount={this.healing} />
           </TooltipElement>
@@ -58,9 +61,9 @@ class LadyWaycrestsMusicBox extends Analyzer {
           <TooltipElement content={`Damage done: ${formatNumber(this.damage)}`}>
             <ItemDamageDone amount={this.damage} />
           </TooltipElement>
-        </>
-      ),
-    };
+        </BoringItemValueText>
+      </ItemStatistic>
+    );
   }
 }
 

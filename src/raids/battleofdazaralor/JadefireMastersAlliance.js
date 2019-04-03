@@ -4,12 +4,12 @@ import Headshot from './images/headshots/JadefireMastersA.png';
 // aka Jadefire Masters (A)
 export default {
   id: 2285,
-  name: 'Jadefire Masters', // Alliance
+  name: 'Jadefire Masters', // Alliance - Grimfang and Firecaller
   background: Background,
   headshot: Headshot,
   icon: 'achievement_boss_zuldazar_grimfang_anathos',
   fight: {
-    // TODO: Add vantusRuneBuffId: 250144,
+    vantusRuneBuffId: 289196,
     softMitigationChecks: {
       physical: [],
       magical: [],

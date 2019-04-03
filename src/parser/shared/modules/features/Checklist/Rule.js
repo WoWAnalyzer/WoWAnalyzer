@@ -114,7 +114,7 @@ class Rule extends React.PureComponent {
           element="li"
           className={passed ? 'passed' : 'failed'}
           header={(
-            <div className="flex">
+            <div className="flex wrapable">
               <div className="flex-main name">
                 {name}
               </div>
@@ -129,8 +129,10 @@ class Rule extends React.PureComponent {
                   />
                 </div>
               </div>
-              <div className="chevron">
-                <DropdownIcon />
+              <div className="flex-sub chevron">
+                <div>
+                  <DropdownIcon />
+                </div>
               </div>
             </div>
           )}

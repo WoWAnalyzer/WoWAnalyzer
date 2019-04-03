@@ -43,6 +43,11 @@ export default {
   },
 
   //Marksmanship
+  SURGING_SHOTS: {
+    id: 287707,
+    name: 'Surging Shots',
+    icon: 'ability_hunter_snipershot',
+  },
   STEADY_AIM: {
     id: 277651,
     name: 'Steady Aim',
@@ -52,6 +57,36 @@ export default {
     id: 277959,
     name: 'Steady Aim',
     icon: 'inv_spear_07',
+  },
+  IN_THE_RHYTHM: {
+    id: 264198,
+    name: 'In The Rhythm',
+    icon: 'ability_hunter_efficiency',
+  },
+  IN_THE_RHYTHM_BUFF: {
+    id: 272733,
+    name: 'In The Rhythm',
+    icon: 'ability_hunter_efficiency',
+  },
+  UNERRING_VISION: {
+    id: 274444,
+    name: 'Unerring Vision',
+    icon: 'ability_trueshot',
+  },
+  UNERRING_VISION_BUFF: {
+    id: 274447,
+    name: 'Unerring Vision',
+    icon: 'ability_trueshot',
+  },
+  FOCUSED_FIRE: {
+    id: 278531,
+    name: 'Focused Fire',
+    icon: 'ability_hisek_aim',
+  },
+  FOCUSED_FIRE_FOCUS: {
+    id: 279637,
+    name: 'Focused Fire',
+    icon: 'ability_hisek_aim',
   },
 
   //Survival

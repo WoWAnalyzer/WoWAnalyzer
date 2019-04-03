@@ -344,11 +344,6 @@ export default {
     name: 'Ignition Point',
     icon: 'spell_fire_flamebolt',
   },
-  IN_THE_RHYTHM: {
-    id: 264198,
-    name: 'In The Rhythm',
-    icon: 'ability_hunter_efficiency',
-  },
   INCREASE_VERSATILITY_5: {
     id: 55564,
     name: 'Increase Versatility 15',
@@ -774,11 +769,7 @@ export default {
     name: 'Uncertainty',
     icon: 'trade_engineering',
   },
-  UNERRING_VISION: {
-    id: 274444,
-    name: 'Unerring Vision',
-    icon: 'ability_trueshot',
-  },
+
   UNSHACKLED_FEL: {
     id: 270648,
     name: 'Unshackled Fel',
