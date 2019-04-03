@@ -48,7 +48,7 @@ class PetSummonHandler extends Analyzer {
       // Wild Imps need few additional properties
       pet.setWildImpProperties(this._lastPlayerPosition);
     }
-    if (petInfo.name === "Demonic Tyrant") {
+    if (petInfo.name === "Demonic Tyrant" && this.selectedCombatant.hasTalent(SPELLS.DEMONIC_CONSUMPTION_TALENT.id)) {
       const power = this.demoPets.currentPets
         .filter(pet => isWildImp(pet.guid))
         .map(pet => pet.currentEnergy)

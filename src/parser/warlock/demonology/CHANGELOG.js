@@ -1,10 +1,20 @@
 import React from 'react';
 
-import { Chizu } from 'CONTRIBUTORS';
+import { Chizu, Gwelican } from 'CONTRIBUTORS';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  {
+    date: new Date('2019-04-03'),
+    changes: <>Add <SpellLink id={SPELLS.DEMONIC_CONSUMPTION_TALENT.id} /> power tracker. </>,
+    contributors: [Gwelican],
+  },
+  {
+    date: new Date('2019-04-02'),
+    changes: 'Fixed a bug where pets showed up as they were summoned before the pull.',
+    contributors: [Gwelican],
+  },
   {
     date: new Date('2018-12-29'),
     changes: 'Fixed a bug that caused a crash when player was wearing trinket that summons pets (like Vanquished Tendril of G\'huun).',
