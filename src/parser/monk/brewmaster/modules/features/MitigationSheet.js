@@ -13,12 +13,10 @@ import SpellLink from 'common/SpellLink';
 import Tooltip, { TooltipElement } from 'common/Tooltip';
 import { calculatePrimaryStat, calculateSecondaryStatDefault } from 'common/stats';
 
-import { BASE_AGI } from '../../constants';
 import CelestialFortune from '../spells/CelestialFortune';
 import GiftOfTheOx from '../spells/GiftOfTheOx';
 import MasteryValue from '../core/MasteryValue';
 import Stagger from '../core/Stagger';
-import AgilityValue from './AgilityValue';
 import { diminish, lookupK } from '../constants/Mitigation';
 
 function formatGain(gain) {
@@ -64,7 +62,7 @@ function calculateTotalGain(gain) {
   };
 }
 
-function makeIcon(stat) {
+export function makeIcon(stat) {
   const Icon = getIcon(stat);
   return (
     <Icon
@@ -84,7 +82,6 @@ function calculateLeatherArmorScaling(ilvl, amount, targetIlvl) {
 export default class MitigationSheet extends Analyzer {
   static dependencies = {
     masteryValue: MasteryValue,
-    agilityValue: AgilityValue,
     cf: CelestialFortune,
     stats: StatTracker,
     stagger: Stagger,
@@ -108,18 +105,6 @@ export default class MitigationSheet extends Analyzer {
   }
 
   _critBonusHealing = 0;
-
-  get agiDamageMitigated() {
-    return this.agilityValue.totalAgiPurified;
-  }
-
-  get agiDamageDodged() {
-    return this.masteryValue.expectedMitigation - this.masteryValue.noAgiExpectedDamageMitigated;
-  }
-
-  get agiHealing() {
-    return this.agilityValue.totalAgiHealing;
-  }
 
   get wdpsHealing() {
     return this.gotox.wdpsBonusHealing;
@@ -279,26 +264,6 @@ export default class MitigationSheet extends Analyzer {
         ],
         increment: calculatePrimaryStat(this.selectedCombatant.mainHand.itemLevel, this.gotox._wdps, this.selectedCombatant.mainHand.itemLevel+5) - this.gotox._wdps,
       },
-      [STAT.AGILITY]: {
-        priority: 2,
-        icon: makeIcon(STAT.AGILITY),
-        name: getName(STAT.AGILITY),
-        className: getClassNameColor(STAT.AGILITY),
-        avg: this._avgStats.agility - BASE_AGI,
-        gain: [
-          { name: <><SpellLink id={SPELLS.GIFT_OF_THE_OX_1.id} /> Healing</>, amount: this.agiHealing },
-          {
-            name: <TooltipElement content="The amount of damage avoided by dodging may be reduced by purification. This is reflected in the range of values.">Dodge</TooltipElement>,
-            amount: {
-              low: this.agiDamageDodged * (1 - this.stagger.pctPurified),
-              high: this.agiDamageDodged,
-            },
-            isLoaded: this.masteryValue._loaded,
-          },
-          { name: <>Extra <SpellLink id={SPELLS.PURIFYING_BREW.id} /> Effectiveness</>, amount: this.agiDamageMitigated },
-        ],
-        increment: this.increment(calculatePrimaryStat, this.stats.startingAgilityRating),
-      },
       [STAT.MASTERY]: {
         priority: 3,
         icon: makeIcon(STAT.MASTERY),
@@ -362,7 +327,7 @@ export default class MitigationSheet extends Analyzer {
     return Object.entries(this.results)
       .sort(([_keyA, resultA], [_keyB, resultB]) => resultA.priority - resultB.priority)
       .map(([stat, result]) => {
-        const { increment, icon, className, name, avg, gain, tooltip } = result;
+        const { increment, icon, className, avg, name, gain, tooltip } = result;
 
         const totalGain = calculateTotalGain(gain);
 

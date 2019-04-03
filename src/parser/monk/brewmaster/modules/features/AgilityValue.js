@@ -1,12 +1,20 @@
+import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import STAT, { getClassNameColor, getName } from 'parser/shared/modules/features/STAT';
 import Events from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
+import { TooltipElement } from 'common/Tooltip';
+import { calculatePrimaryStat } from 'common/stats';
 
 import { BASE_AGI } from '../../constants';
 import { diminish, lookupK } from '../constants/Mitigation';
 import { EVENT_STAGGER_POOL_ADDED, EVENT_STAGGER_POOL_REMOVED } from '../core/StaggerFabricator';
 import GiftOfTheOx from '../spells/GiftOfTheOx';
+import MasteryValue from '../core/MasteryValue';
+import MitigationSheet, { makeIcon } from './MitigationSheet';
+import Stagger from '../core/Stagger';
 
 const STAGGER_COEFFS = {
   base: 1.05,
@@ -35,6 +43,9 @@ export default class AgilityValue extends Analyzer {
   static dependencies = {
     stats: StatTracker,
     gotox: GiftOfTheOx,
+    masteryValue: MasteryValue,
+    sheet: MitigationSheet,
+    stagger: Stagger,
   };
 
   get K() {
@@ -59,6 +70,8 @@ export default class AgilityValue extends Analyzer {
     this.addEventListener(EVENT_STAGGER_POOL_REMOVED, this._onPurify);
     this.addEventListener(EVENT_STAGGER_POOL_REMOVED, this._onStaggerTick);
     this.addEventListener(Events.death.by(SELECTED_PLAYER), this._onDeath);
+
+    this.sheet.registerStat(STAT.AGILITY, this.statValue());
   }
 
   get _hasIsb() {
@@ -94,5 +107,37 @@ export default class AgilityValue extends Analyzer {
 
     this.totalAgiStaggered += amountAgiStaggered;
     this._agiDamagePooled += amountAgiStaggered;
+  }
+
+  get agiDamageDodged() {
+    return this.masteryValue.expectedMitigation - this.masteryValue.noAgiExpectedDamageMitigated;
+  }
+
+  statValue() {
+    const agiModule = this;
+    return {
+      priority: 2,
+      icon: makeIcon(STAT.AGILITY),
+      name: getName(STAT.AGILITY),
+      className: getClassNameColor(STAT.AGILITY),
+      get avg() {
+        return agiModule.sheet._avgStats.agility - BASE_AGI;
+      },
+      get gain() { 
+        return [
+          { name: <><SpellLink id={SPELLS.GIFT_OF_THE_OX_1.id} /> Healing</>, amount: agiModule.totalAgiHealing },
+          {
+            name: <TooltipElement content="The amount of damage avoided by dodging may be reduced by purification. This is reflected in the range of values.">Dodge</TooltipElement>,
+            amount: {
+              low: agiModule.agiDamageDodged * (1 - agiModule.stagger.pctPurified),
+              high: agiModule.agiDamageDodged,
+            },
+            isLoaded: agiModule.masteryValue._loaded,
+          },
+          { name: <>Extra <SpellLink id={SPELLS.PURIFYING_BREW.id} /> Effectiveness</>, amount: agiModule.totalAgiPurified },
+        ]; 
+      },
+      increment: this.sheet.increment(calculatePrimaryStat, this.stats.startingAgilityRating),
+    };
   }
 }
