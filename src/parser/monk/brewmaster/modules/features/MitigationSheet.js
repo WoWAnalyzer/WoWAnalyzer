@@ -2,6 +2,7 @@ import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import safeMerge from 'common/safeMerge';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
@@ -231,9 +232,15 @@ export default class MitigationSheet extends Analyzer {
     return amount - fn(Math.floor(this.avgIlvl), amount, Math.floor(this.avgIlvl)-5);
   }
 
-  get results() {
+  /**
+   * Results that haven't yet been moved to other modules.
+   *
+   * DO NOT ADD ANYTHING TO THIS. REMOVE ONLY.
+   */
+  get baseResults() {
     return {
       armor: {
+        priority: 0,
         icon: (
           <img
             src="/img/shield.png"
@@ -253,6 +260,7 @@ export default class MitigationSheet extends Analyzer {
         increment: this.increment(calculateLeatherArmorScaling, this.stats.startingArmorRating),
       },
       wdps: {
+        priority: 1,
         icon: (
           <img
             src="/img/sword.png"
@@ -272,6 +280,7 @@ export default class MitigationSheet extends Analyzer {
         increment: calculatePrimaryStat(this.selectedCombatant.mainHand.itemLevel, this.gotox._wdps, this.selectedCombatant.mainHand.itemLevel+5) - this.gotox._wdps,
       },
       [STAT.AGILITY]: {
+        priority: 2,
         icon: makeIcon(STAT.AGILITY),
         name: getName(STAT.AGILITY),
         className: getClassNameColor(STAT.AGILITY),
@@ -291,6 +300,7 @@ export default class MitigationSheet extends Analyzer {
         increment: this.increment(calculatePrimaryStat, this.stats.startingAgilityRating),
       },
       [STAT.MASTERY]: {
+        priority: 3,
         icon: makeIcon(STAT.MASTERY),
         name: getName(STAT.MASTERY),
         className: getClassNameColor(STAT.MASTERY),
@@ -309,6 +319,7 @@ export default class MitigationSheet extends Analyzer {
         increment: this.increment(calculateSecondaryStatDefault, this.stats.startingMasteryRating),
       },
       [STAT.VERSATILITY]: {
+        priority: 3,
         icon: makeIcon(STAT.VERSATILITY),
         name: getName(STAT.VERSATILITY),
         className: getClassNameColor(STAT.VERSATILITY),
@@ -320,6 +331,7 @@ export default class MitigationSheet extends Analyzer {
         increment: this.increment(calculateSecondaryStatDefault, this.stats.startingVersatilityRating),
       },
       [STAT.CRITICAL_STRIKE]: {
+        priority: 3,
         icon: makeIcon(STAT.CRITICAL_STRIKE),
         name: getName(STAT.CRITICAL_STRIKE),
         className: getClassNameColor(STAT.CRITICAL_STRIKE),
@@ -333,77 +345,92 @@ export default class MitigationSheet extends Analyzer {
     };
   }
 
+  _registeredResults = {};
+
+  registerStat(key, statResults) {
+    if(this._registeredResults[key] !== undefined) {
+      console.warn("Overwriting mitigation stat results for ", key);
+    }
+    this._registeredResults[key] = statResults;
+  }
+
+  get results() {
+    return safeMerge(this.baseResults, this._registeredResults);
+  }
+
   statEntries() {
-    return Object.entries(this.results).map(([stat, result]) => {
-      const { increment, icon, className, name, avg, gain, tooltip } = result;
+    return Object.entries(this.results)
+      .sort(([_keyA, resultA], [_keyB, resultB]) => resultA.priority - resultB.priority)
+      .map(([stat, result]) => {
+        const { increment, icon, className, name, avg, gain, tooltip } = result;
 
-      const totalGain = calculateTotalGain(gain);
+        const totalGain = calculateTotalGain(gain);
 
-      const rows = gain.map(({ name, amount: gain, isLoaded }, i) => {
-        let gainEl;
-        if(isLoaded !== false) {
-          gainEl = formatGain(gain);
-        } else {
-          gainEl = <TooltipElement content="Not Yet Loaded">NYL</TooltipElement>;
-        }
+        const rows = gain.map(({ name, amount: gain, isLoaded }, i) => {
+          let gainEl;
+          if(isLoaded !== false) {
+            gainEl = formatGain(gain);
+          } else {
+            gainEl = <TooltipElement content="Not Yet Loaded">NYL</TooltipElement>;
+          }
 
-        let perPointEl;
-        if(isLoaded !== false) {
-          perPointEl = formatWeight(gain, avg, this.normalizer, 1);
-        } else {
-          perPointEl = <TooltipElement content="Not Yet Loaded">NYL</TooltipElement>;
-        }
+          let perPointEl;
+          if(isLoaded !== false) {
+            perPointEl = formatWeight(gain, avg, this.normalizer, 1);
+          } else {
+            perPointEl = <TooltipElement content="Not Yet Loaded">NYL</TooltipElement>;
+          }
 
-        let valueEl;
-        if(isLoaded !== false) {
-          valueEl = formatWeight(gain, avg, this.normalizer, increment);
-        } else {
-          valueEl = <TooltipElement content="Not Yet Loaded">NYL</TooltipElement>;
-        }
+          let valueEl;
+          if(isLoaded !== false) {
+            valueEl = formatWeight(gain, avg, this.normalizer, increment);
+          } else {
+            valueEl = <TooltipElement content="Not Yet Loaded">NYL</TooltipElement>;
+          }
+
+          return (
+            <tr key={`${stat}-${i}`}>
+              <td style={{paddingLeft: '5em'}}>
+                {name}
+              </td>
+              <td className="text-right">
+                {gainEl}
+              </td>
+              <td className="text-right">
+                {perPointEl}
+              </td>
+              <td />
+              <td className="text-right">
+                {valueEl}
+              </td>
+            </tr>
+          );
+        });
 
         return (
-          <tr key={`${stat}-${i}`}>
-            <td style={{paddingLeft: '5em'}}>
-              {name}
-            </td>
-            <td className="text-right">
-              {gainEl}
-            </td>
-            <td className="text-right">
-              {perPointEl}
-            </td>
-            <td />
-            <td className="text-right">
-              {valueEl}
-            </td>
-          </tr>
-        );
-      });
-
-      return (
-        <>
-        <tr key={stat}>
-          <td className={className}>
+          <>
+          <tr key={stat}>
+            <td className={className}>
               {icon}{' '}
               {tooltip ? <TooltipElement content={tooltip}>{name}</TooltipElement> : name}
-          </td>
-          <td className="text-right">
-            <b>{formatGain(totalGain)}</b>
-          </td>
-          <td className="text-right">
-            <b>{formatWeight(totalGain, avg, this.normalizer, 1)}</b>
-          </td>
-          <td className="text-right">
-            <b>&times; {increment.toFixed(2)}</b>
-          </td>
-          <td className="text-right">
-            <b>= {formatWeight(totalGain, avg, this.normalizer, increment)}</b>
-          </td>
-        </tr>
-        {rows}
-        </>
+            </td>
+            <td className="text-right">
+              <b>{formatGain(totalGain)}</b>
+            </td>
+            <td className="text-right">
+              <b>{formatWeight(totalGain, avg, this.normalizer, 1)}</b>
+            </td>
+            <td className="text-right">
+              <b>&times; {increment.toFixed(2)}</b>
+            </td>
+            <td className="text-right">
+              <b>= {formatWeight(totalGain, avg, this.normalizer, increment)}</b>
+            </td>
+          </tr>
+          {rows}
+      </>
       );
-    });
+      });
   }
 
   entries() {
