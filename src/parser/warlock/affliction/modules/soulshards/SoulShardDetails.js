@@ -10,7 +10,7 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 
-import 'parser/warlock/shared/modules/soulshards/SoulShardDetails.css';
+import '../../../shared/modules/soulshards/SoulShardDetails.css';
 import SoulShardTracker from './SoulShardTracker';
 
 class SoulShardDetails extends Analyzer {

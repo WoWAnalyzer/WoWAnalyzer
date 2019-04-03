@@ -29,6 +29,12 @@ class Enemies extends Entities {
     return enemy;
   }
 
+  /**
+   * Gets the combined history of multiple debuffs. Works exactly like `getDebuffHistory` but this is meant to be used with multiple debuff IDs that are regarded as "same".
+   * A perfect example is Unstable Affliction - while being a single spell, it applies up to 5 different debuffs to the same target
+   * @param spellIds Variable number of debuff IDs
+   * @returns {Array} Combined debuff history for the debuffs
+   */
   getCombinedDebuffHistory(...spellIds) {
     const events = [];
     spellIds.forEach(spellId => {
@@ -74,6 +80,11 @@ class Enemies extends Entities {
     return history;
   }
 
+  /**
+   * Gets history of the debuff given by the argument. Returns an array of objects with properties `start` and `end` (both timestamps), so we know when certain debuff was active (on any enemy) and when it dropped. Used e.g. with <UptimeBar />
+   * @param spellId ID of the debuff
+   * @returns {Array} History of the debuff
+   */
   getDebuffHistory(spellId) {
     const events = [];
     const enemies = this.getEntities();
