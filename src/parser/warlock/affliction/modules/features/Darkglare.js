@@ -7,10 +7,11 @@ import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import { formatThousands } from 'common/format';
+import { formatThousands, formatNumber } from 'common/format';
+import Tooltip from 'common/Tooltip';
 
-import StatisticsListBox from 'interface/others/StatisticsListBox';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import { getDotDurations, UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
 
@@ -198,35 +199,56 @@ class Darkglare extends Analyzer {
     });
     const averageExtendedDots = (totalExtendedDots / this.casts.length) || 0;
     const totalDamage = this.bonusDotDamage + this.darkglareDamage;
+
+    const formatDPS = (amount) => `${formatNumber(amount / this.owner.fightDuration * 1000)} DPS`;
+
     return (
-      <StatisticsListBox title={<SpellLink id={SPELLS.SUMMON_DARKGLARE.id} />}>
-        <StatisticListBoxItem
-          title="Bonus damage from dots"
-          value={this.owner.formatItemDamageDone(this.bonusDotDamage)}
-          valueTooltip={(
-            <>
-              {formatThousands(this.bonusDotDamage)} damage<br />
-              This only counts the damage that happened after the dot <u>should have fallen off</u> (but instead was extended with Darkglare)
-            </>
-          )}
-        />
-        <StatisticListBoxItem
-          title="Average dots extended per cast"
-          value={averageExtendedDots.toFixed(2)}
-        />
-        <StatisticListBoxItem
-          title="Total damage"
-          titleTooltip="Combined damage from extended dots and the pet itself"
-          value={this.owner.formatItemDamageDone(totalDamage)}
-          valueTooltip={(
-            <>
-              Damage from extended dots: {formatThousands(this.bonusDotDamage)} ({this.owner.formatItemDamageDone(this.bonusDotDamage)})<br />
-              Pet damage: {formatThousands(this.darkglareDamage)} ({this.owner.formatItemDamageDone(this.darkglareDamage)})<br />
-              Combined damage: {formatThousands(totalDamage)}
-            </>
-          )}
-        />
-      </StatisticsListBox>
+      <Statistic
+        position={STATISTIC_ORDER.CORE(4)}
+        size="flexible"
+        tooltip={(
+          <>
+            Damage from extended dots <sup>*</sup>: {formatThousands(this.bonusDotDamage)} ({this.owner.formatItemDamageDone(this.bonusDotDamage)})<br />
+            Pet damage: {formatThousands(this.darkglareDamage)} ({this.owner.formatItemDamageDone(this.darkglareDamage)})<br />
+            Combined damage: {formatThousands(totalDamage)} ({this.owner.formatItemDamageDone(totalDamage)})<br /><br />
+
+            <sup>*</sup> This only counts the damage that happened after the dot <u>should have fallen off</u> (but instead was extended with Darkglare).
+          </>
+        )}
+      >
+        <div className="pad">
+          <label><SpellLink id={SPELLS.SUMMON_DARKGLARE.id} /></label>
+          <div className="flex">
+            <div className="flex-sub value">
+              {formatDPS(this.bonusDotDamage)}
+              <Tooltip
+                content={(
+                  <>
+                    damage from DoTs after they <u>should have fallen off</u>, but were extended instead
+                  </>
+                )}
+              >
+                <small style={{ marginLeft: 7 }}>bonus damage <sup>*</sup></small>
+              </Tooltip>
+            </div>
+          </div>
+          <div className="flex">
+            <div className="flex-sub value">
+              {averageExtendedDots.toFixed(1)} <small>average DoTs extended</small>
+            </div>
+          </div>
+          <div className="flex">
+            <div className="flex-sub value">
+              {formatDPS(totalDamage)}
+              <Tooltip
+                content="including pet damage"
+              >
+                <small style={{ marginLeft: 7 }}>total damage <sup>*</sup></small>
+              </Tooltip>
+            </div>
+          </div>
+        </div>
+      </Statistic>
     );
   }
 }

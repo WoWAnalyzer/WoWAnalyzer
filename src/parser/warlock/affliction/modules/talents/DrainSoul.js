@@ -6,13 +6,14 @@ import Enemies from 'parser/shared/modules/Enemies';
 import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
-import { formatPercentage, formatThousands } from 'common/format';
+import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Statistic from 'interface/statistics/Statistic';
+import CriticalStrikeIcon from 'interface/icons/CriticalStrike';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import SoulShardTracker from '../soulshards/SoulShardTracker';
-
 // limit to filter out relevant removedebuffs (those what I'm interested in happen either at the same timestamp as energize, or about 20ms afterwards (tested on 2 logs, didn't surpass 30ms))
 // it's still possible that it can be a coincidence (mob dies and at the same time something falls off somewhere unrelated), but shouldn't happen too much
 const ENERGIZE_REMOVEDEBUFF_THRESHOLD = 100;
@@ -99,21 +100,30 @@ class DrainSoul extends Analyzer {
       });
   }
 
-  subStatistic() {
+  statistic() {
     const ds = this.abilityTracker.getAbility(SPELLS.DRAIN_SOUL_TALENT.id);
     const damage = ds.damageEffective + ds.damageAbsorbed;
+    const dps = damage / this.owner.fightDuration * 1000;
     return (
-      <>
-        <StatisticListBoxItem
-          title={<><SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} /> damage</>}
-          value={this.owner.formatItemDamageDone(damage)}
-          valueTooltip={`${formatThousands(damage)} damage`}
-        />
-        <StatisticListBoxItem
-          title={<>Shards sniped with <SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} /></>}
-          value={this._shardsGained}
-        />
-      </>
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(1)}
+        size="flexible"
+        tooltip={`${formatThousands(damage)} total damage`}
+      >
+        <div className="pad">
+          <label><SpellLink id={SPELLS.DRAIN_SOUL_TALENT.id} /></label>
+          <div className="flex">
+            <div className="flex-main value">
+              {formatNumber(dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total</small>
+            </div>
+          </div>
+          <div className="flex">
+            <div className="flex-main value">
+              <CriticalStrikeIcon /> {this._shardsGained} <small>shards sniped</small>
+            </div>
+          </div>
+        </div>
+      </Statistic>
     );
   }
 }

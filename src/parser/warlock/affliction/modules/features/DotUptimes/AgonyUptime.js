@@ -3,11 +3,12 @@ import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
+import SpellIcon from 'common/SpellIcon';
 
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import UptimeBar from 'interface/statistics/components/UptimeBar';
 
 class AgonyUptime extends Analyzer {
   static dependencies = {
@@ -47,11 +48,27 @@ class AgonyUptime extends Analyzer {
   }
 
   subStatistic() {
+    const history = this.enemies.getDebuffHistory(SPELLS.AGONY.id);
     return (
-      <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.AGONY.id} /> uptime</>}
-        value={`${formatPercentage(this.uptime)} %`}
-      />
+      <div className="flex">
+        <div className="flex-sub icon">
+          <SpellIcon id={SPELLS.AGONY.id} />
+        </div>
+        <div
+          className="flex-sub value"
+          style={{ width: 140 }}
+        >
+          {formatPercentage(this.uptime, 0)} % <small>uptime</small>
+        </div>
+        <div className="flex-main chart" style={{ padding: 15 }}>
+          <UptimeBar
+            uptimeHistory={history}
+            start={this.owner.fight.start_time}
+            end={this.owner.fight.end_time}
+            style={{ height: '100%' }}
+          />
+        </div>
+      </div>
     );
   }
 }
