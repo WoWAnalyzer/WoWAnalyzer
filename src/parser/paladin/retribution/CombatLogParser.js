@@ -1,5 +1,4 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import GlobalCooldown from './modules/core/GlobalCooldown';
 import Haste from './modules/core/Haste';
 
 import Abilities from './modules/Abilities';
@@ -34,7 +33,6 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     haste: Haste,
     // PaladinCore
-    globalCooldown: GlobalCooldown,
     artOfWar: ArtOfWar,
 
     // Features
