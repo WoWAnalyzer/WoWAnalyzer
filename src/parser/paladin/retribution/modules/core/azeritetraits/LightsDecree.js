@@ -24,8 +24,8 @@ class LightsDecree extends Analyzer {
 
  	constructor(...args) {
  		super(...args);
-     this.active = this.selectedCombatant.hasTrait(SPELLS.LIGHTS_DECREE.id);
-     this.hasCrusade = this.selectedCombatant.hasTalent(SPELLS.CRUSADE_TALENT.id);
+    this.active = this.selectedCombatant.hasTrait(SPELLS.LIGHTS_DECREE.id);
+    this.hasCrusade = this.selectedCombatant.hasTalent(SPELLS.CRUSADE_TALENT.id);
  		if (!this.active) {
  			return;
  		}
