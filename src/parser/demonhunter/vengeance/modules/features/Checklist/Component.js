@@ -34,7 +34,7 @@ class VengeanceDemonHunterChecklist extends React.PureComponent {
       <Checklist>
 
         <Rule
-          name="Atleast we aren't bear tanks...."
+          name="Use your short cooldowns"
           description={(
             <>
               These should generally always be on recharge to maximize DPS, HPS and efficiency.<br />
@@ -90,7 +90,7 @@ class VengeanceDemonHunterChecklist extends React.PureComponent {
          </Rule>
 
         <Rule
-          name="These literally do nothing useful"
+          name="Use your long defensive/healing cooldowns"
           description={(
             <>
               Use these to mitigate large damage spikes or in emergency situations.<br />

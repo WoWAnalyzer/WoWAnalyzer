@@ -32,7 +32,7 @@ class BloodDeathKnightChecklist extends React.PureComponent {
     return (
       <Checklist>
         <Rule
-          name="The orgininal edgelords"
+          name="Use your short cooldowns"
           description="These should generally always be recharging to maximize efficiency."
         >
           <AbilityRequirement spell={SPELLS.BLOOD_BOIL.id} />
@@ -118,7 +118,7 @@ class BloodDeathKnightChecklist extends React.PureComponent {
           )}
         </Rule>
         <Rule
-          name="Press these to make healers cry when they look at the meters"
+          name="Use your defensive cooldowns"
           description="Use these to block damage spikes and keep damage smooth to reduce external healing required."
         >
           <AbilityRequirement spell={SPELLS.VAMPIRIC_BLOOD.id} />

@@ -14,28 +14,6 @@ class ImmolationAura extends Analyzer {
     abilityTracker: AbilityTracker,
   };
 
-  get suggestionThresholds() {
-    return {
-      actual: 100,
-      isGreaterThan: {
-        minor: 10,
-        average: 10,
-        major: 10,
-      },
-      style: 'percentage',
-    };
-  }
-
-  suggestions(when) {
-    when(this.suggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<> Be strong edgelord, your destiny is your own. Till the healer goes afk, then Infernal Strike away.</>)
-          .icon(SPELLS.METAMORPHOSIS_HAVOC_BUFF.icon)
-          .actual(`${formatPercentage(actual)}% edgyness displayed`)
-          .recommended(`${formatPercentage(recommended)}% is recommended.`);
-      });
-  }
-
   statistic() {
     const immolationAuraUptime = this.selectedCombatant.getBuffUptime(SPELLS.IMMOLATION_AURA.id);
 
