@@ -240,24 +240,7 @@ exports[`The Blood Deathknight Analyzer analyzers Blooddrinker matches the stati
 </div>
 `;
 
-exports[`The Blood Deathknight Analyzer analyzers Blooddrinker matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "ability_demonhunter_metamorphasisdps",
-    "importance": "major",
-    "issue": <React.Fragment>
-       RIP Mythic+. Have you seen us in MDI? Neither have I...
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      10000.00% emoness directed at Prot Warrior
-       (
-      1000.00% is recommended.
-      )
-    </React.Fragment>,
-  },
-]
-`;
+exports[`The Blood Deathknight Analyzer analyzers Blooddrinker matches the suggestions snapshot 1`] = `Array []`;
 
 exports[`The Blood Deathknight Analyzer analyzers Bloodworms matches the statistic snapshot 1`] = `
 <div
@@ -1143,7 +1126,7 @@ exports[`The Blood Deathknight Analyzer should match the checklist snapshot 1`] 
         <div
           className="flex-main name"
         >
-          The orgininal edgelords
+          Use your short cooldowns
         </div>
         <div
           className="flex-sub perf"
@@ -2289,7 +2272,7 @@ exports[`The Blood Deathknight Analyzer should match the checklist snapshot 1`] 
         <div
           className="flex-main name"
         >
-          Press these to make healers cry when they look at the meters
+          Use your defensive cooldowns
         </div>
         <div
           className="flex-sub perf"
