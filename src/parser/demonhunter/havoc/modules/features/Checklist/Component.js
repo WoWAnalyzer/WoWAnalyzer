@@ -33,7 +33,7 @@ class HavocDemonHunterChecklist extends React.PureComponent {
       <Checklist>
 
         <Rule
-          name="Not really that complicated guys"
+          name="Use your short cooldowns"
           description={(
             <>
               These should generally always be on recharge to maximize DPS and efficiency.
@@ -122,7 +122,7 @@ class HavocDemonHunterChecklist extends React.PureComponent {
         </Rule>
 
         <Rule
-          name="Illidaddy things"
+          name="Use your offensive cooldowns"
           description={(
             <>
               You should aim to use these cooldowns as often as you can to maximize your damage output unless you are saving them for their defensive value.
