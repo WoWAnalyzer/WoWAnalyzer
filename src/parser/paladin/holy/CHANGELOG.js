@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Zerotorescue } from 'CONTRIBUTORS';
+import { Zerotorescue, HolySchmidt } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
