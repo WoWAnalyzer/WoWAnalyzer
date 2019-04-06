@@ -280,7 +280,7 @@ exports[`Holy Paladin integration test analyzers AuraOfMercy matches the statist
       className="panel-body"
     >
       <div
-        className="flex boring-spell-value "
+        className="flex boring-value "
       >
         <div
           className="flex-sub icon"
@@ -2294,7 +2294,7 @@ exports[`Holy Paladin integration test analyzers LightOfDawn matches the statist
       className="panel-body"
     >
       <div
-        className="flex boring-spell-value light-of-dawn-hits-per-cast"
+        className="flex boring-value light-of-dawn-hits-per-cast"
       >
         <div
           className="flex-sub icon"

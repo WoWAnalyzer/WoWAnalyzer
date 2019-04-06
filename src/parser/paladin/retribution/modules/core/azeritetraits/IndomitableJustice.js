@@ -4,14 +4,16 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import { formatPercentage } from 'common/format';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
 
 //IJ is a  health comparison with the appropiate data found in event.cast and event.damage data for Judgment
 //extra_damage = max(0, max_extra_damage * (my_health_percent - their_health_percent) / 100). Just going to calcualte the average benefit and not include damage number statistics
 
 class IndomitableJustice extends Analyzer {
   percentRatios = [];
+  lastPlayerPercent = 1; //Judgment could be pre-cast and it's safe to assume the player is at full health when that happens
 
   constructor(...args) {
     super(...args);
@@ -30,8 +32,9 @@ class IndomitableJustice extends Analyzer {
   onJudgmentDamage(event) {
     const enemyhpPercent = event.hitPoints / event.maxHitPoints;
     const percentDifferenceBonus = Math.max(this.lastPlayerPercent - enemyhpPercent, 0);
-    const perfectBonus = 1 - enemyhpPercent;
-    this.percentRatios.push(percentDifferenceBonus / perfectBonus);
+
+    console.log("Player health percentage: "+ this.lastPlayerPercent + " - Enemy health percentage: " + enemyhpPercent + " - Health percentage ratio: " + percentDifferenceBonus);
+    this.percentRatios.push(percentDifferenceBonus);
 
   }
 
@@ -41,13 +44,14 @@ class IndomitableJustice extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
-        trait={SPELLS.INDOMITABLE_JUSTICE.id}
-        value={`${formatPercentage(this.IJBenefit)}%`}
-        label="Benefit"
+      <AzeritePowerStatistic
+        size="small"
         tooltip={`Indomitable Justice value is determined by a comparison of your health versus your targets health. This is the estimated value for a given fight.`}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.INDOMITABLE_JUSTICE}>
+          {formatPercentage(this.IJBenefit)}% <small>average benefit</small>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }

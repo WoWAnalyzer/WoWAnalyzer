@@ -4,7 +4,9 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import Analyzer from 'parser/core/Analyzer';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import ItemStatistic from 'interface/statistics/ItemStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import CritIcon from 'interface/icons/CriticalStrike';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
 const blightborneInfusionStats = traits => Object.values(traits).reduce((total, rank) => {
@@ -16,6 +18,8 @@ const blightborneInfusionStats = traits => Object.values(traits).reduce((total, 
  * Blightborne Infusion:
  * Your spells and abilities have a chance to draw a Wandering Soul from Thros to serve you for 14 sec.
  * The Soul increases your Critical Strike by 768.
+ * 
+ * Test Log: /report/ABH7D8W1Qaqv96mt/2-Mythic+Taloc+-+Kill+(4:12)/Rhonk/statistics
  */
 class BlightborneInfusion extends Analyzer {
   static dependencies = {
@@ -64,17 +68,19 @@ class BlightborneInfusion extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
-        trait={SPELLS.BLIGHTBORNE_INFUSION.id}
-        value={`${this.averageCrit} average crit`}
+      <ItemStatistic
+        size="flexible"
         tooltip={(
           <>
             {SPELLS.BLIGHTBORNE_INFUSION.name} grants <strong>{this.crit} crit</strong> while active.<br />
             You procced <strong>{SPELLS.BLIGHTBORNE_INFUSION.name} {this.blightborneInfusionProcs} times</strong> with an uptime of {formatPercentage(this.uptime)}%.
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.BLIGHTBORNE_INFUSION}>
+          <CritIcon /> {this.averageCrit} <small>average Critical Strike</small>
+        </BoringSpellValueText>
+      </ItemStatistic>
     );
   }
 }

@@ -22,8 +22,6 @@ import Vengeance from './modules/talents/Vengeance';
 import Punish from './modules/talents/Punish';
 import DragonRoar from './modules/talents/DragonRoar';
 
-import ThundergodsVigor from './modules/items/ThundergodsVigor';
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
@@ -49,7 +47,6 @@ class CombatLogParser extends CoreCombatLogParser {
     punish: Punish,
     dragonRoar: DragonRoar,
     //Items
-    thunderlordsVigor: ThundergodsVigor,
   };
 }
 

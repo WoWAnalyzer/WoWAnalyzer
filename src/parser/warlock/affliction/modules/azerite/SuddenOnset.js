@@ -7,10 +7,10 @@ import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage
 
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
-import { formatThousands } from 'common/format';
+import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 
-import TraitStatisticBox from 'interface/others/TraitStatisticBox';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 const AGONY_SP_COEFFICIENT = 0.008; // taken from Simcraft SpellDataDump
 
@@ -45,20 +45,28 @@ class SuddenOnset extends Analyzer {
     this.damage += bonusDamage;
   }
 
+  get dps() {
+    return this.damage / this.owner.fightDuration * 1000;
+  }
+
   statistic() {
     return (
-      <TraitStatisticBox
-        trait={SPELLS.SUDDEN_ONSET.id}
-        value={<ItemDamageDone amount={this.damage} approximate />}
+      <AzeritePowerStatistic
+        size="small"
         tooltip={(
           <>
-            Estimated bonus Agony damage: {formatThousands(this.damage)}<br /><br />
+            Bonus Agony damage: {formatThousands(this.damage)}<br /><br />
 
-            The damage is an approximation using current Intellect values at given time. Note that this estimate does NOT take into account the increased initial stacks, just the bonus damage.
-            Also, because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be also little incorrect.
+            Note that the bonus damage does <strong>NOT</strong> take into account the increased initial stacks, just the bonus damage.
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.SUDDEN_ONSET}>
+          <span style={{ fontSize: 29 }}>
+            {formatNumber(this.dps)} DPS <small>({formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total)</small>
+          </span>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }

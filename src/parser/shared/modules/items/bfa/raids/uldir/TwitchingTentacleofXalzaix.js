@@ -4,9 +4,8 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatPercentage, formatNumber } from 'common/format';
 import { calculatePrimaryStat } from 'common/stats';
-import ItemLink from 'common/ItemLink';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import ItemStatistic from 'interface/statistics/ItemStatistic';
+import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import IntellectIcon from 'interface/icons/Intellect';
 import UptimeIcon from 'interface/icons/Uptime';
 import StatTracker from 'parser/shared/modules/StatTracker';
@@ -16,6 +15,8 @@ import Analyzer from 'parser/core/Analyzer';
  * Twitching Tentacle of Xalzaix -
  * Equip: Your spells have a chance to grant you the Lingering Power of Xalzaix for 30 sec.
  * When it reaches 5 charges the power is released, increasing your Intellect by 159 for 12 sec.
+ * 
+ * Test Log: /report/ABH7D8W1Qaqv96mt/2-Mythic+Taloc+-+Kill+(4:12)/Halshuggen/statistics
  *
  * @property {StatTracker} statTracker
  */
@@ -46,18 +47,14 @@ class TwitchingTentacleofXalzaix extends Analyzer {
 
   statistic() {
     return (
-      <Statistic category={STATISTIC_CATEGORY.ITEMS}>
-        <div className="pad">
-          <label><ItemLink id={ITEMS.TWITCHING_TENTACLE_OF_XALZAIX.id} details={this._item} /></label>
-
-          <div className="value" style={{ marginTop: 15 }}>
-            <UptimeIcon /> {formatPercentage(this.totalBuffUptime, 0)}% <small>uptime</small>
-          </div>
-          <div className="value" style={{ marginTop: 5 }}>
-            <IntellectIcon /> {formatNumber(this.totalBuffUptime * this.statBuff)} <small>average {this.selectedCombatant.spec.primaryStat} gained</small>
-          </div>
-        </div>
-      </Statistic>
+      <ItemStatistic
+        size="flexible"
+      >
+        <BoringItemValueText item={ITEMS.TWITCHING_TENTACLE_OF_XALZAIX}>
+          <UptimeIcon /> {formatPercentage(this.totalBuffUptime, 0)}% <small>uptime</small> <br />
+          <IntellectIcon /> {formatNumber(this.totalBuffUptime * this.statBuff)} <small>average {this.selectedCombatant.spec.primaryStat} gained</small>
+        </BoringItemValueText>
+      </ItemStatistic>
     );
   }
 }

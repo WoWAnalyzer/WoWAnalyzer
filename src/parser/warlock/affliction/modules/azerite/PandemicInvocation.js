@@ -5,10 +5,10 @@ import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
-import { formatPercentage, formatThousands } from 'common/format';
+import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 
-import TraitStatisticBox from 'interface/others/TraitStatisticBox';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 
 import { binomialPMF, findMax } from 'parser/warlock/shared/probability';
 import { getDotDurations } from '../../constants';
@@ -93,21 +93,29 @@ class PandemicInvocation extends Analyzer {
     this.damage += event.amount + (event.absorbed || 0);
   }
 
+  get dps() {
+    return this.damage / this.owner.fightDuration * 1000;
+  }
+
   statistic() {
     const generated = this.soulShardTracker.getGeneratedBySpell(SPELLS.PANDEMIC_INVOCATION_ENERGIZE.id);
     const wasted = this.soulShardTracker.getWastedBySpell(SPELLS.PANDEMIC_INVOCATION_ENERGIZE.id);
     const { max } = findMax(this.opportunities, (k, n) => binomialPMF(k, n, PROC_CHANCE));
     return (
-      <TraitStatisticBox
-        trait={SPELLS.PANDEMIC_INVOCATION.id}
-        value={<ItemDamageDone amount={this.damage} />}
+      <AzeritePowerStatistic
+        size="small"
         tooltip={(
           <>
             Pandemic Invocation damage: {formatThousands(this.damage)}<br />
-            You gained {generated} Soul Shards and wasted {wasted} Soul Shards with this trait, {max > 0 ? <>which is <strong>{formatPercentage(generated / max)}%</strong> of Shards you were most likely to get in this fight ({max} Shards).</> : 'while you were most likely to not get any Shards.'}
+            You gained {generated} Soul Shards and wasted {wasted} Soul Shards with this trait,
+            {max > 0 ? <>which is <strong>{formatPercentage(generated / max)}%</strong> of Shards you were most likely to get in this fight ({max} Shards).</> : 'while you were most likely to not get any Shards.'}
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.PANDEMIC_INVOCATION}>
+          {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }

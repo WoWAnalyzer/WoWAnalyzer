@@ -27,8 +27,6 @@ import ArcaneOrb from './modules/features/ArcaneOrb';
 import RuleOfThrees from './modules/features/RuleOfThrees';
 import TimeAnomaly from './modules/features/TimeAnomaly';
 
-
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Normalizers

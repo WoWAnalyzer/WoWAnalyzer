@@ -82,7 +82,6 @@ class Analyzer extends EventSubscriber {
    * @deprecated Use statistic() with category set to ITEM instead.
    * @returns {object}
    */
-  item() { return undefined; }
   statistic() { return undefined; }
   /**
    * @deprecated Set the `position` property on the Statistic component instead.

@@ -3,6 +3,10 @@ import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 import ITEMS from 'common/ITEMS/index';
 import Analyzer from 'parser/core/Analyzer';
+import ItemStatistic from 'interface/statistics/ItemStatistic';
+import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
+import UptimeIcon from 'interface/icons/Uptime';
+import VersatilityIcon from 'interface/icons/Versatility';
 import { formatPercentage, formatNumber } from 'common/format';
 import { calculateSecondaryStatDefault } from 'common/stats';
 import Abilities from 'parser/core/modules/Abilities';
@@ -41,16 +45,17 @@ class DreadGladiatorsMedallion extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.RAPID_ADAPTATION.id) / this.owner.fightDuration;
   }
 
-  item() {
-    return {
-      item: ITEMS.DREAD_GLADIATORS_MEDALLION,
-      result: (
-        <>
-          {formatPercentage(this.totalBuffUptime)}% uptime<br />
-          {formatNumber(this.totalBuffUptime * this.statBuff)} average Versatility
-        </>
-      ),
-    };
+  statistic() {
+    return (
+      <ItemStatistic
+        size="flexible"
+      >
+        <BoringItemValueText item={ITEMS.DREAD_GLADIATORS_MEDALLION}>
+          <UptimeIcon /> {formatPercentage(this.totalBuffUptime)}% <small>uptime</small> <br />
+          <VersatilityIcon /> {formatNumber(this.totalBuffUptime * this.statBuff)} <small>average Versatility</small>
+        </BoringItemValueText>
+      </ItemStatistic>
+    );
   }
 }
 

@@ -7,9 +7,10 @@ import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage, formatThousands } from 'common/format';
+import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
 
@@ -53,6 +54,10 @@ class Haunt extends Analyzer {
     return this.enemies.getBuffUptime(SPELLS.HAUNT_TALENT.id) / this.owner.fightDuration;
   }
 
+  get dps() {
+    return this.bonusDmg / this.owner.fightDuration * 1000;
+  }
+
   get suggestionThresholds() {
     return {
       actual: this.uptime,
@@ -79,25 +84,33 @@ class Haunt extends Analyzer {
       });
   }
 
-  subStatistic() {
+  statistic() {
     const buffedTicksPercentage = (this.buffedTicks / this.totalTicks) || 1;
     return (
-      <>
-        <StatisticListBoxItem
-          title={<><SpellLink id={SPELLS.HAUNT_TALENT.id} /> uptime</>}
-          value={`${formatPercentage(this.uptime)} %`}
-        />
-        <StatisticListBoxItem
-          title={<><SpellLink id={SPELLS.HAUNT_TALENT.id} /> bonus damage</>}
-          value={this.owner.formatItemDamageDone(this.bonusDmg)}
-          valueTooltip={(
-            <>
-              {formatThousands(this.bonusDmg)} bonus damage<br />
-              You buffed {formatPercentage(buffedTicksPercentage)} % of your Unstable Affliction ticks with Haunt.
-            </>
-          )}
-        />
-      </>
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(4)}
+        size="flexible"
+        tooltip={(
+          <>
+            {formatThousands(this.bonusDmg)} bonus damage<br />
+            You buffed {formatPercentage(buffedTicksPercentage)} % of your Unstable Affliction ticks with Haunt.
+          </>
+        )}
+      >
+        <div className="pad">
+          <label><SpellLink id={SPELLS.HAUNT_TALENT.id} /></label>
+          <div className="flex">
+            <div className="flex-main value">
+              {formatPercentage(this.uptime)} % <small>uptime</small>
+            </div>
+          </div>
+          <div className="flex">
+            <div className="flex-main value">
+              {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total</small>
+            </div>
+          </div>
+        </div>
+      </Statistic>
     );
   }
 }

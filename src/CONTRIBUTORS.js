@@ -118,7 +118,27 @@ export const Bonebasher = {
 export const Sharrq = {
   nickname: 'Sharrq',
   github: 'Sharrq',
+  discord: 'Sharrq#7530',
   avatar: require('./interface/images/avatars/Sharrq_avatar.jpg'),
+  mains: [
+    {
+      name: 'Sharrq',
+      spec: SPECS.FROST_MAGE,
+      link: 'https://worldofwarcraft.com/en-us/character/us/bleeding-hollow/sharrq',
+    }],
+    alts: [{
+      name: 'Maniaq',
+      spec: SPECS.SHADOW_PRIEST,
+      link: 'https://worldofwarcraft.com/en-us/character/us/bleeding-hollow/maniaq',
+    }, {
+      name: 'Requva',
+      spec: SPECS.MISTWEAVER_MONK,
+      link: 'https://worldofwarcraft.com/en-us/character/us/bleeding-hollow/requva',
+    }, {
+      name: 'Fraqture',
+      spec: SPECS.PROTECTION_PALADIN,
+      link: 'https://worldofwarcraft.com/en-us/character/us/bleeding-hollow/fraqture',
+    }],
 };
 export const Khazak = {
   nickname: 'Khazak',
@@ -227,6 +247,10 @@ export const Chizu = {
   nickname: 'Chizu',
   github: 'sMteX',
   avatar: require('./interface/images/avatars/Chizu_avatar.jpg'),
+};
+export const Gwelican = {
+  nickname: 'Gwelican',
+  github: 'gwelican',
 };
 export const Hordehobbs = {
   nickname: 'Hordehobbs',

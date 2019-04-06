@@ -9,7 +9,8 @@ import SPELLS from 'common/SPELLS';
 import { formatThousands } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import { getDotDurations, UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
 
@@ -129,7 +130,7 @@ class Deathbolt extends Analyzer {
     return result;
   }
 
-  subStatistic() {
+  statistic() {
     const deathbolt = this.abilityTracker.getAbility(SPELLS.DEATHBOLT_TALENT.id);
     const total = deathbolt.damageEffective || 0;
     const avg = total / (deathbolt.casts || 1);
@@ -140,27 +141,31 @@ class Deathbolt extends Analyzer {
       .map(([key, value]) => <>{SPELLS[key].name}: {(value / 1000).toFixed(2)} seconds<br /></>);
 
     return (
-      <>
-        <StatisticListBoxItem
-          title={<>Average <SpellLink id={SPELLS.DEATHBOLT_TALENT.id} /> damage</>}
-          value={formatThousands(avg)}
-          valueTooltip={(
-            <>
-              Total damage done with Deathbolt: {formatThousands(total)} ({this.owner.formatItemDamageDone(total)})
-            </>
-          )}
-        />
-        <StatisticListBoxItem
-          title={<>Average DoT length on <SpellLink id={SPELLS.DEATHBOLT_TALENT.id} /> cast</>}
-          value={`${(avgDotLengths.total / 1000).toFixed(2)} s`}
-          valueTooltip={(
-            <>
-              Average remaining DoT durations on Deathbolt cast:<br /><br />
-              {dotDurationsTooltip}
-            </>
-          )}
-        />
-      </>
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(1)}
+        size="flexible"
+        tooltip={(
+          <>
+            Total damage done with Deathbolt: {formatThousands(total)} ({this.owner.formatItemDamageDone(total)}) <br />
+            Average remaining DoT durations on Deathbolt cast:<br /><br />
+            {dotDurationsTooltip}
+          </>
+        )}
+      >
+        <div className="pad">
+          <label><SpellLink id={SPELLS.DEATHBOLT_TALENT.id} /></label>
+          <div className="flex">
+            <div className="flex-main value">
+              {formatThousands(avg)} <small>average damage</small>
+            </div>
+          </div>
+          <div className="flex">
+            <div className="flex-main value">
+              {(avgDotLengths.total / 1000).toFixed(2)} s <small>average DoT length on cast</small>
+            </div>
+          </div>
+        </div>
+      </Statistic>
     );
   }
 }
