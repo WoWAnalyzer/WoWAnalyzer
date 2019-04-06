@@ -18,7 +18,6 @@ import SoulShardDetails from './modules/soulshards/SoulShardDetails';
 import Channeling from './modules/core/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 
-import Talents from './modules/talents';
 import Nightfall from './modules/talents/Nightfall';
 import DrainSoul from './modules/talents/DrainSoul';
 import Deathbolt from './modules/talents/Deathbolt';
@@ -65,7 +64,6 @@ class CombatLogParser extends CoreCombatLogParser {
     globalCooldown: GlobalCooldown,
 
     // Talents
-    talents: Talents,
     nightfall: Nightfall,
     drainSoul: DrainSoul,
     deathbolt: Deathbolt,

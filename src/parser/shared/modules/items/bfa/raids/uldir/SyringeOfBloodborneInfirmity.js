@@ -1,11 +1,13 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import { TooltipElement } from 'common/Tooltip';
 import { calculateSecondaryStatDefault } from 'common/stats';
 import { formatPercentage, formatNumber } from 'common/format';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import Analyzer from 'parser/core/Analyzer';
+import ItemStatistic from 'interface/statistics/ItemStatistic';
+import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
+import CritIcon from 'interface/icons/CriticalStrike';
 
 /**
  * Syringe of Bloodborne Infirmity -
@@ -56,23 +58,23 @@ class SyringeOfBloodborneInfirmity extends Analyzer {
     return this.selectedCombatant.getBuffTriggerCount(SPELLS.CRITICAL_PROWESS.id);
   }
 
-  item() {
-    return {
-      item: ITEMS.SYRINGE_OF_BLOODBORNE_INFIRMITY,
-      result: (
-        <TooltipElement
-          content={(
-            <>
-              Hit <strong>{this.hits}</strong> times, causing <strong>{formatNumber(this.damage)}</strong> damage. <br />
-              Buff procced <strong>{this.buffTriggerCount()}</strong> times (<strong>{formatPercentage(this.totalBuffUptime())}%</strong> uptime).
-            </>
-          )}
-        >
+  statistic() {
+    return (
+      <ItemStatistic
+        size="flexible"
+        tooltip={(
+          <>
+            Hit <strong>{this.hits}</strong> times, causing <strong>{formatNumber(this.damage)}</strong> damage. <br />
+            Buff procced <strong>{this.buffTriggerCount()}</strong> times (<strong>{formatPercentage(this.totalBuffUptime())}%</strong> uptime).
+          </>
+        )}
+      >
+        <BoringItemValueText item={ITEMS.SYRINGE_OF_BLOODBORNE_INFIRMITY}>
           <ItemDamageDone amount={this.damage} /><br />
-          {formatNumber(this.averageStatGain())} average Critical Strike
-        </TooltipElement>
-      ),
-    };
+          <CritIcon /> {formatNumber(this.averageStatGain())} <small>average Critical Strike</small>
+        </BoringItemValueText>
+      </ItemStatistic>
+    );
   }
 }
 

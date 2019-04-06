@@ -5,10 +5,11 @@ import ItemLink from 'common/ItemLink';
 import { formatNumber, formatPercentage } from 'common/format';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import ItemStatistic from 'interface/statistics/ItemStatistic';
+import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import Events from 'parser/core/Events';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 import Abilities from 'parser/core/modules/Abilities';
-import Tooltip from 'common/Tooltip';
 
 const MAX_ALLIES_HIT = 5;
 const ACTIVATION_COOLDOWN = 120; // seconds
@@ -111,21 +112,23 @@ class WardOfEnvelopment extends Analyzer {
     return effectiveTargetsHit * 0.075;
   }
 
-  item() {
-    return {
-      item: ITEMS.WARD_OF_ENVELOPMENT,
-      result: (
-        <Tooltip content={(
+  statistic() {
+    return (
+      <ItemStatistic
+        size="flexible"
+        tooltip={(
           <>
             You activated your Ward of Envelopment <b>{this.uses}</b> of <b>{this.possibleUseCount}</b> possible time{this.uses === 1 ? '' : 's'} with an average of <b>{formatNumber(this.averageAbsorbPerCast)}</b> absorption per use.
             It absorbed <b>{formatNumber(this.absorbUsed)}</b> out of <b>{formatNumber(this.totalAbsorb)}</b> damage and <b>{formatNumber(this.absorbWasted)} ({formatPercentage(this.wastedPercentage)}%)</b> was unused. <br />
             On average you hit <b>{this.averageTargetsHit.toFixed(2)}</b> out of <b>5</b> allies and gained <b>{formatPercentage(this.gainedShieldValue)}%</b> extra absorption value per cast. <br />
           </>
-        )}>
+        )}
+      >
+        <BoringItemValueText item={ITEMS.WARD_OF_ENVELOPMENT}>
           <ItemHealingDone amount={this.absorbUsed} />
-        </Tooltip>
-      ),
-    };
+        </BoringItemValueText>
+      </ItemStatistic>
+    );
   }
 
   get suggestedShieldValue() {

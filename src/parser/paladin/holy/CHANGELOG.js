@@ -6,8 +6,18 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+<<<<<<< HEAD
     date: new Date('2019-03-19'),
     changes: 'Added statistic tracker for Radiant Incandescence showing healing, crit rate, damage and healing transfered to beacons.',
+=======
+    date: new Date('2019-03-21'),
+    changes: <><SpellLink id={SPELLS.GRACE_OF_THE_JUSTICAR.id} /> statistic added showing total healing, players hit per cast and healing transfered to beacons.</>,
+    contributors: [HolySchmidt],
+  },
+  {
+    date: new Date('2019-03-19'),
+    changes: <><SpellLink id={SPELLS.RADIANT_INCANDESCENCE.id} /> statistic tracker added showing healing, crit rate, damage and healing transfered to beacons.</>,
+>>>>>>> master
     contributors: [HolySchmidt],
   },
   {

@@ -8,7 +8,10 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import { formatPercentage } from 'common/format';
 import { formatNumber } from 'common/format';
 import { calculateSecondaryStatDefault } from 'common/stats';
-import { TooltipElement } from 'common/Tooltip';
+import ItemStatistic from 'interface/statistics/ItemStatistic';
+import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
+import UptimeIcon from 'interface/icons/Uptime';
+import HasteIcon from 'interface/icons/Haste';
 
 /**
 * Sea Giant's Tidestone
@@ -19,8 +22,7 @@ import { TooltipElement } from 'common/Tooltip';
 * +117 Intellect
 * Use: Increase your Haste by 372 for 12 sec. (1 Min, 30 Sec Cooldown)
  *
- * Testing Log:
- * https://www.warcraftlogs.com/reports/ABH7D8W1Qaqv96mt#fight=2&type=summary&source=9
+ * Testing Log: /report/ABH7D8W1Qaqv96mt/2-Mythic+Taloc+-+Kill+(4:12)/Bluemyself
  */
 
 class SeaGiantsTidestone extends Analyzer {
@@ -67,15 +69,18 @@ class SeaGiantsTidestone extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.FEROCITY_OF_THE_SKROG.id) / this.owner.fightDuration;
   }
 
-  item() {
-    return {
-      item: ITEMS.SEA_GIANTS_TIDESTONE,
-      result: (
-        <TooltipElement content={`Average Haste gained: ${formatNumber(this.haste * this.totalBuffUptime)}`}>
-          Used {this.casts} times / {formatPercentage(this.totalBuffUptime)}% uptime
-        </TooltipElement>
-      ),
-    };
+  statistic() {
+    return (
+      <ItemStatistic
+        size="flexible"
+        tooltip={<>Used {this.casts} times</>}
+      >
+        <BoringItemValueText item={ITEMS.SEA_GIANTS_TIDESTONE}>
+          <UptimeIcon /> {formatPercentage(this.totalBuffUptime)}% <small>uptime</small> <br />
+          <HasteIcon /> {formatNumber(this.haste * this.totalBuffUptime)} <small>average Haste gained</small>
+        </BoringItemValueText>
+      </ItemStatistic>
+    );
   }
 }
 

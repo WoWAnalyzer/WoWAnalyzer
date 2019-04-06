@@ -4,8 +4,8 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatPercentage, formatNumber } from 'common/format';
 import { calculateSecondaryStatDefault } from 'common/stats';
-import ItemLink from 'common/ItemLink';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
+import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import UptimeIcon from 'interface/icons/Uptime';
 import HasteIcon from 'interface/icons/Haste';
 import MasteryIcon from 'interface/icons/Mastery';
@@ -16,7 +16,7 @@ import Analyzer from 'parser/core/Analyzer';
  * Harlan's Loaded Dice
  * Your attacks and abilities have a chance to roll the loaded dice, gaining a random combination of Mastery, Haste, and Critical Strike for 15 sec.
  *
- * Example: https://www.warcraftlogs.com/reports/LR2jNyrk3GmPXgZ9#fight=4&type=auras&source=5
+ * Example: /report/ABH7D8W1Qaqv96mt/2-Mythic+Taloc+-+Kill+(4:12)/Feloozie/statistics
  */
 class HarlansLoadedDice extends Analyzer {
   _item = null;
@@ -70,23 +70,15 @@ class HarlansLoadedDice extends Analyzer {
 
   statistic() {
     return (
-      <ItemStatistic size="flexible">
-        <div className="pad">
-          <label><ItemLink id={ITEMS.HARLANS_LOADED_DICE.id} details={this._item} /></label>
-
-          <div className="value" style={{ marginTop: 15 }}>
-            <UptimeIcon /> {formatPercentage(this.totalBuffUptime, 0)}% <small>uptime</small>
-          </div>
-          <div className="value" style={{ marginTop: 5 }}>
-            <HasteIcon /> {formatNumber(this.getAverageHaste())} <small>average Haste gained</small>
-          </div>
-          <div className="value" style={{ marginTop: 5 }}>
-            <CriticalStrikeIcon /> {formatNumber(this.getAverageCrit())} <small>average Crit gained</small>
-          </div>
-          <div className="value" style={{ marginTop: 5 }}>
-            <MasteryIcon /> {formatNumber(this.getAverageMastery())} <small>average Mastery gained</small>
-          </div>
-        </div>
+      <ItemStatistic
+        size="flexible"
+      >
+        <BoringItemValueText item={ITEMS.HARLANS_LOADED_DICE}>
+          <UptimeIcon /> {formatPercentage(this.totalBuffUptime, 0)}% <small>uptime</small> <br />
+          <HasteIcon /> {formatNumber(this.getAverageHaste())} <small>average Haste gained</small> <br />
+          <CriticalStrikeIcon /> {formatNumber(this.getAverageCrit())} <small>average Crit gained</small> <br />
+          <MasteryIcon /> {formatNumber(this.getAverageMastery())} <small>average Mastery gained</small>
+        </BoringItemValueText>
       </ItemStatistic>
     );
   }

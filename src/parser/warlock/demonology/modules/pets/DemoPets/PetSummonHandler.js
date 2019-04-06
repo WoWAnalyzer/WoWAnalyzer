@@ -7,6 +7,7 @@ import { isPermanentPet, isWildImp } from '../helpers';
 import { TimelinePet } from '../TimelinePet';
 import PETS from '../PETS';
 import { SUMMON_TO_SPELL_MAP } from '../CONSTANTS';
+import { META_CLASSES } from '../TimelinePet';
 
 const debug = false;
 const test = false;
@@ -46,6 +47,13 @@ class PetSummonHandler extends Analyzer {
     if (isWildImp(pet.guid)) {
       // Wild Imps need few additional properties
       pet.setWildImpProperties(this._lastPlayerPosition);
+    }
+    if (petInfo.name === "Demonic Tyrant" && this.selectedCombatant.hasTalent(SPELLS.DEMONIC_CONSUMPTION_TALENT.id)) {
+      const power = this.demoPets.currentPets
+        .filter(pet => isWildImp(pet.guid))
+        .map(pet => pet.currentEnergy)
+        .reduce((acc, val) => (acc + val), 0);
+      pet.setMeta(META_CLASSES.EMPOWERED, `Empowered by ${(power / 2).toFixed(2)} % from consuming imps`);
     }
     test && this.log('Pet summoned', pet);
     this.demoPets.timeline.addPet(pet);

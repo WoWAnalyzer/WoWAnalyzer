@@ -7,7 +7,9 @@ import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatPercentage } from 'common/format';
 
-import TraitStatisticBox from 'interface/others/TraitStatisticBox';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import IntellectIcon from 'interface/icons/Intellect';
 
 const wrackingBrillianceStats = traits => traits.reduce((total, rank) => {
   const [ intellect ] = calculateAzeriteEffects(SPELLS.WRACKING_BRILLIANCE.id, rank);
@@ -52,11 +54,14 @@ class WrackingBrilliance extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
-        trait={SPELLS.WRACKING_BRILLIANCE.id}
-        value={`${this.averageIntellect} average Intellect`}
+      <AzeritePowerStatistic
+        size="small"
         tooltip={`Wracking Brilliance grants ${this.intellect} Intellect while active. You had ${formatPercentage(this.uptime)} % uptime on the buff.`}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.WRACKING_BRILLIANCE}>
+          <IntellectIcon /> {this.averageIntellect} <small>average Intellect</small>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }

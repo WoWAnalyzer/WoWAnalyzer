@@ -4,10 +4,11 @@ import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import SPELLS from 'common/SPELLS';
-import { formatThousands } from 'common/format';
-import SpellLink from 'common/SpellLink';
+import { formatThousands, formatNumber, formatPercentage } from 'common/format';
+import SpellIcon from 'common/SpellIcon';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 class PhantomSingularity extends Analyzer {
   static dependencies = {
@@ -19,15 +20,23 @@ class PhantomSingularity extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.PHANTOM_SINGULARITY_TALENT.id);
   }
 
-  subStatistic() {
+  statistic() {
     const spell = this.abilityTracker.getAbility(SPELLS.PHANTOM_SINGULARITY_TALENT.id);
     const damage = spell.damageEffective + spell.damageAbsorbed;
+    const dps = damage / this.owner.fightDuration * 1000;
     return (
-      <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.PHANTOM_SINGULARITY_TALENT.id} /> damage</>}
-        value={this.owner.formatItemDamageDone(damage)}
-        valueTooltip={`${formatThousands(damage)} damage`}
-      />
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(3)}
+        size="small"
+        tooltip={`${formatThousands(damage)} damage`}
+      >
+        <div className="pad">
+          <label><SpellIcon id={SPELLS.PHANTOM_SINGULARITY_TALENT.id} /> Phantom Singularity damage</label>
+          <div className="value">
+            {formatNumber(dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total</small>
+          </div>
+        </div>
+      </Statistic>
     );
   }
 }

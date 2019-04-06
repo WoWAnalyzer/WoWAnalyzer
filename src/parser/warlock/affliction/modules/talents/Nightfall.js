@@ -4,9 +4,10 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 const BUFF_DURATION = 12000;
 const BUFFER = 100;
@@ -39,12 +40,16 @@ class Nightfall extends Analyzer {
     this.buffApplyTimestamp = null;
   }
 
-  subStatistic() {
+  statistic() {
     return (
-      <StatisticListBoxItem
-        title={<>Wasted <SpellLink id={SPELLS.NIGHTFALL_TALENT.id} /> procs</>}
-        value={this.wastedProcs}
-      />
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(1)}
+        size="small"
+      >
+        <BoringSpellValueText spell={SPELLS.NIGHTFALL_TALENT}>
+          {this.wastedProcs} <small>wasted procs</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

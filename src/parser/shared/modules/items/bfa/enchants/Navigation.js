@@ -130,7 +130,7 @@ class Navigation extends Analyzer {
 
     return ((smallBuffIncrease + bigBuffIncrease) / this.owner.fightDuration).toFixed(0);
   }
-  item() {
+  statistic() {
     const buffStacks = this.cleanStacks;
     const maxStackBuffDuration = this.maxStackBuffUptime;
     return (

@@ -3,11 +3,12 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
+import SpellIcon from 'common/SpellIcon';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import UptimeBar from 'interface/statistics/components/UptimeBar';
 
 class CorruptionUptime extends Analyzer {
   static dependencies = {
@@ -45,11 +46,27 @@ class CorruptionUptime extends Analyzer {
   }
 
   subStatistic() {
+    const history = this.enemies.getDebuffHistory(SPELLS.CORRUPTION_DEBUFF.id);
     return (
-      <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.CORRUPTION_CAST.id} /> uptime</>}
-        value={`${formatPercentage(this.uptime)} %`}
-      />
+      <div className="flex">
+        <div className="flex-sub icon">
+          <SpellIcon id={SPELLS.CORRUPTION_CAST.id} />
+        </div>
+        <div
+          className="flex-sub value"
+          style={{ width: 140 }}
+        >
+          {formatPercentage(this.uptime, 0)} % <small>uptime</small>
+        </div>
+        <div className="flex-main chart" style={{ padding: 15 }}>
+          <UptimeBar
+            uptimeHistory={history}
+            start={this.owner.fight.start_time}
+            end={this.owner.fight.end_time}
+            style={{ height: '100%' }}
+          />
+        </div>
+      </div>
     );
   }
 }

@@ -123,7 +123,7 @@ class ManaTea extends Analyzer {
 
   addToManaSaved(spellBaseMana, spellId) {
     // If we cast TFT -> Viv, mana cost of Viv is 0
-    if (this.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) && SPELLS.VIVIFY.id === spellId) {
+    if ((this.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) && SPELLS.VIVIFY.id === spellId) || this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
       this.nonManaCasts += 1;
       return;
     }

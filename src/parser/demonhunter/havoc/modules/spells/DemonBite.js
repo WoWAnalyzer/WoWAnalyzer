@@ -1,13 +1,14 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatThousands, formatPercentage } from 'common/format';
 
 /**
- * Example Report: https://www.warcraftlogs.com/reports/4GR2pwAYW8KtgFJn/#fight=6&source=18
+ * Example Report: https://www.warcraftlogs.com/reports/KGJgZPxanBX82LzV/#fight=4&source=20
  */
 class DemonBite extends Analyzer{
 
@@ -17,6 +18,9 @@ class DemonBite extends Analyzer{
 
   constructor(...args) {
     super(...args);
+    //The Demon Blades talent replaces the ability Demon Bite if picked
+    this.active = !this.selectedCombatant.hasTalent(SPELLS.DEMON_BLADES_TALENT.id);
+
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.DEMONS_BITE), this.onEnergizeEvent);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DEMONS_BITE), this.onDamageEvent);
   }
@@ -49,9 +53,9 @@ class DemonBite extends Analyzer{
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<> Be mindful of your fury levels and spend it before capping.</>)
+        return suggest(<> Try not to cast <SpellLink id={SPELLS.DEMONS_BITE.id} /> when close to max Fury.</>)
           .icon(SPELLS.DEMONS_BITE.icon)
-          .actual(`${formatPercentage(actual)}% fury wasted`)
+          .actual(`${formatPercentage(actual)}% Fury wasted`)
           .recommended(`${formatPercentage(recommended)}% is recommended.`);
       });
   }
@@ -66,7 +70,7 @@ class DemonBite extends Analyzer{
         value={(
           <>
             <span style={{ fontSize: '75%' }}>
-              {this.furyPerMin} fury per min <br />
+              {this.furyPerMin} Fury per min <br />
               {this.owner.formatItemDamageDone(this.damage)}
             </span>
           </>
@@ -74,8 +78,8 @@ class DemonBite extends Analyzer{
         tooltip={(
           <>
             {formatThousands(this.damage)} Total damage<br />
-            {effectiveFuryGain} Effective fury gained<br />
-            {this.furyGain} Total fury gained<br />
+            {effectiveFuryGain} Effective Fury gained<br />
+            {this.furyGain} Total Fury gained<br />
             {this.furyWaste} Fury wasted
           </>
         )}

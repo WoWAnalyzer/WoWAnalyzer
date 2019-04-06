@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-3-18'),
+    changes: 'Updated statistic boxes to new layout.',
+    contributors: [Sharrq],
+  },
+  {
     date: new Date('2019-3-14'),
     changes: 'Updated spec compatibility to 8.1.5.',
     contributors: [Sharrq],

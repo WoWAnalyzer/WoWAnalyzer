@@ -8,10 +8,10 @@ import PropTypes from 'prop-types';
 
 import SpellIcon from 'common/SpellIcon';
 
-import './BoringSpellValue.scss';
+import '../BoringValue.scss';
 
 const BoringSpellValue = ({ spell, value, label, extra, className }) => (
-  <div className={`flex boring-spell-value ${className || ''}`}>
+  <div className={`flex boring-value ${className || ''}`}>
     <div className="flex-sub icon">
       <SpellIcon id={spell.id} />
     </div>
