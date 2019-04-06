@@ -69,9 +69,6 @@ import MistweaverHealingEfficiencyDetails from './modules/features/MistweaverHea
 import HealingEfficiencyTracker from './modules/features/MistweaverHealingEfficiencyTracker';
 import ManaTracker from '../../core/healingEfficiency/ManaTracker';
 
-//fun
-import AprilFools from './modules/spells/AprilFools.js';
-
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
 class CombatLogParser extends CoreCombatLogParser {
