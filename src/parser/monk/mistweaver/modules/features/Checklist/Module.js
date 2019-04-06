@@ -20,9 +20,6 @@ import SpinningCraneKick from '../../spells/SpinningCraneKick';
 import Vivify from '../../spells/Vivify';
 import JadeSerpentStatue from '../../talents/JadeSerpentStatue';
 
-//fun
-import AprilFools from '../../spells/AprilFools';
-
 import Component from './Component';
 
 class Checklist extends BaseChecklist {
@@ -44,8 +41,6 @@ class Checklist extends BaseChecklist {
     spinningCraneKick: SpinningCraneKick,
     vivify: Vivify,
     jadeSerpentStatue: JadeSerpentStatue,
-    //fun
-    aprilFools: AprilFools,
   };
 
   render() {
@@ -72,8 +67,6 @@ class Checklist extends BaseChecklist {
           renewingMistDuringManaTea: this.renewingMistDuringManaTea.suggestionThresholds,
           vivify: this.vivify.suggestionThresholds,
           jadeSerpentStatue: this.jadeSerpentStatue.suggestionThresholds,
-
-          aprilFools: this.aprilFools.suggestionThresholds,
         }}
       />
     );

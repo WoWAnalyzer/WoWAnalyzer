@@ -134,9 +134,6 @@ class CombatLogParser extends CoreCombatLogParser {
     manaTracker: ManaTracker,
     hpmDetails: MistweaverHealingEfficiencyDetails,
     hpmTracker: HealingEfficiencyTracker,
-
-    //fun
-    aprilFools: AprilFools,
   };
 
   generateResults(...args) {
