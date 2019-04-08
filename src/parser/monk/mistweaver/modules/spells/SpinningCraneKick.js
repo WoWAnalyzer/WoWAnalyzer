@@ -16,7 +16,7 @@ class SpinningCraneKick extends Analyzer{
     badSCKTimeList = [];
     canceledSCKcount = 0;//figure out if this is possible
     enemiesHitSCK;
-    currnetTime = 0;
+    currentTime = 0;
 
     on_byPlayer_cast(event){
         const spellId = event.ability.guid;
@@ -25,17 +25,18 @@ class SpinningCraneKick extends Analyzer{
             if(this.enemiesHitSCK){//this nested is needed due to weird logs
                 this.checkSCK();
             }
-            this.currnetTime = this.owner.currentTimestamp - this.owner.fight.start_time;
+            this.currentTime = this.owner.currentTimestamp - this.owner.fight.start_time;
             this.enemiesHitSCK = [];
         }
     }
 
     //tracking channel time isn't needed due to the fact it is the same as a gcd so they have to have another cast event
     on_byPlayer_damage(event){
+        const enemy = `${event.targetID} ${event.targetInstance}`;
         const spellId = event.ability.guid;
 
-        if(spellId === SPELLS.SPINNING_CRANE_KICK_DAMAGE.id && !this.enemiesHitSCK.includes(event.targetID)){
-            this.enemiesHitSCK.push(event.targetID + " " + event.targetInstance);
+        if(spellId === SPELLS.SPINNING_CRANE_KICK_DAMAGE.id && !this.enemiesHitSCK.includes(enemy)){
+            this.enemiesHitSCK.push(enemy);
         }
     }
 
@@ -54,13 +55,12 @@ class SpinningCraneKick extends Analyzer{
     checkSCK(){
         if(this.enemiesHitSCK.length>2){
             this.goodSCKcount += 1;
-            this.goodSCKTimeList.push(formatMilliseconds(this.currnetTime));
+            this.goodSCKTimeList.push(formatMilliseconds(this.currentTime));
         }
         else{
             this.badSCKcount += 1;
-            this.badSCKTimeList.push(formatMilliseconds(this.currnetTime));
+            this.badSCKTimeList.push(formatMilliseconds(this.currentTime));
         }
-        this.enemiesHitSCK = null;
     }
 
     get suggestionThresholds() {
@@ -79,11 +79,11 @@ class SpinningCraneKick extends Analyzer{
         when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
             return suggest(
               <>
-                You are not utilizing your <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> talent as effectively as you should. You should work on both your positioning and aiming of the spell. Always aim for the highest concentration of players, which is normally melee.
+                You are not utilizing your <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> spell as effectively as you should. You should work on both your positioning spell. Always aim for the highest concentration of enemies, which is normally melee.
               </>
             )
               .icon(SPELLS.SPINNING_CRANE_KICK.icon)
-              .actual(`${this.badSCKcount} Number of Spinning Crane Kicks with 1 or 0`)
+              .actual(`${this.badSCKcount} Number of Spinning Crane Kicks that hit fewer than 3 enemies`)
               .recommended('Aim to hit 2 or more targets with Spinning Crane Kick if there is only one Rising Sunkick, Blackout Kick or Tiger\'s palm will do more will do more damage');
           });
       }
