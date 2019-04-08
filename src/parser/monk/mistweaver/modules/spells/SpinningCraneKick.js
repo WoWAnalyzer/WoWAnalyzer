@@ -84,7 +84,7 @@ class SpinningCraneKick extends Analyzer{
             )
               .icon(SPELLS.SPINNING_CRANE_KICK.icon)
               .actual(`${this.badSCKcount} Number of Spinning Crane Kicks that hit fewer than 3 enemies`)
-              .recommended('Aim to hit 3 or more targets with Spinning Crane Kick if there is only one Rising Sunkick, Blackout Kick or Tiger\'s palm will do more will do more damage');
+              .recommended('Aim to hit 3 or more targets with Spinning Crane Kick if there is less than 3 targets then Rising Sunkick, Blackout Kick or Tiger\'s palm');
           });
       }
 
