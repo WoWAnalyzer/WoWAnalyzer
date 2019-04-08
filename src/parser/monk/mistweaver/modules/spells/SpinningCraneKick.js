@@ -32,7 +32,7 @@ class SpinningCraneKick extends Analyzer{
 
     //tracking channel time isn't needed due to the fact it is the same as a gcd so they have to have another cast event
     on_byPlayer_damage(event){
-        const enemy = `${event.targetID} ${event.targetInstance}`;
+        const enemy = `${event.targetID} ${event.targetInstance || 0}`;
         const spellId = event.ability.guid;
 
         if(spellId === SPELLS.SPINNING_CRANE_KICK_DAMAGE.id && !this.enemiesHitSCK.includes(enemy)){
@@ -84,7 +84,7 @@ class SpinningCraneKick extends Analyzer{
             )
               .icon(SPELLS.SPINNING_CRANE_KICK.icon)
               .actual(`${this.badSCKcount} Number of Spinning Crane Kicks that hit fewer than 3 enemies`)
-              .recommended('Aim to hit 2 or more targets with Spinning Crane Kick if there is only one Rising Sunkick, Blackout Kick or Tiger\'s palm will do more will do more damage');
+              .recommended('Aim to hit 3 or more targets with Spinning Crane Kick if there is only one Rising Sunkick, Blackout Kick or Tiger\'s palm will do more will do more damage');
           });
       }
 
