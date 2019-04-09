@@ -1,7 +1,8 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import { TooltipElement } from 'common/Tooltip';
+import ItemStatistic from 'interface/statistics/ItemStatistic';
+import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import ItemLink from 'common/ItemLink';
 import { formatPercentage } from 'common/format';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
@@ -13,6 +14,8 @@ import Abilities from 'parser/core/modules/Abilities';
  * Use: Inject 5 stacks of Mutating Antibodies into a friendly target for 30 sec. your direct heals on
  * that ally will consume a Mutating Antibody to restore an additional 3135 health. (1 Min, 30 Sec
  * Cooldown).
+ * 
+ * Test Log: /report/LnhTFvq9fxWRHQrJ/10-LFR+Champion+of+the+Light+-+Kill+(2:28)/Medizin
  */
 
 const MINOR = 0.95;
@@ -61,16 +64,17 @@ class InoculatingExtract extends Analyzer{
     }
   }
 
-
-  item(){
-    return{
-      item: ITEMS.INOCULATING_EXTRACT,
-      result: (
-        <TooltipElement content={<>Used <strong>{this.uses}</strong> times, consuming <strong>{this.charges}</strong> charges.</>}>
+  statistic() {
+    return (
+      <ItemStatistic
+        size="flexible"
+        tooltip={<>Used <strong>{this.uses}</strong> times, consuming <strong>{this.charges}</strong> charges.</>}
+      >
+        <BoringItemValueText item={ITEMS.INOCULATING_EXTRACT}>
           <ItemHealingDone amount={this.healing} />
-        </TooltipElement>
-      ),
-    };
+        </BoringItemValueText>
+      </ItemStatistic>
+    );
   }
 
   suggestions(when){

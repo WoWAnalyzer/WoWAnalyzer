@@ -7,9 +7,11 @@ import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage, formatThousands } from 'common/format';
+import { formatPercentage, formatThousands, formatNumber } from 'common/format';
+import Tooltip from 'common/Tooltip';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 const BONUS_PER_STACK = 0.03;
 const BUFFER = 50; // for some reason, changedebuffstack triggers twice on the same timestamp for each event, ignore an event if it happened < BUFFER ms after another
@@ -111,28 +113,42 @@ class ShadowEmbrace extends Analyzer {
     };
   }
 
-  subStatistic() {
+  get dps() {
+    return this.damage / this.owner.fightDuration * 1000;
+  }
+
+  statistic() {
     const uptimes = this.stackedUptime;
     return (
-      <>
-        <StatisticListBoxItem
-          title={<><SpellLink id={SPELLS.SHADOW_EMBRACE_DEBUFF.id} /> uptime</>}
-          value={`${formatPercentage(this.totalUptimePercentage)} %`}
-          valueTooltip={(
-            <>
-              No stacks: {formatPercentage(uptimes[0])} %<br />
-              1 stack: {formatPercentage(uptimes[1])} %<br />
-              2 stacks: {formatPercentage(uptimes[2])} %<br />
-              3 stacks: {formatPercentage(uptimes[3])} %
-            </>
-          )}
-        />
-        <StatisticListBoxItem
-          title={<><SpellLink id={SPELLS.SHADOW_EMBRACE_TALENT.id} /> bonus damage</>}
-          value={this.owner.formatItemDamageDone(this.damage)}
-          valueTooltip={`${formatThousands(this.damage)} bonus damage`}
-        />
-      </>
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(4)}
+        size="flexible"
+        tooltip={`${formatThousands(this.damage)} bonus damage`}
+      >
+        <div className="pad">
+          <label><SpellLink id={SPELLS.SHADOW_EMBRACE_TALENT.id} /></label>
+          <div className="flex">
+            <div className="flex-main value">
+              {formatPercentage(this.totalUptimePercentage)} %
+              <Tooltip content={(
+                <>
+                  No stacks: {formatPercentage(uptimes[0])} %<br />
+                  1 stack: {formatPercentage(uptimes[1])} %<br />
+                  2 stacks: {formatPercentage(uptimes[2])} %<br />
+                  3 stacks: {formatPercentage(uptimes[3])} %
+                </>
+              )}>
+                <small style={{ marginLeft: 7 }}>uptime <sup>*</sup></small>
+              </Tooltip>
+            </div>
+          </div>
+          <div className="flex">
+            <div className="flex-main value">
+              {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small>
+            </div>
+          </div>
+        </div>
+      </Statistic>
     );
   }
 }

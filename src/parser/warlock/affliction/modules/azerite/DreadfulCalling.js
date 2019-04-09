@@ -8,10 +8,10 @@ import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage
 
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
-import { formatThousands } from 'common/format';
+import { formatThousands, formatPercentage, formatNumber } from 'common/format';
 
-import TraitStatisticBox from 'interface/others/TraitStatisticBox';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 
 import { UNSTABLE_AFFLICTION_DEBUFFS } from '../../constants';
 
@@ -63,21 +63,27 @@ class DreadfulCalling extends Analyzer {
     return (this.effectiveReduction / 1000).toFixed(1);
   }
 
+  get dps() {
+    return this.damage / this.owner.fightDuration * 1000;
+  }
+
   statistic() {
     return (
-      <TraitStatisticBox
-        trait={SPELLS.DREADFUL_CALLING.id}
-        value={<ItemDamageDone amount={this.damage} approximate />}
+      <AzeritePowerStatistic
+        size="small"
         tooltip={(
           <>
-            Estimated bonus Unstable Affliction damage: {formatThousands(this.damage)}<br />
+            Bonus Unstable Affliction damage: {formatThousands(this.damage)}<br />
             You also reduced your Summon Darkglare cooldown by {this.effectiveCDRseconds} seconds<br /><br />
 
-            The damage is an approximation using current Intellect values at given time. Note that this estimate does NOT take into account lowered cooldown of Darkglare.
-            Also, because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be also little incorrect.
+            Note that the bonus damage does <strong>NOT</strong> take into account lowered cooldown of Darkglare.
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.DREADFUL_CALLING}>
+          {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total</small>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }

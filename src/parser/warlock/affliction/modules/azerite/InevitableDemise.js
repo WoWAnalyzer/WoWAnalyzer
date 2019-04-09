@@ -7,10 +7,10 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
-import { formatThousands } from 'common/format';
+import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 
-import TraitStatisticBox from 'interface/others/TraitStatisticBox';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 const DRAIN_LIFE_SP_COEFFICIENT = 0.12; // taken from Simcraft SpellDataDump
 const debug = false;
@@ -55,19 +55,22 @@ class InevitableDemise extends Analyzer {
     this.damage += bonusDamage;
   }
 
+  get dps() {
+    return this.damage / this.owner.fightDuration * 1000;
+  }
+
   statistic() {
     return (
-      <TraitStatisticBox
-        trait={SPELLS.INEVITABLE_DEMISE.id}
-        value={<ItemDamageDone amount={this.damage} approximate />}
-        tooltip={(
-          <>
-            Estimated bonus Drain Life damage: {formatThousands(this.damage)}<br /><br />
-
-            The damage is an approximation using current Intellect values at given time. Note that because we might miss some Intellect buffs (e.g. trinkets, traits), the value of current Intellect might be also little incorrect
-          </>
-        )}
-      />
+      <AzeritePowerStatistic
+        size="small"
+        tooltip={`Bonus Drain Life damage: ${formatThousands(this.damage)}`}
+      >
+        <BoringSpellValueText spell={SPELLS.INEVITABLE_DEMISE}>
+          <span style={{ fontSize: 29 }}>
+            {formatNumber(this.dps)} DPS <small>({formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total)</small>
+          </span>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }

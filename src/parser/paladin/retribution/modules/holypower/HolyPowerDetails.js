@@ -3,11 +3,13 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import Panel from 'interface/statistics/Panel';
 import { formatNumber, formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import BoringResourceValue from 'interface/statistics/components/BoringResourceValue/index';
+import Statistic from 'interface/statistics/Statistic';
 import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBreakdown';
 import HolyPowerTracker from './HolyPowerTracker';
 
-import WastedHPIcon from '../../images/paladin_hp.jpg';
 
 const holyPowerIcon = 'inv_helmet_96';
 
@@ -44,18 +46,17 @@ class HolyPowerDetails extends Analyzer {
   statistic() {
     return [
       (
-        <StatisticBox
+        <Statistic
+          size="small"
           position={STATISTIC_ORDER.CORE(4)}
-          icon={(
-            <img
-              src={WastedHPIcon}
-              alt="Wasted Holy Power"
-            />
-          )}
-          value={formatNumber(this.holyPowerTracker.wasted)}
-          label="Holy Power Wasted"
           tooltip={`${formatPercentage(this.wastedHolyPowerPercent)}% wasted`}
-        />
+        >
+          <BoringResourceValue
+            resource={RESOURCE_TYPES.HOLY_POWER}
+            value={formatNumber(this.holyPowerTracker.wasted)}
+            label="Holy Power Wasted"
+          />
+        </Statistic>
       ),
       (
         <Panel

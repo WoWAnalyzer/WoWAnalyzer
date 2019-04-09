@@ -620,4 +620,9 @@ export default {
     name: 'Cinderstorm',
     icon: 'spell_fire_flare',
   },
+  CONJURE_REFRESHMENT: {
+    id: 176351,
+    name: 'Conjure Refreshment',
+    icon: 'inv_misc_food_73cinnamonroll',
+  },
 };

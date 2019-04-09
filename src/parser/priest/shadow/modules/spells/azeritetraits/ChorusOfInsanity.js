@@ -4,7 +4,9 @@ import SPELLS from 'common/SPELLS/index';
 import { formatNumber, formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import Analyzer from 'parser/core/Analyzer';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import ItemStatistic from 'interface/statistics/ItemStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import CritIcon from 'interface/icons/CriticalStrike';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
@@ -82,17 +84,19 @@ class ChorusOfInsanity extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
-        trait={SPELLS.CHORUS_OF_INSANITY.id}
-        value={`${formatNumber(this.averageCrit)} average Crit`}
+      <ItemStatistic
+        size="flexible"
         tooltip={(
           <>
             {SPELLS.CHORUS_OF_INSANITY.name} grants <strong>{this.crit} crit per stack</strong><br />
             You procced {SPELLS.CHORUS_OF_INSANITY.name} <strong>{this.buffTriggerCount} times</strong> with an uptime of {formatPercentage(this.uptime)}%.
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.CHORUS_OF_INSANITY}>
+          <CritIcon /> {formatNumber(this.averageCrit)} <small>average Critical Strike</small>
+        </BoringSpellValueText>
+      </ItemStatistic>
     );
   }
 }

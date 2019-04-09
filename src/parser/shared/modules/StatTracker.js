@@ -124,7 +124,7 @@ class StatTracker extends Analyzer {
     // endregion
 
     // region Paladin
-    [SPELLS.SERAPHIM_TALENT.id]: { crit: 249, haste: 249, mastery: 249, versatility: 249 },
+    [SPELLS.SERAPHIM_TALENT.id]: { crit: 1007, haste: 1007, mastery: 1007, versatility: 1007 },
     // endregion
 
     /****************************************\

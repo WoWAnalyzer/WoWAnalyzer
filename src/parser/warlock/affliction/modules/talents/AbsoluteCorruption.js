@@ -2,13 +2,14 @@ import React from 'react';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
-import { formatThousands } from 'common/format';
+import { formatThousands, formatNumber, formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
-import Events from 'parser/core/Events';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 const AC_DAMAGE_BONUS = 0.15;
 
@@ -29,19 +30,26 @@ class AbsoluteCorruption extends Analyzer {
     return this.bonusDmg / this.owner.fightDuration * 1000;
   }
 
-  subStatistic() {
+  statistic() {
     return (
-      <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.ABSOLUTE_CORRUPTION_TALENT.id} /> bonus damage</>}
-        value={this.owner.formatItemDamageDone(this.bonusDmg)}
-        valueTooltip={(
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(2)}
+        size="small"
+        tooltip={(
           <>
             {formatThousands(this.bonusDmg)} bonus damage<br /><br />
 
             Note: This only accounts for the passive 15% increased damage of Corruption. Actual bonus damage should be higher due to saved GCDs.
           </>
         )}
-      />
+      >
+        <div className="pad">
+          <label><SpellLink id={SPELLS.ABSOLUTE_CORRUPTION_TALENT.id} /> bonus damage</label>
+          <div className="value">
+            {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total</small>
+          </div>
+        </div>
+      </Statistic>
     );
   }
 }

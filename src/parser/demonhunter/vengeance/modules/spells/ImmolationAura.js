@@ -13,12 +13,15 @@ class ImmolationAura extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
+
   statistic() {
     const immolationAuraUptime = this.selectedCombatant.getBuffUptime(SPELLS.IMMOLATION_AURA.id);
 
     const immolationAuraUptimePercentage = immolationAuraUptime / this.owner.fightDuration;
 
     this.immolationAuraDamage = this.abilityTracker.getAbility(SPELLS.IMMOLATION_AURA_FIRST_STRIKE.id).damageEffective + this.abilityTracker.getAbility(SPELLS.IMMOLATION_AURA_BUFF.id).damageEffective;
+
+
 
     return (
       <StatisticBox

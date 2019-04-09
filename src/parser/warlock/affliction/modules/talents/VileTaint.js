@@ -5,10 +5,11 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Events from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS';
-import { formatThousands } from 'common/format';
-import SpellLink from 'common/SpellLink';
+import { formatThousands, formatPercentage, formatNumber } from 'common/format';
 
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 // the application of the debuff (and first tick of damage) is instant after the cast, but seems to have a little bit of leeway across multiple enemies
 // this example log: /report/mvK3PYrbcwfj9qTG/15-LFR+Zul+-+Kill+(3:49)/16-Residentevil shows around +15ms, so setting 100ms buffer to account for lags
@@ -55,21 +56,26 @@ class VileTaint extends Analyzer {
     this.casts.push(this._currentCastCount);
   }
 
-  subStatistic() {
+  statistic() {
     const spell = this.abilityTracker.getAbility(SPELLS.VILE_TAINT_TALENT.id);
     const damage = spell.damageEffective + spell.damageAbsorbed;
     const averageTargetsHit = (this.casts.reduce((total, current) => total + current, 0) / spell.casts) || 0;
+    const dps = damage / this.owner.fightDuration * 1000;
     return (
-      <StatisticListBoxItem
-        title={<><SpellLink id={SPELLS.VILE_TAINT_TALENT.id} /> damage</>}
-        value={this.owner.formatItemDamageDone(damage)}
-        valueTooltip={(
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(3)}
+        size="small"
+        tooltip={(
           <>
             {formatThousands(damage)} damage<br />
             Average targets hit: {averageTargetsHit.toFixed(2)}
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.VILE_TAINT_TALENT}>
+          {formatNumber(dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }
