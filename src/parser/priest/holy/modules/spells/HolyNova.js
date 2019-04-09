@@ -44,27 +44,39 @@ class HolyNova extends Analyzer {
   }
 
   get averageFriendlyTargetsHit() {
-    return this.healingHits / this.casts;
+    if (this.casts > 0) {
+      return this.healingHits / this.casts;
+    }
+    return 0;
   }
 
   get averageHealingPerCast() {
-    return this.effectiveHealing / this.casts;
+    if (this.casts > 0) {
+      return this.effectiveHealing / this.casts;
+    }
+    return 0;
   }
 
   get averageEnemyTargetsHit() {
-    return this.damageHits / this.casts;
+    if (this.casts > 0) {
+      return this.damageHits / this.casts;
+    }
+    return 0;
   }
 
   get averageDamagePerCast() {
-    return this.damageDone / this.casts;
+    if (this.casts > 0) {
+      return this.damageDone / this.casts;
+    }
+    return 0;
   }
 
   get holyNovaThreshold() {
     return {
-      actual: this.averageFriendlyTargetsHit,
+      actual: this.averageFriendlyTargetsHit > 0 ? this.averageFriendlyTargetsHit : 10,
       isLessThan: {
-        minor: 5,
-        average: 3,
+        minor: 10,
+        average: 5,
         major: 1,
       },
       style: 'number',
