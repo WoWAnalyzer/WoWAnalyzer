@@ -77,7 +77,7 @@ class HolyNova extends Analyzer {
       isLessThan: {
         minor: 10,
         average: 5,
-        major: 1,
+        major: 2,
       },
       style: 'number',
     };
