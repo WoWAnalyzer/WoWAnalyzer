@@ -3,8 +3,18 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import SpellLink from 'common/SpellLink';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import StatisticBox from 'interface/others/StatisticBox';
+import SpellIcon from 'common/SpellIcon';
+import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemDamageDone from 'interface/others/ItemDamageDone';
+import { formatPercentage, formatNumber } from 'common/format';
 
 class HolyNova extends Analyzer {
+  static dependencies = {
+    abilityTracker: AbilityTracker,
+  };
+
   get casts() {
     return this.abilityTracker.getAbility(SPELLS.HOLY_NOVA.id).casts || 0;
   }
@@ -19,6 +29,10 @@ class HolyNova extends Analyzer {
 
   get overHealing() {
     return this.abilityTracker.getAbility(SPELLS.HOLY_NOVA_HEAL.id).healingOverheal || 0;
+  }
+
+  get overhealPercent() {
+    return this.overHealing / (this.effectiveHealing + this.overHealing);
   }
 
   get damageHits() {
@@ -55,6 +69,29 @@ class HolyNova extends Analyzer {
       },
       style: 'number',
     };
+  }
+
+  statistic() {
+    return (
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.HOLY_NOVA.id} />}
+        value={(<>
+          Average Hits:&nbsp;
+          <div style={{ 'color': 'green', display: 'inline-block' }}> {Math.floor(this.averageFriendlyTargetsHit)}</div>
+          |
+          <div style={{ 'color': 'red', display: 'inline-block' }}> {Math.floor(this.averageEnemyTargetsHit)}</div><br />
+          <ItemHealingDone amount={this.effectiveHealing} /><br />
+          <ItemDamageDone amount={this.damageDone} />
+        </>)}
+        label="Holy Nova"
+        tooltip={(
+          <>
+            Healing done: {formatNumber(this.effectiveHealing)} ({formatPercentage(this.overhealPercent)}% OH)<br />
+            Damage done: {formatNumber(this.damageDone)}
+          </>
+        )}
+      />
+    );
   }
 
   suggestions(when) {
