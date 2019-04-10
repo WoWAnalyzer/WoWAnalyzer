@@ -128,7 +128,7 @@ class MasterOfTheElements extends Analyzer {
     let label = `Contributed ${formatNumber(this.damagePerSecond)} DPS (${formatNumber(this.damageGained)} total damage, excluding EQ).`;
     if (this.isBugged) {
       value = `BUGGED`;
-      label = `BUGGED`;
+      label = `Master Of The Elements can bug out and not work sometimes. Check the Suggestions for more information.`;
     }
     return (
       <StatisticBox
