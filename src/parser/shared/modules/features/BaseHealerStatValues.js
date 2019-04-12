@@ -33,6 +33,11 @@ class BaseHealerStatValues extends Analyzer {
     critEffectBonus: CritEffectBonus,
     statTracker: StatTracker,
   };
+  // region QE Live Link Setter
+
+  qeLive = false;
+
+  // endregion
 
   // region Spell info
 
@@ -416,6 +421,8 @@ class BaseHealerStatValues extends Analyzer {
   moreInformationLink = null;
   statistic() {
     const results = this._prepareResults();
+    this.url = '';
+    console.log(results);
     return (
       <StatisticWrapper position={STATISTIC_ORDER.CORE(11)}>
         <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -493,6 +500,33 @@ class BaseHealerStatValues extends Analyzer {
                       </tr>
                     );
                   })}
+                  {this.qeLive && (
+                    <tr key={'QELive'}>
+                      <td>
+                        {results.forEach(stat => {
+                          if (stat === 'intellect' || stat === 'versatilitydr') {
+                            return;
+                          }
+                          
+                          const statValue = typeof stat === 'object' ? stat.stat : stat;
+                          const gain = this._getGain(statValue);
+                          const weight = gain / (this.totalOneInt || 1);
+                          const statName = getName(statValue).replace(/\s+/g, '');
+                          
+                          this.url += ('&' + statName + '=' + weight.toFixed(2));
+                        })}
+                        <Tooltip content={'Opens in a new tab. Leverage the QE Live Tool to directly compare gear, azerite traits, and trinkets based on your stat values'}>
+                          <a
+                            href={`https://www.questionablyepic.com/live?name=${this.selectedCombatant.name}&realm=${this.selectedCombatant.characterProfile.realm}&region=${this.selectedCombatant.characterProfile.region}${this.url}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn"
+                            style={{ fontSize: 20, padding: '6px 0' }}
+                          >QE Live Link</a>
+                        </Tooltip>
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
