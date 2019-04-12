@@ -33,11 +33,9 @@ class BaseHealerStatValues extends Analyzer {
     critEffectBonus: CritEffectBonus,
     statTracker: StatTracker,
   };
-  // region QE Live Link Setter
 
+  // QE Live Link Setter
   qeLive = false;
-
-  // endregion
 
   // region Spell info
 
@@ -422,7 +420,6 @@ class BaseHealerStatValues extends Analyzer {
   statistic() {
     const results = this._prepareResults();
     this.url = '';
-    console.log(results);
     return (
       <StatisticWrapper position={STATISTIC_ORDER.CORE(11)}>
         <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
