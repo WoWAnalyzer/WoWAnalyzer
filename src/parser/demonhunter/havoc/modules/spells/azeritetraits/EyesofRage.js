@@ -62,7 +62,8 @@ class EyesofRage extends Analyzer {
         size="flexible"
         tooltip={(
           <>
-          {this.soulsConsumed} souls consumed
+            {this.soulsConsumed} souls consumed <br />
+            {(this.totalCooldownReductionWasted / 1000).toFixed(2)} sec wasted
           </>
         )}
       >
