@@ -39,6 +39,7 @@ import FuryTracker from './modules/resourcetracker/FuryTracker';
 
 // Azerite Traits
 import FuriousGaze from './modules/spells/azeritetraits/FuriousGaze';
+import EyesofRage from './modules/spells/azeritetraits/EyesofRage';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -79,6 +80,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Azerite Traits
     furiousGaze: FuriousGaze,
+    eyesofRage: EyesofRage,
 
     //Resources
     furyTracker: FuryTracker,
