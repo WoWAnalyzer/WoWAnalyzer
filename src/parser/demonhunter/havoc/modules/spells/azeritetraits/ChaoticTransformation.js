@@ -7,6 +7,16 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import SpellIcon from 'common/SpellIcon';
+import SpellLink from 'common/SpellLink';
+import { formatPercentage } from 'common/format';
+
+/**
+ * Chaotic Transformation
+ * Demon's Bite deals 725 additional damage. When you activate Metamorphosis,
+ * the cooldown of Eye Beam and Blade Dance is immediately reset.
+ *
+ * Example Report: https://www.warcraftlogs.com/reports/Bg7zm1XGKHPyba4W/#fight=1&source=27
+ */
 
 class ChaoticTransformation extends Analyzer {
   static dependencies = {
@@ -35,21 +45,52 @@ class ChaoticTransformation extends Analyzer {
       this.noResetEyeBeam += 1;
     } else {
       this.resetEyeBeam += 1;
-      this.spellUsable.endCooldown(SPELLS.EYE_BEAM.id);
       this.eyeBeamCDRemaining += this.spellUsable.cooldownRemaining(SPELLS.EYE_BEAM.id);
+      this.spellUsable.endCooldown(SPELLS.EYE_BEAM.id);
     }
 
     if (!this.spellUsable.isOnCooldown(SPELLS.BLADE_DANCE.id)){
       this.noResetBladeDance += 1;
     } else {
       this.resetBladeDance += 1;
-      this.spellUsable.endCooldown(SPELLS.BLADE_DANCE.id);
       this.bladeDanceCDRemaining += this.spellUsable.cooldownRemaining(SPELLS.BLADE_DANCE.id);
+      this.spellUsable.endCooldown(SPELLS.BLADE_DANCE.id);
     }
   }
 
   get casts() {
     return this.abilityTracker.getAbility(SPELLS.METAMORPHOSIS_HAVOC.id).casts || 0;
+  }
+
+  get eyeBeamSeconds() {
+    return (this.eyeBeamCDRemaining / 1000).toFixed(2) || 0;
+  }
+
+  get bladeDanceSeconds() {
+    return (this.bladeDanceCDRemaining / 1000).toFixed(2) || 0;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.noResetEyeBeam + this.noResetBladeDance,
+      isGreaterThan: {
+        minor: 0,
+        average: 0,
+        major: 1,
+      },
+      style: 'number',
+    };
+  }
+
+  suggestions(when) {
+    when(this.suggestionThresholds)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<> You wasted {this.noResetEyeBeam} possible <SpellLink id={SPELLS.EYE_BEAM.id} /> and {this.noResetBladeDance} possible <SpellLink id={SPELLS.BLADE_DANCE.id} /> resets.< br/>
+                       Please make sure these spells are on cooldown before casting <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} /> to maximize your DPS.</>)
+          .icon(SPELLS.CHAOTIC_TRANSFORMATION.icon)
+          .actual(`${(actual)} total resets wasted`)
+          .recommended(`${(recommended)} is recommended.`);
+      });
   }
 
   statistic() {
@@ -58,13 +99,16 @@ class ChaoticTransformation extends Analyzer {
         size="flexible"
         tooltip={(
           <>
-          {this.soulsConsumed} souls consumed
+            Eye Beam total seconds reduced: {this.eyeBeamSeconds} <br />
+            Blade Dance total seconds reduced: {this.bladeDanceSeconds}
+
           </>
         )}
       >
         <BoringSpellValueText spell={SPELLS.CHAOTIC_TRANSFORMATION}>
-          <SpellIcon id={SPELLS.EYE_BEAM.id} />
-          <SpellIcon id={SPELLS.BLADE_DANCE.id} />
+          <SpellIcon id={SPELLS.METAMORPHOSIS_HAVOC.id} />  {this.casts} <small>Metamorphosis cast(s)</small> <br />
+          <SpellIcon id={SPELLS.EYE_BEAM.id} />  {this.resetEyeBeam} <small>reset(s)</small> | {this.noResetEyeBeam} <small>wasted reset(s)</small> <br />
+          <SpellIcon id={SPELLS.BLADE_DANCE.id} /> {this.resetBladeDance} <small>reset(s)</small> | {this.noResetBladeDance} <small>wasted reset(s)</small>
         </BoringSpellValueText>
       </ItemStatistic>
     );

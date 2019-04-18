@@ -40,11 +40,13 @@ import FuryTracker from './modules/resourcetracker/FuryTracker';
 // Azerite Traits
 import FuriousGaze from './modules/spells/azeritetraits/FuriousGaze';
 import EyesofRage from './modules/spells/azeritetraits/EyesofRage';
+import ChaoticTransformation from './modules/spells/azeritetraits/ChaoticTransformation';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core Statistics
     channeling: Channeling,
+
     globalCooldown: GlobalCooldown,
 
     //Normalizer
@@ -81,6 +83,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Azerite Traits
     furiousGaze: FuriousGaze,
     eyesofRage: EyesofRage,
+    chaoticTransformation: ChaoticTransformation,
 
     //Resources
     furyTracker: FuryTracker,
