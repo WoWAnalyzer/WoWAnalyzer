@@ -12,7 +12,7 @@ import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBre
 import FuryTracker from './FuryTracker';
 
 
-const furyIcon = 'inv_helm_leather_raiddemonhuntermythic_r_01';
+const furyIcon = 'ability_demonhunter_eyebeam';
 
 class FuryDetails extends Analyzer {
   static dependencies = {
@@ -71,19 +71,22 @@ class FuryDetails extends Analyzer {
           />
         </Statistic>
       ),
-      (
-        <Panel
-          title="Fury usage"
-          pad={false}
-        >
+    ];
+  }
+
+  tab() {
+    return {
+      title: 'Fury Usage',
+      url: 'fury-usage',
+      render: () => (
+        <Panel>
           <ResourceBreakdown
             tracker={this.furyTracker}
-            resourceName="Fury"
             showSpenders
           />
         </Panel>
       ),
-    ];
+    };
   }
 }
 
