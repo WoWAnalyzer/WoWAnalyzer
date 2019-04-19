@@ -68,6 +68,21 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(SPELLS.GHOSTLY_STRIKE_TALENT.id),
       },
+      {
+        spell: SPELLS.BETWEEN_THE_EYES,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 30,
+        gcd: {
+          static: standardGcd,
+        },
+      },
+      {
+        spell: SPELLS.PISTOL_SHOT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          static: standardGcd,
+        },
+      },
       // Rotational (AOE)
       {
         spell: SPELLS.BLADE_FLURRY,
@@ -88,15 +103,6 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-        },
-      },
-      {
-        spell: SPELLS.VANISH,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 120,
-        gcd: null,
-        castEfficiency: {
-          suggestion: false,
         },
       },
       {
@@ -156,21 +162,24 @@ class Abilities extends CoreAbilities {
       },
       // Others
       {
-        spell: SPELLS.BETWEEN_THE_EYES,
+        spell: SPELLS.PICK_LOCK,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
-        cooldown: 30,
-        gcd: {
-          static: standardGcd,
-        },
       },
       {
-        spell: SPELLS.PISTOL_SHOT,
+        spell: SPELLS.PICK_POCKET,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
-        gcd: {
-          static: standardGcd,
-        },
+        // While this actually has a 0.5s CD, it shows up weird in the Abilities tab if we set that
       },
       // Utility
+      {
+        spell: SPELLS.VANISH,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 120,
+        gcd: null,
+        castEfficiency: {
+          suggestion: false,
+        },
+      },
       {
         spell: SPELLS.GRAPPLING_HOOK,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
@@ -243,16 +252,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-      },
-      {
-        spell: SPELLS.PICK_LOCK,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-      },
-      {
-        spell: SPELLS.PICK_POCKET,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        // While this actually has a 0.5s CD, it shows up weird in the Abilities tab if we set that
-      },
+      },      
     ];
   }
 }
