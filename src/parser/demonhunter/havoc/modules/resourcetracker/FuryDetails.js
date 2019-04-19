@@ -3,12 +3,14 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import Panel from 'interface/others/Panel';
 import SPELLS from 'common/SPELLS';
+import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatPercentage, formatNumber } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import BoringResourceValue from 'interface/statistics/components/BoringResourceValue/index';
+import Statistic from 'interface/statistics/Statistic';
 import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBreakdown';
 import FuryTracker from './FuryTracker';
 
-import WastedFuryIcon from '../../images/dh_wasted_fury.jpg';
 
 const furyIcon = 'inv_helm_leather_raiddemonhuntermythic_r_01';
 
@@ -55,35 +57,33 @@ class FuryDetails extends Analyzer {
   }
 
   statistic() {
-    return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(4)}
-        icon={(
-          <img
-            src={WastedFuryIcon}
-            alt="Wasted Fury"
+    return [
+      (
+        <Statistic
+          size="small"
+          position={STATISTIC_ORDER.CORE(4)}
+          tooltip={`${formatPercentage(this.wastedFuryPercent)}% wasted`}
+        >
+          <BoringResourceValue
+            resource={RESOURCE_TYPES.FURY}
+            value={formatNumber(this.furyTracker.wasted)}
+            label="Fury Wasted"
           />
-        )}
-        value={formatNumber(this.furyTracker.wasted)}
-        label="Fury Wasted"
-        tooltip={`${formatPercentage(this.wastedFuryPercent)}% wasted`}
-      />
-    );
-  }
-
-  tab() {
-    return {
-      title: 'Fury Usage',
-      url: 'fury-usage',
-      render: () => (
-        <Panel>
+        </Statistic>
+      ),
+      (
+        <Panel
+          title="Fury usage"
+          pad={false}
+        >
           <ResourceBreakdown
             tracker={this.furyTracker}
+            resourceName="Fury"
             showSpenders
           />
         </Panel>
       ),
-    };
+    ];
   }
 }
 

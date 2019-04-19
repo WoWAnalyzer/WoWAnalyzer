@@ -11,9 +11,8 @@ const COOLDOWN_REDUCTION_MS = 700;
 
 /**
  * Eyes of Rage
- *
- * Demon's Bite deals 725 additional damage. When you activate Metamorphosis,
- * the cooldown of Eye Beam and Blade Dance is immediately reset.
+ * Eye Beam deals an additional 1390 damage.
+ * Consuming a Soul Fragment reduces the cooldown of Eye Beam by 0.7 sec.
  *
  * Example Report: https://www.warcraftlogs.com/reports/ja72gPMKhptAC41Q/#fight=32&source=82
  */
