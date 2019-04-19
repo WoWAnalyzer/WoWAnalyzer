@@ -39,10 +39,10 @@ class ComboPoints extends Analyzer {
       extraSuggestion: this.makeExtraSuggestion(SPELLS.AMBUSH),
     });
     resourceSuggest(when, this.comboPointTracker, {
-      spell: SPELLS.PISTOL_SHOT, // 1 CP
+      spell: SPELLS.PISTOL_SHOT, // 1 CP, 2 with proc and Quick Draw
       minor: 0,
-      avg: 0.1,
-      major: 0.2,
+      avg: 0.05,
+      major: 0.1,
       // TODO: Beta logs incorrectly add bonus CP from an extra Sinister Strike to Pistol shot. 
       // Want to see if its fixed in PrePatch or can be fixed on WCL side before creating workaround.
       extraSuggestion: this.makeExtraSuggestion(SPELLS.PISTOL_SHOT),
