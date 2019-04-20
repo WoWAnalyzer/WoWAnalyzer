@@ -3,8 +3,9 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 
 import Analyzer from 'parser/core/Analyzer';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import SpellIcon from 'common/SpellIcon';
+import UptimeIcon from 'interface/icons/Uptime';
+import StatisticBox from 'interface/others/StatisticBox';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
@@ -27,16 +28,48 @@ class RollTheBonesBuffs extends Analyzer {
     return this.selectedCombatant.getBuffUptime(spellid) / this.owner.fightDuration;
   }
 
+  /**
+   * Percentage of the fight that Roll the Bones was active
+   * In other words, at least one of the buffs was active
+   */
+  get totalPercentUptime(){
+    return this.percentUptime(SPELLS.ROLL_THE_BONES.id);
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.totalPercentUptime,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.9,
+        major: 0.8,
+      },
+      style: 'percentage',
+    };
+  }
+  suggestions(when) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<>Your <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> uptime can be improved. Try to always have <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> active, even with a lower value roll.</>)
+        .icon(SPELLS.ROLL_THE_BONES.icon)
+        .actual(`${formatPercentage(actual)}% Roll the Bones uptime`)
+        .recommended(`>${formatPercentage(recommended)}% is recommended`);
+    });
+  }
   statistic() {
     return (
-      <Statistic
-        position={STATISTIC_ORDER.CORE(100)}
-        tooltip="Roll The Bones Buff Uptime"
+      <StatisticBox
+        icon={<SpellIcon id={SPELLS.ROLL_THE_BONES.id} />}
+        value={(
+          <>
+            <UptimeIcon /> {formatPercentage(this.totalPercentUptime)}% <small>uptime</small><br />
+          </>
+        )}
+        label={<SpellLink id={SPELLS.ROLL_THE_BONES.id} icon={false} />}
       >
         <table className="table table-condensed">
           <thead>
             <tr>
-              <th>Stacks</th>
+              <th>Buff</th>
               <th>Time (%)</th>
             </tr>
           </thead>
@@ -49,8 +82,8 @@ class RollTheBonesBuffs extends Analyzer {
             ))}
           </tbody>
         </table>
-      </Statistic>
-    );
+      </StatisticBox>
+    );  
   }
 }
 

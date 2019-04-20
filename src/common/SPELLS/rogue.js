@@ -479,7 +479,7 @@ export default {
   },
   RUTHLESS_PRECISION: {
     id: 193357,
-    name: 'Shark Infested Waters',
+    name: 'Ruthless Precision',
     icon: 'ability_rogue_rollthebones03',
   },
   TRUE_BEARING: {
