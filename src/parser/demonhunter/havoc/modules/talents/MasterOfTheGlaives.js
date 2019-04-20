@@ -31,7 +31,7 @@ class MasterOfTheGlaives extends Analyzer{
       <TalentStatisticBox
         talent={SPELLS.MASTER_OF_THE_GLAIVE_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={`${this.slows} slows provided`}
+        value={<>{this.slows} <small>slows provided</small></>}
       />
     );
   }

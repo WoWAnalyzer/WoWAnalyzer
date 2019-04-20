@@ -38,7 +38,7 @@ class Netherwalk extends Analyzer {
       <StatisticBox
         position={STATISTIC_ORDER.CORE(6)}
         icon={<SpellIcon id={SPELLS.NETHERWALK_TALENT.id} />}
-        value={`${this.damageImmuned.length} spells immuned`}
+        value={<>{this.damageImmuned.length} <small>spells immuned</small></>}
         label="Netherwalk"
       >
         <table className="table table-condensed">
