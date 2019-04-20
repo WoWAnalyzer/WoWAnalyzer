@@ -8,6 +8,11 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
+    date: new Date('2019-04-20'),
+    changes: <>Fixed issue for mages where the timeline would show a cast as cancelled if they cast an ability that could be cast while casting (e.g. <SpellLink id={SPELLS.SHIMMER_TALENT.id} /> or <SpellLink id={SPELLS.FIRE_BLAST.id} />).</>,
+    contributors: [Sharrq],
+  },
+  {
     date: new Date('2019-03-30'),
     changes: 'Fixed issue where the character parses page didn\'t return any results when region wasn\'t capitalized.',
     contributors: [Zerotorescue],
