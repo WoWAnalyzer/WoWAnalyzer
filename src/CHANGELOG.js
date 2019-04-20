@@ -8,6 +8,11 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
+    date: new Date('2019-04-17'),
+    changes: 'Added the Crucible of Storms raid to the character search and made it the default raid.',
+    contributors: [Yajinni],
+  },
+  {
     date: new Date('2019-03-30'),
     changes: 'Fixed issue where the character parses page didn\'t return any results when region wasn\'t capitalized.',
     contributors: [Zerotorescue],
