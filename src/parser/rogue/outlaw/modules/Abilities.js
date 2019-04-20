@@ -1,12 +1,16 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 import CoreAbilities from 'parser/core/modules/Abilities';
+import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
 class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
 
     const standardGcd = combatant => 1000 * (1 - (combatant.hasBuff(SPELLS.ADRENALINE_RUSH.id) ? 0.2 : 0));
-
+    
     return [
       // Rotational
       {
@@ -65,6 +69,8 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.95,
+          extraSuggestion: 'The only time you should delay casting this is to avoid over-capping Combo Points.',
         },
         enabled: combatant.hasTalent(SPELLS.GHOSTLY_STRIKE_TALENT.id),
       },
@@ -74,7 +80,7 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
         gcd: {
           static: standardGcd,
-        },
+        },        
       },
       {
         spell: SPELLS.PISTOL_SHOT,
@@ -103,6 +109,8 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.9,
+          extraSuggestion: `Using Adrenaline Rush on cooldown is very important and should only be delayed when you know you won't be able to attack for the majority of it's duration.`,
         },
       },
       {
@@ -114,6 +122,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
+          extraSuggestion: <>In most cases this should be considered part of your rotation, only below <SpellLink id={SPELLS.ROLL_THE_BONES.id} icon /> on priority. However you should delay using it to line it up with <SpellLink id={SPELLS.BLADE_FLURRY.id} icon /> when there is more than one target.</>,
         },
         enabled: combatant.hasTalent(SPELLS.BLADE_RUSH_TALENT.id),
       },
@@ -126,6 +135,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
+          extraSuggestion: <>In most cases this should be considered part of your rotation, only below <SpellLink id={SPELLS.ROLL_THE_BONES.id} icon /> on priority. However you should delay using it to line it up with <SpellLink id={SPELLS.BLADE_FLURRY.id} icon /> when there is more than one target.</>,
         },
         enabled: combatant.hasTalent(SPELLS.KILLING_SPREE_TALENT.id),
       },
@@ -177,7 +187,9 @@ class Abilities extends CoreAbilities {
         cooldown: 120,
         gcd: null,
         castEfficiency: {
-          suggestion: false,
+          suggestion: true,
+          extraSuggestion: <>In most fights this can be used on cooldown for an <SpellLink id={SPELLS.AMBUSH.id} icon />, but it's perfectly fine to save this for a <SpellLink id={SPELLS.CHEAP_SHOT.id} icon /> on adds, especially when talented for <SpellLink id={SPELLS.PREY_ON_THE_WEAK_TALENT.id} icon />.</>,
+          importance: ISSUE_IMPORTANCE.MINOR,
         },
       },
       {
