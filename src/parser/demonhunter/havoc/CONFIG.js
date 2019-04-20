@@ -3,7 +3,6 @@ import React from 'react';
 import { Mamtooth, Yajinni } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
 import retryingPromise from 'common/retryingPromise';
-import Warning from 'interface/common/Alert/Warning';
 
 import CHANGELOG from './CHANGELOG';
 
