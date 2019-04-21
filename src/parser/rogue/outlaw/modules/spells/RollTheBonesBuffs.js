@@ -1,13 +1,13 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-
-import Analyzer from 'parser/core/Analyzer';
 import SpellIcon from 'common/SpellIcon';
-import UptimeIcon from 'interface/icons/Uptime';
-import StatisticBox from 'interface/others/StatisticBox';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
+import Analyzer from 'parser/core/Analyzer';
+import UptimeIcon from 'interface/icons/Uptime';
+import StatisticBox from 'interface/others/StatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 import { ROLL_THE_BONES_BUFFS } from '../../constants';
 
@@ -51,6 +51,7 @@ class RollTheBonesBuffs extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE()}
         icon={<SpellIcon id={SPELLS.ROLL_THE_BONES.id} />}
         value={(
           <>

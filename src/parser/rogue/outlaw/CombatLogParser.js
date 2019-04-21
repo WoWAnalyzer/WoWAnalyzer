@@ -2,6 +2,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 import Abilities from './modules/Abilities';
+import Buffs from './modules/Buffs';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import SpellUsable from '../shared/SpellUsable';
 
@@ -14,14 +15,17 @@ import EnergyCapTracker from '../shared/resources/EnergyCapTracker';
 import Energy from './modules/core/Energy';
 import SpellEnergyCost from '../shared/resources/SpellEnergyCost';
 
-import RollTheBonesBuffs from './modules/core/RollTheBonesBuffs';
-import RestlessBlades from './modules/core/RestlessBlades';
+import RollTheBonesBuffs from './modules/spells/RollTheBonesBuffs';
+import RollTheBonesCastTracker from './modules/features/RollTheBonesCastTracker';
+import RollTheBonesCounter from './modules/spells/RollTheBonesCounter';
+import RestlessBlades from './modules/features/RestlessBlades';
 import SliceAndDiceUptime from './modules/talents/SliceAndDiceUptime';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Feature
     abilities: Abilities,
+    buffs: Buffs,
     alwaysBeCasting: AlwaysBeCasting,
     spellUsable: SpellUsable,
 
@@ -36,11 +40,14 @@ class CombatLogParser extends CoreCombatLogParser {
     spellEnergyCost: SpellEnergyCost,
 
     //Core
-    restlessBlades: RestlessBlades,
-    rolltheBonesBuffs: RollTheBonesBuffs,
+    restlessBlades: RestlessBlades,    
+    rolltheBonesCastTracker: RollTheBonesCastTracker,    
+    
     //Items
 
     //Casts
+    rolltheBonesBuffs: RollTheBonesBuffs,
+    rollTheBonesCounter: RollTheBonesCounter,
 
     //Talents
     sliceAndDiceUptime: SliceAndDiceUptime,
