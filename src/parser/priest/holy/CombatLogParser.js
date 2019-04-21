@@ -14,6 +14,7 @@ import SpellManaCost from './modules/core/SpellManaCost';
 // Spell data
 import DivineHymn from './modules/spells/DivineHymn';
 import GuardianSpirit from './modules/spells/GuardianSpirit';
+import HolyNova from './modules/spells/HolyNova';
 import HolyWordSanctify from './modules/spells/holyword/HolyWordSanctify';
 import HolyWordSerenity from './modules/spells/holyword/HolyWordSerenity';
 import HolyWordChastise from './modules/spells/holyword/HolyWordChastise';
@@ -83,6 +84,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Spells
     divineHymn: DivineHymn,
     guardianSpirit: GuardianSpirit,
+    holyNova: HolyNova,
     hymnBuffBenefit: HymnBuffBenefit,
     holyWordSanctify: HolyWordSanctify,
     holyWordSerenity: HolyWordSerenity,
