@@ -9,14 +9,7 @@ import StatisticBox from 'interface/others/StatisticBox';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
-const BUFFS = [
-  SPELLS.RUTHLESS_PRECISION,
-  SPELLS.GRAND_MELEE,
-  SPELLS.BROADSIDE,
-  SPELLS.SKULL_AND_CROSSBONES,
-  SPELLS.BURIED_TREASURE,
-  SPELLS.TRUE_BEARING,
-];
+import { ROLL_THE_BONES_BUFFS } from '../../constants';
 
 class RollTheBonesBuffs extends Analyzer {
   constructor(...args) {
@@ -74,7 +67,7 @@ class RollTheBonesBuffs extends Analyzer {
             </tr>
           </thead>
           <tbody>
-            {BUFFS.map((e) => (
+            {ROLL_THE_BONES_BUFFS.map((e) => (
               <tr key={e.id}>
                 <th><SpellLink id={e.id} /></th>
                 <td>{`${formatPercentage(this.percentUptime(e.id))} %`}</td>
