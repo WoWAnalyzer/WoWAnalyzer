@@ -11,6 +11,34 @@ export default [
     date: new Date('2019-04-21'),
     changes: <>Cleaned up the Fury usage code and added a condition for <SpellLink id={SPELLS.BLIND_FURY_TALENT.id} /> that tracks the Fury it generates and only considers Fury above 50 at the time of cast to be wasted.</>,
     contributors: [Yajinni],
+  {
+    date: new Date('2019-04-17'),
+    changes: 'Added the Crucible of Storms raid to the character search and made it the default raid.',
+    contributors: [Yajinni],
+  },
+    date: new Date('2019-04-20'),
+    changes: 'Cleaned up the workding and formating of various analyzers in the Havoc module. Marked the spec as updated for 8.1.5.',
+    contributors: [Yajinni],
+  },
+  {
+    date: new Date('2019-04-17'),
+    changes: <>Added <SpellLink id={SPELLS.EYES_OF_RAGE.id} /> and <SpellLink id={SPELLS.CHAOTIC_TRANSFORMATION.id} /> azerite traits.</>,
+    contributors: [Yajinni],
+  },
+  {
+    date: new Date('2019-03-28'),
+    changes: <>Updated <SpellLink id={SPELLS.DEATH_SWEEP.id} /> and <SpellLink id={SPELLS.BLADE_DANCE.id} /> to share cooldowns and cast efficiencies.</>,
+    contributors: [Yajinni],
+  },
+  {
+    date: new Date('2019-03-28'),
+    changes: <>Added the Dont waste casts section to the checklist and rearranged a few items.</>,
+    contributors: [Yajinni],
+  },
+  {
+    date: new Date('2019-03-28'),
+    changes: <>Added tracking of the <SpellLink id={SPELLS.DEMONIC_TALENT.id} /> talent.</>,
+    contributors: [Yajinni],
   },
   {
     date: new Date('2019-03-12'),

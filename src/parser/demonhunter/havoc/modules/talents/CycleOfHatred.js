@@ -6,6 +6,7 @@ import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { formatNumber } from 'common/format';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import SpellIcon from 'common/SpellIcon';
 
 /*
   example report: https://www.warcraftlogs.com/reports/QxHJ9MTtmVYNXPLd/#fight=1&source=2
@@ -43,8 +44,7 @@ class CycleOfHatred extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.CYCLE_OF_HATRED_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(7)}
-        value={`${formatNumber(this.totalCooldownReduction / 1000)} sec`}
-        label="Metamorphosis cooldown reduction"
+        value={<>{formatNumber(this.totalCooldownReduction / 1000)} sec <small>total <SpellIcon id={SPELLS.METAMORPHOSIS_HAVOC.id} />Meta cooldown reduction</small></>}
         />
     );
   }
