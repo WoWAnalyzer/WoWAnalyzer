@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-04-21'),
+    changes: <>Cleaned up the Fury usage code and added a condition for <SpellLink id={SPELLS.BLIND_FURY_TALENT.id} /> that tracks the Fury it generates and only considers Fury above 50 at the time of cast to be wasted.</>,
+    contributors: [Yajinni],
+  },
+  {
     date: new Date('2019-03-12'),
     changes: <>Fixed an error in the <SpellLink id={SPELLS.BLIND_FURY_TALENT.id} /> analyzer.</>,
     contributors: [Zerotorescue],
