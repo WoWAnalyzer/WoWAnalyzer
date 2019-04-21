@@ -323,7 +323,7 @@ export default {
     icon: 'inv_glaive_1h_artifactazgalor_d_01',
   },
   CONSUME_MAGIC: {
-    id: 278236,
+    id: 278326,
     name: 'Consume Magic',
     icon: 'spell_misc_zandalari_council_soulswap',
   },
