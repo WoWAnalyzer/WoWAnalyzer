@@ -515,4 +515,9 @@ export default {
     name: 'Main Gauche',
     icon: 'inv_weapon_shortblade_15',
   },
+  OPPORTUNITY: {
+    id: 195627,
+    name: 'Opportunity',
+    icon: 'ability_rogue_pistolshot',
+  },
 };
