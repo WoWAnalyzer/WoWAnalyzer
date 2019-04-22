@@ -5,9 +5,9 @@ import EarlyDotRefreshesCore from 'parser/shared/modules/earlydotrefreshes/Early
 import suggest from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesSuggestion';
 
 
-const MINOR_THRESHOLD = 0.95;
-const AVERAGE_THRESHOLD = 0.9;
-const MAJOR_THRESHOLD = 0.85;
+const MINOR_THRESHOLD = 0.975;
+const AVERAGE_THRESHOLD = 0.95;
+const MAJOR_THRESHOLD = 0.9;
 
 class EarlyDotRefresh extends EarlyDotRefreshesCore {
   static dots = [
