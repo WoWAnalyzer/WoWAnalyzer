@@ -22,6 +22,7 @@ import RestlessBlades from './modules/features/RestlessBlades';
 import SliceAndDiceUptime from './modules/talents/SliceAndDiceUptime';
 import Finishers from './modules/features/Finishers';
 import Opportunity from './modules/spells/Opportunity';
+import BetweenTheEyes from './modules/spells/BetweenTheEyes';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -52,6 +53,7 @@ class CombatLogParser extends CoreCombatLogParser {
     rollTheBonesCounter: RollTheBonesCounter,
     finishers: Finishers,
     opportunity: Opportunity,
+    betweenTheEyes: BetweenTheEyes,
 
     //Talents
     sliceAndDiceUptime: SliceAndDiceUptime,
