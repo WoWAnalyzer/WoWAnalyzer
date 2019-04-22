@@ -69,7 +69,7 @@ class FelBarrage extends Analyzer{
         talent={SPELLS.FEL_BARRAGE_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
         value={(<>
-          {this.badCasts} casts without <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} /> <br />
+          {this.badCasts} <small>casts without <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} /> </small> <br />
           {this.owner.formatItemDamageDone(this.damage)}
         </>)}
         tooltip={(
