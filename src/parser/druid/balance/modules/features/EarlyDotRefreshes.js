@@ -24,12 +24,35 @@ class EarlyDotRefreshes extends EarlyDotRefreshesCore {
     this.active = this.selectedCombatant.hasTalent(SPELLS.STELLAR_FLARE_TALENT.id);
   }
 
+  get suggestionThresholdsStellarFlare() {
+    return {
+      spell: SPELLS.STELLAR_FLARE_TALENT,
+      count: this.casts[DOTS[0].castId].badCasts,
+      actual: this.badCastsPercent(DOTS[0].castId),
+      isGreaterThan: {
+        minor: 1 - MINOR_THRESHOLD,
+        average: 1 - AVERAGE_THRESHOLD,
+        major: 1 - MAJOR_THRESHOLD,
+      },
+      style: 'percentage',
+    };
+  }
+
   get suggestionThresholdsStellarFlareEfficiency() {
-    return this.makeSuggestionThresholds(SPELLS.STELLAR_FLARE_TALENT,MINOR_THRESHOLD,AVERAGE_THRESHOLD,MAJOR_THRESHOLD);
+    return {
+      spell: SPELLS.STELLAR_FLARE_TALENT,
+      actual: 1 - this.badCastsPercent(DOTS[0].castId),
+      isLessThan: {
+        minor: MINOR_THRESHOLD,
+        average: AVERAGE_THRESHOLD,
+        major: MAJOR_THRESHOLD,
+      },
+      style: 'percentage',
+    };
   }
 
   suggestions(when) {
-    suggest(when, this.suggestionThresholdsStellarFlareEfficiency);
+    suggest(when, this.suggestionThresholdsStellarFlare);
   }
 }
 

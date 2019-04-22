@@ -174,6 +174,11 @@ class EarlyDotRefreshes extends Analyzer {
     return {wasted: lostDuration, effective: extension - lostDuration};
   }
 
+  badCastsPercent(spellId) {
+    const ability = this.abilityTracker.getAbility(spellId);
+    return this.casts[spellId].badCasts / ability.casts || 0;
+  }
+
   badCastsEffectivePercent(spellId) {
     if(!this.casts[spellId].addedDuration) return 1;
     return this.casts[spellId].addedDuration / (this.casts[spellId].addedDuration+this.casts[spellId].wastedDuration);

@@ -41,17 +41,63 @@ class EarlyDotRefreshesInstants extends CoreEarlyDotRefreshesInstants {
     return false;
   }
 
+  get suggestionThresholdsMoonfire() {
+    return {
+      spell: SPELLS.MOONFIRE_BEAR,
+      count: this.casts[DOTS[0].castId].badCasts,
+      actual: this.badCastsPercent(DOTS[0].castId),
+      isGreaterThan: {
+        minor: 1 - MINOR_THRESHOLD,
+        average: 1 - AVERAGE_THRESHOLD,
+        major: 1 - MAJOR_THRESHOLD,
+      },
+      style: 'percentage',
+    };
+  }
+
+  get suggestionThresholdsSunfire() {
+    return {
+      spell: SPELLS.SUNFIRE,
+      count: this.casts[DOTS[1].castId].badCasts,
+      actual: this.badCastsPercent(DOTS[1].castId),
+      isGreaterThan: {
+        minor: 1 - MINOR_THRESHOLD,
+        average: 1 - AVERAGE_THRESHOLD,
+        major: 1 - MAJOR_THRESHOLD,
+      },
+      style: 'percentage',
+    };
+  }
+
   get suggestionThresholdsMoonfireEfficiency() {
-    return this.makeSuggestionThresholds(SPELLS.MOONFIRE,MINOR_THRESHOLD,AVERAGE_THRESHOLD,MAJOR_THRESHOLD);
+    return {
+      spell: SPELLS.MOONFIRE_BEAR,
+      actual: 1 - this.badCastsPercent(DOTS[0].castId),
+      isLessThan: {
+        minor: MINOR_THRESHOLD,
+        average: AVERAGE_THRESHOLD,
+        major: MAJOR_THRESHOLD,
+      },
+      style: 'percentage',
+    };
   }
 
   get suggestionThresholdsSunfireEfficiency() {
-    return this.makeSuggestionThresholds(SPELLS.SUNFIRE_CAST,MINOR_THRESHOLD,AVERAGE_THRESHOLD,MAJOR_THRESHOLD);
+    return {
+      spell: SPELLS.SUNFIRE,
+      actual: 1 - this.badCastsPercent(DOTS[1].castId),
+      isLessThan: {
+        minor: MINOR_THRESHOLD,
+        average: AVERAGE_THRESHOLD,
+        major: MAJOR_THRESHOLD,
+      },
+      style: 'percentage',
+    };
   }
 
   suggestions(when) {
-    suggest(when, this.suggestionThresholdsMoonfireEfficiency);
-    suggest(when, this.suggestionThresholdsSunfireEfficiency);
+    suggest(when, this.suggestionThresholdsMoonfire);
+    suggest(when, this.suggestionThresholdsSunfire);
   }
 }
 
