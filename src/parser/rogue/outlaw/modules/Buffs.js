@@ -25,6 +25,7 @@ class Buffs extends CoreBuffs {
       },
       {
         spellId: SPELLS.OPPORTUNITY.id,
+        timelineHightlight: true,
       },
 
       // Roll the Bones

@@ -20,6 +20,8 @@ import RollTheBonesCastTracker from './modules/features/RollTheBonesCastTracker'
 import RollTheBonesCounter from './modules/spells/RollTheBonesCounter';
 import RestlessBlades from './modules/features/RestlessBlades';
 import SliceAndDiceUptime from './modules/talents/SliceAndDiceUptime';
+import Finishers from './modules/features/Finishers';
+import Opportunity from './modules/spells/Opportunity';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -48,6 +50,8 @@ class CombatLogParser extends CoreCombatLogParser {
     //Casts
     rolltheBonesBuffs: RollTheBonesBuffs,
     rollTheBonesCounter: RollTheBonesCounter,
+    finishers: Finishers,
+    opportunity: Opportunity,
 
     //Talents
     sliceAndDiceUptime: SliceAndDiceUptime,
