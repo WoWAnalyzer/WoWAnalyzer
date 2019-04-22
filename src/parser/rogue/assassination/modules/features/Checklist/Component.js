@@ -33,7 +33,7 @@ class AssassinationRogueChecklist extends React.PureComponent {
       <Checklist>
         <Rule
           name="Maintain your DoTs on the boss"
-          description="DoTs are a big part of your damage. You should try to keep as high uptime on them as possible."
+          description="DoTs are a big part of your damage. You should try to keep as high uptime on them as possible, but do not refresh them too early"
         >
           <Requirement
             name={(

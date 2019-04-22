@@ -2,6 +2,7 @@ import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
+import { formatDuration } from 'common/format';
 
 const BUFFER_MS = 100;
 const PANDEMIC_WINDOW = 0.3;
@@ -27,6 +28,7 @@ class EarlyDotRefreshes extends Analyzer {
   lastGCD = null;
   lastCast = null;
   lastCastGoodExtension = false;
+  lastCastMinWaste = Number.MAX_SAFE_INTEGER;
   badCasts = [];
 
   constructor(...args) {
@@ -50,11 +52,12 @@ class EarlyDotRefreshes extends Analyzer {
       return;
     }
     const targetID = encodeTargetString(event.targetID, event.targetInstance);
-    const goodExtension = this.extendDot(dot.debuffId, targetID, dot.duration, event.timestamp);
+    const wastedDuration = this.extendDot(dot.debuffId, targetID, dot.duration, event.timestamp);
     if(this.lastCastGoodExtension){
       return;
     }
-    this.lastCastGoodExtension = goodExtension;
+    this.lastCastGoodExtension = wastedDuration == 0;
+    this.lastCastMinWaste = Math.min(this.lastCastMinWaste, wastedDuration);
   }
 
   on_byPlayer_applydebuff(event) {
@@ -64,6 +67,7 @@ class EarlyDotRefreshes extends Analyzer {
     }
     this.targets[dot.debuffId][encodeTargetString(event.targetID, event.targetInstance)] = event.timestamp + dot.duration;
     this.lastCastGoodExtension = true;
+    this.lastCastMinWaste = 0;
   }
 
   on_byPlayer_globalcooldown(event) {
@@ -82,6 +86,7 @@ class EarlyDotRefreshes extends Analyzer {
     }
     this.lastCast = event;
     this.lastCastGoodExtension = false;
+    this.lastCastMinWaste = Number.MAX_SAFE_INTEGER;
     this.afterLastCastSet(event);
   }
 
@@ -118,7 +123,7 @@ class EarlyDotRefreshes extends Analyzer {
 
   // Get the suggestion for last bad cast. If empty, cast will be considered good.
   getLastBadCastText(event, dot) {
-    return `${dot.name} was cast while it had more than 30% of its duration remaining on all targets hit.`;
+    return `${dot.name} was refreshed ${formatDuration(this.lastCastMinWaste/1000)} seconds early.`;
   }
 
   //Returns the dot object
@@ -138,12 +143,13 @@ class EarlyDotRefreshes extends Analyzer {
     const remainingDuration = this.targets[dot.debuffId][targetID] - timestamp || 0;
     const newDuration = remainingDuration + extension;
     const maxDuration = (1 + PANDEMIC_WINDOW) * dot.duration;
-    if (newDuration < maxDuration) { //full extension
+    const lostDuration = maxDuration - newDuration;
+    if (lostDuration < 0) { //full extension
       this.targets[dot.debuffId][targetID] = timestamp + newDuration;
-      return true;
+      return 0;
     } // Else not full extension
     this.targets[dot.debuffId][targetID] = timestamp + maxDuration;
-    return false;   
+    return lostDuration;   
   }
 
   badCastsPercent(spellId) {
