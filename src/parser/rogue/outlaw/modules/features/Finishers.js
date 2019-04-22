@@ -15,7 +15,7 @@ class Finishers extends Analyzer {
     comboPointTracker: ComboPointTracker,
   };
 
-  inefficientFinishers = {};
+  inefficientFinishers = [];
 
   get maximumComboPoints(){
     return this.comboPointTracker.maxResource;
@@ -35,13 +35,11 @@ class Finishers extends Analyzer {
   }
 
   get finisherInefficiency(){
-    const totals = Object.keys(this.inefficientFinishers).reduce((total, spellId) => {
-      total.bad += this.inefficientFinishers[spellId].length;
-      total.all += this.abilityTracker.getAbility(spellId).casts;
-      return total;
-    }, {bad: 0, all: 0});
+    const dispatchCasts = this.getCasts(SPELLS.DISPATCH.id);
+    const rolltheBonesCasts = this.getCasts(SPELLS.ROLL_THE_BONES.id);
+    const betweentheEyesCasts = this.getCasts(SPELLS.BETWEEN_THE_EYES.id);
 
-    return totals.bad / totals.all;
+    return this.inefficientFinishers.length / (dispatchCasts + rolltheBonesCasts + betweentheEyesCasts);
   }
 
   get suggestionThresholds() {
@@ -56,6 +54,16 @@ class Finishers extends Analyzer {
     };
   }
 
+  getCasts(spellId){
+    const ability = this.abilityTracker.getAbility(spellId);
+
+    if(ability){
+      return ability.casts;
+    }
+
+    return 0;
+  }
+
   on_byPlayer_cast(event){
     if(!event || !event.classResources){
       return;
@@ -67,8 +75,7 @@ class Finishers extends Analyzer {
     }
 
     if(cpResource.cost < this.recommendedFinisherPoints){
-      this.inefficientFinishers[event.ability.guid] = this.inefficientFinishers[event.ability.guid] || [];
-      this.inefficientFinishers[event.ability.guid].push(event);
+      this.inefficientFinishers.push(event);
     }
   }
 
