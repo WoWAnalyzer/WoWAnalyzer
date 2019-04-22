@@ -54,7 +54,7 @@ class AssassinationRogueChecklist extends React.PureComponent {
           <Requirement
             name={(
               <>
-                <SpellLink id={SPELLS.GARROTE.id} /> refreshed early
+                <SpellLink id={SPELLS.GARROTE.id} /> effective refresh duration
               </>
             )}
             thresholds={thresholds.garroteEfficiency}
@@ -62,7 +62,7 @@ class AssassinationRogueChecklist extends React.PureComponent {
           <Requirement
             name={(
               <>
-                <SpellLink id={SPELLS.RUPTURE.id} /> refreshed early
+                <SpellLink id={SPELLS.RUPTURE.id} /> effective refresh duration
               </>
             )}
             thresholds={thresholds.ruptureEfficiency}

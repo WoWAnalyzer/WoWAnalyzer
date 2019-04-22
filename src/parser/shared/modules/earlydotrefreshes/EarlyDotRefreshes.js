@@ -24,23 +24,29 @@ class EarlyDotRefreshes extends Analyzer {
   };
 
   static dots = [];
-  targets = [];
+  targets = {};
   lastGCD = null;
   lastCast = null;
   lastCastGoodExtension = false;
   lastCastMinWaste = Number.MAX_SAFE_INTEGER;
-  badCasts = [];
+  lastCastMaxEffect = 0;
+  casts = {};
 
   constructor(...args) {
     super(...args);
     this.constructor.dots.forEach(dot => {
       this.targets[dot.debuffId] = {};
-      this.badCasts[dot.castId] = 0;
+      this.casts[dot.castId] = {
+        badCasts: 0,
+        addedDuration: 0,
+        wastedDuration: 0,
+      };
     });
   }
 
   addBadCast(event, text) {
-    this.badCasts[event.ability.guid] += 1;
+    this.casts[event.ability.guid].badCasts += 1;
+    this.casts[this.lastCast.ability.guid].wastedDuration += this.lastCastMinWaste;
     event.meta = event.meta || {};
     event.meta.isInefficientCast = true;
     event.meta.inefficientCastReason = text;
@@ -52,12 +58,13 @@ class EarlyDotRefreshes extends Analyzer {
       return;
     }
     const targetID = encodeTargetString(event.targetID, event.targetInstance);
-    const wastedDuration = this.extendDot(dot.debuffId, targetID, dot.duration, event.timestamp);
+    const extensionInfo = this.extendDot(dot.debuffId, targetID, dot.duration, event.timestamp);
     if(this.lastCastGoodExtension){
       return;
     }
-    this.lastCastGoodExtension = wastedDuration == 0;
-    this.lastCastMinWaste = Math.min(this.lastCastMinWaste, wastedDuration);
+    this.lastCastGoodExtension = extensionInfo.wasted === 0;
+    this.lastCastMinWaste = Math.min(this.lastCastMinWaste, extensionInfo.wasted);
+    this.lastCastMaxEffect = Math.max(this.lastCastMaxEffect, extensionInfo.effective);
   }
 
   on_byPlayer_applydebuff(event) {
@@ -68,6 +75,7 @@ class EarlyDotRefreshes extends Analyzer {
     this.targets[dot.debuffId][encodeTargetString(event.targetID, event.targetInstance)] = event.timestamp + dot.duration;
     this.lastCastGoodExtension = true;
     this.lastCastMinWaste = 0;
+    this.lastCastMaxEffect = dot.duration;
   }
 
   on_byPlayer_globalcooldown(event) {
@@ -87,6 +95,7 @@ class EarlyDotRefreshes extends Analyzer {
     this.lastCast = event;
     this.lastCastGoodExtension = false;
     this.lastCastMinWaste = Number.MAX_SAFE_INTEGER;
+    this.lastCastMaxEffect = 0;
     this.afterLastCastSet(event);
   }
 
@@ -104,6 +113,7 @@ class EarlyDotRefreshes extends Analyzer {
     if (timeSinceCast < this.lastGCD.duration * 2 - BUFFER_MS){
       return;
     }
+    this.casts[this.lastCast.ability.guid].addedDuration += this.lastCastMaxEffect;
     this.isLastCastBad(event);
     this.lastGCD = null;
     this.lastCast = null;
@@ -146,35 +156,37 @@ class EarlyDotRefreshes extends Analyzer {
     const lostDuration = maxDuration - newDuration;
     if (lostDuration < 0) { //full extension
       this.targets[dot.debuffId][targetID] = timestamp + newDuration;
-      return 0;
+      return {wasted: 0, effective: extension};
     } // Else not full extension
     this.targets[dot.debuffId][targetID] = timestamp + maxDuration;
-    return lostDuration;   
+    return {wasted: lostDuration, effective: extension - lostDuration};
   }
 
-  badCastsPercent(spellId) {
-    const ability = this.abilityTracker.getAbility(spellId);
-    return this.badCasts[spellId] / ability.casts || 0;
+  badCastsEffectivePercent(spellId) {
+    if(!this.casts[spellId].addedDuration) return 1;
+    return this.casts[spellId].addedDuration / (this.casts[spellId].addedDuration+this.casts[spellId].wastedDuration);
   }
 
   makeSuggestionThresholds(spell, minor, avg, major) {
     return {
       spell: spell,
-      count: this.badCasts[spell.id],
-      actual: this.badCastsPercent(spell.id),
-      isGreaterThan: {
-        minor: 1 - minor,
-        average: 1 - avg,
-        major: 1 - major,
+      count: this.casts[spell.id].badCasts,
+      wastedDuration: this.casts[spell.id].wastedDuration,
+      actual: this.badCastsEffectivePercent(spell.id),
+      isLessThan: {
+        minor: minor,
+        average: avg,
+        major: major,
       },
       style: 'percentage',
     };
   }
 
+  //TODO: Remove
   makeEfficiencyThresholds(spell, minor, avg, major) {
     return {
       spell: spell,
-      actual: 1 - this.badCastsPercent(spell.id),
+      actual: this.badCastsEffectivePercent(spell.id),
       isLessThan: {
         minor: minor,
         average: avg,

@@ -9,7 +9,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 const MAX_SYMBOLS_COOLDOWN = 5000;
 const MINOR_THRESHOLD = 0.95;
 const AVERAGE_THRESHOLD = 0.9;
-const MAJOR_THRESHOLD = 0.7;
+const MAJOR_THRESHOLD = 0.85;
 
 class NightbladeEarlyRefresh extends EarlyDotRefreshesCore {
   static dependencies = {

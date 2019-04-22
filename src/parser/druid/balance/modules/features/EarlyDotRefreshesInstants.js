@@ -46,12 +46,12 @@ class EarlyDotRefreshesInstants extends CoreEarlyDotRefreshesInstants {
   }
 
   get suggestionThresholdsSunfireEfficiency() {
-    return this.makeEfficiencyThresholds(SPELLS.SUNFIRE,MINOR_THRESHOLD,AVERAGE_THRESHOLD,MAJOR_THRESHOLD);
+    return this.makeEfficiencyThresholds(SPELLS.SUNFIRE_CAST,MINOR_THRESHOLD,AVERAGE_THRESHOLD,MAJOR_THRESHOLD);
   }
 
   suggestions(when) {
     suggest(when, this.makeSuggestionThresholds(SPELLS.MOONFIRE,MINOR_THRESHOLD,AVERAGE_THRESHOLD,MAJOR_THRESHOLD));
-    suggest(when, this.makeSuggestionThresholds(SPELLS.SUNFIRE,MINOR_THRESHOLD,AVERAGE_THRESHOLD,MAJOR_THRESHOLD));
+    suggest(when, this.makeSuggestionThresholds(SPELLS.SUNFIRE_CAST,MINOR_THRESHOLD,AVERAGE_THRESHOLD,MAJOR_THRESHOLD));
   }
 }
 
