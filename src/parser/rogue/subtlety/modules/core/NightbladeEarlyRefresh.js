@@ -71,11 +71,11 @@ class NightbladeEarlyRefresh extends EarlyDotRefreshesCore {
   }
 
   get suggestionThresholdsNightbladeEfficiency() {
-    return this.makeEfficiencyThresholds(SPELLS.NIGHTBLADE,MINOR_THRESHOLD,AVERAGE_THRESHOLD,MAJOR_THRESHOLD);
+    return this.makeSuggestionThresholds(SPELLS.NIGHTBLADE,MINOR_THRESHOLD,AVERAGE_THRESHOLD,MAJOR_THRESHOLD);
   }
 
   suggestions(when) {
-    suggest(when, this.makeSuggestionThresholds(SPELLS.NIGHTBLADE,MINOR_THRESHOLD,AVERAGE_THRESHOLD,MAJOR_THRESHOLD));
+    suggest(when, this.suggestionThresholdsNightbladeEfficiency);
   }
 }
 

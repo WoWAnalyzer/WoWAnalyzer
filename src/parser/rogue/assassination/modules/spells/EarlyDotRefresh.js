@@ -36,15 +36,15 @@ class EarlyDotRefresh extends EarlyDotRefreshesCore {
   }
 
   get suggestionThresholdsRuptureEfficiency() {
-    return this.makeEfficiencyThresholds(SPELLS.RUPTURE,MINOR_THRESHOLD,AVERAGE_THRESHOLD,MAJOR_THRESHOLD);
+    return this.makeSuggestionThresholds(SPELLS.RUPTURE,MINOR_THRESHOLD,AVERAGE_THRESHOLD,MAJOR_THRESHOLD);
   }
   get suggestionThresholdsGarroteEfficiency() {
-    return this.makeEfficiencyThresholds(SPELLS.GARROTE,MINOR_THRESHOLD,AVERAGE_THRESHOLD,MAJOR_THRESHOLD);
+    return this.makeSuggestionThresholds(SPELLS.GARROTE,MINOR_THRESHOLD,AVERAGE_THRESHOLD,MAJOR_THRESHOLD);
   }
 
   suggestions(when) {
-    suggest(when, this.makeSuggestionThresholds(SPELLS.RUPTURE,MINOR_THRESHOLD,AVERAGE_THRESHOLD,MAJOR_THRESHOLD));
-    suggest(when, this.makeSuggestionThresholds(SPELLS.GARROTE,MINOR_THRESHOLD,AVERAGE_THRESHOLD,MAJOR_THRESHOLD));
+    suggest(when, this.suggestionThresholdsRuptureEfficiency);
+    suggest(when, this.suggestionThresholdsGarroteEfficiency);
   }
 }
 

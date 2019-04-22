@@ -25,11 +25,11 @@ class EarlyDotRefreshes extends EarlyDotRefreshesCore {
   }
 
   get suggestionThresholdsStellarFlareEfficiency() {
-    return this.makeEfficiencyThresholds(SPELLS.STELLAR_FLARE_TALENT,MINOR_THRESHOLD,AVERAGE_THRESHOLD,MAJOR_THRESHOLD);
+    return this.makeSuggestionThresholds(SPELLS.STELLAR_FLARE_TALENT,MINOR_THRESHOLD,AVERAGE_THRESHOLD,MAJOR_THRESHOLD);
   }
 
   suggestions(when) {
-    suggest(when, this.makeSuggestionThresholds(SPELLS.STELLAR_FLARE_TALENT,MINOR_THRESHOLD,AVERAGE_THRESHOLD,MAJOR_THRESHOLD));
+    suggest(when, this.suggestionThresholdsStellarFlareEfficiency);
   }
 }
 

@@ -21,21 +21,10 @@ class EarlyDotRefreshesInstants extends EarlyDotRefreshes {
     ...EarlyDotRefreshes.dependencies,
     distanceMoved: DistanceMoved,
   };
-
-  // Determines whether the last cast should be checked or not.
-  checkLastCast(event) {
-    if (!this.lastGCD || !this.lastCast) {
-      return;
-    }
-    // Since we don't have events for end of GCDs, we check on the first event after roughly a gcd has pasted.
-    const timeSinceCast = event.timestamp - this.lastGCD.timestamp;
-    if (timeSinceCast < this.lastGCD.duration - BUFFER_MS) {
-      return;
-    }
-    this.isLastCastBad(event);
-    this.lastGCD = null;
-    this.lastCast = null;
-  }
+  
+  get lastCastBuffer() {
+    return this.lastGCD.duration - BUFFER_MS;
+  } 
 
   // Checks the status of the last cast and marks it accordingly.
   getLastBadCastText(event, dot) {

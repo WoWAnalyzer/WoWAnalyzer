@@ -45,7 +45,7 @@ class EarlyDotRefreshes extends Analyzer {
   }
 
   addBadCast(event, text) {
-    this.casts[event.ability.guid].badCasts += 1;
+    this.casts[this.lastCast.ability.guid].badCasts += 1;
     this.casts[this.lastCast.ability.guid].wastedDuration += this.lastCastMinWaste;
     event.meta = event.meta || {};
     event.meta.isInefficientCast = true;
@@ -79,7 +79,7 @@ class EarlyDotRefreshes extends Analyzer {
   }
 
   on_byPlayer_globalcooldown(event) {
-    const dot = this.getDot(event.ability.guid);
+    const dot = this.getDotByCast(event.ability.guid);
     if (!dot) {
       return;
     }
@@ -88,7 +88,7 @@ class EarlyDotRefreshes extends Analyzer {
 
   on_byPlayer_cast(event) {
     this.checkLastCast(event);
-    const dot = this.getDot(event.ability.guid);
+    const dot = this.getDotByCast(event.ability.guid);
     if (!dot) {
       return;
     }
@@ -110,7 +110,7 @@ class EarlyDotRefreshes extends Analyzer {
     }
     // We wait roughly a GCD to check, to account for minor travel times.
     const timeSinceCast = event.timestamp - this.lastGCD.timestamp;
-    if (timeSinceCast < this.lastGCD.duration * 2 - BUFFER_MS){
+    if (timeSinceCast < this.lastCastBuffer){
       return;
     }
     this.casts[this.lastCast.ability.guid].addedDuration += this.lastCastMaxEffect;
@@ -118,13 +118,17 @@ class EarlyDotRefreshes extends Analyzer {
     this.lastGCD = null;
     this.lastCast = null;
   }
+  
+  get lastCastBuffer() {
+    return this.lastGCD.duration * 2 - BUFFER_MS
+  } 
 
   // Checks the status of the last cast and marks it accordingly.
   isLastCastBad(event) {
     if (this.lastCastGoodExtension) {
       return; // Should not be marked as bad.
     }
-    const dot = this.getDot(this.lastCast.ability.guid);
+    const dot = this.getDotByCast(this.lastCast.ability.guid);
     const text = this.getLastBadCastText(event, dot);
     if (text !== '') {
       this.addBadCast(this.lastCast, text);
@@ -140,6 +144,14 @@ class EarlyDotRefreshes extends Analyzer {
   getDot(spellId) {
     const dot = this.constructor.dots.find(element => {
       return element.debuffId === spellId;
+    });
+    return dot;
+  }
+
+  //Returns the dot object
+  getDotByCast(spellId) {
+    const dot = this.constructor.dots.find(element => {
+      return element.castId === spellId;
     });
     return dot;
   }
@@ -172,20 +184,6 @@ class EarlyDotRefreshes extends Analyzer {
       spell: spell,
       count: this.casts[spell.id].badCasts,
       wastedDuration: this.casts[spell.id].wastedDuration,
-      actual: this.badCastsEffectivePercent(spell.id),
-      isLessThan: {
-        minor: minor,
-        average: avg,
-        major: major,
-      },
-      style: 'percentage',
-    };
-  }
-
-  //TODO: Remove
-  makeEfficiencyThresholds(spell, minor, avg, major) {
-    return {
-      spell: spell,
       actual: this.badCastsEffectivePercent(spell.id),
       isLessThan: {
         minor: minor,
