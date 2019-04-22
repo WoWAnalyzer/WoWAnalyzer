@@ -150,6 +150,33 @@ class EarlyDotRefreshes extends Analyzer {
     const ability = this.abilityTracker.getAbility(spellId);
     return this.badCasts[spellId] / ability.casts || 0;
   }
+
+  makeSuggestionThresholds(spell, minor, avg, major) {
+    return {
+      spell: spell,
+      count: this.badCasts[spell.id],
+      actual: this.badCastsPercent(spell.id),
+      isGreaterThan: {
+        minor: 1 - minor,
+        average: 1 - avg,
+        major: 1 - major,
+      },
+      style: 'percentage',
+    };
+  }
+
+  makeEfficiencyThresholds(spell, minor, avg, major) {
+    return {
+      spell: spell,
+      actual: 1 - this.badCastsPercent(spell.id),
+      isLessThan: {
+        minor: minor,
+        average: avg,
+        major: major,
+      },
+      style: 'percentage',
+    };
+  }
 }
 
 export default EarlyDotRefreshes;

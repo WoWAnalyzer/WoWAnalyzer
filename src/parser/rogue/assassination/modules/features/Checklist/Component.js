@@ -51,6 +51,22 @@ class AssassinationRogueChecklist extends React.PureComponent {
             )}
             thresholds={thresholds.ruptureUptime}
           />
+          <Requirement
+            name={(
+              <>
+                <SpellLink id={SPELLS.GARROTE.id} /> refreshed early
+              </>
+            )}
+            thresholds={thresholds.garroteEfficiency}
+          />
+          <Requirement
+            name={(
+              <>
+                <SpellLink id={SPELLS.RUPTURE.id} /> refreshed early
+              </>
+            )}
+            thresholds={thresholds.ruptureEfficiency}
+          />
         </Rule>
         <Rule
           name="Do not overcap your resources"
