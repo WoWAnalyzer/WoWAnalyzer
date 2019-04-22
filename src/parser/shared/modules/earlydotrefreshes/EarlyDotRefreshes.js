@@ -120,7 +120,7 @@ class EarlyDotRefreshes extends Analyzer {
   }
   
   get lastCastBuffer() {
-    return this.lastGCD.duration * 2 - BUFFER_MS
+    return this.lastGCD.duration * 2 - BUFFER_MS;
   } 
 
   // Checks the status of the last cast and marks it accordingly.
