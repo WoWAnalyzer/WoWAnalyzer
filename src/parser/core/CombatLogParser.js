@@ -142,6 +142,8 @@ import DiscOfSystematicRegression from '../shared/modules/items/bfa/raids/uldir/
 import WardOfEnvelopment from '../shared/modules/items/bfa/raids/bod/WardOfEnvelopment';
 import CrestOfPaku from '../shared/modules/items/bfa/raids/bod/CrestOfPaku';
 import IncandescentSliver from '../shared/modules/items/bfa/raids/bod/IncandescentSliver';
+// Crucible of Storms
+import TridentOfDeepOcean from '../shared/modules/items/bfa/raids/crucibleofstorms/TridentOfDeepOcean';
 
 import ParseResults from './ParseResults';
 import EventsNormalizer from './EventsNormalizer';
@@ -294,6 +296,9 @@ class CombatLogParser {
     wardOfEnvelopment: WardOfEnvelopment,
     crestOfPaku: CrestOfPaku,
     incandescentSliver: IncandescentSliver,
+
+    // Crucible of Storms
+    tridentOfDeepOcean: TridentOfDeepOcean,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
