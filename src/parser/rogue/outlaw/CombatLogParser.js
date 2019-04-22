@@ -18,6 +18,7 @@ import RollTheBonesBuffs from './modules/core/RollTheBonesBuffs';
 import RestlessBlades from './modules/core/RestlessBlades';
 import SliceAndDiceUptime from './modules/talents/SliceAndDiceUptime';
 import Opportunity from './modules/spells/Opportunity';
+import BetweenTheEyes from './modules/spells/BetweenTheEyes';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -44,6 +45,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Casts
     opportunity: Opportunity,
+    betweenTheEyes: BetweenTheEyes,
 
     //Talents
     sliceAndDiceUptime: SliceAndDiceUptime,
