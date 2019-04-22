@@ -41,63 +41,17 @@ class EarlyDotRefreshesInstants extends CoreEarlyDotRefreshesInstants {
     return false;
   }
 
-  get suggestionThresholdsMoonfire() {
-    return {
-      spell: SPELLS.MOONFIRE_BEAR,
-      count: this.badCasts[DOTS[0].castId],
-      actual: this.badCastsPercent(DOTS[0].castId),
-      isGreaterThan: {
-        minor: 1 - MINOR_THRESHOLD,
-        average: 1 - AVERAGE_THRESHOLD,
-        major: 1 - MAJOR_THRESHOLD,
-      },
-      style: 'percentage',
-    };
-  }
-
-  get suggestionThresholdsSunfire() {
-    return {
-      spell: SPELLS.SUNFIRE,
-      count: this.badCasts[DOTS[1].castId],
-      actual: this.badCastsPercent(DOTS[1].castId),
-      isGreaterThan: {
-        minor: 1 - MINOR_THRESHOLD,
-        average: 1 - AVERAGE_THRESHOLD,
-        major: 1 - MAJOR_THRESHOLD,
-      },
-      style: 'percentage',
-    };
-  }
-
   get suggestionThresholdsMoonfireEfficiency() {
-    return {
-      spell: SPELLS.MOONFIRE_BEAR,
-      actual: 1 - this.badCastsPercent(DOTS[0].castId),
-      isLessThan: {
-        minor: MINOR_THRESHOLD,
-        average: AVERAGE_THRESHOLD,
-        major: MAJOR_THRESHOLD,
-      },
-      style: 'percentage',
-    };
+    return this.makeEfficiencyThresholds(SPELLS.MOONFIRE,MINOR_THRESHOLD,AVERAGE_THRESHOLD,MAJOR_THRESHOLD);
   }
 
   get suggestionThresholdsSunfireEfficiency() {
-    return {
-      spell: SPELLS.SUNFIRE,
-      actual: 1 - this.badCastsPercent(DOTS[1].castId),
-      isLessThan: {
-        minor: MINOR_THRESHOLD,
-        average: AVERAGE_THRESHOLD,
-        major: MAJOR_THRESHOLD,
-      },
-      style: 'percentage',
-    };
+    return this.makeEfficiencyThresholds(SPELLS.SUNFIRE,MINOR_THRESHOLD,AVERAGE_THRESHOLD,MAJOR_THRESHOLD);
   }
 
   suggestions(when) {
-    suggest(when, this.suggestionThresholdsMoonfire);
-    suggest(when, this.suggestionThresholdsSunfire);
+    suggest(when, this.makeSuggestionThresholds(SPELLS.MOONFIRE,MINOR_THRESHOLD,AVERAGE_THRESHOLD,MAJOR_THRESHOLD));
+    suggest(when, this.makeSuggestionThresholds(SPELLS.SUNFIRE,MINOR_THRESHOLD,AVERAGE_THRESHOLD,MAJOR_THRESHOLD));
   }
 }
 

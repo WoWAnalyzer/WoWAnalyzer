@@ -54,7 +54,7 @@ class NightbladeEarlyRefresh extends EarlyDotRefreshesCore {
       return '';
     }
     return super.getLastBadCastText(event,dot);
-    }
+  }
 
   on_byPlayer_spendresource(event) {
     const comboPointsSpent = event.resourceChange;
@@ -70,35 +70,12 @@ class NightbladeEarlyRefresh extends EarlyDotRefreshesCore {
     return this.nextDuration;
   }
 
-  get suggestionThresholdsNightblade() {
-    return {
-      spell: SPELLS.NIGHTBLADE,
-      count: this.badCasts[SPELLS.NIGHTBLADE.id],
-      actual: this.badCastsPercent(SPELLS.NIGHTBLADE.id),
-      isGreaterThan: {
-        minor: 1 - MINOR_THRESHOLD,
-        average: 1 - AVERAGE_THRESHOLD,
-        major: 1 - MAJOR_THRESHOLD,
-      },
-      style: 'percentage',
-    };
-  }
-
   get suggestionThresholdsNightbladeEfficiency() {
-    return {
-      spell: SPELLS.NIGHTBLADE,
-      actual: 1 - this.badCastsPercent(SPELLS.NIGHTBLADE.id),
-      isLessThan: {
-        minor: MINOR_THRESHOLD,
-        average: AVERAGE_THRESHOLD,
-        major: MAJOR_THRESHOLD,
-      },
-      style: 'percentage',
-    };
+    return this.makeEfficiencyThresholds(SPELLS.NIGHTBLADE,MINOR_THRESHOLD,AVERAGE_THRESHOLD,MAJOR_THRESHOLD);
   }
 
   suggestions(when) {
-    suggest(when, this.suggestionThresholdsNightblade);
+    suggest(when, this.makeSuggestionThresholds(SPELLS.NIGHTBLADE,MINOR_THRESHOLD,AVERAGE_THRESHOLD,MAJOR_THRESHOLD));
   }
 }
 
