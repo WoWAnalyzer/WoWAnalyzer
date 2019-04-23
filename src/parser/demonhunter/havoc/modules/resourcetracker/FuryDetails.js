@@ -24,27 +24,15 @@ class FuryDetails extends Analyzer {
   }
 
   get suggestionThresholds() {
-    if (this.selectedCombatant.hasTalent(SPELLS.BLIND_FURY_TALENT.id)) {
-      return {
-        actual: this.wastedFuryPercent,
-        isGreaterThan: {
-          minor: 0.06,
-          average: 0.10,
-          major: 0.14,
-        },
-        style: 'percentage',
-      };
-    } else {
-      return {
-        actual: this.wastedFuryPercent,
-        isGreaterThan: {
-          minor: 0.02,
-          average: 0.05,
-          major: 0.08,
-        },
-        style: 'percentage',
-      };
-    }
+    return {
+      actual: this.wastedFuryPercent,
+      isGreaterThan: {
+        minor: 0.03,
+        average: 0.07,
+        major: 0.1,
+      },
+      style: 'percentage',
+    };
   }
 
   suggestions(when) {
