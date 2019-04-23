@@ -5,8 +5,9 @@ import SpellLink from 'common/SpellLink';
 import Analyzer from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import DonutChart from 'interface/statistics/components/DonutChart';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
-import RollTheBonesCastTracker from './RollTheBonesCastTracker';
+import RollTheBonesCastTracker from '../features/RollTheBonesCastTracker';
 
 class RollTheBonesCounter extends Analyzer {
   static dependencies = {
@@ -54,6 +55,7 @@ class RollTheBonesCounter extends Analyzer {
   statistic() {
     return (
       <Statistic
+        position={STATISTIC_ORDER.OPTIONAL()}
         tooltip="Simulated averages are approximately 80% chance for 1 buff, 19% chance for 2 buffs, 1% chance for 5 buffs"
       >
         <div className="pad">
