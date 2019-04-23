@@ -44,6 +44,7 @@ import EnvelopingMists from './modules/spells/EnvelopingMists';
 import SoothingMist from './modules/spells/SoothingMist';
 import Vivify from './modules/spells/Vivify';
 import LifeCocoon from './modules/spells/LifeCocoon';
+import SpinningCraneKick from './modules/spells/SpinningCraneKick';
 import RenewingMist from './modules/spells/RenewingMist';
 
 // Talents
@@ -105,6 +106,7 @@ class CombatLogParser extends CoreCombatLogParser {
     thunderFocusTea: ThunderFocusTea,
     envelopingMists: EnvelopingMists,
     soothingMist: SoothingMist, // Removed as this needs to be reworked with updated Soothing Mist Spell in BfA
+    spinningCraneKick: SpinningCraneKick,
     vivify: Vivify,
     renewingMist: RenewingMist,
     lifeCocoon: LifeCocoon,

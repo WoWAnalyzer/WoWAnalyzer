@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-04-11'),
+    changes: <>Fixed a bug in the Mitigation Values tab that caused Mastery's base 8% to be counted towards contribution by Mastery Rating.</>,
+    contributors: [emallson],
+  },
+  {
     date: new Date('2019-03-10'),
     changes: <>Fixed a bug in the <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> normalizer that led to a crash in the new timeline.</>,
     contributors: [Zerotorescue],

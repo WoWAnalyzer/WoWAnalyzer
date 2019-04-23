@@ -54,30 +54,30 @@ class Cooldown extends React.Component {
 
   groupHeals(events) {
     let lastHeal = null;
-    const results = [];
-    events.forEach((event) => {
+    return events.reduce((results, event) => {
       if (event.type === 'cast') {
         results.push(event);
       } else if (event.type === 'heal') {
         const spellId = event.ability.guid;
-        if (lastHeal && lastHeal.ability.guid === spellId) {
+        if (lastHeal && lastHeal.event.ability.guid === spellId) {
           lastHeal.count += 1;
           lastHeal.amount += event.amount;
           lastHeal.absorbed += (event.absorbed || 0);
           lastHeal.overheal += (event.overheal || 0);
         } else {
           const heal = {
-            ...event,
-            count: 1,
+            event,
+            amount: event.amount,
             absorbed: event.absorbed || 0,
             overheal: event.overheal || 0,
+            count: 1,
           };
           results.push(heal);
           lastHeal = heal;
         }
       }
-    });
-    return results;
+      return results;
+    }, []);
   }
 
   calculateHealingStatistics(cooldown) {
@@ -174,25 +174,25 @@ class Cooldown extends React.Component {
             )}
             {this.state.showCastEvents && this.state.showAllEvents && (
               <div className="container-fluid">
-                {this.groupHeals(cooldown.events.filter(event => (event.type === 'cast' || event.type === 'heal') && event.ability.guid !== 1)).map((event, i) => (
+                {this.groupHeals(cooldown.events.filter(event => (event.type === 'cast' || event.type === 'heal') && event.ability.guid !== 1)).map((heal, i) => (
                   <div className="row" key={i}>
                     <div className="col-xs-1 text-right" style={{ padding: 0 }}>
-                      +{((event.timestamp - cooldown.start) / 1000).toFixed(3)}
+                      +{((heal.event.timestamp - cooldown.start) / 1000).toFixed(3)}
                     </div>
-                    <div className={`col-xs-4 ${event.type === 'heal' ? 'col-xs-offset-1' : ''}`}>
-                      <SpellLink key={`${event.ability.guid}-${event.timestamp}-${i}`} id={event.ability.guid} icon={false}>
-                        <Icon icon={event.ability.abilityIcon} alt={event.ability.name} style={{ height: 23, marginRight: 4 }} /> {event.ability.name}
+                    <div className={`col-xs-4 ${heal.event.type === 'heal' ? 'col-xs-offset-1' : ''}`}>
+                      <SpellLink key={`${heal.event.ability.guid}-${heal.event.timestamp}-${i}`} id={heal.event.ability.guid} icon={false}>
+                        <Icon icon={heal.event.ability.abilityIcon} alt={heal.event.ability.name} style={{ height: 23, marginRight: 4 }} /> {heal.event.ability.name}
                       </SpellLink>
-                      {event.type === 'heal' && (
+                      {heal.event.type === 'heal' && (
                         <span>
-                          <span className="grouped-heal-meta amount"> x {event.count}</span>
+                          <span className="grouped-heal-meta amount"> x {heal.count}</span>
                         </span>
                       )}
                     </div>
-                    {event.type === 'heal' && (
+                    {heal.event.type === 'heal' && (
                       <div className="col-xs-4">
-                        <span className="grouped-heal-meta healing"> +{formatThousands(event.amount + event.absorbed)}</span>
-                        <span className="grouped-heal-meta overhealing"> (O: {formatThousands(event.overheal)})</span>
+                        <span className="grouped-heal-meta healing"> +{formatThousands(heal.amount + heal.absorbed)}</span>
+                        <span className="grouped-heal-meta overhealing"> (O: {formatThousands(heal.overheal)})</span>
                       </div>
                     )}
                   </div>

@@ -361,8 +361,15 @@ class CombatLogParser {
   }
   finish() {
     this.finished = true;
+    /** @var {EventEmitter} */
     const emitter = this.getModule(EventEmitter);
-    console.log('Called listeners', emitter._listenersCalled, 'times, with', emitter._actualExecutions, 'actual executions.', emitter._listenersCalled - emitter._actualExecutions, 'events were filtered away');
+    console.log(
+      'Events triggered:', emitter.numTriggeredEvents,
+      'Event listeners added:', emitter.numEventListeners,
+      'Listeners called:', emitter.numListenersCalled,
+      'Listeners called (after filters):', emitter.numActualExecutions,
+      'Listeners filtered away:', emitter.numListenersCalled - emitter.numActualExecutions
+    );
   }
 
   _getModuleClass(config) {

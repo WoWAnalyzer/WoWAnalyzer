@@ -64,8 +64,14 @@ class FelEruption extends Analyzer {
       <TalentStatisticBox
         talent={SPELLS.FEL_ERUPTION_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={`${this.badCasts} casts that didn't stun the target`}
-        tooltip={`This ability should only be used for its stun. Its a DPS loss.`}
+        value={<>{this.badCasts} <small>bad casts that didn't stun the target</small> </>}
+        tooltip={
+                <>
+                  This ability should only be used for its stun. Its a DPS loss. <br /> <br />
+                  You casted this ability a total of {this.casts} time(s). <br />
+                  It stunned a target {this.stuns} time(s).
+                </>
+      }
       />
     );
   }
