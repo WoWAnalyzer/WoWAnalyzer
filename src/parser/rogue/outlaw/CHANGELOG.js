@@ -3,9 +3,14 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
-import { tsabo, Zerotorescue, Gebuz, Aelexe } from 'CONTRIBUTORS';
+import { tsabo, Zerotorescue, Gebuz, Aelexe, Coywolf } from 'CONTRIBUTORS';
 
 export default [
+  {
+    date: new Date('2019-04-23'),
+    changes: 'Initial set of changes to support BFA, namely filling out the suggestions.',
+    contributors: [Coywolf],
+  },
   {
     date: new Date('2018-11-15'),
     changes: <>Fixed <SpellLink id={SPELLS.ARCANE_TORRENT_ENERGY.id} /> GCD.</>,
