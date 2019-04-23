@@ -18,6 +18,7 @@ import SpellEnergyCost from '../shared/resources/SpellEnergyCost';
 import RollTheBonesBuffs from './modules/spells/RollTheBonesBuffs';
 import RollTheBonesCastTracker from './modules/features/RollTheBonesCastTracker';
 import RollTheBonesCounter from './modules/spells/RollTheBonesCounter';
+import RollTheBonesEfficiency from './modules/spells/RollTheBonesEfficiency';
 import RestlessBlades from './modules/features/RestlessBlades';
 import SliceAndDiceUptime from './modules/talents/SliceAndDiceUptime';
 import Finishers from './modules/features/Finishers';
@@ -44,13 +45,14 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Core
     restlessBlades: RestlessBlades,    
-    rolltheBonesCastTracker: RollTheBonesCastTracker,    
+    rollTheBonesCastTracker: RollTheBonesCastTracker,    
     
     //Items
 
     //Casts
-    rolltheBonesBuffs: RollTheBonesBuffs,
+    rollTheBonesBuffs: RollTheBonesBuffs,
     rollTheBonesCounter: RollTheBonesCounter,
+    rollTheBonesEfficiency: RollTheBonesEfficiency,
     finishers: Finishers,
     opportunity: Opportunity,
     betweenTheEyes: BetweenTheEyes,
