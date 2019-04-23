@@ -47,6 +47,9 @@ class RollTheBonesCastTracker extends Analyzer {
 
   rolltheBonesCastEvents = [];
 
+  // group the casts together by their relative value
+  rolltheBonesCastValues = { low: [], mid: [], high: [] };
+
   get lastCast(){
     return this.rolltheBonesCastEvents[this.rolltheBonesCastEvents.length-1];
   }  
@@ -67,6 +70,30 @@ class RollTheBonesCastTracker extends Analyzer {
     this._eventBuffer.push(event);
   }
 
+  addCast(cast){
+    this.rolltheBonesCastEvents.push(cast);
+    this.rolltheBonesCastValues[this.categorizeCast(cast)].push(cast);
+  }
+
+  categorizeCast(cast){
+    if(cast.appliedBuffEvents.some(buff => buff.ability.guid === SPELLS.RUTHLESS_PRECISION.id || buff.ability.guid === SPELLS.GRAND_MELEE.id)){
+      return 'high';
+    }
+    else if(cast.appliedBuffEvents.length > 1){
+      return 'mid';
+    }
+    
+    return 'low';
+  }
+
+  castRemainingDuration(cast){
+    if(!cast.timestampEnd){
+      return 0;
+    }
+
+    return cast.duration - (cast.timestampEnd - cast.timestamp);
+  }
+
   processEvents(event){
     if(!event || !event.classResources){
       return;
@@ -79,11 +106,12 @@ class RollTheBonesCastTracker extends Analyzer {
 
     // If somehow logging starts in the middle of combat and the first cast is actually a refresh, pandemic timing and previous buffs will be missing
     if(refresh && this.lastCast){
+      this.lastCast.timestampEnd = event.timestamp;
+
       // pandemic works a little differently for rogues. RTB works the same way Rupture works for Assassination
       // the allowed pandemic amount is based on the CURRENT combo points, not the buff/dot that is already applied
       // e.g. 1s remaining, refresh with 30s, final is 31s. 20s remaining, refresh with 30s, final is 39s
-      const remainingDuration = this.lastCast.duration - (event.timestamp - this.lastCast.timestamp);
-      duration += Math.min(remainingDuration, duration * PANDEMIC_WINDOW);
+      duration += Math.min(this.castRemainingDuration(this.lastCast), duration * PANDEMIC_WINDOW);
 
       // Since this is a refresh, we want to include any buffs that were applied in the last cast, but not removed by this one
       const rolledOverBuffEvents = this.lastCast.appliedBuffEvents
@@ -98,7 +126,7 @@ class RollTheBonesCastTracker extends Analyzer {
       isRefresh: refresh,
     };
 
-    this.rolltheBonesCastEvents.push(newCast);
+    this.addCast(newCast);
     this._eventBuffer = [];
   }  
 }
