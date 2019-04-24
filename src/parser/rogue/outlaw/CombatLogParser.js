@@ -6,7 +6,7 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import SpellUsable from '../shared/SpellUsable';
 
 import ComboPointDetails from '../shared/resources/ComboPointDetails';
-import ComboPointTracker from '../shared/resources/ComboPointTracker';
+import OutlawComboPointTracker from './modules/core/OutlawComboPointTracker';
 import ComboPoints from './modules/core/ComboPoints';
 import EnergyDetails from '../shared/resources/EnergyDetails';
 import EnergyTracker from '../shared/resources/EnergyTracker';
@@ -26,7 +26,7 @@ class CombatLogParser extends CoreCombatLogParser {
     spellUsable: SpellUsable,
 
     //Resource
-    comboPointTracker: ComboPointTracker,
+    comboPointTracker: OutlawComboPointTracker,
     comboPointDetails: ComboPointDetails,
     comboPoints: ComboPoints,
     energyTracker: EnergyTracker,
