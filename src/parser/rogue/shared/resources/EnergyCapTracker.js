@@ -11,13 +11,10 @@ import RegenResourceCapTracker from 'parser/shared/modules/RegenResourceCapTrack
 import SpellEnergyCost from './SpellEnergyCost';
 
 const BASE_ENERGY_REGEN = 10;
-const BURIED_TREASURE_REGEN = 4;
 const VIGOR_REGEN_MULTIPLIER = 1.1;
-const ADRENALINE_RUSH_REGEN_MULTIPLIER = 1.6;
 
 const BASE_ENERGY_MAX = 100;
 const VIGOR_MAX_ADDITION = 50;
-const ADRENALINE_RUSH_MAX_ADDITION = 50;
 
 const RESOURCE_REFUND_ON_MISS = 0.8;
 
@@ -40,28 +37,17 @@ class EnergyCapTracker extends RegenResourceCapTracker {
   static resourceRefundOnMiss = RESOURCE_REFUND_ON_MISS;
   static exemptFromRefund = [
   ];
-  static buffsChangeMax = [
-    SPELLS.ADRENALINE_RUSH.id,
-  ];
-  static buffsChangeRegen = [
-    SPELLS.ADRENALINE_RUSH.id, 
-    SPELLS.BURIED_TREASURE.id,
-  ];
+
+  increasedBaseRegen(){
+    return 0;
+  }
 
   naturalRegenRate() {
     let regen = super.naturalRegenRate();
-    if(this.combatantHasBuffActive(SPELLS.BURIED_TREASURE.id)){
-      // Buried Treasure buff adds 4 energy per second, converted to ms
-      regen += (BURIED_TREASURE_REGEN / 1000);
-    }
-
+    regen += this.increasedBaseRegen();
     if (this.selectedCombatant.hasTalent(SPELLS.VIGOR_TALENT.id)) {
       regen *= VIGOR_REGEN_MULTIPLIER;
     }
-    if(this.combatantHasBuffActive(SPELLS.ADRENALINE_RUSH.id)){
-      regen *= ADRENALINE_RUSH_REGEN_MULTIPLIER;
-    }
-
     return regen;
   }
 
@@ -69,9 +55,6 @@ class EnergyCapTracker extends RegenResourceCapTracker {
     let max = BASE_ENERGY_MAX;
     if (this.selectedCombatant.hasTalent(SPELLS.VIGOR_TALENT.id)) {
       max += VIGOR_MAX_ADDITION;
-    }
-    if(this.combatantHasBuffActive(SPELLS.ADRENALINE_RUSH.id)){
-      max += ADRENALINE_RUSH_MAX_ADDITION;
     }
     // What should be x.5 becomes x in-game.
     return Math.floor(max);
