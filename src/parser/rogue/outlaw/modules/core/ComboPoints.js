@@ -26,9 +26,9 @@ class ComboPoints extends Analyzer {
     });
     resourceSuggest(when, this.comboPointTracker, {
       spell: SPELLS.SINISTER_STRIKE, // 1 CP + 35% chance for another
-      minor: 0,
-      avg: 0.05,
-      major: 0.1,
+      minor: 0.05, // Due to the 35% chance to double hit, especially with the Broadside RTB buff, you are bound to burn some CP
+      avg: 0.1,
+      major: 0.15,
       extraSuggestion: this.makeExtraSuggestion(SPELLS.SINISTER_STRIKE),
     });
     resourceSuggest(when, this.comboPointTracker, {
