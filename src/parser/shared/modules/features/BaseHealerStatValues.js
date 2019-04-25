@@ -508,7 +508,7 @@ class BaseHealerStatValues extends Analyzer {
                           const statValue = typeof stat === 'object' ? stat.stat : stat;
                           const gain = this._getGain(statValue);
                           const weight = gain / (this.totalOneInt || 1);
-                          const statName = getName(statValue).replace(/\s+/g, '');
+                          const statName = getName(statValue).replace(/[()\s+]/g, '');
                           
                           _url += ('&' + statName + '=' + weight.toFixed(2));
                         })}
