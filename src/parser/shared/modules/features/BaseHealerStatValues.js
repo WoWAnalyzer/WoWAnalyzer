@@ -514,7 +514,7 @@ class BaseHealerStatValues extends Analyzer {
                         })}
                         <Tooltip content={'Opens in a new tab. Leverage the QE Live Tool to directly compare gear, azerite traits, and trinkets based on your stat values'}>
                           <a
-                            href={`https://www.questionablyepic.com/live?import=WoWA&spec=${this.selectedCombatant.specId}&name=${this.selectedCombatant.name}&realm=${this.selectedCombatant.characterProfile.realm}&region=${this.selectedCombatant.characterProfile.region}${_url}`}
+                            href={`https://www.questionablyepic.com/live?import=WoWA&spec=${this.selectedCombatant.specId}&pname=${this.selectedCombatant.name}&realm=${this.selectedCombatant.characterProfile.realm}&region=${this.selectedCombatant.characterProfile.region}${_url}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="btn"
