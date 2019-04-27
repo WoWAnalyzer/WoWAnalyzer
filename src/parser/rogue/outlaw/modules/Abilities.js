@@ -70,7 +70,6 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.95,
-          extraSuggestion: 'The only time you should delay casting this is to avoid over-capping Combo Points.',
         },
         enabled: combatant.hasTalent(SPELLS.GHOSTLY_STRIKE_TALENT.id),
       },
@@ -122,7 +121,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          extraSuggestion: <>In most cases this should be considered part of your rotation, only below <SpellLink id={SPELLS.ROLL_THE_BONES.id} icon /> on priority. However you should delay using it to line it up with <SpellLink id={SPELLS.BLADE_FLURRY.id} icon /> when there is more than one target.</>,
+          extraSuggestion: <>You should delay using it to line it up with <SpellLink id={SPELLS.BLADE_FLURRY.id} icon /> in AoE scenarios.</>,
         },
         enabled: combatant.hasTalent(SPELLS.BLADE_RUSH_TALENT.id),
       },
@@ -135,7 +134,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          extraSuggestion: <>In most cases this should be considered part of your rotation, only below <SpellLink id={SPELLS.ROLL_THE_BONES.id} icon /> on priority. However you should delay using it to line it up with <SpellLink id={SPELLS.BLADE_FLURRY.id} icon /> when there is more than one target.</>,
+          extraSuggestion: <>You should delay using it to line it up with <SpellLink id={SPELLS.BLADE_FLURRY.id} icon /> in AoE scenarios.</>,
         },
         enabled: combatant.hasTalent(SPELLS.KILLING_SPREE_TALENT.id),
       },
