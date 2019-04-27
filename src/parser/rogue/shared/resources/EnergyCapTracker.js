@@ -38,13 +38,8 @@ class EnergyCapTracker extends RegenResourceCapTracker {
   static exemptFromRefund = [
   ];
 
-  increasedBaseRegen(){
-    return 0;
-  }
-
   naturalRegenRate() {
     let regen = super.naturalRegenRate();
-    regen += this.increasedBaseRegen();
     if (this.selectedCombatant.hasTalent(SPELLS.VIGOR_TALENT.id)) {
       regen *= VIGOR_REGEN_MULTIPLIER;
     }

@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 
 import EnergyCapTracker from '../../../shared/resources/EnergyCapTracker';
 
+const BASE_ENERGY_REGEN = 10;
 const BURIED_TREASURE_REGEN = 4;
 const ADRENALINE_RUSH_REGEN_MULTIPLIER = 1.6;
 
@@ -16,17 +17,18 @@ class OutlawEnergyCapTracker extends EnergyCapTracker {
     SPELLS.BURIED_TREASURE.id,
   ];
 
-  increasedBaseRegen() {
-    if(this.combatantHasBuffActive(SPELLS.BURIED_TREASURE.id)){
-      // Buried Treasure buff adds 4 energy per second, converted to ms
-      return BURIED_TREASURE_REGEN / 1000;
-    }
+  updateBaseRegen() {
+    this.constructor.baseRegenRate = BASE_ENERGY_REGEN;
 
-    return 0;
+    if(this.combatantHasBuffActive(SPELLS.BURIED_TREASURE.id)){
+      // Buried Treasure buff adds 4 energy per second, before any multipliers
+      this.constructor.baseRegenRate += BURIED_TREASURE_REGEN;
+    }
   }
 
   naturalRegenRate() {
-    let regen = super.naturalRegenRate();    
+    this.updateBaseRegen();
+    let regen = super.naturalRegenRate();
 
     if(this.combatantHasBuffActive(SPELLS.ADRENALINE_RUSH.id)){
       regen *= ADRENALINE_RUSH_REGEN_MULTIPLIER;
