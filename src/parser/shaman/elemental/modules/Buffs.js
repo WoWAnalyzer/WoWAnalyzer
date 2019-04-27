@@ -19,10 +19,15 @@ class Buffs extends CoreBuffs {
       },
       {
         spellId: SPELLS.MASTER_OF_THE_ELEMENTS_BUFF.id,
+        enabled: combatant.hasTalent(SPELLS.MASTER_OF_THE_ELEMENTS_TALENT.id),
         timelineHightlight: true,
       },
       {
         spellId: SPELLS.STORMKEEPER_TALENT.id,
+        timelineHightlight: true,
+      },
+      {
+        spellId: Object.keys(BLOODLUST_BUFFS).map(item => Number(item)),
         timelineHightlight: true,
       },
     ];
