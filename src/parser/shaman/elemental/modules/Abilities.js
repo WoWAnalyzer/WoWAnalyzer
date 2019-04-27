@@ -8,10 +8,9 @@ class Abilities extends CoreAbilities {
     return [
       {
         spell: SPELLS.LAVA_BURST,
-        charges: 2,
+        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id)?2:1,
+        cooldown: haste=> 8/(1+haste),
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        // haste => 8 / (1 + haste)
-        // TODO: Add Cooldown with stacks and Lava Surge procs
         gcd: {
           base: 1500,
         },
@@ -109,7 +108,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.STORM_ELEMENTAL_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 60 * 2.5, // TODO: Add Elementalist -> Lava Burst cast ^= -2 sec cd
+        cooldown: 60 * 2.5,
         enabled: combatant.hasTalent(SPELLS.STORM_ELEMENTAL_TALENT.id),
         castEfficiency: {
           suggestion: true,
@@ -120,6 +119,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.FLAME_SHOCK,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 6,
         gcd: {
           base: 1500,
         },
