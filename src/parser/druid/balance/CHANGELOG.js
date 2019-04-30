@@ -7,6 +7,11 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2019-4-30'),
+    changes: 'Added High Noon and Power of the Moon azerite pieces to the statistics tab.',
+    contributors: [Abelito75],
+  },
+  {
+    date: new Date('2019-4-27'),
     changes: 'Added DawningSun azerite piece to the statistics tab.',
     contributors: [Abelito75],
   },
