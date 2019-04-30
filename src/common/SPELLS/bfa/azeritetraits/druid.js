@@ -151,11 +151,6 @@ export default {
     name: 'Power of the Moon',
     icon: 'spell_nature_starfall',
   },
-  LUNAR_SHRAPNEL:{
-    id: 278507,
-    name: 'Lunar Shrapnel',
-    icon: 'ability_druid_starfall',
-  },
   STREAKING_STARS:{
     id: 272871,
     name: 'Streaking Stars',
@@ -168,11 +163,6 @@ export default {
   },
   ARCANIC_PULSAR_BUFF:{
     id: 287790,
-    name: 'Arcanic Pulsar',
-    icon: 'spell_arcane_arcane03',
-  },
-  ARCANIC_PULSAR_DAMAGE:{
-    id: 287773,
     name: 'Arcanic Pulsar',
     icon: 'spell_arcane_arcane03',
   },

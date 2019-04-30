@@ -10,7 +10,7 @@ import SpellLink from 'common/SpellLink';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
-const debug = true;
+const debug = false;
 
 class PowerOfTheMoon extends Analyzer {
   static dependencies = {
