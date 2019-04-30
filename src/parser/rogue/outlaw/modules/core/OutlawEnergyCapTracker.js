@@ -17,17 +17,17 @@ class OutlawEnergyCapTracker extends EnergyCapTracker {
     SPELLS.BURIED_TREASURE.id,
   ];
 
-  updateBaseRegen() {
-    this.constructor.baseRegenRate = BASE_ENERGY_REGEN;
-
+  getBaseRegenRate() {
+    let regenRate = BASE_ENERGY_REGEN;
     if(this.combatantHasBuffActive(SPELLS.BURIED_TREASURE.id)){
       // Buried Treasure buff adds 4 energy per second, before any multipliers
-      this.constructor.baseRegenRate += BURIED_TREASURE_REGEN;
+      regenRate += BURIED_TREASURE_REGEN;
     }
+
+    return regenRate;
   }
 
   naturalRegenRate() {
-    this.updateBaseRegen();
     let regen = super.naturalRegenRate();
 
     if(this.combatantHasBuffActive(SPELLS.ADRENALINE_RUSH.id)){
