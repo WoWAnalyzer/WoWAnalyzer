@@ -3039,4 +3039,163 @@ export default {
     name: "Prismatic Image",
     icon: "ability_socererking_arcanemines", // Not a typo.
   },
+
+  // CRUCIBLE OF STORMS
+
+  // THE RESTLESS CABAL
+
+  RESTLESS_CABAL_SHEAR_MIND: {
+    id: 282384,
+    name: 'Shear Mind',
+    icon: 'spell_shadow_mindflay',
+  },
+
+  RESTLESS_CABAL_VOID_CRASH: {
+    id: 282407,
+    name: 'Void Crash',
+    icon: 'spell_shadow_shadowfury',
+  },
+
+  RESTLESS_CABAL_CRUSHING_DOUBT: {
+    id: 282432,
+    name: "Crushing Doubt",
+    icon: 'spell_shadow_demonicempathy',
+  },
+
+  RESTLESS_CABAL_APHOTIC_BLAST: {
+    id: 282386,
+    name: "Aphotic Blast",
+    icon: 'inv_enchant_voidsphere',
+  },
+
+  RESTLESS_CABAL_CEREBRAL_ASSAULT: {
+    id: 282589,
+    name: "Cerebral Assault",
+    icon: "spell_shadow_skull",
+  },
+
+  RESTLESS_CABAL_DARK_HERALD: {
+    id: 282561,
+    name: "Dark Herald",
+    icon: "spell_warlock_demonsoul",
+  },
+
+  RESTLESS_CABAL_PROMISES_OF_POWER: {
+    id: 282562,
+    name: "Promises of Power",
+    icon: "Spell_priest_void-flay",
+  },
+
+  RESTLESS_CABAL_POWER_OVERWHELMING: {
+    id: 282914,
+    name: "Power Overwhelming",
+    icon: "inv_icon_shadowcouncilorb_purple",
+  },
+
+  RESTLESS_CABAL_UMBRAL_SHELL: {
+    id: 282741,
+    name: "Umbral Shell",
+    icon: "spell_shadow_twistedfaith",
+  },
+
+  RESTLESS_CABAL_EMBRACE_OF_THE_VOID: {
+    id: 282738,
+    name: "Embrace of the Void",
+    icon: "spell_priest_void-blast",
+  },
+
+  RESTLESS_CABAL_CUSTODY_OF_THE_DEEP: {
+    id: 282750,
+    name: "Custody of the Deep",
+    icon: "spell_winston_bubble",
+  },
+
+  RESTLESS_CABAL_ABYSSAL_COLLAPSE: {
+    id: 282886,
+    name: "Abyssal Collapse",
+    icon: "ability_shawaterelemental_split",
+  },
+
+  RESTLESS_CABAL_STORM_OF_ANNIHILATION: {
+    id: 282742,
+    name: "Storm of Annihilation",
+    icon: "ability_vehicle_electrocharge",
+  },
+
+  RESTLESS_CABAL_ANNIHILATE: {
+    id: 282842,
+    name: "Annihilate",
+    icon: "spell_shaman_staticshock",
+  },
+
+  RESTLESS_CABAL_ELDRITCH_REVELATION: {
+    id: 282617,
+    name: "Eldritch Revelation",
+    icon: "ability_rogue_enveloping_shadows",
+  },
+
+  RESTLESS_CABAL_WITNESS_THE_END: {
+    id: 282621,
+    name: "Witness the End",
+    icon: "sha_inv_elemental_primal_shadow",
+  },
+
+  RESTLESS_CABAL_VISAGE_FROM_BEYOND: {
+    id: 282515,
+    name: "Visage from Beyond",
+    icon: "ability_priest_shadowyapparition",
+  },
+
+  RESTLESS_CABAL_TERRIFYING_ECHO: {
+    id: 282517,
+    name: "Terrifying Echo",
+    icon: "spell_shadow_possession",
+  },
+
+  RESTLESS_CABAL_COALESCE_VOID: {
+    id: 282524,
+    name: "Coalesce Void",
+    icon: "spell_shadow_shadowmend",
+  },
+
+  RESTLESS_CABAL_AGENT_OF_DEMISE: {
+    id: 282540,
+    name: "Agent of Demise",
+    icon: "spell_priest_voidform",
+  },
+
+  RESTLESS_CABAL_WRACK: {
+    id: 292880,
+    name: "Wrack",
+    icon: "spell_nature_focusedmind",
+  },
+
+  RESTLESS_CABAL_INCOMPLETE_FORM: {
+    id: 282630,
+    name: "Incomplete Form",
+    icon: "inv_chest_armor_voidelf_d_01",
+  },
+
+  RESTLESS_CABAL_VOID_ESSENCE: {
+    id: 283514,
+    name: "Void Essence",
+    icon: "spell_priest_void-blast",
+  },
+
+  RESTLESS_CABAL_OCEANIC_ESSENCE: {
+    id: 293488,
+    name: "Oceanic Essence",
+    icon: "inv_elemental_mote_water01",
+  },
+
+  RESTLESS_CABAL_STORM_ESSENCE: {
+    id: 293300,
+    name: "Storm Essence",
+    icon: "ability_vehicle_electrocharge",
+  },
+
+  // Uu'nat, Harbinger of the Void
+
+
+
 };
