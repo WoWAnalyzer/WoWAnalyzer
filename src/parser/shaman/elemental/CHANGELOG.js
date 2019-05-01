@@ -7,7 +7,7 @@ import SpellLink from 'common/SpellLink';
 export default [
   {
     date: new Date('2019-03-20'),
-    changes: <>Fixing <SpellLink id={SPELLS.MASTER_OF_THE_ELEMENTS_TALENT} />-Tracker and Damage Calculation.</>,
+    changes: <>Fixing <SpellLink id={SPELLS.MASTER_OF_THE_ELEMENTS_TALENT.id} />-Tracker and Damage Calculation.</>,
     contributors: [HawkCorrigan],
   },
   {
