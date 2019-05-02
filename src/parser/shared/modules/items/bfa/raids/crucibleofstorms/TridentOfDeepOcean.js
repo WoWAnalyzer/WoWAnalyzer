@@ -79,7 +79,7 @@ class TridentOfDeepOcean extends Analyzer {
       stackChain.forEach((stack) => {
         const stackSize = stack.stacks;
         const stackStart = stack.timestamp;
-        if (cleanStacks[lastHandledStack]) {
+        if (cleanStacks[lastHandledStack] !== undefined) {
           const previousStack = cleanStacks[lastHandledStack];
           const lastOccurrence = previousStack[previousStack.length - 1];
           if (this.isBuggedStackChange(lastOccurrence.start, stackStart)){
