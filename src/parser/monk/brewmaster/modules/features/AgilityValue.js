@@ -120,9 +120,7 @@ export default class AgilityValue extends Analyzer {
       icon: makeIcon(STAT.AGILITY),
       name: getName(STAT.AGILITY),
       className: getClassNameColor(STAT.AGILITY),
-      get avg() {
-        return agiModule.sheet._avgStats.agility - BASE_AGI;
-      },
+      statName: STAT.AGILITY,
       get gain() { 
         return [
           { name: <><SpellLink id={SPELLS.GIFT_OF_THE_OX_1.id} /> Healing</>, amount: agiModule.totalAgiHealing },

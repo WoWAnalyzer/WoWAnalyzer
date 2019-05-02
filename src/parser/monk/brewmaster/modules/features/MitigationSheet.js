@@ -18,6 +18,7 @@ import GiftOfTheOx from '../spells/GiftOfTheOx';
 import MasteryValue from '../core/MasteryValue';
 import Stagger from '../core/Stagger';
 import { diminish, lookupK } from '../constants/Mitigation';
+import { BASE_AGI } from '../../constants';
 
 function formatGain(gain) {
   if(typeof gain === 'number') {
@@ -92,7 +93,6 @@ export default class MitigationSheet extends Analyzer {
   versDamageMitigated = 0;
   versHealing = 0;
 
-  static statsToAvg = ['agility', 'armor', 'versatility', 'mastery', 'crit'];
   _lastStatUpdate = null;
   _avgStats = {};
 
@@ -123,10 +123,6 @@ export default class MitigationSheet extends Analyzer {
     super(...args);
 
     this._lastStatUpdate = this.owner.fight.start_time;
-    this._avgStats = MitigationSheet.statsToAvg.reduce((obj, stat) => {
-      obj[stat] = this.stats._pullStats[stat];
-      return obj;
-    }, {});
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this._onCritHeal);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this._onHealVers);
@@ -191,7 +187,10 @@ export default class MitigationSheet extends Analyzer {
 
     const stats = event.before;
 
-    MitigationSheet.statsToAvg.forEach(stat => {
+    this.statsToAvg.forEach(stat => {
+      if(this._avgStats[stat] === undefined) {
+        this._avgStats[stat] = 0;
+      }
       this._avgStats[stat] += stats[stat] * timeDelta;
     });
   }
@@ -202,7 +201,10 @@ export default class MitigationSheet extends Analyzer {
 
     const stats = this.stats._currentStats;
 
-    MitigationSheet.statsToAvg.forEach(stat => {
+    this.statsToAvg.forEach(stat => {
+      if(this._avgStats[stat] === undefined) {
+        this._avgStats[stat] = 0;
+      }
       this._avgStats[stat] += stats[stat] * timeDelta;
       this._avgStats[stat] /= this.owner.fightDuration;
     });
@@ -238,7 +240,7 @@ export default class MitigationSheet extends Analyzer {
         ),
         name: 'Armor',
         className: 'stat-stamina',
-        avg: this._avgStats.armor,
+        statName: 'armor',
         gain: [
           { name: 'Physical Damage Mitigated', amount: this.armorDamageMitigated },
         ],
@@ -258,7 +260,7 @@ export default class MitigationSheet extends Analyzer {
         ),
         name: 'Weapon DPS',
         className: 'stat-criticalstrike',
-        avg: this.gotox._wdps,
+        statAmount: this.gotox._wdps,
         gain: [
           { name: <><SpellLink id={SPELLS.GIFT_OF_THE_OX_1.id} /> Healing</>, amount: this.wdpsHealing },
         ],
@@ -269,7 +271,7 @@ export default class MitigationSheet extends Analyzer {
         icon: makeIcon(STAT.MASTERY),
         name: getName(STAT.MASTERY),
         className: getClassNameColor(STAT.MASTERY),
-        avg: this._avgStats.mastery,
+        statName: STAT.MASTERY,
         gain: [
           { name: <><SpellLink id={SPELLS.GIFT_OF_THE_OX_1.id} /> Healing</>, amount: this.masteryHealing },
           {
@@ -288,7 +290,7 @@ export default class MitigationSheet extends Analyzer {
         icon: makeIcon(STAT.VERSATILITY),
         name: getName(STAT.VERSATILITY),
         className: getClassNameColor(STAT.VERSATILITY),
-        avg: this._avgStats.versatility,
+        statName: STAT.VERSATILITY,
         gain: [
           { name: 'Damage Mitigated', amount: this.versDamageMitigated },
           { name: 'Additional Healing', amount: this.versHealing },
@@ -300,7 +302,7 @@ export default class MitigationSheet extends Analyzer {
         icon: makeIcon(STAT.CRITICAL_STRIKE),
         name: getName(STAT.CRITICAL_STRIKE),
         className: getClassNameColor(STAT.CRITICAL_STRIKE),
-        avg: this._avgStats.crit,
+        statName: 'crit', // consistently inconsistent
         gain: [
           { name: <><SpellLink id={SPELLS.CELESTIAL_FORTUNE_HEAL.id} /> Healing</>, amount: this.cf.critBonusHealing },
           { name: 'Critical Heals', amount: this._critBonusHealing },
@@ -323,11 +325,30 @@ export default class MitigationSheet extends Analyzer {
     return safeMerge(this.baseResults, this._registeredResults);
   }
 
+  get statsToAvg() {
+    return Object.values(this.results)
+      .filter(obj => obj.statName !== undefined)
+      .map(({statName}) => statName);
+  }
+
+  avg(stat) {
+    return this._avgStats[stat];
+  }
+
   statEntries() {
     return Object.entries(this.results)
       .sort(([_keyA, resultA], [_keyB, resultB]) => resultA.priority - resultB.priority)
       .map(([stat, result]) => {
-        const { increment, icon, className, avg, name, gain, tooltip } = result;
+        const { increment, icon, className, name, statName, statAmount, gain, tooltip } = result;
+
+        // some stats are fixed (WDPS). others are calculated via
+        // averaging
+        let avg = statAmount ? statAmount : this.avg(statName);
+        // not sure its worth introducing a "base" parameter when
+        // literally only agi would use it
+        if(statName === 'agility') {
+          avg -= BASE_AGI;
+        }
 
         const totalGain = calculateTotalGain(gain);
 
