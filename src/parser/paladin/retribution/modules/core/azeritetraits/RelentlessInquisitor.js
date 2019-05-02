@@ -5,9 +5,11 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatNumber, formatPercentage } from 'common/format';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import StatTracker from 'parser/shared/modules/StatTracker';
-
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
+import HasteIcon from 'interface/icons/Haste';
+import UptimeIcon from 'interface/icons/Uptime';
 import RelentlessInquisitorStackHandler from './RelentlessInquisitorStackHandler';
 
 const relentlessInquisitorStats = traits => Object.values(traits).reduce((obj, rank) => {
@@ -79,17 +81,16 @@ class RelentlessInquisitor extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
-        trait={SPELLS.RELENTLESS_INQUISITOR.id}
-        value={(
-          <>
-            {formatPercentage(this.totalBuffUptime)}% uptime.<br />
-            {formatNumber(this.averageStatGain)} average Haste.
-          </>
-        )}
+      <AzeritePowerStatistic
+        size="flexible"
         tooltip={`You had an average of ${formatNumber(this.averageStacks)} stacks throughout the fight`}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.RELENTLESS_INQUISITOR}>
+        <UptimeIcon /> {formatPercentage(this.totalBuffUptime)}% <small>uptime</small>
+        <br />
+        <HasteIcon /> {formatNumber(this.averageStatGain)} <small>average Haste gained</small>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }

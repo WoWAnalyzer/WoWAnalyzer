@@ -2,8 +2,10 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SPELLS from 'common/SPELLS';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
-import { formatDuration, formatNumber, formatPercentage } from 'common/format';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import { formatNumber, formatPercentage } from 'common/format';
+import SpellIcon from 'common/SpellIcon';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
 
 const AW_BASE_DURATION = 20;
 const CRUSADE_BASE_DURATION = 25;
@@ -18,14 +20,16 @@ class LightsDecree extends Analyzer {
 	};
 
   baseDuration = AW_BASE_DURATION;
+  hasCrusade = false;
 
  	constructor(...args) {
  		super(...args);
- 		this.active = this.selectedCombatant.hasTrait(SPELLS.LIGHTS_DECREE.id);
+    this.active = this.selectedCombatant.hasTrait(SPELLS.LIGHTS_DECREE.id);
+    this.hasCrusade = this.selectedCombatant.hasTalent(SPELLS.CRUSADE_TALENT.id);
  		if (!this.active) {
  			return;
  		}
- 		if (this.selectedCombatant.hasTalent(SPELLS.CRUSADE_TALENT.id)) {
+ 		if (this.hasCrusade) {
  			this.baseDuration = CRUSADE_BASE_DURATION;
  		}
  	}
@@ -54,18 +58,22 @@ class LightsDecree extends Analyzer {
   statistic() {
     const damageThroughputPercent = this.owner.getPercentageOfTotalDamageDone(this.damageDone);
     const dps = this.damageDone / this.owner.fightDuration * 1000;
+    const spellId = this.hasCrusade ? SPELLS.CRUSADE_TALENT.id : SPELLS.AVENGING_WRATH.id;
     return (
-      <TraitStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
-        trait={SPELLS.LIGHTS_DECREE.id}
-        value={(
-          <>
-            {formatPercentage(damageThroughputPercent)} % / {formatNumber(dps)} DPS <br />
-            {formatDuration(this.totalDurationIncrease)} Total Duration Increase
-          </>
-        )}
+      <AzeritePowerStatistic
+        size="flexible"
         tooltip={`Damage done: ${formatNumber(this.damageDone)}`}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.LIGHTS_DECREE}>
+        <img
+          src="/img/sword.png"
+          alt="Damage"
+          className="icon"
+        /> {formatNumber(dps)} DPS <small>{formatPercentage(damageThroughputPercent)} % of total</small>
+          <br />
+          <SpellIcon id={spellId} /> +{formatNumber(this.totalDurationIncrease)} seconds
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
  	}
 }

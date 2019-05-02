@@ -97,7 +97,7 @@ export default class MitigationSheet extends Analyzer {
   _avgStats = {};
 
   get masteryDamageMitigated() {
-    return this.masteryValue.expectedMitigation;
+    return this.masteryValue.expectedMitigation - this.masteryValue.noMasteryExpectedMitigation;
   }
 
   get masteryHealing() {

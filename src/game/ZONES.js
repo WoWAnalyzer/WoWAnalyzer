@@ -7,6 +7,29 @@
 
 const ZONES = [
   {
+    "id": 22,
+    "name": "Crucible of Storms",
+    "frozen": false,
+    "encounters": [
+      {
+        "id": 2269,
+        "name": "The Restless Cabal",
+        "npcID": 146497
+      },
+      {
+        "id": 2273,
+        "name": "Uu'nat, Harbinger of the Void",
+        "npcID": 145371
+      }
+    ],
+    "brackets": {
+      "min": 370,
+      "max": 427,
+      "bucket": 3,
+      "type": "Item Level"
+    }
+  },
+  {
     "id": 21,
     "name": "Battle of Dazar'alor",
     "encounters": [
@@ -56,6 +79,23 @@ const ZONES = [
         "npcID": 146416
       }
     ],
+    "brackets": {
+      "min": 370,
+      "max": 427,
+      "bucket": 3,
+      "type": "Item Level"
+    },
+    "partitions": [
+      {
+        "name": "8.1",
+        "compact": "8.1"
+      },
+      {
+        "name": "8.1.5",
+        "compact": "8.1.5",
+        "default": true
+      }
+    ]
   },
   {
     "id": 19,

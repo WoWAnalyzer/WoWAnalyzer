@@ -4,9 +4,8 @@ import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import { formatDuration, formatNumber } from 'common/format';
 import { calculatePrimaryStat } from 'common/stats';
-import ItemLink from 'common/ItemLink';
-import Statistic from 'interface/statistics/Statistic';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import ItemStatistic from 'interface/statistics/ItemStatistic';
+import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import IntellectIcon from 'interface/icons/Intellect';
 import Analyzer from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
@@ -36,6 +35,8 @@ const BASE_INTELLECT_PER_STACK = 12;
  *
  * The initial buff shows in the log (and changebuffstack fabricated events) as a "1 stack" buff.
  * The log shows the correct stack count once it has been lowered from that initial value.
+ * 
+ * Test Log: /report/ABH7D8W1Qaqv96mt/2-Mythic+Taloc+-+Kill+(4:12)/Bjørgx/statistics
  */
 class BalefireBranch extends Analyzer {
   static dependencies = {
@@ -170,8 +171,7 @@ class BalefireBranch extends Analyzer {
     const expectedIntellectWithoutDamage = this.intellectPerStack * (this.expectedSumStacks / (this.owner.fightDuration / 1000));
 
     return (
-      <Statistic
-        category={STATISTIC_CATEGORY.ITEMS}
+      <ItemStatistic
         size="flexible"
         tooltip={(
           <>
@@ -181,14 +181,10 @@ class BalefireBranch extends Analyzer {
           </>
         )}
       >
-        <div className="pad">
-          <label><ItemLink id={ITEMS.BALEFIRE_BRANCH.id} details={this._item} /></label>
-
-          <div className="value" style={{ marginTop: 15 }}>
-            <IntellectIcon /> {formatNumber(this.averageIntellect)} <small>average Intellect gained</small>
-          </div>
-        </div>
-      </Statistic>
+        <BoringItemValueText item={ITEMS.BALEFIRE_BRANCH}>
+          <IntellectIcon /> {formatNumber(this.averageIntellect)} <small>average Intellect gained</small>
+        </BoringItemValueText>
+      </ItemStatistic>
     );
   }
 }

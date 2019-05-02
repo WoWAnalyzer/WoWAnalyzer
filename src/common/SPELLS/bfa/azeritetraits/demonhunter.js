@@ -16,6 +16,16 @@ export default {
     name: 'Furious Gaze',
     icon: 'ability_demonhunter_eyebeam',
   },
+  EYES_OF_RAGE: {
+    id: 278500,
+    name: 'Eyes of Rage',
+    icon: 'spell_warlock_soulburn',
+  },
+  CHAOTIC_TRANSFORMATION: {
+    id: 288754,
+    name: 'Chaotic Transformation',
+    icon: 'ability_demonhunter_glide',
+  },
 
   //Shared
 

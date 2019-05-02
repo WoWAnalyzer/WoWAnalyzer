@@ -69,10 +69,8 @@ class DemonBite extends Analyzer{
         position={STATISTIC_ORDER.OPTIONAL(6)}
         value={(
           <>
-            <span style={{ fontSize: '75%' }}>
-              {this.furyPerMin} Fury per min <br />
+              {this.furyPerMin} <small>Fury per min</small> <br />
               {this.owner.formatItemDamageDone(this.damage)}
-            </span>
           </>
         )}
         tooltip={(

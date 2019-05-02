@@ -309,7 +309,7 @@ export default {
   },
   EYE_BEAM: {
     id: 198013,
-    name: 'I AM MY SCARS!!',
+    name: 'Eye Beam',
     icon: 'ability_demonhunter_eyebeam',
   },
   EYE_BEAM_DAMAGE: {
@@ -323,7 +323,7 @@ export default {
     icon: 'inv_glaive_1h_artifactazgalor_d_01',
   },
   CONSUME_MAGIC: {
-    id: 278236,
+    id: 278326,
     name: 'Consume Magic',
     icon: 'spell_misc_zandalari_council_soulswap',
   },

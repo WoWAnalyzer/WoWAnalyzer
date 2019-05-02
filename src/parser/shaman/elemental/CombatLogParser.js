@@ -4,6 +4,7 @@ import Abilities from './modules/Abilities';
 import Overload from './modules/features/Overload';
 
 import FlameShock from './modules/core/FlameShock';
+import LavaSurge from './modules/core/LavaSurge';
 import StormFireElemental from './modules/features/StormFireElemental';
 
 import Aftershock from './modules/talents/Aftershock';
@@ -20,6 +21,7 @@ import TotemMastery from './modules/talents/TotemMastery';
 import UnlimitedPower from './modules/talents/UnlimitedPower';
 import UnlimitedPowerTimesByStacks from './modules/talents/UnlimitedPowerTimesByStacks';
 import Checklist from './modules/checklist/Module';
+import Buffs from './modules/Buffs';
 
 import EchoOfTheElementals from './modules/azerite/EchoOfTheElementals';
 import LavaShock from './modules/azerite/LavaShock';
@@ -42,8 +44,10 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     abilities: Abilities,
     flameShock: FlameShock,
+    lavaSurge: LavaSurge,
     overload: Overload,
     stormfireElemental: StormFireElemental,
+    buffs: Buffs,
 
     // Talents
     aftershock: Aftershock,

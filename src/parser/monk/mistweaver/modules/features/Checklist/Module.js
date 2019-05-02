@@ -16,6 +16,7 @@ import Lifecycles from '../../talents/Lifecycles';
 import ThunderFocusTea from '../../spells/ThunderFocusTea';
 import EssenceFontMastery from '../EssenceFontMastery';
 import RenewingMistDuringManaTea from '../../talents/RenewingMistDuringManaTea';
+import SpinningCraneKick from '../../spells/SpinningCraneKick';
 import Vivify from '../../spells/Vivify';
 import JadeSerpentStatue from '../../talents/JadeSerpentStatue';
 
@@ -37,6 +38,7 @@ class Checklist extends BaseChecklist {
     thunderFocusTea: ThunderFocusTea,
     essenceFontMastery: EssenceFontMastery,
     renewingMistDuringManaTea: RenewingMistDuringManaTea,
+    spinningCraneKick: SpinningCraneKick,
     vivify: Vivify,
     jadeSerpentStatue: JadeSerpentStatue,
   };
@@ -58,13 +60,13 @@ class Checklist extends BaseChecklist {
           spiritOfTheCrane: this.spiritOfTheCrane.suggestionThresholds,
           manaTea: this.manaTea.suggestionThresholds,
           manaTeaOverhealing: this.manaTea.suggestionThresholdsOverhealing,
+          spinningCraneKick: this.spinningCraneKick.suggestionThresholds,
           lifecycles: this.lifecycles.suggestionThresholds,
           thunderFocusTea: this.thunderFocusTea.suggestionThresholds,
           essenceFontMastery: this.essenceFontMastery.suggestionThresholds,
           renewingMistDuringManaTea: this.renewingMistDuringManaTea.suggestionThresholds,
           vivify: this.vivify.suggestionThresholds,
           jadeSerpentStatue: this.jadeSerpentStatue.suggestionThresholds,
-
         }}
       />
     );

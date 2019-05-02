@@ -7,12 +7,14 @@ import SPELLS from 'common/SPELLS/index';
 import ITEMS from 'common/ITEMS/index';
 
 import Analyzer from 'parser/core/Analyzer';
+import ItemStatistic from 'interface/statistics/ItemStatistic';
+import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
+import CritIcon from 'interface/icons/CriticalStrike';
+import MasteryIcon from 'interface/icons/Mastery';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Combatants from 'parser/shared/modules/Combatants';
-import StatisticBox from 'interface/others/StatisticBox';
-import ItemIcon from 'common/ItemIcon';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 
+//Example Log: https://www.warcraftlogs.com/reports/aKt8mRhVFZ6x7yrD#fight=1&type=damage-done&source=14
 
 class IncandescentSliver extends Analyzer {
   critRating = 0;
@@ -56,7 +58,7 @@ class IncandescentSliver extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.INCANDESCENT_BRILLIANCE.id)/this.owner.fightDuration;
   }
 
-  item() {
+  statistic() {
     const playersWithTrinket = [];
     Object.keys(this.combatants.players).forEach((key) => {
       const player = this.combatants.players[key];
@@ -65,18 +67,15 @@ class IncandescentSliver extends Analyzer {
       }
     });
     return (
-      <StatisticBox
-        icon={<ItemIcon id={ITEMS.INCANDESCENT_SLIVER.id} />}
-        value={(
-          <>
-            {formatNumber(this.averageCritRating)} average Crit
-            <br />
-            {formatNumber(this.averageMasteryRating)} average Mastery
-          </>
-        )}
-        label="Incandescent Sliver"
+      <ItemStatistic
+        size="flexible"
         tooltip={`The following players also had this trinket equipped: ${playersWithTrinket.map(player => ` ${player._combatantInfo.name} (${player.spec.className})`)}.`}
-        category={STATISTIC_CATEGORY.ITEMS} />
+      >
+        <BoringItemValueText item={ITEMS.INCANDESCENT_SLIVER}>
+          <CritIcon /> {formatNumber(this.averageCritRating)} <small>average Critical Strike</small> <br />
+          <MasteryIcon /> {formatNumber(this.averageMasteryRating)} <small>average Mastery</small>
+        </BoringItemValueText>
+      </ItemStatistic>
     );
   }
 }
