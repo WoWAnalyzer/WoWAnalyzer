@@ -5,6 +5,18 @@
  */
 
 const SHARED = [
+  // CRUCIBLE OF STORMS
+  282743, // Cabal, Storm of Annihilation (Crown effect)
+  295479, // Uu'nat, Touch of the End
+  // BOD
+  288806, // Mekkatorque, Gigavolt Blast
+  286646, // Mekkatorque, Gigavolt Charge
+  289648, // Mekkatorque (Spark Bot), Spark Shield -- RJW causes a bunch of events for this. not much you can do to avoid it
+  288939, // Mekkatorque, Gigavolt Radiation
+  284831, // Rastakhan, Scorching Detonation -- DoT
+  285195, // Rastakhan, Deadly Withering
+  285000, // Stormwall, Kelp-Wrapped
+  287993, // Jaina, Chilling Touch
   // ULDIR
   266948, // Vectis, Plague Bomb (intermission soak)
   // ANTORUS
