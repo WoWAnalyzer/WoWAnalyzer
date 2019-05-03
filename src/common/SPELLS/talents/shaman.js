@@ -58,7 +58,7 @@ export default {
   // Restoration
   TORRENT_TALENT: { id: 200072, name: 'Torrent', icon: 'spell_nature_riptide' },
   UNDULATION_TALENT: { id: 200071, name: 'Undulation', icon: 'spell_nature_healingwavelesser' },
-  UNLEASH_LIFE_TALENT: { id: 73685, name: 'Unleash Life', icon: 'spell_shaman_unleashweapon_life', manaCost: 1000 },
+  UNLEASH_LIFE_TALENT: { id: 73685, name: 'Unleash Life', icon: 'spell_shaman_unleashweapon_life', manaCost: 800 },
   DELUGE_TALENT: { id: 200076, name: 'Deluge', icon: 'ability_shawaterelemental_reform' },
   EARTHGRAB_TOTEM_TALENT: { id: 51485, name: 'Earthgrab Totem', icon: 'spell_nature_stranglevines', manaCost: 2000 },
   ANCESTRAL_VIGOR_TALENT: { id: 207401, name: 'Ancestral Vigor', icon: 'spell_shaman_blessingoftheeternals' },
