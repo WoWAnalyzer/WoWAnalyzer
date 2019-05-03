@@ -137,7 +137,7 @@ class EarlyDotRefreshes extends Analyzer {
 
   // Get the suggestion for last bad cast. If empty, cast will be considered good.
   getLastBadCastText(event, dot) {
-    return `${dot.name} was refreshed ${formatDuration(this.lastCastMinWaste/1000)} seconds before the pandemic window.`;
+    return `${dot.name} was refreshed ${formatDuration(this.lastCastMinWaste/1000)} seconds before the pandemic window. It should be refreshed with at most ${formatDuration(PANDEMIC_WINDOW * dot.duration/1000)} left or part of the dot will be wasted.`;
   }
 
   //Returns the dot object
@@ -166,7 +166,7 @@ class EarlyDotRefreshes extends Analyzer {
     const newDuration = remainingDuration + extension;
     const maxDuration = (1 + PANDEMIC_WINDOW) * dot.duration;
     const lostDuration = maxDuration - newDuration;
-    if (lostDuration < 0) { //full extension
+    if (lostDuration <= 0) { //full extension
       this.targets[dot.debuffId][targetID] = timestamp + newDuration;
       return {wasted: 0, effective: extension};
     } // Else not full extension
