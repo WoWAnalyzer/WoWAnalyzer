@@ -497,6 +497,11 @@ export default {
     name: 'Broadside',
     icon: 'ability_rogue_rollthebones06',
   },
+  BLADE_RUSH_TALENT_BUFF: { // This is the energy gain buff
+    id: 271896, 
+    name: 'Blade Rush', 
+    icon: 'ability_arakkoa_spinning_blade',
+  },
 
 
   //Procs
@@ -514,5 +519,10 @@ export default {
     id: 86392,
     name: 'Main Gauche',
     icon: 'inv_weapon_shortblade_15',
+  },
+  OPPORTUNITY: {
+    id: 195627,
+    name: 'Opportunity',
+    icon: 'ability_rogue_pistolshot',
   },
 };
