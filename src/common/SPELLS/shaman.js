@@ -809,4 +809,9 @@ export default {
     icon: 'spell_shaman_hightide',
     coefficient: 1.68,
   },
+  LAVA_BURST_DAMAGE: {
+    id: 285452,
+    name: 'Lava Burst',
+    icon: 'spell_shaman_lavaburst',
+  },
 };
