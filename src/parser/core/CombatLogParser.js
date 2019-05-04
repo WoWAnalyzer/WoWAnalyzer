@@ -142,6 +142,8 @@ import DiscOfSystematicRegression from '../shared/modules/items/bfa/raids/uldir/
 import WardOfEnvelopment from '../shared/modules/items/bfa/raids/bod/WardOfEnvelopment';
 import CrestOfPaku from '../shared/modules/items/bfa/raids/bod/CrestOfPaku';
 import IncandescentSliver from '../shared/modules/items/bfa/raids/bod/IncandescentSliver';
+// Crucible of Storms
+import TridentOfDeepOcean from '../shared/modules/items/bfa/raids/crucibleofstorms/TridentOfDeepOcean';
 
 import ParseResults from './ParseResults';
 import EventsNormalizer from './EventsNormalizer';
@@ -294,6 +296,9 @@ class CombatLogParser {
     wardOfEnvelopment: WardOfEnvelopment,
     crestOfPaku: CrestOfPaku,
     incandescentSliver: IncandescentSliver,
+
+    // Crucible of Storms
+    tridentOfDeepOcean: TridentOfDeepOcean,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
@@ -361,8 +366,15 @@ class CombatLogParser {
   }
   finish() {
     this.finished = true;
+    /** @var {EventEmitter} */
     const emitter = this.getModule(EventEmitter);
-    console.log('Called listeners', emitter._listenersCalled, 'times, with', emitter._actualExecutions, 'actual executions.', emitter._listenersCalled - emitter._actualExecutions, 'events were filtered away');
+    console.log(
+      'Events triggered:', emitter.numTriggeredEvents,
+      'Event listeners added:', emitter.numEventListeners,
+      'Listeners called:', emitter.numListenersCalled,
+      'Listeners called (after filters):', emitter.numActualExecutions,
+      'Listeners filtered away:', emitter.numListenersCalled - emitter.numActualExecutions
+    );
   }
 
   _getModuleClass(config) {

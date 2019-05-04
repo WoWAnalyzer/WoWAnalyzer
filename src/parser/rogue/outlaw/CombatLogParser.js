@@ -3,6 +3,7 @@ import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent'
 
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
+import Buffs from './modules/Buffs';
 import SpellUsable from '../shared/SpellUsable';
 
 import ComboPointDetails from '../shared/resources/ComboPointDetails';
@@ -26,6 +27,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Feature
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
+    buffs: Buffs,
     spellUsable: SpellUsable,
 
     //Resource

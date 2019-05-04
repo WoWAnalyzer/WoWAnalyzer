@@ -710,6 +710,11 @@ export default {
     name: 'Ascendance',
     icon: 'spell_fire_elementaldevastation',
   },
+  ASCENDANCE_INITIAL_HEAL: {
+    id: 294020,
+    name: 'Ascendance',
+    icon: 'spell_fire_elementaldevastation',
+  },
   SPIRIT_LINK_TOTEM: {
     id: 98008,
     name: 'Spirit Link Totem',
@@ -808,5 +813,10 @@ export default {
     name: 'High Tide',
     icon: 'spell_shaman_hightide',
     coefficient: 1.68,
+  },
+  LAVA_BURST_DAMAGE: {
+    id: 285452,
+    name: 'Lava Burst',
+    icon: 'spell_shaman_lavaburst',
   },
 };
