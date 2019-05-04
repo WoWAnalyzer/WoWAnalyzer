@@ -23,7 +23,7 @@ class RollTheBonesCounter extends Analyzer {
     const castTracker = this.rollTheBonesCastTracker;
     
     const distributionObj = castTracker.rolltheBonesCastEvents.reduce((buffCount, cast) => {
-      buffCount[cast.appliedBuffEvents.length] = (buffCount[cast.appliedBuffEvents.length] || 0) + 1;
+      buffCount[cast.appliedBuffs.length] = (buffCount[cast.appliedBuffs.length] || 0) + 1;
       return buffCount;
     }, { });
 

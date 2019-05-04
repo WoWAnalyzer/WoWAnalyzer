@@ -4,6 +4,7 @@ import Analyzer from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 
+import EnergyCapTracker from '../../../shared/resources/EnergyCapTracker'; // todo use the outlaw cap tracker once available
 import { ROLL_THE_BONES_BUFFS } from '../../constants';
 
 // e.g. 1 combo point is 12 seconds, 3 combo points is 24 seconds
@@ -18,7 +19,6 @@ const PANDEMIC_WINDOW = 0.3;
  * Roll the Bones itself will have AURA_APPLIED, AURA_REFRESH, and AURA_REMOVED events
  * Buffs granted by RTB will not have their own AURA_REFRESH; only the AURA_APPLIED and AURA_REMOVED events
  * Buffs granted by RTB will not have an AURA_REMOVED nor an AURA_APPLIED if they are being refreshed. They just carry on
- * This means tracking which buffs are part of which cast gets a little complicated
  * 
  * Order of events when you cast Roll the Bones:
  * AURA_REMOVED for any granted buffs that are dropping off (only if this is a refresh, otherwise they'd just have a separate AURA_REMOVED prior to the cast)
@@ -27,6 +27,10 @@ const PANDEMIC_WINDOW = 0.3;
  * CAST_SUCCESS for Roll the Bones 
  */
 class RollTheBonesCastTracker extends Analyzer {
+  static dependencies = {
+    energyCapTracker: EnergyCapTracker,
+  };
+
   constructor(...args) {
     super(...args);
     this.active = !this.selectedCombatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id);
@@ -34,16 +38,8 @@ class RollTheBonesCastTracker extends Analyzer {
       return;
     }
 
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ROLL_THE_BONES), this.addEvent);
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ROLL_THE_BONES), this.addEvent);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ROLL_THE_BONES), this.processEvents);
-
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(ROLL_THE_BONES_BUFFS), this.addEvent);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(ROLL_THE_BONES_BUFFS), this.addEvent);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ROLL_THE_BONES), this.processCast);
   }
-
-  // collect all of the AURA_ events in this buffer, and then process them with each CAST_SUCCESS
-  _eventBuffer = [];
 
   rolltheBonesCastEvents = [];
 
@@ -52,34 +48,13 @@ class RollTheBonesCastTracker extends Analyzer {
 
   get lastCast(){
     return this.rolltheBonesCastEvents[this.rolltheBonesCastEvents.length-1];
-  }  
-
-  get bufferRefreshEvent(){
-    return this._eventBuffer.find(event => event.type === 'refreshbuff');
-  }
-
-  get bufferRemovedBuffEvents(){
-    return this._eventBuffer.filter(event => event.type === 'removebuff');
-  }
-
-  get bufferAppliedBuffEvents(){
-    return this._eventBuffer.filter(event => event.type === 'applybuff' && event.ability.guid !== SPELLS.ROLL_THE_BONES.id);
-  }
-
-  addEvent(event){
-    this._eventBuffer.push(event);
-  }
-
-  addCast(cast){
-    this.rolltheBonesCastEvents.push(cast);
-    this.rolltheBonesCastValues[this.categorizeCast(cast)].push(cast);
-  }
+  } 
 
   categorizeCast(cast){
-    if(cast.appliedBuffEvents.some(buff => buff.ability.guid === SPELLS.RUTHLESS_PRECISION.id || buff.ability.guid === SPELLS.GRAND_MELEE.id)){
+    if(cast.appliedBuffs.some(buff => buff.id === SPELLS.RUTHLESS_PRECISION.id || buff.id === SPELLS.GRAND_MELEE.id)){
       return 'high';
     }
-    else if(cast.appliedBuffEvents.length > 1){
+    else if(cast.appliedBuffs.length > 1){
       return 'mid';
     }
     
@@ -94,14 +69,16 @@ class RollTheBonesCastTracker extends Analyzer {
     return cast.duration - (cast.timestampEnd - cast.timestamp);
   }
 
-  processEvents(event){
+  processCast(event){
     if(!event || !event.classResources){
       return;
     }
     const cpCost = getResource(event.classResources, RESOURCE_TYPES.COMBO_POINTS.id).cost;
-    const refresh = this.bufferRefreshEvent !== undefined;
+    const refresh = this.lastCast ? event.timestampStart < (this.lastCast.timestampStart + this.lastCast.duration) : false;
 
-    let appliedBuffEvents = this.bufferAppliedBuffEvents;
+    // All of the events for adding/removing buffs occur at the same timestamp as the cast, so this.selectedCombatant.hasBuff isn't quite accurate
+    const appliedBuffs = ROLL_THE_BONES_BUFFS.filter(b => this.energyCapTracker.combatantHasBuffActive(b.id));
+
     let duration = ROLL_THE_BONES_BASE_DURATION + (ROLL_THE_BONES_CP_DURATION * cpCost);
 
     // If somehow logging starts in the middle of combat and the first cast is actually a refresh, pandemic timing and previous buffs will be missing
@@ -112,22 +89,17 @@ class RollTheBonesCastTracker extends Analyzer {
       // the allowed pandemic amount is based on the CURRENT combo points, not the buff/dot that is already applied
       // e.g. 1s remaining, refresh with 30s, final is 31s. 20s remaining, refresh with 30s, final is 39s
       duration += Math.min(this.castRemainingDuration(this.lastCast), duration * PANDEMIC_WINDOW);
-
-      // Since this is a refresh, we want to include any buffs that were applied in the last cast, but not removed by this one
-      const rolledOverBuffEvents = this.lastCast.appliedBuffEvents
-        .filter(checkBuff => this.bufferRemovedBuffEvents.every(buff => buff.ability.guid !== checkBuff.ability.guid));
-      appliedBuffEvents = appliedBuffEvents.concat(rolledOverBuffEvents);
     }
 
     const newCast = {
       ...event,
-      appliedBuffEvents: appliedBuffEvents,
+      appliedBuffs: appliedBuffs,
       duration: duration,
       isRefresh: refresh,
     };
 
-    this.addCast(newCast);
-    this._eventBuffer = [];
+    this.rolltheBonesCastEvents.push(newCast);
+    this.rolltheBonesCastValues[this.categorizeCast(newCast)].push(newCast);
   }  
 }
 

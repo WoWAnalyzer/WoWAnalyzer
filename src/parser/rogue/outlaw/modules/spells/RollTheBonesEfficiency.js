@@ -7,6 +7,9 @@ import Analyzer from 'parser/core/Analyzer';
 
 import RollTheBonesCastTracker from '../features/RollTheBonesCastTracker';
 
+const MID_TIER_REFRESH_TIME = 11000;
+const HIGH_TIER_REFRESH_TIME = 3000;
+
 /**
  * Roll the Bones is pretty complex with a number of rules around when to use it. I've done my best to break this down into four main suggestions
  * Ruthless Precision and Grand Melee are the two 'good' buffs. The other four are 'bad' buffs
@@ -31,12 +34,12 @@ class RollTheBonesEfficiency extends Analyzer {
   get goodMidValueRolls(){
     // todo get the actual pandemic window. it's tricky because it's based on the next cast, and it's not really important that the player is exact anyway
     return this.rollTheBonesCastTracker.rolltheBonesCastValues.mid
-      .filter(cast => this.rollTheBonesCastTracker.castRemainingDuration(cast) > 3000 && this.rollTheBonesCastTracker.castRemainingDuration(cast) < 11000).length;
+      .filter(cast => this.rollTheBonesCastTracker.castRemainingDuration(cast) > HIGH_TIER_REFRESH_TIME && this.rollTheBonesCastTracker.castRemainingDuration(cast) < MID_TIER_REFRESH_TIME).length;
   }
 
   get goodHighValueRolls(){
     return this.rollTheBonesCastTracker.rolltheBonesCastValues.high
-      .filter(cast => this.rollTheBonesCastTracker.castRemainingDuration(cast) < 3000).length;
+      .filter(cast => this.rollTheBonesCastTracker.castRemainingDuration(cast) <= HIGH_TIER_REFRESH_TIME).length;
   }
 
   on_byPlayer_cast(event){
