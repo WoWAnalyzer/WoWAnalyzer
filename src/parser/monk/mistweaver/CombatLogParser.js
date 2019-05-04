@@ -6,12 +6,8 @@
  * Vivify or REM - Missed Vivify healing from less than 2 REMs out
  * Azerite Bonus Placeholders
  */
-
-import React from 'react';
-
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
-import Panel from 'interface/others/Panel';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
