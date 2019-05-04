@@ -18,8 +18,8 @@ class HighNoon extends Analyzer {
     statTracker: StatTracker,
   };
   /**
-   * Gives you a buff that increases your solar wrath damage by x for 8 seconds
-   * lets track how much damage you gained from it
+   * HighNoon increases the tick damage from Sunfire so lets track it and 
+   * see what % of your Sunfire damage it was
    */
 
   bonusDamage = 0;

@@ -18,8 +18,8 @@ class PowerOfTheMoon extends Analyzer {
     statTracker: StatTracker,
   };
   /**
-   * Gives you a buff that increases your solar wrath damage by x for 8 seconds
-   * lets track how much damage you gained from it
+   * Power Of The Moon increases the tick damage from Moonfire so lets track it and 
+   * see what % of your Moonfire damage it was
    */
 
   bonusDamage = 0;
