@@ -53,34 +53,37 @@ class RollTheBonesEfficiency extends Analyzer {
     }
   }
 
-  // Percentage of bad rolls that weren't rerolled right away, meaning a different finisher was cast first
-  // Inverted to make all three suggestions consistent
-  get lowValueRoll(){
-    return {
-      pass: this.rollTheBonesCastTracker.rolltheBonesCastValues.low.length - this.delayedLowValueRolls,
-      total: this.rollTheBonesCastTracker.rolltheBonesCastValues.low.length,
-    };
+  get rollSuggestions(){
+    const rtbCastValues = this.rollTheBonesCastTracker.rolltheBonesCastValues;
+    return [
+      // Percentage of low rolls that weren't rerolled right away, meaning a different finisher was cast first
+      // Inverted to make all three suggestions consistent
+      {
+        label: 'low value',
+        pass: rtbCastValues.low.length - this.delayedLowValueRolls,
+        total: rtbCastValues.low.length,
+        extraSuggestion: <>If you roll a single buff and it's not one of the two highest value, try to reroll it as soon as you can.</>,
+      },
+      // Percentage of mid rolls that were rerolled at or below pandemic, but above 3 seconds
+      {
+        label: 'mid value',
+        pass: this.goodMidValueRolls,
+        total: rtbCastValues.mid.length,
+        extraSuggestion: <>If you roll two buffs and neither is one of the two highest value, try to reroll them once you reach the pandemic window, at about 9-10 seconds remaining.</>,
+      },
+      // Percentage of good rolls that were rerolled below 3 seconds
+      {
+        label: 'high value',
+        pass: this.goodHighValueRolls,
+        total: rtbCastValues.high.length,
+        extraSuggestion: <>If you ever roll one of the two highest value buffs (especially with a 5 buff roll!), try to leave the buff active as long as possible, refreshing with less than 3 seconds remaining.</>,
+      },
+    ];
   }
 
-  // Percentage of ok rolls that were rerolled at or below pandemic, but above 3 seconds
-  get midValueRoll(){
+  rollSuggestionThreshold(suggestion){
     return {
-      pass: this.goodMidValueRolls,
-      total: this.rollTheBonesCastTracker.rolltheBonesCastValues.mid.length,
-    };
-  }
-
-  // Percentage of good rolls that were rerolled below 3 seconds
-  get highValueRoll(){
-    return {
-      pass: this.goodHighValueRolls,
-      total: this.rollTheBonesCastTracker.rolltheBonesCastValues.high.length,
-    };
-  }
-
-  suggestionThreshold(value){
-    return {
-      actual: value.total === 0 ? 1 : value.pass / value.total,
+      actual: suggestion.total === 0 ? 1 : suggestion.pass / suggestion.total,
       isLessThan: {
         minor: 1,
         average: 0.9,
@@ -90,19 +93,15 @@ class RollTheBonesEfficiency extends Analyzer {
     };
   }
 
-  rollSuggest(when, value, suggestNode){
-    when(this.suggestionThreshold(value)).addSuggestion((suggest, actual, recommended) => {
-      return suggest(suggestNode)
-        .icon(SPELLS.ROLL_THE_BONES.icon)
-        .actual(`${formatPercentage(actual)}% (${value.pass} out of ${value.total}) efficient rerolls`)
-        .recommended(`${formatPercentage(recommended)}% is recommended`);
-    });
-  }
-
   suggestions(when) {
-    this.rollSuggest(when, this.lowValueRoll, <>Your efficiency with refreshing <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> after a low value roll could be improved. <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> and <SpellLink id={SPELLS.GRAND_MELEE.id} /> are your highest value buffs from <SpellLink id={SPELLS.ROLL_THE_BONES.id} />. If you get a single buff and it's not one of those, try to reroll it as soon as you can.</>);
-    this.rollSuggest(when, this.midValueRoll, <>Your efficiency with refreshing <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> after a mid value roll could be improved. <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> and <SpellLink id={SPELLS.GRAND_MELEE.id} /> are your highest value buffs from <SpellLink id={SPELLS.ROLL_THE_BONES.id} />. If you get two buffs and neither is one of those, try to reroll them once you reach the pandemic window, at about 9-10 seconds remaining.</>);
-    this.rollSuggest(when, this.highValueRoll, <>Your efficiency with refreshing <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> after a high value roll could be improved. <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> and <SpellLink id={SPELLS.GRAND_MELEE.id} /> are your highest value buffs from <SpellLink id={SPELLS.ROLL_THE_BONES.id} />. If you ever roll one of those (especially with a 5 buff roll!), try to leave the buff active as long as possible, refreshing with less than 3 seconds remaining.</>);
+    this.rollSuggestions.forEach(suggestion => {
+      when(this.rollSuggestionThreshold(suggestion)).addSuggestion((suggest, actual, recommended) => {
+        return suggest(<>Your efficiency with refreshing <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> after a {suggestion.label} roll could be improved. <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> and <SpellLink id={SPELLS.GRAND_MELEE.id} /> are your highest value buffs from <SpellLink id={SPELLS.ROLL_THE_BONES.id} />. {suggestion.extraSuggestion || ''}</>)
+          .icon(SPELLS.ROLL_THE_BONES.icon)
+          .actual(`${formatPercentage(actual)}% (${suggestion.pass} out of ${suggestion.total}) efficient rerolls`)
+          .recommended(`${formatPercentage(recommended)}% is recommended`);
+      });
+    });
   }
 }
 

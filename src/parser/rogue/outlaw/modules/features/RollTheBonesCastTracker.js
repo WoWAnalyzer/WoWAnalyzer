@@ -74,7 +74,7 @@ class RollTheBonesCastTracker extends Analyzer {
       return;
     }
     const cpCost = getResource(event.classResources, RESOURCE_TYPES.COMBO_POINTS.id).cost;
-    const refresh = this.lastCast ? event.timestampStart < (this.lastCast.timestampStart + this.lastCast.duration) : false;
+    const refresh = this.lastCast ? event.timestamp < (this.lastCast.timestamp + this.lastCast.duration) : false;
 
     // All of the events for adding/removing buffs occur at the same timestamp as the cast, so this.selectedCombatant.hasBuff isn't quite accurate
     const appliedBuffs = ROLL_THE_BONES_BUFFS.filter(b => this.energyCapTracker.combatantHasBuffActive(b.id));
