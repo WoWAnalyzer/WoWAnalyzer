@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 import EarlyDotRefreshesCore from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshes';
-import suggest from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesSuggestion';
+import suggest from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesSuggestionByCount';
 
 const DOTS = [
   {
@@ -27,7 +27,7 @@ class EarlyDotRefreshes extends EarlyDotRefreshesCore {
   get suggestionThresholdsStellarFlare() {
     return {
       spell: SPELLS.STELLAR_FLARE_TALENT,
-      count: this.badCasts[DOTS[0].castId],
+      count: this.casts[DOTS[0].castId].badCasts,
       actual: this.badCastsPercent(DOTS[0].castId),
       isGreaterThan: {
         minor: 1 - MINOR_THRESHOLD,
