@@ -7,6 +7,12 @@ import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import EnergyCapTracker from '../../../shared/resources/EnergyCapTracker'; // todo use the outlaw cap tracker once available
 import { ROLL_THE_BONES_BUFFS } from '../../constants';
 
+export const ROLL_THE_BONES_CATEGORIES = {
+  LOW_VALUE: 'low',
+  MID_VALUE: 'mid',
+  HIGH_VALUE: 'high',
+};
+
 // e.g. 1 combo point is 12 seconds, 3 combo points is 24 seconds
 const ROLL_THE_BONES_BASE_DURATION = 6 * 1000;
 const ROLL_THE_BONES_CP_DURATION = 6 * 1000;
@@ -41,10 +47,11 @@ class RollTheBonesCastTracker extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ROLL_THE_BONES), this.processCast);
   }
 
-  rolltheBonesCastEvents = [];
-
-  // group the casts together by their relative value
-  rolltheBonesCastValues = { low: [], mid: [], high: [] };
+  rolltheBonesCastEvents = [];  
+  rolltheBonesCastValues = Object.values(ROLL_THE_BONES_CATEGORIES).reduce((map, label) => {
+    map[label] = []; 
+    return map;
+  }, {});
 
   get lastCast(){
     return this.rolltheBonesCastEvents[this.rolltheBonesCastEvents.length-1];
@@ -52,13 +59,13 @@ class RollTheBonesCastTracker extends Analyzer {
 
   categorizeCast(cast){
     if(cast.appliedBuffs.some(buff => buff.id === SPELLS.RUTHLESS_PRECISION.id || buff.id === SPELLS.GRAND_MELEE.id)){
-      return 'high';
+      return ROLL_THE_BONES_CATEGORIES.HIGH_VALUE;
     }
     else if(cast.appliedBuffs.length > 1){
-      return 'mid';
+      return ROLL_THE_BONES_CATEGORIES.MID_VALUE;
     }
     
-    return 'low';
+    return ROLL_THE_BONES_CATEGORIES.LOW_VALUE;
   }
 
   castRemainingDuration(cast){

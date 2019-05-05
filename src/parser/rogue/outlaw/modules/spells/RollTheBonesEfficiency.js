@@ -5,7 +5,7 @@ import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 
-import RollTheBonesCastTracker from '../features/RollTheBonesCastTracker';
+import RollTheBonesCastTracker, { ROLL_THE_BONES_CATEGORIES } from '../features/RollTheBonesCastTracker';
 
 const MID_TIER_REFRESH_TIME = 11000;
 const HIGH_TIER_REFRESH_TIME = 3000;
@@ -33,12 +33,12 @@ class RollTheBonesEfficiency extends Analyzer {
 
   get goodMidValueRolls(){
     // todo get the actual pandemic window. it's tricky because it's based on the next cast, and it's not really important that the player is exact anyway
-    return this.rollTheBonesCastTracker.rolltheBonesCastValues.mid
+    return this.rollTheBonesCastTracker.rolltheBonesCastValues[ROLL_THE_BONES_CATEGORIES.MID_VALUE]
       .filter(cast => this.rollTheBonesCastTracker.castRemainingDuration(cast) > HIGH_TIER_REFRESH_TIME && this.rollTheBonesCastTracker.castRemainingDuration(cast) < MID_TIER_REFRESH_TIME).length;
   }
 
   get goodHighValueRolls(){
-    return this.rollTheBonesCastTracker.rolltheBonesCastValues.high
+    return this.rollTheBonesCastTracker.rolltheBonesCastValues[ROLL_THE_BONES_CATEGORIES.HIGH_VALUE]
       .filter(cast => this.rollTheBonesCastTracker.castRemainingDuration(cast) <= HIGH_TIER_REFRESH_TIME).length;
   }
 
@@ -48,7 +48,7 @@ class RollTheBonesEfficiency extends Analyzer {
     }
 
     const lastCast = this.rollTheBonesCastTracker.lastCast;
-    if(lastCast && this.rollTheBonesCastTracker.categorizeCast(lastCast) === 'low'){
+    if(lastCast && this.rollTheBonesCastTracker.categorizeCast(lastCast) === ROLL_THE_BONES_CATEGORIES.LOW_VALUE){
       this.delayedLowValueRolls += 1;
     }
   }
@@ -60,22 +60,22 @@ class RollTheBonesEfficiency extends Analyzer {
       // Inverted to make all three suggestions consistent
       {
         label: 'low value',
-        pass: rtbCastValues.low.length - this.delayedLowValueRolls,
-        total: rtbCastValues.low.length,
+        pass: rtbCastValues[ROLL_THE_BONES_CATEGORIES.LOW_VALUE].length - this.delayedLowValueRolls,
+        total: rtbCastValues[ROLL_THE_BONES_CATEGORIES.LOW_VALUE].length,
         extraSuggestion: <>If you roll a single buff and it's not one of the two highest value, try to reroll it as soon as you can.</>,
       },
       // Percentage of mid rolls that were rerolled at or below pandemic, but above 3 seconds
       {
         label: 'mid value',
         pass: this.goodMidValueRolls,
-        total: rtbCastValues.mid.length,
+        total: rtbCastValues[ROLL_THE_BONES_CATEGORIES.MID_VALUE].length,
         extraSuggestion: <>If you roll two buffs and neither is one of the two highest value, try to reroll them once you reach the pandemic window, at about 9-10 seconds remaining.</>,
       },
       // Percentage of good rolls that were rerolled below 3 seconds
       {
         label: 'high value',
         pass: this.goodHighValueRolls,
-        total: rtbCastValues.high.length,
+        total: rtbCastValues[ROLL_THE_BONES_CATEGORIES.HIGH_VALUE].length,
         extraSuggestion: <>If you ever roll one of the two highest value buffs (especially with a 5 buff roll!), try to leave the buff active as long as possible, refreshing with less than 3 seconds remaining.</>,
       },
     ];
