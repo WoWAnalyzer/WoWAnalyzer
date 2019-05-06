@@ -52,6 +52,11 @@ export default {
     name: 'Synapse Shock',
     icon: 'spell_nature_lightning',
   },
+  IGNEOUS_POTENTIAL: {
+    id: 279829,
+    name: 'Igneous Potential',
+    icon: 'spell_shaman_lavasurge',
+  },
   // Restoration
   OVERFLOWING_SHORES_TRAIT: {
     id: 277658,
