@@ -25,7 +25,7 @@ import Buffs from './modules/Buffs';
 
 import EchoOfTheElementals from './modules/azerite/EchoOfTheElementals';
 import LavaShock from './modules/azerite/LavaShock';
-import SynapseShock from './modules/azerite/SynapseShock';
+import SynapseShock from '../shared/azerite/SynapseShock';
 
 import SpiritWolf from '../shared/talents/SpiritWolf';
 import StaticCharge from '../shared/talents/StaticCharge';
