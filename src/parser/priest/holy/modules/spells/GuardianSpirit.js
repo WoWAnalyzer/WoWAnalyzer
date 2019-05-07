@@ -25,11 +25,24 @@ class GuardianSpirit extends Analyzer {
     return this.abilityTracker.getAbility(SPELLS.GUARDIAN_SPIRIT.id).casts;
   }
 
+  get filter() {
+    return `
+    IN RANGE 
+      FROM type='applybuff' 
+          AND ability.id=${SPELLS.GUARDIAN_SPIRIT.id} 
+          AND source.name='${this.selectedCombatant.name}' 
+      TO type='removebuff' 
+          AND ability.id=${SPELLS.GUARDIAN_SPIRIT.id} 
+          AND source.name='${this.selectedCombatant.name}' 
+      GROUP BY 
+        target ON target END`;
+  }
+
   load() {
     return fetchWcl(`report/tables/healing/${this.owner.report.code}`, {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
-      filter: `IN RANGE FROM type='applybuff' AND ability.id=${SPELLS.GUARDIAN_SPIRIT.id} TO type='removebuff' AND ability.id=${SPELLS.GUARDIAN_SPIRIT.id} GROUP BY target ON target END`,
+      filter: this.filter,
     })
       .then(json => {
         this.totalHealingFromGSBuff = json.entries.reduce(
@@ -41,7 +54,6 @@ class GuardianSpirit extends Analyzer {
           0);
       });
   }
-
 
   statistic() {
     return (
