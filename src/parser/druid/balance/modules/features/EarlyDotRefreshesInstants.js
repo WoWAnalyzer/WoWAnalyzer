@@ -44,7 +44,7 @@ class EarlyDotRefreshesInstants extends CoreEarlyDotRefreshesInstants {
   get suggestionThresholdsMoonfire() {
     return {
       spell: SPELLS.MOONFIRE_BEAR,
-      count: this.badCasts[DOTS[0].castId],
+      count: this.casts[DOTS[0].castId].badCasts,
       actual: this.badCastsPercent(DOTS[0].castId),
       isGreaterThan: {
         minor: 1 - MINOR_THRESHOLD,
@@ -58,7 +58,7 @@ class EarlyDotRefreshesInstants extends CoreEarlyDotRefreshesInstants {
   get suggestionThresholdsSunfire() {
     return {
       spell: SPELLS.SUNFIRE,
-      count: this.badCasts[DOTS[1].castId],
+      count: this.casts[DOTS[1].castId].badCasts,
       actual: this.badCastsPercent(DOTS[1].castId),
       isGreaterThan: {
         minor: 1 - MINOR_THRESHOLD,

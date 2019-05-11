@@ -17,6 +17,10 @@ import EarlyDotRefreshesInstants from '../EarlyDotRefreshesInstants';
 
 import AstralPowerDetails from '../../resourcetracker/AstralPowerDetails';
 
+import DawningSun from '../../talents/azeritetraits/DawningSun';
+import HighNoon from '../../talents/azeritetraits/HighNoon';
+import PowerOfTheMoon from '../../talents/azeritetraits/PowerOfTheMoon';
+
 import Component from './Component';
 
 class Checklist extends BaseModule {
@@ -34,6 +38,9 @@ class Checklist extends BaseModule {
     earlyDotRefreshes: EarlyDotRefreshes,
     earlyDotRefreshesInstants: EarlyDotRefreshesInstants,
     astralPowerDetails: AstralPowerDetails,
+    dawningSun: DawningSun,
+    highNoon: HighNoon,
+    powerOfTheMoon: PowerOfTheMoon,
   };
 
   render() {
