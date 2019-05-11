@@ -7,6 +7,8 @@ import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/Pr
 
 import GarroteUptime from '../../spells/GarroteUptime';
 import RuptureUptime from '../../spells/RuptureUptime';
+import EarlyDotRefresh from '../../spells/EarlyDotRefresh';
+
 
 import Blindside from '../../talents/Blindside';
 
@@ -30,6 +32,7 @@ class Checklist extends BaseChecklist {
 
     garroteUptime: GarroteUptime,
     ruptureUptime: RuptureUptime,
+    earlyDotRefresh: EarlyDotRefresh,
 
     blindside: Blindside,
 
@@ -54,6 +57,8 @@ class Checklist extends BaseChecklist {
 
           garroteUptime: this.garroteUptime.suggestionThresholds,
           ruptureUptime: this.ruptureUptime.suggestionThresholds,
+          garroteEfficiency: this.earlyDotRefresh.suggestionThresholdsGarroteEfficiency,
+          ruptureEfficiency: this.earlyDotRefresh.suggestionThresholdsRuptureEfficiency,
 
           blindsideEfficiency: this.blindside.suggestionThresholds,
 

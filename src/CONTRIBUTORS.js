@@ -626,3 +626,13 @@ export const HolySchmidt = {
     link: 'https://worldofwarcraft.com/en-us/character/us/whisperwind/holyschmidt',
   }],
 };
+export const Coywolf = {
+  nickname: 'Coywolf',
+  github: 'Coywolf',
+  discord: 'Coywolf#3500',
+  mains: [{
+    name: 'Coywolf',
+    spec: SPECS.OUTLAW_ROGUE,
+    link: 'https://worldofwarcraft.com/en-us/character/us/arthas/coywolf',
+  }],
+};

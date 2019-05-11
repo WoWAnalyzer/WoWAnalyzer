@@ -58,10 +58,6 @@ class Demonic extends Analyzer{
     }
   }
 
-  get avgDeathSweepPerEyeBeam(){
-    return (this.goodDeathSweep / this.eyeBeamCasts) || 0;
-  }
-
   get suggestionThresholds() {
     return {
       actual: this.badCasts,
@@ -77,9 +73,9 @@ class Demonic extends Analyzer{
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Try to have <SpellLink id={SPELLS.BLADE_DANCE.id} /> almost off cooldwon before casting <SpellLink id={SPELLS.EYE_BEAM.id} />. This will allow for two casts of <SpellLink id={SPELLS.DEATH_SWEEP.id} /> during the <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} />  buff you get from the <SpellLink id={SPELLS.DEMONIC_TALENT.id} /> talent.</>)
+        return suggest(<>Try to have <SpellLink id={SPELLS.BLADE_DANCE.id} /> almost off cooldown before casting <SpellLink id={SPELLS.EYE_BEAM.id} />. This will allow for two casts of <SpellLink id={SPELLS.DEATH_SWEEP.id} /> during the <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} />  buff you get from the <SpellLink id={SPELLS.DEMONIC_TALENT.id} /> talent.</>)
           .icon(SPELLS.DEMONIC_TALENT.icon)
-          .actual(<>{actual} times during <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} /> <SpellLink id={SPELLS.DEATH_SWEEP.id} /> wasn't casted twice.</>)
+          .actual(<>{actual} time(s) during <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} /> <SpellLink id={SPELLS.DEATH_SWEEP.id} /> wasn't casted twice.</>)
           .recommended(`No bad casts is recommended.`);
       });
   }
@@ -90,8 +86,7 @@ class Demonic extends Analyzer{
         talent={SPELLS.DEMONIC_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
         value={(<>
-                  {this.badCasts} Bad casts<br />
-                  {this.avgDeathSweepPerEyeBeam} Avg Death Sweep casts
+        {this.badCasts} <small>Bad casts</small><br />
                 </>)}
         tooltip={`A bad cast is triggered when you don't do atleast 2 Death Sweep casts inside
                   the Metamorphosis window you get from Eye Beam due to the Demonic talent.`}

@@ -3,6 +3,7 @@ const raids = {
   Dungeons: require('./dungeons').default,
   Uldir: require('./uldir').default, // tier 23
   BattleOfDazaralor: require('./battleofdazaralor').default, // tier 24
+  CrucibleOfStorms: require('./crucibleofstorms').default, //tier 24.5
 };
 export default raids;
 

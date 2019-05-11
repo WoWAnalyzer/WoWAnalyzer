@@ -4,6 +4,11 @@ import { Yajinni, blazyb, fel1ne, Qbz, Zerotorescue } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2019-04-27'),
+    changes: 'Fixed a bug where regrowths during innervate were used in clearcasting calculation.',
+    contributors: [Qbz],
+  },
+  {
     date: new Date('2019-02-20'),
     changes: 'Fixed a bug where Lifebloom showed an incorrect uptime value in fights with multiple resto druids.',
     contributors: [Zerotorescue],

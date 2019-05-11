@@ -48,7 +48,7 @@ class Felblade extends Analyzer{
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<> Avoid casting <SpellLink id={SPELLS.FELBLADE_TALENT.id} /> close to Fury cap and cast abilities regularly to avoid accidently capping.</>)
+        return suggest(<> Avoid casting <SpellLink id={SPELLS.FELBLADE_TALENT.id} /> close to Fury cap and cast abilities regularly to avoid accidently capping your fury.</>)
           .icon(SPELLS.FELBLADE_TALENT.icon)
           .actual(`${formatPercentage(actual)}% Fury wasted`)
           .recommended(`${formatPercentage(recommended)}% is recommended.`);
@@ -61,7 +61,7 @@ class Felblade extends Analyzer{
       <TalentStatisticBox
         talent={SPELLS.FELBLADE_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={`${this.furyPerMin} Fury per min`}
+        value={<>{this.furyPerMin} <small>Fury per min </small></>}
         tooltip={(
           <>
             {effectiveFuryGain} Effective Fury gained<br />
