@@ -7,7 +7,7 @@ import Statistic from 'interface/statistics/Statistic';
 import BoringValueText from 'interface/statistics/components/BoringValueText';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
-const debug = true;
+const debug = false;
 const MS_BUFFER = 100;
 
 class CancelledCasts extends Analyzer {
