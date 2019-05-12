@@ -293,7 +293,7 @@ exports[`The Fire Mage Analyzer analyzers CancelledCasts matches the statistic s
             </g>
           </svg>
            
-          11.98
+          6.96
           % 
           <small>
             Casts Cancelled
@@ -327,10 +327,10 @@ Array [
   Object {
     "details": null,
     "icon": "inv_misc_map_01",
-    "importance": "regular",
+    "importance": "minor",
     "issue": <React.Fragment>
       You cancelled 
-      11.98
+      6.96
       % of your spells. While it is expected that you will have to cancel a few casts to react to boss mechanics or move, you should try to ensure that you are cancelling as few casts as possible by utilizing movement abilities such as 
       <SpellLink
         icon={true}
@@ -344,7 +344,7 @@ Array [
       .
     </React.Fragment>,
     "stat": <React.Fragment>
-      11.98% casts cancelled
+      6.96% casts cancelled
        (
       &lt;5.00% is recommended
       )
@@ -2192,7 +2192,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
               style={
                 Object {
                   "backgroundColor": "#df7102",
-                  "width": "33.981651979135805%",
+                  "width": "47.43822743581738%",
                 }
               }
             />
@@ -2345,7 +2345,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                   }
                 >
                    
-                  11.98%
+                  6.96%
                    
                    
                 </div>
@@ -2365,9 +2365,9 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ffc84a",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "60.01976047904192%",
+                        "width": "86.93291139240506%",
                       }
                     }
                   />

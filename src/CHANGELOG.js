@@ -8,9 +8,15 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
+
     date: new Date('2019-05-12'),
     changes: 'Added average heart of azeroth level to the player selection page',
     contributors: [Scotsoo],
+  },
+  {
+    date: new Date('2019-05-10'),
+    changes: <>Fixed an issue where the timeline and the Cancelled Casts statistic would incorrectly mark a spell as cancelled in high latency situations.</>,
+    contributors: [Sharrq],
   },
   {
     date: new Date('2019-04-20'),
