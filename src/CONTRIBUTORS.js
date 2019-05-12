@@ -616,7 +616,7 @@ export const Abelito75 = {
   avatar: require('./interface/images/avatars/Abelito75-avatar.png'),
 };
 export const HolySchmidt = {
-  nickname: 'HolySchmidt',
+nickname: 'HolySchmidt',
   github: '5chmidt',
   avatar: require('./interface/images/avatars/holyschmidt-avatar.jpg'),
   desc: 'Holy Paladin, Tinkerer',
@@ -634,5 +634,17 @@ export const Coywolf = {
     name: 'Coywolf',
     spec: SPECS.OUTLAW_ROGUE,
     link: 'https://worldofwarcraft.com/en-us/character/us/arthas/coywolf',
+  }],
+};
+
+export const Scotsoo = {
+  nickname: 'Scotsoo',
+  github: 'Scotsoo',
+  discord: 'Scotsoo#5328',
+  avatar: require('./interface/images/avatars/Scotsoo-avatar.jpg'),
+  mains: [{
+    name: 'Scotsoodh',
+    spec: SPECS.HAVOC_DEMON_HUNTER,
+    link: 'https://worldofwarcraft.com/en-us/character/eu/tarren-mill/scotsoodh',
   }],
 };
