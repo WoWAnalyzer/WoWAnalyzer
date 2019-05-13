@@ -96,14 +96,14 @@ class PlayerLoader extends React.PureComponent {
         const friendly = report.friendlies.find(friendly => friendly.id === player.sourceID);
         const exportedCharacter = report.exportedCharacters ? report.exportedCharacters.find(char => char.name === friendly.name) : null;
         if (!exportedCharacter) {
-          return Promise.resolve(null);
+          return Promise.resolve();
         }
         return fetchCharacter(friendly.guid, exportedCharacter.region, friendly.realm, friendly.name).then(data => {
           return Promise.resolve(data);
         }).catch(err => {
           // This guy failed to load - this is nice to have data
           // We can ignore this and we'll just drop him from the overall averages later
-          return Promise.resolve(null);
+          return Promise.resolve();
         });
       });
       let characterDatas = await Promise.all(characterDataPromises);
