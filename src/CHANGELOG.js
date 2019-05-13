@@ -8,7 +8,6 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
-
     date: new Date('2019-05-12'),
     changes: 'Added average heart of azeroth level to the player selection page',
     contributors: [Scotsoo],
