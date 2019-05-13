@@ -636,3 +636,14 @@ export const Coywolf = {
     link: 'https://worldofwarcraft.com/en-us/character/us/arthas/coywolf',
   }],
 };
+export const Scotsoo = {
+  nickname: 'Scotsoo',
+  github: 'Scotsoo',
+  discord: 'Scotsoo#5328',
+  avatar: require('./interface/images/avatars/Scotsoo-avatar.jpg'),
+  mains: [{
+    name: 'Scotsoodh',
+    spec: SPECS.HAVOC_DEMON_HUNTER,
+    link: 'https://worldofwarcraft.com/en-us/character/eu/tarren-mill/scotsoodh',
+  }],
+};

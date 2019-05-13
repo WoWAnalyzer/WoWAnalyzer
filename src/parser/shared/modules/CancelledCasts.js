@@ -8,6 +8,7 @@ import BoringValueText from 'interface/statistics/components/BoringValueText';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 const debug = false;
+const MS_BUFFER = 100;
 
 class CancelledCasts extends Analyzer {
   castsCancelled = 0;
@@ -23,39 +24,41 @@ class CancelledCasts extends Analyzer {
     if (this.constructor.IGNORED_ABILITIES.includes(spellId)) {
       return;
     }
-    if (this.wasCastStarted) {
+    if (this.wasCastStarted && event.timestamp - this.beginCastSpell.timestamp > MS_BUFFER) {
       this.castsCancelled += 1;
       this.addToCancelledList(event);
     }
-    this.beginCastSpell = event.ability;
+    this.beginCastSpell = event;
     this.wasCastStarted = true;
   }
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-    if (this.constructor.IGNORED_ABILITIES.includes(spellId)) {
+    const beginCastAbility = this.beginCastSpell.ability;
+    if (this.constructor.IGNORED_ABILITIES.includes(spellId) || !beginCastAbility) {
       return;
     }
-    if (this.beginCastSpell.guid !== spellId && this.wasCastStarted) {
+    if (beginCastAbility.guid !== spellId && this.wasCastStarted) {
       this.castsCancelled += 1;
       this.addToCancelledList(event);
     }
-    if (this.beginCastSpell.guid === spellId && this.wasCastStarted) {
+    if (beginCastAbility.guid === spellId && this.wasCastStarted) {
       this.castsFinished += 1;
     }
     this.wasCastStarted = false;
   }
 
   addToCancelledList(event) {
-    if (!this.cancelledSpellList[this.beginCastSpell.guid]) {
-      this.cancelledSpellList[this.beginCastSpell.guid] = {
-        'spellName': this.beginCastSpell.name,
+    const beginCastAbility = this.beginCastSpell.ability;
+    if (!this.cancelledSpellList[beginCastAbility.guid]) {
+      this.cancelledSpellList[beginCastAbility.guid] = {
+        'spellName': beginCastAbility.name,
         'amount': 1,
       };
     } else {
-      this.cancelledSpellList[this.beginCastSpell.guid].amount += 1;
+      this.cancelledSpellList[beginCastAbility.guid].amount += 1;
     }
-    debug && console.log("cast cancelled at: ", event.timestamp);
+    debug && this.log(beginCastAbility.name + " cast cancelled");
   }
   get totalCasts() {
     return this.castsCancelled + this.castsFinished;
