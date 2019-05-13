@@ -114,7 +114,7 @@ class PlayerLoader extends React.PureComponent {
           return;
         }
         const friendly = report.friendlies.find(friendly => friendly.id === player.sourceID);
-        const charactedData = characterDatas ? characterDatas.find(data => data.id === friendly.guid) : null;
+        const characterData = characterDatas ? characterDatas.find(data => data.id === friendly.guid) : null;
         switch (SPECS[player.specID].role) {
           case ROLES.TANK:
             this.tanks += 1;
@@ -132,9 +132,9 @@ class PlayerLoader extends React.PureComponent {
         }
         // Gear may be null for broken combatants
         this.ilvl += player.gear ? getAverageItemLevel(player.gear) : 0;
-        if (charactedData && charactedData.heartOfAzeroth) {
+        if (characterData && characterData.heartOfAzeroth) {
           numberOfCombatantsWithLoadedHeart++;
-          this.heartLvl += charactedData.heartOfAzeroth.azeriteItemLevel;
+          this.heartLvl += characterData.heartOfAzeroth.azeriteItemLevel;
         }
       });
       this.ilvl /= combatants.length;
