@@ -21,7 +21,7 @@ class RaidCompositionDetails extends React.PureComponent {
         <div className="bar">
           <div className="panel-body" style={{ padding: 0 }}>
             <div className="flex">
-            <div className="flex-sub icon">
+              <div className="flex-sub icon">
                 <Icon icon="inv_helmet_03" />
                 <div className="role-count" style={{ fontSize: '0.78em' }}>
                   {/*Ilvl is gonna be a larger number than the composition so it's shrunk slightly to avoid different sized tiles */}
