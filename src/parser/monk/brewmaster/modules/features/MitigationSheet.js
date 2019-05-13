@@ -2,6 +2,7 @@ import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import safeMerge from 'common/safeMerge';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
@@ -12,13 +13,12 @@ import SpellLink from 'common/SpellLink';
 import Tooltip, { TooltipElement } from 'common/Tooltip';
 import { calculatePrimaryStat, calculateSecondaryStatDefault } from 'common/stats';
 
-import { BASE_AGI } from '../../constants';
 import CelestialFortune from '../spells/CelestialFortune';
 import GiftOfTheOx from '../spells/GiftOfTheOx';
 import MasteryValue from '../core/MasteryValue';
 import Stagger from '../core/Stagger';
-import AgilityValue from './AgilityValue';
 import { diminish, lookupK } from '../constants/Mitigation';
+import { BASE_AGI } from '../../constants';
 
 function formatGain(gain) {
   if(typeof gain === 'number') {
@@ -63,7 +63,7 @@ function calculateTotalGain(gain) {
   };
 }
 
-function makeIcon(stat) {
+export function makeIcon(stat) {
   const Icon = getIcon(stat);
   return (
     <Icon
@@ -83,7 +83,6 @@ function calculateLeatherArmorScaling(ilvl, amount, targetIlvl) {
 export default class MitigationSheet extends Analyzer {
   static dependencies = {
     masteryValue: MasteryValue,
-    agilityValue: AgilityValue,
     cf: CelestialFortune,
     stats: StatTracker,
     stagger: Stagger,
@@ -94,7 +93,6 @@ export default class MitigationSheet extends Analyzer {
   versDamageMitigated = 0;
   versHealing = 0;
 
-  static statsToAvg = ['agility', 'armor', 'versatility', 'mastery', 'crit'];
   _lastStatUpdate = null;
   _avgStats = {};
 
@@ -107,18 +105,6 @@ export default class MitigationSheet extends Analyzer {
   }
 
   _critBonusHealing = 0;
-
-  get agiDamageMitigated() {
-    return this.agilityValue.totalAgiPurified;
-  }
-
-  get agiDamageDodged() {
-    return this.masteryValue.expectedMitigation - this.masteryValue.noAgiExpectedDamageMitigated;
-  }
-
-  get agiHealing() {
-    return this.agilityValue.totalAgiHealing;
-  }
 
   get wdpsHealing() {
     return this.gotox.wdpsBonusHealing;
@@ -137,10 +123,6 @@ export default class MitigationSheet extends Analyzer {
     super(...args);
 
     this._lastStatUpdate = this.owner.fight.start_time;
-    this._avgStats = MitigationSheet.statsToAvg.reduce((obj, stat) => {
-      obj[stat] = this.stats._pullStats[stat];
-      return obj;
-    }, {});
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this._onCritHeal);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this._onHealVers);
@@ -205,7 +187,10 @@ export default class MitigationSheet extends Analyzer {
 
     const stats = event.before;
 
-    MitigationSheet.statsToAvg.forEach(stat => {
+    this.statsToAvg.forEach(stat => {
+      if(this._avgStats[stat] === undefined) {
+        this._avgStats[stat] = 0;
+      }
       this._avgStats[stat] += stats[stat] * timeDelta;
     });
   }
@@ -216,7 +201,10 @@ export default class MitigationSheet extends Analyzer {
 
     const stats = this.stats._currentStats;
 
-    MitigationSheet.statsToAvg.forEach(stat => {
+    this.statsToAvg.forEach(stat => {
+      if(this._avgStats[stat] === undefined) {
+        this._avgStats[stat] = 0;
+      }
       this._avgStats[stat] += stats[stat] * timeDelta;
       this._avgStats[stat] /= this.owner.fightDuration;
     });
@@ -231,9 +219,15 @@ export default class MitigationSheet extends Analyzer {
     return amount - fn(Math.floor(this.avgIlvl), amount, Math.floor(this.avgIlvl)-5);
   }
 
-  get results() {
+  /**
+   * Results that haven't yet been moved to other modules.
+   *
+   * DO NOT ADD ANYTHING TO THIS. REMOVE ONLY.
+   */
+  get baseResults() {
     return {
       armor: {
+        priority: 0,
         icon: (
           <img
             src="/img/shield.png"
@@ -246,13 +240,14 @@ export default class MitigationSheet extends Analyzer {
         ),
         name: 'Armor',
         className: 'stat-stamina',
-        avg: this._avgStats.armor,
+        statName: 'armor',
         gain: [
           { name: 'Physical Damage Mitigated', amount: this.armorDamageMitigated },
         ],
         increment: this.increment(calculateLeatherArmorScaling, this.stats.startingArmorRating),
       },
       wdps: {
+        priority: 1,
         icon: (
           <img
             src="/img/sword.png"
@@ -265,36 +260,18 @@ export default class MitigationSheet extends Analyzer {
         ),
         name: 'Weapon DPS',
         className: 'stat-criticalstrike',
-        avg: this.gotox._wdps,
+        statAmount: this.gotox._wdps,
         gain: [
           { name: <><SpellLink id={SPELLS.GIFT_OF_THE_OX_1.id} /> Healing</>, amount: this.wdpsHealing },
         ],
         increment: calculatePrimaryStat(this.selectedCombatant.mainHand.itemLevel, this.gotox._wdps, this.selectedCombatant.mainHand.itemLevel+5) - this.gotox._wdps,
       },
-      [STAT.AGILITY]: {
-        icon: makeIcon(STAT.AGILITY),
-        name: getName(STAT.AGILITY),
-        className: getClassNameColor(STAT.AGILITY),
-        avg: this._avgStats.agility - BASE_AGI,
-        gain: [
-          { name: <><SpellLink id={SPELLS.GIFT_OF_THE_OX_1.id} /> Healing</>, amount: this.agiHealing },
-          {
-            name: <TooltipElement content="The amount of damage avoided by dodging may be reduced by purification. This is reflected in the range of values.">Dodge</TooltipElement>,
-            amount: {
-              low: this.agiDamageDodged * (1 - this.stagger.pctPurified),
-              high: this.agiDamageDodged,
-            },
-            isLoaded: this.masteryValue._loaded,
-          },
-          { name: <>Extra <SpellLink id={SPELLS.PURIFYING_BREW.id} /> Effectiveness</>, amount: this.agiDamageMitigated },
-        ],
-        increment: this.increment(calculatePrimaryStat, this.stats.startingAgilityRating),
-      },
       [STAT.MASTERY]: {
+        priority: 3,
         icon: makeIcon(STAT.MASTERY),
         name: getName(STAT.MASTERY),
         className: getClassNameColor(STAT.MASTERY),
-        avg: this._avgStats.mastery,
+        statName: STAT.MASTERY,
         gain: [
           { name: <><SpellLink id={SPELLS.GIFT_OF_THE_OX_1.id} /> Healing</>, amount: this.masteryHealing },
           {
@@ -309,10 +286,11 @@ export default class MitigationSheet extends Analyzer {
         increment: this.increment(calculateSecondaryStatDefault, this.stats.startingMasteryRating),
       },
       [STAT.VERSATILITY]: {
+        priority: 3,
         icon: makeIcon(STAT.VERSATILITY),
         name: getName(STAT.VERSATILITY),
         className: getClassNameColor(STAT.VERSATILITY),
-        avg: this._avgStats.versatility,
+        statName: STAT.VERSATILITY,
         gain: [
           { name: 'Damage Mitigated', amount: this.versDamageMitigated },
           { name: 'Additional Healing', amount: this.versHealing },
@@ -320,10 +298,11 @@ export default class MitigationSheet extends Analyzer {
         increment: this.increment(calculateSecondaryStatDefault, this.stats.startingVersatilityRating),
       },
       [STAT.CRITICAL_STRIKE]: {
+        priority: 3,
         icon: makeIcon(STAT.CRITICAL_STRIKE),
         name: getName(STAT.CRITICAL_STRIKE),
         className: getClassNameColor(STAT.CRITICAL_STRIKE),
-        avg: this._avgStats.crit,
+        statName: 'crit', // consistently inconsistent
         gain: [
           { name: <><SpellLink id={SPELLS.CELESTIAL_FORTUNE_HEAL.id} /> Healing</>, amount: this.cf.critBonusHealing },
           { name: 'Critical Heals', amount: this._critBonusHealing },
@@ -333,77 +312,111 @@ export default class MitigationSheet extends Analyzer {
     };
   }
 
+  _registeredResults = {};
+
+  registerStat(key, statResults) {
+    if(this._registeredResults[key] !== undefined) {
+      console.warn("Overwriting mitigation stat results for ", key);
+    }
+    this._registeredResults[key] = statResults;
+  }
+
+  get results() {
+    return safeMerge(this.baseResults, this._registeredResults);
+  }
+
+  get statsToAvg() {
+    return Object.values(this.results)
+      .filter(obj => obj.statName !== undefined)
+      .map(({statName}) => statName);
+  }
+
+  avg(stat) {
+    return this._avgStats[stat];
+  }
+
   statEntries() {
-    return Object.entries(this.results).map(([stat, result]) => {
-      const { increment, icon, className, name, avg, gain, tooltip } = result;
+    return Object.entries(this.results)
+      .sort(([_keyA, resultA], [_keyB, resultB]) => resultA.priority - resultB.priority)
+      .map(([stat, result]) => {
+        const { increment, icon, className, name, statName, statAmount, gain, tooltip } = result;
 
-      const totalGain = calculateTotalGain(gain);
-
-      const rows = gain.map(({ name, amount: gain, isLoaded }, i) => {
-        let gainEl;
-        if(isLoaded !== false) {
-          gainEl = formatGain(gain);
-        } else {
-          gainEl = <TooltipElement content="Not Yet Loaded">NYL</TooltipElement>;
+        // some stats are fixed (WDPS). others are calculated via
+        // averaging
+        let avg = statAmount ? statAmount : this.avg(statName);
+        // not sure its worth introducing a "base" parameter when
+        // literally only agi would use it
+        if(statName === 'agility') {
+          avg -= BASE_AGI;
         }
 
-        let perPointEl;
-        if(isLoaded !== false) {
-          perPointEl = formatWeight(gain, avg, this.normalizer, 1);
-        } else {
-          perPointEl = <TooltipElement content="Not Yet Loaded">NYL</TooltipElement>;
-        }
+        const totalGain = calculateTotalGain(gain);
 
-        let valueEl;
-        if(isLoaded !== false) {
-          valueEl = formatWeight(gain, avg, this.normalizer, increment);
-        } else {
-          valueEl = <TooltipElement content="Not Yet Loaded">NYL</TooltipElement>;
-        }
+        const rows = gain.map(({ name, amount: gain, isLoaded }, i) => {
+          let gainEl;
+          if(isLoaded !== false) {
+            gainEl = formatGain(gain);
+          } else {
+            gainEl = <TooltipElement content="Not Yet Loaded">NYL</TooltipElement>;
+          }
+
+          let perPointEl;
+          if(isLoaded !== false) {
+            perPointEl = formatWeight(gain, avg, this.normalizer, 1);
+          } else {
+            perPointEl = <TooltipElement content="Not Yet Loaded">NYL</TooltipElement>;
+          }
+
+          let valueEl;
+          if(isLoaded !== false) {
+            valueEl = formatWeight(gain, avg, this.normalizer, increment);
+          } else {
+            valueEl = <TooltipElement content="Not Yet Loaded">NYL</TooltipElement>;
+          }
+
+          return (
+            <tr key={`${stat}-${i}`}>
+              <td style={{paddingLeft: '5em'}}>
+                {name}
+              </td>
+              <td className="text-right">
+                {gainEl}
+              </td>
+              <td className="text-right">
+                {perPointEl}
+              </td>
+              <td />
+              <td className="text-right">
+                {valueEl}
+              </td>
+            </tr>
+          );
+        });
 
         return (
-          <tr key={`${stat}-${i}`}>
-            <td style={{paddingLeft: '5em'}}>
-              {name}
-            </td>
-            <td className="text-right">
-              {gainEl}
-            </td>
-            <td className="text-right">
-              {perPointEl}
-            </td>
-            <td />
-            <td className="text-right">
-              {valueEl}
-            </td>
-          </tr>
-        );
-      });
-
-      return (
-        <>
-        <tr key={stat}>
-          <td className={className}>
+          <>
+          <tr key={stat}>
+            <td className={className}>
               {icon}{' '}
               {tooltip ? <TooltipElement content={tooltip}>{name}</TooltipElement> : name}
-          </td>
-          <td className="text-right">
-            <b>{formatGain(totalGain)}</b>
-          </td>
-          <td className="text-right">
-            <b>{formatWeight(totalGain, avg, this.normalizer, 1)}</b>
-          </td>
-          <td className="text-right">
-            <b>&times; {increment.toFixed(2)}</b>
-          </td>
-          <td className="text-right">
-            <b>= {formatWeight(totalGain, avg, this.normalizer, increment)}</b>
-          </td>
-        </tr>
-        {rows}
-        </>
+            </td>
+            <td className="text-right">
+              <b>{formatGain(totalGain)}</b>
+            </td>
+            <td className="text-right">
+              <b>{formatWeight(totalGain, avg, this.normalizer, 1)}</b>
+            </td>
+            <td className="text-right">
+              <b>&times; {increment.toFixed(2)}</b>
+            </td>
+            <td className="text-right">
+              <b>= {formatWeight(totalGain, avg, this.normalizer, increment)}</b>
+            </td>
+          </tr>
+          {rows}
+      </>
       );
-    });
+      });
   }
 
   entries() {
