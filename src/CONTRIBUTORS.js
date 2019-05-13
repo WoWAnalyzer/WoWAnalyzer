@@ -616,7 +616,7 @@ export const Abelito75 = {
   avatar: require('./interface/images/avatars/Abelito75-avatar.png'),
 };
 export const HolySchmidt = {
-nickname: 'HolySchmidt',
+  nickname: 'HolySchmidt',
   github: '5chmidt',
   avatar: require('./interface/images/avatars/holyschmidt-avatar.jpg'),
   desc: 'Holy Paladin, Tinkerer',
@@ -636,7 +636,6 @@ export const Coywolf = {
     link: 'https://worldofwarcraft.com/en-us/character/us/arthas/coywolf',
   }],
 };
-
 export const Scotsoo = {
   nickname: 'Scotsoo',
   github: 'Scotsoo',
