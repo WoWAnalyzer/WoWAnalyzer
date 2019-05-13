@@ -107,6 +107,7 @@ class PlayerLoader extends React.PureComponent {
         });
       });
       let characterDatas = await Promise.all(characterDataPromises);
+      // Filter for only loaded characterDatas
       characterDatas = characterDatas.filter(value => value);
       combatants.forEach(player => {
         if (player.error || player.specID === -1) {
