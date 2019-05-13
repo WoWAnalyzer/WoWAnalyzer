@@ -419,7 +419,19 @@ class BaseHealerStatValues extends Analyzer {
   moreInformationLink = null;
   statistic() {
     const results = this._prepareResults();
-    let _url = '';
+    const qeLink = results.reduce((urlParts, stat) => {
+      if (stat === 'intellect' || stat === 'versatilitydr') {
+        return urlParts;
+      }
+
+      const statValue = typeof stat === 'object' ? stat.stat : stat;
+      const gain = this._getGain(statValue);
+      const weight = gain / (this.totalOneInt || 1);
+      const statName = getName(statValue).replace(/[()\s+]/g, '');
+
+      urlParts.push(statName + '=' + weight.toFixed(2));
+      return urlParts;
+    }, []).join('&');
     return (
       <StatisticWrapper position={STATISTIC_ORDER.CORE(11)}>
         <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -437,11 +449,27 @@ class BaseHealerStatValues extends Analyzer {
                   Stat Values
                 </TooltipElement>
 
-                {this.moreInformationLink && (
-                  <a href={this.moreInformationLink} className="pull-right">
-                    More info
-                  </a>
-                )}
+                <div className="pull-right">
+                  {this.qeLive && (
+                    <>
+                      <Tooltip content="Opens in a new tab. Leverage the QE Live Tool to directly compare gear, azerite traits, and trinkets based on your stat values.">
+                        <a
+                          href={`https://www.questionablyepic.com/live?import=WoWA&spec=${this.selectedCombatant.specId}&pname=${this.selectedCombatant.name}&realm=${this.selectedCombatant.characterProfile.realm}&region=${this.selectedCombatant.characterProfile.region}&${qeLink}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn"
+                          style={{ fontSize: 20, padding: '6px 0' }}
+                        >QE Live</a>
+                      </Tooltip>
+                      {' | '}
+                    </>
+                  )}
+                  {this.moreInformationLink && (
+                    <a href={this.moreInformationLink}>
+                      More info
+                    </a>
+                  )}
+                </div>
               </h4>
             </div>
             <div className="panel-body">
@@ -497,33 +525,6 @@ class BaseHealerStatValues extends Analyzer {
                       </tr>
                     );
                   })}
-                  {this.qeLive && (
-                    <tr key={'QELive'}>
-                      <td>
-                        {results.forEach(stat => {
-                          if (stat === 'intellect' || stat === 'versatilitydr') {
-                            return;
-                          }
-                          
-                          const statValue = typeof stat === 'object' ? stat.stat : stat;
-                          const gain = this._getGain(statValue);
-                          const weight = gain / (this.totalOneInt || 1);
-                          const statName = getName(statValue).replace(/[()\s+]/g, '');
-                          
-                          _url += ('&' + statName + '=' + weight.toFixed(2));
-                        })}
-                        <Tooltip content={'Opens in a new tab. Leverage the QE Live Tool to directly compare gear, azerite traits, and trinkets based on your stat values'}>
-                          <a
-                            href={`https://www.questionablyepic.com/live?import=WoWA&spec=${this.selectedCombatant.specId}&pname=${this.selectedCombatant.name}&realm=${this.selectedCombatant.characterProfile.realm}&region=${this.selectedCombatant.characterProfile.region}${_url}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="btn"
-                            style={{ fontSize: 20, padding: '6px 0' }}
-                          >QE Live Link</a>
-                        </Tooltip>
-                      </td>
-                    </tr>
-                  )}
                 </tbody>
               </table>
             </div>
