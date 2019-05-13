@@ -95,15 +95,25 @@ class PlayerLoader extends React.PureComponent {
       const characterDataPromises = combatants.map(player => {
         const friendly = report.friendlies.find(friendly => friendly.id === player.sourceID);
         const exportedCharacter = report.exportedCharacters ? report.exportedCharacters.find(char => char.name === friendly.name) : null;
-        return fetchCharacter(friendly.guid, exportedCharacter.region, friendly.realm, friendly.name);
+        if (!exportedCharacter) {
+          return Promise.resolve(null);
+        }
+        return fetchCharacter(friendly.guid, exportedCharacter.region, friendly.realm, friendly.name).then(data => {
+          return Promise.resolve(data);
+        }).catch(err => {
+          // This guy failed to load - this is nice to have data
+          // We can ignore this and we'll just drop him from the overall averages later
+          return Promise.resolve(null);
+        });
       });
-      const characterDatas = await Promise.all(characterDataPromises);
+      let characterDatas = await Promise.all(characterDataPromises);
+      characterDatas = characterDatas.filter(value => value);
       combatants.forEach(player => {
         if (player.error || player.specID === -1) {
           return;
         }
         const friendly = report.friendlies.find(friendly => friendly.id === player.sourceID);
-        const charactedData = characterDatas.find(data => data.id === friendly.guid);
+        const charactedData = characterDatas ? characterDatas.find(data => data.id === friendly.guid) : null;
         switch (SPECS[player.specID].role) {
           case ROLES.TANK:
             this.tanks += 1;
