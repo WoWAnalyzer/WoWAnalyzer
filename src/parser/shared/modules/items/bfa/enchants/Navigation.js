@@ -9,8 +9,6 @@ import UptimeIcon from 'interface/icons/Uptime';
 import CriticalStrikeIcon from 'interface/icons/CriticalStrike';
 import Analyzer from 'parser/core/Analyzer';
 
-const MS_BUFFER = 100;
-
 /**
  * Navigation Enchants
  * Permanently enchant a weapon to sometimes increase <stat> by 50 for 30 sec, stacking up to 5 times. Upon reaching 5 stacks, all stacks are consumed to grant you 600 <stat> for 10 sec.
@@ -45,69 +43,6 @@ class Navigation extends Analyzer {
     this.active = this.hasTrackedEnchant();
   }
 
-  isBuggedStackChange(previousTime, currentTime){
-    return previousTime > (currentTime - MS_BUFFER);
-  }
-
-  get cleanStacks() {
-    const cleanStacks = {
-      0: [
-        {
-          start: this.owner.fight.start_time,
-          end: null,
-          duration: null,
-        },
-      ],
-    };
-    let lastHandledStack = 0;
-
-    const buffStacks = this.selectedCombatant.getBuffHistory(this.constructor.smallBuffId).reduce((obj, buff) => {
-      obj[buff.start] = buff.stackHistory;
-      return obj;
-    }, {});
-
-    Object.values(buffStacks).forEach((stackChain) => {
-      stackChain.forEach((stack) => {
-        const stackSize = stack.stacks;
-        const stackStart = stack.timestamp;
-        if (cleanStacks[lastHandledStack]) {
-          const previousStack = cleanStacks[lastHandledStack];
-          const lastOccurrence = previousStack[previousStack.length - 1];
-          if (this.isBuggedStackChange(lastOccurrence.start, stackStart)){
-            return;
-          }
-
-          if (lastOccurrence.end === null) {
-            lastOccurrence.end = stackStart;
-            lastOccurrence.duration = lastOccurrence.end - lastOccurrence.start;
-          }
-        }
-
-        if (cleanStacks[stackSize] === undefined) {
-          cleanStacks[stackSize] = [];
-        }
-
-        const stackInfo = {
-          start: stackStart,
-          end: null,
-          duration: null,
-        };
-        cleanStacks[stackSize].push(stackInfo);
-        lastHandledStack = stackSize;
-      });
-    });
-
-    if (cleanStacks[lastHandledStack]) {
-      const previousStack = cleanStacks[lastHandledStack];
-      const lastOccurrence = previousStack[previousStack.length - 1];
-      if (lastOccurrence.end === null) {
-        lastOccurrence.end = this.owner.fight.end_time;
-        lastOccurrence.duration = lastOccurrence.end - lastOccurrence.start;
-      }
-    }
-
-    return cleanStacks;
-  }
   get smallStackBuffUptime() {
     return this.selectedCombatant.getBuffUptime(this.constructor.smallBuffId);
   }
@@ -115,13 +50,10 @@ class Navigation extends Analyzer {
     return this.selectedCombatant.getBuffUptime(this.constructor.bigBuffId);
   }
   get averageStat() {
-    const buffStacks = this.cleanStacks;
+    const buffStacks = this.selectedCombatant.getStackBuffUptimes(this.constructor.smallBuffId);
 
     const smallBuffDuration = Object.keys(buffStacks).reduce((total, stackSize) => {
-      const totalStackDuration = buffStacks[stackSize]
-        .map(element => element.duration)
-        .reduce((total, current) => total + current);
-
+      const totalStackDuration = buffStacks[stackSize];
       return total + (totalStackDuration * stackSize);
     }, 0);
 
@@ -131,7 +63,7 @@ class Navigation extends Analyzer {
     return ((smallBuffIncrease + bigBuffIncrease) / this.owner.fightDuration).toFixed(0);
   }
   statistic() {
-    const buffStacks = this.cleanStacks;
+    const buffStacks = this.selectedCombatant.getStackBuffUptimes(this.constructor.smallBuffId);
     const maxStackBuffDuration = this.maxStackBuffUptime;
     return (
       <StatisticBox
@@ -156,9 +88,7 @@ class Navigation extends Analyzer {
           <tbody>
             {
               Object.keys(buffStacks).map((stackSize) => {
-                let totalStackDuration = buffStacks[stackSize]
-                  .map(element => element.duration)
-                  .reduce((total, current) => total + current);
+                let totalStackDuration = buffStacks[stackSize];
 
                 if (stackSize === '0'){
                   totalStackDuration -= maxStackBuffDuration;
