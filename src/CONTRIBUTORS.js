@@ -183,6 +183,24 @@ export const Fyruna = {
   nickname: 'Fyruna',
   github: 'Fyruna',
   avatar: require('./interface/images/avatars/Fyruna_avatar.jpg'),
+  mains: [{
+    name: 'Aevaa',
+    spec: SPECS.ASSASSINATION_ROGUE,
+    link: 'https://worldofwarcraft.com/en-gb/character/magtheridon/aevaa',
+  }],
+  alts: [{
+    name: 'Aeri',
+    spec: SPECS.BREWMASTER_MONK,
+    link: 'https://worldofwarcraft.com/en-gb/character/magtheridon/aeri',
+  }, {
+    name: 'Avynn',
+    spec: SPECS.DISCIPLINE_PRIEST,
+    link: 'https://worldofwarcraft.com/en-gb/character/magtheridon/avynn',
+  }, {
+    name: 'Seiralia',
+    spec: SPECS.RESTORATION_DRUID,
+    link: 'https://worldofwarcraft.com/en-gb/character/sporeggar/seiralia',
+  }],
 };
 export const Anomoly = {
   nickname: 'Anomoly',

@@ -42,6 +42,7 @@ import Channeling from '../shared/modules/Channeling';
 import DeathDowntime from '../shared/modules/downtime/DeathDowntime';
 import TotalDowntime from '../shared/modules/downtime/TotalDowntime';
 import DistanceMoved from '../shared/modules/others/DistanceMoved';
+import DispelTracker from '../shared/modules/DispelTracker';
 
 // Tabs
 import RaidHealthTab from '../shared/modules/features/RaidHealthTab';
@@ -198,6 +199,7 @@ class CombatLogParser {
     vantusRune: VantusRune,
     distanceMoved: DistanceMoved,
     deathRecapTracker: DeathRecapTracker,
+    dispels: DispelTracker,
 
     critEffectBonus: CritEffectBonus,
 
