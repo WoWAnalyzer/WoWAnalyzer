@@ -92,10 +92,10 @@ class Entity {
   }
 
   /**
-  * @param {number} spellId - buff ID to check for
-  * @param {number|null} sourceID - source ID the buff must have come from, or any source if null.
-  * @returns {array} - Time (in ms) the specified buff has been active at each stack count.
-  */
+   * @param {number} spellId - buff ID to check for
+   * @param {number|null} sourceID - source ID the buff must have come from, or any source if null.
+   * @returns {array} - Time (in ms) the specified buff has been active at each stack count.
+   */
   getStackBuffUptimes(spellId, sourceID = null){
     const stackUptimes = {0: this.owner.fightDuration};
     this.getBuffHistory(spellId, sourceID)
