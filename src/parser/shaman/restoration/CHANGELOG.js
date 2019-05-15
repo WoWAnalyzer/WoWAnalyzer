@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-05-06'),
+    changes: <><SpellLink id={SPELLS.IGNEOUS_POTENTIAL.id} /> and <SpellLink id={SPELLS.SYNAPSE_SHOCK.id} /> azerite traits are now supported.</>,
+    contributors: [niseko],
+  },
+  {
     date: new Date('2019-05-03'),
     changes: <>Added support for the 8.1.5 <SpellLink id={SPELLS.ASCENDANCE_TALENT_RESTORATION.id} /> changes.</>,
     contributors: [niseko],
