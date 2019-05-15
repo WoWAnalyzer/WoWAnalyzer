@@ -33,7 +33,7 @@ class AssassinationRogueChecklist extends React.PureComponent {
       <Checklist>
         <Rule
           name="Maintain your DoTs on the boss"
-          description="DoTs are a big part of your damage. You should try to keep as high uptime on them as possible."
+          description="DoTs are a big part of your damage. You should try to keep as high uptime on them as possible, but do not refresh them too early"
         >
           <Requirement
             name={(
@@ -50,6 +50,22 @@ class AssassinationRogueChecklist extends React.PureComponent {
               </>
             )}
             thresholds={thresholds.ruptureUptime}
+          />
+          <Requirement
+            name={(
+              <>
+                <SpellLink id={SPELLS.GARROTE.id} /> effective refresh duration
+              </>
+            )}
+            thresholds={thresholds.garroteEfficiency}
+          />
+          <Requirement
+            name={(
+              <>
+                <SpellLink id={SPELLS.RUPTURE.id} /> effective refresh duration
+              </>
+            )}
+            thresholds={thresholds.ruptureEfficiency}
           />
         </Rule>
         <Rule

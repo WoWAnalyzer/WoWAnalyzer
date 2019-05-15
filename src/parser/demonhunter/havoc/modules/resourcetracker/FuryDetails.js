@@ -2,7 +2,6 @@ import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
 import Panel from 'interface/others/Panel';
-import SPELLS from 'common/SPELLS';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatPercentage, formatNumber } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -24,27 +23,15 @@ class FuryDetails extends Analyzer {
   }
 
   get suggestionThresholds() {
-    if (this.selectedCombatant.hasTalent(SPELLS.BLIND_FURY_TALENT.id)) {
-      return {
-        actual: this.wastedFuryPercent,
-        isGreaterThan: {
-          minor: 0.06,
-          average: 0.10,
-          major: 0.14,
-        },
-        style: 'percentage',
-      };
-    } else {
-      return {
-        actual: this.wastedFuryPercent,
-        isGreaterThan: {
-          minor: 0.02,
-          average: 0.05,
-          major: 0.08,
-        },
-        style: 'percentage',
-      };
-    }
+    return {
+      actual: this.wastedFuryPercent,
+      isGreaterThan: {
+        minor: 0.03,
+        average: 0.07,
+        major: 0.1,
+      },
+      style: 'percentage',
+    };
   }
 
   suggestions(when) {

@@ -7,6 +7,11 @@ import { tsabo, Cloake, Zerotorescue, Gebuz, Aelexe } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2019-04-22'),
+    changes: <>Early dot refresh tracking</>,
+    contributors: [tsabo],
+  },
+  {
     date: new Date('2018-11-20'),
     changes: <>Added Bleed snapshot tracking and support for <SpellLink id={SPELLS.NIGHTSTALKER_TALENT.id} />, <SpellLink id={SPELLS.SUBTERFUGE_TALENT.id} /> and <SpellLink id={SPELLS.MASTER_ASSASSIN_TALENT.id} />.</>,
     contributors: [Gebuz],

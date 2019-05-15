@@ -129,4 +129,42 @@ export default {
     name: 'Layered Mane',
     icon: 'ability_druid_ironfur',
   },
+
+  //start of balance traits
+  DAWNING_SUN:{
+    id: 276152,
+    name: 'Dawning Sun',
+    icon: 'spell_arcane_starfire',
+  },
+  DAWNING_SUN_BUFF:{
+      id: 276154,
+      name: 'Dawning Sun',
+      icon: 'spell_arcane_starfire',
+  },
+  HIGH_NOON:{
+    id: 278505,
+    name: 'High Noon',
+    icon: 'ability_mage_firestarter',
+  },
+  POWER_OF_THE_MOON:{
+    id: 273367,
+    name: 'Power of the Moon',
+    icon: 'spell_nature_starfall',
+  },
+  STREAKING_STARS:{
+    id: 272871,
+    name: 'Streaking Stars',
+    icon: 'spell_nature_natureguardian',
+  },
+  ARCANIC_PULSAR:{
+    id: 287784,
+    name: 'Arcanic Pulsar',
+    icon: 'spell_arcane_arcane03',
+  },
+  ARCANIC_PULSAR_BUFF:{
+    id: 287790,
+    name: 'Arcanic Pulsar',
+    icon: 'spell_arcane_arcane03',
+  },
+  //end of balance
 };
