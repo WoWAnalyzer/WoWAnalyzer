@@ -48,14 +48,6 @@ class StormglideSteps extends Analyzer {
     return this.critRating * this.averageStacks;
   }
 
-  _formatUptime(duration) {
-    const seconds = duration / 1000;
-    if(seconds < 60){
-      return <>{seconds.toFixed(0)}s</>;
-    }
-    return formatDuration(seconds);
-  }
-
   statistic() {
     const buffStacks = this.selectedCombatant.getStackBuffUptimes(SPELLS.UNTOUCHABLE.id);
     const maxStacks = Object.keys(buffStacks)
@@ -69,8 +61,8 @@ class StormglideSteps extends Analyzer {
         tooltip={(
           <>
           Average stacks: <b>{this.averageStacks.toFixed(1)}</b><br />
-          Time spent at <b>0</b> stacks: <b>{this._formatUptime(unbuffedDuration)}</b> ({formatPercentage(unbuffedDuration / this.owner.fightDuration)}%)<br />
-          {maxStacks !== 0 && <> Time spent at <b>{maxStacks}</b> stack{maxStacks !== '1' && `s`}: <b>{this._formatUptime(maxStackDuration)}</b> ({formatPercentage(maxStackDuration / this.owner.fightDuration)}%)</>}
+          Time spent at <b>0</b> stacks: <b>{formatDuration(unbuffedDuration / 1000)}</b> ({formatPercentage(unbuffedDuration / this.owner.fightDuration)}%)<br />
+          {maxStacks !== 0 && <> Time spent at <b>{maxStacks}</b> stack{maxStacks !== '1' && `s`}: <b>{formatDuration(maxStackDuration / 1000)}</b> ({formatPercentage(maxStackDuration / this.owner.fightDuration)}%)</>}
           </>
         )}
       >
