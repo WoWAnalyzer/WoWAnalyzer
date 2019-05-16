@@ -25,7 +25,7 @@ import Buffs from './modules/Buffs';
 
 import EchoOfTheElementals from './modules/azerite/EchoOfTheElementals';
 import LavaShock from './modules/azerite/LavaShock';
-import SynapseShock from './modules/azerite/SynapseShock';
+import SynapseShock from '../shared/azerite/SynapseShock';
 
 import SpiritWolf from '../shared/talents/SpiritWolf';
 import StaticCharge from '../shared/talents/StaticCharge';
@@ -33,6 +33,7 @@ import AnkhNormalizer from '../shared/normalizers/AnkhNormalizer';
 import AstralShift from '../shared/spells/AstralShift';
 import PackSpirit from '../shared/azerite/PackSpirit';
 import SereneSpirit from '../shared/azerite/SereneSpirit';
+import IgneousPotential from '../shared/azerite/IgneousPotential';
 
 //Resources
 import MaelstromDetails from '../shared/maelstromchart/MaelstromDetails';
@@ -79,7 +80,7 @@ class CombatLogParser extends CoreCombatLogParser {
     astralShift: AstralShift,
     packSpirit: PackSpirit,
     sereneSpirit: SereneSpirit,
-
+    igneousPotential: IgneousPotential,
   };
 
 }

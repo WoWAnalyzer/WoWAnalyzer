@@ -42,6 +42,7 @@ import Channeling from '../shared/modules/Channeling';
 import DeathDowntime from '../shared/modules/downtime/DeathDowntime';
 import TotalDowntime from '../shared/modules/downtime/TotalDowntime';
 import DistanceMoved from '../shared/modules/others/DistanceMoved';
+import DispelTracker from '../shared/modules/DispelTracker';
 
 // Tabs
 import RaidHealthTab from '../shared/modules/features/RaidHealthTab';
@@ -143,6 +144,7 @@ import WardOfEnvelopment from '../shared/modules/items/bfa/raids/bod/WardOfEnvel
 import CrestOfPaku from '../shared/modules/items/bfa/raids/bod/CrestOfPaku';
 import IncandescentSliver from '../shared/modules/items/bfa/raids/bod/IncandescentSliver';
 // Crucible of Storms
+import LeggingsOfTheAberrantTidesage from '../shared/modules/items/bfa/raids/crucibleofstorms/LeggingsOfTheAberrantTidesage';
 import TridentOfDeepOcean from '../shared/modules/items/bfa/raids/crucibleofstorms/TridentOfDeepOcean';
 
 import ParseResults from './ParseResults';
@@ -197,6 +199,7 @@ class CombatLogParser {
     vantusRune: VantusRune,
     distanceMoved: DistanceMoved,
     deathRecapTracker: DeathRecapTracker,
+    dispels: DispelTracker,
 
     critEffectBonus: CritEffectBonus,
 
@@ -296,8 +299,8 @@ class CombatLogParser {
     wardOfEnvelopment: WardOfEnvelopment,
     crestOfPaku: CrestOfPaku,
     incandescentSliver: IncandescentSliver,
-
     // Crucible of Storms
+    leggingsOfTheAberrantTidesage: LeggingsOfTheAberrantTidesage,
     tridentOfDeepOcean: TridentOfDeepOcean,
   };
   // Override this with spec specific modules when extending

@@ -156,6 +156,12 @@ export default {
     name: 'Lava Burst',
     icon: 'spell_shaman_lavaburst',
     manaCost: 1200,
+    coefficient: 0.53125,
+  },
+  LAVA_BURST_DAMAGE: {
+    id: 285452,
+    name: 'Lava Burst',
+    icon: 'spell_shaman_lavaburst',
   },
   LAVA_BURST_OVERLOAD: {
     id: 77451,
@@ -813,10 +819,5 @@ export default {
     name: 'High Tide',
     icon: 'spell_shaman_hightide',
     coefficient: 1.68,
-  },
-  LAVA_BURST_DAMAGE: {
-    id: 285452,
-    name: 'Lava Burst',
-    icon: 'spell_shaman_lavaburst',
   },
 };
