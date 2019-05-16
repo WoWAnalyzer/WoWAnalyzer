@@ -62,7 +62,7 @@ class StormglideSteps extends Analyzer {
           <>
           Average stacks: <b>{this.averageStacks.toFixed(1)}</b><br />
           Time spent at <b>0</b> stacks: <b>{formatDuration(unbuffedDuration / 1000)}</b> ({formatPercentage(unbuffedDuration / this.owner.fightDuration)}%)<br />
-          {maxStacks !== 0 && <> Time spent at <b>{maxStacks}</b> stack{maxStacks !== '1' && `s`}: <b>{formatDuration(maxStackDuration / 1000)}</b> ({formatPercentage(maxStackDuration / this.owner.fightDuration)}%)</>}
+          {maxStacks !== 0 && <> Time spent at <b>{maxStacks}</b> stack{maxStacks !== 1 && `s`}: <b>{formatDuration(maxStackDuration / 1000)}</b> ({formatPercentage(maxStackDuration / this.owner.fightDuration)}%)</>}
           </>
         )}
       >
