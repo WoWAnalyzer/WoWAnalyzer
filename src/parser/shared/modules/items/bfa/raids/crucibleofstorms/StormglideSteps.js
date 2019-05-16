@@ -10,7 +10,7 @@ import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage, formatDuration } from 'common/format';
 
 import CriticalStrikeIcon from 'interface/icons/CriticalStrike';
 import UptimeIcon from 'interface/icons/Uptime';
@@ -49,12 +49,22 @@ class StormglideSteps extends Analyzer {
   }
 
   statistic() {
+    const buffStacks = this.selectedCombatant.getStackBuffUptimes(SPELLS.UNTOUCHABLE.id);
+    const maxStacks = Object.keys(buffStacks)
+    .map(stacks => parseInt(stacks,10) || 0) //convert keys to integers
+    .reduce((a,b) => a > b ? a : b, 0); //find the largest key (aka highest stack)
+    const maxStackDuration = buffStacks[maxStacks] || 0;
+    const unbuffedDuration = buffStacks[0] || 0;
     return (
       <ItemStatistic
         size="flexible"
         tooltip={(
           <>
-          Average stacks: <b>{this.averageStacks.toFixed(2)}</b>
+          Average stacks: <b>{this.averageStacks.toFixed(1)}</b><br />
+          Time spent without buff: <b>{(unbuffedDuration / 1000).toFixed(0)}s</b> ({formatPercentage(unbuffedDuration / this.owner.fightDuration)}%)<br />
+          {maxStacks !== 0 && <>
+            Time at <b>{maxStacks}</b> stacks: <b>{(maxStackDuration / 1000).toFixed(0)}s </b>({formatPercentage(maxStackDuration / this.owner.fightDuration)}%)
+            </>}
           </>
         )}
       >
