@@ -289,7 +289,7 @@ exports[`Premium matches snapshot when logged in with GitHub 1`] = `
         </h2>
       </div>
       <div
-        className="panel-body"
+        className="panel-body pad"
       >
         Hello 
         Martijn Hols
@@ -600,7 +600,7 @@ exports[`Premium matches snapshot when logged in with Patreon 1`] = `
         </h2>
       </div>
       <div
-        className="panel-body"
+        className="panel-body pad"
       >
         Hello 
         Martijn Hols
