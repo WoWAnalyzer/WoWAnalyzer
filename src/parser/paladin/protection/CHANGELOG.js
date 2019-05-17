@@ -5,6 +5,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('17 May 2019'),
+    contributors: [emallson],
+    changes: <>Fixed an issue with <SpellLink id={SPELLS.JUDGMENT_CAST_PROTECTION.id} /> having its cooldown reset too often when using <SpellLink id={SPELLS.CRUSADERS_JUDGMENT_TALENT.id} />. Special thanks to Woliance for helping me work it out.</>,
+  },
+  {
     date: new Date('16 February 2019'),
     contributors: [emallson],
     changes: <><SpellLink id={SPELLS.HAND_OF_THE_PROTECTOR_TALENT.id} /> cast delay is now only tracked for self-targeted casts.</>,
