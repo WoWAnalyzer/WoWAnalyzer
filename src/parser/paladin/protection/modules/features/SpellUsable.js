@@ -50,7 +50,7 @@ class SpellUsable extends CoreSpellUsable {
         this.endCooldown(spellId, false, this.lastPotentialTriggerForAvengersShield ? this.lastPotentialTriggerForAvengersShield.timestamp : undefined);
       }
     } else if (this.hasCrusadersJudgment && spellId === SPELLS.JUDGMENT_CAST_PROTECTION.id) {
-      if (!this.chargesAvailable(spellId)) {
+      if (!this.isAvailable(spellId)) {
         this.endCooldown(spellId, false, this.lastPotentialTriggerForJudgment ? this.lastPotentialTriggerForJudgment.timestamp : undefined);
       }
     }
