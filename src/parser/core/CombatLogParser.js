@@ -147,6 +147,7 @@ import IncandescentSliver from '../shared/modules/items/bfa/raids/bod/Incandesce
 import LeggingsOfTheAberrantTidesage from '../shared/modules/items/bfa/raids/crucibleofstorms/LeggingsOfTheAberrantTidesage';
 import StormglideSteps from '../shared/modules/items/bfa/raids/crucibleofstorms/StormglideSteps';
 import TridentOfDeepOcean from '../shared/modules/items/bfa/raids/crucibleofstorms/TridentOfDeepOcean';
+import VoidStone from '../shared/modules/items/bfa/raids/crucibleofstorms/VoidStone';
 
 import ParseResults from './ParseResults';
 import EventsNormalizer from './EventsNormalizer';
@@ -304,6 +305,7 @@ class CombatLogParser {
     leggingsOfTheAberrantTidesage: LeggingsOfTheAberrantTidesage,
     stormglideSteps: StormglideSteps,
     tridentOfDeepOcean: TridentOfDeepOcean,
+    voidStone: VoidStone,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
