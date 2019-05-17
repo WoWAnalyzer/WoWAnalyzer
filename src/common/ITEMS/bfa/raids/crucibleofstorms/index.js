@@ -13,6 +13,13 @@ export default {
   },
 
   // Uu'nat, Harbinger of the Void
+  STORMGLIDE_STEPS: {
+    id: 167834,
+    name: 'Stormglide Steps',
+    icon: 'inv_boot_leather_zuldazarraid_d_01',
+    quality: ITEM_QUALITIES.PURPLE,
+  },
+
   TRIDENT_OF_DEEP_OCEAN: {
     id: 167864,
     name: 'Trident of Deep Ocean',
