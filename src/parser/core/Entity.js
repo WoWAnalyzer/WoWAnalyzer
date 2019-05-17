@@ -90,6 +90,38 @@ class Entity {
   getBuffTriggerCount(spellId, sourceID = null) {
     return this.getBuffHistory(spellId, sourceID).length;
   }
+
+  /**
+   * @param {number} spellId - buff ID to check for
+   * @param {number|null} sourceID - source ID the buff must have come from, or any source if null.
+   * @returns {array} - Time (in ms) the specified buff has been active at each stack count.
+   */
+  getStackBuffUptimes(spellId, sourceID = null){
+    const stackUptimes = {0: this.owner.fightDuration};
+    this.getBuffHistory(spellId, sourceID)
+      .forEach((buff, idx, arr) => {
+        let startTime;
+        let startStacks;
+        buff.stackHistory.forEach((stack, idx, arr) => {
+          if(startStacks !== undefined){
+            const duration = !startTime ? 0 : (stack.timestamp - startTime);
+            stackUptimes[startStacks] = (stackUptimes[startStacks] || 0) + duration;
+            stackUptimes[0] -= duration; //reduce time spent at no stacks by time spent at current stack
+          }
+
+          startTime = stack.timestamp;
+          startStacks = stack.stacks;
+          if (buff.end === null && idx === arr.length - 1) {
+            // If the buff instance didn't end (usually because it was still active at the end of the fight) we need to manually account for it
+            const finalStackUptime = this.owner.currentTimestamp - startTime;
+            stackUptimes[startStacks] += finalStackUptime;
+            stackUptimes[0] -= finalStackUptime; //reduce time spent at no stacks by time spent at current stack
+          }
+        });
+      });
+    return stackUptimes;
+  }
+
   /**
    * @param {number} spellId - buff ID to check for
    * @param {number|null} sourceID - source ID the buff must have come from, or any source if null.
@@ -97,25 +129,12 @@ class Entity {
    *      For example if buff was up for 10000ms with 1 stack and 20000ms with 2 stacks, would return 50000.
    */
   getStackWeightedBuffUptime(spellId, sourceID = null) {
-    return this.getBuffHistory(spellId, sourceID)
-      .reduce((totalUptime, buff) => {
-        let startTime;
-        let startStacks;
-        const buffUptime = buff.stackHistory.reduce((stackUptime, stack, idx, arr) => {
-          let result = !startTime ? 0 : (stack.timestamp - startTime) * startStacks;
-          startTime = stack.timestamp;
-          startStacks = stack.stacks;
-          if (buff.end === null && idx === arr.length - 1) {
-            // If the buff instance didn't end (usually because it was still active at the end of the fight) we need to manually account for it
-            const finalStackUptime = this.owner.currentTimestamp - startTime;
-            const weighted = finalStackUptime * startStacks;
-            result += weighted;
-          }
-          return stackUptime + result;
-        }, 0);
-        return totalUptime + buffUptime;
-      }, 0);
+    const stackBuffUptimes = this.getStackBuffUptimes(spellId, sourceID);
+    return Object.keys(stackBuffUptimes).map(stack => stackBuffUptimes[stack] * stack).reduce((total, cur) => {
+      return total + cur;
+    }, 0);
   }
+
   applyBuff(buff) {
     this.buffs.push({
       end: null,

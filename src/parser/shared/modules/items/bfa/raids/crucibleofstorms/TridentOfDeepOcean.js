@@ -16,8 +16,6 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import PrimaryStatIcon from 'interface/icons/PrimaryStat';
 import UptimeIcon from 'interface/icons/Uptime';
 
-const MS_BUFFER = 100;
-
 // Example log: https://www.warcraftlogs.com/reports/6xHLtAFW4yC73mRD/#fight=28&source=2
 
 class TridentOfDeepOcean extends Analyzer {
@@ -54,70 +52,6 @@ class TridentOfDeepOcean extends Analyzer {
     this.shieldCount++;
   }
 
-  isBuggedStackChange(previousTime, currentTime){
-    return previousTime > (currentTime - MS_BUFFER);
-  }
-
-  get cleanStacks() {
-    const cleanStacks = {
-      0: [
-        {
-          start: this.owner.fight.start_time,
-          end: null,
-          duration: null,
-        },
-      ],
-    };
-    let lastHandledStack = 0;
-
-    const buffStacks = this.selectedCombatant.getBuffHistory(SPELLS.CUSTODY_OF_THE_DEEP_BUFF.id).reduce((obj, buff) => {
-      obj[buff.start] = buff.stackHistory;
-      return obj;
-    }, {});
-
-    Object.values(buffStacks).forEach((stackChain) => {
-      stackChain.forEach((stack) => {
-        const stackSize = stack.stacks;
-        const stackStart = stack.timestamp;
-        if (cleanStacks[lastHandledStack] !== undefined) {
-          const previousStack = cleanStacks[lastHandledStack];
-          const lastOccurrence = previousStack[previousStack.length - 1];
-          if (this.isBuggedStackChange(lastOccurrence.start, stackStart)){
-            return;
-          }
-
-          if (lastOccurrence.end === null) {
-            lastOccurrence.end = stackStart;
-            lastOccurrence.duration = lastOccurrence.end - lastOccurrence.start;
-          }
-        }
-
-        if (cleanStacks[stackSize] === undefined) {
-          cleanStacks[stackSize] = [];
-        }
-
-        const stackInfo = {
-          start: stackStart,
-          end: null,
-          duration: null,
-        };
-        cleanStacks[stackSize].push(stackInfo);
-        lastHandledStack = stackSize;
-      });
-    });
-
-    if (cleanStacks[lastHandledStack]) {
-      const previousStack = cleanStacks[lastHandledStack];
-      const lastOccurrence = previousStack[previousStack.length - 1];
-      if (lastOccurrence.end === null) {
-        lastOccurrence.end = this.owner.fight.end_time;
-        lastOccurrence.duration = lastOccurrence.end - lastOccurrence.start;
-      }
-    }
-
-    return cleanStacks;
-  }
-
   _absorbDamage(event){
     this.damageAbsorbed += (event.amount || 0);
   }
@@ -131,18 +65,7 @@ class TridentOfDeepOcean extends Analyzer {
   }
 
   get averageMainStat() {
-    const buffStacks = this.cleanStacks;
-
-    const buffDuration = Object.keys(buffStacks).reduce((total, stackSize) => {
-      const totalStackDuration = buffStacks[stackSize]
-        .map(element => element.duration)
-        .reduce((total, current) => total + current);
-
-      return total + (totalStackDuration * stackSize);
-    }, 0);
-
-    const buffIncrease = buffDuration * this.mainstatRating;
-
+    const buffIncrease = this.mainstatRating * this.selectedCombatant.getStackWeightedBuffUptime(SPELLS.CUSTODY_OF_THE_DEEP_BUFF.id);
     return (buffIncrease / this.owner.fightDuration).toFixed(0);
   }
 
@@ -151,7 +74,7 @@ class TridentOfDeepOcean extends Analyzer {
   }
 
   statistic() {
-    const buffStacks = this.cleanStacks;
+    const buffStacks = this.selectedCombatant.getStackBuffUptimes(SPELLS.CUSTODY_OF_THE_DEEP_BUFF.id);
     return (
       <ItemStatistic
         size="flexible"
@@ -164,9 +87,7 @@ class TridentOfDeepOcean extends Analyzer {
             <ul>
             {
               Object.keys(buffStacks).map((stackSize) => {
-                const totalStackDuration = buffStacks[stackSize]
-                  .map(element => element.duration)
-                  .reduce((total, current) => total + current);
+                const totalStackDuration = buffStacks[stackSize];
                   return (
                     <li>
                       <b>{(totalStackDuration / 1000).toFixed(0)}s</b> ({formatPercentage(totalStackDuration / this.owner.fightDuration)}%) at <b>{stackSize}</b> stack{stackSize !== '1' && `s`}.

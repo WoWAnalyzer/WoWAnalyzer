@@ -145,6 +145,7 @@ import CrestOfPaku from '../shared/modules/items/bfa/raids/bod/CrestOfPaku';
 import IncandescentSliver from '../shared/modules/items/bfa/raids/bod/IncandescentSliver';
 // Crucible of Storms
 import LeggingsOfTheAberrantTidesage from '../shared/modules/items/bfa/raids/crucibleofstorms/LeggingsOfTheAberrantTidesage';
+import StormglideSteps from '../shared/modules/items/bfa/raids/crucibleofstorms/StormglideSteps';
 import TridentOfDeepOcean from '../shared/modules/items/bfa/raids/crucibleofstorms/TridentOfDeepOcean';
 
 import ParseResults from './ParseResults';
@@ -301,6 +302,7 @@ class CombatLogParser {
     incandescentSliver: IncandescentSliver,
     // Crucible of Storms
     leggingsOfTheAberrantTidesage: LeggingsOfTheAberrantTidesage,
+    stormglideSteps: StormglideSteps,
     tridentOfDeepOcean: TridentOfDeepOcean,
   };
   // Override this with spec specific modules when extending

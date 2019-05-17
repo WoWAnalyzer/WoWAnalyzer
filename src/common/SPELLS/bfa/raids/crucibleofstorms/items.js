@@ -148,7 +148,13 @@ export default {
     name: "Unbound Anguish",
     icon: "ability_warlock_soulswap",
   },
-
+  
+  UNTOUCHABLE: { //Stormglide Steps Crit Buff
+    id: 295278,
+    name: "Untouchable",
+    icon: "ability_monk_ridethewind",
+  },
+  
   VOID_EMBRACE: { //Malformed Herald's Legwraps Haste Buff
     id: 295174,
     name: "Void Embrace",
