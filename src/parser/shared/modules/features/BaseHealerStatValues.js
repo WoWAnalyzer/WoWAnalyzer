@@ -450,7 +450,7 @@ class BaseHealerStatValues extends Analyzer {
                 </TooltipElement>
 
                 <div className="pull-right">
-                  {this.qeLive && (
+                  {this.qeLive && this.selectedCombatant.characterProfile && (
                     <>
                       <Tooltip content="Opens in a new tab. Leverage the QE Live Tool to directly compare gear, azerite traits, and trinkets based on your stat values.">
                         <a
