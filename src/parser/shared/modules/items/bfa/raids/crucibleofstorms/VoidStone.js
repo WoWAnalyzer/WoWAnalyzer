@@ -47,12 +47,20 @@ class VoidStone extends Analyzer {
 
   _cast(event){
     this.uses += 1;
-    this.absorbedByUse[this.uses] = {time: event.timestamp - this.owner.fight.start_time, amount:0};
+    this.absorbedByUse[this.uses] = {
+      time: event.timestamp - this.owner.fight.start_time,
+      amount: 0,
+      target: event.targetID,
+    };
   }
 
   _absorb(event){
     this.damageAbsorbed += event.amount;
     this.absorbedByUse[this.uses].amount += event.amount;
+  }
+
+  get possibleUseCount() {
+    return Math.ceil(this.owner.fightDuration / (this.constructor.cooldown * 1000));
   }
 
 
@@ -62,14 +70,15 @@ class VoidStone extends Analyzer {
         size="flexible"
         tooltip={(
           <>
-            Uses: <b>{this.uses}</b><br />
+            Uses: <b>{this.uses}</b> out of <b>{this.possibleUseCount}</b> possible use{this.possibleUseCount !== 1 && <>s</>}<br />
             Total damage absorbed: <b>{formatNumber(this.damageAbsorbed)}</b><br />
             Average damage absorbed per shield: <b>{formatNumber(this.damageAbsorbed / this.uses)}</b><br />
             {this.uses > 0 &&
               <>Absorb per cast: <br />
                 <ul>
                 {Object.keys(this.absorbedByUse).map(use => {
-                  return <li>Use <b>{use}</b> at <b>{formatDuration(this.absorbedByUse[use].time / 1000)}</b>: <b>{formatNumber(this.absorbedByUse[use].amount)}</b> damage absorbed</li>;
+                  const target = this.owner.players.find(player => player.id === this.absorbedByUse[use].target);
+                  return <li key={use}>Use <b>{use}</b> {target !== undefined && <>(on <b>{target.name}</b>)</>} at <b>{formatDuration(this.absorbedByUse[use].time / 1000)}</b>: <b>{formatNumber(this.absorbedByUse[use].amount)}</b> damage absorbed</li>;
                 })}
                 </ul>
               </>
