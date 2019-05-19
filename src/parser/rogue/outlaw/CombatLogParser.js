@@ -15,7 +15,10 @@ import OutlawEnergyCapTracker from './modules/core/OutlawEnergyCapTracker';
 import Energy from './modules/core/Energy';
 import SpellEnergyCost from '../shared/resources/SpellEnergyCost';
 
-import RollTheBonesBuffs from './modules/core/RollTheBonesBuffs';
+import RollTheBonesBuffs from './modules/spells/RollTheBonesBuffs';
+import RollTheBonesCastTracker from './modules/features/RollTheBonesCastTracker';
+import RollTheBonesCounter from './modules/spells/RollTheBonesCounter';
+import RollTheBonesEfficiency from './modules/spells/RollTheBonesEfficiency';
 import RestlessBlades from './modules/core/RestlessBlades';
 import SliceAndDiceUptime from './modules/talents/SliceAndDiceUptime';
 
@@ -38,11 +41,15 @@ class CombatLogParser extends CoreCombatLogParser {
     spellEnergyCost: SpellEnergyCost,
 
     //Core
-    restlessBlades: RestlessBlades,
-    rolltheBonesBuffs: RollTheBonesBuffs,
+    restlessBlades: RestlessBlades,    
+    rollTheBonesCastTracker: RollTheBonesCastTracker,
+    
     //Items
 
     //Casts
+    rollTheBonesBuffs: RollTheBonesBuffs,
+    rollTheBonesCounter: RollTheBonesCounter,
+    rollTheBonesEfficiency: RollTheBonesEfficiency,
 
     //Talents
     sliceAndDiceUptime: SliceAndDiceUptime,
