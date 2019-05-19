@@ -18,6 +18,12 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
 
   constructor(...args) {
     super(...args);
+    if (this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id)) {
+      this.constructor.HEALING_ABILITIES_ON_GCD.push(SPELLS.CRUSADER_STRIKE.id);
+    }
+    if (this.selectedCombatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id)) {
+      this.constructor.HEALING_ABILITIES_ON_GCD.push(SPELLS.JUDGMENT_CAST.id);
+    }
     if(this.selectedCombatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id)){
       this.constructor.HEALING_ABILITIES_ON_GCD.push(SPELLS.JUDGMENT_CAST.id);
       this.constructor.HEALING_ABILITIES_ON_GCD.push(SPELLS.CRUSADER_STRIKE.id);
