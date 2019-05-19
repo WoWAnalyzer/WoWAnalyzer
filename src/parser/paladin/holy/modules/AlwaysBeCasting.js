@@ -14,21 +14,13 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.HOLY_PRISM_TALENT.id,
     SPELLS.LIGHTS_HAMMER_TALENT.id,
     SPELLS.LAY_ON_HANDS.id,
-
-    
-    //SPELLS.JUDGMENT_CAST.id, // Only with either JoL
-    //SPELLS.CRUSADER_STRIKE.id, // Only with Crusader's Might, is added in constructor if applicable
   ];
 
   constructor(...args) {
     super(...args);
-
-    if (this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id)||
-      this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id)) {
-      this.constructor.HEALING_ABILITIES_ON_GCD.push(SPELLS.CRUSADER_STRIKE.id);
-    }
-    if (this.selectedCombatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id)) {
+    if(this.selectedCombatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id)){
       this.constructor.HEALING_ABILITIES_ON_GCD.push(SPELLS.JUDGMENT_CAST.id);
+      this.constructor.HEALING_ABILITIES_ON_GCD.push(SPELLS.CRUSADER_STRIKE.id);
     }
   }
 
@@ -39,7 +31,11 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       return false;
     }
     if (spellId === SPELLS.CRUSADER_STRIKE.id && 
-      !this.selectedCombatant.hasBuff(SPELLS.AVENGING_CRUSADER_BUFF.id, event.timestamp)){
+      !this.selectedCombatant.hasBuff(SPELLS.AVENGING_CRUSADER_TALENT.id, event.timestamp)){
+      return false;
+    }
+    if (spellId === SPELLS.JUDGMENT_CAST.id && 
+      !this.selectedCombatant.hasBuff(SPELLS.AVENGING_CRUSADER_TALENT.id, event.timestamp)){
       return false;
     }
     return super.countsAsHealingAbility(event);
