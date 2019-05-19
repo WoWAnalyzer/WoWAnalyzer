@@ -7,11 +7,11 @@ import Buffs from './modules/Buffs';
 import SpellUsable from '../shared/SpellUsable';
 
 import ComboPointDetails from '../shared/resources/ComboPointDetails';
-import ComboPointTracker from '../shared/resources/ComboPointTracker';
+import OutlawComboPointTracker from './modules/core/OutlawComboPointTracker';
 import ComboPoints from './modules/core/ComboPoints';
 import EnergyDetails from '../shared/resources/EnergyDetails';
 import EnergyTracker from '../shared/resources/EnergyTracker';
-import EnergyCapTracker from '../shared/resources/EnergyCapTracker';
+import OutlawEnergyCapTracker from './modules/core/OutlawEnergyCapTracker';
 import Energy from './modules/core/Energy';
 import SpellEnergyCost from '../shared/resources/SpellEnergyCost';
 
@@ -28,11 +28,11 @@ class CombatLogParser extends CoreCombatLogParser {
     spellUsable: SpellUsable,
 
     //Resource
-    comboPointTracker: ComboPointTracker,
+    comboPointTracker: OutlawComboPointTracker,
     comboPointDetails: ComboPointDetails,
     comboPoints: ComboPoints,
     energyTracker: EnergyTracker,
-    energyCapTracker: EnergyCapTracker,
+    energyCapTracker: OutlawEnergyCapTracker,
     energyDetails: EnergyDetails,
     energy: Energy,
     spellEnergyCost: SpellEnergyCost,
