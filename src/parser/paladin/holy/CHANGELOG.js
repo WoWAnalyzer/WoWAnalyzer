@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-05-19'),
+    changes: <><SpellLink id={SPELLS.AVENGING_CRUSADER_TALENT.id} /> statistic added showing total healing, healing transfered to beacons and tracks triggers as healing abilities.</>, 
+    contributors: [HolySchmidt],
+  },
+  {
     date: new Date('2019-03-21'),
     changes: <><SpellLink id={SPELLS.GRACE_OF_THE_JUSTICAR.id} /> statistic added showing total healing, players hit per cast and healing transfered to beacons.</>,
     contributors: [HolySchmidt],

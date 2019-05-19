@@ -26,6 +26,7 @@ class AvengingCrusader extends Analyzer {
   hits = 0;
   crits = 0;
   overHealing = 0;
+  beaconOverhealing = 0;
 
   constructor(...args) {
     super(...args);
@@ -55,6 +56,7 @@ class AvengingCrusader extends Analyzer {
       return;
     }
     this.healingTransfered += event.amount + (event.absorbed || 0);
+    this.beaconOverhealing += (event.overheal || 0);
   }
 
   get critRate() {
@@ -79,7 +81,8 @@ class AvengingCrusader extends Analyzer {
           <>
             Hits: <b>{this.hits}</b> Crits: <b>{this.crits}</b><br />
             Overhealed: <b>{formatPercentage(this.overHealing / (this.healing + this.overHealing))}%</b><br />
-            Beacon healing transfered: <b>{formatNumber(this.healingTransfered)}</b><br />
+            Beacon healing: <b>{formatNumber(this.healingTransfered)}</b><br />
+            Beacon overhealed: <b>{formatPercentage(this.beaconOverhealing / (this.beaconOverhealing + this.healingTransfered))}%</b><br />
           </>
         )}
       />
