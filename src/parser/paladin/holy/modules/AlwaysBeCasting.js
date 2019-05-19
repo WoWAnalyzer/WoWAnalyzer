@@ -19,15 +19,17 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   constructor(...args) {
     super(...args);
 
-    if (this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id)) {
-      this.constructor.HEALING_ABILITIES_ON_GCD.push(SPELLS.CRUSADER_STRIKE.id);
-    }
-    if (this.selectedCombatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id)) {
-      this.constructor.HEALING_ABILITIES_ON_GCD.push(SPELLS.JUDGMENT_CAST.id);
-    }
     if(this.selectedCombatant.hasTalent(SPELLS.AVENGING_CRUSADER_TALENT.id)){
       this.constructor.HEALING_ABILITIES_ON_GCD.push(SPELLS.JUDGMENT_CAST.id);
       this.constructor.HEALING_ABILITIES_ON_GCD.push(SPELLS.CRUSADER_STRIKE.id);
+    }
+    else{
+      if (this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id)) {
+        this.constructor.HEALING_ABILITIES_ON_GCD.push(SPELLS.CRUSADER_STRIKE.id);
+      }
+      if (this.selectedCombatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id)) {
+        this.constructor.HEALING_ABILITIES_ON_GCD.push(SPELLS.JUDGMENT_CAST.id);
+      }
     }
   }
 
@@ -37,12 +39,18 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       debug && console.log(`%cABC: ${event.ability.name} (${spellId}) skipped for healing time; target is not friendly`, 'color: orange');
       return false;
     }
-    if (spellId === SPELLS.CRUSADER_STRIKE.id && 
-      !this.selectedCombatant.hasBuff(SPELLS.AVENGING_CRUSADER_TALENT.id, event.timestamp)){
+
+    // using crusdars might, count Crusader Strike healing spell, or if Avenging Crusdaer is active, count for healing //
+    if (spellId === SPELLS.CRUSADER_STRIKE.id &&
+      !this.selectedCombatant.hasBuff(SPELLS.AVENGING_CRUSADER_TALENT.id, event.timestamp) &&
+      !this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT.id)){
       return false;
     }
-    if (spellId === SPELLS.JUDGMENT_CAST.id && 
-      !this.selectedCombatant.hasBuff(SPELLS.AVENGING_CRUSADER_TALENT.id, event.timestamp)){
+
+    // if judging light, always count as healing spell, or if Avenging Crusdaer is active, count for healing //
+    if (spellId === SPELLS.JUDGMENT_CAST.id &&
+      !this.selectedCombatant.hasBuff(SPELLS.AVENGING_CRUSADER_TALENT.id, event.timestamp) &&
+      !this.selectedCombatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id)){
       return false;
     }
     return super.countsAsHealingAbility(event);

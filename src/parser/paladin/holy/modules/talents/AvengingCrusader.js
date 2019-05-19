@@ -41,7 +41,7 @@ class AvengingCrusader extends Analyzer {
   onHit(event) {
     this.hits += 1;
     this.healing += event.amount + (event.absorbed || 0);
-    this.overHealing += (event.overHealing || 0);
+    this.overHealing += (event.overheal || 0);
   }
 
   onCrit(event){
@@ -78,7 +78,7 @@ class AvengingCrusader extends Analyzer {
         tooltip={(
           <>
             Hits: <b>{this.hits}</b> Crits: <b>{this.crits}</b><br />
-            Overhealing: <b>{formatNumber(this.overHealing)}</b><br />
+            Overhealed: <b>{formatPercentage(this.overHealing / (this.healing + this.overHealing))}%</b><br />
             Beacon healing transfered: <b>{formatNumber(this.healingTransfered)}</b><br />
           </>
         )}
