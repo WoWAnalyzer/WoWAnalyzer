@@ -29,4 +29,9 @@ export default {
     icon: "shaman_pvp_ripplingwaters",
   },
 
+  UNTOUCHABLE: { //Stormglide Steps Crit Buff
+    id: 295278,
+    name: "Untouchable",
+    icon: "ability_monk_ridethewind",
+  },
 };
