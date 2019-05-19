@@ -246,11 +246,6 @@ export default {
     name: 'Avenging Crusader',
     icon: 'spell_holy_restoration',
   },
-  AVENGING_CRUSADER_BUFF: {
-    id: 216331,
-    name: 'Avenging Crusader',
-    icon: 'ability_paladin_veneration'
-  },
   // Retribution Paladin:
   JUDGMENT_DEBUFF: {
     id: 197277,
