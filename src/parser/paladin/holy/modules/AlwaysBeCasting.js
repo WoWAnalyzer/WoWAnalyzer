@@ -13,7 +13,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     SPELLS.BESTOW_FAITH_TALENT.id,
     SPELLS.HOLY_PRISM_TALENT.id,
     SPELLS.LIGHTS_HAMMER_TALENT.id,
-    SPELLS.LAY_ON_HANDS.id,
   ];
 
   constructor(...args) {
