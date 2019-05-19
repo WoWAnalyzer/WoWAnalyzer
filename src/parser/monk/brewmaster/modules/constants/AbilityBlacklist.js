@@ -17,6 +17,7 @@ const SHARED = [
   285195, // Rastakhan, Deadly Withering
   285000, // Stormwall, Kelp-Wrapped
   287993, // Jaina, Chilling Touch
+  287490, // Jaina, Frozen Solid
   // ULDIR
   266948, // Vectis, Plague Bomb (intermission soak)
   // ANTORUS
