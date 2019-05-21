@@ -42,6 +42,7 @@ import AuraOfMercy from './modules/talents/AuraOfMercy';
 import HolyAvenger from './modules/talents/HolyAvenger';
 import DivinePurpose from './modules/talents/DivinePurpose';
 import CrusadersMight from './modules/talents/CrusadersMight';
+import AvengingCrusader from './modules/talents/AvengingCrusader';
 
 // azurite traits //
 import GraceOfTheJusticar from './modules/azeritetraits/GraceOfTheJusticar';
@@ -105,6 +106,7 @@ class CombatLogParser extends CoreCombatLogParser {
     holyAvenger: HolyAvenger,
     divinePurpose: DivinePurpose,
     crusadersMight: CrusadersMight,
+    avengingCrusader: AvengingCrusader,
 
     // Azureite Traits //
     graceOfTheJusticar: GraceOfTheJusticar,

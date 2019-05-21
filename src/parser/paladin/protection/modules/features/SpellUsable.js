@@ -24,6 +24,7 @@ class SpellUsable extends CoreSpellUsable {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.HAMMER_OF_THE_RIGHTEOUS.id || spellId === SPELLS.BLESSED_HAMMER_TALENT.id) {
       this.lastPotentialTriggerForAvengersShield = event;
+      this.lastPotentialTriggerForJudgment = event;
     } else if (spellId === SPELLS.AVENGERS_SHIELD.id) {
       this.lastPotentialTriggerForAvengersShield = null;
     } else if (spellId === SPELLS.JUDGMENT_CAST_PROTECTION.id) {
@@ -46,11 +47,11 @@ class SpellUsable extends CoreSpellUsable {
     if (spellId === SPELLS.AVENGERS_SHIELD.id) {
       if (this.isOnCooldown(spellId)) {
         this.gc.triggerInferredReset(this.lastPotentialTriggerForAvengersShield);
-        this.endCooldown(spellId, undefined, this.lastPotentialTriggerForAvengersShield ? this.lastPotentialTriggerForAvengersShield.timestamp : undefined);
+        this.endCooldown(spellId, false, this.lastPotentialTriggerForAvengersShield ? this.lastPotentialTriggerForAvengersShield.timestamp : undefined);
       }
     } else if (this.hasCrusadersJudgment && spellId === SPELLS.JUDGMENT_CAST_PROTECTION.id) {
-      if (this.isOnCooldown(spellId)) {
-        this.endCooldown(spellId, undefined, this.lastPotentialTriggerForJudgment ? this.lastPotentialTriggerForJudgment.timestamp : undefined);
+      if (!this.isAvailable(spellId)) {
+        this.endCooldown(spellId, false, this.lastPotentialTriggerForJudgment ? this.lastPotentialTriggerForJudgment.timestamp : undefined);
       }
     }
 

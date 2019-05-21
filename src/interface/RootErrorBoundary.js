@@ -44,7 +44,7 @@ class RootErrorBoundary extends React.Component {
   }
 
   error(error, details = null) {
-    if (error && error.message === 'Script error.') {
+    if (error && (error.message === 'Script error.' || error.message.includes('adsbygoogle'))) {
       // Some errors are triggered by third party scripts, such as browser plug-ins. These errors should generally not affect the application, so we can safely ignore them for our error handling. If a plug-in like Google Translate messes with the DOM and that breaks the app, that triggers a different error so those third party issues are still handled.
       return;
     }
