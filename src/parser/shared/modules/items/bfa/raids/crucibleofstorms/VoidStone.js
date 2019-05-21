@@ -73,17 +73,32 @@ class VoidStone extends Analyzer {
             Uses: <b>{this.uses}</b> out of <b>{this.possibleUseCount}</b> possible use{this.possibleUseCount !== 1 && <>s</>}<br />
             Total damage absorbed: <b>{formatNumber(this.damageAbsorbed)}</b><br />
             Average damage absorbed per shield: <b>{formatNumber(this.damageAbsorbed / this.uses)}</b><br />
-            {this.uses > 0 &&
-              <>Absorb per cast: <br />
-                <ul>
-                {Object.keys(this.absorbedByUse).map(use => {
-                  const target = this.owner.players.find(player => player.id === this.absorbedByUse[use].target);
-                  return <li key={use}>Use <b>{use}</b> {target !== undefined && <>(on <b>{target.name}</b>)</>} at <b>{formatDuration(this.absorbedByUse[use].time / 1000)}</b>: <b>{formatNumber(this.absorbedByUse[use].amount)}</b> damage absorbed</li>;
-                })}
-                </ul>
-              </>
-            }
           </>
+        )}
+        dropdown={(
+          <table className="table table-condensed">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Target</th>
+                <th>Absorbed</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                Object.keys(this.absorbedByUse).map(use => {
+                  const target = this.owner.players.find(player => player.id === this.absorbedByUse[use].target);
+                  return (
+                    <tr key={use}>
+                      <th>{formatDuration(this.absorbedByUse[use].time / 1000)}</th>
+                      <td>{target.name || <>Unknown</>}</td>
+                      <td>{formatNumber(this.absorbedByUse[use].amount)}</td>
+                    </tr>
+                  );
+                })
+              }
+            </tbody>
+          </table>
         )}
       >
         <BoringItemValueText item={ITEMS.VOID_STONE}>

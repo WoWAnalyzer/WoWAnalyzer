@@ -21,6 +21,7 @@ class Statistic extends React.PureComponent {
     position: PropTypes.number,
     size: PropTypes.oneOf(['standard', 'small', 'medium', 'large', 'flexible']),
     drilldown: PropTypes.string,
+    dropdown: PropTypes.node,
     className: PropTypes.string,
   };
   static defaultProps = {
@@ -29,6 +30,33 @@ class Statistic extends React.PureComponent {
     ultrawide: false,
     className: '',
   };
+
+  constructor(){
+    super();
+    this.state = {
+      expanded: false,
+    };
+
+    this.toggleExpansion = this.toggleExpansion.bind(this);
+  }
+
+  componentWillMount() {
+    this.setState({
+      expanded: this.props.expanded,
+    });
+  }
+
+  componentWillReceiveProps(newProps) {
+    this.setState({
+      expanded: newProps.expanded,
+    });
+  }
+
+  toggleExpansion() {
+    this.setState({
+      expanded: !this.state.expanded,
+    });
+  }
 
   renderDrilldown(drilldown) {
     const isAbsolute = drilldown.includes('://');
@@ -49,17 +77,47 @@ class Statistic extends React.PureComponent {
       </div>
     );
   }
+
+  renderDropdown(dropdown){
+    return (
+      <>
+        <div className="row">
+          <div className="col-xs-12">
+            {this.state.expanded && (
+              <div className="statistic-expansion">
+                {dropdown}
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="statistic-expansion-button-holster">
+          <button onClick={this.toggleExpansion} className="btn btn-primary">
+            {!this.state.expanded && <span className="glyphicon glyphicon-chevron-down" />}
+            {this.state.expanded && <span className="glyphicon glyphicon-chevron-up" />}
+          </button>
+        </div>
+      </>
+    );
+  }
+
   render() {
-    const { children, wide, ultrawide, tooltip, size, drilldown, className, ...others } = this.props;
+    const { children, wide, ultrawide, tooltip, size, drilldown, className, style, dropdown, ...others } = this.props;
 
     // TODO: Determine if drilldown is a relative or absolute URL. Absolute: has protocol. Relative: has no protocol.
     // TODO: Render drilldown link. Maybe on mouseover a small box expand below the statistic with a link?
 
     return (
       <div className={ultrawide ? 'col-md-12' : (wide ? 'col-md-6 col-sm-12 col-xs-12' : 'col-lg-3 col-md-4 col-sm-6 col-xs-12')}>
-        <div className={`panel statistic ${size} ${className}`} {...others}>
+        <div
+          className={`panel statistic ${size} ${className}`}
+          // only add zIndex property if a dropdown exists, to preserve backwards compatiblity with StatisticBox utilizing Statistic
+          style={{ ...style, height: 'auto', ...(dropdown && {zIndex: this.state.expanded ? 2 : 1 })}}
+          {...others}
+        >
           <div className="panel-body">
             {children}
+            {dropdown && this.renderDropdown(dropdown)}
           </div>
           {tooltip && (
             <Tooltip content={tooltip}>
