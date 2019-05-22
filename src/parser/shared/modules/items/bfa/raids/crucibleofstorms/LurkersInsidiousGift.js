@@ -30,7 +30,7 @@ class LurkersInsidiousGift extends Analyzer {
   static duration = 30; //seconds
   static maxStacks = 30;
 
-  stacks = {};
+  possibleUptime = 0;
   uses = 0;
   damageTaken = 0;
 
@@ -46,9 +46,7 @@ class LurkersInsidiousGift extends Analyzer {
       mastery: this.masteryRating,
     });
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.INSIDIOUS_GIFT_CAST), this._cast);
-    this.addEventListener(Events.applydebuffstack.to(SELECTED_PLAYER).spell(SPELLS.SUFFERING_DEBUFF), this._stack);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER).spell(SPELLS.SUFFERING_DAMAGE), this._takeDamage);
-    this.addEventListener(Events.fightend, this._end);
 
     this.abilities.add({
       spell: SPELLS.INSIDIOUS_GIFT_CAST,
@@ -63,19 +61,16 @@ class LurkersInsidiousGift extends Analyzer {
 
   _cast(event){
     this.uses += 1;
-    this.stacks[this.uses] = 0;
-  }
-
-  _stack(event){
-    this.stacks[this.uses] += 1;
+    const timeLeft = this.owner.fight.end_time - event.timestamp;
+    if(timeLeft < this.constructor.duration * 1000){
+      this.possibleUptime += timeLeft;
+    }else{
+      this.possibleUptime += this.constructor.duration * 1000;
+    }
   }
 
   _takeDamage(event){
     this.damageTaken += (event.amount || 0) + (event.absorbed || 0);
-  }
-
-  _end(event){
-    this.stacks[this.uses] = this.constructor.maxStacks; //if fight ends with debuff still running, pretend it ran for all 30 stacks
   }
 
   get possibleUseCount() {
@@ -86,12 +81,8 @@ class LurkersInsidiousGift extends Analyzer {
     return this.masteryRating * this.selectedCombatant.getBuffUptime(SPELLS.INSIDIOUS_GIFT.id) / this.owner.fightDuration;
   }
 
-  get wastedStacks(){
-    const totalStacksGained = Object.values(this.stacks).reduce((total, cur) => {
-      return total + cur;
-    }, 0);
-    const totalStacksPossible = this.uses * this.constructor.maxStacks;
-    return (totalStacksPossible - totalStacksGained) / totalStacksPossible;
+  get wastedUptime(){
+    return (this.possibleUptime - this.selectedCombatant.getBuffUptime(SPELLS.INSIDIOUS_GIFT.id)) / this.possibleUptime;
   }
 
 
@@ -115,9 +106,9 @@ class LurkersInsidiousGift extends Analyzer {
     );
   }
 
-  get suggestedStacks() {
+  get suggestedUptime() {
     return {
-      actual: this.wastedStacks,
+      actual: this.wastedUptime,
       isGreaterThan: {
         minor: 0.05,
         average: 0.08,
@@ -128,15 +119,15 @@ class LurkersInsidiousGift extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestedStacks).addSuggestion((suggest, actual, recommended) => {
+    when(this.suggestedUptime).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
           Your usage of <ItemLink id={ITEMS.LURKERS_INSIDIOUS_GIFT.id} /> can be improved. Try to use it when you will get the most duration out of the mastery buff without having to cancel it (and without losing uses).
         </>
       )
         .icon(ITEMS.LURKERS_INSIDIOUS_GIFT.icon)
-        .actual(`${formatPercentage(actual)}% of stacks wasted.`)
-        .recommended(`<5.00% of stacks wasted is recommended`);
+        .actual(`${formatPercentage(actual)}% of buff uptime wasted.`)
+        .recommended(`<5.00% of buff uptime wasted is recommended`);
     });
   }
 
