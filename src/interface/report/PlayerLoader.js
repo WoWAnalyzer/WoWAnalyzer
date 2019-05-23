@@ -94,6 +94,10 @@ class PlayerLoader extends React.PureComponent {
       const combatants = await fetchCombatants(report.code, fight.start_time, fight.end_time);
       const characterDataPromises = combatants.map(player => {
         const friendly = report.friendlies.find(friendly => friendly.id === player.sourceID);
+        if(!friendly) {
+          // unsure why this happens, but it can
+          return Promise.resolve();
+        }
         const exportedCharacter = report.exportedCharacters ? report.exportedCharacters.find(char => char.name === friendly.name) : null;
         if (!exportedCharacter) {
           return Promise.resolve();
@@ -114,6 +118,10 @@ class PlayerLoader extends React.PureComponent {
           return;
         }
         const friendly = report.friendlies.find(friendly => friendly.id === player.sourceID);
+        if(!friendly) {
+          console.error("friendly missing from report for player", player.sourceID);
+          return;
+        }
         const characterData = characterDatas ? characterDatas.find(data => data.id === friendly.guid) : null;
         switch (SPECS[player.specID].role) {
           case ROLES.TANK:
