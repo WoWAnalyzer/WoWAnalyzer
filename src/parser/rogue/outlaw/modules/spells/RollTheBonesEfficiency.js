@@ -29,7 +29,13 @@ class RollTheBonesEfficiency extends Analyzer {
     this.active = !this.selectedCombatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id);
   }
 
-  delayedLowValueRolls = 0;
+  get goodLowValueRolls(){
+    const delayedRolls = this.rollTheBonesCastTracker.rolltheBonesCastValues[ROLL_THE_BONES_CATEGORIES.LOW_VALUE]
+      .filter(cast => cast.RTB_IsDelayed).length;
+    const totalRolls = this.rollTheBonesCastTracker.rolltheBonesCastValues[ROLL_THE_BONES_CATEGORIES.LOW_VALUE].length;
+
+    return totalRolls - delayedRolls;
+  }
 
   get goodMidValueRolls(){
     // todo get the actual pandemic window. it's tricky because it's based on the next cast, and it's not really important that the player is exact anyway
@@ -49,7 +55,7 @@ class RollTheBonesEfficiency extends Analyzer {
 
     const lastCast = this.rollTheBonesCastTracker.lastCast;
     if(lastCast && this.rollTheBonesCastTracker.categorizeCast(lastCast) === ROLL_THE_BONES_CATEGORIES.LOW_VALUE){
-      this.delayedLowValueRolls += 1;
+      lastCast.RTB_IsDelayed = true;
     }
   }
 
@@ -60,7 +66,7 @@ class RollTheBonesEfficiency extends Analyzer {
       // Inverted to make all three suggestions consistent
       {
         label: 'low value',
-        pass: rtbCastValues[ROLL_THE_BONES_CATEGORIES.LOW_VALUE].length - this.delayedLowValueRolls,
+        pass: this.goodLowValueRolls,
         total: rtbCastValues[ROLL_THE_BONES_CATEGORIES.LOW_VALUE].length,
         extraSuggestion: <>If you roll a single buff and it's not one of the two highest value, try to reroll it as soon as you can.</>,
       },
