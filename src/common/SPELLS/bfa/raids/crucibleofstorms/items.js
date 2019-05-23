@@ -101,6 +101,12 @@ export default {
     icon: "inv_darkmoon_eye",
   },
 
+  INSIDIOUS_GIFT_CAST: { //Lurker's Insidious Gift Cast
+    id: 295501,
+    name: "Insidious Gift",
+    icon: "inv_enchant_voidsphere",
+  },
+
   OBLIVION_SPEAR_DAMAGE: { //Harbinger's Inscrutable Will Damage
     id: 295393,
     name: "Oblivion Spear",
