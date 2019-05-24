@@ -6,6 +6,16 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-05-06'),
+    changes: <>Added support for the damage part of <SpellLink id={SPELLS.IGNEOUS_POTENTIAL.id} />.</>,
+    contributors: [niseko],
+  },
+  {
+    date: new Date('2019-03-20'),
+    changes: <>Fixing <SpellLink id={SPELLS.MASTER_OF_THE_ELEMENTS_TALENT.id} />-Tracker and Damage Calculation.</>,
+    contributors: [HawkCorrigan],
+  },
+  {
     date: new Date('2018-11-13'),
     changes: <>Added a basic Checklist, with the cross-spec functionalities.</>,
     contributors: [HawkCorrigan],

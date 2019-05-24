@@ -28,6 +28,7 @@ class EventEmitter extends Module {
   }
 
   _eventListenersByEventType = {};
+  numEventListeners = 0;
   /**
    * @param {string|EventFilter} eventFilter
    * @param {function} listener
@@ -41,6 +42,7 @@ class EventEmitter extends Module {
       module, // used when the listener throws an exception to disable the related module
       listener: this._compileListener(eventFilter, listener, module),
     });
+    this.numEventListeners += 1;
   }
   _compileListener(eventFilter, listener, module) {
     listener = this._prependCounter(listener);
@@ -51,10 +53,10 @@ class EventEmitter extends Module {
     listener = this._prependActiveCheck(listener, module);
     return listener;
   }
-  _actualExecutions = 0;
+  numActualExecutions = 0;
   _prependCounter(listener) {
     return event => {
-      this._actualExecutions += 1;
+      this.numActualExecutions += 1;
       listener(event);
     };
   }
@@ -138,7 +140,8 @@ class EventEmitter extends Module {
     };
   }
 
-  _listenersCalled = 0;
+  numTriggeredEvents = 0;
+  numListenersCalled = 0;
   _isHandlingEvent = false;
   triggerEvent(event) {
     if (process.env.NODE_ENV === 'development') {
@@ -147,6 +150,8 @@ class EventEmitter extends Module {
 
     // When benchmarking the event triggering make sure to disable the event batching and turn the listener into a dummy so you get the performance of just this piece of code. At the time of writing the event triggering code only has about 12ms overhead for a full log.
 
+    this.numTriggeredEvents += 1;
+
     // TODO: Make a module that does the timestamp tracking
     if (event.timestamp) {
       this.owner._timestamp = event.timestamp;
@@ -154,7 +159,7 @@ class EventEmitter extends Module {
 
     let run = options => {
       try {
-        this._listenersCalled += 1;
+        this.numListenersCalled += 1;
         options.listener(event);
       } catch (err) {
         if (process.env.NODE_ENV !== 'production') {

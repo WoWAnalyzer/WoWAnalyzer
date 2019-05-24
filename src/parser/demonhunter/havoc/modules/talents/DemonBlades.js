@@ -69,7 +69,7 @@ class DemonBlades extends Analyzer{
         position={STATISTIC_ORDER.OPTIONAL(6)}
         value={(
           <>
-            {this.furyPerMin} Fury per min <br />
+            {this.furyPerMin} <small>Fury per min</small> <br />
             {this.owner.formatItemDamageDone(this.damage)}
           </>
         )}

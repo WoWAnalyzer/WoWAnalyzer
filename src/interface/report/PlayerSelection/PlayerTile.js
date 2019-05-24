@@ -48,7 +48,6 @@ class PlayerTile extends React.PureComponent {
 
   render() {
     const { player, characterInfo, makeUrl } = this.props;
-
     const avatar = characterInfo && characterInfo.thumbnail ? `https://render-${characterInfo.region}.worldofwarcraft.com/character/${characterInfo.thumbnail.replace('avatar', 'inset')}` : '/img/fallback-character.jpg';
     const spec = SPECS[player.combatant.specID];
     const analysisUrl = makeUrl(player.id);

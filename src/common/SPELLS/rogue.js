@@ -479,7 +479,7 @@ export default {
   },
   RUTHLESS_PRECISION: {
     id: 193357,
-    name: 'Shark Infested Waters',
+    name: 'Ruthless Precision',
     icon: 'ability_rogue_rollthebones03',
   },
   TRUE_BEARING: {
@@ -497,7 +497,6 @@ export default {
     name: 'Broadside',
     icon: 'ability_rogue_rollthebones06',
   },
-
   BLADE_RUSH_TALENT_BUFF: { // This is the energy gain buff
     id: 271896, 
     name: 'Blade Rush', 

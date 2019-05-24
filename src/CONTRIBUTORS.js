@@ -183,6 +183,24 @@ export const Fyruna = {
   nickname: 'Fyruna',
   github: 'Fyruna',
   avatar: require('./interface/images/avatars/Fyruna_avatar.jpg'),
+  mains: [{
+    name: 'Aevaa',
+    spec: SPECS.ASSASSINATION_ROGUE,
+    link: 'https://worldofwarcraft.com/en-gb/character/magtheridon/aevaa',
+  }],
+  alts: [{
+    name: 'Aeri',
+    spec: SPECS.BREWMASTER_MONK,
+    link: 'https://worldofwarcraft.com/en-gb/character/magtheridon/aeri',
+  }, {
+    name: 'Avynn',
+    spec: SPECS.DISCIPLINE_PRIEST,
+    link: 'https://worldofwarcraft.com/en-gb/character/magtheridon/avynn',
+  }, {
+    name: 'Seiralia',
+    spec: SPECS.RESTORATION_DRUID,
+    link: 'https://worldofwarcraft.com/en-gb/character/sporeggar/seiralia',
+  }],
 };
 export const Anomoly = {
   nickname: 'Anomoly',
@@ -624,5 +642,26 @@ export const HolySchmidt = {
     name: 'HolySchmidt',
     spec: SPECS.HOLY_PALADIN,
     link: 'https://worldofwarcraft.com/en-us/character/us/whisperwind/holyschmidt',
+  }],
+};
+export const Coywolf = {
+  nickname: 'Coywolf',
+  github: 'Coywolf',
+  discord: 'Coywolf#3500',
+  mains: [{
+    name: 'Coywolf',
+    spec: SPECS.OUTLAW_ROGUE,
+    link: 'https://worldofwarcraft.com/en-us/character/us/arthas/coywolf',
+  }],
+};
+export const Scotsoo = {
+  nickname: 'Scotsoo',
+  github: 'Scotsoo',
+  discord: 'Scotsoo#5328',
+  avatar: require('./interface/images/avatars/Scotsoo-avatar.jpg'),
+  mains: [{
+    name: 'Scotsoodh',
+    spec: SPECS.HAVOC_DEMON_HUNTER,
+    link: 'https://worldofwarcraft.com/en-us/character/eu/tarren-mill/scotsoodh',
   }],
 };

@@ -25,6 +25,7 @@ import SpellEnergyCost from '../shared/resources/SpellEnergyCost';
 import EnvenomUptime from './modules/spells/EnvenomUptime';
 import GarroteUptime from './modules/spells/GarroteUptime';
 import RuptureUptime from './modules/spells/RuptureUptime';
+import EarlyDotRefresh from './modules/spells/EarlyDotRefresh';
 
 import GarroteSnapshot from './modules/features/GarroteSnapshot';
 import RuptureSnapshot from './modules/features/RuptureSnapshot';
@@ -70,6 +71,7 @@ class CombatLogParser extends CoreCombatLogParser {
     envenomUptime: EnvenomUptime,
     garroteUptime: GarroteUptime,
     ruptureUptime: RuptureUptime,
+    earlyDotRefresh: EarlyDotRefresh,
 
     garroteSnapshot: GarroteSnapshot,
     ruptureSnapshot: RuptureSnapshot,

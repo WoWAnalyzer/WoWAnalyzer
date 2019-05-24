@@ -6,6 +6,11 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
+    date: new Date('2019-04-09'),
+    changes: <>Adding Holy Nova card and updating spreadsheet</>,
+    contributors: [Khadaj],
+  },
+  {
     date: new Date('2019-03-12'),
     changes: <>Fixed an error in the <SpellLink id={SPELLS.PRAYERFUL_LITANY.id} /> analyzer.</>,
     contributors: [Zerotorescue],

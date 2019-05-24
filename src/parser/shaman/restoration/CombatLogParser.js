@@ -63,6 +63,8 @@ import StaticCharge from '../shared/talents/StaticCharge';
 import AstralShift from '../shared/spells/AstralShift';
 import PackSpirit from '../shared/azerite/PackSpirit';
 import SereneSpirit from '../shared/azerite/SereneSpirit';
+import SynapseShock from '../shared/azerite/SynapseShock';
+import IgneousPotential from '../shared/azerite/IgneousPotential';
 
 import CloudburstNormalizer from './normalizers/CloudburstNormalizer';
 
@@ -128,6 +130,8 @@ class CombatLogParser extends CoreCombatLogParser {
     overflowingShores: OverflowingShores,
     spoutingSpirits: SpoutingSpirits,
     surgingTides: SurgingTides,
+    synapseShock: SynapseShock,
+    igneousPotential: IgneousPotential,
 
     // Shared:
     spiritWolf: SpiritWolf,

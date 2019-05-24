@@ -148,7 +148,7 @@ export class Premium extends React.PureComponent {
               <div className="panel-heading">
                 <h2>You</h2>
               </div>
-              <div className="panel-body">
+              <div className="panel-body pad">
                 Hello {user.name}. Your Premium is currently {user.premium ? <span className="text-success">Active</span> : <span className="text-danger">Inactive</span>}
                 {user.patreon && user.patreon.premium && ' because of your Patreonage'}
                 {user.github && user.github.premium && (

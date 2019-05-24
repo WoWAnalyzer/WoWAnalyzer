@@ -42,6 +42,7 @@ import Channeling from '../shared/modules/Channeling';
 import DeathDowntime from '../shared/modules/downtime/DeathDowntime';
 import TotalDowntime from '../shared/modules/downtime/TotalDowntime';
 import DistanceMoved from '../shared/modules/others/DistanceMoved';
+import DispelTracker from '../shared/modules/DispelTracker';
 
 // Tabs
 import RaidHealthTab from '../shared/modules/features/RaidHealthTab';
@@ -142,6 +143,10 @@ import DiscOfSystematicRegression from '../shared/modules/items/bfa/raids/uldir/
 import WardOfEnvelopment from '../shared/modules/items/bfa/raids/bod/WardOfEnvelopment';
 import CrestOfPaku from '../shared/modules/items/bfa/raids/bod/CrestOfPaku';
 import IncandescentSliver from '../shared/modules/items/bfa/raids/bod/IncandescentSliver';
+// Crucible of Storms
+import LeggingsOfTheAberrantTidesage from '../shared/modules/items/bfa/raids/crucibleofstorms/LeggingsOfTheAberrantTidesage';
+import StormglideSteps from '../shared/modules/items/bfa/raids/crucibleofstorms/StormglideSteps';
+import TridentOfDeepOcean from '../shared/modules/items/bfa/raids/crucibleofstorms/TridentOfDeepOcean';
 
 import ParseResults from './ParseResults';
 import EventsNormalizer from './EventsNormalizer';
@@ -195,6 +200,7 @@ class CombatLogParser {
     vantusRune: VantusRune,
     distanceMoved: DistanceMoved,
     deathRecapTracker: DeathRecapTracker,
+    dispels: DispelTracker,
 
     critEffectBonus: CritEffectBonus,
 
@@ -294,6 +300,10 @@ class CombatLogParser {
     wardOfEnvelopment: WardOfEnvelopment,
     crestOfPaku: CrestOfPaku,
     incandescentSliver: IncandescentSliver,
+    // Crucible of Storms
+    leggingsOfTheAberrantTidesage: LeggingsOfTheAberrantTidesage,
+    stormglideSteps: StormglideSteps,
+    tridentOfDeepOcean: TridentOfDeepOcean,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
@@ -361,8 +371,15 @@ class CombatLogParser {
   }
   finish() {
     this.finished = true;
+    /** @var {EventEmitter} */
     const emitter = this.getModule(EventEmitter);
-    console.log('Called listeners', emitter._listenersCalled, 'times, with', emitter._actualExecutions, 'actual executions.', emitter._listenersCalled - emitter._actualExecutions, 'events were filtered away');
+    console.log(
+      'Events triggered:', emitter.numTriggeredEvents,
+      'Event listeners added:', emitter.numEventListeners,
+      'Listeners called:', emitter.numListenersCalled,
+      'Listeners called (after filters):', emitter.numActualExecutions,
+      'Listeners filtered away:', emitter.numListenersCalled - emitter.numActualExecutions
+    );
   }
 
   _getModuleClass(config) {
