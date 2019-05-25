@@ -21,8 +21,11 @@ import RollTheBonesCounter from './modules/spells/RollTheBonesCounter';
 import RollTheBonesEfficiency from './modules/spells/RollTheBonesEfficiency';
 import RestlessBlades from './modules/core/RestlessBlades';
 import SliceAndDiceUptime from './modules/talents/SliceAndDiceUptime';
+import Dispatch from './modules/spells/Dispatch';
 import Opportunity from './modules/spells/Opportunity';
+import OpportunityDamageTracker from './modules/spells/OpportunityDamageTracker';
 import BetweenTheEyes from './modules/spells/BetweenTheEyes';
+import BetweenTheEyesDamageTracker from './modules/spells/BetweenTheEyesDamageTracker';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -49,7 +52,10 @@ class CombatLogParser extends CoreCombatLogParser {
     //Items
 
     //Casts
+    dispatch: Dispatch,
+    opportunityDamageTracker: OpportunityDamageTracker,
     opportunity: Opportunity,
+    betweenTheEyesDamageTracker: BetweenTheEyesDamageTracker,
     betweenTheEyes: BetweenTheEyes,
     rollTheBonesBuffs: RollTheBonesBuffs,
     rollTheBonesCounter: RollTheBonesCounter,

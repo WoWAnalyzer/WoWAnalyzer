@@ -2,63 +2,48 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 
-import SpellUsable from '../../../shared/SpellUsable';
+import DamageTracker from 'parser/shared/modules/AbilityTracker';
+
+import BetweenTheEyesDamageTracker from './BetweenTheEyesDamageTracker';
 
 class BetweenTheEyes extends Analyzer {
   static dependencies = {
-    spellUsable: SpellUsable,
+    damageTracker: DamageTracker,
+    betweenTheEyesDamageTracker: BetweenTheEyesDamageTracker,
   };
 
   constructor(...args) {
     super(...args);
-    this.active = !this.selectedCombatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id) || this.selectedCombatant.hasTrait(SPELLS.ACE_UP_YOUR_SLEEVE.id) || this.selectedCombatant.hasTrait(SPELLS.DEADSHOT.id);
+    this.active = !this.selectedCombatant.hasTalent(SPELLS.SLICE_AND_DICE_TALENT.id) && !(this.selectedCombatant.hasTrait(SPELLS.ACE_UP_YOUR_SLEEVE.id) || this.selectedCombatant.hasTrait(SPELLS.DEADSHOT.id));
   }
 
-  delayedCasts = 0;
-  
-  get suggestionThresholds() {
+  get thresholds() {
+    const total = this.damageTracker.getAbility(SPELLS.BETWEEN_THE_EYES.id);
+    const filtered = this.betweenTheEyesDamageTracker.getAbility(SPELLS.BETWEEN_THE_EYES.id);
+
+    // the betweenTheEyesDamageTracker is tracking casts when you should be using BTE, so subtract from the total to get all the casts when you shouldn't
+    const incorrectCasts = total.casts - filtered.casts;
+
     return {
-      actual: this.delayedCasts,
+      actual: incorrectCasts / total.casts,
       isGreaterThan: {
         minor: 0,
-        average: 4,
-        major: 9,
+        average: 0.05,
+        major: 0.1,
       },
       style: 'number',
     };
   }
 
-  get hasRelevantTrait(){
-    return this.selectedCombatant.hasTrait(SPELLS.ACE_UP_YOUR_SLEEVE.id) || this.selectedCombatant.hasTrait(SPELLS.DEADSHOT.id);
-  }
-
-  on_byPlayer_cast(event){
-    if(event.ability.guid !== SPELLS.DISPATCH.id || this.spellUsable.isOnCooldown(SPELLS.BETWEEN_THE_EYES.id)){
-      return;
-    }
-
-    if(this.hasRelevantTrait || this.selectedCombatant.hasBuff(SPELLS.RUTHLESS_PRECISION.id)){
-      this.delayedCasts += 1;
-    }
-  }
-
-  get extraSuggestion(){
-    if(this.hasRelevantTrait){
-      return <>Because you have the <SpellLink id={SPELLS.ACE_UP_YOUR_SLEEVE.id} /> or <SpellLink id={SPELLS.DEADSHOT.id} /> traits, you should always prioritize <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> as your damaging spender (Keeping <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> up always takes priority). </>;
-    }
-    else{
-      return <>Whenever you have the <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> buff, you should prioritize <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> as your damaging spender.</>;
-    }
-  }
-
   suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You casted <SpellLink id={SPELLS.DISPATCH.id} /> while <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> was available. {this.extraSuggestion}</>)
+    when(this.thresholds).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<>You casted <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> without having <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> active. When you don't have either the <SpellLink id={SPELLS.ACE_UP_YOUR_SLEEVE.id} /> or <SpellLink id={SPELLS.DEADSHOT.id} /> traits, the only time you should use <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> as your damaging finisher is during <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} />.</>)
         .icon(SPELLS.BETWEEN_THE_EYES.icon)
-        .actual(`${actual} delayed casts`)
-        .recommended(`${recommended} is recommended`);
+        .actual(`${formatPercentage(actual)}% inefficient casts`)
+        .recommended(`${formatPercentage(recommended)}% is recommended`);
     });
   }
 }
