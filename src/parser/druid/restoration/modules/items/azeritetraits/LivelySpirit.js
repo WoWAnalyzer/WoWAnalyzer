@@ -91,7 +91,7 @@ class LivelySpirit extends Analyzer {
   }
 
   statistic() {
-    if(this.intGain == 0) { // statistic ctor called on tab switch, only sum int gain first time
+    if(this.intGain === 0) { // statistic ctor called on tab switch, only sum int gain first time
       this.livelySpirits.forEach(function (element) {
         this.intGain += element * (LIVELY_SPIRIT_DURATION / this.owner.fightDuration);
       }, this);
