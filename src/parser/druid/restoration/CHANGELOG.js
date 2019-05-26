@@ -4,6 +4,11 @@ import { Yajinni, blazyb, fel1ne, Qbz, Zerotorescue } from 'CONTRIBUTORS';
 
 export default [
   {
+    date: new Date('2019-05-26'),
+    changes: 'Fixed a bug where Lively Spirit increased int gain on tab switch.',
+    contributors: [Qbz],
+  },
+  {
     date: new Date('2019-04-27'),
     changes: 'Fixed a bug where regrowths during innervate were used in clearcasting calculation.',
     contributors: [Qbz],
