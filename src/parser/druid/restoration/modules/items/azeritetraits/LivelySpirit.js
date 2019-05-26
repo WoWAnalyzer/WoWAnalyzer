@@ -91,6 +91,7 @@ class LivelySpirit extends Analyzer {
   }
 
   statistic() {
+    this.intGain = 0;
     this.livelySpirits.forEach(function (element) {
       this.intGain += element * (LIVELY_SPIRIT_DURATION / this.owner.fightDuration);
     }, this);
