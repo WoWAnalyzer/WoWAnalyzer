@@ -191,7 +191,6 @@ class IdolOfIndiscriminateConsumption extends Analyzer {
   }
 
   suggestions(when) {
-    console.log(this.byCast);
     when(this.suggestedOverheal).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
