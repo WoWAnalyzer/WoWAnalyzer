@@ -56,7 +56,7 @@ class HarbingersInscrutableWill extends Analyzer {
             <ItemDamageDone amount={this.damage} />
           </TooltipElement>
           <TooltipElement content={`Silenced ${this.silences} time${this.silences !== 1 && 's'}`}>
-            <UptimeIcon /> {formatDuration(this.silenceUptime / 1000)} <small>spent silenced</small>
+            <UptimeIcon /> {(this.silenceUptime / 1000).toFixed(0)} s <small>spent silenced</small>
           </TooltipElement>
         </BoringItemValueText>
       </ItemStatistic>
