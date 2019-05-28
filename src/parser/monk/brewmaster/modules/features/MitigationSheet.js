@@ -13,7 +13,6 @@ import SpellLink from 'common/SpellLink';
 import Tooltip, { TooltipElement } from 'common/Tooltip';
 import { calculatePrimaryStat, calculateSecondaryStatDefault } from 'common/stats';
 
-import CelestialFortune from '../spells/CelestialFortune';
 import GiftOfTheOx from '../spells/GiftOfTheOx';
 import MasteryValue from '../core/MasteryValue';
 import Stagger from '../core/Stagger';
@@ -83,7 +82,6 @@ function calculateLeatherArmorScaling(ilvl, amount, targetIlvl) {
 export default class MitigationSheet extends Analyzer {
   static dependencies = {
     masteryValue: MasteryValue,
-    cf: CelestialFortune,
     stats: StatTracker,
     stagger: Stagger,
     gotox: GiftOfTheOx,
@@ -124,25 +122,10 @@ export default class MitigationSheet extends Analyzer {
 
     this._lastStatUpdate = this.owner.fight.start_time;
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this._onCritHeal);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this._onHealVers);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this._onDamageTaken);
     this.addEventListener('changestats', this._updateStats);
     this.addEventListener(Events.fightend, this._finalizeStats);
-  }
-
-  get bonusCritRatio() {
-    return 1 - this.stats.baseCritPercentage / this.stats.currentCritPercentage;
-  }
-
-  _onCritHeal(event) {
-    if(event.hitType !== HIT_TYPES.CRIT || event.ability.guid === SPELLS.CELESTIAL_FORTUNE_HEAL.id) {
-      return;
-    }
-
-    // counting absorbed healing because we live in a Vectis world
-    const totalHeal = event.amount + (event.overheal || 0) + (event.absorbed || 0);
-    this._critBonusHealing += Math.max(totalHeal / 2 - (event.overheal || 0), 0) * this.bonusCritRatio; // remove overhealing from the bonus healing
   }
 
   _onHealVers(event) {
@@ -296,18 +279,6 @@ export default class MitigationSheet extends Analyzer {
           { name: 'Additional Healing', amount: this.versHealing },
         ],
         increment: this.increment(calculateSecondaryStatDefault, this.stats.startingVersatilityRating),
-      },
-      [STAT.CRITICAL_STRIKE]: {
-        priority: 3,
-        icon: makeIcon(STAT.CRITICAL_STRIKE),
-        name: getName(STAT.CRITICAL_STRIKE),
-        className: getClassNameColor(STAT.CRITICAL_STRIKE),
-        statName: 'crit', // consistently inconsistent
-        gain: [
-          { name: <><SpellLink id={SPELLS.CELESTIAL_FORTUNE_HEAL.id} /> Healing</>, amount: this.cf.critBonusHealing },
-          { name: 'Critical Heals', amount: this._critBonusHealing },
-        ],
-        increment: this.increment(calculateSecondaryStatDefault, this.stats.startingCritRating),
       },
     };
   }
