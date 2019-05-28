@@ -11,6 +11,7 @@ import GlobalCooldown from './modules/core/GlobalCooldown';
 import Channeling from './modules/core/Channeling';
 import MasteryValue from './modules/core/MasteryValue';
 import AgilityValue from './modules/features/AgilityValue';
+import VersatilityValue from './modules/features/VersatilityValue';
 import SpellUsable from './modules/core/SpellUsable';
 // Spells
 import IronSkinBrew from './modules/spells/IronSkinBrew';
@@ -59,6 +60,7 @@ class CombatLogParser extends CoreCombatLogParser {
     globalCooldown: GlobalCooldown,
     agilityValue: AgilityValue,
     masteryValue: MasteryValue,
+    versValue: VersatilityValue,
     mitigationCheck: MitigationCheck,
     spellUsable: SpellUsable,
 

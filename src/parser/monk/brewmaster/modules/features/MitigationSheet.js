@@ -4,14 +4,14 @@ import Events from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import safeMerge from 'common/safeMerge';
 import SPELLS from 'common/SPELLS';
-import HIT_TYPES from 'game/HIT_TYPES';
-import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import STAT, { getClassNameColor, getIcon, getName } from 'parser/shared/modules/features/STAT';
 import { formatNumber } from 'common/format';
 import Panel from 'interface/statistics/Panel';
 import SpellLink from 'common/SpellLink';
 import Tooltip, { TooltipElement } from 'common/Tooltip';
 import { calculatePrimaryStat, calculateSecondaryStatDefault } from 'common/stats';
+import HIT_TYPES from 'game/HIT_TYPES';
+import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 
 import GiftOfTheOx from '../spells/GiftOfTheOx';
 import MasteryValue from '../core/MasteryValue';
@@ -88,8 +88,6 @@ export default class MitigationSheet extends Analyzer {
   };
 
   armorDamageMitigated = 0;
-  versDamageMitigated = 0;
-  versHealing = 0;
 
   _lastStatUpdate = null;
   _avgStats = {};
@@ -102,7 +100,6 @@ export default class MitigationSheet extends Analyzer {
     return this.masteryValue.totalMasteryHealing;
   }
 
-  _critBonusHealing = 0;
 
   get wdpsHealing() {
     return this.gotox.wdpsBonusHealing;
@@ -122,20 +119,9 @@ export default class MitigationSheet extends Analyzer {
 
     this._lastStatUpdate = this.owner.fight.start_time;
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this._onHealVers);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this._onDamageTaken);
     this.addEventListener('changestats', this._updateStats);
     this.addEventListener(Events.fightend, this._finalizeStats);
-  }
-
-  _onHealVers(event) {
-    if(event.ability.guid === SPELLS.CELESTIAL_FORTUNE_HEAL.id) {
-      return; // CF is unaffected by vers
-    }
-
-    const totalHeal = event.amount + (event.overheal || 0) + (event.absorbed || 0);
-    const originalHeal = totalHeal / (1 + this.stats.currentVersatilityPercentage);
-    this.versHealing += Math.max(totalHeal - originalHeal - (event.overheal || 0), 0);
   }
 
   _onDamageTaken(event) {
@@ -146,15 +132,12 @@ export default class MitigationSheet extends Analyzer {
       this.log('Missing unmitigated amount', event);
       return;
     }
-    let armorMitigated = 0;
-    if(event.ability.type === MAGIC_SCHOOLS.ids.PHYSICAL) {
-      armorMitigated = this._mitigate(event, diminish(this.stats.currentArmorRating, this.K));
+    if(event.ability.type !== MAGIC_SCHOOLS.ids.PHYSICAL) {
+      return;
     }
-    // vers mitigation is half the damage/heal %
-    const versMitigated = this._mitigate(event, this.stats.currentVersatilityPercentage / 2, armorMitigated);
-
+    const armorMitigated = this._mitigate(event, diminish(this.stats.currentArmorRating, this.K));
     this.armorDamageMitigated += armorMitigated;
-    this.versDamageMitigated += versMitigated;
+    event._mitigated = armorMitigated;
   }
 
   _mitigate(event, drPct, alreadyMitigated = 0) {
@@ -267,18 +250,6 @@ export default class MitigationSheet extends Analyzer {
           },
         ],
         increment: this.increment(calculateSecondaryStatDefault, this.stats.startingMasteryRating),
-      },
-      [STAT.VERSATILITY]: {
-        priority: 3,
-        icon: makeIcon(STAT.VERSATILITY),
-        name: getName(STAT.VERSATILITY),
-        className: getClassNameColor(STAT.VERSATILITY),
-        statName: STAT.VERSATILITY,
-        gain: [
-          { name: 'Damage Mitigated', amount: this.versDamageMitigated },
-          { name: 'Additional Healing', amount: this.versHealing },
-        ],
-        increment: this.increment(calculateSecondaryStatDefault, this.stats.startingVersatilityRating),
       },
     };
   }
