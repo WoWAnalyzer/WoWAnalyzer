@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { formatNumber, formatDuration, formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 
 import SPELLS from 'common/SPELLS/index';
 import ITEMS from 'common/ITEMS/index';
