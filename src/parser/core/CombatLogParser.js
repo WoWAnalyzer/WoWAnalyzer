@@ -144,6 +144,7 @@ import WardOfEnvelopment from '../shared/modules/items/bfa/raids/bod/WardOfEnvel
 import CrestOfPaku from '../shared/modules/items/bfa/raids/bod/CrestOfPaku';
 import IncandescentSliver from '../shared/modules/items/bfa/raids/bod/IncandescentSliver';
 // Crucible of Storms
+import FathomDredgers from '../shared/modules/items/bfa/raids/crucibleofstorms/FathomDredgers';
 import LeggingsOfTheAberrantTidesage from '../shared/modules/items/bfa/raids/crucibleofstorms/LeggingsOfTheAberrantTidesage';
 import LurkersInsidiousGift from '../shared/modules/items/bfa/raids/crucibleofstorms/LurkersInsidiousGift';
 import StormglideSteps from '../shared/modules/items/bfa/raids/crucibleofstorms/StormglideSteps';
@@ -303,6 +304,7 @@ class CombatLogParser {
     crestOfPaku: CrestOfPaku,
     incandescentSliver: IncandescentSliver,
     // Crucible of Storms
+    fathomDredgers: FathomDredgers,
     leggingsOfTheAberrantTidesage: LeggingsOfTheAberrantTidesage,
     lurkersInsidiousGift: LurkersInsidiousGift,
     stormglideSteps: StormglideSteps,
