@@ -22,6 +22,7 @@ class IdolOfIndiscriminateConsumption extends Analyzer {
 
   static cooldown = 60; //seconds
   static maxTargets = 7;
+  static hpSuggestionThreshold = 0.6; //% HP below which a cast is considered wasteful
   casts = 0;
   byCast = {};
 
@@ -57,6 +58,7 @@ class IdolOfIndiscriminateConsumption extends Analyzer {
       friendlyDamage: 0,
       targets: 0,
       missingHP: event.maxHitPoints - event.hitPoints,
+      totalHP: event.maxHitPoints,
     };
   }
 
@@ -152,10 +154,20 @@ class IdolOfIndiscriminateConsumption extends Analyzer {
     );
   }
 
-  get suggestedOverheal() {
+  get wastedCasts() {
+    return Object.keys(this.byCast).reduce((total, cast) => {
+      const percHP = (this.byCast[cast].totalHP - this.byCast[cast].missingHP) / this.byCast[cast].totalHP;
+      if(percHP > this.constructor.hpSuggestionThreshold){
+        return total + 1;
+      }
+      return total;
+    }, 0) / this.casts;
+  }
+
+  get suggestedWasted() {
     return {
-      actual: this.overhealPercent,
-      isGreaterThan: {
+      actual: this.wastedCasts,
+      isGreaterThanOrEqual: {
         minor: 0.20,
         average: 0.30,
         major: 0.40,
@@ -181,7 +193,7 @@ class IdolOfIndiscriminateConsumption extends Analyzer {
   get suggestedHitCount() {
     return {
       actual: this.ineffectiveCasts,
-      isGreaterThan: {
+      isGreaterThanOrEqual: {
         minor: 0.10,
         average: 0.25,
         major: 0.50,
@@ -191,14 +203,14 @@ class IdolOfIndiscriminateConsumption extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.suggestedOverheal).addSuggestion((suggest, actual, recommended) => {
+    when(this.suggestedWasted).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
-          Your usage of <ItemLink id={ITEMS.IDOL_OF_INDISCRIMINATE_CONSUMPTION.id} /> can be improved. Try to use it when you will get the least overhealing out of it.
+          Your usage of <ItemLink id={ITEMS.IDOL_OF_INDISCRIMINATE_CONSUMPTION.id} /> can be improved. Try to use it when you are on low health.
         </>
       )
         .icon(ITEMS.IDOL_OF_INDISCRIMINATE_CONSUMPTION.icon)
-        .actual(`${formatPercentage(actual)}% average overheal.`)
+        .actual(`${formatPercentage(actual)}% of casts at above ${formatPercentage(this.constructor.hpSuggestionThreshold)}% HP.`)
         .recommended(`<20% is recommended`);
     });
     when(this.suggestedHitCount).addSuggestion((suggest, actual, recommended) => {
