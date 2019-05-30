@@ -4,7 +4,7 @@ import ITEMS from 'common/ITEMS/index';
 import ItemLink from 'common/ItemLink';
 import { formatNumber, formatPercentage } from 'common/format';
 import { calculateSecondaryStatDefault } from 'common/stats';
-
+import HasteIcon from 'interface/icons/Haste';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
@@ -47,7 +47,7 @@ class IgnitionMagesFuse extends Analyzer {
     });
     */
     
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.IGNITION_MAGES_FUSE), this.onUse);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.IGNITION_MAGES_FUSE_BUFF), this.onUse);
   }
 
   onUse(event) {
@@ -55,11 +55,13 @@ class IgnitionMagesFuse extends Analyzer {
   }
 
   get onCooldown(){
-    return this.uses / this.possibleUseCount;
+    // make sure it is not possible to have the item constantly on cooldown //
+    const actualCooldown = this.uses * ACTIVATION_COOLDOWN * 1000 / this.owner.fightDuration;
+    return (actualCooldown > 1) ? 1 : actualCooldown;
   }
 
-  get averageStatGain(){
-    const averageStacks = this.selectedCombatant.getStackWeightedBuffUptime(SPELLS.IGNITION_MAGES_FUSE.id) / this.owner.fightDuration;
+  get getAverageHaste(){
+    const averageStacks = this.selectedCombatant.getStackWeightedBuffUptime(SPELLS.IGNITION_MAGES_FUSE_BUFF.id) / this.owner.fightDuration;
     return averageStacks * this.statBuff;
   }
 
@@ -78,12 +80,12 @@ class IgnitionMagesFuse extends Analyzer {
         tooltip={(
           <>
             You activated your Ingntion Mage/'s Fuse <b>{this.uses}</b> of <b>{this.possibleUseCount}</b> possible time{this.uses === 1 ? '' : 's'}.<br/>
-            Total buff uptime was {formatPercentage(this.uptime, 0)}%
+            Buff uptime was {formatPercentage(this.uptime, 0)}%, time on cooldown was {formatPercentage(this.onCooldown, 0)}%.
           </>
         )}
       >
         <BoringItemValueText item={ITEMS.IGNITION_MAGES_FUSE}>
-          <ItemHealingDone amount={this.absorbUsed} />
+          <HasteIcon /> {formatNumber(this.getAverageHaste)} <small>Average Haste gained</small> <br />
         </BoringItemValueText>
       </ItemStatistic>
     );
@@ -104,12 +106,12 @@ class IgnitionMagesFuse extends Analyzer {
     when(this.suggestedUsage).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
-          Your usage of <ItemLink id={ITEMS.IGNITION_MAGES_FUSE.id} /> can be improved, try activing it more often or consider changing to a passive trinket.
+          Your usage of <ItemLink id={ITEMS.IGNITION_MAGES_FUSE.id} /> can be improved, try keeping it on cooldown more often or consider changing to a passive trinket.
         </>
       )
         .icon(ITEMS.IGNITION_MAGES_FUSE.icon)
         .actual(`Used trinket ${this.uses} time(s) out of ${this.possibleUseCount} possible uses.`)
-        .recommended(`<80% is recommended`);
+        .recommended(`> 80% is recommended`);
     });
   }
 }
