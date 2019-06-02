@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-06-1'),
+    changes: <>Added a check to make sure you using <SpellLink id={SPELLS.SOOTHING_MIST.id} /> efficiency while channeling it.</>,
+    contributors: [Abelito75],
+  },
+  {
     date: new Date('2019-03-30'),
     changes: <>Added a check to make sure you cast <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> when there are enough targets around.</>,
     contributors: [Abelito75],
