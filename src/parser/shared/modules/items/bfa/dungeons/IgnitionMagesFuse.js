@@ -9,7 +9,6 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import Events from 'parser/core/Events';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
 const ACTIVATION_COOLDOWN = 120; // seconds
