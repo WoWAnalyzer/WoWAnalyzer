@@ -40,13 +40,6 @@ class IgnitionMagesFuse extends Analyzer {
     }
 
     this.statBuff = calculateSecondaryStatDefault(340, 164, this.selectedCombatant.getItem(ITEMS.IGNITION_MAGES_FUSE.id).itemLevel);
-    
-    /*
-    this.statTracker.add(SPELLS.IGNITION_MAGES_FUSE.id, {
-      haste: this.statBuff,
-    });
-    */
-    
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.IGNITION_MAGES_FUSE_BUFF), this.onUse);
   }
 
@@ -54,10 +47,8 @@ class IgnitionMagesFuse extends Analyzer {
     this.uses += 1;
   }
 
-  get onCooldown(){
-    // make sure it is not possible to have the item constantly on cooldown //
-    const actualCooldown = this.uses * ACTIVATION_COOLDOWN * 1000 / this.owner.fightDuration;
-    return (actualCooldown > 1) ? 1 : actualCooldown;
+  get utilization(){
+    return this.uses / this.possibleUseCount;
   }
 
   get getAverageHaste(){
@@ -80,7 +71,7 @@ class IgnitionMagesFuse extends Analyzer {
         tooltip={(
           <>
             You activated your Ingntion Mage/'s Fuse <b>{this.uses}</b> of <b>{this.possibleUseCount}</b> possible time{this.uses === 1 ? '' : 's'}.<br/>
-            Buff uptime was {formatPercentage(this.uptime, 0)}%, time on cooldown was {formatPercentage(this.onCooldown, 0)}%.
+            Buff uptime was {formatPercentage(this.uptime, 0)}%, utilization was {formatPercentage(this.utilization, 0)}%.
           </>
         )}
       >
@@ -93,7 +84,7 @@ class IgnitionMagesFuse extends Analyzer {
 
   get suggestedUsage() {
     return {
-      actual: this.onCooldown,
+      actual: this.utilization,
       isLessThan: {
         minor: .8,
         average: .7,
