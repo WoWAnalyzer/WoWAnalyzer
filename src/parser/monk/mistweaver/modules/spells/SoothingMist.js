@@ -10,7 +10,7 @@ import { formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
 
-const debug = true;
+const debug = false;
 
 class SoothingMist extends Analyzer {
   static dependencies = {
