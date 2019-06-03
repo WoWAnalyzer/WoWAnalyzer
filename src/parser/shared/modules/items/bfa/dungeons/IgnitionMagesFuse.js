@@ -1,14 +1,15 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 import ITEMS from 'common/ITEMS/index';
-import ItemLink from 'common/ItemLink';
-import { formatNumber, formatPercentage } from 'common/format';
-import { calculateSecondaryStatDefault } from 'common/stats';
-import HasteIcon from 'interface/icons/Haste';
+
+import Abilities from 'parser/core/modules/Abilities';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
+import { calculateSecondaryStatDefault } from 'common/stats';
 import Events from 'parser/core/Events';
+import { formatNumber, formatPercentage } from 'common/format';
+import HasteIcon from 'interface/icons/Haste';
+import ItemStatistic from 'interface/statistics/ItemStatistic';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
 const ACTIVATION_COOLDOWN = 120; // seconds
@@ -40,6 +41,16 @@ class IgnitionMagesFuse extends Analyzer {
 
     this.statBuff = calculateSecondaryStatDefault(340, 164, this.selectedCombatant.getItem(ITEMS.IGNITION_MAGES_FUSE.id).itemLevel);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.IGNITION_MAGES_FUSE_BUFF), this.onUse);
+  
+    this.abilities.add({
+      spell: SPELLS.IGNITION_MAGES_FUSE_BUFF,
+      name: ITEMS.IGNITION_MAGES_FUSE.name,
+      category: Abilities.SPELL_CATEGORIES.ITEMS,
+      cooldown: ACTIVATION_COOLDOWN,
+      castEfficiency: {
+        suggestion: true,
+      },
+    });
   }
 
   onUse(event) {
@@ -79,30 +90,6 @@ class IgnitionMagesFuse extends Analyzer {
         </BoringItemValueText>
       </ItemStatistic>
     );
-  }
-
-  get suggestedUsage() {
-    return {
-      actual: this.utilization,
-      isLessThan: {
-        minor: .8,
-        average: .7,
-        major: .6,
-      },
-      style: 'number',
-    };
-  }
-  suggestions(when) {
-    when(this.suggestedUsage).addSuggestion((suggest, actual, recommended) => {
-      return suggest(
-        <>
-          Your usage of <ItemLink id={ITEMS.IGNITION_MAGES_FUSE.id} /> can be improved, try keeping it on cooldown more often or consider changing to a passive trinket.
-        </>
-      )
-        .icon(ITEMS.IGNITION_MAGES_FUSE.icon)
-        .actual(`Used trinket ${this.uses} time(s) out of ${this.possibleUseCount} possible uses.`)
-        .recommended(`> 80% is recommended`);
-    });
   }
 }
 
