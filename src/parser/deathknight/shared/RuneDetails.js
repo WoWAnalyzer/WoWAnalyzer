@@ -23,6 +23,9 @@ class RuneDetails extends Analyzer {
 
   tab() {
     const data = this.runeTracker.runesReady;
+
+    console.log(data)
+
     return {
       title: 'Rune usage',
       url: 'rune-usage',
