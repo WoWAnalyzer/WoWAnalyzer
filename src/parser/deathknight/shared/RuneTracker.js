@@ -36,8 +36,6 @@ class RuneTracker extends ResourceTracker {
   runesReady = []; //{x, y} points of {time, runeCount} for the chart
   _runesReadySum; //time spent at each rune. _runesReadySum[1] is time spent at one rune available.
   _lastTimestamp; //used to find time since last rune change for the _runesReadySum
-  _doubleTimeCheck; //timestamp for the last rune recharge to avoid double flagged runes (bug since Beta)
-  _doubleTimeCheckRune; //runeId for last rune recharge
   _fightend = false; //fightend, avoid wierd graph by not adding later runes
 
   constructor(...args) {
@@ -117,13 +115,6 @@ class RuneTracker extends ResourceTracker {
     } else { //no change
       return;
     }
-
-    if (this._doubleTimeCheck === event.timestamp && this._doubleTimeCheckRune === spellId) {
-      return;
-    }
-
-    this._doubleTimeCheck = event.timestamp;
-    this._doubleTimeCheckRune = spellId;
 
     //time since last rune change was spent at current runes minus the change.
     this._runesReadySum[this.runesAvailable - change] += event.timestamp - this._lastTimestamp;
