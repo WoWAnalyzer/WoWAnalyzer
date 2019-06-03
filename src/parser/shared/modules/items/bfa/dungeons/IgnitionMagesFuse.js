@@ -44,14 +44,16 @@ class IgnitionMagesFuse extends Analyzer {
 
     this.statBuff = calculateSecondaryStatDefault(340, 164, this.selectedCombatant.getItem(ITEMS.IGNITION_MAGES_FUSE.id).itemLevel);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.IGNITION_MAGES_FUSE_BUFF), this.onUse);
-  
     this.abilities.add({
       spell: SPELLS.IGNITION_MAGES_FUSE_BUFF,
+      buffSpellId: SPELLS.IGNITION_MAGES_FUSE_BUFF.id,
       name: ITEMS.IGNITION_MAGES_FUSE.name,
       category: Abilities.SPELL_CATEGORIES.ITEMS,
       cooldown: ACTIVATION_COOLDOWN,
+      gcd: null,
       castEfficiency: {
         suggestion: true,
+        casts: () => this.uses,
       },
     });
   }
