@@ -1,13 +1,15 @@
 import React from 'react';
+
+import { formatNumber, formatPercentage } from 'common/format';
+import { calculateSecondaryStatDefault } from 'common/stats';
+
 import SPELLS from 'common/SPELLS/index';
 import ITEMS from 'common/ITEMS/index';
 
 import Abilities from 'parser/core/modules/Abilities';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
-import { calculateSecondaryStatDefault } from 'common/stats';
 import Events from 'parser/core/Events';
-import { formatNumber, formatPercentage } from 'common/format';
 import HasteIcon from 'interface/icons/Haste';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import StatTracker from 'parser/shared/modules/StatTracker';
@@ -26,6 +28,7 @@ const ACTIVATION_COOLDOWN = 120; // seconds
 
 class IgnitionMagesFuse extends Analyzer {
   static dependencies = {
+    abilities: Abilities,
     statTracker: StatTracker,
   };
 
