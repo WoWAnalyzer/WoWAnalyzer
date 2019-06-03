@@ -69,7 +69,7 @@ class IgnitionMagesFuse extends Analyzer {
         size="flexible"
         tooltip={(
           <>
-            You activated your Ingntion Mage/'s Fuse <b>{this.uses}</b> of <b>{this.possibleUseCount}</b> possible time{this.uses === 1 ? '' : 's'}.<br/>
+            You activated your Ingntion Mage's Fuse <b>{this.uses}</b> of <b>{this.possibleUseCount}</b> possible time{this.uses === 1 ? '' : 's'}.<br />
             Buff uptime was {formatPercentage(this.uptime, 0)}%, utilization was {formatPercentage(this.utilization, 0)}%.
           </>
         )}
