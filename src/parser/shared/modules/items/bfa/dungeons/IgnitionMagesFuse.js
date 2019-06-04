@@ -54,6 +54,7 @@ class IgnitionMagesFuse extends Analyzer {
       castEfficiency: {
         suggestion: true,
         casts: () => this.uses,
+        maxCasts: () => this.possibleUseCount,
       },
     });
   }
