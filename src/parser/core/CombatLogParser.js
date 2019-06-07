@@ -146,6 +146,7 @@ import WardOfEnvelopment from '../shared/modules/items/bfa/raids/bod/WardOfEnvel
 import CrestOfPaku from '../shared/modules/items/bfa/raids/bod/CrestOfPaku';
 import IncandescentSliver from '../shared/modules/items/bfa/raids/bod/IncandescentSliver';
 // Crucible of Storms
+import IdolOfIndiscriminateConsumption from '../shared/modules/items/bfa/raids/crucibleofstorms/IdolOfIndiscriminateConsumption';
 import GripsOfForsakenSanity from '../shared/modules/items/bfa/raids/crucibleofstorms/GripsOfForsakenSanity';
 import LeggingsOfTheAberrantTidesage from '../shared/modules/items/bfa/raids/crucibleofstorms/LeggingsOfTheAberrantTidesage';
 import LegplatesOfUnboundAnguish from '../shared/modules/items/bfa/raids/crucibleofstorms/LegplatesOfUnboundAnguish';
@@ -309,6 +310,7 @@ class CombatLogParser {
     crestOfPaku: CrestOfPaku,
     incandescentSliver: IncandescentSliver,
     // Crucible of Storms
+    idolOfIndiscriminateConsumption: IdolOfIndiscriminateConsumption,
     gripsOfForsakenSanity: GripsOfForsakenSanity,
     leggingsOfTheAberrantTidesage: LeggingsOfTheAberrantTidesage,
     legplatesOfUnboundAnguish: LegplatesOfUnboundAnguish,
