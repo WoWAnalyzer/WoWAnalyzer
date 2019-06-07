@@ -1,10 +1,15 @@
 import React from 'react';
 
-import { Zerotorescue, HolySchmidt } from 'CONTRIBUTORS';
+import { Zerotorescue, HolySchmidt, Abelito75 } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 export default [
+  {
+    date: new Date('2019-06-02'),
+    changes: <>Enabled the QElive auto import link for stat values.</>, 
+    contributors: [Abelito75],
+  },
   {
     date: new Date('2019-05-19'),
     changes: <><SpellLink id={SPELLS.AVENGING_CRUSADER_TALENT.id} /> statistic added showing total healing, healing transfered to beacons and tracks triggers as healing abilities.</>, 

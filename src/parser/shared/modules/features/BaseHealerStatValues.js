@@ -34,7 +34,11 @@ class BaseHealerStatValues extends Analyzer {
     statTracker: StatTracker,
   };
 
-  // QE Live Link Setter
+  /**
+   * QE Live Link Setter
+   * As of right now this is only enabled for MW, Resto Druid, and Holy Pally
+   * Unless you talk to Voulk, the creator of QElive, Do not flip the switch for other healers 
+   */
   qeLive = false;
 
   // region Spell info
