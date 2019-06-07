@@ -88,6 +88,8 @@ import RotcrustedVoodooDoll from '../shared/modules/items/bfa/dungeons/Rotcruste
 import AzerokksResonatingHeart from '../shared/modules/items/bfa/dungeons/AzerokksResonatingHeart';
 import VesselOfSkitteringShadows from '../shared/modules/items/bfa/dungeons/VesselOfSkitteringShadows';
 import LadyWaycrestsMusicBox from '../shared/modules/items/bfa/dungeons/LadyWaycrestsMusicBox';
+import IgnitionMagesFuse from '../shared/modules/items/bfa/dungeons/IgnitionMagesFuse';
+
 // PVP
 import DreadGladiatorsMedallion from '../shared/modules/items/bfa/pvp/DreadGladiatorsMedallion';
 import DreadGladiatorsInsignia from '../shared/modules/items/bfa/pvp/DreadGladiatorsInsignia';
@@ -145,7 +147,12 @@ import CrestOfPaku from '../shared/modules/items/bfa/raids/bod/CrestOfPaku';
 import IncandescentSliver from '../shared/modules/items/bfa/raids/bod/IncandescentSliver';
 // Crucible of Storms
 import FathuulsFloodguards from '../shared/modules/items/bfa/raids/crucibleofstorms/FathuulsFloodguards';
+import FathomDredgers from '../shared/modules/items/bfa/raids/crucibleofstorms/FathomDredgers';
+import HarbingersInscrutableWill from '../shared/modules/items/bfa/raids/crucibleofstorms/HarbingersInscrutableWill';
+import IdolOfIndiscriminateConsumption from '../shared/modules/items/bfa/raids/crucibleofstorms/IdolOfIndiscriminateConsumption';
+import GripsOfForsakenSanity from '../shared/modules/items/bfa/raids/crucibleofstorms/GripsOfForsakenSanity';
 import LeggingsOfTheAberrantTidesage from '../shared/modules/items/bfa/raids/crucibleofstorms/LeggingsOfTheAberrantTidesage';
+import LegplatesOfUnboundAnguish from '../shared/modules/items/bfa/raids/crucibleofstorms/LegplatesOfUnboundAnguish';
 import LurkersInsidiousGift from '../shared/modules/items/bfa/raids/crucibleofstorms/LurkersInsidiousGift';
 import StormglideSteps from '../shared/modules/items/bfa/raids/crucibleofstorms/StormglideSteps';
 import TridentOfDeepOcean from '../shared/modules/items/bfa/raids/crucibleofstorms/TridentOfDeepOcean';
@@ -248,6 +255,8 @@ class CombatLogParser {
     azerokksResonatingHeart: AzerokksResonatingHeart,
     vesselOfSkitteringShadows: VesselOfSkitteringShadows,
     ladyWaycrestsMusicBox: LadyWaycrestsMusicBox,
+    ingnitionMagesFuse: IgnitionMagesFuse,
+    
     // PVP
     dreadGladiatorsMedallion: DreadGladiatorsMedallion,
     dreadGladiatorsInsignia: DreadGladiatorsInsignia,
@@ -305,7 +314,12 @@ class CombatLogParser {
     incandescentSliver: IncandescentSliver,
     // Crucible of Storms
     fathuulsFloodguards: FathuulsFloodguards,
+    fathomDredgers: FathomDredgers,
+    harbingersInscrutableWill: HarbingersInscrutableWill,
+    idolOfIndiscriminateConsumption: IdolOfIndiscriminateConsumption,
+    gripsOfForsakenSanity: GripsOfForsakenSanity,
     leggingsOfTheAberrantTidesage: LeggingsOfTheAberrantTidesage,
+    legplatesOfUnboundAnguish: LegplatesOfUnboundAnguish,
     lurkersInsidiousGift: LurkersInsidiousGift,
     stormglideSteps: StormglideSteps,
     tridentOfDeepOcean: TridentOfDeepOcean,
