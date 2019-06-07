@@ -146,10 +146,10 @@ import WardOfEnvelopment from '../shared/modules/items/bfa/raids/bod/WardOfEnvel
 import CrestOfPaku from '../shared/modules/items/bfa/raids/bod/CrestOfPaku';
 import IncandescentSliver from '../shared/modules/items/bfa/raids/bod/IncandescentSliver';
 // Crucible of Storms
+import FathomDredgers from '../shared/modules/items/bfa/raids/crucibleofstorms/FathomDredgers';
 import HarbingersInscrutableWill from '../shared/modules/items/bfa/raids/crucibleofstorms/HarbingersInscrutableWill';
 import IdolOfIndiscriminateConsumption from '../shared/modules/items/bfa/raids/crucibleofstorms/IdolOfIndiscriminateConsumption';
 import GripsOfForsakenSanity from '../shared/modules/items/bfa/raids/crucibleofstorms/GripsOfForsakenSanity';
-
 import LeggingsOfTheAberrantTidesage from '../shared/modules/items/bfa/raids/crucibleofstorms/LeggingsOfTheAberrantTidesage';
 import LegplatesOfUnboundAnguish from '../shared/modules/items/bfa/raids/crucibleofstorms/LegplatesOfUnboundAnguish';
 import LurkersInsidiousGift from '../shared/modules/items/bfa/raids/crucibleofstorms/LurkersInsidiousGift';
@@ -312,6 +312,7 @@ class CombatLogParser {
     crestOfPaku: CrestOfPaku,
     incandescentSliver: IncandescentSliver,
     // Crucible of Storms
+    fathomDredgers: FathomDredgers,
     harbingersInscrutableWill: HarbingersInscrutableWill,
     idolOfIndiscriminateConsumption: IdolOfIndiscriminateConsumption,
     gripsOfForsakenSanity: GripsOfForsakenSanity,
