@@ -1,8 +1,13 @@
 // import React from 'react';
 
-import { Yajinni, blazyb, fel1ne, Qbz, Zerotorescue } from 'CONTRIBUTORS';
+import { Yajinni, blazyb, fel1ne, Qbz, Zerotorescue, Abelito75 } from 'CONTRIBUTORS';
 
 export default [
+  {
+    date: new Date('2019-06-02'),
+    changes: 'Enabled the QElive auto import link for stat values.', 
+    contributors: [Abelito75],
+  },
   {
     date: new Date('2019-05-26'),
     changes: 'Fixed a bug where Lively Spirit increased int gain on tab switch.',

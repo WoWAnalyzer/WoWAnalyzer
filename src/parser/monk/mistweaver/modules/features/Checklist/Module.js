@@ -21,6 +21,7 @@ import Vivify from '../../spells/Vivify';
 import JadeSerpentStatue from '../../talents/JadeSerpentStatue';
 
 import Component from './Component';
+import SoothingMist from '../../spells/SoothingMist';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -41,6 +42,7 @@ class Checklist extends BaseChecklist {
     spinningCraneKick: SpinningCraneKick,
     vivify: Vivify,
     jadeSerpentStatue: JadeSerpentStatue,
+    soothingMist: SoothingMist,
   };
 
   render() {
@@ -67,6 +69,7 @@ class Checklist extends BaseChecklist {
           renewingMistDuringManaTea: this.renewingMistDuringManaTea.suggestionThresholds,
           vivify: this.vivify.suggestionThresholds,
           jadeSerpentStatue: this.jadeSerpentStatue.suggestionThresholds,
+          soothingMist: this.soothingMist.suggestionThresholdsCasting,
         }}
       />
     );
