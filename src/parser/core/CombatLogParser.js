@@ -146,6 +146,7 @@ import WardOfEnvelopment from '../shared/modules/items/bfa/raids/bod/WardOfEnvel
 import CrestOfPaku from '../shared/modules/items/bfa/raids/bod/CrestOfPaku';
 import IncandescentSliver from '../shared/modules/items/bfa/raids/bod/IncandescentSliver';
 // Crucible of Storms
+import AbyssalSpeakersGauntlets from '../shared/modules/items/bfa/raids/crucibleofstorms/AbyssalSpeakersGauntlets';
 import FathuulsFloodguards from '../shared/modules/items/bfa/raids/crucibleofstorms/FathuulsFloodguards';
 import FathomDredgers from '../shared/modules/items/bfa/raids/crucibleofstorms/FathomDredgers';
 import HarbingersInscrutableWill from '../shared/modules/items/bfa/raids/crucibleofstorms/HarbingersInscrutableWill';
@@ -256,7 +257,7 @@ class CombatLogParser {
     vesselOfSkitteringShadows: VesselOfSkitteringShadows,
     ladyWaycrestsMusicBox: LadyWaycrestsMusicBox,
     ingnitionMagesFuse: IgnitionMagesFuse,
-    
+
     // PVP
     dreadGladiatorsMedallion: DreadGladiatorsMedallion,
     dreadGladiatorsInsignia: DreadGladiatorsInsignia,
@@ -313,6 +314,7 @@ class CombatLogParser {
     crestOfPaku: CrestOfPaku,
     incandescentSliver: IncandescentSliver,
     // Crucible of Storms
+    abyssalSpeakersGauntlets: AbyssalSpeakersGauntlets,
     fathuulsFloodguards: FathuulsFloodguards,
     fathomDredgers: FathomDredgers,
     harbingersInscrutableWill: HarbingersInscrutableWill,
