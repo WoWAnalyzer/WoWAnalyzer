@@ -28,7 +28,7 @@ const Premium = lazyLoadComponent(() => retryingPromise(() => import(/* webpackC
 const About = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'About' */ 'interface/about').then(exports => exports.default)));
 const HelpWanted = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'HelpWanted' */ 'interface/helpwanted').then(exports => exports.default)));
 const ContributorPage = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'ContributorPage' */ 'interface/contributor/Page').then(exports => exports.default)));
-const Search = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'ContributorPage' */ 'interface/search').then(exports => exports.default)));
+const Search = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'Search' */ 'interface/search').then(exports => exports.default)));
 
 class Home extends React.PureComponent {
   static propTypes = {
