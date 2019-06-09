@@ -49,7 +49,6 @@ class Search extends React.PureComponent {
             <li>https://www.warcraftlogs.com/reports/&lt;report code&gt;</li>
             <li>https://www.warcraftlogs.com/character/&lt;region&gt;/&lt;realm&gt;/&lt;name&gt;</li>
             <li>https://worldofwarcraft.com/&lt;language-code&gt;/character/&lt;realm&gt;/&lt;name&gt;</li>
-            <li>https://www.wowchina.com/&lt;language-code&gt;/character/&lt;realm&gt;/&lt;name&gt;</li>
           </ul>
         </Trans>
         <br />
