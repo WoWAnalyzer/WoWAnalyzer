@@ -154,6 +154,7 @@ import GripsOfForsakenSanity from '../shared/modules/items/bfa/raids/crucibleofs
 import LeggingsOfTheAberrantTidesage from '../shared/modules/items/bfa/raids/crucibleofstorms/LeggingsOfTheAberrantTidesage';
 import LegplatesOfUnboundAnguish from '../shared/modules/items/bfa/raids/crucibleofstorms/LegplatesOfUnboundAnguish';
 import LurkersInsidiousGift from '../shared/modules/items/bfa/raids/crucibleofstorms/LurkersInsidiousGift';
+import MalformedHeraldsLegwraps from '../shared/modules/items/bfa/raids/crucibleofstorms/MalformedHeraldsLegwraps';
 import StormglideSteps from '../shared/modules/items/bfa/raids/crucibleofstorms/StormglideSteps';
 import TridentOfDeepOcean from '../shared/modules/items/bfa/raids/crucibleofstorms/TridentOfDeepOcean';
 import VoidStone from '../shared/modules/items/bfa/raids/crucibleofstorms/VoidStone';
@@ -256,7 +257,7 @@ class CombatLogParser {
     vesselOfSkitteringShadows: VesselOfSkitteringShadows,
     ladyWaycrestsMusicBox: LadyWaycrestsMusicBox,
     ingnitionMagesFuse: IgnitionMagesFuse,
-    
+
     // PVP
     dreadGladiatorsMedallion: DreadGladiatorsMedallion,
     dreadGladiatorsInsignia: DreadGladiatorsInsignia,
@@ -321,6 +322,7 @@ class CombatLogParser {
     leggingsOfTheAberrantTidesage: LeggingsOfTheAberrantTidesage,
     legplatesOfUnboundAnguish: LegplatesOfUnboundAnguish,
     lurkersInsidiousGift: LurkersInsidiousGift,
+    malformedHeraldsLegwraps: MalformedHeraldsLegwraps,
     stormglideSteps: StormglideSteps,
     tridentOfDeepOcean: TridentOfDeepOcean,
     voidStone: VoidStone,
