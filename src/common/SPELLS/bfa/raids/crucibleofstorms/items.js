@@ -89,8 +89,14 @@ export default {
     icon: "shaman_pvp_ripplingwaters",
   },
 
-  INDISCRIMINATE_CONSUMPTION: { //Idol of Indiscriminate Consumption
-    id: 295962, // NOT CONFIRMED, NO EXAMPLE LOG FOUND
+  INDISCRIMINATE_CONSUMPTION: { //Idol of Indiscriminate Consumption Damage / Cast
+    id: 295962,
+    name: "Indiscriminate Consumption",
+    icon: "ability_druid_primaltenacity",
+  },
+
+  INDISCRIMINATE_CONSUMPTION_HEAL: { //Idol of Indiscriminate Consumption Heal
+    id: 297668,
     name: "Indiscriminate Consumption",
     icon: "ability_druid_primaltenacity",
   },
@@ -154,13 +160,13 @@ export default {
     name: "Unbound Anguish",
     icon: "ability_warlock_soulswap",
   },
-  
+
   UNTOUCHABLE: { //Stormglide Steps Crit Buff
     id: 295278,
     name: "Untouchable",
     icon: "ability_monk_ridethewind",
   },
-  
+
   VOID_EMBRACE: { //Malformed Herald's Legwraps Haste Buff
     id: 295174,
     name: "Void Embrace",
