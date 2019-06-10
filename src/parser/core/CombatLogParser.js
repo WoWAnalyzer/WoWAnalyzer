@@ -148,15 +148,16 @@ import IncandescentSliver from '../shared/modules/items/bfa/raids/bod/Incandesce
 // Crucible of Storms
 import FathuulsFloodguards from '../shared/modules/items/bfa/raids/crucibleofstorms/FathuulsFloodguards';
 import FathomDredgers from '../shared/modules/items/bfa/raids/crucibleofstorms/FathomDredgers';
+import GripsOfForsakenSanity from '../shared/modules/items/bfa/raids/crucibleofstorms/GripsOfForsakenSanity';
 import HarbingersInscrutableWill from '../shared/modules/items/bfa/raids/crucibleofstorms/HarbingersInscrutableWill';
 import IdolOfIndiscriminateConsumption from '../shared/modules/items/bfa/raids/crucibleofstorms/IdolOfIndiscriminateConsumption';
-import GripsOfForsakenSanity from '../shared/modules/items/bfa/raids/crucibleofstorms/GripsOfForsakenSanity';
 import LeggingsOfTheAberrantTidesage from '../shared/modules/items/bfa/raids/crucibleofstorms/LeggingsOfTheAberrantTidesage';
 import LegplatesOfUnboundAnguish from '../shared/modules/items/bfa/raids/crucibleofstorms/LegplatesOfUnboundAnguish';
 import LurkersInsidiousGift from '../shared/modules/items/bfa/raids/crucibleofstorms/LurkersInsidiousGift';
 import StormglideSteps from '../shared/modules/items/bfa/raids/crucibleofstorms/StormglideSteps';
 import TridentOfDeepOcean from '../shared/modules/items/bfa/raids/crucibleofstorms/TridentOfDeepOcean';
 import VoidStone from '../shared/modules/items/bfa/raids/crucibleofstorms/VoidStone';
+import ZaxasjsDeepstriders from '../shared/modules/items/bfa/raids/crucibleofstorms/ZaxasjsDeepstriders';
 
 import ParseResults from './ParseResults';
 import EventsNormalizer from './EventsNormalizer';
@@ -256,7 +257,7 @@ class CombatLogParser {
     vesselOfSkitteringShadows: VesselOfSkitteringShadows,
     ladyWaycrestsMusicBox: LadyWaycrestsMusicBox,
     ingnitionMagesFuse: IgnitionMagesFuse,
-    
+
     // PVP
     dreadGladiatorsMedallion: DreadGladiatorsMedallion,
     dreadGladiatorsInsignia: DreadGladiatorsInsignia,
@@ -324,6 +325,7 @@ class CombatLogParser {
     stormglideSteps: StormglideSteps,
     tridentOfDeepOcean: TridentOfDeepOcean,
     voidStone: VoidStone,
+    zaxasjsDeepstriders: ZaxasjsDeepstriders,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
