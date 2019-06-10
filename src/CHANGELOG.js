@@ -1,5 +1,5 @@
 import React from 'react';
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt } from 'CONTRIBUTORS';
+import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -7,6 +7,11 @@ import SpellLink from 'common/SpellLink';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  {
+    date: new Date('2019-06-10'),
+    changes: 'Fixed an issue with some items not providing relevant cast events.',
+    contributors: [Zeboot],
+  },
   {
     date: new Date('2019-06-02'),
     changes: <>Added a <SpellLink id={SPELLS.IGNITION_MAGES_FUSE_BUFF.id} /> module to track usage and average haste gained.</>,
