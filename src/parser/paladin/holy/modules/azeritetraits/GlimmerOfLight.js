@@ -21,8 +21,8 @@ class GlimmerOfLight extends Analyzer {
     beaconHealSource: BeaconHealSource,
   };
 
-  healing = 0;
   glimmerHeals = 0;
+  healing = 0;
   healingTransfered = 0;
   casts = 0;
 
@@ -33,12 +33,13 @@ class GlimmerOfLight extends Analyzer {
       return;
     }
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_SHOCK_CAST), this.onCast);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT), this.onHeal)
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT), this.onHeal);
     this.addEventListener(this.beaconHealSource.beacontransfer.by(SELECTED_PLAYER), this.onBeaconTransfer);
   }
 
   onBeaconTransfer(event) {
-    if (event.originalHeal.beaconHealSource !== SPELLS.GLIMMER_OF_LIGHT.id) {
+    const spellId = event.originalHeal.ability.guid;
+    if (spellId !== SPELLS.GLIMMER_OF_LIGHT.id) {
       return;
     }
     this.healingTransfered += event.amount + (event.absorbed || 0);
@@ -57,6 +58,10 @@ class GlimmerOfLight extends Analyzer {
     return this.glimmerHeals / this.casts; 
     }
 
+  get holyShocksPerMinute(){
+    return this.casts / (this.owner.fightDuration / 60000);
+  }
+
   get totalHealing() {
     return this.healing + this.healingTransfered;
   }
@@ -69,14 +74,14 @@ class GlimmerOfLight extends Analyzer {
         value={(
           <>
             <ItemHealingDone amount={this.totalHealing} /><br />
+            {this.healsPerCast.toFixed(1)} Heals/Cast
           </>
         )}
         tooltip={(
           <>
             Total healing done: <b>{formatNumber(this.totalHealing)}</b><br />
             Beacon healing transfered: <b>{formatNumber(this.healingTransfered)}</b><br />
-            Holy Shocks: <b>{formatNumber(this.casts)}</b><br />
-            Glimmer Heals:<b>{formatNumber(this.glimmerHeals)}</b><br />
+            Holy Shocks/Minute: <b>{this.holyShocksPerMinute.toFixed(1)}</b><br />
           </>
         )}
       />
