@@ -23,8 +23,10 @@ class GlimmerOfLight extends Analyzer {
 
   glimmerHeals = 0;
   healing = 0;
+  wasted = 0;
   healingTransfered = 0;
   casts = 0;
+  refresh = 0;
 
   constructor(...args) {
     super(...args);
@@ -35,6 +37,7 @@ class GlimmerOfLight extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_SHOCK_CAST), this.onCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT), this.onHeal);
     this.addEventListener(this.beaconHealSource.beacontransfer.by(SELECTED_PLAYER), this.onBeaconTransfer);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT_BUFF), this.onRefresh);
   }
 
   onBeaconTransfer(event) {
@@ -52,6 +55,12 @@ class GlimmerOfLight extends Analyzer {
   onHeal(event) {
     this.healing += event.amount + (event.absorbed || 0);
     this.glimmerHeals += 1;
+  }
+
+  onRefresh(event){
+    
+    this.refresh += 1;
+    this.wasted += event.remaining || 0;
   }
 
   get healsPerCast(){
@@ -82,6 +91,8 @@ class GlimmerOfLight extends Analyzer {
             Total healing done: <b>{formatNumber(this.totalHealing)}</b><br />
             Beacon healing transfered: <b>{formatNumber(this.healingTransfered)}</b><br />
             Holy Shocks/Minute: <b>{this.holyShocksPerMinute.toFixed(1)}</b><br />
+            Early refresh(s): <b>{this.refresh}</b><br />
+            Uptime wasted: <b>{this.wasted}</b><br />
           </>
         )}
       />
