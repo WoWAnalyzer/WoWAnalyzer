@@ -13,6 +13,7 @@ import CancelledCastsNormalizer from '../shared/normalizers/CancelledCasts';
 import PrePullCooldownsNormalizer from '../shared/normalizers/PrePullCooldowns';
 import FightEndNormalizer from '../shared/normalizers/FightEnd';
 import PhaseChangesNormalizer from '../shared/normalizers/PhaseChanges';
+import MissingCastsNormalizer from '../shared/normalizers/MissingCasts';
 
 // Core modules
 import HealingDone from '../shared/modules/throughput/HealingDone';
@@ -182,7 +183,8 @@ class CombatLogParser {
     cancelledCastsNormalizer: CancelledCastsNormalizer,
     prepullNormalizer: PrePullCooldownsNormalizer,
     phaseChangesNormalizer: PhaseChangesNormalizer,
-
+    missingCastsNormalize: MissingCastsNormalizer,
+    
     // Analyzers
     healingDone: HealingDone,
     damageDone: DamageDone,
@@ -256,7 +258,7 @@ class CombatLogParser {
     vesselOfSkitteringShadows: VesselOfSkitteringShadows,
     ladyWaycrestsMusicBox: LadyWaycrestsMusicBox,
     ingnitionMagesFuse: IgnitionMagesFuse,
-    
+
     // PVP
     dreadGladiatorsMedallion: DreadGladiatorsMedallion,
     dreadGladiatorsInsignia: DreadGladiatorsInsignia,
