@@ -13,10 +13,12 @@ class MissingCasts extends EventsNormalizer {
   ];
 
   normalize(events) {
-    const missingCastEvents = events.filter(event => event.type === 'applybuff' && this.constructor.missingCastBuffs.includes(event.ability.guid));
+    const missingCastEvents = events
+    .filter(event => event.type === 'applybuff' && this.constructor.missingCastBuffs.includes(event.ability.guid))
+    .map(this.constructor._fabricateCastEvent);
     missingCastEvents.forEach(event => {
       const index = events.findIndex(e => e.timestamp >= event.timestamp);
-      events.splice(index, 0, this.constructor._fabricateCastEvent(event)); //sort into event list just before cast event
+      events.splice(index, 0, event); //sort into event list just before cast event
     });
     return events;
   }
