@@ -61,7 +61,7 @@ class CrestOfPaku extends Analyzer {
           <div className="value">
             <UptimeIcon /> {formatPercentage(this.uptime, 0)}% <small>uptime</small><br />
             <HasteIcon /> {formatNumber(this.averageHasteRating)} <small>average Haste gained</small><br />
-            <SpeedIcon /> {formatNumber(this.averageHasteRating)} <small>average Speed gained</small>
+            <SpeedIcon /> {formatNumber(this.averageSpeedRating)} <small>average Speed gained</small>
           </div>
         </div>
       </Statistic>
