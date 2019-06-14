@@ -37,21 +37,6 @@ export default {
     name: 'Grace of the Justicar',
     icon: 'spell_holy_healingaura',
   },
-  GLIMMER_OF_LIGHT_HEAL: {
-    id: 287280,
-    name: 'Glimmer of Light',
-    icon: 'ability_paladin_toweroflight',
-  },  
-  GLIMMER_OF_LIGHT_DAMAGE: {
-    id: 287285,
-    name: 'Glimmer of Light',
-    icon: 'ability_paladin_toweroflight',
-  },  
-  GLIMMER_OF_LIGHT_TRAIT: {
-    id: 287268,
-    name: 'Glimmer of Light',
-    icon: 'ability_paladin_toweroflight',
-  },
   GLIMMER_OF_LIGHT: {
     id: 287286,
     name: 'Glimmer of Light',
