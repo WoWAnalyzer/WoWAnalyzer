@@ -18,6 +18,11 @@ export default [
     contributors: [Zeboot],
   },
   {
+    date: new Date('2019-06-10'),
+    changes: 'Added most items from the Crucible of Storms raid.',
+    contributors: [Zeboot],
+  },
+  {
     date: new Date('2019-06-02'),
     changes: <>Added a <SpellLink id={SPELLS.IGNITION_MAGES_FUSE_BUFF.id} /> module to track usage and average haste gained.</>,
     contributors: [HolySchmidt],
