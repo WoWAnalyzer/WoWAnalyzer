@@ -9,6 +9,7 @@ import ItemDamageDone from 'interface/others/ItemDamageDone';
 import Events from 'parser/core/Events';
 
 import BeaconHealSource from '../beacons/BeaconHealSource.js';
+import SpellLink from 'common/SpellLink.js';
 
 
 /**
@@ -27,7 +28,7 @@ class GlimmerOfLight extends Analyzer {
   };
 
   glimmerBuffs = {};
-  glimmerHeals = 0;
+  glimmerHits = 0;
   healing = 0;
   wasted = 0;
   healingTransfered = 0;
@@ -68,15 +69,16 @@ class GlimmerOfLight extends Analyzer {
 
   onDamage(event){
     this.damage += event.amount + (event.absorbed || 0);
+    this.glimmerHits += 1;
   }
 
   onHeal(event) {
     this.healing += event.amount + (event.absorbed || 0);
-    this.glimmerHeals += 1;
+    this.glimmerHits += 1;
   }
 
-  get healsPerCast(){
-    return this.glimmerHeals / this.casts; 
+  get hitsPerCast(){
+    return this.glimmerHits / this.casts; 
     }
 
   get holyShocksPerMinute(){
@@ -87,8 +89,8 @@ class GlimmerOfLight extends Analyzer {
     return this.healing + this.healingTransfered;
   }
 
-  get GlimmerUsage() {
-    return 1 - this.wasted / (this.casts * BUFF_DURATION * 1000);
+  get glimmersWasted() {
+    return this.wasted / (this.casts * BUFF_DURATION * 1000);
   }
 
   statistic() {
@@ -100,7 +102,7 @@ class GlimmerOfLight extends Analyzer {
           <>
             <ItemHealingDone amount={this.totalHealing} /><br />
             <ItemDamageDone amount={this.damage} /><br />
-            {this.healsPerCast.toFixed(1)} Heals/Cast
+            {this.hitsPerCast.toFixed(1)} Triggers/Cast
           </>
         )}
         tooltip={(
@@ -109,13 +111,36 @@ class GlimmerOfLight extends Analyzer {
             Beacon healing transfered: <b>{formatNumber(this.healingTransfered)}</b><br />
             Holy Shocks/minute: <b>{this.holyShocksPerMinute.toFixed(1)}</b><br />
             Early refresh(s): <b>{this.earlyRefresh}</b><br />
-            Lost to early refresh: <b>{(this.wasted/1000).toFixed(1)} sec</b><br />
-            Refresh utilization: <b>{formatPercentage(this.GlimmerUsage)}</b><br />
+            Lost to early refresh: <b>{(this.wasted/1000).toFixed(1)}(sec) {this.glimmersWasted.toFixed(1)}%</b><br />
             Glimmer damage: <b>{formatNumber(this.damage)}</b><br />
           </>
         )}
       />
     );
+  }
+
+  get suggestedShieldValue() {
+    return {
+      actual: this.glimmersWasted,
+      isGreaterThan: {
+        minor: .15,
+        average: .25,
+        major: .35,
+      },
+      style: 'percentage',
+    };
+  }
+  suggestions(when) {
+    when(this.suggestedShieldValue).addSuggestion((suggest, actual, recommended) => {
+      return suggest(
+        <>
+          Your usage of <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> can be improved. Try to avoid overwritting buffs too early.
+        </>
+      )
+        .icon(SPELLS.GLIMMER_OF_LIGHT.icon)
+        .actual(`Average buff uptime was ${this.glimmersWasted}`)
+        .recommended(`> 85% is recommended`);
+    });
   }
 }
 
