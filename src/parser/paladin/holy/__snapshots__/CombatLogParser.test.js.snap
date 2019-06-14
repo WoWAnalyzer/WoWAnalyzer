@@ -2274,6 +2274,10 @@ Array [
 ]
 `;
 
+exports[`Holy Paladin integration test analyzers GlimmerOfLight matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`Holy Paladin integration test analyzers GlimmerOfLight matches the suggestions snapshot 1`] = `"module inactive"`;
+
 exports[`Holy Paladin integration test analyzers GraceOfTheJusticar matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"

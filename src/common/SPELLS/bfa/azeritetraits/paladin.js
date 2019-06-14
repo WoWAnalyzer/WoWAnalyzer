@@ -57,6 +57,16 @@ export default {
     name: 'Glimmer of Light',
     icon: 'ability_paladin_toweroflight',
   },
+  GLIMMER_OF_LIGHT_TRAIT: {
+    id: 287268,
+    name: 'Glimmer of Light',
+    icon: 'ability_paladin_toweroflight',
+  },
+  GLIMMER_OF_LIGHT_DAMAGE: {
+    id: 287285,
+    name: 'Glimmer of Light',
+    icon: 'ability_paladin_toweroflight',
+  },
 
   // Retribution
   EXPURGATION: {
