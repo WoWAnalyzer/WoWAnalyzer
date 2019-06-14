@@ -34,7 +34,7 @@ export default {
     icon: "paladin_holy",
   },
   DIAMOND_BARRIER: { //Diamond-laced Refracting Prism
-    id: 288034,
+    id: 288024,
     name: "Diamond Barrier",
     icon: "hunter_pvp_diamondice",
   },

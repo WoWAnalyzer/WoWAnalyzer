@@ -33,4 +33,11 @@ export default {
     icon: 'ability_priest_cascade',
     quality: ITEM_QUALITIES.PURPLE,
   },
+
+  DIAMOND_LACED_REFLECTING_PRISM: {
+    id: 165573,
+    name: 'Diamond-Laced Reflecting Prism',
+    icon: 'hunter_pvp_diamondice',
+    quality: ITEM_QUALITIES.PURPLE,
+  },
 };

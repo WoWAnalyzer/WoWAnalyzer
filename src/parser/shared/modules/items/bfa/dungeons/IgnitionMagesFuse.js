@@ -21,7 +21,7 @@ const ACTIVATION_COOLDOWN = 120; // seconds
   Item Level 340
   Binds when picked up
   Unique-Equipped
-  Trinket	
+  Trinket
   +205 Intellect
   Use: Ignite the fuse, gaining 168 Haste every 4 sec. Haste is removed after 20 sec. (2 Min Cooldown)
  */
@@ -43,18 +43,15 @@ class IgnitionMagesFuse extends Analyzer {
     }
 
     this.statBuff = calculateSecondaryStatDefault(340, 164, this.selectedCombatant.getItem(ITEMS.IGNITION_MAGES_FUSE.id).itemLevel);
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.IGNITION_MAGES_FUSE_BUFF), this.onUse);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.IGNITION_MAGES_FUSE_BUFF), this.onUse);
+
     this.abilities.add({
       spell: SPELLS.IGNITION_MAGES_FUSE_BUFF,
-      buffSpellId: SPELLS.IGNITION_MAGES_FUSE_BUFF.id,
       name: ITEMS.IGNITION_MAGES_FUSE.name,
       category: Abilities.SPELL_CATEGORIES.ITEMS,
       cooldown: ACTIVATION_COOLDOWN,
-      gcd: null,
       castEfficiency: {
         suggestion: true,
-        casts: () => this.uses,
-        maxCasts: () => this.possibleUseCount,
       },
     });
   }
