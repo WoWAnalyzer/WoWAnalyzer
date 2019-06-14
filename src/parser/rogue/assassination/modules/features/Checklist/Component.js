@@ -103,7 +103,7 @@ class AssassinationRogueChecklist extends React.PureComponent {
         </Rule>
         <Rule
           name="Maximize Vanish usage"
-          description="Your level 30 talent turns Vanish into a powerful DPS cooldown, significantly buffing the next 1-3 casts. Making sure to cast the correct abilities during this short window is important to maximizing your DPS."
+          description="Your level 30 talent turns Vanish into a powerful DPS cooldown, significantly buffing the next 1-3 casts. Making sure to cast the correct abilities during this short window is important to maximizing your DPS. Check Suggestions for more details."
         >
           <AbilityRequirement spell={SPELLS.VANISH.id} />
           {combatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id) && (

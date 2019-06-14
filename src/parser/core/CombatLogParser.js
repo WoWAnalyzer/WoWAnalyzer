@@ -13,6 +13,7 @@ import CancelledCastsNormalizer from '../shared/normalizers/CancelledCasts';
 import PrePullCooldownsNormalizer from '../shared/normalizers/PrePullCooldowns';
 import FightEndNormalizer from '../shared/normalizers/FightEnd';
 import PhaseChangesNormalizer from '../shared/normalizers/PhaseChanges';
+import MissingCastsNormalizer from '../shared/normalizers/MissingCasts';
 
 // Core modules
 import HealingDone from '../shared/modules/throughput/HealingDone';
@@ -142,10 +143,12 @@ import ConstructOvercharger from '../shared/modules/items/bfa/raids/uldir/Constr
 import SyringeOfBloodborneInfirmity from '../shared/modules/items/bfa/raids/uldir/SyringeOfBloodborneInfirmity';
 import DiscOfSystematicRegression from '../shared/modules/items/bfa/raids/uldir/DiscOfSystematicRegression';
 // BoD
+import DiamondLacedReflectingPrism from '../shared/modules/items/bfa/raids/bod/DiamondLacedReflectingPrism';
 import WardOfEnvelopment from '../shared/modules/items/bfa/raids/bod/WardOfEnvelopment';
 import CrestOfPaku from '../shared/modules/items/bfa/raids/bod/CrestOfPaku';
 import IncandescentSliver from '../shared/modules/items/bfa/raids/bod/IncandescentSliver';
 // Crucible of Storms
+import AbyssalSpeakersGauntlets from '../shared/modules/items/bfa/raids/crucibleofstorms/AbyssalSpeakersGauntlets';
 import FathuulsFloodguards from '../shared/modules/items/bfa/raids/crucibleofstorms/FathuulsFloodguards';
 import FathomDredgers from '../shared/modules/items/bfa/raids/crucibleofstorms/FathomDredgers';
 import GripsOfForsakenSanity from '../shared/modules/items/bfa/raids/crucibleofstorms/GripsOfForsakenSanity';
@@ -154,6 +157,7 @@ import IdolOfIndiscriminateConsumption from '../shared/modules/items/bfa/raids/c
 import LeggingsOfTheAberrantTidesage from '../shared/modules/items/bfa/raids/crucibleofstorms/LeggingsOfTheAberrantTidesage';
 import LegplatesOfUnboundAnguish from '../shared/modules/items/bfa/raids/crucibleofstorms/LegplatesOfUnboundAnguish';
 import LurkersInsidiousGift from '../shared/modules/items/bfa/raids/crucibleofstorms/LurkersInsidiousGift';
+import MalformedHeraldsLegwraps from '../shared/modules/items/bfa/raids/crucibleofstorms/MalformedHeraldsLegwraps';
 import StormglideSteps from '../shared/modules/items/bfa/raids/crucibleofstorms/StormglideSteps';
 import TridentOfDeepOcean from '../shared/modules/items/bfa/raids/crucibleofstorms/TridentOfDeepOcean';
 import VoidStone from '../shared/modules/items/bfa/raids/crucibleofstorms/VoidStone';
@@ -183,7 +187,8 @@ class CombatLogParser {
     cancelledCastsNormalizer: CancelledCastsNormalizer,
     prepullNormalizer: PrePullCooldownsNormalizer,
     phaseChangesNormalizer: PhaseChangesNormalizer,
-
+    missingCastsNormalize: MissingCastsNormalizer,
+    
     // Analyzers
     healingDone: HealingDone,
     damageDone: DamageDone,
@@ -310,10 +315,12 @@ class CombatLogParser {
     syringeOfBloodborneInfirmity: SyringeOfBloodborneInfirmity,
     discOfSystematicRegression: DiscOfSystematicRegression,
     // BoD
+    diamondLacedReflectingPrism: DiamondLacedReflectingPrism,
     wardOfEnvelopment: WardOfEnvelopment,
     crestOfPaku: CrestOfPaku,
     incandescentSliver: IncandescentSliver,
     // Crucible of Storms
+    abyssalSpeakersGauntlets: AbyssalSpeakersGauntlets,
     fathuulsFloodguards: FathuulsFloodguards,
     fathomDredgers: FathomDredgers,
     harbingersInscrutableWill: HarbingersInscrutableWill,
@@ -322,6 +329,7 @@ class CombatLogParser {
     leggingsOfTheAberrantTidesage: LeggingsOfTheAberrantTidesage,
     legplatesOfUnboundAnguish: LegplatesOfUnboundAnguish,
     lurkersInsidiousGift: LurkersInsidiousGift,
+    malformedHeraldsLegwraps: MalformedHeraldsLegwraps,
     stormglideSteps: StormglideSteps,
     tridentOfDeepOcean: TridentOfDeepOcean,
     voidStone: VoidStone,

@@ -9,6 +9,11 @@ import Contributor from 'interface/contributor/Button';
 export default [
   {
     date: new Date('2019-06-10'),
+    changes: 'Fixed an issue with some items not providing relevant cast events.',
+    contributors: [Zeboot],
+  },
+  {
+    date: new Date('2019-06-10'),
     changes: 'Added most items from the Crucible of Storms raid.',
     contributors: [Zeboot],
   },
