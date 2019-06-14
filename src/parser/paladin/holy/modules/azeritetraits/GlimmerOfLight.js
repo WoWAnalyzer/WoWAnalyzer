@@ -1,7 +1,10 @@
 import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import SpellLink from 'common/SpellLink.js';
+
 import { formatNumber } from 'common/format';
 import { formatPercentage } from 'common/format';
+
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
@@ -9,7 +12,6 @@ import ItemDamageDone from 'interface/others/ItemDamageDone';
 import Events from 'parser/core/Events';
 
 import BeaconHealSource from '../beacons/BeaconHealSource.js';
-import SpellLink from 'common/SpellLink.js';
 
 
 /**
@@ -111,7 +113,7 @@ class GlimmerOfLight extends Analyzer {
             Beacon healing transfered: <b>{formatNumber(this.healingTransfered)}</b><br />
             Holy Shocks/minute: <b>{this.holyShocksPerMinute.toFixed(1)}</b><br />
             Early refresh(s): <b>{this.earlyRefresh}</b><br />
-            Lost to early refresh: <b>{(this.wasted/1000).toFixed(1)}(sec) {this.glimmersWasted.toFixed(1)}%</b><br />
+            Lost to early refresh: <b>{(this.wasted/1000).toFixed(1)}(sec) {(this.glimmersWasted * 100).toFixed(1)}%</b><br />
             Glimmer damage: <b>{formatNumber(this.damage)}</b><br />
           </>
         )}
@@ -119,27 +121,28 @@ class GlimmerOfLight extends Analyzer {
     );
   }
 
-  get suggestedShieldValue() {
+  get suggestedGlimmerUsage() {
     return {
       actual: this.glimmersWasted,
       isGreaterThan: {
-        minor: .15,
-        average: .25,
+        minor: 0.15,
+        average: 0.25,
         major: .35,
       },
       style: 'percentage',
     };
   }
+
   suggestions(when) {
-    when(this.suggestedShieldValue).addSuggestion((suggest, actual, recommended) => {
+    when(this.suggestedGlimmerUsage).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
           Your usage of <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> can be improved. Try to avoid overwritting buffs too early.
         </>
       )
         .icon(SPELLS.GLIMMER_OF_LIGHT.icon)
-        .actual(`Average buff uptime was ${this.glimmersWasted}`)
-        .recommended(`> 85% is recommended`);
+        .actual(`Percentage uptime lost to early refresh was ${formatPercentage(this.glimmersWasted)}%`)
+        .recommended(`< 15% is recommended`);
     });
   }
 }
