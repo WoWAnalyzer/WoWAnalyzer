@@ -100,7 +100,7 @@ class HealingDone extends Analyzer {
               alt="Healing"
             />
           </div>
-          <Tooltip content={<>Total healing done: <strong>${formatThousands(this.total.effective)}</strong></>}>
+          <Tooltip content={<>Total healing done: <strong>{formatThousands(this.total.effective)}</strong></>}>
             <div
               className="flex-sub value"
               style={{ width: 190 }}
