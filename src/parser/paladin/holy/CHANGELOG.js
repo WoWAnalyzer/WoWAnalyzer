@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-06-13'),
+    changes: <><SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> statistic added showing healing, damage, beacon healing, <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />s/min and refresh utilization.</>, 
+    contributors: [HolySchmidt],
+  },
+  {
     date: new Date('2019-06-02'),
     changes: <>Enabled the QElive auto import link for stat values.</>, 
     contributors: [Abelito75],
