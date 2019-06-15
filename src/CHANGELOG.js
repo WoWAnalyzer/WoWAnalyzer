@@ -8,6 +8,11 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
+    date: new Date('2019-06-16'),
+    changes: 'Fixed wrong combat potion being shown in the timeline.',
+    contributors: [Zeboot],
+  },
+  {
     date: new Date('2019-06-10'),
     changes: 'Added URL bar search support for report links.',
     contributors: [Zeboot],
