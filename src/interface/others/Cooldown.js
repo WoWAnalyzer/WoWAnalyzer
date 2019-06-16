@@ -177,19 +177,19 @@ class Cooldown extends React.Component {
                 {this.groupHeals(cooldown.events.filter(event => (event.type === 'cast' || event.type === 'heal') && event.ability.guid !== 1)).map((heal, i) => (
                   <div className="row" key={i}>
                     <div className="col-xs-1 text-right" style={{ padding: 0 }}>
-                      +{((heal.event.timestamp - cooldown.start) / 1000).toFixed(3)}
+                      +{((heal.timestamp ? heal.timestamp : heal.event.timestamp - cooldown.start) / 1000).toFixed(3)}
                     </div>
-                    <div className={`col-xs-4 ${heal.event.type === 'heal' ? 'col-xs-offset-1' : ''}`}>
-                      <SpellLink key={`${heal.event.ability.guid}-${heal.event.timestamp}-${i}`} id={heal.event.ability.guid} icon={false}>
-                        <Icon icon={heal.event.ability.abilityIcon} alt={heal.event.ability.name} style={{ height: 23, marginRight: 4 }} /> {heal.event.ability.name}
+                    <div className={`col-xs-4 ${heal.type === 'heal' ? 'col-xs-offset-1' : ''}`}>
+                      <SpellLink key={`${heal.ability == null?heal.event.ability.guid:heal.ability.guid}-${heal.ability == null?heal.event.ability.timestamp : heal.ability.timestamp}-${i}`} id={heal.ability == null?heal.event.ability.guid : heal.ability.guid} icon={false}>
+                        <Icon icon={heal.ability == null?heal.event.ability.abilityIcon:heal.ability.abilityIcon} alt={heal.ability == null?heal.event.ability.name : heal.ability.name} style={{ height: 23, marginRight: 4 }} /> {heal.ability == null?heal.event.ability.name : heal.ability.name}
                       </SpellLink>
-                      {heal.event.type === 'heal' && (
+                      {heal.type === 'heal' && (
                         <span>
                           <span className="grouped-heal-meta amount"> x {heal.count}</span>
                         </span>
                       )}
                     </div>
-                    {heal.event.type === 'heal' && (
+                    {heal.type === 'heal' && (
                       <div className="col-xs-4">
                         <span className="grouped-heal-meta healing"> +{formatThousands(heal.amount + heal.absorbed)}</span>
                         <span className="grouped-heal-meta overhealing"> (O: {formatThousands(heal.overheal)})</span>
