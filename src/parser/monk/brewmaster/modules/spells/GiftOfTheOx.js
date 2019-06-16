@@ -103,7 +103,7 @@ export default class GiftOfTheOx extends Analyzer {
         value={`${formatNumber(this.totalHealing / (this.owner.fightDuration / 1000))} HPS`}
         tooltip={(
           <>
-            You generated {formatNumber(this.orbsGenerated)} healing spheres and consumed {formatNumber(this.orbsConsumed)} of them, healing for <b>{formatNumber(this.totalHealing)}</b>.
+            You generated {formatNumber(this.orbsGenerated)} healing spheres and consumed {formatNumber(this.orbsConsumed)} of them, healing for <b>{formatNumber(this.totalHealing)}</b>.<br />
             {formatNumber(this.expelHarmOrbsConsumed)} of these were consumed with Expel Harm over {formatNumber(this.expelHarmCasts)} casts.
           </>
         )}
