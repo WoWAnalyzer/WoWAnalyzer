@@ -22,7 +22,6 @@ import HighNoon from '../../talents/azeritetraits/HighNoon';
 import PowerOfTheMoon from '../../talents/azeritetraits/PowerOfTheMoon';
 
 import Component from './Component';
-import StreakingStars from '../../talents/azeritetraits/StreakingStars';
 
 class Checklist extends BaseModule {
   static dependencies = {
@@ -42,7 +41,6 @@ class Checklist extends BaseModule {
     dawningSun: DawningSun,
     highNoon: HighNoon,
     powerOfTheMoon: PowerOfTheMoon,
-    streakingStars: StreakingStars,
   };
 
   render() {

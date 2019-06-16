@@ -134,10 +134,6 @@ class BalanceDruidChecklist extends React.PureComponent {
           {combatant.hasTalent(SPELLS.NEW_MOON_TALENT.id) && (
             <AbilityRequirement spell={SPELLS.NEW_MOON_TALENT.id} />
           )}
-
-          {combatant.hasTrait(SPELLS.STREAKING_STARS.id) /*&& /*(
-            /* <Requirement name={(<><SpellLink id={SPELLS.STREAKING_STARS.id} /> badcasts</>)} thresholds={thresholds.streakingStars} /> 
-          )*/}
         </Rule>
         <Rule
           name="Use your supportive abilities"
