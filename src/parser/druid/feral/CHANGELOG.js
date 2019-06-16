@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-06-16'),
+    changes: <>Changed which buffs are displayed on the timeline view, making rotation-relevant information clearer.</>,
+    contributors: [Anatta336],
+  },
+  {
     date: new Date('2019-03-06'),
     changes: <>Added tracking of <SpellLink id={SPELLS.GUSHING_LACERATIONS_TRAIT.id} />.</>,
     contributors: [Anatta336],

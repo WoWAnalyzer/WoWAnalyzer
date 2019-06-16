@@ -36,6 +36,7 @@ class RuneTracker extends ResourceTracker {
   runesReady = []; //{x, y} points of {time, runeCount} for the chart
   _runesReadySum; //time spent at each rune. _runesReadySum[1] is time spent at one rune available.
   _lastTimestamp; //used to find time since last rune change for the _runesReadySum
+  _fightend = false; //fightend, avoid wierd graph by not adding later runes
 
   constructor(...args) {
     super(...args);
@@ -48,7 +49,9 @@ class RuneTracker extends ResourceTracker {
   }
   on_fightend() { //add a last event for calculating uptimes and make the chart not end early.
     const runesAvailable = this.runesAvailable;
-    this.runesReady.push({ x: this.owner.fightDuration / 1000, y: runesAvailable });
+    this._fightend = true;
+
+    this.runesReady.push({ x: this.owner.fightDuration, y: runesAvailable });
     this._runesReadySum[runesAvailable] += this.owner.fight.end_time - this._lastTimestamp;
     this.addPassiveRuneRegeneration();
   }
@@ -112,10 +115,16 @@ class RuneTracker extends ResourceTracker {
     } else { //no change
       return;
     }
+
     //time since last rune change was spent at current runes minus the change.
     this._runesReadySum[this.runesAvailable - change] += event.timestamp - this._lastTimestamp;
     this._lastTimestamp = event.timestamp;
     //Adding two points to the rune chart, one at {time, lastRuneCount} and one at {time, newRuneCount} so the chart does not have diagonal lines.
+
+    if (this._fightend) {
+      return;
+    }
+
     this.runesReady.push({ x: this.timeFromStart(event.timestamp), y: this.runesAvailable - change });
     this.runesReady.push({ x: this.timeFromStart(event.timestamp), y: this.runesAvailable });
   }

@@ -46,6 +46,7 @@ import AvengingCrusader from './modules/talents/AvengingCrusader';
 
 // azurite traits //
 import GraceOfTheJusticar from './modules/azeritetraits/GraceOfTheJusticar';
+import GlimmerOfLight from './modules/azeritetraits/GlimmerOfLight';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
@@ -111,6 +112,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Azureite Traits //
     graceOfTheJusticar: GraceOfTheJusticar,
     radiantIncandescence: RadiantIncandescence,
+    glimmerOfLight: GlimmerOfLight,
   };
 }
 
