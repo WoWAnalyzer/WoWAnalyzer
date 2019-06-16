@@ -20,6 +20,16 @@ class Energy extends Analyzer {
       major: 0.15,
       extraSuggestion: <>Try to keep energy below max to avoid waisting <SpellLink id={SPELLS.COMBAT_POTENCY.id} /> procs.</>,
     });
+
+    if(this.selectedCombatant.hasTalent(SPELLS.BLADE_RUSH_TALENT.id)){
+      resourceSuggest(when, this.energyTracker, {
+        spell: SPELLS.BLADE_RUSH_TALENT_BUFF,
+        minor: 0.05,
+        avg: 0.1, 
+        major: 0.15,
+        extraSuggestion: <>Try to keep energy below max to avoid waisting <SpellLink id={SPELLS.BLADE_RUSH_TALENT.id} /> gains.</>,
+      });
+    }
   }
 }
 
