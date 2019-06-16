@@ -72,6 +72,13 @@ export default {
     // This gets special treatment with the `feed_heal` event
     ignored: true,
   },
+  [SPELLS.ASCENDANCE_INITIAL_HEAL.id]: {
+    int: true,
+    crit: true,
+    hasteHpct: false, // static CD
+    mastery: true,
+    vers: true,
+  },
   [SPELLS.CLOUDBURST_TOTEM_HEAL.id]: {
     // This gets special treatment with the `feed_heal` event
     ignored: true,

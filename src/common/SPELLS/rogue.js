@@ -479,7 +479,7 @@ export default {
   },
   RUTHLESS_PRECISION: {
     id: 193357,
-    name: 'Shark Infested Waters',
+    name: 'Ruthless Precision',
     icon: 'ability_rogue_rollthebones03',
   },
   TRUE_BEARING: {
@@ -496,6 +496,11 @@ export default {
     id: 193356,
     name: 'Broadside',
     icon: 'ability_rogue_rollthebones06',
+  },
+  BLADE_RUSH_TALENT_BUFF: { // This is the energy gain buff
+    id: 271896, 
+    name: 'Blade Rush', 
+    icon: 'ability_arakkoa_spinning_blade',
   },
 
 
@@ -514,5 +519,10 @@ export default {
     id: 86392,
     name: 'Main Gauche',
     icon: 'inv_weapon_shortblade_15',
+  },
+  OPPORTUNITY: {
+    id: 195627,
+    name: 'Opportunity',
+    icon: 'ability_rogue_pistolshot',
   },
 };

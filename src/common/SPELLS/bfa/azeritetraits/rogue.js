@@ -10,6 +10,11 @@ export default {
     name: 'Ace Up Your Sleeve',
     icon: 'inv_weapon_rifle_01',
   },
+  ACE_UP_YOUR_SLEEVE_BUFF: { // This appears to be what actually generates the combo points
+    id: 279714,
+    name: 'Ace Up Your Sleeve',
+    icon: 'inv_weapon_rifle_01',
+  },
   DEADSHOT: {
     id: 272935,
     name: 'Deadshot',

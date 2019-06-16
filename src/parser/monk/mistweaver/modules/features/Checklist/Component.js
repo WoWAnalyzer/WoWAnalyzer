@@ -122,6 +122,8 @@ class MistweaverMonkChecklist extends React.PureComponent {
         >
           <Requirement name="Non healing time" thresholds={thresholds.nonHealingTimeSuggestionThresholds} />
           <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />
+          <Requirement name={(<>Effective <SpellLink id={SPELLS.SOOTHING_MIST.id} /> Casts</>)} thresholds={thresholds.soothingMist} />
+
         </Rule>
 
         <Rule

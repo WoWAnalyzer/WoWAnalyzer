@@ -156,6 +156,12 @@ export default {
     name: 'Lava Burst',
     icon: 'spell_shaman_lavaburst',
     manaCost: 1200,
+    coefficient: 0.53125,
+  },
+  LAVA_BURST_DAMAGE: {
+    id: 285452,
+    name: 'Lava Burst',
+    icon: 'spell_shaman_lavaburst',
   },
   LAVA_BURST_OVERLOAD: {
     id: 77451,
@@ -707,6 +713,11 @@ export default {
   },
   ASCENDANCE_HEAL: {
     id: 114083,
+    name: 'Ascendance',
+    icon: 'spell_fire_elementaldevastation',
+  },
+  ASCENDANCE_INITIAL_HEAL: {
+    id: 294020,
     name: 'Ascendance',
     icon: 'spell_fire_elementaldevastation',
   },

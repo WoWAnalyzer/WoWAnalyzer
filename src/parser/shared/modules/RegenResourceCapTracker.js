@@ -197,13 +197,23 @@ class RegenResourceCapTracker extends Analyzer {
 
   /**
    * IMPLEMENTME
+   * Some specs have modifiers to the base regen rate that apply before haste, which should
+   * be implemented here.
+   * @returns {number} Base regen rate of the resource.
+   */
+  getBaseRegenRate(){
+    return this.constructor.baseRegenRate;
+  }
+
+  /**
+   * IMPLEMENTME
    * Calculate current natural regeneration rate of the resource.
    * When checking combant's buffs/debuffs you may want to use this.combatantHasBuffActive() rather than
    * the .hasBuff of the combatant directly, doing so will exclude buffs which wore off at this timestamp.
    * @returns {number}  Resource expected to be generated per ms.
    */
   naturalRegenRate() {
-    let regen = this.constructor.baseRegenRate / 1000;
+    let regen = this.getBaseRegenRate() / 1000;
     if (this.constructor.isRegenHasted) {
       regen *= (1 + this.haste.current);
     }

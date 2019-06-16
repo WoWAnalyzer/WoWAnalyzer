@@ -72,6 +72,13 @@ export default {
     icon: 'inv_misc_redsaberonfang',
   },
 
+  // Tol Dogar
+  IGNITION_MAGES_FUSE_BUFF: {
+    id: 271115,
+    name: 'Ignition Mage\'s Fuse',
+    icon: 'inv_misc_rope_01',
+  },
+
   // Shrine of the Storm
   CONCH_OF_DARK_WHISPERS_BUFF: {
     id: 271071,

@@ -17,6 +17,7 @@ class StatValues extends BaseHealerStatValues {
   };
 
   spellInfo = SPELL_INFO;
+  qeLive = true;
 
   _mastery(event, healVal) {
     if (healVal.overheal) {

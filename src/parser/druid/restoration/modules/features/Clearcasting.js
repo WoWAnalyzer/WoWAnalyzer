@@ -75,6 +75,10 @@ class Clearcasting extends Analyzer {
     if (spellId !== SPELLS.REGROWTH.id) {
       return;
     }
+  
+    if(this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
+      return;
+    }
 
     this.totalRegrowths += 1;
 

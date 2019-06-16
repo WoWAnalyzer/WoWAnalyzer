@@ -170,6 +170,7 @@ class Abilities extends CoreAbilities {
         },
         healSpellIds: [
           SPELLS.ASCENDANCE_HEAL.id,
+          SPELLS.ASCENDANCE_INITIAL_HEAL.id,
         ],
       },
       {

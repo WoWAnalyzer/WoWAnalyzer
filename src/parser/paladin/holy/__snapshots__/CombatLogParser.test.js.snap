@@ -247,7 +247,7 @@ Array [
     "importance": "major",
     "issue": "Your time spent healing can be improved. Try to reduce the amount of time you're not healing, for example by reducing the delay between casting spells, moving during the GCD and if you have to move try to continue healing with instant spells.",
     "stat": <React.Fragment>
-      -58.41% time spent healing
+      -54.63% time spent healing
        (
       &gt;70.00% is recommended
       )
@@ -361,6 +361,90 @@ Array [
 exports[`Holy Paladin integration test analyzers AuraOfSacrificeDamageReduction matches the statistic snapshot 1`] = `"module inactive"`;
 
 exports[`Holy Paladin integration test analyzers AuraOfSacrificeDamageReduction matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`Holy Paladin integration test analyzers AvengingCrusader matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad"
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=216331"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Avenging Crusader"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_veneration.jpg"
+            />
+          </a>
+           
+          <a
+            href="http://wowhead.com/spell=216331"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Avenging Crusader
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          <img
+            alt="Healing"
+            className="icon"
+            src="/img/healing.png"
+          />
+           
+          2,949
+           HPS 
+          <small>
+            19.11
+            % of total
+          </small>
+          <br />
+          18.75
+          % Crit Rate
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Holy Paladin integration test analyzers AvengingCrusader matches the suggestions snapshot 1`] = `Array []`;
 
 exports[`Holy Paladin integration test analyzers BeaconHealSource matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
@@ -2189,6 +2273,10 @@ Array [
   },
 ]
 `;
+
+exports[`Holy Paladin integration test analyzers GlimmerOfLight matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`Holy Paladin integration test analyzers GlimmerOfLight matches the suggestions snapshot 1`] = `"module inactive"`;
 
 exports[`Holy Paladin integration test analyzers GraceOfTheJusticar matches the statistic snapshot 1`] = `
 <div
@@ -4429,12 +4517,15 @@ exports[`Holy Paladin integration test analyzers StatValues matches the statisti
         >
           Stat Values
         </dfn>
-        <a
+        <div
           className="pull-right"
-          href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/parser/paladin/holy/modules/StatValues.md"
         >
-          More info
-        </a>
+          <a
+            href="https://github.com/WoWAnalyzer/WoWAnalyzer/blob/master/src/parser/paladin/holy/modules/StatValues.md"
+          >
+            More info
+          </a>
+        </div>
       </h4>
     </div>
     <div
@@ -6534,7 +6625,7 @@ exports[`Holy Paladin integration test should match the checklist snapshot 1`] =
               style={
                 Object {
                   "backgroundColor": "#df7102",
-                  "width": "47.73285634443278%",
+                  "width": "48.59026797740071%",
                 }
               }
             />
@@ -6637,7 +6728,7 @@ exports[`Holy Paladin integration test should match the checklist snapshot 1`] =
                   }
                 >
                    
-                  59.41%
+                  55.63%
                    
                    
                 </div>
@@ -6659,7 +6750,7 @@ exports[`Holy Paladin integration test should match the checklist snapshot 1`] =
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "25.22266584400364%",
+                        "width": "26.937489109939484%",
                       }
                     }
                   />
