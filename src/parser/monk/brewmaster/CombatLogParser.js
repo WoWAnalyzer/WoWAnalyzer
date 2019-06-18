@@ -38,6 +38,7 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import StaggerPoolGraph from './modules/features/StaggerPoolGraph';
 import MitigationCheck from './modules/features/MitigationCheck';
 import MitigationSheet from './modules/features/MitigationSheet';
+import HotTrubValue from './modules/features/HotTrubValue';
 
 // Items
 // normalizers
@@ -68,6 +69,7 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     staggerPoolGraph: StaggerPoolGraph,
     sheet: MitigationSheet,
+    hotTrubValue: HotTrubValue,
 
     // Spells
     ironSkinBrew: IronSkinBrew,
