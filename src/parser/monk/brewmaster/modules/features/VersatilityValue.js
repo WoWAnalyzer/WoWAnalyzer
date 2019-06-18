@@ -1,15 +1,12 @@
-import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import STAT, { getClassNameColor, getName } from 'parser/shared/modules/features/STAT';
 import Events from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
-import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import { calculateSecondaryStatDefault } from 'common/stats';
 
 import MitigationSheet, { makeIcon } from './MitigationSheet';
-import { diminish, lookupK } from '../constants/Mitigation';
 
 export default class VersatilityValue extends Analyzer {
   static dependencies = {
