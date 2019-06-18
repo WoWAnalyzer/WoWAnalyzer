@@ -15,6 +15,7 @@ import ParserLoader from './ParserLoader';
 import EventsLoader from './EventsLoader';
 import BossPhaseEventsLoader from './BossPhaseEventsLoader';
 import CharacterProfileLoader from './CharacterProfileLoader';
+import PhaseSelection from './PhaseSelection';
 import EventParser from './EventParser';
 import Results from './Results';
 import EVENT_PARSING_STATE from './EVENT_PARSING_STATE';
@@ -131,7 +132,7 @@ class ResultsLoader extends React.PureComponent {
         </CharacterProfileLoader>
 
         {!this.state.isLoadingParser && !this.state.isLoadingEvents && this.state.bossPhaseEventsLoadingState !== BOSS_PHASES_STATE.LOADING && !this.state.isLoadingCharacterProfile && (
-          <EventParser
+          <PhaseSelection
             report={report}
             fight={fight}
             player={player}
@@ -142,7 +143,7 @@ class ResultsLoader extends React.PureComponent {
             events={this.state.events}
           >
             {this.handleEventsParser}
-          </EventParser>
+          </PhaseSelection>
         )}
 
         <Results
