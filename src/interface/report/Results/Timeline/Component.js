@@ -100,13 +100,25 @@ class Timeline extends React.PureComponent {
         return;
       }
 
-      const spellId = event.ability.guid;
+      const spellId = this._getCanonicalId(event.ability.guid);
       if (!eventsBySpellId.has(spellId)) {
         eventsBySpellId.set(spellId, []);
       }
       eventsBySpellId.get(spellId).push(event);
     });
     return eventsBySpellId;
+  }
+
+  _getCanonicalId(spellId){
+    const ability = this.props.abilities.getAbility(spellId);
+    if (!ability) {
+      return spellId; // not a class ability
+    }
+    if (ability.spell instanceof Array) {
+      return ability.spell[0].id;
+    } else {
+      return ability.spell.id;
+    }
   }
 
   setContainerRef(elem) {
