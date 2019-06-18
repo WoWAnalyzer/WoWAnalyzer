@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-06-19'),
+    changes: <>Improved how finisher combo point use is assessed, low-combo use of <SpellLink id={SPELLS.RIP.id} /> is recognised as correct in certain circumstances.</>,
+    contributors: [Anatta336],
+  },
+  {
     date: new Date('2019-06-16'),
     changes: <>Changed which buffs are displayed on the timeline view, making rotation-relevant information clearer.</>,
     contributors: [Anatta336],
