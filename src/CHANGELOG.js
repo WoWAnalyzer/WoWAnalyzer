@@ -8,6 +8,11 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
+    date: new Date('2019-06-19'),
+    changes: 'Added Eternal Palace raid information to zones.',
+    contributors: [Yajinni],
+  },
+  {
     date: new Date('2019-06-16'),
     changes: 'Fixed issues with shared CDs (like potions) in the timeline.',
     contributors: [Zeboot],
