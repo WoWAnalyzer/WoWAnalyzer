@@ -100,7 +100,7 @@ class PhaseParser extends React.PureComponent {
         event.timestamp >= startEvent.timestamp
         && event.timestamp <= endEvent.timestamp
       );
-      //TODO: find events before the phase that are relevant in this phase (aka cooldowns)
+      //TODO: find events before the phase that are relevant in this phase (aka cooldowns and buffs) and include them in analysis
     return {start: startEvent.timestamp, events: [startEvent, ...phaseEvents, endEvent], end: endEvent.timestamp};
   }
 
