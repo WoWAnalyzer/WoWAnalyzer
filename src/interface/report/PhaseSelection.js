@@ -71,6 +71,8 @@ class PhaseSelection extends React.PureComponent {
     console.log(phase);
     const startEvents = bossPhaseEvents.filter(e => e.type === PHASE_START_EVENT_TYPE);
     const endEvents = bossPhaseEvents.filter(e => e.type === PHASE_END_EVENT_TYPE);
+    console.log(startEvents.length, endEvents.length);
+    console.log(startEvents, endEvents, !(bossPhaseEvents instanceof Array), bossPhaseEvents.length % 2 !== 0, startEvents.length !== endEvents.length, startEvents.length < (phase + 1), endEvents.length < (phase + 1), phase === SELECTION_ALL_PHASES);
     if(!(bossPhaseEvents instanceof Array)
       || bossPhaseEvents.length % 2 !== 0
       || startEvents.length !== endEvents.length
@@ -83,7 +85,7 @@ class PhaseSelection extends React.PureComponent {
 
     const phaseStart = startEvents[phase];
     const phaseEnd = endEvents[phase];
-    console.log(phaseStart, phaseEnd);
+
     const phaseEvents = events.filter(event =>
         event.timestamp >= phaseStart.timestamp
         && event.timestamp <= phaseEnd.timestamp
