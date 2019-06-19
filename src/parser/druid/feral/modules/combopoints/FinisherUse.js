@@ -9,6 +9,7 @@ import BoringResourceValue from 'interface/statistics/components/BoringResourceV
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Statistic from 'interface/statistics/Statistic';
 
+import getComboPointsFromEvent from '../core/getComboPointsFromEvent';
 import RipSnapshot from '../bleeds/RipSnapshot';
 
 const debug = false;
@@ -30,6 +31,7 @@ const MAX_COMBO = 5;
  *  Fresh Rip on a target which doesn't yet have it.
  *  Rip on a target that already has Rip if it upgrades the snapshot, so long as player is using Sabertooth.
  *  [NYI] Maim on a target where the stun is effective and useful.
+ *  [NYI] Possibly when using Savage Roar? Will need theorycrafting.
  * 
  */
 class FinisherUse extends Analyzer {
@@ -58,7 +60,7 @@ class FinisherUse extends Analyzer {
     }
     this.totalFinishers += 1;
 
-    const combo = this.getComboPoints(event);
+    const combo = getComboPointsFromEvent(event);
     if (!combo || combo === MAX_COMBO) {
       // either full combo points (therefore not a problem) used or something went wrong and couldn't get combo information
       return;
@@ -86,11 +88,6 @@ class FinisherUse extends Analyzer {
     }
     debug && this.log(`cast ${finisher.name} with ${combo} combo points`);
     this.badFinishers += 1;
-  }
-
-  getComboPoints(castEvent) {
-    const resource = castEvent.classResources.find(item => item.type === RESOURCE_TYPES.COMBO_POINTS.id);
-    return resource.amount;
   }
 
   get fractionBadFinishers() {
