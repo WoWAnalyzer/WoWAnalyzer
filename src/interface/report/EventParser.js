@@ -44,7 +44,6 @@ class EventParser extends React.PureComponent {
     })),
     parserClass: PropTypes.func.isRequired,
     characterProfile: PropTypes.object,
-    bossPhaseEvents: PropTypes.array,
     events: PropTypes.array.isRequired,
     children: PropTypes.func.isRequired,
   };
@@ -69,7 +68,6 @@ class EventParser extends React.PureComponent {
       || this.props.combatants !== prevProps.combatants
       || this.props.parserClass !== prevProps.parserClass
       || this.props.characterProfile !== prevProps.characterProfile
-      || this.props.bossPhaseEvents !== prevProps.bossPhaseEvents
       || this.props.events !== prevProps.events;
     if (changed) {
       this.setState({
@@ -91,12 +89,11 @@ class EventParser extends React.PureComponent {
     return parser;
   }
   makeEvents(parser) {
-    const { bossPhaseEvents, events } = this.props;
-    let combinedEvents = bossPhaseEvents ? [...bossPhaseEvents, ...events] : events;
+    let { events } = this.props;
     // The events we fetched will be all events related to the selected player. This includes the `combatantinfo` for the selected player. However we have already parsed this event when we loaded the combatants in the `initializeAnalyzers` of the CombatLogParser. Loading the selected player again could lead to bugs since it would reinitialize and overwrite the existing entity (the selected player) in the Combatants module.
-    combinedEvents = combinedEvents.filter(event => event.type !== 'combatantinfo');
-    combinedEvents = parser.normalize(combinedEvents);
-    return combinedEvents;
+    events = events.filter(event => event.type !== 'combatantinfo');
+    events = parser.normalize(events);
+    return events;
   }
   async parse() {
     try {

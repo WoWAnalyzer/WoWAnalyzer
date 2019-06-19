@@ -88,14 +88,14 @@ class PhaseParser extends React.PureComponent {
 
   makeEvents(phases) {
     const { bossPhaseEvents, events, phase } = this.props;
-    const startEvent = bossPhaseEvents.find(e => e.type === PHASE_START_EVENT_TYPE && e.phase.key === phase);
-    const endEvent = bossPhaseEvents.find(e => e.type === PHASE_END_EVENT_TYPE && e.phase.key === phase);
     if(!(bossPhaseEvents instanceof Array)
       || !(Object.keys(phases).includes(phase))
       || phase === SELECTION_ALL_PHASES
     ){
       return {start: this.props.fight.start_time, events: bossPhaseEvents ? [...bossPhaseEvents, ...events] : events, end: this.props.fight.end_time};
     }
+    const startEvent = bossPhaseEvents.find(e => e.type === PHASE_START_EVENT_TYPE && e.phase.key === phase);
+    const endEvent = bossPhaseEvents.find(e => e.type === PHASE_END_EVENT_TYPE && e.phase.key === phase);
     const phaseEvents = events.filter(event =>
         event.timestamp >= startEvent.timestamp
         && event.timestamp <= endEvent.timestamp
