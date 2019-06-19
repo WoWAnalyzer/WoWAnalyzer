@@ -153,7 +153,7 @@ class ResultsLoader extends React.PureComponent {
           {this.handleCharacterProfileLoader}
         </CharacterProfileLoader>
 
-        {!this.state.isLoadingParser && !this.state.isLoadingEvents && this.state.bossPhaseEventsLoadingState !== BOSS_PHASES_STATE.LOADING && !this.state.isLoadingCharacterProfile && (
+        {!this.state.isLoadingEvents && this.state.bossPhaseEventsLoadingState !== BOSS_PHASES_STATE.LOADING && (
           <PhaseParser
             fight={fight}
             bossPhaseEvents={this.state.bossPhaseEvents}

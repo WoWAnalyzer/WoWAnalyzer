@@ -243,7 +243,7 @@ class Results extends React.PureComponent {
     }
   }
   renderLoadingIndicator() {
-    const { progress, isLoadingParser, isLoadingEvents, bossPhaseEventsLoadingState, isLoadingCharacterProfile, isLoadingPhases, phases, parsingState } = this.props;
+    const { progress, isLoadingParser, isLoadingEvents, bossPhaseEventsLoadingState, isLoadingCharacterProfile, isLoadingPhases, parsingState } = this.props;
 
     return (
       <div className="container" style={{ marginBottom: 40 }}>
