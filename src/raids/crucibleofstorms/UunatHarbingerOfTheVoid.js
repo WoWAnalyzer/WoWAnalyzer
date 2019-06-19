@@ -20,8 +20,19 @@ export default {
     },
     phases: {
       P1: {
-        name: 'Stage one: His All-Seeing Eyes',
+        name: 'Stage One: His All-Seeing Eyes',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+      },
+      I1: {
+        name: 'Intermission One',
+        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        filter: {
+          type: 'applybuff',
+          ability: {
+            id: SPELLS.VOID_SHIELD.id,
+          },
+          eventInstance: 0,
+        },
       },
       P2: {
         name: 'Stage Two: His Dutiful Servants',
@@ -32,6 +43,17 @@ export default {
             id: SPELLS.VOID_SHIELD.id,
           },
           eventInstance: 0,
+        },
+      },
+      I2: {
+        name: 'Intermission Two',
+        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        filter: {
+          type: 'applybuff',
+          ability: {
+            id: SPELLS.VOID_SHIELD.id,
+          },
+          eventInstance: 1,
         },
       },
       P3: {
