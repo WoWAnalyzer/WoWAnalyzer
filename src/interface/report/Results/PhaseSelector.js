@@ -39,19 +39,17 @@ class PhaseSelector extends React.PureComponent {
   render() {
     const {phases} = this.props;
     return (
-      //<form>
-        <select
-          className="form-control region"
-          //ref={this.regionInput}
-          defaultValue={this.state.phase}
-          onChange={this.handleChange}
-          >
-          <option key="all" value={SELECTION_ALL_PHASES}>All Phases</option>
-          {Object.keys(phases).map(key =>
-            <option key={key} value={key}>{phases[key].name}</option>
-          )}
-          </select>
-      //</form>
+      <select
+        className="form-control region"
+        //ref={this.regionInput}
+        defaultValue={this.state.phase}
+        onChange={this.handleChange}
+      >
+        <option key="all" value={SELECTION_ALL_PHASES}>All Phases</option>
+        {Object.keys(phases).map(key =>
+          <option key={key} value={key}>{phases[key].name}</option>
+        )}
+      </select>
     );
   }
 }
