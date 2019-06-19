@@ -1,5 +1,4 @@
 import React from 'react';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
@@ -8,6 +7,7 @@ import { TooltipElement } from 'common/Tooltip';
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 
+import getComboPointsFromEvent from '../core/getComboPointsFromEvent';
 import Snapshot from '../core/Snapshot';
 import ComboPointTracker from '../combopoints/ComboPointTracker';
 import { PANDEMIC_FRACTION, RIP_DURATION_1_CP, RIP_DURATION_PER_CP, RIP_MAXIMUM_EXTENDED_DURATION, SABERTOOTH_EXTEND_PER_CP } from '../../constants';
@@ -46,7 +46,6 @@ class RipSnapshot extends Snapshot {
   shouldBeBiteCount = 0;
   durationReductionCount = 0;
 
-
   /**
    * Order of processed events when player casts rip is always:
    *   cast
@@ -65,7 +64,7 @@ class RipSnapshot extends Snapshot {
   }
 
   _castRip(event) {
-    this.comboLastRip = this.getComboPoints(event);
+    this.comboLastRip = getComboPointsFromEvent(event);
     debug && this.log(`spend ${this.comboLastRip} combo points on Rip`);
   }
 
@@ -84,17 +83,12 @@ class RipSnapshot extends Snapshot {
     // FIXME: If the ferocious bite is parried (or otherwise fails to hit) it will not extend rip, but that's not accounted for here.
 
     // Sabertooth extends duration depending on combo points used on Bite, but there's a limit to how far into the future Rip can be extended
-    const comboPoints = this.getComboPoints(event);
+    const comboPoints = getComboPointsFromEvent(event);
     const remainingTime = existing.expireTime - event.timestamp;
     const newDuration = Math.min(RIP_MAXIMUM_EXTENDED_DURATION, remainingTime + comboPoints * SABERTOOTH_EXTEND_PER_CP);
     existing.expireTime = event.timestamp + newDuration;
     existing.pandemicTime = event.timestamp + newDuration * (1.0 - PANDEMIC_FRACTION);
     debug && this.log(`${comboPoints} combo bite extended rip to ${this.owner.formatTimestamp(existing.expireTime)}`);
-  }
-
-  getComboPoints(castEvent) {
-    const resource = castEvent.classResources.find(item => item.type === RESOURCE_TYPES.COMBO_POINTS.id);
-    return resource.amount;
   }
 
   checkRefreshRule(stateNew) {
