@@ -13,36 +13,18 @@ class PhaseSelector extends React.PureComponent {
   constructor(...args){
     super(...args);
     this.handleChange = this.handleChange.bind(this);
-    this.state = {
-      phase: this.props.selectedPhase,
-    };
-  }
-
-  componentDidUpdate(prevProps, prevState, prevContext) {
-    const changed = this.props.selectedPhase !== prevProps.selectedPhase
-      || this.props.selectedPhase !== this.state.phase;
-    if (changed) {
-      this.setState({
-        phase: this.props.selectedPhase,
-      });
-    }
   }
 
   handleChange(e) {
-    const phase = e.target.value || SELECTION_ALL_PHASES;
-    this.setState({
-      phase: phase,
-    });
-    this.props.handlePhaseSelection(phase);
+    this.props.handlePhaseSelection(e.target.value || SELECTION_ALL_PHASES);
   }
 
   render() {
-    const {phases} = this.props;
+    const {phases, selectedPhase } = this.props;
     return (
       <select
-        className="form-control region"
-        //ref={this.regionInput}
-        defaultValue={this.state.phase}
+        className="form-control phase"
+        defaultValue={selectedPhase}
         onChange={this.handleChange}
       >
         <option key="all" value={SELECTION_ALL_PHASES}>All Phases</option>
