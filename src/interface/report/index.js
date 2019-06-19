@@ -15,7 +15,8 @@ import ParserLoader from './ParserLoader';
 import EventsLoader from './EventsLoader';
 import BossPhaseEventsLoader from './BossPhaseEventsLoader';
 import CharacterProfileLoader from './CharacterProfileLoader';
-import PhaseSelection , { SELECTION_ALL_PHASES } from './PhaseSelection';
+import PhaseParser , { SELECTION_ALL_PHASES } from './PhaseParser';
+import EventParser from './EventParser';
 import Results from './Results';
 import EVENT_PARSING_STATE from './EVENT_PARSING_STATE';
 import BOSS_PHASES_STATE from './BOSS_PHASES_STATE';
@@ -40,7 +41,11 @@ class ResultsLoader extends React.PureComponent {
       bossPhaseEvents: null,
       isLoadingCharacterProfile: true,
       characterProfile: null,
+      phases: null,
       selectedPhase: SELECTION_ALL_PHASES,
+      phaseEvents: null,
+      phaseFight: null,
+      isLoadingPhases: true,
       parsingState: EVENT_PARSING_STATE.WAITING,
       parsingEventsProgress: null,
       parser: null,
@@ -51,6 +56,7 @@ class ResultsLoader extends React.PureComponent {
     this.handleCharacterProfileLoader = this.handleCharacterProfileLoader.bind(this);
     this.handleEventsParser = this.handleEventsParser.bind(this);
     this.handlePhaseSelection = this.handlePhaseSelection.bind(this);
+    this.handlePhaseParser = this.handlePhaseParser.bind(this);
   }
 
   handleParserLoader(isLoading, parserClass) {
@@ -89,10 +95,20 @@ class ResultsLoader extends React.PureComponent {
     });
     return null;
   }
+  handlePhaseParser(isLoadingPhases, phases, phaseEvents, phaseFight){
+    this.setState({
+      isLoadingPhases,
+      phases,
+      phaseEvents,
+      phaseFight,
+    });
+    return null;
+  }
   handlePhaseSelection(phase) {
     this.setState({
       selectedPhase: phase,
     });
+    return null;
   }
 
   get progress() {
@@ -138,7 +154,7 @@ class ResultsLoader extends React.PureComponent {
         </CharacterProfileLoader>
 
         {!this.state.isLoadingParser && !this.state.isLoadingEvents && this.state.bossPhaseEventsLoadingState !== BOSS_PHASES_STATE.LOADING && !this.state.isLoadingCharacterProfile && (
-          <PhaseSelection
+          <PhaseParser
             report={report}
             fight={fight}
             player={player}
@@ -149,9 +165,23 @@ class ResultsLoader extends React.PureComponent {
             events={this.state.events}
             phase={this.state.selectedPhase}
           >
-            {this.handleEventsParser}
-          </PhaseSelection>
+            {this.handlePhaseParser}
+          </PhaseParser>
         )}
+        {!this.state.isLoadingParser && !this.state.isLoadingEvents && this.state.bossPhaseEventsLoadingState !== BOSS_PHASES_STATE.LOADING && !this.state.isLoadingCharacterProfile && !this.state.isLoadingPhases && (
+          <EventParser
+            report={report}
+            fight={this.state.phaseFight}
+            player={player}
+            combatants={combatants}
+            parserClass={this.state.parserClass}
+            characterProfile={this.state.characterProfile}
+            events={this.state.phaseEvents}
+          >
+            {this.handleEventsParser}
+          </EventParser>
+        )}
+
 
         <Results
           isLoadingParser={this.state.isLoadingParser}
@@ -165,6 +195,7 @@ class ResultsLoader extends React.PureComponent {
           player={player}
           characterProfile={this.state.characterProfile}
           parser={this.state.parser}
+          phases={this.state.phases}
           selectedPhase={this.state.selectedPhase}
           handlePhaseSelection={this.handlePhaseSelection}
           makeTabUrl={tab => makeAnalyzerUrl(report, fight.id, player.id, tab)}

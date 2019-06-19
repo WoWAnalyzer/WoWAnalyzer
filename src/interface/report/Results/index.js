@@ -50,7 +50,8 @@ class Results extends React.PureComponent {
     characterProfile: PropTypes.object,
     selectedTab: PropTypes.string,
     makeTabUrl: PropTypes.func.isRequired,
-    selectedPhase: PropTypes.number.isRequired,
+    phases: PropTypes.object,
+    selectedPhase: PropTypes.string.isRequired,
     handlePhaseSelection: PropTypes.func.isRequired,
     report: PropTypes.shape({
       code: PropTypes.string.isRequired,
@@ -299,7 +300,7 @@ class Results extends React.PureComponent {
     );
   }
   render() {
-    const { parser, report, fight, player, characterProfile, makeTabUrl, selectedTab, premium, handlePhaseSelection, selectedPhase } = this.props;
+    const { parser, report, fight, player, characterProfile, makeTabUrl, selectedTab, premium, handlePhaseSelection, selectedPhase, phases } = this.props;
     const config = this.context.config;
 
     const boss = findByBossId(fight.boss);
@@ -323,6 +324,7 @@ class Results extends React.PureComponent {
           makeTabUrl={makeTabUrl}
           selectedTab={selectedTab}
           selectedPhase={selectedPhase}
+          phases={phases}
           handlePhaseSelection={handlePhaseSelection}
         />
 

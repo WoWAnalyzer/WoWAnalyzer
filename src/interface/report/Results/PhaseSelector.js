@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { SELECTION_ALL_PHASES } from 'interface/report/PhaseSelection';
+import { SELECTION_ALL_PHASES } from 'interface/report/PhaseParser';
 
 class PhaseSelector extends React.PureComponent {
   static propTypes = {
     phases: PropTypes.object.isRequired,
-    selectedPhase: PropTypes.number.isRequired,
+    selectedPhase: PropTypes.string.isRequired,
     handlePhaseSelection: PropTypes.func.isRequired,
   };
 
@@ -29,7 +29,7 @@ class PhaseSelector extends React.PureComponent {
   }
 
   handleChange(e) {
-    const phase = parseInt(e.target.value, 10) || SELECTION_ALL_PHASES;
+    const phase = e.target.value || SELECTION_ALL_PHASES;
     this.setState({
       phase: phase,
     });
@@ -39,7 +39,7 @@ class PhaseSelector extends React.PureComponent {
   render() {
     const {phases} = this.props;
     return (
-      <form>
+      //<form>
         <select
           className="form-control region"
           //ref={this.regionInput}
@@ -47,11 +47,11 @@ class PhaseSelector extends React.PureComponent {
           onChange={this.handleChange}
           >
           <option key="all" value={SELECTION_ALL_PHASES}>All Phases</option>
-          {Object.keys(phases).map((key, index) =>
-            <option key={key} value={index}>{phases[key].name}</option>
+          {Object.keys(phases).map(key =>
+            <option key={key} value={key}>{phases[key].name}</option>
           )}
           </select>
-      </form>
+      //</form>
     );
   }
 }

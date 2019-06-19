@@ -32,7 +32,8 @@ class Header extends React.PureComponent {
       headshot: PropTypes.string.isRequired,
     }),
     handlePhaseSelection: PropTypes.func.isRequired,
-    selectedPhase: PropTypes.number.isRequired,
+    phases: PropTypes.object,
+    selectedPhase: PropTypes.string.isRequired,
     fight: PropTypes.object.isRequired,
     makeTabUrl: PropTypes.func.isRequired,
     selectedTab: PropTypes.string.isRequired,
@@ -113,8 +114,7 @@ class Header extends React.PureComponent {
     );
   }
   renderInfo() {
-    const { config: { spec }, name, fight, boss, handlePhaseSelection, selectedPhase } = this.props;
-    console.log(boss);
+    const { config: { spec }, name, fight, boss, handlePhaseSelection, selectedPhase, phases } = this.props;
     return (
       <div className="info container">
         <div className="boss">
@@ -125,7 +125,7 @@ class Header extends React.PureComponent {
             {boss ? boss.name : getBossName(fight, false)}
           </h1>
           <h2>
-            {boss.fight && boss.fight.phases && <PhaseSelector phases={boss.fight.phases} handlePhaseSelection={handlePhaseSelection} selectedPhase={selectedPhase} />}
+            {phases && <PhaseSelector phases={phases} handlePhaseSelection={handlePhaseSelection} selectedPhase={selectedPhase} />}
           </h2>
         </div>
         <div className="player">
