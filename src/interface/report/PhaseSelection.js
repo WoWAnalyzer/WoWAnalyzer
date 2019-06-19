@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 
 import { PHASE_START_EVENT_TYPE, PHASE_END_EVENT_TYPE } from 'common/fabricateBossPhaseEvents';
 import { captureException } from 'common/errorLogger';
+import { findByBossId } from 'raids';
 
 import EventParser, { EventsParseError } from './EventParser';
 
+export const SELECTION_ALL_PHASES = -1;
 
 class PhaseSelection extends React.PureComponent {
   static propTypes = {
@@ -66,33 +68,34 @@ class PhaseSelection extends React.PureComponent {
 
   makeEvents() {
     const { bossPhaseEvents, events } = this.props;
-    let phaseEvents = [...events];
-    if(bossPhaseEvents instanceof Array){
-      console.log(bossPhaseEvents);
+    const PHASE_SELECTED = 0;
+    if(!(bossPhaseEvents instanceof Array) || bossPhaseEvents.length % 2 !== 0 || bossPhaseEvents.length < 2*(PHASE_SELECTED+1) || PHASE_SELECTED === SELECTION_ALL_PHASES){
+      return bossPhaseEvents ? [...bossPhaseEvents, ...events] : events;
     }
-    let combinedEvents = bossPhaseEvents ? [...bossPhaseEvents, ...events] : events;
-    // The events we fetched will be all events related to the selected player. This includes the `combatantinfo` for the selected player. However we have already parsed this event when we loaded the combatants in the `initializeAnalyzers` of the CombatLogParser. Loading the selected player again could lead to bugs since it would reinitialize and overwrite the existing entity (the selected player) in the Combatants module.
-    combinedEvents = combinedEvents.filter(event => event.type !== 'combatantinfo');
-    return combinedEvents;
+
+    const phaseStart = bossPhaseEvents[PHASE_SELECTED];
+    const phaseEnd = bossPhaseEvents[PHASE_SELECTED+1];
+    const phaseEvents = events.filter(event =>
+        event.timestamp >= phaseStart.timestamp
+        && event.timestamp <= phaseEnd.timestamp
+      );
+    this.setState({
+      fight: {
+        start_time: phaseStart.timestamp,
+        end_time: phaseEnd.timestamp,
+        boss: this.props.fight.boss,
+      },
+    });
+    return [phaseStart, ...phaseEvents, phaseEnd];
   }
 
-  async parse(){
-    try{
+  async parse() {
+    try {
       const events = this.makeEvents();
-      const phaseStart = events.find(event => event.type === PHASE_START_EVENT_TYPE);
-      const phaseEnd = events.find(event => event.type === PHASE_END_EVENT_TYPE);
-      if(phaseStart !== undefined && phaseEnd !== undefined){
-        const phaseEvents = events.filter(event => event.timestamp >= phaseStart.timestamp && event.timestamp <= phaseEnd.timestamp && event.type !== PHASE_START_EVENT_TYPE && event.type !== PHASE_END_EVENT_TYPE);
-        this.setState({
-          events: phaseEvents,
-          isLoading: false,
-        });
-      }else{
-        this.setState({
-          events: events,
-          isLoading: false,
-        });
-      }
+      this.setState({
+        events: events,
+        isLoading: false,
+      });
     } catch (err) {
       captureException(err);
       throw new EventsParseError(err);
@@ -101,11 +104,11 @@ class PhaseSelection extends React.PureComponent {
   }
 
   render() {
-    const {report, fight, player, combatants, parserClass, characterProfile, children} = this.props;
+    const {report, player, combatants, parserClass, characterProfile, children} = this.props;
     return !this.state.isLoading && (
       <EventParser
         report={report}
-        fight={fight}
+        fight={this.state.fight}
         player={player}
         combatants={combatants}
         parserClass={parserClass}
