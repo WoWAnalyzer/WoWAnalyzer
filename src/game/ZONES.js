@@ -7,6 +7,59 @@
 
 const ZONES = [
   {
+    "id": 23,
+    "name": "The Eternal Palace",
+    "frozen": true,
+    "encounters": [
+      {
+        "id": 2298,
+        "name": "Abyssal Commander Sivarra",
+        "npcID": 145371
+      },
+      {
+        "id": 2305,
+        "name": "Radiance of Azshara",
+        "npcID": 145371
+      },
+      {
+        "id": 2289,
+        "name": "Blackwater Behemoth",
+        "npcID": 145371
+      },
+      {
+        "id": 2304,
+        "name": "Lady Ashvane",
+        "npcID": 145371
+      },
+      {
+        "id": 2303,
+        "name": "Orgozoa",
+        "npcID": 145371
+      },
+      {
+        "id": 2311,
+        "name": "The Queen's Court",
+        "npcID": 145371
+      },
+      {
+        "id": 2293,
+        "name": "Za'qul, Harbinger of Ny'alotha",
+        "npcID": 145371
+      },
+      {
+        "id": 2299,
+        "name": "Queen Azshara",
+        "npcID": 145371
+      }
+    ],
+    "brackets": {
+      "min": 400,
+      "max": 457,
+      "bucket": 3,
+      "type": "Item Level"
+    }
+  },
+  {
     "id": 22,
     "name": "Crucible of Storms",
     "frozen": false,
