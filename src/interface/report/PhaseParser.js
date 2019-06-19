@@ -11,27 +11,12 @@ export const SELECTION_ALL_PHASES = "ALL";
 
 class PhaseParser extends React.PureComponent {
   static propTypes = {
-    report: PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      code: PropTypes.string.isRequired,
-    }).isRequired,
     fight: PropTypes.shape({
       start_time: PropTypes.number.isRequired,
       end_time: PropTypes.number.isRequired,
       boss: PropTypes.number.isRequired,
     }).isRequired,
-    player: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      id: PropTypes.number.isRequired,
-      guid: PropTypes.number.isRequired,
-      type: PropTypes.string.isRequired,
-    }).isRequired,
     phase: PropTypes.string.isRequired,
-    combatants: PropTypes.arrayOf(PropTypes.shape({
-      sourceID: PropTypes.number.isRequired,
-    })),
-    parserClass: PropTypes.func.isRequired,
-    characterProfile: PropTypes.object,
     bossPhaseEvents: PropTypes.array,
     events: PropTypes.array.isRequired,
     children: PropTypes.func.isRequired,
@@ -49,12 +34,7 @@ class PhaseParser extends React.PureComponent {
     this.parse();
   }
   componentDidUpdate(prevProps, prevState, prevContext) {
-    const changed = this.props.report !== prevProps.report
-      || this.props.fight !== prevProps.fight
-      || this.props.player !== prevProps.player
-      || this.props.combatants !== prevProps.combatants
-      || this.props.parserClass !== prevProps.parserClass
-      || this.props.characterProfile !== prevProps.characterProfile
+    const changed = this.props.fight !== prevProps.fight
       || this.props.bossPhaseEvents !== prevProps.bossPhaseEvents
       || this.props.phase !== prevProps.phase
       || this.props.events !== prevProps.events;
