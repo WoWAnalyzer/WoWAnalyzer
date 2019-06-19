@@ -26,7 +26,7 @@ class TigersFuryEnergy extends Analyzer {
       isGreaterThan: {
         minor: 0,
         average: 0.10,
-        major: 0.15,
+        major: 0.25,
       },
       style: 'percentage',
     };

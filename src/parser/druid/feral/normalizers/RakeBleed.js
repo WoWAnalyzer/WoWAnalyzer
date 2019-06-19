@@ -13,10 +13,43 @@ class RakeBleed extends EventsNormalizer {
    * Player Anatta at times: 0:00.900, 0:33.296, 3:35.127
    * 
    * @param {Array} events
-   * @returns {Array} Events possibly with some reordered.
+   * @returns {Array} Events possibly with some rake debuff events reordered and their timestamp altered.
    */
   normalize(events) {
     const fixedEvents = [];
+    for (let eventIndex = 0; eventIndex < events.length; eventIndex += 1) {
+      const castEvent = events[eventIndex];
+      fixedEvents.push(castEvent);
+
+      if (castEvent.type !== 'cast' || castEvent.ability.guid !== SPELLS.RAKE.id) {
+        continue;
+      }
+
+      // look for matching recent applydebuff or refreshdebuff of RAKE_BLEED
+      for (let previousEventIndex = eventIndex; previousEventIndex >= 0; previousEventIndex -= 1) {
+        const previousEvent = fixedEvents[previousEventIndex];
+        if ((castEvent.timestamp - previousEvent.timestamp) > CAST_WINDOW) {
+          // looked far enough back that we're outside the cast's time window, so give up
+          break;
+        }
+        if ((previousEvent.type === 'applydebuff' || previousEvent.type === 'refreshdebuff') &&
+            previousEvent.ability.guid === SPELLS.RAKE_BLEED.id &&
+            previousEvent.targetID === castEvent.targetID &&
+            previousEvent.targetInstance === castEvent.targetInstance &&
+            previousEvent.sourceID === castEvent.sourceID) {
+          // the "wrong" version of this event has already been added to fixedEvents, so remove it and place in new position
+          fixedEvents.splice(previousEventIndex, 1);
+          fixedEvents.push(previousEvent);
+
+          // adjust timestamp so the altered event stream doesn't appear to go backwards
+          previousEvent.timestamp = castEvent.timestamp;
+          previousEvent.__modified = true;
+          break;
+        }
+      }
+    }
+    
+    /*
     events.forEach((event, eventIndex) => {
     fixedEvents.push(event);
 
@@ -37,12 +70,14 @@ class RakeBleed extends EventsNormalizer {
             previousEvent.sourceID === event.sourceID) {
           fixedEvents.splice(previousEventIndex, 1);
           fixedEvents.push(previousEvent);
+          // adjust timestamp so the event stream doesn't have 
+          previousEvent.timestamp = castTimestamp;
           previousEvent.__modified = true;
           break;
         }
       }
     }
-    });
+    */
     
     return fixedEvents;
   }

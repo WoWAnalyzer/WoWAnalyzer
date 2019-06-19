@@ -4,7 +4,8 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import StatisticsListBox from 'interface/others/StatisticsListBox';
@@ -41,8 +42,9 @@ const DAMAGE_AFTER_EXPIRE_WINDOW = 200;
 
 class Snapshot extends Analyzer {
   // extending class should fill these in:
-  static spellCastId = null;
-  static debuffId = null;
+  static spell = null;
+  static debuff = null;
+
   static isProwlAffected = false;
   static isTigersFuryAffected = false;
   static isBloodtalonsAffected = false;
@@ -60,25 +62,50 @@ class Snapshot extends Analyzer {
   damageFromTigersFury = 0;
   damageFromBloodtalons = 0;
 
-  on_byPlayer_cast(event) {
-    if (this.constructor.spellCastId !== event.ability.guid) {
-      return;
+  static wasStateFreshlyApplied(state) {
+    if (!state.prev) {
+      // no previous state, so must be fresh
+      return true;
     }
-    this.castCount += 1;
-    this.lastDoTCastEvent = event;
+    const previous = state.prev;
+    if (previous.expireTime < state.startTime) {
+      // there was a previous state but it wore off before this was applied
+      return true;
+    }
+    return false;
+  }
+
+  static wasStatePowerUpgrade(state) {
+    if (Snapshot.wasStateFreshlyApplied(state)) {
+      // a fresh application isn't the same as an upgrade
+      return false;
+    }
+    if (state.power > state.prev.power) {
+      return true;
+    }
+    return false;
   }
 
   constructor(...args) {
     super(...args);
-    if (!this.constructor.spellCastId || !this.constructor.debuffId) {
+    if (!this.constructor.spell || !this.constructor.debuff) {
       this.active = false;
       throw new Error('Snapshot should be extended and provided with spellCastId and debuffId.');
     }
+
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.constructor.spell), this._castSnapshotSpell);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(this.constructor.debuff), this._damageFromDebuff);
   }
 
-  on_byPlayer_damage(event) {
-    if (event.targetIsFriendly || this.constructor.debuffId !== event.ability.guid || !event.tick) {
-      // ignore damage on friendlies, damage not from the tracked DoT, and any non-DoT damage
+  _castSnapshotSpell(event) {
+    this.castCount += 1;
+    this.lastDoTCastEvent = event;
+    event.debuffEvents.forEach(event => this._debuffApplied(event));
+  }
+
+ _damageFromDebuff(event) {
+    if (event.targetIsFriendly || !event.tick) {
+      // ignore damage on friendlies and any non-DoT damage
       return;
     }
     if ((event.amount || 0) + (event.absorbed || 0) === 0) {
@@ -87,7 +114,7 @@ class Snapshot extends Analyzer {
     }
     const state = this.stateByTarget[encodeTargetString(event.targetID, event.targetInstance)];
     if (!state || event.timestamp > state.expireTime + DAMAGE_AFTER_EXPIRE_WINDOW) {
-      debug && console.warn(`At ${this.owner.formatTimestamp(event.timestamp, 3)} damage detected from DoT ${this.constructor.debuffId} but no active state recorded for the target. Previous state expired: ${state ? this.owner.formatTimestamp(state.expireTime, 3) : 'n/a'}`);
+      debug && this.warn(`Damage detected from DoT ${this.constructor.debuff.name} but no active state recorded for the target. Previous state expired: ${state ? this.owner.formatTimestamp(state.expireTime, 3) : 'n/a'}`);
       return;
     }
 
@@ -113,27 +140,13 @@ class Snapshot extends Analyzer {
     }
   }
 
-  on_byPlayer_applydebuff(event) {
-    if (this.constructor.debuffId !== event.ability.guid) {
-      return;
-    }
-    this.dotApplied(event);
-  }
-
-  on_byPlayer_refreshdebuff(event) {
-    if (this.constructor.debuffId !== event.ability.guid) {
-      return;
-    }
-    this.dotApplied(event);
-  }
-
-  dotApplied(event) {
+  _debuffApplied(event) {
     const targetString = encodeTargetString(event.targetID, event.targetInstance);
     const stateOld = this.stateByTarget[targetString];
     const stateNew = this.makeNewState(event, stateOld);
     this.stateByTarget[targetString] = stateNew;
 
-    debug && console.log(`DoT ${this.constructor.debuffId} applied at ${this.owner.formatTimestamp(event.timestamp, 3)} Prowl:${stateNew.prowl}, TF: ${stateNew.tigersFury}, BT: ${stateNew.bloodtalons}. Expires at ${this.owner.formatTimestamp(stateNew.expireTime, 3)}`);
+    debug && this.log(`DoT ${this.constructor.debuff.name} applied at ${this.owner.formatTimestamp(event.timestamp, 3)} on ${targetString} Prowl:${stateNew.prowl}, TF: ${stateNew.tigersFury}, BT: ${stateNew.bloodtalons}. Expires at ${this.owner.formatTimestamp(stateNew.expireTime, 3)}`);
 
     this.checkRefreshRule(stateNew);
   }
@@ -171,7 +184,10 @@ class Snapshot extends Analyzer {
 
     if (!stateNew.castEvent ||
       stateNew.startTime > stateNew.castEvent.timestamp + CAST_WINDOW_TIME) {
-      debug && console.warn(`DoT ${this.constructor.debuffId} applied debuff at ${this.owner.formatTimestamp(debuffEvent.timestamp, 3)} doesn't have a recent matching cast event.`);
+      debug && this.warn(`DoT ${this.constructor.debuff.name} applied debuff doesn't have a recent matching cast event.`);
+    } else {
+      // store a reference to this state on the cast event which we'll be able to display on the timeline (or use elsewhere)
+      stateNew.castEvent.feralSnapshotState = stateNew;
     }
 
     return stateNew;
@@ -210,13 +226,14 @@ class Snapshot extends Analyzer {
   }
 
   checkRefreshRule(state) {
-    debug && console.warn('Expected checkRefreshRule function to be overridden.');
+    debug && this.warn('Expected checkRefreshRule function to be overridden.');
   }
 
   getDurationOfFresh(debuffEvent) {
     return this.constructor.durationOfFresh;
   }
 
+  // TODO: Bring this statistic and tooltip stuff up to standard
   subStatistic(ticksWithBuff, damageIncrease, buffId, buffName, spellName) {
     const info = (
       // subStatistics for this DoT will be combined, so each should have a unique key
@@ -263,7 +280,7 @@ class Snapshot extends Analyzer {
       <StatisticsListBox
         title={(
           <>
-            <SpellIcon id={this.constructor.spellCastId} noLink /> {spellName} Snapshot
+            <SpellIcon id={this.constructor.spell.id} noLink /> {spellName} Snapshot
           </>
         )}
         tooltip={`${spellName} maintains the damage bonus from ${buffsComment} if ${isPlural ? 'they were' : 'it was'} present when the DoT was applied. This lists how many of your ${spellName} ticks benefited from ${isPlural ? 'each' : 'the'} buff. ${isPlural ? 'As a tick can benefit from multiple buffs at once these percentages can add up to more than 100%.' : ''}`}
