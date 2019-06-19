@@ -66,6 +66,7 @@ class Results extends React.PureComponent {
     }).isRequired,
     isLoadingParser: PropTypes.bool,
     isLoadingEvents: PropTypes.bool,
+    isLoadingPhases: PropTypes.bool,
     bossPhaseEventsLoadingState: PropTypes.oneOf(Object.values(BOSS_PHASES_STATE)),
     isLoadingCharacterProfile: PropTypes.bool,
     parsingState: PropTypes.oneOf(Object.values(EVENT_PARSING_STATE)),
@@ -137,6 +138,7 @@ class Results extends React.PureComponent {
       || this.props.isLoadingEvents
       || this.props.bossPhaseEventsLoadingState === BOSS_PHASES_STATE.LOADING
       || this.props.isLoadingCharacterProfile
+      || this.props.isLoadingPhases
       || this.props.parsingState !== EVENT_PARSING_STATE.DONE;
   }
 
@@ -241,7 +243,7 @@ class Results extends React.PureComponent {
     }
   }
   renderLoadingIndicator() {
-    const { progress, isLoadingParser, isLoadingEvents, bossPhaseEventsLoadingState, isLoadingCharacterProfile, parsingState } = this.props;
+    const { progress, isLoadingParser, isLoadingEvents, bossPhaseEventsLoadingState, isLoadingCharacterProfile, isLoadingPhases, phases, parsingState } = this.props;
 
     return (
       <div className="container" style={{ marginBottom: 40 }}>
@@ -283,6 +285,14 @@ class Results extends React.PureComponent {
             </div>
             <div className={`col-md-4 ${isLoadingCharacterProfile ? 'loading' : 'ok'}`}>
               {isLoadingCharacterProfile ? 'Loading...' : 'OK'}
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-8">
+              Analyzing phases
+            </div>
+            <div className={`col-md-4 ${isLoadingPhases ? 'loading' : 'ok'}`}>
+              {isLoadingPhases ? 'Loading...' : 'OK'}
             </div>
           </div>
           <div className="row">

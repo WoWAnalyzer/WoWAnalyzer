@@ -190,6 +190,7 @@ class ResultsLoader extends React.PureComponent {
           player={player}
           characterProfile={this.state.characterProfile}
           parser={this.state.parser}
+          isLoadingPhases={this.state.isLoadingPhases}
           phases={this.state.phases}
           selectedPhase={this.state.selectedPhase}
           handlePhaseSelection={this.handlePhaseSelection}
