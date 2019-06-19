@@ -11,6 +11,7 @@ import TimelineIcon from 'interface/icons/Timeline';
 import ArmorIcon from 'interface/icons/Armor';
 import EventsIcon from 'interface/icons/Events';
 import AboutIcon from 'interface/icons/About';
+import PhaseSelector from './PhaseSelector';
 
 import './Header.scss';
 
@@ -30,6 +31,8 @@ class Header extends React.PureComponent {
     boss: PropTypes.shape({
       headshot: PropTypes.string.isRequired,
     }),
+    handlePhaseSelection: PropTypes.func.isRequired,
+    selectedPhase: PropTypes.number.isRequired,
     fight: PropTypes.object.isRequired,
     makeTabUrl: PropTypes.func.isRequired,
     selectedTab: PropTypes.string.isRequired,
@@ -110,8 +113,8 @@ class Header extends React.PureComponent {
     );
   }
   renderInfo() {
-    const { config: { spec }, name, fight, boss } = this.props;
-
+    const { config: { spec }, name, fight, boss, handlePhaseSelection, selectedPhase } = this.props;
+    console.log(boss);
     return (
       <div className="info container">
         <div className="boss">
@@ -121,6 +124,9 @@ class Header extends React.PureComponent {
           <h1>
             {boss ? boss.name : getBossName(fight, false)}
           </h1>
+          <h2>
+            {boss.fight && boss.fight.phases && <PhaseSelector phases={boss.fight.phases} handlePhaseSelection={handlePhaseSelection} selectedPhase={selectedPhase} />}
+          </h2>
         </div>
         <div className="player">
           <div className="avatar">

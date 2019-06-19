@@ -15,8 +15,7 @@ import ParserLoader from './ParserLoader';
 import EventsLoader from './EventsLoader';
 import BossPhaseEventsLoader from './BossPhaseEventsLoader';
 import CharacterProfileLoader from './CharacterProfileLoader';
-import PhaseSelection from './PhaseSelection';
-import EventParser from './EventParser';
+import PhaseSelection , { SELECTION_ALL_PHASES } from './PhaseSelection';
 import Results from './Results';
 import EVENT_PARSING_STATE from './EVENT_PARSING_STATE';
 import BOSS_PHASES_STATE from './BOSS_PHASES_STATE';
@@ -41,6 +40,7 @@ class ResultsLoader extends React.PureComponent {
       bossPhaseEvents: null,
       isLoadingCharacterProfile: true,
       characterProfile: null,
+      selectedPhase: SELECTION_ALL_PHASES,
       parsingState: EVENT_PARSING_STATE.WAITING,
       parsingEventsProgress: null,
       parser: null,
@@ -50,6 +50,7 @@ class ResultsLoader extends React.PureComponent {
     this.handleBossPhaseEventsLoader = this.handleBossPhaseEventsLoader.bind(this);
     this.handleCharacterProfileLoader = this.handleCharacterProfileLoader.bind(this);
     this.handleEventsParser = this.handleEventsParser.bind(this);
+    this.handlePhaseSelection = this.handlePhaseSelection.bind(this);
   }
 
   handleParserLoader(isLoading, parserClass) {
@@ -87,6 +88,11 @@ class ResultsLoader extends React.PureComponent {
       parser,
     });
     return null;
+  }
+  handlePhaseSelection(phase) {
+    this.setState({
+      selectedPhase: phase,
+    });
   }
 
   get progress() {
@@ -141,6 +147,7 @@ class ResultsLoader extends React.PureComponent {
             characterProfile={this.state.characterProfile}
             bossPhaseEvents={this.state.bossPhaseEvents}
             events={this.state.events}
+            phase={this.state.selectedPhase}
           >
             {this.handleEventsParser}
           </PhaseSelection>
@@ -158,6 +165,8 @@ class ResultsLoader extends React.PureComponent {
           player={player}
           characterProfile={this.state.characterProfile}
           parser={this.state.parser}
+          selectedPhase={this.state.selectedPhase}
+          handlePhaseSelection={this.handlePhaseSelection}
           makeTabUrl={tab => makeAnalyzerUrl(report, fight.id, player.id, tab)}
         />
       </>

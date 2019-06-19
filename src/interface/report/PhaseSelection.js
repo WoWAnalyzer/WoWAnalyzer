@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import { PHASE_START_EVENT_TYPE, PHASE_END_EVENT_TYPE } from 'common/fabricateBossPhaseEvents';
 import { captureException } from 'common/errorLogger';
-import { findByBossId } from 'raids';
 
 import EventParser, { EventsParseError } from './EventParser';
 
@@ -26,7 +25,7 @@ class PhaseSelection extends React.PureComponent {
       guid: PropTypes.number.isRequired,
       type: PropTypes.string.isRequired,
     }).isRequired,
-
+    phase: PropTypes.number.isRequired,
     combatants: PropTypes.arrayOf(PropTypes.shape({
       sourceID: PropTypes.number.isRequired,
     })),
@@ -56,6 +55,7 @@ class PhaseSelection extends React.PureComponent {
       || this.props.parserClass !== prevProps.parserClass
       || this.props.characterProfile !== prevProps.characterProfile
       || this.props.bossPhaseEvents !== prevProps.bossPhaseEvents
+      || this.props.phase !== prevProps.phase
       || this.props.events !== prevProps.events;
     if (changed) {
       this.setState({
@@ -67,33 +67,40 @@ class PhaseSelection extends React.PureComponent {
   }
 
   makeEvents() {
-    const { bossPhaseEvents, events } = this.props;
-    const PHASE_SELECTED = 0;
-    if(!(bossPhaseEvents instanceof Array) || bossPhaseEvents.length % 2 !== 0 || bossPhaseEvents.length < 2*(PHASE_SELECTED+1) || PHASE_SELECTED === SELECTION_ALL_PHASES){
-      return bossPhaseEvents ? [...bossPhaseEvents, ...events] : events;
+    const { bossPhaseEvents, events, phase } = this.props;
+    console.log(phase);
+    const startEvents = bossPhaseEvents.filter(e => e.type === PHASE_START_EVENT_TYPE);
+    const endEvents = bossPhaseEvents.filter(e => e.type === PHASE_END_EVENT_TYPE);
+    if(!(bossPhaseEvents instanceof Array)
+      || bossPhaseEvents.length % 2 !== 0
+      || startEvents.length !== endEvents.length
+      || startEvents.length < (phase + 1)
+      || endEvents.length < (phase + 1)
+      || phase === SELECTION_ALL_PHASES
+    ){
+      return {start: this.props.fight.start_time, events: bossPhaseEvents ? [...bossPhaseEvents, ...events] : events, end: this.props.fight.end_time};
     }
 
-    const phaseStart = bossPhaseEvents[PHASE_SELECTED];
-    const phaseEnd = bossPhaseEvents[PHASE_SELECTED+1];
+    const phaseStart = startEvents[phase];
+    const phaseEnd = endEvents[phase];
+    console.log(phaseStart, phaseEnd);
     const phaseEvents = events.filter(event =>
         event.timestamp >= phaseStart.timestamp
         && event.timestamp <= phaseEnd.timestamp
       );
-    this.setState({
-      fight: {
-        start_time: phaseStart.timestamp,
-        end_time: phaseEnd.timestamp,
-        boss: this.props.fight.boss,
-      },
-    });
-    return [phaseStart, ...phaseEvents, phaseEnd];
+    return {start: phaseStart.timestamp, events: [phaseStart, ...phaseEvents, phaseEnd], end: phaseEnd.timestamp};
   }
 
   async parse() {
     try {
-      const events = this.makeEvents();
+      const eventFilter = this.makeEvents();
       this.setState({
-        events: events,
+        events: eventFilter.events,
+        fight: {
+          start_time: eventFilter.start,
+          end_time: eventFilter.end,
+          boss: this.props.fight.boss,
+        },
         isLoading: false,
       });
     } catch (err) {
