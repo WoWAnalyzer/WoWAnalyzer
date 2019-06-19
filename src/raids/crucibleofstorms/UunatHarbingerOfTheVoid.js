@@ -1,3 +1,6 @@
+import FIGHT_DIFFICULTIES from 'common/FIGHT_DIFFICULTIES';
+import SPELLS from 'common/SPELLS';
+
 import Background from './images/backgrounds/UunatHarbingerOfTheVoid.jpg';
 import Headshot from './images/headshots/UunatHarbingerOfTheVoid.png';
 
@@ -14,6 +17,34 @@ export default {
       magical: [
         284851, // Touch of the End
       ],
+    },
+    phases: {
+      P1: {
+        name: 'Stage one: His All-Seeing Eyes',
+        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+      },
+      P2: {
+        name: 'Stage Two: His Dutiful Servants',
+        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        filter: {
+          type: 'removebuff',
+          ability: {
+            id: SPELLS.VOID_SHIELD.id,
+          },
+          eventInstance: 0,
+        },
+      },
+      P3: {
+        name: 'Stage Three: His Unwavering Gaze',
+        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        filter: {
+          type: 'removebuff',
+          ability: {
+            id: SPELLS.VOID_SHIELD.id,
+          },
+          eventInstance: 1,
+        },
+      },
     },
   },
 };
