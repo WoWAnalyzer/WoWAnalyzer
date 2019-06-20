@@ -59,7 +59,9 @@ class Results extends React.PureComponent {
     fight: PropTypes.shape({
       start_time: PropTypes.number.isRequired,
       end_time: PropTypes.number.isRequired,
+      offset_time: PropTypes.number.isRequired,
       boss: PropTypes.number.isRequired,
+      phase: PropTypes.string,
     }).isRequired,
     player: PropTypes.shape({
       name: PropTypes.string.isRequired,

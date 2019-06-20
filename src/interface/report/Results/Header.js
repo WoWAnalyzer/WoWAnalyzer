@@ -46,7 +46,6 @@ class Header extends React.PureComponent {
 
   get pages() {
     const { tabs, selectedTab } = this.props;
-
     const pages = [
       {
         icon: ChecklistIcon,
