@@ -186,7 +186,7 @@ class ResultsLoader extends React.PureComponent {
           parsingState={this.state.parsingState}
           progress={this.progress}
           report={report}
-          fight={fight}
+          fight={this.state.phaseFight || {offset_time:0, ...fight}} //if no phased fight has been parsed yet, pass previous fight object alongside 0 offset time
           player={player}
           characterProfile={this.state.characterProfile}
           parser={this.state.parser}
