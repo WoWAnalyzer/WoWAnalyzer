@@ -14,6 +14,7 @@ class PhaseSelector extends React.PureComponent {
 
   constructor(...args){
     super(...args);
+    this.phaseRef = React.createRef();
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -28,6 +29,7 @@ class PhaseSelector extends React.PureComponent {
         className="form-control phase"
         defaultValue={selectedPhase}
         onChange={this.handleChange}
+        ref={this.phaseRef}
       >
         <option key="all" value={SELECTION_ALL_PHASES}>All Phases</option>
         {Object.keys(phases).map(key =>
