@@ -30,7 +30,7 @@ const debug = false;
 const BUFF_WINDOW_TIME = 60;
 
 // leeway in ms between a cast event and debuff apply/refresh for them to be associated
-const CAST_WINDOW_TIME = 100;
+const CAST_WINDOW_TIME = 300;
 
 /**
  * Leeway in ms between when a debuff was expected to wear off and when damage events will no longer be counted
@@ -63,6 +63,9 @@ class Snapshot extends Analyzer {
   damageFromBloodtalons = 0;
 
   static wasStateFreshlyApplied(state) {
+    if (!state) {
+      return false;
+    }
     if (!state.prev) {
       // no previous state, so must be fresh
       return true;
@@ -76,6 +79,9 @@ class Snapshot extends Analyzer {
   }
 
   static wasStatePowerUpgrade(state) {
+    if (!state) {
+      return false;
+    }
     if (Snapshot.wasStateFreshlyApplied(state)) {
       // a fresh application isn't the same as an upgrade
       return false;
