@@ -78,15 +78,21 @@ class PhaseParser extends React.PureComponent {
         event.timestamp >= startEvent.timestamp
         && event.timestamp <= endEvent.timestamp
       );
-    const prePhaseEvents = this.findRelevantPrePhaseEvents(events.filter(event => event.timestamp < startEvent.timestamp));
+    const prePhaseEvents = this.findRelevantPrePhaseEvents(events.filter(event => event.timestamp < startEvent.timestamp))
+    .sort((a,b) => a.timestamp - b.timestamp) //sort events by timestamp
+    .map(e => ({
+      ...e,
+      prepull: true, //pretend previous phases were "prepull"
+      timestamp: startEvent.timestamp, //override existing timestamps to the start of the phase to avoid >100% uptimes
+    }));
     return {start: startEvent.timestamp, events: [...prePhaseEvents, startEvent, ...phaseEvents, endEvent], end: endEvent.timestamp};
   }
 
   //TODO: find events before the phase that are relevant in this phase (aka cooldowns and buffs) and include them in analysis
   findRelevantPrePhaseEvents(events){
     const applyBuffEvents = this.findRelevantBuffEvents(events);
-
-    return applyBuffEvents;
+    const relevantEvents = [...applyBuffEvents];
+    return relevantEvents;
   }
 
   findRelevantBuffEvents(events){
