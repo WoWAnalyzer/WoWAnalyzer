@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS/index';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
-const CAST_WINDOW = 100;
+const CAST_WINDOW = 300;
 const CAST_DEBUFF_PAIRS = [
   { 
     cast: SPELLS.RIP,
