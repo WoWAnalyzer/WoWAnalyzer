@@ -106,10 +106,7 @@ class PhaseParser extends React.PureComponent {
         && e2.targetID === e.targetID
         && e2.timestamp > e.timestamp
       ) === undefined
-    ).map(e => ({
-      ...e,
-      prepull: true,
-    }));
+    );
   }
 
   async parse(phasesChanged = true) {
@@ -120,10 +117,10 @@ class PhaseParser extends React.PureComponent {
         phases: phases,
         events: eventFilter.events,
         fight: {
+          ...this.props.fight,
           start_time: eventFilter.start,
           end_time: eventFilter.end,
           offset_time: eventFilter.start - this.props.fight.start_time, //time between phase start and fight start (for e.g. timeline)
-          boss: this.props.fight.boss,
           ...(this.props.phase !== SELECTION_ALL_PHASES && {phase: this.props.phase}), //if phase is selected, add it to the fight object
         },
         isLoading: false,

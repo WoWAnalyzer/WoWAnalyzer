@@ -347,7 +347,13 @@ class Results extends React.PureComponent {
             </Warning>
           </div>
         )}
-
+        {fight.phase && (
+          <div className="container">
+            <Warning style={{ marginBottom: 30 }}>
+              These results are filtered to one phase. Phase filtered results are under development and may not be entirely accurate.
+            </Warning>
+          </div>
+        )}
         {this.renderContent(selectedTab, results)}
 
         {premium === false && (
