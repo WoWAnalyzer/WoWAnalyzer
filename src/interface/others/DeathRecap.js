@@ -189,7 +189,7 @@ class DeathRecap extends React.PureComponent {
                     return (
                       <tr>
                         <td style={{ width: '5%' }}>
-                          {formatDuration(event.time / 1000, 2)}
+                          {formatDuration((event.time + this.props.report.fight.offset_time) / 1000, 2)}
                         </td>
                         <td style={{ width: '20%' }}>
                           <SpellLink id={event.ability.guid} icon={false}>
