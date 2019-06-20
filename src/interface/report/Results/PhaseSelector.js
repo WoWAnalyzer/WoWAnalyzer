@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import { SELECTION_ALL_PHASES } from 'interface/report/PhaseParser';
 
+import './PhaseSelector.scss';
+
 class PhaseSelector extends React.PureComponent {
   static propTypes = {
     phases: PropTypes.object.isRequired,
