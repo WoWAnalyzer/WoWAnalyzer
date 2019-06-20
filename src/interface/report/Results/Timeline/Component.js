@@ -42,6 +42,9 @@ class Timeline extends React.PureComponent {
   get end() {
     return this.fight.end_time;
   }
+  get offset() {
+    return this.fight.offset_time;
+  }
   get duration() {
     return this.end - this.start;
   }
@@ -160,9 +163,9 @@ class Timeline extends React.PureComponent {
             <div className="time-line">
               {this.seconds > 0 && [...Array(Math.ceil(this.seconds))].map((_, second) => (
                 <div
-                  key={second}
+                  key={second+this.offset/1000}
                   style={{ width: this.secondWidth * skipInterval }}
-                  data-duration={formatDuration(second)}
+                  data-duration={formatDuration(second+this.offset/1000)}
                 />
               ))}
             </div>

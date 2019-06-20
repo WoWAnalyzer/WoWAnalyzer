@@ -92,7 +92,7 @@ class PhaseParser extends React.PureComponent {
         fight: {
           start_time: eventFilter.start,
           end_time: eventFilter.end,
-          offset_time: this.props.fight.start_time - eventFilter.start, //time between phase start and fight start (for e.g. timeline)
+          offset_time: eventFilter.start - this.props.fight.start_time, //time between phase start and fight start (for e.g. timeline)
           boss: this.props.fight.boss,
         },
         isLoading: false,
