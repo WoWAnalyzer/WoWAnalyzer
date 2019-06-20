@@ -34,16 +34,14 @@ class PhaseParser extends React.PureComponent {
     this.parse();
   }
   componentDidUpdate(prevProps, prevState, prevContext) {
-    const changed = this.props.fight !== prevProps.fight
-      || this.props.bossPhaseEvents !== prevProps.bossPhaseEvents
-      || this.props.phase !== prevProps.phase
-      || this.props.events !== prevProps.events;
-    if (changed) {
+    const phasesChanged = this.props.bossPhaseEvents !== prevProps.bossPhaseEvents || this.props.fight !== prevProps.fight;
+    const eventsChanged = this.props.phase !== prevProps.phase || this.props.events !== prevProps.events;
+    if (phasesChanged || eventsChanged) {
       this.setState({
         isLoading: true,
       });
       // noinspection JSIgnoredPromiseFromCall
-      this.parse();
+      this.parse(phasesChanged);
     }
   }
 
@@ -84,9 +82,9 @@ class PhaseParser extends React.PureComponent {
     return {start: startEvent.timestamp, events: [startEvent, ...phaseEvents, endEvent], end: endEvent.timestamp};
   }
 
-  async parse() {
+  async parse(phasesChanged = true) {
     try {
-      const phases = this.makePhases();
+      const phases = phasesChanged ? this.makePhases() : this.state.phases; //only update phases if they actually changed
       const eventFilter = this.makeEvents(phases);
       this.setState({
         phases: phases,
@@ -94,6 +92,7 @@ class PhaseParser extends React.PureComponent {
         fight: {
           start_time: eventFilter.start,
           end_time: eventFilter.end,
+          offset_time: this.props.fight.start_time - eventFilter.start, //time between phase start and fight start (for e.g. timeline)
           boss: this.props.fight.boss,
         },
         isLoading: false,
