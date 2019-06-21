@@ -105,18 +105,38 @@ class PhaseParser extends React.PureComponent {
     bench("phase buff filter");
     const applyBuffEvents = this.findRelevantBuffEvents(events);
     benchEnd("phase buff filter");
+    bench("phase death filter");
+    const deathEvents = this.findDeathEvents(events);
+    benchEnd("phase death filter");
     bench("phase stack filter");
     const buffStackEvents = this.findRelevantStackEvents(events, applyBuffEvents);
     benchEnd("phase stack filter");
-    const relevantEvents = [...applyBuffEvents, ...buffStackEvents];
+    const relevantEvents = [...applyBuffEvents, ...buffStackEvents, ...deathEvents];
     benchEnd("total phase filter");
     return relevantEvents;
   }
 
+  findDeathEvents(events){
+    return events.filter(e => e.type === "death")
+    .filter(e => events.find(e2 => e2.type === "resurrect" && eventFollows(e, e2)) === undefined);
+  }
+
   findRelevantBuffEvents(events){
+    const foundBuffs = []; //keep track of buffs that are already known to be kept going into a phase
     return events.filter(e => ["applybuff", "applydebuff"].includes(e.type))
     //only keep prior apply(de)buff events if they dont have an associated remove(de)buff event
-    .filter(e => events.find(e2 => e2.type === e.type.replace("apply", "remove") && eventFollows(e, e2)) === undefined);
+    .filter(e => {
+      //if buff is already known to be kept, we don't need to search for a remove event
+      if(foundBuffs.find(e2 => e.ability.guid === e2.ability.guid && e.targetID === e2.targetID && e.sourceID === e2.targetID) !== undefined){
+        return false;
+      }
+      //if buff wasn't removed, add it to found buffs and keep event
+      if(events.find(e2 => e2.type === e.type.replace("apply", "remove") && eventFollows(e, e2)) === undefined){
+        foundBuffs.push(e);
+        return true;
+      }
+      return false;
+    });
   }
 
   findRelevantStackEvents(events, buffEvents){
@@ -124,11 +144,11 @@ class PhaseParser extends React.PureComponent {
     return buffEvents.reduce((arr, e) => {
       const stackEvents = stackEventsT.filter(e2 => eventFollows(e, e2));
       //Is this part even necessary? Might be faster just passing every applybuffstack and removebuffstack event back to the eventparser and letting the normalizers / modules handle stack counts
-      /*const applyEvents = stackEvents.filter(e => e.type === "applybuffstack");
+      const applyEvents = stackEvents.filter(e => e.type === "applybuffstack");
       const removeEvents = stackEvents.filter(e => e.type === "removebuffstack");
       const stackCount = applyEvents.length - removeEvents.length;
-      return [...arr, ...applyEvents.slice(0, stackCount)];*/
-      return [...arr, ...stackEvents];
+      return [...arr, ...applyEvents.slice(0, stackCount)];
+      //return [...arr, ...stackEvents];
     }, []);
   }
 
