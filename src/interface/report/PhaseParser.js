@@ -101,24 +101,18 @@ class PhaseParser extends React.PureComponent {
 
   //TODO: find events before the phase that are relevant in this phase (aka cooldowns and buffs) and include them in analysis
   findRelevantPrePhaseEvents(events){
+    console.log(...new Set(events.map(e => e.type)));
+    console.log(events.filter( e => ["create", "summon", "energize"].includes(e.type)));
     bench("total phase filter");
     bench("phase buff filter");
     const applyBuffEvents = this.findRelevantBuffEvents(events);
     benchEnd("phase buff filter");
-    bench("phase death filter");
-    const deathEvents = this.findDeathEvents(events);
-    benchEnd("phase death filter");
     bench("phase stack filter");
     const buffStackEvents = this.findRelevantStackEvents(events, applyBuffEvents);
     benchEnd("phase stack filter");
-    const relevantEvents = [...applyBuffEvents, ...buffStackEvents, ...deathEvents];
+    const relevantEvents = [...applyBuffEvents, ...buffStackEvents];
     benchEnd("total phase filter");
     return relevantEvents;
-  }
-
-  findDeathEvents(events){
-    return events.filter(e => e.type === "death")
-    .filter(e => events.find(e2 => e2.type === "resurrect" && eventFollows(e, e2)) === undefined);
   }
 
   findRelevantBuffEvents(events){
