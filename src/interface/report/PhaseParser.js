@@ -109,19 +109,14 @@ class PhaseParser extends React.PureComponent {
 
   findRelevantBuffEvents(events){
     return events.filter(e => e.type === "applybuff" || e.type === "applydebuff")
-    .filter(e =>
-      //only keep prior apply(de)buff events if they dont have an associated remove(de)buff event
-      events.find(e2 =>
-        e2.type === e.type.replace("apply", "remove")
-        && eventFollows(e, e2)
-      ) === undefined
-    );
+    //only keep prior apply(de)buff events if they dont have an associated remove(de)buff event
+    .filter(e => events.find(e2 => e2.type === e.type.replace("apply", "remove") && eventFollows(e, e2)) === undefined);
   }
 
   findRelevantStackEvents(events, buffEvents){
-    const stackEventsT = events.filter(e => e.type === "applybuffstack" || e.type === "removebuffstack");
+    const stackEventsT = events.filter(e => e.type === "applybuffstack" || e.type === "removebuffstack" || e.type === "applydebuffstack" || e.type === "removedebuffstack");
     return buffEvents.reduce((arr, e) => {
-      const stackEvents = stackEventsT.filter(e2 => eventFollows(e, e2));
+      const stackEvents = stackEventsT.filter(e2 => e2.type === e.type.replace("apply", "remove") && eventFollows(e, e2));
       //Is this part even necessary? Might be faster just passing every applybuffstack and removebuffstack event back to the eventparser and letting the normalizers / modules handle stack counts
       /*const applyEvents = stackEvents.filter(e => e.type === "applybuffstack");
       const removeEvents = stackEvents.filter(e => e.type === "removebuffstack");
