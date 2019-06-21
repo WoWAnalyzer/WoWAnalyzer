@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
+import { PREPHASE_CAST_EVENT_TYPE } from 'interface/report/PhaseParser';
 
 import Abilities from '../../core/modules/Abilities';
 
@@ -339,6 +340,10 @@ class SpellUsable extends Analyzer {
   _lastTimestamp = null;
   on_event(event) {
     const timestamp = (event && event.timestamp) || this.owner.currentTimestamp;
+    if(event.type === PREPHASE_CAST_EVENT_TYPE && event.sourceID === this.owner.playerId){
+      console.log("pre phase cast found", event);
+      this.on_byPlayer_cast(event);
+    }
     if (timestamp === this._lastTimestamp) {
       return;
     }

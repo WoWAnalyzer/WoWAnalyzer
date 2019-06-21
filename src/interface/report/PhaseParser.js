@@ -8,6 +8,7 @@ import { findByBossId } from 'raids';
 import { EventsParseError } from './EventParser';
 
 export const SELECTION_ALL_PHASES = "ALL";
+export const PREPHASE_CAST_EVENT_TYPE = "phase_cast";
 
 const TIME_AVAILABLE = console.time && console.timeEnd;
 const bench = id => TIME_AVAILABLE && console.time(id);
@@ -94,8 +95,9 @@ class PhaseParser extends React.PureComponent {
     .map(e => ({
       ...e,
       prepull: true, //pretend previous phases were "prepull"
-      timestamp: startEvent.timestamp, //override existing timestamps to the start of the phase to avoid >100% uptimes
+      ...(e.type === "phase_cast" && {timestamp: startEvent.timestamp}), //override existing timestamps to the start of the phase to avoid >100% uptimes (only on non casts to retain cooldowns)
     }));
+    console.log(prePhaseEvents);
     return {start: startEvent.timestamp, events: [...prePhaseEvents, startEvent, ...phaseEvents, endEvent], end: endEvent.timestamp};
   }
 
@@ -110,7 +112,10 @@ class PhaseParser extends React.PureComponent {
     bench("phase stack filter");
     const buffStackEvents = this.findRelevantStackEvents(events, applyBuffEvents);
     benchEnd("phase stack filter");
-    const relevantEvents = [...applyBuffEvents, ...buffStackEvents];
+    bench("phase cast filter");
+    const castEvents = this.findRelevantCastEvents(events);
+    benchEnd("phase cast filter");
+    const relevantEvents = [...applyBuffEvents, ...buffStackEvents, ...castEvents];
     benchEnd("total phase filter");
     return relevantEvents;
   }
@@ -144,6 +149,21 @@ class PhaseParser extends React.PureComponent {
       return [...arr, ...applyEvents.slice(0, stackCount)];
       //return [...arr, ...stackEvents];
     }, []);
+  }
+
+  findRelevantCastEvents(events){
+    const foundCasts = []; //keep track of found Casts
+    events.forEach(e => {
+      if(e.type === "cast"){
+        if(foundCasts.find(e2 => e.ability.guid === e2.ability.guid && e.sourceID === e2.sourceID) === undefined){
+          foundCasts.push(e);
+        }
+      }
+    });
+    return foundCasts.map(e => ({
+      ...e,
+      type: PREPHASE_CAST_EVENT_TYPE,
+    }));
   }
 
   async parse(phasesChanged = true) {
