@@ -89,7 +89,7 @@ class PhaseParser extends React.PureComponent {
         event.timestamp >= startEvent.timestamp
         && event.timestamp <= endEvent.timestamp
       );
-    const prePhaseEvents = this.findRelevantPrePhaseEvents(events.filter(event => event.timestamp < startEvent.timestamp))
+    const prePhaseEvents = this.findRelevantPrePhaseEvents(events.filter(event => event.timestamp < startEvent.timestamp).reverse())
     .sort((a,b) => a.timestamp - b.timestamp) //sort events by timestamp
     .map(e => ({
       ...e,
@@ -101,9 +101,15 @@ class PhaseParser extends React.PureComponent {
 
   //TODO: find events before the phase that are relevant in this phase (aka cooldowns and buffs) and include them in analysis
   findRelevantPrePhaseEvents(events){
+    bench("total phase filter");
+    bench("phase buff filter");
     const applyBuffEvents = this.findRelevantBuffEvents(events);
+    benchEnd("phase buff filter");
+    bench("phase stack filter");
     const buffStackEvents = this.findRelevantStackEvents(events, applyBuffEvents);
+    benchEnd("phase stack filter");
     const relevantEvents = [...applyBuffEvents, ...buffStackEvents];
+    benchEnd("total phase filter");
     return relevantEvents;
   }
 
@@ -129,9 +135,7 @@ class PhaseParser extends React.PureComponent {
   async parse(phasesChanged = true) {
     try {
       const phases = phasesChanged ? this.makePhases() : this.state.phases; //only update phases if they actually changed
-      bench("phasefilter");
       const eventFilter = this.makeEvents(phases);
-      benchEnd("phasefilter");
       this.setState({
         phases: phases,
         events: eventFilter.events,
