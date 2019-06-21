@@ -6,7 +6,7 @@ import sleep from 'common/sleep';
 import { captureException } from 'common/errorLogger';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 
-const BENCHMARK = true;
+const BENCHMARK = false;
 // Picking a correct batch duration is hard. I tried various durations to get the batch sizes to 1 frame, but that results in a lot of wasted time waiting for the next frame. 30ms (33 fps) as well causes a lot of wasted time. 60ms (16fps) seem to have really low wasted time while not blocking the UI anymore than a user might expect.
 const MAX_BATCH_DURATION = 66.67; // ms
 const TIME_AVAILABLE = console.time && console.timeEnd;
