@@ -9,6 +9,17 @@ import { EventsParseError } from './EventParser';
 
 export const SELECTION_ALL_PHASES = "ALL";
 
+const TIME_AVAILABLE = console.time && console.timeEnd;
+const bench = id => TIME_AVAILABLE && console.time(id);
+const benchEnd = id => TIME_AVAILABLE && console.timeEnd(id);
+
+//returns whether e2 follows e and the events are associated
+const eventFollows = (e, e2) =>
+  e2.timestamp > e.timestamp
+  && e2.ability.guid === e.ability.guid
+  && e2.sourceID === e.sourceID
+  && e2.targetID === e.targetID;
+
 class PhaseParser extends React.PureComponent {
   static propTypes = {
     fight: PropTypes.shape({
@@ -91,7 +102,8 @@ class PhaseParser extends React.PureComponent {
   //TODO: find events before the phase that are relevant in this phase (aka cooldowns and buffs) and include them in analysis
   findRelevantPrePhaseEvents(events){
     const applyBuffEvents = this.findRelevantBuffEvents(events);
-    const relevantEvents = [...applyBuffEvents];
+    const buffStackEvents = this.findRelevantStackEvents(events, applyBuffEvents);
+    const relevantEvents = [...applyBuffEvents, ...buffStackEvents];
     return relevantEvents;
   }
 
@@ -101,18 +113,30 @@ class PhaseParser extends React.PureComponent {
       //only keep prior apply(de)buff events if they dont have an associated remove(de)buff event
       events.find(e2 =>
         e2.type === e.type.replace("apply", "remove")
-        && e.ability.guid === e2.ability.guid
-        && e2.sourceID === e.sourceID
-        && e2.targetID === e.targetID
-        && e2.timestamp > e.timestamp
+        && eventFollows(e, e2)
       ) === undefined
     );
+  }
+
+  findRelevantStackEvents(events, buffEvents){
+    const stackEventsT = events.filter(e => e.type === "applybuffstack" || e.type === "removebuffstack");
+    return buffEvents.reduce((arr, e) => {
+      const stackEvents = stackEventsT.filter(e2 => eventFollows(e, e2));
+      //Is this part even necessary? Might be faster just passing every applybuffstack and removebuffstack event back to the eventparser and letting the normalizers / modules handle stack counts
+      /*const applyEvents = stackEvents.filter(e => e.type === "applybuffstack");
+      const removeEvents = stackEvents.filter(e => e.type === "removebuffstack");
+      const stackCount = applyEvents.length - removeEvents.length;
+      return [...arr, ...applyEvents.reverse().slice(0, stackCount)];*/
+      return [...arr, ...stackEvents];
+    }, []);
   }
 
   async parse(phasesChanged = true) {
     try {
       const phases = phasesChanged ? this.makePhases() : this.state.phases; //only update phases if they actually changed
+      bench("phasefilter");
       const eventFilter = this.makeEvents(phases);
+      benchEnd("phasefilter");
       this.setState({
         phases: phases,
         events: eventFilter.events,
