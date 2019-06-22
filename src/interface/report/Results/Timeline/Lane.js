@@ -59,8 +59,8 @@ class Lane extends React.PureComponent {
     );
   }
   renderCooldown(event) {
-    const left = this.getOffsetLeft(event.start);
-    const width = (Math.min(this.props.fightEndTimestamp, event.timestamp) - event.start) / 1000 * this.props.secondWidth;
+    const left = this.getOffsetLeft(Math.max(this.props.fightStartTimestamp, event.start));
+    const width = (Math.min(this.props.fightEndTimestamp, event.timestamp) - Math.max(this.props.fightStartTimestamp, event.start)) / 1000 * this.props.secondWidth;
     return (
       <Tooltip
         key={`cooldown-${left}`}

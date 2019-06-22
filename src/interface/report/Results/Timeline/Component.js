@@ -152,6 +152,7 @@ class Timeline extends React.PureComponent {
               paddingBottom: 0,
               paddingLeft: this.state.padding,
               paddingRight: this.state.padding, // we also want the user to have the satisfying feeling of being able to get the right side to line up
+              margin: "auto", //center horizontally if it's too small to take up the page
             }}
           >
             <Buffs
