@@ -97,13 +97,19 @@ class PhaseParser extends React.PureComponent {
       prepull: true, //pretend previous phases were "prepull"
       ...(e.type !== PREPHASE_CAST_EVENT_TYPE && {timestamp: startEvent.timestamp}), //override existing timestamps to the start of the phase to avoid >100% uptimes (only on non casts to retain cooldowns)
     }));
-    console.log(prePhaseEvents);
-    return {start: startEvent.timestamp, events: [...prePhaseEvents, startEvent, ...phaseEvents, endEvent], end: endEvent.timestamp};
+    const prePhaseEvents2 = this.findRelevantPrePhaseEvents2(events.filter(event => event.timestamp < startEvent.timestamp).reverse()).sort((a,b) => a.timestamp - b.timestamp) //sort events by timestamp
+    .map(e => ({
+      ...e,
+      prepull: true, //pretend previous phases were "prepull"
+      ...(e.type !== PREPHASE_CAST_EVENT_TYPE && {timestamp: startEvent.timestamp}), //override existing timestamps to the start of the phase to avoid >100% uptimes (only on non casts to retain cooldowns)
+    }));
+    return {start: startEvent.timestamp, events: [...prePhaseEvents2, startEvent, ...phaseEvents, endEvent], end: endEvent.timestamp};
   }
 
   //find events before the phase that are relevant in this phase (aka cooldowns and buffs) and include them in analysis
   //this could probably be done a lot faster by wrapping it all into one forEach and handling each event type differently within there to save filter Casts.
   //This is much cleaner this way though and still pretty fast so not sure if it's needed?
+  //(see second option below for other version)
   findRelevantPrePhaseEvents(events){
     console.log(...new Set(events.map(e => e.type)));
     console.log(events.filter( e => ["create", "summon", "energize"].includes(e.type)));
@@ -122,11 +128,62 @@ class PhaseParser extends React.PureComponent {
     return relevantEvents;
   }
 
+  //second option, faster but not as "clean"
+  findRelevantPrePhaseEvents2(events){
+    bench("second phase filter");
+    const foundBuffs = [];
+    const stackEvents = [];
+    const foundCasts = [];
+    events.forEach((e, index) => {
+      switch(e.type){
+        case "applybuff":
+        case "applydebuff":
+          if(foundBuffs.find(e2 => e.ability.guid === e2.ability.guid && e.targetID === e2.targetID && e.sourceID === e2.targetID) === undefined){
+            const buffRelevantEvents = events.slice(0, index);
+            if(buffRelevantEvents.find(e2 => e2.type === e.type.replace("apply", "remove") && eventFollows(e, e2)) === undefined){
+              foundBuffs.push(e);
+              stackEvents.push(...buffRelevantEvents.reverse().reduce((arr, e2) => {
+                if(eventFollows(e,e2)){
+                  if(e2.type === "applybuffstack"){
+                    return [...arr, e2];
+                  }else if(e2.type === "removebuffstack"){
+                    return arr.slice(0,1);
+                  }
+                }
+                return arr;
+              }, []));
+            }
+          }
+          break;
+        case "cast":
+          if(foundCasts.find(e2 => e.ability.guid === e2.ability.guid && e.sourceID === e2.sourceID) === undefined){
+            foundCasts.push({...e, type: PREPHASE_CAST_EVENT_TYPE});
+          }
+          break;
+        default:
+          break;
+      }
+    });
+    /*const stackEvents = foundBuffs.reduce((arr, e) => {
+      const stackEvents = stackEventsT.filter(e2 => eventFollows(e, e2));
+      //Is this part even necessary? Might be faster just passing every applybuffstack and removebuffstack event back to the eventparser and letting the normalizers / modules handle stack counts
+      const applyEvents = stackEvents.filter(e => e.type === "applybuffstack");
+      const removeEvents = stackEvents.filter(e => e.type === "removebuffstack");
+      const stackCount = applyEvents.length - removeEvents.length;
+      return [...arr, ...applyEvents.slice(0, stackCount)];
+      //return [...arr, ...stackEvents];
+    }, []);*/
+    benchEnd("second phase filter");
+    return [...foundBuffs, ...stackEvents, ...foundCasts];
+  }
+
   findRelevantBuffEvents(events){
     const foundBuffs = []; //keep track of buffs that are already known to be kept going into a phase
-    return events.filter(e => ["applybuff", "applydebuff"].includes(e.type))
+    return events.filter(e => {
+      if(!["applybuff", "applydebuff"].includes(e.type)){
+        return false;
+      }
     //only keep prior apply(de)buff events if they dont have an associated remove(de)buff event
-    .filter(e => {
       //if buff is already known to be kept, we don't need to search for a remove event
       if(foundBuffs.find(e2 => e.ability.guid === e2.ability.guid && e.targetID === e2.targetID && e.sourceID === e2.targetID) !== undefined){
         return false;
@@ -145,8 +202,8 @@ class PhaseParser extends React.PureComponent {
     return buffEvents.reduce((arr, e) => {
       const stackEvents = stackEventsT.filter(e2 => eventFollows(e, e2));
       //Is this part even necessary? Might be faster just passing every applybuffstack and removebuffstack event back to the eventparser and letting the normalizers / modules handle stack counts
-      const applyEvents = stackEvents.filter(e => e.type === "applybuffstack");
-      const removeEvents = stackEvents.filter(e => e.type === "removebuffstack");
+      const applyEvents = stackEvents.filter(e => e.type.includes("apply"));
+      const removeEvents = stackEvents.filter(e => e.type.includes("remove"));
       const stackCount = applyEvents.length - removeEvents.length;
       return [...arr, ...applyEvents.slice(0, stackCount)];
       //return [...arr, ...stackEvents];
@@ -158,14 +215,14 @@ class PhaseParser extends React.PureComponent {
     events.forEach(e => {
       if(e.type === "cast"){
         if(foundCasts.find(e2 => e.ability.guid === e2.ability.guid && e.sourceID === e2.sourceID) === undefined){
-          foundCasts.push(e);
+          foundCasts.push({
+            ...e,
+            type: PREPHASE_CAST_EVENT_TYPE,
+          });
         }
       }
     });
-    return foundCasts.map(e => ({
-      ...e,
-      type: PREPHASE_CAST_EVENT_TYPE,
-    }));
+    return foundCasts;
   }
 
   async parse(phasesChanged = true) {
