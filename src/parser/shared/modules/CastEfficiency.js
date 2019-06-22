@@ -98,14 +98,14 @@ class CastEfficiency extends Analyzer {
           beginCastTimestamp = event.timestamp;
           return acc;
         } else if (event.type === 'cast') {
-          const castTime = beginCastTimestamp ? (event.timestamp - beginCastTimestamp) : 0;
+          const castTime = beginCastTimestamp ? (event.timestamp - Math.max(beginCastTimestamp, this.owner.fight.start_time)) : 0;
           beginCastTimestamp = null;
           return acc + castTime;
         } else if (event.type === 'beginchannel') {
           beginChannelTimestamp = event.timestamp;
           return acc;
         } else if (event.type === 'endchannel') {
-          const channelTime = beginChannelTimestamp ? (event.timestamp - beginChannelTimestamp) : 0;
+          const channelTime = beginChannelTimestamp ? (event.timestamp - Math.max(beginChannelTimestamp, this.owner.fight.start_time)) : 0;
           beginCastTimestamp = null;
           return acc + channelTime;
         } else {
