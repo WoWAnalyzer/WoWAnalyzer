@@ -90,7 +90,7 @@ class PhaseParser extends React.PureComponent {
         event.timestamp >= startEvent.timestamp
         && event.timestamp <= endEvent.timestamp
       );
-    const prePhaseEvents = this.findRelevantPrePhaseEvents(events.filter(event => event.timestamp < startEvent.timestamp).reverse()) //pass reversed list so "more relevant" events get searched first to improve performance
+    this.findRelevantPrePhaseEvents(events.filter(event => event.timestamp < startEvent.timestamp).reverse()) //pass reversed list so "more relevant" events get searched first to improve performance
     .sort((a,b) => a.timestamp - b.timestamp) //sort events by timestamp
     .map(e => ({
       ...e,
