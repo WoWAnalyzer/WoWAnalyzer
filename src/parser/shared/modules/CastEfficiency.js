@@ -56,13 +56,13 @@ class CastEfficiency extends Analyzer {
           lastRechargeTimestamp = event.timestamp;
           return acc;
         } else if (event.trigger === 'endcooldown') {
-          const rechargingTime = (event.timestamp - lastRechargeTimestamp) || 0;
+          const rechargingTime = (event.timestamp - Math.max(lastRechargeTimestamp, this.owner.fight.start_time)) || 0;
           recharges += 1;
           lastRechargeTimestamp = null;
           return acc + rechargingTime;
           // This might cause oddness if we add anything that externally refreshes charges, but so far nothing does
         } else if (event.trigger === 'restorecharge') {
-          const rechargingTime = (event.timestamp - lastRechargeTimestamp) || 0;
+          const rechargingTime = (event.timestamp - Math.max(lastRechargeTimestamp, this.owner.fight.start_time)) || 0;
           recharges += 1;
           lastRechargeTimestamp = event.timestamp;
           return acc + rechargingTime;
@@ -70,7 +70,7 @@ class CastEfficiency extends Analyzer {
           return acc;
         }
       }, 0);
-    const endingRechargeTime = (!lastRechargeTimestamp) ? 0 : this.owner.currentTimestamp - lastRechargeTimestamp;
+    const endingRechargeTime = (!lastRechargeTimestamp) ? 0 : this.owner.currentTimestamp - Math.max(lastRechargeTimestamp, this.owner.fight.start_time);
 
     const casts = history.filter(event => event.type === 'cast').length;
 
