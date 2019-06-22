@@ -109,8 +109,8 @@ class Lane extends React.PureComponent {
 
     const ability = children[0].ability;
     if(children[0].type === PREPHASE_CAST_EVENT_TYPE && children.length > 1 && children[1].type === "updatespellusable"){ //if first cast happened before phase and is followed by cooldown event
-      if(children[1].end < this.props.fightStartTimestamp){
-        children.splice(0, 2); //remove first 2 events
+      if(children[1].end - 500 < this.props.fightStartTimestamp){ //if cooldown ended less than half a "tick" (second) after the phase, remove it to avoid visual overlaps
+        children.splice(0, 2); //remove prephase cast and cooldown event
       }
     }
 
