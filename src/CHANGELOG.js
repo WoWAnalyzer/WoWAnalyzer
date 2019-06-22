@@ -8,6 +8,11 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
+    date: new Date('2019-06-22'),
+    changes: 'Added the ability to filter the results by phases.',
+    contributors: [Zeboot],
+  },
+  {
     date: new Date('2019-06-16'),
     changes: 'Fixed issues with shared CDs (like potions) in the timeline.',
     contributors: [Zeboot],
