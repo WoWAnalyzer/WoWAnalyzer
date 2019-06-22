@@ -6,6 +6,8 @@ import Tooltip from 'common/Tooltip';
 import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 
+import { PREPHASE_CAST_EVENT_TYPE } from 'interface/report/PhaseParser';
+
 class Lane extends React.PureComponent {
   static propTypes = {
     children: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -21,6 +23,7 @@ class Lane extends React.PureComponent {
 
   renderEvent(event) {
     switch (event.type) {
+      case PREPHASE_CAST_EVENT_TYPE:
       case 'cast':
         return this.renderCast(event);
       case 'updatespellusable':
@@ -39,7 +42,8 @@ class Lane extends React.PureComponent {
     }
   }
   renderCast(event) {
-    const left = this.getOffsetLeft(event.timestamp);
+    //let pre phase events be displayed one second tick before the phase
+    const left = this.getOffsetLeft(Math.max(this.props.fightStartTimestamp - 1000, event.timestamp));
     const spellId = event.ability.guid;
 
     return (
@@ -59,7 +63,8 @@ class Lane extends React.PureComponent {
     );
   }
   renderCooldown(event) {
-    const left = this.getOffsetLeft(Math.max(this.props.fightStartTimestamp, event.start));
+    //let pre phase events be displayed one second tick before the phase
+    const left = this.getOffsetLeft(Math.max(this.props.fightStartTimestamp - 1000, event.start));
     const width = (Math.min(this.props.fightEndTimestamp, event.timestamp) - Math.max(this.props.fightStartTimestamp, event.start)) / 1000 * this.props.secondWidth;
     return (
       <Tooltip
@@ -103,8 +108,13 @@ class Lane extends React.PureComponent {
     const { children, style } = this.props;
 
     const ability = children[0].ability;
+    if(children[0].type === PREPHASE_CAST_EVENT_TYPE && children.length > 1 && children[1].type === "updatespellusable"){ //if first cast happened before phase and is followed by cooldown event
+      if(children[1].end < this.props.fightStartTimestamp){
+        children.splice(0, 2); //remove first 2 events
+      }
+    }
 
-    return (
+    return children.length > 0 && (
       <div
         className="lane"
         style={style}
