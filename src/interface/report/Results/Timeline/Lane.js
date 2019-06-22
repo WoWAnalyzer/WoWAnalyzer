@@ -65,7 +65,7 @@ class Lane extends React.PureComponent {
   renderCooldown(event) {
     //let pre phase events be displayed one second tick before the phase
     const left = this.getOffsetLeft(Math.max(this.props.fightStartTimestamp - 1000, event.start));
-    const width = (Math.min(this.props.fightEndTimestamp, event.timestamp) - Math.max(this.props.fightStartTimestamp, event.start)) / 1000 * this.props.secondWidth;
+    const width = (Math.min(this.props.fightEndTimestamp, event.timestamp) - Math.max(this.props.fightStartTimestamp - 1000, event.start)) / 1000 * this.props.secondWidth;
     return (
       <Tooltip
         key={`cooldown-${left}`}
