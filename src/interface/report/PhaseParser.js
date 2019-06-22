@@ -95,7 +95,7 @@ class PhaseParser extends React.PureComponent {
     .map(e => ({
       ...e,
       prepull: true, //pretend previous phases were "prepull"
-      ...(e.type === PREPHASE_CAST_EVENT_TYPE && {timestamp: startEvent.timestamp}), //override existing timestamps to the start of the phase to avoid >100% uptimes (only on non casts to retain cooldowns)
+      ...(e.type !== PREPHASE_CAST_EVENT_TYPE && {timestamp: startEvent.timestamp}), //override existing timestamps to the start of the phase to avoid >100% uptimes (only on non casts to retain cooldowns)
     }));
     console.log(prePhaseEvents);
     return {start: startEvent.timestamp, events: [...prePhaseEvents, startEvent, ...phaseEvents, endEvent], end: endEvent.timestamp};
