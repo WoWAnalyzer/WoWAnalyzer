@@ -29,7 +29,9 @@ class StaggerFabricator extends Analyzer {
 
   _staggerPool = 0;
   _lastKnownMaxHp = 0;
-  _initialized = false;
+  
+  //count as uninitialized if fight didn't start at actual fight start time (aka phase)
+  _initialized = this.owner.fight.offset_time === 0;
 
   get purifyPercentage() {
     return PURIFY_BASE;
@@ -83,8 +85,7 @@ class StaggerFabricator extends Analyzer {
       return;
     }
     const amount = event.amount + (event.absorbed || 0);
-    //count as uninitialized if fight didn't start at actual fight start time (aka phase)
-    if(!this._initialized && this.owner.fight.offset_time !== 0){
+    if(!this._initialized){
       this._staggerPool = amount*20; //stagger ticks every 0.5 s for 10s, so tick * 20 is total stagger
       this._initialized = true;
     }
