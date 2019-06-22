@@ -95,13 +95,15 @@ class PhaseParser extends React.PureComponent {
     .map(e => ({
       ...e,
       prepull: true, //pretend previous phases were "prepull"
-      ...(e.type === "phase_cast" && {timestamp: startEvent.timestamp}), //override existing timestamps to the start of the phase to avoid >100% uptimes (only on non casts to retain cooldowns)
+      ...(e.type === PREPHASE_CAST_EVENT_TYPE && {timestamp: startEvent.timestamp}), //override existing timestamps to the start of the phase to avoid >100% uptimes (only on non casts to retain cooldowns)
     }));
     console.log(prePhaseEvents);
     return {start: startEvent.timestamp, events: [...prePhaseEvents, startEvent, ...phaseEvents, endEvent], end: endEvent.timestamp};
   }
 
-  //TODO: find events before the phase that are relevant in this phase (aka cooldowns and buffs) and include them in analysis
+  //find events before the phase that are relevant in this phase (aka cooldowns and buffs) and include them in analysis
+  //this could probably be done a lot faster by wrapping it all into one forEach and handling each event type differently within there to save filter Casts.
+  //This is much cleaner this way though and still pretty fast so not sure if it's needed?
   findRelevantPrePhaseEvents(events){
     console.log(...new Set(events.map(e => e.type)));
     console.log(events.filter( e => ["create", "summon", "energize"].includes(e.type)));
