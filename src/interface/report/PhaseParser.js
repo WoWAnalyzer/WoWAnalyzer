@@ -95,7 +95,7 @@ class PhaseParser extends React.PureComponent {
     .map(e => ({
       ...e,
       prepull: true, //pretend previous phases were "prepull"
-      ...(e.type !== PREPHASE_CAST_EVENT_TYPE && {timestamp: startEvent.timestamp}), //override existing timestamps to the start of the phase to avoid >100% uptimes (only on non casts to retain cooldowns)
+      ...(e.type !== PREPHASE_CAST_EVENT_TYPE ? {timestamp: startEvent.timestamp} : {__fabricated: true}), //override existing timestamps to the start of the phase to avoid >100% uptimes (only on non casts to retain cooldowns)
     }));
 
     const prePhaseEvents2 = this.findRelevantPrePhaseEvents2(events.filter(event => event.timestamp < startEvent.timestamp).reverse())
@@ -103,7 +103,7 @@ class PhaseParser extends React.PureComponent {
     .map(e => ({
       ...e,
       prepull: true, //pretend previous phases were "prepull"
-      ...(e.type !== PREPHASE_CAST_EVENT_TYPE && {timestamp: startEvent.timestamp}), //override existing timestamps to the start of the phase to avoid >100% uptimes (only on non casts to retain cooldowns)
+      ...(e.type !== PREPHASE_CAST_EVENT_TYPE ? {timestamp: startEvent.timestamp} : {__fabricated: true}), //override existing timestamps to the start of the phase to avoid >100% uptimes (only on non casts to retain cooldowns)
     }));
     return {start: startEvent.timestamp, events: [...prePhaseEvents2, startEvent, ...phaseEvents, endEvent], end: endEvent.timestamp};
   }
@@ -123,7 +123,7 @@ class PhaseParser extends React.PureComponent {
     bench("phase cast filter");
     const castEvents = this.findRelevantCastEvents(events);
     benchEnd("phase cast filter");
-    const relevantEvents = [...applyBuffEvents, ...buffStackEvents, ...castEvents];
+    const relevantEvents = [...castEvents, ...applyBuffEvents, ...buffStackEvents];
     benchEnd("total phase filter");
     return relevantEvents;
   }
@@ -173,7 +173,7 @@ class PhaseParser extends React.PureComponent {
       }
     });
     benchEnd("second phase filter");
-    return [...foundBuffs, ...stackEvents, ...foundCasts];
+    return [...foundCasts, ...foundBuffs, ...stackEvents];
   }
 
   findRelevantBuffEvents(events){
