@@ -97,7 +97,9 @@ class PhaseParser extends React.PureComponent {
       prepull: true, //pretend previous phases were "prepull"
       ...(e.type !== PREPHASE_CAST_EVENT_TYPE && {timestamp: startEvent.timestamp}), //override existing timestamps to the start of the phase to avoid >100% uptimes (only on non casts to retain cooldowns)
     }));
-    const prePhaseEvents2 = this.findRelevantPrePhaseEvents2(events.filter(event => event.timestamp < startEvent.timestamp).reverse()).sort((a,b) => a.timestamp - b.timestamp) //sort events by timestamp
+
+    const prePhaseEvents2 = this.findRelevantPrePhaseEvents2(events.filter(event => event.timestamp < startEvent.timestamp).reverse())
+    .sort((a,b) => a.timestamp - b.timestamp) //sort events by timestamp
     .map(e => ({
       ...e,
       prepull: true, //pretend previous phases were "prepull"
@@ -136,15 +138,22 @@ class PhaseParser extends React.PureComponent {
       switch(e.type){
         case "applybuff":
         case "applydebuff":
+          //if buff isn't already confirmed as "staying active"
           if(foundBuffs.find(e2 => e.ability.guid === e2.ability.guid && e.targetID === e2.targetID && e.sourceID === e2.targetID) === undefined){
+            //look only at buffs that happen after the apply event (since we traverse in reverse order)
             const buffRelevantEvents = events.slice(0, index);
+            //if no remove is found following the apply event, mark the buff as "staying active"
             if(buffRelevantEvents.find(e2 => e2.type === e.type.replace("apply", "remove") && eventFollows(e, e2)) === undefined){
               foundBuffs.push(e);
+              //find relevant stack information for active buff / debuff
               stackEvents.push(...buffRelevantEvents.reverse().reduce((arr, e2) => {
+                //traverse through all following stack events in chronological order
                 if(eventFollows(e,e2)){
-                  if(e2.type === "applybuffstack"){
+                  //if stack is added, add the event to the end of the array
+                  if(e2.type === "applybuffstack" || e2.type === "applydebuffstack"){
                     return [...arr, e2];
-                  }else if(e2.type === "removebuffstack"){
+                  //if stack is removed, remove first event from array
+                  }else if(e2.type === "removebuffstack" || e2.type === "removedebuffstack"){
                     return arr.slice(0,1);
                   }
                 }
@@ -154,6 +163,7 @@ class PhaseParser extends React.PureComponent {
           }
           break;
         case "cast":
+          //only keep "latest" cast, override type to prevent > 100% uptime / efficiency
           if(foundCasts.find(e2 => e.ability.guid === e2.ability.guid && e.sourceID === e2.sourceID) === undefined){
             foundCasts.push({...e, type: PREPHASE_CAST_EVENT_TYPE});
           }
@@ -162,15 +172,6 @@ class PhaseParser extends React.PureComponent {
           break;
       }
     });
-    /*const stackEvents = foundBuffs.reduce((arr, e) => {
-      const stackEvents = stackEventsT.filter(e2 => eventFollows(e, e2));
-      //Is this part even necessary? Might be faster just passing every applybuffstack and removebuffstack event back to the eventparser and letting the normalizers / modules handle stack counts
-      const applyEvents = stackEvents.filter(e => e.type === "applybuffstack");
-      const removeEvents = stackEvents.filter(e => e.type === "removebuffstack");
-      const stackCount = applyEvents.length - removeEvents.length;
-      return [...arr, ...applyEvents.slice(0, stackCount)];
-      //return [...arr, ...stackEvents];
-    }, []);*/
     benchEnd("second phase filter");
     return [...foundBuffs, ...stackEvents, ...foundCasts];
   }
