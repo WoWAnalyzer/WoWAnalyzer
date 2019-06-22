@@ -30,7 +30,6 @@ class Cooldowns extends React.PureComponent {
       .map(item => this.renderLane(item));
   }
   renderLane([spellId, events]) {
-    console.log(spellId, events, this.props.start, this.props.end);
     return (
       <Lane
         key={spellId}

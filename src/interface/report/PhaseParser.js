@@ -111,8 +111,6 @@ class PhaseParser extends React.PureComponent {
   //This is much cleaner this way though and still pretty fast so not sure if it's needed?
   //(see second option below for other version)
   findRelevantPrePhaseEvents(events){
-    console.log(...new Set(events.map(e => e.type)));
-    console.log(events.filter( e => ["create", "summon", "energize"].includes(e.type)));
     bench("total phase filter");
     bench("phase buff filter");
     const applyBuffEvents = this.findRelevantBuffEvents(events);

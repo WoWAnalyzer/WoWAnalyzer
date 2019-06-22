@@ -342,7 +342,6 @@ class SpellUsable extends Analyzer {
     const timestamp = (event && event.timestamp) || this.owner.currentTimestamp;
     //if cast event from previous phase was found, add it to the cooldown tracker without adding it to the phase itself
     if(event.type === PREPHASE_CAST_EVENT_TYPE && event.sourceID === this.owner.playerId){
-      console.log("pre phase cast found", event);
       this.on_byPlayer_cast(event);
     }
     if (timestamp === this._lastTimestamp) {
