@@ -772,6 +772,12 @@ export default {
     name: 'Jungle Stalker',
     icon: 'ability_mount_siberiantigermount',
   },
+  // effect that shows up in the combat log for energy generated from feral's Soul of the Forest talent.
+  SOUL_OF_THE_FOREST_FERAL_ENERGY: {
+    id: 114113,
+    name: 'Soul of the Forest',
+    icon: 'ability_druid_manatree',
+  },
 
   // feral legion tier sets
   FERAL_DRUID_T19_2SET_BONUS_BUFF: {

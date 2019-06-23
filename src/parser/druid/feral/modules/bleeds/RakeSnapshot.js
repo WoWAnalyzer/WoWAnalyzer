@@ -21,8 +21,8 @@ import Snapshot from '../core/Snapshot';
 const FORGIVE_PROWL_LOSS_TIME = 1000;
 
 class RakeSnapshot extends Snapshot {
-  static spellCastId = SPELLS.RAKE.id;
-  static debuffId = SPELLS.RAKE_BLEED.id;
+  static spell = SPELLS.RAKE;
+  static debuff = SPELLS.RAKE_BLEED;
   static durationOfFresh = RAKE_BASE_DURATION;
   static isProwlAffected = true;
   static isTigersFuryAffected = true;

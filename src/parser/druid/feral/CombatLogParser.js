@@ -2,8 +2,10 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 import RakeBleed from './normalizers/RakeBleed';
 import ComboPointsFromAoE from './normalizers/ComboPointsFromAoE';
+import BleedDebuffEvents from './normalizers/BleedDebuffEvents';
 
 import Abilities from './modules/Abilities';
+import Buffs from './modules/Buffs';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import SpellUsable from './modules/features/SpellUsable';
@@ -21,6 +23,7 @@ import RipSnapshot from './modules/bleeds/RipSnapshot';
 
 import ComboPointTracker from './modules/combopoints/ComboPointTracker';
 import ComboPointDetails from './modules/combopoints/ComboPointDetails';
+import FinisherUse from './modules/combopoints/FinisherUse';
 
 import SavageRoarUptime from './modules/talents/SavageRoarUptime';
 import MoonfireUptime from './modules/talents/MoonfireUptime';
@@ -46,11 +49,13 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizers
     rakeBleed: RakeBleed,
+    bleedDebuffEvents: BleedDebuffEvents,
     comboPointsFromAoE: ComboPointsFromAoE,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
+    buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
     ferociousBiteEnergy: FerociousBiteEnergy,
     spellUsable: SpellUsable,
@@ -85,6 +90,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // resources
     comboPointTracker: ComboPointTracker,
     comboPointDetails: ComboPointDetails,
+    finisherUse: FinisherUse,
 
     // azerite traits
     wildFleshrending: WildFleshrending,

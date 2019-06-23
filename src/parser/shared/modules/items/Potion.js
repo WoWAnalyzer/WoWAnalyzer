@@ -53,9 +53,12 @@ class Potion extends Analyzer {
       ...this.constructor.extraAbilityInfo,
     });
     if (this.constructor.extraAbilityInfo.buffSpellId) {
-      this.buffs.add({
-        spellId: this.constructor.extraAbilityInfo.buffSpellId,
-        triggeredBySpellId: this.constructor.spells.map(spell => spell.id),
+      //assign each buff its corresponding spell ID
+      this.constructor.extraAbilityInfo.buffSpellId.forEach((buff, buffIndex) => {
+        this.buffs.add({
+          spellId: buff,
+          triggeredBySpellId: this.constructor.spells.find((_, spellIndex) => spellIndex === buffIndex).id,
+        });
       });
     }
   }

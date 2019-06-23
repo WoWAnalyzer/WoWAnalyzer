@@ -26,9 +26,9 @@ class ComboPoints extends Analyzer {
     });
     resourceSuggest(when, this.comboPointTracker, {
       spell: SPELLS.SINISTER_STRIKE, // 1 CP + 35% chance for another
-      minor: 0,
-      avg: 0.05,
-      major: 0.1,
+      minor: 0.05, // Due to the 35% chance to double hit, especially with the Broadside RTB buff, you are bound to burn some CP
+      avg: 0.1,
+      major: 0.15,
       extraSuggestion: this.makeExtraSuggestion(SPELLS.SINISTER_STRIKE),
     });
     resourceSuggest(when, this.comboPointTracker, {
@@ -39,12 +39,10 @@ class ComboPoints extends Analyzer {
       extraSuggestion: this.makeExtraSuggestion(SPELLS.AMBUSH),
     });
     resourceSuggest(when, this.comboPointTracker, {
-      spell: SPELLS.PISTOL_SHOT, // 1 CP
+      spell: SPELLS.PISTOL_SHOT, // 1 CP, 2 with proc and Quick Draw
       minor: 0,
-      avg: 0.1,
-      major: 0.2,
-      // TODO: Beta logs incorrectly add bonus CP from an extra Sinister Strike to Pistol shot. 
-      // Want to see if its fixed in PrePatch or can be fixed on WCL side before creating workaround.
+      avg: 0.05,
+      major: 0.1,
       extraSuggestion: this.makeExtraSuggestion(SPELLS.PISTOL_SHOT),
     });
     resourceSuggest(when, this.comboPointTracker, {

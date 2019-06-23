@@ -3039,4 +3039,316 @@ export default {
     name: "Prismatic Image",
     icon: "ability_socererking_arcanemines", // Not a typo.
   },
+
+  // CRUCIBLE OF STORMS
+
+  // THE RESTLESS CABAL
+
+  RESTLESS_CABAL_SHEAR_MIND: {
+    id: 282384,
+    name: 'Shear Mind',
+    icon: 'spell_shadow_mindflay',
+  },
+
+  RESTLESS_CABAL_VOID_CRASH: {
+    id: 282407,
+    name: 'Void Crash',
+    icon: 'spell_shadow_shadowfury',
+  },
+
+  RESTLESS_CABAL_CRUSHING_DOUBT: {
+    id: 282432,
+    name: "Crushing Doubt",
+    icon: 'spell_shadow_demonicempathy',
+  },
+
+  RESTLESS_CABAL_APHOTIC_BLAST: {
+    id: 282386,
+    name: "Aphotic Blast",
+    icon: 'inv_enchant_voidsphere',
+  },
+
+  RESTLESS_CABAL_CEREBRAL_ASSAULT: {
+    id: 282589,
+    name: "Cerebral Assault",
+    icon: "spell_shadow_skull",
+  },
+
+  RESTLESS_CABAL_DARK_HERALD: {
+    id: 282561,
+    name: "Dark Herald",
+    icon: "spell_warlock_demonsoul",
+  },
+
+  RESTLESS_CABAL_PROMISES_OF_POWER: {
+    id: 282562,
+    name: "Promises of Power",
+    icon: "Spell_priest_void-flay",
+  },
+
+  RESTLESS_CABAL_POWER_OVERWHELMING: {
+    id: 282914,
+    name: "Power Overwhelming",
+    icon: "inv_icon_shadowcouncilorb_purple",
+  },
+
+  RESTLESS_CABAL_UMBRAL_SHELL: {
+    id: 282741,
+    name: "Umbral Shell",
+    icon: "spell_shadow_twistedfaith",
+  },
+
+  RESTLESS_CABAL_EMBRACE_OF_THE_VOID: {
+    id: 282738,
+    name: "Embrace of the Void",
+    icon: "spell_priest_void-blast",
+  },
+
+  RESTLESS_CABAL_CUSTODY_OF_THE_DEEP: {
+    id: 282750,
+    name: "Custody of the Deep",
+    icon: "spell_winston_bubble",
+  },
+
+  RESTLESS_CABAL_ABYSSAL_COLLAPSE: {
+    id: 282886,
+    name: "Abyssal Collapse",
+    icon: "ability_shawaterelemental_split",
+  },
+
+  RESTLESS_CABAL_STORM_OF_ANNIHILATION: {
+    id: 282742,
+    name: "Storm of Annihilation",
+    icon: "ability_vehicle_electrocharge",
+  },
+
+  RESTLESS_CABAL_ANNIHILATE: {
+    id: 282842,
+    name: "Annihilate",
+    icon: "spell_shaman_staticshock",
+  },
+
+  RESTLESS_CABAL_ELDRITCH_REVELATION: {
+    id: 282617,
+    name: "Eldritch Revelation",
+    icon: "ability_rogue_enveloping_shadows",
+  },
+
+  RESTLESS_CABAL_WITNESS_THE_END: {
+    id: 282621,
+    name: "Witness the End",
+    icon: "sha_inv_elemental_primal_shadow",
+  },
+
+  RESTLESS_CABAL_VISAGE_FROM_BEYOND: {
+    id: 282515,
+    name: "Visage from Beyond",
+    icon: "ability_priest_shadowyapparition",
+  },
+
+  RESTLESS_CABAL_TERRIFYING_ECHO: {
+    id: 282517,
+    name: "Terrifying Echo",
+    icon: "spell_shadow_possession",
+  },
+
+  RESTLESS_CABAL_COALESCE_VOID: {
+    id: 282524,
+    name: "Coalesce Void",
+    icon: "spell_shadow_shadowmend",
+  },
+
+  RESTLESS_CABAL_AGENT_OF_DEMISE: {
+    id: 282540,
+    name: "Agent of Demise",
+    icon: "spell_priest_voidform",
+  },
+
+  RESTLESS_CABAL_WRACK: {
+    id: 292880,
+    name: "Wrack",
+    icon: "spell_nature_focusedmind",
+  },
+
+  RESTLESS_CABAL_INCOMPLETE_FORM: {
+    id: 282630,
+    name: "Incomplete Form",
+    icon: "inv_chest_armor_voidelf_d_01",
+  },
+
+  RESTLESS_CABAL_VOID_ESSENCE: {
+    id: 283514,
+    name: "Void Essence",
+    icon: "spell_priest_void-blast",
+  },
+
+  RESTLESS_CABAL_OCEANIC_ESSENCE: {
+    id: 293488,
+    name: "Oceanic Essence",
+    icon: "inv_elemental_mote_water01",
+  },
+
+  RESTLESS_CABAL_STORM_ESSENCE: {
+    id: 293300,
+    name: "Storm Essence",
+    icon: "ability_vehicle_electrocharge",
+  },
+
+  // UU'NAT, HARBINGER OF THE VOID
+
+  UUNAT_FEEDBACK_VOID: {
+    id: 286459,
+    name: "Feedback: Void",
+    icon: "inv_elemental_mote_shadow01",
+  },
+
+  UUNAT_FEEDBACK_OCEAN: {
+    id: 286457,
+    name: "Feedback: Ocean",
+    icon: "inv_elemental_mote_water01",
+  },
+
+  UUNAT_FEEDBACK_STORM: {
+    id: 286458,
+    name: "Feedback: Storm",
+    icon: "shaman_pvp_lightninglasso",
+  },
+
+  UUNAT_CUSTODY_OF_THE_DEEP: {
+    id: 284804,
+    name: "Custody of the Deep",
+    icon: "spell_winston_bubble",
+  },
+
+  UUNAT_ABYSSAL_COLLAPSE: {
+    id: 284809,
+    name: "Abyssal Collapse",
+    icon: "ability_shawaterelemental_split",
+  },
+
+  UUNAT_EMBRACE_OF_THE_VOID: {
+    id: 284733,
+    name: "Embrace of the Void",
+    icon: "spell_priest_void-blast",
+  },
+
+  UUNAT_STORM_OF_ANNIHILATION: {
+    id: 284583,
+    name: "Storm of Annihilation",
+    icon: "ability_vehicle_electrocharge",
+  },
+
+  UUNAT_ANNIHILATE: {
+    id: 284620,
+    name: "Annihilate",
+    icon: "spell_shaman_staticshock",
+  },
+
+  UUNAT_GIFT_OF_NZOTH_OBSCURITY: {
+    id: 285453,
+    name: "Gift of N'zoth: Obscurity",
+    icon: "sha_ability_rogue_envelopingshadows_nightborne",
+  },
+
+  UUNAT_OBLIVION_TEAR: {
+    id: 285185,
+    name: "Oblivion Tear",
+    icon: "spell_priest_voidsear",
+  },
+
+  UUNAT_MADDENING_EYES_OF_NZOTH: {
+    id: 285345,
+    name: "Maddening Eyes of N'Zoth",
+    icon: "sha_ability_rogue_bloodyeye_nightborne",
+  },
+
+  UUNAT_PIERCING_GAZE_OF_NZOTH: {
+    id: 285367,
+    name: "Piercing Gaze of N'zoth",
+    icon: "spell_fire_twilightflamestrike",
+  },
+
+  UUNAT_TOUCH_OF_THE_END: {
+    id: 284851,
+    name: "Touch of the End",
+    icon: "warlock_curse_shadow",
+  },
+
+  UUNAT_SIGHTLESS_BOND: {
+    id: 287692,
+    name: "Sightless Bond",
+    icon: "inv_jewelcrafting_shadowspirit_02",
+  },
+
+  UUNAT_SHROUD_OF_WHISPERS: {
+    id: 285310,
+    name: "Shroud of Whispers",
+    icon: "spell_shadow_summonvoidwalker",
+  },
+
+  UUNAT_GIFT_OF_NZOTH_HYSTERIA: {
+    id: 285638,
+    name: "Gift of N'zoth: Hysteria",
+    icon: "sha_ability_rogue_envelopingshadows_nightmare",
+  },
+
+  UUNAT_UNKNOWABLE_TERROR: {
+    id: 285562,
+    name: "Unknowable Terror",
+    icon: "spell_shadow_skull",
+  },
+
+  UUNAT_CPNSUME_ESSENCE: {
+    id: 285427,
+    name: "Consumer Essence",
+    icon: "spell_shadow_mindflay",
+  },
+
+  UUNAT_VOID_ERUPTION: {
+    id: 285431,
+    name: "Void Eruption",
+    icon: "ability_creature_disease_05",
+  },
+
+  UUNAT_GIFT_OF_NZOTH_LUNACY: {
+    id: 285685,
+    name: "Gift of N'zoth: Lunacy",
+    icon: "sha_ability_rogue_envelopingshadows",
+  },
+
+  UUNAT_INSATIABLE_TORMENT: {
+    id: 285652,
+    name: "Insatiable Torment",
+    icon: "spell_shadow_soulleech_3",
+  },
+
+  UUNAT_VOID_CRASH: {
+    id: 285410,
+    name: "Void Crash",
+    icon: "spell_shadow_shadowfury",
+  },
+
+  UUNAT_UNSTABLE_RESONANCE: {
+    id: 293653,
+    name: "Unstable Resonance",
+    icon: "spell_shadow_deathsembrace",
+  },
+
+  UUNAT_HUNGER_FOR_THE_END: {
+    id: 287292,
+    name: "Hunger for the End",
+    icon: "sha_ability_warrior_bloodnova_nightborne",
+  },
+
+  UUNAT_FEED: {
+    id: 285307,
+    name: "Feed",
+    icon: "ability_priest_surgeofdarkness",
+  },
+
+  UUNAT_VOIDSTEP: {
+    id: 287275,
+    name: "Voidstep",
+    icon: "inv_chest_armor_voidelf_d_01",
+  },
 };

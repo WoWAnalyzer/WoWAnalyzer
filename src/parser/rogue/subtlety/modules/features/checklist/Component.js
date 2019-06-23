@@ -108,7 +108,7 @@ class SubRogueChecklist extends React.PureComponent {
           <Requirement
             name={(
               <>
-                <SpellLink id={SPELLS.NIGHTBLADE.id} /> refreshed early
+                <SpellLink id={SPELLS.NIGHTBLADE.id} /> effective refresh duration
               </>
             )}
             thresholds={thresholds.nightbladeEarlyRefresh}

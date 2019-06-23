@@ -109,7 +109,7 @@ class FeralDruidChecklist extends React.PureComponent {
           🗵 Ferocious Bite only at energy >= 50
           🗵 Don't cast Rip when Ferocious Bite could have refreshed it, unless you're upgrading the snapshot
           🗵 Don't reduce duration of Rip by refreshing early and with low combo points
-          🗵 Don't use finishers at less than 5 combo points
+          🗵 Don't use finishers at less than 5 combo points (except for certain exceptions)
         */}
         <Rule
           name="Spend combo points"
@@ -157,10 +157,11 @@ class FeralDruidChecklist extends React.PureComponent {
           <Requirement
             name={(
               <>
-                Finishers used with full combo points
+                Needless low combo point finishers
               </>
             )}
-            thresholds={thresholds.finishersBelowFull}
+            thresholds={thresholds.badLowComboFinishers}
+            tooltip="Your finishers are most efficient when used with full combo points. However it is still worth using a low combo point Rip if it's not yet up on a target (this exception is detected and taken into account when calculating this metric.)"
           />
         </Rule>
 

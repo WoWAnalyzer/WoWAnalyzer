@@ -15,11 +15,24 @@ class HymnBuffBenefit extends Analyzer {
   // This is an approximation. See the reasoning below.
   totalHealingFromHymnBuff = 0;
 
+  get filter() {
+    return `
+    IN RANGE 
+      FROM type='applybuff' 
+          AND ability.id=${SPELLS.DIVINE_HYMN_HEAL.id} 
+          AND source.name='${this.selectedCombatant.name}' 
+      TO type='removebuff' 
+          AND ability.id=${SPELLS.DIVINE_HYMN_HEAL.id} 
+          AND source.name='${this.selectedCombatant.name}' 
+      GROUP BY 
+        target ON target END`;
+  }
+
   load() {
     return fetchWcl(`report/tables/healing/${this.owner.report.code}`, {
       start: this.owner.fight.start_time,
       end: this.owner.fight.end_time,
-      filter: `IN RANGE FROM type='applybuff' AND ability.id=${SPELLS.DIVINE_HYMN_HEAL.id} TO type='removebuff' AND ability.id=${SPELLS.DIVINE_HYMN_HEAL.id} GROUP BY target ON target END`,
+      filter: this.filter,
     })
       .then(json => {
         this.totalHealingFromHymnBuff = json.entries.reduce(
@@ -28,7 +41,7 @@ class HymnBuffBenefit extends Analyzer {
           // assume all healing was fully effective, as this would drastically overweight the power of the buff in situations where a
           // lot of overhealing occurs.
           (healingFromBuff, entry) => healingFromBuff + ((entry.total - entry.total / (1 + DIVINE_HYMN_HEALING_INCREASE)) * (entry.total / (entry.total + (entry.overheal || 0)))),
-        0);
+          0);
       });
   }
 

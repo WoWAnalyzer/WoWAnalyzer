@@ -84,7 +84,6 @@ class PrePullCooldowns extends EventsNormalizer {
 
   normalize(events) {
     const { buffSpells, damageSpells } = this.getApplicableSpells();
-
     const prepullCasts = [];
     let precastClassResources = null;
 
@@ -109,7 +108,11 @@ class PrePullCooldowns extends EventsNormalizer {
         for (let i = 0; i < buffSpells.length; i += 1) {
           if (buffSpells[i].buffId === event.ability.guid) {
             debug && console.debug(`Detected a precast buff cooldown: ${event.ability.name}`);
-            prepullCasts.push(this.constructor._fabricateCastEvent(event, buffSpells[i].castId));
+            if(buffSpells[i].castId instanceof Array && buffSpells[i].castId.includes(event.ability.guid)){ //try to find corresponding cast, otherwise pass list of casts
+              prepullCasts.push(this.constructor._fabricateCastEvent(event));
+            }else{
+              prepullCasts.push(this.constructor._fabricateCastEvent(event, buffSpells[i].castId));
+            }
             buffSpells.splice(i, 1);
             break;
           }

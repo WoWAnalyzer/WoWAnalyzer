@@ -42,9 +42,11 @@ import AuraOfMercy from './modules/talents/AuraOfMercy';
 import HolyAvenger from './modules/talents/HolyAvenger';
 import DivinePurpose from './modules/talents/DivinePurpose';
 import CrusadersMight from './modules/talents/CrusadersMight';
+import AvengingCrusader from './modules/talents/AvengingCrusader';
 
 // azurite traits //
 import GraceOfTheJusticar from './modules/azeritetraits/GraceOfTheJusticar';
+import GlimmerOfLight from './modules/azeritetraits/GlimmerOfLight';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
@@ -105,10 +107,12 @@ class CombatLogParser extends CoreCombatLogParser {
     holyAvenger: HolyAvenger,
     divinePurpose: DivinePurpose,
     crusadersMight: CrusadersMight,
+    avengingCrusader: AvengingCrusader,
 
     // Azureite Traits //
     graceOfTheJusticar: GraceOfTheJusticar,
     radiantIncandescence: RadiantIncandescence,
+    glimmerOfLight: GlimmerOfLight,
   };
 }
 

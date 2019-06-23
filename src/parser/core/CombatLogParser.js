@@ -13,6 +13,7 @@ import CancelledCastsNormalizer from '../shared/normalizers/CancelledCasts';
 import PrePullCooldownsNormalizer from '../shared/normalizers/PrePullCooldowns';
 import FightEndNormalizer from '../shared/normalizers/FightEnd';
 import PhaseChangesNormalizer from '../shared/normalizers/PhaseChanges';
+import MissingCastsNormalizer from '../shared/normalizers/MissingCasts';
 
 // Core modules
 import HealingDone from '../shared/modules/throughput/HealingDone';
@@ -42,6 +43,7 @@ import Channeling from '../shared/modules/Channeling';
 import DeathDowntime from '../shared/modules/downtime/DeathDowntime';
 import TotalDowntime from '../shared/modules/downtime/TotalDowntime';
 import DistanceMoved from '../shared/modules/others/DistanceMoved';
+import DispelTracker from '../shared/modules/DispelTracker';
 
 // Tabs
 import RaidHealthTab from '../shared/modules/features/RaidHealthTab';
@@ -87,6 +89,8 @@ import RotcrustedVoodooDoll from '../shared/modules/items/bfa/dungeons/Rotcruste
 import AzerokksResonatingHeart from '../shared/modules/items/bfa/dungeons/AzerokksResonatingHeart';
 import VesselOfSkitteringShadows from '../shared/modules/items/bfa/dungeons/VesselOfSkitteringShadows';
 import LadyWaycrestsMusicBox from '../shared/modules/items/bfa/dungeons/LadyWaycrestsMusicBox';
+import IgnitionMagesFuse from '../shared/modules/items/bfa/dungeons/IgnitionMagesFuse';
+
 // PVP
 import DreadGladiatorsMedallion from '../shared/modules/items/bfa/pvp/DreadGladiatorsMedallion';
 import DreadGladiatorsInsignia from '../shared/modules/items/bfa/pvp/DreadGladiatorsInsignia';
@@ -139,9 +143,25 @@ import ConstructOvercharger from '../shared/modules/items/bfa/raids/uldir/Constr
 import SyringeOfBloodborneInfirmity from '../shared/modules/items/bfa/raids/uldir/SyringeOfBloodborneInfirmity';
 import DiscOfSystematicRegression from '../shared/modules/items/bfa/raids/uldir/DiscOfSystematicRegression';
 // BoD
+import DiamondLacedReflectingPrism from '../shared/modules/items/bfa/raids/bod/DiamondLacedReflectingPrism';
 import WardOfEnvelopment from '../shared/modules/items/bfa/raids/bod/WardOfEnvelopment';
 import CrestOfPaku from '../shared/modules/items/bfa/raids/bod/CrestOfPaku';
 import IncandescentSliver from '../shared/modules/items/bfa/raids/bod/IncandescentSliver';
+// Crucible of Storms
+import AbyssalSpeakersGauntlets from '../shared/modules/items/bfa/raids/crucibleofstorms/AbyssalSpeakersGauntlets';
+import FathuulsFloodguards from '../shared/modules/items/bfa/raids/crucibleofstorms/FathuulsFloodguards';
+import FathomDredgers from '../shared/modules/items/bfa/raids/crucibleofstorms/FathomDredgers';
+import GripsOfForsakenSanity from '../shared/modules/items/bfa/raids/crucibleofstorms/GripsOfForsakenSanity';
+import HarbingersInscrutableWill from '../shared/modules/items/bfa/raids/crucibleofstorms/HarbingersInscrutableWill';
+import IdolOfIndiscriminateConsumption from '../shared/modules/items/bfa/raids/crucibleofstorms/IdolOfIndiscriminateConsumption';
+import LeggingsOfTheAberrantTidesage from '../shared/modules/items/bfa/raids/crucibleofstorms/LeggingsOfTheAberrantTidesage';
+import LegplatesOfUnboundAnguish from '../shared/modules/items/bfa/raids/crucibleofstorms/LegplatesOfUnboundAnguish';
+import LurkersInsidiousGift from '../shared/modules/items/bfa/raids/crucibleofstorms/LurkersInsidiousGift';
+import MalformedHeraldsLegwraps from '../shared/modules/items/bfa/raids/crucibleofstorms/MalformedHeraldsLegwraps';
+import StormglideSteps from '../shared/modules/items/bfa/raids/crucibleofstorms/StormglideSteps';
+import TridentOfDeepOcean from '../shared/modules/items/bfa/raids/crucibleofstorms/TridentOfDeepOcean';
+import VoidStone from '../shared/modules/items/bfa/raids/crucibleofstorms/VoidStone';
+import ZaxasjsDeepstriders from '../shared/modules/items/bfa/raids/crucibleofstorms/ZaxasjsDeepstriders';
 
 import ParseResults from './ParseResults';
 import EventsNormalizer from './EventsNormalizer';
@@ -167,7 +187,8 @@ class CombatLogParser {
     cancelledCastsNormalizer: CancelledCastsNormalizer,
     prepullNormalizer: PrePullCooldownsNormalizer,
     phaseChangesNormalizer: PhaseChangesNormalizer,
-
+    missingCastsNormalize: MissingCastsNormalizer,
+    
     // Analyzers
     healingDone: HealingDone,
     damageDone: DamageDone,
@@ -195,6 +216,7 @@ class CombatLogParser {
     vantusRune: VantusRune,
     distanceMoved: DistanceMoved,
     deathRecapTracker: DeathRecapTracker,
+    dispels: DispelTracker,
 
     critEffectBonus: CritEffectBonus,
 
@@ -239,6 +261,8 @@ class CombatLogParser {
     azerokksResonatingHeart: AzerokksResonatingHeart,
     vesselOfSkitteringShadows: VesselOfSkitteringShadows,
     ladyWaycrestsMusicBox: LadyWaycrestsMusicBox,
+    ingnitionMagesFuse: IgnitionMagesFuse,
+
     // PVP
     dreadGladiatorsMedallion: DreadGladiatorsMedallion,
     dreadGladiatorsInsignia: DreadGladiatorsInsignia,
@@ -291,9 +315,25 @@ class CombatLogParser {
     syringeOfBloodborneInfirmity: SyringeOfBloodborneInfirmity,
     discOfSystematicRegression: DiscOfSystematicRegression,
     // BoD
+    diamondLacedReflectingPrism: DiamondLacedReflectingPrism,
     wardOfEnvelopment: WardOfEnvelopment,
     crestOfPaku: CrestOfPaku,
     incandescentSliver: IncandescentSliver,
+    // Crucible of Storms
+    abyssalSpeakersGauntlets: AbyssalSpeakersGauntlets,
+    fathuulsFloodguards: FathuulsFloodguards,
+    fathomDredgers: FathomDredgers,
+    harbingersInscrutableWill: HarbingersInscrutableWill,
+    idolOfIndiscriminateConsumption: IdolOfIndiscriminateConsumption,
+    gripsOfForsakenSanity: GripsOfForsakenSanity,
+    leggingsOfTheAberrantTidesage: LeggingsOfTheAberrantTidesage,
+    legplatesOfUnboundAnguish: LegplatesOfUnboundAnguish,
+    lurkersInsidiousGift: LurkersInsidiousGift,
+    malformedHeraldsLegwraps: MalformedHeraldsLegwraps,
+    stormglideSteps: StormglideSteps,
+    tridentOfDeepOcean: TridentOfDeepOcean,
+    voidStone: VoidStone,
+    zaxasjsDeepstriders: ZaxasjsDeepstriders,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
@@ -361,8 +401,15 @@ class CombatLogParser {
   }
   finish() {
     this.finished = true;
+    /** @var {EventEmitter} */
     const emitter = this.getModule(EventEmitter);
-    console.log('Called listeners', emitter._listenersCalled, 'times, with', emitter._actualExecutions, 'actual executions.', emitter._listenersCalled - emitter._actualExecutions, 'events were filtered away');
+    console.log(
+      'Events triggered:', emitter.numTriggeredEvents,
+      'Event listeners added:', emitter.numEventListeners,
+      'Listeners called:', emitter.numListenersCalled,
+      'Listeners called (after filters):', emitter.numActualExecutions,
+      'Listeners filtered away:', emitter.numListenersCalled - emitter.numActualExecutions
+    );
   }
 
   _getModuleClass(config) {

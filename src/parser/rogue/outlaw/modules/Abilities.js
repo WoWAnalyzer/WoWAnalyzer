@@ -1,12 +1,16 @@
+import React from 'react';
+
 import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 import CoreAbilities from 'parser/core/modules/Abilities';
+import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
 class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
 
     const standardGcd = combatant => 1000 * (1 - (combatant.hasBuff(SPELLS.ADRENALINE_RUSH.id) ? 0.2 : 0));
-
+    
     return [
       // Rotational
       {
@@ -65,8 +69,24 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
+          recommendedEfficiency: 0.95,
         },
         enabled: combatant.hasTalent(SPELLS.GHOSTLY_STRIKE_TALENT.id),
+      },
+      {
+        spell: SPELLS.BETWEEN_THE_EYES,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 30,
+        gcd: {
+          static: standardGcd,
+        },        
+      },
+      {
+        spell: SPELLS.PISTOL_SHOT,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        gcd: {
+          static: standardGcd,
+        },
       },
       // Rotational (AOE)
       {
@@ -88,15 +108,8 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-        },
-      },
-      {
-        spell: SPELLS.VANISH,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        cooldown: 120,
-        gcd: null,
-        castEfficiency: {
-          suggestion: false,
+          recommendedEfficiency: 0.9,
+          extraSuggestion: `Using Adrenaline Rush on cooldown is very important and should only be delayed when you know you won't be able to attack for the majority of it's duration.`,
         },
       },
       {
@@ -108,6 +121,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
+          extraSuggestion: <>You should delay using it to line it up with <SpellLink id={SPELLS.BLADE_FLURRY.id} icon /> in AoE scenarios.</>,
         },
         enabled: combatant.hasTalent(SPELLS.BLADE_RUSH_TALENT.id),
       },
@@ -120,6 +134,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
+          extraSuggestion: <>You should delay using it to line it up with <SpellLink id={SPELLS.BLADE_FLURRY.id} icon /> in AoE scenarios.</>,
         },
         enabled: combatant.hasTalent(SPELLS.KILLING_SPREE_TALENT.id),
       },
@@ -156,21 +171,26 @@ class Abilities extends CoreAbilities {
       },
       // Others
       {
-        spell: SPELLS.BETWEEN_THE_EYES,
+        spell: SPELLS.PICK_LOCK,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
-        cooldown: 30,
-        gcd: {
-          static: standardGcd,
-        },
       },
       {
-        spell: SPELLS.PISTOL_SHOT,
+        spell: SPELLS.PICK_POCKET,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
-        gcd: {
-          static: standardGcd,
-        },
+        // While this actually has a 0.5s CD, it shows up weird in the Abilities tab if we set that
       },
       // Utility
+      {
+        spell: SPELLS.VANISH,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        cooldown: 120,
+        gcd: null,
+        castEfficiency: {
+          suggestion: true,
+          extraSuggestion: <>In most fights this can be used on cooldown for an <SpellLink id={SPELLS.AMBUSH.id} icon />, but it's perfectly fine to save this for a <SpellLink id={SPELLS.CHEAP_SHOT.id} icon /> on adds, especially when talented for <SpellLink id={SPELLS.PREY_ON_THE_WEAK_TALENT.id} icon />.</>,
+          importance: ISSUE_IMPORTANCE.MINOR,
+        },
+      },
       {
         spell: SPELLS.GRAPPLING_HOOK,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
@@ -243,16 +263,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SAP,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
-      },
-      {
-        spell: SPELLS.PICK_LOCK,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-      },
-      {
-        spell: SPELLS.PICK_POCKET,
-        category: Abilities.SPELL_CATEGORIES.UTILITY,
-        // While this actually has a 0.5s CD, it shows up weird in the Abilities tab if we set that
-      },
+      },      
     ];
   }
 }

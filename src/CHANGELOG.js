@@ -1,5 +1,5 @@
 import React from 'react';
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq } from 'CONTRIBUTORS';
+import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -7,6 +7,56 @@ import SpellLink from 'common/SpellLink';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  {
+    date: new Date('2019-06-19'),
+    changes: 'Added Eternal Palace raid information to zones.',
+    contributors: [Yajinni],
+  },
+  {
+    date: new Date('2019-06-16'),
+    changes: 'Fixed issues with shared CDs (like potions) in the timeline.',
+    contributors: [Zeboot],
+  },
+  {
+    date: new Date('2019-06-10'),
+    changes: 'Added URL bar search support for report links.',
+    contributors: [Zeboot],
+  },
+  {
+    date: new Date('2019-06-10'),
+    changes: 'Fixed an issue with some items not providing relevant cast events.',
+    contributors: [Zeboot],
+  },
+  {
+    date: new Date('2019-06-10'),
+    changes: 'Added most items from the Crucible of Storms raid.',
+    contributors: [Zeboot],
+  },
+  {
+    date: new Date('2019-06-02'),
+    changes: <>Added a <SpellLink id={SPELLS.IGNITION_MAGES_FUSE_BUFF.id} /> module to track usage and average haste gained.</>,
+    contributors: [HolySchmidt],
+  },
+  {
+    date: new Date('2019-05-12'),
+    changes: 'Added average heart of azeroth level to the player selection page',
+    contributors: [Scotsoo],
+  },
+  {
+    date: new Date('2019-05-10'),
+    changes: <>Fixed an issue where the timeline and the Cancelled Casts statistic would incorrectly mark a spell as cancelled in high latency situations.</>,
+    contributors: [Sharrq],
+  },
+  {
+    date: new Date('2019-04-20'),
+    changes: <>Fixed issue for mages where the timeline would show a cast as cancelled if they cast an ability that could be cast while casting (e.g. <SpellLink id={SPELLS.SHIMMER_TALENT.id} /> or <SpellLink id={SPELLS.FIRE_BLAST.id} />).</>,
+    contributors: [Sharrq],
+  },
+  {
+    date: new Date('2019-04-17'),
+    changes: 'Added the Crucible of Storms raid to the character search and made it the default raid.',
+    contributors: [Yajinni],
+  },
   {
     date: new Date('2019-03-30'),
     changes: 'Fixed issue where the character parses page didn\'t return any results when region wasn\'t capitalized.',
