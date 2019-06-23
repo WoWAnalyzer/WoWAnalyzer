@@ -93,6 +93,10 @@ class Timeline extends React.PureComponent {
       // begincooldown is unnecessary since endcooldown includes the start time
       return false;
     }
+    if(event.trigger === "restorecharge" && event.timestamp < this.start){
+      //ignore restore charge events if they happen before the phase
+      return false;
+    }
     return true;
   }
   /**
