@@ -15,8 +15,8 @@ import { MOONFIRE_FERAL_BASE_DURATION, PANDEMIC_FRACTION } from '../../constants
  */
 
 class MoonfireSnapshot extends Snapshot {
-  static spellCastId = SPELLS.MOONFIRE_FERAL.id;
-  static debuffId = SPELLS.MOONFIRE_FERAL.id;
+  static spell = SPELLS.MOONFIRE_FERAL;
+  static debuff = SPELLS.MOONFIRE_FERAL;
 
   static durationOfFresh = MOONFIRE_FERAL_BASE_DURATION;
   static isProwlAffected = false;

@@ -22,6 +22,7 @@ import Bloodtalons from '../../talents/Bloodtalons';
 import Predator from '../../talents/Predator';
 import TigersFuryEnergy from '../../spells/TigersFuryEnergy';
 import Shadowmeld from '../../racials/Shadowmeld';
+import FinisherUse from '../../combopoints/FinisherUse';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -45,6 +46,7 @@ class Checklist extends BaseChecklist {
     predator: Predator,
     tigersFuryEnergy: TigersFuryEnergy,
     shadowmeld: Shadowmeld,
+    finisherUse: FinisherUse,
   };
 
   render() {
@@ -68,7 +70,7 @@ class Checklist extends BaseChecklist {
           ferociousBiteEnergy: this.ferociousBiteEnergy.suggestionThresholds,
           ripShouldBeBite: this.ripSnapshot.shouldBeBiteSuggestionThresholds,
           ripDurationReduction: this.ripSnapshot.durationReductionThresholds,
-          finishersBelowFull: this.comboPointDetails.finishersBelowMaxSuggestionThresholds,
+          badLowComboFinishers: this.finisherUse.badFinishersThresholds,
 
           // energy
           energyCapped: this.energyCapTracker.suggestionThresholds,
