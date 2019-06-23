@@ -31,7 +31,7 @@ class StaggerFabricator extends Analyzer {
   _lastKnownMaxHp = 0;
 
   //count as uninitialized if fight didn't start at actual fight start time (aka phase)
-  _initialized = this.owner.fight.offset_time === 0;
+  _initialized = (this.owner.fight.offset_time || 0) === 0;
 
   get purifyPercentage() {
     return PURIFY_BASE;
