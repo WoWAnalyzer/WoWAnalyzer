@@ -90,61 +90,39 @@ class PhaseParser extends React.PureComponent {
         event.timestamp >= startEvent.timestamp
         && event.timestamp <= endEvent.timestamp
       );
-    this.findRelevantPrePhaseEvents(events.filter(event => event.timestamp < startEvent.timestamp).reverse()) //pass reversed list so "more relevant" events get searched first to improve performance
-    .sort((a,b) => a.timestamp - b.timestamp) //sort events by timestamp
-    .map(e => ({
-      ...e,
-      prepull: true, //pretend previous phases were "prepull"
-      ...(e.type !== PREPHASE_CAST_EVENT_TYPE ? {timestamp: startEvent.timestamp} : {__fabricated: true}), //override existing timestamps to the start of the phase to avoid >100% uptimes (only on non casts to retain cooldowns)
-    }));
 
-    const prePhaseEvents2 = this.findRelevantPrePhaseEvents2(events.filter(event => event.timestamp < startEvent.timestamp).reverse())
+    const prePhaseEvents = this.findRelevantPrePhaseEvents(events.filter(event => event.timestamp < startEvent.timestamp).reverse())
     .sort((a,b) => a.timestamp - b.timestamp) //sort events by timestamp
     .map(e => ({
       ...e,
       prepull: true, //pretend previous phases were "prepull"
       ...(e.type !== PREPHASE_CAST_EVENT_TYPE ? {timestamp: startEvent.timestamp} : {__fabricated: true}), //override existing timestamps to the start of the phase to avoid >100% uptimes (only on non casts to retain cooldowns)
     }));
-    return {start: startEvent.timestamp, events: [...prePhaseEvents2, startEvent, ...phaseEvents, endEvent], end: endEvent.timestamp};
+    return {start: startEvent.timestamp, events: [...prePhaseEvents, startEvent, ...phaseEvents, endEvent], end: endEvent.timestamp};
   }
 
-  //find events before the phase that are relevant in this phase (aka cooldowns and buffs) and include them in analysis
-  //this could probably be done a lot faster by wrapping it all into one forEach and handling each event type differently within there to save filter Casts.
-  //This is much cleaner this way though and still pretty fast so not sure if it's needed?
-  //(see second option below for other version)
+  //filter prephase events to just the events outside the phase that "matter" to make statistics more accurate (e.g. buffs and cooldowns)
   findRelevantPrePhaseEvents(events){
-    bench("total phase filter");
-    bench("phase buff filter");
-    const applyBuffEvents = this.findRelevantBuffEvents(events);
-    benchEnd("phase buff filter");
-    bench("phase stack filter");
-    const buffStackEvents = this.findRelevantStackEvents(events, applyBuffEvents);
-    benchEnd("phase stack filter");
-    bench("phase cast filter");
-    const castEvents = this.findRelevantCastEvents(events);
-    benchEnd("phase cast filter");
-    const relevantEvents = [...castEvents, ...applyBuffEvents, ...buffStackEvents];
-    benchEnd("total phase filter");
-    return relevantEvents;
-  }
+    bench("phase filter");
+    const buffEvents = []; //(de)buff apply events for (de)buffs that stay active going into the phase
+    const stackEvents = []; //stack events related to the above buff events that happen after the buff is applied
+    const castEvents = []; //latest cast event of each cast by player for cooldown tracking
 
-  //second option, faster but not as "clean"
-  findRelevantPrePhaseEvents2(events){
-    bench("second phase filter");
-    const foundBuffs = [];
-    const stackEvents = [];
-    const foundCasts = [];
+    const buffIsMarkedActive = (e) => buffEvents.find(e2 => e.ability.guid === e2.ability.guid && e.targetID === e2.targetID && e.sourceID === e2.targetID) !== undefined;
+    const buffIsRemoved = (e, buffRelevantEvents) => buffRelevantEvents.find(e2 => e2.type === e.type.replace("apply", "remove") && eventFollows(e, e2)) !== undefined;
+    const castHappenedLater = (e) => castEvents.find(e2 => e.ability.guid === e2.ability.guid && e.sourceID === e2.sourceID) !== undefined;
+
     events.forEach((e, index) => {
       switch(e.type){
         case "applybuff":
         case "applydebuff":
           //if buff isn't already confirmed as "staying active"
-          if(foundBuffs.find(e2 => e.ability.guid === e2.ability.guid && e.targetID === e2.targetID && e.sourceID === e2.targetID) === undefined){
+          if(!buffIsMarkedActive(e)){
             //look only at buffs that happen after the apply event (since we traverse in reverse order)
             const buffRelevantEvents = events.slice(0, index);
             //if no remove is found following the apply event, mark the buff as "staying active"
-            if(buffRelevantEvents.find(e2 => e2.type === e.type.replace("apply", "remove") && eventFollows(e, e2)) === undefined){
-              foundBuffs.push(e);
+            if(!buffIsRemoved(e, buffRelevantEvents)){
+              buffEvents.push(e);
               //find relevant stack information for active buff / debuff
               stackEvents.push(...buffRelevantEvents.reverse().reduce((arr, e2) => {
                 //traverse through all following stack events in chronological order
@@ -164,64 +142,16 @@ class PhaseParser extends React.PureComponent {
           break;
         case "cast":
           //only keep "latest" cast, override type to prevent > 100% uptime / efficiency
-          if(foundCasts.find(e2 => e.ability.guid === e2.ability.guid && e.sourceID === e2.sourceID) === undefined){
-            foundCasts.push({...e, type: PREPHASE_CAST_EVENT_TYPE});
+          if(!castHappenedLater(e)){
+            castEvents.push({...e, type: PREPHASE_CAST_EVENT_TYPE});
           }
           break;
         default:
           break;
       }
     });
-    benchEnd("second phase filter");
-    return [...foundCasts, ...foundBuffs, ...stackEvents];
-  }
-
-  findRelevantBuffEvents(events){
-    const foundBuffs = []; //keep track of buffs that are already known to be kept going into a phase
-    return events.filter(e => {
-      if(!["applybuff", "applydebuff"].includes(e.type)){
-        return false;
-      }
-    //only keep prior apply(de)buff events if they dont have an associated remove(de)buff event
-      //if buff is already known to be kept, we don't need to search for a remove event
-      if(foundBuffs.find(e2 => e.ability.guid === e2.ability.guid && e.targetID === e2.targetID && e.sourceID === e2.targetID) !== undefined){
-        return false;
-      }
-      //if buff wasn't removed, add it to found buffs and keep event
-      if(events.find(e2 => e2.type === e.type.replace("apply", "remove") && eventFollows(e, e2)) === undefined){
-        foundBuffs.push(e);
-        return true;
-      }
-      return false;
-    });
-  }
-
-  findRelevantStackEvents(events, buffEvents){
-    const stackEventsT = events.filter(e => ["applybuffstack", "removebuffstack", "applydebuffstack", "removedebuffstack"].includes(e.type));
-    return buffEvents.reduce((arr, e) => {
-      const stackEvents = stackEventsT.filter(e2 => eventFollows(e, e2));
-      //Is this part even necessary? Might be faster just passing every applybuffstack and removebuffstack event back to the eventparser and letting the normalizers / modules handle stack counts
-      const applyEvents = stackEvents.filter(e => e.type.includes("apply"));
-      const removeEvents = stackEvents.filter(e => e.type.includes("remove"));
-      const stackCount = applyEvents.length - removeEvents.length;
-      return [...arr, ...applyEvents.slice(0, stackCount)];
-      //return [...arr, ...stackEvents];
-    }, []);
-  }
-
-  findRelevantCastEvents(events){
-    const foundCasts = []; //keep track of found Casts
-    events.forEach(e => {
-      if(e.type === "cast"){
-        if(foundCasts.find(e2 => e.ability.guid === e2.ability.guid && e.sourceID === e2.sourceID) === undefined){
-          foundCasts.push({
-            ...e,
-            type: PREPHASE_CAST_EVENT_TYPE,
-          });
-        }
-      }
-    });
-    return foundCasts;
+    benchEnd("phase filter");
+    return [...castEvents, ...buffEvents, ...stackEvents];
   }
 
   async parse(phasesChanged = true) {
