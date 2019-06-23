@@ -338,6 +338,7 @@ class Results extends React.PureComponent {
           selectedPhase={selectedPhase}
           phases={phases}
           handlePhaseSelection={handlePhaseSelection}
+          isLoading={this.isLoading}
         />
 
         {boss && boss.fight.resultsWarning && (

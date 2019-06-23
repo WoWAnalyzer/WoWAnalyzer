@@ -10,6 +10,7 @@ class PhaseSelector extends React.PureComponent {
     phases: PropTypes.object.isRequired,
     selectedPhase: PropTypes.string.isRequired,
     handlePhaseSelection: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool.isRequired,
   };
 
   constructor(...args){
@@ -30,6 +31,7 @@ class PhaseSelector extends React.PureComponent {
         defaultValue={selectedPhase}
         onChange={this.handleChange}
         ref={this.phaseRef}
+        disabled={this.props.isLoading}
       >
         <option key="all" value={SELECTION_ALL_PHASES}>All Phases</option>
         {Object.keys(phases).map(key =>

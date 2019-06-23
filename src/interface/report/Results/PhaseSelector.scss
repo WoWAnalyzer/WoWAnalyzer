@@ -3,3 +3,7 @@
 .form-control.phase > option{
   background-color: $backgroundColor
 }
+
+.form-control.phase[disabled]{
+  background-color: inherit;
+}
