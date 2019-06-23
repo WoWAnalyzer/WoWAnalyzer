@@ -86,17 +86,20 @@ class StaggerFabricator extends Analyzer {
     }
     const amount = event.amount + (event.absorbed || 0);
     if(!this._initialized){ //if stagger hasn't been initialized (aka new phase), send a fake add stagger event
+      this._staggerPool = amount*19; //stagger lasts for 10 seconds at 0.5s per tick, we can calculate the total stagger remaining in the pool to be 19*tick (1 out of 20 total stacks being removed this tick)
       this.addStagger({
         ...event,
+        __fabricated: true,
+        prepull: true,
         extraAbility: {
           name: "Initialize Stagger",
           guid: SPELLS.STAGGER_TAKEN.id,
-          type:1,
+          type: 1,
           abilityIcon: SPELLS.STAGGER_TAKEN.icon,
         },
-      }, amount * 19); //stagger lasts for 10 seconds at 0.5s per tick, we can calculate the total stagger remaining in the pool to be 19*tick
+      }, 0); //send empty stagger event to initialized purify etc without tainting the damage staggered statistic
       this._initialized = true;
-    }else{ //skip the remove stagger event as we only added 19 ticks worth into the pool
+    }else{ //skip this tick's remove event as we only added 19 ticks to the pool
       this.removeStagger(event, amount);
     }
 
