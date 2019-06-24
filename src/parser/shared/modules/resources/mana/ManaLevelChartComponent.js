@@ -12,6 +12,7 @@ class Mana extends React.PureComponent {
     actorId: PropTypes.number.isRequired,
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
+    offset: PropTypes.number.isRequired,
     manaUpdates: PropTypes.array.isRequired,
   };
 
@@ -26,7 +27,7 @@ class Mana extends React.PureComponent {
     this.load(this.props.reportCode, this.props.actorId, this.props.start, this.props.end);
   }
   componentWillReceiveProps(newProps) {
-    if (newProps.reportCode !== this.props.reportCode || newProps.actorId !== this.props.actorId || newProps.start !== this.props.start || newProps.end !== this.props.end) {
+    if (newProps.reportCode !== this.props.reportCode || newProps.actorId !== this.props.actorId || newProps.start !== this.props.start || newProps.end !== this.props.end || newProps.offset !== this.props.offset) {
       this.load(newProps.reportCode, newProps.actorId, newProps.start, newProps.end);
     }
   }
@@ -55,7 +56,7 @@ class Mana extends React.PureComponent {
       );
     }
 
-    const { start, end, manaUpdates } = this.props;
+    const { start, end, offset, manaUpdates } = this.props;
 
     const mana = [{ x: start, y: 100 }]; // start with full mana
     mana.push(...manaUpdates.map(({ timestamp, current, max }) => {
@@ -95,6 +96,7 @@ class Mana extends React.PureComponent {
           deaths={deaths}
           startTime={start}
           endTime={end}
+          offsetTime={offset}
         />
       </div>
     );
@@ -102,4 +104,3 @@ class Mana extends React.PureComponent {
 }
 
 export default Mana;
-

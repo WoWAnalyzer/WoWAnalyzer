@@ -16,7 +16,8 @@ class ManaLevelChart extends Analyzer {
     const actorId = this.owner.playerId;
     const start = this.owner.fight.start_time;
     const end = this.owner.fight.end_time;
-
+    const offset = this.owner.fight.offset_time;
+    
     return (
       <Panel
         title="Mana pool"
@@ -28,6 +29,7 @@ class ManaLevelChart extends Analyzer {
           actorId={actorId}
           start={start}
           end={end}
+          offset={offset}
           manaUpdates={this.manaValues.manaUpdates}
         />
       </Panel>
