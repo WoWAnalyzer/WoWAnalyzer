@@ -29,6 +29,7 @@ class PhaseSelector extends React.PureComponent {
       <select
         className="form-control phase"
         defaultValue={selectedPhase}
+        value={selectedPhase}
         onChange={this.handleChange}
         ref={this.phaseRef}
         disabled={this.props.isLoading}

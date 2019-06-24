@@ -12,6 +12,7 @@ import ArmorIcon from 'interface/icons/Armor';
 import EventsIcon from 'interface/icons/Events';
 import AboutIcon from 'interface/icons/About';
 import PhaseSelector from './PhaseSelector';
+import TimeFilter from './TimeFilter';
 
 import './Header.scss';
 
@@ -32,6 +33,7 @@ class Header extends React.PureComponent {
       headshot: PropTypes.string.isRequired,
     }),
     handlePhaseSelection: PropTypes.func.isRequired,
+    applyFilter: PropTypes.func.isRequired,
     phases: PropTypes.object,
     selectedPhase: PropTypes.string.isRequired,
     isLoading: PropTypes.bool.isRequired,
@@ -114,7 +116,7 @@ class Header extends React.PureComponent {
     );
   }
   renderInfo() {
-    const { config: { spec }, name, fight, boss, handlePhaseSelection, selectedPhase, phases, isLoading } = this.props;
+    const { config: { spec }, name, fight, boss, handlePhaseSelection, selectedPhase, phases, isLoading, applyFilter } = this.props;
     return (
       <div className="info container">
         <div className="boss">
@@ -127,6 +129,9 @@ class Header extends React.PureComponent {
           <h2>
             {phases && <PhaseSelector phases={phases} handlePhaseSelection={handlePhaseSelection} selectedPhase={selectedPhase} isLoading={isLoading} />}
           </h2>
+          <div className="timefilter">
+            <TimeFilter fight={fight} isLoading={isLoading} applyFilter={applyFilter} />
+          </div>
         </div>
         <div className="player">
           <div className="avatar">

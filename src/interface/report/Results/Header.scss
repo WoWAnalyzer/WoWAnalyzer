@@ -66,6 +66,14 @@
     .boss {
       line-height: 1;
     }
+    .timefilter {
+      font-weight: 600;
+      margin: 5px 5px 5px 0px;
+
+      button.filter {
+        margin-left: 5px;
+      }
+    }
     .player {
       line-height: 1;
       border: 1px solid transparent;

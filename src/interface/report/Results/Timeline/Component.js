@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { PREPHASE_CAST_EVENT_TYPE } from 'interface/report/PhaseParser';
+import { PRE_FILTER_COOLDOWN_EVENT_TYPE } from 'interface/report/TimeEventFilter';
 
 import { formatDuration } from 'common/format';
 import DragScroll from 'interface/common/DragScroll';
@@ -62,7 +62,7 @@ class Timeline extends React.PureComponent {
 
   isApplicableEvent(event) {
     switch (event.type) {
-      case PREPHASE_CAST_EVENT_TYPE:
+      case PRE_FILTER_COOLDOWN_EVENT_TYPE:
       case 'cast':
         return this.isApplicableCastEvent(event);
       case 'updatespellusable':
