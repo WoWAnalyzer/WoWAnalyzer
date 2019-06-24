@@ -57,8 +57,13 @@ class Mana extends React.PureComponent {
     }
 
     const { start, end, offset, manaUpdates } = this.props;
-
-    const mana = [{ x: start, y: 100 }]; // start with full mana
+    const initial = manaUpdates[0] ? (manaUpdates[0].current / manaUpdates[0].max) : 1; // if first event is defined, use it to copy first value, otherwise use 100%
+    const mana = offset === 0 ?
+      [{ x: start, y: 100 }] :
+      [{
+        x: start,
+        y: 100 * initial,
+      }]; // start with full mana if we start at the beginning of the fight, otherwise copy first value
     mana.push(...manaUpdates.map(({ timestamp, current, max }) => {
       const x = Math.max(timestamp, start);
       return {
