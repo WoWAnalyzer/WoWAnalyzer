@@ -5,6 +5,7 @@ import { PHASE_START_EVENT_TYPE, PHASE_END_EVENT_TYPE } from 'common/fabricateBo
 import { findByBossId } from 'raids';
 
 export const SELECTION_ALL_PHASES = "ALL";
+export const SELECTION_CUSTOM_PHASE = "CUSTOM";
 
 class PhaseParser extends React.PureComponent {
   static propTypes = {

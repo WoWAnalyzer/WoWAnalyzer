@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { captureException } from 'common/errorLogger';
 
 import { EventsParseError } from './EventParser';
+import { SELECTION_ALL_PHASES } from './PhaseParser';
 
 export const PRE_FILTER_COOLDOWN_EVENT_TYPE = "filter_cooldown_info";
 
@@ -160,7 +161,7 @@ class TimeEventFilter extends React.PureComponent {
           offset_time: eventFilter.start - this.props.fight.start_time, //time between time filter start and fight start (for e.g. timeline)
           original_end_time: this.props.fight.end_time,
           filtered: (eventFilter.start !== this.props.fight.start_time || eventFilter.end !== this.props.fight.end_time),
-          ...(this.props.phase !== PRE_FILTER_COOLDOWN_EVENT_TYPE && {phase: this.props.phase}), //if phase is selected, add it to the fight object
+          ...(this.props.phase !== SELECTION_ALL_PHASES && {phase: this.props.phase}), //if phase is selected, add it to the fight object
         },
         isLoading: false,
       });

@@ -127,7 +127,7 @@ class Header extends React.PureComponent {
             {boss ? boss.name : getBossName(fight, false)}
           </h1>
           <h2>
-            {phases && <PhaseSelector phases={phases} handlePhaseSelection={handlePhaseSelection} selectedPhase={selectedPhase} isLoading={isLoading} />}
+            {phases && <PhaseSelector fight={fight} phases={phases} handlePhaseSelection={handlePhaseSelection} selectedPhase={selectedPhase} isLoading={isLoading} />}
           </h2>
           <div className="timefilter">
             <TimeFilter fight={fight} isLoading={isLoading} applyFilter={applyFilter} />
