@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './PhaseSelector.scss';
-
 import TimeInput from './TimeInput';
 
 class TimeFilter extends React.PureComponent {
@@ -52,9 +50,9 @@ class TimeFilter extends React.PureComponent {
     const {isLoading} = this.props;
     return (
       <form onSubmit={this.handleSubmit}>
-        <TimeInput style={{display: "inline-block"}} key="start" min={0} max={this.state.max} time={this.state.start} onChange={this.selectStart} />
+        <TimeInput name="start" min={0} max={this.state.max} time={this.state.start} onChange={this.selectStart} />
         {' to '}
-        <TimeInput style={{display: "inline-block"}} key="end" min={0} max={this.state.max} time={this.state.end} onChange={this.selectEnd} />
+        <TimeInput name="end" min={0} max={this.state.max} time={this.state.end} onChange={this.selectEnd} />
         <button type="submit" class="btn btn-primary filter animated-button" disabled={isLoading || this.state.end <= this.state.start}>
           Filter <span className="glyphicon glyphicon-chevron-right" aria-hidden />
         </button>

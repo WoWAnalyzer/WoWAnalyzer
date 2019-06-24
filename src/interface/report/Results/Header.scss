@@ -70,6 +70,15 @@
       font-weight: 600;
       margin: 5px 5px 5px 0px;
 
+      form div {
+        display: inline-block;
+      }
+
+      .time-input input {
+        width: auto;
+        display: inline-block;
+      }
+
       button.filter {
         margin-left: 5px;
       }

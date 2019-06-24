@@ -6,7 +6,7 @@ const MINUTE = 60 * SECOND;
 
 class TimeInput extends React.PureComponent {
   static propTypes = {
-    key: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
     time: PropTypes.number.isRequired,
     min: PropTypes.number.isRequired,
     max: PropTypes.number.isRequired,
@@ -81,12 +81,12 @@ class TimeInput extends React.PureComponent {
   }
 
   render() {
-    const { key, style } = this.props;
+    const { name, style } = this.props;
     return (
-      <div style={{...style}} class={key}>
-        <input ref={this.mRef} class={`form-control ${key}-minute`} style={{display: "inline-block", width:"auto"}} type="number" min="0" max="99" value={this.pad(this.state.minutes, 2)} onChange={this.handleChangeM} />:
-        <input ref={this.sRef} class={`form-control ${key}-second`} style={{display: "inline-block", width:"auto"}} type="number" min="0" max="99" value={this.pad(this.state.seconds, 2)} onChange={this.handleChangeS} />.
-        <input ref={this.msRef} class={`form-control ${key}-millisecond`} style={{display: "inline-block", width:"auto"}} type="number" min="0" max="999" value={this.pad(this.state.milliseconds, 3)} onChange={this.handleChangeMs} />
+      <div style={{...style}} class={`time-input ${name}`}>
+        <input ref={this.mRef} class={`form-control ${name}-minute`} type="number" min="0" max="99" value={this.pad(this.state.minutes, 2)} onChange={this.handleChangeM} />:
+        <input ref={this.sRef} class={`form-control ${name}-second`} type="number" min="0" max="99" value={this.pad(this.state.seconds, 2)} onChange={this.handleChangeS} />.
+        <input ref={this.msRef} class={`form-control ${name}-millisecond`} type="number" min="0" max="999" value={this.pad(this.state.milliseconds, 3)} onChange={this.handleChangeMs} />
       </div>
     );
   }
