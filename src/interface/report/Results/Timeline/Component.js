@@ -86,6 +86,9 @@ class Timeline extends React.PureComponent {
     if (!ability || !ability.cooldown) {
       return false;
     }
+    if(event.timestamp >= this.end){
+      return false;
+    }
     return true;
   }
   isApplicableUpdateSpellUsableEvent(event) {
