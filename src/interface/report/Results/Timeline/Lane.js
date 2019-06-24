@@ -115,7 +115,7 @@ class Lane extends React.PureComponent {
       const nextCast = nextChildren.findIndex(e => e.type === "cast" || e.type === PRE_FILTER_COOLDOWN_EVENT_TYPE) + 1; //add 1 since we're searching through the events FOLLOWING the initial cast
       const nextCD = nextChildren.find(e => e.type === "updatespellusable" && e.trigger === "endcooldown"); //find next end CD event
       if(nextCD && nextCD.end < this.props.fightStartTimestamp - PREPHASE_BUFFER){//if cooldown ended before the phase (including buffer), remove it to avoid visual overlaps
-        children.splice(0, nextCast); //remove events before the next cast
+        children.splice(0, nextCast || children.length); //remove events before the next cast, remove all if there is no next cast to clean up the list
       }
     }
 
