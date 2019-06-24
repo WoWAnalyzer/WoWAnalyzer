@@ -15,7 +15,7 @@ const benchEnd = id => TIME_AVAILABLE && console.timeEnd(id);
 //returns whether e2 follows e and the events are associated
 const eventFollows = (e, e2) =>
   e2.timestamp > e.timestamp
-  && e2.ability.guid === e.ability.guid
+  && (e2.ability && e.ability ? e2.ability.guid === e.ability.guid : !e2.ability && !e.ability) //if both have an ability, its ID needs to match, otherwise neither can have an ability
   && e2.sourceID === e.sourceID
   && e2.targetID === e.targetID;
 
