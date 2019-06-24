@@ -65,15 +65,30 @@ class TimeInput extends React.PureComponent {
   }
 
   handleChangeM(e) {
-    this.changeTime(MINUTE * parseInt(e.target.value, 10) + SECOND * this.state.seconds + this.state.milliseconds);
+    const val = parseInt(e.target.value, 10);
+    if(val > 99){
+      this.forceUpdate();
+      return;
+    }
+    this.changeTime(MINUTE * val + SECOND * this.state.seconds + this.state.milliseconds);
   }
 
   handleChangeS(e) {
-    this.changeTime(MINUTE * this.state.minutes + SECOND * parseInt(e.target.value, 10) + this.state.milliseconds);
+    const val = parseInt(e.target.value, 10);
+    if(val > 99){
+      this.forceUpdate();
+      return;
+    }
+    this.changeTime(MINUTE * this.state.minutes + SECOND * val + this.state.milliseconds);
   }
 
   handleChangeMs(e) {
-    this.changeTime(MINUTE * this.state.minutes + SECOND * this.state.seconds + parseInt(e.target.value, 10));
+    const val = parseInt(e.target.value, 10);
+    if(val > 990){
+      this.forceUpdate();
+      return;
+    }
+    this.changeTime(MINUTE * this.state.minutes + SECOND * this.state.seconds + val);
   }
 
   submitChange(time) {
