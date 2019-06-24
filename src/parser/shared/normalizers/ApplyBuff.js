@@ -56,7 +56,7 @@ class ApplyBuff extends EventsNormalizer {
         const targetInfo = this._combatantInfoEvents.find(combatantInfoEvent => combatantInfoEvent.sourceID === targetId);
         const applybuff = {
           // These are all the properties a normal `applybuff` event would have.
-          timestamp: firstStartTimestamp,
+          timestamp: (event.type === PRE_FILTER_BUFF_EVENT_TYPE) ? firstStartTimestamp - this.owner.fight.offset_time : firstStartTimestamp,
           type: 'applybuff',
           ability: event.ability,
           sourceID: sourceId,

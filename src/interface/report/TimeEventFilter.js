@@ -120,7 +120,7 @@ class TimeEventFilter extends React.PureComponent {
   }
 
   findRelevantPostFilterEvents(events){
-    return events.filter(e => e.type === "cast" && POTIONS.includes(e.ability.guid));
+    return events.filter(e => e.type === "cast" && POTIONS.includes(e.ability.guid)).map(e => ({...e, type: PRE_FILTER_COOLDOWN_EVENT_TYPE, trigger: e.type}));
   }
 
   //filter prephase events to just the events outside the time period that "matter" to make statistics more accurate (e.g. buffs and cooldowns)
@@ -170,9 +170,7 @@ class TimeEventFilter extends React.PureComponent {
         case "cast":
           //only keep "latest" cast, override type to prevent > 100% uptime / efficiency
           //whitelist certain casts (like potions) to keep suggestions working
-          if(POTIONS.includes(e.ability.guid)){
-            castEvents.push(e);
-          }else if(!castHappenedLater(e)){
+          if(POTIONS.includes(e.ability.guid) || !castHappenedLater(e)){
             castEvents.push({...e, type: PRE_FILTER_COOLDOWN_EVENT_TYPE, trigger: e.type});
           }
           break;

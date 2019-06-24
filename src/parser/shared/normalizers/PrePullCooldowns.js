@@ -233,7 +233,7 @@ class PrePullCooldowns extends EventsNormalizer {
       targetIsFriendly: event.targetIsFriendly,
 
       // Custom properties:
-      prepull: event.prepull,
+      prepull: true,
       __fabricated: true,
     };
   }
