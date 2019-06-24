@@ -46,6 +46,10 @@ class TimeFilter extends React.PureComponent {
     this.props.applyFilter(this.state.start, this.state.end);
   }
 
+  invalidTimes(){
+    return this.state.end <= this.state.start || this.state.end < 0 || this.state.end > this.state.max || this.state.start < 0 || this.state.start > this.state.max;
+  }
+
   render() {
     const {isLoading} = this.props;
     return (
@@ -53,7 +57,7 @@ class TimeFilter extends React.PureComponent {
         <TimeInput name="start" min={0} max={this.state.max} time={this.state.start} onChange={this.selectStart} />
         {' to '}
         <TimeInput name="end" min={0} max={this.state.max} time={this.state.end} onChange={this.selectEnd} />
-        <button type="submit" class="btn btn-primary filter animated-button" disabled={isLoading || this.state.end <= this.state.start}>
+        <button type="submit" class="btn btn-primary filter animated-button" disabled={isLoading || this.invalidTimes()}>
           Filter <span className="glyphicon glyphicon-chevron-right" aria-hidden />
         </button>
       </form>

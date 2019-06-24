@@ -55,21 +55,25 @@ class TimeInput extends React.PureComponent {
   }
 
   changeTime(time){
-    const clamped = Math.max(this.props.min, Math.min(this.props.max, time));
-    this.setState(this.convertTime(clamped));
-    this.submitChange(clamped);
+    if(time > this.props.max || time < this.props.min){
+      this.forceUpdate();
+      return;
+    }
+    this.setState(this.convertTime(time));
+    this.submitChange(time);
+
   }
 
   handleChangeM(e) {
-    this.changeTime(MINUTE * e.target.value + SECOND * this.state.seconds + this.state.milliseconds);
+    this.changeTime(MINUTE * parseInt(e.target.value, 10) + SECOND * this.state.seconds + this.state.milliseconds);
   }
 
   handleChangeS(e) {
-    this.changeTime(MINUTE * this.state.minutes + SECOND * e.target.value + this.state.milliseconds);
+    this.changeTime(MINUTE * this.state.minutes + SECOND * parseInt(e.target.value, 10) + this.state.milliseconds);
   }
 
   handleChangeMs(e) {
-    this.changeTime(MINUTE * this.state.minutes + SECOND * this.state.seconds + e.target.value);
+    this.changeTime(MINUTE * this.state.minutes + SECOND * this.state.seconds + parseInt(e.target.value, 10));
   }
 
   submitChange(time) {
