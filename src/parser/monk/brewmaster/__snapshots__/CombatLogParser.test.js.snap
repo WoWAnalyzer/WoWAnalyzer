@@ -3356,7 +3356,7 @@ exports[`The Brewmaster Analyzer should match the checklist snapshot 1`] = `
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "90.47619047619048%",
+                  "width": "76.19047619047619%",
                 }
               }
             />
@@ -3631,7 +3631,7 @@ exports[`The Brewmaster Analyzer should match the checklist snapshot 1`] = `
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -3651,9 +3651,9 @@ exports[`The Brewmaster Analyzer should match the checklist snapshot 1`] = `
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />

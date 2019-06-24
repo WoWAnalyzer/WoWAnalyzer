@@ -125,7 +125,7 @@ class PrePotion extends Analyzer {
 
   _cast(event) {
     const spellId = event.ability.guid;
-    if (SECOND_POTIONS.includes(spellId)) {
+    if (SECOND_POTIONS.includes(spellId) && event.timestamp > this.owner.fight.start_time - this.owner.fight.offset_time) {
       this.usedSecondPotion = true;
     }
 
