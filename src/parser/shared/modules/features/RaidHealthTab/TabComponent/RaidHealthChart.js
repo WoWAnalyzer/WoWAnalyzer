@@ -59,7 +59,6 @@ class RaidHealthChart extends React.Component {
 
   render() {
     const { players, deaths, startTime, endTime, offsetTime } = this.props;
-    console.log(startTime, endTime, offsetTime);
     const xValues = [];
     const yValues = [];
     for (let i = 0; i < (endTime - startTime) / 1000; i += 30) {
