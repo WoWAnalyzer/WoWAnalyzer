@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 import EventsNormalizer from 'parser/core/EventsNormalizer';
+import { PRE_FILTER_BUFF_EVENT_TYPE } from 'interface/report/TimeEventFilter';
 
 const debug = false;
 
@@ -44,7 +45,7 @@ class ApplyBuff extends EventsNormalizer {
         const spellId = event.ability.guid;
         this._buffsAppliedByPlayerId[targetId].push(spellId);
       }
-      if (['removebuff', 'applybuffstack', 'removebuffstack', 'refreshbuff'].includes(event.type)) {
+      if (['removebuff', 'applybuffstack', 'removebuffstack', 'refreshbuff', PRE_FILTER_BUFF_EVENT_TYPE].includes(event.type)) {
         const spellId = event.ability.guid;
         if (this._buffsAppliedByPlayerId[targetId].includes(spellId)) {
           // This buff has an `applybuff` event and so isn't broken :D

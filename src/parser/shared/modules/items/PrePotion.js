@@ -108,18 +108,16 @@ class PrePotion extends Analyzer {
   alternatePotion = null;
   isHealer = false;
 
-  on_toPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (PRE_POTIONS.includes(spellId) && event.prepull) {
-      this.usedPrePotion = true;
-    }
-  }
-
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
 
-    if (SECOND_POTIONS.includes(spellId)) {
-      this.usedSecondPotion = true;
+    if (PRE_POTIONS.includes(spellId) && !this.usedPrePotion && event.timestamp < this.owner.fight.start_time - this.owner.fight.offset_time) {
+      this.usedPrePotion = true;
+      return;
+    }
+
+    if (SECOND_POTIONS.includes(spellId) && event.timestamp >= this.owner.fight.start_time - this.owner.fight.offset_time) {
+        this.usedSecondPotion = true;
     }
 
     if (event.classResources && event.classResources[0] && event.classResources[0].type === RESOURCE_TYPES.MANA.id) {

@@ -2,11 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { captureException } from 'common/errorLogger';
+import SPELLS from 'common/SPELLS';
 
 import { EventsParseError } from './EventParser';
 import { SELECTION_ALL_PHASES } from './PhaseParser';
 
 export const PRE_FILTER_COOLDOWN_EVENT_TYPE = "filter_cooldown_info";
+export const PRE_FILTER_BUFF_EVENT_TYPE = "filter_buff_info";
 
 const TIME_AVAILABLE = console.time && console.timeEnd;
 const bench = id => TIME_AVAILABLE && console.time(id);
@@ -18,6 +20,20 @@ const eventFollows = (e, e2) =>
   && (e2.ability && e.ability ? e2.ability.guid === e.ability.guid : !e2.ability && !e.ability) //if both have an ability, its ID needs to match, otherwise neither can have an ability
   && e2.sourceID === e.sourceID
   && e2.targetID === e.targetID;
+
+//potion IDs to allow prepot / second pot suggestions to work
+const POTIONS = [
+  SPELLS.BATTLE_POTION_OF_INTELLECT.id,
+  SPELLS.BATTLE_POTION_OF_STRENGTH.id,
+  SPELLS.BATTLE_POTION_OF_AGILITY.id,
+  SPELLS.BATTLE_POTION_OF_STAMINA.id,
+  SPELLS.POTION_OF_RISING_DEATH.id,
+  SPELLS.POTION_OF_BURSTING_BLOOD.id,
+  SPELLS.STEELSKIN_POTION.id,
+  SPELLS.COASTAL_MANA_POTION.id,
+  SPELLS.COASTAL_REJUVENATION_POTION.id,
+  SPELLS.POTION_OF_REPLENISHMENT.id,
+];
 
 class TimeEventFilter extends React.PureComponent {
   static propTypes = {
@@ -86,19 +102,29 @@ class TimeEventFilter extends React.PureComponent {
         && event.timestamp <= filter.end
       );
 
-    const prePhaseEvents = this.findRelevantPreFilterEvents(events.filter(event => event.timestamp < filter.start).reverse())
+    const preFilterEvents = this.findRelevantPreFilterEvents(events.filter(event => event.timestamp < filter.start).reverse())
     .sort((a,b) => a.timestamp - b.timestamp) //sort events by timestamp
     .map(e => ({
       ...e,
       prepull: true, //pretend previous events were "prepull"
-      ...(e.type !== PRE_FILTER_COOLDOWN_EVENT_TYPE ? {timestamp: filter.start} : {__fabricated: true}), //override existing timestamps to the start of the time period to avoid >100% uptimes (only on non casts to retain cooldowns)
+      ...(e.type !== PRE_FILTER_COOLDOWN_EVENT_TYPE && e.type !== "cast" && POTIONS.includes(e.ability.guid) && {type: PRE_FILTER_BUFF_EVENT_TYPE, trigger: e.type}),
+      ...(e.type !== PRE_FILTER_COOLDOWN_EVENT_TYPE && !POTIONS.includes(e.ability.guid) ? {timestamp: filter.start} : {__fabricated: true}), //override existing timestamps to the start of the time period to avoid >100% uptimes (only on non casts to retain cooldowns)
     }));
-    return {start: filter.start, events: [...prePhaseEvents, ...phaseEvents], end: filter.end};
+    const postFilterEvents = this.findRelevantPostFilterEvents(events.filter(event => event.timestamp > filter.end))
+    .sort((a,b) => a.timestamp - b.timestamp) //sort events by timestamp
+    .map(e => ({
+      ...e,
+      timestamp: filter.end,
+    }));
+    return {start: filter.start, events: [...preFilterEvents, ...phaseEvents, ...postFilterEvents], end: filter.end};
+  }
+
+  findRelevantPostFilterEvents(events){
+    return events.filter(e => e.type === "cast" && POTIONS.includes(e.ability.guid));
   }
 
   //filter prephase events to just the events outside the time period that "matter" to make statistics more accurate (e.g. buffs and cooldowns)
   findRelevantPreFilterEvents(events){
-    bench("time filter");
     const buffEvents = []; //(de)buff apply events for (de)buffs that stay active going into the time period
     const stackEvents = []; //stack events related to the above buff events that happen after the buff is applied
     const castEvents = []; //latest cast event of each cast by player for cooldown tracking
@@ -135,23 +161,34 @@ class TimeEventFilter extends React.PureComponent {
             }
           }
           break;
+        case "removebuff":
+        case "removedebuff":
+          if(POTIONS.includes(e.ability.guid)){
+            buffEvents.push(e);
+          }
+          break;
         case "cast":
           //only keep "latest" cast, override type to prevent > 100% uptime / efficiency
-          if(!castHappenedLater(e)){
-            castEvents.push({...e, type: PRE_FILTER_COOLDOWN_EVENT_TYPE});
+          //whitelist certain casts (like potions) to keep suggestions working
+          if(POTIONS.includes(e.ability.guid)){
+            castEvents.push(e);
+          }else if(!castHappenedLater(e)){
+            castEvents.push({...e, type: PRE_FILTER_COOLDOWN_EVENT_TYPE, trigger: e.type});
           }
           break;
         default:
           break;
       }
     });
-    benchEnd("time filter");
+
     return [...castEvents, ...buffEvents, ...stackEvents];
   }
 
   async parse() {
     try {
+      bench("time filter");
       const eventFilter = this.makeEvents();
+      benchEnd("time filter");
       this.setState({
         events: eventFilter.events,
         fight: {
