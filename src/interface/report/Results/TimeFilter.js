@@ -72,7 +72,7 @@ class TimeFilter extends React.PureComponent {
             Filter<span className="glyphicon glyphicon-chevron-right" aria-hidden />
           </button>
           <button onClick={this.handleReset} name="reset" class="btn btn-primary reset-filter animated-button" disabled={isLoading || this.isReset()}>
-            Reset<span className="glyphicon glyphicon-chevron-right" aria-hidden />
+            Reset Filter<span className="glyphicon glyphicon-chevron-right" aria-hidden />
             </button>
         </div>
       </form>
