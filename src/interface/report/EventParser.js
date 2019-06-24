@@ -94,7 +94,8 @@ class EventParser extends React.PureComponent {
     let { events } = this.props;
     // The events we fetched will be all events related to the selected player. This includes the `combatantinfo` for the selected player. However we have already parsed this event when we loaded the combatants in the `initializeAnalyzers` of the CombatLogParser. Loading the selected player again could lead to bugs since it would reinitialize and overwrite the existing entity (the selected player) in the Combatants module.
     events = events.filter(event => event.type !== 'combatantinfo');
-    events = parser.normalize(events).sort((a,b) => a.timestamp - b.timestamp); //sort now normalized events
+    //sort now normalized events to avoid new fabricated events like "prepull" casts etc being in incorrect order with casts "kept" from before the filter
+    events = parser.normalize(events).sort((a,b) => a.timestamp - b.timestamp);
     return events;
   }
   async parse() {
