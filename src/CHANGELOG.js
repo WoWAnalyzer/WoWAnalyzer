@@ -8,6 +8,11 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
+    date: new Date('2019-06-24'),
+    changes: 'Added the ability to filter the results by time period.',
+    contributors: [Zeboot],
+  },
+  {
     date: new Date('2019-06-22'),
     changes: 'Added the ability to filter the results by phases.',
     contributors: [Zeboot],
