@@ -84,7 +84,7 @@ class TimeInput extends React.PureComponent {
 
   handleChangeMs(e) {
     const val = parseInt(e.target.value, 10);
-    if(val > 990){
+    if(val > 999){
       this.forceUpdate();
       return;
     }
