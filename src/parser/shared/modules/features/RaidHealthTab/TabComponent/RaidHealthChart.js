@@ -32,6 +32,7 @@ class RaidHealthChart extends React.Component {
     })).isRequired,
     startTime: PropTypes.number.isRequired,
     endTime: PropTypes.number.isRequired,
+    offsetTime: PropTypes.number.isRequired,
   };
 
   constructor(props) {
@@ -57,8 +58,8 @@ class RaidHealthChart extends React.Component {
   }
 
   render() {
-    const { players, deaths, startTime, endTime } = this.props;
-
+    const { players, deaths, startTime, endTime, offsetTime } = this.props;
+    console.log(startTime, endTime, offsetTime);
     const xValues = [];
     const yValues = [];
     for (let i = 0; i < (endTime - startTime) / 1000; i += 30) {
@@ -104,7 +105,7 @@ class RaidHealthChart extends React.Component {
             }}
           />
         </LegendWrapper>
-        <XAxis tickValues={xValues} tickFormat={value => formatDuration(value)} />
+        <XAxis tickValues={xValues} tickFormat={value => formatDuration(value + offsetTime/1000)} />
         <YAxis tickValues={yValues} tickFormat={value => `${value}%`} />
         <VerticalGridLines
           tickValues={xValues}

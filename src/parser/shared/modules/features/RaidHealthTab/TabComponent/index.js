@@ -15,6 +15,7 @@ const Mana = ({ parser }) => (
       actorId={parser.playerId}
       start={parser.fight.start_time}
       end={parser.fight.end_time}
+      offset={parser.fight.offset_time}
     />
   </Panel>
 );
