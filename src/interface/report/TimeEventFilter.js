@@ -46,10 +46,26 @@ class TimeEventFilter extends React.PureComponent {
     // noinspection JSIgnoredPromiseFromCall
     this.parse();
   }
+
+  //compare filters if both are defined, otherwise to shallow reference copy to avoid rerendering when filter is clicked without changing the timestamps
+  filterDiffers(filter1, filter2){
+    //if both filters are identical (shallow)
+    if(filter1 === filter2){
+      return false;
+    }
+    //if both are defined, compare start and end
+    if(filter1 && filter2){
+      return filter1.start !== filter2.start || filter1.end !== filter2.end;
+    }
+    //filters aren't equal
+    return true;
+  }
+
   componentDidUpdate(prevProps, prevState, prevContext) {
     const changed = this.props.bossPhaseEvents !== prevProps.bossPhaseEvents
     || this.props.fight !== prevProps.fight
-    || this.props.filter !== prevProps.filter;
+    || this.filterDiffers(this.props.filter, prevProps.filter);
+
     if (changed) {
       this.setState({
         isLoading: true,
@@ -143,6 +159,7 @@ class TimeEventFilter extends React.PureComponent {
           end_time: eventFilter.end,
           offset_time: eventFilter.start - this.props.fight.start_time, //time between time filter start and fight start (for e.g. timeline)
           original_end_time: this.props.fight.end_time,
+          filtered: (eventFilter.start !== this.props.fight.start_time || eventFilter.end !== this.props.fight.end_time),
           ...(this.props.phase !== PRE_FILTER_COOLDOWN_EVENT_TYPE && {phase: this.props.phase}), //if phase is selected, add it to the fight object
         },
         isLoading: false,
