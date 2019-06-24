@@ -14,6 +14,7 @@ class TimeFilter extends React.PureComponent {
     super(...args);
     this.phaseRef = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleReset = this.handleReset.bind(this);
     this.selectStart = this.selectStart.bind(this);
     this.selectEnd = this.selectEnd.bind(this);
     this.state = this.generateBoundary();
@@ -46,8 +47,17 @@ class TimeFilter extends React.PureComponent {
     this.props.applyFilter(this.state.start, this.state.end);
   }
 
+  handleReset(e){
+    e.preventDefault();
+    this.props.applyFilter(0, this.state.max);
+  }
+
   invalidTimes(){
     return this.state.end <= this.state.start || this.state.end < 0 || this.state.end > this.state.max || this.state.start < 0 || this.state.start > this.state.max;
+  }
+
+  isReset(){
+    return (this.props.fight.offset_time === 0 && this.props.fight.end_time === this.props.fight.original_end_time);
   }
 
   render() {
@@ -57,9 +67,14 @@ class TimeFilter extends React.PureComponent {
         <TimeInput name="start" min={0} max={this.state.max} time={this.state.start} onChange={this.selectStart} />
         {' to '}
         <TimeInput name="end" min={0} max={this.state.max} time={this.state.end} onChange={this.selectEnd} />
-        <button type="submit" class="btn btn-primary filter animated-button" disabled={isLoading || this.invalidTimes()}>
-          Filter <span className="glyphicon glyphicon-chevron-right" aria-hidden />
-        </button>
+        <div class="buttons">
+          <button type="submit" name="filter" class="btn btn-primary filter animated-button" disabled={isLoading || this.invalidTimes()}>
+            Filter<span className="glyphicon glyphicon-chevron-right" aria-hidden />
+          </button>
+          <button onClick={this.handleReset} name="reset" class="btn btn-primary reset-filter animated-button" disabled={isLoading || this.isReset()}>
+            Reset<span className="glyphicon glyphicon-chevron-right" aria-hidden />
+            </button>
+        </div>
       </form>
     );
   }

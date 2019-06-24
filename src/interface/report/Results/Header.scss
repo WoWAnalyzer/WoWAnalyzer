@@ -74,13 +74,22 @@
         display: inline-block;
       }
 
+      .buttons{
+          margin-top: 5px;
+          margin-bottom: 5px;
+      }
+
       .time-input input {
         width: auto;
         display: inline-block;
       }
 
+      .time-input input:last-child{
+        margin-right: 5px;
+      }
+
       button.filter {
-        margin-left: 5px;
+        margin-right: 5px;
       }
     }
     .player {
