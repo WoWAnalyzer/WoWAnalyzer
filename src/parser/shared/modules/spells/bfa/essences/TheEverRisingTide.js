@@ -11,6 +11,7 @@ import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
+import Buffs from 'parser/core/modules/Buffs';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
 const OVERCHARGE_MANA_HEALING_INCREASE_PER_STACK = 0.04;
@@ -20,6 +21,7 @@ class TheEverRisingTide extends Analyzer {
   static dependencies = {
     abilities: Abilities,
     statTracker: StatTracker,
+    buffs: Buffs,
   };
   healing = 0;
   buffActive = false;
@@ -40,9 +42,13 @@ class TheEverRisingTide extends Analyzer {
     }
     this.abilities.add({
       spell: SPELLS.EVER_RISING_TIDE_CHARGING_BUFF,
-      name: SPELLS.EVER_RISING_TIDE_CHARGING_BUFF.name,
       category: Abilities.SPELL_CATEGORIES.ITEMS,
       cooldown: 30,
+    });
+    this.buffs.add({
+      spellId: SPELLS.EVER_RISING_TIDE_HEALING_BUFF.id,
+      triggeredBySpellId: SPELLS.EVER_RISING_TIDE_CHARGING_BUFF.id,
+      timelineHightlight: true,
     });
 
     this.statTracker.add(SPELLS.EVER_RISING_TIDE_STAT_BUFF.id, {
