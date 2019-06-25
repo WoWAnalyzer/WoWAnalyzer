@@ -8,7 +8,7 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
-    date: new Date('2019-06-19'),
+    date: new Date('2019-06-25'),
     changes: 'Changed the search character default to the Eternal Palace raid.',
     contributors: [Yajinni],
   },
