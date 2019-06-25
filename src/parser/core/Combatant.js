@@ -52,6 +52,7 @@ class Combatant extends Entity {
 
     this._parseTalents(combatantInfo.talents);
     this._parseTraits(combatantInfo.artifact);
+    this._parseEssences(combatantInfo.heartOfAzeroth);
     this._parseGear(combatantInfo.gear);
     this._parsePrepullBuffs(combatantInfo.auras);
   }
@@ -115,6 +116,25 @@ class Combatant extends Entity {
   }
   traitRanks(spellId) {
     return this.traitsBySpellId[spellId];
+  }
+  // endregion
+
+  // region Essences
+  essencesBySpellId = {};
+  _parseEssences(essences) {
+    essences.forEach((essence) => {
+      if (essence.spellID === undefined) {
+        return;
+      }
+      this.essencesBySpellId[essence.spellID] = essence;
+      //essence = {icon:string, isMajor:bool, rank:int, slot:int, spellID:int, traitID:int}
+    });
+  }
+  hasEssence(spellId) {
+    return !!this.essencesBySpellId[spellId];
+  }
+  essenceRank(spellId) {
+    return this.essencesBySpellId[spellId] && this.essencesBySpellId[spellId].rank;
   }
   // endregion
 
