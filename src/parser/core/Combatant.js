@@ -122,6 +122,9 @@ class Combatant extends Entity {
   // region Essences
   essencesBySpellId = {};
   _parseEssences(essences) {
+    if(essences === undefined) {
+      return;
+    }
     essences.forEach((essence) => {
       if (essence.spellID === undefined) {
         return;
