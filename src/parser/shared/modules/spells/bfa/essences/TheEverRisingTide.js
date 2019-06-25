@@ -48,7 +48,6 @@ class TheEverRisingTide extends Analyzer {
     this.statTracker.add(SPELLS.EVER_RISING_TIDE_STAT_BUFF.id, {
       intellect: this.stat,
     });
-    console.log(this.stat);
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this._onHeal);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.EVER_RISING_TIDE_HEALING_BUFF), this._applyBuff);
