@@ -15,7 +15,7 @@ import Buffs from 'parser/core/modules/Buffs';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
 const OVERCHARGE_MANA_HEALING_INCREASE_PER_STACK = 0.04;
-const MANA_REGEN_PER_SECOND = 800;
+let MANA_REGEN_PER_SECOND = 800;
 
 class TheEverRisingTide extends Analyzer {
   static dependencies = {
@@ -54,6 +54,9 @@ class TheEverRisingTide extends Analyzer {
     this.statTracker.add(SPELLS.EVER_RISING_TIDE_STAT_BUFF.id, {
       intellect: this.stat,
     });
+    if(this.selectedCombatant.hasTalent(SPELLS.ENLIGHTENMENT_TALENT.id)){
+      MANA_REGEN_PER_SECOND *= 1.1;
+    }
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this._onHeal);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.EVER_RISING_TIDE_HEALING_BUFF), this._applyBuff);
