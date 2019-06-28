@@ -20,7 +20,7 @@ import Buffs from 'parser/core/modules/Buffs';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Haste from 'parser/shared/modules/Haste';
 
-const OVERCHARGE_MANA_HEALING_INCREASE_PER_STACK = 0.04;
+let OVERCHARGE_MANA_HEALING_INCREASE_PER_STACK = 0.04;
 let MANA_REGEN_PER_SECOND = 800;
 const OVERCHARGE_MANA_HASTE_BUFF = 0.1;
 const OVERCHARGE_MANA_DURATION = 8;
@@ -47,8 +47,9 @@ class TheEverRisingTide extends Analyzer {
     }
     this.hasMajor = this.selectedCombatant.hasMajor(SPELLS.EVER_RISING_TIDE.traitId);
     this.stat = calculatePrimaryStat(420, 1569, this.selectedCombatant.neck.itemLevel);
-    if (this.selectedCombatant.essenceRank(SPELLS.EVER_RISING_TIDE.id) < 2) {
+    if (this.selectedCombatant.essenceRank(SPELLS.EVER_RISING_TIDE.traitId) < 2) {
       this.stat /= 0.8; // rank 2 grants 20% more stats
+      OVERCHARGE_MANA_HEALING_INCREASE_PER_STACK = 0.03;
     }
     this.abilities.add({
       spell: SPELLS.EVER_RISING_TIDE_CHARGING_BUFF,
@@ -175,11 +176,12 @@ class TheEverRisingTide extends Analyzer {
 
   statistic() {
     const nth = (number) => number + (["st", "nd", "rd"][((number + 90) % 100 - 10) % 10 - 1] || "th");
+    const rank = this.selectedCombatant.essenceRank(SPELLS.EVER_RISING_TIDE.traitId);
     return (
       <StatisticGroup category={STATISTIC_CATEGORY.ITEMS}>
         <ItemStatistic ultrawide>
           <div className="pad">
-            <label><SpellLink id={SPELLS.EVER_RISING_TIDE.id} /> - Minor Rank {this.selectedCombatant.essenceRank(SPELLS.EVER_RISING_TIDE.traitId)}</label>
+            <label><SpellLink id={SPELLS.EVER_RISING_TIDE.id} /> - Minor Rank {rank}</label>
             <div className="value">
               <StatIcon stat={this.selectedCombatant.spec.primaryStat} /> {formatNumber(this.minorBuffUptime * this.stat)} <small>average {this.selectedCombatant.spec.primaryStat} gained</small><br />
               <ItemManaGained amount={this.manaGained} />
@@ -217,11 +219,11 @@ class TheEverRisingTide extends Analyzer {
               </table>
             )}>
             <div className="pad">
-              <label><SpellLink id={SPELLS.EVER_RISING_TIDE_MAJOR.id} /> - Major Rank {this.selectedCombatant.essenceRank(SPELLS.EVER_RISING_TIDE.traitId)}</label>
+              <label><SpellLink id={SPELLS.EVER_RISING_TIDE_MAJOR.id} /> - Major Rank {rank}</label>
               <div className="value">
                 <ItemHealingDone amount={this.healing} /><br />
                 <ItemManaGained amount={this.manaLost * -1} />
-                <StatIcon stat={"haste"} /> {formatNumber(this.majorHasteGain)} <small>average haste gained</small><br />
+                {rank > 2 && (<><StatIcon stat={"haste"} /> {formatNumber(this.majorHasteGain)} <small>average haste gained</small><br /></>)}
               </div>
             </div>
           </ItemStatistic>
