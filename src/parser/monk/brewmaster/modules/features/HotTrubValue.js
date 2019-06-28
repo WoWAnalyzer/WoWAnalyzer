@@ -142,7 +142,7 @@ export default class HotTrubValue extends Analyzer {
             <dt><b>Max Cast</b></dt> <dd>{formatNumber(this.actual.maxCast)}</dd>
             <dt><b>Damage Lost to HP Cap</b></dt> <dd>{formatNumber(this.actual.lost)} <em>({formatPercentage(pctLost(this.actual))}%)</em></dd>
           </dl>
-          <br/>
+          <br />
           <p>These numbers are all <em>hypothetical</em>. You don't need to have the Conflict &amp; Strife essence equipped to see this.</p>
           <h5>Degenerate Play</h5>
           <p>If you replaced every ISB cast with a PB cast, how much damage would you have done?</p>
@@ -158,4 +158,4 @@ export default class HotTrubValue extends Analyzer {
       </StatisticBox>
     );
   }
-};
+}

@@ -429,6 +429,83 @@ exports[`The Brewmaster Analyzer analyzers HighTolerance matches the statistic s
 
 exports[`The Brewmaster Analyzer analyzers HighTolerance matches the suggestions snapshot 1`] = `Array []`;
 
+exports[`The Brewmaster Analyzer analyzers HotTrubValue matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad"
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=202126"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Hot Trub"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_brew_dark.jpg"
+            />
+          </a>
+           
+          Hot Trub Time Machine
+        </label>
+        <div
+          className="value"
+        >
+          <img
+            alt="Damage"
+            className="icon"
+            src="/img/sword.png"
+          />
+           
+          252
+           DPS 
+          <small>
+            4.52
+             % of total
+          </small>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-xs-12"
+        />
+      </div>
+      <div
+        className="statistic-expansion-button-holster"
+      >
+        <button
+          className="btn btn-primary"
+          onClick={[Function]}
+        >
+          <span
+            className="glyphicon glyphicon-chevron-down"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Brewmaster Analyzer analyzers HotTrubValue matches the suggestions snapshot 1`] = `Array []`;
+
 exports[`The Brewmaster Analyzer analyzers IronSkinBrew matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
