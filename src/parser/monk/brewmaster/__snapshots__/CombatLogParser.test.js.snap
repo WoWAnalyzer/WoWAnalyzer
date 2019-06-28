@@ -429,7 +429,7 @@ exports[`The Brewmaster Analyzer analyzers HighTolerance matches the statistic s
 
 exports[`The Brewmaster Analyzer analyzers HighTolerance matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Brewmaster Analyzer analyzers HotTrubValue matches the statistic snapshot 1`] = `
+exports[`The Brewmaster Analyzer analyzers HotTrubTimeMachine matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
@@ -504,7 +504,7 @@ exports[`The Brewmaster Analyzer analyzers HotTrubValue matches the statistic sn
 </div>
 `;
 
-exports[`The Brewmaster Analyzer analyzers HotTrubValue matches the suggestions snapshot 1`] = `Array []`;
+exports[`The Brewmaster Analyzer analyzers HotTrubTimeMachine matches the suggestions snapshot 1`] = `Array []`;
 
 exports[`The Brewmaster Analyzer analyzers IronSkinBrew matches the statistic snapshot 1`] = `
 <div

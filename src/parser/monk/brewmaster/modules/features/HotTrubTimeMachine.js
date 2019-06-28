@@ -25,7 +25,7 @@ function pctLost(obj) {
   return obj.lost / (obj.lost + obj.damage);
 }
 
-export default class HotTrubValue extends Analyzer {
+export default class HotTrubTimeMachine extends Analyzer {
   static dependencies = {
     stats: StatTracker,
     agi: AgilityValue,
