@@ -41,13 +41,13 @@ class TheEverRisingTide extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.hasMajor = this.selectedCombatant.hasEssence(SPELLS.EVER_RISING_TIDE_MAJOR.id);
-    this.active = this.hasMajor | this.selectedCombatant.hasEssence(SPELLS.EVER_RISING_TIDE_MINOR.id);
+    this.active = this.selectedCombatant.hasEssence(SPELLS.EVER_RISING_TIDE.traitId);
     if (!this.active) {
       return;
     }
+    this.hasMajor = this.selectedCombatant.hasMajor(SPELLS.EVER_RISING_TIDE.traitId);
     this.stat = calculatePrimaryStat(420, 1569, this.selectedCombatant.neck.itemLevel);
-    if (this.selectedCombatant.essenceRank(SPELLS.EVER_RISING_TIDE_MINOR.id) < 2) {
+    if (this.selectedCombatant.essenceRank(SPELLS.EVER_RISING_TIDE.id) < 2) {
       this.stat /= 0.8; // rank 2 grants 20% more stats
     }
     this.abilities.add({
@@ -172,7 +172,7 @@ class TheEverRisingTide extends Analyzer {
       <StatisticGroup category={STATISTIC_CATEGORY.ITEMS}>
         <ItemStatistic ultrawide>
           <div className="pad">
-            <label><SpellLink id={SPELLS.EVER_RISING_TIDE_MINOR.id} /> - Minor Rank {this.selectedCombatant.essenceRank(SPELLS.EVER_RISING_TIDE_MINOR.id)}</label>
+            <label><SpellLink id={SPELLS.EVER_RISING_TIDE.id} /> - Minor Rank {this.selectedCombatant.essenceRank(SPELLS.EVER_RISING_TIDE.traitId)}</label>
             <div className="value">
               <StatIcon stat={this.selectedCombatant.spec.primaryStat} /> {formatNumber(this.minorBuffUptime * this.stat)} <small>average {this.selectedCombatant.spec.primaryStat} gained</small><br />
               <ItemManaGained amount={this.manaGained} />
@@ -210,7 +210,7 @@ class TheEverRisingTide extends Analyzer {
               </table>
             )}>
             <div className="pad">
-              <label><SpellLink id={SPELLS.EVER_RISING_TIDE_MAJOR.id} /> - Major Rank {this.selectedCombatant.essenceRank(SPELLS.EVER_RISING_TIDE_MAJOR.id)}</label>
+              <label><SpellLink id={SPELLS.EVER_RISING_TIDE_MAJOR.id} /> - Major Rank {this.selectedCombatant.essenceRank(SPELLS.EVER_RISING_TIDE.traitId)}</label>
               <div className="value">
                 <ItemHealingDone amount={this.healing} /><br />
                 <ItemManaGained amount={this.manaLost * -1} />

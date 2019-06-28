@@ -9,7 +9,7 @@ import Contributor from 'interface/contributor/Button';
 export default [
   {
     date: new Date('2019-06-25'),
-    changes: <>Added <SpellLink id={SPELLS.EVER_RISING_TIDE_MAJOR.id} /> and <SpellLink id={SPELLS.EVER_RISING_TIDE_MINOR.id} /> essences.</>,
+    changes: <>Added <SpellLink id={SPELLS.EVER_RISING_TIDE_MAJOR.id} /> and <SpellLink id={SPELLS.EVER_RISING_TIDE.id} /> essences.</>,
     contributors: [niseko],
   },
   {

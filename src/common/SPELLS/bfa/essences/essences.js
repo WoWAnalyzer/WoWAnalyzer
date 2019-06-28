@@ -4,16 +4,40 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
+ // Trait IDs
+  //   2 = "Azeroth's Undying Gift"
+  //   3 = "Sphere of Suppression"
+  //   4 = "Worldvein Resonance"
+  //   5 = "Essence of the Focusing Iris"
+  //   6 = "Purification Protocol"
+  //   7 = "Anima of Life and Death"
+  //  12 = "The Crucible of Flame"
+  //  13 = "Nullification Dynamo"
+  //  14 = "Condensed Life-Force"
+  //  15 = "Ripple in Space"
+  //  17 = "The Ever-Rising Tide"
+  //  18 = "Artifice of Time"
+  //  19 = "The Well of Existence"
+  //  20 = "Life-Binder's Invocation"
+  //  21 = "Vitality Conduit"
+  //  22 = "Vision of Perfection"
+  //  23 = "Blood of the Enemy"
+  //  25 = "Aegis of the Deep"
+  //  27 = "Memory of Lucid Dreams"
+  //  28 = "The Unbound Force"
+  //  32 = "Conflict and Strife"
+
 export default {
+  EVER_RISING_TIDE: {
+    id: 299879,
+    traitId: 17,
+    name: 'The Ever-Rising Tide',
+    icon: 'inv_elemental_mote_mana',
+  },
   EVER_RISING_TIDE_MAJOR: {
     id: 299876,
     name: 'Overcharge Mana',
     icon: 'spell_azerite_essence09',
-  },
-  EVER_RISING_TIDE_MINOR: {
-    id: 299879,
-    name: 'The Ever-Rising Tide',
-    icon: 'inv_elemental_mote_mana',
   },
   EVER_RISING_TIDE_HEALING_BUFF: {
     id: 299624,

@@ -120,24 +120,27 @@ class Combatant extends Entity {
   // endregion
 
   // region Essences
-  essencesBySpellId = {};
+  essencesByTraitID = {};
   _parseEssences(essences) {
     if(essences === undefined) {
       return;
     }
     essences.forEach((essence) => {
-      if (essence.spellID === undefined) {
-        return;
+      if (!!this.essencesByTraitID[essence.traitID]) {
+        essence.isMajor = true;
       }
-      this.essencesBySpellId[essence.spellID] = essence;
+      this.essencesByTraitID[essence.traitID] = essence;
       //essence = {icon:string, isMajor:bool, rank:int, slot:int, spellID:int, traitID:int}
     });
   }
-  hasEssence(spellId) {
-    return !!this.essencesBySpellId[spellId];
+  hasEssence(traitId) {
+    return !!this.essencesByTraitID[traitId];
   }
-  essenceRank(spellId) {
-    return this.essencesBySpellId[spellId] && this.essencesBySpellId[spellId].rank;
+  hasMajor(traitId) {
+    return this.essencesByTraitID[traitId].isMajor;
+  }
+  essenceRank(traitId) {
+    return this.essencesByTraitID[traitId] && this.essencesByTraitID[traitId].rank;
   }
   // endregion
 
