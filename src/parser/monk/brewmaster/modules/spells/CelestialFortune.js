@@ -5,17 +5,12 @@ import Combatants from 'parser/shared/modules/Combatants';
 import StatisticBox from 'interface/others/StatisticBox';
 import SPELLS from 'common/SPELLS';
 import SPECS from 'game/SPECS';
-import HIT_TYPES from 'game/HIT_TYPES';
 import SpellIcon from 'common/SpellIcon';
 import SpecIcon from 'common/SpecIcon';
 import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 import Panel from 'interface/others/Panel';
 import {formatNumber} from 'common/format';
-import STAT, { getClassNameColor, getName } from 'parser/shared/modules/features/STAT';
-import { calculateSecondaryStatDefault } from 'common/stats';
-
-import MitigationSheet, { makeIcon } from '../features/MitigationSheet';
 
 /**
  * Celestial Fortune
@@ -34,11 +29,9 @@ class CelestialFortune extends Analyzer {
   static dependencies = {
     stats: StatTracker,
     combatants: Combatants,
-    sheet: MitigationSheet,
   };
 
   critBonusHealing = 0;
-  _otherCritBonusHealing = 0; // crit bonus healing from non-CF sources
   _totalHealing = 0;
   _overhealing = 0;
   _healingByEntityBySpell = {
@@ -49,12 +42,6 @@ class CelestialFortune extends Analyzer {
      * },
      */
   };
-
-  constructor(...args) {
-    super(...args);
-
-    this.sheet.registerStat(STAT.CRITICAL_STRIKE, this.statValue());
-  }
 
   _lastMaxHp = 0;
 
@@ -84,16 +71,6 @@ class CelestialFortune extends Analyzer {
       // only adds if a CF heal is queued
       this._addHealing(event);
     }
-  }
-
-  on_byPlayer_heal(event) {
-    if(event.hitType !== HIT_TYPES.CRIT) {
-      return;
-    }
-
-    // counting absorbed healing because we live in a Vectis world
-    const totalHeal = event.amount + (event.overheal || 0) + (event.absorbed || 0);
-    this._otherCritBonusHealing += Math.max(totalHeal / 2 - (event.overheal || 0), 0) * this.bonusCritRatio; // remove overhealing from the bonus healing
   }
 
   on_toPlayer_applybuff(event) {
@@ -261,24 +238,6 @@ class CelestialFortune extends Analyzer {
           </div>
         </Panel>
       ),
-    };
-  }
-
-  statValue() {
-    const cf = this;
-    return {
-      priority: 4,
-      icon: makeIcon(STAT.CRITICAL_STRIKE),
-      name: getName(STAT.CRITICAL_STRIKE),
-      className: getClassNameColor(STAT.CRITICAL_STRIKE),
-      statName: 'crit', // consistently inconsistent
-      get gain() {
-        return [
-          { name: <><SpellLink id={SPELLS.CELESTIAL_FORTUNE_HEAL.id} /> Healing</>, amount: cf.critBonusHealing },
-          { name: 'Critical Heals', amount: cf._otherCritBonusHealing },
-        ];
-      },
-      increment: this.sheet.increment(calculateSecondaryStatDefault, this.stats.startingCritRating),
     };
   }
 }

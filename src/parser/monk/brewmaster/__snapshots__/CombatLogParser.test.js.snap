@@ -273,6 +273,10 @@ exports[`The Brewmaster Analyzer analyzers Checklist matches the statistic snaps
 
 exports[`The Brewmaster Analyzer analyzers Checklist matches the suggestions snapshot 1`] = `"module has no suggestions"`;
 
+exports[`The Brewmaster Analyzer analyzers CritValue matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Brewmaster Analyzer analyzers CritValue matches the suggestions snapshot 1`] = `Array []`;
+
 exports[`The Brewmaster Analyzer analyzers DamageTaken matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`The Brewmaster Analyzer analyzers DamageTaken matches the suggestions snapshot 1`] = `Array []`;
