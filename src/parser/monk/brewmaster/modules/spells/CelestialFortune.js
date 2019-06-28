@@ -83,14 +83,17 @@ class CelestialFortune extends Analyzer {
     } else {
       // only adds if a CF heal is queued
       this._addHealing(event);
-      if(event.hitType !== HIT_TYPES.CRIT) {
-        return;
-      }
-
-      // counting absorbed healing because we live in a Vectis world
-      const totalHeal = event.amount + (event.overheal || 0) + (event.absorbed || 0);
-      this._otherCritBonusHealing += Math.max(totalHeal / 2 - (event.overheal || 0), 0) * this.bonusCritRatio; // remove overhealing from the bonus healing
     }
+  }
+
+  on_byPlayer_heal(event) {
+    if(event.hitType !== HIT_TYPES.CRIT) {
+      return;
+    }
+
+    // counting absorbed healing because we live in a Vectis world
+    const totalHeal = event.amount + (event.overheal || 0) + (event.absorbed || 0);
+    this._otherCritBonusHealing += Math.max(totalHeal / 2 - (event.overheal || 0), 0) * this.bonusCritRatio; // remove overhealing from the bonus healing
   }
 
   on_toPlayer_applybuff(event) {
@@ -264,7 +267,7 @@ class CelestialFortune extends Analyzer {
   statValue() {
     const cf = this;
     return {
-      priority: 3,
+      priority: 4,
       icon: makeIcon(STAT.CRITICAL_STRIKE),
       name: getName(STAT.CRITICAL_STRIKE),
       className: getClassNameColor(STAT.CRITICAL_STRIKE),
