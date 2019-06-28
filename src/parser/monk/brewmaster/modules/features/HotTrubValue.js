@@ -18,7 +18,7 @@ export function hotTrubDamage(amtPurified, maxHP) {
 }
 
 export function uncappedHotTrubDamage(amtPurified) {
-  return Math.floor(amtPurified * 0.3);
+  return Math.floor(amtPurified * 0.2);
 }
 
 function pctLost(obj) {
