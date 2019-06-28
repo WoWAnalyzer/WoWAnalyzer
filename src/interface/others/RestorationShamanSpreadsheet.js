@@ -11,6 +11,8 @@ import OverflowingShores from 'parser/shaman/restoration/modules/azerite/Overflo
 import Combatants from 'parser/shared/modules/Combatants';
 import MasteryEffectiveness from 'parser/shaman/restoration/modules/features/MasteryEffectiveness';
 import DistanceMoved from 'parser/shared/modules/others/DistanceMoved';
+import HealingDone from 'parser/shared/modules/throughput/HealingDone';
+import DamageDone from 'parser/shared/modules/throughput/DamageDone';
 
 const PRE_INTELLECT_POTION_BUFF = 900;
 
@@ -33,41 +35,50 @@ class RestorationShamanSpreadsheet extends React.Component {
       const castAmount = TW ? getAbility(spellId).healingTwHits : casts(spellId);
       return castAmount / minutes >= 0 ? (castAmount / minutes).toFixed(2) : '0';
     };
-    const prePotion = parser.getModule(PrePotion).usedPrePotion ? PRE_INTELLECT_POTION_BUFF : 0;
+    const prePotion = parser.getModule(PrePotion).usedPrePotion ? PRE_INTELLECT_POTION_BUFF : 0; // needs update
+
+    const output = [
+      parser.selectedCombatant._combatantInfo.intellect - prePotion,
+      parser.selectedCombatant._combatantInfo.critSpell,
+      parser.selectedCombatant._combatantInfo.hasteSpell,
+      parser.selectedCombatant._combatantInfo.mastery,
+      parser.selectedCombatant._combatantInfo.versatilityHealingDone,
+      Math.floor(parser.fightDuration / 1000),
+      parser.getModule(BaseHealerStatValues).hpsPerIntellect.toFixed(2),
+      parser.getModule(BaseHealerStatValues).hpsPerCriticalStrike.toFixed(2),
+      parser.getModule(BaseHealerStatValues).hpsPerHaste.toFixed(2),
+      parser.getModule(BaseHealerStatValues).hpsPerMastery.toFixed(2),
+      parser.getModule(BaseHealerStatValues).hpsPerVersatility.toFixed(2),
+      cpm(SPELLS.RIPTIDE.id),
+      cpm(SPELLS.HEALING_RAIN_CAST.id),
+      cpm(SPELLS.HEALING_TIDE_TOTEM_CAST.id),
+      cpm(SPELLS.SPIRIT_LINK_TOTEM.id),
+      parser.selectedCombatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id) ? cpm(SPELLS.CLOUDBURST_TOTEM_TALENT.id) : cpm(SPELLS.HEALING_STREAM_TOTEM_CAST.id),
+      cpm(SPELLS.CHAIN_HEAL.id),
+      parser.getModule(SurgingTides).surgingTideProcsPerMinute,
+      ((parser.getModule(SpoutingSpirits).spoutingSpiritsHits || getAbility(SPELLS.SPOUTING_SPIRITS_HEAL.id).healingHits) / casts(SPELLS.SPIRIT_LINK_TOTEM.id) || 0).toFixed(2),
+      ((parser.getModule(OverflowingShores).overflowingShoresHits || getAbility(SPELLS.OVERFLOWING_SHORES_HEAL.id).healingHits) / casts(SPELLS.HEALING_RAIN_CAST.id) || 0).toFixed(2),
+      1 - (parser.getModule(DistanceMoved).timeSpentMoving / parser.fightDuration).toFixed(2),
+      parser.getModule(Combatants).playerCount,
+      cpm(SPELLS.ASTRAL_SHIFT.id),
+      (parser.selectedCombatant.getBuffUptime(SPELLS.GHOST_WOLF.id) / 1000).toFixed(2),
+      parser.getModule(MasteryEffectiveness).masteryEffectivenessPercent.toFixed(2),
+      parser.selectedCombatant.race ? parser.selectedCombatant.race.name : 'Unknown',
+      cpm(SPELLS.HEALING_WAVE.id,true),
+      cpm(SPELLS.HEALING_SURGE_RESTORATION.id,true),
+      parser.getModule(HealingDone)._total._regular,
+      parser.getModule(DamageDone)._total._regular,
+    ];
 
     return (
       <div>
-        <div style={{ padding: '0px 22px 15px 0px' }}>Please use the below table to populate the Restoration Shaman Spreadsheet. <a href="https://ancestralguidance.com/spreadsheet/">Link to the sheet</a><br /></div>
+        <div style={{ padding: '0px 22px 15px 0px' }}>Please use the button below or manually copy the table to populate the Restoration Shaman Spreadsheet. <a href="https://ancestralguidance.com/spreadsheet/">Link to the sheet</a><br /></div>
+        <button className="btn btn-primary btn-lg" onClick={() => {navigator.clipboard.writeText(output.toString().replace(/,/g,'\n'));}}>Click to copy table contents</button><br />
           <table style={styles.table} >
             <tbody>
-              <tr><td>{parser.selectedCombatant._combatantInfo.intellect - prePotion}</td></tr>
-              <tr><td>{parser.selectedCombatant._combatantInfo.critSpell}</td></tr>
-              <tr><td>{parser.selectedCombatant._combatantInfo.hasteSpell}</td></tr>
-              <tr><td>{parser.selectedCombatant._combatantInfo.mastery}</td></tr>
-              <tr><td>{parser.selectedCombatant._combatantInfo.versatilityHealingDone}</td></tr>
-              <tr><td>{Math.floor(parser.fightDuration / 1000)}</td></tr>
-              <tr><td>{parser.getModule(BaseHealerStatValues).hpsPerIntellect.toFixed(2)}</td></tr>
-              <tr><td>{parser.getModule(BaseHealerStatValues).hpsPerCriticalStrike.toFixed(2)}</td></tr>
-              <tr><td>{parser.getModule(BaseHealerStatValues).hpsPerHaste.toFixed(2)}</td></tr>
-              <tr><td>{parser.getModule(BaseHealerStatValues).hpsPerMastery.toFixed(2)}</td></tr>
-              <tr><td>{parser.getModule(BaseHealerStatValues).hpsPerVersatility.toFixed(2)}</td></tr>
-              <tr><td>{cpm(SPELLS.RIPTIDE.id)}</td></tr>
-              <tr><td>{cpm(SPELLS.HEALING_RAIN_CAST.id)}</td></tr>
-              <tr><td>{cpm(SPELLS.HEALING_TIDE_TOTEM_CAST.id)}</td></tr>
-              <tr><td>{cpm(SPELLS.SPIRIT_LINK_TOTEM.id)}</td></tr>
-              <tr><td>{parser.selectedCombatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id) ? cpm(SPELLS.CLOUDBURST_TOTEM_TALENT.id) : cpm(SPELLS.HEALING_STREAM_TOTEM_CAST.id)}</td></tr>
-              <tr><td>{cpm(SPELLS.CHAIN_HEAL.id)}</td></tr>
-              <tr><td>{parser.getModule(SurgingTides).surgingTideProcsPerMinute}</td></tr>
-              <tr><td>{((parser.getModule(SpoutingSpirits).spoutingSpiritsHits || getAbility(SPELLS.SPOUTING_SPIRITS_HEAL.id).healingHits) / casts(SPELLS.SPIRIT_LINK_TOTEM.id) || 0).toFixed(2)}</td></tr>
-              <tr><td>{((parser.getModule(OverflowingShores).overflowingShoresHits || getAbility(SPELLS.OVERFLOWING_SHORES_HEAL.id).healingHits) / casts(SPELLS.HEALING_RAIN_CAST.id) || 0).toFixed(2)}</td></tr>
-              <tr><td>{1 - (parser.getModule(DistanceMoved).timeSpentMoving / parser.fightDuration).toFixed(2)}</td></tr>
-              <tr><td>{parser.getModule(Combatants).playerCount}</td></tr>
-              <tr><td>{cpm(SPELLS.ASTRAL_SHIFT.id)}</td></tr>
-              <tr><td>{(parser.selectedCombatant.getBuffUptime(SPELLS.GHOST_WOLF.id) / 1000).toFixed(2)}</td></tr>
-              <tr><td>{parser.getModule(MasteryEffectiveness).masteryEffectivenessPercent.toFixed(2)}</td></tr>
-              <tr><td>{parser.selectedCombatant.race ? parser.selectedCombatant.race.name : 'Unknown'}</td></tr>
-              <tr><td>{cpm(SPELLS.HEALING_WAVE.id,true)}</td></tr>
-              <tr><td>{cpm(SPELLS.HEALING_SURGE_RESTORATION.id,true)}</td></tr>
+              {output.map(row => {
+                return (<tr><td>{row}</td></tr>);
+              })}
             </tbody>
           </table>
       </div>
