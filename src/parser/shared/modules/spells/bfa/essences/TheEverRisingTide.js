@@ -74,6 +74,7 @@ class TheEverRisingTide extends Analyzer {
     this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.EVER_RISING_TIDE_HEALING_BUFF), this._applyBuff);
     this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.EVER_RISING_TIDE_ENERGIZE), this._energize);
     this.addEventListener(this.haste.changehaste.by(SELECTED_PLAYER), this.hasteChange);
+    this.addEventListener(Events.fightend, this._fightend);
   }
 
   casts = 0;
@@ -119,6 +120,12 @@ class TheEverRisingTide extends Analyzer {
 
   _energize(event) {
     this.manaGained += event.resourceChange;
+  }
+
+  _fightend(event) {
+    if (this.buffActive) {
+      this.byCast[this.casts].maxStacks = this.stacks;
+    }
   }
 
   get manaLost() {
