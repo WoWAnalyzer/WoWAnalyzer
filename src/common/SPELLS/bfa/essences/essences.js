@@ -27,6 +27,9 @@
   //  28 = "The Unbound Force"
   //  32 = "Conflict and Strife"
 
+// well https://www.warcraftlogs.com/reports/wg7GpmZxhat6TLjV/#fight=41&source=3
+// well wehere he actually uses it https://www.warcraftlogs.com/reports/HKnChBYqyXk61g3V#boss=-2&difficulty=0&source=23&type=healing
+//  https://www.warcraftlogs.com/reports/HKnChBYqyXk61g3V/#fight=8
 export default {
   EVER_RISING_TIDE: {
     id: 299879,
@@ -58,5 +61,28 @@ export default {
     id: 296065,
     name: 'The Ever-Rising Tide',
     icon: 'inv_elemental_mote_mana',
+  },
+  
+  WELL_OF_EXISTENCE: {
+    id: 299936,
+    traitId: 19,
+    name: 'The Well Of Existence',
+    icon: 'creatureportrait_twilightshammer_summoningportal_water01',
+  },
+  // This is the 3+ version that won't overheal. But same is case for ERT. 
+  WELL_OF_EXISTENCE_MAJOR: {
+    id: 299933,
+    name: 'Refreshment',
+    icon: 'creatureportrait_twilightshammer_summoningportal_water01',
+  },
+  WELL_OF_EXISTENCE_MAJOR_ABILITY: {
+    id: 296197,
+    name: 'Refreshment',
+    icon: 'creatureportrait_twilightshammer_summoningportal_water01',
+  },
+  WELL_OF_EXISTENCE_HEAL: {
+    id: 296184,
+    name: 'The Well of Existence',
+    icon: 'creatureportrait_twilightshammer_summoningportal_water01',
   },
 };

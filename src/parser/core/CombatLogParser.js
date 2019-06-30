@@ -136,6 +136,7 @@ import TreacherousCovenant from '../shared/modules/spells/bfa/azeritetraits/Trea
 
 // Essences
 import TheEverRisingTide from '../shared/modules/spells/bfa/essences/TheEverRisingTide';
+import TheWellOfExistence from '../shared/modules/spells/bfa/essences/TheWellOfExistence';
 
 // Uldir
 import TwitchingTentacleofXalzaix from '../shared/modules/items/bfa/raids/uldir/TwitchingTentacleofXalzaix';
@@ -311,6 +312,7 @@ class CombatLogParser {
 
     // Essences
     theEverRisingTide: TheEverRisingTide,
+    theWellOfExistence : TheWellOfExistence,  
 
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
