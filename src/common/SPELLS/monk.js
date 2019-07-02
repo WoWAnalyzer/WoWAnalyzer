@@ -211,6 +211,11 @@ export default {
     buffDur: 12000,
     manaRet: 0.0065,
   },
+  WAY_OF_THE_CRANE: {
+    id: 216113,
+    name: 'Way of the Crane',
+    icon: 'monk_stance_redcrane',
+  },
 
   // Utility / Other
   DETOX: {
