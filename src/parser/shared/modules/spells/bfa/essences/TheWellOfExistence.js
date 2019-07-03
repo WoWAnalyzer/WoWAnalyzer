@@ -13,7 +13,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 
-const debug = true;
+const debug = false;
 
 // Can these values be queried? 
 const OVERHEAL_ABSORB_RATE = 0.15;
@@ -21,16 +21,16 @@ const RANK_TWO_HEALING_BOOST = 1.5;
 // https://www.wowhead.com/spell=299936/the-well-of-existence
 const RANK_THREE_DOUBLE_CAP = 10982;
 
-// Live multiple Rank 1 fights/uses 
+// Live Report with multiple Rank 1 fights/uses 
 //   https://www.warcraftlogs.com/reports/ADH6NnKYPGxtf318#boss=-2&difficulty=0&type=healing&ability=296197
 //   Grong 4 uses 
-//   https://www.warcraftlogs.com/reports/ADH6NnKYPGxtf318#type=healing&fight=9&source=14
+//     https://www.warcraftlogs.com/reports/ADH6NnKYPGxtf318#type=healing&fight=9&source=14
 //   Conclave 5 uses 
-//   https://www.warcraftlogs.com/reports/ADH6NnKYPGxtf318#type=healing&fight=22&source=14
-// Live rank 1 only used twice 
-// https://www.warcraftlogs.com/reports/wg7GpmZxhat6TLjV/#fight=41&source=3
-// PTR rank 3
-// https://www.warcraftlogs.com/reports/HKnChBYqyXk61g3V/#fight=8&type=healing&source=23
+//     https://www.warcraftlogs.com/reports/ADH6NnKYPGxtf318#type=healing&fight=22&source=14
+// Live Rank 1 Grong 2 Uses 
+//   https://www.warcraftlogs.com/reports/HKnChBYqyXk61g3V/#fight=8&type=healing&source=23
+// PTR rank 3 Orgozoa 0 uses 
+//   https://www.warcraftlogs.com/reports/wg7GpmZxhat6TLjV/#fight=41&source=3
 class TheWellOfExistence extends Analyzer {
   static dependencies = {
     abilities: Abilities,
@@ -85,13 +85,14 @@ class TheWellOfExistence extends Analyzer {
       else
       {
         // Under rank 3 you lose all stored healing on active 
-        this.currentAbsorbedOverhealing = 0
+        this.currentAbsorbedOverhealing = 0;
       }
     }
     // anything else that overhealed
     else if(event.overheal)
     {
-      if(debug){
+      if(debug)
+      {
         this.totalOverhealing += event.overheal;
       }
       
@@ -127,25 +128,23 @@ class TheWellOfExistence extends Analyzer {
   // This function is only connected in debug
   _fightend() {
     console.log('Total Overhealing: ' + this.totalOverhealing);
-    const expectedOverhealing = this.totalOverhealing * OVERHEAL_ABSORB_RATE
+    const expectedOverhealing = this.totalOverhealing * OVERHEAL_ABSORB_RATE;
     console.log('Total Absorbed Overhealing Expected : ' + expectedOverhealing + '. Reported: ' + this.totalAbsorbedOverhealing);
   }
 
   statistic() {
     const rank = this.selectedCombatant.essenceRank(SPELLS.WELL_OF_EXISTENCE.traitId);
-    console.log(this.totalAbsorbedOverhealing)
-    console.log(this.rankThreeDoubledOverhealing)
     return (
       <StatisticGroup category={STATISTIC_CATEGORY.ITEMS}>
         <ItemStatistic 
-         ultrawide
-         size="flexible">
+          ultrawide
+          size="flexible">
           <div className="pad">
             <label><SpellLink id={SPELLS.WELL_OF_EXISTENCE.id} /> - Minor Rank {rank}</label>
             <div className="value">
               <ItemHealingDone amount={this.minorHealing} /><br />
-              {formatNumber(this.totalAbsorbedOverhealing)} <small>Overheal absorbed</small><br />
-              {this.rankThreeOrAbove && (<>{formatPercentage(this.rankThreeDoubledOverhealing / this.totalAbsorbedOverhealing)}% <small>overheal doubled</small><br /></>)}
+              {formatNumber(this.totalAbsorbedOverhealing)} <small>overheal absorbed</small><br />
+              {this.rankThreeOrAbove && (<>{formatPercentage(this.rankThreeDoubledOverhealing / this.totalAbsorbedOverhealing)}% <small>overheal absorption doubled</small><br /></>)}
             </div>
           </div>
         </ItemStatistic>
