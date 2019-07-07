@@ -1,0 +1,27 @@
+.raidbuffs {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  h1 {
+    width: 100% !important;
+  }
+
+  .panel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    background-color: #1d1c1b;
+    padding: 5px;
+    margin: 1.5px;
+    width: auto;
+  }
+
+  .icon {
+    height: 100% !important;
+    margin-top: 0 !important;
+    max-height: 32px;
+    max-width: 32px;
+  }
+}
