@@ -88,7 +88,7 @@ class RaidBuffs extends React.Component {
   }
 
   incrementBuff(buff) {
-    this.setState({[buff]: { ...this.state[buff], count: this.state[buff].count + 1 } });
+    this.setState((prevState, props) => ({[buff]: { ...this.state[buff], count: prevState[buff].count + 1 } }));
   }
 
   calculateCompositionBreakdown(players) {
