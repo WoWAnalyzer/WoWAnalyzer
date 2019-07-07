@@ -20,7 +20,7 @@ import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import Tooltip from 'common/Tooltip';
 import PlayerSelection from 'interface/report/PlayerSelection';
 import RaidCompositionDetails from 'interface/report/RaidCompositionDetails';
-import RaidBuffs from "interface/report/RaidBuffs";
+import RaidBuffs from 'interface/report/RaidBuffs';
 import { fetchCharacter } from 'interface/actions/characters';
 import handleApiError from './handleApiError';
 
