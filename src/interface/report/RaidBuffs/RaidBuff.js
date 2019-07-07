@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
 
-import Icon from "common/Icon";
+import Icon from 'common/Icon';
 
 class RaidBuff extends React.PureComponent {
   static propTypes = {

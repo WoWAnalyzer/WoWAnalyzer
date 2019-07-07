@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
 
-import RaidBuff from "./RaidBuff";
-import "./RaidBuffs.scss";
+import RaidBuff from './RaidBuff';
+import './RaidBuffs.scss';
 
 class RaidBuffs extends React.Component {
   static propTypes = {
