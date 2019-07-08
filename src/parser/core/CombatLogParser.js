@@ -134,6 +134,9 @@ import SwirlingSands from '../shared/modules/spells/bfa/azeritetraits/SwirlingSa
 import Tradewinds from '../shared/modules/spells/bfa/azeritetraits/Tradewinds';
 import TreacherousCovenant from '../shared/modules/spells/bfa/azeritetraits/TreacherousCovenant';
 
+// Essences
+import TheEverRisingTide from '../shared/modules/spells/bfa/essences/TheEverRisingTide';
+
 // Uldir
 import TwitchingTentacleofXalzaix from '../shared/modules/items/bfa/raids/uldir/TwitchingTentacleofXalzaix';
 import VigilantsBloodshaper from '../shared/modules/items/bfa/raids/uldir/VigilantsBloodshaper';
@@ -305,6 +308,9 @@ class CombatLogParser {
     swirlingSands: SwirlingSands,
     tradewinds: Tradewinds,
     treacherousCovenant: TreacherousCovenant,
+
+    // Essences
+    theEverRisingTide: TheEverRisingTide,
 
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
