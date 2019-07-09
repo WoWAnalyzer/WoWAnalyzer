@@ -123,6 +123,8 @@ class ThunderFocusTea extends Analyzer {
       console.log(`Enm Buffed:${this.castsTftEnm}`);
       console.log(`Viv Buffed:${this.castsTftViv}`);
       console.log(`REM Buffed:${this.castsTftRem}`);
+      console.log(`Correct Casts:${this.correctCasts}`);
+      console.log(`Casts Under tft:${this.castsUnderTft}`);
     }
   }
 
