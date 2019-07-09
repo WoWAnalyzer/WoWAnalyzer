@@ -4,6 +4,7 @@ import Analyzer from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
+import EventFilter from 'parser/core/EventFilter';
 
 const debug = false;
 
@@ -33,10 +34,15 @@ class Haste extends Analyzer {
     [SPELLS.FROTHING_BERSERKER.id]: 0.05, // Fury Warrior
     [SPELLS.QUICK_THINKER_BUFF.id]: 0.15,
     [SPELLS.EMPOWER_RUNE_WEAPON.id]: 0.15, // Frost DK
+    [SPELLS.EVER_RISING_TIDE_CHARGING_BUFF.id]: 0.1, // Essence
 
     // Boss abilities:
     [SPELLS.OPULENCE_AMETHYST_OF_THE_SHADOW_KING.id]: 0.5, // Amethyst of the Shadow King by Opulence (BoD - BFA)
   };
+
+  get changehaste() {
+    return new EventFilter('changehaste');
+  }
 
   current = null;
   constructor(...args) {

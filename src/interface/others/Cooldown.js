@@ -174,29 +174,32 @@ class Cooldown extends React.Component {
             )}
             {this.state.showCastEvents && this.state.showAllEvents && (
               <div className="container-fluid">
-                {this.groupHeals(cooldown.events.filter(event => (event.type === 'cast' || event.type === 'heal') && event.ability.guid !== 1)).map((heal, i) => (
-                  <div className="row" key={i}>
-                    <div className="col-xs-1 text-right" style={{ padding: 0 }}>
-                      +{((heal.event.timestamp - cooldown.start) / 1000).toFixed(3)}
-                    </div>
-                    <div className={`col-xs-4 ${heal.event.type === 'heal' ? 'col-xs-offset-1' : ''}`}>
-                      <SpellLink key={`${heal.event.ability.guid}-${heal.event.timestamp}-${i}`} id={heal.event.ability.guid} icon={false}>
-                        <Icon icon={heal.event.ability.abilityIcon} alt={heal.event.ability.name} style={{ height: 23, marginRight: 4 }} /> {heal.event.ability.name}
-                      </SpellLink>
-                      {heal.event.type === 'heal' && (
-                        <span>
+                {this.groupHeals(cooldown.events.filter(event => (event.type === 'cast' || event.type === 'heal') && event.ability.guid !== 1)).map((heal, i) => {
+                  const event = heal.event || heal;
+                  return (
+                    <div className="row" key={i}>
+                      <div className="col-xs-1 text-right" style={{ padding: 0 }}>
+                        +{((event.timestamp - cooldown.start) / 1000).toFixed(3)}
+                      </div>
+                      <div className={`col-xs-4 ${event.type === 'heal' ? 'col-xs-offset-1' : ''}`}>
+                        <SpellLink key={`${event.ability.guid}-${event.timestamp}-${i}`} id={event.ability.guid} icon={false}>
+                          <Icon icon={event.ability.abilityIcon} alt={event.ability.name} style={{ height: 23, marginRight: 4 }} /> {event.ability.name}
+                        </SpellLink>
+                        {event.type === 'heal' && (
+                          <span>
                           <span className="grouped-heal-meta amount"> x {heal.count}</span>
-                        </span>
+                          </span>
+                        )}
+                      </div>
+                      {event.type === 'heal' && (
+                        <div className="col-xs-4">
+                          <span className="grouped-heal-meta healing"> +{formatThousands(heal.amount + heal.absorbed)}</span>
+                          <span className="grouped-heal-meta overhealing"> (O: {formatThousands(heal.overheal)})</span>
+                        </div>
                       )}
                     </div>
-                    {heal.event.type === 'heal' && (
-                      <div className="col-xs-4">
-                        <span className="grouped-heal-meta healing"> +{formatThousands(heal.amount + heal.absorbed)}</span>
-                        <span className="grouped-heal-meta overhealing"> (O: {formatThousands(heal.overheal)})</span>
-                      </div>
-                    )}
-                  </div>
-                ))}
+                  );
+                })}
                 <a href="javascript:" onClick={this.handleShowHealsClick} style={{ marginTop: '.2em' }}>Show less</a>{' | '}{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
                 <a href="javascript:" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>Show simple</a>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
               </div>

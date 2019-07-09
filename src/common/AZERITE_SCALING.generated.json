@@ -2033,16 +2033,21 @@
     "name": "Crashing Chaos",
     "effect_list": [
       732939,
-      732940
+      732940,
+      782162
     ],
     "scaling_type": -8,
     "effects": {
       "732939": {
         "type": 285,
-        "avg": 15.22
+        "avg": 10.042945
       },
       "732940": {
         "type": 4,
+        "avg": 0
+      },
+      "782162": {
+        "type": 0,
         "avg": 0
       }
     }
@@ -4728,7 +4733,7 @@
       },
       "750167": {
         "type": 4,
-        "avg": 8.86503
+        "avg": 7.535
       }
     }
   },
@@ -5581,6 +5586,186 @@
       },
       "753684": {
         "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "300168": {
+    "name": "Person-Computer Interface",
+    "effect_list": [
+      773466,
+      779235,
+      779236,
+      779237
+    ],
+    "scaling_type": -1,
+    "effects": {
+      "773466": {
+        "type": 189,
+        "avg": 0.766067
+      },
+      "779235": {
+        "type": 189,
+        "avg": 0.766067
+      },
+      "779236": {
+        "type": 189,
+        "avg": 0.766067
+      },
+      "779237": {
+        "type": 189,
+        "avg": 0.766067
+      }
+    }
+  },
+  "300170": {
+    "name": "Clockwork Heart",
+    "effect_list": [
+      773468
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "773468": {
+        "type": 285,
+        "avg": 0.83571
+      }
+    }
+  },
+  "300573": {
+    "name": "Perseverance",
+    "effect_list": [
+      774112
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "774112": {
+        "type": 137,
+        "avg": 0
+      }
+    }
+  },
+  "300575": {
+    "name": "Perseverance",
+    "effect_list": [
+      774115
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "774115": {
+        "type": 137,
+        "avg": 0
+      }
+    }
+  },
+  "300576": {
+    "name": "Perseverance",
+    "effect_list": [
+      774116
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "774116": {
+        "type": 137,
+        "avg": 0
+      }
+    }
+  },
+  "300577": {
+    "name": "Perseverance",
+    "effect_list": [
+      774117
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "774117": {
+        "type": 137,
+        "avg": 0
+      }
+    }
+  },
+  "300949": {
+    "name": "Heart of Azeroth Slot Unlock",
+    "effect_list": [
+      774682
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "774682": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "303006": {
+    "name": "Arcane Heart",
+    "effect_list": [
+      778205,
+      778206,
+      778207
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "778205": {
+        "type": 285,
+        "avg": 0
+      },
+      "778206": {
+        "type": 4,
+        "avg": 1.39285
+      },
+      "778207": {
+        "type": 285,
+        "avg": 0
+      }
+    }
+  },
+  "303007": {
+    "name": "Loyal to the End",
+    "effect_list": [
+      778208,
+      778209,
+      778210
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "778208": {
+        "type": 285,
+        "avg": 0.401141
+      },
+      "778209": {
+        "type": 4,
+        "avg": 0.100285
+      },
+      "778210": {
+        "type": 4,
+        "avg": 0.802281
+      }
+    }
+  },
+  "303008": {
+    "name": "Undulating Tides",
+    "effect_list": [
+      778211,
+      778212,
+      778215,
+      778216
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "778211": {
+        "type": 285,
+        "avg": 24.053892
+      },
+      "778212": {
+        "type": 4,
+        "avg": 0
+      },
+      "778215": {
+        "type": 4,
+        "avg": 188.622757
+      },
+      "778216": {
+        "type": 4,
         "avg": 0
       }
     }
