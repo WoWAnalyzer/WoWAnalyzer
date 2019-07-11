@@ -244,7 +244,8 @@ class PrePotion extends Analyzer {
           .icon(this.potionIcon)
           .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
       });
-    when(this.prePotionStrengthSuggestion && (!this.prePotionSuggestionThresholds || !this.secondPotionSuggestionThresholds))
+
+    when(this.prePotionStrengthSuggestion)
       .addSuggestion((suggest) => {
         return suggest(<>You used a weak potion. <ItemLink id={this.strongPotionId} /> can be used instead of <ItemLink id={this.potionId} /> in order to get a slightly higher damage output.</>)
           .icon(this.strongPotionIcon)

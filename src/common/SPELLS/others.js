@@ -236,22 +236,22 @@ export default {
     name: 'Bountiful Captain\'s Feast',
     icon: 'inv_cooking_80_majorfeast',
   },
-  FAMINE_EVALUATOR_AND_SNACK_TABLE_FEFAST_INT: {
+  FAMINE_EVALUATOR_AND_SNACK_TABLE_FEAST_INT: {
     id: 297117,
     name: 'Famine Evaluator And Snack Table',
     icon: 'trade_archaeology_staffofsorcerer_than-thaurissan',
   },
-  FAMINE_EVALUATOR_AND_SNACK_TABLE_FEFAST_STR: {
+  FAMINE_EVALUATOR_AND_SNACK_TABLE_FEAST_STR: {
     id: 297118,
     name: 'Famine Evaluator And Snack Table',
     icon: 'trade_archaeology_staffofsorcerer_than-thaurissan',
   },
-  FAMINE_EVALUATOR_AND_SNACK_TABLE_FEFAST_AGI: {
+  FAMINE_EVALUATOR_AND_SNACK_TABLE_FEAST_AGI: {
     id: 297116,
     name: 'Famine Evaluator And Snack Table',
     icon: 'trade_archaeology_staffofsorcerer_than-thaurissan',
   },
-  FAMINE_EVALUATOR_AND_SNACK_TABLE_FEFAST_STA: {
+  FAMINE_EVALUATOR_AND_SNACK_TABLE_FEAST_STA: {
     id: 297119,
     name: 'Famine Evaluator And Snack Table',
     icon: 'trade_archaeology_staffofsorcerer_than-thaurissan',
@@ -271,7 +271,7 @@ export default {
     name: 'Fragrant Kakavia',
     icon: 'inv_misc_food_159_fish_white',
   },
-  MECH_DOWEL_BIG_MECH: {
+  MECH_DOWELS_BIG_MECH: {
     id: 297039,
     name: 'Mech-Dowel\'s "Big Mech"',
     icon: 'inv_misc_starflowersandwich',
