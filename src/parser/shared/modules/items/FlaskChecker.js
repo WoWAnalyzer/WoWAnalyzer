@@ -18,14 +18,12 @@ const MAX_FLASK_IDS = [
 
 class FlaskChecker extends Analyzer {
   startFightWithFlaskUp = false;
-  weakFlaskused = false;
   strongFlaskUsed = false;
 
   on_toPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (MIN_FLASK_IDS.includes(spellId) && event.prepull) {
       this.startFightWithFlaskUp = true;
-      this.weakFlaskUsed = true;
     }
     if (MAX_FLASK_IDS.includes(spellId) && event.prepull) {
       this.startFightWithFlaskUp = true;

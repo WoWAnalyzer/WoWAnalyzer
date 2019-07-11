@@ -118,7 +118,6 @@ class PrePotion extends Analyzer {
   usedPrePotion = false;
   usedSecondPotion = false;
   neededManaSecondPotion = false;
-  usedWeakPrePotion = false;
   usedStrongPrePotion = false;
   potionId = ITEMS.BATTLE_POTION_OF_INTELLECT.id; //Giving it an initial value to prevent crashing
   potionIcon = ITEMS.BATTLE_POTION_OF_INTELLECT.icon; //Giving it an initial value to prevent crashing
@@ -132,7 +131,6 @@ class PrePotion extends Analyzer {
     const spellId = event.ability.guid;
     if (WEAK_PRE_POTIONS.includes(spellId) && event.prepull) {
       this.usedPrePotion = true;
-      this.usedWeakPrePotion = true;
     }
     if (STRONG_PRE_POTIONS.includes(spellId) && event.prepull) {
       this.usedPrePotion = true;
