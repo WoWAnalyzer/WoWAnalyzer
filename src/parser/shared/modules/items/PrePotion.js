@@ -73,7 +73,10 @@ const RISING_DEATH = [
   SPECS.FROST_MAGE.id,
 ];
 
-const PRE_POTIONS = [
+// TODO Determine on which specs this potion is useful and add them here.
+const UNBRIDLED_FURY = [];
+
+const WEAK_PRE_POTIONS = [
   SPELLS.BATTLE_POTION_OF_INTELLECT.id,
   SPELLS.BATTLE_POTION_OF_STRENGTH.id,
   SPELLS.BATTLE_POTION_OF_AGILITY.id,
@@ -81,6 +84,14 @@ const PRE_POTIONS = [
   SPELLS.POTION_OF_RISING_DEATH.id,
   SPELLS.POTION_OF_BURSTING_BLOOD.id,
   SPELLS.STEELSKIN_POTION.id,
+];
+
+const STRONG_PRE_POTIONS = [
+  SPELLS.SUPERIOR_BATTLE_POTION_OF_INTELLECT.id,
+  SPELLS.SUPERIOR_BATTLE_POTION_OF_STRENGTH.id,
+  SPELLS.SUPERIOR_BATTLE_POTION_OF_AGILITY.id,
+  SPELLS.SUPERIOR_BATTLE_POTION_OF_STAMINA.id,
+  SPELLS.SUPERIOR_STEELSKIN_POTION.id,
 ];
 
 const SECOND_POTIONS = [
@@ -94,6 +105,11 @@ const SECOND_POTIONS = [
   SPELLS.COASTAL_MANA_POTION.id,
   SPELLS.COASTAL_REJUVENATION_POTION.id,
   SPELLS.POTION_OF_REPLENISHMENT.id,
+  SPELLS.SUPERIOR_BATTLE_POTION_OF_INTELLECT.id,
+  SPELLS.SUPERIOR_BATTLE_POTION_OF_STRENGTH.id,
+  SPELLS.SUPERIOR_BATTLE_POTION_OF_AGILITY.id,
+  SPELLS.SUPERIOR_BATTLE_POTION_OF_STAMINA.id,
+  SPELLS.SUPERIOR_STEELSKIN_POTION.id,
 ];
 
 const COMMON_MANA_POTION_AMOUNT = 11084;
@@ -102,16 +118,25 @@ class PrePotion extends Analyzer {
   usedPrePotion = false;
   usedSecondPotion = false;
   neededManaSecondPotion = false;
+  usedWeakPrePotion = false;
+  usedStrongPrePotion = false;
   potionId = ITEMS.BATTLE_POTION_OF_INTELLECT.id; //Giving it an initial value to prevent crashing
   potionIcon = ITEMS.BATTLE_POTION_OF_INTELLECT.icon; //Giving it an initial value to prevent crashing
+  strongPotionId = ITEMS.SUPERIOR_BATTLE_POTION_OF_INTELLECT.id;
+  strongPotionIcon = ITEMS.SUPERIOR_BATTLE_POTION_OF_INTELLECT.icon;
   addedSuggestionText = false;
   alternatePotion = null;
   isHealer = false;
 
   on_toPlayer_applybuff(event) {
     const spellId = event.ability.guid;
-    if (PRE_POTIONS.includes(spellId) && event.prepull) {
+    if (WEAK_PRE_POTIONS.includes(spellId) && event.prepull) {
       this.usedPrePotion = true;
+      this.usedWeakPrePotion = true;
+    }
+    if (STRONG_PRE_POTIONS.includes(spellId) && event.prepull) {
+      this.usedPrePotion = true;
+      this.usedStrongPrePotion = true;
     }
   }
 
@@ -120,6 +145,9 @@ class PrePotion extends Analyzer {
 
     if (SECOND_POTIONS.includes(spellId)) {
       this.usedSecondPotion = true;
+    }
+    if (STRONG_PRE_POTIONS.includes(spellId)) {
+      this.usedStrongPrePotion = true;
     }
 
     if (event.classResources && event.classResources[0] && event.classResources[0].type === RESOURCE_TYPES.MANA.id) {
@@ -145,6 +173,13 @@ class PrePotion extends Analyzer {
       style: 'boolean',
     };
   }
+  get prePotionStrengthSuggestion() {
+    return {
+      actual: this.usedStrongPrePotion,
+      isEqual: false,
+      style: 'boolean',
+    };
+  }
   get secondPotionSuggestionThresholds() {
     return {
       actual: this.usedSecondPotion,
@@ -158,10 +193,14 @@ class PrePotion extends Analyzer {
     if (BURSTING_BLOOD.includes(specID)) {
       this.potionId = ITEMS.POTION_OF_BURSTING_BLOOD.id;
       this.potionIcon = ITEMS.POTION_OF_BURSTING_BLOOD.icon;
-      this.addedSuggestionText += true;
+      this.addedSuggestionText = true;
     } else if (RISING_DEATH.includes(specID)) {
       this.potionId = ITEMS.POTION_OF_RISING_DEATH.id;
       this.potionIcon = ITEMS.POTION_OF_RISING_DEATH.icon;
+      this.addedSuggestionText = true;
+    } else if (UNBRIDLED_FURY.includes(specID)) {
+      this.potionId = ITEMS.POTION_OF_UNBRIDLED_FURY.id;
+      this.potionIcon = ITEMS.POTION_OF_UNBRIDLED_FURY.icon;
       this.addedSuggestionText = true;
     } else if (AGI_SPECS.includes(specID)) {
       this.potionId = ITEMS.BATTLE_POTION_OF_AGILITY.id;
@@ -176,23 +215,43 @@ class PrePotion extends Analyzer {
       this.isHealer = true;
     }
   }
+
+  setStrongPotionForSpec(specID) {
+    if (AGI_SPECS.includes(specID)) {
+      this.strongPotionId = ITEMS.SUPERIOR_BATTLE_POTION_OF_AGILITY.id;
+      this.strongPotionIcon = ITEMS.SUPERIOR_BATTLE_POTION_OF_AGILITY.icon;
+    } else if (STR_SPECS.includes(specID)) {
+      this.strongPotionId = ITEMS.SUPERIOR_BATTLE_POTION_OF_STRENGTH.id;
+      this.strongPotionIcon = ITEMS.SUPERIOR_BATTLE_POTION_OF_STRENGTH.icon;
+    } else if (INT_SPECS.includes(specID)) {
+      this.strongPotionId = ITEMS.SUPERIOR_BATTLE_POTION_OF_INTELLECT.id;
+      this.strongPotionIcon = ITEMS.SUPERIOR_BATTLE_POTION_OF_INTELLECT.icon;
+    }
+  }
+
   suggestions(when) {
     this.potionAdjuster(this.selectedCombatant.specId);
+    this.setStrongPotionForSpec(this.selectedCombatant.specId);
     when(this.prePotionSuggestionThresholds)
       .addSuggestion((suggest) => {
-          return suggest(<>You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <ItemLink id={this.potionId} /> can be very effective, especially during shorter encounters. {this.addedSuggestionText ? <>In a multi-target encounter, a potion such as <ItemLink id={this.alternatePotion} /> could be very effective.</> : ''}</>
+          return suggest(<>You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <ItemLink id={this.potionId} /> can be very effective, especially during shorter encounters. {this.addedSuggestionText ? <>In a multi-target encounter, a potion such as <ItemLink id={this.alternatePotion} /> could be very effective.</> : ''}</>,
           )
             .icon(this.potionIcon)
             .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
-        }
+        },
       );
     when(this.secondPotionSuggestionThresholds)
       .addSuggestion((suggest) => {
         return suggest(<>You forgot to use a potion during combat. Using a potion during combat allows you the benefit of {this.isHealer ? 'either' : ''} increasing output through <ItemLink id={this.potionId} />{this.isHealer ? <> or allowing you to gain mana using <ItemLink id={ITEMS.COASTAL_MANA_POTION.id} /> or <ItemLink id={ITEMS.POTION_OF_REPLENISHMENT.id} /></> : ''}. {this.addedSuggestionText ? <>In a multi-target encounter, a potion such as <ItemLink id={this.alternatePotion} /> could be very effective.</> : ''}</>)
           .icon(this.potionIcon)
           .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
-      })
-    ;
+      });
+    when(this.prePotionStrengthSuggestion && (!this.prePotionSuggestionThresholds || !this.secondPotionSuggestionThresholds))
+      .addSuggestion((suggest) => {
+        return suggest(<>You used a weak potion. <ItemLink id={this.strongPotionId} /> can be used instead of <ItemLink id={this.potionId} /> in order to get a slightly higher damage output.</>)
+          .icon(this.strongPotionIcon)
+          .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
+      });
   }
 }
 
