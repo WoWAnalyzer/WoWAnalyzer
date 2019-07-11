@@ -20,6 +20,8 @@ class ThunderFocusTea extends Analyzer {
   castsTft = 0;
   castsUnderTft = 0;
 
+  correctCasts = 0;
+
   castBufferTimestamp = null;
   ftActive = false;
 
@@ -48,12 +50,18 @@ class ThunderFocusTea extends Analyzer {
       if (SPELLS.VIVIFY.id === spellId && !event.classResources.cost) {
         this.castsUnderTft += 1;
         this.castsTftViv += 1;
+        this.correctCasts += 1;
         debug && console.log('Viv TFT Check ', event.timestamp);
         this.castBufferTimestamp = event.timestamp;
       }
       if (SPELLS.RISING_SUN_KICK.id === spellId) {
         this.castsUnderTft += 1;
         this.castsTftRsk += 1;
+        
+        if(this.selectedCombatant.hasBuff(SPELLS.WAY_OF_THE_CRANE.id)){
+          this.correctCasts += 1;
+        }
+
         debug && console.log('RSK TFT Check ', event.timestamp);
       }
       if (SPELLS.ENVELOPING_MIST.id === spellId) {
@@ -64,6 +72,7 @@ class ThunderFocusTea extends Analyzer {
       if (SPELLS.RENEWING_MIST.id === spellId) {
         this.castsUnderTft += 1;
         this.castsTftRem += 1;
+        this.correctCasts += 1;
         debug && console.log('REM TFT Check ', event.timestamp);
       }
     }
@@ -114,11 +123,13 @@ class ThunderFocusTea extends Analyzer {
       console.log(`Enm Buffed:${this.castsTftEnm}`);
       console.log(`Viv Buffed:${this.castsTftViv}`);
       console.log(`REM Buffed:${this.castsTftRem}`);
+      console.log(`Correct Casts:${this.correctCasts}`);
+      console.log(`Casts Under tft:${this.castsUnderTft}`);
     }
   }
 
   get incorrectTftCasts() {
-    return this.castsUnderTft - (this.castsTftViv + this.castsTftRem);
+    return this.castsUnderTft - this.correctCasts;
   }
 
   get suggestionThresholds() {
