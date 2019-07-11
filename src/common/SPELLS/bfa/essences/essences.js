@@ -77,9 +77,9 @@ export default {
     icon: 'creatureportrait_twilightshammer_summoningportal_water01',
   },
   WELL_OF_EXISTENCE_DOUBLE_ABSORBTION: {
-	id: 296193,
-	name: 'The Well of Existence',
-	icon: 'creatureportrait_twilightshammer_summoningportal_water01',
+    id: 296193,
+    name: 'The Well of Existence',
+    icon: 'creatureportrait_twilightshammer_summoningportal_water01',
   },
   WELL_OF_EXISTENCE_HEAL: {
     id: 296184,
