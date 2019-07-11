@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-07-2'),
+    changes: <>Added <SpellLink id={SPELLS.WAY_OF_THE_CRANE.id} /> to the cooldowns tab.</>,
+    contributors: [Anomoly],
+  },
+  {
     date: new Date('2019-06-1'),
     changes: <>Added a check to make sure you using <SpellLink id={SPELLS.SOOTHING_MIST.id} /> efficiency while channeling it.</>,
     contributors: [Abelito75],

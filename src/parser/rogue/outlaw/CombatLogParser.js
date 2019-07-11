@@ -26,6 +26,7 @@ import Opportunity from './modules/spells/Opportunity';
 import OpportunityDamageTracker from './modules/spells/OpportunityDamageTracker';
 import BetweenTheEyes from './modules/spells/BetweenTheEyes';
 import BetweenTheEyesDamageTracker from './modules/spells/BetweenTheEyesDamageTracker';
+import Finishers from './modules/features/Finishers';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -60,6 +61,7 @@ class CombatLogParser extends CoreCombatLogParser {
     rollTheBonesBuffs: RollTheBonesBuffs,
     rollTheBonesCounter: RollTheBonesCounter,
     rollTheBonesEfficiency: RollTheBonesEfficiency,
+    finishers: Finishers,
 
     //Talents
     sliceAndDiceUptime: SliceAndDiceUptime,
