@@ -13,13 +13,12 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 
+import { calculateAzeriteEffects } from 'common/stats';
+
 const debug = false;
 
-// Can these values be queried? 
 const OVERHEAL_ABSORB_RATE = 0.15;
 const RANK_TWO_HEALING_BOOST = 1.5;
-// https://www.wowhead.com/spell=299936/the-well-of-existence
-const RANK_THREE_DOUBLE_CAP = 10982;
 
 // Live Report with multiple Rank 1 fights/uses 
 //   https://www.warcraftlogs.com/reports/ADH6NnKYPGxtf318#boss=-2&difficulty=0&type=healing&ability=296197
@@ -40,6 +39,7 @@ class TheWellOfExistence extends Analyzer {
   totalAbsorbedOverhealing = 0;
   currentAbsorbedOverhealing = 0;
   rankThreeDoubledOverhealing = 0;
+  rankThreeDoubleCap = 0
   // for debug 
   totalOverhealing = 0;
     
@@ -51,7 +51,10 @@ class TheWellOfExistence extends Analyzer {
     }
     this.hasMajor = this.selectedCombatant.hasMajor(SPELLS.WELL_OF_EXISTENCE.traitId);
     this.rankThreeOrAbove = this.selectedCombatant.essenceRank(SPELLS.WELL_OF_EXISTENCE.traitId) >= 3;
-
+    if(this.rankThreeOrAbove){
+        this.rankThreeDoubleCap = calculateAzeriteEffects(SPELLS.WELL_OF_EXISTENCE_DOUBLE_ABSORBTION.id, this.selectedCombatant.neck.itemLevel)[0];
+    }
+    
     if(this.hasMajor){
       this.abilities.add({
        spell: SPELLS.WELL_OF_EXISTENCE_MAJOR_ABILITY,
@@ -66,58 +69,47 @@ class TheWellOfExistence extends Analyzer {
 
   _onHeal(event) {
     // Essence passive heal 
-    if(SPELLS.WELL_OF_EXISTENCE_HEAL.id === event.ability.guid)
-    {
+    if(SPELLS.WELL_OF_EXISTENCE_HEAL.id === event.ability.guid){
       this.minorHealing += event.amount;
       this.currentAbsorbedOverhealing -= event.amount;
     }
     // Essence active(major) heal 
-    else if(SPELLS.WELL_OF_EXISTENCE_MAJOR_ABILITY.id === event.ability.guid) 
-    {
+    else if(SPELLS.WELL_OF_EXISTENCE_MAJOR_ABILITY.id === event.ability.guid) {
       this.majorHealing += event.amount;
 
-      if(this.rankThreeOrAbove)
-      {
+      if(this.rankThreeOrAbove){
         // Rank 3 doesnt dump the well, only as much as needed (don't need to consider overheal)
         // Healing is amplified, so you lost (heal divided by amplification) from the well
         this.currentAbsorbedOverhealing -= event.amount / RANK_TWO_HEALING_BOOST;
-      }
-      else
-      {
+      } else{
         // Under rank 3 you lose all stored healing on active 
         this.currentAbsorbedOverhealing = 0;
       }
     }
     // anything else that overhealed
-    else if(event.overheal)
-    {
-      if(debug)
-      {
+    else if(event.overheal){
+      if(debug){
         this.totalOverhealing += event.overheal;
       }
       
       const absorbableOverhealing = event.overheal * OVERHEAL_ABSORB_RATE;
       // If overheal can be doubled and below threshold to do it
-      if(this.rankThreeOrAbove && this.currentAbsorbedOverhealing < RANK_THREE_DOUBLE_CAP)
-      {
+      if(this.rankThreeOrAbove && this.currentAbsorbedOverhealing < this.rankThreeDoubleCap){
         const doubledOverhealing = 2 * absorbableOverhealing;
         // If all overheal is below the threshold
-        if(this.currentAbsorbedOverhealing + doubledOverhealing < RANK_THREE_DOUBLE_CAP)
-        {
+        if(this.currentAbsorbedOverhealing + doubledOverhealing < this.rankThreeDoubleCap){
           this.rankThreeDoubledOverhealing += absorbableOverhealing;
           this.currentAbsorbedOverhealing += doubledOverhealing;
         }
         // If only part of overheal is below the threshold
-        else
-        {
-          const remainingDoubleableOverhealing = RANK_THREE_DOUBLE_CAP - this.currentAbsorbedOverhealing;
+        else{
+          const remainingDoubleableOverhealing = this.rankThreeDoubleCap - this.currentAbsorbedOverhealing;
           this.rankThreeDoubledOverhealing += remainingDoubleableOverhealing;
           const totalAbsorbed = (2 * remainingDoubleableOverhealing) + (absorbableOverhealing - remainingDoubleableOverhealing);
           this.currentAbsorbedOverhealing += totalAbsorbed;
         }
       }
-      else
-      {
+      else{
         this.currentAbsorbedOverhealing += absorbableOverhealing;
       }
       
