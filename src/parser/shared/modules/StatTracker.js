@@ -91,7 +91,7 @@ class StatTracker extends Analyzer {
     [SPELLS.FAMINE_EVALUATOR_AND_SNACK_TABLE_FEAST_STA.id]: { stamina: 198 },
     [SPELLS.ABYSSAL_FRIED_RISSOLE.id]: { mastery: 93 },
     [SPELLS.BIL_TONG.id]: { versatility: 93 },
-    [SPELLS.MECH_DOWEL_BIG_MECH.id]: { crit: 93 },
+    [SPELLS.MECH_DOWELS_BIG_MECH.id]: { crit: 93 },
     [SPELLS.BAKED_PORT_TATO.id]: { haste: 93 },
     [SPELLS.FRAGRANT_KAKAVIA.id]: { stamina: 198 },
     [SPELLS.BORALUS_BLOOD_SAUSAGE_AGI.id]: { agility: 85 },
