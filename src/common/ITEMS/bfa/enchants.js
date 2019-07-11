@@ -1,29 +1,29 @@
 // Enchants used for showing item statistics
 export default {
   // ENCHANT_RING
-  ENCHANT_RING_PACT_OF_CRITICAL_STRIKE: {
-    id: 153442,
-    name: 'Enchant Ring - Pact of Critical Strike',
+  ENCHANT_RING_ACCORD_OF_CRITICAL_STRIKE: {
+    id: 298011,
+    name: 'Enchant Ring - Accord of Critical Strike',
     icon: 'inv_misc_enchantedscroll',
-    effectId: 5942,
+    effectId: 6108,
   },
-  ENCHANT_RING_PACT_OF_HASTE: {
-    id: 153443,
-    name: 'Enchant Ring - Pact of Haste',
+  ENCHANT_RING_ACCORD_OF_HASTE: {
+    id: 297989,
+    name: 'Enchant Ring - Accord of Haste',
     icon: 'inv_misc_enchantedscroll',
-    effectId: 5943,
+    effectId: 6109,
   },
-  ENCHANT_RING_PACT_OF_MASTERY: {
-    id: 153444,
-    name: 'Enchant Ring - Pact of Mastery',
+  ENCHANT_RING_ACCORD_OF_MASTERY: {
+    id: 298001,
+    name: 'Enchant Ring - Accord of Mastery',
     icon: 'inv_misc_enchantedscroll',
-    effectId: 5944,
+    effectId: 6110,
   },
-  ENCHANT_RING_PACT_OF_VERSATILITY: {
-    id: 153445,
-    name: 'Enchant Ring - Pact of Versatility',
+  ENCHANT_RING_ACCORD_OF_VERSATILITY: {
+    id: 297993,
+    name: 'Enchant Ring - Accord of Versatility',
     icon: 'inv_misc_enchantedscroll',
-    effectId: 5945,
+    effectId: 6111,
   },
 
 

@@ -24,9 +24,6 @@ const LOWER_FOOD_IDS = [
   SPELLS.WELL_FED_REAWAKENING_INT.id,
   SPELLS.WELL_FED_REAWAKENING_STR.id,
   SPELLS.WELL_FED_REAWAKENING_AGI.id,
-];
-
-const HIGHER_FOOD_IDS = [
   // 100 primary stat
   SPELLS.BOUNTIFUL_CAPTAIN_FEAST_AGI.id,
   SPELLS.BOUNTIFUL_CAPTAIN_FEAST_INT.id,
@@ -38,6 +35,21 @@ const HIGHER_FOOD_IDS = [
   SPELLS.BORALUS_BLOOD_SAUSAGE_AGI.id,
   SPELLS.BORALUS_BLOOD_SAUSAGE_INT.id,
   SPELLS.BORALUS_BLOOD_SAUSAGE_STR.id,
+  // 93 secondary stat
+  SPELLS.ABYSSAL_FRIED_RISSOLE.id,
+  SPELLS.BIL_TONG.id,
+  SPELLS.MECH_DOWEL_BIG_MECH.id,
+  SPELLS.BAKED_PORT_TATO.id,
+];
+
+const HIGHER_FOOD_IDS = [
+  // 131 primary stat
+  SPELLS.FAMINE_EVALUATOR_AND_SNACK_TABLE_FEFAST_AGI.id,
+  SPELLS.FAMINE_EVALUATOR_AND_SNACK_TABLE_FEFAST_INT.id,
+  SPELLS.FAMINE_EVALUATOR_AND_SNACK_TABLE_FEFAST_STR.id,
+  // 198 stamina
+  SPELLS.FAMINE_EVALUATOR_AND_SNACK_TABLE_FEFAST_STA.id,
+  SPELLS.FRAGRANT_KAKAVIA.id,
 ];
 
 class FoodChecker extends Analyzer {
@@ -80,7 +92,7 @@ class FoodChecker extends Analyzer {
     when(this.higherFoodSuggestionThresholds)
       .addSuggestion((suggest) => {
         return suggest(suggestionText)
-          .icon(SPELLS.BOUNTIFUL_CAPTAIN_FEAST_AGI.icon)
+          .icon(SPELLS.FAMINE_EVALUATOR_AND_SNACK_TABLE_FEFAST_STR.icon)
           .staticImportance(importance);
       });
   }

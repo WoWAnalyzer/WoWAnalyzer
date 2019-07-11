@@ -73,27 +73,30 @@ const RISING_DEATH = [
   SPECS.FROST_MAGE.id,
 ];
 
+// TODO Determine on which specs this potion is useful and add them here.
+const UNBRIDLED_FURY = [];
+
 const PRE_POTIONS = [
-  SPELLS.BATTLE_POTION_OF_INTELLECT.id,
-  SPELLS.BATTLE_POTION_OF_STRENGTH.id,
-  SPELLS.BATTLE_POTION_OF_AGILITY.id,
-  SPELLS.BATTLE_POTION_OF_STAMINA.id,
   SPELLS.POTION_OF_RISING_DEATH.id,
   SPELLS.POTION_OF_BURSTING_BLOOD.id,
-  SPELLS.STEELSKIN_POTION.id,
+  SPELLS.SUPERIOR_BATTLE_POTION_OF_INTELLECT.id,
+  SPELLS.SUPERIOR_BATTLE_POTION_OF_STRENGTH.id,
+  SPELLS.SUPERIOR_BATTLE_POTION_OF_AGILITY.id,
+  SPELLS.SUPERIOR_BATTLE_POTION_OF_STAMINA.id,
+  SPELLS.SUPERIOR_STEELSKIN_POTION.id,
 ];
 
 const SECOND_POTIONS = [
-  SPELLS.BATTLE_POTION_OF_INTELLECT.id,
-  SPELLS.BATTLE_POTION_OF_STRENGTH.id,
-  SPELLS.BATTLE_POTION_OF_AGILITY.id,
-  SPELLS.BATTLE_POTION_OF_STAMINA.id,
   SPELLS.POTION_OF_RISING_DEATH.id,
   SPELLS.POTION_OF_BURSTING_BLOOD.id,
-  SPELLS.STEELSKIN_POTION.id,
   SPELLS.COASTAL_MANA_POTION.id,
   SPELLS.COASTAL_REJUVENATION_POTION.id,
   SPELLS.POTION_OF_REPLENISHMENT.id,
+  SPELLS.SUPERIOR_BATTLE_POTION_OF_INTELLECT.id,
+  SPELLS.SUPERIOR_BATTLE_POTION_OF_STRENGTH.id,
+  SPELLS.SUPERIOR_BATTLE_POTION_OF_AGILITY.id,
+  SPELLS.SUPERIOR_BATTLE_POTION_OF_STAMINA.id,
+  SPELLS.SUPERIOR_STEELSKIN_POTION.id,
 ];
 
 const COMMON_MANA_POTION_AMOUNT = 11084;
@@ -102,8 +105,8 @@ class PrePotion extends Analyzer {
   usedPrePotion = false;
   usedSecondPotion = false;
   neededManaSecondPotion = false;
-  potionId = ITEMS.BATTLE_POTION_OF_INTELLECT.id; //Giving it an initial value to prevent crashing
-  potionIcon = ITEMS.BATTLE_POTION_OF_INTELLECT.icon; //Giving it an initial value to prevent crashing
+  potionId = ITEMS.SUPERIOR_BATTLE_POTION_OF_INTELLECT.id; //Giving it an initial value to prevent crashing
+  potionIcon = ITEMS.SUPERIOR_BATTLE_POTION_OF_INTELLECT.icon; //Giving it an initial value to prevent crashing
   addedSuggestionText = false;
   alternatePotion = null;
   isHealer = false;
@@ -154,24 +157,28 @@ class PrePotion extends Analyzer {
   }
 
   potionAdjuster(specID) {
-    this.alternatePotion = STR_SPECS.includes(specID) ? ITEMS.BATTLE_POTION_OF_STRENGTH.id : AGI_SPECS.includes(specID) ? ITEMS.BATTLE_POTION_OF_AGILITY.id : ITEMS.BATTLE_POTION_OF_INTELLECT.id;
+    this.alternatePotion = STR_SPECS.includes(specID) ? ITEMS.SUPERIOR_BATTLE_POTION_OF_STRENGTH.id : AGI_SPECS.includes(specID) ? ITEMS.SUPERIOR_BATTLE_POTION_OF_AGILITY.id : ITEMS.SUPERIOR_BATTLE_POTION_OF_INTELLECT.id;
     if (BURSTING_BLOOD.includes(specID)) {
       this.potionId = ITEMS.POTION_OF_BURSTING_BLOOD.id;
       this.potionIcon = ITEMS.POTION_OF_BURSTING_BLOOD.icon;
-      this.addedSuggestionText += true;
+      this.addedSuggestionText += true; // is this a mistake? += true?
     } else if (RISING_DEATH.includes(specID)) {
       this.potionId = ITEMS.POTION_OF_RISING_DEATH.id;
       this.potionIcon = ITEMS.POTION_OF_RISING_DEATH.icon;
       this.addedSuggestionText = true;
+    } else if (UNBRIDLED_FURY.includes(specID)) {
+      this.potionId = ITEMS.POTION_OF_UNBRIDLED_FURY.id;
+      this.potionIcon = ITEMS.POTION_OF_UNBRIDLED_FURY.icon;
+      this.addedSuggestionText = true;
     } else if (AGI_SPECS.includes(specID)) {
-      this.potionId = ITEMS.BATTLE_POTION_OF_AGILITY.id;
-      this.potionIcon = ITEMS.BATTLE_POTION_OF_AGILITY.icon;
+      this.potionId = ITEMS.SUPERIOR_BATTLE_POTION_OF_AGILITY.id;
+      this.potionIcon = ITEMS.SUPERIOR_BATTLE_POTION_OF_AGILITY.icon;
     } else if (STR_SPECS.includes(specID)) {
-      this.potionId = ITEMS.BATTLE_POTION_OF_STRENGTH.id;
-      this.potionIcon = ITEMS.BATTLE_POTION_OF_STRENGTH.icon;
+      this.potionId = ITEMS.SUPERIOR_BATTLE_POTION_OF_STRENGTH.id;
+      this.potionIcon = ITEMS.SUPERIOR_BATTLE_POTION_OF_STRENGTH.icon;
     } else if (INT_SPECS.includes(specID)) {
-      this.potionId = ITEMS.BATTLE_POTION_OF_INTELLECT.id;
-      this.potionIcon = ITEMS.BATTLE_POTION_OF_INTELLECT.icon;
+      this.potionId = ITEMS.SUPERIOR_BATTLE_POTION_OF_INTELLECT.id;
+      this.potionIcon = ITEMS.SUPERIOR_BATTLE_POTION_OF_INTELLECT.icon;
     } else if (HEALER_SPECS.includes(specID)) {
       this.isHealer = true;
     }

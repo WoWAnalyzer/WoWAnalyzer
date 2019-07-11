@@ -96,6 +96,26 @@ export default {
     name: 'Flask of the Vast Horizon',
     icon: 'inv_alchemy_80_flask01red',
   },
+  GREATER_FLASK_OF_THE_CURRENTS: {
+    id: 298836,
+    name: 'Greater Flask of the Currents',
+    icon: 'trade_alchemy_dpotion_c26',
+  },
+  GREATER_FLASK_OF_ENDLESS_FATHOMS: {
+    id: 298837,
+    name: 'Greater Flask of Endless Fathoms',
+    icon: 'trade_alchemy_dpotion_c25',
+  },
+  GREATER_FLASK_OF_THE_UNDERTOW: {
+    id: 298841,
+    name: 'Greater Flask of the Undertow',
+    icon: 'trade_alchemy_dpotion_c23',
+  },
+  GREATER_FLASK_OF_THE_VAST_HORIZON: {
+    id: 298839,
+    name: 'Greater Flask of the Vast Horizon',
+    icon: 'trade_alchemy_dpotion_c29',
+  },
   KUL_TIRAMISU: {
     id: 257408,
     name: 'Kul Tiramisu',
@@ -216,6 +236,51 @@ export default {
     name: 'Bountiful Captain\'s Feast',
     icon: 'inv_cooking_80_majorfeast',
   },
+  FAMINE_EVALUATOR_AND_SNACK_TABLE_FEFAST_INT: {
+    id: 297117,
+    name: 'Famine Evaluator And Snack Table',
+    icon: 'trade_archaeology_staffofsorcerer_than-thaurissan',
+  },
+  FAMINE_EVALUATOR_AND_SNACK_TABLE_FEFAST_STR: {
+    id: 297118,
+    name: 'Famine Evaluator And Snack Table',
+    icon: 'trade_archaeology_staffofsorcerer_than-thaurissan',
+  },
+  FAMINE_EVALUATOR_AND_SNACK_TABLE_FEFAST_AGI: {
+    id: 297116,
+    name: 'Famine Evaluator And Snack Table',
+    icon: 'trade_archaeology_staffofsorcerer_than-thaurissan',
+  },
+  FAMINE_EVALUATOR_AND_SNACK_TABLE_FEFAST_STA: {
+    id: 297119,
+    name: 'Famine Evaluator And Snack Table',
+    icon: 'trade_archaeology_staffofsorcerer_than-thaurissan',
+  },
+  ABYSSAL_FRIED_RISSOLE: {
+    id: 297035,
+    name: 'Abyssal-Fried Rissole',
+    icon: 'inv_misc_fish_18',
+  },
+  BIL_TONG: {
+    id: 297037,
+    name: 'Bil\'Tong',
+    icon: 'inv_misc_food_48',
+  },
+  FRAGRANT_KAKAVIA: {
+    id: 297040,
+    name: 'Fragrant Kakavia',
+    icon: 'inv_misc_food_159_fish_white',
+  },
+  MECH_DOWEL_BIG_MECH: {
+    id: 297039,
+    name: 'Mech-Dowel\'s "Big Mech"',
+    icon: 'inv_misc_starflowersandwich',
+  },
+  BAKED_PORT_TATO: {
+    id: 297034,
+    name: 'Baked Port Tato',
+    icon: 'inv_misc_food_cooked_fishcake',
+  },
   DEFILED_AUGMENT_RUNE: {
     id: 224001,
     name: 'Defiled Augment Rune',
@@ -302,6 +367,7 @@ export default {
     name: 'Lemon Herb Filet',
     icon: 'spell_misc_food',
   },
+
   // Items buffs:
   JACINS_RUSE: {
     id: 224149,

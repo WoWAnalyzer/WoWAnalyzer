@@ -25,7 +25,7 @@ export default {
     mastery: false,
     vers: true, // confirmed
   },
-  [SPELLS.COASTAL_HEALING_POTION.id]: {
+  [SPELLS.ABYSSAL_HEALING_POTION.id]: {
     int: false,
     crit: false,
     hasteHpct: false,
