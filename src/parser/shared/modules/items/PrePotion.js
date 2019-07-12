@@ -140,11 +140,11 @@ class PrePotion extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
-
-    if (SECOND_POTIONS.includes(spellId)) {
+    
+    if (SECOND_POTIONS.includes(spellId) && !event.prepull) {
       this.usedSecondPotion = true;
     }
-    if (STRONG_PRE_POTIONS.includes(spellId)) {
+    if (STRONG_PRE_POTIONS.includes(spellId) && !event.prepull) {
       this.usedStrongPrePotion = true;
     }
 
@@ -187,7 +187,7 @@ class PrePotion extends Analyzer {
   }
 
   potionAdjuster(specID) {
-    this.alternatePotion = STR_SPECS.includes(specID) ? ITEMS.BATTLE_POTION_OF_STRENGTH.id : AGI_SPECS.includes(specID) ? ITEMS.BATTLE_POTION_OF_AGILITY.id : ITEMS.BATTLE_POTION_OF_INTELLECT.id;
+    this.alternatePotion = STR_SPECS.includes(specID) ? ITEMS.SUPERIOR_BATTLE_POTION_OF_STRENGTH.id : AGI_SPECS.includes(specID) ? ITEMS.SUPERIOR_BATTLE_POTION_OF_AGILITY.id : ITEMS.SUPERIOR_BATTLE_POTION_OF_INTELLECT.id;
     if (BURSTING_BLOOD.includes(specID)) {
       this.potionId = ITEMS.POTION_OF_BURSTING_BLOOD.id;
       this.potionIcon = ITEMS.POTION_OF_BURSTING_BLOOD.icon;
@@ -232,25 +232,26 @@ class PrePotion extends Analyzer {
     this.setStrongPotionForSpec(this.selectedCombatant.specId);
     when(this.prePotionSuggestionThresholds)
       .addSuggestion((suggest) => {
-          return suggest(<>You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <ItemLink id={this.potionId} /> can be very effective, especially during shorter encounters. {this.addedSuggestionText ? <>In a multi-target encounter, a potion such as <ItemLink id={this.alternatePotion} /> could be very effective.</> : ''}</>,
+          return suggest(<>You did not use a potion before combat. Using a potion before combat allows you the benefit of two potions in a single fight. A potion such as <ItemLink id={this.strongPotionId} /> can be very effective, especially during shorter encounters. {this.addedSuggestionText ? <>In a multi-target encounter, a potion such as <ItemLink id={this.alternatePotion} /> could be very effective.</> : ''}</>,
           )
-            .icon(this.potionIcon)
+            .icon(this.strongPotionIcon)
             .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
         },
       );
     when(this.secondPotionSuggestionThresholds)
       .addSuggestion((suggest) => {
-        return suggest(<>You forgot to use a potion during combat. Using a potion during combat allows you the benefit of {this.isHealer ? 'either' : ''} increasing output through <ItemLink id={this.potionId} />{this.isHealer ? <> or allowing you to gain mana using <ItemLink id={ITEMS.COASTAL_MANA_POTION.id} /> or <ItemLink id={ITEMS.POTION_OF_REPLENISHMENT.id} /></> : ''}. {this.addedSuggestionText ? <>In a multi-target encounter, a potion such as <ItemLink id={this.alternatePotion} /> could be very effective.</> : ''}</>)
-          .icon(this.potionIcon)
-          .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
-      });
-
-    when(this.prePotionStrengthSuggestion)
-      .addSuggestion((suggest) => {
-        return suggest(<>You used a weak potion. <ItemLink id={this.strongPotionId} /> can be used instead of <ItemLink id={this.potionId} /> in order to get a slightly higher damage output.</>)
+        return suggest(<>You forgot to use a potion during combat. Using a potion during combat allows you the benefit of {this.isHealer ? 'either' : ''} increasing output through <ItemLink id={this.strongPotionId} />{this.isHealer ? <> or allowing you to gain mana using <ItemLink id={ITEMS.COASTAL_MANA_POTION.id} /> or <ItemLink id={ITEMS.POTION_OF_REPLENISHMENT.id} /></> : ''}. {this.addedSuggestionText ? <>In a multi-target encounter, a potion such as <ItemLink id={this.alternatePotion} /> could be very effective.</> : ''}</>)
           .icon(this.strongPotionIcon)
           .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
       });
+    if ((this.usedPrePotion || this.usedSecondPotion) && !this.usedStrongPrePotion) {
+      when(this.prePotionStrengthSuggestion)
+        .addSuggestion((suggest) => {
+          return suggest(<>You used a weak potion. <ItemLink id={this.strongPotionId} /> can be used instead of <ItemLink id={this.potionId} /> in order to get a slightly higher damage output.</>)
+            .icon(this.strongPotionIcon)
+            .staticImportance(SUGGESTION_IMPORTANCE.MINOR);
+        });
+    }
   }
 }
 
