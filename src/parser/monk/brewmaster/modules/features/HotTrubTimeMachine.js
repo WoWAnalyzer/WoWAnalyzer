@@ -11,7 +11,7 @@ import { EVENT_STAGGER_POOL_ADDED, EVENT_STAGGER_POOL_REMOVED } from '../core/St
 import AgilityValue, { staggerPct } from './AgilityValue';
 import { lookupK } from '../constants/Mitigation';
 
-const debug = true;
+const debug = false;
 
 export function hotTrubDamage(amtPurified, maxHP) {
   return Math.min(uncappedHotTrubDamage(amtPurified), Math.floor(maxHP * 0.2));
