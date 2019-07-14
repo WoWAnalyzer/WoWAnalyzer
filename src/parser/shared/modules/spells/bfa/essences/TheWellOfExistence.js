@@ -40,9 +40,11 @@ class TheWellOfExistence extends Analyzer {
   currentAbsorbedOverhealing = 0;
   rankThreeDoubledOverhealing = 0;
   rankThreeDoubleCap = 0
+  maxHp = 0;
   // for debug 
+  wellFullMissedOverhealing = 0;
   totalOverhealing = 0;
-    
+  
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasEssence(SPELLS.WELL_OF_EXISTENCE.traitId);
@@ -64,6 +66,7 @@ class TheWellOfExistence extends Analyzer {
     }
     
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this._onHeal);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this._onCast);
     debug && this.addEventListener(Events.fightend, this._fightend);
   }
 
@@ -90,9 +93,27 @@ class TheWellOfExistence extends Analyzer {
     else if(event.overheal){
       if(debug){
         this.totalOverhealing += event.overheal;
+      }        
+        
+      let absorbableOverhealing = event.overheal * OVERHEAL_ABSORB_RATE;
+        
+      // early out if well already full      
+      if(this.currentAbsorbedOverhealing >= this.maxHp){
+        if(debug){
+          this.wellFullMissedOverhealing += absorbableOverhealing;
+        }
+        return;
       }
       
-      const absorbableOverhealing = event.overheal * OVERHEAL_ABSORB_RATE;
+      // if absorb will put over cap
+      if(this.currentAbsorbedOverhealing + absorbableOverhealing > this.maxHp){
+        const asorbableUnderCap = this.maxHp - this.currentAbsorbedOverhealing;
+        if(debug){
+          this.wellFullMissedOverhealing += absorbableOverhealing - asorbableUnderCap
+        }
+        absorbableOverhealing = asorbableUnderCap
+      }
+      
       // If overheal can be doubled and below threshold to do it
       if(this.rankThreeOrAbove && this.currentAbsorbedOverhealing < this.rankThreeDoubleCap){
         const doubledOverhealing = 2 * absorbableOverhealing;
@@ -117,11 +138,18 @@ class TheWellOfExistence extends Analyzer {
     }
   }
   
+  _onCast(event) {
+    // This isn't perfect, but will keep max hp roughly 
+    // correct as it may change during fight
+    this.maxHp = event.maxHitPoints;
+  } 
+  
   // This function is only connected in debug
   _fightend() {
     console.log('Total Overhealing: ' + this.totalOverhealing);
     const expectedOverhealing = this.totalOverhealing * OVERHEAL_ABSORB_RATE;
-    console.log('Total Absorbed Overhealing Expected : ' + expectedOverhealing + '. Reported: ' + this.totalAbsorbedOverhealing);
+    console.log('Total Absorbed Overhealing Expected : ' + expectedOverhealing + '. Reported: ' + this.totalAbsorbedOverhealing)
+    console.log('Absorbable Overhealing missed from full well: ' + this.wellFullMissedOverhealing)
   }
 
   statistic() {
