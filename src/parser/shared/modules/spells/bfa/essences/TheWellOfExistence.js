@@ -109,9 +109,9 @@ class TheWellOfExistence extends Analyzer {
       if(this.currentAbsorbedOverhealing + absorbableOverhealing > this.maxHp){
         const asorbableUnderCap = this.maxHp - this.currentAbsorbedOverhealing;
         if(debug){
-          this.wellFullMissedOverhealing += absorbableOverhealing - asorbableUnderCap
+          this.wellFullMissedOverhealing += absorbableOverhealing - asorbableUnderCap;
         }
-        absorbableOverhealing = asorbableUnderCap
+        absorbableOverhealing = asorbableUnderCap;
       }
       
       // If overheal can be doubled and below threshold to do it
@@ -148,8 +148,8 @@ class TheWellOfExistence extends Analyzer {
   _fightend() {
     console.log('Total Overhealing: ' + this.totalOverhealing);
     const expectedOverhealing = this.totalOverhealing * OVERHEAL_ABSORB_RATE;
-    console.log('Total Absorbed Overhealing Expected : ' + expectedOverhealing + '. Reported: ' + this.totalAbsorbedOverhealing)
-    console.log('Absorbable Overhealing missed from full well: ' + this.wellFullMissedOverhealing)
+    console.log('Total Absorbed Overhealing Expected : ' + expectedOverhealing + '. Reported: ' + this.totalAbsorbedOverhealing);
+    console.log('Absorbable Overhealing missed from full well: ' + this.wellFullMissedOverhealing);
   }
 
   statistic() {
