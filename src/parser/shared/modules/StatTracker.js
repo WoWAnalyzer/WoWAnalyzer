@@ -32,6 +32,11 @@ class StatTracker extends Analyzer {
     [SPELLS.BATTLE_POTION_OF_INTELLECT.id]: { intellect: 900 },
     [SPELLS.BATTLE_POTION_OF_AGILITY.id]: { agility: 900 },
     [SPELLS.BATTLE_POTION_OF_STAMINA.id]: { stamina: 1100 },
+    [SPELLS.SUPERIOR_BATTLE_POTION_OF_STRENGTH.id]: { strength: 1215 }, // Superior Battle Potion of Strength
+    [SPELLS.SUPERIOR_BATTLE_POTION_OF_AGILITY.id]: { agility: 1215 }, // Superior Battle Potion of Agility
+    [SPELLS.SUPERIOR_BATTLE_POTION_OF_INTELLECT.id]: { intellect: 1215 }, // Superior Battle Potion of Intellect
+    [SPELLS.SUPERIOR_BATTLE_POTION_OF_STAMINA.id]: { stamina: 1485 }, // Superior Battle Potion of Stamina
+    [SPELLS.SUPERIOR_STEELSKIN_POTION.id]: { armor: 1215 }, // Superior Steelskin Potion
     // endregion
 
     // region Runes
@@ -47,6 +52,10 @@ class StatTracker extends Analyzer {
     [SPELLS.FLASK_OF_ENDLESS_FATHOMS.id]: { intellect: 238 },
     [SPELLS.FLASK_OF_THE_UNDERTOW.id]: { strength: 238 },
     [SPELLS.FLASK_OF_THE_VAST_HORIZON.id]: { stamina: 357 },
+    [SPELLS.GREATER_FLASK_OF_THE_CURRENTS.id]: { agility: 360 },
+    [SPELLS.GREATER_FLASK_OF_ENDLESS_FATHOMS.id]: { intellect: 360 },
+    [SPELLS.GREATER_FLASK_OF_THE_UNDERTOW.id]: { strength: 360 },
+    [SPELLS.GREATER_FLASK_OF_THE_VAST_HORIZON.id]: { stamina: 540 },
     // endregion
 
     //region Food
@@ -76,6 +85,15 @@ class StatTracker extends Analyzer {
     [SPELLS.BOUNTIFUL_CAPTAIN_FEAST_STR.id]: { strength: 100 },
     [SPELLS.BOUNTIFUL_CAPTAIN_FEAST_AGI.id]: { agility: 100 },
     [SPELLS.BOUNTIFUL_CAPTAIN_FEAST_STA.id]: { stamina: 150 },
+    [SPELLS.FAMINE_EVALUATOR_AND_SNACK_TABLE_FEAST_INT.id]: { intellect: 131 },
+    [SPELLS.FAMINE_EVALUATOR_AND_SNACK_TABLE_FEAST_STR.id]: { strength: 131 },
+    [SPELLS.FAMINE_EVALUATOR_AND_SNACK_TABLE_FEAST_AGI.id]: { agility: 131 },
+    [SPELLS.FAMINE_EVALUATOR_AND_SNACK_TABLE_FEAST_STA.id]: { stamina: 198 },
+    [SPELLS.ABYSSAL_FRIED_RISSOLE.id]: { mastery: 93 },
+    [SPELLS.BIL_TONG.id]: { versatility: 93 },
+    [SPELLS.MECH_DOWELS_BIG_MECH.id]: { crit: 93 },
+    [SPELLS.BAKED_PORT_TATO.id]: { haste: 93 },
+    [SPELLS.FRAGRANT_KAKAVIA.id]: { stamina: 198 },
     [SPELLS.BORALUS_BLOOD_SAUSAGE_AGI.id]: { agility: 85 },
     [SPELLS.BORALUS_BLOOD_SAUSAGE_INT.id]: { intellect: 85 },
     [SPELLS.BORALUS_BLOOD_SAUSAGE_STR.id]: { strength: 85 },
@@ -294,6 +312,10 @@ class StatTracker extends Analyzer {
     [SPELLS.FLASK_OF_THE_UNDERTOW.id]: { strength: 238 },
     [SPELLS.FLASK_OF_ENDLESS_FATHOMS.id]: { intellect: 238 },
     [SPELLS.FLASK_OF_THE_VAST_HORIZON.id]: { stamina: 357 },
+    [SPELLS.GREATER_FLASK_OF_THE_CURRENTS.id]: { agility: 360 },
+    [SPELLS.GREATER_FLASK_OF_ENDLESS_FATHOMS.id]: { intellect: 360 },
+    [SPELLS.GREATER_FLASK_OF_THE_UNDERTOW.id]: { strength: 360 },
+    [SPELLS.GREATER_FLASK_OF_THE_VAST_HORIZON.id]: { stamina: 540 },
     // endregion
     // region Potions
     [SPELLS.BATTLE_POTION_OF_STRENGTH.id]: { strength: 900 }, // Battle Potion of Strength
@@ -301,6 +323,11 @@ class StatTracker extends Analyzer {
     [SPELLS.BATTLE_POTION_OF_INTELLECT.id]: { intellect: 900 }, // Battle Potion of Intellect
     [SPELLS.BATTLE_POTION_OF_STAMINA.id]: { stamina: 1100 }, // Battle Potion of Stamina
     [SPELLS.STEELSKIN_POTION.id]: { armor: 900 }, // Steelskin Potion
+    [SPELLS.SUPERIOR_BATTLE_POTION_OF_STRENGTH.id]: { strength: 1215 }, // Superior Battle Potion of Strength
+    [SPELLS.SUPERIOR_BATTLE_POTION_OF_AGILITY.id]: { agility: 1215 }, // Superior Battle Potion of Agility
+    [SPELLS.SUPERIOR_BATTLE_POTION_OF_INTELLECT.id]: { intellect: 1215 }, // Superior Battle Potion of Intellect
+    [SPELLS.SUPERIOR_BATTLE_POTION_OF_STAMINA.id]: { stamina: 1485 }, // Superior Battle Potion of Stamina
+    [SPELLS.SUPERIOR_STEELSKIN_POTION.id]: { armor: 1215 }, // Superior Steelskin Potion
     // endregion
     // endregion
 

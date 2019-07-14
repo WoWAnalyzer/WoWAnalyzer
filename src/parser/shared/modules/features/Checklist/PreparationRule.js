@@ -24,6 +24,10 @@ class PreparationRule extends React.PureComponent {
           name={<Trans>Used a second potion</Trans>}
           thresholds={thresholds.secondPotion}
         />
+        <Requirement
+          name={<Trans>Used a high quality pre-potion</Trans>}
+          thresholds={thresholds.bestPotionUsed}
+        />
       </>
     );
   }
@@ -47,6 +51,10 @@ class PreparationRule extends React.PureComponent {
     const { thresholds } = this.props;
     return (
       <>
+        <Requirement
+          name={<Trans>High quality flask used</Trans>}
+          thresholds={thresholds.higherFlaskPresent}
+        />
         <Requirement
           name={<Trans>Flask used</Trans>}
           thresholds={thresholds.flaskPresent}
