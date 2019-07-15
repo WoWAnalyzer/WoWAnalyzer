@@ -24,10 +24,8 @@ class TheCrucibleofFlame extends Analyzer {
     super(...args);
     this.active = this.selectedCombatant.hasEssence(SPELLS.ANCIENT_FLAME.traitId);
     if (!this.active) {
-      console.log("Essence Code Ran");
       return;
     }
-    console.log("Essence Activated");
     this.hasMajor = this.selectedCombatant.hasMajor(SPELLS.ANCIENT_FLAME.traitId);
     if(this.hasMajor) {
       this.abilities.add({
