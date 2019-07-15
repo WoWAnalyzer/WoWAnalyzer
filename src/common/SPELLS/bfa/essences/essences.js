@@ -28,6 +28,7 @@
   //  32 = "Conflict and Strife"
 
 export default {
+  //The Ever-Rising Tide
   EVER_RISING_TIDE: {
     id: 299879,
     traitId: 17,
@@ -59,4 +60,42 @@ export default {
     name: 'The Ever-Rising Tide',
     icon: 'inv_elemental_mote_mana',
   },
+  //The Crucible of Flame
+  CONCENTRATED_FLAME: {
+    id: 299349,
+    name: 'Concentrated Flame',
+    icon: 'spell_azerite_essence_15',
+  },
+  ANCIENT_FLAME: {
+    id: 299348,
+    traitId: 12,
+    name: 'Ancient Flame',
+    icon: 'inv_radientazeritematrix',
+  },
+  CONCENTRATED_FLAME_CAST: {
+    id: 295373,
+    name: 'Concentrated Flame',
+    icon: 'spell_azerite_essence_15',
+  },
+  CONCENTRATED_FLAME_CAST_DAMAGE: {
+    id: 295374,
+    name: 'Concentrated Flame',
+    icon: 'spell_azerite_essence_15',
+  },
+  CONCENTRATED_FLAME_DOT_DAMAGE: {
+    id: 295368,
+    name: 'Concentrated Flame',
+    icon: 'spell_azerite_essence_15',
+  },
+  ANCIENT_FLAME_DOT_HEAL: {
+    id: 303380,
+    name: 'Ancient Flame',
+    icon: 'spell_azerite_essence_15',
+  },
+  ANCIENT_FLAME_DOT_DAMAGE: {
+    id: 295367,
+    name: 'Ancient Flame',
+    icon: 'spell_azerite_essence_15',
+  },
+
 };

@@ -8,6 +8,11 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
+    date: new Date('2019-07-12'),
+    changes: <>Added Major <SpellLink id={SPELLS.CONCENTRATED_FLAME.id} /> and Minor <SpellLink id={SPELLS.ANCIENT_FLAME.id} /> essences.</>,
+    contributors: [Yajinni],
+  },
+  {
     date: new Date('2019-06-25'),
     changes: 'Changed the search character default to the Eternal Palace raid.',
     contributors: [Yajinni],
