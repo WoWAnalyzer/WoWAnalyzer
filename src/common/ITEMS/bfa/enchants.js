@@ -25,7 +25,30 @@ export default {
     icon: 'inv_misc_enchantedscroll',
     effectId: 5945,
   },
-
+  ENCHANT_RING_ACCORD_OF_CRITICAL_STRIKE: {
+    id: 298011,
+    name: 'Enchant Ring - Accord of Critical Strike',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6108,
+  },
+  ENCHANT_RING_ACCORD_OF_HASTE: {
+    id: 297989,
+    name: 'Enchant Ring - Accord of Haste',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6109,
+  },
+  ENCHANT_RING_ACCORD_OF_MASTERY: {
+    id: 298001,
+    name: 'Enchant Ring - Accord of Mastery',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6110,
+  },
+  ENCHANT_RING_ACCORD_OF_VERSATILITY: {
+    id: 297993,
+    name: 'Enchant Ring - Accord of Versatility',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6111,
+  },
 
   // ENCHANT_WEAPON
   ENCHANT_WEAPON_COASTAL_SURGE: {

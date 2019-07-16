@@ -59,12 +59,12 @@ export default class AgilityValue extends Analyzer {
     return this.gotox.agiBonusHealing;
   }
   _agiDamagePooled = 0;
-  _hasHT = false;
+  hasHT = false;
 
   constructor(...args) {
     super(...args);
 
-    this._hasHT = this.selectedCombatant.hasTalent(SPELLS.HIGH_TOLERANCE_TALENT.id);
+    this.hasHT = this.selectedCombatant.hasTalent(SPELLS.HIGH_TOLERANCE_TALENT.id);
 
     this.addEventListener(EVENT_STAGGER_POOL_ADDED, this._onStaggerGained);
     this.addEventListener(EVENT_STAGGER_POOL_REMOVED, this._onPurify);
@@ -101,8 +101,8 @@ export default class AgilityValue extends Analyzer {
   }
 
   _onStaggerGained(event) {
-    const baseStagger = staggerPct(BASE_AGI, this.K, this._hasIsb, this._hasHT);
-    const agiStagger = staggerPct(this.stats.currentAgilityRating, this.K, this._hasIsb, this._hasHT);
+    const baseStagger = staggerPct(BASE_AGI, this.K, this._hasIsb, this.hasHT);
+    const agiStagger = staggerPct(this.stats.currentAgilityRating, this.K, this._hasIsb, this.hasHT);
     const amountAgiStaggered = (1 - baseStagger / agiStagger) * event.amount;
 
     this.totalAgiStaggered += amountAgiStaggered;
