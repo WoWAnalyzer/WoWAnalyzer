@@ -16,6 +16,7 @@ class PreparationRuleAnalyzer extends Analyzer {
     return {
       prePotion: this.prePotion.prePotionSuggestionThresholds,
       secondPotion: this.prePotion.secondPotionSuggestionThresholds,
+      bestPotionUsed: this.prePotion.prePotionStrengthSuggestion,
       itemsEnchanted: {
         actual: this.enchantChecker.numEnchantableGear - this.enchantChecker.numSlotsMissingEnchant,
         max: this.enchantChecker.numEnchantableGear,
@@ -29,6 +30,7 @@ class PreparationRuleAnalyzer extends Analyzer {
         isLessThan: this.enchantChecker.numEnchantableGear,
         style: 'number',
       },
+      higherFlaskPresent: this.flaskChecker.flaskStrengthSuggestion,
       flaskPresent: this.flaskChecker.flaskSuggestionThresholds,
       higherFoodPresent: this.foodChecker.higherFoodSuggestionThresholds,
       foodPresent: this.foodChecker.isPresentFoodSuggestionThresholds,

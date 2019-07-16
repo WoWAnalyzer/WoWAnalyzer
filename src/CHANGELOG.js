@@ -8,9 +8,14 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
-    date: new Date('2019-07-11'),
+    date: new Date('2019-07-15'),
     changes: <>Added <SpellLink id={SPELLS.WELL_OF_EXISTENCE_MAJOR.id} /> and <SpellLink id={SPELLS.WELL_OF_EXISTENCE.id} /> essences.</>,
     contributors: [Qbz],
+  },
+  {
+    date: new Date('2019-07-12'),
+    changes: <>Added Major <SpellLink id={SPELLS.CONCENTRATED_FLAME.id} /> and Minor <SpellLink id={SPELLS.ANCIENT_FLAME.id} /> essences.</>,
+    contributors: [Yajinni],
   },
   {
     date: new Date('2019-06-25'),

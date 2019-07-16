@@ -448,6 +448,11 @@ export default {
     name: "Brew-Stache",
     icon: "inv_misc_archaeology_vrykuldrinkinghorn",
   },
+  HOT_TRUB: {
+    id: 202126,
+    name: "Hot Trub",
+    icon: "spell_brew_dark",
+  },
 
   // Windwalker Spells
   COMBO_STRIKES: {

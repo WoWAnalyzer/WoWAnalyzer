@@ -8,6 +8,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-06-28'),
+    changes: <>Added a <SpellLink id={SPELLS.HOT_TRUB.id} /> damage estimator. Nerf sucks :(</>,
+    contributors: [emallson],
+  },
+  {
     date: new Date('2019-04-11'),
     changes: <>Fixed a bug in the Mitigation Values tab that caused Mastery's base 8% to be counted towards contribution by Mastery Rating.</>,
     contributors: [emallson],
