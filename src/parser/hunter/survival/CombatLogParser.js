@@ -1,6 +1,8 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import Abilities from './modules/Abilities';
+import Checklist from './modules/checklist/Module';
+
 //Features
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -48,6 +50,7 @@ class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core statistics
     abilities: Abilities,
+    checklist: Checklist,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,

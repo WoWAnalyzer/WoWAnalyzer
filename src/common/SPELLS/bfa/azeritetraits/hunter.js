@@ -115,4 +115,9 @@ export default {
     name: 'Blur of Talons',
     icon: 'inv_coordinatedassault',
   },
+  PRIMEVAL_INTUITION: {
+    id: 288573,
+    name: 'Primeval Intuition',
+    icon: 'ability_hunter_silenthunter',
+  },
 };
