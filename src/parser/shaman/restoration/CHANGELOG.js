@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-07-16'),
+    changes: <><SpellLink id={SPELLS.TURN_OF_THE_TIDE_TRAIT.id} /> azerite trait support.</>,
+    contributors: [niseko],
+  },
+  {
     date: new Date('2019-05-06'),
     changes: <><SpellLink id={SPELLS.IGNEOUS_POTENTIAL.id} /> and <SpellLink id={SPELLS.SYNAPSE_SHOCK.id} /> azerite traits are now supported.</>,
     contributors: [niseko],

@@ -26,7 +26,6 @@ export default {
     name: 'Summon Ember Elemental',
     icon: 'spell_fire_elemental_totem',
   },
-
   SPARK_ELEMENTAL_SUMMON: {
     id: 275386,
     name: 'Summon Spark Elemental',
@@ -122,5 +121,10 @@ export default {
     id: 280205,
     name: 'Pack Spirit',
     icon: 'spell_nature_spiritwolf',
+  },
+  TURN_OF_THE_TIDE_TRAIT: {
+    id: 287300,
+    name: 'Turn of the Tide',
+    icon: 'spell_shaman_tidalwaves',
   },
 };
