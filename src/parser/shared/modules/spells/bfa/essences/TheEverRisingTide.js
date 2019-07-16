@@ -51,22 +51,24 @@ class TheEverRisingTide extends Analyzer {
       this.stat /= 0.8; // rank 2 grants 20% more stats
       OVERCHARGE_MANA_HEALING_INCREASE_PER_STACK = 0.03;
     }
-    this.abilities.add({
-      spell: SPELLS.EVER_RISING_TIDE_CHARGING_BUFF,
-      category: Abilities.SPELL_CATEGORIES.ITEMS,
-      cooldown: 30,
-    });
-    this.buffs.add({
-      spellId: SPELLS.EVER_RISING_TIDE_HEALING_BUFF.id,
-      triggeredBySpellId: SPELLS.EVER_RISING_TIDE_CHARGING_BUFF.id,
-      timelineHightlight: true,
-    });
+    if (this.hasMajor) {
+      this.abilities.add({
+        spell: SPELLS.EVER_RISING_TIDE_CHARGING_BUFF,
+        category: Abilities.SPELL_CATEGORIES.ITEMS,
+        cooldown: 30,
+      });
+      this.buffs.add({
+        spellId: SPELLS.EVER_RISING_TIDE_HEALING_BUFF.id,
+        triggeredBySpellId: SPELLS.EVER_RISING_TIDE_CHARGING_BUFF.id,
+        timelineHightlight: true,
+      });
+      if (this.selectedCombatant.hasTalent(SPELLS.ENLIGHTENMENT_TALENT.id)) {
+        MANA_REGEN_PER_SECOND *= (1 + ENLIGHTENMENT_TALENT_REGEN_INCREASE);
+      }
+    }
     this.statTracker.add(SPELLS.EVER_RISING_TIDE_STAT_BUFF.id, {
       intellect: this.stat,
     });
-    if (this.selectedCombatant.hasTalent(SPELLS.ENLIGHTENMENT_TALENT.id)) {
-      MANA_REGEN_PER_SECOND *= (1 + ENLIGHTENMENT_TALENT_REGEN_INCREASE);
-    }
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EVER_RISING_TIDE_CHARGING_BUFF), this._cast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this._onHeal);
