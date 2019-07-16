@@ -8,6 +8,16 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
+    date: new Date('2019-07-16'),
+    changes: 'Added the ability to filter the results by time period.',
+    contributors: [Zeboot],
+  },
+  {
+    date: new Date('2019-07-16'),
+    changes: 'Added the ability to filter the results by phases.',
+    contributors: [Zeboot],
+  },
+  {
     date: new Date('2019-07-12'),
     changes: <>Added Major <SpellLink id={SPELLS.CONCENTRATED_FLAME.id} /> and Minor <SpellLink id={SPELLS.ANCIENT_FLAME.id} /> essences.</>,
     contributors: [Yajinni],

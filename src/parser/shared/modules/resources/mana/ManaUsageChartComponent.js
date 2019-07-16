@@ -9,6 +9,7 @@ class HealingDoneGraph extends React.PureComponent {
   static propTypes = {
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
+    offset: PropTypes.number.isRequired,
     healingBySecond: PropTypes.object.isRequired,
     manaUpdates: PropTypes.array.isRequired,
   };
@@ -37,7 +38,7 @@ class HealingDoneGraph extends React.PureComponent {
   }
 
   render() {
-    const { start, end, healingBySecond, manaUpdates } = this.props;
+    const { start, end, offset, healingBySecond, manaUpdates } = this.props;
 
     const interval = this.state.interval;
     const healingPerFrame = this.groupHealingBySeconds(healingBySecond, interval);
@@ -68,7 +69,7 @@ class HealingDoneGraph extends React.PureComponent {
     const fightDurationSec = Math.ceil((end - start) / 1000);
     const labels = [];
     for (let i = 0; i <= fightDurationSec / interval; i += 1) {
-      labels.push(i * interval);
+      labels.push(Math.ceil(offset/1000) + i * interval);
 
       healingPerFrame[i] = healingPerFrame[i] !== undefined ? healingPerFrame[i].effective : 0;
       manaUsagePerFrame[i] = manaUsagePerFrame[i] !== undefined ? manaUsagePerFrame[i] : 0;

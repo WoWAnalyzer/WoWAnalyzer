@@ -11,6 +11,8 @@ import TimelineIcon from 'interface/icons/Timeline';
 import ArmorIcon from 'interface/icons/Armor';
 import EventsIcon from 'interface/icons/Events';
 import AboutIcon from 'interface/icons/About';
+import PhaseSelector from './PhaseSelector';
+import TimeFilter from './TimeFilter';
 
 import './Header.scss';
 
@@ -30,6 +32,11 @@ class Header extends React.PureComponent {
     boss: PropTypes.shape({
       headshot: PropTypes.string.isRequired,
     }),
+    handlePhaseSelection: PropTypes.func.isRequired,
+    applyFilter: PropTypes.func.isRequired,
+    phases: PropTypes.object,
+    selectedPhase: PropTypes.string.isRequired,
+    isLoading: PropTypes.bool.isRequired,
     fight: PropTypes.object.isRequired,
     makeTabUrl: PropTypes.func.isRequired,
     selectedTab: PropTypes.string.isRequired,
@@ -42,7 +49,6 @@ class Header extends React.PureComponent {
 
   get pages() {
     const { tabs, selectedTab } = this.props;
-
     const pages = [
       {
         icon: ChecklistIcon,
@@ -110,8 +116,7 @@ class Header extends React.PureComponent {
     );
   }
   renderInfo() {
-    const { config: { spec }, name, fight, boss } = this.props;
-
+    const { config: { spec }, name, fight, boss, handlePhaseSelection, selectedPhase, phases, isLoading, applyFilter } = this.props;
     return (
       <div className="info container">
         <div className="boss">
@@ -121,6 +126,12 @@ class Header extends React.PureComponent {
           <h1>
             {boss ? boss.name : getBossName(fight, false)}
           </h1>
+          <h2>
+            {phases && <PhaseSelector fight={fight} phases={phases} handlePhaseSelection={handlePhaseSelection} selectedPhase={selectedPhase} isLoading={isLoading} />}
+          </h2>
+          <div className="timefilter">
+            <TimeFilter fight={fight} isLoading={isLoading} applyFilter={applyFilter} />
+          </div>
         </div>
         <div className="player">
           <div className="avatar">

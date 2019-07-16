@@ -106,15 +106,15 @@ export function fabricateBossPhaseEvents(events, report, fight) {
 
   phaseEvents.forEach((event) => {
     if (!event.end) {
-      const nextMainPhase = phaseEvents.find(next => !next.end && next.id !== event.id);
+      const nextMainPhase = phaseEvents.find(next => !next.end && next.key !== event.key);
       if (nextMainPhase) {
         event.end = nextMainPhase.start;
       } else {
         event.end = fight.end_time;
       }
     }
-    createPhaseStartEvent(event.start, event.phase, bossPhaseEvents);
-    createPhaseEndEvent(event.end, event.phase, bossPhaseEvents);
+    createPhaseStartEvent(event.start, {key: event.key, ...event.phase}, bossPhaseEvents);
+    createPhaseEndEvent(event.end, {key: event.key, ...event.phase}, bossPhaseEvents);
   });
 
   return bossPhaseEvents;

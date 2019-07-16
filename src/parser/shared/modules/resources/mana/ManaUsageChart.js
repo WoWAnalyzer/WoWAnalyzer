@@ -22,6 +22,7 @@ class ManaUsageChart extends Analyzer {
     const actorId = this.owner.playerId;
     const start = this.owner.fight.start_time;
     const end = this.owner.fight.end_time;
+    const offset = this.owner.fight.offset_time;
 
     return (
       <Panel
@@ -34,6 +35,7 @@ class ManaUsageChart extends Analyzer {
           actorId={actorId}
           start={start}
           end={end}
+          offset={offset}
           manaUpdates={this.manaValues.manaUpdates}
           healingBySecond={this.healingDone.bySecond}
         />

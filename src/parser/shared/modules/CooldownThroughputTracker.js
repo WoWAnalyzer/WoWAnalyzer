@@ -133,7 +133,7 @@ class CooldownThroughputTracker extends Analyzer {
           pad={false}
         >
           <CooldownOverview
-            fightStart={this.owner.fight.start_time}
+            fightStart={this.owner.fight.start_time - this.owner.fight.offset_time}
             fightEnd={this.owner.fight.end_time}
             cooldowns={this.pastCooldowns}
           />

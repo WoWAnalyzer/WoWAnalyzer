@@ -36,6 +36,7 @@ class ManaLevelGraph extends React.PureComponent {
     })).isRequired,
     startTime: PropTypes.number.isRequired,
     endTime: PropTypes.number.isRequired,
+    offsetTime: PropTypes.number.isRequired,
   };
 
   static defaultProps = {
@@ -51,7 +52,7 @@ class ManaLevelGraph extends React.PureComponent {
   };
 
   render() {
-    const { mana, deaths, bossData, startTime, endTime } = this.props;
+    const { mana, deaths, bossData, startTime, endTime, offsetTime } = this.props;
 
     const xValues = [];
     const yValues = [0, 25, 50, 75, 100];
@@ -79,7 +80,7 @@ class ManaLevelGraph extends React.PureComponent {
             { title: 'Deaths', color: this.colors.death },
           ]}
         />
-        <XAxis tickValues={xValues} tickFormat={value => formatDuration((value - startTime) / 1000)} />
+        <XAxis tickValues={xValues} tickFormat={value => formatDuration((value - startTime + offsetTime) / 1000)} />
         <YAxis tickValues={yValues} tickFormat={value => `${value}%`} />
         <VerticalGridLines
           tickValues={xValues}

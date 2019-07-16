@@ -50,19 +50,28 @@ class Results extends React.PureComponent {
     characterProfile: PropTypes.object,
     selectedTab: PropTypes.string,
     makeTabUrl: PropTypes.func.isRequired,
+    phases: PropTypes.object,
+    selectedPhase: PropTypes.string.isRequired,
+    handlePhaseSelection: PropTypes.func.isRequired,
+    applyFilter: PropTypes.func.isRequired,
+    timeFilter: PropTypes.object,
     report: PropTypes.shape({
       code: PropTypes.string.isRequired,
     }).isRequired,
     fight: PropTypes.shape({
       start_time: PropTypes.number.isRequired,
       end_time: PropTypes.number.isRequired,
+      offset_time: PropTypes.number.isRequired,
       boss: PropTypes.number.isRequired,
+      phase: PropTypes.string,
     }).isRequired,
     player: PropTypes.shape({
       name: PropTypes.string.isRequired,
     }).isRequired,
     isLoadingParser: PropTypes.bool,
     isLoadingEvents: PropTypes.bool,
+    isLoadingPhases: PropTypes.bool,
+    isFilteringEvents: PropTypes.bool,
     bossPhaseEventsLoadingState: PropTypes.oneOf(Object.values(BOSS_PHASES_STATE)),
     isLoadingCharacterProfile: PropTypes.bool,
     parsingState: PropTypes.oneOf(Object.values(EVENT_PARSING_STATE)),
@@ -134,6 +143,8 @@ class Results extends React.PureComponent {
       || this.props.isLoadingEvents
       || this.props.bossPhaseEventsLoadingState === BOSS_PHASES_STATE.LOADING
       || this.props.isLoadingCharacterProfile
+      || this.props.isLoadingPhases
+      || this.props.isFilteringEvents
       || this.props.parsingState !== EVENT_PARSING_STATE.DONE;
   }
 
@@ -238,7 +249,7 @@ class Results extends React.PureComponent {
     }
   }
   renderLoadingIndicator() {
-    const { progress, isLoadingParser, isLoadingEvents, bossPhaseEventsLoadingState, isLoadingCharacterProfile, parsingState } = this.props;
+    const { progress, isLoadingParser, isLoadingEvents, bossPhaseEventsLoadingState, isLoadingCharacterProfile, isLoadingPhases, isFilteringEvents, parsingState } = this.props;
 
     return (
       <div className="container" style={{ marginBottom: 40 }}>
@@ -284,6 +295,22 @@ class Results extends React.PureComponent {
           </div>
           <div className="row">
             <div className="col-md-8">
+              Analyzing phases
+            </div>
+            <div className={`col-md-4 ${isLoadingPhases ? 'loading' : 'ok'}`}>
+              {isLoadingPhases ? 'Loading...' : 'OK'}
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-8">
+              Filtering events
+            </div>
+            <div className={`col-md-4 ${isFilteringEvents ? 'loading' : 'ok'}`}>
+              {isFilteringEvents ? 'Loading...' : 'OK'}
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-8">
               Analyzing events
             </div>
             <div className={`col-md-4 ${parsingState === EVENT_PARSING_STATE.WAITING ? 'waiting' : (parsingState === EVENT_PARSING_STATE.PARSING ? 'loading' : 'ok')}`}>
@@ -297,7 +324,7 @@ class Results extends React.PureComponent {
     );
   }
   render() {
-    const { parser, report, fight, player, characterProfile, makeTabUrl, selectedTab, premium } = this.props;
+    const { parser, report, fight, player, characterProfile, makeTabUrl, selectedTab, premium, handlePhaseSelection, selectedPhase, phases, applyFilter, timeFilter } = this.props;
     const config = this.context.config;
 
     const boss = findByBossId(fight.boss);
@@ -320,6 +347,11 @@ class Results extends React.PureComponent {
           tabs={results ? results.tabs : []}
           makeTabUrl={makeTabUrl}
           selectedTab={selectedTab}
+          selectedPhase={selectedPhase}
+          phases={phases}
+          handlePhaseSelection={handlePhaseSelection}
+          applyFilter={applyFilter}
+          isLoading={this.isLoading}
         />
 
         {boss && boss.fight.resultsWarning && (
@@ -329,7 +361,13 @@ class Results extends React.PureComponent {
             </Warning>
           </div>
         )}
-
+        {timeFilter && (
+          <div className="container">
+            <Warning style={{ marginBottom: 30 }}>
+              These results are filtered to the selected time period. Time filtered results are under development and may not be entirely accurate. <br /> Please report any issues you may find on our GitHub or Discord.
+            </Warning>
+          </div>
+        )}
         {this.renderContent(selectedTab, results)}
 
         {premium === false && (

@@ -287,7 +287,7 @@ class EventsTab extends React.Component {
                   <Column
                     dataKey="timestamp"
                     label="Time"
-                    cellRenderer={({ cellData }) => formatDuration((cellData - parser.fight.start_time) / 1000, 3)}
+                    cellRenderer={({ cellData }) => formatDuration((cellData - parser.fight.start_time + parser.fight.offset_time) / 1000, 3)}
                     disableSort
                     width={30}
                     flexGrow={1}

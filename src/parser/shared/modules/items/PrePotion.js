@@ -5,8 +5,8 @@ import SPECS from 'game/SPECS';
 import ITEMS from 'common/ITEMS/index';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ItemLink from 'common/ItemLink';
-
-import Analyzer from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
 const debug = false;
@@ -127,24 +127,32 @@ class PrePotion extends Analyzer {
   alternatePotion = null;
   isHealer = false;
 
-  on_toPlayer_applybuff(event) {
+  constructor(...args) {
+    super(...args);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER), this._applybuff);
+    this.addEventListener(Events.prefiltercd.by(SELECTED_PLAYER), this._cast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this._cast);
+    this.addEventListener(Events.fightend, this._fightend);
+  }
+
+  _applybuff(event){
     const spellId = event.ability.guid;
-    if (WEAK_PRE_POTIONS.includes(spellId) && event.prepull) {
+    if (WEAK_PRE_POTIONS.includes(spellId) && event.prepull && event.timestamp <= this.owner.fight.start_time - this.owner.fight.offset_time) {
       this.usedPrePotion = true;
     }
-    if (STRONG_PRE_POTIONS.includes(spellId) && event.prepull) {
+    if (STRONG_PRE_POTIONS.includes(spellId) && event.prepull && event.timestamp <= this.owner.fight.start_time - this.owner.fight.offset_time) {
       this.usedPrePotion = true;
       this.usedStrongPrePotion = true;
     }
   }
 
-  on_byPlayer_cast(event) {
+  _cast(event) {
     const spellId = event.ability.guid;
-    
-    if (SECOND_POTIONS.includes(spellId) && !event.prepull) {
+
+    if (SECOND_POTIONS.includes(spellId) && event.timestamp > this.owner.fight.start_time - this.owner.fight.offset_time) {
       this.usedSecondPotion = true;
     }
-    if (STRONG_PRE_POTIONS.includes(spellId) && !event.prepull) {
+    if (STRONG_PRE_POTIONS.includes(spellId) && event.timestamp > this.owner.fight.start_time - this.owner.fight.offset_time) {
       this.usedStrongPrePotion = true;
     }
 
@@ -157,7 +165,7 @@ class PrePotion extends Analyzer {
     }
   }
 
-  on_fightend() {
+  _fightend() {
     if (debug) {
       console.log(`used potion:${this.usedPrePotion}`);
       console.log(`used 2nd potion:${this.usedSecondPotion}`);

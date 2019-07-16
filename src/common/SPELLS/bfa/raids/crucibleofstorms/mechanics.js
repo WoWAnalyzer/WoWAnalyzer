@@ -9,4 +9,13 @@ export default {
      name: "Promises of Power",
      icon: "spell_priest_void-flay",
    },
+
+   /*
+    * Uu'nat, Harbinger of the Void
+    */
+    VOID_SHIELD: {
+      id: 286310,
+      name: "Void Shield",
+      icon: "spell_shadow_sealofkings",
+    },
 };

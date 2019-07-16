@@ -30,6 +30,9 @@ class StaggerFabricator extends Analyzer {
   _staggerPool = 0;
   _lastKnownMaxHp = 0;
 
+  //count as uninitialized if fight didn't start at actual fight start time (aka phase)
+  _initialized = (this.owner.fight.offset_time || 0) === 0;
+
   get purifyPercentage() {
     return PURIFY_BASE;
   }
@@ -82,7 +85,24 @@ class StaggerFabricator extends Analyzer {
       return;
     }
     const amount = event.amount + (event.absorbed || 0);
-    this.removeStagger(event, amount);
+    if(!this._initialized){ //if stagger hasn't been initialized (aka new phase), send a fake add stagger event
+      this._staggerPool = amount*19; //stagger lasts for 10 seconds at 0.5s per tick, we can calculate the total stagger remaining in the pool to be 19*tick (1 out of 20 total stacks being removed this tick)
+      this.addStagger({
+        ...event,
+        __fabricated: true,
+        prepull: true,
+        extraAbility: {
+          name: "Initialize Stagger",
+          guid: SPELLS.STAGGER_TAKEN.id,
+          type: 1,
+          abilityIcon: SPELLS.STAGGER_TAKEN.icon,
+        },
+      }, 0); //send empty stagger event to initialized purify etc without tainting the damage staggered statistic
+      this._initialized = true;
+    }else{ //skip this tick's remove event as we only added 19 ticks to the pool
+      this.removeStagger(event, amount);
+    }
+
   }
 
   on_byPlayer_cast(event) {
