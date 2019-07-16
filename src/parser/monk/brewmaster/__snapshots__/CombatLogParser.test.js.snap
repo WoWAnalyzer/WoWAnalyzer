@@ -3432,8 +3432,8 @@ exports[`The Brewmaster Analyzer should match the checklist snapshot 1`] = `
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "76.19047619047619%",
+                  "backgroundColor": "#df7102",
+                  "width": "33.33333333333333%",
                 }
               }
             />
