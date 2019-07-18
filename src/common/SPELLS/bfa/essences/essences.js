@@ -97,5 +97,11 @@ export default {
     name: 'Ancient Flame',
     icon: 'spell_azerite_essence_15',
   },
-
+  //general conflict (the major part of conflict and stife)
+  CONFLICT: {
+    id: 304088,
+    traitId: 32,
+    name: 'Conflict',
+    icon: 'spell_azerite_essence_17',
+  },
 };
