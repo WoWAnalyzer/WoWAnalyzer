@@ -6,6 +6,11 @@ import SpellLink from 'common/SpellLink';
 
 export default [
   {
+    date: new Date('2019-07-18'),
+    changes: <>Made <SpellLink id={SPELLS.WAY_OF_THE_CRANE.id} /> infographic.</>,
+    contributors: [Abelito75],
+  },
+  {
     date: new Date('2019-07-2'),
     changes: <>Added <SpellLink id={SPELLS.WAY_OF_THE_CRANE.id} /> to the cooldowns tab.</>,
     contributors: [Anomoly],
