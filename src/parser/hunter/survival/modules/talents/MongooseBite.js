@@ -96,8 +96,8 @@ class MongooseBite extends Analyzer {
     return {
       actual: this.averageFocusOnMongooseWindowStart,
       isLessThan: {
-        minor: 70,
-        average: 65,
+        minor: 65,
+        average: 62,
         major: 60,
       },
       style: 'number',
