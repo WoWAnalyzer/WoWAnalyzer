@@ -30,7 +30,6 @@ class PrimevalIntuition extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.PRIMEVAL_INTUITION.id);
-    console.log(this.active);
     if (!this.active) {
       return;
     }
