@@ -116,6 +116,11 @@ export default {
     icon: 'inv_coordinatedassault',
   },
   PRIMEVAL_INTUITION: {
+    id: 288570,
+    name: 'Primeval Intuition',
+    icon: 'ability_hunter_silenthunter',
+  },
+  PRIMEVAL_INTUITION_BUFF: {
     id: 288573,
     name: 'Primeval Intuition',
     icon: 'ability_hunter_silenthunter',

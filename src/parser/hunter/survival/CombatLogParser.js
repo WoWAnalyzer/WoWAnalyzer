@@ -43,6 +43,7 @@ import TipOfTheSpear from './modules/talents/TipOfTheSpear';
 import WildernessSurvival from './modules/spells/azeritetraits/WildernessSurvival';
 import LatentPoison from './modules/spells/azeritetraits/LatentPoison';
 import BlurOfTalons from './modules/spells/azeritetraits/BlurOfTalons';
+import PrimevalIntuition from './modules/spells/azeritetraits/PrimevalIntuition';
 //Traits and Talents
 import SpellsAndTalents from './modules/features/SpellsAndTalents';
 
@@ -98,6 +99,7 @@ class CombatLogParser extends CoreCombatLogParser {
     wildernessSurvival: WildernessSurvival,
     latentPoison: LatentPoison,
     blurOfTalons: BlurOfTalons,
+    primevalIntuition: PrimevalIntuition,
 
     //Traits and talents
     traitsAndTalents: SpellsAndTalents,

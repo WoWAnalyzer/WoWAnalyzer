@@ -6,8 +6,8 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   {
-    date: new Date('2019-07-16'),
-    changes: 'Added checklist.',
+    date: new Date('2019-07-18'),
+    changes: <>Added checklist module and statistic for <SpellLink id={SPELLS.PRIMEVAL_INTUITION.id} />. </>,
     contributors: [LeoZhekov],
   },
   {
