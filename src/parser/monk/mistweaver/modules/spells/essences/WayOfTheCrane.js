@@ -97,9 +97,9 @@ class WayOfTheCrane extends Analyzer {
         icon={<SpellIcon id={SPELLS.WAY_OF_THE_CRANE.id} />}
         value={<ItemHealingDone amount={totalHeal} />}
         tooltip={(
-            arrayOfDamageSpells.map(spell => (
-                <div>{spell} did {this.customMap.get(spell)[1]} healing, {this.customMap.get(spell)[2]} overhealing in {this.customMap.get(spell)[0]/3} casts.</div>
-            ))
+          arrayOfDamageSpells.map(spell => (
+            <div>{spell} did {this.customMap.get(spell)[1]} healing, {this.customMap.get(spell)[2]} overhealing in {this.customMap.get(spell)[0]/3} casts.</div>
+          ))
         )}
       >
       <table className="table table-condensed">
