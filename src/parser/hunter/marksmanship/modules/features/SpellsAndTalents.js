@@ -35,7 +35,7 @@ class SpellsAndTalents extends Analyzer {
 
   get barrageIsNotUsedAndIsFirstOfApril() {
     return {
-      actual: !this.selectedCombatant.hasTalent(SPELLS.BARRAGE_TALENT.icon) && isItAprilFoolDay(),
+      actual: !this.selectedCombatant.hasTalent(SPELLS.BARRAGE_TALENT.id) && isItAprilFoolDay(),
       isEqual: true,
       style: 'boolean',
     };
