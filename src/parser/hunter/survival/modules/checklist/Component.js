@@ -59,7 +59,7 @@ class SurvivalChecklist extends React.PureComponent {
             )}
           >
             <Requirement name={<><ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /> Average focus on <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> opening window </>} thresholds={thresholds.mongooseBiteAverageFocusThreshold} />
-            <Requirement name={<>Average <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} /> hits on max stacks of <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> </>} thresholds={thresholds.mongooseBite5StackHitPercentageThreshold} />
+            <Requirement name={<><SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} /> hits on max stacks of <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> </>} thresholds={thresholds.mongooseBite5StackHitPercentageThreshold} />
           </Rule>
         ) : null}
 

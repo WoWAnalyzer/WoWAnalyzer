@@ -204,7 +204,7 @@ class MongooseBite extends Analyzer {
     when(this.mongoose5StackHitThreshold).addSuggestion((suggest, actual, recommended) => {
       return suggest(<>It's important to cast as much <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />s as possible when having max(5) stacks of <SpellLink id={SPELLS.MONGOOSE_FURY.id} />.</>)
         .icon(SPELLS.MONGOOSE_BITE_TALENT.icon)
-        .actual(`${formatPercentage(actual)}% average casts on max stacks.`)
+        .actual(`${formatPercentage(actual)}% casts on max stacks.`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
     });
   }
