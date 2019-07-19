@@ -1,4 +1,3 @@
-// Modified from Original Code by Blazyb and his Innervate module.
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
@@ -12,9 +11,8 @@ import Analyzer from 'parser/core/Analyzer';
 
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
-const debug = false;
 
-const manaTeaReduction = 0.5;
+const debug = false;
 
 class ManaTea extends Analyzer {
   static dependencies = {
@@ -24,19 +22,7 @@ class ManaTea extends Analyzer {
   manaSavedMT = 0;
   manateaCount = 0;
 
-  enmCasts = 0;
-  efCasts = 0;
-  lcCasts = 0;
-  remCasts = 0;
-  revCasts = 0;
-  vivCasts = 0;
-  rjwCasts = 0;
-  soomTicks = 0;
-
-  nonManaCasts = 0;
-  castsUnderManaTea = 0;
-
-  casted = false;
+  casts = null;
 
   effectiveHealing = 0;
   overhealing = 0;
@@ -44,6 +30,10 @@ class ManaTea extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.MANA_TEA_TALENT.id);
+    if(!this.active){
+      return;
+    }
+    this.casts = new Map();
   }
 
   on_toPlayer_applybuff(event) {
@@ -61,96 +51,21 @@ class ManaTea extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-
-    if (this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_TALENT.id)) {
-      if(SPELLS.SOOTHING_MIST.id === spellId){//added soothing mist since it costs mana now
-        this.addToManaSaved(SPELLS.SOOTHING_MIST.manaCost, spellId);
-        this.castsUnderManaTea += 1;
-        this.soomTicks += 1;
-        this.casted = true;
+    const name = event.ability.name;
+    if (this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_TALENT.id) && event.ability.guid !== SPELLS.MANA_TEA_TALENT.id) {//we check both since melee doesn't havea classResource 
+      if(event.classResources && event.classResources[0].cost){ //checks if the spell costs anything (we don't just use cost since some spells don't play nice)
+        this.manaSavedMT += event.rawResourceCost[0]/2;
       }
-
-      if (SPELLS.ENVELOPING_MIST.id === spellId) {
-        this.addToManaSaved(SPELLS.ENVELOPING_MIST.manaCost, spellId);
-        this.castsUnderManaTea += 1;
-        this.enmCasts += 1;
-        this.casted = true;
+      if(this.casts.get(name)){
+        this.casts.set(name, this.casts.get(name)+1);
+      }else{
+        this.casts.set(name, 1);
       }
-      if (SPELLS.ESSENCE_FONT.id === spellId) {
-        this.addToManaSaved(SPELLS.ESSENCE_FONT.manaCost, spellId);
-        this.castsUnderManaTea += 1;
-        this.efCasts += 1;
-        this.casted = true;
-      }
-      if (SPELLS.LIFE_COCOON.id === spellId) {
-        this.addToManaSaved(SPELLS.LIFE_COCOON.manaCost, spellId);
-        this.castsUnderManaTea += 1;
-        this.lcCasts += 1;
-        this.casted = true;
-      }
-      if (SPELLS.RENEWING_MIST.id === spellId) {
-        this.addToManaSaved(SPELLS.RENEWING_MIST.manaCost, spellId);
-        this.castsUnderManaTea += 1;
-        this.remCasts += 1;
-        this.casted = true;
-      }
-      if (SPELLS.REVIVAL.id === spellId) {
-        this.addToManaSaved(SPELLS.REVIVAL.manaCost, spellId);
-        this.castsUnderManaTea += 1;
-        this.revCasts += 1;
-        this.casted = true;
-      }
-      if (SPELLS.VIVIFY.id === spellId) {
-        this.addToManaSaved(SPELLS.VIVIFY.manaCost, spellId);
-        this.castsUnderManaTea += 1;
-        this.vivCasts += 1;
-        this.casted = true;
-      }
-      if (SPELLS.REFRESHING_JADE_WIND_TALENT.id === spellId) {
-        this.addToManaSaved(SPELLS.REFRESHING_JADE_WIND_TALENT.manaCost, spellId);
-        this.castsUnderManaTea += 1;
-        this.rjwCasts += 1;
-        this.casted = true;
-      }
-      // Capture any Non Mana casts during Mana Tea
-      if (!this.casted) {
-        this.nonManaCasts += 1;
-        this.casted = false;
-      }
-    }
-  }
-
-  addToManaSaved(spellBaseMana, spellId) {
-    // If we cast TFT -> Viv, mana cost of Viv is 0
-    if ((this.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id) && SPELLS.VIVIFY.id === spellId) || this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
-      this.nonManaCasts += 1;
-      return;
-    }
-    this.manaSavedMT += (spellBaseMana * (1 - manaTeaReduction));//removed lifecycles as the combo isn't possible anymore
-  }
-  on_fightend() {
-    if(debug){
-    console.log(`Mana Tea Casted: ${this.manateaCount}`);
-    console.log(`Mana saved: ${this.manaSavedMT}`);
-    console.log(`Avg. Mana saved: ${this.manaSavedMT / this.manateaCount}`);
-    console.log(`Total Casts under Mana Tea: ${this.castsUnderManaTea}`);
-    console.log(`Avg Casts under Mana Tea: ${this.castsUnderManaTea / this.manateaCount}`);
-    console.log(`Free spells cast: ${this.nonManaCasts}`);
-    console.log(`Effective healing: ${this.effectiveHealing}`);
-    console.log(`Overhealing healing: ${this.overhealing}`);
-    console.log(`OverHealing percentage: ${this.overHealingPercent}`);
     }
   }
 
   get avgMtSaves() {
-    const abilityTracker = this.abilityTracker;
-    const getAbility = spellId => abilityTracker.getAbility(spellId);
-
-    const manaTea = getAbility(SPELLS.MANA_TEA_TALENT.id);
-    const mtCasts = manaTea.casts || 0;
-
-    return this.manaSavedMT / mtCasts || 0;
+    return this.manaSavedMT / this.manateaCount || 0;
   }
 
   get suggestionThresholds() {
@@ -182,6 +97,7 @@ class ManaTea extends Analyzer {
   }
 
   suggestions(when) {
+    console.log(this.casts);
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
@@ -205,6 +121,7 @@ class ManaTea extends Analyzer {
   }
 
   statistic() {
+    const arrayOfKeys = Array.from(this.casts.keys());
     return (
       <TalentStatisticBox
         talent={SPELLS.MANA_TEA_TALENT.id}
@@ -215,11 +132,13 @@ class ManaTea extends Analyzer {
           <>
             During your {this.manateaCount} Mana Teas saved the following mana ({formatThousands(this.manaSavedMT / this.owner.fightDuration * 1000 * 5)} MP5):
             <ul>
-              {this.efCasts > 0 && <li>{(this.efCasts)} Essence Font casts</li>}
-              {this.efCasts > 0 && <li>{(this.vivCasts)} Vivfy casts</li>}
-              {this.efCasts > 0 && <li>{(this.enmCasts)} Enveloping Mists casts</li>}
-              <li>{(this.rjwCasts + this.revCasts + this.remCasts + this.lcCasts)} other spells casted.</li>
-              <li>{(this.nonManaCasts)} non-mana casts during Mana Tea</li>
+            {
+              arrayOfKeys.map(spell => (
+                <li>
+                  {this.casts.get(spell)} {spell} casts
+                </li>
+              ))
+            }
             </ul>
           </>
         )}
