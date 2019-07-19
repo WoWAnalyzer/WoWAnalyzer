@@ -34,6 +34,7 @@ class WayOfTheCrane extends Analyzer {
       return;
     }
     this._gcd = (1500 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating)))/1000;
+    this._gcd = Math.max(this._gcd, .75);
     this.customMap = new Map();
   }
 
