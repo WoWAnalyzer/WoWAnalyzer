@@ -11,9 +11,6 @@ import Analyzer from 'parser/core/Analyzer';
 
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
-
-const debug = false;
-
 class ManaTea extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
