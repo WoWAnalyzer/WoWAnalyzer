@@ -45,14 +45,14 @@ class WayOfTheCrane extends Analyzer {
     const spellId = event.ability.guid;
     if(spellId === SPELLS.WAY_OF_THE_CRANE_HEAL.id || spellId === SPELLS.WAY_OF_THE_CRANE_HEAL_HONOR.id){
       if(this._customMap.get(this._damageSpell)===undefined){
-        let healingEvents = {
+        const healingEvents = {
           casts: 1,
           healing: event.amount || 0,
           overheal:  event.overheal || 0,
         };
         this._customMap.set(this._damageSpell, healingEvents);
       }else{
-        let healingEvents = this._customMap.get(this._damageSpell);
+        const healingEvents = this._customMap.get(this._damageSpell);
         healingEvents.casts +=1;
         healingEvents.healing += event.amount;
         healingEvents.overheal += event.overheal||0;
