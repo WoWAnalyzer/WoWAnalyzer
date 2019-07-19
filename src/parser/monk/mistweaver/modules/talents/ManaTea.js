@@ -94,7 +94,6 @@ class ManaTea extends Analyzer {
   }
 
   suggestions(when) {
-    console.log(this.casts);
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
