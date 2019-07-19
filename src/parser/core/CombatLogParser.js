@@ -137,6 +137,7 @@ import TreacherousCovenant from '../shared/modules/spells/bfa/azeritetraits/Trea
 // Essences
 import TheEverRisingTide from '../shared/modules/spells/bfa/essences/TheEverRisingTide';
 import TheCrucibleofFlame from '../shared/modules/spells/bfa/essences/TheCrucibleofFlame';
+import WorldveinResonance from '../shared/modules/spells/bfa/essences/WorldveinResonance';
 
 // Uldir
 import TwitchingTentacleofXalzaix from '../shared/modules/items/bfa/raids/uldir/TwitchingTentacleofXalzaix';
@@ -313,6 +314,7 @@ class CombatLogParser {
     // Essences
     theEverRisingTide: TheEverRisingTide,
     theCrucibleofFlame: TheCrucibleofFlame,
+    worldveinResonance: WorldveinResonance,
 
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
