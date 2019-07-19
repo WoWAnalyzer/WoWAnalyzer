@@ -87,10 +87,6 @@ class WayOfTheCrane extends Analyzer {
   }
 
   statistic() {
-    let totalHeal = 0;
-    this.customMap.forEach(function(value, key) {
-      totalHeal += value.healing; 
-    });
     const arrayOfDamageSpells = Array.from(this.customMap.keys());
     return (
       <AzeritePowerStatistic
