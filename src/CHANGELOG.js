@@ -8,6 +8,11 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
+    date: new Date('2019-07-19'),
+    changes: 'Added boss configs and phase info for Eternal Palace.',
+    contributors: [Sharrq],
+  },
+  {
     date: new Date('2019-07-16'),
     changes: 'Added the ability to filter the results by time period.',
     contributors: [Zeboot],
