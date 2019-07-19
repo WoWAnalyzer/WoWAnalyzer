@@ -15,7 +15,7 @@ import ItemStatisticBox from 'interface/others/ItemStatisticBox';
 
 class WayOfTheCrane extends Analyzer {
 
-  _customMap = null;
+  customMap = null;
   _damageSpell = "";
   _lastTimeStamp = 0;
   _inWotc = false;
@@ -44,19 +44,19 @@ class WayOfTheCrane extends Analyzer {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     if(spellId === SPELLS.WAY_OF_THE_CRANE_HEAL.id || spellId === SPELLS.WAY_OF_THE_CRANE_HEAL_HONOR.id){
-      if(this._customMap.get(this._damageSpell)===undefined){
+      if(this.customMap.get(this._damageSpell)===undefined){
         const healingEvents = {
           casts: 1,
           healing: event.amount || 0,
           overheal:  event.overheal || 0,
         };
-        this._customMap.set(this._damageSpell, healingEvents);
+        this.customMap.set(this._damageSpell, healingEvents);
       }else{
-        const healingEvents = this._customMap.get(this._damageSpell);
+        const healingEvents = this.customMap.get(this._damageSpell);
         healingEvents.casts +=1;
         healingEvents.healing += event.amount;
         healingEvents.overheal += event.overheal||0;
-        this._customMap.set(this._damageSpell, healingEvents);
+        this.customMap.set(this._damageSpell, healingEvents);
       }
     }
   }
@@ -85,10 +85,10 @@ class WayOfTheCrane extends Analyzer {
 
   statistic() {
     let totalHeal = 0;
-    this._customMap.forEach(function(value, key) {
+    this.customMap.forEach(function(value, key) {
       totalHeal += value.healing; 
     });
-    const arrayOfDamageSpells = Array.from(this._customMap.keys());
+    const arrayOfDamageSpells = Array.from(this.customMap.keys());
     return (
       <ItemStatisticBox
         label="Way Of The Crane"
@@ -96,7 +96,7 @@ class WayOfTheCrane extends Analyzer {
         value={<ItemHealingDone amount={totalHeal} />}
         tooltip={(
           arrayOfDamageSpells.map(spell => (
-            <div>{spell} did {this._customMap.get(spell)[1]} healing, {this._customMap.get(spell)[2]} overhealing in {this._customMap.get(spell)[0]/3} casts.</div>
+            <div>{spell} did {this.customMap.get(spell).healing} healing, {this.customMap.get(spell).overheal} overhealing in {this.customMap.get(spell).casts/3} casts.</div>
           ))
         )}
       >
@@ -116,8 +116,8 @@ class WayOfTheCrane extends Analyzer {
             arrayOfDamageSpells.map(spell => (
               <tr>
               <td>{spell}</td>
-              <td>{formatNumber(this._customMap.get(spell).healing/this._wotcTime)}</td>
-              <td>{formatNumber(this._customMap.get(spell).healing/(this._customMap.get(spell).casts/3*1.5))}</td>
+              <td>{formatNumber(this.customMap.get(spell).healing/this._wotcTime)}</td>
+              <td>{formatNumber(this.customMap.get(spell).healing/(this.customMap.get(spell).casts/3*1.5))}</td>
               </tr>
             ))
           }
