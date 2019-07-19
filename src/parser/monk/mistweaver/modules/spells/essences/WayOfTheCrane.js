@@ -1,21 +1,23 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
 import Analyzer from 'parser/core/Analyzer';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
-import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
-import ItemStatisticBox from 'interface/others/ItemStatisticBox';
-
-
+import StatTracker from 'parser/shared/modules/StatTracker';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 
 /**
  * Simple info graphic that shows what spell did what healing during wotc window, the hps of each spell, and hptc
  */
 
 class WayOfTheCrane extends Analyzer {
+  static dependencies = {
+    statTracker: StatTracker,
+  };
 
   customMap = null;
+  _gcd = 1.5;
   _damageSpell = "";
   _lastTimeStamp = 0;
   _inWotc = false;
@@ -31,6 +33,8 @@ class WayOfTheCrane extends Analyzer {
     if (!this.active) {
       return;
     }
+    this._gcd = (1500 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating)))/1000;
+    console.log(this._gcd);
     this.customMap = new Map();
   }
 
@@ -90,41 +94,41 @@ class WayOfTheCrane extends Analyzer {
     });
     const arrayOfDamageSpells = Array.from(this.customMap.keys());
     return (
-      <ItemStatisticBox
-        label="Way Of The Crane"
-        icon={<SpellIcon id={SPELLS.WAY_OF_THE_CRANE.id} />}
-        value={<ItemHealingDone amount={totalHeal} />}
+      <AzeritePowerStatistic
+        size="flexible"
         tooltip={(
           arrayOfDamageSpells.map(spell => (
             <div>{spell} did {this.customMap.get(spell).healing} healing, {this.customMap.get(spell).overheal} overhealing in {this.customMap.get(spell).casts/3} casts.</div>
           ))
         )}
       >
-      <div>
-        The healing done by your damaging abilities <b>during Way of the Crane</b>. That is: the HPS column doesn't count time outside of WotC.
-      </div>
-      <table className="table table-condensed">
-        <thead>
-          <tr>
-            <th>Spell</th>
-            <th>HPS</th>
-            <th>HPCT</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            arrayOfDamageSpells.map(spell => (
-              <tr>
-              <td>{spell}</td>
-              <td>{formatNumber(this.customMap.get(spell).healing/this._wotcTime)}</td>
-              <td>{formatNumber(this.customMap.get(spell).healing/(this.customMap.get(spell).casts/3*1.5))}</td>
-              </tr>
-            ))
-          }
-          </tbody>
-      </table>
-      </ItemStatisticBox>
-
+      <div className="pad">
+        <label><SpellLink id={SPELLS.WAY_OF_THE_CRANE.id} /></label>
+        <div>
+          The healing done by your damaging abilities <b>during Way of the Crane</b>. That is: the HPS column doesn't count time outside of WotC.
+        </div>
+        <table className="table table-condensed">
+          <thead>
+            <tr>
+              <th>Spell</th>
+              <th>HPS</th>
+              <th>HPCT</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              arrayOfDamageSpells.map(spell => (
+                <tr>
+                <td>{spell}</td>
+                <td>{formatNumber(this.customMap.get(spell).healing/this._wotcTime)}</td>
+                <td>{formatNumber(this.customMap.get(spell).healing/(this.customMap.get(spell).casts/3*this._gcd))}</td>
+                </tr>
+              ))
+            }
+            </tbody>
+         </table>
+        </div>
+      </AzeritePowerStatistic>
     );
   }
 
