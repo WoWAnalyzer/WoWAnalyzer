@@ -8,6 +8,11 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   {
+    date: new Date('2019-07-20'),
+    changes: 'Updated the build process to ensure every new pull request has a changelog entry.',
+    contributors: [Zerotorescue],
+  },
+  {
     date: new Date('2019-07-19'),
     changes: 'Added boss configs and phase info for Eternal Palace.',
     contributors: [Sharrq],
