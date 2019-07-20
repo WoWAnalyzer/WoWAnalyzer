@@ -8,7 +8,8 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/contributor/Button';
 
 export default [
-  change(date(2019,7,20), 'Updated the build process to ensure every new pull request has a changelog entry.', Zerotorescue),
+  change(date(2019, 7, 20), 'Added Unbridled Fury to the list of strong pre-potions.', emallson),
+  change(date(2019, 7, 20), 'Updated the build process to ensure every new pull request has a changelog entry.', Zerotorescue),
   change(date(2019, 7, 19), 'Added boss configs and phase info for Eternal Palace.', [Sharrq]),
   change(date(2019, 7, 16), 'Added the ability to filter the results by time period.', [Zeboot]),
   change(date(2019, 7, 16), 'Added the ability to filter the results by phases.', [Zeboot]),
