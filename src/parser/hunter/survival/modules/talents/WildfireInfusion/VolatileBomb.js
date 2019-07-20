@@ -9,6 +9,7 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import { SERPENT_STING_SV_BASE_DURATION } from 'parser/hunter/survival/constants';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import { formatDuration } from 'common/format';
+import SpellLink from 'common/SpellLink';
 
 /**
  * Lace your Wildfire Bomb with extra reagents, randomly giving it one of the following enhancements each time you throw it:
@@ -26,12 +27,12 @@ class VolatileBomb extends Analyzer {
     enemies: Enemies,
     statTracker: StatTracker,
   };
-
   damage = 0;
   casts = 0;
   extendedSerpentStings = 0;
   extendedInMs = 0;
   focusSaved = 0;
+  missedSerpentResets = 0;
 
   activeSerpentStings = {
     /*
@@ -79,6 +80,8 @@ class VolatileBomb extends Analyzer {
       this.extendedInMs += this.activeSerpentStings[target].extendExpectedEnd - this.activeSerpentStings[target].expectedEnd;
       this.focusSaved += SERPENT_STING_FOCUS_COST;
       this.extendedSerpentStings += 1;
+    } else {
+      this.missedSerpentResets += 1;
     }
   }
 
@@ -130,6 +133,18 @@ class VolatileBomb extends Analyzer {
     this.casts += 1;
   }
 
+  get missedResetsThresholds() {
+    return {
+      actual: this.missedSerpentResets,
+      isGreaterThan: {
+        minor: 1,
+        average: 2,
+        major: 3,
+      },
+      style: 'number',
+    };
+  }
+
   statistic() {
     return (
       <TalentStatisticBox
@@ -143,6 +158,7 @@ class VolatileBomb extends Analyzer {
               <th>Avg</th>
               <th>Total</th>
               <th>Focus saved</th>
+              <th>Missed refreshes</th>
             </tr>
           </thead>
           <tbody>
@@ -151,11 +167,23 @@ class VolatileBomb extends Analyzer {
               <td>{formatDuration(this.extendedInMs / this.casts / 1000)}</td>
               <td>{formatDuration(this.extendedInMs / 1000)}</td>
               <td>{this.focusSaved}</td>
+              <td>{this.missedSerpentResets}</td>
             </tr>
           </tbody>
         </table>
       </TalentStatisticBox>
     );
+  }
+
+  suggestions(when) {
+    const serpentSting = <SpellLink id={SPELLS.SERPENT_STING_SV.id} />;
+    when(this.missedResetsThresholds).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<>You shouldn't cast <SpellLink id={SPELLS.VOLATILE_BOMB_WFI.id} /> if your target doesn't have <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> on.</>)
+        .icon(SPELLS.VOLATILE_BOMB_WFI.icon)
+        .actual(`${actual} casts without ${serpentSting} on`)
+        .recommended(`<${recommended} is recommended`);
+    });
+
   }
 }
 
