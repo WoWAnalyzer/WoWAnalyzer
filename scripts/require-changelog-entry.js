@@ -18,9 +18,9 @@ function hasChangelog(changedFiles) {
 async function main() {
   const targetBranch = getTargetBranch();
   const changedFiles = await getChangedFiles(targetBranch);
-  console.log(`Changed files since ${targetBranch}:`);
-  changedFiles.forEach(path => console.log(path));
-  console.log();
+  // console.log(`Changed files since ${targetBranch}:`);
+  // changedFiles.forEach(path => console.log(path));
+  // console.log();
 
   if (hasChangelog(changedFiles)) {
     console.log('Found a changelog entry. Thanks!');
