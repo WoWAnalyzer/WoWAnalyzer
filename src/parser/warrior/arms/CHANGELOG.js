@@ -6,74 +6,18 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
-  {
-    date: new Date('2019-02-03'),
-    changes: <>Added a suggestion to not use <SpellLink id={SPELLS.SWEEPING_STRIKES.id} /> during <SpellLink id={SPELLS.COLOSSUS_SMASH.id} /> / <SpellLink id={SPELLS.WARBREAKER_TALENT.id} />.</>,
-    contributors: [Korebian],
-  },
-  {
-    date: new Date('2019-02-02'),
-    changes: <>Added more information to the <SpellLink id={SPELLS.CRUSHING_ASSAULT_TRAIT.id} /> module. Added <SpellLink id={SPELLS.LORD_OF_WAR.id} /> module.</>,
-    contributors: [Korebian],
-  },
-  {
-    date: new Date('2018-12-12'),
-    changes: <>Updated for patch 8.1, <SpellLink id={SPELLS.CHARGE.id} /> is no longer on the GCD and <SpellLink id={SPELLS.EXECUTIONERS_PRECISION_TRAIT.id} /> have been replaced by <SpellLink id={SPELLS.STRIKING_THE_ANVIL.id} />.</>,
-    contributors: [Matardarix],
-  },
-  {
-    date: new Date('2018-11-28'),
-    changes: <>Added <SpellLink id={SPELLS.CRUSHING_ASSAULT_TRAIT.id} /> module.</>,
-    contributors: [Matardarix],
-  },
-  {
-    date: new Date('2018-11-15'),
-    changes: <>Fixed Overpower events where stacks were applied before casts</>,
-    contributors: [Matardarix],
-  },
-  {
-    date: new Date('2018-11-14'),
-    changes: <>Added a suggestion on using <SpellLink id={SPELLS.SLAM.id} /> while <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> is available.</>,
-    contributors: [Matardarix],
-  },
-  {
-    date: new Date('2018-11-12'),
-    changes: <>Added <SpellLink id={SPELLS.FERVOR_OF_BATTLE_TALENT.id} /> in Talents module.</>,
-    contributors: [Matardarix],
-  },
-  {
-    date: new Date('2018-11-10'),
-    changes: <>Modified <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> analysis to get it more accurate with the execution phase.</>,
-    contributors: [Matardarix],
-  },
-  {
-    date: new Date('2018-11-07'),
-    changes: <>Added Rage usage tab and suggestions on rage wast, removed the doughnut chart for rage usage</>,
-    contributors: [Matardarix],
-  },
-  {
-    date: new Date('2018-11-06'),
-    changes: <>Added cooldown tracker tab</>,
-    contributors: [Matardarix],
-  },
-  {
-    date: new Date('2018-11-05'),
-    changes: <>New:<ul><li>Checklist</li><li>Talents module</li><li><SpellLink id={SPELLS.EXECUTIONERS_PRECISION_TRAIT.id} /> module</li><li><SpellLink id={SPELLS.SEISMIC_WAVE.id} /> module</li><li><SpellLink id={SPELLS.TEST_OF_MIGHT.id} /> module</li><li>rage usage module</li><li>suggestions regarding <SpellLink id={SPELLS.DEFENSIVE_STANCE_TALENT.id} /></li></ul>Fixed:<ul><li><SpellLink id={SPELLS.ANGER_MANAGEMENT_TALENT.id} /> cooldown reduction calculation</li></ul></>,
-    contributors: [Matardarix],
-  },
-  {
-    date: new Date('2018-10-12'),
-    changes: <>Fixed some spell IDs and ability information. Updated Config.</>,
-    contributors: [Sharrq],
-  },
-  {
-    date: new Date('2018-06-30'),
-    changes: <>Update all abilities to new BFA values, removed incompatible modules and added an <SpellLink id={SPELLS.ANGER_MANAGEMENT_TALENT.id} /> statistic.</>,
-    contributors: [Zerotorescue],
-  },
-  {
-    date: new Date('2018-06-16'),
-    changes: <>Fixed a rare crash when casting <SpellLink id={SPELLS.EXECUTE.id} /> on a non-boss target.</>,
-    contributors: [Aelexe],
-  },
+  change(date(2019, 2, 3), <>Added a suggestion to not use <SpellLink id={SPELLS.SWEEPING_STRIKES.id} /> during <SpellLink id={SPELLS.COLOSSUS_SMASH.id} /> / <SpellLink id={SPELLS.WARBREAKER_TALENT.id} />.</>, [Korebian]),
+  change(date(2019, 2, 2), <>Added more information to the <SpellLink id={SPELLS.CRUSHING_ASSAULT_TRAIT.id} /> module. Added <SpellLink id={SPELLS.LORD_OF_WAR.id} /> module.</>, [Korebian]),
+  change(date(2018, 12, 12), <>Updated for patch 8.1, <SpellLink id={SPELLS.CHARGE.id} /> is no longer on the GCD and <SpellLink id={SPELLS.EXECUTIONERS_PRECISION_TRAIT.id} /> have been replaced by <SpellLink id={SPELLS.STRIKING_THE_ANVIL.id} />.</>, [Matardarix]),
+  change(date(2018, 11, 28), <>Added <SpellLink id={SPELLS.CRUSHING_ASSAULT_TRAIT.id} /> module.</>, [Matardarix]),
+  change(date(2018, 11, 15), <>Fixed Overpower events where stacks were applied before casts</>, [Matardarix]),
+  change(date(2018, 11, 14), <>Added a suggestion on using <SpellLink id={SPELLS.SLAM.id} /> while <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> is available.</>, [Matardarix]),
+  change(date(2018, 11, 12), <>Added <SpellLink id={SPELLS.FERVOR_OF_BATTLE_TALENT.id} /> in Talents module.</>, [Matardarix]),
+  change(date(2018, 11, 10), <>Modified <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> analysis to get it more accurate with the execution phase.</>, [Matardarix]),
+  change(date(2018, 11, 7), <>Added Rage usage tab and suggestions on rage wast, removed the doughnut chart for rage usage</>, [Matardarix]),
+  change(date(2018, 11, 6), <>Added cooldown tracker tab</>, [Matardarix]),
+  change(date(2018, 11, 5), <>New:<ul><li>Checklist</li><li>Talents module</li><li><SpellLink id={SPELLS.EXECUTIONERS_PRECISION_TRAIT.id} /> module</li><li><SpellLink id={SPELLS.SEISMIC_WAVE.id} /> module</li><li><SpellLink id={SPELLS.TEST_OF_MIGHT.id} /> module</li><li>rage usage module</li><li>suggestions regarding <SpellLink id={SPELLS.DEFENSIVE_STANCE_TALENT.id} /></li></ul>Fixed:<ul><li><SpellLink id={SPELLS.ANGER_MANAGEMENT_TALENT.id} /> cooldown reduction calculation</li></ul></>, [Matardarix]),
+  change(date(2018, 10, 12), <>Fixed some spell IDs and ability information. Updated Config.</>, [Sharrq]),
+  change(date(2018, 6, 30), <>Update all abilities to new BFA values, removed incompatible modules and added an <SpellLink id={SPELLS.ANGER_MANAGEMENT_TALENT.id} /> statistic.</>, [Zerotorescue]),
+  change(date(2018, 6, 16), <>Fixed a rare crash when casting <SpellLink id={SPELLS.EXECUTE.id} /> on a non-boss target.</>, [Aelexe]),
 ];
