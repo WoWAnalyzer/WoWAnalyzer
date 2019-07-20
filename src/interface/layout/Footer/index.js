@@ -1,25 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 import Tooltip, { TooltipElement } from 'common/Tooltip';
 import DiscordLogo from 'interface/icons/DiscordTiny';
 import GithubLogo from 'interface/icons/GitHubMarkSmall';
 import PatreonIcon from 'interface/icons/PatreonTiny';
-import { hasPremium } from 'interface/selectors/user';
 import Logo from 'interface/images/logo.svg';
-import Ad from 'interface/common/Ad';
 
 import './style.scss';
 
 class Footer extends React.PureComponent {
-  static propTypes = {
-    premium: PropTypes.bool,
-  };
-
   render() {
-    const { premium } = this.props;
-
     return (
       <footer>
         <div className="container text-center">
@@ -87,21 +77,10 @@ class Footer extends React.PureComponent {
               This is a fan site and we are not affiliated.
             </div>
           </div>
-          {premium === false && (
-            <div>
-              <Ad
-                data-ad-slot="3815063023" // Footer
-              />
-            </div>
-          )}
         </div>
       </footer>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  premium: hasPremium(state),
-});
-
-export default connect(mapStateToProps)(Footer);
+export default Footer;

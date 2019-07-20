@@ -91,12 +91,6 @@ class Home extends React.PureComponent {
         <ReportSelectionHeader />
 
         <main className="container">
-          {premium === false && (
-            <div style={{ marginTop: 40 }}>
-              <Ad />
-            </div>
-          )}
-
           <nav>
             <ul>
               {this.pages.map(page => {
