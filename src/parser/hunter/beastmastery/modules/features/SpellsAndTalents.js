@@ -3,6 +3,10 @@ import React from 'react';
 import StatisticsListBox from 'interface/others/StatisticsListBox';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
+import SPELLS from 'common/SPELLS';
+import { isItAprilFoolDay } from 'common/aprilFools';
+import SpellLink from 'common/SpellLink';
+import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import Analyzer from 'parser/core/Analyzer';
 import ChimaeraShot from 'parser/hunter/beastmastery/modules/talents/ChimaeraShot';
 import Stampede from 'parser/hunter/beastmastery/modules/talents/Stampede';
@@ -29,6 +33,14 @@ class SpellsAndTalents extends Analyzer {
       .some(dependency => dependency.active);
   }
 
+  get barrageIsNotUsedAndIsFirstOfApril() {
+    return {
+      actual: !this.selectedCombatant.hasTalent(SPELLS.BARRAGE_TALENT.id) && isItAprilFoolDay(),
+      isEqual: true,
+      style: 'boolean',
+    };
+  }
+
   statistic() {
     return (
       <StatisticsListBox
@@ -44,6 +56,14 @@ class SpellsAndTalents extends Analyzer {
         {this.aspectOfTheBeast.active && this.aspectOfTheBeast.subStatistic()}
       </StatisticsListBox>
     );
+  }
+
+  suggestions(when) {
+    when(this.barrageIsNotUsedAndIsFirstOfApril).addSuggestion(suggest => {
+      return suggest(<> You haven't selected <SpellLink id={SPELLS.BARRAGE_TALENT.id} />. <SpellLink id={SPELLS.BARRAGE_TALENT.id} /> is essential in pulling the maximum amount of mobs in order to top the DPS charts with AOE damage. </>)
+        .icon(SPELLS.BARRAGE_TALENT.icon)
+        .staticImportance(SUGGESTION_IMPORTANCE.MAJOR);
+    });
   }
 }
 
