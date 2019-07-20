@@ -18,6 +18,7 @@ const SHARED = [
   297333, // Briny Bubble -- can't ISB while stunned
   296688, // Rippling Wave
   296693, // Waterlogged
+  296752, // Cutting Coral
   // Orgozoa
   295161, // Pervasive Shock
   // Za'qul

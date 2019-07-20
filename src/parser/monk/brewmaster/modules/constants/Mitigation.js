@@ -11,6 +11,8 @@ export const ULDIR_K = [
 
 export const MPLUS_K = 8467.2;
 
+// not necessarily the first boss, but the one with the lowest id
+const BOD_FIRST_BOSS = 2263;
 export const BOD_K = [
      null,
    8467.2, // LFR
@@ -20,6 +22,7 @@ export const BOD_K = [
   11390.4, // Mythic
 ];
 
+const EP_FIRST_BOSS = 2289;
 export const EP_K = [
   null,
   10275.3,
@@ -36,7 +39,11 @@ export function diminish(stat, K) {
 export function lookupK(fight) {
     if(fight.size === 5) {
       return MPLUS_K;
-    } else {
+    } else if (fight.boss >= EP_FIRST_BOSS) {
       return EP_K[fight.difficulty];
+    } else if (fight.boss >= BOD_FIRST_BOSS) {
+      return BOD_K[fight.difficulty];
+    } else {
+      return ULDIR_K[fight.difficulty];
     }
 }
