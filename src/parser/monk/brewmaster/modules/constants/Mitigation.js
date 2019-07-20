@@ -20,6 +20,15 @@ export const BOD_K = [
   11390.4, // Mythic
 ];
 
+export const EP_K = [
+  null,
+  10275.3,
+  null,
+  11478.6,
+  12782.7,
+  14282.1,
+]
+
 export function diminish(stat, K) {
   return stat / (stat + K);
 }
@@ -28,6 +37,6 @@ export function lookupK(fight) {
     if(fight.size === 5) {
       return MPLUS_K;
     } else {
-      return BOD_K[fight.difficulty];
+      return EP_K[fight.difficulty];
     }
 }
