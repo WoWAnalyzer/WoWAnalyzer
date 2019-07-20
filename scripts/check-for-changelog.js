@@ -8,19 +8,16 @@ async function getChangedFiles() {
   return stdout.trim().split('\n');
 }
 
-async function hasChangelog(changedFiles) {
+function hasChangelog(changedFiles) {
   return changedFiles.some(path => path.includes('/CHANGELOG.js'));
 }
 
-async function checkForChangelog() {
-  const changedFiles = await getChangedFiles();
-  return hasChangelog(changedFiles);
-}
-
 async function main() {
-  const hasChangelog = await checkForChangelog();
+  const changedFiles = await getChangedFiles();
+  console.log('Changed files:');
+  changedFiles.forEach(console.log);
   let exitCode;
-  if (hasChangelog) {
+  if (hasChangelog(changedFiles)) {
     console.log('Found a changelog entry. Thanks!');
     exitCode = 0;
   } else {
