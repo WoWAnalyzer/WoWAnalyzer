@@ -1,9 +1,9 @@
 import React from 'react';
 
+import { tsabo, Zerotorescue, Gebuz, Aelexe } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-
-import { tsabo, Zerotorescue, Gebuz, Aelexe } from 'CONTRIBUTORS';
+import { change, date } from 'common/changelog';
 
 export default [
   {

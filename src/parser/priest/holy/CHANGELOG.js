@@ -3,6 +3,7 @@ import React from 'react';
 import { Khadaj, niseko, Yajinni, Zerotorescue } from 'CONTRIBUTORS';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
+import { change, date } from 'common/changelog';
 
 export default [
   {

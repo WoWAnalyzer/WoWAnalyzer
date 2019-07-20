@@ -5,6 +5,7 @@ import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import { change, date } from 'common/changelog';
 
 export default [
   {

@@ -1,8 +1,9 @@
-import { niseko, HawkCorrigan } from 'CONTRIBUTORS';
-
 import React from 'react';
+
+import { niseko, HawkCorrigan } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import { change, date } from 'common/changelog';
 
 export default [
   {

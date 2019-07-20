@@ -1,6 +1,8 @@
-// import React from 'react';
+// eslint-disable-next-line no-unused-vars
+import React from 'react';
 
 import { Yajinni, blazyb, fel1ne, Qbz, Zerotorescue, Abelito75 } from 'CONTRIBUTORS';
+import { change, date } from 'common/changelog';
 
 export default [
   {

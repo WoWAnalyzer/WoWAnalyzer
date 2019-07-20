@@ -3,6 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { Juko8, Skeletor } from 'CONTRIBUTORS';
+import { change, date } from 'common/changelog';
 
 export default [
   {

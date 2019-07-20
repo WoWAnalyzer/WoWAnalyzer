@@ -4,14 +4,11 @@ import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import { change, date } from 'common/changelog';
 import Contributor from 'interface/contributor/Button';
 
 export default [
-  {
-    date: new Date('2019-07-20'),
-    changes: 'Updated the build process to ensure every new pull request has a changelog entry.',
-    contributors: [Zerotorescue],
-  },
+  change(date(2019,7,20), 'Updated the build process to ensure every new pull request has a changelog entry.', Zerotorescue),
   {
     date: new Date('2019-07-19'),
     changes: 'Added boss configs and phase info for Eternal Palace.',

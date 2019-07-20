@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { Chizu } from 'CONTRIBUTORS';
-
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
+import { change, date } from 'common/changelog';
 
 export default [
   {

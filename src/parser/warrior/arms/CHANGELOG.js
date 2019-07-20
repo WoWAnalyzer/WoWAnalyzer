@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { Aelexe, Zerotorescue, Sharrq, Matardarix, Korebian } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import { change, date } from 'common/changelog';
 
 export default [
   {
