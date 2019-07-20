@@ -12,7 +12,7 @@ jobs:
       if: type = pull_request
       install: true # skip install since it has no dependencies
       script:
-        - node scripts/check-for-changelog.js
+        - node scripts/require-changelog-entry.js
     - stage: test
       name: "code-quality: eslint"
       cache:
