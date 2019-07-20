@@ -28,6 +28,7 @@ jobs:
     - stage: test
       name: "changelog entry exists"
       if: type = pull_request
+      install: true # skip install since it has no dependencies
       script:
         - node scripts/check-for-changelog.js
     - stage: build
