@@ -37,14 +37,14 @@ export default class NullDynamo extends Analyzer {
       return;
     }
 
-    const rank = this.selectedCombatant.essenceRank(SPELLS.NULL_DYNAMO.traitId)
+    const rank = this.selectedCombatant.essenceRank(SPELLS.NULL_DYNAMO.traitId);
 
     this.hasMajor = this.selectedCombatant.hasMajor(SPELLS.NULL_DYNAMO.traitId);
     if(this.hasMajor) {
       this.abilities.add({
         spell: SPELLS.NULL_DYNAMO,
         category: Abilities.SPELL_CATEGORIES.ITEMS,
-        cooldown: (rank == 1) ? 180 : 135,
+        cooldown: (rank === 1) ? 180 : 135,
         gcd: {
           base: 1500,
         },
@@ -57,7 +57,7 @@ export default class NullDynamo extends Analyzer {
       this.addEventListener(Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.NULL_DYNAMO), this._majorShield);
     }
 
-    if (rank == 3) {
+    if (rank === 3) {
       this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.NULL_DYNAMO_DAMAGE), this._minorDamage);
     }
 
@@ -97,14 +97,14 @@ export default class NullDynamo extends Analyzer {
   statistic() {
     const rank = this.selectedCombatant.essenceRank(SPELLS.NULL_DYNAMO.traitId);
 
-    if (rank == 3 && Math.abs((this._totalDamage - this._hypotheticalDamage) / this._totalDamage) > 0.05) {
+    if (rank === 3 && Math.abs((this._totalDamage - this._hypotheticalDamage) / this._totalDamage) > 0.05) {
       // more than 5% error on hypothetical damage, warn
       this.warn("Null Dynamo damage estimate is way off", this._totalDamage, this._hypotheticalDamage);
     }
 
     let minorDamage;
     let majorDamage;
-    if (rank == 3) {
+    if (rank === 3) {
       minorDamage = <ItemDamageDone amount={this._totalDamage * (1 - this._damageSplit)} />;
       majorDamage = <ItemDamageDone amount={this._totalDamage * this._damageSplit} />;
     } else {
@@ -131,7 +131,7 @@ export default class NullDynamo extends Analyzer {
           <div className="pad">
             <label><SpellLink id={SPELLS.NULL_DYNAMO.id} /> - Minor Rank {rank}</label>
             <div className="value">
-              <ItemHealingDone amount={this._totalMinorAbsorbs} /><br/>
+              <ItemHealingDone amount={this._totalMinorAbsorbs} /><br />
               {minorDamage}
             </div>
           </div>
