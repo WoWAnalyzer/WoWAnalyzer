@@ -8,6 +8,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 7, 20), 'Updated hit-tracking blacklist and internal constants for Eternal Palace.', emallson),
   change(date(2019, 6, 28), <>Added a <SpellLink id={SPELLS.HOT_TRUB.id} /> damage estimator. Nerf sucks :(</>, [emallson]),
   change(date(2019, 4, 11), <>Fixed a bug in the Mitigation Values tab that caused Mastery's base 8% to be counted towards contribution by Mastery Rating.</>, [emallson]),
   change(date(2019, 3, 10), <>Fixed a bug in the <SpellLink id={SPELLS.IRONSKIN_BREW.id} /> normalizer that led to a crash in the new timeline.</>, [Zerotorescue]),

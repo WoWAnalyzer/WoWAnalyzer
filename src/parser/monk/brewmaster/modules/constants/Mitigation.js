@@ -27,7 +27,7 @@ export const EP_K = [
   11478.6,
   12782.7,
   14282.1,
-]
+];
 
 export function diminish(stat, K) {
   return stat / (stat + K);
