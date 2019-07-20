@@ -8,7 +8,7 @@ env:
 jobs:
   include:
     - stage: test
-      name: "eslint"
+      name: "code-quality: eslint"
       cache:
         directories:
           - $HOME/.npm
@@ -25,6 +25,11 @@ jobs:
         - npm ci --dev
       script:
         - npm run test -- --maxWorkers=2
+    - stage: test
+      name: "changelog entry exists"
+      if: type = pull_request
+      script:
+        - node scripts/check-for-changelog.js
     - stage: build
       language: generic
       services: docker
