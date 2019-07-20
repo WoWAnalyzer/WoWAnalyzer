@@ -1,5 +1,5 @@
 import React from 'react';
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75 } from 'CONTRIBUTORS';
+import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336 } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -8,6 +8,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  change(date(2019, 7, 20), <>Added <SpellLink id={SPELLS.WORLDVEIN_RESONANCE.id} /> essence.</>, [Anatta336]),
   change(date(2019,7,20), 'Updated the build process to ensure every new pull request has a changelog entry.', Zerotorescue),
   change(date(2019, 7, 19), 'Added boss configs and phase info for Eternal Palace.', [Sharrq]),
   change(date(2019, 7, 16), 'Added the ability to filter the results by time period.', [Zeboot]),
