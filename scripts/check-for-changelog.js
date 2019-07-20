@@ -27,7 +27,7 @@ async function main() {
     console.error('Error: Changelog entry missing.\n' +
       'A changelog entry is required. Please explain your change in a relevant CHANGELOG file.\n' +
       'Use the spec specific CHANGELOG file if it was a spec/class specific change. If it\n' +
-      'affects many specs, you can use the CHANGELOG file in the root src folder.');
+      'affects many specs you can use the CHANGELOG file in the root src folder.');
     exitCode = 1;
   }
   process.exit(exitCode);

@@ -8,6 +8,12 @@ env:
 jobs:
   include:
     - stage: test
+      name: "Check if a changelog entry exists"
+      if: type = pull_request
+      install: true # skip install since it has no dependencies
+      script:
+        - node scripts/check-for-changelog.js
+    - stage: test
       name: "code-quality: eslint"
       cache:
         directories:
@@ -25,12 +31,6 @@ jobs:
         - npm ci --dev
       script:
         - npm run test -- --maxWorkers=2
-    - stage: test
-      name: "changelog entry exists"
-      if: type = pull_request
-      install: true # skip install since it has no dependencies
-      script:
-        - node scripts/check-for-changelog.js
     - stage: build
       language: generic
       services: docker
