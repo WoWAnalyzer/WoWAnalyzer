@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { captureException } from 'common/errorLogger';
-import SPELLS from 'common/SPELLS';
+import { SECOND_POTIONS } from 'parser/shared/modules/items/PrePotion';
 
 import { EventsParseError } from './EventParser';
 import { SELECTION_ALL_PHASES } from './PhaseParser';
@@ -20,20 +20,6 @@ const eventFollows = (e, e2) =>
   && (e2.ability && e.ability ? e2.ability.guid === e.ability.guid : !e2.ability && !e.ability) //if both have an ability, its ID needs to match, otherwise neither can have an ability
   && e2.sourceID === e.sourceID
   && e2.targetID === e.targetID;
-
-//potion IDs to allow prepot / second pot suggestions to work
-const POTIONS = [
-  SPELLS.BATTLE_POTION_OF_INTELLECT.id,
-  SPELLS.BATTLE_POTION_OF_STRENGTH.id,
-  SPELLS.BATTLE_POTION_OF_AGILITY.id,
-  SPELLS.BATTLE_POTION_OF_STAMINA.id,
-  SPELLS.POTION_OF_RISING_DEATH.id,
-  SPELLS.POTION_OF_BURSTING_BLOOD.id,
-  SPELLS.STEELSKIN_POTION.id,
-  SPELLS.COASTAL_MANA_POTION.id,
-  SPELLS.COASTAL_REJUVENATION_POTION.id,
-  SPELLS.POTION_OF_REPLENISHMENT.id,
-];
 
 class TimeEventFilter extends React.PureComponent {
   static propTypes = {
@@ -133,7 +119,7 @@ class TimeEventFilter extends React.PureComponent {
 }
 
 function findRelevantPostFilterEvents(events){
-  return events.filter(e => e.type === "cast" && POTIONS.includes(e.ability.guid)).map(e => ({...e, type: PRE_FILTER_COOLDOWN_EVENT_TYPE, trigger: e.type}));
+  return events.filter(e => e.type === "cast" && SECOND_POTIONS.includes(e.ability.guid)).map(e => ({...e, type: PRE_FILTER_COOLDOWN_EVENT_TYPE, trigger: e.type}));
 }
 
 //filter prephase events to just the events outside the time period that "matter" to make statistics more accurate (e.g. buffs and cooldowns)
@@ -176,14 +162,14 @@ function findRelevantPreFilterEvents(events){
         break;
       case "removebuff":
       case "removedebuff":
-        if(POTIONS.includes(e.ability.guid)){
+        if(SECOND_POTIONS.includes(e.ability.guid)){
           buffEvents.push(e);
         }
         break;
       case "cast":
         //only keep "latest" cast, override type to prevent > 100% uptime / efficiency
         //whitelist certain casts (like potions) to keep suggestions working
-        if(POTIONS.includes(e.ability.guid) || !castHappenedLater(e)){
+        if(SECOND_POTIONS.includes(e.ability.guid) || !castHappenedLater(e)){
           castEvents.push({...e, type: PRE_FILTER_COOLDOWN_EVENT_TYPE, trigger: e.type});
         }
         break;
@@ -225,8 +211,8 @@ export function filterEvents(events, start, end){
   .map(e => ({
     ...e,
     prepull: true, //pretend previous events were "prepull"
-    ...(e.type !== PRE_FILTER_COOLDOWN_EVENT_TYPE && e.type !== "cast" && POTIONS.includes(e.ability.guid) && {type: PRE_FILTER_BUFF_EVENT_TYPE, trigger: e.type}),
-    ...(e.type !== PRE_FILTER_COOLDOWN_EVENT_TYPE && !POTIONS.includes(e.ability.guid) ? {timestamp: start} : {__fabricated: true}), //override existing timestamps to the start of the time period to avoid >100% uptimes (only on non casts to retain cooldowns)
+    ...(e.type !== PRE_FILTER_COOLDOWN_EVENT_TYPE && e.type !== "cast" && SECOND_POTIONS.includes(e.ability.guid) && {type: PRE_FILTER_BUFF_EVENT_TYPE, trigger: e.type}),
+    ...(e.type !== PRE_FILTER_COOLDOWN_EVENT_TYPE && !SECOND_POTIONS.includes(e.ability.guid) ? {timestamp: start} : {__fabricated: true}), //override existing timestamps to the start of the time period to avoid >100% uptimes (only on non casts to retain cooldowns)
   }));
   const postFilterEvents = findRelevantPostFilterEvents(events.filter(event => event.timestamp > end))
   .sort((a,b) => a.timestamp - b.timestamp) //sort events by timestamp
