@@ -5,6 +5,8 @@ import { SELECTION_ALL_PHASES, SELECTION_CUSTOM_PHASE } from 'interface/report/P
 
 import './PhaseSelector.scss';
 
+const INSTANCE_SEPARATOR = "_INSTANCE_";
+
 class PhaseSelector extends React.PureComponent {
   static propTypes = {
     fight: PropTypes.object.isRequired,
@@ -56,7 +58,7 @@ class PhaseSelector extends React.PureComponent {
     return phases.reduce((obj, phase) => {
       return {
         ...obj,
-        [phase.key + "_" + phase.instance]: phase,
+        [phase.key + INSTANCE_SEPARATOR + phase.instance]: phase,
       };
     }, {});
   }
@@ -77,7 +79,7 @@ class PhaseSelector extends React.PureComponent {
       <select
         className="form-control phase"
         defaultValue={selectedPhase}
-        value={(fight.filtered && !fight.phase) ? SELECTION_CUSTOM_PHASE : (selectedPhase === SELECTION_ALL_PHASES ? SELECTION_ALL_PHASES : selectedPhase + "_" + selectedInstance)}
+        value={(fight.filtered && !fight.phase) ? SELECTION_CUSTOM_PHASE : (selectedPhase === SELECTION_ALL_PHASES ? SELECTION_ALL_PHASES : selectedPhase + INSTANCE_SEPARATOR + selectedInstance)}
         onChange={this.handleChange}
         ref={this.phaseRef}
         disabled={this.props.isLoading}
