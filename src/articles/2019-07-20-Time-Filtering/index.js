@@ -38,7 +38,7 @@ export default (
       };
       `}
     </code></pre>
-    When displaying timestamps, for example, make sure to adjust them by the offset_time in order to maintain timestamp accuracy. For other, more precise questions feel free to reach out to us on <a href="https://wowanalyzer.com/discord">Discord</a>!
+    When displaying timestamps, for example, make sure to adjust them by the <code>offset_time</code> in order to maintain timestamp accuracy. Additionally you can use the <code>filtered</code> attribute to check whether the user is viewing the entire fight or not and adjust your analysis accordingly. For other, more precise questions feel free to reach out to us on <a href="https://wowanalyzer.com/discord">Discord</a>!
     <br />
     <br />
     We hope you enjoy this new feature!

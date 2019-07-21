@@ -8,7 +8,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/contributor/Button';
 
 export default [
-  change(date(2019, 7, 20), 'Added news article about time filtering', Zeboot),
+  change(date(2019, 7, 20), 'Added news article about time filtering.', Zeboot),
   change(date(2019, 7, 20), 'Show changelog entries along with news on the frontpage.', [Zerotorescue]),
   change(date(2019, 7, 20), <>Removed ads by Google and most ad spots as they were not worth the degraded experience for you guys. Instead, please consider a monthly donation on <a href="https://www.patreon.com/wowanalyzer">Patreon</a> to support the project and unlock Premium, or bounty tickets on <a href="https://www.bountysource.com/teams/wowanalyzer">BountySource</a> for contributors to solve (currently active bounties: $1,550).</>, [Zerotorescue]),
   change(date(2019, 7, 20), <>Added <SpellLink id={SPELLS.WORLDVEIN_RESONANCE.id} /> essence.</>, [Anatta336]),
