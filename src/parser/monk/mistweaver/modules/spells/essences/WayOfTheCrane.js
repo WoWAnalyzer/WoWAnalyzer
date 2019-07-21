@@ -17,7 +17,6 @@ class WayOfTheCrane extends Analyzer {
   };
 
   customMap = null;
-  _gcd = 1.5;
   _damageSpell = "";
   _lastTimeStamp = 0;
   _inWotc = false;
@@ -33,8 +32,6 @@ class WayOfTheCrane extends Analyzer {
     if (!this.active) {
       return;
     }
-    this._gcd = (1500 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating)))/1000;
-    this._gcd = Math.max(this._gcd, .75);
     this.customMap = new Map();
   }
 
@@ -45,6 +42,11 @@ class WayOfTheCrane extends Analyzer {
     this._damageSpell = event.ability.name;
   }
 
+  get gcd(){
+    const gcd = (1500 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating)))/1000;
+    return Math.max(gcd, .75);
+  }
+
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
     if(spellId === SPELLS.WAY_OF_THE_CRANE_HEAL.id || spellId === SPELLS.WAY_OF_THE_CRANE_HEAL_HONOR.id){
@@ -53,6 +55,7 @@ class WayOfTheCrane extends Analyzer {
           casts: 1,
           healing: event.amount || 0,
           overheal:  event.overheal || 0,
+          HPCT: (event.amount || 0) / this.gcd,
         };
         this.customMap.set(this._damageSpell, healingEvents);
       }else{
@@ -60,6 +63,7 @@ class WayOfTheCrane extends Analyzer {
         healingEvents.casts +=1;
         healingEvents.healing += event.amount;
         healingEvents.overheal += event.overheal||0;
+        healingEvents.HPCT += (event.amount || 0)/this.gcd;//average of HPCT
         this.customMap.set(this._damageSpell, healingEvents);
       }
     }
@@ -93,9 +97,11 @@ class WayOfTheCrane extends Analyzer {
       <AzeritePowerStatistic
         size="flexible"
         tooltip={(
-          arrayOfDamageSpells.map(spell => (
-            <div>{spell} did {this.customMap.get(spell).healing} healing, {this.customMap.get(spell).overheal} overhealing in {this.customMap.get(spell).casts/3} casts.</div>
-          ))
+          <ul>
+          {arrayOfDamageSpells.map(spell => (
+            <li>{spell} did {this.customMap.get(spell).healing} healing, {this.customMap.get(spell).overheal} overhealing in {this.customMap.get(spell).casts/3} casts.</li>
+          ))}
+        </ul>
         )}
       >
       <div className="pad">
@@ -117,7 +123,7 @@ class WayOfTheCrane extends Analyzer {
                 <tr>
                 <td>{spell}</td>
                 <td>{formatNumber(this.customMap.get(spell).healing/this._wotcTime)}</td>
-                <td>{formatNumber(this.customMap.get(spell).healing/(this.customMap.get(spell).casts/3*this._gcd))}</td>
+                <td>{formatNumber(this.customMap.get(spell).HPCT / this.customMap.get(spell).casts)}</td>
                 </tr>
               ))
             }
