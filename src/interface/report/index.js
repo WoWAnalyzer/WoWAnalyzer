@@ -192,6 +192,7 @@ class ResultsLoader extends React.PureComponent {
             bossPhaseEvents={this.state.bossPhaseEvents}
             filter={this.state.timeFilter}
             phase={this.state.selectedPhase}
+            phaseinstance={this.state.selectedInstance}
           >
             {this.handleTimeFilter}
           </TimeEventFilter>
