@@ -1,4 +1,3 @@
-import { captureException } from 'common/errorLogger';
 import Events from '../Events';
 
 import Module from '../Module';
