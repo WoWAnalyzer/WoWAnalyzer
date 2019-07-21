@@ -3,6 +3,31 @@ import { findByBossId } from 'raids';
 export const PHASE_START_EVENT_TYPE = 'phasestart';
 export const PHASE_END_EVENT_TYPE = 'phaseend';
 
+/**
+ * Creates Phase filter events as defined in boss configs via phase.filter.type
+ * All filters can be passed a filter.offset attribute that shifts how many milliseconds after the specicifed event the phase starts (can be negative)
+ * Supported filter event types:
+ *
+ * Buff filters:
+ *  - removebuff
+ *  - applybuff
+ *  - removedebuff
+ *  - applydebuff
+ *
+ *  Buff filters require filter.ability.id to be set for the Ability to search for
+ *
+ * Cast filters:
+ *  - begincast
+ *  - cast
+ *
+ * Cast filters require filter.ability.id to be set for the Ability to search for
+ *
+ * Time filters:
+ * - time
+ *
+ * Time filters require filter.time to be set as the milliseconds from combat begin to set the phase event at
+ *
+ */
 export function fabricateBossPhaseEvents(events, report, fight) {
   const bossConfig = findByBossId(fight.boss);
   const fightDifficulty = fight.difficulty;
@@ -28,6 +53,7 @@ export function fabricateBossPhaseEvents(events, report, fight) {
             case 'removebuff':
             case 'applybuff':
             case 'removedebuff':
+            case 'applydebuff':
             case 'begincast':
             case 'cast': {
               let bossEvents = events.filter(e => e.type === phase.filter.type && e.ability.guid === phase.filter.ability.id);
@@ -47,9 +73,18 @@ export function fabricateBossPhaseEvents(events, report, fight) {
                 phaseEvents.push({
                   key: key,
                   phase: phase,
-                  start: bossEvent.timestamp,
+                  start: bossEvent.timestamp + (phase.filter.offset || 0),
                   end: null,
                 });
+              });
+              break;
+            }
+            case 'time': {
+              phaseEvents.push({
+                key: key,
+                phase: phase,
+                start: fight.start_time + (phase.filter.time || 0),
+                end: null,
               });
               break;
             }
@@ -72,7 +107,7 @@ export function fabricateBossPhaseEvents(events, report, fight) {
                   phaseEvents.push({
                     key: `${key}_${index}`,
                     phase: phase,
-                    start: timestamp,
+                    start: timestamp + (phase.filter.offset || 0),
                     end: null,
                   });
                 });
