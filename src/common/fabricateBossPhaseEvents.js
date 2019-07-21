@@ -31,7 +31,7 @@ export function fabricateBossPhaseEvents(events, report, fight) {
             case 'begincast':
             case 'cast': {
               let bossEvents = events.filter(e => e.type === phase.filter.type && e.ability.guid === phase.filter.ability.id);
-              if (phase.filter.eventInstance !== undefined && phase.filter.eventInstance >= 0) {
+              if (phase.filter.eventInstance !== undefined && phase.filter.eventInstance >= 0 && !phase.multiple) {
                 if (bossEvents.length >= (phase.filter.eventInstance + 1)) {
                   // If the instance exists, only that specific instance is relevant
                   bossEvents = [bossEvents[phase.filter.eventInstance]];
