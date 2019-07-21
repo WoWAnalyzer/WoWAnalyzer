@@ -7,8 +7,6 @@ env:
   global:
     - NODE_ENV=production
     - ESLINT_BEFORE_BUILD=false
-    - REACT_APP_ENVIRONMENT_NAME=$TRAVIS_BRANCH
-    - REACT_APP_VERSION=$TRAVIS_COMMIT
 jobs:
   include:
     - stage: test
@@ -38,7 +36,7 @@ jobs:
     - stage: build
       language: generic
       services: docker
-      script: docker build --tag wowanalyzer .
+      script: docker build --tag wowanalyzer --build-arg REACT_APP_ENVIRONMENT_NAME=$TRAVIS_BRANCH --build-arg REACT_APP_VERSION=$TRAVIS_COMMIT .
       # Reminder: deploy doesn't run on PRs
       deploy:
         provider: script

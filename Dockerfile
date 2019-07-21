@@ -2,6 +2,8 @@ FROM node:11.11-alpine as build
 
 WORKDIR /usr/src/app/
 ENV NODE_ENV=production
+ARG REACT_APP_ENVIRONMENT_NAME
+ARG REACT_APP_VERSION
 
 # By doing this separate we allow Docker to cache this
 COPY package.json package-lock.json /usr/src/app/
