@@ -1,11 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Trans, t } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 
 import { captureException } from 'common/errorLogger';
-import { EventsParseError } from 'interface/report/EventParser';
-import FullscreenError from 'interface/common/FullscreenError';
-import { i18n } from 'interface/RootLocalizationProvider';
 
 class ErrorBoundary extends React.Component {
   static propTypes = {
