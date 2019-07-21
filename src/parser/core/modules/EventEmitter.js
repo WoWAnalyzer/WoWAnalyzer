@@ -165,10 +165,16 @@ class EventEmitter extends Module {
         if (process.env.NODE_ENV !== 'production') {
           throw err;
         }
-        console.error('Disabling', options.module.constructor.name, 'and child dependencies because an error occured', err);
+        const name = options.module.constructor.name;
+        console.error('Disabling', name, 'and child dependencies because an error occured', err);
         // Disable this module and all active modules that have this as a dependency
         this.owner.deepDisable(options.module);
-        captureException(err);
+        captureException(err, {
+          extra: {
+            spec: `${this.selectedCombatant.spec.specName} ${this.selectedCombatant.spec.className}`,
+            module: name,
+          },
+        });
       }
     };
     if (PROFILE) {
