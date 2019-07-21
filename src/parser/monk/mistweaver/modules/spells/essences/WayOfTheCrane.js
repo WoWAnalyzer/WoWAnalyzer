@@ -24,9 +24,9 @@ class WayOfTheCrane extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    const hasEssence = this.selectedCombatant.hasEssence(SPELLS.CONFLICT.traitId);
-    if(!hasEssence){
-        return;
+    this.active = this.selectedCombatant.hasEssence(SPELLS.CONFLICT.traitId);
+    if(!this.active){
+      return;
     }
     this.active = this.selectedCombatant.hasMajor(SPELLS.CONFLICT.traitId);
     if (!this.active) {
