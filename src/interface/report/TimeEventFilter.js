@@ -47,6 +47,7 @@ class TimeEventFilter extends React.PureComponent {
       end: PropTypes.number.isRequired,
     }),
     phase: PropTypes.string,
+    phaseinstance: PropTypes.number,
     bossPhaseEvents: PropTypes.array,
     events: PropTypes.array.isRequired,
     children: PropTypes.func.isRequired,
@@ -114,7 +115,7 @@ class TimeEventFilter extends React.PureComponent {
           offset_time: eventFilter.start - this.props.fight.start_time, //time between time filter start and fight start (for e.g. timeline)
           original_end_time: this.props.fight.end_time,
           filtered: (eventFilter.start !== this.props.fight.start_time || eventFilter.end !== this.props.fight.end_time),
-          ...(this.props.phase !== SELECTION_ALL_PHASES && {phase: this.props.phase}), //if phase is selected, add it to the fight object
+          ...(this.props.phase !== SELECTION_ALL_PHASES && {phase: this.props.phase, instance: this.props.phaseinstance || 0}), //if phase is selected, add it to the fight object
         },
         isLoading: false,
       });
