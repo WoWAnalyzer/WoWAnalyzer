@@ -159,4 +159,16 @@ export default {
     name: 'Secret Infusion',
     icon: 'ability_monk_thunderfocustea',
   },
+  //MW Conflict and Strife
+  //Not sure why but warcraft logs records some wotc heals as pvp talent source and some as honor talent source
+  WAY_OF_THE_CRANE_HEAL: {//pvp talent
+    id: 216161,
+    name: 'Way of the Crane',
+    icon: 'monk_stance_redcrane',
+  },
+  WAY_OF_THE_CRANE_HEAL_HONOR: {//honor talent
+    id: 281501,
+    name: 'Way of the Crane',
+    icon: 'monk_stance_redcrane',
+  },
 };
