@@ -36,6 +36,7 @@ class Header extends React.PureComponent {
     applyFilter: PropTypes.func.isRequired,
     phases: PropTypes.object,
     selectedPhase: PropTypes.string.isRequired,
+    selectedInstance: PropTypes.number.isRequired,
     isLoading: PropTypes.bool.isRequired,
     fight: PropTypes.object.isRequired,
     makeTabUrl: PropTypes.func.isRequired,
@@ -116,7 +117,7 @@ class Header extends React.PureComponent {
     );
   }
   renderInfo() {
-    const { config: { spec }, name, fight, boss, handlePhaseSelection, selectedPhase, phases, isLoading, applyFilter } = this.props;
+    const { config: { spec }, name, fight, boss, handlePhaseSelection, selectedPhase, selectedInstance, phases, isLoading, applyFilter } = this.props;
     return (
       <div className="info container">
         <div className="boss">
@@ -127,7 +128,7 @@ class Header extends React.PureComponent {
             {boss ? boss.name : getBossName(fight, false)}
           </h1>
           <h2>
-            {phases && <PhaseSelector fight={fight} phases={phases} handlePhaseSelection={handlePhaseSelection} selectedPhase={selectedPhase} isLoading={isLoading} />}
+            {phases && <PhaseSelector fight={fight} phases={phases} handlePhaseSelection={handlePhaseSelection} selectedPhase={selectedPhase} selectedInstance={selectedInstance} isLoading={isLoading} />}
           </h2>
           <div className="timefilter">
             <TimeFilter fight={fight} isLoading={isLoading} applyFilter={applyFilter} />

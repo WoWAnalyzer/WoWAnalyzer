@@ -10,6 +10,7 @@ import Contributor from 'interface/contributor/Button';
 export default [  
   change(date(2019, 7, 21), 'Update error logging to reduce overhead.', Zerotorescue),
   change(date(2019, 7, 20), 'Added news article about time filtering.', Zeboot),
+  change(date(2019, 7, 20), 'Allow for repeated phases in bossfights (e.g. Lady Ashvane / Radiance of Azshara).', Zeboot),
   change(date(2019, 7, 20), 'Made time filtering potion whitelist import from the potions module to avoid having to update separately each patch.', Zeboot),
   change(date(2019, 7, 20), <>Fixed <SpellLink id={SPELLS.CONCENTRATED_FLAME.id} /> not accounting for absorbs.</>, [Zeboot]),
   change(date(2019, 7, 20), 'Show changelog entries along with news on the frontpage.', [Zerotorescue]),

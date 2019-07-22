@@ -1,4 +1,3 @@
-import { captureException } from 'common/errorLogger';
 import Events from '../Events';
 
 import Module from '../Module';
@@ -162,19 +161,7 @@ class EventEmitter extends Module {
         this.numListenersCalled += 1;
         options.listener(event);
       } catch (err) {
-        if (process.env.NODE_ENV !== 'production') {
-          throw err;
-        }
-        const name = options.module.constructor.name;
-        console.error('Disabling', name, 'and child dependencies because an error occured', err);
-        // Disable this module and all active modules that have this as a dependency
-        this.owner.deepDisable(options.module);
-        captureException(err, {
-          extra: {
-            spec: `${this.selectedCombatant.spec.specName} ${this.selectedCombatant.spec.className}`,
-            module: name,
-          },
-        });
+        this._handleError(err, options.module);
       }
     };
     if (PROFILE) {
@@ -274,6 +261,21 @@ class EventEmitter extends Module {
       console.log(event);
       throw new Error('Events should have a type. No type received. See the console for the event.');
     }
+  }
+  _handleError(err, module) {
+    if (process.env.NODE_ENV !== 'production') {
+      throw err;
+    }
+    const name = module.constructor.name;
+    console.error('Disabling', name, 'and child dependencies because an error occured:', err);
+    // Disable this module and all active modules that have this as a dependency
+    this.owner.deepDisable(module);
+    window.Sentry && window.Sentry.withScope(scope => {
+      scope.setTag('type', 'module_error');
+      scope.setTag('spec', `${this.selectedCombatant.spec.specName} ${this.selectedCombatant.spec.className}`);
+      scope.setExtra('module', name);
+      window.Sentry.captureException(err);
+    });
   }
 }
 

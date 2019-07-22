@@ -7,7 +7,7 @@ import FilterExample from './filter.png';
 import ExampleResults from './exampleresults.png';
 
 export default (
-  <RegularArticle title="Time Filtering" publishedAt="2019-07-21" publishedBy={Zeboot}>
+  <RegularArticle title="Time Filtering" publishedAt="2019-07-23" publishedBy={Zeboot}>
     If you haven't noticed already, WoWAnalyzer has a new feature : <b>Time Filtering!</b> <br />
     A much requested feature for quite some time now, WoWAnalyzer now lets you filter the report to a range of time of your choosing, giving you the possibility to evaluate for example how well you performed during cooldowns, how much damage you did / took during a certain phase, and more! <br /><br />
     When you apply a time filter, we automatically attempt to try and preserve fight information from outside the time range where necessary - for example cooldown availability so we don't fault you for not using an ability that didn't come off CD during the time period - while preventing non-relevant events from contaminating the filtered data. <br />

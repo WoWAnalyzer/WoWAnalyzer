@@ -44,6 +44,7 @@ class ResultsLoader extends React.PureComponent {
       characterProfile: null,
       phases: null,
       selectedPhase: SELECTION_ALL_PHASES,
+      selectedInstance: 0,
       filteredEvents: null,
       filteredFight: null,
       timeFilter: null,
@@ -115,11 +116,12 @@ class ResultsLoader extends React.PureComponent {
     });
     return null;
   }
-  handlePhaseSelection(phase) {
+  handlePhaseSelection(phase, instance) {
     this.setState({
       selectedPhase: phase,
+      selectedInstance: instance,
       //set time filter to null if no phase selected
-      timeFilter: (phase === SELECTION_ALL_PHASES ? null : {start: this.state.phases[phase].start, end: this.state.phases[phase].end}),
+      timeFilter: (phase === SELECTION_ALL_PHASES ? null : {start: this.state.phases[phase].start[instance], end: this.state.phases[phase].end[instance]}),
     });
     return null;
   }
@@ -128,6 +130,7 @@ class ResultsLoader extends React.PureComponent {
       //set time filter to null if 0 and end of fight are selected as boundaries
       timeFilter: (start === 0 && end === this.props.fight.end_time - this.props.fight.start_time ? null :{start: start + this.props.fight.start_time, end: end + this.props.fight.start_time}),
       selectedPhase: SELECTION_ALL_PHASES,
+      selectedInstance: 0,
     });
     return null;
   }
@@ -189,6 +192,7 @@ class ResultsLoader extends React.PureComponent {
             bossPhaseEvents={this.state.bossPhaseEvents}
             filter={this.state.timeFilter}
             phase={this.state.selectedPhase}
+            phaseinstance={this.state.selectedInstance}
           >
             {this.handleTimeFilter}
           </TimeEventFilter>
@@ -224,6 +228,7 @@ class ResultsLoader extends React.PureComponent {
           isFilteringEvents={this.state.isFilteringEvents}
           phases={this.state.phases}
           selectedPhase={this.state.selectedPhase}
+          selectedInstance={this.state.selectedInstance}
           handlePhaseSelection={this.handlePhaseSelection}
           applyFilter={this.applyTimeFilter}
           timeFilter={this.state.timeFilter}

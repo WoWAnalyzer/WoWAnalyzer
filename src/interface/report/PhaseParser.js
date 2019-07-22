@@ -52,12 +52,15 @@ class PhaseParser extends React.PureComponent {
     return Object.keys(bossPhases)
     .filter(e => phaseKeys.includes(e)) //only include boss phases that have a valid phase key
     .reduce((obj, key) => {
+      const startInstances = bossPhaseEvents.filter(e => e.type === PHASE_START_EVENT_TYPE && e.phase.key === key);
+      const endInstances = bossPhaseEvents.filter(e => e.type === PHASE_END_EVENT_TYPE && e.phase.key === key);
       return {
         ...obj,
         [key]: {
           ...bossPhases[key],
-          start: bossPhaseEvents.find(e => e.type === PHASE_START_EVENT_TYPE && e.phase.key === key).timestamp,
-          end: bossPhaseEvents.find(e => e.type === PHASE_END_EVENT_TYPE && e.phase.key === key).timestamp,
+          //sort start and end by timestamp in case of multiple instances, only keep instances that have both a start and end date
+          start: startInstances.filter(e => endInstances.find(e2 => e2.instance === e.instance) !== undefined).sort((a,b) => a.timestamp - b.timestamp).map(e => e.timestamp),
+          end: endInstances.filter(e => startInstances.find(e2 => e2.instance === e.instance) !== undefined).sort((a,b) => a.timestamp - b.timestamp).map(e => e.timestamp),
         },
       };
     }, {});
