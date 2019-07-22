@@ -103,6 +103,7 @@ export default {
     traitId: 32,
     name: 'Conflict',
     icon: 'spell_azerite_essence_17',
+  },
   //Worldvein Resonance
   WORLDVEIN_RESONANCE: {
     id: 295186,
