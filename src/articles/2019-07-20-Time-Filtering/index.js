@@ -34,6 +34,7 @@ export default (
         boss: 2273, //required, boss ID
         filtered: true, //required, true if the fight is in any way filtered to a time period
         phase: "I1", //optional, phase key if a phase is selected
+        instance: 0, //optional, instance of a phase if phase is selected and can occur multiple times (aka Lady Ashvane)
       };
       `}
     </code></pre>
