@@ -221,12 +221,6 @@ class Results extends React.PureComponent {
           <div className="container">
             <About config={config} />
 
-            {premium === false && (
-              <div style={{ margin: '40px 0' }}>
-                <Ad />
-              </div>
-            )}
-
             <ChangelogTab />
           </div>
         );
@@ -369,12 +363,6 @@ class Results extends React.PureComponent {
           </div>
         )}
         {this.renderContent(selectedTab, results)}
-
-        {premium === false && (
-          <div className="container" style={{ marginTop: 20 }}>
-            <Ad />
-          </div>
-        )}
 
         <div className="container" style={{ marginTop: 40 }}>
           <div className="row">

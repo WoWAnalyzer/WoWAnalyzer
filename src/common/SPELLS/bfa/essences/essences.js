@@ -103,5 +103,23 @@ export default {
     traitId: 32,
     name: 'Conflict',
     icon: 'spell_azerite_essence_17',
+  //Worldvein Resonance
+  WORLDVEIN_RESONANCE: {
+    id: 295186,
+    traitId: 4,
+    name: 'Worldvein Resonance',
+    icon: 'inv_misc_azerite_01',
+  },
+  LIFEBLOOD_BUFF: {
+    // buff given when stood near shards with the minor essence, stacking up to 4
+    id: 295137,
+    name: 'Lifeblood',
+    icon: 'inv_glowingazeritespire',
+  },
+  LIFEBLOOD_SHARD_SUMMON: {
+    // id for 'summon' event of shards being created, either randomly from the minor or in response to activating the major
+    id: 295114,
+    name: 'Lifeblood Shard',
+    icon: 'inv_radientazeritematrix',
   },
 };
