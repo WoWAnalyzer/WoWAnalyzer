@@ -17,52 +17,26 @@ export default {
       magical: [],
     },
     phases: {
-      P1_1: {
-        name: 'Stage 1: Rising Fury 1',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
-      },
-      P2_1: {
-        name: 'Stage 2: Raging Storm 1',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
-        filter: {
-          type: 'applybuff',
-          ability: {
-            id: SPELLS.RADIANCE_OF_AZSHARA_ANCIENT_TEMPEST.id,
-          },
-          eventInstance: 0,
-        },
-      },
-      P1_2: {
-        name: 'Stage 1: Rising Fury 2',
+      P1: {
+        name: 'Stage 1: Rising Fury',
+        multiple: true,
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
           type: 'removebuff',
           ability: {
             id: SPELLS.RADIANCE_OF_AZSHARA_ANCIENT_TEMPEST.id,
           },
-          eventInstance: 0,
         },
       },
-      P2_2: {
-        name: 'Stage 2: Raging Storm 2',
+      P2: {
+        name: 'Stage 2: Raging Storm',
+        multiple: true,
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
           type: 'applybuff',
           ability: {
             id: SPELLS.RADIANCE_OF_AZSHARA_ANCIENT_TEMPEST.id,
           },
-          eventInstance: 1,
-        },
-      },
-      P1_3: {
-        name: 'Stage 1: Rising Fury 3',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
-        filter: {
-          type: 'removebuff',
-          ability: {
-            id: SPELLS.RADIANCE_OF_AZSHARA_ANCIENT_TEMPEST.id,
-          },
-          eventInstance: 1,
         },
       },
     },

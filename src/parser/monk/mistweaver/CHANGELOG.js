@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 7, 18), <>Made <SpellLink id={SPELLS.WAY_OF_THE_CRANE.id} /> infographic.</>, Abelito75),
   change(date(2019, 7, 2), <>Added <SpellLink id={SPELLS.WAY_OF_THE_CRANE.id} /> to the cooldowns tab.</>, [Anomoly]),
   change(date(2019, 6, 1), <>Added a check to make sure you using <SpellLink id={SPELLS.SOOTHING_MIST.id} /> efficiency while channeling it.</>, [Abelito75]),
   change(date(2019, 3, 30), <>Added a check to make sure you cast <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> when there are enough targets around.</>, [Abelito75]),

@@ -8,7 +8,13 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  change(date(2019, 7, 21), 'Update error logging to reduce overhead.', Zerotorescue),
   change(date(2019, 7, 20), <>Added <SpellLink id={SPELLS.NULL_DYNAMO.id} /> essence.</>, emallson),
+  change(date(2019, 7, 20), 'Allow for repeated phases in bossfights (e.g. Lady Ashvane / Radiance of Azshara).', Zeboot),
+  change(date(2019, 7, 20), 'Made time filtering potion whitelist import from the potions module to avoid having to update separately each patch.', Zeboot),
+  change(date(2019, 7, 20), <>Fixed <SpellLink id={SPELLS.CONCENTRATED_FLAME.id} /> not accounting for absorbs.</>, [Zeboot]),
+  change(date(2019, 7, 20), 'Show changelog entries along with news on the frontpage.', [Zerotorescue]),
+  change(date(2019, 7, 20), <>Removed ads by Google and most ad spots as they were not worth the degraded experience for you guys. Instead, please consider a monthly donation on <a href="https://www.patreon.com/wowanalyzer">Patreon</a> to support the project and unlock Premium, or bounty tickets on <a href="https://www.bountysource.com/teams/wowanalyzer">BountySource</a> for contributors to solve (currently active bounties: $1,550).</>, [Zerotorescue]),
   change(date(2019, 7, 20), <>Added <SpellLink id={SPELLS.WORLDVEIN_RESONANCE.id} /> essence.</>, [Anatta336]),
   change(date(2019,7,20), 'Updated the build process to ensure every new pull request has a changelog entry.', Zerotorescue),
   change(date(2019, 7, 19), 'Added boss configs and phase info for Eternal Palace.', [Sharrq]),

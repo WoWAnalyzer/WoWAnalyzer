@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Trans } from '@lingui/macro';
+import { Trans, t } from '@lingui/macro';
 
 import FullscreenError from 'interface/common/FullscreenError';
 import ErrorBoundary from 'interface/common/ErrorBoundary';
 import ApiDownBackground from 'interface/common/images/api-down-background.gif';
+import { EventsParseError } from 'interface/report/EventParser';
+import { i18n } from 'interface/RootLocalizationProvider';
 
 class RootErrorBoundary extends React.Component {
   static propTypes = {
@@ -37,15 +39,18 @@ class RootErrorBoundary extends React.Component {
     if (error && error.stack && error.stack.includes('invokeGuardedCallbackDev')) {
       return;
     }
+    console.log('Caught a global error');
     this.error(event, 'error');
   }
   handleUnhandledrejectionEvent(event) {
+    console.log('Caught a global unhandledrejection');
     this.error(event.reason, 'unhandledrejection');
   }
 
   error(error, details = null) {
-    if (error && (error.message === 'Script error.' || error.message.includes('adsbygoogle'))) {
+    if (error && error.message === 'Script error.') {
       // Some errors are triggered by third party scripts, such as browser plug-ins. These errors should generally not affect the application, so we can safely ignore them for our error handling. If a plug-in like Google Translate messes with the DOM and that breaks the app, that triggers a different error so those third party issues are still handled.
+      console.log('Ignored because it looks like a third party error.');
       return;
     }
 
@@ -59,6 +64,16 @@ class RootErrorBoundary extends React.Component {
 
   render() {
     if (this.state.error) {
+      if (this.state.error instanceof EventsParseError) {
+        return (
+          <FullscreenError
+            error={i18n._(t`An error occured during analysis`)}
+            details={i18n._(t`We fucked up and our code broke like the motherfucker that it is. Please let us know on Discord and we will fix it for you.`)}
+            background="https://media.giphy.com/media/2sdHZ0iBuI45s6fqc9/giphy.gif"
+          />
+        );
+      }
+
       return (
         <FullscreenError
           error={<Trans>An error occured.</Trans>}

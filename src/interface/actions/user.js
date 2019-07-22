@@ -44,7 +44,9 @@ export function fetchUser() {
       })
       .catch(err => {
         captureException(err, {
-          extra: 'user',
+          extra: {
+            location: 'user',
+          },
         });
         // fail silently since this only enhances the experience, if we're shortly down it shouldn't *kill* the experience.
       });

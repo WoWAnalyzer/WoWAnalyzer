@@ -52,6 +52,7 @@ class Results extends React.PureComponent {
     makeTabUrl: PropTypes.func.isRequired,
     phases: PropTypes.object,
     selectedPhase: PropTypes.string.isRequired,
+    selectedInstance: PropTypes.number.isRequired,
     handlePhaseSelection: PropTypes.func.isRequired,
     applyFilter: PropTypes.func.isRequired,
     timeFilter: PropTypes.object,
@@ -221,12 +222,6 @@ class Results extends React.PureComponent {
           <div className="container">
             <About config={config} />
 
-            {premium === false && (
-              <div style={{ margin: '40px 0' }}>
-                <Ad />
-              </div>
-            )}
-
             <ChangelogTab />
           </div>
         );
@@ -324,7 +319,7 @@ class Results extends React.PureComponent {
     );
   }
   render() {
-    const { parser, report, fight, player, characterProfile, makeTabUrl, selectedTab, premium, handlePhaseSelection, selectedPhase, phases, applyFilter, timeFilter } = this.props;
+    const { parser, report, fight, player, characterProfile, makeTabUrl, selectedTab, premium, handlePhaseSelection, selectedPhase, selectedInstance, phases, applyFilter, timeFilter } = this.props;
     const config = this.context.config;
 
     const boss = findByBossId(fight.boss);
@@ -348,6 +343,7 @@ class Results extends React.PureComponent {
           makeTabUrl={makeTabUrl}
           selectedTab={selectedTab}
           selectedPhase={selectedPhase}
+          selectedInstance={selectedInstance}
           phases={phases}
           handlePhaseSelection={handlePhaseSelection}
           applyFilter={applyFilter}
@@ -369,12 +365,6 @@ class Results extends React.PureComponent {
           </div>
         )}
         {this.renderContent(selectedTab, results)}
-
-        {premium === false && (
-          <div className="container" style={{ marginTop: 20 }}>
-            <Ad />
-          </div>
-        )}
 
         <div className="container" style={{ marginTop: 40 }}>
           <div className="row">

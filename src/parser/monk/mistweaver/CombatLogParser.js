@@ -58,6 +58,9 @@ import FontOfLife from './modules/spells/azeritetraits/FontOfLife';
 import UpliftedSpirits from './modules/spells/azeritetraits/UpliftedSpirits';
 import SecretInfusion from './modules/spells/azeritetraits/SecretInfusion';
 
+//essences
+import WayOfTheCrane from './modules/spells/essences/WayOfTheCrane';
+
 // Mana Tracker
 import MistweaverHealingEfficiencyDetails from './modules/features/MistweaverHealingEfficiencyDetails';
 // import HealingEfficiencyDetails from '../../core/healingEfficiency/HealingEfficiencyDetails';
@@ -65,6 +68,7 @@ import HealingEfficiencyTracker from './modules/features/MistweaverHealingEffici
 import ManaTracker from '../../core/healingEfficiency/ManaTracker';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
+
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -126,6 +130,9 @@ class CombatLogParser extends CoreCombatLogParser {
     manaTracker: ManaTracker,
     hpmDetails: MistweaverHealingEfficiencyDetails,
     hpmTracker: HealingEfficiencyTracker,
+
+    //Essences
+    wayOfTheCrane: WayOfTheCrane,
   };
 }
 
