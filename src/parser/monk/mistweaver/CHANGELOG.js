@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 7, 23), <>Fixed strange bug with mana tea where if you didn't have it selected it crashed the Overview tab</>, Abelito75),
   change(date(2019, 7, 18), <>Made <SpellLink id={SPELLS.WAY_OF_THE_CRANE.id} /> infographic.</>, Abelito75),
   change(date(2019, 7, 2), <><SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> rewrite. Includes all spells</>, Abelito75),
   change(date(2019, 7, 2), <>Added <SpellLink id={SPELLS.WAY_OF_THE_CRANE.id} /> to the cooldowns tab.</>, [Anomoly]),

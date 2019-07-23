@@ -19,7 +19,7 @@ class ManaTea extends Analyzer {
   manaSavedMT = 0;
   manateaCount = 0;
 
-  casts = null;
+  casts = new Map();
 
   effectiveHealing = 0;
   overhealing = 0;
@@ -30,7 +30,6 @@ class ManaTea extends Analyzer {
     if(!this.active){
       return;
     }
-    this.casts = new Map();
   }
 
   on_toPlayer_applybuff(event) {
