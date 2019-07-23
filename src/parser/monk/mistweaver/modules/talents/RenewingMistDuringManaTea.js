@@ -27,7 +27,7 @@ class RenewingMistDuringManaTea extends Analyzer {
   }
 
   get avgRemDuringMT() {
-    return this.vivify.remDuringManaTea / this.manaTea.vivCasts || 0;
+    return this.vivify.remDuringManaTea / this.manaTea.casts.get("Vivify") || 0;
   }
 
   get suggestionThresholds() {
