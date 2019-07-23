@@ -71,7 +71,7 @@ class ReportSelectionHeader extends React.PureComponent {
 
                     <Warning>
                       <Trans>
-                        The character page will only show fights that have been ranked by Warcraft Logs. Wipes are not included and during busy periods there might be a delay before new reports appear. Manually find the report on Warcraft Logs and copy the direct report link to still analyze these fights.
+                        The character page will only show fights that have been ranked by Warcraft Logs. Wipes are not included and during busy periods there might be a delay before new reports appear. You can still analyze these fights by manually finding the report on Warcraft Logs and using the report link.
                       </Trans>
                     </Warning>
                   </>

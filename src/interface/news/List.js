@@ -2,9 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import articles from 'articles';
+import mergeAllChangelogs from 'mergeAllChangelogs';
+import SpecIcon from 'common/SpecIcon';
+import ReadableList from 'interface/common/ReadableList';
+import Contributor from 'interface/contributor/Button';
+import { ReactComponent as Logo } from 'interface/images/logo.svg';
 
 import ArticleLoader from './ArticleLoader';
-import './News.css';
+import './News.scss';
 
 class News extends React.PureComponent {
   static propTypes = {
@@ -62,19 +67,61 @@ class News extends React.PureComponent {
     const indexStart = this.state.page * this.articlesPerPage;
     const indexEnd = indexStart + this.articlesPerPage;
 
+    const changelogEntries = mergeAllChangelogs();
+    const pageArticles = Object.values(articles)
+      .sort((a, b) => b.localeCompare(a))
+      .filter((_, index) => index >= indexStart && index < indexEnd)
+      .map(articleName => {
+        const uglyDateExtracter = articleName.split('-');
+        const date = new Date(uglyDateExtracter[0], uglyDateExtracter[1] - 1, uglyDateExtracter[2]);
+
+        return {
+          date,
+          article: articleName,
+        };
+      });
+    const lastArticle = pageArticles[pageArticles.length - 1];
+    const pageChangelogEntries = changelogEntries.filter(changeLogEntry => changeLogEntry.date > lastArticle.date);
+
     return (
       <div className="news">
-        {Object.values(articles)
-          .sort((a, b) => b.localeCompare(a))
-          .filter((_, index) => index >= indexStart && index < indexEnd)
-          .map(fileName => (
-            <ArticleLoader
-              key={fileName}
-              fileName={fileName}
-            >
-              {({ article, showLoader }) => showLoader ? <div className="spinner" style={{ fontSize: 5 }} /> : article}
-            </ArticleLoader>
-          ))}
+        {[...pageArticles, ...pageChangelogEntries]
+          .sort((a, b) => b.date - a.date)
+          .map((item, index) => {
+            if (item.article) {
+              return (
+                <ArticleLoader
+                  key={item.article}
+                  fileName={item.article}
+                >
+                  {({ article, showLoader }) => showLoader ? <div className="spinner" style={{ fontSize: 5 }} /> : article}
+                </ArticleLoader>
+              );
+            } else {
+              return (
+                <div key={`${item.category}-${index}`} className="panel changelog-entry">
+                  <div className="panel-heading">
+                    <small>
+                      {!item.spec ? (
+                        <>
+                          <Logo /> WoWAnalyzer
+                        </>
+                      ) : (
+                        <>
+                          <SpecIcon id={item.spec.id} /> {item.spec.specName} {item.spec.className}
+                        </>
+                      )} updated at {item.date.toLocaleDateString()} by <ReadableList>
+                        {item.contributors.map(contributor => <Contributor key={contributor.nickname} {...contributor} />)}
+                      </ReadableList>
+                    </small>
+                  </div>
+                  <div className="panel-body pad">
+                    {item.changes}
+                  </div>
+                </div>
+              );
+            }
+          })}
 
         <div className="row">
           <div className="col-xs-6">
