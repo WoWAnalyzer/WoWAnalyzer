@@ -8,7 +8,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/contributor/Button';
 
 export default [
-  change(date(2019, 7, 25), 'Fixed a crash in the Ever-Rising Tide Module'),
+  change(date(2019, 7, 25), 'Fixed a crash in the Ever-Rising Tide Module', HawkCorrigan),
   change(date(2019, 7, 23), 'Added 8.2 weapon enchants.', Zeboot),
   change(date(2019, 7, 21), 'Update error logging to reduce overhead.', Zerotorescue),
   change(date(2019, 7, 20), 'Allow for repeated phases in bossfights (e.g. Lady Ashvane / Radiance of Azshara).', Zeboot),
