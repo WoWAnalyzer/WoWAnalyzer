@@ -9,22 +9,6 @@ class Ad extends React.PureComponent {
     style: PropTypes.object,
   };
 
-  get isAdblocked() {
-    return window.adblocked !== false && !(window.adsbygoogle && window.adsbygoogle.loaded);
-  }
-
-  componentDidMount() {
-    if (this.isAdblocked) {
-      return;
-    }
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (err) {
-      // "adsbygoogle.push() error: No slot size for availableWidth=0" error that I can't explain
-      console.error(err);
-    }
-  }
-
   render() {
     const { style, ...others } = this.props;
 
@@ -32,44 +16,21 @@ class Ad extends React.PureComponent {
       style: style ? { display: 'block', ...style } : { display: 'block' },
       ...others,
     };
-    if (!props['data-ad-slot']) {
-      // Default to responsive
-      props['data-ad-slot'] = '5976455458';
-      props['data-ad-format'] = 'auto';
-      props['data-full-width-responsive'] = 'true';
-    }
 
-    if (process.env.REACT_APP_FORCE_PREMIUM === 'false') {
-      // Forced to false so we're probably testing ads
-      props['data-adtest'] = 'on';
-      props.style.background = 'rgba(255, 0, 0, 0.3)';
+    let image = '/img/728.jpg';
+    if (props['data-ad-slot'] === '3815063023') { // footer
+      image = '/img/premium-square.jpg';
     }
-
-    if (this.isAdblocked) {
-      console.log('Adblock detected, falling back to premium ads.');
-      let image = "/img/728.jpg";
-      if (props['data-ad-slot'] === '3815063023') { // footer
-        image = '/img/premium-square.jpg';
-      }
-      return (
-        <div className="text-center">
-          <Link to="/premium">
-            <img
-              src={image}
-              alt="WoWAnalyzer Premium - Did we help? Support us and unlock cool perks."
-              style={{ maxWidth: '100%' }}
-            />
-          </Link>
-        </div>
-      );
-    }
-
     return (
-      <ins
-        className="adsbygoogle"
-        data-ad-client="ca-pub-8048055232081854"
-        {...props}
-      />
+      <div className="text-center">
+        <Link to="/premium">
+          <img
+            src={image}
+            alt="WoWAnalyzer Premium - Did we help? Support us and unlock cool perks."
+            style={{ maxWidth: '100%' }}
+          />
+        </Link>
+      </div>
     );
   }
 }
