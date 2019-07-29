@@ -1,5 +1,5 @@
 import React from 'react';
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336 } from 'CONTRIBUTORS';
+import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -7,7 +7,11 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 import Contributor from 'interface/contributor/Button';
 
-export default [  
+export default [
+  change(date(2019, 7, 27), 'Added Unbridled Fury to the list of strong pre-potions.', emallson),
+  change(date(2019, 7, 27), <>Added <SpellLink id={SPELLS.NULL_DYNAMO.id} /> essence.</>, emallson),
+  change(date(2019, 7, 25), 'Fixed a crash in the Ever-Rising Tide Module', HawkCorrigan),
+  change(date(2019, 7, 23), 'Added 8.2 weapon enchants.', Zeboot),
   change(date(2019, 7, 21), 'Update error logging to reduce overhead.', Zerotorescue),
   change(date(2019, 7, 20), 'Added news article about time filtering.', Zeboot),
   change(date(2019, 7, 20), 'Allow for repeated phases in bossfights (e.g. Lady Ashvane / Radiance of Azshara).', Zeboot),
@@ -16,7 +20,7 @@ export default [
   change(date(2019, 7, 20), 'Show changelog entries along with news on the frontpage.', [Zerotorescue]),
   change(date(2019, 7, 20), <>Removed ads by Google and most ad spots as they were not worth the degraded experience for you guys. Instead, please consider a monthly donation on <a href="https://www.patreon.com/wowanalyzer">Patreon</a> to support the project and unlock Premium, or bounty tickets on <a href="https://www.bountysource.com/teams/wowanalyzer">BountySource</a> for contributors to solve (currently active bounties: $1,550).</>, [Zerotorescue]),
   change(date(2019, 7, 20), <>Added <SpellLink id={SPELLS.WORLDVEIN_RESONANCE.id} /> essence.</>, [Anatta336]),
-  change(date(2019,7,20), 'Updated the build process to ensure every new pull request has a changelog entry.', Zerotorescue),
+  change(date(2019, 7, 20), 'Updated the build process to ensure every new pull request has a changelog entry.', Zerotorescue),
   change(date(2019, 7, 19), 'Added boss configs and phase info for Eternal Palace.', [Sharrq]),
   change(date(2019, 7, 16), 'Added the ability to filter the results by time period.', [Zeboot]),
   change(date(2019, 7, 16), 'Added the ability to filter the results by phases.', [Zeboot]),

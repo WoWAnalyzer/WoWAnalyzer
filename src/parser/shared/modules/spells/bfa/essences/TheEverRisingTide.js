@@ -149,6 +149,9 @@ class TheEverRisingTide extends Analyzer {
     let averageHaste = 0;
     const hasteBuffsCopy = this.hasteBuffs.slice(0); // don't destroy the original
     while (hasteBuffsCopy.length > 0) {
+      if (hasteBuffsCopy.findIndex(p => (p.trigger.ability && p.trigger.ability.guid === SPELLS.EVER_RISING_TIDE_CHARGING_BUFF.id)) === 0) {
+        break;
+      }
       const ramp = hasteBuffsCopy.splice(
         hasteBuffsCopy.findIndex(p => (p.trigger.ability && p.trigger.ability.guid === SPELLS.EVER_RISING_TIDE_CHARGING_BUFF.id && p.trigger.type === "applybuff")) || 0,
         hasteBuffsCopy.findIndex(p => (p.trigger.ability && p.trigger.ability.guid === SPELLS.EVER_RISING_TIDE_CHARGING_BUFF.id && p.trigger.type === "removebuff")) + 1) || 1;

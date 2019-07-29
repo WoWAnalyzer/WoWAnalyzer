@@ -5,6 +5,31 @@
  */
 
 const SHARED = [
+  // ETERNAL PALACE
+  // Sivara
+  302588, // Frost Mark
+  294856, // Unstable Mixture
+  300701, // Rimefrost
+  300705, // Septic Taint
+  302589, // Toxic Brand
+  // Behemoth
+  292138, // Radiant Biomass
+  // Ashvane
+  297333, // Briny Bubble -- can't ISB while stunned
+  296688, // Rippling Wave
+  296693, // Waterlogged
+  296752, // Cutting Coral
+  // Orgozoa
+  295161, // Pervasive Shock
+  // Za'qul
+  295537, // Mind Tether
+  292971, // Hysteria
+  // Queen Azshara
+  298782, // Arcane Orb
+  301425, // Controlled Burst
+  298756, // Serrated Edge
+  299276, // Sanction
+  298425, // Charged Spear
   // CRUCIBLE OF STORMS
   282743, // Cabal, Storm of Annihilation (Crown effect)
   295479, // Uu'nat, Touch of the End
