@@ -39,7 +39,7 @@ class DeathThroes extends Analyzer {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SHADOW_WORD_PAIN.id) {
+    if (spellId !== SPELLS.SHADOW_WORD_PAIN.id || !event.tick) {
       return;
     }
     this.damageDone += this.damageValue;
@@ -51,23 +51,6 @@ class DeathThroes extends Analyzer {
       return;
     }
     this.insanityGained += event.resourceChange;
-  }
-
-  on_byPlayer_applydebuff(event) {
-    this._handleSWP(event);
-  }
-
-  on_byPlayer_refreshdebuff(event) {
-    this._handleSWP(event);
-  }
-
-  _handleSWP(event) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.SHADOW_WORD_PAIN.id) {
-      // We need to ignore the initial application damage because it's not increased.
-      // We could do this via some time buffer setup, but this is far easier.
-      this.damageDone -= this.damageValue;
-    }
   }
 
   statistic() {
