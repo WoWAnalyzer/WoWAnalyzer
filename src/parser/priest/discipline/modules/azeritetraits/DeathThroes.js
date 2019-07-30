@@ -18,13 +18,12 @@ const deathThroesStats = traits => Object.values(traits).reduce((obj, rank) => {
 /**
  * Death Throes
  * Shadow Word: Pain deals an additional 1424 damage. When an enemy dies while afflicted by your Shadow Word: Pain, you gain 5 Insanity.
- * This is specifically the SHADOW version of PtW. The disc version is different.
+ * This is specifically the Disc version of PtW. The Shadow version is different.
  * Example log: /report/kq6T4Rd3v1nmbNHK/3-Heroic+Taloc+-+Kill+(4:46)/17-Budgiechrist
  */
 class DeathThroes extends Analyzer {
   damageValue = 0;
   damageDone = 0;
-  insanityGained = 0;
 
   constructor(...args) {
     super(...args);
@@ -37,20 +36,17 @@ class DeathThroes extends Analyzer {
     this.damageValue = damage;
   }
 
+  get atonementContribution() {
+
+  }
+
+
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SHADOW_WORD_PAIN.id) {
+    if (spellId !== SPELLS.SHADOW_WORD_PAIN.id && spellId !== SPELLS.PURGE_THE_WICKED_BUFF.id) {
       return;
     }
     this.damageDone += this.damageValue;
-  }
-
-  on_byPlayer_energize(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.DEATH_THROES_ENERGIZE.id) {
-      return;
-    }
-    this.insanityGained += event.resourceChange;
   }
 
   on_byPlayer_applydebuff(event) {
@@ -66,6 +62,7 @@ class DeathThroes extends Analyzer {
     if (spellId === SPELLS.SHADOW_WORD_PAIN.id) {
       // We need to ignore the initial application damage because it's not increased.
       // We could do this via some time buffer setup, but this is far easier.
+      // This is only done for SWP, as Purge the Wicked has different spell ID's for the buff portion.
       this.damageDone -= this.damageValue;
     }
   }
