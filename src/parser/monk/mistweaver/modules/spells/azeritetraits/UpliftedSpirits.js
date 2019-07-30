@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { formatNumber, formatPercentage } from 'common/format';
+import { calculateAzeriteEffects } from 'common/stats';
 import SPELLS from 'common/SPELLS';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -13,7 +14,7 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 
-import { MISTWEAVER_HEALING_AURA, VIVIFY_SPELLPOWER_COEFFICIENT, VIVIFY_REM_SPELLPOWER_COEFFICIENT } from '../../../constants';
+import { VIVIFY_SPELLPOWER_COEFFICIENT, VIVIFY_REM_SPELLPOWER_COEFFICIENT } from '../../../constants';
 
 const UPLIFTED_SPIRITS_REDUCTION = 1000;
 
@@ -33,15 +34,26 @@ class UpliftedSpirits extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.UPLIFTED_SPIRITS.id);
+    const ranks = this.selectedCombatant.traitRanks(SPELLS.UPLIFTED_SPIRITS.id) || [];
+    this.traitRawHealing = ranks.reduce((total, rank) => total + calculateAzeriteEffects(SPELLS.UPLIFTED_SPIRITS.id, rank)[0], 0);
   }
-
   cooldownReductionUsed = 0;
   cooldownReductionWasted = 0;
   healing = 0;
+  castTarget = null;
+  traitRawHealing = 0;
+
+  on_byPlayer_begincast(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.VIVIFY.id) {
+      return;
+    }
+
+    this.castTarget = event.castEvent && event.castEvent.targetID;
+  }
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
-    let critMod = 1;
 
     if (spellId !== SPELLS.VIVIFY.id) {
       return;
@@ -56,30 +68,23 @@ class UpliftedSpirits extends Analyzer {
       }
     }
 
-    if (event.overheal > 0) { // Exit as spell has overhealed and no need for adding in the additional healing from the trait
-      return;
-    }
-
-    if (event.hitType === HIT_TYPES.CRIT) {
-      critMod = 2;
-    }
-
     // Azerite Trait Healing Increase
-    const versPerc = this.statTracker.currentVersatilityPercentage;
-    const mwAura = MISTWEAVER_HEALING_AURA;
-    const intRating = this.statTracker.currentIntellectRating;
+    // fix for report/yFpzQTVCZ9Ht27ba/
+    const vivifyCoefficient = event.targetID === this.castTarget ? VIVIFY_SPELLPOWER_COEFFICIENT : VIVIFY_REM_SPELLPOWER_COEFFICIENT;
+    const currentIntellect = this.statTracker.currentIntellectRating;
+    const initialHitHealing = vivifyCoefficient * currentIntellect;
+    const traitComponent = this.traitRawHealing / (initialHitHealing + this.traitRawHealing);
+
     const healAmount = event.amount + (event.absorbed || 0);
+    const overhealAmount = (event.overheal || 0);
+    const raw = healAmount + overhealAmount;
+    const relativeHealingFactor = 1 + traitComponent;
+    const relativeHealing = raw - raw / relativeHealingFactor;
 
-    this.baseHeal = (intRating * VIVIFY_SPELLPOWER_COEFFICIENT) * mwAura * (1 + versPerc) * critMod;
+    this.healing += Math.max(0, relativeHealing - overhealAmount);
 
-    if ((healAmount - this.baseHeal) < 0) { // Need to account for Vivify from REM 'Causes a surge of invigorating mists, healing the target for (95% of Spell power) and all allies with your Renewing Mist active for (70% of Spell power)'
-      this.baseHeal = (intRating * VIVIFY_REM_SPELLPOWER_COEFFICIENT) * mwAura * (1 + versPerc) * critMod;
-      this.healing += (healAmount - this.baseHeal);
-    } else {
-      this.healing += (healAmount - this.baseHeal);
-    }
+    this.castTarget = null; // need to reset this as vivify can hit your target twice with different coefficients
   }
-
 
   statistic() {
     return (
