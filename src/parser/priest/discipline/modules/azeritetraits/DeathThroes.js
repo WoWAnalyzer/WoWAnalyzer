@@ -5,11 +5,12 @@ import { calculateAzeriteEffects } from 'common/stats';
 import Analyzer from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import AtonementDamageSource from 'parser/priest/discipline/modules/features/AtonementDamageSource';
 import isAtonement from 'parser/priest/discipline/modules/core/isAtonement';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import SpellLink from 'common/SpellLink';
+import ItemHealingDone from 'interface/others/ItemHealingDone';
 
 const deathThroesStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [damage] = calculateAzeriteEffects(SPELLS.DEATH_THROES.id, rank);
@@ -36,6 +37,9 @@ class DeathThroes extends Analyzer {
     effective: 0,
     over: 0,
   };
+  get percentOverHealing() {
+    return this.atonementHealing.over / (this.atonementHealing.effective + this.atonementHealing.over);
+  }
 
   constructor(...args) {
     super(...args);
@@ -48,82 +52,55 @@ class DeathThroes extends Analyzer {
     this.damageValue = damage;
   }
 
-  get atonementContribution() {
-
-  }
-
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SHADOW_WORD_PAIN.id && spellId !== SPELLS.PURGE_THE_WICKED_BUFF.id) {
+    if (spellId !== SPELLS.SHADOW_WORD_PAIN.id && spellId !== SPELLS.PURGE_THE_WICKED_BUFF.id && !event.ability.tick) {
       return;
     }
     this.damageDone += this.damageValue;
   }
 
-  on_byPlayer_heal(event) {
-    const sourceEvent = this.atonementDamageSource.event;
-    if (!isAtonement(event) || !sourceEvent) {
+  on_byPlayer_heal(healingEvent) {
+    const damageEvent = this.atonementDamageSource.event;
+
+    // Skip any healing that isn't from an atonement event
+    if (!isAtonement(healingEvent) || !damageEvent) {
       return;
     }
-    const healing = this._calculateHealing(sourceEvent, event)
-  }
-
-  _addHealing(source, amount = 0, absorbed = 0, overheal = 0) {
-    const ability = source.ability;
-
-
-
-    // We know how much healing this atonement is going to do, but we need to find out how much of that is because of Death Throes
-    const deathThroesDamagePercent = this.damageValue / source.amount;
-    console.log(deathThroesDamagePercent);
-
-    this.atonementHealing.effective += amount;
-    this.atonementHealing.over += overheal;
-  }
-
-  _calculateHealing(swpEvent, atonementEvent) {
-    if (swpEvent.ability.guid !== SPELLS.SHADOW_WORD_PAIN.id && swpEvent.ability.guid !== SPELLS.PURGE_THE_WICKED_BUFF.id) {
-      return;
-    }
-    if (!isAtonement(atonementEvent)) {
+    // Skip any healing that isn't the result of a SWP cast or a PtW cast
+    if (damageEvent.ability.guid !== SPELLS.SHADOW_WORD_PAIN.id && damageEvent.ability.guid !== SPELLS.PURGE_THE_WICKED_BUFF.id) {
       return;
     }
 
-    const deathThroesDamagePercent = this.damageValue / swpEvent.amount;
-
-    const amountHealed = (atonementEvent.amount * deathThroesDamagePercent);
-    const amountOverhealed = Math.min((atonementEvent.overheal || 0), this.damageValue);
-  }
-
-  on_byPlayer_applydebuff(event) {
-    this._handleSWP(event);
-  }
-
-  on_byPlayer_refreshdebuff(event) {
-    this._handleSWP(event);
-  }
-
-  _handleSWP(event) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.SHADOW_WORD_PAIN.id) {
-      // We need to ignore the initial application damage because it's not increased.
-      // We could do this via some time buffer setup, but this is far easier.
-      // This is only done for SWP, as Purge the Wicked has different spell ID's for the buff portion.
-      this.damageDone -= this.damageValue;
+    // Skip any healing that isn't from a tick. Death Throes only increases damage from ticks.
+    if (!damageEvent.tick) {
+      return;
     }
+
+    const deathThroesDamagePercent = this.damageValue / damageEvent.amount;
+    const amountHealed = ((healingEvent.amount || 0) + (healingEvent.absorbed || 0) * deathThroesDamagePercent);
+    const amountOverhealed = Math.min((healingEvent.overheal || 0), this.damageValue);
+    const effectiveAmountHealed = amountHealed - amountOverhealed;
+
+    this.atonementHealing.effective += effectiveAmountHealed;
+    this.atonementHealing.over += amountOverhealed;
   }
 
   statistic() {
-    console.log('hit');
     return (
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.DEATH_THROES.id}
-        value={<ItemDamageDone amount={this.damageDone} />}
+        value={(
+          <>
+            <ItemDamageDone amount={this.damageDone} /><br />
+            <ItemHealingDone amount={this.atonementHealing.effective} />
+          </>
+        )}
         tooltip={(
           <>
             {formatNumber(this.damageDone)} additional damage dealt by {SPELLS.SHADOW_WORD_PAIN.name}<br />
-            {formatNumber(this.atonementHealing)} additional healing from <SpellLink id={SPELLS.ATONEMENT_BUFF.id} />.
+            {formatNumber(this.atonementHealing.effective)} additional healing from <SpellLink id={SPELLS.ATONEMENT_BUFF.id} /> ({formatPercentage(this.percentOverHealing)}%OH).
           </>
         )}
       />
