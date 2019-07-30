@@ -78,7 +78,7 @@ class DeathThroes extends Analyzer {
     }
 
     const deathThroesDamagePercent = this.damageValue / damageEvent.amount;
-    const amountHealed = ((healingEvent.amount || 0) + (healingEvent.absorbed || 0) * deathThroesDamagePercent);
+    const amountHealed = (((healingEvent.amount || 0) + (healingEvent.absorbed || 0)) * deathThroesDamagePercent);
     const amountOverhealed = Math.min((healingEvent.overheal || 0), this.damageValue);
     const effectiveAmountHealed = amountHealed - amountOverhealed;
 
