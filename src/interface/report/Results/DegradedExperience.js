@@ -27,6 +27,7 @@ class DegradedExperience extends React.PureComponent {
         <Danger style={{ marginBottom: 30 }}>
         <h2> Degraded Experience </h2>
           One or more modules have encountered an error and have been disabled along with modules depending on them. Results may be inaccurate and / or incomplete. <br />
+          Please report this issue to us on <a href="https://wowanalyzer.com/discord">Discord</a> or <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> so we can fix it! <br />
           {this.state.expanded && (
             <><br />The following modules have been disabled due to errors: <br />
               <div style={{color: "white"}}>
