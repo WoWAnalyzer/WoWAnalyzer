@@ -2,14 +2,16 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS/hunter';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
+import { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import ResourceIcon from 'common/ResourceIcon';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellLink from 'common/SpellLink';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Reduces the cooldown of your Aimed Shot and Rapid Fire by 60%, and causes Aimed Shot to cast 50% faster for 15 sec.
@@ -46,10 +48,20 @@ class Trueshot extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(16)}
-        icon={<SpellIcon id={SPELLS.TRUESHOT.id} />}
-        value={(
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(16)}
+        size="flexible"
+        tooltip={
+          <>
+            Information regarding your average Trueshot window:
+            <ul>
+              <li>You started your Trueshot windows with an average of {this.averageFocus} Focus.</li>
+              <li>You hit an average of {this.averageAimedShots} Aimed Shots inside each Trueshot window. </li>
+            </ul>
+          </>
+        }
+      >
+        <BoringSpellValueText spell={SPELLS.TRUESHOT}>
           <>
             {this.averageAimedShots}{' '}
             <SpellIcon
@@ -69,23 +81,14 @@ class Trueshot extends Analyzer {
               }}
             />
           </>
-        )}
-        label="Trueshot info"
-        tooltip={(
-          <>
-            Information regarding your average Trueshot window:
-            <ul>
-              <li>You started your Trueshot windows with an average of {this.averageFocus} Focus.</li>
-              <li>You hit an average of {this.averageAimedShots} Aimed Shots inside each Trueshot window. </li>
-            </ul>
-          </>
-        )}
-      />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 
   get averageAimedShots() {
-    return (this.aimedShotsPrTS / this.trueshotCasts).toFixed(1);
+    const averageAimedShots = (this.aimedShotsPrTS / this.trueshotCasts);
+    return isNaN(averageAimedShots) ? 0 : averageAimedShots.toFixed(1);
   }
 
   get averageFocus() {

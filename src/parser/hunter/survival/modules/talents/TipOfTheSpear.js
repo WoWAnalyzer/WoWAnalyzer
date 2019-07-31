@@ -2,10 +2,12 @@ import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import { RAPTOR_MONGOOSE_VARIANTS, TIP_DAMAGE_INCREASE, TIP_MAX_STACKS } from 'parser/hunter/survival/constants';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Kill Command increases the damage of your next Raptor Strike by 20%, stacking up to 3 times.
@@ -65,17 +67,25 @@ class TipOfTheSpear extends Analyzer {
       this.lastApplicationTimestamp = event.timestamp;
     }
   }
-
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.TIP_OF_THE_SPEAR_TALENT.id}
-        value={<>
-          <ItemDamageDone amount={this.damage} /> <br />
-          {(this.usedStacks / this.spenderCasts).toFixed(2)} avg stacks
-        </>}
-        tooltip={`You consumed ${this.usedStacks}/${this.usedStacks + this.wastedStacks} possible stacks.`}
-      />
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(3)}
+        size="flexible"
+        tooltip={
+          <>
+            You consumed {this.usedStacks}/{this.usedStacks + this.wastedStacks} possible stacks.
+          </>
+        }
+        category={"TALENTS"}
+      >
+        <BoringSpellValueText spell={SPELLS.TIP_OF_THE_SPEAR_TALENT}>
+          <>
+            <ItemDamageDone amount={this.damage} /> <br />
+            {(this.usedStacks / this.spenderCasts).toFixed(2)} <small>avg stacks</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

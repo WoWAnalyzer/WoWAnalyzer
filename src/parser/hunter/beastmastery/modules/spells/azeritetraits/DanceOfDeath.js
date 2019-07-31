@@ -2,9 +2,12 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import { formatNumber, formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import SPELLS from 'common/SPELLS/index';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Agility from 'interface/icons/Agility';
+import UptimeIcon from 'interface/icons/Uptime';
 
 const danceOfDeathStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [agility] = calculateAzeriteEffects(SPELLS.DANCE_OF_DEATH.id, rank);
@@ -18,7 +21,7 @@ const danceOfDeathStats = traits => Object.values(traits).reduce((obj, rank) => 
 /**
  * Barbed Shot has a chance equal to your critical strike chance to grant you 314 agility for 8 sec.
  *
- * Example report: https://www.warcraftlogs.com/reports/Nt9KGvDncPmVyjpd#boss=-2&difficulty=0&type=summary&source=9
+ * Example report:  https://www.warcraftlogs.com/reports/9mWQv1XZJT8M6GBV#fight=1&type=damage-done
  */
 class DanceOfDeath extends Analyzer {
   static dependencies = {
@@ -51,17 +54,22 @@ class DanceOfDeath extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
-        trait={SPELLS.DANCE_OF_DEATH.id}
-        value={(
+      <AzeritePowerStatistic
+        size="flexible"
+        category={"AZERITE_POWERS"}
+        tooltip={
           <>
-            {formatNumber(this.avgAgility)} Average Agility <br />
-            {formatPercentage(this.uptime)}% Uptime
+            Dance of Death granted <strong>{this.agility}</strong> Agility for <strong>{formatPercentage(this.uptime)}%</strong> of the fight.
           </>
-        )}
-        tooltip={<>Dance of Death granted <strong>{this.agility}</strong> Agility for <strong>{formatPercentage(this.uptime)}%</strong> of the fight.</>}
-      />
+        }
+      >
+        <BoringSpellValueText spell={SPELLS.DANCE_OF_DEATH}>
+          <>
+            <Agility /> {formatNumber(this.avgAgility)} <small>average Agility</small> <br />
+            <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
+          </>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }

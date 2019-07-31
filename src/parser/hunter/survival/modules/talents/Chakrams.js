@@ -6,12 +6,13 @@ import SPELLS from 'common/SPELLS';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Throw a pair of chakrams at your target, slicing all enemies in the chakrams' path for (40% of Attack power) Physical damage. The chakrams will return to you, damaging enemies again.
  *
- * Example log: https://www.warcraftlogs.com/reports/XmxJf2w8NpYvPR3H#fight=9&type=damage-done
+ * Example log: https://www.warcraftlogs.com/reports/hYwpkJ41FG7cazWA#fight=3&type=damage-done
  */
 
 const CHAKRAMS = [
@@ -64,14 +65,20 @@ class Chakrams extends Analyzer {
   get averageTargetsHit() {
     return (this.targetsHit / this.casts).toFixed(2);
   }
+
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.CHAKRAMS_TALENT.id}
-        position={STATISTIC_ORDER.CORE(21)}
-        value={`${this.averageTargetsHit}`}
-        label="Average targets hit"
-      />
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(21)}
+        size="flexible"
+        category={"TALENTS"}
+      >
+        <BoringSpellValueText spell={SPELLS.CHAKRAMS_TALENT}>
+          <>
+            {this.averageTargetsHit} <small>Average targets hit</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

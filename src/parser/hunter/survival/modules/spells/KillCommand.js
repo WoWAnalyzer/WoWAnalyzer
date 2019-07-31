@@ -2,11 +2,11 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
-import SpellIcon from 'common/SpellIcon';
-import StatisticBox from 'interface/others/StatisticBox';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Give the command to kill, causing your pet to savagely deal [Attack power * 0.6 * (1 + Versatility)] Physical damage to the enemy.
@@ -50,12 +50,16 @@ class KillCommand extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(18)}
-        icon={<SpellIcon id={SPELLS.KILL_COMMAND_CAST_SV.id} />}
-        value={`${this.resets}`}
-        label="Kill Command resets"
-      />
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(18)}
+        size="flexible"
+      >
+        <BoringSpellValueText spell={SPELLS.KILL_COMMAND_CAST_SV}>
+          <>
+            {this.resets} <small>{this.resets === 0 || this.resets > 1 ? 'resets' : 'reset'}</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

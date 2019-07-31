@@ -3,13 +3,15 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import AverageTargetsHit from 'interface/others/AverageTargetsHit';
+import Statistic from 'interface/statistics/Statistic';
+import { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * When you cast Barbed Shot, your pet stomps the ground, dealing [((50% of Attack power)) * (1 + Versatility)] Physical damage to all nearby enemies.
  *
- * Example log: https://www.warcraftlogs.com/reports/PLyFT2hcmCv39X7R#fight=1&type=damage-done&source=6
+ * Example log: https://www.warcraftlogs.com/reports/yg6PFb8NKz71MRWY#fight=20&type=damage-done
  */
 
 class Stomp extends Analyzer {
@@ -41,15 +43,18 @@ class Stomp extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.STOMP_TALENT.id}
-        value={(
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
+        category={'TALENTS'}
+      >
+        <BoringSpellValueText spell={SPELLS.STOMP_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} /><br />
             <AverageTargetsHit casts={this.casts} hits={this.hits} />
           </>
-        )}
-      />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

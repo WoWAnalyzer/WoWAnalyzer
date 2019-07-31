@@ -3,9 +3,11 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { formatDuration, formatNumber } from 'common/format';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Enemies from 'parser/shared/modules/Enemies';
+import Statistic from 'interface/statistics/Statistic';
+import { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 const HIGHER_HP_THRESHOLD = 0.8;
 const LOWER_HP_THRESHOLD = 0.2;
@@ -14,7 +16,7 @@ const CA_MODIFIER = .5;
 /**
  * Aimed Shot deals 50% bonus damage to targets who are above 80% health or below 20% health.
  *
- * Example log: https://www.warcraftlogs.com/reports/TrfWp1jHdRtQDqkx#fight=2&type=damage-done&source=3
+ * Example log: https://www.warcraftlogs.com/reports/aqRc7Fnvf2dmPMD3#fight=75&type=damage-done
  */
 class CarefulAim extends Analyzer {
   static dependencies = {
@@ -112,42 +114,54 @@ class CarefulAim extends Analyzer {
       boss.timestampDead = boss.timestampDead || this.owner.fight.end_time;
     });
   }
-
   statistic() {
-
     return (
-      <TalentStatisticBox
-        talent={SPELLS.CAREFUL_AIM_TALENT.id}
-        value={`${this.caProcs} hits for ~${formatNumber(this.damageContribution / this.caProcs)} each`}
-        tooltip={`Total damage contribution: ${formatNumber(this.damageContribution)}`}
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
+        category={'TALENTS'}
+        tooltip={
+          <>
+            Total damage contribution: {formatNumber(this.damageContribution)}
+          </>
+        }
+        dropdown={
+          <>
+            <table className="table table-condensed">
+              <thead>
+                <tr>
+                  <th>Boss</th>
+                  <th>Dmg</th>
+                  <th>Hits</th>
+                  <th>Dur</th>
+                  <th>Interval</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.values(this.carefulAimPeriods).map((boss, index) => (
+                  <tr key={index}>
+                    <td>{boss.bossName}</td>
+                    <td>{formatNumber(boss.caDamage)}</td>
+                    <td>{boss.aimedShotsInCA}</td>
+                    <td>{boss.bossName === 'Adds' ?
+                      'N/A' :
+                      formatDuration((boss.timestampSub80 - boss.timestampSub100 + boss.timestampDead - boss.timestampSub20) / 1000)}</td>
+                    <td>{(boss.bossName === 'Adds' ?
+                      this.owner.fightDuration / 1000 / boss.aimedShotsInCA :
+                      (boss.timestampSub80 - boss.timestampSub100 + boss.timestampDead - boss.timestampSub20) / 1000 / boss.aimedShotsInCA).toFixed(1)}s</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </>
+        }
       >
-        <table className="table table-condensed">
-          <thead>
-            <tr>
-              <th>Boss</th>
-              <th>Dmg</th>
-              <th>Hits</th>
-              <th>Dur</th>
-              <th>Interval</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.values(this.carefulAimPeriods).map((boss, index) => (
-              <tr key={index}>
-                <td>{boss.bossName}</td>
-                <td>{formatNumber(boss.caDamage)}</td>
-                <td>{boss.aimedShotsInCA}</td>
-                <td>{boss.bossName === 'Adds' ?
-                  'N/A' :
-                  formatDuration((boss.timestampSub80 - boss.timestampSub100 + boss.timestampDead - boss.timestampSub20) / 1000)}</td>
-                <td>{(boss.bossName === 'Adds' ?
-                  this.owner.fightDuration / 1000 / boss.aimedShotsInCA :
-                  (boss.timestampSub80 - boss.timestampSub100 + boss.timestampDead - boss.timestampSub20) / 1000 / boss.aimedShotsInCA).toFixed(1)}s</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </TalentStatisticBox>
+        <BoringSpellValueText spell={SPELLS.CAREFUL_AIM_TALENT}>
+          <>
+            {this.caProcs} <small>hits for</small> ~{formatNumber(this.damageContribution / this.caProcs)} <small>each</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

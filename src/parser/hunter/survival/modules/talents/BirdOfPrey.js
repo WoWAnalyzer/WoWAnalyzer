@@ -6,8 +6,9 @@ import Analyzer from 'parser/core/Analyzer';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import SpellLink from 'common/SpellLink';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import { RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 const EXTENSION_PER_CAST = 1500;
 const MS_BUFFER = 100;
@@ -101,17 +102,25 @@ class BirdOfPrey extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.BIRDS_OF_PREY_TALENT.id}
-        position={STATISTIC_ORDER.CORE(17)}
-        value={`extended CA by ${this.timeExtendedInSeconds}s`}
-        tooltip={(
-          <ul>
-            <li>You extended Coordinated Assault by {this.timeExtendedInSeconds} seconds.</li>
-            <li>You lost out on {this.extensionTimeLostInSeconds} seconds of Coordinated Assault by attacking a different target than your pet.</li>
-          </ul>
-        )}
-      />
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(1)}
+        size="flexible"
+        tooltip={
+          <>
+            <ul>
+              <li>You extended Coordinated Assault by {this.timeExtendedInSeconds} seconds.</li>
+              <li>You lost out on {this.extensionTimeLostInSeconds} seconds of Coordinated Assault by attacking a different target than your pet.</li>
+            </ul>
+          </>
+        }
+        category={'TALENTS'}
+      >
+        <BoringSpellValueText spell={SPELLS.BIRDS_OF_PREY_TALENT}>
+          <>
+            <small>Extended CA by</small> {this.timeExtendedInSeconds}s
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

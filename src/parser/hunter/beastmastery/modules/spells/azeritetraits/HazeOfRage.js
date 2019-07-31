@@ -3,9 +3,10 @@ import Analyzer from 'parser/core/Analyzer';
 import { formatNumber, formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import SPELLS from 'common/SPELLS';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import AgilityIcon from 'interface/icons/Agility';
 import UptimeIcon from 'interface/icons/Uptime';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 const hazeOfRageStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [agility] = calculateAzeriteEffects(SPELLS.HAZE_OF_RAGE.id, rank);
@@ -22,7 +23,7 @@ export const STAT_TRACKER = {
 /**
  * Bestial Wrath increases your Agility by 376 for 8 sec.
  *
- * Example report: https://www.warcraftlogs.com/reports/m9KrNBVCtDALZpzT#boss=-2&difficulty=0&wipes=1&source=5&type=summary
+ * Example report: https://www.warcraftlogs.com/reports/9mWQv1XZJT8M6GBV#fight=1&type=damage-done
  */
 class HazeOfRage extends Analyzer {
   agility = 0;
@@ -47,17 +48,22 @@ class HazeOfRage extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
-        trait={SPELLS.HAZE_OF_RAGE.id}
-        value={(
+      <AzeritePowerStatistic
+        size="flexible"
+        category={"AZERITE_POWERS"}
+        tooltip={
+          <>
+            Haze of Rage granted <strong>{this.agility}</strong> Agility for <strong>{formatPercentage(this.uptime)}%</strong> of the fight.
+          </>
+        }
+      >
+        <BoringSpellValueText spell={SPELLS.HAZE_OF_RAGE}>
           <>
             <AgilityIcon /> {formatNumber(this.avgAgility)} <small>average Agility gained</small><br />
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
           </>
-        )}
-        tooltip={<>Haze of Rage granted <strong>{this.agility}</strong> Agility for <strong>{formatPercentage(this.uptime)}%</strong> of the fight.</>}
-      />
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }

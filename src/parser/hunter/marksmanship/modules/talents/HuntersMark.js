@@ -7,10 +7,13 @@ import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import Enemies from 'parser/shared/modules/Enemies';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import { formatPercentage } from 'common/format';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Statistic from 'interface/statistics/Statistic';
+import { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import UptimeIcon from 'interface/icons/Uptime';
 
 /**
  * Apply Hunter's Mark to the target, increasing all damage you deal to the marked target by 5%.
@@ -151,21 +154,35 @@ class HuntersMark extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.HUNTERS_MARK_TALENT.id}
-        value={`${formatPercentage(this.uptimePercentage)}% uptime`}
-        tooltip={(
-          <ul>
-            <li>You had a total of {this.casts} casts of Hunter's Mark.</li>
-            <li>You cast Hunter's Mark {this.recasts} times, whilst it was active on the target or another target.</li>
-            <li>You received up to {this.refunds * FOCUS_PER_REFUND} Focus from a total of {this.refunds} refunds from targets with Hunter's Mark active dying.</li>
-            {this.potentialPrecastConfirmation}
-          </ul>
-        )}
-      />
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
+        category={'TALENTS'}
+        tooltip={
+          <>
+            <ul>
+              <li>You had a total of {this.casts} casts of Hunter's Mark.</li>
+              <li>You cast Hunter's Mark {this.recasts} times, whilst it was active on the target or another target.</li>
+              <li>You received up to {this.refunds * FOCUS_PER_REFUND} Focus from a total of {this.refunds} refunds from targets with Hunter's Mark active dying.</li>
+              {this.potentialPrecastConfirmation}
+            </ul>
+          </>
+        }
+      >
+        <BoringSpellValueText spell={SPELLS.HUNTERS_MARK_TALENT}>
+          <>
+            <ItemDamageDone amount={this.damage} /><br />
+            <UptimeIcon /> {formatPercentage(this.uptimePercentage)}% <small>uptime</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 
+  /**
+   * @deprecated
+   * @returns {*}
+   */
   subStatistic() {
     return (
       <StatisticListBoxItem

@@ -2,9 +2,11 @@ import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import Enemies from 'parser/shared/modules/Enemies';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Lace your Wildfire Bomb with extra reagents, randomly giving it one of the following enhancements each time you throw it:
@@ -74,27 +76,37 @@ class PheromoneBomb extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.PHEROMONE_BOMB_WFI.id}
-        value={<ItemDamageDone amount={this.damage} />}
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(2)}
+        size="flexible"
+        category={'TALENTS'}
+        dropdown={
+          <>
+            <table className="table table-condensed">
+              <thead>
+                <tr>
+                  <th>Average resets</th>
+                  <th>Total resets</th>
+                  <th>Focus gain</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{(this.resets / this.casts).toFixed(1)}</td>
+                  <td>{this.resets}</td>
+                  <td>{this.focusGained}</td>
+                </tr>
+              </tbody>
+            </table>
+          </>
+        }
       >
-        <table className="table table-condensed">
-          <thead>
-            <tr>
-              <th>Average resets</th>
-              <th>Total resets</th>
-              <th>Focus gain</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{(this.resets / this.casts).toFixed(1)}</td>
-              <td>{this.resets}</td>
-              <td>{this.focusGained}</td>
-            </tr>
-          </tbody>
-        </table>
-      </TalentStatisticBox>
+        <BoringSpellValueText spell={SPELLS.PHEROMONE_BOMB_WFI}>
+          <>
+            <ItemDamageDone amount={this.damage} />
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

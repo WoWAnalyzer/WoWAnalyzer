@@ -3,8 +3,10 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import { formatNumber } from 'common/format';
+import Statistic from 'interface/statistics/Statistic';
+import { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 const COOLDOWN_REDUCTION_MS = 3000;
 
@@ -47,13 +49,25 @@ class CallingTheShots extends Analyzer {
   averageEffectiveCDR() {
     return (this.effectiveTrueshotReductionMs / ((this.wastedTrueshotReductionMs + this.effectiveTrueshotReductionMs) / (COOLDOWN_REDUCTION_MS / 1000)));
   }
+
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.CALLING_THE_SHOTS_TALENT.id}
-        value={`${formatNumber(this.effectiveTrueshotReductionMs / 1000)}s CDR`}
-        tooltip={`You wasted ${formatNumber(this.wastedTrueshotReductionMs / 1000)} seconds of CDR by using Arcane Shot or Multi Shot when Trueshot wasn't on cooldown or had less than 3 seconds remaining on CD.`}
-      />
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
+        category={'TALENTS'}
+        tooltip={
+          <>
+            You wasted {formatNumber(this.wastedTrueshotReductionMs / 1000)} seconds of CDR by using Arcane Shot or Multi Shot when Trueshot wasn't on cooldown or had less than 3 seconds remaining on CD.
+          </>
+        }
+      >
+        <BoringSpellValueText spell={SPELLS.CALLING_THE_SHOTS_TALENT}>
+          <>
+            {formatNumber(this.effectiveTrueshotReductionMs / 1000)}s <small>CDR</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

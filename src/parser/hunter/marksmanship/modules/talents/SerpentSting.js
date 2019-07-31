@@ -6,9 +6,11 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from "common/SpellLink";
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import { formatPercentage } from 'common/format';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import Enemies from 'parser/shared/modules/Enemies';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Statistic from 'interface/statistics/Statistic';
+import { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Fire a shot that poisons your target, causing them to take (15% of Attack power) Nature damage instantly and an additional (60% of Attack power) Nature damage over 12 sec.
@@ -38,15 +40,28 @@ class SerpentSting extends Analyzer {
   get uptimePercentage() {
     return this.enemies.getBuffUptime(SPELLS.SERPENT_STING_TALENT.id) / this.owner.fightDuration;
   }
+
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.SERPENT_STING_TALENT.id}
-        value={`${formatPercentage(this.uptimePercentage)}% uptime`}
-      />
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
+        category={'TALENTS'}
+      >
+        <BoringSpellValueText spell={SPELLS.SERPENT_STING_TALENT}>
+          <>
+            <ItemDamageDone amount={this.damage} /><br />
+            {formatPercentage(this.uptimePercentage)}% <small>uptime</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 
+  /**
+   * @deprecated
+   * @returns {*}
+   */
   subStatistic() {
     return (
       <StatisticListBoxItem

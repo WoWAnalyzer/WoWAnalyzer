@@ -4,15 +4,18 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { formatNumber } from 'common/format';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import SpellLink from 'common/SpellLink';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import GlobalCooldown from 'parser/hunter/beastmastery/modules/core/GlobalCooldown';
+import Statistic from 'interface/statistics/Statistic';
+import { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * While Bestial Wrath is active, Cobra Shot resets the cooldown on Kill Command.
  *
- * Example log: https://www.warcraftlogs.com/reports/daqtD36LCTR4MQrc#fight=6&type=damage-done&source=73
+ * Example log: https://www.warcraftlogs.com/reports/GZnVxKyjkJNzh6bB#fight=2&type=damage-done
+ *
  */
 
 class KillerCobra extends Analyzer {
@@ -51,11 +54,22 @@ class KillerCobra extends Analyzer {
   }
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.KILLER_COBRA_TALENT.id}
-        value={this.effectiveKillCommandResets}
-        tooltip={`You wasted ${formatNumber(this.wastedKillerCobraCobraShots)} Cobra Shots in Bestial Wrath by using them while Kill Command wasn't on cooldown.`}
-      />
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
+        category={'TALENTS'}
+        tooltip={
+          <>
+            You wasted {formatNumber(this.wastedKillerCobraCobraShots)} Cobra Shots in Bestial Wrath by using them while Kill Command wasn't on cooldown.
+          </>
+        }
+      >
+        <BoringSpellValueText spell={SPELLS.KILLER_COBRA_TALENT}>
+          <>
+            {this.effectiveKillCommandResets} <small>{this.effectiveKillCommandResets === 0 || this.effectiveKillCommandResets > 1 ? 'resets' : 'reset'}</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 

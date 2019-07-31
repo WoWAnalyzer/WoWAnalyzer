@@ -4,10 +4,10 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import React from 'react';
 import SpellLink from 'common/SpellLink';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import AverageTargetsHit from 'interface/others/AverageTargetsHit';
-import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Carve: A sweeping attack that strikes all enemies in front of you for Physical damage.
@@ -90,7 +90,7 @@ class ButcheryCarve extends Analyzer {
 
   get avgTargetsHitThreshold() {
     return {
-      actual: this.targetsHit / this.casts,
+      actual: (this.targetsHit / this.casts).toFixed(1),
       isLessThan: {
         minor: 2,
         average: 2,
@@ -115,30 +115,19 @@ class ButcheryCarve extends Analyzer {
   statistic() {
     if (this.casts > 0) {
       //Since you're not casting Butchery or Carve on single-target, there's no reason to show the statistics in cases where the abilities were cast 0 times.
-      if (this.hasButchery) {
-        return (
-          <TalentStatisticBox
-            talent={SPELLS.BUTCHERY_TALENT.id}
-            value={<>
+      return (
+        <Statistic
+          position={STATISTIC_ORDER.OPTIONAL(17)}
+          size="flexible"
+        >
+          <BoringSpellValueText spell={this.hasButchery ? SPELLS.BUTCHERY_TALENT : SPELLS.CARVE}>
+            <>
               <ItemDamageDone amount={this.damage} /> <br />
               <AverageTargetsHit casts={this.casts} hits={this.targetsHit} />
-            </>}
-          />
-        );
-      } else {
-        //Carve isn't a talent, but to keep the formatting the same across the board we pass it as one.
-        return (
-          <TalentStatisticBox
-            talent={SPELLS.CARVE.id}
-            position={STATISTIC_ORDER.CORE(16)}
-            category={STATISTIC_CATEGORY.GENERAL}
-            value={<>
-              <ItemDamageDone amount={this.damage} /> <br />
-              <AverageTargetsHit casts={this.casts} hits={this.targetsHit} />
-            </>}
-          />
-        );
-      }
+            </>
+          </BoringSpellValueText>
+        </Statistic>
+      );
     }
     return null;
   }

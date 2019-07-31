@@ -4,16 +4,18 @@ import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import AverageTargetsHit from 'interface/others/AverageTargetsHit';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import SpellLink from 'common/SpellLink';
+import Statistic from 'interface/statistics/Statistic';
+import { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Rapidly fires a spray of shots for 3 sec, dealing an average of (80% * 10) Physical damage to all enemies in front of you.
  * Usable while moving.
  *
- * Example log: https://www.warcraftlogs.com/reports/mzZMhjAFVadHLYBT#fight=7&type=damage-done&source=22
+ * Example log: https://www.warcraftlogs.com/reports/A4yncd1vX9YG8BNH#fight=3&type=damage-done
  */
 
 const BARRAGE_HITS_PER_CAST = 10;
@@ -99,17 +101,21 @@ class Barrage extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.BARRAGE_TALENT.id}
-        value={<>
-          <ItemDamageDone amount={this.damage} /> <br />
-          <AverageTargetsHit casts={this.casts.length} hits={this.hits} /> <br />
-          <AverageTargetsHit casts={this.casts.length} hits={this.uniqueTargetsHit} unique approximate />
-        </>}
-      />
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(20)}
+        size="flexible"
+        category={'TALENTS'}
+      >
+        <BoringSpellValueText spell={SPELLS.BARRAGE_TALENT}>
+          <>
+            <ItemDamageDone amount={this.damage} /> <br />
+            <AverageTargetsHit casts={this.casts.length} hits={this.hits} /> <br />
+            <AverageTargetsHit casts={this.casts.length} hits={this.uniqueTargetsHit} /> <small>unique approximate</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
-
 }
 
 export default Barrage;

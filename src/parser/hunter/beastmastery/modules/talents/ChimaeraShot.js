@@ -4,13 +4,15 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import AverageTargetsHit from 'interface/others/AverageTargetsHit';
+import Statistic from 'interface/statistics/Statistic';
+import { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * A two-headed shot that hits your primary target and another nearby target, dealing 720% Nature damage to one and 720% Frost damage to the other.
  *
- * Example log: https://www.warcraftlogs.com/reports/PLyFT2hcmCv39X7R#fight=1&type=damage-done
+ * Example log: https://www.warcraftlogs.com/reports/qZRdFv9Apg74wmMV#fight=3&type=damage-done
  */
 class ChimaeraShot extends Analyzer {
 
@@ -42,15 +44,25 @@ class ChimaeraShot extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.CHIMAERA_SHOT_TALENT.id}
-        value={<>
-          <AverageTargetsHit casts={this.casts} hits={this.hits} />
-        </>}
-      />
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
+        category={'TALENTS'}
+      >
+        <BoringSpellValueText spell={SPELLS.CHIMAERA_SHOT_TALENT}>
+          <>
+            <ItemDamageDone amount={this.damage} /> <br />
+            <AverageTargetsHit casts={this.casts} hits={this.hits} />
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 
+  /**
+   * @deprecated
+   * @returns {*}
+   */
   subStatistic() {
     return (
       <StatisticListBoxItem

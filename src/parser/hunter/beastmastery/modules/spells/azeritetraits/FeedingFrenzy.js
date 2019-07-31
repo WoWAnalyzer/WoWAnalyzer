@@ -3,11 +3,13 @@ import Analyzer from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage';
 import { formatNumber, formatPercentage } from 'common/format';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import SPELLS from 'common/SPELLS';
 import RACES from 'game/RACES';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { calculateAzeriteEffects } from 'common/stats';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import UptimeIcon from 'interface/icons/Uptime';
 
 const MS = 1000;
 const MS_BUFFER = 100;
@@ -20,7 +22,7 @@ const debug = false;
  * Barbed Shot deals X additional damage over its duration,
  * and Frenzy's duration is increased to 9 seconds.
  *
- * Example report: https://www.warcraftlogs.com/reports/m9KrNBVCtDALZpzT#source=5&type=summary&fight=1
+ * Example report: https://www.warcraftlogs.com/reports/9mWQv1XZJT8M6GBV#fight=1&type=damage-done
  */
 
 class FeedingFrenzy extends Analyzer {
@@ -129,22 +131,14 @@ class FeedingFrenzy extends Analyzer {
       this.extraBuffUptime += this.extra_BS_uptime(this.owner.fight.end_time, this.lastBSCast);
     }
   }
-
   statistic() {
     const damageThroughputPercent = this.owner.getPercentageOfTotalDamageDone(this.traitDamageContribution);
     const dps = this.traitDamageContribution / this.owner.fightDuration * 1000;
-
     return (
-      <TraitStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
-        trait={SPELLS.FEEDING_FRENZY.id}
-        value={(
-          <>
-            {formatNumber(this.extraBuffUptime / MS)}s added Frenzy Uptime <br />
-            {formatPercentage(damageThroughputPercent)} % / {formatNumber(dps)} DPS
-          </>
-        )}
-        tooltip={(
+      <AzeritePowerStatistic
+        size="flexible"
+        category={"AZERITE_POWERS"}
+        tooltip={
           <>
             This only accounts for the added uptime granted when casting Barbed Shot after 8 seconds had passed, so each cast can potentially be worth up to 1 second. <br />
             This happened a total of {this.timesExtended} {this.timesExtended > 1 ? 'times' : 'time'}.
@@ -155,8 +149,15 @@ class FeedingFrenzy extends Analyzer {
             <br />
             The damage portion of this trait did an additional ~ {formatNumber(dps)} DPS, {formatPercentage(damageThroughputPercent)} % of your overall damage.
           </>
-        )}
-      />
+        }
+      >
+        <BoringSpellValueText spell={SPELLS.FEEDING_FRENZY}>
+          <>
+            <UptimeIcon />  {formatNumber(this.extraBuffUptime / MS)}s <small>added Frenzy Uptime</small> <br />
+            {formatPercentage(damageThroughputPercent)} % / {formatNumber(dps)} DPS
+          </>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }

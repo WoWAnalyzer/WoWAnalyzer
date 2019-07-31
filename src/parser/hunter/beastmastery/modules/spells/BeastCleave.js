@@ -5,14 +5,17 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Statistic from 'interface/statistics/Statistic';
+import { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * After you Multi-Shot, your pet's melee attacks also strike all other nearby enemy targets for 100% as much for the next 4 sec.
  *
- * Example log: https://www.warcraftlogs.com/reports/2TpfdMDFQWR9cYZ7#fight=12&type=damage-done
+ * Example log: https://www.warcraftlogs.com/reports/RDKALb9wF7qnVZpP#fight=last&type=damage-done
  *
  * This module also tracks the amount of multi-shot casts that did not trigger any beast cleave damage
- * Example: https://www.warcraftlogs.com/reports/zjgLyKdZnhMkPJDq#fight=67&type=damage-done&source=915
+ * Example: https://www.warcraftlogs.com/reports/RDKALb9wF7qnVZpP#fight=last&type=damage-done
  */
 class BeastCleave extends Analyzer {
   damage = 0;
@@ -86,6 +89,28 @@ class BeastCleave extends Analyzer {
     }
   }
 
+  statistic() {
+    if (this.damage > 0) {
+      return (
+        <Statistic
+          position={STATISTIC_ORDER.OPTIONAL(13)}
+          size="flexible"
+        >
+          <BoringSpellValueText spell={SPELLS.BEAST_CLEAVE_BUFF}>
+            <>
+              <ItemDamageDone amount={this.damage} /> <br />
+            </>
+          </BoringSpellValueText>
+        </Statistic>
+      );
+    }
+    return null;
+  }
+
+  /**
+   * @deprecated
+   * @returns {null|*}
+   */
   subStatistic() {
     //Beast Cleave is only used on AoE - no reason to show this statistic on single-target, so this just checks if Beast Cleave did any damage at all, since it only makes sense to show it on AoE fights.
     if (this.damage > 0) {

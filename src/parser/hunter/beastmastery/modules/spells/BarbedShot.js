@@ -2,14 +2,15 @@ import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import { formatDuration, formatPercentage } from 'common/format';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
-import StatisticBox from 'interface/others/StatisticBox';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import UptimeIcon from 'interface/icons/Uptime';
 
 /**
  * Fire a shot that tears through your enemy, causing them to bleed for [(10% of Attack power) * 8 / 2] damage over 8 sec.
@@ -170,42 +171,47 @@ class BarbedShot extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(15)}
-        icon={<SpellIcon id={SPELLS.BARBED_SHOT_PET_BUFF.id} />}
-        label={<SpellLink id={SPELLS.BARBED_SHOT_PET_BUFF.id} icon={false} />}
-        value={(
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(15)}
+        size="flexible"
+        tooltip={
           <>
-            {formatPercentage(this.percentUptimeMaxStacks)}% <small>3 stack uptime</small>
+            <ul>
+              <li>Your pet had an average of {this.getAverageBarbedShotStacks()} {this.getAverageBarbedShotStacks() > 1 ? 'stacks' : 'stack'} active throughout the fight.</li>
+              <li>Your pet had an overall uptime of {formatPercentage(this.percentUptimePet)}% on the increased attack speed buff</li>
+              <li>You had an uptime of {formatPercentage(this.percentPlayerUptime)}% on the focus regen buff.</li>
+            </ul>
           </>
-        )}
-        tooltip={(
-          <ul>
-            <li>Your pet had an average of {this.getAverageBarbedShotStacks()} {this.getAverageBarbedShotStacks() > 1 ? 'stacks' : 'stack'} active throughout the fight.</li>
-            <li>Your pet had an overall uptime of {formatPercentage(this.percentUptimePet)}% on the increased attack speed buff</li>
-            <li>You had an uptime of {formatPercentage(this.percentPlayerUptime)}% on the focus regen buff.</li>
-          </ul>
-        )}
+        }
+        dropdown={
+          <>
+            <table className="table table-condensed">
+              <thead>
+                <tr>
+                  <th>Stacks</th>
+                  <th>Time (s)</th>
+                  <th>Time (%)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.values(this.barbedShotTimesByStacks).map((e, i) => (
+                  <tr key={i}>
+                    <th>{i}</th>
+                    <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
+                    <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </>
+        }
       >
-        <table className="table table-condensed">
-          <thead>
-            <tr>
-              <th>Stacks</th>
-              <th>Time (s)</th>
-              <th>Time (%)</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.values(this.barbedShotTimesByStacks).map((e, i) => (
-              <tr key={i}>
-                <th>{i}</th>
-                <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
-                <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </StatisticBox>
+        <BoringSpellValueText spell={SPELLS.BARBED_SHOT_PET_BUFF}>
+          <>
+            <UptimeIcon /> {formatPercentage(this.percentUptimeMaxStacks)}% <small>3 stack uptime</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 

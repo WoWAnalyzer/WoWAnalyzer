@@ -1,14 +1,14 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import ResourceIcon from 'common/ResourceIcon';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import Statistic from 'interface/statistics/Statistic';
+import { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Barbed Shot generates 8 additional Focus over its duration.
  *
- * Example log: https://www.warcraftlogs.com/reports/jV7BJPN81AqtDKYp#fight=9&source=167&type=damage-done
+ * Example log: https://www.warcraftlogs.com/reports/DFZVfmhkj9bYa6rn#fight=1&type=damage-done
  */
 
 const SCENT_OF_BLOOD_INCREASE_PER_TICK = 2;
@@ -61,23 +61,27 @@ class ScentOfBlood extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.SCENT_OF_BLOOD_TALENT.id}
-        value={(
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
+        category={'TALENTS'}
+        tooltip={
           <>
-            gained {this.focusGained} focus <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} />
+            <ul>
+              <li>You wasted {this.focusWastedFromBS} focus by being too close to focus cap when Barbed Shot gave you focus.</li>
+              {this.selectedCombatant.hasTalent(SPELLS.DIRE_BEAST_TALENT.id) && <li> You wasted {this.focusWastedFromDB} focus by being too close to focus cap when Dire Beast gave you focus.</li>}
+            </ul>
           </>
-        )}
-        tooltip={(
-          <ul>
-            <li>You wasted {this.focusWastedFromBS} focus by being too close to focus cap when Barbed Shot gave you focus.</li>
-            {this.selectedCombatant.hasTalent(SPELLS.DIRE_BEAST_TALENT.id) && <li> You wasted {this.focusWastedFromDB} focus by being too close to focus cap when Dire Beast gave you focus.</li>}
-          </ul>
-        )}
-      />
+        }
+      >
+        <BoringSpellValueText spell={SPELLS.SCENT_OF_BLOOD_TALENT}>
+          <>
+            {this.focusGained} <small>focus gained</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
-
 }
 
 export default ScentOfBlood;

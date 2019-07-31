@@ -5,7 +5,9 @@ import Analyzer from 'parser/core/Analyzer';
 
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Hurls a Steel Trap to the target location that snaps shut on the
@@ -50,13 +52,19 @@ class SteelTrap extends Analyzer {
     }
     this.damage += event.amount + (event.absorbed || 0);
   }
-
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.STEEL_TRAP_TALENT.id}
-        value={<ItemDamageDone amount={this.damage} />}
-      />
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(3)}
+        size="flexible"
+        category={"TALENTS"}
+      >
+        <BoringSpellValueText spell={SPELLS.STEEL_TRAP_TALENT}>
+          <>
+            <ItemDamageDone amount={this.damage} />
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

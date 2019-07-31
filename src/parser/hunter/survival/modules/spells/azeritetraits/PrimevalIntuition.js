@@ -1,11 +1,16 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
-import TraitStatisticBox from 'interface/others/TraitStatisticBox';
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import CriticalStrike from 'interface/icons/CriticalStrike';
 
+/**
+ * Your maximum Focus is increased to 120, and Raptor Strike (or Mongoose bite) increases your Critical Strike by 52 for 12 sec, stacking up to 5 times.
+ */
 const MAX_INTUITION_STACKS = 5;
 
 const primevalIntuitionStats = traits => Object.values(traits).reduce((obj, rank) => {
@@ -15,7 +20,6 @@ const primevalIntuitionStats = traits => Object.values(traits).reduce((obj, rank
 }, {
   crit: 0,
 });
-
 
 class PrimevalIntuition extends Analyzer {
   static dependencies = {
@@ -102,35 +106,47 @@ class PrimevalIntuition extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
-        trait={SPELLS.PRIMEVAL_INTUITION.id}
-        value={`${formatNumber(this.avgCrit)} average Critical Strike chance`}
-        tooltip={`Primeval Intuition was up for a total of ${this.uptime} seconds`}
+      <AzeritePowerStatistic
+        size="flexible"
+        tooltip={
+          <>
+            Primeval Intuition was up for a total of {this.uptime} seconds.
+          </>
+        }
+        category={'AZERITE_POWERS'}
+        dropdown={
+          <>
+            <table className="table table-condensed">
+              <thead>
+                <tr>
+                  <th>Stacks</th>
+                  <th>Time (m:s)</th>
+                  <th>Time (%)</th>
+                  <th>Critical Strike chance gained</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.values(this.intuitionTimesByStacks).map((e, i) => (
+                  <tr key={i}>
+                    <th>{i}</th>
+                    <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
+                    <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
+                    <td>{formatNumber(this.crit * i)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </>
+        }
       >
-        <table className="table table-condensed">
-          <thead>
-            <tr>
-              <th>Stacks</th>
-              <th>Time (m:s)</th>
-              <th>Time (%)</th>
-              <th>Critical Strike chance gained</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.values(this.intuitionTimesByStacks).map((e, i) => (
-              <tr key={i}>
-                <th>{i}</th>
-                <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
-                <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
-                <td>{formatNumber(this.crit * i)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </TraitStatisticBox>
+        <BoringSpellValueText spell={SPELLS.PRIMEVAL_INTUITION}>
+          <>
+            <CriticalStrike /> {formatNumber(this.avgCrit)} <small>average Critical Strike chance</small>
+          </>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
-
 }
 
 export default PrimevalIntuition;

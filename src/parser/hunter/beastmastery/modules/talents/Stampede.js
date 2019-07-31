@@ -6,7 +6,9 @@ import Analyzer from 'parser/core/Analyzer';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import { formatNumber, formatMilliseconds } from 'common/format';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 // The potential amount of hits per target per stampede cast.
 // By checking through various Zek'voz logs, it seems to consistently hit the boss 18 times, except if the boss was moved.
@@ -16,7 +18,7 @@ const STAMPEDE_POTENTIAL_HITS = 18;
 /**
  * Summon a herd of stampeding animals from the wilds around you that deal damage to your enemies for 12 sec.
  *
- * Example log: https://www.warcraftlogs.com/reports/KQjC6mh74wDBV2Zp#fight=17&type=damage-done&source=21&translate=true
+ * Example log: https://www.warcraftlogs.com/reports/Z6GjqpNcvw3kBAL2#fight=3&type=damage-done
  * Example log with suggestion triggered: https://www.warcraftlogs.com/reports/z3TH89XagA1hcP7G/#fight=20&source=238
  */
 class Stampede extends Analyzer {
@@ -103,37 +105,56 @@ class Stampede extends Analyzer {
       const averageHit = this.damage / this.hits;
       const stampedePlural = this.casts.length === 1 ? `1 Stampede` : `a total of ${this.casts.length} Stampedes`;
       return (
-        <TalentStatisticBox
-          talent={SPELLS.STAMPEDE_TALENT.id}
-          value={<>{this.casts.length} {this.casts.length > 1 ? 'casts' : 'cast'} / {this.hits} hits</>}
-          tooltip={`You cast ${stampedePlural} in the fight, which hit enemies ${this.hits} times for an average of ${formatNumber(averageHit)} damage per hit.`}
+        <Statistic
+          position={STATISTIC_ORDER.OPTIONAL(13)}
+          size="flexible"
+          category={'TALENTS'}
+          tooltip={
+            <>
+              You cast {stampedePlural} in the fight, which hit enemies {this.hits} times for an average of {formatNumber(averageHit)} damage per hit.
+            </>
+          }
+          dropdown={
+            <>
+              <table className="table table-condensed">
+                <thead>
+                  <tr>
+                    <th>Cast at</th>
+                    <th>Damage</th>
+                    <th>Hits</th>
+                    <th>Avg hit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.casts.map((cast, idx) => (
+                    <tr key={idx}>
+                      <td>{formatMilliseconds(cast.timestamp - this.owner.fight.start_time)}</td>
+                      <td>{formatNumber(cast.damage)}</td>
+                      <td>{cast.hits}</td>
+                      <td>{formatNumber(cast.damage / cast.hits)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </>
+          }
         >
-          <table className="table table-condensed">
-            <thead>
-              <tr>
-                <th>Cast at</th>
-                <th>Damage</th>
-                <th>Hits</th>
-                <th>Avg hit</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.casts.map((cast, idx) => (
-                <tr key={idx}>
-                  <td>{formatMilliseconds(cast.timestamp - this.owner.fight.start_time)}</td>
-                  <td>{formatNumber(cast.damage)}</td>
-                  <td>{cast.hits}</td>
-                  <td>{formatNumber(cast.damage / cast.hits)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </TalentStatisticBox>
+          <BoringSpellValueText spell={SPELLS.STAMPEDE_TALENT}>
+            <>
+              <ItemDamageDone amount={this.damage} /> <br />
+              {this.casts.length} {this.casts.length > 1 ? 'casts' : 'cast'} / {this.hits} hits
+            </>
+          </BoringSpellValueText>
+        </Statistic>
       );
     }
     return null;
   }
 
+  /**
+   * @Deprecated
+   * @returns {*}
+   */
   subStatistic() {
     return (
       <StatisticListBoxItem

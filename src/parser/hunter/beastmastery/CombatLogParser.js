@@ -43,9 +43,6 @@ import BestialWrath from './modules/spells/BestialWrath';
 import FocusTracker from '../shared/modules/features/focuschart/FocusTracker';
 import FocusTab from '../shared/modules/features/focuschart/FocusTab';
 
-//Traits and talents
-import SpellsAndTalents from './modules/features/SpellsAndTalents';
-
 //Azerite Traits
 import DanceOfDeath from './modules/spells/azeritetraits/DanceOfDeath';
 import HazeOfRage from './modules/spells/azeritetraits/HazeOfRage';
@@ -98,9 +95,6 @@ class CombatLogParser extends CoreCombatLogParser {
     bindingShot: BindingShot,
     animalCompanion: AnimalCompanion,
     
-    //Traits and talents
-    spellssAndTalents: SpellsAndTalents,
-
     //Azerite Traits
     danceOfDeath: DanceOfDeath,
     hazeOfRage: HazeOfRage,

@@ -1,10 +1,13 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import React from 'react';
+import Statistic from 'interface/statistics/Statistic';
+import { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Fires a magical projectile, tethering the enemy and any other enemies within 5 yards for 10 sec, rooting them in place for 5 sec if they move more than 5 yards from the arrow.
+ * Example log: https://www.warcraftlogs.com/reports/qZRdFv9Apg74wmMV#fight=3&type=damage-done
  */
 
 class BindingShot extends Analyzer {
@@ -32,10 +35,17 @@ class BindingShot extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.BINDING_SHOT_TALENT.id}
-        value={`${this._roots} roots / ${this._applications} possible`}
-      />
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(14)}
+        size="flexible"
+        category={'TALENTS'}
+      >
+        <BoringSpellValueText spell={SPELLS.BINDING_SHOT_TALENT}>
+          <>
+            {this._roots} <small>roots</small> / {this._applications} <small>possible</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

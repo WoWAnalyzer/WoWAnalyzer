@@ -1,9 +1,11 @@
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import React from 'react';
 import SPECS from 'game/SPECS';
 import { formatNumber } from 'common/format';
+import Statistic from 'interface/statistics/Statistic';
+import { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Reduces the cooldowns of Aspect of the Cheetah and Aspect of the Turtle by 20%.
@@ -67,10 +69,11 @@ class BornToBeWild extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.BORN_TO_BE_WILD_TALENT.id}
-        value={`${formatNumber(this.effectiveTotalCDR / 1000)}s total effective CDR`}
-        tooltip={(
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(14)}
+        size="flexible"
+        category={'TALENTS'}
+        tooltip={
           <>
             Effective CDR constitutes the time that was left of the original CD (before reduction from Born To Be Wild) when you cast it again as that is the effective cooldown reduction it provided for you.
             <ul>
@@ -78,9 +81,15 @@ class BornToBeWild extends Analyzer {
               <li>Aspect of the Cheetah: {formatNumber(this._spells[SPELLS.ASPECT_OF_THE_CHEETAH.id].effectiveCDR / 1000)}s</li>
               <li>Aspect of the Turtle: {formatNumber(this._spells[SPELLS.ASPECT_OF_THE_TURTLE.id].effectiveCDR / 1000)}s</li>
             </ul>
-         </>
-        )}
-      />
+          </>
+        }
+      >
+        <BoringSpellValueText spell={SPELLS.BORN_TO_BE_WILD_TALENT}>
+          <>
+            {formatNumber(this.effectiveTotalCDR / 1000)}s <small>total effective CDR</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

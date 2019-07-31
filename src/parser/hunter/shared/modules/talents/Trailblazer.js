@@ -2,7 +2,10 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import { formatPercentage } from 'common/format';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import UptimeIcon from 'interface/icons/Uptime';
 
 /**
  * Trailblazer increases your movement speed by 30% whenever you have not attacked for 3 seconds.
@@ -23,10 +26,17 @@ class Trailblazer extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.TRAILBLAZER_TALENT.id}
-        value={`${formatPercentage(this.percentUptime)}% uptime`}
-      />
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(14)}
+        size="flexible"
+        category={'TALENTS'}
+      >
+        <BoringSpellValueText spell={SPELLS.TRAILBLAZER_TALENT}>
+          <>
+            <UptimeIcon /> {formatPercentage(this.percentUptime)}% <small>uptime</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }
