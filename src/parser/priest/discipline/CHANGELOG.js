@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { Oratio, Reglitch, Zerotorescue, niseko } from 'CONTRIBUTORS';
+import { Oratio, Reglitch, Zerotorescue, niseko, Khadaj } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 7, 31), <>Added a <SpellLink id={SPELLS.DEATH_THROES.id} /> analyzer to disc.</>, [Khadaj]),
   change(date(2018, 10, 17), `The Atonement sources tab should no longer display spells that do not cause atonement healing.`, [niseko]),
   change(date(2018, 9, 14), <>Fixed the <SpellLink id={SPELLS.TWIST_OF_FATE_TALENT_DISCIPLINE.id} /> analyzer.</>, [Zerotorescue]),
   change(date(2018, 7, 31), <>Rework of the <SpellLink id={SPELLS.GRACE.id} /> module.</>, [Oratio]),
