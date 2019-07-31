@@ -11,6 +11,7 @@ import isAtonement from 'parser/priest/discipline/modules/core/isAtonement';
 import SpellLink from 'common/SpellLink';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 import { DISC_PRIEST_DAMAGE_REDUCTION } from '../../constants';
+import HIT_TYPES from 'game/HIT_TYPES';
 
 const debug = false;
 
@@ -91,7 +92,12 @@ class DeathThroes extends Analyzer {
     // Calculate how much of the healing should be attributed to Death Throes
     // The damage can't be more than the damage value for DT, nor can it be more than the damage that this ability did.
     // This prevents us from saying DT did more than 100% damage
-    const realDamage = Math.min(this.damageValue, damageEvent.amount);
+    let realDamage;
+    if (damageEvent.hitType === HIT_TYPES.CRIT) {
+      realDamage = Math.min(this.damageValue * 2, damageEvent.amount);
+    } else {
+      realDamage = Math.min(this.damageValue, damageEvent.amount);
+    }
     const deathThroesDamagePercent = realDamage / damageEvent.amount;
 
     // Calculate how much healing DT should theoretically be doing.
