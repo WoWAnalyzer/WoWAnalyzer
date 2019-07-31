@@ -125,10 +125,6 @@ class DeathThroes extends Analyzer {
   }
 
   statistic() {
-    console.log(
-      this.tick,
-      this.non_tick,
-    );
     return (
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
