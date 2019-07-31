@@ -26,7 +26,6 @@ class BoomingVoice extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id);
-    this.maxRage += this.selectedCombatant.traitsBySpellId[SPELLS.INTOLERANCE_TRAIT.id] * 10;
   }
 
   on_byPlayer_cast(event) {
