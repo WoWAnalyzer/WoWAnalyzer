@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import styles from 'interface/layout/Theme.scss';
 import Danger from 'interface/common/Alert/Danger';
 
 class DegradedExperience extends React.PureComponent {
@@ -34,7 +34,7 @@ class DegradedExperience extends React.PureComponent {
               </div>
             </>
           )}
-          <span onClick={this.toggleDetails}>{this.state.expanded ? <>Show Less</> : <>Show More</>}</span>
+          <span style={{ color: styles.primaryColor, cursor: "pointer" }} onClick={this.toggleDetails}>{this.state.expanded ? <>Show Less</> : <>Show More</>}</span>
         </Danger>
       </div>
     );
