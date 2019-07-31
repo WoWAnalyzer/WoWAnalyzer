@@ -194,7 +194,7 @@ class CombatLogParser {
     prepullNormalizer: PrePullCooldownsNormalizer,
     phaseChangesNormalizer: PhaseChangesNormalizer,
     missingCastsNormalize: MissingCastsNormalizer,
-    
+
     // Analyzers
     healingDone: HealingDone,
     damageDone: DamageDone,
@@ -359,6 +359,9 @@ class CombatLogParser {
   // Character info from the Battle.net API (optional)
   characterProfile = null;
 
+  //Disabled Modules
+  disabledModules = [];
+
   adjustForDowntime = true;
   get hasDowntime() {
     return this.getModule(TotalDowntime).totalBaseDowntime > 0;
@@ -404,7 +407,7 @@ class CombatLogParser {
     this.characterProfile = characterProfile;
     this._timestamp = selectedFight.start_time;
     this.boss = findByBossId(selectedFight.boss);
-
+    this.disabledModules = [];
     this.initializeModules({
       ...this.constructor.internalModules,
       ...this.constructor.defaultModules,
@@ -497,14 +500,26 @@ class CombatLogParser {
         }
         // The priority goes from lowest (most important) to highest, seeing as modules are loaded after their dependencies are loaded, just using the count of loaded modules is sufficient.
         const priority = Object.keys(this._modules).length;
-        this.loadModule(moduleClass, {
-          ...options,
-          ...availableDependencies,
-          priority,
-        }, desiredModuleName);
+        try{
+          this.loadModule(moduleClass, {
+            ...options,
+            ...availableDependencies,
+            priority,
+          }, desiredModuleName);
+        }catch(e){
+          this.disabledModules.push(moduleClass);
+          debugDependencyInjection && console.warn(moduleClass.name, 'disabled due to error during initialization: ', e);
+        }
+
       } else {
-        debugDependencyInjection && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
-        failedModules.push(desiredModuleName);
+        const disabledDependencies = missingDependencies.map(d => d.name).filter(x => this.disabledModules.map(d => d.name).includes(x)); //see if a dependency was previously disabled due to an error
+        if(disabledDependencies.length !== 0){ //if a dependency was already marked as disabled due to an error, mark this module as disabled
+          this.disabledModules.push(moduleClass);
+          debugDependencyInjection && console.warn(moduleClass.name, 'disabled due to error during initialization of a dependency.');
+        }else{
+          debugDependencyInjection && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
+          failedModules.push(desiredModuleName);
+        }
       }
     });
 
