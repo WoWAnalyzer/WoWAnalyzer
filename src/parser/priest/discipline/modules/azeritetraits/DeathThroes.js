@@ -10,6 +10,7 @@ import AtonementDamageSource from 'parser/priest/discipline/modules/features/Ato
 import isAtonement from 'parser/priest/discipline/modules/core/isAtonement';
 import SpellLink from 'common/SpellLink';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
+import { DISC_PRIEST_DAMAGE_REDUCTION } from '../../constants';
 
 const debug = false;
 
@@ -53,7 +54,8 @@ class DeathThroes extends Analyzer {
     }
 
     const { damage } = deathThroesStats(this.selectedCombatant.traitsBySpellId[SPELLS.DEATH_THROES.id]);
-    this.damageValue = damage;
+    // Reduce damage based on the disc priest damage nerf.
+    this.damageValue = damage * (1 - DISC_PRIEST_DAMAGE_REDUCTION);
   }
 
   on_byPlayer_damage(event) {
