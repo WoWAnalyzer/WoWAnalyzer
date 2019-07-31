@@ -11,7 +11,7 @@ import isAtonement from 'parser/priest/discipline/modules/core/isAtonement';
 import SpellLink from 'common/SpellLink';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 
-const debug = true;
+const debug = false;
 
 const deathThroesStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [damage] = calculateAzeriteEffects(SPELLS.DEATH_THROES.id, rank);
