@@ -7,6 +7,7 @@ import { change, date } from 'common/changelog';
 
 export default [
   change(date(2019, 7, 31), <>Added a <SpellLink id={SPELLS.DEATH_THROES.id} /> analyzer to disc.</>, [Khadaj]),
+  change(date(2019, 7, 26), <>The Evangelism module now correctly shows buff count when casting <SpellLink id={SPELLS.EVANGELISM_TALENT.id} /> right after <SpellLink id={SPELLS.POWER_WORD_RADIANCE.id} />.</>, [Khadaj]),
   change(date(2018, 10, 17), `The Atonement sources tab should no longer display spells that do not cause atonement healing.`, [niseko]),
   change(date(2018, 9, 14), <>Fixed the <SpellLink id={SPELLS.TWIST_OF_FATE_TALENT_DISCIPLINE.id} /> analyzer.</>, [Zerotorescue]),
   change(date(2018, 7, 31), <>Rework of the <SpellLink id={SPELLS.GRACE.id} /> module.</>, [Oratio]),
