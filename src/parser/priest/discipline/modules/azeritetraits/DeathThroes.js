@@ -8,9 +8,10 @@ import ItemDamageDone from 'interface/others/ItemDamageDone';
 import { formatNumber, formatPercentage } from 'common/format';
 import AtonementDamageSource from 'parser/priest/discipline/modules/features/AtonementDamageSource';
 import isAtonement from 'parser/priest/discipline/modules/core/isAtonement';
-import HealingValue from 'parser/shared/modules/HealingValue';
 import SpellLink from 'common/SpellLink';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
+
+const debug = true;
 
 const deathThroesStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [damage] = calculateAzeriteEffects(SPELLS.DEATH_THROES.id, rank);
@@ -40,6 +41,9 @@ class DeathThroes extends Analyzer {
   get percentOverHealing() {
     return this.atonementHealing.over / (this.atonementHealing.effective + this.atonementHealing.over);
   }
+  get hasPurgeTheWicked() {
+    return this.selectedCombatant.hasTalent(SPELLS.PURGE_THE_WICKED_TALENT.id);
+  }
 
   constructor(...args) {
     super(...args);
@@ -67,6 +71,7 @@ class DeathThroes extends Analyzer {
     if (!isAtonement(healingEvent) || !damageEvent) {
       return;
     }
+
     // Skip any healing that isn't the result of a SWP cast or a PtW cast
     if (damageEvent.ability.guid !== SPELLS.SHADOW_WORD_PAIN.id && damageEvent.ability.guid !== SPELLS.PURGE_THE_WICKED_BUFF.id) {
       return;
@@ -77,16 +82,45 @@ class DeathThroes extends Analyzer {
       return;
     }
 
-    const deathThroesDamagePercent = this.damageValue / damageEvent.amount;
+    if (damageEvent.amount === 0) {
+      return;
+    }
+
+    // Calculate how much of the healing should be attributed to Death Throes
+    // The damage can't be more than the damage value for DT, nor can it be more than the damage that this ability did.
+    // This prevents us from saying DT did more than 100% damage
+    const realDamage = Math.min(this.damageValue, damageEvent.amount);
+    const deathThroesDamagePercent = realDamage / damageEvent.amount;
+
+    // Calculate how much healing DT should theoretically be doing.
     const amountHealed = (((healingEvent.amount || 0) + (healingEvent.absorbed || 0)) * deathThroesDamagePercent);
-    const amountOverhealed = Math.min((healingEvent.overheal || 0), this.damageValue);
-    const effectiveAmountHealed = amountHealed - amountOverhealed;
+
+    // Calculate how much overhealing should be attributed to DT.
+    const amountOverhealed = Math.min((healingEvent.overheal || 0), amountHealed);
+
+    // Calculate the effective healing done.If it was a full overheal, just say it was 0.
+    const effectiveAmountHealed = Math.max(amountHealed - amountOverhealed, 0);
+
+    if (debug) {
+      console.log('Death Throes proc\'d an atonement', {
+        swp_damage: damageEvent.amount,
+        realDamage,
+        deathThroesDamagePercent: Math.floor(deathThroesDamagePercent * 100) + '%',
+        amountHealed,
+        amountOverhealed,
+        effectiveAmountHealed,
+      });
+    }
 
     this.atonementHealing.effective += effectiveAmountHealed;
     this.atonementHealing.over += amountOverhealed;
   }
 
   statistic() {
+    console.log(
+      this.tick,
+      this.non_tick,
+    );
     return (
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
@@ -99,7 +133,7 @@ class DeathThroes extends Analyzer {
         )}
         tooltip={(
           <>
-            {formatNumber(this.damageDone)} additional damage dealt by {SPELLS.SHADOW_WORD_PAIN.name}<br />
+            {formatNumber(this.damageDone)} additional damage dealt by {this.hasPurgeTheWicked ? SPELLS.PURGE_THE_WICKED_TALENT.name : SPELLS.SHADOW_WORD_PAIN.name}<br />
             {formatNumber(this.atonementHealing.effective)} additional healing from <SpellLink id={SPELLS.ATONEMENT_BUFF.id} /> ({formatPercentage(this.percentOverHealing)}%OH).
           </>
         )}
