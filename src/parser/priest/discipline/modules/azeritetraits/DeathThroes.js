@@ -1,5 +1,6 @@
 import React from 'react';
 
+import HIT_TYPES from 'game/HIT_TYPES';
 import SPELLS from 'common/SPELLS/index';
 import { calculateAzeriteEffects } from 'common/stats';
 import Analyzer from 'parser/core/Analyzer';
@@ -11,7 +12,6 @@ import isAtonement from 'parser/priest/discipline/modules/core/isAtonement';
 import SpellLink from 'common/SpellLink';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 import { DISC_PRIEST_DAMAGE_REDUCTION } from '../../constants';
-import HIT_TYPES from 'game/HIT_TYPES';
 
 const debug = false;
 
