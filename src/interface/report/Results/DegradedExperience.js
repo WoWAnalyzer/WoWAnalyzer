@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from 'interface/layout/Theme.scss';
 import Danger from 'interface/common/Alert/Danger';
+import { DISABLED_STATE } from 'parser/core/CombatLogParser';
 
 class DegradedExperience extends React.PureComponent {
   static propTypes = {
@@ -28,13 +29,16 @@ class DegradedExperience extends React.PureComponent {
         <h2> Degraded Experience </h2>
           One or more modules have encountered an error and have been disabled along with modules depending on them. Results may be inaccurate and / or incomplete. <br />
           Please report this issue to us on <a href="https://wowanalyzer.com/discord">Discord</a> or <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> so we can fix it! <br />
-          {this.state.expanded && (
-            <><br />The following modules have been disabled due to errors: <br />
-              <div style={{color: "white"}}>
-                {disabledModules.sort((a,b) => a.name.localeCompare(b.name)).map(m => <>{m.name}<br /></>)}<br />
-              </div>
-            </>
-          )}
+          {this.state.expanded && Object.values(DISABLED_STATE).filter(state => disabledModules[state] && disabledModules[state].length !== 0).map(state => {
+            return (
+              <>
+                <br />The following modules have been disabled due to errors during {state}: <br />
+                <div style={{color: "white"}}>
+                  {disabledModules[state].sort((a,b) => a.name.localeCompare(b.name)).map(m => <>{m.name}<br /></>)}<br />
+                </div>
+              </>
+            );
+          })}
           <span style={{ color: styles.primaryColor, cursor: "pointer" }} onClick={this.toggleDetails}>{this.state.expanded ? <>Show Less</> : <>Show More</>}</span>
         </Danger>
       </div>

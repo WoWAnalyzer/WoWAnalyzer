@@ -176,6 +176,12 @@ import EventEmitter from './modules/EventEmitter';
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
 
+//states modules can be disabled in due to errors alongside the description to show in the degraded experience toaster
+export const DISABLED_STATE = {
+  INITIALIZATION: "initialization",
+  RESULTS: "result generation",
+};
+
 class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
   static abilitiesAffectedByDamageIncreases = [];
@@ -360,7 +366,7 @@ class CombatLogParser {
   characterProfile = null;
 
   //Disabled Modules
-  disabledModules = [];
+  disabledModules = null;
 
   adjustForDowntime = true;
   get hasDowntime() {
@@ -407,7 +413,11 @@ class CombatLogParser {
     this.characterProfile = characterProfile;
     this._timestamp = selectedFight.start_time;
     this.boss = findByBossId(selectedFight.boss);
-    this.disabledModules = [];
+    this.disabledModules = {};
+    //initialize disabled modules for each state
+    Object.values(DISABLED_STATE).forEach(key => {
+      this.disabledModules[key] = [];
+    });
     this.initializeModules({
       ...this.constructor.internalModules,
       ...this.constructor.defaultModules,
@@ -507,14 +517,14 @@ class CombatLogParser {
             priority,
           }, desiredModuleName);
         }catch(e){
-          this.disabledModules.push(moduleClass);
+          this.disabledModules[DISABLED_STATE.INITIALIZATION].push(moduleClass);
           debugDependencyInjection && console.warn(moduleClass.name, 'disabled due to error during initialization: ', e);
         }
 
       } else {
-        const disabledDependencies = missingDependencies.map(d => d.name).filter(x => this.disabledModules.map(d => d.name).includes(x)); //see if a dependency was previously disabled due to an error
+        const disabledDependencies = missingDependencies.map(d => d.name).filter(x => this.disabledModules[DISABLED_STATE.INITIALIZATION].map(d => d.name).includes(x)); //see if a dependency was previously disabled due to an error
         if(disabledDependencies.length !== 0){ //if a dependency was already marked as disabled due to an error, mark this module as disabled
-          this.disabledModules.push(moduleClass);
+          this.disabledModules[DISABLED_STATE.INITIALIZATION].push(moduleClass);
           debugDependencyInjection && console.warn(moduleClass.name, 'disabled due to error during initialization of a dependency.');
         }else{
           debugDependencyInjection && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
@@ -577,13 +587,16 @@ class CombatLogParser {
     this.getModule(EventEmitter).addEventListener(...args);
   }
 
-  deepDisable(module) {
+  deepDisable(module, state = DISABLED_STATE.RESULTS) {
     console.error('Disabling', module.constructor.name);
+    if(module.active){ //prevent duplicate entries
+      this.disabledModules[state].push(module.constructor);
+    }
     module.active = false;
     this.activeModules.forEach(active => {
         const deps = active.constructor.dependencies;
         if (deps && Object.values(deps).find(depClass => module instanceof depClass)) {
-          this.deepDisable(active);
+          this.deepDisable(active, state);
         }
       }
     );
@@ -647,61 +660,69 @@ class CombatLogParser {
       .sort((a, b) => this._modules[b].priority - this._modules[a].priority)
       .forEach((key, index) => {
         const module = this._modules[key];
+        if(!module.active){
+          return; //check if module is active in case a module gets disabled due to an error
+        }
 
-        if (module.statistic) {
-          let basePosition = index;
-          if (module.statisticOrder !== undefined) {
-            basePosition = module.statisticOrder;
-            console.warn('DEPRECATED', 'Setting the position of a statistic via a module\'s `statisticOrder` prop is deprecated. Set the `position` prop on the `StatisticBox` instead. Example commit: https://github.com/WoWAnalyzer/WoWAnalyzer/commit/ece1bbeca0d3721ede078d256a30576faacb803d', module);
-          }
+        try{
+          if (module.statistic) {
+            let basePosition = index;
+            if (module.statisticOrder !== undefined) {
+              basePosition = module.statisticOrder;
+              console.warn('DEPRECATED', 'Setting the position of a statistic via a module\'s `statisticOrder` prop is deprecated. Set the `position` prop on the `StatisticBox` instead. Example commit: https://github.com/WoWAnalyzer/WoWAnalyzer/commit/ece1bbeca0d3721ede078d256a30576faacb803d', module);
+            }
 
-          const statistic = module.statistic({ i18n });
-          if (statistic) {
-            if (Array.isArray(statistic)) {
-              statistic.forEach((statistic, statisticIndex) => {
-                addStatistic(statistic, basePosition, `${key}-statistic-${statisticIndex}`);
-              });
-            } else {
-              addStatistic(statistic, basePosition, `${key}-statistic`);
+            const statistic = module.statistic({ i18n });
+            if (statistic) {
+              if (Array.isArray(statistic)) {
+                statistic.forEach((statistic, statisticIndex) => {
+                  addStatistic(statistic, basePosition, `${key}-statistic-${statisticIndex}`);
+                });
+              } else {
+                addStatistic(statistic, basePosition, `${key}-statistic`);
+              }
             }
           }
-        }
-        if (module.item) {
-          const item = module.item({ i18n });
-          if (item) {
-            if (React.isValidElement(item)) {
-              results.statistics.push(React.cloneElement(item, {
-                key: `${key}-item`,
-                position: index,
-              }));
-            } else {
-              const id = item.id || item.item.id;
-              const itemDetails = id && this.selectedCombatant.getItem(id);
-              const icon = item.icon || <ItemIcon id={item.item.id} details={itemDetails} />;
-              const title = item.title || <ItemLink id={item.item.id} details={itemDetails} icon={false} />;
+          if (module.item) {
+            const item = module.item({ i18n });
+            if (item) {
+              if (React.isValidElement(item)) {
+                results.statistics.push(React.cloneElement(item, {
+                  key: `${key}-item`,
+                  position: index,
+                }));
+              } else {
+                const id = item.id || item.item.id;
+                const itemDetails = id && this.selectedCombatant.getItem(id);
+                const icon = item.icon || <ItemIcon id={item.item.id} details={itemDetails} />;
+                const title = item.title || <ItemLink id={item.item.id} details={itemDetails} icon={false} />;
 
-              results.statistics.push(
-                <ItemStatisticBox
-                  key={`${key}-item`}
-                  position={index}
-                  icon={icon}
-                  label={title}
-                  value={item.result}
-                  tooltip={item.tooltip}
-                />
-              );
+                results.statistics.push(
+                  <ItemStatisticBox
+                    key={`${key}-item`}
+                    position={index}
+                    icon={icon}
+                    label={title}
+                    value={item.result}
+                    tooltip={item.tooltip}
+                  />
+                );
+              }
             }
           }
-        }
-        if (module.tab) {
-          const tab = module.tab({ i18n });
-          if (tab) {
-            results.tabs.push(tab);
+          if (module.tab) {
+            const tab = module.tab({ i18n });
+            if (tab) {
+              results.tabs.push(tab);
+            }
           }
+          if (module.suggestions) {
+            module.suggestions(results.suggestions.when, { i18n });
+          }
+        }catch(e){ //error occured during results generation of module, disable module and all modules depending on it
+          this.deepDisable(module);
         }
-        if (module.suggestions) {
-          module.suggestions(results.suggestions.when, { i18n });
-        }
+
       });
 
     return results;

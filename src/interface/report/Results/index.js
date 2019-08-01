@@ -27,6 +27,7 @@ import ChangelogTab from 'interface/others/ChangelogTab';
 import ErrorBoundary from 'interface/common/ErrorBoundary';
 import Checklist from 'parser/shared/modules/features/Checklist/Module';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import { DISABLED_STATE } from 'parser/core/CombatLogParser';
 
 import './Results.scss';
 import Header from './Header';
@@ -148,6 +149,15 @@ class Results extends React.PureComponent {
       || this.props.isLoadingPhases
       || this.props.isFilteringEvents
       || this.props.parsingState !== EVENT_PARSING_STATE.DONE;
+  }
+
+  get disabledModules(){
+    if(this.props.parser.disabledModules){
+      return Object.values(DISABLED_STATE).reduce((total, cur) => {
+        return total + (this.props.parser.disabledModules[cur] ? this.props.parser.disabledModules[cur].length : 0);
+      }, 0);
+    }
+    return 0;
   }
 
   renderContent(selectedTab, results) {
@@ -350,7 +360,7 @@ class Results extends React.PureComponent {
           applyFilter={applyFilter}
           isLoading={this.isLoading}
         />
-        {parser && parser.disabledModules && parser.disabledModules.length !== 0 && <DegradedExperience disabledModules={parser.disabledModules} />}
+        {parser && this.disabledModules !== 0 && <DegradedExperience disabledModules={parser.disabledModules} />}
         {boss && boss.fight.resultsWarning && (
           <div className="container">
             <Warning style={{ marginBottom: 30 }}>
