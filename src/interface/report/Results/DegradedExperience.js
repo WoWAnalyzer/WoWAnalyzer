@@ -38,7 +38,7 @@ class DegradedExperience extends React.PureComponent {
               <div key={state}>
                 <br />The following modules have been disabled due to errors during {state}: <br />
                 <div style={{color: "white"}}>
-                  {disabledModules[state].sort((a,b) => a.name.localeCompare(b.name)).map((m, i) => <span key={i}>{m.name}<br /></span>)}
+                  {disabledModules[state].sort((a,b) => a.name.localeCompare(b.name)).map((m, i) => <React.Fragment key={i}>{m.name}<br /></React.Fragment>)}
                 </div>
               </div>
             );
