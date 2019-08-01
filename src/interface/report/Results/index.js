@@ -152,12 +152,14 @@ class Results extends React.PureComponent {
   }
 
   get disabledModules(){
-    if(this.props.parser.disabledModules){
-      return Object.values(DISABLED_STATE).reduce((total, cur) => {
-        return total + (this.props.parser.disabledModules[cur] ? this.props.parser.disabledModules[cur].length : 0);
+    const parser = this.props.parser;
+    let amount = 0;
+    if(parser.disabledModules){
+      amount = Object.values(DISABLED_STATE).reduce((total, cur) => {
+        return total + (parser.disabledModules[cur] ? parser.disabledModules[cur].length : 0);
       }, 0);
     }
-    return 0;
+    return amount;
   }
 
   renderContent(selectedTab, results) {
@@ -360,7 +362,7 @@ class Results extends React.PureComponent {
           applyFilter={applyFilter}
           isLoading={this.isLoading}
         />
-        {parser && this.disabledModules !== 0 && <DegradedExperience disabledModules={parser.disabledModules} />}
+        {parser && this.disabledModules > 0 && <DegradedExperience disabledModules={parser.disabledModules} />}
         {boss && boss.fight.resultsWarning && (
           <div className="container">
             <Warning style={{ marginBottom: 30 }}>

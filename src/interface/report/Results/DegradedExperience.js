@@ -6,7 +6,7 @@ import { DISABLED_STATE } from 'parser/core/CombatLogParser';
 
 class DegradedExperience extends React.PureComponent {
   static propTypes = {
-    disabledModules: PropTypes.array.isRequired,
+    disabledModules: PropTypes.object.isRequired,
   };
 
   constructor(...args){
@@ -15,6 +15,10 @@ class DegradedExperience extends React.PureComponent {
       expanded: false,
     };
     this.toggleDetails = this.toggleDetails.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps){
+    this.forceUpdate();
   }
 
   toggleDetails() {
@@ -31,14 +35,15 @@ class DegradedExperience extends React.PureComponent {
           Please report this issue to us on <a href="https://wowanalyzer.com/discord">Discord</a> or <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> so we can fix it! <br />
           {this.state.expanded && Object.values(DISABLED_STATE).filter(state => disabledModules[state] && disabledModules[state].length !== 0).map(state => {
             return (
-              <>
+              <div key={state}>
                 <br />The following modules have been disabled due to errors during {state}: <br />
                 <div style={{color: "white"}}>
-                  {disabledModules[state].sort((a,b) => a.name.localeCompare(b.name)).map(m => <>{m.name}<br /></>)}<br />
+                  {disabledModules[state].sort((a,b) => a.name.localeCompare(b.name)).map((m, i) => <span key={i}>{m.name}<br /></span>)}
                 </div>
-              </>
+              </div>
             );
           })}
+          <br />
           <span style={{ color: styles.primaryColor, cursor: "pointer" }} onClick={this.toggleDetails}>{this.state.expanded ? <>Show Less</> : <>Show More</>}</span>
         </Danger>
       </div>
