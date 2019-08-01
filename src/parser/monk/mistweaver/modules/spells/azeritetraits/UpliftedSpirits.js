@@ -13,6 +13,7 @@ import Uptime from 'interface/icons/Uptime';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
+import { calculateTraitHealing } from 'parser/shared/modules/helpers/CalculateTraitHealing';
 
 import { VIVIFY_SPELLPOWER_COEFFICIENT, VIVIFY_REM_SPELLPOWER_COEFFICIENT } from '../../../constants';
 
@@ -34,6 +35,9 @@ class UpliftedSpirits extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.UPLIFTED_SPIRITS.id);
+    if (!this.active) {
+      return;
+    }
     const ranks = this.selectedCombatant.traitRanks(SPELLS.UPLIFTED_SPIRITS.id) || [];
     this.traitRawHealing = ranks.reduce((total, rank) => total + calculateAzeriteEffects(SPELLS.UPLIFTED_SPIRITS.id, rank)[0], 0);
   }
@@ -69,19 +73,8 @@ class UpliftedSpirits extends Analyzer {
     }
 
     // Azerite Trait Healing Increase
-    // fix for report/yFpzQTVCZ9Ht27ba/
     const vivifyCoefficient = event.targetID === this.castTarget ? VIVIFY_SPELLPOWER_COEFFICIENT : VIVIFY_REM_SPELLPOWER_COEFFICIENT;
-    const currentIntellect = this.statTracker.currentIntellectRating;
-    const initialHitHealing = vivifyCoefficient * currentIntellect;
-    const traitComponent = this.traitRawHealing / (initialHitHealing + this.traitRawHealing);
-
-    const healAmount = event.amount + (event.absorbed || 0);
-    const overhealAmount = (event.overheal || 0);
-    const raw = healAmount + overhealAmount;
-    const relativeHealingFactor = 1 + traitComponent;
-    const relativeHealing = raw - raw / relativeHealingFactor;
-
-    this.healing += Math.max(0, relativeHealing - overhealAmount);
+    this.healing += calculateTraitHealing(this.statTracker.currentIntellectRating, vivifyCoefficient, this.traitRawHealing, event).healing;
 
     this.castTarget = null; // need to reset this as vivify can hit your target twice with different coefficients
   }
