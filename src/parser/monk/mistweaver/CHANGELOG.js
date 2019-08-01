@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { Anomoly, Gao, Zerotorescue, Abelito75 } from 'CONTRIBUTORS';
+import { Anomoly, Gao, Zerotorescue, Abelito75, niseko } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 8, 1), <>Fixed trait calculations being unaffected by healing increases or decreases.</>, niseko),
   change(date(2019, 7, 23), <>Fixed strange bug with mana tea where if you didn't have it selected it crashed the Overview tab</>, Abelito75),
   change(date(2019, 7, 18), <>Made <SpellLink id={SPELLS.WAY_OF_THE_CRANE.id} /> infographic.</>, Abelito75),
   change(date(2019, 7, 2), <><SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> rewrite. Includes all spells</>, Abelito75),
