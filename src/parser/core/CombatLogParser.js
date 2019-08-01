@@ -640,9 +640,7 @@ class CombatLogParser {
   generateResults({ i18n, adjustForDowntime }) {
     this.adjustForDowntime = adjustForDowntime;
 
-    const results = new ParseResults();
-
-    results.tabs = [];
+    let results;
 
     const addStatistic = (statistic, basePosition, key) => {
       const position = statistic.props.position !== undefined ? statistic.props.position : basePosition;
@@ -655,75 +653,85 @@ class CombatLogParser {
       );
     };
 
-    Object.keys(this._modules)
-      .filter(key => this._modules[key].active)
-      .sort((a, b) => this._modules[b].priority - this._modules[a].priority)
-      .forEach((key, index) => {
-        const module = this._modules[key];
-        if(!module.active){
-          return; //check if module is active in case a module gets disabled due to an error
-        }
+    const attemptResultGeneration = () => {
+      return Object.keys(this._modules)
+        .filter(key => this._modules[key].active)
+        .sort((a, b) => this._modules[b].priority - this._modules[a].priority)
+        .every((key, index) => {
+          const module = this._modules[key];
 
-        try{
-          if (module.statistic) {
-            let basePosition = index;
-            if (module.statisticOrder !== undefined) {
-              basePosition = module.statisticOrder;
-              console.warn('DEPRECATED', 'Setting the position of a statistic via a module\'s `statisticOrder` prop is deprecated. Set the `position` prop on the `StatisticBox` instead. Example commit: https://github.com/WoWAnalyzer/WoWAnalyzer/commit/ece1bbeca0d3721ede078d256a30576faacb803d', module);
-            }
+          try{
+            if (module.statistic) {
+              let basePosition = index;
+              if (module.statisticOrder !== undefined) {
+                basePosition = module.statisticOrder;
+                console.warn('DEPRECATED', 'Setting the position of a statistic via a module\'s `statisticOrder` prop is deprecated. Set the `position` prop on the `StatisticBox` instead. Example commit: https://github.com/WoWAnalyzer/WoWAnalyzer/commit/ece1bbeca0d3721ede078d256a30576faacb803d', module);
+              }
 
-            const statistic = module.statistic({ i18n });
-            if (statistic) {
-              if (Array.isArray(statistic)) {
-                statistic.forEach((statistic, statisticIndex) => {
-                  addStatistic(statistic, basePosition, `${key}-statistic-${statisticIndex}`);
-                });
-              } else {
-                addStatistic(statistic, basePosition, `${key}-statistic`);
+              const statistic = module.statistic({ i18n });
+              if (statistic) {
+                if (Array.isArray(statistic)) {
+                  statistic.forEach((statistic, statisticIndex) => {
+                    addStatistic(statistic, basePosition, `${key}-statistic-${statisticIndex}`);
+                  });
+                } else {
+                  addStatistic(statistic, basePosition, `${key}-statistic`);
+                }
               }
             }
-          }
-          if (module.item) {
-            const item = module.item({ i18n });
-            if (item) {
-              if (React.isValidElement(item)) {
-                results.statistics.push(React.cloneElement(item, {
-                  key: `${key}-item`,
-                  position: index,
-                }));
-              } else {
-                const id = item.id || item.item.id;
-                const itemDetails = id && this.selectedCombatant.getItem(id);
-                const icon = item.icon || <ItemIcon id={item.item.id} details={itemDetails} />;
-                const title = item.title || <ItemLink id={item.item.id} details={itemDetails} icon={false} />;
+            if (module.item) {
+              const item = module.item({ i18n });
+              if (item) {
+                if (React.isValidElement(item)) {
+                  results.statistics.push(React.cloneElement(item, {
+                    key: `${key}-item`,
+                    position: index,
+                  }));
+                } else {
+                  const id = item.id || item.item.id;
+                  const itemDetails = id && this.selectedCombatant.getItem(id);
+                  const icon = item.icon || <ItemIcon id={item.item.id} details={itemDetails} />;
+                  const title = item.title || <ItemLink id={item.item.id} details={itemDetails} icon={false} />;
 
-                results.statistics.push(
-                  <ItemStatisticBox
-                    key={`${key}-item`}
-                    position={index}
-                    icon={icon}
-                    label={title}
-                    value={item.result}
-                    tooltip={item.tooltip}
-                  />
-                );
+                  results.statistics.push(
+                    <ItemStatisticBox
+                      key={`${key}-item`}
+                      position={index}
+                      icon={icon}
+                      label={title}
+                      value={item.result}
+                      tooltip={item.tooltip}
+                    />
+                  );
+                }
               }
             }
-          }
-          if (module.tab) {
-            const tab = module.tab({ i18n });
-            if (tab) {
-              results.tabs.push(tab);
+            if (module.tab) {
+              const tab = module.tab({ i18n });
+              if (tab) {
+                results.tabs.push(tab);
+              }
             }
+            if (module.suggestions) {
+              module.suggestions(results.suggestions.when, { i18n });
+            }
+          }catch(e){ //error occured during results generation of module, disable module and all modules depending on it
+            this.deepDisable(module);
+            //break loop and start again with inaccurate modules now disabled (in case of modules being rendered before their dependencies' errors are encountered)
+            return false;
           }
-          if (module.suggestions) {
-            module.suggestions(results.suggestions.when, { i18n });
-          }
-        }catch(e){ //error occured during results generation of module, disable module and all modules depending on it
-          this.deepDisable(module);
-        }
+          return true;
+        });
+    };
 
-      });
+    //keep trying to generate results until no "new" errors are found anymore to weed out all the inaccurate / errored modules
+    let generated = false;
+    while(!generated){
+      results = new ParseResults();
+
+      results.tabs = [];
+      generated = attemptResultGeneration();
+    }
 
     return results;
   }
