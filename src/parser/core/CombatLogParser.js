@@ -6,6 +6,7 @@ import ItemIcon from 'common/ItemIcon';
 import ItemLink from 'common/ItemLink';
 import DeathRecapTracker from 'interface/others/DeathRecapTracker';
 import ItemStatisticBox from 'interface/others/ItemStatisticBox';
+import MODULE_ERROR from 'parser/core/MODULE_ERROR';
 
 // Normalizers
 import ApplyBuffNormalizer from '../shared/normalizers/ApplyBuff';
@@ -176,11 +177,6 @@ import EventEmitter from './modules/EventEmitter';
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
 
-//states modules can be disabled in due to errors alongside the description to show in the degraded experience toaster
-export const DISABLED_STATE = {
-  INITIALIZATION: "initialization",
-  RESULTS: "result generation",
-};
 
 class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
@@ -415,7 +411,7 @@ class CombatLogParser {
     this.boss = findByBossId(selectedFight.boss);
     this.disabledModules = {};
     //initialize disabled modules for each state
-    Object.values(DISABLED_STATE).forEach(key => {
+    Object.values(MODULE_ERROR).forEach(key => {
       this.disabledModules[key] = [];
     });
     this.initializeModules({
@@ -517,14 +513,17 @@ class CombatLogParser {
             priority,
           }, desiredModuleName);
         }catch(e){
-          this.disabledModules[DISABLED_STATE.INITIALIZATION].push(moduleClass);
+          if (process.env.NODE_ENV !== 'production') {
+            throw e;
+          }
+          this.disabledModules[MODULE_ERROR.INITIALIZATION].push(moduleClass);
           debugDependencyInjection && console.warn(moduleClass.name, 'disabled due to error during initialization: ', e);
         }
 
       } else {
-        const disabledDependencies = missingDependencies.map(d => d.name).filter(x => this.disabledModules[DISABLED_STATE.INITIALIZATION].map(d => d.name).includes(x)); //see if a dependency was previously disabled due to an error
+        const disabledDependencies = missingDependencies.map(d => d.name).filter(x => this.disabledModules[MODULE_ERROR.INITIALIZATION].map(d => d.name).includes(x)); //see if a dependency was previously disabled due to an error
         if(disabledDependencies.length !== 0){ //if a dependency was already marked as disabled due to an error, mark this module as disabled
-          this.disabledModules[DISABLED_STATE.INITIALIZATION].push(moduleClass);
+          this.disabledModules[MODULE_ERROR.INITIALIZATION].push(moduleClass);
           debugDependencyInjection && console.warn(moduleClass.name, 'disabled due to error during initialization of a dependency.');
         }else{
           debugDependencyInjection && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
@@ -587,7 +586,7 @@ class CombatLogParser {
     this.getModule(EventEmitter).addEventListener(...args);
   }
 
-  deepDisable(module, state = DISABLED_STATE.RESULTS) {
+  deepDisable(module, state = MODULE_ERROR.RESULTS) {
     console.error('Disabling', module.constructor.name);
     if(module.active){ //prevent duplicate entries
       this.disabledModules[state].push(module.constructor);
@@ -716,6 +715,9 @@ class CombatLogParser {
               module.suggestions(results.suggestions.when, { i18n });
             }
           }catch(e){ //error occured during results generation of module, disable module and all modules depending on it
+            if (process.env.NODE_ENV !== 'production') {
+              throw e;
+            }
             this.deepDisable(module);
             //break loop and start again with inaccurate modules now disabled (in case of modules being rendered before their dependencies' errors are encountered)
             return false;

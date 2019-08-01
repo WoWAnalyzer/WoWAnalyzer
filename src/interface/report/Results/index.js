@@ -27,7 +27,7 @@ import ChangelogTab from 'interface/others/ChangelogTab';
 import ErrorBoundary from 'interface/common/ErrorBoundary';
 import Checklist from 'parser/shared/modules/features/Checklist/Module';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import { DISABLED_STATE } from 'parser/core/CombatLogParser';
+import MODULE_ERROR from 'parser/core/MODULE_ERROR';
 
 import './Results.scss';
 import Header from './Header';
@@ -155,7 +155,7 @@ class Results extends React.PureComponent {
     const parser = this.props.parser;
     let amount = 0;
     if(parser.disabledModules){
-      amount = Object.values(DISABLED_STATE).reduce((total, cur) => {
+      amount = Object.values(MODULE_ERROR).reduce((total, cur) => {
         return total + (parser.disabledModules[cur] ? parser.disabledModules[cur].length : 0);
       }, 0);
     }

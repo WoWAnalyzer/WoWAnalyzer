@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from 'interface/layout/Theme.scss';
 import Danger from 'interface/common/Alert/Danger';
-import { DISABLED_STATE } from 'parser/core/CombatLogParser';
+import MODULE_ERROR from 'parser/core/MODULE_ERROR';
 
 class DegradedExperience extends React.PureComponent {
   static propTypes = {
@@ -33,7 +33,7 @@ class DegradedExperience extends React.PureComponent {
         <h2> Degraded Experience </h2>
           One or more modules have encountered an error and have been disabled along with modules depending on them. Results may be inaccurate and / or incomplete. <br />
           Please report this issue to us on <a href="https://wowanalyzer.com/discord">Discord</a> or <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> so we can fix it! <br />
-          {this.state.expanded && Object.values(DISABLED_STATE).filter(state => disabledModules[state] && disabledModules[state].length !== 0).map(state => {
+          {this.state.expanded && Object.values(MODULE_ERROR).filter(state => disabledModules[state] && disabledModules[state].length !== 0).map(state => {
             return (
               <div key={state}>
                 <br />The following modules have been disabled due to errors during {state}: <br />
