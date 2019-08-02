@@ -31,8 +31,8 @@ class FontOfLife extends Analyzer {
     if (!this.active) {
       return;
     }
-    const ranks = this.selectedCombatant.traitRanks(SPELLS.UPLIFTED_SPIRITS.id) || [];
-    this.traitRawHealing = ranks.reduce((total, rank) => total + calculateAzeriteEffects(SPELLS.UPLIFTED_SPIRITS.id, rank)[0], 0);
+    const ranks = this.selectedCombatant.traitRanks(SPELLS.FONT_OF_LIFE.id) || [];
+    this.traitRawHealing = ranks.reduce((total, rank) => total + calculateAzeriteEffects(SPELLS.FONT_OF_LIFE.id, rank)[0], 0);
   }
 
   healing = 0;
@@ -42,7 +42,7 @@ class FontOfLife extends Analyzer {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if (spellId !== SPELLS.ESSENCE_FONT_BUFF.id || event.tick === true) {
+    if (spellId !== SPELLS.ESSENCE_FONT_BUFF.id || event.tick) {
       return;
     }
 
