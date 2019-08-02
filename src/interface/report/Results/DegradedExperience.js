@@ -48,7 +48,7 @@ class DegradedExperience extends React.Component {
         <Danger style={{ marginBottom: 30 }}>
         <h2> Degraded Experience </h2>
           <span style={{color: "white"}}>{this.firstError} </span>
-          {this.disabledModuleCount > 1 && <>and <span style={{color: "white"}}>{this.disabledModuleCount - 1}</span> other modules have encountered an error and have been disabled along with modules depending on them. </>}
+          {this.disabledModuleCount > 1 && <>and <span style={{color: "white"}}>{this.disabledModuleCount - 1}</span> other modules have encountered an error directly or inside a dependency and have been disabled. </>}
           {this.disabledModuleCount === 1 && <>has encountered an error and has been disabled. </>}
           Results may be inaccurate and / or incomplete. <br />
           Please report this issue to us on <a href="https://wowanalyzer.com/discord">Discord</a> or <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> so we can fix it! <br />
