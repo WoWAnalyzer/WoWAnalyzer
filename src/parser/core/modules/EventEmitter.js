@@ -270,7 +270,7 @@ class EventEmitter extends Module {
     const name = module.constructor.name;
     console.error('Disabling', name, 'and child dependencies because an error occured:', err);
     // Disable this module and all active modules that have this as a dependency
-    this.owner.deepDisable(module, MODULE_ERROR.EVENTS);
+    this.owner.deepDisable(module, MODULE_ERROR.EVENTS, err);
     window.Sentry && window.Sentry.withScope(scope => {
       scope.setTag('type', 'module_error');
       scope.setTag('spec', `${this.selectedCombatant.spec.specName} ${this.selectedCombatant.spec.className}`);

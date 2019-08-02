@@ -3,6 +3,7 @@ const MODULE_ERROR = {
   INITIALIZATION: "initialization",
   EVENTS: "event handling",
   RESULTS: "result generation",
+  DEPENDENCY: "one or more dependencies",
 };
 
 export default MODULE_ERROR;

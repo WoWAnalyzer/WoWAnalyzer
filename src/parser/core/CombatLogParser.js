@@ -516,14 +516,14 @@ class CombatLogParser {
           if (process.env.NODE_ENV !== 'production') {
             throw e;
           }
-          this.disabledModules[MODULE_ERROR.INITIALIZATION].push(moduleClass);
+          this.disabledModules[MODULE_ERROR.INITIALIZATION].push({module: moduleClass, error: e});
           debugDependencyInjection && console.warn(moduleClass.name, 'disabled due to error during initialization: ', e);
         }
 
       } else {
-        const disabledDependencies = missingDependencies.map(d => d.name).filter(x => this.disabledModules[MODULE_ERROR.INITIALIZATION].map(d => d.name).includes(x)); //see if a dependency was previously disabled due to an error
+        const disabledDependencies = missingDependencies.map(d => d.name).filter(x => this.disabledModules[MODULE_ERROR.INITIALIZATION].map(d => d.module.name).includes(x)); //see if a dependency was previously disabled due to an error
         if(disabledDependencies.length !== 0){ //if a dependency was already marked as disabled due to an error, mark this module as disabled
-          this.disabledModules[MODULE_ERROR.INITIALIZATION].push(moduleClass);
+          this.disabledModules[MODULE_ERROR.DEPENDENCY].push(moduleClass);
           debugDependencyInjection && console.warn(moduleClass.name, 'disabled due to error during initialization of a dependency.');
         }else{
           debugDependencyInjection && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
@@ -586,16 +586,17 @@ class CombatLogParser {
     this.getModule(EventEmitter).addEventListener(...args);
   }
 
-  deepDisable(module, state = MODULE_ERROR.RESULTS) {
-    console.error('Disabling', module.constructor.name);
-    if(module.active){ //prevent duplicate entries
-      this.disabledModules[state].push(module.constructor);
+  deepDisable(module, state, error = undefined) {
+    if(!module.active){
+      return; //return early
     }
+    console.error('Disabling', module.constructor.name);
+    this.disabledModules[state].push({module: module.constructor, ...(error && {error: error})});
     module.active = false;
     this.activeModules.forEach(active => {
         const deps = active.constructor.dependencies;
         if (deps && Object.values(deps).find(depClass => module instanceof depClass)) {
-          this.deepDisable(active, state);
+          this.deepDisable(active, MODULE_ERROR.DEPENDENCY);
         }
       }
     );
@@ -718,7 +719,7 @@ class CombatLogParser {
             if (process.env.NODE_ENV !== 'production') {
               throw e;
             }
-            this.deepDisable(module);
+            this.deepDisable(module, MODULE_ERROR.RESULTS, e);
             //break loop and start again with inaccurate modules now disabled (in case of modules being rendered before their dependencies' errors are encountered)
             return false;
           }
