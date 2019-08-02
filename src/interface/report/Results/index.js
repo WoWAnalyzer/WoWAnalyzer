@@ -27,7 +27,6 @@ import ChangelogTab from 'interface/others/ChangelogTab';
 import ErrorBoundary from 'interface/common/ErrorBoundary';
 import Checklist from 'parser/shared/modules/features/Checklist/Module';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import MODULE_ERROR from 'parser/core/MODULE_ERROR';
 
 import './Results.scss';
 import Header from './Header';
