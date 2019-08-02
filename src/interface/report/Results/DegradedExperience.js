@@ -21,13 +21,36 @@ class DegradedExperience extends React.Component {
     this.setState({expanded: !this.state.expanded});
   }
 
+  get firstError() {
+    const { disabledModules } = this.props;
+    const existingErrorTypes = Object.values(MODULE_ERROR).filter(state => disabledModules[state] && disabledModules[state].length !== 0);
+    if(existingErrorTypes.length > 0){
+      return disabledModules[existingErrorTypes[0]][0].name;
+    }
+    return "";
+  }
+
+  get disabledModuleCount(){
+    const { disabledModules } = this.props;
+    let amount = 0;
+    if(disabledModules){
+      amount = Object.values(MODULE_ERROR).reduce((total, cur) => {
+        return total + (disabledModules[cur] ? disabledModules[cur].length : 0);
+      }, 0);
+    }
+    return amount;
+  }
+
   render() {
     const { disabledModules } = this.props;
-    return (
+    return this.disabledModuleCount > 0 && (
       <div className="container">
         <Danger style={{ marginBottom: 30 }}>
         <h2> Degraded Experience </h2>
-          One or more modules have encountered an error and have been disabled along with modules depending on them. Results may be inaccurate and / or incomplete. <br />
+          <span style={{color: "white"}}>{this.firstError} </span>
+          {this.disabledModuleCount > 1 && <>and <span style={{color: "white"}}>{this.disabledModuleCount - 1}</span> other modules have encountered an error and have been disabled along with modules depending on them. </>}
+          {this.disabledModuleCount === 1 && <>has encountered an error and has been disabled. </>}
+          Results may be inaccurate and / or incomplete. <br />
           Please report this issue to us on <a href="https://wowanalyzer.com/discord">Discord</a> or <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> so we can fix it! <br />
           {this.state.expanded && Object.values(MODULE_ERROR).filter(state => disabledModules[state] && disabledModules[state].length !== 0).map(state => {
             return (

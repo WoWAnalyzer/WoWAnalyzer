@@ -151,16 +151,6 @@ class Results extends React.PureComponent {
       || this.props.parsingState !== EVENT_PARSING_STATE.DONE;
   }
 
-  get disabledModules(){
-    const parser = this.props.parser;
-    let amount = 0;
-    if(parser.disabledModules){
-      amount = Object.values(MODULE_ERROR).reduce((total, cur) => {
-        return total + (parser.disabledModules[cur] ? parser.disabledModules[cur].length : 0);
-      }, 0);
-    }
-    return amount;
-  }
 
   renderContent(selectedTab, results) {
     const { parser, premium } = this.props;
@@ -362,7 +352,7 @@ class Results extends React.PureComponent {
           applyFilter={applyFilter}
           isLoading={this.isLoading}
         />
-        {parser && this.disabledModules > 0 && <DegradedExperience disabledModules={parser.disabledModules} />}
+        {parser && parser.disabledModules && <DegradedExperience disabledModules={parser.disabledModules} />}
         {boss && boss.fight.resultsWarning && (
           <div className="container">
             <Warning style={{ marginBottom: 30 }}>
