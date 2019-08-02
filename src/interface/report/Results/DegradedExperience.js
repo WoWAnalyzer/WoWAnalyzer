@@ -4,7 +4,7 @@ import styles from 'interface/layout/Theme.scss';
 import Danger from 'interface/common/Alert/Danger';
 import MODULE_ERROR from 'parser/core/MODULE_ERROR';
 
-class DegradedExperience extends React.PureComponent {
+class DegradedExperience extends React.Component {
   static propTypes = {
     disabledModules: PropTypes.object.isRequired,
   };
@@ -15,10 +15,6 @@ class DegradedExperience extends React.PureComponent {
       expanded: false,
     };
     this.toggleDetails = this.toggleDetails.bind(this);
-  }
-
-  componentWillReceiveProps(nextProps){
-    this.forceUpdate();
   }
 
   toggleDetails() {
