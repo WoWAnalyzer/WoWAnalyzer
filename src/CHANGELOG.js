@@ -8,6 +8,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  change(date(2019, 8, 2), <>Fixed the Haste value of <SpellLink id={SPELLS.EVER_RISING_TIDE_MAJOR.id} /></>, niseko),
   change(date(2019, 7, 27), 'Added Unbridled Fury to the list of strong pre-potions.', emallson),
   change(date(2019, 7, 27), <>Added <SpellLink id={SPELLS.NULL_DYNAMO.id} /> essence.</>, emallson),
   change(date(2019, 7, 25), 'Fixed a crash in the Ever-Rising Tide Module', HawkCorrigan),
