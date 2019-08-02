@@ -9,7 +9,8 @@ export function calculateTraitHealing(IntellectRating, BaseSpellCoefficient, Raw
   const raw = healAmount + overhealAmount;
   const relativeHealingFactor = 1 + traitComponent;
   const relativeHealing = raw - raw / relativeHealingFactor;
-  const relativeOverHealing = Math.max(0, relativeHealing - overhealAmount);
+  const heal = Math.max(0, relativeHealing - overhealAmount);
+  const overheal = Math.max(0, relativeHealing - heal);
 
-  return { healing: Math.max(0, relativeHealing - overhealAmount), overhealing: relativeOverHealing };
+  return { healing: heal, overhealing: overheal };
 }
