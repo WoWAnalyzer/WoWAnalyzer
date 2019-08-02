@@ -59,7 +59,7 @@ class DegradedExperience extends React.Component {
         <Danger style={{ marginBottom: 30 }}>
         <h2> Degraded Experience </h2>
           <span style={{color: "white"}}>{this.firstError} </span>
-          {this.disabledModuleCount > 1 && <>and <span style={{color: "white"}}>{this.disabledModuleCount - 1}</span> other modules have encountered an error have been disabled. </>}
+          {this.disabledModuleCount > 1 && <>and <span style={{color: "white"}}>{this.disabledModuleCount - 1}</span> other modules have encountered an error and have been disabled. </>}
           {this.disabledModuleCount === 1 && <>has encountered an error and has been disabled. </>}
           <br />
           <span style={{color: "white"}}>{this.disabledDependencyCount}</span> module{this.disabledDependencyCount === 1 ? <> has</> : <>s have</>} been disabled as they depend on these modules. <br /><br />
