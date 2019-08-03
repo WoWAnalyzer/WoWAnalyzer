@@ -5,7 +5,7 @@ import { SELECTION_ALL_PHASES, SELECTION_CUSTOM_PHASE } from 'interface/report/P
 
 import './PhaseSelector.scss';
 
-const INSTANCE_SEPARATOR = "_INSTANCE_";
+const INSTANCE_SEPARATOR = '_INSTANCE_';
 
 class PhaseSelector extends React.PureComponent {
   static propTypes = {
@@ -17,32 +17,31 @@ class PhaseSelector extends React.PureComponent {
     isLoading: PropTypes.bool.isRequired,
   };
 
-  constructor(...args){
+  constructor(...args) {
     super(...args);
-    this.state = {phases: this.buildPhases()};
+    this.state = { phases: this.buildPhases() };
     this.phaseRef = React.createRef();
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(e) {
     const selectedPhase = this.state.phases[e.target.value];
-    if(selectedPhase){
+    if (selectedPhase) {
       this.props.handlePhaseSelection(selectedPhase.key, selectedPhase.instance);
-    }else{
+    } else {
       this.props.handlePhaseSelection(SELECTION_ALL_PHASES, 0);
     }
-
   }
 
   //builds a dictionary of phases / phase instances to keep track of in order to be able to attribute a unique "key" to each phase for the dropdown
   //without losing the actual key (and without having to for example replace an "instance token" like an underscore)
-  buildPhases(){
+  buildPhases() {
     const phases = [];
     Object.keys(this.props.phases).forEach(key => {
       const phase = this.props.phases[key];
-      if(phase.start.length !== phase.end.length){
-        phases.push({name: phase.name, key: key, start: phases.start[0], instance: 0});
-      }else{
+      if (phase.start.length !== phase.end.length) {
+        phases.push({ name: phase.name, key: key, start: phases.start[0], instance: 0 });
+      } else {
         phases.push(...phase.start.map((start, index) => (
           {
             name: phase.name,
@@ -54,7 +53,7 @@ class PhaseSelector extends React.PureComponent {
         )));
       }
     });
-    phases.sort((a,b) => a.start - b.start);
+    phases.sort((a, b) => a.start - b.start);
     return phases.reduce((obj, phase) => {
       return {
         ...obj,
@@ -73,7 +72,7 @@ class PhaseSelector extends React.PureComponent {
   }
 
   render() {
-    const {selectedPhase, selectedInstance, fight} = this.props;
+    const { selectedPhase, selectedInstance, fight } = this.props;
     const phases = this.state.phases;
     return (
       <select
@@ -87,7 +86,7 @@ class PhaseSelector extends React.PureComponent {
         {fight.filtered && !fight.phase && <option key="custom" value={SELECTION_CUSTOM_PHASE}>Custom</option>}
         <option key="all" value={SELECTION_ALL_PHASES}>All Phases</option>
         {Object.keys(phases).map(key =>
-          <option key={key} value={key}>{phases[key].name}{phases[key].multiple ? ' ' + (phases[key].instance + 1) : ''}</option>
+          <option key={key} value={key}>{phases[key].name}{phases[key].multiple ? ' ' + (phases[key].instance + 1) : ''}</option>,
         )}
       </select>
     );
