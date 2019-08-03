@@ -37,7 +37,7 @@ jobs:
     - stage: build
       language: generic
       services: docker
-      script: docker build --tag wowanalyzer --build-arg REACT_APP_ENVIRONMENT_NAME=$TRAVIS_BRANCH --build-arg REACT_APP_VERSION=$TRAVIS_COMMIT --build-arg ESLINT_BEFORE_BUILD=false .
+      script: docker build --tag wowanalyzer --build-arg REACT_APP_ENVIRONMENT_NAME=$TRAVIS_BRANCH --build-arg REACT_APP_VERSION=$TRAVIS_COMMIT --build-arg DISABLE_AUTOMATIC_ESLINT=true .
       # Reminder: deploy doesn't run on PRs
       deploy:
         provider: script
