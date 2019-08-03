@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from 'interface/layout/Theme.scss';
+
 import Danger from 'interface/common/Alert/Danger';
 import MODULE_ERROR from 'parser/core/MODULE_ERROR';
 

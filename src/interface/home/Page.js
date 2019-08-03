@@ -11,8 +11,6 @@ import PremiumIcon from 'interface/icons/Premium';
 import { ReactComponent as Logo } from 'interface/images/logo.svg';
 import FingerprintFilledIcon from 'interface/icons/FingerprintFilled';
 import HelpWantedIcon from 'interface/icons/Information';
-import GitHubIcon from 'interface/icons/GitHubMarkLarge';
-import DiscordIcon from 'interface/icons/DiscordTiny';
 import { hasPremium } from 'interface/selectors/user';
 import ErrorBoundary from 'interface/common/ErrorBoundary';
 import Ad from 'interface/common/Ad';
@@ -70,16 +68,6 @@ class Home extends React.PureComponent {
         icon: HelpWantedIcon,
         name: <Trans>Help wanted</Trans>,
         url: 'help-wanted',
-      },
-      {
-        icon: GitHubIcon,
-        name: <Trans>Source code</Trans>,
-        url: 'https://github.com/WoWAnalyzer/WoWAnalyzer',
-      },
-      {
-        icon: DiscordIcon,
-        name: <Trans>Discord</Trans>,
-        url: 'https://wowanalyzer.com/discord',
       },
     ];
   }
