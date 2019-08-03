@@ -12,6 +12,7 @@ class LazyLoadStatisticBox extends React.PureComponent {
   static propTypes = {
     loader: PropTypes.func.isRequired,
     value: PropTypes.node.isRequired,
+    children: PropTypes.node,
   };
   static contextTypes = {
     updateResults: PropTypes.func.isRequired,
