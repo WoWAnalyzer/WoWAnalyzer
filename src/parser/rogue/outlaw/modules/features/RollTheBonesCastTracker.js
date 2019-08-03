@@ -60,8 +60,7 @@ class RollTheBonesCastTracker extends Analyzer {
   categorizeCast(cast){
     if(cast.appliedBuffs.some(buff => buff.id === SPELLS.RUTHLESS_PRECISION.id || buff.id === SPELLS.GRAND_MELEE.id)){
       return ROLL_THE_BONES_CATEGORIES.HIGH_VALUE;
-    }
-    else if(cast.appliedBuffs.length > 1){
+    } else if(cast.appliedBuffs.length > 1){
       return ROLL_THE_BONES_CATEGORIES.MID_VALUE;
     }
     

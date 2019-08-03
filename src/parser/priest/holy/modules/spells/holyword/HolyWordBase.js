@@ -156,8 +156,7 @@ class HolyWordBase extends Analyzer {
       this.lightOfTheNaruReductionBySpell[spellId] = this.lightOfTheNaruReductionBySpell[spellId] || 0;
       this.lightOfTheNaruReductionBySpell[spellId] += lightOfTheNaaruReduction - baseReductionAmount;
       return lightOfTheNaaruReduction;
-    }
-    else if (this.apotheosisActive) {
+    } else if (this.apotheosisActive) {
       const apotheosisReduction = this.serendipityProccers[spellId].apotheosisReduction();
       this.apotheosisReductionBySpell[spellId] = this.apotheosisReductionBySpell[spellId] || 0;
       this.apotheosisReductionBySpell[spellId] += apotheosisReduction - baseReductionAmount;

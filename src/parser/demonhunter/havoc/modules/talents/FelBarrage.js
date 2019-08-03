@@ -68,10 +68,12 @@ class FelBarrage extends Analyzer{
       <TalentStatisticBox
         talent={SPELLS.FEL_BARRAGE_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={(<>
+        value={(
+<>
           {this.badCasts} <small>casts without <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} /> </small> <br />
           {this.owner.formatItemDamageDone(this.damage)}
-        </>)}
+        </>
+)}
         tooltip={(
           <>
           A bad cast is casting Fel Barage without Metamorphosis up.<br /><br />
