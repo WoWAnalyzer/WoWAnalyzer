@@ -53,7 +53,7 @@ class ReportSelectionHeader extends React.PureComponent {
                 <Logo />
                 <h1>WoWAnalyzer</h1>
               </a>
-              <Trans>Improve your performance with personal feedback and stats. Just enter the link of a <a href="https://warcraftlogs.com" target="_blank" rel="noopener noreferrer">Warcraft Logs</a> report:</Trans>
+              <Trans>Improve your performance with personal feedback and stats. Just enter the link of a <a href="https://www.warcraftlogs.com/" target="_blank" rel="noopener noreferrer">Warcraft Logs</a> report:</Trans>
               <div style={{ margin: '30px auto', maxWidth: 700, textAlign: 'left' }}>
                 {this.state.reportSelectionActive ? (
                   <>

@@ -4,6 +4,7 @@ export const hasPremium = state => {
     // Development environments force premium since they can't always implement the OAuth + for development pleasure.
     return true;
   } else if (process.env.REACT_APP_FORCE_PREMIUM === 'false') {
+    // Force disable it allows testing how things look without Premium.
     return false;
   }
   const user = getUser(state);
