@@ -77,7 +77,6 @@ class PhaseSelector extends React.PureComponent {
     return (
       <select
         className="form-control phase"
-        defaultValue={selectedPhase}
         value={(fight.filtered && !fight.phase) ? SELECTION_CUSTOM_PHASE : (selectedPhase === SELECTION_ALL_PHASES ? SELECTION_ALL_PHASES : selectedPhase + INSTANCE_SEPARATOR + selectedInstance)}
         onChange={this.handleChange}
         ref={this.phaseRef}
