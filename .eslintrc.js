@@ -141,10 +141,6 @@ module.exports = {
 
     // TODO: Let's try to have a more consistent codestyle
 
-    // // enforce spacing inside single-line blocks
-    // // https://eslint.org/docs/rules/block-spacing
-    // 'block-spacing': ['warn', 'always'],
-    //
     // // enforce one true brace style
     // 'brace-style': ['warn', '1tbs', { allowSingleLine: true }],
     //
