@@ -335,11 +335,11 @@ exports[`Root matches snapshot 1`] = `
                                                             className="brand-name"
                                                             href="/"
                                                           >
-                                                            <ReactComponent>
+                                                            <ForwardRef(SvgLogo)>
                                                               <svg>
                                                                 logo.svg
                                                               </svg>
-                                                            </ReactComponent>
+                                                            </ForwardRef(SvgLogo)>
                                                             <h1>
                                                               WoWAnalyzer
                                                             </h1>
@@ -793,7 +793,7 @@ exports[`Root matches snapshot 1`] = `
                                                           href="/about"
                                                           onClick={[Function]}
                                                         >
-                                                          <ReactComponent
+                                                          <ForwardRef(SvgLogo)
                                                             className="icon"
                                                           >
                                                             <svg
@@ -801,7 +801,7 @@ exports[`Root matches snapshot 1`] = `
                                                             >
                                                               logo.svg
                                                             </svg>
-                                                          </ReactComponent>
+                                                          </ForwardRef(SvgLogo)>
                                                           <WithI18n
                                                             id="About"
                                                           >
