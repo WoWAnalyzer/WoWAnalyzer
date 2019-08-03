@@ -141,9 +141,9 @@ module.exports = {
 
     // TODO: Let's try to have a more consistent codestyle
 
-    // // enforce one true brace style
-    // 'brace-style': ['warn', '1tbs', { allowSingleLine: true }],
-    //
+    // enforce one true brace style
+    'brace-style': ['warn', '1tbs', { allowSingleLine: true }],
+
     // // require camel case names
     // camelcase: ['warn', { properties: 'never', ignoreDestructuring: false, allow: ["^on_"] }],
     //

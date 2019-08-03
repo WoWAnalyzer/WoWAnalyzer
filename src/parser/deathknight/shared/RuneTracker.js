@@ -188,8 +188,7 @@ class RuneTracker extends ResourceTracker {
     const runeThreeCooldown = this.getCooldown(SPELLS.RUNE_3.id) || 0;
     if (runeOneCooldown <= runeTwoCooldown && runeOneCooldown <= runeThreeCooldown) {
       return SPELLS.RUNE_1.id;
-    }
-    else if (runeTwoCooldown <= runeThreeCooldown) {
+    } else if (runeTwoCooldown <= runeThreeCooldown) {
       return SPELLS.RUNE_2.id;
     } else {
       return SPELLS.RUNE_3.id;
@@ -202,8 +201,7 @@ class RuneTracker extends ResourceTracker {
     const runeThreeCooldown = this.getCooldown(SPELLS.RUNE_3.id) || 0;
     if (runeOneCooldown >= runeTwoCooldown && runeOneCooldown >= runeThreeCooldown) {
       return SPELLS.RUNE_1.id;
-    }
-    else if (runeTwoCooldown >= runeThreeCooldown) {
+    } else if (runeTwoCooldown >= runeThreeCooldown) {
       return SPELLS.RUNE_2.id;
     } else {
       return SPELLS.RUNE_3.id;

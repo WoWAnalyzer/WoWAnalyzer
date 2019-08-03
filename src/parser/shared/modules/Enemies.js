@@ -47,8 +47,7 @@ class Enemies extends Entities {
       .forEach(event => {
         if (current === null) {
           current = event;
-        }
-        else {
+        } else {
           /*
            As, Ae = start, end of current buff A
            Bs, Be = start, end of another buff B

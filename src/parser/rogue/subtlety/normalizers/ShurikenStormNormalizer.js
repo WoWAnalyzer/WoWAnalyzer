@@ -40,8 +40,7 @@ class ShurikenStormNormalizer extends EventsNormalizer {
             //Consider the event as having no waste
             event.resourceChange = event.resourceChange - event.waste;
             event.waste = 0;
-          }
-          else {
+          } else {
             //Clear off extra waste that would go over the max CP
             const newWaste = Math.min(event.waste, cpPool);
             event.resourceChange = event.resourceChange - event.waste + newWaste;
