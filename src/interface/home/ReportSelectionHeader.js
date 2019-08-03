@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Trans } from '@lingui/macro';
 
-import { hasPremium } from 'interface/selectors/user';
 import { ReactComponent as Logo } from 'interface/images/logo.svg';
 import Warning from 'interface/common/Alert/Warning';
 import { getReportHistory } from 'interface/selectors/reportHistory';
@@ -49,6 +48,7 @@ class ReportSelectionHeader extends React.PureComponent {
         <div className="container">
           <div className="row">
             <div className={reportHistory.length !== 0 ? 'col-md-8' : 'col-md-12'}>
+
               <a href="/" className="brand-name">
                 <Logo />
                 <h1>WoWAnalyzer</h1>
@@ -94,7 +94,6 @@ class ReportSelectionHeader extends React.PureComponent {
 
 const mapStateToProps = state => ({
   reportHistory: getReportHistory(state),
-  premium: hasPremium(state),
 });
 
 export default connect(
