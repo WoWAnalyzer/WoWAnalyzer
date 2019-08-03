@@ -176,7 +176,7 @@ import EventEmitter from './modules/EventEmitter';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
-
+const isMinified = process.env.NODE_ENV === 'production';
 
 class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
@@ -481,6 +481,7 @@ class CombatLogParser {
       });
     }
     // TODO: Remove module naming
+    module.key = desiredModuleName;
     this._modules[desiredModuleName] = module;
     return module;
   }
@@ -516,14 +517,14 @@ class CombatLogParser {
           if (process.env.NODE_ENV !== 'production') {
             throw e;
           }
-          this.disabledModules[MODULE_ERROR.INITIALIZATION].push({module: moduleClass, error: e});
+          this.disabledModules[MODULE_ERROR.INITIALIZATION].push({key: isMinified ? desiredModuleName : moduleClass.name, module: moduleClass, error: e});
           debugDependencyInjection && console.warn(moduleClass.name, 'disabled due to error during initialization: ', e);
         }
 
       } else {
         const disabledDependencies = missingDependencies.map(d => d.name).filter(x => this.disabledModules[MODULE_ERROR.INITIALIZATION].map(d => d.module.name).includes(x)); //see if a dependency was previously disabled due to an error
         if(disabledDependencies.length !== 0){ //if a dependency was already marked as disabled due to an error, mark this module as disabled
-          this.disabledModules[MODULE_ERROR.DEPENDENCY].push(moduleClass);
+          this.disabledModules[MODULE_ERROR.DEPENDENCY].push({key: isMinified ? desiredModuleName : moduleClass.name, module: moduleClass});
           debugDependencyInjection && console.warn(moduleClass.name, 'disabled due to error during initialization of a dependency.');
         }else{
           debugDependencyInjection && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
@@ -590,8 +591,8 @@ class CombatLogParser {
     if(!module.active){
       return; //return early
     }
-    console.error('Disabling', module.constructor.name);
-    this.disabledModules[state].push({module: module.constructor, ...(error && {error: error})});
+    console.error('Disabling', isMinified ? module.key : module.constructor.name);
+    this.disabledModules[state].push({key: isMinified ? module.key : module.constructor.name, module: module.constructor, ...(error && {error: error})});
     module.active = false;
     this.activeModules.forEach(active => {
         const deps = active.constructor.dependencies;
