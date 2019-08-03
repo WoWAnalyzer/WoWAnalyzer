@@ -67,9 +67,6 @@
     "extract": "lingui extract --overwrite --clean",
     "script": "set NODE_ENV=development&&babel-node"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "browserslist": {
     "production": [
       ">0.2%",
