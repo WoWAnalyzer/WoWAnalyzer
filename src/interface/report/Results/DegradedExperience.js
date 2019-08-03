@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Danger from 'interface/common/Alert/Danger';
 import MODULE_ERROR from 'parser/core/MODULE_ERROR';
 
-const isMinified = process.env.NODE_ENV === 'production';
 const toTitleCase = s => s.substr(0, 1).toUpperCase() + s.substr(1);
 
 class DegradedExperience extends React.Component {
