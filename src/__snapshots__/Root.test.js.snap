@@ -490,7 +490,7 @@ exports[`Root matches snapshot 1`] = `
                                                             components={
                                                               Array [
                                                                 <a
-                                                                  href="https://warcraftlogs.com"
+                                                                  href="https://www.warcraftlogs.com/"
                                                                   rel="noopener noreferrer"
                                                                   target="_blank"
                                                                 />,
@@ -506,7 +506,7 @@ exports[`Root matches snapshot 1`] = `
                                                                 components={
                                                                   Array [
                                                                     <a
-                                                                      href="https://warcraftlogs.com"
+                                                                      href="https://www.warcraftlogs.com/"
                                                                       rel="noopener noreferrer"
                                                                       target="_blank"
                                                                     />,
@@ -535,7 +535,7 @@ exports[`Root matches snapshot 1`] = `
                                                                     Array [
                                                                       "Improve your performance with personal feedback and stats. Just enter the link of a ",
                                                                       <a
-                                                                        href="https://warcraftlogs.com"
+                                                                        href="https://www.warcraftlogs.com/"
                                                                         rel="noopener noreferrer"
                                                                         target="_blank"
                                                                       >
@@ -547,7 +547,7 @@ exports[`Root matches snapshot 1`] = `
                                                                 >
                                                                   Improve your performance with personal feedback and stats. Just enter the link of a 
                                                                   <a
-                                                                    href="https://warcraftlogs.com"
+                                                                    href="https://www.warcraftlogs.com/"
                                                                     key="0"
                                                                     rel="noopener noreferrer"
                                                                     target="_blank"
