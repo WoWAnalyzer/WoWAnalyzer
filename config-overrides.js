@@ -1,6 +1,6 @@
-const { override, useEslintRc } = require('customize-cra');
+const { override, useEslintRc, disableEsLint } = require('customize-cra');
 
 module.exports = override(
-  useEslintRc(),
+  process.env.DISABLE_AUTOMATIC_ESLINT ? disableEsLint() : useEslintRc(),
   (config, env) => config
 );

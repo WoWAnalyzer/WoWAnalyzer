@@ -1,7 +1,3 @@
-// We may want to run eslint as a separate step in the CI process for improved performance and error reporting when there are eslint issues.
-// TODO: const shouldRunEslint = process.env.ESLINT_BEFORE_BUILD !== 'false';
-// TODO: We can probably use this file to reimplement that much more easily
-
 module.exports = {
   extends: "react-app",
   rules: {
