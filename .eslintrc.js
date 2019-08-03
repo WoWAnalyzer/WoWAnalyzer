@@ -144,9 +144,9 @@ module.exports = {
     // enforce one true brace style
     'brace-style': ['warn', '1tbs', { allowSingleLine: true }],
 
-    // // require camel case names
-    // camelcase: ['warn', { properties: 'never', ignoreDestructuring: false, allow: ["^on_"] }],
-    //
+    // require camel case names
+    camelcase: ['warn', { properties: 'never', ignoreDestructuring: false, allow: ["^on_"] }],
+
     // // enforce spacing before and after comma
     // 'comma-spacing': ['warn', { before: false, after: true }],
   },
