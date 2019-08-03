@@ -43,9 +43,11 @@
     "universal-cookie": "^2.2.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.5.5",
     "@lingui/cli": "^2.8.3",
     "acorn-dynamic-import": "^3.0.0",
     "archiver": "^3.1.1",
+    "babel-core": "^7.0.0-bridge.0",
     "decompress": "^4.2.0",
     "dotenv": "^6.2.0",
     "enzyme": "^3.10.0",
@@ -61,7 +63,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint .",
-    "extract": "set NODE_ENV=development&&node --harmony scripts/localization/extract.js",
+    "extract": "lingui extract --overwrite --clean",
     "script": "set NODE_ENV=development&&babel-node"
   },
   "eslintConfig": {
