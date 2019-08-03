@@ -139,19 +139,19 @@ module.exports = {
     'react/self-closing-comp': 'warn',
 
 
-    // Let's try to have a more consistent codestyle
+    // TODO: Let's try to have a more consistent codestyle
 
-    // enforce spacing inside single-line blocks
-    // https://eslint.org/docs/rules/block-spacing
-    'block-spacing': ['warn', 'always'],
-
-    // enforce one true brace style
-    'brace-style': ['warn', '1tbs', { allowSingleLine: true }],
-
-    // require camel case names
-    camelcase: ['warn', { properties: 'never', ignoreDestructuring: false, allow: ["^on_"] }],
-
-    // enforce spacing before and after comma
-    'comma-spacing': ['warn', { before: false, after: true }],
+    // // enforce spacing inside single-line blocks
+    // // https://eslint.org/docs/rules/block-spacing
+    // 'block-spacing': ['warn', 'always'],
+    //
+    // // enforce one true brace style
+    // 'brace-style': ['warn', '1tbs', { allowSingleLine: true }],
+    //
+    // // require camel case names
+    // camelcase: ['warn', { properties: 'never', ignoreDestructuring: false, allow: ["^on_"] }],
+    //
+    // // enforce spacing before and after comma
+    // 'comma-spacing': ['warn', { before: false, after: true }],
   },
 };
