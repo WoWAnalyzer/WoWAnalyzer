@@ -5,6 +5,7 @@ import Danger from 'interface/common/Alert/Danger';
 import MODULE_ERROR from 'parser/core/MODULE_ERROR';
 
 const isMinified = process.env.NODE_ENV === 'production';
+const toTitleCase = s => s.substr(0, 1).toUpperCase() + s.substr(1);
 
 class DegradedExperience extends React.Component {
   static propTypes = {
@@ -27,7 +28,7 @@ class DegradedExperience extends React.Component {
     const { disabledModules } = this.props;
     const existingErrorTypes = Object.values(MODULE_ERROR).filter(state => disabledModules[state] && disabledModules[state].length !== 0);
     if (existingErrorTypes.length > 0) {
-      return disabledModules[existingErrorTypes[0]][0].module.name;
+      return disabledModules[existingErrorTypes[0]][0].key;
     }
     return '';
   }
@@ -67,7 +68,7 @@ class DegradedExperience extends React.Component {
       <div className="container">
         <Danger style={{ marginBottom: 30 }}>
           <h2>Degraded experience</h2>
-          {!isMinified ? <span style={{ color: 'white' }}>{this.firstError}</span> : (this.disabledModuleCount > 1 ? 'Several modules' : 'A module')} encountered an error and had to be disabled. {this.disabledModuleCount > 1 && <>As a consequence <span style={{ color: 'white' }}>{this.disabledModuleCount - 1}</span> other modules had to be disabled as they depend on these modules.</>} Results may be incomplete. Please report this issue to us on <a href="https://wowanalyzer.com/discord">Discord</a> so we can fix it!{' '}
+          <span style={{ color: 'white' }}>{toTitleCase(this.firstError)}</span> {this.disabledModuleCount > 1 && <>and {this.disabledModuleCount - 1} other module{this.disabledModuleCount > 2 && 's'} </>}encountered an error and had to be disabled. {this.disabledDependencyCount > 1 && <>As a consequence <span style={{ color: 'white' }}>{this.disabledDependencyCount}</span> other modules had to be disabled as they depend on these modules.</>} Results may be incomplete. Please report this issue to us on <a href="https://wowanalyzer.com/discord">Discord</a> so we can fix it!{' '}
           <a href="javascript:" onClick={this.toggleDetails}>
             {this.state.expanded ? 'Less information' : 'More information'}
           </a>
@@ -81,10 +82,10 @@ class DegradedExperience extends React.Component {
                   The following modules have been disabled due to errors during {state}:<br />
                   <div style={{ color: 'white' }}>
                     {disabledModules[state]
-                      .sort((a, b) => a.module.name.localeCompare(b.module.name))
+                      .sort((a, b) => a.key.localeCompare(b.key))
                       .map(m => (
-                        <React.Fragment key={m.module.name}>
-                          {m.module.name}<br />
+                        <React.Fragment key={m.key}>
+                          {toTitleCase(m.key)}<br />
                           {m.error && <pre>{m.error.stack ? m.error.stack : m.error.toString()}</pre>}
                         </React.Fragment>
                       ))}
