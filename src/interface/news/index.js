@@ -10,11 +10,11 @@ const News = () => (
   <>
     <DocumentTitle /> {/* prettiest is if the Home page has no title at all */}
 
-    <div className="flex">
+    <div className="flex flex-news">
       <div className="flex-main">
         <h1 id="news-top"><Trans>New stuff</Trans></h1>
       </div>
-      <div className="flex-sub" style={{ paddingTop: 30 }}>
+      <div className="flex-sub flex-sub-news">
         <small>More news?</small>
         <span style={{ fontSize: 18, marginLeft: 10 }}>
           <TwitterIcon colored /> <a href="https://twitter.com/WoWAnalyzer">Follow @WoWAnalyzer</a>
