@@ -693,3 +693,7 @@ export const LeoZhekov = {
     link: 'https://worldofwarcraft.com/en-gb/character/Zenedar/Lisossa',
   }],
 };
+export const Amrux = {
+  nickname: 'Amrux',
+  github: 'grantjoshua1995'
+};
