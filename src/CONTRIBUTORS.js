@@ -695,5 +695,5 @@ export const LeoZhekov = {
 };
 export const Amrux = {
   nickname: 'Amrux',
-  github: 'grantjoshua1995'
+  github: 'grantjoshua1995',
 };
