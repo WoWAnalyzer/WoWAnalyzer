@@ -6,8 +6,7 @@ class Channeling extends CoreChanneling {
 	cancelChannel(event, ability) {
 		if(this.isChannelingSpell(SPELLS.EYE_BEAM.id)) {
 			this.endChannel(event);
-		}
-		else {
+		} else {
 			super.cancelChannel(event, ability);
 		}
 	}

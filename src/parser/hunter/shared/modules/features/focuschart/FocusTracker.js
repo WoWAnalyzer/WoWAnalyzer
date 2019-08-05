@@ -64,8 +64,7 @@ class FocusTracker extends Analyzer {
       const secIntoFight = (event.timestamp - this.owner.fight.start_time);
       if (event.classResources[0].cost) {
         this.focusBySecond[secIntoFight] = (event.classResources[0].amount - event.classResources[0].cost);
-      }
-      else {
+      } else {
         this.focusBySecond[secIntoFight] = (event.classResources[0].amount);
       }
       this.checkForError(secIntoFight);
@@ -138,8 +137,7 @@ class FocusTracker extends Analyzer {
       if (!this.focusBySecond[i]) {
         if (this.focusBySecond[i - 1] >= maxFocus) {
           this.focusBySecond[i] = maxFocus;
-        }
-        else {
+        } else {
           this.focusBySecond[i] = this.focusBySecond[i - 1] + this.focusGen / 1000;
         }
       }

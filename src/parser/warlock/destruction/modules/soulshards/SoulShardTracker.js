@@ -85,12 +85,10 @@ class SoulShardTracker extends ResourceTracker {
     const spellId = event.ability.guid;
     if (spellId === SPELLS.SOUL_FIRE_TALENT.id) {
       this.processInvisibleEnergize(spellId, 4);
-    }
-    else if (spellId === SPELLS.INCINERATE.id) {
+    } else if (spellId === SPELLS.INCINERATE.id) {
       // Incinerate generates 2 fragments on cast (and another one if it crits, handled further down)
       this.processInvisibleEnergize(spellId, 2);
-    }
-    else if (this.shouldProcessCastEvent(event)) {
+    } else if (this.shouldProcessCastEvent(event)) {
       const eventResource = this.getResource(event);
       // eventResource.amount has correct amount of fragments *before* the cast
       // if this is larger than the fragments currently tracked, then some random fragment generation must have happened since last cast till this cast
@@ -104,8 +102,7 @@ class SoulShardTracker extends ResourceTracker {
           // ... or it's some kind of Infernal shenanigan again, we can't account more fragments than there were events possibly causing them
           debug && console.log(`Adding ${Math.min(missingFragments, this.immolateCrits)} fragments to Immolate`);
           this.processInvisibleEnergize(SPELLS.IMMOLATE_DEBUFF.id, Math.min(missingFragments, this.immolateCrits));
-        }
-        else {
+        } else {
           const distribution = this._getRandomFragmentDistribution(this.immolateCrits, this.rainOfFireHits, missingFragments);
           const actualImmolate = Math.min(distribution.immolate, this.immolateCrits);
           const actualRain = Math.min(distribution.rainOfFire, this.rainOfFireHits);
@@ -152,8 +149,7 @@ class SoulShardTracker extends ResourceTracker {
 
     if (spellId === SPELLS.IMMOLATE_DEBUFF.id && event.hitType === HIT_TYPES.CRIT) {
       this.immolateCrits += 1;
-    }
-    else if (this.hasInferno && spellId === SPELLS.RAIN_OF_FIRE_DAMAGE.id) {
+    } else if (this.hasInferno && spellId === SPELLS.RAIN_OF_FIRE_DAMAGE.id) {
       this.rainOfFireHits += 1;
     }
   }

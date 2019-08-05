@@ -178,10 +178,10 @@ class PrePullCooldowns extends EventsNormalizer {
       const gcd = this._resolveAbilityGcd(event.ability.guid);
       if (gcd === null) {
         // When the ability is off the GCD give it at least some margin so it properly appears as cast before the pull and out of combat
-        event.timestamp = fightStartTimestamp - 100;
+        event.timestamp = fightStartTimestamp - this.owner.fight.offset_time - 100;
       } else {
         totalGCD += gcd;
-        event.timestamp = firstTimestamp - totalGCD;
+        event.timestamp = firstTimestamp - this.owner.fight.offset_time - totalGCD;
       }
       event.classResources = precastClassResources;
     }

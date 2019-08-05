@@ -94,6 +94,7 @@ class StaggerPoolGraph extends Analyzer {
       <div className="graph-container">
         <StaggerGraph
           startTime={this.owner.fight.start_time}
+          offsetTime={this.owner.fight.offset_time}
           stagger={stagger}
           hp={hp}
           maxHp={maxHp}

@@ -26,3 +26,6 @@ export const DAMAGING_SPELLS_THAT_CAUSE_ATONEMENT = [
 ];
 
 export const ATONEMENT_COEFFICIENT = 0.4;
+
+// https://www.wowhead.com/spell=137032/discipline-priest
+export const DISC_PRIEST_DAMAGE_REDUCTION = .67;

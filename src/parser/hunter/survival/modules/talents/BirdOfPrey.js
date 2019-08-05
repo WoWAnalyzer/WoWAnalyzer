@@ -74,7 +74,7 @@ class BirdOfPrey extends Analyzer {
         average: 0.85,
         major: 0.75,
       },
-      style: 'percent',
+      style: 'percentage',
     };
   }
 

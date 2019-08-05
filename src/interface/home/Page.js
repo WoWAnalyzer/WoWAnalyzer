@@ -11,11 +11,12 @@ import PremiumIcon from 'interface/icons/Premium';
 import { ReactComponent as Logo } from 'interface/images/logo.svg';
 import FingerprintFilledIcon from 'interface/icons/FingerprintFilled';
 import HelpWantedIcon from 'interface/icons/Information';
-import GitHubIcon from 'interface/icons/GitHubMarkLarge';
-import DiscordIcon from 'interface/icons/DiscordTiny';
 import { hasPremium } from 'interface/selectors/user';
 import ErrorBoundary from 'interface/common/ErrorBoundary';
 import Ad from 'interface/common/Ad';
+import PatreonButton from 'interface/common/thirdpartybuttons/Patreon';
+import GithubButton from 'interface/common/thirdpartybuttons/GitHub';
+import DiscordButton from 'interface/common/thirdpartybuttons/Discord';
 
 import './Home.scss';
 import ReportSelectionHeader from './ReportSelectionHeader';
@@ -68,16 +69,6 @@ class Home extends React.PureComponent {
         name: <Trans>Help wanted</Trans>,
         url: 'help-wanted',
       },
-      {
-        icon: GitHubIcon,
-        name: <Trans>Source code</Trans>,
-        url: 'https://github.com/WoWAnalyzer/WoWAnalyzer',
-      },
-      {
-        icon: DiscordIcon,
-        name: <Trans>Discord</Trans>,
-        url: 'https://wowanalyzer.com/discord',
-      },
     ];
   }
 
@@ -88,15 +79,24 @@ class Home extends React.PureComponent {
 
     return (
       <div className="home-page">
+        <div className="container" style={{ fontSize: 10, marginTop: 10 }}>
+          <div className="row">
+            <div className="col-sm-6">
+              {!premium && <PatreonButton style={{ marginRight: 10 }} />}
+              <DiscordButton style={{ marginRight: 10 }} />
+            </div>
+            <div className="col-sm-6 text-right">
+              <a href="https://travis-ci.org/WoWAnalyzer/WoWAnalyzer">
+                <img src="https://travis-ci.org/WoWAnalyzer/WoWAnalyzer.svg?branch=master" alt="Build status" style={{ height: '2.8em' }} />
+              </a>
+              <GithubButton style={{ marginLeft: 10 }} />
+            </div>
+          </div>
+        </div>
+
         <ReportSelectionHeader />
 
         <main className="container">
-          {premium === false && (
-            <div style={{ marginTop: 40 }}>
-              <Ad />
-            </div>
-          )}
-
           <nav>
             <ul>
               {this.pages.map(page => {

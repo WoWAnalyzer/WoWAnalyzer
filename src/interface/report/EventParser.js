@@ -6,7 +6,7 @@ import sleep from 'common/sleep';
 import { captureException } from 'common/errorLogger';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 
-const BENCHMARK = true;
+const BENCHMARK = false;
 // Picking a correct batch duration is hard. I tried various durations to get the batch sizes to 1 frame, but that results in a lot of wasted time waiting for the next frame. 30ms (33 fps) as well causes a lot of wasted time. 60ms (16fps) seem to have really low wasted time while not blocking the UI anymore than a user might expect.
 const MAX_BATCH_DURATION = 66.67; // ms
 const TIME_AVAILABLE = console.time && console.timeEnd;
@@ -18,6 +18,7 @@ export class EventsParseError extends ExtendableError {
   constructor(reason) {
     super();
     this.reason = reason;
+    this.message = `An error occured while parsing events: ${reason.message}`;
   }
 }
 
@@ -30,7 +31,9 @@ class EventParser extends React.PureComponent {
     fight: PropTypes.shape({
       start_time: PropTypes.number.isRequired,
       end_time: PropTypes.number.isRequired,
+      offset_time: PropTypes.number.isRequired,
       boss: PropTypes.number.isRequired,
+      phase: PropTypes.string,
     }).isRequired,
     player: PropTypes.shape({
       name: PropTypes.string.isRequired,
@@ -44,7 +47,6 @@ class EventParser extends React.PureComponent {
     })),
     parserClass: PropTypes.func.isRequired,
     characterProfile: PropTypes.object,
-    bossPhaseEvents: PropTypes.array,
     events: PropTypes.array.isRequired,
     children: PropTypes.func.isRequired,
   };
@@ -69,7 +71,6 @@ class EventParser extends React.PureComponent {
       || this.props.combatants !== prevProps.combatants
       || this.props.parserClass !== prevProps.parserClass
       || this.props.characterProfile !== prevProps.characterProfile
-      || this.props.bossPhaseEvents !== prevProps.bossPhaseEvents
       || this.props.events !== prevProps.events;
     if (changed) {
       this.setState({
@@ -91,12 +92,12 @@ class EventParser extends React.PureComponent {
     return parser;
   }
   makeEvents(parser) {
-    const { bossPhaseEvents, events } = this.props;
-    let combinedEvents = bossPhaseEvents ? [...bossPhaseEvents, ...events] : events;
+    let { events } = this.props;
     // The events we fetched will be all events related to the selected player. This includes the `combatantinfo` for the selected player. However we have already parsed this event when we loaded the combatants in the `initializeAnalyzers` of the CombatLogParser. Loading the selected player again could lead to bugs since it would reinitialize and overwrite the existing entity (the selected player) in the Combatants module.
-    combinedEvents = combinedEvents.filter(event => event.type !== 'combatantinfo');
-    combinedEvents = parser.normalize(combinedEvents);
-    return combinedEvents;
+    events = events.filter(event => event.type !== 'combatantinfo');
+    //sort now normalized events to avoid new fabricated events like "prepull" casts etc being in incorrect order with casts "kept" from before the filter
+    events = parser.normalize(events).sort((a,b) => a.timestamp - b.timestamp);
+    return events;
   }
   async parse() {
     try {

@@ -54,24 +54,8 @@ class App extends React.Component {
 
     TooltipProvider.load();
     if (process.env.REACT_APP_FORCE_PREMIUM !== 'true') {
-      const initializeAds = () => {
-        (window.adsbygoogle = window.adsbygoogle || []).push({
-          google_ad_client: "ca-pub-8048055232081854",
-          enable_page_level_ads: true,
-        });
-      };
-
-      if (process.env.REACT_APP_FORCE_PREMIUM === 'false') {
-        // Force no premium, so skip user request (this is essential in development mode)
-        initializeAds();
-      } else {
-        // If Premium is forced (development environments), fetching the user would probably fail too
-        props.fetchUser().then(user => {
-          if (user === false || (user && !user.premium)) {
-            initializeAds();
-          }
-        });
-      }
+      // If Premium is forced (development environments), fetching the user would probably fail too
+      props.fetchUser();
     }
   }
 
@@ -104,10 +88,12 @@ class App extends React.Component {
             Private logs can not be used, if your guild has private logs you will have to <a href="https://www.warcraftlogs.com/help/start/">upload your own logs</a> or change the existing logs to the <i>unlisted</i> privacy option instead.
           </div>
           <div>
-            <button type="button" className="btn btn-primary" onClick={() => {
+            <button
+              type="button" className="btn btn-primary" onClick={() => {
               this.props.clearError();
               this.props.push(makeAnalyzerUrl());
-            }}>
+            }}
+            >
               &lt; Back
             </button>
           </div>
@@ -149,10 +135,12 @@ class App extends React.Component {
         background="https://media.giphy.com/media/m4TbeLYX5MaZy/giphy.gif"
       >
         <div>
-          <button type="button" className="btn btn-primary" onClick={() => {
+          <button
+            type="button" className="btn btn-primary" onClick={() => {
             this.props.clearError();
             this.props.push(makeAnalyzerUrl());
-          }}>
+          }}
+          >
             &lt; Back
           </button>
         </div>
@@ -217,7 +205,7 @@ const ConnectedComponent = connect(
     clearError,
     internetExplorerError,
     fetchUser,
-  }
+  },
 )(App);
 
 // This needs the `withRouter` so its props change (causing a render) when the route changes

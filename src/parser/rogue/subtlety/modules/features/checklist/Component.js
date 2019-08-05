@@ -172,7 +172,8 @@ class SubRogueChecklist extends React.PureComponent {
               </>
             )}
             thresholds={thresholds.findWeaknessVanish}
-          /> )}
+          />
+ )}
         </Rule>
         <PreparationRule thresholds={thresholds} />
 

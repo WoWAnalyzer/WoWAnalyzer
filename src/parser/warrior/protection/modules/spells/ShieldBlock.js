@@ -8,54 +8,53 @@ import SPELLS from 'common/SPELLS';
 
 const debug = false;
 
-class Shield_Block extends Analyzer {
-
-  lastShield_BlockBuffApplied = 0;
-  physicalHitsWithShield_Block = 0;
-  physicalDamageWithShield_Block = 0;
-  physicalHitsWithoutShield_Block = 0;
-  physicalDamageWithoutShield_Block = 0;
+class ShieldBlock extends Analyzer {
+  lastShieldBlockBuffApplied = 0;
+  physicalHitsWithShieldBlock = 0;
+  physicalDamageWithShieldBlock = 0;
+  physicalHitsWithoutShieldBlock = 0;
+  physicalDamageWithoutShieldBlock = 0;
 
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (SPELLS.SHIELD_BLOCK_BUFF.id === spellId) {
-      this.lastShield_BlockBuffApplied = event.timestamp;
+      this.lastShieldBlockBuffApplied = event.timestamp;
     }
   }
 
   on_byPlayer_removebuff(event) {
     const spellId = event.ability.guid;
     if (SPELLS.SHIELD_BLOCK_BUFF.id === spellId) {
-      this.lastShield_BlockBuffApplied = 0;
+      this.lastShieldBlockBuffApplied = 0;
     }
   }
 
   on_toPlayer_damage(event) {
     // Physical
     if (event.ability.type === 1) {
-      if (this.lastShield_BlockBuffApplied > 0) {
-        this.physicalHitsWithShield_Block += 1;
-        this.physicalDamageWithShield_Block += event.amount + (event.absorbed || 0) + (event.overkill || 0);
+      if (this.lastShieldBlockBuffApplied > 0) {
+        this.physicalHitsWithShieldBlock += 1;
+        this.physicalDamageWithShieldBlock += event.amount + (event.absorbed || 0) + (event.overkill || 0);
       } else {
-        this.physicalHitsWithoutShield_Block += 1;
-        this.physicalDamageWithoutShield_Block += event.amount + (event.absorbed || 0) + (event.overkill || 0);
+        this.physicalHitsWithoutShieldBlock += 1;
+        this.physicalDamageWithoutShieldBlock += event.amount + (event.absorbed || 0) + (event.overkill || 0);
       }
     }
   }
 
   on_fightend() {
     if (debug) {
-      console.log(`Hits with Shield Block ${this.physicalHitsWithShield_Block}`);
-      console.log(`Damage with Shield Block ${this.physicalDamageWithShield_Block}`);
-      console.log(`Hits without Shield Block ${this.physicalHitsWithoutShield_Block}`);
-      console.log(`Damage without Shield Block ${this.physicalDamageWithoutShield_Block}`);
-      console.log(`Total physical ${this.physicalDamageWithoutShield_Block}${this.physicalDamageWithShield_Block}`);
+      console.log(`Hits with Shield Block ${this.physicalHitsWithShieldBlock}`);
+      console.log(`Damage with Shield Block ${this.physicalDamageWithShieldBlock}`);
+      console.log(`Hits without Shield Block ${this.physicalHitsWithoutShieldBlock}`);
+      console.log(`Damage without Shield Block ${this.physicalDamageWithoutShieldBlock}`);
+      console.log(`Total physical ${this.physicalDamageWithoutShieldBlock}${this.physicalDamageWithShieldBlock}`);
     }
   }
 
   get suggestionThresholds() {
     return {
-      actual: this.physicalDamageWithShield_Block / (this.physicalDamageWithShield_Block + this.physicalDamageWithoutShield_Block),
+      actual: this.physicalDamageWithShieldBlock / (this.physicalDamageWithShieldBlock + this.physicalDamageWithoutShieldBlock),
       isLessThan: {
         minor: 0.9,
         average: 0.75,
@@ -76,8 +75,8 @@ class Shield_Block extends Analyzer {
   }
 
   statistic() {
-    const physicalHitsMitigatedPercent = this.physicalHitsWithShield_Block / (this.physicalHitsWithShield_Block + this.physicalHitsWithoutShield_Block);
-    const physicalDamageMitigatedPercent = this.physicalDamageWithShield_Block / (this.physicalDamageWithShield_Block + this.physicalDamageWithoutShield_Block);
+    const physicalHitsMitigatedPercent = this.physicalHitsWithShieldBlock / (this.physicalHitsWithShieldBlock + this.physicalHitsWithoutShieldBlock);
+    const physicalDamageMitigatedPercent = this.physicalDamageWithShieldBlock / (this.physicalDamageWithShieldBlock + this.physicalDamageWithoutShieldBlock);
 
     return (
       <StatisticBox
@@ -88,8 +87,8 @@ class Shield_Block extends Analyzer {
           <>
             Shield Block usage breakdown:
             <ul>
-              <li>You were hit <strong>{this.physicalHitsWithShield_Block}</strong> times with your Shield Block buff (<strong>{formatThousands(this.physicalDamageWithShield_Block)}</strong> damage).</li>
-              <li>You were hit <strong>{this.physicalHitsWithoutShield_Block}</strong> times <strong><em>without</em></strong> your Shield Block buff (<strong>{formatThousands(this.physicalDamageWithoutShield_Block)}</strong> damage).</li>
+              <li>You were hit <strong>{this.physicalHitsWithShieldBlock}</strong> times with your Shield Block buff (<strong>{formatThousands(this.physicalDamageWithShieldBlock)}</strong> damage).</li>
+              <li>You were hit <strong>{this.physicalHitsWithoutShieldBlock}</strong> times <strong><em>without</em></strong> your Shield Block buff (<strong>{formatThousands(this.physicalDamageWithoutShieldBlock)}</strong> damage).</li>
             </ul>
             <strong>{formatPercentage(physicalHitsMitigatedPercent)}%</strong> of physical attacks were mitigated with Shield Block (<strong>{formatPercentage(physicalDamageMitigatedPercent)}%</strong> of physical damage taken).
           </>
@@ -100,4 +99,4 @@ class Shield_Block extends Analyzer {
   statisticOrder = STATISTIC_ORDER.CORE(10);
 }
 
-export default Shield_Block;
+export default ShieldBlock;

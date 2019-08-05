@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { PRE_FILTER_COOLDOWN_EVENT_TYPE } from 'interface/report/TimeEventFilter';
+
 import { formatDuration } from 'common/format';
 import DragScroll from 'interface/common/DragScroll';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
@@ -42,6 +44,9 @@ class Timeline extends React.PureComponent {
   get end() {
     return this.fight.end_time;
   }
+  get offset() {
+    return this.fight.offset_time;
+  }
   get duration() {
     return this.end - this.start;
   }
@@ -57,6 +62,7 @@ class Timeline extends React.PureComponent {
 
   isApplicableEvent(event) {
     switch (event.type) {
+      case PRE_FILTER_COOLDOWN_EVENT_TYPE:
       case 'cast':
         return this.isApplicableCastEvent(event);
       case 'updatespellusable':
@@ -80,11 +86,18 @@ class Timeline extends React.PureComponent {
     if (!ability || !ability.cooldown) {
       return false;
     }
+    if(event.timestamp >= this.end){
+      return false;
+    }
     return true;
   }
   isApplicableUpdateSpellUsableEvent(event) {
     if (event.trigger !== 'endcooldown' && event.trigger !== 'restorecharge') {
       // begincooldown is unnecessary since endcooldown includes the start time
+      return false;
+    }
+    if(event.trigger === "restorecharge" && event.timestamp < this.start){
+      //ignore restore charge events if they happen before the phase
       return false;
     }
     return true;
@@ -149,6 +162,7 @@ class Timeline extends React.PureComponent {
               paddingBottom: 0,
               paddingLeft: this.state.padding,
               paddingRight: this.state.padding, // we also want the user to have the satisfying feeling of being able to get the right side to line up
+              margin: "auto", //center horizontally if it's too small to take up the page
             }}
           >
             <Buffs
@@ -160,9 +174,9 @@ class Timeline extends React.PureComponent {
             <div className="time-line">
               {this.seconds > 0 && [...Array(Math.ceil(this.seconds))].map((_, second) => (
                 <div
-                  key={second}
+                  key={second+this.offset/1000}
                   style={{ width: this.secondWidth * skipInterval }}
-                  data-duration={formatDuration(second)}
+                  data-duration={formatDuration(second+this.offset/1000)}
                 />
               ))}
             </div>

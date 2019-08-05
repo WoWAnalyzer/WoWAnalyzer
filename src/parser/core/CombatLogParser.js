@@ -6,6 +6,7 @@ import ItemIcon from 'common/ItemIcon';
 import ItemLink from 'common/ItemLink';
 import DeathRecapTracker from 'interface/others/DeathRecapTracker';
 import ItemStatisticBox from 'interface/others/ItemStatisticBox';
+import MODULE_ERROR from 'parser/core/MODULE_ERROR';
 
 // Normalizers
 import ApplyBuffNormalizer from '../shared/normalizers/ApplyBuff';
@@ -137,6 +138,8 @@ import TreacherousCovenant from '../shared/modules/spells/bfa/azeritetraits/Trea
 // Essences
 import TheEverRisingTide from '../shared/modules/spells/bfa/essences/TheEverRisingTide';
 import TheCrucibleofFlame from '../shared/modules/spells/bfa/essences/TheCrucibleofFlame';
+import WorldveinResonance from '../shared/modules/spells/bfa/essences/WorldveinResonance';
+import NullDynamo from '../shared/modules/spells/bfa/essences/NullDynamo';
 
 // Uldir
 import TwitchingTentacleofXalzaix from '../shared/modules/items/bfa/raids/uldir/TwitchingTentacleofXalzaix';
@@ -173,6 +176,7 @@ import EventEmitter from './modules/EventEmitter';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
+const isMinified = process.env.NODE_ENV === 'production';
 
 class CombatLogParser {
   static abilitiesAffectedByHealingIncreases = [];
@@ -192,7 +196,7 @@ class CombatLogParser {
     prepullNormalizer: PrePullCooldownsNormalizer,
     phaseChangesNormalizer: PhaseChangesNormalizer,
     missingCastsNormalize: MissingCastsNormalizer,
-    
+
     // Analyzers
     healingDone: HealingDone,
     damageDone: DamageDone,
@@ -313,6 +317,8 @@ class CombatLogParser {
     // Essences
     theEverRisingTide: TheEverRisingTide,
     theCrucibleofFlame: TheCrucibleofFlame,
+    worldveinResonance: WorldveinResonance,
+    nullDynamo: NullDynamo,
 
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
@@ -354,6 +360,9 @@ class CombatLogParser {
   combatantInfoEvents = null;
   // Character info from the Battle.net API (optional)
   characterProfile = null;
+
+  //Disabled Modules
+  disabledModules = null;
 
   adjustForDowntime = true;
   get hasDowntime() {
@@ -400,7 +409,11 @@ class CombatLogParser {
     this.characterProfile = characterProfile;
     this._timestamp = selectedFight.start_time;
     this.boss = findByBossId(selectedFight.boss);
-
+    this.disabledModules = {};
+    //initialize disabled modules for each state
+    Object.values(MODULE_ERROR).forEach(key => {
+      this.disabledModules[key] = [];
+    });
     this.initializeModules({
       ...this.constructor.internalModules,
       ...this.constructor.defaultModules,
@@ -468,6 +481,7 @@ class CombatLogParser {
       });
     }
     // TODO: Remove module naming
+    module.key = desiredModuleName;
     this._modules[desiredModuleName] = module;
     return module;
   }
@@ -493,14 +507,29 @@ class CombatLogParser {
         }
         // The priority goes from lowest (most important) to highest, seeing as modules are loaded after their dependencies are loaded, just using the count of loaded modules is sufficient.
         const priority = Object.keys(this._modules).length;
-        this.loadModule(moduleClass, {
-          ...options,
-          ...availableDependencies,
-          priority,
-        }, desiredModuleName);
+        try{
+          this.loadModule(moduleClass, {
+            ...options,
+            ...availableDependencies,
+            priority,
+          }, desiredModuleName);
+        }catch(e){
+          if (process.env.NODE_ENV !== 'production') {
+            throw e;
+          }
+          this.disabledModules[MODULE_ERROR.INITIALIZATION].push({key: isMinified ? desiredModuleName : moduleClass.name, module: moduleClass, error: e});
+          debugDependencyInjection && console.warn(moduleClass.name, 'disabled due to error during initialization: ', e);
+        }
+
       } else {
-        debugDependencyInjection && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
-        failedModules.push(desiredModuleName);
+        const disabledDependencies = missingDependencies.map(d => d.name).filter(x => this.disabledModules[MODULE_ERROR.INITIALIZATION].map(d => d.module.name).includes(x)); //see if a dependency was previously disabled due to an error
+        if(disabledDependencies.length !== 0){ //if a dependency was already marked as disabled due to an error, mark this module as disabled
+          this.disabledModules[MODULE_ERROR.DEPENDENCY].push({key: isMinified ? desiredModuleName : moduleClass.name, module: moduleClass});
+          debugDependencyInjection && console.warn(moduleClass.name, 'disabled due to error during initialization of a dependency.');
+        }else{
+          debugDependencyInjection && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
+          failedModules.push(desiredModuleName);
+        }
       }
     });
 
@@ -558,13 +587,17 @@ class CombatLogParser {
     this.getModule(EventEmitter).addEventListener(...args);
   }
 
-  deepDisable(module) {
-    console.error('Disabling', module.constructor.name);
+  deepDisable(module, state, error = undefined) {
+    if(!module.active){
+      return; //return early
+    }
+    console.error('Disabling', isMinified ? module.key : module.constructor.name);
+    this.disabledModules[state].push({key: isMinified ? module.key : module.constructor.name, module: module.constructor, ...(error && {error: error})});
     module.active = false;
     this.activeModules.forEach(active => {
         const deps = active.constructor.dependencies;
         if (deps && Object.values(deps).find(depClass => module instanceof depClass)) {
-          this.deepDisable(active);
+          this.deepDisable(active, MODULE_ERROR.DEPENDENCY);
         }
       }
     );
@@ -608,9 +641,7 @@ class CombatLogParser {
   generateResults({ i18n, adjustForDowntime }) {
     this.adjustForDowntime = adjustForDowntime;
 
-    const results = new ParseResults();
-
-    results.tabs = [];
+    let results;
 
     const addStatistic = (statistic, basePosition, key) => {
       const position = statistic.props.position !== undefined ? statistic.props.position : basePosition;
@@ -623,67 +654,88 @@ class CombatLogParser {
       );
     };
 
-    Object.keys(this._modules)
-      .filter(key => this._modules[key].active)
-      .sort((a, b) => this._modules[b].priority - this._modules[a].priority)
-      .forEach((key, index) => {
-        const module = this._modules[key];
+    const attemptResultGeneration = () => {
+      return Object.keys(this._modules)
+        .filter(key => this._modules[key].active)
+        .sort((a, b) => this._modules[b].priority - this._modules[a].priority)
+        .every((key, index) => {
+          const module = this._modules[key];
 
-        if (module.statistic) {
-          let basePosition = index;
-          if (module.statisticOrder !== undefined) {
-            basePosition = module.statisticOrder;
-            console.warn('DEPRECATED', 'Setting the position of a statistic via a module\'s `statisticOrder` prop is deprecated. Set the `position` prop on the `StatisticBox` instead. Example commit: https://github.com/WoWAnalyzer/WoWAnalyzer/commit/ece1bbeca0d3721ede078d256a30576faacb803d', module);
-          }
+          try{
+            if (module.statistic) {
+              let basePosition = index;
+              if (module.statisticOrder !== undefined) {
+                basePosition = module.statisticOrder;
+                console.warn('DEPRECATED', 'Setting the position of a statistic via a module\'s `statisticOrder` prop is deprecated. Set the `position` prop on the `StatisticBox` instead. Example commit: https://github.com/WoWAnalyzer/WoWAnalyzer/commit/ece1bbeca0d3721ede078d256a30576faacb803d', module);
+              }
 
-          const statistic = module.statistic({ i18n });
-          if (statistic) {
-            if (Array.isArray(statistic)) {
-              statistic.forEach((statistic, statisticIndex) => {
-                addStatistic(statistic, basePosition, `${key}-statistic-${statisticIndex}`);
-              });
-            } else {
-              addStatistic(statistic, basePosition, `${key}-statistic`);
+              const statistic = module.statistic({ i18n });
+              if (statistic) {
+                if (Array.isArray(statistic)) {
+                  statistic.forEach((statistic, statisticIndex) => {
+                    addStatistic(statistic, basePosition, `${key}-statistic-${statisticIndex}`);
+                  });
+                } else {
+                  addStatistic(statistic, basePosition, `${key}-statistic`);
+                }
+              }
             }
-          }
-        }
-        if (module.item) {
-          const item = module.item({ i18n });
-          if (item) {
-            if (React.isValidElement(item)) {
-              results.statistics.push(React.cloneElement(item, {
-                key: `${key}-item`,
-                position: index,
-              }));
-            } else {
-              const id = item.id || item.item.id;
-              const itemDetails = id && this.selectedCombatant.getItem(id);
-              const icon = item.icon || <ItemIcon id={item.item.id} details={itemDetails} />;
-              const title = item.title || <ItemLink id={item.item.id} details={itemDetails} icon={false} />;
+            if (module.item) {
+              const item = module.item({ i18n });
+              if (item) {
+                if (React.isValidElement(item)) {
+                  results.statistics.push(React.cloneElement(item, {
+                    key: `${key}-item`,
+                    position: index,
+                  }));
+                } else {
+                  const id = item.id || item.item.id;
+                  const itemDetails = id && this.selectedCombatant.getItem(id);
+                  const icon = item.icon || <ItemIcon id={item.item.id} details={itemDetails} />;
+                  const title = item.title || <ItemLink id={item.item.id} details={itemDetails} icon={false} />;
 
-              results.statistics.push(
-                <ItemStatisticBox
-                  key={`${key}-item`}
-                  position={index}
-                  icon={icon}
-                  label={title}
-                  value={item.result}
-                  tooltip={item.tooltip}
-                />
-              );
+                  results.statistics.push(
+                    <ItemStatisticBox
+                      key={`${key}-item`}
+                      position={index}
+                      icon={icon}
+                      label={title}
+                      value={item.result}
+                      tooltip={item.tooltip}
+                    />
+                  );
+                }
+              }
             }
+            if (module.tab) {
+              const tab = module.tab({ i18n });
+              if (tab) {
+                results.tabs.push(tab);
+              }
+            }
+            if (module.suggestions) {
+              module.suggestions(results.suggestions.when, { i18n });
+            }
+          }catch(e){ //error occured during results generation of module, disable module and all modules depending on it
+            if (process.env.NODE_ENV !== 'production') {
+              throw e;
+            }
+            this.deepDisable(module, MODULE_ERROR.RESULTS, e);
+            //break loop and start again with inaccurate modules now disabled (in case of modules being rendered before their dependencies' errors are encountered)
+            return false;
           }
-        }
-        if (module.tab) {
-          const tab = module.tab({ i18n });
-          if (tab) {
-            results.tabs.push(tab);
-          }
-        }
-        if (module.suggestions) {
-          module.suggestions(results.suggestions.when, { i18n });
-        }
-      });
+          return true;
+        });
+    };
+
+    //keep trying to generate results until no "new" errors are found anymore to weed out all the inaccurate / errored modules
+    let generated = false;
+    while(!generated){
+      results = new ParseResults();
+
+      results.tabs = [];
+      generated = attemptResultGeneration();
+    }
 
     return results;
   }

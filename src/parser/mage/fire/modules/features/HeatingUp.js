@@ -171,7 +171,8 @@ class HeatingUp extends Analyzer {
       <StatisticBox
         position={STATISTIC_ORDER.CORE(14)}
         icon={<SpellIcon id={SPELLS.HEATING_UP.id} />}
-        value={(<>
+        value={(
+<>
           <SpellIcon
             id={SPELLS.FIRE_BLAST.id}
             style={{
@@ -188,7 +189,8 @@ class HeatingUp extends Analyzer {
             }}
           />
           {' '}{formatPercentage(this.phoenixFlamesUtil, 0)} %
-        </>)}
+        </>
+)}
         label="Heating Up Utilization"
         tooltip={(
           <>

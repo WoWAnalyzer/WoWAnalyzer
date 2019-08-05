@@ -1,17 +1,18 @@
 import React from 'react';
 
+import { calculateAzeriteEffects } from 'common/stats';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import HIT_TYPES from 'game/HIT_TYPES';
 import SpellLink from 'common/SpellLink';
 
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Analyzer from 'parser/core/Analyzer';
 import Combatants from 'parser/shared/modules/Combatants';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import { calculateTraitHealing } from 'parser/shared/modules/helpers/CalculateTraitHealing';
 
-import { MISTWEAVER_HEALING_AURA, ESSENCE_FONT_SPELLPOWER_COEFFICIENT } from '../../../constants';
+import { ESSENCE_FONT_SPELLPOWER_COEFFICIENT } from '../../../constants';
 
 class FontOfLife extends Analyzer {
   static dependencies = {
@@ -27,31 +28,25 @@ class FontOfLife extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.FONT_OF_LIFE.id);
+    if (!this.active) {
+      return;
+    }
+    const ranks = this.selectedCombatant.traitRanks(SPELLS.FONT_OF_LIFE.id) || [];
+    this.traitRawHealing = ranks.reduce((total, rank) => total + calculateAzeriteEffects(SPELLS.FONT_OF_LIFE.id, rank)[0], 0);
   }
 
   healing = 0;
   baseHeal = 0
+  traitRawHealing = 0;
 
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if (event.overheal > 0) { // Exit as spell has overhealed and no need for adding in the additional healing from the trait
+    if (spellId !== SPELLS.ESSENCE_FONT_BUFF.id || event.tick) {
       return;
     }
 
-    if (spellId === SPELLS.ESSENCE_FONT_BUFF.id && event.tick !== true) {
-      const versPerc = this.statTracker.currentVersatilityPercentage;
-      const mwAura = MISTWEAVER_HEALING_AURA;
-      const intRating = this.statTracker.currentIntellectRating;
-      const healAmount = event.amount + (event.absorbed || 0);
-
-      this.baseHeal = (intRating * ESSENCE_FONT_SPELLPOWER_COEFFICIENT) * mwAura * (1 + versPerc);
-
-      if (event.hitType === HIT_TYPES.CRIT) {
-        this.baseHeal = this.baseHeal * 2;
-      }
-      this.healing += (healAmount - this.baseHeal);
-    }
+    this.healing += calculateTraitHealing(this.statTracker.currentIntellectRating, ESSENCE_FONT_SPELLPOWER_COEFFICIENT, this.traitRawHealing, event).healing;
   }
 
   statistic() {

@@ -273,6 +273,10 @@ exports[`The Brewmaster Analyzer analyzers Checklist matches the statistic snaps
 
 exports[`The Brewmaster Analyzer analyzers Checklist matches the suggestions snapshot 1`] = `"module has no suggestions"`;
 
+exports[`The Brewmaster Analyzer analyzers CritValue matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Brewmaster Analyzer analyzers CritValue matches the suggestions snapshot 1`] = `Array []`;
+
 exports[`The Brewmaster Analyzer analyzers DamageTaken matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`The Brewmaster Analyzer analyzers DamageTaken matches the suggestions snapshot 1`] = `Array []`;
@@ -757,7 +761,7 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
             className="text-right"
           >
             <b>
-              815k
+              949k
             </b>
           </td>
           <td
@@ -797,7 +801,7 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
           <td
             className="text-right"
           >
-            815k
+            949k
           </td>
           <td
             className="text-right"
@@ -839,7 +843,7 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
             className="text-right"
           >
             <b>
-              1.78
+              1.53
             </b>
           </td>
           <td
@@ -855,7 +859,7 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
           >
             <b>
               = 
-              19.54
+              16.78
             </b>
           </td>
         </tr>
@@ -890,13 +894,13 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
           <td
             className="text-right"
           >
-            1.78
+            1.53
           </td>
           <td />
           <td
             className="text-right"
           >
-            19.54
+            16.78
           </td>
         </tr>
         <tr>
@@ -939,14 +943,14 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
             className="text-right"
           >
             <b>
-              407k
+              399k
             </b>
           </td>
           <td
             className="text-right"
           >
             <b>
-              0.33
+              0.28
             </b>
           </td>
           <td
@@ -962,7 +966,7 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
           >
             <b>
               = 
-              89.70
+              75.48
             </b>
           </td>
         </tr>
@@ -997,13 +1001,13 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
           <td
             className="text-right"
           >
-            0.30
+            0.26
           </td>
           <td />
           <td
             className="text-right"
           >
-            81.19
+            69.71
           </td>
         </tr>
         <tr>
@@ -1092,18 +1096,18 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
           <td
             className="text-right"
           >
-            39k
+            31k
           </td>
           <td
             className="text-right"
           >
-            0.03
+            0.02
           </td>
           <td />
           <td
             className="text-right"
           >
-            8.51
+            5.77
           </td>
         </tr>
         <tr>
@@ -1141,7 +1145,7 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
             className="text-right"
           >
             <b>
-              0.23
+              0.20
             </b>
           </td>
           <td
@@ -1157,7 +1161,7 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
           >
             <b>
               = 
-              3.28
+              2.82
             </b>
           </td>
         </tr>
@@ -1192,13 +1196,13 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
           <td
             className="text-right"
           >
-            0.23
+            0.20
           </td>
           <td />
           <td
             className="text-right"
           >
-            3.28
+            2.82
           </td>
         </tr>
         <tr>
@@ -1288,14 +1292,14 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
             className="text-right"
           >
             <b>
-              291k
+              287k
             </b>
           </td>
           <td
             className="text-right"
           >
             <b>
-              1.49
+              1.26
             </b>
           </td>
           <td
@@ -1311,7 +1315,7 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
           >
             <b>
               = 
-              20.85
+              17.61
             </b>
           </td>
         </tr>
@@ -1328,18 +1332,18 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
           <td
             className="text-right"
           >
-            235k
+            230k
           </td>
           <td
             className="text-right"
           >
-            1.20
+            1.01
           </td>
           <td />
           <td
             className="text-right"
           >
-            16.83
+            14.16
           </td>
         </tr>
         <tr>
@@ -1360,13 +1364,13 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
           <td
             className="text-right"
           >
-            0.29
+            0.25
           </td>
           <td />
           <td
             className="text-right"
           >
-            4.02
+            3.45
           </td>
         </tr>
         <tr>
@@ -1409,7 +1413,7 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
             className="text-right"
           >
             <b>
-              1.49
+              1.28
             </b>
           </td>
           <td
@@ -1425,7 +1429,7 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
           >
             <b>
               = 
-              43.32
+              37.20
             </b>
           </td>
         </tr>
@@ -1460,13 +1464,13 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
           <td
             className="text-right"
           >
-            1.20
+            1.03
           </td>
           <td />
           <td
             className="text-right"
           >
-            34.89
+            29.95
           </td>
         </tr>
         <tr>
@@ -1487,13 +1491,13 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
           <td
             className="text-right"
           >
-            0.29
+            0.25
           </td>
           <td />
           <td
             className="text-right"
           >
-            8.44
+            7.24
           </td>
         </tr>
       </tbody>
@@ -1852,6 +1856,10 @@ exports[`The Brewmaster Analyzer analyzers TigerPalm matches the suggestions sna
 exports[`The Brewmaster Analyzer analyzers TrainingOfNiuzao matches the statistic snapshot 1`] = `"module inactive"`;
 
 exports[`The Brewmaster Analyzer analyzers TrainingOfNiuzao matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Brewmaster Analyzer analyzers VersatilityValue matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Brewmaster Analyzer analyzers VersatilityValue matches the suggestions snapshot 1`] = `Array []`;
 
 exports[`The Brewmaster Analyzer should match the checklist snapshot 1`] = `
 <ul

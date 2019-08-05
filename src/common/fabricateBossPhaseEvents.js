@@ -9,7 +9,7 @@ export function fabricateBossPhaseEvents(events, report, fight) {
 
   const phaseEvents = [];
   const bossPhaseEvents = [];
-
+  const phaseInstances = {};
   if (bossConfig && bossConfig.fight && bossConfig.fight.phases && bossConfig.fight.phases.length !== 0) {
     const phasesKeys = Object.keys(bossConfig.fight.phases).filter(key => bossConfig.fight.phases[key].difficulties.includes(fightDifficulty));
 
@@ -31,8 +31,7 @@ export function fabricateBossPhaseEvents(events, report, fight) {
             case 'begincast':
             case 'cast': {
               let bossEvents = events.filter(e => e.type === phase.filter.type && e.ability.guid === phase.filter.ability.id);
-
-              if (phase.filter.eventInstance !== undefined && phase.filter.eventInstance >= 0) {
+              if (phase.filter.eventInstance !== undefined && phase.filter.eventInstance >= 0 && !phase.multiple) {
                 if (bossEvents.length >= (phase.filter.eventInstance + 1)) {
                   // If the instance exists, only that specific instance is relevant
                   bossEvents = [bossEvents[phase.filter.eventInstance]];
@@ -42,7 +41,6 @@ export function fabricateBossPhaseEvents(events, report, fight) {
                   break;
                 }
               }
-
               bossEvents.forEach(bossEvent => {
                 phaseEvents.push({
                   key: key,
@@ -103,20 +101,24 @@ export function fabricateBossPhaseEvents(events, report, fight) {
   }
 
   phaseEvents.sort((a, b) => a.start - b.start);
-
-  phaseEvents.forEach((event) => {
+  phaseEvents.filter((event, index, array) => {
+    return index === 0 || event.key !== array[index - 1].key; //only keep events that arent preceded by another start event of the same phase
+  }).forEach((event, _, array) => {
     if (!event.end) {
-      const nextMainPhase = phaseEvents.find(next => !next.end && next.id !== event.id);
+      const nextMainPhase = array.find(next => !next.end && next.key !== event.key);
       if (nextMainPhase) {
         event.end = nextMainPhase.start;
       } else {
         event.end = fight.end_time;
       }
     }
-    createPhaseStartEvent(event.start, event.phase, bossPhaseEvents);
-    createPhaseEndEvent(event.end, event.phase, bossPhaseEvents);
+    if(!phaseInstances[event.key]){
+      phaseInstances[event.key] = 0;
+    }
+    createPhaseStartEvent(event.start, {key: event.key, instance: phaseInstances[event.key], ...event.phase}, bossPhaseEvents);
+    createPhaseEndEvent(event.end, {key: event.key, instance: phaseInstances[event.key], ...event.phase}, bossPhaseEvents);
+    phaseInstances[event.key] += 1;
   });
-
   return bossPhaseEvents;
 }
 

@@ -22,6 +22,7 @@ Ring.propTypes = {
   size: PropTypes.number.isRequired,
   color: PropTypes.string,
   style: PropTypes.object,
+  innerRef: PropTypes.any,
 };
 Ring.defaultProps = {
   color: '#9c9c9c',
