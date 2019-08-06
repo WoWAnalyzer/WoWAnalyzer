@@ -56,7 +56,7 @@ jobs:
       if: type != pull_request
       language: generic
       services: docker
-      script: bash .travis/dockerlogin.sh && .travis/deploy.sh
+      script: bash .travis/dockerlogin.sh && bash .travis/deploy.sh
 after_failure:
   - chmod +x .travis/discord-hook/fail.sh
   - ./.travis/discord-hook/fail.sh
