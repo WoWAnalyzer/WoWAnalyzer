@@ -119,6 +119,14 @@ describe('stats', () => {
         340: [10012],
       });
     });
+    it('correct scales essence powers', () => { // uses a custom essence scaling formula
+      // Vision of Perfection Minor
+      verifyAzeritePower(296320, {
+        439: [-4482, 68],
+        443: [-4545, 69],
+        447: [-4602, 70],
+      });
+    });
     it('correctly computes Gemhide armor and avoidance', () => {
       const spellId = 268596;
       const values = {
