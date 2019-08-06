@@ -10,13 +10,13 @@ env:
     - DISABLE_AUTOMATIC_ESLINT=true
 jobs:
   include:
-    - stage: test
+    - stage: build
       name: "Check if a changelog entry exists"
       if: type = pull_request
       install: true # skip install since it has no dependencies
       script:
         - node scripts/require-changelog-entry.js
-    - stage: test
+    - stage: build
       name: "code-quality: eslint"
       cache:
         directories:
@@ -25,7 +25,7 @@ jobs:
         - npm ci --dev
       script:
         - npm run lint -- --max-warnings=0
-    - stage: test
+    - stage: build
       name: "tests"
       cache:
         directories:
@@ -35,11 +35,13 @@ jobs:
       script:
         - npm run test -- --maxWorkers=2
     - stage: build
-      name: "Build a new Docker image"
+      name: "Build a production-ready Docker image"
       language: generic
       services: docker
       script: docker build --tag wowanalyzer --build-arg REACT_APP_ENVIRONMENT_NAME=$TRAVIS_BRANCH --build-arg REACT_APP_VERSION=$TRAVIS_COMMIT --build-arg DISABLE_AUTOMATIC_ESLINT=true .
       # Reminder: deploy doesn't run on PRs
+      # Also this deploy only pushes a build specific image,
+      # it won't deploy it to the server.
       deploy:
         provider: script
         skip_cleanup: true
