@@ -147,8 +147,18 @@ export default {
     name: 'Vision of Perfection',
     icon: 'spell_azerite_essence_18',
   },
-  VISION_OF_PERFECTION_HASTE: {
+  VISION_OF_PERFECTION_HASTE_CALC: {
     id: 303342,
+    name: 'Vision of Perfection',
+    icon: 'spell_azerite_essence_18',
+  },
+  VISION_OF_PERFECTION_HASTE_BUFF_SELF: {
+    id: 303344,
+    name: 'Vision of Perfection',
+    icon: 'spell_azerite_essence_18',
+  },
+  VISION_OF_PERFECTION_HASTE_BUFF_OTHERS: {
+    id: 303345,
     name: 'Vision of Perfection',
     icon: 'spell_azerite_essence_18',
   },

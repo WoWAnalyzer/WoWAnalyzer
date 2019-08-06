@@ -29,7 +29,7 @@ const calculateCooldown = (ilvl, cooldown) => {
   let reductionPercentage = ((calculateAzeriteEffects(SPELLS.STRIVE_FOR_PERFECTION.id, ilvl)[0] + VISION_MAGIC_NUMBER) / -100);
   // Clamped to 10% - 25%
   reductionPercentage = Math.max(10, Math.min(25, reductionPercentage));
-  return cooldown * (1 - reductionPercentage / 100);
+  return Math.round(cooldown * (1 - reductionPercentage / 100));
 };
 
 class VisionOfPerfection extends Analyzer {
@@ -55,24 +55,13 @@ class VisionOfPerfection extends Analyzer {
 
     this.hasMajor = this.selectedCombatant.hasMajor(SPELLS.VISION_OF_PERFECTION.traitId);
     this.minorVersatility = calculateSecondaryStatDefault(420,45,this.selectedCombatant.neck.itemLevel);
-    // Below was way inaccurate, should revisit it when Rank 3 is available to find out why.
+    // Below was way inaccurate, need to revisit it.
     // Currently scales backwards on the tooltip on live servers (45 vers at neck 55, 43 vers at neck 57, 42 vers at neck 61)
     // this.minorVersatility = calculateAzeriteEffects(SPELLS.STRIVE_FOR_PERFECTION_VERSATILITY.id, this.selectedCombatant.neck.itemLevel)[0];
-    this.majorHaste = calculateAzeriteEffects(SPELLS.VISION_OF_PERFECTION_HASTE.id, this.selectedCombatant.neck.itemLevel, null,true)[0];
+    this.majorHaste = calculateAzeriteEffects(SPELLS.VISION_OF_PERFECTION_HASTE_CALC.id, this.selectedCombatant.neck.itemLevel)[0];
 
-    if (this.hasMajor) {
-      this.buffs.add({
-        spellId: SPELLS.VISION_OF_PERFECTION_HASTE.id,
-        triggeredBySpellId: SPELLS.VISION_OF_PERFECTION_HASTE.id,
-        timelineHightlight: true,
-      });
-    }
-    // This will be inaccurate if you get the buff off of somebody else
-    this.statTracker.add(SPELLS.VISION_OF_PERFECTION_HASTE.id, {
+    this.statTracker.add(SPELLS.VISION_OF_PERFECTION_HASTE_BUFF_SELF.id, {
       haste: this.majorHaste,
-    });
-    this.statTracker.add(SPELLS.STRIVE_FOR_PERFECTION_VERSATILITY.id, {
-      versatility: this.minorVersatility,
     });
 
     this.addEventListener(Events.summon.by(SELECTED_PLAYER).spell(SPELLS.HEALING_TIDE_TOTEM_CAST), this._newHTT);
@@ -105,7 +94,7 @@ class VisionOfPerfection extends Analyzer {
   }
 
   get majorHasteGain() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.VISION_OF_PERFECTION_HASTE.id, this.selectedCombatant.id) / this.owner.fightDuration * this.majorHaste;
+    return this.selectedCombatant.getBuffUptime(SPELLS.VISION_OF_PERFECTION_HASTE_BUFF_SELF.id, this.selectedCombatant.id) / this.owner.fightDuration * this.majorHaste;
   }
 
   statistic() {
