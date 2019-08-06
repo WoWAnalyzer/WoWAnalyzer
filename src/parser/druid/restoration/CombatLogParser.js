@@ -48,6 +48,7 @@ import WakingDream from './modules/items/azeritetraits/WakingDream';
 import LivelySpirit from './modules/items/azeritetraits/LivelySpirit';
 import RampantGrowth from './modules/items/azeritetraits/RampantGrowth';
 import EarlyHarvest from './modules/items/azeritetraits/EarlyHarvest';
+import LucidDreams from './modules/essences/LucidDreamsHealersRestoDruid';
 
 import StatWeights from './modules/features/StatWeights';
 
@@ -121,6 +122,9 @@ class CombatLogParser extends CoreCombatLogParser {
     livelySpirit: LivelySpirit,
     rampantGrowth: RampantGrowth,
     earlyHarvest: EarlyHarvest,
+
+    // Essences
+    lucidDreams: LucidDreams,
 
     statWeights: StatWeights,
 

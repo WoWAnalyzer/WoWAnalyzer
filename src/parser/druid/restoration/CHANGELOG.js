@@ -5,6 +5,7 @@ import { Yajinni, blazyb, fel1ne, Qbz, Zerotorescue, Abelito75 } from 'CONTRIBUT
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 8, 6), 'Added essence Lucid Dreams.', [blazyb]),
   change(date(2019, 6, 2), 'Enabled the QElive auto import link for stat values.', [Abelito75]),
   change(date(2019, 5, 26), 'Fixed a bug where Lively Spirit increased int gain on tab switch.', [Qbz]),
   change(date(2019, 4, 27), 'Fixed a bug where regrowths during innervate were used in clearcasting calculation.', [Qbz]),

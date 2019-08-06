@@ -140,4 +140,36 @@ export default {
     name: 'Null Barrier',
     icon: 'spell_azerite_essence_16',
   },
+  // Memory of Lucid Dreams
+  LUCID_DREAMS: {
+    id: 299374,
+    traitId: 27,
+    name: 'Memory of Lucid Dreams',
+    icon: 'spell_azerite_essence05',
+  },
+  LUCID_DREAMS_MAJOR: {
+    id: 298357,
+    name: 'Memory of Lucid Dreams',
+    icon: 'spell_azerite_essence05',
+  },
+  LUCID_DREAMS_MINOR: {
+    id: 299373,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
+  LUCID_DREAMS_MINOR_STAT_BUFF: {
+    id: 298343,
+    name: 'Lucid Dreams',
+    icon: 'spell_azerite_essence05',
+  },
+  LUCID_DREAMS_HEAL: {
+    id: 298318,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
+  LUCID_DREAMS_MINOR_RESOURCE_REFUND: {
+    id: 298324,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
 };
