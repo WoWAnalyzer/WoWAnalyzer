@@ -140,4 +140,31 @@ export default {
     name: 'Null Barrier',
     icon: 'spell_azerite_essence_16',
   },
+  //Vision of Perfection
+  VISION_OF_PERFECTION: {
+    id: 296325,
+    traitId: 22,
+    name: 'Vision of Perfection',
+    icon: 'spell_azerite_essence_18',
+  },
+  VISION_OF_PERFECTION_HASTE: {
+    id: 303342,
+    name: 'Vision of Perfection',
+    icon: 'spell_azerite_essence_18',
+  },
+  STRIVE_FOR_PERFECTION: {
+    id: 296320,
+    name: 'Strive for Perfection',
+    icon: 'inv_radientazeritematrix',
+  },
+  STRIVE_FOR_PERFECTION_HEAL: { // 5% heal on activation
+    id: 296330,
+    name: 'Strive for Perfection',
+    icon: 'spell_azerite_essence_18',
+  },
+  STRIVE_FOR_PERFECTION_VERSATILITY: {
+    id: 296322,
+    name: 'Strive for Perfection',
+    icon: 'inv_radientazeritematrix',
+  },
 };
