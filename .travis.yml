@@ -35,6 +35,7 @@ jobs:
       script:
         - npm run test -- --maxWorkers=2
     - stage: build
+      name: "Build a new Docker image"
       language: generic
       services: docker
       script: docker build --tag wowanalyzer --build-arg REACT_APP_ENVIRONMENT_NAME=$TRAVIS_BRANCH --build-arg REACT_APP_VERSION=$TRAVIS_COMMIT --build-arg DISABLE_AUTOMATIC_ESLINT=true .
@@ -42,9 +43,18 @@ jobs:
       deploy:
         provider: script
         skip_cleanup: true
-        script: bash .travis/deploy.sh
+        script: bash .travis/dockerlogin.sh && bash .travis/publish.sh
         on:
           all_branches: true
+    - stage: deploy
+      # Not really deploy since our server just monitors the
+      # Docker repo and this doesn't have access to it. It's
+      # close though since this step will trigger that deploy.
+      name: "Deploy the Docker image to the Docker repository"
+      if: type != pull_request
+      language: generic
+      services: docker
+      script: bash .travis/dockerlogin.sh && .travis/deploy.sh
 after_failure:
   - chmod +x .travis/discord-hook/fail.sh
   - ./.travis/discord-hook/fail.sh
