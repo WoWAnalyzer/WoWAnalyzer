@@ -17,7 +17,7 @@ const News = () => (
       <div className="flex-sub flex-sub-news">
         <small>More news?</small>
         <span style={{ fontSize: 18, marginLeft: 10 }}>
-          <TwitterIcon colored /> <a href="https://twitter.com/WoWAnalyzer" style={{fontSize: '16px'}}>Follow @WoWAnalyzer</a>
+          <TwitterIcon colored /> <a href="https://twitter.com/WoWAnalyzer" style={{ fontSize: 16 }}>Follow @WoWAnalyzer</a>
         </span>
       </div>
     </div>
