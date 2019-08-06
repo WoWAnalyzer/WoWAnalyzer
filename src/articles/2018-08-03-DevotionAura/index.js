@@ -97,7 +97,7 @@ export default (
 
     The methods used to get you a DRPS value for Devotion Aura on WoWAnalyzer gives us very accurate results. The methods are described in this article so that anyone can review and verify them. If you have any feedback let me know on Discord; @Zerotorescue.<br /><br />
 
-    More info on Devotion Aura: <a class="overflow-link" href="https://github.com/MartijnHols/HolyPaladin/blob/master/Spells/Talents/60/DevotionAura.md">https://github.com/MartijnHols/HolyPaladin/blob/master/Spells/Talents/60/DevotionAura.md</a><br />
-    More info on all auras: <a class="overflow-link" href="https://sacredshielding.wordpress.com/2018/07/23/reading-the-color-of-your-aura-in-battle-for-azeroth/">https://sacredshielding.wordpress.com/2018/07/23/reading-the-color-of-your-aura-in-battle-for-azeroth/</a>
+    More info on Devotion Aura: <a className="overflow-link" href="https://github.com/MartijnHols/HolyPaladin/blob/master/Spells/Talents/60/DevotionAura.md">https://github.com/MartijnHols/HolyPaladin/blob/master/Spells/Talents/60/DevotionAura.md</a><br />
+    More info on all auras: <a className="overflow-link" href="https://sacredshielding.wordpress.com/2018/07/23/reading-the-color-of-your-aura-in-battle-for-azeroth/">https://sacredshielding.wordpress.com/2018/07/23/reading-the-color-of-your-aura-in-battle-for-azeroth/</a>
   </RegularArticle>
 );
