@@ -5601,7 +5601,8 @@
         "type": 87,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 2
   },
   "293031": {
     "name": "Suppressing Pulse",
@@ -5619,7 +5620,8 @@
         "type": 342,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 3
   },
   "293032": {
     "name": "Life-Binder's Invocation",
@@ -5632,7 +5634,8 @@
         "type": 0,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 20
   },
   "294650": {
     "name": "Azeroth's Undying Gift",
@@ -5645,7 +5648,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 2
   },
   "294653": {
     "name": "Azeroth's Undying Gift",
@@ -5658,7 +5662,8 @@
         "type": 218,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 2
   },
   "294655": {
     "name": "Azeroth's Undying Gift",
@@ -5671,7 +5676,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 2
   },
   "294668": {
     "name": "Hardened Azerite",
@@ -5694,7 +5700,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 2
   },
   "294687": {
     "name": "Hardened Azerite",
@@ -5712,7 +5719,8 @@
         "type": 218,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 2
   },
   "294688": {
     "name": "Hardened Azerite",
@@ -5725,7 +5733,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 2
   },
   "294689": {
     "name": "Hardened Azerite",
@@ -5738,7 +5747,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 2
   },
   "294906": {
     "name": "Sphere of Suppression",
@@ -5751,7 +5761,8 @@
         "type": 218,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 3
   },
   "294907": {
     "name": "Sphere of Suppression",
@@ -5764,7 +5775,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 3
   },
   "294908": {
     "name": "Sphere of Suppression",
@@ -5777,7 +5789,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 3
   },
   "294910": {
     "name": "Sphere of Suppression",
@@ -5795,7 +5808,8 @@
         "type": 42,
         "avg": 0.5575
       }
-    }
+    },
+    "essence_id": 3
   },
   "294919": {
     "name": "Sphere of Suppression",
@@ -5813,7 +5827,8 @@
         "type": 219,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 3
   },
   "294920": {
     "name": "Sphere of Suppression",
@@ -5826,7 +5841,8 @@
         "type": 4,
         "avg": 0.5575
       }
-    }
+    },
+    "essence_id": 3
   },
   "294922": {
     "name": "Sphere of Suppression",
@@ -5839,7 +5855,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 3
   },
   "294926": {
     "name": "Anima of Death",
@@ -5857,7 +5874,8 @@
         "type": 0,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 7
   },
   "294945": {
     "name": "Anima of Death",
@@ -5875,7 +5893,8 @@
         "type": 219,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 7
   },
   "294964": {
     "name": "Anima of Life",
@@ -5898,7 +5917,8 @@
         "type": 4,
         "avg": 8.108109
       }
-    }
+    },
+    "essence_id": 7
   },
   "294969": {
     "name": "Anima of Life",
@@ -5911,7 +5931,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 7
   },
   "294970": {
     "name": "Anima of Life",
@@ -5924,7 +5945,8 @@
         "type": 42,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 7
   },
   "294972": {
     "name": "Anima of Life",
@@ -5937,7 +5959,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 7
   },
   "295078": {
     "name": "Lifeblood",
@@ -5970,7 +5993,8 @@
         "type": 4,
         "avg": 0.177373
       }
-    }
+    },
+    "essence_id": 4
   },
   "295160": {
     "name": "Worldvein Resonance",
@@ -5983,7 +6007,8 @@
         "type": 218,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 4
   },
   "295165": {
     "name": "Lifeblood",
@@ -5996,7 +6021,8 @@
         "type": 219,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 4
   },
   "295166": {
     "name": "Lifeblood",
@@ -6009,7 +6035,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 4
   },
   "295186": {
     "name": "Worldvein Resonance",
@@ -6022,7 +6049,8 @@
         "type": 0,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 4
   },
   "295208": {
     "name": "Worldvein Resonance",
@@ -6035,7 +6063,8 @@
         "type": 218,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 4
   },
   "295209": {
     "name": "Worldvein Resonance",
@@ -6048,7 +6077,8 @@
         "type": 219,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 4
   },
   "295210": {
     "name": "Worldvein Resonance",
@@ -6061,7 +6091,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 4
   },
   "295246": {
     "name": "Focused Energy",
@@ -6079,7 +6110,8 @@
         "type": 4,
         "avg": 0.040884
       }
-    }
+    },
+    "essence_id": 5
   },
   "295251": {
     "name": "Focused Energy",
@@ -6092,7 +6124,8 @@
         "type": 218,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 5
   },
   "295252": {
     "name": "Focused Energy",
@@ -6105,7 +6138,8 @@
         "type": 219,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 5
   },
   "295253": {
     "name": "Essence of the Focusing Iris",
@@ -6118,7 +6152,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 5
   },
   "295258": {
     "name": "Focused Azerite Beam",
@@ -6136,7 +6171,8 @@
         "type": 226,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 5
   },
   "295262": {
     "name": "Focused Azerite Beam",
@@ -6159,7 +6195,8 @@
         "type": 218,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 5
   },
   "295263": {
     "name": "Focused Azerite Beam",
@@ -6172,7 +6209,8 @@
         "type": 307,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 5
   },
   "295264": {
     "name": "Focused Azerite Beam",
@@ -6185,7 +6223,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 5
   },
   "295293": {
     "name": "Purification Protocol",
@@ -6213,7 +6252,8 @@
         "type": 4,
         "avg": 11.176924
       }
-    }
+    },
+    "essence_id": 6
   },
   "295306": {
     "name": "Anima of Death",
@@ -6226,7 +6266,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 7
   },
   "295307": {
     "name": "Anima of Death",
@@ -6239,7 +6280,8 @@
         "type": 218,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 7
   },
   "295333": {
     "name": "Purification Protocol",
@@ -6252,7 +6294,8 @@
         "type": 4,
         "avg": 4.126214
       }
-    }
+    },
+    "essence_id": 6
   },
   "295337": {
     "name": "Purifying Blast",
@@ -6270,7 +6313,8 @@
         "type": 0,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 6
   },
   "295351": {
     "name": "Purification Protocol",
@@ -6283,7 +6327,8 @@
         "type": 218,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 6
   },
   "295352": {
     "name": "Purifying Blast",
@@ -6296,7 +6341,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 6
   },
   "295358": {
     "name": "Purifying Blast",
@@ -6309,7 +6355,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 6
   },
   "295363": {
     "name": "Purification Protocol",
@@ -6322,7 +6369,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 6
   },
   "295364": {
     "name": "Purifying Blast",
@@ -6335,7 +6383,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 6
   },
   "295365": {
     "name": "Ancient Flame",
@@ -6363,7 +6412,8 @@
         "type": 189,
         "avg": 0.119847
       }
-    }
+    },
+    "essence_id": 12
   },
   "295369": {
     "name": "Ancient Flame",
@@ -6376,7 +6426,8 @@
         "type": 219,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 12
   },
   "295372": {
     "name": "Ancient Flame",
@@ -6389,7 +6440,8 @@
         "type": 218,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 12
   },
   "295373": {
     "name": "Concentrated Flame",
@@ -6412,7 +6464,8 @@
         "type": 0,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 12
   },
   "295377": {
     "name": "Concentrated Flame",
@@ -6425,7 +6478,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 12
   },
   "295379": {
     "name": "Concentrated Flame",
@@ -6438,7 +6492,8 @@
         "type": 411,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 12
   },
   "295380": {
     "name": "Concentrated Flame",
@@ -6456,7 +6511,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 12
   },
   "295381": {
     "name": "Ancient Flame",
@@ -6469,7 +6525,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 12
   },
   "295746": {
     "name": "Empowered Null Barrier",
@@ -6482,7 +6539,8 @@
         "type": 69,
         "avg": 500
       }
-    }
+    },
+    "essence_id": 13
   },
   "295747": {
     "name": "Null Dynamo",
@@ -6495,7 +6553,8 @@
         "type": 218,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 13
   },
   "295748": {
     "name": "Null Dynamo",
@@ -6508,7 +6567,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 13
   },
   "295749": {
     "name": "Null Barrier",
@@ -6521,7 +6581,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 13
   },
   "295750": {
     "name": "Null Barrier",
@@ -6534,7 +6595,8 @@
         "type": 23,
         "avg": 99.535027
       }
-    }
+    },
+    "essence_id": 13
   },
   "295834": {
     "name": "Condensed Life-Force",
@@ -6547,7 +6609,8 @@
         "type": 42,
         "avg": 28.969231
       }
-    }
+    },
+    "essence_id": 14
   },
   "295836": {
     "name": "Condensed Life-Force",
@@ -6560,7 +6623,8 @@
         "type": 218,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 14
   },
   "295837": {
     "name": "Condensed Life-Force",
@@ -6573,7 +6637,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 14
   },
   "295839": {
     "name": "Condensed Life-Force",
@@ -6586,7 +6651,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 14
   },
   "295840": {
     "name": "Guardian of Azeroth",
@@ -6604,7 +6670,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 14
   },
   "295841": {
     "name": "Guardian of Azeroth",
@@ -6617,7 +6684,8 @@
         "type": 4,
         "avg": 29.420732
       }
-    }
+    },
+    "essence_id": 14
   },
   "295843": {
     "name": "Guardian of Azeroth",
@@ -6630,7 +6698,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 14
   },
   "295844": {
     "name": "Null Dynamo",
@@ -6648,7 +6717,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 13
   },
   "295845": {
     "name": "Null Dynamo",
@@ -6661,7 +6731,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 13
   },
   "295846": {
     "name": "Null Dynamo",
@@ -6674,7 +6745,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 13
   },
   "295892": {
     "name": "Condensed Life-Force",
@@ -6687,7 +6759,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 14
   },
   "296050": {
     "name": "The Ever-Rising Tide",
@@ -6705,7 +6778,8 @@
         "type": 189,
         "avg": 4.181275
       }
-    }
+    },
+    "essence_id": 17
   },
   "296062": {
     "name": "The Ever-Rising Tide",
@@ -6718,7 +6792,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 17
   },
   "296067": {
     "name": "The Ever-Rising Tide",
@@ -6731,7 +6806,8 @@
         "type": 218,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 17
   },
   "296072": {
     "name": "Overcharge Mana",
@@ -6749,7 +6825,8 @@
         "type": 193,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 17
   },
   "296074": {
     "name": "Overcharge Mana",
@@ -6762,7 +6839,8 @@
         "type": 219,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 17
   },
   "296075": {
     "name": "Overcharge Mana",
@@ -6775,7 +6853,8 @@
         "type": 219,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 17
   },
   "296081": {
     "name": "Artifice of Time",
@@ -6793,7 +6872,8 @@
         "type": 4,
         "avg": 0.631837
       }
-    }
+    },
+    "essence_id": 18
   },
   "296089": {
     "name": "Artifice of Time",
@@ -6806,7 +6886,8 @@
         "type": 4,
         "avg": 0.631837
       }
-    }
+    },
+    "essence_id": 18
   },
   "296091": {
     "name": "Artifice of Time",
@@ -6819,7 +6900,8 @@
         "type": 219,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 18
   },
   "296094": {
     "name": "Standstill",
@@ -6842,7 +6924,8 @@
         "type": 106,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 18
   },
   "296102": {
     "name": "Artifice of Time",
@@ -6855,7 +6938,8 @@
         "type": 219,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 18
   },
   "296103": {
     "name": "Artifice of Time",
@@ -6868,7 +6952,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 18
   },
   "296136": {
     "name": "The Well of Existence",
@@ -6891,7 +6976,8 @@
         "type": 4,
         "avg": 24
       }
-    }
+    },
+    "essence_id": 19
   },
   "296192": {
     "name": "The Well of Existence",
@@ -6909,7 +6995,8 @@
         "type": 0,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 19
   },
   "296193": {
     "name": "The Well of Existence",
@@ -6922,7 +7009,8 @@
         "type": 4,
         "avg": 61.349693
       }
-    }
+    },
+    "essence_id": 19
   },
   "296197": {
     "name": "Refreshment",
@@ -6940,7 +7028,8 @@
         "type": 0,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 19
   },
   "296200": {
     "name": "Refreshment",
@@ -6953,7 +7042,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 19
   },
   "296201": {
     "name": "Refreshment",
@@ -6966,7 +7056,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 19
   },
   "296207": {
     "name": "Seed of Eonar",
@@ -6979,7 +7070,8 @@
         "type": 42,
         "avg": 19.129999
       }
-    }
+    },
+    "essence_id": 20
   },
   "296213": {
     "name": "Life-Binder's Invocation",
@@ -6992,7 +7084,8 @@
         "type": 219,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 20
   },
   "296214": {
     "name": "Life-Binder's Invocation",
@@ -7005,7 +7098,8 @@
         "type": 219,
         "avg": 0.920732
       }
-    }
+    },
+    "essence_id": 20
   },
   "296220": {
     "name": "Life-Binder's Invocation",
@@ -7018,7 +7112,8 @@
         "type": 219,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 20
   },
   "296221": {
     "name": "Life-Binder's Invocation",
@@ -7031,7 +7126,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 20
   },
   "296230": {
     "name": "Vitality Conduit",
@@ -7044,7 +7140,8 @@
         "type": 226,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 21
   },
   "296232": {
     "name": "Vitality Conduit",
@@ -7057,7 +7154,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 21
   },
   "296320": {
     "name": "Strive for Perfection",
@@ -7070,7 +7168,8 @@
       771563,
       771581,
       782522,
-      782528
+      782528,
+      789146
     ],
     "scaling_type": -7,
     "effects": {
@@ -7109,8 +7208,13 @@
       "782528": {
         "type": 218,
         "avg": 0
+      },
+      "789146": {
+        "type": 219,
+        "avg": 0.158783
       }
-    }
+    },
+    "essence_id": 22
   },
   "296321": {
     "name": "Strive for Perfection",
@@ -7123,7 +7227,8 @@
         "type": 42,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 22
   },
   "296322": {
     "name": "Strive for Perfection",
@@ -7133,10 +7238,11 @@
     "scaling_type": -7,
     "effects": {
       "766261": {
-        "type": 189,
+        "type": 4,
         "avg": 0.157959
       }
-    }
+    },
+    "essence_id": 22
   },
   "296324": {
     "name": "Strive for Perfection",
@@ -7149,7 +7255,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 22
   },
   "296325": {
     "name": "Vision of Perfection",
@@ -7182,7 +7289,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 22
   },
   "296326": {
     "name": "Vision of Perfection",
@@ -7215,7 +7323,8 @@
         "type": 219,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 22
   },
   "296328": {
     "name": "Vision of Perfection",
@@ -7228,7 +7337,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 22
   },
   "297108": {
     "name": "Blood of the Enemy",
@@ -7251,7 +7361,8 @@
         "type": 339,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 23
   },
   "297120": {
     "name": "Blood of the Enemy",
@@ -7264,7 +7375,8 @@
         "type": 218,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 23
   },
   "297122": {
     "name": "Blood of the Enemy",
@@ -7277,7 +7389,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 23
   },
   "297147": {
     "name": "Blood-Soaked",
@@ -7300,7 +7413,8 @@
         "type": 4,
         "avg": 0.016725
       }
-    }
+    },
+    "essence_id": 23
   },
   "297177": {
     "name": "Blood-Soaked",
@@ -7313,7 +7427,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 23
   },
   "297178": {
     "name": "Blood-Soaked",
@@ -7331,7 +7446,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 23
   },
   "298080": {
     "name": "Azeroth's Undying Gift",
@@ -7344,7 +7460,8 @@
         "type": 87,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 2
   },
   "298081": {
     "name": "Azeroth's Undying Gift",
@@ -7372,7 +7489,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 2
   },
   "298082": {
     "name": "Hardened Azerite",
@@ -7400,7 +7518,8 @@
         "type": 332,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 2
   },
   "298083": {
     "name": "Hardened Azerite",
@@ -7433,7 +7552,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 2
   },
   "298168": {
     "name": "Aegis of the Deep",
@@ -7456,7 +7576,8 @@
         "type": 4,
         "avg": 1.179878
       }
-    }
+    },
+    "essence_id": 25
   },
   "298169": {
     "name": "Aegis of the Deep",
@@ -7469,7 +7590,8 @@
         "type": 218,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 25
   },
   "298174": {
     "name": "Aegis of the Deep",
@@ -7482,7 +7604,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 25
   },
   "298182": {
     "name": "Blood of the Enemy",
@@ -7495,7 +7618,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 23
   },
   "298183": {
     "name": "Blood of the Enemy",
@@ -7508,7 +7632,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 23
   },
   "298186": {
     "name": "Aegis of the Deep",
@@ -7521,7 +7646,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 25
   },
   "298193": {
     "name": "Stand Your Ground",
@@ -7544,7 +7670,8 @@
         "type": 4,
         "avg": 1.823862
       }
-    }
+    },
+    "essence_id": 25
   },
   "298268": {
     "name": "Lucid Dreams",
@@ -7582,7 +7709,8 @@
         "type": 4,
         "avg": 2.884615
       }
-    }
+    },
+    "essence_id": 27
   },
   "298273": {
     "name": "Blood of the Enemy",
@@ -7595,7 +7723,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 23
   },
   "298274": {
     "name": "Blood-Soaked",
@@ -7608,7 +7737,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 23
   },
   "298275": {
     "name": "Blood-Soaked",
@@ -7621,7 +7751,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 23
   },
   "298277": {
     "name": "Blood of the Enemy",
@@ -7634,7 +7765,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 23
   },
   "298337": {
     "name": "Lucid Dreams",
@@ -7647,7 +7779,8 @@
         "type": 218,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 27
   },
   "298339": {
     "name": "Lucid Dreams",
@@ -7660,7 +7793,8 @@
         "type": 4,
         "avg": 0.650421
       }
-    }
+    },
+    "essence_id": 27
   },
   "298351": {
     "name": "Stand Your Ground",
@@ -7673,7 +7807,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 25
   },
   "298352": {
     "name": "Stand Your Ground",
@@ -7686,7 +7821,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 25
   },
   "298353": {
     "name": "Aegis of the Deep",
@@ -7699,7 +7835,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 25
   },
   "298357": {
     "name": "Memory of Lucid Dreams",
@@ -7792,7 +7929,8 @@
         "type": 218,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 27
   },
   "298376": {
     "name": "Memory of Lucid Dreams",
@@ -7805,7 +7943,8 @@
         "type": 219,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 27
   },
   "298377": {
     "name": "Memory of Lucid Dreams",
@@ -7818,7 +7957,8 @@
         "type": 4,
         "avg": 1.393758
       }
-    }
+    },
+    "essence_id": 27
   },
   "298404": {
     "name": "Lucid Dreams",
@@ -7831,7 +7971,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 27
   },
   "298405": {
     "name": "Lucid Dreams",
@@ -7844,7 +7985,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 27
   },
   "298407": {
     "name": "Reckless Force",
@@ -7872,7 +8014,8 @@
         "type": 285,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 28
   },
   "298448": {
     "name": "Reckless Force",
@@ -7885,7 +8028,8 @@
         "type": 219,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 28
   },
   "298449": {
     "name": "Reckless Force",
@@ -7898,7 +8042,8 @@
         "type": 219,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 28
   },
   "298450": {
     "name": "Reckless Force",
@@ -7911,7 +8056,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 28
   },
   "298452": {
     "name": "The Unbound Force",
@@ -7934,7 +8080,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 28
   },
   "298455": {
     "name": "The Unbound Force",
@@ -7947,7 +8094,8 @@
         "type": 218,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 28
   },
   "298456": {
     "name": "The Unbound Force",
@@ -7965,7 +8113,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 28
   },
   "298457": {
     "name": "The Unbound Force",
@@ -7983,7 +8132,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 28
   },
   "298627": {
     "name": "Lifeblood",
@@ -8011,7 +8161,8 @@
         "type": 0,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 4
   },
   "298628": {
     "name": "Worldvein Resonance",
@@ -8034,7 +8185,8 @@
         "type": 0,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 4
   },
   "299273": {
     "name": "Aegis of the Deep",
@@ -8047,7 +8199,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 25
   },
   "299274": {
     "name": "Stand Your Ground",
@@ -8060,7 +8213,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 25
   },
   "299275": {
     "name": "Aegis of the Deep",
@@ -8073,7 +8227,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 25
   },
   "299277": {
     "name": "Stand Your Ground",
@@ -8086,7 +8241,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 25
   },
   "299333": {
     "name": "Lifeblood",
@@ -8114,7 +8270,8 @@
         "type": 0,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 4
   },
   "299334": {
     "name": "Worldvein Resonance",
@@ -8137,7 +8294,8 @@
         "type": 0,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 4
   },
   "299335": {
     "name": "Focused Energy",
@@ -8150,7 +8308,8 @@
         "type": 23,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 5
   },
   "299336": {
     "name": "Focused Azerite Beam",
@@ -8168,7 +8327,8 @@
         "type": 226,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 5
   },
   "299337": {
     "name": "Focused Energy",
@@ -8181,7 +8341,8 @@
         "type": 23,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 5
   },
   "299338": {
     "name": "Focused Azerite Beam",
@@ -8199,7 +8360,8 @@
         "type": 226,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 5
   },
   "299343": {
     "name": "Purification Protocol",
@@ -8227,7 +8389,8 @@
         "type": 4,
         "avg": 11.176924
       }
-    }
+    },
+    "essence_id": 6
   },
   "299345": {
     "name": "Purifying Blast",
@@ -8245,7 +8408,8 @@
         "type": 0,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 6
   },
   "299346": {
     "name": "Purification Protocol",
@@ -8273,7 +8437,8 @@
         "type": 4,
         "avg": 11.176924
       }
-    }
+    },
+    "essence_id": 6
   },
   "299347": {
     "name": "Purifying Blast",
@@ -8291,7 +8456,8 @@
         "type": 0,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 6
   },
   "299348": {
     "name": "Ancient Flame",
@@ -8309,7 +8475,8 @@
         "type": 4,
         "avg": 61.081081
       }
-    }
+    },
+    "essence_id": 12
   },
   "299349": {
     "name": "Concentrated Flame",
@@ -8332,7 +8499,8 @@
         "type": 0,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 12
   },
   "299350": {
     "name": "Ancient Flame",
@@ -8350,7 +8518,8 @@
         "type": 4,
         "avg": 61.081081
       }
-    }
+    },
+    "essence_id": 12
   },
   "299353": {
     "name": "Concentrated Flame",
@@ -8373,7 +8542,8 @@
         "type": 0,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 12
   },
   "299354": {
     "name": "Condensed Life-Force",
@@ -8386,7 +8556,8 @@
         "type": 42,
         "avg": 28.969229
       }
-    }
+    },
+    "essence_id": 14
   },
   "299355": {
     "name": "Guardian of Azeroth",
@@ -8404,7 +8575,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 14
   },
   "299357": {
     "name": "Condensed Life-Force",
@@ -8417,7 +8589,8 @@
         "type": 42,
         "avg": 28.969229
       }
-    }
+    },
+    "essence_id": 14
   },
   "299358": {
     "name": "Guardian of Azeroth",
@@ -8435,7 +8608,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 14
   },
   "299367": {
     "name": "Strive for Perfection",
@@ -8478,7 +8652,8 @@
         "type": 454,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 22
   },
   "299368": {
     "name": "Vision of Perfection",
@@ -8501,7 +8676,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 22
   },
   "299369": {
     "name": "Strive for Perfection",
@@ -8544,7 +8720,8 @@
         "type": 454,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 22
   },
   "299370": {
     "name": "Vision of Perfection",
@@ -8567,7 +8744,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 22
   },
   "299371": {
     "name": "Lucid Dreams",
@@ -8590,7 +8768,8 @@
         "type": 4,
         "avg": 33.518921
       }
-    }
+    },
+    "essence_id": 27
   },
   "299372": {
     "name": "Memory of Lucid Dreams",
@@ -8683,7 +8862,8 @@
         "type": 218,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 27
   },
   "299373": {
     "name": "Lucid Dreams",
@@ -8706,7 +8886,8 @@
         "type": 4,
         "avg": 33.518921
       }
-    }
+    },
+    "essence_id": 27
   },
   "299374": {
     "name": "Memory of Lucid Dreams",
@@ -8799,7 +8980,8 @@
         "type": 218,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 27
   },
   "299375": {
     "name": "Reckless Force",
@@ -8812,7 +8994,8 @@
         "type": 42,
         "avg": 1.70318
       }
-    }
+    },
+    "essence_id": 28
   },
   "299376": {
     "name": "The Unbound Force",
@@ -8835,7 +9018,8 @@
         "type": 4,
         "avg": 4.864865
       }
-    }
+    },
+    "essence_id": 28
   },
   "299377": {
     "name": "Reckless Force",
@@ -8848,7 +9032,8 @@
         "type": 42,
         "avg": 1.70318
       }
-    }
+    },
+    "essence_id": 28
   },
   "299378": {
     "name": "The Unbound Force",
@@ -8871,7 +9056,8 @@
         "type": 4,
         "avg": 4.864865
       }
-    }
+    },
+    "essence_id": 28
   },
   "299518": {
     "name": "Artifice of Time",
@@ -8884,7 +9070,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 18
   },
   "299519": {
     "name": "Artifice of Time",
@@ -8897,7 +9084,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 18
   },
   "299520": {
     "name": "Life-Binder's Invocation",
@@ -8910,7 +9098,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 20
   },
   "299521": {
     "name": "Life-Binder's Invocation",
@@ -8923,7 +9112,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 20
   },
   "299522": {
     "name": "Overcharge Mana",
@@ -8936,7 +9126,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 17
   },
   "299523": {
     "name": "The Ever-Rising Tide",
@@ -8949,7 +9140,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 17
   },
   "299529": {
     "name": "Refreshment",
@@ -8962,7 +9154,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 19
   },
   "299530": {
     "name": "The Well of Existence",
@@ -8975,7 +9168,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 19
   },
   "299559": {
     "name": "Vitality Conduit",
@@ -8988,7 +9182,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 21
   },
   "299560": {
     "name": "Vitality Conduit",
@@ -9001,7 +9196,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 21
   },
   "299875": {
     "name": "Overcharge Mana",
@@ -9019,7 +9215,8 @@
         "type": 193,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 17
   },
   "299876": {
     "name": "Overcharge Mana",
@@ -9037,7 +9234,8 @@
         "type": 193,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 17
   },
   "299878": {
     "name": "The Ever-Rising Tide",
@@ -9055,7 +9253,8 @@
         "type": 189,
         "avg": 4.181275
       }
-    }
+    },
+    "essence_id": 17
   },
   "299879": {
     "name": "The Ever-Rising Tide",
@@ -9073,7 +9272,8 @@
         "type": 189,
         "avg": 4.181275
       }
-    }
+    },
+    "essence_id": 17
   },
   "299882": {
     "name": "Standstill",
@@ -9091,7 +9291,8 @@
         "type": 301,
         "avg": 1533.74231
       }
-    }
+    },
+    "essence_id": 18
   },
   "299883": {
     "name": "Standstill",
@@ -9109,7 +9310,8 @@
         "type": 301,
         "avg": 1533.74231
       }
-    }
+    },
+    "essence_id": 18
   },
   "299885": {
     "name": "Artifice of Time",
@@ -9127,7 +9329,8 @@
         "type": 4,
         "avg": 0.75771
       }
-    }
+    },
+    "essence_id": 18
   },
   "299887": {
     "name": "Artifice of Time",
@@ -9145,7 +9348,8 @@
         "type": 4,
         "avg": 0.75771
       }
-    }
+    },
+    "essence_id": 18
   },
   "299932": {
     "name": "Refreshment",
@@ -9158,7 +9362,8 @@
         "type": 0,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 19
   },
   "299933": {
     "name": "Refreshment",
@@ -9171,7 +9376,8 @@
         "type": 0,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 19
   },
   "299935": {
     "name": "The Well of Existence",
@@ -9194,7 +9400,8 @@
         "type": 4,
         "avg": 24
       }
-    }
+    },
+    "essence_id": 19
   },
   "299936": {
     "name": "The Well of Existence",
@@ -9217,7 +9424,8 @@
         "type": 4,
         "avg": 24
       }
-    }
+    },
+    "essence_id": 19
   },
   "299939": {
     "name": "Seed of Eonar",
@@ -9230,7 +9438,8 @@
         "type": 42,
         "avg": 19.129999
       }
-    }
+    },
+    "essence_id": 20
   },
   "299940": {
     "name": "Seed of Eonar",
@@ -9243,7 +9452,8 @@
         "type": 42,
         "avg": 19.129999
       }
-    }
+    },
+    "essence_id": 20
   },
   "299943": {
     "name": "Life-Binder's Invocation",
@@ -9256,7 +9466,8 @@
         "type": 0,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 20
   },
   "299944": {
     "name": "Life-Binder's Invocation",
@@ -9269,7 +9480,8 @@
         "type": 0,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 20
   },
   "299958": {
     "name": "Vitality Conduit",
@@ -9282,7 +9494,8 @@
         "type": 226,
         "avg": 55.214725
       }
-    }
+    },
+    "essence_id": 21
   },
   "299959": {
     "name": "Vitality Conduit",
@@ -9295,7 +9508,8 @@
         "type": 226,
         "avg": 55.214725
       }
-    }
+    },
+    "essence_id": 21
   },
   "300002": {
     "name": "Anima of Death",
@@ -9313,7 +9527,8 @@
         "type": 0,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 7
   },
   "300003": {
     "name": "Anima of Death",
@@ -9331,7 +9546,8 @@
         "type": 0,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 7
   },
   "300004": {
     "name": "Anima of Life",
@@ -9349,7 +9565,8 @@
         "type": 468,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 7
   },
   "300005": {
     "name": "Anima of Life",
@@ -9367,7 +9584,8 @@
         "type": 468,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 7
   },
   "300009": {
     "name": "Suppressing Pulse",
@@ -9385,7 +9603,8 @@
         "type": 269,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 3
   },
   "300010": {
     "name": "Suppressing Pulse",
@@ -9403,7 +9622,8 @@
         "type": 269,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 3
   },
   "300012": {
     "name": "Sphere of Suppression",
@@ -9421,7 +9641,8 @@
         "type": 42,
         "avg": 0.5575
       }
-    }
+    },
+    "essence_id": 3
   },
   "300013": {
     "name": "Sphere of Suppression",
@@ -9439,7 +9660,8 @@
         "type": 42,
         "avg": 0.5575
       }
-    }
+    },
+    "essence_id": 3
   },
   "300015": {
     "name": "Empowered Null Barrier",
@@ -9457,7 +9679,8 @@
         "type": 0,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 13
   },
   "300016": {
     "name": "Empowered Null Barrier",
@@ -9475,7 +9698,8 @@
         "type": 0,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 13
   },
   "300018": {
     "name": "Null Barrier",
@@ -9488,7 +9712,8 @@
         "type": 23,
         "avg": 99.535034
       }
-    }
+    },
+    "essence_id": 13
   },
   "300020": {
     "name": "Null Barrier",
@@ -9501,7 +9726,8 @@
         "type": 23,
         "avg": 99.535034
       }
-    }
+    },
+    "essence_id": 13
   },
   "300168": {
     "name": "Person-Computer Interface",
@@ -9625,7 +9851,8 @@
         "type": 4,
         "avg": 63.69231
       }
-    }
+    },
+    "essence_id": 15
   },
   "302778": {
     "name": "Ripple in Space",
@@ -9638,7 +9865,8 @@
         "type": 219,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 15
   },
   "302780": {
     "name": "Ripple in Space",
@@ -9651,7 +9879,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 15
   },
   "302910": {
     "name": "Ripple in Space",
@@ -9664,7 +9893,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 15
   },
   "302916": {
     "name": "Reality Shift",
@@ -9692,7 +9922,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 15
   },
   "302957": {
     "name": "Reality Shift",
@@ -9705,7 +9936,8 @@
         "type": 219,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 15
   },
   "302961": {
     "name": "Reality Shift",
@@ -9718,7 +9950,8 @@
         "type": 129,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 15
   },
   "302962": {
     "name": "Reality Shift",
@@ -9731,7 +9964,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 15
   },
   "302982": {
     "name": "Ripple in Space",
@@ -9749,7 +9983,8 @@
         "type": 4,
         "avg": 31.847134
       }
-    }
+    },
+    "essence_id": 15
   },
   "302983": {
     "name": "Ripple in Space",
@@ -9767,7 +10002,8 @@
         "type": 4,
         "avg": 31.847134
       }
-    }
+    },
+    "essence_id": 15
   },
   "302984": {
     "name": "Reality Shift",
@@ -9795,7 +10031,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 15
   },
   "302985": {
     "name": "Reality Shift",
@@ -9823,7 +10060,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 15
   },
   "303006": {
     "name": "Arcane Heart",
@@ -9840,7 +10078,7 @@
       },
       "778206": {
         "type": 4,
-        "avg": 1.39285
+        "avg": 1.603174
       },
       "778207": {
         "type": 285,
@@ -9915,7 +10153,8 @@
         "type": 4,
         "avg": 0.21371
       }
-    }
+    },
+    "essence_id": 22
   },
   "303448": {
     "name": "Transference",
@@ -9928,7 +10167,8 @@
         "type": 4,
         "avg": 42.07
       }
-    }
+    },
+    "essence_id": 21
   },
   "303460": {
     "name": "Vitality Conduit",
@@ -9941,7 +10181,8 @@
         "type": 4,
         "avg": 25.24
       }
-    }
+    },
+    "essence_id": 21
   },
   "303463": {
     "name": "Vitality Conduit",
@@ -9954,7 +10195,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 21
   },
   "303472": {
     "name": "Vitality Conduit",
@@ -9967,7 +10209,8 @@
         "type": 219,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 21
   },
   "303474": {
     "name": "Transference",
@@ -9980,7 +10223,8 @@
         "type": 4,
         "avg": 42.07
       }
-    }
+    },
+    "essence_id": 21
   },
   "303476": {
     "name": "Transference",
@@ -9993,7 +10237,8 @@
         "type": 4,
         "avg": 42.07
       }
-    }
+    },
+    "essence_id": 21
   },
   "303823": {
     "name": "Conflict",
@@ -10006,7 +10251,8 @@
         "type": 285,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 32
   },
   "303892": {
     "name": "Conflict",
@@ -10039,7 +10285,8 @@
         "type": 285,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 32
   },
   "303894": {
     "name": "Conflict",
@@ -10052,7 +10299,8 @@
         "type": 42,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 32
   },
   "304055": {
     "name": "Strife",
@@ -10065,7 +10313,8 @@
         "type": 219,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 32
   },
   "304081": {
     "name": "Strife",
@@ -10083,7 +10332,8 @@
         "type": 285,
         "avg": 0.092917
       }
-    }
+    },
+    "essence_id": 32
   },
   "304086": {
     "name": "Conflict",
@@ -10096,7 +10346,8 @@
         "type": 42,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 32
   },
   "304088": {
     "name": "Conflict",
@@ -10109,7 +10360,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 32
   },
   "304089": {
     "name": "Strife",
@@ -10122,7 +10374,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 32
   },
   "304121": {
     "name": "Conflict",
@@ -10135,7 +10388,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 32
   },
   "304123": {
     "name": "Strife",
@@ -10148,7 +10402,8 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 32
   },
   "304125": {
     "name": "Strife",
@@ -10161,7 +10416,8 @@
         "type": 219,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 32
   },
   "304533": {
     "name": "Strife",
@@ -10174,6 +10430,7 @@
         "type": 4,
         "avg": 0
       }
-    }
+    },
+    "essence_id": 32
   }
 }

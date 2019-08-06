@@ -31,7 +31,7 @@ const AZ_SCALE_SECONDARY = -7;
 // semantic meaning that we know of (yet)
 const AZ_SCALE_UNK8 = -8;
 // for whatever reason essences use the jewelry table instead of the general one
-const AZ_SCALE_ESSENCE = 4;
+const AZ_SCALE_UNK4 = 4;
 // special effect type that always uses secondary scaling regardless of
 // scaling type
 const AZ_TYPE_MODIFY_RATING = 189;
@@ -50,16 +50,17 @@ const AZ_SCALE_FUNCTIONS = {
     const SCALE = 4.325;
     return Math.floor(SCALE * (1.15**(ilvl/15)));
   },
-  [AZ_SCALE_ESSENCE]: ilvl => AZ_SCALE_FUNCTIONS[AZ_SCALE_PRIMARY](ilvl) * getMultiplier(multiplierTables.jewelry, ilvl),
+  [AZ_SCALE_UNK4]: ilvl => AZ_SCALE_FUNCTIONS[AZ_SCALE_PRIMARY](ilvl) * getMultiplier(multiplierTables.jewelry, ilvl),
 };
 
 // Calculate the values of each (scaling) effect associated with an
 // azerite trait. Note that *effects that do not scale are not present!*
 //
 // Effects will always be returned in ascending order of effect ID.
-export function calculateAzeriteEffects(spellId, rank, scalingTypeOverride, isEssence = false) {
+export function calculateAzeriteEffects(spellId, rank, scalingTypeOverride) {
   const spell = AZERITE_SCALING[spellId];
   const scalingType = scalingTypeOverride ? scalingTypeOverride : spell.scaling_type;
+  const isEssence = spell.essence_id;
 
   if(AZ_SCALE_FUNCTIONS[scalingType] === undefined) {
     throw Error(`Unknown scaling type: ${scalingType}`);
@@ -71,8 +72,8 @@ export function calculateAzeriteEffects(spellId, rank, scalingTypeOverride, isEs
       if(type === AZ_TYPE_MODIFY_RATING) {
         return Math.round(avg * AZ_SCALE_FUNCTIONS[AZ_SCALE_SECONDARY](rank));
       }
-      if(isEssence && type === AZ_SCALE_ESSENCE) {
-        return Math.round(avg * AZ_SCALE_FUNCTIONS[AZ_SCALE_ESSENCE](rank));
+      if(isEssence && type === AZ_SCALE_UNK4) {
+        return Math.round(avg * AZ_SCALE_FUNCTIONS[AZ_SCALE_UNK4](rank));
       }
       return Math.round(avg * AZ_SCALE_FUNCTIONS[scalingType](rank));
     });
