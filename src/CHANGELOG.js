@@ -8,6 +8,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  change(date(2019, 8, 6), <>Added <ItemLink id={ITEMS.POTION_OF_WILD_MENDING.id} />.</>, niseko),
   change(date(2019, 8, 3), 'Keep track of disabled modules names during production.', Zeboot),
   change(date(2019, 8, 3), 'Made the error handler more resilient to errors in browser extensions.', Zerotorescue),
   change(date(2019, 8, 3), 'Changed polyfilling so we might accidentally support more old and/or shitty browsers.', Zerotorescue),
