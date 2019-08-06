@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 8, 6), <>Added <SpellLink id={SPELLS.VISION_OF_PERFECTION.id} />.</>, niseko),
   change(date(2019, 5, 6), <><SpellLink id={SPELLS.IGNEOUS_POTENTIAL.id} /> and <SpellLink id={SPELLS.SYNAPSE_SHOCK.id} /> azerite traits are now supported.</>, [niseko]),
   change(date(2019, 5, 3), <>Added support for the 8.1.5 <SpellLink id={SPELLS.ASCENDANCE_TALENT_RESTORATION.id} /> changes.</>, [niseko]),
   change(date(2018, 12, 17), <>Updated modules to support various 8.1 changes, including the <SpellLink id={SPELLS.HIGH_TIDE_TALENT.id} /> redesign.</>, [niseko]),
