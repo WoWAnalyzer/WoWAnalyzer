@@ -8,6 +8,8 @@ env:
     - NODE_ENV=production
     # We may want to run eslint as a separate step in the CI process for improved performance and error reporting when there are eslint issues.
     - DISABLE_AUTOMATIC_ESLINT=true
+    - DOCKER_REPO=wowanalyzer/wowanalyzer
+    - DOCKER_IMAGE_BUILD_TAG="build-$TRAVIS_BUILD_NUMBER"
 jobs:
   include:
     - stage: build
