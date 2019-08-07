@@ -75,9 +75,7 @@ class TheWellOfExistence extends Analyzer {
     if(SPELLS.WELL_OF_EXISTENCE_HEAL.id === event.ability.guid){
       this.minorHealing += event.amount;
       this.currentAbsorbedOverhealing -= event.amount;
-    }
-    // Essence active(major) heal 
-    else if(SPELLS.WELL_OF_EXISTENCE_MAJOR_ABILITY.id === event.ability.guid) {
+    } else if(SPELLS.WELL_OF_EXISTENCE_MAJOR_ABILITY.id === event.ability.guid) { //essence major heal`
       this.majorHealing += event.amount;
 
       if(this.rankThreeOrAbove){
@@ -88,9 +86,7 @@ class TheWellOfExistence extends Analyzer {
         // Under rank 3 you lose all stored healing on active 
         this.currentAbsorbedOverhealing = 0;
       }
-    }
-    // anything else that overhealed
-    else if(event.overheal){
+    } else if(event.overheal){ // anything else that overhealed
       if(debug){
         this.totalOverhealing += event.overheal;
       }        
@@ -121,16 +117,13 @@ class TheWellOfExistence extends Analyzer {
         if(this.currentAbsorbedOverhealing + doubledOverhealing < this.rankThreeDoubleCap){
           this.rankThreeDoubledOverhealing += absorbableOverhealing;
           this.currentAbsorbedOverhealing += doubledOverhealing;
-        }
-        // If only part of overheal is below the threshold
-        else{
+        } else{ // If only part of overheal is below the threshold
           const remainingDoubleableOverhealing = this.rankThreeDoubleCap - this.currentAbsorbedOverhealing;
           this.rankThreeDoubledOverhealing += remainingDoubleableOverhealing;
           const totalAbsorbed = (2 * remainingDoubleableOverhealing) + (absorbableOverhealing - remainingDoubleableOverhealing);
           this.currentAbsorbedOverhealing += totalAbsorbed;
         }
-      }
-      else{
+      } else{
         this.currentAbsorbedOverhealing += absorbableOverhealing;
       }
       
