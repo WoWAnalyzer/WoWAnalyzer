@@ -87,14 +87,16 @@ class HolyNova extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.HOLY_NOVA.id} />}
-        value={(<>
+        value={(
+<>
           Average Hits:&nbsp;
           <div style={{ 'color': 'green', display: 'inline-block' }}> {Math.floor(this.averageFriendlyTargetsHit)}</div>
           |
           <div style={{ 'color': 'red', display: 'inline-block' }}> {Math.floor(this.averageEnemyTargetsHit)}</div><br />
           <ItemHealingDone amount={this.effectiveHealing} /><br />
           <ItemDamageDone amount={this.damageDone} />
-        </>)}
+        </>
+)}
         label="Holy Nova"
         tooltip={(
           <>

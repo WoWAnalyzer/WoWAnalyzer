@@ -44,7 +44,7 @@ class SpellHistory extends Analyzer {
 
   _append(spellId, event) {
     const history = this._getAbility(spellId);
-    if (history) {
+    if (history && event.timestamp > this.owner.fight.start_time) { //don't save prephase events in history
       history.push(event);
     }
   }
@@ -57,7 +57,7 @@ class SpellHistory extends Analyzer {
     const earlyByMS = event.start + event.expectedDuration - event.timestamp;
     // check if the ability was reset early. If the reset was less than a percentage of the GCD don't consider it as a reset.
     // check if the reset happened as a result of the previous cast
-    if (event.trigger === 'endcooldown' && resetBufferMS < earlyByMS 
+    if (event.trigger === 'endcooldown' && resetBufferMS < earlyByMS
     && event.timestamp < this.lastGlobalCooldown.timestamp + GCD_MATCH_BUFFER_MS) {
       // if the time remaining was less than the GCD use that instead
       event.timeWaitingOnGCD = Math.min(earlyByMS, this.lastGlobalCooldown.duration);

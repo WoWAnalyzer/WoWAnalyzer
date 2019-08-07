@@ -39,8 +39,7 @@ class PowerSiphonNormalizer extends EventsNormalizer {
           activeImpsAfterCast = [];
         }
         lastPowerSiphonCast = event;
-      }
-      else {
+      } else {
         // all events after PS cast
         if (CHECKED_EVENT_TYPES.includes(event.type) && this.owner.byPlayerPet(event) && this._isFromWildImp(event)) {
           const targetString = encodeTargetString(event.sourceID, event.sourceInstance);

@@ -18,6 +18,7 @@ class Judgment extends Analyzer {
   templarsVerdictConsumptions = 0;
   divineStormConsumptions = 0;
   justicarsVengeanceConsumptions = 0;
+  executionSentenceConsumptions = 0;
   judgmentsApplied = 0;
   wasteHP = false;
 
@@ -29,6 +30,7 @@ class Judgment extends Analyzer {
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.TEMPLARS_VERDICT_DAMAGE), this.onTemplarsVerdictDamage);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_STORM_DAMAGE), this.onDivineStormDamage);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.JUSTICARS_VENGEANCE_TALENT), this.onJusticarsVengeanceDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.EXECUTION_SENTENCE_TALENT), this.onExecutionSentenceDamage);
   }
 
   onJudgmentDebuff(event) {
@@ -84,8 +86,21 @@ class Judgment extends Analyzer {
     this.justicarsVengeanceConsumptions += 1;
   }
 
+  onExecutionSentenceDamage(event) {
+    const enemy = this.enemies.getEntity(event);
+    if (!enemy) {
+      return;
+    }
+    if (!enemy.hasBuff(SPELLS.JUDGMENT_DEBUFF.id, null, 250)) {
+      return;
+    }
+    this.executionSentenceConsumptions += 1;
+
+  }
+
+
   get judgmentsConsumed() {
-    return this.templarsVerdictConsumptions + this.divineStormConsumptions + this.justicarsVengeanceConsumptions;
+    return this.templarsVerdictConsumptions + this.divineStormConsumptions + this.justicarsVengeanceConsumptions + this.executionSentenceConsumptions;
   }
 
   get percentageJudgmentsConsumed() {
@@ -115,6 +130,7 @@ class Judgment extends Analyzer {
 
   statistic() {
     const hasJV = this.selectedCombatant.hasTalent(SPELLS.JUSTICARS_VENGEANCE_TALENT.id);
+    const hasES = this.selectedCombatant.hasTalent(SPELLS.EXECUTION_SENTENCE_TALENT.id);
     return (
       <StatisticBox
         position={STATISTIC_ORDER.CORE(6)}
@@ -127,6 +143,7 @@ class Judgment extends Analyzer {
             Templars Verdicts consumptions: {this.templarsVerdictConsumptions}<br />
             Divine Storm consumptions: {this.divineStormConsumptions}
             {hasJV && <><br />Justicars Vengeance consumptions: {this.justicarsVengeanceConsumptions}</>}
+            {hasES && <><br />Execution Sentence consumptions: {this.executionSentenceConsumptions}</>}
           </>
         )}
       />

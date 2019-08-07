@@ -52,8 +52,7 @@ class WaterElemental extends Analyzer {
     }
     if (this.beginCastSpell.guid !== event.ability.guid && this.wasCastStarted) {
         this._waterboltsCancelled += 1;
-    }
-    else {
+    } else {
       this._waterboltsCastStarts += 1;
       this._timestampLastFinish = event.timestamp;
       if (this._timestampLastCast === 0) {

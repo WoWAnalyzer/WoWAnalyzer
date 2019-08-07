@@ -27,6 +27,7 @@ class Graph extends React.PureComponent {
     actorId: PropTypes.number.isRequired,
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
+    offset: PropTypes.number.isRequired,
   };
 
   constructor() {
@@ -69,7 +70,7 @@ class Graph extends React.PureComponent {
       );
     }
 
-    const { start, end } = this.props;
+    const { start, end, offset } = this.props;
 
     const players = data.series.filter(item => !!CLASS_CHART_LINE_COLORS[item.type]);
 
@@ -130,6 +131,7 @@ class Graph extends React.PureComponent {
           deaths={deaths}
           startTime={start}
           endTime={end}
+          offsetTime={offset}
         />
       </div>
     );
@@ -137,4 +139,3 @@ class Graph extends React.PureComponent {
 }
 
 export default Graph;
-

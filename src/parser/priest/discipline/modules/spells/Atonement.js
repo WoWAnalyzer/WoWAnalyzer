@@ -81,6 +81,7 @@ class Atonement extends Analyzer {
       targetID: event.targetID,
     }, event);
   }
+
   on_byPlayer_refreshbuff(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.ATONEMENT_BUFF.id) {
@@ -127,6 +128,7 @@ class Atonement extends Analyzer {
       targetID: event.targetID,
     }, event);
   }
+
   on_byPlayer_removebuff(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.ATONEMENT_BUFF.id) {

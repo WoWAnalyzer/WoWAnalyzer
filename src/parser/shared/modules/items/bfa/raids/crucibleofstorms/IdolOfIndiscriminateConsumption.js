@@ -132,7 +132,7 @@ class IdolOfIndiscriminateConsumption extends Analyzer {
                 Object.keys(this.byCast).map(cast => {
                   return (
                     <tr key={cast}>
-                      <th>{formatDuration(this.byCast[cast].time / 1000)}</th>
+                      <th>{formatDuration((this.byCast[cast].time + this.owner.fight.offset_time) / 1000)}</th>
                       <td>{formatNumber(this.byCast[cast].healing)}</td>
                       <td>{formatNumber(this.byCast[cast].overHealing)}</td>
                       <td>{formatNumber(this.byCast[cast].damage)}</td>

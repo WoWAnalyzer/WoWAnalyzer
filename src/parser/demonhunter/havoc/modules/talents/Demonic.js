@@ -85,9 +85,11 @@ class Demonic extends Analyzer{
       <TalentStatisticBox
         talent={SPELLS.DEMONIC_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
-        value={(<>
+        value={(
+<>
         {this.badCasts} <small>Bad casts</small><br />
-                </>)}
+                </>
+)}
         tooltip={`A bad cast is triggered when you don't do atleast 2 Death Sweep casts inside
                   the Metamorphosis window you get from Eye Beam due to the Demonic talent.`}
       />

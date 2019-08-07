@@ -6,6 +6,10 @@ import Tooltip from 'common/Tooltip';
 import SpellLink from 'common/SpellLink';
 import Icon from 'common/Icon';
 
+import { PRE_FILTER_COOLDOWN_EVENT_TYPE } from 'interface/report/TimeEventFilter';
+
+const PREPHASE_BUFFER = 1000; //ms a prephase event gets displayed before the phase start
+
 class Lane extends React.PureComponent {
   static propTypes = {
     children: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -21,6 +25,7 @@ class Lane extends React.PureComponent {
 
   renderEvent(event) {
     switch (event.type) {
+      case PRE_FILTER_COOLDOWN_EVENT_TYPE:
       case 'cast':
         return this.renderCast(event);
       case 'updatespellusable':
@@ -39,7 +44,8 @@ class Lane extends React.PureComponent {
     }
   }
   renderCast(event) {
-    const left = this.getOffsetLeft(event.timestamp);
+    //let pre phase events be displayed one second tick before the phase
+    const left = this.getOffsetLeft(Math.max(this.props.fightStartTimestamp - PREPHASE_BUFFER, event.timestamp));
     const spellId = event.ability.guid;
 
     return (
@@ -59,8 +65,9 @@ class Lane extends React.PureComponent {
     );
   }
   renderCooldown(event) {
-    const left = this.getOffsetLeft(event.start);
-    const width = (Math.min(this.props.fightEndTimestamp, event.timestamp) - event.start) / 1000 * this.props.secondWidth;
+    //let pre phase events be displayed one second tick before the phase
+    const left = this.getOffsetLeft(Math.max(this.props.fightStartTimestamp - PREPHASE_BUFFER, event.start));
+    const width = (Math.min(this.props.fightEndTimestamp, event.timestamp) - Math.max(this.props.fightStartTimestamp - PREPHASE_BUFFER, event.start)) / 1000 * this.props.secondWidth;
     return (
       <Tooltip
         key={`cooldown-${left}`}
@@ -103,8 +110,16 @@ class Lane extends React.PureComponent {
     const { children, style } = this.props;
 
     const ability = children[0].ability;
+    if(children[0].type === PRE_FILTER_COOLDOWN_EVENT_TYPE || children[0].type === "cast"){ //if first cast happened before phase
+      const nextChildren = children.slice(1, children.length); //all children following the first cast
+      const nextCast = nextChildren.findIndex(e => e.type === "cast" || e.type === PRE_FILTER_COOLDOWN_EVENT_TYPE) + 1; //add 1 since we're searching through the events FOLLOWING the initial cast
+      const nextCD = nextChildren.find(e => e.type === "updatespellusable" && e.trigger === "endcooldown"); //find next end CD event
+      if((nextCD && nextCD.end < this.props.fightStartTimestamp - PREPHASE_BUFFER)){//if cooldown ended before the phase (including buffer), remove it to avoid visual overlaps
+        children.splice(0, nextCast || children.length); //remove events before the next cast, remove all if there is no next cast to clean up the list
+      }
+    }
 
-    return (
+    return children.length > 0 && (
       <div
         className="lane"
         style={style}

@@ -1,5 +1,6 @@
 import { END_EVENT_TYPE } from 'parser/shared/normalizers/FightEnd';
 import { PHASE_START_EVENT_TYPE, PHASE_END_EVENT_TYPE } from 'common/fabricateBossPhaseEvents';
+import { PRE_FILTER_BUFF_EVENT_TYPE, PRE_FILTER_COOLDOWN_EVENT_TYPE } from 'interface/report/TimeEventFilter';
 import EventFilter from './EventFilter';
 
 const Events = {
@@ -176,6 +177,12 @@ const Events = {
   },
   get phaseend() {
     return new EventFilter(PHASE_END_EVENT_TYPE);
+  },
+  get prefiltercd() {
+    return new EventFilter(PRE_FILTER_COOLDOWN_EVENT_TYPE);
+  },
+  get prefilterbuff() {
+    return new EventFilter(PRE_FILTER_BUFF_EVENT_TYPE);
   },
 };
 

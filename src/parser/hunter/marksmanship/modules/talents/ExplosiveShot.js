@@ -46,10 +46,12 @@ class ExplosiveShot extends Analyzer {
     return (
       <TalentStatisticBox
         talent={SPELLS.EXPLOSIVE_SHOT_TALENT.id}
-        value={<>
+        value={(
+<>
           <ItemDamageDone amount={this.damage} /> <br />
           <AverageTargetsHit casts={this.casts} hits={this.hits} />
-        </>}
+        </>
+)}
       />
     );
   }

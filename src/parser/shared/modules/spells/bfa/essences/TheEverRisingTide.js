@@ -149,9 +149,12 @@ class TheEverRisingTide extends Analyzer {
     let averageHaste = 0;
     const hasteBuffsCopy = this.hasteBuffs.slice(0); // don't destroy the original
     while (hasteBuffsCopy.length > 0) {
-      const ramp = hasteBuffsCopy.splice(
-        hasteBuffsCopy.findIndex(p => (p.trigger.ability && p.trigger.ability.guid === SPELLS.EVER_RISING_TIDE_CHARGING_BUFF.id && p.trigger.type === "applybuff")) || 0,
-        hasteBuffsCopy.findIndex(p => (p.trigger.ability && p.trigger.ability.guid === SPELLS.EVER_RISING_TIDE_CHARGING_BUFF.id && p.trigger.type === "removebuff")) + 1) || 1;
+      const startIndex = hasteBuffsCopy.findIndex(p => (p.trigger.ability && p.trigger.ability.guid === SPELLS.EVER_RISING_TIDE_CHARGING_BUFF.id && p.trigger.type === "applybuff"));
+      const spliceCount = hasteBuffsCopy.findIndex(p => (p.trigger.ability && p.trigger.ability.guid === SPELLS.EVER_RISING_TIDE_CHARGING_BUFF.id && p.trigger.type === "removebuff")) + 1;
+      if (startIndex < 0 || spliceCount <= 0) {
+        break;
+      }
+      const ramp = hasteBuffsCopy.splice(startIndex, spliceCount);
       averageHaste = averageHaste === 0 ? this.average(ramp) : (averageHaste + this.average(ramp)) / 2;
     }
     return averageHaste * this.statTracker.hasteRatingPerPercent * this.selectedCombatant.getBuffUptime(SPELLS.EVER_RISING_TIDE_CHARGING_BUFF.id) / this.owner.fightDuration;

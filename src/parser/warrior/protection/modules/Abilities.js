@@ -65,16 +65,10 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 4,
       },
       {
-        spell: SPELLS.NELTHARIONS_FURY,
-        category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 45,
-        timelineSortIndex: 6,
-      },
-      {
         spell: SPELLS.SHIELD_BLOCK,
         buffSpellId: SPELLS.SHIELD_BLOCK_BUFF.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        cooldown: haste => 13 / (1 + haste),
+        cooldown: haste => 16 / (1 + haste),
         charges: 2,
         timelineSortIndex: 5,
       },
@@ -141,10 +135,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BERSERKER_RAGE,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 45,
-        castEfficiency: {
-          suggestion: combatant.hasTalent(SPELLS.PROTECTION_WARRIOR_T20_2P_BONUS.id),
-        },
+        cooldown: 60,
         timelineSortIndex: 8,
       },
       {

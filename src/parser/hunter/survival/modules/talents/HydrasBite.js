@@ -90,10 +90,12 @@ class HydrasBite extends Analyzer {
     return (
       <TalentStatisticBox
         talent={SPELLS.HYDRAS_BITE_TALENT.id}
-        value={<>
+        value={(
+<>
           <ItemDamageDone amount={this.increasedMainTargetDamage + this.spreadDamage} /> <br />
           {this.extraApplications / this.casts} extra dots/cast
-        </>}
+        </>
+)}
       >
         <table className="table table-condensed">
           <thead>

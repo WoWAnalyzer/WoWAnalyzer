@@ -1,14 +1,12 @@
 import React from 'react';
+
 import { emallson } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import { change, date } from 'common/changelog';
 
 export default [
-  {
-    date: new Date('17 May 2019'),
-    contributors: [emallson],
-    changes: <>Fixed an issue with <SpellLink id={SPELLS.JUDGMENT_CAST_PROTECTION.id} /> having its cooldown reset too often when using <SpellLink id={SPELLS.CRUSADERS_JUDGMENT_TALENT.id} />. Special thanks to Woliance for helping me work it out.</>,
-  },
+  change(date(2019, 5, 17), <>Fixed an issue with <SpellLink id={SPELLS.JUDGMENT_CAST_PROTECTION.id} /> having its cooldown reset too often when using <SpellLink id={SPELLS.CRUSADERS_JUDGMENT_TALENT.id} />. Special thanks to Woliance for helping me work it out.</>, [emallson]),
   {
     date: new Date('16 February 2019'),
     contributors: [emallson],

@@ -28,9 +28,9 @@ class RegularArticle extends React.PureComponent {
         >
           {children}
 
-          <div style={{ marginTop: '1em' }}>
+          <small style={{ display: 'block', marginTop: '1em' }}>
             Published at {publishedAt} by <Contributor {...publishedBy} />.
-          </div>
+          </small>
         </Panel>
       </article>
     );

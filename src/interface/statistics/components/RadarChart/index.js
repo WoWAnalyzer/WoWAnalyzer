@@ -29,6 +29,7 @@ class RadarChart extends React.Component {
     levels: PropTypes.number,
     maxValue: PropTypes.number,
     labelFactor: PropTypes.number,
+    labelMaxWidth: PropTypes.number,
     wrapWidth: PropTypes.number,
     opacityArea: PropTypes.number,
     dotRadius: PropTypes.number,

@@ -4,16 +4,15 @@ import Events from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import safeMerge from 'common/safeMerge';
 import SPELLS from 'common/SPELLS';
-import HIT_TYPES from 'game/HIT_TYPES';
-import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import STAT, { getClassNameColor, getIcon, getName } from 'parser/shared/modules/features/STAT';
 import { formatNumber } from 'common/format';
 import Panel from 'interface/statistics/Panel';
 import SpellLink from 'common/SpellLink';
 import Tooltip, { TooltipElement } from 'common/Tooltip';
 import { calculatePrimaryStat, calculateSecondaryStatDefault } from 'common/stats';
+import HIT_TYPES from 'game/HIT_TYPES';
+import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 
-import CelestialFortune from '../spells/CelestialFortune';
 import GiftOfTheOx from '../spells/GiftOfTheOx';
 import MasteryValue from '../core/MasteryValue';
 import Stagger from '../core/Stagger';
@@ -83,15 +82,12 @@ function calculateLeatherArmorScaling(ilvl, amount, targetIlvl) {
 export default class MitigationSheet extends Analyzer {
   static dependencies = {
     masteryValue: MasteryValue,
-    cf: CelestialFortune,
     stats: StatTracker,
     stagger: Stagger,
     gotox: GiftOfTheOx,
   };
 
   armorDamageMitigated = 0;
-  versDamageMitigated = 0;
-  versHealing = 0;
 
   _lastStatUpdate = null;
   _avgStats = {};
@@ -104,7 +100,6 @@ export default class MitigationSheet extends Analyzer {
     return this.masteryValue.totalMasteryHealing;
   }
 
-  _critBonusHealing = 0;
 
   get wdpsHealing() {
     return this.gotox.wdpsBonusHealing;
@@ -124,35 +119,9 @@ export default class MitigationSheet extends Analyzer {
 
     this._lastStatUpdate = this.owner.fight.start_time;
 
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this._onCritHeal);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this._onHealVers);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this._onDamageTaken);
     this.addEventListener('changestats', this._updateStats);
     this.addEventListener(Events.fightend, this._finalizeStats);
-  }
-
-  get bonusCritRatio() {
-    return 1 - this.stats.baseCritPercentage / this.stats.currentCritPercentage;
-  }
-
-  _onCritHeal(event) {
-    if(event.hitType !== HIT_TYPES.CRIT || event.ability.guid === SPELLS.CELESTIAL_FORTUNE_HEAL.id) {
-      return;
-    }
-
-    // counting absorbed healing because we live in a Vectis world
-    const totalHeal = event.amount + (event.overheal || 0) + (event.absorbed || 0);
-    this._critBonusHealing += Math.max(totalHeal / 2 - (event.overheal || 0), 0) * this.bonusCritRatio; // remove overhealing from the bonus healing
-  }
-
-  _onHealVers(event) {
-    if(event.ability.guid === SPELLS.CELESTIAL_FORTUNE_HEAL.id) {
-      return; // CF is unaffected by vers
-    }
-
-    const totalHeal = event.amount + (event.overheal || 0) + (event.absorbed || 0);
-    const originalHeal = totalHeal / (1 + this.stats.currentVersatilityPercentage);
-    this.versHealing += Math.max(totalHeal - originalHeal - (event.overheal || 0), 0);
   }
 
   _onDamageTaken(event) {
@@ -163,15 +132,12 @@ export default class MitigationSheet extends Analyzer {
       this.log('Missing unmitigated amount', event);
       return;
     }
-    let armorMitigated = 0;
-    if(event.ability.type === MAGIC_SCHOOLS.ids.PHYSICAL) {
-      armorMitigated = this._mitigate(event, diminish(this.stats.currentArmorRating, this.K));
+    if(event.ability.type !== MAGIC_SCHOOLS.ids.PHYSICAL) {
+      return;
     }
-    // vers mitigation is half the damage/heal %
-    const versMitigated = this._mitigate(event, this.stats.currentVersatilityPercentage / 2, armorMitigated);
-
+    const armorMitigated = this._mitigate(event, diminish(this.stats.currentArmorRating, this.K));
     this.armorDamageMitigated += armorMitigated;
-    this.versDamageMitigated += versMitigated;
+    event._mitigated = armorMitigated;
   }
 
   _mitigate(event, drPct, alreadyMitigated = 0) {
@@ -284,30 +250,6 @@ export default class MitigationSheet extends Analyzer {
           },
         ],
         increment: this.increment(calculateSecondaryStatDefault, this.stats.startingMasteryRating),
-      },
-      [STAT.VERSATILITY]: {
-        priority: 3,
-        icon: makeIcon(STAT.VERSATILITY),
-        name: getName(STAT.VERSATILITY),
-        className: getClassNameColor(STAT.VERSATILITY),
-        statName: STAT.VERSATILITY,
-        gain: [
-          { name: 'Damage Mitigated', amount: this.versDamageMitigated },
-          { name: 'Additional Healing', amount: this.versHealing },
-        ],
-        increment: this.increment(calculateSecondaryStatDefault, this.stats.startingVersatilityRating),
-      },
-      [STAT.CRITICAL_STRIKE]: {
-        priority: 3,
-        icon: makeIcon(STAT.CRITICAL_STRIKE),
-        name: getName(STAT.CRITICAL_STRIKE),
-        className: getClassNameColor(STAT.CRITICAL_STRIKE),
-        statName: 'crit', // consistently inconsistent
-        gain: [
-          { name: <><SpellLink id={SPELLS.CELESTIAL_FORTUNE_HEAL.id} /> Healing</>, amount: this.cf.critBonusHealing },
-          { name: 'Critical Heals', amount: this._critBonusHealing },
-        ],
-        increment: this.increment(calculateSecondaryStatDefault, this.stats.startingCritRating),
       },
     };
   }

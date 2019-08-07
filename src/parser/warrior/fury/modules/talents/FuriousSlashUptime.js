@@ -44,7 +44,8 @@ class FuriousSlashUptime extends Analyzer {
   
   suggestions(when){
 		  when(this.uptimeSuggestionThresholds)
-		  .addSuggestion((suggest, actual, recommended) => {return suggest(<>Your <SpellLink id={SPELLS.FURIOUS_SLASH_TALENT.id} /> uptime can be improved. Try to keep the Furious Slash buff at maximum stacks.</>)
+		  .addSuggestion((suggest, actual, recommended) => {
+return suggest(<>Your <SpellLink id={SPELLS.FURIOUS_SLASH_TALENT.id} /> uptime can be improved. Try to keep the Furious Slash buff at maximum stacks.</>)
 		  .icon(SPELLS.FURIOUS_SLASH_TALENT.icon)
 		  .actual(`${formatPercentage(actual)}% Furious Slash Uptime At Maximum Stacks`)
 		  .recommended(`>${formatPercentage(recommended)} is recommended`);

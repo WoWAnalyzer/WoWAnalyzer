@@ -61,15 +61,13 @@ class DivinePurpose extends Analyzer {
     if (timeSinceLastDPconsumption < CHAIN_PROC_BUFFER) {
       if (this.currentProcChain === 0) {
         this.currentProcChain = 2;
-      }
-      else {
+      } else {
         this.currentProcChain += 1;
       }
       if (this.currentProcChain > this.largestProcChain){
         this.largestProcChain = this.currentProcChain;
       }
-    }
-    else {
+    } else {
       this.currentProcChain = 0;
     }
   }

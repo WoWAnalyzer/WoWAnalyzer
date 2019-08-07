@@ -99,9 +99,9 @@ class StackMarkovChain {
   }
 }
 
-export function baseDodge(agility, dodge_rating = 0) {
+export function baseDodge(agility, dodgeRating = 0) {
   const base = MONK_DODGE_COEFFS.base_dodge + MONK_DODGE_COEFFS.base_agi / MONK_DODGE_COEFFS.P;
-  const chance = (agility - MONK_DODGE_COEFFS.base_agi) / MONK_DODGE_COEFFS.P + dodge_rating / MONK_DODGE_COEFFS.D;
+  const chance = (agility - MONK_DODGE_COEFFS.base_agi) / MONK_DODGE_COEFFS.P + dodgeRating / MONK_DODGE_COEFFS.D;
   // the x / (x + k) formula is commonly used by the wow team to
   // implement diminishing returns
   return (base + chance / (chance * MONK_DODGE_COEFFS.v + MONK_DODGE_COEFFS.h)) / 100;
@@ -363,21 +363,21 @@ class MasteryValue extends Analyzer {
 
     // pmf of the binomial distribution with n = totalDodgeableHits and
     // p = expectedMeanDodge
-    const dodge_prob = (i) => binom(this.totalDodgeableHits, i) * Math.pow(this.expectedMeanDodge, i) * Math.pow(1 - this.expectedMeanDodge, this.totalDodgeableHits - i);
+    const dodgeProb = (i) => binom(this.totalDodgeableHits, i) * Math.pow(this.expectedMeanDodge, i) * Math.pow(1 - this.expectedMeanDodge, this.totalDodgeableHits - i);
 
     // probability of having dodge exactly k of the n incoming hits
     // assuming the expected mean dodge % is the true mean dodge %
-    const dodge_probs = Array.from({length: this.totalDodgeableHits}, (_x, i) => {
-      return { x: i, y: dodge_prob(i) };
+    const dodgeProbs = Array.from({length: this.totalDodgeableHits}, (_x, i) => {
+      return { x: i, y: dodgeProb(i) };
     });
     const actualDodge = {
       x: this.totalDodges,
-      y: dodge_prob(this.totalDodges),
+      y: dodgeProb(this.totalDodges),
     };
 
     return (
       <OneVariableBinomialChart
-        probabilities={dodge_probs}
+        probabilities={dodgeProbs}
         actualEvent={actualDodge}
         yDomain={[0, 0.4]}
         xAxis={{

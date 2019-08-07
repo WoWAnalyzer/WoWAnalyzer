@@ -51,6 +51,30 @@ export default {
   },
 
   // ENCHANT_WEAPON
+  ENCHANT_WEAPON_OCEANIC_RESTORATION: {
+    id: 168592,
+    name: 'Enchant Weapon - Oceanic Restoration',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6149,
+  },
+  ENCHANT_WEAPON_NAGA_HIDE: {
+    id: 168598,
+    name: 'Enchant Weapon - Naga Hide',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6150,
+  },
+  ENCHANT_WEAPON_FORCE_MULTIPLIER: {
+    id: 168596,
+    name: 'Enchant Weapon - Force Multiplier',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6148,
+  },
+  ENCHANT_WEAPON_MACHINISTS_BRILLIANCE: {
+    id: 168593,
+    name: 'Enchant Weapon - Machinist\'s Brilliance',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6112,
+  },
   ENCHANT_WEAPON_COASTAL_SURGE: {
     id: 153476,
     name: 'Enchant Weapon - Coastal Surge',

@@ -682,3 +682,18 @@ export const Scotsoo = {
     link: 'https://worldofwarcraft.com/en-us/character/eu/tarren-mill/scotsoodh',
   }],
 };
+export const LeoZhekov = {
+  nickname: 'LeoZhekov',
+  github: 'LeoZhekov',
+  discord: 'LeoZhekov#6641',
+  avatar: require('./interface/images/avatars/LeoZhekov-avatar.jpg'),
+  mains: [{
+    name: 'Lisossa',
+    spec: SPECS.SURVIVAL_HUNTER,
+    link: 'https://worldofwarcraft.com/en-gb/character/Zenedar/Lisossa',
+  }],
+};
+export const Amrux = {
+  nickname: 'Amrux',
+  github: 'grantjoshua1995',
+};

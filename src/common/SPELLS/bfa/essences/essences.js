@@ -123,5 +123,47 @@ export default {
     name: 'Ancient Flame',
     icon: 'spell_azerite_essence_15',
   },
-  
+//general conflict (the major part of conflict and stife)
+  CONFLICT: {
+    id: 304088,
+    traitId: 32,
+    name: 'Conflict',
+    icon: 'spell_azerite_essence_17',
+  },
+  //Worldvein Resonance
+  WORLDVEIN_RESONANCE: {
+    id: 295186,
+    traitId: 4,
+    name: 'Worldvein Resonance',
+    icon: 'inv_misc_azerite_01',
+  },
+  LIFEBLOOD_BUFF: {
+    // buff given when stood near shards with the minor essence, stacking up to 4
+    id: 295137,
+    name: 'Lifeblood',
+    icon: 'inv_glowingazeritespire',
+  },
+  LIFEBLOOD_SHARD_SUMMON: {
+    // id for 'summon' event of shards being created, either randomly from the minor or in response to activating the major
+    id: 295114,
+    name: 'Lifeblood Shard',
+    icon: 'inv_radientazeritematrix',
+  },
+  NULL_DYNAMO: {
+    traitId: 13,
+    // major cast
+    id: 295746,
+    name: 'Nullification Dynamo',
+    icon: 'spell_azerite_essence_16',
+  },
+  NULL_DYNAMO_SHIELD_MINOR: {
+    id: 295842,
+    name: 'Null Barrier',
+    icon: 'spell_azerite_essence_16',
+  },
+  NULL_DYNAMO_DAMAGE: {
+    id: 296061,
+    name: 'Null Barrier',
+    icon: 'spell_azerite_essence_16',
+  },
 };
