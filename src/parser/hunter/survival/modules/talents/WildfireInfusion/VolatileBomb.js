@@ -153,7 +153,7 @@ class VolatileBomb extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(2)}
         size="flexible"
         category={'TALENTS'}
-        dropdown={
+        dropdown={(
           <>
             <table className="table table-condensed">
               <thead>
@@ -176,7 +176,7 @@ class VolatileBomb extends Analyzer {
               </tbody>
             </table>
           </>
-        }
+        )}
       >
         <BoringSpellValueText spell={SPELLS.VOLATILE_BOMB_WFI}>
           <>

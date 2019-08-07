@@ -53,7 +53,7 @@ class AnimalCompanion extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={'TALENTS'}
-        dropdown={
+        dropdown={(
           <>
             <table className="table table-condensed">
               <thead>
@@ -76,7 +76,7 @@ class AnimalCompanion extends Analyzer {
               </tbody>
             </table>
           </>
-        }
+        )}
       >
         <BoringSpellValueText spell={SPELLS.ANIMAL_COMPANION_TALENT}>
           <>

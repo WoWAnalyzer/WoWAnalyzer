@@ -67,7 +67,7 @@ class ShrapnelBomb extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(2)}
         size="flexible"
         category={'TALENTS'}
-        dropdown={
+        dropdown={(
           <>
             <table className="table table-condensed">
               <thead>
@@ -86,7 +86,7 @@ class ShrapnelBomb extends Analyzer {
               </tbody>
             </table>
           </>
-        }
+        )}
       >
         <BoringSpellValueText spell={SPELLS.SHRAPNEL_BOMB_WFI}>
           <>

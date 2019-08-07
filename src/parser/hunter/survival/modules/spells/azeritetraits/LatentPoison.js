@@ -84,12 +84,12 @@ class LatentPoison extends Analyzer {
       <AzeritePowerStatistic
         size="flexible"
         category={"AZERITE_POWERS"}
-        tooltip={
+        tooltip={(
           <>
             {this.utilised} stacks consumed / {this.maxPossible} possible.<br />
             {this.wasted > 0 && <> You wasted {this.wasted} stacks by not casting {this.spellKnown} at the target with {MAX_STACKS} stacks on.</>}
           </>
-        }
+        )}
       >
         <BoringSpellValueText spell={SPELLS.LATENT_POISON}>
           <>

@@ -57,11 +57,11 @@ class DanceOfDeath extends Analyzer {
       <AzeritePowerStatistic
         size="flexible"
         category={"AZERITE_POWERS"}
-        tooltip={
+        tooltip={(
           <>
             Dance of Death granted <strong>{this.agility}</strong> Agility for <strong>{formatPercentage(this.uptime)}%</strong> of the fight.
           </>
-        }
+        )}
       >
         <BoringSpellValueText spell={SPELLS.DANCE_OF_DEATH}>
           <>

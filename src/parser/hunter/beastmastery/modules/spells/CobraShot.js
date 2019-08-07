@@ -113,12 +113,12 @@ class CobraShot extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        tooltip={
+        tooltip={(
           <>
             {this.wastedCasts > 0 && <>You had {this.wastedCasts} {this.wastedCasts > 1 ? 'casts' : 'cast'} of Cobra Shot when Kill Command wasn't on cooldown. <br /></>}
             {this.wastedKCReductionMs > 0 && `You wasted ${this.wastedCDR} seconds of potential cooldown reduction by casting Cobra Shot while Kill Command had less than 1 + GCD seconds remaining on its CD.`}
           </>
-        }
+        )}
       >
         <BoringSpellValueText spell={SPELLS.COBRA_SHOT}>
           <>

@@ -138,7 +138,7 @@ class FeedingFrenzy extends Analyzer {
       <AzeritePowerStatistic
         size="flexible"
         category={"AZERITE_POWERS"}
-        tooltip={
+        tooltip={(
           <>
             This only accounts for the added uptime granted when casting Barbed Shot after 8 seconds had passed, so each cast can potentially be worth up to 1 second. <br />
             This happened a total of {this.timesExtended} {this.timesExtended > 1 ? 'times' : 'time'}.
@@ -149,7 +149,7 @@ class FeedingFrenzy extends Analyzer {
             <br />
             The damage portion of this trait did an additional ~ {formatNumber(dps)} DPS, {formatPercentage(damageThroughputPercent)} % of your overall damage.
           </>
-        }
+        )}
       >
         <BoringSpellValueText spell={SPELLS.FEEDING_FRENZY}>
           <>

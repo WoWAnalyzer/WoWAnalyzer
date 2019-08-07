@@ -140,7 +140,7 @@ class LockAndLoad extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(10)}
         size="flexible"
         category={'TALENTS'}
-        tooltip={
+        tooltip={(
           <>
             You had {this.noGainLNLProcs} {this.noGainLNLProcs > 1 || this.noGainLNLProcs === 0 ? `procs` : `proc`} with LnL already active. <br />
             You had {formatPercentage(this.totalProcs / this.expectedProcs, 1)}% procs of what you could expect to get over the encounter. <br />
@@ -158,7 +158,7 @@ class LockAndLoad extends Analyzer {
               )}
             </ul>
           </>
-        }
+        )}
       >
         <BoringSpellValueText spell={SPELLS.LOCK_AND_LOAD_TALENT}>
           <>

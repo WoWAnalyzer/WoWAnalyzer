@@ -131,7 +131,7 @@ class BestialWrath extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(14)}
         size="flexible"
-        dropdown={
+        dropdown={(
           <>
             <table className="table table-condensed">
               <thead>
@@ -160,7 +160,7 @@ class BestialWrath extends Analyzer {
               </tbody>
             </table>
           </>
-        }
+        )}
       >
         <BoringSpellValueText spell={SPELLS.BESTIAL_WRATH}>
           <>

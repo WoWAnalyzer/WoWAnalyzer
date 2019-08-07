@@ -114,12 +114,12 @@ class BlurOfTalons extends Analyzer {
       <AzeritePowerStatistic
         size="flexible"
         category={"AZERITE_POWERS"}
-        tooltip={
+        tooltip={(
           <>
             Blur of Talons was up for a total of {this.uptime} seconds
           </>
-        }
-        dropdown={
+        )}
+        dropdown={(
           <>
             <table className="table table-condensed">
               <thead>
@@ -142,7 +142,7 @@ class BlurOfTalons extends Analyzer {
               </tbody>
             </table>
           </>
-        }
+        )}
       >
         <BoringSpellValueText spell={SPELLS.BLUR_OF_TALONS}>
           <>

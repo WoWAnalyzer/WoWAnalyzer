@@ -56,11 +56,11 @@ class CallingTheShots extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={'TALENTS'}
-        tooltip={
+        tooltip={(
           <>
             You wasted {formatNumber(this.wastedTrueshotReductionMs / 1000)} seconds of CDR by using Arcane Shot or Multi Shot when Trueshot wasn't on cooldown or had less than 3 seconds remaining on CD.
           </>
-        }
+        )}
       >
         <BoringSpellValueText spell={SPELLS.CALLING_THE_SHOTS_TALENT}>
           <>

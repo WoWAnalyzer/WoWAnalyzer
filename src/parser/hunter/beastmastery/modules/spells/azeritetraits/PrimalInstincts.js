@@ -60,11 +60,11 @@ class PrimalInstincts extends Analyzer {
       <AzeritePowerStatistic
         size="flexible"
         category={"AZERITE_POWERS"}
-        tooltip={
+        tooltip={(
           <>
             Primal Instincts granted <strong>{this.mastery}</strong> Mastery for <strong>{formatPercentage(this.uptime)}%</strong> of the fight.
           </>
-        }
+        )}
       >
         <BoringSpellValueText spell={SPELLS.PRIMAL_INSTINCTS}>
           <>

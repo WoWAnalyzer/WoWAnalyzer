@@ -108,13 +108,13 @@ class PrimevalIntuition extends Analyzer {
     return (
       <AzeritePowerStatistic
         size="flexible"
-        tooltip={
+        tooltip={(
           <>
             Primeval Intuition was up for a total of {this.uptime} seconds.
           </>
-        }
+        )}
         category={'AZERITE_POWERS'}
-        dropdown={
+        dropdown={(
           <>
             <table className="table table-condensed">
               <thead>
@@ -137,7 +137,7 @@ class PrimevalIntuition extends Analyzer {
               </tbody>
             </table>
           </>
-        }
+        )}
       >
         <BoringSpellValueText spell={SPELLS.PRIMEVAL_INTUITION}>
           <>

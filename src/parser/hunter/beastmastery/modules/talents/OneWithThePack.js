@@ -42,11 +42,11 @@ class OneWithThePack extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={'TALENTS'}
-        tooltip={
+        tooltip={(
           <>
             Since there is no way to track Wild Call resets, this is an approximation of how many resets One With The Pack granted you.
           </>
-        }
+        )}
       >
         <BoringSpellValueText spell={SPELLS.ONE_WITH_THE_PACK_TALENT}>
           <>

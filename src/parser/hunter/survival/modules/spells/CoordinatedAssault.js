@@ -70,7 +70,7 @@ class CoordinatedAssault extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(17)}
         size="flexible"
-        tooltip={
+        tooltip={(
           <>
             Over the course of the encounter you had Coordinated Assault up for a total of {(this.selectedCombatant.getBuffUptime(SPELLS.COORDINATED_ASSAULT.id) / 1000).toFixed(1)} seconds. <br />
             Total damage breakdown:
@@ -79,7 +79,7 @@ class CoordinatedAssault extends Analyzer {
               <li>Pet damage: {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.petDamage))}% / {formatNumber(this.petDamage / (this.owner.fightDuration / 1000))} DPS</li>
             </ul>
           </>
-        }
+        )}
       >
         <BoringSpellValueText spell={SPELLS.COORDINATED_ASSAULT}>
           <>

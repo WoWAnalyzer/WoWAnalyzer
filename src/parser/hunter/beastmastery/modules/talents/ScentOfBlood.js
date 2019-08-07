@@ -65,14 +65,14 @@ class ScentOfBlood extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={'TALENTS'}
-        tooltip={
+        tooltip={(
           <>
             <ul>
               <li>You wasted {this.focusWastedFromBS} focus by being too close to focus cap when Barbed Shot gave you focus.</li>
               {this.selectedCombatant.hasTalent(SPELLS.DIRE_BEAST_TALENT.id) && <li> You wasted {this.focusWastedFromDB} focus by being too close to focus cap when Dire Beast gave you focus.</li>}
             </ul>
           </>
-        }
+        )}
       >
         <BoringSpellValueText spell={SPELLS.SCENT_OF_BLOOD_TALENT}>
           <>

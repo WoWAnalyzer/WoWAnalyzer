@@ -73,11 +73,11 @@ class WildernessSurvival extends Analyzer {
     return (
       <AzeritePowerStatistic
         size="flexible"
-        tooltip={
+        tooltip={(
           <>
             Wilderness Survival reduced {this.hasWFI ? SPELLS.WILDFIRE_INFUSION_TALENT.name : SPELLS.WILDFIRE_BOMB.name} by {this.effectiveCDRInSeconds} seconds out of {this.totalPossibleCDR} possible.
           </>
-        }
+        )}
         category={'AZERITE_POWERS'}
       >
         <BoringSpellValueText spell={SPELLS.WILDERNESS_SURVIVAL}>

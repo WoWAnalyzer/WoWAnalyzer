@@ -51,7 +51,7 @@ class Trueshot extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(16)}
         size="flexible"
-        tooltip={
+        tooltip={(
           <>
             Information regarding your average Trueshot window:
             <ul>
@@ -59,7 +59,7 @@ class Trueshot extends Analyzer {
               <li>You hit an average of {this.averageAimedShots} Aimed Shots inside each Trueshot window. </li>
             </ul>
           </>
-        }
+        )}
       >
         <BoringSpellValueText spell={SPELLS.TRUESHOT}>
           <>

@@ -93,7 +93,7 @@ class HydrasBite extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(3)}
         size="flexible"
-        dropdown={
+        dropdown={(
           <>
             <table className="table table-condensed">
               <thead>
@@ -117,7 +117,7 @@ class HydrasBite extends Analyzer {
               </tbody>
             </table>
           </>
-        }
+        )}
         category={"TALENTS"}
       >
         <BoringSpellValueText spell={SPELLS.HYDRAS_BITE_TALENT}>

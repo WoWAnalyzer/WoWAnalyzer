@@ -72,11 +72,11 @@ class TipOfTheSpear extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(3)}
         size="flexible"
-        tooltip={
+        tooltip={(
           <>
             You consumed {this.usedStacks}/{this.usedStacks + this.wastedStacks} possible stacks.
           </>
-        }
+        )}
         category={"TALENTS"}
       >
         <BoringSpellValueText spell={SPELLS.TIP_OF_THE_SPEAR_TALENT}>

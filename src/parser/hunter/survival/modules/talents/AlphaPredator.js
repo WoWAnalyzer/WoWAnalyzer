@@ -37,11 +37,11 @@ class AlphaPredator extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(1)}
         size="flexible"
-        tooltip={
+        tooltip={(
           <>
             This statistic shows the damage gained from the increased Kill Command damage. It does not reflect the potential damage gain from having 2 charges of Kill Command or from the focus gain from Kill Command overall.
           </>
-        }
+        )}
         category={'TALENTS'}
       >
         <BoringSpellValueText spell={SPELLS.ALPHA_PREDATOR_TALENT}>

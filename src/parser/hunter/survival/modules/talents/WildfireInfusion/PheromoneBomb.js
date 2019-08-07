@@ -80,7 +80,7 @@ class PheromoneBomb extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(2)}
         size="flexible"
         category={'TALENTS'}
-        dropdown={
+        dropdown={(
           <>
             <table className="table table-condensed">
               <thead>
@@ -99,7 +99,7 @@ class PheromoneBomb extends Analyzer {
               </tbody>
             </table>
           </>
-        }
+        )}
       >
         <BoringSpellValueText spell={SPELLS.PHEROMONE_BOMB_WFI}>
           <>

@@ -132,7 +132,7 @@ class VipersVenom extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(1)}
         size="flexible"
-        tooltip={
+        tooltip={(
           <>
             <ul>
               <li>Average time between gaining Viper's Venom buff and using it was <b>{this.averageTimeBetweenBuffAndUsage}</b> seconds.
@@ -143,7 +143,7 @@ class VipersVenom extends Analyzer {
               </li>
             </ul>
           </>
-        }
+        )}
         category={"TALENTS"}
       >
         <BoringSpellValueText spell={SPELLS.VIPERS_VENOM_TALENT}>

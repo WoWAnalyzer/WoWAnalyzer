@@ -158,7 +158,7 @@ class HuntersMark extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={'TALENTS'}
-        tooltip={
+        tooltip={(
           <>
             <ul>
               <li>You had a total of {this.casts} casts of Hunter's Mark.</li>
@@ -167,7 +167,7 @@ class HuntersMark extends Analyzer {
               {this.potentialPrecastConfirmation}
             </ul>
           </>
-        }
+        )}
       >
         <BoringSpellValueText spell={SPELLS.HUNTERS_MARK_TALENT}>
           <>

@@ -102,7 +102,7 @@ class FlankingStrike extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(1)}
         size="flexible"
-        dropdown={
+        dropdown={(
           <>
             <table className="table table-condensed">
               <thead>
@@ -123,7 +123,7 @@ class FlankingStrike extends Analyzer {
               </tbody>
             </table>
           </>
-        }
+        )}
         category={"TALENTS"}
       >
         <BoringSpellValueText spell={SPELLS.FLANKING_STRIKE_TALENT}>

@@ -114,7 +114,7 @@ class Volley extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={'TALENTS'}
-        tooltip={
+        tooltip={(
           <>
             You had {this.procs} {this.procs > 1 ? `procs` : `proc`}. <br />
             You had {formatPercentage(this.procs / this.expectedProcs, 1)}% procs of what you could expect to get over the encounter. <br />
@@ -132,7 +132,7 @@ class Volley extends Analyzer {
               )}
             </ul>
           </>
-        }
+        )}
       >
         <BoringSpellValueText spell={SPELLS.VOLLEY_TALENT}>
           <>

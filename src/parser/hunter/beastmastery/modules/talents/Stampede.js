@@ -109,12 +109,12 @@ class Stampede extends Analyzer {
           position={STATISTIC_ORDER.OPTIONAL(13)}
           size="flexible"
           category={'TALENTS'}
-          tooltip={
+          tooltip={(
             <>
               You cast {stampedePlural} in the fight, which hit enemies {this.hits} times for an average of {formatNumber(averageHit)} damage per hit.
             </>
-          }
-          dropdown={
+          )}
+          dropdown={(
             <>
               <table className="table table-condensed">
                 <thead>
@@ -137,7 +137,7 @@ class Stampede extends Analyzer {
                 </tbody>
               </table>
             </>
-          }
+          )}
         >
           <BoringSpellValueText spell={SPELLS.STAMPEDE_TALENT}>
             <>

@@ -51,11 +51,11 @@ class HazeOfRage extends Analyzer {
       <AzeritePowerStatistic
         size="flexible"
         category={"AZERITE_POWERS"}
-        tooltip={
+        tooltip={(
           <>
             Haze of Rage granted <strong>{this.agility}</strong> Agility for <strong>{formatPercentage(this.uptime)}%</strong> of the fight.
           </>
-        }
+        )}
       >
         <BoringSpellValueText spell={SPELLS.HAZE_OF_RAGE}>
           <>

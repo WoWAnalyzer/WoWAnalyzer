@@ -48,11 +48,11 @@ class SpittingCobra extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={'TALENTS'}
-        tooltip={
+        tooltip={(
           <>
             You wasted {this.focusWasted} focus by being too close to focus cap when Spitting Cobra gave you focus.
           </>
-        }
+        )}
       >
         <BoringSpellValueText spell={SPELLS.SPITTING_COBRA_TALENT}>
           <>

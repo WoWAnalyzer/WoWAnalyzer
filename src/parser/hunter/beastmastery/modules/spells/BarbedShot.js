@@ -174,7 +174,7 @@ class BarbedShot extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(15)}
         size="flexible"
-        tooltip={
+        tooltip={(
           <>
             <ul>
               <li>Your pet had an average of {this.getAverageBarbedShotStacks()} {this.getAverageBarbedShotStacks() > 1 ? 'stacks' : 'stack'} active throughout the fight.</li>
@@ -182,8 +182,8 @@ class BarbedShot extends Analyzer {
               <li>You had an uptime of {formatPercentage(this.percentPlayerUptime)}% on the focus regen buff.</li>
             </ul>
           </>
-        }
-        dropdown={
+        )}
+        dropdown={(
           <>
             <table className="table table-condensed">
               <thead>
@@ -204,7 +204,7 @@ class BarbedShot extends Analyzer {
               </tbody>
             </table>
           </>
-        }
+        )}
       >
         <BoringSpellValueText spell={SPELLS.BARBED_SHOT_PET_BUFF}>
           <>

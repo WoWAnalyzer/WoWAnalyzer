@@ -73,7 +73,7 @@ class BornToBeWild extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(14)}
         size="flexible"
         category={'TALENTS'}
-        tooltip={
+        tooltip={(
           <>
             Effective CDR constitutes the time that was left of the original CD (before reduction from Born To Be Wild) when you cast it again as that is the effective cooldown reduction it provided for you.
             <ul>
@@ -82,7 +82,7 @@ class BornToBeWild extends Analyzer {
               <li>Aspect of the Turtle: {formatNumber(this._spells[SPELLS.ASPECT_OF_THE_TURTLE.id].effectiveCDR / 1000)}s</li>
             </ul>
           </>
-        }
+        )}
       >
         <BoringSpellValueText spell={SPELLS.BORN_TO_BE_WILD_TALENT}>
           <>

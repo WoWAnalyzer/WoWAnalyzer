@@ -94,11 +94,11 @@ class PreciseShots extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(17)}
         size="flexible"
-        tooltip={
+        tooltip={(
           <>
             You wasted between {this.minOverwrittenProcs} and {this.maxOverwrittenProcs} Precise Shots procs by casting Aimed Shot when you already had Precise Shots active
           </>
-        }
+        )}
       >
         <BoringSpellValueText spell={SPELLS.PRECISE_SHOTS}>
           <>

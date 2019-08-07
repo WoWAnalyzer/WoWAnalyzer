@@ -80,12 +80,12 @@ class DireBeast extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={'TALENTS'}
-        tooltip={
+        tooltip={(
           <>
             You had {formatPercentage(this.uptime)}% uptime on the Dire Beast Haste buff. <br />
             You wasted {this.focusWasted} Focus by being too close to Focus cap when Dire Beast gave you Focus.
           </>
-        }
+        )}
       >
         <BoringSpellValueText spell={SPELLS.DIRE_BEAST_TALENT}>
           <>

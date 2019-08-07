@@ -105,14 +105,14 @@ class BirdOfPrey extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(1)}
         size="flexible"
-        tooltip={
+        tooltip={(
           <>
             <ul>
               <li>You extended Coordinated Assault by {this.timeExtendedInSeconds} seconds.</li>
               <li>You lost out on {this.extensionTimeLostInSeconds} seconds of Coordinated Assault by attacking a different target than your pet.</li>
             </ul>
           </>
-        }
+        )}
         category={'TALENTS'}
       >
         <BoringSpellValueText spell={SPELLS.BIRDS_OF_PREY_TALENT}>

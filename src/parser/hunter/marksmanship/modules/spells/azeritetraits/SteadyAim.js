@@ -86,11 +86,11 @@ class SteadyAim extends Analyzer {
       <AzeritePowerStatistic
         size="flexible"
         category={'AZERITE_POWERS'}
-        tooltip={
+        tooltip={(
           <>
             {this.utilised} debuffs utilised / {this.maxPossible} possible
           </>
-        }
+        )}
       >
         <BoringSpellValueText spell={SPELLS.STEADY_AIM}>
           <>

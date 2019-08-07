@@ -61,11 +61,11 @@ class Bloodseeker extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(2)}
         size="flexible"
-        tooltip={
+        tooltip={(
           <>
             You had {formatPercentage(this.uptime)}% uptime on the buff, with an average of {(this.averageStacks).toFixed(2)} stacks.
           </>
-        }
+        )}
         category={"TALENTS"}
       >
         <BoringSpellValueText spell={SPELLS.BLOODSEEKER_TALENT}>

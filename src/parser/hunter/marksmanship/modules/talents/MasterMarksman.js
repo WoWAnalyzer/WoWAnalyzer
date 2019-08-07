@@ -59,7 +59,7 @@ class MasterMarksman extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(10)}
         size="flexible"
         category={'TALENTS'}
-        tooltip={
+        tooltip={(
           <>
             You gained a total of {this.totalProcs} procs, and utilised {this.usedProcs} of them.
             <ul>
@@ -79,7 +79,7 @@ class MasterMarksman extends Analyzer {
               )}
             </ul>
           </>
-        }
+        )}
       >
         <BoringSpellValueText spell={SPELLS.MASTER_MARKSMAN_TALENT}>
           <>

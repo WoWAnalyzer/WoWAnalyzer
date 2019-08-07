@@ -225,17 +225,19 @@ class SerpentSting extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(19)}
         size="flexible"
-        tooltip={<>
-          <ul>
-            <li>You cast Serpent Sting a total of {this.casts} times.</li>
-            <li>You refreshed the debuff {this.timesRefreshed} times.</li>
+        tooltip={(
+          <>
             <ul>
-              <li>When you did refresh (without Viper's Venom up), it happened on average with {formatPercentage(this.averagePercentRemainingOnRefresh)}% or {this.averageTimeBetweenRefresh} seconds remaining on the debuff.</li>
-              <li>You had {this.badRefresh} bad refreshes. This means refreshes with more than {formatPercentage(SERPENT_STING_SV_PANDEMIC)}% of the current debuff remaining and no Viper's Venom buff active.</li>
+              <li>You cast Serpent Sting a total of {this.casts} times.</li>
+              <li>You refreshed the debuff {this.timesRefreshed} times.</li>
+              <ul>
+                <li>When you did refresh (without Viper's Venom up), it happened on average with {formatPercentage(this.averagePercentRemainingOnRefresh)}% or {this.averageTimeBetweenRefresh} seconds remaining on the debuff.</li>
+                <li>You had {this.badRefresh} bad refreshes. This means refreshes with more than {formatPercentage(SERPENT_STING_SV_PANDEMIC)}% of the current debuff remaining and no Viper's Venom buff active.</li>
+              </ul>
+              <li>Serpent Sting dealt a total of {formatNumber(this.bonusDamage / this.owner.fightDuration * 1000)} DPS or {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDamage))}% of your total damage.</li>
             </ul>
-            <li>Serpent Sting dealt a total of {formatNumber(this.bonusDamage / this.owner.fightDuration * 1000)} DPS or {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDamage))}% of your total damage.</li>
-          </ul>
-        </>}
+          </>
+        )}
       >
         <BoringSpellValueText spell={SPELLS.SERPENT_STING_SV}>
           <>

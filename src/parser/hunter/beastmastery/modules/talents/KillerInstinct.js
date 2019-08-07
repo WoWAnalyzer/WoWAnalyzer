@@ -51,12 +51,12 @@ class KillerInstinct extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={'TALENTS'}
-        tooltip={
+        tooltip={(
           <>
             You cast a total of {this.casts} Kill Commands, of which {this.castsWithExecute} were on enemies with less than 35% of their health remaining.
             These {this.castsWithExecute} casts provided you a total of {formatNumber(this.damage)} extra damage throughout the fight.
           </>
-        }
+        )}
       >
         <BoringSpellValueText spell={SPELLS.KILLER_INSTINCT_TALENT}>
           <>

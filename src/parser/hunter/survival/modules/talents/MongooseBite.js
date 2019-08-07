@@ -181,13 +181,13 @@ class MongooseBite extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(1)}
         size="flexible"
-        tooltip={
+        tooltip={(
           <>
             You hit an average of {(this.mongooseBiteStacks[MAX_STACKS] / this.fiveBiteWindows).toFixed(1)} bites when you had {MAX_STACKS} stacks of Mongoose Fury. <br />
             You hit an average of {(this.totalMongooseBites / this.totalWindowsStarted).toFixed(1)} bites per Mongoose Fury window started.
           </>
-        }
-        dropdown={
+        )}
+        dropdown={(
           <>
             <table className="table table-condensed">
               <thead>
@@ -208,7 +208,7 @@ class MongooseBite extends Analyzer {
               </tbody>
             </table>
           </>
-        }
+        )}
         category={"TALENTS"}
       >
         <BoringSpellValueText spell={SPELLS.MONGOOSE_BITE_TALENT}>

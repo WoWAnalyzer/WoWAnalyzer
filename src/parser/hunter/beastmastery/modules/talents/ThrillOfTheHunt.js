@@ -91,13 +91,13 @@ class ThrillOfTheHunt extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={'TALENTS'}
-        tooltip={
+        tooltip={(
           <>
             {this.wastedCasts > 0 && <>You had {this.wastedCasts} {this.wastedCasts > 1 ? `casts` : `cast`} of Cobra Shot when Bestial Wrath wasn't on cooldown. <br /></>}
             {this.wastedBWReductionMs > 0 && `You wasted ${this.wastedCDR} seconds of potential cooldown reduction by casting Cobra Shot while Bestial Wrath had less than 1 + GCD seconds remaining on its CD.`}
           </>
-        }
-        dropdown={
+        )}
+        dropdown={(
           <>
             <table className="table table-condensed">
               <thead>
@@ -120,7 +120,7 @@ class ThrillOfTheHunt extends Analyzer {
               </tbody>
             </table>
           </>
-        }
+        )}
       >
         <BoringSpellValueText spell={SPELLS.THRILL_OF_THE_HUNT_TALENT}>
           <>

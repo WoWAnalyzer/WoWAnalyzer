@@ -120,12 +120,12 @@ class CarefulAim extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={'TALENTS'}
-        tooltip={
+        tooltip={(
           <>
             Total damage contribution: {formatNumber(this.damageContribution)}
           </>
-        }
-        dropdown={
+        )}
+        dropdown={(
           <>
             <table className="table table-condensed">
               <thead>
@@ -154,7 +154,7 @@ class CarefulAim extends Analyzer {
               </tbody>
             </table>
           </>
-        }
+        )}
       >
         <BoringSpellValueText spell={SPELLS.CAREFUL_AIM_TALENT}>
           <>

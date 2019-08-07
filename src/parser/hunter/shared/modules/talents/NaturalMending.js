@@ -61,11 +61,11 @@ class NaturalMending extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(14)}
         size="flexible"
         category={'TALENTS'}
-        tooltip={
+        tooltip={(
           <>
             You wasted {formatNumber(this.wastedExhilReductionMs / 1000)} seconds of CDR by spending focus whilst Exhilaration wasn't on cooldown.
           </>
-        }
+        )}
       >
         <BoringSpellValueText spell={SPELLS.NATURAL_MENDING_TALENT}>
           <>
