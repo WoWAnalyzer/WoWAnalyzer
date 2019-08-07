@@ -11,7 +11,7 @@ import PrePotion from 'parser/shared/modules/items/PrePotion';
 import EnchantChecker from 'parser/shared/modules/items/EnchantChecker';
 import AlwaysBeCasting from './AlwaysBeCasting';
 
-import Shield_Block from '../spells/ShieldBlock';
+import ShieldBlock from '../spells/ShieldBlock';
 import IgnorePain from './IgnorePain';
 import RageDetails from '../core/RageDetails';
 
@@ -26,7 +26,7 @@ class Checklist extends CoreChecklist {
     alwaysBeCasting: AlwaysBeCasting,
     enchantChecker: EnchantChecker,
 
-    shieldBlock: Shield_Block,
+    shieldBlock: ShieldBlock,
     ignorePain: IgnorePain,
     rageDetails: RageDetails,
     dragonRoar: DragonRoar,

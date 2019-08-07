@@ -43,8 +43,7 @@ class Cataclysm extends Analyzer {
   onCataclysmDamage(event) {
     if (event.timestamp <= this._castTimestamp + BUFFER) {
       this._currentCastCount += 1;
-    }
-    else {
+    } else {
       debug && this.log('Cataclysm damage outside of the 100ms buffer after cast');
     }
   }

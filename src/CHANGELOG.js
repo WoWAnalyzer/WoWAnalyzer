@@ -1,5 +1,5 @@
 import React from 'react';
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan } from 'CONTRIBUTORS';
+import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -8,6 +8,15 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  change(date(2019, 8, 6), 'Made it easier to rollback to older versions of the app in case of issues.', Zerotorescue),
+  change(date(2019, 8, 6), 'General responsive improvements for better mobile experience.', Amrux),
+  change(date(2019, 8, 6), <>Shows <SpellLink id={SPELLS.ABYSSAL_HEALING_POTION.id} /> in death recap now!</>, Abelito75),
+  change(date(2019, 8, 3), 'Keep track of disabled modules names during production.', Zeboot),
+  change(date(2019, 8, 3), 'Made the error handler more resilient to errors in browser extensions.', Zerotorescue),
+  change(date(2019, 8, 3), 'Changed polyfilling so we might accidentally support more old and/or shitty browsers.', Zerotorescue),
+  change(date(2019, 8, 3), 'Updated to create-react-app 3 and made the development environment easier to update.', Zerotorescue),
+  change(date(2019, 8, 2), 'Added \'degraded experience\' toaster in case of disabled modules.', Zeboot),
+  change(date(2019, 8, 2), <>Fixed the Haste value of <SpellLink id={SPELLS.EVER_RISING_TIDE_MAJOR.id} /></>, niseko),
   change(date(2019, 7, 27), 'Added Unbridled Fury to the list of strong pre-potions.', emallson),
   change(date(2019, 7, 27), <>Added <SpellLink id={SPELLS.NULL_DYNAMO.id} /> essence.</>, emallson),
   change(date(2019, 7, 25), 'Fixed a crash in the Ever-Rising Tide Module', HawkCorrigan),

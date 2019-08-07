@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Trans } from '@lingui/macro';
 
-import { hasPremium } from 'interface/selectors/user';
 import { ReactComponent as Logo } from 'interface/images/logo.svg';
 import Warning from 'interface/common/Alert/Warning';
 import { getReportHistory } from 'interface/selectors/reportHistory';
@@ -49,11 +48,12 @@ class ReportSelectionHeader extends React.PureComponent {
         <div className="container">
           <div className="row">
             <div className={reportHistory.length !== 0 ? 'col-md-8' : 'col-md-12'}>
+
               <a href="/" className="brand-name">
                 <Logo />
                 <h1>WoWAnalyzer</h1>
               </a>
-              <Trans>Improve your performance with personal feedback and stats. Just enter the link of a <a href="https://warcraftlogs.com" target="_blank" rel="noopener noreferrer">Warcraft Logs</a> report:</Trans>
+              <Trans>Improve your performance with personal feedback and stats. Just enter the link of a <a href="https://www.warcraftlogs.com/" target="_blank" rel="noopener noreferrer">Warcraft Logs</a> report:</Trans>
               <div style={{ margin: '30px auto', maxWidth: 700, textAlign: 'left' }}>
                 {this.state.reportSelectionActive ? (
                   <>
@@ -94,7 +94,6 @@ class ReportSelectionHeader extends React.PureComponent {
 
 const mapStateToProps = state => ({
   reportHistory: getReportHistory(state),
-  premium: hasPremium(state),
 });
 
 export default connect(

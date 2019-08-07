@@ -83,13 +83,13 @@ class Volley extends Analyzer {
     return sum;
   }
 
-  binomialCalculation(procs, tries, proc_chance) {
+  binomialCalculation(procs, tries, procChance) {
     //Correcting for continuity we add 0.5 to procs, because we're looking for the probability of getting at most the amount of procs we received
     // if P(X <= a), then P(X<a+0.5)
     const correctedProcs = procs + 0.5;
-    const nonProcChance = 1 - proc_chance;
+    const nonProcChance = 1 - procChance;
 
-    const stddev = Math.sqrt(proc_chance * nonProcChance * tries);
+    const stddev = Math.sqrt(procChance * nonProcChance * tries);
     //zScore is calculated by saying (X - M) / stddev
     const zScore = (correctedProcs - this.pn) / stddev;
 

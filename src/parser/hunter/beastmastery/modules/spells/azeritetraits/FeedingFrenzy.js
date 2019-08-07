@@ -55,7 +55,7 @@ class FeedingFrenzy extends Analyzer {
     debug && console.log(`feeding frenzy bonus from items: ${this.traitBonus}`);
   }
 
-  extra_BS_uptime(timestamp, lastCast) {
+  extraBSUptime(timestamp, lastCast) {
     const delta = timestamp - lastCast;
     if (delta > (ORIGINAL_FRENZY_DURATION)) {
       const ret = Math.min(delta - (ORIGINAL_FRENZY_DURATION), MS);
@@ -95,7 +95,7 @@ class FeedingFrenzy extends Analyzer {
     if (!this.hasFrenzyUp || event.timestamp < this.buffApplication + MS_BUFFER) {
       return;
     }
-    this.extraBuffUptime += this.extra_BS_uptime(event.timestamp, this.lastBSCast);
+    this.extraBuffUptime += this.extraBSUptime(event.timestamp, this.lastBSCast);
     this.lastBSCast = event.timestamp;
   }
 
@@ -128,7 +128,7 @@ class FeedingFrenzy extends Analyzer {
 
   on_fightend() {
     if (this.lastBSCast !== null) {
-      this.extraBuffUptime += this.extra_BS_uptime(this.owner.fight.end_time, this.lastBSCast);
+      this.extraBuffUptime += this.extraBSUptime(this.owner.fight.end_time, this.lastBSCast);
     }
   }
   statistic() {

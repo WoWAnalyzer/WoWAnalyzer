@@ -113,7 +113,7 @@ exports[`Premium matches snapshot when logged in with GitHub 1`] = `
             <br />
             <br />
             <GithubButton
-              text="View on GitHub"
+              text="View source on GitHub"
             />
           </div>
         </div>
@@ -424,7 +424,7 @@ exports[`Premium matches snapshot when logged in with Patreon 1`] = `
             <br />
             <br />
             <GithubButton
-              text="View on GitHub"
+              text="View source on GitHub"
             />
           </div>
         </div>
@@ -732,7 +732,7 @@ exports[`Premium matches snapshot when logged out 1`] = `
             <br />
             <br />
             <GithubButton
-              text="View on GitHub"
+              text="View source on GitHub"
             />
           </div>
         </div>

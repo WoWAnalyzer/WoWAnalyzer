@@ -21,6 +21,7 @@ class StatisticBox extends React.PureComponent {
     position: PropTypes.number,
     children: PropTypes.node,
     style: PropTypes.object,
+    expanded: PropTypes.bool,
   };
   static defaultProps = {
     category: STATISTIC_CATEGORY.GENERAL,

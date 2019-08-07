@@ -86,8 +86,7 @@ class BestialWrath extends Analyzer {
         },
         style: 'number',
       };
-    }
-    else {
+    } else {
       return {
         actual: this.averageFocusAtBestialWrathCast,
         isLessThan: {

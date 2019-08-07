@@ -146,7 +146,8 @@ class WindwalkerMonkChecklist extends React.PureComponent {
                </>
              )}
              thresholds={thresholds.hitCombo}
-          />)}
+          />
+)}
         </Rule>
         <Rule
           name="Use your defensive cooldowns effectively"

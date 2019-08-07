@@ -21,6 +21,8 @@ class GenericCastEfficiencyRequirement extends React.PureComponent {
       recommendedEfficiency: PropTypes.number.isRequired,
       averageIssueEfficiency: PropTypes.number.isRequired,
       majorIssueEfficiency: PropTypes.number.isRequired,
+      casts: PropTypes.any,
+      maxCasts: PropTypes.any,
     }).isRequired,
     isMaxCasts: PropTypes.bool,
   };
@@ -36,7 +38,7 @@ class GenericCastEfficiencyRequirement extends React.PureComponent {
         casts,
         maxCasts,
       } = this.props.castEfficiency;
-  
+
       return {
         actual: casts,
         max: maxCasts,

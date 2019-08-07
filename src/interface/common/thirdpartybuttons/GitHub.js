@@ -19,7 +19,7 @@ GithubButton.propTypes = {
   text: PropTypes.string,
 };
 GithubButton.defaultProps = {
-  text: 'View on GitHub',
+  text: 'View source on GitHub',
 };
 
 export default GithubButton;
