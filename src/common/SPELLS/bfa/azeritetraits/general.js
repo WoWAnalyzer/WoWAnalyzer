@@ -346,4 +346,19 @@ export default {
     name: 'Treacherous Covenant',
     icon: 'ability_argus_deathfog',
   },
+  LOYAL_TO_THE_END: {
+    id: 303007,
+    name: 'Loyal to the End',
+    icon: 'spell_shadow_fumble',
+  },
+  LOYAL_TO_THE_END_PRIMARY_BUFF: {
+    id: 303250,
+    name: 'Loyal to the End',
+    icon: 'spell_shadow_fumble',
+  },
+  LOYAL_TO_THE_END_SECONDARY_BUFF: {
+    id: 303365,
+    name: 'Loyal to the End',
+    icon: 'spell_shadow_fumble',
+  },
 };
