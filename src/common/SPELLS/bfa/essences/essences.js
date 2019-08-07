@@ -59,6 +59,32 @@ export default {
     id: 296065,
     name: 'The Ever-Rising Tide',
     icon: 'inv_elemental_mote_mana',
+  },  
+  WELL_OF_EXISTENCE: {
+    id: 299936,
+    traitId: 19,
+    name: 'The Well Of Existence',
+    icon: 'creatureportrait_twilightshammer_summoningportal_water01',
+  },
+  WELL_OF_EXISTENCE_MAJOR: {
+    id: 299933,
+    name: 'Refreshment',
+    icon: 'creatureportrait_twilightshammer_summoningportal_water01',
+  },
+  WELL_OF_EXISTENCE_MAJOR_ABILITY: {
+    id: 296197,
+    name: 'Refreshment',
+    icon: 'creatureportrait_twilightshammer_summoningportal_water01',
+  },
+  WELL_OF_EXISTENCE_DOUBLE_ABSORBTION: {
+    id: 296193,
+    name: 'The Well of Existence',
+    icon: 'creatureportrait_twilightshammer_summoningportal_water01',
+  },
+  WELL_OF_EXISTENCE_HEAL: {
+    id: 296184,
+    name: 'The Well of Existence',
+    icon: 'creatureportrait_twilightshammer_summoningportal_water01',
   },
   //The Crucible of Flame
   CONCENTRATED_FLAME: {
@@ -97,7 +123,7 @@ export default {
     name: 'Ancient Flame',
     icon: 'spell_azerite_essence_15',
   },
-  //general conflict (the major part of conflict and stife)
+//general conflict (the major part of conflict and stife)
   CONFLICT: {
     id: 304088,
     traitId: 32,
