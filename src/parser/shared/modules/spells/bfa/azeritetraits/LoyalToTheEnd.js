@@ -1,12 +1,10 @@
 import React from 'react';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
-import Events from 'parser/core/Events';
 import { calculateAzeriteEffects } from 'common/stats';
 import MasteryIcon from 'interface/icons/Mastery';
 import { formatNumber } from 'common/format';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /*
   Your Mastery is increased by 150, plus an additional 37 for each ally also affected by Loyal to the End, up to 299.
@@ -41,7 +39,6 @@ class LoyalToTheEnd extends Analyzer {
   }
 
   get personalMasteryValue() {
-    console.log(this.masteryCap);
     return Math.min((this.baseMastery + (this.additiveMastery * this.numberOfPlayersWithTrait)), this.masteryCap);
   }
 
