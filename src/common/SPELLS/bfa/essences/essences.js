@@ -77,6 +77,11 @@ export default {
     name: 'Concentrated Flame',
     icon: 'spell_azerite_essence_15',
   },
+  CONCENTRATED_FLAME_CAST_HEAL: {
+    id: 295375,
+    name: 'Concentrated Flame',
+    icon: 'spell_azerite_essence_15',
+  },
   CONCENTRATED_FLAME_CAST_DAMAGE: {
     id: 295374,
     name: 'Concentrated Flame',

@@ -8,6 +8,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  change(date(2019, 8, 7), <>Updated <SpellLink id={SPELLS.CONCENTRATED_FLAME.id} /> healing calculation.</>, Yajinni),
   change(date(2019, 8, 6), 'Made it easier to rollback to older versions of the app in case of issues.', Zerotorescue),
   change(date(2019, 8, 6), 'General responsive improvements for better mobile experience.', Amrux),
   change(date(2019, 8, 6), <>Shows <SpellLink id={SPELLS.ABYSSAL_HEALING_POTION.id} /> in death recap now!</>, Abelito75),
