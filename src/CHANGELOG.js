@@ -9,6 +9,7 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   change(date(2019, 8, 7), <>Updated <SpellLink id={SPELLS.CONCENTRATED_FLAME.id} /> healing calculation.</>, Yajinni),
+  change(date(2019, 8, 6), <>Added <ItemLink id={ITEMS.POTION_OF_WILD_MENDING.id} />.</>, niseko),
   change(date(2019, 8, 6), <>Added <SpellLink id={SPELLS.WELL_OF_EXISTENCE_MAJOR.id} /></>, Qbz),
   change(date(2019, 8, 6), 'Made it easier to rollback to older versions of the app in case of issues.', Zerotorescue),
   change(date(2019, 8, 6), 'General responsive improvements for better mobile experience.', Amrux),
