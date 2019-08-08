@@ -92,14 +92,14 @@ class LoyalToTheEnd extends Analyzer {
 
     // When this buff is active, it gives you as much of each stat as it does mastery.
     // The base mastery you get is always active, so it should be included in the players base data.
-    this.statTracker.add(SPELLS.LOYAL_TO_THE_END_SECONDARY_BUFF.id, {
+    this.statTracker.add(SPELLS.LOYAL_TO_THE_END_BUFF.id, {
       crit: this.personalMasteryValue,
       haste: this.personalMasteryValue,
       versatility: this.personalMasteryValue,
     });
 
-    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.LOYAL_TO_THE_END_SECONDARY_BUFF), this.applyPersonalBuff);
-    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.LOYAL_TO_THE_END_SECONDARY_BUFF), this.removePersonalBuff);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.LOYAL_TO_THE_END_BUFF), this.applyPersonalBuff);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.LOYAL_TO_THE_END_BUFF), this.removePersonalBuff);
     this.addEventListener(Events.fightend, this.fightEnd);
   }
 

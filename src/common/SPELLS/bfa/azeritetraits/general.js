@@ -351,12 +351,12 @@ export default {
     name: 'Loyal to the End',
     icon: 'spell_shadow_fumble',
   },
-  LOYAL_TO_THE_END_PRIMARY_BUFF: {
+  LOYAL_TO_THE_END_UNKNOWN: {
     id: 303250,
     name: 'Loyal to the End',
     icon: 'spell_shadow_fumble',
   },
-  LOYAL_TO_THE_END_SECONDARY_BUFF: {
+  LOYAL_TO_THE_END_BUFF: {
     id: 303365,
     name: 'Loyal to the End',
     icon: 'spell_shadow_fumble',
