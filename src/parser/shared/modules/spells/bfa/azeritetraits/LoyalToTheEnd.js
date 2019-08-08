@@ -9,6 +9,7 @@ import MasteryIcon from 'interface/icons/Mastery';
 import VersatilityIcon from 'interface/icons/Versatility';
 import { formatNumber, formatPercentage } from 'common/format';
 import Events from 'parser/core/Events';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
 /*
   Your Mastery is increased by 150, plus an additional 37 for each ally also affected by Loyal to the End, up to 299.
@@ -19,7 +20,6 @@ import Events from 'parser/core/Events';
     Resto Druid:  /report/Cbmyth6c7xYvd8FM/16-Heroic+Lady+Ashvane+-+Kill+(2:40)/Séyah
     Rogue:        /report/Cbmyth6c7xYvd8FM/16-Heroic+Lady+Ashvane+-+Kill+(2:40)/Slynestra     <= buff log
  */
-
 const loyalToTheEndStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [baseMastery, additiveMastery, masteryCap] = calculateAzeriteEffects(SPELLS.LOYAL_TO_THE_END.id, rank);
 
@@ -34,6 +34,10 @@ const loyalToTheEndStats = traits => Object.values(traits).reduce((obj, rank) =>
 });
 
 class LoyalToTheEnd extends Analyzer {
+  static dependencies = {
+    statTracker: StatTracker,
+  };
+
   baseMastery = 0;
   additiveMastery = 0;
   masteryCap = 0;
@@ -42,6 +46,9 @@ class LoyalToTheEnd extends Analyzer {
   playersWithTrait = {};
 
   get numberOfPlayersWithTrait() {
+    if (!this.playersWithTrait) {
+      return 0;
+    }
     return Object.keys(this.playersWithTrait).length;
   }
 
@@ -71,6 +78,13 @@ class LoyalToTheEnd extends Analyzer {
     this.masteryCap = masteryCap;
 
     this.findPlayersWithTrait();
+
+    // When this buff is active, it gives you as much of each stat as it does mastery.
+    this.statTracker.add(SPELLS.LOYAL_TO_THE_END_SECONDARY_BUFF.id, {
+      crit: this.personalMasteryValue,
+      haste: this.personalMasteryValue,
+      versatility: this.personalMasteryValue,
+    });
 
     this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.LOYAL_TO_THE_END_SECONDARY_BUFF), this.applyPersonalBuff);
     this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.LOYAL_TO_THE_END_SECONDARY_BUFF), this.removePersonalBuff);
