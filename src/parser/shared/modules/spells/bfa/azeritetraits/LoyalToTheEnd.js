@@ -11,6 +11,8 @@ import { formatNumber, formatPercentage } from 'common/format';
 import Events from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
+const debug = false;
+
 /*
   Your Mastery is increased by 150, plus an additional 37 for each ally also affected by Loyal to the End, up to 299.
   When you die, your allies gain Critical Strike, Haste, and Versatility equal to their Mastery bonus from this trait.
@@ -41,8 +43,7 @@ class LoyalToTheEnd extends Analyzer {
   baseMastery = 0;
   additiveMastery = 0;
   masteryCap = 0;
-  buffUptime = 0;
-  buffLastApplied = 0;
+  buffData = [];
   playersWithTrait = {};
 
   get numberOfPlayersWithTrait() {
@@ -58,6 +59,16 @@ class LoyalToTheEnd extends Analyzer {
 
   get buffUptimePercent() {
     return this.buffUptime / this.owner.fightDuration;
+  }
+
+  get buffUptime() {
+    let uptime = 0;
+
+    this.buffData.forEach(range => {
+      uptime += (range.stop - range.start) || 0;
+    });
+
+    return uptime;
   }
 
   get averageBuffContribution() {
@@ -104,18 +115,27 @@ class LoyalToTheEnd extends Analyzer {
   }
 
   applyPersonalBuff(event) {
-    this.buffLastApplied = this.buffLastApplied === 0 ? event.timestamp : this.buffLastApplied;
+    this.buffData.push({ start: event.timestamp, stop: null });
   }
 
   removePersonalBuff(event) {
-    this.buffUptime += event.timestamp - this.buffLastApplied;
-    this.buffLastApplied = 0;
+    // Assume that we are removing the first buff in the queue
+    for (const i in this.buffData) {
+      if (this.buffData[i].stop === null) {
+        this.buffData[i].stop = event.timestamp;
+        return;
+      }
+    }
+    debug && console.log('Attempted to remove a Loyal To The End buff that didn\'t exist!');
   }
 
   fightEnd(event) {
-    if (this.buffLastApplied !== 0) {
-      this.buffUptime += event.timestamp - this.buffLastApplied;
-      this.buffLastApplied = 0;
+    // Clear out all of the buffs that are still active.
+    // This is probably unnecessary.
+    for (const i in this.buffData) {
+      if (this.buffData[i].stop === null) {
+        this.buffData[i].stop = event.timestamp;
+      }
     }
   }
 
