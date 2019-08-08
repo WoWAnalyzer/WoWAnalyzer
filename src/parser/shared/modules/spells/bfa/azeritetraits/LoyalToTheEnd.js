@@ -18,9 +18,9 @@ const debug = false;
   When you die, your allies gain Critical Strike, Haste, and Versatility equal to their Mastery bonus from this trait.
 
   Example Logs:
-    Holy Priest:  /report/vVaHPpZN3cmM6x7Y/36-Mythic+Blackwater+Behemoth+-+Kill+(6:12)/Menya
     Resto Druid:  /report/Cbmyth6c7xYvd8FM/16-Heroic+Lady+Ashvane+-+Kill+(2:40)/Séyah
     Rogue:        /report/Cbmyth6c7xYvd8FM/16-Heroic+Lady+Ashvane+-+Kill+(2:40)/Slynestra     <= buff log
+    Holy Priest: /report/Tb1qXYy4QAzCZRFV/28-Mythic+The+Queen's+Court+-+Wipe+1+(0:45)/Tgfivethreeo/statistics   <= multiple stacks
  */
 const loyalToTheEndStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [baseMastery, additiveMastery, masteryCap] = calculateAzeriteEffects(SPELLS.LOYAL_TO_THE_END.id, rank);
