@@ -134,7 +134,7 @@ import UnstableCatalyst from '../shared/modules/spells/bfa/azeritetraits/Unstabl
 import SwirlingSands from '../shared/modules/spells/bfa/azeritetraits/SwirlingSands';
 import Tradewinds from '../shared/modules/spells/bfa/azeritetraits/Tradewinds';
 import TreacherousCovenant from '../shared/modules/spells/bfa/azeritetraits/TreacherousCovenant';
-import LoyalToTheEnd from 'parser/shared/modules/spells/bfa/azeritetraits/LoyalToTheEnd';
+import LoyalToTheEnd from '../shared/modules/spells/bfa/azeritetraits/LoyalToTheEnd';
 
 // Essences
 import TheEverRisingTide from '../shared/modules/spells/bfa/essences/TheEverRisingTide';
