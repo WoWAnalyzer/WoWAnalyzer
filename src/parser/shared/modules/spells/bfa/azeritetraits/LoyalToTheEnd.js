@@ -80,6 +80,7 @@ class LoyalToTheEnd extends Analyzer {
     this.findPlayersWithTrait();
 
     // When this buff is active, it gives you as much of each stat as it does mastery.
+    // The base mastery you get is always active, so it should be included in the players base data.
     this.statTracker.add(SPELLS.LOYAL_TO_THE_END_SECONDARY_BUFF.id, {
       crit: this.personalMasteryValue,
       haste: this.personalMasteryValue,
