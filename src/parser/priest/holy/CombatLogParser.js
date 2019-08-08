@@ -49,7 +49,6 @@ import Sanctum from '../shared/modules/spells/azeritetraits/Sanctum';
 import TwistMagic from '../shared/modules/spells/azeritetraits/TwistMagic';
 import PromiseOfDeliverance from './modules/spells/azeritetraits/PromiseOfDeliverance';
 import DeathDenied from '../shared/modules/spells/azeritetraits/DeathDenied';
-import LoyalToTheEnd from '../../shared/modules/spells/bfa/azeritetraits/LoyalToTheEnd';
 
 // Mana Tracker
 import HealingEfficiencyDetails from './modules/features/HolyPriestHealingEfficiencyDetails';
@@ -135,7 +134,6 @@ class CombatLogParser extends CoreCombatLogParser {
     twistMagic: TwistMagic,
     promiseOfDeliverance: PromiseOfDeliverance,
     deathDenied: DeathDenied,
-    loyalToTheEnd: LoyalToTheEnd,
 
     // Mana Tab
     manaTracker: ManaTracker,

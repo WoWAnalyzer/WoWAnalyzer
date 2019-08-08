@@ -1,18 +1,23 @@
 import React from 'react';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import { calculateAzeriteEffects } from 'common/stats';
+import CriticalStrikeIcon from 'interface/icons/CriticalStrike';
+import HasteIcon from 'interface/icons/Haste';
 import MasteryIcon from 'interface/icons/Mastery';
-import { formatNumber } from 'common/format';
+import VersatilityIcon from 'interface/icons/Versatility';
+import { formatNumber, formatPercentage } from 'common/format';
+import Events from 'parser/core/Events';
 
 /*
   Your Mastery is increased by 150, plus an additional 37 for each ally also affected by Loyal to the End, up to 299.
   When you die, your allies gain Critical Strike, Haste, and Versatility equal to their Mastery bonus from this trait.
 
   Example Logs:
-    Holy Priest:  /report/vVaHPpZN3cmM6x7Y/36-Mythic+Blackwater+Behemoth+-+Kill+(6:12)/Menya/overview
-    Disc Priest:
+    Holy Priest:  /report/vVaHPpZN3cmM6x7Y/36-Mythic+Blackwater+Behemoth+-+Kill+(6:12)/Menya
+    Resto Druid:  /report/Cbmyth6c7xYvd8FM/16-Heroic+Lady+Ashvane+-+Kill+(2:40)/Séyah
+    Rogue:        /report/Cbmyth6c7xYvd8FM/16-Heroic+Lady+Ashvane+-+Kill+(2:40)/Slynestra     <= buff log
  */
 
 const loyalToTheEndStats = traits => Object.values(traits).reduce((obj, rank) => {
@@ -32,6 +37,8 @@ class LoyalToTheEnd extends Analyzer {
   baseMastery = 0;
   additiveMastery = 0;
   masteryCap = 0;
+  buffUptime = 0;
+  buffLastApplied = 0;
   playersWithTrait = {};
 
   get numberOfPlayersWithTrait() {
@@ -40,6 +47,14 @@ class LoyalToTheEnd extends Analyzer {
 
   get personalMasteryValue() {
     return Math.min((this.baseMastery + (this.additiveMastery * this.numberOfPlayersWithTrait)), this.masteryCap);
+  }
+
+  get buffUptimePercent() {
+    return this.buffUptime / this.owner.fightDuration;
+  }
+
+  get averageBuffContribution() {
+    return this.personalMasteryValue * this.buffUptimePercent;
   }
 
   constructor(...args) {
@@ -57,8 +72,9 @@ class LoyalToTheEnd extends Analyzer {
 
     this.findPlayersWithTrait();
 
-    //this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.LOYAL_TO_THE_END_PRIMARY_BUFF), this.applyPersonalBuff);
-    //this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.LOYAL_TO_THE_END_PRIMARY_BUFF), this.applySecondaryBuff);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.LOYAL_TO_THE_END_SECONDARY_BUFF), this.applyPersonalBuff);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.LOYAL_TO_THE_END_SECONDARY_BUFF), this.removePersonalBuff);
+    this.addEventListener(Events.fightend, this.fightEnd);
   }
 
   findPlayersWithTrait() {
@@ -72,24 +88,22 @@ class LoyalToTheEnd extends Analyzer {
     }
   }
 
-  buffs = {};
-  on_byPlayer_applybuff(event) {
-    this.buffs[event.ability.guid] = event.ability.name;
-  }
-
   applyPersonalBuff(event) {
-    console.log('primary', event);
+    this.buffLastApplied = this.buffLastApplied === 0 ? event.timestamp : this.buffLastApplied;
   }
 
-  applySecondaryBuff(event) {
-    console.log('secondary', event);
+  removePersonalBuff(event) {
+    this.buffUptime += event.timestamp - this.buffLastApplied;
+    this.buffLastApplied = 0;
   }
 
-  /* TODO:
-      The mastery you get from your own buff
-      The stats you get from other people dying
-      The stats you give when other people die
-   */
+  fightEnd(event) {
+    if (this.buffLastApplied !== 0) {
+      this.buffUptime += event.timestamp - this.buffLastApplied;
+      this.buffLastApplied = 0;
+    }
+  }
+
   statistic() {
     return (
       <TraitStatisticBox
@@ -98,9 +112,21 @@ class LoyalToTheEnd extends Analyzer {
         value={(
           <>
             <MasteryIcon /> {formatNumber(this.personalMasteryValue)} <small>average Mastery gained</small><br />
+            {this.averageBuffContribution > 0 && (
+              <>
+                <CriticalStrikeIcon /> {formatNumber(this.averageBuffContribution)} <small>average Critical Strike gained</small><br />
+                <HasteIcon /> {formatNumber(this.averageBuffContribution)} <small>average Haste gained</small><br />
+                <VersatilityIcon /> {formatNumber(this.averageBuffContribution)} <small>average Versatility gained</small><br />
+              </>
+            )}
           </>
         )}
-        tooltip={``}
+        tooltip={(
+          <>
+            {formatNumber(this.numberOfPlayersWithTrait)} Other players with trait<br />
+            {formatPercentage(this.buffUptimePercent)}% Uptime on secondary buff
+          </>
+        )}
       />
     );
   }
