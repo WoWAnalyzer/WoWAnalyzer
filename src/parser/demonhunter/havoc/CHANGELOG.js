@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Mamtooth, Yajinni, Zerotorescue } from 'CONTRIBUTORS';
+import { Mamtooth, Yajinni, Zerotorescue, Viridis } from 'CONTRIBUTORS';
 import ITEMS from 'common/ITEMS';
 import ItemLink from 'common/ItemLink';
 import SPELLS from 'common/SPELLS';
