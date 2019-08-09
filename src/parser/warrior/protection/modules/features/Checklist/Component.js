@@ -43,17 +43,17 @@ class ProtectionWarriorChecklist extends React.PureComponent {
         >
           <AbilityRequirement spell={SPELLS.THUNDER_CLAP.id} />
           <AbilityRequirement spell={SPELLS.SHIELD_SLAM.id} />
+          {combatant.hasTalent(SPELLS.STORM_BOLT_TALENT.id) && <AbilityRequirement spell={SPELLS.STORM_BOLT_TALENT.id} />}
           {combatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id) && <AbilityRequirement spell={SPELLS.DEMORALIZING_SHOUT.id} />}
           {combatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id) && <AbilityRequirement spell={SPELLS.DRAGON_ROAR_TALENT.id} />}
+          
         </Rule>
-
-        {this.rulesForShortCD()}
 
         <Rule
           name="Defensive Cooldowns"
           description={(
             <>
-              As a protection warrior you have many options to mitigate damage and should be using all of them. Take <SpellLink id={SPELLS.SPELL_REFLECTION.id} /> with a grain a salt as some bosses it is not as helpful on as others. 
+              As a protection warrior you have many options to mitigate damage and should be using all of them. Take <SpellLink id={SPELLS.SPELL_REFLECTION.id}/> with a grain a salt as some bosses it is not as helpful on as others
             </>
           )}
         >
@@ -74,6 +74,7 @@ class ProtectionWarriorChecklist extends React.PureComponent {
             <AbilityRequirement spell={SPELLS.AVATAR_TALENT.id} />
             {combatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id) && <AbilityRequirement spell={SPELLS.DEMORALIZING_SHOUT.id} />}
             {combatant.hasTalent(SPELLS.RAVAGER_TALENT_PROTECTION.id) && <AbilityRequirement spell={SPELLS.RAVAGER_TALENT_PROTECTION.id} />}
+            
           </Rule>
 
         <Rule
@@ -84,7 +85,7 @@ class ProtectionWarriorChecklist extends React.PureComponent {
             </>
           )}
         >
-          <Requirement name="Lost Rage" thresholds={thresholds.rageDetails} />
+          <Requirement name="Lost Rage" thresholds={thresholds.rageDetails}/>
         </Rule>
 
         <Rule
