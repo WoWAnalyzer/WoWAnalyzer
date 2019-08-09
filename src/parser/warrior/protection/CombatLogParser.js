@@ -7,7 +7,7 @@ import SpellUsable from './modules/features/SpellUsable';
 import MitigationCheck from './modules/features/MitigationCheck';
 
 import ShieldBlock from './modules/spells/ShieldBlock';
-// TODO: import Checklist from './modules/features/Checklist';
+import Checklist from './modules/features/Checklist/Module';
 import IgnorePain from './modules/features/IgnorePain';
 import RageTracker from './modules/core/RageTracker';
 import RageDetails from './modules/core/RageDetails';
@@ -32,7 +32,9 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     shield_block: ShieldBlock,
     spellUsable: SpellUsable,
-    // TODO: checklist: Checklist,
+
+    checklist: Checklist,
+
     ignorePain: IgnorePain,
     rageTracker: RageTracker,
     rageDetails: RageDetails,
