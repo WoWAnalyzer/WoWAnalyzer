@@ -20,7 +20,6 @@ class DragScroll extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      data: props.dataSource,
       dragging: false,
     };
     this.container = React.createRef();

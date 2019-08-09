@@ -70,10 +70,12 @@ class TipOfTheSpear extends Analyzer {
     return (
       <TalentStatisticBox
         talent={SPELLS.TIP_OF_THE_SPEAR_TALENT.id}
-        value={<>
+        value={(
+<>
           <ItemDamageDone amount={this.damage} /> <br />
           {(this.usedStacks / this.spenderCasts).toFixed(2)} avg stacks
-        </>}
+        </>
+)}
         tooltip={`You consumed ${this.usedStacks}/${this.usedStacks + this.wastedStacks} possible stacks.`}
       />
     );

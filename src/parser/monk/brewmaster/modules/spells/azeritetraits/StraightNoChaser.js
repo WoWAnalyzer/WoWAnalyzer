@@ -72,15 +72,15 @@ export default class StraightNoChaser extends Analyzer {
     }
 
     // pmf of the binomial distribution
-    const reset_prob = (i) => binom(this.isbCasts, i) * Math.pow(SNC_PROC_CHANCE, i) * Math.pow(1 - SNC_PROC_CHANCE, this.isbCasts - i);
+    const resetProb = (i) => binom(this.isbCasts, i) * Math.pow(SNC_PROC_CHANCE, i) * Math.pow(1 - SNC_PROC_CHANCE, this.isbCasts - i);
 
     const resetProbabilities = Array.from({length: this.isbCasts}, (_x, i) => {
-      return { x: i, y: reset_prob(i) };
+      return { x: i, y: resetProb(i) };
     });
 
     const actualReset = {
       x: this.resets,
-      y: reset_prob(this.resets),
+      y: resetProb(this.resets),
     };
 
     const RANGE_THRESHOLD = 0.001;

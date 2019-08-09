@@ -28,8 +28,7 @@ class DefensiveStance extends Analyzer {
     let tradeoff = this.totalDamageMitigated / (this.totalDamageLost + this.totalDamageMitigated);
     if (tradeoff > MAX_WIDTH) {
       tradeoff = MAX_WIDTH;
-    }
-    else if (tradeoff < 1 - MAX_WIDTH) {
+    } else if (tradeoff < 1 - MAX_WIDTH) {
       tradeoff = 1 - MAX_WIDTH;
     }
     return tradeoff;

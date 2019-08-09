@@ -44,9 +44,11 @@ class ChimaeraShot extends Analyzer {
     return (
       <TalentStatisticBox
         talent={SPELLS.CHIMAERA_SHOT_TALENT.id}
-        value={<>
+        value={(
+<>
           <AverageTargetsHit casts={this.casts} hits={this.hits} />
-        </>}
+        </>
+)}
       />
     );
   }

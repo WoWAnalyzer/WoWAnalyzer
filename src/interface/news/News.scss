@@ -1,5 +1,8 @@
 @import '../layout/Theme.scss';
 
+.flex-sub-news {
+  padding-top: 30px;
+}
 .news article figure {
   margin: 0 auto;
   text-align: center;
@@ -23,5 +26,15 @@
   }
   .contributor {
     margin-top: -0.1em;
+  }
+}
+
+@media(max-width: 767px) {
+  .flex-news {
+    flex-direction: column;
+  }
+  
+  .flex-sub-news {
+    padding-top: 0;
   }
 }

@@ -34,11 +34,12 @@ class FelMastery extends Analyzer{
         talent={SPELLS.FEL_MASTERY_TALENT.id}
         position={STATISTIC_ORDER.OPTIONAL(6)}
         value={this.owner.formatItemDamageDone(this.damage)}
-        tooltip={
-                <>
+        tooltip={(
+<>
                   {formatThousands(this.damage)} Total damage <br /> <br />
                   This shows the extra damage done by Fel Rush due to the Fel Mastery talent.
-                </>}
+                </>
+)}
 
       />
     );

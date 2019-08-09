@@ -41,8 +41,7 @@ class Flashover extends Analyzer {
       // We don't waste the base Backdraft stack, nor the bonus one
       this._currentStacks += STACKS_PER_CAST;
       this.bonusStacks += 1;
-    }
-    else {
+    } else {
       // Conflagrate grants 2 stacks with Flashover, we can attribute 1 to the base Conflagrate and 1 to the Flashover, in this case the Flashover one would get wasted
       debug && this.log('WASTE');
       this._currentStacks = MAX_STACKS;

@@ -50,15 +50,13 @@ class FerociousBiteEnergy extends Analyzer {
     
     if (this.lastBiteCast.energy === 0) {
       this.freeBiteCount += 1;
-    }
-    else if (this.lastBiteCast.energy < ENERGY_FOR_FULL_DAMAGE_BITE) {
+    } else if (this.lastBiteCast.energy < ENERGY_FOR_FULL_DAMAGE_BITE) {
       this.lowEnergyBiteCount += 1;
       this.energySpentOnBiteTotal += this.lastBiteCast.energy;
       const actualDamage = event.amount + event.absorbed;
       const lostDamage = this.calcPotentialBiteDamage(actualDamage, this.lastBiteCast.energy) - actualDamage;
       this.lostDamageTotal += lostDamage;
-    }
-    else {
+    } else {
       this.energySpentOnBiteTotal += this.lastBiteCast.energy;
     }
     this.biteCount += 1;

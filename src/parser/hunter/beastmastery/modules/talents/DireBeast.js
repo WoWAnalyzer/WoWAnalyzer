@@ -77,11 +77,13 @@ class DireBeast extends Analyzer {
     return (
       <TalentStatisticBox
         talent={SPELLS.DIRE_BEAST_TALENT.id}
-        value={<>
+        value={(
+<>
           <ItemDamageDone amount={this.damage} /> <br />
           gained {formatPercentage(HASTE_PERCENT * this.uptime)}% Haste <br />
           gained {this.focusGained} Focus <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} />
-        </>}
+        </>
+)}
         tooltip={(
           <>
             You had {formatPercentage(this.uptime)}% uptime on the Dire Beast Haste buff. <br />

@@ -32,13 +32,11 @@ class NightbladeEarlyRefresh extends EarlyDotRefreshesCore {
       if(this.spellUsable.cooldownRemaining(SPELLS.SYMBOLS_OF_DEATH.id) < MAX_SYMBOLS_COOLDOWN) {
         //Early Nightblade refresh is fine for going in to burst.
         this.lastCastGoodCdStatus = true;
-      }
-      else {
+      } else {
         //No reason to refresh early.
         this.lastCastGoodCdStatus = false;
       }
-    }
-    else{
+    } else{
       //This is questionable, when executing the rotation properly Symbols should never be on cooldown.
       //The only reasonable explanation for symbols being off cooldown is saving for burst.
       //In this case, we also may want to refresh Nightblade for this burst.

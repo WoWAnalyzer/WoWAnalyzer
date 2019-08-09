@@ -120,8 +120,7 @@ class ResourceTracker extends Analyzer {
 
     this.spendersObj[spellId].casts += 1;
     this.spendersObj[spellId].spentByCast.push(cost);
-    if(cost > 0)
-    {
+    if(cost > 0) {
       this.spendersObj[spellId].spent += cost;
     }
 
