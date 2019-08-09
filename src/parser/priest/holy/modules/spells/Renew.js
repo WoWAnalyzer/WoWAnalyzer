@@ -111,11 +111,9 @@ class Renew extends Analyzer {
     if (spellId === SPELLS.RENEW.id) {
       this.renewsCast++;
       this.lastCast = event;
-    }
-    else if (spellId === SPELLS.HOLY_WORD_SALVATION_TALENT.id) {
+    } else if (spellId === SPELLS.HOLY_WORD_SALVATION_TALENT.id) {
       this.lastSalvationCast = event.timestamp;
-    }
-    else if (ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL.includes(spellId)) {
+    } else if (ABILITIES_THAT_TRIGGER_ENDURING_RENEWAL.includes(spellId)) {
       this.lastEnduringRenewalSpellCast = event.timestamp;
     }
   }
@@ -139,11 +137,9 @@ class Renew extends Analyzer {
 
     if (this.salvationActive && event.timestamp - this.lastSalvationCast < MS_BUFFER) {
       this.renewsFromSalvation++;
-    }
-    else if (this.enduringRenewalActive && event.timestamp - this.lastEnduringRenewalSpellCast < MS_BUFFER) {
+    } else if (this.enduringRenewalActive && event.timestamp - this.lastEnduringRenewalSpellCast < MS_BUFFER) {
       this.renewsFromEnduringRenewal++;
-    }
-    else {
+    } else {
       this.renewsFromBenedictionAndRenew++;
     }
   }

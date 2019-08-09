@@ -36,6 +36,7 @@ import Contrition from './modules/spells/Contrition';
 import Grace from './modules/spells/Grace';
 import Schism from './modules/spells/Schism';
 
+import DeathThroes from './modules/azeritetraits/DeathThroes';
 import DepthOfTheShadows from './modules/azeritetraits/DepthOfTheShadows';
 import SinsOfTheMany from './modules/spells/SinsOfTheMany';
 
@@ -91,6 +92,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Azerite Traits
     depthOfTheShadows: DepthOfTheShadows,
+    deathThroes: DeathThroes,
   };
 }
 

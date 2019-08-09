@@ -101,7 +101,7 @@ class HotStreakPreCasts extends Analyzer {
   suggestions(when) {
       when(this.castBeforeHotStreakThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<>In situations where you are not able to guarantee a crit (<SpellLink id={SPELLS.COMBUSTION.id} />, <SpellLink id={SPELLS.FIRESTARTER_TALENT.id} />, and <SpellLink id={SPELLS.SEARING_TOUCH_TALENT.id} />), you didn't pre-cast <SpellLink id={SPELLS.FIREBALL.id} /> {this.hasPyroclasm ? 'or use a Pyroclasm Proc' : ''} {this.noCastBeforeHotStreak} times. Pre-casting when you can't guarantee a crit helps you get more <SpellLink id={SPELLS.HEATING_UP.id} /> and <SpellLink id={SPELLS.HOT_STREAK.id} /> procs, so you should do this whenenver possible.</>)
+          return suggest(<>Unless you are guaranteed to crit (i.e. during <SpellLink id={SPELLS.COMBUSTION.id} />, <SpellLink id={SPELLS.FIRESTARTER_TALENT.id} />, or <SpellLink id={SPELLS.SEARING_TOUCH_TALENT.id} />), you should always cast <SpellLink id={SPELLS.FIREBALL.id} /> {this.hasPyroclasm ? <>or use a <SpellLink id={SPELLS.PYROCLASM_TALENT.id} /> proc</> : ''} alongside using your <SpellLink id={SPELLS.HOT_STREAK.id} /> proc. This way, if one of the two abilities crit you will gain a new <SpellLink id={SPELLS.HEATING_UP.id} /> proc, and if both crit you will get a new <SpellLink id={SPELLS.HOT_STREAK.id} /> proc. You failed to do this {this.noCastBeforeHotStreak} times.</>)
             .icon(SPELLS.HOT_STREAK.icon)
             .actual(`${formatPercentage(this.castBeforeHotStreakUtil)}% Utilization`)
             .recommended(`${formatPercentage(recommended)}% is recommended`);

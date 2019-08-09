@@ -15,6 +15,7 @@ class EnhancementShamanChecklist extends React.PureComponent {
       hasTrinket: PropTypes.func.isRequired,
     }).isRequired,
     thresholds: PropTypes.object.isRequired,
+    castEfficiency: PropTypes.object.isRequired,
   };
 
   render() {

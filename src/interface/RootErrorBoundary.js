@@ -40,7 +40,7 @@ class RootErrorBoundary extends React.Component {
       return;
     }
     console.log('Caught a global error');
-    this.error(event, 'error');
+    this.error(error, 'error');
   }
   handleUnhandledrejectionEvent(event) {
     console.log('Caught a global unhandledrejection');
@@ -48,6 +48,13 @@ class RootErrorBoundary extends React.Component {
   }
 
   error(error, details = null) {
+    // NOTE: These filters only prevent the error state from being triggered. Sentry automatically logs them regardless.
+    // filename may not be set, according to MDN its support is shitty but it doesn't specify how shitty. It works in Chromium
+    const isExternalFile = error.filename && !error.filename.includes(window.location.origin);
+    if (isExternalFile) {
+      return;
+    }
+    // TODO: We could also check if location.origin is in stack, as the stack trace may only contain it for local files
     if (error && error.message === 'Script error.') {
       // Some errors are triggered by third party scripts, such as browser plug-ins. These errors should generally not affect the application, so we can safely ignore them for our error handling. If a plug-in like Google Translate messes with the DOM and that breaks the app, that triggers a different error so those third party issues are still handled.
       console.log('Ignored because it looks like a third party error.');

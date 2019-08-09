@@ -15,6 +15,7 @@ import HotStreakWastedCrits from '../features/HotStreakWastedCrits';
 import HotStreakPreCasts from '../features/HotStreakPreCasts';
 import Pyroclasm from '../features/Pyroclasm';
 import SearingTouch from '../features/SearingTouch';
+import Meteor from '../features/Meteor';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import ArcaneIntellect from '../../../shared/modules/features/ArcaneIntellect';
 import CancelledCasts from '../../../shared/modules/features/CancelledCasts';
@@ -35,6 +36,7 @@ class Checklist extends BaseChecklist {
     hotStreakPreCasts: HotStreakPreCasts,
     pyroclasm: Pyroclasm,
     searingTouch: SearingTouch,
+    meteor: Meteor,
     castEfficiency: CastEfficiency,
     arcaneIntellect: ArcaneIntellect,
     cancelledCasts: CancelledCasts,
@@ -65,6 +67,7 @@ class Checklist extends BaseChecklist {
           hotStreakPreCasts: this.hotStreakPreCasts.castBeforeHotStreakThresholds,
           pyroclasmUtilization: this.pyroclasm.procUtilizationThresholds,
           searingTouchUtilization: this.searingTouch.suggestionThreshold,
+          meteorUtilization: this.meteor.meteorUtilSuggestionThresholds,
           arcaneIntellectUptime: this.arcaneIntellect.suggestionThresholds,
           cancelledCasts: this.cancelledCasts.suggestionThresholds,
           runeOfPowerBuffUptime: this.runeOfPower.roundedSecondsSuggestionThresholds,

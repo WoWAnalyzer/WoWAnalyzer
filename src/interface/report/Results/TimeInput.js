@@ -14,7 +14,7 @@ class TimeInput extends React.PureComponent {
     style: PropTypes.object,
   };
 
-  constructor(...args){
+  constructor(...args) {
     super(...args);
     this.phaseRef = React.createRef();
     this.handleChangeM = this.handleChangeM.bind(this);
@@ -29,12 +29,12 @@ class TimeInput extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState, prevContext) {
-    if(this.props.time !== prevProps.time){
+    if (this.props.time !== prevProps.time) {
       this.setState(this.convertTime(this.props.time));
     }
   }
 
-  convertTime(time){
+  convertTime(time) {
     return {
       milliseconds: this.toMillisecond(time),
       seconds: this.toSecond(time),
@@ -42,20 +42,20 @@ class TimeInput extends React.PureComponent {
     };
   }
 
-  toMinute(ms){
+  toMinute(ms) {
     return parseInt(ms / MINUTE);
   }
 
-  toSecond(ms){
+  toSecond(ms) {
     return parseInt((ms % MINUTE) / SECOND);
   }
 
-  toMillisecond(ms){
+  toMillisecond(ms) {
     return parseInt(ms % SECOND);
   }
 
-  changeTime(time){
-    if(time > this.props.max || time < this.props.min){
+  changeTime(time) {
+    if (time > this.props.max || time < this.props.min) {
       this.forceUpdate();
       return;
     }
@@ -66,7 +66,7 @@ class TimeInput extends React.PureComponent {
 
   handleChangeM(e) {
     const val = parseInt(e.target.value, 10);
-    if(val > 99){
+    if (val > 99) {
       this.forceUpdate();
       return;
     }
@@ -75,7 +75,7 @@ class TimeInput extends React.PureComponent {
 
   handleChangeS(e) {
     const val = parseInt(e.target.value, 10);
-    if(val > 99){
+    if (val > 99) {
       this.forceUpdate();
       return;
     }
@@ -84,7 +84,7 @@ class TimeInput extends React.PureComponent {
 
   handleChangeMs(e) {
     const val = parseInt(e.target.value, 10);
-    if(val > 999){
+    if (val > 999) {
       this.forceUpdate();
       return;
     }
@@ -95,17 +95,17 @@ class TimeInput extends React.PureComponent {
     this.props.onChange(time);
   }
 
-  pad(number, digits){
-    return number.toString().padStart(digits, "0");
+  pad(number, digits) {
+    return number.toString().padStart(digits, '0');
   }
 
   render() {
     const { name, style } = this.props;
     return (
-      <div style={{...style}} class={`time-input ${name}`}>
-        <input ref={this.mRef} class={`form-control ${name}-minute`} type="number" min="0" max="99" value={this.pad(this.state.minutes, 2)} onChange={this.handleChangeM} />:
-        <input ref={this.sRef} class={`form-control ${name}-second`} type="number" min="0" max="99" value={this.pad(this.state.seconds, 2)} onChange={this.handleChangeS} />.
-        <input ref={this.msRef} class={`form-control ${name}-millisecond`} type="number" min="0" max="999" value={this.pad(this.state.milliseconds, 3)} onChange={this.handleChangeMs} />
+      <div style={{ ...style }} className={`time-input ${name}`}>
+        <input ref={this.mRef} className={`form-control ${name}-minute`} type="number" min="0" max="99" value={this.pad(this.state.minutes, 2)} onChange={this.handleChangeM} />:
+        <input ref={this.sRef} className={`form-control ${name}-second`} type="number" min="0" max="99" value={this.pad(this.state.seconds, 2)} onChange={this.handleChangeS} />.
+        <input ref={this.msRef} className={`form-control ${name}-millisecond`} type="number" min="0" max="999" value={this.pad(this.state.milliseconds, 3)} onChange={this.handleChangeMs} />
       </div>
     );
   }

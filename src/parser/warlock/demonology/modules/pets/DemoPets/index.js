@@ -53,8 +53,7 @@ class DemoPets extends Analyzer {
     let pet;
     if (isGuid) {
       pet = this.owner.playerPets.find(pet => pet.guid === id);
-    }
-    else {
+    } else {
       pet = this.owner.playerPets.find(pet => pet.id === id);
     }
     if (!pet) {

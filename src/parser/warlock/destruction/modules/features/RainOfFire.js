@@ -55,8 +55,7 @@ class RainOfFire extends Analyzer {
     const target = encodeTargetString(event.targetID, event.targetInstance);
     if (filtered.length === 0) {
       debug && this.log('Something weird happened, ROF damage without any ongoing casts', event);
-    }
-    else if (filtered.length === 1) {
+    } else if (filtered.length === 1) {
       // single active ROF, attribute the targets hit to it
       const cast = filtered[0];
       const timeSinceLastTick = event.timestamp - (cast.lastTickTimestamp || cast.timestamp);
@@ -69,8 +68,7 @@ class RainOfFire extends Analyzer {
       if (!cast.targetsHit.includes(target)) {
         cast.targetsHit.push(target);
       }
-    }
-    else {
+    } else {
       // multiple ROFs active
       // if any cast's last tick is within 100ms of current timestamp, it's probably still the same tick
       const possibleCurrentTickCast = filtered.find(cast => event.timestamp <= cast.lastTickTimestamp + BUFFER);
@@ -78,8 +76,7 @@ class RainOfFire extends Analyzer {
         if (!possibleCurrentTickCast.targetsHit.includes(target)) {
           possibleCurrentTickCast.targetsHit.push(target);
         }
-      }
-      else {
+      } else {
         // it's a "fresh" damage tick (first of them)
         // need to find out which cast in `filtered` it "belongs to"
         const sortedByDelta = filtered.map(cast => {

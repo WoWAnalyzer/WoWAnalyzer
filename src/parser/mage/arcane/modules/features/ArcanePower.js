@@ -291,7 +291,8 @@ class ArcanePower extends Analyzer {
       <StatisticBox
         position={STATISTIC_ORDER.CORE(15)}
         icon={<SpellIcon id={SPELLS.ARCANE_POWER.id} />}
-        value={(<>
+        value={(
+<>
           <SpellIcon
             id={SPELLS.ARCANE_POWER.id}
             style={{
@@ -308,7 +309,8 @@ class ArcanePower extends Analyzer {
             }}
           />
           {' '}{formatPercentage(this.castUtilization, 0)} %
-        </>)}
+        </>
+)}
         label="Arcane Power Utilization"
         tooltip={(
           <>

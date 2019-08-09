@@ -45,8 +45,7 @@ class VileTaint extends Analyzer {
   onVileTaintApplyDebuff(event) {
     if (event.timestamp <= this._castTimestamp + BUFFER) {
       this._currentCastCount += 1;
-    }
-    else {
+    } else {
       debug && console.log('Vile Taint debuff applied outside of the 100ms buffer after cast');
     }
   }

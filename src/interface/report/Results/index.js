@@ -35,6 +35,7 @@ import Overview from './Overview';
 import Statistics from './Statistics';
 import Character from './Character';
 import EncounterStats from './EncounterStats';
+import DegradedExperience from './DegradedExperience';
 import EVENT_PARSING_STATE from '../EVENT_PARSING_STATE';
 import BOSS_PHASES_STATE from '../BOSS_PHASES_STATE';
 import ScrollToTop from './ScrollToTop';
@@ -148,6 +149,7 @@ class Results extends React.PureComponent {
       || this.props.isFilteringEvents
       || this.props.parsingState !== EVENT_PARSING_STATE.DONE;
   }
+
 
   renderContent(selectedTab, results) {
     const { parser, premium } = this.props;
@@ -349,7 +351,7 @@ class Results extends React.PureComponent {
           applyFilter={applyFilter}
           isLoading={this.isLoading}
         />
-
+        {parser && parser.disabledModules && <DegradedExperience disabledModules={parser.disabledModules} />}
         {boss && boss.fight.resultsWarning && (
           <div className="container">
             <Warning style={{ marginBottom: 30 }}>

@@ -12,8 +12,7 @@ class Finishers extends FinisherTracker {
 
     if(this.selectedCombatant.hasBuff(SPELLS.BROADSIDE.id)){
       points -= 1;
-    }
-    else if(this.selectedCombatant.hasTalent(SPELLS.QUICK_DRAW_TALENT.id) && this.selectedCombatant.hasBuff(SPELLS.OPPORTUNITY.id)){
+    } else if(this.selectedCombatant.hasTalent(SPELLS.QUICK_DRAW_TALENT.id) && this.selectedCombatant.hasBuff(SPELLS.OPPORTUNITY.id)){
       points -= 1;
     }
 

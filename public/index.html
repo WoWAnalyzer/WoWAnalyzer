@@ -80,10 +80,10 @@
   </div>
 </div>
 
-<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Object.values,Object.entries,fetch,Array.prototype.includes,String.prototype.includes,Intl&unknown=polyfill"></script>
+<script crossorigin="anonymous" src="https://polyfill.io/v3/polyfill.min.js?features=default%2Ces2015%2Ces2016%2Ces2017%2Cfetch%2CIntl"></script>
 <script src="https://browser.sentry-cdn.com/5.5.0/bundle.min.js" crossorigin="anonymous"></script>
 <script>
-Sentry && Sentry.init({
+window.Sentry && Sentry.init({
   dsn: '%REACT_APP_SENTRY_DSN%',
   release: 'wowanalyzer@%REACT_APP_VERSION%',
   environment: '%REACT_APP_ENVIRONMENT_NAME%',
