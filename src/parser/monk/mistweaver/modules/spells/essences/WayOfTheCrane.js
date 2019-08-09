@@ -106,10 +106,10 @@ class WayOfTheCrane extends Analyzer {
         size="flexible"
         tooltip={(
           <div>
-            You were in WOTC mode for {this._wotcTime} which was {formatPercentage((this._wotcTime/fightLength))}% of the fight.  You can see all all the raw data from them sexy kicks and punches below.   
+            <SpellLink id={SPELLS.WAY_OF_THE_CRANE.id} /> was active for {this._wotcTime}, which was {formatPercentage((this._wotcTime/fightLength))}% of the fight. The raw data, per spell is below.
             <ul>
             {arrayOfDamageSpells.map(spell => (
-             <li>{spell} did {this.customMap.get(spell).healing} healing, {this.customMap.get(spell).overheal} overhealing in {this.customMap.get(spell).casts/3} casts.
+             <li>{spell} did {formatNumber(this.customMap.get(spell).healing)} healing, {formatNumber(this.customMap.get(spell).overheal)} overhealing in {this.customMap.get(spell).casts/3} casts.
              This was {formatPercentage(this.customMap.get(spell).healing/(healing))}% of your hps during wotc.</li>
            ))}
          </ul>
