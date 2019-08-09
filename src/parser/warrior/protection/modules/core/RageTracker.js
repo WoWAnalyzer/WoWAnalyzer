@@ -12,6 +12,8 @@ class RageTracker extends ResourceTracker {
   vengeanceRageSaved = 0;
   lastMeleeTaken = 0;
 
+  maxResource = 100;
+
   constructor(...args) {
     super(...args);
     this.resource = RESOURCE_TYPES.RAGE;
