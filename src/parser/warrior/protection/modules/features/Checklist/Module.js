@@ -8,6 +8,7 @@ import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/Pr
 import AlwaysBeCasting from '../AlwaysBeCasting';
 import Component from './Component';
 import RageDetails from '../../core/RageDetails';
+import RageTracker from '../../core/RageTracker';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -17,6 +18,7 @@ class Checklist extends BaseChecklist {
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     alwaysBeCasting: AlwaysBeCasting,    
     rageDetails: RageDetails,
+    rageTracker: RageTracker,
   };
 
   render() {
