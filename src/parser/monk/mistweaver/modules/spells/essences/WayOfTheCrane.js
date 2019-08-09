@@ -106,7 +106,7 @@ class WayOfTheCrane extends Analyzer {
         size="flexible"
         tooltip={(
           <div>
-            <SpellLink id={SPELLS.WAY_OF_THE_CRANE.id} /> was active for {this._wotcTime}, which was {formatPercentage((this._wotcTime/fightLength))}% of the fight. The raw data, per spell is below.
+            <SpellLink id={SPELLS.WAY_OF_THE_CRANE.id} /> was active for {this._wotcTime} seconds, which was {formatPercentage((this._wotcTime/fightLength))}% of the fight. The raw data, per spell is below.
             <ul>
             {arrayOfDamageSpells.map(spell => (
              <li>{spell} did {formatNumber(this.customMap.get(spell).healing)} healing, {formatNumber(this.customMap.get(spell).overheal)} overhealing in {this.customMap.get(spell).casts/3} casts.
