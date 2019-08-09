@@ -53,7 +53,7 @@ class ProtectionWarriorChecklist extends React.PureComponent {
           name="Defensive Cooldowns"
           description={(
             <>
-              As a protection warrior you have many options to mitigate damage and should be using all of them. Take <SpellLink id={SPELLS.SPELL_REFLECTION.id}/> with a grain a salt as some bosses it is not as helpful on as others
+              As a protection warrior you have many options to mitigate damage and should be using all of them. Take <SpellLink id={SPELLS.SPELL_REFLECTION.id} /> with a grain a salt as some bosses it is not as helpful on as others
             </>
           )}
         >
@@ -85,7 +85,7 @@ class ProtectionWarriorChecklist extends React.PureComponent {
             </>
           )}
         >
-          <Requirement name="Lost Rage" thresholds={thresholds.rageDetails}/>
+          <Requirement name="Lost Rage" thresholds={thresholds.rageDetails} />
         </Rule>
 
         <Rule
