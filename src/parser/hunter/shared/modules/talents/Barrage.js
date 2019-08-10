@@ -101,11 +101,13 @@ class Barrage extends Analyzer {
     return (
       <TalentStatisticBox
         talent={SPELLS.BARRAGE_TALENT.id}
-        value={<>
+        value={(
+<>
           <ItemDamageDone amount={this.damage} /> <br />
           <AverageTargetsHit casts={this.casts.length} hits={this.hits} /> <br />
           <AverageTargetsHit casts={this.casts.length} hits={this.uniqueTargetsHit} unique approximate />
-        </>}
+        </>
+)}
       />
     );
   }

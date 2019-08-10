@@ -23,6 +23,7 @@ class Statistic extends React.PureComponent {
     drilldown: PropTypes.string,
     dropdown: PropTypes.node,
     className: PropTypes.string,
+    expanded: PropTypes.bool,
   };
   static defaultProps = {
     size: 'standard',

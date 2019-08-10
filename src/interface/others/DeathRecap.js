@@ -101,7 +101,7 @@ class DeathRecap extends React.PureComponent {
           </div>
         </div>
         {events.map((death, i) => (
-          <>
+          <React.Fragment key={i}>
             {events.length > 1 && (
               <h2 onClick={() => this.handleClick(i)} style={{ padding: '10px 20px', cursor: 'pointer' }}>Death #{i + 1}</h2>
             )}
@@ -120,7 +120,7 @@ class DeathRecap extends React.PureComponent {
                 {death.events
                   .filter(e => e.timestamp <= death.deathtime && e.timestamp >= death.deathtime - (SHOW_SECONDS_BEFORE_DEATH * 1000))
                   .filter(e => ((e.amount + (e.absorbed || 0)) / e.maxHitPoints > this.state.amountThreshold) || e.type === 'instakill')
-                  .map(event => {
+                  .map((event, eventIndex) => {
                     if (event.hitPoints && event.maxHitPoints) {
                       lastHitPoints = event.hitPoints;
                       lastMaxHitPoints = event.maxHitPoints;
@@ -148,14 +148,14 @@ class DeathRecap extends React.PureComponent {
                           content={(
                             <>
                               {event.sourceID === event.targetID ?
-                              `You healed yourself for ${formatNumber(event.amount)}` :
-                              `${sourceName} healed you for ${formatNumber(event.amount)}`
+                                `You healed yourself for ${formatNumber(event.amount)}` :
+                                `${sourceName} healed you for ${formatNumber(event.amount)}`
                               }
                               {event.absorbed > 0 ? `, ${formatNumber(event.absorbed)} of that healing was absorbed` : ''}
                               {event.overheal > 0 ? ` and overhealed for ${formatNumber(event.overheal)}` : ''}
                             </>
                           )}
-                          style={(event.amount === 0 && event.absorbed > 0) ? {color: 'orange'} : {color: 'green'}}
+                          style={(event.amount === 0 && event.absorbed > 0) ? { color: 'orange' } : { color: 'green' }}
                         >
                           +{formatNumber(event.amount)} {event.absorbed > 0 ? `(A: ${formatNumber(event.absorbed)} )` : ''} {event.overheal > 0 ? `(O: ${formatNumber(event.overheal)} )` : ''}
                         </TooltipElement>
@@ -173,7 +173,8 @@ class DeathRecap extends React.PureComponent {
                               {event.absorbed > 0 ? <>{formatNumber(event.absorbed)} of this damage was absorbed and you took {formatNumber(event.amount)} damage<br /></> : ''}
                             </>
                           )}
-                          style={{ color: 'red' }}>
+                          style={{ color: 'red' }}
+                        >
                           -{formatNumber(event.amount)} {event.absorbed > 0 ? `(A: ${formatNumber(event.absorbed)} )` : ''}
                         </TooltipElement>
                       );
@@ -187,7 +188,7 @@ class DeathRecap extends React.PureComponent {
                     }
 
                     return (
-                      <tr>
+                      <tr key={eventIndex}>
                         <td style={{ width: '5%' }}>
                           {formatDuration((event.time + this.props.report.fight.offset_time) / 1000, 2)}
                         </td>
@@ -216,15 +217,15 @@ class DeathRecap extends React.PureComponent {
                         </td>
                         <td style={{ width: '20%' }}>
                           {event.buffsUp && event.buffsUp.sort(sortByTimelineIndex).map(e =>
-                            <SpellIcon style={{ border: '1px solid rgba(0, 0, 0, 0)' }} id={e.id} />
+                            <SpellIcon key={e.id} style={{ border: '1px solid rgba(0, 0, 0, 0)' }} id={e.id} />,
                           )}<br />
                           {event.debuffsUp && event.debuffsUp.sort(sortByTimelineIndex).map(e =>
-                            <SpellIcon style={{ border: '1px solid red' }} id={e.id} />
+                            <SpellIcon key={e.id} style={{ border: '1px solid red' }} id={e.id} />,
                           )}
                         </td>
                         <td style={{ width: '20%' }}>
                           {event.defensiveCooldowns.sort(sortByTimelineIndex).map(e =>
-                            <SpellIcon style={{ opacity: e.cooldownReady ? 1 : .2 }} id={e.id} />
+                            <SpellIcon key={e.id} style={{ opacity: e.cooldownReady ? 1 : .2 }} id={e.id} />,
                           )}
                         </td>
                       </tr>
@@ -238,7 +239,7 @@ class DeathRecap extends React.PureComponent {
                 </tr>
               </tbody>
             </table>
-          </>
+          </React.Fragment>
         ))}
       </>
     );

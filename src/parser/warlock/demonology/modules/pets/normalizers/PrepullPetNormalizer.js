@@ -33,8 +33,7 @@ class PrepullPetNormalizer extends EventsNormalizer {
       if (event.type === 'summon' && event.ability && PET_SUMMON_ABILITY_IDS.includes(event.ability.guid)) {
         summonedPets.push(encodeTargetString(event.targetID, event.targetInstance));
         debug && console.log(`(${this.owner.formatTimestamp(event.timestamp, 3)}) Pet summon, added to array. Current array: `, JSON.parse(JSON.stringify(summonedPets)));
-      }
-      else if (CHECKED_EVENT_TYPES.includes(event.type) && this.owner.byPlayerPet(event)) {
+      } else if (CHECKED_EVENT_TYPES.includes(event.type) && this.owner.byPlayerPet(event)) {
         debug && console.log(`(${this.owner.formatTimestamp(event.timestamp, 3)}) begincast, cast or damage event`);
         const petId = event.sourceID;
         const petInstance = event.sourceInstance;
@@ -49,8 +48,7 @@ class PrepullPetNormalizer extends EventsNormalizer {
               continue;
             }
             spell = SPELLS[PERMANENT_PET_ABILITIES_TO_SUMMON_MAP[event.ability.guid]];
-          }
-          else {
+          } else {
             const guid = this._getPetGuid(petId);
             if (!PETS[guid]) {
               debug && console.error(`(${this.owner.formatTimestamp(event.timestamp, 3)}) ERROR - unknown pet`, event);
@@ -77,8 +75,7 @@ class PrepullPetNormalizer extends EventsNormalizer {
           summonedPets.push(petString);
           fabricatedEvents.push(fabricatedEvent);
           debug && console.log(`(${this.owner.formatTimestamp(event.timestamp, 3)}) Fabricated summon event. Current array: `, JSON.parse(JSON.stringify(summonedPets)), ', fabricated events:', JSON.parse(JSON.stringify(fabricatedEvents)));
-        }
-        else {
+        } else {
           debug && console.log(`(${this.owner.formatTimestamp(event.timestamp, 3)}) Pet ${petString} already in summoned pets`);
         }
       }

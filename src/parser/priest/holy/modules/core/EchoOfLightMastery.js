@@ -15,7 +15,7 @@ import { ABILITIES_THAT_TRIGGER_MASTERY } from '../../constants';
 const DEBUG = false;
 const CUTOFF_PERCENT = .01;
 
-class EchoOfLight_Mastery extends Analyzer {
+class EchoOfLightMastery extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     healingDone: HealingDone,
@@ -278,4 +278,4 @@ class EchoOfLight_Mastery extends Analyzer {
   }
 }
 
-export default EchoOfLight_Mastery;
+export default EchoOfLightMastery;

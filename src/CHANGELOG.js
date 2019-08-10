@@ -1,5 +1,5 @@
 import React from 'react';
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336 } from 'CONTRIBUTORS';
+import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -8,10 +8,31 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  change(date(2019, 8, 7), <>Updated <SpellLink id={SPELLS.CONCENTRATED_FLAME.id} /> healing calculation.</>, Yajinni),
+  change(date(2019, 8, 6), <>Added <ItemLink id={ITEMS.POTION_OF_WILD_MENDING.id} />.</>, niseko),
+  change(date(2019, 8, 6), <>Added <SpellLink id={SPELLS.WELL_OF_EXISTENCE_MAJOR.id} /></>, Qbz),
+  change(date(2019, 8, 6), 'Made it easier to rollback to older versions of the app in case of issues.', Zerotorescue),
+  change(date(2019, 8, 6), 'General responsive improvements for better mobile experience.', Amrux),
+  change(date(2019, 8, 6), <>Shows <SpellLink id={SPELLS.ABYSSAL_HEALING_POTION.id} /> in death recap now!</>, Abelito75),
+  change(date(2019, 8, 3), 'Keep track of disabled modules names during production.', Zeboot),
+  change(date(2019, 8, 3), 'Made the error handler more resilient to errors in browser extensions.', Zerotorescue),
+  change(date(2019, 8, 3), 'Changed polyfilling so we might accidentally support more old and/or shitty browsers.', Zerotorescue),
+  change(date(2019, 8, 3), 'Updated to create-react-app 3 and made the development environment easier to update.', Zerotorescue),
+  change(date(2019, 8, 2), 'Added \'degraded experience\' toaster in case of disabled modules.', Zeboot),
+  change(date(2019, 8, 2), <>Fixed the Haste value of <SpellLink id={SPELLS.EVER_RISING_TIDE_MAJOR.id} /></>, niseko),
+  change(date(2019, 7, 27), 'Added Unbridled Fury to the list of strong pre-potions.', emallson),
+  change(date(2019, 7, 27), <>Added <SpellLink id={SPELLS.NULL_DYNAMO.id} /> essence.</>, emallson),
+  change(date(2019, 7, 25), 'Fixed a crash in the Ever-Rising Tide Module', HawkCorrigan),
+  change(date(2019, 7, 23), 'Added 8.2 weapon enchants.', Zeboot),
+  change(date(2019, 7, 21), 'Update error logging to reduce overhead.', Zerotorescue),
+  change(date(2019, 7, 20), 'Added news article about time filtering.', Zeboot),
+  change(date(2019, 7, 20), 'Allow for repeated phases in bossfights (e.g. Lady Ashvane / Radiance of Azshara).', Zeboot),
+  change(date(2019, 7, 20), 'Made time filtering potion whitelist import from the potions module to avoid having to update separately each patch.', Zeboot),
+  change(date(2019, 7, 20), <>Fixed <SpellLink id={SPELLS.CONCENTRATED_FLAME.id} /> not accounting for absorbs.</>, [Zeboot]),
   change(date(2019, 7, 20), 'Show changelog entries along with news on the frontpage.', [Zerotorescue]),
   change(date(2019, 7, 20), <>Removed ads by Google and most ad spots as they were not worth the degraded experience for you guys. Instead, please consider a monthly donation on <a href="https://www.patreon.com/wowanalyzer">Patreon</a> to support the project and unlock Premium, or bounty tickets on <a href="https://www.bountysource.com/teams/wowanalyzer">BountySource</a> for contributors to solve (currently active bounties: $1,550).</>, [Zerotorescue]),
   change(date(2019, 7, 20), <>Added <SpellLink id={SPELLS.WORLDVEIN_RESONANCE.id} /> essence.</>, [Anatta336]),
-  change(date(2019,7,20), 'Updated the build process to ensure every new pull request has a changelog entry.', Zerotorescue),
+  change(date(2019, 7, 20), 'Updated the build process to ensure every new pull request has a changelog entry.', Zerotorescue),
   change(date(2019, 7, 19), 'Added boss configs and phase info for Eternal Palace.', [Sharrq]),
   change(date(2019, 7, 16), 'Added the ability to filter the results by time period.', [Zeboot]),
   change(date(2019, 7, 16), 'Added the ability to filter the results by phases.', [Zeboot]),

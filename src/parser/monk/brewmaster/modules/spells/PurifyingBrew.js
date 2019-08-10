@@ -30,10 +30,12 @@ function markupPurify(event, delay, hasHeavyStagger) {
   }
   const meta = event.meta || {};
   meta.isInefficientCast = true;
-  meta.inefficientCastReason = <>
+  meta.inefficientCastReason = (
+<>
     This Purifying Brew cast was inefficient because:
     <ul>{msgs}</ul>
-  </>;
+  </>
+);
   event.meta = meta;
 }
 

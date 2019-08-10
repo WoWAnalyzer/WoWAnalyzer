@@ -29,6 +29,7 @@ import CombustionPyroclasm from './modules/features/CombustionPyroclasm';
 import HeatingUp from './modules/features/HeatingUp';
 import Pyroclasm from './modules/features/Pyroclasm';
 import SearingTouch from './modules/features/SearingTouch';
+import Meteor from './modules/features/Meteor';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -65,6 +66,7 @@ class CombatLogParser extends CoreCombatLogParser {
     arcaneIntellect: ArcaneIntellect,
     runeOfPower: [RuneOfPower, { showStatistic: false, showSuggestion: false }],
     kindling: Kindling,
+    meteor: Meteor,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],
