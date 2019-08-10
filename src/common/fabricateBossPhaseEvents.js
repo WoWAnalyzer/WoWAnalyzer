@@ -3,6 +3,11 @@ import { findByBossId } from 'raids';
 export const PHASE_START_EVENT_TYPE = 'phasestart';
 export const PHASE_END_EVENT_TYPE = 'phaseend';
 
+export const abilityFilter = { //filter used for abilities that don't use the default "ability" filter
+  "interrupt": "stoppedability",
+  "dispel": "stoppedability",
+};
+
 /**
  * Creates Phase filter events as defined in boss configs via phase.filter.type
  * All filters can be passed a filter.offset attribute that shifts how many milliseconds after the specicifed event the phase starts (can be negative)
@@ -19,6 +24,8 @@ export const PHASE_END_EVENT_TYPE = 'phaseend';
  * Cast filters:
  *  - begincast
  *  - cast
+ *  - interrupt
+ *  - dispel
  *
  * Cast filters require filter.ability.id to be set for the Ability to search for
  *
@@ -55,8 +62,10 @@ export function fabricateBossPhaseEvents(events, report, fight) {
             case 'removedebuff':
             case 'applydebuff':
             case 'begincast':
+            case 'interrupt':
+            case 'dispel':
             case 'cast': {
-              let bossEvents = events.filter(e => e.type === phase.filter.type && e.ability.guid === phase.filter.ability.id);
+              let bossEvents = events.filter(e => e.type === phase.filter.type && (e.ability.guid === phase.filter.ability.id || e.extraAbility.guid === phase.filter.ability.id));
               if (phase.filter.eventInstance !== undefined && phase.filter.eventInstance >= 0 && !phase.multiple) {
                 if (bossEvents.length >= (phase.filter.eventInstance + 1)) {
                   // If the instance exists, only that specific instance is relevant

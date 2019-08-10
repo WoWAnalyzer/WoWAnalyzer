@@ -1,4 +1,5 @@
 import { findByBossId } from 'raids';
+import { abilityFilter } from 'common/fabricateBossPhaseEvents';
 
 export function makeWclBossPhaseFilter(fight) {
   const bossConfig = findByBossId(fight.boss);
@@ -9,7 +10,7 @@ export function makeWclBossPhaseFilter(fight) {
     phasesForDifficulty.forEach(phase => {
       if (phase.filter) {
         if (phase.filter.ability) {
-          filters.push(`(ability.id = ${phase.filter.ability.id} AND type = "${phase.filter.type}")`);
+          filters.push(`(${abilityFilter[phase.filter.type] || 'ability'}.id = ${phase.filter.ability.id} AND type = "${phase.filter.type}")`);
         } else if (phase.filter.query) {
           filters.push(`(${phase.filter.query})`);
         }
