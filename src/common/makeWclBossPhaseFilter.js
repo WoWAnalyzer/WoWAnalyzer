@@ -13,7 +13,8 @@ export function makeWclBossPhaseFilter(fight) {
           filters.push(`(${abilityFilter[phase.filter.type] || 'ability'}.id = ${phase.filter.ability.id} AND type = "${phase.filter.type}")`);
         } else if(phase.filter.health) { //query can't contain floats as parameters, so have to perform calculations in query itself before comparison to achieve our wanted accuracy
           const decimalFilter = createDecimalFilter(phase.filter.health);
-          filters.push(`(resources.actor.id = ${phase.filter.guid} AND type = "damage" AND (${decimalFilter.accuracy} * resources.hppercent) BETWEEN ${decimalFilter.min} AND ${decimalFilter.max})`);
+          //find first event that marks the boss as below the threshold
+          filters.push(`(MATCHED resources.actor.id = ${phase.filter.guid} AND (${decimalFilter.accuracy} * resources.hppercent) <= ${decimalFilter.threshold} IN (1) END)`);
         } else if (phase.filter.query) {
           filters.push(`(${phase.filter.query})`);
         }
@@ -27,9 +28,8 @@ export function makeWclBossPhaseFilter(fight) {
 function createDecimalFilter(target){
   //find number of decimals by checking if decimals exist, and if they do, splitting the string at the decimal point and counting digits
   const decimals = Math.floor(target) !== target ? (target.toString().split(".")[1].length || 0) : 0;
-  const accuracy = Math.pow(10, decimals + 1); //we want our minimum accuracy to be in steps of 0.1, therefore we increase the power to one higher than the decimal count
-  //adjust min and max values for comparison to be one unit on either side of the target
-  const min = Math.floor(target * accuracy) - 1;
-  const max = Math.floor(target * accuracy) + 1;
-  return {accuracy, min, max};
+  const accuracy = Math.pow(10, decimals); //we want only integers (without decimals) as the filter only supports those, we have to therefore shift the value by the decimal count
+  //adjust threshold to remove decimals by multiplying with accuracy
+  const threshold = Math.floor(target * accuracy);
+  return {accuracy, threshold};
 }
