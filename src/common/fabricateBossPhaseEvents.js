@@ -102,7 +102,7 @@ export function fabricateBossPhaseEvents(events, report, fight) {
             case 'health': {
               const enemy = report.enemies.find(enemy => enemy.guid === phase.filter.guid);
               if(enemy){
-                const healthEvent = events.find(e => e.targetID === enemy.id && (e.hitPoints / e.maxHitPoints) <= phase.filter.health);
+                const healthEvent = events.find(e => e.targetID === enemy.id && (100 * e.hitPoints / e.maxHitPoints) <= phase.filter.health);
                 if(healthEvent){
                   phaseEvents.push({
                     key: key,
