@@ -90,7 +90,7 @@ class VoidStone extends Analyzer {
                   const target = this.owner.players.find(player => player.id === this.absorbedByUse[use].target);
                   return (
                     <tr key={use}>
-                      <th>{formatDuration(this.absorbedByUse[use].time / 1000)}</th>
+                      <th>{formatDuration((this.absorbedByUse[use].time + this.owner.fight.offset_time) / 1000)}</th>
                       <td>{(target && target.name) || <>Unknown</>}</td>
                       <td>{formatNumber(this.absorbedByUse[use].amount)}</td>
                     </tr>

@@ -3351,4 +3351,887 @@ export default {
     name: "Voidstep",
     icon: "inv_chest_armor_voidelf_d_01",
   },
+
+  // AZSHARA'S ETERNAL PALACE
+
+  // ABYSSAL COMMANDER SIVARA
+
+  SIVARA_CHIMERIC_MARKS: {
+    id: 294726,
+    name: "Chimeric Marks",
+    icon: "artifactability_marksmanhunter_legacyofthewindrunners",
+  },
+
+  SIVARA_FROST_MARK: {
+    id: 294711,
+    name: "Frost Mark",
+    icon: "inv_misc_frostemblem_01",
+  },
+
+  SIVARA_FROZEN_BLOOD: {
+    id: 295795,
+    name: "Frozen Blood",
+    icon: "spell_yorshaj_bloodboil_blue",
+  },
+
+  SIVARA_FROZEN: {
+    id: 295807,
+    name: "Frozen",
+    icon: "creatureportrait_creature_iceblock",
+  },
+
+  SIVARA_TOXIC_BRAND: {
+    id: 294715,
+    name: "Toxic Brand",
+    icon: "ability_creature_disease_02",
+  },
+
+  SIVARA_VENOMOUS_BLOOD: {
+    id: 295796,
+    name: "Venomous Blood",
+    icon: "spell_yorshaj_bloodboil_greenoil",
+  },
+
+  SIVARA_DELIRIOUS: {
+    id: 295850,
+    name: "Delirious",
+    icon: "ability_creature_disease_03",
+  },
+
+  SIVARA_UNSTABLE_MIXTURE: {
+    id: 294847,
+    name: "Unstable Mixture",
+    icon: "ability_demonhunter_chaosnova",
+  },
+
+  SIVARA_CRUSHING_REVERBERATION: {
+    id: 295332,
+    name: "Crushing Reverberation",
+    icon: "spell_nature_earthquake",
+  },
+
+  SIVARA_FROSTVENOM_TIPPED: {
+    id: 300698,
+    name: "Frostvenom Tipped",
+    icon: "inv_polearm_2h_kthirrelic_d_01",
+  },
+
+  SIVARA_RIMEFROST: {
+    id: 300701,
+    name: "Rimefrost",
+    icon: "spell_fire_blueflamebreath",
+  },
+
+  SIVARA_FROZEN_GROUND: {
+    id: 300961,
+    name: "Frozen Ground",
+    icon: "spell_hunter_icetrap",
+  },
+
+  SIVARA_SEPTIC_TAINT: {
+    id: 300705,
+    name: "Septic Taint",
+    icon: "spell_fire_felflamebreath",
+  },
+
+  SIVARA_SEPTIC_GROUND: {
+    id: 300962,
+    name: "Septic Ground",
+    icon: "ability_creature_poison_06",
+  },
+
+  SIVARA_OVERWHELMING_BARRAGE: {
+    id: 295138,
+    name: "Overwhelming Barrage",
+    icon: "hunter_pvp_vipersting",
+  },
+
+  SIVARA_OVERFLOW: {
+    id: 295346,
+    name: "Overflow",
+    icon: "sha_ability_warrior_bloodnova_nightmare",
+  },
+
+  SIVARA_OVERFLOWING_CHILL: {
+    id: 2953348,
+    name: "Overflowing Chill",
+    icon: "spell_frost_frostshock",
+  },
+
+  SIVARA_OVERFLOWING_VENOM: {
+    id: 295421,
+    name: "Overflowing Venom",
+    icon: "ability_creature_poison_02",
+  },
+
+  SIVARA_FROSTSHOCK_BOLTS: {
+    id: 295601,
+    name: "Frostshock Bolts",
+    icon: "ability_hunter_raptorstrike",
+  },
+
+  SIVARA_FROST_BOLT: {
+    id: 295704,
+    name: "Frost Bolt",
+    icon: "inv_polearm_2h_misc_spearfishingrod",
+  },
+
+  SIVARA_TOXIC_BOLT: {
+    id: 295705,
+    name: "Toxic Bolt",
+    icon: "inv_spear_02",
+  },
+
+  SIVARA_INVERSION: {
+    id: 295791,
+    name: "Inversion",
+    icon: "achievement_guildperk_quick-and-dead",
+  },
+
+  SIVARA_INVERSION_SICKNESS: {
+    id: 300957,
+    name: "Inversion Sickness",
+    icon: "spell_shadow_plaguecloud",
+  },
+
+  // Blackwater Behemoth
+
+  BLACKWATER_BEHEMOTH_RADIANT_BIOMASS: {
+    id: 292138,
+    name: "Radiant Biomass",
+    icon: "inv_misc_volatilelife_green",
+  },
+  BLACKWATER_BEHEMOTH_FREEDING_FRENZY: {
+    id: 298424,
+    name: "Feeding Frenzy",
+    icon: "trade_archaeology_shark-jaws",
+  },
+  BLACKWATER_BEHEMOTH_TOXIC_SPINE: {
+    id: 292167,
+    name: "Toxic Spine",
+    icon: "ability_creature_poison_04",
+  },
+  BLACKWATER_BEHEMOTH_BIOELECTRIC_FEELERS: {
+    id: 292247,
+    name: "Bioelectric Feelers",
+    icon: "ability_thunderkind_lightningwhip",
+  },
+  BLACKWATER_BEHEMOTH_SHOCK_PULSE: {
+    id: 292279,
+    name: "Shock Pulse",
+    icon: "spell_nature_lightningoverload",
+  },
+  BLACKWATER_BEHEMOTH_PIERCING_BARB: {
+    id: 301930,
+    name: "Piercing Barb",
+    icon: "spell_nature_nullifypoison",
+  },
+  BLACKWATER_BEHEMOTH_BIOELECTRIC_DISCHARGE: {
+    id: 305094,
+    name: "Bioelectric Discharge",
+    icon: "ability_vehicle_electrocharge",
+  },
+  BLACKWATER_BEHEMOTH_CAVITATION: {
+    id: 292084,
+    name: "Cavitation",
+    icon: "ability_shawaterelemental_reform",
+  },
+  BLACKWATER_BEHEMOTH_SLIPSTREAM_NORMAL_LFR: {
+    id: 301180,
+    name: "Slipstream",
+    icon: "inv_misc_volatileair",
+  },
+  BLACKWATER_BEHEMOTH_SLIPSTREAM_HEROIC_MYTHIC: {
+    id: 305085,
+    name: "Slipstream",
+    icon: "inv_misc_volatileair",
+  },
+  BLACKWATER_BEHEMOTH_GLOWING_STINGER_HEROIC_MYTHIC: {
+    id: 298595,
+    name: "Glowing Stinger",
+    icon: "inv_misc_fish_49",
+  },
+  BLACKWATER_BEHEMOTH_GLOWING_STINGER_NORMAL_LFR: {
+    id: 305404,
+    name: "Glowing Stinger",
+    icon: "inv_misc_fish_49",
+  },
+
+  // Radiance of Azshara
+
+  RADIANCE_OF_AZSHARA_TIDE_FIST: {
+    id: 296556,
+    name: "Tide Fist",
+    icon: "inv__fistofthewhitetiger",
+  },
+  RADIANCE_OF_AZSHARA_ARCANDO_BURST: {
+    id: 296449,
+    name: "Arcando Burst",
+    icon: "inv_tradeskillitem_sorcererswind",
+  },
+  RADIANCE_OF_AZSHARA_ARCANDO: {
+    id: 296421,
+    name: "Arcando",
+    icon: "ability_druid_galewinds",
+  },
+  RADIANCE_OF_AZSHARA_ARCANE_BOMB: {
+    id: 296746,
+    name: "Arcane Bomb",
+    icon: "inv_enchant_essencearcanesmall",
+  },
+  RADIANCE_OF_AZSHARA_UNSHACKLED_POWER: {
+    id: 296894,
+    name: "Unshackled Power",
+    icon: "spell_arcane_blast",
+  },
+  RADIANCE_OF_AZSHARA_RADIANT_FURY: {
+    id: 299093,
+    name: "Radiant Fury",
+    icon: "ability_mage_netherwindpresence",
+  },
+  RADIANCE_OF_AZSHARA_ANCIENT_TEMPEST: {
+    id: 295916,
+    name: "Ancient Tempest",
+    icon: "ability_skyreach_four_wind",
+  },
+  RADIANCE_OF_AZSHARA_FOCUS_POWER: {
+    id: 304951,
+    name: "Focus Power",
+    icon: "spell_arcane_arcanepotency",
+  },
+  RADIANCE_OF_AZSHARA_GALE_BUFFET: {
+    id: 296701,
+    name: "Gale Buffet",
+    icon: "spell_frost_arcticwinds",
+  },
+  RADIANCE_OF_AZSHARA_CHAIN_LIGHTNING: {
+    id: 296673,
+    name: "Chain Lightning",
+    icon: "spell_nature_lightning",
+  },
+  RADIANCE_OF_AZSHARA_SWIRLING_WINDS: {
+    id: 296389,
+    name: "Swirling Winds",
+    icon: "inv_misc_volatileair",
+  },
+  RADIANCE_OF_AZSHARA_SQUALL_TRAP: {
+    id: 296462,
+    name: "Squall Trap",
+    icon: "boss_odunrunes_purple",
+  },
+
+  // Lady Ashvane
+
+  LADY_ASHVANE_HARDENED_CARAPACE: {
+    id: 296650,
+    name: "Hardened Carapace",
+    icon: "inv_shield_24",
+  },
+  LADY_ASHVANE_CORAL_GROWTH: {
+    id: 296555,
+    name: "Coral Growth",
+    icon: "296555",
+  },
+  LADY_ASHVANE_RIPPLING_WAVE: {
+    id: 296688,
+    name: "Rippling Wave",
+    icon: "spell_shaman_tidalwaves",
+  },
+  LADY_ASHVANE_WATERLOGGED: {
+    id: 296693,
+    name: "Waterlogged",
+    icon: "inv_elemental_primal_water",
+  },
+  LADY_ASHVANE_EMPOWERED_RIPPLING_WAVE: {
+    id: 302779,
+    name: "Empowered Rippling Wave",
+    icon: "spell_shaman_tidalwaves",
+  },
+  LADY_ASHVANE_BRINY_BUBBLE_01: {
+    id: 297333,
+    name: "Briny Bubble",
+    icon: "ability_shawaterelemental_reform",
+  },
+  LADY_ASHVANE_BRINY_BUBBLE_02: {
+    id: 302992,
+    name: "Briny Bubble",
+    icon: "ability_shawaterelemental_reform",
+  },
+  LADY_ASHVANE_UPSURGE: {
+    id: 298054,
+    name: "Upsurge",
+    icon: "ability_shawaterelemental_swirl",
+  },
+  LADY_ASHVANE_BARNACLE_BASH: {
+    id: 296725,
+    name: "Barnacle Bash",
+    icon: "inv_misc_food_legion_seashella4",
+  },
+  LADY_ASHVANE_CUTTING_CORAL: {
+    id: 296752,
+    name: "Cutting Coral",
+    icon: "inv_artifact_bloodoftheassassinated",
+  },
+  LADY_ASHVANE_EXPOSED_AZERITE: {
+    id: 297206,
+    name: "Exposed Azerite",
+    icon: "inv_glowingazeritespire",
+  },
+  LADY_ASHVANE_ARCING_AZERITE: {
+    id: 296944,
+    name: "Arcing Azerite",
+    icon: "inv_azerite-area-denial",
+  },
+  LADY_ASHVANE_REGENERATIVE_CORAL: {
+    id: 302836,
+    name: "Regenerative Coral",
+    icon: "inv_datacrystal09",
+  },
+
+  // Orgozoa
+
+  ORGOZOA_DESENSITIZING_STING: {
+    id: 298156,
+    name: "Desensitizing Sting",
+    icon: "ability_poisonsting",
+  },
+  ORGOZOA_HEART_STOPPING_PARALYSIS: {
+    id: 298164,
+    name: "Heart-Stopping Paralysis",
+    icon: "inv_misc_organ_01",
+  },
+  ORGOZOA_DRIBBLING_ICHOR: {
+    id: 298103,
+    name: "Dribbling Ichor",
+    icon: "spell_yorshaj_bloodboil_black",
+  },
+  ORGOZOA_INCUBATION_FLUID: {
+    id: 298242,
+    name: "Incubation Fluid",
+    icon: "ability_shawaterelemental_swirl",
+  },
+  ORGOZOA_ARCING_CURRENT_01: {
+    id: 295825,
+    name: "Arcing Current",
+    icon: "ability_thunderking_lightningwhip",
+  },
+  ORGOZOA_ARCING_CURRENT_02: {
+    id: 305048,
+    name: "Arcing Current",
+    icon: "ability_thunderking_lightningwhip",
+  },
+  ORGOZOA_CHAOTIC_GROWTH: {
+    id: 304280,
+    name: "Chaotic Growth",
+    icon: "achievement_boss_orgozoa",
+  },
+  ORGOZOA_CALL_OF_THE_TENDER: {
+    id: 305057,
+    name: "Call of the Tender",
+    icon: "achievement_boss_orgozoa",
+  },
+  ORGOZOA_PERVASIVE_SHOCK: {
+    id: 295161,
+    name: "Pervasive Shock",
+    icon: "inv_misc_stormlordsfavor",
+  },
+  ORGOZOA_AMNIOTIC_SPLATTER: {
+    id: 298430,
+    name: "Amniotic Splatter",
+    icon: "ability_mage_waterjet",
+  },
+  ORGOZOA_AMNIOTIC_ERUPTION: {
+    id: 298459,
+    name: "Amniotic Eruption",
+    icon: "inv_misc_volatilewater",
+  },
+  ORGOZOA_HATCHERY_MOULTING: {
+    id: 298526,
+    name: "Hatchery Moulting",
+    icon: "ability_vehicle_oiljets",
+  },
+  ORGOZOA_EGGSPLOSION: {
+    id: 300308,
+    name: "Eggsplosion",
+    icon: "inv_misc_food_legion_wildfowlegg",
+  },
+  ORGOZOA_MASSIVE_INCUBATOR: {
+    id: 298548,
+    name: "Massive Incubator",
+    icon: "inv_misc_twinyolkedegg",
+  },
+  ORGOZOA_SKEWER: {
+    id: 295766,
+    name: "Skewer",
+    icon: "inv_polearm_2h_kthirrelic_d_01",
+  },
+  ORGOZOA_AQUA_LANCE: {
+    id: 295779,
+    name: "Aqua Lance",
+    icon: "ability_impalingbolt",
+  },
+  ORGOZOA_RAGING_RAPIDS: {
+    id: 300244,
+    name: "Raging Rapids",
+    icon: "shaman_pvp_ripplingwaters",
+  },
+  ORGOZOA_SHOCKING_LIGHTNING: {
+    id: 295818,
+    name: "Shocking Lightning",
+    icon: "ability_vehicle_electrocharge",
+  },
+  ORGOZOA_CONDUCTIVE_PULSE: {
+    id: 295822,
+    name: "Conductive Pulse",
+    icon: "inv_misc_stormlordsfavor",
+  },
+  ORGOZOA_POWERFUL_STOMP: {
+    id: 296691,
+    name: "Powerful Stomp",
+    icon: "ability_warstomp",
+  },
+  ORGOZOA_REVERBERATRING_TREMOR: {
+    id: 296698,
+    name: "Reverberating Tremor",
+    icon: "ability_socererking_forcenova",
+  },
+
+  // Queen's Court
+
+  QUEENS_COURT_FORM_RANKS: {
+    id: 303227,
+    name: "Form Ranks",
+    icon: "spell_holy_prayerofhealing",
+  },
+  QUEENS_COURT_IN_FORMATION: {
+    id: 303188,
+    name: "In Formation",
+    icon: "spell_holy_prayerofhealing",
+  },
+  QUEENS_COURT_REPEAT_PERFORMANCE: {
+    id: 304409,
+    name: "Repeat Performance",
+    icon: "inv_misc_scrollunrolled02d",
+  },
+  QUEENS_COURT_STAND_ALONE: {
+    id: 297656,
+    name: "Stand Alone",
+    icon: "inv_elemental_eternal_water",
+  },
+  QUEENS_COURT_DEFERRED_SENTENCE_01: {
+    id: 297564,
+    name: "Deferred Sentence",
+    icon: "spell_shaman_staticshock",
+  },
+  QUEENS_COURT_DEFERRED_SENTENCE_02: {
+    id: 304128,
+    name: "Deferred Sentence",
+    icon: "spell_shaman_staticshock",
+  },
+  QUEENS_COURT_OBEY_OR_SUFFER: {
+    id: 297585,
+    name: "Obey or Suffer",
+    icon: "spell_shadow_painandsuffering",
+  },
+  QUEENS_COURT_SUFFERING: {
+    id: 297586,
+    name: "Suffering",
+    icon: "ability_warlock_improvedsoulleech",
+  },
+  QUEENS_COURT_SPHERE_OF_INFLUENCE: {
+    id: 303306,
+    name: "Sphere of Influence",
+    icon: "ability_bossfelorcs_necromancer_purple",
+  },
+  QUEENS_COURT_COMMANDERS_FURY_01: {
+    id: 299563,
+    name: "Commander's Fury",
+    icon: "ability_warrior_incite",
+  },
+  QUEENS_COURT_COMMANDERS_FURY_02: {
+    id: 299575,
+    name: "Commander's Fury",
+    icon: "ability_warrior_incite",
+  },
+  QUEENS_COURT_FRENETIC_CHARGE: {
+    id: 299914,
+    name: "Frenetic Charge",
+    icon: "ability_hunter_mastermarksman",
+  },
+  QUEENS_COURT_MIGHTY_RUPTURE_01: {
+    id: 300546,
+    name: "Mighty Rupture",
+    icon: "shaman_pvp_ripplingwaters",
+  },
+  QUEENS_COURT_MIGHTY_RUPTURE_02: {
+    id: 300545,
+    name: "Mighty Rupture",
+    icon: "shaman_pvp_ripplingwaters",
+  },
+  QUEENS_COURT_ZEALOUS_ERUPTION: {
+    id: 301807,
+    name: "Zealous Eruption",
+    icon: "ability_mage_waterjet",
+  },
+  QUEENS_COURT_PASHMARS_TOUCH: {
+    id: 301829,
+    name: "Pashmanr's Touch",
+    icon: "inv_misc_nagafemale",
+  },
+  QUEENS_COURT_FANATICAL_ZEAL: {
+    id: 301832,
+    name: "Fanatical Zeal",
+    icon: "ability_garrosh_touch_of_yshaarj",
+  },
+  QUEENS_COURT_FANATICAL_VERDICT: {
+    id: 296850,
+    name: "Fanatical Verdict",
+    icon: "spell_nature_unrelentingstorm",
+  },
+  QUEENS_COURT_FERVENT_BOLT: {
+    id: 300395,
+    name: "Fervent Bolt",
+    icon: "ability_vehicle_electrocharge",
+  },
+  QUEENS_COURT_VIOLENT_OUTBURST: {
+    id: 297325,
+    name: "Biolent Outburst",
+    icon: "spell_nature_lightningoverload",
+  },
+  QUEENS_COURT_POTENT_SPARK_01: {
+    id: 301947,
+    name: "Potent Spark",
+    icon: "ability_thunderking_balllightning",
+  },
+  QUEENS_COURT_POTENT_SPARK_02: {
+    id: 297831,
+    name: "Potent Spark",
+    icon: "inv_enchant_formulaepic_01",
+  },
+
+  // Za'qul
+
+  ZAQUL_DARK_BEYOND: {
+    id: 298192,
+    name: "Dark Beyond",
+    icon: "Ability_creature_cursed_03",
+  },
+  ZAQUL_MIND_TETHER: {
+    id: 295444,
+    name: "Mind Tether",
+    icon: "ability_warlock_shadowfurytga",
+  },
+  ZAQUL_CRUSHING_GRASP: {
+    id: 292565,
+    name: "Crushing Grasp",
+    icon: "spell_priest_voidtendrils",
+  },
+  ZAQUL_DREAD: {
+    id: 292963,
+    name: "Dread",
+    icon: "ability_warlock_improvedsoulleech",
+  },
+  ZAQUL_PORTAL_OF_MADNESS: {
+    id: 294545,
+    name: "Portal of Madness",
+    icon: "inv_netherportal",
+  },
+  ZAQUL_HYSTERIA: {
+    id: 292971,
+    name: "Hysteria",
+    icon: "spell_shadow_shadowworlddominate",
+  },
+  ZAQUL_MANIFEST_NIGHTMARES: {
+    id: 293509,
+    name: "Manifest Nightmares",
+    icon: "spell_shadow_demonicempathy",
+  },
+  ZAQUL_NIGHTMARE_POOL: {
+    id: 303818,
+    name: "Nightmare Pool",
+    icon: "ability_rogue_deviouspoisons",
+  },
+  ZAQUL_MADDENING_ERUPTION: {
+    id: 292996,
+    name: "Maddening Eruption",
+    icon: "spell_mage_supernova_nightborne",
+  },
+  ZAQUL_DELIRIUM_REALM: {
+    id: 295249,
+    name: "Delirium Realm",
+    icon: "spell_winston_rage",
+  },
+  ZAQUL_SHATTERED_PSYCHE: {
+    id: 295327,
+    name: "Shattered Psyche",
+    icon: "ability_warlock_improvedsoulleech",
+  },
+  ZAQUL_MANIC_DREAD: {
+    id: 296018,
+    name: "Manic Dread",
+    icon: "ability_warlock_soulswap",
+  },
+  ZAQUL_CAUSTIC_DELIRIUM: {
+    id: 295999,
+    name: "Caustic Delirium",
+    icon: "ability_warlock_soulswap",
+  },
+  ZAQUL_DARK_PULSE: {
+    id: 296078,
+    name: "Dark Pulse",
+    icon: "ability_warlock_shadowfurytga",
+  },
+  ZAQUL_FEAR_REALM: {
+    id: 295173,
+    name: "Fear Realm",
+    icon: "spell_shadow_haunting",
+  },
+  ZAQUL_GATHERING_NIGHTMARE: {
+    id: 300635,
+    name: "Gathering Nightmare",
+    icon: "spell_druid_swarm",
+  },
+  ZAQUL_QUIVERING_CLAWS: {
+    id: 294652,
+    name: "Quivering Claws",
+    icon: "ability_creature_disease_05",
+  },
+  ZAQUL_TENTACLE_SLAM: {
+    id: 303832,
+    name: "Tentacle Slam",
+    icon: "achievement_bossy_yoggsaron_01",
+  },
+  ZAQUL_PSYCHOTIC_SPLIT: {
+    id: 301068,
+    name: "Psychotic Split",
+    icon: "ability_warlock_jinx",
+  },
+  ZAQUL_DARK_SHIELD: {
+    id: 301117,
+    name: "Dark Shield",
+    icon: "spell_holy_prayerofshadowprotection",
+  },
+  ZAQUL_MIND_FRACTURE: {
+    id: 296084,
+    name: "Mind Fracture",
+    icon: "spell_warlock_demonwrath",
+  },
+  ZAQUL_VOID_SLAM: {
+    id: 302593,
+    name: "Void Slam",
+    icon: "ability_warrior_trauma",
+  },
+
+  // Queen Azshara
+
+  AZSHARA_PRESSURE_SURGE: {
+    id: 300074,
+    name: "Pressure Surge",
+    icon: "spell_winston_bubble",
+  },
+  AZSHARA_CATASTROPHIC_FAILURE: {
+    id: 300076,
+    name: "Catastrophic Failure",
+    icon: "inv_engineering_failure-detection-pylon",
+  },
+  AZSHARA_DRAINED_SOUL: {
+    id: 298569,
+    name: "Drained Soul",
+    icon: "spell_shadow_siphonmana",
+  },
+  AZSHARA_LONGING: {
+    id: 297934,
+    name: "Longing",
+    icon: "int_pet_reliquarydesire",
+  },
+  AZSHARA_PAINFUL_MEMORIES: {
+    id: 297937,
+    name: "Painful Memories",
+    icon: "spell_shadow_painandsuffering",
+  },
+  AZSHARA_CURSED_HEART: {
+    id: 297907,
+    name: "Cursed Heart",
+    icon: "inv_heart_of_the_thunder-king_icon",
+  },
+  AZSHARA_CHAIN_LIGHTNING: {
+    id: 297972,
+    name: "Chain Lightning",
+    icon: "spell_nature_chainlightning",
+  },
+  AZSHARA_LIGHTNING_ORBS: {
+    id: 298121,
+    name: "Lightning Orbs",
+    icon: "ability_socererking_arcanewrath",
+  },
+  AZSHARA_COLD_BLAST: {
+    id: 298014,
+    name: "Cold Blast",
+    icon: "spell_frost_frostshock",
+  },
+  AZSHARA_ICE_SHARD: {
+    id: 298021,
+    name: "Ice Shard",
+    icon: "ability_mage_glacialspike",
+  },
+  AZSHARA_SERRATED_EDGE: {
+    id: 298756,
+    name: "Serrated Edge",
+    icon: "ability_butcher_gushingwounds",
+  },
+  AZSHARA_CHARGED_SPEAR: {
+    id: 298425,
+    name: "Charged Spear",
+    icon: "inv_polearm_2h_odynspear_d_01",
+  },
+  AZSHARA_DRAIN_ANCIENT_WARD: {
+    id: 300205,
+    name: "Drain Ancient Ward",
+    icon: "spell_priest_shadoworbs",
+  },
+  AZSHARA_BECKON: {
+    id: 299094,
+    name: "Beckon",
+    icon: "spell_shadow_seduction",
+  },
+  AZSHARA_ARCANE_ORBS: {
+    id: 298787,
+    name: "Arcane Orbs",
+    icon: "ability_monk_forcesphere_arcane",
+  },
+  AZSHARA_GROUND_POUND: {
+    id: 298531,
+    name: "Ground Pound",
+    icon: "ability_golemthunderclap",
+  },
+  AZSHARA_INFURIATED: {
+    id: 300428,
+    name: "Infuriated",
+    icon: "spell_misc_emotionangry",
+  },
+  AZSHARA_SANCTION: {
+    id: 299276,
+    name: "Sanction",
+    icon: "spell_holy_chastise",
+  },
+  AZSHARA_SUFFER: {
+    id: 299249,
+    name: "Suffer!",
+    icon: "ability_monk_forcesphere_pink",
+  },
+  AZSHARA_OBEY: {
+    id: 299251,
+    name: "Obey!",
+    icon: "ability_monk_forcesphere_arcane",
+  },
+  AZSHARA_STAND_TOGETHER: {
+    id: 299254,
+    name: "Stand Together!",
+    icon: "ability_racial_ancestralcall",
+  },
+  AZSHARA_STAND_ALONE: {
+    id: 299255,
+    name: "Stand Alone!",
+    icon: "spell_hunter_lonewolf",
+  },
+  AZSHARA_WARD_OF_POWER: {
+    id: 299178,
+    name: "Ward of Power",
+    icon: "ability_bossfelmagnaron_runeempowered",
+  },
+  AZSHARA_TITANIC_MACHINATIONS: {
+    id: 303457,
+    name: "Titanic Machinations",
+    icon: "spell_priest_shadoworbs",
+  },
+  AZSHARA_ARCANE_JOLT: {
+    id: 304475,
+    name: "Arcane Jolt",
+    icon: "ability_shootwand",
+  },
+  AZSHARA_ARCANE_VULNERABILITY: {
+    id: 302999,
+    name: "Arcane Vulnerability",
+    icon: "ability_mage_missilebarrage",
+  },
+  AZSHARA_ARCANE_MASTERY: {
+    id: 300502,
+    name: "Arcane Mastery",
+    icon: "ability_mage_missilebarrage",
+  },
+  AZSHARA_ARCANE_BURST: {
+    id: 303657,
+    name: "Arcane Burst",
+    icon: "spell_arcane_blast_nightborne",
+  },
+  AZSHARA_ARCANE_DETONATION: {
+    id: 300518,
+    name: "Arcane Detonation",
+    icon: "spell_mage_arcaneorb_nightborne",
+  },
+  AZSHARA_REVERSAL_OF_FORTUNE: {
+    id: 297371,
+    name: "Reversal of Fortune",
+    icon: "achievement_guildperk_quick-and-dead",
+  },
+  AZSHARA_JEALOUSY: {
+    id: 303816,
+    name: "Jealousy",
+    icon: "spell_misc_emotionangry",
+  },
+  AZSHARA_STATIC_SHOCK: {
+    id: 300492,
+    name: "Static Shock",
+    icon: "spell_shaman_staticshock",
+  },
+  AZSHARA_CRYSTALLINE_SHIELD: {
+    id: 300620,
+    name: "Crystalline Shield",
+    icon: "ability_vehicle_shellshieldgenerator",
+  },
+  AZSHARA_VOID_TOUCHED: {
+    id: 300743,
+    name: "Void Touched",
+    icon: "warlock_curse_shadow",
+  },
+  AZSHARA_NETHER_PORTAL: {
+    id: 303980,
+    name: "Nether Portal",
+    icon: "inv_netherportal",
+  },
+  AZSHARA_PIERCING_GAZE: {
+    id: 300785,
+    name: "Piercing Gaze",
+    icon: "spell_priest_void-flay",
+  },
+  AZSHARA_OVERLOAD: {
+    id: 300807,
+    name: "Overload",
+    icon: "spell_nature_lightningoverload",
+  },
+  AZSHARA_MASSIVE_ENERGY_SPIKE: {
+    id: 301518,
+    name: "Massive Energy Spike",
+    icon: "inv__azerite-explosion",
+  },
+  AZSHARA_CONTROLLED_BURST: {
+    id: 301424,
+    name: "Controlled Burst",
+    icon: "spell_azerite_essence04",
+  },
+  AZSHARA_MARCH: {
+    id: 299252,
+    name: "March!",
+    icon: "ability_rogue_sprint",
+  },
+  AZSHARA_GREATER_REVERSAL_OF_FORTUNE: {
+    id: 297372,
+    name: "Greater Reversal of Fortune",
+    icon: "ability_rogue_honoramongthieves",
+  },
+  AZSHARA_DIVIDE_AND_CONQUER: {
+    id: 300478,
+    name: "Divide and Conquer",
+    icon: "ability_hunter_killcommand",
+  },
 };

@@ -6,7 +6,7 @@ import articles from 'articles';
 import DocumentTitle from 'interface/common/DocumentTitle';
 
 import ArticleLoader from './ArticleLoader';
-import './News.css';
+import './News.scss';
 
 class Page extends React.PureComponent {
   static propTypes = {

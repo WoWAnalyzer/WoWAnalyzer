@@ -6,7 +6,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 
-const GoE_DURATION = 15000;
+const GOE_DURATION = 15000;
 const debug = false;
 
 class GuardianOfElune extends Analyzer {
@@ -55,7 +55,7 @@ class GuardianOfElune extends Analyzer {
           this.nonGoEIronFur += 1;
           return;
         }
-        const GoETimeframe = this.lastGoEProcTime + GoE_DURATION;
+        const GoETimeframe = this.lastGoEProcTime + GOE_DURATION;
         if (event.timestamp > GoETimeframe) {
           this.nonGoEIronFur += 1;
         } else {
@@ -72,7 +72,7 @@ class GuardianOfElune extends Analyzer {
           this.nonGoEFRegen += 1;
           return;
         }
-        const GoETimeframe = this.lastGoEProcTime + GoE_DURATION;
+        const GoETimeframe = this.lastGoEProcTime + GOE_DURATION;
         if (event.timestamp > GoETimeframe) {
           this.nonGoEFRegen += 1;
         } else {

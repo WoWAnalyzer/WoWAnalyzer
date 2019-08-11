@@ -66,6 +66,32 @@
     .boss {
       line-height: 1;
     }
+    .timefilter {
+      font-weight: 600;
+      margin: 5px 5px 5px 0px;
+
+      form div {
+        display: inline-block;
+      }
+
+      .buttons{
+          margin-top: 5px;
+          margin-bottom: 5px;
+      }
+
+      .time-input input {
+        width: auto;
+        display: inline-block;
+      }
+
+      .time-input input:last-child{
+        margin-right: 5px;
+      }
+
+      button.filter {
+        margin-right: 5px;
+      }
+    }
     .player {
       line-height: 1;
       border: 1px solid transparent;

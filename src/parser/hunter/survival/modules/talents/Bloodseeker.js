@@ -58,10 +58,12 @@ class Bloodseeker extends Analyzer {
     return (
       <TalentStatisticBox
         talent={SPELLS.BLOODSEEKER_TALENT.id}
-        value={<>
+        value={(
+<>
           <ItemDamageDone amount={this.damage} /> <br />
           {formatPercentage(this.averageAttackSpeedGain)}% atk speed gain
-        </>}
+        </>
+)}
         tooltip={`You had ${formatPercentage(this.uptime)}% uptime on the buff, with an average of ${(this.averageStacks).toFixed(2)} stacks.`}
       />
     );

@@ -28,6 +28,7 @@
   //  32 = "Conflict and Strife"
 
 export default {
+  //The Ever-Rising Tide
   EVER_RISING_TIDE: {
     id: 299879,
     traitId: 17,
@@ -58,5 +59,116 @@ export default {
     id: 296065,
     name: 'The Ever-Rising Tide',
     icon: 'inv_elemental_mote_mana',
+  },  
+  WELL_OF_EXISTENCE: {
+    id: 299936,
+    traitId: 19,
+    name: 'The Well Of Existence',
+    icon: 'creatureportrait_twilightshammer_summoningportal_water01',
+  },
+  WELL_OF_EXISTENCE_MAJOR: {
+    id: 299933,
+    name: 'Refreshment',
+    icon: 'creatureportrait_twilightshammer_summoningportal_water01',
+  },
+  WELL_OF_EXISTENCE_MAJOR_ABILITY: {
+    id: 296197,
+    name: 'Refreshment',
+    icon: 'creatureportrait_twilightshammer_summoningportal_water01',
+  },
+  WELL_OF_EXISTENCE_DOUBLE_ABSORBTION: {
+    id: 296193,
+    name: 'The Well of Existence',
+    icon: 'creatureportrait_twilightshammer_summoningportal_water01',
+  },
+  WELL_OF_EXISTENCE_HEAL: {
+    id: 296184,
+    name: 'The Well of Existence',
+    icon: 'creatureportrait_twilightshammer_summoningportal_water01',
+  },
+  //The Crucible of Flame
+  CONCENTRATED_FLAME: {
+    id: 299349,
+    name: 'Concentrated Flame',
+    icon: 'spell_azerite_essence_15',
+  },
+  ANCIENT_FLAME: {
+    id: 299348,
+    traitId: 12,
+    name: 'Ancient Flame',
+    icon: 'inv_radientazeritematrix',
+  },
+  CONCENTRATED_FLAME_CAST: {
+    id: 295373,
+    name: 'Concentrated Flame',
+    icon: 'spell_azerite_essence_15',
+  },
+  CONCENTRATED_FLAME_CAST_HEAL: {
+    id: 295375,
+    name: 'Concentrated Flame',
+    icon: 'spell_azerite_essence_15',
+  },
+  CONCENTRATED_FLAME_CAST_DAMAGE: {
+    id: 295374,
+    name: 'Concentrated Flame',
+    icon: 'spell_azerite_essence_15',
+  },
+  CONCENTRATED_FLAME_DOT_DAMAGE: {
+    id: 295368,
+    name: 'Concentrated Flame',
+    icon: 'spell_azerite_essence_15',
+  },
+  ANCIENT_FLAME_DOT_HEAL: {
+    id: 303380,
+    name: 'Ancient Flame',
+    icon: 'spell_azerite_essence_15',
+  },
+  ANCIENT_FLAME_DOT_DAMAGE: {
+    id: 295367,
+    name: 'Ancient Flame',
+    icon: 'spell_azerite_essence_15',
+  },
+//general conflict (the major part of conflict and stife)
+  CONFLICT: {
+    id: 304088,
+    traitId: 32,
+    name: 'Conflict',
+    icon: 'spell_azerite_essence_17',
+  },
+  //Worldvein Resonance
+  WORLDVEIN_RESONANCE: {
+    id: 295186,
+    traitId: 4,
+    name: 'Worldvein Resonance',
+    icon: 'inv_misc_azerite_01',
+  },
+  LIFEBLOOD_BUFF: {
+    // buff given when stood near shards with the minor essence, stacking up to 4
+    id: 295137,
+    name: 'Lifeblood',
+    icon: 'inv_glowingazeritespire',
+  },
+  LIFEBLOOD_SHARD_SUMMON: {
+    // id for 'summon' event of shards being created, either randomly from the minor or in response to activating the major
+    id: 295114,
+    name: 'Lifeblood Shard',
+    icon: 'inv_radientazeritematrix',
+  },
+  NULL_DYNAMO: {
+    traitId: 13,
+    // major cast
+    id: 295746,
+    name: 'Nullification Dynamo',
+    icon: 'spell_azerite_essence_16',
+  },
+  NULL_DYNAMO_SHIELD_MINOR: {
+    id: 295842,
+    name: 'Null Barrier',
+    icon: 'spell_azerite_essence_16',
+  },
+  NULL_DYNAMO_DAMAGE: {
+    id: 296061,
+    name: 'Null Barrier',
+    icon: 'spell_azerite_essence_16',
   },
 };

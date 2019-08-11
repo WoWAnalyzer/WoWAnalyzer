@@ -1,11 +1,11 @@
 import SPELLS from 'common/SPELLS';
 import RushingJadeWind from './RushingJadeWind';
 
-const talentless_combatant = {
+const talentlessCombatant = {
   hasTalent: () => false,
 };
 
-const talented_combatant = {
+const talentedCombatant = {
   hasTalent: id => id === SPELLS.RUSHING_JADE_WIND_TALENT_BREWMASTER.id,
 };
 const parser = {
@@ -20,7 +20,7 @@ describe('Rushing Jade Wind', () => {
     const rjw = new RushingJadeWind({
       owner: {
         ...parser,
-        selectedCombatant: talentless_combatant,
+        selectedCombatant: talentlessCombatant,
       },
     });
     expect(rjw.active).toBe(false);
@@ -30,7 +30,7 @@ describe('Rushing Jade Wind', () => {
     const rjw = new RushingJadeWind({
       owner: {
         ...parser,
-        selectedCombatant: talented_combatant,
+        selectedCombatant: talentedCombatant,
       },
     });
     expect(rjw.active).toBe(true);

@@ -56,8 +56,7 @@ class SpinningCraneKick extends Analyzer{
         if(this.enemiesHitSCK.length>2){
             this.goodSCKcount += 1;
             this.goodSCKTimeList.push(formatMilliseconds(this.currentTime));
-        }
-        else{
+        } else{
             this.badSCKcount += 1;
             this.badSCKTimeList.push(formatMilliseconds(this.currentTime));
         }

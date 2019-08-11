@@ -2033,16 +2033,21 @@
     "name": "Crashing Chaos",
     "effect_list": [
       732939,
-      732940
+      732940,
+      782162
     ],
     "scaling_type": -8,
     "effects": {
       "732939": {
         "type": 285,
-        "avg": 15.22
+        "avg": 10.042945
       },
       "732940": {
         "type": 4,
+        "avg": 0
+      },
+      "782162": {
+        "type": 0,
         "avg": 0
       }
     }
@@ -4728,7 +4733,7 @@
       },
       "750167": {
         "type": 4,
-        "avg": 8.86503
+        "avg": 7.535
       }
     }
   },
@@ -5581,6 +5586,4592 @@
       },
       "753684": {
         "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "293019": {
+    "name": "Azeroth's Undying Gift",
+    "effect_list": [
+      760402
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "760402": {
+        "type": 87,
+        "avg": 0
+      }
+    }
+  },
+  "293031": {
+    "name": "Suppressing Pulse",
+    "effect_list": [
+      760421,
+      763746
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "760421": {
+        "type": 33,
+        "avg": 0
+      },
+      "763746": {
+        "type": 342,
+        "avg": 0
+      }
+    }
+  },
+  "293032": {
+    "name": "Life-Binder's Invocation",
+    "effect_list": [
+      760422
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "760422": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "294650": {
+    "name": "Azeroth's Undying Gift",
+    "effect_list": [
+      763423
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "763423": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "294653": {
+    "name": "Azeroth's Undying Gift",
+    "effect_list": [
+      763426
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "763426": {
+        "type": 218,
+        "avg": 0
+      }
+    }
+  },
+  "294655": {
+    "name": "Azeroth's Undying Gift",
+    "effect_list": [
+      763428
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "763428": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "294668": {
+    "name": "Hardened Azerite",
+    "effect_list": [
+      763448,
+      763477,
+      763478
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "763448": {
+        "type": 4,
+        "avg": 0
+      },
+      "763477": {
+        "type": 42,
+        "avg": 0
+      },
+      "763478": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "294687": {
+    "name": "Hardened Azerite",
+    "effect_list": [
+      763479,
+      763482
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "763479": {
+        "type": 218,
+        "avg": 0
+      },
+      "763482": {
+        "type": 218,
+        "avg": 0
+      }
+    }
+  },
+  "294688": {
+    "name": "Hardened Azerite",
+    "effect_list": [
+      763480
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "763480": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "294689": {
+    "name": "Hardened Azerite",
+    "effect_list": [
+      763481
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "763481": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "294906": {
+    "name": "Sphere of Suppression",
+    "effect_list": [
+      763757
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "763757": {
+        "type": 218,
+        "avg": 0
+      }
+    }
+  },
+  "294907": {
+    "name": "Sphere of Suppression",
+    "effect_list": [
+      763758
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "763758": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "294908": {
+    "name": "Sphere of Suppression",
+    "effect_list": [
+      763759
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "763759": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "294910": {
+    "name": "Sphere of Suppression",
+    "effect_list": [
+      763761,
+      763771
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "763761": {
+        "type": 42,
+        "avg": 0
+      },
+      "763771": {
+        "type": 42,
+        "avg": 0.5575
+      }
+    }
+  },
+  "294919": {
+    "name": "Sphere of Suppression",
+    "effect_list": [
+      763775,
+      773223
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "763775": {
+        "type": 219,
+        "avg": 0
+      },
+      "773223": {
+        "type": 219,
+        "avg": 0
+      }
+    }
+  },
+  "294920": {
+    "name": "Sphere of Suppression",
+    "effect_list": [
+      763776
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "763776": {
+        "type": 4,
+        "avg": 0.5575
+      }
+    }
+  },
+  "294922": {
+    "name": "Sphere of Suppression",
+    "effect_list": [
+      763778
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "763778": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "294926": {
+    "name": "Anima of Death",
+    "effect_list": [
+      763782,
+      777771
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "763782": {
+        "type": 0,
+        "avg": 0
+      },
+      "777771": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "294945": {
+    "name": "Anima of Death",
+    "effect_list": [
+      763807,
+      777823
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "763807": {
+        "type": 4,
+        "avg": 0
+      },
+      "777823": {
+        "type": 219,
+        "avg": 0
+      }
+    }
+  },
+  "294964": {
+    "name": "Anima of Life",
+    "effect_list": [
+      763832,
+      763833,
+      777926
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "763832": {
+        "type": 226,
+        "avg": 0
+      },
+      "763833": {
+        "type": 4,
+        "avg": 0
+      },
+      "777926": {
+        "type": 4,
+        "avg": 8.108109
+      }
+    }
+  },
+  "294969": {
+    "name": "Anima of Life",
+    "effect_list": [
+      763839
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "763839": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "294970": {
+    "name": "Anima of Life",
+    "effect_list": [
+      763840
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "763840": {
+        "type": 42,
+        "avg": 0
+      }
+    }
+  },
+  "294972": {
+    "name": "Anima of Life",
+    "effect_list": [
+      763843
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "763843": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "295078": {
+    "name": "Lifeblood",
+    "effect_list": [
+      764004,
+      764132,
+      766531,
+      767520,
+      773272
+    ],
+    "scaling_type": -1,
+    "effects": {
+      "764004": {
+        "type": 226,
+        "avg": 0
+      },
+      "764132": {
+        "type": 0,
+        "avg": 0
+      },
+      "766531": {
+        "type": 0,
+        "avg": 0
+      },
+      "767520": {
+        "type": 0,
+        "avg": 0
+      },
+      "773272": {
+        "type": 4,
+        "avg": 0.177373
+      }
+    }
+  },
+  "295160": {
+    "name": "Worldvein Resonance",
+    "effect_list": [
+      764129
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "764129": {
+        "type": 218,
+        "avg": 0
+      }
+    }
+  },
+  "295165": {
+    "name": "Lifeblood",
+    "effect_list": [
+      764136
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "764136": {
+        "type": 219,
+        "avg": 0
+      }
+    }
+  },
+  "295166": {
+    "name": "Lifeblood",
+    "effect_list": [
+      764138
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "764138": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "295186": {
+    "name": "Worldvein Resonance",
+    "effect_list": [
+      764171
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "764171": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "295208": {
+    "name": "Worldvein Resonance",
+    "effect_list": [
+      764222
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "764222": {
+        "type": 218,
+        "avg": 0
+      }
+    }
+  },
+  "295209": {
+    "name": "Worldvein Resonance",
+    "effect_list": [
+      764223
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "764223": {
+        "type": 219,
+        "avg": 0
+      }
+    }
+  },
+  "295210": {
+    "name": "Worldvein Resonance",
+    "effect_list": [
+      764224
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "764224": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "295246": {
+    "name": "Focused Energy",
+    "effect_list": [
+      764293,
+      773262
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "764293": {
+        "type": 4,
+        "avg": 0
+      },
+      "773262": {
+        "type": 4,
+        "avg": 0.040884
+      }
+    }
+  },
+  "295251": {
+    "name": "Focused Energy",
+    "effect_list": [
+      764299
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "764299": {
+        "type": 218,
+        "avg": 0
+      }
+    }
+  },
+  "295252": {
+    "name": "Focused Energy",
+    "effect_list": [
+      764300
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "764300": {
+        "type": 219,
+        "avg": 0
+      }
+    }
+  },
+  "295253": {
+    "name": "Essence of the Focusing Iris",
+    "effect_list": [
+      764301
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "764301": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "295258": {
+    "name": "Focused Azerite Beam",
+    "effect_list": [
+      764307,
+      764340
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "764307": {
+        "type": 4,
+        "avg": 39.106144
+      },
+      "764340": {
+        "type": 226,
+        "avg": 0
+      }
+    }
+  },
+  "295262": {
+    "name": "Focused Azerite Beam",
+    "effect_list": [
+      764314,
+      764330,
+      764337
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "764314": {
+        "type": 218,
+        "avg": 0
+      },
+      "764330": {
+        "type": 218,
+        "avg": 0
+      },
+      "764337": {
+        "type": 218,
+        "avg": 0
+      }
+    }
+  },
+  "295263": {
+    "name": "Focused Azerite Beam",
+    "effect_list": [
+      764315
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "764315": {
+        "type": 307,
+        "avg": 0
+      }
+    }
+  },
+  "295264": {
+    "name": "Focused Azerite Beam",
+    "effect_list": [
+      764316
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "764316": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "295293": {
+    "name": "Purification Protocol",
+    "effect_list": [
+      764365,
+      764366,
+      771611,
+      771613
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "764365": {
+        "type": 4,
+        "avg": 24.692307
+      },
+      "764366": {
+        "type": 0,
+        "avg": 0
+      },
+      "771611": {
+        "type": 4,
+        "avg": 15.088462
+      },
+      "771613": {
+        "type": 4,
+        "avg": 11.176924
+      }
+    }
+  },
+  "295306": {
+    "name": "Anima of Death",
+    "effect_list": [
+      764383
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "764383": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "295307": {
+    "name": "Anima of Death",
+    "effect_list": [
+      764384
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "764384": {
+        "type": 218,
+        "avg": 0
+      }
+    }
+  },
+  "295333": {
+    "name": "Purification Protocol",
+    "effect_list": [
+      764425
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "764425": {
+        "type": 4,
+        "avg": 4.126214
+      }
+    }
+  },
+  "295337": {
+    "name": "Purifying Blast",
+    "effect_list": [
+      764433,
+      764434
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "764433": {
+        "type": 0,
+        "avg": 0
+      },
+      "764434": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "295351": {
+    "name": "Purification Protocol",
+    "effect_list": [
+      764453
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "764453": {
+        "type": 218,
+        "avg": 0
+      }
+    }
+  },
+  "295352": {
+    "name": "Purifying Blast",
+    "effect_list": [
+      764454
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "764454": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "295358": {
+    "name": "Purifying Blast",
+    "effect_list": [
+      764467
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "764467": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "295363": {
+    "name": "Purification Protocol",
+    "effect_list": [
+      764476
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "764476": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "295364": {
+    "name": "Purifying Blast",
+    "effect_list": [
+      764477
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "764477": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "295365": {
+    "name": "Ancient Flame",
+    "effect_list": [
+      764478,
+      764479,
+      773336,
+      773337
+    ],
+    "scaling_type": -1,
+    "effects": {
+      "764478": {
+        "type": 4,
+        "avg": 0
+      },
+      "764479": {
+        "type": 4,
+        "avg": 10.834132
+      },
+      "773336": {
+        "type": 189,
+        "avg": 3.072867
+      },
+      "773337": {
+        "type": 189,
+        "avg": 0.119847
+      }
+    }
+  },
+  "295369": {
+    "name": "Ancient Flame",
+    "effect_list": [
+      764484
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "764484": {
+        "type": 219,
+        "avg": 0
+      }
+    }
+  },
+  "295372": {
+    "name": "Ancient Flame",
+    "effect_list": [
+      764487
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "764487": {
+        "type": 218,
+        "avg": 0
+      }
+    }
+  },
+  "295373": {
+    "name": "Concentrated Flame",
+    "effect_list": [
+      764488,
+      764519,
+      764520
+    ],
+    "scaling_type": -1,
+    "effects": {
+      "764488": {
+        "type": 0,
+        "avg": 0
+      },
+      "764519": {
+        "type": 0,
+        "avg": 16.713093
+      },
+      "764520": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "295377": {
+    "name": "Concentrated Flame",
+    "effect_list": [
+      764492
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "764492": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "295379": {
+    "name": "Concentrated Flame",
+    "effect_list": [
+      764495
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "764495": {
+        "type": 411,
+        "avg": 0
+      }
+    }
+  },
+  "295380": {
+    "name": "Concentrated Flame",
+    "effect_list": [
+      764497,
+      764498
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "764497": {
+        "type": 4,
+        "avg": 0
+      },
+      "764498": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "295381": {
+    "name": "Ancient Flame",
+    "effect_list": [
+      764499
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "764499": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "295746": {
+    "name": "Empowered Null Barrier",
+    "effect_list": [
+      765223
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "765223": {
+        "type": 69,
+        "avg": 500
+      }
+    }
+  },
+  "295747": {
+    "name": "Null Dynamo",
+    "effect_list": [
+      765224
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "765224": {
+        "type": 218,
+        "avg": 0
+      }
+    }
+  },
+  "295748": {
+    "name": "Null Dynamo",
+    "effect_list": [
+      765225
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "765225": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "295749": {
+    "name": "Null Barrier",
+    "effect_list": [
+      765226
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "765226": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "295750": {
+    "name": "Null Barrier",
+    "effect_list": [
+      765228
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "765228": {
+        "type": 23,
+        "avg": 99.535027
+      }
+    }
+  },
+  "295834": {
+    "name": "Condensed Life-Force",
+    "effect_list": [
+      765359
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "765359": {
+        "type": 42,
+        "avg": 28.969231
+      }
+    }
+  },
+  "295836": {
+    "name": "Condensed Life-Force",
+    "effect_list": [
+      765362
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "765362": {
+        "type": 218,
+        "avg": 0
+      }
+    }
+  },
+  "295837": {
+    "name": "Condensed Life-Force",
+    "effect_list": [
+      765363
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "765363": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "295839": {
+    "name": "Condensed Life-Force",
+    "effect_list": [
+      765365
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "765365": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "295840": {
+    "name": "Guardian of Azeroth",
+    "effect_list": [
+      765366,
+      765460
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "765366": {
+        "type": 0,
+        "avg": 0
+      },
+      "765460": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "295841": {
+    "name": "Guardian of Azeroth",
+    "effect_list": [
+      765367
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "765367": {
+        "type": 4,
+        "avg": 29.420732
+      }
+    }
+  },
+  "295843": {
+    "name": "Guardian of Azeroth",
+    "effect_list": [
+      765369
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "765369": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "295844": {
+    "name": "Null Dynamo",
+    "effect_list": [
+      765370,
+      765371
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "765370": {
+        "type": 218,
+        "avg": 0
+      },
+      "765371": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "295845": {
+    "name": "Null Dynamo",
+    "effect_list": [
+      765372
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "765372": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "295846": {
+    "name": "Null Dynamo",
+    "effect_list": [
+      765373
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "765373": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "295892": {
+    "name": "Condensed Life-Force",
+    "effect_list": [
+      765461
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "765461": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "296050": {
+    "name": "The Ever-Rising Tide",
+    "effect_list": [
+      765802,
+      765803
+    ],
+    "scaling_type": -1,
+    "effects": {
+      "765802": {
+        "type": 4,
+        "avg": 1.51
+      },
+      "765803": {
+        "type": 189,
+        "avg": 4.181275
+      }
+    }
+  },
+  "296062": {
+    "name": "The Ever-Rising Tide",
+    "effect_list": [
+      765817
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "765817": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "296067": {
+    "name": "The Ever-Rising Tide",
+    "effect_list": [
+      765822
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "765822": {
+        "type": 218,
+        "avg": 0
+      }
+    }
+  },
+  "296072": {
+    "name": "Overcharge Mana",
+    "effect_list": [
+      765828,
+      765829
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "765828": {
+        "type": 110,
+        "avg": 0
+      },
+      "765829": {
+        "type": 193,
+        "avg": 0
+      }
+    }
+  },
+  "296074": {
+    "name": "Overcharge Mana",
+    "effect_list": [
+      765834
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "765834": {
+        "type": 219,
+        "avg": 0
+      }
+    }
+  },
+  "296075": {
+    "name": "Overcharge Mana",
+    "effect_list": [
+      765835
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "765835": {
+        "type": 219,
+        "avg": 0
+      }
+    }
+  },
+  "296081": {
+    "name": "Artifice of Time",
+    "effect_list": [
+      765843,
+      765850
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "765843": {
+        "type": 42,
+        "avg": 0
+      },
+      "765850": {
+        "type": 4,
+        "avg": 0.631837
+      }
+    }
+  },
+  "296089": {
+    "name": "Artifice of Time",
+    "effect_list": [
+      765858
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "765858": {
+        "type": 4,
+        "avg": 0.631837
+      }
+    }
+  },
+  "296091": {
+    "name": "Artifice of Time",
+    "effect_list": [
+      765870
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "765870": {
+        "type": 219,
+        "avg": 0
+      }
+    }
+  },
+  "296094": {
+    "name": "Standstill",
+    "effect_list": [
+      765877,
+      765885,
+      779294
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "765877": {
+        "type": 69,
+        "avg": 1533.74231
+      },
+      "765885": {
+        "type": 301,
+        "avg": 1533.74231
+      },
+      "779294": {
+        "type": 106,
+        "avg": 0
+      }
+    }
+  },
+  "296102": {
+    "name": "Artifice of Time",
+    "effect_list": [
+      765893
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "765893": {
+        "type": 219,
+        "avg": 0
+      }
+    }
+  },
+  "296103": {
+    "name": "Artifice of Time",
+    "effect_list": [
+      765894
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "765894": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "296136": {
+    "name": "The Well of Existence",
+    "effect_list": [
+      765961,
+      765962,
+      765963
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "765961": {
+        "type": 4,
+        "avg": 0
+      },
+      "765962": {
+        "type": 4,
+        "avg": 0
+      },
+      "765963": {
+        "type": 4,
+        "avg": 24
+      }
+    }
+  },
+  "296192": {
+    "name": "The Well of Existence",
+    "effect_list": [
+      766048,
+      774645
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "766048": {
+        "type": 219,
+        "avg": 0
+      },
+      "774645": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "296193": {
+    "name": "The Well of Existence",
+    "effect_list": [
+      766050
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "766050": {
+        "type": 4,
+        "avg": 61.349693
+      }
+    }
+  },
+  "296197": {
+    "name": "Refreshment",
+    "effect_list": [
+      766056,
+      781175
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "766056": {
+        "type": 0,
+        "avg": 0
+      },
+      "781175": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "296200": {
+    "name": "Refreshment",
+    "effect_list": [
+      766059
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "766059": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "296201": {
+    "name": "Refreshment",
+    "effect_list": [
+      766060
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "766060": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "296207": {
+    "name": "Seed of Eonar",
+    "effect_list": [
+      766073
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "766073": {
+        "type": 42,
+        "avg": 19.129999
+      }
+    }
+  },
+  "296213": {
+    "name": "Life-Binder's Invocation",
+    "effect_list": [
+      766084
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "766084": {
+        "type": 219,
+        "avg": 0
+      }
+    }
+  },
+  "296214": {
+    "name": "Life-Binder's Invocation",
+    "effect_list": [
+      766092
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "766092": {
+        "type": 219,
+        "avg": 0.920732
+      }
+    }
+  },
+  "296220": {
+    "name": "Life-Binder's Invocation",
+    "effect_list": [
+      766099
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "766099": {
+        "type": 219,
+        "avg": 0
+      }
+    }
+  },
+  "296221": {
+    "name": "Life-Binder's Invocation",
+    "effect_list": [
+      766100
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "766100": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "296230": {
+    "name": "Vitality Conduit",
+    "effect_list": [
+      766113
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "766113": {
+        "type": 226,
+        "avg": 0
+      }
+    }
+  },
+  "296232": {
+    "name": "Vitality Conduit",
+    "effect_list": [
+      766115
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "766115": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "296320": {
+    "name": "Strive for Perfection",
+    "effect_list": [
+      766259,
+      766262,
+      766532,
+      771430,
+      771435,
+      771563,
+      771581,
+      782522,
+      782528
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "766259": {
+        "type": 4,
+        "avg": -8.359725
+      },
+      "766262": {
+        "type": 218,
+        "avg": 0
+      },
+      "766532": {
+        "type": 454,
+        "avg": 0
+      },
+      "771430": {
+        "type": 454,
+        "avg": 0
+      },
+      "771435": {
+        "type": 454,
+        "avg": 0
+      },
+      "771563": {
+        "type": 454,
+        "avg": 0
+      },
+      "771581": {
+        "type": 454,
+        "avg": 0
+      },
+      "782522": {
+        "type": 454,
+        "avg": 0
+      },
+      "782528": {
+        "type": 218,
+        "avg": 0
+      }
+    }
+  },
+  "296321": {
+    "name": "Strive for Perfection",
+    "effect_list": [
+      766260
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "766260": {
+        "type": 42,
+        "avg": 0
+      }
+    }
+  },
+  "296322": {
+    "name": "Strive for Perfection",
+    "effect_list": [
+      766261
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "766261": {
+        "type": 189,
+        "avg": 0.157959
+      }
+    }
+  },
+  "296324": {
+    "name": "Strive for Perfection",
+    "effect_list": [
+      766265
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "766265": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "296325": {
+    "name": "Vision of Perfection",
+    "effect_list": [
+      766266,
+      769841,
+      769842,
+      780839,
+      780840
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "766266": {
+        "type": 4,
+        "avg": 0
+      },
+      "769841": {
+        "type": 4,
+        "avg": 0
+      },
+      "769842": {
+        "type": 4,
+        "avg": 0
+      },
+      "780839": {
+        "type": 4,
+        "avg": 0
+      },
+      "780840": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "296326": {
+    "name": "Vision of Perfection",
+    "effect_list": [
+      766267,
+      769845,
+      769846,
+      769847,
+      769852
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "766267": {
+        "type": 219,
+        "avg": 0
+      },
+      "769845": {
+        "type": 218,
+        "avg": 0
+      },
+      "769846": {
+        "type": 4,
+        "avg": 0
+      },
+      "769847": {
+        "type": 4,
+        "avg": 0
+      },
+      "769852": {
+        "type": 219,
+        "avg": 0
+      }
+    }
+  },
+  "296328": {
+    "name": "Vision of Perfection",
+    "effect_list": [
+      766270
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "766270": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "297108": {
+    "name": "Blood of the Enemy",
+    "effect_list": [
+      767988,
+      768171,
+      782674
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "767988": {
+        "type": 0,
+        "avg": 76.346153
+      },
+      "768171": {
+        "type": 306,
+        "avg": 0
+      },
+      "782674": {
+        "type": 339,
+        "avg": 0
+      }
+    }
+  },
+  "297120": {
+    "name": "Blood of the Enemy",
+    "effect_list": [
+      768002
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "768002": {
+        "type": 218,
+        "avg": 0
+      }
+    }
+  },
+  "297122": {
+    "name": "Blood of the Enemy",
+    "effect_list": [
+      768006
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "768006": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "297147": {
+    "name": "Blood-Soaked",
+    "effect_list": [
+      768054,
+      768136,
+      771546
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "768054": {
+        "type": 4,
+        "avg": 0
+      },
+      "768136": {
+        "type": 4,
+        "avg": 1.090848
+      },
+      "771546": {
+        "type": 4,
+        "avg": 0.016725
+      }
+    }
+  },
+  "297177": {
+    "name": "Blood-Soaked",
+    "effect_list": [
+      768095
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "768095": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "297178": {
+    "name": "Blood-Soaked",
+    "effect_list": [
+      768096,
+      768118
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "768096": {
+        "type": 4,
+        "avg": 0
+      },
+      "768118": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "298080": {
+    "name": "Azeroth's Undying Gift",
+    "effect_list": [
+      770045
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "770045": {
+        "type": 87,
+        "avg": 0
+      }
+    }
+  },
+  "298081": {
+    "name": "Azeroth's Undying Gift",
+    "effect_list": [
+      770046,
+      770047,
+      770048,
+      770049
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "770046": {
+        "type": 4,
+        "avg": 0
+      },
+      "770047": {
+        "type": 4,
+        "avg": 0
+      },
+      "770048": {
+        "type": 4,
+        "avg": 0
+      },
+      "770049": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "298082": {
+    "name": "Hardened Azerite",
+    "effect_list": [
+      770051,
+      770052,
+      770053,
+      770054
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "770051": {
+        "type": 4,
+        "avg": 0
+      },
+      "770052": {
+        "type": 42,
+        "avg": 0
+      },
+      "770053": {
+        "type": 4,
+        "avg": 0
+      },
+      "770054": {
+        "type": 332,
+        "avg": 0
+      }
+    }
+  },
+  "298083": {
+    "name": "Hardened Azerite",
+    "effect_list": [
+      770055,
+      770056,
+      770057,
+      770058,
+      770060
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "770055": {
+        "type": 4,
+        "avg": 0
+      },
+      "770056": {
+        "type": 42,
+        "avg": 0
+      },
+      "770057": {
+        "type": 4,
+        "avg": 0
+      },
+      "770058": {
+        "type": 4,
+        "avg": 0
+      },
+      "770060": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "298168": {
+    "name": "Aegis of the Deep",
+    "effect_list": [
+      770193,
+      770732,
+      773651
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "770193": {
+        "type": 14,
+        "avg": -17.35
+      },
+      "770732": {
+        "type": 113,
+        "avg": -17.35
+      },
+      "773651": {
+        "type": 4,
+        "avg": 1.179878
+      }
+    }
+  },
+  "298169": {
+    "name": "Aegis of the Deep",
+    "effect_list": [
+      770194
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "770194": {
+        "type": 218,
+        "avg": 0
+      }
+    }
+  },
+  "298174": {
+    "name": "Aegis of the Deep",
+    "effect_list": [
+      770209
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "770209": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "298182": {
+    "name": "Blood of the Enemy",
+    "effect_list": [
+      770219
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "770219": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "298183": {
+    "name": "Blood of the Enemy",
+    "effect_list": [
+      770220
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "770220": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "298186": {
+    "name": "Aegis of the Deep",
+    "effect_list": [
+      770223
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "770223": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "298193": {
+    "name": "Stand Your Ground",
+    "effect_list": [
+      770231,
+      771740,
+      771754
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "770231": {
+        "type": 23,
+        "avg": 0
+      },
+      "771740": {
+        "type": 4,
+        "avg": 0.118015
+      },
+      "771754": {
+        "type": 4,
+        "avg": 1.823862
+      }
+    }
+  },
+  "298268": {
+    "name": "Lucid Dreams",
+    "effect_list": [
+      770349,
+      770350,
+      770351,
+      778945,
+      778946,
+      782299
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "770349": {
+        "type": 4,
+        "avg": 0
+      },
+      "770350": {
+        "type": 4,
+        "avg": 0
+      },
+      "770351": {
+        "type": 4,
+        "avg": 33.519554
+      },
+      "778945": {
+        "type": 4,
+        "avg": 0
+      },
+      "778946": {
+        "type": 4,
+        "avg": 0
+      },
+      "782299": {
+        "type": 4,
+        "avg": 2.884615
+      }
+    }
+  },
+  "298273": {
+    "name": "Blood of the Enemy",
+    "effect_list": [
+      770357
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "770357": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "298274": {
+    "name": "Blood-Soaked",
+    "effect_list": [
+      770358
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "770358": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "298275": {
+    "name": "Blood-Soaked",
+    "effect_list": [
+      770359
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "770359": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "298277": {
+    "name": "Blood of the Enemy",
+    "effect_list": [
+      770361
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "770361": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "298337": {
+    "name": "Lucid Dreams",
+    "effect_list": [
+      770450
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "770450": {
+        "type": 218,
+        "avg": 0
+      }
+    }
+  },
+  "298339": {
+    "name": "Lucid Dreams",
+    "effect_list": [
+      770452
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "770452": {
+        "type": 4,
+        "avg": 0.650421
+      }
+    }
+  },
+  "298351": {
+    "name": "Stand Your Ground",
+    "effect_list": [
+      770471
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "770471": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "298352": {
+    "name": "Stand Your Ground",
+    "effect_list": [
+      770472
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "770472": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "298353": {
+    "name": "Aegis of the Deep",
+    "effect_list": [
+      770473
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "770473": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "298357": {
+    "name": "Memory of Lucid Dreams",
+    "effect_list": [
+      770479,
+      770480,
+      770481,
+      770482,
+      770483,
+      770484,
+      770485,
+      770486,
+      770487,
+      770488,
+      770502,
+      770503,
+      770504,
+      770505,
+      770542,
+      771413,
+      771541
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "770479": {
+        "type": 329,
+        "avg": 0
+      },
+      "770480": {
+        "type": 189,
+        "avg": 0
+      },
+      "770481": {
+        "type": 329,
+        "avg": 0
+      },
+      "770482": {
+        "type": 329,
+        "avg": 0
+      },
+      "770483": {
+        "type": 329,
+        "avg": 0
+      },
+      "770484": {
+        "type": 329,
+        "avg": 0
+      },
+      "770485": {
+        "type": 329,
+        "avg": 0
+      },
+      "770486": {
+        "type": 110,
+        "avg": 0
+      },
+      "770487": {
+        "type": 329,
+        "avg": 0
+      },
+      "770488": {
+        "type": 329,
+        "avg": 0
+      },
+      "770502": {
+        "type": 329,
+        "avg": 0
+      },
+      "770503": {
+        "type": 213,
+        "avg": 0
+      },
+      "770504": {
+        "type": 110,
+        "avg": 0
+      },
+      "770505": {
+        "type": 379,
+        "avg": 0
+      },
+      "770542": {
+        "type": 110,
+        "avg": 0
+      },
+      "771413": {
+        "type": 329,
+        "avg": 0
+      },
+      "771541": {
+        "type": 218,
+        "avg": 0
+      }
+    }
+  },
+  "298376": {
+    "name": "Memory of Lucid Dreams",
+    "effect_list": [
+      770519
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "770519": {
+        "type": 219,
+        "avg": 0
+      }
+    }
+  },
+  "298377": {
+    "name": "Memory of Lucid Dreams",
+    "effect_list": [
+      770520
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "770520": {
+        "type": 4,
+        "avg": 1.393758
+      }
+    }
+  },
+  "298404": {
+    "name": "Lucid Dreams",
+    "effect_list": [
+      770553
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "770553": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "298405": {
+    "name": "Lucid Dreams",
+    "effect_list": [
+      770554
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "770554": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "298407": {
+    "name": "Reckless Force",
+    "effect_list": [
+      770557,
+      774204,
+      774709,
+      780037
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "770557": {
+        "type": 4,
+        "avg": 1.70354
+      },
+      "774204": {
+        "type": 218,
+        "avg": 0
+      },
+      "774709": {
+        "type": 4,
+        "avg": 4.864865
+      },
+      "780037": {
+        "type": 285,
+        "avg": 0
+      }
+    }
+  },
+  "298448": {
+    "name": "Reckless Force",
+    "effect_list": [
+      770612
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "770612": {
+        "type": 219,
+        "avg": 0
+      }
+    }
+  },
+  "298449": {
+    "name": "Reckless Force",
+    "effect_list": [
+      770613
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "770613": {
+        "type": 219,
+        "avg": 0
+      }
+    }
+  },
+  "298450": {
+    "name": "Reckless Force",
+    "effect_list": [
+      770614
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "770614": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "298452": {
+    "name": "The Unbound Force",
+    "effect_list": [
+      770616,
+      770617,
+      771410
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "770616": {
+        "type": 226,
+        "avg": 0
+      },
+      "770617": {
+        "type": 4,
+        "avg": 0
+      },
+      "771410": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "298455": {
+    "name": "The Unbound Force",
+    "effect_list": [
+      770620
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "770620": {
+        "type": 218,
+        "avg": 0
+      }
+    }
+  },
+  "298456": {
+    "name": "The Unbound Force",
+    "effect_list": [
+      770621,
+      770622
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "770621": {
+        "type": 4,
+        "avg": 0
+      },
+      "770622": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "298457": {
+    "name": "The Unbound Force",
+    "effect_list": [
+      770623,
+      770624
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "770623": {
+        "type": 4,
+        "avg": 0
+      },
+      "770624": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "298627": {
+    "name": "Lifeblood",
+    "effect_list": [
+      770888,
+      770889,
+      770890,
+      770891
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "770888": {
+        "type": 226,
+        "avg": 0
+      },
+      "770889": {
+        "type": 0,
+        "avg": 0
+      },
+      "770890": {
+        "type": 0,
+        "avg": 0
+      },
+      "770891": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "298628": {
+    "name": "Worldvein Resonance",
+    "effect_list": [
+      770892,
+      770893,
+      770894
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "770892": {
+        "type": 0,
+        "avg": 0
+      },
+      "770893": {
+        "type": 0,
+        "avg": 0
+      },
+      "770894": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "299273": {
+    "name": "Aegis of the Deep",
+    "effect_list": [
+      771895
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "771895": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "299274": {
+    "name": "Stand Your Ground",
+    "effect_list": [
+      771896
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "771896": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "299275": {
+    "name": "Aegis of the Deep",
+    "effect_list": [
+      771897
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "771897": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "299277": {
+    "name": "Stand Your Ground",
+    "effect_list": [
+      771900
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "771900": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "299333": {
+    "name": "Lifeblood",
+    "effect_list": [
+      771976,
+      771977,
+      771978,
+      771979
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "771976": {
+        "type": 226,
+        "avg": 0
+      },
+      "771977": {
+        "type": 0,
+        "avg": 0
+      },
+      "771978": {
+        "type": 0,
+        "avg": 0
+      },
+      "771979": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "299334": {
+    "name": "Worldvein Resonance",
+    "effect_list": [
+      771980,
+      771981,
+      771982
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "771980": {
+        "type": 0,
+        "avg": 0
+      },
+      "771981": {
+        "type": 0,
+        "avg": 0
+      },
+      "771982": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "299335": {
+    "name": "Focused Energy",
+    "effect_list": [
+      771984
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "771984": {
+        "type": 23,
+        "avg": 0
+      }
+    }
+  },
+  "299336": {
+    "name": "Focused Azerite Beam",
+    "effect_list": [
+      771985,
+      771986
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "771985": {
+        "type": 4,
+        "avg": 39.106144
+      },
+      "771986": {
+        "type": 226,
+        "avg": 0
+      }
+    }
+  },
+  "299337": {
+    "name": "Focused Energy",
+    "effect_list": [
+      771987
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "771987": {
+        "type": 23,
+        "avg": 0
+      }
+    }
+  },
+  "299338": {
+    "name": "Focused Azerite Beam",
+    "effect_list": [
+      771988,
+      771989
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "771988": {
+        "type": 4,
+        "avg": 39.106144
+      },
+      "771989": {
+        "type": 226,
+        "avg": 0
+      }
+    }
+  },
+  "299343": {
+    "name": "Purification Protocol",
+    "effect_list": [
+      771999,
+      772000,
+      772001,
+      772002
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "771999": {
+        "type": 4,
+        "avg": 24.692307
+      },
+      "772000": {
+        "type": 0,
+        "avg": 0
+      },
+      "772001": {
+        "type": 4,
+        "avg": 15.088462
+      },
+      "772002": {
+        "type": 4,
+        "avg": 11.176924
+      }
+    }
+  },
+  "299345": {
+    "name": "Purifying Blast",
+    "effect_list": [
+      772007,
+      772008
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "772007": {
+        "type": 0,
+        "avg": 0
+      },
+      "772008": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "299346": {
+    "name": "Purification Protocol",
+    "effect_list": [
+      772009,
+      772010,
+      772011,
+      772012
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "772009": {
+        "type": 4,
+        "avg": 24.692307
+      },
+      "772010": {
+        "type": 0,
+        "avg": 0
+      },
+      "772011": {
+        "type": 4,
+        "avg": 15.088462
+      },
+      "772012": {
+        "type": 4,
+        "avg": 11.176924
+      }
+    }
+  },
+  "299347": {
+    "name": "Purifying Blast",
+    "effect_list": [
+      772013,
+      772014
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "772013": {
+        "type": 0,
+        "avg": 0
+      },
+      "772014": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "299348": {
+    "name": "Ancient Flame",
+    "effect_list": [
+      772015,
+      772016
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "772015": {
+        "type": 42,
+        "avg": 0
+      },
+      "772016": {
+        "type": 4,
+        "avg": 61.081081
+      }
+    }
+  },
+  "299349": {
+    "name": "Concentrated Flame",
+    "effect_list": [
+      772017,
+      772018,
+      772019
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "772017": {
+        "type": 0,
+        "avg": 0
+      },
+      "772018": {
+        "type": 0,
+        "avg": 67.037834
+      },
+      "772019": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "299350": {
+    "name": "Ancient Flame",
+    "effect_list": [
+      772020,
+      772021
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "772020": {
+        "type": 42,
+        "avg": 0
+      },
+      "772021": {
+        "type": 4,
+        "avg": 61.081081
+      }
+    }
+  },
+  "299353": {
+    "name": "Concentrated Flame",
+    "effect_list": [
+      772026,
+      772027,
+      772028
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "772026": {
+        "type": 0,
+        "avg": 0
+      },
+      "772027": {
+        "type": 0,
+        "avg": 67.037834
+      },
+      "772028": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "299354": {
+    "name": "Condensed Life-Force",
+    "effect_list": [
+      772029
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "772029": {
+        "type": 42,
+        "avg": 28.969229
+      }
+    }
+  },
+  "299355": {
+    "name": "Guardian of Azeroth",
+    "effect_list": [
+      772030,
+      772031
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "772030": {
+        "type": 0,
+        "avg": 0
+      },
+      "772031": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "299357": {
+    "name": "Condensed Life-Force",
+    "effect_list": [
+      772033
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "772033": {
+        "type": 42,
+        "avg": 28.969229
+      }
+    }
+  },
+  "299358": {
+    "name": "Guardian of Azeroth",
+    "effect_list": [
+      772034,
+      772035
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "772034": {
+        "type": 0,
+        "avg": 0
+      },
+      "772035": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "299367": {
+    "name": "Strive for Perfection",
+    "effect_list": [
+      772052,
+      772053,
+      772054,
+      772055,
+      772056,
+      772057,
+      772058
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "772052": {
+        "type": 4,
+        "avg": -8.359725
+      },
+      "772053": {
+        "type": 218,
+        "avg": 0
+      },
+      "772054": {
+        "type": 454,
+        "avg": 0
+      },
+      "772055": {
+        "type": 454,
+        "avg": 0
+      },
+      "772056": {
+        "type": 454,
+        "avg": 0
+      },
+      "772057": {
+        "type": 454,
+        "avg": 0
+      },
+      "772058": {
+        "type": 454,
+        "avg": 0
+      }
+    }
+  },
+  "299368": {
+    "name": "Vision of Perfection",
+    "effect_list": [
+      772059,
+      772060,
+      772061
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "772059": {
+        "type": 4,
+        "avg": 0
+      },
+      "772060": {
+        "type": 4,
+        "avg": 0
+      },
+      "772061": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "299369": {
+    "name": "Strive for Perfection",
+    "effect_list": [
+      772062,
+      772063,
+      772064,
+      772065,
+      772066,
+      772067,
+      772068
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "772062": {
+        "type": 4,
+        "avg": -8.359725
+      },
+      "772063": {
+        "type": 218,
+        "avg": 0
+      },
+      "772064": {
+        "type": 454,
+        "avg": 0
+      },
+      "772065": {
+        "type": 454,
+        "avg": 0
+      },
+      "772066": {
+        "type": 454,
+        "avg": 0
+      },
+      "772067": {
+        "type": 454,
+        "avg": 0
+      },
+      "772068": {
+        "type": 454,
+        "avg": 0
+      }
+    }
+  },
+  "299370": {
+    "name": "Vision of Perfection",
+    "effect_list": [
+      772069,
+      772070,
+      772071
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "772069": {
+        "type": 4,
+        "avg": 0
+      },
+      "772070": {
+        "type": 4,
+        "avg": 0
+      },
+      "772071": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "299371": {
+    "name": "Lucid Dreams",
+    "effect_list": [
+      772072,
+      772073,
+      772074
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "772072": {
+        "type": 4,
+        "avg": 0
+      },
+      "772073": {
+        "type": 4,
+        "avg": 0
+      },
+      "772074": {
+        "type": 4,
+        "avg": 33.518921
+      }
+    }
+  },
+  "299372": {
+    "name": "Memory of Lucid Dreams",
+    "effect_list": [
+      772075,
+      772076,
+      772077,
+      772078,
+      772079,
+      772080,
+      772081,
+      772082,
+      772083,
+      772084,
+      772085,
+      772086,
+      772087,
+      772088,
+      772089,
+      772090,
+      772091
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "772075": {
+        "type": 329,
+        "avg": 0
+      },
+      "772076": {
+        "type": 189,
+        "avg": 0
+      },
+      "772077": {
+        "type": 329,
+        "avg": 0
+      },
+      "772078": {
+        "type": 329,
+        "avg": 0
+      },
+      "772079": {
+        "type": 329,
+        "avg": 0
+      },
+      "772080": {
+        "type": 329,
+        "avg": 0
+      },
+      "772081": {
+        "type": 329,
+        "avg": 0
+      },
+      "772082": {
+        "type": 329,
+        "avg": 0
+      },
+      "772083": {
+        "type": 329,
+        "avg": 0
+      },
+      "772084": {
+        "type": 329,
+        "avg": 0
+      },
+      "772085": {
+        "type": 329,
+        "avg": 0
+      },
+      "772086": {
+        "type": 213,
+        "avg": 0
+      },
+      "772087": {
+        "type": 110,
+        "avg": 0
+      },
+      "772088": {
+        "type": 379,
+        "avg": 0
+      },
+      "772089": {
+        "type": 110,
+        "avg": 0
+      },
+      "772090": {
+        "type": 329,
+        "avg": 0
+      },
+      "772091": {
+        "type": 218,
+        "avg": 0
+      }
+    }
+  },
+  "299373": {
+    "name": "Lucid Dreams",
+    "effect_list": [
+      772092,
+      772093,
+      772094
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "772092": {
+        "type": 4,
+        "avg": 0
+      },
+      "772093": {
+        "type": 4,
+        "avg": 0
+      },
+      "772094": {
+        "type": 4,
+        "avg": 33.518921
+      }
+    }
+  },
+  "299374": {
+    "name": "Memory of Lucid Dreams",
+    "effect_list": [
+      772095,
+      772096,
+      772097,
+      772098,
+      772099,
+      772100,
+      772101,
+      772102,
+      772103,
+      772104,
+      772105,
+      772106,
+      772107,
+      772108,
+      772109,
+      772110,
+      772111
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "772095": {
+        "type": 329,
+        "avg": 0
+      },
+      "772096": {
+        "type": 189,
+        "avg": 0
+      },
+      "772097": {
+        "type": 329,
+        "avg": 0
+      },
+      "772098": {
+        "type": 329,
+        "avg": 0
+      },
+      "772099": {
+        "type": 329,
+        "avg": 0
+      },
+      "772100": {
+        "type": 329,
+        "avg": 0
+      },
+      "772101": {
+        "type": 329,
+        "avg": 0
+      },
+      "772102": {
+        "type": 329,
+        "avg": 0
+      },
+      "772103": {
+        "type": 329,
+        "avg": 0
+      },
+      "772104": {
+        "type": 329,
+        "avg": 0
+      },
+      "772105": {
+        "type": 329,
+        "avg": 0
+      },
+      "772106": {
+        "type": 213,
+        "avg": 0
+      },
+      "772107": {
+        "type": 110,
+        "avg": 0
+      },
+      "772108": {
+        "type": 379,
+        "avg": 0
+      },
+      "772109": {
+        "type": 110,
+        "avg": 0
+      },
+      "772110": {
+        "type": 329,
+        "avg": 0
+      },
+      "772111": {
+        "type": 218,
+        "avg": 0
+      }
+    }
+  },
+  "299375": {
+    "name": "Reckless Force",
+    "effect_list": [
+      772112
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "772112": {
+        "type": 42,
+        "avg": 1.70318
+      }
+    }
+  },
+  "299376": {
+    "name": "The Unbound Force",
+    "effect_list": [
+      772113,
+      772114,
+      772115
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "772113": {
+        "type": 226,
+        "avg": 0
+      },
+      "772114": {
+        "type": 4,
+        "avg": 0
+      },
+      "772115": {
+        "type": 4,
+        "avg": 4.864865
+      }
+    }
+  },
+  "299377": {
+    "name": "Reckless Force",
+    "effect_list": [
+      772116
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "772116": {
+        "type": 42,
+        "avg": 1.70318
+      }
+    }
+  },
+  "299378": {
+    "name": "The Unbound Force",
+    "effect_list": [
+      772117,
+      772118,
+      772119
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "772117": {
+        "type": 226,
+        "avg": 0
+      },
+      "772118": {
+        "type": 218,
+        "avg": 0
+      },
+      "772119": {
+        "type": 4,
+        "avg": 4.864865
+      }
+    }
+  },
+  "299518": {
+    "name": "Artifice of Time",
+    "effect_list": [
+      772384
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "772384": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "299519": {
+    "name": "Artifice of Time",
+    "effect_list": [
+      772385
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "772385": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "299520": {
+    "name": "Life-Binder's Invocation",
+    "effect_list": [
+      772386
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "772386": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "299521": {
+    "name": "Life-Binder's Invocation",
+    "effect_list": [
+      772387
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "772387": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "299522": {
+    "name": "Overcharge Mana",
+    "effect_list": [
+      772388
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "772388": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "299523": {
+    "name": "The Ever-Rising Tide",
+    "effect_list": [
+      772389
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "772389": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "299529": {
+    "name": "Refreshment",
+    "effect_list": [
+      772395
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "772395": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "299530": {
+    "name": "The Well of Existence",
+    "effect_list": [
+      772396
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "772396": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "299559": {
+    "name": "Vitality Conduit",
+    "effect_list": [
+      772433
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "772433": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "299560": {
+    "name": "Vitality Conduit",
+    "effect_list": [
+      772434
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "772434": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "299875": {
+    "name": "Overcharge Mana",
+    "effect_list": [
+      772945,
+      772946
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "772945": {
+        "type": 110,
+        "avg": 0
+      },
+      "772946": {
+        "type": 193,
+        "avg": 0
+      }
+    }
+  },
+  "299876": {
+    "name": "Overcharge Mana",
+    "effect_list": [
+      772947,
+      772948
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "772947": {
+        "type": 110,
+        "avg": 0
+      },
+      "772948": {
+        "type": 193,
+        "avg": 0
+      }
+    }
+  },
+  "299878": {
+    "name": "The Ever-Rising Tide",
+    "effect_list": [
+      772951,
+      772952
+    ],
+    "scaling_type": -1,
+    "effects": {
+      "772951": {
+        "type": 4,
+        "avg": 1.51
+      },
+      "772952": {
+        "type": 189,
+        "avg": 4.181275
+      }
+    }
+  },
+  "299879": {
+    "name": "The Ever-Rising Tide",
+    "effect_list": [
+      772953,
+      772954
+    ],
+    "scaling_type": -1,
+    "effects": {
+      "772953": {
+        "type": 4,
+        "avg": 1.51
+      },
+      "772954": {
+        "type": 189,
+        "avg": 4.181275
+      }
+    }
+  },
+  "299882": {
+    "name": "Standstill",
+    "effect_list": [
+      772959,
+      772960
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "772959": {
+        "type": 69,
+        "avg": 1533.74231
+      },
+      "772960": {
+        "type": 301,
+        "avg": 1533.74231
+      }
+    }
+  },
+  "299883": {
+    "name": "Standstill",
+    "effect_list": [
+      772961,
+      772962
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "772961": {
+        "type": 69,
+        "avg": 1533.74231
+      },
+      "772962": {
+        "type": 301,
+        "avg": 1533.74231
+      }
+    }
+  },
+  "299885": {
+    "name": "Artifice of Time",
+    "effect_list": [
+      772964,
+      772965
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "772964": {
+        "type": 42,
+        "avg": 0
+      },
+      "772965": {
+        "type": 4,
+        "avg": 0.75771
+      }
+    }
+  },
+  "299887": {
+    "name": "Artifice of Time",
+    "effect_list": [
+      772967,
+      772968
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "772967": {
+        "type": 42,
+        "avg": 0
+      },
+      "772968": {
+        "type": 4,
+        "avg": 0.75771
+      }
+    }
+  },
+  "299932": {
+    "name": "Refreshment",
+    "effect_list": [
+      773047
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "773047": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "299933": {
+    "name": "Refreshment",
+    "effect_list": [
+      773048
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "773048": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "299935": {
+    "name": "The Well of Existence",
+    "effect_list": [
+      773051,
+      773052,
+      773053
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "773051": {
+        "type": 4,
+        "avg": 0
+      },
+      "773052": {
+        "type": 4,
+        "avg": 0
+      },
+      "773053": {
+        "type": 4,
+        "avg": 24
+      }
+    }
+  },
+  "299936": {
+    "name": "The Well of Existence",
+    "effect_list": [
+      773054,
+      773055,
+      773056
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "773054": {
+        "type": 4,
+        "avg": 0
+      },
+      "773055": {
+        "type": 4,
+        "avg": 0
+      },
+      "773056": {
+        "type": 4,
+        "avg": 24
+      }
+    }
+  },
+  "299939": {
+    "name": "Seed of Eonar",
+    "effect_list": [
+      773062
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "773062": {
+        "type": 42,
+        "avg": 19.129999
+      }
+    }
+  },
+  "299940": {
+    "name": "Seed of Eonar",
+    "effect_list": [
+      773063
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "773063": {
+        "type": 42,
+        "avg": 19.129999
+      }
+    }
+  },
+  "299943": {
+    "name": "Life-Binder's Invocation",
+    "effect_list": [
+      773068
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "773068": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "299944": {
+    "name": "Life-Binder's Invocation",
+    "effect_list": [
+      773069
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "773069": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "299958": {
+    "name": "Vitality Conduit",
+    "effect_list": [
+      773090
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "773090": {
+        "type": 226,
+        "avg": 55.214725
+      }
+    }
+  },
+  "299959": {
+    "name": "Vitality Conduit",
+    "effect_list": [
+      773091
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "773091": {
+        "type": 226,
+        "avg": 55.214725
+      }
+    }
+  },
+  "300002": {
+    "name": "Anima of Death",
+    "effect_list": [
+      773179,
+      773180
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "773179": {
+        "type": 0,
+        "avg": 0
+      },
+      "773180": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "300003": {
+    "name": "Anima of Death",
+    "effect_list": [
+      773181,
+      773182
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "773181": {
+        "type": 0,
+        "avg": 0
+      },
+      "773182": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "300004": {
+    "name": "Anima of Life",
+    "effect_list": [
+      773183,
+      773184
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "773183": {
+        "type": 226,
+        "avg": 0
+      },
+      "773184": {
+        "type": 468,
+        "avg": 0
+      }
+    }
+  },
+  "300005": {
+    "name": "Anima of Life",
+    "effect_list": [
+      773185,
+      773186
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "773185": {
+        "type": 226,
+        "avg": 0
+      },
+      "773186": {
+        "type": 468,
+        "avg": 0
+      }
+    }
+  },
+  "300009": {
+    "name": "Suppressing Pulse",
+    "effect_list": [
+      773191,
+      773192
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "773191": {
+        "type": 33,
+        "avg": 0
+      },
+      "773192": {
+        "type": 269,
+        "avg": 0
+      }
+    }
+  },
+  "300010": {
+    "name": "Suppressing Pulse",
+    "effect_list": [
+      773193,
+      773194
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "773193": {
+        "type": 33,
+        "avg": 0
+      },
+      "773194": {
+        "type": 269,
+        "avg": 0
+      }
+    }
+  },
+  "300012": {
+    "name": "Sphere of Suppression",
+    "effect_list": [
+      773196,
+      773197
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "773196": {
+        "type": 42,
+        "avg": 0
+      },
+      "773197": {
+        "type": 42,
+        "avg": 0.5575
+      }
+    }
+  },
+  "300013": {
+    "name": "Sphere of Suppression",
+    "effect_list": [
+      773198,
+      773199
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "773198": {
+        "type": 42,
+        "avg": 0
+      },
+      "773199": {
+        "type": 42,
+        "avg": 0.5575
+      }
+    }
+  },
+  "300015": {
+    "name": "Empowered Null Barrier",
+    "effect_list": [
+      773202,
+      773203
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "773202": {
+        "type": 69,
+        "avg": 500
+      },
+      "773203": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "300016": {
+    "name": "Empowered Null Barrier",
+    "effect_list": [
+      773204,
+      773205
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "773204": {
+        "type": 69,
+        "avg": 500
+      },
+      "773205": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "300018": {
+    "name": "Null Barrier",
+    "effect_list": [
+      773207
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "773207": {
+        "type": 23,
+        "avg": 99.535034
+      }
+    }
+  },
+  "300020": {
+    "name": "Null Barrier",
+    "effect_list": [
+      773209
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "773209": {
+        "type": 23,
+        "avg": 99.535034
+      }
+    }
+  },
+  "300168": {
+    "name": "Person-Computer Interface",
+    "effect_list": [
+      773466,
+      779235,
+      779236,
+      779237
+    ],
+    "scaling_type": -1,
+    "effects": {
+      "773466": {
+        "type": 189,
+        "avg": 0.766067
+      },
+      "779235": {
+        "type": 189,
+        "avg": 0.766067
+      },
+      "779236": {
+        "type": 189,
+        "avg": 0.766067
+      },
+      "779237": {
+        "type": 189,
+        "avg": 0.766067
+      }
+    }
+  },
+  "300170": {
+    "name": "Clockwork Heart",
+    "effect_list": [
+      773468
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "773468": {
+        "type": 285,
+        "avg": 0.83571
+      }
+    }
+  },
+  "300573": {
+    "name": "Perseverance",
+    "effect_list": [
+      774112
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "774112": {
+        "type": 137,
+        "avg": 0
+      }
+    }
+  },
+  "300575": {
+    "name": "Perseverance",
+    "effect_list": [
+      774115
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "774115": {
+        "type": 137,
+        "avg": 0
+      }
+    }
+  },
+  "300576": {
+    "name": "Perseverance",
+    "effect_list": [
+      774116
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "774116": {
+        "type": 137,
+        "avg": 0
+      }
+    }
+  },
+  "300577": {
+    "name": "Perseverance",
+    "effect_list": [
+      774117
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "774117": {
+        "type": 137,
+        "avg": 0
+      }
+    }
+  },
+  "300949": {
+    "name": "Heart of Azeroth Slot Unlock",
+    "effect_list": [
+      774682
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "774682": {
+        "type": 0,
+        "avg": 0
+      }
+    }
+  },
+  "302731": {
+    "name": "Ripple in Space",
+    "effect_list": [
+      777759,
+      777760
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "777759": {
+        "type": 0,
+        "avg": 0
+      },
+      "777760": {
+        "type": 4,
+        "avg": 63.69231
+      }
+    }
+  },
+  "302778": {
+    "name": "Ripple in Space",
+    "effect_list": [
+      777822
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "777822": {
+        "type": 219,
+        "avg": 0
+      }
+    }
+  },
+  "302780": {
+    "name": "Ripple in Space",
+    "effect_list": [
+      777825
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "777825": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "302910": {
+    "name": "Ripple in Space",
+    "effect_list": [
+      778035
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "778035": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "302916": {
+    "name": "Reality Shift",
+    "effect_list": [
+      778043,
+      778044,
+      778045,
+      778049
+    ],
+    "scaling_type": -1,
+    "effects": {
+      "778043": {
+        "type": 226,
+        "avg": 0
+      },
+      "778044": {
+        "type": 4,
+        "avg": 0.623202
+      },
+      "778045": {
+        "type": 4,
+        "avg": 0
+      },
+      "778049": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "302957": {
+    "name": "Reality Shift",
+    "effect_list": [
+      778113
+    ],
+    "scaling_type": -1,
+    "effects": {
+      "778113": {
+        "type": 219,
+        "avg": 0
+      }
+    }
+  },
+  "302961": {
+    "name": "Reality Shift",
+    "effect_list": [
+      778117
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "778117": {
+        "type": 129,
+        "avg": 0
+      }
+    }
+  },
+  "302962": {
+    "name": "Reality Shift",
+    "effect_list": [
+      778118
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "778118": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "302982": {
+    "name": "Ripple in Space",
+    "effect_list": [
+      778147,
+      778148
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "778147": {
+        "type": 0,
+        "avg": 0
+      },
+      "778148": {
+        "type": 4,
+        "avg": 31.847134
+      }
+    }
+  },
+  "302983": {
+    "name": "Ripple in Space",
+    "effect_list": [
+      778149,
+      778150
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "778149": {
+        "type": 0,
+        "avg": 0
+      },
+      "778150": {
+        "type": 4,
+        "avg": 31.847134
+      }
+    }
+  },
+  "302984": {
+    "name": "Reality Shift",
+    "effect_list": [
+      778153,
+      778154,
+      778155,
+      778156
+    ],
+    "scaling_type": -1,
+    "effects": {
+      "778153": {
+        "type": 226,
+        "avg": 0
+      },
+      "778154": {
+        "type": 4,
+        "avg": 0.623202
+      },
+      "778155": {
+        "type": 4,
+        "avg": 0
+      },
+      "778156": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "302985": {
+    "name": "Reality Shift",
+    "effect_list": [
+      778157,
+      778158,
+      778159,
+      778160
+    ],
+    "scaling_type": -1,
+    "effects": {
+      "778157": {
+        "type": 226,
+        "avg": 0
+      },
+      "778158": {
+        "type": 4,
+        "avg": 0.623202
+      },
+      "778159": {
+        "type": 4,
+        "avg": 0
+      },
+      "778160": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "303006": {
+    "name": "Arcane Heart",
+    "effect_list": [
+      778205,
+      778206,
+      778207
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "778205": {
+        "type": 285,
+        "avg": 0
+      },
+      "778206": {
+        "type": 4,
+        "avg": 1.39285
+      },
+      "778207": {
+        "type": 285,
+        "avg": 0
+      }
+    }
+  },
+  "303007": {
+    "name": "Loyal to the End",
+    "effect_list": [
+      778208,
+      778209,
+      778210
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "778208": {
+        "type": 285,
+        "avg": 0.401141
+      },
+      "778209": {
+        "type": 4,
+        "avg": 0.100285
+      },
+      "778210": {
+        "type": 4,
+        "avg": 0.802281
+      }
+    }
+  },
+  "303008": {
+    "name": "Undulating Tides",
+    "effect_list": [
+      778211,
+      778212,
+      778215,
+      778216
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "778211": {
+        "type": 285,
+        "avg": 24.053892
+      },
+      "778212": {
+        "type": 4,
+        "avg": 0
+      },
+      "778215": {
+        "type": 4,
+        "avg": 188.622757
+      },
+      "778216": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "303342": {
+    "name": "Vision of Perfection",
+    "effect_list": [
+      778791,
+      778792
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "778791": {
+        "type": 4,
+        "avg": 0
+      },
+      "778792": {
+        "type": 4,
+        "avg": 0.21371
+      }
+    }
+  },
+  "303448": {
+    "name": "Transference",
+    "effect_list": [
+      778973
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "778973": {
+        "type": 4,
+        "avg": 42.07
+      }
+    }
+  },
+  "303460": {
+    "name": "Vitality Conduit",
+    "effect_list": [
+      778993
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "778993": {
+        "type": 4,
+        "avg": 25.24
+      }
+    }
+  },
+  "303463": {
+    "name": "Vitality Conduit",
+    "effect_list": [
+      778997
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "778997": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "303472": {
+    "name": "Vitality Conduit",
+    "effect_list": [
+      779008
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "779008": {
+        "type": 219,
+        "avg": 0
+      }
+    }
+  },
+  "303474": {
+    "name": "Transference",
+    "effect_list": [
+      779011
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "779011": {
+        "type": 4,
+        "avg": 42.07
+      }
+    }
+  },
+  "303476": {
+    "name": "Transference",
+    "effect_list": [
+      779013
+    ],
+    "scaling_type": -8,
+    "effects": {
+      "779013": {
+        "type": 4,
+        "avg": 42.07
+      }
+    }
+  },
+  "303823": {
+    "name": "Conflict",
+    "effect_list": [
+      779695
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "779695": {
+        "type": 285,
+        "avg": 0
+      }
+    }
+  },
+  "303892": {
+    "name": "Conflict",
+    "effect_list": [
+      779809,
+      780146,
+      781304,
+      781305,
+      783120
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "779809": {
+        "type": 4,
+        "avg": 0
+      },
+      "780146": {
+        "type": 4,
+        "avg": 0
+      },
+      "781304": {
+        "type": 42,
+        "avg": 0
+      },
+      "781305": {
+        "type": 42,
+        "avg": 0.092917
+      },
+      "783120": {
+        "type": 285,
+        "avg": 0
+      }
+    }
+  },
+  "303894": {
+    "name": "Conflict",
+    "effect_list": [
+      779811
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "779811": {
+        "type": 42,
+        "avg": 0
+      }
+    }
+  },
+  "304055": {
+    "name": "Strife",
+    "effect_list": [
+      780070
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "780070": {
+        "type": 219,
+        "avg": 0
+      }
+    }
+  },
+  "304081": {
+    "name": "Strife",
+    "effect_list": [
+      780103,
+      782087
+    ],
+    "scaling_type": -7,
+    "effects": {
+      "780103": {
+        "type": 42,
+        "avg": 0.092917
+      },
+      "782087": {
+        "type": 285,
+        "avg": 0.092917
+      }
+    }
+  },
+  "304086": {
+    "name": "Conflict",
+    "effect_list": [
+      780108
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "780108": {
+        "type": 42,
+        "avg": 0
+      }
+    }
+  },
+  "304088": {
+    "name": "Conflict",
+    "effect_list": [
+      780110
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "780110": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "304089": {
+    "name": "Strife",
+    "effect_list": [
+      780111
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "780111": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "304121": {
+    "name": "Conflict",
+    "effect_list": [
+      780160
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "780160": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "304123": {
+    "name": "Strife",
+    "effect_list": [
+      780162
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "780162": {
+        "type": 4,
+        "avg": 0
+      }
+    }
+  },
+  "304125": {
+    "name": "Strife",
+    "effect_list": [
+      780164
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "780164": {
+        "type": 219,
+        "avg": 0
+      }
+    }
+  },
+  "304533": {
+    "name": "Strife",
+    "effect_list": [
+      780914
+    ],
+    "scaling_type": 0,
+    "effects": {
+      "780914": {
+        "type": 4,
         "avg": 0
       }
     }

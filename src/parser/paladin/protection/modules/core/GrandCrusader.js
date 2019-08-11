@@ -82,16 +82,16 @@ class GrandCrusader extends Analyzer {
 
     // pmf of the binomial distribution with n = _resetChances and
     // p = procChance
-    const reset_prob = (i) => binom(this._resetChances, i) * Math.pow(this.procChance, i) * Math.pow(1 - this.procChance, this._resetChances - i);
+    const resetProb = (i) => binom(this._resetChances, i) * Math.pow(this.procChance, i) * Math.pow(1 - this.procChance, this._resetChances - i);
 
     // probability of having exactly k resets of the n chances
     const resetProbabilities = Array.from({length: this._resetChances}, (_x, i) => {
-      return { x: i, y: reset_prob(i) };
+      return { x: i, y: resetProb(i) };
     });
 
     const actualReset = {
       x: this._totalResets,
-      y: reset_prob(this._totalResets),
+      y: resetProb(this._totalResets),
     };
 
     return (

@@ -119,10 +119,12 @@ class ButcheryCarve extends Analyzer {
         return (
           <TalentStatisticBox
             talent={SPELLS.BUTCHERY_TALENT.id}
-            value={<>
+            value={(
+<>
               <ItemDamageDone amount={this.damage} /> <br />
               <AverageTargetsHit casts={this.casts} hits={this.targetsHit} />
-            </>}
+            </>
+)}
           />
         );
       } else {
@@ -132,10 +134,12 @@ class ButcheryCarve extends Analyzer {
             talent={SPELLS.CARVE.id}
             position={STATISTIC_ORDER.CORE(16)}
             category={STATISTIC_CATEGORY.GENERAL}
-            value={<>
+            value={(
+<>
               <ItemDamageDone amount={this.damage} /> <br />
               <AverageTargetsHit casts={this.casts} hits={this.targetsHit} />
-            </>}
+            </>
+)}
           />
         );
       }

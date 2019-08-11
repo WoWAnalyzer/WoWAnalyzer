@@ -81,6 +81,9 @@ export async function toJson(response) {
 }
 
 async function rawFetchWcl(endpoint, queryParams) {
+  if (process.env.NODE_ENV === 'test') {
+    throw new Error('Unable to query WCL during test');
+  }
   const url = makeWclApiUrl(endpoint, queryParams);
   const response = await fetch(url);
 

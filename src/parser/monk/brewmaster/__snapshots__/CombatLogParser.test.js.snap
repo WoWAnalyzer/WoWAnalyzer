@@ -273,6 +273,10 @@ exports[`The Brewmaster Analyzer analyzers Checklist matches the statistic snaps
 
 exports[`The Brewmaster Analyzer analyzers Checklist matches the suggestions snapshot 1`] = `"module has no suggestions"`;
 
+exports[`The Brewmaster Analyzer analyzers CritValue matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Brewmaster Analyzer analyzers CritValue matches the suggestions snapshot 1`] = `Array []`;
+
 exports[`The Brewmaster Analyzer analyzers DamageTaken matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`The Brewmaster Analyzer analyzers DamageTaken matches the suggestions snapshot 1`] = `Array []`;
@@ -428,6 +432,83 @@ exports[`The Brewmaster Analyzer analyzers HighTolerance matches the statistic s
 `;
 
 exports[`The Brewmaster Analyzer analyzers HighTolerance matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Brewmaster Analyzer analyzers HotTrubTimeMachine matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad"
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=202126"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Hot Trub"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_brew_dark.jpg"
+            />
+          </a>
+           
+          Hot Trub Time Machine
+        </label>
+        <div
+          className="value"
+        >
+          <img
+            alt="Damage"
+            className="icon"
+            src="/img/sword.png"
+          />
+           
+          252
+           DPS 
+          <small>
+            4.52
+             % of total
+          </small>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col-xs-12"
+        />
+      </div>
+      <div
+        className="statistic-expansion-button-holster"
+      >
+        <button
+          className="btn btn-primary"
+          onClick={[Function]}
+        >
+          <span
+            className="glyphicon glyphicon-chevron-down"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Brewmaster Analyzer analyzers HotTrubTimeMachine matches the suggestions snapshot 1`] = `Array []`;
 
 exports[`The Brewmaster Analyzer analyzers IronSkinBrew matches the statistic snapshot 1`] = `
 <div
@@ -680,7 +761,7 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
             className="text-right"
           >
             <b>
-              815k
+              949k
             </b>
           </td>
           <td
@@ -720,7 +801,7 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
           <td
             className="text-right"
           >
-            815k
+            949k
           </td>
           <td
             className="text-right"
@@ -762,7 +843,7 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
             className="text-right"
           >
             <b>
-              1.78
+              1.53
             </b>
           </td>
           <td
@@ -778,7 +859,7 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
           >
             <b>
               = 
-              19.54
+              16.78
             </b>
           </td>
         </tr>
@@ -813,13 +894,13 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
           <td
             className="text-right"
           >
-            1.78
+            1.53
           </td>
           <td />
           <td
             className="text-right"
           >
-            19.54
+            16.78
           </td>
         </tr>
         <tr>
@@ -862,14 +943,14 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
             className="text-right"
           >
             <b>
-              407k
+              399k
             </b>
           </td>
           <td
             className="text-right"
           >
             <b>
-              0.33
+              0.28
             </b>
           </td>
           <td
@@ -885,7 +966,7 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
           >
             <b>
               = 
-              89.70
+              75.48
             </b>
           </td>
         </tr>
@@ -920,13 +1001,13 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
           <td
             className="text-right"
           >
-            0.30
+            0.26
           </td>
           <td />
           <td
             className="text-right"
           >
-            81.19
+            69.71
           </td>
         </tr>
         <tr>
@@ -1015,18 +1096,18 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
           <td
             className="text-right"
           >
-            39k
+            31k
           </td>
           <td
             className="text-right"
           >
-            0.03
+            0.02
           </td>
           <td />
           <td
             className="text-right"
           >
-            8.51
+            5.77
           </td>
         </tr>
         <tr>
@@ -1064,7 +1145,7 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
             className="text-right"
           >
             <b>
-              0.23
+              0.20
             </b>
           </td>
           <td
@@ -1080,7 +1161,7 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
           >
             <b>
               = 
-              3.28
+              2.82
             </b>
           </td>
         </tr>
@@ -1115,13 +1196,13 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
           <td
             className="text-right"
           >
-            0.23
+            0.20
           </td>
           <td />
           <td
             className="text-right"
           >
-            3.28
+            2.82
           </td>
         </tr>
         <tr>
@@ -1211,14 +1292,14 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
             className="text-right"
           >
             <b>
-              291k
+              287k
             </b>
           </td>
           <td
             className="text-right"
           >
             <b>
-              1.49
+              1.26
             </b>
           </td>
           <td
@@ -1234,7 +1315,7 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
           >
             <b>
               = 
-              20.85
+              17.61
             </b>
           </td>
         </tr>
@@ -1251,18 +1332,18 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
           <td
             className="text-right"
           >
-            235k
+            230k
           </td>
           <td
             className="text-right"
           >
-            1.20
+            1.01
           </td>
           <td />
           <td
             className="text-right"
           >
-            16.83
+            14.16
           </td>
         </tr>
         <tr>
@@ -1283,13 +1364,13 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
           <td
             className="text-right"
           >
-            0.29
+            0.25
           </td>
           <td />
           <td
             className="text-right"
           >
-            4.02
+            3.45
           </td>
         </tr>
         <tr>
@@ -1332,7 +1413,7 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
             className="text-right"
           >
             <b>
-              1.49
+              1.28
             </b>
           </td>
           <td
@@ -1348,7 +1429,7 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
           >
             <b>
               = 
-              43.32
+              37.20
             </b>
           </td>
         </tr>
@@ -1383,13 +1464,13 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
           <td
             className="text-right"
           >
-            1.20
+            1.03
           </td>
           <td />
           <td
             className="text-right"
           >
-            34.89
+            29.95
           </td>
         </tr>
         <tr>
@@ -1410,13 +1491,13 @@ exports[`The Brewmaster Analyzer analyzers MitigationSheet matches the statistic
           <td
             className="text-right"
           >
-            0.29
+            0.25
           </td>
           <td />
           <td
             className="text-right"
           >
-            8.44
+            7.24
           </td>
         </tr>
       </tbody>
@@ -1775,6 +1856,10 @@ exports[`The Brewmaster Analyzer analyzers TigerPalm matches the suggestions sna
 exports[`The Brewmaster Analyzer analyzers TrainingOfNiuzao matches the statistic snapshot 1`] = `"module inactive"`;
 
 exports[`The Brewmaster Analyzer analyzers TrainingOfNiuzao matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Brewmaster Analyzer analyzers VersatilityValue matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Brewmaster Analyzer analyzers VersatilityValue matches the suggestions snapshot 1`] = `Array []`;
 
 exports[`The Brewmaster Analyzer should match the checklist snapshot 1`] = `
 <ul
@@ -3331,7 +3416,7 @@ exports[`The Brewmaster Analyzer should match the checklist snapshot 1`] = `
     </div>
   </li>
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -3355,8 +3440,8 @@ exports[`The Brewmaster Analyzer should match the checklist snapshot 1`] = `
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "90.47619047619048%",
+                  "backgroundColor": "#df7102",
+                  "width": "33.33333333333333%",
                 }
               }
             />
@@ -3631,7 +3716,7 @@ exports[`The Brewmaster Analyzer should match the checklist snapshot 1`] = `
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -3651,9 +3736,129 @@ exports[`The Brewmaster Analyzer should match the checklist snapshot 1`] = `
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Used a high quality pre-potion
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  No
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                High quality flask used
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  No
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
                       }
                     }
                   />
@@ -3751,7 +3956,7 @@ exports[`The Brewmaster Analyzer should match the checklist snapshot 1`] = `
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -3771,9 +3976,9 @@ exports[`The Brewmaster Analyzer should match the checklist snapshot 1`] = `
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />

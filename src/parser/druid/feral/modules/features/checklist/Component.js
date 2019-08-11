@@ -128,7 +128,7 @@ class FeralDruidChecklist extends React.PureComponent {
           <Requirement
             name={(
               <>
-                Average <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> energy
+                <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> damage bonus from energy
               </>
             )}
             thresholds={thresholds.ferociousBiteEnergy}

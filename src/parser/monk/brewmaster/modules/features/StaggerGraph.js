@@ -33,6 +33,7 @@ class StaggerGraph extends React.Component {
     purifies: PropTypes.array.isRequired,
     deaths: PropTypes.array.isRequired,
     startTime: PropTypes.number.isRequired,
+    offsetTime: PropTypes.number.isRequired,
   };
 
   state = {
@@ -42,7 +43,7 @@ class StaggerGraph extends React.Component {
   };
 
   render() {
-    const {stagger, hp, maxHp, purifies, deaths, startTime} = this.props;
+    const {stagger, hp, maxHp, purifies, deaths, startTime, offsetTime} = this.props;
     const {xDomain} = this.state;
     return (
       <XYPlot height={400}
@@ -68,7 +69,7 @@ class StaggerGraph extends React.Component {
             { title: 'Player Death', color: COLORS.death },
           ]}
         />
-        <XAxis title="Time" tickFormat={value => formatDuration((value - startTime) / 1000)} />
+        <XAxis title="Time" tickFormat={value => formatDuration((value - startTime + offsetTime) / 1000)} />
         <YAxis title="Health" tickFormat={value => formatNumber(value)} />
         <AreaSeries
           data={hp}

@@ -2,9 +2,10 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
-import { formatPercentage } from 'common/format';
+import { formatPercentage, formatNumber } from 'common/format';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import SpellLink from 'common/SpellLink';
 
 const MAX_STACKS = 5;
 
@@ -26,6 +27,8 @@ class MongooseBite extends Analyzer {
   fiveBiteWindows = 0;
   aspectOfTheEagleFixed = false;
   buffApplicationTimestamp = null;
+  accumulatedFocusAtWindow = [];
+  focusAtMomentOfCast = 0;
 
   constructor(...args) {
     super(...args);
@@ -57,6 +60,7 @@ class MongooseBite extends Analyzer {
     }
     if (event.type === 'applybuff') {
       this.lastMongooseBiteStack = 1;
+      this.accumulatedFocusAtWindow[this.totalWindowsStarted] = this.focusAtMomentOfCast;
       this.totalWindowsStarted += 1;
     }
     if (event.type === 'applybuffstack') {
@@ -80,12 +84,52 @@ class MongooseBite extends Analyzer {
     return this.mongooseBiteStacks[MAX_STACKS];
   }
 
+  get averageFocusOnMongooseWindowStart() {
+    return formatNumber(this.accumulatedFocusAtWindow.reduce((a, b) => a + b, 0) / this.totalWindowsStarted);
+  }
+
+  get percentMaxStacksHit() {
+    return this.mongooseBiteStacks[MAX_STACKS] / this.totalMongooseBites;
+  }
+
+  get focusOnMongooseWindowThreshold() {
+    return {
+      actual: this.averageFocusOnMongooseWindowStart,
+      isLessThan: {
+        minor: 65,
+        average: 62,
+        major: 60,
+      },
+      style: 'number',
+    };
+  }
+
+  get mongoose5StackHitThreshold() {
+    return {
+      actual: this.percentMaxStacksHit,
+      isLessThan: {
+        minor: 0.30,
+        average: 0.29,
+        major: 0.28,
+      },
+      style: 'percentage',
+    };
+  }
+
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.MONGOOSE_BITE_TALENT.id && spellId !== SPELLS.MONGOOSE_BITE_TALENT_AOTE.id) {
       return;
     }
     this.handleStacks(event);
+  }
+
+  on_byPlayer_cast(event) {
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.MONGOOSE_BITE_TALENT.id) {
+      return;
+    }
+    this.focusAtMomentOfCast = event.classResources[0].amount;
   }
 
   on_byPlayer_applybuff(event) {
@@ -117,13 +161,15 @@ class MongooseBite extends Analyzer {
     return (
       <TalentStatisticBox
         talent={SPELLS.MONGOOSE_BITE_TALENT.id}
-        value={<>
+        value={(
+<>
           <ItemDamageDone amount={this.damage} /> <br />
           {this.fiveStackMongooseBites}/{this.totalMongooseBites} 5 stack bites
-        </>}
+        </>
+)}
         tooltip={(
           <ul>
-            <li>You hit an average of {(this.mongooseBiteStacks[MAX_STACKS] / this.fiveBiteWindows).toFixed(1)} bites when you had {MAX_STACKS} stacks of Mongoose Fury. </li>
+            <li>You hit an average of {(this.mongooseBiteStacks[MAX_STACKS] / this.fiveBiteWindows).toFixed(1)} bites when you had {MAX_STACKS} stacks of Mongoose Fury.</li>
             <li>You hit an average of {(this.totalMongooseBites / this.totalWindowsStarted).toFixed(1)} bites per Mongoose Fury window started.</li>
           </ul>
         )}
@@ -148,6 +194,21 @@ class MongooseBite extends Analyzer {
         </table>
       </TalentStatisticBox>
     );
+  }
+
+  suggestions(when) {
+    when(this.focusOnMongooseWindowThreshold).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<>When talented into <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />, it's important to have accumulated a good amount of focus before you open a <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> window in order to maximize the number of <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />s at high stacks.</>)
+        .icon(SPELLS.MONGOOSE_BITE_TALENT.icon)
+        .actual(`${formatNumber(actual)} average focus on new window.`)
+        .recommended(`>${formatNumber(recommended)} is recommended`);
+    });
+    when(this.mongoose5StackHitThreshold).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<>It's important to cast as much <SpellLink id={SPELLS.MONGOOSE_BITE_TALENT.id} />s as possible when having max(5) stacks of <SpellLink id={SPELLS.MONGOOSE_FURY.id} />.</>)
+        .icon(SPELLS.MONGOOSE_BITE_TALENT.icon)
+        .actual(`${formatPercentage(actual)}% casts on max stacks.`)
+        .recommended(`>${formatPercentage(recommended)}% is recommended`);
+    });
   }
 }
 

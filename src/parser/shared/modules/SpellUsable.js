@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import EventEmitter from 'parser/core/modules/EventEmitter';
+import { PRE_FILTER_COOLDOWN_EVENT_TYPE } from 'interface/report/TimeEventFilter';
 
 import Abilities from '../../core/modules/Abilities';
 
@@ -339,6 +340,10 @@ class SpellUsable extends Analyzer {
   _lastTimestamp = null;
   on_event(event) {
     const timestamp = (event && event.timestamp) || this.owner.currentTimestamp;
+    //if cast event from previous phase was found, add it to the cooldown tracker without adding it to the phase itself
+    if(event.type === PRE_FILTER_COOLDOWN_EVENT_TYPE && event.sourceID === this.owner.playerId){
+      this.on_byPlayer_cast(event);
+    }
     if (timestamp === this._lastTimestamp) {
       return;
     }

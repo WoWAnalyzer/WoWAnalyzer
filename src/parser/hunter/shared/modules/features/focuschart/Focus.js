@@ -54,11 +54,9 @@ class Focus extends React.PureComponent {
         const secIntoFight = Math.floor(passiveWasteIndex / 1000);
         if (Math.max(focusBySecond[secIntoFight], item) >= magicGraphNumber) { //aims to get highest peak
           focusBySecond[secIntoFight] = Math.max(focusBySecond[secIntoFight], item);
-        }
-        else if (Math.max(focusBySecond[secIntoFight], item) < magicGraphNumber) { //aims to get lowest valley
+        } else if (Math.max(focusBySecond[secIntoFight], item) < magicGraphNumber) { //aims to get lowest valley
           focusBySecond[secIntoFight] = Math.min(focusBySecond[secIntoFight], item);
-        }
-        else if (!focusBySecond[secIntoFight]) {
+        } else if (!focusBySecond[secIntoFight]) {
           focusBySecond[secIntoFight] = item;
         }
         lastCatch = Math.floor(passiveWasteIndex / 1000);
@@ -68,23 +66,19 @@ class Focus extends React.PureComponent {
         if (!focusBySecond[i]) {
           if (focusBySecond[i - 1] > focusMax - focusGen) {
             focusBySecond[i] = focusMax;
-          }
-          else {
+          } else {
             focusBySecond[i] = focusBySecond[i - 1] + focusGen;
           }
         }
         if (focusBySecond[i] >= focusMax) {
           if (activeFocusWastedTimeline[i]) {
             overCapBySecond[i] = focusGen + activeFocusWastedTimeline[i];
-          }
-          else {
+          } else {
             overCapBySecond[i] = focusGen;
           }
-        }
-        else if (activeFocusWastedTimeline[i] && focusBySecond[i] + activeFocusWastedTimeline[i] > focusMax) {
+        } else if (activeFocusWastedTimeline[i] && focusBySecond[i] + activeFocusWastedTimeline[i] > focusMax) {
           overCapBySecond[i] = (focusBySecond[i] + activeFocusWastedTimeline[i]) - focusMax;
-        }
-        else {
+        } else {
           overCapBySecond[i] = 0;
         }
       }

@@ -439,7 +439,71 @@ exports[`The Fire Mage Analyzer analyzers HeatingUp matches the statistic snapsh
 </div>
 `;
 
+exports[`The Fire Mage Analyzer analyzers HeatingUp matches the statistic snapshot 2`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad"
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=153561"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Meteor"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_mage_meteor.jpg"
+            />
+          </a>
+           
+          Meteor Utilization
+        </label>
+        <div
+          className="value"
+        >
+          100 %
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`The Fire Mage Analyzer analyzers HeatingUp matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Fire Mage Analyzer analyzers HeatingUp matches the suggestions snapshot 2`] = `Array []`;
 
 exports[`The Fire Mage Analyzer analyzers HotStreak matches the statistic snapshot 1`] = `
 <div
@@ -574,7 +638,7 @@ Array [
     "icon": "ability_mage_hotstreak",
     "importance": "major",
     "issue": <React.Fragment>
-      In situations where you are not able to guarantee a crit (
+      Unless you are guaranteed to crit (i.e. during 
       <SpellLink
         icon={true}
         id={190319}
@@ -584,31 +648,36 @@ Array [
         icon={true}
         id={205026}
       />
-      , and 
+      , or 
       <SpellLink
         icon={true}
         id={269644}
       />
-      ), you didn't pre-cast 
+      ), you should always cast 
       <SpellLink
         icon={true}
         id={133}
       />
        
       
-       
-      10
-       times. Pre-casting when you can't guarantee a crit helps you get more 
-      <SpellLink
-        icon={true}
-        id={48107}
-      />
-       and 
+       alongside using your 
       <SpellLink
         icon={true}
         id={48108}
       />
-       procs, so you should do this whenenver possible.
+       proc. This way, if one of the two abilities crit you will gain a new 
+      <SpellLink
+        icon={true}
+        id={48107}
+      />
+       proc, and if both crit you will get a new 
+      <SpellLink
+        icon={true}
+        id={48108}
+      />
+       proc. You failed to do this 
+      10
+       times.
     </React.Fragment>,
     "stat": <React.Fragment>
       50.00% Utilization
@@ -1919,7 +1988,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "83.59448275862069%",
+                  "width": "89.06298850574713%",
                 }
               }
             />
@@ -2162,6 +2231,96 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
               </div>
             </div>
           </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Meteor Utilization
+              </div>
+              <div
+                className="flex-sub"
+                style={
+                  Object {
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  <svg
+                    className="icon"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                    />
+                    <path
+                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                    />
+                    <path
+                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  100.00%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -2380,7 +2539,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
     </div>
   </li>
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -2404,8 +2563,8 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#4ec04e",
-                  "width": "100%",
+                  "backgroundColor": "#ffc84a",
+                  "width": "63.33333333333333%",
                 }
               }
             />
@@ -2559,7 +2718,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                   }
                 >
                    
-                  3
+                  1
                    
                   / 3
                    
@@ -2580,9 +2739,9 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "33.33333333333333%",
                       }
                     }
                   />
@@ -2719,6 +2878,126 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
               <div
                 className="flex-main"
               >
+                Used a high quality pre-potion
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  No
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                High quality flask used
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  No
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "0%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
                 Flask used
               </div>
               <div
@@ -2800,7 +3079,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                   }
                 >
                    
-                  Yes
+                  No
                    
                    
                 </div>
@@ -2820,9 +3099,9 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "0%",
                       }
                     }
                   />

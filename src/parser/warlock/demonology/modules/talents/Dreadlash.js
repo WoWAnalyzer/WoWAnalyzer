@@ -30,8 +30,7 @@ class Dreadlash extends Analyzer {
     if (this._primaryTarget === target) {
       debug && this.log(`Dreadbite damage on ${target}, primary`);
       this.bonusDamage += calculateEffectiveDamage(event, DREADLASH_BONUS_DAMAGE);
-    }
-    else {
+    } else {
       debug && this.log(`Dreadbite damage on ${target}, cleaved`);
       this.cleavedDamage += event.amount + (event.absorbed || 0);
     }

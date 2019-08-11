@@ -4,6 +4,11 @@ export default {
     name: 'Coastal Healing Potion',
     icon: 'inv_alchemy_80_potion01red',
   },
+  ABYSSAL_HEALING_POTION: {
+    id: 169451,
+    name: 'Abyssal Healing Potion',
+    icon: 'inv_misc_potionsetf',
+  },
   COASTAL_MANA_POTION: {
     id: 152495,
     name: 'Coastal Mana Potion',
@@ -39,10 +44,35 @@ export default {
     name: 'Battle Potion of Stamina',
     icon: 'trade_alchemy_potionc3',
   },
+  SUPERIOR_BATTLE_POTION_OF_STRENGTH: {
+    id: 168500,
+    name: 'Superior Battle Potion of Strength',
+    icon: 'trade_alchemy_potione1',
+  },
+  SUPERIOR_BATTLE_POTION_OF_AGILITY: {
+    id: 168489,
+    name: 'Superior Battle Potion of Agility',
+    icon: 'trade_alchemy_potione3',
+  },
+  SUPERIOR_BATTLE_POTION_OF_INTELLECT: {
+    id: 168498,
+    name: 'Superior Battle Potion of Intellect',
+    icon: 'trade_alchemy_potione2',
+  },
+  SUPERIOR_BATTLE_POTION_OF_STAMINA: {
+    id: 168499,
+    name: 'Superior Battle Potion of Stamina',
+    icon: 'trade_alchemy_potione5',
+  },
   POTION_OF_RISING_DEATH: {
     id: 152559,
     name: 'Potion of Rising Death',
     icon: 'inv_alchemy_80_elixir01blue',
+  },
+  POTION_OF_UNBRIDLED_FURY: {
+    id: 169299,
+    name: 'Potion of Unbridled Fury',
+    icon: 'inv_potionf_5',
   },
   POTION_OF_BURSTING_BLOOD: {
     id: 152560,
@@ -53,5 +83,15 @@ export default {
     id: 152557,
     name: 'Steelskin Potion',
     icon: 'inv_alchemy_80_elixir01green',
+  },
+  SUPERIOR_STEELSKIN_POTION: {
+    id: 168501,
+    name: 'Superior Steelskin Potion',
+    icon: 'inv_potionf_3',
+  },
+  POTION_OF_WILD_MENDING: {
+    id: 169300,
+    name: 'Potion of Wild Mending',
+    icon: 'inv_potionf_6',
   },
 };

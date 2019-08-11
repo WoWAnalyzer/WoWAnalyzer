@@ -36,6 +36,8 @@ class TestCombatLogParser extends CombatLogParser {
     },
     selectedFight = {
       start_time: 0,
+      offset_time: 0,
+      filtered: false,
     },
     combatantInfoEvents = []
   ) {

@@ -15,7 +15,7 @@ class CrushingAssaultNormalizer extends EventsNormalizer {
 
         for (let previousEventIndex = eventIndex; previousEventIndex >= 0; previousEventIndex -= 1) {
           const previousEvent = fixedEvents[previousEventIndex];
-          if (((castTimestamp - previousEvent.timestamp) > 50) || (!previousEvent.ability.guid === SPELLS.CRUSHING_ASSAULT_BUFF.id && !previousEvent.sourceID === event.sourceID)) {
+          if (((castTimestamp - previousEvent.timestamp) > 50) || (previousEvent.ability && previousEvent.ability.guid !== SPELLS.CRUSHING_ASSAULT_BUFF.id && previousEvent.sourceID !== event.sourceID)) {
             break;
           }
 
