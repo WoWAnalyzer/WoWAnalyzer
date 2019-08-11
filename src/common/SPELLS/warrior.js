@@ -427,11 +427,6 @@ export default {
     name: "Into the Fray",
     icon: "ability_warrior_bloodfrenzy",
   },
-  NELTHARIONS_FURY: {
-    id: 203526,
-    name: 'Neltharion\'s Fury',
-    icon: 'warrior_talent_icon_furyintheblood',
-  },
   SHIELD_BLOCK: {
     id: 2565,
     name: 'Shield Block',
@@ -504,33 +499,6 @@ export default {
     id: 202573,
     name: 'Vengeance: Revenge',
     icon: 'ability_warrior_unrelentingassault',
-  },
-  //Relics
-  // Protection Tier Sets
-  // T21 2P Set Bonus
-  PROTECTION_WARRIOR_T21_2P_BONUS: {
-    id: 251882,
-    name: 'T21 2P Bonus',
-    icon: 'spell_nature_reincarnation',
-  },
-  PROTECTION_WARRIOR_T21_2P_WALL_OF_IRON: {
-    id: 253428,
-    name: 'Wall of Iron',
-    icon: 'ability_warrior_defensivestance',
-  },
-
-  // T20 2P Set Bonus
-  PROTECTION_WARRIOR_T20_2P_BONUS: {
-    id: 242302,
-    name: 'T20 2P Bonus',
-    icon: 'ability_warrior_defensivestance',
-  },
-
-  //Traits
-  INTOLERANCE_TRAIT: {
-    id: 203227,
-    name: 'Intolerance',
-    icon: 'warrior_talent_icon_furyintheblood',
   },
 
   // Shared:

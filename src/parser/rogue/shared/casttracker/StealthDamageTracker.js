@@ -12,8 +12,7 @@ class StealthDamageTracker extends FilteredDamageTracker {
   constructor(...args) {
     super(...args);
 
-    if(this.selectedCombatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id))
-    {
+    if(this.selectedCombatant.hasTalent(SPELLS.SUBTERFUGE_TALENT.id)) {
       //Subterfuge allows use of stealth abilities for 3 seconds after stealth fades
       this.delayWindow += 3000;
     }

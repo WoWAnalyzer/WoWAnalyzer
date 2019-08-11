@@ -4,10 +4,10 @@ import TALENTS from "common/SPELLS/talents/shaman";
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 class StormFireElemental extends Analyzer {
-
   static dependencies = {
     spellUsable: SpellUsable,
   };
+
   elementalData = {
     FireElemental: {
       summon: SPELLS.FIRE_ELEMENTAL.id,
@@ -27,13 +27,13 @@ class StormFireElemental extends Analyzer {
     },
   };
 
-  last_pet_summon_timeStamp=null;
+  lastPetSummonTimeStamp = null;
 
   relevantData = this.selectedCombatant.hasTalent(TALENTS.STORM_ELEMENTAL_TALENT.id) ? this.elementalData.StormElemental : this.elementalData.FireElemental;
 
 
   on_byPlayerPet_damage(event){
-      if(this.last_pet_summon_timeStamp!==null) {
+      if(this.lastPetSummonTimeStamp!==null) {
         return;
       }
       if(!this.relevantData.damageSpells.includes(event.ability.guid)) {
@@ -42,7 +42,7 @@ class StormFireElemental extends Analyzer {
       this.spellUsable.beginCooldown(this.relevantData.summon, {
         timestamp: this.owner.fight.start_time,
       });
-      this.last_pet_summon_timeStamp=event.timestamp;
+      this.lastPetSummonTimeStamp=event.timestamp;
 
   }
   on_byPlayer_cast(event) {
@@ -50,7 +50,7 @@ class StormFireElemental extends Analyzer {
     if (spellId !== this.relevantData.summon) {
       return;
     }
-    this.last_pet_summon_timeStamp=event.timestamp;
+    this.lastPetSummonTimeStamp=event.timestamp;
   }
 }
 

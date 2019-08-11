@@ -66,8 +66,7 @@ class SpinningCraneKick extends Analyzer {
       // removing expired targets to avoid looking through huge arrays in logs with a lot of targets
       if (event.timestamp - this.markoftheCraneTargets[i].timestamp > 15000) {
         this.markoftheCraneTargets.splice(i, 1);
-      }
-      else {
+      } else {
         this.markoftheCraneStacks++;
       }
       i++;

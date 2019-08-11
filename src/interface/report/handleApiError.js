@@ -86,7 +86,7 @@ export default function handleApiError(error, onBack) {
   } else if (error instanceof EventsParseError) {
     return (
       <FullscreenError
-        error={i18n._(t`An error occured during our analysis`)}
+        error={i18n._(t`An error occured during analysis`)}
         details={i18n._(t`We fucked up and our code broke like the motherfucker that it is. Please let us know on Discord and we will fix it for you.`)}
         background="https://media.giphy.com/media/2sdHZ0iBuI45s6fqc9/giphy.gif"
       >

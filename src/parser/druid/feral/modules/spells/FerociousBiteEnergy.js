@@ -1,79 +1,110 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
-
-import SPELLS from 'common/SPELLS';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-
-import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import HIT_TYPES from 'game/HIT_TYPES';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 
-const ENERGY_MIN_USED_BY_BITE = 25;
-const ENERGY_FOR_FULL_DAMAGE_BITE = 50;
-const MAX_DAMAGE_BONUS_FROM_ENERGY = 1.0;
-const LEEWAY_BETWEEN_CAST_AND_DAMAGE = 500; // in thousandths of a second
+import { BERSERK_ENERGY_COST_MULTIPLIER, ENERGY_FOR_FULL_DAMAGE_BITE, MAX_BITE_DAMAGE_BONUS_FROM_ENERGY } from '../../constants';
+import SpellEnergyCost from '../features/SpellEnergyCost';
 
 const debug = false;
+const LEEWAY_BETWEEN_CAST_AND_DAMAGE = 500; // in ms
+const HIT_TYPES_TO_IGNORE = [
+  HIT_TYPES.MISS,
+  HIT_TYPES.DODGE,
+  HIT_TYPES.PARRY,
+];
 
 /**
- * Although Ferocious Bite costs 25 energy, it does up to double damage if the character has more.
- * It's recommended that feral druids use Bite when at 50 energy or higher.
+ * Although Ferocious Bite costs 25 energy it does extra damage with more energy available, up to double with a full 25 extra energy. This is among the most efficient uses of energy so it's recommended that feral druids wait for 50+ energy before using Bite.
+ * Ferocious Bite consumes energy in an unusual way: the cast will consume 25 energy followed by a drain event consuming up to 25 more.
+ * Berserk or Incarnation reduces energy costs by 40%. It reduces Bite's base cost correctly to 15 but reduces the drain effect to 13 (I expect a bug from when it used to reduce costs by 50%). So a player only needs to have 28 (or 30 if the bug is fixed) energy to get full damage from Ferocious Bite during Berserk rather than the usual 50. This module ignores the bug (the effect is very minor) and calculates everything as if the drain effect is correctly reduced to 15 rather than 13.
  */
 class FerociousBiteEnergy extends Analyzer {
-  biteCount = 0;
-  freeBiteCount = 0;
-  lowEnergyBiteCount = 0;
-  lostDamageTotal = 0;
-  energySpentOnBiteTotal = 0;
-  
-  lastBiteCast = { timestamp: 0, energy: 0, isPaired: true };
-
-  on_byPlayer_cast(event) {
-    if (event.ability.guid !== SPELLS.FEROCIOUS_BITE.id) {
-      return;
-    }
-    
-    this.lastBiteCast.timestamp = event.timestamp;
-    this.lastBiteCast.energy = this.getEnergyUsedByBite(event);
-    this.lastBiteCast.isPaired = false;
+  static dependencies = {
+    spellEnergyCost : SpellEnergyCost,
   }
 
-  on_byPlayer_damage(event) {
-    if (event.ability.guid !== SPELLS.FEROCIOUS_BITE.id) {
+  biteCount = 0;
+  lostDamageTotal = 0;
+  sumBonusEnergyFraction = 0;
+  lastBiteCast = { timestamp: 0, event: undefined, energyForFullDamage: 50, energyUsedByCast: 25, energyAvailable: 100, isPaired: true };
+
+  constructor(...args) {
+    super(...args);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FEROCIOUS_BITE), this._onBiteCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FEROCIOUS_BITE), this._onBiteDamage);
+  }
+
+  _onBiteCast(event) {
+    this.lastBiteCast = {
+      timestamp: event.timestamp,
+      event: event,
+      energyForFullDamage: ENERGY_FOR_FULL_DAMAGE_BITE * (this._hasBerserkAtTime(event.timestamp) ? BERSERK_ENERGY_COST_MULTIPLIER : 1),
+      energyUsedByCast: this._energyUsedByCast(event),
+      energyAvailable: this._energyAvailable(event),
+      isPaired: false,
+    };
+  }
+
+  _onBiteDamage(event) {
+    if (this.lastBiteCast.isPaired || event.timestamp > this.lastBiteCast.timestamp + LEEWAY_BETWEEN_CAST_AND_DAMAGE) {
+      debug && this.warn(
+        `Ferocious Bite damage event couldn't find a matching cast event. Last Ferocious Bite cast event was at ${this.lastBiteCast.timestamp}${this.lastBiteCast.isPaired ? ' but has already been paired' : ''}.`);
       return;
     }
-    if (this.lastBiteCast.isPaired || event.timestamp > this.lastBiteCast.timestamp + LEEWAY_BETWEEN_CAST_AND_DAMAGE) {
-      debug && console.warn(
-        `Ferocious Bite damage event at ${event.timestamp} couldn't find a matching cast event. Last Ferocious Bite cast event was at ${this.lastBiteCast.timestamp}${this.lastBiteCast.isPaired ? ' but has already been paired' : ''}.`);
+
+    if (HIT_TYPES_TO_IGNORE.includes(event.hitType)) {
+      // ignore parry/dodge/miss events as they'll refund energy anyway
       return;
     }
     
-    if (this.lastBiteCast.energy === 0) {
-      this.freeBiteCount += 1;
-    }
-    else if (this.lastBiteCast.energy < ENERGY_FOR_FULL_DAMAGE_BITE) {
-      this.lowEnergyBiteCount += 1;
-      this.energySpentOnBiteTotal += this.lastBiteCast.energy;
+    if (this.lastBiteCast.energyAvailable < this.lastBiteCast.energyForFullDamage) {
       const actualDamage = event.amount + event.absorbed;
-      const lostDamage = this.calcPotentialBiteDamage(actualDamage, this.lastBiteCast.energy) - actualDamage;
+      const lostDamage = this._calcPotentialBiteDamage(actualDamage, this.lastBiteCast) - actualDamage;
       this.lostDamageTotal += lostDamage;
+      this.sumBonusEnergyFraction += this._bonusEnergyFraction(this.lastBiteCast);
+
+      const castEvent = this.lastBiteCast.event;
+      castEvent.meta = event.meta || {};
+      castEvent.meta.isInefficientCast = true;
+      castEvent.meta.inefficientCastReason = `Used with low energy only gaining ${(this._bonusEnergyFraction(this.lastBiteCast) * 100).toFixed(1)}% of the potential bonus from extra energy, missing out on ${formatNumber(lostDamage)} damage.`;
+    } else {
+      this.sumBonusEnergyFraction += 1;
     }
-    else {
-      this.energySpentOnBiteTotal += this.lastBiteCast.energy;
-    }
+
     this.biteCount += 1;
     this.lastBiteCast.isPaired = true;
   }
 
-  getEnergyUsedByBite(event) {
+  _hasBerserkAtTime(timestamp) {
+    return this.selectedCombatant.hasBuff(SPELLS.BERSERK.id, timestamp) ||
+      this.selectedCombatant.hasBuff(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id, timestamp);
+  }
+
+  _energyAvailable(event) {
     const resource = event.classResources && event.classResources.find(classResources => classResources.type === RESOURCE_TYPES.ENERGY.id);
-    if (!resource || !resource.cost) {
-      return 0;
-    } else if (resource.amount < ENERGY_FOR_FULL_DAMAGE_BITE) {
-      return resource.amount;
-    } else {
-      return ENERGY_FOR_FULL_DAMAGE_BITE;
+    if (!resource || !resource.amount) {
+      debug && this.warn('Unable to get energy available from cast event.');
+      return 100;
     }
+    return resource.amount;
+  }
+
+  _energyUsedByCast(event) {
+    if (!event.resourceCost || event.resourceCost[RESOURCE_TYPES.ENERGY.id] === undefined) {
+      debug && this.warn('Unable to get energy cost from cast event.');
+      return 0;
+    }
+    return event.resourceCost[RESOURCE_TYPES.ENERGY.id];
+  }
+
+  _bonusEnergyFraction(biteCast) {
+    return Math.min(1, (biteCast.energyAvailable - biteCast.energyUsedByCast) / (biteCast.energyForFullDamage - biteCast.energyUsedByCast));
   }
 
   /**
@@ -81,49 +112,51 @@ class FerociousBiteEnergy extends Analyzer {
    * @param {number} actualDamage Observed damage of the Bite
    * @param {number} energy Energy available when Bite was cast
    */
-  calcPotentialBiteDamage(actualDamage, energy) {
-    if (energy >= ENERGY_FOR_FULL_DAMAGE_BITE) {
+  _calcPotentialBiteDamage(actualDamage, biteCast) {
+    if (biteCast.energyAvailable >= biteCast.energyForFullDamage) {
       // Bite was already doing its maximum damage
       return actualDamage;
     }
 
-    const actualMulti = 1 + MAX_DAMAGE_BONUS_FROM_ENERGY * (energy - ENERGY_MIN_USED_BY_BITE) /
-      (ENERGY_FOR_FULL_DAMAGE_BITE - ENERGY_MIN_USED_BY_BITE);
-    const baseDamage = actualDamage / actualMulti;
-    return baseDamage * (1 + MAX_DAMAGE_BONUS_FROM_ENERGY);
+    // the ideal multiplier would be 2, but because this bite didn't have enough energy the actual multiplier will be lower
+    const actualMultiplier = 1 + (MAX_BITE_DAMAGE_BONUS_FROM_ENERGY * this._bonusEnergyFraction(biteCast));
+    const damageBeforeMultiplier = actualDamage / actualMultiplier;
+    return damageBeforeMultiplier * (1 + MAX_BITE_DAMAGE_BONUS_FROM_ENERGY);
   }
 
-  get dpsLostFromLowEnergyBites() {
+  get _dpsLostFromLowEnergyBites() {
     return (this.lostDamageTotal / this.owner.fightDuration) * 1000;
   }
 
-  get averageEnergySpentOnBite() {
-    const notFreeBiteCount = this.biteCount - this.freeBiteCount;
-    return notFreeBiteCount > 0 ? this.energySpentOnBiteTotal / notFreeBiteCount : ENERGY_FOR_FULL_DAMAGE_BITE;
+  get _averageBonusEnergyFraction() {
+    return this.biteCount > 0 ? (this.sumBonusEnergyFraction / this.biteCount) : 1.0;
   }
 
   get suggestionThresholds() {
     return {
-      actual: this.averageEnergySpentOnBite,
+      actual: this._averageBonusEnergyFraction,
       isLessThan: {
-        minor: ENERGY_FOR_FULL_DAMAGE_BITE,
-        average: ENERGY_FOR_FULL_DAMAGE_BITE - 5,
-        major: ENERGY_FOR_FULL_DAMAGE_BITE - 10,
+        minor: 1.0,
+        average: 0.95,
+        major: 0.8,
       },
-      style: 'number',
+      style: 'percentage',
     };
   }
 
-  suggestions(when) {
+  suggestions(when) {    
+    const berserkOrIncarnationId = this.selectedCombatant.hasTalent(SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id) ? 
+      SPELLS.INCARNATION_KING_OF_THE_JUNGLE_TALENT.id : 
+      SPELLS.BERSERK.id;
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
-          You used an average of {actual.toFixed(1)} energy on <SpellLink id={SPELLS.FEROCIOUS_BITE.id} />. You should aim to always have {ENERGY_FOR_FULL_DAMAGE_BITE} energy available when using Ferocious Bite. Your Ferocious Bite damage was reduced by {formatNumber(this.dpsLostFromLowEnergyBites)} DPS due to lack of energy.
+          You didn't always give <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> enough energy to get the full damage bonus. You should aim to have {ENERGY_FOR_FULL_DAMAGE_BITE} energy before using Ferocious Bite, or {(ENERGY_FOR_FULL_DAMAGE_BITE * BERSERK_ENERGY_COST_MULTIPLIER).toFixed(0)} during <SpellLink id={berserkOrIncarnationId} />. Your Ferocious Bite damage was reduced by {formatNumber(this._dpsLostFromLowEnergyBites)} DPS due to lack of energy.
         </>
       )
         .icon(SPELLS.FEROCIOUS_BITE.icon)
-        .actual(`${actual.toFixed(1)} average energy spent on Ferocious Bite.`)
-        .recommended(`${recommended} is recommended.`);
+        .actual(`${(actual * 100).toFixed(1)}% average damage bonus from energy on Ferocious Bite.`)
+        .recommended(`${(recommended * 100).toFixed(1)}% is recommended.`);
     });
   }
 }

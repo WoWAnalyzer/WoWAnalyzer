@@ -281,11 +281,6 @@ export default {
     name: 'Twist of Fate',
     icon: 'spell_shadow_mindtwisting',
   },
-  PURGE_THE_WICKED_BUFF: {
-    id: 204213,
-    name: 'Purge the Wicked',
-    icon: 'ability_mage_firestarter',
-  },
   ESTEL_DEJAHNAS_INSPIRATION_BUFF: {
     id: 214637,
     name: "Dejahna's Inspiration",
@@ -299,6 +294,11 @@ export default {
     name: 'Purge the Wicked',
     icon: 'ability_mage_firestarter',
     manaCost: 22000,
+  },
+  PURGE_THE_WICKED_BUFF: {
+    id: 204213,
+    name: 'Purge the Wicked',
+    icon: 'ability_mage_firestarter',
   },
   HALO_TALENT: {
     id: 120517,

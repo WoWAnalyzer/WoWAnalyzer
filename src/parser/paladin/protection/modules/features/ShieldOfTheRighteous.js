@@ -14,7 +14,7 @@ const VALOR_GAIN_THRESHOLD = 2000;
 
 const SOTR_DURATION = 4500;
 
-const isGoodCast = (cast, end_time) => cast.melees >= 2 || cast.tankbusters >= 1 || cast.remainingCharges >= 1.35 || cast.buffEndTime > end_time || (cast.consumedValor && cast.beforeValorGained);
+const isGoodCast = (cast, endTime) => cast.melees >= 2 || cast.tankbusters >= 1 || cast.remainingCharges >= 1.35 || cast.buffEndTime > endTime || (cast.consumedValor && cast.beforeValorGained);
 
 class ShieldOfTheRighteous extends Analyzer {
   static dependencies = {

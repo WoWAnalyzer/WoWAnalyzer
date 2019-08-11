@@ -53,11 +53,9 @@ class ImplosionHandler extends Analyzer {
     const target = encodeTargetString(event.targetID, event.targetInstance);
     if (this._targetsHit.length === 0) {
       test && this.log(`First Implosion damage after cast on ${target}`);
-    }
-    else if (this._targetsHit.includes(target)) {
+    } else if (this._targetsHit.includes(target)) {
       test && this.log(`Implosion damage on ${target}, already marked => new imp exploded, reset array, marked`);
-    }
-    else if (this._targetsHit.length > 0 && !this._targetsHit.includes(target)) {
+    } else if (this._targetsHit.length > 0 && !this._targetsHit.includes(target)) {
       this._targetsHit.push(target);
       test && this.log(`Implosion damage on ${target}, not hit yet, marked, skipped`);
       return;

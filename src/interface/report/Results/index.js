@@ -35,6 +35,7 @@ import Overview from './Overview';
 import Statistics from './Statistics';
 import Character from './Character';
 import EncounterStats from './EncounterStats';
+import DegradedExperience from './DegradedExperience';
 import EVENT_PARSING_STATE from '../EVENT_PARSING_STATE';
 import BOSS_PHASES_STATE from '../BOSS_PHASES_STATE';
 import ScrollToTop from './ScrollToTop';
@@ -52,6 +53,7 @@ class Results extends React.PureComponent {
     makeTabUrl: PropTypes.func.isRequired,
     phases: PropTypes.object,
     selectedPhase: PropTypes.string.isRequired,
+    selectedInstance: PropTypes.number.isRequired,
     handlePhaseSelection: PropTypes.func.isRequired,
     applyFilter: PropTypes.func.isRequired,
     timeFilter: PropTypes.object,
@@ -147,6 +149,7 @@ class Results extends React.PureComponent {
       || this.props.isFilteringEvents
       || this.props.parsingState !== EVENT_PARSING_STATE.DONE;
   }
+
 
   renderContent(selectedTab, results) {
     const { parser, premium } = this.props;
@@ -318,7 +321,7 @@ class Results extends React.PureComponent {
     );
   }
   render() {
-    const { parser, report, fight, player, characterProfile, makeTabUrl, selectedTab, premium, handlePhaseSelection, selectedPhase, phases, applyFilter, timeFilter } = this.props;
+    const { parser, report, fight, player, characterProfile, makeTabUrl, selectedTab, premium, handlePhaseSelection, selectedPhase, selectedInstance, phases, applyFilter, timeFilter } = this.props;
     const config = this.context.config;
 
     const boss = findByBossId(fight.boss);
@@ -342,12 +345,13 @@ class Results extends React.PureComponent {
           makeTabUrl={makeTabUrl}
           selectedTab={selectedTab}
           selectedPhase={selectedPhase}
+          selectedInstance={selectedInstance}
           phases={phases}
           handlePhaseSelection={handlePhaseSelection}
           applyFilter={applyFilter}
           isLoading={this.isLoading}
         />
-
+        {parser && parser.disabledModules && <DegradedExperience disabledModules={parser.disabledModules} />}
         {boss && boss.fight.resultsWarning && (
           <div className="container">
             <Warning style={{ marginBottom: 30 }}>

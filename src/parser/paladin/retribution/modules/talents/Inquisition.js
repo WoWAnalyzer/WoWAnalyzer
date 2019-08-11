@@ -36,8 +36,7 @@ class Inquisition extends Analyzer {
   onAffectedDamage(event) {
     if (this.selectedCombatant.hasBuff(SPELLS.INQUISITION_TALENT.id)) {
       this.buffedDamage += event.amount + (event.absorbed || 0);
-    }
-    else {
+    } else {
       this.unbuffedDamage += event.amount + (event.absorbed || 0);
     }
   }

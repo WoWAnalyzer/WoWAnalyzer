@@ -67,11 +67,11 @@ class TimeFilter extends React.PureComponent {
         <TimeInput name="start" min={0} max={this.state.max} time={this.state.start} onChange={this.selectStart} />
         {' to '}
         <TimeInput name="end" min={0} max={this.state.max} time={this.state.end} onChange={this.selectEnd} />
-        <div class="buttons">
-          <button type="submit" name="filter" class="btn btn-primary filter animated-button" disabled={isLoading || this.invalidTimes()}>
+        <div className="buttons">
+          <button type="submit" name="filter" className="btn btn-primary filter animated-button" disabled={isLoading || this.invalidTimes()}>
             Filter<span className="glyphicon glyphicon-chevron-right" aria-hidden />
           </button>
-          <button onClick={this.handleReset} name="reset" class="btn btn-primary reset-filter animated-button" disabled={isLoading || this.isReset()}>
+          <button onClick={this.handleReset} name="reset" className="btn btn-primary reset-filter animated-button" disabled={isLoading || this.isReset()}>
             Reset Filter<span className="glyphicon glyphicon-chevron-right" aria-hidden />
             </button>
         </div>

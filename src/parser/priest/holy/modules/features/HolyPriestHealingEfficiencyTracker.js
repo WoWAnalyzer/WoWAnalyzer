@@ -10,7 +10,7 @@ import Abilities from 'parser/priest/holy/modules/Abilities';
 import Renew from 'parser/priest/holy/modules/spells/Renew';
 import PrayerOfMending from 'parser/priest/holy/modules/spells/PrayerOfMending';
 import HolyWordSalvation from 'parser/priest/holy/modules/talents/100/HolyWordSalvation';
-import EchoOfLight_Mastery from 'parser/priest/holy/modules/core/EchoOfLight_Mastery';
+import EchoOfLightMastery from 'parser/priest/holy/modules/core/EchoOfLightMastery';
 
 class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
   includeEchoOfLight = false;
@@ -27,7 +27,7 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
     salvation: HolyWordSalvation,
     renew: Renew,
     prayerOfMending: PrayerOfMending,
-    echoOfLight: EchoOfLight_Mastery,
+    echoOfLight: EchoOfLightMastery,
   };
 
   getCustomSpellStats(spellInfo, spellId, healingSpellIds) {

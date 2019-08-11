@@ -54,8 +54,7 @@ class KeyCastsRow extends React.PureComponent {
                 )}
               </div>
             );
-          }
-          else if (event.type === 'duration') {
+          } else if (event.type === 'duration') {
             const left = (event.timestamp - start) / 1000 * secondWidth;
             const maxWidth = totalWidth - left; // don't expand beyond the container width
             const width = Math.min(maxWidth, (event.endTimestamp - event.timestamp) / 1000 * secondWidth);
