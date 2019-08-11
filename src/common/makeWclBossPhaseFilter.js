@@ -13,7 +13,7 @@ export function makeWclBossPhaseFilter(fight) {
           filters.push(`(${abilityFilter[phase.filter.type] || 'ability'}.id = ${phase.filter.ability.id} AND type = "${phase.filter.type}")`);
         } else if(phase.filter.health) { //query can't contain floats as parameters, so have to perform calculations in query itself before comparison to achieve our wanted accuracy
           const decimalFilter = createDecimalFilter(phase.filter.health);
-          filters.push(`(resources.actor.id = ${phase.filter.guid} AND type = "damage" AND (${decimalFilter.accuracy * 100} * resources.hitPoints / resources.maxHitPoints) BETWEEN ${decimalFilter.min} AND ${decimalFilter.max})`);
+          filters.push(`(resources.actor.id = ${phase.filter.guid} AND type = "damage" AND (${decimalFilter.accuracy} * resources.hppercent) BETWEEN ${decimalFilter.min} AND ${decimalFilter.max})`);
         } else if (phase.filter.query) {
           filters.push(`(${phase.filter.query})`);
         }
