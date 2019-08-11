@@ -32,7 +32,8 @@ export const abilityFilter = { //filter used for abilities that don't use the de
  * Time filters:
  * - time
  *
- * Time filters require filter.time to be set as the milliseconds from combat begin to set the phase event at
+ * Time filters require filter.time to be set as the milliseconds from combat begin to set the phase event at. filter.repeat can be provided to create reoccuring phase start events with the given millisecond time difference from the first occurence
+ * e.g. filter.time: 10000, filter.repeat: 30000 would create phase events starting 10 seconds into the fight and repeating every 30 seconds from then on
  *
  * Health filters:
  * - health
@@ -91,12 +92,25 @@ export function fabricateBossPhaseEvents(events, report, fight) {
               break;
             }
             case 'time': {
-              phaseEvents.push({
-                key: key,
-                phase: phase,
-                start: fight.start_time + (phase.filter.time || 0) + (phase.filter.offset || 0),
-                end: null,
+              const times = [fight.start_time + (phase.filter.time || 0) + (phase.filter.offset || 0)];
+              if(times[0] > fight.end_time){ //if initial time is after fight end, stop here
+                break;
+              }
+              if(phase.filter.repeat){
+                const pastPhaseTime = fight.end_time - times[0];
+                const repeats = Math.floor(pastPhaseTime / phase.filter.repeat); //get amount of times the phase can start again after the initial start
+                //create array of "counts" of phase starts (0, 1, 2, etc) and map them via the repeat time from the first occurance
+                times.push(...[...Array(repeats).keys()].map(r => times[0] + phase.filter.repeat * (r + 1)));
+              }
+              times.filter(time => time < fight.end_time).forEach(time => {
+                phaseEvents.push({
+                  key: key,
+                  phase: phase,
+                  start: time,
+                  end: null,
+                });
               });
+
               break;
             }
             case 'health': {
@@ -162,7 +176,7 @@ export function fabricateBossPhaseEvents(events, report, fight) {
       });
     }
   }
-
+  
   phaseEvents.sort((a, b) => a.start - b.start);
   phaseEvents.filter((event, index, array) => {
     return index === 0 || event.key !== array[index - 1].key; //only keep events that arent preceded by another start event of the same phase
