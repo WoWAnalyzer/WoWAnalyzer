@@ -34,6 +34,10 @@ export const abilityFilter = { //filter used for abilities that don't use the de
  *
  * Time filters require filter.time to be set as the milliseconds from combat begin to set the phase event at
  *
+ * Health filters:
+ * - health
+ *
+ * Health filters require filter.guid for the mob to check as well as filter.health for the health percentage threshold that triggers this transition (currently only works for phase starting when boss drops BELOW this percentage)
  */
 export function fabricateBossPhaseEvents(events, report, fight) {
   const bossConfig = findByBossId(fight.boss);
@@ -90,9 +94,24 @@ export function fabricateBossPhaseEvents(events, report, fight) {
               phaseEvents.push({
                 key: key,
                 phase: phase,
-                start: fight.start_time + (phase.filter.time || 0),
+                start: fight.start_time + (phase.filter.time || 0) + (phase.filter.offset || 0),
                 end: null,
               });
+              break;
+            }
+            case 'health': {
+              const enemy = report.enemies.find(enemy => enemy.guid === phase.filter.guid);
+              if(enemy){
+                const healthEvent = events.find(e => e.targetID === enemy.id && (e.hitPoints / e.maxHitPoints) <= phase.filter.health);
+                if(healthEvent){
+                  phaseEvents.push({
+                    key: key,
+                    phase: phase,
+                    start: healthEvent.timestamp + (phase.filter.offset || 0),
+                    end: null,
+                  });
+                }
+              }
               break;
             }
             case 'adds': {
