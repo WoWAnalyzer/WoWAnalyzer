@@ -23,6 +23,7 @@ class CombatPotion extends Potion {
     SPELLS.COASTAL_MANA_POTION,
     SPELLS.COASTAL_REJUVENATION_POTION,
     SPELLS.POTION_OF_REPLENISHMENT,
+    SPELLS.POTION_OF_WILD_MENDING,
   ];
   static recommendedEfficiency = 0;
   static extraAbilityInfo = {
@@ -44,6 +45,7 @@ class CombatPotion extends Potion {
       SPELLS.COASTAL_MANA_POTION.id,
       SPELLS.COASTAL_REJUVENATION_POTION.id,
       SPELLS.POTION_OF_REPLENISHMENT.id,
+      SPELLS.POTION_OF_WILD_MENDING.id,
     ],
   };
 }
