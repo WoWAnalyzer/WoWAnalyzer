@@ -134,6 +134,7 @@ import UnstableCatalyst from '../shared/modules/spells/bfa/azeritetraits/Unstabl
 import SwirlingSands from '../shared/modules/spells/bfa/azeritetraits/SwirlingSands';
 import Tradewinds from '../shared/modules/spells/bfa/azeritetraits/Tradewinds';
 import TreacherousCovenant from '../shared/modules/spells/bfa/azeritetraits/TreacherousCovenant';
+import LoyalToTheEnd from '../shared/modules/spells/bfa/azeritetraits/LoyalToTheEnd';
 
 // Essences
 import TheEverRisingTide from '../shared/modules/spells/bfa/essences/TheEverRisingTide';
@@ -314,10 +315,11 @@ class CombatLogParser {
     swirlingSands: SwirlingSands,
     tradewinds: Tradewinds,
     treacherousCovenant: TreacherousCovenant,
+    loyalToTheEnd: LoyalToTheEnd,
 
     // Essences
     theEverRisingTide: TheEverRisingTide,
-    theWellOfExistence : TheWellOfExistence,  
+    theWellOfExistence : TheWellOfExistence,
     theCrucibleofFlame: TheCrucibleofFlame,
     worldveinResonance: WorldveinResonance,
     nullDynamo: NullDynamo,
