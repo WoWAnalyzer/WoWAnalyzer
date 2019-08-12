@@ -58,6 +58,7 @@ import SoothingWaters from './modules/azerite/SoothingWaters';
 import OverflowingShores from './modules/azerite/OverflowingShores';
 import SpoutingSpirits from './modules/azerite/SpoutingSpirits';
 import SurgingTides from './modules/azerite/SurgingTides';
+import VisionOfPerfection from './modules/azerite/essences/VisionOfPerfection';
 // Shared
 import SpiritWolf from '../shared/talents/SpiritWolf';
 import StaticCharge from '../shared/talents/StaticCharge';
@@ -133,6 +134,7 @@ class CombatLogParser extends CoreCombatLogParser {
     surgingTides: SurgingTides,
     synapseShock: SynapseShock,
     igneousPotential: IgneousPotential,
+    visionOfPerfection: VisionOfPerfection,
 
     // Essences
     lucidDreams: LucidDreams,
