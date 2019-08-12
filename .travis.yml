@@ -33,7 +33,7 @@ jobs:
       install:
         - yarn install
       script:
-        - yarn test -- --maxWorkers=2
+        - yarn test --maxWorkers=2
     - stage: build
       name: "Build a production-ready Docker image"
       language: generic
