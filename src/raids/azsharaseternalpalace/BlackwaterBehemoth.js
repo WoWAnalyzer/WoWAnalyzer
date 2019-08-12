@@ -17,31 +17,27 @@ export default {
       magical: [],
     },
     phases: {
-      P1: {
-        name: 'Platform 1',
+      P: {
+        name: 'Platform',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        filter: {
+          type: 'interrupt',
+          ability: {
+            id: SPELLS.CAVITATION_BEGIN_CAST.id,
+          },
+        },
+        multiple: true,
       },
-      P2: {
-        name: 'Platform 2',
+      I: {
+        name: 'Intermission',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
           type: 'begincast',
           ability: {
             id: SPELLS.CAVITATION_BEGIN_CAST.id,
           },
-          eventInstance: 0,
         },
-      },
-      P3: {
-        name: 'Platform 3',
-        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
-        filter: {
-          type: 'begincast',
-          ability: {
-            id: SPELLS.CAVITATION_BEGIN_CAST.id,
-          },
-          eventInstance: 1,
-        },
+        multiple: true,
       },
     },
   },
