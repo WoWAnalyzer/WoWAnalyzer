@@ -21,21 +21,19 @@ jobs:
     - stage: build
       name: "code-quality: eslint"
       cache:
-        directories:
-          - $HOME/.npm
+        yarn: true
       install:
-        - npm ci --dev
+        - yarn install
       script:
-        - npm run lint -- --max-warnings=0
+        - yarn lint --max-warnings=0
     - stage: build
       name: "tests"
       cache:
-        directories:
-          - $HOME/.npm
+        yarn: true
       install:
-        - npm ci --dev
+        - yarn install
       script:
-        - npm run test -- --maxWorkers=2
+        - yarn test -- --maxWorkers=2
     - stage: build
       name: "Build a production-ready Docker image"
       language: generic

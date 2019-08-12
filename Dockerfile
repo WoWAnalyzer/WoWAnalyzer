@@ -10,10 +10,10 @@ ENV NODE_ENV=production
 
 # By doing this separate we allow Docker to cache this
 COPY package.json package-lock.json /usr/src/app/
-RUN npm ci --dev
+RUN yarn
 
 COPY . /usr/src/app/
-RUN npm run build
+RUN yarn build
 
 FROM nginx:1.13.9-alpine
 

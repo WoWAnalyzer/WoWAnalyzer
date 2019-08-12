@@ -1,4 +1,4 @@
-# This greatly speeds up the build process if the user already has run `npm install` locally
+# This greatly speeds up the build process if the user already has run `yarn install` locally
 node_modules
 build
 
@@ -9,7 +9,7 @@ build
 .travis.yml
 Docker*
 *.md
-# .git is very slow and we don't need it for anything but `npm test`
+# .git is very slow and we don't need it for anything but `yarn test`
 .git
 .git*
 .editorconfig
