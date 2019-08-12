@@ -1,5 +1,5 @@
 import React from 'react';
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz } from 'CONTRIBUTORS';
+import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Wing5wong } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -8,6 +8,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  change(date(2019, 8, 12), 'Fixed an incorrect spell name on the results page for Balance Druids when using Stellar Flare.', Wing5wong),
   change(date(2019, 8, 7), <>Updated <SpellLink id={SPELLS.CONCENTRATED_FLAME.id} /> healing calculation.</>, Yajinni),
   change(date(2019, 8, 6), <>Added <ItemLink id={ITEMS.POTION_OF_WILD_MENDING.id} />.</>, niseko),
   change(date(2019, 8, 6), <>Added <SpellLink id={SPELLS.WELL_OF_EXISTENCE_MAJOR.id} /></>, Qbz),
