@@ -23,13 +23,17 @@ class SupportChecker extends React.PureComponent {
       patchCompatibility: PropTypes.string.isRequired,
       spec: PropTypes.shape({
         id: PropTypes.number.isRequired,
+        className: PropTypes.string.isRequired,
+        specName: PropTypes.string.isRequired,
       }).isRequired,
+      isSupported: PropTypes.bool,
     }).isRequired,
     report: PropTypes.object.isRequired,
     fight: PropTypes.shape({
       id: PropTypes.number.isRequired,
     }).isRequired,
     player: PropTypes.shape({
+      id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
     }).isRequired,
     ignoreSpecNotSupportedWarning: PropTypes.func.isRequired,

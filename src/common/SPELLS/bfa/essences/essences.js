@@ -171,4 +171,73 @@ export default {
     name: 'Null Barrier',
     icon: 'spell_azerite_essence_16',
   },
+  // Memory of Lucid Dreams
+  LUCID_DREAMS: {
+    id: 299374,
+    traitId: 27,
+    name: 'Memory of Lucid Dreams',
+    icon: 'spell_azerite_essence05',
+  },
+  LUCID_DREAMS_MAJOR: {
+    id: 298357,
+    name: 'Memory of Lucid Dreams',
+    icon: 'spell_azerite_essence05',
+  },
+  LUCID_DREAMS_MINOR: {
+    id: 299373,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
+  LUCID_DREAMS_MINOR_STAT_BUFF: {
+    id: 298343,
+    name: 'Lucid Dreams',
+    icon: 'spell_azerite_essence05',
+  },
+  LUCID_DREAMS_HEAL: {
+    id: 298318,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
+  LUCID_DREAMS_MINOR_RESOURCE_REFUND: {
+    id: 298324,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
+  //Vision of Perfection
+  VISION_OF_PERFECTION: {
+    id: 296325,
+    traitId: 22,
+    name: 'Vision of Perfection',
+    icon: 'spell_azerite_essence_18',
+  },
+  VISION_OF_PERFECTION_HASTE_CALC: {
+    id: 303342,
+    name: 'Vision of Perfection',
+    icon: 'spell_azerite_essence_18',
+  },
+  VISION_OF_PERFECTION_HASTE_BUFF_SELF: {
+    id: 303344,
+    name: 'Vision of Perfection',
+    icon: 'spell_azerite_essence_18',
+  },
+  VISION_OF_PERFECTION_HASTE_BUFF_OTHERS: {
+    id: 303345,
+    name: 'Vision of Perfection',
+    icon: 'spell_azerite_essence_18',
+  },
+  STRIVE_FOR_PERFECTION: {
+    id: 296320,
+    name: 'Strive for Perfection',
+    icon: 'inv_radientazeritematrix',
+  },
+  STRIVE_FOR_PERFECTION_HEAL: { // 5% heal on activation
+    id: 296330,
+    name: 'Strive for Perfection',
+    icon: 'spell_azerite_essence_18',
+  },
+  STRIVE_FOR_PERFECTION_VERSATILITY: {
+    id: 296322,
+    name: 'Strive for Perfection',
+    icon: 'inv_radientazeritematrix',
+  },
 };
