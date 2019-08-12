@@ -35,6 +35,7 @@ class Home extends React.PureComponent {
   static propTypes = {
     location: PropTypes.shape({
       pathname: PropTypes.string.isRequired,
+      hash: PropTypes.string.isRequired,
     }).isRequired,
     premium: PropTypes.bool,
   };

@@ -34,7 +34,7 @@ class BetweenTheEyes extends Analyzer {
         average: 0.05,
         major: 0.1,
       },
-      style: 'number',
+      style: 'percentage',
     };
   }
 

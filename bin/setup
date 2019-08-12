@@ -3,7 +3,7 @@
 set -e
 
 echo "== Installing Dependencies =="
-npm install
+yarn
 
 echo "== Copying .env.local if needed =="
 if [ ! -f .env.local ]; then

@@ -7,6 +7,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
+import LucidDreams from 'parser/shared/modules/spells/bfa/essences/LucidDreamsHealers';
 
 import Abilities from './modules/Abilities';
 
@@ -134,6 +135,9 @@ class CombatLogParser extends CoreCombatLogParser {
     twistMagic: TwistMagic,
     promiseOfDeliverance: PromiseOfDeliverance,
     deathDenied: DeathDenied,
+
+    // Essences
+    lucidDreams: LucidDreams,
 
     // Mana Tab
     manaTracker: ManaTracker,

@@ -702,3 +702,12 @@ export const Viridis = {
   github: 'viridis',
   discord: 'Viridis#2748',
 };
+export const Wing5wong = {
+  nickname: 'wing5wong',
+  github: 'wing5wong',
+  mains: [{
+    name: 'Shrom',
+    spec: SPECS.BALANCE_DRUID,
+    link: 'https://worldofwarcraft.com/en-us/character/us/frostmourne/shrom',
+  }],
+};
