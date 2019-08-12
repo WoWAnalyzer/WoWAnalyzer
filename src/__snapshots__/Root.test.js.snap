@@ -326,7 +326,7 @@ exports[`Root matches snapshot 1`] = `
                                                   className="row"
                                                 >
                                                   <div
-                                                    className="col-sm-6"
+                                                    className="col-xs-12 col-sm-6"
                                                   >
                                                     <PatreonButton
                                                       style={
@@ -405,7 +405,7 @@ exports[`Root matches snapshot 1`] = `
                                                     </DiscordButton>
                                                   </div>
                                                   <div
-                                                    className="col-sm-6 text-right"
+                                                    className="col-xs-12 col-sm-6 text-right"
                                                   >
                                                     <a
                                                       href="https://travis-ci.org/WoWAnalyzer/WoWAnalyzer"

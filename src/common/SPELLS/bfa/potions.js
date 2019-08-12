@@ -89,4 +89,9 @@ export default {
     name: 'Superior Steelskin Potion',
     icon: 'inv_potionf_3',
   },
+  POTION_OF_WILD_MENDING: {
+    id: 300741,
+    name: 'Potion of Wild Mending',
+    icon: 'inv_potionf_6',
+  },
 };

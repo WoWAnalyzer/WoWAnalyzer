@@ -137,6 +137,7 @@ import TreacherousCovenant from '../shared/modules/spells/bfa/azeritetraits/Trea
 
 // Essences
 import TheEverRisingTide from '../shared/modules/spells/bfa/essences/TheEverRisingTide';
+import TheWellOfExistence from '../shared/modules/spells/bfa/essences/TheWellOfExistence';
 import TheCrucibleofFlame from '../shared/modules/spells/bfa/essences/TheCrucibleofFlame';
 import WorldveinResonance from '../shared/modules/spells/bfa/essences/WorldveinResonance';
 import NullDynamo from '../shared/modules/spells/bfa/essences/NullDynamo';
@@ -316,6 +317,7 @@ class CombatLogParser {
 
     // Essences
     theEverRisingTide: TheEverRisingTide,
+    theWellOfExistence : TheWellOfExistence,  
     theCrucibleofFlame: TheCrucibleofFlame,
     worldveinResonance: WorldveinResonance,
     nullDynamo: NullDynamo,
