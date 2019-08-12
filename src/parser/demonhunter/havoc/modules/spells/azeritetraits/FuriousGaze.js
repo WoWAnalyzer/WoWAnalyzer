@@ -57,16 +57,36 @@ class FuriousGaze extends Analyzer{
   }
 
   onFuriousGazeApply(event) {
-    if (this.furiousGazeStartTime === undefined) {
+    if (!this.furiousGazeAlreadyRunning()) {
       this.furiousGazeStartTime = event.timestamp;
     }
   }
 
   onFuriousGazeRemove(event) {
-    if (this.furiousGazeStartTime !== undefined) {
-      this.furiousGazeProcsCounter += Math.round((event.timestamp - this.furiousGazeStartTime) / FURIOUS_GAZE_DURATION);
-      this.furiousGazeStartTime = undefined;
+    if (this.furiousGazeAlreadyRunning()) {
+      this.furiousGazeProcsCounter += this.convertFuriousGazeDurationIntoOccurences(event);
+      this.finishFuriousGazeEvent();
     }
+  }
+
+  furiousGazeAlreadyRunning() {
+    // https://www.warcraftlogs.com/reports/TGzmk4bXDZJndpj7#fight=6&type=auras&source=5&ability=273232&start=2497903&end=2523828&view=events
+    // The log sometimes applies a new buff before the last one was finished.
+    // This causes buffs to be counted multiple times so we only handle events
+    // when we know the previous event succesfully finished
+    return this.furiousGazeStartTime !== undefined;
+  }
+
+  finishFuriousGazeEvent() {
+    this.furiousGazeStartTime = undefined;
+  }
+
+  convertFuriousGazeDurationIntoOccurences(event) {
+    // https://www.warcraftlogs.com/reports/fNL9mkXcMp1GdnQ3#fight=27&type=auras&source=176&ability=273232&start=3811599&end=3841408
+    // When Furious Gaze is active, triggering the buff again causes the timer
+    // to extend. Because of this we only get 1 applyBuff and 1 removeBuff event,
+    // which would throw off the average and missed Furous Gaze calculations
+    return Math.round((event.timestamp - this.furiousGazeStartTime) / FURIOUS_GAZE_DURATION);
   }
 
   get averageHaste() {
