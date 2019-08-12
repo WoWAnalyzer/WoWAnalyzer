@@ -9,7 +9,7 @@ ARG DISABLE_AUTOMATIC_ESLINT
 ENV NODE_ENV=production
 
 # By doing this separate we allow Docker to cache this
-COPY package.json package-lock.json /usr/src/app/
+COPY package.json yarn.lock /usr/src/app/
 RUN yarn
 
 COPY . /usr/src/app/
