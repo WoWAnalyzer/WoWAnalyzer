@@ -2,6 +2,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
+import LucidDreams from 'parser/shared/modules/spells/bfa/essences/LucidDreamsHealers';
 
 import AtonementSuccessiveDamageNormalizer from './normalizers/AtonementSuccessiveDamage';
 import ShadowfiendNormalizer from '../shared/normalizers/ShadowfiendNormalizer';
@@ -89,6 +90,9 @@ class CombatLogParser extends CoreCombatLogParser {
     grace: Grace,
     schism: Schism,
     sinsOfTheMany: SinsOfTheMany,
+
+    // Essences
+    lucidDreams: LucidDreams,
 
     // Azerite Traits
     depthOfTheShadows: DepthOfTheShadows,

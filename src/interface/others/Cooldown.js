@@ -27,6 +27,12 @@ class Cooldown extends React.Component {
       events: PropTypes.arrayOf(PropTypes.shape({
         type: PropTypes.string.isRequired,
       })).isRequired,
+      summary: PropTypes.array.isRequired,
+      spell: PropTypes.shape({
+        id: PropTypes.number,
+        icon: PropTypes.string,
+        name: PropTypes.string,
+      }),
     }).isRequired,
   };
 
