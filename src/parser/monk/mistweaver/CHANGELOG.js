@@ -6,8 +6,8 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 8, 12), 'Added essence Lucid Dreams.', [blazyb]),
   change(date(2019, 8, 10), <>Fixed bug where if you end the fight with wotc buff it said everything was 0 hps. Added more info the the wotc infographic.</>, Abelito75),
-  change(date(2019, 8, 6), 'Added essence Lucid Dreams.', [blazyb]),
   change(date(2019, 8, 6), <>Valid for 8.2</>, Abelito75),
   change(date(2019, 8, 2), <>Fixed trait calculations being unaffected by healing increases or decreases.</>, niseko),
   change(date(2019, 7, 23), <>Fixed strange bug with mana tea where if you didn't have it selected it crashed the Overview tab</>, Abelito75),
