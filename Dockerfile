@@ -10,7 +10,7 @@ ENV NODE_ENV=production
 
 # By doing this separate we allow Docker to cache this
 COPY package.json yarn.lock /usr/src/app/
-RUN yarn
+RUN yarn install --production=false
 
 COPY . /usr/src/app/
 RUN yarn build

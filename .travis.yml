@@ -23,7 +23,7 @@ jobs:
       cache:
         yarn: true
       install:
-        - yarn install
+        - yarn install --production=false
       script:
         - yarn lint --max-warnings=0
     - stage: build
@@ -31,7 +31,7 @@ jobs:
       cache:
         yarn: true
       install:
-        - yarn install
+        - yarn install --production=false
       script:
         - yarn test --maxWorkers=2
     - stage: build
