@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { niseko } from 'CONTRIBUTORS';
+import { niseko, blazyb } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 8, 12), 'Added essence Lucid Dreams.', [blazyb]),
   change(date(2019, 8, 12), <>Added <SpellLink id={SPELLS.VISION_OF_PERFECTION.id} />.</>, niseko),
   change(date(2019, 5, 6), <><SpellLink id={SPELLS.IGNEOUS_POTENTIAL.id} /> and <SpellLink id={SPELLS.SYNAPSE_SHOCK.id} /> azerite traits are now supported.</>, [niseko]),
   change(date(2019, 5, 3), <>Added support for the 8.1.5 <SpellLink id={SPELLS.ASCENDANCE_TALENT_RESTORATION.id} /> changes.</>, [niseko]),
