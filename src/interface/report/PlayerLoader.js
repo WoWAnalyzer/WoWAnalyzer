@@ -45,6 +45,7 @@ class PlayerLoader extends React.PureComponent {
         type: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
       })),
+      exportedCharacters: PropTypes.any,
     }).isRequired,
     fight: PropTypes.shape({
       id: PropTypes.number.isRequired,
@@ -104,7 +105,7 @@ class PlayerLoader extends React.PureComponent {
         }
         return fetchCharacter(friendly.guid, exportedCharacter.region, friendly.realm, friendly.name).then(data => {
           return Promise.resolve(data);
-        }).catch(err => {
+        }).catch(() => {
           // This guy failed to load - this is nice to have data
           // We can ignore this and we'll just drop him from the overall averages later
           return Promise.resolve();

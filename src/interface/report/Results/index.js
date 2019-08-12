@@ -47,6 +47,22 @@ const EventsTab = lazyLoadComponent(() => retryingPromise(() => import(/* webpac
 class Results extends React.PureComponent {
   static propTypes = {
     parser: PropTypes.shape({
+      boss: PropTypes.shape({
+        fight: PropTypes.shape({
+          resultsWarning: PropTypes.any,
+        }),
+      }),
+      getModule: PropTypes.func.isRequired,
+      selectedCombatant: PropTypes.any,
+      fight: PropTypes.shape({
+        boss: PropTypes.any,
+        difficulty: PropTypes.any,
+        start_time: PropTypes.any,
+        end_time: PropTypes.any,
+      }),
+      generateResults: PropTypes.func.isRequired,
+      disabledModules: PropTypes.any,
+      playerId: PropTypes.any,
     }),
     characterProfile: PropTypes.object,
     selectedTab: PropTypes.string,
@@ -61,6 +77,7 @@ class Results extends React.PureComponent {
       code: PropTypes.string.isRequired,
     }).isRequired,
     fight: PropTypes.shape({
+      id: PropTypes.number.isRequired,
       start_time: PropTypes.number.isRequired,
       end_time: PropTypes.number.isRequired,
       offset_time: PropTypes.number.isRequired,

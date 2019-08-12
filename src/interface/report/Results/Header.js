@@ -30,7 +30,10 @@ class Header extends React.PureComponent {
       thumbnail: PropTypes.string.isRequired,
     }),
     boss: PropTypes.shape({
+      name: PropTypes.string,
       headshot: PropTypes.string.isRequired,
+      background: PropTypes.string,
+      backgroundPosition: PropTypes.string,
     }),
     handlePhaseSelection: PropTypes.func.isRequired,
     applyFilter: PropTypes.func.isRequired,

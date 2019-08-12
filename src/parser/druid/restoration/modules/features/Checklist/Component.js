@@ -18,6 +18,7 @@ class RestorationDruidChecklist extends React.PureComponent {
     combatant: PropTypes.shape({
       hasTalent: PropTypes.func.isRequired,
       hasTrinket: PropTypes.func.isRequired,
+      hasWaist: PropTypes.func.isRequired,
     }).isRequired,
     thresholds: PropTypes.object.isRequired,
   };
