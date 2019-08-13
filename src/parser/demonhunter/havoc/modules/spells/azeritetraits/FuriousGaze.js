@@ -26,7 +26,7 @@ const FURIOUS_GAZE_DURATION = 12000;
  * Furious Gaze
  * When Eye Beam finishes fully channeling, your Haste is increased by 887 for 12 sec.
  *
- * Example Report: /report/ABH7D8W1Qaqv96mt/2-Mythic+Taloc+-+Kill+(4:12)/Harwezz/statistics
+ * Example Report: /report/ABH7D8W1Qaqv96mt/7-Mythic+MOTHER+-+Kill+(4:18)/Harwezz/statistics
  */
 class FuriousGaze extends Analyzer{
 
