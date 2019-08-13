@@ -15,6 +15,7 @@ class HavocDemonHunterChecklist extends React.PureComponent {
     combatant: PropTypes.shape({
       hasTalent: PropTypes.func.isRequired,
       hasTrinket: PropTypes.func.isRequired,
+      hasTrait: PropTypes.func.isRequired,
     }).isRequired,
     thresholds: PropTypes.object.isRequired,
   };
@@ -95,6 +96,16 @@ class HavocDemonHunterChecklist extends React.PureComponent {
                 </>
               )}
               thresholds={thresholds.felBarrageBadCasts}
+            />
+          )}
+          {combatant.hasTrait(SPELLS.FURIOUS_GAZE.id) &&(
+            <Requirement
+              name={(
+                <>
+                <SpellLink id={SPELLS.FURIOUS_GAZE.id} /> bad casts
+                </>
+              )}
+              thresholds={thresholds.furiousGazeBadCasts}
             />
           )}
         </Rule>

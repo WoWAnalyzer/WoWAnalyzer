@@ -101,6 +101,28 @@ class FuriousGaze extends Analyzer{
     return this.abilityTracker.getAbility(SPELLS.EYE_BEAM.id).casts || 0;
   }
 
+  get suggestionThresholds() {
+    return {
+      actual: this.eyeBeamCasts - this.furiousGazeProcsCounter,
+      isGreaterThan: {
+        minor: 0,
+        average: 0,
+        major: 1,
+      },
+      style: 'number',
+    };
+  }
+
+  suggestions(when) {
+    when(this.suggestionThresholds)
+      .addSuggestion((suggest, actual, recommended) => {
+        return suggest(<>Finish channeling <SpellLink id={SPELLS.EYE_BEAM.id} /> without cancelling early in order to get the <SpellLink id={SPELLS.FURIOUS_GAZE.id} /> buff for a considerable DPS gain.</>)
+          .icon(SPELLS.FURIOUS_GAZE.icon)
+          .actual(<>{actual} cancelled <SpellLink id={SPELLS.EYE_BEAM.id} /> channels. </>)
+          .recommended(`No cancelled channels is recommended.`);
+      });
+  }
+
   statistic() {
     return (
       <ItemStatistic
