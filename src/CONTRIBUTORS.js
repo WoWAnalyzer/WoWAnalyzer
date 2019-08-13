@@ -697,6 +697,11 @@ export const Amrux = {
   nickname: 'Amrux',
   github: 'grantjoshua1995',
 };
+export const Viridis = {
+  nickname: 'Viridis',
+  github: 'viridis',
+  discord: 'Viridis#2748',
+};
 export const Wing5wong = {
   nickname: 'wing5wong',
   github: 'wing5wong',
