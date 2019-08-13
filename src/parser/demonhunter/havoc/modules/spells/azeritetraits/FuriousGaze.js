@@ -83,7 +83,7 @@ class FuriousGaze extends Analyzer{
 
   convertFuriousGazeDurationIntoOccurences(event) {
     // https://www.warcraftlogs.com/reports/fNL9mkXcMp1GdnQ3#fight=27&type=auras&source=176&ability=273232&start=3811599&end=3841408
-    // When Furious Gaze is active, triggering the buff again causes the timer
+    // When Furious Gaze is active, triggering the buff again causes the buff duration
     // to extend. Because of this we only get 1 applyBuff and 1 removeBuff event,
     // which would throw off the average and missed Furous Gaze calculations
     return Math.round((event.timestamp - this.furiousGazeStartTime) / FURIOUS_GAZE_DURATION);
@@ -116,7 +116,7 @@ class FuriousGaze extends Analyzer{
   suggestions(when) {
     when(this.suggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>Finish channeling <SpellLink id={SPELLS.EYE_BEAM.id} /> without cancelling early in order to get the <SpellLink id={SPELLS.FURIOUS_GAZE.id} /> buff for a considerable DPS gain.</>)
+        return suggest(<>Try to not interupt the channeling of <SpellLink id={SPELLS.EYE_BEAM.id} /> to get the <SpellLink id={SPELLS.FURIOUS_GAZE.id} /> buff from its azerite trait for a DPS gain.</>)
           .icon(SPELLS.FURIOUS_GAZE.icon)
           .actual(<>{actual} cancelled <SpellLink id={SPELLS.EYE_BEAM.id} /> channels. </>)
           .recommended(`No cancelled channels is recommended.`);
@@ -129,13 +129,13 @@ class FuriousGaze extends Analyzer{
         size="flexible"
         tooltip={(
           <>
-            <SpellLink id={SPELLS.FURIOUS_GAZE.id} /> buff is only gained when you succesfully<br />
-            finish an <SpellLink id={SPELLS.EYE_BEAM.id} /> channel. Cancelling the channel <br />
+            <SpellLink id={SPELLS.FURIOUS_GAZE.id} /> buff is only gained when you fully complete<br />
+            the channel of <SpellLink id={SPELLS.EYE_BEAM.id} />. Cancelling the channel <br />
             prematurely will result in not receiving the buff and will <br />
             translate in a considerable DPS loss.<br /><br />
 
             {formatPercentage(this.buffUptime)}% uptime<br />
-            {this.furiousGazeProcsCounter} out of {this.eyeBeamCasts} possible procs<br />
+            {this.furiousGazeProcsCounter} out of {this.eyeBeamCasts} possible procs of <SpellLink id={SPELLS.FURIOUS_GAZE.id} /><br />
           </>
         )}
       >

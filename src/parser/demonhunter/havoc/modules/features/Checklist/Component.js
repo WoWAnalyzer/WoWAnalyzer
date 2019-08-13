@@ -102,7 +102,7 @@ class HavocDemonHunterChecklist extends React.PureComponent {
             <Requirement
               name={(
                 <>
-                <SpellLink id={SPELLS.FURIOUS_GAZE.id} /> bad casts
+                <SpellLink id={SPELLS.FURIOUS_GAZE.id} /> buffs wasted
                 </>
               )}
               thresholds={thresholds.furiousGazeBadCasts}
