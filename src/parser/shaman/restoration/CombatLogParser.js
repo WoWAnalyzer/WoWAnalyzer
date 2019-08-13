@@ -10,6 +10,7 @@ import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
+import LucidDreams from 'parser/shared/modules/spells/bfa/essences/LucidDreamsHealers';
 
 import HealingEfficiencyTracker from './modules/core/HealingEfficiencyTracker';
 import Abilities from './modules/Abilities';
@@ -57,6 +58,7 @@ import SoothingWaters from './modules/azerite/SoothingWaters';
 import OverflowingShores from './modules/azerite/OverflowingShores';
 import SpoutingSpirits from './modules/azerite/SpoutingSpirits';
 import SurgingTides from './modules/azerite/SurgingTides';
+import VisionOfPerfection from './modules/azerite/essences/VisionOfPerfection';
 // Shared
 import SpiritWolf from '../shared/talents/SpiritWolf';
 import StaticCharge from '../shared/talents/StaticCharge';
@@ -132,6 +134,10 @@ class CombatLogParser extends CoreCombatLogParser {
     surgingTides: SurgingTides,
     synapseShock: SynapseShock,
     igneousPotential: IgneousPotential,
+    visionOfPerfection: VisionOfPerfection,
+
+    // Essences
+    lucidDreams: LucidDreams,
 
     // Shared:
     spiritWolf: SpiritWolf,
