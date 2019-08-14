@@ -41,6 +41,7 @@ import FuryTracker from './modules/resourcetracker/FuryTracker';
 import FuriousGaze from './modules/spells/azeritetraits/FuriousGaze';
 import EyesofRage from './modules/spells/azeritetraits/EyesofRage';
 import ChaoticTransformation from './modules/spells/azeritetraits/ChaoticTransformation';
+import RevolvingBlades from './modules/spells/azeritetraits/RevolvingBlades';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -84,6 +85,7 @@ class CombatLogParser extends CoreCombatLogParser {
     furiousGaze: FuriousGaze,
     eyesofRage: EyesofRage,
     chaoticTransformation: ChaoticTransformation,
+    revolvingBlades: RevolvingBlades,
 
     //Resources
     furyTracker: FuryTracker,
