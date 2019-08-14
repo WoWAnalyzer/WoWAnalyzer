@@ -6,6 +6,7 @@ import Analyzer from 'parser/core/Analyzer';
 import { formatNumber, formatPercentage } from 'common/format';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import SCHOOLS from 'game/MAGIC_SCHOOLS';
 
 /**
  * Simple info graphic that shows what spell did what healing during wotc window, the hps of each spell, and hptc
@@ -39,6 +40,11 @@ class WayOfTheCrane extends Analyzer {
     if(!this.selectedCombatant.hasBuff(SPELLS.WAY_OF_THE_CRANE.id)){
       return;
     }
+
+    if(event.ability.type !== SCHOOLS.ids.PHYSICAL){
+      return;
+    }
+
     this._damageSpell = event.ability.name;
   }
 
