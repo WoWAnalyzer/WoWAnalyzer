@@ -12,6 +12,7 @@ import IgnorePain from './modules/features/IgnorePain';
 import RageTracker from './modules/core/RageTracker';
 import RageDetails from './modules/core/RageDetails';
 import Avatar from './modules/features/Avatar';
+import ShieldSlam from './modules/spells/ShieldSlam';
 
 import AngerManagement from './modules/talents/AngerManagement';
 import BoomingVoice from './modules/talents/BoomingVoice';
@@ -39,6 +40,7 @@ class CombatLogParser extends CoreCombatLogParser {
     rageTracker: RageTracker,
     rageDetails: RageDetails,
     avatar: Avatar,
+    shieldSlam: ShieldSlam,
     //Talents
     angerManagement: AngerManagement,
     boomingVoice: BoomingVoice,

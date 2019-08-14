@@ -37,12 +37,13 @@ class ProtectionWarriorChecklist extends React.PureComponent {
           name="Rotational Spells"
           description={(
             <>
-              As a protection warrior you want to maximize your rage generation which can be done by casting these spells as frequent as possible.
+              Be sure to use <SpellLink id={SPELLS.SHIELD_SLAM.id} /> and <SpellLink id={SPELLS.THUNDER_CLAP.id} /> on cooldown to maximise your <ResourceLink id={RESOURCE_TYPES.RAGE.id} /> generation and damage output.<br /> <SpellLink id={SPELLS.REVENGE.id} /> can be used to avoid rage capping and <SpellLink id={SPELLS.DEVASTATE.id} /> should only be used when every other spell mentioned here is on cooldown.
             </>
           )}
         >
           <AbilityRequirement spell={SPELLS.THUNDER_CLAP.id} />
           <AbilityRequirement spell={SPELLS.SHIELD_SLAM.id} />
+          <AbilityRequirement spell={SPELLS.SHIELD_BLOCK.id} />
           {combatant.hasTalent(SPELLS.STORM_BOLT_TALENT.id) && <AbilityRequirement spell={SPELLS.STORM_BOLT_TALENT.id} />}
           {combatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id) && <AbilityRequirement spell={SPELLS.DEMORALIZING_SHOUT.id} />}
           {combatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id) && <AbilityRequirement spell={SPELLS.DRAGON_ROAR_TALENT.id} />}
@@ -53,7 +54,7 @@ class ProtectionWarriorChecklist extends React.PureComponent {
           name="Defensive Cooldowns"
           description={(
             <>
-              As a protection warrior you have many options to mitigate damage and should be using all of them. Take <SpellLink id={SPELLS.SPELL_REFLECTION.id} /> with a grain a salt as some bosses it is not as helpful on as others
+             Protection warriors have a multitude of defensive spells on a fairly short cooldown.  Be sure to use these to further mitigate incoming damage.
             </>
           )}
         >
@@ -67,7 +68,8 @@ class ProtectionWarriorChecklist extends React.PureComponent {
           name="Offensive Cooldowns"
           description={(
             <>
-              As a protection warrior you have a few cooldowns you can use to maximize your damage which you should be using aggresively.
+              Using <SpellLink id={SPELLS.AVATAR_TALENT.id} /> as often as possible is very important because it will increase your overall damage a lot and provides 20 <ResourceLink id={RESOURCE_TYPES.RAGE.id} />.<br /> If you are also using <SpellLink id={SPELLS.UNSTOPPABLE_FORCE_TALENT.id} /> remember that <SpellLink id={SPELLS.THUNDER_CLAP.id} /> will have a reduced cooldown so you can use it every other GCD.
+
             </>
           )}
           >
@@ -81,7 +83,7 @@ class ProtectionWarriorChecklist extends React.PureComponent {
           name="Don't get too angry"
           description={(
             <>
-              Try to not waste <ResourceLink id={RESOURCE_TYPES.RAGE.id} /> by generating more when you are already at max.
+              Minimizing your wasted <ResourceLink id={RESOURCE_TYPES.RAGE.id} /> should be top priority as a protection warrior so be sure to use <SpellLink id={SPELLS.IGNORE_PAIN.id} /> and <SpellLink id={SPELLS.REVENGE.id} /> to avoid this.
             </>
           )}
         >
@@ -92,7 +94,7 @@ class ProtectionWarriorChecklist extends React.PureComponent {
           name="Utility"
           description={(
             <>
-              As a protection warrior you have many spells that provide utility to the raid. You should use these when you need to
+              Warriors main raid utility comes from <SpellLink id={SPELLS.RALLYING_CRY.id} /> - it should be used on high damage spikes to help people survive.
             </>
           )}
         >
