@@ -17,6 +17,7 @@ class FeralDruidChecklist extends React.PureComponent {
     combatant: PropTypes.shape({
       hasTalent: PropTypes.func.isRequired,
       hasTrinket: PropTypes.func.isRequired,
+      race: PropTypes.any,
     }).isRequired,
     thresholds: PropTypes.object.isRequired,
   };

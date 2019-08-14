@@ -26,6 +26,16 @@ export default {
     name: 'Chaotic Transformation',
     icon: 'ability_demonhunter_glide',
   },
+  REVOLVING_BLADES: {
+    id: 279581,
+    name: 'Revolving Blades',
+    icon: 'ability_demonhunter_bladedance',
+  },
+  REVOLVING_BLADES_BUFF: {
+    id: 279584,
+    name: 'Revolving Blades',
+    icon: 'ability_demonhunter_bladedance',
+  },
 
   //Shared
 

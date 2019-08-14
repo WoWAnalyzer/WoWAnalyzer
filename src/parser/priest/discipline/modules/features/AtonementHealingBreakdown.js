@@ -17,6 +17,7 @@ class AtonementHealingBreakdown extends React.Component {
       parser: PropTypes.shape({
         fightDuration: PropTypes.number.isRequired,
       }).isRequired,
+      owner: PropTypes.any,
     }).isRequired,
   };
 
