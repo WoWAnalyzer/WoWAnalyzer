@@ -88,12 +88,12 @@ class StreakingStars extends Analyzer {
   }
 
   get damageDone() {
-    const spell = this.abilityTracker.getAbility(SPELLS.STREAKING_STARS.id);
+    const spell = this.abilityTracker.getAbility(SPELLS.STREAKING_STAR.id);
     return spell.damageEffective + spell.damageAbsorbed;
   }
 
   statistic() {
-    const totalDamage = this.damagePerStreakingStars * (this.totalCastsDuringCelestialAlignment - this.badCasts);
+    const totalDamage = this.damageDone;
     const damageThroughputPercent = this.owner.getPercentageOfTotalDamageDone(totalDamage);
     const dps = totalDamage / this.owner.fightDuration * 1000;
     return (

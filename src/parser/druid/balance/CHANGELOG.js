@@ -6,7 +6,8 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
-  change(date(2019, 8, 13), <>Added tracking for <SpellLink id={SPELLS.STREAKING_STARS.id} />.</>, Viridis),
+  change(date(2019, 8, 15), <>Fixed damage calculations for <SpellLink id={SPELLS.STREAKING_STARS.id} />.</>, [Viridis]),
+  change(date(2019, 8, 13), <>Added tracking for <SpellLink id={SPELLS.STREAKING_STARS.id} />.</>, [Viridis]),
   change(date(2019, 8, 12), 'Fixed an incorrect spell name on the suggestions for Balance Druids when using Stellar Flare.', Wing5wong),
   change(date(2019, 4, 30), 'Added High Noon and Power of the Moon azerite pieces to the statistics tab.', [Abelito75]),
   change(date(2019, 4, 27), 'Added DawningSun azerite piece to the statistics tab.', [Abelito75]),
