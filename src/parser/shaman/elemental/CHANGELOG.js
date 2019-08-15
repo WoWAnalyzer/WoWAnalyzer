@@ -15,4 +15,3 @@ export default [
   change(date(2018, 10, 17), <>Flagged the Elemental Shaman Analyzer as supported.</>, [HawkCorrigan]),
   change(date(2018, 10, 15), <>Added Checks for the correct usage of <SpellLink id={SPELLS.STORM_ELEMENTAL_TALENT.id} /> and <SpellLink id={SPELLS.FIRE_ELEMENTAL.id} /> when talented into <SpellLink id={SPELLS.PRIMAL_ELEMENTALIST_TALENT.id} />.</>, [HawkCorrigan]),
 ];
-7

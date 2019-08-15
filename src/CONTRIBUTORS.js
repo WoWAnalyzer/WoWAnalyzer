@@ -717,11 +717,11 @@ export const Draenal = {
   mains: [{
     name: 'Draenal',
     spec: SPECS.ELEMENTAL_SHAMAN,
-    link: 'https://worldofwarcraft.com/en-us/character/us/malganis/draenal'
+    link: 'https://worldofwarcraft.com/en-us/character/us/malganis/draenal',
   },
   {
     name: 'MagicEraser',
     spec: SPECS.FROST_MAGE,
-    link: 'https://worldofwarcraft.com/en-us/character/us/malganis/magiceraser'
-  }]
-}
+    link: 'https://worldofwarcraft.com/en-us/character/us/malganis/magiceraser',
+  }],
+};
