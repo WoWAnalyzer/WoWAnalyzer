@@ -93,7 +93,7 @@ class ShieldBlock extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
-          Try to cast <SpellLink id={SPELLS.SHIELD_SLAM.id} />  more often - it is your main  <ResourceLink id={RESOURCE_TYPES.RAGE.id} />  generator and damage source. Using it on cooldown is crucial for your overall survival and damage. You can further amplify its damage by using it when you have  <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> up. 
+          Try to cast <SpellLink id={SPELLS.SHIELD_SLAM.id} />  more often - it is your main  <ResourceLink id={RESOURCE_TYPES.RAGE.id} />  generator and damage source.
         </>
       )
         .icon(SPELLS.SHIELD_SLAM.icon)
