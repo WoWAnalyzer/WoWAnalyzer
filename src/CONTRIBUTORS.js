@@ -697,3 +697,31 @@ export const Amrux = {
   nickname: 'Amrux',
   github: 'grantjoshua1995',
 };
+export const Viridis = {
+  nickname: 'Viridis',
+  github: 'viridis',
+  discord: 'Viridis#2748',
+};
+export const Wing5wong = {
+  nickname: 'wing5wong',
+  github: 'wing5wong',
+  mains: [{
+    name: 'Shrom',
+    spec: SPECS.BALANCE_DRUID,
+    link: 'https://worldofwarcraft.com/en-us/character/us/frostmourne/shrom',
+  }],
+};
+export const Draenal = {
+  nickname: 'Draenal',
+  github: 'MikeCook9994',
+  mains: [{
+    name: 'Draenal',
+    spec: SPECS.ELEMENTAL_SHAMAN,
+    link: 'https://worldofwarcraft.com/en-us/character/us/malganis/draenal',
+  },
+  {
+    name: 'MagicEraser',
+    spec: SPECS.FROST_MAGE,
+    link: 'https://worldofwarcraft.com/en-us/character/us/malganis/magiceraser',
+  }],
+};
