@@ -2,19 +2,26 @@ import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
+import SpellLink from 'common/SpellLink';
+import { formatPercentage} from 'common/format';
+import ResourceLink from 'common/ResourceLink';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
-const debug = true;
+const debug = false;
 
 class ShieldBlock extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
+    abilityTracker: AbilityTracker,
   };
   
   timeOnCd = 0;//total time its not on cd
   currentCd = 0;
   lastCast = 0;
   averageCd = 0;
+  actualCasts
 
   totalCastsAssumed = 0;
 
@@ -55,28 +62,45 @@ class ShieldBlock extends Analyzer {
     }
     this.averageCd = this.averageCd / this.totalCastsAssumed;
     this.totalCastsAssumed += (this.timeOnCd/this.averageCd);
+    this.totalCastsAssumed = parseInt(this.totalCastsAssumed);
     if(debug){
       console.log('assumed max shield slam casts: ' + this.totalCastsAssumed);
       console.log('time on cd: ' + this.timeOnCd);
       console.log('current cd: ' + this.currentCd);
       console.log('last cast:' + this.lastCast);
       console.log('averageCd: ' + this.averageCd);
+      console.log('actual casts ' + this.abilityTracker.getAbility(SPELLS.SHIELD_SLAM.id).casts);
     }
   }
 
+  get slamRatio(){
+    return this.abilityTracker.getAbility(SPELLS.SHIELD_SLAM.id).casts/this.totalCastsAssumed;
+  }
   
   get suggestionThresholds(){
     return {
-      actual: this.totalCastsAssumed/this.totalCastsAssumed,
-      isGreaterThan: {
-        minor: .10,
-        average: .30,
-        major: .40,
+      actual: this.slamRatio,
+      isLessThan: {
+        minor: .90,
+        average: .80,
+        major: .70,
       },
       style: 'percentage',
     };
   }
  
+  suggestions(when) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+      return suggest(
+        <>
+          Try to cast <SpellLink id={SPELLS.SHIELD_SLAM.id} />  more often - it is your main  <ResourceLink id={RESOURCE_TYPES.RAGE.id} />  generator and damage source. Using it on cooldown is crucial for your overall survival and damage. You can further amplify it's damage by using it when you have  <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> up. 
+        </>
+      )
+        .icon(SPELLS.SHIELD_SLAM.icon)
+        .actual(`${formatPercentage(this.slamRatio)} average mana saved per Mana Tea cast`)
+        .recommended(`${(recommended / 1000).toFixed(0)}k average mana saved is recommended`);
+    });
+  }
 }
 
 export default ShieldBlock;

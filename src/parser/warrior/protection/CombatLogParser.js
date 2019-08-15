@@ -5,6 +5,7 @@ import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import SpellUsable from './modules/features/SpellUsable';
 import MitigationCheck from './modules/features/MitigationCheck';
+import Buffs from './modules/features/Buffs';
 
 import ShieldBlock from './modules/spells/ShieldBlock';
 import Checklist from './modules/features/Checklist/Module';
@@ -28,6 +29,8 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core
     haste: Haste,
     mitigationCheck: MitigationCheck,
+    buffs: Buffs,
+
     // Features
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
