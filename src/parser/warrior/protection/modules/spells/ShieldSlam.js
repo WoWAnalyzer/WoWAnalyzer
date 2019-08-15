@@ -3,7 +3,6 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import { formatPercentage} from 'common/format';
 import ResourceLink from 'common/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import StatTracker from 'parser/shared/modules/StatTracker';
@@ -21,7 +20,7 @@ class ShieldBlock extends Analyzer {
   currentCd = 0;
   lastCast = 0;
   averageCd = 0;
-  actualCasts
+  actualCasts = 0;
 
   totalCastsAssumed = 0;
 
@@ -57,6 +56,7 @@ class ShieldBlock extends Analyzer {
   }
 
   on_fightend(){
+    this.actualCasts = this.abilityTracker.getAbility(SPELLS.SHIELD_SLAM.id).casts;
     if((this.owner.fight.end_time/1000 - this.lastCast) *1.05 > this.currentCd){
       this.timeOnCd += this.owner.fight.end_time/1000 - this.lastCast;
     }
@@ -69,12 +69,12 @@ class ShieldBlock extends Analyzer {
       console.log('current cd: ' + this.currentCd);
       console.log('last cast:' + this.lastCast);
       console.log('averageCd: ' + this.averageCd);
-      console.log('actual casts ' + this.abilityTracker.getAbility(SPELLS.SHIELD_SLAM.id).casts);
+      console.log('actual casts ' + this.actualCasts);
     }
   }
 
   get slamRatio(){
-    return this.abilityTracker.getAbility(SPELLS.SHIELD_SLAM.id).casts/this.totalCastsAssumed;
+    return this.actualCasts/this.totalCastsAssumed;
   }
   
   get suggestionThresholds(){
@@ -93,12 +93,12 @@ class ShieldBlock extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
-          Try to cast <SpellLink id={SPELLS.SHIELD_SLAM.id} />  more often - it is your main  <ResourceLink id={RESOURCE_TYPES.RAGE.id} />  generator and damage source. Using it on cooldown is crucial for your overall survival and damage. You can further amplify it's damage by using it when you have  <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> up. 
+          Try to cast <SpellLink id={SPELLS.SHIELD_SLAM.id} />  more often - it is your main  <ResourceLink id={RESOURCE_TYPES.RAGE.id} />  generator and damage source. Using it on cooldown is crucial for your overall survival and damage. You can further amplify its damage by using it when you have  <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> up. 
         </>
       )
         .icon(SPELLS.SHIELD_SLAM.icon)
-        .actual(`${formatPercentage(this.slamRatio)} average mana saved per Mana Tea cast`)
-        .recommended(`${(recommended / 1000).toFixed(0)}k average mana saved is recommended`);
+        .actual(`${this.actualCasts} shield slam casts`)
+        .recommended(`${(recommended * this.totalCastsAssumed).toFixed(0)} recommended out of ${this.totalCastsAssumed} maximum`);
     });
   }
 }

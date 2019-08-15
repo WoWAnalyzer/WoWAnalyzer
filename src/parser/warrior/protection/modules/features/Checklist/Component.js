@@ -43,7 +43,8 @@ class ProtectionWarriorChecklist extends React.PureComponent {
         >
           <AbilityRequirement spell={SPELLS.THUNDER_CLAP.id} />
           <Requirement
-          name={(<SpellLink id={SPELLS.SHIELD_SLAM.id} /> )} thresholds={thresholds.shieldSlam}
+            name={(<SpellLink id={SPELLS.SHIELD_SLAM.id} /> )}
+            thresholds={thresholds.shieldSlam}
           />
           <AbilityRequirement spell={SPELLS.SHIELD_BLOCK.id} />
           {combatant.hasTalent(SPELLS.STORM_BOLT_TALENT.id) && <AbilityRequirement spell={SPELLS.STORM_BOLT_TALENT.id} />}
@@ -63,7 +64,8 @@ class ProtectionWarriorChecklist extends React.PureComponent {
           <AbilityRequirement spell={SPELLS.SHIELD_WALL.id} />
           <AbilityRequirement spell={SPELLS.LAST_STAND.id} />
           <AbilityRequirement spell={SPELLS.SPELL_REFLECTION.id} 
-          tooltip={<>Take this with a grain of salt as some bosses it is not possible to use. </>}/> 
+            tooltip={<>Take this with a grain of salt as some bosses it is not possible to use. </>}
+          /> 
           {!combatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id) && <AbilityRequirement spell={SPELLS.DEMORALIZING_SHOUT.id} />}
         </Rule>
 
