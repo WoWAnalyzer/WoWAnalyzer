@@ -59,6 +59,32 @@ export default {
     id: 296065,
     name: 'The Ever-Rising Tide',
     icon: 'inv_elemental_mote_mana',
+  },  
+  WELL_OF_EXISTENCE: {
+    id: 299936,
+    traitId: 19,
+    name: 'The Well Of Existence',
+    icon: 'creatureportrait_twilightshammer_summoningportal_water01',
+  },
+  WELL_OF_EXISTENCE_MAJOR: {
+    id: 299933,
+    name: 'Refreshment',
+    icon: 'creatureportrait_twilightshammer_summoningportal_water01',
+  },
+  WELL_OF_EXISTENCE_MAJOR_ABILITY: {
+    id: 296197,
+    name: 'Refreshment',
+    icon: 'creatureportrait_twilightshammer_summoningportal_water01',
+  },
+  WELL_OF_EXISTENCE_DOUBLE_ABSORBTION: {
+    id: 296193,
+    name: 'The Well of Existence',
+    icon: 'creatureportrait_twilightshammer_summoningportal_water01',
+  },
+  WELL_OF_EXISTENCE_HEAL: {
+    id: 296184,
+    name: 'The Well of Existence',
+    icon: 'creatureportrait_twilightshammer_summoningportal_water01',
   },
   //The Crucible of Flame
   CONCENTRATED_FLAME: {
@@ -74,6 +100,11 @@ export default {
   },
   CONCENTRATED_FLAME_CAST: {
     id: 295373,
+    name: 'Concentrated Flame',
+    icon: 'spell_azerite_essence_15',
+  },
+  CONCENTRATED_FLAME_CAST_HEAL: {
+    id: 295375,
     name: 'Concentrated Flame',
     icon: 'spell_azerite_essence_15',
   },
@@ -97,7 +128,7 @@ export default {
     name: 'Ancient Flame',
     icon: 'spell_azerite_essence_15',
   },
-  //general conflict (the major part of conflict and stife)
+//general conflict (the major part of conflict and stife)
   CONFLICT: {
     id: 304088,
     traitId: 32,
@@ -139,5 +170,74 @@ export default {
     id: 296061,
     name: 'Null Barrier',
     icon: 'spell_azerite_essence_16',
+  },
+  // Memory of Lucid Dreams
+  LUCID_DREAMS: {
+    id: 299374,
+    traitId: 27,
+    name: 'Memory of Lucid Dreams',
+    icon: 'spell_azerite_essence05',
+  },
+  LUCID_DREAMS_MAJOR: {
+    id: 298357,
+    name: 'Memory of Lucid Dreams',
+    icon: 'spell_azerite_essence05',
+  },
+  LUCID_DREAMS_MINOR: {
+    id: 299373,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
+  LUCID_DREAMS_MINOR_STAT_BUFF: {
+    id: 298343,
+    name: 'Lucid Dreams',
+    icon: 'spell_azerite_essence05',
+  },
+  LUCID_DREAMS_HEAL: {
+    id: 298318,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
+  LUCID_DREAMS_MINOR_RESOURCE_REFUND: {
+    id: 298324,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
+  //Vision of Perfection
+  VISION_OF_PERFECTION: {
+    id: 296325,
+    traitId: 22,
+    name: 'Vision of Perfection',
+    icon: 'spell_azerite_essence_18',
+  },
+  VISION_OF_PERFECTION_HASTE_CALC: {
+    id: 303342,
+    name: 'Vision of Perfection',
+    icon: 'spell_azerite_essence_18',
+  },
+  VISION_OF_PERFECTION_HASTE_BUFF_SELF: {
+    id: 303344,
+    name: 'Vision of Perfection',
+    icon: 'spell_azerite_essence_18',
+  },
+  VISION_OF_PERFECTION_HASTE_BUFF_OTHERS: {
+    id: 303345,
+    name: 'Vision of Perfection',
+    icon: 'spell_azerite_essence_18',
+  },
+  STRIVE_FOR_PERFECTION: {
+    id: 296320,
+    name: 'Strive for Perfection',
+    icon: 'inv_radientazeritematrix',
+  },
+  STRIVE_FOR_PERFECTION_HEAL: { // 5% heal on activation
+    id: 296330,
+    name: 'Strive for Perfection',
+    icon: 'spell_azerite_essence_18',
+  },
+  STRIVE_FOR_PERFECTION_VERSATILITY: {
+    id: 296322,
+    name: 'Strive for Perfection',
+    icon: 'inv_radientazeritematrix',
   },
 };

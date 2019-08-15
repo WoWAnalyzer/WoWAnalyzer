@@ -204,6 +204,15 @@ class Abilities extends CoreAbilities {
         cooldown: 35,
         timelineSortIndex: 9,
       },
+      {
+        spell: SPELLS.RALLYING_CRY,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 180,
+        timelineSortIndex: 9,
+      },
     ];
   }
 }

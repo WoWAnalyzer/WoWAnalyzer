@@ -43,7 +43,7 @@ class TheCrucibleofFlame extends Analyzer {
     }
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CONCENTRATED_FLAME_CAST_DAMAGE), this.onMajorCastDamage);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CONCENTRATED_FLAME_DOT_DAMAGE), this.onMajorDOTDamage);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CONCENTRATED_FLAME_CAST_DAMAGE), this.onMajorHeal);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CONCENTRATED_FLAME_CAST_HEAL), this.onMajorHeal);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ANCIENT_FLAME_DOT_DAMAGE), this.onMinorDotamage);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ANCIENT_FLAME_DOT_HEAL), this.onMinorDotHeal);
   }

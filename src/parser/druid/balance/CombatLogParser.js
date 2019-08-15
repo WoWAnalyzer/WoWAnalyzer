@@ -34,6 +34,7 @@ import AstralPowerTracker from './modules/resourcetracker/AstralPowerTracker';
 import DawningSun from './modules/talents/azeritetraits/DawningSun';
 import HighNoon from './modules/talents/azeritetraits/HighNoon';
 import PowerOfTheMoon from './modules/talents/azeritetraits/PowerOfTheMoon';
+import StreakingStars from './modules/talents/azeritetraits/StreakingStars';
 
 //Items
 
@@ -76,6 +77,7 @@ class CombatLogParser extends MainCombatLogParser {
     dawningSun: DawningSun,
     highNoon: HighNoon,
     powerOfTheMoon: PowerOfTheMoon,
+    streakingStars: StreakingStars,
   };
 }
 

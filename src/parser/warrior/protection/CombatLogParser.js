@@ -5,13 +5,15 @@ import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import SpellUsable from './modules/features/SpellUsable';
 import MitigationCheck from './modules/features/MitigationCheck';
+import Buffs from './modules/features/Buffs';
 
 import ShieldBlock from './modules/spells/ShieldBlock';
-// TODO: import Checklist from './modules/features/Checklist';
+import Checklist from './modules/features/Checklist/Module';
 import IgnorePain from './modules/features/IgnorePain';
 import RageTracker from './modules/core/RageTracker';
 import RageDetails from './modules/core/RageDetails';
 import Avatar from './modules/features/Avatar';
+import ShieldSlam from './modules/spells/ShieldSlam';
 
 import AngerManagement from './modules/talents/AngerManagement';
 import BoomingVoice from './modules/talents/BoomingVoice';
@@ -27,16 +29,21 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core
     haste: Haste,
     mitigationCheck: MitigationCheck,
+    buffs: Buffs,
+
     // Features
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     shield_block: ShieldBlock,
     spellUsable: SpellUsable,
-    // TODO: checklist: Checklist,
+
+    checklist: Checklist,
+
     ignorePain: IgnorePain,
     rageTracker: RageTracker,
     rageDetails: RageDetails,
     avatar: Avatar,
+    shieldSlam: ShieldSlam,
     //Talents
     angerManagement: AngerManagement,
     boomingVoice: BoomingVoice,

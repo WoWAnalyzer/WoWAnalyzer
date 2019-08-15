@@ -59,6 +59,18 @@ class RollTheBonesEfficiency extends Analyzer {
     }
   }
 
+  rollSuggestionThreshold(pass, total){
+    return {
+      actual: total === 0 ? 1 : pass / total,
+      isLessThan: {
+        minor: 1,
+        average: 0.9,
+        major: 0.8,
+      },
+      style: 'percentage',
+    };
+  }
+
   get rollSuggestions(){
     const rtbCastValues = this.rollTheBonesCastTracker.rolltheBonesCastValues;
     return [
@@ -69,6 +81,7 @@ class RollTheBonesEfficiency extends Analyzer {
         pass: this.goodLowValueRolls,
         total: rtbCastValues[ROLL_THE_BONES_CATEGORIES.LOW_VALUE].length,
         extraSuggestion: <>If you roll a single buff and it's not one of the two highest value, try to reroll it as soon as you can.</>,
+        suggestionThresholds: this.rollSuggestionThreshold(this.goodLowValueRolls, rtbCastValues[ROLL_THE_BONES_CATEGORIES.LOW_VALUE].length),
       },
       // Percentage of mid rolls that were rerolled at or below pandemic, but above 3 seconds
       {
@@ -76,6 +89,7 @@ class RollTheBonesEfficiency extends Analyzer {
         pass: this.goodMidValueRolls,
         total: rtbCastValues[ROLL_THE_BONES_CATEGORIES.MID_VALUE].length,
         extraSuggestion: <>If you roll two buffs and neither is one of the two highest value, try to reroll them once you reach the pandemic window, at about 9-10 seconds remaining.</>,
+        suggestionThresholds: this.rollSuggestionThreshold(this.goodMidValueRolls, rtbCastValues[ROLL_THE_BONES_CATEGORIES.MID_VALUE].length),
       },
       // Percentage of good rolls that were rerolled below 3 seconds
       {
@@ -83,25 +97,14 @@ class RollTheBonesEfficiency extends Analyzer {
         pass: this.goodHighValueRolls,
         total: rtbCastValues[ROLL_THE_BONES_CATEGORIES.HIGH_VALUE].length,
         extraSuggestion: <>If you ever roll one of the two highest value buffs (especially with a 5 buff roll!), try to leave the buff active as long as possible, refreshing with less than 3 seconds remaining.</>,
+        suggestionThresholds: this.rollSuggestionThreshold(this.goodHighValueRolls, rtbCastValues[ROLL_THE_BONES_CATEGORIES.HIGH_VALUE].length),
       },
     ];
-  }
-
-  rollSuggestionThreshold(suggestion){
-    return {
-      actual: suggestion.total === 0 ? 1 : suggestion.pass / suggestion.total,
-      isLessThan: {
-        minor: 1,
-        average: 0.9,
-        major: 0.8,
-      },
-      style: 'percentage',
-    };
-  }
+  }  
 
   suggestions(when) {
     this.rollSuggestions.forEach(suggestion => {
-      when(this.rollSuggestionThreshold(suggestion)).addSuggestion((suggest, actual, recommended) => {
+      when(suggestion.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
         return suggest(<>Your efficiency with refreshing <SpellLink id={SPELLS.ROLL_THE_BONES.id} /> after a {suggestion.label} roll could be improved. <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> and <SpellLink id={SPELLS.GRAND_MELEE.id} /> are your highest value buffs from <SpellLink id={SPELLS.ROLL_THE_BONES.id} />. {suggestion.extraSuggestion || ''}</>)
           .icon(SPELLS.ROLL_THE_BONES.icon)
           .actual(`${formatPercentage(actual)}% (${suggestion.pass} out of ${suggestion.total}) efficient rerolls`)

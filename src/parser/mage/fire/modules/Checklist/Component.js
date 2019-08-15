@@ -153,6 +153,13 @@ class FireMageChecklist extends React.PureComponent {
               tooltip="Using Rune of Power effectively means being able to stay within the range of it for it's entire duration. If you are unable to do so or if you frequently have to move out of the range of the buff, consider taking a different talent instead."
             />
           )}
+          {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) && combatant.hasTalent(SPELLS.METEOR_TALENT.id) && (
+            <Requirement
+              name="Meteor Utilization"
+              thresholds={thresholds.meteorUtilization}
+              tooltip="In order to get the most out of your Meteor casts, you should only cast Meteor while you are buffed by Rune of Power."
+            />
+          )}
         </Rule>
         <Rule
           name="Avoid downtime"

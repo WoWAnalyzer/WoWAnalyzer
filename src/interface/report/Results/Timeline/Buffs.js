@@ -18,6 +18,7 @@ class Buffs extends React.PureComponent {
       eventHistory: PropTypes.arrayOf(PropTypes.shape({
         type: PropTypes.string.isRequired,
       })).isRequired,
+      toPlayer: PropTypes.func.isRequired,
     }).isRequired,
     buffs: PropTypes.instanceOf(BuffsModule).isRequired,
   };
