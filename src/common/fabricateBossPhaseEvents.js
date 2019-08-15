@@ -70,7 +70,12 @@ export function fabricateBossPhaseEvents(events, report, fight) {
             case 'interrupt':
             case 'dispel':
             case 'cast': {
-              let bossEvents = events.filter(e => e.type === phase.filter.type && (e.ability.guid === phase.filter.ability.id || e.extraAbility.guid === phase.filter.ability.id));
+              let bossEvents = events.filter(e => e.type === phase.filter.type &&
+                (
+                  (e.ability && e.ability.guid === phase.filter.ability.id) ||
+                  (e.extraAbility && e.extraAbility.guid === phase.filter.ability.id)
+                )
+              );
               if (phase.filter.eventInstance !== undefined && phase.filter.eventInstance >= 0 && !phase.multiple) {
                 if (bossEvents.length >= (phase.filter.eventInstance + 1)) {
                   // If the instance exists, only that specific instance is relevant
@@ -176,7 +181,7 @@ export function fabricateBossPhaseEvents(events, report, fight) {
       });
     }
   }
-  
+
   phaseEvents.sort((a, b) => a.start - b.start);
   phaseEvents.filter((event, index, array) => {
     return index === 0 || event.key !== array[index - 1].key; //only keep events that arent preceded by another start event of the same phase
