@@ -105,7 +105,7 @@ class StreakingStars extends Analyzer {
             that you cast while <SpellLink id={this.buffToTrack.id} /> buff is active, providing<br />
             that it is not a duplicate of the previously cast skill.<br />
             <br />
-            {formatNumber(this.damagePerStreakingStars)} damage per proc of <SpellLink id={SPELLS.STREAKING_STARS.id} /><br />
+            {formatNumber(totalDamage / (this.totalCastsDuringCelestialAlignment - this.badCasts))} average damage per proc of <SpellLink id={SPELLS.STREAKING_STARS.id} /><br />
             {this.totalCastsDuringCelestialAlignment - this.badCasts} out of {this.totalCastsDuringCelestialAlignment} possible procs of <SpellLink id={SPELLS.STREAKING_STARS.id} /><br />
           </>
         )}
