@@ -27,7 +27,6 @@ class Essence extends React.PureComponent {
 
   render() {
     const essences = this.props.essences;
-    console.log(essences);
 
     return (
       <>
