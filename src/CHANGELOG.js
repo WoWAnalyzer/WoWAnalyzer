@@ -1,5 +1,5 @@
 import React from 'react';
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz } from 'CONTRIBUTORS';
+import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -8,6 +8,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  change(date(2019, 8, 16), 'Added Heart of Azeroth Essences to Character Info panel.', [Viridis]),
   change(date(2019, 8, 14), 'Fixed potential crash of phase fabrication during mixed filter usage.', Zeboot),
   change(date(2019, 8, 12), 'Added more phase trigger types to improve our phase detection.', Zeboot),
   change(date(2019, 8, 12), <>Added <SpellLink id={SPELLS.LOYAL_TO_THE_END.id} /> azerite trait.</>, Khadaj),
