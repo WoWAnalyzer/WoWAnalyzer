@@ -7,17 +7,8 @@ import DAMAGING_ABILITIES from 'parser/druid/balance/constants';
 import { formatNumber, formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { calculateAzeriteEffects } from 'common/stats';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-
-const streakingStarsStats = traits => Object.values(traits).reduce((obj, rank) => {
-  const [damage] = calculateAzeriteEffects(SPELLS.STREAKING_STARS.id, rank);
-  obj.damage += damage;
-  return obj;
-}, {
-  damage: 0,
-});
 
 /**
  * Streaking Stars,  Azerite Power
@@ -54,9 +45,6 @@ class StreakingStars extends Analyzer {
     if (this.selectedCombatant.hasTalent(SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT.id)) {
       this.buffToTrack = SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT;
     }
-
-    const { damage } = streakingStarsStats(this.selectedCombatant.traitsBySpellId[SPELLS.STREAKING_STARS.id]);
-    this.damagePerStreakingStars = damage;
 
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(this.buffToTrack), this.onCelestialAlignmentApply);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(this.buffToTrack), this.onCelestialAlignmentRemove);
