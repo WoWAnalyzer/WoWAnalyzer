@@ -1,11 +1,14 @@
 import React from 'react';
 
-import { Oratio, Reglitch, Zerotorescue, niseko, Khadaj, blazyb } from 'CONTRIBUTORS';
+import { Oratio, Reglitch, Zerotorescue, niseko, Khadaj, blazyb, Adoraci } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import ItemLink from 'common/ItemLink';
+import ITEMS from 'common/ITEMS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 8, 16), <>Fixed <SpellLink id={SPELLS.SHADOWFIEND.id} /> not showing as atonement source when <ItemLink id={ITEMS.GLYPH_OF_THE_LIGHTSPAWN.id} /> is selected.</>, [Adoraci]),
   change(date(2019, 8, 12), 'Added essence Lucid Dreams.', [blazyb]),
   change(date(2019, 7, 31), <>Added a <SpellLink id={SPELLS.DEATH_THROES.id} /> analyzer to disc.</>, [Khadaj]),
   change(date(2019, 7, 26), <>The Evangelism module now correctly shows buff count when casting <SpellLink id={SPELLS.EVANGELISM_TALENT.id} /> right after <SpellLink id={SPELLS.POWER_WORD_RADIANCE.id} />.</>, [Khadaj]),
