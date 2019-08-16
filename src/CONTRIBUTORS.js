@@ -725,3 +725,12 @@ export const Draenal = {
     link: 'https://worldofwarcraft.com/en-us/character/us/malganis/magiceraser',
   }],
 };
+export const Adoraci = {
+  nickname: 'Adoraci',
+  github: 'DylanDirlam',
+  mains: [{
+    name: 'Adoraci',
+    spec: SPECS.DISCIPLINE_PRIEST,
+    link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/adoraci',
+  }],
+};
