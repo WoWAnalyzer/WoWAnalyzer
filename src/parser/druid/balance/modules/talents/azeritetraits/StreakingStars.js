@@ -7,17 +7,8 @@ import DAMAGING_ABILITIES from 'parser/druid/balance/constants';
 import { formatNumber, formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import { calculateAzeriteEffects } from 'common/stats';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-
-const streakingStarsStats = traits => Object.values(traits).reduce((obj, rank) => {
-  const [damage] = calculateAzeriteEffects(SPELLS.STREAKING_STARS.id, rank);
-  obj.damage += damage;
-  return obj;
-}, {
-  damage: 0,
-});
 
 /**
  * Streaking Stars,  Azerite Power
@@ -55,9 +46,6 @@ class StreakingStars extends Analyzer {
       this.buffToTrack = SPELLS.INCARNATION_CHOSEN_OF_ELUNE_TALENT;
     }
 
-    const { damage } = streakingStarsStats(this.selectedCombatant.traitsBySpellId[SPELLS.STREAKING_STARS.id]);
-    this.damagePerStreakingStars = damage;
-
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(this.buffToTrack), this.onCelestialAlignmentApply);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(this.buffToTrack), this.onCelestialAlignmentRemove);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
@@ -88,12 +76,12 @@ class StreakingStars extends Analyzer {
   }
 
   get damageDone() {
-    const spell = this.abilityTracker.getAbility(SPELLS.STREAKING_STARS.id);
+    const spell = this.abilityTracker.getAbility(SPELLS.STREAKING_STAR.id);
     return spell.damageEffective + spell.damageAbsorbed;
   }
 
   statistic() {
-    const totalDamage = this.damagePerStreakingStars * (this.totalCastsDuringCelestialAlignment - this.badCasts);
+    const totalDamage = this.damageDone;
     const damageThroughputPercent = this.owner.getPercentageOfTotalDamageDone(totalDamage);
     const dps = totalDamage / this.owner.fightDuration * 1000;
     return (
@@ -105,7 +93,7 @@ class StreakingStars extends Analyzer {
             that you cast while <SpellLink id={this.buffToTrack.id} /> buff is active, providing<br />
             that it is not a duplicate of the previously cast skill.<br />
             <br />
-            {formatNumber(this.damagePerStreakingStars)} damage per proc of <SpellLink id={SPELLS.STREAKING_STARS.id} /><br />
+            {formatNumber(totalDamage / (this.totalCastsDuringCelestialAlignment - this.badCasts))} average damage per proc of <SpellLink id={SPELLS.STREAKING_STARS.id} /><br />
             {this.totalCastsDuringCelestialAlignment - this.badCasts} out of {this.totalCastsDuringCelestialAlignment} possible procs of <SpellLink id={SPELLS.STREAKING_STARS.id} /><br />
           </>
         )}
