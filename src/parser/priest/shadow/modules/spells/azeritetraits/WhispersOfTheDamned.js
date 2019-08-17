@@ -36,10 +36,10 @@ class WhispersOfTheDamned extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrait(SPELLS.WHISPERS_OF_THE_DAMNED.id);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(MIND_BLAST_SPELLS), this.onDamageEvent);
     if (!this.active) {
       return;
     }
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(MIND_BLAST_SPELLS), this.onDamageEvent);
 
     const { damage } = whispersOfTheDamnedStats(this.selectedCombatant.traitsBySpellId[SPELLS.WHISPERS_OF_THE_DAMNED.id]);
     this.damageValue = damage;
