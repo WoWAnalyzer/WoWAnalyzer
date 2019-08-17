@@ -48,7 +48,7 @@ class WhispersOfTheDamned extends Analyzer {
   onDamageEvent(event) {
     this.damageDone += this.damageValue;
 
-    if (event.hitType == HIT_TYPES.CRIT) {
+    if (event.hitType === HIT_TYPES.CRIT) {
       this.insanityGained += 20;
     }
   }
