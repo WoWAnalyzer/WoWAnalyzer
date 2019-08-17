@@ -40,6 +40,8 @@ class WhispersOfTheDamned extends Analyzer {
       return;
     }
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(MIND_BLAST_SPELLS), this.onDamageEvent);
+    this.addEventListener(Events.energize.by(SELECTED_PLAYER).spell(SPELLS.WHISPERS_OF_THE_DAMNED_ENERGIZE), this.onEnergizeEvent);
+
 
     const { damage } = whispersOfTheDamnedStats(this.selectedCombatant.traitsBySpellId[SPELLS.WHISPERS_OF_THE_DAMNED.id]);
     this.damageValue = damage;
@@ -47,10 +49,10 @@ class WhispersOfTheDamned extends Analyzer {
 
   onDamageEvent(event) {
     this.damageDone += this.damageValue;
+  }
 
-    if (event.hitType === HIT_TYPES.CRIT) {
-      this.insanityGained += 20;
-    }
+  onEnergizeEvent(event) {
+    this.insanityGained += event.resourceChange;
   }
 
   statistic() {
