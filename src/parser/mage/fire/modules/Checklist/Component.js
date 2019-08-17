@@ -74,7 +74,7 @@ class FireMageChecklist extends React.PureComponent {
               tooltip="If you are talented into Firestarter, you should ensure that you do not cast Combustion while the boss is above 90% Health. This would be a waste considering every spell is guaranteed to crit while the boss is above 90% Health, which defeats the purpose of using Combustion. Instead, you should use Combustion when the boss gets to 89% so you can continue the streak of guaranteed crits once Firestarter finishes."
             />
           )}
-          {combatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id) && (
+          {combatant.hasTalent(SPELLS.PYROCLASM_TALENT.id) && (
             <Requirement
               name="Pyroclasm Usage"
               thresholds={thresholds.pyroclasmCombustionUsage}
