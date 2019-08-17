@@ -728,6 +728,8 @@ export const Draenal = {
 export const Adoraci = {
   nickname: 'Adoraci',
   github: 'DylanDirlam',
+  discord: 'Adoraci#0001',
+  avatar: require('./interface/images/avatars/Adoraci-avatar.png'),
   mains: [{
     name: 'Adoraci',
     spec: SPECS.DISCIPLINE_PRIEST,
