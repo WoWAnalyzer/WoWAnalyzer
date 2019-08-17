@@ -94,6 +94,16 @@ export default {
     name: 'Death Throes',
     icon: 'spell_shadow_haunting',
   },
+  WHISPERS_OF_THE_DAMNED: {
+    id: 275722,
+    name: 'Whispers of the Damned',
+    icon: 'inv_misc_eye_03',
+  },
+  WHISPERS_OF_THE_DAMNED_ENERGIZE: {
+    id: 275726,
+    name: 'Whispers of the Damned',
+    icon: 'inv_misc_eye_03',
+  },
   DEATH_DENIED: {
     id: 287717,
     name: 'Death Denied',
