@@ -6,7 +6,6 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import Events from 'parser/core/Events';
-import HIT_TYPES from 'game/HIT_TYPES';
 import { formatNumber } from 'common/format';
 
 const whispersOfTheDamnedStats = traits => Object.values(traits).reduce((obj, rank) => {
