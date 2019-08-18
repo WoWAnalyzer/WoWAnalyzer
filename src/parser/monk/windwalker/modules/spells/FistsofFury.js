@@ -68,7 +68,7 @@ class FistsofFury extends Analyzer {
         tooltip="Fists of Fury ticks 5 times over the duration of the channel"
       >
       <BoringSpellValueText spell={SPELLS.FISTS_OF_FURY_CAST}>
-        {this.averageTicks.toFixed(2)} <small>Average Fists of Fury Ticks</small>
+        {this.averageTicks.toFixed(2)} <small>Average ticks per cast</small>
       </BoringSpellValueText>
       </Statistic>
     );
