@@ -30,7 +30,6 @@ class SpitefulApparitions extends Analyzer {
 
   damageValue = 0;
   damageDone = 0;
-  wastedApparitions = 0;
 
   constructor(...args) {
     super(...args);
