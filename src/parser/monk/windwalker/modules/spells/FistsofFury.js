@@ -1,12 +1,10 @@
 import React from 'react';
-
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
-
 import Analyzer from 'parser/core/Analyzer';
-
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
 
 // Inspired by the penance bolt counter module from Discipline Priest
 
@@ -64,13 +62,15 @@ class FistsofFury extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(4)}
-        icon={<SpellIcon id={SPELLS.FISTS_OF_FURY_CAST.id} />}
-        value={this.averageTicks.toFixed(2)}
-        label="Average Fists of Fury Ticks"
+        size="flexible"
         tooltip="Fists of Fury ticks 5 times over the duration of the channel"
-      />
+      >
+      <BoringSpellValueText spell={SPELLS.FISTS_OF_FURY_CAST}>
+        {this.averageTicks.toFixed(2)} <small>Average Fists of Fury Ticks</small>
+      </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

@@ -2,11 +2,13 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
 
 /**
  *  Inspired by filler modules in Holy Paladin Analyzer
@@ -89,32 +91,30 @@ class BlackoutKick extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(5)}
-        icon={<SpellIcon id={SPELLS.BLACKOUT_KICK.id} />}
-        value={(
-          <span style={{ fontsize: '75%' }}>
-            {(this.effectiveRisingSunKickReductionMs / 1000).toFixed(1)}s{' '}
-            <SpellIcon
-              id={SPELLS.RISING_SUN_KICK.id}
-              style={{
-                height: '1.3em',
-                marginTop: '-1.em',
-              }}
-            />
-            <br />
-            {(this.effectiveFistsOfFuryReductionMs / 1000).toFixed(1)}s{' '}
-            <SpellIcon
-              id={SPELLS.FISTS_OF_FURY_CAST.id}
-              style={{
-                height: '1.3em',
-                marginTop: '-1.em',
-              }}
-            />
-          </span>
-        )}
-        label="Cooldown reduction"
-      />
+        size="flexible"
+      >
+      <BoringSpellValueText spell={SPELLS.BLACKOUT_KICK}>
+        <span style={{ fontsize: '75%' }}>
+          <SpellIcon
+            id={SPELLS.RISING_SUN_KICK.id}
+            style={{
+              height: '1.3em',
+              marginTop: '-1.em',
+            }}
+          /> {(this.effectiveRisingSunKickReductionMs / 1000).toFixed(1)} <small>Seconds reduced</small>
+          <br />
+          <SpellIcon
+            id={SPELLS.FISTS_OF_FURY_CAST.id}
+            style={{
+              height: '1.3em',
+              marginTop: '-1.em',
+            }}
+          /> {(this.effectiveFistsOfFuryReductionMs / 1000).toFixed(1)} <small>Seconds reduced</small>
+        </span>
+      </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

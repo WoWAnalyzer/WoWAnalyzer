@@ -91,8 +91,8 @@ class ComboBreaker extends Analyzer {
       >
       <BoringSpellValueText spell={SPELLS.COMBO_BREAKER_BUFF}>
           {formatPercentage(this.usedCBProcs, 0)}% <small>Proc utilization</small>
-        </BoringSpellValueText>
-      </Statistic>
+      </BoringSpellValueText>
+    </Statistic>
    );
   }
 }
