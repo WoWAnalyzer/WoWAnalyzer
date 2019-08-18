@@ -711,3 +711,28 @@ export const Wing5wong = {
     link: 'https://worldofwarcraft.com/en-us/character/us/frostmourne/shrom',
   }],
 };
+export const Draenal = {
+  nickname: 'Draenal',
+  github: 'MikeCook9994',
+  mains: [{
+    name: 'Draenal',
+    spec: SPECS.ELEMENTAL_SHAMAN,
+    link: 'https://worldofwarcraft.com/en-us/character/us/malganis/draenal',
+  },
+  {
+    name: 'MagicEraser',
+    spec: SPECS.FROST_MAGE,
+    link: 'https://worldofwarcraft.com/en-us/character/us/malganis/magiceraser',
+  }],
+};
+export const Adoraci = {
+  nickname: 'Adoraci',
+  github: 'DylanDirlam',
+  discord: 'Adoraci#0001',
+  avatar: require('./interface/images/avatars/Adoraci-avatar.png'),
+  mains: [{
+    name: 'Adoraci',
+    spec: SPECS.DISCIPLINE_PRIEST,
+    link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/adoraci',
+  }],
+};
