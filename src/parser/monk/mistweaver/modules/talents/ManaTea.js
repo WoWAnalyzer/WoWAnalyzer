@@ -77,7 +77,7 @@ class ManaTea extends Analyzer {
   }
 
   get avgOverhealing(){
-    return (this.overhealing / (this.overhealing + this.effectiveHealing)).toFixed(4);
+    return this.overhealing / (this.overhealing + this.effectiveHealing).toFixed(4) || 0;
   }
 
   get suggestionThresholdsOverhealing(){
