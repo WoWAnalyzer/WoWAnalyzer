@@ -62,7 +62,7 @@ class SpitefulApparitions extends Analyzer {
         value={<ItemDamageDone amount={this.damageDone} />}
         tooltip={(
           <>
-            {formatNumber(this.damageDone)} additional damage dealt by {SPELLS.SHADOWY_APPARITION.name} to targets affected by {SPELLS.VAMPIRIC_TOUCH.name}.<br/>
+            {formatNumber(this.damageDone)} additional damage dealt by {SPELLS.SHADOWY_APPARITION.name} to targets affected by {SPELLS.VAMPIRIC_TOUCH.name}.
           </>
         )}
       />
