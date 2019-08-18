@@ -95,25 +95,25 @@ class BlackoutKick extends Analyzer {
         position={STATISTIC_ORDER.CORE(5)}
         size="flexible"
       >
-      <BoringSpellValueText spell={SPELLS.BLACKOUT_KICK}>
-        <span style={{ fontsize: '75%' }}>
-          <SpellIcon
-            id={SPELLS.RISING_SUN_KICK.id}
-            style={{
-              height: '1.3em',
-              marginTop: '-1.em',
-            }}
-          /> {(this.effectiveRisingSunKickReductionMs / 1000).toFixed(1)} <small>Seconds reduced</small>
-          <br />
-          <SpellIcon
-            id={SPELLS.FISTS_OF_FURY_CAST.id}
-            style={{
-              height: '1.3em',
-              marginTop: '-1.em',
-            }}
-          /> {(this.effectiveFistsOfFuryReductionMs / 1000).toFixed(1)} <small>Seconds reduced</small>
-        </span>
-      </BoringSpellValueText>
+        <BoringSpellValueText spell={SPELLS.BLACKOUT_KICK}>
+          <span style={{ fontsize: '75%' }}>
+            <SpellIcon
+              id={SPELLS.RISING_SUN_KICK.id}
+              style={{
+                height: '1.3em',
+                marginTop: '-1.em',
+              }}
+            /> {(this.effectiveRisingSunKickReductionMs / 1000).toFixed(1)} <small>Seconds reduced</small>
+            <br />
+            <SpellIcon
+              id={SPELLS.FISTS_OF_FURY_CAST.id}
+              style={{
+                height: '1.3em',
+                marginTop: '-1.em',
+              }}
+            /> {(this.effectiveFistsOfFuryReductionMs / 1000).toFixed(1)} <small>Seconds reduced</small>
+          </span>
+        </BoringSpellValueText>
       </Statistic>
     );
   }
