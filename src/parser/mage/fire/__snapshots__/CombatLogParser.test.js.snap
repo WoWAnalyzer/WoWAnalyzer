@@ -365,10 +365,6 @@ exports[`The Fire Mage Analyzer analyzers CombustionFirestarter matches the stat
 
 exports[`The Fire Mage Analyzer analyzers CombustionFirestarter matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers CombustionPyroclasm matches the statistic snapshot 1`] = `"module inactive"`;
-
-exports[`The Fire Mage Analyzer analyzers CombustionPyroclasm matches the suggestions snapshot 1`] = `"module inactive"`;
-
 exports[`The Fire Mage Analyzer analyzers CombustionSpellUsage matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`The Fire Mage Analyzer analyzers CombustionSpellUsage matches the suggestions snapshot 1`] = `Array []`;
