@@ -25,7 +25,6 @@ import HotStreakWastedCrits from './modules/features/HotStreakWastedCrits';
 import CombustionFirestarter from './modules/features/CombustionFirestarter';
 import CombustionCharges from './modules/features/CombustionCharges';
 import CombustionSpellUsage from './modules/features/CombustionSpellUsage';
-import CombustionPyroclasm from './modules/features/CombustionPyroclasm';
 import HeatingUp from './modules/features/HeatingUp';
 import Pyroclasm from './modules/features/Pyroclasm';
 import SearingTouch from './modules/features/SearingTouch';
@@ -53,7 +52,6 @@ class CombatLogParser extends CoreCombatLogParser {
     combustionFirestarter: CombustionFirestarter,
     combustionCharges: CombustionCharges,
     combustionSpellUsage: CombustionSpellUsage,
-    combustionPyroclasm: CombustionPyroclasm,
     heatingUp: HeatingUp,
     pyroclasm: Pyroclasm,
     searingTouch: SearingTouch,

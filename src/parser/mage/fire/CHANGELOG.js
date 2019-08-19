@@ -6,6 +6,8 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 8, 19), <>Removed <SpellLink id={SPELLS.PYROCLASM_TALENT.id} /> during <SpellLink id={SPELLS.COMBUSTION.id} /> suggestions to match Altered Time guide.</>, [Sharrq]),
+  change(date(2019, 8, 19), <>Added support for <ItemLink id={ITEMS.HYPERTHREAD_WRISTWRAPS.id} />.</>, [Sharrq]),
   change(date(2019, 8, 16), <>Modified <SpellLink id={SPELLS.COMBUSTION.id} /> during <SpellLink id={SPELLS.FIRESTARTER_TALENT.id} /> to only check the first cast during Combustion and not every cast.</>, [Sharrq]),
   change(date(2019, 8, 16), <>Fixed a bug that was causing the <SpellLink id={SPELLS.PYROCLASM_TALENT.id} /> checklist item to show up without Pyroclasm talented.</>, [Sharrq]),
   change(date(2019, 8, 6), <>Added statistics and suggestions for <SpellLink id={SPELLS.METEOR_TALENT.id} /></>, [Sharrq]),
