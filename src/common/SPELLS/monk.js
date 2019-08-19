@@ -565,4 +565,14 @@ export default {
     name: 'Disable',
     icon: 'ability_shockwave',
   },
+  REVERSE_HARM: {
+    id: 287771,
+    name: 'Reverse Harm',
+    icon: 'ability_monk_expelharm',
+  },
+  REVERSE_HARM_DAMAGE: {
+    id: 290461,
+    name: 'Reverse Harm',
+    icon: 'ability_monk_expelharm',
+  },
 };
