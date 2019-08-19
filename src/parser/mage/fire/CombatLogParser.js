@@ -31,8 +31,6 @@ import Pyroclasm from './modules/features/Pyroclasm';
 import SearingTouch from './modules/features/SearingTouch';
 import Meteor from './modules/features/Meteor';
 
-import HyperthreadWristwraps from './modules/items/HyperthreadWristwraps';
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Normalizers
@@ -69,9 +67,6 @@ class CombatLogParser extends CoreCombatLogParser {
     runeOfPower: [RuneOfPower, { showStatistic: false, showSuggestion: false }],
     kindling: Kindling,
     meteor: Meteor,
-
-    //Items
-    hyperthreatWristwraps: HyperthreadWristwraps,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],

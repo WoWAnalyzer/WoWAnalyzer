@@ -195,10 +195,4 @@ export default {
     name: 'Wisdom of the Forest Lord',
     icon: 'inv_spiritshard_02',
   },
-  //Mechagon
-  HYPERTHREAD_WRISTWRAPS_CAST: {
-    id: 300142,
-    name: 'Hyperthread Wristwraps',
-    icon: 'inv_tailoring_815_synchronousthread',
-  },
 };
