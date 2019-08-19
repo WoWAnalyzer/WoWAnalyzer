@@ -172,4 +172,11 @@ export default {
     icon: 'inv_spiritshard_02',
     quality: ITEM_QUALITIES.BLUE,
   },
+  //Mechagon
+  HYPERTHREAD_WRISTWRAPS: {
+    id: 168989,
+    name: 'Hyperthread Wristwraps',
+    icon: 'inv_bracer_cloth_kultirasdungeon_c_01',
+    quality: ITEM_QUALITIES.PURPLE,
+  },
 };

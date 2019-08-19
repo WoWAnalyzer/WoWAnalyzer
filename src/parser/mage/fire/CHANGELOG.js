@@ -3,6 +3,8 @@ import React from 'react';
 import { Sharrq } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import ITEMS from 'common/ITEMS';
+import ItemLink from 'common/ItemLink';
 import { change, date } from 'common/changelog';
 
 export default [
