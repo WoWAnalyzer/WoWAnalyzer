@@ -22,6 +22,7 @@ class CombustionFirestarter extends Analyzer {
   combustionCast = false;
   combustionCastEvent = null;
   combustionDuringFirestarter = false;
+  healthPercent = 1;
 
   constructor(...args) {
     super(...args);
@@ -44,8 +45,8 @@ class CombustionFirestarter extends Analyzer {
     }
 
     this.combustionCast = false;
-    const healthPercent = event.hitPoints / event.maxHitPoints;
-    if (healthPercent > FIRESTARTER_HEALTH_THRESHOLD) {
+    if (event.hitPoints > 0) {this.healthPercent = event.hitPoints / event.maxHitPoints;}
+    if (this.healthPercent > FIRESTARTER_HEALTH_THRESHOLD) {
       this.combustionDuringFirestarter = true;
       this.combustionCastEvent.meta = this.combustionCastEvent.meta || {};
       this.combustionCastEvent.meta.isInefficientCast = true;

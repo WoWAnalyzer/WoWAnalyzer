@@ -25,6 +25,7 @@ class HeatingUp extends Analyzer {
   phoenixFlamesWithoutHeatingUp = 0;
   fireBlastWithHotStreak = 0;
   phoenixFlamesWithHotStreak = 0;
+  healthPercent = 1;
 
   constructor(...args) {
     super(...args);
@@ -49,14 +50,14 @@ class HeatingUp extends Analyzer {
     const hasHeatingUp = this.selectedCombatant.hasBuff(SPELLS.HEATING_UP.id);
     const castTarget = this.phoenixFlamesCastEvent ? encodeTargetString(this.phoenixFlamesCastEvent.targetID, event.targetInstance) : null;
     const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
-    const healthPercent = event.hitPoints / event.maxHitPoints;
+    if (event.hitPoints > 0) {this.healthPercent = event.hitPoints / event.maxHitPoints;}
     if (castTarget !== damageTarget || hasHeatingUp) {
       return;
     }
 
     //If Combustion is active, the player is within the Firestarter execute window, or the player is in the Searing Touch execute window, then ignore the event
     //If the player had Hot Streak though, then its a mistake regardless
-    if (!hasHotStreak && (hasCombustion || (this.hasFirestarter && healthPercent > FIRESTARTER_HEALTH_THRESHOLD) || (this.hasSearingTouch && healthPercent < SEARING_TOUCH_HEALTH_THRESHOLD))) {
+    if (!hasHotStreak && (hasCombustion || (this.hasFirestarter && this.healthPercent > FIRESTARTER_HEALTH_THRESHOLD) || (this.hasSearingTouch && this.healthPercent < SEARING_TOUCH_HEALTH_THRESHOLD))) {
       debug && this.log("Event Ignored");
       return;
     }
@@ -75,14 +76,14 @@ class HeatingUp extends Analyzer {
     const hasCombustion = this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id);
     const hasHotStreak = this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id);
     const hasHeatingUp = this.selectedCombatant.hasBuff(SPELLS.HEATING_UP.id);
-    const healthPercent = event.hitPoints / event.maxHitPoints;
+    if (event.hitPoints > 0) {this.healthPercent = event.hitPoints / event.maxHitPoints;}
     if (hasHeatingUp) {
       return;
     }
 
     //If Combustion is active, the player is within the Firestarter execute window, or the player is in the Searing Touch execute window, then ignore the event
     //If the player had Hot Streak though, then its a mistake regardless
-    if (!hasHotStreak && (hasCombustion || (this.hasFirestarter && healthPercent > FIRESTARTER_HEALTH_THRESHOLD) || (this.hasSearingTouch && healthPercent < SEARING_TOUCH_HEALTH_THRESHOLD))) {
+    if (!hasHotStreak && (hasCombustion || (this.hasFirestarter && this.healthPercent > FIRESTARTER_HEALTH_THRESHOLD) || (this.hasSearingTouch && this.healthPercent < SEARING_TOUCH_HEALTH_THRESHOLD))) {
       debug && this.log("Event Ignored");
       return;
     }
