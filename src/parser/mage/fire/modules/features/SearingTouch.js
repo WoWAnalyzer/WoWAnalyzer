@@ -17,6 +17,7 @@ class SearingTouch extends Analyzer {
 
   badCasts = 0;
   totalCasts = 0;
+  healthPercent = 1;
 
   constructor(...args) {
     super(...args);
@@ -26,8 +27,8 @@ class SearingTouch extends Analyzer {
 
   //When the target is under 30% health, check to see if the player cast Fireball. If they do, count it as a mistake.
   onDamage(event) {
-    const healthPercent = event.hitPoints / event.maxHitPoints;
-    if (healthPercent > SEARING_TOUCH_HEALTH_THRESHOLD) {
+    if (event.hitPoints > 0) {this.healthPercent = event.hitPoints / event.maxHitPoints;}
+    if (this.healthPercent > SEARING_TOUCH_HEALTH_THRESHOLD) {
       return;
     }
     this.totalCasts += 1;

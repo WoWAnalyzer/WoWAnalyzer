@@ -7,7 +7,7 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 
-const debug = false;
+const debug = true;
 
 const PROC_WINDOW_MS = 200;
 const FIRESTARTER_HEALTH_THRESHOLD = 0.90;
@@ -27,8 +27,7 @@ class HotStreakPreCasts extends Analyzer {
   pyroclasmProcRemoved = 0;
   castedBeforeHotStreak = 0;
   noCastBeforeHotStreak = 0;
-  currentHealth = 0;
-  maxHealth = 0;
+  healthPercent = 1;
 
   constructor(...args) {
     super(...args);
@@ -51,8 +50,7 @@ class HotStreakPreCasts extends Analyzer {
 
   //If the player has the Searing Touch or Firestarter talents, then we need to get the health percentage on damage events so we can know whether we are in the Firestarter or Searing Touch execute windows
   checkHealthPercent(event) {
-    this.currentHealth = event.hitPoints;
-    this.maxHealth = event.maxHitPoints;
+    if (event.hitPoints > 0) {this.healthPercent = event.hitPoints / event.maxHitPoints;}
   }
 
   //Get the timestamp that Hot Streak was removed. This is used for comparing the cast Timestamp to see if there was a hard cast immediately before Hot Streak was removed (and therefore they pre-casted before Hot Streak)
@@ -69,8 +67,8 @@ class HotStreakPreCasts extends Analyzer {
   //Compares timestamps to determine if an ability was hard casted immediately before using Hot Streak.
   //If Combustion is active or they are in the Firestarter or Searing Touch execute windows, then this check is ignored.
   checkForHotStreakPreCasts(event) {
-    if (this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id) || (this.hasFirestarter && this.currentHealth / this.maxHealth > FIRESTARTER_HEALTH_THRESHOLD) || (this.hasSearingTouch && this.currentHealth / this.maxHealth < SEARING_TOUCH_HEALTH_THRESHOLD)) {
-      debug && this.log("Pre Cast Ignored");
+    if (this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id) || (this.hasFirestarter && this.healthPercent > FIRESTARTER_HEALTH_THRESHOLD) || (this.hasSearingTouch && this.healthPercent < SEARING_TOUCH_HEALTH_THRESHOLD)) {
+      debug && this.log('Pre Cast Ignored');
       return;
     }
 
