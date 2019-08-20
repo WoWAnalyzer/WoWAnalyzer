@@ -50,7 +50,9 @@ class HeatingUp extends Analyzer {
     const hasHeatingUp = this.selectedCombatant.hasBuff(SPELLS.HEATING_UP.id);
     const castTarget = this.phoenixFlamesCastEvent ? encodeTargetString(this.phoenixFlamesCastEvent.targetID, event.targetInstance) : null;
     const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
-    if (event.hitPoints > 0) {this.healthPercent = event.hitPoints / event.maxHitPoints;}
+    if (event.hitPoints > 0) {
+      this.healthPercent = event.hitPoints / event.maxHitPoints;
+    }
     if (castTarget !== damageTarget || hasHeatingUp) {
       return;
     }
@@ -76,7 +78,9 @@ class HeatingUp extends Analyzer {
     const hasCombustion = this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id);
     const hasHotStreak = this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id);
     const hasHeatingUp = this.selectedCombatant.hasBuff(SPELLS.HEATING_UP.id);
-    if (event.hitPoints > 0) {this.healthPercent = event.hitPoints / event.maxHitPoints;}
+    if (event.hitPoints > 0) {
+      this.healthPercent = event.hitPoints / event.maxHitPoints;
+    }
     if (hasHeatingUp) {
       return;
     }

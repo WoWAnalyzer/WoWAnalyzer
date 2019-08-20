@@ -45,7 +45,9 @@ class CombustionFirestarter extends Analyzer {
     }
 
     this.combustionCast = false;
-    if (event.hitPoints > 0) {this.healthPercent = event.hitPoints / event.maxHitPoints;}
+    if (event.hitPoints > 0) {
+      this.healthPercent = event.hitPoints / event.maxHitPoints;
+    }
     if (this.healthPercent > FIRESTARTER_HEALTH_THRESHOLD) {
       this.combustionDuringFirestarter = true;
       this.combustionCastEvent.meta = this.combustionCastEvent.meta || {};
