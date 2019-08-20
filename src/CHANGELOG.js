@@ -8,6 +8,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  change(date(2019, 8, 16), 'Added event filter to death recap to view only pre-death events.', Zeboot),
   change(date(2019, 8, 14), 'Fixed potential crash of phase fabrication during mixed filter usage.', Zeboot),
   change(date(2019, 8, 12), 'Added more phase trigger types to improve our phase detection.', Zeboot),
   change(date(2019, 8, 12), <>Added <SpellLink id={SPELLS.LOYAL_TO_THE_END.id} /> azerite trait.</>, Khadaj),
