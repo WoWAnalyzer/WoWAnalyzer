@@ -50,7 +50,9 @@ class HotStreakPreCasts extends Analyzer {
 
   //If the player has the Searing Touch or Firestarter talents, then we need to get the health percentage on damage events so we can know whether we are in the Firestarter or Searing Touch execute windows
   checkHealthPercent(event) {
-    if (event.hitPoints > 0) {this.healthPercent = event.hitPoints / event.maxHitPoints;}
+    if (event.hitPoints > 0) {
+      this.healthPercent = event.hitPoints / event.maxHitPoints;
+    }
   }
 
   //Get the timestamp that Hot Streak was removed. This is used for comparing the cast Timestamp to see if there was a hard cast immediately before Hot Streak was removed (and therefore they pre-casted before Hot Streak)

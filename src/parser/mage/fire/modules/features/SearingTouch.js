@@ -27,7 +27,9 @@ class SearingTouch extends Analyzer {
 
   //When the target is under 30% health, check to see if the player cast Fireball. If they do, count it as a mistake.
   onDamage(event) {
-    if (event.hitPoints > 0) {this.healthPercent = event.hitPoints / event.maxHitPoints;}
+    if (event.hitPoints > 0) {
+      this.healthPercent = event.hitPoints / event.maxHitPoints;
+    }
     if (this.healthPercent > SEARING_TOUCH_HEALTH_THRESHOLD) {
       return;
     }
