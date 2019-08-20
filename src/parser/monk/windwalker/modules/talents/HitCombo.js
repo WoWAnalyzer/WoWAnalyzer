@@ -39,6 +39,10 @@ class HitCombo extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.HIT_COMBO_BUFF.id) / this.owner.fightDuration;
   }
 
+  get dps(){
+    return this.totalDamage / this.owner.fightDuration * 1000;
+  }
+
   get suggestionThresholds() {
     return {
       actual: this.uptime,
@@ -69,8 +73,12 @@ class HitCombo extends Analyzer {
         tooltip={`Total damage increase: ${formatNumber(this.totalDamage)}`}
       >
         <BoringSpellValueText spell={SPELLS.HIT_COMBO_TALENT}>
-          <UptimeIcon /> {formatPercentage(this.uptime)}% <small>Buff uptime</small><br />
-          {this.owner.formatItemDamageDone(this.totalDamage)}
+          <UptimeIcon /> {formatPercentage(this.uptime)}% <small>Uptime</small><br />
+          <img
+            src="/img/sword.png"
+            alt="Damage"
+            className="icon"
+          /> {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalDamage))} % of total</small>
         </BoringSpellValueText>
       </Statistic>
     );

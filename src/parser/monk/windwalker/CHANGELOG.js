@@ -6,6 +6,8 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 8, 20), 'Reverse Harm will now be shown correctly in the Chi overview', Juko8),
+  change(date(2019, 8, 20), <>Updated <SpellLink id={SPELLS.HIT_COMBO_TALENT.id} /> module.</>, Juko8),
   change(date(2019, 8, 18), 'Updated visuals of statistics for baseline spells', Juko8),
   change(date(2019, 3, 17), <>Updated handling of <SpellLink id={SPELLS.ENERGIZING_ELIXIR_TALENT.id} /> and removed its energy gained statistic as it is no longer feasible to calculate it accurately</>, Juko8),
   change(date(2019, 1, 5), 'Added tracking of time spent at maximum energy', Juko8),
