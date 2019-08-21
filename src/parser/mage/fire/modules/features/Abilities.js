@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 
 import CoreAbilities from 'parser/core/modules/Abilities';
 
@@ -48,10 +49,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.FIRE_BLAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: null,
-        cooldown: haste => {
-          const cdr = combatant.hasBuff(SPELLS.LUCID_DREAMS_MAJOR.id) ? 1 : 0;
-          return (combatant.hasTalent(SPELLS.FLAME_ON_TALENT.id) ? 10 : 12) / (1 + haste) / (1 + cdr);
-        },
+        cooldown: haste => (combatant.hasTalent(SPELLS.FLAME_ON_TALENT.id) ? 10 : 12) / (1 + haste),
         charges: combatant.hasTalent(SPELLS.FLAME_ON_TALENT.id) ? 3 : 2,
         castEfficiency: {
           suggestion: true,
