@@ -6,6 +6,7 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PreparationRule from 'parser/shared/modules/features/Checklist/PreparationRule';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
+import SpellLink from 'common/SpellLink';
 
 class ElementalShamanChecklist extends React.PureComponent {
   static propTypes = {
@@ -19,7 +20,6 @@ class ElementalShamanChecklist extends React.PureComponent {
 
   render() {
     const { combatant, castEfficiency, thresholds } = this.props;
-    console.log(this.props);
     const AbilityRequirement = props => (
       <GenericCastEfficiencyRequirement
         castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
@@ -47,14 +47,14 @@ class ElementalShamanChecklist extends React.PureComponent {
           {combatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id) && <AbilityRequirement spell={SPELLS.ELEMENTAL_BLAST_TALENT.id} />}
         </Rule>
         <Rule
-          name="Avoid Downtime"
+          name="Minimize Downtime"
           description={(
             <>
-              Downtime is defined as time where you are not casting and not on GCD. Or more simply put, time where you're doing nothing and thus not contributing to your DPS. This can largely be minimized by ABC (Always Be Casting) and minimizing movement by planning you positioning for abilities.
+              Downtime is defined as time where you are not casting (and not on GCD) or are on GCD from a cancelled cast. Ensure you are casting as much as possible by avoiding movement when you could be casting. Elemental shaman has many GCDs available from <SpellLink id={SPELLS.EARTH_SHOCK.id} />, <SpellLink id={SPELLS.LAVA_SURGE.id} /> empowered <SpellLink id={SPELLS.LAVA_BURST.id} />s, <SpellLink id={SPELLS.FLAME_SHOCK.id} />, and others that help you move towards your location without impacting downtime. Additionally, cancelled casts contribute significantly to downtime as they fill a GCD without actually doing damage. It's expected that some casts will need to be cancelled due to reacting to mechanics, but proper planning can help mitigate that.
             </>
           )}
         >
-          {/* <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} /> */}
+          <Requirement name="Downtime" thresholds={thresholds.downtime} />
           <Requirement name="Cancelled casts" thresholds={thresholds.cancelledCasts} />
         </Rule>
         <PreparationRule thresholds={thresholds} />
