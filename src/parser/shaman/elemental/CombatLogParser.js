@@ -1,4 +1,6 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
+import CancelledCasts from 'parser/shared/modules/CancelledCasts';
+import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 
 import Abilities from './modules/Abilities';
 import Overload from './modules/features/Overload';
@@ -40,8 +42,6 @@ import IgneousPotential from '../shared/azerite/IgneousPotential';
 import MaelstromDetails from '../shared/maelstromchart/MaelstromDetails';
 import MaelstromTracker from '../shared/maelstromchart/MaelstromTracker';
 import MaelstromTab from '../shared/maelstromchart/MaelstromTab';
-import CancelledCasts from 'parser/shared/modules/CancelledCasts';
-import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
