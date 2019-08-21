@@ -65,7 +65,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: 1000,
         },
-        enabled: combatant.hasMajor(SPELLS.CONFLICT.traitId),
+        enabled: combatant.hasEssence(SPELLS.CONFLICT.traitId) ? combatant.hasMajor(SPELLS.CONFLICT.traitId) : false,
       },
       {
         spell: SPELLS.BLACKOUT_KICK,

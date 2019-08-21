@@ -71,9 +71,15 @@ class SpinningCraneKick extends Analyzer {
       }
       i++;
     }
+    if (this.selectedCombatant.hasBuff(SPELLS.DANCE_OF_CHIJI_BUFF.id)) {
+      event.meta = event.meta || {};
+      event.meta.isEnhancedCast = true;
+      event.meta.enhancedCastReason = 'This cast was empowered by Dance of Chi-Ji';
+      return;
+    }
     // Currently only marking casts with lower DPET than Blackout Kick
     // TODO: Expand to also mark targets with lower DPChi than Blackout Kick
-    if (this.markoftheCraneStacks <= 1 && !this.selectedCombatant.hasBuff(SPELLS.DANCE_OF_CHIJI_BUFF.id)) {
+    if (this.markoftheCraneStacks <= 1) {
       this.badCasts += 1;
     }
   }
