@@ -96,12 +96,11 @@ class PrePullCooldowns extends EventsNormalizer {
 
     for (let i = 0; i < events.length; i += 1) {
       const event = events[i];
-      const targetId = event.targetID;
       const sourceId = event.sourceID;
 
       if (event.type === 'applybuff') {
         // We rely on the ApplyBuff normalizer to set the prepull property
-        if (targetId !== playerId || !event.prepull) {
+        if (!event.prepull) {
           continue;
         }
 

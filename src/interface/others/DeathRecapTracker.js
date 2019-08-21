@@ -99,6 +99,9 @@ class DeathRecapTracker extends Analyzer {
     this.addEvent(event);
   }
   on_toPlayer_death(event) {
+    if(event.timestamp <= this.owner.fight.start_time){
+      return;
+    }
     this.addEvent(event);
     this.deaths.push(event.timestamp);
   }
