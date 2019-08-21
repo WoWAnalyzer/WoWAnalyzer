@@ -6,10 +6,11 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER, STATISTIC_CATEGORY } from 'interface/others/StatisticBox';
 import SpellLink from 'common/SpellLink';
+import Events from 'parser/core/Events';
 
 class CallTheThunder extends Analyzer {
   overcapPrevented = 0;
@@ -18,9 +19,11 @@ class CallTheThunder extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CALL_THE_THUNDER_TALENT.id);
+
+    this.addEventListener(Events.energize.by(SELECTED_PLAYER), this.onEnergize);
   }
 
-  on_byPlayer_energize(event) {
+  onEnergize(event) {
     if (event.resourceChangeType === RESOURCE_TYPES.MAELSTROM.id) {
       event.classResources.forEach((resource) => {
         if (resource.type === RESOURCE_TYPES.MAELSTROM.id) {

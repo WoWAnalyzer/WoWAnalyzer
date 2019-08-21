@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 11, 29), <>Add a statistic counting the amount of maelstrom not wasted due to <SpellLink id={SPELLS.CALL_THE_THUNDER_TALENT.id}/>.</>, [Draenal]),
   change(date(2019, 11, 28), <>Added a statistic for <SpellLink id={SPELLS.NATURAL_HARMONY_TRAIT.id} /> to track avg crit, haste, mastery and uptime for each</>, [Draenal]),
   change(date(2019, 10, 31), <>Add a checklist item for <SpellLink id={SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id} /></>, [HawkCorrigan] ),
   change(date(2019, 10, 31), <>Fixed formatting for SoP suggestion</>, [HawkCorrigan]),
