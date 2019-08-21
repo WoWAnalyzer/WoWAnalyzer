@@ -26,7 +26,6 @@ class HitCombo extends Analyzer {
 
   onAffectedDamage(event) {
     const buffInfo = this.selectedCombatant.getBuff(SPELLS.HIT_COMBO_BUFF.id);
-    console.log('Heoyyroaoao');
     if (!buffInfo) {
       return;
     }
