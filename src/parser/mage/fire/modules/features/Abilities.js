@@ -49,7 +49,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: null,
         cooldown: haste => {
-          const cdr = combatant.hasBuff(SPELLS.LUCID_DREAMS_MINOR_STAT_BUFF.id) ? 1 : 0;
+          const cdr = combatant.hasBuff(SPELLS.LUCID_DREAMS_MAJOR.id) ? 1 : 0;
           return (combatant.hasTalent(SPELLS.FLAME_ON_TALENT.id) ? 10 : 12) / (1 + haste) / (1 + cdr);
         },
         charges: combatant.hasTalent(SPELLS.FLAME_ON_TALENT.id) ? 3 : 2,
