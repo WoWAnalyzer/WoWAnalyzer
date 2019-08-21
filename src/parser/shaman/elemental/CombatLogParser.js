@@ -2,6 +2,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 import Abilities from './modules/Abilities';
 import Overload from './modules/features/Overload';
+import CancelledCasts from './modules/features/CancelledCasts';
 
 import FlameShock from './modules/core/FlameShock';
 import LavaSurge from './modules/core/LavaSurge';
@@ -50,6 +51,7 @@ class CombatLogParser extends CoreCombatLogParser {
     overload: Overload,
     stormfireElemental: StormFireElemental,
     buffs: Buffs,
+    cancelledCasts: CancelledCasts,
 
     // Talents
     aftershock: Aftershock,
