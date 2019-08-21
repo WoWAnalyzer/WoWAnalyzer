@@ -59,6 +59,15 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.REVERSE_HARM,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 10,
+        gcd: {
+          static: 1000,
+        },
+        enabled: combatant.hasMajor(SPELLS.CONFLICT.traitId),
+      },
+      {
         spell: SPELLS.BLACKOUT_KICK,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
