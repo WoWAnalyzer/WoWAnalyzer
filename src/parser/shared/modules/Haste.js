@@ -35,7 +35,9 @@ class Haste extends Analyzer {
     [SPELLS.QUICK_THINKER_BUFF.id]: 0.15,
     [SPELLS.EMPOWER_RUNE_WEAPON.id]: 0.15, // Frost DK
     [SPELLS.EVER_RISING_TIDE_CHARGING_BUFF.id]: 0.1, // Essence
-    [SPELLS.GUARDIAN_OF_AZEROTH_HASTE_BUFF.id]: 0.02, // Essence
+    [SPELLS.GUARDIAN_OF_AZEROTH_HASTE_BUFF.id]: {
+      hastePerStack: 0.02,
+    },
 
     // Boss abilities:
     [SPELLS.OPULENCE_AMETHYST_OF_THE_SHADOW_KING.id]: 0.5, // Amethyst of the Shadow King by Opulence (BoD - BFA)
