@@ -110,6 +110,10 @@ class Abilities extends CoreAbilities {
           base: 1000,
           minimum: 750,
         },
+        enabled: combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+        },
       },
       {
         spell: SPELLS.RUSHING_JADE_WIND_TALENT_WINDWALKER,
