@@ -48,7 +48,12 @@ class ProtectionWarriorChecklist extends React.PureComponent {
           />
           <AbilityRequirement spell={SPELLS.SHIELD_BLOCK.id} />
           {combatant.hasTalent(SPELLS.STORM_BOLT_TALENT.id) && <AbilityRequirement spell={SPELLS.STORM_BOLT_TALENT.id} />}
-          {combatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id) && <AbilityRequirement spell={SPELLS.DEMORALIZING_SHOUT.id} />}
+          {combatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id) && (
+            <Requirement
+              name={(<SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> )}
+              thresholds={thresholds.demoShoutCD}
+            />
+          )}
           {combatant.hasTalent(SPELLS.DRAGON_ROAR_TALENT.id) && <AbilityRequirement spell={SPELLS.DRAGON_ROAR_TALENT.id} />}
           
         </Rule>
