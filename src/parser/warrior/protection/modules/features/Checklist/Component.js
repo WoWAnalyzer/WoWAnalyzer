@@ -61,12 +61,23 @@ class ProtectionWarriorChecklist extends React.PureComponent {
             </>
           )}
         >
-          <AbilityRequirement spell={SPELLS.SHIELD_WALL.id} />
-          <AbilityRequirement spell={SPELLS.LAST_STAND.id} />
+          <Requirement
+            name={(<SpellLink id={SPELLS.SHIELD_WALL.id} /> )}
+            thresholds={thresholds.shieldWallCD}
+            />
+          <Requirement
+            name={(<SpellLink id={SPELLS.LAST_STAND.id} /> )}
+            thresholds={thresholds.lastStandCD}
+            />
           <AbilityRequirement spell={SPELLS.SPELL_REFLECTION.id} 
             tooltip={<>Take this with a grain of salt as some bosses it is not possible to use. </>}
           /> 
-          {!combatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id) && <AbilityRequirement spell={SPELLS.DEMORALIZING_SHOUT.id} />}
+          {!combatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id) && (
+              <Requirement
+                name={(<SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> )}
+                thresholds={thresholds.demoShoutCD}
+            />
+            )}
         </Rule>
 
         <Rule
@@ -78,8 +89,16 @@ class ProtectionWarriorChecklist extends React.PureComponent {
             </>
           )}
           >
-            <AbilityRequirement spell={SPELLS.AVATAR_TALENT.id} />
-            {combatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id) && <AbilityRequirement spell={SPELLS.DEMORALIZING_SHOUT.id} />}
+            <Requirement
+              name={(<SpellLink id={SPELLS.AVATAR_TALENT.id} /> )}
+              thresholds={thresholds.avatarCD}
+            />
+            {combatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id) && (
+              <Requirement
+                name={(<SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> )}
+                thresholds={thresholds.demoShoutCD}
+            />
+            )}
             {combatant.hasTalent(SPELLS.RAVAGER_TALENT_PROTECTION.id) && <AbilityRequirement spell={SPELLS.RAVAGER_TALENT_PROTECTION.id} />}
             
           </Rule>
