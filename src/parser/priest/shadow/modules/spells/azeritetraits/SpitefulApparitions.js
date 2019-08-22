@@ -5,17 +5,13 @@ import { calculateAzeriteEffects } from 'common/stats';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import Events from 'parser/core/Events';
 import { formatNumber } from 'common/format';
+import StatTracker from 'parser/shared/modules/StatTracker';
 
-const spitefulApparitionsStats = traits => Object.values(traits).reduce((obj, rank) => {
-  const [damage] = calculateAzeriteEffects(SPELLS.SPITEFUL_APPARITIONS.id, rank);
-  obj.damage += damage;
-  return obj;
-}, {
-  damage: 0,
-});
+const SHADOWY_APPARITION_COEFFICIENT = 0.25;
 
 /**
  * Spiteful Apparitions
@@ -26,10 +22,11 @@ const spitefulApparitionsStats = traits => Object.values(traits).reduce((obj, ra
 class SpitefulApparitions extends Analyzer {
   static dependencies = {
     enemies: Enemies,
+    statTracker: StatTracker,
   };
 
-  damageValue = 0;
   damageDone = 0;
+  traitBonus = 0;
 
   constructor(...args) {
     super(...args);
@@ -37,10 +34,11 @@ class SpitefulApparitions extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOWY_APPARITION_DAMAGE), this.onDamageEvent);
 
-    const { damage } = spitefulApparitionsStats(this.selectedCombatant.traitsBySpellId[SPELLS.SPITEFUL_APPARITIONS.id]);
-    this.damageValue = damage;
+    this.traitBonus = this.selectedCombatant.traitsBySpellId[SPELLS.SPITEFUL_APPARITIONS.id]
+      .reduce((sum, rank) => sum + calculateAzeriteEffects(SPELLS.SPITEFUL_APPARITIONS.id, rank)[0], 0);
+
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOWY_APPARITION_DAMAGE), this.onDamageEvent);
   }
 
   onDamageEvent(event) {
@@ -51,7 +49,7 @@ class SpitefulApparitions extends Analyzer {
     if (!enemy.hasBuff(SPELLS.VAMPIRIC_TOUCH.id, event.timestamp)) {
       return;
     }
-    this.damageDone += this.damageValue;
+    this.damageDone += calculateBonusAzeriteDamage(event, [this.traitBonus], SHADOWY_APPARITION_COEFFICIENT, this.statTracker.currentIntellectRating)[0];
   }
 
   statistic() {
