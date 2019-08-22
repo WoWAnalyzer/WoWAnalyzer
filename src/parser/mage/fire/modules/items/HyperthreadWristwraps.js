@@ -42,6 +42,7 @@ class HyperthreadWristwraps extends Analyzer {
   }
 
   onWristUse(event) {
+    const bracerReduction = this.selectedCombatant.hasBuff(SPELLS.LUCID_DREAMS_MAJOR.id) ? 10000 : 5000;
     debug && console.log(this.lastThreeSpells);
     this.lastThreeSpells.forEach(spell => {
       if (spell === SPELLS.FIRE_BLAST.id) {
@@ -49,7 +50,7 @@ class HyperthreadWristwraps extends Analyzer {
       }
       if (this.spellUsable.isOnCooldown(spell)) {
         debug && this.log('Reduced ' + spell + ' by 5 seconds.');
-        this.spellUsable.reduceCooldown(spell,5000);
+        this.spellUsable.reduceCooldown(spell, bracerReduction, event.timestamp);
       }
     });
     if (this.fireBlastReductions !== 2) {

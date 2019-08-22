@@ -45,12 +45,10 @@ class LucidDreams extends Analyzer {
   }
 
   onEvent(event) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.LUCID_DREAMS_MAJOR.id) || event.timestamp <= this.lastTimestamp) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.LUCID_DREAMS_MAJOR.id) || event.timestamp <= this.lastTimestamp || this.lastTimestamp === 0 || !this.spellUsable.isOnCooldown(SPELLS.FIRE_BLAST.id)) {
       return;
     }
-    if (this.lastTimestamp !== 0) {
-      this.spellUsable.reduceCooldown(SPELLS.FIRE_BLAST.id, event.timestamp - this.lastTimestamp, event.timestamp);
-    }
+    this.spellUsable.reduceCooldown(SPELLS.FIRE_BLAST.id, event.timestamp - this.lastTimestamp, event.timestamp);
     this.lastTimestamp = event.timestamp;
   }
 
