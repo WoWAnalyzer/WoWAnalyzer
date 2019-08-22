@@ -736,3 +736,13 @@ export const Adoraci = {
     link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/adoraci',
   }],
 };
+export const TheJigglr = {
+  nickname: 'TheJigglr',
+  github: 'myran2',
+  discord: 'Henry#4712',
+  mains: [{
+    name: 'Thejigglr',
+    spec: SPECS.ELEMENTAL_SHAMAN,
+    link: 'https://worldofwarcraft.com/en-us/character/us/bleeding-hollow/thejigglr',
+  }],
+};
