@@ -1,13 +1,13 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-
 import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import StatTracker from 'parser/shared/modules/StatTracker';
-
-import SpellIcon from 'common/SpellIcon';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { formatNumber } from 'common/format';
+import Statistic from 'interface/statistics/Statistic';
+import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
 
 const TOUCH_OF_DEATH_HP_SCALING = 0.35;
 const GALE_BURST_VALUE = 0.1;
@@ -74,19 +74,20 @@ class TouchOfDeath extends Analyzer {
     const averageVulnerabilityAmplifier = this.totalVulnerabilityAmplifier / this.abilityTracker.getAbility(SPELLS.TOUCH_OF_DEATH.id).casts;
     const averageGaleBurst = this.totalGaleBurst / this.abilityTracker.getAbility(SPELLS.TOUCH_OF_DEATH.id).casts;
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(8)}
-        icon={<SpellIcon id={SPELLS.TOUCH_OF_DEATH.id} />}
-        value={(averageGaleBurst).toFixed(2)}
-        label="Average Gale Burst"
+        size="flexible"
         tooltip={(
           <>
             Damage done with Touch of Death is affected by % damage taken buffs on its target. This causes damage done by other abilities during the Gale burst window to benefit twice from those debuffs, due to the increase to their own hits as well as the Gale Burst component of Touch of Death . <br /> <br />
-
             Your average modifier on Touch of Death was ~{(averageVulnerabilityAmplifier * 100).toFixed()}% and your highest was ~{(this.highestVulnerabilityAmplifier * 100).toFixed()}%. Your highest Gale Burst was {this.highestGaleBurst.toFixed()}
           </>
         )}
-      />
+      >
+      <BoringSpellValueText spell={SPELLS.TOUCH_OF_DEATH}>
+       {formatNumber(averageGaleBurst)} <small>Average Gale Burst</small>
+      </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

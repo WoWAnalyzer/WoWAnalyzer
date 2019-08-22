@@ -1,11 +1,12 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
+import Statistic from 'interface/statistics/Statistic';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer from 'parser/core/Analyzer';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
 
 const CB_DURATION = 15000;
 const debug = false;
@@ -83,13 +84,15 @@ class ComboBreaker extends Analyzer {
   statistic() {
     const averageCBProcs = this.abilityTracker.getAbility(SPELLS.TIGER_PALM.id).casts * (this.selectedCombatant.hasTrait(SPELLS.PRESSURE_POINT.id) ? 0.1 : 0.08);
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(6)}
-        icon={<SpellIcon id={SPELLS.COMBO_BREAKER_BUFF.id} />}
-        value={`${formatPercentage(this.usedCBProcs)}%`}
-        label="Combo Breaker Procs Used"
-        tooltip={<>You got a total of <strong>{this.CBProcsTotal} Combo Breaker procs</strong> and <strong>used {this.consumedCBProc}</strong> of them. Average number of procs from your Tiger Palms this fight is <strong>{averageCBProcs.toFixed(2)}</strong>, and you got <strong>{this.CBProcsTotal}</strong>.</>}
-      />
+        size="flexible"
+        tooltip={<>You got a total of <strong>{this.CBProcsTotal} Combo Breaker procs</strong> and <strong>used {this.consumedCBProc}</strong> of them. The average expected number of procs from your Tiger Palms this fight is <strong>{averageCBProcs.toFixed(2)}</strong>, and you got <strong>{this.CBProcsTotal}</strong>.</>}
+      >
+      <BoringSpellValueText spell={SPELLS.COMBO_BREAKER_BUFF}>
+          {formatPercentage(this.usedCBProcs, 0)}% <small>Proc utilization</small>
+      </BoringSpellValueText>
+    </Statistic>
    );
   }
 }

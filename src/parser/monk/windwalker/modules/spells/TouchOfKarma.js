@@ -1,11 +1,12 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
+import Statistic from 'interface/statistics/Statistic';
 import Analyzer from 'parser/core/Analyzer';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
 
 const TOUCH_OF_KARMA_HP_SCALING = 0.5;
 
@@ -50,13 +51,15 @@ class TouchOfKarma extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.OPTIONAL(2)}
-        icon={<SpellIcon id={SPELLS.TOUCH_OF_KARMA_CAST.id} />}
-        value={`${formatPercentage(this.absorbUsed)}%`}
-        label="Touch of Karma Absorb used"
+        size="flexible"
         tooltip="This does not account for possible absorbs from missed Touch of Karma casts"
-      />
+      >
+      <BoringSpellValueText spell={SPELLS.TOUCH_OF_KARMA_CAST}>
+        {formatPercentage(this.absorbUsed, 0)}% <small>Absorb used</small>
+      </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

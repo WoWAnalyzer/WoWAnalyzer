@@ -28,11 +28,18 @@ class DeathRecap extends React.PureComponent {
       amountThreshold: AMOUNT_THRESHOLD,
     };
     this.handleClick = this.handleClick.bind(this);
+    this.filterDeath = this.filterDeath.bind(this);
   }
 
   handleClick(event) {
     const clicked = event === this.state.detailedView ? -1 : event;
     this.setState({ detailedView: clicked });
+  }
+
+  filterDeath(event, i) {
+    const start = this.props.report.fight.offset_time + (i !== 0 && this.props.events[i-1].deathtime - this.props.report.fight.start_time);
+    const end = event.deathtime + this.props.report.fight.offset_time - this.props.report.fight.start_time;
+    this.props.report.applyTimeFilter(start, end);
   }
 
   render() {
@@ -66,7 +73,8 @@ class DeathRecap extends React.PureComponent {
     };
 
     const events = this.props.events;
-
+    /* eslint-disable no-script-url */
+    /* eslint-disable jsx-a11y/anchor-is-valid */
     return (
       <>
         <div className="pad" style={{ marginBottom: 15 }}>
@@ -102,9 +110,12 @@ class DeathRecap extends React.PureComponent {
         </div>
         {events.map((death, i) => (
           <React.Fragment key={i}>
-            {events.length > 1 && (
-              <h2 onClick={() => this.handleClick(i)} style={{ padding: '10px 20px', cursor: 'pointer' }}>Death #{i + 1}</h2>
-            )}
+            <div style={{display: 'block'}}>
+              <h2 onClick={() => this.handleClick(i)} style={{ padding: '10px 20px', cursor: 'pointer', display: 'inline-block' }}>Death #{i + 1}</h2>
+              <TooltipElement content="Filter events to the time between either the start of combat or your last death (whichever happened more recently) and this death.">
+                <a href="javascript:" onClick={() => this.filterDeath(death, i)}>Filter to prior events</a>
+              </TooltipElement>
+            </div>
             <table style={{ display: this.state.detailedView === i ? 'block' : 'none' }} className="data-table">
               <thead>
                 <tr>

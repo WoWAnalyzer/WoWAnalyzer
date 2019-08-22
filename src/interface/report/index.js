@@ -203,6 +203,8 @@ class ResultsLoader extends React.PureComponent {
             fight={this.state.filteredFight}
             player={player}
             combatants={combatants}
+            applyTimeFilter={this.applyTimeFilter}
+            applyPhaseFilter={this.handlePhaseSelection}
             parserClass={this.state.parserClass}
             characterProfile={this.state.characterProfile}
             events={this.state.filteredEvents}

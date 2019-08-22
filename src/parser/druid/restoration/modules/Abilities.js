@@ -240,7 +240,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SHRED,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
-          base: 1000,
+          static: 1000,
         },
       },
       //Forms
@@ -263,14 +263,14 @@ class Abilities extends CoreAbilities {
         buffSpellId: SPELLS.BEAR_FORM.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
         gcd: {
-          base: 1000,
+          base: 1500,
         },
       },
       {
         spell: SPELLS.CAT_FORM,
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         gcd: {
-          base: 1000,
+          base: 1500,
         },
       },
       {
@@ -296,7 +296,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         enabled: combatant.hasTalent(SPELLS.GUARDIAN_AFFINITY_TALENT_SHARED.id),
         gcd: {
-          base: 1000,
+          static: 1000,
         },
       },
       {
@@ -321,7 +321,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         enabled: combatant.hasTalent(SPELLS.FERAL_AFFINITY_TALENT_RESTORATION.id),
         gcd: {
-          base: 1500,
+          static: 1000,
         },
       },
       {
@@ -337,7 +337,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         enabled: combatant.hasTalent(SPELLS.FERAL_AFFINITY_TALENT_RESTORATION.id),
         gcd: {
-          base: 1000,
+          static: 1000,
         },
       },
       {
@@ -345,7 +345,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         enabled: combatant.hasTalent(SPELLS.FERAL_AFFINITY_TALENT_RESTORATION.id),
         gcd: {
-          base: 1000,
+          static: 1000,
         },
       },
       {
@@ -353,7 +353,7 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.OTHERS,
         enabled: combatant.hasTalent(SPELLS.FERAL_AFFINITY_TALENT_RESTORATION.id),
         gcd: {
-          base: 1000,
+          static: 1000,
         },
       },
 
@@ -409,18 +409,30 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DASH,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 120,
-        gcd: {
-          base: 1500,
-        },
+        gcd: (combatant => {
+          if (combatant.hasBuff(SPELLS.CAT_FORM.id)) {
+            // off the GCD if player is already in cat form
+            return null;
+          }
+          return {
+            static: 1500,
+          };
+        }),
       },
       {
         spell: SPELLS.TIGER_DASH_TALENT,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         enabled: combatant.hasTalent(SPELLS.TIGER_DASH_TALENT.id),
         cooldown: 45,
-        gcd: {
-          base: 1500,
-        },
+        gcd: (combatant => {
+          if (combatant.hasBuff(SPELLS.CAT_FORM.id)) {
+            // off the GCD if player is already in cat form
+            return null;
+          }
+          return {
+            static: 1500,
+          };
+        }),
       },
 
       //CC

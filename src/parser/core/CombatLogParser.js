@@ -356,6 +356,9 @@ class CombatLogParser {
   // Override this with spec specific modules when extending
   static specModules = {};
 
+  applyTimeFilter = (start, end) => null; //dummy function gets filled in by event parser
+  applyPhaseFilter = (phase, instance) => null; //dummy function gets filled in by event parser
+
   report = null;
   // Player info from WCL - required
   player = null;

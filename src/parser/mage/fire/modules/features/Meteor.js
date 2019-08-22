@@ -9,7 +9,7 @@ import Events from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 
-class HeatingUp extends Analyzer {
+class Meteor extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     enemies: EnemyInstances,
@@ -88,4 +88,4 @@ class HeatingUp extends Analyzer {
   }
 }
 
-export default HeatingUp;
+export default Meteor;
