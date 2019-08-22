@@ -32,6 +32,8 @@ import Meteor from './modules/features/Meteor';
 
 import HyperthreadWristwraps from './modules/items/HyperthreadWristwraps';
 
+import LucidDreams from './modules/items/LucidDreams';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Normalizers
@@ -70,6 +72,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Items
     hyperthreadWristwraps: HyperthreadWristwraps,
+
+    // Essences
+    lucidDreams: LucidDreams,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],

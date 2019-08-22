@@ -8,6 +8,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  change(date(2019, 8, 22), 'Added Spell IDs and the stacking haste buff from Condensed Life Force.', Sharrq),
   change(date(2019, 8, 22), <><SpellLink id={SPELLS.LUCID_DREAMS.id} /> minor for rage refund added. Shouldn't show up as missing id in rage-useage now.</>, Abelito75),
   change(date(2019, 8, 20), 'Fixed potential crash of phase fabrication during mixed filter usage.', Zeboot),
   change(date(2019, 8, 16), 'Added event filter to death recap to view only pre-death events.', Zeboot),

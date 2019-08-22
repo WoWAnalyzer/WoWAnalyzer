@@ -8,6 +8,7 @@ import ItemLink from 'common/ItemLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 8, 21), <>Add support for Fire Blast cooldown reduction from <SpellLink id={SPELLS.LUCID_DREAMS_MAJOR.id} />.</>, [Sharrq]),
   change(date(2019, 8, 20), <>Minor code style fix</>, [Sharrq]),
   change(date(2019, 8, 20), <>Fixed an issue that caused Boss Health calculations to be incorrect on Lady Ashvane, resulting in incorrect results for several statistics and suggestions.</>, [Sharrq]),
   change(date(2019, 8, 19), <>Removed <SpellLink id={SPELLS.PYROCLASM_TALENT.id} /> during <SpellLink id={SPELLS.COMBUSTION.id} /> suggestions to match Altered Time guide.</>, [Sharrq]),

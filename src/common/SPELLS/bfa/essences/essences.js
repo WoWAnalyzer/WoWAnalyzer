@@ -245,4 +245,31 @@ export default {
     name: 'Strive for Perfection',
     icon: 'inv_radientazeritematrix',
   },
+  //Condensed Life Force
+  GUARDIAN_OF_AZEROTH: {
+    id: 299358,
+    traitId: 14,
+    name: 'Guardian of Azeroth',
+    icon: 'spell_azerite_essence14',
+  },
+  GUARDIAN_OF_AZEROTH_MAJOR: {
+    id: 295840,
+    name: 'Guardian of Azeroth',
+    icon: 'spell_azerite_essence14',
+  },
+  GUARDIAN_OF_AZEROTH_HASTE_BUFF: {
+    id: 295855,
+    name: 'Guardian of Azeroth',
+    icon: 'spell_azerite_essence14',
+  },
+  AZERITE_SPIKE: {
+    id: 296856,
+    name: 'Azerite Spike',
+    icon: 'spell_azerite_essence14',
+  },
+  CONDENSED_LIFE_FORCE_DEBUFF: {
+    id: 295838,
+    name: 'Condensed Life Force',
+    icon: 'spell_azerite_essence14',
+  },
 };
