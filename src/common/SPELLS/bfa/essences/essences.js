@@ -203,6 +203,11 @@ export default {
     name: 'Lucid Dreams',
     icon: 'inv_radientazeritematrix',
   },
+   LUCID_DREAMS_MINOR_RESOURCE_REFUND_RAGE : {
+    id: 298321,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
   //Vision of Perfection
   VISION_OF_PERFECTION: {
     id: 296325,
