@@ -23,6 +23,7 @@ import IntoTheFray from './modules/talents/IntoTheFray';
 import Vengeance from './modules/talents/Vengeance';
 import Punish from './modules/talents/Punish';
 import DragonRoar from './modules/talents/DragonRoar';
+import AngerCD from './modules/talents/AngerCD';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -46,6 +47,7 @@ class CombatLogParser extends CoreCombatLogParser {
     shieldSlam: ShieldSlam,
     //Talents
     angerManagement: AngerManagement,
+    angerCD: AngerCD,
     boomingVoice: BoomingVoice,
     heavyRepercussions: HeavyRepercussions,
     intoTheFray: IntoTheFray,

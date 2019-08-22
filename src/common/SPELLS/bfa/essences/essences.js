@@ -230,6 +230,11 @@ export default {
     name: 'Vision of Perfection',
     icon: 'spell_azerite_essence_18',
   },
+  VISION_OF_PERFECTION_RAGE: {
+    id: 302585,
+    name: 'Vision of Perfection',
+    icon: 'spell_azerite_essence_18',
+  },
   STRIVE_FOR_PERFECTION: {
     id: 296320,
     name: 'Strive for Perfection',
