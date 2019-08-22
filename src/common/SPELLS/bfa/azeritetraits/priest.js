@@ -104,6 +104,11 @@ export default {
     name: 'Whispers of the Damned',
     icon: 'inv_misc_eye_03',
   },
+  SPITEFUL_APPARITIONS: {
+    id: 277682,
+    name: 'Spiteful Apparitions',
+    icon: 'ability_priest_shadowyapparition',
+  },
   DEATH_DENIED: {
     id: 287717,
     name: 'Death Denied',

@@ -24,6 +24,7 @@ import VampiricEmbrace from './modules/spells/VampiricEmbrace';
 import ChorusOfInsanity from './modules/spells/azeritetraits/ChorusOfInsanity';
 import DeathThroes from './modules/spells/azeritetraits/DeathThroes';
 import WhispersOfTheDamned from './modules/spells/azeritetraits/WhispersOfTheDamned';
+import SpitefulApparitions from './modules/spells/azeritetraits/SpitefulApparitions';
 // talents
 import TwistOfFate from './modules/talents/TwistOfFate';
 import VoidTorrent from './modules/talents/VoidTorrent';
@@ -63,6 +64,7 @@ class CombatLogParser extends MainCombatLogParser {
     chorusOfInsanity: ChorusOfInsanity,
     deathThroes: DeathThroes,
     whispersOfTheDamned: WhispersOfTheDamned,
+    spitefulApparitions: SpitefulApparitions,
 
     // talents:
     twistOfFate: TwistOfFate,
