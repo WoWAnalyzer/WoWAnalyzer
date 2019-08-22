@@ -74,13 +74,6 @@ class FireMageChecklist extends React.PureComponent {
               tooltip="If you are talented into Firestarter, you should ensure that you do not cast Combustion while the boss is above 90% Health. This would be a waste considering every spell is guaranteed to crit while the boss is above 90% Health, which defeats the purpose of using Combustion. Instead, you should use Combustion when the boss gets to 89% so you can continue the streak of guaranteed crits once Firestarter finishes."
             />
           )}
-          {combatant.hasTalent(SPELLS.PYROCLASM_TALENT.id) && (
-            <Requirement
-              name="Pyroclasm Usage"
-              thresholds={thresholds.pyroclasmCombustionUsage}
-              tooltip="If you have enough time to complete the cast before Combustion ends, then you should always use your Pyroclasm procs to hard cast Pyroblast during Combustion. This is primarily because Combustion will guarantee that the spell crits, resulting in more damage on top of the 225% that the Pyroclasm buff gives."
-            />
-          )}
           <Requirement
             name="Bad Scorch Uses"
             thresholds={thresholds.scorchSpellUsageDuringCombustion}

@@ -8,6 +8,7 @@ import ITEMS from 'common/ITEMS/index';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
+import Buffs from 'parser/core/modules/Buffs';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
@@ -17,6 +18,7 @@ import BoringItemValueText from 'interface/statistics/components/BoringItemValue
 class VoidStone extends Analyzer {
   static dependencies = {
     abilities: Abilities,
+    buffs: Buffs,
   };
 
   static cooldown = 120; //seconds
@@ -42,6 +44,10 @@ class VoidStone extends Analyzer {
       castEfficiency: {
         suggestion: false,
       },
+    });
+    this.buffs.add({
+      spellId: SPELLS.UMBRAL_SHELL.id,
+      triggeredBySpellId: SPELLS.UMBRAL_SHELL.id,
     });
   }
 

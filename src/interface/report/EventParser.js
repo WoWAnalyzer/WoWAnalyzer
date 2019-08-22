@@ -45,6 +45,8 @@ class EventParser extends React.PureComponent {
     combatants: PropTypes.arrayOf(PropTypes.shape({
       sourceID: PropTypes.number.isRequired,
     })),
+    applyTimeFilter: PropTypes.func.isRequired,
+    applyPhaseFilter: PropTypes.func.isRequired,
     parserClass: PropTypes.func.isRequired,
     characterProfile: PropTypes.object,
     events: PropTypes.array.isRequired,
@@ -86,6 +88,8 @@ class EventParser extends React.PureComponent {
   makeParser() {
     const { report, fight, combatants, player, characterProfile, parserClass } = this.props;
     const parser = new parserClass(report, player, fight, combatants, characterProfile);
+    parser.applyTimeFilter = this.props.applyTimeFilter;
+    parser.applyPhaseFilter = this.props.applyPhaseFilter;
     this.setState({
       parser,
     });
