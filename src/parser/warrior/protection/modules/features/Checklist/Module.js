@@ -9,6 +9,9 @@ import AlwaysBeCasting from '../AlwaysBeCasting';
 import Component from './Component';
 import RageDetails from '../../core/RageDetails';
 import RageTracker from '../../core/RageTracker';
+import ShieldSlam from '../../spells/ShieldSlam';
+import AngerCD from '../../talents/AngerCD';
+
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -19,6 +22,8 @@ class Checklist extends BaseChecklist {
     alwaysBeCasting: AlwaysBeCasting,    
     rageDetails: RageDetails,
     rageTracker: RageTracker,
+    shieldSlam: ShieldSlam,
+    angerCD: AngerCD,
   };
 
   render() {
@@ -30,6 +35,11 @@ class Checklist extends BaseChecklist {
           ...this.preparationRuleAnalyzer.thresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           rageDetails: this.rageDetails.suggestionThresholds,
+          shieldSlam: this.shieldSlam.suggestionThresholds,
+          demoShoutCD: this.angerCD.suggestionThresholdsDemoShout,
+          avatarCD: this.angerCD.suggestionThresholdsAvatar,
+          lastStandCD: this.angerCD.suggestionThresholdsLastStand,
+          shieldWallCD: this.angerCD.suggestionThresholdsShieldWall,
         }}
       />
     );

@@ -25,11 +25,14 @@ import HotStreakWastedCrits from './modules/features/HotStreakWastedCrits';
 import CombustionFirestarter from './modules/features/CombustionFirestarter';
 import CombustionCharges from './modules/features/CombustionCharges';
 import CombustionSpellUsage from './modules/features/CombustionSpellUsage';
-import CombustionPyroclasm from './modules/features/CombustionPyroclasm';
 import HeatingUp from './modules/features/HeatingUp';
 import Pyroclasm from './modules/features/Pyroclasm';
 import SearingTouch from './modules/features/SearingTouch';
 import Meteor from './modules/features/Meteor';
+
+import HyperthreadWristwraps from './modules/items/HyperthreadWristwraps';
+
+import LucidDreams from './modules/items/LucidDreams';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -53,7 +56,6 @@ class CombatLogParser extends CoreCombatLogParser {
     combustionFirestarter: CombustionFirestarter,
     combustionCharges: CombustionCharges,
     combustionSpellUsage: CombustionSpellUsage,
-    combustionPyroclasm: CombustionPyroclasm,
     heatingUp: HeatingUp,
     pyroclasm: Pyroclasm,
     searingTouch: SearingTouch,
@@ -67,6 +69,12 @@ class CombatLogParser extends CoreCombatLogParser {
     runeOfPower: [RuneOfPower, { showStatistic: false, showSuggestion: false }],
     kindling: Kindling,
     meteor: Meteor,
+
+    // Items
+    hyperthreadWristwraps: HyperthreadWristwraps,
+
+    // Essences
+    lucidDreams: LucidDreams,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],

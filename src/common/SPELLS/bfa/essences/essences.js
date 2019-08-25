@@ -203,6 +203,11 @@ export default {
     name: 'Lucid Dreams',
     icon: 'inv_radientazeritematrix',
   },
+   LUCID_DREAMS_MINOR_RESOURCE_REFUND_RAGE : {
+    id: 298321,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
   //Vision of Perfection
   VISION_OF_PERFECTION: {
     id: 296325,
@@ -225,6 +230,11 @@ export default {
     name: 'Vision of Perfection',
     icon: 'spell_azerite_essence_18',
   },
+  VISION_OF_PERFECTION_RAGE: {
+    id: 302585,
+    name: 'Vision of Perfection',
+    icon: 'spell_azerite_essence_18',
+  },
   STRIVE_FOR_PERFECTION: {
     id: 296320,
     name: 'Strive for Perfection',
@@ -239,5 +249,32 @@ export default {
     id: 296322,
     name: 'Strive for Perfection',
     icon: 'inv_radientazeritematrix',
+  },
+  //Condensed Life Force
+  GUARDIAN_OF_AZEROTH: {
+    id: 299358,
+    traitId: 14,
+    name: 'Guardian of Azeroth',
+    icon: 'spell_azerite_essence14',
+  },
+  GUARDIAN_OF_AZEROTH_MAJOR: {
+    id: 295840,
+    name: 'Guardian of Azeroth',
+    icon: 'spell_azerite_essence14',
+  },
+  GUARDIAN_OF_AZEROTH_HASTE_BUFF: {
+    id: 295855,
+    name: 'Guardian of Azeroth',
+    icon: 'spell_azerite_essence14',
+  },
+  AZERITE_SPIKE: {
+    id: 296856,
+    name: 'Azerite Spike',
+    icon: 'spell_azerite_essence14',
+  },
+  CONDENSED_LIFE_FORCE_DEBUFF: {
+    id: 295838,
+    name: 'Condensed Life Force',
+    icon: 'spell_azerite_essence14',
   },
 };

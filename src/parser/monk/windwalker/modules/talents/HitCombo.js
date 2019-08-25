@@ -1,26 +1,45 @@
-/* TODO:
- * Track number of times the buff drops
- * Track what spell / point in fight the buff dropped
-*/
 import React from 'react';
-
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import { formatPercentage } from 'common/format';
-
+import UptimeIcon from 'interface/icons/Uptime';
+import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Events from 'parser/core/Events';
+import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
+import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/EventFilter';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
+import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from 'parser/monk/windwalker/constants';
+
+const MOD_PER_STACK = 0.01;
 
 class HitCombo extends Analyzer {
-
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.HIT_COMBO_TALENT.id);
+    if (this.active) {
+      this.addEventListener(Events.damage.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(ABILITIES_AFFECTED_BY_DAMAGE_INCREASES), this.onAffectedDamage);
+    }
+  }
+  totalDamage = 0;
+
+  onAffectedDamage(event) {
+    const buffInfo = this.selectedCombatant.getBuff(SPELLS.HIT_COMBO_BUFF.id);
+    if (!buffInfo) {
+      return;
+    }
+    const mod = buffInfo.stacks * MOD_PER_STACK;
+    const increase = calculateEffectiveDamage(event, mod);
+    this.totalDamage += increase;
   }
 
   get uptime() {
     return this.selectedCombatant.getBuffUptime(SPELLS.HIT_COMBO_BUFF.id) / this.owner.fightDuration;
+  }
+
+  get dps(){
+    return this.totalDamage / this.owner.fightDuration * 1000;
   }
 
   get suggestionThresholds() {
@@ -47,12 +66,20 @@ class HitCombo extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(3)}
-        icon={<SpellIcon id={SPELLS.HIT_COMBO_TALENT.id} />}
-        value={`${formatPercentage(this.uptime)} %`}
-        label="Hit Combo Uptime"
-      />
+      <Statistic
+        position={STATISTIC_ORDER.CORE(90)}
+        size="flexible"
+        tooltip={`Total damage increase: ${formatNumber(this.totalDamage)}`}
+      >
+        <BoringSpellValueText spell={SPELLS.HIT_COMBO_TALENT}>
+          <UptimeIcon /> {formatPercentage(this.uptime)}% <small>Uptime</small><br />
+          <img
+            src="/img/sword.png"
+            alt="Damage"
+            className="icon"
+          /> {formatNumber(this.dps)} DPS <small>{formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalDamage))} % of total</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

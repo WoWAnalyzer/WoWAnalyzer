@@ -365,10 +365,6 @@ exports[`The Fire Mage Analyzer analyzers CombustionFirestarter matches the stat
 
 exports[`The Fire Mage Analyzer analyzers CombustionFirestarter matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers CombustionPyroclasm matches the statistic snapshot 1`] = `"module inactive"`;
-
-exports[`The Fire Mage Analyzer analyzers CombustionPyroclasm matches the suggestions snapshot 1`] = `"module inactive"`;
-
 exports[`The Fire Mage Analyzer analyzers CombustionSpellUsage matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`The Fire Mage Analyzer analyzers CombustionSpellUsage matches the suggestions snapshot 1`] = `Array []`;
@@ -439,71 +435,7 @@ exports[`The Fire Mage Analyzer analyzers HeatingUp matches the statistic snapsh
 </div>
 `;
 
-exports[`The Fire Mage Analyzer analyzers HeatingUp matches the statistic snapshot 2`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad"
-      >
-        <label>
-          <a
-            href="http://wowhead.com/spell=153561"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Meteor"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/spell_mage_meteor.jpg"
-            />
-          </a>
-           
-          Meteor Utilization
-        </label>
-        <div
-          className="value"
-        >
-          100 %
-        </div>
-      </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`The Fire Mage Analyzer analyzers HeatingUp matches the suggestions snapshot 1`] = `Array []`;
-
-exports[`The Fire Mage Analyzer analyzers HeatingUp matches the suggestions snapshot 2`] = `Array []`;
 
 exports[`The Fire Mage Analyzer analyzers HotStreak matches the statistic snapshot 1`] = `
 <div
@@ -693,9 +625,81 @@ exports[`The Fire Mage Analyzer analyzers HotStreakWastedCrits matches the stati
 
 exports[`The Fire Mage Analyzer analyzers HotStreakWastedCrits matches the suggestions snapshot 1`] = `Array []`;
 
+exports[`The Fire Mage Analyzer analyzers HyperthreadWristwraps matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Fire Mage Analyzer analyzers HyperthreadWristwraps matches the suggestions snapshot 1`] = `"module inactive"`;
+
 exports[`The Fire Mage Analyzer analyzers Kindling matches the statistic snapshot 1`] = `"module inactive"`;
 
 exports[`The Fire Mage Analyzer analyzers Kindling matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Fire Mage Analyzer analyzers LucidDreams matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Fire Mage Analyzer analyzers LucidDreams matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Fire Mage Analyzer analyzers Meteor matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad"
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=153561"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Meteor"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_mage_meteor.jpg"
+            />
+          </a>
+           
+          Meteor Utilization
+        </label>
+        <div
+          className="value"
+        >
+          100 %
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`The Fire Mage Analyzer analyzers Meteor matches the suggestions snapshot 1`] = `Array []`;
 
 exports[`The Fire Mage Analyzer analyzers MirrorImage matches the statistic snapshot 1`] = `"module inactive"`;
 

@@ -5,6 +5,7 @@ import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import SpellUsable from './modules/features/SpellUsable';
 import MitigationCheck from './modules/features/MitigationCheck';
+import Buffs from './modules/features/Buffs';
 
 import ShieldBlock from './modules/spells/ShieldBlock';
 import Checklist from './modules/features/Checklist/Module';
@@ -12,6 +13,7 @@ import IgnorePain from './modules/features/IgnorePain';
 import RageTracker from './modules/core/RageTracker';
 import RageDetails from './modules/core/RageDetails';
 import Avatar from './modules/features/Avatar';
+import ShieldSlam from './modules/spells/ShieldSlam';
 
 import AngerManagement from './modules/talents/AngerManagement';
 import BoomingVoice from './modules/talents/BoomingVoice';
@@ -21,12 +23,15 @@ import IntoTheFray from './modules/talents/IntoTheFray';
 import Vengeance from './modules/talents/Vengeance';
 import Punish from './modules/talents/Punish';
 import DragonRoar from './modules/talents/DragonRoar';
+import AngerCD from './modules/talents/AngerCD';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
     haste: Haste,
     mitigationCheck: MitigationCheck,
+    buffs: Buffs,
+
     // Features
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
@@ -39,8 +44,10 @@ class CombatLogParser extends CoreCombatLogParser {
     rageTracker: RageTracker,
     rageDetails: RageDetails,
     avatar: Avatar,
+    shieldSlam: ShieldSlam,
     //Talents
     angerManagement: AngerManagement,
+    angerCD: AngerCD,
     boomingVoice: BoomingVoice,
     heavyRepercussions: HeavyRepercussions,
     intoTheFray: IntoTheFray,
