@@ -337,7 +337,7 @@ export default {
   },
   SURGE_OF_POWER: {
     id: 285514,
-    name: "Surge of Power Buff",
+    name: "Surge of Power",
     icon: "spell_nature_shamanrage",
   },
   UNLIMITED_POWER_BUFF: {
