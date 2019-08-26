@@ -9,7 +9,6 @@ import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events from 'parser/core/Events';
 
 const SURGE_OF_POWER = {
-  INCREASE: 0.2,
   DURATION: 15000,
   WINDOW_DURATION: 500,
   AFFECTED_CASTS: [
@@ -18,17 +17,10 @@ const SURGE_OF_POWER = {
     SPELLS.LAVA_BURST,
     SPELLS.LIGHTNING_BOLT,
   ],
-  TALENTS: [
-    SPELLS.SURGE_OF_POWER_TALENT.id,
-  ],
 };
 
 class SurgeOfPower extends Analyzer {
   sopBuffedAbilities = {};
-  sopActivationTimestamp = null;
-  sopConsumptionTimestamp = null;
-  // number of SoP empowered lava bursts
-  lvbCastCount = 0;
   // % of SK lightning bolts empoered by SoP
   sopSKCastsPercentage = 0.0;
   // total SK + SoP lightning bolt casts
@@ -42,13 +34,10 @@ class SurgeOfPower extends Analyzer {
 
     for (const key in SURGE_OF_POWER.AFFECTED_CASTS) {
       const spellid = SURGE_OF_POWER.AFFECTED_CASTS[key].id;
-      if((this.selectedCombatant.hasTalent(spellid)) || (!SURGE_OF_POWER.TALENTS.includes(spellid))) {
-        this.sopBuffedAbilities[spellid] = 0;
-      }
+      this.sopBuffedAbilities[spellid] = 0;
     }
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SURGE_OF_POWER.AFFECTED_CASTS), this._onCast);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EARTH_SHOCK), this._onESCast);
   }
 
   _onCast(event){
@@ -57,12 +46,10 @@ class SurgeOfPower extends Analyzer {
       this.skCasts += 1;
     }
 
-    if(this.sopActivationTimestamp===null){ //the buff is a clusterfuck so we just track it manually
+    if(!this.selectedCombatant.hasBuff(SPELLS.SURGE_OF_POWER.id)){
       return;
     }
 
-    this.sopConsumptionTimestamp=event.timestamp;
-    this.sopActivationTimestamp=null;
     event.meta = event.meta || {};
     event.meta.isEnhancedCast = true;
     this.sopBuffedAbilities[event.ability.guid]++;
@@ -71,10 +58,6 @@ class SurgeOfPower extends Analyzer {
     if (this.selectedCombatant.hasBuff(SPELLS.STORMKEEPER_TALENT.id, event.timestamp) && event.ability.guid === SPELLS.LIGHTNING_BOLT.id) {
       this.skSopCasts += 1;
     }
-  }
-
-  _onESCast(event){
-    this.sopActivationTimestamp = event.timestamp;
   }
 
   statistic() {

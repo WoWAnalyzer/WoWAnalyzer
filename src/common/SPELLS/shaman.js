@@ -335,7 +335,7 @@ export default {
     name: "Master Of The Elements Buff",
     icon: "spell_nature_elementalabsorption",
   },
-  SURGE_OF_POWER_BUFF: {
+  SURGE_OF_POWER: {
     id: 285514,
     name: "Surge of Power Buff",
     icon: "spell_nature_shamanrage",
