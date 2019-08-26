@@ -101,7 +101,7 @@ class Cooldown extends React.Component {
   }
 
   calculateDamageStatistics(cooldown) {
-    const damageDone = cooldown.events.reduce((acc, event) => event.type === 'damage' ? acc + event.amount : acc, 0);
+    const damageDone = cooldown.events.reduce((acc, event) => event.type === 'damage' ? acc + ((event.amount || 0) + (event.absorbed || 0)) : acc, 0);
 
     return { damageDone };
   }
