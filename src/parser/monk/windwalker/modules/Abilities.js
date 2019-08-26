@@ -59,6 +59,15 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.REVERSE_HARM,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 10,
+        gcd: {
+          static: 1000,
+        },
+        enabled: combatant.hasEssence(SPELLS.CONFLICT.traitId) ? combatant.hasMajor(SPELLS.CONFLICT.traitId) : false,
+      },
+      {
         spell: SPELLS.BLACKOUT_KICK,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         gcd: {
@@ -100,6 +109,10 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1000,
           minimum: 750,
+        },
+        enabled: combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
         },
       },
       {
