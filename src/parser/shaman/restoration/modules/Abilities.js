@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
-import { calculateCooldown } from './azerite/essences/VisionOfPerfection';
+import { calculateCooldown } from '../../../shared/modules/spells/bfa/essences/VisionsOfPerfection';
 
 class Abilities extends CoreAbilities {
   spellbook() {

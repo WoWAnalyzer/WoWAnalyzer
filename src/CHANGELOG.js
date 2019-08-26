@@ -8,6 +8,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  change(date(2019, 8, 26), 'Normalized the location of visions of perfections reduced cd calculator.', Abelito75),
   change(date(2019, 8, 22), 'Updated cooldown tab so it includes absorbed damage for dps.', Abelito75),
   change(date(2019, 8, 22), 'Added Spell IDs and the stacking haste buff from Condensed Life Force.', Sharrq),
   change(date(2019, 8, 22), <><SpellLink id={SPELLS.LUCID_DREAMS.id} /> minor for rage refund added. Shouldn't show up as missing id in rage-useage now.</>, Abelito75),
