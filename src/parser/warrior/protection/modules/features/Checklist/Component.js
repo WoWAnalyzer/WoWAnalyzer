@@ -47,6 +47,10 @@ class ProtectionWarriorChecklist extends React.PureComponent {
             thresholds={thresholds.shieldSlam}
           />
           <AbilityRequirement spell={SPELLS.SHIELD_BLOCK.id} />
+          <Requirement
+            name={(<>Effecive <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> Casts </>)}
+            thresholds={thresholds.shieldBlock}
+            />
           {combatant.hasTalent(SPELLS.STORM_BOLT_TALENT.id) && <AbilityRequirement spell={SPELLS.STORM_BOLT_TALENT.id} />}
           {combatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id) && (
             <Requirement

@@ -10,6 +10,8 @@ import Component from './Component';
 import RageDetails from '../../core/RageDetails';
 import RageTracker from '../../core/RageTracker';
 import ShieldSlam from '../../spells/ShieldSlam';
+import ShieldBlock from '../../spells/ShieldBlock';
+import ShieldBlockMit from '../../spells/ShieldBlockMit';
 import AngerCD from '../../talents/AngerCD';
 
 
@@ -23,6 +25,8 @@ class Checklist extends BaseChecklist {
     rageDetails: RageDetails,
     rageTracker: RageTracker,
     shieldSlam: ShieldSlam,
+    shieldBlock: ShieldBlock,
+    shieldBlockMit: ShieldBlockMit,
     angerCD: AngerCD,
   };
 
@@ -40,6 +44,8 @@ class Checklist extends BaseChecklist {
           avatarCD: this.angerCD.suggestionThresholdsAvatar,
           lastStandCD: this.angerCD.suggestionThresholdsLastStand,
           shieldWallCD: this.angerCD.suggestionThresholdsShieldWall,
+          shieldBlock: this.shieldBlock.suggestionThresholds,
+          shieldBlockMit: ShieldBlockMit,
         }}
       />
     );
