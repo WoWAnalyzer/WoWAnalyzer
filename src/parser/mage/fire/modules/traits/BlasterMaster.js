@@ -73,7 +73,7 @@ class BlasterMaster extends Analyzer {
   suggestions(when) {
     when(this.averageStackThresholds)
       .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>On average, you got {this.averageStacksPerCombustion.toFixed(2)} stacks of <SpellLink id={SPELLS.BLASTER_MASTER.id} /> per <SpellLink id={SPELLS.COMBUSTION.id} /> cast. In order to maximize the use of the trait, you should aim for getting to {TRAIT_STACK_THRESHOLD} stacks each time you use Combustion. For more information on how to adjust your Combustion rotation to make this happen, refer to <a href="https://cdn.discordapp.com/attachments/431912396349636609/511996656829595659/BlasterMaster_Rotation.png" target="_blank" rel="noopener noreferrer">this graphic</a></>)
+        return suggest(<>On average, you got {this.averageStacksPerCombustion.toFixed(2)} stacks of <SpellLink id={SPELLS.BLASTER_MASTER.id} /> per <SpellLink id={SPELLS.COMBUSTION.id} /> cast. In order to maximize the use of the trait, you should aim for getting to {TRAIT_STACK_THRESHOLD} stacks each time you use Combustion. For more information on how to adjust your Combustion rotation to make this happen, refer to <a href="https://cdn.discordapp.com/attachments/524387813060247553/606533890080899083/bm_combustion.png" target="_blank" rel="noopener noreferrer">this graphic</a></>)
           .icon(SPELLS.BLASTER_MASTER.icon)
           .actual(`${this.averageStacksPerCombustion.toFixed(2)} stacks per Combustion`)
           .recommended(`${formatNumber(recommended)} is recommended`);
