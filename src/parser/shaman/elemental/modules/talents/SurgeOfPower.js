@@ -46,7 +46,7 @@ class SurgeOfPower extends Analyzer {
       this.skCasts += 1;
     }
 
-    if(!this.selectedCombatant.hasBuff(SPELLS.SURGE_OF_POWER.id)){
+    if(!this.selectedCombatant.hasBuff(SPELLS.SURGE_OF_POWER_BUFF.id)){
       return;
     }
 
