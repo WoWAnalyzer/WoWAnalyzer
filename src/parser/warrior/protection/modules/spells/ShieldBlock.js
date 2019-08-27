@@ -9,25 +9,19 @@ const debug = false;
 
 class ShieldBlock extends Analyzer {
 
-  shieldBlocksO;
-  shieldBlocksD;
-  shieldBlocksOv;
+  shieldBlocksOffensive;
+  shieldBlocksDefensive;
+  shieldBlocksOverall;
   goodCast = 0;
   badCast = 0;
   bolster = this.selectedCombatant.hasTalent(SPELLS.BOLSTER_TALENT.id);
   ssNeeded = !this.selectedCombatant.hasTalent(SPELLS.DEVASTATOR_TALENT.id) ? 0 : 1;
 
-
-  physicalHitsWithShieldBlock = 0;
-  physicalDamageWithShieldBlock = 0;
-  physicalHitsWithoutShieldBlock = 0;
-  physicalDamageWithoutShieldBlock = 0;
-
   constructor(...args) {
     super(...args);
-    this.shieldBlocksO = [];
-    this.shieldBlocksD = [];
-    this.shieldBlocksOv = [];
+    this.shieldBlocksOffensive = [];
+    this.shieldBlocksDefensive = [];
+    this.shieldBlocksOverall = [];
   }
 
   on_byPlayer_cast(event) {
@@ -37,7 +31,7 @@ class ShieldBlock extends Analyzer {
       return;
     }
 
-    if(this.shieldBlocksD.length>0){
+    if(this.shieldBlocksDefensive.length>0){
       this.checkLastBlock();
     }
 
@@ -67,15 +61,15 @@ class ShieldBlock extends Analyzer {
     }
 
     if(event.blocked > 0){
-      this.shieldBlocksD[this.shieldBlocksD.length-1].blockAbleEvents += 1;
-      this.shieldBlocksD[this.shieldBlocksD.length-1].eventName.add(event.ability.name);
+      this.shieldBlocksDefensive[this.shieldBlocksDefensive.length-1].blockAbleEvents += 1;
+      this.shieldBlocksDefensive[this.shieldBlocksDefensive.length-1].eventName.add(event.ability.name);
     }
 
-    this.shieldBlocksD[this.shieldBlocksD.length-1].blockedDamage += event.blocked || 0;
-    this.shieldBlocksD[this.shieldBlocksD.length-1].damageTaken += event.amount + event.absorbed || 0;
+    this.shieldBlocksDefensive[this.shieldBlocksDefensive.length-1].blockedDamage += event.blocked || 0;
+    this.shieldBlocksDefensive[this.shieldBlocksDefensive.length-1].damageTaken += event.amount + event.absorbed || 0;
 
-    if(this.shieldBlocksD[this.shieldBlocksD.length-1].blockAbleEvents>1){
-      this.shieldBlocksD[this.shieldBlocksD.length-1].good = true;
+    if(this.shieldBlocksDefensive[this.shieldBlocksDefensive.length-1].blockAbleEvents>1){
+      this.shieldBlocksDefensive[this.shieldBlocksDefensive.length-1].good = true;
     }
 
   }
@@ -83,17 +77,17 @@ class ShieldBlock extends Analyzer {
   shieldBlockCast(event){
 
     const offensive = {
-      shieldBlock: this.shieldBlocksO.length + 1,
+      shieldBlock: this.shieldBlocksOffensive.length + 1,
       shieldSlamCasts: 0,
       bonusDamage: 0,
       timeStamp: event.timestamp,
       good: false,
     };
 
-    this.shieldBlocksO.push(offensive);
+    this.shieldBlocksOffensive.push(offensive);
     
     const defensive = {
-      shieldBlock: this.shieldBlocksD.length + 1,
+      shieldBlock: this.shieldBlocksDefensive.length + 1,
       blockAbleEvents: 0,
       blockedDamage: 0,
       damageTaken: 0,
@@ -101,22 +95,22 @@ class ShieldBlock extends Analyzer {
       good: false,
     };
 
-    this.shieldBlocksD.push(defensive);
+    this.shieldBlocksDefensive.push(defensive);
 
   }
 
   shieldSlamCast(event){
-    this.shieldBlocksO[this.shieldBlocksO.length-1].shieldSlamCasts++;
+    this.shieldBlocksOffensive[this.shieldBlocksOffensive.length-1].shieldSlamCasts++;
 
-    if(this.shieldBlocksO[this.shieldBlocksO.length-1].shieldSlamCasts > this.ssNeeded){
-      this.shieldBlocksO[this.shieldBlocksO.length-1].good = true;
+    if(this.shieldBlocksOffensive[this.shieldBlocksOffensive.length-1].shieldSlamCasts > this.ssNeeded){
+      this.shieldBlocksOffensive[this.shieldBlocksOffensive.length-1].good = true;
     }
 
-    const beforeDamage = this.shieldBlocksO[this.shieldBlocksO.length-1].bonusDamage || 0;
+    const beforeDamage = this.shieldBlocksOffensive[this.shieldBlocksOffensive.length-1].bonusDamage || 0;
     const eventDamage = ((event.amount || 0) + (event.absorbed || 0));
     const bonusDamage = Math.round(eventDamage - eventDamage / 1.3);
 
-    this.shieldBlocksO[this.shieldBlocksO.length-1].bonusDamage = beforeDamage + bonusDamage;
+    this.shieldBlocksOffensive[this.shieldBlocksOffensive.length-1].bonusDamage = beforeDamage + bonusDamage;
     
   }
 
@@ -124,8 +118,8 @@ class ShieldBlock extends Analyzer {
   checkLastBlock(){
 
     const overall = {
-      shieldBlock: this.shieldBlocksO[this.shieldBlocksO.length-1].shieldBlock,
-      good: (this.shieldBlocksO[this.shieldBlocksO.length-1].good || this.shieldBlocksD[this.shieldBlocksD.length-1].good),
+      shieldBlock: this.shieldBlocksOffensive[this.shieldBlocksOffensive.length-1].shieldBlock,
+      good: (this.shieldBlocksOffensive[this.shieldBlocksOffensive.length-1].good || this.shieldBlocksDefensive[this.shieldBlocksDefensive.length-1].good),
     };
 
     if(overall.good){
@@ -134,20 +128,20 @@ class ShieldBlock extends Analyzer {
       this.badCast +=1;
     }
 
-    this.shieldBlocksOv.push(overall);
+    this.shieldBlocksOverall.push(overall);
 
   }
 
   on_fightend(){
-    if(this.shieldBlocksD.length>0){
+    if(this.shieldBlocksDefensive.length>0){
       this.checkLastBlock();
     }
 
     if(debug){
-      console.log(this.shieldBlocksO);
+      console.log(this.shieldBlocksOffensive);
       console.log(`Do they have bolster? ${this.bolster}`);
-      console.log(this.shieldBlocksD);
-      console.log(this.shieldBlocksOv);
+      console.log(this.shieldBlocksDefensive);
+      console.log(this.shieldBlocksOverall);
     }
   }
 
@@ -155,7 +149,7 @@ class ShieldBlock extends Analyzer {
     return {
       actual: this.goodCast/ (this.goodCast + this.badCast),
       isLessThan: {
-        minor: 1,
+        minor: .90,
         average: .80,
         major: .70,
       },
@@ -166,7 +160,7 @@ class ShieldBlock extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <> You had uneventful <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> cast where there was either no blockable damage events or you didn't cast shield slam enough. </>
+        <> You had uneventful <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> cast(s) where there was either no blockable damage events or you didn't cast shield slam enough. </>
       )
         .icon(SPELLS.SHIELD_BLOCK.icon)
         .actual(`${this.goodCast} good casts of shield block`)
@@ -178,11 +172,11 @@ class ShieldBlock extends Analyzer {
     let goodCasts = 0;
     let offensiveCasts = 0;
     let defensiveCasts = 0;
-    const totalCasts = this.shieldBlocksOv.length;
-    for(let i = 0; i<this.shieldBlocksOv.length; i++){
-      goodCasts += this.shieldBlocksOv[i].good ? 1 : 0;
-      offensiveCasts += this.shieldBlocksO[i].good ? 1 : 0;
-      defensiveCasts += this.shieldBlocksD[i].good ? 1 : 0;
+    const totalCasts = this.shieldBlocksOverall.length;
+    for(let i = 0; i<this.shieldBlocksOverall.length; i++){
+      goodCasts += this.shieldBlocksOverall[i].good ? 1 : 0;
+      offensiveCasts += this.shieldBlocksOffensive[i].good ? 1 : 0;
+      defensiveCasts += this.shieldBlocksDefensive[i].good ? 1 : 0;
     }
 
     return (
@@ -190,14 +184,14 @@ class ShieldBlock extends Analyzer {
         size="flexible"
         tooltip={(
           <>
-            Overall Bad Casts: {totalCasts - goodCasts}<br />
-            Good Offensive Casts: {offensiveCasts}<br />
-            Good Offensive casts where you cast <SpellLink id={SPELLS.SHIELD_SLAM.id} /> during the <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> buff to take advantage of increased <SpellLink id={SPELLS.SHIELD_SLAM.id} /> damage.
+            Overall bad casts: {totalCasts - goodCasts}<br />
+            Good offensive casts: {offensiveCasts}<br />
+            Good offensive casts where you cast <SpellLink id={SPELLS.SHIELD_SLAM.id} /> during the <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> buff to take advantage of increased <SpellLink id={SPELLS.SHIELD_SLAM.id} /> damage.
           <br /><br />
-            Good Defensive casts: {defensiveCasts}<br />
-            Good Defensive casts where you blocked several hits.
+            Good defensive casts: {defensiveCasts}<br />
+            Good defensive casts where you blocked several hits.
           <br /><br />
-           Some casts may be good both offensively and defensively.
+            Some casts may be good both offensively and defensively.
           <br /><br />
             Try to maximize the efficiency of your <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> casts by ensuring that you take advantage of the offensive or defensive effects each time. 
           </>

@@ -19,10 +19,9 @@ class BraceForImpact extends Analyzer {
     abilityTracker: AbilityTracker,
   };
 
-  traitBlock = 0;
   lastApplication = 0;
   currentStack = 0;
-  mappy;
+  stackMap;//this is a map of objects that their key is the number of stacks they are at. The object constist of buff uptime, number of shield slams casted at that stack count, and damage done by the trait at that stack count
   shieldBlockBuff = this.selectedCombatant.hasTalent(SPELLS.HEAVY_REPERCUSSIONS_TALENT.id) ? 1.6 : 1.3;
 
   constructor(...args) {
@@ -33,7 +32,7 @@ class BraceForImpact extends Analyzer {
     }
     const ranks = this.selectedCombatant.traitRanks(SPELLS.BRACE_FOR_IMPACT.id) || [];
     this.traitDamage = ranks.reduce((total, rank) => total + calculateAzeriteEffects(SPELLS.BRACE_FOR_IMPACT.id, rank)[1], 0);
-    this.mappy = new Map();
+    this.stackMap = new Map();
     this.lastApplication = this.owner.fight.start_time;
   }
 
@@ -54,16 +53,18 @@ class BraceForImpact extends Analyzer {
       damageDone = damageDone * this.shieldBlockBuff;
     }
 
+    if(this.selectedCombatant.hasBuff(SPELLS.AVATAR_TALENT.id)){
+      damageDone = damageDone * 1.2;
+    }
+
     if(event.hitType === HIT_TYPES.CRIT){
       damageDone = damageDone * 2;
     }
 
     damageDone = Math.round(damageDone);
 
-    console.log(damageDone);
-
-    this.mappy.get(this.currentStack).damage += damageDone;
-    this.mappy.get(this.currentStack).ssCasts += 1;
+    this.stackMap.get(this.currentStack).damage += damageDone;
+    this.stackMap.get(this.currentStack).ssCasts += 1;
   }
 
   //only triggered for first stack so we can build map ez pz here
@@ -76,8 +77,8 @@ class BraceForImpact extends Analyzer {
     
     this.currentStack = 1;
 
-    if(!this.mappy.has(this.currentStack)){
-      this.mappy.set(this.currentStack, {
+    if(!this.stackMap.has(this.currentStack)){
+      this.stackMap.set(this.currentStack, {
         damage: 0,
         uptime: 0,
         ssCasts: 0,
@@ -98,8 +99,8 @@ class BraceForImpact extends Analyzer {
 
     this.currentStack += 1;
 
-    if(!this.mappy.has(this.currentStack)){
-      this.mappy.set(this.currentStack, {
+    if(!this.stackMap.has(this.currentStack)){
+      this.stackMap.set(this.currentStack, {
         damage: 0,
         uptime: 0,
         ssCasts: 0,
@@ -133,26 +134,26 @@ class BraceForImpact extends Analyzer {
 
   updateUptime(event){
     const timeDifference = event.timestamp - this.lastApplication;
-    this.mappy.get(this.currentStack).uptime += timeDifference;
+    this.stackMap.get(this.currentStack).uptime += timeDifference;
     this.lastApplication = event.timestamp;
   }
 
   on_fightend(){
     if(this.currentStack>0){
       const timeDifference = this.owner.fight.end_time - this.lastApplication;
-      this.mappy.get(this.currentStack).uptime += timeDifference;
+      this.stackMap.get(this.currentStack).uptime += timeDifference;
     }
-    console.log(this.mappy);
+    console.log(this.stackMap);
   }
 
   statistic() {
-    const stacks = Array.from(this.mappy.keys());
+    const stacks = Array.from(this.stackMap.keys());
     return (
       <AzeritePowerStatistic
         size="flexible"
         tooltip={(
           <div>
-            data
+            The damage this calculates doesn't factor into damage increases from non-warrior sources. 
         </div>
         )}
       >
@@ -174,8 +175,8 @@ class BraceForImpact extends Analyzer {
               stacks.map(stack => (
                 <tr>
                 <td>{stack}</td>
-                <td>{formatMilliseconds(this.mappy.get(stack).uptime)}</td>
-                <td>{formatNumber(this.mappy.get(stack).damage)}</td>
+                <td>{formatMilliseconds(this.stackMap.get(stack).uptime)}</td>
+                <td>{formatNumber(this.stackMap.get(stack).damage)}</td>
                 </tr>
               ))
             }

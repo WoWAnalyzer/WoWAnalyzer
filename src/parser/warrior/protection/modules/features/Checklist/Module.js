@@ -11,7 +11,7 @@ import RageDetails from '../../core/RageDetails';
 import RageTracker from '../../core/RageTracker';
 import ShieldSlam from '../../spells/ShieldSlam';
 import ShieldBlock from '../../spells/ShieldBlock';
-import ShieldBlockMit from '../../spells/ShieldBlockMit';
+import ShieldBlockMitigation from '../../spells/ShieldBlockMitigation';
 import AngerCD from '../../talents/AngerCD';
 
 
@@ -26,7 +26,7 @@ class Checklist extends BaseChecklist {
     rageTracker: RageTracker,
     shieldSlam: ShieldSlam,
     shieldBlock: ShieldBlock,
-    shieldBlockMit: ShieldBlockMit,
+    shieldBlockMitigation: ShieldBlockMitigation,
     angerCD: AngerCD,
   };
 
@@ -45,7 +45,7 @@ class Checklist extends BaseChecklist {
           lastStandCD: this.angerCD.suggestionThresholdsLastStand,
           shieldWallCD: this.angerCD.suggestionThresholdsShieldWall,
           shieldBlock: this.shieldBlock.suggestionThresholds,
-          shieldBlockMit: ShieldBlockMit,
+          shieldBlockMitigation: this.shieldBlockMitigation.suggestionThresholds,
         }}
       />
     );

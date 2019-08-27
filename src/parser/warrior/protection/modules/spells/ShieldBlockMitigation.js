@@ -9,7 +9,7 @@ import SPELLS from 'common/SPELLS';
 const debug = false;
 
 //Moved from another file as it was easier to keep track of with this name
-class ShieldBlockMit extends Analyzer {
+class ShieldBlockMitigation extends Analyzer {
   physicalHitsWithShieldBlock = 0;
   physicalDamageWithShieldBlock = 0;
   physicalHitsWithoutShieldBlock = 0;
@@ -85,4 +85,4 @@ class ShieldBlockMit extends Analyzer {
   statisticOrder = STATISTIC_ORDER.CORE(10);
 }
 
-export default ShieldBlockMit;
+export default ShieldBlockMitigation;

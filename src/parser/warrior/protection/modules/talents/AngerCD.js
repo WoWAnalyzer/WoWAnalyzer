@@ -111,7 +111,7 @@ class AngerCD extends Analyzer {
     when(this.suggestionThresholdsAvatar).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
-          Try to cast <SpellLink id={SPELLS.AVATAR_TALENT.id} /> more often.
+          Remember to cast <SpellLink id={SPELLS.LAST_STAND.id} /> more frequently. If you have <SpellLink id={SPELLS.BOLSTER_TALENT.id} /> talented you can use this to fill gaps between your <SpellLink id={SPELLS.SHIELD_BLOCK.id} />.
         </>
       )
         .icon(SPELLS.AVATAR_TALENT.icon)
