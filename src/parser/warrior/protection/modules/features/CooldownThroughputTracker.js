@@ -12,13 +12,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       ],
     },
   ];
-
-  static ignoredSpells = [
-    ...CoreCooldownThroughputTracker.ignoredSpells,
-    SPELLS.CHI_BURST_HEAL.id,
-    SPELLS.REFRESHING_JADE_WIND_HEAL.id,
-    SPELLS.TRANSCENDENCE.id,
-  ];
 }
 
 export default CooldownThroughputTracker;
