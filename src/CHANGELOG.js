@@ -8,6 +8,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  change(date(2019, 8, 27), <>Updated <SpellLink id={SPELLS.CONCENTRATED_FLAME.id} /> to take into account 2 charges at rank 3 and up.</>, Yajinni),
   change(date(2019, 8, 26), 'Normalized the location of visions of perfections reduced cd calculator.', Abelito75),
   change(date(2019, 8, 22), 'Updated cooldown tab so it includes absorbed damage for dps.', Abelito75),
   change(date(2019, 8, 22), 'Added Spell IDs and the stacking haste buff from Condensed Life Force.', Sharrq),
