@@ -26,12 +26,15 @@ class TheCrucibleofFlame extends Analyzer {
     if (!this.active) {
       return;
     }
+
+    const rank = this.selectedCombatant.essenceRank(SPELLS.ANCIENT_FLAME.traitId);
     this.hasMajor = this.selectedCombatant.hasMajor(SPELLS.ANCIENT_FLAME.traitId);
     if(this.hasMajor) {
       this.abilities.add({
         spell: SPELLS.CONCENTRATED_FLAME_CAST,
         category: Abilities.SPELL_CATEGORIES.ITEMS,
         cooldown: 30,
+        charges: (rank > 2) ? 2 : 1,
         gcd: {
           base: 1500,
         },
