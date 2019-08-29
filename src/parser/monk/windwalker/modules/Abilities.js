@@ -63,7 +63,8 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 10,
         gcd: {
-          static: 1000,
+          base: 1000,
+          minimum: 750,
         },
         enabled: combatant.hasEssence(SPELLS.CONFLICT.traitId) ? combatant.hasMajor(SPELLS.CONFLICT.traitId) : false,
         castEfficiency: {
