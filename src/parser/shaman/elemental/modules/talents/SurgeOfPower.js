@@ -9,8 +9,6 @@ import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events from 'parser/core/Events';
 
 const SURGE_OF_POWER = {
-  DURATION: 15000,
-  WINDOW_DURATION: 500,
   AFFECTED_CASTS: [
     SPELLS.FLAME_SHOCK,
     SPELLS.FROST_SHOCK,
@@ -21,8 +19,6 @@ const SURGE_OF_POWER = {
 
 class SurgeOfPower extends Analyzer {
   sopBuffedAbilities = {};
-  // % of SK lightning bolts empoered by SoP
-  sopSKCastsPercentage = 0.0;
   // total SK + SoP lightning bolt casts
   skSopCasts = 0;
   // total SK lightning bolt casts
@@ -91,7 +87,6 @@ class SurgeOfPower extends Analyzer {
   }
 
   get suggestionTresholds() {
-    //console.info(this.sopSKCastsPercentage);
     return {
       actual: this.skSopCasts / this.skCasts,
       isLessThan: {
