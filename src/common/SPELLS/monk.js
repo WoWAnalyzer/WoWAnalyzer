@@ -575,4 +575,9 @@ export default {
     name: 'Reverse Harm',
     icon: 'ability_monk_expelharm',
   },
+  WINDWALKING: {
+    id: 166646,
+    name: 'Windwalking',
+    icon: 'monk_stance_whitetiger',
+  },
 };
