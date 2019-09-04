@@ -48,7 +48,9 @@ class LucidDreams extends Analyzer {
     if (!this.selectedCombatant.hasBuff(SPELLS.LUCID_DREAMS_MAJOR.id) || event.timestamp <= this.lastTimestamp || this.lastTimestamp === 0 || !this.spellUsable.isOnCooldown(SPELLS.FIRE_BLAST.id)) {
       return;
     }
-    this.spellUsable.reduceCooldown(SPELLS.FIRE_BLAST.id, event.timestamp - this.lastTimestamp, event.timestamp);
+    if (this.spellUsable.isOnCooldown(SPELLS.FIRE_BLAST.id)) {
+      this.spellUsable.reduceCooldown(SPELLS.FIRE_BLAST.id, event.timestamp - this.lastTimestamp, event.timestamp);
+    }
     this.lastTimestamp = event.timestamp;
   }
 
@@ -57,7 +59,9 @@ class LucidDreams extends Analyzer {
   }
 
   onLucidRemoved(event) {
-    this.spellUsable.reduceCooldown(SPELLS.FIRE_BLAST.id, event.timestamp - this.lastTimestamp, event.timestamp);
+    if (this.spellUsable.isOnCooldown(SPELLS.FIRE_BLAST.id)) {
+      this.spellUsable.reduceCooldown(SPELLS.FIRE_BLAST.id, event.timestamp - this.lastTimestamp, event.timestamp);
+    }
     this.lastTimestamp = 0;
   }
 
