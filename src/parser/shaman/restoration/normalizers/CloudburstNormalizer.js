@@ -1,9 +1,9 @@
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-
 import SPELLS from 'common/SPELLS';
 
 const MAX_DELAY = 17500;
 const CBT_DELAY = 15000;
+const debug = false;
 
 /*
 * Cloudburst Totem had some weird behaviour (even if it rarely happens), 
@@ -43,10 +43,11 @@ class CloudburstNormalizer extends EventsNormalizer {
         for (let nextEventIndex = eventIndex + 1; nextEventIndex < events.length - 1; nextEventIndex += 1) {
           const nextEvent = events[nextEventIndex];
 
-          if ((nextEvent.timestamp - castTimestamp) > MAX_DELAY || recallTimestamp) {
+          if ((nextEvent.timestamp - castTimestamp) > MAX_DELAY) {
             // No CLOUDBURST_TOTEM_HEAL found within the period, meaning this cast wasn't able to find targets and did not have any healing events -> create a 100% overheal event
             const newTimestamp = (recallTimestamp && (recallTimestamp - event.timestamp > CBT_DELAY ? event.timestamp + CBT_DELAY : recallTimestamp)) || (event.timestamp + CBT_DELAY);
 
+            debug && this.log(`No Cloudburst heal found for cast at ${this.owner.formatTimestamp(event.timestamp)}`); 
             this.fabricatedEvent = {
               timestamp: newTimestamp,
               type: "heal",
