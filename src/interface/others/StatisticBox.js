@@ -28,26 +28,23 @@ class StatisticBox extends React.PureComponent {
     style: {},
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      expanded: false,
+      expanded: props.expanded,
     };
 
     this.toggleExpansion = this.toggleExpansion.bind(this);
   }
 
-  componentWillMount() {
-    this.setState({
-      expanded: this.props.expanded,
-    });
+  componentDidUpdate(prevProps) {
+    if (prevProps.expanded !== this.props.expanded) {
+      this.setState({
+        expanded: this.props.expanded,
+      });
+    }
   }
 
-  componentWillReceiveProps(newProps) {
-    this.setState({
-      expanded: newProps.expanded,
-    });
-  }
   toggleExpansion() {
     this.setState({
       expanded: !this.state.expanded,
