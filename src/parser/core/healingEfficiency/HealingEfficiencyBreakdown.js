@@ -171,7 +171,7 @@ class HealingEfficiencyBreakdown extends React.Component {
           {formatNumber(spellDetail.manaSpent)}
           {' (' + formatPercentage(spellDetail.manaPercentSpent) + '%)'}
         </td>
-        <td>{formatNumber(spellDetail.timeSpentCasting / 1000)}s ({formatPercentage(spellDetail.percentTimeSpentCasting)}%)</td>
+        <td>{spellDetail.timeSpentCasting !== 0 ? (formatNumber(spellDetail.timeSpentCasting / 1000) + 's (' + formatPercentage(spellDetail.percentTimeSpentCasting) + '%)') : '-'}</td>
         {this.state.showHealing && (
           <>
             <td>
