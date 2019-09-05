@@ -130,6 +130,7 @@ class HealingEfficiencyBreakdown extends React.Component {
           <TooltipElement content="Total Casts (Number of targets hit)">Casts</TooltipElement>
         </th>
         <th>Mana Spent</th>
+        <th>Time Spent</th>
         {this.state.showHealing && (
           <>
             <th>Healing Done</th>
@@ -170,6 +171,7 @@ class HealingEfficiencyBreakdown extends React.Component {
           {formatNumber(spellDetail.manaSpent)}
           {' (' + formatPercentage(spellDetail.manaPercentSpent) + '%)'}
         </td>
+        <td>{formatNumber(spellDetail.timeSpentCasting / 1000)}s ({formatPercentage(spellDetail.percentTimeSpentCasting)}%)</td>
         {this.state.showHealing && (
           <>
             <td>
