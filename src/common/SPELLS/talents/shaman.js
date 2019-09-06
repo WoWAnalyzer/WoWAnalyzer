@@ -60,7 +60,7 @@ export default {
   UNDULATION_TALENT: { id: 200071, name: 'Undulation', icon: 'spell_nature_healingwavelesser' },
   UNLEASH_LIFE_TALENT: { id: 73685, name: 'Unleash Life', icon: 'spell_shaman_unleashweapon_life', manaCost: 800 },
   DELUGE_TALENT: { id: 200076, name: 'Deluge', icon: 'ability_shawaterelemental_reform' },
-  EARTHGRAB_TOTEM_TALENT: { id: 51485, name: 'Earthgrab Totem', icon: 'spell_nature_stranglevines', manaCost: 2000 },
+  EARTHGRAB_TOTEM_TALENT: { id: 51485, name: 'Earthgrab Totem', icon: 'spell_nature_stranglevines', manaCost: 500 },
   ANCESTRAL_VIGOR_TALENT: { id: 207401, name: 'Ancestral Vigor', icon: 'spell_shaman_blessingoftheeternals' },
   EARTHEN_WALL_TOTEM_TALENT: { id: 198838, name: 'Earthen Wall Totem', icon: 'spell_nature_stoneskintotem', manaCost: 2200 },
   ANCESTRAL_PROTECTION_TOTEM_TALENT: { id: 207399, name: 'Ancestral Protection Totem', icon: 'spell_nature_reincarnation', manaCost: 2200 },
