@@ -38,21 +38,18 @@ class Graph extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.update();
+    this.load();
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.reportCode !== this.props.reportCode || prevProps.actorId !== this.props.actorId || prevProps.start !== this.props.start || prevProps.end !== this.props.end) {
-      this.update();
+      this.load();
     }
   }
 
-  update() {
-    this.load(this.props.reportCode, this.props.actorId, this.props.start, this.props.end);
-  }
-
-  load(reportCode, actorId, start, end) {
-    return fetchWcl(`report/tables/resources/${reportCode}`, {
+  load() {
+    const { reportCode, start, end } = this.props;
+    fetchWcl(`report/tables/resources/${reportCode}`, {
       start,
       end,
       abilityid: 1000,

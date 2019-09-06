@@ -33,7 +33,7 @@ class Mana extends React.PureComponent {
   }
 
   load() {
-    const { reportCode, actorId, start, end } = this.props;
+    const { reportCode, start, end } = this.props;
     fetchWcl(`report/tables/resources/${reportCode}`, {
       start,
       end,
