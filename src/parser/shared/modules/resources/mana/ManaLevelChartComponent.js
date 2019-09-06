@@ -9,7 +9,6 @@ import ManaLevelGraph from 'interface/others/charts/ManaLevelGraph';
 class Mana extends React.PureComponent {
   static propTypes = {
     reportCode: PropTypes.string.isRequired,
-    actorId: PropTypes.number.isRequired,
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
     offset: PropTypes.number.isRequired,
