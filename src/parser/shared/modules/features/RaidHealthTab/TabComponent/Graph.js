@@ -24,7 +24,6 @@ const CLASS_CHART_LINE_COLORS = {
 class Graph extends React.PureComponent {
   static propTypes = {
     reportCode: PropTypes.string.isRequired,
-    actorId: PropTypes.number.isRequired,
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
     offset: PropTypes.number.isRequired,
