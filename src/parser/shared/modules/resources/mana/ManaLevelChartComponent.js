@@ -16,29 +16,26 @@ class Mana extends React.PureComponent {
     manaUpdates: PropTypes.array.isRequired,
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       bossHealth: null,
     };
   }
 
   componentDidMount() {
-    this.update();
+    this.load();
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.reportCode !== this.props.reportCode || prevProps.actorId !== this.props.actorId || prevProps.start !== this.props.start || prevProps.end !== this.props.end || prevProps.offset !== this.props.offset) {
-      this.update();
+    if (prevProps.reportCode !== this.props.reportCode || prevProps.start !== this.props.start || prevProps.end !== this.props.end || prevProps.offset !== this.props.offset) {
+      this.load();
     }
   }
 
-  update() {
-    this.load(this.props.reportCode, this.props.actorId, this.props.start, this.props.end);
-  }
-
-  load(reportCode, actorId, start, end) {
-    return fetchWcl(`report/tables/resources/${reportCode}`, {
+  load() {
+    const { reportCode, start, end } = this.props;
+    fetchWcl(`report/tables/resources/${reportCode}`, {
       start,
       end,
       sourceclass: 'Boss',

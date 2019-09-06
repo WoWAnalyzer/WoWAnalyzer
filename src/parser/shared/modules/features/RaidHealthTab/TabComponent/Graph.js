@@ -42,7 +42,7 @@ class Graph extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.reportCode !== this.props.reportCode || prevProps.actorId !== this.props.actorId || prevProps.start !== this.props.start || prevProps.end !== this.props.end) {
+    if (prevProps.reportCode !== this.props.reportCode || prevProps.start !== this.props.start || prevProps.end !== this.props.end) {
       this.load();
     }
   }
