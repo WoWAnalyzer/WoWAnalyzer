@@ -25,16 +25,16 @@ class Pain extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.update();
+    this.loadData();
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.reportCode !== this.props.reportCode || prevProps.actorId !== this.props.actorId || prevProps.start !== this.props.start || prevProps.end !== this.props.end) {
-      this.update();
+      this.loadData();
     }
   }
 
-  update() {
+  loadData() {
     this.load(this.props.reportCode, this.props.actorId, this.props.start, this.props.end);
   }
 
