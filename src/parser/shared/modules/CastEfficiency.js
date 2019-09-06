@@ -106,7 +106,7 @@ class CastEfficiency extends Analyzer {
           beginCastTimestamp = null;
           return acc + castTime;
         } else if (event.type === 'beginchannel') {
-          beginChannelTimestamp = event.timestamp;
+          beginChannelTimestamp = beginCastTimestamp ? null : event.timestamp;
           return acc;
         } else if (event.type === 'endchannel') {
           //limit by start time in case of pre phase events
