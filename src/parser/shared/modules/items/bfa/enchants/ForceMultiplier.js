@@ -61,14 +61,30 @@ export default class ForceMultiplier extends Analyzer {
     }, 0);
   }
 
+  _translateStat(stat) {
+    if(stat === 'crit') {
+      return 'criticalstrike';
+    } else {
+      return stat;
+    }
+  }
+
+  _getName(stat) {
+    if(stat === 'crit') {
+      return 'Crit.';
+    } else {
+      return getName(stat);
+    }
+  }
+
   avgStatElements() {
     return Object.entries(this.avgStats).filter(([stat, amount]) => amount > 0)
       .map(([stat, amount]) => {
-        const Icon = getIcon(stat);
+        const Icon = getIcon(this._translateStat(stat));
         return (
           <span key={stat}>
             <Icon />{' '}
-            {formatNumber(amount)} Avg. {getName(stat)}<br />
+            {formatNumber(amount)} Avg. {this._getName(stat)}<br />
           </span>
         );
       });
