@@ -8,6 +8,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  change(date(2019, 9, 7), <>Added <ItemLink id={ITEMS.ENCHANT_WEAPON_FORCE_MULTIPLIER.id} /></>, emallson),
   change(date(2019, 9, 5), 'Fixed a calculation error affecting time spent casting in some cases.', niseko),
   change(date(2019, 8, 27), <>Added check to remove <SpellLink id={SPELLS.WINDWALKING.id} /> from dispel infographic. </>, Abelito75),
   change(date(2019, 8, 27), <>Updated <SpellLink id={SPELLS.CONCENTRATED_FLAME.id} /> to take into account 2 charges at rank 3 and up.</>, Yajinni),
