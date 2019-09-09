@@ -74,6 +74,11 @@ export default {
     name: 'Potion of Unbridled Fury',
     icon: 'inv_potionf_5',
   },
+  POTION_OF_FOCUSED_RESOLVE: {
+    id: 298317,
+    name: 'Potion of Focused Resolve',
+    icon: 'inv_potionf_1',
+  },
   POTION_OF_BURSTING_BLOOD: {
     id: 251316,
     name: 'Potion of Bursting Blood',

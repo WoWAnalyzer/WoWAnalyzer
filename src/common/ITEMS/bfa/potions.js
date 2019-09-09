@@ -94,4 +94,9 @@ export default {
     name: 'Potion of Wild Mending',
     icon: 'inv_potionf_6',
   },
+  POTION_OF_FOCUSED_RESOLVE: {
+    id: 168506,
+    name: 'Potion of Focused Resolve',
+    icon: 'inv_potionf_1',
+  },
 };
