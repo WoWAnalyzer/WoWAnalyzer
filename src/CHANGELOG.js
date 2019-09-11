@@ -8,6 +8,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  change(date(2019, 9, 10), 'Added a cast time column to the mana efficiency module.', niseko),
   change(date(2019, 9, 9), <>Added <ItemLink id={ITEMS.POTION_OF_FOCUSED_RESOLVE.id} />.</>, Sharrq),
   change(date(2019, 9, 8), <>Fixed issue with <ItemLink id={ITEMS.ENCHANT_WEAPON_FORCE_MULTIPLIER.id} /> and Critical Strike.</>, emallson),
   change(date(2019, 9, 7), <>Added <ItemLink id={ITEMS.ENCHANT_WEAPON_FORCE_MULTIPLIER.id} /></>, emallson),
