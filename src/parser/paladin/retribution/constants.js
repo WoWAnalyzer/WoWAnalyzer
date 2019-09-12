@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 
 // Based on spelldata for Avenging Wrath, Retribution(buff) and Inquisition
-// Avenging Wrath and Retribution also increase melee damage by 20% - this is added in their modules. 
+// Avenging Wrath and Retribution also increase melee damage by 20% - this is added in their modules.
 export const ABILITIES_AFFECTED_BY_DAMAGE_INCREASES = [
   SPELLS.CRUSADER_STRIKE,
   SPELLS.JUDGMENT_CAST,
@@ -16,6 +16,7 @@ export const ABILITIES_AFFECTED_BY_DAMAGE_INCREASES = [
   SPELLS.JUSTICARS_VENGEANCE_TALENT,
   SPELLS.EYE_FOR_AN_EYE_TALENT,
   SPELLS.LIGHTS_DECREE_DAMAGE,
+  SPELLS.EXPURGATION_DAMAGE,
 ];
 
 // Stuff like Retribution mastery and Execution sentence increases damage done by these sources of holy damage
@@ -29,4 +30,5 @@ export const ABILITIES_AFFECTED_BY_HOLY_DAMAGE_INCREASES = [
   SPELLS.WAKE_OF_ASHES_TALENT,
   SPELLS.JUSTICARS_VENGEANCE_TALENT,
   SPELLS.LIGHTS_DECREE_DAMAGE,
+  SPELLS.EXPURGATION_DAMAGE,
 ];
