@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
-  change(date(2019, 9, 12), <>Updated analysis of <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} />. Suggestions regarding bad casts were innacurate and misleading, and have therefore been removed.</>, Juko8),
+  change(date(2019, 9, 12), <>Updated analysis of <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} />. Suggestions regarding bad casts were inaccurate and misleading, and have therefore been removed.</>, Juko8),
   change(date(2019, 8, 28), <>Added more support for <SpellLink id={SPELLS.REVERSE_HARM.id} /> including statistic and cast efficiency suggestion </>, Juko8),
   change(date(2019, 8, 26), <>Added buffs like <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE.id} /> and <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> to the timeline </>, Juko8),
   change(date(2019, 8, 20), <><SpellLink id={SPELLS.REVERSE_HARM.id} /> will now be shown correctly in the Chi overview</>, Juko8),
