@@ -11,7 +11,7 @@ import { formatPercentage } from 'common/format';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import Statistic from 'interface/statistics/Statistic';
-import { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';
 

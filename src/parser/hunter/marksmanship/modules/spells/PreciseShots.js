@@ -2,7 +2,7 @@ import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/hunter';
-import { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import SpellLink from 'common/SpellLink';

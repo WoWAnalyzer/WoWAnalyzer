@@ -4,7 +4,7 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/hunter';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
-import { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import ResourceIcon from 'common/ResourceIcon';

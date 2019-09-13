@@ -3,7 +3,7 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatDuration, formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
-import { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import CriticalStrike from 'interface/icons/CriticalStrike';
 

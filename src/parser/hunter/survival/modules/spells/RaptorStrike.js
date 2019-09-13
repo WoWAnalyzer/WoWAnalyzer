@@ -11,7 +11,7 @@ class RaptorStrike extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = !this.selectedCombatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id);
+    this.active = !this.selectedCombatant.hasTalent(SPELLS.MONGOOSE_BITE_TALENT.id) && this.selectedCombatant.hasTalent(SPELLS.VIPERS_VENOM_TALENT.id);
   }
 
   on_byPlayer_cast(event) {

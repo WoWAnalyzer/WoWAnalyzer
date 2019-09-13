@@ -8,7 +8,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import { formatNumber } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
-import { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 const KILLER_INSTINCT_TRESHOLD = 0.35;

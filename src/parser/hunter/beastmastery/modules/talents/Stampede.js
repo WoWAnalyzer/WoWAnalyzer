@@ -7,7 +7,7 @@ import ItemDamageDone from 'interface/others/ItemDamageDone';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import { formatNumber, formatMilliseconds } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
-import { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 // The potential amount of hits per target per stampede cast.

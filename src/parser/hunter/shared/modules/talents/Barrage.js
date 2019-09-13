@@ -8,7 +8,7 @@ import AverageTargetsHit from 'interface/others/AverageTargetsHit';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import SpellLink from 'common/SpellLink';
 import Statistic from 'interface/statistics/Statistic';
-import { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**

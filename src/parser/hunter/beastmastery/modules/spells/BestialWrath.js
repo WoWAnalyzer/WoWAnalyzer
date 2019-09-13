@@ -3,7 +3,7 @@ import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';

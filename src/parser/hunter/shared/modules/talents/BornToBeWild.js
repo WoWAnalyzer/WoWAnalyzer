@@ -4,7 +4,7 @@ import React from 'react';
 import SPECS from 'game/SPECS';
 import { formatNumber } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
-import { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**

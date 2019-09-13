@@ -7,7 +7,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import Abilities from 'parser/core/modules/Abilities';
 import Statistic from 'interface/statistics/Statistic';
-import { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**

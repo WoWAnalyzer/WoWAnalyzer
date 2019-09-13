@@ -6,7 +6,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { formatNumber } from 'common/format';
 import SPECS from 'game/SPECS';
 import Statistic from 'interface/statistics/Statistic';
-import { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
