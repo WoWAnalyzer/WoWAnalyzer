@@ -116,14 +116,6 @@ class WindwalkerMonkChecklist extends React.PureComponent {
             name="Chi wasted per minute"
             thresholds={thresholds.chiDetails}
           />
-          <Requirement
-            name={(
-              <>
-                Bad <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> casts per minute
-              </>
-            )}
-            thresholds={thresholds.spinningCraneKick}
-          />
         </Rule>
         <Rule
           name="Don't break mastery"
