@@ -2,15 +2,17 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import GlobalCooldown from 'parser/hunter/beastmastery/modules/core/GlobalCooldown';
 import SpellLink from 'common/SpellLink';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Cobra Shot reduces the cooldown of Bestial Wrath by 1 sec.
  *
- * Example log: https://www.warcraftlogs.com/reports/krHzDFXTacfvyQwx#fight=27&type=summary&source=211
+ * Example log: https://www.warcraftlogs.com/reports/gdwaDBYN4jbJCAKv#fight=1&type=damage-done
  */
 
 const COOLDOWN_REDUCTION_MS = 1000;
@@ -102,22 +104,25 @@ class VenomousBite extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.VENOMOUS_BITE_TALENT.id}
-        value={(
-          <>
-            {formatNumber(this.effectiveBWReductionMs / 1000)}s / {this.totalPossibleCDR / 1000}s
-            <br />
-            {formatPercentage(this.effectiveBWReductionMs / this.totalPossibleCDR)}%
-          </>
-        )}
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
+        category={'TALENTS'}
         tooltip={(
           <>
             {this.wastedCasts > 0 && <>You had {this.wastedCasts} {this.wastedCasts > 1 ? `casts` : `cast`} of Cobra Shot when Bestial Wrath wasn't on cooldown. <br /></>}
             {this.wastedBWReductionMs > 0 && `You wasted ${this.wastedCDR} seconds of potential cooldown reduction by casting Cobra Shot while Bestial Wrath had less than 1 + GCD seconds remaining on its CD.`}
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.VENOMOUS_BITE_TALENT}>
+          <>
+            {formatNumber(this.effectiveBWReductionMs / 1000)}s / {this.totalPossibleCDR / 1000}s
+            <br />
+            {formatPercentage(this.effectiveBWReductionMs / this.totalPossibleCDR)}%
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

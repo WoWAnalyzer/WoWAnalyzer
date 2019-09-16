@@ -3,11 +3,11 @@ import React from 'react';
 import { formatNumber, formatPercentage } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 import SPELLS from 'common/SPELLS';
-import SpellIcon from 'common/SpellIcon';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import MasteryIcon from 'interface/icons/Mastery';
 import Analyzer from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 const primalInstinctsStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [mastery] = calculateAzeriteEffects(SPELLS.PRIMAL_INSTINCTS.id, rank);
@@ -20,7 +20,7 @@ const primalInstinctsStats = traits => Object.values(traits).reduce((obj, rank) 
 /**
  * Aspect of the Wild increases your Mastery by X, and grants you a charge of Barbed Shot.
  *
- * Example report: https://www.warcraftlogs.com/reports/QdrGMj1wFqnacXNW#fight=1&type=auras&source=13
+ * Example report: https://www.warcraftlogs.com/reports/9mWQv1XZJT8M6GBV#fight=1&type=damage-done
  */
 class PrimalInstincts extends Analyzer {
   static dependencies = {
@@ -57,17 +57,22 @@ class PrimalInstincts extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
-        trait={SPELLS.PRIMAL_INSTINCTS.id}
-        value={(
+      <AzeritePowerStatistic
+        size="flexible"
+        category={"AZERITE_POWERS"}
+        tooltip={(
           <>
-            <MasteryIcon /> {formatNumber(this.avgMastery)} <small>average Mastery gained</small><br />
-            <SpellIcon id={SPELLS.BARBED_SHOT.id} /> <small>Up to</small> {this.numProcs} <small>charges regained</small>
+            Primal Instincts granted <strong>{this.mastery}</strong> Mastery for <strong>{formatPercentage(this.uptime)}%</strong> of the fight.
           </>
         )}
-        tooltip={<>Primal Instincts granted <strong>{this.mastery}</strong> Mastery for <strong>{formatPercentage(this.uptime)}%</strong> of the fight.</>}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.PRIMAL_INSTINCTS}>
+          <>
+            <MasteryIcon /> {formatNumber(this.avgMastery)} <small>average Mastery gained</small><br />
+            {this.numProcs} <small>Barbed shot charges regained</small>
+          </>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }

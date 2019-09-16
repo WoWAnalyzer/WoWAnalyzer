@@ -4,8 +4,10 @@ import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
 import { formatPercentage, formatNumber } from 'common/format';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import Statistic from 'interface/statistics/Statistic';
 import SpellLink from 'common/SpellLink';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 const MAX_STACKS = 5;
 
@@ -130,6 +132,24 @@ class MongooseBite extends Analyzer {
       return;
     }
     this.focusAtMomentOfCast = event.classResources[0].amount;
+
+    // this is for the timeline highlighting
+    if (event.meta === undefined) {
+      event.meta = {
+        isEnhancedCast: false,
+        isInefficientCast: false,
+        enhancedCastReason: '',
+        inefficientCastReason: '',
+      };
+    }
+    if (this.selectedCombatant.hasBuff(SPELLS.VIPERS_VENOM_BUFF.id)) {
+      event.meta.isInefficientCast = true;
+      event.meta.inefficientCastReason = 'Viper\'s Venom buff still active.';
+    }
+    if (this.lastMongooseBiteStack === 5 && this.selectedCombatant.hasBuff(SPELLS.MONGOOSE_FURY.id)) {
+      event.meta.isEnhancedCast = true;
+      event.meta.enhancedCastReason = 'Mongoose Bite at 5 stacks of Mongoose Fury';
+    }
   }
 
   on_byPlayer_applybuff(event) {
@@ -156,43 +176,46 @@ class MongooseBite extends Analyzer {
     }
     this.handleStacks(event);
   }
-
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.MONGOOSE_BITE_TALENT.id}
-        value={(
-<>
-          <ItemDamageDone amount={this.damage} /> <br />
-          {this.fiveStackMongooseBites}/{this.totalMongooseBites} 5 stack bites
-        </>
-)}
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(1)}
+        size="flexible"
         tooltip={(
-          <ul>
-            <li>You hit an average of {(this.mongooseBiteStacks[MAX_STACKS] / this.fiveBiteWindows).toFixed(1)} bites when you had {MAX_STACKS} stacks of Mongoose Fury.</li>
-            <li>You hit an average of {(this.totalMongooseBites / this.totalWindowsStarted).toFixed(1)} bites per Mongoose Fury window started.</li>
-          </ul>
+          <>
+            You hit an average of {(this.mongooseBiteStacks[MAX_STACKS] / this.fiveBiteWindows).toFixed(1)} bites when you had {MAX_STACKS} stacks of Mongoose Fury. <br />
+            You hit an average of {(this.totalMongooseBites / this.totalWindowsStarted).toFixed(1)} bites per Mongoose Fury window started.
+          </>
         )}
+        dropdown={(
+          <>
+            <table className="table table-condensed">
+              <thead>
+                <tr>
+                  <th>Stacks</th>
+                  <th>Hits (total)</th>
+                  <th>Hits (%)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.values(this.mongooseBiteByStacks).map((e, i) => (
+                  <tr key={i}>
+                    <th>{i}</th>
+                    <td>{e}</td>
+                    <td>{formatPercentage(e / this.totalMongooseBites)}%</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </>
+        )}
+        category={"TALENTS"}
       >
-        <table className="table table-condensed">
-          <thead>
-            <tr>
-              <th>Stacks</th>
-              <th>Hits (total)</th>
-              <th>Hits (%)</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.values(this.mongooseBiteByStacks).map((e, i) => (
-              <tr key={i}>
-                <th>{i}</th>
-                <td>{e}</td>
-                <td>{formatPercentage(e / this.totalMongooseBites)}%</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </TalentStatisticBox>
+        <BoringSpellValueText spell={SPELLS.MONGOOSE_BITE_TALENT}>
+          <ItemDamageDone amount={this.damage} /> <br />
+          {this.fiveStackMongooseBites}/{this.totalMongooseBites} <small>5 stack bites</small>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 

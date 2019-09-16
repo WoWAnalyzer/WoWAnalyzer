@@ -2,10 +2,12 @@ import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import { BLOODSEEKER_ATTACK_SPEED_GAIN } from 'parser/hunter/survival/constants';
 import { formatPercentage } from 'common/format';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Kill Command causes the target to bleed for X damage over 8 sec.
@@ -56,16 +58,23 @@ class Bloodseeker extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.BLOODSEEKER_TALENT.id}
-        value={(
-<>
-          <ItemDamageDone amount={this.damage} /> <br />
-          {formatPercentage(this.averageAttackSpeedGain)}% atk speed gain
-        </>
-)}
-        tooltip={`You had ${formatPercentage(this.uptime)}% uptime on the buff, with an average of ${(this.averageStacks).toFixed(2)} stacks.`}
-      />
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(2)}
+        size="flexible"
+        tooltip={(
+          <>
+            You had {formatPercentage(this.uptime)}% uptime on the buff, with an average of {(this.averageStacks).toFixed(2)} stacks.
+          </>
+        )}
+        category={"TALENTS"}
+      >
+        <BoringSpellValueText spell={SPELLS.BLOODSEEKER_TALENT}>
+          <>
+            <ItemDamageDone amount={this.damage} /> <br />
+            {formatPercentage(this.averageAttackSpeedGain)}% <small>atk speed gain</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 

@@ -4,14 +4,13 @@ import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
-import StatisticBox from 'interface/others/StatisticBox';
-import SpellIcon from 'common/SpellIcon';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
-import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import UptimeIcon from 'interface/icons/Uptime';
 
 /**
  * You and your pet attack as one, increasing all damage you both deal by
@@ -68,23 +67,12 @@ class CoordinatedAssault extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(17)}
-        icon={<SpellIcon id={SPELLS.COORDINATED_ASSAULT.id} />}
-        value={`${formatPercentage(this.percentUptime)}%`}
-        label="Coordinated Assault uptime"
-        tooltip={`Over the course of the encounter you had Coordinated Assault up for a total of ${(this.selectedCombatant.getBuffUptime(SPELLS.COORDINATED_ASSAULT.id) / 1000).toFixed(1)} seconds.`}
-      />
-    );
-  }
-
-  subStatistic() {
-    return (
-      <StatisticListBoxItem
-        title={<SpellLink id={SPELLS.COORDINATED_ASSAULT.id} />}
-        value={<ItemDamageDone amount={this.totalDamage} />}
-        valueTooltip={(
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(17)}
+        size="flexible"
+        tooltip={(
           <>
+            Over the course of the encounter you had Coordinated Assault up for a total of {(this.selectedCombatant.getBuffUptime(SPELLS.COORDINATED_ASSAULT.id) / 1000).toFixed(1)} seconds. <br />
             Total damage breakdown:
             <ul>
               <li>Player damage: {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.playerDamage))}% / {formatNumber(this.playerDamage / (this.owner.fightDuration / 1000))} DPS</li>
@@ -92,7 +80,14 @@ class CoordinatedAssault extends Analyzer {
             </ul>
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.COORDINATED_ASSAULT}>
+          <>
+            <ItemDamageDone amount={this.totalDamage} /> <br />
+            <UptimeIcon /> {formatPercentage(this.percentUptime)}% <small>uptime</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

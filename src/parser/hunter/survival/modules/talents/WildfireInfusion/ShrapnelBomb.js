@@ -2,10 +2,12 @@ import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import Enemies from 'parser/shared/modules/Enemies';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import { formatNumber } from 'common/format';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Lace your Wildfire Bomb with extra reagents, randomly giving it one of the following enhancements each time you throw it:
@@ -61,27 +63,37 @@ class ShrapnelBomb extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.SHRAPNEL_BOMB_WFI.id}
-        value={<ItemDamageDone amount={this.damage} />}
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(2)}
+        size="flexible"
+        category={'TALENTS'}
+        dropdown={(
+          <>
+            <table className="table table-condensed">
+              <thead>
+                <tr>
+                  <th>Average stacks</th>
+                  <th>Total stacks</th>
+                  <th>Bleed damage</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{(this.stacks / this.applications).toFixed(1)}</td>
+                  <td>{this.stacks}</td>
+                  <td>{formatNumber(this.bleedDamage / (this.owner.fightDuration / 1000))} DPS</td>
+                </tr>
+              </tbody>
+            </table>
+          </>
+        )}
       >
-        <table className="table table-condensed">
-          <thead>
-            <tr>
-              <th>Average stacks</th>
-              <th>Total stacks</th>
-              <th>Bleed damage</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{(this.stacks / this.applications).toFixed(1)}</td>
-              <td>{this.stacks}</td>
-              <td>{formatNumber(this.bleedDamage / (this.owner.fightDuration / 1000))} DPS</td>
-            </tr>
-          </tbody>
-        </table>
-      </TalentStatisticBox>
+        <BoringSpellValueText spell={SPELLS.SHRAPNEL_BOMB_WFI}>
+          <>
+            <ItemDamageDone amount={this.damage} />
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

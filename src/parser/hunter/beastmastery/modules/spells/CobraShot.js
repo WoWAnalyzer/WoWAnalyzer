@@ -2,11 +2,12 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 import GlobalCooldown from 'parser/hunter/beastmastery/modules/core/GlobalCooldown';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 
 /**
  * A quick shot causing Physical damage.
@@ -31,10 +32,20 @@ class CobraShot extends Analyzer {
     if (spellId !== SPELLS.COBRA_SHOT.id) {
       return;
     }
+    if (event.meta === undefined) {
+      event.meta = {
+        isEnhancedCast: false,
+        isInefficientCast: false,
+        enhancedCastReason: '',
+        inefficientCastReason: '',
+      };
+    }
     this.casts += 1;
     if (!this.spellUsable.isOnCooldown(SPELLS.KILL_COMMAND_CAST_BM.id)) {
       this.wastedCasts += 1;
       this.wastedKCReductionMs += COOLDOWN_REDUCTION_MS;
+      event.meta.isInefficientCast = true;
+      event.meta.inefficientCastReason = 'Cobra Shot cast while Kill Command is not on cooldown.';
       return;
     }
     const globalCooldown = this.globalCooldown.getGlobalCooldownDuration(spellId);
@@ -43,6 +54,8 @@ class CobraShot extends Analyzer {
       const effectiveReductionMs = killCommandCooldownRemaining - globalCooldown;
       this.effectiveKCReductionMs += this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND_CAST_BM.id, effectiveReductionMs);
       this.wastedKCReductionMs += COOLDOWN_REDUCTION_MS - effectiveReductionMs;
+      event.meta.isInefficientCast = true;
+      event.meta.inefficientCastReason = 'Cobra Shot cast while Kill Command\'s cooldown was under ' + (killCommandCooldownRemaining / 1000).toFixed(1) + 's remaining.';
       return;
     }
     this.effectiveKCReductionMs += this.spellUsable.reduceCooldown(SPELLS.KILL_COMMAND_CAST_BM.id, COOLDOWN_REDUCTION_MS);
@@ -97,24 +110,24 @@ class CobraShot extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(16)}
-        icon={<SpellIcon id={SPELLS.COBRA_SHOT.id} />}
-        value={(
-          <>
-            {formatNumber(this.effectiveKCReductionMs / 1000)}s / {this.totalPossibleCDR / 1000}s
-            <br />
-            {formatPercentage(this.effectiveKCReductionMs / this.totalPossibleCDR)}%
-          </>
-        )}
-        label={<><SpellLink id={SPELLS.KILL_COMMAND_CAST_BM.id} icon={false} /> CDR</>}
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
         tooltip={(
           <>
             {this.wastedCasts > 0 && <>You had {this.wastedCasts} {this.wastedCasts > 1 ? 'casts' : 'cast'} of Cobra Shot when Kill Command wasn't on cooldown. <br /></>}
             {this.wastedKCReductionMs > 0 && `You wasted ${this.wastedCDR} seconds of potential cooldown reduction by casting Cobra Shot while Kill Command had less than 1 + GCD seconds remaining on its CD.`}
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.COBRA_SHOT}>
+          <>
+            {formatNumber(this.effectiveKCReductionMs / 1000)}s / {this.totalPossibleCDR / 1000}s
+            <br />
+            {formatPercentage(this.effectiveKCReductionMs / this.totalPossibleCDR)}% <small>effectiveness</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }
