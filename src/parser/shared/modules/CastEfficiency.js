@@ -57,17 +57,15 @@ class CastEfficiency extends Analyzer {
           return acc;
         } else if (event.trigger === 'endcooldown') {
           //limit by start time in case of pre phase events
-          const rechargingTime = (event.timestamp - Math.max(lastRechargeTimestamp, this.owner.fight.start_time)) || 0;
           recharges += 1;
           lastRechargeTimestamp = null;
-          return acc + rechargingTime;
+          return acc + event.timestamp - event.start;
           // This might cause oddness if we add anything that externally refreshes charges, but so far nothing does
         } else if (event.trigger === 'restorecharge') {
           //limit by start time in case of pre phase events
-          const rechargingTime = (event.timestamp - Math.max(lastRechargeTimestamp, this.owner.fight.start_time)) || 0;
           recharges += 1;
           lastRechargeTimestamp = event.timestamp;
-          return acc + rechargingTime;
+          return acc + event.timePassed;
         } else {
           return acc;
         }
