@@ -59,6 +59,8 @@ class CastEfficiency extends Analyzer {
           //limit by start time in case of pre phase events
           recharges += 1;
           lastRechargeTimestamp = null;
+          // this is just event.timePassed except `endcooldown` events
+          // don't have `timePassed` filled in.
           return acc + event.timestamp - event.start;
           // This might cause oddness if we add anything that externally refreshes charges, but so far nothing does
         } else if (event.trigger === 'restorecharge') {
