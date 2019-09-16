@@ -8,6 +8,9 @@ import { Abelito75 } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [  
+  change(date(2019, 9, 4),<>Fixed a bug in <SpellLink id={SPELLS.BRACE_FOR_IMPACT.id} />. </>,Abelito75),
+  change(date(2019, 9, 4),<>Changed timeformat for <SpellLink id={SPELLS.BRACE_FOR_IMPACT.id} />. </>,Abelito75),
+  change(date(2019, 9, 4),<>Updated wording for <SpellLink id={SPELLS.AVATAR_TALENT.id} />.</>,Abelito75),
   change(date(2019, 8, 26),<>Added support for <SpellLink id={SPELLS.BRACE_FOR_IMPACT.id} /></>,Abelito75),
   change(date(2019, 8, 26),<>Updated spells for prot warrior to include <SpellLink id={SPELLS.BRACE_FOR_IMPACT.id} /> buff. </>,Abelito75),
   change(date(2019, 8, 24),<>Updated possible uptime on <SpellLink id={SPELLS.AVATAR_TALENT.id} /> if you are taking <SpellLink id={SPELLS.VISION_OF_PERFECTION.id} /> </>,Abelito75),

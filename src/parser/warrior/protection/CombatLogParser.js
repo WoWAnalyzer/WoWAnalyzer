@@ -10,7 +10,7 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 
 
 import ShieldBlock from './modules/spells/ShieldBlock';
-import ShieldBlockMitigation from './modules/spells/ShieldBlockMitigation';
+import BlockCheck from './modules/features/BlockCheck';
 import Checklist from './modules/features/Checklist/Module';
 import IgnorePain from './modules/features/IgnorePain';
 import RageTracker from './modules/core/RageTracker';
@@ -42,7 +42,7 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     shieldBlock: ShieldBlock,
-    shieldBlockMitigation: ShieldBlockMitigation,
+    blockCheck: BlockCheck,
     spellUsable: SpellUsable,
     cooldownThroughputTracker: CooldownThroughputTracker,
     checklist: Checklist,
