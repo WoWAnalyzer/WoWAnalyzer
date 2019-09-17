@@ -2,16 +2,17 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
-import ResourceIcon from 'common/ResourceIcon';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import Haste from 'interface/icons/Haste';
 
 /**
  * Summons a powerful wild beast that attacks the target and roars, increasing your Haste by 5% for 8 sec.
  *
- * Example log: https://www.warcraftlogs.com/reports/jV7BJPN81AqtDKYp#fight=9&source=167&type=damage-done
+ * Example log: https://www.warcraftlogs.com/reports/qZRdFv9Apg74wmMV#fight=3&type=damage-done
  */
 
 const HASTE_PERCENT = 0.05;
@@ -75,25 +76,27 @@ class DireBeast extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.DIRE_BEAST_TALENT.id}
-        value={(
-<>
-          <ItemDamageDone amount={this.damage} /> <br />
-          gained {formatPercentage(HASTE_PERCENT * this.uptime)}% Haste <br />
-          gained {this.focusGained} Focus <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} />
-        </>
-)}
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
+        category={'TALENTS'}
         tooltip={(
           <>
             You had {formatPercentage(this.uptime)}% uptime on the Dire Beast Haste buff. <br />
             You wasted {this.focusWasted} Focus by being too close to Focus cap when Dire Beast gave you Focus.
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.DIRE_BEAST_TALENT}>
+          <>
+            <ItemDamageDone amount={this.damage} /> <br />
+            <Haste /> {formatPercentage(HASTE_PERCENT * this.uptime)}% Haste<br />
+            {this.focusGained} <small>focus gained</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
-
 }
 
 export default DireBeast;

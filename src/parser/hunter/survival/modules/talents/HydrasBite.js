@@ -2,11 +2,13 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import { HYDRAS_BITE_DOT_MODIFIER } from 'parser/hunter/survival/constants';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Serpent Sting fires arrows at 2 additional enemies near your target, and its damage over time is increased by 10%.
@@ -88,40 +90,45 @@ class HydrasBite extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.HYDRAS_BITE_TALENT.id}
-        value={(
-<>
-          <ItemDamageDone amount={this.increasedMainTargetDamage + this.spreadDamage} /> <br />
-          {this.extraApplications / this.casts} extra dots/cast
-        </>
-)}
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(3)}
+        size="flexible"
+        dropdown={(
+          <>
+            <table className="table table-condensed">
+              <thead>
+                <tr>
+                  <th>Target</th>
+                  <th>Damage</th>
+                  <th>Debuffs</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Main</td>
+                  <td>{<ItemDamageDone amount={this.increasedMainTargetDamage} />}</td>
+                  <td>{this.casts}</td>
+                </tr>
+                <tr>
+                  <td>Other</td>
+                  <td>{<ItemDamageDone amount={this.spreadDamage} />}</td>
+                  <td>{this.extraApplications}</td>
+                </tr>
+              </tbody>
+            </table>
+          </>
+        )}
+        category={"TALENTS"}
       >
-        <table className="table table-condensed">
-          <thead>
-            <tr>
-              <th>Target</th>
-              <th>Damage</th>
-              <th>Debuffs</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Main</td>
-              <td>{<ItemDamageDone amount={this.increasedMainTargetDamage} />}</td>
-              <td>{this.casts}</td>
-            </tr>
-            <tr>
-              <td>Other</td>
-              <td>{<ItemDamageDone amount={this.spreadDamage} />}</td>
-              <td>{this.extraApplications}</td>
-            </tr>
-          </tbody>
-        </table>
-      </TalentStatisticBox>
+        <BoringSpellValueText spell={SPELLS.HYDRAS_BITE_TALENT}>
+          <>
+            <ItemDamageDone amount={this.increasedMainTargetDamage + this.spreadDamage} /> <br />
+            {this.extraApplications / this.casts} <small>extra dots/cast</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
-
 }
 
 export default HydrasBite;

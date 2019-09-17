@@ -7,6 +7,7 @@ import Combatant from 'parser/core/Combatant';
 
 import './PlayerInfo.scss';
 import Azerite from './Azerite';
+import Essence from './Essence';
 import Enchants from './Enchants';
 import Gear from './Gear';
 import Gems from './Gems';
@@ -22,6 +23,7 @@ class PlayerInfo extends React.PureComponent {
     gear: [],
     traits: {},
     talents: [],
+    essences: {},
   };
 
   static getDerivedStateFromProps(props) {
@@ -31,6 +33,7 @@ class PlayerInfo extends React.PureComponent {
       gear: _parseGear(combatant._combatantInfo.gear),
       traits: _parseTraits(combatant._combatantInfo.artifact),
       talents: _parseTalents(combatant._combatantInfo.talents),
+      essences: combatant._combatantInfo.heartOfAzeroth,
     };
   }
 
@@ -59,6 +62,9 @@ class PlayerInfo extends React.PureComponent {
           </div>
           <div className="player-details-traits">
             <Azerite azerite={this.state.traits} />
+          </div>
+          <div className="player-details-essences">
+            <Essence essences={this.state.essences} />
           </div>
         </div>
       </div>

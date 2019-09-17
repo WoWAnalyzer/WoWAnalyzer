@@ -1,8 +1,9 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import SPELLS from 'common/SPELLS';
 import { RAPTOR_MONGOOSE_VARIANTS } from 'parser/hunter/survival/constants';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 
 /**
  * Serpent Sting damage applies Latent Poison, stacking up to 10 times. Your Mongoose Bite or Raptor Strike consumes all applications of Latent Poison to deal 451 Nature damage per stack.
@@ -80,17 +81,22 @@ class LatentPoison extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
-        trait={SPELLS.LATENT_POISON.id}
-        value={`${this.averageStacksPerRaptorOrMongoose} pr ${this.spellKnown}`}
+      <AzeritePowerStatistic
+        size="flexible"
+        category={"AZERITE_POWERS"}
         tooltip={(
           <>
-            {this.utilised} debuffs consumed / {this.maxPossible} possible.
-            {this.wasted > 0 && <><br /> You cast {this.spellKnown} {this.wasted} times while you already had {MAX_STACKS} stacks on the target.</>}
+            {this.utilised} stacks consumed / {this.maxPossible} possible.<br />
+            {this.wasted > 0 && <> You wasted {this.wasted} stacks by not casting {this.spellKnown} at the target with {MAX_STACKS} stacks on.</>}
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.LATENT_POISON}>
+          <>
+            {this.averageStacksPerRaptorOrMongoose} <small>stacks per {this.spellKnown}</small>
+          </>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }

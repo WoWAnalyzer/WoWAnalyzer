@@ -32,11 +32,6 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         buffSpellId: SPELLS.PUNISH_DEBUFF.id,
         cooldown: haste => 9 / (1 + haste),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: .9,
-          extraSuggestion: 'Casting Shield Slam regularly is very important for performing well.',
-        },
         timelineSortIndex: 1,
       },
       {
@@ -76,11 +71,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DEMORALIZING_SHOUT,
         buffSpellId: SPELLS.DEMORALIZING_SHOUT.id,
         category: Abilities.SPELL_CATEGORIES.DEFENSIVE,
-        castEfficiency: {
-          suggestion: combatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id),
-          recommendedEfficiency: combatant.hasTalent(SPELLS.ANGER_MANAGEMENT_TALENT.id) ? .95 : .80,
-          extraSuggestion: 'Cast Demoralizing Shout more liberally to maximize it\'s DPS boost unless you need it so survive a specific mechanic.',
-        },
         gcd: {
           base: 1500,
         },
@@ -161,10 +151,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.AVATAR_TALENT,
         buffSpellId: SPELLS.AVATAR_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: .9,
-        },
         gcd: {
           base: 1500,
         },
@@ -202,6 +188,15 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 35,
+        timelineSortIndex: 9,
+      },
+      {
+        spell: SPELLS.RALLYING_CRY,
+        category: Abilities.SPELL_CATEGORIES.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 180,
         timelineSortIndex: 9,
       },
     ];

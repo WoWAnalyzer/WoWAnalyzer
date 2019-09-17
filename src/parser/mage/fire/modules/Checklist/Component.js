@@ -74,13 +74,6 @@ class FireMageChecklist extends React.PureComponent {
               tooltip="If you are talented into Firestarter, you should ensure that you do not cast Combustion while the boss is above 90% Health. This would be a waste considering every spell is guaranteed to crit while the boss is above 90% Health, which defeats the purpose of using Combustion. Instead, you should use Combustion when the boss gets to 89% so you can continue the streak of guaranteed crits once Firestarter finishes."
             />
           )}
-          {combatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id) && (
-            <Requirement
-              name="Pyroclasm Usage"
-              thresholds={thresholds.pyroclasmCombustionUsage}
-              tooltip="If you have enough time to complete the cast before Combustion ends, then you should always use your Pyroclasm procs to hard cast Pyroblast during Combustion. This is primarily because Combustion will guarantee that the spell crits, resulting in more damage on top of the 225% that the Pyroclasm buff gives."
-            />
-          )}
           <Requirement
             name="Bad Scorch Uses"
             thresholds={thresholds.scorchSpellUsageDuringCombustion}
@@ -151,6 +144,13 @@ class FireMageChecklist extends React.PureComponent {
               name="Rune of Power Uptime"
               thresholds={thresholds.runeOfPowerBuffUptime}
               tooltip="Using Rune of Power effectively means being able to stay within the range of it for it's entire duration. If you are unable to do so or if you frequently have to move out of the range of the buff, consider taking a different talent instead."
+            />
+          )}
+          {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) && combatant.hasTalent(SPELLS.METEOR_TALENT.id) && (
+            <Requirement
+              name="Meteor Utilization"
+              thresholds={thresholds.meteorUtilization}
+              tooltip="In order to get the most out of your Meteor casts, you should only cast Meteor while you are buffed by Rune of Power."
             />
           )}
         </Rule>

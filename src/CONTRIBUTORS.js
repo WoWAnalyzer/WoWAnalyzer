@@ -697,3 +697,62 @@ export const Amrux = {
   nickname: 'Amrux',
   github: 'grantjoshua1995',
 };
+export const Viridis = {
+  nickname: 'Viridis',
+  github: 'viridis',
+  discord: 'Viridis#2748',
+};
+export const Wing5wong = {
+  nickname: 'wing5wong',
+  github: 'wing5wong',
+  mains: [{
+    name: 'Shrom',
+    spec: SPECS.BALANCE_DRUID,
+    link: 'https://worldofwarcraft.com/en-us/character/us/frostmourne/shrom',
+  }],
+};
+export const Draenal = {
+  nickname: 'Draenal',
+  github: 'MikeCook9994',
+  mains: [{
+    name: 'Draenal',
+    spec: SPECS.ELEMENTAL_SHAMAN,
+    link: 'https://worldofwarcraft.com/en-us/character/us/malganis/draenal',
+  },
+  {
+    name: 'MagicEraser',
+    spec: SPECS.FROST_MAGE,
+    link: 'https://worldofwarcraft.com/en-us/character/us/malganis/magiceraser',
+  }],
+};
+export const Adoraci = {
+  nickname: 'Adoraci',
+  github: 'DylanDirlam',
+  discord: 'Adoraci#0001',
+  avatar: require('./interface/images/avatars/Adoraci-avatar.png'),
+  mains: [{
+    name: 'Adoraci',
+    spec: SPECS.DISCIPLINE_PRIEST,
+    link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/adoraci',
+  }],
+};
+export const TheJigglr = {
+  nickname: 'TheJigglr',
+  github: 'myran2',
+  discord: 'Henry#4712',
+  mains: [{
+    name: 'Thejigglr',
+    spec: SPECS.ELEMENTAL_SHAMAN,
+    link: 'https://worldofwarcraft.com/en-us/character/us/bleeding-hollow/thejigglr',
+  }],
+};
+export const fluffels = {
+  nickname: 'fluffels',
+  github: 'fluffels',
+  discord: 'fluffels#4322',
+  main: [{
+    name: 'Micheladaw',
+    spec: SPECS.AFFLICTION_WARLOCK,
+    link: 'https://worldofwarcraft.com/en-gb/character/eu/draenor/micheladaw',
+  }],
+};

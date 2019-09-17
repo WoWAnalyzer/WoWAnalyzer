@@ -61,14 +61,13 @@ class SurgingShots extends Analyzer {
     return (
       <AzeritePowerStatistic
         size="flexible"
+        category={"AZERITE_POWERS"}
       >
         <BoringSpellValueText spell={SPELLS.SURGING_SHOTS}>
-          {this.spellUsable.rapidFireResets}
-          <small> resets</small>
-          <br />
-          <small>Up to</small>
-          {formatNumber(this.damagePotential)}
-          <small> damage per <SpellLink id={SPELLS.RAPID_FIRE.id} /></small>
+          <>
+            {this.spellUsable.rapidFireResets} <small> {this.spellUsable.rapidFireResets === 0 || this.spellUsable.rapidFireResets > 1 ? 'resets' : 'reset'}</small> <br />
+            <small>Up to</small> {formatNumber(this.damagePotential)} <small> damage per <SpellLink id={SPELLS.RAPID_FIRE.id} /></small>
+          </>
         </BoringSpellValueText>
       </AzeritePowerStatistic>
     );

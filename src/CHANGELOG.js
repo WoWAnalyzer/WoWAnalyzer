@@ -1,5 +1,5 @@
 import React from 'react';
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz } from 'CONTRIBUTORS';
+import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -8,6 +8,24 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  change(date(2019, 9, 11), 'Fight statistics in the character panel now include the most used essences.', niseko),
+  change(date(2019, 9, 10), 'Added a cast time column to the mana efficiency module.', niseko),
+  change(date(2019, 9, 9), <>Added <ItemLink id={ITEMS.POTION_OF_FOCUSED_RESOLVE.id} />.</>, Sharrq),
+  change(date(2019, 9, 8), <>Fixed issue with <ItemLink id={ITEMS.ENCHANT_WEAPON_FORCE_MULTIPLIER.id} /> and Critical Strike.</>, emallson),
+  change(date(2019, 9, 7), <>Added <ItemLink id={ITEMS.ENCHANT_WEAPON_FORCE_MULTIPLIER.id} /></>, emallson),
+  change(date(2019, 9, 5), 'Fixed a calculation error affecting time spent casting in some cases.', niseko),
+  change(date(2019, 8, 27), <>Added check to remove <SpellLink id={SPELLS.WINDWALKING.id} /> from dispel infographic. </>, Abelito75),
+  change(date(2019, 8, 27), <>Updated <SpellLink id={SPELLS.CONCENTRATED_FLAME.id} /> to take into account 2 charges at rank 3 and up.</>, Yajinni),
+  change(date(2019, 8, 26), 'Normalized the location of visions of perfections reduced cd calculator.', Abelito75),
+  change(date(2019, 8, 22), 'Updated cooldown tab so it includes absorbed damage for dps.', Abelito75),
+  change(date(2019, 8, 22), 'Added Spell IDs and the stacking haste buff from Condensed Life Force.', Sharrq),
+  change(date(2019, 8, 22), <><SpellLink id={SPELLS.LUCID_DREAMS.id} /> minor for rage refund added. Shouldn't show up as missing id in rage-useage now.</>, Abelito75),
+  change(date(2019, 8, 20), 'Fixed potential crash of phase fabrication during mixed filter usage.', Zeboot),
+  change(date(2019, 8, 16), 'Added event filter to death recap to view only pre-death events.', Zeboot),
+  change(date(2019, 8, 16), 'Added Heart of Azeroth Essences to Character Info panel.', [Viridis]),
+  change(date(2019, 8, 14), 'Fixed potential crash of phase fabrication during mixed filter usage.', Zeboot),
+  change(date(2019, 8, 12), 'Added more phase trigger types to improve our phase detection.', Zeboot),
+  change(date(2019, 8, 12), <>Added <SpellLink id={SPELLS.LOYAL_TO_THE_END.id} /> azerite trait.</>, Khadaj),
   change(date(2019, 8, 7), <>Updated <SpellLink id={SPELLS.CONCENTRATED_FLAME.id} /> healing calculation.</>, Yajinni),
   change(date(2019, 8, 6), <>Added <ItemLink id={ITEMS.POTION_OF_WILD_MENDING.id} />.</>, niseko),
   change(date(2019, 8, 6), <>Added <SpellLink id={SPELLS.WELL_OF_EXISTENCE_MAJOR.id} /></>, Qbz),

@@ -3,7 +3,9 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Aimed Shot has a 100% chance to reduce the focus cost of your next Arcane Shot or Multi-Shot by 100%.
@@ -53,9 +55,10 @@ class MasterMarksman extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.MASTER_MARKSMAN_TALENT.id}
-        value={`${this.usedProcs}/${this.totalProcs} procs used`}
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(10)}
+        size="flexible"
+        category={'TALENTS'}
         tooltip={(
           <>
             You gained a total of {this.totalProcs} procs, and utilised {this.usedProcs} of them.
@@ -77,10 +80,15 @@ class MasterMarksman extends Analyzer {
             </ul>
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.MASTER_MARKSMAN_TALENT}>
+          <>
+            {this.usedProcs}/{this.totalProcs} <small>procs used</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
-
 }
 
 export default MasterMarksman;

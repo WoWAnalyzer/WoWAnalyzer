@@ -3,13 +3,15 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import SpellIcon from 'common/SpellIcon';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Your next Aimed Shot will fire a second time instantly at 100% power without consuming Focus, or your next Rapid Fire will shoot 100% additional shots during its channel.
  *
- * Example log: https://www.warcraftlogs.com/reports/kXAQGnqwR7tm1zMJ#fight=38&type=auras&source=75
+ * Example log: https://www.warcraftlogs.com/reports/aqRc7Fnvf2dmPMD3#fight=75&type=damage-done
  */
 
 class DoubleTap extends Analyzer {
@@ -50,9 +52,21 @@ class DoubleTap extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.DOUBLE_TAP_TALENT.id}
-        value={(
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
+        category={'TALENTS'}
+        tooltip={(
+          <>
+            You used Double Tap a total of {this.activations} times, and utilised {this.totalUsage} of them.
+            <ul>
+              {this.aimedUsage > 0 && <li>Out of the total activations, you used {this.aimedUsage} of them on Aimed Shots.</li>}
+              {this.RFUsage > 0 && <li>Out of the total activations, you used {this.RFUsage} of them on Rapid Fires.</li>}
+            </ul>
+          </>
+        )}
+      >
+        <BoringSpellValueText spell={SPELLS.DOUBLE_TAP_TALENT}>
           <>
             {this.aimedUsage}{'  '}
             <SpellIcon
@@ -72,17 +86,8 @@ class DoubleTap extends Analyzer {
               }}
             />
           </>
-        )}
-        tooltip={(
-          <>
-            You used Double Tap a total of {this.activations} times, and utilised {this.totalUsage} of them.
-            <ul>
-              {this.aimedUsage > 0 && <li>Out of the total activations, you used {this.aimedUsage} of them on Aimed Shots.</li>}
-              {this.RFUsage > 0 && <li>Out of the total activations, you used {this.RFUsage} of them on Rapid Fires.</li>}
-            </ul>
-          </>
-        )}
-      />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

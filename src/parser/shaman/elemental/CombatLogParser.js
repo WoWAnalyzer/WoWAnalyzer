@@ -20,6 +20,7 @@ import Stormkeeper from './modules/talents/Stormkeeper';
 import TotemMastery from './modules/talents/TotemMastery';
 import UnlimitedPower from './modules/talents/UnlimitedPower';
 import UnlimitedPowerTimesByStacks from './modules/talents/UnlimitedPowerTimesByStacks';
+import SurgeOfPower from './modules/talents/SurgeOfPower';
 import Checklist from './modules/checklist/Module';
 import Buffs from './modules/Buffs';
 
@@ -58,6 +59,7 @@ class CombatLogParser extends CoreCombatLogParser {
     stormElemental: StormElemental,
     liquidMagmaTotem: LiquidMagmaTotem,
     masterOfTheElements: MasterOfTheElements,
+    surgeOfPower: SurgeOfPower,
     primalFireElemental: PrimalFireElemental,
     primalStormElemental: PrimalStormElemental,
     totemMastery: TotemMastery,

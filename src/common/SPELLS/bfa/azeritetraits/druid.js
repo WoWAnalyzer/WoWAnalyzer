@@ -156,6 +156,11 @@ export default {
     name: 'Streaking Stars',
     icon: 'spell_nature_natureguardian',
   },
+  STREAKING_STAR: {
+    id: 272873,
+    name: 'Streaking Star',
+    icon: 'spell_nature_natureguardian',
+  },
   ARCANIC_PULSAR:{
     id: 287784,
     name: 'Arcanic Pulsar',

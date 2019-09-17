@@ -4,14 +4,14 @@ import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import StatisticBox from 'interface/others/StatisticBox';
-import SpellIcon from 'common/SpellIcon';
 import Enemies from 'parser/shared/modules/Enemies';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import SpellLink from 'common/SpellLink';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Hurl a bomb at the target, exploding for (45% of Attack power) Fire
@@ -123,15 +123,21 @@ class WildfireBomb extends Analyzer {
   get averageTargetsHit() {
     return (this.targetsHit / this.casts).toFixed(2);
   }
+
   statistic() {
     return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(20)}
-        icon={<SpellIcon id={SPELLS.WILDFIRE_BOMB.id} />}
-        value={this.averageTargetsHit}
-        label="Average targets hit"
-        tooltip={`You had an uptime of ${formatPercentage(this.uptimePercentage)}% on the DoT from Wildfire Bomb.`}
-      />
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(20)}
+        size="flexible"
+        category={'TALENTS'}
+        tooltip={<>You had an uptime of {formatPercentage(this.uptimePercentage)}% on the DoT from Wildfire Bomb.</>}
+      >
+        <BoringSpellValueText spell={SPELLS.WILDFIRE_BOMB}>
+          <>
+            {this.averageTargetsHit} <small>average targets hit</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

@@ -103,6 +103,7 @@ import MasterfulNavigation from '../shared/modules/items/bfa/enchants/MasterfulN
 import QuickNavigation from '../shared/modules/items/bfa/enchants/QuickNavigation';
 import StalwartNavigation from '../shared/modules/items/bfa/enchants/StalwartNavigation';
 import VersatileNavigation from '../shared/modules/items/bfa/enchants/VersatileNavigation';
+import ForceMultiplier from '../shared/modules/items/bfa/enchants/ForceMultiplier';
 import CoastalSurge from '../shared/modules/items/bfa/enchants/CoastalSurge';
 // Crafted
 import DarkmoonDeckTides from '../shared/modules/items/bfa/crafted/DarkmoonDeckTides';
@@ -134,6 +135,7 @@ import UnstableCatalyst from '../shared/modules/spells/bfa/azeritetraits/Unstabl
 import SwirlingSands from '../shared/modules/spells/bfa/azeritetraits/SwirlingSands';
 import Tradewinds from '../shared/modules/spells/bfa/azeritetraits/Tradewinds';
 import TreacherousCovenant from '../shared/modules/spells/bfa/azeritetraits/TreacherousCovenant';
+import LoyalToTheEnd from '../shared/modules/spells/bfa/azeritetraits/LoyalToTheEnd';
 
 // Essences
 import TheEverRisingTide from '../shared/modules/spells/bfa/essences/TheEverRisingTide';
@@ -287,6 +289,7 @@ class CombatLogParser {
     quickNavigation: QuickNavigation,
     stalwartNavigation: StalwartNavigation,
     versatileNavigation: VersatileNavigation,
+    forceMult: ForceMultiplier,
     coastalSurge: CoastalSurge,
 
     // Azerite Traits
@@ -314,10 +317,11 @@ class CombatLogParser {
     swirlingSands: SwirlingSands,
     tradewinds: Tradewinds,
     treacherousCovenant: TreacherousCovenant,
+    loyalToTheEnd: LoyalToTheEnd,
 
     // Essences
     theEverRisingTide: TheEverRisingTide,
-    theWellOfExistence : TheWellOfExistence,  
+    theWellOfExistence : TheWellOfExistence,
     theCrucibleofFlame: TheCrucibleofFlame,
     worldveinResonance: WorldveinResonance,
     nullDynamo: NullDynamo,
@@ -353,6 +357,9 @@ class CombatLogParser {
   };
   // Override this with spec specific modules when extending
   static specModules = {};
+
+  applyTimeFilter = (start, end) => null; //dummy function gets filled in by event parser
+  applyPhaseFilter = (phase, instance) => null; //dummy function gets filled in by event parser
 
   report = null;
   // Player info from WCL - required
