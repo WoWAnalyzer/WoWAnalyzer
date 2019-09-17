@@ -83,11 +83,13 @@ class PurgeTheWicked extends Analyzer {
       return (
         <StatisticBox
           icon={<SpellIcon id={this.dotSpell.id} />}
-          value={(<>
-            {formatPercentage(uptime)}% Uptime <br />
-            {this.extraPTWs} Extra DOTs<br />
-            <ItemDamageDone amount={this.bonusDamage} />
-          </>)}
+          value={(
+            <>
+              {formatPercentage(uptime)}% Uptime <br />
+              {this.extraPTWs} Extra DOTs<br />
+              <ItemDamageDone amount={this.bonusDamage} />
+            </>
+          )}
           tooltip={'The damage listed here only counts the bonus damage you get from additional PTW applications.'}
           label={`${this.dotSpell.name}`}
         />

@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 9, 17), <>Added more information to the <SpellLink id={SPELLS.PURGE_THE_WICKED_BUFF.id} /> module.</>, [Khadaj]),
   change(date(2019, 7, 31), <>Added a <SpellLink id={SPELLS.DEATH_THROES.id} /> analyzer to disc.</>, [Khadaj]),
   change(date(2019, 7, 26), <>The Evangelism module now correctly shows buff count when casting <SpellLink id={SPELLS.EVANGELISM_TALENT.id} /> right after <SpellLink id={SPELLS.POWER_WORD_RADIANCE.id} />.</>, [Khadaj]),
   change(date(2018, 10, 17), `The Atonement sources tab should no longer display spells that do not cause atonement healing.`, [niseko]),
