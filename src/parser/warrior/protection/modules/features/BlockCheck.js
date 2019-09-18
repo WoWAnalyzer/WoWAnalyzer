@@ -73,7 +73,7 @@ class BlockCheck extends Analyzer {
   }
 
   on_fightend() {
-    let blockableSet = new Set();//this is master list of all BLOCKED events in the fight
+    const blockableSet = new Set();//this is master list of all BLOCKED events in the fight
     blockableSet.add(1);//make it so if they never hit sb we still get data from the melees they take
     this.shieldBlock.shieldBlocksDefensive.forEach(function(block){
       block.eventName.forEach(function(blockedAbility){
