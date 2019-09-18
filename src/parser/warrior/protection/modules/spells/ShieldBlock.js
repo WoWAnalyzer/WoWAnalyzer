@@ -63,6 +63,7 @@ class ShieldBlock extends Analyzer {
     if(event.blocked > 0){
       this.shieldBlocksDefensive[this.shieldBlocksDefensive.length-1].blockAbleEvents += 1;
       this.shieldBlocksDefensive[this.shieldBlocksDefensive.length-1].eventName.add(event.ability.name);
+      this.shieldBlocksDefensive[this.shieldBlocksDefensive.length-1].eventSpellId.add(event.ability.guid);
     }
 
     this.shieldBlocksDefensive[this.shieldBlocksDefensive.length-1].blockedDamage += event.blocked || 0;
@@ -91,7 +92,8 @@ class ShieldBlock extends Analyzer {
       blockAbleEvents: 0,
       blockedDamage: 0,
       damageTaken: 0,
-      eventName: new Set(),
+      eventName: new Set(),//human readable
+      eventSpellId: new Set(),//data safe
       good: false,
     };
 
