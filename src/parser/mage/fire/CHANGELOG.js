@@ -8,6 +8,7 @@ import ItemLink from 'common/ItemLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 9, 19), <>Fixed a bug in <SpellLink id={SPELLS.METEOR_TALENT.id} /> that was looking for the wrong Spell ID for <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} />.</>, [Sharrq]),
   change(date(2019, 9, 3), <>Fixed bug in <SpellLink id={SPELLS.LUCID_DREAMS_MAJOR.id} />.</>, [Sharrq]),
   change(date(2019, 8, 27), <>Update <SpellLink id={SPELLS.BLASTER_MASTER.id} /> explanation graphic to new version.</>, [Sharrq]),
   change(date(2019, 8, 21), <>Add support for Fire Blast cooldown reduction from <SpellLink id={SPELLS.LUCID_DREAMS_MAJOR.id} />.</>, [Sharrq]),
