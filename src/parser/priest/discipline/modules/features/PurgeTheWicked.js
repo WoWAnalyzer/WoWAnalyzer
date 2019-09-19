@@ -7,7 +7,6 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import Events from 'parser/core/Events';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SuggestionThresholds from '../../SuggestionThresholds';
 
