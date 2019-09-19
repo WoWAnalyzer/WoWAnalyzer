@@ -31,7 +31,7 @@ class Meteor extends Analyzer {
   }
 
   onMeteor(event) {
-    if (this.selectedCombatant.hasBuff(SPELLS.RUNE_OF_POWER_TALENT.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.RUNE_OF_POWER_BUFF.id)) {
       this.badMeteor += 1;
     }
   }
