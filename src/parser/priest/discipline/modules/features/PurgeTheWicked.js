@@ -20,6 +20,9 @@ class PurgeTheWicked extends Analyzer {
   dotSpell;
   ptwCasts = 0;
   ptwApplications = 0;
+  lastCastTarget = null;
+  ptwCleaveTracker = {};
+  ptwCleaveDamage = 0;
 
   constructor(...args) {
     super(...args);
@@ -32,6 +35,8 @@ class PurgeTheWicked extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.PURGE_THE_WICKED_TALENT]), this.onDotCast);
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.PURGE_THE_WICKED_BUFF), this.onDotApply);
     this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER).spell(SPELLS.PURGE_THE_WICKED_BUFF), this.onDotApply);
+    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.PURGE_THE_WICKED_BUFF), this.onDotRemove);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.PURGE_THE_WICKED_BUFF), this.onDotDamage);
   }
 
   get uptime() {
@@ -40,10 +45,6 @@ class PurgeTheWicked extends Analyzer {
 
   get extraPTWs() {
     return this.ptwApplications - this.ptwCasts;
-  }
-
-  get ptwDamage() {
-    return this.abilityTracker.getAbility(SPELLS.PURGE_THE_WICKED_BUFF.id).damageEffective;
   }
 
   get bonusDamage() {
@@ -57,10 +58,25 @@ class PurgeTheWicked extends Analyzer {
 
   onDotCast(event) {
     this.ptwCasts++;
+    this.lastCastTarget = event.targetID;
   }
 
   onDotApply(event) {
     this.ptwApplications++;
+
+    if (event.targetID !== this.lastCastTarget) {
+      this.ptwCleaveTracker[event.targetID] = 1;
+    }
+  }
+
+  onDotRemove(event) {
+    delete(this.ptwCleaveTracker[event.targetID]);
+  }
+
+  onDotDamage(event) {
+    if (this.ptwCleaveTracker[event.targetID]) {
+      this.ptwCleaveDamage += event.amount + (event.absorbed || 0);
+    }
   }
 
   suggestions(when) {
@@ -87,7 +103,7 @@ class PurgeTheWicked extends Analyzer {
             <>
               {formatPercentage(uptime)}% Uptime <br />
               {this.extraPTWs} Extra DOTs<br />
-              <ItemDamageDone amount={this.bonusDamage} />
+              <ItemDamageDone amount={this.ptwCleaveDamage} />
             </>
           )}
           tooltip={'The damage listed here only counts the bonus damage you get from additional PTW applications.'}
