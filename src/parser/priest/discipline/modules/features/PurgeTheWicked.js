@@ -1,6 +1,6 @@
 import React from 'react';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import { formatPercentage } from 'common/format';
+import { formatPercentage, formatThousands } from 'common/format';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
@@ -103,10 +103,9 @@ class PurgeTheWicked extends Analyzer {
             <>
               {formatPercentage(uptime)}% Uptime <br />
               {this.extraPTWs} Extra DOTs<br />
-              <ItemDamageDone amount={this.ptwCleaveDamage} />
             </>
           )}
-          tooltip={'The damage listed here only counts the bonus damage you get from additional PTW applications.'}
+          tooltip={`The additional dots contributed ${formatThousands(this.ptwCleaveDamage)} damage.`}
           label={`${this.dotSpell.name}`}
         />
       );
