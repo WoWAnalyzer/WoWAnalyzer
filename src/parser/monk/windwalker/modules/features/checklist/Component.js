@@ -15,6 +15,8 @@ class WindwalkerMonkChecklist extends React.PureComponent {
     combatant: PropTypes.shape({
       hasTalent: PropTypes.func.isRequired,
       hasTrinket: PropTypes.func.isRequired,
+      hasEssence: PropTypes.func.isRequired,
+      hasMajor: PropTypes.func.isRequired,
     }).isRequired,
     thresholds: PropTypes.object.isRequired,
   };
@@ -43,6 +45,7 @@ class WindwalkerMonkChecklist extends React.PureComponent {
           <AbilityRequirement spell={SPELLS.FISTS_OF_FURY_CAST.id} />
           {combatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id) && <AbilityRequirement spell={SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id} />}
           {combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id) && <AbilityRequirement spell={SPELLS.CHI_WAVE_TALENT.id} />}
+          {(combatant.hasEssence(SPELLS.CONFLICT.traitId) ? combatant.hasMajor(SPELLS.CONFLICT.traitId) : false) && <AbilityRequirement spell={SPELLS.REVERSE_HARM.id} />}
         </Rule>
         <Rule
           name="Use your procs and short CDs"
@@ -112,14 +115,6 @@ class WindwalkerMonkChecklist extends React.PureComponent {
           <Requirement
             name="Chi wasted per minute"
             thresholds={thresholds.chiDetails}
-          />
-          <Requirement
-            name={(
-              <>
-                Bad <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> casts per minute
-              </>
-            )}
-            thresholds={thresholds.spinningCraneKick}
           />
         </Rule>
         <Rule

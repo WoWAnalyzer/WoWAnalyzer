@@ -104,6 +104,7 @@ import MasterfulNavigation from '../shared/modules/items/bfa/enchants/MasterfulN
 import QuickNavigation from '../shared/modules/items/bfa/enchants/QuickNavigation';
 import StalwartNavigation from '../shared/modules/items/bfa/enchants/StalwartNavigation';
 import VersatileNavigation from '../shared/modules/items/bfa/enchants/VersatileNavigation';
+import ForceMultiplier from '../shared/modules/items/bfa/enchants/ForceMultiplier';
 import CoastalSurge from '../shared/modules/items/bfa/enchants/CoastalSurge';
 // Crafted
 import DarkmoonDeckTides from '../shared/modules/items/bfa/crafted/DarkmoonDeckTides';
@@ -290,6 +291,7 @@ class CombatLogParser {
     quickNavigation: QuickNavigation,
     stalwartNavigation: StalwartNavigation,
     versatileNavigation: VersatileNavigation,
+    forceMult: ForceMultiplier,
     coastalSurge: CoastalSurge,
 
     // Azerite Traits

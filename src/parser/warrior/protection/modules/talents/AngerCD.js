@@ -6,6 +6,8 @@ import { formatPercentage } from 'common/format';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import AngerManagement from './AngerManagement';
+import { calculateCooldown } from '../../../../shared/modules/spells/bfa/essences/VisionsOfPerfection';
+
 
 class AngerCD extends Analyzer {
   static dependencies = {
@@ -14,9 +16,13 @@ class AngerCD extends Analyzer {
     angerManagement: AngerManagement,
   };
 
+  DEMOTEXT;
+  DEMOTEXTWITHBOOM = <>Cast <SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> more often to maximise the DPS increase and rage generation provided by Booming Voice unless you need it to survive a specific mechanic. </>;
+  DEMOTEXTWITHOUTBOOM = <>Cast <SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> more often to reduce the incoming damage </>;
+
   actualFightTime = 0;
   DEMOSHOUTCD = 45000;
-  AVATARCD = 90000;
+  AVATARCD = this.selectedCombatant.hasEssence(SPELLS.VISION_OF_PERFECTION.traitId) ? calculateCooldown(this.selectedCombatant.neck.itemLevel, 90) * 1000 : 90000;
   LASTSTANDCD = this.selectedCombatant.hasTalent(SPELLS.BOLSTER_TALENT.id) ? 180000 - 60000 : 180000;
   SHIELDWALLCD = 240000;
 
@@ -25,6 +31,7 @@ class AngerCD extends Analyzer {
   constructor(...args) {
     super(...args);
     this.hasAM = this.selectedCombatant.hasTalent(SPELLS.ANGER_MANAGEMENT_TALENT.id);
+    this.DEMOTEXT = this.selectedCombatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id) ? this.DEMOTEXTWITHBOOM : this.DEMOTEXTWITHOUTBOOM;
   }
 
   on_fightend(){
@@ -94,9 +101,7 @@ class AngerCD extends Analyzer {
 
     when(this.suggestionThresholdsDemoShout).addSuggestion((suggest, actual, recommended) => {
       return suggest(
-        <>
-          Try to cast <SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> more often. Cast <SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> more liberally to maximize it's DPS boost unless you need it so survive a specific mechanic.
-        </>
+        this.DEMOTEXT
       )
         .icon(SPELLS.DEMORALIZING_SHOUT.icon)
         .actual(`${formatPercentage(actual)}% Demoralizing Shout`)
@@ -106,7 +111,7 @@ class AngerCD extends Analyzer {
     when(this.suggestionThresholdsAvatar).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
-          Try to cast <SpellLink id={SPELLS.AVATAR_TALENT.id} /> more often.
+          Using  <SpellLink id={SPELLS.AVATAR_TALENT.id} /> as often as possible is very important for the increased damage output and rage generation so try to get the maximum casts out of it.
         </>
       )
         .icon(SPELLS.AVATAR_TALENT.icon)
@@ -117,7 +122,7 @@ class AngerCD extends Analyzer {
     when(this.suggestionThresholdsLastStand).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
-          Try to cast <SpellLink id={SPELLS.LAST_STAND.id} /> more often.
+          Remember to cast <SpellLink id={SPELLS.LAST_STAND.id} /> more frequently. If you have <SpellLink id={SPELLS.BOLSTER_TALENT.id} /> talented you can use this to fill gaps between your <SpellLink id={SPELLS.SHIELD_BLOCK.id} />.
         </>
       )
         .icon(SPELLS.LAST_STAND.icon)
@@ -128,7 +133,7 @@ class AngerCD extends Analyzer {
     when(this.suggestionThresholdsShieldWall).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
-          Try to cast <SpellLink id={SPELLS.SHIELD_WALL.id} /> more often.
+          Try to use <SpellLink id={SPELLS.SHIELD_WALL.id} /> more often as it reduces both physical and magical damage - unless you need it for a specific mechanic in the fight.
         </>
       )
         .icon(SPELLS.SHIELD_WALL.icon)

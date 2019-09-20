@@ -10,8 +10,18 @@ const debug = false;
 class DispelTracker extends Analyzer {
   dispelEvents = {};
   dispelCount = 0;
+
+  blackList = [
+    SPELLS.WINDWALKING.id,
+  ];
+
   on_dispel(event) {
     if (!this.owner.byPlayer(event)) {
+      return;
+    }
+    const spellId = event.extraAbility.guid;
+
+    if(this.blackList.includes(spellId)){
       return;
     }
 

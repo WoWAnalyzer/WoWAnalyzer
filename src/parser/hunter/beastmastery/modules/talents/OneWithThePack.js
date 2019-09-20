@@ -3,12 +3,14 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import HIT_TYPES from 'game/HIT_TYPES';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Wild Call has a 20% increased chance to reset the cooldown of Barbed Shot.
  *
- * Example log: https://www.warcraftlogs.com/reports/PLyFT2hcmCv39X7R#fight=1&type=damage-done&source=6
+ * Example log: https://www.warcraftlogs.com/reports/GcHh14BkrTtZRCKM#fight=1&type=damage-done
  *
  * Wild Call: Your auto shot critical strikes have a 20% chance to reset the cooldown of Barbed Shot.
  */
@@ -36,11 +38,22 @@ class OneWithThePack extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.ONE_WITH_THE_PACK_TALENT.id}
-        value={`≈${(this.procChances * WILD_CALL_RESET_PERCENT).toFixed(1)} resets`}
-        tooltip="Since there is no way to track Wild Call resets, this is an approximation of how many resets One With The Pack granted you."
-      />
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
+        category={'TALENTS'}
+        tooltip={(
+          <>
+            Since there is no way to track Wild Call resets, this is an approximation of how many resets One With The Pack granted you.
+          </>
+        )}
+      >
+        <BoringSpellValueText spell={SPELLS.ONE_WITH_THE_PACK_TALENT}>
+          <>
+            ≈{(this.procChances * WILD_CALL_RESET_PERCENT).toFixed(1)} <small>resets</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

@@ -736,3 +736,23 @@ export const Adoraci = {
     link: 'https://worldofwarcraft.com/en-us/character/us/zuljin/adoraci',
   }],
 };
+export const TheJigglr = {
+  nickname: 'TheJigglr',
+  github: 'myran2',
+  discord: 'Henry#4712',
+  mains: [{
+    name: 'Thejigglr',
+    spec: SPECS.ELEMENTAL_SHAMAN,
+    link: 'https://worldofwarcraft.com/en-us/character/us/bleeding-hollow/thejigglr',
+  }],
+};
+export const fluffels = {
+  nickname: 'fluffels',
+  github: 'fluffels',
+  discord: 'fluffels#4322',
+  main: [{
+    name: 'Micheladaw',
+    spec: SPECS.AFFLICTION_WARLOCK,
+    link: 'https://worldofwarcraft.com/en-gb/character/eu/draenor/micheladaw',
+  }],
+};

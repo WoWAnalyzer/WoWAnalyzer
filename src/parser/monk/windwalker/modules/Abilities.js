@@ -63,9 +63,15 @@ class Abilities extends CoreAbilities {
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
         cooldown: 10,
         gcd: {
-          static: 1000,
+          base: 1000,
+          minimum: 750,
         },
         enabled: combatant.hasEssence(SPELLS.CONFLICT.traitId) ? combatant.hasMajor(SPELLS.CONFLICT.traitId) : false,
+        castEfficiency: {
+          recommendedEfficiency: 0.75,
+          suggestion: true,
+          extraSuggestion: 'If you have a low amount of Reverse Harm casts, consider using another major essence',
+        },
       },
       {
         spell: SPELLS.BLACKOUT_KICK,

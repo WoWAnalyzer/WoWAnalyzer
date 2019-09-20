@@ -6,8 +6,11 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import SpellUsable from './modules/features/SpellUsable';
 import MitigationCheck from './modules/features/MitigationCheck';
 import Buffs from './modules/features/Buffs';
+import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+
 
 import ShieldBlock from './modules/spells/ShieldBlock';
+import BlockCheck from './modules/features/BlockCheck';
 import Checklist from './modules/features/Checklist/Module';
 import IgnorePain from './modules/features/IgnorePain';
 import RageTracker from './modules/core/RageTracker';
@@ -25,6 +28,9 @@ import Punish from './modules/talents/Punish';
 import DragonRoar from './modules/talents/DragonRoar';
 import AngerCD from './modules/talents/AngerCD';
 
+//azerite
+import BraceForImpact from './modules/azerite/BraceForImpact';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
@@ -35,9 +41,10 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
-    shield_block: ShieldBlock,
+    shieldBlock: ShieldBlock,
+    blockCheck: BlockCheck,
     spellUsable: SpellUsable,
-
+    cooldownThroughputTracker: CooldownThroughputTracker,
     checklist: Checklist,
 
     ignorePain: IgnorePain,
@@ -56,6 +63,9 @@ class CombatLogParser extends CoreCombatLogParser {
     punish: Punish,
     dragonRoar: DragonRoar,
     //Items
+
+    //Azerite
+    braceForImpact: BraceForImpact,
   };
 }
 

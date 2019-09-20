@@ -19,6 +19,7 @@ import ButcheryCarve from './modules/spells/ButcheryCarve';
 import SerpentSting from './modules/spells/SerpentSting';
 import CoordinatedAssault from './modules/spells/CoordinatedAssault';
 import WildfireBomb from './modules/spells/WildfireBomb';
+import RaptorStrike from './modules/spells/RaptorStrike';
 //Talents
 import Trailblazer from '../shared/modules/talents/Trailblazer';
 import NaturalMending from '../shared/modules/talents/NaturalMending';
@@ -44,8 +45,6 @@ import WildernessSurvival from './modules/spells/azeritetraits/WildernessSurviva
 import LatentPoison from './modules/spells/azeritetraits/LatentPoison';
 import BlurOfTalons from './modules/spells/azeritetraits/BlurOfTalons';
 import PrimevalIntuition from './modules/spells/azeritetraits/PrimevalIntuition';
-//Traits and Talents
-import SpellsAndTalents from './modules/features/SpellsAndTalents';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -72,6 +71,7 @@ class CombatLogParser extends CoreCombatLogParser {
     serpentSting: SerpentSting,
     coordinatedAssault: CoordinatedAssault,
     wildfireBomb: WildfireBomb,
+    raptorStrike: RaptorStrike,
 
     //Talents
     naturalMending: NaturalMending,
@@ -100,9 +100,6 @@ class CombatLogParser extends CoreCombatLogParser {
     latentPoison: LatentPoison,
     blurOfTalons: BlurOfTalons,
     primevalIntuition: PrimevalIntuition,
-
-    //Traits and talents
-    traitsAndTalents: SpellsAndTalents,
 
     // Survival's throughput benefit isn't as big as for other classes
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: 0.5 }],

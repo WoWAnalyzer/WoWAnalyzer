@@ -5,7 +5,9 @@ import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { formatNumber } from 'common/format';
 import SPECS from 'game/SPECS';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Every 20 (MM/SV) or 30 (BM) focus you spend reducxes the remaining cooldown of Exhilaration by 1 sec.
@@ -55,14 +57,24 @@ class NaturalMending extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.NATURAL_MENDING_TALENT.id}
-        value={`${formatNumber(this.effectiveExhilReductionMs / 1000)}s/${formatNumber((this.wastedExhilReductionMs + this.effectiveExhilReductionMs) / 1000)}s CDR`}
-        tooltip={`You wasted ${formatNumber(this.wastedExhilReductionMs / 1000)} seconds of CDR by spending focus whilst Exhilaration wasn't on cooldown.`}
-      />
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(14)}
+        size="flexible"
+        category={'TALENTS'}
+        tooltip={(
+          <>
+            You wasted {formatNumber(this.wastedExhilReductionMs / 1000)} seconds of CDR by spending focus whilst Exhilaration wasn't on cooldown.
+          </>
+        )}
+      >
+        <BoringSpellValueText spell={SPELLS.NATURAL_MENDING_TALENT}>
+          <>
+            {formatNumber(this.effectiveExhilReductionMs / 1000)}s/{formatNumber((this.wastedExhilReductionMs + this.effectiveExhilReductionMs) / 1000)}s <small>CDR</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
-
 }
 
 export default NaturalMending;

@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { niseko, HawkCorrigan, Draenal } from 'CONTRIBUTORS';
+import { niseko, HawkCorrigan, Draenal, TheJigglr } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 8, 21), <>Added support for <SpellLink id={SPELLS.SURGE_OF_POWER_TALENT.id} /></>, [TheJigglr]),
   change(date(2019, 8, 14), <>Updated <SpellLink id={SPELLS.LAVA_BURST.id} /> to check for <SpellLink id={SPELLS.FLAME_SHOCK.id} /> on damage instead of on cast.</>, [Draenal]),
   change(date(2019, 5, 6), <>Added support for the damage part of <SpellLink id={SPELLS.IGNEOUS_POTENTIAL.id} />.</>, [niseko]),
   change(date(2019, 3, 20), <>Fixing <SpellLink id={SPELLS.MASTER_OF_THE_ELEMENTS_TALENT.id} />-Tracker and Damage Calculation.</>, [HawkCorrigan]),

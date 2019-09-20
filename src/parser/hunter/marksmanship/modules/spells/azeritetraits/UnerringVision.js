@@ -55,15 +55,18 @@ class UnerringVision extends Analyzer {
     return (
       <AzeritePowerStatistic
         size="flexible"
+        category={"AZERITE_POWERS"}
       >
         <BoringSpellValueText spell={SPELLS.UNERRING_VISION}>
-          <CriticalStrike /> {formatNumber(this.avgCrit)}
-          <small> average Crit gained</small>
-          <br />
-          <CriticalStrike />
-          <small> up to</small>
-          {formatNumber(this.crit * MAX_STACKS)}
-          <small> Crit gained</small>
+          <>
+            <CriticalStrike /> {formatNumber(this.avgCrit)}
+            <small> average Crit gained</small>
+            <br />
+            <CriticalStrike />
+            <small> up to</small>
+            {formatNumber(this.crit * MAX_STACKS)}
+            <small> Crit gained</small>
+          </>
         </BoringSpellValueText>
       </AzeritePowerStatistic>
     );
