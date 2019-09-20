@@ -179,4 +179,10 @@ export default {
     icon: 'inv_bracer_cloth_kultirasdungeon_c_01',
     quality: ITEM_QUALITIES.PURPLE,
   },
+  CYCLOTRONIC_BLAST: {
+    id: 167672,
+    name: 'Cyclotronic Blast',
+    icon: 'inv_misc_punchcards_red',
+    quality: ITEM_QUALITIES.PURPLE,
+  },
 };
