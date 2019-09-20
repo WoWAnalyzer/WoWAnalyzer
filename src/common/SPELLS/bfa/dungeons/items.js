@@ -201,9 +201,4 @@ export default {
     name: 'Hyperthread Wristwraps',
     icon: 'inv_tailoring_815_synchronousthread',
   },
-  CYCLOTRONIC_BLAST: {
-    id: 293491,
-    name: 'Cyclotronic Blast',
-    icon: 'ability_siege_engineer_purification_beam',
-  },
 };
