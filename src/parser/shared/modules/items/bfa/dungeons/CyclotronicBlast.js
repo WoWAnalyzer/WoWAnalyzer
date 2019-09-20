@@ -25,10 +25,8 @@ class CyclotronicBlast extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.getItem(ITEMS.CYCLOTRONIC_BLAST.id);
-
+    this.active = this.selectedCombatant.hasRedPunchcard(ITEMS.CYCLOTRONIC_BLAST.id);
     if (this.active) {
-
       this.abilities.add({
         spell: SPELLS.CYCLOTRONIC_BLAST,
         name: ITEMS.CYCLOTRONIC_BLAST.name,
@@ -42,7 +40,7 @@ class CyclotronicBlast extends Analyzer {
   }
 
   get damage() {
-    return this.abilityTracker.getAbility(SPELLS.CYCLOTRONIC_BLAST).damageEffective;
+    return this.abilityTracker.getAbility(SPELLS.CYCLOTRONIC_BLAST.id).damageEffective;
   }
 
   statistic() {

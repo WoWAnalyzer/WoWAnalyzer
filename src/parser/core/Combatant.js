@@ -154,6 +154,10 @@ class Combatant extends Entity {
   _getGearItemBySlotId(slotId) {
     return this._gearItemsBySlotId[slotId];
   }
+  _getGearItemGemsBySlotId(slotId) {
+    const gems = this._gearItemsBySlotId[slotId].gems || undefined;
+    return gems;
+  }
   get gear() {
     return Object.values(this._gearItemsBySlotId);
   }
@@ -266,6 +270,44 @@ class Combatant extends Entity {
   }
   get offHand() {
     return this._getGearItemBySlotId(GEAR_SLOTS.OFFHAND);
+  }
+  // Punchcards are insertable items for the Pocket Sized Computation Device trinket
+  // The PSCD never has actual gems in it, since it is a one-time quest reward
+  get trinket1Punchcard() {
+    const punchcard = this._getGearItemGemsBySlotId(GEAR_SLOTS.TRINKET1) || undefined;
+    return punchcard;
+  }
+  get trinket2Punchcard() {
+    const punchcard = this._getGearItemGemsBySlotId(GEAR_SLOTS.TRINKET2) || undefined;
+    return punchcard;
+  }
+  // Red punchcard is always the first in the array
+  getRedPunchcard(id) {
+    if (this.trinket1Punchcard && this.trinket1Punchcard[0].id === id) {
+      return this.trinket1Punchcard[0];
+    }
+    if (this.trinket2Punchcard && this.trinket2Punchcard[0].id === id) {
+      return this.trinket2Punchcard[0];
+    }
+
+    return undefined;
+  }
+  hasRedPunchcard(id) {
+    return this.getRedPunchcard(id) !== undefined;
+  }
+  // Yellow punchcard is always second
+  getYellowPunchcard(id) {
+    if (this.trinket1Punchcard && this.trinket1Punchcard[1].id === id) {
+      return this.trinket1Punchcard[1];
+    }
+    if (this.trinket2Punchcard && this.trinket2Punchcard[1].id === id) {
+      return this.trinket2Punchcard[1];
+    }
+
+    return undefined;
+  }
+  hasYellowPunchcard(id) {
+    return this.getYellowPunchcard(id) !== undefined;
   }
   getItem(itemId) {
     return Object.keys(this._gearItemsBySlotId)

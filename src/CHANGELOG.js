@@ -1,5 +1,5 @@
 import React from 'react';
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz } from 'CONTRIBUTORS';
+import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Juko8 } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -8,6 +8,8 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  change(date(2019, 9, 20), <>Added <ItemLink id={ITEMS.CYCLOTRONIC_BLAST} />.</>, Juko8),
+  change(date(2019, 9, 20), 'Added 8.2 gems', Juko8),
   change(date(2019, 8, 27), <>Updated <SpellLink id={SPELLS.CONCENTRATED_FLAME.id} /> to take into account 2 charges at rank 3 and up.</>, Yajinni),
   change(date(2019, 8, 26), 'Normalized the location of visions of perfections reduced cd calculator.', Abelito75),
   change(date(2019, 8, 22), 'Updated cooldown tab so it includes absorbed damage for dps.', Abelito75),
