@@ -155,7 +155,7 @@ class Combatant extends Entity {
     return this._gearItemsBySlotId[slotId];
   }
   _getGearItemGemsBySlotId(slotId) {
-    if (this._gearItemsBySlotId[slotId].gems) {
+    if (this._gearItemsBySlotId[slotId]) {
       return this._gearItemsBySlotId[slotId].gems;
     }
     return undefined;
