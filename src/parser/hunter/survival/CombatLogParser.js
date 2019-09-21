@@ -45,7 +45,8 @@ import WildernessSurvival from './modules/spells/azeritetraits/WildernessSurviva
 import LatentPoison from './modules/spells/azeritetraits/LatentPoison';
 import BlurOfTalons from './modules/spells/azeritetraits/BlurOfTalons';
 import PrimevalIntuition from './modules/spells/azeritetraits/PrimevalIntuition';
-import DireConsequences from 'parser/hunter/shared/modules/spells/azeritetraits/DireConsequences';
+import DireConsequences from '../shared/modules/spells/azeritetraits/DireConsequences';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core statistics

@@ -48,7 +48,7 @@ import DanceOfDeath from './modules/spells/azeritetraits/DanceOfDeath';
 import HazeOfRage from './modules/spells/azeritetraits/HazeOfRage';
 import FeedingFrenzy from './modules/spells/azeritetraits/FeedingFrenzy';
 import PrimalInstincts from './modules/spells/azeritetraits/PrimalInstincts';
-import DireConsequences from 'parser/hunter/shared/modules/spells/azeritetraits/DireConsequences';
+import DireConsequences from '../shared/modules/spells/azeritetraits/DireConsequences';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
