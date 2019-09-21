@@ -8,7 +8,7 @@ import Haste from 'interface/icons/Haste';
 import UptimeIcon from 'interface/icons/Uptime';
 
 const HASTE_PER_PERCENT = 68;
-const DIRE_CONSEQUENCES_HASTE_PERCENT = 5;
+const DIRE_BEAST_HASTE_BUFF_PERCENT = 5;
 
 /**
  * Kill Command deals n additional damage, and has a chance to summon a Dire Beast.
@@ -30,7 +30,7 @@ class DireConsequences extends Analyzer {
   }
 
   get avgHaste() {
-    return this.uptime * (this.procs * DIRE_CONSEQUENCES_HASTE_PERCENT * HASTE_PER_PERCENT);
+    return this.uptime * (this.procs * DIRE_BEAST_HASTE_BUFF_PERCENT * HASTE_PER_PERCENT);
   }
 
   on_byPlayer_applybuff(event) {
