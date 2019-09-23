@@ -1,14 +1,12 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/index';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Haste from 'interface/icons/Haste';
 import UptimeIcon from 'interface/icons/Uptime';
-
-const HASTE_PER_PERCENT = 68;
-const DIRE_BEAST_HASTE_BUFF_PERCENT = 5;
+import { HASTE_PERCENT } from '../../../../beastmastery/modules/talents/DireBeast';
 
 /**
  * Kill Command deals n additional damage, and has a chance to summon a Dire Beast.
@@ -29,10 +27,6 @@ class DireConsequences extends Analyzer {
     return this.selectedCombatant.getBuffUptime(SPELLS.DIRE_BEAST_BUFF.id) / this.owner.fightDuration;
   }
 
-  get avgHaste() {
-    return this.uptime * (this.procs * DIRE_BEAST_HASTE_BUFF_PERCENT * HASTE_PER_PERCENT);
-  }
-
   on_byPlayer_applybuff(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.DIRE_BEAST_BUFF.id) {
@@ -49,7 +43,7 @@ class DireConsequences extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.DIRE_CONSEQUENCES}>
           <>
-            <Haste /> {formatNumber(this.avgHaste)} <small>average Haste</small><br />
+            <Haste /> {formatPercentage(HASTE_PERCENT * this.uptime)}% <small>Haste</small><br />
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small> <br />
             {this.procs} <small>procs</small>
           </>

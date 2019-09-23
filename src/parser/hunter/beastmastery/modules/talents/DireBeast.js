@@ -15,7 +15,7 @@ import Haste from 'interface/icons/Haste';
  * Example log: https://www.warcraftlogs.com/reports/qZRdFv9Apg74wmMV#fight=3&type=damage-done
  */
 
-const HASTE_PERCENT = 0.05;
+export const HASTE_PERCENT = 0.05;
 const SCENT_OF_BLOOD_FOCUS_INCREASE = 2;
 const BASELINE_DIRE_BEAST_REGEN = 10;
 
