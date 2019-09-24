@@ -8,7 +8,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/contributor/Button';
 
 export default [
-  change(date(2019, 9, 24), <>Updated channeling code to take into accoutn downtime from items like <ItemLink id={ITEMS.AZSHARAS_FONT_OF_POWER.id} /> and to display them on the timeline.</>, Yajinni),
+  change(date(2019, 9, 24), <>Updated channeling code to take into account downtime from items like <ItemLink id={ITEMS.AZSHARAS_FONT_OF_POWER.id} /> and to display them on the timeline.</>, Yajinni),
   change(date(2019, 9, 24), <>Added <ItemLink id={ITEMS.AZSHARAS_FONT_OF_POWER.id} />.</>, Yajinni),
   change(date(2019, 9, 20), <>Added <ItemLink id={ITEMS.CYCLOTRONIC_BLAST.id} />.</>, Juko8),
   change(date(2019, 9, 20), 'Added 8.2 gems', Juko8),
