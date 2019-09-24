@@ -45,6 +45,7 @@ import DeathDowntime from '../shared/modules/downtime/DeathDowntime';
 import TotalDowntime from '../shared/modules/downtime/TotalDowntime';
 import DistanceMoved from '../shared/modules/others/DistanceMoved';
 import DispelTracker from '../shared/modules/DispelTracker';
+import ChannelingShared from '../shared/modules/features/ChannelingShared';
 
 // Tabs
 import RaidHealthTab from '../shared/modules/features/RaidHealthTab';
@@ -177,6 +178,9 @@ import ZaxasjsDeepstriders from '../shared/modules/items/bfa/raids/crucibleofsto
 import ParseResults from './ParseResults';
 import EventsNormalizer from './EventsNormalizer';
 import EventEmitter from './modules/EventEmitter';
+// Eternal Palace
+import AzsharasFontofPower from '../shared/modules/items/bfa/raids/eternalpalace/AzsharasFontofPower';
+
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -229,6 +233,7 @@ class CombatLogParser {
     distanceMoved: DistanceMoved,
     deathRecapTracker: DeathRecapTracker,
     dispels: DispelTracker,
+    channelingShared:ChannelingShared,
 
     critEffectBonus: CritEffectBonus,
 
@@ -356,6 +361,8 @@ class CombatLogParser {
     tridentOfDeepOcean: TridentOfDeepOcean,
     voidStone: VoidStone,
     zaxasjsDeepstriders: ZaxasjsDeepstriders,
+    // Eternal Palace
+    azsharasFontofPower:AzsharasFontofPower,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
