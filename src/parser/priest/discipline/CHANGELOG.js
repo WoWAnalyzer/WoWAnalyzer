@@ -8,6 +8,7 @@ import ITEMS from 'common/ITEMS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 9, 17), <>Added more information to the <SpellLink id={SPELLS.PURGE_THE_WICKED_BUFF.id} /> module.</>, [Khadaj]),
   change(date(2019, 8, 17), <>Updated cooldown of <SpellLink id={SPELLS.POWER_WORD_RADIANCE.id} /> from 18 seconds to 20.</>, [Adoraci]),
   change(date(2019, 8, 16), <>Fixed <SpellLink id={SPELLS.SHADOWFIEND.id} /> not showing as atonement source when <ItemLink id={ITEMS.GLYPH_OF_THE_LIGHTSPAWN.id} /> is selected.</>, [Adoraci]),
   change(date(2019, 8, 12), 'Added essence Lucid Dreams.', [blazyb]),
