@@ -17,9 +17,9 @@ class BlockCheck extends Analyzer {
   };
 
   physicalHitsWithBlock = 0;
-  physicalDamageWithBlock = 0;
   physicalHitsWithoutBlock = 0;
-  physicalDamageWithoutBlock = 0;
+  rawDamageWithBlock = 0;
+  rawDamageWithoutBlock = 0;
 
   listOfEvents;
 
@@ -76,7 +76,7 @@ class BlockCheck extends Analyzer {
     const blockableSet = new Set();//this is master list of all BLOCKED events in the fight
     blockableSet.add(1);//make it so if they never hit sb we still get data from the melees they take
     this.shieldBlock.shieldBlocksDefensive.forEach(function(block){
-      block.eventName.forEach(function(blockedAbility){
+      block.eventSpellId.forEach(function(blockedAbility){
         blockableSet.add(blockedAbility);//just go through one set to another
       });
     });
@@ -86,26 +86,23 @@ class BlockCheck extends Analyzer {
       if(blockableSet.has(event.ability.guid)){//if it ain't been blocked over the whole fight it prob aint blockable
         if (event.prot.shieldBlock || event.prot.bloster) {//they got block up when it happened?
           that.physicalHitsWithBlock += 1;
-          that.physicalDamageWithBlock += event.amount + (event.absorbed || 0) + (event.overkill || 0);
+          that.rawDamageWithBlock += (event.unmitigatedAmount || 0);
         } else {
           that.physicalHitsWithoutBlock += 1;
-          that.physicalDamageWithoutBlock += event.amount + (event.absorbed || 0) + (event.overkill || 0);
+          that.rawDamageWithoutBlock += (event.unmitigatedAmount || 0);
         }
       }
     });
 
     if (debug) {
       console.log(`Hits with block spell up ${this.physicalHitsWithBlock}`);
-      console.log(`Damage with block spell up ${this.physicalDamageWithBlock}`);
       console.log(`Hits without block spell up ${this.physicalHitsWithoutBlock}`);
-      console.log(`Damage without block spell up ${this.physicalDamageWithoutBlock}`);
-      console.log(`Total physical ${this.physicalDamageWithoutBlock}${this.physicalDamageWithBlock}`);
     }
   }
 
   get suggestionThresholds() {//was in here before but is/was never used and appears to be very high requirements that are unreasonable maybe lower and add laster?
     return {
-      actual: this.physicalDamageWithBlock / (this.physicalDamageWithBlock + this.physicalDamageWithoutBlock),
+      actual: this.rawDamageWithBlock / (this.rawDamageWithBlock + this.rawDamageWithoutBlock),
       isLessThan: this.thresholdsToUse,
       style: 'percentage',
     };
@@ -123,7 +120,7 @@ class BlockCheck extends Analyzer {
 
   statistic() {
     const physicalHitsMitigatedPercent = this.physicalHitsWithBlock / (this.physicalHitsWithBlock + this.physicalHitsWithoutBlock);
-    const physicalDamageMitigatedPercent = this.physicalDamageWithBlock / (this.physicalDamageWithBlock + this.physicalDamageWithoutBlock);
+    const physicalDamageMitigatedPercent = this.rawDamageWithBlock / (this.rawDamageWithBlock + this.rawDamageWithoutBlock);
 
     return (
       <StatisticBox
@@ -134,8 +131,8 @@ class BlockCheck extends Analyzer {
           <>
             Shield Block usage breakdown:
             <ul>
-              <li>You were hit <strong>{this.physicalHitsWithBlock}</strong> times with block up (<strong>{formatThousands(this.physicalDamageWithBlock)}</strong> damage).</li>
-              <li>You were hit <strong>{this.physicalHitsWithoutBlock}</strong> times <strong><em>without</em></strong> block up (<strong>{formatThousands(this.physicalDamageWithoutBlock)}</strong> damage).</li>
+              <li>You were hit <strong>{this.physicalHitsWithBlock}</strong> times with block up (<strong>{formatThousands(this.rawDamageWithBlock)}</strong> damage).</li>
+              <li>You were hit <strong>{this.physicalHitsWithoutBlock}</strong> times <strong><em>without</em></strong> block up (<strong>{formatThousands(this.rawDamageWithoutBlock)}</strong> damage).</li>
             </ul>
             <strong>{formatPercentage(physicalHitsMitigatedPercent)}%</strong> of physical attacks were mitigated with Block (<strong>{formatPercentage(physicalDamageMitigatedPercent)}%</strong> of physical damage taken).
           </>
