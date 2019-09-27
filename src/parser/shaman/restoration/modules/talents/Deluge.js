@@ -33,7 +33,7 @@ class Deluge extends Analyzer {
   on_byPlayer_heal(event) {
     const spellId = event.ability.guid;
 
-    if (spellId !== SPELLS.CHAIN_HEAL.id) {
+    if (![SPELLS.CHAIN_HEAL.id, SPELLS.HEALING_WAVE.id, SPELLS.HEALING_SURGE_RESTORATION.id].includes(spellId)) {
       return;
     }
 
