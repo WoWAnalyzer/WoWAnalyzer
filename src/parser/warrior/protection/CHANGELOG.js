@@ -8,6 +8,7 @@ import { Abelito75 } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [  
+  change(date(2019, 9, 27),<>Update to date for 8.2.5 </>,Abelito75),
   change(date(2019, 9, 18),<>Physical hits blocked now only checks blockable hits. </>,Abelito75),
   change(date(2019, 9, 4),<>Fixed a bug in <SpellLink id={SPELLS.BRACE_FOR_IMPACT.id} />. </>,Abelito75),
   change(date(2019, 9, 4),<>Changed timeformat for <SpellLink id={SPELLS.BRACE_FOR_IMPACT.id} />. </>,Abelito75),
