@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
-  change(date(2019, 9, 27),<>Update to date for 8.2.5 </>,Abelito75),
+  change(date(2019, 9, 27), <>Update to date for 8.2.5 </>,Abelito75),
   change(date(2019, 8, 17), <>Fixed bug where you could have NaN mana tea overhealing.</>, Abelito75),
   change(date(2019, 8, 14), <>Wotc infographic now checks for physical damage only.</>, Abelito75),
   change(date(2019, 8, 12), 'Added essence Lucid Dreams.', [blazyb]),
