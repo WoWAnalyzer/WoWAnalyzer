@@ -211,6 +211,11 @@ export default {
     buffDur: 12000,
     manaRet: 0.0065,
   },
+  BLACKOUT_KICK_TOTM : {//blackoutkick from totm
+    id: 228649,
+    name: 'Blackout Kick',
+    icon: 'ability_monk_roundhousekick',
+  },
   WAY_OF_THE_CRANE: {
     id: 216113,
     name: 'Way of the Crane',
