@@ -8,7 +8,7 @@ import ItemLink from 'common/ItemLink';
 import { change, date } from 'common/changelog';
 
 export default [
-  change(date(2019, 9, 30), 'Updated Spec Compatability to 8.2.5.',[Sharrq]),
+  change(date(2019, 9, 30), 'Updated Spec Compatibility to 8.2.5.',[Sharrq]),
   change(date(2019, 9, 25), <>Fixed a bug in <SpellLink id={SPELLS.METEOR_TALENT.id} /> that was incorrectly marking casts as bad if they were cast while empowered by <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} />.</>, Juko8),
   change(date(2019, 9, 19), <>Fixed a bug in <SpellLink id={SPELLS.METEOR_TALENT.id} /> that was looking for the wrong Spell ID for <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} />.</>, [Sharrq]),
   change(date(2019, 9, 3), <>Fixed bug in <SpellLink id={SPELLS.LUCID_DREAMS_MAJOR.id} />.</>, [Sharrq]),
