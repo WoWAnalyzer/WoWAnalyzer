@@ -41,7 +41,7 @@ class ReverseHarm extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.CORE(12)}
+        position={STATISTIC_ORDER.OPTIONAL(3)}
         size="flexible"
         tooltip={(
           <>Total Damage: {formatNumber(this.damageDone)}<br />
