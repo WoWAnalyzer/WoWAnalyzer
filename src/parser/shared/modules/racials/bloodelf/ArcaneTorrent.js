@@ -15,6 +15,8 @@ class ArcaneTorrent extends Analyzer {
   constructor(options) {
     super(options);
     this.active = this.selectedCombatant.race && this.selectedCombatant.race === RACES.BloodElf;
+    //remove prot warriors from the suggestion as it is less rage to cast this
+    this.active = !(this.owner.characterProfile && this.owner.characterProfile.class === 1 && this.owner.characterProfile.role === "TANK");
     if (!this.active) {
       return;
     }
