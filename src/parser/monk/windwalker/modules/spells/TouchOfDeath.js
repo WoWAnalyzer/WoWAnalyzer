@@ -75,7 +75,7 @@ class TouchOfDeath extends Analyzer {
     const averageGaleBurst = this.totalGaleBurst / this.abilityTracker.getAbility(SPELLS.TOUCH_OF_DEATH.id).casts;
     return (
       <Statistic
-        position={STATISTIC_ORDER.CORE(8)}
+        position={STATISTIC_ORDER.OPTIONAL(1)}
         size="flexible"
         tooltip={(
           <>
