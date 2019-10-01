@@ -82,7 +82,7 @@ class ComboStrikes extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(2)}
         size="flexible"
-        tooltip={`This is the number of times you incorrectly casted the same spell twice in a row, missing out on the damage increase from your mastery${HIT_COMBO_STRING}.`}
+        tooltip={`This is the number of times you incorrectly cast the same spell twice in a row, missing out on the damage increase from your mastery${HIT_COMBO_STRING}.`}
         dropdown={(
           // only add a dropdown when there are any mastery breaks to show
           this.masteryDropEvents > 0 ? (
