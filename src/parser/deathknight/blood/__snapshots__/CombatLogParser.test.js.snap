@@ -1114,7 +1114,7 @@ exports[`The Blood Deathknight Analyzer should match the checklist snapshot 1`] 
   className="checklist"
 >
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -1138,8 +1138,8 @@ exports[`The Blood Deathknight Analyzer should match the checklist snapshot 1`] 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#4ec04e",
-                  "width": "100%",
+                  "backgroundColor": "#ac1f39",
+                  "width": "-457.81291127245913%",
                 }
               }
             />
@@ -1244,7 +1244,7 @@ exports[`The Blood Deathknight Analyzer should match the checklist snapshot 1`] 
                   }
                 >
                    
-                  96.69%
+                  -992.84%
                    
                    
                 </div>
@@ -1264,9 +1264,9 @@ exports[`The Blood Deathknight Analyzer should match the checklist snapshot 1`] 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "-472.30862019513313%",
                       }
                     }
                   />
@@ -1316,7 +1316,7 @@ exports[`The Blood Deathknight Analyzer should match the checklist snapshot 1`] 
                   }
                 >
                    
-                  91.94%
+                  -998.46%
                    
                    
                 </div>
@@ -1336,9 +1336,9 @@ exports[`The Blood Deathknight Analyzer should match the checklist snapshot 1`] 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "-443.31720234978513%",
                       }
                     }
                   />
@@ -2284,8 +2284,8 @@ exports[`The Blood Deathknight Analyzer should match the checklist snapshot 1`] 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ffc84a",
-                  "width": "53.3536913241092%",
+                  "backgroundColor": "#ac1f39",
+                  "width": "-1009.9779694831233%",
                 }
               }
             />
@@ -2390,7 +2390,7 @@ exports[`The Blood Deathknight Analyzer should match the checklist snapshot 1`] 
                   }
                 >
                    
-                  64.55%
+                  -1077.18%
                    
                    
                 </div>
@@ -2410,9 +2410,9 @@ exports[`The Blood Deathknight Analyzer should match the checklist snapshot 1`] 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "-1024.8625305993633%",
                       }
                     }
                   />
@@ -2534,7 +2534,7 @@ exports[`The Blood Deathknight Analyzer should match the checklist snapshot 1`] 
                   }
                 >
                    
-                  43.04%
+                  -1061.54%
                    
                    
                 </div>
@@ -2554,9 +2554,9 @@ exports[`The Blood Deathknight Analyzer should match the checklist snapshot 1`] 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ffc84a",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "60.06107397232762%",
+                        "width": "-1009.9779694831233%",
                       }
                     }
                   />
