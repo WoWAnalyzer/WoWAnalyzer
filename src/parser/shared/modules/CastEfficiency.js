@@ -258,6 +258,7 @@ class CastEfficiency extends Analyzer {
     } else {
       // Cast efficiency calculated as the percent of fight time spell was unavailable
       // The spell is considered unavailable if it is on cooldown, the time since it came off cooldown is less than the cast time or the cooldown was reset through a proc during a GCD
+      // Time Offset reduces the Unavailable time to account for the portion of the CD that extended beyond the end of the fight
       if (cooldown && availableFightDuration) {
         const timeOnCd = cdInfo.completedRechargeTime + cdInfo.endingRechargeTime;
         const lastCastTimestamp = cdInfo.castTimes && cdInfo.castTimes[(cdInfo.castTimes).length - 1];
