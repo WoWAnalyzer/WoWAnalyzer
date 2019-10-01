@@ -3,8 +3,9 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { formatNumber } from 'common/format';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import Analyzer from 'parser/core/Analyzer';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Events from 'parser/core/Events';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 
@@ -82,12 +83,17 @@ class BlasterMaster extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
-        trait={SPELLS.BLASTER_MASTER.id}
-        value={`${this.averageStacksPerCombustion.toFixed(2)} stacks per Combustion`}
+      <AzeritePowerStatistic
+        size="flexible"
+        category={'AZERITE_POWERS'}
         tooltip={`Blaster Master is a somewhat complicated trait to get the full effect from and may involve adjusting your rotation during Combustion. In order to get the most out of this trait, you should aim to get to ${TRAIT_STACK_THRESHOLD} stacks of the Blaster Master during Combustion. For additional information on how to accomplish this, refer to the Mage Discord or the link in the Suggestion.`}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.BLASTER_MASTER}>
+          <>
+            {this.averageStacksPerCombustion.toFixed(2)} <small>Stacks per Combustion</small>
+          </>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }
