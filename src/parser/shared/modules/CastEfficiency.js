@@ -77,11 +77,15 @@ class CastEfficiency extends Analyzer {
 
     const casts = history.filter(event => event.type === 'cast').length;
 
+    const castEvents = history.filter(event => event.type === 'cast');
+    const castTimes = castEvents.map(event => event.timestamp);
+
     return {
       completedRechargeTime,
       endingRechargeTime,
       recharges,
       casts,
+      castTimes,
     };
   }
 
@@ -256,7 +260,9 @@ class CastEfficiency extends Analyzer {
       // The spell is considered unavailable if it is on cooldown, the time since it came off cooldown is less than the cast time or the cooldown was reset through a proc during a GCD
       if (cooldown && availableFightDuration) {
         const timeOnCd = cdInfo.completedRechargeTime + cdInfo.endingRechargeTime;
-        const timeUnavailable = timeOnCd + timeSpentCasting + timeWaitingOnGCD;
+        const lastCastTimestamp = cdInfo.castTimes && cdInfo.castTimes[(cdInfo.castTimes).length - 1];
+        const timeOffset = lastCastTimestamp + (cooldown * 1000) > availableFightDuration ? (cooldown * 1000) - (availableFightDuration - lastCastTimestamp) : 0;
+        const timeUnavailable = timeOnCd + timeSpentCasting + timeWaitingOnGCD - timeOffset;
         efficiency = timeUnavailable / availableFightDuration;
       } else if (includeNoCooldownEfficiency) {
         efficiency = casts / rawMaxCasts;
