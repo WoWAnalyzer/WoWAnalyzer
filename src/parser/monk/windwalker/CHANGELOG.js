@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 10, 1), <>Updated <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> to lower expected average ticks when the player uses Cyclotronic Blast</>, Juko8),
   change(date(2019, 10, 1), <>Further updated analysis of <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} />. Calculations have been made more accurate and statistic now shows average enemies hit instead of average hits per cast.</>, Juko8),
   change(date(2019, 9, 12), <>Updated analysis of <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} />. Suggestions regarding bad casts were inaccurate and misleading, and have therefore been removed.</>, Juko8),
   change(date(2019, 8, 28), <>Added more support for <SpellLink id={SPELLS.REVERSE_HARM.id} /> including statistic and cast efficiency suggestion </>, Juko8),

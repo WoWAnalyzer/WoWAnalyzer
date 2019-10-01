@@ -1,52 +1,62 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
+import ITEMS from 'common/ITEMS/index';
+import Events from 'parser/core/Events';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 // Inspired by the penance bolt counter module from Discipline Priest
 
 const FISTS_OF_FURY_MINIMUM_TICK_TIME = 100; // This is to check that additional ticks aren't just hitting secondary targets
 
 class FistsofFury extends Analyzer {
+  static dependencies = {
+    abilityTracker: AbilityTracker,
+  };
+
+  constructor(...args) {
+    super(...args);
+    this.hasCyclotronic = this.selectedCombatant.hasRedPunchcard(ITEMS.CYCLOTRONIC_BLAST.id);
+
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FISTS_OF_FURY_DAMAGE), this.onFistsDamage);
+  }
+
   previousTickTimestamp = null;
-  fistsTickNumber = 0;
-  fistsCastNumber = 0;
+  fistsTicks = 0;
+  hasCyclotronic = false;
 
   isNewFistsTick(timestamp) {
     return !this.previousTickTimestamp || (timestamp - this.previousTickTimestamp) > FISTS_OF_FURY_MINIMUM_TICK_TIME;
   }
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.FISTS_OF_FURY_CAST.id) {
+  onFistsDamage(event) {
+    if (!this.isNewFistsTick(event.timestamp)) {
       return;
     }
-    this.fistsCastNumber += 1;
-  }
-
-  on_byPlayer_damage(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.FISTS_OF_FURY_DAMAGE.id || !this.isNewFistsTick(event.timestamp)) {
-      return;
-    }
-    this.fistsTickNumber += 1;
+    this.fistsTicks += 1;
     this.previousTickTimestamp = event.timestamp;
   }
 
   get averageTicks() {
-    return this.fistsTickNumber / this.fistsCastNumber;
+    return this.fistsTicks / this.casts;
+  }
+
+  get casts() {
+    return this.abilityTracker.getAbility(SPELLS.FISTS_OF_FURY_CAST.id).casts;
   }
 
   get suggestionThresholds() {
+    const cycloReducer = this.hasCyclotronic ? 0.5 : 0;
     return {
       actual: this.averageTicks,
       isLessThan: {
-        minor: 5,
-        average: 4.75,
-        major: 4.5,
+        minor: 5 - cycloReducer,
+        average: 4.75 - cycloReducer,
+        major: 4.5 - cycloReducer,
       },
       style: 'decimal',
     };
@@ -55,8 +65,8 @@ class FistsofFury extends Analyzer {
   suggestions(when) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(<span> You are cancelling your <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> casts early and losing ticks </span>)
-        .icon(SPELLS.FISTS_OF_FURY_CAST.icon).actual(`${this.averageTicks.toFixed(2)} average ticks on each Fists of Fury cast`)
-        .recommended(`Aim to get 5 ticks with each Fists of Fury cast`);
+        .icon(SPELLS.FISTS_OF_FURY_CAST.icon).actual(`${actual.toFixed(2)} average ticks on each Fists of Fury cast`)
+        .recommended(<span>Aim to get{this.hasCyclotronic ? ` more than ${recommended} ticks on average when cancelling intentionally for Cyclotronic Blast` : ` ${recommended} ticks with each Fists of Fury cast`}.</span>);
     });
   }
 
