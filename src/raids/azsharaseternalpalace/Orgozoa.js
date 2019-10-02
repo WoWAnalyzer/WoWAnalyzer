@@ -25,10 +25,9 @@ export default {
         name: 'Intermission: The Moulting Hatchery',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
-          type: 'applybuff',
-          ability: {
-            id: SPELLS.MASSIVE_INCUBATOR_BUFF.id,
-          },
+          type: 'health',
+          guid: 152128,
+          health: 40,
           eventInstance: 0,
         },
       },

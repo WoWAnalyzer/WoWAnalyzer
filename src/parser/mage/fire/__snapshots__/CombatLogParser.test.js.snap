@@ -136,19 +136,15 @@ exports[`The Fire Mage Analyzer analyzers BlasterMaster matches the statistic sn
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    category="AZERITE_POWERS"
+    className="panel statistic flexible "
+    position={1001}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -174,7 +170,11 @@ exports[`The Fire Mage Analyzer analyzers BlasterMaster matches the statistic sn
         <div
           className="value"
         >
-          2.33 stacks per Combustion
+          2.33
+           
+          <small>
+            Stacks per Combustion
+          </small>
         </div>
       </div>
     </div>
@@ -378,19 +378,14 @@ exports[`The Fire Mage Analyzer analyzers HeatingUp matches the statistic snapsh
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={14}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -405,12 +400,35 @@ exports[`The Fire Mage Analyzer analyzers HeatingUp matches the statistic snapsh
             />
           </a>
            
-          Heating Up Utilization
+          <a
+            href="http://wowhead.com/spell=48107"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Heating Up
+          </a>
         </label>
         <div
           className="value"
         >
-          97 %
+          <a
+            href="http://wowhead.com/spell=108853"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Fire Blast"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_fire_fireball.jpg"
+            />
+          </a>
+           
+          97
+          % 
+          <small>
+            Fire Blast Utilization
+          </small>
+          <br />
         </div>
       </div>
     </div>
@@ -442,19 +460,14 @@ exports[`The Fire Mage Analyzer analyzers HotStreak matches the statistic snapsh
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={15}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -469,12 +482,22 @@ exports[`The Fire Mage Analyzer analyzers HotStreak matches the statistic snapsh
             />
           </a>
            
-          Hot Streak utilization
+          <a
+            href="http://wowhead.com/spell=48108"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Hot Streak
+          </a>
         </label>
         <div
           className="value"
         >
-          100 %
+          100
+          % 
+          <small>
+            Proc Utilization
+          </small>
         </div>
       </div>
     </div>
@@ -642,19 +665,14 @@ exports[`The Fire Mage Analyzer analyzers Meteor matches the statistic snapshot 
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    category="TALENTS"
+    className="panel statistic flexible "
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -669,12 +687,22 @@ exports[`The Fire Mage Analyzer analyzers Meteor matches the statistic snapshot 
             />
           </a>
            
-          Meteor Utilization
+          <a
+            href="http://wowhead.com/spell=153561"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Meteor
+          </a>
         </label>
         <div
           className="value"
         >
-          80 %
+          80
+          % 
+          <small>
+            Cast Utilization
+          </small>
         </div>
       </div>
     </div>
