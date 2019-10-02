@@ -1,9 +1,9 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -31,7 +31,7 @@ class Meteor extends Analyzer {
   }
 
   onMeteor(event) {
-    if (this.selectedCombatant.hasBuff(SPELLS.RUNE_OF_POWER_BUFF.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.RUNE_OF_POWER_BUFF.id)) {
       this.badMeteor += 1;
     }
   }
@@ -68,11 +68,9 @@ class Meteor extends Analyzer {
 
 	statistic() {
     return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(100)}
-        icon={<SpellIcon id={SPELLS.METEOR_TALENT.id} />}
-        value={`${formatPercentage(this.meteorUtilization, 0)} %`}
-        label="Meteor Utilization"
+      <Statistic
+        size="flexible"
+        category={'TALENTS'}
         tooltip={(
           <>
             This is a measure of how well you utilized your Meteor casts.
@@ -83,7 +81,13 @@ class Meteor extends Analyzer {
             </ul>
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.METEOR_TALENT}>
+          <>
+            {formatPercentage(this.meteorUtilization,0)}% <small>Cast Utilization</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

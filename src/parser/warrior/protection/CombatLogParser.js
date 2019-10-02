@@ -1,4 +1,5 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
+import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 import Haste from './modules/core/Haste';
 import Abilities from './modules/Abilities';
@@ -66,6 +67,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Azerite
     braceForImpact: BraceForImpact,
+
+    // Doesn't generate enough rage to be a valid cast
+    arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],
   };
 }
 

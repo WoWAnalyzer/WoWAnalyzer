@@ -342,6 +342,11 @@ export default {
     name: 'Zeal',
     icon: 'spell_holy_sealofblood',
   },
+  EXECUTION_SENTENCE_DEBUFF: {
+    id: 267799,
+    name: 'Execution Sentence',
+    icon: 'spell_paladin_executionsentence',
+  },
   // Traits:
 	// Protection
   ARDENT_DEFENDER: {

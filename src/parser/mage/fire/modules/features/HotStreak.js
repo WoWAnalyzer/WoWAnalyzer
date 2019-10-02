@@ -1,9 +1,10 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 
@@ -76,14 +77,12 @@ class HotStreak extends Analyzer {
           .recommended(`<${formatPercentage(recommended)}% is recommended`);
       });
   }
-
+  
   statistic() {
     return (
-      <StatisticBox
+      <Statistic
         position={STATISTIC_ORDER.CORE(15)}
-        icon={<SpellIcon id={SPELLS.HOT_STREAK.id} />}
-        value={`${formatPercentage(this.hotStreakUtil, 0)} %`}
-        label="Hot Streak utilization"
+        size="flexible"
         tooltip={(
           <>
             Hot Streak is a big part of your rotation and therefore it is important that you use all the procs that you get and avoid letting them expire.
@@ -94,7 +93,13 @@ class HotStreak extends Analyzer {
             </ul>
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.HOT_STREAK}>
+          <>
+            {formatPercentage(this.hotStreakUtil,0)}% <small>Proc Utilization</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

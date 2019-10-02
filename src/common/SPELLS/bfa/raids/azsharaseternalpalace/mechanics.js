@@ -34,6 +34,11 @@ export default {
   },
 
   //Queen Azshara
+  QUEENS_DECREE: {
+    id: 299250,
+    name: 'Queen\'s Decree',
+    icon: 'inv_misc_scrollunrolled04d',
+  },
   WARD_OF_POWER_BUFF: {
     id: 300551,
     name: 'Ward of Power',

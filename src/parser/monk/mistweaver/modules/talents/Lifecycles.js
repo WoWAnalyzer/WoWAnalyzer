@@ -31,8 +31,17 @@ class Lifecycles extends Analyzer {
 
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
+
+    
+
     // Checking to ensure player has cast Vivify and has the mana reduction buff.
     if (spellId === SPELLS.VIVIFY.id && this.selectedCombatant.hasBuff(SPELLS.LIFECYCLES_VIVIFY_BUFF.id)) {
+
+      // Checking for TFT->Viv and classify as non-reduced Viv
+      if (this.selectedCombatant.hasBuff(SPELLS.THUNDER_FOCUS_TEA.id)) {
+        this.castsNonRedViv += 1;
+        return;
+      }
       this.manaSaved += SPELLS.VIVIFY.manaCost * (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed);
       this.manaSavedViv += SPELLS.VIVIFY.manaCost * (SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed);
       this.castsRedViv += 1;
