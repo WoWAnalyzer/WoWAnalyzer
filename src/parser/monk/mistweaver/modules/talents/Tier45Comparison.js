@@ -206,6 +206,7 @@ class Tier45Comparison extends Analyzer {
       <TalentStatisticBox
         talent={this.best.id}
         position={STATISTIC_ORDER.CORE(30)}
+        value={`${formatNumber(this.best.manaFrom)} Mana from ${this.best.name}`}
         label={`Tier 45 Comparison`}
         tooltip={(
           <>
@@ -219,7 +220,7 @@ class Tier45Comparison extends Analyzer {
       >
       <div className="pad">
         <div>
-          This is a infographic for tier 45 talents to see what is required to equal the best pick for how you played. This also attempts to caculate the other talents based on how you played for the difference row, for the equals row it it shows how many are required in general ignoring how you played.
+          This is a infographic for tier 45 talents to see what is required to equal the best pick for how you played. This also attempts to caculate the other talents based on how you played for the difference row, for the equals row it it shows the requirements in general ignoring how you played.
         </div>
         <table className="table table-condensed">
           <thead>
@@ -233,9 +234,9 @@ class Tier45Comparison extends Analyzer {
           <tbody>
             <tr>
               <td>Difference</td>
-              <td>{this.best.manaFrom - this.lifecycles.manaFrom}</td>
-              <td>{this.best.manaFrom - this.sotc.manaFrom}</td>
-              <td>{this.best.manaFrom - this.manatea.manaFrom}</td>
+              <td>{formatNumber(this.best.manaFrom - this.lifecycles.manaFrom)}</td>
+              <td>{formatNumber(this.best.manaFrom - this.sotc.manaFrom)}</td>
+              <td>{formatNumber(this.best.manaFrom - this.manatea.manaFrom)}</td>
             </tr>
             <tr>
               <td>Equal</td>
@@ -245,7 +246,7 @@ class Tier45Comparison extends Analyzer {
                 Env:{this.lifecycles.requiredEnvs}
               </td>
               <td>Totm Stacks {this.sotc.requiredTps}</td>
-              <td>Mana {this.manatea.requiredPerTea} per tea</td>
+              <td>Mana {formatNumber(this.manatea.requiredPerTea)} per tea</td>
             </tr>
             </tbody>
          </table>
