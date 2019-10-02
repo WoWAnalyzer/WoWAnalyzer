@@ -8,6 +8,7 @@ import ItemLink from 'common/ItemLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 10, 2), <>Fixed a bug in <SpellLink id={SPELLS.METEOR_TALENT.id} /> that was marking a cast as bad if it was cast at the same time as <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /></>,[Sharrq]),
   change(date(2019, 10, 1), 'Updated Statistic Boxes to new format.',[Sharrq]),
   change(date(2019, 9, 30), 'Updated Spec Compatibility to 8.2.5.',[Sharrq]),
   change(date(2019, 9, 25), <>Fixed a bug in <SpellLink id={SPELLS.METEOR_TALENT.id} /> that was incorrectly marking casts as bad if they were cast while empowered by <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} />.</>, Juko8),
