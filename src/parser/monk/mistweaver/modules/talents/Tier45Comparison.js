@@ -119,9 +119,9 @@ class Tier45Comparison extends Analyzer {
   calculateOthers(){
 
     if(this.sotc !== this.best){
-      //sotc gives .65% mana per totm stack used so (max mana / .0065) = mana per totm
+      //sotc gives .65% mana per totm stack used so (max mana * .0065) = mana per totm
       //mana from best talent / mana per totom = totm stacks need but gotta round up since you can't have .5 of a totm stack 
-      this.sotc.requiredTps = Math.ceil(this.best.manaFrom / (this.manaTea.maxResource/.0065));
+      this.sotc.requiredTps = Math.ceil(this.best.manaFrom / (this.manaTracker.maxResource * .0065));
     }
 
     if(this.lifecycles !== this.best){
@@ -206,19 +206,20 @@ class Tier45Comparison extends Analyzer {
       <TalentStatisticBox
         talent={this.best.id}
         position={STATISTIC_ORDER.CORE(30)}
-        value={`${formatNumber(this.best.manaFrom)}`}
         label={`Tier 45 Comparison`}
         tooltip={(
           <>
-            LC = Life cycles
-            SOTC = Spirit of the Crane
-            MT = mana Tea
+          <ul>
+            <li>LC = Life cycles</li>
+            <li>SOTC = Spirit of the Crane</li>
+            <li>MT = mana Tea</li>
+          </ul>
           </>
         )}
       >
       <div className="pad">
         <div>
-          This is a comparison graph for tier 45 talents to see what is required to equal the best pick for how your played. This also attempts to caculate the other talents based on how you played.
+          This is a comparison graph for tier 45 talents to see what is required to equal the best pick for how you played. This also attempts to caculate the other talents based on how you played for the difference row, for the equals row it it shows how many are required in general ignoring how you played.
         </div>
         <table className="table table-condensed">
           <thead>
