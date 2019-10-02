@@ -9,12 +9,15 @@ import Events from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 
+const RUNE_OF_POWER_DELAY_BUFFER = 100;
+
 class Meteor extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     enemies: EnemyInstances,
   };
 
+  lastRuneCast = 0
   badMeteor = 0
 
   constructor(...args) {
@@ -28,10 +31,16 @@ class Meteor extends Analyzer {
     }
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.METEOR_TALENT), this.onMeteor);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RUNE_OF_POWER_TALENT), this.onRune);
+  }
+
+  onRune(event) {
+    this.lastRuneCast = event.timestamp;
   }
 
   onMeteor(event) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.RUNE_OF_POWER_BUFF.id)) {
+    console.log(event.timestamp - this.lastRuneCast);
+    if (!this.selectedCombatant.hasBuff(SPELLS.RUNE_OF_POWER_BUFF.id) && event.timestamp - this.lastRuneCast > RUNE_OF_POWER_DELAY_BUFFER) {
       this.badMeteor += 1;
     }
   }
