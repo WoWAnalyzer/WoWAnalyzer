@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 10, 1), <>Bugfix for Lifecycles adding the potential mana reduction from an empowered <SpellLink id={SPELLS.VIVIFY.id} /> </>,Anomoly),
   change(date(2019, 9, 27), <>Update to date for 8.2.5 </>,Abelito75),
   change(date(2019, 8, 17), <>Fixed bug where you could have NaN mana tea overhealing.</>, Abelito75),
   change(date(2019, 8, 14), <>Wotc infographic now checks for physical damage only.</>, Abelito75),
