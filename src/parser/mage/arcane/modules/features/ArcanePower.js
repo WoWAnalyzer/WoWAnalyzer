@@ -5,14 +5,15 @@ import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { TooltipElement } from 'common/Tooltip';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import SpellHistory from 'parser/shared/modules/SpellHistory';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import DeathTracker from 'parser/shared/modules/DeathTracker';
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import ArcaneChargeTracker from './ArcaneChargeTracker';
 
 const debug = false;
@@ -38,6 +39,7 @@ class ArcanePower extends Analyzer {
     deathTracker: DeathTracker,
     // Needed for the `resourceCost` prop of events
     spellManaCost: SpellManaCost,
+    spellHistory: SpellHistory,
   };
 
   badUses = 0;
@@ -46,7 +48,6 @@ class ArcanePower extends Analyzer {
   runeTimestamp = 0;
   outOfMana = 0;
   buffEndTimestamp = 0;
-  arcanePowerOnKill = false;
   arcanePowerCasted = false;
   lowManaCast = 0;
   lowChargesCast = 0;
@@ -57,13 +58,13 @@ class ArcanePower extends Analyzer {
     super(...args);
     this.hasRuneOfPower = this.selectedCombatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id);
     this.hasOverpowered = this.selectedCombatant.hasTalent(SPELLS.OVERPOWERED_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_POWER,SPELLS.RUNE_OF_POWER_TALENT]), this.onCast);
+    this.addEventListener(Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.ARCANE_POWER), this.onApplyBuff);
+    this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.ARCANE_POWER), this.onRemoveBuff);
   }
 
-  on_byPlayer_cast(event) {
+  onCast(event) {
     const spellId = event.ability.guid;
-    if (spellId !== SPELLS.ARCANE_POWER.id && spellId !== SPELLS.RUNE_OF_POWER_TALENT.id && !this.selectedCombatant.hasBuff(SPELLS.ARCANE_POWER.id)) {
-      return;
-    }
     if (spellId === SPELLS.RUNE_OF_POWER_TALENT.id) {
       this.runeTimestamp = event.timestamp;
     } else if (spellId === SPELLS.ARCANE_POWER.id) {
@@ -126,12 +127,7 @@ class ArcanePower extends Analyzer {
     }
   }
 
-  on_toPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.ARCANE_POWER.id) {
-      return;
-    }
-
+  onApplyBuff(event) {
     if (this.arcanePowerCasted) {
       debug && this.log('Arcane Power Cast');
       this.buffEndTimestamp = event.timestamp + 10000;
@@ -143,18 +139,8 @@ class ArcanePower extends Analyzer {
     }
   }
 
-  on_toPlayer_removebuff(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.ARCANE_POWER.id) {
-      return;
-    }
+  onRemoveBuff(event) {
     this.arcanePowerCasted = false;
-  }
-
-  on_fightend() {
-    if (this.spellUsable.isAvailable(SPELLS.ARCANE_POWER.id) && this.deathTracker.isAlive) {
-      this.arcanePowerOnKill = true;
-    }
   }
 
   estimatedManaCost(spellId) {
@@ -242,14 +228,6 @@ class ArcanePower extends Analyzer {
     };
   }
 
-  get arcanePowerOnKillSuggestionThresholds() {
-    return {
-      actual: this.arcanePowerOnKill,
-      isEqual: true,
-      style: 'boolean',
-    };
-  }
-
   suggestions(when) {
     when(this.cooldownSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
@@ -277,12 +255,6 @@ class ArcanePower extends Analyzer {
           .icon(SPELLS.ARCANE_POWER.icon)
           .actual(`${formatPercentage(this.manaUtilization)}% Utilization`)
           .recommended(`${formatPercentage(recommended)}% is recommended`);
-      });
-    when(this.arcanePowerOnKillSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<><SpellLink id={SPELLS.ARCANE_POWER.id} /> was available to be cast when the boss died. You should ensure that you are casting Arcane Power on cooldown, especially at the end of the fight to get a little bit of last minute damage into the boss.</>)
-          .icon(SPELLS.ARCANE_POWER.icon)
-          .staticImportance(ISSUE_IMPORTANCE.REGULAR);
       });
   }
 
