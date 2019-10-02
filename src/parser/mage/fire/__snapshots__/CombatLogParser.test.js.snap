@@ -823,7 +823,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
   className="checklist"
 >
   <li
-    className="expandable expanded failed"
+    className="expandable  passed"
   >
     <div
       className="meta"
@@ -847,8 +847,8 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ac1f39",
-                  "width": "-273.2502436596573%",
+                  "backgroundColor": "#a6c34c",
+                  "width": "79.49747309696245%",
                 }
               }
             />
@@ -1025,7 +1025,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                   }
                 >
                    
-                  -626.37%
+                  88.07%
                    
                    
                 </div>
@@ -1045,9 +1045,9 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "-278.10801211595424%",
+                        "width": "87.04442950691704%",
                       }
                     }
                   />
@@ -1097,7 +1097,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                   }
                 >
                    
-                  -604.49%
+                  111.52%
                    
                    
                 </div>
@@ -1117,9 +1117,9 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "-268.39247520336033%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -1169,7 +1169,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                   }
                 >
                    
-                  -643.98%
+                  69.70%
                    
                    
                 </div>
@@ -1191,7 +1191,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "-285.92865010872737%",
+                        "width": "30.945462880932766%",
                       }
                     }
                   />
