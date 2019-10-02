@@ -848,7 +848,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "79.49747309696245%",
+                  "width": "76.9403110420353%",
                 }
               }
             />
@@ -1025,7 +1025,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                   }
                 >
                    
-                  88.07%
+                  86.58%
                    
                    
                 </div>
@@ -1047,7 +1047,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                       Object {
                         "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "87.04442950691704%",
+                        "width": "77.13926452585714%",
                       }
                     }
                   />
@@ -1097,7 +1097,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                   }
                 >
                    
-                  111.52%
+                  108.46%
                    
                    
                 </div>
@@ -1169,7 +1169,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                   }
                 >
                    
-                  69.70%
+                  68.97%
                    
                    
                 </div>
@@ -1191,7 +1191,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "30.945462880932766%",
+                        "width": "30.621979642284074%",
                       }
                     }
                   />
