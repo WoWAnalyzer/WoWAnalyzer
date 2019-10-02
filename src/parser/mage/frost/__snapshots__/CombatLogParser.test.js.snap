@@ -1093,7 +1093,7 @@ exports[`The Frost Mage Analyzer should match the checklist snapshot 1`] = `
   className="checklist"
 >
   <li
-    className="expandable expanded failed"
+    className="expandable  passed"
   >
     <div
       className="meta"
@@ -1117,8 +1117,8 @@ exports[`The Frost Mage Analyzer should match the checklist snapshot 1`] = `
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ac1f39",
-                  "width": "-181.11605555382616%",
+                  "backgroundColor": "#a6c34c",
+                  "width": "87.48076480642287%",
                 }
               }
             />
@@ -1295,7 +1295,7 @@ exports[`The Frost Mage Analyzer should match the checklist snapshot 1`] = `
                   }
                 >
                    
-                  -418.57%
+                  83.75%
                    
                    
                 </div>
@@ -1315,9 +1315,9 @@ exports[`The Frost Mage Analyzer should match the checklist snapshot 1`] = `
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "-185.84368615557028%",
+                        "width": "62.44229441926863%",
                       }
                     }
                   />
@@ -1367,7 +1367,7 @@ exports[`The Frost Mage Analyzer should match the checklist snapshot 1`] = `
                   }
                 >
                    
-                  -407.92%
+                  93.39%
                    
                    
                 </div>
@@ -1387,9 +1387,9 @@ exports[`The Frost Mage Analyzer should match the checklist snapshot 1`] = `
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "-181.11605555382616%",
+                        "width": "100%",
                       }
                     }
                   />
