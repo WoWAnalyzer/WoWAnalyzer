@@ -8,7 +8,6 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { TooltipElement } from 'common/Tooltip';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import SpellHistory from 'parser/shared/modules/SpellHistory';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import DeathTracker from 'parser/shared/modules/DeathTracker';
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
@@ -39,7 +38,6 @@ class ArcanePower extends Analyzer {
     deathTracker: DeathTracker,
     // Needed for the `resourceCost` prop of events
     spellManaCost: SpellManaCost,
-    spellHistory: SpellHistory,
   };
 
   badUses = 0;
