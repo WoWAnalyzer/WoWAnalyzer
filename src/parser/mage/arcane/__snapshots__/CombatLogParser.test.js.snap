@@ -355,7 +355,7 @@ exports[`The Arcane Mage Analyzer should match the checklist snapshot 1`] = `
   className="checklist"
 >
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -379,8 +379,8 @@ exports[`The Arcane Mage Analyzer should match the checklist snapshot 1`] = `
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "78.59150422960799%",
+                  "backgroundColor": "#ac1f39",
+                  "width": "-196.7702528519747%",
                 }
               }
             />
@@ -557,7 +557,7 @@ exports[`The Arcane Mage Analyzer should match the checklist snapshot 1`] = `
                   }
                 >
                    
-                  68.81%
+                  -1116.36%
                    
                    
                 </div>
@@ -579,7 +579,7 @@ exports[`The Arcane Mage Analyzer should match the checklist snapshot 1`] = `
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "30.55234957947211%",
+                        "width": "-495.6627952636176%",
                       }
                     }
                   />
@@ -701,7 +701,7 @@ exports[`The Arcane Mage Analyzer should match the checklist snapshot 1`] = `
                   }
                 >
                    
-                  87.58%
+                  -1106.80%
                    
                    
                 </div>
@@ -721,9 +721,9 @@ exports[`The Arcane Mage Analyzer should match the checklist snapshot 1`] = `
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "83.81366733895986%",
+                        "width": "-491.41821614428113%",
                       }
                     }
                   />
