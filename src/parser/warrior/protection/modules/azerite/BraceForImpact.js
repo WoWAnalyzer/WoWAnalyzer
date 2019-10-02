@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { calculateAzeriteEffects } from 'common/stats';
-import { formatNumber, formatMilliseconds } from 'common/format';
+import { formatNumber, formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SpellLink from 'common/SpellLink';
@@ -38,6 +38,10 @@ class BraceForImpact extends Analyzer {
 
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
+
+    if(this.currentStack === 0){
+      return;
+    }
 
     if(!this.selectedCombatant.hasBuff(SPELLS.BRACE_FOR_IMPACT_BUFF.id)){
       return;
@@ -175,7 +179,7 @@ class BraceForImpact extends Analyzer {
               stacks.map(stack => (
                 <tr>
                 <td>{stack}</td>
-                <td>{formatMilliseconds(this.stackMap.get(stack).uptime)}</td>
+                <td>{formatDuration(this.stackMap.get(stack).uptime/1000)}</td>
                 <td>{formatNumber(this.stackMap.get(stack).damage)}</td>
                 </tr>
               ))

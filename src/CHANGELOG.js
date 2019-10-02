@@ -1,5 +1,5 @@
 import React from 'react';
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz } from 'CONTRIBUTORS';
+import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8 } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -8,7 +8,11 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  change(date(2019, 9, 30), <>Adjusted phase transitions for Orgozoa, Za'qul, and Queen Azshara to be more accurate.</>, Sharrq),
+  change(date(2019, 9, 20), <>Added <ItemLink id={ITEMS.CYCLOTRONIC_BLAST.id} />.</>, Juko8),
+  change(date(2019, 9, 20), 'Added 8.2 gems', Juko8),
   change(date(2019, 9, 16), <>Changed how cast efficiency is tracked for spells with charges <em>and</em> charge refunds (mostly <SpellLink id={SPELLS.JUDGMENT_CAST_PROTECTION.id} />).</>, emallson),
+  change(date(2019, 9, 11), 'Fight statistics in the character panel now include the most used essences.', niseko),
   change(date(2019, 9, 10), 'Added a cast time column to the mana efficiency module.', niseko),
   change(date(2019, 9, 9), <>Added <ItemLink id={ITEMS.POTION_OF_FOCUSED_RESOLVE.id} />.</>, Sharrq),
   change(date(2019, 9, 8), <>Fixed issue with <ItemLink id={ITEMS.ENCHANT_WEAPON_FORCE_MULTIPLIER.id} /> and Critical Strike.</>, emallson),
@@ -22,6 +26,7 @@ export default [
   change(date(2019, 8, 22), <><SpellLink id={SPELLS.LUCID_DREAMS.id} /> minor for rage refund added. Shouldn't show up as missing id in rage-useage now.</>, Abelito75),
   change(date(2019, 8, 20), 'Fixed potential crash of phase fabrication during mixed filter usage.', Zeboot),
   change(date(2019, 8, 16), 'Added event filter to death recap to view only pre-death events.', Zeboot),
+  change(date(2019, 8, 16), 'Added Heart of Azeroth Essences to Character Info panel.', [Viridis]),
   change(date(2019, 8, 14), 'Fixed potential crash of phase fabrication during mixed filter usage.', Zeboot),
   change(date(2019, 8, 12), 'Added more phase trigger types to improve our phase detection.', Zeboot),
   change(date(2019, 8, 12), <>Added <SpellLink id={SPELLS.LOYAL_TO_THE_END.id} /> azerite trait.</>, Khadaj),

@@ -7,7 +7,6 @@ import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/Pr
 
 import ComboBreaker from '../../spells/ComboBreaker';
 import FistsofFury from '../../spells/FistsofFury';
-import SpinningCraneKick from '../../spells/SpinningCraneKick';
 import TouchOfKarma from '../../spells/TouchOfKarma';
 import ComboStrikes from '../../spells/ComboStrikes';
 import BlackoutKick from '../../spells/BlackoutKick';
@@ -25,7 +24,6 @@ class Checklist extends BaseChecklist {
 
     comboBreaker: ComboBreaker,
     fistsofFury: FistsofFury,
-    spinningCraneKick: SpinningCraneKick,
     touchOfKarma: TouchOfKarma,
     comboStrikes: ComboStrikes,
     blackoutKick: BlackoutKick,
@@ -44,7 +42,6 @@ class Checklist extends BaseChecklist {
 
           comboBreaker: this.comboBreaker.suggestionThresholds,
           fistsofFury: this.fistsofFury.suggestionThresholds,
-          spinningCraneKick: this.spinningCraneKick.suggestionThresholds,
           touchOfKarma: this.touchOfKarma.suggestionThresholds,
           comboStrikes: this.comboStrikes.suggestionThresholds,
           blackoutKick: this.blackoutKick.suggestionThresholds,

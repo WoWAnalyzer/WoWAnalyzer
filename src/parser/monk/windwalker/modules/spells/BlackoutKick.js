@@ -84,7 +84,7 @@ class BlackoutKick extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest('You are wasting cooldown reduction by casting Blackout Kick while having important casts available')
         .icon(SPELLS.BLACKOUT_KICK.icon)
-        .actual(`${this.totalWastedReductionPerMinute.toFixed(2)} seconds of wasted cooldown reduction per minute`)
+        .actual(`${actual.toFixed(2)} seconds of wasted cooldown reduction per minute`)
         .recommended(`${recommended} is recommended`);
     });
   }
@@ -92,7 +92,7 @@ class BlackoutKick extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.CORE(5)}
+        position={STATISTIC_ORDER.CORE(3)}
         size="flexible"
       >
         <BoringSpellValueText spell={SPELLS.BLACKOUT_KICK}>

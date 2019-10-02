@@ -123,7 +123,7 @@ exports[`The Arcane Mage Analyzer analyzers ArcanePower matches the statistic sn
             />
           </a>
            
-          98
+          0
            %
         </div>
       </div>
@@ -149,62 +149,7 @@ exports[`The Arcane Mage Analyzer analyzers ArcanePower matches the statistic sn
 </div>
 `;
 
-exports[`The Arcane Mage Analyzer analyzers ArcanePower matches the suggestions snapshot 1`] = `
-Array [
-  Object {
-    "details": null,
-    "icon": "spell_nature_lightning",
-    "importance": "minor",
-    "issue": <React.Fragment>
-      You cast spells other than 
-      <SpellLink
-        icon={true}
-        id={30451}
-      />
-      ,
-      <SpellLink
-        icon={true}
-        id={5143}
-      />
-      , 
-      <SpellLink
-        icon={true}
-        id={1449}
-      />
-      , and 
-      <SpellLink
-        icon={true}
-        id={205025}
-      />
-       during 
-      <SpellLink
-        icon={true}
-        id={12042}
-      />
-      . Arcane Power is a short duration, so you should ensure that you are getting the most use out of it. Buff spells like Rune of Power should be cast immediately before casting Arcane Power. Other spells such as Charged Up, Blink/Shimmer, etc are acceptable during Arcane Power, but should be avoided if possible.
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      98.00% Utilization
-       (
-      100.00% is recommended
-      )
-    </React.Fragment>,
-  },
-  Object {
-    "details": null,
-    "icon": "spell_nature_lightning",
-    "importance": "regular",
-    "issue": <React.Fragment>
-      <SpellLink
-        icon={true}
-        id={12042}
-      />
-       was available to be cast when the boss died. You should ensure that you are casting Arcane Power on cooldown, especially at the end of the fight to get a little bit of last minute damage into the boss.
-    </React.Fragment>,
-    "stat": null,
-  },
-]
-`;
+exports[`The Arcane Mage Analyzer analyzers ArcanePower matches the suggestions snapshot 1`] = `Array []`;
 
 exports[`The Arcane Mage Analyzer analyzers Buffs matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
@@ -791,7 +736,7 @@ exports[`The Arcane Mage Analyzer should match the checklist snapshot 1`] = `
     </div>
   </li>
   <li
-    className="expandable expanded failed"
+    className="expandable  passed"
   >
     <div
       className="meta"
@@ -815,8 +760,8 @@ exports[`The Arcane Mage Analyzer should match the checklist snapshot 1`] = `
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ffc84a",
-                  "width": "62.193333333333335%",
+                  "backgroundColor": "#4ec04e",
+                  "width": "100%",
                 }
               }
             />
@@ -953,7 +898,7 @@ exports[`The Arcane Mage Analyzer should match the checklist snapshot 1`] = `
                   }
                 >
                    
-                  98.00%
+                  0.00%
                    
                    
                 </div>
@@ -973,9 +918,9 @@ exports[`The Arcane Mage Analyzer should match the checklist snapshot 1`] = `
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "86.58%",
+                        "width": "100%",
                       }
                     }
                   />
@@ -1066,96 +1011,6 @@ exports[`The Arcane Mage Analyzer should match the checklist snapshot 1`] = `
                         "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
                         "width": "100%",
-                      }
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="col-md-6"
-          >
-            <div
-              className="flex"
-            >
-              <div
-                className="flex-main"
-              >
-                Arcane Power Available on Kill
-              </div>
-              <div
-                className="flex-sub"
-                style={
-                  Object {
-                    "marginLeft": 10,
-                  }
-                }
-              >
-                <div
-                  onMouseEnter={[Function]}
-                  onMouseLeave={[Function]}
-                  onTouchStart={[Function]}
-                >
-                  <svg
-                    className="icon"
-                    viewBox="0 0 100 100"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
-                    />
-                    <path
-                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
-                    />
-                    <path
-                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle text-muted"
-                style={
-                  Object {
-                    "marginLeft": 5,
-                    "marginRight": 10,
-                    "minWidth": 55,
-                  }
-                }
-              >
-                <div
-                  className="text-right"
-                  style={
-                    Object {
-                      "width": "100%",
-                    }
-                  }
-                >
-                   
-                  Yes
-                   
-                   
-                </div>
-              </div>
-              <div
-                className="flex-sub content-middle"
-                style={
-                  Object {
-                    "width": 50,
-                  }
-                }
-              >
-                <div
-                  className="performance-bar-container"
-                >
-                  <div
-                    className="performance-bar small"
-                    style={
-                      Object {
-                        "backgroundColor": "#ac1f39",
-                        "transition": "background-color 800ms",
-                        "width": "0%",
                       }
                     }
                   />

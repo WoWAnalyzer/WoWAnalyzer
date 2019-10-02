@@ -28,10 +28,30 @@ class AngerCD extends Analyzer {
 
   hasAM = false;
 
+  prepullCast = false;
+
   constructor(...args) {
     super(...args);
     this.hasAM = this.selectedCombatant.hasTalent(SPELLS.ANGER_MANAGEMENT_TALENT.id);
     this.DEMOTEXT = this.selectedCombatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id) ? this.DEMOTEXTWITHBOOM : this.DEMOTEXTWITHOUTBOOM;
+  }
+
+  on_byPlayer_cast(event) {
+    const spellId = event.ability.guid;
+
+    if (spellId === SPELLS.AVATAR_TALENT.id) {
+      this.usedAvatar = true;
+    }
+  }
+
+  on_byPlayer_removebuff(event) {
+    const spellId = event.ability.guid;
+
+    if (SPELLS.AVATAR_TALENT.id === spellId) {
+      if (!this.usedAvatar){
+        this.prepullCast = true;
+      }
+    }
   }
 
   on_fightend(){
@@ -44,7 +64,10 @@ class AngerCD extends Analyzer {
 
   ratio(spellCD, spellid){
     const possibleCasts = Math.ceil(this.actualFightTime/spellCD) || 1;
-    const actualCasts = this.abilityTracker.getAbility(spellid).casts || 0;
+    let actualCasts = this.abilityTracker.getAbility(spellid).casts || 0;
+    if(spellid === SPELLS.AVATAR_TALENT.id){
+      actualCasts = this.prepullCast ? actualCasts + 1 : actualCasts;
+    }
     return actualCasts / possibleCasts;
   }
 
@@ -111,7 +134,7 @@ class AngerCD extends Analyzer {
     when(this.suggestionThresholdsAvatar).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
-          Remember to cast <SpellLink id={SPELLS.LAST_STAND.id} /> more frequently. If you have <SpellLink id={SPELLS.BOLSTER_TALENT.id} /> talented you can use this to fill gaps between your <SpellLink id={SPELLS.SHIELD_BLOCK.id} />.
+          Using  <SpellLink id={SPELLS.AVATAR_TALENT.id} /> as often as possible is very important for the increased damage output and rage generation so try to get the maximum casts out of it.
         </>
       )
         .icon(SPELLS.AVATAR_TALENT.icon)

@@ -14,6 +14,7 @@ const Mana = ({ parser }) => (
       actorId={parser.playerId}
       start={parser.fight.start_time}
       end={parser.fight.end_time}
+      offsetTime={parser.fight.offset_time}
       manaUpdates={parser.getModule(ManaValues).manaUpdates}
     />
   </Panel>

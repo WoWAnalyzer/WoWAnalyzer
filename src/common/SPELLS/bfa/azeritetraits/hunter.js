@@ -125,4 +125,12 @@ export default {
     name: 'Primeval Intuition',
     icon: 'ability_hunter_silenthunter',
   },
+
+
+  // shared
+  DIRE_CONSEQUENCES: {
+    id: 287093,
+    name: 'Dire Consequences',
+    icon: 'ability_hunter_longevity',
+  },
 };
