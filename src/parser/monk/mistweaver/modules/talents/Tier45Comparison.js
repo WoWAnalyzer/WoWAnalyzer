@@ -219,7 +219,7 @@ class Tier45Comparison extends Analyzer {
       >
       <div className="pad">
         <div>
-          This is a comparison graph for tier 45 talents to see what is required to equal the best pick for how you played. This also attempts to caculate the other talents based on how you played for the difference row, for the equals row it it shows how many are required in general ignoring how you played.
+          This is a infographic for tier 45 talents to see what is required to equal the best pick for how you played. This also attempts to caculate the other talents based on how you played for the difference row, for the equals row it it shows how many are required in general ignoring how you played.
         </div>
         <table className="table table-condensed">
           <thead>
