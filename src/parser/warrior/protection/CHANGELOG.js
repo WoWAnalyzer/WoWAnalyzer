@@ -8,7 +8,6 @@ import { Abelito75 } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [  
-  change(date(2019, 10, 1),<>Arcane torrent removed from suggestions. </>,Abelito75),
   change(date(2019, 9, 27),<>Officially supported! </>,Abelito75),
   change(date(2019, 9, 27),<>Update to date for 8.2.5 </>,Abelito75),
   change(date(2019, 9, 18),<>Physical hits blocked now only checks blockable hits. </>,Abelito75),
