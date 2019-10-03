@@ -61,7 +61,7 @@ class SpellReflect extends Analyzer {
           Try to cast <SpellLink id={SPELLS.SPELL_REFLECTION.id} />  more often when magic damage is going out to take less damage.
         </>
       )
-        .icon(SPELLS.SHIELD_SLAM.icon)
+        .icon(SPELLS.SPELL_REFLECTION.icon)
         .actual(`${formatPercentage(actual)} % magic damage reduced`)
         .recommended(`${formatPercentage(recommended)} % recommended`);
     });
