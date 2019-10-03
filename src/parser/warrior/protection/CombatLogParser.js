@@ -28,6 +28,7 @@ import Vengeance from './modules/talents/Vengeance';
 import Punish from './modules/talents/Punish';
 import DragonRoar from './modules/talents/DragonRoar';
 import AngerCD from './modules/talents/AngerCD';
+import SpellReflect from './modules/spells/SpellReflect';
 
 //azerite
 import BraceForImpact from './modules/azerite/BraceForImpact';
@@ -53,6 +54,8 @@ class CombatLogParser extends CoreCombatLogParser {
     rageDetails: RageDetails,
     avatar: Avatar,
     shieldSlam: ShieldSlam,
+    spellReflect: SpellReflect,
+
     //Talents
     angerManagement: AngerManagement,
     angerCD: AngerCD,

@@ -649,6 +649,17 @@ export const Abelito75 = {
   nickname: 'Abelito75',
   github: 'abelito75',
   avatar: require('./interface/images/avatars/Abelito75-avatar.png'),
+  desc: 'MW Vet in Peak of Serenity discord, MW Theorycrafter',
+  mains:[{
+    name: 'Magnapinna',
+    spec: SPECS.MISTWEAVER_MONK,
+    link: 'https://worldofwarcraft.com/en-us/character/us/malganis/Magnapinna',
+  }],
+  alts: [{
+    name: 'Barreleye',
+    spec: SPECS.HOLY_PALADIN,
+    link: 'https://raider.io/characters/us/malganis/Barreleye',
+  }],
 };
 export const HolySchmidt = {
   nickname: 'HolySchmidt',
