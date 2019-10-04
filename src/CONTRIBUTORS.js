@@ -765,7 +765,7 @@ export const JeremyDwayne = {
       name: 'Jeremydwayne',
       spec: SPECS.MISTWEAVER_MONK,
       link: 'https://worldofwarcraft.com/en-us/character/us/stormrage/jeremydwayne',
-    }
+    },
   ],
   alts: [
     {
@@ -782,6 +782,6 @@ export const JeremyDwayne = {
       name: 'Dovesoap',
       spec: SPECS.DISCIPLINE_PRIEST,
       link: 'https://worldofwarcraft.com/en-us/character/us/stormrage/dovesoap',
-    }
+    },
   ],
 };
