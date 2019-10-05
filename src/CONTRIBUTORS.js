@@ -756,3 +756,32 @@ export const fluffels = {
     link: 'https://worldofwarcraft.com/en-gb/character/eu/draenor/micheladaw',
   }],
 };
+export const JeremyDwayne = {
+  nickname: 'JeremyDwayne',
+  github: 'jeremydwayne',
+  discord: 'jeremydwayne#3717',
+  mains: [
+    {
+      name: 'Jeremydwayne',
+      spec: SPECS.MISTWEAVER_MONK,
+      link: 'https://worldofwarcraft.com/en-us/character/us/stormrage/jeremydwayne',
+    },
+  ],
+  alts: [
+    {
+      name: 'Jeremypally',
+      spec: SPECS.HOLY_PALADIN,
+      link: 'https://worldofwarcraft.com/en-us/character/us/stormrage/jeremypally',
+    },
+    {
+      name: 'Morehots',
+      spec: SPECS.RESTORATION_DRUID,
+      link: 'https://worldofwarcraft.com/en-us/character/us/stormrage/morehots',
+    },
+    {
+      name: 'Dovesoap',
+      spec: SPECS.DISCIPLINE_PRIEST,
+      link: 'https://worldofwarcraft.com/en-us/character/us/stormrage/dovesoap',
+    },
+  ],
+};
