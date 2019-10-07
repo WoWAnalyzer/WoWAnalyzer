@@ -41,9 +41,9 @@ class SpellReflect extends Analyzer {
     return {
       actual: this.magicDamageReduced/this.magicDamage,
       isLessThan: {
-        minor: .75,
-        average: .65,
-        major: .55,
+        minor: .25,
+        average: .15,
+        major: .05,
       },
       style: 'percentage',
     };
