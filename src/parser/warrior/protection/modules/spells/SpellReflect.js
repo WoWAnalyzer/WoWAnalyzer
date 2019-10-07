@@ -20,10 +20,6 @@ class SpellReflect extends Analyzer {
   magicDamageReduced = 0;
   totalDamage = 0;
 
-  constructor(...args) {
-    super(...args);
-  }
-
   on_toPlayer_damage(event){
     if (event.ability.type !== SCHOOLS.ids.PHYSICAL) {
       this.magicDamage += event.unmitigatedAmount || 0;
