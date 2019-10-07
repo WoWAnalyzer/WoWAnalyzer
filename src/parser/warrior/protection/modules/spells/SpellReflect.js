@@ -8,7 +8,7 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SCHOOLS from 'game/MAGIC_SCHOOLS';
 
-const debug = true;
+const debug = false;
 
 class SpellReflect extends Analyzer {
   static dependencies = {
@@ -22,7 +22,6 @@ class SpellReflect extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.lastCast = this.owner.fight.start_time/1000;
   }
 
   on_toPlayer_damage(event){
@@ -62,7 +61,7 @@ class SpellReflect extends Analyzer {
         </>
       )
         .icon(SPELLS.SPELL_REFLECTION.icon)
-        .actual(`${formatPercentage(actual)} % magic damage reduced`)
+        .actual(`${formatPercentage(actual)} % magic damage With Spell Reflect Up`)
         .recommended(`${formatPercentage(recommended)} % recommended`);
     });
   }
