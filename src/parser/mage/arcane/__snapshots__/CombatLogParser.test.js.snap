@@ -380,7 +380,7 @@ exports[`The Arcane Mage Analyzer should match the checklist snapshot 1`] = `
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "78.59150422960799%",
+                  "width": "72.07486774111928%",
                 }
               }
             />
@@ -701,7 +701,7 @@ exports[`The Arcane Mage Analyzer should match the checklist snapshot 1`] = `
                   }
                 >
                    
-                  87.58%
+                  82.34%
                    
                    
                 </div>
@@ -721,9 +721,9 @@ exports[`The Arcane Mage Analyzer should match the checklist snapshot 1`] = `
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#a6c34c",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "83.81366733895986%",
+                        "width": "57.747121385005016%",
                       }
                     }
                   />
