@@ -7,12 +7,16 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import HotStreakPreCasts from './HotStreakPreCasts';
 
 const debug = false;
 
 const PROC_WINDOW_MS = 200;
 
 class HotStreak extends Analyzer {
+  static dependencies = {
+    hotStreakPreCasts: HotStreakPreCasts,
+  };
 
   totalHotStreakProcs = 0;
   expiredProcs = 0;
@@ -85,18 +89,22 @@ class HotStreak extends Analyzer {
         size="flexible"
         tooltip={(
           <>
-            Hot Streak is a big part of your rotation and therefore it is important that you use all the procs that you get and avoid letting them expire.
+            Hot Streak is a big part of your rotation and therefore it is important that you use all the procs that you get and avoid letting them expire. <br /><br />
+            Additionally, to maximize your chance of getting Heating Up/Hot Streak procs, you should hard cast Fireball{this.hasPyroclasm ? ' (or Pyroblast if you have a Pyroclasm proc)' : ''} just before using your Hot Streak proc unless you are guaranteed to crit via Firestarter, Searing Touch, or Combustion. This way if one of the two spells crit you will get a new Heating Up proc, and if both spells crit then you will get a new Hot Streak proc.
+            <br />
             <ul>
               <li>Total procs - {this.totalHotStreakProcs}</li>
               <li>Used procs - {this.usedProcs}</li>
               <li>Expired procs - {this.expiredProcs}</li>
+              <li>Procs used without a Fireball - {this.hotStreakPreCasts.noCastBeforeHotStreak}</li>
             </ul>
           </>
         )}
       >
         <BoringSpellValueText spell={SPELLS.HOT_STREAK}>
           <>
-            {formatPercentage(this.hotStreakUtil,0)}% <small>Proc Utilization</small>
+            {formatPercentage(this.hotStreakUtil,0)}% <small>Proc Utilization</small><br />
+            {formatPercentage(this.hotStreakPreCasts.castBeforeHotStreakUtil,0)}% <small>Procs used alongside Fireball</small>
           </>
         </BoringSpellValueText>
       </Statistic>
