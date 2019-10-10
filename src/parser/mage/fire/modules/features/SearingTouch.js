@@ -2,6 +2,8 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -69,6 +71,25 @@ class SearingTouch extends Analyzer {
 			});
   }
 
+  statistic() {
+    return (
+      <Statistic
+        size="flexible"
+        category={'TALENTS'}
+        tooltip={(
+          <>
+            When the target is under 30% health, you should cast Scorch as your filler ability instead of Fireball so that you can take advantage of the damage buff that gets applied to Scorch. You cast Fireball instead of Scorch {this.badCasts} times.
+          </>
+        )}
+      >
+        <BoringSpellValueText spell={SPELLS.SEARING_TOUCH_TALENT}>
+          <>
+            {formatPercentage(this.scorchUtil,0)}% <small>Buff Utilization</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
+    );
+  }
 }
 
 export default SearingTouch;

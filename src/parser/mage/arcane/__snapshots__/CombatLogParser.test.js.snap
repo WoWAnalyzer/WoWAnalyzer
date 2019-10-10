@@ -265,19 +265,14 @@ exports[`The Arcane Mage Analyzer analyzers RuneOfPower matches the statistic sn
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    category="TALENTS"
+    className="panel statistic flexible "
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -292,12 +287,28 @@ exports[`The Arcane Mage Analyzer analyzers RuneOfPower matches the statistic sn
             />
           </a>
            
-          Rune of Power damage
+          <a
+            href="http://wowhead.com/spell=116011"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Rune of Power
+          </a>
         </label>
         <div
           className="value"
         >
-          17.02 %
+          17
+          % 
+          <small>
+            Damage added by Rune of Power
+          </small>
+          <br />
+          9
+          s 
+          <small>
+            Average time in Rune per cast
+          </small>
         </div>
       </div>
     </div>
