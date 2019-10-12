@@ -25,6 +25,7 @@ class CombatPotion extends Potion {
     SPELLS.POTION_OF_REPLENISHMENT,
     SPELLS.POTION_OF_WILD_MENDING,
     SPELLS.POTION_OF_FOCUSED_RESOLVE,
+    SPELLS.POTION_OF_EMPOWERED_PROXIMITY,
   ];
   static recommendedEfficiency = 0;
   static extraAbilityInfo = {
@@ -48,6 +49,7 @@ class CombatPotion extends Potion {
       SPELLS.POTION_OF_REPLENISHMENT.id,
       SPELLS.POTION_OF_WILD_MENDING.id,
       SPELLS.POTION_OF_FOCUSED_RESOLVE.id,
+      SPELLS.POTION_OF_EMPOWERED_PROXIMITY.id,
     ],
   };
 }

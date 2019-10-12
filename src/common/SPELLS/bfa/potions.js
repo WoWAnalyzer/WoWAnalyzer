@@ -99,4 +99,9 @@ export default {
     name: 'Potion of Wild Mending',
     icon: 'inv_potionf_6',
   },
+  POTION_OF_EMPOWERED_PROXIMITY: {
+    id: 298225,
+    name: 'Potion of Empowered Proximity',
+    icon: 'inv_potionf_2',
+  },
 };
