@@ -1,8 +1,8 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import CancelledCasts from 'parser/shared/modules/CancelledCasts';
-import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 
 import Abilities from './modules/Abilities';
+import CancelledCasts from './modules/features/CancelledCasts';
+import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Overload from './modules/features/Overload';
 
 import FlameShock from './modules/core/FlameShock';

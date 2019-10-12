@@ -1,11 +1,12 @@
 import React from 'react';
 
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
-import CancelledCasts from 'parser/shared/modules/CancelledCasts';
-import AlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
+
+import CancelledCasts from 'parser/shaman/elemental/modules/features/CancelledCasts';
+import AlwaysBeCasting from 'parser/shaman/elemental/modules/features/AlwaysBeCasting';
 
 import Component from './Component';
 
