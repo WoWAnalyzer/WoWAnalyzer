@@ -7,7 +7,7 @@ export default {
   //Lady Ashvane
   RAZOR_CORAL: {
     id: 169311,
-    name: "Razor Coral",
+    name: "Ashvane's Razor Coral",
     icon: "inv_misc_scales_fishorange01",
     quality: ITEM_QUALITIES.PURPLE,
   },
