@@ -8,6 +8,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  change(date(2019, 10, 13), <>Added <ItemLink id={ITEMS.BLOODTHIRSTY_URCHIN.id} />.</>, Zeboot),
   change(date(2019, 10, 13), <>Added <ItemLink id={ITEMS.DRIBBLING_INKPOD.id} />.</>, Zeboot),
   change(date(2019, 10, 2), <>Added Potion of Empowered Proximity for the potion checker.</>, Abelito75),
   change(date(2019, 10, 2), <>Fixed an issue in Cast Efficiency that caused spells to have a time on CD higher than 100%.</>, Sharrq),
