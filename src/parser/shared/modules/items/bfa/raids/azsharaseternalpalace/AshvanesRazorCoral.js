@@ -59,8 +59,8 @@ class AshvanesRazorCoral extends Analyzer {
     });
 
     this.buffs.add({
-      spellId: SPELLS.UMBRAL_SHELL.id,
-      triggeredBySpellId: SPELLS.UMBRAL_SHELL.id,
+      spellId: SPELLS.RAZOR_CORAL_BUFF.id,
+      triggeredBySpellId: SPELLS.RAZOR_CORAL_CAST.id,
     });
   }
 
