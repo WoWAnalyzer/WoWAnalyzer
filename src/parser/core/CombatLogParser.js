@@ -173,6 +173,8 @@ import StormglideSteps from '../shared/modules/items/bfa/raids/crucibleofstorms/
 import TridentOfDeepOcean from '../shared/modules/items/bfa/raids/crucibleofstorms/TridentOfDeepOcean';
 import VoidStone from '../shared/modules/items/bfa/raids/crucibleofstorms/VoidStone';
 import ZaxasjsDeepstriders from '../shared/modules/items/bfa/raids/crucibleofstorms/ZaxasjsDeepstriders';
+// Azsharas Eternal Palace
+import DribblingInkpod from '../shared/modules/items/bfa/raids/azsharaseternalpalace/DribblingInkpod';
 
 import ParseResults from './ParseResults';
 import EventsNormalizer from './EventsNormalizer';
@@ -356,6 +358,8 @@ class CombatLogParser {
     tridentOfDeepOcean: TridentOfDeepOcean,
     voidStone: VoidStone,
     zaxasjsDeepstriders: ZaxasjsDeepstriders,
+    //Azsharas Eternal Palace
+    dribblingInkpod: DribblingInkpod,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
