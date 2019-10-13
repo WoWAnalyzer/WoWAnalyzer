@@ -1,10 +1,11 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
 
-import { Yajinni, blazyb, fel1ne, Qbz, Zerotorescue, Abelito75, Anatta336 } from 'CONTRIBUTORS';
+import { Yajinni, blazyb, fel1ne, Qbz, Zerotorescue, Abelito75, Anatta336, JeremyDwayne } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 10, 4), 'No spec changes have occurred, restoration druid module is compatible with patch 8.2.5', [JeremyDwayne]),
   change(date(2019, 8, 18), 'Corrected some global cooldown values related to catweaving.', [Anatta336]),
   change(date(2019, 8, 12), 'Added essence Lucid Dreams.', [blazyb]),
   change(date(2019, 6, 2), 'Enabled the QElive auto import link for stat values.', [Abelito75]),

@@ -556,7 +556,7 @@ exports[`The Protection Paladin Analyzer should match the checklist snapshot 1`]
               style={
                 Object {
                   "backgroundColor": "#df7102",
-                  "width": "46.72776467824141%",
+                  "width": "42.44084499331257%",
                 }
               }
             />
@@ -733,7 +733,7 @@ exports[`The Protection Paladin Analyzer should match the checklist snapshot 1`]
                   }
                 >
                    
-                  81.92%
+                  79.93%
                    
                    
                 </div>
@@ -753,9 +753,9 @@ exports[`The Protection Paladin Analyzer should match the checklist snapshot 1`]
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ffc84a",
+                        "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "56.34944865788687%",
+                        "width": "49.70891510844192%",
                       }
                     }
                   />
@@ -805,7 +805,7 @@ exports[`The Protection Paladin Analyzer should match the checklist snapshot 1`]
                   }
                 >
                    
-                  66.14%
+                  65.56%
                    
                    
                 </div>
@@ -827,7 +827,7 @@ exports[`The Protection Paladin Analyzer should match the checklist snapshot 1`]
                       Object {
                         "backgroundColor": "#df7102",
                         "transition": "background-color 800ms",
-                        "width": "37.106080698595946%",
+                        "width": "35.17277487818321%",
                       }
                     }
                   />
@@ -1454,7 +1454,7 @@ exports[`The Protection Paladin Analyzer should match the checklist snapshot 1`]
               style={
                 Object {
                   "backgroundColor": "#ffc84a",
-                  "width": "64.79189793087662%",
+                  "width": "64.6652930857104%",
                 }
               }
             />
@@ -1574,7 +1574,7 @@ exports[`The Protection Paladin Analyzer should match the checklist snapshot 1`]
                   }
                 >
                    
-                  13.01%
+                  12.50%
                    
                    
                 </div>
@@ -1596,7 +1596,7 @@ exports[`The Protection Paladin Analyzer should match the checklist snapshot 1`]
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "9.627093792629852%",
+                        "width": "9.247279257131217%",
                       }
                     }
                   />

@@ -649,6 +649,17 @@ export const Abelito75 = {
   nickname: 'Abelito75',
   github: 'abelito75',
   avatar: require('./interface/images/avatars/Abelito75-avatar.png'),
+  desc: 'MW Vet in Peak of Serenity discord, MW Theorycrafter',
+  mains:[{
+    name: 'Magnapinna',
+    spec: SPECS.MISTWEAVER_MONK,
+    link: 'https://worldofwarcraft.com/en-us/character/us/malganis/Magnapinna',
+  }],
+  alts: [{
+    name: 'Barreleye',
+    spec: SPECS.HOLY_PALADIN,
+    link: 'https://raider.io/characters/us/malganis/Barreleye',
+  }],
 };
 export const HolySchmidt = {
   nickname: 'HolySchmidt',
@@ -755,4 +766,33 @@ export const fluffels = {
     spec: SPECS.AFFLICTION_WARLOCK,
     link: 'https://worldofwarcraft.com/en-gb/character/eu/draenor/micheladaw',
   }],
+};
+export const JeremyDwayne = {
+  nickname: 'JeremyDwayne',
+  github: 'jeremydwayne',
+  discord: 'jeremydwayne#3717',
+  mains: [
+    {
+      name: 'Jeremydwayne',
+      spec: SPECS.MISTWEAVER_MONK,
+      link: 'https://worldofwarcraft.com/en-us/character/us/stormrage/jeremydwayne',
+    },
+  ],
+  alts: [
+    {
+      name: 'Jeremypally',
+      spec: SPECS.HOLY_PALADIN,
+      link: 'https://worldofwarcraft.com/en-us/character/us/stormrage/jeremypally',
+    },
+    {
+      name: 'Morehots',
+      spec: SPECS.RESTORATION_DRUID,
+      link: 'https://worldofwarcraft.com/en-us/character/us/stormrage/morehots',
+    },
+    {
+      name: 'Dovesoap',
+      spec: SPECS.DISCIPLINE_PRIEST,
+      link: 'https://worldofwarcraft.com/en-us/character/us/stormrage/dovesoap',
+    },
+  ],
 };
