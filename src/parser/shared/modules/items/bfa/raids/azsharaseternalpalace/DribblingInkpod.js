@@ -23,16 +23,16 @@ class DribblingInkpod extends Analyzer {
   };
 
   damage = 0;
-
+  stacks = 0;
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrinket(ITEMS.DRIBBLING_INKPOD.id);
     if(!this.active) {
       return;
     }
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CONDUCTIVE_INK), this._damage);
-    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.CONDUCTIVE_INK), this._debuff);
-
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CONDUCTIVE_INK_DAMAGE), this._damage);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.CONDUCTIVE_INK_DEBUFF), this._debuff);
+    this.addEventListener(Events.applydebuffstack.by(SELECTED_PLAYER).spell(SPELLS.CONDUCTIVE_INK_DEBUFF), this._debuff);
   }
 
   _damage(event){
@@ -40,7 +40,7 @@ class DribblingInkpod extends Analyzer {
   }
 
   _debuff(event){
-
+    this.stacks += 1;
   }
 
 
@@ -52,6 +52,10 @@ class DribblingInkpod extends Analyzer {
         <BoringItemValueText item={ITEMS.DRIBBLING_INKPOD}>
           <TooltipElement content={`Damage done: ${formatNumber(this.damage)}`}>
             <ItemDamageDone amount={this.damage} />
+          </TooltipElement>
+          <br />
+          <TooltipElement content={`Average damage per stack: ${formatNumber(this.damage / this.stacks)}`}>
+            {this.stacks} <small>total stacks gained</small>
           </TooltipElement>
         </BoringItemValueText>
       </ItemStatistic>
