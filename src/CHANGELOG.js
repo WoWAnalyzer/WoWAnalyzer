@@ -8,6 +8,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  change(date(2019, 10, 13), 'Added event filter to cooldown to view only events during a selected cooldown.', Zeboot),
   change(date(2019, 10, 2), <>Added Potion of Empowered Proximity for the potion checker.</>, Abelito75),
   change(date(2019, 10, 2), <>Fixed an issue in Cast Efficiency that caused spells to have a time on CD higher than 100%.</>, Sharrq),
   change(date(2019, 9, 30), <>Adjusted phase transitions for Orgozoa, Za'qul, and Queen Azshara to be more accurate.</>, Sharrq),
