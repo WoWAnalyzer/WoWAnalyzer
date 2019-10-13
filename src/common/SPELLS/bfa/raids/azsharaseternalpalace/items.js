@@ -3,6 +3,32 @@
 export default {
   // Group by boss (with comments)
 
+  //Lady Ashvane
+  RAZOR_CORAL_DEBUFF: { //Razor Coral
+    id: 303568,
+    name: "Razor Coral",
+    icon: "inv_misc_scales_fishorange01",
+  },
+
+  RAZOR_CORAL_BUFF: { //Razor Coral
+    id: 303570,
+    name: "Razor Coral",
+    icon: "inv_misc_scales_fishorange01",
+  },
+
+  RAZOR_CORAL_DAMAGE: { //Razor Coral
+    id: 303572,
+    name: "Razor Coral",
+    icon: "inv_misc_scales_fishorange01",
+  },
+
+  RAZOR_CORAL_CAST: { //Razor Coral
+    id: 303564,
+    name: "Razor Coral",
+    icon: "inv_misc_scales_fishorange01",
+  },
+
+
   //Orgozoa
   CONDUCTIVE_INK_DAMAGE: { //Dribbling Inkpod
     id: 302491,
