@@ -4,6 +4,18 @@ export default {
   // Group by boss (with comments)
 
   //Lady Ashvane
+  BLOODTHIRSTY_URCHIN_BUFF: { //Bloodthirsty Urchin
+    id: 303520,
+    name: "Bloodthirty Coral",
+    icon: "inv_misc_food_legion_seashelle1",
+  },
+
+  BLOODTHIRSTY_URCHIN_HEAL: { //Bloodthirsty Urchin
+    id: 303505,
+    name: "Bloodthirty Coral",
+    icon: "inv_misc_food_legion_seashelle1",
+  },
+  
   RAZOR_CORAL_DEBUFF: { //Razor Coral
     id: 303568,
     name: "Razor Coral",
@@ -27,7 +39,6 @@ export default {
     name: "Razor Coral",
     icon: "inv_misc_scales_fishorange01",
   },
-
 
   //Orgozoa
   CONDUCTIVE_INK_DAMAGE: { //Dribbling Inkpod

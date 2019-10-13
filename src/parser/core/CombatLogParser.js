@@ -174,7 +174,9 @@ import TridentOfDeepOcean from '../shared/modules/items/bfa/raids/crucibleofstor
 import VoidStone from '../shared/modules/items/bfa/raids/crucibleofstorms/VoidStone';
 import ZaxasjsDeepstriders from '../shared/modules/items/bfa/raids/crucibleofstorms/ZaxasjsDeepstriders';
 // Azsharas Eternal Palace
+
 import AshvanesRazorCoral from '../shared/modules/items/bfa/raids/azsharaseternalpalace/AshvanesRazorCoral';
+import BloodthirstyUrchin from '../shared/modules/items/bfa/raids/azsharaseternalpalace/BloodthirstyUrchin';
 import DribblingInkpod from '../shared/modules/items/bfa/raids/azsharaseternalpalace/DribblingInkpod';
 
 import ParseResults from './ParseResults';
@@ -360,8 +362,9 @@ class CombatLogParser {
     voidStone: VoidStone,
     zaxasjsDeepstriders: ZaxasjsDeepstriders,
     //Azsharas Eternal Palace
-    dribblingInkpod: DribblingInkpod,
     ashvanesRazorCoral: AshvanesRazorCoral,
+    bloodthirstyUrchin: BloodthirstyUrchin,
+    dribblingInkpod: DribblingInkpod,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
