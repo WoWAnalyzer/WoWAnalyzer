@@ -90,6 +90,11 @@ class MistweaverMonkChecklist extends React.PureComponent {
           name="Pick the right tools for the fight"
           description="The throughput gain of some talents might vary greatly. Consider switching to a more reliable alternative if something is underperforming regularly."
         >
+          <Requirement
+            name={<>Correct Tier 45 Talent </>} 
+            thresholds={thresholds.tier45Comparison}
+           />
+
           {combatant.hasTalent(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id) &&
           <Requirement name={(<><SpellLink id={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id} /> mana returned</>)} thresholds={thresholds.spiritOfTheCrane} />}
 
