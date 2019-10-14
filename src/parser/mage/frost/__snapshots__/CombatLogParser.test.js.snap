@@ -1118,7 +1118,7 @@ exports[`The Frost Mage Analyzer should match the checklist snapshot 1`] = `
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "87.48076480642287%",
+                  "width": "83.82960165374769%",
                 }
               }
             />
@@ -1295,7 +1295,7 @@ exports[`The Frost Mage Analyzer should match the checklist snapshot 1`] = `
                   }
                 >
                    
-                  83.75%
+                  80.46%
                    
                    
                 </div>
@@ -1317,7 +1317,7 @@ exports[`The Frost Mage Analyzer should match the checklist snapshot 1`] = `
                       Object {
                         "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "62.44229441926863%",
+                        "width": "51.488804961243076%",
                       }
                     }
                   />
@@ -1367,7 +1367,7 @@ exports[`The Frost Mage Analyzer should match the checklist snapshot 1`] = `
                   }
                 >
                    
-                  93.39%
+                  91.11%
                    
                    
                 </div>

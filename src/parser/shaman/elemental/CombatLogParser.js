@@ -1,6 +1,8 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 import Abilities from './modules/Abilities';
+import CancelledCasts from './modules/features/CancelledCasts';
+import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Overload from './modules/features/Overload';
 
 import FlameShock from './modules/core/FlameShock';
@@ -50,6 +52,8 @@ class CombatLogParser extends CoreCombatLogParser {
     overload: Overload,
     stormfireElemental: StormFireElemental,
     buffs: Buffs,
+    cancelledCasts: CancelledCasts,
+    alwaysBeCasting: AlwaysBeCasting,
 
     // Talents
     aftershock: Aftershock,

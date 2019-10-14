@@ -21,14 +21,33 @@ export default {
         name: 'Stage 1: Cursed Lovers',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
       },
+      I1: {
+        name: 'Intermission 2',
+        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        filter: {
+          type: 'begincast',
+          ability: {
+            id: SPELLS.QUEENS_DECREE.id,
+          },
+        },
+      },
       P2: {
         name: 'Stage 2: Hearts Unleashed',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
-          type: 'applybuff',
-          ability: {
-            id: SPELLS.WARD_OF_POWER_BUFF.id,
-          },
+          type: 'health',
+          guid: 152910,
+          health: 99.9,
+          eventInstance: 0,
+        },
+      },
+      I2: {
+        name: 'Intermission 2',
+        difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
+        filter: {
+          type: 'health',
+          guid: 152910,
+          health: 70,
           eventInstance: 0,
         },
       },
@@ -36,20 +55,19 @@ export default {
         name: 'Stage 3: Song of the Tides',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
-          type: 'begincast',
-          ability: {
-            id: SPELLS.DRAIN_ANCIENT_WARD.id,
-          },
+          type: 'health',
+          guid: 154565,
+          health: 99.9,
+          eventInstance: 0,
         },
       },
       P4: {
         name: 'Stage 4: My Palace Is a Prison',
         difficulties: [FIGHT_DIFFICULTIES.NORMAL, FIGHT_DIFFICULTIES.HEROIC, FIGHT_DIFFICULTIES.MYTHIC],
         filter: {
-          type: 'cast',
-          ability: {
-            id: SPELLS.AZSHARA_VOID_TOUCHED.id,
-          },
+          type: 'health',
+          guid: 152910,
+          health: 45,
           eventInstance: 0,
         },
       },

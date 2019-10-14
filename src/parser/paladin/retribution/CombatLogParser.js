@@ -20,6 +20,7 @@ import Consecration from './modules/talents/Consecration';
 import HammerofWrath from './modules/talents/HammerofWrath';
 import Inquisition from './modules/talents/Inquisition';
 import RighteousVerdict from './modules/talents/RighteousVerdict';
+import ExecutionSentence from './modules/talents/ExecutionSentence';
 
 import HolyPowerTracker from './modules/holypower/HolyPowerTracker';
 import HolyPowerDetails from './modules/holypower/HolyPowerDetails';
@@ -55,6 +56,7 @@ class CombatLogParser extends CoreCombatLogParser {
     hammerofWrath: HammerofWrath,
     inquisition: Inquisition,
     righteousVerdict: RighteousVerdict,
+    executionSentence: ExecutionSentence,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,

@@ -13,7 +13,7 @@ import ShieldSlam from '../../spells/ShieldSlam';
 import ShieldBlock from '../../spells/ShieldBlock';
 import BlockCheck from '../BlockCheck';
 import AngerCD from '../../talents/AngerCD';
-
+import SpellReflect from '../../spells/SpellReflect';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -28,6 +28,7 @@ class Checklist extends BaseChecklist {
     shieldBlock: ShieldBlock,
     blockCheck: BlockCheck,
     angerCD: AngerCD,
+    spellReflect: SpellReflect,
   };
 
   render() {
@@ -46,6 +47,7 @@ class Checklist extends BaseChecklist {
           shieldWallCD: this.angerCD.suggestionThresholdsShieldWall,
           shieldBlock: this.shieldBlock.suggestionThresholds,
           blockCheck: this.blockCheck.suggestionThresholds,
+          spellReflect: this.spellReflect.suggestionThresholds,
         }}
       />
     );

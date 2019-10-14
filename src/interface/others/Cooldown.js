@@ -34,6 +34,7 @@ class Cooldown extends React.Component {
         name: PropTypes.string,
       }),
     }).isRequired,
+    applyTimeFilter: PropTypes.func,
   };
 
   constructor() {
@@ -115,7 +116,7 @@ class Cooldown extends React.Component {
     const end = cooldown.end || fightEnd;
 
     /* eslint-disable no-script-url */
-
+    /* eslint-disable jsx-a11y/anchor-is-valid */
     return (
       <article>
         <figure>
@@ -130,6 +131,9 @@ class Cooldown extends React.Component {
           <div className={this.state.showAllEvents ? 'col-md-12' : 'col-md-6'}>
             <header style={{ marginTop: 5, fontSize: '1.25em', marginBottom: '.1em' }}>
               <SpellLink id={cooldown.spell.id} icon={false} /> ({formatDuration((start - fightStart) / 1000)} -&gt; {formatDuration((end - fightStart) / 1000)})
+              &nbsp;<TooltipElement content="Filter events to the cooldown window.">
+                <a href="javascript:" onClick={() => this.props.applyTimeFilter(start - fightStart, end - fightStart)}>Filter events</a>
+              </TooltipElement>
             </header>
 
             {!this.state.showCastEvents && (
