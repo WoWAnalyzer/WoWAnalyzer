@@ -162,8 +162,8 @@ class Tier45Comparison extends Analyzer {
   generateLifeCycles(){
     const envCasts = this.abilityTracker.getAbility(SPELLS.ENVELOPING_MIST.id).casts || 0;
     const vivCasts = this.abilityTracker.getAbility(SPELLS.VIVIFY.id).casts - 1;
-    const manaDiscountOnViv = vivCasts * SPELLS.VIVIFY.manaCost * SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed;
-    const manaDiscountOnEnv = envCasts * SPELLS.ENVELOPING_MIST.manaCost * SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed;
+    const manaDiscountOnViv = Math.min(vivCasts, envCasts) * SPELLS.VIVIFY.manaCost * SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed;
+    const manaDiscountOnEnv = Math.min(vivCasts, envCasts) * SPELLS.ENVELOPING_MIST.manaCost * SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed;
     return (manaDiscountOnEnv + manaDiscountOnViv) || 0;
   }
 
