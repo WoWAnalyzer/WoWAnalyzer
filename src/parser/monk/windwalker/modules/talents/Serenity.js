@@ -6,7 +6,7 @@ import SpellIcon from 'common/SpellIcon';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
 import SPELLS from 'common/SPELLS';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from 'parser/monk/windwalker/constants';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
@@ -30,7 +30,7 @@ class Serenity extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FISTS_OF_FURY_CAST), this.onFoF);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SERENITY_TALENT), this.onSerenityStart);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SERENITY_TALENT), this.onSerenityEnd);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(ABILITIES_AFFECTED_BY_DAMAGE_INCREASES), this.onAffectedDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(ABILITIES_AFFECTED_BY_DAMAGE_INCREASES), this.onAffectedDamage);
   }
 
   _reduceRSK() {
@@ -95,7 +95,13 @@ class Serenity extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(3)}
         size="flexible"
-        tooltip={`Total damage increase: ${formatNumber(this.damageGain)}`}
+        tooltip={(
+          <>
+            Total damage increase: {formatNumber(this.damageGain)}.
+            <br />
+            The damage increase is calculated from the {formatPercentage(DAMAGE_MULTIPLIER)}% damage bonus and doesn't count raw damage from extra casts gained from cooldown reduction.
+          </>
+        )}
       >
         <BoringSpellValueText spell={SPELLS.SERENITY_TALENT}>
           <img

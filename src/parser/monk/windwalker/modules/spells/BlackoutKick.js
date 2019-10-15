@@ -30,7 +30,7 @@ class BlackoutKick extends Analyzer {
     super(...args);
 
     if (this.selectedCombatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id)) {
-      this.IMPORTANT_SPELLS.push(SPELLS.WHIRLING_DRAGON_PUNCH.id);
+      this.IMPORTANT_SPELLS.push(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id);
     }
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_KICK), this.onCast);
   }
