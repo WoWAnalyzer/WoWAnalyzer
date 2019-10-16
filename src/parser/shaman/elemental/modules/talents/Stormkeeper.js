@@ -6,6 +6,8 @@ import { formatNumber, formatPercentage } from 'common/format';
 
 import Analyzer from 'parser/core/Analyzer';
 
+import Abilities from 'parser/core/modules/Abilities';
+
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 const AFFECTED_ABILITIES = [SPELLS.LIGHTNING_BOLT_OVERLOAD.id,
@@ -15,6 +17,11 @@ const AFFECTED_ABILITIES = [SPELLS.LIGHTNING_BOLT_OVERLOAD.id,
 
 class Stormkeeper extends Analyzer {
   damageDoneByBuffedCasts = 0;
+  stormkeeperCasts = 0;
+
+  static dependencies = {
+    abilities: Abilities,
+  };
 
   constructor(...args) {
     super(...args);
@@ -38,6 +45,20 @@ class Stormkeeper extends Analyzer {
 
   get damagePerSecond() {
     return this.damageDoneByBuffedCasts / (this.owner.fightDuration / 1000);
+  }
+
+  on_byPlayer_applybuff(event){
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.STORMKEEPER_TALENT.id) {
+      this.stormkeeperCasts += 1;
+    }
+  }
+
+  on_fightend(event){
+    console.log(this.abilities.abilities[9]);
+    this.abilities.abilities[9].castEfficiency.casts = (a, b) =>{
+      return this.stormkeeperCasts;
+    };
   }
 
   statistic() {
