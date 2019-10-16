@@ -8,6 +8,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  change(date(2019, 10, 13), <>Added extra information and cleaned up Vantus Rune infographic. />.</>, Abelito75),
   change(date(2019, 10, 13), <>Added <ItemLink id={ITEMS.RAZOR_CORAL.id} />.</>, Zeboot),
   change(date(2019, 10, 13), 'Added event filter to cooldown to view only events during a selected cooldown.', Zeboot),
   change(date(2019, 10, 13), <>Added <ItemLink id={ITEMS.BLOODTHIRSTY_URCHIN.id} />.</>, Zeboot),
