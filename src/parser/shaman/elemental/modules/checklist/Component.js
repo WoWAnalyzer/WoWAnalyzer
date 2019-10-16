@@ -57,6 +57,7 @@ class ElementalShamanChecklist extends React.PureComponent {
           <Requirement name="Downtime" thresholds={thresholds.downtime} />
           <Requirement name="Cancelled casts" thresholds={thresholds.cancelledCasts} />
         </Rule>
+        {combatant.hasTalent(SPELLS.ICEFURY_TALENT.id) && (
         <Rule
           name="Utilize all Icefury Stacks"
           description={(
@@ -64,6 +65,7 @@ class ElementalShamanChecklist extends React.PureComponent {
           )}>
           <Requirement name="Average Frost Shock Casts within Icefury Duration" thresholds={thresholds.icefuryEfficiency} />
         </Rule>
+        )}
         <PreparationRule thresholds={thresholds} />
       </Checklist>
     );
