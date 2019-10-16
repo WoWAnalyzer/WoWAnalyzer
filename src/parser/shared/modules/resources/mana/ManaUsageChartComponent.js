@@ -77,14 +77,13 @@ class HealingDoneGraph extends React.PureComponent {
     }
 
     let lastKnown = null;
-    const maxMana = manaUpdates[0].max;
     const mana = Object.values(manaLevelPerFrame).map((value, i) => {
       if (value !== null) {
         lastKnown = value;
       }
       return {
         x: labels[i],
-        y: lastKnown * maxMana,
+        y: lastKnown * max,
       };
     });
     const healing = Object.values(healingPerFrame).map((value, i) => ({ x: labels[i], y: value / interval }));
