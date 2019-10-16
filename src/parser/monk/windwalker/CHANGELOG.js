@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 10, 14), <>Updated cooldown calculations with <SpellLink id={SPELLS.SERENITY_TALENT.id} /> and added statistic showing its effective damage increase and cooldown reductions.</>, Juko8),
   change(date(2019, 10, 1), <>Updated <SpellLink id={SPELLS.HIT_COMBO_TALENT.id} /> to use stack weighted uptime.</>, Juko8),
   change(date(2019, 10, 1), <>Updated <SpellLink id={SPELLS.COMBO_STRIKES.id} /> to have more accurate thresholds for correct use.</>, Juko8),
   change(date(2019, 10, 1), <>Updated <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> to lower expected average ticks when the player uses Cyclotronic Blast</>, Juko8),

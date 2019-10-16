@@ -71,7 +71,7 @@ class HitCombo extends Analyzer {
         size="flexible"
         tooltip={(
           <>
-            Total damage increase: ${formatNumber(this.totalDamage)}<br />
+            Total damage increase: {formatNumber(this.totalDamage)}<br />
             Uptime is weighted so less stacks count less towards 100% uptime
           </>
         )}
