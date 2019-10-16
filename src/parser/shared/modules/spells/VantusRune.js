@@ -1,7 +1,5 @@
 import React from 'react';
 
-import SpellLink from 'common/SpellLink';
-import Icon from 'common/Icon';
 import { formatNumber } from 'common/format';
 
 import Statistic from 'interface/statistics/Statistic';
@@ -27,7 +25,7 @@ const runes = [
   ITEMS.VANTUS_RUNE_BATTLE_OF_DAZARALOR,
   ITEMS.VANTUS_RUNE_CRUCIBLE_OF_STORMS,
   ITEMS.VANTUS_RUNE_ETERNAL_PALACE,
-]
+];
 
 /**
  * @property {HealingDone} healingDone
@@ -83,25 +81,25 @@ class VantusRune extends Analyzer {
       >
         <BoringItemValueText item={this.masterRune}>
         <img
-            src="/img/sword.png"
-            alt="Damage"
-            className="icon"
-          /> 
-          {` ${formatNumber(damageDone / fightDuration * 1000)} DPS`}
-          <br />
-          <img
-            src="/img/healing.png"
-            alt="Healing"
-            className="icon"
-          /> 
-          {` ${formatNumber(healingDone / fightDuration * 1000)} HPS`}
-          <br />
-          <img
-            src="/img/shield.png"
-            alt="Damage Taken"
-            className="icon"
-          /> 
-          {` ${formatNumber(damageReduced / fightDuration * 1000)} DRPS`}
+          src="/img/sword.png"
+          alt="Damage"
+          className="icon"
+        /> 
+        {` ${formatNumber(damageDone / fightDuration * 1000)} DPS`}
+        <br />
+        <img
+          src="/img/healing.png"
+          alt="Healing"
+          className="icon"
+        /> 
+        {` ${formatNumber(healingDone / fightDuration * 1000)} HPS`}
+        <br />
+        <img
+          src="/img/shield.png"
+          alt="Damage Taken"
+          className="icon"
+        /> 
+        {` ${formatNumber(damageReduced / fightDuration * 1000)} DRPS`}
         </BoringItemValueText>
       </Statistic>
 
