@@ -63,6 +63,9 @@ class VantusRune extends Analyzer {
         }
       });
     }
+    if(this.masterRune === null) {//default to the icon to current tier
+      this.masterRune = runes[runes.length - 1];
+    }
 
   }
 
