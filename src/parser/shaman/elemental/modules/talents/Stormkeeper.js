@@ -55,7 +55,6 @@ class Stormkeeper extends Analyzer {
   }
 
   on_fightend(event){
-    console.log(this.abilities.abilities[9]);
     this.abilities.abilities[9].castEfficiency.casts = (a, b) =>{
       return this.stormkeeperCasts;
     };
