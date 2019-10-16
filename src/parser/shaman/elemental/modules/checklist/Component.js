@@ -57,6 +57,13 @@ class ElementalShamanChecklist extends React.PureComponent {
           <Requirement name="Downtime" thresholds={thresholds.downtime} />
           <Requirement name="Cancelled casts" thresholds={thresholds.cancelledCasts} />
         </Rule>
+        <Rule
+          name="Utilize all Icefury Stacks"
+          description={(
+            <><SpellLink id={SPELLS.ICEFURY_TALENT.id} /> damage component itself is not a strong spell so it's important to fully utilize the talent by consuming all 4 <SpellLink id={SPELLS.ICEFURY_TALENT.id} /> buff stacks with <SpellLink id={SPELLS.FROST_SHOCK.id} /> casts during the buff's duration. While you should try and buff as many <SpellLink id={SPELLS.ICEFURY_TALENT.id} /> empowered <SpellLink id={SPELLS.FROST_SHOCK.id} /> as you can with <SpellLink id={SPELLS.MASTER_OF_THE_ELEMENTS_TALENT.id} />, it is far more important to actually use all 4 charges before the buff expires.</>
+          )}>
+          <Requirement name="Average Frost Shocks Casts within Icefury duration" thresholds={thresholds.icefuryEfficiency} />
+        </Rule>
         <PreparationRule thresholds={thresholds} />
       </Checklist>
     );
