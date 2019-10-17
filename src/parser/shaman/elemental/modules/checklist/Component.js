@@ -47,6 +47,34 @@ class ElementalShamanChecklist extends React.PureComponent {
           {combatant.hasTalent(SPELLS.ELEMENTAL_BLAST_TALENT.id) && <AbilityRequirement spell={SPELLS.ELEMENTAL_BLAST_TALENT.id} />}
         </Rule>
         <Rule
+          name="Maintain your flame shock."
+          description={(
+            <>
+              It's important to maintain flame shock on your target to guarantee <SpellLink id={SPELLS.LAVA_BURST.id} /> will crit and to allow for <SpellLink id={SPELLS.LAVA_SURGE.id} /> procs. 
+              
+              Applying <SpellLink id={SPELLS.FLAME_SHOCK.id} /> itself does little damage so you should only refresh it with 30% or less (about 7 seconds) or it's total duration remaining.
+            </>
+          )}
+        >
+          <Requirement
+            name={(
+              <>
+                <SpellLink id={SPELLS.FLAME_SHOCK.id} /> uptime
+              </>
+            )}
+            thresholds={thresholds.flameshockUptime}
+          />
+          {/* <Requirement
+            name={(
+              <>
+                <SpellLink id={SPELLS.FLAME_SHOCK.id} /> good refreshes
+              </>
+            )}
+            thresholds={thresholds.flameShockRefreshes}
+          /> */}
+
+        </Rule>
+        <Rule
           name="Minimize Downtime"
           description={(
             <>
