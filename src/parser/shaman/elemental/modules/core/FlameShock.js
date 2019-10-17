@@ -35,10 +35,10 @@ class FlameShock extends Analyzer {
   get uptimeThresholds() {
     return {
       actual: this.uptime,
-      isLessThanOrEqual: {
-        minor: .99,
-        average: .95,
-        major: .85,
+      isLessThan: {
+        minor: 0.99,
+        average: 0.95,
+        major: 0.85,
       },
       style: 'percentage',
     };
@@ -49,7 +49,7 @@ class FlameShock extends Analyzer {
       return suggest(<span>Your <SpellLink id={SPELLS.FLAME_SHOCK.id} /> uptime can be improved.</span>)
         .icon(SPELLS.FLAME_SHOCK.icon)
         .actual(`${formatPercentage(actual)}% uptime`)
-        .recommended(`>${formatPercentage(recommended)}% is recommended`)
+        .recommended(`>${formatPercentage(recommended)}% is recommended`);
     });
 
     when(this.badLavaBursts).isGreaterThan(0)
