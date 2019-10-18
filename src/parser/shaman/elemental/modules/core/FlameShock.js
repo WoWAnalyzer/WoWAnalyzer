@@ -5,12 +5,20 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 
-import Analyzer from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
+import EarlyDotRefreshes from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesInstants';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
-class FlameShock extends Analyzer {
+const FLAME_SHOCK_DOT = {
+  name: "Flame Shock",
+  debuffId: SPELLS.FLAME_SHOCK.id,
+  castId: SPELLS.FLAME_SHOCK.id,
+  duration: 24000,
+  movementFiller: true,
+};
+
+class FlameShock extends EarlyDotRefreshes {
   static dependencies = {
     enemies: Enemies,
   };
@@ -30,6 +38,18 @@ class FlameShock extends Analyzer {
     if(target && !target.hasBuff(SPELLS.FLAME_SHOCK.id)){
       this.badLavaBursts++;
     }
+  }
+
+  get refreshThreshold() {
+    return {
+      actual: 0,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.85,
+        major: 0.75,
+      },
+      style: 'percentage',
+    };
   }
 
   get uptimeThresholds() {
