@@ -61,7 +61,10 @@ class ElementalShamanChecklist extends React.PureComponent {
         <Rule
           name={<>Utilize all Icefury Stacks</>}
           description={(
-            <><SpellLink id={SPELLS.ICEFURY_TALENT.id} />'s damage component itself is not a strong spell so it's important to fully utilize the talent by consuming all 4 <SpellLink id={SPELLS.ICEFURY_TALENT.id} /> buff stacks with <SpellLink id={SPELLS.FROST_SHOCK.id} /> casts during the buff's duration. While you should try to buff as many <SpellLink id={SPELLS.ICEFURY_TALENT.id} /> empowered <SpellLink id={SPELLS.FROST_SHOCK.id} /> as you can with <SpellLink id={SPELLS.MASTER_OF_THE_ELEMENTS_TALENT.id} />, it is far more important to actually use all 4 charges before the buff expires.</>
+            <>
+              <SpellLink id={SPELLS.ICEFURY_TALENT.id} />'s damage component itself is not a strong spell so it's important to fully utilize the talent by consuming all 4 <SpellLink id={SPELLS.ICEFURY_TALENT.id} /> buff stacks with <SpellLink id={SPELLS.FROST_SHOCK.id} /> casts during the buff's duration. 
+              {combatant.hasTalent(SPELLS.MASTER_OF_THE_ELEMENTS_TALENT.id) && <> While you should try to buff as many <SpellLink id={SPELLS.ICEFURY_TALENT.id} /> empowered <SpellLink id={SPELLS.FROST_SHOCK.id} /> as you can with <SpellLink id={SPELLS.MASTER_OF_THE_ELEMENTS_TALENT.id} />, it is far more important to actually use all 4 charges before the buff expires.</>}
+            </>
           )}>
           <Requirement name={<>Average <SpellLink id={SPELLS.FROST_SHOCK.id} /> Casts within <SpellLink id={SPELLS.ICEFURY_TALENT.id} /> Duration</>} thresholds={thresholds.icefuryEfficiency} />
         </Rule>
