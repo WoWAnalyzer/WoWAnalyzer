@@ -13,6 +13,8 @@ class Essence extends React.PureComponent {
     essences: PropTypes.object.isRequired,
   };
 
+  essences = this.props.essences || {}
+
   state = {
     essences: Object.values(ESSENCES),
   };
@@ -26,8 +28,6 @@ class Essence extends React.PureComponent {
   }
 
   render() {
-    const essences = this.props.essences;
-
     return (
       <>
         <h3>
@@ -35,7 +35,7 @@ class Essence extends React.PureComponent {
         </h3>
         <div className="essences">
           <div className="essence-row">
-            {Object.values(essences).map((essence, index) => {
+            {Object.values(this.essences).map((essence, index) => {
               const spell = this.state.essences.find(e => e.id === essence.spellID);
               const quality = this.convertRankIntoQuality(essence.rank);
               const height = index === 0 ? '60px' : '45px';
@@ -61,7 +61,7 @@ class Essence extends React.PureComponent {
   loadMissingIcons() {
     // load missing essence-icons and add them to the components state after it got fetched
     const missingIcons = [];
-    const essences = Object.values(this.props.essences);
+    const essences = Object.values(this.essences || {});
     essences.forEach(essence => {
       const foundEssence = this.state.essences.find(e => e.id === parseInt(essence.spellID, 10));
 
