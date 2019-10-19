@@ -61,7 +61,7 @@ class Essence extends React.PureComponent {
   loadMissingIcons() {
     // load missing essence-icons and add them to the components state after it got fetched
     const missingIcons = [];
-    const essences = Object.values(this.essences || {});
+    const essences = Object.values(this.essences);
     essences.forEach(essence => {
       const foundEssence = this.state.essences.find(e => e.id === parseInt(essence.spellID, 10));
 
