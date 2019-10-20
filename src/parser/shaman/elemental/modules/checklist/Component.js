@@ -26,6 +26,7 @@ class ElementalShamanChecklist extends React.PureComponent {
         {...props}
       />
     );
+
     return (
       <Checklist>
         <Rule
@@ -52,7 +53,7 @@ class ElementalShamanChecklist extends React.PureComponent {
             <>
               It's important to maintain flame shock on your target to guarantee <SpellLink id={SPELLS.LAVA_BURST.id} /> will crit and to allow for <SpellLink id={SPELLS.LAVA_SURGE.id} /> procs. 
               
-              Applying <SpellLink id={SPELLS.FLAME_SHOCK.id} /> itself doesn't do much damage so you should only refresh it with 30% (about 7 seconds) or less of it's total duration remaining.
+              Applying <SpellLink id={SPELLS.FLAME_SHOCK.id} /> itself doesn't do much damage so you should only refresh it with 30% (about 7 seconds) or less of it's total duration remaining to beneift from pandemic.
             </>
           )}
         >
@@ -62,16 +63,16 @@ class ElementalShamanChecklist extends React.PureComponent {
                 <SpellLink id={SPELLS.FLAME_SHOCK.id} /> uptime
               </>
             )}
-            thresholds={thresholds.flameshockUptime}
+            thresholds={thresholds.flameShockUptime}
           />
-          {/* <Requirement
+          <Requirement
             name={(
               <>
-                <SpellLink id={SPELLS.FLAME_SHOCK.id} /> good refreshes
+                Bad <SpellLink id={SPELLS.FLAME_SHOCK.id} /> refreshes 
               </>
             )}
             thresholds={thresholds.flameShockRefreshes}
-          /> */}
+          />
 
         </Rule>
         <Rule

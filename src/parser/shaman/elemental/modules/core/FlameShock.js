@@ -7,21 +7,24 @@ import { formatNumber, formatPercentage } from 'common/format';
 
 import Enemies from 'parser/shared/modules/Enemies';
 import EarlyDotRefreshes from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesInstants';
+import badRefreshSuggestion from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesInstantsSuggestion';
+
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
-const FLAME_SHOCK_DOT = {
-  name: "Flame Shock",
-  debuffId: SPELLS.FLAME_SHOCK.id,
-  castId: SPELLS.FLAME_SHOCK.id,
-  duration: 24000,
-  movementFiller: true,
-};
-
 class FlameShock extends EarlyDotRefreshes {
   static dependencies = {
+    ...EarlyDotRefreshes.dependencies,
     enemies: Enemies,
   };
+
+  static dots = [{
+    name: "Flame Shock",
+    debuffId: SPELLS.FLAME_SHOCK.id,
+    castId: SPELLS.FLAME_SHOCK.id,
+    duration: 24000,
+    movementFiller: true,
+  }]
 
   badLavaBursts = 0;
 
@@ -40,19 +43,26 @@ class FlameShock extends EarlyDotRefreshes {
     }
   }
 
+  couldCastWhileMoving(castEvent, endEvent) {
+    // You would rather always cast Frost shock over flame shock as filler unless you're within pandemic range
+    return false;
+  }
+
   get refreshThreshold() {
     return {
-      actual: 0,
-      isLessThan: {
-        minor: 0.95,
-        average: 0.85,
-        major: 0.75,
+      spell: SPELLS.FLAME_SHOCK,
+      count: this.casts[SPELLS.FLAME_SHOCK.id].badCasts,
+      actual: this.badCastsPercent(SPELLS.FLAME_SHOCK.id),
+      isGreaterThan: {
+        minor: 0.10,
+        average: 0.20,
+        major: 0.30,
       },
       style: 'percentage',
     };
   }
 
-  get uptimeThresholds() {
+  get uptimeThreshold() {
     return {
       actual: this.uptime,
       isLessThan: {
@@ -65,7 +75,7 @@ class FlameShock extends EarlyDotRefreshes {
   }
 
   suggestions(when) {
-    when(this.uptimeThresholds).addSuggestion((suggest, actual, recommended) => {
+    when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => {
       return suggest(<span>Your <SpellLink id={SPELLS.FLAME_SHOCK.id} /> uptime can be improved.</span>)
         .icon(SPELLS.FLAME_SHOCK.icon)
         .actual(`${formatPercentage(actual)}% uptime`)
@@ -80,6 +90,8 @@ class FlameShock extends EarlyDotRefreshes {
           .recommended(`0 is recommended`)
           .major(recommended+1);
       });
+
+    badRefreshSuggestion(when, this.refreshThreshold);
   }
 
   statistic() {

@@ -33,7 +33,8 @@ class Checklist extends BaseChecklist {
           cancelledCasts: this.cancelledCasts.cancelledCastSuggestionThresholds,
           downtime: this.alwaysBeCasting.downtimeSuggestionThresholds,
           icefuryEfficiency: this.icefury.suggestionThresholds,
-          flameshockUptime: this.flameshock.uptimeThresholds,
+          flameShockUptime: this.flameshock.uptimeThreshold,
+          flameShockRefreshes: this.flameshock.refreshThreshold,
         }}
       />
     );
