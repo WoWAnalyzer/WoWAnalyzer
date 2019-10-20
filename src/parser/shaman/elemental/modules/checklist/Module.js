@@ -5,6 +5,7 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 
+import Icefury from 'parser/shaman/elemental/modules/talents/Icefury';
 import CancelledCasts from 'parser/shaman/elemental/modules/features/CancelledCasts';
 import AlwaysBeCasting from 'parser/shaman/elemental/modules/features/AlwaysBeCasting';
 
@@ -17,6 +18,7 @@ class Checklist extends BaseChecklist {
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     cancelledCasts: CancelledCasts,
     alwaysBeCasting: AlwaysBeCasting,
+    icefury: Icefury,
   };
 
   render() {
@@ -28,6 +30,7 @@ class Checklist extends BaseChecklist {
           ...this.preparationRuleAnalyzer.thresholds,
           cancelledCasts: this.cancelledCasts.cancelledCastSuggestionThresholds,
           downtime: this.alwaysBeCasting.downtimeSuggestionThresholds,
+          icefuryEfficiency: this.icefury.suggestionThresholds,
         }}
       />
     );
