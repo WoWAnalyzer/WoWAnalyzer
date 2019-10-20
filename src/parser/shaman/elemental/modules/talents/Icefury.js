@@ -3,9 +3,9 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
+import Events from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-
-import Analyzer from 'parser/core/Analyzer';
 
 class Icefury extends Analyzer {
   static dependencies = {
@@ -17,13 +17,17 @@ class Icefury extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.ICEFURY_TALENT.id);
+    
+    if (!this.active) {
+      return;
+    }
+
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FROST_SHOCK), this.onFrostShockCast);
   }
   
-  on_byPlayer_cast(event) {
+  onFrostShockCast(event) {
     if (this.selectedCombatant.hasBuff(SPELLS.ICEFURY_TALENT.id)) {
-      if (event.ability.guid === SPELLS.FROST_SHOCK.id) {
-        this.empoweredFrostShockCasts++;
-      }
+      this.empoweredFrostShockCasts++;
     }
   }
   
