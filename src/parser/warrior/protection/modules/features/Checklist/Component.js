@@ -51,7 +51,6 @@ class ProtectionWarriorChecklist extends React.PureComponent {
             name={(<>Effective <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> Casts </>)}
             thresholds={thresholds.shieldBlock}
             />
-          {combatant.hasTalent(SPELLS.STORM_BOLT_TALENT.id) && <AbilityRequirement spell={SPELLS.STORM_BOLT_TALENT.id} />}
           {combatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id) && (
             <Requirement
               name={(<SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> )}
@@ -78,9 +77,10 @@ class ProtectionWarriorChecklist extends React.PureComponent {
             name={(<SpellLink id={SPELLS.LAST_STAND.id} /> )}
             thresholds={thresholds.lastStandCD}
             />
-          <AbilityRequirement spell={SPELLS.SPELL_REFLECTION.id} 
-            tooltip={<>Take this with a grain of salt as some bosses it is not possible to use. </>}
-          /> 
+          <Requirement
+            name={(<>Magic damage with <SpellLink id={SPELLS.SPELL_REFLECTION.id} /></> )}
+            thresholds={thresholds.spellReflect}
+            /> 
           {!combatant.hasTalent(SPELLS.BOOMING_VOICE_TALENT.id) && (
               <Requirement
                 name={(<SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> )}

@@ -13,6 +13,7 @@ class Mana extends React.PureComponent {
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
     manaUpdates: PropTypes.array.isRequired,
+    offsetTime: PropTypes.number.isRequired,
   };
 
   constructor(props) {
@@ -57,7 +58,7 @@ class Mana extends React.PureComponent {
       );
     }
 
-    const { start, end, manaUpdates } = this.props;
+    const { start, end, manaUpdates, offsetTime } = this.props;
 
     const mana = manaUpdates.map(({ timestamp, current, max }) => {
       const x = Math.max(timestamp, start);
@@ -94,6 +95,7 @@ class Mana extends React.PureComponent {
             mana={mana}
             deaths={deaths}
             bossData={bossData}
+            offsetTime={offsetTime}
             startTime={start}
             endTime={end}
           />

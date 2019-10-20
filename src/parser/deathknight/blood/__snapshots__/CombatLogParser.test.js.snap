@@ -1138,8 +1138,8 @@ exports[`The Blood Deathknight Analyzer should match the checklist snapshot 1`] 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#4ec04e",
-                  "width": "100%",
+                  "backgroundColor": "#a6c34c",
+                  "width": "93.54088992016754%",
                 }
               }
             />
@@ -1244,7 +1244,7 @@ exports[`The Blood Deathknight Analyzer should match the checklist snapshot 1`] 
                   }
                 >
                    
-                  96.69%
+                  93.70%
                    
                    
                 </div>
@@ -1316,7 +1316,7 @@ exports[`The Blood Deathknight Analyzer should match the checklist snapshot 1`] 
                   }
                 >
                    
-                  91.94%
+                  88.08%
                    
                    
                 </div>
@@ -1336,9 +1336,9 @@ exports[`The Blood Deathknight Analyzer should match the checklist snapshot 1`] 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "87.08177984033509%",
                       }
                     }
                   />
@@ -2284,8 +2284,8 @@ exports[`The Blood Deathknight Analyzer should match the checklist snapshot 1`] 
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ffc84a",
-                  "width": "53.3536913241092%",
+                  "backgroundColor": "#ac1f39",
+                  "width": "8.900300127367128%",
                 }
               }
             />
@@ -2390,7 +2390,7 @@ exports[`The Blood Deathknight Analyzer should match the checklist snapshot 1`] 
                   }
                 >
                    
-                  64.55%
+                  9.35%
                    
                    
                 </div>
@@ -2410,9 +2410,9 @@ exports[`The Blood Deathknight Analyzer should match the checklist snapshot 1`] 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "8.900300127367128%",
                       }
                     }
                   />
@@ -2534,7 +2534,7 @@ exports[`The Blood Deathknight Analyzer should match the checklist snapshot 1`] 
                   }
                 >
                    
-                  43.04%
+                  25.00%
                    
                    
                 </div>
@@ -2554,9 +2554,9 @@ exports[`The Blood Deathknight Analyzer should match the checklist snapshot 1`] 
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ffc84a",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "60.06107397232762%",
+                        "width": "23.784861243607313%",
                       }
                     }
                   />

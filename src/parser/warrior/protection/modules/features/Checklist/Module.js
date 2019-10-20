@@ -11,9 +11,9 @@ import RageDetails from '../../core/RageDetails';
 import RageTracker from '../../core/RageTracker';
 import ShieldSlam from '../../spells/ShieldSlam';
 import ShieldBlock from '../../spells/ShieldBlock';
-import ShieldBlockMitigation from '../../spells/ShieldBlockMitigation';
+import BlockCheck from '../BlockCheck';
 import AngerCD from '../../talents/AngerCD';
-
+import SpellReflect from '../../spells/SpellReflect';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -26,8 +26,9 @@ class Checklist extends BaseChecklist {
     rageTracker: RageTracker,
     shieldSlam: ShieldSlam,
     shieldBlock: ShieldBlock,
-    shieldBlockMitigation: ShieldBlockMitigation,
+    blockCheck: BlockCheck,
     angerCD: AngerCD,
+    spellReflect: SpellReflect,
   };
 
   render() {
@@ -45,7 +46,8 @@ class Checklist extends BaseChecklist {
           lastStandCD: this.angerCD.suggestionThresholdsLastStand,
           shieldWallCD: this.angerCD.suggestionThresholdsShieldWall,
           shieldBlock: this.shieldBlock.suggestionThresholds,
-          shieldBlockMitigation: this.shieldBlockMitigation.suggestionThresholds,
+          blockCheck: this.blockCheck.suggestionThresholds,
+          spellReflect: this.spellReflect.suggestionThresholds,
         }}
       />
     );

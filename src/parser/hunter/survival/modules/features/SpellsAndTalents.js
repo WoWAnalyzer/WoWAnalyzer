@@ -7,6 +7,9 @@ import Analyzer from 'parser/core/Analyzer';
 import SerpentSting from '../spells/SerpentSting';
 import CoordinatedAssault from '../spells/CoordinatedAssault';
 
+/**
+ * @Deprecated The spells' statistics have been replaced with the new ones and this module is no longer useful.
+ */
 class SpellsAndTalents extends Analyzer {
   static dependencies = {
     serpentSting: SerpentSting,
@@ -28,8 +31,8 @@ class SpellsAndTalents extends Analyzer {
         title="Spells and Talents"
         tooltip="This provides an overview of the damage contributions of various spells and talents. This isn't meant as a way to 1:1 evaluate talents, as some talents bring other strengths to the table than pure damage."
       >
-        {this.serpentSting.active && this.serpentSting.subStatistic()}
-        {this.coordinatedAssault.active && this.coordinatedAssault.subStatistic()}
+        {this.serpentSting.active && this.serpentSting.statistic()}
+        {this.coordinatedAssault.active && this.coordinatedAssault.statistic()}
       </StatisticsListBox>
 
     );

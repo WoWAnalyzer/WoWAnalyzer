@@ -3,14 +3,14 @@ import ResourceTracker from 'parser/shared/modules/resourcetracker/ResourceTrack
 import SPELLS from 'common/SPELLS';
 
 class ChiTracker extends ResourceTracker {
-  maxChi = 5;
+  maxResource = 5;
 
   constructor(...args) {
     super(...args);
     this.resource = RESOURCE_TYPES.CHI;
 
     if (this.selectedCombatant.hasTalent(SPELLS.ASCENSION_TALENT.id)) {
-      this.maxChi = 6;
+      this.maxResource = 6;
     }
   }
 
@@ -23,7 +23,7 @@ class ChiTracker extends ResourceTracker {
 
     // Blackout Kick costs 3 chi when learned, but is reduced in cost during levelling
     if (spellId === SPELLS.BLACKOUT_KICK.id) {
-        cost = 1;     
+        cost = 1;
     }
     return cost;
   }

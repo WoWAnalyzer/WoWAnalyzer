@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Sharrq } from 'CONTRIBUTORS';
+import { Sharrq, Juko8 } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ITEMS from 'common/ITEMS';
@@ -8,6 +8,13 @@ import ItemLink from 'common/ItemLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 10, 9), <>Added Statistic Boxes for <SpellLink id={SPELLS.SEARING_TOUCH_TALENT.id} /> and <SpellLink id={SPELLS.KINDLING_TALENT.id} /> and fixed the <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> statistic box.</>,[Sharrq]),
+  change(date(2019, 10, 9), <>Combined the statistic boxes for <SpellLink id={SPELLS.HOT_STREAK.id} /> and Hot Streak Pre-Casts.</>,[Sharrq]),
+  change(date(2019, 10, 2), <>Fixed a bug in <SpellLink id={SPELLS.METEOR_TALENT.id} /> that was marking a cast as bad if it was cast at the same time as <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /></>,[Sharrq]),
+  change(date(2019, 10, 1), 'Updated Statistic Boxes to new format.',[Sharrq]),
+  change(date(2019, 9, 30), 'Updated Spec Compatibility to 8.2.5.',[Sharrq]),
+  change(date(2019, 9, 25), <>Fixed a bug in <SpellLink id={SPELLS.METEOR_TALENT.id} /> that was incorrectly marking casts as bad if they were cast while empowered by <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} />.</>, Juko8),
+  change(date(2019, 9, 19), <>Fixed a bug in <SpellLink id={SPELLS.METEOR_TALENT.id} /> that was looking for the wrong Spell ID for <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} />.</>, [Sharrq]),
   change(date(2019, 9, 3), <>Fixed bug in <SpellLink id={SPELLS.LUCID_DREAMS_MAJOR.id} />.</>, [Sharrq]),
   change(date(2019, 8, 27), <>Update <SpellLink id={SPELLS.BLASTER_MASTER.id} /> explanation graphic to new version.</>, [Sharrq]),
   change(date(2019, 8, 21), <>Add support for Fire Blast cooldown reduction from <SpellLink id={SPELLS.LUCID_DREAMS_MAJOR.id} />.</>, [Sharrq]),

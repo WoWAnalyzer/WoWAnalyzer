@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage,formatDuration } from 'common/format';
 import Toggle from 'react-toggle';
 import PerformanceBar from 'common/PerformanceBar';
 import SpellLink from 'common/SpellLink';
@@ -130,6 +130,7 @@ class HealingEfficiencyBreakdown extends React.Component {
           <TooltipElement content="Total Casts (Number of targets hit)">Casts</TooltipElement>
         </th>
         <th>Mana Spent</th>
+        <th>Time Spent</th>
         {this.state.showHealing && (
           <>
             <th>Healing Done</th>
@@ -170,6 +171,7 @@ class HealingEfficiencyBreakdown extends React.Component {
           {formatNumber(spellDetail.manaSpent)}
           {' (' + formatPercentage(spellDetail.manaPercentSpent) + '%)'}
         </td>
+        <td>{spellDetail.timeSpentCasting !== 0 ? (formatDuration(spellDetail.timeSpentCasting / 1000) + ' (' + formatPercentage(spellDetail.percentTimeSpentCasting) + '%)') : '-'}</td>
         {this.state.showHealing && (
           <>
             <td>

@@ -17,6 +17,7 @@ import FocusUsage from '../shared/modules/features/FocusUsage';
 import Trueshot from './modules/spells/Trueshot';
 import LoneWolf from './modules/spells/LoneWolf';
 import PreciseShots from './modules/spells/PreciseShots';
+import AimedShot from './modules/spells/AimedShot';
 
 //Talents
 import AMurderOfCrows from '../shared/modules/talents/AMurderOfCrows';
@@ -48,9 +49,6 @@ import SurgingShots from './modules/spells/azeritetraits/SurgingShots';
 import InTheRhythm from './modules/spells/azeritetraits/InTheRhythm';
 import UnerringVision from './modules/spells/azeritetraits/UnerringVision';
 
-//Traits and Talents
-import SpellsAndTalents from './modules/features/SpellsAndTalents';
-
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core statistics
@@ -74,6 +72,7 @@ class CombatLogParser extends CoreCombatLogParser {
     trueshot: Trueshot,
     loneWolf: LoneWolf,
     preciseShots: PreciseShots,
+    aimedShot: AimedShot,
 
     //Talents
     volley: Volley,
@@ -100,9 +99,6 @@ class CombatLogParser extends CoreCombatLogParser {
     surgingShots: SurgingShots,
     inTheRhythm: InTheRhythm,
     unerringVision: UnerringVision,
-
-    //Spells and Talents
-    spellsAndTalents: SpellsAndTalents,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],

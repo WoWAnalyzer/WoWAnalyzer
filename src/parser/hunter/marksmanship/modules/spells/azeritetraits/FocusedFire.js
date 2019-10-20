@@ -18,7 +18,7 @@ const focusedFireStats = traits => Object.values(traits).reduce((obj, rank) => {
 /** Focused Fire
  * Rapid Fire deals an additional 5903.1765 damage over its duration, and each shot has a 30% chance to generate 2 additional Focus.
  *
- * Example log: https://www.warcraftlogs.com/reports/47LJvZ9BgdhR8TXf#fight=43&type=summary&source=16
+ * Example log: https://www.warcraftlogs.com/reports/CMFw3NLR6dHbXcJ2#fight=1&type=damage-done
  */
 
 const TICKS_PER_CAST = 10;
@@ -58,14 +58,13 @@ class FocusedFire extends Analyzer {
     return (
       <AzeritePowerStatistic
         size="flexible"
+        category={"AZERITE_POWERS"}
       >
         <BoringSpellValueText spell={SPELLS.FOCUSED_FIRE}>
-          {this.focusGained}/{this.focusWasted + this.focusGained}
-          <small> gained Focus</small>
-          <br />
-          <small>Up to</small>
-          {formatNumber(this.damagePotential)}
-          <small> damage per <SpellLink id={SPELLS.RAPID_FIRE.id} /></small>
+          <>
+            {this.focusGained}/{this.focusWasted + this.focusGained}<small> gained Focus</small><br />
+            <small>Up to</small> {formatNumber(this.damagePotential)} <small> damage per <SpellLink id={SPELLS.RAPID_FIRE.id} /></small>
+          </>
         </BoringSpellValueText>
       </AzeritePowerStatistic>
     );

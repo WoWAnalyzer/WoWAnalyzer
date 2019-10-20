@@ -6,9 +6,11 @@ import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import { RAPTOR_MONGOOSE_VARIANTS, VIPERS_VENOM_DAMAGE_MODIFIER } from 'parser/hunter/survival/constants';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Raptor Strike (or Mongoose Bite) has a chance to make your next
@@ -127,14 +129,9 @@ class VipersVenom extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.VIPERS_VENOM_TALENT.id}
-        value={(
-          <>
-            {this.procs} / {this.wastedProcs + this.procs} procs used<br />
-            <ItemDamageDone amount={this.bonusDamage} />
-          </>
-        )}
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(1)}
+        size="flexible"
         tooltip={(
           <>
             <ul>
@@ -147,10 +144,17 @@ class VipersVenom extends Analyzer {
             </ul>
           </>
         )}
-      />
+        category={"TALENTS"}
+      >
+        <BoringSpellValueText spell={SPELLS.VIPERS_VENOM_TALENT}>
+          <>
+            <ItemDamageDone amount={this.bonusDamage} /><br />
+            {this.procs} / {this.wastedProcs + this.procs} <small>procs used</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
-
 }
 
 export default VipersVenom;

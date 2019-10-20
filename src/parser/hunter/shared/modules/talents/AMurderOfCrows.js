@@ -6,12 +6,14 @@ import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import Abilities from 'parser/core/modules/Abilities';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Summons a flock of crows to attack your target over the next 15 sec. If the target dies while under attack, A Murder of Crows' cooldown is reset.
  *
- * Example log: https://www.warcraftlogs.com/reports/8jJqDcrGK1xM3Wn6#fight=2&type=damage-done
+ * Example log: https://www.warcraftlogs.com/reports/A4yncd1vX9YG8BNH#fight=3&type=damage-done
  */
 
 const CROWS_TICK_RATE = 1000;
@@ -130,18 +132,20 @@ class AMurderOfCrows extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.A_MURDER_OF_CROWS_TALENT.id}
-        value={(
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
+        category={'TALENTS'}
+      >
+        <BoringSpellValueText spell={SPELLS.A_MURDER_OF_CROWS_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} /><br />
             {this.resets} <small>resets</small>
           </>
-        )}
-      />
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
-
 }
 
 export default AMurderOfCrows;

@@ -53,7 +53,6 @@ class Checklist extends BaseChecklist {
           arcanePowerCooldown: this.arcanePower.cooldownSuggestionThresholds,
           arcanePowerManaUtilization: this.arcanePower.manaUtilizationThresholds,
           arcanePowerCasts: this.arcanePower.castSuggestionThresholds,
-          arcanePowerOnKill: this.arcanePower.arcanePowerOnKillSuggestionThresholds,
           ruleOfThreesUsage: this.ruleOfThrees.suggestionThresholds,
           timeAnomalyManaUtilization: this.timeAnomaly.manaUtilizationThresholds,
           arcaneMissilesUtilization: this.arcaneMissiles.missilesSuggestionThresholds,

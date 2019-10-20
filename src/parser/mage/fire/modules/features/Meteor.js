@@ -1,13 +1,15 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
+
+const RUNE_OF_POWER_DELAY_BUFFER = 100;
 
 class Meteor extends Analyzer {
   static dependencies = {
@@ -15,6 +17,7 @@ class Meteor extends Analyzer {
     enemies: EnemyInstances,
   };
 
+  lastRuneCast = 0
   badMeteor = 0
 
   constructor(...args) {
@@ -28,10 +31,16 @@ class Meteor extends Analyzer {
     }
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.METEOR_TALENT), this.onMeteor);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RUNE_OF_POWER_TALENT), this.onRune);
+  }
+
+  onRune(event) {
+    this.lastRuneCast = event.timestamp;
   }
 
   onMeteor(event) {
-    if (this.selectedCombatant.hasBuff(SPELLS.RUNE_OF_POWER_TALENT.id)) {
+    console.log(event.timestamp - this.lastRuneCast);
+    if (!this.selectedCombatant.hasBuff(SPELLS.RUNE_OF_POWER_BUFF.id) && event.timestamp - this.lastRuneCast > RUNE_OF_POWER_DELAY_BUFFER) {
       this.badMeteor += 1;
     }
   }
@@ -68,11 +77,9 @@ class Meteor extends Analyzer {
 
 	statistic() {
     return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(100)}
-        icon={<SpellIcon id={SPELLS.METEOR_TALENT.id} />}
-        value={`${formatPercentage(this.meteorUtilization, 0)} %`}
-        label="Meteor Utilization"
+      <Statistic
+        size="flexible"
+        category={'TALENTS'}
         tooltip={(
           <>
             This is a measure of how well you utilized your Meteor casts.
@@ -83,7 +90,13 @@ class Meteor extends Analyzer {
             </ul>
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.METEOR_TALENT}>
+          <>
+            {formatPercentage(this.meteorUtilization,0)}% <small>Cast Utilization</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

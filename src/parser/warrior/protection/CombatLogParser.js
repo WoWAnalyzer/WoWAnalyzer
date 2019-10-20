@@ -1,4 +1,5 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
+import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 import Haste from './modules/core/Haste';
 import Abilities from './modules/Abilities';
@@ -10,7 +11,7 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 
 
 import ShieldBlock from './modules/spells/ShieldBlock';
-import ShieldBlockMitigation from './modules/spells/ShieldBlockMitigation';
+import BlockCheck from './modules/features/BlockCheck';
 import Checklist from './modules/features/Checklist/Module';
 import IgnorePain from './modules/features/IgnorePain';
 import RageTracker from './modules/core/RageTracker';
@@ -27,6 +28,7 @@ import Vengeance from './modules/talents/Vengeance';
 import Punish from './modules/talents/Punish';
 import DragonRoar from './modules/talents/DragonRoar';
 import AngerCD from './modules/talents/AngerCD';
+import SpellReflect from './modules/spells/SpellReflect';
 
 //azerite
 import BraceForImpact from './modules/azerite/BraceForImpact';
@@ -42,7 +44,7 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     shieldBlock: ShieldBlock,
-    shieldBlockMitigation: ShieldBlockMitigation,
+    blockCheck: BlockCheck,
     spellUsable: SpellUsable,
     cooldownThroughputTracker: CooldownThroughputTracker,
     checklist: Checklist,
@@ -52,6 +54,8 @@ class CombatLogParser extends CoreCombatLogParser {
     rageDetails: RageDetails,
     avatar: Avatar,
     shieldSlam: ShieldSlam,
+    spellReflect: SpellReflect,
+
     //Talents
     angerManagement: AngerManagement,
     angerCD: AngerCD,
@@ -66,6 +70,9 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Azerite
     braceForImpact: BraceForImpact,
+
+    // Doesn't generate enough rage to be a valid cast
+    arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }],
   };
 }
 
