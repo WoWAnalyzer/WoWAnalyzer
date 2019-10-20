@@ -8,6 +8,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 10, 16), <>Removed <SpellLink id={SPELLS.ARCANE_TORRENT_ENERGY.id} /> from Brewmaster suggestions.</>, emallson),
   change(date(2019, 9, 27), <>Update to date for 8.2.5 </>,Abelito75),
   change(date(2019, 7, 20), 'Updated hit-tracking blacklist and internal constants for Eternal Palace.', emallson),
   change(date(2019, 6, 28), <>Added a <SpellLink id={SPELLS.HOT_TRUB.id} /> damage estimator. Nerf sucks :(</>, [emallson]),
