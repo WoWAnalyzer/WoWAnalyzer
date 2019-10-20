@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   Yajinni,
   Mamtooth,
@@ -37,6 +38,7 @@ import {
   Draenal,
   JeremyDwayne,
   axelkic,
+  layday,
 } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
@@ -46,6 +48,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
 export default [
+  change(date(2019, 12, 23), 'Fixed early DoT refresh extension check.', layday),
   change(date(2019, 12, 17), "Fixed integration testing code with new build support.", [emallson]),
   change(date(2019, 12, 16), "Updated internal test tools to use new API URL.", [emallson]),
   change(date(2019, 12, 15), "Fix spell icons in cooldowns tab.", [Zerotorescue]),

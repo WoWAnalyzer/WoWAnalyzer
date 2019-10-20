@@ -822,3 +822,7 @@ export const Torothin = {
   github: 'Torothin',
   discord: 'Torothin#9751',
 };
+export const layday = {
+  nickname: 'layday',
+  github: 'layday',
+};
