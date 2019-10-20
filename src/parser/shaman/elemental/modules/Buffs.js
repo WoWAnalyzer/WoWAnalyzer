@@ -29,6 +29,7 @@ class Buffs extends CoreBuffs {
       },
       {
         spellId: SPELLS.STORMKEEPER_TALENT.id,
+        triggeredBySpellId: SPELLS.STORMKEEPER_TALENT.id,
         timelineHightlight: true,
       },
       {

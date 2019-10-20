@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 10, 16), <>Count precast <SpellLink id={SPELLS.STORMKEEPER_TALENT.id} /> in total number of <SpellLink id={SPELLS.STORMKEEPER_TALENT.id} /> casts.</>, [TheJigglr]),
   change(date(2019, 10, 12), <>Add suggestion and checklist for Icefury efficiency.</>, [Draenal]),
   change(date(2019, 10, 12), <>Added cancelled casts to downtime checklist. Add cancelled casts suggestion.</>, [Draenal]),
   change(date(2019, 8, 21), <>Added support for <SpellLink id={SPELLS.SURGE_OF_POWER_TALENT.id} /></>, [TheJigglr]),
