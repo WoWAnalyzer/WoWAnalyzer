@@ -49,7 +49,7 @@ class StatWeights extends BaseHealerStatValues {
   spellInfo = PRIEST_HEAL_INFO;
   qeLive = true;
 
-
+  /*
   _getCritChance(event) {
     return 0;
   }
@@ -60,8 +60,7 @@ class StatWeights extends BaseHealerStatValues {
 
   _hasteHpm(event, healVal) {
     return 0;
-  }
-
+  }*/
   _mastery(event, healVal) {
     return 0;
   }

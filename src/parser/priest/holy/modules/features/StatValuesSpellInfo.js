@@ -16,23 +16,18 @@ import SPELLS from 'common/SPELLS';
 // This only works with actual healing events; casts are not recognized.
 
 export default {
+  // Mastery
+  [SPELLS.ECHO_OF_LIGHT_HEAL.id]: {
+    int: true,
+    crit: true,
+    hasteHpm: true,
+    hasteHpct: true,
+    mastery: false, //Procs Gusts
+    vers: true,
+  },
+
+  // Spells
   [SPELLS.HOLY_NOVA_HEAL.id]: {
-    int: true,
-    crit: true,
-    hasteHpm: true,
-    hasteHpct: true,
-    mastery: false, //Procs Gusts
-    vers: true,
-  },
-  [SPELLS.HALO_HEAL.id]: {
-    int: true,
-    crit: true,
-    hasteHpm: true,
-    hasteHpct: true,
-    mastery: false, //Procs Gusts
-    vers: true,
-  },
-  [SPELLS.DIVINE_STAR_HEAL.id]: {
     int: true,
     crit: true,
     hasteHpm: true,
@@ -65,14 +60,6 @@ export default {
     vers: true,
   },
   [SPELLS.PRAYER_OF_HEALING.id]: {
-    int: true,
-    crit: true,
-    hasteHpm: true,
-    hasteHpct: true,
-    mastery: false, //Procs Gusts
-    vers: true,
-  },
-  [SPELLS.ECHO_OF_LIGHT_HEAL.id]: {
     int: true,
     crit: true,
     hasteHpm: true,
@@ -129,6 +116,65 @@ export default {
     vers: true,
   },
   [SPELLS.COSMIC_RIPPLE_HEAL.id]: {
+    int: true,
+    crit: true,
+    hasteHpm: true,
+    hasteHpct: true,
+    mastery: false, //Procs Gusts
+    vers: true,
+  },
+  [SPELLS.DIVINE_HYMN_HEAL.id]: {
+    int: true,
+    crit: true,
+    hasteHpm: true,
+    hasteHpct: true,
+    mastery: false, //Procs Gusts
+    vers: true,
+  },
+
+  // Talents
+  [SPELLS.BINDING_HEAL_TALENT.id]: {
+    int: true,
+    crit: true,
+    hasteHpm: true,
+    hasteHpct: true,
+    mastery: false, //Procs Gusts
+    vers: true,
+  },
+  [SPELLS.CIRCLE_OF_HEALING_TALENT.id]: {
+    int: true,
+    crit: true,
+    hasteHpm: true,
+    hasteHpct: true,
+    mastery: false, //Procs Gusts
+    vers: true,
+  },
+  [SPELLS.HOLY_WORD_SALVATION_TALENT.id]: {
+    int: true,
+    crit: true,
+    hasteHpm: true,
+    hasteHpct: true,
+    mastery: false, //Procs Gusts
+    vers: true,
+  },
+  [SPELLS.HALO_HEAL.id]: {
+    int: true,
+    crit: true,
+    hasteHpm: true,
+    hasteHpct: true,
+    mastery: false, //Procs Gusts
+    vers: true,
+  },
+  [SPELLS.DIVINE_STAR_HEAL.id]: {
+    int: true,
+    crit: true,
+    hasteHpm: true,
+    hasteHpct: true,
+    mastery: false, //Procs Gusts
+    vers: true,
+  },
+  // Azerite Traits
+  [SPELLS.SAVIOR_HEAL.id]: {
     int: true,
     crit: true,
     hasteHpm: true,
