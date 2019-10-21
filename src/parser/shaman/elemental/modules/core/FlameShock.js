@@ -6,15 +6,14 @@ import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
 
 import Enemies from 'parser/shared/modules/Enemies';
-import EarlyDotRefreshes from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesInstants';
-import badRefreshSuggestion from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesInstantsSuggestion';
-
+import EarlyDotRefreshesAnalyzer from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshes';
+import badRefreshSuggestion from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshesSuggestionByCount';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
-class FlameShock extends EarlyDotRefreshes {
+class FlameShock extends EarlyDotRefreshesAnalyzer {
   static dependencies = {
-    ...EarlyDotRefreshes.dependencies,
+    ...EarlyDotRefreshesAnalyzer.dependencies,
     enemies: Enemies,
   };
 
@@ -30,22 +29,6 @@ class FlameShock extends EarlyDotRefreshes {
 
   get uptime() {
     return this.enemies.getBuffUptime(SPELLS.FLAME_SHOCK.id) / this.owner.fightDuration;
-  }
-
-  on_byPlayer_damage(event) {
-    if(event.ability.guid !== SPELLS.LAVA_BURST.id) {
-      return;
-    }
-
-    const target = this.enemies.getEntity(event);
-    if(target && !target.hasBuff(SPELLS.FLAME_SHOCK.id)){
-      this.badLavaBursts++;
-    }
-  }
-
-  couldCastWhileMoving(castEvent, endEvent) {
-    // You would rather always cast Frost shock over flame shock as filler unless you're within pandemic range
-    return false;
   }
 
   get refreshThreshold() {
@@ -72,6 +55,22 @@ class FlameShock extends EarlyDotRefreshes {
       },
       style: 'percentage',
     };
+  }
+
+  on_byPlayer_damage(event) {
+    if(event.ability.guid !== SPELLS.LAVA_BURST.id) {
+      return;
+    }
+
+    const target = this.enemies.getEntity(event);
+    if(target && !target.hasBuff(SPELLS.FLAME_SHOCK.id)){
+      this.badLavaBursts++;
+    }
+  }
+
+  couldCastWhileMoving(castEvent, endEvent) {
+    // You would rather always cast Frost shock over flame shock as filler unless you're within pandemic range
+    return false;
   }
 
   suggestions(when) {
