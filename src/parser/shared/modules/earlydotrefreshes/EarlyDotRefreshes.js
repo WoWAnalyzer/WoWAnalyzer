@@ -166,7 +166,7 @@ class EarlyDotRefreshes extends Analyzer {
     const newDuration = remainingDuration + extension;
     const maxDuration = (1 + PANDEMIC_WINDOW) * dot.duration;
     const lostDuration = maxDuration - newDuration;
-    if (lostDuration > 0) { //full extension
+    if (lostDuration <= 0) { //full extension
       this.targets[dot.debuffId][targetID] = timestamp + newDuration;
       return {wasted: 0, effective: extension};
     } // Else not full extension
