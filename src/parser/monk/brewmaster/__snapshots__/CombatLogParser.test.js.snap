@@ -120,6 +120,10 @@ Array [
 ]
 `;
 
+exports[`The Brewmaster Analyzer analyzers ArcaneTorrent matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Brewmaster Analyzer analyzers ArcaneTorrent matches the suggestions snapshot 1`] = `"module inactive"`;
+
 exports[`The Brewmaster Analyzer analyzers BlackOxBrew matches the statistic snapshot 1`] = `"module inactive"`;
 
 exports[`The Brewmaster Analyzer analyzers BlackOxBrew matches the suggestions snapshot 1`] = `"module inactive"`;
