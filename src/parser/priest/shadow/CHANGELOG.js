@@ -1,11 +1,13 @@
 import React from 'react';
 
-import { Zerotorescue, Khadaj} from 'CONTRIBUTORS';
+import { Zerotorescue, Khadaj, Adoraci} from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 8, 22), <>Added <SpellLink id={SPELLS.SPITEFUL_APPARITIONS.id} /> module.</>, [Adoraci]),
+  change(date(2019, 8, 17), <>Added <SpellLink id={SPELLS.WHISPERS_OF_THE_DAMNED.id} /> module.</>, [Adoraci]),
   change(date(2018, 11, 19), <>Added <SpellLink id={SPELLS.DEATH_THROES.id} /> module.</>, [Khadaj]),
   change(date(2018, 11, 19), <>Added <SpellLink id={SPELLS.VAMPIRIC_EMBRACE.id} /> module.</>, [Khadaj]),
   change(date(2018, 11, 8), <>Added <SpellLink id={SPELLS.DARK_VOID_TALENT.id} />.</>, [Khadaj]),

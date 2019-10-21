@@ -166,6 +166,17 @@
           }
         }
       }
+      .essences {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+
+        .essence-row {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+        }
+      }
     }
   }
 }

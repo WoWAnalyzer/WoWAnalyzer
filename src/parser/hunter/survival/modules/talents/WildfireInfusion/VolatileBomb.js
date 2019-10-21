@@ -2,7 +2,6 @@ import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 import Enemies from 'parser/shared/modules/Enemies';
 import StatTracker from 'parser/shared/modules/StatTracker';
@@ -10,6 +9,9 @@ import { SERPENT_STING_SV_BASE_DURATION } from 'parser/hunter/survival/constants
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import { formatDuration } from 'common/format';
 import SpellLink from 'common/SpellLink';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Lace your Wildfire Bomb with extra reagents, randomly giving it one of the following enhancements each time you throw it:
@@ -147,31 +149,41 @@ class VolatileBomb extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.VOLATILE_BOMB_WFI.id}
-        value={<ItemDamageDone amount={this.damage} />}
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(2)}
+        size="flexible"
+        category={'TALENTS'}
+        dropdown={(
+          <>
+            <table className="table table-condensed">
+              <thead>
+                <tr>
+                  <th>Refreshes</th>
+                  <th>Avg</th>
+                  <th>Total</th>
+                  <th>Focus saved</th>
+                  <th>Missed refreshes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{this.extendedSerpentStings}</td>
+                  <td>{formatDuration(this.extendedInMs / this.casts / 1000)}</td>
+                  <td>{formatDuration(this.extendedInMs / 1000)}</td>
+                  <td>{this.focusSaved}</td>
+                  <td>{this.missedSerpentResets}</td>
+                </tr>
+              </tbody>
+            </table>
+          </>
+        )}
       >
-        <table className="table table-condensed">
-          <thead>
-            <tr>
-              <th>Refreshes</th>
-              <th>Avg</th>
-              <th>Total</th>
-              <th>Focus saved</th>
-              <th>Missed refreshes</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{this.extendedSerpentStings}</td>
-              <td>{formatDuration(this.extendedInMs / this.casts / 1000)}</td>
-              <td>{formatDuration(this.extendedInMs / 1000)}</td>
-              <td>{this.focusSaved}</td>
-              <td>{this.missedSerpentResets}</td>
-            </tr>
-          </tbody>
-        </table>
-      </TalentStatisticBox>
+        <BoringSpellValueText spell={SPELLS.VOLATILE_BOMB_WFI}>
+          <>
+            <ItemDamageDone amount={this.damage} />
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 

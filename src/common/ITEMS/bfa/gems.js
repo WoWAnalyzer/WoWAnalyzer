@@ -54,4 +54,39 @@ export default {
     name: 'Kraken\'s Eye of Strength',
     icon: 'inv_jewelcrafting_80_specialgemcut01',
   },
+  DEADLY_LAVA_LAZULI: {
+    id: 168639,
+    name: 'Deadly Lava Lazuli',
+    icon: 'inv_misc_gem_x4_uncommon_perfectcut_orange',
+  },
+  QUICK_SAND_SPINEL: {
+    id: 168641,
+    name: 'Quick Sand Spinel',
+    icon: 'inv_misc_gem_x4_uncommon_perfectcut_yellow',
+  },
+  MASTERFUL_SEA_CURRANT :{
+    id: 168640,
+    name: 'Masterful Sea Currant',
+    icon: 'inv_misc_gem_x4_uncommon_perfectcut_purple',
+  },
+  VERSATILE_DARK_OPAL: {
+    id: 168642,
+    name: 'Versatile Dark Opal',
+    icon: 'inv_misc_gem_x4_uncommon_perfectcut_blue',
+  },
+  LEVIATHAN_EYE_OF_AGILITY: {
+    id: 168637,
+    name: 'Leviathan\'s Eye of Agility',
+    icon: 'inv_misc_metagem_b',
+  },
+  LEVIATHAN_EYE_OF_INTELLECT: {
+    id: 168638,
+    name: 'Leviathan\'s Eye of Intellect',
+    icon: 'inv_misc_metagem_b',
+  },
+  LEVIATHAN_EYE_OF_STRENGTH: {
+    id: 168636,
+    name: 'Leviathan\'s Eye of Strength',
+    icon: 'inv_misc_metagem_b',
+  },
 };

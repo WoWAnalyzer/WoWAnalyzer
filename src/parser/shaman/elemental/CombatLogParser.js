@@ -1,6 +1,8 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 import Abilities from './modules/Abilities';
+import CancelledCasts from './modules/features/CancelledCasts';
+import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Overload from './modules/features/Overload';
 
 import FlameShock from './modules/core/FlameShock';
@@ -20,12 +22,15 @@ import Stormkeeper from './modules/talents/Stormkeeper';
 import TotemMastery from './modules/talents/TotemMastery';
 import UnlimitedPower from './modules/talents/UnlimitedPower';
 import UnlimitedPowerTimesByStacks from './modules/talents/UnlimitedPowerTimesByStacks';
+import SurgeOfPower from './modules/talents/SurgeOfPower';
+import Icefury from './modules/talents/Icefury';
+
 import Checklist from './modules/checklist/Module';
 import Buffs from './modules/Buffs';
 
-import EchoOfTheElementals from './modules/azerite/EchoOfTheElementals';
 import LavaShock from './modules/azerite/LavaShock';
 import SynapseShock from '../shared/azerite/SynapseShock';
+import EchoOfTheElementals from './modules/azerite/EchoOfTheElementals';
 
 import SpiritWolf from '../shared/talents/SpiritWolf';
 import StaticCharge from '../shared/talents/StaticCharge';
@@ -49,6 +54,8 @@ class CombatLogParser extends CoreCombatLogParser {
     overload: Overload,
     stormfireElemental: StormFireElemental,
     buffs: Buffs,
+    cancelledCasts: CancelledCasts,
+    alwaysBeCasting: AlwaysBeCasting,
 
     // Talents
     aftershock: Aftershock,
@@ -58,17 +65,19 @@ class CombatLogParser extends CoreCombatLogParser {
     stormElemental: StormElemental,
     liquidMagmaTotem: LiquidMagmaTotem,
     masterOfTheElements: MasterOfTheElements,
+    surgeOfPower: SurgeOfPower,
     primalFireElemental: PrimalFireElemental,
     primalStormElemental: PrimalStormElemental,
     totemMastery: TotemMastery,
     stormkeeper: Stormkeeper,
     unlimitedPowerTimesByStacks: UnlimitedPowerTimesByStacks,
     unlimitedPower: UnlimitedPower,
-    echoOfTheElementals: EchoOfTheElementals,
+    icefury: Icefury,
 
     // Azerite
     lavaShock: LavaShock,
     synapseShock: SynapseShock,
+    echoOfTheElementals: EchoOfTheElementals,
 
     spiritWolf: SpiritWolf,
     staticCharge: StaticCharge,

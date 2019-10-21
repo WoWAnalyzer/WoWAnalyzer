@@ -138,6 +138,11 @@ export default {
         name: 'Brace for Impact',
         icon: 'inv_shield_05',
     },
+    BRACE_FOR_IMPACT_BUFF: {
+      id: 278124,
+      name: 'Brace for Impact',
+      icon: 'inv_shield_05',
+    },
     CALLOUS_REPRISAL: {
         id: 278760,
         name: 'Callous Reprisal',

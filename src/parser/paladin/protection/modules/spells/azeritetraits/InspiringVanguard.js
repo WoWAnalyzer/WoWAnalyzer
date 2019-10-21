@@ -64,17 +64,7 @@ class InspiringVanguard extends Analyzer {
       return;
     }
 
-    this.gc.triggerExactReset(event);
-
-    // reset AS cd
-    if(this.spellUsable.isOnCooldown(SPELLS.AVENGERS_SHIELD.id)) {
-      this.spellUsable.endCooldown(SPELLS.AVENGERS_SHIELD.id);
-    }
-
-    // reset Judgment CD if the CJ talent is selected
-    if(this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_JUDGMENT_TALENT.id) && this.spellUsable.isOnCooldown(SPELLS.JUDGMENT_CAST_PROTECTION.id)) {
-      this.spellUsable.endCooldown(SPELLS.JUDGMENT_CAST_PROTECTION.id);
-    }
+    this.gc.triggerExactReset(this.spellUsable, event);
   }
 
   statistic() {

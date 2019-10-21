@@ -11,6 +11,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
+import LucidDreams from 'parser/shared/modules/spells/bfa/essences/LucidDreamsHealers';
 
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import CoreChanneling from './modules/core/Channeling';
@@ -52,6 +53,7 @@ import Lifecycles from './modules/talents/Lifecycles';
 import SpiritOfTheCrane from './modules/talents/SpiritOfTheCrane';
 import RisingMist from './modules/talents/RisingMist';
 import RenewingMistDuringManaTea from './modules/talents/RenewingMistDuringManaTea';
+import Tier45Comparison from './modules/talents/Tier45Comparison';
 
 // Azerite Traits
 import FontOfLife from './modules/spells/azeritetraits/FontOfLife';
@@ -66,6 +68,8 @@ import MistweaverHealingEfficiencyDetails from './modules/features/MistweaverHea
 // import HealingEfficiencyDetails from '../../core/healingEfficiency/HealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/MistweaverHealingEfficiencyTracker';
 import ManaTracker from '../../core/healingEfficiency/ManaTracker';
+
+
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 
@@ -120,11 +124,15 @@ class CombatLogParser extends CoreCombatLogParser {
     risingMist: RisingMist,
     jadeSerpentStatue: JadeSerpentStatue,
     renewingMistDuringManaTea: RenewingMistDuringManaTea,
+    tier45Comparison: Tier45Comparison,
 
     // Azerite Traits
     fontOfLife: FontOfLife,
     upliftedSpirits: UpliftedSpirits,
     secretInfusion: SecretInfusion,
+
+    // Essences
+    lucidDreams: LucidDreams,
 
     // Mana Tab
     manaTracker: ManaTracker,

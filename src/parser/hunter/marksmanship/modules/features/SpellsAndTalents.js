@@ -15,6 +15,9 @@ import HuntersMark from '../talents/HuntersMark';
 import SerpentSting from '../talents/SerpentSting';
 import PreciseShots from '../spells/PreciseShots';
 
+/**
+ * @deprecated due to the new Statistic module from /interface/statistics/Statistic
+ */
 class SpellsAndTalents extends Analyzer {
   static dependencies = {
     loneWolf: LoneWolf,

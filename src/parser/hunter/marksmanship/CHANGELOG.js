@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { Putro } from 'CONTRIBUTORS';
+import { Putro, LeoZhekov } from 'CONTRIBUTORS';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 7, 31), <> Added some inefficient casts highlights on the timeline and updated all statistics for spells, talents and traits to use the new statistics module. </>, [LeoZhekov]),
   change(date(2019, 3, 26), <> Implemented a module for <SpellLink id={SPELLS.SURGING_SHOTS.id} />, <SpellLink id={SPELLS.FOCUSED_FIRE.id} /> and <SpellLink id={SPELLS.UNERRING_VISION.id} />.</>, [Putro]),
   change(date(2019, 3, 20), <> Implemented a module for <SpellLink id={SPELLS.IN_THE_RHYTHM.id} />.</>, [Putro]),
   change(date(2018, 12, 12), <> Implemented <SpellLink id={SPELLS.CAREFUL_AIM_TALENT.id} /> module for patch 8.1.</>, [Putro]),

@@ -15,7 +15,7 @@ class SpinningCraneKick extends Analyzer{
     badSCKcount = 0;
     badSCKTimeList = [];
     canceledSCKcount = 0;//figure out if this is possible
-    enemiesHitSCK;
+    enemiesHitSCK = [];
     currentTime = 0;
 
     on_byPlayer_cast(event){

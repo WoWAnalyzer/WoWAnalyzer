@@ -1,5 +1,5 @@
 language: node_js
-node_js: '10.12'
+node_js: '10.13'
 # every second counts
 git:
   depth: 5
@@ -21,21 +21,19 @@ jobs:
     - stage: build
       name: "code-quality: eslint"
       cache:
-        directories:
-          - $HOME/.npm
+        yarn: true
       install:
-        - npm ci --dev
+        - yarn install --production=false
       script:
-        - npm run lint -- --max-warnings=0
+        - yarn lint --max-warnings=0
     - stage: build
       name: "tests"
       cache:
-        directories:
-          - $HOME/.npm
+        yarn: true
       install:
-        - npm ci --dev
+        - yarn install --production=false
       script:
-        - npm run test -- --maxWorkers=2
+        - yarn test --maxWorkers=2
     - stage: build
       name: "Build a production-ready Docker image"
       language: generic
@@ -63,5 +61,5 @@ after_failure:
   - chmod +x .travis/discord-hook/fail.sh
   - ./.travis/discord-hook/fail.sh
 notifications:
-  webhooks: https://www.travisbuddy.com/
+  webhooks: https://www.travisbuddy.com?only=failed,errored
   on_success: never

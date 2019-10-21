@@ -4,9 +4,11 @@ import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import Abilities from 'parser/core/modules/Abilities';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Your ranged auto attacks have a 5% chance to trigger Lock and Load, causing your next Aimed Shot to cost no Focus and be instant.
@@ -134,16 +136,17 @@ class LockAndLoad extends Analyzer {
   statistic() {
     const binomCalc = this.binomialCalculation(this.totalProcs, this.autoShots, PROC_CHANCE);
     return (
-      <TalentStatisticBox
-        talent={SPELLS.LOCK_AND_LOAD_TALENT.id}
-        value={`${this.wastedInstants} (${formatPercentage(this.wastedInstants / (this.totalProcs))}%) lost procs`}
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(10)}
+        size="flexible"
+        category={'TALENTS'}
         tooltip={(
           <>
             You had {this.noGainLNLProcs} {this.noGainLNLProcs > 1 || this.noGainLNLProcs === 0 ? `procs` : `proc`} with LnL already active. <br />
             You had {formatPercentage(this.totalProcs / this.expectedProcs, 1)}% procs of what you could expect to get over the encounter. <br />
             You had a total of {this.totalProcs} procs, and your expected amount of procs was {this.expectedProcs}. <br />
             <ul>
-              <li>You have a ~{formatPercentage(binomCalc)}% chance of getting this amount of procs or fewer in the future with this amount of autoattacks. </li>
+              <li>You have a ~{formatPercentage(binomCalc)}% chance of getting this amount of procs or fewer in the future with this amount of autoattacks.</li>
               {/*this two first tooltipText additions will probably NEVER happen, but it'd be fun if they ever did*/}
               {binomCalc === 0 && <li>You had so few procs that the chance of you getting fewer procs than what you had on this attempt is going to be de facto 0%. Consider yourself the unluckiest man alive.</li>}
               {binomCalc === 1 && <li>You had so many procs that the chance of you getting fewer procs than what you had on this attempt is going to be de facto 100%. Consider yourself the luckiest man alive.</li>}
@@ -156,7 +159,13 @@ class LockAndLoad extends Analyzer {
             </ul>
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.LOCK_AND_LOAD_TALENT}>
+          <>
+            {this.wastedInstants} ({formatPercentage(this.wastedInstants / (this.totalProcs))}%) <small>lost procs</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

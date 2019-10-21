@@ -3,6 +3,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import GlobalCooldown from './modules/core/GlobalCooldown';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Abilities from './modules/Abilities';
+import Buffs from './modules/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Checklist from './modules/features/checklist/Module';
 // Resources
@@ -19,6 +20,7 @@ import ComboStrikes from './modules/spells/ComboStrikes';
 import TouchOfKarma from './modules/spells/TouchOfKarma';
 import TouchOfDeath from './modules/spells/TouchOfDeath';
 import BlackoutKick from './modules/spells/BlackoutKick';
+import ReverseHarm from './modules/spells/ReverseHarm';
 // Talents
 import HitCombo from './modules/talents/HitCombo';
 import Serenity from './modules/talents/Serenity';
@@ -35,6 +37,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Features
     alwaysBeCasting: AlwaysBeCasting,
     abilities: Abilities,
+    buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
     checklist: Checklist,
 
@@ -55,6 +58,7 @@ class CombatLogParser extends CoreCombatLogParser {
     touchOfDeath: TouchOfDeath,
     comboStrikes: ComboStrikes,
     blackoutKick: BlackoutKick,
+    reverseHarm: ReverseHarm,
 
     // Azerite
     gloryOfTheDawn: GloryOfTheDawn,

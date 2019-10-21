@@ -3,7 +3,9 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -25,6 +27,7 @@ class HeatingUp extends Analyzer {
   phoenixFlamesWithoutHeatingUp = 0;
   fireBlastWithHotStreak = 0;
   phoenixFlamesWithHotStreak = 0;
+  healthPercent = 1;
 
   constructor(...args) {
     super(...args);
@@ -49,14 +52,16 @@ class HeatingUp extends Analyzer {
     const hasHeatingUp = this.selectedCombatant.hasBuff(SPELLS.HEATING_UP.id);
     const castTarget = this.phoenixFlamesCastEvent ? encodeTargetString(this.phoenixFlamesCastEvent.targetID, event.targetInstance) : null;
     const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
-    const healthPercent = event.hitPoints / event.maxHitPoints;
+    if (event.hitPoints > 0) {
+      this.healthPercent = event.hitPoints / event.maxHitPoints;
+    }
     if (castTarget !== damageTarget || hasHeatingUp) {
       return;
     }
 
     //If Combustion is active, the player is within the Firestarter execute window, or the player is in the Searing Touch execute window, then ignore the event
     //If the player had Hot Streak though, then its a mistake regardless
-    if (!hasHotStreak && (hasCombustion || (this.hasFirestarter && healthPercent > FIRESTARTER_HEALTH_THRESHOLD) || (this.hasSearingTouch && healthPercent < SEARING_TOUCH_HEALTH_THRESHOLD))) {
+    if (!hasHotStreak && (hasCombustion || (this.hasFirestarter && this.healthPercent > FIRESTARTER_HEALTH_THRESHOLD) || (this.hasSearingTouch && this.healthPercent < SEARING_TOUCH_HEALTH_THRESHOLD))) {
       debug && this.log("Event Ignored");
       return;
     }
@@ -75,14 +80,16 @@ class HeatingUp extends Analyzer {
     const hasCombustion = this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id);
     const hasHotStreak = this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id);
     const hasHeatingUp = this.selectedCombatant.hasBuff(SPELLS.HEATING_UP.id);
-    const healthPercent = event.hitPoints / event.maxHitPoints;
+    if (event.hitPoints > 0) {
+      this.healthPercent = event.hitPoints / event.maxHitPoints;
+    }
     if (hasHeatingUp) {
       return;
     }
 
     //If Combustion is active, the player is within the Firestarter execute window, or the player is in the Searing Touch execute window, then ignore the event
     //If the player had Hot Streak though, then its a mistake regardless
-    if (!hasHotStreak && (hasCombustion || (this.hasFirestarter && healthPercent > FIRESTARTER_HEALTH_THRESHOLD) || (this.hasSearingTouch && healthPercent < SEARING_TOUCH_HEALTH_THRESHOLD))) {
+    if (!hasHotStreak && (hasCombustion || (this.hasFirestarter && this.healthPercent > FIRESTARTER_HEALTH_THRESHOLD) || (this.hasSearingTouch && this.healthPercent < SEARING_TOUCH_HEALTH_THRESHOLD))) {
       debug && this.log("Event Ignored");
       return;
     }
@@ -166,73 +173,31 @@ class HeatingUp extends Analyzer {
 			});
 	}
 
-	get phoenixFlamesStatistic() {
-    return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(14)}
-        icon={<SpellIcon id={SPELLS.HEATING_UP.id} />}
-        value={(
-<>
-          <SpellIcon
-            id={SPELLS.FIRE_BLAST.id}
-            style={{
-              height: '1.2em',
-              marginBottom: '.15em',
-            }}
-          />
-          {' '}{formatPercentage(this.fireBlastUtil, 0)} %<br />
-          <SpellIcon
-            id={SPELLS.PHOENIX_FLAMES_TALENT.id}
-            style={{
-              height: '1.2em',
-              marginBottom: '.15em',
-            }}
-          />
-          {' '}{formatPercentage(this.phoenixFlamesUtil, 0)} %
+statistic() {
+  return (
+    <Statistic
+      position={STATISTIC_ORDER.CORE(14)}
+      size="flexible"
+      tooltip={(
+        <>
+          Spells that are guaranteed to crit like Fire Blast {this.hasPhoenixFlames ? 'and Phoenix Flames' : ''} should only be used to convert Heating Up to Hot Streak. While there are minor exceptions to this (like if you are about to cap on charges{this.hasPhoenixFlames ? ' or using Fireball & Phoenix Flames to bait Heating Up/Hot Streak just before Combustion' : ''}), the goal should be to waste as few of these as possible.
+          <ul>
+            <li>Fireblast Used with no procs: {this.fireBlastWithoutHeatingUp}</li>
+            <li>Fireblast used during Hot Streak: {this.fireBlastWithHotStreak}</li>
+            {this.hasPhoenixFlames && <><li>Phoenix Flames used with no procs: {this.phoenixFlamesWithoutHeatingUp}</li></>}
+            {this.hasPhoenixFlames && <li>Phoenix Flames used during Hot Streak: {this.phoenixFlamesWithHotStreak}</li>}
+          </ul>
         </>
-)}
-        label="Heating Up Utilization"
-        tooltip={(
-          <>
-            Spells that are guaranteed to crit like Fire Blast and Phoenix Flames should only be used to convert Heating Up to Hot Streak. While there are minor exceptions to this (like if you are about to cap on Phoenix Flames charges or using Fireball & Phoenixs Flames to bait Heating Up/Hot Streak just before Combustion), the goal should be to waste as few of these as possible.
-            <ul>
-              <li>Fireblast Used with no procs: {this.fireBlastWithoutHeatingUp}</li>
-              <li>Fireblast used during Hot Streak: {this.fireBlastWithHotStreak}</li>
-              <li>Phoenix Flames used with no procs: {this.phoenixFlamesWithoutHeatingUp}</li>
-              <li>Phoenix Flames used during Hot Streak: {this.phoenixFlamesWithHotStreak}</li>
-            </ul>
-          </>
-        )}
-      />
-    );
-  }
-
-  get regularStatistic() {
-    return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(14)}
-        icon={<SpellIcon id={SPELLS.HEATING_UP.id} />}
-        value={`${formatPercentage(this.fireBlastUtil, 0)} %`}
-        label="Heating Up Utilization"
-        tooltip={(
-          <>
-            Spells that are guaranteed to crit like Fire Blast should only be used to convert Heating Up to Hot Streak.
-            <ul>
-              <li>Fireblast Used with no procs: {this.fireBlastWithoutHeatingUp}</li>
-              <li>Fireblast used during Hot Streak: {this.fireBlastWithHotStreak}</li>
-            </ul>
-          </>
-        )}
-      />
-    );
-  }
-
-  statistic() {
-    if (this.hasPhoenixFlames) {
-      return this.phoenixFlamesStatistic;
-    } else {
-      return this.regularStatistic;
-    }
+      )}
+    >
+      <BoringSpellValueText spell={SPELLS.HEATING_UP}>
+        <>
+          <SpellIcon id={SPELLS.FIRE_BLAST.id} /> {formatPercentage(this.fireBlastUtil,0)}% <small>Fire Blast Utilization</small><br />
+          {this.hasPhoenixFlames && <><SpellIcon id={SPELLS.PHOENIX_FLAMES_TALENT.id} /> {formatPercentage(this.phoenixFlamesUtil,0)}% <small>Phoenix Flames Utilization</small></>}
+        </>
+      </BoringSpellValueText>
+    </Statistic>
+  );
   }
 }
 

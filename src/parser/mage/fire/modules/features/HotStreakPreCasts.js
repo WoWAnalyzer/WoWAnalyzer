@@ -1,9 +1,7 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 import { formatPercentage } from 'common/format';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 
@@ -27,8 +25,7 @@ class HotStreakPreCasts extends Analyzer {
   pyroclasmProcRemoved = 0;
   castedBeforeHotStreak = 0;
   noCastBeforeHotStreak = 0;
-  currentHealth = 0;
-  maxHealth = 0;
+  healthPercent = 1;
 
   constructor(...args) {
     super(...args);
@@ -51,8 +48,9 @@ class HotStreakPreCasts extends Analyzer {
 
   //If the player has the Searing Touch or Firestarter talents, then we need to get the health percentage on damage events so we can know whether we are in the Firestarter or Searing Touch execute windows
   checkHealthPercent(event) {
-    this.currentHealth = event.hitPoints;
-    this.maxHealth = event.maxHitPoints;
+    if (event.hitPoints > 0) {
+      this.healthPercent = event.hitPoints / event.maxHitPoints;
+    }
   }
 
   //Get the timestamp that Hot Streak was removed. This is used for comparing the cast Timestamp to see if there was a hard cast immediately before Hot Streak was removed (and therefore they pre-casted before Hot Streak)
@@ -69,8 +67,8 @@ class HotStreakPreCasts extends Analyzer {
   //Compares timestamps to determine if an ability was hard casted immediately before using Hot Streak.
   //If Combustion is active or they are in the Firestarter or Searing Touch execute windows, then this check is ignored.
   checkForHotStreakPreCasts(event) {
-    if (this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id) || (this.hasFirestarter && this.currentHealth / this.maxHealth > FIRESTARTER_HEALTH_THRESHOLD) || (this.hasSearingTouch && this.currentHealth / this.maxHealth < SEARING_TOUCH_HEALTH_THRESHOLD)) {
-      debug && this.log("Pre Cast Ignored");
+    if (this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id) || (this.hasFirestarter && this.healthPercent > FIRESTARTER_HEALTH_THRESHOLD) || (this.hasSearingTouch && this.healthPercent < SEARING_TOUCH_HEALTH_THRESHOLD)) {
+      debug && this.log('Pre Cast Ignored');
       return;
     }
 
@@ -101,33 +99,11 @@ class HotStreakPreCasts extends Analyzer {
   suggestions(when) {
       when(this.castBeforeHotStreakThresholds)
         .addSuggestion((suggest, actual, recommended) => {
-          return suggest(<>In situations where you are not able to guarantee a crit (<SpellLink id={SPELLS.COMBUSTION.id} />, <SpellLink id={SPELLS.FIRESTARTER_TALENT.id} />, and <SpellLink id={SPELLS.SEARING_TOUCH_TALENT.id} />), you didn't pre-cast <SpellLink id={SPELLS.FIREBALL.id} /> {this.hasPyroclasm ? 'or use a Pyroclasm Proc' : ''} {this.noCastBeforeHotStreak} times. Pre-casting when you can't guarantee a crit helps you get more <SpellLink id={SPELLS.HEATING_UP.id} /> and <SpellLink id={SPELLS.HOT_STREAK.id} /> procs, so you should do this whenenver possible.</>)
+          return suggest(<>Unless you are guaranteed to crit (i.e. during <SpellLink id={SPELLS.COMBUSTION.id} />, <SpellLink id={SPELLS.FIRESTARTER_TALENT.id} />, or <SpellLink id={SPELLS.SEARING_TOUCH_TALENT.id} />), you should always cast <SpellLink id={SPELLS.FIREBALL.id} /> {this.hasPyroclasm ? <>or use a <SpellLink id={SPELLS.PYROCLASM_TALENT.id} /> proc</> : ''} alongside using your <SpellLink id={SPELLS.HOT_STREAK.id} /> proc. This way, if one of the two abilities crit you will gain a new <SpellLink id={SPELLS.HEATING_UP.id} /> proc, and if both crit you will get a new <SpellLink id={SPELLS.HOT_STREAK.id} /> proc. You failed to do this {this.noCastBeforeHotStreak} times.</>)
             .icon(SPELLS.HOT_STREAK.icon)
             .actual(`${formatPercentage(this.castBeforeHotStreakUtil)}% Utilization`)
             .recommended(`${formatPercentage(recommended)}% is recommended`);
       });
-  }
-
-  statistic() {
-    return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(15)}
-        icon={<SpellIcon id={SPELLS.HOT_STREAK.id} />}
-        value={`${formatPercentage(this.castBeforeHotStreakUtil, 0)} %`}
-        label="Hot Streak pre-casts"
-        tooltip={(
-          <>
-            By pre-casting Fireball (or hard casting Pyroblast to use a Pyroclasm proc), you are increasing the chances of getting another Heating Up or Hot Streak since if both the pre-cast and the instant Pyroblast crit, then you will instantly get a new Hot Streak, or if one of them procs then you will have a new Heating Up proc that you can convert to Hot Streak with a guaranteed crit ability like Fire Blast or Phoenix Flames.
-            Therefore you should always do this, except in the below circumstances where you can guarantee a crit.
-            <ul>
-              <li>Combustion is active</li>
-              <li>You have Firestarter and the target is above 90% health</li>
-              <li>You have Searing Touch and the target is below 30% health</li>
-            </ul>
-          </>
-        )}
-      />
-    );
   }
 }
 

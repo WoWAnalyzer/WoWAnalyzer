@@ -1,10 +1,10 @@
 import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
-import SpellIcon from 'common/SpellIcon';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import { formatNumber, formatPercentage } from 'common/format';
 
 const CAST_BUFFER = 250;
@@ -120,13 +120,12 @@ class Pyroclasm extends Analyzer {
           .recommended(`<${formatPercentage(recommended)}% is recommended`);
       });
   }
+
   statistic() {
     return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(100)}
-        icon={<SpellIcon id={SPELLS.PYROCLASM_TALENT.id} />}
-        value={`${formatPercentage(this.procUtilization, 0)} %`}
-        label="Pyroclasm Utilization"
+      <Statistic
+        size="flexible"
+        category={'TALENTS'}
         tooltip={(
           <>
             This is a measure of how well you utilized your Pyroclasm procs.
@@ -138,7 +137,13 @@ class Pyroclasm extends Analyzer {
             </ul>
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.PYROCLASM_TALENT}>
+          <>
+            {formatPercentage(this.procUtilization,0)}% <small>Proc Utilization</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

@@ -2,12 +2,13 @@ import React from 'react';
 
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/hunter';
-import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
-import SpellIcon from 'common/SpellIcon';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Aimed Shot causes your next 1-2 Arcane Shots or Multi-Shots to deal 100% more damage.
@@ -90,16 +91,28 @@ class PreciseShots extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(17)}
-        icon={<SpellIcon id={SPELLS.PRECISE_SHOTS.id} />}
-        value={`${this.buffsGained} buffs used`}
-        label="Precise Shots"
-        tooltip={`You wasted between ${this.minOverwrittenProcs} and ${this.maxOverwrittenProcs} Precise Shots procs by casting Aimed Shot when you already had Precise Shots active`}
-      />
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(17)}
+        size="flexible"
+        tooltip={(
+          <>
+            You wasted between {this.minOverwrittenProcs} and {this.maxOverwrittenProcs} Precise Shots procs by casting Aimed Shot when you already had Precise Shots active
+          </>
+        )}
+      >
+        <BoringSpellValueText spell={SPELLS.PRECISE_SHOTS}>
+          <>
+            <ItemDamageDone amount={this.damage} /> <br />
+            {this.buffsGained} <small>buffs used</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
-
+  /**
+   * @Deprecated
+   * @returns {*}
+   */
   subStatistic() {
     return (
       <StatisticListBoxItem

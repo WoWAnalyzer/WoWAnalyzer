@@ -15,6 +15,8 @@ class WindwalkerMonkChecklist extends React.PureComponent {
     combatant: PropTypes.shape({
       hasTalent: PropTypes.func.isRequired,
       hasTrinket: PropTypes.func.isRequired,
+      hasEssence: PropTypes.func.isRequired,
+      hasMajor: PropTypes.func.isRequired,
     }).isRequired,
     thresholds: PropTypes.object.isRequired,
   };
@@ -43,6 +45,8 @@ class WindwalkerMonkChecklist extends React.PureComponent {
           <AbilityRequirement spell={SPELLS.FISTS_OF_FURY_CAST.id} />
           {combatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id) && <AbilityRequirement spell={SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id} />}
           {combatant.hasTalent(SPELLS.CHI_WAVE_TALENT.id) && <AbilityRequirement spell={SPELLS.CHI_WAVE_TALENT.id} />}
+          {combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id) && <AbilityRequirement spell={SPELLS.CHI_BURST_TALENT.id} />}
+          {(combatant.hasEssence(SPELLS.CONFLICT.traitId) ? combatant.hasMajor(SPELLS.CONFLICT.traitId) : false) && <AbilityRequirement spell={SPELLS.REVERSE_HARM.id} />}
         </Rule>
         <Rule
           name="Use your procs and short CDs"
@@ -113,14 +117,6 @@ class WindwalkerMonkChecklist extends React.PureComponent {
             name="Chi wasted per minute"
             thresholds={thresholds.chiDetails}
           />
-          <Requirement
-            name={(
-              <>
-                Bad <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> casts per minute
-              </>
-            )}
-            thresholds={thresholds.spinningCraneKick}
-          />
         </Rule>
         <Rule
           name="Don't break mastery"
@@ -129,25 +125,25 @@ class WindwalkerMonkChecklist extends React.PureComponent {
               Using the same damaging ability twice in a row will lose mastery benefit on the second cast and drop the <SpellLink id={SPELLS.HIT_COMBO_TALENT.id} icon /> buff if specced.
             </>
           )}
-         >
-         <Requirement
-           name={(
-             <>
-               Times <SpellLink id={SPELLS.COMBO_STRIKES.id} /> was broken
-             </>
-           )}
-           thresholds={thresholds.comboStrikes}
-         />
-         {combatant.hasTalent(SPELLS.HIT_COMBO_TALENT) && (
-           <Requirement
-             name={(
-               <>
-                 <SpellLink id={SPELLS.HIT_COMBO_TALENT.id} /> uptime
-               </>
-             )}
-             thresholds={thresholds.hitCombo}
+        >
+        <Requirement
+          name={(
+            <>
+              Times <SpellLink id={SPELLS.COMBO_STRIKES.id} /> was broken
+            </>
+          )}
+          thresholds={thresholds.comboStrikes}
+        />
+        {combatant.hasTalent(SPELLS.HIT_COMBO_TALENT) && (
+          <Requirement
+            name={(
+              <>
+                <SpellLink id={SPELLS.HIT_COMBO_TALENT.id} /> uptime
+              </>
+            )}
+            thresholds={thresholds.hitCombo}
           />
-)}
+        )}
         </Rule>
         <Rule
           name="Use your defensive cooldowns effectively"
