@@ -22,7 +22,7 @@ export default {
     crit: true,
     hasteHpm: true,
     hasteHpct: true,
-    mastery: false, //Procs Gusts
+    mastery: true, //Procs Gusts
     vers: true,
   },
 
@@ -173,6 +173,7 @@ export default {
     mastery: false, //Procs Gusts
     vers: true,
   },
+
   // Azerite Traits
   [SPELLS.SAVIOR_HEAL.id]: {
     int: true,
@@ -180,6 +181,13 @@ export default {
     hasteHpm: true,
     hasteHpct: true,
     mastery: false, //Procs Gusts
+    vers: true,
+  },
+  [SPELLS.CONCENTRATED_MENDING_HEALING.id]: { // Healing Azerite Power
+    int: false,
+    crit: true,
+    hasteHpm: true,
+    mastery: false, // Overwriting base value.
     vers: true,
   },
 };

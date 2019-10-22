@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import STAT from 'parser/shared/modules/features/STAT';
-import HIT_TYPES from 'game/HIT_TYPES';
 
 import BaseHealerStatValues from 'parser/shared/modules/features/BaseHealerStatValues';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -47,22 +46,15 @@ class StatWeights extends BaseHealerStatValues {
   };
 
   spellInfo = PRIEST_HEAL_INFO;
-  qeLive = true;
+  qeLive = false;
 
-  /*
-  _getCritChance(event) {
-    return 0;
-  }
-
-  _criticalStrike(event, healVal) {
-    return 0;
-  }
-
-  _hasteHpm(event, healVal) {
-    return 0;
-  }*/
   _mastery(event, healVal) {
-    return 0;
+    const spellId = event.ability.guid;
+    if (spellId !== SPELLS.ECHO_OF_LIGHT_HEAL.id) {
+      return 0;
+    }
+    const bonusFromOneMastery = 1 / this.statTracker.masteryRatingPerPercent;
+    return healVal.effective * bonusFromOneMastery;
   }
 
   _prepareResults() {
