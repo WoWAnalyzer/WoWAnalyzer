@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 10, 22), <>Adding holy priest stat wrights module.</>, [Khadaj]),
   change(date(2019, 10, 20), <>Fixing echo of light crash.</>, [Khadaj]),
   change(date(2019, 8, 12), 'Added essence Lucid Dreams.', [blazyb]),
   change(date(2019, 4, 9), <>Adding Holy Nova card and updating spreadsheet</>, [Khadaj]),
