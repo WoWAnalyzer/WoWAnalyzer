@@ -25,17 +25,17 @@ export default {
   [SPELLS.ECHO_OF_LIGHT_HEAL.id]: {
     int: true,
     crit: true,
-    hasteHpm: true,
+    hasteHpm: false,
     hasteHpct: true,
     mastery: true,
-    vers: true,
+    vers: false,
   },
 
   // Spells
   [SPELLS.HOLY_NOVA_HEAL.id]: {
     int: true,
     crit: true,
-    hasteHpm: true,
+    hasteHpm: false,
     hasteHpct: true,
     mastery: false,
     vers: true,
@@ -43,7 +43,7 @@ export default {
   [SPELLS.GREATER_HEAL.id]: {
     int: true,
     crit: true,
-    hasteHpm: true,
+    hasteHpm: false,
     hasteHpct: true,
     mastery: false,
     vers: true,
@@ -51,7 +51,7 @@ export default {
   [SPELLS.FLASH_HEAL.id]: {
     int: true,
     crit: true,
-    hasteHpm: true,
+    hasteHpm: false,
     hasteHpct: true,
     mastery: false,
     vers: true,
@@ -59,7 +59,7 @@ export default {
   [SPELLS.PRAYER_OF_MENDING_HEAL.id]: {
     int: true,
     crit: true,
-    hasteHpm: true,
+    hasteHpm: false,
     hasteHpct: true,
     mastery: false,
     vers: true,
@@ -67,7 +67,7 @@ export default {
   [SPELLS.PRAYER_OF_HEALING.id]: {
     int: true,
     crit: true,
-    hasteHpm: true,
+    hasteHpm: false,
     hasteHpct: true,
     mastery: false,
     vers: true,
@@ -83,7 +83,7 @@ export default {
   [SPELLS.HOLY_WORD_SERENITY.id]: {
     int: true,
     crit: true,
-    hasteHpm: true,
+    hasteHpm: false,
     hasteHpct: true,
     mastery: false,
     vers: true,
@@ -91,7 +91,7 @@ export default {
   [SPELLS.HOLY_WORD_SANCTIFY.id]: {
     int: true,
     crit: true,
-    hasteHpm: true,
+    hasteHpm: false,
     hasteHpct: true,
     mastery: false,
     vers: true,
@@ -99,7 +99,7 @@ export default {
   [SPELLS.DESPERATE_PRAYER.id]: {
     int: true,
     crit: true,
-    hasteHpm: true,
+    hasteHpm: false,
     hasteHpct: true,
     mastery: false,
     vers: true,
@@ -107,7 +107,7 @@ export default {
   [SPELLS.GUARDIAN_SPIRIT_HEAL.id]: {
     int: true,
     crit: true,
-    hasteHpm: true,
+    hasteHpm: false,
     hasteHpct: true,
     mastery: false,
     vers: true,
@@ -115,7 +115,7 @@ export default {
   [SPELLS.TRAIL_OF_LIGHT_HEAL.id]: {
     int: true,
     crit: true,
-    hasteHpm: true,
+    hasteHpm: false,
     hasteHpct: true,
     mastery: false,
     vers: true,
@@ -123,7 +123,7 @@ export default {
   [SPELLS.COSMIC_RIPPLE_HEAL.id]: {
     int: true,
     crit: true,
-    hasteHpm: true,
+    hasteHpm: false,
     hasteHpct: true,
     mastery: false,
     vers: true,
@@ -141,7 +141,7 @@ export default {
   [SPELLS.BINDING_HEAL_TALENT.id]: {
     int: true,
     crit: true,
-    hasteHpm: true,
+    hasteHpm: false,
     hasteHpct: true,
     mastery: false,
     vers: true,
@@ -149,7 +149,7 @@ export default {
   [SPELLS.CIRCLE_OF_HEALING_TALENT.id]: {
     int: true,
     crit: true,
-    hasteHpm: true,
+    hasteHpm: false,
     hasteHpct: true,
     mastery: false,
     vers: true,
@@ -157,7 +157,7 @@ export default {
   [SPELLS.HOLY_WORD_SALVATION_TALENT.id]: {
     int: true,
     crit: true,
-    hasteHpm: true,
+    hasteHpm: false,
     hasteHpct: true,
     mastery: false,
     vers: true,
@@ -165,7 +165,7 @@ export default {
   [SPELLS.HALO_HEAL.id]: {
     int: true,
     crit: true,
-    hasteHpm: true,
+    hasteHpm: false,
     hasteHpct: true,
     mastery: false,
     vers: true,
@@ -173,7 +173,7 @@ export default {
   [SPELLS.DIVINE_STAR_HEAL.id]: {
     int: true,
     crit: true,
-    hasteHpm: true,
+    hasteHpm: false,
     hasteHpct: true,
     mastery: false,
     vers: true,
@@ -183,7 +183,7 @@ export default {
   [SPELLS.SAVIOR_HEAL.id]: {
     int: true,
     crit: true,
-    hasteHpm: true,
+    hasteHpm: false,
     hasteHpct: true,
     mastery: false,
     vers: true,
@@ -191,7 +191,7 @@ export default {
   [SPELLS.CONCENTRATED_MENDING_HEALING.id]: {
     int: false,
     crit: true,
-    hasteHpm: true,
+    hasteHpm: false,
     mastery: false, // Overwriting base value as holy is "special" with mastery.
     vers: true,
   },

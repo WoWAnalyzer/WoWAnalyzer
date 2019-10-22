@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import STAT from 'parser/shared/modules/features/STAT';
 
-import BaseHealerStatValues from 'parser/shared/modules/features/BaseHealerStatValues';
+import BaseHealerStatValues, { ARMOR_INT_BONUS } from 'parser/shared/modules/features/BaseHealerStatValues';
 import Combatants from 'parser/shared/modules/Combatants';
 import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 import StatTracker from 'parser/shared/modules/StatTracker';
@@ -20,6 +20,13 @@ class StatWeights extends BaseHealerStatValues {
   spellInfo = PRIEST_HEAL_INFO;
   qeLive = false;
 
+  _hasteHpm(event, healVal) {
+    if (event.ability.guid === SPELLS.RENEW.id && event.tick) {
+      return super._hasteHpm(event, healVal);
+    }
+    return 0;
+  }
+
   _criticalStrike(event, healVal) {
     if (this._isCrit(event)) {
       return super._criticalStrike(event, healVal);
@@ -36,20 +43,18 @@ class StatWeights extends BaseHealerStatValues {
   }
 
   _mastery(event, healVal) {
-
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.ECHO_OF_LIGHT_HEAL.id) {
       return 0;
     }
-    // console.log(event);
-    return healVal.effective * ( 1 - (this.statTracker.masteryPercentage(this.statTracker.currentMasteryRating - 1, true) / this.statTracker.masteryPercentage(this.statTracker.currentMasteryRating, true)));
+    return healVal.effective * (1 - (this.statTracker.masteryPercentage(this.statTracker.currentMasteryRating - 1, true) / this.statTracker.masteryPercentage(this.statTracker.currentMasteryRating, true)));
   }
 
   _prepareResults() {
     return [
       STAT.INTELLECT,
       STAT.CRITICAL_STRIKE,
-      // STAT.HASTE_HPCT, // TODO implement
+      STAT.HASTE_HPCT,
       STAT.HASTE_HPM,
       STAT.MASTERY,
       STAT.VERSATILITY,
