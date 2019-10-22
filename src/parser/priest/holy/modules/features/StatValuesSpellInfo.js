@@ -24,7 +24,7 @@ export default {
   // Mastery
   [SPELLS.ECHO_OF_LIGHT_HEAL.id]: {
     int: false,
-    crit: false,
+    crit: true,
     hasteHpm: false,
     hasteHpct: false,
     mastery: true,

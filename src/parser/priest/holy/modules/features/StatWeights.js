@@ -20,11 +20,28 @@ class StatWeights extends BaseHealerStatValues {
   spellInfo = PRIEST_HEAL_INFO;
   qeLive = false;
 
+  _criticalStrike(event, healVal) {
+    if (this._isCrit(event)) {
+      return super._criticalStrike(event, healVal);
+    } else if (event.eolCritAmount !== undefined && event.eolCritAmount !== 0) {
+      const { baseCritChance, ratingCritChance } = this._getCritChance(event);
+      const totalCritChance = baseCritChance + ratingCritChance;
+      const ratingCritChanceContribution = 1 - baseCritChance / totalCritChance;
+      const rating = this.statTracker.currentCritRating;
+
+      const effectiveCritHealing = event.eolCritAmount;
+      return effectiveCritHealing * ratingCritChanceContribution / rating;
+    }
+    return 0;
+  }
+
   _mastery(event, healVal) {
+
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.ECHO_OF_LIGHT_HEAL.id) {
       return 0;
     }
+    // console.log(event);
     return healVal.effective * ( 1 - (this.statTracker.masteryPercentage(this.statTracker.currentMasteryRating - 1, true) / this.statTracker.masteryPercentage(this.statTracker.currentMasteryRating, true)));
   }
 
