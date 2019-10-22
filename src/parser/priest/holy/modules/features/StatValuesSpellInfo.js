@@ -23,12 +23,12 @@ import SPELLS from 'common/SPELLS';
 export default {
   // Mastery
   [SPELLS.ECHO_OF_LIGHT_HEAL.id]: {
-    int: false,
+    int: true,
     crit: true,
-    hasteHpm: false,
-    hasteHpct: false,
+    hasteHpm: true,
+    hasteHpct: true,
     mastery: true,
-    vers: false,
+    vers: true,
   },
 
   // Spells
