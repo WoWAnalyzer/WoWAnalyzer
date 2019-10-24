@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from './STATISTIC_CATEGORY';
+import './StatisticBox.css';
 
 export { default as STATISTIC_ORDER } from './STATISTIC_ORDER';
 export { default as STATISTIC_CATEGORY } from './STATISTIC_CATEGORY';
