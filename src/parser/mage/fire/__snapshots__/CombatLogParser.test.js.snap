@@ -498,6 +498,12 @@ exports[`The Fire Mage Analyzer analyzers HotStreak matches the statistic snapsh
           <small>
             Proc Utilization
           </small>
+          <br />
+          50
+          % 
+          <small>
+            Procs used alongside Fireball
+          </small>
         </div>
       </div>
     </div>
@@ -524,67 +530,7 @@ exports[`The Fire Mage Analyzer analyzers HotStreak matches the statistic snapsh
 
 exports[`The Fire Mage Analyzer analyzers HotStreak matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers HotStreakPreCasts matches the statistic snapshot 1`] = `
-<div
-  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
->
-  <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
-  >
-    <div
-      className="panel-body"
-    >
-      <div
-        className="pad"
-      >
-        <label>
-          <a
-            href="http://wowhead.com/spell=48108"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <img
-              alt="Hot Streak"
-              className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/ability_mage_hotstreak.jpg"
-            />
-          </a>
-           
-          Hot Streak pre-casts
-        </label>
-        <div
-          className="value"
-        >
-          50 %
-        </div>
-      </div>
-    </div>
-    <div
-      className="detail-corner"
-      data-place="top"
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchStart={[Function]}
-    >
-      <svg
-        className="icon"
-        viewBox="0 0 100 100"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
-        />
-      </svg>
-    </div>
-  </div>
-</div>
-`;
+exports[`The Fire Mage Analyzer analyzers HotStreakPreCasts matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`The Fire Mage Analyzer analyzers HotStreakPreCasts matches the suggestions snapshot 1`] = `
 Array [
@@ -776,11 +722,147 @@ exports[`The Fire Mage Analyzer analyzers Pyroclasm matches the statistic snapsh
 
 exports[`The Fire Mage Analyzer analyzers Pyroclasm matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers RuneOfPower matches the statistic snapshot 1`] = `null`;
+exports[`The Fire Mage Analyzer analyzers RuneOfPower matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="TALENTS"
+    className="panel statistic flexible "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=116011"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Rune of Power"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_mage_runeofpower.jpg"
+            />
+          </a>
+           
+          <a
+            href="http://wowhead.com/spell=116011"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Rune of Power
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          15
+          % 
+          <small>
+            Damage added by Rune of Power
+          </small>
+          <br />
+          10
+          s 
+          <small>
+            Average time in Rune per cast
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
 
 exports[`The Fire Mage Analyzer analyzers RuneOfPower matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers SearingTouch matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`The Fire Mage Analyzer analyzers SearingTouch matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="TALENTS"
+    className="panel statistic flexible "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=269644"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Searing Touch"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_backdraft.jpg"
+            />
+          </a>
+           
+          <a
+            href="http://wowhead.com/spell=269644"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Searing Touch
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          86
+          % 
+          <small>
+            Buff Utilization
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
 
 exports[`The Fire Mage Analyzer analyzers SearingTouch matches the suggestions snapshot 1`] = `
 Array [
@@ -848,7 +930,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "79.49747309696245%",
+                  "width": "76.9403110420353%",
                 }
               }
             />
@@ -1025,7 +1107,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                   }
                 >
                    
-                  88.07%
+                  86.58%
                    
                    
                 </div>
@@ -1047,7 +1129,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                       Object {
                         "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "87.04442950691704%",
+                        "width": "77.13926452585714%",
                       }
                     }
                   />
@@ -1097,7 +1179,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                   }
                 >
                    
-                  111.52%
+                  108.46%
                    
                    
                 </div>
@@ -1169,7 +1251,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                   }
                 >
                    
-                  69.70%
+                  68.97%
                    
                    
                 </div>
@@ -1191,7 +1273,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "30.945462880932766%",
+                        "width": "30.621979642284074%",
                       }
                     }
                   />
@@ -2479,7 +2561,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
           <div
             className="col-md-12"
           >
-            As a DPS, it is important to spend as much time casting as possible as if you are not casting then you are not doing damage. Therefore it is important to minimize your movements, stay within range of the target, and cancelling casts .. if you can avoid it. While some fights will have an amount of time that is unavoidable downtime; the more you can minimize that downtime, the better.
+            As a DPS, it is important to spend as much time casting as possible as if you are not casting then you are not doing damage. Therefore it is important to minimize your movements, stay within range of the target, and avoid cancelling casts if you can avoid it. While some fights will have an amount of time that is unavoidable downtime; the more you can minimize that downtime, the better.
           </div>
         </div>
         <div

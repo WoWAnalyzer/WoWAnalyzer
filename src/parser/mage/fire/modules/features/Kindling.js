@@ -1,6 +1,10 @@
+import React from 'react';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import { formatNumber } from 'common/format';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import HIT_TYPES from 'game/HIT_TYPES';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
@@ -34,6 +38,25 @@ class Kindling extends Analyzer {
     if (combustionOnCD) {
       this.cooldownReduction += this.spellUsable.reduceCooldown(SPELLS.COMBUSTION.id, (CRIT_REDUCTION_MS));
     }
+  }
+
+  get cooldownReductionSeconds() {
+    return this.cooldownReduction / 1000;
+  }
+
+  statistic() {
+    return (
+      <Statistic
+        size="flexible"
+        category={'TALENTS'}
+      >
+        <BoringSpellValueText spell={SPELLS.KINDLING_TALENT}>
+          <>
+            {formatNumber(this.cooldownReductionSeconds)}s <small>Combustion Cooldown Reduction</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
+    );
   }
 }
 

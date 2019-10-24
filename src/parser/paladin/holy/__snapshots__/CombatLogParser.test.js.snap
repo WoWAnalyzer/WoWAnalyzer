@@ -4480,7 +4480,7 @@ Array [
       />
        (
       <WithI18n
-        id=">\${0}% is recommended"
+        id=">\{0}% is recommended"
         values={
           Object {
             "0": "25.00",
@@ -5048,7 +5048,7 @@ exports[`Holy Paladin integration test should match the checklist snapshot 1`] =
               style={
                 Object {
                   "backgroundColor": "#ac1f39",
-                  "width": "20.621678817654804%",
+                  "width": "20.55351845746216%",
                 }
               }
             />
@@ -5370,7 +5370,7 @@ exports[`Holy Paladin integration test should match the checklist snapshot 1`] =
                   }
                 >
                    
-                  51.45%
+                  50.73%
                    
                    
                 </div>
@@ -5392,7 +5392,7 @@ exports[`Holy Paladin integration test should match the checklist snapshot 1`] =
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "24.475520625438733%",
+                        "width": "24.13471882447553%",
                       }
                     }
                   />
@@ -5597,8 +5597,8 @@ exports[`Holy Paladin integration test should match the checklist snapshot 1`] =
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#4ec04e",
-                  "width": "100%",
+                  "backgroundColor": "#a6c34c",
+                  "width": "80.84690962520474%",
                 }
               }
             />
@@ -5710,7 +5710,7 @@ exports[`Holy Paladin integration test should match the checklist snapshot 1`] =
                   }
                 >
                    
-                  88.94%
+                  73.53%
                    
                    
                 </div>
@@ -5730,9 +5730,9 @@ exports[`Holy Paladin integration test should match the checklist snapshot 1`] =
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ffc84a",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "61.69381925040949%",
                       }
                     }
                   />
@@ -5782,7 +5782,7 @@ exports[`Holy Paladin integration test should match the checklist snapshot 1`] =
                   }
                 >
                    
-                  88.94%
+                  75.05%
                    
                    
                 </div>
@@ -8113,7 +8113,7 @@ exports[`Holy Paladin integration test should match the checklist snapshot 1`] =
                   }
                 >
                    
-                  29.65%
+                  19.50%
                    
                    
                 </div>
@@ -8135,7 +8135,7 @@ exports[`Holy Paladin integration test should match the checklist snapshot 1`] =
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "21.93778858197396%",
+                        "width": "14.431042959032172%",
                       }
                     }
                   />

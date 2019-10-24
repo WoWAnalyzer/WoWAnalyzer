@@ -181,11 +181,13 @@ class EchoOfLightMastery extends Analyzer {
       // There is a bug when you apply and refresh EoL at the same exact millisecond.
       // When you do this (via benediction or some other means) there can be 4 ticks of EoL.
       // This code compensates for that.
-      if (event.timestamp === this.targetMasteryPool[targetId].applicationTime) {
-        DEBUG && console.warn(`[${event.timestamp}] There was a double application of EoL tick on target ${this.combatants.players[targetId] ? this.combatants.players[targetId].name : ''} (${targetId}). Applying 4 ticks.`);
-        this.targetMasteryPool[targetId].remainingTicks = 4;
-      } else {
-        this.targetMasteryPool[targetId].remainingTicks = 3;
+      if (this.targetMasteryPool[targetId]) {
+        if (event.timestamp === this.targetMasteryPool[targetId].applicationTime) {
+          DEBUG && console.warn(`[${event.timestamp}] There was a double application of EoL tick on target ${this.combatants.players[targetId] ? this.combatants.players[targetId].name : ''} (${targetId}). Applying 4 ticks.`);
+          this.targetMasteryPool[targetId].remainingTicks = 4;
+        } else {
+          this.targetMasteryPool[targetId].remainingTicks = 3;
+        }
       }
     }
   }

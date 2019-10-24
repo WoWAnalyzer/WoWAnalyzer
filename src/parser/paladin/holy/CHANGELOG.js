@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 10, 21), <>Fixed a typo in <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} />'s suggestion. </>, [Abelito75]),
   change(date(2019, 8, 12), 'Added essence Lucid Dreams.', [blazyb]),
   change(date(2019, 6, 13), <><SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> statistic added showing healing, damage, beacon healing, <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />s/min and refresh utilization.</>, [HolySchmidt]),
   change(date(2019, 6, 2), <>Enabled the QElive auto import link for stat values.</>, [Abelito75]),

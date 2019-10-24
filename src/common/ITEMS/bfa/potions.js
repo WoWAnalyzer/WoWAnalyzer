@@ -99,4 +99,9 @@ export default {
     name: 'Potion of Focused Resolve',
     icon: 'inv_potionf_1',
   },
+  POTION_OF_EMPOWERED_PROXIMITY: {
+    id: 168529,
+    name: 'Potion of Empowered Proximity',
+    icon: 'inv_potionf_2',
+  },
 };

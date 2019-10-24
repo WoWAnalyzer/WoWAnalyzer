@@ -13,6 +13,7 @@ import BoringSpellValueText from 'interface/statistics/components/BoringSpellVal
 import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from 'parser/monk/windwalker/constants';
 
 const MOD_PER_STACK = 0.01;
+const MAX_STACKS = 6;
 
 class HitCombo extends Analyzer {
   constructor(...args) {
@@ -35,7 +36,7 @@ class HitCombo extends Analyzer {
   }
 
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.HIT_COMBO_BUFF.id) / this.owner.fightDuration;
+    return this.selectedCombatant.getStackWeightedBuffUptime(SPELLS.HIT_COMBO_BUFF.id) / (this.owner.fightDuration * MAX_STACKS);
   }
 
   get dps(){
@@ -46,17 +47,16 @@ class HitCombo extends Analyzer {
     return {
       actual: this.uptime,
       isLessThan: {
-        minor: 0.98,
-        average: 0.95,
-        major: 0.90,
+        minor: 0.95,
+        average: 0.90,
+        major: 0.85,
       },
       style: 'percentage',
     };
   }
 
   suggestions(when) {
-    when(this.suggestionThresholds).isLessThan(0.95)
-      .addSuggestion((suggest, actual, recommended) => {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
         return suggest(<span>You let your <SpellLink id={SPELLS.HIT_COMBO_TALENT.id} /> buff drop by casting a spell twice in a row. Dropping this buff is a large DPS decrease so be mindful of the spells being cast.</span>)
           .icon(SPELLS.HIT_COMBO_TALENT.icon)
           .actual(`${formatPercentage(actual)} % uptime`)
@@ -67,12 +67,17 @@ class HitCombo extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.CORE(90)}
+        position={STATISTIC_ORDER.CORE(11)}
         size="flexible"
-        tooltip={`Total damage increase: ${formatNumber(this.totalDamage)}`}
+        tooltip={(
+          <>
+            Total damage increase: {formatNumber(this.totalDamage)}<br />
+            Uptime is weighted so less stacks count less towards 100% uptime
+          </>
+        )}
       >
         <BoringSpellValueText spell={SPELLS.HIT_COMBO_TALENT}>
-          <UptimeIcon /> {formatPercentage(this.uptime)}% <small>Uptime</small><br />
+          <UptimeIcon /> {formatPercentage(this.uptime)}% <small>Weighted uptime</small><br />
           <img
             src="/img/sword.png"
             alt="Damage"
