@@ -1,5 +1,5 @@
 import React from 'react';
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal } from 'CONTRIBUTORS';
+import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal, JeremyDwayne } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -9,6 +9,7 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   change(date(2019, 10, 24), <>>Replaced the activity time statistic icons that had outgrown their space with smaller ones. <small>I only fixed it for <a href="https://hacktoberfest.digitalocean.com/">the shirt</a>.</small></>, Zerotorescue),
+  change(date(2019, 10, 24), 'Updated nodejs for docker.', JeremyDwayne),
   change(date(2019, 10, 19), <>Fixed an issue in the character tab caused it to break for logs without essences.</>, Draenal),
   change(date(2019, 10, 13), <>Added extra information and cleaned up Vantus Rune infographic.</>, Abelito75),
   change(date(2019, 10, 13), <>Added <ItemLink id={ITEMS.RAZOR_CORAL.id} />.</>, Zeboot),
