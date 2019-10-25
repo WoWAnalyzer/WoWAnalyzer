@@ -26,7 +26,7 @@ export default {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport: '/report/TGzmk4bXDZJndpj7/6-Heroic+Opulence+-+Kill+(8:12)/9-Manadrake',
-
+  builds: {ZEBOOT: {name: "test", url: "zeboot", icon:<img src="https://render-us.worldofwarcraft.com/character/whisperwind/66/186639426-avatar.jpg" alt="" />}},
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: SPECS.BREWMASTER_MONK,

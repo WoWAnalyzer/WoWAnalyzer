@@ -18,7 +18,7 @@ export function makePlainUrl(reportCode = undefined, fightId = undefined, fightN
   return `/${parts.join('/')}`;
 }
 
-export default function makeReportUrl(report = undefined, fightId = undefined, playerId = undefined, tab = undefined) {
+export default function makeReportUrl(report = undefined, fightId = undefined, playerId = undefined, tab = undefined, build = undefined) {
   const parts = [];
   if (report) {
     parts.push(`report/${report.code}`);
@@ -35,6 +35,9 @@ export default function makeReportUrl(report = undefined, fightId = undefined, p
             parts.push(duplicatePlayerNames.length > 1 ? `${playerId}-${prettyEncodeURI(playerName)}` : prettyEncodeURI(playerName));
             if (tab) {
               parts.push(tab);
+              if(build){
+                parts.push(build);
+              }
             }
           }
         }

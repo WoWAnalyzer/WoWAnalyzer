@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
+import { getBuild } from 'interface/selectors/url/report';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import NavigationBar from 'interface/layout/NavigationBar';
 import ErrorBoundary from 'interface/common/ErrorBoundary';
@@ -29,6 +31,7 @@ class ResultsLoader extends React.PureComponent {
     fight: PropTypes.object.isRequired,
     player: PropTypes.object.isRequired,
     combatants: PropTypes.array,
+    build: PropTypes.string,
   };
 
   constructor() {
@@ -63,6 +66,7 @@ class ResultsLoader extends React.PureComponent {
     this.handlePhaseParser = this.handlePhaseParser.bind(this);
     this.handleTimeFilter = this.handleTimeFilter.bind(this);
     this.applyTimeFilter = this.applyTimeFilter.bind(this);
+    this.handleBuildSelection = this.handleBuildSelection.bind(this);
   }
 
   handleParserLoader(isLoading, parserClass) {
@@ -134,6 +138,13 @@ class ResultsLoader extends React.PureComponent {
     });
     return null;
   }
+  handleBuildSelection(build){
+    console.log(build);
+    this.setState({
+      build,
+    });
+  }
+
   get progress() {
     return (
       (!this.state.isLoadingParser ? 0.05 : 0)
@@ -146,7 +157,7 @@ class ResultsLoader extends React.PureComponent {
   }
 
   render() {
-    const { config, report, fight, player, combatants } = this.props;
+    const { config, report, fight, player, combatants, build } = this.props;
 
     return (
       <>
@@ -208,6 +219,7 @@ class ResultsLoader extends React.PureComponent {
             parserClass={this.state.parserClass}
             characterProfile={this.state.characterProfile}
             events={this.state.filteredEvents}
+            build={this.props.build}
           >
             {this.handleEventsParser}
           </EventParser>
@@ -234,13 +246,19 @@ class ResultsLoader extends React.PureComponent {
           handlePhaseSelection={this.handlePhaseSelection}
           applyFilter={this.applyTimeFilter}
           timeFilter={this.state.timeFilter}
-          makeTabUrl={tab => makeAnalyzerUrl(report, fight.id, player.id, tab)}
+          build={this.props.build}
+          makeTabUrl={tab => makeAnalyzerUrl(report, fight.id, player.id, tab, build)}
+          makeBuildUrl={(tab, build) => makeAnalyzerUrl(report, fight.id, player.id, tab, build)}
         />
       </>
     );
   }
 }
-
+const mapStateToProps = (state, ownProps) => ({
+    // Because build comes from the URL we can't use local state
+    build: getBuild(state),
+});
+const ResultsLoaderConnected = connect(mapStateToProps)(ResultsLoader);
 const Report = () => (
   // TODO: Error boundary so all sub components don't need the errorHandler with the silly withRouter dependency. Instead just throw the error and let the boundary catch it - if possible.
   <>
@@ -272,7 +290,7 @@ const Report = () => (
                           fight={fight}
                           player={player}
                         >
-                          <ResultsLoader
+                          <ResultsLoaderConnected
                             config={config}
                             report={report}
                             fight={fight}
