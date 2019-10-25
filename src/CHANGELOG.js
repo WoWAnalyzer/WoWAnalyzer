@@ -8,6 +8,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  change(date(2019, 10, 25), <>Added missing spell information for resource refunds and gains from <SpellLink id={SPELLS.LUCID_DREAMS_MINOR.id} /> and <SpellLink id={SPELLS.VISION_OF_PERFECTION.id} />.</>, Juko8),
   change(date(2019, 10, 13), <>Added extra information and cleaned up Vantus Rune infographic. />.</>, Abelito75),
   change(date(2019, 10, 13), <>Added <ItemLink id={ITEMS.RAZOR_CORAL.id} />.</>, Zeboot),
   change(date(2019, 10, 13), 'Added event filter to cooldown to view only events during a selected cooldown.', Zeboot),
