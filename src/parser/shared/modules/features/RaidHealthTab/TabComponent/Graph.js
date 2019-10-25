@@ -24,7 +24,6 @@ const CLASS_CHART_LINE_COLORS = {
 class Graph extends React.PureComponent {
   static propTypes = {
     reportCode: PropTypes.string.isRequired,
-    actorId: PropTypes.number.isRequired,
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
     offset: PropTypes.number.isRequired,
@@ -37,17 +36,19 @@ class Graph extends React.PureComponent {
     };
   }
 
-  componentWillMount() {
-    this.load(this.props.reportCode, this.props.actorId, this.props.start, this.props.end);
+  componentDidMount() {
+    this.load();
   }
-  componentWillReceiveProps(newProps) {
-    if (newProps.reportCode !== this.props.reportCode || newProps.actorId !== this.props.actorId || newProps.start !== this.props.start || newProps.end !== this.props.end) {
-      this.load(newProps.reportCode, newProps.actorId, newProps.start, newProps.end);
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.reportCode !== this.props.reportCode || prevProps.start !== this.props.start || prevProps.end !== this.props.end) {
+      this.load();
     }
   }
 
-  load(reportCode, actorId, start, end) {
-    return fetchWcl(`report/tables/resources/${reportCode}`, {
+  load() {
+    const { reportCode, start, end } = this.props;
+    fetchWcl(`report/tables/resources/${reportCode}`, {
       start,
       end,
       abilityid: 1000,
