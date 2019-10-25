@@ -3,9 +3,10 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer from 'parser/core/Analyzer';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import SCHOOLS from 'game/MAGIC_SCHOOLS';
 
 /**
  * Simple info graphic that shows what spell did what healing during wotc window, the hps of each spell, and hptc
@@ -39,6 +40,11 @@ class WayOfTheCrane extends Analyzer {
     if(!this.selectedCombatant.hasBuff(SPELLS.WAY_OF_THE_CRANE.id)){
       return;
     }
+
+    if(event.ability.type !== SCHOOLS.ids.PHYSICAL){
+      return;
+    }
+
     this._damageSpell = event.ability.name;
   }
 
@@ -74,7 +80,7 @@ class WayOfTheCrane extends Analyzer {
         return;
     }
     this._inWotc = true;
-    this._lastTimeStamp = event.lastTimeStamp;
+    this._lastTimeStamp = event.timestamp;
   }
 
   on_byPlayer_removebuff(event){
@@ -87,21 +93,33 @@ class WayOfTheCrane extends Analyzer {
 
   on_fightend(){
     if(this._inWotc === true){
-      this._wotcTime += (this.selectedCombatant.fightDuration - this._lastTimeStamp)/1000;
+      this._wotcTime += (this.owner.fight.end_time - this._lastTimeStamp)/1000;
     }
   }
 
   statistic() {
     const arrayOfDamageSpells = Array.from(this.customMap.keys());
+    const fightLength = (this.owner.fight.end_time - this.owner.fight.start_time)/1000;
+    let healing = 0;
+    //let overhealing = 0;//doing both of these so we can easily add more in the future
+    const that = this;
+    arrayOfDamageSpells.forEach(function(spell){
+      healing += (that.customMap.get(spell).healing ||0);
+      //overhealing += (that.customMap.get(spell).overheal || 0);
+    });
     return (
       <AzeritePowerStatistic
         size="flexible"
         tooltip={(
-          <ul>
-          {arrayOfDamageSpells.map(spell => (
-            <li>{spell} did {this.customMap.get(spell).healing} healing, {this.customMap.get(spell).overheal} overhealing in {this.customMap.get(spell).casts/3} casts.</li>
-          ))}
-        </ul>
+          <div>
+            <SpellLink id={SPELLS.WAY_OF_THE_CRANE.id} /> was active for {this._wotcTime} seconds, which was {formatPercentage((this._wotcTime/fightLength))}% of the fight. The raw data, per spell is below.
+            <ul>
+            {arrayOfDamageSpells.map(spell => (
+             <li>{spell} did {formatNumber(this.customMap.get(spell).healing)} healing, {formatNumber(this.customMap.get(spell).overheal)} overhealing in {this.customMap.get(spell).casts/3} casts.
+             This was {formatPercentage(this.customMap.get(spell).healing/(healing))}% of your hps during wotc.</li>
+           ))}
+         </ul>
+        </div>
         )}
       >
       <div className="pad">

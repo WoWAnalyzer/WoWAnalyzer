@@ -59,7 +59,7 @@ export default {
     id: 296065,
     name: 'The Ever-Rising Tide',
     icon: 'inv_elemental_mote_mana',
-  },  
+  },
   WELL_OF_EXISTENCE: {
     id: 299936,
     traitId: 19,
@@ -170,5 +170,177 @@ export default {
     id: 296061,
     name: 'Null Barrier',
     icon: 'spell_azerite_essence_16',
+  },
+  // Memory of Lucid Dreams
+  // Each unique resource has its own refund spell. Icicles and Fire blast and Shield of the Righteous charges don't.
+  LUCID_DREAMS: {
+    id: 299374,
+    traitId: 27,
+    name: 'Memory of Lucid Dreams',
+    icon: 'spell_azerite_essence05',
+  },
+  LUCID_DREAMS_MAJOR: {
+    id: 298357,
+    name: 'Memory of Lucid Dreams',
+    icon: 'spell_azerite_essence05',
+  },
+  LUCID_DREAMS_MINOR: {
+    id: 299373,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
+  LUCID_DREAMS_MINOR_STAT_BUFF: {
+    id: 298343,
+    name: 'Lucid Dreams',
+    icon: 'spell_azerite_essence05',
+  },
+  LUCID_DREAMS_HEAL: {
+    id: 298318,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
+  LUCID_DREAMS_MINOR_RESOURCE_REFUND: {
+    id: 298324,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
+  LUCID_DREAMS_MINOR_RESOURCE_REFUND_RAGE : {
+   id: 298321,
+   name: 'Lucid Dreams',
+   icon: 'inv_radientazeritematrix',
+  },
+  LUCID_DREAMS_MINOR_RESOURCE_REFUND_ENERGY: {
+    id: 298325,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
+  LUCID_DREAMS_MINOR_RESOURCE_REFUND_PAIN: {
+    id: 298331,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
+  LUCID_DREAMS_MINOR_RESOURCE_REFUND_FURY: {
+    id: 298330,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
+  LUCID_DREAMS_MINOR_RESOURCE_REFUND_SOUL_SHARD: {
+    id: 298328,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
+  LUCID_DREAMS_MINOR_RESOURCE_REFUND_HOLY_POWER: {
+    id: 298333,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
+  LUCID_DREAMS_MINOR_RESOURCE_REFUND_ASTRAL_POWER: {
+    id: 298327,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
+  LUCID_DREAMS_MINOR_RESOURCE_REFUND_RUNE: {
+    id: 304632,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
+  LUCID_DREAMS_MINOR_RESOURCE_REFUND_RUNIC_POWER: {
+    id: 298334,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
+  LUCID_DREAMS_MINOR_RESOURCE_REFUND_FOCUS: {
+    id: 299058,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
+  LUCID_DREAMS_MINOR_RESOURCE_REFUND_MAELSTROM: {
+    id: 298332,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
+  LUCID_DREAMS_MINOR_RESOURCE_REFUND_INSANITY: {
+    id: 298329,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
+  //Vision of Perfection
+  VISION_OF_PERFECTION: {
+    id: 296325,
+    traitId: 22,
+    name: 'Vision of Perfection',
+    icon: 'spell_azerite_essence_18',
+  },
+  VISION_OF_PERFECTION_HASTE_CALC: {
+    id: 303342,
+    name: 'Vision of Perfection',
+    icon: 'spell_azerite_essence_18',
+  },
+  VISION_OF_PERFECTION_HASTE_BUFF_SELF: {
+    id: 303344,
+    name: 'Vision of Perfection',
+    icon: 'spell_azerite_essence_18',
+  },
+  VISION_OF_PERFECTION_HASTE_BUFF_OTHERS: {
+    id: 303345,
+    name: 'Vision of Perfection',
+    icon: 'spell_azerite_essence_18',
+  },
+  VISION_OF_PERFECTION_RAGE: {
+    id: 302585,
+    name: 'Vision of Perfection',
+    icon: 'spell_azerite_essence_18',
+  },
+  VISION_OF_PERFECTION_ASTRAL_POWER: {
+    id: 302657,
+    name: 'Vision of Perfection',
+    icon: 'spell_azerite_essence_18',
+  },
+  VISION_OF_PERFECTION_RUNES_RUNIC_POWER: {
+    id: 302656,
+    name: 'Vision of Perfection',
+    icon: 'spell_azerite_essence_18',
+  },
+  STRIVE_FOR_PERFECTION: {
+    id: 296320,
+    name: 'Strive for Perfection',
+    icon: 'inv_radientazeritematrix',
+  },
+  STRIVE_FOR_PERFECTION_HEAL: { // 5% heal on activation
+    id: 296330,
+    name: 'Strive for Perfection',
+    icon: 'spell_azerite_essence_18',
+  },
+  STRIVE_FOR_PERFECTION_VERSATILITY: {
+    id: 296322,
+    name: 'Strive for Perfection',
+    icon: 'inv_radientazeritematrix',
+  },
+  //Condensed Life Force
+  GUARDIAN_OF_AZEROTH: {
+    id: 299358,
+    traitId: 14,
+    name: 'Guardian of Azeroth',
+    icon: 'spell_azerite_essence14',
+  },
+  GUARDIAN_OF_AZEROTH_MAJOR: {
+    id: 295840,
+    name: 'Guardian of Azeroth',
+    icon: 'spell_azerite_essence14',
+  },
+  GUARDIAN_OF_AZEROTH_HASTE_BUFF: {
+    id: 295855,
+    name: 'Guardian of Azeroth',
+    icon: 'spell_azerite_essence14',
+  },
+  AZERITE_SPIKE: {
+    id: 296856,
+    name: 'Azerite Spike',
+    icon: 'spell_azerite_essence14',
+  },
+  CONDENSED_LIFE_FORCE_DEBUFF: {
+    id: 295838,
+    name: 'Condensed Life Force',
+    icon: 'spell_azerite_essence14',
   },
 };

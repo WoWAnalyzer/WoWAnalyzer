@@ -7,6 +7,9 @@ import SpellLink from "common/SpellLink";
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 const RAMP_INTERVAL = 6000;
 const INCREASE_PER_RAMP = 0.01;
@@ -45,7 +48,7 @@ class LoneWolf extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = true;
+    this.active = this.owner.playerPets.length === 0;
   }
 
   on_byPlayer_applybuff(event) {
@@ -87,6 +90,25 @@ class LoneWolf extends Analyzer {
     }
   }
 
+  statistic() {
+    return (
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
+      >
+        <BoringSpellValueText spell={SPELLS.LONE_WOLF_BUFF}>
+          <>
+            <ItemDamageDone amount={this.damage} />
+          </>
+        </BoringSpellValueText>
+      </Statistic>
+    );
+  }
+
+  /**
+   * @deprecated
+   * @returns {*}
+   */
   subStatistic() {
     return (
       <StatisticListBoxItem

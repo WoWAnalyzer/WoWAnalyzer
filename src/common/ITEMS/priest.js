@@ -140,4 +140,11 @@ export default {
     icon: 'inv_chest_cloth_raidpriestmythic_o_01',
     quality: ITEM_QUALITIES.LEGENDARY,
   },
+
+  // Miscellaneous
+  GLYPH_OF_THE_LIGHTSPAWN: {
+    id: 153031,
+    name: 'Glyph of the Lightspawn',
+    icon: 'inv_glyph_minorpriest',
+  },
 };

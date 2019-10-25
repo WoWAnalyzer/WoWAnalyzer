@@ -20,6 +20,8 @@ class Casts extends React.PureComponent {
       eventHistory: PropTypes.arrayOf(PropTypes.shape({
         type: PropTypes.string.isRequired,
       })).isRequired,
+      toPlayer: PropTypes.func.isRequired,
+      byPlayer: PropTypes.func.isRequired,
     }).isRequired,
   };
 

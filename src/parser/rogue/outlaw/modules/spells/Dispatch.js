@@ -37,7 +37,7 @@ class Dispatch extends Analyzer {
         average: 0.1,
         major: 0.2,
       },
-      style: 'number',
+      style: 'percentage',
     };
   }
 

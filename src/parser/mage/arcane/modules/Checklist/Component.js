@@ -15,6 +15,7 @@ class ArcaneMageChecklist extends React.PureComponent {
     combatant: PropTypes.shape({
       hasTalent: PropTypes.func.isRequired,
       hasTrinket: PropTypes.func.isRequired,
+      hasShoulder: PropTypes.func.isRequired,
     }).isRequired,
     thresholds: PropTypes.object.isRequired,
   };
@@ -64,11 +65,6 @@ class ArcaneMageChecklist extends React.PureComponent {
             name="Arcane Power Pre-Cast Setup"
             tooltip="In order to effectively utilize Arcane Power, there are certain things you need to ensure are setup before you cast Arcane Power. Making sure you have 4 Arcane Charges, You have more than 40% Mana (Unless you have the Overpowered Talent), and ensuring you cast Rune of Power immediately before Arcane Power (if you have Rune of Power talented) will all help make the most out of your burn phase."
             thresholds={thresholds.arcanePowerCooldown}
-          />
-          <Requirement
-            name="Arcane Power Available on Kill"
-            tooltip="Seeing as the boss is about to die, you should always ensure that Arcane Power is on cooldown when the boss dies. Even if you will only get half the duration out of it you should still cast it to get a boost in damage at the end."
-            thresholds={thresholds.arcanePowerOnKill}
           />
 
         </Rule>

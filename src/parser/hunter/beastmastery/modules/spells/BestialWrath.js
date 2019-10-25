@@ -3,12 +3,14 @@ import Analyzer from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellIcon from 'common/SpellIcon';
 import { formatNumber, formatPercentage } from 'common/format';
 import SpellLink from 'common/SpellLink';
 import ResourceIcon from 'common/ResourceIcon';
-import StatisticBox from 'interface/others/StatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import UptimeIcon from 'interface/icons/Uptime';
 
 const COOLDOWN_REDUCTION_MS = 12000;
 const BESTIAL_WRATH_BASE_CD = 90000;
@@ -123,41 +125,49 @@ class BestialWrath extends Analyzer {
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
     });
   }
+
   statistic() {
     return (
-      <StatisticBox
-        position={STATISTIC_ORDER.CORE(14)}
-        icon={<SpellIcon id={SPELLS.BESTIAL_WRATH.id} />}
-        label={<SpellLink id={SPELLS.BESTIAL_WRATH.id} icon={false} />}
-        value={<>{this.percentUptime}% <small>uptime</small></>}
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(14)}
+        size="flexible"
+        dropdown={(
+          <>
+            <table className="table table-condensed">
+              <thead>
+                <tr>
+                  <td className={"text-left"}><b>Statistic</b></td>
+                  <td><b>Info</b></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className={"text-left"}>Average focus on cast</td>
+                  <td>{<>{this.averageFocusAtBestialWrathCast} <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /></>}</td>
+                </tr>
+                <tr>
+                  <td className={"text-left"}>Gained Bestial Wraths</td>
+                  <td>{<>{this.gainedBestialWraths} <SpellIcon id={SPELLS.BESTIAL_WRATH.id} /></>}</td>
+                </tr>
+                <tr>
+                  <td className={"text-left"}>CDR Efficiency</td>
+                  <td>{<>{formatNumber(this.effectiveBWReduction / 1000)}s / {this.totalPossibleCDR / 1000}s</>}</td>
+                </tr>
+                <tr>
+                  <td className={"text-left"}>CDR Efficiency %</td>
+                  <td>{formatPercentage(this.effectiveBWReduction / this.totalPossibleCDR)}%</td>
+                </tr>
+              </tbody>
+            </table>
+          </>
+        )}
       >
-        <table className="table table-condensed">
-          <thead>
-            <tr>
-              <td className={"text-left"}><b>Statistic</b></td>
-              <td><b>Info</b></td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className={"text-left"}>Average focus on cast</td>
-              <td>{<>{this.averageFocusAtBestialWrathCast} <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /></>}</td>
-            </tr>
-            <tr>
-              <td className={"text-left"}>Gained Bestial Wraths</td>
-              <td>{<>{this.gainedBestialWraths} <SpellIcon id={SPELLS.BESTIAL_WRATH.id} /></>}</td>
-            </tr>
-            <tr>
-              <td className={"text-left"}>CDR Efficiency</td>
-              <td>{<>{formatNumber(this.effectiveBWReduction / 1000)}s / {this.totalPossibleCDR / 1000}s</>}</td>
-            </tr>
-            <tr>
-              <td className={"text-left"}>CDR Efficiency %</td>
-              <td>{formatPercentage(this.effectiveBWReduction / this.totalPossibleCDR)}%</td>
-            </tr>
-          </tbody>
-        </table>
-      </StatisticBox>
+        <BoringSpellValueText spell={SPELLS.BESTIAL_WRATH}>
+          <>
+            <UptimeIcon /> {this.percentUptime}% <small>uptime</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

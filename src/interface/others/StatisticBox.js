@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_CATEGORY from './STATISTIC_CATEGORY';
+import './StatisticBox.css';
 
 export { default as STATISTIC_ORDER } from './STATISTIC_ORDER';
 export { default as STATISTIC_CATEGORY } from './STATISTIC_CATEGORY';
@@ -28,26 +29,23 @@ class StatisticBox extends React.PureComponent {
     style: {},
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      expanded: false,
+      expanded: props.expanded,
     };
 
     this.toggleExpansion = this.toggleExpansion.bind(this);
   }
 
-  componentWillMount() {
-    this.setState({
-      expanded: this.props.expanded,
-    });
+  componentDidUpdate(prevProps) {
+    if (prevProps.expanded !== this.props.expanded) {
+      this.setState({
+        expanded: this.props.expanded,
+      });
+    }
   }
 
-  componentWillReceiveProps(newProps) {
-    this.setState({
-      expanded: newProps.expanded,
-    });
-  }
   toggleExpansion() {
     this.setState({
       expanded: !this.state.expanded,

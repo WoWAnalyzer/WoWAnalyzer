@@ -3,14 +3,18 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS/index';
-import SpellLink from "common/SpellLink";
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import { formatPercentage } from 'common/format';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
+import SpellLink from 'common/SpellLink';
 
 /**
  * Your auto-shots have a 25% chance to cause a volley of arrows to rain down around the target, dealing Physical damage to each enemy within 8 yards.
+ *
+ * example log: https://www.warcraftlogs.com/reports/aqRc7Fnvf2dmPMD3#fight=75&type=damage-done
  */
 
 const PROC_CHANCE = 0.25;
@@ -106,16 +110,17 @@ class Volley extends Analyzer {
     const binomCalc = this.binomialCalculation(this.procs, this.autoShots, PROC_CHANCE);
 
     return (
-      <TalentStatisticBox
-        talent={SPELLS.VOLLEY_TALENT.id}
-        value={`${this.procs} procs`}
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
+        category={'TALENTS'}
         tooltip={(
           <>
             You had {this.procs} {this.procs > 1 ? `procs` : `proc`}. <br />
             You had {formatPercentage(this.procs / this.expectedProcs, 1)}% procs of what you could expect to get over the encounter. <br />
             You had a total of {this.procs} procs, and your expected amount of procs was {this.expectedProcs}. <br />
             <ul>
-              <li>You have a ~{formatPercentage(binomCalc)}% chance of getting this amount of procs or fewer in the future with this amount of autoattacks. </li>
+              <li>You have a ~{formatPercentage(binomCalc)}% chance of getting this amount of procs or fewer in the future with this amount of autoattacks.</li>
               {/*these two will probably NEVER happen, but it'd be fun if they ever did.*/}
               {binomCalc === 1 && <li>You had so many procs that the chance of you getting fewer procs than what you had on this attempt is going to be de facto 100%. Consider yourself the luckiest man alive.</li>}
               {binomCalc === 0 && <li>You had so few procs that the chance of you getting fewer procs than what you had on this attempt is going to be de facto 0%. Consider yourself the unluckiest man alive.</li>}
@@ -128,10 +133,21 @@ class Volley extends Analyzer {
             </ul>
           </>
         )}
-      />
+      >
+        <BoringSpellValueText spell={SPELLS.VOLLEY_TALENT}>
+          <>
+            <ItemDamageDone amount={this.damage} /><br />
+            {this.procs} <small>procs</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 
+  /**
+   * @deprecated
+   * @returns {*}
+   */
   subStatistic() {
     return (
       <StatisticListBoxItem
@@ -140,7 +156,6 @@ class Volley extends Analyzer {
       />
     );
   }
-
 }
 
 export default Volley;

@@ -1,10 +1,12 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
-import TraitStatisticBox from 'interface/others/TraitStatisticBox';
 import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import Agility from 'interface/icons/Agility';
 
 const blurOfTalonsStats = traits => Object.values(traits).reduce((obj, rank) => {
   const [agility] = calculateAzeriteEffects(SPELLS.BLUR_OF_TALONS.id, rank);
@@ -107,35 +109,47 @@ class BlurOfTalons extends Analyzer {
     }, 0);
     return avgAgi;
   }
-
   statistic() {
     return (
-      <TraitStatisticBox
-        trait={SPELLS.BLUR_OF_TALONS.id}
-        value={`${formatNumber(this.avgAgility)} average Agility`}
-        tooltip={`Blur of Talons was up for a total of ${this.uptime} seconds`}
+      <AzeritePowerStatistic
+        size="flexible"
+        category={"AZERITE_POWERS"}
+        tooltip={(
+          <>
+            Blur of Talons was up for a total of {this.uptime} seconds
+          </>
+        )}
+        dropdown={(
+          <>
+            <table className="table table-condensed">
+              <thead>
+                <tr>
+                  <th>Stacks</th>
+                  <th>Time (m:s)</th>
+                  <th>Time (%)</th>
+                  <th>Agility gained</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.values(this.blurOfTalonsTimesByStacks).map((e, i) => (
+                  <tr key={i}>
+                    <th>{i}</th>
+                    <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
+                    <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
+                    <td>{formatNumber(this.agility * i)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </>
+        )}
       >
-        <table className="table table-condensed">
-          <thead>
-            <tr>
-              <th>Stacks</th>
-              <th>Time (m:s)</th>
-              <th>Time (%)</th>
-              <th>Agility gained</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.values(this.blurOfTalonsTimesByStacks).map((e, i) => (
-              <tr key={i}>
-                <th>{i}</th>
-                <td>{formatDuration(e.reduce((a, b) => a + b, 0) / 1000)}</td>
-                <td>{formatPercentage(e.reduce((a, b) => a + b, 0) / this.owner.fightDuration)}%</td>
-                <td>{formatNumber(this.agility * i)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </TraitStatisticBox>
+        <BoringSpellValueText spell={SPELLS.BLUR_OF_TALONS}>
+          <>
+            <Agility /> {formatNumber(this.avgAgility)} <small>average Agility</small>
+          </>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }

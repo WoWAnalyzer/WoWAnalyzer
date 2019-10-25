@@ -56,7 +56,7 @@ const effects = {};
 //
 // Note that JS regex is somewhat limited in that it can't do repeated
 // groups
-for (let j = 0; j < numSpells; i++, j++) {
+for (let j = 0; j < numSpells; i++ , j++) {
   const line = dbcLines[i];
   const match = line.match(SPELL_DATA_RE);
   if (!match) {
@@ -67,6 +67,7 @@ for (let j = 0; j < numSpells; i++, j++) {
   const fields = _fields.replace(' ', '').split(/,/).map(Number);
   const id = Number(fields[0]);
   const scalingType = fields[6];
+  const essenceid = Number(fields[56]);
   const effectList = _effects.split(/, /).map(Number);
   if (spellIds.includes(id)) {
     SPELL_DATA[id] = {
@@ -74,6 +75,9 @@ for (let j = 0; j < numSpells; i++, j++) {
       scaling_type: scalingType,
       effects: {},
     };
+    if (essenceid) {
+      SPELL_DATA[id].essence_id = essenceid;
+    }
     for (const effect of effectList) {
       effects[effect] = id;
     }
@@ -103,7 +107,7 @@ for (; i < dbcLines.length; i++) {
 
 i += 1;
 
-for (let j = 0; j < numEffects; i++, j++) {
+for (let j = 0; j < numEffects; i++ , j++) {
   const line = dbcLines[i];
   const match = line.match(SPELL_EFFECT_DATA_RE);
   if (!match) {

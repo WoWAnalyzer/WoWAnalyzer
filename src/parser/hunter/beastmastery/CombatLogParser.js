@@ -43,14 +43,12 @@ import BestialWrath from './modules/spells/BestialWrath';
 import FocusTracker from '../shared/modules/features/focuschart/FocusTracker';
 import FocusTab from '../shared/modules/features/focuschart/FocusTab';
 
-//Traits and talents
-import SpellsAndTalents from './modules/features/SpellsAndTalents';
-
 //Azerite Traits
 import DanceOfDeath from './modules/spells/azeritetraits/DanceOfDeath';
 import HazeOfRage from './modules/spells/azeritetraits/HazeOfRage';
 import FeedingFrenzy from './modules/spells/azeritetraits/FeedingFrenzy';
 import PrimalInstincts from './modules/spells/azeritetraits/PrimalInstincts';
+import DireConsequences from '../shared/modules/spells/azeritetraits/DireConsequences';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -97,15 +95,13 @@ class CombatLogParser extends CoreCombatLogParser {
     bornToBeWild: BornToBeWild,
     bindingShot: BindingShot,
     animalCompanion: AnimalCompanion,
-    
-    //Traits and talents
-    spellssAndTalents: SpellsAndTalents,
 
     //Azerite Traits
     danceOfDeath: DanceOfDeath,
     hazeOfRage: HazeOfRage,
     feedingFrenzy: FeedingFrenzy,
     primalInstincts: PrimalInstincts,
+    direConsequences: DireConsequences,
   };
 }
 

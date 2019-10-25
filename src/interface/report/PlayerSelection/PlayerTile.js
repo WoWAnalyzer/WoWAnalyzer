@@ -18,6 +18,7 @@ class PlayerTile extends React.PureComponent {
     characterInfo: PropTypes.shape({
       region: PropTypes.string.isRequired,
       thumbnail: PropTypes.string.isRequired,
+      heartOfAzeroth: PropTypes.any,
     }),
     fetchCharacter: PropTypes.func.isRequired,
   };

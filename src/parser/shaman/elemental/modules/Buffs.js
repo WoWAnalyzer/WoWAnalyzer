@@ -23,7 +23,13 @@ class Buffs extends CoreBuffs {
         timelineHightlight: true,
       },
       {
+        spellId: SPELLS.SURGE_OF_POWER_BUFF.id,
+        enabled: combatant.hasTalent(SPELLS.SURGE_OF_POWER_TALENT.id),
+        timelineHightlight: true,
+      },
+      {
         spellId: SPELLS.STORMKEEPER_TALENT.id,
+        triggeredBySpellId: SPELLS.STORMKEEPER_TALENT.id,
         timelineHightlight: true,
       },
       {

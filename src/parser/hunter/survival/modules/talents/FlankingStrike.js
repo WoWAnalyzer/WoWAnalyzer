@@ -3,7 +3,9 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * You and your pet leap to the target and strike it as one, dealing a total of X Physical damage.
@@ -95,30 +97,41 @@ class FlankingStrike extends Analyzer {
 
   statistic() {
     const totalDamage = this.flankingStrikes.map(source => source.damage).reduce((total, current) => total + current, 0);
+
     return (
-      <TalentStatisticBox
-        talent={SPELLS.FLANKING_STRIKE_TALENT.id}
-        value={<ItemDamageDone amount={totalDamage} />}
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(1)}
+        size="flexible"
+        dropdown={(
+          <>
+            <table className="table table-condensed">
+              <thead>
+                <tr>
+                  <th>Source</th>
+                  <th>Damage</th>
+                  <th>Focus</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.flankingStrikes.map((source, idx) => (
+                  <tr key={idx}>
+                    <td>{source.name}</td>
+                    <td>{<ItemDamageDone amount={source.damage} />}</td>
+                    <td>{source.effectiveFocus}/{source.possibleFocus}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </>
+        )}
+        category={"TALENTS"}
       >
-        <table className="table table-condensed">
-          <thead>
-            <tr>
-              <th>Source</th>
-              <th>Damage</th>
-              <th>Focus</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.flankingStrikes.map((source, idx) => (
-              <tr key={idx}>
-                <td>{source.name}</td>
-                <td>{<ItemDamageDone amount={source.damage} />}</td>
-                <td>{source.effectiveFocus}/{source.possibleFocus}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </TalentStatisticBox>
+        <BoringSpellValueText spell={SPELLS.FLANKING_STRIKE_TALENT}>
+          <>
+            <ItemDamageDone amount={totalDamage} />
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

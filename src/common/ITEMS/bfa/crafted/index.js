@@ -19,7 +19,27 @@ export default {
     name: 'Darkmoon Deck: Fathoms',
     icon: 'inv_inscription_80_deck_fathoms',
   },
-
+  VANTUS_RUNE_ULDIR: {
+    id: 153673,
+    name: 'Vantus Rune',
+    icon: 'inv_inscription_80_vantusrune_uldir',
+  },
+  VANTUS_RUNE_BATTLE_OF_DAZARALOR: {
+    id: 165692,
+    name: 'Vantus Rune',
+    icon: 'inv_inscription_81_vantusrune_zuldazar',
+  },
+  VANTUS_RUNE_CRUCIBLE_OF_STORMS: {
+    id: 165733,
+    name: 'Vantus Rune',
+    icon: 'inv_inscription_81_vantusrune_seapriest',
+  },
+  VANTUS_RUNE_ETERNAL_PALACE: {
+    id: 168624,
+    name: 'Vantus Rune',
+    icon: 'ability_fomor_boss_rune_brown',
+  },
+  
   // Alchemy
   ENDLESS_TINCTURE_OF_FRACTIONAL_POWER: {
     id: 152636,

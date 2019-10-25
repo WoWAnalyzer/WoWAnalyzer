@@ -56,9 +56,9 @@ class HeavyRepercussions extends Analyzer {
     return {
       actual: this.sbExtended / this.sbCasts,
       isLessThan: {
-        minor: 1,
-        average: .95,
-        major: .85,
+        minor: .9,
+        average: .85,
+        major: .80,
       },
       style: 'percent',
     };

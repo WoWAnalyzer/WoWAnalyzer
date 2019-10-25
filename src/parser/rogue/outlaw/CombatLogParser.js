@@ -15,6 +15,7 @@ import OutlawEnergyCapTracker from './modules/core/OutlawEnergyCapTracker';
 import Energy from './modules/core/Energy';
 import SpellEnergyCost from '../shared/resources/SpellEnergyCost';
 
+import Checklist from './modules/features/Checklist/Module';
 import RollTheBonesBuffs from './modules/spells/RollTheBonesBuffs';
 import RollTheBonesCastTracker from './modules/features/RollTheBonesCastTracker';
 import RollTheBonesCounter from './modules/spells/RollTheBonesCounter';
@@ -35,6 +36,7 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     buffs: Buffs,
     spellUsable: SpellUsable,
+    checklist: Checklist,
 
     //Resource
     comboPointTracker: OutlawComboPointTracker,

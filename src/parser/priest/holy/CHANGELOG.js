@@ -1,11 +1,13 @@
 import React from 'react';
 
-import { Khadaj, niseko, Yajinni, Zerotorescue } from 'CONTRIBUTORS';
+import { Khadaj, niseko, Yajinni, Zerotorescue, blazyb } from 'CONTRIBUTORS';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 10, 20), <>Fixing echo of light crash.</>, [Khadaj]),
+  change(date(2019, 8, 12), 'Added essence Lucid Dreams.', [blazyb]),
   change(date(2019, 4, 9), <>Adding Holy Nova card and updating spreadsheet</>, [Khadaj]),
   change(date(2019, 3, 12), <>Fixed an error in the <SpellLink id={SPELLS.PRAYERFUL_LITANY.id} /> analyzer.</>, [Zerotorescue]),
   change(date(2018, 12, 18), <>Adding <SpellLink id={SPELLS.PROMISE_OF_DELIVERANCE.id} /> and <SpellLink id={SPELLS.DEATH_DENIED.id} />.</>, [Khadaj]),

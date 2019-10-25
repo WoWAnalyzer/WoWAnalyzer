@@ -1,11 +1,15 @@
 import React from 'react';
 
-import { niseko } from 'CONTRIBUTORS';
+import { niseko, blazyb } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 9, 26), <>Updated for patch 8.2.5: <SpellLink id={SPELLS.DELUGE_TALENT.id} /> now includes <SpellLink id={SPELLS.HEALING_WAVE.id} /> and <SpellLink id={SPELLS.HEALING_SURGE_RESTORATION.id} />.</>, niseko),
+  change(date(2019, 9, 5), 'Updated for patch 8.2.', niseko),
+  change(date(2019, 8, 12), 'Added essence Lucid Dreams.', [blazyb]),
+  change(date(2019, 8, 12), <>Added <SpellLink id={SPELLS.VISION_OF_PERFECTION.id} />.</>, niseko),
   change(date(2019, 5, 6), <><SpellLink id={SPELLS.IGNEOUS_POTENTIAL.id} /> and <SpellLink id={SPELLS.SYNAPSE_SHOCK.id} /> azerite traits are now supported.</>, [niseko]),
   change(date(2019, 5, 3), <>Added support for the 8.1.5 <SpellLink id={SPELLS.ASCENDANCE_TALENT_RESTORATION.id} /> changes.</>, [niseko]),
   change(date(2018, 12, 17), <>Updated modules to support various 8.1 changes, including the <SpellLink id={SPELLS.HIGH_TIDE_TALENT.id} /> redesign.</>, [niseko]),

@@ -3,7 +3,8 @@ import SPELLS from 'common/SPELLS';
 import SPECS from 'game/SPECS';
 import SpellLink from 'common/SpellLink';
 import { formatNumber, formatPercentage } from 'common/format';
-import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer from 'parser/core/Analyzer';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
@@ -126,21 +127,26 @@ class RuneOfPower extends Analyzer {
 
   }
 
-  showStatistic = true;
   statistic() {
-    if (!this.hasROP || !this.showStatistic) return null;
-
-    return (
-      <TalentStatisticBox
-        talent={SPELLS.RUNE_OF_POWER_TALENT.id}
-        position={STATISTIC_ORDER.CORE(100)}
-        value={`${formatPercentage(this.damagePercent)} %`}
-        label="Rune of Power damage"
-        tooltip={<>This is the portion of your total damage attributable to Rune of Power's boost. Expressed as an increase vs never using Rune of Power, this is a <strong>{formatPercentage(this.damageIncreasePercent)}% damage increase</strong>. Note that this number does <em>not</em> factor in the opportunity cost of casting Rune of Power instead of another damaging spell.</>}
-      />
-    );
+    if (this.hasROP) {
+      return (
+        <Statistic
+          size="flexible"
+          category={'TALENTS'}
+          tooltip={<>This is the portion of your total damage attributable to Rune of Power's boost. Expressed as an increase vs never using Rune of Power, this is a <strong>{formatPercentage(this.damageIncreasePercent)}% damage increase</strong>. Note that this number does <em>not</em> factor in the opportunity cost of casting Rune of Power instead of another damaging spell.</>}
+        >
+          <BoringSpellValueText spell={SPELLS.RUNE_OF_POWER_TALENT}>
+            <>
+              {formatPercentage(this.damagePercent,0)}% <small>Damage added by Rune of Power</small><br />
+              {formatNumber(this.roundedSecondsPerCast)}s <small>Average time in Rune per cast</small>
+            </>
+          </BoringSpellValueText>
+        </Statistic>
+      );
+    } else {
+      return null;
+    }
   }
-
 }
 
 export default RuneOfPower;

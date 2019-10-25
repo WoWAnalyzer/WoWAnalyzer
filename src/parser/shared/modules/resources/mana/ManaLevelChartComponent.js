@@ -9,31 +9,32 @@ import ManaLevelGraph from 'interface/others/charts/ManaLevelGraph';
 class Mana extends React.PureComponent {
   static propTypes = {
     reportCode: PropTypes.string.isRequired,
-    actorId: PropTypes.number.isRequired,
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
     offset: PropTypes.number.isRequired,
     manaUpdates: PropTypes.array.isRequired,
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       bossHealth: null,
     };
   }
 
-  componentWillMount() {
-    this.load(this.props.reportCode, this.props.actorId, this.props.start, this.props.end);
+  componentDidMount() {
+    this.load();
   }
-  componentWillReceiveProps(newProps) {
-    if (newProps.reportCode !== this.props.reportCode || newProps.actorId !== this.props.actorId || newProps.start !== this.props.start || newProps.end !== this.props.end || newProps.offset !== this.props.offset) {
-      this.load(newProps.reportCode, newProps.actorId, newProps.start, newProps.end);
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.reportCode !== this.props.reportCode || prevProps.start !== this.props.start || prevProps.end !== this.props.end || prevProps.offset !== this.props.offset) {
+      this.load();
     }
   }
 
-  load(reportCode, actorId, start, end) {
-    return fetchWcl(`report/tables/resources/${reportCode}`, {
+  load() {
+    const { reportCode, start, end } = this.props;
+    fetchWcl(`report/tables/resources/${reportCode}`, {
       start,
       end,
       sourceclass: 'Boss',
