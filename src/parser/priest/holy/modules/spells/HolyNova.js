@@ -40,7 +40,7 @@ class HolyNova extends Analyzer {
   }
 
   get damageDone() {
-    return this.abilityTracker.getAbility(SPELLS.HOLY_NOVA.id).damageEffective;
+    return this.abilityTracker.getAbility(SPELLS.HOLY_NOVA.id).damageEffective || 0;
   }
 
   get averageFriendlyTargetsHit() {
