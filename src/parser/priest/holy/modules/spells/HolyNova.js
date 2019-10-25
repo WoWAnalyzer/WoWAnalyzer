@@ -84,6 +84,9 @@ class HolyNova extends Analyzer {
   }
 
   statistic() {
+    if (this.casts === 0) {
+      return (<></>);
+    }
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.HOLY_NOVA.id} />}
