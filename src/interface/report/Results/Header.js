@@ -160,7 +160,7 @@ class Header extends React.PureComponent {
           <h2 className="builds">
             {builds && (
               <>
-              Rotation:
+              Build:
               {Object.keys(builds).map(b => this.renderBuild(b, builds[b], build === builds[b].url))}
               {this.renderBuild(null, DEFAULT_BUILD, !build)}
               </>
