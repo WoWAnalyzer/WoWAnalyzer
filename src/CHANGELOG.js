@@ -9,7 +9,6 @@ import Contributor from 'interface/contributor/Button';
 
 export default [
   change(date(2019, 10, 25), <>Added missing spell information for resource refunds and gains from <SpellLink id={SPELLS.LUCID_DREAMS_MINOR.id} /> and <SpellLink id={SPELLS.VISION_OF_PERFECTION.id} />.</>, Juko8),
-  change(date(2019, 10, 13), <>Added extra information and cleaned up Vantus Rune infographic. />.</>, Abelito75),
   change(date(2019, 10, 24), <>Replaced the activity time statistic icons that had outgrown their space with smaller ones. <small>I only fixed it for <a href="https://hacktoberfest.digitalocean.com/">the shirt</a>.</small></>, Zerotorescue),
   change(date(2019, 10, 24), 'Updated nodejs for docker.', JeremyDwayne),
   change(date(2019, 10, 19), <>Fixed an issue in the character tab caused it to break for logs without essences.</>, Draenal),
