@@ -33,11 +33,11 @@ export default function makeReportUrl(report = undefined, fightId = undefined, p
           const duplicatePlayerNames = report.friendlies.filter(friendly => friendly.name === playerName);
           if (playerName) {
             parts.push(duplicatePlayerNames.length > 1 ? `${playerId}-${prettyEncodeURI(playerName)}` : prettyEncodeURI(playerName));
+            if(build){
+              parts.push(build);
+            }
             if (tab) {
               parts.push(tab);
-              if(build){
-                parts.push(build);
-              }
             }
           }
         }
