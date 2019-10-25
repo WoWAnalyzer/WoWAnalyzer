@@ -130,7 +130,7 @@ class Header extends React.PureComponent {
   }
 
   renderBuild(key, build, active) {
-    return <Link to={this.props.makeBuildUrl(this.props.selectedTab, key && build.url)}><span className={"build " + (active?"active":"")}><TooltipElement content={build.name}>{build.icon}</TooltipElement></span></Link>;
+    return <Link to={this.props.makeBuildUrl(this.props.selectedTab, build.url)}><span className={"build " + (active?"active":"")}><TooltipElement content={build.name}>{build.icon}</TooltipElement></span></Link>;
   }
 
   renderInfo() {
