@@ -97,7 +97,7 @@ class EventParser extends React.PureComponent {
     parser.applyTimeFilter = this.props.applyTimeFilter;
     parser.applyPhaseFilter = this.props.applyPhaseFilter;
     //set current build to undefined if default build or non-existing build selected
-    parser.build = Object.values(builds).find(b => b.url === build) && build;
+    parser.build = builds && Object.values(builds).find(b => b.url === build) && build;
     
     this.setState({
       parser,
