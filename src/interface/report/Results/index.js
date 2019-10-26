@@ -27,6 +27,7 @@ import ChangelogTab from 'interface/others/ChangelogTab';
 import ErrorBoundary from 'interface/common/ErrorBoundary';
 import Checklist from 'parser/shared/modules/features/Checklist/Module';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import DEFAULT_BUILD from 'parser/DEFAULT_BUILD';
 
 import './Results.scss';
 import Header from './Header';
@@ -387,7 +388,7 @@ class Results extends React.PureComponent {
             </Warning>
           </div>
         )}
-        {build && (
+        {build && build !== DEFAULT_BUILD.url && config.builds && Object.values(config.builds).find(b => b.url=== build) && (
           <div className="container">
             <Warning style={{ marginBottom: 30 }}>
               These results are analyzed under build different from the standard build. While this will make some modules more accurate, some may also not provide the information you expect them to. <br /> Please report any issues you may find on our GitHub or Discord.
