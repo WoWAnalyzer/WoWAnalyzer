@@ -135,7 +135,7 @@ class Header extends React.PureComponent {
 
   renderInfo() {
     const { config: { spec, builds }, build, name, fight, boss, handlePhaseSelection, selectedPhase, selectedInstance, phases, isLoading, applyFilter } = this.props;
-    
+
     return (
       <div className="info container">
         <div className="boss">

@@ -388,7 +388,7 @@ class Results extends React.PureComponent {
             </Warning>
           </div>
         )}
-        {build && build !== DEFAULT_BUILD.url && config.builds && Object.values(config.builds).find(b => b.url=== build) && (
+        {build && (
           <div className="container">
             <Warning style={{ marginBottom: 30 }}>
               These results are analyzed under build different from the standard build. While this will make some modules more accurate, some may also not provide the information you expect them to. <br /> Please report any issues you may find on our GitHub or Discord.

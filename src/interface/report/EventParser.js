@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ExtendableError from 'es6-error';
+import { connect } from 'react-redux';
 
+import { getBuild } from 'interface/selectors/url/report';
 import sleep from 'common/sleep';
 import { captureException } from 'common/errorLogger';
 import EventEmitter from 'parser/core/modules/EventEmitter';
@@ -49,6 +51,7 @@ class EventParser extends React.PureComponent {
     applyPhaseFilter: PropTypes.func.isRequired,
     parserClass: PropTypes.func.isRequired,
     build: PropTypes.object,
+    builds: PropTypes.object,
     characterProfile: PropTypes.object,
     events: PropTypes.array.isRequired,
     children: PropTypes.func.isRequired,
@@ -75,7 +78,8 @@ class EventParser extends React.PureComponent {
       || this.props.parserClass !== prevProps.parserClass
       || this.props.characterProfile !== prevProps.characterProfile
       || this.props.events !== prevProps.events
-      || this.props.build !== prevProps.build;
+      || this.props.build !== prevProps.build
+      || this.props.builds !== prevProps.builds;
     if (changed) {
       this.setState({
         isLoading: true,
@@ -88,11 +92,13 @@ class EventParser extends React.PureComponent {
   }
 
   makeParser() {
-    const { report, fight, combatants, player, characterProfile, build, parserClass } = this.props;
+    const { report, fight, combatants, player, characterProfile, build, builds, parserClass } = this.props;
     const parser = new parserClass(report, player, fight, combatants, characterProfile);
     parser.applyTimeFilter = this.props.applyTimeFilter;
     parser.applyPhaseFilter = this.props.applyPhaseFilter;
-    parser.build = build;
+    //set current build to undefined if default build or non-existing build selected
+    parser.build = Object.values(builds).find(b => b.url === build) && build;
+    
     this.setState({
       parser,
     });
@@ -154,5 +160,8 @@ class EventParser extends React.PureComponent {
     return this.props.children(this.state.isLoading, this.state.progress, this.state.parser);
   }
 }
-
-export default EventParser;
+const mapStateToProps = (state, ownProps) => ({
+    // Because build comes from the URL we can't use local state
+    build: getBuild(state),
+});
+export default connect(mapStateToProps)(EventParser);

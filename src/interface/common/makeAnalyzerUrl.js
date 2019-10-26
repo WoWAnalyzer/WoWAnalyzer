@@ -1,5 +1,6 @@
 import getFightName from 'common/getFightName';
 import prettyEncodeURI from 'common/prettyEncodeURI';
+import DEFAULT_BUILD from 'parser/DEFAULT_BUILD';
 
 export function makePlainUrl(reportCode = undefined, fightId = undefined, fightName = undefined, playerId = undefined, playerName = undefined, tab = undefined) {
   const parts = [];
@@ -18,7 +19,7 @@ export function makePlainUrl(reportCode = undefined, fightId = undefined, fightN
   return `/${parts.join('/')}`;
 }
 
-export default function makeReportUrl(report = undefined, fightId = undefined, playerId = undefined, tab = undefined, build = undefined) {
+export default function makeReportUrl(report = undefined, fightId = undefined, playerId = undefined, tab = undefined, build = DEFAULT_BUILD.url) {
   const parts = [];
   if (report) {
     parts.push(`report/${report.code}`);
@@ -33,10 +34,10 @@ export default function makeReportUrl(report = undefined, fightId = undefined, p
           const duplicatePlayerNames = report.friendlies.filter(friendly => friendly.name === playerName);
           if (playerName) {
             parts.push(duplicatePlayerNames.length > 1 ? `${playerId}-${prettyEncodeURI(playerName)}` : prettyEncodeURI(playerName));
-            if (tab) {
-              parts.push(tab);
-              if(build){
-                parts.push(build);
+            if(build){
+              parts.push(build);
+              if (tab) {
+                parts.push(tab);
               }
             }
           }
