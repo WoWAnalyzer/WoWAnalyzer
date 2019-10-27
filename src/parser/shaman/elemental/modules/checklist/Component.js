@@ -24,6 +24,7 @@ class ElementalShamanChecklist extends React.PureComponent {
         {this.useCoreAbilitiesRule()}
         {this.minimizeDowntimeRule()}
         {this.maintainFlameShockRule()}
+        {this.keepYourTotemsUp()}
         {this.maximizeIcefuryRule()}
         <PreparationRule thresholds={this.props.thresholds} />
       </Checklist>
@@ -75,6 +76,21 @@ class ElementalShamanChecklist extends React.PureComponent {
     );
   }
 
+  keepYourTotemsUp() {
+    const description = (
+      <>
+        Totems provide a significant buff at the cost of a GCD. Make sure you keep them up and are within range of them. 
+        They last for 2 minutes so you should should only need to refresh them a couple times a fight.
+      </>
+    );
+
+    return (
+      <Rule name="Demonstrate Mastery of Totems" description={description}>
+        <Requirement name="Totem Uptime" thresholds={this.props.thresholds.totemMasteryUptime} />
+      </Rule>
+    );
+  }
+
   maintainFlameShockRule() {
     const description = (
       <>
@@ -85,7 +101,7 @@ class ElementalShamanChecklist extends React.PureComponent {
     );
 
     return (
-      <Rule name="Maintain your flame shock." description={description}>
+      <Rule name="Maintain your flame shock" description={description}>
         <Requirement name={(<><SpellLink id={SPELLS.FLAME_SHOCK.id} /> uptime</> )} thresholds={this.props.thresholds.flameShockUptime} />
         <Requirement name={( <> Bad <SpellLink id={SPELLS.FLAME_SHOCK.id} /> refreshes </> )} thresholds={this.props.thresholds.flameShockRefreshes} />
       </Rule>

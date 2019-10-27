@@ -21,6 +21,18 @@ class TotemMastery extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.TOTEM_MASTERY_TALENT_ELEMENTAL.id);
   }
 
+  get uptimeSuggestionThresholds() {
+    return {
+      actual: this.minUptime,
+      isLessThan: {
+        minor: 0.99,
+        average: 0.94,
+        major: 0.85,
+      },
+      style: 'percentage',
+    };
+  }
+
   get minUptime() {
     return Math.min(
       this.selectedCombatant.getBuffUptime(BUFF_TOTEM_RESONANCE_SPELL_ID),
@@ -36,14 +48,12 @@ class TotemMastery extends Analyzer {
   }
 
   suggestions(when) {
-    when(this.minUptime).isLessThan(0.99)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<span>Your <SpellLink id={SPELLS.TOTEM_MASTERY_TALENT_ELEMENTAL.id} /> uptime can be improved. Try to place the totems better.</span>)
-          .icon(SPELLS.TOTEM_MASTERY_TALENT_ELEMENTAL.icon)
-          .actual(`${formatPercentage(actual)}% uptime`)
-          .recommended(`>${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended - 0.05).major(recommended - 0.15);
-      });
+    when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+      return suggest(<span>Your <SpellLink id={SPELLS.TOTEM_MASTERY_TALENT_ELEMENTAL.id} /> uptime can be improved. Try to place the totems better.</span>)
+        .icon(SPELLS.TOTEM_MASTERY_TALENT_ELEMENTAL.icon)
+        .actual(`${formatPercentage(actual)}% uptime`)
+        .recommended(`>${formatPercentage(recommended)}% is recommended`);
+    });
   }
 
   statistic() {

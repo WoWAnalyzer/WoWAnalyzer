@@ -68,11 +68,6 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
     }
   }
 
-  couldCastWhileMoving(castEvent, endEvent) {
-    // You would rather always cast Frost shock over flame shock as filler unless you're within pandemic range
-    return false;
-  }
-
   suggestions(when) {
     when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) => {
       return suggest(<span>Your <SpellLink id={SPELLS.FLAME_SHOCK.id} /> uptime can be improved.</span>)
