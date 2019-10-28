@@ -4,6 +4,8 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import Combatants from 'parser/shared/modules/Combatants';
 import StatisticBox from 'interface/others/StatisticBox';
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
+import ItemIcon from 'common/ItemIcon';
 import SPECS from 'game/SPECS';
 import SpellIcon from 'common/SpellIcon';
 import SpecIcon from 'common/SpecIcon';
@@ -181,7 +183,7 @@ class CelestialFortune extends Analyzer {
                   <td />
                   <td>
                     <SpellLink id={Number(id)} icon={false}>
-                      {SPELLS[id] ? <><Icon icon={SPELLS[id].icon} /> {SPELLS[id].name}</> : id}
+                      {SPELLS[id] ? <><Icon icon={SPELLS[id].icon} /> {SPELLS[id].name}</> : ITEMS[id] ? <><ItemIcon icon={ITEMS[id].icon} /> {ITEMS[id].name}</> : id}
                     </SpellLink>
                   </td>
                   <td>{absorb ? '≈': ''}{`${formatNumber(amount / (this.owner.fightDuration / 1000))} HPS`}</td>
