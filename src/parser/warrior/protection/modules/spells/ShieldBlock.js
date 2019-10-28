@@ -132,7 +132,7 @@ class ShieldBlock extends Analyzer {
       const event = this.shieldBlocksOffensive[this.shieldBlocksOffensive.length-1].event;
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = `This Shield Block didn't block enough damage nor have enough Shield Slams casts.`;
+      event.meta.inefficientCastReason = `This Shield Block didn't block enough damage nor did you cast enough Shield Slams.`;
       this.shieldBlocksOffensive[this.shieldBlocksOffensive.length-1].event = event;
     }
 
