@@ -20,7 +20,7 @@ class ConfigLoader extends React.PureComponent {
   static getConfig(specId) {
     const config = AVAILABLE_CONFIGS.find(config => config.spec.id === specId);
     //find active configs, if any exist
-    const activeBuilds = config.builds && Object.keys(config.builds).filter(b => config.builds[b].active);
+    const activeBuilds = config.builds && Object.keys(config.builds).filter(b => config.builds[b].supported);
     //remove all inactive configs
     config.builds = (activeBuilds && activeBuilds.length > 0 && activeBuilds.reduce((obj, key) => {
         obj[key] = config.builds[key];

@@ -29,7 +29,7 @@ class Header extends React.PureComponent {
         icon: PropTypes.node.isRequired,
         name: PropTypes.node.isRequired,
         url: PropTypes.string.isRequired,
-        active: PropTypes.bool.isRequired,
+        supported: PropTypes.bool.isRequired,
       })),
     }).isRequired,
     name: PropTypes.string.isRequired,
@@ -136,7 +136,7 @@ class Header extends React.PureComponent {
 
   renderInfo() {
     const { config: { spec, builds }, build, name, fight, boss, handlePhaseSelection, selectedPhase, selectedInstance, phases, isLoading, applyFilter } = this.props;
-    
+
     return (
       <div className="info container">
         <div className="boss">
