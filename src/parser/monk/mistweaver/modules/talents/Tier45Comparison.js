@@ -162,8 +162,8 @@ class Tier45Comparison extends Analyzer {
   generateLifeCycles(){
     const envCasts = this.abilityTracker.getAbility(SPELLS.ENVELOPING_MIST.id).casts || 0;
     const vivCasts = this.abilityTracker.getAbility(SPELLS.VIVIFY.id).casts - 1;
-    const manaDiscountOnViv = vivCasts * SPELLS.VIVIFY.manaCost * SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed;
-    const manaDiscountOnEnv = envCasts * SPELLS.ENVELOPING_MIST.manaCost * SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed;
+    const manaDiscountOnViv = Math.min(vivCasts, envCasts) * SPELLS.VIVIFY.manaCost * SPELLS.LIFECYCLES_VIVIFY_BUFF.manaPercRed;
+    const manaDiscountOnEnv = Math.min(vivCasts, envCasts) * SPELLS.ENVELOPING_MIST.manaCost * SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.manaPercRed;
     return (manaDiscountOnEnv + manaDiscountOnViv) || 0;
   }
 
@@ -220,7 +220,7 @@ class Tier45Comparison extends Analyzer {
       >
       <div className="pad">
         <div>
-          This is a infographic for tier 45 talents to see what is required to equal the best pick for how you played. This also attempts to caculate the other talents based on how you played for the difference row, for the equals row it it shows the requirements in general ignoring how you played.
+          This is an infographic for tier 45 talents to see what is required to equal the best pick for how you played. This also attempts to calculate the other talents based on how you played for the difference row, for the equals row it shows the requirements in general, ignoring how you played.
         </div>
         <table className="table table-condensed">
           <thead>

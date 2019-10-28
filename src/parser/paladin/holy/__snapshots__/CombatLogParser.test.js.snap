@@ -4480,7 +4480,7 @@ Array [
       />
        (
       <WithI18n
-        id=">\${0}% is recommended"
+        id=">\{0}% is recommended"
         values={
           Object {
             "0": "25.00",

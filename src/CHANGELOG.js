@@ -1,5 +1,5 @@
 import React from 'react';
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8 } from 'CONTRIBUTORS';
+import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal, JeremyDwayne } from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
@@ -8,6 +8,11 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  change(date(2019, 10, 25), <>Added missing spell information for resource refunds and gains from <SpellLink id={SPELLS.LUCID_DREAMS_MINOR.id} /> and <SpellLink id={SPELLS.VISION_OF_PERFECTION.id} />.</>, Juko8),
+  change(date(2019, 10, 24), <>Replaced the activity time statistic icons that had outgrown their space with smaller ones. <small>I only fixed it for <a href="https://hacktoberfest.digitalocean.com/">the shirt</a>.</small></>, Zerotorescue),
+  change(date(2019, 10, 24), 'Updated nodejs for docker.', JeremyDwayne),
+  change(date(2019, 10, 19), <>Fixed an issue in the character tab caused it to break for logs without essences.</>, Draenal),
+  change(date(2019, 10, 13), <>Added extra information and cleaned up Vantus Rune infographic.</>, Abelito75),
   change(date(2019, 10, 13), <>Added <ItemLink id={ITEMS.RAZOR_CORAL.id} />.</>, Zeboot),
   change(date(2019, 10, 13), 'Added event filter to cooldown to view only events during a selected cooldown.', Zeboot),
   change(date(2019, 10, 13), <>Added <ItemLink id={ITEMS.BLOODTHIRSTY_URCHIN.id} />.</>, Zeboot),
@@ -23,6 +28,7 @@ export default [
   change(date(2019, 9, 9), <>Added <ItemLink id={ITEMS.POTION_OF_FOCUSED_RESOLVE.id} />.</>, Sharrq),
   change(date(2019, 9, 8), <>Fixed issue with <ItemLink id={ITEMS.ENCHANT_WEAPON_FORCE_MULTIPLIER.id} /> and Critical Strike.</>, emallson),
   change(date(2019, 9, 7), <>Added <ItemLink id={ITEMS.ENCHANT_WEAPON_FORCE_MULTIPLIER.id} /></>, emallson),
+  change(date(2019, 9, 6), 'Remove references to deprecated React lifecycle methods.', fluffels),
   change(date(2019, 9, 5), 'Fixed a calculation error affecting time spent casting in some cases.', niseko),
   change(date(2019, 8, 27), <>Added check to remove <SpellLink id={SPELLS.WINDWALKING.id} /> from dispel infographic. </>, Abelito75),
   change(date(2019, 8, 27), <>Updated <SpellLink id={SPELLS.CONCENTRATED_FLAME.id} /> to take into account 2 charges at rank 3 and up.</>, Yajinni),
