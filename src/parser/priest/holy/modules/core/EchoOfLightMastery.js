@@ -100,7 +100,7 @@ class EchoOfLightMastery extends Analyzer {
     }
     this.targetMasteryPool[targetId].pendingHealingBySpell[spellId] += rawHealing;
     if (event.hitType === HIT_TYPES.CRIT) {
-      // This is just to track how much of a EoL tick can be contributed to a crit.
+      // Track how much of a EoL tick can be contributed to a crit.
       this.targetMasteryPool[targetId].pendingCritTotal += (rawHealing / 2);
     }
   }
