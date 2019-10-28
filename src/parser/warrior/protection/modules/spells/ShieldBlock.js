@@ -83,6 +83,7 @@ class ShieldBlock extends Analyzer {
       bonusDamage: 0,
       timeStamp: event.timestamp,
       good: false,
+      event: event,
     };
 
     this.shieldBlocksOffensive.push(offensive);
@@ -128,6 +129,11 @@ class ShieldBlock extends Analyzer {
       this.goodCast += 1;
     }else{
       this.badCast +=1;
+      let event = this.shieldBlocksOffensive[this.shieldBlocksOffensive.length-1].event;
+      event.meta = event.meta || {};
+      event.meta.isInefficientCast = true;
+      event.meta.inefficientCastReason = `This Shield Block didn't block enough damage nor have enough Shield Slams casts.`;
+      this.shieldBlocksOffensive[this.shieldBlocksOffensive.length-1].event = event;
     }
 
     this.shieldBlocksOverall.push(overall);
