@@ -18,7 +18,15 @@ class ConfigLoader extends React.PureComponent {
     return state;
   }
   static getConfig(specId) {
-    return AVAILABLE_CONFIGS.find(config => config.spec.id === specId);
+    const config = AVAILABLE_CONFIGS.find(config => config.spec.id === specId);
+    //find active configs, if any exist
+    const activeBuilds = config.builds && Object.keys(config.builds).filter(b => config.builds[b].active);
+    //remove all inactive configs
+    config.builds = (activeBuilds && activeBuilds.length > 0 && activeBuilds.reduce((obj, key) => {
+        obj[key] = config.builds[key];
+        return obj;
+      }, {})) || undefined;
+    return config;
   }
   // TODO: It probably makes more sense to put this in the Report or Results component, as that's where it becomes necessary. Defining the child context here, with no clear usage, seems misplaced
   static childContextTypes = {
