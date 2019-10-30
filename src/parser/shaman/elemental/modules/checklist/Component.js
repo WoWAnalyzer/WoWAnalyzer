@@ -24,7 +24,8 @@ class ElementalShamanChecklist extends React.PureComponent {
         {this.useCoreAbilitiesRule()}
         {this.minimizeDowntimeRule()}
         {this.maintainFlameShockRule()}
-        {this.maximizeIcefuryRule()}
+        {this.props.combatant.hasTalent(SPELLS.TOTEM_MASTERY_TALENT_ELEMENTAL.id) ? this.keepYourTotemsUp() : ''}
+        {this.props.combatant.hasTalent(SPELLS.ICEFURY_TALENT.id) ? this.maximizeIcefuryRule() : ''}
         <PreparationRule thresholds={this.props.thresholds} />
       </Checklist>
     );
@@ -85,9 +86,24 @@ class ElementalShamanChecklist extends React.PureComponent {
     );
 
     return (
-      <Rule name="Maintain your flame shock." description={description}>
+      <Rule name="Maintain your flame shock" description={description}>
         <Requirement name={(<><SpellLink id={SPELLS.FLAME_SHOCK.id} /> uptime</> )} thresholds={this.props.thresholds.flameShockUptime} />
         <Requirement name={( <> Bad <SpellLink id={SPELLS.FLAME_SHOCK.id} /> refreshes </> )} thresholds={this.props.thresholds.flameShockRefreshes} />
+      </Rule>
+    );
+  }
+
+  keepYourTotemsUp() {
+    const description = (
+      <>
+        <SpellLink id={SPELLS.TOTEM_MASTERY_TALENT_ELEMENTAL.id} /> provides a significant buff at the cost of a GCD. Make sure you keep them up and are within range of them. 
+        They last for 2 minutes so you should should only need to refresh them a couple times a fight.
+      </>
+    );
+
+    return (
+      <Rule name="Demonstrate Mastery of Totems" description={description}>
+        <Requirement name="Totem Uptime" thresholds={this.props.thresholds.totemMasteryUptime} />
       </Rule>
     );
   }
@@ -101,11 +117,11 @@ class ElementalShamanChecklist extends React.PureComponent {
       </>
     );
 
-    return this.props.combatant.hasTalent(SPELLS.ICEFURY_TALENT.id) ? (
+    return (
       <Rule name="Utilize all Icefury Stacks" description={description}>
         <Requirement name={<>Average <SpellLink id={SPELLS.FROST_SHOCK.id} /> Casts within <SpellLink id={SPELLS.ICEFURY_TALENT.id} /> Duration</>} thresholds={this.props.thresholds.icefuryEfficiency} />
       </Rule>
-    ) : '';
+    );
   }
 }
 

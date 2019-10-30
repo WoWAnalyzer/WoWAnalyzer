@@ -7,6 +7,7 @@ import { Abelito75 } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
 export default [   
+  change(date(2019, 10, 28),<>Added bad <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> cast highlighting to the timeline. </>,Abelito75),
   change(date(2019, 10, 3),<>Spell reflect is now based off of damage reduced. </>,Abelito75),
   change(date(2019, 9, 30),<>Removed Arcane Torrent from suggestions. </>,Abelito75),
   change(date(2019, 9, 27),<>Officially supported! </>,Abelito75),
