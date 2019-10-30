@@ -40,7 +40,7 @@ class RuleOfLaw extends Analyzer {
       )
         .icon(SPELLS.RULE_OF_LAW_TALENT.icon)
         .actual(<Trans>{formatPercentage(actual)}% uptime</Trans>)
-        .recommended(<Trans>&gt;${formatPercentage(recommended)}% is recommended</Trans>);
+        .recommended(<Trans>&gt;{formatPercentage(recommended)}% is recommended</Trans>);
     });
   }
   statistic() {

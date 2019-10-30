@@ -8,6 +8,8 @@ import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/Pr
 import Icefury from 'parser/shaman/elemental/modules/talents/Icefury';
 import CancelledCasts from 'parser/shaman/elemental/modules/features/CancelledCasts';
 import AlwaysBeCasting from 'parser/shaman/elemental/modules/features/AlwaysBeCasting';
+import FlameShock from 'parser/shaman/elemental/modules/core/FlameShock';
+import TotemMastery from 'parser/shaman/elemental/modules/talents/TotemMastery';
 
 import Component from './Component';
 
@@ -19,6 +21,8 @@ class Checklist extends BaseChecklist {
     cancelledCasts: CancelledCasts,
     alwaysBeCasting: AlwaysBeCasting,
     icefury: Icefury,
+    flameshock: FlameShock,
+    totemMastery: TotemMastery,
   };
 
   render() {
@@ -31,6 +35,9 @@ class Checklist extends BaseChecklist {
           cancelledCasts: this.cancelledCasts.cancelledCastSuggestionThresholds,
           downtime: this.alwaysBeCasting.downtimeSuggestionThresholds,
           icefuryEfficiency: this.icefury.suggestionThresholds,
+          flameShockUptime: this.flameshock.uptimeThreshold,
+          flameShockRefreshes: this.flameshock.refreshThreshold,
+          totemMasteryUptime: this.totemMastery.uptimeSuggestionThresholds,
         }}
       />
     );

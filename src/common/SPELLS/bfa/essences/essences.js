@@ -59,7 +59,7 @@ export default {
     id: 296065,
     name: 'The Ever-Rising Tide',
     icon: 'inv_elemental_mote_mana',
-  },  
+  },
   WELL_OF_EXISTENCE: {
     id: 299936,
     traitId: 19,
@@ -172,6 +172,7 @@ export default {
     icon: 'spell_azerite_essence_16',
   },
   // Memory of Lucid Dreams
+  // Each unique resource has its own refund spell. Icicles and Fire blast and Shield of the Righteous charges don't.
   LUCID_DREAMS: {
     id: 299374,
     traitId: 27,
@@ -203,8 +204,63 @@ export default {
     name: 'Lucid Dreams',
     icon: 'inv_radientazeritematrix',
   },
-   LUCID_DREAMS_MINOR_RESOURCE_REFUND_RAGE : {
-    id: 298321,
+  LUCID_DREAMS_MINOR_RESOURCE_REFUND_RAGE : {
+   id: 298321,
+   name: 'Lucid Dreams',
+   icon: 'inv_radientazeritematrix',
+  },
+  LUCID_DREAMS_MINOR_RESOURCE_REFUND_ENERGY: {
+    id: 298325,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
+  LUCID_DREAMS_MINOR_RESOURCE_REFUND_PAIN: {
+    id: 298331,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
+  LUCID_DREAMS_MINOR_RESOURCE_REFUND_FURY: {
+    id: 298330,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
+  LUCID_DREAMS_MINOR_RESOURCE_REFUND_SOUL_SHARD: {
+    id: 298328,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
+  LUCID_DREAMS_MINOR_RESOURCE_REFUND_HOLY_POWER: {
+    id: 298333,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
+  LUCID_DREAMS_MINOR_RESOURCE_REFUND_ASTRAL_POWER: {
+    id: 298327,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
+  LUCID_DREAMS_MINOR_RESOURCE_REFUND_RUNE: {
+    id: 304632,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
+  LUCID_DREAMS_MINOR_RESOURCE_REFUND_RUNIC_POWER: {
+    id: 298334,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
+  LUCID_DREAMS_MINOR_RESOURCE_REFUND_FOCUS: {
+    id: 299058,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
+  LUCID_DREAMS_MINOR_RESOURCE_REFUND_MAELSTROM: {
+    id: 298332,
+    name: 'Lucid Dreams',
+    icon: 'inv_radientazeritematrix',
+  },
+  LUCID_DREAMS_MINOR_RESOURCE_REFUND_INSANITY: {
+    id: 298329,
     name: 'Lucid Dreams',
     icon: 'inv_radientazeritematrix',
   },
@@ -232,6 +288,16 @@ export default {
   },
   VISION_OF_PERFECTION_RAGE: {
     id: 302585,
+    name: 'Vision of Perfection',
+    icon: 'spell_azerite_essence_18',
+  },
+  VISION_OF_PERFECTION_ASTRAL_POWER: {
+    id: 302657,
+    name: 'Vision of Perfection',
+    icon: 'spell_azerite_essence_18',
+  },
+  VISION_OF_PERFECTION_RUNES_RUNIC_POWER: {
+    id: 302656,
     name: 'Vision of Perfection',
     icon: 'spell_azerite_essence_18',
   },
