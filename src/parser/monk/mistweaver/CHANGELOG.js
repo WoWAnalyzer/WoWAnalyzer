@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 10, 14), <>Fixed small typos for rising mist statistic box. </>,Abelito75),
   change(date(2019, 10, 14), <>Spelling and grammar corrections in Tier 45 comparison tool. </>,JeremyDwayne),
   change(date(2019, 10, 13), <>Fixed Tier 45 comparison tool. </>,Abelito75),
   change(date(2019, 10, 13), <>New Tier 45 comparison tool to see if you picked the best talent for your playstyle. </>,Abelito75),
