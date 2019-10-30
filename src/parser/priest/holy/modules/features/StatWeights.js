@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import STAT from 'parser/shared/modules/features/STAT';
 
-import BaseHealerStatValues, { ARMOR_INT_BONUS } from 'parser/shared/modules/features/BaseHealerStatValues';
+import BaseHealerStatValues from 'parser/shared/modules/features/BaseHealerStatValues';
 import Combatants from 'parser/shared/modules/Combatants';
 import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 import StatTracker from 'parser/shared/modules/StatTracker';

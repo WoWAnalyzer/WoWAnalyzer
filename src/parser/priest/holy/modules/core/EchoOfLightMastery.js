@@ -10,8 +10,8 @@ import Combatants from 'parser/shared/modules/Combatants';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 import { formatNumber, formatPercentage } from 'common/format';
 import Tooltip, { TooltipElement } from 'common/Tooltip';
-import { ABILITIES_THAT_TRIGGER_MASTERY } from '../../constants';
 import HIT_TYPES from 'game/HIT_TYPES';
+import { ABILITIES_THAT_TRIGGER_MASTERY } from '../../constants';
 
 const DEBUG = false;
 const CUTOFF_PERCENT = .01;
@@ -100,7 +100,7 @@ class EchoOfLightMastery extends Analyzer {
     }
     this.targetMasteryPool[targetId].pendingHealingBySpell[spellId] += rawHealing;
     if (event.hitType === HIT_TYPES.CRIT) {
-      // This is just to track how much of a EoL tick can be contributed to a crit.
+      // Track how much of a EoL tick can be contributed to a crit.
       this.targetMasteryPool[targetId].pendingCritTotal += (rawHealing / 2);
     }
   }
