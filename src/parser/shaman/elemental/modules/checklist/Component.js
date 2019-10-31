@@ -130,7 +130,7 @@ class ElementalShamanChecklist extends React.PureComponent {
     const description = (
       <>
         <SpellLink id={SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id} />'s damage comes from spamming <SpellLink id={SPELLS.LAVA_BURST.id} /> during it's duration. Only use <SpellLink id={SPELLS.LAVA_BURST.id} /> and <SpellLink id={SPELLS.EARTH_SHOCK.id} /> while it is up.
-        {this.props.combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id) && <> Use <SpellLink id={SPELLS.LAVA_BURST.id} /> as much as you can. Only use <SpellLink id={SPELLS.EARTH_SHOCK.id} /> when you need to spent Malestrom..</>}
+        {this.props.combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id) && <> Use <SpellLink id={SPELLS.LAVA_BURST.id} /> as much as you can. Only use <SpellLink id={SPELLS.EARTH_SHOCK.id} /> when you need to spend Malestrom..</>}
       </>
     );
 
