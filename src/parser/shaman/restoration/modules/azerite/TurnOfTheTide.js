@@ -1,6 +1,8 @@
+import React from 'react';
+
 import { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatMilliseconds } from 'common/format';
 
 import SPELLS from 'common/SPELLS';
 import StatTracker from 'parser/shared/modules/StatTracker';
@@ -8,7 +10,6 @@ import Haste from 'parser/shared/modules/Haste';
 import BaseHealerAzerite from './BaseHealerAzerite';
 
 const TIDAL_WAVE_HASTE = 0.3;
-const TIDAL_WAVE_CRIT = 0.4;
 const TURN_BONUS = 0.05;
 
 /**
@@ -26,7 +27,8 @@ class TurnOfTheTide extends BaseHealerAzerite {
 
   traitRawHealing = 0;
   currentCoefficient = 0;
-  tidalWaveBonusEstimation = 0;
+  critBonusEstimation = 0;
+  timeSaved = 0;
 
   constructor(...args) {
     super(...args);
@@ -42,9 +44,13 @@ class TurnOfTheTide extends BaseHealerAzerite {
   }
 
   fightend() {
-    this.moreInformation = `The Tidal Wave bonus percentage does not stack and is only factored into the 1st trait.
-    This bonus is estimated to be ${formatNumber(this.tidalWaveBonusEstimation)} worth of extra healing.
-    Note that this is a best case estimation.`;
+    this.moreInformation = (
+      <>
+        The Tidal Wave bonus percentage does not stack and is only factored into the 1st trait.<br /> Only the Healing Surge Tidal Wave bonus is converted to HPS.<br /><br />
+        <strong>Healing Surge</strong>: This bonus is estimated to be {formatNumber(this.critBonusEstimation)} worth of extra healing.<br />
+        <strong>Healing Wave</strong>: {formatMilliseconds(this.timeSaved * 1000)} cast time saved.
+      </>
+    );
   }
 
   onHealingWave(event) {
@@ -53,17 +59,9 @@ class TurnOfTheTide extends BaseHealerAzerite {
       return;
     }
     this.currentCoefficient = SPELLS.HEALING_WAVE.coefficient;
-
-    // its just gonna be below GCD if you have flash flood already anyway
-    const hasFlashFlood = this.selectedCombatant.hasBuff(SPELLS.FLASH_FLOOD_BUFF.id, event.timestamp, -1);
-    if (hasFlashFlood) {
-      this.parseHeal(event, 0);
-      return;
-    }
     const currentHaste = 1 + this.haste.current;
-    // technically this is worth 0 if there isn't a cast immediately following up the wave
-    const tidalWaveBonus = ((currentHaste + TIDAL_WAVE_HASTE + TURN_BONUS) / (currentHaste + TIDAL_WAVE_HASTE)) - 1;
-    this.parseHeal(event, tidalWaveBonus);
+    this.timeSaved += (SPELLS.HEALING_WAVE.castTime / (currentHaste + TIDAL_WAVE_HASTE)) - (SPELLS.HEALING_WAVE.castTime / (currentHaste + TIDAL_WAVE_HASTE + TURN_BONUS));
+    this._processHealing(event, this.traitComponent); // Haste is odd to calculate for a healer so it is left out for now
   }
 
   onHealingSurge(event) {
@@ -72,25 +70,22 @@ class TurnOfTheTide extends BaseHealerAzerite {
       return;
     }
     this.currentCoefficient = SPELLS.HEALING_SURGE_RESTORATION.coefficient;
-    const currentCrit = 1 + this.statTracker.currentCritPercentage;
-    const tidalWaveBonus = ((currentCrit + TIDAL_WAVE_CRIT + TURN_BONUS) / (currentCrit + TIDAL_WAVE_CRIT)) - 1;
-    this.parseHeal(event, tidalWaveBonus);
-  }
 
-  parseHeal(event, tidalWaveBonus) {
     // calculating the 5% bonus on the tidal wave effect, but only adding it to the "first" trait as it doesn't stack
-    const tidalWaveHealing = (event.amount || 0 + event.overheal || 0 + event.absorbed || 0) * tidalWaveBonus;
+    const tidalWaveHealing = (event.amount || 0 + event.overheal || 0 + event.absorbed || 0) * TURN_BONUS;
     const actualHealing = Math.max(0, tidalWaveHealing - (event.overheal || 0));
     const overHealing = tidalWaveHealing - actualHealing;
     this.azerite[this.azerite.length - 1].healing += actualHealing;
     this.azerite[this.azerite.length - 1].overhealing += overHealing;
-    this.tidalWaveBonusEstimation += actualHealing;
+    this.critBonusEstimation += actualHealing;
 
-    // calculating the actual extra healing
+    this._processHealing(event, this.traitComponent);
+  }
+
+  get traitComponent() {
     const currentIntellect = this.statTracker.currentIntellectRating;
     const spellHeal = this.currentCoefficient * currentIntellect;
-    const traitComponent = this.traitRawHealing / (spellHeal + this.traitRawHealing);
-    this._processHealing(event, traitComponent);
+    return this.traitRawHealing / (spellHeal + this.traitRawHealing);
   }
 }
 

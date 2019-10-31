@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
-  change(date(2019, 10, 31), <><SpellLink id={SPELLS.TURN_OF_THE_TIDE_TRAIT.id} /> azerite trait support.</>, [niseko]),
+  change(date(2019, 11, 1), <><SpellLink id={SPELLS.TURN_OF_THE_TIDE_TRAIT.id} /> azerite trait support.</>, [niseko]),
   change(date(2019, 9, 26), <>Updated for patch 8.2.5: <SpellLink id={SPELLS.DELUGE_TALENT.id} /> now includes <SpellLink id={SPELLS.HEALING_WAVE.id} /> and <SpellLink id={SPELLS.HEALING_SURGE_RESTORATION.id} />.</>, niseko),
   change(date(2019, 9, 5), 'Updated for patch 8.2.', niseko),
   change(date(2019, 8, 12), 'Added essence Lucid Dreams.', [blazyb]),
