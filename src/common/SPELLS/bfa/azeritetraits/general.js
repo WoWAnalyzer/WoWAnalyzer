@@ -361,4 +361,9 @@ export default {
     name: 'Loyal to the End',
     icon: 'spell_shadow_fumble',
   },
+  UNDULATING_DIES: {
+    id: 303390,
+    name: 'Undulating Tides',
+    icon: 'ability_mage_waterjet',
+  },
 };

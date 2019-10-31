@@ -3,6 +3,13 @@
 export default {
   // Group by boss (with comments)
 
+  //Blackwater
+  LUMINOUS_JELLYWEED: {
+    id: 303699,
+    name: "Luminous Jellyweed",
+    icon: "inv_misc_herb_arrowbloompetal",
+  },
+
   //Lady Ashvane
   BLOODTHIRSTY_URCHIN_BUFF: { //Bloodthirsty Urchin
     id: 303520,
@@ -52,4 +59,12 @@ export default {
     name: "Conductive Ink",
     icon: "inv_misc_food_legion_gooamberblue_chunk",
   },
+
+  //Queens Court
+  Deferred_Sentence: { //Deferred Sentence
+    id: 302674,
+    name: "Deferred Sentence",
+    icon: "inv_misc_scrollunrolled03d",
+  },
+
 };

@@ -109,9 +109,9 @@ class RisingMist extends Analyzer {
   statistic() {
     return (
       <TalentStatisticBox
-        talent={SPELLS.RISING_MIST_TALENT.di}
+        talent={SPELLS.RISING_MIST_TALENT.id}
         position={STATISTIC_ORDER.CORE(10)}
-        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalHealing))}%`}
+        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalHealing))}% total healing`}
         label="Healing Contributed"
         tooltip={(
           <>
