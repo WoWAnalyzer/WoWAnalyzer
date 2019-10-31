@@ -1,11 +1,22 @@
 import React from 'react';
 
-import { Anomoly, Gao, Zerotorescue, Abelito75, niseko } from 'CONTRIBUTORS';
+import { Anomoly, Gao, Zerotorescue, Abelito75, niseko, blazyb, JeremyDwayne } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 10, 14), <>Spelling and grammar corrections in Tier 45 comparison tool. </>,JeremyDwayne),
+  change(date(2019, 10, 13), <>Fixed Tier 45 comparison tool. </>,Abelito75),
+  change(date(2019, 10, 13), <>New Tier 45 comparison tool to see if you picked the best talent for your playstyle. </>,Abelito75),
+  change(date(2019, 10, 4), <>Added missing array declaration for enemiesHitSCK <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} />.</>, JeremyDwayne),
+  change(date(2019, 10, 1), <>Bugfix for Lifecycles adding the potential mana reduction from an empowered <SpellLink id={SPELLS.VIVIFY.id} /> </>,Anomoly),
+  change(date(2019, 9, 27), <>Update to date for 8.2.5 </>,Abelito75),
+  change(date(2019, 8, 17), <>Fixed bug where you could have NaN mana tea overhealing.</>, Abelito75),
+  change(date(2019, 8, 14), <>Wotc infographic now checks for physical damage only.</>, Abelito75),
+  change(date(2019, 8, 12), 'Added essence Lucid Dreams.', [blazyb]),
+  change(date(2019, 8, 10), <>Fixed bug where if you end the fight with wotc buff it said everything was 0 hps. Added more info the the wotc infographic.</>, Abelito75),
+  change(date(2019, 8, 6), <>Valid for 8.2</>, Abelito75),
   change(date(2019, 8, 2), <>Fixed trait calculations being unaffected by healing increases or decreases.</>, niseko),
   change(date(2019, 7, 23), <>Fixed strange bug with mana tea where if you didn't have it selected it crashed the Overview tab</>, Abelito75),
   change(date(2019, 7, 18), <>Made <SpellLink id={SPELLS.WAY_OF_THE_CRANE.id} /> infographic.</>, Abelito75),

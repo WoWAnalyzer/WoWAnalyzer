@@ -13,6 +13,7 @@ class Mana extends React.PureComponent {
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
     manaUpdates: PropTypes.array.isRequired,
+    offsetTime: PropTypes.number.isRequired,
   };
 
   constructor(props) {
@@ -22,17 +23,19 @@ class Mana extends React.PureComponent {
     };
   }
 
-  componentWillMount() {
-    this.load(this.props.reportCode, this.props.actorId, this.props.start, this.props.end);
+  componentDidMount() {
+    this.load();
   }
-  componentWillReceiveProps(newProps) {
-    if (newProps.reportCode !== this.props.reportCode || newProps.actorId !== this.props.actorId || newProps.start !== this.props.start || newProps.end !== this.props.end) {
-      this.load(newProps.reportCode, newProps.actorId, newProps.start, newProps.end);
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.reportCode !== this.props.reportCode || prevProps.start !== this.props.start || prevProps.end !== this.props.end) {
+      this.load();
     }
   }
 
-  load(reportCode, actorId, start, end) {
-    return fetchWcl(`report/tables/resources/${reportCode}`, {
+  load() {
+    const { reportCode, start, end } = this.props;
+    fetchWcl(`report/tables/resources/${reportCode}`, {
       start,
       end,
       sourceclass: 'Boss',
@@ -55,7 +58,7 @@ class Mana extends React.PureComponent {
       );
     }
 
-    const { start, end, manaUpdates } = this.props;
+    const { start, end, manaUpdates, offsetTime } = this.props;
 
     const mana = manaUpdates.map(({ timestamp, current, max }) => {
       const x = Math.max(timestamp, start);
@@ -92,6 +95,7 @@ class Mana extends React.PureComponent {
             mana={mana}
             deaths={deaths}
             bossData={bossData}
+            offsetTime={offsetTime}
             startTime={start}
             endTime={end}
           />

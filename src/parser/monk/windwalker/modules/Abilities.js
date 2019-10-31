@@ -1,17 +1,18 @@
 import SPELLS from 'common/SPELLS';
 
 import CoreAbilities from 'parser/core/modules/Abilities';
+import { calculateCooldown } from 'parser/shared/modules/spells/bfa/essences/VisionsOfPerfection';
 
 class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
     // Windwalker GCD is 1 second by default and static in almost all cases, 750 is lowest recorded GCD
-    // Cooldown of chi spenders is doubled again when Serenity drops. This is handled in the Serenity module under Talents
+    // Serenity's interaction with cooldowns is handled in the Serenity module
     return [
       {
         spell: SPELLS.FISTS_OF_FURY_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => 24 / (1 + haste) * (combatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? 0.5 : 1),
+        cooldown: haste => 24 / (1 + haste),
         gcd: {
           static: 1000,
         },
@@ -24,7 +25,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RISING_SUN_KICK,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: haste => (10 / (1 + haste)) * (combatant.hasBuff(SPELLS.SERENITY_TALENT.id) ? 0.5 : 1),
+        cooldown: haste => (10 / (1 + haste)),
         gcd: {
           static: 1000,
         },
@@ -56,6 +57,21 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(SPELLS.FIST_OF_THE_WHITE_TIGER_TALENT.id),
         castEfficiency: {
           suggestion: true,
+        },
+      },
+      {
+        spell: SPELLS.REVERSE_HARM,
+        category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
+        cooldown: 10,
+        gcd: {
+          base: 1000,
+          minimum: 750,
+        },
+        enabled: combatant.hasEssence(SPELLS.CONFLICT.traitId) ? combatant.hasMajor(SPELLS.CONFLICT.traitId) : false,
+        castEfficiency: {
+          recommendedEfficiency: 0.75,
+          suggestion: true,
+          extraSuggestion: 'If you have a low amount of Reverse Harm casts, consider using another major essence',
         },
       },
       {
@@ -101,6 +117,10 @@ class Abilities extends CoreAbilities {
           base: 1000,
           minimum: 750,
         },
+        enabled: combatant.hasTalent(SPELLS.CHI_BURST_TALENT.id),
+        castEfficiency: {
+          suggestion: true,
+        },
       },
       {
         spell: SPELLS.RUSHING_JADE_WIND_TALENT_WINDWALKER,
@@ -138,7 +158,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SERENITY_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 90,
+        cooldown: combatant.hasEssence(SPELLS.VISION_OF_PERFECTION.traitId) ? calculateCooldown(combatant.neck.itemLevel, 90) : 90,
         gcd: {
           base: 1000,
           minimum: 750,
@@ -152,7 +172,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.STORM_EARTH_AND_FIRE_CAST,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 90,
+        cooldown: combatant.hasEssence(SPELLS.VISION_OF_PERFECTION.traitId) ? calculateCooldown(combatant.neck.itemLevel, 90) : 90,
         gcd: {
           base: 1000,
           minimum: 750,

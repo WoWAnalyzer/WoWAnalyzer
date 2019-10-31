@@ -4,8 +4,10 @@ import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import AverageTargetsHit from 'interface/others/AverageTargetsHit';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Fires a slow-moving munition directly forward.
@@ -44,15 +46,18 @@ class ExplosiveShot extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.EXPLOSIVE_SHOT_TALENT.id}
-        value={(
-<>
-          <ItemDamageDone amount={this.damage} /> <br />
-          <AverageTargetsHit casts={this.casts} hits={this.hits} />
-        </>
-)}
-      />
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
+        category={'TALENTS'}
+      >
+        <BoringSpellValueText spell={SPELLS.EXPLOSIVE_SHOT_TALENT}>
+          <>
+            <ItemDamageDone amount={this.damage} /> <br />
+            <AverageTargetsHit casts={this.casts} hits={this.hits} />
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

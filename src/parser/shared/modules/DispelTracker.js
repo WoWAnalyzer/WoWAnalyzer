@@ -10,8 +10,18 @@ const debug = false;
 class DispelTracker extends Analyzer {
   dispelEvents = {};
   dispelCount = 0;
+
+  blackList = [
+    SPELLS.WINDWALKING.id,
+  ];
+
   on_dispel(event) {
     if (!this.owner.byPlayer(event)) {
+      return;
+    }
+    const spellId = event.extraAbility.guid;
+
+    if(this.blackList.includes(spellId)){
       return;
     }
 
@@ -49,7 +59,7 @@ class DispelTracker extends Analyzer {
           </label>
           {Object.keys(this.dispelEvents).map(key => (
             <div className="flex" key={key}>
-              <div className="flex-sub" style={{ flex: 3 }}><SpellLink id={key} /></div>
+              <div className="flex-sub" style={{ flex: 3 }}><SpellLink id={Number(key)} /></div>
               <div className="flex-sub" style={{ flex: 1, textAlign: 'right' }}>{this.dispelEvents[key]}</div>
             </div>
           ))}

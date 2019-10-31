@@ -6,8 +6,10 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import AverageTargetsHit from 'interface/others/AverageTargetsHit';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * A powerful shot which deals (112.5% of Attack power)% Physical damage to the target and up to [(112.5% of Attack power)% / (3)] Physical damage to all enemies between you and the target.
@@ -45,13 +47,25 @@ class PiercingShot extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.PIERCING_SHOT_TALENT.id}
-        value={<AverageTargetsHit casts={this.casts} hits={this.hits} />}
-      />
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
+        category={'TALENTS'}
+      >
+        <BoringSpellValueText spell={SPELLS.PIERCING_SHOT_TALENT}>
+          <>
+            <ItemDamageDone amount={this.damage} /><br />
+            <AverageTargetsHit casts={this.casts} hits={this.hits} />
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 
+  /**
+   * @deprecated
+   * @returns {*}
+   */
   subStatistic() {
     return (
       <StatisticListBoxItem

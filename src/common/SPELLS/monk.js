@@ -211,6 +211,11 @@ export default {
     buffDur: 12000,
     manaRet: 0.0065,
   },
+  BLACKOUT_KICK_TOTM : {//blackoutkick from totm
+    id: 228649,
+    name: 'Blackout Kick',
+    icon: 'ability_monk_roundhousekick',
+  },
   WAY_OF_THE_CRANE: {
     id: 216113,
     name: 'Way of the Crane',
@@ -564,5 +569,20 @@ export default {
     id: 116095,
     name: 'Disable',
     icon: 'ability_shockwave',
+  },
+  REVERSE_HARM: {
+    id: 287771,
+    name: 'Reverse Harm',
+    icon: 'ability_monk_expelharm',
+  },
+  REVERSE_HARM_DAMAGE: {
+    id: 290461,
+    name: 'Reverse Harm',
+    icon: 'ability_monk_expelharm',
+  },
+  WINDWALKING: {
+    id: 166646,
+    name: 'Windwalking',
+    icon: 'monk_stance_whitetiger',
   },
 };

@@ -136,19 +136,15 @@ exports[`The Fire Mage Analyzer analyzers BlasterMaster matches the statistic sn
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    category="AZERITE_POWERS"
+    className="panel statistic flexible "
+    position={1001}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -174,7 +170,11 @@ exports[`The Fire Mage Analyzer analyzers BlasterMaster matches the statistic sn
         <div
           className="value"
         >
-          2.33 stacks per Combustion
+          2.33
+           
+          <small>
+            Stacks per Combustion
+          </small>
         </div>
       </div>
     </div>
@@ -222,7 +222,7 @@ Array [
       3
        stacks each time you use Combustion. For more information on how to adjust your Combustion rotation to make this happen, refer to 
       <a
-        href="https://cdn.discordapp.com/attachments/431912396349636609/511996656829595659/BlasterMaster_Rotation.png"
+        href="https://cdn.discordapp.com/attachments/524387813060247553/606533890080899083/bm_combustion.png"
         rel="noopener noreferrer"
         target="_blank"
       >
@@ -365,10 +365,6 @@ exports[`The Fire Mage Analyzer analyzers CombustionFirestarter matches the stat
 
 exports[`The Fire Mage Analyzer analyzers CombustionFirestarter matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers CombustionPyroclasm matches the statistic snapshot 1`] = `"module inactive"`;
-
-exports[`The Fire Mage Analyzer analyzers CombustionPyroclasm matches the suggestions snapshot 1`] = `"module inactive"`;
-
 exports[`The Fire Mage Analyzer analyzers CombustionSpellUsage matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`The Fire Mage Analyzer analyzers CombustionSpellUsage matches the suggestions snapshot 1`] = `Array []`;
@@ -382,19 +378,14 @@ exports[`The Fire Mage Analyzer analyzers HeatingUp matches the statistic snapsh
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={14}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -409,12 +400,35 @@ exports[`The Fire Mage Analyzer analyzers HeatingUp matches the statistic snapsh
             />
           </a>
            
-          Heating Up Utilization
+          <a
+            href="http://wowhead.com/spell=48107"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Heating Up
+          </a>
         </label>
         <div
           className="value"
         >
-          97 %
+          <a
+            href="http://wowhead.com/spell=108853"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Fire Blast"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_fire_fireball.jpg"
+            />
+          </a>
+           
+          97
+          % 
+          <small>
+            Fire Blast Utilization
+          </small>
+          <br />
         </div>
       </div>
     </div>
@@ -446,19 +460,14 @@ exports[`The Fire Mage Analyzer analyzers HotStreak matches the statistic snapsh
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    className="panel statistic flexible "
+    position={15}
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
@@ -473,12 +482,28 @@ exports[`The Fire Mage Analyzer analyzers HotStreak matches the statistic snapsh
             />
           </a>
            
-          Hot Streak utilization
+          <a
+            href="http://wowhead.com/spell=48108"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Hot Streak
+          </a>
         </label>
         <div
           className="value"
         >
-          100 %
+          100
+          % 
+          <small>
+            Proc Utilization
+          </small>
+          <br />
+          50
+          % 
+          <small>
+            Procs used alongside Fireball
+          </small>
         </div>
       </div>
     </div>
@@ -505,44 +530,125 @@ exports[`The Fire Mage Analyzer analyzers HotStreak matches the statistic snapsh
 
 exports[`The Fire Mage Analyzer analyzers HotStreak matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers HotStreakPreCasts matches the statistic snapshot 1`] = `
+exports[`The Fire Mage Analyzer analyzers HotStreakPreCasts matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Fire Mage Analyzer analyzers HotStreakPreCasts matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "ability_mage_hotstreak",
+    "importance": "major",
+    "issue": <React.Fragment>
+      Unless you are guaranteed to crit (i.e. during 
+      <SpellLink
+        icon={true}
+        id={190319}
+      />
+      , 
+      <SpellLink
+        icon={true}
+        id={205026}
+      />
+      , or 
+      <SpellLink
+        icon={true}
+        id={269644}
+      />
+      ), you should always cast 
+      <SpellLink
+        icon={true}
+        id={133}
+      />
+       
+      
+       alongside using your 
+      <SpellLink
+        icon={true}
+        id={48108}
+      />
+       proc. This way, if one of the two abilities crit you will gain a new 
+      <SpellLink
+        icon={true}
+        id={48107}
+      />
+       proc, and if both crit you will get a new 
+      <SpellLink
+        icon={true}
+        id={48108}
+      />
+       proc. You failed to do this 
+      10
+       times.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      50.00% Utilization
+       (
+      95.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`The Fire Mage Analyzer analyzers HotStreakWastedCrits matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Fire Mage Analyzer analyzers HotStreakWastedCrits matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Fire Mage Analyzer analyzers HyperthreadWristwraps matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Fire Mage Analyzer analyzers HyperthreadWristwraps matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Fire Mage Analyzer analyzers Kindling matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Fire Mage Analyzer analyzers Kindling matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Fire Mage Analyzer analyzers LucidDreams matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Fire Mage Analyzer analyzers LucidDreams matches the suggestions snapshot 1`] = `"module inactive"`;
+
+exports[`The Fire Mage Analyzer analyzers Meteor matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
 >
   <div
-    className="panel statistic standard statistic-box"
-    style={
-      Object {
-        "height": "auto",
-        "zIndex": 1,
-      }
-    }
+    category="TALENTS"
+    className="panel statistic flexible "
   >
     <div
       className="panel-body"
     >
       <div
-        className="pad"
+        className="pad boring-text "
       >
         <label>
           <a
-            href="http://wowhead.com/spell=48108"
+            href="http://wowhead.com/spell=153561"
             rel="noopener noreferrer"
             target="_blank"
           >
             <img
-              alt="Hot Streak"
+              alt="Meteor"
               className="icon game "
-              src="//render-us.worldofwarcraft.com/icons/56/ability_mage_hotstreak.jpg"
+              src="//render-us.worldofwarcraft.com/icons/56/spell_mage_meteor.jpg"
             />
           </a>
            
-          Hot Streak pre-casts
+          <a
+            href="http://wowhead.com/spell=153561"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Meteor
+          </a>
         </label>
         <div
           className="value"
         >
-          50 %
+          80
+          % 
+          <small>
+            Cast Utilization
+          </small>
         </div>
       </div>
     </div>
@@ -567,66 +673,46 @@ exports[`The Fire Mage Analyzer analyzers HotStreakPreCasts matches the statisti
 </div>
 `;
 
-exports[`The Fire Mage Analyzer analyzers HotStreakPreCasts matches the suggestions snapshot 1`] = `
+exports[`The Fire Mage Analyzer analyzers Meteor matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
-    "icon": "ability_mage_hotstreak",
+    "icon": "spell_mage_meteor",
     "importance": "major",
     "issue": <React.Fragment>
-      In situations where you are not able to guarantee a crit (
+      You cast 
       <SpellLink
         icon={true}
-        id={190319}
+        id={153561}
       />
-      , 
+       without 
       <SpellLink
         icon={true}
-        id={205026}
-      />
-      , and 
-      <SpellLink
-        icon={true}
-        id={269644}
-      />
-      ), you didn't pre-cast 
-      <SpellLink
-        icon={true}
-        id={133}
+        id={116011}
       />
        
-      
-       
-      10
-       times. Pre-casting when you can't guarantee a crit helps you get more 
+      1
+       times. In order to get the most out of 
       <SpellLink
         icon={true}
-        id={48107}
+        id={153561}
       />
-       and 
+       you should always cast it while being buffed by 
       <SpellLink
         icon={true}
-        id={48108}
+        id={116011}
       />
-       procs, so you should do this whenenver possible.
+      .
     </React.Fragment>,
     "stat": <React.Fragment>
-      50.00% Utilization
+      80.00% Utilization
        (
-      95.00% is recommended
+      &lt;95.00% is recommended
       )
     </React.Fragment>,
   },
 ]
 `;
-
-exports[`The Fire Mage Analyzer analyzers HotStreakWastedCrits matches the statistic snapshot 1`] = `"module has no statistic method"`;
-
-exports[`The Fire Mage Analyzer analyzers HotStreakWastedCrits matches the suggestions snapshot 1`] = `Array []`;
-
-exports[`The Fire Mage Analyzer analyzers Kindling matches the statistic snapshot 1`] = `"module inactive"`;
-
-exports[`The Fire Mage Analyzer analyzers Kindling matches the suggestions snapshot 1`] = `"module inactive"`;
 
 exports[`The Fire Mage Analyzer analyzers MirrorImage matches the statistic snapshot 1`] = `"module inactive"`;
 
@@ -636,11 +722,147 @@ exports[`The Fire Mage Analyzer analyzers Pyroclasm matches the statistic snapsh
 
 exports[`The Fire Mage Analyzer analyzers Pyroclasm matches the suggestions snapshot 1`] = `"module inactive"`;
 
-exports[`The Fire Mage Analyzer analyzers RuneOfPower matches the statistic snapshot 1`] = `null`;
+exports[`The Fire Mage Analyzer analyzers RuneOfPower matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="TALENTS"
+    className="panel statistic flexible "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=116011"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Rune of Power"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_mage_runeofpower.jpg"
+            />
+          </a>
+           
+          <a
+            href="http://wowhead.com/spell=116011"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Rune of Power
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          15
+          % 
+          <small>
+            Damage added by Rune of Power
+          </small>
+          <br />
+          10
+          s 
+          <small>
+            Average time in Rune per cast
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
 
 exports[`The Fire Mage Analyzer analyzers RuneOfPower matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers SearingTouch matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`The Fire Mage Analyzer analyzers SearingTouch matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    category="TALENTS"
+    className="panel statistic flexible "
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad boring-text "
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=269644"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Searing Touch"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/ability_warlock_backdraft.jpg"
+            />
+          </a>
+           
+          <a
+            href="http://wowhead.com/spell=269644"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Searing Touch
+          </a>
+        </label>
+        <div
+          className="value"
+        >
+          86
+          % 
+          <small>
+            Buff Utilization
+          </small>
+        </div>
+      </div>
+    </div>
+    <div
+      className="detail-corner"
+      data-place="top"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onTouchStart={[Function]}
+    >
+      <svg
+        className="icon"
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M58.9,82.9h7v12.9H34.1V82.9h7.1V45.5h-0.6c-3.6,0-6.4-2.9-6.4-6.4c0-3.6,2.9-6.4,6.4-6.4h0.6h17.4h0.3V82.9z M49,25.8  c6,0,10.8-4.8,10.8-10.8C59.8,9,55,4.2,49,4.2S38.2,9,38.2,15C38.2,21,43,25.8,49,25.8z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
 
 exports[`The Fire Mage Analyzer analyzers SearingTouch matches the suggestions snapshot 1`] = `
 Array [
@@ -708,7 +930,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "79.49747309696245%",
+                  "width": "76.9403110420353%",
                 }
               }
             />
@@ -885,7 +1107,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                   }
                 >
                    
-                  88.07%
+                  86.58%
                    
                    
                 </div>
@@ -907,7 +1129,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                       Object {
                         "backgroundColor": "#a6c34c",
                         "transition": "background-color 800ms",
-                        "width": "87.04442950691704%",
+                        "width": "77.13926452585714%",
                       }
                     }
                   />
@@ -957,7 +1179,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                   }
                 >
                    
-                  111.52%
+                  108.46%
                    
                    
                 </div>
@@ -1029,7 +1251,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                   }
                 >
                    
-                  69.70%
+                  68.97%
                    
                    
                 </div>
@@ -1051,7 +1273,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "30.945462880932766%",
+                        "width": "30.621979642284074%",
                       }
                     }
                   />
@@ -1894,7 +2116,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
     </div>
   </li>
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -1918,8 +2140,8 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#a6c34c",
-                  "width": "83.59448275862069%",
+                  "backgroundColor": "#ffc84a",
+                  "width": "66.17671399594322%",
                 }
               }
             />
@@ -2162,6 +2384,96 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
               </div>
             </div>
           </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Meteor Utilization
+              </div>
+              <div
+                className="flex-sub"
+                style={
+                  Object {
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  <svg
+                    className="icon"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                    />
+                    <path
+                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                    />
+                    <path
+                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  80.00%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#ac1f39",
+                        "transition": "background-color 800ms",
+                        "width": "31.341176470588238%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -2249,7 +2561,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
           <div
             className="col-md-12"
           >
-            As a DPS, it is important to spend as much time casting as possible as if you are not casting then you are not doing damage. Therefore it is important to minimize your movements, stay within range of the target, and cancelling casts .. if you can avoid it. While some fights will have an amount of time that is unavoidable downtime; the more you can minimize that downtime, the better.
+            As a DPS, it is important to spend as much time casting as possible as if you are not casting then you are not doing damage. Therefore it is important to minimize your movements, stay within range of the target, and avoid cancelling casts if you can avoid it. While some fights will have an amount of time that is unavoidable downtime; the more you can minimize that downtime, the better.
           </div>
         </div>
         <div

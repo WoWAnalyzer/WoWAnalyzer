@@ -1,12 +1,13 @@
 import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import SPELLS from 'common/SPELLS';
+import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Steady Shot increases the damage of your next Aimed Shot against the target by X, stacking up to 5 times.
  *
- * Example: https://www.warcraftlogs.com/reports/2vJyCmRVKgQWLHcY/#fight=9&source=3
+ * Example:https://www.warcraftlogs.com/reports/ravLTdG6MVm3CXkQ#fight=62&type=damage-done
  */
 
 const MAX_STACKS = 5;
@@ -82,11 +83,21 @@ class SteadyAim extends Analyzer {
 
   statistic() {
     return (
-      <TraitStatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
-        trait={SPELLS.STEADY_AIM.id}
-        value={`${this.averageStacksPerAimed} Stacks / Aimed`}
-        tooltip={`${this.utilised} debuffs utilised / ${this.maxPossible} possible`} />
+      <AzeritePowerStatistic
+        size="flexible"
+        category={'AZERITE_POWERS'}
+        tooltip={(
+          <>
+            {this.utilised} debuffs utilised / {this.maxPossible} possible
+          </>
+        )}
+      >
+        <BoringSpellValueText spell={SPELLS.STEADY_AIM}>
+          <>
+            {this.averageStacksPerAimed} <small>Stacks / Aimed</small>
+          </>
+        </BoringSpellValueText>
+      </AzeritePowerStatistic>
     );
   }
 }

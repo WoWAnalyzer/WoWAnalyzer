@@ -6,12 +6,16 @@ import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { formatPercentage } from 'common/format';
 import OneVariableBinomialChart from 'interface/others/charts/OneVariableBinomialChart';
+import Abilities from '../Abilities';
 
 const BASE_PROC_CHANCE = 0.15;
 const FA_PROC_CHANCE = 0.1;
 const IV_PROC_CHANCE = 0.05;
 
 class GrandCrusader extends Analyzer {
+  static dependencies = {
+    abilities: Abilities,
+  }
   _totalResets = 0;
   _exactResets = 0;
   _inferredResets = 0;
@@ -38,11 +42,14 @@ class GrandCrusader extends Analyzer {
     return chance;
   }
 
+  _lastResetSource = null;
+
   on_byPlayer_cast(event) {
     if(![SPELLS.HAMMER_OF_THE_RIGHTEOUS.id, SPELLS.BLESSED_HAMMER_TALENT.id].includes(event.ability.guid)) {
       return;
     }
     this._resetChances += 1;
+    this._lastResetSource = event;
   }
 
   on_toPlayer_damage(event) {
@@ -50,19 +57,38 @@ class GrandCrusader extends Analyzer {
       return;
     }
     this._resetChances += 1;
+    this._lastResetSource = event;
   }
 
-  triggerExactReset(event) {
+  triggerExactReset(spellUsable) {
     this._totalResets += 1;
     this._exactResets += 1;
+    this.resetCooldowns(spellUsable);
   }
 
-  triggerInferredReset(event) {
-    this._totalResets += 1;
+  triggerInferredReset(spellUsable, event) {
     if(this._hasIV) {
-      console.warn('Inferred reset with IV. This shouldn\'t happen.', event);
+      console.warn('Inferred reset with IV. Not actually resetting. This shouldn\'t happen.', event.ability.name, event);
+      return;
     }
+    this._totalResets += 1;
     this._inferredResets += 1;
+    this.resetCooldowns(spellUsable);
+  }
+
+  resetCooldowns(spellUsable, event) {
+    // reset AS cd
+    if(spellUsable.isOnCooldown(SPELLS.AVENGERS_SHIELD.id)) {
+      spellUsable.endCooldown(SPELLS.AVENGERS_SHIELD.id, false, this._lastResetSource.timestamp, 0);
+    }
+
+    // reset Judgment CD if the CJ talent is selected
+    if(this.selectedCombatant.hasTalent(SPELLS.CRUSADERS_JUDGMENT_TALENT.id) && spellUsable.isOnCooldown(SPELLS.JUDGMENT_CAST_PROTECTION.id)) {
+      // get haste as of last reset source. fingers crossed that it
+      // isn't too far off
+      const ecd = this.abilities.getExpectedCooldownDuration(SPELLS.JUDGMENT_CAST_PROTECTION.id, this._lastResetSource);
+      spellUsable.reduceCooldown(SPELLS.JUDGMENT_CAST_PROTECTION.id, ecd, this._lastResetSource.timestamp);
+    }
   }
 
   get plot() {

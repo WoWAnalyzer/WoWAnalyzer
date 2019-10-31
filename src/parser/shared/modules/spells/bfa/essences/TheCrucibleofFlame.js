@@ -26,12 +26,15 @@ class TheCrucibleofFlame extends Analyzer {
     if (!this.active) {
       return;
     }
+
+    const rank = this.selectedCombatant.essenceRank(SPELLS.ANCIENT_FLAME.traitId);
     this.hasMajor = this.selectedCombatant.hasMajor(SPELLS.ANCIENT_FLAME.traitId);
     if(this.hasMajor) {
       this.abilities.add({
         spell: SPELLS.CONCENTRATED_FLAME_CAST,
         category: Abilities.SPELL_CATEGORIES.ITEMS,
         cooldown: 30,
+        charges: (rank > 2) ? 2 : 1,
         gcd: {
           base: 1500,
         },
@@ -43,7 +46,7 @@ class TheCrucibleofFlame extends Analyzer {
     }
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CONCENTRATED_FLAME_CAST_DAMAGE), this.onMajorCastDamage);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CONCENTRATED_FLAME_DOT_DAMAGE), this.onMajorDOTDamage);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CONCENTRATED_FLAME_CAST_DAMAGE), this.onMajorHeal);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CONCENTRATED_FLAME_CAST_HEAL), this.onMajorHeal);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ANCIENT_FLAME_DOT_DAMAGE), this.onMinorDotamage);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ANCIENT_FLAME_DOT_HEAL), this.onMinorDotHeal);
   }

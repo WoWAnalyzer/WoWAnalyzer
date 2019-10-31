@@ -74,6 +74,11 @@ export default {
     name: 'Potion of Unbridled Fury',
     icon: 'inv_potionf_5',
   },
+  POTION_OF_FOCUSED_RESOLVE: {
+    id: 298317,
+    name: 'Potion of Focused Resolve',
+    icon: 'inv_potionf_1',
+  },
   POTION_OF_BURSTING_BLOOD: {
     id: 251316,
     name: 'Potion of Bursting Blood',
@@ -88,5 +93,15 @@ export default {
     id: 298155,
     name: 'Superior Steelskin Potion',
     icon: 'inv_potionf_3',
+  },
+  POTION_OF_WILD_MENDING: {
+    id: 300741,
+    name: 'Potion of Wild Mending',
+    icon: 'inv_potionf_6',
+  },
+  POTION_OF_EMPOWERED_PROXIMITY: {
+    id: 298225,
+    name: 'Potion of Empowered Proximity',
+    icon: 'inv_potionf_2',
   },
 };

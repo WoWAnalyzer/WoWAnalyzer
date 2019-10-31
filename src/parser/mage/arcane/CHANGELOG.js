@@ -1,11 +1,15 @@
 import React from 'react';
 
-import { Sharrq } from 'CONTRIBUTORS';
+import { Sharrq, fluffels } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 10, 1), <>Removed the check to see if <SpellLink id={SPELLS.ARCANE_POWER.id} /> was available when the fight ended.</>,[Sharrq]),
+  change(date(2019, 9, 30), 'Updated Spec Compatibility to 8.2.5.',[Sharrq]),
+  change(date(2019, 9, 16), 'Fix a bug where arcane mage mana graph would not show time labels correctly.', fluffels),
+  change(date(2019, 8, 6), 'Updated spec compatibility to 8.2.', [Sharrq]),
   change(date(2019, 3, 14), 'Updated spec compatibility to 8.1.5.', [Sharrq]),
   change(date(2019, 3, 2), 'Added spec buffs to the timeline.', [Sharrq]),
   change(date(2018, 12, 16), 'Updated for Patch 8.1.', [Sharrq]),

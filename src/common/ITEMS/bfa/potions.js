@@ -89,4 +89,19 @@ export default {
     name: 'Superior Steelskin Potion',
     icon: 'inv_potionf_3',
   },
+  POTION_OF_WILD_MENDING: {
+    id: 169300,
+    name: 'Potion of Wild Mending',
+    icon: 'inv_potionf_6',
+  },
+  POTION_OF_FOCUSED_RESOLVE: {
+    id: 168506,
+    name: 'Potion of Focused Resolve',
+    icon: 'inv_potionf_1',
+  },
+  POTION_OF_EMPOWERED_PROXIMITY: {
+    id: 168529,
+    name: 'Potion of Empowered Proximity',
+    icon: 'inv_potionf_2',
+  },
 };

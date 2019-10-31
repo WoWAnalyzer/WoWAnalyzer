@@ -35,6 +35,7 @@ class Home extends React.PureComponent {
   static propTypes = {
     location: PropTypes.shape({
       pathname: PropTypes.string.isRequired,
+      hash: PropTypes.string.isRequired,
     }).isRequired,
     premium: PropTypes.bool,
   };
@@ -81,11 +82,11 @@ class Home extends React.PureComponent {
       <div className="home-page">
         <div className="container" style={{ fontSize: 10, marginTop: 10 }}>
           <div className="row">
-            <div className="col-sm-6">
+            <div className="col-xs-12 col-sm-6">
               {!premium && <PatreonButton style={{ marginRight: 10 }} />}
               <DiscordButton style={{ marginRight: 10 }} />
             </div>
-            <div className="col-sm-6 text-right">
+            <div className="col-xs-12 col-sm-6 text-right">
               <a href="https://travis-ci.org/WoWAnalyzer/WoWAnalyzer">
                 <img src="https://travis-ci.org/WoWAnalyzer/WoWAnalyzer.svg?branch=master" alt="Build status" style={{ height: '2.8em' }} />
               </a>

@@ -59,6 +59,11 @@
     img {
       max-width: 100%;
     }
+
+    .overflow-link {
+      display: block;
+      overflow-wrap: break-word;
+    }
   }
   .panel-body.pad:last-of-type > ul {
     margin-bottom: 30px;

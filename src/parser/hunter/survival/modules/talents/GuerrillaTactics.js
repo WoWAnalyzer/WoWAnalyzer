@@ -2,9 +2,11 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import { AFFECTED_BY_GUERRILLA_TACTICS, GUERRILLA_TACTICS_INIT_HIT_MODIFIER } from 'parser/hunter/survival/constants';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import React from 'react';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Wildfire Bomb now has 2 charges, and the initial explosion deals 100% increased damage.
@@ -30,10 +32,17 @@ class GuerrillaTactics extends Analyzer {
 
   statistic() {
     return (
-      <TalentStatisticBox
-        talent={SPELLS.GUERRILLA_TACTICS_TALENT.id}
-        value={<ItemDamageDone amount={this.damage} />}
-      />
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(2)}
+        size="flexible"
+        category={"TALENTS"}
+      >
+        <BoringSpellValueText spell={SPELLS.GUERRILLA_TACTICS_TALENT}>
+          <>
+            <ItemDamageDone amount={this.damage} />
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 

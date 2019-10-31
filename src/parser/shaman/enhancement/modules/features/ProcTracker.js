@@ -25,6 +25,7 @@ class ProcTracker extends CoreCooldownThroughputTracker {
             fightStart={this.owner.fight.start_time}
             fightEnd={this.owner.fight.end_time}
             cooldowns={this.pastCooldowns}
+            applyTimeFilter={this.owner.applyTimeFilter}
           />
         </Panel>
       ),

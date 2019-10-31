@@ -7,6 +7,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
 import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
+import LucidDreams from 'parser/shared/modules/spells/bfa/essences/LucidDreamsHealers';
 
 import Abilities from './modules/Abilities';
 
@@ -37,6 +38,7 @@ import EchoOfLightMastery from './modules/core/EchoOfLightMastery';
 import FortitudeRaidBuff from './modules/core/FortitudeRaidBuff';
 import HolyWordsReductionBySpell from './modules/core/HolyWordsReductionBySpell';
 import HolyWordWastedAmounts from './modules/core/HolyWordWastedAmounts';
+import StatWeights from './modules/features/StatWeights';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 // Azerite
@@ -90,6 +92,7 @@ class CombatLogParser extends CoreCombatLogParser {
     holyWordSerenity: HolyWordSerenity,
     holyWordChastise: HolyWordChastise,
     holyWordSalvation: HolyWordSalvationCooldown,
+    statWeights: StatWeights,
 
     spiritOfRedemption: SpiritOfRedemption,
     renew: Renew,
@@ -134,6 +137,9 @@ class CombatLogParser extends CoreCombatLogParser {
     twistMagic: TwistMagic,
     promiseOfDeliverance: PromiseOfDeliverance,
     deathDenied: DeathDenied,
+
+    // Essences
+    lucidDreams: LucidDreams,
 
     // Mana Tab
     manaTracker: ManaTracker,

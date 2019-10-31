@@ -5,12 +5,15 @@ import SpellLink from 'common/SpellLink';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
+import Statistic from 'interface/statistics/Statistic';
+import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
+import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 
 /**
  * Increases the damage of your pet's abilities by 30%.
  * Increases the effectiveness of your pet's Predator's Thirst, Endurance Training, and Pathfinding passives by 50%.
  *
- * Example log: https://www.warcraftlogs.com/reports/htGc4Vp8QJ6XTW72#fight=1&type=damage-done&source=13
+ * Example log: https://www.warcraftlogs.com/reports/qZRdFv9Apg74wmMV#fight=3&type=damage-done
  */
 
 const ASPECT_MULTIPLIER = 0.3;
@@ -32,6 +35,26 @@ class AspectOfTheBeast extends Analyzer {
     this.damage += calculateEffectiveDamage(event, ASPECT_MULTIPLIER);
   }
 
+  statistic() {
+    return (
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
+        category={'TALENTS'}
+      >
+        <BoringSpellValueText spell={SPELLS.ASPECT_OF_THE_BEAST_TALENT}>
+          <>
+            <ItemDamageDone amount={this.damage} />
+          </>
+        </BoringSpellValueText>
+      </Statistic>
+    );
+  }
+
+  /**
+   * @Deprecated
+   * @returns {*}
+   */
   subStatistic() {
     return (
       <StatisticListBoxItem

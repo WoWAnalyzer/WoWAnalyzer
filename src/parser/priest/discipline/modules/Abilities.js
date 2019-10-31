@@ -16,7 +16,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.POWER_WORD_RADIANCE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        cooldown: 18 - (combatant.hasBuff(SPELLS.DISC_PRIEST_T21_2SET_BONUS_PASSIVE.id) ? 3 : 0),
+        cooldown: 20,
         charges: 2,
         gcd: {
           base: 1500,

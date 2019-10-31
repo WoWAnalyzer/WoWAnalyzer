@@ -33,4 +33,5 @@ export default [
   SPELLS.CHARGE_2.id, // The damage component of charge
   285503, // Lady Jaina Proudmoore boss mechanic (picking up munitions barrel)
   285347, // Plague of Fire - King Rastakhan mechanic
+  SPELLS.CLOUDBURST_TOTEM_RECALL.id, // Cloudburst reactivation
 ];

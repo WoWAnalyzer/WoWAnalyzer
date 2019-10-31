@@ -50,6 +50,31 @@ export default {
     name: 'Versatile Navigation',
     icon: 'achievement_worldevent_lunar',
   },
+  FORCE_MULTIPLIER_AGI: {
+    id: 300893,
+    name: 'Force Multiplier',
+    icon: 'ability_titankeeper_piercingcorruption',
+  },
+  FORCE_MULTIPLIER_STR: {
+    id: 300691,
+    name: 'Force Multiplier',
+    icon: 'ability_gouge',
+  },
+  FORCE_MULTIPLIER_CRIT: {
+    id: 300801,
+    name: 'Force Multiplier',
+    icon: 'ability_fixated_state_red',
+  },
+  FORCE_MULTIPLIER_MASTERY: {
+    id: 300809,
+    name: 'Force Multiplier',
+    icon: 'ability_fixated_state_blue',
+  },
+  FORCE_MULTIPLIER_HASTE: {
+    id: 300802,
+    name: 'Force Multiplier',
+    icon: 'ability_fixated_state_green',
+  },
   COASTAL_SURGE: {
     id: 267537,
     name: 'Coastal Surge',

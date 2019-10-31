@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
-import ITEMS from 'common/ITEMS';
+import { calculateCooldown } from '../../../shared/modules/spells/bfa/essences/VisionsOfPerfection';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -10,7 +10,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.RIPTIDE,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        charges: (combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id)) ? 2 : 1,
+        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 2 : 1,
         cooldown: 6,
         timelineSortIndex: 11,
         gcd: {
@@ -18,7 +18,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: (combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id)) ? 0.90 : 0.70,
+          recommendedEfficiency: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 0.90 : 0.70,
         },
         healSpellIds: [
           SPELLS.SURGING_TIDES_ABSORB.id,
@@ -27,7 +27,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.HEALING_STREAM_TOTEM_CAST,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        charges: (combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id)) ? 2 : 1,
+        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 2 : 1,
         timelineSortIndex: 18,
         enabled: !combatant.hasTalent(SPELLS.CLOUDBURST_TOTEM_TALENT.id),
         gcd: {
@@ -99,7 +99,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CLOUDBURST_TOTEM_TALENT,
         buffSpellId: SPELLS.CLOUDBURST_TOTEM_TALENT.id,
         category: Abilities.SPELL_CATEGORIES.ROTATIONAL,
-        charges: (combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id)) ? 2 : 1,
+        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 2 : 1,
         cooldown: 30,
         timelineSortIndex: 16,
         gcd: {
@@ -177,7 +177,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HEALING_TIDE_TOTEM_CAST,
         buffSpellId: SPELLS.HEALING_TIDE_TOTEM_CAST.id,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
-        cooldown: 180,
+        cooldown: combatant.hasEssence(SPELLS.VISION_OF_PERFECTION.traitId) ? calculateCooldown(combatant.neck.itemLevel, 180) : 180,
         gcd: {
           static: 1000, // totem GCD
         },
@@ -286,7 +286,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.LAVA_BURST,
         buffSpellId: SPELLS.LAVA_SURGE.id,
         category: Abilities.SPELL_CATEGORIES.HEALER_DAMAGING_SPELL,
-        charges: (combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) || this.selectedCombatant.hasFinger(ITEMS.SOUL_OF_THE_FARSEER.id)) ? 2 : 1,
+        charges: combatant.hasTalent(SPELLS.ECHO_OF_THE_ELEMENTS_TALENT.id) ? 2 : 1,
         timelineSortIndex: 60,
         cooldown: 8,
         gcd: {

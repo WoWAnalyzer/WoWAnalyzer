@@ -25,6 +25,7 @@ export default {
     id: 2484,
     name: 'Earthbind Totem',
     icon: 'spell_nature_strengthofearthtotem02',
+    manaCost: 500,
   },
   RESONANCE_TOTEM: {
     id: 262417,
@@ -35,6 +36,7 @@ export default {
     id: 370,
     name: 'Purge',
     icon: 'spell_nature_purge',
+    manaCost: 2000,
   },
   FAR_SIGHT: {
     id: 6196,
@@ -334,6 +336,11 @@ export default {
     id: 260734,
     name: "Master Of The Elements Buff",
     icon: "spell_nature_elementalabsorption",
+  },
+  SURGE_OF_POWER_BUFF: {
+    id: 285514,
+    name: "Surge of Power",
+    icon: "spell_nature_shamanrage",
   },
   UNLIMITED_POWER_BUFF: {
     id: 272737,
@@ -655,15 +662,15 @@ export default {
     icon: 'spell_nature_healingwavelesser',
     manaCost: 1800,
     color: '#146585',
-    coefficient: 1.55,
+    coefficient: 1.7,
   },
   HEALING_SURGE_RESTORATION: {
     id: 8004,
     name: 'Healing Surge',
     icon: 'spell_nature_healingway',
-    manaCost: 3800,
+    manaCost: 3600,
     color: '#40b3bf',
-    coefficient: 1.43,
+    coefficient: 1.57,
   },
   RIPTIDE: {
     id: 61295,

@@ -75,6 +75,7 @@ import FirstMatesSpyglass from '../shared/modules/items/bfa/FirstMatesSpyglass';
 import SeaGiantsTidestone from '../shared/modules/items/bfa/SeaGiantsTidestone';
 import AncientKnotOfWisdom from '../shared/modules/items/bfa/AncientKnotOfWisdom';
 // Dungeons
+import CyclotronicBlast from '../shared/modules/items/bfa/dungeons/CyclotronicBlast';
 import MydasTalisman from '../shared/modules/items/bfa/dungeons/MydasTalisman';
 import RevitalizingVoodooTotem from '../shared/modules/items/bfa/dungeons/RevitalizingVoodooTotem';
 import LingeringSporepods from '../shared/modules/items/bfa/dungeons/LingeringSporepods';
@@ -103,6 +104,7 @@ import MasterfulNavigation from '../shared/modules/items/bfa/enchants/MasterfulN
 import QuickNavigation from '../shared/modules/items/bfa/enchants/QuickNavigation';
 import StalwartNavigation from '../shared/modules/items/bfa/enchants/StalwartNavigation';
 import VersatileNavigation from '../shared/modules/items/bfa/enchants/VersatileNavigation';
+import ForceMultiplier from '../shared/modules/items/bfa/enchants/ForceMultiplier';
 import CoastalSurge from '../shared/modules/items/bfa/enchants/CoastalSurge';
 // Crafted
 import DarkmoonDeckTides from '../shared/modules/items/bfa/crafted/DarkmoonDeckTides';
@@ -134,9 +136,11 @@ import UnstableCatalyst from '../shared/modules/spells/bfa/azeritetraits/Unstabl
 import SwirlingSands from '../shared/modules/spells/bfa/azeritetraits/SwirlingSands';
 import Tradewinds from '../shared/modules/spells/bfa/azeritetraits/Tradewinds';
 import TreacherousCovenant from '../shared/modules/spells/bfa/azeritetraits/TreacherousCovenant';
+import LoyalToTheEnd from '../shared/modules/spells/bfa/azeritetraits/LoyalToTheEnd';
 
 // Essences
 import TheEverRisingTide from '../shared/modules/spells/bfa/essences/TheEverRisingTide';
+import TheWellOfExistence from '../shared/modules/spells/bfa/essences/TheWellOfExistence';
 import TheCrucibleofFlame from '../shared/modules/spells/bfa/essences/TheCrucibleofFlame';
 import WorldveinResonance from '../shared/modules/spells/bfa/essences/WorldveinResonance';
 import NullDynamo from '../shared/modules/spells/bfa/essences/NullDynamo';
@@ -169,6 +173,11 @@ import StormglideSteps from '../shared/modules/items/bfa/raids/crucibleofstorms/
 import TridentOfDeepOcean from '../shared/modules/items/bfa/raids/crucibleofstorms/TridentOfDeepOcean';
 import VoidStone from '../shared/modules/items/bfa/raids/crucibleofstorms/VoidStone';
 import ZaxasjsDeepstriders from '../shared/modules/items/bfa/raids/crucibleofstorms/ZaxasjsDeepstriders';
+// Azsharas Eternal Palace
+
+import AshvanesRazorCoral from '../shared/modules/items/bfa/raids/azsharaseternalpalace/AshvanesRazorCoral';
+import BloodthirstyUrchin from '../shared/modules/items/bfa/raids/azsharaseternalpalace/BloodthirstyUrchin';
+import DribblingInkpod from '../shared/modules/items/bfa/raids/azsharaseternalpalace/DribblingInkpod';
 
 import ParseResults from './ParseResults';
 import EventsNormalizer from './EventsNormalizer';
@@ -255,6 +264,7 @@ class CombatLogParser {
     revitalizingVoodooTotem: RevitalizingVoodooTotem,
     ancientKnotOfWisdom: AncientKnotOfWisdom,
     // Dungeons
+    cyclotronicBlast: CyclotronicBlast,
     mydasTalisman: MydasTalisman,
     lingeringSporepods: LingeringSporepods,
     fangsOfIntertwinedEssence: FangsOfIntertwinedEssence,
@@ -286,6 +296,7 @@ class CombatLogParser {
     quickNavigation: QuickNavigation,
     stalwartNavigation: StalwartNavigation,
     versatileNavigation: VersatileNavigation,
+    forceMult: ForceMultiplier,
     coastalSurge: CoastalSurge,
 
     // Azerite Traits
@@ -313,9 +324,11 @@ class CombatLogParser {
     swirlingSands: SwirlingSands,
     tradewinds: Tradewinds,
     treacherousCovenant: TreacherousCovenant,
+    loyalToTheEnd: LoyalToTheEnd,
 
     // Essences
     theEverRisingTide: TheEverRisingTide,
+    theWellOfExistence : TheWellOfExistence,
     theCrucibleofFlame: TheCrucibleofFlame,
     worldveinResonance: WorldveinResonance,
     nullDynamo: NullDynamo,
@@ -348,9 +361,16 @@ class CombatLogParser {
     tridentOfDeepOcean: TridentOfDeepOcean,
     voidStone: VoidStone,
     zaxasjsDeepstriders: ZaxasjsDeepstriders,
+    //Azsharas Eternal Palace
+    ashvanesRazorCoral: AshvanesRazorCoral,
+    bloodthirstyUrchin: BloodthirstyUrchin,
+    dribblingInkpod: DribblingInkpod,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
+
+  applyTimeFilter = (start, end) => null; //dummy function gets filled in by event parser
+  applyPhaseFilter = (phase, instance) => null; //dummy function gets filled in by event parser
 
   report = null;
   // Player info from WCL - required
