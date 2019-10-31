@@ -44,6 +44,7 @@ import Ascendance from './modules/talents/Ascendance';
 import Wellspring from './modules/talents/Wellspring';
 import HighTide from './modules/talents/HighTide';
 import NaturesGuardian from './modules/talents/NaturesGuardian';
+import AncestralProtectionTotem from './modules/talents/AncestralProtectionTotem';
 // Spells
 import ChainHeal from './modules/spells/ChainHeal';
 import HealingSurge from './modules/spells/HealingSurge';
@@ -115,6 +116,7 @@ class CombatLogParser extends CoreCombatLogParser {
     wellspring: Wellspring,
     highTide: HighTide,
     naturesGuardian: NaturesGuardian,
+    ancestralProtectionTotem: AncestralProtectionTotem,
     talentStatisticBox: TalentStatisticBox,
 
     // Spells:
