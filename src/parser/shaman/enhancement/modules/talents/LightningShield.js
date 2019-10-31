@@ -6,6 +6,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 
 import StatisticBox from 'interface/others/StatisticBox';
+import SpellLink from 'parser/shaman/elemental/modules/talents/Icefury';
 
 class LightningShield extends Analyzer {
 
@@ -45,6 +46,25 @@ class LightningShield extends Analyzer {
 
   get damagePerSecond() {
     return this.damageGained / (this.owner.fightDuration / 1000);
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.selectedCombatant.getBuffUptime(SPELLS.LIGHTNING_SHIELD_TALENT.id),
+      isLessThan: {
+        major: 1,
+      },
+      style: 'decimal',
+    };
+  }
+
+  suggestions(when) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual) => {
+      return suggest(<>You should fully utilize your <SpellLink id={SPELLS.LIGHTNING_SHIELD_TALENT.id} /> by using it before combat.</>)
+        .icon(SPELLS.LIGHTNING_SHIELD_TALENT.icon)
+        .actual(<>You kept up <SpellLink id={SPELLS.LIGHTNING_SHIELD_TALENT.id} /> for ${formatPercentage(actual)}% of the fight.</>)
+        .recommended(<>It is possible to keep up <SpellLink id={SPELLS.LIGHTNING_SHIELD_TALENT.id}/> for 100% of the fight by casting it pre-combat.</>);
+    });
   }
 
   statistic() {
