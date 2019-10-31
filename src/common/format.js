@@ -69,3 +69,12 @@ export function formatMilliseconds(duration) {
 
   return response;
 }
+
+/**
+ * Formats a number into the ordinal form.
+ * Ex: 2nd, 7th, 20th, 23rd, 52nd, 135th, 301st
+ * @param {number} number
+ */
+export function formatNth(number) {
+  return number.toString() + (["st", "nd", "rd"][((number + 90) % 100 - 10) % 10 - 1] || "th");
+}

@@ -6,7 +6,7 @@ import SPELLS from 'common/SPELLS';
 import { TooltipElement } from 'common/Tooltip';
 import SPECS from 'game/SPECS';
 import SpecIcon from 'common/SpecIcon';
-import { formatDuration } from 'common/format';
+import { formatNth, formatDuration } from 'common/format';
 
 import Events from 'parser/core/Events';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -120,7 +120,7 @@ class ChainHeal extends Analyzer {
     }
 
     const singleHits = this.chainHeals.filter(cast => cast.hits === 1);
-    const formatNth = (number) => ["st", "nd", "rd"][((number + 90) % 100 - 10) % 10 - 1] || "th";
+
     return (
       <StatisticBox
         icon={<SpellIcon id={SPELLS.CHAIN_HEAL.id} />}
@@ -151,7 +151,7 @@ class ChainHeal extends Analyzer {
                     .filter(cast => cast.hits === 1)
                     .map(cast => (
                       <tr key={cast.timestamp}>
-                        <th scope="row">{cast.castNo}{formatNth(cast.castNo)}</th>
+                        <th scope="row">{formatNth(cast.castNo)}</th>
                         <td>{formatDuration((cast.timestamp - this.owner.fight.start_time) / 1000, 0)}</td>
                         <td className={cast.target.specClassName}> <SpecIcon id={cast.target.spec.id} />{' '}{cast.target.name}</td>
                       </tr>
