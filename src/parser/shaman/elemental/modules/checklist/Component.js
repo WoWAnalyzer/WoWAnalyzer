@@ -26,6 +26,7 @@ class ElementalShamanChecklist extends React.PureComponent {
         {this.maintainFlameShockRule()}
         {this.props.combatant.hasTalent(SPELLS.TOTEM_MASTERY_TALENT_ELEMENTAL.id) ? this.keepYourTotemsUp() : ''}
         {this.props.combatant.hasTalent(SPELLS.ICEFURY_TALENT.id) ? this.maximizeIcefuryRule() : ''}
+        {this.props.combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ELEMENTAL) ? this.maximizeAscendenceRule():''}
         <PreparationRule thresholds={this.props.thresholds} />
       </Checklist>
     );
@@ -62,8 +63,8 @@ class ElementalShamanChecklist extends React.PureComponent {
   minimizeDowntimeRule() {
     const description = (
       <>
-        Downtime is the time where you are not casting (and not on GCD) or are on GCD from a cancelled cast. Ensure you are casting as much as possible by avoiding movement when you could be casting. 
-        Elemental shaman has many GCDs available from <SpellLink id={SPELLS.EARTH_SHOCK.id} />, <SpellLink id={SPELLS.LAVA_SURGE.id} /> empowered <SpellLink id={SPELLS.LAVA_BURST.id} />s, <SpellLink id={SPELLS.FROST_SHOCK.id} />, and others that help you move towards your location without incurring downtime. 
+        Downtime is the time where you are not casting (and not on GCD) or are on GCD from a cancelled cast. Ensure you are casting as much as possible by avoiding movement when you could be casting.
+        Elemental shaman has many GCDs available from <SpellLink id={SPELLS.EARTH_SHOCK.id} />, <SpellLink id={SPELLS.LAVA_SURGE.id} /> empowered <SpellLink id={SPELLS.LAVA_BURST.id} />s, <SpellLink id={SPELLS.FROST_SHOCK.id} />, and others that help you move towards your location without incurring downtime.
         Additionally, cancelled casts contribute significantly as they fill a GCD without actually doing damage. It's expected that some casts will need to be cancelled due to mechanics, but proper planning can help mitigate that.
       </>
     );
@@ -79,8 +80,8 @@ class ElementalShamanChecklist extends React.PureComponent {
   maintainFlameShockRule() {
     const description = (
       <>
-        It's important to maintain flame shock on your target to guarantee <SpellLink id={SPELLS.LAVA_BURST.id} /> will crit and to allow for <SpellLink id={SPELLS.LAVA_SURGE.id} /> procs. 
-        
+        It's important to maintain flame shock on your target to guarantee <SpellLink id={SPELLS.LAVA_BURST.id} /> will crit and to allow for <SpellLink id={SPELLS.LAVA_SURGE.id} /> procs.
+
         Applying <SpellLink id={SPELLS.FLAME_SHOCK.id} /> itself doesn't do much damage so you should only refresh it with 30% (about 7 seconds) or less of it's total duration remaining to beneift from pandemic.
       </>
     );
@@ -96,7 +97,7 @@ class ElementalShamanChecklist extends React.PureComponent {
   keepYourTotemsUp() {
     const description = (
       <>
-        <SpellLink id={SPELLS.TOTEM_MASTERY_TALENT_ELEMENTAL.id} /> provides a significant buff at the cost of a GCD. Make sure you keep them up and are within range of them. 
+        <SpellLink id={SPELLS.TOTEM_MASTERY_TALENT_ELEMENTAL.id} /> provides a significant buff at the cost of a GCD. Make sure you keep them up and are within range of them.
         They last for 2 minutes so you should should only need to refresh them a couple times a fight.
       </>
     );
@@ -112,7 +113,7 @@ class ElementalShamanChecklist extends React.PureComponent {
 
     const description = (
       <>
-        <SpellLink id={SPELLS.ICEFURY_TALENT.id} />'s damage component itself is not a strong spell so it's important to fully utilize the talent by consuming all 4 <SpellLink id={SPELLS.ICEFURY_TALENT.id} /> buff stacks with <SpellLink id={SPELLS.FROST_SHOCK.id} /> casts during the buff's duration. 
+        <SpellLink id={SPELLS.ICEFURY_TALENT.id} />'s damage component itself is not a strong spell so it's important to fully utilize the talent by consuming all 4 <SpellLink id={SPELLS.ICEFURY_TALENT.id} /> buff stacks with <SpellLink id={SPELLS.FROST_SHOCK.id} /> casts during the buff's duration.
         {this.props.combatant.hasTalent(SPELLS.MASTER_OF_THE_ELEMENTS_TALENT.id) && <> While you should try to buff as many <SpellLink id={SPELLS.ICEFURY_TALENT.id} /> empowered <SpellLink id={SPELLS.FROST_SHOCK.id} /> as you can with <SpellLink id={SPELLS.MASTER_OF_THE_ELEMENTS_TALENT.id} />, it is far more important to actually use all 4 charges before the buff expires.</>}
       </>
     );
@@ -121,6 +122,22 @@ class ElementalShamanChecklist extends React.PureComponent {
       <Rule name="Utilize all Icefury Stacks" description={description}>
         <Requirement name={<>Average <SpellLink id={SPELLS.FROST_SHOCK.id} /> Casts within <SpellLink id={SPELLS.ICEFURY_TALENT.id} /> Duration</>} thresholds={this.props.thresholds.icefuryEfficiency} />
       </Rule>
+    );
+  }
+
+  maximizeAscendenceRule() {
+
+    const description = (
+      <>
+        <SpellLink id={SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id} />'s damage comes from spamming <SpellLink id={SPELLS.LAVA_BURST.id} /> during it's duration. Only use <SpellLink id={SPELLS.LAVA_BURST.id} /> and <SpellLink id={SPELLS.EARTH_SHOCK.id} /> while it is up.
+        {this.props.combatant.hasTalent(SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id) && <> Use <SpellLink id={SPELLS.LAVA_BURST.id} /> as much as you can. Only use <SpellLink id={SPELLS.EARTH_SHOCK.id} /> when you need to spent Malestrom..</>}
+      </>
+    );
+
+    return (
+     <Rule name="Spam Meatballs(Lava Burst)" description={description}>
+        <Requirement name={<>"Wrong" Casts within <SpellLink id={SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id} /> Duration</>} thresholds={this.props.thresholds.ascendanceEfficiency} />
+     </Rule>
     );
   }
 }
