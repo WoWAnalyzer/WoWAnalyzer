@@ -108,10 +108,10 @@ class CrusadersMight extends Analyzer {
           <>
             You cast Crusader Strike <b>{this.wastedHolyShockReductionCount}</b> time{(this.wastedHolyShockReductionCount > 1)?'s':''} when Holy Shock was off cooldown.<br />
             This wasted <b>{(this.wastedHolyShockReductionMs/1000).toFixed(1)}</b> seconds of Holy Shock cooldown reduction,<br />
-            preventing you from casting <b>{Math.floor(this.holyShocksCastsLost)}</b> additional Holy Shock cast{(this.holyShocksLost >= 2) ? 's':''}.<br /><br />
+            preventing you from <b>{Math.floor(this.holyShocksCastsLost)}</b> additional Holy Shock cast{(this.holyShocksLost >= 2) ? 's':''}.<br /><br />
             You cast Crusader Strike <b>{this.wastedLightOfDawnReductionCount}</b> time{(this.wastedLightOfDawnReductionCount > 1)?'s':''} when Light of Dawn was off cooldown.<br />
             This wated <b>{(this.wastedLightOfDawnReductionMs/1000).toFixed(1)}</b> seconds of Light of Dawn cooldown reduction,<br />
-            preventing you from casting <b>{Math.floor(this.lightOfDawnCastsLost)}</b> additional Light of Dawn cast{(this.lightOfDawnCastsLost > 2?'s':'')}.
+            preventing you from <b>{Math.floor(this.lightOfDawnCastsLost)}</b> additional Light of Dawn cast{(this.lightOfDawnCastsLost > 2?'s':'')}.
           </>
         )}
       />
