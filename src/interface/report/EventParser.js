@@ -93,12 +93,15 @@ class EventParser extends React.PureComponent {
 
   makeParser() {
     const { report, fight, combatants, player, characterProfile, build, builds, parserClass } = this.props;
-    const parser = new parserClass(report, player, fight, combatants, characterProfile);
+    const buildKey = builds && Object.keys(builds).find(b => builds[b].url === build);
+    builds && Object.keys(builds).forEach(key => {
+      builds[key].active = key === buildKey;
+    });
+    //set current build to undefined if default build or non-existing build selected
+    const parser = new parserClass(report, player, fight, combatants, characterProfile, buildKey && build, builds);
     parser.applyTimeFilter = this.props.applyTimeFilter;
     parser.applyPhaseFilter = this.props.applyPhaseFilter;
-    //set current build to undefined if default build or non-existing build selected
-    parser.build = builds && Object.values(builds).find(b => b.url === build) && build;
-    
+
     this.setState({
       parser,
     });
