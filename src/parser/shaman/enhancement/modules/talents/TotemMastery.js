@@ -9,9 +9,9 @@ import Analyzer from 'parser/core/Analyzer';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
-const BUFF_TOTEM_RESONANCE_SPELL_ID = 202188;
-const BUFF_TOTEM_EMBER_SPELL_ID = 210657;
-const BUFF_TOTEM_TAILWIND_SPELL_ID = 210660;
+const BUFF_TOTEM_RESONANCE_SPELL_ID = 262419;
+const BUFF_TOTEM_EMBER_SPELL_ID = 262398;
+const BUFF_TOTEM_TAILWIND_SPELL_ID = 262401;
 
 class TotemMastery extends Analyzer {
   casts = 0;
@@ -42,15 +42,15 @@ class TotemMastery extends Analyzer {
   }
 
   on_byPlayer_cast(event) {
-    if (event.ability.guid === SPELLS.TOTEM_MASTERY_TALENT_ELEMENTAL.id) {
+    if (event.ability.guid === SPELLS.TOTEM_MASTERY_TALENT_ENHANCEMENT.id) {
       this.casts += 1;
     }
   }
 
   suggestions(when) {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<span>Your <SpellLink id={SPELLS.TOTEM_MASTERY_TALENT_ELEMENTAL.id} /> uptime can be improved. Try to place the totems better.</span>)
-        .icon(SPELLS.TOTEM_MASTERY_TALENT_ELEMENTAL.icon)
+      return suggest(<span>Your <SpellLink id={SPELLS.TOTEM_MASTERY_TALENT_ENHANCEMENT.id} /> uptime can be improved. Try to place the totems better.</span>)
+        .icon(SPELLS.TOTEM_MASTERY_TALENT_ENHANCEMENT.icon)
         .actual(`${formatPercentage(actual)}% uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`);
     });
@@ -59,7 +59,7 @@ class TotemMastery extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.TOTEM_MASTERY_TALENT_ELEMENTAL.id} />}
+        icon={<SpellIcon id={SPELLS.TOTEM_MASTERY_TALENT_ENHANCEMENT.id} />}
         value={`${formatPercentage(this.minUptime)} %`}
         label="Uptime"
         tooltip={`With ${this.casts} infight cast${this.casts > 1 ? 's' : ''}.`}
