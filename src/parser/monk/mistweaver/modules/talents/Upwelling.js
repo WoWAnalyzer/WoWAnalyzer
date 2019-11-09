@@ -176,8 +176,7 @@ class Upwelling extends Analyzer {
             </ul>
           </>
         )}
-      >
-      ></TalentStatisticBox>
+      />
     );
   }
 }
