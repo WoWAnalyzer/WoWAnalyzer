@@ -168,11 +168,11 @@ class Upwelling extends Analyzer {
           </div>
             <ul>
               <li>Extra Bolts: {formatNumber(this.extraBolts)}</li>
-              <li>Extra Bolts Healing: {formatNumber(this.totalHealing)} ({formatPercentage(this.overhealingBolt)}% overheal)</li>
+              <li>Extra Bolts Healing: {formatNumber(this.totalHealing)} ({formatPercentage(this.overhealingBolt)}% overhealing)</li>
               <li>Extra Hots: {formatNumber(this.extraHots)}</li>
-              <li>Hots Healing: {formatNumber(this.efHotHeal)} ({formatPercentage(this.overhealingHot)}% overheal)</li>
+              <li>Hots Healing: {formatNumber(this.efHotHeal)} ({formatPercentage(this.overhealingHot)}% overhealing)</li>
               <li>Extra Mastery Hits: {formatNumber(this.masteryHit)}</li>
-              <li>Extra Mastery Healing: {formatNumber(this.masteryHealing)} ({formatPercentage(this.overhealingMastery)}% overheal)</li>
+              <li>Extra Mastery Healing: {formatNumber(this.masteryHealing)} ({formatPercentage(this.overhealingMastery)}% overhealing)</li>
             </ul>
           </>
         )}
