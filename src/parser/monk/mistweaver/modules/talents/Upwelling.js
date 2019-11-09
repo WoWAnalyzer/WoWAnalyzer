@@ -1,8 +1,6 @@
 import React from 'react';
 
 import SPELLS from 'common/SPELLS';
-import SpellLink from 'common/SpellLink';
-import CoreChanneling from 'parser/shared/modules/Channeling';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import { formatNumber, formatPercentage } from 'common/format';
 import TalentStatisticBox from 'interface/others/TalentStatisticBox';
@@ -12,7 +10,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 
 
-const debug = true;
+//const debug = false;
 
 const BASE_HOT_TIME = 8000;//ef's hot base time
 const BASE_BOLTS = 17;//18 base but we start counting at 0 so 18th on bolt count = 19th bolt
@@ -63,15 +61,14 @@ class Upwelling extends Analyzer {
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF), this.efHeal);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT), this.efcast);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF), this.applyBuff);
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF), this.removeBuff)
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF), this.removeBuff);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS), this.handleMastery);
   }
 
   efHeal(event) {
     if(event.tick){
       this.hotHeal(event);
-    }
-    else{
+    }else{
       this.boltHeal(event);
     }
   }
@@ -145,6 +142,18 @@ class Upwelling extends Analyzer {
     return this.totalHealing + this.totalAbsorbs + this.efHotHeal + this.masteryHealing + this.masteryAbsorbed;
   }
 
+  get overhealingBolt(){
+    return this.totalOverhealing/(this.totalOverhealing+this.totalHealing);
+  }
+
+  get overhealingHot(){
+    return this.efHotOverheal / (this.efHotHeal + this.efHotOverheal);
+  }
+
+  get overhealingMastery(){
+    return this.masteryOverhealing/ (this.masteryHealing+this.masteryOverhealing+this.masteryAbsorbed);
+  }
+
   statistic() {
     return (
       <TalentStatisticBox
@@ -159,17 +168,16 @@ class Upwelling extends Analyzer {
           </div>
             <ul>
               <li>Extra Bolts: {formatNumber(this.extraBolts)}</li>
-              <li>Extra Bolts Healing: {formatNumber(this.totalHealing)} ({formatNumber(this.totalOverhealing)})</li>
+              <li>Extra Bolts Healing: {formatNumber(this.totalHealing)} ({formatPercentage(this.overhealingBolt)}% overheal)</li>
               <li>Extra Hots: {formatNumber(this.extraHots)}</li>
-              <li>Hots Healing: {formatNumber(this.efHotHeal)} ({formatNumber(this.efHotOverheal)})</li>
+              <li>Hots Healing: {formatNumber(this.efHotHeal)} ({formatPercentage(this.overhealingHot)}% overheal)</li>
               <li>Extra Mastery Hits: {formatNumber(this.masteryHit)}</li>
-              <li>Extra Mastery Healing: {formatNumber(this.masteryHealing)} ({formatNumber(this.masteryOverhealing)})</li>
+              <li>Extra Mastery Healing: {formatNumber(this.masteryHealing)} ({formatPercentage(this.overhealingMastery)}% overheal)</li>
             </ul>
           </>
         )}
       >
-       
-      </TalentStatisticBox>
+      ></TalentStatisticBox>
     );
   }
 }
