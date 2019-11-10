@@ -68,6 +68,16 @@ class DeathThroes extends Analyzer {
   }
 
   /**
+   * Determines if a damage event is suitable to be parsed by this module
+   * 
+   * @param {Object} damageEvent A damage event
+   */
+  static validTriggerEvent(damageEvent) {
+    const spellId = damageEvent.ability.guid;
+    return ((spellId === SPELLS.SHADOW_WORD_PAIN.id || spellId === SPELLS.PURGE_THE_WICKED_BUFF.id) && !damageEvent.ability.tick);
+  }
+
+  /**
    * Processing this here ensures that the damage event is only considered once,
    * so we don't get super inflated values for damage contribution
    *
