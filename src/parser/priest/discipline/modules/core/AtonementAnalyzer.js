@@ -2,6 +2,7 @@ import Analyzer, { SELECTED_PLAYER } from "parser/core/Analyzer";
 import Events from "parser/core/Events";
 import EventEmitter from "parser/core/modules/EventEmitter";
 import EventFilter from "parser/core/EventFilter";
+import HIT_TYPES from "game/HIT_TYPES";
 
 import { ATONEMENT_DAMAGE_SOURCES } from "../../constants";
 import isAtonement from "./isAtonement";
@@ -10,6 +11,11 @@ export default class AtonementAnalyzer extends Analyzer {
   static dependencies = {
     eventEmitter: EventEmitter,
   };
+  static validHitTypes = {
+    [HIT_TYPES.NORMAL]: true,
+    [HIT_TYPES.CRIT]: true,
+    [HIT_TYPES.ABSORB]: true,
+  }
 
   _atonementSource = null;
 
@@ -40,6 +46,7 @@ export default class AtonementAnalyzer extends Analyzer {
   _processAtonementDamageSource(damageEvent) {
     if (!ATONEMENT_DAMAGE_SOURCES[damageEvent.ability.guid]) return;
     if (damageEvent.targetIsFriendly) return; // Friendly fire doesn't cause atonement
+    if (!AtonementAnalyzer.validHitTypes[damageEvent.hitType]) return;
 
     this._atonementSource = damageEvent;
 

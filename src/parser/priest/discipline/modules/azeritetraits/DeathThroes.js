@@ -74,7 +74,7 @@ class DeathThroes extends Analyzer {
    */
   static validTriggerEvent(damageEvent) {
     const spellId = damageEvent.ability.guid;
-    return ((spellId === SPELLS.SHADOW_WORD_PAIN.id || spellId === SPELLS.PURGE_THE_WICKED_BUFF.id) && !damageEvent.ability.tick);
+    return ((spellId === SPELLS.SHADOW_WORD_PAIN.id || spellId === SPELLS.PURGE_THE_WICKED_BUFF.id) && damageEvent.tick);
   }
 
   /**
