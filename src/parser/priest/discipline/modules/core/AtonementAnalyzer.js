@@ -1,4 +1,4 @@
-import Analyzer from "parser/core/Analyzer";
+import Analyzer, { SELECTED_PLAYER } from "parser/core/Analyzer";
 import Events from "parser/core/Events";
 import EventEmitter from "parser/core/modules/EventEmitter";
 import EventFilter from "parser/core/EventFilter";
