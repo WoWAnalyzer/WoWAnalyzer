@@ -7,6 +7,7 @@ import { change, date } from 'common/changelog';
 
 export default [
   change(date(2019, 11, 9), <>Added upwelling statistic. </>,Abelito75),
+  change(date(2019, 11, 9), <>Fixed Tier45 comparison if you didn't play in a way where mana would be returned/saved. </>,Abelito75),
   change(date(2019, 10, 14), <>Fixed small typos for rising mist statistic box. </>,Abelito75),
   change(date(2019, 10, 14), <>Spelling and grammar corrections in Tier 45 comparison tool. </>,JeremyDwayne),
   change(date(2019, 10, 13), <>Fixed Tier 45 comparison tool. </>,Abelito75),
