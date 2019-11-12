@@ -1,17 +1,18 @@
-import React from 'react';
+import React from "react";
 
-import SPELLS from 'common/SPELLS/index';
-import { calculateAzeriteEffects } from 'common/stats';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import SPELLS from "common/SPELLS/index";
+import { calculateAzeriteEffects } from "common/stats";
+import Analyzer, { SELECTED_PLAYER } from "parser/core/Analyzer";
+import StatTracker from "parser/shared/modules/StatTracker";
 import TraitStatisticBox, {
   STATISTIC_ORDER,
-} from 'interface/others/TraitStatisticBox';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
-import { formatNumber, formatPercentage } from 'common/format';
-import SpellLink from 'common/SpellLink';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
-import { DISC_PRIEST_DAMAGE_REDUCTION } from '../../constants';
-import AtonementAnalyzer from '../core/AtonementAnalyzer';
+} from "interface/others/TraitStatisticBox";
+import ItemDamageDone from "interface/others/ItemDamageDone";
+import { formatNumber, formatPercentage } from "common/format";
+import SpellLink from "common/SpellLink";
+import ItemHealingDone from "interface/others/ItemHealingDone";
+import { DISC_PRIEST_DAMAGE_REDUCTION } from "../../constants";
+import AtonementAnalyzer from "../core/AtonementAnalyzer";
 
 const debug = false;
 
@@ -36,6 +37,7 @@ const deathThroesStats = traits =>
 class DeathThroes extends Analyzer {
   static dependencies = {
     atonementAnalyzer: AtonementAnalyzer,
+    statTracker: StatTracker,
   };
 
   damageValue = 0; // Damage done by each death throes tick
@@ -69,12 +71,32 @@ class DeathThroes extends Analyzer {
 
   /**
    * Determines if a damage event is suitable to be parsed by this module
-   * 
+   *
    * @param {Object} damageEvent A damage event
    */
   static validTriggerEvent(damageEvent) {
     const spellId = damageEvent.ability.guid;
-    return ((spellId === SPELLS.SHADOW_WORD_PAIN.id || spellId === SPELLS.PURGE_THE_WICKED_BUFF.id) && damageEvent.tick);
+    return (
+      (spellId === SPELLS.SHADOW_WORD_PAIN.id ||
+        spellId === SPELLS.PURGE_THE_WICKED_BUFF.id) &&
+      damageEvent.tick
+    );
+  }
+
+  /**
+   * Calculates the damage assignable to Death Throes from a given PTW/SWP event
+   *
+   * @param {Object} damageEvent
+   * @returns {Number}
+   */
+  calculateDeathThroesDamage(damageEvent) {
+    const versatility = 1 + this.statTracker.currentVersatilityPercentage;
+
+    const totalDamageAmount = damageEvent.amount + damageEvent.absorbed;
+    const damageRatio = totalDamageAmount / damageEvent.unmitigatedAmount;
+    const dtContribution = this.damageValue * damageRatio * versatility;
+
+    return dtContribution;
   }
 
   /**
@@ -85,11 +107,8 @@ class DeathThroes extends Analyzer {
    */
   handleDeathThroesDamage(damageEvent) {
     if (!DeathThroes.validTriggerEvent(damageEvent)) return;
-    const totalDamageAmount = damageEvent.amount + damageEvent.absorbed;
-    const damageRatio = totalDamageAmount / damageEvent.unmitigatedAmount;
-    const dtContribution = this.damageValue * damageRatio;
 
-    this.damageDone += dtContribution;
+    this.damageDone += this.calculateDeathThroesDamage(damageEvent);
   }
 
   /**
@@ -109,8 +128,7 @@ class DeathThroes extends Analyzer {
      * regardless of damage/healing buffs or debuffs.
      */
     const totalDamageAmount = damageEvent.amount + damageEvent.absorbed;
-    const damageRatio = totalDamageAmount / damageEvent.unmitigatedAmount;
-    const dtContribution = this.damageValue * damageRatio;
+    const dtContribution = this.calculateDeathThroesDamage(damageEvent);
     const dtContributionRatio = dtContribution / totalDamageAmount;
 
     const amountHealed =
@@ -125,10 +143,9 @@ class DeathThroes extends Analyzer {
 
     if (debug) {
       console.log("Death Throes proc'd an atonement", {
-        bossMitigation: damageRatio,
         fullHeal: (healEvent.amount || 0) + (healEvent.absorbed || 0),
         swp_damage: damageEvent.amount + damageEvent.absorbed,
-        dtContributionRatio: Math.floor(dtContributionRatio * 100) + '%',
+        dtContributionRatio: Math.floor(dtContributionRatio * 100) + "%",
         dtDamage: dtContribution,
         amountHealed,
         amountOverhealed,
@@ -162,29 +179,25 @@ class DeathThroes extends Analyzer {
       <TraitStatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
         trait={SPELLS.DEATH_THROES.id}
-        value={
-          (
-            <>
-              <ItemDamageDone amount={this.damageDone} />
-              <br />
-              <ItemHealingDone amount={this.atonementHealing.effective} />
-            </>
-          )
-        }
-        tooltip={
-          (
-            <>
-              {formatNumber(this.damageDone)} additional damage dealt by{' '}
-              {this.hasPurgeTheWicked
-                ? SPELLS.PURGE_THE_WICKED_TALENT.name
-                : SPELLS.SHADOW_WORD_PAIN.name}
-              <br />
-              {formatNumber(this.atonementHealing.effective)} additional healing
+        value={(
+<>
+            <ItemDamageDone amount={this.damageDone} />
+            <br />
+            <ItemHealingDone amount={this.atonementHealing.effective} />
+          </>
+)}
+        tooltip={(
+<>
+            {formatNumber(this.damageDone)} additional damage dealt by{" "}
+            {this.hasPurgeTheWicked
+              ? SPELLS.PURGE_THE_WICKED_TALENT.name
+              : SPELLS.SHADOW_WORD_PAIN.name}
+            <br />
+            {formatNumber(this.atonementHealing.effective)} additional healing
             from <SpellLink id={SPELLS.ATONEMENT_BUFF.id} /> (
             {formatPercentage(this.percentOverHealing)}%OH).
           </>
-          )
-        }
+)}
       />
     );
   }
