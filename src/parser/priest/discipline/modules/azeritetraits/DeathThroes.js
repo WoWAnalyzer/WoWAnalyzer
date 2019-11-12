@@ -2,7 +2,7 @@ import React from "react";
 
 import SPELLS from "common/SPELLS/index";
 import { calculateAzeriteEffects } from "common/stats";
-import Analyzer, { SELECTED_PLAYER } from "parser/core/Analyzer";
+import Analyzer from "parser/core/Analyzer";
 import StatTracker from "parser/shared/modules/StatTracker";
 import TraitStatisticBox, {
   STATISTIC_ORDER,
@@ -60,7 +60,7 @@ class DeathThroes extends Analyzer {
 
     this.damageValue = damage * (1 - DISC_PRIEST_DAMAGE_REDUCTION);
     this.addEventListener(
-      this.atonementAnalyzer.atonementEventFilter.by(SELECTED_PLAYER),
+      this.atonementAnalyzer.atonementEventFilter,
       this.atonementHandler,
     );
     this.addEventListener(

@@ -9,12 +9,12 @@ import isAtonement from "./isAtonement";
 
 export default class AtonementAnalyzer extends Analyzer {
   static dependencies = {
-    eventEmitter: EventEmitter
+    eventEmitter: EventEmitter,
   };
   static validHitTypes = {
     [HIT_TYPES.NORMAL]: true,
     [HIT_TYPES.CRIT]: true,
-    [HIT_TYPES.ABSORB]: true
+    [HIT_TYPES.ABSORB]: true,
   };
 
   _atonementSource = null;
@@ -24,7 +24,7 @@ export default class AtonementAnalyzer extends Analyzer {
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER),
-      this._processAtonement
+      this._processAtonement,
     );
 
     this.addEventListener(Events.damage, this._processAtonementDamageSource);
@@ -52,7 +52,7 @@ export default class AtonementAnalyzer extends Analyzer {
 
     this.eventEmitter.fabricateEvent({
       ...damageEvent,
-      type: this.atonementDamageSourceFilter.eventType
+      type: this.atonementDamageSourceFilter.eventType,
     });
   }
 
@@ -79,7 +79,7 @@ export default class AtonementAnalyzer extends Analyzer {
       healEvent,
       damageEvent,
       sourceID: healEvent.sourceID,
-      type: this.atonementEventFilter.eventType
+      type: this.atonementEventFilter.eventType,
     });
   }
 }
