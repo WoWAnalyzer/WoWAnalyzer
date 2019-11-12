@@ -34,7 +34,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     globalCooldown,
     begincast,
     cast,
-    spellId
+    spellId,
   ) {
     if (spellId === SPELLS.PENANCE.id || spellId === SPELLS.PENANCE_HEAL.id) {
       if (!this.lastPenanceStartTimestamp || (castStartTimestamp - this.lastPenanceStartTimestamp) > PENANCE_CHANNEL_TIME_BUFFER) {
@@ -53,7 +53,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       globalCooldown,
       begincast,
       cast,
-      spellId
+      spellId,
     );
   }
 
