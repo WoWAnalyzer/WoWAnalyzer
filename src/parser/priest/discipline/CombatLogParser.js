@@ -14,6 +14,7 @@ import SpellManaCost from './modules/core/SpellManaCost';
 import AbilityTracker from './modules/core/AbilityTracker';
 import Channeling from './modules/core/Channeling';
 import GlobalCooldown from './modules/core/GlobalCooldown';
+import AtonementAnalyzer from './modules/core/AtonementAnalyzer';
 
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/Checklist/Module';
@@ -59,6 +60,7 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     channeling: Channeling,
     globalCooldown: GlobalCooldown,
+    atonementAnalyzer: AtonementAnalyzer,
 
     // Generic healer things
     manaLevelChart: ManaLevelChart,
