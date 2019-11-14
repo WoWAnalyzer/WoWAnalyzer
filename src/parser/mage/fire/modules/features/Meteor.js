@@ -84,7 +84,7 @@ class Meteor extends Analyzer {
       >
         <BoringSpellValueText spell={SPELLS.METEOR_TALENT}>
           <>
-            {formatPercentage(this.meteorCastEfficiency)}% <small>Adjusted Cast Efficiency</small><br />
+            {formatPercentage(this.meteorCastEfficiency,0)}% <small>Adjusted Cast Efficiency</small><br />
             {formatPercentage(this.meteorRune.meteorUtilization,0)}% <small>Overall Utilization</small><br />
             {formatPercentage(this.meteorCombustion.combustionUtilization,0)}% <small>Utilization during Combustion</small>
           </>
