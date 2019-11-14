@@ -644,7 +644,7 @@ exports[`The Fire Mage Analyzer analyzers Meteor matches the statistic snapshot 
         <div
           className="value"
         >
-          83.33
+          83
           % 
           <small>
             Adjusted Cast Efficiency
