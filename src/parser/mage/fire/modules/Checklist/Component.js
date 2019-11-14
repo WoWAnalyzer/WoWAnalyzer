@@ -45,7 +45,12 @@ class FireMageChecklist extends React.PureComponent {
           {combatant.hasTalent(SPELLS.MIRROR_IMAGE_TALENT.id) && <AbilityRequirement spell={SPELLS.MIRROR_IMAGE_TALENT.id} />}
           {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) && <AbilityRequirement spell={SPELLS.RUNE_OF_POWER_TALENT.id} />}
           {combatant.hasTalent(SPELLS.LIVING_BOMB_TALENT.id) && <AbilityRequirement spell={SPELLS.LIVING_BOMB_TALENT.id} />}
-          {combatant.hasTalent(SPELLS.METEOR_TALENT.id) && <AbilityRequirement spell={SPELLS.METEOR_TALENT.id} />}
+          {combatant.hasTalent(SPELLS.METEOR_TALENT.id) && (
+            <Requirement
+              name={<><SpellLink id={SPELLS.METEOR_TALENT.id} /></>}
+              thresholds={thresholds.meteorEfficiency}
+            />
+          )}
         </Rule>
         <Rule
           name="Use Combustion effectively"
@@ -148,9 +153,16 @@ class FireMageChecklist extends React.PureComponent {
           )}
           {combatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id) && combatant.hasTalent(SPELLS.METEOR_TALENT.id) && (
             <Requirement
-              name="Meteor Utilization"
+              name="Meteor Overall Utilization"
               thresholds={thresholds.meteorUtilization}
               tooltip="In order to get the most out of your Meteor casts, you should only cast Meteor while you are buffed by Rune of Power."
+            />
+          )}
+          {combatant.hasTalent(SPELLS.METEOR_TALENT.id) && (
+            <Requirement
+              name="Meteor Utilization During Combustion"
+              thresholds={thresholds.meteorCombustionUtilization}
+              tooltip="In order to get the most out of your Combustion, you should always cast Meteor during Combustion. If Meteor will not come off cooldown before Combustion, then you should save Meteor for Combustion."
             />
           )}
         </Rule>
