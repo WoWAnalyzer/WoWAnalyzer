@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+    change(date(2019, 11, 13), <>Updated <SpellLink id={SPELLS.ICECAP_TALENT.id} /> module with 3 second reduction</>, [Khazak]),
     change(date(2019, 11, 13), <>Updated logic in <SpellLink id={SPELLS.FROSTSCYTHE_TALENT.id} /> module to be in line with the advice given in the Wowhead guide.</>, [Khazak]),
     change(date(2018, 10, 22), <>Added module for <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} /></>, [Khazak]),
     change(date(2018, 10, 11), <>Fixed bugs in <SpellLink id={SPELLS.KILLING_MACHINE.id} /> module that caused it to give weird suggestions</>, [Khazak]),
