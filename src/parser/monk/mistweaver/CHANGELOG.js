@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 11, 12), <>Big Rising Mist overhaul. Now includes extra Vivify cleaves, Enveloping Mist, and Gusts Of mist hits from Essence Font's Hot. </>,Abelito75),
   change(date(2019, 11, 9), <>Added upwelling statistic. </>,Abelito75),
   change(date(2019, 11, 9), <>Fixed Tier45 comparison if you didn't play in a way where mana would be returned/saved. </>,Abelito75),
   change(date(2019, 10, 14), <>Fixed small typos for rising mist statistic box. </>,Abelito75),
