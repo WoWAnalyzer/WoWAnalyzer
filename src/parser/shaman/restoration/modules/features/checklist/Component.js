@@ -72,20 +72,6 @@ class RestoShamanChecklist extends React.PureComponent {
           )}
         </Rule>
         <Rule
-          name={(<>Maximize <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> usage</>
-          )}
-          description={(
-            <>
-              <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> buffed <SpellLink id={SPELLS.HEALING_WAVE.id} /> can make for some very efficient healing.
-              You should try to use as many of the generated tidal waves as you can. You should also avoid using <SpellLink id={SPELLS.HEALING_WAVE.id} /> or <SpellLink id={SPELLS.HEALING_SURGE_RESTORATION.id} /> without a tidal wave.
-            </>
-          )}
-        >
-          <Requirement name={(<>Unused <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /></>)} thresholds={thresholds.unusedTidalWavesThresholds} />
-          <Requirement name={(<>Unbuffed <SpellLink id={SPELLS.HEALING_SURGE_RESTORATION.id} /></>)} thresholds={thresholds.unbuffedHealingSurgesThresholds} />
-          <Requirement name={(<>Unbuffed <SpellLink id={SPELLS.HEALING_WAVE.id} /></>)} thresholds={thresholds.unbuffedHealingWavesThresholds} />
-        </Rule>
-        <Rule
           name="Target AOE spells effectively"
           description="As a resto shaman our core AOE spells rely on not just who we target but where they are on the ground to maximize healing potential. You should plan you AOE spells ahead of time in preparation for where you expect raid members to be for the spells duration."
         >
