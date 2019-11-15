@@ -136,7 +136,6 @@ class ResultsLoader extends React.PureComponent {
     return null;
   }
   handleBuildSelection(build){
-    console.log(build);
     this.setState({
       build,
     });

@@ -30,18 +30,18 @@ export const OffensivePenanceBoltEstimation = statWrapper(
     const penanceCoefficient = SPELLS.PENANCE.coefficient;
 
     const penanceBoltDamage = Math.round(
-      currentIntellect * penanceCoefficient * currentVers
+      currentIntellect * penanceCoefficient * currentVers,
     );
 
     const penanceBoltHealing = Math.round(
-      penanceBoltDamage * ATONEMENT_COEFFICIENT * currentMastery
+      penanceBoltDamage * ATONEMENT_COEFFICIENT * currentMastery,
     );
 
     return {
       boltDamage: penanceBoltDamage,
       boltHealing: penanceBoltHealing,
     };
-  }
+  },
 );
 
 // Estimation of how much output a Smite will do
@@ -55,11 +55,11 @@ export const SmiteEstimation = (stats, sins) => {
     let smiteDamage = currentIntellect * smiteCoefficient;
 
     smiteDamage = Math.round(
-      smiteDamage * currentVers * (1 + sins.currentBonus) * (1 + SMITE_DAMAGE_BUFF)
+      smiteDamage * currentVers * (1 + sins.currentBonus) * (1 + SMITE_DAMAGE_BUFF),
     );
 
     const smiteHealing = Math.round(
-      smiteDamage * ATONEMENT_COEFFICIENT * currentMastery
+      smiteDamage * ATONEMENT_COEFFICIENT * currentMastery,
     );
 
     return {

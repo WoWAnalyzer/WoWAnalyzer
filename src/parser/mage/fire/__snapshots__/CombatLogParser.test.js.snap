@@ -644,10 +644,22 @@ exports[`The Fire Mage Analyzer analyzers Meteor matches the statistic snapshot 
         <div
           className="value"
         >
+          83
+          % 
+          <small>
+            Adjusted Cast Efficiency
+          </small>
+          <br />
           80
           % 
           <small>
-            Cast Utilization
+            Overall Utilization
+          </small>
+          <br />
+          100
+          % 
+          <small>
+            Utilization during Combustion
           </small>
         </div>
       </div>
@@ -674,6 +686,45 @@ exports[`The Fire Mage Analyzer analyzers Meteor matches the statistic snapshot 
 `;
 
 exports[`The Fire Mage Analyzer analyzers Meteor matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_mage_meteor",
+    "importance": "major",
+    "issue": <React.Fragment>
+      You could have cast 
+      <SpellLink
+        icon={true}
+        id={153561}
+      />
+       
+      6
+       times during this fight, but you only cast it 
+      5
+       times. While you should not cast Meteor on cooldown (since you need to have it available for 
+      <SpellLink
+        icon={true}
+        id={190319}
+      />
+      ), you should be casting it at least once per minute.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      83.33% Utilization
+       (
+      &lt;100.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
+
+exports[`The Fire Mage Analyzer analyzers MeteorCombustion matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Fire Mage Analyzer analyzers MeteorCombustion matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Fire Mage Analyzer analyzers MeteorRune matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Fire Mage Analyzer analyzers MeteorRune matches the suggestions snapshot 1`] = `
 Array [
   Object {
     "details": null,
@@ -930,7 +981,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
               style={
                 Object {
                   "backgroundColor": "#a6c34c",
-                  "width": "76.9403110420353%",
+                  "width": "76.22231613146428%",
                 }
               }
             />
@@ -1251,7 +1302,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                   }
                 >
                    
-                  68.97%
+                  83.33%
                    
                    
                 </div>
@@ -1273,7 +1324,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                       Object {
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "30.621979642284074%",
+                        "width": "27.750000000000004%",
                       }
                     }
                   />
@@ -2116,7 +2167,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
     </div>
   </li>
   <li
-    className="expandable expanded failed"
+    className="expandable  passed"
   >
     <div
       className="meta"
@@ -2140,8 +2191,8 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ffc84a",
-                  "width": "66.17671399594322%",
+                  "backgroundColor": "#a6c34c",
+                  "width": "74.6325354969574%",
                 }
               }
             />
@@ -2393,7 +2444,7 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
               <div
                 className="flex-main"
               >
-                Meteor Utilization
+                Meteor Overall Utilization
               </div>
               <div
                 className="flex-sub"
@@ -2467,6 +2518,96 @@ exports[`The Fire Mage Analyzer should match the checklist snapshot 1`] = `
                         "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
                         "width": "31.341176470588238%",
+                      }
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col-md-6"
+          >
+            <div
+              className="flex"
+            >
+              <div
+                className="flex-main"
+              >
+                Meteor Utilization During Combustion
+              </div>
+              <div
+                className="flex-sub"
+                style={
+                  Object {
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  <svg
+                    className="icon"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                    />
+                    <path
+                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                    />
+                    <path
+                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle text-muted"
+                style={
+                  Object {
+                    "marginLeft": 5,
+                    "marginRight": 10,
+                    "minWidth": 55,
+                  }
+                }
+              >
+                <div
+                  className="text-right"
+                  style={
+                    Object {
+                      "width": "100%",
+                    }
+                  }
+                >
+                   
+                  100.00%
+                   
+                   
+                </div>
+              </div>
+              <div
+                className="flex-sub content-middle"
+                style={
+                  Object {
+                    "width": 50,
+                  }
+                }
+              >
+                <div
+                  className="performance-bar-container"
+                >
+                  <div
+                    className="performance-bar small"
+                    style={
+                      Object {
+                        "backgroundColor": "#4ec04e",
+                        "transition": "background-color 800ms",
+                        "width": "100%",
                       }
                     }
                   />
