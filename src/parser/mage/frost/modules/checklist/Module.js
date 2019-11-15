@@ -6,10 +6,14 @@ import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 
 import BrainFreeze from '../features/BrainFreeze';
+import BrainFreezeNoIL from '../features/BrainFreezeNoIL';
 import GlacialSpike from '../features/GlacialSpike';
+import GlacialSpikeNoIL from '../features/GlacialSpikeNoIL';
 import IceLance from '../features/IceLance';
+import IceLanceNoIL from '../features/IceLanceNoIL';
 import ThermalVoid from '../features/ThermalVoid';
 import WintersChill from '../features/WintersChill';
+import WintersChillNoIL from '../features/WintersChillNoIL';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import ArcaneIntellect from '../../../shared/modules/features/ArcaneIntellect';
 import CancelledCasts from '../../../shared/modules/features/CancelledCasts';
@@ -23,10 +27,14 @@ class Checklist extends BaseChecklist {
     combatants: Combatants,
     castEfficiency: CastEfficiency,
     brainFreeze: BrainFreeze,
+    brainFreezeNoIL: BrainFreezeNoIL,
     glacialSpike: GlacialSpike,
+    glacialSpikeNoIL: GlacialSpikeNoIL,
     iceLance: IceLance,
+    iceLanceNoIL: IceLanceNoIL,
     thermalVoid: ThermalVoid,
     wintersChill: WintersChill,
+    wintersChillNoIL: WintersChillNoIL,
     arcaneIntellect: ArcaneIntellect,
     cancelledCasts: CancelledCasts,
     runeOfPower: RuneOfPower,
@@ -40,6 +48,7 @@ class Checklist extends BaseChecklist {
       <Component
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
+        owner={this.owner}
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
 
@@ -48,11 +57,17 @@ class Checklist extends BaseChecklist {
           brainFreezeOverwrites: this.brainFreeze.overwriteSuggestionThresholds,
           brainFreezeExpired: this.brainFreeze.expiredSuggestionThresholds,
           brainFreezeUnbuffedFlurry: this.brainFreeze.flurryWithoutProcSuggestionThresholds,
+          brainFreezeUtilizationNoIL: this.brainFreezeNoIL.utilSuggestionThresholds,
+          brainFreezeOverwritesNoIL: this.brainFreezeNoIL.overwriteSuggestionThresholds,
+          brainFreezeExpiredNoIL: this.brainFreezeNoIL.expiredSuggestionThresholds,
+          brainFreezeUnbuffedFlurryNoIL: this.brainFreezeNoIL.flurryWithoutProcSuggestionThresholds,
           glacialSpikeUtilization: this.glacialSpike.utilSuggestionThresholds,
+          glacialSpikeUtilizationNoIL: this.glacialSpikeNoIL.utilSuggestionThresholds,
           fingersOfFrostUtilization: this.iceLance.fingersUtilSuggestionThresholds,
           iceLanceNotShattered: this.iceLance.nonShatteredSuggestionThresholds,
           wintersChillIceLance: this.wintersChill.iceLanceUtilSuggestionThresholds,
           wintersChillHardCasts: this.wintersChill.hardcastUtilSuggestionThresholds,
+          wintersChillHardCastsNoIL: this.wintersChillNoIL.hardcastUtilSuggestionThresholds,
           arcaneIntellectUptime: this.arcaneIntellect.suggestionThresholds,
           cancelledCasts: this.cancelledCasts.suggestionThresholds,
           runeOfPowerBuffUptime: this.runeOfPower.roundedSecondsSuggestionThresholds,

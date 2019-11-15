@@ -37,7 +37,7 @@ export default {
       url: "noil",
       name: "No Ice Lance",
       icon: <img src={NoIceLance} alt="No Ice lance" className="icon" />,
-      supported: false, //set this to true to make the build appear in the selection list
+      supported: true, //set this to true to make the build appear in the selection list
     },
   },
   // Don't change anything below this line;

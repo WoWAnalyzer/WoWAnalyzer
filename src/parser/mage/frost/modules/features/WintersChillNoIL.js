@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
@@ -23,66 +24,43 @@ class WintersChill extends Analyzer {
     enemies: EnemyInstances,
   };
 
-  hasGlacialSpike;
-
   totalProcs = 0;
-
   hardcastHits = 0;
   missedHardcasts = 0;
   singleHardcasts = 0;
 
-  iceLanceHits = 0;
-  missedIceLanceCasts = 0;
-  singleIceLanceCasts = 0;
-  doubleIceLanceCasts = 0;
-
   constructor(...args) {
     super(...args);
-    this.active = this.owner.build === undefined;
+    this.active = this.owner.builds.NO_IL.active;
+
+    if (!this.active) {
+      return;
+    }
+
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.WINTERS_CHILL), this.onWintersChillApplied);
+    this.addEventListener(Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.WINTERS_CHILL), this.onWintersChillRemoved);
   }
 
-  on_byPlayer_damage(event) {
+  onDamage(event) {
     const spellId = event.ability.guid;
     const enemy = this.enemies.getEntity(event);
     if (!enemy || !enemy.hasBuff(SPELLS.WINTERS_CHILL.id)) {
       return;
     }
 
-    if (spellId === SPELLS.ICE_LANCE_DAMAGE.id) {
-      this.iceLanceHits += 1;
-      debug && console.log("Ice Lance into Winter's Chill");
-    } else if(HARDCAST_HITS.includes(spellId)) {
+    if(HARDCAST_HITS.includes(spellId)) {
       this.hardcastHits += 1;
       debug && console.log(`${event.ability.name} into Winter's Chill`);
     }
   }
 
-  on_byPlayer_applydebuff(event) {
-    const spellId = event.ability.guid;
-	  if(spellId !== SPELLS.WINTERS_CHILL.id) {
-		  return;
-	  }
-    this.iceLanceHits = 0;
+  onWintersChillApplied(event) {
     this.hardcastHits = 0;
 	}
 
-  on_byPlayer_removedebuff(event) {
-    const spellId = event.ability.guid;
-    if(spellId !== SPELLS.WINTERS_CHILL.id) {
-      return;
-    }
-
+  onWintersChillRemoved(event) {
     this.totalProcs += 1;
-
-    if (this.iceLanceHits === 0) {
-      this.missedIceLanceCasts += 1;
-    } else if (this.iceLanceHits === 1) {
-      this.singleIceLanceCasts += 1;
-    } else if (this.iceLanceHits === 2) {
-      this.doubleIceLanceCasts += 1;
-    } else {
-      this.error(`Unexpected number of Ice Lances inside Winter's Chill -> ${this.iceLanceHits}`);
-    }
 
     if (this.hardcastHits === 0) {
       this.missedHardcasts += 1;
@@ -91,26 +69,6 @@ class WintersChill extends Analyzer {
     } else {
       this.error(`Unexpected number of Frostbolt hits inside Winter's Chill -> ${this.hardcastHits}`);
     }
-  }
-
-  get iceLanceMissedPercent() {
-    return (this.missedIceLanceCasts / this.totalProcs) || 0;
-  }
-
-  get iceLanceUtil() {
-    return 1 - this.iceLanceMissedPercent;
-  }
-
-  get iceLanceUtilSuggestionThresholds() {
-    return {
-      actual: this.iceLanceUtil,
-      isLessThan: {
-        minor: 0.95,
-        average: 0.85,
-        major: 0.75,
-      },
-      style: 'percentage',
-    };
   }
 
   get hardcastMissedPercent() {
@@ -135,18 +93,7 @@ class WintersChill extends Analyzer {
     };
   }
 
-  get doubleIceLancePercentage() {
-    return this.doubleIceLanceCasts / this.totalProcs || 0;
-  }
-
   suggestions(when) {
-    when(this.iceLanceUtilSuggestionThresholds)
-      .addSuggestion((suggest, actual, recommended) => {
-        return suggest(<>You failed to Ice Lance into <SpellLink id={SPELLS.WINTERS_CHILL.id} /> {this.missedIceLanceCasts} times ({formatPercentage(this.iceLanceMissedPercent)}%). Make sure you cast <SpellLink id={SPELLS.ICE_LANCE.id} /> after each <SpellLink id={SPELLS.FLURRY.id} /> to benefit from <SpellLink id={SPELLS.SHATTER.id} />.</>)
-          .icon(SPELLS.ICE_LANCE.icon)
-          .actual(`${formatPercentage(this.iceLanceMissedPercent)}% Winter's Chill not shattered with Ice Lance`)
-          .recommended(`<${formatPercentage(1 - this.iceLanceUtilSuggestionThresholds.isLessThan.minor)}% is recommended`);
-      });
     when(this.hardcastUtilSuggestionThresholds)
       .addSuggestion((suggest, actual, recommended) => {
         return suggest(<>You failed to <SpellLink id={SPELLS.FROSTBOLT.id} />, <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> or <SpellLink id={SPELLS.EBONBOLT_TALENT.id} /> into <SpellLink id={SPELLS.WINTERS_CHILL.id} /> {this.missedHardcasts} times ({formatPercentage(this.hardcastMissedPercent)}%). Make sure you hard cast just before each instant <SpellLink id={SPELLS.FLURRY.id} /> to benefit from <SpellLink id={SPELLS.SHATTER.id} />.</>)
@@ -163,15 +110,11 @@ class WintersChill extends Analyzer {
         size="flexible"
         tooltip={(
           <>
-            Every Brain Freeze Flurry should be preceded by a Frostbolt, Glacial Spike, or Ebonbolt and followed by an Ice Lance, so that both the preceding and following spells benefit from Shatter. <br /><br />
-
-            You double Ice Lance'd into Winter's Chill {this.doubleIceLanceCasts} times ({formatPercentage(this.doubleIceLancePercentage, 1)}%). Note this is usually impossible, it can only be done with strong Haste buffs active and by moving towards the target while casting.
-            It should mostly be considered 'extra credit'
+            Every Brain Freeze Flurry should be preceded by a Frostbolt, Glacial Spike, or Ebonbolt, so that the spell hits the target during Winter's Chll and benefits from Shatter.
           </>
         )}
       >
         <BoringSpellValueText spell={SPELLS.WINTERS_CHILL}>
-          <SpellIcon id={SPELLS.ICE_LANCE.id} /> {formatPercentage(this.iceLanceUtil, 0)}% <small>Ice Lances shattered</small><br />
           <SpellIcon id={SPELLS.FROSTBOLT.id} /> {formatPercentage(this.hardcastUtil, 0)}% <small>Pre-casts shattered</small>
         </BoringSpellValueText>
       </Statistic>
