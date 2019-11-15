@@ -1,11 +1,13 @@
 import React from 'react';
 
 import { Sharrq, Dambroda } from 'CONTRIBUTORS';
+
 import retryingPromise from 'common/retryingPromise';
 import SPECS from 'game/SPECS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
+import NoIceLance from './icons/noicelance.jpg';
 import CHANGELOG from './CHANGELOG';
 
 export default {
@@ -30,7 +32,14 @@ export default {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport: '/report/67LHQfJjCFzgyXBr/8-Normal+Stormwall+Blockade+-+Kill+(7:17)/84-Tueri',
-
+  builds: {
+    NO_IL: {
+      url: "noil",
+      name: "No Ice Lance",
+      icon: <img src={NoIceLance} alt="No Ice lance" className="icon" />,
+      supported: false, //set this to true to make the build appear in the selection list
+    },
+  },
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: SPECS.FROST_MAGE,

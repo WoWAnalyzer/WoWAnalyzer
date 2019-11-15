@@ -38,6 +38,7 @@ import EchoOfLightMastery from './modules/core/EchoOfLightMastery';
 import FortitudeRaidBuff from './modules/core/FortitudeRaidBuff';
 import HolyWordsReductionBySpell from './modules/core/HolyWordsReductionBySpell';
 import HolyWordWastedAmounts from './modules/core/HolyWordWastedAmounts';
+import StatWeights from './modules/features/StatWeights';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
 // Azerite
@@ -91,6 +92,7 @@ class CombatLogParser extends CoreCombatLogParser {
     holyWordSerenity: HolyWordSerenity,
     holyWordChastise: HolyWordChastise,
     holyWordSalvation: HolyWordSalvationCooldown,
+    statWeights: StatWeights,
 
     spiritOfRedemption: SpiritOfRedemption,
     renew: Renew,

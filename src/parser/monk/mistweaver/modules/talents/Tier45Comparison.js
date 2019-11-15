@@ -103,6 +103,9 @@ class Tier45Comparison extends Analyzer {
     if(this.lifecycles.manaFrom > this.manatea.manaFrom && this.lifecycles.manaFrom > this.sotc.manaFrom){
       this.best = this.lifecycles;
     }
+    if(!this.best){
+      this.best = this.manatea;
+    }
     // --- end picking best --- //
     
     // -- sees what it takes for the other ones to equal the best -- //

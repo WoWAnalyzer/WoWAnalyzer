@@ -14,7 +14,7 @@ class Channeling extends CoreChanneling {
   constructor(...args) {
     super(...args);
     this._hasCastigation = this.selectedCombatant.hasTalent(
-      SPELLS.CASTIGATION_TALENT.id
+      SPELLS.CASTIGATION_TALENT.id,
     );
   }
 
@@ -60,7 +60,7 @@ class Channeling extends CoreChanneling {
         'Marking',
         this._currentChannel.ability.name,
         'as ended since we started casting something else:',
-        event.ability.name
+        event.ability.name,
       );
       this.endChannel(event);
     } else {
