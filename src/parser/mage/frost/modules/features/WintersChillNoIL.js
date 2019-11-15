@@ -31,7 +31,7 @@ class WintersChillNoIL extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.owner.build === 'noil';
+    this.active = this.owner.builds.NO_IL.active;
 
     if (!this.active) {
       return;
