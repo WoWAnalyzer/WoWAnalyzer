@@ -19,7 +19,7 @@ const HARDCAST_HITS = [
   SPELLS.GLACIAL_SPIKE_DAMAGE.id,
 ];
 
-class WintersChill extends Analyzer {
+class WintersChillNoIL extends Analyzer {
   static dependencies = {
     enemies: EnemyInstances,
   };
@@ -122,4 +122,4 @@ class WintersChill extends Analyzer {
   }
 }
 
-export default WintersChill;
+export default WintersChillNoIL;
