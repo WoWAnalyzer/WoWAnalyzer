@@ -57,21 +57,23 @@ class Checklist extends BaseChecklist {
           brainFreezeOverwrites: this.brainFreeze.overwriteSuggestionThresholds,
           brainFreezeExpired: this.brainFreeze.expiredSuggestionThresholds,
           brainFreezeUnbuffedFlurry: this.brainFreeze.flurryWithoutProcSuggestionThresholds,
-          brainFreezeUtilizationNoIL: this.brainFreezeNoIL.utilSuggestionThresholds,
-          brainFreezeOverwritesNoIL: this.brainFreezeNoIL.overwriteSuggestionThresholds,
-          brainFreezeExpiredNoIL: this.brainFreezeNoIL.expiredSuggestionThresholds,
-          brainFreezeUnbuffedFlurryNoIL: this.brainFreezeNoIL.flurryWithoutProcSuggestionThresholds,
           glacialSpikeUtilization: this.glacialSpike.utilSuggestionThresholds,
-          glacialSpikeUtilizationNoIL: this.glacialSpikeNoIL.utilSuggestionThresholds,
           fingersOfFrostUtilization: this.iceLance.fingersUtilSuggestionThresholds,
           iceLanceNotShattered: this.iceLance.nonShatteredSuggestionThresholds,
           wintersChillIceLance: this.wintersChill.iceLanceUtilSuggestionThresholds,
           wintersChillHardCasts: this.wintersChill.hardcastUtilSuggestionThresholds,
-          wintersChillHardCastsNoIL: this.wintersChillNoIL.hardcastUtilSuggestionThresholds,
           arcaneIntellectUptime: this.arcaneIntellect.suggestionThresholds,
           cancelledCasts: this.cancelledCasts.suggestionThresholds,
           runeOfPowerBuffUptime: this.runeOfPower.roundedSecondsSuggestionThresholds,
           waterElementalUptime: this.waterElemental.suggestionThresholds,
+
+          //NoIL Build
+          brainFreezeUtilizationNoIL: this.brainFreezeNoIL.utilSuggestionThresholds,
+          brainFreezeOverwritesNoIL: this.brainFreezeNoIL.overwriteSuggestionThresholds,
+          brainFreezeExpiredNoIL: this.brainFreezeNoIL.expiredSuggestionThresholds,
+          brainFreezeUnbuffedFlurryNoIL: this.brainFreezeNoIL.flurryWithoutProcSuggestionThresholds,
+          glacialSpikeUtilizationNoIL: this.glacialSpikeNoIL.utilSuggestionThresholds,
+          wintersChillHardCastsNoIL: this.wintersChillNoIL.hardcastUtilSuggestionThresholds,
         }}
       />
     );
