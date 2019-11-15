@@ -40,9 +40,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cancelledCasts: CancelledCasts,
     cooldownThroughputTracker: CooldownThroughputTracker,
     wintersChill: WintersChill,
-    wintersChillNoIL: WintersChillNoIL,
     brainFreeze: BrainFreeze,
-    brainFreezeNoIL: BrainFreezeNoIL,
     iceLance: IceLance,
     arcaneIntellect: ArcaneIntellect,
     waterElemental: WaterElemental,
@@ -50,6 +48,8 @@ class CombatLogParser extends CoreCombatLogParser {
     //No Ice Lance Build
     iceLanceNoIL: IceLanceNoIL,
     glacialSpikeNoIL: GlacialSpikeNoIL,
+    brainFreezeNoIL: BrainFreezeNoIL,
+    wintersChillNoIL: WintersChillNoIL,
 
     // region Talents (T30 and T75 don't need analyzers)
     // T15 TODO - Ice Nova, Lonely Winter
