@@ -66,6 +66,7 @@ class Results extends React.PureComponent {
     }),
     characterProfile: PropTypes.object,
     selectedTab: PropTypes.string,
+    makeBuildUrl: PropTypes.func.isRequired,
     makeTabUrl: PropTypes.func.isRequired,
     phases: PropTypes.object,
     selectedPhase: PropTypes.string.isRequired,
@@ -73,6 +74,7 @@ class Results extends React.PureComponent {
     handlePhaseSelection: PropTypes.func.isRequired,
     applyFilter: PropTypes.func.isRequired,
     timeFilter: PropTypes.object,
+    build: PropTypes.string,
     report: PropTypes.shape({
       code: PropTypes.string.isRequired,
     }).isRequired,
@@ -338,7 +340,7 @@ class Results extends React.PureComponent {
     );
   }
   render() {
-    const { parser, report, fight, player, characterProfile, makeTabUrl, selectedTab, premium, handlePhaseSelection, selectedPhase, selectedInstance, phases, applyFilter, timeFilter } = this.props;
+    const { parser, report, fight, player, build, characterProfile, makeBuildUrl, makeTabUrl, selectedTab, premium, handlePhaseSelection, selectedPhase, selectedInstance, phases, applyFilter, timeFilter } = this.props;
     const config = this.context.config;
 
     const boss = findByBossId(fight.boss);
@@ -360,12 +362,14 @@ class Results extends React.PureComponent {
           fight={fight}
           tabs={results ? results.tabs : []}
           makeTabUrl={makeTabUrl}
+          makeBuildUrl={makeBuildUrl}
           selectedTab={selectedTab}
           selectedPhase={selectedPhase}
           selectedInstance={selectedInstance}
           phases={phases}
           handlePhaseSelection={handlePhaseSelection}
           applyFilter={applyFilter}
+          build={build}
           isLoading={this.isLoading}
         />
         {parser && parser.disabledModules && <DegradedExperience disabledModules={parser.disabledModules} />}
@@ -380,6 +384,13 @@ class Results extends React.PureComponent {
           <div className="container">
             <Warning style={{ marginBottom: 30 }}>
               These results are filtered to the selected time period. Time filtered results are under development and may not be entirely accurate. <br /> Please report any issues you may find on our GitHub or Discord.
+            </Warning>
+          </div>
+        )}
+        {build && (
+          <div className="container">
+            <Warning style={{ marginBottom: 30 }}>
+              These results are analyzed under build different from the standard build. While this will make some modules more accurate, some may also not provide the information you expect them to. <br /> Please report any issues you may find on our GitHub or Discord.
             </Warning>
           </div>
         )}

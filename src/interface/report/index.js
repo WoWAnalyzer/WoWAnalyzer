@@ -63,6 +63,7 @@ class ResultsLoader extends React.PureComponent {
     this.handlePhaseParser = this.handlePhaseParser.bind(this);
     this.handleTimeFilter = this.handleTimeFilter.bind(this);
     this.applyTimeFilter = this.applyTimeFilter.bind(this);
+    this.handleBuildSelection = this.handleBuildSelection.bind(this);
   }
 
   handleParserLoader(isLoading, parserClass) {
@@ -134,6 +135,12 @@ class ResultsLoader extends React.PureComponent {
     });
     return null;
   }
+  handleBuildSelection(build){
+    this.setState({
+      build,
+    });
+  }
+
   get progress() {
     return (
       (!this.state.isLoadingParser ? 0.05 : 0)
@@ -147,7 +154,7 @@ class ResultsLoader extends React.PureComponent {
 
   render() {
     const { config, report, fight, player, combatants } = this.props;
-
+    const build = this.state.parser && this.state.parser.build;
     return (
       <>
         {/* Load these different api calls asynchronously */}
@@ -208,6 +215,7 @@ class ResultsLoader extends React.PureComponent {
             parserClass={this.state.parserClass}
             characterProfile={this.state.characterProfile}
             events={this.state.filteredEvents}
+            builds={config.builds}
           >
             {this.handleEventsParser}
           </EventParser>
@@ -234,7 +242,9 @@ class ResultsLoader extends React.PureComponent {
           handlePhaseSelection={this.handlePhaseSelection}
           applyFilter={this.applyTimeFilter}
           timeFilter={this.state.timeFilter}
-          makeTabUrl={tab => makeAnalyzerUrl(report, fight.id, player.id, tab)}
+          build={build}
+          makeTabUrl={tab => makeAnalyzerUrl(report, fight.id, player.id, tab, build)}
+          makeBuildUrl={(tab, build) => makeAnalyzerUrl(report, fight.id, player.id, tab, build)}
         />
       </>
     );
