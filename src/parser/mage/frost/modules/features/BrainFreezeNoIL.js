@@ -27,7 +27,7 @@ class BrainFreezeNoIL extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.owner.builds.NO_IL.active;
+    this.active = this.owner.build === 'noil';
     this.glacialSpikeTalented = this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id);
 
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BRAIN_FREEZE), this.onBrainFreezeApplied);
