@@ -44,7 +44,7 @@ import DivinePurpose from './modules/talents/DivinePurpose';
 import CrusadersMight from './modules/talents/CrusadersMight';
 import AvengingCrusader from './modules/talents/AvengingCrusader';
 
-// azurite traits //
+// azerite traits //
 import GraceOfTheJusticar from './modules/azeritetraits/GraceOfTheJusticar';
 import GlimmerOfLight from './modules/azeritetraits/GlimmerOfLight';
 import RadiantIncandescence from './modules/azeritetraits/RadiantIncandescence';
