@@ -3,7 +3,8 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 
 import { STATISTIC_ORDER } from 'interface/others/StatisticsListBox';
 import Statistic from 'interface/statistics/Statistic';
@@ -28,16 +29,15 @@ class ThunderFocusTea extends Analyzer {
   constructor(...args) {
     super(...args);
     this.ftActive = this.selectedCombatant.hasTalent(SPELLS.FOCUSED_THUNDER_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.THUNDER_FOCUS_TEA), this.tftCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.buffedCast);
   }
 
-  on_toPlayer_applybuff(event) {
-    const spellId = event.ability.guid;
-    if (SPELLS.THUNDER_FOCUS_TEA.id === spellId) {
-      this.castsTft += 1;
-    }
+  tftCast(event) {
+    this.castsTft += this.ftActive ? 2 : 1;
   }
 
-  on_byPlayer_cast(event) {
+  buffedCast(event) {
     const spellId = event.ability.guid;
 
       // Implemented as a way to remove non-buffed REM or EF casts that occur at the same timestamp as the buffed Viv cast.
@@ -111,21 +111,6 @@ class ThunderFocusTea extends Analyzer {
         items={items}
       />
     );
-  }
-
-  on_fightend() {
-    if (this.ftActive) {
-      this.castsTft += this.castsTft;
-    }
-    if (debug) {
-      console.log(`TFT Casts:${this.castsTft}`);
-      console.log(`RSK Buffed:${this.castsTftRsk}`);
-      console.log(`Enm Buffed:${this.castsTftEnm}`);
-      console.log(`Viv Buffed:${this.castsTftViv}`);
-      console.log(`REM Buffed:${this.castsTftRem}`);
-      console.log(`Correct Casts:${this.correctCasts}`);
-      console.log(`Casts Under tft:${this.castsUnderTft}`);
-    }
   }
 
   get incorrectTftCasts() {
