@@ -2508,6 +2508,10 @@ exports[`Holy Paladin integration test analyzers LightOfDawnIndexer matches the 
 
 exports[`Holy Paladin integration test analyzers LightOfDawnIndexer matches the suggestions snapshot 1`] = `Array []`;
 
+exports[`Holy Paladin integration test analyzers LightsDecree matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`Holy Paladin integration test analyzers LightsDecree matches the suggestions snapshot 1`] = `"module inactive"`;
+
 exports[`Holy Paladin integration test analyzers LowHealthHealing matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`Holy Paladin integration test analyzers LowHealthHealing matches the suggestions snapshot 1`] = `Array []`;
@@ -4480,7 +4484,7 @@ Array [
       />
        (
       <WithI18n
-        id=">\{0}% is recommended"
+        id=">{0}% is recommended"
         values={
           Object {
             "0": "25.00",
