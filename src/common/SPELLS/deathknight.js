@@ -318,6 +318,12 @@ export default {
     icon: 'boss_odunrunes_blue',
   },
 
+  BREATH_OF_SINDRAGOSA_TALENT_RUNE_GAIN:{
+    id: 303753,
+    name: 'Breath of Sindragosa',
+    icon: 'inv_misc_rune_10'
+  },
+
   PESTILENT_PUSTULES: {
     id: 220211,
     name: 'Pestilent Pustules',
