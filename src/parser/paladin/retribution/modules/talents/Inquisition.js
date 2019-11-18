@@ -16,7 +16,6 @@ class Inquisition extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
-  lastES = null;
   hasES = false;
   buffedDamage = 0;
   unbuffedDamage = 0;
