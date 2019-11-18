@@ -29,8 +29,6 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
           .recommended(`<${formatPercentage(recommended)}% is recommended`);
       });
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 
 export default AlwaysBeCasting;

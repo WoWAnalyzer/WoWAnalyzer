@@ -54,6 +54,7 @@ class RunicPowerDetails extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(11)}
         icon={<Icon icon="inv_sword_62" />}
         value={`${formatPercentage(this.wastedPercent)} %`}
         label="Runic Power wasted"
@@ -62,7 +63,6 @@ class RunicPowerDetails extends Analyzer {
 
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(2);
 
   tab() {
     return {

@@ -92,6 +92,7 @@ class GatheringStorm extends Analyzer {
   statistic() {
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(50)}
         icon={<SpellIcon id={SPELLS.GATHERING_STORM_TALENT.id} />}
         value={`${this.averageExtension.toFixed(1)}`}
         label="Average seconds added to each Remorseless Winter"
@@ -103,7 +104,6 @@ class GatheringStorm extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(50);
 }
 
 export default GatheringStorm;
