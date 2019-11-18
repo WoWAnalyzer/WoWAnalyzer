@@ -10,8 +10,6 @@ import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 import Enemies from 'parser/shared/modules/Enemies';
 import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../constants';
 
-const EXECUTION_SENTENCE_DURATION = 12000;
-
 // This module looks at the relative amount of damage buffed rather than strict uptime to be more accurate for fights with high general downtime
 
 class Inquisition extends Analyzer {
@@ -37,14 +35,13 @@ class Inquisition extends Analyzer {
     let inefficientCastReason = '';
     if (this.selectedCombatant.hasBuff(SPELLS.AVENGING_WRATH.id)) {
       inefficientCastReason += 'You refreshed Inquisition during Avenging Wrath. ';
-     }
+    }
     if (this.hasES) {
-    const entities = this.enemies.getEntities();
-    const hasDebuff = Object.values(entities)
-    .filter(enemy => enemy.hasBuff(SPELLS.EXECUTION_SENTENCE_DEBUFF.id))
-    .map(enemy => enemy.getBuff(SPELLS.EXECUTION_SENTENCE_DEBUFF.id).timestamp);
-    if (hasDebuff > event.timestamp - EXECUTION_SENTENCE_DURATION) {
-      inefficientCastReason += 'You refreshed Inquisition during Execution Sentence. ';
+      const entities = this.enemies.getEntities();
+      const hasDebuff = Object.values(entities)
+      .some(enemy => enemy.hasBuff(SPELLS.EXECUTION_SENTENCE_DEBUFF.id));
+      if (hasDebuff) {
+        inefficientCastReason += 'You refreshed Inquisition during Execution Sentence. ';
       }
     }
     if (inefficientCastReason.length > 0) {
