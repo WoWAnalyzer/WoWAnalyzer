@@ -68,7 +68,7 @@ class RisingMist extends Analyzer {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.RISING_MIST_TALENT.id);
     this.evmHealingIncrease = this.selectedCombatant.hasTalent(SPELLS.MIST_WRAP_TALENT.id) ? .4 : .3;
-    this.trackUplift = this.selectedCombatant.hasTrait(SPELLS.UPLIFTED_SPIRITS.id);;
+    this.trackUplift = this.selectedCombatant.hasTrait(SPELLS.UPLIFTED_SPIRITS.id);
     if(!this.active){
       return;
     }
