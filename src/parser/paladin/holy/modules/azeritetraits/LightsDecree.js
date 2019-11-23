@@ -2,6 +2,7 @@ import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SPELLS from 'common/SPELLS';
+import UptimeIcon from 'interface/icons/Uptime';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
@@ -134,6 +135,7 @@ get additionalUptime(){
         trait={SPELLS.LIGHTS_DECREE.id}
         value={(
           <>
+            <UptimeIcon /> {this.additionalUptime.toFixed(1)}% <small>uptime {this.durationIncrease} seconds</small><br />
             <ItemHealingDone amount={this.bonusHealing} /><br />
             <ItemDamageDone amount={this.bonusDamage} /><br />
           </>
