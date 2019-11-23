@@ -2,8 +2,13 @@ import Analyzer from 'parser/core/Analyzer';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatPercentage, formatNumber } from 'common/format';
 import ROLES from 'game/ROLES';
+import PropTypes from 'prop-types';
 
 class ManaValues extends Analyzer {
+  static propTypes = {
+    owner: PropTypes.object.isRequired,
+  };
+
   lowestMana = null; // start at `null` and fill it with the first value to account for users starting at a non-default amount for whatever reason
   endingMana = 0;
 
@@ -62,6 +67,10 @@ class ManaValues extends Analyzer {
     const fight = this.owner.fight;
     const isWipe = !fight.kill;
     if (isWipe) {
+      return;
+    }
+
+    if (this.owner.builds.GLIMMER.active){
       return;
     }
 
