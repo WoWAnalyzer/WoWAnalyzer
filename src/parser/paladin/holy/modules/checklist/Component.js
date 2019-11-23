@@ -124,7 +124,6 @@ class HolyPaladinChecklist extends React.PureComponent {
           description={<Trans>If you have a large amount of mana left at the end of the fight that's mana you could have turned into healing. Try to use all your mana during a fight. A good rule of thumb is to try to match your mana level with the boss's health.</Trans>}
         >
           <Requirement name={<Trans>Mana left</Trans>} thresholds={thresholds.manaLeft} />
-          <AbilityRequirement spell={SPELLS.DIVINE_STEED.id} />
         </Rule>
         <Rule
           name={<Trans>Try to avoid being inactive for a large portion of the fight</Trans>}
