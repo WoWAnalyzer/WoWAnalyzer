@@ -70,7 +70,7 @@ class ManaValues extends Analyzer {
       return;
     }
 
-    if (this.owner.builds.GLIMMER.active){
+    if (this.owner.builds && this.owner.builds.GLIMMER && this.owner.builds.GLIMMER.active){
       return;
     }
 
