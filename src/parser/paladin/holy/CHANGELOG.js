@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { Zerotorescue, HolySchmidt, Abelito75, blazyb } from 'CONTRIBUTORS';
+import { Zerotorescue, HolySchmidt, Abelito75, blazyb, Taleria } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 11, 16), <><SpellLink id={SPELLS.LIGHTS_DECREE.id} /> statistic added showing healing, beacon healing and added duration.</>, [Taleria]),
   change(date(2019, 11, 9), <>Added suggestion in the timeline and a tooltip to prioritize <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> over <SpellLink id={SPELLS.CRUSADER_STRIKE.id} /> when using <SpellLink id={SPELLS.CRUSADERS_MIGHT_TALENT.id} /> talent.</>, [HolySchmidt]),
   change(date(2019, 10, 21), <>Fixed a typo in <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} />'s suggestion. </>, [Abelito75]),
   change(date(2019, 8, 12), 'Added essence Lucid Dreams.', [blazyb]),
