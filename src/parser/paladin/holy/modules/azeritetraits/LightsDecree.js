@@ -1,5 +1,4 @@
 import React from 'react';
-import { Trans } from '@lingui/macro';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SPELLS from 'common/SPELLS';
@@ -107,13 +106,13 @@ class LightsDecree extends Analyzer {
       <AzeritePowerStatistic
         size="flexible"
         tooltip={(
-          <Trans>
+          <>
             The amount of healing done during the additional {LIGHTS_DECREE_DURATION} seconds given by the azerite trait. <br />
 
             Healing done: <b>{formatNumber(this.totalHealing)}</b> <br />
             Beacon healing transfered: <b>{formatNumber(this.healingTransfered)}</b> <br />
             Glimmer healing done: <b>{formatNumber(this.healingFromGlimmer)}</b> <br />
-          </Trans>
+          </>
         )}
       >
         <BoringSpellValueText spell={SPELLS.LIGHTS_DECREE}>
