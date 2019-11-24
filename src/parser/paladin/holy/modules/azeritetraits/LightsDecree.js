@@ -1,6 +1,6 @@
 import React from 'react';
 import { Trans } from '@lingui/macro';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import SPELLS from 'common/SPELLS';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
@@ -10,6 +10,7 @@ import SpellIcon from 'common/SpellIcon';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
 
 import BeaconHealSource from '../beacons/BeaconHealSource';
+import Events from 'parser/core/Events';
 
 const AW_BASE_DURATION = 20;
 const LIGHTS_DECREE_DURATION = 5;
@@ -37,6 +38,9 @@ class LightsDecree extends Analyzer {
     if (!this.active) {
       return;
     }
+
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(this.beaconHealSource.beacontransfer.by(SELECTED_PLAYER), this.onBeaconTransfer);
   }
 
   hasAvengingWrathBuffThroughLightsDecree(event) {
@@ -52,7 +56,7 @@ class LightsDecree extends Analyzer {
     return remainingDuration <= LIGHTS_DECREE_DURATION;
   }
 
-  on_byPlayer_heal(event) {
+  onHeal(event) {
     if (!this.hasAvengingWrathBuffThroughLightsDecree(event)) {
       return;
     }
@@ -68,7 +72,7 @@ class LightsDecree extends Analyzer {
     this.healingFromGlimmer += healingDone;
   }
 
-  on_beacontransfer(event) {
+  onBeaconTransfer(event) {
     if (!this.hasAvengingWrathBuffThroughLightsDecree(event)) {
       return;
     }
