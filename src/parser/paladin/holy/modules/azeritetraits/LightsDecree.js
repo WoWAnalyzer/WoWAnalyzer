@@ -1,6 +1,7 @@
 import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import Events from 'parser/core/Events';
 import SPELLS from 'common/SPELLS';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
@@ -9,7 +10,6 @@ import SpellIcon from 'common/SpellIcon';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
 
 import BeaconHealSource from '../beacons/BeaconHealSource';
-import Events from 'parser/core/Events';
 
 const AW_BASE_DURATION = 20;
 const LIGHTS_DECREE_DURATION = 5;
