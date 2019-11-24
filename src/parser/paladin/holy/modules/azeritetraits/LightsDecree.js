@@ -29,6 +29,7 @@ class LightsDecree extends Analyzer {
   regularHealing = 0;
   healingTransfered = 0;
   healingFromGlimmer = 0;
+  avengingWrathCasts = 0;
 
   constructor(...args) {
     super(...args);
@@ -41,6 +42,7 @@ class LightsDecree extends Analyzer {
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
     this.addEventListener(this.beaconHealSource.beacontransfer.by(SELECTED_PLAYER), this.onBeaconTransfer);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AVENGING_WRATH), this.onCastAvengingWrath);
   }
 
   hasAvengingWrathBuffThroughLightsDecree(event) {
@@ -54,6 +56,10 @@ class LightsDecree extends Analyzer {
     const remainingDuration = (end - buff.start) / 1000;
 
     return remainingDuration <= LIGHTS_DECREE_DURATION;
+  }
+
+  onCastAvengingWrath() {
+    this.avengingWrathCasts++;
   }
 
   onHeal(event) {
@@ -93,19 +99,7 @@ class LightsDecree extends Analyzer {
   }
 
   get totalDurationIncrease() {
-    const buffId = SPELLS.AVENGING_WRATH.id;
-    const hist = this.selectedCombatant.getBuffHistory(buffId);
-    if (!hist || hist.length === 0) {
-      return null;
-    }
-    let totalIncrease = 0;
-    hist.forEach((buff) => {
-      const end = buff.end || this.owner.currentTimestamp;
-      const duration = (end - buff.start) / 1000;
-      const increase = Math.max(0, duration - this.baseDuration);
-      totalIncrease += increase;
-    });
-    return totalIncrease;
+    return this.avengingWrathCasts * LIGHTS_DECREE_DURATION;
   }
 
   statistic() {
