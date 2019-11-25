@@ -25,13 +25,11 @@ class LightsDecree extends Analyzer {
   };
 
   casts = 0;
-  lastAvengingWrath = 0;
   avengingWrathDuration = AVENGING_WRATH_BASE_DURATION;
   lightsDecreeDuration = LIGHTS_DECREE_BASE_DURATION;
   bonusHolyShocks = 0;
   bonusHealing = 0;
   bonusDamage = 0;
-  glimmers = [];
 
   constructor(...args) {
     super(...args);
@@ -52,16 +50,6 @@ class LightsDecree extends Analyzer {
     if(this.selectedCombatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT.id)){
       this.avengingWrathDuration += this.avengingWrathDuration * 0.2;
       this.lightsDecreeDuration += this.lightsDecreeDuration * 0.2;
-    }
-
-    if (this.selectedCombatant.hasTrait(SPELLS.GLIMMER_OF_LIGHT_TRAIT.id)){
-      this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT), this.onGlimmerHeal);
-      this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT_DAMAGE), this.onGlimmerDamage);
-    }
-
-    if (this.selectedCombatant.hasTrait(SPELLS.RADIANT_INCANDESCENCE_TRAIT.id)){
-      this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RADIANT_INCANDESCENCE.id), this.onRadiantHeal);
-      this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RADIANT_INCANDESCENCE_DAMAGE.id), this.onRadiantDamage);
     }
   }
 
@@ -104,24 +92,8 @@ class LightsDecree extends Analyzer {
     }
   }
 
-  onGlimmerHeal(event){
-
-  }
-
-  onGlimmerDamage(event){
-
-  }
-
-  onRadiantHeal(event){
-
-  }
-
-  onRadiantDamage(event){
-
-  }
-
 get durationIncrease(){
-  return this.casts * LIGHTS_DECREE_BASE_DURATION;
+  return this.casts * this.lightsDecreeDuration;
 }
 
 get additionalUptime(){
@@ -142,10 +114,11 @@ get additionalUptime(){
         )}
         tooltip={(
           <>
-          20% bonus healing from Avenging Wrath granted <b>+{formatNumber(this.bonusHealing)}</b> additional healing over {this.durationIncrease.toFixed(1)} seconds.<br />
-          20% bonus damage from Avenging Wrath granted <b>+{formatNumber(this.bonusDamage)}</b> additional damage over {this.durationIncrease.toFixed(1)} seconds.<br />
+          You cast Avenging Wrath <b>{this.casts}</b> time(s) for <b>{this.durationIncrease.toFixed(1)}</b> seconds of increased duration.<br />
+          20% bonus healing from Avenging Wrath granted <b>+{formatNumber(this.bonusHealing)}</b> additional healing.<br />
+          20% bonus damage from Avenging Wrath granted <b>+{formatNumber(this.bonusDamage)}</b> additional damage.<br />
           {(this.selectedCombatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT.id) 
-            ? `50% cooldown reduction allowed you to cast ` + (this.bonusHolyShocks / 2).toFixed(1) + ` extra Holy Shock(s) over ` + this.durationIncrease.toFixed(1) + ` seconds.`: '')}
+            ? `You cast ` + this.bonusHolyShocks + `Holy Shock(s) during the 50% cooldown reduction for ` + (this.bonusHolyShocks / 2).toFixed(1) + ` extra casts.`: '')}
           <br />
           </>
         )}
