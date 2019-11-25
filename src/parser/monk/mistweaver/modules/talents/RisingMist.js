@@ -9,11 +9,14 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 import Events from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import HIT_TYPES from 'game/HIT_TYPES';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 import HotTracker from '../core/HotTracker';
 
 const debug = false;
 
 const RISING_MIST_EXTENSION = 2000;
+const UPLIFTED_SPIRITS_REDUCTION = 1000;
 
 const UNAFFECTED_SPELLS = [
   SPELLS.CRANE_HEAL.id,
@@ -25,6 +28,7 @@ class RisingMist extends Analyzer {
   static dependencies = {
     hotTracker: HotTracker,
     abilityTracker: AbilityTracker,
+    spellUsable: SpellUsable,
   };
 
   risingMistCount = 0;
@@ -38,10 +42,13 @@ class RisingMist extends Analyzer {
 
   targetCount = 0;
 
+  trackUplift = false;
   extraVivCleaves = 0;
   extraVivHealing = 0;
   extraVivOverhealing = 0;
   extraVivAbsorbed = 0;
+  cooldownReductionUsed = 0;
+  cooldownReductionWasted = 0;
 
   extraEnvHits = 0;
   extraEnvBonusHealing = 0;
@@ -61,6 +68,7 @@ class RisingMist extends Analyzer {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.RISING_MIST_TALENT.id);
     this.evmHealingIncrease = this.selectedCombatant.hasTalent(SPELLS.MIST_WRAP_TALENT.id) ? .4 : .3;
+    this.trackUplift = this.selectedCombatant.hasTrait(SPELLS.UPLIFTED_SPIRITS.id);
     if(!this.active){
       return;
     }
@@ -119,6 +127,13 @@ class RisingMist extends Analyzer {
       this.extraVivHealing += event.amount || 0;
       this.extraVivOverhealing += event.overheal || 0;
       this.extraVivAbsorbed += event.absorbed || 0;
+      if (this.trackUplift && event.hitType === HIT_TYPES.CRIT) { 
+        if (this.spellUsable.isOnCooldown(SPELLS.REVIVAL.id)) {
+          this.cooldownReductionUsed += this.spellUsable.reduceCooldown(SPELLS.REVIVAL.id, UPLIFTED_SPIRITS_REDUCTION);
+        } else {
+          this.cooldownReductionWasted += UPLIFTED_SPIRITS_REDUCTION;
+        }
+      }
     }
   }
 
@@ -239,6 +254,16 @@ class RisingMist extends Analyzer {
                 <li>Extra Hits: {this.extraMasteryHits}</li>
                 <li>Extra Healing: {formatNumber(this.extraMasteryhealing)} ({this.calculateMasteryOverHealing}% Overhealing)</li>
               </ul>
+              {this.trackUplift ? (
+              <>
+                Uplift
+                <ul>
+                  <li>{formatNumber(this.cooldownReductionUsed/1000)||0} Revival Seconds Reduced</li>
+                  <li>{formatNumber(this.cooldownReductionWasted/1000)||0} Revival Seconds Reduction Wasted</li>
+                </ul>
+               </>
+               ):<></>
+               }
             </ul>
           </>
         )}
