@@ -7,18 +7,23 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Enemies from 'parser/shared/modules/Enemies';
 import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../constants';
-
 
 // This module looks at the relative amount of damage buffed rather than strict uptime to be more accurate for fights with high general downtime
 
 class Inquisition extends Analyzer {
+  static dependencies = {
+    enemies: Enemies,
+  };
+  hasES = false;
   buffedDamage = 0;
   unbuffedDamage = 0;
 
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.INQUISITION_TALENT.id);
+    this.hasES = this.selectedCombatant.hasTalent(SPELLS.EXECUTION_SENTENCE_TALENT.id);
 
     // event listeners
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.INQUISITION_TALENT), this.onInquisitionCast);
@@ -26,10 +31,23 @@ class Inquisition extends Analyzer {
   }
 
   onInquisitionCast(event) {
+    let inefficientCastReason = '';
     if (this.selectedCombatant.hasBuff(SPELLS.AVENGING_WRATH.id)) {
+      inefficientCastReason += 'You refreshed Inquisition during Avenging Wrath. ';
+    }
+    if (this.hasES) {
+      const entities = this.enemies.getEntities();
+      const hasDebuff = Object.values(entities)
+      .some(enemy => enemy.hasBuff(SPELLS.EXECUTION_SENTENCE_DEBUFF.id));
+      if (hasDebuff) {
+        inefficientCastReason += 'You refreshed Inquisition during Execution Sentence. ';
+      }
+    }
+    if (inefficientCastReason.length > 0) {
+      inefficientCastReason += 'It is better to refresh early before damage amplifying cooldowns so you can spend Holy Power on damage during them.';
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = 'You refreshed Inquisition during Avenging Wrath. It is better to refresh early before Avenging Wrath so you can spend Holy Power on damage during it';
+      event.meta.inefficientCastReason = inefficientCastReason;
     }
   }
 
