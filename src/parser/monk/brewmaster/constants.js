@@ -1,0 +1,31 @@
+import SPELLS from 'common/SPELLS';
+
+export const BREWS = [
+  SPELLS.IRONSKIN_BREW.id,
+  SPELLS.PURIFYING_BREW.id,
+  SPELLS.FORTIFYING_BREW.id,
+  SPELLS.BLACK_OX_BREW_TALENT.id,
+];
+
+// Yes there are 7... The cake is a lie (8 really)
+export const GIFT_OF_THE_OX_SPELLS = [
+  SPELLS.GIFT_OF_THE_OX_1,
+  SPELLS.GIFT_OF_THE_OX_2,
+  SPELLS.GIFT_OF_THE_OX_3,
+  SPELLS.GIFT_OF_THE_OX_4,
+  SPELLS.GIFT_OF_THE_OX_5,
+  SPELLS.GIFT_OF_THE_OX_6,
+  SPELLS.GIFT_OF_THE_OX_7,
+  SPELLS.GIFT_OF_THE_OX_8,
+];
+
+export const GIFT_OF_THE_OX_SPELL_IDS = GIFT_OF_THE_OX_SPELLS.map(({id}) => id);
+
+export const SPELLS_WHICH_REMOVE_BOC = [
+  SPELLS.TIGER_PALM.id,
+  SPELLS.BREATH_OF_FIRE.id,
+  SPELLS.KEG_SMASH.id,
+  SPELLS.IRONSKIN_BREW.id,
+];
+
+export const BASE_AGI = 1468;

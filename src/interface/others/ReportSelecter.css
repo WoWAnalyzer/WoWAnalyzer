@@ -1,0 +1,10 @@
+.report-selector {
+  display: flex;
+}
+.report-selector .form-control {
+  flex: 1;
+}
+.report-selector .btn {
+  flex: 0;
+  margin-left: 10px;
+}

@@ -1,14 +1,6 @@
+import makeQueryString from './makeQueryString';
+
 export default function makeUrl(base, queryParams = {}) {
-  const keys = Object.keys(queryParams);
-
-  const parts = [];
-  keys.forEach((key) => {
-    const value = queryParams[key];
-    if (value === undefined) {
-      return;
-    }
-    parts.push(`${key}=${encodeURIComponent(value)}`);
-  });
-
-  return `${base}?${parts.join('&')}`;
+  const queryString = makeQueryString(queryParams);
+  return queryString !== '' ? `${base}?${queryString}` : base;
 }

@@ -1,15 +1,14 @@
-FROM node:8.2.1-alpine
+FROM node:12.10.0-alpine
 
 WORKDIR /usr/src/wowanalyzer/
 
 # By doing this separate we allow Docker to cache this
-COPY package.json package-lock.json /usr/src/wowanalyzer/
-RUN npm install
+COPY package.json yarn.lock /usr/src/wowanalyzer/
+RUN yarn
 
+# Note that several files (including node_modules) are ignored in .dockerignore
 COPY . /usr/src/wowanalyzer/
 
 EXPOSE 3000
-# Webpack dev server has to poll because https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#npm-start-doesnt-detect-changes
-ENV CHOKIDAR_USEPOLLING=true
 
-CMD ["npm", "start"]
+CMD ["yarn", "safestart"]

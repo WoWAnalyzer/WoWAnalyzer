@@ -1,0 +1,647 @@
+@import './Theme.scss';
+
+html {
+  min-height: 100%;
+}
+
+body {
+  line-height: 1.8;
+  font-family: 'Open Sans', 'Century Gothic', sans-serif;
+  text-rendering: optimizeLegibility;
+  background-color: $backgroundColor;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='-100 -100 400 400'%3E%3Cpath fill='%23000000' fill-opacity='0.2' d='M11.4842 102.243L1.02185 84.2455L49.9996 -7.62939e-06L98.9777 84.2461L88.5199 102.236L87.2159 99.9931H62.5V81.9943H76.7519L50.0041 35.986L23.2562 81.9943H37.5V99.9931H12.7923L11.4842 102.243ZM106.771 99.9931H106.809V99.9271L106.771 99.9931Z'%3E%3C/path%3E%3C/svg%3E");
+  color: #f3eded;
+}
+@media (max-width: 1200px) {
+  body {
+    font-size: 13px;
+  }
+}
+@media (max-width: 800px) {
+  body {
+    font-size: 12px;
+  }
+}
+.container {
+  width: 100%;
+  max-width: 1300px;
+}
+@media (min-width: 1200px) {
+  .hpadding-lg-30 {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+#app-mount {
+  min-height: 100vh;
+}
+.app.modal-open {
+  // don't use a transition since the .app should NOT have a `filter: blur(0px);` by default, this might be a performance problem in some browsers even if it's set to 0px
+  animation: blur 250ms forwards;
+}
+@keyframes blur {
+  0% { filter: blur(0px); }
+  100% { filter: blur(10px); }
+}
+.app {
+  min-height: 700px;
+
+  > .offset {
+    margin-top: 110px;
+  }
+}
+
+a {
+  color: $primaryColor;
+
+  &:hover {
+    color: lighten(hsl(44, 100%, 49%), 30%);
+  }
+  &.hidden-link {
+    color: inherit;
+  }
+}
+.btn:hover, .btn:focus, .btn.focus {
+  color: #964747;
+
+  img {
+    opacity: 0.5;
+  }
+}
+.btn-primary {
+  background: $primaryColor;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 10px 28px;
+  border-radius: 0;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
+  text-transform: uppercase;
+
+  &:hover, &:focus, &:active, &:active:hover, &:active:focus {
+    background: darken($primaryColor, 10%);
+    border: 1px solid $primaryColor;
+    outline: 0;
+    color: #ccc;
+  }
+}
+h1, h2, h3, h4, h5 {
+  font-family: Poppins, 'Open Sans', 'Century Gothic', sans-serif;
+}
+h1 {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 44px;
+  text-transform: uppercase;
+  color: $primaryColor;
+}
+h2 {
+  font-size: 26px;
+  line-height: 36px;
+  font-weight: 700;
+}
+h3 {
+  font-size: 20px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+hr {
+  margin: 15px 0;
+  border-top: 1px solid #4f4f4f;
+}
+ul {
+  margin: 0;
+}
+.gh-label {
+  background-color: #0e8a16;
+  color: #fff;
+  border-radius: 2px;
+  padding: 3px 4px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.image-background {
+  background-size: cover;
+  background-position: center center;
+}
+.image-background h1, .app > header .image-overlay h1 {
+  font-size: 3em;
+  font-weight: 700;
+  margin-bottom: 0.35em;
+  text-shadow: 0 0 1px transparent, 0 0 5px rgba(0,0,0,.8);
+  letter-spacing: 1px;
+}
+.image-background .description, .app > header .image-overlay .description {
+  font-size: 1.2em;
+  color: #ebdec2;
+  text-shadow: 0 0 2px #000;
+}
+.panel.image-background {
+  padding-top: 70px;
+}
+
+.statistic-expansion {
+  margin-top: 15px;
+}
+.statistic-expansion table th {
+  text-align: right;
+}
+.statistic-expansion table {
+  margin: 0;
+  text-align: right;
+}
+.statistic-expansion-button-holster {
+  width: 100%;
+}
+.statistic-expansion-button-holster button {
+  width: 100%;
+  outline: none;
+  padding: 1px 20px;
+}
+.statistic-expansion-button-holster button:focus {
+  outline: none;
+}
+
+.form-control {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 10px 12px;
+  height: auto;
+  background: rgba(0, 0, 0, 0.3);
+  font-size: 1em;
+  box-shadow: none;
+  color: #fdf7ea;
+  border-radius: 0;
+}
+.form-control:focus {
+  box-shadow: none;
+  border: 1px solid $primaryColor;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.list.players li img {
+  height: 1.7em;
+  margin-right: 5px;
+  border-radius: 2px;
+}
+/* Fix for double bottom border for second last children */
+.list.players>li:nth-child(odd):nth-last-child(2) {
+  box-shadow: none;
+}
+.list > li {
+  margin: 0;
+  padding: 0 22px;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  background-color: rgba(255, 255, 255, 0.0);
+  transition: background-color 0.1s ease-in-out;
+}
+.list > li:nth-of-type(odd) {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+.list.text > li {
+  padding: 7px 22px;
+}
+svg.icon {
+  height: 1em;
+  fill: currentColor;
+  vertical-align: middle;
+  margin-top: -0.15em;
+}
+svg.stroke {
+  stroke: currentColor;
+}
+img.icon {
+  height: 1em;
+  margin-top: -0.15em;
+  border: 1px solid #111;
+  border-radius: 9%;
+
+  &.game {
+    height: 1.3em;
+    margin-top: -0.3em;
+  }
+}
+h1 {
+  position: relative;
+}
+.back-button {
+  position: absolute;
+  left: 0;
+  transform: translateX(-100%);
+  font-size: 26px;
+
+  label {
+    display: none;
+  }
+}
+@media (max-width: 620px) {
+  .back-button {
+    position: static;
+    display: block;
+    transform: none;
+
+    label {
+      display: inline-block;
+    }
+  }
+}
+
+/* "item" here are not just in-game items but anything with an icon, link and text. this includes items, suggestions and talents. */
+.list > .item {
+  position: relative;
+}
+.list > .item header {
+  margin-top: 15px;
+}
+.list > .item main {
+  margin-bottom: 15px;
+}
+.list > .item > article {
+  display: flex;
+}
+.list > .item > article > figure {
+  flex: 0;
+  margin-right: 22px;
+  /* center the image */
+  display: flex;
+  align-items: center;
+}
+.list > .item > article > figure img {
+  height: 60px;
+  border-radius: 50%;
+  margin: 10px 0;
+}
+
+.badge {
+  display: inline-block;
+  margin-left: 0.3em;
+  border-radius: 50%;
+  background: #c9312c;
+  width: 1.5em;
+  height: 1.5em;
+  line-height: 1.5;
+  text-align: center;
+}
+.flex {
+  display: flex;
+}
+.flex.horizontal {
+  flex-direction: column;
+}
+.flex.wrapable {
+  flex-wrap: wrap;
+}
+.flex > * {
+  flex: 1;
+}
+.flex-main {
+  flex: 1;
+  width: 100%;
+}
+.flex-sub {
+  flex: 0 0 auto;
+}
+.content-middle {
+  display: flex;
+  align-items: center;
+}
+.content-bottom {
+  display: flex;
+  align-items: flex-end;
+}
+
+
+h3 {
+  margin-top: 5px;
+  margin-bottom: 9px;
+  border-bottom: 1px solid #333;
+}
+dfn {
+  font-style: normal;
+  border-bottom: 1px dashed currentColor;
+  cursor: help;
+}
+code {
+  border-radius: 1px;
+}
+
+.alert {
+  padding: 15px 22px;
+  border-radius: 0;
+  border: 0;
+  margin: 0;
+}
+.alert .icon-container {
+  font-size: 2em;
+  line-height: 1;
+  margin-right: 20px;
+}
+.alert.small {
+  padding: 10px;
+}
+.alert.small .icon-container {
+  margin-right: 10px;
+}
+.panel-body > .alert {
+  // 2px extra on both sides + box-shadow to make it appear further in front
+  margin-left: -32px;
+  margin-right: -32px;
+  box-shadow: 0 0 3px #000;
+}
+.alert-info {
+  background-color: rgba(52, 152, 219, 0.6);
+  color: white;
+}
+.alert-warning {
+  background-color: #cc790b;
+  color: #fff;
+}
+.alert-warning a {/* default URLs are unreadable on the orange background, this makes it look like a button. */
+  color: #fff;
+  background: #cd594a;
+  padding: 2px 4px;
+  margin: 0 -1px;
+  border-radius: 2px;
+}
+.alert-danger {
+  background-color: rgba(119, 47, 46, 0.6);
+  color: #ff1d19;
+}
+.alert-danger a {
+  color: #fff;
+}
+.text-muted {
+  color: #999;
+}
+
+/* Source: http://tobiasahlin.com/spinkit/ */
+.spinner {
+  width: 5em;
+  height: 5em;
+  background-color: $primaryColor;
+
+  margin: 2.5em auto;
+  animation: sk-rotateplane 1.2s infinite ease-in-out;
+}
+
+@keyframes sk-rotateplane {
+  0% {
+    transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+  }
+  50% {
+    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+  }
+  100% {
+    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+  }
+}
+
+table.data-table {
+  width: 100%;
+  margin-bottom: 20px;
+
+  tr:nth-child(even) {
+    background: rgba(255, 255, 255, .03);
+  }
+  tr th, tr td {
+    padding: 7px;
+  }
+  &.compact tr th, &.compact tr td {
+    padding: 6px;
+  }
+  tr th:first-of-type, tr td:first-of-type {
+    padding-left: 30px;
+  }
+  tr th:last-of-type, tr td:last-of-type {
+    padding-right: 30px;
+  }
+  img, img.icon.game {
+    width: 1.6em;
+    height: 1.6em;
+    margin-top: -.1em;
+  }
+}
+
+.performance-bar-container {
+  background: rgba(20, 20, 20, 0.8);
+  border: 1px solid #000;
+  border-radius: 2px;
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+.performance-bar-container:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.0) 100%);
+  z-index: 1;
+}
+.performance-bar {
+  opacity: .9;
+  height: 1.4em;
+  min-width: 1px;
+  background-color: $primaryColor;
+}
+.performance-bar.small {
+  height: 1em;
+}
+
+.__react_component_tooltip.show {
+  opacity: 1 !important;
+  text-align: left;
+  max-width: 600px;
+  padding: 8px 15px;
+  border-radius: 4px;
+}
+.__react_component_tooltip.type-dark {
+  background: rgba(10, 10, 10, 0.9) !important;
+}
+.__react_component_tooltip.type-dark.place-bottom:after {
+  border-bottom-color: rgba(10, 10, 10, 0.9) !important;
+}
+.__react_component_tooltip.type-dark.place-right:after {
+  border-right-color: rgba(10, 10, 10, 0.9) !important;
+}
+
+
+
+.react-toggle--checked .react-toggle-track {
+  background-color: $primaryColor;
+}
+.react-toggle--checked .react-toggle-thumb {
+  border-color: darken($primaryColor, 30%);
+}
+.react-toggle:hover:not(.react-toggle--disabled) .react-toggle-track {
+  background-color: #212121;
+}
+.react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {
+  background-color: darken($primaryColor, 32%);
+}
+
+.react-toggle--focus .react-toggle-thumb {
+  box-shadow: 0 0 2px 3px $primaryColor;
+}
+.react-toggle:active:not(.react-toggle--disabled) .react-toggle-thumb {
+  box-shadow: 0 0 5px 5px $primaryColor;
+}
+
+.text-primary {
+  color: $primaryColor;
+}
+.text-muted, small {
+  color: $muted;
+}
+small, .text-small {
+  font-size: 12px;
+}
+.small {
+  // Reset bootstrap's bullshit since the class is often used for other elements to indicate they should be smaller. That doesn't mean we want the text to get fucked up.
+  font-size: inherit;
+}
+.toggle-control {
+  margin: -2px 0;
+  position: relative;
+  z-index: 1;
+}
+.toggle-control .react-toggle {
+  margin-bottom: -0.35em;
+}
+.toggle-control label {
+  font-weight: normal;
+  margin: 0;
+  cursor: pointer;
+  padding-left: 5px;
+}
+.toggle-control .react-toggle-track {
+  width: 42px;
+  height: 19px;
+}
+.toggle-control .react-toggle-thumb {
+  width: 17px;
+  height: 17px;
+}
+.toggle-control .react-toggle--checked .react-toggle-thumb {
+  left: 24px;
+}
+
+.action-buttons .react-toggle ~ label {
+  margin-right: 1em;
+}
+.action-buttons a {
+  vertical-align: middle;
+}
+
+.external-links .btn:not(:first-of-type) {
+  margin-left: 3%;
+}
+@media (min-width: 1200px) and (max-width: 1400px) {
+  .external-links .btn {
+    padding: .5rem 0.95rem;
+    font-size: 1.4rem;
+  }
+  .external-links .btn:not(:first-of-type) {
+    margin-left: 12px;
+  }
+}
+@media (max-width: 1200px) {
+  .report-code-box, .external-links {
+    text-align: center;
+  }
+}
+
+.fade-in {
+  animation: fadein 5s;
+}
+.fade-in.delay-3s {
+  animation-duration: 3s;
+}
+@keyframes fadein {
+  0% { opacity: 0; }
+  60% { opacity: 0; }
+  100%   { opacity: 1; }
+}
+
+.clickable {
+  cursor: pointer;
+}
+code.clickable:hover {
+  background: #fff;
+  color: #c7254e;
+}
+code.inactive {
+  background: #c7254e;
+  color: #f9f2f4;
+}
+
+.contributor {
+  background: #2b2b2b;
+  color: #f1c40f;
+  padding: 0 .4em;
+  border-radius: .3em;
+  white-space: nowrap;
+  display: inline-block;
+  line-height: 1.8em;
+  overflow: hidden;
+  vertical-align: middle;
+}
+.contributor img {
+  margin: 0 .4em 0 -.4em;
+  width: 1.8em;
+  height: 1.8em;
+  vertical-align: top;
+}
+
+
+
+.item-divider {
+  border-bottom: 1px solid #000;
+  box-shadow: 0 1px 0 0 rgba(255, 255, 255, .1);
+}
+
+.contributorlist > .row {
+  margin: 10px 0;
+}
+
+
+.contributor-detail {
+  height: calc(100% - 80px);
+}
+
+.no-scroll .contributor-detail .panel {
+  background-color: rgba(20, 20, 20, 1);
+}
+
+.contributor-detail>.container, .contributor-detail>.container>.flex-main, .contributor-detail>.container>.flex-main>.row, .contributor-detail>.container>.flex-main>.row>.col-md-7 {
+  height: 100%;
+}
+
+.panel.scrollable {
+  overflow-x: hidden;
+  overflow-y: auto;
+  max-height: 100%;
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+@import './Game.scss';
+@import './Panel.scss';
+
+.rv-xy-plot__series--line.primary {
+  stroke: $primaryColor !important;
+  stroke-width: 1px;
+  fill: transparentize($primaryColor, 0.85) !important;
+  transform: translateY(1px); // remove the 0 line
+}

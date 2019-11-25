@@ -1,0 +1,3 @@
+# https://lingui.github.io/js-lingui/guides/excluding-build-files
+_build/
+**/*.js

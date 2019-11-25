@@ -1,0 +1,7 @@
+export default {
+  GENERAL: 'GENERAL',
+  TALENTS: 'TALENTS',
+  AZERITE_POWERS: 'AZERITE_POWERS',
+  ITEMS: 'ITEMS',
+  PANELS: 'PANELS',
+};

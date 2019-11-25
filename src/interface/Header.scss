@@ -1,0 +1,133 @@
+@import 'layout/Theme.scss';
+
+header.report-selection {
+  text-align: center;
+  padding-top: 60px;
+  padding-bottom: 60px;
+  transition: all 600ms;
+
+  .brand-name {
+    margin-bottom: 30px;
+    display: block;
+
+    svg {
+      height: 50px;
+      margin-bottom: -7px;
+      margin-right: 25px;
+    }
+    h1 {
+      display: inline-block;
+      text-transform: none;
+      font-size: 50px;
+
+      @media(max-width: 767px) {
+        font-size: 42px;
+      }
+    }
+  }
+}
+header.report-selection .description {
+  font-size: 1.4em;
+  margin-bottom: 1em;
+}
+header.report-selection .report-selector {
+  margin-bottom: 10px;
+}
+header.report-selection .about {
+  font-size: 0.9em;
+}
+@media (max-width: 600px) {
+  header.report-selection {
+    padding-top: 60px;
+  }
+  header.report-selection h1 {
+    font-size: 3em;
+    margin-bottom: 0.2em;
+  }
+  header.report-selection .description {
+    font-size: 1.2em;
+    margin-bottom: 0.5em;
+  }
+}
+@media (max-width: 400px) {
+  header.report-selection {
+    padding-top: 40px;
+  }
+}
+.character-selector {
+  display: flex;
+  width: 100%;
+  margin-bottom: 10px;
+  height: 42px;
+
+  .region {
+    width: 70px;
+  }
+  .realm {
+    width: 30%;
+  }
+  .character {
+    width: 40%;
+  }
+  > .realm--select, > input[name=code], > button {
+    margin-left: 2px;
+  }
+  .realm__select {
+    display: none;
+  }
+  .realm--multiple .realm__select {
+    display: block;
+  }
+  .realm__select--display {
+    display: block;
+    width: 183px;
+    z-index: 999;
+    position: absolute;
+  }
+  .realm__search {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 8px 12px;
+    font-size: 1em;
+    box-shadow: none;
+    color: #fdf7ea;
+    border-radius: 0;
+    outline: none;
+    width: 100%;
+    height: 42px;
+  }
+  .realm__search:focus {
+    box-shadow: none;
+    border: 1px solid $primaryColor;
+  }
+  .realm__options {
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    list-style: none;
+    padding: 0;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-top: none;
+  }
+  .realm__option {
+    padding: 4px 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+  }
+  .realm__option--selected {
+    color: $primaryColor;
+  }
+  .animated-button {
+    box-shadow: inset 0 0 0 0 $muted;
+    transition: box-shadow 1.2s linear;
+  }
+  .animated-button.fill-button {
+    box-shadow: inset 200px 0 0 0 $muted;
+  }
+}
+header.report-selection .form-control, header.report-selection .realm__search, header.report-selection .parse-tabs > span {
+  background: rgba(0, 0, 0, 0.8);
+}
+header.report-selection .form-control::placeholder, header.report-selection .realm__search::placeholder {
+  color: #777;
+}

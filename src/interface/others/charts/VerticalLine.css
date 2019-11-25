@@ -1,0 +1,9 @@
+/* majority stolen from Crosshair styles and react-tooltip-lite styles */
+.rv-vertical-line {
+  position: absolute;
+  font-size: 11px;
+}
+.rv-vertical-line__line {
+  background: white;
+  width: 2px;
+}

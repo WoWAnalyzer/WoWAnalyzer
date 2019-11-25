@@ -1,0 +1,8 @@
+.spell-timeline .events .empowered {
+  border: 2px solid rgb(22, 226, 1);
+  box-sizing: content-box;
+  margin-left: -1px;
+  margin-top: -1px;
+  box-shadow: 0 0 11px rgb(22, 226, 1);
+  border-radius: 2px;
+}

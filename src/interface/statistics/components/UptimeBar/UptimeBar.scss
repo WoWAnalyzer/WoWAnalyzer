@@ -1,0 +1,16 @@
+@import 'interface/layout/Theme.scss';
+
+.uptime-bar {
+  position: relative;
+  width: 100%;
+  height: 6px;
+  background: rgba(20, 20, 20, 0.4);
+
+  > div {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    background: transparentize($primaryColor, 0.3);
+    //border: 1px solid transparentize($primaryColor, 0.4);
+  }
+}
