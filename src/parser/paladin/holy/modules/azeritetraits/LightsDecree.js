@@ -48,8 +48,8 @@ class LightsDecree extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_SHOCK_DAMAGE), this.onHolyShock);
 
     if(this.selectedCombatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT.id)){
-      this.avengingWrathDuration += this.avengingWrathDuration * 0.2;
-      this.lightsDecreeDuration += this.lightsDecreeDuration * 0.2;
+      this.avengingWrathDuration += this.avengingWrathDuration * 0.25;
+      this.lightsDecreeDuration += this.lightsDecreeDuration * 0.25;
     }
   }
 
