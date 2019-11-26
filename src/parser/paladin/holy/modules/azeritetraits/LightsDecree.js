@@ -153,9 +153,9 @@ get additionalUptime(){
         trait={SPELLS.LIGHTS_DECREE.id}
         value={(
           <>
-            <UptimeIcon /> {this.additionalUptime.toFixed(1)}% <small>uptime {this.durationIncrease} seconds</small><br />
             <ItemHealingDone amount={this.bonusHealing + this.bonusCritHealing} /><br />
             <ItemDamageDone amount={this.bonusDamage + this.bonusCritDamage} /><br />
+            <UptimeIcon /> {this.additionalUptime.toFixed(1)}% <small>uptime {this.durationIncrease} seconds</small><br />
           </>
         )}
         tooltip={(
