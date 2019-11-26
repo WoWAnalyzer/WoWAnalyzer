@@ -125,6 +125,10 @@ class Upwelling extends Analyzer {
       return;
     }
 
+    if(!this.combatants.players[targetID]){//fixes weird bug where if the target fails to load we break the module... might want to add this to core
+      return;
+    }
+
     if(this.combatants.players[targetID].hasBuff(SPELLS.ESSENCE_FONT_BUFF.id, event.timestamp, 0, 0)) {//do they have the hot
       if(this.hotMap.get(targetID).fullCount || event.timestamp - BASE_HOT_TIME > this.hotMap.get(targetID).applicationTime){
         if(!this.masteryTickTock){
