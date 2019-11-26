@@ -1,18 +1,23 @@
 import React from 'react';
+
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import SPELLS from 'common/SPELLS';
-import UptimeIcon from 'interface/icons/Uptime';
-import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import Events from 'parser/core/Events';
+import { formatNumber } from 'common/format';
+import HIT_TYPES from 'game/HIT_TYPES';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
+import SPELLS from 'common/SPELLS';
+import StatTracker from 'parser/shared/modules/StatTracker';
+import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import UptimeIcon from 'interface/icons/Uptime';
 
-import { formatNumber } from 'common/format';
-import Events from 'parser/core/Events';
-import BeaconHealSource from '../beacons/BeaconHealSource';
+import StatValues from '../StatValues';
+
 
 const LIGHTS_DECREE_BASE_DURATION = 5;
 const AVENGING_WRATH_BASE_DURATION = 20;
+const AVENGING_WRATH_CRIT_BONUS = 0.3;
 
 /**
  * Spending Holy Power during Avenging Wrath causes you to explode with Holy light for 508 damage per Holy Power spent to nearby enemies.
@@ -21,14 +26,17 @@ const AVENGING_WRATH_BASE_DURATION = 20;
 class LightsDecree extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    beaconHealSource: BeaconHealSource,
+    statTracker: StatTracker,
+    statValues: StatValues,
   };
 
   casts = 0;
+  critHeals = 0;
   avengingWrathDuration = AVENGING_WRATH_BASE_DURATION;
   lightsDecreeDuration = LIGHTS_DECREE_BASE_DURATION;
   bonusHolyShocks = 0;
   bonusHealing = 0;
+  bonusCritHealing = 0;
   bonusDamage = 0;
 
   constructor(...args) {
@@ -73,17 +81,44 @@ class LightsDecree extends Analyzer {
   }
 
   onHeal(event){
-    if (this.avengingWrathBuffViaLightsDecree(event)){
-      const healing = (event.amount + (event.absorbed || 0));
-      this.bonusHealing += healing - (healing / 1.2);
+    if (!this.avengingWrathBuffViaLightsDecree(event)){
+      return;
     }
+
+    const healing = (event.amount + (event.absorbed || 0));
+    this.bonusHealing += healing - (healing / 1.2);
+    const isCrit = event.hitType === HIT_TYPES.CRIT;
+    if (!isCrit){
+      return;
+    }
+
+    this.critHeals += 1;
+    const overHeal = (event.overHeal || 0);
+    if (overHeal >= healing){
+      return;
+    }
+
+    // this will have to be replaced with corrupted gear adds more crit damage/healing //
+    const CRIT_HEALING_BONUS = 2;
+    const baseHeal = (overHeal + healing) / CRIT_HEALING_BONUS;
+    const { baseCritChance, ratingCritChance } = this.statValues._getCritChance(event);
+    const critContribution = AVENGING_WRATH_CRIT_BONUS / (baseCritChance + ratingCritChance);
+    this.bonusCritHealing += critContribution * (healing - baseHeal);
   }
 
   onDamage(event){
-    if (this.avengingWrathBuffViaLightsDecree(event)){
-      const damage = (event.amount + (event.absorbed || 0));
-      this.bonusDamage += damage - (damage / 1.2);
+    if (!this.avengingWrathBuffViaLightsDecree(event)){
+      return;
     }
+
+    const damage = (event.amount + (event.absorbed || 0));
+    this.bonusDamage += damage - (damage / 1.2);
+
+    const isCrit = event.hitType === HIT_TYPES.CRIT || event.hitType === HIT_TYPES.BLOCKED_CRIT;
+    if (!isCrit){
+      return;
+    }
+
   }
 
   onHolyShock(event){
@@ -108,13 +143,14 @@ get additionalUptime(){
         value={(
           <>
             <UptimeIcon /> {this.additionalUptime.toFixed(1)}% <small>uptime {this.durationIncrease} seconds</small><br />
-            <ItemHealingDone amount={this.bonusHealing} /><br />
+            <ItemHealingDone amount={this.bonusHealing + this.bonusCritHealing} /><br />
             <ItemDamageDone amount={this.bonusDamage} /><br />
           </>
         )}
         tooltip={(
           <>
           You cast Avenging Wrath <b>{this.casts}</b> time(s) for <b>{this.durationIncrease.toFixed(1)}</b> seconds of increased duration.<br />
+          <b>{this.critHeals}</b> critical heals for <b>{formatNumber(this.bonusCritHealing)}</b>. <br />
           20% bonus healing from Avenging Wrath granted <b>+{formatNumber(this.bonusHealing)}</b> additional healing.<br />
           20% bonus damage from Avenging Wrath granted <b>+{formatNumber(this.bonusDamage)}</b> additional damage.<br />
           {(this.selectedCombatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT.id) 
