@@ -95,19 +95,24 @@ class LightsDecree extends Analyzer {
     }
 
     const healing = (event.amount + (event.absorbed || 0));
-    this.bonusHealing += healing - (healing / 1.2);
+    const overHeal = (event.overHeal || 0);
+    const totalHealing = healing + overHeal;
+    const extraHealing = totalHealing - (totalHealing / 1.2);
+    if (extraHealing < overHeal){
+      this.bonusHealing += extraHealing - overHeal;
+    }
+
     const isCrit = event.hitType === HIT_TYPES.CRIT;
     if (!isCrit){
       return;
     }
 
     this.critHeals += 1;
-    const overHeal = (event.overHeal || 0);
-    if (overHeal >= healing){
+    const baseHeal = totalHealing / CRIT_HEALING_BONUS;
+    if (overheal > totalHealing - baseHeal){
       return;
     }
 
-    const baseHeal = (overHeal + healing) / CRIT_HEALING_BONUS;
     const { baseCritChance, ratingCritChance } = this.statValues._getCritChance(event);
     const critContribution = AVENGING_WRATH_CRIT_BONUS / (baseCritChance + ratingCritChance);
     this.bonusCritHealing += critContribution * (healing - baseHeal);
