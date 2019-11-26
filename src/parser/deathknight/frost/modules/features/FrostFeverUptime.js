@@ -28,14 +28,13 @@ class FrostFeverUptime extends Analyzer {
     const frostfeverUptime = this.enemies.getBuffUptime(SPELLS.FROST_FEVER.id) / this.owner.fightDuration;
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(20)}
         icon={<SpellIcon id={SPELLS.FROST_FEVER.id} />}
         value={`${formatPercentage(frostfeverUptime)} %`}
         label="Frost Fever Uptime"
       />
     );
   }
-
-  statisticOrder = STATISTIC_ORDER.CORE(1);
 }
 
 export default FrostFeverUptime;

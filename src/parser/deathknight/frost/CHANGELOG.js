@@ -6,6 +6,8 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+    change(date(2019, 11, 17), <>Fixed rune gain from <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} /> crashing the runes tab</>, [Khazak]),
+    change(date(2019, 11, 13), <>Changed statistic boxes to use new position prop</>, [Khazak]),
     change(date(2019, 11, 13), <>Updated <SpellLink id={SPELLS.ICECAP_TALENT.id} /> module with 3 second reduction</>, [Khazak]),
     change(date(2019, 11, 13), <>Updated logic in <SpellLink id={SPELLS.FROSTSCYTHE_TALENT.id} /> module to be in line with the advice given in the Wowhead guide.</>, [Khazak]),
     change(date(2018, 10, 22), <>Added module for <SpellLink id={SPELLS.BREATH_OF_SINDRAGOSA_TALENT.id} /></>, [Khazak]),

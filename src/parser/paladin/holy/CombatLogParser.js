@@ -44,14 +44,13 @@ import DivinePurpose from './modules/talents/DivinePurpose';
 import CrusadersMight from './modules/talents/CrusadersMight';
 import AvengingCrusader from './modules/talents/AvengingCrusader';
 
-// azurite traits //
+// azerite traits //
 import GraceOfTheJusticar from './modules/azeritetraits/GraceOfTheJusticar';
 import GlimmerOfLight from './modules/azeritetraits/GlimmerOfLight';
+import LightsDecree from './modules/azeritetraits/LightsDecree';
+import RadiantIncandescence from './modules/azeritetraits/RadiantIncandescence';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
-
-// azurite traits //
-import RadiantIncandescence from './modules/azeritetraits/RadiantIncandescence';
 
 class CombatLogParser extends CoreCombatLogParser {
   static abilitiesAffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES;
@@ -113,6 +112,7 @@ class CombatLogParser extends CoreCombatLogParser {
     graceOfTheJusticar: GraceOfTheJusticar,
     radiantIncandescence: RadiantIncandescence,
     glimmerOfLight: GlimmerOfLight,
+    lightsDecree: LightsDecree,
   };
 }
 
