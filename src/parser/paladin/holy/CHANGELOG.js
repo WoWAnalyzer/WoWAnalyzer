@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
-  change(date(2019, 11, 25), <>Fixed <SpellLink id={SPELLS.LIGHTS_DECREE.id} /> duration along with <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> usage, <SpellLink id={SPELLS.AVENGING_WRATH.id} /> damage, healing, and critical strike contributions.</>, [HolySchmidt]),
+  change(date(2019, 11, 26), <>Fixed <SpellLink id={SPELLS.LIGHTS_DECREE.id} /> duration along with <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> usage, <SpellLink id={SPELLS.AVENGING_WRATH.id} /> damage, healing, and critical strike contributions.</>, [HolySchmidt]),
   change(date(2019, 11, 23), <><SpellLink id={SPELLS.LIGHTS_DECREE.id} /> statistic added showing healing, beacon healing and added duration.</>, [Taleria]),
   change(date(2019, 11, 9), <>Added suggestion in the timeline and a tooltip to prioritize <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> over <SpellLink id={SPELLS.CRUSADER_STRIKE.id} /> when using <SpellLink id={SPELLS.CRUSADERS_MIGHT_TALENT.id} /> talent.</>, [HolySchmidt]),
   change(date(2019, 10, 21), <>Fixed a typo in <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} />'s suggestion. </>, [Abelito75]),

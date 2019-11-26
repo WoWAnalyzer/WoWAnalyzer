@@ -95,12 +95,12 @@ class LightsDecree extends Analyzer {
     }
 
     const healing = (event.amount + (event.absorbed || 0));
-    const overHeal = (event.overHeal || 0);
+    const overHeal = (event.overheal || 0);
     const totalHealing = healing + overHeal;
     const extraHealing = totalHealing - (totalHealing / 1.2);
-    if (extraHealing < overHeal){
+    if (extraHealing > overHeal){
       this.bonusHealing += extraHealing - overHeal;
-    }
+    } 
 
     const isCrit = event.hitType === HIT_TYPES.CRIT;
     if (!isCrit){
@@ -109,7 +109,7 @@ class LightsDecree extends Analyzer {
 
     this.critHeals += 1;
     const baseHeal = totalHealing / CRIT_HEALING_BONUS;
-    if (overheal > totalHealing - baseHeal){
+    if (overHeal > totalHealing - baseHeal){
       return;
     }
 
