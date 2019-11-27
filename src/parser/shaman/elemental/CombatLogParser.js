@@ -74,7 +74,7 @@ class CombatLogParser extends CoreCombatLogParser {
     unlimitedPowerTimesByStacks: UnlimitedPowerTimesByStacks,
     unlimitedPower: UnlimitedPower,
     icefury: Icefury,
-    EarthShield: EarthShield,
+    earthShield: EarthShield,
 
     // Azerite
     lavaShock: LavaShock,
