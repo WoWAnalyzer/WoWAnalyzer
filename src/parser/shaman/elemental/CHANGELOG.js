@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 11, 27), <>Add common <SpellLink id={SPELLS.EARTH_SHIELD_TALENT.id} /> module for shamans including a statisitic for elemental and enhancement shamans.</>, [Draenal]),
   change(date(2019, 10, 31), <>Add a checklist item for <SpellLink id={SPELLS.ASCENDANCE_TALENT_ELEMENTAL.id} /></>, [HawkCorrigan] ),
   change(date(2019, 10, 31), <>Fixed formatting for SoP suggestion</>, [HawkCorrigan]),
   change(date(2019, 10, 26), <>Add a checklist item for <SpellLink id={SPELLS.TOTEM_MASTERY_TALENT_ELEMENTAL.id} /> uptime.</>, [Draenal]),
