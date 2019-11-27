@@ -30,24 +30,12 @@ class EarthShield extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(SPELLS.EARTH_SHIELD_TALENT.id);
 
     // event listener for direct heals when taking damage with earth shield
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EARTH_SHIELD_HEAL), this.onEarthShieldDirectHeal);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EARTH_SHIELD_HEAL), this.onEarthShieldHeal);
 
     // event listener for healing being buffed by having earth shield on the target
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD), this.onHeal);
-  }
-
-  onEarthShieldDirectHeal(event) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.EARTH_SHIELD_HEAL.id) {
-      this.healing += calculateEffectiveHealing(event, 0);
-    }
-  }
-
-  onHeal(event) {
-    const combatant = this.combatants.players[event.targetID];
-    if (combatant && combatant.hasBuff(SPELLS.EARTH_SHIELD_TALENT.id, event.timestamp)) {
-      this.buffHealing += calculateEffectiveHealing(event, EARTHSHIELD_HEALING_INCREASE);
-    }
+    HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD.forEach((spell) => {
+      this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(spell), this.onEarthShieldAmpSpellHeal);
+    });
   }
 
   get uptime() {
@@ -73,13 +61,25 @@ class EarthShield extends Analyzer {
     };
   }
 
+  onEarthShieldHeal(event) {
+    this.healing += (event.amount + (event.absorbed || 0));
+  }
+
+  onEarthShieldAmpSpellHeal(event) {
+    const combatant = this.combatants.players[event.targetID];
+    if (combatant && combatant.hasBuff(SPELLS.EARTH_SHIELD_TALENT.id, event.timestamp)) {
+      console.log(event);
+      this.buffHealing += calculateEffectiveHealing(event, EARTHSHIELD_HEALING_INCREASE);
+    }
+  }
+
   statistic() {
     return (
       <StatisticBox
         label={<SpellLink id={SPELLS.EARTH_SHIELD_TALENT.id} />}
         category={STATISTIC_CATEGORY.TALENTS}
-        position={STATISTIC_ORDER.OPTIONAL(30)}
-        tooltip={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))}% from the HoT and ${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.buffHealing))}% from the healing buff.`}
+        position={STATISTIC_ORDER.OPTIONAL(45)}
+        tooltip={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))}% from the HoT and ${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.buffHealing))}% from the healing amp.`}
         value={
           (
             <div>
