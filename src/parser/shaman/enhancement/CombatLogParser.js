@@ -18,6 +18,7 @@ import HotHand from './modules/talents/HotHand';
 import Landslide from './modules/talents/Landslide';
 import SearingAssault from './modules/talents/SearingAssault';
 import Sundering from './modules/talents/Sundering';
+import TotemMastery from './modules/talents/TotemMastery';
 
 import SpiritWolf from '../shared/talents/SpiritWolf';
 import StaticCharge from '../shared/talents/StaticCharge';
@@ -54,6 +55,7 @@ class CombatLogParser extends CoreCombatLogParser {
     landslide: Landslide,
     searingAssault: SearingAssault,
     sundering: Sundering,
+    totemMastery: TotemMastery,
 
     spiritWolf: SpiritWolf,
     staticCharge: StaticCharge,

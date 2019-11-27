@@ -59,7 +59,7 @@ class DispelTracker extends Analyzer {
           </label>
           {Object.keys(this.dispelEvents).map(key => (
             <div className="flex" key={key}>
-              <div className="flex-sub" style={{ flex: 3 }}><SpellLink id={key} /></div>
+              <div className="flex-sub" style={{ flex: 3 }}><SpellLink id={Number(key)} /></div>
               <div className="flex-sub" style={{ flex: 1, textAlign: 'right' }}>{this.dispelEvents[key]}</div>
             </div>
           ))}

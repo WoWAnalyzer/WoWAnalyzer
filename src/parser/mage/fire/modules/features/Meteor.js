@@ -2,46 +2,29 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
+import Analyzer from 'parser/core/Analyzer';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
-
-const RUNE_OF_POWER_DELAY_BUFFER = 100;
+import MeteorRune from './MeteorRune';
+import MeteorCombustion from './MeteorCombustion';
 
 class Meteor extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     enemies: EnemyInstances,
+    meteorRune: MeteorRune,
+    meteorCombustion: MeteorCombustion,
   };
-
-  lastRuneCast = 0
-  badMeteor = 0
 
   constructor(...args) {
     super(...args);
     this.hasMeteor = this.selectedCombatant.hasTalent(SPELLS.METEOR_TALENT.id);
-    this.hasRuneOfPower = this.selectedCombatant.hasTalent(SPELLS.RUNE_OF_POWER_TALENT.id);
-    this.active = this.hasMeteor && this.hasRuneOfPower ? true : false;
+    this.active = this.hasMeteor ? true : false;
 
     if (!this.active) {
       return;
-    }
-
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.METEOR_TALENT), this.onMeteor);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RUNE_OF_POWER_TALENT), this.onRune);
-  }
-
-  onRune(event) {
-    this.lastRuneCast = event.timestamp;
-  }
-
-  onMeteor(event) {
-    console.log(event.timestamp - this.lastRuneCast);
-    if (!this.selectedCombatant.hasBuff(SPELLS.RUNE_OF_POWER_BUFF.id) && event.timestamp - this.lastRuneCast > RUNE_OF_POWER_DELAY_BUFFER) {
-      this.badMeteor += 1;
     }
   }
 
@@ -49,33 +32,39 @@ class Meteor extends Analyzer {
     return this.abilityTracker.getAbility(SPELLS.METEOR_TALENT.id).casts;
   }
 
-  get meteorUtilization() {
-    return 1 - (this.badMeteor / this.totalMeteorCasts);
+  get meteorMaxCasts() {
+    return Math.round(this.owner.fightDuration / 60000 - 0.3) + 1;
   }
 
-  get meteorUtilSuggestionThresholds() {
+  get meteorCastEfficiency() {
+    console.log(this.owner.fightDuration / 60000);
+    console.log(this.meteorMaxCasts);
+    return this.totalMeteorCasts / this.meteorMaxCasts;
+  }
+
+  get meteorEfficiencySuggestionThresholds() {
     return {
-      actual: this.meteorUtilization,
+      actual: this.meteorCastEfficiency,
       isLessThan: {
-        minor: 0.95,
-        average: 0.90,
-        major: 0.85,
+        minor: 1,
+        average: 1,
+        major: 1,
       },
       style: 'percentage',
     };
   }
 
   suggestions(when) {
-		when(this.meteorUtilSuggestionThresholds)
+    when(this.meteorEfficiencySuggestionThresholds)
 			.addSuggestion((suggest, actual, recommended) => {
-				return suggest(<>You cast <SpellLink id={SPELLS.METEOR_TALENT.id} /> without <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} /> {this.badMeteor} times. In order to get the most out of <SpellLink id={SPELLS.METEOR_TALENT.id} /> you should always cast it while being buffed by <SpellLink id={SPELLS.RUNE_OF_POWER_TALENT.id} />.</>)
+				return suggest(<>You could have cast <SpellLink id={SPELLS.METEOR_TALENT.id} /> {this.meteorMaxCasts} times during this fight, but you only cast it {this.totalMeteorCasts} times. While you should not cast Meteor on cooldown (since you need to have it available for <SpellLink id={SPELLS.COMBUSTION.id} />), you should be casting it at least once per minute.</>)
 					.icon(SPELLS.METEOR_TALENT.icon)
-					.actual(`${formatPercentage(this.meteorUtilization)}% Utilization`)
+					.actual(`${formatPercentage(this.meteorCastEfficiency)}% Utilization`)
 					.recommended(`<${formatPercentage(recommended)}% is recommended`);
 			});
 	}
 
-	statistic() {
+  statistic() {
     return (
       <Statistic
         size="flexible"
@@ -85,15 +74,19 @@ class Meteor extends Analyzer {
             This is a measure of how well you utilized your Meteor casts.
             <ul>
               <li>{this.totalMeteorCasts} Total Meteor casts</li>
-              <li>{this.totalMeteorCasts - this.badMeteor} Meteor casts during Rune of Power</li>
-              <li>{this.badMeteor} Meteor casts without Rune of Power</li>
+              <li>{this.meteorMaxCasts} Adjusted max casts</li>
+              <li>{this.meteorRune.totalMeteorCasts - this.badMeteor} Meteor casts during Rune of Power</li>
+              <li>{this.meteorRune.badMeteor} Meteor casts without Rune of Power</li>
+              <li>{this.meteorCombustion.combustionWithoutMeteor} Combustion casts without Meteor</li>
             </ul>
           </>
         )}
       >
         <BoringSpellValueText spell={SPELLS.METEOR_TALENT}>
           <>
-            {formatPercentage(this.meteorUtilization,0)}% <small>Cast Utilization</small>
+            {formatPercentage(this.meteorCastEfficiency,0)}% <small>Adjusted Cast Efficiency</small><br />
+            {formatPercentage(this.meteorRune.meteorUtilization,0)}% <small>Overall Utilization</small><br />
+            {formatPercentage(this.meteorCombustion.combustionUtilization,0)}% <small>Utilization during Combustion</small>
           </>
         </BoringSpellValueText>
       </Statistic>

@@ -43,6 +43,8 @@ class Requirement extends React.PureComponent {
         return thresholds.actual ? 'Yes' : 'No';
       case 'seconds':
         return `${thresholds.actual.toFixed(2)}s`;
+      case 'absolute':
+        return `${thresholds.actual}`;
       default:
         throw new Error(`Unknown style: ${thresholds.style}`);
     }

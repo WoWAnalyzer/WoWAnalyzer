@@ -27,11 +27,11 @@ class Frostscythe extends Analyzer {
     if (spellId !== SPELLS.FROSTSCYTHE_TALENT.id) {
       return;
     }
-    if (this.hits >= this.hitThreshold) {
+    if (this.hits >= this.hitThreshold) { // this is checking the previous cast, not the cast in the current event
       this.goodCasts += 1;
     }
     this.casts += 1;
-    this.hitThreshold = this.selectedCombatant.hasBuff(SPELLS.KILLING_MACHINE.id, event.timestamp) ? 1 : 4;
+    this.hitThreshold = this.selectedCombatant.hasBuff(SPELLS.KILLING_MACHINE.id, event.timestamp) ? 1 : 2;
     this.hits = 0;
   }
 
@@ -69,7 +69,7 @@ class Frostscythe extends Analyzer {
     when(this.efficencyThresholds).addSuggestion((suggest, actual, recommended) => {
       return suggest(
         <>
-          Your <SpellLink id={SPELLS.FROSTSCYTHE_TALENT.id} /> efficiency can be improved. Only cast Frostscythe if you have a <SpellLink id={SPELLS.KILLING_MACHINE.id} icon /> proc or you can hit 3+ targets.
+          Your <SpellLink id={SPELLS.FROSTSCYTHE_TALENT.id} /> efficiency can be improved. Only cast Frostscythe if you have a <SpellLink id={SPELLS.KILLING_MACHINE.id} icon /> proc or you can hit 2+ targets.
         </>)
         .icon(SPELLS.FROSTSCYTHE_TALENT.icon)
         .actual(`${formatPercentage(actual)}% Frostscythe efficiency`)
@@ -83,7 +83,7 @@ class Frostscythe extends Analyzer {
         icon={<SpellIcon id={SPELLS.FROSTSCYTHE_TALENT.id} />}
         value={`${formatPercentage(this.efficiency)}%`}
         label="Frostscythe efficiency"
-        tooltip={`A good cast is one where you either hit 1+ targets with a Killing Machine buff or you hit 3+ targets.  You had ${this.goodCasts} / ${this.casts} good casts`}
+        tooltip={`A good cast is one where you either hit 1+ targets with a Killing Machine buff or you hit 2+ targets.  You had ${this.goodCasts} / ${this.casts} good casts`}
       />
     );
   }

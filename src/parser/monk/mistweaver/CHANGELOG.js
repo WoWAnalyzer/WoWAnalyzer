@@ -6,6 +6,13 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 11, 25), <>Fixed upwelling randomly bugging out. </>,Abelito75),
+  change(date(2019, 11, 20), <>Added Uplift revival reduction to rising mist tooltip. </>,Abelito75),
+  change(date(2019, 11, 16), <>Updated a few spells to use new methods. </>,Abelito75),
+  change(date(2019, 11, 12), <>Big Rising Mist overhaul. Now includes extra Vivify cleaves, Enveloping Mist, and Gusts Of mist hits from Essence Font's Hot. </>,Abelito75),
+  change(date(2019, 11, 9), <>Added upwelling statistic. </>,Abelito75),
+  change(date(2019, 11, 9), <>Fixed Tier45 comparison if you didn't play in a way where mana would be returned/saved. </>,Abelito75),
+  change(date(2019, 10, 14), <>Fixed small typos for rising mist statistic box. </>,Abelito75),
   change(date(2019, 10, 14), <>Spelling and grammar corrections in Tier 45 comparison tool. </>,JeremyDwayne),
   change(date(2019, 10, 13), <>Fixed Tier 45 comparison tool. </>,Abelito75),
   change(date(2019, 10, 13), <>New Tier 45 comparison tool to see if you picked the best talent for your playstyle. </>,Abelito75),
