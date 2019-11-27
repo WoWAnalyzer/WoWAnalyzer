@@ -9,11 +9,12 @@ import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemHealingDone from 'interface/others/ItemHealingDone';
 import UptimeIcon from 'interface/icons/Uptime';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import calculateEffectiveHealing from 'parser/core/calculateEffectiveHealing';
 
-import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../constants';
+import { HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD } from '../constants';
 
 const EARTHSHIELD_HEALING_INCREASE = 0.10;
 
@@ -27,24 +28,25 @@ class EarthShield extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.EARTH_SHIELD_TALENT.id);
+
+    // event listener for direct heals when taking damage with earth shield
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EARTH_SHIELD_HEAL), this.onEarthShieldDirectHeal);
+
+    // event listener for healing being buffed by having earth shield on the target
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD), this.onHeal);
   }
 
-  on_byPlayer_heal(event) {
+  onEarthShieldDirectHeal(event) {
     const spellId = event.ability.guid;
-
     if (spellId === SPELLS.EARTH_SHIELD_HEAL.id) {
-      this.healing += event.amount + (event.absorbed || 0);
-      return;
+      this.healing += calculateEffectiveHealing(event, 0);
     }
+  }
 
-    const spellEffectedByHealingIncreases = ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId)
+  onHeal(event) {
     const combatant = this.combatants.players[event.targetID];
-
-    if (spellEffectedByHealingIncreases && combatant) {
-      const hasBuff = combatant.hasBuff(SPELLS.EARTH_SHIELD_TALENT.id, event.timestamp);
-      if (hasBuff) {
-        this.buffHealing += calculateEffectiveHealing(event, EARTHSHIELD_HEALING_INCREASE);
-      }
+    if (combatant && combatant.hasBuff(SPELLS.EARTH_SHIELD_TALENT.id, event.timestamp)) {
+      this.buffHealing += calculateEffectiveHealing(event, EARTHSHIELD_HEALING_INCREASE);
     }
   }
 
