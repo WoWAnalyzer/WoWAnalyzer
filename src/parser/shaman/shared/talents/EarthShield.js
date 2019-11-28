@@ -62,8 +62,7 @@ class EarthShield extends Analyzer {
   }
 
   onEarthShieldHeal(event) {
-    const amountWthoutSelfAmp = event.amount / 1.1;
-    this.healing += (amountWthoutSelfAmp + (event.absorbed || 0));
+    this.healing += (event.amount + (event.absorbed || 0));
   }
 
   onEarthShieldAmpSpellHeal(event) {
