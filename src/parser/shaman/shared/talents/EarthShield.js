@@ -68,7 +68,6 @@ class EarthShield extends Analyzer {
   onEarthShieldAmpSpellHeal(event) {
     const combatant = this.combatants.players[event.targetID];
     if (combatant && combatant.hasBuff(SPELLS.EARTH_SHIELD_TALENT.id, event.timestamp)) {
-      console.log(event);
       this.buffHealing += calculateEffectiveHealing(event, EARTHSHIELD_HEALING_INCREASE);
     }
   }
@@ -79,7 +78,7 @@ class EarthShield extends Analyzer {
         label={<SpellLink id={SPELLS.EARTH_SHIELD_TALENT.id} />}
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(45)}
-        tooltip={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))}% from the HoT and ${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.buffHealing))}% from the healing amp.`}
+        tooltip={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))}% from the HoT and ${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.buffHealing))}% from the healing increase.`}
         value={
           (
             <div>
