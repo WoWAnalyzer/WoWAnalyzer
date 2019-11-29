@@ -11,6 +11,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatisticBox, { STATISTIC_ORDER, STATISTIC_CATEGORY } from 'interface/others/StatisticBox';
 import SpellLink from 'common/SpellLink';
 import Events from 'parser/core/Events';
+import TalentStatisticBox from 'interface/others/TalentStatisticBox';
 
 class CallTheThunder extends Analyzer {
   overcapPrevented = 0;
@@ -38,9 +39,9 @@ class CallTheThunder extends Analyzer {
 
   statistic() {
     return (
-      <StatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={SPELLS.CALL_THE_THUNDER_TALENT.id} />}
+      <TalentStatisticBox
+        talent={SPELLS.CALL_THE_THUNDER_TALENT.id}
+        position={STATISTIC_ORDER.OPTIONAL(30)}
         value={`${formatNumber(this.overcapPrevented)}`}
         label="Wasted maelstrom prevented"
         tooltip={(
