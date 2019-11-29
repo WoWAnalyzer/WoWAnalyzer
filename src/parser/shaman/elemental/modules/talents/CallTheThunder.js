@@ -18,22 +18,26 @@ class CallTheThunder extends Analyzer {
   maelstromAtPreviousEnergize = 0;
 
   earthShockCasts = 0;
-  earthQuakeCasts = 0;
+  earthquakeCasts = 0;
 
   earthShockDamage = 0;
-  earthQuakeDamage = 0;
+  earthquakeDamage = 0;
 
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(SPELLS.CALL_THE_THUNDER_TALENT.id);
 
+    if (!this.active) {
+      return;
+    }
+
     this.addEventListener(Events.energize.by(SELECTED_PLAYER), this.onEnergize);
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EARTH_SHOCK), this.onEarthShockOrEarthquakeCast);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EARTHQUAKE), this.onEarthShockOrEarthquakeCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EARTH_SHOCK), this.onEarthShockCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.EARTHQUAKE), this.onEarthquakeCast);
     
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.EARTH_SHOCK), this.onEarthShockOrEarthquakeDamage);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.EARTHQUAKE_DAMAGE), this.onEarthShockOrEarthquakeDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.EARTH_SHOCK), this.onEarthShockDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.EARTHQUAKE_DAMAGE), this.onEarthquakeDamage);
   }
 
   get bonusEarthShockCasts() {
@@ -41,7 +45,7 @@ class CallTheThunder extends Analyzer {
   }
 
   get bonusEarthquakeCasts() {
-    return Math.floor(this.earthQuakeCasts - (this.earthQuakeCasts * 50 / 60));
+    return Math.floor(this.earthquakeCasts - (this.earthquakeCasts * 50 / 60));
   }
 
   get bonusEarthShockDps() {
@@ -49,7 +53,7 @@ class CallTheThunder extends Analyzer {
   }
 
   get bonusEarthquakeDps() {
-    return ((this.earthQuakeDamage / this.earthQuakeCasts) * this.bonusEarthquakeCasts) / (this.owner.fightDuration / 1000);
+    return ((this.earthquakeDamage / this.earthquakeCasts) * this.bonusEarthquakeCasts) / (this.owner.fightDuration / 1000);
   }
 
   onEnergize(event) {
@@ -65,20 +69,20 @@ class CallTheThunder extends Analyzer {
     }
   }
 
-  onEarthShockOrEarthquakeDamage(event) {
-    if (event.ability.guid === SPELLS.EARTH_SHOCK.id) {
-      this.earthShockDamage += event.amount;
-    } else if (event.ability.guid === SPELLS.EARTHQUAKE_DAMAGE.id) {
-      this.earthQuakeDamage += event.amount;
-    }
+  onEarthShockDamage(event) {
+    this.earthShockDamage += event.amount;
   }
 
-  onEarthShockOrEarthquakeCast(event) {
-    if (event.ability.guid === SPELLS.EARTH_SHOCK.id) {
-      this.earthShockCasts++;
-    } else if (event.ability.guid === SPELLS.EARTHQUAKE.id) {
-      this.earthQuakeCasts++;
-    }
+  onEarthquakeDamage(event) {
+    this.earthquakeDamage += event.amount;
+  }
+
+  onEarthShockCast() {
+    this.earthShockCasts++;
+  }
+
+  onEarthquakeCast() {
+    this.earthquakeCasts++;
   }
 
   statistic() {
