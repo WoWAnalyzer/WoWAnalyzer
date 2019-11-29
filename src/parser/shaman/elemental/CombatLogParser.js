@@ -28,6 +28,7 @@ import Icefury from './modules/talents/Icefury';
 import Checklist from './modules/checklist/Module';
 import Buffs from './modules/Buffs';
 
+import NaturalHarmony from '../shared/azerite/NaturalHarmony';
 import LavaShock from './modules/azerite/LavaShock';
 import SynapseShock from '../shared/azerite/SynapseShock';
 import EchoOfTheElementals from './modules/azerite/EchoOfTheElementals';
@@ -75,6 +76,7 @@ class CombatLogParser extends CoreCombatLogParser {
     icefury: Icefury,
 
     // Azerite
+    naturalHarmony: NaturalHarmony,
     lavaShock: LavaShock,
     synapseShock: SynapseShock,
     echoOfTheElementals: EchoOfTheElementals,
