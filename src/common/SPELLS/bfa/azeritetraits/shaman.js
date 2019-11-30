@@ -57,6 +57,26 @@ export default {
     name: 'Igneous Potential',
     icon: 'spell_shaman_lavasurge',
   },
+  NATURAL_HARMONY_TRAIT: {
+    id: 278697, 
+    name: 'Natural Harmony',
+    icon: 'spell_nature_elementalprecision_1',
+  },
+  NATURAL_HARMONY_FIRE_BUFF: {
+    id: 279028, 
+    name: 'Natural Harmony: Fire',
+    icon: 'spell_nature_elementalprecision_1',
+  },
+  NATURAL_HARMONY_FROST_BUFF: {
+    id: 279029, 
+    name: 'Natural Harmony: Frost',
+    icon: 'spell_nature_elementalprecision_1',
+  },
+  NATURAL_HARMONY_NATURE_BUFF: {
+    id: 279033, 
+    name: 'Natural Harmony: Nature',
+    icon: 'spell_nature_elementalprecision_1',
+  },
   // Restoration
   OVERFLOWING_SHORES_TRAIT: {
     id: 277658,
