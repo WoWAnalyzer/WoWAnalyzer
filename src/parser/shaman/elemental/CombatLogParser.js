@@ -10,6 +10,7 @@ import LavaSurge from './modules/core/LavaSurge';
 import StormFireElemental from './modules/features/StormFireElemental';
 
 import Aftershock from './modules/talents/Aftershock';
+import CallTheThunder from './modules/talents/CallTheThunder';
 import Ascendance from './modules/talents/Ascendance';
 import EarthenRage from './modules/talents/EarthenRage';
 import ElementalBlast from './modules/talents/ElementalBlast';
@@ -60,6 +61,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents
     aftershock: Aftershock,
+    callthethunder: CallTheThunder,
     ascendance: Ascendance,
     earthenRage: EarthenRage,
     elementalBlast: ElementalBlast,
