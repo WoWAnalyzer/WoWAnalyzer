@@ -70,11 +70,11 @@ class CallTheThunder extends Analyzer {
   }
 
   onEarthShockDamage(event) {
-    this.earthShockDamage += event.amount;
+    this.earthShockDamage += (event.amount + (event.absorbed || 0));
   }
 
   onEarthquakeDamage(event) {
-    this.earthquakeDamage += event.amount;
+    this.earthquakeDamage += (event.amount + (event.absorbed || 0));
   }
 
   onEarthShockCast() {
