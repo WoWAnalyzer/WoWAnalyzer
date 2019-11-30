@@ -40,7 +40,7 @@ class HolyPaladinChecklist extends React.PureComponent {
           name={<Trans>Use your primary healing spells as often as possible</Trans>}
           description={(
             <Trans>
-              <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />
+              <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> 
               <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} />
               {combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT) ? <SpellLink id={SPELLS.JUDGMENT_CAST.id} /> : '' }
               {combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT) ? ' when using ' : ''}
