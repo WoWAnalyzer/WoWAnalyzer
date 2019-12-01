@@ -53,7 +53,7 @@ class HolyPaladinChecklist extends React.PureComponent {
           )}
         >
           <AbilityRequirement spell={SPELLS.HOLY_SHOCK_CAST.id} />
-          {!owner.builds.GLIMMER.active && <AbilityRequirement spell={SPELLS.LIGHT_OF_DAWN_CAST.id} />}
+          <AbilityRequirement spell={SPELLS.LIGHT_OF_DAWN_CAST.id} />
           {combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT.id) && <AbilityRequirement spell={SPELLS.JUDGMENT_CAST.id} />}
           {combatant.hasTalent(SPELLS.BESTOW_FAITH_TALENT.id) && <AbilityRequirement spell={SPELLS.BESTOW_FAITH_TALENT.id} />}
           {combatant.hasTalent(SPELLS.LIGHTS_HAMMER_TALENT.id) && <AbilityRequirement spell={SPELLS.LIGHTS_HAMMER_TALENT.id} />}
