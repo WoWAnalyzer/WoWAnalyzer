@@ -52,9 +52,13 @@ class CrusadersMight extends Analyzer {
       this.wastedHolyShockReductionMs += COOLDOWN_REDUCTION_MS - reductionMs;
     } else {
       const holyShockCooldown = 9000 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating));
+      if (this.selectedCombatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT.id) && this.selectedCombatant.hasBuff(SPELLS.AVENGING_WRATH.id, event.timestamp)){
+        this.holyShocksCastsLost += 1;
+      } else {
+        this.holyShocksCastsLost += (COOLDOWN_REDUCTION_MS / holyShockCooldown);
+      }
       this.wastedHolyShockReductionMs += COOLDOWN_REDUCTION_MS;
       this.wastedHolyShockReductionCount += 1;
-      this.holyShocksCastsLost += (COOLDOWN_REDUCTION_MS / holyShockCooldown);
       
       // mark the event on the timeline //
       event.meta = event.meta || {};
@@ -63,11 +67,20 @@ class CrusadersMight extends Analyzer {
     }
 
     const lightOfDawnisOnCooldown = this.spellUsable.isOnCooldown(SPELLS.LIGHT_OF_DAWN_CAST.id);
-    if (lightOfDawnisOnCooldown) {
+    if (lightOfDawnisOnCooldown){
       const reductionMs = this.spellUsable.reduceCooldown(SPELLS.LIGHT_OF_DAWN_CAST.id, COOLDOWN_REDUCTION_MS);
       this.effectiveLightOfDawnReductionMs += reductionMs;
       this.wastedLightOfDawnReductionMs += COOLDOWN_REDUCTION_MS - reductionMs;
-    } else {
+      return;
+    }
+
+    // for glimmer if wings is up prioritize Holy Shock > Crusader Strike > Light of Dawn
+    const wingsUp = this.selectedCombatant.hasBuff(SPELLS.AVENGING_WRATH.id, event.timestamp);
+    if (this.owner.builds.GLIMMER.active && wingsUp && holyShockisOnCooldown){
+      return;
+    }
+
+    if (!lightOfDawnisOnCooldown){
       const lightOfDawnCooldown = 15000 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating));
       this.wastedLightOfDawnReductionMs += COOLDOWN_REDUCTION_MS;
       this.wastedLightOfDawnReductionCount += 1;
@@ -106,12 +119,13 @@ class CrusadersMight extends Analyzer {
         label={<Trans>Cooldown reduction</Trans>}
         tooltip={(
           <>
-            You cast Crusader Strike <b>{this.wastedHolyShockReductionCount}</b> time{(this.wastedHolyShockReductionCount > 1)?'s':''} when Holy Shock was off cooldown.<br />
-            This wasted <b>{(this.wastedHolyShockReductionMs/1000).toFixed(1)}</b> seconds of Holy Shock cooldown reduction,<br />
-            preventing you from <b>{Math.floor(this.holyShocksCastsLost)}</b> additional Holy Shock cast{(this.holyShocksLost >= 2) ? 's':''}.<br /><br />
-            You cast Crusader Strike <b>{this.wastedLightOfDawnReductionCount}</b> time{(this.wastedLightOfDawnReductionCount > 1)?'s':''} when Light of Dawn was off cooldown.<br />
-            This wated <b>{(this.wastedLightOfDawnReductionMs/1000).toFixed(1)}</b> seconds of Light of Dawn cooldown reduction,<br />
-            preventing you from <b>{Math.floor(this.lightOfDawnCastsLost)}</b> additional Light of Dawn cast{(this.lightOfDawnCastsLost > 2?'s':'')}.
+            You cast Crusader Strike <b>{this.wastedHolyShockReductionCount}</b> time{(this.wastedHolyShockReductionCount === 1)? '' : 's'} when Holy Shock was off cooldown.<br />
+            This wasted <b>{(this.wastedHolyShockReductionMs/1000).toFixed(1)}</b> seconds of Holy Shock cooldown reduction,<br /> 
+            preventing you from <b>{Math.floor(this.holyShocksCastsLost)}</b> additional Holy Shock cast{(this.holyShocksLost === 1) ? '':'s'}.<br /><br />
+            You cast Crusader Strike <b>{this.wastedLightOfDawnReductionCount}</b> time{(this.wastedLightOfDawnReductionCount === 1)?'':'s'} when Light of Dawn 
+            {this.owner.builds.GLIMMER.active ? ' and Holy Shock were' : ' was'} off cooldown.<br />
+            This wasted <b>{(this.wastedLightOfDawnReductionMs/1000).toFixed(1)}</b> seconds of Light of Dawn cooldown reduction,<br />
+            preventing you from <b>{Math.floor(this.lightOfDawnCastsLost)}</b> additional Light of Dawn cast{(this.lightOfDawnCastsLost > 2 ? 's':'')}.
           </>
         )}
       />
