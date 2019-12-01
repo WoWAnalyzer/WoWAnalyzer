@@ -48,7 +48,8 @@ class HolyPaladinChecklist extends React.PureComponent {
               {combatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT) ? <SpellLink id={SPELLS.CRUSADER_STRIKE.id} /> : ''}
               are your most efficient healing spells available. Try to cast them as much as possible without overhealing. 
               <TooltipElement content={<Trans>When you're not bringing too many healers.</Trans>}>On Mythic</TooltipElement> you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and improving your target selection.{' '}
-              <a href="https://www.wowhead.com/holy-paladin-rotation-guide#gameplay-and-priority-list" target="_blank" rel="noopener noreferrer">More info.</a>
+              {owner.builds.GLIMMER.active ? <a href="https://questionablyepic.com/glimmer-of-light/" target="_blank" rel="noopener noreferrer">More info.</a>
+                : <a href="https://www.wowhead.com/holy-paladin-rotation-guide#gameplay-and-priority-list" target="_blank" rel="noopener noreferrer">More info.</a>}
             </Trans>
           )}
         >
