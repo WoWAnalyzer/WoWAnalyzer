@@ -42,10 +42,12 @@ class HolyPaladinChecklist extends React.PureComponent {
             <Trans>
               <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> 
               <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> 
+              {combatant.hasTalent(SPELLS.BESTOW_FAITH_TALENT) ? <SpellLink id={SPELLS.BESTOW_FAITH_TALENT.id} /> : ''}
               {combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT) ? <SpellLink id={SPELLS.JUDGMENT_CAST.id} /> : '' }
               {combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT) ? ' when using ' : ''}
               {combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT) ? <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} /> : ''}
               {combatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT) ? <SpellLink id={SPELLS.CRUSADER_STRIKE.id} /> : ''}
+
               are your most efficient healing spells available. Try to cast them as much as possible without overhealing. 
               <TooltipElement content={<Trans>When you're not bringing too many healers.</Trans>}>On Mythic</TooltipElement> you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and improving your target selection.{' '}
               {owner.builds.GLIMMER.active ? <a href="https://questionablyepic.com/glimmer-of-light/" target="_blank" rel="noopener noreferrer">More info.</a>

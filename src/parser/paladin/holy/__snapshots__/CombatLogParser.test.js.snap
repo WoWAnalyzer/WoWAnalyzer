@@ -5136,7 +5136,7 @@ exports[`Holy Paladin integration test should match the checklist snapshot 1`] =
                
               Light of Dawn
             </a>
-             {0} {1} {2} {3} are your most efficient healing spells available. Try to cast them as much as possible without overhealing. 
+             {0} {1} {2} {3} {4} are your most efficient healing spells available. Try to cast them as much as possible without overhealing. 
             <dfn
               className=""
               onMouseEnter={[Function]}
@@ -5146,7 +5146,7 @@ exports[`Holy Paladin integration test should match the checklist snapshot 1`] =
             >
               On Mythic
             </dfn>
-             you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and improving your target selection. {4}
+             you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and improving your target selection. {5}
           </div>
         </div>
         <div
