@@ -109,7 +109,7 @@ suggestions(when){
     <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> was off cooldown.  <SpellLink id={SPELLS.CRUSADER_STRIKE.id} /> should be used to reduce the cooldown of 
     <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> and should never be cast when <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> is avalible.  This is a core component of the <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> <a href="https://questionablyepic.com/glimmer-of-light/" target="_blank" rel="noopener noreferrer">build.</a></>)
         .icon(SPELLS.HOLY_SHOCK_CAST.icon)
-        .actual(`${this.wastedHolyShockReductionCount} casts missed.`)
+        .actual(`${Math.floor(this.holyShocksCastsLost)} Holy Shock cast${Math.floor(this.holyShocksCastsLost) === 1 ? '' : 's'} missed.`)
         .recommended(`Casting Holy Shock on cooldown is recommended.`);
     });
   }
