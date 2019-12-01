@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
-  change(date(2019, 12, 1), <><SpellLink id={SPELLS.CRUSADER_STRIKE.id} /> cooldown reduction will correctly adjust for <SpellLink id={SPELLS.SANCTIFIED_WRATH_TALENT.id} />, added <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> build support and fixed spelling errors.</>, [HolySchmidt]),
+  change(date(2019, 12, 1), <><SpellLink id={SPELLS.CRUSADERS_MIGHT_TALENT.id} /> cooldown reduction will correctly adjust for <SpellLink id={SPELLS.SANCTIFIED_WRATH_TALENT.id} />, added <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> build support and fixed spelling errors.</>, [HolySchmidt]),
   change(date(2019, 12, 1), <><SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> build has been added for Holy Paladin, will now link to a guild on the build and not suggest that all mana must be used during a fight.</>, [HolySchmidt]),
   change(date(2019, 11, 23), <><SpellLink id={SPELLS.LIGHTS_DECREE.id} /> statistic added showing healing, beacon healing and added duration.</>, [Taleria]),
   change(date(2019, 11, 9), <>Added suggestion in the timeline and a tooltip to prioritize <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> over <SpellLink id={SPELLS.CRUSADER_STRIKE.id} /> when using <SpellLink id={SPELLS.CRUSADERS_MIGHT_TALENT.id} /> talent.</>, [HolySchmidt]),
