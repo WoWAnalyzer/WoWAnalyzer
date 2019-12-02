@@ -66,13 +66,13 @@ import WayOfTheCrane from './modules/spells/essences/WayOfTheCrane';
 
 // Mana Tracker
 import MistweaverHealingEfficiencyDetails from './modules/features/MistweaverHealingEfficiencyDetails';
-// import HealingEfficiencyDetails from '../../core/healingEfficiency/HealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/MistweaverHealingEfficiencyTracker';
 import ManaTracker from '../../core/healingEfficiency/ManaTracker';
 
 
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
+import EssenceFontHealingBreakdown from './modules/features/EssenceFontHealingBreakdown';
 
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -104,6 +104,7 @@ class CombatLogParser extends CoreCombatLogParser {
     evmVivCastRatio: EvmVivCastRatio,
     masteryStats: MasteryStats,
     buffs: Buffs,
+    essenceFontHealingBreakDown: EssenceFontHealingBreakdown,
 
     // Spells
     essenceFont: EssenceFont,
