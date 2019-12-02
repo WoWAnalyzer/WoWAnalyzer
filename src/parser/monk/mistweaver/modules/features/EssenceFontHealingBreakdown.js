@@ -13,7 +13,7 @@ import DonutChart from 'interface/statistics/components/DonutChart';
 import Statistic from 'interface/statistics/Statistic';
 import EssenceFont from '../spells/EssenceFont';
 
-const debug = false;
+//const debug = false;
 
 class EssenceFontHealingBreakdown extends Analyzer {
   static dependencies = {
@@ -21,7 +21,7 @@ class EssenceFontHealingBreakdown extends Analyzer {
     essenceFont: EssenceFont,
   };
 
-  renderMasterySourceChart() {
+  renderEssenceFontChart() {
     const items = [
       {
         color: '#00bbcc',
@@ -61,7 +61,7 @@ class EssenceFontHealingBreakdown extends Analyzer {
       >
         <div className="pad">
           <label><SpellLink id={SPELLS.ESSENCE_FONT.id}>Essence Font</SpellLink> breakdown</label>
-          {this.renderMasterySourceChart()}
+          {this.renderEssenceFontChart()}
         </div>
       </Statistic>
     );
