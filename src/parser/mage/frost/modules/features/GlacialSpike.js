@@ -23,7 +23,7 @@ class GlacialSpike extends Analyzer {
 
   constructor(...args) {
     super(...args);
-    this.active = this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id);
+    this.active = this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id) && this.owner.build === undefined;
     this.hasSplittingIce = this.selectedCombatant.hasTalent(SPELLS.SPLITTING_ICE_TALENT.id);
   }
 
@@ -116,7 +116,7 @@ class GlacialSpike extends Analyzer {
             You cast <SpellLink id={SPELLS.GLACIAL_SPIKE_TALENT.id} /> inefficiently {this.badCasts} times. Because it is such a potent ability, it is important to maximize its damage by only casting it when at least one of the following is true:
             <ul>
               <li>
-                You have a <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc to
+                You have a <SpellLink id={SPELLS.BRAIN_FREEZE.id} /> proc to &nbsp;
                 <TooltipElement
                   content={(
                     <>

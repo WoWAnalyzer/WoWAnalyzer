@@ -7,14 +7,15 @@ import SpellIcon from 'common/SpellIcon';
 import { formatNumber } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
-const debug = false;
+//const debug = false;
 
 class Vivify extends Analyzer {
   static dependencies = {
@@ -29,31 +30,32 @@ class Vivify extends Analyzer {
   remDuringManaTea = 0;
   numberToCount = 0;
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
+  constructor(...args) {
+    super(...args);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.vivCast);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.handleViv);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS), this.handleMastery);
+  }
 
-    if (SPELLS.VIVIFY.id !== spellId) {
-      return;
-    }
-
+  vivCast(event) {
     this.numberToCount += 1;
     this.lastCastTarget = event.targetID;
   }
 
-  on_byPlayer_heal(event) {
-    const spellId = event.ability.guid;
-
-    if ((spellId === SPELLS.GUSTS_OF_MISTS.id) && (this.lastCastTarget === event.targetID) && this.numberToCount > 0) {
-      this.gustsHealing += (event.amount || 0) + (event.absorbed || 0);
-      this.numberToCount -= 1;
-    }
-
-    if ((spellId === SPELLS.VIVIFY.id) && (this.lastCastTarget !== event.targetID)) {
+  handleViv(event) {
+    if ((this.lastCastTarget !== event.targetID)) {
       this.remVivifyHealCount += 1;
       this.remVivifyHealing += (event.amount || 0 ) + (event.absorbed || 0);
       if (this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_TALENT.id)) {
         this.remDuringManaTea += 1;
       }
+    }
+  }
+
+  handleMastery(event){
+    if ((this.lastCastTarget === event.targetID) && this.numberToCount > 0) {
+      this.gustsHealing += (event.amount || 0) + (event.absorbed || 0);
+      this.numberToCount -= 1;
     }
   }
 
@@ -73,13 +75,6 @@ class Vivify extends Analyzer {
       },
       style: 'number',
     };
-  }
-
-  on_fightend() {
-    if (debug) {
-      console.log("rem viv healing: ", this.remVivifyHealing);
-      console.log("viv gusts healing: ", this.gustsHealing);
-    }
   }
 
   suggestions(when) {

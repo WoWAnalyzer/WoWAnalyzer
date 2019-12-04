@@ -45,6 +45,10 @@ class ShieldBlock extends Analyzer {
       return;
     }
 
+    if(this.shieldBlocksOffensive.length === 0){
+      this.shieldBlockCast(event);//kind of broken but precast shield blocks can't be detected as warcraftlogs doesn't have that data
+    }
+
     if(spellId === SPELLS.SHIELD_SLAM.id){
       this.shieldSlamCast(event);
     }
@@ -58,6 +62,10 @@ class ShieldBlock extends Analyzer {
 
     if(this.selectedCombatant.hasBuff(SPELLS.LAST_STAND.id) && this.bolster){
       return;
+    }
+
+    if(this.shieldBlocksDefensive.length === 0){
+      this.shieldBlockCast(event);//kind of broken but precast shield blocks can't be detected as warcraftlogs doesn't have that data
     }
 
     if(event.blocked > 0){

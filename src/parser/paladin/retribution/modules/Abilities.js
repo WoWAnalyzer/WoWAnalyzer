@@ -3,6 +3,7 @@ import SPELLS from 'common/SPELLS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
 import CoreAbilities from 'parser/core/modules/Abilities';
+import { calculateCooldown } from 'parser/shared/modules/spells/bfa/essences/VisionsOfPerfection';
 
 class Abilities extends CoreAbilities {
   spellbook() {
@@ -26,7 +27,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CRUSADE_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         buffSpellId: SPELLS.CRUSADE_TALENT.id,
-        cooldown: 120,
+        cooldown: combatant.hasEssence(SPELLS.VISION_OF_PERFECTION.traitId) ? calculateCooldown(combatant.neck.itemLevel, 120) : 120,
         enabled: combatant.hasTalent(SPELLS.CRUSADE_TALENT.id),
         gcd: {
           base: 1500,
@@ -42,7 +43,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.AVENGING_WRATH,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         buffSpellId: SPELLS.AVENGING_WRATH.id,
-        cooldown: 120,
+        cooldown: combatant.hasEssence(SPELLS.VISION_OF_PERFECTION.traitId) ? calculateCooldown(combatant.neck.itemLevel, 120) : 120,
         enabled: !combatant.hasTalent(SPELLS.CRUSADE_TALENT.id),
         gcd: {
           base: 1500,

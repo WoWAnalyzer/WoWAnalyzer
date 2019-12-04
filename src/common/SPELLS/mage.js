@@ -316,6 +316,11 @@ export default {
     name: 'Flame Patch',
     icon: 'spell_fire_selfdestruct',
   },
+  IGNITE: {
+    id: 12654,
+    name: 'Ignite',
+    icon: 'spell_fire_incinerate',
+  },
 
   //Arcane
   ARCANE_BLAST: {
