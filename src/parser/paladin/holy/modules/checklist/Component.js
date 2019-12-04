@@ -21,10 +21,11 @@ class HolyPaladinChecklist extends React.PureComponent {
       hasTrinket: PropTypes.func.isRequired,
     }).isRequired,
     thresholds: PropTypes.object.isRequired,
+    owner: PropTypes.object.isRequired,
   };
 
   render() {
-    const { combatant, castEfficiency, thresholds } = this.props;
+    const { combatant, castEfficiency, thresholds, owner } = this.props;
 
     const AbilityRequirement = props => (
       <GenericCastEfficiencyRequirement
@@ -39,8 +40,18 @@ class HolyPaladinChecklist extends React.PureComponent {
           name={<Trans>Use your primary healing spells as often as possible</Trans>}
           description={(
             <Trans>
-              Spells such as <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />, <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> and <SpellLink id={SPELLS.JUDGMENT_CAST.id} /> (with <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} />) are your most efficient healing spells available. Try to cast them as much as possible without overhealing. <TooltipElement content={<Trans>When you're not bringing too many healers.</Trans>}>On Mythic</TooltipElement> you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and improving your target selection.{' '}
-              <a href="https://www.wowhead.com/holy-paladin-rotation-guide#gameplay-and-priority-list" target="_blank" rel="noopener noreferrer">More info.</a>
+              <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} /> 
+              <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} /> 
+              {combatant.hasTalent(SPELLS.BESTOW_FAITH_TALENT) ? <SpellLink id={SPELLS.BESTOW_FAITH_TALENT.id} /> : ''}
+              {combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT) ? <SpellLink id={SPELLS.JUDGMENT_CAST.id} /> : '' }
+              {combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT) ? ' when using ' : ''}
+              {combatant.hasTalent(SPELLS.JUDGMENT_OF_LIGHT_TALENT) ? <SpellLink id={SPELLS.JUDGMENT_OF_LIGHT_HEAL.id} /> : ''}
+              {combatant.hasTalent(SPELLS.CRUSADERS_MIGHT_TALENT) ? <SpellLink id={SPELLS.CRUSADER_STRIKE.id} /> : ''}
+
+              are your most efficient healing spells available. Try to cast them as much as possible without overhealing. 
+              <TooltipElement content={<Trans>When you're not bringing too many healers.</Trans>}>On Mythic</TooltipElement> you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and improving your target selection.{' '}
+              {owner.builds.GLIMMER.active ? <a href="https://questionablyepic.com/glimmer-of-light/" target="_blank" rel="noopener noreferrer">More info.</a>
+                : <a href="https://www.wowhead.com/holy-paladin-rotation-guide#gameplay-and-priority-list" target="_blank" rel="noopener noreferrer">More info.</a>}
             </Trans>
           )}
         >
@@ -118,12 +129,14 @@ class HolyPaladinChecklist extends React.PureComponent {
         >
           <Requirement name={<Trans>Mastery effectiveness</Trans>} thresholds={thresholds.masteryEffectiveness} />
         </Rule>
-        <Rule
-          name={<Trans>Use all of your <ResourceLink id={RESOURCE_TYPES.MANA.id} onClick={e => e.preventDefault()} /></Trans>}
-          description={<Trans>If you have a large amount of mana left at the end of the fight that's mana you could have turned into healing. Try to use all your mana during a fight. A good rule of thumb is to try to match your mana level with the boss's health.</Trans>}
-        >
-          <Requirement name={<Trans>Mana left</Trans>} thresholds={thresholds.manaLeft} />
-        </Rule>
+        {!owner.builds.GLIMMER.active && (
+          <Rule
+            name={<Trans>Use all of your <ResourceLink id={RESOURCE_TYPES.MANA.id} onClick={e => e.preventDefault()} /></Trans>}
+            description={<Trans>If you have a large amount of mana left at the end of the fight that's mana you could have turned into healing. Try to use all your mana during a fight. A good rule of thumb is to try to match your mana level with the boss's health.</Trans>}
+          >
+            <Requirement name={<Trans>Mana left</Trans>} thresholds={thresholds.manaLeft} />
+          </Rule>
+        )}
         <Rule
           name={<Trans>Try to avoid being inactive for a large portion of the fight</Trans>}
           description={(
