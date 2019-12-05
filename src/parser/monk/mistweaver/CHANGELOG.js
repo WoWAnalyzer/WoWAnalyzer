@@ -6,6 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 12, 5), <>Updated stat weight calculation for <SpellLink id={SPELLS.WAY_OF_THE_CRANE.id} /> and Lucid Dreams. </>,Anomoly),
   change(date(2019, 11, 25), <>Added a Essence Font healing breakdown donut. </>,Abelito75),
   change(date(2019, 11, 25), <>Fixed upwelling randomly bugging out. </>,Abelito75),
   change(date(2019, 11, 20), <>Added Uplift revival reduction to rising mist tooltip. </>,Abelito75),
