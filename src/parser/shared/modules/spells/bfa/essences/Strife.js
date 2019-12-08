@@ -96,7 +96,7 @@ class Strife extends Analyzer {
     this.array.forEach((stacks) => {//aka vers * % uptime
       // fyi You get an eslint error if you use indexOf as they want you to use includes but in this instant indexOf is wanted
       // eslint-disable-next-line no-restricted-syntax
-      averageVers += (this.array.indexOf(stacks)*this.vers) * ((stacks)/fightDuration);
+      averageVers += (this.array.indexOf(stacks)*this.vers) * (stacks/fightDuration);
     });
 
     return (
