@@ -144,6 +144,7 @@ import TheWellOfExistence from '../shared/modules/spells/bfa/essences/TheWellOfE
 import TheCrucibleofFlame from '../shared/modules/spells/bfa/essences/TheCrucibleofFlame';
 import WorldveinResonance from '../shared/modules/spells/bfa/essences/WorldveinResonance';
 import NullDynamo from '../shared/modules/spells/bfa/essences/NullDynamo';
+import Strife from '../shared/modules/spells/bfa/essences/Strife';
 
 // Uldir
 import TwitchingTentacleofXalzaix from '../shared/modules/items/bfa/raids/uldir/TwitchingTentacleofXalzaix';
@@ -332,6 +333,7 @@ class CombatLogParser {
     theCrucibleofFlame: TheCrucibleofFlame,
     worldveinResonance: WorldveinResonance,
     nullDynamo: NullDynamo,
+    strife: Strife,
 
     // Uldir
     twitchingTentacleofXalzaix: TwitchingTentacleofXalzaix,
