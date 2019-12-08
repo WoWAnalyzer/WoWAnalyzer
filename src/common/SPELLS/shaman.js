@@ -663,6 +663,7 @@ export default {
     manaCost: 1800,
     color: '#146585',
     coefficient: 1.7,
+    castTime: 2.5,
   },
   HEALING_SURGE_RESTORATION: {
     id: 8004,
