@@ -113,8 +113,10 @@ class Strife extends Analyzer {
             {
               this.array.map((stacks) =>(
                   <tr>
-                  <td>{this.array.indexOf(stacks)}</td>
-                  <td>{this.array.indexOf(stacks) * this.vers}</td>
+                  <td>{// eslint-disable-next-line no-restricted-syntax
+                  this.array.indexOf(stacks)}</td>
+                  <td>{// eslint-disable-next-line no-restricted-syntax
+                  this.array.indexOf(stacks) * this.vers}</td>
                   <td>{formatDuration(stacks/1000)}</td>
                 </tr>
                 
