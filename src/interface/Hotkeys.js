@@ -17,8 +17,8 @@ class Hotkeys extends React.PureComponent {
     if (document.activeElement && document.activeElement !== document.body) {
       return;
     }
-
-    if (e.key === 'l') {
+    //Make it more unlikely that people go to localhost
+    if (e.ctrlKey && e.key === 'l') {
       console.log('Pressed "l". This is a shortcut for redirecting to localhost');
       window.location = `http://localhost:3000${window.location.pathname}`;
     }
