@@ -375,31 +375,40 @@ statistic() {
       <label style={{margin: "10px"}}><Trans>Beacon Uptime</Trans></label>
       
       {/*  adds a section for BoL stats if BoV talent is not taken */}
-      {!this.hasBoV && <div style={boringSpellValueContainer}>
+      {!this.hasBoV && 
+      (
+        <div style={boringSpellValueContainer}>
         <BoringSpellValue
           spell={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF}
           value={`${this.uptimeBoLPerc}%`}
           label={<Trans>BoL Uptime</Trans>} />
         {this.missingBoLPrepull && missingPrepullContainer}
-        </div>}
+        </div>
+      )}
         
       {/* adds a section for BoF stats if BoF talent taken */}
-      {this.hasBoF && <div style={boringSpellValueContainer}>
+      {this.hasBoF && 
+      (
+        <div style={boringSpellValueContainer}>
         <BoringSpellValue
           spell={SPELLS.BEACON_OF_FAITH_TALENT}
           value={`${this.uptimeBoFPerc}%`}
           label={<Trans>BoF Uptime</Trans>} />
         
         {this.missingBoFPrepull && missingPrepullContainer}
-        </div>}
+        </div>
+      )}
 
       {/* adds a section for BoV stats if BoV talent taken */}
-      {this.hasBoV && <div style={boringSpellValueContainer}>
-          <BoringSpellValue
-            spell={SPELLS.BEACON_OF_VIRTUE_TALENT}
-            value={`${this.uptimeBoVPerc}%`}
-            label={<Trans>BoV Uptime</Trans>} />
-        </div>}
+      {this.hasBoV && 
+      (
+        <div style={boringSpellValueContainer}>
+        <BoringSpellValue
+          spell={SPELLS.BEACON_OF_VIRTUE_TALENT}
+          value={`${this.uptimeBoVPerc}%`}
+          label={<Trans>BoV Uptime</Trans>} />
+        </div>
+      )}
     </Statistic>
     );
   }
