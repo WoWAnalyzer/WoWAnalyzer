@@ -25,8 +25,8 @@ class ChainHeal extends Analyzer {
   };
 
   buffer = [];
-  chainHeals = [];
-  cast = 0;
+  chainHealHistory = [];
+  castIndex = 0;
   chainHealTimestamp = 0;
 
   constructor(...args) {
@@ -53,26 +53,26 @@ class ChainHeal extends Analyzer {
     if (this.buffer.length === 0) {
       return;
     }
-    this.cast++;
-    this.chainHeals[this.cast] = {};
-    const cast = this.buffer.find(event => event.type === "cast");
-    if (!cast) {
+    this.castIndex++;
+    this.chainHealHistory[this.castIndex] = {};
+    const currentCast = this.buffer.find(event => event.type === "cast");
+    if (!currentCast) {
       return;
     }
-    const combatant = this.combatants.getEntity(cast);
+    const combatant = this.combatants.getEntity(currentCast);
     if (!combatant) {
       return;
     }
-    this.chainHeals[this.cast].target = {
-      id: cast.targetID,
+    this.chainHealHistory[this.castIndex].target = {
+      id: currentCast.targetID,
       name: combatant.name,
       spec: SPECS[combatant.specId],
       specClassName: SPECS[combatant.specId].className.replace(' ', ''),
     };
 
-    this.chainHeals[this.cast].timestamp = cast.timestamp;
-    this.chainHeals[this.cast].castNo = this.cast;
-    this.chainHeals[this.cast].hits = this.buffer.filter(event => event.type === "heal").length;
+    this.chainHealHistory[this.castIndex].timestamp = currentCast.timestamp;
+    this.chainHealHistory[this.castIndex].castNo = this.castIndex;
+    this.chainHealHistory[this.castIndex].hits = this.buffer.filter(event => event.type === "heal").length;
     this.buffer = [];
   }
 
@@ -119,7 +119,7 @@ class ChainHeal extends Analyzer {
       return false;
     }
 
-    const singleHits = this.chainHeals.filter(cast => cast.hits === 1);
+    const singleHits = this.chainHealHistory.filter(cast => cast.hits === 1);
 
     return (
       <StatisticBox
@@ -147,7 +147,7 @@ class ChainHeal extends Analyzer {
               </thead>
               <tbody>
                 {
-                  this.chainHeals
+                  this.chainHealHistory
                     .filter(cast => cast.hits === 1)
                     .map(cast => (
                       <tr key={cast.timestamp}>
