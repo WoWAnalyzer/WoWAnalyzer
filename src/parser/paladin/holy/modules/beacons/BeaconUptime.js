@@ -260,7 +260,7 @@ class BeaconUptime extends Analyzer {
       }
     }
 
-    _handleBoLBuffs(event) {
+    _handleBoLEvents(event) {
       const {postpull,update} = this.BuffEventType;
 
       if(event.ability.guid === this.idBoL) {
@@ -273,7 +273,7 @@ class BeaconUptime extends Analyzer {
       }
     }
 
-    _handleBoFBuffs(event) {
+    _handleBoFEvents(event) {
       const {postpull,update} = this.BuffEventType;
 
       // post pull BoF buff applied
@@ -348,12 +348,12 @@ class BeaconUptime extends Analyzer {
       // all postpull checks
 
       if(this.hasBoL) {
-        this._handleBoLBuffs(event);
+        this._handleBoLEvents(event);
         return;
       }
 
       if(this.hasBoF) {
-        this._handleBoFBuffs(event);
+        this._handleBoFEvents(event);
         return;
       }
     }
@@ -383,7 +383,7 @@ statistic() {
           value={`${this.uptimeBoLPerc}%`}
           label={<Trans>BoL Uptime</Trans>} />
         {this.missingBoLPrepull && missingPrepullContainer}
-        </div>
+        </div> 
       )}
         
       {/* adds a section for BoF stats if BoF talent taken */}
