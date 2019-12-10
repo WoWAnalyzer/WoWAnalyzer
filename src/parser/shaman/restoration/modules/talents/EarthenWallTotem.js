@@ -52,7 +52,7 @@ class EarthenWallTotem extends Analyzer {
 
     this.castNumber += 1;
     this.earthenWallTotems[this.castNumber] = {
-      potentialHealing: this.isMaghar ? Math.floor(event.maxHitPoints * (1+MAGHAR_ORC_PET_HEALTH_INCREASE)) : event.maxHitPoints,
+      potentialHealing: this.isMaghar ? Math.floor(event.maxHitPoints * (1 + MAGHAR_ORC_PET_HEALTH_INCREASE)) : event.maxHitPoints,
       effectiveHealing: 0,
       timestamp: event.timestamp,
     };
@@ -62,7 +62,7 @@ class EarthenWallTotem extends Analyzer {
     if (this.prePullCast) {
       this.earthenWallTotems[this.castNumber] = {
         potentialHealing: event.maxHitPoints, // this is taking the totems max HP, which is the same result as the players unless Mag'har Orc
-        effectiveHealing: this.earthenWallTotems[this.castNumber].effectiveHealing || 0,
+        effectiveHealing: (this.earthenWallTotems[this.castNumber] && this.earthenWallTotems[this.castNumber].effectiveHealing) || 0,
         timestamp: this.owner.fight.start_time,
       };
       this.prePullCast = false;
@@ -83,7 +83,7 @@ class EarthenWallTotem extends Analyzer {
       return;
     }
     // Prepull EWT casts will have absorb events first, but those don't have any health information
-    if(!this.earthenWallTotems[this.castNumber]) {
+    if (!this.earthenWallTotems[this.castNumber]) {
       this.earthenWallTotems[this.castNumber] = {
         effectiveHealing: 0,
       };

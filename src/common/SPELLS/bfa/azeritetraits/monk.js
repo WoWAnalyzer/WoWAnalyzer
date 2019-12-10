@@ -171,4 +171,9 @@ export default {
     name: 'Way of the Crane',
     icon: 'monk_stance_redcrane',
   },
+  STRENGTH_OF_SPIRIT: {
+    id: 274774,
+    name: 'Strength of Spirit',
+    icon: 'ability_monk_healthsphere',
+  },
 };

@@ -143,6 +143,13 @@ export const Sharrq = {
 export const Khazak = {
   nickname: 'Khazak',
   github: 'jjs451',
+  avatar: require('./interface/images/avatars/khazak-avatar.png'),
+  discord: 'Khazak#3360',
+  mains: [{
+    name: 'Khazakk',
+    spec: SPECS.FROST_DEATH_KNIGHT,
+    link: 'https://worldofwarcraft.com/en-us/character/us/stormrage/khazakk',
+  }],
 };
 export const Bicepspump = {
   nickname: 'Bicepspump',
@@ -795,4 +802,14 @@ export const JeremyDwayne = {
       link: 'https://worldofwarcraft.com/en-us/character/us/stormrage/dovesoap',
     },
   ],
+};
+export const Taleria = {
+  nickname: 'Taleria',
+  github: 'bramdevries',
+  avatar: require('./interface/images/avatars/taleria-avatar.png'),
+  mains: [{
+    name: 'Taleria',
+    spec: SPECS.HOLY_PALADIN,
+    link: 'https://worldofwarcraft.com/en-gb/character/eu/eonar/Taleria',
+  }],
 };

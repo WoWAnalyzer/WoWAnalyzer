@@ -2508,6 +2508,10 @@ exports[`Holy Paladin integration test analyzers LightOfDawnIndexer matches the 
 
 exports[`Holy Paladin integration test analyzers LightOfDawnIndexer matches the suggestions snapshot 1`] = `Array []`;
 
+exports[`Holy Paladin integration test analyzers LightsDecree matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`Holy Paladin integration test analyzers LightsDecree matches the suggestions snapshot 1`] = `"module inactive"`;
+
 exports[`Holy Paladin integration test analyzers LowHealthHealing matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`Holy Paladin integration test analyzers LowHealthHealing matches the suggestions snapshot 1`] = `Array []`;
@@ -4480,7 +4484,7 @@ Array [
       />
        (
       <WithI18n
-        id=">\{0}% is recommended"
+        id=">{0}% is recommended"
         values={
           Object {
             "0": "25.00",
@@ -5105,7 +5109,6 @@ exports[`Holy Paladin integration test should match the checklist snapshot 1`] =
           <div
             className="col-md-12"
           >
-            Spells such as 
             <a
               href="http://wowhead.com/spell=20473"
               rel="noopener noreferrer"
@@ -5119,7 +5122,7 @@ exports[`Holy Paladin integration test should match the checklist snapshot 1`] =
                
               Holy Shock
             </a>
-            , 
+             
             <a
               href="http://wowhead.com/spell=85222"
               rel="noopener noreferrer"
@@ -5133,35 +5136,7 @@ exports[`Holy Paladin integration test should match the checklist snapshot 1`] =
                
               Light of Dawn
             </a>
-             and 
-            <a
-              href="http://wowhead.com/spell=20271"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/spell_holy_righteousfury.jpg"
-              />
-               
-              Judgment
-            </a>
-             (with 
-            <a
-              href="http://wowhead.com/spell=183811"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <img
-                alt=""
-                className="icon game "
-                src="//render-us.worldofwarcraft.com/icons/56/spell_holy_divineprovidence.jpg"
-              />
-               
-              Judgment of Light
-            </a>
-            ) are your most efficient healing spells available. Try to cast them as much as possible without overhealing. 
+             {0} {1} {2} {3} {4} are your most efficient healing spells available. Try to cast them as much as possible without overhealing. 
             <dfn
               className=""
               onMouseEnter={[Function]}
@@ -5171,14 +5146,7 @@ exports[`Holy Paladin integration test should match the checklist snapshot 1`] =
             >
               On Mythic
             </dfn>
-             you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and improving your target selection. 
-            <a
-              href="https://www.wowhead.com/holy-paladin-rotation-guide#gameplay-and-priority-list"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              More info.
-            </a>
+             you can often still cast these spells more even if you were overhealing by casting it quicker when it comes off cooldown and improving your target selection. {5}
           </div>
         </div>
         <div

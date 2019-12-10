@@ -1,4 +1,8 @@
-import { calculateOverhealing, OffensivePenanceBoltEstimation, SmiteEstimation } from './SpellCalculations';
+import {
+  calculateOverhealing,
+  OffensivePenanceBoltEstimation,
+  SmiteEstimation,
+} from './SpellCalculations';
 
 const mockStatTracker = (intellect = 100, vers = 0, mastery = 0) => ({
   currentIntellectRating: intellect,
@@ -32,101 +36,77 @@ describe('[PENANCE] Spell Calculations', () => {
 
     expect(boltEstimator()).toEqual({
       boltDamage: 40,
-      boltHealing: 16,
+      boltHealing: 22,
     });
   });
 
   it('Estimates Offensive Penance Bolts Correctly with Versatility', () => {
-    const boltEstimator = OffensivePenanceBoltEstimation(mockStatTracker(100, .25));
+    const boltEstimator = OffensivePenanceBoltEstimation(
+      mockStatTracker(100, 0.25),
+    );
 
     expect(boltEstimator()).toEqual({
       boltDamage: 50,
-      boltHealing: 20,
+      boltHealing: 28,
     });
   });
 });
 
 describe('[SMITE] Spell Calculations', () => {
   const fixtures = [
-    {sins: 0, int: 100, vers: 0, expected: {
+    {
+      sins: 0,
+      int: 100,
+      vers: 0,
+      expected: {
         smiteDamage: 71,
-        smiteHealing: 28,
-      }},
-    {sins: 0, int: 100, vers: .25, expected: {
+        smiteHealing: 39,
+      },
+    },
+    {
+      sins: 0,
+      int: 100,
+      vers: 0.25,
+      expected: {
         smiteDamage: 88,
-        smiteHealing: 35,
-      }},
-    {sins: 0, int: 100, vers: 0, expected: {
+        smiteHealing: 48,
+      },
+    },
+    {
+      sins: 0,
+      int: 100,
+      vers: 0,
+      expected: {
         smiteDamage: 71,
-        smiteHealing: 28,
-      }},
-    {sins: 0, int: 100, vers: 0, expected: {
+        smiteHealing: 39,
+      },
+    },
+    {
+      sins: 0,
+      int: 100,
+      vers: 0,
+      expected: {
         smiteDamage: 71,
-        smiteHealing: 28,
-      }},
-    // DISABLED temporarily -- gifts got its scaling factor changed and
-    // new data is needed
-    /*
-    {sins: 0, giftRanks: [300], giftActive: true, int: 100, vers: 0, expected: {
-        smiteDamage: 458,
-        smiteHealing: 183,
-        giftDamage: 387,
-        giftHealing: 155,
-      }},
-    {sins: 0, giftRanks: [300], giftActive: true, int: 100, vers: .25, expected: {
-        smiteDamage: 572,
-        smiteHealing: 229,
-        giftDamage: 484,
-        giftHealing: 194,
-      }},
-    {sins: .12, giftRanks: [300], giftActive: false, int: 100, vers: 0, expected: {
-        smiteDamage: 79,
-        smiteHealing: 32,
-        giftDamage: 0,
-        giftHealing: 0,
-      }},
-    {sins: .12, giftRanks: [300], giftActive: false, int: 100, vers: .25, expected: {
-        smiteDamage: 99,
-        smiteHealing: 40,
-        giftDamage: 0,
-        giftHealing: 0,
-      }},
-    */
-    {sins: .08, int: 100, vers: .25, expected: {
+        smiteHealing: 39,
+      },
+    },
+    {
+      sins: 0.08,
+      int: 100,
+      vers: 0.25,
+      expected: {
         smiteDamage: 95,
-        smiteHealing: 38,
-      }},
-    /*
-    {sins: .12, giftRanks: [300], giftActive: true, int: 100, vers: .25, expected: {
-        smiteDamage: 641,
-        smiteHealing: 257,
-        giftDamage: 542,
-        giftHealing: 217,
-      }},
-    {sins: .08, giftRanks: [300], giftActive: true, int: 100, vers: .25, expected: {
-        smiteDamage: 617,
-        smiteHealing: 247,
-        giftDamage: 522,
-        giftHealing: 209,
-      }},
-    {sins: .08, giftRanks: [300, 290], giftActive: true, int: 100, vers: .25, expected: {
-        smiteDamage: 1095,
-        smiteHealing: 438,
-        giftDamage: 1000,
-        giftHealing: 400,
-      }},
-    {sins: .08, giftRanks: [300, 290, 280], giftActive: true, int: 100, vers: .25, expected: {
-        smiteDamage: 1527,
-        smiteHealing: 611,
-        giftDamage: 1432,
-        giftHealing: 573,
-      }},
-    */
+        smiteHealing: 52,
+      },
+    },
   ];
 
   fixtures.forEach((fixture, i) => {
     it(`Estimates Smite Correctly #${i}`, () => {
-      const smiteEstimator = SmiteEstimation(mockStatTracker(fixture.int, fixture.vers), {currentBonus: fixture.sins});
+      const smiteEstimator = SmiteEstimation(
+        mockStatTracker(fixture.int, fixture.vers),
+        { currentBonus: fixture.sins },
+      );
 
       expect(smiteEstimator()).toEqual(fixture.expected);
     });

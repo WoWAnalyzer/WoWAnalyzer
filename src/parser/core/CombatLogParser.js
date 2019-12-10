@@ -418,11 +418,13 @@ class CombatLogParser {
     return this.getModule(Combatants).selected;
   }
 
-  constructor(report, selectedPlayer, selectedFight, combatantInfoEvents, characterProfile) {
+  constructor(report, selectedPlayer, selectedFight, combatantInfoEvents, characterProfile, build, builds) {
     this.report = report;
     this.player = selectedPlayer;
     this.playerPets = report.friendlyPets.filter(pet => pet.petOwner === selectedPlayer.id);
     this.fight = selectedFight;
+    this.build = build;
+    this.builds = builds;
     this.combatantInfoEvents = combatantInfoEvents;
     // combatantinfo events aren't included in the regular events, but they're still used to analysis. We should have them show in the history to make it complete.
     combatantInfoEvents.forEach(event => this.eventHistory.push(event));
