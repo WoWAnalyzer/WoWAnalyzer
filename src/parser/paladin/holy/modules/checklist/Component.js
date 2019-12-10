@@ -150,6 +150,39 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
             name={<SpellLink id={SPELLS.BESTOW_FAITH_TALENT.id} />}
             thresholds={thresholds.overhealing.bestowFaith}
           />
+        </Rule>
+        <Rule
+          name={<Trans>Beacon Mastery</Trans>}
+          description={<Trans>A common misconception about Holy Paladins is that we should focus tanks when healing. This is actually inefficient. Let your beacons do most of the work, ask your co-healers to keep efficient HoTs on the tanks and only directly heal the tanks when they would otherwise die.</Trans>}
+          >
+          <Requirement name={<Trans>Direct beacon healing</Trans>} thresholds={thresholds.directBeaconHealing} />
+          
+          {!combatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id) && 
+            <Requirement name={<Trans><SpellLink id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id} onClick={e => e.preventDefault()} /> applied prepull</Trans>} thresholds={thresholds.beaconUptimeBoL} />}
+          {!combatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id) && 
+            <Requirement name={<Trans><SpellLink id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id} onClick={e => e.preventDefault()} /> Uptime</Trans>} thresholds={thresholds.beaconUptimeBoLUptime} />}
+          {combatant.hasTalent(SPELLS.BEACON_OF_FAITH_TALENT.id) && 
+            <Requirement name={<Trans><SpellLink id={SPELLS.BEACON_OF_FAITH_TALENT.id} onClick={e => e.preventDefault()} /> applied prepull</Trans>} thresholds={thresholds.beaconUptimeBoF} />}
+          {combatant.hasTalent(SPELLS.BEACON_OF_FAITH_TALENT.id) && 
+            <Requirement name={<Trans><SpellLink id={SPELLS.BEACON_OF_FAITH_TALENT.id} onClick={e => e.preventDefault()} /> Uptime</Trans>} thresholds={thresholds.beaconUptimeBoFUptime} />}
+        </Rule>
+        <Rule
+          name={<Trans>Position yourself well to maximize <SpellLink id={SPELLS.MASTERY_LIGHTBRINGER.id} onClick={e => e.preventDefault()} /></Trans>}
+          description={(
+            <Trans>
+              <SpellLink id={SPELLS.MASTERY_LIGHTBRINGER.id} /> has a big impact on the strength of your heals. Try to stay close to the people you are healing to benefit the most from your Mastery. Use <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> when healing people further away.
+            </Trans>
+          )}
+        >
+          <Requirement name={<Trans>Mastery effectiveness</Trans>} thresholds={thresholds.masteryEffectiveness} />
+        </Rule>
+        {!owner.builds.GLIMMER.active && (
+          <Rule
+            name={<Trans>Use all of your <ResourceLink id={RESOURCE_TYPES.MANA.id} onClick={e => e.preventDefault()} /></Trans>}
+            description={<Trans>If you have a large amount of mana left at the end of the fight that's mana you could have turned into healing. Try to use all your mana during a fight. A good rule of thumb is to try to match your mana level with the boss's health.</Trans>}
+          >
+            <Requirement name={<Trans>Mana left</Trans>} thresholds={thresholds.manaLeft} />
+          </Rule>
         )}
       </Rule>
       <PreparationRule thresholds={thresholds} />
