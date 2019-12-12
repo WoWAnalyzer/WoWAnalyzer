@@ -104,7 +104,7 @@ class BaseHealerAzerite extends Analyzer {
             </h4>
             <div className="flex" style={{ borderBottom: '1px solid #fab700', fontWeight: 'bold', fontSize: '14px', padding: '6px 22px 5px' }}>
               <div className="flex-main">
-                {`Total`}
+                Total
               </div>
               <div className="flex-sub text-right">
                 <ItemHealingDone amount={this.totalHealing} />

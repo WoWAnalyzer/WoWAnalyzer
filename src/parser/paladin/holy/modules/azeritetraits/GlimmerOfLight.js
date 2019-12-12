@@ -138,7 +138,7 @@ class GlimmerOfLight extends Analyzer {
       return suggest(
         <>
           Your usage of <SpellLink id={SPELLS.GLIMMER_OF_LIGHT.id} /> can be improved. Try to avoid overwritting buffs too early.
-        </>
+        </>,
       )
         .icon(SPELLS.GLIMMER_OF_LIGHT.icon)
         .actual(`Percentage uptime lost to early refresh was ${formatPercentage(this.glimmersWasted)}%`)

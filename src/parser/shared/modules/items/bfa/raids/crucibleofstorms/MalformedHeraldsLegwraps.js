@@ -128,7 +128,7 @@ class MalformedHeraldsLegwraps extends Analyzer {
       return suggest(
         <>
           Your usage of <ItemLink id={ITEMS.MALFORMED_HERALDS_LEGWRAPS.id} /> can be improved. Try to use it when you will get the most duration out of the haste buff without having to step out of it (and without losing uses).
-        </>
+        </>,
       )
         .icon(ITEMS.MALFORMED_HERALDS_LEGWRAPS.icon)
         .actual(`${formatPercentage(actual)}% of buff uptime wasted.`)

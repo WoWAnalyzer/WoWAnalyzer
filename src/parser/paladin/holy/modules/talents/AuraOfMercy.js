@@ -47,7 +47,7 @@ class AuraOfMercy extends Analyzer {
       return suggest(
         <Trans>
           The healing done by your <SpellLink id={SPELLS.AURA_OF_MERCY_TALENT.id} /> is low. Try to find a better moment to cast it or consider changing to <SpellLink id={SPELLS.DEVOTION_AURA_TALENT.id} /> which can be more reliable and generally offers more throughput.
-        </Trans>
+        </Trans>,
       )
         .icon(SPELLS.AURA_OF_MERCY_TALENT.icon)
         .actual(<Trans>{formatNumber(actual)} HPS</Trans>)

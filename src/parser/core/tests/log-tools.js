@@ -65,7 +65,7 @@ export function parseLog(parserClass, log, build = undefined) {
     log.combatants,
     null,
     build,
-    builds
+    builds,
   );
   return suppressLogging(true, true, false, () => {
     parser.normalize(JSON.parse(JSON.stringify(log.events))).forEach(event => parser.getModule(EventEmitter).triggerEvent(event));

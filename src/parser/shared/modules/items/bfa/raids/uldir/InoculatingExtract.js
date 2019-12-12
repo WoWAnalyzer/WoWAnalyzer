@@ -85,7 +85,7 @@ class InoculatingExtract extends Analyzer{
           <>
             You had wasted charges from your <ItemLink id={ITEMS.INOCULATING_EXTRACT.id} />.
             Make sure that every buff placed on a target is consumed.
-          </>
+          </>,
         ).icon(ITEMS.INOCULATING_EXTRACT.icon)
           .actual(`${formatPercentage(actual)}% charges used.`)
           .recommended(` ${formatPercentage(recommended)}% is recommended`)

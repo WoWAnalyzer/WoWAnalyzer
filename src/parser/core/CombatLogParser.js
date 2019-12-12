@@ -451,7 +451,7 @@ class CombatLogParser {
       'Event listeners added:', emitter.numEventListeners,
       'Listeners called:', emitter.numListenersCalled,
       'Listeners called (after filters):', emitter.numActualExecutions,
-      'Listeners filtered away:', emitter.numListenersCalled - emitter.numActualExecutions
+      'Listeners filtered away:', emitter.numListenersCalled - emitter.numActualExecutions,
     );
   }
 
@@ -621,7 +621,7 @@ class CombatLogParser {
         if (deps && Object.values(deps).find(depClass => module instanceof depClass)) {
           this.deepDisable(active, MODULE_ERROR.DEPENDENCY);
         }
-      }
+      },
     );
   }
 
@@ -672,7 +672,7 @@ class CombatLogParser {
         React.cloneElement(statistic, {
           key,
           position,
-        })
+        }),
       );
     };
 
@@ -724,7 +724,7 @@ class CombatLogParser {
                       label={title}
                       value={item.result}
                       tooltip={item.tooltip}
-                    />
+                    />,
                   );
                 }
               }

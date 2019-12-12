@@ -210,7 +210,7 @@ class Bloodtalons extends Analyzer {
       return suggest(
         <>
           You are overwriting charges of <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} />. Try to use both charges before you generate more from casting <SpellLink id={SPELLS.REGROWTH.id} /> or <SpellLink id={SPELLS.ENTANGLING_ROOTS.id} />.
-        </>
+        </>,
       )
         .icon(SPELLS.BLOODTALONS_TALENT.icon)
         .actual(`${actual.toFixed(1)} wasted charges of Bloodtalons per minute.`)

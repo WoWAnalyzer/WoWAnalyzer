@@ -317,7 +317,7 @@ class CastEfficiency extends Analyzer {
         return suggest(
           <>
             <Trans>Try to cast <SpellLink id={mainSpell.id} /> more often.</Trans> {ability.castEfficiency.extraSuggestion || ''}
-          </>
+          </>,
         )
           .icon(mainSpell.icon)
           .actual(<Trans>{abilityInfo.casts} out of {abilityInfo.maxCasts} possible casts. You kept it on cooldown {formatPercentage(actual, 0)}% of the time.</Trans>)

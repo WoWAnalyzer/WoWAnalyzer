@@ -106,12 +106,12 @@ class HydrasBite extends Analyzer {
               <tbody>
                 <tr>
                   <td>Main</td>
-                  <td>{<ItemDamageDone amount={this.increasedMainTargetDamage} />}</td>
+                  <td><ItemDamageDone amount={this.increasedMainTargetDamage} /></td>
                   <td>{this.casts}</td>
                 </tr>
                 <tr>
                   <td>Other</td>
-                  <td>{<ItemDamageDone amount={this.spreadDamage} />}</td>
+                  <td><ItemDamageDone amount={this.spreadDamage} /></td>
                   <td>{this.extraApplications}</td>
                 </tr>
               </tbody>

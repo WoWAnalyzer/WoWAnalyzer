@@ -26,7 +26,7 @@ class Portal extends React.PureComponent {
     }
     return ReactDOM.createPortal(
       this.props.children,
-      this.state.elem
+      this.state.elem,
     );
   }
 }

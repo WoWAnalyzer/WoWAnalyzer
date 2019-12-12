@@ -81,13 +81,13 @@ export default class HotTrubTimeMachine extends Analyzer {
     const actualPct = staggerPct(
       this.stats.currentAgilityRating, this.K, 
       this.selectedCombatant.hasBuff(SPELLS.IRONSKIN_BREW_BUFF.id),
-      this.agi.hasHT
+      this.agi.hasHT,
     );
 
     const degenPct = staggerPct(
       this.stats.currentAgilityRating, this.K, 
       false,
-      this.agi.hasHT
+      this.agi.hasHT,
     );
 
     const staggered = event.amount * degenPct / actualPct;

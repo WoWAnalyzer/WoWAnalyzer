@@ -69,7 +69,7 @@ class Details extends React.PureComponent {
       value.push(
         <div>
           <a href={object[key]} target="_blank" rel="noopener noreferrer">{key}</a>
-        </div>
+        </div>,
       );
     });
     return (

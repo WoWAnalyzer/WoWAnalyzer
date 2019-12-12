@@ -20,7 +20,7 @@ class OneVariableBinomialChart extends React.Component {
       PropTypes.shape({
         x: PropTypes.number.isRequired,
         y: PropTypes.number.isRequired,
-      })
+      }),
     ).isRequired,
     actualEvent: PropTypes.shape({
       x: PropTypes.number.isRequired,

@@ -20,8 +20,8 @@ const middleware = routerMiddleware(history);
 const store = createStore(
   reducers,
   composeWithDevTools(
-    applyMiddleware(thunk, middleware)
-  )
+    applyMiddleware(thunk, middleware),
+  ),
 );
 
 const Root = () => (

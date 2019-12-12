@@ -60,7 +60,7 @@ const ABILITIES = {
     TALENTS_ROGUE,
     TALENTS_SHAMAN,
     TALENTS_WARLOCK,
-    TALENTS_WARRIOR
+    TALENTS_WARRIOR,
   ),
   // Talents can be overwritten with custom spell objects
   ...safeMerge(
@@ -79,7 +79,7 @@ const ABILITIES = {
     SHAMAN,
     WARLOCK,
     WARRIOR,
-    BFA
+    BFA,
   ),
 };
 
