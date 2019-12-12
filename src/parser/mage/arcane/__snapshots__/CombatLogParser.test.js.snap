@@ -341,8 +341,7 @@ Array [
     "importance": "minor",
     "issue": <React.Fragment>
       You sometimes aren't standing in your 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={116011}
       />
        for its full duration. Try to only use it when you know you won't have to move for the duration of the effect.

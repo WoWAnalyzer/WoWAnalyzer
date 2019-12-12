@@ -4,7 +4,7 @@ import SPELLS from './SPELLS';
 import SpellLink from './SpellLink';
 import Icon from './Icon';
 
-interface Props {
+interface Props extends Omit<React.ComponentProps<typeof Icon>, 'id' | 'icon'> {
   id: number
   noLink?: boolean
   alt?: string

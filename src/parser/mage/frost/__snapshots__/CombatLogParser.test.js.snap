@@ -221,18 +221,15 @@ Array [
     "importance": "minor",
     "issue": <span>
       Your downtime can be improved. Try to Always Be Casting (ABC) and try to reduce the delay between casting spells. If you have to move, try casting instants; even unbuffed 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={30455}
       />
        spam is better than nothing. Additionally, if you are standing still while waiting for a boss damage reduction or immunity phase to end, you should still be casting 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={116}
       />
        to generate procs or build 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={205473}
       />
       .
@@ -437,19 +434,16 @@ Array [
       You cancelled 
       11.73
       % of your spells. While it is expected that you will have to cancel a few casts to react to boss mechanics or move, you should try to ensure that you are cancelling as few casts as possible by utilizing movement abilities such as 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={1953}
       />
       , 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={212653}
       />
       <React.Fragment>
         , and 
-        <SpellLink
-          icon={true}
+        <ForwardRef
           id={108839}
         />
       </React.Fragment>

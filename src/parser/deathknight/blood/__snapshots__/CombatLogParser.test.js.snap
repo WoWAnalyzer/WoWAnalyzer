@@ -107,13 +107,11 @@ Array [
     "importance": "minor",
     "issue": <React.Fragment>
       While some downtime is inevitable in fights with movement, you should aim to reduce downtime to prevent capping Runes.  You can reduce downtime by casting ranged/filler abilities like 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={206931}
       />
        or 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={50842}
       />
     </React.Fragment>,
@@ -534,8 +532,7 @@ Array [
     "importance": "major",
     "issue": <React.Fragment>
       You had unspent 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={81141}
       />
        procs. Make sure you always use them.

@@ -1,9 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import SPECS from 'game/SPECS';
 
-const SpecIcon = ({ id, className, ...others }) => {
+interface Props extends Omit<React.HTMLAttributes<HTMLImageElement>, 'id'> {
+  id: number
+  className?: string
+}
+
+const SpecIcon = ({ id, className, ...others }: Props) => {
   if (!SPECS[id]) {
     throw new Error(`Unknown spec: ${id}`);
   }
@@ -18,10 +22,6 @@ const SpecIcon = ({ id, className, ...others }) => {
       {...others}
     />
   );
-};
-SpecIcon.propTypes = {
-  id: PropTypes.number.isRequired,
-  className: PropTypes.string,
 };
 
 export default SpecIcon;

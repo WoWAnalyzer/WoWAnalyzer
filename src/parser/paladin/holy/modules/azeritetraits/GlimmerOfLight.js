@@ -1,6 +1,6 @@
 import React from 'react';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SpellLink from 'common/SpellLink.js';
+import SpellLink from 'common/SpellLink';
 
 import { formatNumber } from 'common/format';
 import { formatPercentage } from 'common/format';
@@ -17,7 +17,7 @@ import BeaconHealSource from '../beacons/BeaconHealSource.js';
 /**
  * Glimmer of Light,	Azerite Power
  * Requires Paladin (Holy, Holy)
- * Holy Shock leaves a Glimmer of Light on the target for 30 sec.  
+ * Holy Shock leaves a Glimmer of Light on the target for 30 sec.
  * When you Holy Shock, all targets with Glimmer of Light are damaged for 1076 or healed for 1587. (at ilvl 400)
  * Example Log: https://www.warcraftlogs.com/reports/TX4nzPy8WwrfLv97#fight=19&type=auras&source=5&ability=287280
  */
@@ -66,7 +66,7 @@ class GlimmerOfLight extends Analyzer {
       this.earlyRefresh += 1;
     }
 
-    this.glimmerBuffs[event.targetID] = event.timestamp; 
+    this.glimmerBuffs[event.targetID] = event.timestamp;
   }
 
   onDamage(event){
@@ -80,7 +80,7 @@ class GlimmerOfLight extends Analyzer {
   }
 
   get hitsPerCast(){
-    return this.glimmerHits / this.casts; 
+    return this.glimmerHits / this.casts;
     }
 
   get holyShocksPerMinute(){

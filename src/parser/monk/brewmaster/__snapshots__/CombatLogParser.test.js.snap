@@ -142,8 +142,7 @@ Array [
     "importance": "minor",
     "issue": <React.Fragment>
       Your 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={115181}
       />
        usage can be improved. The associated debuff is a key part of our damage mitigation.
@@ -1582,8 +1581,7 @@ Array [
     "importance": "regular",
     "issue": <React.Fragment>
       You should delay your 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={119582}
       />
        cast as little as possible after being hit to maximize its effectiveness.
@@ -1605,13 +1603,11 @@ Array [
         almost never
       </em>
        cast 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={119582}
       />
        without being in at least 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={124273}
       />
       . Notable exceptions are when you otherwise can't be healed (such as on Zek'voz).
@@ -1629,18 +1625,15 @@ Array [
     "importance": "minor",
     "issue": <React.Fragment>
       You should spend brews not needed to maintain 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={115308}
       />
        on 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={119582}
       />
       . 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={115308}
       />
        has a capped duration, so spending all brews on the buff ultimately wastes resources.
@@ -1651,8 +1644,7 @@ Array [
       <React.Fragment>
         7
          could be cast without dropping 
-        <SpellLink
-          icon={true}
+        <ForwardRef
           id={115308}
         />
       </React.Fragment>
@@ -1672,8 +1664,7 @@ Array [
     "importance": "major",
     "issue": <React.Fragment>
       You had low uptime on 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={148187}
       />
       . Try to maintain 100% uptime by refreshing the buff before it drops.
