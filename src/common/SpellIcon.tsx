@@ -1,11 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import SPELLS from './SPELLS';
 import SpellLink from './SpellLink';
 import Icon from './Icon';
 
-const SpellIcon = ({ id, noLink, alt, ilvl, ...others }) => {
+interface Props {
+  id: number
+  noLink?: boolean
+  alt?: string
+  ilvl?: number
+}
+
+const SpellIcon = ({ id, noLink, alt, ilvl, ...others }: Props) => {
   if (process.env.NODE_ENV === 'development' && !SPELLS[id]) {
     throw new Error(`Unknown spell: ${id}`);
   }
@@ -32,12 +38,6 @@ const SpellIcon = ({ id, noLink, alt, ilvl, ...others }) => {
       {icon}
     </SpellLink>
   );
-};
-SpellIcon.propTypes = {
-  id: PropTypes.number.isRequired,
-  noLink: PropTypes.bool,
-  alt: PropTypes.string,
-  ilvl: PropTypes.number,
 };
 
 export default SpellIcon;
