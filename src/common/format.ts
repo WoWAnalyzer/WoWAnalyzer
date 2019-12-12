@@ -2,7 +2,7 @@
  * Rounds to nearest integer and returns as a String with added thousands seperators.
  * Ex: 5842923.7 => 5,842,924
  */
-export function formatThousands(number) {
+export function formatThousands(number: number) {
   return (`${Math.round(number || 0)}`).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
 
@@ -13,7 +13,7 @@ export function formatThousands(number) {
  *     78921 => 79k
  *     3444789 => 3.44m
  */
-export function formatNumber(number) {
+export function formatNumber(number: number) {
   if (number > 1000000) {
     return `${(number / 1000000).toFixed(2)}m`;
   }
@@ -27,7 +27,7 @@ export function formatNumber(number) {
  * Formats a number as a percentage with the given precision (default 2), with 0 = 0 percent and 1 = 100 percent.
  * Ex: 0.79832 => 79.83
  */
-export function formatPercentage(percentage, precision = 2) {
+export function formatPercentage(percentage: number, precision: number = 2) {
   return ((percentage || 0) * 100).toFixed(precision);
 }
 
@@ -35,13 +35,13 @@ export function formatPercentage(percentage, precision = 2) {
  * Formats a duration in seconds to be a String expressed as minutes and seconds.
  * Ex: 317.3 => 5:17
  */
-export function formatDuration(duration, precision = 0) {
+export function formatDuration(duration: number, precision: number = 0) {
   const neg = duration < 0 ? '-' : '';
   duration = Math.abs(duration);
   const minutes = Math.floor(duration / 60);
   const mult = Math.pow(10, precision);
   const rest = (Math.floor(duration % 60 * mult) / mult).toFixed(precision);
-  const seconds = rest < 10 ? `0${rest}` : rest;
+  const seconds = Number(rest) < 10 ? `0${rest}` : rest;
 
   return `${neg}${minutes}:${seconds}`;
 }
@@ -51,7 +51,7 @@ export function formatDuration(duration, precision = 0) {
  * Formatting maintains ordering but is pretty ugly, mostly suitable for debug logging instead of user facing content.
  * Ex. 317327 => 05:17.327
  */
-export function formatMilliseconds(duration) {
+export function formatMilliseconds(duration: number) {
   const sumSeconds = duration / 1000;
   const minutes = Math.floor(sumSeconds / 60);
   const seconds = sumSeconds % 60;
