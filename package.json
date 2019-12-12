@@ -70,6 +70,7 @@
     "safestart": "yarn && react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
+    "test:types": "tsc",
     "lint": "eslint .",
     "extract": "lingui extract --overwrite --clean",
     "script": "set NODE_ENV=development&&babel-node"
