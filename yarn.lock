@@ -1441,6 +1441,27 @@
   resolved "https://npm-registry.emico.nl/@types%2fjson-schema/-/json-schema-7.0.3.tgz#bdfd69d61e464dcc81b25159c270d75a73c1a636"
   integrity sha512-Il2DtDVRGDcqjDtE+rF8iqg1CArehSK84HZJCT7AMITlyXRBpuPhqGLDQMowraqqu1coEaimg4ZOqggt6L6L+A==
 
+"@types/lingui__core@*", "@types/lingui__core@^2.7.0":
+  version "2.7.0"
+  resolved "https://npm-registry.emico.nl/@types%2flingui__core/-/lingui__core-2.7.0.tgz#a93e53338a5a7ae5aa8cdb22ef0111d2053c6ef0"
+  integrity sha512-4gx/msI4cVlx1/RI1g6bDREZqflWh4HflMX3A5mMnvM6ymohg5SOzWk+R18N6/44ONPqOI+pcP8xjKLrI2tQhQ==
+
+"@types/lingui__macro@^2.7.3":
+  version "2.7.3"
+  resolved "https://npm-registry.emico.nl/@types%2flingui__macro/-/lingui__macro-2.7.3.tgz#7671abf5c816b79028e320053a53d13ca6cf7c8e"
+  integrity sha512-/kU4T6F7qNYwao0G2NV2LBt0AZuGcLM2w37pf70QcZDky1TAJIGxB76m4L1jlTW4GZXbvPZbQlws8i8Uctqg3A==
+  dependencies:
+    "@types/lingui__core" "*"
+    "@types/react" "*"
+
+"@types/lingui__react@^2.5.2":
+  version "2.8.1"
+  resolved "https://npm-registry.emico.nl/@types%2flingui__react/-/lingui__react-2.8.1.tgz#b5955dbbc05782dd645ea8b258c8f50718306c62"
+  integrity sha512-Bsk8zW0CCcuoTc82tU0/c64HDAKf93Fd6AKvB9qJdAMzEUhum/CEc6j33HZRHP4ZavIgk8uO2tToBwMrArWcUA==
+  dependencies:
+    "@types/lingui__core" "*"
+    "@types/react" "*"
+
 "@types/minimatch@*":
   version "3.0.3"
   resolved "https://npm-registry.emico.nl/@types%2fminimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
