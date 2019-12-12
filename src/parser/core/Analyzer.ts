@@ -87,8 +87,15 @@ class Analyzer extends EventSubscriber {
    * @deprecated Set the `position` property on the Statistic component instead.
    */
   statisticOrder = undefined;
-  suggestions(when: (actual: object | any) => SuggestionAssertion): void { return undefined; }
-  tab() { return undefined; }
+  suggestions(when: (actual: object | any) => SuggestionAssertion) {}
+  /**
+   * @deprecated Return a `Panel` from the statistic method instead.
+   */
+  tab(): {
+    title: string
+    url: string
+    render: React.FC
+  } | void {}
 }
 
 export default Analyzer;

@@ -14,7 +14,7 @@ class AuraOfMercy extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
-  private readonly abilityTracker!: AbilityTracker;
+  protected readonly abilityTracker!: AbilityTracker;
 
   constructor(options: any) {
     super(options);
