@@ -12,22 +12,25 @@ import Events from 'parser/core/Events';
 import './LightOfDawn.scss';
 
 class LightOfDawn extends Analyzer {
-  private casts = 0;
-  private heals = 0;
+  protected casts = 0;
+  protected heals = 0;
 
   constructor(options: any) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER)
-      .spell(SPELLS.LIGHT_OF_DAWN_CAST), this._onCast);
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER)
-      .spell(SPELLS.LIGHT_OF_DAWN_HEAL), this._onHeal);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LIGHT_OF_DAWN_CAST),
+      this.handleCast,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.LIGHT_OF_DAWN_HEAL),
+      this.handleHeal,
+    );
   }
 
-  _onCast() {
+  protected handleCast() {
     this.casts += 1;
   }
-
-  _onHeal() {
+  protected handleHeal() {
     this.heals += 1;
   }
 
