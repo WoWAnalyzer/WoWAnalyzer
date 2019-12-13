@@ -2,13 +2,13 @@ export const SELECTED_PLAYER = 1;
 export const SELECTED_PLAYER_PET = 2;
 const VALID_BY_FLAGS = SELECTED_PLAYER | SELECTED_PLAYER_PET;
 
-class EventFilter {
-  eventType: string;
-  constructor(eventType: string) {
+class EventFilter<T extends string> {
+  eventType: T;
+  constructor(eventType: T) {
     this.eventType = eventType;
   }
   private _by: number | undefined;
-  by(value: number): this {
+  by(value: number) {
     if (!EventFilter.validateBy(value)) {
       throw new Error(`by filter not recognized: ${value}`);
     }
@@ -34,7 +34,9 @@ class EventFilter {
   spell(value: object) {
     // TODO: Use spell id instead
     if (typeof value !== 'object') {
-      throw new Error('The spell filter must be a spell object, not a spell id.');
+      throw new Error(
+        'The spell filter must be a spell object, not a spell id.',
+      );
     }
     this._spell = value;
     return this;

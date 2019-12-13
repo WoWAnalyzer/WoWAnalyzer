@@ -1,7 +1,59 @@
+import React from 'react';
+
 import { END_EVENT_TYPE } from 'parser/shared/normalizers/FightEnd';
-import { PHASE_START_EVENT_TYPE, PHASE_END_EVENT_TYPE } from 'common/fabricateBossPhaseEvents';
-import { PRE_FILTER_BUFF_EVENT_TYPE, PRE_FILTER_COOLDOWN_EVENT_TYPE } from 'interface/report/TimeEventFilter';
+import {
+  PHASE_START_EVENT_TYPE,
+  PHASE_END_EVENT_TYPE,
+} from 'common/fabricateBossPhaseEvents';
+import {
+  PRE_FILTER_BUFF_EVENT_TYPE,
+  PRE_FILTER_COOLDOWN_EVENT_TYPE,
+} from 'interface/report/TimeEventFilter';
 import EventFilter from './EventFilter';
+
+enum EventType {
+  Heal = 'heal',
+  HealAbsorbed = 'healabsorbed',
+  Absorbed = 'absorbed',
+  Damage = 'damage',
+  BeginCast = 'begincast',
+  Cast = 'cast',
+  ApplyBuff = 'applybuff',
+  ApplyDebuff = 'applydebuff',
+  ApplyBuffStack = 'applybuffstack',
+  ApplyDebuffStack = 'applydebuffstack',
+  RemoveBuffStack = 'removebuffstack',
+  RemoveDebuffStack = 'removedebuffstack',
+  RefreshBuff = 'refreshbuff',
+  RefreshDebuff = 'refreshdebuff',
+  RemoveBuff = 'removebuff',
+  RemoveDebuff = 'removedebuff',
+  Summon = 'summon',
+  Energize = 'energize',
+  Interrupt = 'interrupt',
+  Death = 'death',
+  Resurrect = 'resurrect',
+}
+export interface Event {
+  type: EventType;
+}
+export interface CastEvent extends Event {
+  type: EventType.Cast;
+  meta?: {
+    isInefficientCast?: boolean;
+    inefficientCastReason?: React.ReactNode;
+  };
+}
+export interface HealEvent extends Event {
+  type: EventType.Heal;
+  amount: number;
+  absorbed: number;
+}
+export interface DamageEvent extends Event {
+  type: EventType.Damage;
+  amount: number;
+  absorbed: number;
+}
 
 const Events = {
   /**
@@ -45,7 +97,7 @@ const Events = {
    * @returns {EventFilter}
    */
   get damage() {
-    return new EventFilter('damage');
+    return new EventFilter(EventType.Damage);
   },
   /**
    * This event is called for events where the player, a player pet or a target of the player/player pet was healed.
@@ -56,7 +108,7 @@ const Events = {
    * @returns {EventFilter}
    */
   get heal() {
-    return new EventFilter('heal');
+    return new EventFilter(EventType.Heal);
   },
   /**
    * Triggered in addition to the regular heal event whenever a heal is absorbed. Can be used to determine what buff or debuff was absorbing the healing.
@@ -64,7 +116,7 @@ const Events = {
    * @returns {EventFilter}
    */
   get healabsorbed() {
-    return new EventFilter('healabsorbed');
+    return new EventFilter(EventType.HealAbsorbed);
   },
   /**
    * This event is called for events where the player, a player pet or a target of the player/player pet was healed.
@@ -77,14 +129,14 @@ const Events = {
    * @returns {EventFilter}
    */
   get absorbed() {
-    return new EventFilter('absorbed');
+    return new EventFilter(EventType.Absorbed);
   },
   /**
    * This event is called when the player begins casting an ability that has a cast time. This is also called for some channeled abilities, but not everyone. This is NOT cast for most instant abilities.
    * @returns {EventFilter}
    */
   get begincast() {
-    return new EventFilter('begincast');
+    return new EventFilter(EventType.BeginCast);
   },
   /**
    * This event is called when the player successfully cast an ability.
@@ -92,7 +144,7 @@ const Events = {
    * @returns {EventFilter}
    */
   get cast() {
-    return new EventFilter('cast');
+    return new EventFilter(EventType.Cast);
   },
   /**
    * Event specific props:
@@ -100,7 +152,7 @@ const Events = {
    * @returns {EventFilter}
    */
   get applybuff() {
-    return new EventFilter('applybuff');
+    return new EventFilter(EventType.ApplyBuff);
   },
   /**
    * Event specific props:
@@ -108,13 +160,13 @@ const Events = {
    * @returns {EventFilter}
    */
   get applydebuff() {
-    return new EventFilter('applydebuff');
+    return new EventFilter(EventType.ApplyDebuff);
   },
   get applybuffstack() {
-    return new EventFilter('applybuffstack');
+    return new EventFilter(EventType.ApplyBuffStack);
   },
   get applydebuffstack() {
-    return new EventFilter('applydebuffstack');
+    return new EventFilter(EventType.ApplyDebuffStack);
   },
   /**
    * Event specific props:
@@ -122,7 +174,7 @@ const Events = {
    * @returns {EventFilter}
    */
   get removebuffstack() {
-    return new EventFilter('removebuffstack');
+    return new EventFilter(EventType.RemoveBuffStack);
   },
   /**
    * Event specific props:
@@ -130,13 +182,13 @@ const Events = {
    * @returns {EventFilter}
    */
   get removedebuffstack() {
-    return new EventFilter('removedebuffstack');
+    return new EventFilter(EventType.RemoveDebuffStack);
   },
   get refreshbuff() {
-    return new EventFilter('refreshbuff');
+    return new EventFilter(EventType.RefreshBuff);
   },
   get refreshdebuff() {
-    return new EventFilter('refreshdebuff');
+    return new EventFilter(EventType.RefreshDebuff);
   },
   /**
    * Event specific props:
@@ -144,7 +196,7 @@ const Events = {
    * @returns {EventFilter}
    */
   get removebuff() {
-    return new EventFilter('removebuff');
+    return new EventFilter(EventType.RemoveBuff);
   },
   /**
    * Event specific props:
@@ -152,22 +204,22 @@ const Events = {
    * @returns {EventFilter}
    */
   get removedebuff() {
-    return new EventFilter('removedebuff');
+    return new EventFilter(EventType.RemoveDebuff);
   },
   get summon() {
-    return new EventFilter('summon');
+    return new EventFilter(EventType.Summon);
   },
   get energize() {
-    return new EventFilter('energize');
+    return new EventFilter(EventType.Energize);
   },
   get interrupt() {
-    return new EventFilter('interrupt');
+    return new EventFilter(EventType.Interrupt);
   },
   get death() {
-    return new EventFilter('death');
+    return new EventFilter(EventType.Death);
   },
   get resurrect() {
-    return new EventFilter('resurrect');
+    return new EventFilter(EventType.Resurrect);
   },
   get fightend() {
     return new EventFilter(END_EVENT_TYPE);
