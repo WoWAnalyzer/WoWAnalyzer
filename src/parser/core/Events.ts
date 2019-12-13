@@ -113,16 +113,7 @@ export interface CastEvent extends Event {
     [resourceType: number]: number;
   };
   // Added by the GlobalCooldown module
-  globalCooldown: {
-    ability: Ability;
-    duration: number;
-    sourceID: number;
-    targetID: number;
-    timestamp: number;
-    trigger: CastEvent;
-    type: EventType.GlobalCooldown;
-    __fabricated: true;
-  };
+  globalCooldown: GlobalCooldownEvent;
   // Added by any module, used in the timeline
   meta?: {
     isInefficientCast?: boolean;
