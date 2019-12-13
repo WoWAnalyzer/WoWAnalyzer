@@ -124,8 +124,7 @@ class FillerLightOfTheMartyrs extends Analyzer {
             (at{' '}
             {this.inefficientCasts
               .map(event => this.owner.formatTimestamp(event.timestamp))
-              .join(', ')}
-            ). Try to <b>never</b> cast{' '}
+              .join(', ')}). Try to <b>never</b> cast{' '}
             <SpellLink id={SPELLS.LIGHT_OF_THE_MARTYR.id} /> when something else
             is available
             <TooltipElement
