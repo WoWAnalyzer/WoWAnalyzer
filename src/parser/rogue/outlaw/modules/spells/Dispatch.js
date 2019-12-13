@@ -22,7 +22,7 @@ class Dispatch extends Analyzer {
 
     this.betweenTheEyesDamageTracker.subscribeInefficientCast(
       [SPELLS.DISPATCH],
-      (s) => hasRelevantTrait ? `Between The Eyes should be prioritized as your spender when available` : `Between The Eyes should be prioritized as your spender during Ruthless Precision`
+      (s) => hasRelevantTrait ? `Between The Eyes should be prioritized as your spender when available` : `Between The Eyes should be prioritized as your spender during Ruthless Precision`,
     );
   }
   

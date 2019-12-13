@@ -456,5 +456,5 @@ export default connect(
   mapStateToProps,
   {
     appendReportHistory,
-  }
+  },
 )(Results);

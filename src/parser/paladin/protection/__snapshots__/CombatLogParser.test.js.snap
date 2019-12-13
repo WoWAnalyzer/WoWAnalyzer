@@ -107,12 +107,12 @@ Array [
     "importance": "minor",
     "issue": <React.Fragment>
       Your downtime can be improved. Try to cast more, for example by reducing the delay between casting spells. Even if you have to move, try to cast something instant with range like 
-      <SpellLink
+      <ForwardRef
         icon={true}
         id={20271}
       />
        or 
-      <SpellLink
+      <ForwardRef
         icon={true}
         id={31935}
       />
@@ -291,18 +291,15 @@ Array [
     "importance": "major",
     "issue": <React.Fragment>
       You should avoid casting 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={53595}
       />
        while better spells (namely 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={275779}
       />
        and 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={31935}
       />
       ) are available. This is a 
@@ -399,8 +396,7 @@ Array [
     "importance": "minor",
     "issue": <React.Fragment>
       You should delay your 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={184092}
       />
        cast as little as possible after being hit to maximize its effect and to minimize the chance that you waste healing resources.
@@ -502,8 +498,7 @@ Array [
     "issue": <React.Fragment>
       40.63
       % of your 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={53600}
       />
        casts were 

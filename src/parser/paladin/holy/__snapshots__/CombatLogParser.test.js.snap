@@ -322,12 +322,10 @@ Array [
     "issue": <WithI18n
       components={
         Array [
-          <SpellLink
-            icon={true}
+          <ForwardRef
             id={183415}
           />,
-          <SpellLink
-            icon={true}
+          <ForwardRef
             id={183425}
           />,
         ]
@@ -2085,12 +2083,10 @@ Array [
     "issue": <WithI18n
       components={
         Array [
-          <SpellLink
-            icon={true}
+          <ForwardRef
             id={19750}
           />,
-          <SpellLink
-            icon={true}
+          <ForwardRef
             id={20473}
           />,
           <TooltipElement
@@ -2110,8 +2106,7 @@ Array [
             style={Object {}}
             tooltipClassName=""
           />,
-          <SpellLink
-            icon={true}
+          <ForwardRef
             id={20473}
           />,
           <TooltipElement
@@ -2166,8 +2161,7 @@ Array [
     "issue": <WithI18n
       components={
         Array [
-          <SpellLink
-            icon={true}
+          <ForwardRef
             id={183998}
           />,
         ]
@@ -2203,12 +2197,10 @@ Array [
     "issue": <WithI18n
       components={
         Array [
-          <SpellLink
-            icon={true}
+          <ForwardRef
             id={183998}
           />,
-          <SpellLink
-            icon={true}
+          <ForwardRef
             id={20473}
           />,
           <TooltipElement
@@ -2229,8 +2221,7 @@ Array [
             tooltipClassName=""
           />,
           <b />,
-          <SpellLink
-            icon={true}
+          <ForwardRef
             id={183998}
           />,
           <TooltipElement
@@ -4289,8 +4280,7 @@ Array [
     "issue": <WithI18n
       components={
         Array [
-          <SpellLink
-            icon={true}
+          <ForwardRef
             id={223306}
           />,
         ]
@@ -4465,8 +4455,7 @@ Array [
     "issue": <WithI18n
       components={
         Array [
-          <SpellLink
-            icon={true}
+          <ForwardRef
             id={214202}
           />,
         ]

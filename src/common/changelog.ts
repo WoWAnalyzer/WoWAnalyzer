@@ -1,9 +1,9 @@
-export function date(year, month, day) {
+export function date(year: number, month: number, day: number) {
   // months are 0 indexed in javascript's Date parameters
   const javascriptMonth = month - 1;
   return new Date(year, javascriptMonth, day);
 }
-export function change(date, text, contributors) {
+export function change(date: Date, text: string, contributors: object | object[]) {
   if (!(date instanceof Date)) {
     throw new Error('date should be an instance of the Date class');
   }

@@ -1,9 +1,19 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import BAD_ICONS from 'common/BAD_ICONS';
 
-const Icon = ({ icon, className, ...others }) => {
+interface Props extends React.HTMLAttributes<HTMLImageElement> {
+  icon: string
+  className?: string
+  /**
+   * Implementers should annotate these as desired, but it's usually just
+   * decorating the name of a spell/item so doesn't add anything and in fact
+   * makes copy-pasting uglier
+   */
+  alt?: string
+}
+
+const Icon = ({ icon, className, alt = '', ...others }: Props) => {
   if (!icon) {
     return null;
   }
@@ -25,18 +35,11 @@ const Icon = ({ icon, className, ...others }) => {
   return (
     <img
       src={`${baseURL}/${icon}.jpg`}
-      alt="" // Implementers should annotate these as desired, but it's usually just decorating the name of a spell/item so doesn't add anything and in fact makes copy-pasting uglier
-      className={`icon game ${className}`}
+      alt={alt}
+      className={`icon game ${className || ''}`}
       {...others}
     />
   );
-};
-Icon.propTypes = {
-  icon: PropTypes.string.isRequired,
-  className: PropTypes.string,
-};
-Icon.defaultProps = {
-  className: '',
 };
 
 export default Icon;

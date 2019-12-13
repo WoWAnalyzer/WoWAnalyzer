@@ -287,5 +287,5 @@ export default compose(
   connect(mapStateToProps, {
     setCombatants,
     fetchCharacter,
-  })
+  }),
 )(PlayerLoader);

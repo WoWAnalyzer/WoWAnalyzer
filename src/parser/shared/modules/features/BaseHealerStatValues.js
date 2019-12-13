@@ -465,7 +465,7 @@ class BaseHealerStatValues extends Analyzer {
                           style={{ fontSize: 20, padding: '6px 0' }}
                         >QE Live</a>
                       </Tooltip>
-                      {' | '}
+                       | 
                     </>
                   )}
                   {this.moreInformationLink && (

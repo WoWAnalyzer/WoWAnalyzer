@@ -107,8 +107,7 @@ Array [
     "importance": "minor",
     "issue": <span>
       Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay between casting spells. If you have to move, try casting 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={2948}
       />
       .
@@ -209,13 +208,11 @@ Array [
       On average, you got 
       2.33
        stacks of 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={274596}
       />
        per 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={190319}
       />
        cast. In order to maximize the use of the trait, you should aim for getting to 
@@ -332,13 +329,11 @@ Array [
       You cancelled 
       6.96
       % of your spells. While it is expected that you will have to cancel a few casts to react to boss mechanics or move, you should try to ensure that you are cancelling as few casts as possible by utilizing movement abilities such as 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={1953}
       />
        and 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={212653}
       />
       .
@@ -540,40 +535,33 @@ Array [
     "importance": "major",
     "issue": <React.Fragment>
       Unless you are guaranteed to crit (i.e. during 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={190319}
       />
       , 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={205026}
       />
       , or 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={269644}
       />
       ), you should always cast 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={133}
       />
        
       
        alongside using your 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={48108}
       />
        proc. This way, if one of the two abilities crit you will gain a new 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={48107}
       />
        proc, and if both crit you will get a new 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={48108}
       />
        proc. You failed to do this 
@@ -693,8 +681,7 @@ Array [
     "importance": "major",
     "issue": <React.Fragment>
       You could have cast 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={153561}
       />
        
@@ -702,8 +689,7 @@ Array [
        times during this fight, but you only cast it 
       5
        times. While you should not cast Meteor on cooldown (since you need to have it available for 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={190319}
       />
       ), you should be casting it at least once per minute.
@@ -732,25 +718,21 @@ Array [
     "importance": "major",
     "issue": <React.Fragment>
       You cast 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={153561}
       />
        without 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={116011}
       />
        
       1
        times. In order to get the most out of 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={153561}
       />
        you should always cast it while being buffed by 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={116011}
       />
       .
@@ -923,20 +905,17 @@ Array [
     "importance": "minor",
     "issue": <React.Fragment>
       You cast 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={133}
       />
        instead of 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={2948}
       />
        while the target was under 30% health 
       4
        times. When using 
-      <SpellLink
-        icon={true}
+      <ForwardRef
         id={269644}
       />
        always use Scorch instead of Fireball when the target is under 30% health since Scorch does 150% damage and is guaranteed to crit.

@@ -37,7 +37,7 @@ class SeaGiantsTidestone extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrinket(
-      ITEMS.SEA_GIANTS_TIDESTONE.id
+      ITEMS.SEA_GIANTS_TIDESTONE.id,
     );
     if (this.active) {
       this.haste = calculateSecondaryStatDefault(370, 985, this.selectedCombatant.getItem(ITEMS.SEA_GIANTS_TIDESTONE.id).itemLevel);

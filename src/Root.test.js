@@ -7,7 +7,7 @@ jest.unmock('react-router-dom');
 
 describe('Root', () => {
   const tree = mount(
-    <Root />
+    <Root />,
   );
   it('renders without crashing', () => {
     // At least the code input field should be visible
