@@ -3,55 +3,44 @@ export const SELECTED_PLAYER_PET = 2;
 const VALID_BY_FLAGS = SELECTED_PLAYER | SELECTED_PLAYER_PET;
 
 class EventFilter {
-  eventType;
-  constructor(eventType) {
+  eventType: string;
+  constructor(eventType: string) {
     this.eventType = eventType;
   }
-  _by;
-  /**
-   * @param {number} value
-   * @returns {EventFilter}
-   */
-  by(value) {
-    if (value === undefined) {
-      return this._by;
-    }
-    if (!this.constructor.validateBy(value)) {
+  private _by: number | undefined;
+  by(value: number): this {
+    if (!EventFilter.validateBy(value)) {
       throw new Error(`by filter not recognized: ${value}`);
     }
     this._by = value;
     return this;
   }
-  static validateBy(value) {
+  getBy() {
+    return this._by;
+  }
+  static validateBy(value: number) {
     return (value & VALID_BY_FLAGS) === value;
   }
-  _to;
-  /**
-   * @param {number} value
-   * @returns {EventFilter}
-   */
-  to(value) {
+  private _to: number | undefined;
+  to(value: number) {
     // TODO: Allow `this.selectedCombatant` (i.e. instances of Combatant) as value instead
-    if (value === undefined) {
-      return this._to;
-    }
     this._to = value;
     return this;
   }
-  _spell;
-  /**
-   * @param {object} value
-   * @returns {EventFilter}
-   */
-  spell(value) {
+  getTo() {
+    return this._to;
+  }
+  private _spell: object | undefined;
+  spell(value: object) {
     // TODO: Use spell id instead
-    if (value === undefined) {
-      return this._spell;
-    } else if (typeof value !== 'object') {
+    if (typeof value !== 'object') {
       throw new Error('The spell filter must be a spell object, not a spell id.');
     }
     this._spell = value;
     return this;
+  }
+  getSpell() {
+    return this._spell;
   }
 }
 
