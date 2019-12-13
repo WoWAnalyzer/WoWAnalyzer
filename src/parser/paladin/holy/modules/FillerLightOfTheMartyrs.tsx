@@ -4,7 +4,7 @@ import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { TooltipElement } from 'common/Tooltip';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Events, { CastEvent } from 'parser/core/Events';
 
@@ -20,7 +20,7 @@ class FillerLightOfTheMartyrs extends Analyzer {
   constructor(options: any) {
     super(options);
     this.addEventListener(
-      Events.cast.spell(SPELLS.LIGHT_OF_THE_MARTYR),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.LIGHT_OF_THE_MARTYR),
       this.handleCast,
     );
   }
