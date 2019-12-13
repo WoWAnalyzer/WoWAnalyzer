@@ -36,9 +36,13 @@ enum EventType {
 }
 export interface Event {
   type: EventType;
+  timestamp: number;
 }
 export interface CastEvent extends Event {
   type: EventType.Cast;
+  ability: {
+    guid: number;
+  };
   meta?: {
     isInefficientCast?: boolean;
     inefficientCastReason?: React.ReactNode;
