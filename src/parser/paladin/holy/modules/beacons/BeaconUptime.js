@@ -13,49 +13,88 @@ import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 for DIVINE_PURPOSE testing (A):
 
     A1: 100% uptime with precast: 
-        https://www.warcraftlogs.com/reports/fWdJahyD9KGz1rwk/#fight=16&source=14
+        https://www.warcraftlogs.com/reports/wgfFpV4zrckHdhYt#fight=4&type=auras&sourceclass=Any&target=1&ability=53563
+        Results Expected: 100%, precasted BoL: true, precasted BoF: null
+        Passed: true
     A2: < 100% uptime with precast: 
-        https://www.warcraftlogs.com/reports/fWdJahyD9KGz1rwk/#fight=58&source=14&type=auras&by=target&ability=53563
-    A3: < 100% without precast: 
-        https://www.warcraftlogs.com/reports/fWdJahyD9KGz1rwk/#fight=56&source=14&type=auras&by=target&ability=53563
+        https://www.warcraftlogs.com/reports/wgfFpV4zrckHdhYt#fight=6&type=auras&source=1&by=target&ability=53563
+        Results Expected: 92%, precasted BoL: true, precasted BoF: null
+        passed: true
+    A3: < 100% without precast:
+        https://www.warcraftlogs.com/reports/MPFA4THXv6gmG1VD#fight=30&type=auras&source=3&by=target&ability=53563
+        Results Expected: 88%, precasted BoL: true, precasted BoF: null
+        Passed: true
     A4: 100% uptime with precast with BoL swap: 
-        https://www.warcraftlogs.com/reports/fWdJahyD9KGz1rwk/#fight=50&source=14&type=auras&by=target&ability=53563
+        https://www.warcraftlogs.com/reports/MPFA4THXv6gmG1VD#fight=12&type=auras&source=3&by=target&ability=53563
+        Results Expected: 100%, precasted BoL: true, precasted BoF: null
+        Passed: true
     A5: < 100% uptime with precast with BoL swap: 
-        https://www.warcraftlogs.com/reports/fWdJahyD9KGz1rwk/#fight=54&source=14&type=auras&by=target&ability=53563
+        https://www.warcraftlogs.com/reports/MPFA4THXv6gmG1VD#fight=12&type=auras&source=3&by=target&ability=53563
+        Results Expected: 100%, precasted BoL: true, precasted BoF: null
+        Passed: true
     A6: < 100% without precast with BoL swap: 
-        https://www.warcraftlogs.com/reports/fWdJahyD9KGz1rwk/#fight=53&source=14&type=auras&by=target&ability=53563
+
+        Results Expected: %, precasted BoL: , precasted BoF: null
+        Passed:
 
 for BEACON_OF_FAITH testing (B):
 
     BoF uptime (B1*):
         B11: 100% uptime with precast: Getting slightly less than 100%
             https://www.warcraftlogs.com/reports/DPwyKpWBZ6F947mx/#fight=2&source=7&type=auras&by=target&ability=53563
+            Results Expected: BoL uptime 100%, BoF uptime 100%, precasted BoL: true, precasted BoF: true
+            Passed: true
         B12: < 100% uptime with precast: 
             https://www.warcraftlogs.com/reports/DPwyKpWBZ6F947mx/#fight=13&source=7&type=auras&by=target&ability=156910
+            Results Expected: BoL uptime 95%, BoF uptime 94%, precasted BoL: true, precasted BoF: true
+            Passed: true
         B13: < 100% without precast: 
             https://www.warcraftlogs.com/reports/DPwyKpWBZ6F947mx/#fight=10&source=7&type=auras&by=target&ability=156910
+            Results Expected: BoL uptime 46%, BoF uptime 74%, precasted BoL: false, precasted BoF: false
+            Passed: true
         B14: 100% uptime with precast with BoF swap: 
             https://www.warcraftlogs.com/reports/DPwyKpWBZ6F947mx/#fight=11&source=7&type=auras&by=target&ability=156910
+            Results Expected: BoL uptime 100%, BoF uptime 100%, precasted BoL: true, precasted BoF: true
+            Passed: true
         B15: < 100% uptime with precast with BoF swap: 
             https://www.warcraftlogs.com/reports/DPwyKpWBZ6F947mx/#fight=8&source=7&type=auras&by=target&ability=156910
+            Results Expected: BoL uptime 100%, BoF uptime 82%, precasted BoL: true, precasted BoF: true
+            Passed: true
         B16: < 100% without precast with BoF swap: 
             https://www.warcraftlogs.com/reports/DPwyKpWBZ6F947mx/#fight=14&source=7&type=auras&by=target&ability=156910
+            Results Expected: BoL uptime 73%, BoF uptime 99%, precasted BoL: false, precasted BoF: false
+            Passed: true
     BoL uptime (B2*):
         B21: 100% uptime with precast: 
             https://www.warcraftlogs.com/reports/DPwyKpWBZ6F947mx/#fight=2&source=7&type=auras&by=target&ability=53563
+            Results Expected: BoL uptime 100%, BoF uptime 100%, precasted BoL: true, precasted BoF: true
+            Passed: true
         B22: < 100% uptime with precast: 
             https://www.warcraftlogs.com/reports/DPwyKpWBZ6F947mx/#fight=9&source=7&type=auras&by=target&ability=53563
+            Results Expected: BoL uptime 83%, BoF uptime 90%, precasted BoL: true, precasted BoF: true
+            Passed: true
         B23: < 100% without precast: 
             https://www.warcraftlogs.com/reports/DPwyKpWBZ6F947mx/#fight=14&source=7&type=auras&by=target&ability=53563
+            Results Expected: BoL uptime 73%, BoF uptime 99%, precasted BoL: false, precasted BoF: false
+            Passed: true
         B24: 100% uptime with precast with BoL swap: 
             https://www.warcraftlogs.com/reports/DPwyKpWBZ6F947mx/#fight=8&source=7&type=auras&by=target&ability=53563
+            Results Expected: BoL uptime 100%, BoF uptime 82%, precasted BoL: true, precasted BoF: true
+            Passed: true
         B25: < 100% uptime with precast with BoL swap: 
             https://www.warcraftlogs.com/reports/DPwyKpWBZ6F947mx/#fight=19&source=7&type=auras&by=target&ability=53563
+            Results Expected: BoL uptime 97%, BoF uptime 98%, precasted BoL: true, precasted BoF: true
+            Passed: true
         B26: < 100% without precast with BoL swap:
+            https://www.warcraftlogs.com/reports/DPwyKpWBZ6F947mx/#fight=10&source=7&type=auras&by=target&ability=53563
+            Results Expected: BoL uptime 46%, BoF uptime 74%, precasted BoL: false, precasted BoF: false
+            Passed: true
 
 For Beacon of Virtue (C)
     C:
-        https://www.warcraftlogs.com/reports/Pngamcw6pfWVGDMj#fight=22&type=auras&source=2&by=target
+        https://www.warcraftlogs.com/reports/pW4kHGPwYKL8ryvm/#fight=1&source=14&type=auras&ability=200025
+        Results Expected: 31%
+        Passed: true
 
 
 -----------------------------------------------------------------------------*/
@@ -68,7 +107,7 @@ class BeaconUptime extends Analyzer {
         this.addEventListener(Events.removebuff.by(SELECTED_PLAYER), this._offBuff);
 
         // Due to getBuffHistory for BoV, uptime is calculated at the end of the fight
-        this.addEventListener(Events.fightend, this._updateBoV);
+        this.addEventListener(Events.fightend, this._endOfFight);
         
         // this is really has divine purpose talent
         this.hasBoL = this.selectedCombatant.hasTalent(SPELLS.DIVINE_PURPOSE_TALENT_HOLY.id);
@@ -80,9 +119,11 @@ class BeaconUptime extends Analyzer {
         this.idBoF = SPELLS.BEACON_OF_FAITH_TALENT.id;
         this.idBoV = SPELLS.BEACON_OF_VIRTUE_TALENT.id;
 
-        this.BuffEventType = Object.freeze({removeBuff: 0, prepull: 1, postpull: 2, UPDATE: 3});
+        this.BuffEventType = Object.freeze({REMOVEBUFF: 0, PREPULL: 1, POSTPULL: 2, UPDATE: 3, ENDOFFIGHT: 4});
 
         this.testing = false;
+        this.eventLog = [];
+
     }
     
     missingBoLPrepull = true;
@@ -159,24 +200,12 @@ class BeaconUptime extends Analyzer {
         style: 'percentage',
       };
     }
-
-    // function to format time so that its easier to read
-    _currentTime(eventTime) {
-      //converted to decimal minutes
-      const decimalTime = (eventTime-this.fightStart)/1000/60; 
-      //gets whole minutes
-      const min = decimalTime - decimalTime % 1;
-      //converts decimal of minutes into seconds
-      const seconds = ((decimalTime % 1) * 60).toFixed(2);
-      
-      return (`${min}:${seconds}`); 
-    }
     
     _updateBoL(event,type) {
-      const {removeBuff,prepull,postpull,update} = this.BuffEventType;
+      const {REMOVEBUFF,PREPULL,POSTPULL,UPDATE, ENDOFFIGHT} = this.BuffEventType;
 
       // buff removed
-      if(type === removeBuff && this.countBoL < 2) {
+      if(type === REMOVEBUFF && this.countBoL < 2) {
         this.missingBoL = true;
         this.uptimeBoL += event.timestamp - this.lastBoLtimestamp;
         this.lastBoLtimestamp = event.timestamp;
@@ -185,27 +214,33 @@ class BeaconUptime extends Analyzer {
       }
       // checks for overlap of beacon application with beacon removal
       // should never be >2 but just in case
-      if(type === removeBuff && this.countBoL >= 2) {
+      if(type === REMOVEBUFF && this.countBoL >= 2) {
         this.countBoL--;
         return;
       }
       //buff applied prepull
-      if(type === prepull) {
+      if(type === PREPULL) {
         this.missingBoLPrepull = false;
         this.missingBoL = false;
         this.lastBoLtimestamp = this.fightStart;
         this.countBoL++;
         return;
       }
-      //buff applied post pull
-      if(type === postpull) {
+      // buff applied post pull, if death occurs and reapply happens before old buff goes away 
+      // wont override lastBoLtimestamp if countBoL > 0
+      if(type === POSTPULL && this.countBoL === 0) {
         this.lastBoLtimestamp = event.timestamp;
         this.missingBoL = false;
         this.countBoL++;
         return;
       }
+      // increases count without overriding lastBoLtimestamp to track double applications
+      if(type === POSTPULL && this.countBoL > 0) {
+        this.countBoL++;
+        return;
+      }
       //buff not changed but updated
-      if(type === update) {
+      if(type === UPDATE || type === ENDOFFIGHT) {
         this.uptimeBoL += event.timestamp - this.lastBoLtimestamp;
         this.lastBoLtimestamp = event.timestamp;
         return;
@@ -213,132 +248,183 @@ class BeaconUptime extends Analyzer {
     }
 
     _updateBoF(event,type) {
-      const {removeBuff,prepull,postpull,update} = this.BuffEventType;
+      const {REMOVEBUFF,PREPULL,POSTPULL,UPDATE, ENDOFFIGHT} = this.BuffEventType;
       
       // buff removed
-      if(type === removeBuff && this.countBoF < 2) {
+      if(type === REMOVEBUFF && this.countBoF < 2) {
         this.missingBoF = true;
         this.uptimeBoF += event.timestamp - this.lastBoFtimestamp;
         this.lastBoFtimestamp = event.timestamp;
-        this.countBoF--; 
+        this.countBoF--;
       }
       // checks for overlap of beacon application with beacon removal
       // should never be >2 but just in case
-      if(type === removeBuff && this.countBoF >= 2) {
+      if(type === REMOVEBUFF && this.countBoF >= 2) {
         this.countBoF--;
         return;
       }
-      //buff applied prepull
-      if(type === prepull) {
+      // buff applied prepull
+      if(type === PREPULL) {
         this.missingBoFPrepull = false;
         this.missingBoF = false;
         this.lastBoFtimestamp = this.fightStart;
         this.countBoF++;
         return;
       }
-      //buff applied post pull
-      if(type === postpull) {
+      // buff applied post pull, if death occurs and reapply happens before old buff goes away 
+      // wont override lastBoFtimestamp if countBoF > 0
+      if(type === POSTPULL && this.countBoF === 0) {
         this.lastBoFtimestamp = event.timestamp;
         this.missingBoF = false;
         this.countBoF++;
         return;
       }
+      // increases count without overriding lastBoFtimestamp to track double applications
+      if(type === POSTPULL && this.countBoF > 0) {
+        this.countBoF++;
+        return;
+      }
       //buff not changed but updated
-      if(type === update) {
+      if(type === UPDATE || type === ENDOFFIGHT) {
         this.uptimeBoF += event.timestamp - this.lastBoFtimestamp;
         this.lastBoFtimestamp = event.timestamp;
         return;
       }
     }
 
-    _updateBoV() {
-      if(this.hasBoV){
-        const historyBoV = this.selectedCombatant.getBuffHistory(this.idBoV);
-          historyBoV.forEach((event) => {
-          this.uptimeBoV += (event.end - event.start);
-        });
-      }
-    }
-
     _handleBoLEvents(event) {
-      const {postpull,update} = this.BuffEventType;
+      const {POSTPULL,UPDATE, ENDOFFIGHT} = this.BuffEventType;
 
-      if(event.ability.guid === this.idBoL) {
-        this._updateBoL(event,postpull);
+      // end of fight
+      if(!event.ability && !this.missingBoL) {
+        this._updateBoL(event,ENDOFFIGHT);
         return;
       }
+      //post pull beacon of light cast
+      if(event.ability !== undefined && event.ability.guid === this.idBoL) {
+        this._updateBoL(event,POSTPULL);
+        return;
+      }
+
+      //any buff even if it isn't BoL
       if(!this.missingBoL) {
-        this._updateBoL(event,update);
+        this._updateBoL(event,UPDATE);
         return;
       }
     }
 
     _handleBoFEvents(event) {
-      const {postpull,update} = this.BuffEventType;
+      const {POSTPULL,UPDATE, ENDOFFIGHT} = this.BuffEventType;
 
-      // post pull BoF buff applied
-      if(event.ability.guid === this.idBoF) {
-        this._updateBoF(event,postpull);
+      // end of fight
+      if(!event.ability && !this.missingBoF) {
+        this._updateBoF(event,ENDOFFIGHT);
         return;
       }
-      if(event.ability.guid === this.idBoL) {
-        this._updateBoL(event,postpull);
+
+      // post pull BoF buff applied
+      if(event.ability && event.ability.guid === this.idBoF) {
+        this._updateBoF(event,POSTPULL);
+        return;
+      }
+      if(event.ability && event.ability.guid === this.idBoL) {
+        this._updateBoL(event,POSTPULL);
         return;
       }
       // if both BoL and BoF are active
       if(!this.missingBoL && !this.missingBoF) {
-        this._updateBoL(event,update);
-        this._updateBoF(event,update);
+        this._updateBoL(event,UPDATE);
+        this._updateBoF(event,UPDATE);
         return;
       }
       // if BoF is active and BoL is not active
       if(!this.missingBoF && this.missingBoL) {
-        this._updateBoF(event,update);
+        this._updateBoF(event,UPDATE);
         return;
       }
       // if BoF is not active and BoL not active
       if(this.missingBoF && !this.missingBoL) {
-        this._updateBoL(event,update);
+        this._updateBoL(event,UPDATE);
         return;
       }
       // if BoF and BoL are not active do nothing
     }
 
+    _handleBoVEvents () {
+      const historyBoV = this.selectedCombatant.getBuffHistory(this.idBoV);
+          historyBoV.forEach((event) => {
+          this.uptimeBoV += (event.end - event.start);
+        });
+      return;
+    }
+
+    _endOfFight(event) {
+
+      if(this.hasBoL) {
+        this._handleBoLEvents(event);
+        return;
+      }
+
+      if(this.hasBoF) {
+        this._handleBoLEvents(event);
+        this._handleBoFEvents(event);
+        return;
+      }
+
+      if(this.hasBoV){
+        this._handleBoVEvents();
+        return;
+      }
+    }
+
     _offBuff(event) {   
-      const {removeBuff} = this.BuffEventType;
+      
+      const {REMOVEBUFF} = this.BuffEventType;
+
+      if(event.ability.guid !== this.idBoL && 
+        event.ability.guid !== this.idBoF && 
+        event.ability.guid !== this.idBoV) {
+        return;
+      }
 
       if( ( this.hasBoL || this.hasBoF ) && event.ability.guid === this.idBoL ) {
-        this._updateBoL(event,removeBuff);
+        this._updateBoL(event,REMOVEBUFF);
         return;
       }
       if( this.hasBoF && event.ability.guid === this.idBoF ) {
-        this._updateBoF(event,removeBuff);
+        this._updateBoF(event,REMOVEBUFF);
         return;
       }
     }
 
     _onPrepull(event) {
-      const {prepull} = this.BuffEventType;
+      const {PREPULL} = this.BuffEventType;
       
       // prepull check for BoL active
       if(this.hasBoL && event.ability.guid === this.idBoL) {
-        this._updateBoL(event,prepull);
+        this._updateBoL(event,PREPULL);
         return;
       }
 
       // prepull check for BoF active
       if(this.hasBoF && event.ability.guid === this.idBoF) {
-        this._updateBoF(event,prepull);
+        this._updateBoF(event,PREPULL);
         return;
       }
       if(this.hasBoF && event.ability.guid === this.idBoL) {
-        this._updateBoL(event,prepull);
+        this._updateBoL(event,PREPULL);
         return;
       }
     }
 
     _onBuff(event) {
-      
+
+      if(event.ability.guid !== this.idBoL && 
+        event.ability.guid !== this.idBoF && 
+        event.ability.guid !== this.idBoV) {
+        return;
+      }
+
       // prepull check
       if(event.prepull && event.timestamp <= this.fightStart ) {
         this._onPrepull(event);
@@ -366,6 +452,8 @@ statistic() {
       <div style={{color: "red", margin: "auto", textAlign: "center"}}>
       <Trans>Not<br />casted<br />prepull</Trans></div> 
     );
+
+  console.log(this.eventLog);
     
   return (
     <Statistic
