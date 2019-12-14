@@ -116,5 +116,5 @@ export default connect(
   mapStateToProps,
   {
     // openModal,
-  }
+  },
 )(NavigationBar);

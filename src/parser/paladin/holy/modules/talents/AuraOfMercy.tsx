@@ -10,20 +10,20 @@ import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
-
 class AuraOfMercy extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
+  protected readonly abilityTracker!: AbilityTracker;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.AURA_OF_MERCY_TALENT.id);
   }
 
   get healing() {
     const abilityTracker = this.abilityTracker;
-    const getAbility = spellId => abilityTracker.getAbility(spellId);
+    const getAbility = (spellId: number) => abilityTracker.getAbility(spellId);
 
     return (getAbility(SPELLS.AURA_OF_MERCY_HEAL.id).healingEffective + getAbility(SPELLS.AURA_OF_MERCY_HEAL.id).healingAbsorbed);
   }
@@ -42,12 +42,12 @@ class AuraOfMercy extends Analyzer {
     };
   }
 
-  suggestions(when) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) => {
+  suggestions(when: any) {
+    when(this.suggestionThresholds).addSuggestion((suggest: any, actual: any, recommended: any) => {
       return suggest(
         <Trans>
           The healing done by your <SpellLink id={SPELLS.AURA_OF_MERCY_TALENT.id} /> is low. Try to find a better moment to cast it or consider changing to <SpellLink id={SPELLS.DEVOTION_AURA_TALENT.id} /> which can be more reliable and generally offers more throughput.
-        </Trans>
+        </Trans>,
       )
         .icon(SPELLS.AURA_OF_MERCY_TALENT.icon)
         .actual(<Trans>{formatNumber(actual)} HPS</Trans>)

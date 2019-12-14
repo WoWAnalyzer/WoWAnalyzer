@@ -93,7 +93,7 @@ class Search extends React.PureComponent {
           onChange={e => this.setState({ currentRegion: e.target.value })}
         >
           {Object.keys(REALMS).map(elem =>
-            <option key={elem} value={elem}>{elem}</option>
+            <option key={elem} value={elem}>{elem}</option>,
           )}
         </select>
         <SelectSearch

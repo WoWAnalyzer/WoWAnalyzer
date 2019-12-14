@@ -30,7 +30,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
           .icon('petbattle_health-down')
           .actual(`${formatPercentage(nonHealingTimeSuggestionThresholds.actual)}% non healing time`)
           .recommended(`<${formatPercentage(nonHealingTimeSuggestionThresholds.isGreaterThan.minor)}% is recommended`)
-          .regular(nonHealingTimeSuggestionThresholds.isGreaterThan.average).major(nonHealingTimeSuggestionThresholds.isGreaterThan.major)
+          .regular(nonHealingTimeSuggestionThresholds.isGreaterThan.average).major(nonHealingTimeSuggestionThresholds.isGreaterThan.major),
       );
     when(deadTimePercentage.actual).isGreaterThan(0.2)
       .addSuggestion((suggest, actual, recommended) =>
@@ -38,7 +38,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
           .icon('spell_mage_altertime')
           .actual(`${formatPercentage(deadTimePercentage.actual)}% downtime`)
           .recommended(`<${formatPercentage(deadTimePercentage.isGreaterThan.minor)}% is recommended`)
-          .regular(deadTimePercentage.isGreaterThan.average).major(deadTimePercentage.isGreaterThan.major)
+          .regular(deadTimePercentage.isGreaterThan.average).major(deadTimePercentage.isGreaterThan.major),
       );
   }
 }

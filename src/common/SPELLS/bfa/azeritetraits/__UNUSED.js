@@ -689,11 +689,6 @@ export default {
     name: 'Strength of Earth',
     icon: 'spell_nature_rockbiter',
   },
-  STRENGTH_OF_SPIRIT: {
-    id: 274774,
-    name: 'Strength of Spirit',
-    icon: 'ability_monk_healthsphere',
-  },
   STRIKERS_GRACE: {
     id: 269570,
     name: 'Striker\'s Grace',

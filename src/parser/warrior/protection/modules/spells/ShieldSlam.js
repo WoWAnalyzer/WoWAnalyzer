@@ -94,7 +94,7 @@ class ShieldBlock extends Analyzer {
       return suggest(
         <>
           Try to cast <SpellLink id={SPELLS.SHIELD_SLAM.id} />  more often - it is your main  <ResourceLink id={RESOURCE_TYPES.RAGE.id} />  generator and damage source.
-        </>
+        </>,
       )
         .icon(SPELLS.SHIELD_SLAM.icon)
         .actual(`${this.actualCasts} shield slam casts`)

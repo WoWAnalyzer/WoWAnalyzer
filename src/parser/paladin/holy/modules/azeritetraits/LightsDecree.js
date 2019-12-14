@@ -1,18 +1,28 @@
 import React from 'react';
-import { Trans } from '@lingui/macro';
-import Analyzer from 'parser/core/Analyzer';
+
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import SPELLS from 'common/SPELLS';
-import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import Events from 'parser/core/Events';
 import { formatNumber } from 'common/format';
-import SpellIcon from 'common/SpellIcon';
-import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
+import HIT_TYPES from 'game/HIT_TYPES';
+import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemDamageDone from 'interface/others/ItemDamageDone';
+import SPELLS from 'common/SPELLS';
+import StatTracker from 'parser/shared/modules/StatTracker';
+import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
+import UptimeIcon from 'interface/icons/Uptime';
 
-import BeaconHealSource from '../beacons/BeaconHealSource';
+import StatValues from '../StatValues';
 
-const AW_BASE_DURATION = 20;
-const LIGHTS_DECREE_DURATION = 5;
+
+const LIGHTS_DECREE_BASE_DURATION = 5;
+const AVENGING_WRATH_BASE_DURATION = 20;
+const AVENGING_WRATH_CRIT_BONUS = 0.3;
+
+// this will have to be replaced when corrupted gear adds more crit damage/healing //
+const CRIT_HEALING_DAMAGE = 2;
+const CRIT_HEALING_BONUS = 2;
+
 
 /**
  * Spending Holy Power during Avenging Wrath causes you to explode with Holy light for 508 damage per Holy Power spent to nearby enemies.
@@ -21,109 +31,151 @@ const LIGHTS_DECREE_DURATION = 5;
 class LightsDecree extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    beaconHealSource: BeaconHealSource,
+    statTracker: StatTracker,
+    statValues: StatValues,
   };
 
-  baseDuration = AW_BASE_DURATION;
-  regularHealing = 0;
-  healingTransfered = 0;
-  healingFromGlimmer = 0;
+  casts = 0;
+  avengingWrathDuration = AVENGING_WRATH_BASE_DURATION;
+  lightsDecreeDuration = LIGHTS_DECREE_BASE_DURATION;
+  bonusHolyShocks = 0;
+
+  critHeals = 0;
+  bonusHealing = 0;
+  bonusCritHealing = 0;
+
+  critDamage = 0;
+  bonusDamage = 0;
+  bonusCritDamage = 0;
 
   constructor(...args) {
     super(...args);
 
     this.active = this.selectedCombatant.hasTrait(SPELLS.LIGHTS_DECREE.id);
-
     if (!this.active) {
       return;
     }
+
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AVENGING_WRATH), this.onAvengingWrathCast);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
+
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_SHOCK_CAST), this.onHolyShock);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_SHOCK_HEAL), this.onHolyShock);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOLY_SHOCK_DAMAGE), this.onHolyShock);
+
+    if(this.selectedCombatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT.id)){
+      this.avengingWrathDuration += this.avengingWrathDuration * 0.25;
+      this.lightsDecreeDuration += this.lightsDecreeDuration * 0.25;
+    }
   }
 
-  hasAvengingWrathBuffThroughLightsDecree(event) {
+  avengingWrathBuffViaLightsDecree(event) {
     const buff = this.selectedCombatant.getBuff(SPELLS.AVENGING_WRATH.id, event.timestamp);
-
     if (buff === undefined) {
       return false;
     }
 
-    const end = buff.end || event.timestamp;
-    const remainingDuration = (end - buff.start) / 1000;
+    if (event.timestamp >= buff.start + (this.avengingWrathDuration * 1000)
+      && event.timestamp < buff.start + (this.avengingWrathDuration * 1000) + this.lightsDecreeDuration * 1000){
+        return true;
+    }
 
-    return remainingDuration <= LIGHTS_DECREE_DURATION;
+    return false;
   }
 
-  on_byPlayer_heal(event) {
-    if (!this.hasAvengingWrathBuffThroughLightsDecree(event)) {
+  onAvengingWrathCast(event) {
+    this.casts += 1;
+    this.lastAvengingWrath = event.timestamp;
+  }
+
+  onHeal(event){
+    if (!this.avengingWrathBuffViaLightsDecree(event)){
       return;
     }
 
-    const healingDone = (event.amount + (event.absorbed || 0));
+    const healing = (event.amount + (event.absorbed || 0));
+    const overHeal = (event.overheal || 0);
+    const totalHealing = healing + overHeal;
+    const extraHealing = totalHealing - (totalHealing / 1.2);
+    if (extraHealing > overHeal){
+      this.bonusHealing += extraHealing - overHeal;
+    } 
 
-    this.regularHealing += healingDone;
-
-    if (event.ability.guid !== SPELLS.GLIMMER_OF_LIGHT.id) {
+    const isCrit = event.hitType === HIT_TYPES.CRIT;
+    if (!isCrit){
       return;
     }
 
-    this.healingFromGlimmer += healingDone;
-  }
-
-  on_beacontransfer(event) {
-    if (!this.hasAvengingWrathBuffThroughLightsDecree(event)) {
+    this.critHeals += 1;
+    const baseHeal = totalHealing / CRIT_HEALING_BONUS;
+    if (overHeal > totalHealing - baseHeal){
       return;
     }
 
-    const healingDone = (event.amount + (event.absorbed || 0));
+    const { baseCritChance, ratingCritChance } = this.statValues._getCritChance(event);
+    const critContribution = AVENGING_WRATH_CRIT_BONUS / (baseCritChance + ratingCritChance);
+    this.bonusCritHealing += critContribution * (healing - baseHeal);
+  }
 
-    this.healingTransfered += healingDone;
-
-    if (event.originalHeal.ability.guid !== SPELLS.GLIMMER_OF_LIGHT.id) {
+  onDamage(event){
+    if (!this.avengingWrathBuffViaLightsDecree(event)){
       return;
     }
 
-    this.healingFromGlimmer += healingDone;
-  }
+    const damage = (event.amount + (event.absorbed || 0));
+    this.bonusDamage += damage - (damage / 1.2);
 
-  get totalHealing() {
-    return this.regularHealing + this.healingTransfered;
-  }
-
-  get totalDurationIncrease() {
-    const buffId = SPELLS.AVENGING_WRATH.id;
-    const hist = this.selectedCombatant.getBuffHistory(buffId);
-    if (!hist || hist.length === 0) {
-      return null;
+    const isCrit = event.hitType === HIT_TYPES.CRIT || event.hitType === HIT_TYPES.BLOCKED_CRIT;
+    if (!isCrit){
+      return;
     }
-    let totalIncrease = 0;
-    hist.forEach((buff) => {
-      const end = buff.end || this.owner.currentTimestamp;
-      const duration = (end - buff.start) / 1000;
-      const increase = Math.max(0, duration - this.baseDuration);
-      totalIncrease += increase;
-    });
-    return totalIncrease;
+
+    this.critDamage += 1;
+    const { baseCritChance, ratingCritChance } = this.statValues._getCritChance(event);
+    const critContribution = AVENGING_WRATH_CRIT_BONUS / (baseCritChance + ratingCritChance);
+    this.bonusCritDamage += critContribution * (damage / CRIT_HEALING_DAMAGE);
   }
+
+  onHolyShock(event){
+    if (this.avengingWrathBuffViaLightsDecree(event)){
+      this.bonusHolyShocks += 1;
+    }
+  }
+
+get durationIncrease(){
+  return this.casts * this.lightsDecreeDuration;
+}
+
+get additionalUptime(){
+  return this.durationIncrease / (this.owner.fightDuration / 60000);
+}
 
   statistic() {
     return (
-      <AzeritePowerStatistic
-        size="flexible"
-        tooltip={(
-          <Trans>
-            The amount of healing done during the additional {LIGHTS_DECREE_DURATION} seconds given by the azerite trait. <br />
-
-            Healing done: <b>{formatNumber(this.totalHealing)}</b> <br />
-            Beacon healing transfered: <b>{formatNumber(this.healingTransfered)}</b> <br />
-            Glimmer healing done: <b>{formatNumber(this.healingFromGlimmer)}</b> <br />
-          </Trans>
+      <TraitStatisticBox
+        position={STATISTIC_ORDER.OPTIONAL()}
+        trait={SPELLS.LIGHTS_DECREE.id}
+        value={(
+          <>
+            <ItemHealingDone amount={this.bonusHealing + this.bonusCritHealing} /><br />
+            <ItemDamageDone amount={this.bonusDamage + this.bonusCritDamage} /><br />
+            <UptimeIcon /> {this.additionalUptime.toFixed(1)}% <small>uptime {this.durationIncrease} seconds</small><br />
+          </>
         )}
-      >
-        <BoringSpellValueText spell={SPELLS.LIGHTS_DECREE}>
-          <ItemHealingDone amount={this.totalHealing} />
+        tooltip={(
+          <>
+          You cast Avenging Wrath <b>{this.casts}</b> time(s) for <b>{this.durationIncrease.toFixed(1)}</b> seconds of increased duration.<br />
+          Critical heals hit <b>{this.critHeals}</b> time(s), Avenging Wrath's 30% critical bonus contributed <b>+{formatNumber(this.bonusCritHealing)}</b> healing. <br />
+          Critical damage hit <b>{this.critDamage}</b> time(s), Avenging Wrath's 30% critical bonus contributed <b>+{formatNumber(this.bonusCritDamage)}</b> damage. <br />
+          20% flat healing increase from Avenging Wrath granted <b>+{formatNumber(this.bonusHealing)}</b> additional healing.<br />
+          20% flat damage increase from Avenging Wrath granted <b>+{formatNumber(this.bonusDamage)}</b> additional damage.<br />
+          {(this.selectedCombatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT.id) 
+            ? `You cast ` + this.bonusHolyShocks + ` Holy Shock(s) during the 50% cooldown reduction for ` + (this.bonusHolyShocks / 2).toFixed(1) + ` extra casts.`: '')}
           <br />
-          <SpellIcon id={SPELLS.AVENGING_WRATH.id} /> +{formatNumber(this.totalDurationIncrease)} seconds
-        </BoringSpellValueText>
-      </AzeritePowerStatistic>
+          </>
+        )}
+      />
     );
   }
 }

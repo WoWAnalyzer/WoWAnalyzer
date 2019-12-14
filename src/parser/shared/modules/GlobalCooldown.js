@@ -158,7 +158,7 @@ class GlobalCooldown extends Analyzer {
           'time passed:', timeSince,
           'cooldown remaining:', remainingDuration,
           'expectedDuration:', this.lastGlobalCooldown.duration,
-          'errors:', this._errors
+          'errors:', this._errors,
         );
       }
     }

@@ -213,7 +213,7 @@ class WildFleshrending extends Analyzer {
       return suggest(
         <>
           You're not getting the full benefit of your <SpellLink id={SPELLS.WILD_FLESHRENDING.id} /> Azerite trait on <SpellLink id={SPELLS.SHRED.id} />. To receive the trait's bonus damage you must have <SpellLink id={SPELLS.THRASH_FERAL.id} /> active on the target when you hit it with <SpellLink id={SPELLS.SHRED.id} />.
-        </>
+        </>,
       )
         .icon(SPELLS.WILD_FLESHRENDING.icon)
         .actual(`${(actual * 100).toFixed(0)}% of Shreds benefited from Wild Fleshrending.`)
@@ -225,7 +225,7 @@ class WildFleshrending extends Analyzer {
       return suggest(
         <>
           You're not getting the full benefit of your <SpellLink id={SPELLS.WILD_FLESHRENDING.id} /> Azerite trait on <SpellLink id={swipeSpell.id} />. To receive the trait's bonus damage you must have <SpellLink id={SPELLS.THRASH_FERAL.id} /> active on the target when you hit it with <SpellLink id={swipeSpell.id} />.
-        </>
+        </>,
       )
         .icon(SPELLS.WILD_FLESHRENDING.icon)
         .actual(`${(actual * 100).toFixed(0)}% of ${swipeSpell.name} hits benefited from Wild Fleshrending.`)

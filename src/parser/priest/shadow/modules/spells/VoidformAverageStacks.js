@@ -33,7 +33,7 @@ class VoidformAverageStacks extends Analyzer {
             Managing your <SpellLink id={SPELLS.VOIDFORM.id} />s is a large part of playing shadow. The recommended way is to try to keep your <SpellLink id={SPELLS.VOIDFORM.id} /> cycles to around 20 seconds each, meaning you will have access to <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> every other <SpellLink id={SPELLS.VOIDFORM.id} />.<br /><br />
 
             <SpellLink id={SPELLS.DISPERSION.id} /> can be used to synchronize your cooldowns back in order or in case of an emergency if you are about to fall out of <SpellLink id={SPELLS.VOIDFORM.id} /> and you have a <SpellLink id={SPELLS.MINDBENDER_TALENT_SHADOW.id} /> active. This should be used as a last resort as long as you will not need to use Dispersion defensively before it comes back up.
-          </>
+          </>,
         )
           .icon(SPELLS.VOIDFORM_BUFF.icon)
           .actual(`${formatNumber(actual)} average Voidform stacks.`)

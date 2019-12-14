@@ -1,27 +1,36 @@
+import React from 'react';
+
 import EventSubscriber from './EventSubscriber';
-import EventFilter, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from './EventFilter';
+import EventFilter, {
+  SELECTED_PLAYER,
+  SELECTED_PLAYER_PET,
+} from './EventFilter';
+import { SuggestionAssertion } from './ParseResults';
+import { Event } from './Events';
 
 export { SELECTED_PLAYER, SELECTED_PLAYER_PET };
 
 const EVENT_LISTENER_REGEX = /on_((by|to)Player(Pet)?_)?(.+)/;
 
 /**
- * Get a list of all methods of all classes in the prototype chain until this class.
- * Orginal source: https://stackoverflow.com/a/40577337/684353
+ * Get a list of all methods of all classes in the prototype chain until this
+ * class. Orginal source: https://stackoverflow.com/a/40577337/684353
  * @param {object} obj A class instance
  * @returns {Set<any>}
  */
-function getAllChildMethods(obj) {
+function getAllChildMethods(obj: object) {
   // Set is required here to avoid duplicate methods (if a class extends another it might override the same method)
-  const methods = new Set();
+  const methods = new Set<string>();
   // eslint-disable-next-line no-cond-assign
   while ((obj = Object.getPrototypeOf(obj)) && obj !== Analyzer.prototype) {
-    const keys = Object.getOwnPropertyNames(obj).concat(Object.getOwnPropertySymbols(obj));
+    const keys = Object.getOwnPropertyNames(obj).concat(
+      (Object.getOwnPropertySymbols(obj) as unknown) as string[],
+    );
     keys.forEach(k => methods.add(k));
   }
   return methods;
 }
-function addLegacyEventListenerSupport(object) {
+function addLegacyEventListenerSupport(object: Analyzer) {
   const methods = getAllChildMethods(object);
   let hasLegacyEventListener = false;
   // Check for any methods that match the old magic method names and connect them to the new event listeners
@@ -53,6 +62,7 @@ function addLegacyEventListenerSupport(object) {
     }
     filter.to(to);
 
+    // @ts-ignore
     object.addEventListener(filter, object[listener]);
     hasLegacyEventListener = true;
   });
@@ -63,28 +73,44 @@ class Analyzer extends EventSubscriber {
   hasLegacyEventListener = false;
 
   /**
-   * Called when the parser finished initializing; after all required dependencies are loaded, normalizers have ran and combatants were initialized.
-   * Use this method to toggle the module on/off based on having items equipped, talents selected, etc.
+   * Called when the parser finished initializing; after all required
+   * dependencies are loaded, normalizers have ran and combatants were
+   * initialized. Use this method to toggle the module on/off based on having
+   * items equipped, talents selected, etc.
    */
-  constructor(options) {
+  constructor(options: any) {
     super(options);
     addLegacyEventListenerSupport(this);
   }
-  addEventListener(eventFilter, listener) {
+  addEventListener<T extends Event>(
+    eventFilter: T['type'] | EventFilter<T['type']>,
+    listener: (event: T) => void,
+  ) {
     if (this.hasLegacyEventListener) {
-      throw new Error('You can not combine legacy event listeners with manual event listeners, use only one method.');
+      throw new Error(
+        'You can not combine legacy event listeners with manual event listeners, use only one method.',
+      );
     }
     super.addEventListener(eventFilter, listener);
   }
 
   // Override these with functions that return info about their rendering in the specific slots
-  statistic() { return undefined; }
+  statistic(): React.ReactNode {
+    return undefined;
+  }
   /**
    * @deprecated Set the `position` property on the Statistic component instead.
    */
   statisticOrder = undefined;
-  suggestions(when) { return undefined; }
-  tab() { return undefined; }
+  suggestions(when: (actual: object | any) => SuggestionAssertion) {}
+  /**
+   * @deprecated Return a `Panel` from the statistic method instead.
+   */
+  tab(): {
+    title: string;
+    url: string;
+    render: React.FC;
+  } | void {}
 }
 
 export default Analyzer;

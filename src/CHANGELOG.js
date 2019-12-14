@@ -8,6 +8,9 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  change(date(2019, 12, 13), "Added a confirm dialog to the keybinding (l) to open the current page in your development environment.", Zerotorescue),
+  change(date(2019, 12, 13), "Added TypeScript support to the codebase. See Discord for more info.", Zerotorescue),
+  change(date(2019, 12, 8), <>Reduced likely hood to accidnetly go to unintended page.</>, Abelito75),
   change(date(2019, 11, 14), "Added the ability to define different rotations for analysis (like no icelance for frost mages)", Zeboot),
   change(date(2019, 10, 25), <>Fixed a bug in the dispels module.</>, Khadaj),
   change(date(2019, 10, 25), <>Added missing spell information for resource refunds and gains from <SpellLink id={SPELLS.LUCID_DREAMS_MINOR.id} /> and <SpellLink id={SPELLS.VISION_OF_PERFECTION.id} />.</>, Juko8),

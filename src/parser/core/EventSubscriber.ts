@@ -1,14 +1,17 @@
+import EventFilter, {
+  SELECTED_PLAYER,
+  SELECTED_PLAYER_PET,
+} from './EventFilter';
 import Module from './Module';
-import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from './EventFilter';
+import { Event } from './Events';
 
 export { SELECTED_PLAYER, SELECTED_PLAYER_PET };
 
 class EventSubscriber extends Module {
-  /**
-   * @param {string|EventFilter} eventFilter
-   * @param {function} listener
-   */
-  addEventListener(eventFilter, listener) {
+  addEventListener<T extends Event>(
+    eventFilter: T['type'] | EventFilter<T['type']>,
+    listener: (event: T) => void,
+  ) {
     if (!this.active) {
       return;
     }

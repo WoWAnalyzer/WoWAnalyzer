@@ -68,15 +68,15 @@ class EventEmitter extends Module {
     };
   }
   _prependFilters(eventFilter, listener) {
-    const by = eventFilter.by();
+    const by = eventFilter.getBy();
     if (by) {
       listener = this._prependByCheck(listener, by);
     }
-    const to = eventFilter.to();
+    const to = eventFilter.getTo();
     if (to) {
       listener = this._prependToCheck(listener, to);
     }
-    const spell = eventFilter.spell();
+    const spell = eventFilter.getSpell();
     if (spell) {
       listener = this._prependSpellCheck(listener, spell);
     }

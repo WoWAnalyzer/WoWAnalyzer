@@ -129,7 +129,7 @@ class PredatorySwiftness extends Analyzer {
       return suggest(
         <>
           You are not making use of all your chances to trigger <SpellLink id={SPELLS.BLOODTALONS_TALENT.id} /> through <SpellLink id={SPELLS.PREDATORY_SWIFTNESS.id} />. Try to use it to instant-cast <SpellLink id={SPELLS.REGROWTH.id} /> or <SpellLink id={SPELLS.ENTANGLING_ROOTS.id} /> before you generate another charge of the buff, and before it wears off.
-        </>
+        </>,
       )
         .icon(SPELLS.PREDATORY_SWIFTNESS.icon)
         .actual(`${formatPercentage(actual)}% of Predatory Swiftness buffs wasted.`)

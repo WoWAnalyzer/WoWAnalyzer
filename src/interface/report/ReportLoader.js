@@ -127,5 +127,5 @@ export default compose(
   withRouter,
   connect(mapStateToProps, {
     setReport,
-  })
+  }),
 )(ReportLoader);

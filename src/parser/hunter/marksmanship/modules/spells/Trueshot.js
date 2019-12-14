@@ -112,7 +112,7 @@ class Trueshot extends Analyzer {
       return suggest(
         <>
           You only cast {actual} <SpellLink id={SPELLS.AIMED_SHOT.id} />s inside your average <SpellLink id={SPELLS.TRUESHOT.id} /> window. This is your only DPS cooldown, and it's important to maximize it to it's fullest potential by getting as many Aimed Shot squeezed in as possible.
-        </>
+        </>,
       )
         .icon(SPELLS.TRUESHOT.icon)
         .actual(`Average of ${actual} Aimed Shots per Trueshot.`)

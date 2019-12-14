@@ -512,7 +512,7 @@ class Parses extends React.Component {
                     onChange={e => this.updateZoneMetricBoss(Number(e.target.value), this.state.metric, BOSS_DEFAULT_ALL_BOSSES)}
                   >
                     {Object.values(ZONES).reverse().map(elem =>
-                      <option key={elem.id} value={elem.id}>{elem.name}</option>
+                      <option key={elem.id} value={elem.id}>{elem.name}</option>,
                     )}
                   </select>
                 </li>
@@ -525,7 +525,7 @@ class Parses extends React.Component {
                   >
                     <option value={BOSS_DEFAULT_ALL_BOSSES} defaultValue>All bosses</option>
                     {this.zoneBosses.map(e =>
-                      <option key={e.id} value={e.name}>{e.name}</option>
+                      <option key={e.id} value={e.name}>{e.name}</option>,
                     )}
                   </select>
                 </li>
@@ -648,6 +648,6 @@ export default compose(
     null,
     {
       appendReportHistory,
-    }
-  )
+    },
+  ),
 )(Parses);

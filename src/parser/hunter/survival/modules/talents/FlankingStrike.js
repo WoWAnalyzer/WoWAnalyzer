@@ -116,7 +116,7 @@ class FlankingStrike extends Analyzer {
                 {this.flankingStrikes.map((source, idx) => (
                   <tr key={idx}>
                     <td>{source.name}</td>
-                    <td>{<ItemDamageDone amount={source.damage} />}</td>
+                    <td><ItemDamageDone amount={source.damage} /></td>
                     <td>{source.effectiveFocus}/{source.possibleFocus}</td>
                   </tr>
                 ))}
