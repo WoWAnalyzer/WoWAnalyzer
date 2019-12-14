@@ -273,20 +273,7 @@ class PlayerLoader extends React.PureComponent {
             makeUrl={playerId => makeAnalyzerUrl(report, fight.id, playerId)}
           />
           <ReportRaidBuffList
-            players={report.friendlies.map(friendly => {
-              const combatant = combatants.find(combatant => combatant.sourceID === friendly.id);
-              if (!combatant) {
-                return null;
-              }
-              const exportedCharacter = report.exportedCharacters ? report.exportedCharacters.find(char => char.name === friendly.name) : null;
-
-              return {
-                ...friendly,
-                combatant,
-                realm: exportedCharacter ? exportedCharacter.server : undefined,
-                region: exportedCharacter ? exportedCharacter.region : undefined,
-              };
-            }).filter(friendly => friendly !== null)}
+            combatants={combatants}
           />
         </div>
       );

@@ -7,16 +7,84 @@ import './ReportRaidBuffList.scss';
 
 import ReportRaidBuffListItem from '../ReportRaidBuffListItem';
 
-interface CombatantInfo {
+type Class = string; // TODO: enum
+interface CombatantInfoEvent {
+  timestamp: number;
+  type: 'combatantinfo';
+  pin: string;
+  sourceID: number;
+  gear: Array<{
+    id: number;
+    quality: number;
+    icon: string;
+    itemLevel: number;
+    bonusIDs?: number[];
+    permanentEnchant?: number;
+    gems?: Array<{
+      id: number;
+      itemLevel: number;
+      icon: string;
+    }>;
+  }>;
+  auras: Array<{
+    source: number;
+    ability: number;
+    stacks: number;
+    icon: string;
+    name?: string;
+  }>;
+  faction: number;
   specID: number;
-}
-interface Player {
-  type: string;
-  combatant: CombatantInfo;
+  strength: number;
+  agility: number;
+  stamina: number;
+  intellect: number;
+  dodge: number;
+  parry: number;
+  block: number;
+  armor: number;
+  critMelee: number;
+  critRanged: number;
+  critSpell: number;
+  speed: number;
+  leech: number;
+  hasteMelee: number;
+  hasteRanged: number;
+  hasteSpell: number;
+  avoidance: number;
+  mastery: number;
+  versatilityDamageDone: number;
+  versatilityHealingDone: number;
+  versatilityDamageReduction: number;
+  talents: [
+    { id: number; icon: string },
+    { id: number; icon: string },
+    { id: number; icon: string },
+    { id: number; icon: string },
+    { id: number; icon: string },
+    { id: number; icon: string },
+    { id: number; icon: string },
+  ];
+  pvpTalents: Array<{ id: number; icon: string }>;
+  artifact: Array<{
+    traitID: number;
+    rank: number;
+    spellID: number;
+    icon: string;
+    slot: number;
+  }>;
+  heartOfAzeroth: Array<{
+    traitID: number;
+    rank: number;
+    spellID: number;
+    icon: string;
+    slot: number;
+    isMajor: boolean;
+  }>;
 }
 
 interface Props {
-  players: Player[];
+  combatants: CombatantInfoEvent[];
 }
 interface State {
   [key: string]: {
@@ -101,7 +169,7 @@ class ReportRaidBuffList extends React.Component<Props, State> {
   }
 
   componentWillMount() {
-    this.calculateCompositionBreakdown(this.props.players);
+    this.calculateCompositionBreakdown(this.props.combatants);
   }
 
   incrementBuff(buff: string) {
@@ -110,76 +178,78 @@ class ReportRaidBuffList extends React.Component<Props, State> {
     }));
   }
 
-  calculateCompositionBreakdown(players: Player[]) {
-    players.forEach(player => {
-      this.calculateRaidBuffs(player);
-      this.calculateHealingCds(player);
+  calculateCompositionBreakdown(combatants: CombatantInfoEvent[]) {
+    combatants.forEach(combatant => {
+      this.calculateRaidBuffs(combatant);
+      this.calculateHealingCds(combatant);
     });
   }
 
-  calculateRaidBuffs(player: Player) {
-    if (player.type === 'Priest') {
+  calculateRaidBuffs(combatant: CombatantInfoEvent) {
+    const spec = SPECS[combatant.specID];
+    const className = spec.className;
+    if (className === 'Priest') {
       this.incrementBuff('stamina');
     }
 
-    if (player.type === 'Warrior') {
+    if (className === 'Warrior') {
       this.incrementBuff('attackPower');
       this.incrementBuff('rallyingCry');
     }
 
-    if (player.type === 'Mage') {
+    if (className === 'Mage') {
       this.incrementBuff('intellect');
     }
 
-    if (player.type === 'DemonHunter') {
+    if (className === 'DemonHunter') {
       this.incrementBuff('magicVulnerability');
-      if (player.combatant.specID === SPECS.HAVOC_DEMON_HUNTER.id) {
+      if (combatant.specID === SPECS.HAVOC_DEMON_HUNTER.id) {
         this.incrementBuff('darkness');
       }
     }
 
-    if (player.type === 'Monk') {
+    if (className === 'Monk') {
       this.incrementBuff('physicalVulnerability');
     }
 
-    if (player.type === 'Shaman' || player.type === 'Mage') {
+    if (className === 'Shaman' || className === 'Mage') {
       // TODO: Make faction specific
       this.incrementBuff('bloodlust');
     }
 
     if (
-      player.type === 'Druid' ||
-      player.type === 'DeathKnight' ||
-      player.type === 'Warlock'
+      className === 'Druid' ||
+      className === 'DeathKnight' ||
+      className === 'Warlock'
     ) {
       this.incrementBuff('battleRes');
     }
   }
 
-  calculateHealingCds(player: Player) {
-    if (player.combatant.specID === SPECS.HOLY_PALADIN.id) {
+  calculateHealingCds(combatant: CombatantInfoEvent) {
+    if (combatant.specID === SPECS.HOLY_PALADIN.id) {
       this.incrementBuff('auraMastery');
     }
 
-    if (player.combatant.specID === SPECS.RESTORATION_SHAMAN.id) {
+    if (combatant.specID === SPECS.RESTORATION_SHAMAN.id) {
       this.incrementBuff('spiritLink');
       this.incrementBuff('healingTide');
     }
 
-    if (player.combatant.specID === SPECS.MISTWEAVER_MONK.id) {
+    if (combatant.specID === SPECS.MISTWEAVER_MONK.id) {
       this.incrementBuff('revival');
     }
 
-    if (player.combatant.specID === SPECS.DISCIPLINE_PRIEST.id) {
+    if (combatant.specID === SPECS.DISCIPLINE_PRIEST.id) {
       this.incrementBuff('barrier');
     }
 
-    if (player.combatant.specID === SPECS.HOLY_PRIEST.id) {
+    if (combatant.specID === SPECS.HOLY_PRIEST.id) {
       this.incrementBuff('divineHymn');
       this.incrementBuff('salvation');
     }
 
-    if (player.combatant.specID === SPECS.RESTORATION_DRUID.id) {
+    if (combatant.specID === SPECS.RESTORATION_DRUID.id) {
       this.incrementBuff('tranquility');
     }
   }
