@@ -4,10 +4,11 @@ import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import CoreAbilities from 'parser/core/modules/Abilities';
+import { SpellbookAbility } from 'parser/core/modules/Ability';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
 class Abilities extends CoreAbilities {
-  spellbook() {
+  spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     const hasSanctifiedWrath = combatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT.id);
     return [
@@ -139,7 +140,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.RULE_OF_LAW_TALENT,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 30,
-        gcd: null,
+        gcd: undefined,
         charges: 2,
         timelineSortIndex: 11,
         enabled: combatant.hasTalent(SPELLS.RULE_OF_LAW_TALENT.id),
@@ -148,7 +149,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DIVINE_PROTECTION,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 60 * (1 - (combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 0.3 : 0)),
-        gcd: null,
+        gcd: undefined,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.6,
@@ -223,14 +224,14 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BLESSING_OF_SACRIFICE,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 120,
-        gcd: null,
+        gcd: undefined,
         timelineSortIndex: 101,
       },
       {
         spell: SPELLS.LAY_ON_HANDS,
         category: Abilities.SPELL_CATEGORIES.COOLDOWNS,
         cooldown: 600 * (1 - (combatant.hasTalent(SPELLS.UNBREAKABLE_SPIRIT_TALENT.id) ? 0.3 : 0)),
-        gcd: null,
+        gcd: undefined,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.1,
@@ -402,7 +403,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.HAND_OF_RECKONING,
         category: Abilities.SPELL_CATEGORIES.UTILITY,
         cooldown: 8,
-        gcd: null,
+        gcd: undefined,
         timelineSortIndex: 106,
       },
     ];
