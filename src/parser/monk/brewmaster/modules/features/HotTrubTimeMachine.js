@@ -5,7 +5,7 @@ import Events from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import StatisticBox from 'interface/others/StatisticBox';
 import SpellIcon from 'common/SpellIcon';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 import { formatNumber, formatPercentage } from 'common/format';
 import { EVENT_STAGGER_POOL_ADDED, EVENT_STAGGER_POOL_REMOVED } from '../core/StaggerFabricator';
 import AgilityValue, { staggerPct } from './AgilityValue';
@@ -57,7 +57,7 @@ export default class HotTrubTimeMachine extends Analyzer {
     };
 
     this.addEventListener(EVENT_STAGGER_POOL_REMOVED, this._calculatePurifyDamage);
-    
+
     this.addEventListener(EVENT_STAGGER_POOL_ADDED, this._degenerateStaggerAdd);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.PURIFYING_BREW, SPELLS.IRONSKIN_BREW]), this._degeneratePurifyDamage);
     this.addEventListener(EVENT_STAGGER_POOL_REMOVED, this._degenerateRemoveStagger);
@@ -79,13 +79,13 @@ export default class HotTrubTimeMachine extends Analyzer {
 
   _degenerateStaggerAdd(event) {
     const actualPct = staggerPct(
-      this.stats.currentAgilityRating, this.K, 
+      this.stats.currentAgilityRating, this.K,
       this.selectedCombatant.hasBuff(SPELLS.IRONSKIN_BREW_BUFF.id),
       this.agi.hasHT,
     );
 
     const degenPct = staggerPct(
-      this.stats.currentAgilityRating, this.K, 
+      this.stats.currentAgilityRating, this.K,
       false,
       this.agi.hasHT,
     );
@@ -125,11 +125,11 @@ export default class HotTrubTimeMachine extends Analyzer {
       this.degenerate.staggerPool -= this.degenerate.tickAmount;
       return;
     }
-    
+
     const amount = event.amount + event.overheal;
     this.degenerate.staggerPool -= Math.min(this.degenerate.staggerPool, amount);
   }
-  
+
   statistic() {
     return (
       <StatisticBox

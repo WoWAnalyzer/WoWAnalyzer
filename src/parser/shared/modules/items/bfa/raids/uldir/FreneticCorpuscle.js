@@ -2,7 +2,7 @@ import React from 'react';
 
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 import {formatNumber} from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
@@ -12,7 +12,7 @@ import BoringItemValueText from 'interface/statistics/components/BoringItemValue
  * Frenetic Corpuscle -
  * Equip: Your attacks have a chance to grant you Frothing Rage for 45 sec. When Frothing Rage
  * reaches 4 charges, your next attack will deal an additional 19496 Physical damage.
- * 
+ *
  * Test Log: /report/YMNxGdhvkbDHKnWt/3-LFR+Champion+of+the+Light+-+Kill+(2:18)/Horesuz
  */
 class FreneticCorpuscle extends Analyzer {

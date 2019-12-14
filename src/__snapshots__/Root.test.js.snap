@@ -356,7 +356,6 @@ exports[`Root matches snapshot 1`] = `
                                                       "marginRight": 10,
                                                     }
                                                   }
-                                                  text="Become a Patron"
                                                 >
                                                   <a
                                                     className="btn patreon"
@@ -368,9 +367,7 @@ exports[`Root matches snapshot 1`] = `
                                                       }
                                                     }
                                                   >
-                                                    <Icon
-                                                      colored={false}
-                                                    >
+                                                    <Icon>
                                                       <svg
                                                         className="icon"
                                                         viewBox="0 0 100 96"
@@ -448,7 +445,6 @@ exports[`Root matches snapshot 1`] = `
                                                       "marginLeft": 10,
                                                     }
                                                   }
-                                                  text="View source on GitHub"
                                                 >
                                                   <a
                                                     className="btn github"
@@ -1364,9 +1360,7 @@ exports[`Root matches snapshot 1`] = `
                                               onMouseLeave={[Function]}
                                               onTouchStart={[Function]}
                                             >
-                                              <Icon
-                                                colored={false}
-                                              >
+                                              <Icon>
                                                 <svg
                                                   className="icon"
                                                   viewBox="0 0 100 96"

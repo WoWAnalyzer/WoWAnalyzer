@@ -11,7 +11,7 @@ import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
-import ItemDamageTaken from 'interface/others/ItemDamageTaken';
+import ItemDamageTaken from 'interface/ItemDamageTaken';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import MasteryIcon from 'interface/icons/Mastery';
 import { TooltipElement } from 'common/Tooltip';

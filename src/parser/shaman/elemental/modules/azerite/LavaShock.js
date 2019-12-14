@@ -6,7 +6,7 @@ import { formatNumber } from 'common/format';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import { calculateAzeriteEffects } from 'common/stats';
 import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
 const ES_SP_COEFFICIENT = 2.1;// taken from Simcraft SpellDataDump (250% -> 210% in 8.1)

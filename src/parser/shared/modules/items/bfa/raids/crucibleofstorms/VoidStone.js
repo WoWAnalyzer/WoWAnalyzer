@@ -10,7 +10,7 @@ import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Buffs';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 
 //Example Log: https://www.warcraftlogs.com/reports/vZQfwra1xVK76M4L/#fight=13&source=6

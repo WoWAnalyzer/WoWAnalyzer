@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import ReadableListing from './ReadableList';
+import ReadableListing from './ReadableListing';
 
 const Dummy = () => <div />;
 

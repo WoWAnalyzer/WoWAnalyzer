@@ -513,7 +513,8 @@ exports[`Holy Paladin integration test analyzers AvengingCrusader matches the st
           />
            
           2,949
-           HPS 
+           HPS
+           
           <small>
             19.11
             % of total
@@ -6436,7 +6437,8 @@ exports[`Holy Paladin integration test analyzers GraceOfTheJusticar matches the 
           />
            
           464
-           HPS 
+           HPS
+           
           <small>
             3.00
             % of total
@@ -8680,7 +8682,8 @@ exports[`Holy Paladin integration test analyzers RadiantIncandescence matches th
           />
            
           245
-           HPS 
+           HPS
+           
           <small>
             1.59
             % of total
@@ -8768,7 +8771,8 @@ exports[`Holy Paladin integration test analyzers RevitalizingVoodooTotem matches
           />
            
           80
-           HPS 
+           HPS
+           
           <small>
             0.52
             % of total
@@ -10017,7 +10021,6 @@ exports[`Holy Paladin integration test should match the checklist snapshot 1`] =
                
               Holy Shock
             </a>
-             
             <a
               href="http://wowhead.com/spell=85222"
               rel="noopener noreferrer"
@@ -10031,7 +10034,7 @@ exports[`Holy Paladin integration test should match the checklist snapshot 1`] =
                
               Light of Dawn
             </a>
-             {0} {1} {2} {3} {4} are your most efficient healing spells available. Try to cast them as much as possible without overhealing. 
+            {0} {1} {2} {3} {4} are your most efficient healing spells available. Try to cast them as much as possible without overhealing.
             <dfn
               className=""
               onMouseEnter={[Function]}

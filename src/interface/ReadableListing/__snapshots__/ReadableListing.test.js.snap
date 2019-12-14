@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReadableList doesn't mutate a single item 1`] = `
+<Fragment>
+  <Dummy />
+</Fragment>
+`;
+
+exports[`ReadableList merges four items with two "," and an "and" 1`] = `
+<Fragment>
+  <Dummy />
+  , 
+  <Dummy />
+  , 
+  <Dummy />
+   and 
+  <Dummy />
+</Fragment>
+`;
+
+exports[`ReadableList merges three items with a "," and an "and" 1`] = `
+<Fragment>
+  <Dummy />
+  , 
+  <Dummy />
+   and 
+  <Dummy />
+</Fragment>
+`;
+
+exports[`ReadableList merges two items with an "and" 1`] = `
+<Fragment>
+  <Dummy />
+   and 
+  <Dummy />
+</Fragment>
+`;

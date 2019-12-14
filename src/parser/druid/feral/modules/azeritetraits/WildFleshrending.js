@@ -10,7 +10,7 @@ import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage
 import Enemies from 'parser/shared/modules/Enemies';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 
 import { AFFECTED_SPELLS as UNTAMED_FEROCITY_SPELLS, calcBonus as calcUntamedFerocityBonus } from '../azeritetraits/UntamedFerocity';
 import Abilities from '../Abilities';

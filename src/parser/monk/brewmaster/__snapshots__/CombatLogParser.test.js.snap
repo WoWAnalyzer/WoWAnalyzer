@@ -3613,7 +3613,8 @@ exports[`The Brewmaster Analyzer analyzers HotTrubTimeMachine matches the statis
           />
            
           252
-           DPS 
+           DPS
+           
           <small>
             4.52
              % of total
@@ -5210,7 +5211,8 @@ exports[`The Brewmaster Analyzer analyzers StaggeringStrikes matches the statist
           />
            
           195
-           HPS 
+           HPS
+           
           <small>
             3.70
             % of total

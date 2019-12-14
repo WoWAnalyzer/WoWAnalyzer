@@ -7,10 +7,10 @@ import StatTracker from "parser/shared/modules/StatTracker";
 import TraitStatisticBox, {
   STATISTIC_ORDER,
 } from "interface/others/TraitStatisticBox";
-import ItemDamageDone from "interface/others/ItemDamageDone";
+import ItemDamageDone from "interface/ItemDamageDone";
 import { formatNumber, formatPercentage } from "common/format";
 import SpellLink from "common/SpellLink";
-import ItemHealingDone from "interface/others/ItemHealingDone";
+import ItemHealingDone from "interface/ItemHealingDone";
 import { DISC_PRIEST_DAMAGE_REDUCTION } from "../../constants";
 import AtonementAnalyzer from "../core/AtonementAnalyzer";
 
