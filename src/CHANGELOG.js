@@ -8,6 +8,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/contributor/Button';
 
 export default [
+  change(date(2019, 12, 14), "Converted CastEfficiency to TypeScript and refactor it a bit.", Zerotorescue),
   change(date(2019, 12, 13), "Added a confirm dialog to the keybinding (l) to open the current page in your development environment.", Zerotorescue),
   change(date(2019, 12, 13), "Added TypeScript support to the codebase. See Discord for more info.", Zerotorescue),
   change(date(2019, 12, 8), <>Reduced likely hood to accidnetly go to unintended page.</>, Abelito75),
