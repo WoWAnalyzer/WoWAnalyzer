@@ -14,8 +14,6 @@ exports[`ContributorDetails matches snapshot 1`] = `
         className="col-md-5"
       >
         <Panel
-          className=""
-          pad={true}
           title="Dummy"
         >
           <div
@@ -69,7 +67,6 @@ exports[`ContributorDetails matches snapshot 1`] = `
         className="col-md-7"
       >
         <Panel
-          className=""
           pad={false}
           title="Contributions"
         >
