@@ -6,7 +6,7 @@ import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { i18n } from 'interface/RootLocalizationProvider';
 
 import { loadLog, parseLog } from './log-tools';
-import { expectSnapshot, renderWithParser } from './snapshotTest';
+import { expectSnapshot, statistic } from './snapshotTest';
 
 function integrationStatistic(analyzer, parser) {
   if (!analyzer.active) {
@@ -16,7 +16,7 @@ function integrationStatistic(analyzer, parser) {
   if (output === undefined) {
     return 'module has no statistic method';
   }
-  return renderWithParser(output, parser);
+  return statistic(output, parser);
 }
 
 function integrationSuggestions(analyzer) {

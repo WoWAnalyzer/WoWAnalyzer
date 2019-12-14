@@ -27,8 +27,12 @@ class ParserContextProvider extends React.PureComponent {
   }
 }
 
-export function renderWithParser(output, parser) {
+function renderWithParser(output, parser) {
   return renderer.create(<ParserContextProvider parser={parser}>{output}</ParserContextProvider>).toJSON();
+}
+
+export function statistic(output, parser=null) {
+  return renderWithParser(output, parser);
 }
 
 export function tab(analyzer, parser=null) {
