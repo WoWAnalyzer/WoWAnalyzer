@@ -737,7 +737,8 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
             >
               109
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -757,7 +758,7 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -821,7 +822,8 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
             >
               69
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -841,7 +843,7 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -905,7 +907,8 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
             >
               35
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -925,7 +928,7 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -989,7 +992,8 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
             >
               18
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1009,7 +1013,7 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -1073,7 +1077,8 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
             >
               14
               /15
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1169,7 +1174,8 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
             >
               8
               /10
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1265,7 +1271,8 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
             >
               0
               /38
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1361,7 +1368,8 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
             >
               8
               /10
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1508,7 +1516,8 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
             >
               4
               /58
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1653,7 +1662,8 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
             >
               3
               /4
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1800,7 +1810,8 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
             >
               3
               /3
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1896,7 +1907,8 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
             >
               1
               /2
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2041,7 +2053,8 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
             >
               6
               /18
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2137,7 +2150,8 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
             >
               0
               /2
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2282,7 +2296,8 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
             >
               0
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2302,7 +2317,7 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -2366,7 +2381,8 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
             >
               0
               /15
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2462,7 +2478,8 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
             >
               7
               /24
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2558,7 +2575,8 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
             >
               2
               /19
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2654,7 +2672,8 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
             >
               0
               /57
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2750,7 +2769,8 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
             >
               0
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2770,7 +2790,7 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -2834,7 +2854,8 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
             >
               0
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2854,7 +2875,7 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -2918,7 +2939,8 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
             >
               0
               /2
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -3014,7 +3036,8 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
             >
               0
               /2
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -3110,7 +3133,8 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
             >
               0
               /15
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -3206,7 +3230,8 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
             >
               0
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -3226,7 +3251,7 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -3339,7 +3364,8 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
             >
               0
               /1
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -3435,7 +3461,8 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
             >
               0
               /1
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -3531,7 +3558,8 @@ exports[`The Frost Mage Analyzer analyzers CastEfficiency matches the statistic 
             >
               1
               /1
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -4545,6 +4573,10 @@ exports[`The Frost Mage Analyzer analyzers SpellHistory matches the suggestions 
 exports[`The Frost Mage Analyzer analyzers SpellManaCost matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`The Frost Mage Analyzer analyzers SpellManaCost matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Frost Mage Analyzer analyzers SpellTimeWaitingOnGlobalCooldown matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Frost Mage Analyzer analyzers SpellTimeWaitingOnGlobalCooldown matches the suggestions snapshot 1`] = `Array []`;
 
 exports[`The Frost Mage Analyzer analyzers SpellUsable matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
