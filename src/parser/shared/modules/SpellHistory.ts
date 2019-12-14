@@ -1,4 +1,4 @@
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Channeling from 'parser/shared/modules/Channeling';
 import Events, {
   ApplyBuffEvent,
@@ -49,13 +49,13 @@ class SpellHistory extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.addEventListener(Events.begincast, this.append);
-    this.addEventListener(Events.cast, this.append);
-    this.addEventListener(Events.BeginChannel, this.append);
-    this.addEventListener(Events.EndChannel, this.append);
-    this.addEventListener(Events.applybuff, this.append);
-    this.addEventListener(Events.removebuff, this.append);
-    this.addEventListener(Events.UpdateSpellUsable, this.append);
+    this.addEventListener(Events.begincast.by(SELECTED_PLAYER), this.append);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.append);
+    this.addEventListener(Events.BeginChannel.by(SELECTED_PLAYER), this.append);
+    this.addEventListener(Events.EndChannel.by(SELECTED_PLAYER), this.append);
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.append);
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER), this.append);
+    this.addEventListener(Events.UpdateSpellUsable.by(SELECTED_PLAYER), this.append);
   }
 
   private getAbility(spellId: number) {
