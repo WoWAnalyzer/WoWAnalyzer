@@ -5,7 +5,6 @@ import CombatLogParser from 'parser/core/CombatLogParser';
 import Combatant from 'parser/core/Combatant';
 
 import Abilities from './Abilities';
-import { ApplyBuffEvent } from '../Events';
 
 export interface AbilityTrackerAbility {
   casts: number;

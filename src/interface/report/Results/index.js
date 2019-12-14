@@ -14,19 +14,19 @@ import REPORT_HISTORY_TYPES from 'interface/home/ReportHistory/REPORT_HISTORY_TY
 import { appendReportHistory } from 'interface/actions/reportHistory';
 import { getResultTab } from 'interface/selectors/url/report';
 import { hasPremium } from 'interface/selectors/user';
-import Warning from 'interface/common/Alert/Warning';
+import Warning from 'interface/Alert/Warning';
 import Ad from 'interface/common/Ad';
-import ReadableList from 'interface/common/ReadableList';
-import Contributor from 'interface/contributor/Button';
+import ReadableListing from 'interface/ReadableListing';
+import Contributor from 'interface/ContributorButton';
 import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
 import WipefestIcon from 'interface/icons/Wipefest';
 import { i18n } from 'interface/RootLocalizationProvider';
 import LoadingBar from 'interface/layout/NavigationBar/LoadingBar';
 import Panel from 'interface/others/Panel';
-import ChangelogTab from 'interface/others/ChangelogTab';
 import ErrorBoundary from 'interface/common/ErrorBoundary';
 import Checklist from 'parser/shared/modules/features/Checklist/Module';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import ResultsChangelogTab from 'interface/ResultsChangelogTab';
 
 import './Results.scss';
 import Header from './Header';
@@ -243,7 +243,7 @@ class Results extends React.PureComponent {
           <div className="container">
             <About config={config} />
 
-            <ChangelogTab />
+            <ResultsChangelogTab changelog={config.changelog} />
           </div>
         );
       }
@@ -350,7 +350,7 @@ class Results extends React.PureComponent {
       adjustForDowntime: this.state.adjustForDowntime,
     });
 
-    const contributorinfo = <ReadableList>{(config.contributors.length !== 0) ? config.contributors.map(contributor => <Contributor key={contributor.nickname} {...contributor} />) : 'CURRENTLY UNMAINTAINED'}</ReadableList>;
+    const contributorinfo = <ReadableListing>{(config.contributors.length !== 0) ? config.contributors.map(contributor => <Contributor key={contributor.nickname} {...contributor} />) : 'CURRENTLY UNMAINTAINED'}</ReadableListing>;
 
     return (
       <div className={`results boss-${fight.boss}`}>

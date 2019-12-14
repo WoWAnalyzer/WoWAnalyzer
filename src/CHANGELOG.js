@@ -5,7 +5,7 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
-import Contributor from 'interface/contributor/Button';
+import Contributor from 'interface/ContributorButton';
 
 export default [
   change(date(2019, 12, 14), "Converted CastEfficiency to TypeScript and refactor it a bit.", Zerotorescue),

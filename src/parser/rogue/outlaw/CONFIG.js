@@ -3,7 +3,7 @@ import React from 'react';
 import { tsabo, Coywolf } from 'CONTRIBUTORS';
 import retryingPromise from 'common/retryingPromise';
 import SPECS from 'game/SPECS';
-import Warning from 'interface/common/Alert/Warning';
+import Warning from 'interface/Alert/Warning';
 
 import CHANGELOG from './CHANGELOG';
 

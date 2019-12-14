@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import SPECS from 'game/SPECS';
 import { TooltipElement } from 'common/Tooltip';
-import Warning from 'interface/common/Alert/Warning';
+import Warning from 'interface/Alert/Warning';
 
 import CHANGELOG from './CHANGELOG';
 

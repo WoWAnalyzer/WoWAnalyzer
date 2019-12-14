@@ -4,26 +4,25 @@ import PropTypes from 'prop-types';
 import ManaIcon from 'interface/icons/Mana';
 import { formatThousands } from 'common/format';
 
-class ItemManaGained extends React.PureComponent {
-  static propTypes = {
-    amount: PropTypes.number.isRequired,
-    approximate: PropTypes.bool,
-  };
-  static contextTypes = {
-    parser: PropTypes.object.isRequired,
-  };
+const ItemManaGained = props => {
+  const { amount, approximate } = props;
+  const { parser } = this.context;
 
-  render() {
-    const { amount, approximate } = this.props;
-    const { parser } = this.context;
+  return (
+    <>
+      <ManaIcon />{' '}
+      {approximate && '≈'}{formatThousands(amount / parser.fightDuration * 1000 * 5)} MP5 <small>{formatThousands(amount)} total mana</small>
+    </>
+  );
+};
 
-    return (
-      <>
-        <ManaIcon />{' '}
-        {approximate && '≈'}{formatThousands(amount / parser.fightDuration * 1000 * 5)} MP5 <small>{formatThousands(amount)} total mana</small>
-      </>
-    );
-  }
-}
+ItemManaGained.propTypes = {
+  amount: PropTypes.number.isRequired,
+  approximate: PropTypes.bool,
+};
+
+ItemManaGained.contextTypes = {
+  parser: PropTypes.object.isRequired,
+};
 
 export default ItemManaGained;
