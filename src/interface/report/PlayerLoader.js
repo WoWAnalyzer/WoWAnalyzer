@@ -20,7 +20,7 @@ import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import Tooltip from 'common/Tooltip';
 import PlayerSelection from 'interface/report/PlayerSelection';
 import RaidCompositionDetails from 'interface/report/RaidCompositionDetails';
-import RaidBuffs from 'interface/report/RaidBuffs';
+import ReportRaidBuffList from 'interface/ReportRaidBuffList';
 import { fetchCharacter } from 'interface/actions/characters';
 import handleApiError from './handleApiError';
 
@@ -72,7 +72,7 @@ class PlayerLoader extends React.PureComponent {
     }
     return state;
   }
-  
+
   state = defaultState;
 
   componentDidMount() {
@@ -191,7 +191,7 @@ class PlayerLoader extends React.PureComponent {
       this.props.history.push(makeAnalyzerUrl());
     });
   }
-  
+
   renderLoading() {
     return <ActivityIndicator text={i18n._(t`Fetching player info...`)} />;
   }
@@ -208,7 +208,7 @@ class PlayerLoader extends React.PureComponent {
     if (!combatants) {
       return this.renderLoading();
     }
-    
+
 
     const players = playerId ? report.friendlies.filter(friendly => friendly.id === playerId) : report.friendlies.filter(friendly => friendly.name === playerName);
     const player = players[0];
@@ -272,7 +272,8 @@ class PlayerLoader extends React.PureComponent {
             }).filter(friendly => friendly !== null)}
             makeUrl={playerId => makeAnalyzerUrl(report, fight.id, playerId)}
           />
-          <RaidBuffs players={report.friendlies.map(friendly => {
+          <ReportRaidBuffList
+            players={report.friendlies.map(friendly => {
               const combatant = combatants.find(combatant => combatant.sourceID === friendly.id);
               if (!combatant) {
                 return null;
@@ -285,7 +286,8 @@ class PlayerLoader extends React.PureComponent {
                 realm: exportedCharacter ? exportedCharacter.server : undefined,
                 region: exportedCharacter ? exportedCharacter.region : undefined,
               };
-            }).filter(friendly => friendly !== null)} />
+            }).filter(friendly => friendly !== null)}
+          />
         </div>
       );
     }
