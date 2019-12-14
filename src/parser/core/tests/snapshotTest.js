@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import renderer from 'react-test-renderer';
 
-import { i18n } from 'interface/RootLocalizationProvider';
-
 import { loadLog, parseLog } from './log-tools';
 
 class ParserContextProvider extends React.PureComponent {
