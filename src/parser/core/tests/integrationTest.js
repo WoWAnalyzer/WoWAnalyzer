@@ -6,16 +6,17 @@ import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { i18n } from 'interface/RootLocalizationProvider';
 
 import { loadLog, parseLog } from './log-tools';
-import { statistic, expectSnapshot } from './snapshotTest';
+import { expectSnapshot, renderWithParser } from './snapshotTest';
 
 function integrationStatistic(analyzer, parser) {
   if (!analyzer.active) {
     return 'module inactive';
   }
-  if (!analyzer.statistic || analyzer.statistic() === undefined) {
+  const output = analyzer.statistic ? analyzer.statistic() : undefined;
+  if (output === undefined) {
     return 'module has no statistic method';
   }
-  return statistic(analyzer, parser);
+  return renderWithParser(output, parser);
 }
 
 function integrationSuggestions(analyzer) {
@@ -78,7 +79,11 @@ export default function integrationTest(parserClass, filename, suppressLog = tru
     });
 
     describe('analyzers', () => {
-      Object.values(parserClass.specModules).forEach(moduleClass => {
+      Object.values({
+        ...parserClass.internalModules,
+        ...parserClass.defaultModules,
+        ...parserClass.specModules,
+      }).forEach(moduleClass => {
         if (moduleClass instanceof Array) {
           // cannot call parser._getModuleClass at this point in
           // execution, so we handle the case manually
