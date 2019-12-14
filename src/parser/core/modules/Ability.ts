@@ -62,7 +62,7 @@ export interface SpellbookAbility {
    * for more complicated calls or even to check for buffs. Parameters
    * provided: `hastePercentage`, `selectedCombatant`
    */
-  cooldown?: ((haste: number, trigger: ApplyBuffEvent) => number) | number;
+  cooldown?: ((haste: number, trigger?: Event) => number) | number;
   /**
    * NYI, do not use
    */
@@ -368,7 +368,7 @@ class Ability {
   get cooldown() {
     return this.getCooldown(this.owner.haste.current);
   }
-  getCooldown(haste: number, cooldownTriggerEvent?: ApplyBuffEvent) {
+  getCooldown(haste: number, cooldownTriggerEvent?: Event) {
     if (this._cooldown === undefined) {
       // Most abilities will always be active and don't provide this prop at all
       return 0;
