@@ -6,7 +6,7 @@ import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatis
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatNumber, formatThousands } from 'common/format';
 import HolyWordSanctify from 'parser/priest/holy/modules/spells/holyword/HolyWordSanctify';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
 
 // Example Log: https://www.warcraftlogs.com/reports/7rLHkgCBhJZ3t1KX#fight=6&type=healing
 class WordOfMending extends Analyzer {

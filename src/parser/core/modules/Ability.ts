@@ -23,6 +23,9 @@ export interface AbilityTrackerAbility {
   damageCriticalHits?: number;
   damageCriticalEffective?: number;
   damageCriticalAbsorbed?: number;
+
+  // TODO: Fix this proper
+  healingIolHits?: number
 }
 export interface SpellbookAbility {
   /**
@@ -58,11 +61,11 @@ export interface SpellbookAbility {
    * for more complicated calls or even to check for buffs. Parameters
    * provided: `hastePercentage`, `selectedCombatant`
    */
-  cooldown?: Function | number;
+  cooldown?: ((haste: number, trigger?: Event) => number) | number;
   /**
    * NYI, do not use
    */
-  channel?: Function | number;
+  channel?: ((haste: number) => number) | number;
   /**
    * The amount of charges the spell has by default. Reminder: only 1 charge
    * will recharge at a time, so a spell having multiple charges will only have
@@ -82,7 +85,7 @@ export interface SpellbookAbility {
       }
     | ((combatant: Combatant) => number);
   castEfficiency?: {
-    name?: string
+    name?: string;
     /**
      * If this is set to `true`, this spell will trigger a Cast Efficiency
      * suggestion when the efficiency is below the set threshold (with one of
@@ -142,19 +145,19 @@ export interface SpellbookAbility {
   /**
    * A boolean to indicate the spell is a defensive.
    */
-  isDefensive: boolean;
+  isDefensive?: boolean;
   /**
    * A boolean to indicate it can not be detected whether the player his this
    * spells. This makes it so the spell is hidden when there are 0 casts in the
    * fight. This should only be used for spells that can't be detected if a
    * player has access to them, like racials.
    */
-  isUndetectable: boolean;
+  isUndetectable?: boolean;
   /**
    * The ability's primary coefficient for calculating its damage or healing
    * from the player's attackpower or spellpower.
    */
-  primaryCoefficient: number;
+  primaryCoefficient?: number;
   /**
    * An array of healing effects that this spell cast causes.
    */
@@ -364,7 +367,7 @@ class Ability {
   get cooldown() {
     return this.getCooldown(this.owner.haste.current);
   }
-  getCooldown(haste: number, cooldownTriggerEvent = undefined) {
+  getCooldown(haste: number, cooldownTriggerEvent?: Event) {
     if (this._cooldown === undefined) {
       // Most abilities will always be active and don't provide this prop at all
       return 0;

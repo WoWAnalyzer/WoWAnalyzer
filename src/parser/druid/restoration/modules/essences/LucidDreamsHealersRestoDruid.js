@@ -6,8 +6,8 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 
 import StatIcon from 'interface/icons/PrimaryStat';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
-import ItemManaGained from 'interface/others/ItemManaGained';
+import ItemHealingDone from 'interface/ItemHealingDone';
+import ItemManaGained from 'interface/ItemManaGained';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import StatisticGroup from 'interface/statistics/StatisticGroup';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';

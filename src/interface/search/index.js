@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { replace } from 'connected-react-router';
 import { constructURL } from 'interface/others/ReportSelecter';
 
-import DocumentTitle from 'interface/common/DocumentTitle';
+import DocumentTitle from 'interface/DocumentTitle';
 import { Link } from 'react-router-dom';
 
 class Search extends React.PureComponent {

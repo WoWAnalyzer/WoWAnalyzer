@@ -6,7 +6,7 @@ import SpellLink from 'common/SpellLink';
 import { calculateAzeriteEffects, calculateSecondaryStatDefault } from 'common/stats';
 
 import StatIcon from 'interface/icons/PrimaryStat';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import StatisticGroup from 'interface/statistics/StatisticGroup';

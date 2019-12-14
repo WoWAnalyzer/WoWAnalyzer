@@ -7,7 +7,7 @@ import { formatNumber } from 'common/format';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import { calculateAzeriteEffects } from 'common/stats';
 import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
 class IgneousPotential extends Analyzer {

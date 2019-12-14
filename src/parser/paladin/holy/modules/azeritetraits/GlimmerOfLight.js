@@ -7,8 +7,8 @@ import { formatPercentage } from 'common/format';
 
 import SPELLS from 'common/SPELLS';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 import Events from 'parser/core/Events';
 
 import BeaconHealSource from '../beacons/BeaconHealSource.js';

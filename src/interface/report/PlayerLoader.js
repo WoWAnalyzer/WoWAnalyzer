@@ -13,7 +13,7 @@ import { fetchCombatants, LogNotFoundError } from 'common/fetchWclApi';
 import { captureException } from 'common/errorLogger';
 import { i18n } from 'interface/RootLocalizationProvider';
 import ActivityIndicator from 'interface/common/ActivityIndicator';
-import DocumentTitle from 'interface/common/DocumentTitle';
+import DocumentTitle from 'interface/DocumentTitle';
 import { setCombatants } from 'interface/actions/combatants';
 import { getPlayerId, getPlayerName } from 'interface/selectors/url/report';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';

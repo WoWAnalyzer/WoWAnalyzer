@@ -13,55 +13,53 @@ import PlayerInfo from './PlayerInfo';
 import Stats from './Stats';
 import Race from './Race';
 
-class CharacterTab extends React.PureComponent {
-  static propTypes = {
-    statTracker: PropTypes.instanceOf(StatTracker).isRequired,
-    combatant: PropTypes.instanceOf(Combatant).isRequired,
-  };
+const CharacterTab = props => {
+  const { statTracker, combatant } = props;
 
-  render() {
-    const { statTracker, combatant } = this.props;
+  return (
+    <div className="character-tab">
+      <div className="row">
+        <div className="col-sm-6">
+          <PlayerInfo combatant={combatant} />
+        </div>
+        <div className="col-sm-6">
+          <Stats statTracker={statTracker} />
 
-    return (
-      <div className="character-tab">
-        <div className="row">
-          <div className="col-sm-6">
-            <PlayerInfo combatant={combatant} />
-          </div>
-          <div className="col-sm-6">
-            <Stats statTracker={statTracker} />
+          <Race race={combatant.race} />
 
-            <Race race={combatant.race} />
-
-            <div className="row">
-              <div className="col-md-12">
-                <h2>
-                  Other pages
-                </h2>
-              </div>
+          <div className="row">
+            <div className="col-md-12">
+              <h2>
+                Other pages
+              </h2>
             </div>
-            <div className="row">
-              <div className="col-md-12 hpadding-lg-30" style={{ fontSize: 24 }}>
-                {/* some bonus padding so it looks to be aligned with the icon for stats */}
-                {combatant.characterProfile ? (
-                  <>
-                    <Link to={makeCharacterUrl(combatant)}><WoWAnalyzerIcon /> Character parses</Link><br />
-                    <a
-                      href={makeArmoryUrl(combatant)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <ArmoryIcon /> Armory
-                    </a>
-                  </>
-                ) : <small>Unavailable because your character could not be found.</small>}
-              </div>
+          </div>
+          <div className="row">
+            <div className="col-md-12 hpadding-lg-30" style={{ fontSize: 24 }}>
+              {/* some bonus padding so it looks to be aligned with the icon for stats */}
+              {combatant.characterProfile ? (
+                <>
+                  <Link to={makeCharacterUrl(combatant)}><WoWAnalyzerIcon /> Character parses</Link><br />
+                  <a
+                    href={makeArmoryUrl(combatant)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <ArmoryIcon /> Armory
+                  </a>
+                </>
+              ) : <small>Unavailable because your character could not be found.</small>}
             </div>
           </div>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
+CharacterTab.propTypes = {
+  statTracker: PropTypes.instanceOf(StatTracker).isRequired,
+  combatant: PropTypes.instanceOf(Combatant).isRequired,
+};
 
 export default CharacterTab;

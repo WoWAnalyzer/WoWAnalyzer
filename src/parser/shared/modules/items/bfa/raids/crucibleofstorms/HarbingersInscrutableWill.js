@@ -8,7 +8,7 @@ import ITEMS from 'common/ITEMS/index';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import UptimeIcon from 'interface/icons/Uptime';
 import { TooltipElement } from 'common/Tooltip';

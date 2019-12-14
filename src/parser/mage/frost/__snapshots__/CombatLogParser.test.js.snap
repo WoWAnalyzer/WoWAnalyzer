@@ -4519,7 +4519,8 @@ exports[`The Frost Mage Analyzer analyzers RotcrustedVoodooDoll matches the stat
           />
            
           218
-           DPS 
+           DPS
+           
           <small>
             1.27
              % of total
@@ -5093,7 +5094,8 @@ exports[`The Frost Mage Analyzer analyzers VigilantsBloodshaper matches the stat
           />
            
           380
-           DPS 
+           DPS
+           
           <small>
             2.21
              % of total

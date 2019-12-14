@@ -6,7 +6,7 @@ import ITEMS from 'common/ITEMS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import { formatNumber, formatPercentage } from 'common/format';
 import { TooltipElement } from 'common/Tooltip';

@@ -5,8 +5,8 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Events from 'parser/core/Events';
 import { formatNumber } from 'common/format';
 import HIT_TYPES from 'game/HIT_TYPES';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 import SPELLS from 'common/SPELLS';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
@@ -100,7 +100,7 @@ class LightsDecree extends Analyzer {
     const extraHealing = totalHealing - (totalHealing / 1.2);
     if (extraHealing > overHeal){
       this.bonusHealing += extraHealing - overHeal;
-    } 
+    }
 
     const isCrit = event.hitType === HIT_TYPES.CRIT;
     if (!isCrit){
@@ -170,7 +170,7 @@ get additionalUptime(){
           Critical damage hit <b>{this.critDamage}</b> time(s), Avenging Wrath's 30% critical bonus contributed <b>+{formatNumber(this.bonusCritDamage)}</b> damage. <br />
           20% flat healing increase from Avenging Wrath granted <b>+{formatNumber(this.bonusHealing)}</b> additional healing.<br />
           20% flat damage increase from Avenging Wrath granted <b>+{formatNumber(this.bonusDamage)}</b> additional damage.<br />
-          {(this.selectedCombatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT.id) 
+          {(this.selectedCombatant.hasTalent(SPELLS.SANCTIFIED_WRATH_TALENT.id)
             ? `You cast ` + this.bonusHolyShocks + ` Holy Shock(s) during the 50% cooldown reduction for ` + (this.bonusHolyShocks / 2).toFixed(1) + ` extra casts.`: '')}
           <br />
           </>

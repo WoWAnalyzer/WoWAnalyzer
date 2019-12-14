@@ -2,8 +2,8 @@ import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import React from 'react';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 
 // Example Log: /report/mWZ6TG9JgjPQVdbA/9-Mythic+Zek'voz+-+Kill+(7:24)/1-Allyseia`Ø
 class DivineStar extends Analyzer {

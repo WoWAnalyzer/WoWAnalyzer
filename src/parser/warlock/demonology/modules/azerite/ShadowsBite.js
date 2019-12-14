@@ -10,7 +10,7 @@ import { formatThousands } from 'common/format';
 import { calculateAzeriteEffects } from 'common/stats';
 
 import TraitStatisticBox from 'interface/others/TraitStatisticBox';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 
 const DEMONBOLT_SP_COEFFICIENT = 0.667;
 const MAX_TRAVEL_TIME = 2000;

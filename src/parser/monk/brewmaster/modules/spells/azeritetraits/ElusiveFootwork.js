@@ -6,7 +6,7 @@ import HIT_TYPES from 'game/HIT_TYPES';
 import { calculateAzeriteEffects } from 'common/stats';
 import { formatNumber } from 'common/format';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 
 /**
  * Elusive Footwork
