@@ -6501,6 +6501,53 @@ exports[`Holy Paladin integration test analyzers InoculatingExtract matches the 
 
 exports[`Holy Paladin integration test analyzers InoculatingExtract matches the suggestions snapshot 1`] = `"module inactive"`;
 
+exports[`Holy Paladin integration test analyzers JudgmentOfLight matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic standard statistic-box"
+    style={
+      Object {
+        "height": "auto",
+        "zIndex": 1,
+      }
+    }
+  >
+    <div
+      className="panel-body"
+    >
+      <div
+        className="pad"
+      >
+        <label>
+          <a
+            href="http://wowhead.com/spell=183778"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Judgment of Light"
+              className="icon game "
+              src="//render-us.worldofwarcraft.com/icons/56/spell_holy_divineprovidence.jpg"
+            />
+          </a>
+           
+          Judgment Of Light
+        </label>
+        <div
+          className="value"
+        >
+          115 Wasted Stacks
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Holy Paladin integration test analyzers JudgmentOfLight matches the suggestions snapshot 1`] = `Array []`;
+
 exports[`Holy Paladin integration test analyzers LadyWaycrestsMusicBox matches the statistic snapshot 1`] = `"module inactive"`;
 
 exports[`Holy Paladin integration test analyzers LadyWaycrestsMusicBox matches the suggestions snapshot 1`] = `"module inactive"`;
