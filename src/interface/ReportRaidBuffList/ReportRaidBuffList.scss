@@ -1,3 +1,5 @@
+@import 'interface/layout/Theme.scss';
+
 .raidbuffs {
   display: flex;
   flex-direction: row;
@@ -8,20 +10,21 @@
   }
 
   .panel {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: column;
-    background-color: #1d1c1b;
-    padding: 5px;
-    margin: 1.5px;
+    text-align: center;
+    padding-bottom: 5px;
+    margin: 0 0 0 5px;
     width: auto;
+
+    &.unavailable {
+      filter: grayscale(100%);
+      opacity: 0.7;
+    }
   }
 
-  .icon {
-    height: 100% !important;
-    margin-top: 0 !important;
-    max-height: 32px;
-    max-width: 32px;
+  .icon.game {
+    height: 50px;
+    margin-top: 0;
+    margin-bottom: 5px;
+    border-radius: 0;
   }
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import SPECS from 'game/SPECS';
+import SPELLS from 'common/SPELLS';
 
 import './ReportRaidBuffList.scss';
 
@@ -19,7 +20,7 @@ interface Props {
 }
 interface State {
   [key: string]: {
-    icon: string;
+    spellId: number;
     count: number;
   };
 }
@@ -29,71 +30,71 @@ class ReportRaidBuffList extends React.Component<Props, State> {
     super(props);
     this.state = {
       stamina: {
-        icon: 'spell_holy_wordfortitude',
+        spellId: SPELLS.POWER_WORD_FORTITUDE.id,
         count: 0,
       },
       attackPower: {
-        icon: 'ability_warrior_battleshout',
+        spellId: SPELLS.BATTLE_SHOUT.id,
         count: 0,
       },
       intellect: {
-        icon: 'spell_holy_magicalsentry',
+        spellId: SPELLS.ARCANE_INTELLECT.id,
         count: 0,
       },
       magicVulnerability: {
-        icon: 'ability_demonhunter_empowerwards',
+        spellId: SPELLS.CHAOS_BRAND.id,
         count: 0,
       },
       physicalVulnerability: {
-        icon: 'ability_monk_sparring',
+        spellId: SPELLS.MYSTIC_TOUCH.id,
         count: 0,
       },
       bloodlust: {
-        icon: 'spell_nature_bloodlust',
+        spellId: SPELLS.BLOODLUST.id,
         count: 0,
       },
       battleRes: {
-        icon: 'spell_nature_reincarnation',
+        spellId: SPELLS.REBIRTH.id,
         count: 0,
       },
       rallyingCry: {
-        icon: 'ability_warrior_rallyingcry',
+        spellId: SPELLS.RALLYING_CRY.id,
         count: 0,
       },
       darkness: {
-        icon: 'ability_demonhunter_darkness',
+        spellId: SPELLS.DARKNESS.id,
         count: 0,
       },
       auraMastery: {
-        icon: 'spell_holy_auramastery',
+        spellId: SPELLS.AURA_MASTERY.id,
         count: 0,
       },
       spiritLink: {
-        icon: 'spell_shaman_spiritlink',
+        spellId: SPELLS.SPIRIT_LINK_TOTEM.id,
         count: 0,
       },
       healingTide: {
-        icon: 'ability_shaman_healingtide',
+        spellId: SPELLS.HEALING_TIDE_TOTEM_CAST.id,
         count: 0,
       },
       revival: {
-        icon: 'spell_monk_revival',
+        spellId: SPELLS.REVIVAL.id,
         count: 0,
       },
       barrier: {
-        icon: 'spell_holy_powerwordbarrier',
+        spellId: SPELLS.POWER_WORD_BARRIER_CAST.id,
         count: 0,
       },
       divineHymn: {
-        icon: 'spell_holy_divinehymn',
+        spellId: SPELLS.DIVINE_HYMN_CAST.id,
         count: 0,
       },
       salvation: {
-        icon: 'ability_priest_archangel',
+        spellId: SPELLS.HOLY_WORD_SALVATION_TALENT.id,
         count: 0,
       },
       tranquility: {
-        icon: 'spell_nature_tranquility',
+        spellId: SPELLS.TRANQUILITY_CAST.id,
         count: 0,
       },
     };
@@ -186,11 +187,11 @@ class ReportRaidBuffList extends React.Component<Props, State> {
   render() {
     return (
       <div className="raidbuffs">
-        <h1>Raid Cooldowns</h1>
+        <h1>Raid Buffs</h1>
         {Object.keys(this.state).map(key => (
           <ReportRaidBuffListItem
             key={key}
-            icon={this.state[key].icon}
+            spellId={this.state[key].spellId}
             count={this.state[key].count}
           />
         ))}

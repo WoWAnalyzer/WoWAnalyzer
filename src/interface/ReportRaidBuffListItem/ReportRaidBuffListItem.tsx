@@ -1,15 +1,15 @@
 import React from 'react';
 
-import Icon from 'common/Icon';
+import SpellIcon from 'common/SpellIcon';
 
 interface Props {
-  icon: string;
+  spellId: number;
   count: number;
 }
 
-const ReportRaidBuffListItem = ({ icon, count }: Props) => (
-  <div className="panel">
-    <Icon icon={icon} className="icon" />
+const ReportRaidBuffListItem = ({ spellId, count }: Props) => (
+  <div className={`panel ${count > 0 ? 'available' : 'unavailable'}`}>
+    <SpellIcon id={spellId} />
     <div className="count">{count}</div>
   </div>
 );
