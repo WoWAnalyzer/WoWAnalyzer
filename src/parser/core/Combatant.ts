@@ -7,6 +7,69 @@ import SPELLS from 'common/SPELLS';
 import { findByBossId } from 'raids/index';
 import Entity from './Entity';
 
+type CombatantInfo = {
+  sourceID: number,
+  name: string,
+  specID: number,
+  talents: Array<Talent>,
+  artifact: any,
+  heartOfAzeroth: any,
+  gear: any,
+  auras: any,
+};
+
+type Boss = {
+  id: number,
+  fight: any,
+
+}
+type Essence = {
+  icon: string,
+  isMajor: boolean,
+  rank: number,
+  spellID: number,
+  traitID: number,
+};
+
+type Spell = {
+  id: number,
+};
+
+type Parser = {
+  players: Array<Player>,
+
+};
+
+type Item = {
+  id: number,
+  gems: Array<Gem>,
+}
+
+type Gem = {
+  id: number,
+}
+
+type Player = {
+  id: number,
+  name: string,
+  talents: Array<Talent>,
+  artifact: any,
+  heartOfAzeroth: any,
+  gear: any,
+  auras: any,
+};
+
+type Trait = {
+  traitID: number,
+  rank: number,
+  talents: Array<Talent>
+};
+
+type Talent = {
+  id: number,
+};
+
+
 class Combatant extends Entity {
   get id() {
     return this._combatantInfo.sourceID;
@@ -29,7 +92,7 @@ class Combatant extends Entity {
     if (!this.owner.boss) {
       return race;
     }
-    const boss = findByBossId(this.owner.boss.id);
+    const boss: Boss|null = findByBossId(this.owner.boss.id);
     if (boss && boss.fight.raceTranslation) {
       race = boss.fight.raceTranslation(race, this.spec);
     }
@@ -39,11 +102,11 @@ class Combatant extends Entity {
     return this.owner.characterProfile;
   }
 
-  _combatantInfo = null;
-  constructor(parser, combatantInfo) {
+  _combatantInfo: CombatantInfo;
+  constructor(parser: Parser, combatantInfo: CombatantInfo) {
     super(parser);
 
-    const playerInfo = parser.players.find(player => player.id === combatantInfo.sourceID);
+    const playerInfo = parser.players.find((player:Player) => player.id === combatantInfo.sourceID);
     this._combatantInfo = {
       // In super rare cases `playerInfo` can be undefined, not taking this into account would cause the log to be unparsable
       name: playerInfo && playerInfo.name,
@@ -58,8 +121,8 @@ class Combatant extends Entity {
   }
 
   // region Talents
-  _talentsByRow = {};
-  _parseTalents(talents) {
+  _talentsByRow: {[key: number]: number} = {};
+  _parseTalents(talents: Array<Talent>) {
     talents.forEach(({ id }, index) => {
       this._talentsByRow[index] = id;
     });
@@ -67,7 +130,7 @@ class Combatant extends Entity {
   get talents() {
     return Object.values(this._talentsByRow);
   }
-  _getTalent(row) {
+  _getTalent(row: number) {
     return this._talentsByRow[row];
   }
   get lv15Talent() {
@@ -91,17 +154,17 @@ class Combatant extends Entity {
   get lv100Talent() {
     return this._getTalent(TALENT_ROWS.LV100);
   }
-  hasTalent(spell) {
+  hasTalent(spell: Spell) {
     const spellId = spell instanceof Object ? spell.id : spell;
     return !!Object.keys(this._talentsByRow).find(row => this._talentsByRow[row] === spellId);
   }
   // endregion
 
   // region Traits
-  traitsBySpellId = {};
-  _parseTraits(traits) {
+  traitsBySpellId: {[key: number]: Array<number>} = {};
+  _parseTraits(traits: Array<Trait>) {
     traits.forEach(({ traitID, rank }) => {
-      const spellId = traitIdMap[traitID];
+      const spellId: number = traitIdMap[traitID];
       if (spellId === undefined) {
         return;
       }
@@ -111,21 +174,21 @@ class Combatant extends Entity {
       this.traitsBySpellId[spellId].push(rank);
     });
   }
-  hasTrait(spellId) {
+  hasTrait(spellId: number) {
     return !!this.traitsBySpellId[spellId];
   }
-  traitRanks(spellId) {
+  traitRanks(spellId: number) {
     return this.traitsBySpellId[spellId];
   }
   // endregion
 
   // region Essences
-  essencesByTraitID = {};
-  _parseEssences(essences) {
+  essencesByTraitID: {[key: number]: Essence} = {};
+  _parseEssences(essences: Array<Essence>) {
     if(essences === undefined) {
       return;
     }
-    essences.forEach((essence) => {
+    essences.forEach((essence: Essence) => {
       if (!!this.essencesByTraitID[essence.traitID]) {
         essence.isMajor = true;
       }
@@ -133,28 +196,28 @@ class Combatant extends Entity {
       //essence = {icon:string, isMajor:bool, rank:int, slot:int, spellID:int, traitID:int}
     });
   }
-  hasEssence(traitId) {
+  hasEssence(traitId: number) {
     return !!this.essencesByTraitID[traitId];
   }
-  hasMajor(traitId) {
+  hasMajor(traitId: number) {
     return this.essencesByTraitID[traitId].isMajor;
   }
-  essenceRank(traitId) {
+  essenceRank(traitId: number) {
     return this.essencesByTraitID[traitId] && this.essencesByTraitID[traitId].rank;
   }
   // endregion
 
   // region Gear
-  _gearItemsBySlotId = {};
-  _parseGear(gear) {
+  _gearItemsBySlotId:{[key: number]: Item} = {};
+  _parseGear(gear: Array<Item>) {
     gear.forEach((item, index) => {
       this._gearItemsBySlotId[index] = item;
     });
   }
-  _getGearItemBySlotId(slotId) {
+  _getGearItemBySlotId(slotId: number) {
     return this._gearItemsBySlotId[slotId];
   }
-  _getGearItemGemsBySlotId(slotId) {
+  _getGearItemGemsBySlotId(slotId: number) {
     if (this._gearItemsBySlotId[slotId]) {
       return this._gearItemsBySlotId[slotId].gems;
     }
@@ -166,61 +229,61 @@ class Combatant extends Entity {
   get head() {
     return this._getGearItemBySlotId(GEAR_SLOTS.HEAD);
   }
-  hasHead(itemId) {
+  hasHead(itemId: number) {
     return this.head && this.head.id === itemId;
   }
   get neck() {
     return this._getGearItemBySlotId(GEAR_SLOTS.NECK);
   }
-  hasNeck(itemId) {
+  hasNeck(itemId: number) {
     return this.neck && this.neck.id === itemId;
   }
   get shoulder() {
     return this._getGearItemBySlotId(GEAR_SLOTS.SHOULDER);
   }
-  hasShoulder(itemId) {
+  hasShoulder(itemId: number) {
     return this.shoulder && this.shoulder.id === itemId;
   }
   get back() {
     return this._getGearItemBySlotId(GEAR_SLOTS.BACK);
   }
-  hasBack(itemId) {
+  hasBack(itemId: number) {
     return this.back && this.back.id === itemId;
   }
   get chest() {
     return this._getGearItemBySlotId(GEAR_SLOTS.CHEST);
   }
-  hasChest(itemId) {
+  hasChest(itemId: number) {
     return this.chest && this.chest.id === itemId;
   }
   get wrists() {
     return this._getGearItemBySlotId(GEAR_SLOTS.WRISTS);
   }
-  hasWrists(itemId) {
+  hasWrists(itemId: number) {
     return this.wrists && this.wrists.id === itemId;
   }
   get hands() {
     return this._getGearItemBySlotId(GEAR_SLOTS.HANDS);
   }
-  hasHands(itemId) {
+  hasHands(itemId: number) {
     return this.hands && this.hands.id === itemId;
   }
   get waist() {
     return this._getGearItemBySlotId(GEAR_SLOTS.WAIST);
   }
-  hasWaist(itemId) {
+  hasWaist(itemId: number) {
     return this.waist && this.waist.id === itemId;
   }
   get legs() {
     return this._getGearItemBySlotId(GEAR_SLOTS.LEGS);
   }
-  hasLegs(itemId) {
+  hasLegs(itemId: number) {
     return this.legs && this.legs.id === itemId;
   }
   get feet() {
     return this._getGearItemBySlotId(GEAR_SLOTS.FEET);
   }
-  hasFeet(itemId) {
+  hasFeet(itemId: number) {
     return this.feet && this.feet.id === itemId;
   }
   get finger1() {
@@ -229,7 +292,7 @@ class Combatant extends Entity {
   get finger2() {
     return this._getGearItemBySlotId(GEAR_SLOTS.FINGER2);
   }
-  getFinger(itemId) {
+  getFinger(itemId: number) {
     if (this.finger1 && this.finger1.id === itemId) {
       return this.finger1;
     }
@@ -239,7 +302,7 @@ class Combatant extends Entity {
 
     return undefined;
   }
-  hasFinger(itemId) {
+  hasFinger(itemId: number) {
     return this.getFinger(itemId) !== undefined;
   }
   get trinket1() {
@@ -248,7 +311,7 @@ class Combatant extends Entity {
   get trinket2() {
     return this._getGearItemBySlotId(GEAR_SLOTS.TRINKET2);
   }
-  getTrinket(itemId) {
+  getTrinket(itemId: number) {
     if (this.trinket1 && this.trinket1.id === itemId) {
       return this.trinket1;
     }
@@ -258,16 +321,16 @@ class Combatant extends Entity {
 
     return undefined;
   }
-  hasTrinket(itemId) {
+  hasTrinket(itemId: number) {
     return this.getTrinket(itemId) !== undefined;
   }
-  hasMainHand(itemId) {
+  hasMainHand(itemId: number) {
     return this.mainHand && this.mainHand.id === itemId;
   }
   get mainHand() {
     return this._getGearItemBySlotId(GEAR_SLOTS.MAINHAND);
   }
-  hasOffHand(itemId) {
+  hasOffHand(itemId: number) {
     return this.offHand && this.offHand.id === itemId;
   }
   get offHand() {
@@ -284,7 +347,7 @@ class Combatant extends Entity {
     return punchcard;
   }
   // Red punchcard is always the first in the array
-  getRedPunchcard(id) {
+  getRedPunchcard(id: number) {
     if (this.trinket1Punchcard && this.trinket1Punchcard[0].id === id) {
       return this.trinket1Punchcard[0];
     }
@@ -294,11 +357,11 @@ class Combatant extends Entity {
 
     return undefined;
   }
-  hasRedPunchcard(id) {
+  hasRedPunchcard(id: number) {
     return this.getRedPunchcard(id) !== undefined;
   }
   // Yellow punchcard is always second
-  getYellowPunchcard(id) {
+  getYellowPunchcard(id: number) {
     if (this.trinket1Punchcard && this.trinket1Punchcard[1].id === id) {
       return this.trinket1Punchcard[1];
     }
@@ -308,20 +371,20 @@ class Combatant extends Entity {
 
     return undefined;
   }
-  hasYellowPunchcard(id) {
+  hasYellowPunchcard(id: number) {
     return this.getYellowPunchcard(id) !== undefined;
   }
-  getItem(itemId) {
+  getItem(itemId: number) {
     return Object.keys(this._gearItemsBySlotId)
-      .map(key => this._gearItemsBySlotId[key])
-      .find(item => item.id === itemId);
+      .map((key: any) => this._gearItemsBySlotId[key])
+      .find((item: any) => item.id === itemId);
   }
   // endregion
 
-  _parsePrepullBuffs(buffs) {
+  _parsePrepullBuffs(buffs: any) {
     // TODO: We only apply prepull buffs in the `auras` prop of combatantinfo, but not all prepull buffs are in there and ApplyBuff finds more. We should update ApplyBuff to add the other buffs to the auras prop of the combatantinfo too (or better yet, make a new normalizer for that).
     const timestamp = this.owner.fight.start_time;
-    buffs.forEach(buff => {
+    buffs.forEach((buff: any) => {
       const spell = SPELLS[buff.ability];
       this.applyBuff({
         ability: {
