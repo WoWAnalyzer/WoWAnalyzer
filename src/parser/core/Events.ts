@@ -53,6 +53,21 @@ export interface ClassResources {
   max: number;
   type: number;
 }
+// TODO: Find a good place for this
+export enum Class {
+  DemonHunter = 'DemonHunter',
+  DeathKnight = 'DeathKnight',
+  Druid = 'Druid',
+  Hunter = 'Hunter',
+  Mage = 'Mage',
+  Monk = 'Monk',
+  Paladin = 'Paladin',
+  Priest = 'Priest',
+  Rogue = 'Rogue',
+  Shaman = 'Shaman',
+  Warrior = 'Warrior',
+  Warlock = 'Warlock',
+}
 
 export interface Event {
   type: EventType;
@@ -391,7 +406,6 @@ export interface UpdateSpellUsableEvent extends Event {
 
   __fabricated: true;
 }
-export type Class = string; // TODO: enum
 export interface CombatantInfoEvent extends Event {
   type: EventType.CombatantInfo;
   pin: string;
