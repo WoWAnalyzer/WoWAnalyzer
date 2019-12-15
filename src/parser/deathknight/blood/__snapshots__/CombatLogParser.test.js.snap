@@ -732,7 +732,8 @@ exports[`The Blood Deathknight Analyzer analyzers CastEfficiency matches the sta
             >
               27
               /29
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -828,7 +829,8 @@ exports[`The Blood Deathknight Analyzer analyzers CastEfficiency matches the sta
             >
               4
               /5
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -926,7 +928,8 @@ exports[`The Blood Deathknight Analyzer analyzers CastEfficiency matches the sta
             >
               20
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -946,7 +949,7 @@ exports[`The Blood Deathknight Analyzer analyzers CastEfficiency matches the sta
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -1010,7 +1013,8 @@ exports[`The Blood Deathknight Analyzer analyzers CastEfficiency matches the sta
             >
               0
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1030,7 +1034,7 @@ exports[`The Blood Deathknight Analyzer analyzers CastEfficiency matches the sta
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -1094,7 +1098,8 @@ exports[`The Blood Deathknight Analyzer analyzers CastEfficiency matches the sta
             >
               4
               /13
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1190,7 +1195,8 @@ exports[`The Blood Deathknight Analyzer analyzers CastEfficiency matches the sta
             >
               38
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1210,7 +1216,7 @@ exports[`The Blood Deathknight Analyzer analyzers CastEfficiency matches the sta
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -1274,7 +1280,8 @@ exports[`The Blood Deathknight Analyzer analyzers CastEfficiency matches the sta
             >
               10
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1294,7 +1301,7 @@ exports[`The Blood Deathknight Analyzer analyzers CastEfficiency matches the sta
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -1407,7 +1414,8 @@ exports[`The Blood Deathknight Analyzer analyzers CastEfficiency matches the sta
             >
               0
               /3
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1552,7 +1560,8 @@ exports[`The Blood Deathknight Analyzer analyzers CastEfficiency matches the sta
             >
               0
               /1
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1650,7 +1659,8 @@ exports[`The Blood Deathknight Analyzer analyzers CastEfficiency matches the sta
             >
               1
               /2
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1748,7 +1758,8 @@ exports[`The Blood Deathknight Analyzer analyzers CastEfficiency matches the sta
             >
               1
               /3
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1895,7 +1906,8 @@ exports[`The Blood Deathknight Analyzer analyzers CastEfficiency matches the sta
             >
               2
               /2
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2040,7 +2052,8 @@ exports[`The Blood Deathknight Analyzer analyzers CastEfficiency matches the sta
             >
               0
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2060,7 +2073,7 @@ exports[`The Blood Deathknight Analyzer analyzers CastEfficiency matches the sta
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -2173,7 +2186,8 @@ exports[`The Blood Deathknight Analyzer analyzers CastEfficiency matches the sta
             >
               0
               /10
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2269,7 +2283,8 @@ exports[`The Blood Deathknight Analyzer analyzers CastEfficiency matches the sta
             >
               1
               /18
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2365,7 +2380,8 @@ exports[`The Blood Deathknight Analyzer analyzers CastEfficiency matches the sta
             >
               0
               /10
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2461,7 +2477,8 @@ exports[`The Blood Deathknight Analyzer analyzers CastEfficiency matches the sta
             >
               3
               /4
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2557,7 +2574,8 @@ exports[`The Blood Deathknight Analyzer analyzers CastEfficiency matches the sta
             >
               0
               /2
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2653,7 +2671,8 @@ exports[`The Blood Deathknight Analyzer analyzers CastEfficiency matches the sta
             >
               0
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2673,7 +2692,7 @@ exports[`The Blood Deathknight Analyzer analyzers CastEfficiency matches the sta
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -2737,7 +2756,8 @@ exports[`The Blood Deathknight Analyzer analyzers CastEfficiency matches the sta
             >
               0
               /4
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2882,7 +2902,8 @@ exports[`The Blood Deathknight Analyzer analyzers CastEfficiency matches the sta
             >
               0
               /1
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2978,7 +2999,8 @@ exports[`The Blood Deathknight Analyzer analyzers CastEfficiency matches the sta
             >
               0
               /1
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -3074,7 +3096,8 @@ exports[`The Blood Deathknight Analyzer analyzers CastEfficiency matches the sta
             >
               1
               /1
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -3504,7 +3527,8 @@ exports[`The Blood Deathknight Analyzer analyzers DarkmoonDeckFathoms matches th
           />
            
           1,045
-           DPS 
+           DPS
+           
           <small>
             7.41
              % of total
@@ -4738,6 +4762,10 @@ exports[`The Blood Deathknight Analyzer analyzers SpellManaCost matches the stat
 
 exports[`The Blood Deathknight Analyzer analyzers SpellManaCost matches the suggestions snapshot 1`] = `Array []`;
 
+exports[`The Blood Deathknight Analyzer analyzers SpellTimeWaitingOnGlobalCooldown matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Blood Deathknight Analyzer analyzers SpellTimeWaitingOnGlobalCooldown matches the suggestions snapshot 1`] = `Array []`;
+
 exports[`The Blood Deathknight Analyzer analyzers SpellUsable matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`The Blood Deathknight Analyzer analyzers SpellUsable matches the suggestions snapshot 1`] = `Array []`;
@@ -4816,7 +4844,8 @@ exports[`The Blood Deathknight Analyzer analyzers SyringeOfBloodborneInfirmity m
           />
            
           195
-           DPS 
+           DPS
+           
           <small>
             1.39
              % of total

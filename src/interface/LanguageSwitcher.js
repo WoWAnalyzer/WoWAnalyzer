@@ -5,7 +5,7 @@ import { t } from '@lingui/macro';
 
 import { getLanguage } from 'interface/selectors/language';
 import { setLanguage } from 'interface/actions/language';
-import ReadableList from 'interface/common/ReadableList';
+import ReadableListing from 'interface/ReadableListing';
 import languages from 'common/languages';
 import { i18n } from 'interface/RootLocalizationProvider';
 import { TooltipElement } from 'common/Tooltip';
@@ -38,13 +38,13 @@ class LanguageSwitcher extends React.PureComponent {
   }
   renderExpanded() {
     return (
-      <ReadableList groupType="or">
+      <ReadableListing groupType="or">
         {Object.keys(languages).map(code => (
           <a key={code} onClick={() => this.selectLanguage(code)}>{/* eslint-disable-line jsx-a11y/anchor-is-valid */}
             {languages[code].localName}
           </a>
         ))}
-      </ReadableList>
+      </ReadableListing>
     );
   }
   render() {

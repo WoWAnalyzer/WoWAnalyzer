@@ -8,7 +8,7 @@ import Icon from 'common/Icon';
 import SPELLS from 'common/SPELLS';
 import ITEMS from 'common/ITEMS';
 import SPECS from 'game/SPECS';
-import Contributor from 'interface/contributor/Button';
+import Contributor from 'interface/ContributorButton';
 import DiscordButton from 'interface/common/thirdpartybuttons/Discord';
 import DiscordLogo from 'interface/images/Discord-Logo+Wordmark-White.svg';
 import RegularArticle from 'interface/news/RegularArticle';

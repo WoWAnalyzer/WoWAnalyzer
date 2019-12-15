@@ -1,13 +1,54 @@
 import React from 'react';
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal, JeremyDwayne } from 'CONTRIBUTORS';
+import {
+  Yajinni,
+  Mamtooth,
+  Zerotorescue,
+  Putro,
+  joshinator,
+  Gebuz,
+  ackwell,
+  emallson,
+  blazyb,
+  Dambroda,
+  Nalhan,
+  Satyric,
+  niseko,
+  Khadaj,
+  Fyruna,
+  Matardarix,
+  jos3p,
+  Aelexe,
+  Chizu,
+  Hartra344,
+  Hordehobbs,
+  Dorixius,
+  Sharrq,
+  Scotsoo,
+  HolySchmidt,
+  Zeboot,
+  Abelito75,
+  Anatta336,
+  HawkCorrigan,
+  Amrux,
+  Qbz,
+  Viridis,
+  Juko8,
+  fluffels,
+  Draenal,
+  JeremyDwayne,
+  axelkic,
+} from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
-import Contributor from 'interface/contributor/Button';
+import Contributor from 'interface/ContributorButton';
 
 export default [
+  change(date(2019, 12, 15), "Fix spell icons in cooldowns tab.", [Zerotorescue]),
+  change(date(2019, 12, 15), "Added an available raid buffs panel to the player selection page.", [axelkic, Zerotorescue]),
+  change(date(2019, 12, 14), "Converted CastEfficiency to TypeScript and refactor it a bit.", Zerotorescue),
   change(date(2019, 12, 13), "Added a confirm dialog to the keybinding (l) to open the current page in your development environment.", Zerotorescue),
   change(date(2019, 12, 13), "Added TypeScript support to the codebase. See Discord for more info.", Zerotorescue),
   change(date(2019, 12, 8), <>Reduced likely hood to accidnetly go to unintended page.</>, Abelito75),

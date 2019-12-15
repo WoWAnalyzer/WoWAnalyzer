@@ -599,7 +599,8 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
             >
               155
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -619,7 +620,7 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -683,7 +684,8 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
             >
               15
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -703,7 +705,7 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -767,7 +769,8 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
             >
               22
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -787,7 +790,7 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -851,7 +854,8 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
             >
               0
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -871,7 +875,7 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -935,7 +939,8 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
             >
               9
               /11
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1082,7 +1087,8 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
             >
               5
               /5
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1227,7 +1233,8 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
             >
               0
               /2
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1323,7 +1330,8 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
             >
               5
               /5
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1419,7 +1427,8 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
             >
               3
               /5
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1517,7 +1526,8 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
             >
               5
               /7
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1613,7 +1623,8 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
             >
               12
               /12
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1758,7 +1769,8 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
             >
               5
               /17
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1854,7 +1866,8 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
             >
               2
               /2
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1999,7 +2012,8 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
             >
               0
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2019,7 +2033,7 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -2083,7 +2097,8 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
             >
               0
               /14
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2179,7 +2194,8 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
             >
               0
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2199,7 +2215,7 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -2263,7 +2279,8 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
             >
               0
               /19
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2359,7 +2376,8 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
             >
               2
               /29
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2455,7 +2473,8 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
             >
               0
               /18
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2551,7 +2570,8 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
             >
               0
               /52
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2647,7 +2667,8 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
             >
               0
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2667,7 +2688,7 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -2731,7 +2752,8 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
             >
               0
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2751,7 +2773,7 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -2815,7 +2837,8 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
             >
               3
               /4
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2911,7 +2934,8 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
             >
               0
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2931,7 +2955,7 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -3044,7 +3068,8 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
             >
               0
               /1
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -3140,7 +3165,8 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
             >
               1
               /1
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -3236,7 +3262,8 @@ exports[`The Arcane Mage Analyzer analyzers CastEfficiency matches the statistic
             >
               1
               /1
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -4212,6 +4239,10 @@ exports[`The Arcane Mage Analyzer analyzers SpellManaCost matches the statistic 
 
 exports[`The Arcane Mage Analyzer analyzers SpellManaCost matches the suggestions snapshot 1`] = `Array []`;
 
+exports[`The Arcane Mage Analyzer analyzers SpellTimeWaitingOnGlobalCooldown matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Arcane Mage Analyzer analyzers SpellTimeWaitingOnGlobalCooldown matches the suggestions snapshot 1`] = `Array []`;
+
 exports[`The Arcane Mage Analyzer analyzers SpellUsable matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`The Arcane Mage Analyzer analyzers SpellUsable matches the suggestions snapshot 1`] = `Array []`;
@@ -4723,7 +4754,8 @@ exports[`The Arcane Mage Analyzer analyzers VigilantsBloodshaper matches the sta
           />
            
           292
-           DPS 
+           DPS
+           
           <small>
             1.74
              % of total

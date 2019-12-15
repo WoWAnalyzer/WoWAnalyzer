@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { Trans } from '@lingui/macro';
 
 import { ReactComponent as Logo } from 'interface/images/logo.svg';
-import Warning from 'interface/common/Alert/Warning';
+import Warning from 'interface/Alert/Warning';
 import { getReportHistory } from 'interface/selectors/reportHistory';
-import CharacterSearch from 'interface/character/Search';
+import CharacterSearch from 'interface/CharacterSearch';
 
 import ReportSelecter from '../others/ReportSelecter';
 import ReportHistory from './ReportHistory';

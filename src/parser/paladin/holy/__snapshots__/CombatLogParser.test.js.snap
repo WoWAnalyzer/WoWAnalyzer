@@ -513,7 +513,8 @@ exports[`Holy Paladin integration test analyzers AvengingCrusader matches the st
           />
            
           2,949
-           HPS 
+           HPS
+           
           <small>
             19.11
             % of total
@@ -2119,7 +2120,8 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
             >
               34
               /50
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2217,7 +2219,8 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
             >
               16
               /38
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2315,7 +2318,8 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
             >
               21
               /41
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2413,7 +2417,8 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
             >
               4
               /34
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2560,7 +2565,8 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
             >
               1
               /5
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2707,7 +2713,8 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
             >
               0
               /15
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2803,7 +2810,8 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
             >
               2
               /7
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2901,7 +2909,8 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
             >
               1
               /2
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2997,7 +3006,8 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
             >
               3
               /4
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -3095,7 +3105,8 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
             >
               2
               /3
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -3191,7 +3202,8 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
             >
               0
               /4
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -3287,7 +3299,8 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
             >
               1
               /1
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -3432,7 +3445,8 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
             >
               14
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -3452,7 +3466,7 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -3516,7 +3530,8 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
             >
               34
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -3536,7 +3551,7 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -3600,7 +3615,8 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
             >
               15
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -3620,7 +3636,7 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -3684,7 +3700,8 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
             >
               6
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -3704,7 +3721,7 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -3768,7 +3785,8 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
             >
               3
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -3788,7 +3806,7 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -3901,7 +3919,8 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
             >
               1
               /9
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -3997,7 +4016,8 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
             >
               0
               /51
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -4093,7 +4113,8 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
             >
               0
               /17
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -4189,7 +4210,8 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
             >
               0
               /2
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -4241,7 +4263,7 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
               }
             >
               <a
-                href="http://wowhead.com/spell=53563"
+                href="http://wowhead.com/spell=156910"
                 rel="noopener noreferrer"
                 style={
                   Object {
@@ -4253,7 +4275,7 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
                 <img
                   alt=""
                   className="icon game "
-                  src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_beaconoflight.jpg"
+                  src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_beaconsoflight.jpg"
                   style={
                     Object {
                       "height": undefined,
@@ -4262,7 +4284,7 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
                   }
                 />
                  
-                Beacon of Light
+                Beacon of Faith
               </a>
             </td>
             <td
@@ -4285,7 +4307,8 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
             >
               2
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -4305,7 +4328,7 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -4369,7 +4392,8 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
             >
               0
               /7
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -4465,7 +4489,8 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
             >
               0
               /51
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -4610,7 +4635,8 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
             >
               39
               /82
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -4706,7 +4732,8 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
             >
               1
               /97
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -4851,7 +4878,8 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
             >
               1
               /1
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -4947,7 +4975,8 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
             >
               0
               /1
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -5043,7 +5072,8 @@ exports[`Holy Paladin integration test analyzers CastEfficiency matches the stat
             >
               1
               /1
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -6407,7 +6437,8 @@ exports[`Holy Paladin integration test analyzers GraceOfTheJusticar matches the 
           />
            
           464
-           HPS 
+           HPS
+           
           <small>
             3.00
             % of total
@@ -8651,7 +8682,8 @@ exports[`Holy Paladin integration test analyzers RadiantIncandescence matches th
           />
            
           245
-           HPS 
+           HPS
+           
           <small>
             1.59
             % of total
@@ -8739,7 +8771,8 @@ exports[`Holy Paladin integration test analyzers RevitalizingVoodooTotem matches
           />
            
           80
-           HPS 
+           HPS
+           
           <small>
             0.52
             % of total
@@ -8881,6 +8914,10 @@ exports[`Holy Paladin integration test analyzers SpellHistory matches the sugges
 exports[`Holy Paladin integration test analyzers SpellManaCost matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`Holy Paladin integration test analyzers SpellManaCost matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`Holy Paladin integration test analyzers SpellTimeWaitingOnGlobalCooldown matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`Holy Paladin integration test analyzers SpellTimeWaitingOnGlobalCooldown matches the suggestions snapshot 1`] = `Array []`;
 
 exports[`Holy Paladin integration test analyzers SpellUsable matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
@@ -9984,7 +10021,6 @@ exports[`Holy Paladin integration test should match the checklist snapshot 1`] =
                
               Holy Shock
             </a>
-             
             <a
               href="http://wowhead.com/spell=85222"
               rel="noopener noreferrer"
@@ -9998,7 +10034,7 @@ exports[`Holy Paladin integration test should match the checklist snapshot 1`] =
                
               Light of Dawn
             </a>
-             {0} {1} {2} {3} {4} are your most efficient healing spells available. Try to cast them as much as possible without overhealing. 
+            {0} {1} {2} {3} {4} are your most efficient healing spells available. Try to cast them as much as possible without overhealing.
             <dfn
               className=""
               onMouseEnter={[Function]}

@@ -11,7 +11,7 @@ import {
 } from 'interface/report/TimeEventFilter';
 import EventFilter from './EventFilter';
 
-enum EventType {
+export enum EventType {
   Heal = 'heal',
   HealAbsorbed = 'healabsorbed',
   Absorbed = 'absorbed',
@@ -33,22 +33,40 @@ enum EventType {
   Interrupt = 'interrupt',
   Death = 'death',
   Resurrect = 'resurrect',
+  CombatantInfo = 'combatantinfo',
 
   // Fabricated:
   GlobalCooldown = 'globalcooldown',
   BeginChannel = 'beginchannel',
+  EndChannel = 'endchannel',
+  UpdateSpellUsable = 'updatespellusable',
 }
 
-interface Ability {
+export interface Ability {
   name: string;
   guid: number;
   type: number;
   abilityIcon: string;
 }
-interface ClassResources {
+export interface ClassResources {
   amount: number;
   max: number;
   type: number;
+}
+// TODO: Find a good place for this
+export enum Class {
+  DemonHunter = 'DemonHunter',
+  DeathKnight = 'DeathKnight',
+  Druid = 'Druid',
+  Hunter = 'Hunter',
+  Mage = 'Mage',
+  Monk = 'Monk',
+  Paladin = 'Paladin',
+  Priest = 'Priest',
+  Rogue = 'Rogue',
+  Shaman = 'Shaman',
+  Warrior = 'Warrior',
+  Warlock = 'Warlock',
 }
 
 export interface Event {
@@ -78,6 +96,14 @@ export interface BeginChannelEvent extends Event {
   ability: Ability;
   sourceID: number;
   isCancelled: boolean;
+}
+export interface EndChannelEvent extends Event {
+  type: EventType.EndChannel;
+  ability: Ability;
+  sourceID: number;
+  start: number;
+  duration: number;
+  beginChannel: BeginChannelEvent;
 }
 export interface CastEvent extends Event {
   type: EventType.Cast;
@@ -197,7 +223,7 @@ export interface DamageEvent extends Event {
   tick?: boolean;
   overkill?: number;
 }
-export interface BuffEvent {}
+export interface BuffEvent extends Event {}
 export interface ApplyBuffEvent extends BuffEvent {
   type: EventType.ApplyBuff;
   ability: Ability;
@@ -239,7 +265,7 @@ export interface RemoveDebuffEvent extends BuffEvent {
   targetIsFriendly: boolean;
   absorb?: number;
 }
-export interface ApplyBuffStackEvent extends Event {
+export interface ApplyBuffStackEvent extends BuffEvent {
   type: EventType.ApplyBuffStack;
 
   sourceID: number;
@@ -249,7 +275,7 @@ export interface ApplyBuffStackEvent extends Event {
   ability: Ability;
   stack: number;
 }
-export interface ApplyDebuffStackEvent extends Event {
+export interface ApplyDebuffStackEvent extends BuffEvent {
   type: EventType.ApplyDebuffStack;
 
   sourceID: number;
@@ -259,7 +285,7 @@ export interface ApplyDebuffStackEvent extends Event {
   ability: Ability;
   stack: number;
 }
-export interface RemoveBuffStack extends Event {
+export interface RemoveBuffStack extends BuffEvent {
   type: EventType.RemoveBuffStack;
 
   sourceID: number;
@@ -269,7 +295,7 @@ export interface RemoveBuffStack extends Event {
   ability: Ability;
   stack: number;
 }
-export interface RemoveDebuffStack extends Event {
+export interface RemoveDebuffStack extends BuffEvent {
   type: EventType.RemoveBuffStack;
 
   sourceID: number;
@@ -279,7 +305,7 @@ export interface RemoveDebuffStack extends Event {
   ability: Ability;
   stack: number;
 }
-export interface RefreshBuffEvent extends Event {
+export interface RefreshBuffEvent extends BuffEvent {
   type: EventType.RefreshBuff;
 
   source?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
@@ -289,7 +315,7 @@ export interface RefreshBuffEvent extends Event {
   targetIsFriendly: boolean;
   ability: Ability;
 }
-export interface RefreshDebuffEvent extends Event {
+export interface RefreshDebuffEvent extends BuffEvent {
   type: EventType.RefreshBuff;
 
   source?: { name: 'Environment'; id: -1; guid: 0; type: 'NPC'; icon: 'NPC' };
@@ -356,6 +382,102 @@ export interface GlobalCooldownEvent extends Event {
   timestamp: number;
   trigger: CastEvent;
   __fabricated: true;
+}
+export interface UpdateSpellUsableEvent extends Event {
+  type: EventType.UpdateSpellUsable;
+  ability: Ability;
+  name: string
+  trigger: 'begincooldown' | 'endcooldown' | 'refreshcooldown' | 'addcooldowncharge' | 'restorecharge';
+  isOnCooldown: boolean
+  isAvailable: boolean
+  chargesAvailable: number
+  maxCharges: number
+  timePassed: number
+  sourceID: number
+  targetID: number
+
+  start: number;
+  end?: number;
+  expectedDuration: number;
+  totalReductionTime: number;
+
+  // Added by SpellHistory
+  timeWaitingOnGCD?: number;
+
+  __fabricated: true;
+}
+export interface CombatantInfoEvent extends Event {
+  type: EventType.CombatantInfo;
+  pin: string;
+  sourceID: number;
+  gear: Array<{
+    id: number;
+    quality: number;
+    icon: string;
+    itemLevel: number;
+    bonusIDs?: number[];
+    permanentEnchant?: number;
+    gems?: Array<{
+      id: number;
+      itemLevel: number;
+      icon: string;
+    }>;
+  }>;
+  auras: Array<{
+    source: number;
+    ability: number;
+    stacks: number;
+    icon: string;
+    name?: string;
+  }>;
+  faction: number;
+  specID: number;
+  strength: number;
+  agility: number;
+  stamina: number;
+  intellect: number;
+  dodge: number;
+  parry: number;
+  block: number;
+  armor: number;
+  critMelee: number;
+  critRanged: number;
+  critSpell: number;
+  speed: number;
+  leech: number;
+  hasteMelee: number;
+  hasteRanged: number;
+  hasteSpell: number;
+  avoidance: number;
+  mastery: number;
+  versatilityDamageDone: number;
+  versatilityHealingDone: number;
+  versatilityDamageReduction: number;
+  talents: [
+    { id: number; icon: string },
+    { id: number; icon: string },
+    { id: number; icon: string },
+    { id: number; icon: string },
+    { id: number; icon: string },
+    { id: number; icon: string },
+    { id: number; icon: string },
+  ];
+  pvpTalents: Array<{ id: number; icon: string }>;
+  artifact: Array<{
+    traitID: number;
+    rank: number;
+    spellID: number;
+    icon: string;
+    slot: number;
+  }>;
+  heartOfAzeroth: Array<{
+    traitID: number;
+    rank: number;
+    spellID: number;
+    icon: string;
+    slot: number;
+    isMajor: boolean;
+  }>;
 }
 
 const Events = {
@@ -564,6 +686,18 @@ const Events = {
   },
   get prefilterbuff() {
     return new EventFilter(PRE_FILTER_BUFF_EVENT_TYPE);
+  },
+  get GlobalCooldown() {
+    return new EventFilter(EventType.GlobalCooldown);
+  },
+  get UpdateSpellUsable() {
+    return new EventFilter(EventType.UpdateSpellUsable);
+  },
+  get BeginChannel() {
+    return new EventFilter(EventType.BeginChannel);
+  },
+  get EndChannel() {
+    return new EventFilter(EventType.EndChannel);
   },
 };
 

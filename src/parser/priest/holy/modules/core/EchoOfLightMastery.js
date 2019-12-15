@@ -7,7 +7,7 @@ import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import Combatants from 'parser/shared/modules/Combatants';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
 import { formatNumber, formatPercentage } from 'common/format';
 import Tooltip, { TooltipElement } from 'common/Tooltip';
 import HIT_TYPES from 'game/HIT_TYPES';

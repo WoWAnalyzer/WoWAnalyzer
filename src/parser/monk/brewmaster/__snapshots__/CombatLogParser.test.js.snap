@@ -517,7 +517,8 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
             >
               31
               /50
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -615,7 +616,8 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
             >
               34
               /103
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -713,7 +715,8 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
             >
               15
               /21
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -809,7 +812,8 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
             >
               66
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -829,7 +833,7 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -893,7 +897,8 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
             >
               23
               /66
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -989,7 +994,8 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
             >
               0
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1009,7 +1015,7 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -1122,7 +1128,8 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
             >
               21
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1142,7 +1149,7 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -1255,7 +1262,8 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
             >
               47
               /55
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1351,7 +1359,8 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
             >
               0
               /1
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1447,7 +1456,8 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
             >
               2
               /3
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1543,7 +1553,8 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
             >
               0
               /2
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1688,7 +1699,8 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
             >
               0
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1708,7 +1720,7 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -1772,7 +1784,8 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
             >
               2
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1792,7 +1805,7 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -1856,7 +1869,8 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
             >
               0
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1876,7 +1890,7 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -1940,7 +1954,8 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
             >
               0
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1960,7 +1975,7 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -2024,7 +2039,8 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
             >
               0
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2044,7 +2060,7 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -2108,7 +2124,8 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
             >
               7
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2128,7 +2145,7 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -2192,7 +2209,8 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
             >
               0
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2212,7 +2230,7 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -2276,7 +2294,8 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
             >
               0
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2296,7 +2315,7 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -2360,7 +2379,8 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
             >
               0
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2380,7 +2400,7 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -2444,7 +2464,8 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
             >
               0
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2464,7 +2485,7 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -2577,7 +2598,8 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
             >
               1
               /1
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2673,7 +2695,8 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
             >
               1
               /1
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2769,7 +2792,8 @@ exports[`The Brewmaster Analyzer analyzers CastEfficiency matches the statistic 
             >
               0
               /1
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -3589,7 +3613,8 @@ exports[`The Brewmaster Analyzer analyzers HotTrubTimeMachine matches the statis
           />
            
           252
-           DPS 
+           DPS
+           
           <small>
             4.52
              % of total
@@ -5056,6 +5081,10 @@ exports[`The Brewmaster Analyzer analyzers SpellManaCost matches the statistic s
 
 exports[`The Brewmaster Analyzer analyzers SpellManaCost matches the suggestions snapshot 1`] = `Array []`;
 
+exports[`The Brewmaster Analyzer analyzers SpellTimeWaitingOnGlobalCooldown matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Brewmaster Analyzer analyzers SpellTimeWaitingOnGlobalCooldown matches the suggestions snapshot 1`] = `Array []`;
+
 exports[`The Brewmaster Analyzer analyzers SpellUsable matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`The Brewmaster Analyzer analyzers SpellUsable matches the suggestions snapshot 1`] = `Array []`;
@@ -5182,7 +5211,8 @@ exports[`The Brewmaster Analyzer analyzers StaggeringStrikes matches the statist
           />
            
           195
-           HPS 
+           HPS
+           
           <small>
             3.70
             % of total

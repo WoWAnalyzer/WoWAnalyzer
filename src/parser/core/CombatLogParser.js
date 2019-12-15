@@ -13,6 +13,9 @@ import FightEndNormalizer from '../shared/normalizers/FightEnd';
 import PhaseChangesNormalizer from '../shared/normalizers/PhaseChanges';
 import MissingCastsNormalizer from '../shared/normalizers/MissingCasts';
 
+// Enhancers
+import SpellTimeWaitingOnGlobalCooldown from '../shared/enhancers/SpellTimeWaitingOnGlobalCooldown';
+
 // Core modules
 import HealingDone from '../shared/modules/throughput/HealingDone';
 import DamageDone from '../shared/modules/throughput/DamageDone';
@@ -202,6 +205,9 @@ class CombatLogParser {
     prepullNormalizer: PrePullCooldownsNormalizer,
     phaseChangesNormalizer: PhaseChangesNormalizer,
     missingCastsNormalize: MissingCastsNormalizer,
+
+    // Enhancers
+    spellTimeWaitingOnGlobalCooldown: SpellTimeWaitingOnGlobalCooldown,
 
     // Analyzers
     healingDone: HealingDone,

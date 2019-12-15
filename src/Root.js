@@ -4,13 +4,12 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import { createBrowserHistory } from 'history';
-import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
+import { ConnectedRouter, routerMiddleware } from 'connected-react-router';
 
-import reducers from 'interface/reducers';
+import createReducers from 'interface/reducers';
 import RootErrorBoundary from 'interface/RootErrorBoundary';
 import App from 'interface/App';
 import RootLocalizationProvider from 'interface/RootLocalizationProvider';
-import { Provider } from 'interface/LocationContext';
 
 const history = createBrowserHistory();
 
@@ -18,7 +17,7 @@ const history = createBrowserHistory();
 const middleware = routerMiddleware(history);
 
 const store = createStore(
-  reducers,
+  createReducers(history),
   composeWithDevTools(
     applyMiddleware(thunk, middleware),
   ),
@@ -29,9 +28,7 @@ const Root = () => (
     <RootErrorBoundary>
       <RootLocalizationProvider>
         <ConnectedRouter history={history}>
-          <Provider>
-            <App />
-          </Provider>
+          <App />
         </ConnectedRouter>
       </RootLocalizationProvider>
     </RootErrorBoundary>

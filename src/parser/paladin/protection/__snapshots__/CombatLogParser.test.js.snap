@@ -414,7 +414,8 @@ exports[`The Protection Paladin Analyzer analyzers CastEfficiency matches the st
             >
               21
               /89
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -510,7 +511,8 @@ exports[`The Protection Paladin Analyzer analyzers CastEfficiency matches the st
             >
               28
               /35
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -608,7 +610,8 @@ exports[`The Protection Paladin Analyzer analyzers CastEfficiency matches the st
             >
               32
               /32
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -704,7 +707,8 @@ exports[`The Protection Paladin Analyzer analyzers CastEfficiency matches the st
             >
               71
               /90
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -800,7 +804,8 @@ exports[`The Protection Paladin Analyzer analyzers CastEfficiency matches the st
             >
               44
               /67
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -898,7 +903,8 @@ exports[`The Protection Paladin Analyzer analyzers CastEfficiency matches the st
             >
               3
               /24
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -996,7 +1002,8 @@ exports[`The Protection Paladin Analyzer analyzers CastEfficiency matches the st
             >
               1
               /3
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1141,7 +1148,8 @@ exports[`The Protection Paladin Analyzer analyzers CastEfficiency matches the st
             >
               0
               /1
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1288,7 +1296,8 @@ exports[`The Protection Paladin Analyzer analyzers CastEfficiency matches the st
             >
               0
               /4
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1386,7 +1395,8 @@ exports[`The Protection Paladin Analyzer analyzers CastEfficiency matches the st
             >
               1
               /2
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1533,7 +1543,8 @@ exports[`The Protection Paladin Analyzer analyzers CastEfficiency matches the st
             >
               3
               /3
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1678,7 +1689,8 @@ exports[`The Protection Paladin Analyzer analyzers CastEfficiency matches the st
             >
               0
               
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1698,7 +1710,7 @@ exports[`The Protection Paladin Analyzer analyzers CastEfficiency matches the st
                 }
               }
             >
-              0.00%
+              
             </td>
             <td
               style={
@@ -1811,7 +1823,8 @@ exports[`The Protection Paladin Analyzer analyzers CastEfficiency matches the st
             >
               1
               /9
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -1907,7 +1920,8 @@ exports[`The Protection Paladin Analyzer analyzers CastEfficiency matches the st
             >
               0
               /13
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2003,7 +2017,8 @@ exports[`The Protection Paladin Analyzer analyzers CastEfficiency matches the st
             >
               0
               /2
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2099,7 +2114,8 @@ exports[`The Protection Paladin Analyzer analyzers CastEfficiency matches the st
             >
               0
               /3
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2195,7 +2211,8 @@ exports[`The Protection Paladin Analyzer analyzers CastEfficiency matches the st
             >
               0
               /41
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2291,7 +2308,8 @@ exports[`The Protection Paladin Analyzer analyzers CastEfficiency matches the st
             >
               2
               /6
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2387,7 +2405,8 @@ exports[`The Protection Paladin Analyzer analyzers CastEfficiency matches the st
             >
               8
               /41
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2483,7 +2502,8 @@ exports[`The Protection Paladin Analyzer analyzers CastEfficiency matches the st
             >
               0
               /22
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2628,7 +2648,8 @@ exports[`The Protection Paladin Analyzer analyzers CastEfficiency matches the st
             >
               0
               /1
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2724,7 +2745,8 @@ exports[`The Protection Paladin Analyzer analyzers CastEfficiency matches the st
             >
               0
               /1
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -2820,7 +2842,8 @@ exports[`The Protection Paladin Analyzer analyzers CastEfficiency matches the st
             >
               0
               /1
-               casts
+               
+              casts
             </td>
             <td
               style={
@@ -4367,6 +4390,10 @@ exports[`The Protection Paladin Analyzer analyzers SpellHistory matches the sugg
 exports[`The Protection Paladin Analyzer analyzers SpellManaCost matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`The Protection Paladin Analyzer analyzers SpellManaCost matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Protection Paladin Analyzer analyzers SpellTimeWaitingOnGlobalCooldown matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Protection Paladin Analyzer analyzers SpellTimeWaitingOnGlobalCooldown matches the suggestions snapshot 1`] = `Array []`;
 
 exports[`The Protection Paladin Analyzer analyzers SpellUsable matches the statistic snapshot 1`] = `"module has no statistic method"`;
 

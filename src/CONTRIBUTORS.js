@@ -813,3 +813,7 @@ export const Taleria = {
     link: 'https://worldofwarcraft.com/en-gb/character/eu/eonar/Taleria',
   }],
 };
+export const axelkic = {
+  nickname: 'axelkic',
+  github: 'axelkic',
+};

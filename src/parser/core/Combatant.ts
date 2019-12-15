@@ -8,67 +8,64 @@ import { findByBossId } from 'raids/index';
 import Entity from './Entity';
 
 type CombatantInfo = {
-  sourceID: number,
-  name: string,
-  specID: number,
-  talents: Array<Talent>,
-  artifact: any,
-  heartOfAzeroth: any,
-  gear: any,
-  auras: any,
+  sourceID: number;
+  name: string;
+  specID: number;
+  talents: Array<Talent>;
+  artifact: any;
+  heartOfAzeroth: any;
+  gear: any;
+  auras: any;
 };
 
 type Boss = {
-  id: number,
-  fight: any,
-
-}
+  id: number;
+  fight: any;
+};
 type Essence = {
-  icon: string,
-  isMajor: boolean,
-  rank: number,
-  spellID: number,
-  traitID: number,
+  icon: string;
+  isMajor: boolean;
+  rank: number;
+  spellID: number;
+  traitID: number;
 };
 
 type Spell = {
-  id: number,
+  id: number;
 };
 
 type Parser = {
-  players: Array<Player>,
-
+  players: Array<Player>;
 };
 
 type Item = {
-  id: number,
-  gems: Array<Gem>,
-}
+  id: number;
+  gems: Array<Gem>;
+};
 
 type Gem = {
-  id: number,
-}
+  id: number;
+};
 
 type Player = {
-  id: number,
-  name: string,
-  talents: Array<Talent>,
-  artifact: any,
-  heartOfAzeroth: any,
-  gear: any,
-  auras: any,
+  id: number;
+  name: string;
+  talents: Array<Talent>;
+  artifact: any;
+  heartOfAzeroth: any;
+  gear: any;
+  auras: any;
 };
 
 type Trait = {
-  traitID: number,
-  rank: number,
-  talents: Array<Talent>
+  traitID: number;
+  rank: number;
+  talents: Array<Talent>;
 };
 
 type Talent = {
-  id: number,
+  id: number;
 };
-
 
 class Combatant extends Entity {
   get id() {
@@ -92,7 +89,7 @@ class Combatant extends Entity {
     if (!this.owner.boss) {
       return race;
     }
-    const boss: Boss|null = findByBossId(this.owner.boss.id);
+    const boss: Boss | null = findByBossId(this.owner.boss.id);
     if (boss && boss.fight.raceTranslation) {
       race = boss.fight.raceTranslation(race, this.spec);
     }
@@ -106,7 +103,9 @@ class Combatant extends Entity {
   constructor(parser: Parser, combatantInfo: CombatantInfo) {
     super(parser);
 
-    const playerInfo = parser.players.find((player:Player) => player.id === combatantInfo.sourceID);
+    const playerInfo = parser.players.find(
+      (player: Player) => player.id === combatantInfo.sourceID,
+    );
     this._combatantInfo = {
       // In super rare cases `playerInfo` can be undefined, not taking this into account would cause the log to be unparsable
       name: playerInfo && playerInfo.name,
@@ -121,7 +120,7 @@ class Combatant extends Entity {
   }
 
   // region Talents
-  _talentsByRow: {[key: number]: number} = {};
+  _talentsByRow: { [key: number]: number } = {};
   _parseTalents(talents: Array<Talent>) {
     talents.forEach(({ id }, index) => {
       this._talentsByRow[index] = id;
@@ -156,12 +155,14 @@ class Combatant extends Entity {
   }
   hasTalent(spell: Spell) {
     const spellId = spell instanceof Object ? spell.id : spell;
-    return !!Object.keys(this._talentsByRow).find(row => this._talentsByRow[row] === spellId);
+    return !!Object.keys(this._talentsByRow).find(
+      (row) => this._talentsByRow[row] === spellId,
+    );
   }
   // endregion
 
   // region Traits
-  traitsBySpellId: {[key: number]: Array<number>} = {};
+  traitsBySpellId: { [key: number]: Array<number> } = {};
   _parseTraits(traits: Array<Trait>) {
     traits.forEach(({ traitID, rank }) => {
       const spellId: number = traitIdMap[traitID];
@@ -183,9 +184,9 @@ class Combatant extends Entity {
   // endregion
 
   // region Essences
-  essencesByTraitID: {[key: number]: Essence} = {};
+  essencesByTraitID: { [key: number]: Essence } = {};
   _parseEssences(essences: Array<Essence>) {
-    if(essences === undefined) {
+    if (essences === undefined) {
       return;
     }
     essences.forEach((essence: Essence) => {
@@ -203,12 +204,14 @@ class Combatant extends Entity {
     return this.essencesByTraitID[traitId].isMajor;
   }
   essenceRank(traitId: number) {
-    return this.essencesByTraitID[traitId] && this.essencesByTraitID[traitId].rank;
+    return (
+      this.essencesByTraitID[traitId] && this.essencesByTraitID[traitId].rank
+    );
   }
   // endregion
 
   // region Gear
-  _gearItemsBySlotId:{[key: number]: Item} = {};
+  _gearItemsBySlotId: { [key: number]: Item } = {};
   _parseGear(gear: Array<Item>) {
     gear.forEach((item, index) => {
       this._gearItemsBySlotId[index] = item;
@@ -339,11 +342,13 @@ class Combatant extends Entity {
   // Punchcards are insertable items for the Pocket Sized Computation Device trinket
   // The PSCD never has actual gems in it, since it is a one-time quest reward
   get trinket1Punchcard() {
-    const punchcard = this._getGearItemGemsBySlotId(GEAR_SLOTS.TRINKET1) || undefined;
+    const punchcard =
+      this._getGearItemGemsBySlotId(GEAR_SLOTS.TRINKET1) || undefined;
     return punchcard;
   }
   get trinket2Punchcard() {
-    const punchcard = this._getGearItemGemsBySlotId(GEAR_SLOTS.TRINKET2) || undefined;
+    const punchcard =
+      this._getGearItemGemsBySlotId(GEAR_SLOTS.TRINKET2) || undefined;
     return punchcard;
   }
   // Red punchcard is always the first in the array

@@ -6,7 +6,7 @@ import ResourceBreakdown from 'parser/shared/modules/resourcetracker/ResourceBre
 import SPELLS from 'common/SPELLS';
 
 import Panel from 'interface/others/Panel';
-import Warning from 'interface/common/Alert/Warning';
+import Warning from 'interface/Alert/Warning';
 import BoringSpellValue from 'interface/statistics/components/BoringSpellValue';
 import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
