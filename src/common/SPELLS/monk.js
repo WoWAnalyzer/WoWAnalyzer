@@ -6,6 +6,11 @@
 
 export default {
   // Shared
+  MYSTIC_TOUCH: {
+    id: 8647,
+    name: 'Mystic Touch',
+    icon: 'ability_monk_sparring',
+  },
   BLACKOUT_KICK: {
     id: 100784,
     name: 'Blackout Kick',
