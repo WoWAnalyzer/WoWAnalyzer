@@ -46,6 +46,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
 export default [
+  change(date(2019, 12, 15), "Fix spell icons in cooldowns tab.", [Zerotorescue]),
   change(date(2019, 12, 15), "Added an available raid buffs panel to the player selection page.", [axelkic, Zerotorescue]),
   change(date(2019, 12, 14), "Converted CastEfficiency to TypeScript and refactor it a bit.", Zerotorescue),
   change(date(2019, 12, 13), "Added a confirm dialog to the keybinding (l) to open the current page in your development environment.", Zerotorescue),
