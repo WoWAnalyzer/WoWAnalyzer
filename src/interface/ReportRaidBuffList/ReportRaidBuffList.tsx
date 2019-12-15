@@ -2,86 +2,11 @@ import React from 'react';
 
 import SPECS from 'game/SPECS';
 import SPELLS from 'common/SPELLS';
+import { CombatantInfoEvent } from 'parser/core/Events';
 
 import './ReportRaidBuffList.scss';
 
 import ReportRaidBuffListItem from '../ReportRaidBuffListItem';
-
-type Class = string; // TODO: enum
-interface CombatantInfoEvent {
-  timestamp: number;
-  type: 'combatantinfo';
-  pin: string;
-  sourceID: number;
-  gear: Array<{
-    id: number;
-    quality: number;
-    icon: string;
-    itemLevel: number;
-    bonusIDs?: number[];
-    permanentEnchant?: number;
-    gems?: Array<{
-      id: number;
-      itemLevel: number;
-      icon: string;
-    }>;
-  }>;
-  auras: Array<{
-    source: number;
-    ability: number;
-    stacks: number;
-    icon: string;
-    name?: string;
-  }>;
-  faction: number;
-  specID: number;
-  strength: number;
-  agility: number;
-  stamina: number;
-  intellect: number;
-  dodge: number;
-  parry: number;
-  block: number;
-  armor: number;
-  critMelee: number;
-  critRanged: number;
-  critSpell: number;
-  speed: number;
-  leech: number;
-  hasteMelee: number;
-  hasteRanged: number;
-  hasteSpell: number;
-  avoidance: number;
-  mastery: number;
-  versatilityDamageDone: number;
-  versatilityHealingDone: number;
-  versatilityDamageReduction: number;
-  talents: [
-    { id: number; icon: string },
-    { id: number; icon: string },
-    { id: number; icon: string },
-    { id: number; icon: string },
-    { id: number; icon: string },
-    { id: number; icon: string },
-    { id: number; icon: string },
-  ];
-  pvpTalents: Array<{ id: number; icon: string }>;
-  artifact: Array<{
-    traitID: number;
-    rank: number;
-    spellID: number;
-    icon: string;
-    slot: number;
-  }>;
-  heartOfAzeroth: Array<{
-    traitID: number;
-    rank: number;
-    spellID: number;
-    icon: string;
-    slot: number;
-    isMajor: boolean;
-  }>;
-}
 
 interface Props {
   combatants: CombatantInfoEvent[];
