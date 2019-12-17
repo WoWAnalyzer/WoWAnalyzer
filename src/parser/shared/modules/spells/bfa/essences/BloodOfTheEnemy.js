@@ -3,6 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS/index';
 import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
+import HIT_TYPES from 'game/HIT_TYPES';
 
 import STATISTIC_CATEGORY from 'interface/others/STATISTIC_CATEGORY';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
@@ -12,12 +13,17 @@ import CritIcon from 'interface/icons/CriticalStrike';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
+import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 import Abilities from 'parser/core/modules/Abilities';
+
+import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import ItemDamageDone from 'interface/others/ItemDamageDone';
+import { TooltipElement } from 'common/Tooltip';
 
 const HASTE_PROC_AMOUNT = 548;
 const CRIT_PER_STACK = 8;
+const BOTE_DAMAGE_BONUS = 0.25;
 
 const MINOR_SPELL_IDS = {
   1: SPELLS.BLOOD_OF_THE_ENEMY_MINOR.id,
@@ -41,6 +47,7 @@ class BloodOfTheEnemy extends Analyzer {
   static dependencies = {
     abilities: Abilities,
     statTracker: StatTracker,
+    enemies: EnemyInstances,
   }
 
   constructor(...args) {
@@ -78,6 +85,7 @@ class BloodOfTheEnemy extends Analyzer {
     }
     
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLOOD_OF_THE_ENEMY), this.onMajorCastDamage);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.BLOOD_SOAKED_STACKING_BUFF), this.handleStacks);
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.BLOOD_SOAKED_STACKING_BUFF), this.handleStacks);
     this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.BLOOD_SOAKED_STACKING_BUFF), this.handleStacks);
@@ -87,9 +95,26 @@ class BloodOfTheEnemy extends Analyzer {
   currentStacks = 0;
   lastStackTimestamp = 0;
   totalCrit = 0;
+  bonusDamage = 0;
 
   onMajorCastDamage(event){
     this.majorCastDamage += event.amount + (event.absorbed || 0);
+  }
+
+  onDamage(event){
+    const enemy = this.enemies.getEntity(event);
+    if (!enemy) {
+      return;
+    }
+    if (!enemy.hasBuff(SPELLS.BLOOD_OF_THE_ENEMY.id, event.timestamp, 0, 0, this.selectedCombatant)) {
+      return;
+    }
+    const isCrit = event.hitType === HIT_TYPES.CRIT || event.hitType === HIT_TYPES.BLOCKED_CRIT;
+    if (!isCrit) {
+      return;
+    }
+
+    this.bonusDamage += calculateEffectiveDamage(event, BOTE_DAMAGE_BONUS);
   }
 
   handleStacks(event) {
@@ -142,8 +167,10 @@ class BloodOfTheEnemy extends Analyzer {
           <ItemStatistic ultrawide>
             <div className="pad">
               <label><SpellLink id={MAJOR_SPELL_IDS[rank]} /> - Major Rank {rank}</label>
-              <div className="value">
-                <ItemDamageDone amount={this.majorCastDamage} /><br />
+              <div className="value">                
+                  <TooltipElement content={`Damage done by AoE hit: ${formatNumber(this.majorCastDamage)}`}>
+                    <ItemDamageDone amount={this.bonusDamage + this.majorCastDamage} />
+                  </TooltipElement>
               </div>
             </div>
           </ItemStatistic>
