@@ -31,8 +31,8 @@ class Combustion extends Analyzer {
   hasFlameOn: boolean; hasPhoenixFlames: boolean; hasFirestarter: boolean;
   castEvent!: {
     meta: {
-        isInefficientCast?: any;
-        inefficientCastReason?: any;
+      isInefficientCast?: any;
+      inefficientCastReason?: any;
     };
   };
 
@@ -49,13 +49,13 @@ class Combustion extends Analyzer {
 
   constructor(options: any) {
     super(options);
-        this.hasFlameOn = this.selectedCombatant.hasTalent(SPELLS.FLAME_ON_TALENT.id);
-        this.hasPhoenixFlames = this.selectedCombatant.hasTalent(SPELLS.PHOENIX_FLAMES_TALENT.id);
-        this.hasFirestarter = this.selectedCombatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id);
-        this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION), this.onCombustion);
-        this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(DAMAGE_SPELLS), this.onDamage);
-        this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.FIREBALL, SPELLS.SCORCH]), this.onCast);
-        this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell([SPELLS.FIREBALL, SPELLS.SCORCH]), this.onCast);
+      this.hasFlameOn = this.selectedCombatant.hasTalent(SPELLS.FLAME_ON_TALENT.id);
+      this.hasPhoenixFlames = this.selectedCombatant.hasTalent(SPELLS.PHOENIX_FLAMES_TALENT.id);
+      this.hasFirestarter = this.selectedCombatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id);
+      this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.COMBUSTION), this.onCombustion);
+      this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(DAMAGE_SPELLS), this.onDamage);
+      this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([SPELLS.FIREBALL, SPELLS.SCORCH]), this.onCast);
+      this.addEventListener(Events.begincast.by(SELECTED_PLAYER).spell([SPELLS.FIREBALL, SPELLS.SCORCH]), this.onCast);
   }
 
   //When Combustion is cast, check to see how many charges of Fire Blast and Phoenix Flames are available. If there is less than (Max Charges - 1) then its a bad Combustion cast. 
