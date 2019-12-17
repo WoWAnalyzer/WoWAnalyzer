@@ -18,7 +18,7 @@ import Abilities from 'parser/core/modules/Abilities';
 
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 import { TooltipElement } from 'common/Tooltip';
 
 const HASTE_PROC_AMOUNT = 548;
