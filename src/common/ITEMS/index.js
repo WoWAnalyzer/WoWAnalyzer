@@ -32,6 +32,6 @@ export default indexById(
     ROGUE,
     SHAMAN,
     WARLOCK,
-    WARRIOR
-  )
+    WARRIOR,
+  ),
 );

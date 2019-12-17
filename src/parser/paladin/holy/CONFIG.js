@@ -4,6 +4,7 @@ import { Zerotorescue } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
+import SpellIcon from 'common/SpellIcon';
 import retryingPromise from 'common/retryingPromise';
 
 import CHANGELOG from './CHANGELOG';
@@ -31,6 +32,14 @@ export default {
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport: '/report/DPwyKpWBZ6F947mx/2-Normal+Mekkatorque+-+Kill+(7:19)/7-Riftie',
 
+  builds: {
+    GLIMMER: {
+      url: "glimmer",
+      name: "Glimmer Paladin",
+      icon: <SpellIcon id={SPELLS.GLIMMER_OF_LIGHT.id} />,
+      supported: true, //set this to true to make the build appear in the selection list
+    },
+  },
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: SPECS.HOLY_PALADIN,

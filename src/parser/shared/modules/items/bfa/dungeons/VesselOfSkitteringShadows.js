@@ -4,7 +4,7 @@ import Analyzer from 'parser/core/Analyzer';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import SPELLS from 'common/SPELLS/';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 
 /* Vessel of Skittering Shadows
  * Equip: Your damaging spells have a chance to summon a Volatile Shadeweaver,

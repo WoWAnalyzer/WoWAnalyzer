@@ -5,8 +5,8 @@ import ITEMS from 'common/ITEMS/index';
 import Analyzer from 'parser/core/Analyzer';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
-import ItemManaGained from 'interface/others/ItemManaGained';
+import ItemHealingDone from 'interface/ItemHealingDone';
+import ItemManaGained from 'interface/ItemManaGained';
 
 const DARKMOON_DECK_TIDES_CARDS = [
   276136, // Ace
@@ -24,7 +24,7 @@ const DARKMOON_DECK_TIDES_CARDS = [
  * Equip: Restores a moderate amount of mana when the deck is shuffled. Chance to throw a card to a random party member,
  * healing them and bouncing to other party members. Amount of mana restored and number of bounces depends on the topmost card in the deck.
  * Equip: Periodically shuffle the deck while in combat.
- * 
+ *
  * Test Log: https://www.warcraftlogs.com/reports/CadGJw7KZpq9Xgnb#fight=4&type=damage-done&source=60
  */
 

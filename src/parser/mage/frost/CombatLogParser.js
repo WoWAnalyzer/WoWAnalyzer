@@ -8,10 +8,14 @@ import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import WintersChill from './modules/features/WintersChill';
+import WintersChillNoIL from './modules/features/WintersChillNoIL';
 import BrainFreeze from './modules/features/BrainFreeze';
+import BrainFreezeNoIL from './modules/features/BrainFreezeNoIL';
 import IceLance from './modules/features/IceLance';
+import IceLanceNoIL from './modules/features/IceLanceNoIL';
 import ThermalVoid from './modules/features/ThermalVoid';
 import GlacialSpike from './modules/features/GlacialSpike';
+import GlacialSpikeNoIL from './modules/features/GlacialSpikeNoIL';
 import BoneChilling from './modules/talents/BoneChilling';
 import RuneOfPower from '../shared/modules/features/RuneOfPower';
 import MirrorImage from '../shared/modules/features/MirrorImage';
@@ -40,6 +44,12 @@ class CombatLogParser extends CoreCombatLogParser {
     iceLance: IceLance,
     arcaneIntellect: ArcaneIntellect,
     waterElemental: WaterElemental,
+
+    //No Ice Lance Build
+    iceLanceNoIL: IceLanceNoIL,
+    glacialSpikeNoIL: GlacialSpikeNoIL,
+    brainFreezeNoIL: BrainFreezeNoIL,
+    wintersChillNoIL: WintersChillNoIL,
 
     // region Talents (T30 and T75 don't need analyzers)
     // T15 TODO - Ice Nova, Lonely Winter

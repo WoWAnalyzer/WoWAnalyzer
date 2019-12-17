@@ -29,6 +29,7 @@ class BrainFreeze extends Analyzer {
 
   constructor(...args) {
     super(...args);
+    this.active = this.owner.build === undefined;
     this.glacialSpikeTalented = this.selectedCombatant.hasTalent(SPELLS.GLACIAL_SPIKE_TALENT.id);
   }
 

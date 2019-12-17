@@ -27,6 +27,11 @@ class IceLance extends Analyzer {
   overwrittenFingersProcs = 0;
   expiredFingersProcs = 0;
 
+  constructor(...args) {
+    super(...args);
+    this.active = this.owner.build === undefined;
+  }
+
   on_byPlayer_cast(event) {
     const spellId = event.ability.guid;
     if (spellId !== SPELLS.ICE_LANCE.id) {

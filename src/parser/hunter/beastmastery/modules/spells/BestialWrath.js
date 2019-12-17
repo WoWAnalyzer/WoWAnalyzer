@@ -143,15 +143,15 @@ class BestialWrath extends Analyzer {
               <tbody>
                 <tr>
                   <td className={"text-left"}>Average focus on cast</td>
-                  <td>{<>{this.averageFocusAtBestialWrathCast} <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /></>}</td>
+                  <td><>{this.averageFocusAtBestialWrathCast} <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} /></></td>
                 </tr>
                 <tr>
                   <td className={"text-left"}>Gained Bestial Wraths</td>
-                  <td>{<>{this.gainedBestialWraths} <SpellIcon id={SPELLS.BESTIAL_WRATH.id} /></>}</td>
+                  <td><>{this.gainedBestialWraths} <SpellIcon id={SPELLS.BESTIAL_WRATH.id} /></></td>
                 </tr>
                 <tr>
                   <td className={"text-left"}>CDR Efficiency</td>
-                  <td>{<>{formatNumber(this.effectiveBWReduction / 1000)}s / {this.totalPossibleCDR / 1000}s</>}</td>
+                  <td><>{formatNumber(this.effectiveBWReduction / 1000)}s / {this.totalPossibleCDR / 1000}s</></td>
                 </tr>
                 <tr>
                   <td className={"text-left"}>CDR Efficiency %</td>

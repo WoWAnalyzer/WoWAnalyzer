@@ -6,7 +6,7 @@ import SPELLS from 'common/SPELLS';
 import { calculateAzeriteEffects } from 'common/stats';
 import EchoOfLight from 'parser/priest/holy/modules/core/EchoOfLightMastery';
 import { formatThousands } from 'common/format';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
 
 // Example Log: https://www.warcraftlogs.com/reports/nWVBjGLrDQvahH7M#fight=15&type=healing
 class BlessedSanctuary extends Analyzer {

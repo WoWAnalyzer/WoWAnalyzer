@@ -29,6 +29,8 @@ import HeatingUp from './modules/features/HeatingUp';
 import Pyroclasm from './modules/features/Pyroclasm';
 import SearingTouch from './modules/features/SearingTouch';
 import Meteor from './modules/features/Meteor';
+import MeteorRune from './modules/features/MeteorRune';
+import MeteorCombustion from './modules/features/MeteorCombustion';
 
 import HyperthreadWristwraps from './modules/items/HyperthreadWristwraps';
 
@@ -69,6 +71,8 @@ class CombatLogParser extends CoreCombatLogParser {
     runeOfPower: [RuneOfPower, { showStatistic: false, showSuggestion: false }],
     kindling: Kindling,
     meteor: Meteor,
+    meteorRune: MeteorRune,
+    meteorCombustion: MeteorCombustion,
 
     // Items
     hyperthreadWristwraps: HyperthreadWristwraps,

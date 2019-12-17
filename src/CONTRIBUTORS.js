@@ -803,3 +803,17 @@ export const JeremyDwayne = {
     },
   ],
 };
+export const Taleria = {
+  nickname: 'Taleria',
+  github: 'bramdevries',
+  avatar: require('./interface/images/avatars/taleria-avatar.png'),
+  mains: [{
+    name: 'Taleria',
+    spec: SPECS.HOLY_PALADIN,
+    link: 'https://worldofwarcraft.com/en-gb/character/eu/eonar/Taleria',
+  }],
+};
+export const axelkic = {
+  nickname: 'axelkic',
+  github: 'axelkic',
+};

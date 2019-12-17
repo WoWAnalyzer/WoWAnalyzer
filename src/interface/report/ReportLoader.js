@@ -12,7 +12,7 @@ import { setReport } from 'interface/actions/report';
 import { getReportCode } from 'interface/selectors/url/report';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import ActivityIndicator from 'interface/common/ActivityIndicator';
-import DocumentTitle from 'interface/common/DocumentTitle';
+import DocumentTitle from 'interface/DocumentTitle';
 
 import handleApiError from './handleApiError';
 
@@ -127,5 +127,5 @@ export default compose(
   withRouter,
   connect(mapStateToProps, {
     setReport,
-  })
+  }),
 )(ReportLoader);

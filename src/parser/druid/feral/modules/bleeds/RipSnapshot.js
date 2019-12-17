@@ -187,7 +187,7 @@ class RipSnapshot extends Snapshot {
       return suggest(
         <>
           Try not to refresh <SpellLink id={SPELLS.RIP.id} /> before the <TooltipElement content={`The last ${(this.constructor.durationOfFresh * PANDEMIC_FRACTION / 1000).toFixed(1)} seconds of Rip's duration. When you refresh during this time you don't lose any duration in the process.`}>pandemic window</TooltipElement> unless you have more powerful <TooltipElement content="Applying Rip with Tiger's Fury or Bloodtalons will boost its damage until you reapply it.">snapshot buffs</TooltipElement> than were present when it was first cast.
-        </>
+        </>,
       )
         .icon(SPELLS.RIP.icon)
         .actual(`${this.downgradeCount} Rip refresh${this.downgradeCount === 1 ? '' : 'es'} were early downgrades.`)
@@ -198,7 +198,7 @@ class RipSnapshot extends Snapshot {
       return suggest(
         <>
           With <SpellLink id={SPELLS.SABERTOOTH_TALENT.id} /> you should use <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> to extend the duration of <SpellLink id={SPELLS.RIP.id} />. Only use <SpellLink id={SPELLS.RIP.id} /> when the bleed is missing or when you can improve the <TooltipElement content="Applying Rip with Tiger's Fury or Bloodtalons will boost its damage until you reapply it. This boost is maintained when Bite extends the bleed.">snapshot.</TooltipElement>
-        </>
+        </>,
       )
         .icon(SPELLS.RIP.icon)
         .actual(`${this.shouldBeBiteCount} Rip cast${this.shouldBeBiteCount === 1 ? '' : 's'} could have been replaced with Bite.`)
@@ -209,7 +209,7 @@ class RipSnapshot extends Snapshot {
       return suggest(
         <>
           You sometimes replaced your <SpellLink id={SPELLS.RIP.id} /> DoT with a shorter duration version. Avoid using <SpellLink id={SPELLS.RIP.id} /> at low combo points, and especially not when there's already a <SpellLink id={SPELLS.RIP.id} /> active on the target.
-        </>
+        </>,
       )
         .icon(SPELLS.RIP.icon)
         .actual(`Rip's duration reduced ${this.durationReductionCount} time${this.durationReductionCount === 1 ? '': 's'}.`)

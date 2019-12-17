@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, {SELECTED_PLAYER, SELECTED_PLAYER_PET} from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 
 class EchoOfTheElementals extends Analyzer {
   procs = 0;

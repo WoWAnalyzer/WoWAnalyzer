@@ -3,7 +3,7 @@ import React from 'react';
 import { Anatta336 } from 'CONTRIBUTORS';
 import SPECS from 'game/SPECS';
 import retryingPromise from 'common/retryingPromise';
-import Warning from 'interface/common/Alert/Warning';
+import Warning from 'interface/Alert/Warning';
 
 import CHANGELOG from './CHANGELOG';
 
