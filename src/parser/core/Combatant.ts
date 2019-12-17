@@ -6,7 +6,7 @@ import traitIdMap from 'common/TraitIdMap';
 import SPELLS from 'common/SPELLS';
 import { findByBossId } from 'raids/index';
 import Entity from './Entity';
-import { CombatantInfoEvent, Trait } from 'parser/core/Events';
+import { CombatantInfoEvent, Trait, Item } from 'parser/core/Events';
 
 export interface CombatantInfo extends CombatantInfoEvent {
   name: string;
@@ -30,15 +30,6 @@ type Spell = {
 
 type Parser = {
   players: Array<Player>;
-};
-
-type Item = {
-  id: number;
-  gems: Array<Gem>;
-};
-
-type Gem = {
-  id: number;
 };
 
 type Player = {
