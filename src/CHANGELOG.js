@@ -46,6 +46,7 @@ import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
 export default [
+  change(date(2019, 12, 17), "Updated Combatant to typescript",[HawkCorrigan]),
   change(date(2019, 12, 16), "Updated internal test tools to use new API URL.", [emallson]),
   change(date(2019, 12, 15), "Fix spell icons in cooldowns tab.", [Zerotorescue]),
   change(date(2019, 12, 15), "Added an available raid buffs panel to the player selection page.", [axelkic, Zerotorescue]),
