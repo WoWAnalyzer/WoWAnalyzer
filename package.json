@@ -17,6 +17,7 @@
     "es6-error": "^4.1.1",
     "fuse.js": "^3.4.5",
     "history": "^4.9.0",
+    "open": "6.4.0",
     "prop-types": "^15.7.2",
     "rc-slider": "^8.6.13",
     "react": "^16.8.6",
@@ -88,5 +89,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "version": "0.0.0"
 }
