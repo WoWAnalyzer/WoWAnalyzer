@@ -37,8 +37,6 @@ class Meteor extends Analyzer {
   }
 
   get meteorCastEfficiency() {
-    console.log(this.owner.fightDuration / 60000);
-    console.log(this.meteorMaxCasts);
     return this.totalMeteorCasts / this.meteorMaxCasts;
   }
 

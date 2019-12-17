@@ -5,9 +5,7 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/PreparationRuleAnalyzer';
 
-import CombustionCharges from '../features/CombustionCharges';
-import CombustionFirestarter from '../features/CombustionFirestarter';
-import CombustionSpellUsage from '../features/CombustionSpellUsage';
+import Combustion from '../features/Combustion';
 import HeatingUp from '../features/HeatingUp';
 import HotStreak from '../features/HotStreak';
 import HotStreakWastedCrits from '../features/HotStreakWastedCrits';
@@ -27,9 +25,7 @@ import Component from './Component';
 class Checklist extends BaseChecklist {
   static dependencies = {
     combatants: Combatants,
-    combustionCharges: CombustionCharges,
-    combustionFirestarter: CombustionFirestarter,
-    combustionSpellUsage: CombustionSpellUsage,
+    combustion: Combustion,
     heatingUp: HeatingUp,
     hotStreak: HotStreak,
     hotStreakWastedCrits: HotStreakWastedCrits,
@@ -56,11 +52,11 @@ class Checklist extends BaseChecklist {
           ...this.preparationRuleAnalyzer.thresholds,
 
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
-          phoenixFlamesCombustionCharges: this.combustionCharges.phoenixFlamesThresholds,
-          fireBlastCombustionCharges: this.combustionCharges.fireBlastThresholds,
-          firestarterCombustionUsage: this.combustionFirestarter.SuggestionThresholds,
-          scorchSpellUsageDuringCombustion: this.combustionSpellUsage.scorchDuringCombustionThresholds,
-          fireballSpellUsageDuringCombustion: this.combustionSpellUsage.fireballDuringCombustionThresholds,
+          phoenixFlamesCombustionCharges: this.combustion.phoenixFlamesThresholds,
+          fireBlastCombustionCharges: this.combustion.fireBlastThresholds,
+          firestarterCombustionUsage: this.combustion.firestarterSuggestionThresholds,
+          scorchSpellUsageDuringCombustion: this.combustion.scorchDuringCombustionThresholds,
+          fireballSpellUsageDuringCombustion: this.combustion.fireballDuringCombustionThresholds,
           fireBlastHeatingUpUsage: this.heatingUp.fireBlastUtilSuggestionThresholds,
           phoenixFlamesHeatingUpUsage: this.heatingUp.phoenixFlamesUtilSuggestionThresholds,
           hotStreakUtilization: this.hotStreak.hotStreakUtilizationThresholds,

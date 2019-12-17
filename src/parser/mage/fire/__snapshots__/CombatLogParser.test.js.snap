@@ -3391,17 +3391,29 @@ exports[`The Fire Mage Analyzer analyzers Combatants matches the statistic snaps
 
 exports[`The Fire Mage Analyzer analyzers Combatants matches the suggestions snapshot 1`] = `Array []`;
 
-exports[`The Fire Mage Analyzer analyzers CombustionCharges matches the statistic snapshot 1`] = `"module has no statistic method"`;
+exports[`The Fire Mage Analyzer analyzers Combustion matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
-exports[`The Fire Mage Analyzer analyzers CombustionCharges matches the suggestions snapshot 1`] = `Array []`;
-
-exports[`The Fire Mage Analyzer analyzers CombustionFirestarter matches the statistic snapshot 1`] = `"module inactive"`;
-
-exports[`The Fire Mage Analyzer analyzers CombustionFirestarter matches the suggestions snapshot 1`] = `"module inactive"`;
-
-exports[`The Fire Mage Analyzer analyzers CombustionSpellUsage matches the statistic snapshot 1`] = `"module has no statistic method"`;
-
-exports[`The Fire Mage Analyzer analyzers CombustionSpellUsage matches the suggestions snapshot 1`] = `Array []`;
+exports[`The Fire Mage Analyzer analyzers Combustion matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_fire_sealoffire",
+    "importance": "major",
+    "issue": <React.Fragment>
+      You used 
+      <ForwardRef
+        id={190319}
+      />
+       while 
+      <ForwardRef
+        id={205026}
+      />
+       was active (While the boss was at 90% health or higher). Since Firestarter makes your spells a guaranteed crit anyway, you should wait until the boss is at 89% to use your Combustion.
+    </React.Fragment>,
+    "stat": null,
+  },
+]
+`;
 
 exports[`The Fire Mage Analyzer analyzers ConcentratedMending matches the statistic snapshot 1`] = `"module inactive"`;
 
