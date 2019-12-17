@@ -30,11 +30,11 @@ class Combustion extends Analyzer {
 
   hasFlameOn: boolean; hasPhoenixFlames: boolean; hasFirestarter: boolean;
   castEvent!: {
-        meta: {
-            isInefficientCast?: any;
-            inefficientCastReason?: any;
-        };
+    meta: {
+        isInefficientCast?: any;
+        inefficientCastReason?: any;
     };
+  };
 
   healthPercent = 1;
   lowPhoenixFlamesCharges = 0;
