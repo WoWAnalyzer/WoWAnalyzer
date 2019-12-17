@@ -6,17 +6,11 @@ import traitIdMap from 'common/TraitIdMap';
 import SPELLS from 'common/SPELLS';
 import { findByBossId } from 'raids/index';
 import Entity from './Entity';
+import { CombatantInfoEvent, Trait } from 'parser/core/Events';
 
-type CombatantInfo = {
-  sourceID: number;
+export interface CombatantInfo extends CombatantInfoEvent {
   name: string;
-  specID: number;
-  talents: Array<Talent>;
-  artifact: any;
-  heartOfAzeroth: any;
-  gear: any;
-  auras: any;
-};
+}
 
 type Boss = {
   id: number;
@@ -55,12 +49,6 @@ type Player = {
   heartOfAzeroth: any;
   gear: any;
   auras: any;
-};
-
-type Trait = {
-  traitID: number;
-  rank: number;
-  talents: Array<Talent>;
 };
 
 type Talent = {
@@ -122,7 +110,7 @@ class Combatant extends Entity {
   // region Talents
   _talentsByRow: { [key: number]: number } = {};
   _parseTalents(talents: Array<Talent>) {
-    talents.forEach(({ id }, index) => {
+    talents.forEach(({ id }, index: number) => {
       this._talentsByRow[index] = id;
     });
   }
@@ -153,12 +141,16 @@ class Combatant extends Entity {
   get lv100Talent() {
     return this._getTalent(TALENT_ROWS.LV100);
   }
+
   hasTalent(spell: Spell) {
     const spellId = spell instanceof Object ? spell.id : spell;
-    return !!Object.keys(this._talentsByRow).find(
-      (row) => this._talentsByRow[row] === spellId,
+    return Boolean(
+      Object.keys(this._talentsByRow).find(
+        (row: string) => this._talentsByRow[Number(row)] === spellId,
+      ),
     );
   }
+
   // endregion
 
   // region Traits
@@ -176,7 +168,7 @@ class Combatant extends Entity {
     });
   }
   hasTrait(spellId: number) {
-    return !!this.traitsBySpellId[spellId];
+    return Boolean(this.traitsBySpellId[spellId]);
   }
   traitRanks(spellId: number) {
     return this.traitsBySpellId[spellId];
@@ -190,7 +182,7 @@ class Combatant extends Entity {
       return;
     }
     essences.forEach((essence: Essence) => {
-      if (!!this.essencesByTraitID[essence.traitID]) {
+      if (Boolean(this.essencesByTraitID[essence.traitID])) {
         essence.isMajor = true;
       }
       this.essencesByTraitID[essence.traitID] = essence;
@@ -198,7 +190,7 @@ class Combatant extends Entity {
     });
   }
   hasEssence(traitId: number) {
-    return !!this.essencesByTraitID[traitId];
+    return Boolean(this.essencesByTraitID[traitId]);
   }
   hasMajor(traitId: number) {
     return this.essencesByTraitID[traitId].isMajor;
@@ -382,7 +374,7 @@ class Combatant extends Entity {
   getItem(itemId: number) {
     return Object.keys(this._gearItemsBySlotId)
       .map((key: any) => this._gearItemsBySlotId[key])
-      .find((item: any) => item.id === itemId);
+      .find((item: Item) => item.id === itemId);
   }
   // endregion
 

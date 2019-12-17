@@ -406,30 +406,46 @@ export interface UpdateSpellUsableEvent extends Event {
 
   __fabricated: true;
 }
+
+export interface Item {
+  id: number;
+  quality: number;
+  icon: string;
+  itemLevel: number;
+  bonusIDs?: number[];
+  permanentEnchant?: number;
+  gems?: Array<Gem>;
+}
+
+export interface Gem {
+  id: number;
+  itemLevel: number;
+  icon: string;
+}
+
+export interface Buff {
+  source: number;
+  ability: number;
+  stacks: number;
+  icon: string;
+  name?: string;
+}
+
+export interface Trait {
+  traitID: number;
+  rank: number;
+  spellID: number;
+  icon: string;
+  slot: number;
+  isMajor: boolean;
+}
+
 export interface CombatantInfoEvent extends Event {
   type: EventType.CombatantInfo;
   pin: string;
   sourceID: number;
-  gear: Array<{
-    id: number;
-    quality: number;
-    icon: string;
-    itemLevel: number;
-    bonusIDs?: number[];
-    permanentEnchant?: number;
-    gems?: Array<{
-      id: number;
-      itemLevel: number;
-      icon: string;
-    }>;
-  }>;
-  auras: Array<{
-    source: number;
-    ability: number;
-    stacks: number;
-    icon: string;
-    name?: string;
-  }>;
+  gear: Array<Item>;
+  auras: Array<Buff>;
   faction: number;
   specID: number;
   strength: number;
@@ -469,15 +485,9 @@ export interface CombatantInfoEvent extends Event {
     spellID: number;
     icon: string;
     slot: number;
+    isMajor: false;
   }>;
-  heartOfAzeroth: Array<{
-    traitID: number;
-    rank: number;
-    spellID: number;
-    icon: string;
-    slot: number;
-    isMajor: boolean;
-  }>;
+  heartOfAzeroth: Array<Trait>;
 }
 
 const Events = {
