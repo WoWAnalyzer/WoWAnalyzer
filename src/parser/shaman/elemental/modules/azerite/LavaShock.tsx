@@ -25,7 +25,7 @@ class LavaShock extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = !!this.selectedCombatant.hasTrait(SPELLS.LAVA_SHOCK.id);
+    this.active = Boolean(this.selectedCombatant.hasTrait(SPELLS.LAVA_SHOCK.id));
     if (!this.active) {
       return;
     }
@@ -37,7 +37,8 @@ class LavaShock extends Analyzer {
     if (event.ability.guid !==  SPELLS.EARTH_SHOCK.id) {
       return;
     }
-    const buff = this.selectedCombatant.getBuff(SPELLS.LAVA_SHOCK_BUFF.id);
+    const buff:any = this.selectedCombatant.getBuff(SPELLS.LAVA_SHOCK_BUFF.id);
+
     if (buff === undefined) {
       return;
     }
