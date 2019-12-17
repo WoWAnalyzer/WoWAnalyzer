@@ -19,6 +19,7 @@ class LavaShock extends Analyzer {
     statTracker: StatTracker,
   };
 
+  protected readonly statTracker!: StatTracker;
   protected procs = 0;
   protected damageGained = 0;
   protected traitBonus = 0;
