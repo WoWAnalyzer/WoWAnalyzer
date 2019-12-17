@@ -1409,6 +1409,109 @@ exports[`Holy Paladin integration test analyzers BeaconTransferFactor matches th
 
 exports[`Holy Paladin integration test analyzers BeaconTransferFactor matches the suggestions snapshot 1`] = `Array []`;
 
+exports[`Holy Paladin integration test analyzers BeaconUptime matches the statistic snapshot 1`] = `
+<div
+  className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+>
+  <div
+    className="panel statistic flexible "
+    position={60}
+  >
+    <div
+      className="panel-body"
+    >
+      <label
+        style={
+          Object {
+            "margin": "10px",
+          }
+        }
+      >
+        Beacon Uptime
+      </label>
+      <div
+        style={
+          Object {
+            "display": "flex",
+            "flexDirection": "row",
+          }
+        }
+      >
+        <div
+          className="flex boring-value "
+        >
+          <div
+            className="flex-sub icon"
+          >
+            <a
+              href="http://wowhead.com/spell=53563"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt="Beacon of Light"
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_beaconoflight.jpg"
+              />
+            </a>
+          </div>
+          <div
+            className="flex-main value"
+          >
+            <div>
+              100%
+            </div>
+            <small>
+              BoL Uptime
+            </small>
+          </div>
+        </div>
+      </div>
+      <div
+        style={
+          Object {
+            "display": "flex",
+            "flexDirection": "row",
+          }
+        }
+      >
+        <div
+          className="flex boring-value "
+        >
+          <div
+            className="flex-sub icon"
+          >
+            <a
+              href="http://wowhead.com/spell=156910"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <img
+                alt="Beacon of Faith"
+                className="icon game "
+                src="//render-us.worldofwarcraft.com/icons/56/ability_paladin_beaconsoflight.jpg"
+              />
+            </a>
+          </div>
+          <div
+            className="flex-main value"
+          >
+            <div>
+              100%
+            </div>
+            <small>
+              BoF Uptime
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Holy Paladin integration test analyzers BeaconUptime matches the suggestions snapshot 1`] = `Array []`;
+
 exports[`Holy Paladin integration test analyzers Berserking matches the statistic snapshot 1`] = `"module inactive"`;
 
 exports[`Holy Paladin integration test analyzers Berserking matches the suggestions snapshot 1`] = `"module inactive"`;

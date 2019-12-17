@@ -4,4 +4,5 @@ import CombatLogParser from './CombatLogParser';
 describe('Holy Paladin integration test', integrationTest(
   CombatLogParser,
   'holy-paladin-example',
+  'B11_test',
 ));

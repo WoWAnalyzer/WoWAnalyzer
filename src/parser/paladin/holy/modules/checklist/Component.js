@@ -147,27 +147,27 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
         <Requirement name={<SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />} thresholds={thresholds.overhealing.flashOfLight} />
         { combatant.hasTalent(SPELLS.BESTOW_FAITH_TALENT.id) && (
           <Requirement
-            name={ <SpellLink id={SPELLS.BESTOW_FAITH_TALENT.id} /> }
+            name={<SpellLink id={SPELLS.BESTOW_FAITH_TALENT.id} />}
             thresholds={thresholds.overhealing.bestowFaith}
           />  
           )
         }
       </Rule>
-      <Rule
-        name={<Trans>Beacon Mastery</Trans>}
-        description={<Trans>A common misconception about Holy Paladins is that we should focus tanks when healing. This is actually inefficient. Let your beacons do most of the work, ask your co-healers to keep efficient HoTs on the tanks and only directly heal the tanks when they would otherwise die.</Trans>}
-        >
-        <Requirement name={<Trans>Direct beacon healing</Trans>} thresholds={thresholds.directBeaconHealing} />
-        
-        {!combatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id) && 
-          <Requirement name={<Trans><SpellLink id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id} onClick={e => e.preventDefault()} /> applied prepull</Trans>} thresholds={thresholds.beaconUptimeBoL} />}
-        {!combatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id) && 
-          <Requirement name={<Trans><SpellLink id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id} onClick={e => e.preventDefault()} /> Uptime</Trans>} thresholds={thresholds.beaconUptimeBoLUptime} />}
-        {combatant.hasTalent(SPELLS.BEACON_OF_FAITH_TALENT.id) && 
-          <Requirement name={<Trans><SpellLink id={SPELLS.BEACON_OF_FAITH_TALENT.id} onClick={e => e.preventDefault()} /> applied prepull</Trans>} thresholds={thresholds.beaconUptimeBoF} />}
-        {combatant.hasTalent(SPELLS.BEACON_OF_FAITH_TALENT.id) && 
-          <Requirement name={<Trans><SpellLink id={SPELLS.BEACON_OF_FAITH_TALENT.id} onClick={e => e.preventDefault()} /> Uptime</Trans>} thresholds={thresholds.beaconUptimeBoFUptime} />}
-      </Rule>
+      {!combatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id) && (
+        <Rule
+          name={<Trans>Keep your beacons active</Trans>}
+          description={<Trans>Beacon of Light and Beacon of Faith, if talented, should be applied prior to the fight starting and maintained active for as long as the paladin is alive.  Any beacon downtime will result in lost healing and efficiency.</Trans>}
+          >
+          {!combatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id) && 
+            <Requirement name={<Trans><SpellLink id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id} onClick={e => e.preventDefault()} /> applied prepull</Trans>} thresholds={thresholds.beaconUptimeBoL} />}
+          {!combatant.hasTalent(SPELLS.BEACON_OF_VIRTUE_TALENT.id) && 
+            <Requirement name={<Trans><SpellLink id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id} onClick={e => e.preventDefault()} /> Uptime</Trans>} thresholds={thresholds.beaconUptimeBoLUptime} />}
+          {combatant.hasTalent(SPELLS.BEACON_OF_FAITH_TALENT.id) && 
+            <Requirement name={<Trans><SpellLink id={SPELLS.BEACON_OF_FAITH_TALENT.id} onClick={e => e.preventDefault()} /> applied prepull</Trans>} thresholds={thresholds.beaconUptimeBoF} />}
+          {combatant.hasTalent(SPELLS.BEACON_OF_FAITH_TALENT.id) && 
+            <Requirement name={<Trans><SpellLink id={SPELLS.BEACON_OF_FAITH_TALENT.id} onClick={e => e.preventDefault()} /> Uptime</Trans>} thresholds={thresholds.beaconUptimeBoFUptime} />}
+        </Rule>
+      )}
       <Rule
         name={<Trans>Position yourself well to maximize <SpellLink id={SPELLS.MASTERY_LIGHTBRINGER.id} onClick={e => e.preventDefault()} /></Trans>}
         description={(

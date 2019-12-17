@@ -121,9 +121,6 @@ class BeaconUptime extends Analyzer {
 
         this.BuffEventType = Object.freeze({REMOVEBUFF: 0, PREPULL: 1, POSTPULL: 2, UPDATE: 3, ENDOFFIGHT: 4});
 
-        this.testing = false;
-        this.eventLog = [];
-
     }
     
     missingBoLPrepull = true;
@@ -452,8 +449,6 @@ statistic() {
       <div style={{color: "red", margin: "auto", textAlign: "center"}}>
       <Trans>Not<br />casted<br />prepull</Trans></div> 
     );
-
-  console.log(this.eventLog);
     
   return (
     <Statistic
