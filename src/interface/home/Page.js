@@ -24,11 +24,11 @@ import NotFound from './NotFound';
 
 const News = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'News' */ 'interface/news').then(exports => exports.default)));
 const NewsPage = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'News' */ 'interface/news/Page').then(exports => exports.default)));
-const SpecListing = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'SpecListing' */ 'interface/SpecListing').then(exports => exports.default)));
-const Premium = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'Premium' */ 'interface/premium/Page').then(exports => exports.default)));
-const About = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'About' */ 'interface/about').then(exports => exports.default)));
-const HelpWanted = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'HelpWanted' */ 'interface/helpwanted').then(exports => exports.default)));
-const ContributorPage = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'ContributorPage' */ 'interface/contributor/Page').then(exports => exports.default)));
+const SpecList = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'SpecList' */ 'interface/SpecList').then(exports => exports.default)));
+const Premium = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'PremiumPage' */ 'interface/PremiumPage').then(exports => exports.default)));
+const About = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'About' */ 'interface/AboutPage').then(exports => exports.default)));
+const HelpWanted = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'HelpWantedPage' */ 'interface/HelpWantedPage').then(exports => exports.default)));
+const ContributorPage = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'ContributorPage' */ 'interface/ContributorPage').then(exports => exports.default)));
 const Search = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'Search' */ 'interface/search').then(exports => exports.default)));
 
 class Home extends React.PureComponent {
@@ -144,7 +144,7 @@ class Home extends React.PureComponent {
               />
               <Route
                 path="/specs"
-                component={SpecListing}
+                component={SpecList}
               />
               <Route
                 path="/premium"
@@ -194,5 +194,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-  mapStateToProps
+  mapStateToProps,
 )(Home);

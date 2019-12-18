@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import articles from 'articles';
 import mergeAllChangelogs from 'mergeAllChangelogs';
 import SpecIcon from 'common/SpecIcon';
-import ReadableList from 'interface/common/ReadableList';
-import Contributor from 'interface/contributor/Button';
+import ReadableListing from 'interface/ReadableListing';
+import Contributor from 'interface/ContributorButton';
 import { ReactComponent as Logo } from 'interface/images/logo.svg';
 
 import ArticleLoader from './ArticleLoader';
@@ -110,9 +110,9 @@ class News extends React.PureComponent {
                         <>
                           <SpecIcon id={item.spec.id} /> {item.spec.specName} {item.spec.className}
                         </>
-                      )} updated at {item.date.toLocaleDateString()} by <ReadableList>
+                      )} updated at {item.date.toLocaleDateString()} by <ReadableListing>
                         {item.contributors.map(contributor => <Contributor key={contributor.nickname} {...contributor} />)}
-                      </ReadableList>
+                      </ReadableListing>
                     </small>
                   </div>
                   <div className="panel-body pad">

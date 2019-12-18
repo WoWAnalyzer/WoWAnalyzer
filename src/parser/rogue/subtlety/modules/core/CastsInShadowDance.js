@@ -24,7 +24,7 @@ class CastsInShadowDance extends CastsInStealthBase {
 
     this.danceDamageTracker.subscribeInefficientCast(
       this.badStealthSpells,
-      (s) => `Cast Shadowstrike instead of ${s.name} when you are in ${this.stealthCondition} window`
+      (s) => `Cast Shadowstrike instead of ${s.name} when you are in ${this.stealthCondition} window`,
     );    
   }
 

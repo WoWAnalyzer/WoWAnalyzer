@@ -7,8 +7,8 @@ import Analyzer from 'parser/core/Analyzer';
 import HIT_TYPES from 'game/HIT_TYPES';
 import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 import StatisticBox from 'interface/others/StatisticBox';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
 import ROLES from 'game/ROLES';
 
 export const CRIT_EFFECT = 0.02;

@@ -1,6 +1,6 @@
 import React from 'react';
 import SpellLink from 'common/SpellLink';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
 

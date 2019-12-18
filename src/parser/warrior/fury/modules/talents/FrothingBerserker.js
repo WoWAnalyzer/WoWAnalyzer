@@ -69,7 +69,7 @@ class FrothingBerserker extends Analyzer {
       return suggest(
         <>
           You are currently using <SpellLink id={SPELLS.FROTHING_BERSERKER_TALENT.id} />. It is highly recommended to talent into <SpellLink id={SPELLS.CARNAGE_TALENT.id} />, as there are currently no situations in which <SpellLink id={SPELLS.FROTHING_BERSERKER_TALENT.id} /> outperforms <SpellLink id={SPELLS.CARNAGE_TALENT.id} />.
-        </>
+        </>,
       )
         .icon(SPELLS.CARNAGE_TALENT.icon)
         .staticImportance(SUGGESTION_IMPORTANCE.REGULAR);

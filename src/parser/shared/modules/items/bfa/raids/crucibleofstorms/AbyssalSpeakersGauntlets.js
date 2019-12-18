@@ -8,7 +8,7 @@ import { calculateSecondaryStatDefault } from 'common/stats';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
 import UptimeIcon from 'interface/icons/Uptime';
 import HasteIcon from 'interface/icons/Haste';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';

@@ -5,7 +5,7 @@ import { calculateAzeriteEffects } from 'common/stats';
 import { formatPercentage } from 'common/format';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
 import Analyzer from 'parser/core/Analyzer';
 
 import isAtonement from '../core/isAtonement';

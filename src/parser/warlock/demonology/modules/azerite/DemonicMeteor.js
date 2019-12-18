@@ -11,7 +11,7 @@ import { calculateAzeriteEffects } from 'common/stats';
 import { formatPercentage, formatThousands } from 'common/format';
 
 import TraitStatisticBox from 'interface/others/TraitStatisticBox';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 
 import { findMax, poissonBinomialPMF } from 'parser/warlock/shared/probability';
 import SoulShardTracker from '../soulshards/SoulShardTracker';

@@ -47,7 +47,7 @@ class RenewingMistDuringManaTea extends Analyzer {
       return suggest(
         <>
           During <SpellLink id={SPELLS.MANA_TEA_TALENT.id} /> you should have a minimum of two <SpellLink id={SPELLS.RENEWING_MIST.id} /> out to maximize your healing during the buff.
-        </>
+        </>,
       )
         .icon(SPELLS.MANA_TEA_TALENT.icon)
         .actual(`${this.avgRemDuringMT.toFixed(2)} average Renewing Mists during Mana Tea`)
