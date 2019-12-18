@@ -40,7 +40,7 @@ for DIVINE_PURPOSE testing (A):
 for BEACON_OF_FAITH testing (B):
 
     BoF uptime (B1*):
-        B11: 100% uptime with precast: Getting slightly less than 100%
+        B11: 100% uptime with precast:
             https://www.warcraftlogs.com/reports/DPwyKpWBZ6F947mx/#fight=2&source=7&type=auras&by=target&ability=53563
             Results Expected: BoL uptime 100%, BoF uptime 100%, precasted BoL: true, precasted BoF: true
             Passed: true
