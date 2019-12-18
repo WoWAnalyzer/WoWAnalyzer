@@ -252,6 +252,10 @@ exports[`The Blood Deathknight Analyzer analyzers BloddyRuneblade matches the st
 
 exports[`The Blood Deathknight Analyzer analyzers BloddyRuneblade matches the suggestions snapshot 1`] = `"module inactive"`;
 
+exports[`The Blood Deathknight Analyzer analyzers BloodOfTheEnemy matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers BloodOfTheEnemy matches the suggestions snapshot 1`] = `"module inactive"`;
+
 exports[`The Blood Deathknight Analyzer analyzers BloodPlagueUptime matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"

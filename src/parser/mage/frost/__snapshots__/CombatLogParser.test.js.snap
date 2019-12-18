@@ -371,6 +371,10 @@ exports[`The Frost Mage Analyzer analyzers BlightborneInfusion matches the stati
 
 exports[`The Frost Mage Analyzer analyzers BlightborneInfusion matches the suggestions snapshot 1`] = `"module inactive"`;
 
+exports[`The Frost Mage Analyzer analyzers BloodOfTheEnemy matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Frost Mage Analyzer analyzers BloodOfTheEnemy matches the suggestions snapshot 1`] = `"module inactive"`;
+
 exports[`The Frost Mage Analyzer analyzers BloodRite matches the statistic snapshot 1`] = `"module inactive"`;
 
 exports[`The Frost Mage Analyzer analyzers BloodRite matches the suggestions snapshot 1`] = `"module inactive"`;
