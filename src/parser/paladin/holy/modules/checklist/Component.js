@@ -168,25 +168,6 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds, owner }) 
             <Requirement name={<Trans><SpellLink id={SPELLS.BEACON_OF_FAITH_TALENT.id} onClick={e => e.preventDefault()} /> Uptime</Trans>} thresholds={thresholds.beaconUptimeBoFUptime} />}
         </Rule>
       )}
-      <Rule
-        name={<Trans>Position yourself well to maximize <SpellLink id={SPELLS.MASTERY_LIGHTBRINGER.id} onClick={e => e.preventDefault()} /></Trans>}
-        description={(
-          <Trans>
-            <SpellLink id={SPELLS.MASTERY_LIGHTBRINGER.id} /> has a big impact on the strength of your heals. Try to stay close to the people you are healing to benefit the most from your Mastery. Use <SpellLink id={SPELLS.RULE_OF_LAW_TALENT.id} /> when healing people further away.
-          </Trans>
-        )}
-      >
-        <Requirement name={<Trans>Mastery effectiveness</Trans>} thresholds={thresholds.masteryEffectiveness} />
-      </Rule>
-      {!owner.builds.GLIMMER.active && (
-        <Rule
-          name={<Trans>Use all of your <ResourceLink id={RESOURCE_TYPES.MANA.id} onClick={e => e.preventDefault()} /></Trans>}
-          description={<Trans>If you have a large amount of mana left at the end of the fight that's mana you could have turned into healing. Try to use all your mana during a fight. A good rule of thumb is to try to match your mana level with the boss's health.</Trans>}
-        >
-          <Requirement name={<Trans>Mana left</Trans>} thresholds={thresholds.manaLeft} />
-        </Rule>
-      )}
-      
       <PreparationRule thresholds={thresholds} />
       <Rule
         name={<Trans>Use your supportive abilities</Trans>}
