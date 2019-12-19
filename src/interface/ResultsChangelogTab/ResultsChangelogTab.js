@@ -5,7 +5,7 @@ import 'react-toggle/style.css';
 
 import { TooltipElement } from 'common/Tooltip';
 
-import Changelog from './index';
+import Changelog from '../Changelog';
 
 class ResultsChangelogTab extends React.PureComponent {
   static propTypes = {
