@@ -185,6 +185,7 @@ import EventEmitter from './modules/EventEmitter';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
+const MAX_DI_ITERATIONS = 100;
 const isMinified = process.env.NODE_ENV === 'production';
 
 class CombatLogParser {
@@ -510,7 +511,7 @@ class CombatLogParser {
     this._modules[desiredModuleName] = module;
     return module;
   }
-  initializeModules(modules, iteration = 0) {
+  initializeModules(modules, iteration = 1) {
     // TODO: Refactor and test, this dependency injection thing works really well but it's hard to understand or change.
     const failedModules = [];
     Object.keys(modules).forEach(desiredModuleName => {
@@ -538,7 +539,7 @@ class CombatLogParser {
             ...availableDependencies,
             priority,
           }, desiredModuleName);
-        }catch(e){
+        } catch (e) {
           if (process.env.NODE_ENV !== 'production') {
             throw e;
           }
@@ -547,11 +548,18 @@ class CombatLogParser {
         }
 
       } else {
-        const disabledDependencies = missingDependencies.map(d => d.name).filter(x => this.disabledModules[MODULE_ERROR.INITIALIZATION].map(d => d.module.name).includes(x)); //see if a dependency was previously disabled due to an error
-        if(disabledDependencies.length !== 0){ //if a dependency was already marked as disabled due to an error, mark this module as disabled
+        const disabledDependencies = missingDependencies
+          .map(d => d.name)
+          .filter(x =>
+            this.disabledModules[MODULE_ERROR.INITIALIZATION]
+              .map(d => d.module.name)
+              .includes(x),
+          ); // see if a dependency was previously disabled due to an error
+        if (disabledDependencies.length !== 0) {
+          // if a dependency was already marked as disabled due to an error, mark this module as disabled
           this.disabledModules[MODULE_ERROR.DEPENDENCY].push({key: isMinified ? desiredModuleName : moduleClass.name, module: moduleClass});
           debugDependencyInjection && console.warn(moduleClass.name, 'disabled due to error during initialization of a dependency.');
-        }else{
+        } else {
           debugDependencyInjection && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
           failedModules.push(desiredModuleName);
         }
@@ -564,8 +572,10 @@ class CombatLogParser {
       failedModules.forEach(key => {
         newBatch[key] = modules[key];
       });
-      if (iteration > 100) {
+      if (iteration > MAX_DI_ITERATIONS) {
         // Sometimes modules can't be imported at all because they depend on modules not enabled or have a circular dependency. Stop trying after a while.
+        // eslint-disable-next-line no-debugger
+        debugger;
         throw new Error(`Failed to load modules: ${Object.keys(newBatch).join(', ')}`);
       }
       this.initializeModules(newBatch, iteration + 1);
