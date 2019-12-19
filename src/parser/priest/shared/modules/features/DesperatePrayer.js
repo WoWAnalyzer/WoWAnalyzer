@@ -18,7 +18,7 @@ class DesperatePrayer extends Analyzer {
   desperatePrayerUsages = [];
   deathsWithDPReady = 0;
 
-  on_byPlayer_applybuff(event) {
+  on_toPlayer_heal(event) {
     if (event.ability.guid !== SPELLS.DESPERATE_PRAYER.id) {
       return;
     }
@@ -27,12 +27,6 @@ class DesperatePrayer extends Analyzer {
       originalHealth: 0,
       originalMaxHealth: 0,
     });
-  }
-
-  on_toPlayer_heal(event) {
-    if (event.ability.guid !== SPELLS.DESPERATE_PRAYER.id) {
-      return;
-    }
     this.lastDesperatePrayerUsage.originalHealth = event.hitPoints - event.amount;
     this.lastDesperatePrayerUsage.originalMaxHealth = event.maxHitPoints;
   }
