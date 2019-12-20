@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  HawkCorrigan
+  HawkCorrigan,
 } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
