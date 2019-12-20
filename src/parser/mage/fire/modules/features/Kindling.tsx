@@ -20,17 +20,18 @@ class Kindling extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
+  protected spellUsable!: SpellUsable;
 
   cooldownReduction = 0;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.KINDLING_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(COMBUST_REDUCTION_SPELLS), this.onCritDamage);
   }
 
   //Look for crit damage events to reduce the cooldown on Kindling
-  onCritDamage(event) {
+  onCritDamage(event: any) {
     const combustionOnCD = this.spellUsable.isOnCooldown(SPELLS.COMBUSTION.id);
     if (event.hitType !== HIT_TYPES.CRIT) {
       return;

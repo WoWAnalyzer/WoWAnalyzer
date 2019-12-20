@@ -21,16 +21,24 @@ class HeatingUp extends Analyzer {
     abilityTracker: AbilityTracker,
     enemies: EnemyInstances,
   };
+  protected abilityTracker!: AbilityTracker;
+  protected enemies!: EnemyInstances;
 
-  phoenixFlamesCastEvent = null;
+  hasFirestarter: boolean;
+  hasSearingTouch: boolean;
+  hasPhoenixFlames: boolean;
+  phoenixFlamesCastEvent!: {
+    targetID: any | undefined;
+  };
+
   fireBlastWithoutHeatingUp = 0;
   phoenixFlamesWithoutHeatingUp = 0;
   fireBlastWithHotStreak = 0;
   phoenixFlamesWithHotStreak = 0;
   healthPercent = 1;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.hasFirestarter = this.selectedCombatant.hasTalent(SPELLS.FIRESTARTER_TALENT.id);
     this.hasSearingTouch = this.selectedCombatant.hasTalent(SPELLS.SEARING_TOUCH_TALENT.id);
     this.hasPhoenixFlames = this.selectedCombatant.hasTalent(SPELLS.PHOENIX_FLAMES_TALENT.id);
@@ -42,11 +50,11 @@ class HeatingUp extends Analyzer {
   }
 
   //Need to get the cast event for Phoenix Flames to filter out it's cleave
-  onPhoenixFlamesCast(event) {
+  onPhoenixFlamesCast(event: any) {
     this.phoenixFlamesCastEvent = event;
   }
 
-  onPhoenixFlamesDamage(event) {
+  onPhoenixFlamesDamage(event: any) {
     const hasCombustion = this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id);
     const hasHotStreak = this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id);
     const hasHeatingUp = this.selectedCombatant.hasBuff(SPELLS.HEATING_UP.id);
@@ -76,7 +84,7 @@ class HeatingUp extends Analyzer {
     }
   }
 
-  onFireBlastDamage(event) {
+  onFireBlastDamage(event: any) {
     const hasCombustion = this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id);
     const hasHotStreak = this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id);
     const hasHeatingUp = this.selectedCombatant.hasBuff(SPELLS.HEATING_UP.id);
@@ -156,16 +164,16 @@ class HeatingUp extends Analyzer {
     };
   }
 
-  suggestions(when) {
+  suggestions(when: any) {
 		when(this.fireBlastUtilSuggestionThresholds)
-			.addSuggestion((suggest, actual, recommended) => {
+			.addSuggestion((suggest: any, actual: any, recommended: any) => {
 				return suggest(<>You cast <SpellLink id={SPELLS.FIRE_BLAST.id} /> {this.fireBlastWithHotStreak} times while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active and {this.fireBlastWithoutHeatingUp} times while you didnt have <SpellLink id={SPELLS.HEATING_UP.id} />. Make sure that you are only using Fire Blast to convert Heating Up into Hot Streak.</>)
 					.icon(SPELLS.FIRE_BLAST.icon)
 					.actual(`${formatPercentage(this.fireBlastUtil)}% Utilization`)
 					.recommended(`<${formatPercentage(recommended)}% is recommended`);
 			});
     when(this.phoenixFlamesUtilSuggestionThresholds)
-			.addSuggestion((suggest, actual, recommended) => {
+			.addSuggestion((suggest: any, actual: any, recommended: any) => {
 				return suggest(<>You cast <SpellLink id={SPELLS.PHOENIX_FLAMES_TALENT.id} /> {this.phoenixFlamesWithHotStreak} times while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active and {this.phoenixFlamesWithoutHeatingUp} times while you didnt have <SpellLink id={SPELLS.HEATING_UP.id} />. While ideally you should only be using these to convert Heating Up into Hot Streak, there are some minor circumstances where it is acceptable (i.e. If you are about to cap on Phoenixs Flames charges or when used alongside <SpellLink id={SPELLS.FIREBALL.id} /> to bait Heating Up or Hot Streak just before <SpellLink id={SPELLS.COMBUSTION.id} />.</>)
 					.icon(SPELLS.PHOENIX_FLAMES_TALENT.icon)
 					.actual(`${formatPercentage(this.phoenixFlamesUtil)}% Utilization`)

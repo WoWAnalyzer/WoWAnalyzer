@@ -12,15 +12,20 @@ class MeteorCombustion extends Analyzer {
     abilityTracker: AbilityTracker,
     enemies: EnemyInstances,
   };
+  protected abilityTracker!: AbilityTracker;
+  protected enemies!: EnemyInstances;
+
+  hasMeteor: boolean;
 
   lastRuneCast = 0
   badMeteor = 0
   meteorCast = false;
+  meteorDuringCombustion = false;
   meteorInCombustion = 0;
   combustionActive = false;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.hasMeteor = this.selectedCombatant.hasTalent(SPELLS.METEOR_TALENT.id);
     this.active = this.hasMeteor ? true : false;
 
@@ -33,17 +38,17 @@ class MeteorCombustion extends Analyzer {
     this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.COMBUSTION), this.onCombustionEnd);
   }
 
-  onMeteorDamage(event) {
+  onMeteorDamage(event: any) {
     if (this.combustionActive) {
       this.meteorCast = true;
     }
   }
 
-  onCombustionStart(event) {
+  onCombustionStart(event: any) {
     this.combustionActive = true;
   }
 
-  onCombustionEnd(event) {
+  onCombustionEnd(event: any) {
     if (this.meteorCast) {
       this.meteorInCombustion += 1;
     }
@@ -88,9 +93,9 @@ class MeteorCombustion extends Analyzer {
     };
   }
 
-  suggestions(when) {
+  suggestions(when: any) {
     when(this.meteorCombustionSuggestionThresholds)
-			.addSuggestion((suggest, actual, recommended) => {
+			.addSuggestion((suggest: any, actual: any, recommended: any) => {
 				return suggest(<>You failed to cast <SpellLink id={SPELLS.METEOR_TALENT.id} /> during <SpellLink id={SPELLS.COMBUSTION.id} /> {this.combustionWithoutMeteor} times. In order to make the most of Combustion and <SpellLink id={SPELLS.IGNITE.id} />, you should always cast Meteor during Combustion. If Meteor will not come off cooldown before Combustion is available, then you should hold Meteor for Combustion.</>)
 					.icon(SPELLS.METEOR_TALENT.icon)
 					.actual(`${formatPercentage(this.combustionUtilization)}% Utilization`)

@@ -16,19 +16,20 @@ class SearingTouch extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
+  protected abilityTracker!: AbilityTracker;
 
   badCasts = 0;
   totalCasts = 0;
   healthPercent = 1;
 
-  constructor(...args) {
-    super(...args);
+  constructor(options: any) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SEARING_TOUCH_TALENT.id);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.FIREBALL,SPELLS.SCORCH]), this.onDamage);
   }
 
   //When the target is under 30% health, check to see if the player cast Fireball. If they do, count it as a mistake.
-  onDamage(event) {
+  onDamage(event: any) {
     if (event.hitPoints > 0) {
       this.healthPercent = event.hitPoints / event.maxHitPoints;
     }
@@ -61,9 +62,9 @@ class SearingTouch extends Analyzer {
     };
   }
 
-  suggestions(when) {
+  suggestions(when: any) {
 		when(this.suggestionThreshold)
-			.addSuggestion((suggest, actual, recommended) => {
+			.addSuggestion((suggest: any, actual: any, recommended: any) => {
 				return suggest(<>You cast <SpellLink id={SPELLS.FIREBALL.id} /> instead of <SpellLink id={SPELLS.SCORCH.id} /> while the target was under 30% health {this.badCasts} times. When using <SpellLink id={SPELLS.SEARING_TOUCH_TALENT.id} /> always use Scorch instead of Fireball when the target is under 30% health since Scorch does 150% damage and is guaranteed to crit.</>)
 					.icon(SPELLS.SEARING_TOUCH_TALENT.icon)
 					.actual(`${formatPercentage(this.scorchUtil)}% Utilization`)
