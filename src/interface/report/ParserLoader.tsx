@@ -16,9 +16,9 @@ interface Props {
 // TODO: Refactor Report to a functional component so this component can be
 //  removed in favor of using the hook
 const ParserLoader = ({ children, config }: Props) => {
-  const { isLoading, parserClass } = useParser(config);
+  const parserClass = useParser(config);
 
-  return children(isLoading, parserClass);
+  return children(!parserClass, parserClass);
 };
 
 export default ParserLoader;
