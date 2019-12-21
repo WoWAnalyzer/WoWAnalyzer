@@ -5,7 +5,6 @@ import SPECS from 'game/SPECS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import SpellIcon from 'common/SpellIcon';
-import retryingPromise from 'common/retryingPromise';
 import Config from 'parser/Config';
 
 import CHANGELOG from './CHANGELOG';
@@ -38,7 +37,7 @@ const config: Config = {
   //
   spec: SPECS.HOLY_PALADIN,
   changelog: CHANGELOG,
-  parser: () => retryingPromise(() => import('./CombatLogParser' /* webpackChunkName: "HolyPaladin" */).then(exports => exports.default)),
+  parser: () => import('./CombatLogParser' /* webpackChunkName: "HolyPaladin" */).then(exports => exports.default),
   path: __dirname,
 };
 
