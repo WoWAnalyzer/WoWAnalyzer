@@ -4954,32 +4954,6 @@ Array [
   Object {
     "details": null,
     "icon": "inv_misc_beer_06",
-    "importance": "major",
-    "issue": <React.Fragment>
-      You should 
-      <em>
-        almost never
-      </em>
-       cast 
-      <ForwardRef
-        id={119582}
-      />
-       without being in at least 
-      <ForwardRef
-        id={124273}
-      />
-      . Notable exceptions are when you otherwise can't be healed (such as on Zek'voz).
-    </React.Fragment>,
-    "stat": <React.Fragment>
-      33.33% of your purifies were less than Heavy Stagger
-       (
-      &lt; 10.00% is recommended
-      )
-    </React.Fragment>,
-  },
-  Object {
-    "details": null,
-    "icon": "inv_misc_beer_06",
     "importance": "minor",
     "issue": <React.Fragment>
       You should spend brews not needed to maintain 
@@ -6633,8 +6607,8 @@ exports[`The Brewmaster Analyzer should match the checklist snapshot 1`] = `
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#ac1f39",
-                  "width": "32.801003785663%",
+                  "backgroundColor": "#ffc84a",
+                  "width": "58.35376377018014%",
                 }
               }
             />
@@ -6754,7 +6728,21 @@ exports[`The Brewmaster Analyzer should match the checklist snapshot 1`] = `
                    
                   Heavy Stagger
                 </a>
-                 is not dangerous in itself. You should almost never purify lower than this unless you cannot be healed.
+                 is not dangerous in itself. While not every fight will put you into 
+                <a
+                  href="http://wowhead.com/spell=124273"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <img
+                    alt=""
+                    className="icon game "
+                    src="//render-us.worldofwarcraft.com/icons/56/priest_icon_chakra_red.jpg"
+                  />
+                   
+                  Heavy Stagger
+                </a>
+                 consistently, you should often aim to save your purifies for these parts of the fight.
               </li>
               <li>
                 If you are going to purify a hit, do so as soon as possible after it lands. Every half-second delayed after the hit causes you to take 5% of the hit's damage from 
@@ -6825,6 +6813,36 @@ exports[`The Brewmaster Analyzer should match the checklist snapshot 1`] = `
                 </a>
               </div>
               <div
+                className="flex-sub"
+                style={
+                  Object {
+                    "marginLeft": 10,
+                  }
+                }
+              >
+                <div
+                  onMouseEnter={[Function]}
+                  onMouseLeave={[Function]}
+                  onTouchStart={[Function]}
+                >
+                  <svg
+                    className="icon"
+                    viewBox="0 0 100 100"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M53.1,73h-7.2c-1.1,0-1.9-0.9-1.9-1.9V44h11v27.1C55,72.1,54.1,73,53.1,73z"
+                    />
+                    <path
+                      d="M55,39H44v-9.1c0-1.1,0.9-1.9,1.9-1.9h7.2c1.1,0,1.9,0.9,1.9,1.9V39z"
+                    />
+                    <path
+                      d="M50,96C24.6,96,4,75.4,4,50S24.6,4,50,4s46,20.6,46,46S75.4,96,50,96z M50,12c-21,0-38,17-38,38s17,38,38,38s38-17,38-38   S71,12,50,12z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div
                 className="flex-sub content-middle text-muted"
                 style={
                   Object {
@@ -6863,9 +6881,9 @@ exports[`The Brewmaster Analyzer should match the checklist snapshot 1`] = `
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#ac1f39",
+                        "backgroundColor": "#4ec04e",
                         "transition": "background-color 800ms",
-                        "width": "19.980000000000004%",
+                        "width": "100%",
                       }
                     }
                   />

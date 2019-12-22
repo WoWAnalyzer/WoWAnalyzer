@@ -203,7 +203,7 @@ class PurifyingBrew extends Analyzer {
     });
 
     when(this.purifyHeavySuggestion).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You should <em>almost never</em> cast <SpellLink id={SPELLS.PURIFYING_BREW.id} /> without being in at least <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} />. Notable exceptions are when you otherwise can't be healed (such as on Zek'voz).</>)
+      return suggest(<>You should avoid casting <SpellLink id={SPELLS.PURIFYING_BREW.id} /> without being in at least <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} />. While not every fight will put you into <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} /> consistently, you should often aim to save your purifies for these parts of the fight.</>)
         .icon(SPELLS.PURIFYING_BREW.icon)
         .actual(`${formatPercentage(actual)}% of your purifies were less than Heavy Stagger`)
         .recommended(`< ${formatPercentage(recommended)}% is recommended`);
