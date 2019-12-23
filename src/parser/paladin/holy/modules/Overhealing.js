@@ -90,7 +90,7 @@ class Overhealing extends Analyzer {
       return suggest(
         <Trans>
           Try to avoid overhealing with <SpellLink id={SPELLS.LIGHT_OF_DAWN_CAST.id} />. Save it for when people are missing health.
-        </Trans>
+        </Trans>,
       )
         .icon(SPELLS.LIGHT_OF_DAWN_CAST.icon)
         .actual(i18n._(t`${formatPercentage(actual)}% overhealing`))
@@ -101,7 +101,7 @@ class Overhealing extends Analyzer {
       return suggest(
         <Trans>
           Try to avoid overhealing with <SpellLink id={SPELLS.HOLY_SHOCK_CAST.id} />. Save it for when people are missing health.
-        </Trans>
+        </Trans>,
       )
         .icon(SPELLS.HOLY_SHOCK_HEAL.icon)
         .actual(i18n._(t`${formatPercentage(actual)}% overhealing`))
@@ -112,7 +112,7 @@ class Overhealing extends Analyzer {
       return suggest(
         <Trans>
           Try to avoid overhealing with <SpellLink id={SPELLS.FLASH_OF_LIGHT.id} />. If Flash of Light would overheal it is generally advisable to cast a <SpellLink id={SPELLS.HOLY_LIGHT.id} /> instead.
-        </Trans>
+        </Trans>,
       )
         .icon(SPELLS.FLASH_OF_LIGHT.icon)
         .actual(i18n._(t`${formatPercentage(actual)}% overhealing`))
@@ -123,7 +123,7 @@ class Overhealing extends Analyzer {
       return suggest(
         <Trans>
           Try to avoid overhealing with <SpellLink id={SPELLS.BESTOW_FAITH_TALENT.id} />. Cast it just before someone is about to take damage and consider casting it on targets other than tanks.
-        </Trans>
+        </Trans>,
       )
         .icon(SPELLS.BESTOW_FAITH_TALENT.icon)
         .actual(i18n._(t`${formatPercentage(actual)}% overhealing`))

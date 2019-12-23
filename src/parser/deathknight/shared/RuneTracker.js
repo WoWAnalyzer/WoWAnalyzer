@@ -299,6 +299,7 @@ class RuneTracker extends ResourceTracker {
     const badThreshold = 4;
     return (
       <StatisticBox
+        position={STATISTIC_ORDER.CORE(10)}
         icon={<SpellIcon id={SPELLS.RUNE_1.id} noLink />}
         value={`${formatPercentage(1 - this.runeEfficiency)} %`}
         label="Runes overcapped"
@@ -342,8 +343,6 @@ class RuneTracker extends ResourceTracker {
       </StatisticBox>
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(1);
-
 }
 
 export default RuneTracker;

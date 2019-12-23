@@ -103,6 +103,9 @@ class Tier45Comparison extends Analyzer {
     if(this.lifecycles.manaFrom > this.manatea.manaFrom && this.lifecycles.manaFrom > this.sotc.manaFrom){
       this.best = this.lifecycles;
     }
+    if(!this.best){
+      this.best = this.manatea;
+    }
     // --- end picking best --- //
     
     // -- sees what it takes for the other ones to equal the best -- //
@@ -192,7 +195,7 @@ class Tier45Comparison extends Analyzer {
       return suggest(
         <>
           With your current playstyle you are not using the most effective tier 45 talent. <SpellLink id={this.best.id} /> is better based off of how you played.
-        </>
+        </>,
       )
         .icon(this.best.icon)
         .actual(`${formatNumber(this.returnedFromSelected)} mana returned through ${this.best.name}`)

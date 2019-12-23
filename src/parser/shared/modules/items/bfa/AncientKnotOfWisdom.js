@@ -38,7 +38,7 @@ class AncientKnotOfWisdom extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrinket(
-      ITEMS.ANCIENT_KNOT_OF_WISDOM.id
+      ITEMS.ANCIENT_KNOT_OF_WISDOM.id,
     );
     if (this.active) {
       this.intellectPerStack = calculatePrimaryStat(355, 40, this.selectedCombatant.getItem(ITEMS.ANCIENT_KNOT_OF_WISDOM.id).itemLevel);

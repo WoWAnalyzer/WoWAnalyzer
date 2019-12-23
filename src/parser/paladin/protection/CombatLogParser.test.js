@@ -3,5 +3,5 @@ import CombatLogParser from './CombatLogParser';
 
 describe('The Protection Paladin Analyzer', integrationTest(
   CombatLogParser,
-  'prot-pally-example'
+  'prot-pally-example',
 ));

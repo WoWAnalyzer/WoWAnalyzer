@@ -14,19 +14,19 @@ import REPORT_HISTORY_TYPES from 'interface/home/ReportHistory/REPORT_HISTORY_TY
 import { appendReportHistory } from 'interface/actions/reportHistory';
 import { getResultTab } from 'interface/selectors/url/report';
 import { hasPremium } from 'interface/selectors/user';
-import Warning from 'interface/common/Alert/Warning';
+import Warning from 'interface/Alert/Warning';
 import Ad from 'interface/common/Ad';
-import ReadableList from 'interface/common/ReadableList';
-import Contributor from 'interface/contributor/Button';
+import ReadableListing from 'interface/ReadableListing';
+import Contributor from 'interface/ContributorButton';
 import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
 import WipefestIcon from 'interface/icons/Wipefest';
 import { i18n } from 'interface/RootLocalizationProvider';
 import LoadingBar from 'interface/layout/NavigationBar/LoadingBar';
 import Panel from 'interface/others/Panel';
-import ChangelogTab from 'interface/others/ChangelogTab';
 import ErrorBoundary from 'interface/common/ErrorBoundary';
 import Checklist from 'parser/shared/modules/features/Checklist/Module';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import ResultsChangelogTab from 'interface/ResultsChangelogTab';
 
 import './Results.scss';
 import Header from './Header';
@@ -66,6 +66,7 @@ class Results extends React.PureComponent {
     }),
     characterProfile: PropTypes.object,
     selectedTab: PropTypes.string,
+    makeBuildUrl: PropTypes.func.isRequired,
     makeTabUrl: PropTypes.func.isRequired,
     phases: PropTypes.object,
     selectedPhase: PropTypes.string.isRequired,
@@ -73,6 +74,7 @@ class Results extends React.PureComponent {
     handlePhaseSelection: PropTypes.func.isRequired,
     applyFilter: PropTypes.func.isRequired,
     timeFilter: PropTypes.object,
+    build: PropTypes.string,
     report: PropTypes.shape({
       code: PropTypes.string.isRequired,
     }).isRequired,
@@ -241,7 +243,7 @@ class Results extends React.PureComponent {
           <div className="container">
             <About config={config} />
 
-            <ChangelogTab />
+            <ResultsChangelogTab changelog={config.changelog} />
           </div>
         );
       }
@@ -338,7 +340,7 @@ class Results extends React.PureComponent {
     );
   }
   render() {
-    const { parser, report, fight, player, characterProfile, makeTabUrl, selectedTab, premium, handlePhaseSelection, selectedPhase, selectedInstance, phases, applyFilter, timeFilter } = this.props;
+    const { parser, report, fight, player, build, characterProfile, makeBuildUrl, makeTabUrl, selectedTab, premium, handlePhaseSelection, selectedPhase, selectedInstance, phases, applyFilter, timeFilter } = this.props;
     const config = this.context.config;
 
     const boss = findByBossId(fight.boss);
@@ -348,7 +350,7 @@ class Results extends React.PureComponent {
       adjustForDowntime: this.state.adjustForDowntime,
     });
 
-    const contributorinfo = <ReadableList>{(config.contributors.length !== 0) ? config.contributors.map(contributor => <Contributor key={contributor.nickname} {...contributor} />) : 'CURRENTLY UNMAINTAINED'}</ReadableList>;
+    const contributorinfo = <ReadableListing>{(config.contributors.length !== 0) ? config.contributors.map(contributor => <Contributor key={contributor.nickname} {...contributor} />) : 'CURRENTLY UNMAINTAINED'}</ReadableListing>;
 
     return (
       <div className={`results boss-${fight.boss}`}>
@@ -360,12 +362,14 @@ class Results extends React.PureComponent {
           fight={fight}
           tabs={results ? results.tabs : []}
           makeTabUrl={makeTabUrl}
+          makeBuildUrl={makeBuildUrl}
           selectedTab={selectedTab}
           selectedPhase={selectedPhase}
           selectedInstance={selectedInstance}
           phases={phases}
           handlePhaseSelection={handlePhaseSelection}
           applyFilter={applyFilter}
+          build={build}
           isLoading={this.isLoading}
         />
         {parser && parser.disabledModules && <DegradedExperience disabledModules={parser.disabledModules} />}
@@ -380,6 +384,13 @@ class Results extends React.PureComponent {
           <div className="container">
             <Warning style={{ marginBottom: 30 }}>
               These results are filtered to the selected time period. Time filtered results are under development and may not be entirely accurate. <br /> Please report any issues you may find on our GitHub or Discord.
+            </Warning>
+          </div>
+        )}
+        {build && (
+          <div className="container">
+            <Warning style={{ marginBottom: 30 }}>
+              These results are analyzed under build different from the standard build. While this will make some modules more accurate, some may also not provide the information you expect them to. <br /> Please report any issues you may find on our GitHub or Discord.
             </Warning>
           </div>
         )}
@@ -445,5 +456,5 @@ export default connect(
   mapStateToProps,
   {
     appendReportHistory,
-  }
+  },
 )(Results);

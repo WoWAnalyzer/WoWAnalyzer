@@ -54,7 +54,7 @@ class Schism extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTalent(
-      SPELLS.SCHISM_TALENT.id
+      SPELLS.SCHISM_TALENT.id,
     );
 
     this.smiteEstimation = SmiteEstimation(this.statTracker, this.sins);
@@ -67,7 +67,7 @@ class Schism extends Analyzer {
   get badSchismCount() {
     return Object.entries(this._badSchisms).reduce(
       (n, [e, isBadSchism]) => n + (isBadSchism ? 1 : 0),
-      0
+      0,
     );
   }
 
@@ -150,7 +150,7 @@ class Schism extends Analyzer {
     const estimatedOverhealing = calculateOverhealing(
       estimatedSmiteRawHealing,
       event.amount,
-      event.overheal
+      event.overheal,
     );
 
     const estimatedSmiteHealing =
@@ -214,12 +214,12 @@ class Schism extends Analyzer {
             casting <SpellLink id={SPELLS.PENANCE.id} />,{' '}
             <SpellLink id={SPELLS.HALO_TALENT.id} />, or{' '}
             <SpellLink id={SPELLS.POWER_WORD_SOLACE_TALENT.id} />{' '}
-          </>
+          </>,
         )
           .icon(SPELLS.SCHISM_TALENT.icon)
           .actual(`You cast Schism ${actual} times without pairing it with strong damaging abilities, such as Penance, Halo, or Power Word: Solace.`)
           .recommended(`${recommended} is recommended`);
-      }
+      },
     );
   }
 }

@@ -3,5 +3,6 @@ import CombatLogParser from './CombatLogParser';
 
 describe('The Frost Mage Analyzer', integrationTest(
   CombatLogParser,
-  'frost-mage-example'
+  'frost-mage-example',
+  "NO_IL",
 ));

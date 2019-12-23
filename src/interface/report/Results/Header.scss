@@ -97,11 +97,39 @@
       border: 1px solid transparent;
       text-align: right;
 
+      .builds {
+        height: 36px;
+
+        dfn {
+          cursor: inherit;
+          border-bottom: none;
+        }
+
+        .build {
+          margin-left: 5px;
+
+          img {
+            max-height: 100% !important;
+            height: 1.5em;
+            border-radius: 50%;
+          }
+
+          &:hover img, &.active img {
+            border: 2px solid $primaryColor;
+          }
+        }
+      }
+
+      .details {
+        float:right;
+      }
+
       .avatar {
         float: right;
         margin-left: 15px;
         flex: 0;
         order: 2;
+        margin-top: 36px;
 
         img {
           border-radius: 50%;

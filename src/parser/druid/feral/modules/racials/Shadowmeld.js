@@ -105,7 +105,7 @@ class Shadowmeld extends Analyzer {
       return suggest(
         <React.Fragment>
           You could be using <SpellLink id={SPELLS.SHADOWMELD.id} /> to increase your <SpellLink id={SPELLS.RAKE.id} /> damage more often. Activating <SpellLink id={SPELLS.SHADOWMELD.id} /> and immediately using <SpellLink id={SPELLS.RAKE.id} /> will cause it to deal double damage.
-        </React.Fragment>
+        </React.Fragment>,
       )
         .icon(SPELLS.SHADOWMELD.icon)
         .actual(`${(actual * 100).toFixed(0)}% cast efficiency.`)
@@ -116,7 +116,7 @@ class Shadowmeld extends Analyzer {
       return suggest(
         <React.Fragment>
           You are wasting <SpellLink id={SPELLS.SHADOWMELD.id} /> by using it when you already have a stealth effect active.
-        </React.Fragment>
+        </React.Fragment>,
       )
         .icon(SPELLS.SHADOWMELD.icon)
         .actual(`${this.wastedDuringStealth} cast${this.wastedDuringStealth === 1 ? '' : 's'} when already stealthed.`)

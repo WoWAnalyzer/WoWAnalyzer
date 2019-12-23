@@ -6,7 +6,7 @@ import HolyWordSanctify from 'parser/priest/holy/modules/spells/holyword/HolyWor
 import HolyWordSerenity from 'parser/priest/holy/modules/spells/holyword/HolyWordSerenity';
 import HolyWordChastise from 'parser/priest/holy/modules/spells/holyword/HolyWordChastise';
 import { formatNumber } from 'common/format';
-import ItemManaGained from 'interface/others/ItemManaGained';
+import ItemManaGained from 'interface/ItemManaGained';
 
 // Example Log: /report/NfFqTvxrQ8GLWDpY/12-Normal+Fetid+Devourer+-+Kill+(1:25)/6-Yrret
 class Apotheosis extends Analyzer {

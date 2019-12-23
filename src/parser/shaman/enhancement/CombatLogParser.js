@@ -18,6 +18,7 @@ import HotHand from './modules/talents/HotHand';
 import Landslide from './modules/talents/Landslide';
 import SearingAssault from './modules/talents/SearingAssault';
 import Sundering from './modules/talents/Sundering';
+import TotemMastery from './modules/talents/TotemMastery';
 
 import SpiritWolf from '../shared/talents/SpiritWolf';
 import StaticCharge from '../shared/talents/StaticCharge';
@@ -25,6 +26,7 @@ import AnkhNormalizer from '../shared/normalizers/AnkhNormalizer';
 import AstralShift from '../shared/spells/AstralShift';
 import PackSpirit from '../shared/azerite/PackSpirit';
 import SereneSpirit from '../shared/azerite/SereneSpirit';
+import NaturalHarmony from '../shared/azerite/NaturalHarmony';
 
 //Resources
 import MaelstromDetails from '../shared/maelstromchart/MaelstromDetails';
@@ -54,6 +56,7 @@ class CombatLogParser extends CoreCombatLogParser {
     landslide: Landslide,
     searingAssault: SearingAssault,
     sundering: Sundering,
+    totemMastery: TotemMastery,
 
     spiritWolf: SpiritWolf,
     staticCharge: StaticCharge,
@@ -61,6 +64,7 @@ class CombatLogParser extends CoreCombatLogParser {
     astralShift: AstralShift,
     packSpirit: PackSpirit,
     sereneSpirit: SereneSpirit,
+    naturalHarmony: NaturalHarmony,
 
     maelstromTracker: MaelstromTracker,
     maelstromDetails: MaelstromDetails,

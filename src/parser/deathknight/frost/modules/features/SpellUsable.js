@@ -3,7 +3,11 @@ import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import HIT_TYPES from 'game/HIT_TYPES';
 
-const ICECAP_COOLDOWN_REDUCTION_MS = 1000;
+/**
+ * 
+Your Frost Strike, Frostscythe, and Obliterate critical strikes reduce the remaining cooldown of Pillar of Frost by 3 sec.
+ */
+const ICECAP_COOLDOWN_REDUCTION_MS = 3000;
 
 const ICECAP_ABILITIES = [
   SPELLS.OBLITERATE_MAIN_HAND_DAMAGE.id,

@@ -38,7 +38,7 @@ class BrutalSlashHitCount extends HitCountAoE {
       return suggest(
         <>
           You are using <SpellLink id={SPELLS.BRUTAL_SLASH_TALENT.id} /> out of range of any targets. Try to get familiar with the range of your area of effect abilities so you can avoid wasting charges and energy when they'll not hit anything.
-        </>
+        </>,
       )
         .icon(SPELLS.BRUTAL_SLASH_TALENT.icon)
         .actual(`${actual.toFixed(1)} uses per minute that hit nothing.`)

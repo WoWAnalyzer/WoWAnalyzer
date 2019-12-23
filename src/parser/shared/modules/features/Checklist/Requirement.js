@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import InformationIcon from 'interface/icons/Information';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import Tooltip, { TooltipElement } from 'common/Tooltip';
+import colorForPerformance from 'common/colorForPerformance';
 
-import colorForPerformance from './helpers/colorForPerformance';
 import performanceForThresholds from './helpers/performanceForThresholds';
 import { RuleContext } from './Rule';
 
@@ -43,6 +43,8 @@ class Requirement extends React.PureComponent {
         return thresholds.actual ? 'Yes' : 'No';
       case 'seconds':
         return `${thresholds.actual.toFixed(2)}s`;
+      case 'absolute':
+        return `${thresholds.actual}`;
       default:
         throw new Error(`Unknown style: ${thresholds.style}`);
     }

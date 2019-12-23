@@ -7,9 +7,10 @@ import Analyzer from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import Combatants from 'parser/shared/modules/Combatants';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
 import { formatNumber, formatPercentage } from 'common/format';
 import Tooltip, { TooltipElement } from 'common/Tooltip';
+import HIT_TYPES from 'game/HIT_TYPES';
 import { ABILITIES_THAT_TRIGGER_MASTERY } from '../../constants';
 
 const DEBUG = false;
@@ -88,6 +89,7 @@ class EchoOfLightMastery extends Analyzer {
       this.targetMasteryPool[targetId] = {
         pendingHealingTotal: 0,
         pendingHealingBySpell: {},
+        pendingCritTotal: 0,
       };
     }
 
@@ -97,6 +99,10 @@ class EchoOfLightMastery extends Analyzer {
       this.targetMasteryPool[targetId].pendingHealingBySpell[spellId] = 0;
     }
     this.targetMasteryPool[targetId].pendingHealingBySpell[spellId] += rawHealing;
+    if (event.hitType === HIT_TYPES.CRIT) {
+      // Track how much of a EoL tick can be contributed to a crit.
+      this.targetMasteryPool[targetId].pendingCritTotal += (rawHealing / 2);
+    }
   }
 
   handleEolTick(event) {
@@ -120,6 +126,13 @@ class EchoOfLightMastery extends Analyzer {
     const poolDrainPercent = 1 / this.targetMasteryPool[targetId].remainingTicks;
     // The total amount that should be drained from the pool
     const poolDrainTotal = this.targetMasteryPool[targetId].pendingHealingTotal * poolDrainPercent;
+
+    const rawCritValue = ((this.targetMasteryPool[targetId].pendingCritTotal || 0) * poolDrainPercent);
+    const effectiveCritValue = rawCritValue - tickOverhealing;
+    this.targetMasteryPool[targetId].pendingCritTotal -= rawCritValue;
+    if (effectiveCritValue > 0) {
+      event.eolCritAmount = effectiveCritValue;
+    }
 
     if (Object.keys(this.targetMasteryPool[targetId].pendingHealingBySpell).length === 0 && this.targetMasteryPool[targetId].pendingHealingBySpell.constructor === Object) {
       // This must be the result of a precasted EoL Application
@@ -166,11 +179,13 @@ class EchoOfLightMastery extends Analyzer {
         this.targetMasteryPool[targetId] = {
           pendingHealingTotal: 0,
           pendingHealingBySpell: {},
+          pendingCritTotal: 0,
         };
       }
 
       this.targetMasteryPool[targetId].remainingTicks = 2;
       this.targetMasteryPool[targetId].applicationTime = event.timestamp;
+      this.targetMasteryPool[targetId].pendingCritTotal = 0;
     }
   }
 
@@ -214,7 +229,7 @@ class EchoOfLightMastery extends Analyzer {
                 {formatPercentage(this.getMasteryOverhealPercentBySpell(spellDetails[i].spellId))}%
               </TooltipElement>
             </td>
-          </tr>
+          </tr>,
         );
       }
     }
@@ -231,7 +246,7 @@ class EchoOfLightMastery extends Analyzer {
               {formatPercentage(this.precastValues.overhealing / this.precastValues.rawHealing)}%
             </TooltipElement>
           </td>
-        </tr>
+        </tr>,
       );
     }
     return rows;

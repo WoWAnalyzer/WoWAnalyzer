@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStatisticBox';
 import React from 'react';
 import SpiritOfRedemption from 'parser/priest/holy/modules/spells/SpiritOfRedemption';
-import ItemManaGained from 'interface/others/ItemManaGained';
+import ItemManaGained from 'interface/ItemManaGained';
 
 const MAX_MANA = 100000;
 const BASE_MANA_REGEN = .04;

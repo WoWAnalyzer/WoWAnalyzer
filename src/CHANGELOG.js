@@ -1,13 +1,64 @@
 import React from 'react';
-import { Yajinni, Mamtooth, Zerotorescue, Putro, joshinator, Gebuz, ackwell, emallson, blazyb, Dambroda, Nalhan, Satyric, niseko, Khadaj, Fyruna, Matardarix, jos3p, Aelexe, Chizu, Hartra344, Hordehobbs, Dorixius, Sharrq, Scotsoo, HolySchmidt, Zeboot, Abelito75, Anatta336, HawkCorrigan, Amrux, Qbz, Viridis, Juko8, fluffels, Draenal, JeremyDwayne } from 'CONTRIBUTORS';
+
+import {
+  Yajinni,
+  Mamtooth,
+  Zerotorescue,
+  Putro,
+  joshinator,
+  Gebuz,
+  ackwell,
+  emallson,
+  blazyb,
+  Dambroda,
+  Nalhan,
+  Satyric,
+  niseko,
+  Khadaj,
+  Fyruna,
+  Matardarix,
+  jos3p,
+  Aelexe,
+  Chizu,
+  Hartra344,
+  Hordehobbs,
+  Dorixius,
+  Sharrq,
+  Scotsoo,
+  HolySchmidt,
+  Zeboot,
+  Abelito75,
+  Anatta336,
+  HawkCorrigan,
+  Amrux,
+  Qbz,
+  Viridis,
+  Juko8,
+  fluffels,
+  Draenal,
+  JeremyDwayne,
+  axelkic,
+  layday,
+} from 'CONTRIBUTORS';
 import ItemLink from 'common/ItemLink';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
-import Contributor from 'interface/contributor/Button';
+import Contributor from 'interface/ContributorButton';
 
 export default [
+  change(date(2019, 12, 23), 'Fixed early DoT refresh extension check.', layday),
+  change(date(2019, 12, 17), "Fixed integration testing code with new build support.", [emallson]),
+  change(date(2019, 12, 16), "Updated internal test tools to use new API URL.", [emallson]),
+  change(date(2019, 12, 15), "Fix spell icons in cooldowns tab.", [Zerotorescue]),
+  change(date(2019, 12, 15), "Added an available raid buffs panel to the player selection page.", [axelkic, Zerotorescue]),
+  change(date(2019, 12, 14), "Converted CastEfficiency to TypeScript and refactor it a bit.", Zerotorescue),
+  change(date(2019, 12, 13), "Added a confirm dialog to the keybinding (l) to open the current page in your development environment.", Zerotorescue),
+  change(date(2019, 12, 13), "Added TypeScript support to the codebase. See Discord for more info.", Zerotorescue),
+  change(date(2019, 12, 8), <>Reduced likely hood to accidnetly go to unintended page.</>, Abelito75),
+  change(date(2019, 11, 14), "Added the ability to define different rotations for analysis (like no icelance for frost mages)", Zeboot),
+  change(date(2019, 10, 25), <>Fixed a bug in the dispels module.</>, Khadaj),
   change(date(2019, 10, 25), <>Added missing spell information for resource refunds and gains from <SpellLink id={SPELLS.LUCID_DREAMS_MINOR.id} /> and <SpellLink id={SPELLS.VISION_OF_PERFECTION.id} />.</>, Juko8),
   change(date(2019, 10, 24), <>Replaced the activity time statistic icons that had outgrown their space with smaller ones. <small>I only fixed it for <a href="https://hacktoberfest.digitalocean.com/">the shirt</a>.</small></>, Zerotorescue),
   change(date(2019, 10, 24), 'Updated nodejs for docker.', JeremyDwayne),

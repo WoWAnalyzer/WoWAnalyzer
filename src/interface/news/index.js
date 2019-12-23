@@ -1,7 +1,7 @@
 import React from 'react';
 import { Trans } from '@lingui/macro';
 
-import DocumentTitle from 'interface/common/DocumentTitle';
+import DocumentTitle from 'interface/DocumentTitle';
 import TwitterIcon from 'interface/icons/Twitter';
 
 import NewsList from './List';

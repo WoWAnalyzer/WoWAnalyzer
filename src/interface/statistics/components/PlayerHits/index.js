@@ -14,58 +14,56 @@ import char5Active from './images/char5-active.png';
 
 import './PlayerHits.scss';
 
-class CharacterHitPerCast extends React.PureComponent {
-  static propTypes = {
-    performance: PropTypes.number.isRequired,
-  };
+const CharacterHitPerCast = props => {
+  const { performance } = props;
 
-  render() {
-    const { performance } = this.props;
-
-    return (
-      <div className="characters-hit-per-cast">
-        <div className="backdrop">
-          <div style={{ backgroundImage: `url(${char1})` }} />
-          <div style={{ backgroundImage: `url(${char2})` }} />
-          <div style={{ backgroundImage: `url(${char3})` }} />
-          <div style={{ backgroundImage: `url(${char4})` }} />
-          <div style={{ backgroundImage: `url(${char5})` }} />
-        </div>
-        <div className="active">
-          <div
-            style={{
-              backgroundImage: `url(${char1Active})`,
-              '--p': Math.max(0, Math.min(1, performance / 0.2)),
-            }}
-          />
-          <div
-            style={{
-              backgroundImage: `url(${char2Active})`,
-              '--p': Math.max(0, Math.min(1, (performance - 0.2) / 0.2)),
-            }}
-          />
-          <div
-            style={{
-              backgroundImage: `url(${char3Active})`,
-              '--p': Math.max(0, Math.min(1, (performance - 0.4) / 0.2)),
-            }}
-          />
-          <div
-            style={{
-              backgroundImage: `url(${char4Active})`,
-              '--p': Math.max(0, Math.min(1, (performance - 0.6) / 0.2)),
-            }}
-          />
-          <div
-            style={{
-              backgroundImage: `url(${char5Active})`,
-              '--p': Math.max(0, Math.min(1, (performance - 0.8) / 0.2)),
-            }}
-          />
-        </div>
+  return (
+    <div className="characters-hit-per-cast">
+      <div className="backdrop">
+        <div style={{ backgroundImage: `url(${char1})` }} />
+        <div style={{ backgroundImage: `url(${char2})` }} />
+        <div style={{ backgroundImage: `url(${char3})` }} />
+        <div style={{ backgroundImage: `url(${char4})` }} />
+        <div style={{ backgroundImage: `url(${char5})` }} />
       </div>
-    );
-  }
-}
+      <div className="active">
+        <div
+          style={{
+            backgroundImage: `url(${char1Active})`,
+            '--p': Math.max(0, Math.min(1, performance / 0.2)),
+          }}
+        />
+        <div
+          style={{
+            backgroundImage: `url(${char2Active})`,
+            '--p': Math.max(0, Math.min(1, (performance - 0.2) / 0.2)),
+          }}
+        />
+        <div
+          style={{
+            backgroundImage: `url(${char3Active})`,
+            '--p': Math.max(0, Math.min(1, (performance - 0.4) / 0.2)),
+          }}
+        />
+        <div
+          style={{
+            backgroundImage: `url(${char4Active})`,
+            '--p': Math.max(0, Math.min(1, (performance - 0.6) / 0.2)),
+          }}
+        />
+        <div
+          style={{
+            backgroundImage: `url(${char5Active})`,
+            '--p': Math.max(0, Math.min(1, (performance - 0.8) / 0.2)),
+          }}
+        />
+      </div>
+    </div>
+  );
+};
+
+CharacterHitPerCast.propTypes = {
+  performance: PropTypes.number.isRequired,
+};
 
 export default CharacterHitPerCast;

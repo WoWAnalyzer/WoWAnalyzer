@@ -82,7 +82,7 @@ class AlwaysBeCasting extends Analyzer {
       globalCooldown,
       begincast,
       cast,
-      spellId
+      spellId,
     );
   }
 

@@ -10,7 +10,7 @@ import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Buffs';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import { TooltipElement } from 'common/Tooltip';
 
