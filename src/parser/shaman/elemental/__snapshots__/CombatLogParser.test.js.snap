@@ -3116,7 +3116,30 @@ exports[`Elemental Shaman integration test analyzers FlameShock matches the stat
 </div>
 `;
 
-exports[`Elemental Shaman integration test analyzers FlameShock matches the suggestions snapshot 1`] = `Array []`;
+exports[`Elemental Shaman integration test analyzers FlameShock matches the suggestions snapshot 1`] = `
+Array [
+  Object {
+    "details": null,
+    "icon": "spell_fire_flameshock",
+    "importance": "major",
+    "issue": <React.Fragment>
+      You refreshed 
+      <ForwardRef
+        id={188389}
+      />
+       early 
+      11
+       times. The individual casts are highlighted on the timeline.
+    </React.Fragment>,
+    "stat": <React.Fragment>
+      73.33% effective duration
+       (
+      &lt;10.00% is recommended
+      )
+    </React.Fragment>,
+  },
+]
+`;
 
 exports[`Elemental Shaman integration test analyzers FlaskChecker matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
@@ -6705,7 +6728,7 @@ exports[`Elemental Shaman integration test should match the checklist snapshot 1
     </div>
   </li>
   <li
-    className="expandable  passed"
+    className="expandable expanded failed"
   >
     <div
       className="meta"
@@ -6729,8 +6752,8 @@ exports[`Elemental Shaman integration test should match the checklist snapshot 1
               className="perf-bar"
               style={
                 Object {
-                  "backgroundColor": "#4ec04e",
-                  "width": "100%",
+                  "backgroundColor": "#ffc84a",
+                  "width": "56.81136363636363%",
                 }
               }
             />
@@ -6952,7 +6975,7 @@ exports[`Elemental Shaman integration test should match the checklist snapshot 1
                   }
                 >
                    
-                  6.67%
+                  73.33%
                    
                    
                 </div>
@@ -6972,9 +6995,9 @@ exports[`Elemental Shaman integration test should match the checklist snapshot 1
                     className="performance-bar small"
                     style={
                       Object {
-                        "backgroundColor": "#4ec04e",
+                        "backgroundColor": "#ac1f39",
                         "transition": "background-color 800ms",
-                        "width": "100%",
+                        "width": "13.622727272727275%",
                       }
                     }
                   />
