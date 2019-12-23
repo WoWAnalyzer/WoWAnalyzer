@@ -817,3 +817,8 @@ export const axelkic = {
   nickname: 'axelkic',
   github: 'axelkic',
 };
+export const Torothin = {
+  nickname: 'Brad',
+  github: 'Torothin',
+  discord: 'Torothin#9751',
+};
