@@ -118,10 +118,10 @@ class EarlyDotRefreshes extends Analyzer {
     this.lastGCD = null;
     this.lastCast = null;
   }
-  
+
   get lastCastBuffer() {
     return this.lastGCD.duration * 2 - BUFFER_MS;
-  } 
+  }
 
   // Checks the status of the last cast and marks it accordingly.
   isLastCastBad(event) {
@@ -158,14 +158,14 @@ class EarlyDotRefreshes extends Analyzer {
 
   // Extends the dot and returns true if it was a good extension (no duration wasted) or false if it was a bad extension.
   extendDot(spellId, targetID, extension, timestamp) {
-    const dot = this.getDot(spellId);    
+    const dot = this.getDot(spellId);
     if (!dot) {
       throw new Error(`The spellID ${spellId} is not in the list of dots to track`);
     }
     const remainingDuration = this.targets[dot.debuffId][targetID] - timestamp || 0;
     const newDuration = remainingDuration + extension;
     const maxDuration = (1 + PANDEMIC_WINDOW) * dot.duration;
-    const lostDuration = maxDuration - newDuration;
+    const lostDuration = newDuration - maxDuration;
     if (lostDuration <= 0) { //full extension
       this.targets[dot.debuffId][targetID] = timestamp + newDuration;
       return {wasted: 0, effective: extension};
