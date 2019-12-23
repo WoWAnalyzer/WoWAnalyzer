@@ -12,7 +12,7 @@ import PatreonButton from 'interface/common/thirdpartybuttons/Patreon';
 import DiscordLogo from 'interface/images/Discord-Logo+Wordmark-White.svg';
 import DiscordBotGif from 'articles/2017-10-21-DiscordBot/discord-bot.gif';
 
-const About = () => (
+const AboutPage = () => (
   <>
     <DocumentTitle title="About WoWAnalyzer" />
 
@@ -138,4 +138,4 @@ const About = () => (
   </>
 );
 
-export default About;
+export default AboutPage;

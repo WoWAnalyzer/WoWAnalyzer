@@ -828,3 +828,12 @@ export const soloxcx = {
     link: 'https://worldofwarcraft.com/en-us/character/us/thrall/Vaermin%C3%A0',
   }],
 };
+export const Torothin = {
+  nickname: 'Brad',
+  github: 'Torothin',
+  discord: 'Torothin#9751',
+};
+export const layday = {
+  nickname: 'layday',
+  github: 'layday',
+};

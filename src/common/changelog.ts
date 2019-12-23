@@ -1,11 +1,6 @@
 import React from 'react';
 
-export interface Contributor {
-  nickname: string,
-  github: string,
-  twitter?: string,
-  avatar?: string,
-}
+import { Contributor } from 'parser/Config';
 
 export function date(year: number, month: number, day: number) {
   // months are 0 indexed in javascript's Date parameters

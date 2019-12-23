@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { tsabo, Coywolf } from 'CONTRIBUTORS';
-import retryingPromise from 'common/retryingPromise';
 import SPECS from 'game/SPECS';
 import Warning from 'interface/Alert/Warning';
 
@@ -36,7 +35,7 @@ export default {
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () => retryingPromise(() => import('./CombatLogParser' /* webpackChunkName: "OutlawRogue" */).then(exports => exports.default)),
+  parser: () => import('./CombatLogParser' /* webpackChunkName: "OutlawRogue" */).then(exports => exports.default),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };

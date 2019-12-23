@@ -13,9 +13,8 @@ class EternalAlchemistStone extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
   };
-  protected readonly statTracker!: StatTracker;
 
-  constructor(options: any) {
+  constructor({ statTracker, ...options }: any) {
     super(options);
     const item = this.selectedCombatant.getItem(ITEMS.ETERNAL_ALCHEMIST_STONE.id);
     this.active = !!item;
@@ -23,13 +22,13 @@ class EternalAlchemistStone extends Analyzer {
       return;
     }
     const buffStat = calculatePrimaryStat(455, 1648, item.itemLevel);
-    this.statTracker.add(SPELLS.ETERNAL_ALCHEMIST_STONE_STRENGTH_BUFF, {
+    statTracker.add(SPELLS.ETERNAL_ALCHEMIST_STONE_STRENGTH_BUFF, {
       strength: buffStat,
     });
-    this.statTracker.add(SPELLS.ETERNAL_ALCHEMIST_STONE_AGILITY_BUFF, {
+    statTracker.add(SPELLS.ETERNAL_ALCHEMIST_STONE_AGILITY_BUFF, {
       agility: buffStat,
     });
-    this.statTracker.add(SPELLS.ETERNAL_ALCHEMIST_STONE_INTELLECT_BUFF, {
+    statTracker.add(SPELLS.ETERNAL_ALCHEMIST_STONE_INTELLECT_BUFF, {
       intellect: buffStat,
     });
   }

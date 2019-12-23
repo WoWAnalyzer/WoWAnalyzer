@@ -232,6 +232,10 @@ exports[`The Blood Deathknight Analyzer analyzers AzerokksResonatingHeart matche
 
 exports[`The Blood Deathknight Analyzer analyzers AzerokksResonatingHeart matches the suggestions snapshot 1`] = `"module inactive"`;
 
+exports[`The Blood Deathknight Analyzer analyzers AzsharasFontofPower matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Blood Deathknight Analyzer analyzers AzsharasFontofPower matches the suggestions snapshot 1`] = `"module inactive"`;
+
 exports[`The Blood Deathknight Analyzer analyzers BalefireBranch matches the statistic snapshot 1`] = `"module inactive"`;
 
 exports[`The Blood Deathknight Analyzer analyzers BalefireBranch matches the suggestions snapshot 1`] = `"module inactive"`;
@@ -3319,6 +3323,10 @@ Array [
 exports[`The Blood Deathknight Analyzer analyzers Channeling matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`The Blood Deathknight Analyzer analyzers Channeling matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Blood Deathknight Analyzer analyzers ChannelingShared matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Blood Deathknight Analyzer analyzers ChannelingShared matches the suggestions snapshot 1`] = `Array []`;
 
 exports[`The Blood Deathknight Analyzer analyzers Checklist matches the statistic snapshot 1`] = `"module has no statistic method"`;
 

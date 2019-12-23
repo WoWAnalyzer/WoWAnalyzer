@@ -2,22 +2,14 @@ import React from 'react';
 
 import Contributor from 'interface/ContributorButton';
 import ReadableListing from 'interface/ReadableListing';
+import Config from 'parser/Config';
 
-interface Props {
-  spec: {
-    id: number;
-    className: string;
-    specName: string;
-  };
-  exampleReport?: string;
-  contributors: Array<{
-    nickname: string;
-  }>;
-  patchCompatibility: string;
-}
-
-const SpecListItem = (props: Props) => {
-  const { spec, exampleReport, contributors, patchCompatibility } = props;
+const SpecListItem = ({
+  spec,
+  exampleReport,
+  contributors,
+  patchCompatibility,
+}: Config) => {
   const className = spec.className.replace(/ /g, '');
   const Component = exampleReport ? 'a' : 'div';
   const builtinfo =

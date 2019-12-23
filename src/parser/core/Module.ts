@@ -4,13 +4,13 @@ import CombatLogParser from './CombatLogParser';
 import Combatant from './Combatant';
 
 export interface Options {
-  [prop: string]: any
-  owner: CombatLogParser
-  priority: number
+  [prop: string]: any;
+  owner: CombatLogParser;
+  priority: number;
 }
 
 class Module {
-  static dependencies = {};
+  static dependencies: { [desiredPropName: string]: typeof Module } = {};
 
   protected readonly owner!: CombatLogParser;
   /** Whether or not this module is active, usually depends on specific items or talents. */
@@ -22,13 +22,17 @@ class Module {
   }
   constructor(options: Options) {
     if (!options) {
-      throw new Error('`options` is a required parameter. Make sure you pass it to a `super();` call.');
+      throw new Error(
+        '`options` is a required parameter. Make sure you pass it to a `super();` call.',
+      );
     }
     const { owner, priority, ...others } = options;
     this.owner = owner;
     this.priority = priority;
 
-    // This doesn't set the properties of any class that inherits this class since a parent constructor can't override the values of a child's class properties.
+    // This doesn't set the properties of any class that inherits this class
+    // since a parent constructor can't override the values of a child's class
+    // properties.
     // See https://github.com/Microsoft/TypeScript/issues/6110 for more info
     Object.keys(others).forEach(key => {
       // @ts-ignore
@@ -37,7 +41,9 @@ class Module {
   }
 
   get consoleMeta() {
-    const fightDuration = formatMilliseconds(this.owner.currentTimestamp - this.owner.fight.start_time);
+    const fightDuration = formatMilliseconds(
+      this.owner.currentTimestamp - this.owner.fight.start_time,
+    );
     return [fightDuration, `(module: ${this.constructor.name})`];
   }
   debug(...args: any[]) {
