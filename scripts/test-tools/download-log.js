@@ -21,7 +21,8 @@ const archiver = require('archiver');
 const https = require('https');
 
 function requestFight(logId, cb) {
-  const url = `https://wowanalyzer.com/api/v1/report/fights/${logId}?translate=true`;
+  const url = `https://wowanalyzer.com/i/v1/report/fights/${logId}?translate=true`;
+  console.info(`Requesting fights from: ${url}`);
   https.get(url, (res) => {
     let data = '';
     res.on('data', chunk => { data += chunk.toString(); });
@@ -31,7 +32,8 @@ function requestFight(logId, cb) {
 
 function requestCombatants(logId, fightId, cb, report) {
   const fight = report.fights.find(({id}) => id === Number(fightId));
-  const url = `https://wowanalyzer.com/api/v1/report/events/${logId}?start=${fight.start_time}&end=${fight.end_time}&filter=type%3D%22combatantinfo%22&translate=true`;
+  const url = `https://wowanalyzer.com/i/v1/report/events/${logId}?start=${fight.start_time}&end=${fight.end_time}&filter=type%3D%22combatantinfo%22&translate=true`;
+  console.info(`Requesting events from: ${url}`);
   https.get(url, (res) => {
     let data = '';
     res.on('data', chunk => { data += chunk.toString(); });
@@ -40,7 +42,7 @@ function requestCombatants(logId, fightId, cb, report) {
 }
 
 function requestEvents(logId, playerId, cb, report, fight, combatants) {
-  const url = `https://wowanalyzer.com/api/v1/report/events/${logId}?start=${fight.start_time}&end=${fight.end_time}&actorid=${playerId}&translate=true`;
+  const url = `https://wowanalyzer.com/i/v1/report/events/${logId}?start=${fight.start_time}&end=${fight.end_time}&actorid=${playerId}&translate=true`;
   https.get(url, (res) => {
     let data = '';
     res.on('data', chunk => { data += chunk.toString(); });
@@ -79,7 +81,7 @@ function writeLog(filename, fightId, playerId, cb, report, combatants, events) {
 
 const [filename, logId, fightId, playerId]= argv.slice(2, argv.length);
 
-requestFight(logId, 
-  requestCombatants.bind(null, logId, fightId, 
+requestFight(logId,
+  requestCombatants.bind(null, logId, fightId,
     requestEvents.bind(null, logId, playerId,
       writeLog.bind(null, filename, fightId, playerId, (path) => console.log(`wrote ${path}`)))));

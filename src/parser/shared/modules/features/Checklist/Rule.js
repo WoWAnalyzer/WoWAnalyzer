@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import DropdownIcon from 'interface/icons/Dropdown';
 import InformationIcon from 'interface/icons/Information';
 import Expandable from 'interface/common/Expandable';
+import colorForPerformance from 'common/colorForPerformance';
 
-import colorForPerformance from './helpers/colorForPerformance';
 import calculateMedian from './helpers/calculateMedian';
 import average from './helpers/average';
 import harmonic from './helpers/harmonic';

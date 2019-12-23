@@ -36,6 +36,11 @@ class WintersChill extends Analyzer {
   singleIceLanceCasts = 0;
   doubleIceLanceCasts = 0;
 
+  constructor(...args) {
+    super(...args);
+    this.active = this.owner.build === undefined;
+  }
+
   on_byPlayer_damage(event) {
     const spellId = event.ability.guid;
     const enemy = this.enemies.getEntity(event);

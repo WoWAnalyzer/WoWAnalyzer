@@ -6,7 +6,10 @@ import SpellLink from 'common/SpellLink';
 import { Abelito75 } from 'CONTRIBUTORS';
 import { change, date } from 'common/changelog';
 
-export default [  
+export default [   
+  change(date(2019, 11, 9),<>Fixed a bugged where precasted <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> would break a few modules. </>,Abelito75),
+  change(date(2019, 10, 28),<>Added bad <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> cast highlighting to the timeline. </>,Abelito75),
+  change(date(2019, 10, 3),<>Spell reflect is now based off of damage reduced. </>,Abelito75),
   change(date(2019, 9, 30),<>Removed Arcane Torrent from suggestions. </>,Abelito75),
   change(date(2019, 9, 27),<>Officially supported! </>,Abelito75),
   change(date(2019, 9, 27),<>Update to date for 8.2.5 </>,Abelito75),

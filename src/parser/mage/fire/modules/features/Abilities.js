@@ -64,8 +64,7 @@ class Abilities extends CoreAbilities {
         cooldown: 45,
         enabled: combatant.hasTalent(SPELLS.METEOR_TALENT.id),
         castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.90,
+          suggestion: false,
         },
         damageSpellIds: [SPELLS.METEOR_DAMAGE.id],
       },

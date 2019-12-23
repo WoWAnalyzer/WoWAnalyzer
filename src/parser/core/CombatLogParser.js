@@ -2,10 +2,7 @@ import React from 'react';
 
 import { findByBossId } from 'raids';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
-import ItemIcon from 'common/ItemIcon';
-import ItemLink from 'common/ItemLink';
 import DeathRecapTracker from 'interface/others/DeathRecapTracker';
-import ItemStatisticBox from 'interface/others/ItemStatisticBox';
 import MODULE_ERROR from 'parser/core/MODULE_ERROR';
 
 // Normalizers
@@ -15,6 +12,9 @@ import PrePullCooldownsNormalizer from '../shared/normalizers/PrePullCooldowns';
 import FightEndNormalizer from '../shared/normalizers/FightEnd';
 import PhaseChangesNormalizer from '../shared/normalizers/PhaseChanges';
 import MissingCastsNormalizer from '../shared/normalizers/MissingCasts';
+
+// Enhancers
+import SpellTimeWaitingOnGlobalCooldown from '../shared/enhancers/SpellTimeWaitingOnGlobalCooldown';
 
 // Core modules
 import HealingDone from '../shared/modules/throughput/HealingDone';
@@ -174,6 +174,11 @@ import StormglideSteps from '../shared/modules/items/bfa/raids/crucibleofstorms/
 import TridentOfDeepOcean from '../shared/modules/items/bfa/raids/crucibleofstorms/TridentOfDeepOcean';
 import VoidStone from '../shared/modules/items/bfa/raids/crucibleofstorms/VoidStone';
 import ZaxasjsDeepstriders from '../shared/modules/items/bfa/raids/crucibleofstorms/ZaxasjsDeepstriders';
+// Azsharas Eternal Palace
+
+import AshvanesRazorCoral from '../shared/modules/items/bfa/raids/azsharaseternalpalace/AshvanesRazorCoral';
+import BloodthirstyUrchin from '../shared/modules/items/bfa/raids/azsharaseternalpalace/BloodthirstyUrchin';
+import DribblingInkpod from '../shared/modules/items/bfa/raids/azsharaseternalpalace/DribblingInkpod';
 
 import ParseResults from './ParseResults';
 import EventsNormalizer from './EventsNormalizer';
@@ -184,6 +189,7 @@ import AzsharasFontofPower from '../shared/modules/items/bfa/raids/eternalpalace
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
+const MAX_DI_ITERATIONS = 100;
 const isMinified = process.env.NODE_ENV === 'production';
 
 class CombatLogParser {
@@ -204,6 +210,9 @@ class CombatLogParser {
     prepullNormalizer: PrePullCooldownsNormalizer,
     phaseChangesNormalizer: PhaseChangesNormalizer,
     missingCastsNormalize: MissingCastsNormalizer,
+
+    // Enhancers
+    spellTimeWaitingOnGlobalCooldown: SpellTimeWaitingOnGlobalCooldown,
 
     // Analyzers
     healingDone: HealingDone,
@@ -362,7 +371,10 @@ class CombatLogParser {
     voidStone: VoidStone,
     zaxasjsDeepstriders: ZaxasjsDeepstriders,
     // Eternal Palace
+    ashvanesRazorCoral: AshvanesRazorCoral,
     azsharasFontofPower:AzsharasFontofPower,
+    bloodthirstyUrchin: BloodthirstyUrchin,
+    dribblingInkpod: DribblingInkpod,
   };
   // Override this with spec specific modules when extending
   static specModules = {};
@@ -416,11 +428,13 @@ class CombatLogParser {
     return this.getModule(Combatants).selected;
   }
 
-  constructor(report, selectedPlayer, selectedFight, combatantInfoEvents, characterProfile) {
+  constructor(report, selectedPlayer, selectedFight, combatantInfoEvents, characterProfile, build, builds) {
     this.report = report;
     this.player = selectedPlayer;
     this.playerPets = report.friendlyPets.filter(pet => pet.petOwner === selectedPlayer.id);
     this.fight = selectedFight;
+    this.build = build;
+    this.builds = builds;
     this.combatantInfoEvents = combatantInfoEvents;
     // combatantinfo events aren't included in the regular events, but they're still used to analysis. We should have them show in the history to make it complete.
     combatantInfoEvents.forEach(event => this.eventHistory.push(event));
@@ -447,7 +461,7 @@ class CombatLogParser {
       'Event listeners added:', emitter.numEventListeners,
       'Listeners called:', emitter.numListenersCalled,
       'Listeners called (after filters):', emitter.numActualExecutions,
-      'Listeners filtered away:', emitter.numListenersCalled - emitter.numActualExecutions
+      'Listeners filtered away:', emitter.numListenersCalled - emitter.numActualExecutions,
     );
   }
 
@@ -503,7 +517,7 @@ class CombatLogParser {
     this._modules[desiredModuleName] = module;
     return module;
   }
-  initializeModules(modules, iteration = 0) {
+  initializeModules(modules, iteration = 1) {
     // TODO: Refactor and test, this dependency injection thing works really well but it's hard to understand or change.
     const failedModules = [];
     Object.keys(modules).forEach(desiredModuleName => {
@@ -531,7 +545,7 @@ class CombatLogParser {
             ...availableDependencies,
             priority,
           }, desiredModuleName);
-        }catch(e){
+        } catch (e) {
           if (process.env.NODE_ENV !== 'production') {
             throw e;
           }
@@ -540,11 +554,18 @@ class CombatLogParser {
         }
 
       } else {
-        const disabledDependencies = missingDependencies.map(d => d.name).filter(x => this.disabledModules[MODULE_ERROR.INITIALIZATION].map(d => d.module.name).includes(x)); //see if a dependency was previously disabled due to an error
-        if(disabledDependencies.length !== 0){ //if a dependency was already marked as disabled due to an error, mark this module as disabled
+        const disabledDependencies = missingDependencies
+          .map(d => d.name)
+          .filter(x =>
+            this.disabledModules[MODULE_ERROR.INITIALIZATION]
+              .map(d => d.module.name)
+              .includes(x),
+          ); // see if a dependency was previously disabled due to an error
+        if (disabledDependencies.length !== 0) {
+          // if a dependency was already marked as disabled due to an error, mark this module as disabled
           this.disabledModules[MODULE_ERROR.DEPENDENCY].push({key: isMinified ? desiredModuleName : moduleClass.name, module: moduleClass});
           debugDependencyInjection && console.warn(moduleClass.name, 'disabled due to error during initialization of a dependency.');
-        }else{
+        } else {
           debugDependencyInjection && console.warn(moduleClass.name, 'could not be loaded, missing dependencies:', missingDependencies.map(d => d.name));
           failedModules.push(desiredModuleName);
         }
@@ -557,8 +578,10 @@ class CombatLogParser {
       failedModules.forEach(key => {
         newBatch[key] = modules[key];
       });
-      if (iteration > 100) {
+      if (iteration > MAX_DI_ITERATIONS) {
         // Sometimes modules can't be imported at all because they depend on modules not enabled or have a circular dependency. Stop trying after a while.
+        // eslint-disable-next-line no-debugger
+        debugger;
         throw new Error(`Failed to load modules: ${Object.keys(newBatch).join(', ')}`);
       }
       this.initializeModules(newBatch, iteration + 1);
@@ -617,7 +640,7 @@ class CombatLogParser {
         if (deps && Object.values(deps).find(depClass => module instanceof depClass)) {
           this.deepDisable(active, MODULE_ERROR.DEPENDENCY);
         }
-      }
+      },
     );
   }
 
@@ -668,7 +691,7 @@ class CombatLogParser {
         React.cloneElement(statistic, {
           key,
           position,
-        })
+        }),
       );
     };
 
@@ -698,35 +721,8 @@ class CombatLogParser {
                 }
               }
             }
-            if (module.item) {
-              const item = module.item({ i18n });
-              if (item) {
-                if (React.isValidElement(item)) {
-                  results.statistics.push(React.cloneElement(item, {
-                    key: `${key}-item`,
-                    position: index,
-                  }));
-                } else {
-                  const id = item.id || item.item.id;
-                  const itemDetails = id && this.selectedCombatant.getItem(id);
-                  const icon = item.icon || <ItemIcon id={item.item.id} details={itemDetails} />;
-                  const title = item.title || <ItemLink id={item.item.id} details={itemDetails} icon={false} />;
-
-                  results.statistics.push(
-                    <ItemStatisticBox
-                      key={`${key}-item`}
-                      position={index}
-                      icon={icon}
-                      label={title}
-                      value={item.result}
-                      tooltip={item.tooltip}
-                    />
-                  );
-                }
-              }
-            }
             if (module.tab) {
-              const tab = module.tab({ i18n });
+              const tab = module.tab();
               if (tab) {
                 results.tabs.push(tab);
               }

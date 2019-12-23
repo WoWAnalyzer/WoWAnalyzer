@@ -35,6 +35,14 @@ jobs:
       script:
         - yarn test --maxWorkers=2
     - stage: build
+      name: "validate types"
+      cache:
+        yarn: true
+      install:
+        - yarn install --production=false
+      script:
+        - yarn test:types
+    - stage: build
       name: "Build a production-ready Docker image"
       language: generic
       services: docker
@@ -61,5 +69,5 @@ after_failure:
   - chmod +x .travis/discord-hook/fail.sh
   - ./.travis/discord-hook/fail.sh
 notifications:
-  webhooks: https://www.travisbuddy.com/
+  webhooks: https://www.travisbuddy.com?only=failed,errored
   on_success: never

@@ -53,6 +53,8 @@ import Lifecycles from './modules/talents/Lifecycles';
 import SpiritOfTheCrane from './modules/talents/SpiritOfTheCrane';
 import RisingMist from './modules/talents/RisingMist';
 import RenewingMistDuringManaTea from './modules/talents/RenewingMistDuringManaTea';
+import Tier45Comparison from './modules/talents/Tier45Comparison';
+import Upwelling from './modules/talents/Upwelling';
 
 // Azerite Traits
 import FontOfLife from './modules/spells/azeritetraits/FontOfLife';
@@ -64,11 +66,13 @@ import WayOfTheCrane from './modules/spells/essences/WayOfTheCrane';
 
 // Mana Tracker
 import MistweaverHealingEfficiencyDetails from './modules/features/MistweaverHealingEfficiencyDetails';
-// import HealingEfficiencyDetails from '../../core/healingEfficiency/HealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/MistweaverHealingEfficiencyTracker';
 import ManaTracker from '../../core/healingEfficiency/ManaTracker';
 
+
+
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from './constants';
+import EssenceFontHealingBreakdown from './modules/features/EssenceFontHealingBreakdown';
 
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -100,6 +104,7 @@ class CombatLogParser extends CoreCombatLogParser {
     evmVivCastRatio: EvmVivCastRatio,
     masteryStats: MasteryStats,
     buffs: Buffs,
+    essenceFontHealingBreakDown: EssenceFontHealingBreakdown,
 
     // Spells
     essenceFont: EssenceFont,
@@ -121,6 +126,8 @@ class CombatLogParser extends CoreCombatLogParser {
     risingMist: RisingMist,
     jadeSerpentStatue: JadeSerpentStatue,
     renewingMistDuringManaTea: RenewingMistDuringManaTea,
+    tier45Comparison: Tier45Comparison,
+    upwelling: Upwelling,
 
     // Azerite Traits
     fontOfLife: FontOfLife,

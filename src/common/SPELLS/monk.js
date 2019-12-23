@@ -6,6 +6,11 @@
 
 export default {
   // Shared
+  MYSTIC_TOUCH: {
+    id: 8647,
+    name: 'Mystic Touch',
+    icon: 'ability_monk_sparring',
+  },
   BLACKOUT_KICK: {
     id: 100784,
     name: 'Blackout Kick',
@@ -210,6 +215,11 @@ export default {
     icon: 'passive_monk_teachingsofmonastery',
     buffDur: 12000,
     manaRet: 0.0065,
+  },
+  BLACKOUT_KICK_TOTM : {//blackoutkick from totm
+    id: 228649,
+    name: 'Blackout Kick',
+    icon: 'ability_monk_roundhousekick',
   },
   WAY_OF_THE_CRANE: {
     id: 216113,

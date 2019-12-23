@@ -4,14 +4,14 @@ import ITEMS from 'common/ITEMS';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import {formatNumber} from 'common/format';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 import Analyzer from 'parser/core/Analyzer';
 
 /**
  * Vigilant's Bloodshaper -
  * Equip: Your damaging spells have a chance to launch an orb of charged blood at your target,
  * dealing 0 shadow damage split among all nearby enemeies.
- * 
+ *
  * Test Log: /report/cXZyQ39VMgBL4n21/1-LFR+Champion+of+the+Light+-+Kill+(2:32)/Meletya
  */
 

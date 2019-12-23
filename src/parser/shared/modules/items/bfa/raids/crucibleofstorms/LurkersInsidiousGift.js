@@ -11,7 +11,7 @@ import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
-import ItemDamageTaken from 'interface/others/ItemDamageTaken';
+import ItemDamageTaken from 'interface/ItemDamageTaken';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import MasteryIcon from 'interface/icons/Mastery';
 import { TooltipElement } from 'common/Tooltip';
@@ -123,7 +123,7 @@ class LurkersInsidiousGift extends Analyzer {
       return suggest(
         <>
           Your usage of <ItemLink id={ITEMS.LURKERS_INSIDIOUS_GIFT.id} /> can be improved. Try to use it when you will get the most duration out of the mastery buff without having to cancel it (and without losing uses).
-        </>
+        </>,
       )
         .icon(ITEMS.LURKERS_INSIDIOUS_GIFT.icon)
         .actual(`${formatPercentage(actual)}% of buff uptime wasted.`)

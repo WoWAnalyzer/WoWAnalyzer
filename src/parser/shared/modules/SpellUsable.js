@@ -7,7 +7,7 @@ import { PRE_FILTER_COOLDOWN_EVENT_TYPE } from 'interface/report/TimeEventFilter
 import Abilities from '../../core/modules/Abilities';
 
 const debug = false;
-const INVALID_COOLDOWN_CONFIG_LAG_MARGIN = 150; // not sure what this is based around, but <150 seems to catch most false positives
+export const INVALID_COOLDOWN_CONFIG_LAG_MARGIN = 150; // not sure what this is based around, but <150 seems to catch most false positives
 let fullExplanation = true;
 
 function spellName(spellId) {
@@ -89,7 +89,7 @@ class SpellUsable extends Analyzer {
    * Returns the amount of time remaining on the cooldown.
    * @param {number} spellId
    * @param {number} timestamp Override the timestamp if it may be different from the current timestamp.
-   * @returns {number|null} Returns null if the spell isn't on cooldown.
+   * @returns {number}
    */
   cooldownRemaining(spellId, timestamp = this.owner.currentTimestamp) {
     const canSpellId = this._getCanonicalId(spellId);

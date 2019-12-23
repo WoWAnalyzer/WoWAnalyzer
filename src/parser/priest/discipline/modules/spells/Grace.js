@@ -39,7 +39,7 @@ class grace extends Analyzer {
     const currentMastery = this.statTracker.currentMasteryPercentage;
     const masteryContribution = calculateEffectiveHealing(
       event,
-      currentMastery
+      currentMastery,
     );
     return masteryContribution;
   }
@@ -124,7 +124,7 @@ class grace extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={SPELLS.GRACE.id} />}
         value={`${formatNumber(
-          this.graceHealing / this.owner.fightDuration * 1000
+          this.graceHealing / this.owner.fightDuration * 1000,
         )} HPS`}
         label="Mastery Healing"
         tooltip={(

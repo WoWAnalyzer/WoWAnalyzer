@@ -37,7 +37,7 @@ class CorruptionUptime extends Analyzer {
         return suggest(
           <>
             Your <SpellLink id={SPELLS.CORRUPTION_CAST.id} /> uptime can be improved. Try to pay more attention to your Corruption on the boss, perhaps use some debuff tracker.
-          </>
+          </>,
         )
           .icon(SPELLS.CORRUPTION_CAST.icon)
           .actual(`${formatPercentage(actual)}% Corruption uptime`)

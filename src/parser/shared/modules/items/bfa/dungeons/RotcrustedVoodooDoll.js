@@ -5,7 +5,7 @@ import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import Analyzer from 'parser/core/Analyzer';
 import { formatNumber } from 'common/format';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 import Abilities from 'parser/core/modules/Abilities';
 
 const ACTIVATION_COOLDOWN = 120; // seconds

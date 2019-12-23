@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Trans } from '@lingui/macro';
 import { Link } from 'react-router-dom';
 
+import DEFAULT_BUILD from 'parser/DEFAULT_BUILD';
+import { TooltipElement } from 'common/Tooltip';
 import { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
 import getBossName from 'common/getBossName';
 import ChecklistIcon from 'interface/icons/Checklist';
@@ -23,6 +25,12 @@ class Header extends React.PureComponent {
         className: PropTypes.string.isRequired,
         specName: PropTypes.string.isRequired,
       }).isRequired,
+      builds: PropTypes.arrayOf(PropTypes.shape({
+        icon: PropTypes.node.isRequired,
+        name: PropTypes.node.isRequired,
+        url: PropTypes.string.isRequired,
+        supported: PropTypes.bool.isRequired,
+      })),
     }).isRequired,
     name: PropTypes.string.isRequired,
     characterProfile: PropTypes.shape({
@@ -38,6 +46,8 @@ class Header extends React.PureComponent {
     handlePhaseSelection: PropTypes.func.isRequired,
     applyFilter: PropTypes.func.isRequired,
     phases: PropTypes.object,
+    makeBuildUrl: PropTypes.func.isRequired,
+    build: PropTypes.string,
     selectedPhase: PropTypes.string.isRequired,
     selectedInstance: PropTypes.number.isRequired,
     isLoading: PropTypes.bool.isRequired,
@@ -119,8 +129,14 @@ class Header extends React.PureComponent {
       </div>
     );
   }
+
+  renderBuild(key, build, active) {
+    return <Link to={this.props.makeBuildUrl(this.props.selectedTab, build.url)}><span className={"build " + (active?"active":"")}><TooltipElement content={build.name}>{build.icon}</TooltipElement></span></Link>;
+  }
+
   renderInfo() {
-    const { config: { spec }, name, fight, boss, handlePhaseSelection, selectedPhase, selectedInstance, phases, isLoading, applyFilter } = this.props;
+    const { config: { spec, builds }, build, name, fight, boss, handlePhaseSelection, selectedPhase, selectedInstance, phases, isLoading, applyFilter } = this.props;
+
     return (
       <div className="info container">
         <div className="boss">
@@ -142,6 +158,15 @@ class Header extends React.PureComponent {
             <img src={this.playerIcon} alt="" />
           </div>
           <div className="details">
+          <h2 className="builds">
+            {builds && (
+              <>
+              Build:
+              {Object.keys(builds).map(b => this.renderBuild(b, builds[b], build === builds[b].url))}
+              {this.renderBuild(null, DEFAULT_BUILD, !build)}
+              </>
+            )}
+          </h2>
             <h2>
               {spec.specName} {spec.className}
             </h2>

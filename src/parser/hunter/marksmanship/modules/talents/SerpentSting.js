@@ -4,7 +4,7 @@ import Analyzer from 'parser/core/Analyzer';
 
 import SPELLS from 'common/SPELLS';
 import SpellLink from "common/SpellLink";
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 import { formatPercentage } from 'common/format';
 import Enemies from 'parser/shared/modules/Enemies';
 import StatisticListBoxItem from 'interface/others/StatisticListBoxItem';

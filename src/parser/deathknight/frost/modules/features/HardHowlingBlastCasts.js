@@ -32,6 +32,7 @@ class HardHowlingBlastCasts extends Analyzer {
     this.nonrimedHB = this.castsWithoutRime;
     return (
       <StatisticBox
+        postion={STATISTIC_ORDER.CORE(50)}
         icon={<SpellIcon id={SPELLS.RIME.id} />}
         value={this.castsWithoutRime}
         label="Howling Blasts without Rime proc"
@@ -39,7 +40,6 @@ class HardHowlingBlastCasts extends Analyzer {
       />
     );
   }
-  statisticOrder = STATISTIC_ORDER.CORE(5);
 }
 
 export default HardHowlingBlastCasts;

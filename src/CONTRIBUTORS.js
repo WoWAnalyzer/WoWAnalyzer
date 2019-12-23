@@ -143,6 +143,13 @@ export const Sharrq = {
 export const Khazak = {
   nickname: 'Khazak',
   github: 'jjs451',
+  avatar: require('./interface/images/avatars/khazak-avatar.png'),
+  discord: 'Khazak#3360',
+  mains: [{
+    name: 'Khazakk',
+    spec: SPECS.FROST_DEATH_KNIGHT,
+    link: 'https://worldofwarcraft.com/en-us/character/us/stormrage/khazakk',
+  }],
 };
 export const Bicepspump = {
   nickname: 'Bicepspump',
@@ -649,6 +656,17 @@ export const Abelito75 = {
   nickname: 'Abelito75',
   github: 'abelito75',
   avatar: require('./interface/images/avatars/Abelito75-avatar.png'),
+  desc: 'MW Vet in Peak of Serenity discord, MW Theorycrafter',
+  mains:[{
+    name: 'Magnapinna',
+    spec: SPECS.MISTWEAVER_MONK,
+    link: 'https://worldofwarcraft.com/en-us/character/us/malganis/Magnapinna',
+  }],
+  alts: [{
+    name: 'Barreleye',
+    spec: SPECS.HOLY_PALADIN,
+    link: 'https://raider.io/characters/us/malganis/Barreleye',
+  }],
 };
 export const HolySchmidt = {
   nickname: 'HolySchmidt',
@@ -755,4 +773,56 @@ export const fluffels = {
     spec: SPECS.AFFLICTION_WARLOCK,
     link: 'https://worldofwarcraft.com/en-gb/character/eu/draenor/micheladaw',
   }],
+};
+export const JeremyDwayne = {
+  nickname: 'JeremyDwayne',
+  github: 'jeremydwayne',
+  discord: 'jeremydwayne#3717',
+  mains: [
+    {
+      name: 'Jeremydwayne',
+      spec: SPECS.MISTWEAVER_MONK,
+      link: 'https://worldofwarcraft.com/en-us/character/us/stormrage/jeremydwayne',
+    },
+  ],
+  alts: [
+    {
+      name: 'Jeremypally',
+      spec: SPECS.HOLY_PALADIN,
+      link: 'https://worldofwarcraft.com/en-us/character/us/stormrage/jeremypally',
+    },
+    {
+      name: 'Morehots',
+      spec: SPECS.RESTORATION_DRUID,
+      link: 'https://worldofwarcraft.com/en-us/character/us/stormrage/morehots',
+    },
+    {
+      name: 'Dovesoap',
+      spec: SPECS.DISCIPLINE_PRIEST,
+      link: 'https://worldofwarcraft.com/en-us/character/us/stormrage/dovesoap',
+    },
+  ],
+};
+export const Taleria = {
+  nickname: 'Taleria',
+  github: 'bramdevries',
+  avatar: require('./interface/images/avatars/taleria-avatar.png'),
+  mains: [{
+    name: 'Taleria',
+    spec: SPECS.HOLY_PALADIN,
+    link: 'https://worldofwarcraft.com/en-gb/character/eu/eonar/Taleria',
+  }],
+};
+export const axelkic = {
+  nickname: 'axelkic',
+  github: 'axelkic',
+};
+export const Torothin = {
+  nickname: 'Brad',
+  github: 'Torothin',
+  discord: 'Torothin#9751',
+};
+export const layday = {
+  nickname: 'layday',
+  github: 'layday',
 };

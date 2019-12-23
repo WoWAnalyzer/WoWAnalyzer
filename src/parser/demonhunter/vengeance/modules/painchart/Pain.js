@@ -24,18 +24,19 @@ class Pain extends React.PureComponent {
     };
   }
 
-  componentWillMount() {
-    this.load(this.props.reportCode, this.props.actorId, this.props.start, this.props.end);
+  componentDidMount() {
+    this.load();
   }
 
-  componentWillReceiveProps(newProps) {
-    if (newProps.reportCode !== this.props.reportCode || newProps.actorId !== this.props.actorId || newProps.start !== this.props.start || newProps.end !== this.props.end) {
-      this.load(newProps.reportCode, newProps.actorId, newProps.start, newProps.end);
+  componentDidUpdate(prevProps) {
+    if (prevProps.reportCode !== this.props.reportCode || prevProps.actorId !== this.props.actorId || prevProps.start !== this.props.start || prevProps.end !== this.props.end) {
+      this.load();
     }
   }
 
-  load(reportCode, actorId, start, end) {
-    const painPromise = fetchWcl(`report/tables/resources/${reportCode}`, {
+  load() {
+    const { reportCode, actorId, start, end } = this.props;
+    fetchWcl(`report/tables/resources/${reportCode}`, {
       start,
       end,
       sourceid: actorId,
@@ -47,7 +48,7 @@ class Pain extends React.PureComponent {
         });
       });
 
-    const bossHealthPromise = fetchWcl(`report/tables/resources/${reportCode}`, {
+    fetchWcl(`report/tables/resources/${reportCode}`, {
       start,
       end,
       sourceclass: 'Boss',
@@ -59,8 +60,6 @@ class Pain extends React.PureComponent {
           bossHealth: json,
         });
       });
-
-    return Promise.all([painPromise, bossHealthPromise]);
   }
 
   get plot() {

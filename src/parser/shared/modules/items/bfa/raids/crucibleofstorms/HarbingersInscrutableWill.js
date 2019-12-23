@@ -8,7 +8,7 @@ import ITEMS from 'common/ITEMS/index';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import ItemStatistic from 'interface/statistics/ItemStatistic';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import UptimeIcon from 'interface/icons/Uptime';
 import { TooltipElement } from 'common/Tooltip';
@@ -80,7 +80,7 @@ class HarbingersInscrutableWill extends Analyzer {
       return suggest(
         <>
           You are getting silenced by <SpellLink id={SPELLS.OBLIVION_SPEAR_SILENCE.id} />. Try to dodge <ItemLink id={ITEMS.HARBINGERS_INSCRUTABLE_WILL.id} />'s spears to avoid the silence.
-        </>
+        </>,
       )
         .icon(ITEMS.HARBINGERS_INSCRUTABLE_WILL.icon)
         .actual(`You got silenced by ${formatPercentage(actual)}% of spears.`)

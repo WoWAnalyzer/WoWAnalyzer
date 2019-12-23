@@ -19,7 +19,7 @@ class NightbladeDuringSymbols extends Analyzer {
 
     this.symbolsDamageTracker.subscribeInefficientCast(
       [SPELLS.NIGHTBLADE],
-      (s) => `Try to refresh Nightblade before Symbols of Death`
+      (s) => `Try to refresh Nightblade before Symbols of Death`,
     );
   }
 

@@ -1,10 +1,12 @@
 import React from 'react';
 
-import SpellLink from 'common/SpellLink';
-import Icon from 'common/Icon';
 import { formatNumber } from 'common/format';
 
-import SmallStatisticBox, { STATISTIC_ORDER } from 'interface/others/SmallStatisticBox';
+import Statistic from 'interface/statistics/Statistic';
+import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
+
+import ITEMS from 'common/ITEMS/index';
 
 import Analyzer from 'parser/core/Analyzer';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
@@ -17,6 +19,13 @@ const VERSATILITY_PER_PERCENT_THROUGHPUT = 85 * 100;
 const VERSATILITY_PER_PERCENT_DAMAGE_REDUCTION = VERSATILITY_PER_PERCENT_THROUGHPUT * 2;
 const VANTUS_RUNE_PERCENTAGE_THROUGHPUT = VANTUS_RUNE_VERSATILITY / VERSATILITY_PER_PERCENT_THROUGHPUT;
 const VANTUS_RUNE_PERCENTAGE_DAMAGE_REDUCTION = VANTUS_RUNE_VERSATILITY / VERSATILITY_PER_PERCENT_DAMAGE_REDUCTION;
+
+const runes = [
+  ITEMS.VANTUS_RUNE_ULDIR,
+  ITEMS.VANTUS_RUNE_BATTLE_OF_DAZARALOR,
+  ITEMS.VANTUS_RUNE_CRUCIBLE_OF_STORMS,
+  ITEMS.VANTUS_RUNE_ETERNAL_PALACE,
+];
 
 /**
  * @property {HealingDone} healingDone
@@ -44,6 +53,18 @@ class VantusRune extends Analyzer {
       }
     }
     this.active = this.activeRune !== null;
+    if(this.active){
+      const that = this;
+      runes.forEach(function(rune){
+        if(that.activeRune.ability.abilityIcon === rune.icon){
+          that.masterRune = rune;
+        }
+      });
+    }
+    if(this.masterRune === null) {//default to the icon to current tier
+      this.masterRune = runes[runes.length - 1];
+    }
+
   }
 
   statistic() {
@@ -54,17 +75,34 @@ class VantusRune extends Analyzer {
     const damageReduced = (this.damageTaken.total.effective / (1 - VANTUS_RUNE_PERCENTAGE_DAMAGE_REDUCTION)) - this.damageTaken.total.effective;
 
     return (
-      <SmallStatisticBox
+      <Statistic
         position={STATISTIC_ORDER.UNIMPORTANT()}
-        icon={(
-          <SpellLink id={this.activeRune.ability.guid} icon={false}>
-            <Icon icon={this.activeRune.ability.abilityIcon} />
-          </SpellLink>
-        )}
-        value={damageDone > healingDone ? `${formatNumber(damageDone / fightDuration * 1000)} DPS` : `${formatNumber(healingDone / fightDuration * 1000)} HPS`}
-        label="Vantus Rune gain"
-        tooltip={`The throughput gain from using a Vantus Rune. You gained ${formatNumber(damageDone / fightDuration * 1000)} damage per second (DPS) and ${formatNumber(healingDone / fightDuration * 1000)} healing per second (HPS), and reduced your damage taken by ${formatNumber(damageReduced / fightDuration * 1000)} per second (DRPS).`}
-      />
+        size="flexible"
+      >
+        <BoringItemValueText item={this.masterRune}>
+        <img
+          src="/img/sword.png"
+          alt="Damage"
+          className="icon"
+        /> 
+        {` ${formatNumber(damageDone / fightDuration * 1000)} DPS`}
+        <br />
+        <img
+          src="/img/healing.png"
+          alt="Healing"
+          className="icon"
+        /> 
+        {` ${formatNumber(healingDone / fightDuration * 1000)} HPS`}
+        <br />
+        <img
+          src="/img/shield.png"
+          alt="Damage Taken"
+          className="icon"
+        /> 
+        {` ${formatNumber(damageReduced / fightDuration * 1000)} DRPS`}
+        </BoringItemValueText>
+      </Statistic>
+
     );
   }
 }

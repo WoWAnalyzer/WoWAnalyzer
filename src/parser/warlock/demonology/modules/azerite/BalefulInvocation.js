@@ -11,7 +11,7 @@ import { calculateAzeriteEffects } from 'common/stats';
 import { formatThousands } from 'common/format';
 
 import TraitStatisticBox from 'interface/others/TraitStatisticBox';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 
 const DEMONFIRE_SP_COEFFICIENT = 0.325;
 const debug = false;

@@ -4,11 +4,11 @@ import SPELLS from 'common/SPELLS';
 import SpellIcon from 'common/SpellIcon';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
+import Events from 'parser/core/Events';
 
 /**
  *  Inspired by filler modules in Holy Paladin Analyzer
@@ -19,29 +19,29 @@ const COOLDOWN_REDUCTION_MS = 1000;
 class BlackoutKick extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
-    abilityTracker: AbilityTracker,
   };
 
   IMPORTANT_SPELLS = [
     SPELLS.RISING_SUN_KICK.id,
     SPELLS.FISTS_OF_FURY_CAST.id,
-    SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id,
   ];
+
+  constructor(...args) {
+    super(...args);
+
+    if (this.selectedCombatant.hasTalent(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id)) {
+      this.IMPORTANT_SPELLS.push(SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id);
+    }
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_KICK), this.onCast);
+  }
 
   effectiveRisingSunKickReductionMs = 0;
   wastedRisingSunKickReductionMs = 0;
   effectiveFistsOfFuryReductionMs = 0;
   wastedFistsOfFuryReductionMs = 0;
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.BLACKOUT_KICK.id) {
-      return;
-    }
-
-    this.casts += 1;
+  onCast(event) {
     const hasImportantCastsAvailable = this.IMPORTANT_SPELLS.some(spellId => this.spellUsable.isAvailable(spellId));
-
     if (hasImportantCastsAvailable) {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;

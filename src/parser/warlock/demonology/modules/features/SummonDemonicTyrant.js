@@ -64,7 +64,7 @@ class SummonDemonicTyrant extends Analyzer {
         <tr key={demonSource}>
           <td><SpellLink id={Number(demonSource)} /></td>
           <td>{(mergedPets[demonSource]/this._petsPerCast.length).toFixed(2)}</td>
-        </tr>
+        </tr>,
       );
     });
 

@@ -15,7 +15,7 @@ class SpinningCraneKick extends Analyzer{
     badSCKcount = 0;
     badSCKTimeList = [];
     canceledSCKcount = 0;//figure out if this is possible
-    enemiesHitSCK;
+    enemiesHitSCK = [];
     currentTime = 0;
 
     on_byPlayer_cast(event){
@@ -79,7 +79,7 @@ class SpinningCraneKick extends Analyzer{
             return suggest(
               <>
                 You are not utilizing your <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> spell as effectively as you should. You should work on both your positioning spell. Always aim for the highest concentration of enemies, which is normally melee.
-              </>
+              </>,
             )
               .icon(SPELLS.SPINNING_CRANE_KICK.icon)
               .actual(`${this.badSCKcount} Spinning Crane Kicks that hit fewer than 3 enemies`)

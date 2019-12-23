@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
 import lazyLoadComponent from 'common/lazyLoadComponent';
@@ -12,7 +12,7 @@ import { fetchUser } from 'interface/actions/user';
 import { getError } from 'interface/selectors/error';
 import { getOpenModals } from 'interface/selectors/openModals';
 import ApiDownBackground from 'interface/common/images/api-down-background.gif';
-import FullscreenError from 'interface/common/FullscreenError';
+import FullscreenError from 'interface/FullscreenError';
 import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 import Footer from 'interface/layout/Footer/index';
 import HomePage from 'interface/home/Page';
@@ -25,7 +25,7 @@ import './layout/App.scss';
 import Tracker from './Tracker';
 import Hotkeys from './Hotkeys';
 
-const CharacterParsesPage = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'CharacterParsesPage' */ 'interface/character/Page').then(exports => exports.default)));
+const CharacterPage = lazyLoadComponent(() => retryingPromise(() => import(/* webpackChunkName: 'CharacterPage' */ 'interface/CharacterPage').then(exports => exports.default)));
 
 function isIE() {
   const myNav = navigator.userAgent.toLowerCase();
@@ -159,7 +159,7 @@ class App extends React.Component {
         <Route
           path="/character/:region/:realm/:name"
           render={({ match }) => (
-            <CharacterParsesPage
+            <CharacterPage
               region={decodeURI(match.params.region.replace(/\+/g, ' ')).toUpperCase()}
               realm={decodeURI(match.params.realm.replace(/\+/g, ' '))}
               name={decodeURI(match.params.name.replace(/\+/g, ' '))}

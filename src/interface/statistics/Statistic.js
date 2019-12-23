@@ -32,25 +32,21 @@ class Statistic extends React.PureComponent {
     className: '',
   };
 
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
-      expanded: false,
+      expanded: props.expanded,
     };
 
     this.toggleExpansion = this.toggleExpansion.bind(this);
   }
 
-  componentWillMount() {
-    this.setState({
-      expanded: this.props.expanded,
-    });
-  }
-
-  componentWillReceiveProps(newProps) {
-    this.setState({
-      expanded: newProps.expanded,
-    });
+  componentDidUpdate(prevProps) {
+    if (prevProps.expanded !== this.props.expanded) {
+      this.setState({
+        expanded: this.props.expanded,
+      });
+    }
   }
 
   toggleExpansion() {

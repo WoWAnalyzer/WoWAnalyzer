@@ -171,5 +171,10 @@ export default {
     name: 'Arcanic Pulsar',
     icon: 'spell_arcane_arcane03',
   },
+  ARCANIC_PULSAR_ENERGIZE:{
+    id: 305179,
+    name: 'Arcanic Pulsar',
+    icon: 'spell_arcane_arcane03',
+  },
   //end of balance
 };
