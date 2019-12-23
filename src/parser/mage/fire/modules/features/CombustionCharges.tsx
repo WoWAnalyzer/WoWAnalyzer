@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
@@ -21,7 +21,7 @@ class CombustionCharges extends Analyzer {
   hasPhoenixFlames: boolean;
   hasFlameOn: boolean;
   lastCastEvent!: {
-      meta: {
+      meta?: {
         isInefficientCast?: any;
         inefficientCastReason?: any;
     } | undefined;
@@ -39,13 +39,13 @@ class CombustionCharges extends Analyzer {
   }
 
   //When Combustion is cast, check to see how many charges of Fire Blast and Phoenix Flames are available. If there is less than (Max Charges - 1) then its a bad Combustion cast. 
-  onCombustion(event: any) {
+  onCombustion(event: CastEvent) {
+    this.lastCastEvent = event;
     const fireBlastCharges = this.spellUsable.chargesAvailable(SPELLS.FIRE_BLAST.id);
     const phoenixFlamesCharges = (this.spellUsable.chargesAvailable(SPELLS.PHOENIX_FLAMES_TALENT.id) || 0);
     const FIRE_BLAST_THRESHOLD = this.hasFlameOn ? 2 : 1;
     const PHOENIX_FLAMES_THRESHOLD = 2;
     this.badCast = false;
-    this.lastCastEvent = event;
 
     if (fireBlastCharges < FIRE_BLAST_THRESHOLD) {
       this.lowFireBlastCharges += 1;

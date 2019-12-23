@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 
@@ -37,11 +37,11 @@ class MeteorRune extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.RUNE_OF_POWER_TALENT), this.onRune);
   }
 
-  onRune(event: any) {
+  onRune(event: CastEvent) {
     this.lastRuneCast = event.timestamp;
   }
 
-  onMeteor(event: any) {
+  onMeteor(event: CastEvent) {
     console.log(event.timestamp - this.lastRuneCast);
     if (!this.selectedCombatant.hasBuff(SPELLS.RUNE_OF_POWER_BUFF.id) && event.timestamp - this.lastRuneCast > RUNE_OF_POWER_DELAY_BUFFER) {
       this.badMeteor += 1;

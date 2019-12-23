@@ -6,7 +6,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { CastEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import HotStreakPreCasts from './HotStreakPreCasts';
 
 const debug = false;
@@ -36,17 +36,17 @@ class HotStreak extends Analyzer {
   }
 
   //When Pyroblast is cast, get the timestamp. This is used for determining if pyroblast was cast immediately before Hot Streak was removed.
-  onHotStreakSpenderCast(event: any) {
+  onHotStreakSpenderCast(event: CastEvent) {
     this.castTimestamp = event.timestamp;
   }
 
   //Count the number of times Hot Streak was applied
-  onHotStreakApplied() {
+  onHotStreakApplied(event: ApplyBuffEvent) {
     this.totalHotStreakProcs += 1;
   }
 
   //Checks to see if there was a Hot Streak spender cast immediately before Hot Streak was removed. If there was not, then it must have expired.
-  checkForExpiredProcs(event: any) {
+  checkForExpiredProcs(event: RemoveBuffEvent) {
     if (!this.castTimestamp || this.castTimestamp + PROC_WINDOW_MS < event.timestamp) {
       debug && this.log("Hot Streak proc expired");
       this.expiredProcs += 1;

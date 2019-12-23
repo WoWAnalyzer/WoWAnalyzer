@@ -7,7 +7,7 @@ import Statistic from 'interface/statistics/Statistic';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
@@ -28,7 +28,7 @@ class HeatingUp extends Analyzer {
   hasSearingTouch: boolean;
   hasPhoenixFlames: boolean;
   phoenixFlamesCastEvent!: {
-    targetID: any | undefined;
+    targetID?: any | undefined;
   };
 
   fireBlastWithoutHeatingUp = 0;
@@ -50,17 +50,17 @@ class HeatingUp extends Analyzer {
   }
 
   //Need to get the cast event for Phoenix Flames to filter out it's cleave
-  onPhoenixFlamesCast(event: any) {
+  onPhoenixFlamesCast(event: CastEvent) {
     this.phoenixFlamesCastEvent = event;
   }
 
-  onPhoenixFlamesDamage(event: any) {
+  onPhoenixFlamesDamage(event: DamageEvent) {
     const hasCombustion = this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id);
     const hasHotStreak = this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id);
     const hasHeatingUp = this.selectedCombatant.hasBuff(SPELLS.HEATING_UP.id);
     const castTarget = this.phoenixFlamesCastEvent ? encodeTargetString(this.phoenixFlamesCastEvent.targetID, event.targetInstance) : null;
     const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
-    if (event.hitPoints > 0) {
+    if (event.hitPoints && event.maxHitPoints && event.hitPoints > 0) {
       this.healthPercent = event.hitPoints / event.maxHitPoints;
     }
     if (castTarget !== damageTarget || hasHeatingUp) {

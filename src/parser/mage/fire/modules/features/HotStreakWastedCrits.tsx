@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, ApplyBuffEvent } from 'parser/core/Events';
 import HIT_TYPES from 'game/HIT_TYPES';
 import EnemyInstances, { encodeTargetString } from 'parser/shared/modules/EnemyInstances';
 
@@ -27,8 +27,8 @@ class HotStreakWastedCrits extends Analyzer {
 
   hasPyromaniac: boolean;
   lastCastEvent!: {
-    targetID: any;
-    meta: {
+    targetID?: any;
+    meta?: {
       isInefficientCast?: any;
       inefficientCastReason?: any;
     } | undefined;
@@ -50,14 +50,14 @@ class HotStreakWastedCrits extends Analyzer {
 
   //When a spell that contributes towards Hot Streak is cast, get the event info to use for excluding the cleaves from Phoenix Flames on the damage event.
   //If a Hot Streak Contributor was cast then Pyromaniac didnt proc, so set it to false (Pyromaniac procs when Hot Streak is used, so if something was cast, then it didnt proc)
-  _onCast(event: any) {
+  _onCast(event: CastEvent) {
     this.lastCastEvent = event;
     this.pyromaniacProc = false;
   }
 
   //When a spell that contributes towards Hot Streak crits the target while Hot Streak is active, count it as a wasted crit.
   //Excludes the cleave from Phoenix Flames (the cleave doesnt contribute towards Hot Streak) and excludes crits immediately after Pyromaniac procs, cause the player cant do anything to prevent that.
-  _onDamage(event: any) {
+  _onDamage(event: DamageEvent) {
     const spellId = event.ability.guid;
     const castTarget = encodeTargetString(this.lastCastEvent.targetID, event.targetInstance);
     const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
@@ -77,7 +77,7 @@ class HotStreakWastedCrits extends Analyzer {
   }
 
   //Pyromaniac doesnt trigger an event, so we need to check to see if the player immediately got a new Hot Streak immediately after using a Hot Streak
-  checkForPyromaniacProc(event: any) {
+  checkForPyromaniacProc(event: ApplyBuffEvent) {
     if (this.hasPyromaniac && event.timestamp - this.hotStreakRemoved < PROC_WINDOW_MS) {
       this.hasPyromaniacProc = true;
     }

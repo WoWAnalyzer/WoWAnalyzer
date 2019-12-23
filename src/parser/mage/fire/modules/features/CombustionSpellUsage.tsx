@@ -4,7 +4,7 @@ import SpellLink from 'common/SpellLink';
 import { formatNumber } from 'common/format';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { CastEvent, BeginCastEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const debug = false;
@@ -36,7 +36,7 @@ class CombustionSpellUsage extends Analyzer {
   }
 
   //Because Fireball has a longer cast time than Scorch, the player should never cast Fireball during Combustion.
-  fireballCasts(event: any) {
+  fireballCasts(event: CastEvent | BeginCastEvent) {
     const hasCombustion = this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id);
 
     if (!hasCombustion) {
@@ -55,7 +55,7 @@ class CombustionSpellUsage extends Analyzer {
     }
   }
 
-  scorchCasts(event: any) {
+  scorchCasts(event: CastEvent | BeginCastEvent) {
     const hasCombustion = this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id);
     const fireBlastCharges = this.spellUsable.chargesAvailable(SPELLS.FIRE_BLAST.id);
     const phoenixFlamesCharges = (this.spellUsable.chargesAvailable(SPELLS.PHOENIX_FLAMES_TALENT.id) || 0);

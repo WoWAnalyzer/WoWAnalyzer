@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, RemoveBuffEvent, RemoveBuffStackEvent } from 'parser/core/Events';
 
 const debug = false;
 
@@ -47,31 +47,31 @@ class HotStreakPreCasts extends Analyzer {
   }
 
   //When the player casts Fireball, get the timestamp. This timestamp is used for determining if the spell was cast before using Hot Streak
-  getCastTimestamp(event: any) {
+  getCastTimestamp(event: CastEvent) {
     this.castTimestamp = event.timestamp;
   }
 
   //If the player has the Searing Touch or Firestarter talents, then we need to get the health percentage on damage events so we can know whether we are in the Firestarter or Searing Touch execute windows
-  checkHealthPercent(event: any) {
-    if (event.hitPoints > 0) {
+  checkHealthPercent(event: DamageEvent) {
+    if (event.hitPoints && event.maxHitPoints && event.hitPoints > 0) {
       this.healthPercent = event.hitPoints / event.maxHitPoints;
     }
   }
 
   //Get the timestamp that Hot Streak was removed. This is used for comparing the cast Timestamp to see if there was a hard cast immediately before Hot Streak was removed (and therefore they pre-casted before Hot Streak)
-  onHotStreakRemoved(event: any) {
+  onHotStreakRemoved(event: RemoveBuffEvent) {
     this.hotStreakRemoved = event.timestamp;
   }
 
   //Get the timestamp that Pyroclasm was removed. Because using Hot Streak involves casting Pyroblast, it isnt possible to tell if they hard casted Pyroblast immediately before using their Hot Streak Pyroblast.
   //So this is to check to see if the Pyroclasm proc was removed right before Hot Streak was removed.
-  onPyroclasmRemoved(event: any) {
+  onPyroclasmRemoved(event: RemoveBuffEvent | RemoveBuffStackEvent) {
     this.pyroclasmProcRemoved = event.timestamp;
   }
 
   //Compares timestamps to determine if an ability was hard casted immediately before using Hot Streak.
   //If Combustion is active or they are in the Firestarter or Searing Touch execute windows, then this check is ignored.
-  checkForHotStreakPreCasts(event: any) {
+  checkForHotStreakPreCasts(event: RemoveBuffEvent) {
     if (this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id) || (this.hasFirestarter && this.healthPercent > FIRESTARTER_HEALTH_THRESHOLD) || (this.hasSearingTouch && this.healthPercent < SEARING_TOUCH_HEALTH_THRESHOLD)) {
       debug && this.log('Pre Cast Ignored');
       return;

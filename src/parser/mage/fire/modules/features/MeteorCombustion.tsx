@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { DamageEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EnemyInstances from 'parser/shared/modules/EnemyInstances';
 
@@ -38,17 +38,17 @@ class MeteorCombustion extends Analyzer {
     this.addEventListener(Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.COMBUSTION), this.onCombustionEnd);
   }
 
-  onMeteorDamage(event: any) {
+  onMeteorDamage(event: DamageEvent) {
     if (this.combustionActive) {
       this.meteorCast = true;
     }
   }
 
-  onCombustionStart(event: any) {
+  onCombustionStart(event: ApplyBuffEvent) {
     this.combustionActive = true;
   }
 
-  onCombustionEnd(event: any) {
+  onCombustionEnd(event: RemoveBuffEvent) {
     if (this.meteorCast) {
       this.meteorInCombustion += 1;
     }

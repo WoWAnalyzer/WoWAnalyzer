@@ -5,7 +5,7 @@ import { formatPercentage } from 'common/format';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 const debug = false;
@@ -17,6 +17,12 @@ class SearingTouch extends Analyzer {
     abilityTracker: AbilityTracker,
   };
   protected abilityTracker!: AbilityTracker;
+  lastCastEvent!: {
+    meta?: {
+      isInefficientCast?: any;
+      inefficientCastReason?: any;
+  } | undefined;
+};
 
   badCasts = 0;
   totalCasts = 0;
@@ -25,12 +31,17 @@ class SearingTouch extends Analyzer {
   constructor(options: any) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(SPELLS.SEARING_TOUCH_TALENT.id);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FIREBALL), this.onCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.FIREBALL,SPELLS.SCORCH]), this.onDamage);
   }
 
+  onCast(event: CastEvent) {
+    this.lastCastEvent = event;
+  }
+
   //When the target is under 30% health, check to see if the player cast Fireball. If they do, count it as a mistake.
-  onDamage(event: any) {
-    if (event.hitPoints > 0) {
+  onDamage(event: DamageEvent) {
+    if (event.hitPoints && event.maxHitPoints && event.hitPoints > 0) {
       this.healthPercent = event.hitPoints / event.maxHitPoints;
     }
     if (this.healthPercent > SEARING_TOUCH_HEALTH_THRESHOLD) {
@@ -39,9 +50,9 @@ class SearingTouch extends Analyzer {
     this.totalCasts += 1;
     if (event.ability.guid === SPELLS.FIREBALL.id) {
       this.badCasts += 1;
-      event.meta = event.meta || {};
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = `This Fireball was cast while the target was under ${formatPercentage(SEARING_TOUCH_HEALTH_THRESHOLD)}% health. While talented into Searing Touch, ensure that you are casting Scorch instead of Fireball while the target is under 30% health since Scorch does ${formatPercentage(SEARING_TOUCH_DAMAGE_MODIFIER)}% additional damage.`;
+      this.lastCastEvent.meta = this.lastCastEvent.meta || {};
+      this.lastCastEvent.meta.isInefficientCast = true;
+      this.lastCastEvent.meta.inefficientCastReason = `This Fireball was cast while the target was under ${formatPercentage(SEARING_TOUCH_HEALTH_THRESHOLD)}% health. While talented into Searing Touch, ensure that you are casting Scorch instead of Fireball while the target is under 30% health since Scorch does ${formatPercentage(SEARING_TOUCH_DAMAGE_MODIFIER)}% additional damage.`;
       debug && this.log("Cast Fireball under 30% Health");
     }
   }

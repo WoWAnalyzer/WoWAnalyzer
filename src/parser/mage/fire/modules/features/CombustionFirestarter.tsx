@@ -3,7 +3,7 @@ import React from 'react';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { ApplyBuffEvent, DamageEvent } from 'parser/core/Events';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 
 const DAMAGE_SPELLS = [
@@ -19,12 +19,6 @@ const FIRESTARTER_HEALTH_THRESHOLD = .90;
 const debug = false;
 
 class CombustionFirestarter extends Analyzer {
-  combustionCastEvent!: {
-    meta: {
-      isInefficientCast?: any;
-      inefficientCastReason?: any;
-    } | undefined;
-  };
 
   combustionCast = false;
   combustionDuringFirestarter = false;
@@ -38,27 +32,25 @@ class CombustionFirestarter extends Analyzer {
   }
 
   //Checks to see if a new Combustion was cast. This variable is marked false once a damage event is triggered since we only want the first damage event in the Combustion (to get the health percentage)
-  onCombustion(event: any) {
+  protected combustionCastEvent: ApplyBuffEvent | undefined;
+  onCombustion(event: ApplyBuffEvent) {
     this.combustionCast = true;
     this.combustionCastEvent = event;
   }
 
   //The Combustion Cast/Apply Buff event uses the Players Health/Max Health instead of the target, so we need to check the first direct damage event during combustion to get the target's health. If above 90% then Combustion was cast during Firestarter, which is a waste.
-  onDamage(event: any) {
+  onDamage(event: DamageEvent) {
     const hasCombustion = this.selectedCombatant.hasBuff(SPELLS.COMBUSTION.id);
     if (!hasCombustion || !this.combustionCast) {
       return;
     }
 
     this.combustionCast = false;
-    if (event.hitPoints > 0) {
+    if (event.hitPoints && event.maxHitPoints && event.hitPoints > 0) {
       this.healthPercent = event.hitPoints / event.maxHitPoints;
     }
     if (this.healthPercent > FIRESTARTER_HEALTH_THRESHOLD) {
       this.combustionDuringFirestarter = true;
-      this.combustionCastEvent.meta = this.combustionCastEvent.meta || {};
-      this.combustionCastEvent.meta.isInefficientCast = true;
-      this.combustionCastEvent.meta.inefficientCastReason = `This Combustion was cast while Firestarter was active. Firestarter makes all your spells guaranteed to crit while the target is above 90% health, so stacking Combustion on top of that is a waste. Instead, you should wait until the target is at 89% before you cast Combustion. `;
       debug && this.log("Combustion Used During Firestarter");
     }
   }
