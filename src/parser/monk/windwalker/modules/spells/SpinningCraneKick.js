@@ -1,12 +1,14 @@
 import React from 'react';
+import _ from 'lodash';
 
 import SPELLS from 'common/SPELLS';
-import Analyzer from 'parser/core/Analyzer';
+import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText/index';
 import { STATISTIC_ORDER } from 'interface/others/StatisticBox';
+import Events from 'parser/core/Events';
 
 class SpinningCraneKick extends Analyzer {
   static dependencies = {
@@ -14,63 +16,42 @@ class SpinningCraneKick extends Analyzer {
     statTracker: StatTracker,
   };
 
-  badCasts = 0;
-  markoftheCraneTargets = [];
-  lastSpinningCraneKickTick = 0;
+  constructor(...args) {
+    super(...args);
+    this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(SPELLS.MARK_OF_THE_CRANE), this.onMarkApplication);
+    this.addEventListener(Events.refreshdebuff.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(SPELLS.MARK_OF_THE_CRANE), this.onMarkRefresh);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(SPELLS.SPINNING_CRANE_KICK), this.onSCKCast);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER | SELECTED_PLAYER_PET).spell(SPELLS.SPINNING_CRANE_KICK_DAMAGE), this.onSCKDamage);
+  }
+
+  cycloneStrikesMarks = [];
   spinningCraneKickHits = 0;
   totalMarksDuringHits = 0;
-  markoftheCraneStacks = 0;
-  spinningCraneKickDuration = 1500;
 
-  on_byPlayer_applydebuff(event) {
-    const spellId = event.ability.guid;
-    let targetInstance = event.targetInstance;
-    if (spellId !== SPELLS.MARK_OF_THE_CRANE.id) {
-      return;
-    }
-    // The event doesn't specify instance on the first target of that type
-    if (targetInstance === undefined) {
-      targetInstance = 1;
-    }
-    const markoftheCraneTarget = { targetID: event.targetID, targetInstance: targetInstance, timestamp: event.timestamp };
-    this.markoftheCraneTargets.push(markoftheCraneTarget);
+  // targetInstance is undefined when it's the first one.
+  _verifyTargetInstance(targetInstance) {
+    return targetInstance === undefined ? 1 : targetInstance;
   }
 
-  on_byPlayer_refreshdebuff(event) {
-    const spellId = event.ability.guid;
-    let targetInstance = event.targetInstance;
-    if (spellId !== SPELLS.MARK_OF_THE_CRANE.id) {
-      return;
-    }
-    if (targetInstance === undefined) {
-      targetInstance = 1;
-    }
-    const markoftheCraneTarget = { targetID: event.targetID, targetInstance: targetInstance, timestamp: event.timestamp };
-    let i = 0;
-    while (i <= this.markoftheCraneTargets.length - 1) {
-      if (this.markoftheCraneTargets[i].targetID === markoftheCraneTarget.targetID && this.markoftheCraneTargets[i].targetInstance === markoftheCraneTarget.targetInstance) {
-        this.markoftheCraneTargets[i].timestamp = markoftheCraneTarget.timestamp;
-      }
-      i++;
-    }
+  onMarkApplication(event) {
+    const targetInstance = this._verifyTargetInstance(event.targetInstance);
+    const markOfTheCrane = { target: { id: event.targetID, instance: targetInstance} , timestamp: event.timestamp };
+    this.cycloneStrikesMarks.push(markOfTheCrane);
   }
 
-  on_byPlayer_cast(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SPINNING_CRANE_KICK.id) {
-      return;
-    }
-    this.markoftheCraneStacks = 0;
-    let i = 0;
-    while (i < this.markoftheCraneTargets.length) {
-      // removing expired targets to avoid looking through huge arrays in logs with a lot of targets
-      if (event.timestamp - this.markoftheCraneTargets[i].timestamp > 15000) {
-        this.markoftheCraneTargets.splice(i, 1);
-      } else {
-        this.markoftheCraneStacks++;
+  onMarkRefresh(event) {
+    const targetInstance = this._verifyTargetInstance(event.targetInstance);
+    const refreshedMark = { target: { id: event.targetID, instance: targetInstance} , timestamp: event.timestamp };
+    this.cycloneStrikesMarks.forEach((mark) => {
+      if (_.isEqual(mark.target, refreshedMark.target)) {
+        mark.timestamp = refreshedMark.timestamp;
       }
-      i++;
-    }
+    });
+  }
+
+  onSCKCast(event) {
+    // Filter out expired targets
+    this.cycloneStrikesMarks = this.cycloneStrikesMarks.filter((mark => event.timestamp - mark.timestamp <= 15000));
     if (this.selectedCombatant.hasBuff(SPELLS.DANCE_OF_CHIJI_BUFF.id)) {
       event.meta = event.meta || {};
       event.meta.isEnhancedCast = true;
@@ -79,30 +60,21 @@ class SpinningCraneKick extends Analyzer {
     }
   }
 
-  on_byPlayer_damage(event) {
-    const spellId = event.ability.guid;
-    if (spellId !== SPELLS.SPINNING_CRANE_KICK_DAMAGE.id) {
-      return;
-    }
-    this.spinningCraneKickDuration = 1500 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating));
-    this.spinningCraneKickHits++;
-    // Spinning Crane Kick deals damage 4 times over 1.5 seconds (reduced by haste)
-    // This makes sure it only counts once per cast and only on casts that hit something
-    if (event.timestamp - this.lastSpinningCraneKickTick > this.spinningCraneKickDuration) {
-      this.totalMarksDuringHits += this.markoftheCraneStacks;
-      this.lastSpinningCraneKickTick = event.timestamp;
-    }
+  onSCKDamage() {
+    this.spinningCraneKickHits += 1;
+    this.totalMarksDuringHits += this.cycloneStrikesMarks.length;
   }
+
   get casts() {
     return this.abilityTracker.getAbility(SPELLS.SPINNING_CRANE_KICK.id).casts;
   }
 
-  get averageHits() {
-    return this.spinningCraneKickHits / (this.casts > 0 ? this.casts : 1);
+  get averageEnemiesHit() {
+    return this.spinningCraneKickHits / ((this.casts > 0 ? this.casts : 1) * 4);
   }
 
   get averageMarks() {
-    return this.totalMarksDuringHits / (this.casts > 0 ? this.casts : 1);
+    return this.totalMarksDuringHits / this.spinningCraneKickHits;
   }
 
   statistic() {
@@ -110,13 +82,13 @@ class SpinningCraneKick extends Analyzer {
       // Spinning Crane Kick is usually not used outside aoe, so we're avoiding rendering it when it's not used
       return (
         <Statistic
-          position={STATISTIC_ORDER.CORE(5)}
+          position={STATISTIC_ORDER.CORE(7)}
           size="flexible"
           tooltip="Spinning Crane Kick hits all nearby enemies 4 times over its duration. Mark of the crane, which increases the damage of your Spinning Crane Kick, is applied by your single target abilities and is capped at 5 targets."
         >
           <BoringSpellValueText spell={SPELLS.SPINNING_CRANE_KICK}>
             {(this.averageMarks).toFixed(2)} <small>Average marks</small><br />
-            {(this.averageHits).toFixed(2)} <small>Average hits</small>
+            {(this.averageEnemiesHit).toFixed(2)} <small>Average enemies hit</small>
           </BoringSpellValueText>
         </Statistic>
       );
