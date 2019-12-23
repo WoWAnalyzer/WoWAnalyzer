@@ -235,6 +235,10 @@ exports[`The Protection Paladin Analyzer analyzers AzerokksResonatingHeart match
 
 exports[`The Protection Paladin Analyzer analyzers AzerokksResonatingHeart matches the suggestions snapshot 1`] = `"module inactive"`;
 
+exports[`The Protection Paladin Analyzer analyzers AzsharasFontofPower matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Protection Paladin Analyzer analyzers AzsharasFontofPower matches the suggestions snapshot 1`] = `"module inactive"`;
+
 exports[`The Protection Paladin Analyzer analyzers BalefireBranch matches the statistic snapshot 1`] = `"module inactive"`;
 
 exports[`The Protection Paladin Analyzer analyzers BalefireBranch matches the suggestions snapshot 1`] = `"module inactive"`;
@@ -3147,6 +3151,10 @@ Array [
 exports[`The Protection Paladin Analyzer analyzers Channeling matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`The Protection Paladin Analyzer analyzers Channeling matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Protection Paladin Analyzer analyzers ChannelingShared matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Protection Paladin Analyzer analyzers ChannelingShared matches the suggestions snapshot 1`] = `Array []`;
 
 exports[`The Protection Paladin Analyzer analyzers Checklist matches the statistic snapshot 1`] = `"module has no statistic method"`;
 

@@ -552,6 +552,10 @@ exports[`Holy Paladin integration test analyzers AzerokksResonatingHeart matches
 
 exports[`Holy Paladin integration test analyzers AzerokksResonatingHeart matches the suggestions snapshot 1`] = `"module inactive"`;
 
+exports[`Holy Paladin integration test analyzers AzsharasFontofPower matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`Holy Paladin integration test analyzers AzsharasFontofPower matches the suggestions snapshot 1`] = `"module inactive"`;
+
 exports[`Holy Paladin integration test analyzers BalefireBranch matches the statistic snapshot 1`] = `"module inactive"`;
 
 exports[`Holy Paladin integration test analyzers BalefireBranch matches the suggestions snapshot 1`] = `"module inactive"`;
@@ -5546,6 +5550,10 @@ Array [
 exports[`Holy Paladin integration test analyzers Channeling matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`Holy Paladin integration test analyzers Channeling matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`Holy Paladin integration test analyzers ChannelingShared matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`Holy Paladin integration test analyzers ChannelingShared matches the suggestions snapshot 1`] = `Array []`;
 
 exports[`Holy Paladin integration test analyzers Checklist matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
