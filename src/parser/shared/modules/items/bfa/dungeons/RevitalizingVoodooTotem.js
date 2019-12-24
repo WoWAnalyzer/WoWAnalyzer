@@ -7,12 +7,12 @@ import ItemStatistic from 'interface/statistics/ItemStatistic';
 import BoringItemValueText from 'interface/statistics/components/BoringItemValueText';
 import Abilities from 'parser/core/modules/Abilities';
 
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
 
 /**
  * Revitalizing Voodoo Totem -
  * Use: Heals the target for 0 every 0.5 sec, stacking up to 12 times. Healing starts low and increases over the duration. (1 Min, 30 Sec Cooldown)
- * 
+ *
  * Test Log: https://www.warcraftlogs.com/reports/2fZTqh6VbNC1xXPL#fight=6&type=damage-done&source=17
  */
 class RevitalizingVoodooTotem extends Analyzer {

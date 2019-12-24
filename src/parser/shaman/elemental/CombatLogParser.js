@@ -10,6 +10,7 @@ import LavaSurge from './modules/core/LavaSurge';
 import StormFireElemental from './modules/features/StormFireElemental';
 
 import Aftershock from './modules/talents/Aftershock';
+import CallTheThunder from './modules/talents/CallTheThunder';
 import Ascendance from './modules/talents/Ascendance';
 import EarthenRage from './modules/talents/EarthenRage';
 import ElementalBlast from './modules/talents/ElementalBlast';
@@ -28,6 +29,7 @@ import Icefury from './modules/talents/Icefury';
 import Checklist from './modules/checklist/Module';
 import Buffs from './modules/Buffs';
 
+import NaturalHarmony from '../shared/azerite/NaturalHarmony';
 import LavaShock from './modules/azerite/LavaShock';
 import SynapseShock from '../shared/azerite/SynapseShock';
 import EchoOfTheElementals from './modules/azerite/EchoOfTheElementals';
@@ -60,6 +62,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents
     aftershock: Aftershock,
+    callthethunder: CallTheThunder,
     ascendance: Ascendance,
     earthenRage: EarthenRage,
     elementalBlast: ElementalBlast,
@@ -77,6 +80,7 @@ class CombatLogParser extends CoreCombatLogParser {
     earthShield: EarthShield,
 
     // Azerite
+    naturalHarmony: NaturalHarmony,
     lavaShock: LavaShock,
     synapseShock: SynapseShock,
     echoOfTheElementals: EchoOfTheElementals,

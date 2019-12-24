@@ -19,90 +19,88 @@ import makeAnalyzerUrl from 'interface/common/makeAnalyzerUrl';
 
 import './NavigationBar.scss';
 
-class NavigationBar extends React.PureComponent {
-  static propTypes = {
-    playerName: PropTypes.string,
-    report: PropTypes.shape({
-      title: PropTypes.string.isRequired,
-    }),
-    fight: PropTypes.object,
-    user: PropTypes.oneOfType([
-      PropTypes.shape({
-        name: PropTypes.string,
-        premium: PropTypes.bool,
-      }),
-      PropTypes.bool, // false; logged out
-    ]),
-  };
+const NavigationBar = props => {
+  const { playerName, report, fight, user } = props;
 
-  render() {
-    const { playerName, report, fight, user } = this.props;
-
-    return (
-      <nav className="global">
-        <div className="container">
-          <div className="menu-item logo required">
-            <Link to={makeAnalyzerUrl()}>
-              <Logo />
-            </Link>
-          </div>
-          {report && (
-            <div className="menu-item report-title">
-              <Link to={makeAnalyzerUrl(report)}>{report.title}</Link>
-            </div>
-          )}
-          {report && (
-            <div className="menu-item">
-              <Link to={makeAnalyzerUrl(report)}>{fight ? getFightName(report, fight) : <Trans>Fight selection</Trans>}</Link>
-            </div>
-          )}
-          {report && (fight || playerName) && (
-            <div className="menu-item">
-              <Link to={makeAnalyzerUrl(report, fight ? fight.id : undefined)}>{playerName || <Trans>Player selection</Trans>}</Link>
-            </div>
-          )}
-          <div className="spacer" />
-          <div className="menu-item required">
-            {user && user.premium ? (
-              <Tooltip content={<Trans>Premium active</Trans>}>
-                <Link to="/premium">
-                  <PremiumIcon /> <span className="optional">{user.name}</span>
-                </Link>
-              </Tooltip>
-            ) : (
-              <Tooltip content={<Trans>Premium</Trans>}>
-                <Link to="/premium" className="premium">
-                  <PremiumIcon /> <span className="optional"><Trans>Premium</Trans></span>
-                </Link>
-              </Tooltip>
-            )}
-          </div>
-          <Tooltip content="Discord">
-            <div className="menu-item optional">
-              <a href="https://wowanalyzer.com/discord">
-                <DiscordIcon />
-              </a>
-            </div>
-          </Tooltip>
-          <Tooltip content="GitHub">
-            <div className="menu-item optional">
-              <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
-                <GitHubIcon />
-              </a>
-            </div>
-          </Tooltip>
-          <Tooltip content="Patreon">
-            <div className="menu-item optional">
-              <a href="https://www.patreon.com/join/wowanalyzer">
-                <PatreonIcon />
-              </a>
-            </div>
-          </Tooltip>
+  return (
+    <nav className="global">
+      <div className="container">
+        <div className="menu-item logo required">
+          <Link to={makeAnalyzerUrl()}>
+            <Logo />
+          </Link>
         </div>
-      </nav>
-    );
-  }
-}
+        {report && (
+          <div className="menu-item report-title">
+            <Link to={makeAnalyzerUrl(report)}>{report.title}</Link>
+          </div>
+        )}
+        {report && (
+          <div className="menu-item">
+            <Link to={makeAnalyzerUrl(report)}>{fight ? getFightName(report, fight) : <Trans>Fight selection</Trans>}</Link>
+          </div>
+        )}
+        {report && (fight || playerName) && (
+          <div className="menu-item">
+            <Link to={makeAnalyzerUrl(report, fight ? fight.id : undefined)}>{playerName || <Trans>Player selection</Trans>}</Link>
+          </div>
+        )}
+        <div className="spacer" />
+        <div className="menu-item required">
+          {user && user.premium ? (
+            <Tooltip content={<Trans>Premium active</Trans>}>
+              <Link to="/premium">
+                <PremiumIcon /> <span className="optional">{user.name}</span>
+              </Link>
+            </Tooltip>
+          ) : (
+            <Tooltip content={<Trans>Premium</Trans>}>
+              <Link to="/premium" className="premium">
+                <PremiumIcon /> <span className="optional"><Trans>Premium</Trans></span>
+              </Link>
+            </Tooltip>
+          )}
+        </div>
+        <Tooltip content="Discord">
+          <div className="menu-item optional">
+            <a href="https://wowanalyzer.com/discord">
+              <DiscordIcon />
+            </a>
+          </div>
+        </Tooltip>
+        <Tooltip content="GitHub">
+          <div className="menu-item optional">
+            <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">
+              <GitHubIcon />
+            </a>
+          </div>
+        </Tooltip>
+        <Tooltip content="Patreon">
+          <div className="menu-item optional">
+            <a href="https://www.patreon.com/join/wowanalyzer">
+              <PatreonIcon />
+            </a>
+          </div>
+        </Tooltip>
+      </div>
+    </nav>
+  );
+};
+
+NavigationBar.propTypes = {
+  playerName: PropTypes.string,
+  report: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+  }),
+  fight: PropTypes.object,
+  user: PropTypes.oneOfType([
+    PropTypes.shape({
+      name: PropTypes.string,
+      premium: PropTypes.bool,
+    }),
+    PropTypes.bool, // false; logged out
+  ]),
+};
 
 const mapStateToProps = state => ({
   playerName: getPlayerName(state),
@@ -116,5 +114,5 @@ export default connect(
   mapStateToProps,
   {
     // openModal,
-  }
+  },
 )(NavigationBar);

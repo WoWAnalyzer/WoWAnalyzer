@@ -3,7 +3,7 @@ import TalentStatisticBox, { STATISTIC_ORDER } from 'interface/others/TalentStat
 
 import SPELLS from 'common/SPELLS/index';
 import Analyzer from 'parser/core/Analyzer';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
 
 // Example Log: /report/C2NGDav6KHgc8ZWd/28-Mythic+Taloc+-+Kill+(7:07)/13-Ariemah
 class CosmicRipple extends Analyzer {

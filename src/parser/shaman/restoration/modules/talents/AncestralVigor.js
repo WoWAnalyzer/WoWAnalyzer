@@ -135,7 +135,7 @@ class AncestralVigor extends Analyzer {
                         <td>{formatPercentage(event.hitPoints / event.maxHitPoints)}%</td>
                       </tr>
                     );
-                  }
+                  },
                   )
               }
             </tbody>

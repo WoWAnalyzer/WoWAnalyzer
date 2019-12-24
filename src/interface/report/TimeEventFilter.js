@@ -203,7 +203,7 @@ function findRelevantPreFilterEvents(events){
 export function filterEvents(events, start, end){
   const phaseEvents = events.filter(event =>
       event.timestamp >= start
-      && event.timestamp <= end
+      && event.timestamp <= end,
     );
 
   const preFilterEvents = findRelevantPreFilterEvents(events.filter(event => event.timestamp < start).reverse())

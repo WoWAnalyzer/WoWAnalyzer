@@ -7,7 +7,7 @@ import SpellLink from 'common/SpellLink';
 import UptimeIcon from 'interface/icons/Uptime';
 import PrimaryStatIcon from 'interface/icons/PrimaryStat';
 import AzeritePowerStatistic from 'interface/statistics/AzeritePowerStatistic';
-import ItemDamageTaken from 'interface/others/ItemDamageTaken';
+import ItemDamageTaken from 'interface/ItemDamageTaken';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';

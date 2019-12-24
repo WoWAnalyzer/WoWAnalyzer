@@ -1,9 +1,9 @@
+import { connectRouter } from 'connected-react-router';
 import { combineReducers } from 'redux';
-import { routerReducer } from 'react-router-redux';
 
-export default combineReducers({
+export default history => combineReducers({
   // System
-  router: routerReducer,
+  router: connectRouter(history),
   error: require('./error').default,
 
   // App

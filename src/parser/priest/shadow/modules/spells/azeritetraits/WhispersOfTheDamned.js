@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS/index';
 import { calculateAzeriteEffects } from 'common/stats';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 import Events from 'parser/core/Events';
 import { formatNumber } from 'common/format';
 

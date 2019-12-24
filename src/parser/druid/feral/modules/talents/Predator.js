@@ -60,7 +60,7 @@ class Predator extends Analyzer {
       return suggest(
         <>
           You're not gaining much benefit from <SpellLink id={SPELLS.PREDATOR_TALENT.id} />. If the fight has adds make sure they have bleeds on them when they die, and make use of your <SpellLink id={SPELLS.TIGERS_FURY.id} /> cooldown being reset. If the fight doesn't have adds it would be a good idea to switch to another talent.
-        </>
+        </>,
       )
         .icon(SPELLS.PREDATOR_TALENT.icon)
         .actual(`${actual.toFixed(1)} extra casts of Tiger's Fury per minute.`)

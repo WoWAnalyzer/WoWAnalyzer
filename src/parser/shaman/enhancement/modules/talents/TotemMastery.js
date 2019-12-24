@@ -37,7 +37,7 @@ class TotemMastery extends Analyzer {
     return Math.min(
       this.selectedCombatant.getBuffUptime(BUFF_TOTEM_RESONANCE_SPELL_ID),
       this.selectedCombatant.getBuffUptime(BUFF_TOTEM_EMBER_SPELL_ID),
-      this.selectedCombatant.getBuffUptime(BUFF_TOTEM_TAILWIND_SPELL_ID)
+      this.selectedCombatant.getBuffUptime(BUFF_TOTEM_TAILWIND_SPELL_ID),
     ) / this.owner.fightDuration;
   }
 

@@ -3,5 +3,5 @@ import CombatLogParser from './CombatLogParser';
 
 describe('The Fire Mage Analyzer', integrationTest(
   CombatLogParser,
-  'fire-mage-example'
+  'fire-mage-example',
 ));

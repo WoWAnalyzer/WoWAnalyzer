@@ -4,15 +4,15 @@ import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
 
 /**
  * Bone Spike Graveyard
  * Casting DnD (or Defile) impales enemies for x damage and causes y healing
  * Healing and Damage have their own events, no other tracking necessary
  * Shared between Blood and Unholy
- * 
+ *
  * Example Report: https://www.warcraftlogs.com/reports/3H7pWyrJDnLB16jT/#fight=19&source=9
  */
 class BoneSpikeGraveyard extends Analyzer{
@@ -61,4 +61,4 @@ class BoneSpikeGraveyard extends Analyzer{
   }
 }
 
-export default BoneSpikeGraveyard; 
+export default BoneSpikeGraveyard;

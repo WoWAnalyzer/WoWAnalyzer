@@ -7,7 +7,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import calculateEffectiveDamage from 'parser/core/calculateEffectiveDamage';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';
 import UptimeIcon from 'interface/icons/Uptime';

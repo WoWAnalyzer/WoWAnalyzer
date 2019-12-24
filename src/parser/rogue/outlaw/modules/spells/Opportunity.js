@@ -20,7 +20,7 @@ class Opportunity extends Analyzer {
 
     this.opportunityDamageTracker.subscribeInefficientCast(
       [SPELLS.SINISTER_STRIKE],
-      (s) => `Pistol Shot should be used as your builder during Opportunity`
+      (s) => `Pistol Shot should be used as your builder during Opportunity`,
     );
   }
   
