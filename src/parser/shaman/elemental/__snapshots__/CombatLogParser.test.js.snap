@@ -3006,6 +3006,10 @@ exports[`Elemental Shaman integration test analyzers DribblingInkpod matches the
 
 exports[`Elemental Shaman integration test analyzers DribblingInkpod matches the suggestions snapshot 1`] = `"module inactive"`;
 
+exports[`Elemental Shaman integration test analyzers EarthShield matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`Elemental Shaman integration test analyzers EarthShield matches the suggestions snapshot 1`] = `"module inactive"`;
+
 exports[`Elemental Shaman integration test analyzers EarthenRage matches the statistic snapshot 1`] = `"module inactive"`;
 
 exports[`Elemental Shaman integration test analyzers EarthenRage matches the suggestions snapshot 1`] = `"module inactive"`;
