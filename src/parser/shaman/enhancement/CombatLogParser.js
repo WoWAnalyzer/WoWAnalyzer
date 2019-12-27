@@ -21,6 +21,7 @@ import Sundering from './modules/talents/Sundering';
 import TotemMastery from './modules/talents/TotemMastery';
 
 import SpiritWolf from '../shared/talents/SpiritWolf';
+import EarthShield from '../shared/talents/EarthShield';
 import StaticCharge from '../shared/talents/StaticCharge';
 import AnkhNormalizer from '../shared/normalizers/AnkhNormalizer';
 import AstralShift from '../shared/spells/AstralShift';
@@ -58,6 +59,7 @@ class CombatLogParser extends CoreCombatLogParser {
     sundering: Sundering,
     totemMastery: TotemMastery,
 
+    earthShield: EarthShield,
     spiritWolf: SpiritWolf,
     staticCharge: StaticCharge,
     ankhNormalizer: AnkhNormalizer,

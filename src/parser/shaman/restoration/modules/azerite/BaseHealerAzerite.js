@@ -1,5 +1,5 @@
 import { calculateAzeriteEffects } from 'common/stats';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage, formatNth } from 'common/format';
 import SpellLink from 'common/SpellLink';
 
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -87,7 +87,6 @@ class BaseHealerAzerite extends Analyzer {
 
   moreInformation = null;
   statistic() {
-    const nth = (number) => ["st", "nd", "rd"][((number + 90) % 100 - 10) % 10 - 1] || "th";
     const numTraits = this.azerite.length;
 
     if (!this.disableStatistic) {
@@ -123,7 +122,7 @@ class BaseHealerAzerite extends Analyzer {
                 {this.azerite.slice().reverse().map((trait, index) => {
                   return (
                     <tr key={index}>
-                      {numTraits > 1 && (<td>{index + 1}{nth(index + 1)}</td>)}
+                      {numTraits > 1 && (<td>{formatNth(index + 1)}</td>)}
                       <td>{trait.itemlevel}</td>
                       <td>{formatNumber(trait.healing)}</td>
                       <td>{formatPercentage(trait.overhealing / (trait.healing + trait.overhealing))}%</td>

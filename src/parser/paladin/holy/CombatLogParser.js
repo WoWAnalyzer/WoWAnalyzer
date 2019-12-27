@@ -14,6 +14,7 @@ import BeaconTargets from './modules/beacons/BeaconTargets';
 import MissingBeacons from './modules/beacons/MissingBeacons';
 import FailedBeaconTransfers from './modules/beacons/FailedBeaconTransfers';
 import DirectBeaconHealing from './modules/beacons/DirectBeaconHealing';
+import BeaconUptime from './modules/beacons/BeaconUptime';
 
 import PaladinAbilityTracker from './modules/core/PaladinAbilityTracker';
 import CastBehavior from './modules/CastBehavior';
@@ -74,6 +75,7 @@ class CombatLogParser extends CoreCombatLogParser {
     missingBeacons: MissingBeacons,
     failedBeaconTransfers: FailedBeaconTransfers,
     directBeaconHealing: DirectBeaconHealing,
+    beaconUptime: BeaconUptime,
     castBehavior: CastBehavior,
     overhealing: Overhealing,
     fillerLightOfTheMartyrs: FillerLightOfTheMartyrs,

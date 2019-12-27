@@ -14,7 +14,7 @@ import {
   AreaSeries,
   LineSeries,
   FlexibleWidthXYPlot as XYPlot,
-} from 'react-vis/es';
+} from 'react-vis';
 
 const COLORS = {
   MAELSTROM_FILL: 'rgba(0, 139, 215, 0.2)',

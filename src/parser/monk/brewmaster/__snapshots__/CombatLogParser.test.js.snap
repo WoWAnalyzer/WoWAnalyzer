@@ -241,6 +241,10 @@ exports[`The Brewmaster Analyzer analyzers AzerokksResonatingHeart matches the s
 
 exports[`The Brewmaster Analyzer analyzers AzerokksResonatingHeart matches the suggestions snapshot 1`] = `Array []`;
 
+exports[`The Brewmaster Analyzer analyzers AzsharasFontofPower matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Brewmaster Analyzer analyzers AzsharasFontofPower matches the suggestions snapshot 1`] = `"module inactive"`;
+
 exports[`The Brewmaster Analyzer analyzers BalefireBranch matches the statistic snapshot 1`] = `"module inactive"`;
 
 exports[`The Brewmaster Analyzer analyzers BalefireBranch matches the suggestions snapshot 1`] = `"module inactive"`;
@@ -2984,6 +2988,10 @@ exports[`The Brewmaster Analyzer analyzers CelestialFortune matches the suggesti
 exports[`The Brewmaster Analyzer analyzers Channeling matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`The Brewmaster Analyzer analyzers Channeling matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Brewmaster Analyzer analyzers ChannelingShared matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Brewmaster Analyzer analyzers ChannelingShared matches the suggestions snapshot 1`] = `Array []`;
 
 exports[`The Brewmaster Analyzer analyzers Checklist matches the statistic snapshot 1`] = `"module has no statistic method"`;
 

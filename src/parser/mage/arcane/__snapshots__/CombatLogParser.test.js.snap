@@ -258,6 +258,10 @@ exports[`The Arcane Mage Analyzer analyzers AzerokksResonatingHeart matches the 
 
 exports[`The Arcane Mage Analyzer analyzers AzerokksResonatingHeart matches the suggestions snapshot 1`] = `"module inactive"`;
 
+exports[`The Arcane Mage Analyzer analyzers AzsharasFontofPower matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`The Arcane Mage Analyzer analyzers AzsharasFontofPower matches the suggestions snapshot 1`] = `"module inactive"`;
+
 exports[`The Arcane Mage Analyzer analyzers BalefireBranch matches the statistic snapshot 1`] = `
 <div
   className="col-lg-3 col-md-4 col-sm-6 col-xs-12"
@@ -3407,6 +3411,10 @@ Array [
 exports[`The Arcane Mage Analyzer analyzers Channeling matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
 exports[`The Arcane Mage Analyzer analyzers Channeling matches the suggestions snapshot 1`] = `Array []`;
+
+exports[`The Arcane Mage Analyzer analyzers ChannelingShared matches the statistic snapshot 1`] = `"module has no statistic method"`;
+
+exports[`The Arcane Mage Analyzer analyzers ChannelingShared matches the suggestions snapshot 1`] = `Array []`;
 
 exports[`The Arcane Mage Analyzer analyzers Checklist matches the statistic snapshot 1`] = `"module has no statistic method"`;
 
