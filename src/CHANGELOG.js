@@ -48,7 +48,7 @@ import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 import Contributor from 'interface/ContributorButton';
 
-export default [  
+export default [
   change(date(2019, 12, 23), 'Fixed early DoT refresh extension check.', layday),
   change(date(2019, 12, 17), "Fixed integration testing code with new build support.", [emallson]),
   change(date(2019, 12, 16), <>Added <SpellLink id={SPELLS.BLOOD_OF_THE_ENEMY.id} />.</>, Khazak),
