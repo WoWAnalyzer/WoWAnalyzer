@@ -186,6 +186,10 @@ exports[`Elemental Shaman integration test analyzers BlightborneInfusion matches
 
 exports[`Elemental Shaman integration test analyzers BlightborneInfusion matches the suggestions snapshot 1`] = `"module inactive"`;
 
+exports[`Elemental Shaman integration test analyzers BloodOfTheEnemy matches the statistic snapshot 1`] = `"module inactive"`;
+
+exports[`Elemental Shaman integration test analyzers BloodOfTheEnemy matches the suggestions snapshot 1`] = `"module inactive"`;
+
 exports[`Elemental Shaman integration test analyzers BloodRite matches the statistic snapshot 1`] = `"module inactive"`;
 
 exports[`Elemental Shaman integration test analyzers BloodRite matches the suggestions snapshot 1`] = `"module inactive"`;
