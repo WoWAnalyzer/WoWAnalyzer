@@ -6742,7 +6742,7 @@ exports[`The Brewmaster Analyzer should match the checklist snapshot 1`] = `
                    
                   Heavy Stagger
                 </a>
-                 consistently, you should often aim to save your purifies for these parts of the fight.
+                 consistently, this remains a good rule of thumb.
               </li>
               <li>
                 If you are going to purify a hit, do so as soon as possible after it lands. Every half-second delayed after the hit causes you to take 5% of the hit's damage from 
@@ -6797,20 +6797,21 @@ exports[`The Brewmaster Analyzer should match the checklist snapshot 1`] = `
               <div
                 className="flex-main"
               >
-                Purifies with less than 
+                Inefficient 
                 <a
-                  href="http://wowhead.com/spell=124273"
+                  href="http://wowhead.com/spell=119582"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
                   <img
                     alt=""
                     className="icon game "
-                    src="//render-us.worldofwarcraft.com/icons/56/priest_icon_chakra_red.jpg"
+                    src="//render-us.worldofwarcraft.com/icons/56/inv_misc_beer_06.jpg"
                   />
                    
-                  Heavy Stagger
+                  Purifying Brew
                 </a>
+                 casts.
               </div>
               <div
                 className="flex-sub"
