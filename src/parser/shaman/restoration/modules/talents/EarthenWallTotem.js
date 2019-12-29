@@ -3,7 +3,7 @@ import React from 'react';
 import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
-import { formatNumber, formatPercentage, formatDuration } from 'common/format';
+import { formatNumber, formatPercentage, formatDuration, formatNth } from 'common/format';
 
 import Analyzer, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
@@ -128,7 +128,6 @@ class EarthenWallTotem extends Analyzer {
 
   statistic() {
     const casts = this.earthenWallTotems.filter((cast => cast.timestamp > 0)).length;
-    const nth = (number) => ["st", "nd", "rd"][((number + 90) % 100 - 10) % 10 - 1] || "th";
 
     return (
       <StatisticBox
@@ -160,7 +159,7 @@ class EarthenWallTotem extends Analyzer {
                 const castEfficiency = cast.effectiveHealing / cast.potentialHealing;
                 return (
                   <tr key={index}>
-                    <th scope="row">{index + 1}{nth(index + 1)}</th>
+                    <th scope="row">{formatNth(index + 1)}</th>
                     <td>{formatDuration((cast.timestamp - this.owner.fight.start_time) / 1000) || 0}</td>
                     <td style={castEfficiency < RECOMMENDED_EFFICIENCY ? { color: 'red', fontWeight: 'bold' } : { fontWeight: 'bold' }}>{formatPercentage(castEfficiency)} %</td>
                   </tr>

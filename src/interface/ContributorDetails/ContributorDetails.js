@@ -8,7 +8,7 @@ import SpecIcon from 'common/SpecIcon';
 import DropdownIcon from 'interface/icons/Dropdown';
 import Panel from 'interface/others/Panel';
 import Expandable from 'interface/common/Expandable';
-import AVAILABLE_CONFIGS from 'parser/AVAILABLE_CONFIGS';
+import AVAILABLE_CONFIGS from 'parser';
 
 class ContributorDetails extends React.PureComponent {
   static propTypes = {

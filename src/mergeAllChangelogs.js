@@ -1,5 +1,6 @@
+import AVAILABLE_CONFIGS from 'parser';
+
 import CORE_CHANGELOG from './CHANGELOG';
-import AVAILABLE_CONFIGS from './parser/AVAILABLE_CONFIGS';
 
 /**
  * @returns {Array<{ category: 'CORE' | object date: Date changes: React.ReactNode contributors: any[] }>}

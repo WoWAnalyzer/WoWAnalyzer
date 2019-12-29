@@ -185,4 +185,11 @@ export default {
     icon: 'inv_misc_punchcards_red',
     quality: ITEM_QUALITIES.PURPLE,
   },
+  // Eternal Palace
+  AZSHARAS_FONT_OF_POWER: {
+    id: 169314,
+    name: 'Azshara\'s Font of Power',
+    icon: 'inv_6_2raid_trinket_3c',
+    quality: ITEM_QUALITIES.PURPLE,
+  },
 };

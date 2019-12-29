@@ -3,7 +3,25 @@ import indexById from 'common/indexById';
 import ROLES from './ROLES';
 import PRIMARY_STATS from './PRIMARY_STATS';
 
-const SPECS = {
+export interface Spec {
+  id: number;
+  index: number;
+  className: string;
+  specName: string;
+  role: number;
+  primaryStat: string;
+  masterySpellId: number;
+  masteryCoefficient: number;
+  ranking: {
+    class: number;
+    spec: number;
+  };
+}
+
+const SPECS: {
+  [key: string]: Spec;
+  [id: number]: Spec;
+} = {
   ARCANE_MAGE: {
     id: 62,
     index: 0,
