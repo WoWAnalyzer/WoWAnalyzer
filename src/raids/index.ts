@@ -1,4 +1,4 @@
-type Raid = {
+interface Raid {
   bosses: Array<Boss>,
 }
 

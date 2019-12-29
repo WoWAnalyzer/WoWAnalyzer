@@ -16,7 +16,7 @@ class EchoOfTheElementals extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = !!this.selectedCombatant.hasTrait(SPELLS.ECHO_OF_THE_ELEMENTALS.id);
+    this.active = this.selectedCombatant.hasTrait(SPELLS.ECHO_OF_THE_ELEMENTALS.id);
 
     let summonSpell = SPELLS.EMBER_ELEMENTAL_SUMMON;
     let damageSpells = [SPELLS.EMBER_BLAST];

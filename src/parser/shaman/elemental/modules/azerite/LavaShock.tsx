@@ -26,7 +26,7 @@ class LavaShock extends Analyzer {
 
   constructor(options: any) {
     super(options);
-    this.active = Boolean(this.selectedCombatant.hasTrait(SPELLS.LAVA_SHOCK.id));
+    this.active = this.selectedCombatant.hasTrait(SPELLS.LAVA_SHOCK.id);
     if (!this.active) {
       return;
     }

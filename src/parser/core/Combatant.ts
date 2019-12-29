@@ -12,10 +12,6 @@ export interface CombatantInfo extends CombatantInfoEvent {
   name: string;
 }
 
-type Boss = {
-  id: number;
-  fight: any;
-};
 type Essence = {
   icon: string;
   isMajor: boolean;
@@ -68,7 +64,7 @@ class Combatant extends Entity {
     if (!this.owner.boss) {
       return race;
     }
-    const boss: Boss | null = findByBossId(this.owner.boss.id);
+    const boss = findByBossId(this.owner.boss.id);
     if (boss && boss.fight.raceTranslation) {
       race = boss.fight.raceTranslation(race, this.spec);
     }
@@ -79,7 +75,7 @@ class Combatant extends Entity {
   }
 
   _combatantInfo: CombatantInfo;
-  constructor(parser: Parser, combatantInfo: CombatantInfo) {
+  constructor(parser: Parser, combatantInfo: CombatantInfoEvent) {
     super(parser);
 
     const playerInfo = parser.players.find(
@@ -87,7 +83,7 @@ class Combatant extends Entity {
     );
     this._combatantInfo = {
       // In super rare cases `playerInfo` can be undefined, not taking this into account would cause the log to be unparsable
-      name: playerInfo && playerInfo.name,
+      name: (playerInfo && playerInfo.name) || 'undefined',
       ...combatantInfo,
     };
 
@@ -148,7 +144,7 @@ class Combatant extends Entity {
   traitsBySpellId: { [key: number]: Array<number> } = {};
   _parseTraits(traits: Array<Trait>) {
     traits.forEach(({ traitID, rank }) => {
-      const spellId: number = traitIdMap[traitID];
+      const spellId = traitIdMap[traitID];
       if (spellId === undefined) {
         return;
       }
