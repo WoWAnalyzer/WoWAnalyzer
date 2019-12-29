@@ -5,8 +5,8 @@ import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import traitIdMap from 'common/TraitIdMap';
 import SPELLS from 'common/SPELLS';
 import { findByBossId } from 'raids/index';
-import Entity from './Entity';
 import { CombatantInfoEvent, Trait, Item } from 'parser/core/Events';
+import Entity from './Entity';
 
 export interface CombatantInfo extends CombatantInfoEvent {
   name: string;

@@ -35,7 +35,7 @@ class LavaShock extends Analyzer {
   }
 
   on_byPlayer_damage(event: DamageEvent) {
-    if (event.ability.guid !==  SPELLS.EARTH_SHOCK.id) {
+    if (event.ability.guid !== SPELLS.EARTH_SHOCK.id) {
       return;
     }
     const buff:any = this.selectedCombatant.getBuff(SPELLS.LAVA_SHOCK_BUFF.id);
@@ -55,7 +55,7 @@ class LavaShock extends Analyzer {
         size="small"
         >
         <BoringSpellValue
-        spell={SPELLS.LAVA_SHOCK}
+          spell={SPELLS.LAVA_SHOCK}
           value={<Trans>{formatNumber(this.damageGained)} Damage</Trans>}
           label={<Trans>Damage done</Trans>}
       />
