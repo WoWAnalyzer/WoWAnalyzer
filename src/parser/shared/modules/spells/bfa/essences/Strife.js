@@ -13,7 +13,7 @@ import VersatilityIcon from 'interface/icons/Versatility';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import { formatNumber, formatDuration } from 'common/format';
+import { formatNumber, formatDuration, formatPercentage } from 'common/format';
 
 
 class Strife extends Analyzer {
@@ -38,11 +38,12 @@ class Strife extends Analyzer {
 
     this.vers = calculatePrimaryStat(455, 53, this.selectedCombatant.neck.itemLevel);
 
-
     this.statTracker.add(SPELLS.STRIFE_BUFF.id, {
-      versatility: this.versGain,
+      versatility: this.vers,
     });
-
+    
+    this.array[0] = 0;
+    this.lastApplication = this.owner.fight.start_time;
 
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.STRIFE_BUFF), this.oneStack);
     this.addEventListener(Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.STRIFE_BUFF), this.multiStack);
@@ -50,6 +51,7 @@ class Strife extends Analyzer {
   }
 
   oneStack(event){
+    this.updateUptime(event);
     this.currentStack = 1;
 
     if(!this.array[this.currentStack]){
@@ -108,6 +110,7 @@ class Strife extends Analyzer {
             <th>Stacks</th>
             <th>Vers</th>
             <th>Uptime</th>
+            <th>% Uptime</th>
           </tr>
             {
               this.array.map((stacks) =>(
@@ -117,6 +120,7 @@ class Strife extends Analyzer {
                   <td>{// eslint-disable-next-line no-restricted-syntax
                   this.array.indexOf(stacks) * this.vers}</td>
                   <td>{formatDuration(stacks/1000)}</td>
+                  <td>{formatPercentage(stacks/fightDuration)}%</td>
                 </tr>
                 
               ))
