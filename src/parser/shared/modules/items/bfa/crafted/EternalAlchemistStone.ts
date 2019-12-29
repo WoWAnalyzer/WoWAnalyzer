@@ -16,12 +16,12 @@ class EternalAlchemistStone extends Analyzer {
 
   constructor({ statTracker, ...options }: any) {
     super(options);
-    const item:any = this.selectedCombatant.getItem(ITEMS.ETERNAL_ALCHEMIST_STONE.id);
+    const item = this.selectedCombatant.getItem(ITEMS.ETERNAL_ALCHEMIST_STONE.id);
     this.active = Boolean(item);
     if (!this.active) {
       return;
     }
-    const buffStat = calculatePrimaryStat(455, 1648, item.itemLevel);
+    const buffStat = calculatePrimaryStat(455, 1648, item!.itemLevel);
     statTracker.add(SPELLS.ETERNAL_ALCHEMIST_STONE_STRENGTH_BUFF, {
       strength: buffStat,
     });
