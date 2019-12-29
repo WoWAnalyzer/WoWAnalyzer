@@ -195,7 +195,7 @@ class Tier45Comparison extends Analyzer {
       return suggest(
         <>
           With your current playstyle you are not using the most effective tier 45 talent. <SpellLink id={this.best.id} /> is better based off of how you played.
-        </>
+        </>,
       )
         .icon(this.best.icon)
         .actual(`${formatNumber(this.returnedFromSelected)} mana returned through ${this.best.name}`)

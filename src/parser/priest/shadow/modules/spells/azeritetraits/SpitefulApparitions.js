@@ -6,7 +6,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
 import calculateBonusAzeriteDamage from 'parser/core/calculateBonusAzeriteDamage';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 import Events from 'parser/core/Events';
 import { formatNumber } from 'common/format';
 import StatTracker from 'parser/shared/modules/StatTracker';

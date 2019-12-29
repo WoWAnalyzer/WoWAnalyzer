@@ -29,7 +29,7 @@ class FirstMatesSpyglass extends Analyzer {
   constructor(...args) {
     super(...args);
     this.active = this.selectedCombatant.hasTrinket(
-      ITEMS.FIRST_MATES_SPYGLASS.id
+      ITEMS.FIRST_MATES_SPYGLASS.id,
     );
     if (this.active) {
       this.abilities.add({

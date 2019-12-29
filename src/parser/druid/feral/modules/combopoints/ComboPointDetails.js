@@ -38,7 +38,7 @@ class ComboPointDetails extends Analyzer {
       return suggest(
         <>
           You are wasting combo points. Avoid using generators once you reach the maximum.
-        </>
+        </>,
       )
         .icon('creatureportrait_bubble')
         .actual(`${actual.toFixed(1)} combo points wasted per minute`)

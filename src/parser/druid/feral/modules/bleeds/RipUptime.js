@@ -37,7 +37,7 @@ class RipUptime extends Analyzer {
           {!this.selectedCombatant.hasTalent(SPELLS.SABERTOOTH_TALENT.id) ?
             <> Avoid spending combo points on <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> if <SpellLink id={SPELLS.RIP.id} /> will need refreshing soon.</> : <></>
           }
-        </>
+        </>,
       )
         .icon(SPELLS.RIP.icon)
         .actual(`${formatPercentage(actual)}% uptime`)

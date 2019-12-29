@@ -34,7 +34,7 @@ class SavageRoarUptime extends Analyzer {
       return suggest(
         <>
           Your <SpellLink id={SPELLS.SAVAGE_ROAR_TALENT.id} /> uptime can be improved. You should refresh the buff once it has reached its <TooltipElement content="The last 30% of the DoT's duration. When you refresh during this time you don't lose any duration in the process.">pandemic window</TooltipElement>, don't wait for it to wear off. You may also consider switching to <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_TALENT_FERAL.id} /> which is simpler to use and provides more damage in many situations.
-        </>
+        </>,
       )
         .icon(SPELLS.SAVAGE_ROAR_TALENT.icon)
         .actual(`${formatPercentage(actual)}% uptime`)

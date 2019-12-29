@@ -4,15 +4,15 @@ import Ability from './Ability';
 import AbilityTracker from '../../shared/modules/AbilityTracker';
 import Haste from '../../shared/modules/Haste';
 
-/**
- * @property {AbilityTracker} abilityTracker
- * @property {Haste} haste
- */
 class Abilities extends Module {
   static dependencies = {
     abilityTracker: AbilityTracker,
     haste: Haste,
   };
+  /** @property {AbilityTracker} */
+  abilityTracker;
+  /** @property {Haste} */
+  haste;
   static SPELL_CATEGORIES = {
     ROTATIONAL: 'Rotational Spell',
     ROTATIONAL_AOE: 'Spell (AOE)',
@@ -73,7 +73,7 @@ class Abilities extends Module {
       }
     });
 
-    if(ability && ability.spell instanceof Array && ability.primaryOverride === null) {
+    if(ability && ability.spell instanceof Array && ability.primaryOverride === undefined) {
       ability.primaryOverride = ability.spell.findIndex((spell) => { return spell.id === spellId; });
     }
 

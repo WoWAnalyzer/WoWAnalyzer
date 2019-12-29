@@ -114,17 +114,8 @@
             border-radius: 50%;
           }
 
-          &:hover {
-            color: $primaryColor;
+          &:hover img, &.active img {
             border: 2px solid $primaryColor;
-            cursor: pointer;
-            border-radius: 50%;
-          }
-
-          &.active {
-            color: $primaryColor;
-            border: 2px solid $primaryColor;
-            border-radius: 50%;
           }
         }
       }

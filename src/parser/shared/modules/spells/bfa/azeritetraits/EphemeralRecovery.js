@@ -2,7 +2,7 @@ import React from 'react';
 import Analyzer from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/index';
 import TraitStatisticBox, { STATISTIC_ORDER } from 'interface/others/TraitStatisticBox';
-import ItemManaGained from 'interface/others/ItemManaGained';
+import ItemManaGained from 'interface/ItemManaGained';
 
 /**
  Casting a healing spell restores 12 mana over 8 sec. Stacks up to 2 times.

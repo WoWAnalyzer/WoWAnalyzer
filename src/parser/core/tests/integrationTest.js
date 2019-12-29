@@ -6,16 +6,17 @@ import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { i18n } from 'interface/RootLocalizationProvider';
 
 import { loadLog, parseLog } from './log-tools';
-import { statistic, expectSnapshot } from './snapshotTest';
+import { expectSnapshot, statistic } from './snapshotTest';
 
 function integrationStatistic(analyzer, parser) {
   if (!analyzer.active) {
     return 'module inactive';
   }
-  if (!analyzer.statistic || analyzer.statistic() === undefined) {
+  const output = analyzer.statistic ? analyzer.statistic() : undefined;
+  if (output === undefined) {
     return 'module has no statistic method';
   }
-  return statistic(analyzer, parser);
+  return statistic(output, parser);
 }
 
 function integrationSuggestions(analyzer) {
@@ -59,15 +60,16 @@ function checklist(parser) {
  *
  * @param {object} parserClass - (uninstantiated) CombatLogParser subclass to test.
  * @param {string} filename - which log from `test-logs` to load
+ * @param {string} build - which build to use when parsing the log. undefined means "no build"
  * @param {boolean} suppressWarn - Suppress `console.warn`
  * @param {boolean} suppressLog - Suppress `console.log`
  */
-export default function integrationTest(parserClass, filename, suppressLog = true, suppressWarn = true) {
+export default function integrationTest(parserClass, filename, build = undefined, suppressLog = true, suppressWarn = true) {
   return () => {
     let parser;
     beforeAll(async () => {
       const log = await loadLog(filename);
-      parser = parseLog(parserClass, log, suppressLog, suppressWarn);
+      parser = parseLog(parserClass, log, build, suppressLog, suppressWarn);
       window.fetch = jest.fn(url => {
         throw new Error(`Attempt to fetch "${url}". These tests shouldn't do AJAX calls.`);
       });
@@ -78,7 +80,11 @@ export default function integrationTest(parserClass, filename, suppressLog = tru
     });
 
     describe('analyzers', () => {
-      Object.values(parserClass.specModules).forEach(moduleClass => {
+      Object.values({
+        ...parserClass.internalModules,
+        ...parserClass.defaultModules,
+        ...parserClass.specModules,
+      }).forEach(moduleClass => {
         if (moduleClass instanceof Array) {
           // cannot call parser._getModuleClass at this point in
           // execution, so we handle the case manually

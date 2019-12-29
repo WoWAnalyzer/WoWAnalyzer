@@ -4,7 +4,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import React from 'react';
 import SpellLink from 'common/SpellLink';
 import STATISTIC_ORDER from 'interface/others/STATISTIC_ORDER';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
 import AverageTargetsHit from 'interface/others/AverageTargetsHit';
 import Statistic from 'interface/statistics/Statistic';
 import BoringSpellValueText from 'interface/statistics/components/BoringSpellValueText';

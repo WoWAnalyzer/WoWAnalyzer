@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Danger from 'interface/common/Alert/Danger';
+import Danger from 'interface/Alert/Danger';
 import MODULE_ERROR from 'parser/core/MODULE_ERROR';
 
 const toTitleCase = s => s.substr(0, 1).toUpperCase() + s.substr(1);

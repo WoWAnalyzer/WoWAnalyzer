@@ -14,6 +14,7 @@ import BeaconTargets from './modules/beacons/BeaconTargets';
 import MissingBeacons from './modules/beacons/MissingBeacons';
 import FailedBeaconTransfers from './modules/beacons/FailedBeaconTransfers';
 import DirectBeaconHealing from './modules/beacons/DirectBeaconHealing';
+import BeaconUptime from './modules/beacons/BeaconUptime';
 
 import PaladinAbilityTracker from './modules/core/PaladinAbilityTracker';
 import CastBehavior from './modules/CastBehavior';
@@ -43,6 +44,7 @@ import HolyAvenger from './modules/talents/HolyAvenger';
 import DivinePurpose from './modules/talents/DivinePurpose';
 import CrusadersMight from './modules/talents/CrusadersMight';
 import AvengingCrusader from './modules/talents/AvengingCrusader';
+import JudgmentOfLight from './modules/talents/JudgmentOfLight';
 
 // azerite traits //
 import GraceOfTheJusticar from './modules/azeritetraits/GraceOfTheJusticar';
@@ -73,6 +75,7 @@ class CombatLogParser extends CoreCombatLogParser {
     missingBeacons: MissingBeacons,
     failedBeaconTransfers: FailedBeaconTransfers,
     directBeaconHealing: DirectBeaconHealing,
+    beaconUptime: BeaconUptime,
     castBehavior: CastBehavior,
     overhealing: Overhealing,
     fillerLightOfTheMartyrs: FillerLightOfTheMartyrs,
@@ -107,6 +110,7 @@ class CombatLogParser extends CoreCombatLogParser {
     divinePurpose: DivinePurpose,
     crusadersMight: CrusadersMight,
     avengingCrusader: AvengingCrusader,
+    judgmentOfLight: JudgmentOfLight,
 
     // Azureite Traits //
     graceOfTheJusticar: GraceOfTheJusticar,

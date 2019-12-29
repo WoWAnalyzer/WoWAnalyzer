@@ -4,24 +4,76 @@ import SpellIcon from 'common/SpellIcon';
 import SpellLink from 'common/SpellLink';
 import SPELLS from 'common/SPELLS';
 import { TooltipElement } from 'common/Tooltip';
+import SPECS from 'game/SPECS';
+import SpecIcon from 'common/SpecIcon';
+import { formatNth, formatDuration } from 'common/format';
 
-import Analyzer from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-
+import Combatants from 'parser/shared/modules/Combatants';
 import StatisticBox, { STATISTIC_ORDER } from 'interface/others/StatisticBox';
 
 const CHAIN_HEAL_TARGET_EFFICIENCY = 0.97;
+const HEAL_WINDOW_MS = 250;
 
 class ChainHeal extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
+    combatants: Combatants,
   };
+
+  buffer = [];
+  chainHealHistory = [];
+  castIndex = 0;
+  chainHealTimestamp = 0;
 
   constructor(...args) {
     super(...args);
     this.maxTargets = 4;
     this.suggestedTargets = this.maxTargets * CHAIN_HEAL_TARGET_EFFICIENCY;
+
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HEAL), this.chainHeal);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CHAIN_HEAL), this.chainHeal);
+  }
+
+  chainHeal(event) {
+    if (!this.chainHealTimestamp || event.timestamp - this.chainHealTimestamp > HEAL_WINDOW_MS) {
+      this.processBuffer();
+      this.chainHealTimestamp = event.timestamp;
+    }
+
+    this.buffer.push({
+      ...event,
+    });
+  }
+
+  processBuffer() {
+    if (this.buffer.length === 0) {
+      return;
+    }
+    this.castIndex++;
+    this.chainHealHistory[this.castIndex] = {};
+    const currentCast = this.buffer.find(event => event.type === "cast");
+    if (!currentCast) {
+      return;
+    }
+    const combatant = this.combatants.getEntity(currentCast);
+    if (!combatant) {
+      return;
+    }
+    this.chainHealHistory[this.castIndex].target = {
+      id: currentCast.targetID,
+      name: combatant.name,
+      spec: SPECS[combatant.specId],
+      specClassName: SPECS[combatant.specId].className.replace(' ', ''),
+    };
+
+    this.chainHealHistory[this.castIndex].timestamp = currentCast.timestamp;
+    this.chainHealHistory[this.castIndex].castNo = this.castIndex;
+    this.chainHealHistory[this.castIndex].hits = this.buffer.filter(event => event.type === "heal").length;
+    this.buffer = [];
   }
 
   suggestions(when) {
@@ -63,9 +115,11 @@ class ChainHeal extends Analyzer {
   }
 
   statistic() {
-    if(this.casts === 0) {
+    if (this.casts === 0) {
       return false;
     }
+
+    const singleHits = this.chainHealHistory.filter(cast => cast.hits === 1);
 
     return (
       <StatisticBox
@@ -77,7 +131,37 @@ class ChainHeal extends Analyzer {
             Average Chain Heal targets
           </TooltipElement>
         )}
-      />
+      >
+        {singleHits.length > 0 && (
+          <>
+            <div>
+              Below are the casts that only hit the initial target. A large list indicates that target selection is an area for improvement.
+            </div>
+            <table className="table table-condensed" style={{ fontWeight: 'bold' }}>
+              <thead>
+                <tr>
+                  <th>Cast</th>
+                  <th>Time</th>
+                  <th>Target</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  this.chainHealHistory
+                    .filter(cast => cast.hits === 1)
+                    .map(cast => (
+                      <tr key={cast.timestamp}>
+                        <th scope="row">{formatNth(cast.castNo)}</th>
+                        <td>{formatDuration((cast.timestamp - this.owner.fight.start_time) / 1000, 0)}</td>
+                        <td className={cast.target.specClassName}> <SpecIcon id={cast.target.spec.id} />{' '}{cast.target.name}</td>
+                      </tr>
+                    ))
+                }
+              </tbody>
+            </table>
+          </>
+        )}
+      </StatisticBox>
     );
   }
 }

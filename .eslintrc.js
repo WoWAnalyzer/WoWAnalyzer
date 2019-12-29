@@ -119,17 +119,6 @@ module.exports = {
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-curly-brace-presence.md
     // props can't be "never" because multiline template literals would be broken
     'react/jsx-curly-brace-presence': ['warn', { props: 'ignore', children: 'never' }],
-    // Prevent missing parentheses around multilines JSX
-    // https://github.com/yannickcr/eslint-plugin-react/blob/843d71a432baf0f01f598d7cf1eea75ad6896e4b/docs/rules/jsx-wrap-multilines.md
-    'react/jsx-wrap-multilines': ['warn', {
-      declaration: 'parens-new-line',
-      assignment: 'parens-new-line',
-      return: 'parens-new-line',
-      arrow: 'parens-new-line',
-      condition: 'parens-new-line',
-      logical: 'parens-new-line',
-      prop: 'parens-new-line',
-    }],
     // Prevent extra closing tags for components without children
     // https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/self-closing-comp.md
     'react/self-closing-comp': 'warn',

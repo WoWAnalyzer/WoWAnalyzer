@@ -122,7 +122,7 @@ class SpiritOfTheCrane extends Analyzer {
       return suggest(
         <>
           You are not utilizing your <SpellLink id={SPELLS.SPIRIT_OF_THE_CRANE_TALENT.id} /> talent as effectively as you could. Make sure you are using any available downtime to use <SpellLink id={SPELLS.TIGER_PALM.id} /> and <SpellLink id={SPELLS.BLACKOUT_KICK.id} /> to take advantage of this talent.
-        </>
+        </>,
       )
         .icon(SPELLS.SPIRIT_OF_THE_CRANE_TALENT.icon)
         .actual(`${formatNumber(this.manaReturn)} mana returned through Spirit of the Crane`)

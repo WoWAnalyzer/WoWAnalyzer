@@ -10,8 +10,8 @@ import StatisticGroup from 'interface/statistics/StatisticGroup';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
-import ItemDamageDone from 'interface/others/ItemDamageDone';
-import ItemHealingDone from 'interface/others/ItemHealingDone';
+import ItemDamageDone from 'interface/ItemDamageDone';
+import ItemHealingDone from 'interface/ItemHealingDone';
 
 //https://www.warcraftlogs.com/reports/JqZNnckx9PpFwKj7#fight=2&type=damage-done&source=9  Deathsbladé  All other tests
 //https://www.warcraftlogs.com/reports/JqZNnckx9PpFwKj7#fight=2&type=damage-done&source=7  Kittiepryde Major Heal test

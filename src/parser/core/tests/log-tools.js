@@ -50,7 +50,7 @@ export function suppressLogging(log, warn, error, cb) {
   return res;
 }
 
-export function parseLog(parserClass, log, build = undefined) {
+export function parseLog(parserClass, log, build = undefined, suppressLog = true, suppressWarn = true) {
   const friendlies = log.report.friendlies.find(({id}) => id === log.meta.player.id);
   const fight = {...log.report.fights.find(({id}) => id === log.meta.fight.id), offset_time: 0};
   const builds = ConfigLoader.getConfig(log.meta.player.specID).builds;
@@ -65,9 +65,9 @@ export function parseLog(parserClass, log, build = undefined) {
     log.combatants,
     null,
     build,
-    builds
+    builds,
   );
-  return suppressLogging(true, true, false, () => {
+  return suppressLogging(suppressLog, suppressWarn, false, () => {
     parser.normalize(JSON.parse(JSON.stringify(log.events))).forEach(event => parser.getModule(EventEmitter).triggerEvent(event));
     parser.finish();
     return parser;

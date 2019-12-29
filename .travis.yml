@@ -35,6 +35,14 @@ jobs:
       script:
         - yarn test --maxWorkers=2
     - stage: build
+      name: "validate types"
+      cache:
+        yarn: true
+      install:
+        - yarn install --production=false
+      script:
+        - yarn test:types
+    - stage: build
       name: "Build a production-ready Docker image"
       language: generic
       services: docker
