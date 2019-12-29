@@ -16,7 +16,7 @@ class EternalAlchemistStone extends Analyzer {
 
   constructor({ statTracker, ...options }: any) {
     super(options);
-    const item = this.selectedCombatant.getItem(ITEMS.ETERNAL_ALCHEMIST_STONE.id);
+    const item:any = this.selectedCombatant.getItem(ITEMS.ETERNAL_ALCHEMIST_STONE.id);
     this.active = Boolean(item);
     if (!this.active) {
       return;
