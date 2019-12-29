@@ -1,3 +1,13 @@
+interface Raid {
+  bosses: Array<Boss>,
+}
+
+type Boss = {
+  id: number,
+  fight: any,
+
+}
+
 const raids = {
   // Battle for Azeroth
   Dungeons: require('./dungeons').default,
@@ -8,9 +18,9 @@ const raids = {
 };
 export default raids;
 
-export function findByBossId(id) {
+export function findByBossId(id:number) : Boss|null {
   let boss = null;
-  Object.values(raids).some(raid => {
+  Object.values(raids).some((raid: Raid) => {
     boss = Object.values(raid.bosses).find(boss => boss.id === id);
     return !!boss; // this breaks the loop early once we find a boss
   });
