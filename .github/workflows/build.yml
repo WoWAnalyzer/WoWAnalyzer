@@ -4,6 +4,7 @@ on: [push]
 
 env:
   CI: true
+  NODE_ENV: production
 
 jobs:
   prepare:
@@ -28,6 +29,17 @@ jobs:
         with:
           name: dependencies
           path: dependencies.tar.gz
+  require-changelog-entry:
+    name: 'Check if a changelog entry exists'
+    runs-on: ubuntu-latest
+    env:
+      YARN_CACHE_FOLDER: .yarn-cache
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - run: node scripts/require-changelog-entry.js
 
   # TODO: Update this when possible to include the node_modules folder. GH is updating artifact action soon to make this
   #  easier (https://github.com/actions/upload-artifact/issues/7#issuecomment-566114993), and cache action multiple path
@@ -72,6 +84,7 @@ jobs:
     needs: [build]
     name: 'Build docker image'
     runs-on: ubuntu-latest
+    if:
     steps:
       - uses: actions/checkout@v1
       - uses: actions/download-artifact@v1
