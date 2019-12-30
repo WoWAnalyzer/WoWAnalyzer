@@ -73,7 +73,6 @@ class Strife extends Analyzer {
 
   lostStacks(event){
     this.updateUptime(event);
-
     this.currentStack = 0;
   }
 
