@@ -23,7 +23,7 @@ jobs:
           key: ${{ runner.OS }}-yarn-cache-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.OS }}-yarn-cache-
-      - run: yarn --frozen-lockfile
+      - run: yarn --frozen-lockfile --production=false
       - run: tar -czf dependencies.tar.gz node_modules
       - uses: actions/upload-artifact@v1
         with:
