@@ -90,7 +90,7 @@ class PurifyingBrew extends Analyzer {
     return this.purifyAmounts.reduce((prev, cur) => prev + cur, 0);
   }
 
-  get badPurifies() {
+  get belowHeavyPurifies() {
     return this.totalPurifies - this.heavyPurifies;
   }
 
@@ -166,12 +166,15 @@ class PurifyingBrew extends Analyzer {
   }
 
   get purifyHeavySuggestion() {
+    const heavyUptime = this.selectedCombatant.getBuffUptime(SPELLS.HEAVY_STAGGER_DEBUFF.id) / this.owner.fightDuration;
+    const threshold = Math.max(1 - 2 * heavyUptime, 0) + 0.1;
+    console.log(`Purify threshold: ${threshold}`);
     return {
-      actual: this.badPurifies / this.totalPurifies,
+      actual: this.belowHeavyPurifies / this.totalPurifies,
       isGreaterThan: {
-        minor: 0.1,
-        average: 0.15,
-        major: 0.2,
+        minor: threshold,
+        average: 1.5 * threshold,
+        major: 2 * threshold,
       },
       style: 'percentage',
     };
@@ -200,7 +203,7 @@ class PurifyingBrew extends Analyzer {
     });
 
     when(this.purifyHeavySuggestion).addSuggestion((suggest, actual, recommended) => {
-      return suggest(<>You should <em>almost never</em> cast <SpellLink id={SPELLS.PURIFYING_BREW.id} /> without being in at least <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} />. Notable exceptions are when you otherwise can't be healed (such as on Zek'voz).</>)
+      return suggest(<>You should avoid casting <SpellLink id={SPELLS.PURIFYING_BREW.id} /> without being in at least <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} />. While not every fight will put you into <SpellLink id={SPELLS.HEAVY_STAGGER_DEBUFF.id} /> consistently, you should often aim to save your purifies for these parts of the fight.</>)
         .icon(SPELLS.PURIFYING_BREW.icon)
         .actual(`${formatPercentage(actual)}% of your purifies were less than Heavy Stagger`)
         .recommended(`< ${formatPercentage(recommended)}% is recommended`);
@@ -224,7 +227,7 @@ class PurifyingBrew extends Analyzer {
           <>
             Purifying Brew removed <strong>{formatNumber(this.totalPurified)}</strong> damage in total over {this.totalPurifies} casts.<br />
             The smallest purify removed <strong>{formatNumber(this.minPurify)}</strong> and the largest purify removed <strong>{formatNumber(this.maxPurify)}</strong>.<br />
-            You purified <strong>{this.badPurifies}</strong> ({formatPercentage(this.badPurifies / this.totalPurifies)}%) times without reaching Heavy Stagger.<br />
+            You purified <strong>{this.belowHeavyPurifies}</strong> ({formatPercentage(this.belowHeavyPurifies / this.totalPurifies)}%) times without reaching Heavy Stagger.<br />
             Your purifies were delayed from the nearest peak by <strong>{(this.avgPurifyDelay / 1000).toFixed(2)}s</strong> on average.
           </>
         )}
