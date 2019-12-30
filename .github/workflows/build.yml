@@ -107,11 +107,13 @@ jobs:
           name: dependencies
           path: .
       - run: tar -xzf dependencies.tar.gz
-      # CI=false is needed to ignore the mini-css-extract-plugin warnings which can not be fixed with a good solution
-      - run: |
+      - name: Production build
+        run: |
+          # Needed to ignore the mini-css-extract-plugin warnings which can not be fixed with a good solution
           CI=false
           REACT_APP_ENVIRONMENT_NAME=${GITHUB_REF##*/}
           REACT_APP_VERSION=$GITHUB_SHA
+          # We already ran ESLint in a separate step
           DISABLE_AUTOMATIC_ESLINT=true
           yarn build
       - run: tar -czf build.tar.gz build
