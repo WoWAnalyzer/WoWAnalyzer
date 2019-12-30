@@ -45,7 +45,7 @@ jobs:
   #  easier (https://github.com/actions/upload-artifact/issues/7#issuecomment-566114993), and cache action multiple path
   #  support is popular (https://github.com/actions/cache/issues/16)
 
-  validate-types:
+  typecheck:
     needs: [prepare]
     name: 'Typecheck'
     runs-on: ubuntu-latest
@@ -60,10 +60,30 @@ jobs:
           path: .
       - run: tar -xzf dependencies.tar.gz
       - run: yarn test:types
+  linting:
+    needs: [prepare]
+    name: 'ESLint'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - uses: actions/download-artifact@v1
+        with:
+          name: dependencies
+          path: .
+      - run: tar -xzf dependencies.tar.gz
+      - run: yarn test --maxWorkers=2
+
   build:
-    needs: [validate-types]
+    needs: [typecheck]
     name: 'Build'
     runs-on: ubuntu-latest
+    env:
+      REACT_APP_ENVIRONMENT_NAME: ${GITHUB_REF##*/}
+      REACT_APP_VERSION: $(git rev-parse --short "$GITHUB_SHA")
+      DISABLE_AUTOMATIC_ESLINT: true
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
@@ -84,7 +104,6 @@ jobs:
     needs: [build]
     name: 'Build docker image'
     runs-on: ubuntu-latest
-    if:
     steps:
       - uses: actions/checkout@v1
       - uses: actions/download-artifact@v1
