@@ -110,7 +110,8 @@ jobs:
           name: dependencies
           path: .
       - run: tar -xzf dependencies.tar.gz
-      - run: yarn build
+      # CI=false is needed to ignore the mini-css-extract-plugin warnings which can not be fixed with a good solution
+      - run: CI=false yarn build
       - run: tar -czf build.tar.gz build
       - uses: actions/upload-artifact@v1
         with:
