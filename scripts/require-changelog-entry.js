@@ -2,7 +2,7 @@ const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 
 function getTargetBranch() {
-  return process.env.TRAVIS_BRANCH;
+  return process.env.GITHUB_BASE_REF;
 }
 async function getChangedFiles(targetBranch) {
   // eslint-disable-next-line no-unused-vars

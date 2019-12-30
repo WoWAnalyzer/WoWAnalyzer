@@ -40,9 +40,6 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
-      - run: echo $GITHUB_REF
-      - run: echo $GITHUB_HEAD_REF
-      - run: echo $GITHUB_BASE_REF
       - run: node scripts/require-changelog-entry.js
 
   # TODO: Update this when possible to include the node_modules folder. GH is updating artifact action soon to make this
