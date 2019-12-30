@@ -13,7 +13,7 @@ jobs:
     env:
       YARN_CACHE_FOLDER: .yarn-cache
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
@@ -35,7 +35,7 @@ jobs:
     env:
       YARN_CACHE_FOLDER: .yarn-cache
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
@@ -50,7 +50,7 @@ jobs:
     name: 'Typecheck'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
@@ -65,7 +65,7 @@ jobs:
     name: 'ESLint'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
@@ -81,7 +81,7 @@ jobs:
     name: 'Tests'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
@@ -101,7 +101,7 @@ jobs:
       REACT_APP_VERSION: $(git rev-parse --short "$GITHUB_SHA")
       DISABLE_AUTOMATIC_ESLINT: true
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
@@ -121,7 +121,7 @@ jobs:
     name: 'Build docker image'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: actions/download-artifact@v1
         with:
           name: build
