@@ -23,6 +23,7 @@ import BeaconHealSource from '../beacons/BeaconHealSource.js';
  */
 
 const BUFF_DURATION = 30;
+const GLIMMER_CAP = 8;
 
 class GlimmerOfLight extends Analyzer {
   static dependencies = {
@@ -58,15 +59,34 @@ class GlimmerOfLight extends Analyzer {
     this.healingTransfered += event.amount + (event.absorbed || 0);
   }
 
+  updateActiveGlimmers(event){
+    for (i = this.glimmerBuffs.length; i > 0; i--) {
+      if (this.glimmerBuffs[i - 1].timestamp - event.timestamp > BUFF_DURATION * 1000){
+        this.glimmerBuffs.pop();
+      }
+    }
+  }
+
   onCast(event) {
     this.casts += 1;
-    const sinceLastBuff = event.timestamp - (this.glimmerBuffs[event.targetID] || 0);
-    if (sinceLastBuff < BUFF_DURATION * 1000){
-      this.wasted += BUFF_DURATION * 1000 - sinceLastBuff;
+    this.updateActiveGlimmers(event);
+    
+    let lastCast = this.glimmerBuffs.find(g => g.targetID === event.targetID);
+
+    if(lastCast){
+      // if active glimmer was overwritten //
+      this.wasted += BUFF_DURATION * 1000 - (event.timestamp - lastCast.timestamp);
       this.earlyRefresh += 1;
+      this.glimmerBuffs.remove(lastCast);
+    }
+    else if (this.glimmerBuffs.length >= GLIMMER_CAP) {
+      // if glimmer count is over the limit //
+      let lastGlimmer = this.glimmerBuffs.pop();
+      this.wasted += BUFF_DURATION * 1000 - (event.timestamp - lastGlimmer);
     }
 
-    this.glimmerBuffs[event.targetID] = event.timestamp;
+    let glimmer = {targetID: event.targetID, timestamp: event.timestamp};
+    this.glimmerBuffs.unshift(glimmer);
   }
 
   onDamage(event){
