@@ -96,10 +96,6 @@ jobs:
     needs: [typecheck]
     name: 'Build'
     runs-on: ubuntu-latest
-    env:
-      REACT_APP_ENVIRONMENT_NAME: ${GITHUB_REF##*/}
-      REACT_APP_VERSION: $GITHUB_SHA
-      DISABLE_AUTOMATIC_ESLINT: true
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -111,7 +107,12 @@ jobs:
           path: .
       - run: tar -xzf dependencies.tar.gz
       # CI=false is needed to ignore the mini-css-extract-plugin warnings which can not be fixed with a good solution
-      - run: CI=false yarn build
+      - run: |
+          CI=false
+          REACT_APP_ENVIRONMENT_NAME=${GITHUB_REF##*/}
+          REACT_APP_VERSION=$GITHUB_SHA
+          DISABLE_AUTOMATIC_ESLINT=true
+          yarn build
       - run: tar -czf build.tar.gz build
       - uses: actions/upload-artifact@v1
         with:
@@ -136,3 +137,4 @@ jobs:
           name: wowanalyzer/wowanalyzer
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+# TODO: Sentry releases https://blog.sentry.io/2019/12/17/using-github-actions-to-create-sentry-releases
