@@ -32,6 +32,7 @@ jobs:
   require-changelog-entry:
     name: 'Check for a changelog entry'
     runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
     env:
       YARN_CACHE_FOLDER: .yarn-cache
     steps:
@@ -122,6 +123,7 @@ jobs:
     needs: [build]
     name: 'Publish Docker image'
     runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request'
     steps:
       - uses: actions/checkout@v2
       - uses: actions/download-artifact@v1
