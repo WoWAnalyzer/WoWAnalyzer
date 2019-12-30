@@ -98,7 +98,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       REACT_APP_ENVIRONMENT_NAME: ${GITHUB_REF##*/}
-      REACT_APP_VERSION: $(git rev-parse --short "$GITHUB_SHA")
+      REACT_APP_VERSION: $GITHUB_SHA
       DISABLE_AUTOMATIC_ESLINT: true
     steps:
       - uses: actions/checkout@v2
