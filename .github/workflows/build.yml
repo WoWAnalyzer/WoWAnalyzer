@@ -1,0 +1,89 @@
+name: CI
+
+on: [push]
+
+env:
+  CI: true
+
+jobs:
+  prepare:
+    name: 'Prepare'
+    runs-on: ubuntu-latest
+    env:
+      YARN_CACHE_FOLDER: .yarn-cache
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - uses: actions/cache@v1
+        with:
+          path: .yarn-cache
+          key: ${{ runner.OS }}-yarn-cache-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.OS }}-yarn-cache-
+      - run: yarn --frozen-lockfile
+      - run: tar -czf dependencies.tar.gz node_modules
+      - uses: actions/upload-artifact@v1
+        with:
+          name: dependencies
+          path: dependencies.tar.gz
+
+  # TODO: Update this when possible to include the node_modules folder. GH is updating artifact action soon to make this
+  #  easier (https://github.com/actions/upload-artifact/issues/7#issuecomment-566114993), and cache action multiple path
+  #  support is popular (https://github.com/actions/cache/issues/16)
+
+  validate-types:
+    needs: [prepare]
+    name: 'Typecheck'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - uses: actions/download-artifact@v1
+        with:
+          name: dependencies
+          path: .
+      - run: tar -xzf dependencies.tar.gz
+      - run: yarn test:types
+  build:
+    needs: [validate-types]
+    name: 'Build'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - uses: actions/download-artifact@v1
+        with:
+          name: dependencies
+          path: .
+      - run: tar -xzf dependencies.tar.gz
+      - run: yarn build
+      - run: tar -czf build.tar.gz build
+      - uses: actions/upload-artifact@v1
+        with:
+          name: build
+          path: build.tar.gz
+  docker-image:
+    needs: [build]
+    name: 'Build docker image'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/download-artifact@v1
+        with:
+          name: build
+          path: .
+      - run: tar -xzf build.tar.gz
+      # Remove files we no longer need to speed up sending context to Docker
+      - run: rm build.tar.gz
+      - name: Publish to Registry
+        uses: elgohr/Publish-Docker-Github-Action@2.11
+        with:
+          name: wowanalyzer/wowanalyzer
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
