@@ -8,7 +8,7 @@ env:
 
 jobs:
   prepare:
-    name: 'Prepare'
+    name: 'Install dependencies'
     runs-on: ubuntu-latest
     env:
       YARN_CACHE_FOLDER: .yarn-cache
@@ -30,7 +30,7 @@ jobs:
           name: dependencies
           path: dependencies.tar.gz
   require-changelog-entry:
-    name: 'Check if a changelog entry exists'
+    name: 'Check for a changelog entry'
     runs-on: ubuntu-latest
     env:
       YARN_CACHE_FOLDER: .yarn-cache
@@ -119,7 +119,7 @@ jobs:
           path: build.tar.gz
   docker-image:
     needs: [build]
-    name: 'Build docker image'
+    name: 'Publish Docker image'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
