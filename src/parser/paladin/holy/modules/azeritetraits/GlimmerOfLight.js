@@ -1,4 +1,5 @@
 import React from 'react';
+import { Trans} from '@lingui/macro';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellLink from 'common/SpellLink';
 
@@ -23,21 +24,23 @@ import BeaconHealSource from '../beacons/BeaconHealSource.js';
  */
 
 const BUFF_DURATION = 30;
-const GLIMMER_CAP = 8;
+const GLIMMER_CAP = 8;// this will be set to 8 with next patch //
 
 class GlimmerOfLight extends Analyzer {
   static dependencies = {
     beaconHealSource: BeaconHealSource,
   };
 
-  glimmerBuffs = {};
+  casts = 0;
+  damage = 0;
+  earlyRefresh = 0;
+  glimmerBuffs = [];
   glimmerHits = 0;
   healing = 0;
-  wasted = 0;
   healingTransfered = 0;
-  casts = 0;
-  earlyRefresh = 0;
-  damage = 0;
+  overCap = 0;
+  wastedEarlyRefresh = 0;
+  wastedOverCap = 0;
 
   constructor(...args) {
     super(...args);
@@ -60,9 +63,9 @@ class GlimmerOfLight extends Analyzer {
   }
 
   updateActiveGlimmers(event){
-    for (i = this.glimmerBuffs.length; i > 0; i--) {
+    for (let i = this.glimmerBuffs.length; i > 0; i--) {
       if (this.glimmerBuffs[i - 1].timestamp - event.timestamp > BUFF_DURATION * 1000){
-        this.glimmerBuffs.pop();
+        this.glimmerBuffs.splice(i, 1);
       }
     }
   }
@@ -71,21 +74,22 @@ class GlimmerOfLight extends Analyzer {
     this.casts += 1;
     this.updateActiveGlimmers(event);
     
-    let lastCast = this.glimmerBuffs.find(g => g.targetID === event.targetID);
-
-    if(lastCast){
-      // if active glimmer was overwritten //
-      this.wasted += BUFF_DURATION * 1000 - (event.timestamp - lastCast.timestamp);
+    const index = this.glimmerBuffs.findIndex(g => g.targetID === event.targetID);
+    if(index >= 0) {
+      // if an active glimmer was overwritten //
+      this.wastedEarlyRefresh += BUFF_DURATION * 1000 - (event.timestamp - this.glimmerBuffs[index].timestamp);
       this.earlyRefresh += 1;
-      this.glimmerBuffs.remove(lastCast);
-    }
-    else if (this.glimmerBuffs.length >= GLIMMER_CAP) {
+      this.glimmerBuffs.splice(index, 1);
+      console.log(`Glimmer overwrite at: ${event.timestamp}`);
+    } else if (this.glimmerBuffs.length >= GLIMMER_CAP) {
       // if glimmer count is over the limit //
-      let lastGlimmer = this.glimmerBuffs.pop();
-      this.wasted += BUFF_DURATION * 1000 - (event.timestamp - lastGlimmer);
+      const lastGlimmer = this.glimmerBuffs.pop();
+      this.overCap += 1;
+      this.wastedOverCap += BUFF_DURATION * 1000 - (event.timestamp - lastGlimmer.timestamp);
+      console.log(`Over Glimmer cap at: ${event.timestamp}`);
     }
 
-    let glimmer = {targetID: event.targetID, timestamp: event.timestamp};
+    const glimmer = {targetID: event.targetID, timestamp: event.timestamp};
     this.glimmerBuffs.unshift(glimmer);
   }
 
@@ -112,7 +116,7 @@ class GlimmerOfLight extends Analyzer {
   }
 
   get glimmersWasted() {
-    return this.wasted / (this.casts * BUFF_DURATION * 1000);
+    return this.wastedEarlyRefresh / (this.casts * BUFF_DURATION * 1000);
   }
 
   statistic() {
@@ -128,14 +132,16 @@ class GlimmerOfLight extends Analyzer {
           </>
         )}
         tooltip={(
-          <>
+          <Trans>
             Total healing done: <b>{formatNumber(this.totalHealing)}</b><br />
             Beacon healing transfered: <b>{formatNumber(this.healingTransfered)}</b><br />
             Holy Shocks/minute: <b>{this.holyShocksPerMinute.toFixed(1)}</b><br />
             Early refresh(s): <b>{this.earlyRefresh}</b><br />
-            Lost to early refresh: <b>{(this.wasted/1000).toFixed(1)}(sec) {(this.glimmersWasted * 100).toFixed(1)}%</b><br />
+            Lost to early refresh: <b>{(this.wastedEarlyRefresh/1000).toFixed(1)}(sec) {(this.earlyRefresh * 100).toFixed(1)}%</b><br />
+            Glimmer of Lights over cap: <b>{this.overCap}</b><br />
+            Lost to over capping: <b>{(this.wastedOverCap/1000).toFixed(1)}(sec) {(this.overCap * 100).toFixed(1)}%</b><br />
             Glimmer damage: <b>{formatNumber(this.damage)}</b><br />
-          </>
+          </Trans>
         )}
       />
     );
