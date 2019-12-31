@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Sharrq, Dambroda } from 'CONTRIBUTORS';
 
-import retryingPromise from 'common/retryingPromise';
 import SPECS from 'game/SPECS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
@@ -37,7 +36,7 @@ export default {
       url: "noil",
       name: "No Ice Lance",
       icon: <img src={NoIceLance} alt="No Ice lance" className="icon" />,
-      supported: true, //set this to true to make the build appear in the selection list
+      visible: true,
     },
   },
   // Don't change anything below this line;
@@ -46,7 +45,7 @@ export default {
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () => retryingPromise(() => import('./CombatLogParser' /* webpackChunkName: "FrostMage" */).then(exports => exports.default)),
+  parser: () => import('./CombatLogParser' /* webpackChunkName: "FrostMage" */).then(exports => exports.default),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };

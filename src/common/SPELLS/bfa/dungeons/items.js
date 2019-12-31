@@ -206,4 +206,16 @@ export default {
     name: 'Cyclotronic Blast',
     icon: 'ability_siege_engineer_purification_beam',
   },
+  //Eternal Palace Raid
+  //Azshara's Font of Power Trinket Channel and Spell Buff
+  LATENT_ARCANA_CHANNEL: {
+    id: 296971,
+    name: 'Azshara\'s Font of Power Channel',
+    icon: 'spell_priest_plea_blue',
+  },
+  LATENT_ARCANA_BUFF: {
+    id: 296962,
+    name: 'Latent Arcana Buff',
+    icon: 'spell_shaman_ancestralawakening',
+  },
 };

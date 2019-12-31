@@ -1,4 +1,4 @@
-export default {
+const TraitIdMap: {[key: number]: number} = {
   13: 263978,
   14: 268594,
   15: 263962,
@@ -368,3 +368,5 @@ export default {
   576: 303007,
   575: 303008,
 };
+
+export default TraitIdMap;

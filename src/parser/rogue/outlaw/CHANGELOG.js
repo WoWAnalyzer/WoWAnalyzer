@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { tsabo, Zerotorescue, Gebuz, Aelexe, Coywolf } from 'CONTRIBUTORS';
+import { tsabo, Zerotorescue, Gebuz, Aelexe, Coywolf, soloxcx } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'common/SpellLink';
 import { change, date } from 'common/changelog';
 
 export default [
+  change(date(2019, 12, 16), <>Updated <SpellLink id={SPELLS.MARKED_FOR_DEATH_TALENT.id} /> wasted combo point thresholds.</>, [soloxcx]),
   change(date(2019, 7, 20), 'Implemented an initial checklist.', [Coywolf]),
   change(date(2018, 11, 15), <>Fixed <SpellLink id={SPELLS.ARCANE_TORRENT_ENERGY.id} /> GCD.</>, [Aelexe]),
   change(date(2018, 11, 13), <>Fixed cooldown tracking for <SpellLink id={SPELLS.MARKED_FOR_DEATH_TALENT.id} /> when targets die with the debuff.</>, [Aelexe]),

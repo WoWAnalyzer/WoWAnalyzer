@@ -9,6 +9,7 @@ import PreparationRuleAnalyzer from 'parser/shared/modules/features/Checklist/Pr
 import MasteryEffectiveness from '../MasteryEffectiveness';
 import AlwaysBeCasting from '../AlwaysBeCasting';
 import DirectBeaconHealing from '../beacons/DirectBeaconHealing';
+import BeaconUptime from '../beacons/BeaconUptime';
 import FillerLightOfTheMartyrs from '../FillerLightOfTheMartyrs';
 import FillerFlashOfLight from '../FillerFlashOfLight';
 import Overhealing from '../Overhealing';
@@ -22,6 +23,7 @@ class Checklist extends BaseChecklist {
     masteryEffectiveness: MasteryEffectiveness,
     alwaysBeCasting: AlwaysBeCasting,
     directBeaconHealing: DirectBeaconHealing,
+    beaconUptime: BeaconUptime,
     fillerLightOfTheMartyrs: FillerLightOfTheMartyrs,
     fillerFlashOfLight: FillerFlashOfLight,
     manaValues: ManaValues,
@@ -43,6 +45,10 @@ class Checklist extends BaseChecklist {
           nonHealingTimeSuggestionThresholds: this.alwaysBeCasting.nonHealingTimeSuggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           directBeaconHealing: this.directBeaconHealing.suggestionThresholds,
+          beaconUptimeBoL: this.beaconUptime.suggestionThresholdsBoL,
+          beaconUptimeBoLUptime: this.beaconUptime.suggestionThresholdsBoLUptime,
+          beaconUptimeBoF: this.beaconUptime.suggestionThresholdsBoF,
+          beaconUptimeBoFUptime: this.beaconUptime.suggestionThresholdsBoFUptime,
           fillerLightOfTheMartyrsCpm: this.fillerLightOfTheMartyrs.cpmSuggestionThresholds,
           fillerLightOfTheMartyrsInefficientCpm: this.fillerLightOfTheMartyrs.inefficientCpmSuggestionThresholds,
           manaLeft: this.manaValues.suggestionThresholds,
