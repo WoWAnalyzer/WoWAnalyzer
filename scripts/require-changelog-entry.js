@@ -6,13 +6,15 @@ function getTargetBranch() {
 }
 async function getChangedFiles(targetBranch) {
   // eslint-disable-next-line no-unused-vars
-  const { stdout, stderr } = await exec(`git diff --name-only ${targetBranch}...HEAD`);
+  const { stdout, stderr } = await exec(
+    `git diff --name-only ${targetBranch}...HEAD`,
+  );
   // TODO: How do I properly handle stderr?
   return stdout.trim().split('\n');
 }
 
-function hasChangelog(changedFiles) {
-  return changedFiles.some(path => path.includes('/CHANGELOG.js'));
+function getChangelogs(changedFiles) {
+  return changedFiles.filter(path => path.includes('/CHANGELOG.js'));
 }
 
 async function main() {
@@ -22,16 +24,24 @@ async function main() {
   // changedFiles.forEach(path => console.log(path));
   // console.log();
 
-  if (hasChangelog(changedFiles)) {
+  const changelogs = getChangelogs(changedFiles);
+  if (changelogs.length > 0) {
     console.log('Found a changelog entry. Thanks!');
+    changelogs.forEach(changelog => console.log(changelog));
     process.exit(0);
   } else {
-    console.error('Error: Changelog entry missing.\n' +
-      'A changelog entry is required. Please explain your change in a relevant CHANGELOG file.\n' +
-      'Use the spec specific CHANGELOG file if it was a spec/class specific change. If it\n' +
-      'affects many specs you can use the CHANGELOG file in the root src folder.');
+    console.error(
+      'Error: Changelog entry missing.\n' +
+        'A changelog entry is required. Please explain your change in a relevant CHANGELOG file.\n' +
+        'Use the spec specific CHANGELOG file if it was a spec/class specific change. If it\n' +
+        'affects many specs you can use the CHANGELOG file in the root src folder.',
+    );
     process.exit(1);
   }
 }
+
+process.on('unhandledRejection', err => {
+  throw err;
+});
 
 main();
